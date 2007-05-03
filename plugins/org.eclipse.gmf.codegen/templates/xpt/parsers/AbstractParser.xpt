@@ -346,4 +346,4 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 }
 «ENDDEFINE»
 
-«DEFINE additions FOR gmfgen::GenDiagram-»«ENDDEFINE»
+«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
