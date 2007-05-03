@@ -63,8 +63,9 @@ public class FeatureLabelMappingItemProvider
 
 			addFeaturesPropertyDescriptor(object);
 			addViewPatternPropertyDescriptor(object);
-			addViewMethodPropertyDescriptor(object);
+			addEditorPatternPropertyDescriptor(object);
 			addEditPatternPropertyDescriptor(object);
+			addViewMethodPropertyDescriptor(object);
 			addEditMethodPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -110,6 +111,28 @@ public class FeatureLabelMappingItemProvider
 				 getString("_UI_FeatureLabelMapping_viewPattern_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelMapping_viewPattern_feature", "_UI_FeatureLabelMapping_type"),
 				 GMFMapPackage.eINSTANCE.getFeatureLabelMapping_ViewPattern(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Editor Pattern feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditorPatternPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureLabelMapping_editorPattern_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelMapping_editorPattern_feature", "_UI_FeatureLabelMapping_type"),
+				 GMFMapPackage.eINSTANCE.getFeatureLabelMapping_EditorPattern(),
 				 true,
 				 false,
 				 false,
@@ -220,8 +243,9 @@ public class FeatureLabelMappingItemProvider
 
 		switch (notification.getFeatureID(FeatureLabelMapping.class)) {
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_PATTERN:
-			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_METHOD:
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDITOR_PATTERN:
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDIT_PATTERN:
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_METHOD:
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDIT_METHOD:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
