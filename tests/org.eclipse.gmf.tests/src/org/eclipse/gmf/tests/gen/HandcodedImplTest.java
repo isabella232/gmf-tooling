@@ -865,6 +865,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkPackageName(state, "PackageNames:editPolicies", genDiagram.getEditPoliciesPackageName());
 		checkPackageName(state, "GenEditorView:packageName", genDiagram.getEditorGen().getEditor().getPackageName());
 		checkPackageName(state, "PackageNames:providers", genDiagram.getProvidersPackageName());
+		checkPackageName(state, "PackageNames:parsers", genDiagram.getParsersPackageName());
 		checkPackageName(state, "PackageNames:preferences", genDiagram.getPreferencesPackageName());
 		checkPackageName(state, "PackageNames:notationViewFactories", genDiagram.getNotationViewFactoriesPackageName());
 		GenApplication application = genDiagram.getEditorGen().getApplication();
@@ -911,9 +912,6 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkClassName(state, "ProviderClassNames:ModelingAssistantProvider", genDiagram.getModelingAssistantProviderClassName(), genDiagram.getModelingAssistantProviderQualifiedClassName());
 		checkClassName(state, "ProviderClassNames:IconProvider", genDiagram.getIconProviderClassName(), genDiagram.getIconProviderQualifiedClassName());
 		checkClassName(state, "ProviderClassNames:ParserProvider", genDiagram.getParserProviderClassName(), genDiagram.getParserProviderQualifiedClassName());
-		checkClassName(state, "ProviderClassNames:AbstractParser", genDiagram.getAbstractParserClassName(), genDiagram.getAbstractParserQualifiedClassName());
-		checkClassName(state, "ProviderClassNames:StructuralFeatureParser", genDiagram.getStructuralFeatureParserClassName(), genDiagram.getStructuralFeatureParserQualifiedClassName());
-		checkClassName(state, "ProviderClassNames:StructuralFeaturesParser", genDiagram.getStructuralFeaturesParserClassName(), genDiagram.getStructuralFeaturesParserQualifiedClassName());
 		checkClassName(state, "ProviderClassNames:ContributionItemProvider", genDiagram.getContributionItemProviderClassName(), genDiagram.getContributionItemProviderQualifiedClassName());
 		checkClassName(state, "GenEditorView:ActionBarContributor", genEditor.getActionBarContributorClassName(), genEditor.getActionBarContributorQualifiedClassName());
 		checkClassName(state, "EditorCandies:CreationWizard", genDiagram.getCreationWizardClassName(), genDiagram.getCreationWizardQualifiedClassName());
