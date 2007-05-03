@@ -23,8 +23,9 @@ import org.eclipse.emf.ecore.EAttribute;
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.FeatureLabelMapping#getFeatures <em>Features</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.FeatureLabelMapping#getViewPattern <em>View Pattern</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.FeatureLabelMapping#getViewMethod <em>View Method</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.FeatureLabelMapping#getEditorPattern <em>Editor Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.FeatureLabelMapping#getEditPattern <em>Edit Pattern</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.FeatureLabelMapping#getViewMethod <em>View Method</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.FeatureLabelMapping#getEditMethod <em>Edit Method</em>}</li>
  * </ul>
  * </p>
@@ -77,6 +78,31 @@ public interface FeatureLabelMapping extends LabelMapping {
 	void setViewPattern(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Editor Pattern</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Pattern to produce text for inplace editor, depends on view method; if not specified then viewPattern should be used
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Editor Pattern</em>' attribute.
+	 * @see #setEditorPattern(String)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getFeatureLabelMapping_EditorPattern()
+	 * @model
+	 * @generated
+	 */
+	String getEditorPattern();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.FeatureLabelMapping#getEditorPattern <em>Editor Pattern</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Editor Pattern</em>' attribute.
+	 * @see #getEditorPattern()
+	 * @generated
+	 */
+	void setEditorPattern(String value);
+
+	/**
 	 * Returns the value of the '<em><b>View Method</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.eclipse.gmf.mappings.LabelTextAccessMethod}.
 	 * <!-- begin-user-doc -->
@@ -110,7 +136,7 @@ public interface FeatureLabelMapping extends LabelMapping {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Pattern to produce text for inplace editor, depends on edit method; if not specified then viewPattern should be used
+	 * Pattern to extract values from input text, depends on edit method; if not specified then viewPattern should be used
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Edit Pattern</em>' attribute.
 	 * @see #setEditPattern(String)

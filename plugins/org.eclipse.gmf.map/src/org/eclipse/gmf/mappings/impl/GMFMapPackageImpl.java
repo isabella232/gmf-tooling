@@ -830,8 +830,17 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureLabelMapping_ViewMethod() {
+	public EAttribute getFeatureLabelMapping_EditorPattern() {
 		return (EAttribute)featureLabelMappingEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFeatureLabelMapping_ViewMethod() {
+		return (EAttribute)featureLabelMappingEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -849,7 +858,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * @generated
 	 */
 	public EAttribute getFeatureLabelMapping_EditMethod() {
-		return (EAttribute)featureLabelMappingEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)featureLabelMappingEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1645,8 +1654,9 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		featureLabelMappingEClass = createEClass(FEATURE_LABEL_MAPPING);
 		createEReference(featureLabelMappingEClass, FEATURE_LABEL_MAPPING__FEATURES);
 		createEAttribute(featureLabelMappingEClass, FEATURE_LABEL_MAPPING__VIEW_PATTERN);
-		createEAttribute(featureLabelMappingEClass, FEATURE_LABEL_MAPPING__VIEW_METHOD);
+		createEAttribute(featureLabelMappingEClass, FEATURE_LABEL_MAPPING__EDITOR_PATTERN);
 		createEAttribute(featureLabelMappingEClass, FEATURE_LABEL_MAPPING__EDIT_PATTERN);
+		createEAttribute(featureLabelMappingEClass, FEATURE_LABEL_MAPPING__VIEW_METHOD);
 		createEAttribute(featureLabelMappingEClass, FEATURE_LABEL_MAPPING__EDIT_METHOD);
 
 		designLabelMappingEClass = createEClass(DESIGN_LABEL_MAPPING);
@@ -1875,8 +1885,9 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEClass(featureLabelMappingEClass, FeatureLabelMapping.class, "FeatureLabelMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeatureLabelMapping_Features(), ecorePackage.getEAttribute(), null, "features", null, 1, -1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureLabelMapping_ViewPattern(), ecorePackage.getEString(), "viewPattern", null, 0, 1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureLabelMapping_ViewMethod(), this.getLabelTextAccessMethod(), "viewMethod", null, 0, 1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureLabelMapping_EditorPattern(), ecorePackage.getEString(), "editorPattern", null, 0, 1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureLabelMapping_EditPattern(), ecorePackage.getEString(), "editPattern", null, 0, 1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureLabelMapping_ViewMethod(), this.getLabelTextAccessMethod(), "viewMethod", null, 0, 1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureLabelMapping_EditMethod(), this.getLabelTextAccessMethod(), "editMethod", null, 0, 1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(designLabelMappingEClass, DesignLabelMapping.class, "DesignLabelMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2015,7 +2026,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																																																																																	
+		   });																																																																																																																		
 	}
 
 	/**
@@ -2032,7 +2043,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "self.getDomainContext()"
-		   });																														
+		   });																															
 		addAnnotation
 		  (constraintEClass, 
 		   source, 
@@ -2304,7 +2315,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "features->forAll(f | f.eContainingClass.isSuperTypeOf(mapEntry.domainMetaElement))",
 			 "description", "Label attributes must be available in \'Domain Element\' EClass of the labeled mapping entry"
-		   });								
+		   });									
 		addAnnotation
 		  (linkConstraintsEClass, 
 		   source, 

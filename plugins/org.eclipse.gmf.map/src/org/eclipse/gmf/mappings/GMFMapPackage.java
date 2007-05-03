@@ -886,13 +886,13 @@ public interface GMFMapPackage extends EPackage {
 	int FEATURE_LABEL_MAPPING__VIEW_PATTERN = LABEL_MAPPING_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>View Method</b></em>' attribute.
+	 * The feature id for the '<em><b>Editor Pattern</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_LABEL_MAPPING__VIEW_METHOD = LABEL_MAPPING_FEATURE_COUNT + 2;
+	int FEATURE_LABEL_MAPPING__EDITOR_PATTERN = LABEL_MAPPING_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Edit Pattern</b></em>' attribute.
@@ -904,13 +904,22 @@ public interface GMFMapPackage extends EPackage {
 	int FEATURE_LABEL_MAPPING__EDIT_PATTERN = LABEL_MAPPING_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>View Method</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_LABEL_MAPPING__VIEW_METHOD = LABEL_MAPPING_FEATURE_COUNT + 4;
+
+	/**
 	 * The feature id for the '<em><b>Edit Method</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_LABEL_MAPPING__EDIT_METHOD = LABEL_MAPPING_FEATURE_COUNT + 4;
+	int FEATURE_LABEL_MAPPING__EDIT_METHOD = LABEL_MAPPING_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Feature Label Mapping</em>' class.
@@ -919,7 +928,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_LABEL_MAPPING_FEATURE_COUNT = LABEL_MAPPING_FEATURE_COUNT + 5;
+	int FEATURE_LABEL_MAPPING_FEATURE_COUNT = LABEL_MAPPING_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.DesignLabelMappingImpl <em>Design Label Mapping</em>}' class.
@@ -2452,6 +2461,17 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getFeatureLabelMapping_ViewPattern();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.FeatureLabelMapping#getEditorPattern <em>Editor Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Editor Pattern</em>'.
+	 * @see org.eclipse.gmf.mappings.FeatureLabelMapping#getEditorPattern()
+	 * @see #getFeatureLabelMapping()
+	 * @generated
+	 */
+	EAttribute getFeatureLabelMapping_EditorPattern();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.FeatureLabelMapping#getViewMethod <em>View Method</em>}'.
