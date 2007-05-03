@@ -64,8 +64,9 @@ public class FeatureLabelModelFacetItemProvider
 
 			addMetaFeaturesPropertyDescriptor(object);
 			addViewPatternPropertyDescriptor(object);
-			addViewMethodPropertyDescriptor(object);
+			addEditorPatternPropertyDescriptor(object);
 			addEditPatternPropertyDescriptor(object);
+			addViewMethodPropertyDescriptor(object);
 			addEditMethodPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -107,6 +108,28 @@ public class FeatureLabelModelFacetItemProvider
 				 getString("_UI_FeatureLabelModelFacet_viewPattern_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelModelFacet_viewPattern_feature", "_UI_FeatureLabelModelFacet_type"),
 				 GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet_ViewPattern(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Editor Pattern feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditorPatternPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureLabelModelFacet_editorPattern_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelModelFacet_editorPattern_feature", "_UI_FeatureLabelModelFacet_type"),
+				 GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet_EditorPattern(),
 				 true,
 				 false,
 				 false,
@@ -219,8 +242,9 @@ public class FeatureLabelModelFacetItemProvider
 
 		switch (notification.getFeatureID(FeatureLabelModelFacet.class)) {
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
-			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_METHOD:
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDITOR_PATTERN:
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN:
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_METHOD:
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_METHOD:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

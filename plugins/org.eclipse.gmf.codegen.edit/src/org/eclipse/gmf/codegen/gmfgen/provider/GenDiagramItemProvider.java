@@ -70,6 +70,7 @@ public class GenDiagramItemProvider
 			addEditPoliciesPackageNamePropertyDescriptor(object);
 			addPreferencesPackageNamePropertyDescriptor(object);
 			addProvidersPackageNamePropertyDescriptor(object);
+			addParsersPackageNamePropertyDescriptor(object);
 			addNotationViewFactoriesPackageNamePropertyDescriptor(object);
 			addElementTypesClassNamePropertyDescriptor(object);
 			addNotationViewProviderClassNamePropertyDescriptor(object);
@@ -82,9 +83,6 @@ public class GenDiagramItemProvider
 			addIconProviderPriorityPropertyDescriptor(object);
 			addParserProviderClassNamePropertyDescriptor(object);
 			addParserProviderPriorityPropertyDescriptor(object);
-			addAbstractParserClassNamePropertyDescriptor(object);
-			addStructuralFeatureParserClassNamePropertyDescriptor(object);
-			addStructuralFeaturesParserClassNamePropertyDescriptor(object);
 			addContributionItemProviderClassNamePropertyDescriptor(object);
 			addReorientConnectionViewCommandClassNamePropertyDescriptor(object);
 			addBaseEditHelperClassNamePropertyDescriptor(object);
@@ -862,6 +860,28 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Parsers Package Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addParsersPackageNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_PackageNames_parsersPackageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_parsersPackageName_feature", "_UI_PackageNames_type"),
+				 GMFGenPackage.eINSTANCE.getPackageNames_ParsersPackageName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Notation View Factories Package Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1544,72 +1564,6 @@ public class GenDiagramItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Abstract Parser Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addAbstractParserClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ProviderClassNames_abstractParserClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_abstractParserClassName_feature", "_UI_ProviderClassNames_type"),
-				 GMFGenPackage.eINSTANCE.getProviderClassNames_AbstractParserClassName(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_ProvidersPropertyCategory"),
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Structural Feature Parser Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addStructuralFeatureParserClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ProviderClassNames_structuralFeatureParserClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_structuralFeatureParserClassName_feature", "_UI_ProviderClassNames_type"),
-				 GMFGenPackage.eINSTANCE.getProviderClassNames_StructuralFeatureParserClassName(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_ProvidersPropertyCategory"),
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Structural Features Parser Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addStructuralFeaturesParserClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ProviderClassNames_structuralFeaturesParserClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_structuralFeaturesParserClassName_feature", "_UI_ProviderClassNames_type"),
-				 GMFGenPackage.eINSTANCE.getProviderClassNames_StructuralFeaturesParserClassName(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_ProvidersPropertyCategory"),
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Contribution Item Provider Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1711,6 +1665,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCES_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__PARSERS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
@@ -1723,9 +1678,6 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_PRIORITY:
-			case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURES_PARSER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CONTRIBUTION_ITEM_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__BASE_EDIT_HELPER_CLASS_NAME:
