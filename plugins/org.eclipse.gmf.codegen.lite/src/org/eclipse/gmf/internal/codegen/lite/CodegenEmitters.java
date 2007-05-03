@@ -31,9 +31,9 @@ import org.eclipse.gmf.codegen.templates.lite.editor.NewDiagramFileWizardGenerat
 import org.eclipse.gmf.codegen.templates.lite.editor.OpenDiagramFileInViewGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.PaletteFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.VisualIDRegistryGenerator;
-import org.eclipse.gmf.codegen.templates.lite.expressions.AbstractExpressionGenerator;
-import org.eclipse.gmf.codegen.templates.lite.expressions.OCLExpressionFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.lite.expressions.RegexpExpressionFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
+import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorActionProviderGenerator;
 import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorLabelProviderGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.EditPartFactoryGenerator;
