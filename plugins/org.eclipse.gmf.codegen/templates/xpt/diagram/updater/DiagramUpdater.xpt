@@ -23,13 +23,14 @@ package «editorGen.editor.packageName»;
 	«EXPAND xpt::Common::generatedClassComment»
 public class «diagramUpdaterClassName» {
 	«EXPAND isShortcutOrphaned-»
-«LET getAllContainers().select(container | !container.sansDomain && !container.containedNodes.isEmpty()) AS semanticContainers-»
+«LET getAllContainers().select(container | hasSemanticChildren(container)) AS semanticContainers-»
 
 	«EXPAND getGenericSemanticChildrenOfView(semanticContainers)-»
 
 	«EXPAND getSemanticChildrenOfView FOREACH semanticContainers-»
 
 	«EXPAND getSemanticChildrenOfModelElement FOREACH semanticContainers-»
+	«EXPAND getPhantomNodesIterator-»
 	
 	«EXPAND isDomainMetaChild FOREACH semanticContainers-»
 «ENDLET-»
@@ -66,11 +67,10 @@ public static java.util.List getSemanticChildren(org.eclipse.gmf.runtime.notatio
 «DEFINE getSemanticChildrenOfView FOR gmfgen::GenContainerBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public static java.util.List «EXPAND getSemanticChildrenMethodName»(org.eclipse.gmf.runtime.notation.View view) {
-	«IF getSemanticChildrenChildFeatures(this).size() > 0-»
+	«IF getSemanticChildren(this).size() > 0-»
 	«EXPAND getModelelementType» modelElement = («EXPAND getModelelementType») view.getElement();
-	java.util.List semanticChildren = «EXPAND getSemanticChildrenMethodName»(modelElement);
 	java.util.List result = new java.util.LinkedList();
-	for (java.util.Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+	for (java.util.Iterator semanticIterator = «EXPAND getSemanticChildrenMethodName»(modelElement).iterator(); semanticIterator.hasNext();) {
 		org.eclipse.emf.ecore.EObject nextElement = (org.eclipse.emf.ecore.EObject) semanticIterator.next();
 		int visualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID(view, nextElement);
 		if («EXPAND isDomainMetaChildMethodName»(visualID)) {
@@ -85,16 +85,15 @@ public static java.util.List «EXPAND getSemanticChildrenMethodName»(org.eclipse.
 «ENDDEFINE»
 
 «DEFINE getSemanticChildrenOfModelElement FOR gmfgen::GenContainerBase-»
+	«IF getSemanticChildren(this).size() > 0-»
 	«EXPAND xpt::Common::generatedMemberComment»
 private static java.util.List «EXPAND getSemanticChildrenMethodName»(«EXPAND getModelelementType» modelElement) {
-	«IF getSemanticChildrenChildFeatures(this).size() > 0-»
 	java.util.List allValues = new java.util.LinkedList();
 	«EXPAND collectAllFeatureFalues(getModelElementType()) FOR getSemanticChildrenChildFeatures(this)-»
+	«EXPAND collectPotentialPhantomNodes-»
 	return allValues;
-	«ELSE-»
-	return java.util.Collections.EMPTY_LIST;
-	«ENDIF-»
 }
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE getSemanticChildrenMethodName FOR gmfgen::GenContainerBase»get«getUniqueIdentifier()»SemanticChildren«ENDDEFINE»
@@ -113,6 +112,38 @@ allValues.addAll(«EXPAND xpt::Common::getFeatureValue("modelElement", containerG
 allValues.add(«EXPAND xpt::Common::getFeatureValue("modelElement", containerGenClass) FOR childFeature»);
 		«ENDIF-»
 	«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE collectPotentialPhantomNodes FOR gmfgen::GenContainerBase»«ENDDEFINE»
+
+«DEFINE collectPotentialPhantomNodes FOR gmfgen::GenDiagram-»
+	«IF !getPhantomNodes(this).isEmpty()-»
+org.eclipse.emf.ecore.resource.Resource resource = modelElement.eResource();
+for (java.util.Iterator semanticIterator = getPhantomNodesIterator(resource); semanticIterator.hasNext();) {
+	org.eclipse.emf.ecore.EObject nextElement = (org.eclipse.emf.ecore.EObject) semanticIterator.next();
+	if (nextElement == modelElement) {
+		continue;
+	}
+	«EXPAND addNextIfPhantom FOREACH getPhantomNodes(this)-»
+}
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE addNextIfPhantom FOR gmfgen::GenNode-»
+if («EXPAND xpt::Common::metaClassAccessor FOR modelFacet.metaClass».isSuperTypeOf(nextElement.eClass())) {
+	allValues.add(nextElement);
+	continue;
+}
+«ENDDEFINE»
+
+«DEFINE getPhantomNodesIterator FOR gmfgen::GenDiagram-»
+	«IF !getPhantomNodes(this).isEmpty()-»
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+private static java.util.Iterator getPhantomNodesIterator(org.eclipse.emf.ecore.resource.Resource resource) {
+	return resource.getAllContents();
+}
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE isDomainMetaChild FOR gmfgen::GenContainerBase-»

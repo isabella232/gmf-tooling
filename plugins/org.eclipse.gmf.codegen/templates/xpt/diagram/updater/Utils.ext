@@ -12,6 +12,11 @@
 
 import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
 import "http://www.eclipse.org/emf/2002/GenModel";
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+boolean hasSemanticChildren(gmfgen::GenContainerBase container) :
+	!container.sansDomain && !container.containedNodes.isEmpty()
+;
 
 genmodel::GenClass getModelElementType(gmfgen::GenContainerBase containerBase) :
 // Never should be here!
@@ -31,9 +36,13 @@ genmodel::GenClass getModelElementType(gmfgen::GenNode node) :
 ;
 
 cached Set[genmodel::GenFeature] getSemanticChildrenChildFeatures(gmfgen::GenContainerBase containerBase) :
-	getSemanticChildren(containerBase).collect(node | node.modelFacet.childMetaFeature).toSet()
+	getSemanticChildren(containerBase).select(node | !node.modelFacet.isPhantomElement()).collect(node | node.modelFacet.childMetaFeature).toSet()
+;
+
+cached List[gmfgen::GenNode] getPhantomNodes(gmfgen::GenDiagram diagram) :
+	getSemanticChildren(diagram).select(node | node.modelFacet.isPhantomElement())
 ;
 
 cached List[gmfgen::GenNode] getSemanticChildren(gmfgen::GenContainerBase containerBase) :
-	containerBase.containedNodes.select(node | null != node.modelFacet && !node.modelFacet.isPhantomElement())
+	containerBase.containedNodes.select(node | null != node.modelFacet)
 ;

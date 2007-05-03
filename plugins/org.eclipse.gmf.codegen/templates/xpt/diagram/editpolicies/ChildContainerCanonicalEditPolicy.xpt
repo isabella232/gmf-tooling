@@ -21,7 +21,6 @@ public class «canonicalEditPolicyClassName» extends org.eclipse.gmf.runtime.diag
 
 	«EXPAND xpt::diagram::updater::containerBaseCanonicalMethods::containerBaseCanonicalMethods-»
 	
-	«EXPAND xpt::diagram::editpolicies::phantomsSupport::canonicalRefresh-»
 	«EXPAND additions-»
 }
 «ENDDEFINE»

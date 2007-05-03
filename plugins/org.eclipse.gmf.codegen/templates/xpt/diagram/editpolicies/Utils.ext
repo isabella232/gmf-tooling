@@ -15,32 +15,20 @@ import "http://www.eclipse.org/emf/2002/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
 extension xpt::GenModelUtils;
 
-cached List[gmfgen::GenNode] getConnectedPhantomNodes(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
-	getPhantomNodes(diagram).select(node | canBePhantomLinkTarget(node, typeModelFacet, diagram))
+List[gmfgen::GenLink] getAllSemanticLinks(gmfgen::GenDiagram diagram) :
+	diagram.links.select(link | containedInNode(link, diagram) || containedInLink(link, diagram))
 ;
 
-cached List[gmfgen::GenNode] getPhantomNodes(gmfgen::GenDiagram diagram) :
-	diagram.topLevelNodes.select(node | null != node.modelFacet && node.modelFacet.isPhantomElement())
+private boolean containedInNode(gmfgen::GenLink link, gmfgen::GenDiagram diagram) :
+	!diagram.getAllNodes().select(node | canBeContainer(link, node.modelFacet)).isEmpty()
 ;
 
-private boolean canBePhantomLinkTarget(gmfgen::GenNode node, gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
-	!getOutgoingPhantomLinks(typeModelFacet, diagram).select(link | canBeTarget(link, node.modelFacet)).isEmpty()
-;
-
-cached List[gmfgen::GenLink] getOutgoingPhantomLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
-	diagram.links.select(link | canBeSource(link, typeModelFacet) && isPhantom(link.modelFacet))
+private boolean containedInLink(gmfgen::GenLink link, gmfgen::GenDiagram diagram) :
+	!diagram.links.select(diagramLink | !{diagramLink.modelFacet}.typeSelect(gmfgen::TypeLinkModelFacet).isEmpty() && canBeContainer(link, (gmfgen::TypeLinkModelFacet) diagramLink.modelFacet)).isEmpty()
 ;
 
 cached List[gmfgen::GenLink] getContainedLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
 	diagram.links.select(link | canBeContainer(link, typeModelFacet))
-;
-
-private boolean isPhantom(gmfgen::FeatureLinkModelFacet modelFacet) :
-	modelFacet.metaFeature.isContains()
-;
-
-private boolean isPhantom(gmfgen::LinkModelFacet modelFacet) :
-	false
 ;
 
 boolean hasChildrenOrCompartments(gmfgen::GenNode node) :

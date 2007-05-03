@@ -33,8 +33,7 @@ public class «canonicalEditPolicyClassName» extends org.eclipse.gmf.runtime.diag
 	
 	«EXPAND refreshSemantic-»
 	
-	«EXPAND xpt::diagram::editpolicies::phantomsSupport::canonicalRefresh-»
-	«EXPAND xpt::diagram::editpolicies::phantomsSupport::getDiagram-»
+	«EXPAND getDiagram-»
 	
 	«EXPAND refreshLinks-»
 	«EXPAND additions-»
@@ -74,9 +73,6 @@ protected boolean shouldIncludeConnection(org.eclipse.gmf.runtime.notation.Edge 
 protected void refreshSemantic() {
 	java.util.List createdViews = new java.util.LinkedList();
 	createdViews.addAll(refreshSemanticChildren());
-	«IF !getPhantomNodes(this).isEmpty()-»
-	createdViews.addAll(refreshPhantoms());
-	«ENDIF-»
 	java.util.List createdConnectionViews = new java.util.LinkedList();
 	createdConnectionViews.addAll(refreshSemanticConnections());
 	«IF !links.isEmpty()-»
@@ -100,7 +96,7 @@ protected void refreshSemantic() {
 		
 		«EXPAND collectAllLinks-»
 		
-		«EXPAND getContainedLinksMethod FOREACH links.select(link | !getAllNodes().select(node | canBeContainer(link, node.modelFacet)).isEmpty())-»
+		«EXPAND getContainedLinksMethod FOREACH getAllSemanticLinks(this)-»
 		
 		«EXPAND createConnections-»
 		
@@ -140,25 +136,49 @@ private java.util.Collection refreshConnections() {
 private java.util.Collection collectAllLinks(org.eclipse.gmf.runtime.notation.View view, java.util.Map domain2NotationMap) {
 	java.util.Collection result = new java.util.LinkedList();
 	switch («getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
-		«EXPAND colectOutgoingLink FOREACH getAllNodes()-»
+		«EXPAND caseModelElementHolder FOREACH getAllNodes().select(node | null != node.modelFacet)-»
+		«EXPAND caseModelElementHolder FOREACH links-»
 	}
 	for (java.util.Iterator children = view.getChildren().iterator(); children.hasNext();) {
 		result.addAll(collectAllLinks((org.eclipse.gmf.runtime.notation.View) children.next(), domain2NotationMap));
+	}
+	for (java.util.Iterator edges = view.getSourceEdges().iterator(); edges.hasNext();) {
+		result.addAll(collectAllLinks((org.eclipse.gmf.runtime.notation.View) edges.next(), domain2NotationMap));
 	}
 	return result;
 }
 «ENDDEFINE»
 
-«DEFINE colectOutgoingLink FOR gmfgen::GenNode-»
-	«IF null != modelFacet-»
+«DEFINE caseModelElementHolder FOR gmfgen::GenNode-»
 «EXPAND xpt::Common::caseVisualID» {
-	domain2NotationMap.put(view.getElement(), view);
-		«IF !getContainedLinks(modelFacet, getDiagram()).isEmpty()-»
-	«modelFacet.metaClass.getQualifiedInterfaceName()» modelElement = («modelFacet.metaClass.getQualifiedInterfaceName()») view.getElement();
-	«EXPAND colectContainedLink FOREACH getContainedLinks(modelFacet, getDiagram())-»
-		«ENDIF-»
+	«EXPAND storeDomainElement-»
+	«EXPAND colectContainedLinks(getDiagram()) FOR modelFacet-»
+	break;	
+}
+«ENDDEFINE»
+
+«DEFINE caseModelElementHolder FOR gmfgen::GenLink-»
+	«EXPAND caseModelElementHolder(this) FOR modelFacet-»
+«ENDDEFINE»
+
+«DEFINE caseModelElementHolder(gmfgen::GenLink link) FOR gmfgen::LinkModelFacet»«ENDDEFINE»
+
+«DEFINE caseModelElementHolder(gmfgen::GenLink link) FOR gmfgen::TypeLinkModelFacet-»
+«EXPAND xpt::Common::caseVisualID FOR link» {
+	«EXPAND storeDomainElement FOR link-»
+	«EXPAND colectContainedLinks(link.getDiagram())-»
 	break;
 }
+«ENDDEFINE»
+
+«DEFINE storeDomainElement FOR gmfgen::GenCommonBase-»
+domain2NotationMap.put(view.getElement(), view);
+«ENDDEFINE»
+
+«DEFINE colectContainedLinks(gmfgen::GenDiagram diagram) FOR gmfgen::TypeModelFacet-»
+	«IF !getContainedLinks(this, diagram).isEmpty()-»
+«metaClass.getQualifiedInterfaceName()» modelElement = («metaClass.getQualifiedInterfaceName()») view.getElement();
+«EXPAND colectContainedLink FOREACH getContainedLinks(this, diagram)-»
 	«ENDIF-»
 «ENDDEFINE»
 
@@ -283,6 +303,13 @@ private org.eclipse.gef.EditPart getEditPart(org.eclipse.emf.ecore.EObject domai
 		return (org.eclipse.gef.EditPart) getHost().getViewer().getEditPartRegistry().get(view);
 	}
 	return null;
+}
+«ENDDEFINE»
+
+«DEFINE getDiagram FOR gmfgen::GenContainerBase-»
+	«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.gmf.runtime.notation.Diagram getDiagram() {
+	return ((org.eclipse.gmf.runtime.notation.View) getHost().getModel()).getDiagram();
 }
 «ENDDEFINE»
 

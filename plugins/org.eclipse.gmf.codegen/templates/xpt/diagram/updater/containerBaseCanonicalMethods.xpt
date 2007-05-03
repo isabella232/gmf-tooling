@@ -39,12 +39,16 @@ java.util.Set myFeaturesToSynchronize;
 «DEFINE getSemanticChildrenList FOR gmfgen::GenContainerBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 protected java.util.List getSemanticChildrenList() {
+	«IF hasSemanticChildren(this)-»
 	org.eclipse.gmf.runtime.notation.View viewObject = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
 	java.util.List result = new java.util.LinkedList();
 	for (java.util.Iterator it = «EXPAND xpt::diagram::updater::DiagramUpdater::getSemanticChildrenMethodCall»(viewObject).iterator(); it.hasNext();) {
 		result.add(((«getDiagram().getNodeDescriptorQualifiedClassName()») it.next()).getModelElement());
 	}
 	return result;
+	«ELSE-»
+	return java.util.Collections.EMPTY_LIST;
+	«ENDIF-»
 }
 «ENDDEFINE»
 
@@ -77,7 +81,7 @@ protected String getDefaultFactoryHint() {
 	«EXPAND xpt::Common::generatedMemberComment»
 protected boolean isOrphaned(java.util.Collection semanticChildren, final org.eclipse.gmf.runtime.notation.View view) {
 	«EXPAND checkShortcutProperty-»
-	«IF !getSemanticChildren(this).isEmpty()-»
+	«IF hasSemanticChildren(this)-»
 	int visualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(view);
 	return «EXPAND xpt::diagram::updater::DiagramUpdater::isDomainMetaChildMethodCall»(visualID) && (!semanticChildren.contains(view.getElement()) || visualID != «getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID((org.eclipse.gmf.runtime.notation.View) getHost().getModel(), view.getElement()));
 	«ELSE-»
