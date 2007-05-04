@@ -85,6 +85,7 @@
 	<target name="postSetup">
 		<ant antfile="${scripts}/install.xml" target="installBase" />
 		<ant antfile="${scripts}/install.xml" target="installGEF" />
+		<ant antfile="${scripts}/install.xml" target="installOCL" />
 		<ant antfile="${scripts}/install.xml" target="installEMF" />
 		<ant antfile="${scripts}/install.xml" target="installEMFExamples" />
 		<ant antfile="${scripts}/install.xml" target="installGMFRuntime" />
