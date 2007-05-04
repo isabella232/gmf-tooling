@@ -66,9 +66,8 @@ public class TaiPanDiagramUpdater {
 	 */
 	public static List getShipSmallCargo_7001SemanticChildren(View view) {
 		Ship modelElement = (Ship) view.getElement();
-		List semanticChildren = getShipSmallCargo_7001SemanticChildren(modelElement);
 		List result = new LinkedList();
-		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		for (Iterator semanticIterator = getShipSmallCargo_7001SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, nextElement);
 			if (isShipSmallCargo_7001DomainMetaChild(visualID)) {
@@ -83,9 +82,8 @@ public class TaiPanDiagramUpdater {
 	 */
 	public static List getShipLargeCargo_7002SemanticChildren(View view) {
 		Ship modelElement = (Ship) view.getElement();
-		List semanticChildren = getShipLargeCargo_7002SemanticChildren(modelElement);
 		List result = new LinkedList();
-		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		for (Iterator semanticIterator = getShipLargeCargo_7002SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, nextElement);
 			if (isShipLargeCargo_7002DomainMetaChild(visualID)) {
@@ -100,9 +98,8 @@ public class TaiPanDiagramUpdater {
 	 */
 	public static List getWarshipLargeCargo_7003SemanticChildren(View view) {
 		Warship modelElement = (Warship) view.getElement();
-		List semanticChildren = getWarshipLargeCargo_7003SemanticChildren(modelElement);
 		List result = new LinkedList();
-		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		for (Iterator semanticIterator = getWarshipLargeCargo_7003SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, nextElement);
 			if (isWarshipLargeCargo_7003DomainMetaChild(visualID)) {
@@ -117,9 +114,8 @@ public class TaiPanDiagramUpdater {
 	 */
 	public static List getAquatory_1SemanticChildren(View view) {
 		Aquatory modelElement = (Aquatory) view.getElement();
-		List semanticChildren = getAquatory_1SemanticChildren(modelElement);
 		List result = new LinkedList();
-		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		for (Iterator semanticIterator = getAquatory_1SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, nextElement);
 			if (isAquatory_1DomainMetaChild(visualID)) {

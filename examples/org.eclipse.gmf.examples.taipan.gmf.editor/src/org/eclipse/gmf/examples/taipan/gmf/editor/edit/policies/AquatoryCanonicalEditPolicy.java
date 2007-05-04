@@ -249,9 +249,28 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			domain2NotationMap.put(view.getElement(), view);
 			break;
 		}
+		case ReliableRouteEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			break;
+		}
+		case UnreliableRouteEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			break;
+		}
+		case EscortShipsOrderEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			break;
+		}
+		case BesiegePortOrderEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			break;
+		}
 		}
 		for (Iterator children = view.getChildren().iterator(); children.hasNext();) {
 			result.addAll(collectAllLinks((View) children.next(), domain2NotationMap));
+		}
+		for (Iterator edges = view.getSourceEdges().iterator(); edges.hasNext();) {
+			result.addAll(collectAllLinks((View) edges.next(), domain2NotationMap));
 		}
 		return result;
 	}
