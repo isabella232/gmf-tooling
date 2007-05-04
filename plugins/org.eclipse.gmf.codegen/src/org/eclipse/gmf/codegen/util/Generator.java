@@ -104,6 +104,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateCompositeParser();
 		generateMessageFormatParser();
 		generateNativeParser();
+		generatePrintfParser();
 		generateRegexpParser();
 
 		// edit parts, edit policies and providers
@@ -584,6 +585,12 @@ public class Generator extends GeneratorBase implements Runnable {
 	private void generateNativeParser() throws UnexpectedBehaviourException, InterruptedException {
 		if (shouldGenerateParser(LabelTextAccessMethod.NATIVE)) {
 			doGenerateJavaClass(myEmitters.getNativeParserEmitter(), myEmitters.getNativeParserName(myDiagram), myDiagram);
+		}
+	}
+
+	private void generatePrintfParser() throws UnexpectedBehaviourException, InterruptedException {
+		if (shouldGenerateParser(LabelTextAccessMethod.PRINTF)) {
+			doGenerateJavaClass(myEmitters.getPrintfParserEmitter(), myEmitters.getPrintfParserName(myDiagram), myDiagram);
 		}
 	}
 
