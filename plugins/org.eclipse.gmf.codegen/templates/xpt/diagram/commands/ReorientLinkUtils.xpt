@@ -15,7 +15,6 @@
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 
 «EXTENSION xpt::GenModelUtils»
-«EXTENSION xpt::Utils»
 «EXTENSION xpt::diagram::Utils»
 
 «REM»

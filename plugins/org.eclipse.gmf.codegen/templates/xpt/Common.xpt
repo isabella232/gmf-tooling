@@ -14,7 +14,6 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «EXTENSION xpt::GenModelUtils»
-«EXTENSION xpt::Utils»
 
 «DEFINE copyright FOR gmfgen::GenEditorGenerator-»
 «IF copyrightText != null-»
