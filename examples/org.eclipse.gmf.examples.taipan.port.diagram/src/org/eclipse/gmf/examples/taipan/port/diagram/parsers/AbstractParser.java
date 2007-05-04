@@ -9,32 +9,38 @@
  * Contributors:
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.examples.taipan.port.diagram.providers;
-
-import java.text.MessageFormat;
-import java.text.ParsePosition;
+package org.eclipse.gmf.examples.taipan.port.diagram.parsers;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
+import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorPlugin;
 
 /**
  * @generated
  */
-public abstract class TaiPanAbstractParser implements IParser {
+public abstract class AbstractParser implements IParser {
+
+	/**
+	 * @generated
+	 */
+	protected final EAttribute[] features;
 
 	/**
 	 * @generated
@@ -44,7 +50,7 @@ public abstract class TaiPanAbstractParser implements IParser {
 	/**
 	 * @generated
 	 */
-	private MessageFormat viewProcessor;
+	private String editorPattern;
 
 	/**
 	 * @generated
@@ -54,20 +60,15 @@ public abstract class TaiPanAbstractParser implements IParser {
 	/**
 	 * @generated
 	 */
-	private MessageFormat editProcessor;
-
-	/**
-	 * @generated
-	 */
-	public String getViewPattern() {
-		return viewPattern;
+	public AbstractParser(EAttribute[] features) {
+		this.features = features;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected MessageFormat getViewProcessor() {
-		return viewProcessor;
+	public final String getViewPattern() {
+		return viewPattern;
 	}
 
 	/**
@@ -75,28 +76,27 @@ public abstract class TaiPanAbstractParser implements IParser {
 	 */
 	public void setViewPattern(String viewPattern) {
 		this.viewPattern = viewPattern;
-		viewProcessor = createViewProcessor(viewPattern);
 	}
 
 	/**
 	 * @generated
 	 */
-	protected MessageFormat createViewProcessor(String viewPattern) {
-		return new MessageFormat(viewPattern);
+	public final String getEditorPattern() {
+		return editorPattern;
 	}
 
 	/**
 	 * @generated
 	 */
-	public String getEditPattern() {
+	public void setEditorPattern(String editorPattern) {
+		this.editorPattern = editorPattern;
+	}
+
+	/**
+	 * @generated
+	 */
+	public final String getEditPattern() {
 		return editPattern;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected MessageFormat getEditProcessor() {
-		return editProcessor;
 	}
 
 	/**
@@ -104,69 +104,29 @@ public abstract class TaiPanAbstractParser implements IParser {
 	 */
 	public void setEditPattern(String editPattern) {
 		this.editPattern = editPattern;
-		editProcessor = createEditProcessor(editPattern);
 	}
 
 	/**
 	 * @generated
 	 */
-	protected MessageFormat createEditProcessor(String editPattern) {
-		return new MessageFormat(editPattern);
-	}
-
-	/**
-	 * @generated
-	 */
-	public String getPrintString(IAdaptable adapter, int flags) {
-		return getStringByPattern(adapter, flags, getViewPattern(), getViewProcessor());
-	}
-
-	/**
-	 * @generated
-	 */
-	public String getEditString(IAdaptable adapter, int flags) {
-		return getStringByPattern(adapter, flags, getEditPattern(), getEditProcessor());
-	}
-
-	/**
-	 * @generated
-	 */
-	protected abstract String getStringByPattern(IAdaptable adapter, int flags, String pattern, MessageFormat processor);
-
-	/**
-	 * @generated
-	 */
-	public IParserEditStatus isValidEditString(IAdaptable element, String editString) {
-		ParsePosition pos = new ParsePosition(0);
-		Object[] values = getEditProcessor().parse(editString, pos);
-		if (values == null) {
-			return new ParserEditStatus(PortDiagramEditorPlugin.ID, IParserEditStatus.UNEDITABLE, "Invalid input at " + pos.getErrorIndex());
+	public boolean isAffectingEvent(Object event, int flags) {
+		if (event instanceof Notification) {
+			return isAffectingFeature(((Notification) event).getFeature());
 		}
-		return validateNewValues(values);
+		return false;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParserEditStatus validateNewValues(Object[] values) {
-		return ParserEditStatus.EDITABLE_STATUS;
-	}
-
-	/**
-	 * @generated
-	 */
-	public ICommand getParseCommand(IAdaptable adapter, String newString, int flags) {
-		Object[] values = getEditProcessor().parse(newString, new ParsePosition(0));
-		if (values == null || validateNewValues(values).getCode() != IParserEditStatus.EDITABLE) {
-			return UnexecutableCommand.INSTANCE;
+	protected boolean isAffectingFeature(Object feature) {
+		for (int i = 0; i < features.length; i++) {
+			if (features[i] == feature) {
+				return true;
+			}
 		}
-		return getParseCommand(adapter, values);
+		return false;
 	}
-
-	/**
-	 * @generated
-	 */
-	protected abstract ICommand getParseCommand(IAdaptable adapter, Object[] values);
 
 	/**
 	 * @generated
@@ -178,7 +138,51 @@ public abstract class TaiPanAbstractParser implements IParser {
 	/**
 	 * @generated
 	 */
-	protected ICommand getModificationCommand(EObject element, EStructuralFeature feature, Object value) {
+	protected Object[] getValues(EObject element) {
+		Object[] values = new Object[features.length];
+		for (int i = 0; i < features.length; i++) {
+			values[i] = getValue(element, features[i]);
+		}
+		return values;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Object getValue(EObject element, EAttribute feature) {
+		Object value = element.eGet(feature);
+		Class iClass = feature.getEAttributeType().getInstanceClass();
+		if (String.class.equals(iClass)) {
+			if (value == null) {
+				value = ""; //$NON-NLS-1$
+			}
+		}
+		return value;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected ICommand getParseCommand(IAdaptable adapter, Object[] values, int flags) {
+		if (values == null || validateNewValues(values).getCode() != IParserEditStatus.EDITABLE) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		EObject element = (EObject) adapter.getAdapter(EObject.class);
+		TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(element);
+		if (editingDomain == null) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		CompositeTransactionalCommand command = new CompositeTransactionalCommand(editingDomain, "Set Values"); //$NON-NLS-1$
+		for (int i = 0; i < values.length; i++) {
+			command.compose(getModificationCommand(element, features[i], values[i]));
+		}
+		return command;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected ICommand getModificationCommand(EObject element, EAttribute feature, Object value) {
 		value = getValidNewValue(feature, value);
 		if (value instanceof InvalidValue) {
 			return UnexecutableCommand.INSTANCE;
@@ -190,23 +194,23 @@ public abstract class TaiPanAbstractParser implements IParser {
 	/**
 	 * @generated
 	 */
-	protected Object getValidValue(EStructuralFeature feature, Object value) {
-		EClassifier type = feature.getEType();
-		if (type instanceof EDataType) {
-			Class iClass = type.getInstanceClass();
-			if (String.class.equals(iClass)) {
-				if (value == null) {
-					value = ""; //$NON-NLS-1$
-				}
+	protected IParserEditStatus validateNewValues(Object[] values) {
+		if (values.length != features.length) {
+			return ParserEditStatus.UNEDITABLE_STATUS;
+		}
+		for (int i = 0; i < values.length; i++) {
+			Object value = getValidNewValue(features[i], values[i]);
+			if (value instanceof InvalidValue) {
+				return new ParserEditStatus(PortDiagramEditorPlugin.ID, IParserEditStatus.UNEDITABLE, value.toString());
 			}
 		}
-		return value;
+		return ParserEditStatus.EDITABLE_STATUS;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Object getValidNewValue(EStructuralFeature feature, Object value) {
+	protected Object getValidNewValue(EAttribute feature, Object value) {
 		EClassifier type = feature.getEType();
 		if (type instanceof EDataType) {
 			Class iClass = type.getInstanceClass();

@@ -12,16 +12,21 @@
 package org.eclipse.gmf.examples.taipan.port.diagram.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingAddressEditPart;
 
+import org.eclipse.gmf.examples.taipan.port.diagram.parsers.MessageFormatParser;
 import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
 
 /**
@@ -32,24 +37,25 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
-	private IParser buildingBuildingAddress_5001Parser;
+	private IParser buildingAddress_5001Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getBuildingBuildingAddress_5001Parser() {
-		if (buildingBuildingAddress_5001Parser == null) {
-			buildingBuildingAddress_5001Parser = createBuildingBuildingAddress_5001Parser();
+	private IParser getBuildingAddress_5001Parser() {
+		if (buildingAddress_5001Parser == null) {
+			buildingAddress_5001Parser = createBuildingAddress_5001Parser();
 		}
-		return buildingBuildingAddress_5001Parser;
+		return buildingAddress_5001Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createBuildingBuildingAddress_5001Parser() {
-		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getBuilding_Address());
+	protected IParser createBuildingAddress_5001Parser() {
+		MessageFormatParser parser = new MessageFormatParser(new EAttribute[] { TaiPanPackage.eINSTANCE.getBuilding_Address(), });
 		parser.setViewPattern("{0}");
+		parser.setEditorPattern("{0}");
 		parser.setEditPattern("{0}");
 		return parser;
 	}
@@ -60,7 +66,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	protected IParser getParser(int visualID) {
 		switch (visualID) {
 		case BuildingAddressEditPart.VISUAL_ID:
-			return getBuildingBuildingAddress_5001Parser();
+			return getBuildingAddress_5001Parser();
 		}
 		return null;
 	}
@@ -92,5 +98,26 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 			return getParser(hint) != null;
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class HintAdapter extends ParserHintAdapter {
+
+		private final IElementType elementType;
+
+		public HintAdapter(IElementType type, EObject object, String parserHint) {
+			super(object, parserHint);
+			assert type != null;
+			elementType = type;
+		}
+
+		public Object getAdapter(Class adapter) {
+			if (IElementType.class.equals(adapter)) {
+				return elementType;
+			}
+			return super.getAdapter(adapter);
+		}
 	}
 }

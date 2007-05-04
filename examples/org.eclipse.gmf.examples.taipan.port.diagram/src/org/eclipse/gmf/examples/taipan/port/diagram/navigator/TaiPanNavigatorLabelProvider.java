@@ -26,6 +26,7 @@ import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
 
 import org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanElementTypes;
 
+import org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanParserProvider;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;
@@ -170,20 +171,12 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	 * @generated
 	 */
 	private String getBuilding_2001Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new TaiPanParserProvider.HintAdapter(TaiPanElementTypes.Building_2001, (view.getElement() != null ? view.getElement() : view), TaiPanVisualIDRegistry
+				.getType(BuildingAddressEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return TaiPanVisualIDRegistry.getType(BuildingAddressEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return TaiPanElementTypes.Building_2001;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			PortDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5001);
 			return "";

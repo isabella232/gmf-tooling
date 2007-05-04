@@ -32,7 +32,10 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
@@ -92,7 +95,13 @@ public class TaiPanDiagramEditorUtil {
 	 * @generated
 	 */
 	public static boolean openDiagram(Resource diagram) throws PartInitException {
-		return EditUIUtil.openEditor((EObject) diagram.getContents().get(0));
+		String path = diagram.getURI().toPlatformString(true);
+		IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
+		if (workspaceResource instanceof IFile) {
+			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+			return null != page.openEditor(new FileEditorInput((IFile) workspaceResource), TaiPanDiagramEditor.ID);
+		}
+		return false;
 	}
 
 	/**
