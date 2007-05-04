@@ -28,6 +28,10 @@ public class «editPartClassName» «EXPAND supertypes» {
 	«EXPAND xpt::diagram::parts::Common::declareViewCode-»
 	«EXPAND xpt::diagram::parts::Common::registerModel-»
 	«EXPAND xpt::diagram::parts::Common::getModelChildren-»
+	«EXPAND xpt::diagram::parts::Common::getModelSourceConnections-»
+	«EXPAND xpt::diagram::parts::Common::getModelTargetConnections-»
+	«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::all-»
+	«EXPAND connectionAnchors-»
 	«EXPAND xpt::diagram::parts::decorations::decorationManager-»
 	«EXPAND createEditPolicies-»
 
@@ -54,7 +58,7 @@ public class «editPartClassName» «EXPAND supertypes» {
 }
 «ENDDEFINE»
 
-«DEFINE supertypes FOR gmfgen::GenLink»extends org.eclipse.gef.editparts.AbstractConnectionEditPart implements org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart, org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart, org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecoratableEditPart«ENDDEFINE»
+«DEFINE supertypes FOR gmfgen::GenLink»extends org.eclipse.gef.editparts.AbstractConnectionEditPart implements org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart, org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart, org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecoratableEditPart, org.eclipse.gef.NodeEditPart«ENDDEFINE»
 
 «DEFINE createEditPolicies FOR gmfgen::GenLink-»
 «EXPAND xpt::Common::generatedMemberComment»
@@ -65,7 +69,9 @@ protected void createEditPolicies() {
 «IF getPrimaryLabel() != null-»
 	installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.lite.edit.policies.DelegatingDirectEditPolicy());
 «ENDIF-»
+	installEditPolicy(org.eclipse.gef.EditPolicy.GRAPHICAL_NODE_ROLE, new «getGraphicalNodeEditPolicyQualifiedClassName()»());
 	«EXPAND xpt::diagram::parts::Common::behaviour-»
+	«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::installClause-»
 }
 «ENDDEFINE»
 
@@ -109,6 +115,28 @@ private org.eclipse.draw2d.Connection primCreateFigure() {
 
 «DEFINE primCreateFigure FOR gmfgen::InnerClassViewmap-»
 	return new «className»();
+«ENDDEFINE»
+
+«DEFINE connectionAnchors FOR gmfgen::GenLink-»
+«EXPAND xpt::Common::generatedMemberComment»
+public org.eclipse.draw2d.ConnectionAnchor getSourceConnectionAnchor(org.eclipse.gef.ConnectionEditPart connection) {
+	return new org.eclipse.gmf.runtime.lite.figures.ConnectionConnectionAnchor(getConnectionFigure());
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+public org.eclipse.draw2d.ConnectionAnchor getSourceConnectionAnchor(org.eclipse.gef.Request request) {
+	return new org.eclipse.gmf.runtime.lite.figures.ConnectionConnectionAnchor(getConnectionFigure());
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+public org.eclipse.draw2d.ConnectionAnchor  getTargetConnectionAnchor(org.eclipse.gef.ConnectionEditPart connection) {
+	return new org.eclipse.gmf.runtime.lite.figures.ConnectionConnectionAnchor(getConnectionFigure());
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+public org.eclipse.draw2d.ConnectionAnchor  getTargetConnectionAnchor(org.eclipse.gef.Request request) {
+	return new org.eclipse.gmf.runtime.lite.figures.ConnectionConnectionAnchor(getConnectionFigure());
+}
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenLink»«ENDDEFINE»

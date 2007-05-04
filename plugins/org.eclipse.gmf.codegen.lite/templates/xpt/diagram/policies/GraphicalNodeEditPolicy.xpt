@@ -19,12 +19,12 @@
 «EXTENSION xpt::diagram::LinkFinder»
 «EXTENSION xpt::commands::CommandUtils»
 
-«DEFINE GraphicalNodeEditPolicy FOR gmfgen::GenNode-»
+«DEFINE GraphicalNodeEditPolicy FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen»
 package «getDiagram().editPoliciesPackageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
-public class «graphicalNodeEditPolicyClassName» «EXPAND supertypes» {
+public class «getGraphicalNodeEditPolicyClassName()» «EXPAND supertypes» {
 	«EXPAND getConnectionCreateCommand-»
 	«EXPAND getConnectionCompleteCommand-»
 	«EXPAND getReconnectSourceCommand-»
@@ -33,9 +33,9 @@ public class «graphicalNodeEditPolicyClassName» «EXPAND supertypes» {
 }
 «ENDDEFINE»
 
-«DEFINE supertypes FOR gmfgen::GenNode»extends org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy«ENDDEFINE»
+«DEFINE supertypes FOR gmfgen::GenCommonBase»extends org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy«ENDDEFINE»
 
-«DEFINE getConnectionCreateCommand FOR gmfgen::GenNode-»
+«DEFINE getConnectionCreateCommand FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getConnectionCreateCommand(org.eclipse.gef.requests.CreateConnectionRequest request) {
 «IF getDiagram().palette != null && outgoingLinks().size() > 0-»
@@ -49,7 +49,7 @@ protected org.eclipse.gef.commands.Command getConnectionCreateCommand(org.eclips
 		for (int i = 0; i < visualIds.length; i++) {
 			int nextVisualId = visualIds[i];
 			switch (nextVisualId) {
-«EXPAND getConnectionCreateCommandContribution(this) FOREACH outgoingLinks()-»
+«EXPAND getConnectionCreateCommandContribution FOREACH outgoingLinks()-»
 			}
 		}
 		if (!result.canExecute()) {
@@ -64,13 +64,13 @@ protected org.eclipse.gef.commands.Command getConnectionCreateCommand(org.eclips
 }
 «ENDDEFINE»
 
-«DEFINE getConnectionCreateCommandContribution(gmfgen::GenNode node) FOR gmfgen::GenLink-»
+«DEFINE getConnectionCreateCommandContribution FOR gmfgen::GenLink-»
 case «getEditPartQualifiedClassName()».VISUAL_ID:
 	result.appendIfCanExecute(new «getDiagram().editCommandsPackageName».«EXPAND xpt::commands::CreateLinkStartCommand::className»(requestEx));
 	break;
 «ENDDEFINE»
 
-«DEFINE getConnectionCompleteCommand FOR gmfgen::GenNode-»
+«DEFINE getConnectionCompleteCommand FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getConnectionCompleteCommand(org.eclipse.gef.requests.CreateConnectionRequest request) {
 «IF getDiagram().palette != null && incomingLinks().size() > 0-»
@@ -87,7 +87,7 @@ protected org.eclipse.gef.commands.Command getConnectionCompleteCommand(org.ecli
 		for (int i = 0; i < visualIds.length; i++) {
 			int nextVisualId = visualIds[i];
 			switch (nextVisualId) {
-«EXPAND getConnectionCompleteCommandContribution(this) FOREACH incomingLinks()-»
+«EXPAND getConnectionCompleteCommandContribution FOREACH incomingLinks()-»
 			}
 		}
 		if (result.getCommandList().size() != 1 || !result.canExecute()) {
@@ -101,13 +101,13 @@ protected org.eclipse.gef.commands.Command getConnectionCompleteCommand(org.ecli
 }
 «ENDDEFINE»
 
-«DEFINE getConnectionCompleteCommandContribution(gmfgen::GenNode node) FOR gmfgen::GenLink-»
+«DEFINE getConnectionCompleteCommandContribution FOR gmfgen::GenLink-»
 case «getEditPartQualifiedClassName()».VISUAL_ID:
 	result.appendIfCanExecute(new «getDiagram().editCommandsPackageName».«EXPAND xpt::commands::CreateLinkCompleteCommand::className»(requestEx));
 	break;
 «ENDDEFINE»
 
-«DEFINE getReconnectSourceCommand FOR gmfgen::GenNode-»
+«DEFINE getReconnectSourceCommand FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getReconnectSourceCommand(org.eclipse.gef.requests.ReconnectRequest request) {
 «IF outgoingLinks().size() > 0-»
@@ -123,7 +123,7 @@ protected org.eclipse.gef.commands.Command getReconnectSourceCommand(org.eclipse
 	org.eclipse.emf.common.command.Command result = null;
 	int visualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(edge);
 	switch (visualID) {
-«EXPAND getReconnectSourceCommandContribution(this) FOREACH outgoingLinks()-»
+«EXPAND getReconnectSourceCommandContribution FOREACH outgoingLinks()-»
 	}
 	if (result == null || !result.canExecute()) {
 		«EXPAND notApplicable-»
@@ -135,13 +135,13 @@ protected org.eclipse.gef.commands.Command getReconnectSourceCommand(org.eclipse
 }
 «ENDDEFINE»
 
-«DEFINE getReconnectSourceCommandContribution(gmfgen::GenNode node) FOR gmfgen::GenLink-»
+«DEFINE getReconnectSourceCommandContribution FOR gmfgen::GenLink-»
 case «getEditPartQualifiedClassName()».VISUAL_ID:
 	result = new «getDiagram().editCommandsPackageName».«EXPAND xpt::commands::ReconnectLinkSourceCommand::className»(request);
 	break;
 «ENDDEFINE»
 
-«DEFINE getReconnectTargetCommand FOR gmfgen::GenNode-»
+«DEFINE getReconnectTargetCommand FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getReconnectTargetCommand(org.eclipse.gef.requests.ReconnectRequest request) {
 «IF incomingLinks().size() > 0-»
@@ -157,7 +157,7 @@ protected org.eclipse.gef.commands.Command getReconnectTargetCommand(org.eclipse
 	org.eclipse.emf.common.command.Command result = null;
 	int visualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(edge);
 	switch (visualID) {
-«EXPAND getReconnectTargetCommandContribution(this) FOREACH incomingLinks()-»
+«EXPAND getReconnectTargetCommandContribution FOREACH incomingLinks()-»
 	}
 	if (result == null || !result.canExecute()) {
 		«EXPAND notApplicable-»
@@ -169,7 +169,7 @@ protected org.eclipse.gef.commands.Command getReconnectTargetCommand(org.eclipse
 }
 «ENDDEFINE»
 
-«DEFINE getReconnectTargetCommandContribution(gmfgen::GenNode node) FOR gmfgen::GenLink-»
+«DEFINE getReconnectTargetCommandContribution FOR gmfgen::GenLink-»
 case «getEditPartQualifiedClassName()».VISUAL_ID:
 	result = new «getDiagram().editCommandsPackageName».«EXPAND xpt::commands::ReconnectLinkTargetCommand::className»(request);
 	break;
@@ -179,8 +179,8 @@ case «getEditPartQualifiedClassName()».VISUAL_ID:
  * Command is not applicable for the given request. Should return either null or 
  * org.eclipse.gef.commands.UnexecutableCommand.INSTANCE, but the same value everywhere.
  */
-«DEFINE notApplicable FOR gmfgen::GenNode-»
+«DEFINE notApplicable FOR gmfgen::GenCommonBase-»
 return null;
 «ENDDEFINE»
 
-«DEFINE additions FOR gmfgen::GenNode»«ENDDEFINE»
+«DEFINE additions FOR gmfgen::GenCommonBase»«ENDDEFINE»

@@ -39,7 +39,7 @@ default:
 «IF xyLayouted»new org.eclipse.draw2d.geometry.Rectangle(0, 0, «EXPAND xpt::commands::Common::defaultWidth», «EXPAND xpt::commands::Common::defaultHeight»)«ELSE»null«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE createNotationalEdgeCommand(String parentDiagramCode) FOR gmfgen::GenContainerBase-»
+«DEFINE createNotationalEdgeCommand(String parentDiagramCode) FOR gmfgen::GenCommonBase-»
 org.eclipse.gmf.runtime.notation.View sourceView = getViewService().findView(linkDescriptor.getSource());
 org.eclipse.gmf.runtime.notation.View targetView = getViewService().findView(linkDescriptor.getDestination());
 org.eclipse.gmf.runtime.lite.services.IViewDecorator decorator = null;

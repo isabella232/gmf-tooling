@@ -147,6 +147,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 		for (GenLink next : (List<? extends GenLink>) myDiagram.getLinks()) {
 			internalGenerateJavaClass(myEmitters.getLinkEditPartGenerator(), next.getEditPartQualifiedClassName(), next);
+			generateGraphicalEditPolicy(next);
 			for (GenLinkLabel label : (List<? extends GenLinkLabel>) next.getLabels()) {
 				internalGenerateJavaClass(myEmitters.getLinkLabelEditPartGenerator(), label.getEditPartQualifiedClassName(), label);
 				internalGenerateJavaClass(myEmitters.getViewFactoryGenerator(), label.getNotationViewFactoryQualifiedClassName(), label);
@@ -364,6 +365,15 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateGraphicalEditPolicy(GenNode genNode) throws InterruptedException, UnexpectedBehaviourException {
 		internalGenerateJavaClass(myEmitters.getGraphicalEditPolicyEmitter(), genNode.getGraphicalNodeEditPolicyQualifiedClassName(), genNode);
+	}
+
+	private void generateGraphicalEditPolicy(GenLink genLink) throws InterruptedException, UnexpectedBehaviourException {
+		String editPolicyClassName = genLink.getEditPartClassName();
+		if (editPolicyClassName.endsWith(GenCommonBase.EDIT_PART_SUFFIX)) {
+			editPolicyClassName = editPolicyClassName.substring(0, editPolicyClassName.length() - GenCommonBase.EDIT_PART_SUFFIX.length());
+		}
+		editPolicyClassName += "GraphicalNodeEditPolicy";
+		internalGenerateJavaClass(myEmitters.getGraphicalEditPolicyEmitter(), myDiagram.getEditPoliciesPackageName(), editPolicyClassName, genLink);
 	}
 
 	private void generateComponentEditPolicy(GenCommonBase genElement) throws InterruptedException, UnexpectedBehaviourException {

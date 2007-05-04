@@ -16,45 +16,49 @@ import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
 extension xpt::GenModelUtils;
 extension xpt::commands::CommandUtils;
 
-cached Collection[gmfgen::GenLink] incomingLinks(gmfgen::GenNode node) :
-	node.getDiagram().links.select(e| e.incomingGenClass().ecoreClass.isSuperTypeOf(node.modelFacet.metaClass.ecoreClass))
+cached Collection[gmfgen::GenLink] incomingLinks(gmfgen::GenCommonBase gcb) :
+	let effectiveMetaClass = gcb.getEffectiveMetaClass() :
+	(effectiveMetaClass == null ? {} :
+		gcb.getDiagram().links.select(e| e.incomingGenClass().ecoreClass.isSuperTypeOf(effectiveMetaClass.ecoreClass)))
 ;
 
-cached Collection[gmfgen::GenLink] outgoingLinks(gmfgen::GenNode node) :
-	node.getDiagram().links.select(e| e.outgoingGenClass().ecoreClass.isSuperTypeOf(node.modelFacet.metaClass.ecoreClass))
+cached Collection[gmfgen::GenLink] outgoingLinks(gmfgen::GenCommonBase gcb) :
+	let effectiveMetaClass = gcb.getEffectiveMetaClass() :
+	(effectiveMetaClass == null ? {} :
+		gcb.getDiagram().links.select(e| e.outgoingGenClass().ecoreClass.isSuperTypeOf(effectiveMetaClass.ecoreClass)))
 ;
 
-cached Collection[gmfgen::GenLink] containedLinks(gmfgen::GenContainerBase gcb) :
-	let effectiveMetaClass = gcb.getEffectiveMetaClassForContainment() :
+cached Collection[gmfgen::GenLink] containedLinks(gmfgen::GenCommonBase gcb) :
+	let effectiveMetaClass = gcb.getEffectiveMetaClass() :
 		(effectiveMetaClass == null ? {} :
 			gcb.getDiagram().links.select(e | e.containerGenClass().ecoreClass.isSuperTypeOf(effectiveMetaClass.ecoreClass)))
 ;
 
-cached Collection[gmfgen::GenLink] containedTypeModelFacetLinks(gmfgen::GenContainerBase gcb) :
+cached Collection[gmfgen::GenLink] containedTypeModelFacetLinks(gmfgen::GenCommonBase gcb) :
 	gcb.containedLinks().select(e| {e.modelFacet}.typeSelect(gmfgen::TypeLinkModelFacet).size() > 0)
 ;
 
-cached Collection[gmfgen::GenLink] containedFeatureModelFacetLinks(gmfgen::GenContainerBase gcb) :
+cached Collection[gmfgen::GenLink] containedFeatureModelFacetLinks(gmfgen::GenCommonBase gcb) :
 	gcb.containedLinks().select(e| {e.modelFacet}.typeSelect(gmfgen::FeatureLinkModelFacet).size() > 0)
 ;
 
-cached Collection[gmfgen::GenLink] containedLinksWithSelector(gmfgen::GenContainerBase gcb) :
+cached Collection[gmfgen::GenLink] containedLinksWithSelector(gmfgen::GenCommonBase gcb) :
 	gcb.containedTypeModelFacetLinks().select(e| e.modelFacet.getElementSelector() != null)
 ;
 
-boolean needsSourceVisualID(gmfgen::GenContainerBase gcb) :
+boolean needsSourceVisualID(gmfgen::GenCommonBase gcb) :
 	gcb.containedLinks().select(e| e.modelFacet != null && e.getDiagram().getRelatedChildLabelGenNodes(e.modelFacet.getSourceType()).size() > 0).size() > 0
 ;
 
-boolean needsTargetVisualID(gmfgen::GenContainerBase gcb) :
+boolean needsTargetVisualID(gmfgen::GenCommonBase gcb) :
 	gcb.containedLinks().select(e| e.modelFacet != null && e.getDiagram().getRelatedChildLabelGenNodes(e.modelFacet.getTargetType()).size() > 0).size() > 0
 ;
 
-Collection[gmfgen::GenContainerBase] getPossibleContainers(gmfgen::GenLink link) :
+Collection[gmfgen::GenCommonBase] getPossibleContainers(gmfgen::GenLink link) :
 	let containerClass = link.containerGenClass().ecoreClass : 
 	(containerClass == null ? {} : 
-		{link.getDiagram(), link.getDiagram().getAllNodes()}.flatten()
-			.select(e| let effectiveMetaClass = ((gmfgen::GenContainerBase) e).getEffectiveMetaClassForContainment() : effectiveMetaClass == null ? false : 
+		{link.getDiagram(), link.getDiagram().getAllNodes(), link.getDiagram().links}.flatten()
+			.select(e| let effectiveMetaClass = ((gmfgen::GenCommonBase) e).getEffectiveMetaClass() : effectiveMetaClass == null ? false : 
 				containerClass.isSuperTypeOf(effectiveMetaClass.ecoreClass))
 	)
 ;
@@ -120,18 +124,30 @@ private genmodel::GenClass containerGenClass(gmfgen::FeatureLinkModelFacet facet
 	facet.metaFeature.genClass
 ;
 
-private genmodel::GenClass getEffectiveMetaClassForContainment(gmfgen::GenContainerBase gcb) :
+private genmodel::GenClass getEffectiveMetaClass(gmfgen::GenCommonBase gcb) :
 	null
 ;
 
-private genmodel::GenClass getEffectiveMetaClassForContainment(gmfgen::GenDiagram diagram) :
+private genmodel::GenClass getEffectiveMetaClass(gmfgen::GenDiagram diagram) :
 	diagram.domainDiagramElement
 ;
 
-private genmodel::GenClass getEffectiveMetaClassForContainment(gmfgen::GenNode node) :
+private genmodel::GenClass getEffectiveMetaClass(gmfgen::GenNode node) :
 	node.modelFacet.metaClass
 ;
 
-private genmodel::GenClass getEffectiveMetaClassForContainment(gmfgen::GenChildLabelNode node) :
+private genmodel::GenClass getEffectiveMetaClass(gmfgen::GenLink link) :
+	link.modelFacet.getEffectiveMetaClass()
+;
+
+private genmodel::GenClass getEffectiveMetaClass(gmfgen::LinkModelFacet facet) :
+	null
+;
+
+private genmodel::GenClass getEffectiveMetaClass(gmfgen::TypeLinkModelFacet facet) :
+	facet.metaClass
+;
+
+private genmodel::GenClass getEffectiveMetaClass(gmfgen::GenChildLabelNode node) :
 	null
 ;

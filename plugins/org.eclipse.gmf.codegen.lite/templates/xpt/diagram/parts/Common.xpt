@@ -303,9 +303,11 @@ removeExternalRefresher(getLabelRefresher());
 
 «DEFINE activateAdditions FOR gmfgen::GenLink-»
 «EXPAND xpt::diagram::parts::domainModelRefresher::activate-»
+«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::installClause-»
 «ENDDEFINE»
 
 «DEFINE deactivateAdditions FOR gmfgen::GenLink-»
+«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::uninstallClause-»
 «EXPAND xpt::diagram::parts::domainModelRefresher::deactivate-»
 «ENDDEFINE»
 

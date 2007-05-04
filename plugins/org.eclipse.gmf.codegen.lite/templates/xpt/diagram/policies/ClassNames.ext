@@ -29,6 +29,18 @@ String getLayoutEditPolicyQualifiedClassName(gmfgen::GenContainerBase element) :
 element.getDiagram().editPoliciesPackageName + "." + getLayoutEditPolicyClassName(element)
 ;
 
+String getGraphicalNodeEditPolicyClassName(gmfgen::GenCommonBase gcb) :
+getBaseName(gcb) + "GraphicalNodeEditPolicy"
+;
+
+String getGraphicalNodeEditPolicyClassName(gmfgen::GenNode node) :
+node.graphicalNodeEditPolicyClassName
+;
+
+String getGraphicalNodeEditPolicyQualifiedClassName(gmfgen::GenCommonBase gcb) :
+gcb.getDiagram().editPoliciesPackageName + "." + getGraphicalNodeEditPolicyClassName(gcb)
+;
+
 private String getBaseName(gmfgen::GenCommonBase element) :
 	let editPartClassName = element.editPartClassName :
 		editPartClassName.endsWith("EditPart") ? editPartClassName.subString(0, editPartClassName.length() - "EditPart".length())

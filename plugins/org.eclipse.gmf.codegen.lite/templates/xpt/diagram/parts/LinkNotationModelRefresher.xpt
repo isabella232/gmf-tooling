@@ -17,19 +17,19 @@
 «EXTENSION xpt::diagram::LinkFinder»
 «EXTENSION xpt::diagram::parts::LinkNotationModelRefresher»
 
-«DEFINE installClause FOR gmfgen::GenContainerBase-»
+«DEFINE installClause FOR gmfgen::GenCommonBase-»
 «IF needsLinkNotationModelRefresher()-»
 installLinkNotationModelRefresher();
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE uninstallClause FOR gmfgen::GenContainerBase-»
+«DEFINE uninstallClause FOR gmfgen::GenCommonBase-»
 «IF needsLinkNotationModelRefresher()-»
 uninstallLinkNotationModelRefresher();
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE all FOR gmfgen::GenContainerBase-»
+«DEFINE all FOR gmfgen::GenCommonBase-»
 «IF needsLinkNotationModelRefresher()-»
 «EXPAND install-»
 «EXPAND uninstall-»
@@ -40,9 +40,9 @@ uninstallLinkNotationModelRefresher();
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE className FOR gmfgen::GenContainerBase»LinkNotationModelRefresher«ENDDEFINE»
+«DEFINE className FOR gmfgen::GenCommonBase»LinkNotationModelRefresher«ENDDEFINE»
 
-«DEFINE install FOR gmfgen::GenContainerBase-»
+«DEFINE install FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 private void installLinkNotationModelRefresher() {
 	«EXPAND className» refresher = getLinkNotationModelRefresher();
@@ -50,7 +50,7 @@ private void installLinkNotationModelRefresher() {
 }
 «ENDDEFINE»
 
-«DEFINE uninstall FOR gmfgen::GenContainerBase-»
+«DEFINE uninstall FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 private void uninstallLinkNotationModelRefresher() {
 	«EXPAND className» refresher = getLinkNotationModelRefresher();
@@ -58,7 +58,7 @@ private void uninstallLinkNotationModelRefresher() {
 }
 «ENDDEFINE»
 
-«DEFINE getLinkNotationModelRefresher FOR gmfgen::GenContainerBase-»
+«DEFINE getLinkNotationModelRefresher FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 private «EXPAND className» linkNotationModelRefresher;
 
@@ -71,7 +71,7 @@ private «EXPAND className» getLinkNotationModelRefresher() {
 }
 «ENDDEFINE»
 
-«DEFINE viewService FOR gmfgen::GenContainerBase-»
+«DEFINE viewService FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment("Service to find a notational element that corresponds to the given underlying domain element.")»
 private org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.IViewService viewService;
 
@@ -84,7 +84,7 @@ private org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.IViewService ge
 }
 «ENDDEFINE»
 
-«DEFINE refresh FOR gmfgen::GenContainerBase-»
+«DEFINE refresh FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected void refreshLinkNotationModel() {
 	«EXPAND className» linkRefresher = getLinkNotationModelRefresher();
@@ -100,7 +100,7 @@ protected void refreshLinkNotationModel() {
 }
 «ENDDEFINE»
 
-«DEFINE LinkNotationModelRefresher FOR gmfgen::GenContainerBase-»
+«DEFINE LinkNotationModelRefresher FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedClassComment»
 private class «EXPAND className» «EXPAND supertypes» {
 	«EXPAND ctors-»
@@ -116,16 +116,16 @@ private class «EXPAND className» «EXPAND supertypes» {
 	}
 «ENDDEFINE»
 
-«DEFINE supertypes FOR gmfgen::GenContainerBase»extends org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.OwnedLinksNotationModelRefresher«ENDDEFINE»
+«DEFINE supertypes FOR gmfgen::GenCommonBase»extends org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.OwnedLinksNotationModelRefresher«ENDDEFINE»
 
-«DEFINE ctors FOR gmfgen::GenContainerBase-»
+«DEFINE ctors FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 public «EXPAND className»(org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.IViewService viewService) {
 	super(viewService);
 }
 «ENDDEFINE»
 
-«DEFINE getConstrainedChildrenFilter FOR gmfgen::GenContainerBase-»
+«DEFINE getConstrainedChildrenFilter FOR gmfgen::GenCommonBase-»
 «IF containedLinksWithSelector().size() > 0-»
 «EXPAND xpt::Common::generatedMemberComment("TODO: Child links of this element are selected based on constraint declared in " + getDiagram().getVisualIDRegistryQualifiedClassName() + ". \n" + 
   "Since no assumptions may be made concerning the runtime behavior of the constraint, <b>any</b> non-touch notification may result in \n" + 
@@ -138,7 +138,7 @@ private org.eclipse.emf.transaction.NotificationFilter getConstrainedChildLinksF
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE createUncontainedLinksFilter FOR gmfgen::GenContainerBase-»
+«DEFINE createUncontainedLinksFilter FOR gmfgen::GenCommonBase-»
 «ENDDEFINE»
 
 «DEFINE createUncontainedLinksFilter FOR gmfgen::GenDiagram-»
@@ -152,7 +152,7 @@ private org.eclipse.emf.transaction.NotificationFilter createUncontainedLinksFil
 }
 «ENDDEFINE»
 
-«DEFINE createFilter FOR gmfgen::GenContainerBase-»
+«DEFINE createFilter FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment("Creates a notification filter which filters notifications that may possibly affect the notational model")»
 protected org.eclipse.emf.transaction.NotificationFilter createFilter() {
 «LET getAffectingFeatures() AS affectingFeatures-»
@@ -186,14 +186,14 @@ protected org.eclipse.emf.transaction.NotificationFilter createFilter() {
 
 «DEFINE createFeatureFilter FOR genmodel::GenFeature»org.eclipse.emf.transaction.NotificationFilter.createFeatureFilter(«EXPAND xpt::Common::metaFeatureAccessor»)«ENDDEFINE»
 
-«DEFINE getSemanticLinks FOR gmfgen::GenContainerBase-»
+«DEFINE getSemanticLinks FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected java.util.List getSemanticChildLinks() {
 «EXPAND xpt::diagram::parts::semanticChildLinks::semanticChildLinks("getHost()")-»
 }
 «ENDDEFINE»
 
-«DEFINE getNotationalLinks FOR gmfgen::GenContainerBase-»
+«DEFINE getNotationalLinks FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected java.util.List getNotationalChildLinks() {
 	java.util.List result = new java.util.LinkedList();
@@ -208,7 +208,7 @@ protected java.util.List getNotationalChildLinks() {
 }
 «ENDDEFINE»
 
-«DEFINE uncontainedLinks FOR gmfgen::GenContainerBase»«ENDDEFINE»
+«DEFINE uncontainedLinks FOR gmfgen::GenCommonBase»«ENDDEFINE»
 
 «DEFINE uncontainedLinks FOR gmfgen::GenDiagram-»
 if (next.isSetElement() && next.getElement() != null && next.getElement().eResource() == null) {
@@ -227,7 +227,7 @@ if (target == null || (target.isSetElement() && target.getElement() != null && t
 }
 «ENDDEFINE»
 
-«DEFINE containedFeatureModelLinks FOR gmfgen::GenContainerBase-»
+«DEFINE containedFeatureModelLinks FOR gmfgen::GenCommonBase-»
 «IF containedFeatureModelFacetLinks().size() > 0-»
 if (next.isSetElement() && next.getElement() == null) {
 	if (next.getSource() == getHost()) {
@@ -242,7 +242,7 @@ if (next.isSetElement() && next.getElement() == null) {
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE containedTypeModelLinks FOR gmfgen::GenContainerBase-»
+«DEFINE containedTypeModelLinks FOR gmfgen::GenCommonBase-»
 «IF containedTypeModelFacetLinks().size() > 0-»
 if (next.isSetElement() && next.getElement() != null) {
 	if (next.getElement().eContainer() == «EXPAND xpt::diagram::parts::Common::getViewCode».getElement()) {
@@ -261,7 +261,7 @@ if (next.isSetElement() && next.getElement() != null) {
 case «getEditPartQualifiedClassName()».VISUAL_ID:
 «ENDDEFINE»
 
-«DEFINE getCreateNotationalElementCommand FOR gmfgen::GenContainerBase-»
+«DEFINE getCreateNotationalElementCommand FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand getCreateNotationalElementCommand(org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ElementDescriptor descriptor) {
 «IF primNeedsLinkNotationModelRefresher()-»
@@ -273,7 +273,7 @@ protected org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand g
 }
 «ENDDEFINE»
 
-«DEFINE shouldCreateView FOR gmfgen::GenContainerBase-»
+«DEFINE shouldCreateView FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment("Returns whether a notational edge should be created for the given domain element. \n" + 
   "The generated code respects canonical style. If the canonycal style is not present, " + (getDiagram().synchronized ? "true" : "false") + " is always returned. \n" + 
   "User can change implementation of this method to handle a more sophisticated logic.")»
@@ -286,11 +286,11 @@ protected boolean shouldCreateView(org.eclipse.gmf.runtime.lite.edit.parts.updat
 }
 «ENDDEFINE»
 
-«DEFINE getHost FOR gmfgen::GenContainerBase-»
+«DEFINE getHost FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gmf.runtime.notation.View getHost() {
 	return «EXPAND xpt::diagram::parts::Common::getViewCode»;
 }
 «ENDDEFINE»
 
-«DEFINE additions FOR gmfgen::GenContainerBase»«ENDDEFINE»
+«DEFINE additions FOR gmfgen::GenCommonBase»«ENDDEFINE»

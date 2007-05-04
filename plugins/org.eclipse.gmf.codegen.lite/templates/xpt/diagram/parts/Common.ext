@@ -34,7 +34,7 @@ boolean isSelectable(gmfgen::GenCompartment compartment) :
 ;
 
 boolean needsTransactionalUpdateManager(gmfgen::GenCommonBase gcb) :
-	gcb.needsDomainModelRefresher()
+	gcb.needsDomainModelRefresher() || gcb.needsLinkNotationModelRefresher()
 ;
 
 boolean needsTransactionalUpdateManager(gmfgen::GenDiagram diagram) :

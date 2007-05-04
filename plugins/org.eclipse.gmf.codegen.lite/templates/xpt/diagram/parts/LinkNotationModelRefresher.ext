@@ -15,7 +15,7 @@ import "http://www.eclipse.org/emf/2002/GenModel";
 import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
 extension xpt::diagram::LinkFinder;
 
-boolean needsLinkNotationModelRefresher(gmfgen::GenContainerBase gcb) :
+boolean needsLinkNotationModelRefresher(gmfgen::GenCommonBase gcb) :
 	gcb.primNeedsLinkNotationModelRefresher()
 ;
 
@@ -23,11 +23,11 @@ boolean needsLinkNotationModelRefresher(gmfgen::GenDiagram diagram) :
 	true	//due to uncontained links
 ;
 
-boolean primNeedsLinkNotationModelRefresher(gmfgen::GenContainerBase gcb) :
+boolean primNeedsLinkNotationModelRefresher(gmfgen::GenCommonBase gcb) :
 	gcb.containedLinks().size() > 0
 ;
 
-cached Collection[genmodel::GenFeature] getAffectingFeatures(gmfgen::GenContainerBase gcb) :
+cached Collection[genmodel::GenFeature] getAffectingFeatures(gmfgen::GenCommonBase gcb) :
 	{}.union(gcb.containedLinks().modelFacet.collect(e| e.getAffectingFeatures()).flatten())
 ;
 
@@ -43,11 +43,11 @@ private Collection[genmodel::GenFeature] getAffectingFeatures(gmfgen::FeatureLin
 	{facet.metaFeature}
 ;
 
-Collection[genmodel::GenFeature] getLinkChildFeatures(gmfgen::GenContainerBase gcb) :
+Collection[genmodel::GenFeature] getLinkChildFeatures(gmfgen::GenCommonBase gcb) :
 	getLinkChildFeatures(gcb, containedLinks(gcb))
 ;
 
-Collection[genmodel::GenFeature] getLinkChildFeatures(gmfgen::GenContainerBase gcb, Collection[gmfgen::GenLink] someOfContainedLinks) :
+Collection[genmodel::GenFeature] getLinkChildFeatures(gmfgen::GenCommonBase gcb, Collection[gmfgen::GenLink] someOfContainedLinks) :
 	{}.union(someOfContainedLinks.collect(e| e.modelFacet.getLinkChildFeature())).select(e| e != null)
 ;
 
@@ -63,26 +63,35 @@ private genmodel::GenFeature getLinkChildFeature(gmfgen::FeatureLinkModelFacet f
 	facet.metaFeature
 ;
 
-Collection[gmfgen::GenNode] getTypeGenLinksForFeature(gmfgen::GenContainerBase genContainerBase, genmodel::GenFeature genFeature, Collection[gmfgen::GenLink] containedLinks) :
-JAVA org.eclipse.gmf.internal.codegen.lite.utils.SemanticSyncUtils.getTypeGenLinks(org.eclipse.gmf.codegen.gmfgen.GenContainerBase, org.eclipse.emf.codegen.ecore.genmodel.GenFeature, java.util.Collection)
+Collection[gmfgen::GenNode] getTypeGenLinksForFeature(gmfgen::GenCommonBase gcb, genmodel::GenFeature genFeature, Collection[gmfgen::GenLink] containedLinks) :
+JAVA org.eclipse.gmf.internal.codegen.lite.utils.SemanticSyncUtils.getTypeGenLinks(org.eclipse.gmf.codegen.gmfgen.GenCommonBase, org.eclipse.emf.codegen.ecore.genmodel.GenFeature, java.util.Collection)
 ;
 
-Collection[gmfgen::GenNode] getFeatureGenLinksForFeature(gmfgen::GenContainerBase genContainerBase, genmodel::GenFeature genFeature, Collection[gmfgen::GenLink] containedLinks) :
-JAVA org.eclipse.gmf.internal.codegen.lite.utils.SemanticSyncUtils.getFeatureGenLinks(org.eclipse.gmf.codegen.gmfgen.GenContainerBase, org.eclipse.emf.codegen.ecore.genmodel.GenFeature, java.util.Collection)
+Collection[gmfgen::GenNode] getFeatureGenLinksForFeature(gmfgen::GenCommonBase gcb, genmodel::GenFeature genFeature, Collection[gmfgen::GenLink] containedLinks) :
+JAVA org.eclipse.gmf.internal.codegen.lite.utils.SemanticSyncUtils.getFeatureGenLinks(org.eclipse.gmf.codegen.gmfgen.GenCommonBase, org.eclipse.emf.codegen.ecore.genmodel.GenFeature, java.util.Collection)
 ;
 
-cached Collection[gmfgen::GenContainerBase] getLinkContainersWithAncestors(gmfgen::GenDiagram diagram) :
-	buildAncestorClosure((Collection[gmfgen::GenContainerBase]) diagram.links.collect(e| e.getPossibleContainers()).flatten())
+cached Collection[gmfgen::GenCommonBase] getLinkContainersWithAncestors(gmfgen::GenDiagram diagram) :
+	buildAncestorClosure((Collection[gmfgen::GenCommonBase]) diagram.links.collect(e| e.getPossibleContainers()).flatten())
 ;
 
-private Collection[gmfgen::GenContainerBase] buildAncestorClosure(Collection[gmfgen::GenContainerBase] elements) :
+private Collection[gmfgen::GenCommonBase] buildAncestorClosure(Collection[gmfgen::GenCommonBase] elements) :
 JAVA org.eclipse.gmf.internal.codegen.lite.utils.SemanticSyncUtils.buildAncestorClosure(java.util.Collection)
 ;
 
-Collection[gmfgen::GenContainerBase] getContainedContainers(gmfgen::GenContainerBase gcb) :
+Collection[gmfgen::GenCommonBase] getContainedContainers(gmfgen::GenCommonBase gcb) :
+	{}
+;
+
+Collection[gmfgen::GenCommonBase] getContainedContainers(gmfgen::GenContainerBase gcb) :
 	gcb.containedNodes
 ;
 
-Collection[gmfgen::GenContainerBase] getContainedContainers(gmfgen::GenNode node) :
-	{}.addAll(node.containedNodes).addAll(node.compartments)
+Collection[gmfgen::GenCommonBase] getContainedContainers(gmfgen::GenNode node) :
+	{}.addAll(node.containedNodes).addAll(node.compartments).addAll(node.containedLinks())
 ;
+
+Collection[gmfgen::GenCommonBase] getContainedContainers(gmfgen::GenLink link) :
+	link.containedLinks()
+;
+

@@ -76,6 +76,8 @@ private void createRefreshers() {
 «DEFINE fillRefreshers FOR gmfgen::GenLink-»
 «EXPAND children-»
 «EXPAND visibility-»
+«EXPAND sourceEdges-»
+«EXPAND targetEdges-»
 «EXPAND bendpoints-»
 «EXPAND font-»
 «EXPAND fillColor-»

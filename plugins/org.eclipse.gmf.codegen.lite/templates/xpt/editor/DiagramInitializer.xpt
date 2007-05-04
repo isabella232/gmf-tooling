@@ -120,7 +120,7 @@ protected org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand g
 }
 «ENDDEFINE»
 
-«DEFINE createChildLinks(Collection[gmfgen::GenContainerBase] allContainersWithAncestors) FOR gmfgen::GenContainerBase-»
+«DEFINE createChildLinks(Collection[gmfgen::GenCommonBase] allContainersWithAncestors) FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 private void create«getUniqueIdentifier()»ChildLinks(org.eclipse.gmf.runtime.notation.View viewObject) {
 «IF containedLinks().size() > 0-»
@@ -134,33 +134,46 @@ private void create«getUniqueIdentifier()»ChildLinks(org.eclipse.gmf.runtime.not
 	}
 «ENDIF-»
 		«LET getContainedContainers().select(e| allContainersWithAncestors.contains(e)) AS containedLinkContainers-»
-		«IF containedLinkContainers.size() > 0-»
+		«LET containedLinkContainers.typeSelect(gmfgen::GenLink) AS linkContainersContainedInSourceEdges-»
+		«LET (Collection[gmfgen::GenCommonBase]) containedLinkContainers.without(linkContainersContainedInSourceEdges) AS linkContainersContainedInChildren-»
+		«IF linkContainersContainedInChildren.size() > 0-»
 	for(java.util.Iterator it = viewObject.getChildren().iterator(); it.hasNext(); ) {
 		org.eclipse.gmf.runtime.notation.View next = (org.eclipse.gmf.runtime.notation.View) it.next();
 		int visualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(next);
 		switch (visualID) {
-		«EXPAND createGrandChildLinks FOREACH containedLinkContainers-»
+		«EXPAND createGrandChildLinks FOREACH linkContainersContainedInChildren-»
+		}
+	}
+		«ENDIF-»
+		«IF linkContainersContainedInSourceEdges.size() > 0-»
+	for(java.util.Iterator it = viewObject.getSourceEdges().iterator(); it.hasNext(); ) {
+		org.eclipse.gmf.runtime.notation.View next = (org.eclipse.gmf.runtime.notation.View) it.next();
+		int visualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(next);
+		switch (visualID) {
+		«EXPAND createGrandChildLinks FOREACH linkContainersContainedInSourceEdges-»
 		}
 	}
 		«ENDIF-»
 		«ENDLET-»
+		«ENDLET-»
+		«ENDLET-»
 }
 «ENDDEFINE»
 
-«DEFINE createGrandChildLinks FOR gmfgen::GenContainerBase-»
+«DEFINE createGrandChildLinks FOR gmfgen::GenCommonBase-»
 case «getEditPartQualifiedClassName()».VISUAL_ID:
 	create«getUniqueIdentifier()»ChildLinks(next);
 	break;
 «ENDDEFINE»
 
-«DEFINE getSemanticChildLinks FOR gmfgen::GenContainerBase-»
+«DEFINE getSemanticChildLinks FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 private java.util.List get«getUniqueIdentifier()»SemanticChildLinks(org.eclipse.gmf.runtime.notation.View parentView) {
 	«EXPAND xpt::diagram::parts::semanticChildLinks::semanticChildLinks("parentView")-»
 }
 «ENDDEFINE»
 
-«DEFINE getCreateNotationalChildLinkCommand FOR gmfgen::GenContainerBase-»
+«DEFINE getCreateNotationalChildLinkCommand FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand getCreate«getUniqueIdentifier()»NotationalChildLinkCommand(org.eclipse.gmf.runtime.notation.View parentView, org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.LinkDescriptor linkDescriptor) {
 	«EXPAND xpt::commands::createNotationalElementCommand::createNotationalEdgeCommand("parentView.getDiagram()")-»

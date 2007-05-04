@@ -101,22 +101,9 @@ installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.g
 
 «DEFINE listeners FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	protected void register() {
-		super.register();
-		getViewer().setProperty(org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager.class.getName(), new org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager(getViewer()));
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected void unregister() {
-		org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager updateManager = (org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager) getViewer().getProperty(org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager.class.getName());
-		if (updateManager != null) {
-			updateManager.dispose();
-		}
-		super.unregister();
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
 	public void activate() {
+		myUpdateManager = new org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager(getViewer());
+		getViewer().setProperty(org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager.class.getName(), myUpdateManager);
 		super.activate();
 		getTransactionalUpdateManager().install(org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(getNotationView()));
 	}
@@ -125,7 +112,19 @@ installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.g
 	public void deactivate() {
 		getTransactionalUpdateManager().uninstall();
 		super.deactivate();
+		org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager updateManager = (org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager) getViewer().getProperty(org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager.class.getName());
+		if (updateManager != null) {
+			updateManager.dispose();
+		}
 	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager getTransactionalUpdateManager() {
+		return myUpdateManager;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager myUpdateManager;
 «ENDDEFINE»
 
 «REM»Nodes and links share the same template«ENDREM»
@@ -210,7 +209,14 @@ private «primaryLabel.getEditPartQualifiedClassName()» getPrimaryLabelEditPart()
 «DEFINE getModelChildren FOR gmfgen::GenLink-»
 	«EXPAND xpt::Common::generatedMemberComment("Since labels are not selectable edit parts, they are filtered from the overview as well.")»
 	protected java.util.List getModelChildren() {
-		return java.util.Collections.EMPTY_LIST;
+		java.util.List result = new java.util.ArrayList();
+		for (java.util.Iterator it = getNotationView().getSourceEdges().iterator(); it.hasNext(); ) {
+			org.eclipse.gmf.runtime.notation.Edge next = (org.eclipse.gmf.runtime.notation.Edge) it.next();
+			if (next.isVisible()) {
+				result.add(next);
+			}
+		}
+		return result;
 	}
 «ENDDEFINE»
 
@@ -220,10 +226,6 @@ private «primaryLabel.getEditPartQualifiedClassName()» getPrimaryLabelEditPart()
 		java.util.List result = new java.util.ArrayList();
 		for(java.util.Iterator it = getNotationView().getVisibleChildren().iterator(); it.hasNext(); ) {
 			org.eclipse.gmf.runtime.notation.View next = (org.eclipse.gmf.runtime.notation.View) it.next();
-			org.eclipse.gmf.runtime.notation.DrawerStyle style = (org.eclipse.gmf.runtime.notation.DrawerStyle) next.getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getDrawerStyle());
-			if (style != null && style.isCollapsed()) {
-				continue;
-			}
 			switch («getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(next)) {
 «EXPAND addChildren FOREACH childNodes-»
 «EXPAND addChildren FOREACH compartments-»
@@ -247,6 +249,10 @@ case «getEditPartQualifiedClassName()».VISUAL_ID:
 
 «DEFINE addChildren FOR gmfgen::GenCompartment-»
 case «getEditPartQualifiedClassName()».VISUAL_ID:
+	org.eclipse.gmf.runtime.notation.DrawerStyle style = (org.eclipse.gmf.runtime.notation.DrawerStyle) next.getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getDrawerStyle());
+	if (style != null && style.isCollapsed()) {
+		break;
+	}
 	result.addAll(next.getVisibleChildren());
 	break;
 «ENDDEFINE»

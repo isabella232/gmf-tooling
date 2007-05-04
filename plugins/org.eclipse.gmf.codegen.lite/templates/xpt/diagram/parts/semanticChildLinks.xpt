@@ -18,7 +18,7 @@
 «EXTENSION xpt::diagram::LinkFinder»
 «EXTENSION xpt::diagram::parts::LinkNotationModelRefresher»
 
-«DEFINE semanticChildLinks(String parentViewCode) FOR gmfgen::GenContainerBase-»
+«DEFINE semanticChildLinks(String parentViewCode) FOR gmfgen::GenCommonBase-»
 	«LET getLinkChildFeatures(containedTypeModelFacetLinks()) AS genTypeLinkFeatures-»
 	«LET getLinkChildFeatures(containedFeatureModelFacetLinks()) AS genFeatureLinkFeatures-»
 	«IF genTypeLinkFeatures.size() + genFeatureLinkFeatures.size() == 0-»
