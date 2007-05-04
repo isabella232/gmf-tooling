@@ -386,6 +386,14 @@ public class CodegenEmitters {
 		return getQualifiedClassName("xpt::parsers::NativeParser", input); //$NON-NLS-1$
 	}
 
+	public TextEmitter getRegexpParserEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::parsers::RegexpParser"); //$NON-NLS-1$
+	}
+
+	public String getRegexpParserName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::parsers::RegexpParser", input); //$NON-NLS-1$
+	}
+
 	// providers
 
 	public TextEmitter getParserProviderEmitter() throws UnexpectedBehaviourException {
