@@ -7,6 +7,7 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
@@ -17,9 +18,11 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
@@ -32,6 +35,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 
 import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
+import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
 
 /**
  * <!-- begin-user-doc -->
@@ -1021,6 +1025,24 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	    return new BasicEList.UnmodifiableEList<GenPackage>(result.size(), result.toArray());
 	}
 	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean requiresParser(LabelTextAccessMethod method) {
+		for (Iterator<EObject> it = getDiagram().eAllContents(); it.hasNext(); ) {
+			Object next = it.next();
+			if (next instanceof FeatureLabelModelFacet) {
+				FeatureLabelModelFacet facet = (FeatureLabelModelFacet) next;
+				if (facet.getViewMethod() == method || facet.getEditMethod() == method) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

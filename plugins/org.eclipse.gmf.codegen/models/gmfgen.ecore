@@ -18,6 +18,12 @@
       </eAnnotations>
       <eParameters name="withUsed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </eOperations>
+    <eOperations name="requiresParser" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Returns true if parser for the specified method is used by diagram editor"/>
+      </eAnnotations>
+      <eParameters name="method" eType="#//LabelTextAccessMethod"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="audits" eType="#//GenAuditRoot"
         containment="true" eOpposite="#//GenAuditRoot/editorGen"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metrics" eType="#//GenMetricContainer"

@@ -72,5 +72,5 @@ Require-Bundle: org.eclipse.core.runtime,
 «ENDFOREACH-»
  org.eclipse.gmf.runtime.notation.providers
 Eclipse-LazyStart: true
-Bundle-RequiredExecutionEnvironment: J2SE-1.4
+Bundle-RequiredExecutionEnvironment: «IF editorGen.requiresParser(LabelTextAccessMethod::PRINTF)»J2SE-1.5«ELSE»J2SE-1.4«ENDIF-»
 «ENDDEFINE»

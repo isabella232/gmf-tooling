@@ -538,5 +538,16 @@ public interface GenEditorGenerator extends EObject {
 	 */
 	EList<GenPackage> getAllDomainGenPackages(boolean withUsed);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Returns true if parser for the specified method is used by diagram editor
+	 * <!-- end-model-doc -->
+	 * @model
+	 * @generated
+	 */
+	boolean requiresParser(LabelTextAccessMethod method);
+
 	boolean hasAudits(); // Indicates whether this generator defines at least one AuditRule
 } // GenEditorGenerator

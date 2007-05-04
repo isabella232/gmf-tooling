@@ -157,6 +157,9 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenEditorGenerator/getAllDomainGenPackages">
         <genParameters ecoreParameter="gmfgen.ecore#//GenEditorGenerator/getAllDomainGenPackages/withUsed"/>
       </genOperations>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenEditorGenerator/requiresParser">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenEditorGenerator/requiresParser/method"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenDiagram">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/editorGen"/>

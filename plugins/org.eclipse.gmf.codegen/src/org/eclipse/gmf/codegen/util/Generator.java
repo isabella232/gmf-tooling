@@ -555,17 +555,8 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	// parsers
 
-	private boolean shouldGenerateParser(LabelTextAccessMethod type) {
-		for (Iterator it = myDiagram.eAllContents(); it.hasNext(); ) {
-			Object next = it.next();
-			if (next instanceof FeatureLabelModelFacet) {
-				FeatureLabelModelFacet facet = (FeatureLabelModelFacet) next;
-				if (facet.getViewMethod() == type || facet.getEditMethod() == type) {
-					return true;
-				}
-			}
-		}
-		return false;
+	private boolean shouldGenerateParser(LabelTextAccessMethod method) {
+		return myDiagram.getEditorGen().requiresParser(method);
 	}
 
 	private void generateAbstractParser() throws UnexpectedBehaviourException, InterruptedException {
