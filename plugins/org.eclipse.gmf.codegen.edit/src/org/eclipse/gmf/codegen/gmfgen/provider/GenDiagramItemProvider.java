@@ -127,6 +127,7 @@ public class GenDiagramItemProvider
 			addUnitsPropertyDescriptor(object);
 			addDiagramUpdaterClassNamePropertyDescriptor(object);
 			addNodeDescriptorClassNamePropertyDescriptor(object);
+			addLinkDescriptorClassNamePropertyDescriptor(object);
 			addDomainDiagramElementPropertyDescriptor(object);
 			addSynchronizedPropertyDescriptor(object);
 		}
@@ -829,6 +830,28 @@ public class GenDiagramItemProvider
 				 getString("_UI_Updater_nodeDescriptorClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Updater_nodeDescriptorClassName_feature", "_UI_Updater_type"),
 				 GMFGenPackage.eINSTANCE.getUpdater_NodeDescriptorClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Link Descriptor Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLinkDescriptorClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Updater_linkDescriptorClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Updater_linkDescriptorClassName_feature", "_UI_Updater_type"),
+				 GMFGenPackage.eINSTANCE.getUpdater_LinkDescriptorClassName(),
 				 true,
 				 false,
 				 false,
@@ -1722,6 +1745,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_UPDATER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__NODE_DESCRIPTOR_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__LINK_DESCRIPTOR_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__SYNCHRONIZED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
