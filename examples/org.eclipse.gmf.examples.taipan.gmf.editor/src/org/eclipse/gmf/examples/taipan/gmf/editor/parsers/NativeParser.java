@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.parsers;
 
+import java.util.Arrays;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
@@ -29,6 +31,9 @@ public class NativeParser extends AbstractParser {
 	 */
 	public NativeParser(EAttribute[] features) {
 		super(features);
+		if (features.length != 1) {
+			throw new IllegalArgumentException(Arrays.toString(features));
+		}
 	}
 
 	/**

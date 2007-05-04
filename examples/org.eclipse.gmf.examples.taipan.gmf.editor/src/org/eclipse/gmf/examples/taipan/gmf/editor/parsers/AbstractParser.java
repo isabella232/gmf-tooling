@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.parsers;
 
+import java.util.Arrays;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EAttribute;
@@ -61,6 +63,9 @@ public abstract class AbstractParser implements IParser {
 	 * @generated
 	 */
 	public AbstractParser(EAttribute[] features) {
+		if (features == null || features.length == 0 || Arrays.asList(features).contains(null)) {
+			throw new IllegalArgumentException(Arrays.toString(features));
+		}
 		this.features = features;
 	}
 
