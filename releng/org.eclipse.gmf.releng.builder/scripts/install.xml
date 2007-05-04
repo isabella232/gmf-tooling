@@ -108,7 +108,7 @@
 	</target>
 
 	<target name="checkEMFInstalled">
-		<condition property="emftExists">
+		<condition property="emfExists">
 			<and>
 				<available file="${baseLocation}/features/${emfFeatureId}_${emfUpdateVersion}/feature.xml"/>
 				<available file="${baseLocation}/features/${oclFeatureId}_${oclUpdateVersion}/feature.xml"/>
