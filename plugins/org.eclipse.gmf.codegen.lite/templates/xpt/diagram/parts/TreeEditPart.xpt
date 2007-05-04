@@ -17,6 +17,7 @@
 «EXTENSION xpt::diagram::policies::ClassNames»
 «EXTENSION xpt::diagram::parts::TreeEditPart»
 «EXTENSION xpt::diagram::parts::Common»
+«EXTENSION xpt::diagram::LinkFinder»
 
 «DEFINE getAdapterClause FOR gmfgen::GenCommonBase-»
 «IF needsTreeEditPartAdapter()-»
@@ -80,16 +81,19 @@ private class «EXPAND className» extends org.eclipse.gmf.runtime.lite.edit.parts
 installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE, «EXPAND instantiateComponentEditPolicy»);
 «ENDDEFINE»
 
-«DEFINE instantiateComponentEditPolicy FOR gmfgen::GenCommonBase»new «getComponentEditPolicyQualifiedClassName()»()«ENDDEFINE»
+«DEFINE instantiateComponentEditPolicyPrim FOR gmfgen::GenCommonBase»new «getComponentEditPolicyQualifiedClassName()»()«ENDDEFINE»
 
 «DEFINE instantiateComponentEditPolicy FOR gmfgen::GenDiagram»new org.eclipse.gef.editpolicies.RootComponentEditPolicy()«ENDDEFINE»
 
-«DEFINE instantiateComponentEditPolicy FOR gmfgen::GenNode-»
+«DEFINE instantiateComponentEditPolicy FOR gmfgen::GenCommonBase-»
+«LET incomingLinks().select(e| {e.modelFacet}.typeSelect(gmfgen::TypeLinkModelFacet).size() > 0) AS incomingTypeLinks-»
+«IF incomingTypeLinks.size() > 0-»
 new «getComponentEditPolicyQualifiedClassName()»() {
 	protected org.eclipse.gef.GraphicalEditPart getGraphicalEditPart() {
 		return «editPartClassName».this;
 	}
-}«-»
+}«ELSE»«EXPAND instantiateComponentEditPolicyPrim»«ENDIF-»
+«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE installDirectEditPolicy FOR gmfgen::GenCommonBase-»

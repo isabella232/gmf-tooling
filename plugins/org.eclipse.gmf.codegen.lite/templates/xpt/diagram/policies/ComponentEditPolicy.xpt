@@ -17,36 +17,47 @@
 «EXTENSION xpt::diagram::policies::ClassNames»
 «EXTENSION xpt::diagram::LinkFinder»
 
-«DEFINE ComponentEditPolicy FOR gmfgen::GenNode-»
+«DEFINE ComponentEditPolicy FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen»
 package «getDiagram().editPoliciesPackageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
 public class «getComponentEditPolicyClassName()» «EXPAND supertypes» {
 	«EXPAND createDeleteCommand-»
+«LET incomingLinks().select(e| {e.modelFacet}.typeSelect(gmfgen::TypeLinkModelFacet).size() > 0) AS incomingTypeLinks-»
+«IF incomingTypeLinks.size() > 0-»
 	«EXPAND getGraphicalEditPart-»
-	«EXPAND xpt::commands::domainModelRemoveCommand::domainModelRemoveCommand("getDiagramNode()")-»
-	«EXPAND getDiagramNode-»
+«ENDIF-»
+«ENDLET-»
+	«EXPAND domainModelRemoveCommand-»
+	«EXPAND getDiagramElement-»
 	«EXPAND additions-»
 }
 «ENDDEFINE»
 
-«DEFINE ComponentEditPolicy FOR gmfgen::GenLink-»
-«EXPAND xpt::Common::copyright FOR getDiagram().editorGen»
-package «getDiagram().editPoliciesPackageName»;
+«DEFINE domainModelRemoveCommand FOR GenCommonBase»«ERROR "Unexpected type!"»«ENDDEFINE»
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «getComponentEditPolicyClassName()» «EXPAND supertypes» {
-	«EXPAND createDeleteCommand-»
-	«EXPAND xpt::commands::domainModelRemoveCommand::domainModelRemoveCommand("getDiagramEdge()")-»
-	«EXPAND getDiagramEdge-»
-	«EXPAND additions-»
-}
+«DEFINE domainModelRemoveCommand FOR GenNode-»
+«EXPAND xpt::commands::domainModelRemoveCommand::domainModelRemoveCommand("getDiagramNode()")-»
+«ENDDEFINE»
+
+«DEFINE domainModelRemoveCommand FOR GenLink-»
+«EXPAND xpt::commands::domainModelRemoveCommand::domainModelRemoveCommand("getDiagramEdge()")-»
+«ENDDEFINE»
+
+«DEFINE getDiagramElement FOR GenCommonBase»«ERROR "Unexpected type!"»«ENDDEFINE»
+
+«DEFINE getDiagramElement FOR GenNode-»
+«EXPAND getDiagramNode-»
+«ENDDEFINE»
+
+«DEFINE getDiagramElement FOR GenLink-»
+«EXPAND getDiagramEdge-»
 «ENDDEFINE»
 
 «DEFINE supertypes FOR gmfgen::GenCommonBase»extends org.eclipse.gef.editpolicies.ComponentEditPolicy«ENDDEFINE»
 
-«DEFINE createDeleteCommand FOR gmfgen::GenNode-»
+«DEFINE createDeleteCommand FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command createDeleteCommand(org.eclipse.gef.requests.GroupRequest deleteRequest) {
 «LET incomingLinks().select(e| {e.modelFacet}.typeSelect(gmfgen::TypeLinkModelFacet).size() > 0) AS incomingTypeLinks-»
@@ -69,10 +80,7 @@ protected org.eclipse.gef.commands.Command createDeleteCommand(org.eclipse.gef.r
 		}
 	}
 «ENDIF-»
-	org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(getDiagramNode().getDiagram().getElement());
-	org.eclipse.emf.common.command.CompoundCommand cc = new org.eclipse.emf.common.command.CompoundCommand();
-	cc.append(createDomainModelRemoveCommand(editingDomain));
-	cc.append(new org.eclipse.gmf.runtime.lite.commands.RemoveNotationalElementCommand((org.eclipse.gmf.runtime.notation.View) getDiagramNode().eContainer(), getDiagramNode()));
+	«EXPAND createDeleteCommandPrim-»
 «IF incomingTypeLinks.size() > 0-»
 	result.add(new org.eclipse.gmf.runtime.lite.commands.WrappingCommand(editingDomain, cc));
 	return result.unwrap();
@@ -83,22 +91,27 @@ protected org.eclipse.gef.commands.Command createDeleteCommand(org.eclipse.gef.r
 }
 «ENDDEFINE»
 
-«DEFINE getGraphicalEditPart FOR gmfgen::GenNode-»
+«DEFINE getGraphicalEditPart FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.GraphicalEditPart getGraphicalEditPart() {
 	return (org.eclipse.gef.GraphicalEditPart) getHost();
 }
 «ENDDEFINE»
 
-«DEFINE createDeleteCommand FOR gmfgen::GenLink-»
-«EXPAND xpt::Common::generatedMemberComment»
-protected org.eclipse.gef.commands.Command createDeleteCommand(org.eclipse.gef.requests.GroupRequest deleteRequest) {
-	org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(getDiagramEdge().getDiagram().getElement());
-	org.eclipse.emf.common.command.CompoundCommand cc = new org.eclipse.emf.common.command.CompoundCommand();
-	cc.append(createDomainModelRemoveCommand(editingDomain));
-	cc.append(new org.eclipse.gmf.runtime.lite.commands.RemoveNotationalEdgeCommand(getDiagramEdge().getDiagram(), getDiagramEdge()));
-	return new org.eclipse.gmf.runtime.lite.commands.WrappingCommand(editingDomain, cc);
-}
+«DEFINE createDeleteCommandPrim FOR gmfgen::GenCommonBase»«ERROR "UnexpectedType"»«ENDDEFINE»
+
+«DEFINE createDeleteCommandPrim FOR gmfgen::GenNode-»
+org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(getDiagramNode().getDiagram().getElement());
+org.eclipse.emf.common.command.CompoundCommand cc = new org.eclipse.emf.common.command.CompoundCommand();
+cc.append(createDomainModelRemoveCommand(editingDomain));
+cc.append(new org.eclipse.gmf.runtime.lite.commands.RemoveNotationalElementCommand((org.eclipse.gmf.runtime.notation.View) getDiagramNode().eContainer(), getDiagramNode()));
+«ENDDEFINE»
+
+«DEFINE createDeleteCommandPrim FOR gmfgen::GenLink-»
+org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(getDiagramEdge().getDiagram().getElement());
+org.eclipse.emf.common.command.CompoundCommand cc = new org.eclipse.emf.common.command.CompoundCommand();
+cc.append(createDomainModelRemoveCommand(editingDomain));
+cc.append(new org.eclipse.gmf.runtime.lite.commands.RemoveNotationalEdgeCommand(getDiagramEdge().getDiagram(), getDiagramEdge()));
 «ENDDEFINE»
 
 «DEFINE getDiagramNode FOR gmfgen::GenNode-»
