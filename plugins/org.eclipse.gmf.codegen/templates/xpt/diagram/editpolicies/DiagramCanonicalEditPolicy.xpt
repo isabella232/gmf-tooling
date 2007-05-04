@@ -12,6 +12,7 @@
 
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «EXTENSION xpt::diagram::editpolicies::Utils»
+«EXTENSION xpt::diagram::updater::Utils»
 «EXTENSION xpt::GenModelUtils»
 
 «DEFINE DiagramCanonicalEditPolicy FOR gmfgen::GenDiagram-»
@@ -96,13 +97,9 @@ protected void refreshSemantic() {
 		
 		«EXPAND collectAllLinks-»
 		
-		«EXPAND getContainedLinksMethod FOREACH getAllContainedLinks(this)-»
-		
 		«EXPAND createConnections-»
 		
 		«EXPAND getEditPart-»
-		
-		«EXPAND xpt::diagram::editpolicies::LinkDescriptor::LinkDescriptor-»
 	«ENDIF-»
 «ENDDEFINE»
 
@@ -119,8 +116,8 @@ private java.util.Collection refreshConnections() {
 		org.eclipse.emf.ecore.EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
 		int diagramLinkVisualID = «getVisualIDRegistryQualifiedClassName()».getVisualID(nextDiagramLink);
 		for (java.util.Iterator LinkDescriptorsIterator = linkDescriptors.iterator(); LinkDescriptorsIterator.hasNext();) {
-			LinkDescriptor nextLinkDescriptor = (LinkDescriptor) LinkDescriptorsIterator.next();
-			if (diagramLinkObject == nextLinkDescriptor.getLinkElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination() && diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
+			«getLinkDescriptorQualifiedClassName()» nextLinkDescriptor = («getLinkDescriptorQualifiedClassName()») LinkDescriptorsIterator.next();
+			if (diagramLinkObject == nextLinkDescriptor.getModelElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination() && diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
 				linksIterator.remove();
 				LinkDescriptorsIterator.remove();
 			}
@@ -136,8 +133,7 @@ private java.util.Collection refreshConnections() {
 private java.util.Collection collectAllLinks(org.eclipse.gmf.runtime.notation.View view, java.util.Map domain2NotationMap) {
 	java.util.Collection result = new java.util.LinkedList();
 	switch («getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
-		«EXPAND caseModelElementHolder FOREACH getAllNodes().select(node | null != node.modelFacet)-»
-		«EXPAND caseModelElementHolder FOREACH links-»
+		«EXPAND caseSemanticElement FOREACH getAllSemanticElements(this)-»
 	}
 	for (java.util.Iterator children = view.getChildren().iterator(); children.hasNext();) {
 		result.addAll(collectAllLinks((org.eclipse.gmf.runtime.notation.View) children.next(), domain2NotationMap));
@@ -149,119 +145,16 @@ private java.util.Collection collectAllLinks(org.eclipse.gmf.runtime.notation.Vi
 }
 «ENDDEFINE»
 
-«DEFINE caseModelElementHolder FOR gmfgen::GenNode-»
+«DEFINE caseSemanticElement FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::caseVisualID» {
-	«EXPAND storeDomainElement-»
-	«EXPAND colectContainedLinks(getDiagram()) FOR modelFacet-»
+	domain2NotationMap.put(view.getElement(), view);
+	result.addAll(«EXPAND xpt::diagram::updater::DiagramUpdater::getContainedLinksMethodCall»(view));	
 	break;	
 }
 «ENDDEFINE»
 
-«DEFINE caseModelElementHolder FOR gmfgen::GenLink-»
-	«EXPAND caseModelElementHolder(this) FOR modelFacet-»
-«ENDDEFINE»
-
-«DEFINE caseModelElementHolder(gmfgen::GenLink link) FOR gmfgen::LinkModelFacet»«ENDDEFINE»
-
-«DEFINE caseModelElementHolder(gmfgen::GenLink link) FOR gmfgen::TypeLinkModelFacet-»
-«EXPAND xpt::Common::caseVisualID FOR link» {
-	«EXPAND storeDomainElement FOR link-»
-	«EXPAND colectContainedLinks(link.getDiagram())-»
-	break;
-}
-«ENDDEFINE»
-
-«DEFINE storeDomainElement FOR gmfgen::GenCommonBase-»
-domain2NotationMap.put(view.getElement(), view);
-«ENDDEFINE»
-
-«DEFINE colectContainedLinks(gmfgen::GenDiagram diagram) FOR gmfgen::TypeModelFacet-»
-	«IF !getContainedLinks(this, diagram).isEmpty()-»
-«metaClass.getQualifiedInterfaceName()» modelElement = («metaClass.getQualifiedInterfaceName()») view.getElement();
-«EXPAND colectContainedLink FOREACH getContainedLinks(this, diagram)-»
-	«ENDIF-»
-«ENDDEFINE»
-
 «DEFINE colectContainedLink FOR gmfgen::GenLink-»
-result.addAll(«EXPAND getContainedLinksMethodName»(modelElement));
-«ENDDEFINE»
-
-«DEFINE getContainedLinksMethodName FOR gmfgen::GenLink»getContained«EXPAND getContainedLinksMethodFragment FOR modelFacet»_«visualID»«ENDDEFINE»
-
-«DEFINE getContainedLinksMethodFragment FOR gmfgen::TypeLinkModelFacet»TypeModelFacetLinks_«metaClass.ecoreClass.name»«ENDDEFINE»
-
-«DEFINE getContainedLinksMethodFragment FOR gmfgen::FeatureLinkModelFacet»FeatureModelFacetLinks_«getFeatureAccessorName(metaFeature)»«ENDDEFINE»
-
-«DEFINE getContainedLinksMethodFragment FOR gmfgen::LinkModelFacet-»
-	«EXPAND incorrectLinkModelFacet-»
-«ENDDEFINE»
-
-«DEFINE getContainedLinksMethod FOR gmfgen::GenLink-»
-	«EXPAND xpt::Common::generatedMemberComment»
-private java.util.Collection «EXPAND getContainedLinksMethodName»(«getQualifiedInterfaceName(getContainerClass(modelFacet))» container) {
-	java.util.Collection result = new java.util.LinkedList();
-	«EXPAND getContainedLinksMethodBody(this) FOR modelFacet-»
-	return result;	
-}
-«ENDDEFINE»
-
-«DEFINE getContainedLinksMethodBody(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
-	«IF childMetaFeature.isListType()-»
-for (java.util.Iterator links = «EXPAND xpt::Common::getFeatureValue("container", getContainerClass(this)) FOR childMetaFeature».iterator(); links.hasNext();) {
-	«getQualifiedInterfaceName(getTypeGenClassX(childMetaFeature))» link = («getQualifiedInterfaceName(getTypeGenClassX(childMetaFeature))») links.next();
-	«ELSE-»
-«getQualifiedInterfaceName(getTypeGenClassX(childMetaFeature))» link = («getQualifiedInterfaceName(getTypeGenClassX(childMetaFeature))») «EXPAND xpt::Common::getFeatureValue("container", getSourceType()) FOR childMetaFeature»;
-	«ENDIF-»
-int linkVID = «genLink.getDiagram().getVisualIDRegistryQualifiedClassName()».getLinkWithClassVisualID(«EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(childMetaFeature)»link);
-if (linkVID == «genLink.getEditPartQualifiedClassName()».VISUAL_ID) {
-	«IF targetMetaFeature.isListType()-»
-	java.util.List targets = «EXPAND xpt::Common::getFeatureValue("link", getTypeGenClassX(childMetaFeature)) FOR targetMetaFeature»;
-	Object target = targets.size() == 1 ? targets.get(0) : null;
-	if (target instanceof «getQualifiedInterfaceName(getTargetType())») {
-		«getQualifiedInterfaceName(getTargetType())» dst = («getQualifiedInterfaceName(getTargetType())») target;
-	«ELSE-»
-	«getQualifiedInterfaceName(getTargetType())» dst = «EXPAND xpt::Common::getFeatureValue("link", getTypeGenClassX(childMetaFeature)) FOR targetMetaFeature»;
-	«ENDIF-»
-	«IF null != sourceMetaFeature-»
-		«IF sourceMetaFeature.isListType()-»
-	java.util.List sources = «EXPAND xpt::Common::getFeatureValue("link", getTypeGenClassX(childMetaFeature)) FOR sourceMetaFeature»;
-	Object source = sources.size() == 1 ? sources.get(0) : null;
-	if (source instanceof «getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))») {
-		«getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))» src = («getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))») structuralFeatureResult;
-		«ELSE-»
-	«getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))» src = «EXPAND xpt::Common::getFeatureValue("link", getTypeGenClassX(childMetaFeature)) FOR sourceMetaFeature»;
-		«ENDIF-»
-	result.add(new LinkDescriptor(«EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(sourceMetaFeature)»src, «EXPAND xpt::Common::castToEObject FOR getTargetType()»dst, «EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(childMetaFeature)»link, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», linkVID));
-		«IF sourceMetaFeature.isListType()-»
-	}
-		«ENDIF-»
-	«ELSE-»
-	result.add(new LinkDescriptor(«EXPAND xpt::Common::castToEObject FOR getContainerClass(this)»container, «EXPAND xpt::Common::castToEObject FOR getTargetType()»dst, «EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(childMetaFeature)»link, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», linkVID));
-	«ENDIF-»
-	«IF targetMetaFeature.isListType()-»
-	}
-	«ENDIF-»
-}
-	«IF childMetaFeature.isListType()-»
-}
-	«ENDIF-»
-«ENDDEFINE»
-
-«DEFINE getContainedLinksMethodBody(gmfgen::GenLink genLink) FOR gmfgen::FeatureLinkModelFacet-»
-	«IF metaFeature.isListType()-»
-for (java.util.Iterator destinations = «EXPAND xpt::Common::getFeatureValue("container", getContainerClass(this)) FOR metaFeature».iterator(); destinations.hasNext();) {
-	«getQualifiedInterfaceName(getTypeGenClassX(metaFeature))» destination = («getQualifiedInterfaceName(getTypeGenClassX(metaFeature))») destinations.next();
-	«ELSE-»
-«getQualifiedInterfaceName(getTypeGenClassX(metaFeature))» destination = «EXPAND xpt::Common::getFeatureValue("container", getContainerClass(this)) FOR metaFeature»;
-	«ENDIF-»
-result.add(new LinkDescriptor(«EXPAND xpt::Common::castToEObject FOR getContainerClass(this)»container, «EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(metaFeature)»destination, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «genLink.getEditPartQualifiedClassName()».VISUAL_ID));
-	«IF metaFeature.isListType()-»
-}
-	«ENDIF-»
-«ENDDEFINE»
-
-«DEFINE getContainedLinksMethodBody(gmfgen::GenLink genLink) FOR gmfgen::LinkModelFacet-»
-	«EXPAND incorrectLinkModelFacet-»
+«EXPAND xpt::diagram::updater::DiagramUpdater::getContainedLinksMethodCall»(modelElement));
 «ENDDEFINE»
 
 «DEFINE createConnections FOR gmfgen::GenDiagram-»
@@ -269,7 +162,7 @@ result.add(new LinkDescriptor(«EXPAND xpt::Common::castToEObject FOR getContaine
 private java.util.Collection createConnections(java.util.Collection linkDescriptors, java.util.Map domain2NotationMap) {
 	java.util.List adapters = new java.util.LinkedList();
 	for (java.util.Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
-		final LinkDescriptor nextLinkDescriptor = (LinkDescriptor) linkDescriptorsIterator.next();
+		final «getLinkDescriptorQualifiedClassName()» nextLinkDescriptor = («getLinkDescriptorQualifiedClassName()») linkDescriptorsIterator.next();
 		org.eclipse.gef.EditPart sourceEditPart = getEditPart(nextLinkDescriptor.getSource(), domain2NotationMap);
 		org.eclipse.gef.EditPart targetEditPart = getEditPart(nextLinkDescriptor.getDestination(), domain2NotationMap);
 		if (sourceEditPart == null || targetEditPart == null) {

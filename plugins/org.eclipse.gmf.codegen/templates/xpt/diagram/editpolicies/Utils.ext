@@ -11,33 +11,9 @@
  */
  
 import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
-import "http://www.eclipse.org/emf/2002/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
+extension xpt::diagram::editpolicies::LinkUtils;
 extension xpt::GenModelUtils;
-
-List[gmfgen::GenLink] getAllContainedLinks(gmfgen::GenDiagram diagram) :
-	diagram.links.select(link | !getAllContainerModelFacets(diagram).select(modelFacet | canBeContainer(link, modelFacet)).isEmpty())
-;
-
-cached List[gmfgen::TypeModelFacet] getAllContainerModelFacets(gmfgen::GenDiagram diagram) :
-	diagram.getAllNodes().collect(node | node.modelFacet).addAll(getTypeModelFacets(diagram.links))
-;
-
-private List[gmfgen::TypeLinkModelFacet] getTypeModelFacets(List[gmfgen::GenLink] links) :
-	links.select(link | null != link.modelFacet && isTypeModelFacet(link.modelFacet)).collect(link | link.modelFacet)
-;
-
-private boolean isTypeModelFacet(gmfgen::LinkModelFacet modelFacet) :
-	false
-;
-
-private boolean isTypeModelFacet(gmfgen::TypeLinkModelFacet modelFacet) :
-	true
-;
-
-cached List[gmfgen::GenLink] getContainedLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
-	diagram.links.select(link | canBeContainer(link, typeModelFacet))
-;
 
 boolean hasChildrenOrCompartments(gmfgen::GenNode node) :
 	!node.childNodes.isEmpty() || !node.compartments.isEmpty()
@@ -144,39 +120,6 @@ private boolean isOutgoing(gmfgen::GenLink link, gmfgen::TypeModelFacet typeMode
 
 private boolean isIncoming(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
 	canBeTarget(link, typeModelFacet) && !isSelf(link, typeModelFacet)
-;
-
-private boolean canBeSource(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
-	null != link.modelFacet && canBeLinkEnd(link.modelFacet.getSourceType(), typeModelFacet)
-;
-
-private boolean canBeTarget(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
-	null != link.modelFacet && canBeLinkEnd(link.modelFacet.getTargetType(), typeModelFacet)
-;
-
-boolean canBeContainer(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
-	null != link.modelFacet && null != getContainerClass(link.modelFacet) && canBeLinkEnd(getContainerClass(link.modelFacet), typeModelFacet)
-;
-
-genmodel::GenClass getContainerClass(gmfgen::LinkModelFacet modelFacet) :
-// Should not be called
-	null
-;
-
-genmodel::GenClass getContainerClass(gmfgen::TypeLinkModelFacet modelFacet) :
-	modelFacet.containmentMetaFeature.genClass
-;
-
-genmodel::GenClass getContainerClass(gmfgen::FeatureLinkModelFacet modelFacet) :
-	modelFacet.metaFeature.genClass
-;
-
-private boolean canBeLinkEnd(genmodel::GenClass endType, gmfgen::TypeModelFacet typeModelFacet) :
-	null != endType && endType.ecoreClass.isSuperTypeOf(getMetaclass(typeModelFacet))
-;
-
-private ecore::EClass getMetaclass(gmfgen::TypeModelFacet typeModelFacet) :
-	typeModelFacet.metaClass.ecoreClass
 ;
 
 String i18nKeyForLinkConstraintErrorLog() :

@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Updater#getDiagramUpdaterClassName <em>Diagram Updater Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Updater#getNodeDescriptorClassName <em>Node Descriptor Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Updater#getLinkDescriptorClassName <em>Link Descriptor Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,6 +80,32 @@ public interface Updater extends EObject {
 	void setNodeDescriptorClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Link Descriptor Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Link Descriptor Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Link Descriptor Class Name</em>' attribute.
+	 * @see #setLinkDescriptorClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getUpdater_LinkDescriptorClassName()
+	 * @model
+	 * @generated
+	 */
+	String getLinkDescriptorClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.Updater#getLinkDescriptorClassName <em>Link Descriptor Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Link Descriptor Class Name</em>' attribute.
+	 * @see #getLinkDescriptorClassName()
+	 * @generated
+	 */
+	void setLinkDescriptorClassName(String value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
@@ -93,5 +120,13 @@ public interface Updater extends EObject {
 	 * @generated
 	 */
 	String getNodeDescriptorQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getLinkDescriptorQualifiedClassName();
 
 } // Updater

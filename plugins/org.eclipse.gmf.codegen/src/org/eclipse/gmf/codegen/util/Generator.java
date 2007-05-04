@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
-import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
@@ -217,6 +216,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 		generateDiagramUpdater();
 		generateNodeDescriptor();
+		generateLinkDescriptor();
 		generateActionBarContributor();
 		generateMatchingStrategy();
 		if (myEditorGen.getNavigator() != null) {
@@ -872,6 +872,10 @@ public class Generator extends GeneratorBase implements Runnable {
 	
 	private void generateNodeDescriptor() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getNodeDescriptorEmitter(), myDiagram.getNodeDescriptorQualifiedClassName(), myDiagram);
+	}
+	
+	private void generateLinkDescriptor() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getLinkDescriptorEmitter(), myDiagram.getLinkDescriptorQualifiedClassName(), myDiagram);
 	}
 
 	private void generateActionBarContributor() throws UnexpectedBehaviourException, InterruptedException {

@@ -1138,13 +1138,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_DIAGRAM__NODE_DESCRIPTOR_CLASS_NAME = GEN_CONTAINER_BASE_FEATURE_COUNT + 62;
 
 	/**
+	 * The feature id for the '<em><b>Link Descriptor Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM__LINK_DESCRIPTOR_CLASS_NAME = GEN_CONTAINER_BASE_FEATURE_COUNT + 63;
+
+	/**
 	 * The feature id for the '<em><b>Editor Gen</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__EDITOR_GEN = GEN_CONTAINER_BASE_FEATURE_COUNT + 63;
+	int GEN_DIAGRAM__EDITOR_GEN = GEN_CONTAINER_BASE_FEATURE_COUNT + 64;
 
 	/**
 	 * The feature id for the '<em><b>Domain Diagram Element</b></em>' reference.
@@ -1153,7 +1162,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT = GEN_CONTAINER_BASE_FEATURE_COUNT + 64;
+	int GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT = GEN_CONTAINER_BASE_FEATURE_COUNT + 65;
 
 	/**
 	 * The feature id for the '<em><b>Child Nodes</b></em>' containment reference list.
@@ -1162,7 +1171,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__CHILD_NODES = GEN_CONTAINER_BASE_FEATURE_COUNT + 65;
+	int GEN_DIAGRAM__CHILD_NODES = GEN_CONTAINER_BASE_FEATURE_COUNT + 66;
 
 	/**
 	 * The feature id for the '<em><b>Top Level Nodes</b></em>' containment reference list.
@@ -1171,7 +1180,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__TOP_LEVEL_NODES = GEN_CONTAINER_BASE_FEATURE_COUNT + 66;
+	int GEN_DIAGRAM__TOP_LEVEL_NODES = GEN_CONTAINER_BASE_FEATURE_COUNT + 67;
 
 	/**
 	 * The feature id for the '<em><b>Links</b></em>' containment reference list.
@@ -1180,7 +1189,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__LINKS = GEN_CONTAINER_BASE_FEATURE_COUNT + 67;
+	int GEN_DIAGRAM__LINKS = GEN_CONTAINER_BASE_FEATURE_COUNT + 68;
 
 	/**
 	 * The feature id for the '<em><b>Compartments</b></em>' containment reference list.
@@ -1189,7 +1198,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__COMPARTMENTS = GEN_CONTAINER_BASE_FEATURE_COUNT + 68;
+	int GEN_DIAGRAM__COMPARTMENTS = GEN_CONTAINER_BASE_FEATURE_COUNT + 69;
 
 	/**
 	 * The feature id for the '<em><b>Palette</b></em>' containment reference.
@@ -1198,7 +1207,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PALETTE = GEN_CONTAINER_BASE_FEATURE_COUNT + 69;
+	int GEN_DIAGRAM__PALETTE = GEN_CONTAINER_BASE_FEATURE_COUNT + 70;
 
 	/**
 	 * The feature id for the '<em><b>Synchronized</b></em>' attribute.
@@ -1207,7 +1216,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__SYNCHRONIZED = GEN_CONTAINER_BASE_FEATURE_COUNT + 70;
+	int GEN_DIAGRAM__SYNCHRONIZED = GEN_CONTAINER_BASE_FEATURE_COUNT + 71;
 
 	/**
 	 * The feature id for the '<em><b>Preferences</b></em>' containment reference.
@@ -1216,7 +1225,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PREFERENCES = GEN_CONTAINER_BASE_FEATURE_COUNT + 71;
+	int GEN_DIAGRAM__PREFERENCES = GEN_CONTAINER_BASE_FEATURE_COUNT + 72;
 
 	/**
 	 * The feature id for the '<em><b>Preference Pages</b></em>' containment reference list.
@@ -1225,7 +1234,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PREFERENCE_PAGES = GEN_CONTAINER_BASE_FEATURE_COUNT + 72;
+	int GEN_DIAGRAM__PREFERENCE_PAGES = GEN_CONTAINER_BASE_FEATURE_COUNT + 73;
 
 	/**
 	 * The number of structural features of the '<em>Gen Diagram</em>' class.
@@ -1234,7 +1243,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM_FEATURE_COUNT = GEN_CONTAINER_BASE_FEATURE_COUNT + 73;
+	int GEN_DIAGRAM_FEATURE_COUNT = GEN_CONTAINER_BASE_FEATURE_COUNT + 74;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl <em>Gen Editor View</em>}' class.
@@ -2616,13 +2625,22 @@ public interface GMFGenPackage extends EPackage {
 	int UPDATER__NODE_DESCRIPTOR_CLASS_NAME = 1;
 
 	/**
+	 * The feature id for the '<em><b>Link Descriptor Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UPDATER__LINK_DESCRIPTOR_CLASS_NAME = 2;
+
+	/**
 	 * The number of structural features of the '<em>Updater</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int UPDATER_FEATURE_COUNT = 2;
+	int UPDATER_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl <em>Gen Plugin</em>}' class.
@@ -11095,6 +11113,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getUpdater_NodeDescriptorClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.Updater#getLinkDescriptorClassName <em>Link Descriptor Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Link Descriptor Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.Updater#getLinkDescriptorClassName()
+	 * @see #getUpdater()
+	 * @generated
+	 */
+	EAttribute getUpdater_LinkDescriptorClassName();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin <em>Gen Plugin</em>}'.

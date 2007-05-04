@@ -365,8 +365,10 @@
     <genClasses image="false" ecoreClass="gmfgen.ecore#//Updater">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Updater/diagramUpdaterClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Updater/nodeDescriptorClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Updater/linkDescriptorClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//Updater/getDiagramUpdaterQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//Updater/getNodeDescriptorQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//Updater/getLinkDescriptorQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenPlugin">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPlugin/editorGen"/>
