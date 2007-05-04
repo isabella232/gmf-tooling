@@ -375,7 +375,20 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 */
 	public EList<String> getRequiredPluginIDs() {
 		Collection<String> requiredPlugins = new LinkedHashSet<String>();
-		
+		if (getEditorGen() != null) {
+			final GenModel genModel = getEditorGen().getDomainGenModel();
+			if (genModel != null) {
+				requiredPlugins.add(genModel.getModelPluginID());
+				requiredPlugins.add(genModel.getEditPluginID());
+				for (Iterator<GenPackage> it = genModel.getAllUsedGenPackagesWithClassifiers().iterator(); it.hasNext();) {
+					GenModel nextGenModel = it.next().getGenModel();
+					if (nextGenModel.hasEditSupport()) {
+						requiredPlugins.add(nextGenModel.getModelPluginID());
+						requiredPlugins.add(nextGenModel.getEditPluginID());
+					}
+				}
+			}
+		}
 		requiredPlugins.addAll(getExpressionsRequiredPluginIDs());
 		requiredPlugins.addAll(getValidationRequiredPluginIDs());
 		requiredPlugins.addAll(getMetricsRequiredPluginIDs());

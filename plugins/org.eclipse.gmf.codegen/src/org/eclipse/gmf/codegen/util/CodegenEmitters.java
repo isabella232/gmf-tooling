@@ -38,7 +38,6 @@ import org.eclipse.gmf.codegen.templates.editor.DiagramContentsInitializerGenera
 import org.eclipse.gmf.codegen.templates.editor.EditorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ElementChooserGenerator;
 import org.eclipse.gmf.codegen.templates.editor.LoadResourceActionGenerator;
-import org.eclipse.gmf.codegen.templates.editor.ManifestGenerator;
 import org.eclipse.gmf.codegen.templates.editor.OptionsFileGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistryGenerator;
@@ -176,7 +175,6 @@ public class CodegenEmitters {
 		put(tr, "/navigator/NavigatorActionProvider.javajet", NavigatorActionProviderGenerator.class);
 		put(tr, "/editor/Plugin.javajet", PluginGenerator.class);
 		put(tr, "/editor/.optionsjet", OptionsFileGenerator.class);
-		put(tr, "/editor/manifest.mfjet", ManifestGenerator.class);
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class); //$NON-NLS-1$		
@@ -647,11 +645,11 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getPluginXmlEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::plugin::plugin"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::plugin"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getPluginPropertiesEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::properties::properties"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::properties"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getOptionsFileEmitter() throws UnexpectedBehaviourException {
@@ -659,7 +657,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getBundleManifestEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ManifestGenerator.class);
+		return getPrimaryEmitter("xpt::manifest"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getBuildPropertiesEmitter() throws UnexpectedBehaviourException {
