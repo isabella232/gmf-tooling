@@ -630,10 +630,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			modelFacet.setViewPattern(flMapping.getViewPattern());
 			modelFacet.setEditorPattern(flMapping.getEditorPattern());
 			modelFacet.setEditPattern(flMapping.getEditPattern());
-			if (flMapping.getViewMethod() != null) {
+			if (flMapping.eIsSet(GMFMapPackage.eINSTANCE.getFeatureLabelMapping_ViewMethod())) {
 				modelFacet.setViewMethod(LabelTextAccessMethod.get(flMapping.getViewMethod().getValue()));
 			}
-			if (flMapping.getEditMethod() != null) {
+			if (flMapping.eIsSet(GMFMapPackage.eINSTANCE.getFeatureLabelMapping_EditMethod())) {
 				modelFacet.setEditMethod(LabelTextAccessMethod.get(flMapping.getEditMethod().getValue()));
 			}
 			return modelFacet;
