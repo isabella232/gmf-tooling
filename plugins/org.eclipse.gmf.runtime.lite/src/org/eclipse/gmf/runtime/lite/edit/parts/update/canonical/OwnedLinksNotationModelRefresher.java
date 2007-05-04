@@ -99,12 +99,20 @@ public abstract class OwnedLinksNotationModelRefresher extends AbstractNotationM
 						command.appendIfCanExecute(getCreateNotationalElementCommand(next));
 					} else {
 						View newSourceView = myViewService.findView(next.getSource());
-						if (changedSource && newSourceView != null) {
-							command.appendIfCanExecute(new ReconnectNotationalEdgeSourceCommand(currentEdge, newSourceView));
+						if (changedSource) {
+							if (newSourceView != null && isValidLinkSource(newSourceView, next)) { 
+								command.appendIfCanExecute(new ReconnectNotationalEdgeSourceCommand(currentEdge, newSourceView));
+							} else {
+								command.appendIfCanExecute(new RemoveNotationalEdgeCommand(currentEdge.getDiagram(), currentEdge));
+							}
 						}
 						View newTargetView = myViewService.findView(next.getDestination());
-						if (changedTarget && newTargetView != null) {
-							command.appendIfCanExecute(new ReconnectNotationalEdgeTargetCommand(currentEdge, newTargetView));
+						if (changedTarget) {
+							if (newTargetView != null && isValidLinkTarget(newTargetView, next)) {
+								command.appendIfCanExecute(new ReconnectNotationalEdgeTargetCommand(currentEdge, newTargetView));
+							} else {
+								command.appendIfCanExecute(new RemoveNotationalEdgeCommand(currentEdge.getDiagram(), currentEdge));
+							}
 						}
 					}
 				}
@@ -126,4 +134,18 @@ public abstract class OwnedLinksNotationModelRefresher extends AbstractNotationM
 
 	protected abstract List/*<LinkDescriptor>*/ getSemanticChildLinks();
 	protected abstract List/*<Edge>*/ getNotationalChildLinks();
+
+	/**
+	 * Returns whether the given view can be source of the given link. 
+	 */
+	protected boolean isValidLinkSource(View sourceCandidate, LinkDescriptor linkDescriptor) {
+		return true;
+	}
+
+	/**
+	 * Returns whether the given view can be source of the given link. 
+	 */
+	protected boolean isValidLinkTarget(View targetCandidate, LinkDescriptor linkDescriptor) {
+		return true;
+	}
 }

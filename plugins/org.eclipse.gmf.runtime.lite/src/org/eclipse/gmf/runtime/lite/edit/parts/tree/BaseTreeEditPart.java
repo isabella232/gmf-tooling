@@ -96,8 +96,11 @@ public class BaseTreeEditPart extends AbstractTreeEditPart implements IUpdatable
 		super.deactivate();
 	}
 
-	protected final TransactionalUpdateManager getTransactionalUpdateManager() {
-		return (TransactionalUpdateManager) getViewer().getProperty(TransactionalUpdateManager.class.getName());
+	protected TransactionalUpdateManager getTransactionalUpdateManager() {
+		if (getParent() instanceof BaseTreeEditPart) {
+			return ((BaseTreeEditPart) getParent()).getTransactionalUpdateManager();
+		}
+		return null;
 	}
 
 	protected List getModelChildren() {
