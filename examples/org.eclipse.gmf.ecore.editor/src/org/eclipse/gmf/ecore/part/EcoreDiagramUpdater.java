@@ -103,9 +103,8 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List getEClassAttributes_7001SemanticChildren(View view) {
 		EClass modelElement = (EClass) view.getElement();
-		List semanticChildren = getEClassAttributes_7001SemanticChildren(modelElement);
 		List result = new LinkedList();
-		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		for (Iterator semanticIterator = getEClassAttributes_7001SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
 			if (isEClassAttributes_7001DomainMetaChild(visualID)) {
@@ -120,9 +119,8 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List getEClassOperations_7002SemanticChildren(View view) {
 		EClass modelElement = (EClass) view.getElement();
-		List semanticChildren = getEClassOperations_7002SemanticChildren(modelElement);
 		List result = new LinkedList();
-		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		for (Iterator semanticIterator = getEClassOperations_7002SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
 			if (isEClassOperations_7002DomainMetaChild(visualID)) {
@@ -137,9 +135,8 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List getEClassClassAnnotations_7003SemanticChildren(View view) {
 		EClass modelElement = (EClass) view.getElement();
-		List semanticChildren = getEClassClassAnnotations_7003SemanticChildren(modelElement);
 		List result = new LinkedList();
-		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		for (Iterator semanticIterator = getEClassClassAnnotations_7003SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
 			if (isEClassClassAnnotations_7003DomainMetaChild(visualID)) {
@@ -154,9 +151,8 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List getEPackageClasses_7004SemanticChildren(View view) {
 		EPackage modelElement = (EPackage) view.getElement();
-		List semanticChildren = getEPackageClasses_7004SemanticChildren(modelElement);
 		List result = new LinkedList();
-		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		for (Iterator semanticIterator = getEPackageClasses_7004SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
 			if (isEPackageClasses_7004DomainMetaChild(visualID)) {
@@ -171,9 +167,8 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List getEPackagePackages_7005SemanticChildren(View view) {
 		EPackage modelElement = (EPackage) view.getElement();
-		List semanticChildren = getEPackagePackages_7005SemanticChildren(modelElement);
 		List result = new LinkedList();
-		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		for (Iterator semanticIterator = getEPackagePackages_7005SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
 			if (isEPackagePackages_7005DomainMetaChild(visualID)) {
@@ -188,9 +183,8 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List getEPackageDataTypes_7006SemanticChildren(View view) {
 		EPackage modelElement = (EPackage) view.getElement();
-		List semanticChildren = getEPackageDataTypes_7006SemanticChildren(modelElement);
 		List result = new LinkedList();
-		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		for (Iterator semanticIterator = getEPackageDataTypes_7006SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
 			if (isEPackageDataTypes_7006DomainMetaChild(visualID)) {
@@ -205,9 +199,8 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List getEPackageEnums_7007SemanticChildren(View view) {
 		EPackage modelElement = (EPackage) view.getElement();
-		List semanticChildren = getEPackageEnums_7007SemanticChildren(modelElement);
 		List result = new LinkedList();
-		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		for (Iterator semanticIterator = getEPackageEnums_7007SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
 			if (isEPackageEnums_7007DomainMetaChild(visualID)) {
@@ -222,9 +215,8 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List getEPackagePackageAnnotations_7008SemanticChildren(View view) {
 		EPackage modelElement = (EPackage) view.getElement();
-		List semanticChildren = getEPackagePackageAnnotations_7008SemanticChildren(modelElement);
 		List result = new LinkedList();
-		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		for (Iterator semanticIterator = getEPackagePackageAnnotations_7008SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
 			if (isEPackagePackageAnnotations_7008DomainMetaChild(visualID)) {
@@ -239,9 +231,8 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List getEAnnotationDetails_7009SemanticChildren(View view) {
 		EAnnotation modelElement = (EAnnotation) view.getElement();
-		List semanticChildren = getEAnnotationDetails_7009SemanticChildren(modelElement);
 		List result = new LinkedList();
-		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		for (Iterator semanticIterator = getEAnnotationDetails_7009SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
 			if (isEAnnotationDetails_7009DomainMetaChild(visualID)) {
@@ -256,9 +247,8 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List getEDataTypeDataTypeAnnotations_7010SemanticChildren(View view) {
 		EDataType modelElement = (EDataType) view.getElement();
-		List semanticChildren = getEDataTypeDataTypeAnnotations_7010SemanticChildren(modelElement);
 		List result = new LinkedList();
-		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		for (Iterator semanticIterator = getEDataTypeDataTypeAnnotations_7010SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
 			if (isEDataTypeDataTypeAnnotations_7010DomainMetaChild(visualID)) {
@@ -273,9 +263,8 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List getEEnumLiterals_7011SemanticChildren(View view) {
 		EEnum modelElement = (EEnum) view.getElement();
-		List semanticChildren = getEEnumLiterals_7011SemanticChildren(modelElement);
 		List result = new LinkedList();
-		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		for (Iterator semanticIterator = getEEnumLiterals_7011SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
 			if (isEEnumLiterals_7011DomainMetaChild(visualID)) {
@@ -290,9 +279,8 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List getEEnumEnumAnnotations_7012SemanticChildren(View view) {
 		EEnum modelElement = (EEnum) view.getElement();
-		List semanticChildren = getEEnumEnumAnnotations_7012SemanticChildren(modelElement);
 		List result = new LinkedList();
-		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		for (Iterator semanticIterator = getEEnumEnumAnnotations_7012SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
 			if (isEEnumEnumAnnotations_7012DomainMetaChild(visualID)) {
@@ -307,9 +295,8 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List getEPackage_1000SemanticChildren(View view) {
 		EPackage modelElement = (EPackage) view.getElement();
-		List semanticChildren = getEPackage_1000SemanticChildren(modelElement);
 		List result = new LinkedList();
-		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		for (Iterator semanticIterator = getEPackage_1000SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
 			if (isEPackage_1000DomainMetaChild(visualID)) {

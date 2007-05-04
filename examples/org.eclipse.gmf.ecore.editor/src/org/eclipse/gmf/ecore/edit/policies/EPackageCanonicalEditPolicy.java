@@ -279,9 +279,20 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			domain2NotationMap.put(view.getElement(), view);
 			break;
 		}
+		case EReferenceEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			break;
+		}
+		case EReference2EditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			break;
+		}
 		}
 		for (Iterator children = view.getChildren().iterator(); children.hasNext();) {
 			result.addAll(collectAllLinks((View) children.next(), domain2NotationMap));
+		}
+		for (Iterator edges = view.getSourceEdges().iterator(); edges.hasNext();) {
+			result.addAll(collectAllLinks((View) edges.next(), domain2NotationMap));
 		}
 		return result;
 	}
