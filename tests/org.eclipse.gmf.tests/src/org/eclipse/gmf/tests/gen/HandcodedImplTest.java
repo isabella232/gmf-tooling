@@ -903,6 +903,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkClassName(state, "EditPartCandies:BaseGraphicalNodeEditPolicy", genDiagram.getBaseGraphicalNodeEditPolicyClassName(), genDiagram.getBaseGraphicalNodeEditPolicyQualifiedClassName());
 		checkClassName(state, "Updater:DiagramUpdater", genDiagram.getDiagramUpdaterClassName(), genDiagram.getDiagramUpdaterQualifiedClassName());
 		checkClassName(state, "Updater:NodeDescriptor", genDiagram.getNodeDescriptorClassName(), genDiagram.getNodeDescriptorQualifiedClassName());
+		checkClassName(state, "Updater:LinkDescriptor", genDiagram.getLinkDescriptorClassName(), genDiagram.getLinkDescriptorQualifiedClassName());
 		checkClassName(state, "GenContainerBase:CanonicalEditPolicy", genDiagram.getCanonicalEditPolicyClassName(), genDiagram.getCanonicalEditPolicyQualifiedClassName());
 		checkClassName(state, "EditPartCandies:TextSelectionEditPolicy", genDiagram.getTextSelectionEditPolicyClassName(), genDiagram.getTextSelectionEditPolicyQualifiedClassName());
 		checkClassName(state, "EditPartCandies:TextNonResizableEditPolicy", genDiagram.getTextNonResizableEditPolicyClassName(), genDiagram.getTextNonResizableEditPolicyQualifiedClassName());
