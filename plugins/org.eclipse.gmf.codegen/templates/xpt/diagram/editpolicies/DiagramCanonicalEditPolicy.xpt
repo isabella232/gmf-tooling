@@ -96,7 +96,7 @@ protected void refreshSemantic() {
 		
 		«EXPAND collectAllLinks-»
 		
-		«EXPAND getContainedLinksMethod FOREACH getAllSemanticLinks(this)-»
+		«EXPAND getContainedLinksMethod FOREACH getAllContainedLinks(this)-»
 		
 		«EXPAND createConnections-»
 		

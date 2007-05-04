@@ -15,16 +15,24 @@ import "http://www.eclipse.org/emf/2002/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
 extension xpt::GenModelUtils;
 
-List[gmfgen::GenLink] getAllSemanticLinks(gmfgen::GenDiagram diagram) :
-	diagram.links.select(link | containedInNode(link, diagram) || containedInLink(link, diagram))
+List[gmfgen::GenLink] getAllContainedLinks(gmfgen::GenDiagram diagram) :
+	diagram.links.select(link | !getAllContainerModelFacets(diagram).select(modelFacet | canBeContainer(link, modelFacet)).isEmpty())
 ;
 
-private boolean containedInNode(gmfgen::GenLink link, gmfgen::GenDiagram diagram) :
-	!diagram.getAllNodes().select(node | canBeContainer(link, node.modelFacet)).isEmpty()
+cached List[gmfgen::TypeModelFacet] getAllContainerModelFacets(gmfgen::GenDiagram diagram) :
+	diagram.getAllNodes().collect(node | node.modelFacet).addAll(getTypeModelFacets(diagram.links))
 ;
 
-private boolean containedInLink(gmfgen::GenLink link, gmfgen::GenDiagram diagram) :
-	!diagram.links.select(diagramLink | !{diagramLink.modelFacet}.typeSelect(gmfgen::TypeLinkModelFacet).isEmpty() && canBeContainer(link, (gmfgen::TypeLinkModelFacet) diagramLink.modelFacet)).isEmpty()
+private List[gmfgen::TypeLinkModelFacet] getTypeModelFacets(List[gmfgen::GenLink] links) :
+	links.select(link | null != link.modelFacet && isTypeModelFacet(link.modelFacet)).collect(link | link.modelFacet)
+;
+
+private boolean isTypeModelFacet(gmfgen::LinkModelFacet modelFacet) :
+	false
+;
+
+private boolean isTypeModelFacet(gmfgen::TypeLinkModelFacet modelFacet) :
+	true
 ;
 
 cached List[gmfgen::GenLink] getContainedLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
