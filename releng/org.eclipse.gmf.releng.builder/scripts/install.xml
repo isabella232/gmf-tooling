@@ -111,6 +111,7 @@
 		<condition property="emftExists">
 			<and>
 				<available file="${baseLocation}/features/${emfFeatureId}_${emfUpdateVersion}/feature.xml" property="emfExists" />
+				<available file="${baseLocation}/features/${mdtOCLFeatureId}_${mdtOCLUpdateVersion}/feature.xml"/>
 				<available file="${baseLocation}/features/${emfQvtAllFeatureId}_${emfQvtAllUpdateVersion}/feature.xml" property="emfExists" />
 			</and>
 		</condition>		
@@ -124,27 +125,15 @@
 			<property name="updatesite.name" value="requirements" />
 		</ant>
 		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${emfQtvAllFeatureId}" />
-			<property name="version" value="${emfQtvAllUpdateVersion}" />
-			<property name="from.updatesite" value="${emfUpdateSite}" />
-			<property name="updatesite.name" value="requirements" />
-		</ant>
-	</target>
-	
-	<target name="checkMDTInstalled">
-		<condition property="mdtExists">
-			<and>
-				<available file="${baseLocation}/features/${mdtOCLFeatureId}_${mdtOCLUpdateVersion}/feature.xml"/>
-			</and>
-		</condition>
-	</target>
-			
-	<!-- TODO: do check installed for EMFT components as well. -->
-	<target name="installMDT" unless="mdtExists" depends="checkMDTInstalled">
-		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${mdtOCLFeatureId}" />
 			<property name="version" value="${mdtOCLUpdateVersion}" />
 			<property name="from.updatesite" value="${mdtOCLUpdateSite}" />
+			<property name="updatesite.name" value="requirements" />
+		</ant>
+		<ant antfile="${scripts}/update.xml" target="install">
+			<property name="featureId" value="${emfQtvAllFeatureId}" />
+			<property name="version" value="${emfQtvAllUpdateVersion}" />
+			<property name="from.updatesite" value="${emfUpdateSite}" />
 			<property name="updatesite.name" value="requirements" />
 		</ant>
 	</target>
