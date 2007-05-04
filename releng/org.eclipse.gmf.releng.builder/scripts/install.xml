@@ -107,28 +107,11 @@
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/drops/${buildLabel}/GMF-tests-experimental-${buildId}.zip" />
 	</target>
 
-	<target name="checkOCLInstalled">
-		<condition property="oclExists">
-			<and>
-				<available file="${baseLocation}/features/${oclFeatureId}_${oclUpdateVersion}/feature.xml"/>
-			</and>
-		</condition>
-	</target>
-			
-	<!-- TODO: do check installed for EMFT components as well. -->
-	<target name="installOCL" unless="oclExists" depends="checkOCLInstalled">
-		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${oclFeatureId}" />
-			<property name="version" value="${oclUpdateVersion}" />
-			<property name="from.updatesite" value="${oclUpdateSite}" />
-			<property name="updatesite.name" value="requirements" />
-		</ant>
-	</target>
-	
 	<target name="checkEMFInstalled">
 		<condition property="emftExists">
 			<and>
 				<available file="${baseLocation}/features/${emfFeatureId}_${emfUpdateVersion}/feature.xml"/>
+				<available file="${baseLocation}/features/${oclFeatureId}_${oclUpdateVersion}/feature.xml"/>
 				<available file="${baseLocation}/features/${emfOclAllFeatureId}_${emfOclAllUpdateVersion}/feature.xml"/>
 				<available file="${baseLocation}/features/${emfQtvAllFeatureId}_${emfQtvAllUpdateVersion}/feature.xml"/>
 			</and>
@@ -140,6 +123,12 @@
 			<property name="featureId" value="${emfFeatureId}" />
 			<property name="version" value="${emfUpdateVersion}" />
 			<property name="from.updatesite" value="${emfUpdateSite}" />
+			<property name="updatesite.name" value="requirements" />
+		</ant>
+		<ant antfile="${scripts}/update.xml" target="install">
+			<property name="featureId" value="${oclFeatureId}" />
+			<property name="version" value="${oclUpdateVersion}" />
+			<property name="from.updatesite" value="${oclUpdateSite}" />
 			<property name="updatesite.name" value="requirements" />
 		</ant>
 		<ant antfile="${scripts}/update.xml" target="install">
