@@ -108,7 +108,12 @@
 	</target>
 
 	<target name="checkEMFInstalled">
-		<available file="${baseLocation}/features/${emfFeatureId}_${emfUpdateVersion}/feature.xml" property="emfExists" />
+		<condition property="emftExists">
+			<and>
+				<available file="${baseLocation}/features/${emfFeatureId}_${emfUpdateVersion}/feature.xml" property="emfExists" />
+				<available file="${baseLocation}/features/${emfQvtAllFeatureId}_${emfQvtAllUpdateVersion}/feature.xml" property="emfExists" />
+			</and>
+		</condition>		
 	</target>
 
 	<target name="installEMF" unless="emfExists" depends="checkEMFInstalled">
@@ -118,109 +123,30 @@
 			<property name="from.updatesite" value="${emfUpdateSite}" />
 			<property name="updatesite.name" value="requirements" />
 		</ant>
-<!-- Alternative, download zip method... 
-		<available file="${baseLocationRoot}/${emfZipName}" property="emfZipExists" />
-		<antcall target="getEMF"/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfZipName}" />
--->
+		<ant antfile="${scripts}/update.xml" target="install">
+			<property name="featureId" value="${emfQvtAllFeatureId}" />
+			<property name="version" value="${emfQvtAllUpdateVersion}" />
+			<property name="from.updatesite" value="${emfUpdateSite}" />
+			<property name="updatesite.name" value="requirements" />
+		</ant>
 	</target>
 	
-	<target name="checkEMFTInstalled">
-		<condition property="emftExists">
+	<target name="checkMDTInstalled">
+		<condition property="mdtExists">
 			<and>
-				<available file="${baseLocation}/features/${emfOCLFeatureId}_${emfOCLUpdateVersion}/feature.xml"/>
-				<available file="${baseLocation}/features/${emfQueryFeatureId}_${emfQueryUpdateVersion}/feature.xml"/>
-				<available file="${baseLocation}/features/${emfQueryOCLFeatureId}_${emfQueryOCLUpdateVersion}/feature.xml"/>
-				<available file="${baseLocation}/features/${emfValidationFeatureId}_${emfValidationUpdateVersion}/feature.xml"/>
-				<available file="${baseLocation}/features/${emfValidationOCLFeatureId}_${emfValidationOCLUpdateVersion}/feature.xml"/>
-				<available file="${baseLocation}/features/${emfTransactionFeatureId}_${emfTransactionUpdateVersion}/feature.xml"/>
-				<available file="${baseLocation}/features/${emfWorkspaceFeatureId}_${emfWorkspaceUpdateVersion}/feature.xml"/>
+				<available file="${baseLocation}/features/${mdtOCLFeatureId}_${mdtOCLUpdateVersion}/feature.xml"/>
 			</and>
 		</condition>
 	</target>
 			
 	<!-- TODO: do check installed for EMFT components as well. -->
-	<target name="installEMFT" unless="emftExists" depends="checkEMFTInstalled">
-		<!--
+	<target name="installMDT" unless="mdtExists" depends="checkMDTInstalled">
 		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${emfOCLFeatureId}" />
-			<property name="version" value="${emfOCLUpdateVersion}" />
-			<property name="from.updatesite" value="${emfOCLUpdateSite}" />
+			<property name="featureId" value="${mdtOCLFeatureId}" />
+			<property name="version" value="${mdtOCLUpdateVersion}" />
+			<property name="from.updatesite" value="${mdtOCLUpdateSite}" />
 			<property name="updatesite.name" value="requirements" />
 		</ant>
-		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${emfQueryFeatureId}" />
-			<property name="version" value="${emfQueryUpdateVersion}" />
-			<property name="from.updatesite" value="${emfQueryUpdateSite}" />
-			<property name="updatesite.name" value="requirements" />
-		</ant>
-		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${emfQueryOCLFeatureId}" />
-			<property name="version" value="${emfQueryOCLUpdateVersion}" />
-			<property name="from.updatesite" value="${emfQueryUpdateSite}" />
-			<property name="updatesite.name" value="requirements" />
-		</ant>
-		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${emfValidationFeatureId}" />
-			<property name="version" value="${emfValidationUpdateVersion}" />
-			<property name="from.updatesite" value="${emfValidationUpdateSite}" />
-			<property name="updatesite.name" value="requirements" />
-		</ant>
-		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${emfValidationOCLFeatureId}" />
-			<property name="version" value="${emfValidationOCLUpdateVersion}" />
-			<property name="from.updatesite" value="${emfValidationOCLUpdateSite}" />
-			<property name="updatesite.name" value="requirements" />
-		</ant>
-		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${emfTransactionFeatureId}" />
-			<property name="version" value="${emfTransactionUpdateVersion}" />
-			<property name="from.updatesite" value="${emfTransactionUpdateSite}" />
-			<property name="updatesite.name" value="requirements" />
-		</ant>
-		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${emfWorkspaceFeatureId}" />
-			<property name="version" value="${emfWorkspaceUpdateVersion}" />
-			<property name="from.updatesite" value="${emfWorkspaceUpdateSite}" />
-			<property name="updatesite.name" value="requirements" />
-		</ant>
-		-->
-		
-		<available file="${baseLocationRoot}/${emfOCLZipName}" property="emfOCLZipExists" />
-		<antcall target="getEMFOCL"/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfOCLZipName}" />
-		
-		<available file="${baseLocationRoot}/${emfQueryZipName}" property="emfQueryZipExists" />
-		<antcall target="getEMFQuery"/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfQueryZipName}" />
-		
-		<available file="${baseLocationRoot}/${emfValidationZipName}" property="emfValidationZipExists" />
-		<antcall target="getEMFValidation"/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfValidationZipName}" />
-		
-		<available file="${baseLocationRoot}/${emfTransactionZipName}" property="emfTransactionZipExists" />
-		<antcall target="getEMFTransaction"/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfTransactionZipName}" />
-	</target>
-	
-	<target name="getEMF" unless="emfZipExists">
-		<get src="${emfZipURL}" dest="${baseLocationRoot}/${emfZipName}" verbose="true" usetimestamp="true" />
-	</target>
-	
-	<target name="getEMFOCL" unless="emfOCLZipExists">
-		<get src="${emfOCLZipURL}" dest="${baseLocationRoot}/${emfOCLZipName}" verbose="true" usetimestamp="true" />
-	</target>
-	
-	<target name="getEMFQuery" unless="emfQueryZipExists">
-		<get src="${emfQueryZipURL}" dest="${baseLocationRoot}/${emfQueryZipName}" verbose="true" usetimestamp="true" />
-	</target>
-	
-	<target name="getEMFValidation" unless="emfValidationZipExists">
-		<get src="${emfValidationZipURL}" dest="${baseLocationRoot}/${emfValidationZipName}" verbose="true" usetimestamp="true" />
-	</target>
-	
-	<target name="getEMFTransaction" unless="emfTransactionZipExists">
-		<get src="${emfTransactionZipURL}" dest="${baseLocationRoot}/${emfTransactionZipName}" verbose="true" usetimestamp="true" />
 	</target>
 	
 	<target name="checkEMFExamplesInstalled">
@@ -234,14 +160,6 @@
 			<property name="from.updatesite" value="${emfUpdateSite}" />
 			<property name="updatesite.name" value="requirements" />
 		</ant>
-<!-- Alternative, download zip method...
-		<available file="${baseLocationRoot}/${emfExamplesZipName}" property="emfExamplesZipExists" />
-		<antcall target="getEMFExamples"/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfExamplesZipName}" />
- -->
-	</target>
-	<target name="getEMFExamples" unless="emfExamplesZipExists">
-		<get src="${emfExamplesZipURL}" dest="${baseLocationRoot}/${emfExamplesZipName}" verbose="true" usetimestamp="true" />
 	</target>
 	
 	<target name="checkGEFInstalled">
