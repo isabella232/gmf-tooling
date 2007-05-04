@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
@@ -45,6 +46,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
@@ -552,6 +554,19 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	// parsers
 
+	private boolean shouldGenerateParser(LabelTextAccessMethod type) {
+		for (Iterator it = myDiagram.eAllContents(); it.hasNext(); ) {
+			Object next = it.next();
+			if (next instanceof FeatureLabelModelFacet) {
+				FeatureLabelModelFacet facet = (FeatureLabelModelFacet) next;
+				if (facet.getViewMethod() == type || facet.getEditMethod() == type) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	private void generateAbstractParser() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getAbstractParserEmitter(), myEmitters.getAbstractParserName(myDiagram), myDiagram);
 	}
@@ -561,15 +576,21 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateMessageFormatParser() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getMessageFormatParserEmitter(), myEmitters.getMessageFormatParserName(myDiagram), myDiagram);
+		if (shouldGenerateParser(LabelTextAccessMethod.MESSAGE_FORMAT)) {
+			doGenerateJavaClass(myEmitters.getMessageFormatParserEmitter(), myEmitters.getMessageFormatParserName(myDiagram), myDiagram);
+		}
 	}
 
 	private void generateNativeParser() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getNativeParserEmitter(), myEmitters.getNativeParserName(myDiagram), myDiagram);
+		if (shouldGenerateParser(LabelTextAccessMethod.NATIVE)) {
+			doGenerateJavaClass(myEmitters.getNativeParserEmitter(), myEmitters.getNativeParserName(myDiagram), myDiagram);
+		}
 	}
 
 	private void generateRegexpParser() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getRegexpParserEmitter(), myEmitters.getRegexpParserName(myDiagram), myDiagram);
+		if (shouldGenerateParser(LabelTextAccessMethod.REGEXP)) {
+			doGenerateJavaClass(myEmitters.getRegexpParserEmitter(), myEmitters.getRegexpParserName(myDiagram), myDiagram);
+		}
 	}
 
 	// providers
