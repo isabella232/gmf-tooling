@@ -25,7 +25,6 @@
 			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="componentsTag" value="${stable.components}" />
 		</ant>
-		<ant antfile="deploy.xml" target="deploy.updates.requirements" />		
 	</target>
 
 </project>
