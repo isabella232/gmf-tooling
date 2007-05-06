@@ -235,7 +235,7 @@
 
 		<schedule>
 			<ant time="0300" antscript="./build.${ext}" buildfile="buildThirdparty.xml"
-				target="integration" uselogger="true" usedebug="false" usequiet="true">				
+				target="runtime.thirdparty" uselogger="true" usedebug="false" usequiet="true">				
 				<property name="fetchTag" value="HEAD" />
 				<property name="buildType" value="S" />
 				<property name="forceContextQualifier" value="v${date}-${time}" />
