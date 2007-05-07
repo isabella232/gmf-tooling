@@ -33,6 +33,14 @@ public class RegexpParser extends AbstractParser {
 	/**
 	 * @generated
 	 */
+	public String getEditPattern() {
+		String pattern = super.getEditPattern();
+		return pattern != null ? pattern : " "; //$NON-NLS-1$
+	}
+
+	/**
+	 * @generated
+	 */
 	public String getPrintString(IAdaptable adapter, int flags) {
 		return ""; //$NON-NLS-1$
 	}

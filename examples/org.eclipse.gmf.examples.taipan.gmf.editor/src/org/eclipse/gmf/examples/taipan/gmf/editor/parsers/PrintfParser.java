@@ -27,8 +27,49 @@ public class PrintfParser extends AbstractParser {
 	/**
 	 * @generated
 	 */
+	private String defaultPattern;
+
+	/**
+	 * @generated
+	 */
 	public PrintfParser(EAttribute[] features) {
 		super(features);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String getDefaultPattern() {
+		if (defaultPattern == null) {
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < features.length; i++) {
+				if (i > 0) {
+					sb.append(' ');
+				}
+				sb.append('%');
+				sb.append(i + 1);
+				sb.append('$');
+				sb.append('s');
+			}
+			defaultPattern = sb.toString();
+		}
+		return defaultPattern;
+	}
+
+	/**
+	 * @generated
+	 */
+	public String getViewPattern() {
+		String pattern = super.getViewPattern();
+		return pattern != null ? pattern : getDefaultPattern();
+	}
+
+	/**
+	 * @generated
+	 */
+	public String getEditorPattern() {
+		String pattern = super.getEditorPattern();
+		return pattern != null ? pattern : getDefaultPattern();
 	}
 
 	/**
