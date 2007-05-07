@@ -235,35 +235,35 @@ private static java.util.Collection «EXPAND getContainedLinksByTypeMethodName»(«
 «DEFINE getContainedLinksByTypeMethodBody(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
 	«IF childMetaFeature.isListType()-»
 for (java.util.Iterator links = «EXPAND xpt::Common::getFeatureValue("container", getContainerClass(this)) FOR childMetaFeature».iterator(); links.hasNext();) {
-	«getQualifiedInterfaceName(getTypeGenClassX(childMetaFeature))» link = («getQualifiedInterfaceName(getTypeGenClassX(childMetaFeature))») links.next();
+	«getQualifiedInterfaceName(metaClass)» link = («getQualifiedInterfaceName(metaClass)») links.next();
 	«ELSE-»
-«getQualifiedInterfaceName(getTypeGenClassX(childMetaFeature))» link = («getQualifiedInterfaceName(getTypeGenClassX(childMetaFeature))») «EXPAND xpt::Common::getFeatureValue("container", getSourceType()) FOR childMetaFeature»;
+«getQualifiedInterfaceName(metaClass)» link = («getQualifiedInterfaceName(metaClass)») «EXPAND xpt::Common::getFeatureValue("container", getSourceType()) FOR childMetaFeature»;
 	«ENDIF-»
 int linkVID = «genLink.getDiagram().getVisualIDRegistryQualifiedClassName()».getLinkWithClassVisualID(«EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(childMetaFeature)»link);
 if (linkVID == «genLink.getEditPartQualifiedClassName()».VISUAL_ID) {
 	«IF targetMetaFeature.isListType()-»
-	java.util.List targets = «EXPAND xpt::Common::getFeatureValue("link", getTypeGenClassX(childMetaFeature)) FOR targetMetaFeature»;
+	java.util.List targets = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR targetMetaFeature»;
 	Object target = targets.size() == 1 ? targets.get(0) : null;
 	if (target instanceof «getQualifiedInterfaceName(getTargetType())») {
 		«getQualifiedInterfaceName(getTargetType())» dst = («getQualifiedInterfaceName(getTargetType())») target;
 	«ELSE-»
-	«getQualifiedInterfaceName(getTargetType())» dst = «EXPAND xpt::Common::getFeatureValue("link", getTypeGenClassX(childMetaFeature)) FOR targetMetaFeature»;
+	«getQualifiedInterfaceName(getTargetType())» dst = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR targetMetaFeature»;
 	«ENDIF-»
 	«IF null != sourceMetaFeature-»
 		«IF sourceMetaFeature.isListType()-»
-	java.util.List sources = «EXPAND xpt::Common::getFeatureValue("link", getTypeGenClassX(childMetaFeature)) FOR sourceMetaFeature»;
+	java.util.List sources = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR sourceMetaFeature»;
 	Object source = sources.size() == 1 ? sources.get(0) : null;
 	if (source instanceof «getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))») {
-		«getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))» src = («getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))») structuralFeatureResult;
+		«getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))» src = («getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))») source;
 		«ELSE-»
-	«getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))» src = «EXPAND xpt::Common::getFeatureValue("link", getTypeGenClassX(childMetaFeature)) FOR sourceMetaFeature»;
+	«getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))» src = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR sourceMetaFeature»;
 		«ENDIF-»
-	result.add(new «genLink.getDiagram().getLinkDescriptorQualifiedClassName()»(«EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(sourceMetaFeature)»src, «EXPAND xpt::Common::castToEObject FOR getTargetType()»dst, «EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(childMetaFeature)»link, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», linkVID));
+	result.add(new «genLink.getDiagram().getLinkDescriptorQualifiedClassName()»(«EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(sourceMetaFeature)»src, «EXPAND xpt::Common::castToEObject FOR getTargetType()»dst, «EXPAND xpt::Common::castToEObject FOR metaClass»link, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», linkVID));
 		«IF sourceMetaFeature.isListType()-»
 	}
 		«ENDIF-»
 	«ELSE-»
-	result.add(new «genLink.getDiagram().getLinkDescriptorQualifiedClassName()»(«EXPAND xpt::Common::castToEObject FOR getContainerClass(this)»container, «EXPAND xpt::Common::castToEObject FOR getTargetType()»dst, «EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(childMetaFeature)»link, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», linkVID));
+	result.add(new «genLink.getDiagram().getLinkDescriptorQualifiedClassName()»(«EXPAND xpt::Common::castToEObject FOR getContainerClass(this)»container, «EXPAND xpt::Common::castToEObject FOR getTargetType()»dst, «EXPAND xpt::Common::castToEObject FOR metaClass»link, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», linkVID));
 	«ENDIF-»
 	«IF targetMetaFeature.isListType()-»
 	}
