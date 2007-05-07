@@ -26,8 +26,41 @@ package «parsersPackageName»;
 public class «EXPAND className» extends «EXPAND xpt::parsers::AbstractParser::qualifiedClassName» {
 
 	«EXPAND xpt::Common::generatedMemberComment»
+	private String defaultPattern;
+
+	«EXPAND xpt::Common::generatedMemberComment»
 	public «EXPAND className»(org.eclipse.emf.ecore.EAttribute[] features) {
 		super(features);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected String getDefaultPattern() {
+		if (defaultPattern == null) {
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < features.length; i++) {
+				if (i > 0) {
+					sb.append(' ');
+				}
+				sb.append('%');
+				sb.append(i + 1);
+				sb.append('$');
+				sb.append('s');
+			}
+			defaultPattern = sb.toString();
+		}
+		return defaultPattern;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public String getViewPattern() {
+		String pattern = super.getViewPattern();
+		return pattern != null ? pattern : getDefaultPattern();
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public String getEditorPattern() {
+		String pattern = super.getEditorPattern();
+		return pattern != null ? pattern : getDefaultPattern();
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
