@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.ecore.part;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -18,17 +19,21 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationDetailsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotationReferencesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAttributeEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClass2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClassAttributesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClassClassAnnotationsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClassESuperTypesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClassEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClassOperationsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EDataType2EditPart;
@@ -48,7 +53,10 @@ import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEnumsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackagePackageAnnotationsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackagePackagesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
+import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -570,6 +578,231 @@ public class EcoreDiagramUpdater {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getContainedLinks(View view) {
+		switch (EcoreVisualIDRegistry.getVisualID(view)) {
+		case EClassEditPart.VISUAL_ID:
+			return getEClass_2001ContainerLinks(view);
+		case EPackage2EditPart.VISUAL_ID:
+			return getEPackage_2002ContainerLinks(view);
+		case EAnnotationEditPart.VISUAL_ID:
+			return getEAnnotation_2003ContainerLinks(view);
+		case EDataTypeEditPart.VISUAL_ID:
+			return getEDataType_2004ContainerLinks(view);
+		case EEnumEditPart.VISUAL_ID:
+			return getEEnum_2005ContainerLinks(view);
+		case EAttributeEditPart.VISUAL_ID:
+			return getEAttribute_3001ContainerLinks(view);
+		case EOperationEditPart.VISUAL_ID:
+			return getEOperation_3002ContainerLinks(view);
+		case EAnnotation2EditPart.VISUAL_ID:
+			return getEAnnotation_3003ContainerLinks(view);
+		case EClass2EditPart.VISUAL_ID:
+			return getEClass_3004ContainerLinks(view);
+		case EPackage3EditPart.VISUAL_ID:
+			return getEPackage_3005ContainerLinks(view);
+		case EDataType2EditPart.VISUAL_ID:
+			return getEDataType_3006ContainerLinks(view);
+		case EEnum2EditPart.VISUAL_ID:
+			return getEEnum_3007ContainerLinks(view);
+		case EStringToStringMapEntryEditPart.VISUAL_ID:
+			return getEStringToStringMapEntry_3008ContainerLinks(view);
+		case EEnumLiteralEditPart.VISUAL_ID:
+			return getEEnumLiteral_3009ContainerLinks(view);
+		case EReferenceEditPart.VISUAL_ID:
+			return getEReference_4002ContainerLinks(view);
+		case EReference2EditPart.VISUAL_ID:
+			return getEReference_4003ContainerLinks(view);
+		}
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getEClass_2001ContainerLinks(View view) {
+		EClass modelElement = (EClass) view.getElement();
+		List result = new LinkedList();
+		result.addAll(getContainedTypeModelFacetLinks_EReference_4002(modelElement));
+		result.addAll(getContainedTypeModelFacetLinks_EReference_4003(modelElement));
+		result.addAll(getContainedFeatureModelFacetLinks_EClass_ESuperTypes_4004(modelElement));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getEPackage_2002ContainerLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getEAnnotation_2003ContainerLinks(View view) {
+		EAnnotation modelElement = (EAnnotation) view.getElement();
+		List result = new LinkedList();
+		result.addAll(getContainedFeatureModelFacetLinks_EAnnotation_References_4001(modelElement));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getEDataType_2004ContainerLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getEEnum_2005ContainerLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getEAttribute_3001ContainerLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getEOperation_3002ContainerLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getEAnnotation_3003ContainerLinks(View view) {
+		EAnnotation modelElement = (EAnnotation) view.getElement();
+		List result = new LinkedList();
+		result.addAll(getContainedFeatureModelFacetLinks_EAnnotation_References_4001(modelElement));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getEClass_3004ContainerLinks(View view) {
+		EClass modelElement = (EClass) view.getElement();
+		List result = new LinkedList();
+		result.addAll(getContainedTypeModelFacetLinks_EReference_4002(modelElement));
+		result.addAll(getContainedTypeModelFacetLinks_EReference_4003(modelElement));
+		result.addAll(getContainedFeatureModelFacetLinks_EClass_ESuperTypes_4004(modelElement));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getEPackage_3005ContainerLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getEDataType_3006ContainerLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getEEnum_3007ContainerLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getEStringToStringMapEntry_3008ContainerLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getEEnumLiteral_3009ContainerLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getEReference_4002ContainerLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getEReference_4003ContainerLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection getContainedFeatureModelFacetLinks_EAnnotation_References_4001(EAnnotation container) {
+		Collection result = new LinkedList();
+		for (Iterator destinations = container.getReferences().iterator(); destinations.hasNext();) {
+			EObject destination = (EObject) destinations.next();
+			result.add(new EcoreLinkDescriptor(container, destination, EcoreElementTypes.EAnnotationReferences_4001, EAnnotationReferencesEditPart.VISUAL_ID));
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection getContainedTypeModelFacetLinks_EReference_4002(EClass container) {
+		Collection result = new LinkedList();
+		for (Iterator links = container.getEStructuralFeatures().iterator(); links.hasNext();) {
+			EReference link = (EReference) links.next();
+			int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(link);
+			if (linkVID == EReferenceEditPart.VISUAL_ID) {
+				EClassifier dst = link.getEType();
+				result.add(new EcoreLinkDescriptor(container, dst, link, EcoreElementTypes.EReference_4002, linkVID));
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection getContainedTypeModelFacetLinks_EReference_4003(EClass container) {
+		Collection result = new LinkedList();
+		for (Iterator links = container.getEStructuralFeatures().iterator(); links.hasNext();) {
+			EReference link = (EReference) links.next();
+			int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(link);
+			if (linkVID == EReference2EditPart.VISUAL_ID) {
+				EClassifier dst = link.getEType();
+				result.add(new EcoreLinkDescriptor(container, dst, link, EcoreElementTypes.EReference_4003, linkVID));
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection getContainedFeatureModelFacetLinks_EClass_ESuperTypes_4004(EClass container) {
+		Collection result = new LinkedList();
+		for (Iterator destinations = container.getESuperTypes().iterator(); destinations.hasNext();) {
+			EClass destination = (EClass) destinations.next();
+			result.add(new EcoreLinkDescriptor(container, destination, EcoreElementTypes.EClassESuperTypes_4004, EClassESuperTypesEditPart.VISUAL_ID));
+		}
+		return result;
 	}
 
 }

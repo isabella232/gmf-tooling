@@ -22,20 +22,14 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EAnnotationReferencesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAttributeEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClass2EditPart;
-import org.eclipse.gmf.ecore.edit.parts.EClassESuperTypesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClassEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EDataType2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EDataTypeEditPart;
@@ -49,9 +43,9 @@ import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
 import org.eclipse.gmf.ecore.part.EcoreDiagramUpdater;
+import org.eclipse.gmf.ecore.part.EcoreLinkDescriptor;
 import org.eclipse.gmf.ecore.part.EcoreNodeDescriptor;
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
-import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.commands.DeferredLayoutCommand;
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
@@ -59,8 +53,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
-import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
@@ -193,8 +185,8 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
 			int diagramLinkVisualID = EcoreVisualIDRegistry.getVisualID(nextDiagramLink);
 			for (Iterator LinkDescriptorsIterator = linkDescriptors.iterator(); LinkDescriptorsIterator.hasNext();) {
-				LinkDescriptor nextLinkDescriptor = (LinkDescriptor) LinkDescriptorsIterator.next();
-				if (diagramLinkObject == nextLinkDescriptor.getLinkElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination()
+				EcoreLinkDescriptor nextLinkDescriptor = (EcoreLinkDescriptor) LinkDescriptorsIterator.next();
+				if (diagramLinkObject == nextLinkDescriptor.getModelElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination()
 						&& diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
 					linksIterator.remove();
 					LinkDescriptorsIterator.remove();
@@ -213,78 +205,82 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		switch (EcoreVisualIDRegistry.getVisualID(view)) {
 		case EClassEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			EClass modelElement = (EClass) view.getElement();
-			result.addAll(getContainedTypeModelFacetLinks_EReference_4002(modelElement));
-			result.addAll(getContainedTypeModelFacetLinks_EReference_4003(modelElement));
-			result.addAll(getContainedFeatureModelFacetLinks_EClass_ESuperTypes_4004(modelElement));
+			result.addAll(EcoreDiagramUpdater.getEClass_2001ContainerLinks(view));
 			break;
 		}
 		case EPackage2EditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(EcoreDiagramUpdater.getEPackage_2002ContainerLinks(view));
 			break;
 		}
 		case EAnnotationEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			EAnnotation modelElement = (EAnnotation) view.getElement();
-			result.addAll(getContainedFeatureModelFacetLinks_EAnnotation_References_4001(modelElement));
+			result.addAll(EcoreDiagramUpdater.getEAnnotation_2003ContainerLinks(view));
 			break;
 		}
 		case EDataTypeEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(EcoreDiagramUpdater.getEDataType_2004ContainerLinks(view));
 			break;
 		}
 		case EEnumEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(EcoreDiagramUpdater.getEEnum_2005ContainerLinks(view));
 			break;
 		}
 		case EAttributeEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(EcoreDiagramUpdater.getEAttribute_3001ContainerLinks(view));
 			break;
 		}
 		case EOperationEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(EcoreDiagramUpdater.getEOperation_3002ContainerLinks(view));
 			break;
 		}
 		case EAnnotation2EditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			EAnnotation modelElement = (EAnnotation) view.getElement();
-			result.addAll(getContainedFeatureModelFacetLinks_EAnnotation_References_4001(modelElement));
+			result.addAll(EcoreDiagramUpdater.getEAnnotation_3003ContainerLinks(view));
 			break;
 		}
 		case EClass2EditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			EClass modelElement = (EClass) view.getElement();
-			result.addAll(getContainedTypeModelFacetLinks_EReference_4002(modelElement));
-			result.addAll(getContainedTypeModelFacetLinks_EReference_4003(modelElement));
-			result.addAll(getContainedFeatureModelFacetLinks_EClass_ESuperTypes_4004(modelElement));
+			result.addAll(EcoreDiagramUpdater.getEClass_3004ContainerLinks(view));
 			break;
 		}
 		case EPackage3EditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(EcoreDiagramUpdater.getEPackage_3005ContainerLinks(view));
 			break;
 		}
 		case EDataType2EditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(EcoreDiagramUpdater.getEDataType_3006ContainerLinks(view));
 			break;
 		}
 		case EEnum2EditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(EcoreDiagramUpdater.getEEnum_3007ContainerLinks(view));
 			break;
 		}
 		case EStringToStringMapEntryEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(EcoreDiagramUpdater.getEStringToStringMapEntry_3008ContainerLinks(view));
 			break;
 		}
 		case EEnumLiteralEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(EcoreDiagramUpdater.getEEnumLiteral_3009ContainerLinks(view));
 			break;
 		}
 		case EReferenceEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(EcoreDiagramUpdater.getEReference_4002ContainerLinks(view));
 			break;
 		}
 		case EReference2EditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(EcoreDiagramUpdater.getEReference_4003ContainerLinks(view));
 			break;
 		}
 		}
@@ -300,66 +296,10 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private Collection getContainedFeatureModelFacetLinks_EAnnotation_References_4001(EAnnotation container) {
-		Collection result = new LinkedList();
-		for (Iterator destinations = container.getReferences().iterator(); destinations.hasNext();) {
-			EObject destination = (EObject) destinations.next();
-			result.add(new LinkDescriptor(container, destination, EcoreElementTypes.EAnnotationReferences_4001, EAnnotationReferencesEditPart.VISUAL_ID));
-		}
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Collection getContainedTypeModelFacetLinks_EReference_4002(EClass container) {
-		Collection result = new LinkedList();
-		for (Iterator links = container.getEStructuralFeatures().iterator(); links.hasNext();) {
-			EStructuralFeature link = (EStructuralFeature) links.next();
-			int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(link);
-			if (linkVID == EReferenceEditPart.VISUAL_ID) {
-				EClassifier dst = link.getEType();
-				result.add(new LinkDescriptor(container, dst, link, EcoreElementTypes.EReference_4002, linkVID));
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Collection getContainedTypeModelFacetLinks_EReference_4003(EClass container) {
-		Collection result = new LinkedList();
-		for (Iterator links = container.getEStructuralFeatures().iterator(); links.hasNext();) {
-			EStructuralFeature link = (EStructuralFeature) links.next();
-			int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(link);
-			if (linkVID == EReference2EditPart.VISUAL_ID) {
-				EClassifier dst = link.getEType();
-				result.add(new LinkDescriptor(container, dst, link, EcoreElementTypes.EReference_4003, linkVID));
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Collection getContainedFeatureModelFacetLinks_EClass_ESuperTypes_4004(EClass container) {
-		Collection result = new LinkedList();
-		for (Iterator destinations = container.getESuperTypes().iterator(); destinations.hasNext();) {
-			EClass destination = (EClass) destinations.next();
-			result.add(new LinkDescriptor(container, destination, EcoreElementTypes.EClassESuperTypes_4004, EClassESuperTypesEditPart.VISUAL_ID));
-		}
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
 	private Collection createConnections(Collection linkDescriptors, Map domain2NotationMap) {
 		List adapters = new LinkedList();
 		for (Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
-			final LinkDescriptor nextLinkDescriptor = (LinkDescriptor) linkDescriptorsIterator.next();
+			final EcoreLinkDescriptor nextLinkDescriptor = (EcoreLinkDescriptor) linkDescriptorsIterator.next();
 			EditPart sourceEditPart = getEditPart(nextLinkDescriptor.getSource(), domain2NotationMap);
 			EditPart targetEditPart = getEditPart(nextLinkDescriptor.getDestination(), domain2NotationMap);
 			if (sourceEditPart == null || targetEditPart == null) {
@@ -394,117 +334,5 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			return (EditPart) getHost().getViewer().getEditPartRegistry().get(view);
 		}
 		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	private class LinkDescriptor {
-
-		/**
-		 * @generated
-		 */
-		private EObject mySource;
-
-		/**
-		 * @generated
-		 */
-		private EObject myDestination;
-
-		/**
-		 * @generated
-		 */
-		private EObject myLinkElement;
-
-		/**
-		 * @generated
-		 */
-		private int myVisualID;
-
-		/**
-		 * @generated
-		 */
-		private IAdaptable mySemanticAdapter;
-
-		/**
-		 * @generated
-		 */
-		private LinkDescriptor(EObject source, EObject destination, int linkVID) {
-			mySource = source;
-			myDestination = destination;
-			myVisualID = linkVID;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected LinkDescriptor(EObject source, EObject destination, IElementType elementType, int linkVID) {
-			this(source, destination, linkVID);
-			final IElementType elementTypeCopy = elementType;
-			myLinkElement = null;
-			mySemanticAdapter = new IAdaptable() {
-
-				public Object getAdapter(Class adapter) {
-					if (IElementType.class.equals(adapter)) {
-						return elementTypeCopy;
-					}
-					return null;
-				}
-			};
-		}
-
-		/**
-		 * @generated
-		 */
-		protected LinkDescriptor(EObject source, EObject destination, EObject linkElement, IElementType elementType, int linkVID) {
-			this(source, destination, linkVID);
-			final IElementType elementTypeCopy = elementType;
-			myLinkElement = linkElement;
-			mySemanticAdapter = new EObjectAdapter(linkElement) {
-
-				public Object getAdapter(Class adapter) {
-					if (IElementType.class.equals(adapter)) {
-						return elementTypeCopy;
-					}
-					return super.getAdapter(adapter);
-				}
-			};
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EObject getSource() {
-			return mySource;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EObject getDestination() {
-			return myDestination;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EObject getLinkElement() {
-			return myLinkElement;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected int getVisualID() {
-			return myVisualID;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected IAdaptable getSemanticAdapter() {
-			return mySemanticAdapter;
-		}
-
 	}
 }
