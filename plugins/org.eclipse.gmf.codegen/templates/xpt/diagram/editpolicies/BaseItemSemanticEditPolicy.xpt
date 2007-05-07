@@ -135,12 +135,11 @@ protected org.eclipse.gef.commands.Command getSemanticCommand(org.eclipse.gmf.ru
 	«REM»< % = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()) % >.getInstance().logInfo("Failed to get element type for " + editHelperContext); / / $NON-NLS-1$«ENDREM»«-»
 		elementType = null;
 	}
-	org.eclipse.gef.commands.Command epCommand = getSemanticCommandSwitch(completedRequest);
-	if (epCommand != null) {
-		org.eclipse.gmf.runtime.common.core.command.ICommand command = epCommand instanceof org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy ? ((org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy) epCommand).getICommand() : new org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy(epCommand);
+	org.eclipse.gef.commands.Command semanticCommand = getSemanticCommandSwitch(completedRequest);
+	if (semanticCommand != null) {
+		org.eclipse.gmf.runtime.common.core.command.ICommand command = semanticCommand instanceof org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy ? ((org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy) semanticCommand).getICommand() : new org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy(semanticCommand);
 		completedRequest.setParameter(«getBaseEditHelperQualifiedClassName()».EDIT_POLICY_COMMAND, command);
 	}
-	org.eclipse.gef.commands.Command ehCommand = null;
 	if (elementType != null) {
 		org.eclipse.gmf.runtime.common.core.command.ICommand command = elementType.getEditCommand(completedRequest);
 		if (command != null) {
@@ -148,7 +147,7 @@ protected org.eclipse.gef.commands.Command getSemanticCommand(org.eclipse.gmf.ru
 				org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
 				command = new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(editingDomain, null).compose(command);
 			}
-			ehCommand = new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(command);
+			semanticCommand = new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(command);
 		}
 	}
 	boolean shouldProceed = true;
@@ -159,9 +158,9 @@ protected org.eclipse.gef.commands.Command getSemanticCommand(org.eclipse.gmf.ru
 		if (completedRequest instanceof org.eclipse.gmf.runtime.emf.type.core.requests.DestroyRequest) {
 			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
 			org.eclipse.gef.commands.Command deleteViewCommand = new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(editingDomain, (org.eclipse.gmf.runtime.notation.View) getHost().getModel()));
-			ehCommand = ehCommand == null ? deleteViewCommand : ehCommand.chain(deleteViewCommand);
+			semanticCommand = semanticCommand == null ? deleteViewCommand : semanticCommand.chain(deleteViewCommand);
 		}
-		return ehCommand;
+		return semanticCommand;
 	}
 	return null;
 }
