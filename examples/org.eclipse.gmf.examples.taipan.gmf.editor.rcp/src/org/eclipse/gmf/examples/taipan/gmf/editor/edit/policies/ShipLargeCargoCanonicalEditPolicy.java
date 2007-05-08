@@ -11,19 +11,25 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
+import java.util.Collection;
+import java.util.HashSet;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.gmf.examples.taipan.Ship;
 
+import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramUpdater;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanNodeDescriptor;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 /**
@@ -34,25 +40,16 @@ public class ShipLargeCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 	/**
 	 * @generated
 	 */
+	Set myFeaturesToSynchronize;
+
+	/**
+	 * @generated
+	 */
 	protected List getSemanticChildrenList() {
-		List result = new LinkedList();
-		EObject modelObject = ((View) getHost().getModel()).getElement();
 		View viewObject = (View) getHost().getModel();
-		EObject nextValue;
-		int nodeVID;
-		for (Iterator values = ((Ship) modelObject).getCargo().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = TaiPanVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
-			switch (nodeVID) {
-			case LargeItemEditPart.VISUAL_ID: {
-				result.add(nextValue);
-				break;
-			}
-			case EmptyBoxEditPart.VISUAL_ID: {
-				result.add(nextValue);
-				break;
-			}
-			}
+		List result = new LinkedList();
+		for (Iterator it = TaiPanDiagramUpdater.getShipLargeCargo_7002SemanticChildren(viewObject).iterator(); it.hasNext();) {
+			result.add(((TaiPanNodeDescriptor) it.next()).getModelElement());
 		}
 		return result;
 	}
@@ -60,17 +57,10 @@ public class ShipLargeCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 	/**
 	 * @generated
 	 */
-	protected boolean shouldDeleteView(View view) {
-		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
-			return view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy());
-		}
-		int nodeVID = TaiPanVisualIDRegistry.getVisualID(view);
-		switch (nodeVID) {
-		case LargeItemEditPart.VISUAL_ID:
-		case EmptyBoxEditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
+	protected boolean isOrphaned(Collection semanticChildren, final View view) {
+		int visualID = TaiPanVisualIDRegistry.getVisualID(view);
+		return TaiPanDiagramUpdater.isShipLargeCargo_7002DomainMetaChild(visualID)
+				&& (!semanticChildren.contains(view.getElement()) || visualID != TaiPanVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement()));
 	}
 
 	/**
@@ -78,6 +68,17 @@ public class ShipLargeCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 	 */
 	protected String getDefaultFactoryHint() {
 		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Set getFeaturesToSynchronize() {
+		if (myFeaturesToSynchronize == null) {
+			myFeaturesToSynchronize = new HashSet();
+			myFeaturesToSynchronize.add(TaiPanPackage.eINSTANCE.getShip_Cargo());
+		}
+		return myFeaturesToSynchronize;
 	}
 
 }

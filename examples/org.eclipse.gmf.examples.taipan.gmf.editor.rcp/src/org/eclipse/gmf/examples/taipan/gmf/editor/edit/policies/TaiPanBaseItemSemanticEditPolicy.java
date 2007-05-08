@@ -122,12 +122,11 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) { //$NON-NLS-1$ 
 			elementType = null;
 		}
-		Command epCommand = getSemanticCommandSwitch(completedRequest);
-		if (epCommand != null) {
-			ICommand command = epCommand instanceof ICommandProxy ? ((ICommandProxy) epCommand).getICommand() : new CommandProxy(epCommand);
+		Command semanticCommand = getSemanticCommandSwitch(completedRequest);
+		if (semanticCommand != null) {
+			ICommand command = semanticCommand instanceof ICommandProxy ? ((ICommandProxy) semanticCommand).getICommand() : new CommandProxy(semanticCommand);
 			completedRequest.setParameter(TaiPanBaseEditHelper.EDIT_POLICY_COMMAND, command);
 		}
-		Command ehCommand = null;
 		if (elementType != null) {
 			ICommand command = elementType.getEditCommand(completedRequest);
 			if (command != null) {
@@ -135,7 +134,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 					TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
 					command = new CompositeTransactionalCommand(editingDomain, null).compose(command);
 				}
-				ehCommand = new ICommandProxy(command);
+				semanticCommand = new ICommandProxy(command);
 			}
 		}
 		boolean shouldProceed = true;
@@ -146,9 +145,9 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			if (completedRequest instanceof DestroyRequest) {
 				TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
 				Command deleteViewCommand = new ICommandProxy(new DeleteCommand(editingDomain, (View) getHost().getModel()));
-				ehCommand = ehCommand == null ? deleteViewCommand : ehCommand.chain(deleteViewCommand);
+				semanticCommand = semanticCommand == null ? deleteViewCommand : semanticCommand.chain(deleteViewCommand);
 			}
-			return ehCommand;
+			return semanticCommand;
 		}
 		return null;
 	}
@@ -283,26 +282,6 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	}
 
 	/**
-	 * Finds container element for the new relationship of the specified type.
-	 * Default implementation goes up by containment hierarchy starting from
-	 * the specified element and returns the first element that is instance of
-	 * the specified container class.
-	 * 
-	 * @generated
-	 */
-	protected EObject getRelationshipContainer(Object uelement, EClass containerClass, IElementType relationshipType) {
-		if (uelement instanceof EObject) {
-			EObject element = (EObject) uelement;
-			for (; element != null; element = element.eContainer()) {
-				if (containerClass.isSuperTypeOf(element.eClass())) {
-					return element;
-				}
-			}
-		}
-		return null;
-	}
-
-	/**
 	 * Returns editing domain from the host edit part.
 	 * 
 	 * @generated
@@ -352,7 +331,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		private static TaiPanAbstractExpression EscortShipsOrder_4004_SourceExpression;
+		private static TaiPanAbstractExpression EscortShipsOrder_4006_SourceExpression;
 
 		/**
 		 * @generated
@@ -360,14 +339,14 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		static {
 			Map env = new HashMap(3);
 			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getShip());
-			EscortShipsOrder_4004_SourceExpression = TaiPanOCLFactory.getExpression(
+			EscortShipsOrder_4006_SourceExpression = TaiPanOCLFactory.getExpression(
 					"self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
 		}
 
 		/**
 		 * @generated
 		 */
-		private static TaiPanAbstractExpression EscortShipsOrder_4004_TargetExpression;
+		private static TaiPanAbstractExpression EscortShipsOrder_4006_TargetExpression;
 
 		/**
 		 * @generated
@@ -375,7 +354,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		static {
 			Map env = new HashMap(3);
 			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getWarship());
-			EscortShipsOrder_4004_TargetExpression = TaiPanOCLFactory.getExpression("not self.oclIsKindOf(Warship)", TaiPanPackage.eINSTANCE.getShip(), env); //$NON-NLS-1$
+			EscortShipsOrder_4006_TargetExpression = TaiPanOCLFactory.getExpression("not self.oclIsKindOf(Warship)", TaiPanPackage.eINSTANCE.getShip(), env); //$NON-NLS-1$
 		}
 
 		/**
@@ -422,13 +401,13 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canCreateEscortShipsOrder_4004(Warship source, Ship target) {
+		public static boolean canCreateEscortShipsOrder_4006(Warship source, Ship target) {
 			if (source != null) {
 				if (source.getEscortOrder() != null) {
 					return false;
 				}
 			}
-			return canExistEscortShipsOrder_4004(source, target);
+			return canExistEscortShipsOrder_4006(source, target);
 		}
 
 		/**
@@ -441,13 +420,13 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canCreatePortRegister_4006(Port source, Ship target) {
+		public static boolean canCreatePortRegister_4007(Port source, Ship target) {
 			if (source != null) {
 				if (source.getRegister().contains(target)) {
 					return false;
 				}
 			}
-			return canExistPortRegister_4006(source, target);
+			return canExistPortRegister_4007(source, target);
 		}
 
 		/**
@@ -474,11 +453,11 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canExistEscortShipsOrder_4004(Warship source, Ship target) {
-			if (!evaluate(EscortShipsOrder_4004_SourceExpression, source, target, false)) {
+		public static boolean canExistEscortShipsOrder_4006(Warship source, Ship target) {
+			if (!evaluate(EscortShipsOrder_4006_SourceExpression, source, target, false)) {
 				return false;
 			}
-			if (!evaluate(EscortShipsOrder_4004_TargetExpression, target, source, true)) {
+			if (!evaluate(EscortShipsOrder_4006_TargetExpression, target, source, true)) {
 				return false;
 			}
 			return true;
@@ -497,7 +476,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canExistPortRegister_4006(Port source, Ship target) {
+		public static boolean canExistPortRegister_4007(Port source, Ship target) {
 			return true;
 		}
 

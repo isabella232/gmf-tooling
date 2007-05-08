@@ -27,7 +27,7 @@ public class PortRegisterEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4006;
+	public static final int VISUAL_ID = 4007;
 
 	/**
 	 * @generated

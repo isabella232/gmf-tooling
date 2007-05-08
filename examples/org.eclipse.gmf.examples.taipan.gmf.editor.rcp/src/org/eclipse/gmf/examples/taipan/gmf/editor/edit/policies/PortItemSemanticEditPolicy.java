@@ -11,37 +11,29 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.gef.commands.UnexecutableCommand;
-import org.eclipse.gmf.examples.taipan.Aquatory;
-import org.eclipse.gmf.examples.taipan.Port;
-import org.eclipse.gmf.examples.taipan.Ship;
-import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrderCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrderReorientCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.PortRegisterCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.PortRegisterReorientCommand;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.Route2CreateCommand;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.Route2ReorientCommand;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.RouteCreateCommand;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.RouteReorientCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ReliableRouteCreateCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ReliableRouteReorientCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipDestinationCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipDestinationReorientCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.UnreliableRouteCreateCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.UnreliableRouteReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortRegisterEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -66,164 +58,52 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
+		Command command = req.getTarget() == null ? getStartCreateRelationshipCommand(req) : getCompleteCreateRelationshipCommand(req);
+		return command != null ? command : super.getCreateRelationshipCommand(req);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getStartCreateRelationshipCommand(CreateRelationshipRequest req) {
 		if (TaiPanElementTypes.ShipDestination_4001 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingShipDestination_4001Command(req);
+			return null;
 		}
 		if (TaiPanElementTypes.Route_4002 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingRoute_4002Command(req) : getCreateCompleteIncomingRoute_4002Command(req);
+			return getGEFWrapper(new ReliableRouteCreateCommand(req, req.getSource(), req.getTarget()));
 		}
 		if (TaiPanElementTypes.Route_4003 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingRoute_4003Command(req) : getCreateCompleteIncomingRoute_4003Command(req);
+			return getGEFWrapper(new UnreliableRouteCreateCommand(req, req.getSource(), req.getTarget()));
 		}
 		if (TaiPanElementTypes.BesiegePortOrder_4005 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingBesiegePortOrder_4005Command(req);
+			return getGEFWrapper(new BesiegePortOrderCreateCommand(req, req.getTarget(), req.getSource()));
 		}
-		if (TaiPanElementTypes.PortRegister_4006 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingPortRegister_4006Command(req) : null;
+		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
+			return getGEFWrapper(new PortRegisterCreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		return super.getCreateRelationshipCommand(req);
+		return null;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingShipDestination_4001Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof Ship || false == targetEObject instanceof Port) {
-			return UnexecutableCommand.INSTANCE;
+	protected Command getCompleteCreateRelationshipCommand(CreateRelationshipRequest req) {
+		if (TaiPanElementTypes.ShipDestination_4001 == req.getElementType()) {
+			return getGEFWrapper(new ShipDestinationCreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		Ship source = (Ship) sourceEObject;
-		Port target = (Port) targetEObject;
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateShipDestination_4001(source, target)) {
-			return UnexecutableCommand.INSTANCE;
+		if (TaiPanElementTypes.Route_4002 == req.getElementType()) {
+			return getGEFWrapper(new ReliableRouteCreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		SetRequest setReq = new SetRequest(sourceEObject, TaiPanPackage.eINSTANCE.getShip_Destination(), target);
-		return getGEFWrapper(new SetValueCommand(setReq));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateStartOutgoingRoute_4002Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		if (false == sourceEObject instanceof Port) {
-			return UnexecutableCommand.INSTANCE;
+		if (TaiPanElementTypes.Route_4003 == req.getElementType()) {
+			return getGEFWrapper(new UnreliableRouteCreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		Port source = (Port) sourceEObject;
-		Aquatory container = (Aquatory) getRelationshipContainer(source, TaiPanPackage.eINSTANCE.getAquatory(), req.getElementType());
-		if (container == null) {
-			return UnexecutableCommand.INSTANCE;
+		if (TaiPanElementTypes.BesiegePortOrder_4005 == req.getElementType()) {
+			return getGEFWrapper(new BesiegePortOrderCreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateRoute_4002(container, source, null)) {
-			return UnexecutableCommand.INSTANCE;
+		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
+			return getGEFWrapper(new PortRegisterCreateCommand(req, req.getTarget(), req.getSource()));
 		}
-		return new Command() {
-		};
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingRoute_4002Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof Port || false == targetEObject instanceof Port) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Port source = (Port) sourceEObject;
-		Port target = (Port) targetEObject;
-		Aquatory container = (Aquatory) getRelationshipContainer(source, TaiPanPackage.eINSTANCE.getAquatory(), req.getElementType());
-		if (container == null) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateRoute_4002(container, source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
-		}
-		return getGEFWrapper(new RouteCreateCommand(req, container, source, target));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateStartOutgoingRoute_4003Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		if (false == sourceEObject instanceof Port) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Port source = (Port) sourceEObject;
-		Aquatory container = (Aquatory) getRelationshipContainer(source, TaiPanPackage.eINSTANCE.getAquatory(), req.getElementType());
-		if (container == null) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateRoute_4003(container, source, null)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		return new Command() {
-		};
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingRoute_4003Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof Port || false == targetEObject instanceof Port) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Port source = (Port) sourceEObject;
-		Port target = (Port) targetEObject;
-		Aquatory container = (Aquatory) getRelationshipContainer(source, TaiPanPackage.eINSTANCE.getAquatory(), req.getElementType());
-		if (container == null) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateRoute_4003(container, source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
-		}
-		return getGEFWrapper(new Route2CreateCommand(req, container, source, target));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingBesiegePortOrder_4005Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof Warship || false == targetEObject instanceof Port) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Warship source = (Warship) sourceEObject;
-		Port target = (Port) targetEObject;
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateBesiegePortOrder_4005(source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_AttackOrders());
-		}
-		return getGEFWrapper(new BesiegePortOrderCreateCommand(req, source, target));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateStartOutgoingPortRegister_4006Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		if (false == sourceEObject instanceof Port) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Port source = (Port) sourceEObject;
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreatePortRegister_4006(source, null)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		return new Command() {
-		};
+		return null;
 	}
 
 	/**
@@ -234,10 +114,10 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 */
 	protected Command getReorientRelationshipCommand(ReorientRelationshipRequest req) {
 		switch (getVisualID(req)) {
-		case RouteEditPart.VISUAL_ID:
-			return getGEFWrapper(new RouteReorientCommand(req));
-		case Route2EditPart.VISUAL_ID:
-			return getGEFWrapper(new Route2ReorientCommand(req));
+		case ReliableRouteEditPart.VISUAL_ID:
+			return getGEFWrapper(new ReliableRouteReorientCommand(req));
+		case UnreliableRouteEditPart.VISUAL_ID:
+			return getGEFWrapper(new UnreliableRouteReorientCommand(req));
 		case BesiegePortOrderEditPart.VISUAL_ID:
 			return getGEFWrapper(new BesiegePortOrderReorientCommand(req));
 		}

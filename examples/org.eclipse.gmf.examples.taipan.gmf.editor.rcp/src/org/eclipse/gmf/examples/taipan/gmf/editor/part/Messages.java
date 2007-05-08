@@ -69,11 +69,6 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String TaiPanDocumentProvider_UnableToLoadResourceError;
-
-	/**
-	 * @generated
-	 */
 	public static String TaiPanDocumentProvider_NoDiagramInResourceError;
 
 	/**
@@ -360,6 +355,11 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String ShipLargeCargoEditPart_title;
+
+	/**
+	 * @generated
+	 */
+	public static String WarshipLargeCargoEditPart_title;
 
 	/**
 	 * @generated

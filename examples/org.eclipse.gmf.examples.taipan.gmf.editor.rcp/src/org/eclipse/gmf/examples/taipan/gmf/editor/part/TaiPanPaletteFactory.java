@@ -182,9 +182,9 @@ public class TaiPanPaletteFactory {
 	 */
 	private ToolEntry createEscortShipsOrder11CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.EscortShipsOrder_4004);
+		types.add(TaiPanElementTypes.EscortShipsOrder_4006);
 		LinkToolEntry entry = new LinkToolEntry(Messages.EscortShipsOrder11CreationTool_title, Messages.EscortShipsOrder11CreationTool_desc, types);
-		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.EscortShipsOrder_4004));
+		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.EscortShipsOrder_4006));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -194,9 +194,9 @@ public class TaiPanPaletteFactory {
 	 */
 	private ToolEntry createRegistration12CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.PortRegister_4006);
+		types.add(TaiPanElementTypes.PortRegister_4007);
 		LinkToolEntry entry = new LinkToolEntry(Messages.Registration12CreationTool_title, Messages.Registration12CreationTool_desc, types);
-		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.PortRegister_4006));
+		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.PortRegister_4007));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}

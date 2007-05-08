@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,6 +14,7 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.ConnectionLocator;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
@@ -29,6 +30,7 @@ import org.eclipse.gef.tools.DirectEditManager;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
+import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanParserProvider;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
@@ -43,9 +45,7 @@ import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
-import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
@@ -60,12 +60,12 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class RouteDescriptionEditPart extends LabelEditPart implements ITextAwareEditPart {
+public class UnreliableRouteRelbEditPart extends LabelEditPart implements ITextAwareEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 6002;
+	public static final int VISUAL_ID = 6005;
 
 	/**
 	 * @generated
@@ -91,13 +91,13 @@ public class RouteDescriptionEditPart extends LabelEditPart implements ITextAwar
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(RouteDescriptionEditPart.VISUAL_ID), new Point(0, 40));
+		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(UnreliableRouteRelbEditPart.VISUAL_ID), new Point(0, 60));
 	}
 
 	/**
 	 * @generated
 	 */
-	public RouteDescriptionEditPart(View view) {
+	public UnreliableRouteRelbEditPart(View view) {
 		super(view);
 	}
 
@@ -197,11 +197,7 @@ public class RouteDescriptionEditPart extends LabelEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected Image getLabelIcon() {
-		EObject parserElement = getParserElement();
-		if (parserElement == null) {
-			return null;
-		}
-		return TaiPanElementTypes.getImage(parserElement.eClass());
+		return null;
 	}
 
 	/**
@@ -298,15 +294,7 @@ public class RouteDescriptionEditPart extends LabelEditPart implements ITextAwar
 	public IParser getParser() {
 		if (parser == null) {
 			String parserHint = ((View) getModel()).getType();
-			ParserHintAdapter hintAdapter = new ParserHintAdapter(getParserElement(), parserHint) {
-
-				public Object getAdapter(Class adapter) {
-					if (IElementType.class.equals(adapter)) {
-						return TaiPanElementTypes.Route_4002;
-					}
-					return super.getAdapter(adapter);
-				}
-			};
+			IAdaptable hintAdapter = new TaiPanParserProvider.HintAdapter(TaiPanElementTypes.Route_4003, getParserElement(), parserHint);
 			parser = ParserService.getInstance().getParser(hintAdapter);
 		}
 		return parser;
@@ -541,18 +529,18 @@ public class RouteDescriptionEditPart extends LabelEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new ReliableRouteDescriptionFigure();
+		return new UnreliableRouteReliabilityFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public class ReliableRouteDescriptionFigure extends WrapLabel {
+	public class UnreliableRouteReliabilityFigure extends WrapLabel {
 
 		/**
 		 * @generated
 		 */
-		public ReliableRouteDescriptionFigure() {
+		public UnreliableRouteReliabilityFigure() {
 			this.setText("<...>");
 		}
 

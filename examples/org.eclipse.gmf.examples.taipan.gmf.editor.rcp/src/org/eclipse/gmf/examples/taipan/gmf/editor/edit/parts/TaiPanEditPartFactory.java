@@ -82,29 +82,32 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 			case ShipLargeCargoEditPart.VISUAL_ID:
 				return new ShipLargeCargoEditPart(view);
 
+			case WarshipLargeCargoEditPart.VISUAL_ID:
+				return new WarshipLargeCargoEditPart(view);
+
 			case ShipDestinationEditPart.VISUAL_ID:
 				return new ShipDestinationEditPart(view);
 
 			case ShipDestinationMarkerEditPart.VISUAL_ID:
 				return new ShipDestinationMarkerEditPart(view);
 
-			case RouteEditPart.VISUAL_ID:
-				return new RouteEditPart(view);
+			case ReliableRouteEditPart.VISUAL_ID:
+				return new ReliableRouteEditPart(view);
 
-			case RouteDescriptionEditPart.VISUAL_ID:
-				return new RouteDescriptionEditPart(view);
+			case ReliableRouteDescEditPart.VISUAL_ID:
+				return new ReliableRouteDescEditPart(view);
 
-			case RouteReliabilityEditPart.VISUAL_ID:
-				return new RouteReliabilityEditPart(view);
+			case ReliableRouteRelbEditPart.VISUAL_ID:
+				return new ReliableRouteRelbEditPart(view);
 
-			case Route2EditPart.VISUAL_ID:
-				return new Route2EditPart(view);
+			case UnreliableRouteEditPart.VISUAL_ID:
+				return new UnreliableRouteEditPart(view);
 
-			case RouteDescription2EditPart.VISUAL_ID:
-				return new RouteDescription2EditPart(view);
+			case UnreliableRouteDescEditPart.VISUAL_ID:
+				return new UnreliableRouteDescEditPart(view);
 
-			case RouteReliability2EditPart.VISUAL_ID:
-				return new RouteReliability2EditPart(view);
+			case UnreliableRouteRelbEditPart.VISUAL_ID:
+				return new UnreliableRouteRelbEditPart(view);
 
 			case EscortShipsOrderEditPart.VISUAL_ID:
 				return new EscortShipsOrderEditPart(view);

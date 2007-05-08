@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,7 +15,7 @@ import org.eclipse.gef.commands.Command;
 
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.SmallItemsCreateCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.LargeItemCreateCommand;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 
@@ -24,17 +24,17 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 /**
  * @generated
  */
-public class ShipSmallCargoItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
+public class WarshipLargeCargoItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (TaiPanElementTypes.SmallItems_3001 == req.getElementType()) {
+		if (TaiPanElementTypes.LargeItem_3002 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getShip_Cargo());
 			}
-			return getGEFWrapper(new SmallItemsCreateCommand(req));
+			return getGEFWrapper(new LargeItemCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

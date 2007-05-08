@@ -111,22 +111,22 @@
             <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteDescriptionEditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteDescEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
             <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteReliabilityEditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteRelbEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
             <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteDescription2EditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteDescEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
             <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteReliability2EditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteRelbEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
             <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
          </popupContribution>
@@ -316,12 +316,12 @@
       </metamodel>
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.EscortShipsOrder_4004"
-               name="%metatype.name.EscortShipsOrder_4004"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.EscortShipsOrder_4006"
+               name="%metatype.name.EscortShipsOrder_4006"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EscortShipsOrder"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.EscortShipsOrderEditHelper">
-            <param name="semanticHint" value="4004"/>
+            <param name="semanticHint" value="4006"/>
          </metamodelType>
       </metamodel>
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
@@ -336,12 +336,12 @@
       </metamodel>
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <specializationType
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.PortRegister_4006"
-               name="%metatype.name.PortRegister_4006"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.PortRegister_4007"
+               name="%metatype.name.PortRegister_4007"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.PortRegisterEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
-            <param name="semanticHint" value="4006"/>
+            <param name="semanticHint" value="4007"/>
          </specializationType>
       </metamodel>
    </extension>
@@ -366,9 +366,9 @@
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ShipDestination_4001"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Route_4002"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Route_4003"/>
-         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.EscortShipsOrder_4004"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.EscortShipsOrder_4006"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.BesiegePortOrder_4005"/>
-         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.PortRegister_4006"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.PortRegister_4007"/>
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
    </extension>

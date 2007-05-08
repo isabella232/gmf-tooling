@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,31 +15,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
+
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteDescription2EditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteReliability2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipLargeCargoEditPart;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
-import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
-import org.eclipse.gmf.runtime.diagram.ui.view.factories.ConnectionViewFactory;
+
+import org.eclipse.gmf.runtime.diagram.ui.view.factories.ListCompartmentViewFactory;
+
+import org.eclipse.gmf.runtime.notation.DrawerStyle;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
+import org.eclipse.gmf.runtime.notation.TitleStyle;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
  */
-public class Route2ViewFactory extends ConnectionViewFactory {
+public class WarshipLargeCargoViewFactory extends ListCompartmentViewFactory {
 
 	/**
 	 * @generated 
 	 */
 	protected List createStyles(View view) {
 		List styles = new ArrayList();
-		styles.add(NotationFactory.eINSTANCE.createRoutingStyle());
-		styles.add(NotationFactory.eINSTANCE.createFontStyle());
-		styles.add(NotationFactory.eINSTANCE.createLineStyle());
+		styles.add(NotationFactory.eINSTANCE.createSortingStyle());
+		styles.add(NotationFactory.eINSTANCE.createFilteringStyle());
 		return styles;
 	}
 
@@ -48,18 +52,38 @@ public class Route2ViewFactory extends ConnectionViewFactory {
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = TaiPanVisualIDRegistry.getType(Route2EditPart.VISUAL_ID);
+			semanticHint = TaiPanVisualIDRegistry.getType(WarshipLargeCargoEditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
+		setupCompartmentTitle(view);
+		setupCompartmentCollapsed(view);
 		if (!AquatoryEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(containerView))) {
 			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
 			shortcutAnnotation.getDetails().put("modelID", AquatoryEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
-		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(RouteDescription2EditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(RouteReliability2EditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setupCompartmentTitle(View view) {
+		TitleStyle titleStyle = (TitleStyle) view.getStyle(NotationPackage.eINSTANCE.getTitleStyle());
+		if (titleStyle != null) {
+			titleStyle.setShowTitle(true);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setupCompartmentCollapsed(View view) {
+		DrawerStyle drawerStyle = (DrawerStyle) view.getStyle(NotationPackage.eINSTANCE.getDrawerStyle());
+		if (drawerStyle != null) {
+			drawerStyle.setCollapsed(false);
+		}
 	}
 
 }

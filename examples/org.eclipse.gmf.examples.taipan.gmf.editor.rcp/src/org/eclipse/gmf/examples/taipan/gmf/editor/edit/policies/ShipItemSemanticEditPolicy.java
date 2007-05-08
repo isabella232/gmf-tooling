@@ -24,7 +24,9 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderReorientCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.PortRegisterCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.PortRegisterReorientCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipDestinationCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipDestinationReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipsOrderEditPart;
@@ -108,70 +110,40 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
+		Command command = req.getTarget() == null ? getStartCreateRelationshipCommand(req) : getCompleteCreateRelationshipCommand(req);
+		return command != null ? command : super.getCreateRelationshipCommand(req);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getStartCreateRelationshipCommand(CreateRelationshipRequest req) {
 		if (TaiPanElementTypes.ShipDestination_4001 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingShipDestination_4001Command(req) : null;
+			return getGEFWrapper(new ShipDestinationCreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		if (TaiPanElementTypes.EscortShipsOrder_4004 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingEscortShipsOrder_4004Command(req);
+		if (TaiPanElementTypes.EscortShipsOrder_4006 == req.getElementType()) {
+			return getGEFWrapper(new EscortShipsOrderCreateCommand(req, req.getTarget(), req.getSource()));
 		}
-		if (TaiPanElementTypes.PortRegister_4006 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingPortRegister_4006Command(req);
+		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
+			return getGEFWrapper(new PortRegisterCreateCommand(req, req.getTarget(), req.getSource()));
 		}
-		return super.getCreateRelationshipCommand(req);
+		return null;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingShipDestination_4001Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		if (false == sourceEObject instanceof Ship) {
-			return UnexecutableCommand.INSTANCE;
+	protected Command getCompleteCreateRelationshipCommand(CreateRelationshipRequest req) {
+		if (TaiPanElementTypes.ShipDestination_4001 == req.getElementType()) {
+			return null;
 		}
-		Ship source = (Ship) sourceEObject;
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateShipDestination_4001(source, null)) {
-			return UnexecutableCommand.INSTANCE;
+		if (TaiPanElementTypes.EscortShipsOrder_4006 == req.getElementType()) {
+			return getGEFWrapper(new EscortShipsOrderCreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		return new Command() {
-		};
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingEscortShipsOrder_4004Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof Warship || false == targetEObject instanceof Ship) {
-			return UnexecutableCommand.INSTANCE;
+		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
+			return getGEFWrapper(new PortRegisterCreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		Warship source = (Warship) sourceEObject;
-		Ship target = (Ship) targetEObject;
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateEscortShipsOrder_4004(source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_EscortOrder());
-		}
-		return getGEFWrapper(new EscortShipsOrderCreateCommand(req, source, target));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingPortRegister_4006Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof Port || false == targetEObject instanceof Ship) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Port source = (Port) sourceEObject;
-		Ship target = (Ship) targetEObject;
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreatePortRegister_4006(source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		SetRequest setReq = new SetRequest(sourceEObject, TaiPanPackage.eINSTANCE.getPort_Register(), target);
-		return getGEFWrapper(new SetValueCommand(setReq));
+		return null;
 	}
 
 	/**

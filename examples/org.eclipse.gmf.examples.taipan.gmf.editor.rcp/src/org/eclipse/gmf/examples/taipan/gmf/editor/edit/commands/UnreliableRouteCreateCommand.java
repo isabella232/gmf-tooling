@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,25 +16,22 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
-import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
-import org.eclipse.gmf.examples.taipan.Ship;
+import org.eclipse.gmf.examples.taipan.Aquatory;
+import org.eclipse.gmf.examples.taipan.Port;
+import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.TaiPanFactory;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-import org.eclipse.gmf.examples.taipan.Warship;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.commands.CreateRelationshipCommand;
-
 import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 
 /**
  * @generated
  */
-public class EscortShipsOrderCreateCommand extends CreateElementCommand {
+public class UnreliableRouteCreateCommand extends CreateElementCommand {
 
 	/**
 	 * @generated
@@ -49,15 +46,29 @@ public class EscortShipsOrderCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	public EscortShipsOrderCreateCommand(CreateRelationshipRequest request, EObject source, EObject target) {
+	private Aquatory container;
+
+	/**
+	 * @generated
+	 */
+	public UnreliableRouteCreateCommand(CreateRelationshipRequest request, EObject source, EObject target) {
 		super(request);
 		this.source = source;
 		this.target = target;
 		if (request.getContainmentFeature() == null) {
-			setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_EscortOrder());
+			setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
 		}
 
-		super.setElementToEdit(source);
+		// Find container element for the new link.
+		// Climb up by containment hierarchy starting from the source
+		// and return the first element that is instance of the container class.
+		for (EObject element = source; element != null; element = element.eContainer()) {
+			if (element instanceof Aquatory) {
+				container = (Aquatory) element;
+				super.setElementToEdit(container);
+				break;
+			}
+		}
 	}
 
 	/**
@@ -67,38 +78,40 @@ public class EscortShipsOrderCreateCommand extends CreateElementCommand {
 		if (source == null && target == null) {
 			return false;
 		}
-		if (source != null && !(source instanceof Warship)) {
+		if (source != null && !(source instanceof Port)) {
 			return false;
 		}
-		if (target != null && !(target instanceof Ship)) {
+		if (target != null && !(target instanceof Port)) {
 			return false;
 		}
 		if (getSource() == null) {
 			return true; // link creation is in progress; source is not defined yet
 		}
 		// target may be null here but it's possible to check constraint
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateEscortShipsOrder_4006(getSource(), getTarget());
+		if (getContainer() == null) {
+			return false;
+		}
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateRoute_4003(getContainer(), getSource(), getTarget());
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Warship getSource() {
-		return (Warship) source;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Ship getTarget() {
-		return (Ship) target;
+	protected EObject doDefaultElementCreation() {
+		// org.eclipse.gmf.examples.taipan.Route newElement = (org.eclipse.gmf.examples.taipan.Route) super.doDefaultElementCreation();
+		Route newElement = TaiPanFactory.eINSTANCE.createRoute();
+		getContainer().getRoutes().add(newElement);
+		newElement.setSource(getSource());
+		newElement.setDestination(getTarget());
+		TaiPanElementTypes.Initializers.Route_4003.init(newElement);
+		return newElement;
 	}
 
 	/**
 	 * @generated
 	 */
 	protected EClass getEClassToEdit() {
-		return TaiPanPackage.eINSTANCE.getWarship();
+		return TaiPanPackage.eINSTANCE.getAquatory();
 	}
 
 	/**
@@ -131,12 +144,21 @@ public class EscortShipsOrderCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	protected EObject doDefaultElementCreation() {
-		// org.eclipse.gmf.examples.taipan.EscortShipsOrder newElement = (org.eclipse.gmf.examples.taipan.EscortShipsOrder) super.doDefaultElementCreation();
-		EscortShipsOrder newElement = TaiPanFactory.eINSTANCE.createEscortShipsOrder();
-		getSource().setEscortOrder(newElement);
-		newElement.getShips().add(getTarget());
-		return newElement;
+	protected Port getSource() {
+		return (Port) source;
 	}
 
+	/**
+	 * @generated
+	 */
+	protected Port getTarget() {
+		return (Port) target;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Aquatory getContainer() {
+		return container;
+	}
 }

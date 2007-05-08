@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -26,7 +26,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipReques
 /**
  * @generated
  */
-public class RouteReorientCommand extends EditElementCommand {
+public class UnreliableRouteReorientCommand extends EditElementCommand {
 
 	/**
 	 * @generated
@@ -46,7 +46,7 @@ public class RouteReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	public RouteReorientCommand(ReorientRelationshipRequest request) {
+	public UnreliableRouteReorientCommand(ReorientRelationshipRequest request) {
 		super(request.getLabel(), request.getRelationship(), request);
 		reorientDirection = request.getDirection();
 		oldEnd = request.getOldRelationshipEnd();
@@ -81,7 +81,7 @@ public class RouteReorientCommand extends EditElementCommand {
 			return false;
 		}
 		Aquatory container = (Aquatory) getLink().eContainer();
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4002(container, getNewSource(), target);
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4003(container, getNewSource(), target);
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class RouteReorientCommand extends EditElementCommand {
 			return false;
 		}
 		Aquatory container = (Aquatory) getLink().eContainer();
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4002(container, source, getNewTarget());
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4003(container, source, getNewTarget());
 	}
 
 	/**

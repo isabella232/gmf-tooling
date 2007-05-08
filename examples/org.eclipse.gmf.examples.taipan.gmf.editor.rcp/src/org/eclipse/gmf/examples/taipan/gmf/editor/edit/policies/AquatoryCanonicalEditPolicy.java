@@ -11,68 +11,44 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
-import java.util.List;
 import java.util.Collection;
-import org.eclipse.gmf.runtime.notation.Edge;
-import org.eclipse.emf.ecore.EObject;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IAdaptable;
-
-import org.eclipse.emf.ecore.EClass;
-
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
-
 import org.eclipse.gef.commands.Command;
-
-import org.eclipse.gmf.examples.taipan.Aquatory;
-import org.eclipse.gmf.examples.taipan.BesiegePortOrder;
-import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
-import org.eclipse.gmf.examples.taipan.Port;
-import org.eclipse.gmf.examples.taipan.Route;
-import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-
-import org.eclipse.gmf.examples.taipan.Warship;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipsOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortRegisterEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
-
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramUpdater;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanLinkDescriptor;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanNodeDescriptor;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
-
-import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
-
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
-
 import org.eclipse.gmf.runtime.diagram.ui.commands.DeferredLayoutCommand;
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
-
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
-
-import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -83,32 +59,16 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
+	Set myFeaturesToSynchronize;
+
+	/**
+	 * @generated
+	 */
 	protected List getSemanticChildrenList() {
-		List result = new LinkedList();
-		EObject modelObject = ((View) getHost().getModel()).getElement();
 		View viewObject = (View) getHost().getModel();
-		EObject nextValue;
-		int nodeVID;
-		for (Iterator values = ((Aquatory) modelObject).getPorts().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = TaiPanVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
-			if (PortEditPart.VISUAL_ID == nodeVID) {
-				result.add(nextValue);
-			}
-		}
-		for (Iterator values = ((Aquatory) modelObject).getShips().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = TaiPanVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
-			switch (nodeVID) {
-			case ShipEditPart.VISUAL_ID: {
-				result.add(nextValue);
-				break;
-			}
-			case WarshipEditPart.VISUAL_ID: {
-				result.add(nextValue);
-				break;
-			}
-			}
+		List result = new LinkedList();
+		for (Iterator it = TaiPanDiagramUpdater.getAquatory_1SemanticChildren(viewObject).iterator(); it.hasNext();) {
+			result.add(((TaiPanNodeDescriptor) it.next()).getModelElement());
 		}
 		return result;
 	}
@@ -117,17 +77,17 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected boolean shouldDeleteView(View view) {
-		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
-			return view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy());
-		}
-		int nodeVID = TaiPanVisualIDRegistry.getVisualID(view);
-		switch (nodeVID) {
-		case PortEditPart.VISUAL_ID:
-		case ShipEditPart.VISUAL_ID:
-		case WarshipEditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean isOrphaned(Collection semanticChildren, final View view) {
+		TaiPanDiagramUpdater.isShortcutOrphaned(view);
+		int visualID = TaiPanVisualIDRegistry.getVisualID(view);
+		return TaiPanDiagramUpdater.isAquatory_1DomainMetaChild(visualID)
+				&& (!semanticChildren.contains(view.getElement()) || visualID != TaiPanVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement()));
 	}
 
 	/**
@@ -135,6 +95,18 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 */
 	protected String getDefaultFactoryHint() {
 		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Set getFeaturesToSynchronize() {
+		if (myFeaturesToSynchronize == null) {
+			myFeaturesToSynchronize = new HashSet();
+			myFeaturesToSynchronize.add(TaiPanPackage.eINSTANCE.getAquatory_Ports());
+			myFeaturesToSynchronize.add(TaiPanPackage.eINSTANCE.getAquatory_Ships());
+		}
+		return myFeaturesToSynchronize;
 	}
 
 	/**
@@ -188,81 +160,104 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private Collection myLinkDescriptors = new LinkedList();
-
-	/**
-	 * @generated
-	 */
-	private Map myEObject2ViewMap = new HashMap();
-
-	/**
-	 * @generated
-	 */
 	private Collection refreshConnections() {
-		try {
-			collectAllLinks(getDiagram());
-			Collection existingLinks = new LinkedList(getDiagram().getEdges());
-			for (Iterator diagramLinks = existingLinks.iterator(); diagramLinks.hasNext();) {
-				Edge nextDiagramLink = (Edge) diagramLinks.next();
-				EObject diagramLinkObject = nextDiagramLink.getElement();
-				EObject diagramLinkSrc = nextDiagramLink.getSource().getElement();
-				EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
-				int diagramLinkVisualID = TaiPanVisualIDRegistry.getVisualID(nextDiagramLink);
-				for (Iterator modelLinkDescriptors = myLinkDescriptors.iterator(); modelLinkDescriptors.hasNext();) {
-					LinkDescriptor nextLinkDescriptor = (LinkDescriptor) modelLinkDescriptors.next();
-					if (diagramLinkObject == nextLinkDescriptor.getLinkElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination()
-							&& diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
-						diagramLinks.remove();
-						modelLinkDescriptors.remove();
-					}
+		Map domain2NotationMap = new HashMap();
+		Collection linkDescriptors = collectAllLinks(getDiagram(), domain2NotationMap);
+		Collection existingLinks = new LinkedList(getDiagram().getEdges());
+		for (Iterator linksIterator = existingLinks.iterator(); linksIterator.hasNext();) {
+			Edge nextDiagramLink = (Edge) linksIterator.next();
+			EObject diagramLinkObject = nextDiagramLink.getElement();
+			EObject diagramLinkSrc = nextDiagramLink.getSource().getElement();
+			EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
+			int diagramLinkVisualID = TaiPanVisualIDRegistry.getVisualID(nextDiagramLink);
+			for (Iterator LinkDescriptorsIterator = linkDescriptors.iterator(); LinkDescriptorsIterator.hasNext();) {
+				TaiPanLinkDescriptor nextLinkDescriptor = (TaiPanLinkDescriptor) LinkDescriptorsIterator.next();
+				if (diagramLinkObject == nextLinkDescriptor.getModelElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination()
+						&& diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
+					linksIterator.remove();
+					LinkDescriptorsIterator.remove();
 				}
 			}
-			deleteViews(existingLinks.iterator());
-			return createConnections(myLinkDescriptors);
-		} finally {
-			myLinkDescriptors.clear();
-			myEObject2ViewMap.clear();
 		}
+		deleteViews(existingLinks.iterator());
+		return createConnections(linkDescriptors, domain2NotationMap);
 	}
 
 	/**
 	 * @generated
 	 */
-	private void collectAllLinks(View view) {
-		EObject modelElement = view.getElement();
-		int diagramElementVisualID = TaiPanVisualIDRegistry.getVisualID(view);
-		switch (diagramElementVisualID) {
-		case PortEditPart.VISUAL_ID:
-		case ShipEditPart.VISUAL_ID:
-		case WarshipEditPart.VISUAL_ID:
-		case SmallItemsEditPart.VISUAL_ID:
-		case LargeItemEditPart.VISUAL_ID:
-		case EmptyBoxEditPart.VISUAL_ID:
-		case AquatoryEditPart.VISUAL_ID: {
-			myEObject2ViewMap.put(modelElement, view);
-			storeLinks(modelElement, getDiagram());
+	private Collection collectAllLinks(View view, Map domain2NotationMap) {
+		Collection result = new LinkedList();
+		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
+		case PortEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(TaiPanDiagramUpdater.getPort_2001ContainerLinks(view));
+			break;
 		}
-		default: {
+		case ShipEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(TaiPanDiagramUpdater.getShip_2002ContainerLinks(view));
+			break;
 		}
-			for (Iterator children = view.getChildren().iterator(); children.hasNext();) {
-				View childView = (View) children.next();
-				collectAllLinks(childView);
-			}
+		case WarshipEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(TaiPanDiagramUpdater.getWarship_2003ContainerLinks(view));
+			break;
 		}
+		case SmallItemsEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(TaiPanDiagramUpdater.getSmallItems_3001ContainerLinks(view));
+			break;
+		}
+		case LargeItemEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(TaiPanDiagramUpdater.getLargeItem_3002ContainerLinks(view));
+			break;
+		}
+		case EmptyBoxEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(TaiPanDiagramUpdater.getEmptyBox_3003ContainerLinks(view));
+			break;
+		}
+		case ReliableRouteEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(TaiPanDiagramUpdater.getRoute_4002ContainerLinks(view));
+			break;
+		}
+		case UnreliableRouteEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(TaiPanDiagramUpdater.getRoute_4003ContainerLinks(view));
+			break;
+		}
+		case EscortShipsOrderEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(TaiPanDiagramUpdater.getEscortShipsOrder_4006ContainerLinks(view));
+			break;
+		}
+		case BesiegePortOrderEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(TaiPanDiagramUpdater.getBesiegePortOrder_4005ContainerLinks(view));
+			break;
+		}
+		}
+		for (Iterator children = view.getChildren().iterator(); children.hasNext();) {
+			result.addAll(collectAllLinks((View) children.next(), domain2NotationMap));
+		}
+		for (Iterator edges = view.getSourceEdges().iterator(); edges.hasNext();) {
+			result.addAll(collectAllLinks((View) edges.next(), domain2NotationMap));
+		}
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private Collection createConnections(Collection linkDescriptors) {
-		if (linkDescriptors.isEmpty()) {
-			return Collections.EMPTY_LIST;
-		}
+	private Collection createConnections(Collection linkDescriptors, Map domain2NotationMap) {
 		List adapters = new LinkedList();
 		for (Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
-			final LinkDescriptor nextLinkDescriptor = (LinkDescriptor) linkDescriptorsIterator.next();
-			EditPart sourceEditPart = getEditPartFor(nextLinkDescriptor.getSource());
-			EditPart targetEditPart = getEditPartFor(nextLinkDescriptor.getDestination());
+			final TaiPanLinkDescriptor nextLinkDescriptor = (TaiPanLinkDescriptor) linkDescriptorsIterator.next();
+			EditPart sourceEditPart = getEditPart(nextLinkDescriptor.getSource(), domain2NotationMap);
+			EditPart targetEditPart = getEditPart(nextLinkDescriptor.getDestination(), domain2NotationMap);
 			if (sourceEditPart == null || targetEditPart == null) {
 				continue;
 			}
@@ -289,8 +284,8 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private EditPart getEditPartFor(EObject modelElement) {
-		View view = (View) myEObject2ViewMap.get(modelElement);
+	private EditPart getEditPart(EObject domainModelElement, Map domain2NotationMap) {
+		View view = (View) domain2NotationMap.get(domainModelElement);
 		if (view != null) {
 			return (EditPart) getHost().getViewer().getEditPartRegistry().get(view);
 		}
@@ -298,246 +293,10 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	}
 
 	/**
-	 *@generated
-	 */
-	private void storeLinks(EObject container, Diagram diagram) {
-		EClass containerMetaclass = container.eClass();
-		storeFeatureModelFacetLinks(container, containerMetaclass, diagram);
-		storeTypeModelFacetLinks(container, containerMetaclass);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void storeTypeModelFacetLinks(EObject container, EClass containerMetaclass) {
-		storeTypeModelFacetLinks_Route_4002(container, containerMetaclass);
-		storeTypeModelFacetLinks_Route_4003(container, containerMetaclass);
-		storeTypeModelFacetLinks_EscortShipsOrder_4004(container, containerMetaclass);
-		storeTypeModelFacetLinks_BesiegePortOrder_4005(container, containerMetaclass);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void storeTypeModelFacetLinks_Route_4002(EObject container, EClass containerMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getAquatory().isSuperTypeOf(containerMetaclass)) {
-			for (Iterator values = ((Aquatory) container).getRoutes().iterator(); values.hasNext();) {
-				EObject nextValue = ((EObject) values.next());
-				int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(nextValue);
-				if (RouteEditPart.VISUAL_ID == linkVID) {
-					Object structuralFeatureResult = ((Route) nextValue).getDestination();
-					if (structuralFeatureResult instanceof EObject) {
-						EObject dst = (EObject) structuralFeatureResult;
-						structuralFeatureResult = ((Route) nextValue).getSource();
-						if (structuralFeatureResult instanceof EObject) {
-							EObject src = (EObject) structuralFeatureResult;
-							myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, TaiPanElementTypes.Route_4002, linkVID));
-						}
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private void storeTypeModelFacetLinks_Route_4003(EObject container, EClass containerMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getAquatory().isSuperTypeOf(containerMetaclass)) {
-			for (Iterator values = ((Aquatory) container).getRoutes().iterator(); values.hasNext();) {
-				EObject nextValue = ((EObject) values.next());
-				int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(nextValue);
-				if (Route2EditPart.VISUAL_ID == linkVID) {
-					Object structuralFeatureResult = ((Route) nextValue).getDestination();
-					if (structuralFeatureResult instanceof EObject) {
-						EObject dst = (EObject) structuralFeatureResult;
-						structuralFeatureResult = ((Route) nextValue).getSource();
-						if (structuralFeatureResult instanceof EObject) {
-							EObject src = (EObject) structuralFeatureResult;
-							myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, TaiPanElementTypes.Route_4003, linkVID));
-						}
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private void storeTypeModelFacetLinks_EscortShipsOrder_4004(EObject container, EClass containerMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getWarship().isSuperTypeOf(containerMetaclass)) {
-			EObject nextValue = (EObject) ((Warship) container).getEscortOrder();
-			int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(nextValue);
-			if (EscortShipsOrderEditPart.VISUAL_ID == linkVID) {
-				Object structuralFeatureResult = ((EscortShipsOrder) nextValue).getShips();
-				List targets = (List) structuralFeatureResult;
-				structuralFeatureResult = targets.size() == 1 ? targets.get(0) : null;
-				if (structuralFeatureResult instanceof EObject) {
-					EObject dst = (EObject) structuralFeatureResult;
-					EObject src = container;
-					myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, TaiPanElementTypes.EscortShipsOrder_4004, linkVID));
-				}
-			}
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private void storeTypeModelFacetLinks_BesiegePortOrder_4005(EObject container, EClass containerMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getWarship().isSuperTypeOf(containerMetaclass)) {
-			for (Iterator values = ((Warship) container).getAttackOrders().iterator(); values.hasNext();) {
-				EObject nextValue = ((EObject) values.next());
-				int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(nextValue);
-				if (BesiegePortOrderEditPart.VISUAL_ID == linkVID) {
-					Object structuralFeatureResult = ((BesiegePortOrder) nextValue).getPort();
-					if (structuralFeatureResult instanceof EObject) {
-						EObject dst = (EObject) structuralFeatureResult;
-						EObject src = container;
-						myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, TaiPanElementTypes.BesiegePortOrder_4005, linkVID));
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 *@generated
-	 */
-	private void storeFeatureModelFacetLinks(EObject container, EClass containerMetaclass, Diagram diagram) {
-
-		if (TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(containerMetaclass)) {
-			EObject nextDestination = (EObject) ((Ship) container).getDestination();
-			myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, TaiPanElementTypes.ShipDestination_4001, ShipDestinationEditPart.VISUAL_ID));
-
-		}
-
-		if (TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(containerMetaclass)) {
-			for (Iterator destinations = ((Port) container).getRegister().iterator(); destinations.hasNext();) {
-				EObject nextDestination = (EObject) destinations.next();
-				myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, TaiPanElementTypes.PortRegister_4006, PortRegisterEditPart.VISUAL_ID));
-
-			}
-		}
-	}
-
-	/**
 	 * @generated
 	 */
 	private Diagram getDiagram() {
 		return ((View) getHost().getModel()).getDiagram();
-	}
-
-	/**
-	 * @generated
-	 */
-	private class LinkDescriptor {
-
-		/**
-		 * @generated
-		 */
-		private EObject mySource;
-
-		/**
-		 * @generated
-		 */
-		private EObject myDestination;
-
-		/**
-		 * @generated
-		 */
-		private EObject myLinkElement;
-
-		/**
-		 * @generated
-		 */
-		private int myVisualID;
-
-		/**
-		 * @generated
-		 */
-		private IAdaptable mySemanticAdapter;
-
-		/**
-		 * @generated
-		 */
-		protected LinkDescriptor(EObject source, EObject destination, EObject linkElement, IElementType elementType, int linkVID) {
-			this(source, destination, linkVID);
-			myLinkElement = linkElement;
-			final IElementType elementTypeCopy = elementType;
-			mySemanticAdapter = new EObjectAdapter(linkElement) {
-
-				public Object getAdapter(Class adapter) {
-					if (IElementType.class.equals(adapter)) {
-						return elementTypeCopy;
-					}
-					return super.getAdapter(adapter);
-				}
-			};
-		}
-
-		/**
-		 * @generated
-		 */
-		protected LinkDescriptor(EObject source, EObject destination, IElementType elementType, int linkVID) {
-			this(source, destination, linkVID);
-			myLinkElement = null;
-			final IElementType elementTypeCopy = elementType;
-			mySemanticAdapter = new IAdaptable() {
-
-				public Object getAdapter(Class adapter) {
-					if (IElementType.class.equals(adapter)) {
-						return elementTypeCopy;
-					}
-					return null;
-				}
-			};
-		}
-
-		/**
-		 * @generated
-		 */
-		private LinkDescriptor(EObject source, EObject destination, int linkVID) {
-			mySource = source;
-			myDestination = destination;
-			myVisualID = linkVID;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EObject getSource() {
-			return mySource;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EObject getDestination() {
-			return myDestination;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EObject getLinkElement() {
-			return myLinkElement;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected int getVisualID() {
-			return myVisualID;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected IAdaptable getSemanticAdapter() {
-			return mySemanticAdapter;
-		}
 	}
 
 }
