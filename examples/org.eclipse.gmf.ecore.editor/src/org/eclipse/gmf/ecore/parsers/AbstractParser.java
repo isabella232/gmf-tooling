@@ -72,7 +72,7 @@ public abstract class AbstractParser implements IParser {
 	/**
 	 * @generated
 	 */
-	public final String getViewPattern() {
+	public String getViewPattern() {
 		return viewPattern;
 	}
 
@@ -86,7 +86,7 @@ public abstract class AbstractParser implements IParser {
 	/**
 	 * @generated
 	 */
-	public final String getEditorPattern() {
+	public String getEditorPattern() {
 		return editorPattern;
 	}
 
@@ -100,7 +100,7 @@ public abstract class AbstractParser implements IParser {
 	/**
 	 * @generated
 	 */
-	public final String getEditPattern() {
+	public String getEditPattern() {
 		return editPattern;
 	}
 

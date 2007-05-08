@@ -31,6 +31,11 @@ public class MessageFormatParser extends AbstractParser {
 	/**
 	 * @generated
 	 */
+	private String defaultPattern;
+
+	/**
+	 * @generated
+	 */
 	private MessageFormat viewProcessor;
 
 	/**
@@ -53,9 +58,36 @@ public class MessageFormatParser extends AbstractParser {
 	/**
 	 * @generated
 	 */
+	protected String getDefaultPattern() {
+		if (defaultPattern == null) {
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < features.length; i++) {
+				if (i > 0) {
+					sb.append(' ');
+				}
+				sb.append('{');
+				sb.append(i);
+				sb.append('}');
+			}
+			defaultPattern = sb.toString();
+		}
+		return defaultPattern;
+	}
+
+	/**
+	 * @generated
+	 */
+	public String getViewPattern() {
+		String pattern = super.getViewPattern();
+		return pattern != null ? pattern : getDefaultPattern();
+	}
+
+	/**
+	 * @generated
+	 */
 	public void setViewPattern(String viewPattern) {
 		super.setViewPattern(viewPattern);
-		viewProcessor = createViewProcessor(viewPattern);
+		viewProcessor = null;
 	}
 
 	/**
@@ -69,7 +101,18 @@ public class MessageFormatParser extends AbstractParser {
 	 * @generated
 	 */
 	protected MessageFormat getViewProcessor() {
+		if (viewProcessor == null) {
+			viewProcessor = createViewProcessor(getViewPattern());
+		}
 		return viewProcessor;
+	}
+
+	/**
+	 * @generated
+	 */
+	public String getEditorPattern() {
+		String pattern = super.getEditorPattern();
+		return pattern != null ? pattern : getDefaultPattern();
 	}
 
 	/**
@@ -77,7 +120,7 @@ public class MessageFormatParser extends AbstractParser {
 	 */
 	public void setEditorPattern(String editorPattern) {
 		super.setEditorPattern(editorPattern);
-		editorProcessor = createEditorProcessor(editorPattern);
+		editorProcessor = null;
 	}
 
 	/**
@@ -91,7 +134,18 @@ public class MessageFormatParser extends AbstractParser {
 	 * @generated
 	 */
 	protected MessageFormat getEditorProcessor() {
+		if (editorProcessor == null) {
+			editorProcessor = createEditorProcessor(getEditorPattern());
+		}
 		return editorProcessor;
+	}
+
+	/**
+	 * @generated
+	 */
+	public String getEditPattern() {
+		String pattern = super.getEditPattern();
+		return pattern != null ? pattern : getDefaultPattern();
 	}
 
 	/**
@@ -99,7 +153,7 @@ public class MessageFormatParser extends AbstractParser {
 	 */
 	public void setEditPattern(String editPattern) {
 		super.setEditPattern(editPattern);
-		editProcessor = createEditProcessor(editPattern);
+		editProcessor = null;
 	}
 
 	/**
@@ -113,6 +167,9 @@ public class MessageFormatParser extends AbstractParser {
 	 * @generated
 	 */
 	protected MessageFormat getEditProcessor() {
+		if (editProcessor == null) {
+			editProcessor = createEditProcessor(getEditPattern());
+		}
 		return editProcessor;
 	}
 

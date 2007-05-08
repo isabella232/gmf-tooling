@@ -586,37 +586,37 @@ public class EcoreDiagramUpdater {
 	public static List getContainedLinks(View view) {
 		switch (EcoreVisualIDRegistry.getVisualID(view)) {
 		case EClassEditPart.VISUAL_ID:
-			return getEClass_2001ContainerLinks(view);
+			return getEClass_2001ContainedLinks(view);
 		case EPackage2EditPart.VISUAL_ID:
-			return getEPackage_2002ContainerLinks(view);
+			return getEPackage_2002ContainedLinks(view);
 		case EAnnotationEditPart.VISUAL_ID:
-			return getEAnnotation_2003ContainerLinks(view);
+			return getEAnnotation_2003ContainedLinks(view);
 		case EDataTypeEditPart.VISUAL_ID:
-			return getEDataType_2004ContainerLinks(view);
+			return getEDataType_2004ContainedLinks(view);
 		case EEnumEditPart.VISUAL_ID:
-			return getEEnum_2005ContainerLinks(view);
+			return getEEnum_2005ContainedLinks(view);
 		case EAttributeEditPart.VISUAL_ID:
-			return getEAttribute_3001ContainerLinks(view);
+			return getEAttribute_3001ContainedLinks(view);
 		case EOperationEditPart.VISUAL_ID:
-			return getEOperation_3002ContainerLinks(view);
+			return getEOperation_3002ContainedLinks(view);
 		case EAnnotation2EditPart.VISUAL_ID:
-			return getEAnnotation_3003ContainerLinks(view);
+			return getEAnnotation_3003ContainedLinks(view);
 		case EClass2EditPart.VISUAL_ID:
-			return getEClass_3004ContainerLinks(view);
+			return getEClass_3004ContainedLinks(view);
 		case EPackage3EditPart.VISUAL_ID:
-			return getEPackage_3005ContainerLinks(view);
+			return getEPackage_3005ContainedLinks(view);
 		case EDataType2EditPart.VISUAL_ID:
-			return getEDataType_3006ContainerLinks(view);
+			return getEDataType_3006ContainedLinks(view);
 		case EEnum2EditPart.VISUAL_ID:
-			return getEEnum_3007ContainerLinks(view);
+			return getEEnum_3007ContainedLinks(view);
 		case EStringToStringMapEntryEditPart.VISUAL_ID:
-			return getEStringToStringMapEntry_3008ContainerLinks(view);
+			return getEStringToStringMapEntry_3008ContainedLinks(view);
 		case EEnumLiteralEditPart.VISUAL_ID:
-			return getEEnumLiteral_3009ContainerLinks(view);
+			return getEEnumLiteral_3009ContainedLinks(view);
 		case EReferenceEditPart.VISUAL_ID:
-			return getEReference_4002ContainerLinks(view);
+			return getEReference_4002ContainedLinks(view);
 		case EReference2EditPart.VISUAL_ID:
-			return getEReference_4003ContainerLinks(view);
+			return getEReference_4003ContainedLinks(view);
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -624,7 +624,7 @@ public class EcoreDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getEClass_2001ContainerLinks(View view) {
+	public static List getEClass_2001ContainedLinks(View view) {
 		EClass modelElement = (EClass) view.getElement();
 		List result = new LinkedList();
 		result.addAll(getContainedTypeModelFacetLinks_EReference_4002(modelElement));
@@ -636,14 +636,14 @@ public class EcoreDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getEPackage_2002ContainerLinks(View view) {
+	public static List getEPackage_2002ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getEAnnotation_2003ContainerLinks(View view) {
+	public static List getEAnnotation_2003ContainedLinks(View view) {
 		EAnnotation modelElement = (EAnnotation) view.getElement();
 		List result = new LinkedList();
 		result.addAll(getContainedFeatureModelFacetLinks_EAnnotation_References_4001(modelElement));
@@ -653,35 +653,35 @@ public class EcoreDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getEDataType_2004ContainerLinks(View view) {
+	public static List getEDataType_2004ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getEEnum_2005ContainerLinks(View view) {
+	public static List getEEnum_2005ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getEAttribute_3001ContainerLinks(View view) {
+	public static List getEAttribute_3001ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getEOperation_3002ContainerLinks(View view) {
+	public static List getEOperation_3002ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getEAnnotation_3003ContainerLinks(View view) {
+	public static List getEAnnotation_3003ContainedLinks(View view) {
 		EAnnotation modelElement = (EAnnotation) view.getElement();
 		List result = new LinkedList();
 		result.addAll(getContainedFeatureModelFacetLinks_EAnnotation_References_4001(modelElement));
@@ -691,7 +691,7 @@ public class EcoreDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getEClass_3004ContainerLinks(View view) {
+	public static List getEClass_3004ContainedLinks(View view) {
 		EClass modelElement = (EClass) view.getElement();
 		List result = new LinkedList();
 		result.addAll(getContainedTypeModelFacetLinks_EReference_4002(modelElement));
@@ -703,49 +703,49 @@ public class EcoreDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getEPackage_3005ContainerLinks(View view) {
+	public static List getEPackage_3005ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getEDataType_3006ContainerLinks(View view) {
+	public static List getEDataType_3006ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getEEnum_3007ContainerLinks(View view) {
+	public static List getEEnum_3007ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getEStringToStringMapEntry_3008ContainerLinks(View view) {
+	public static List getEStringToStringMapEntry_3008ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getEEnumLiteral_3009ContainerLinks(View view) {
+	public static List getEEnumLiteral_3009ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getEReference_4002ContainerLinks(View view) {
+	public static List getEReference_4002ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getEReference_4003ContainerLinks(View view) {
+	public static List getEReference_4003ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 

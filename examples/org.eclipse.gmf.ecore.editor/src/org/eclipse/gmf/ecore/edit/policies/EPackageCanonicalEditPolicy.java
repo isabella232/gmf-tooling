@@ -205,82 +205,82 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		switch (EcoreVisualIDRegistry.getVisualID(view)) {
 		case EClassEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(EcoreDiagramUpdater.getEClass_2001ContainerLinks(view));
+			result.addAll(EcoreDiagramUpdater.getEClass_2001ContainedLinks(view));
 			break;
 		}
 		case EPackage2EditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(EcoreDiagramUpdater.getEPackage_2002ContainerLinks(view));
+			result.addAll(EcoreDiagramUpdater.getEPackage_2002ContainedLinks(view));
 			break;
 		}
 		case EAnnotationEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(EcoreDiagramUpdater.getEAnnotation_2003ContainerLinks(view));
+			result.addAll(EcoreDiagramUpdater.getEAnnotation_2003ContainedLinks(view));
 			break;
 		}
 		case EDataTypeEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(EcoreDiagramUpdater.getEDataType_2004ContainerLinks(view));
+			result.addAll(EcoreDiagramUpdater.getEDataType_2004ContainedLinks(view));
 			break;
 		}
 		case EEnumEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(EcoreDiagramUpdater.getEEnum_2005ContainerLinks(view));
+			result.addAll(EcoreDiagramUpdater.getEEnum_2005ContainedLinks(view));
 			break;
 		}
 		case EAttributeEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(EcoreDiagramUpdater.getEAttribute_3001ContainerLinks(view));
+			result.addAll(EcoreDiagramUpdater.getEAttribute_3001ContainedLinks(view));
 			break;
 		}
 		case EOperationEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(EcoreDiagramUpdater.getEOperation_3002ContainerLinks(view));
+			result.addAll(EcoreDiagramUpdater.getEOperation_3002ContainedLinks(view));
 			break;
 		}
 		case EAnnotation2EditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(EcoreDiagramUpdater.getEAnnotation_3003ContainerLinks(view));
+			result.addAll(EcoreDiagramUpdater.getEAnnotation_3003ContainedLinks(view));
 			break;
 		}
 		case EClass2EditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(EcoreDiagramUpdater.getEClass_3004ContainerLinks(view));
+			result.addAll(EcoreDiagramUpdater.getEClass_3004ContainedLinks(view));
 			break;
 		}
 		case EPackage3EditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(EcoreDiagramUpdater.getEPackage_3005ContainerLinks(view));
+			result.addAll(EcoreDiagramUpdater.getEPackage_3005ContainedLinks(view));
 			break;
 		}
 		case EDataType2EditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(EcoreDiagramUpdater.getEDataType_3006ContainerLinks(view));
+			result.addAll(EcoreDiagramUpdater.getEDataType_3006ContainedLinks(view));
 			break;
 		}
 		case EEnum2EditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(EcoreDiagramUpdater.getEEnum_3007ContainerLinks(view));
+			result.addAll(EcoreDiagramUpdater.getEEnum_3007ContainedLinks(view));
 			break;
 		}
 		case EStringToStringMapEntryEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(EcoreDiagramUpdater.getEStringToStringMapEntry_3008ContainerLinks(view));
+			result.addAll(EcoreDiagramUpdater.getEStringToStringMapEntry_3008ContainedLinks(view));
 			break;
 		}
 		case EEnumLiteralEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(EcoreDiagramUpdater.getEEnumLiteral_3009ContainerLinks(view));
+			result.addAll(EcoreDiagramUpdater.getEEnumLiteral_3009ContainedLinks(view));
 			break;
 		}
 		case EReferenceEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(EcoreDiagramUpdater.getEReference_4002ContainerLinks(view));
+			result.addAll(EcoreDiagramUpdater.getEReference_4002ContainedLinks(view));
 			break;
 		}
 		case EReference2EditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(EcoreDiagramUpdater.getEReference_4003ContainerLinks(view));
+			result.addAll(EcoreDiagramUpdater.getEReference_4003ContainedLinks(view));
 			break;
 		}
 		}
