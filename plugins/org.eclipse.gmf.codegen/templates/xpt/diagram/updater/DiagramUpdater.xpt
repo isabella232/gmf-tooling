@@ -239,39 +239,53 @@ for (java.util.Iterator links = «EXPAND xpt::Common::getFeatureValue("container"
 	«ELSE-»
 «getQualifiedInterfaceName(metaClass)» link = («getQualifiedInterfaceName(metaClass)») «EXPAND xpt::Common::getFeatureValue("container", getSourceType()) FOR childMetaFeature»;
 	«ENDIF-»
-int linkVID = «genLink.getDiagram().getVisualIDRegistryQualifiedClassName()».getLinkWithClassVisualID(«EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(childMetaFeature)»link);
-if (linkVID == «genLink.getEditPartQualifiedClassName()».VISUAL_ID) {
-	«IF targetMetaFeature.isListType()-»
-	java.util.List targets = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR targetMetaFeature»;
-	Object target = targets.size() == 1 ? targets.get(0) : null;
-	if (target instanceof «getQualifiedInterfaceName(getTargetType())») {
-		«getQualifiedInterfaceName(getTargetType())» dst = («getQualifiedInterfaceName(getTargetType())») target;
-	«ELSE-»
-	«getQualifiedInterfaceName(getTargetType())» dst = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR targetMetaFeature»;
-	«ENDIF-»
-	«IF null != sourceMetaFeature-»
-		«IF sourceMetaFeature.isListType()-»
-	java.util.List sources = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR sourceMetaFeature»;
-	Object source = sources.size() == 1 ? sources.get(0) : null;
-	if (source instanceof «getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))») {
-		«getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))» src = («getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))») source;
-		«ELSE-»
-	«getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))» src = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR sourceMetaFeature»;
-		«ENDIF-»
-	result.add(new «genLink.getDiagram().getLinkDescriptorQualifiedClassName()»(«EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(sourceMetaFeature)»src, «EXPAND xpt::Common::castToEObject FOR getTargetType()»dst, «EXPAND xpt::Common::castToEObject FOR metaClass»link, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», linkVID));
-		«IF sourceMetaFeature.isListType()-»
-	}
-		«ENDIF-»
-	«ELSE-»
-	result.add(new «genLink.getDiagram().getLinkDescriptorQualifiedClassName()»(«EXPAND xpt::Common::castToEObject FOR getContainerClass(this)»container, «EXPAND xpt::Common::castToEObject FOR getTargetType()»dst, «EXPAND xpt::Common::castToEObject FOR metaClass»link, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», linkVID));
-	«ENDIF-»
-	«IF targetMetaFeature.isListType()-»
-	}
-	«ENDIF-»
+if («genLink.getEditPartQualifiedClassName()».VISUAL_ID != «genLink.getDiagram().getVisualIDRegistryQualifiedClassName()».getLinkWithClassVisualID(«EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(childMetaFeature)»link)) {
+	«EXPAND stopLinkProcessing-»
 }
+	«EXPAND defineLinkDestination-»
+	«IF null != sourceMetaFeature-»
+		«EXPAND defineLinkSource-»
+result.add(new «genLink.getDiagram().getLinkDescriptorQualifiedClassName()»(«EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(sourceMetaFeature)»src, «EXPAND xpt::Common::castToEObject FOR getTargetType()»dst, «EXPAND xpt::Common::castToEObject FOR metaClass»link, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «genLink.getEditPartQualifiedClassName()».VISUAL_ID));
+	«ELSE-»
+result.add(new «genLink.getDiagram().getLinkDescriptorQualifiedClassName()»(«EXPAND xpt::Common::castToEObject FOR getContainerClass(this)»container, «EXPAND xpt::Common::castToEObject FOR getTargetType()»dst, «EXPAND xpt::Common::castToEObject FOR metaClass»link, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «genLink.getEditPartQualifiedClassName()».VISUAL_ID));
+	«ENDIF-»
 	«IF childMetaFeature.isListType()-»
 }
 	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE defineLinkSource FOR gmfgen::TypeLinkModelFacet-»
+	«IF sourceMetaFeature.isListType()-»
+java.util.List sources = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR sourceMetaFeature»;
+Object source = sources.size() == 1 ? sources.get(0) : null;
+if (false == source instanceof «getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))») {
+	«EXPAND stopLinkProcessing-»
+}
+«getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))» src = («getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))») source;
+	«ELSE-»
+«getQualifiedInterfaceName(getTypeGenClassX(sourceMetaFeature))» src = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR sourceMetaFeature»;
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE defineLinkDestination FOR gmfgen::TypeLinkModelFacet-»
+	«IF targetMetaFeature.isListType()-»
+java.util.List targets = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR targetMetaFeature»;
+Object target = targets.size() == 1 ? targets.get(0) : null;
+if (false == target instanceof «getQualifiedInterfaceName(getTargetType())») {
+	«EXPAND stopLinkProcessing-»
+}
+«getQualifiedInterfaceName(getTargetType())» dst = («getQualifiedInterfaceName(getTargetType())») target;
+	«ELSE-»
+«getQualifiedInterfaceName(getTargetType())» dst = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR targetMetaFeature»;
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE stopLinkProcessing FOR gmfgen::TypeLinkModelFacet-»
+«IF childMetaFeature.isListType()-»
+continue;
+«ELSE-»
+return result;
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE getContainedLinksByTypeMethodBody(gmfgen::GenLink genLink) FOR gmfgen::FeatureLinkModelFacet-»
