@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
-
 <!--
- Copyright (c) 2006 Borland Software Corporation
- 
- All rights reserved. This program and the accompanying materials
- are made available under the terms of the Eclipse Public License v1.0
- which accompanies this distribution, and is available at
- http://www.eclipse.org/legal/epl-v10.html
- 
- Contributors:
-    Dmitry Stadnik (Borland) - initial API and implementation
+Copyright (c) 2006, 2007 Borland Software Corporation
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+
+Contributors:
+   Dmitry Stadnik (Borland) - initial API and implementation
 -->
 <plugin>
-
-   <extension point="org.eclipse.core.runtime.preferences">
-      <?gmfgen generated="true"?>
-      <initializer class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramPreferenceInitializer"/>
-   </extension>
 
    <extension point="org.eclipse.team.core.fileTypes">
       <?gmfgen generated="true"?>
@@ -89,6 +83,50 @@
       </objectContribution>           
    </extension>
 
+      <extension point="org.eclipse.ui.actionSets">
+      <?gmfgen generated="true"?>
+      <actionSet
+            label="%initDiagramActionLabel"
+            visible="true"
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.InitDiagram">
+         <action
+               label="%initDiagramActionLabel"
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanInitDiagramFileAction"
+               menubarPath="file/additions"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.InitDiagramAction">
+         </action>
+      </actionSet>
+   </extension>
+	
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
+      <?gmfgen generated="true"?>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
+         id="TaiPanPresentation">
+         <Priority name="Lowest"/>
+         <ViewId id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="delete"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart">
+               <GlobalActionId actionId="save"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
+            id="TaiPanRender">
+         <Priority name="Lowest"/>
+         <ViewId id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="cut"/>
+               <GlobalActionId actionId="copy"/>
+               <GlobalActionId actionId="paste"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+   </extension>
+
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
       <?gmfgen generated="true"?>
       <contributionItemProvider
@@ -138,33 +176,121 @@
       </contributionItemProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
+   <extension id="ValidationContributionItemProvider" name="Validation"
+      point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
       <?gmfgen generated="true"?>
-      <GlobalActionHandlerProvider
-         class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
-         id="TaiPanPresentation">
-         <Priority name="Lowest"/>
-         <ViewId id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
-            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
-               <GlobalActionId actionId="delete"/>
-            </ElementType>
-            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart">
-               <GlobalActionId actionId="save"/>
-            </ElementType>
-         </ViewId>
-      </GlobalActionHandlerProvider>
-      <GlobalActionHandlerProvider
-            class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
-            id="TaiPanRender">
-         <Priority name="Lowest"/>
-         <ViewId id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
-            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
-               <GlobalActionId actionId="cut"/>
-               <GlobalActionId actionId="copy"/>
-               <GlobalActionId actionId="paste"/>
-            </ElementType>
-         </ViewId>
-      </GlobalActionHandlerProvider>
+      <contributionItemProvider checkPluginLoaded="true"
+         class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider">
+         <Priority name="Low"/>
+         <partContribution id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
+            <partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
+            <partAction id="validateAction" menubarPath="/diagramMenu/validationGroup"/>
+         </partContribution>
+      </contributionItemProvider>
+   </extension>
+
+   <extension point="org.eclipse.core.runtime.preferences">
+      <?gmfgen generated="true"?>
+      <initializer class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramPreferenceInitializer"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.preferencePages">
+      <?gmfgen generated="true"?>
+      <page
+            id="org.eclipse.gmf.examples.taipan.diagram.general"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.general"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramGeneralPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.examples.taipan.diagram.appearance"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.appearance"
+            category="org.eclipse.gmf.examples.taipan.diagram.general"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramAppearancePreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.examples.taipan.diagram.connections"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.connections"
+            category="org.eclipse.gmf.examples.taipan.diagram.general"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramConnectionsPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.examples.taipan.diagram.printing"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.printing"
+            category="org.eclipse.gmf.examples.taipan.diagram.general"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramPrintingPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.examples.taipan.diagram.rulersAndGrid"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.rulersAndGrid"
+            category="org.eclipse.gmf.examples.taipan.diagram.general"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramRulersAndGridPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.examples.taipan.diagram.pathmaps"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.pathmaps"
+            category="org.eclipse.gmf.examples.taipan.diagram.general"
+            class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage">
+      </page>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+      <?gmfgen generated="true"?>
+      <propertyContributor contributorId="org.eclipse.gmf.examples.taipan.gmf.editor.rcp" labelProvider="org.eclipse.gmf.examples.taipan.gmf.editor.sheet.TaiPanSheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="org.eclipse.gmf.examples.taipan.gmf.editor.rcp">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="org.eclipse.gmf.examples.taipan.gmf.editor.rcp">
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>     
+         <propertySection id="property.section.RulerGridPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+            tab="property.tab.DiagramPropertySection">
+         </propertySection>     
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.sheet.TaiPanPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+         </propertySection>
+      </propertySections>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
@@ -373,67 +499,6 @@
       </binding>
    </extension>
 
-
-   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
-      <?gmfgen generated="true"?>
-      <propertyContributor contributorId="org.eclipse.gmf.examples.taipan.gmf.editor.rcp" labelProvider="org.eclipse.gmf.examples.taipan.gmf.editor.sheet.TaiPanSheetLabelProvider">
-         <propertyCategory category="domain"/>
-         <propertyCategory category="visual"/>
-         <propertyCategory category="extra"/>
-      </propertyContributor>
-   </extension>
-
-   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-      <?gmfgen generated="true"?>   
-      <propertyTabs contributorId="org.eclipse.gmf.examples.taipan.gmf.editor.rcp">
-         <propertyTab
-             category="visual"
-             id="property.tab.AppearancePropertySection"
-             label="%tab.appearance"/>
-          <propertyTab
-             category="visual"
-             id="property.tab.DiagramPropertySection"
-             label="%tab.diagram"/>
-          <propertyTab
-             category="domain"
-             id="property.tab.domain"
-             label="%tab.domain"/>
-      </propertyTabs>
-   </extension>
-
-   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
-      <?gmfgen generated="true"?>   
-      <propertySections contributorId="org.eclipse.gmf.examples.taipan.gmf.editor.rcp">
-         <propertySection id="property.section.ConnectorAppearancePropertySection" 
-            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
-            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
-            tab="property.tab.AppearancePropertySection">
-         </propertySection>
-         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
-            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
-            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
-            tab="property.tab.AppearancePropertySection">
-         </propertySection> 
-         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
-            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
-            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
-            tab="property.tab.AppearancePropertySection">
-         </propertySection>     
-         <propertySection id="property.section.RulerGridPropertySection" 
-            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
-            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
-            tab="property.tab.DiagramPropertySection">
-         </propertySection>     
-         <propertySection
-            id="property.section.domain" 
-            tab="property.tab.domain"
-            class="org.eclipse.gmf.examples.taipan.gmf.editor.sheet.TaiPanPropertySection">
-            <input type="org.eclipse.gmf.runtime.notation.View"/>
-            <input type="org.eclipse.gef.EditPart"/>
-         </propertySection>
-      </propertySections>
-   </extension>
-
    <extension id="TaiPanApplication" point="org.eclipse.core.runtime.applications">
       <?gmfgen generated="true"?>
       <application>
@@ -479,68 +544,37 @@
    <extension point="org.eclipse.ui.actionSets">
       <?gmfgen generated="true"?>
       <actionSet
-            label="%initDiagramActionLabel"
+            label="%applicationActionSetLabel"
             visible="true"
-            id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.InitDiagram">
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ActionSet">
          <action
-               label="%initDiagramActionLabel"
-               class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanInitDiagramFileAction"
+               label="%newDiagramActionLabel"
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$NewDiagramAction"
+               menubarPath="file/new/additions"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.NewDiagramAction">
+         </action>
+         <action
+               label="%aboutActionLabel"
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$AboutAction"
+               menubarPath="help/additions"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.AboutAction">
+         </action>
+         <action
+               label="%openURIActionLabel"
+               definitionId="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.OpenURICommand"
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$OpenURIAction"
                menubarPath="file/additions"
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.InitDiagramAction">
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.OpenURIAction">
+         </action>
+         <action
+               label="%openActionLabel"
+               definitionId="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.OpenCommand"
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$OpenAction"
+               menubarPath="file/additions"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.OpenAction">
          </action>
       </actionSet>
-   </extension><extension point="org.eclipse.ui.preferencePages">
-      <?gmfgen generated="true"?>
-      <page
-            id="org.eclipse.gmf.examples.taipan.diagram.general"
-            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.general"
-            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramGeneralPreferencePage">
-      </page>
-      <page
-            id="org.eclipse.gmf.examples.taipan.diagram.appearance"
-            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.appearance"
-            category="org.eclipse.gmf.examples.taipan.diagram.general"
-            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramAppearancePreferencePage">
-      </page>
-      <page
-            id="org.eclipse.gmf.examples.taipan.diagram.connections"
-            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.connections"
-            category="org.eclipse.gmf.examples.taipan.diagram.general"
-            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramConnectionsPreferencePage">
-      </page>
-      <page
-            id="org.eclipse.gmf.examples.taipan.diagram.printing"
-            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.printing"
-            category="org.eclipse.gmf.examples.taipan.diagram.general"
-            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramPrintingPreferencePage">
-      </page>
-      <page
-            id="org.eclipse.gmf.examples.taipan.diagram.rulersAndGrid"
-            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.rulersAndGrid"
-            category="org.eclipse.gmf.examples.taipan.diagram.general"
-            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramRulersAndGridPreferencePage">
-      </page>
-      <page
-            id="org.eclipse.gmf.examples.taipan.diagram.pathmaps"
-            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.pathmaps"
-            category="org.eclipse.gmf.examples.taipan.diagram.general"
-            class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage">
-      </page>
    </extension>
-
-   <extension id="ValidationContributionItemProvider" name="Validation"
-      point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
-      <?gmfgen generated="true"?>
-      <contributionItemProvider checkPluginLoaded="true"
-         class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider">
-         <Priority name="Low"/>
-         <partContribution id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
-            <partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
-            <partAction id="validateAction" menubarPath="/diagramMenu/validationGroup"/>
-         </partContribution>
-      </contributionItemProvider>
-   </extension>
-
    <extension point="org.eclipse.emf.validation.constraintProviders">
       <?gmfgen generated="true"?>
             <category id="taipan" mandatory="false" name="TaiPan Audits">
@@ -584,40 +618,4 @@
                   <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ship_name"/>
                </binding>
                </extension>
-
-   <extension point="org.eclipse.ui.actionSets">
-      <?gmfgen generated="true"?>
-      <actionSet
-            label="%applicationActionSetLabel"
-            visible="true"
-            id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ActionSet">
-         <action
-               label="%newDiagramActionLabel"
-               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$NewDiagramAction"
-               menubarPath="file/new/additions"
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.NewDiagramAction">
-         </action>
-         <action
-               label="%aboutActionLabel"
-               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$AboutAction"
-               menubarPath="help/additions"
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.AboutAction">
-         </action>
-         <action
-               label="%openURIActionLabel"
-               definitionId="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.OpenURICommand"
-               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$OpenURIAction"
-               menubarPath="file/additions"
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.OpenURIAction">
-         </action>
-         <action
-               label="%openActionLabel"
-               definitionId="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.OpenCommand"
-               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$OpenAction"
-               menubarPath="file/additions"
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.OpenAction">
-         </action>
-      </actionSet>
-   </extension>
-
 </plugin>
