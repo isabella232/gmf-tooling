@@ -49,7 +49,8 @@ public class NativeParser extends AbstractParser {
 	public String getPrintString(IAdaptable adapter, int flags) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
 		EAttribute feature = getAttribute();
-		return EcoreUtil.convertToString(feature.getEAttributeType(), element.eGet(feature));
+		String s = EcoreUtil.convertToString(feature.getEAttributeType(), element.eGet(feature));
+		return s != null ? s : ""; //$NON-NLS-1$
 	}
 
 	/**
