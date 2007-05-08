@@ -768,11 +768,11 @@ public class EcoreDiagramUpdater {
 		Collection result = new LinkedList();
 		for (Iterator links = container.getEStructuralFeatures().iterator(); links.hasNext();) {
 			EReference link = (EReference) links.next();
-			int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(link);
-			if (linkVID == EReferenceEditPart.VISUAL_ID) {
-				EClassifier dst = link.getEType();
-				result.add(new EcoreLinkDescriptor(container, dst, link, EcoreElementTypes.EReference_4002, linkVID));
+			if (EReferenceEditPart.VISUAL_ID != EcoreVisualIDRegistry.getLinkWithClassVisualID(link)) {
+				continue;
 			}
+			EClassifier dst = link.getEType();
+			result.add(new EcoreLinkDescriptor(container, dst, link, EcoreElementTypes.EReference_4002, EReferenceEditPart.VISUAL_ID));
 		}
 		return result;
 	}
@@ -784,11 +784,11 @@ public class EcoreDiagramUpdater {
 		Collection result = new LinkedList();
 		for (Iterator links = container.getEStructuralFeatures().iterator(); links.hasNext();) {
 			EReference link = (EReference) links.next();
-			int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(link);
-			if (linkVID == EReference2EditPart.VISUAL_ID) {
-				EClassifier dst = link.getEType();
-				result.add(new EcoreLinkDescriptor(container, dst, link, EcoreElementTypes.EReference_4003, linkVID));
+			if (EReference2EditPart.VISUAL_ID != EcoreVisualIDRegistry.getLinkWithClassVisualID(link)) {
+				continue;
 			}
+			EClassifier dst = link.getEType();
+			result.add(new EcoreLinkDescriptor(container, dst, link, EcoreElementTypes.EReference_4003, EReference2EditPart.VISUAL_ID));
 		}
 		return result;
 	}
