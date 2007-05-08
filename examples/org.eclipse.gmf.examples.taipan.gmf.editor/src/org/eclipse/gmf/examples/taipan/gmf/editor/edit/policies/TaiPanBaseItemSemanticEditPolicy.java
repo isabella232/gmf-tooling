@@ -121,12 +121,11 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) { //$NON-NLS-1$ 
 			elementType = null;
 		}
-		Command epCommand = getSemanticCommandSwitch(completedRequest);
-		if (epCommand != null) {
-			ICommand command = epCommand instanceof ICommandProxy ? ((ICommandProxy) epCommand).getICommand() : new CommandProxy(epCommand);
+		Command semanticCommand = getSemanticCommandSwitch(completedRequest);
+		if (semanticCommand != null) {
+			ICommand command = semanticCommand instanceof ICommandProxy ? ((ICommandProxy) semanticCommand).getICommand() : new CommandProxy(semanticCommand);
 			completedRequest.setParameter(TaiPanBaseEditHelper.EDIT_POLICY_COMMAND, command);
 		}
-		Command ehCommand = null;
 		if (elementType != null) {
 			ICommand command = elementType.getEditCommand(completedRequest);
 			if (command != null) {
@@ -134,7 +133,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 					TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
 					command = new CompositeTransactionalCommand(editingDomain, null).compose(command);
 				}
-				ehCommand = new ICommandProxy(command);
+				semanticCommand = new ICommandProxy(command);
 			}
 		}
 		boolean shouldProceed = true;
@@ -145,9 +144,9 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			if (completedRequest instanceof DestroyRequest) {
 				TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
 				Command deleteViewCommand = new ICommandProxy(new DeleteCommand(editingDomain, (View) getHost().getModel()));
-				ehCommand = ehCommand == null ? deleteViewCommand : ehCommand.chain(deleteViewCommand);
+				semanticCommand = semanticCommand == null ? deleteViewCommand : semanticCommand.chain(deleteViewCommand);
 			}
-			return ehCommand;
+			return semanticCommand;
 		}
 		return null;
 	}
