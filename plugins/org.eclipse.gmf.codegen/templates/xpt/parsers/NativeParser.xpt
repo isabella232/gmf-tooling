@@ -43,8 +43,9 @@ public class «EXPAND className» extends «EXPAND xpt::parsers::AbstractParser::qu
 		org.eclipse.emf.ecore.EObject element =
 				(org.eclipse.emf.ecore.EObject) adapter.getAdapter(org.eclipse.emf.ecore.EObject.class);
 		org.eclipse.emf.ecore.EAttribute feature = getAttribute();
-		return org.eclipse.emf.ecore.util.EcoreUtil.convertToString(
+		String s = org.eclipse.emf.ecore.util.EcoreUtil.convertToString(
 				feature.getEAttributeType(), element.eGet(feature));
+		return s != null ? s : ""; //$NON-NLS-1$
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
