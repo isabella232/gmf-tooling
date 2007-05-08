@@ -28,6 +28,12 @@
 		</ant>
 	</target>
 	
+	<target name="product" depends="checkArgs,init">
+		<ant antfile="productBuild.xml" dir="${pde.build.scripts}/productBuild">
+			<property name="builder" value="${buildDirectory}/component"/>
+		</ant>
+	</target>
+	
 	<target name="cleanupArtifacts">
 		 <property file="build.properties"/>
 		<delete includeEmptyDirs="true">
