@@ -284,6 +284,12 @@
 		<echo message="Installing GMF Examples for testing from zip file..." />
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/drops/${buildLabel}/GMF-examples-${buildId}.zip" />
 	</target>
+
+	<target name="installTargetPlatform" unless="">
+		<echo message="Installing GMF target platform from zip file " />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/drops/${buildLabel}/GMF-targetplatform-${buildId}.zip" />
+	</target>
+	
 	
 	<target name="checkXercesInstalled">
 		<available file="${baseLocation}/features/${xercesFeatureId}_${xercesUpdateVersion}/feature.xml" property="xercesExists" />
