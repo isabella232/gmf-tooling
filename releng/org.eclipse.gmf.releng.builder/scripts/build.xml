@@ -34,6 +34,7 @@
 		<!-- This is the fix for the productBuild. With customTargets.xml it doesn't seem to work -->
 		<!-- This hack should be revised -->
 		<delete file="${buildDirectory}/component/customTargets.xml"/>
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
 		<ant antfile="productBuild.xml" dir="${pde.build.scripts}/productBuild">
 			<property name="builder" value="${buildDirectory}/component"/>
 		</ant>
