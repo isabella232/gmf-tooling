@@ -28,6 +28,12 @@
 	</target>
 	
 	<target name="product" depends="checkArgs,init">
+		<ant antfile="build.xml" dir="${pde.build.scripts}">
+			<property name="builder" value="${buildDirectory}/component"/>
+		</ant>
+		<!-- This is the fix for the productBuild. With customTargets.xml it doesn't seem to work -->
+		<!-- This hack should be revised -->
+		<delete file="${buildDirectory}/component/customTargets.xml"/>
 		<ant antfile="productBuild.xml" dir="${pde.build.scripts}/productBuild">
 			<property name="builder" value="${buildDirectory}/component"/>
 		</ant>
