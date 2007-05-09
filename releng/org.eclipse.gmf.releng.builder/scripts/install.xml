@@ -43,6 +43,16 @@
 		<available file="${baseLocation}/configuration/config.ini" property="baseExists" />
 	</target>
 	
+	<target name="getDeltaPack" unless="deltaPackExists">
+		<get src="${deltaPackURL}" dest="${baseLocationRoot}/${deltaPackZipName}" verbose="true" usetimestamp="true" />		
+	</target>
+	
+	<target name="installDeltaPack">
+		<available file="${baseLocationRoot}/${deltaPackZipName}" property="deltaPackExists" />
+		<antcall target="getDeltaPack"/>
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${deltaPackZipName}" />
+	</target>
+
 	<target name="getTestingFramework" unless="testingFrameworkExists">
 		<get src="${testingFrameworkURL}" dest="${baseLocationRoot}/${testingFrameworkZipName}" verbose="true" usetimestamp="true" />		
 	</target>
