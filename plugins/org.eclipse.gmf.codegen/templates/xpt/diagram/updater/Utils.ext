@@ -15,12 +15,40 @@ import "http://www.eclipse.org/emf/2002/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
 extension xpt::diagram::editpolicies::LinkUtils;
 
+String getContainedLinksMethodNameSuffix() :
+	"Contained"
+;
+
+String getIncomingLinksMethodNameSuffix() :
+	"Incoming"
+;
+
+String getOutgoingLinksMethodNameSuffix() :
+	"Outgoing"
+;
+
 cached List[gmfgen::GenLink] getContainedLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
 	diagram.links.select(link | canBeContainer(link, typeModelFacet))
 ;
 
+cached List[gmfgen::GenLink] getOutgoingLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
+	diagram.links.select(link | canBeSource(link, typeModelFacet))
+;
+
+cached List[gmfgen::GenLink] getIncomingLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
+	diagram.links.select(link | canBeTarget(link, typeModelFacet))
+;
+
 List[gmfgen::GenLink] getAllContainedLinks(gmfgen::GenDiagram diagram) :
 	diagram.links.select(link | !getAllSemanticElements(diagram).select(commonBase | canBeContainer(link, getTypeModelFacet(commonBase))).isEmpty())
+;
+
+List[gmfgen::GenLink] getAllIncomingLinks(gmfgen::GenDiagram diagram) :
+	diagram.links.select(link | !getAllSemanticElements(diagram).select(commonBase | canBeTarget(link, getTypeModelFacet(commonBase))).isEmpty())
+;
+
+List[gmfgen::GenLink] getAllOutgoingLinks(gmfgen::GenDiagram diagram) :
+	diagram.links.select(link | !getAllSemanticElements(diagram).select(commonBase | canBeSource(link, getTypeModelFacet(commonBase))).isEmpty())
 ;
 
 cached List[gmfgen::GenCommonBase] getAllSemanticElements(gmfgen::GenDiagram diagram) :

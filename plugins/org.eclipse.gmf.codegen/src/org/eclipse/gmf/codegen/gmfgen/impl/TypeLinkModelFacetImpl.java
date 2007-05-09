@@ -15,7 +15,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 
 /**
@@ -274,14 +273,6 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 				return targetMetaFeature != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	private GenLink getLink() {
-		return (GenLink) eContainer();
-	}
-
-	private GenDiagramImpl getDiagramImpl() {
-		return ((GenDiagramImpl) getLink().getDiagram());
 	}
 	
 } //TypeLinkModelFacetImpl

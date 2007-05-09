@@ -36,7 +36,7 @@ genmodel::GenClass getContainerClass(gmfgen::TypeLinkModelFacet modelFacet) :
 ;
 
 genmodel::GenClass getContainerClass(gmfgen::FeatureLinkModelFacet modelFacet) :
-	modelFacet.metaFeature.genClass
+	modelFacet.getSourceType()
 ;
 
 private boolean canBeLinkEnd(genmodel::GenClass endType, gmfgen::TypeModelFacet typeModelFacet) :
