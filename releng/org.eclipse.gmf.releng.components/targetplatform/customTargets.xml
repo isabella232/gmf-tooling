@@ -23,7 +23,32 @@
 
 	<target name="assemble.org.eclipse.gmf.targetplatform">		
 		<ant antfile="${assembleScriptName}" dir="${buildDirectory}"/>
-	</target>	
+	</target>
+	
+	<target name="assemble.org.eclipse.gmf.targetplatform.win32.win32.x86">
+		<property name="archiveName" value="GMF-targetplatform-${buildId}-win32.zip"/>
+		<antcall target="assemble" />
+	</target>
+	
+	<target name="assemble.org.eclipse.gmf.targetplatform.linux.gtk.x86">
+		<property name="archiveName" value="GMF-targetplatform-${buildId}-linux-gtk.tar.gz"/>
+		<antcall target="assemble" />
+	</target>
+	
+	<target name="assemble.org.eclipse.gmf.targetplatform.macosx.carbon.x86">
+		<property name="archiveName" value="GMF-targetplatform-${buildId}-macosx-x86.tar.gz"/>
+		<antcall target="assemble" />
+	</target>
+	
+	<target name="assemble.org.eclipse.gmf.targetplatform.macosx.carbon.ppc">
+		<property name="archiveName" value="GMF-targetplatform-${buildId}-macosx-ppc.tar.gz"/>
+		<antcall target="assemble" />
+	</target>
+	
+	<target name="assemble">
+		<property name="archiveFullPath" value="${buildDirectory}/${buildLabel}/${archiveName}" />
+		<ant antfile="${assembleScriptName}" />
+	</target>
 
 	<!-- ===================================================================== -->
 	<!-- Check out map files from correct repository -->
