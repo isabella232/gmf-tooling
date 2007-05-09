@@ -1,7 +1,7 @@
 <project name="Build specific targets and properties" default="noDefault">
 
-<!--	
 	<property name="id" value="org.eclipse.gmf.targetplatform" />
+<!--	
 	<property name="archiveName" value="GMF-targetplatform-${buildId}.zip"/>
 -->	
 	<!-- ===================================================================== -->
