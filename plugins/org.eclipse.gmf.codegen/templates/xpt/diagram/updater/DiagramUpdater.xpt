@@ -183,7 +183,7 @@ public static boolean «EXPAND isDomainMetaChildMethodName»(int visualID) {
 
 «DEFINE getGenericConnectedLinks(List[gmfgen::GenCommonBase] linkContainers, String methodNameSuffix) FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
-public static java.util.List get«methodNameSuffix»(org.eclipse.gmf.runtime.notation.View view) {
+public static java.util.List get«methodNameSuffix»Links(org.eclipse.gmf.runtime.notation.View view) {
 	«IF !linkContainers.isEmpty()-»
 	switch («getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
 		«EXPAND getContainedLinksCase(methodNameSuffix) FOREACH linkContainers-»
