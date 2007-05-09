@@ -190,6 +190,7 @@
 		<ant antfile="productBuild.xml" dir="${pde.build.scripts}/productBuild" inheritAll="false">
 			<property name="builder" value="${buildDirectory}/component/product"/>
 			<property name="buildRoot" value="${buildRoot}" />
+			<property name="buildDirectory" value="${buildDirectory}" />
 		</ant>
 	</target>
 	
