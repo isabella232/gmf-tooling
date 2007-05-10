@@ -7,16 +7,6 @@
 		<antcall target="allElementsDelegator" />
 	</target>
 
-		
-	<!-- ===================================================================== -->
-	<target name="getBaseComponents" unless="skipBase">
-		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${mapsRepo}" package="${mapsRoot}.target" dest="${buildDirectory}/maps" tag="${targetConfigTag}" />
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
-		<ant antfile="${scripts}/install.xml" target="installBase" />
-		<ant antfile="${scripts}/install.xml" target="installDeltaPack" />
-		<ant antfile="${scripts}/install.xml" target="installTargetPlatform" />
-	</target>
-
 	<!-- ===================================================================== -->
 	<!-- Check out map files from correct repository -->
 	<!-- Replace values for mapsCheckoutTag as desired. -->
@@ -57,7 +47,11 @@
 	<!-- Steps to do after setup but before starting the build proper -->
 	<!-- ===================================================================== -->
 	<target name="postSetup">
-		<antcall target="getBaseComponents" />
+		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${mapsRepo}" package="${mapsRoot}.target" dest="${buildDirectory}/maps" tag="${targetConfigTag}" />
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
+		<ant antfile="${scripts}/install.xml" target="installBase" />
+		<ant antfile="${scripts}/install.xml" target="installDeltaPack" />
+		<ant antfile="${scripts}/install.xml" target="installTargetPlatform" />
 	</target>
 
 	<!-- ===================================================================== -->
