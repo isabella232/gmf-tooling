@@ -1,6 +1,13 @@
 <project name="Build specific targets and properties" default="noDefault">
 
 	<!-- ===================================================================== -->
+	<property name="allElementsFile" value="${builder}/allElements.xml"/>
+	<import file="${allElementsFile}" />
+	<target name="allElements">
+		<antcall target="allElementsDelegator" />
+	</target>
+
+		
 	<!-- ===================================================================== -->
 	<target name="getBaseComponents" unless="skipBase">
 		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${mapsRepo}" package="${mapsRoot}.target" dest="${buildDirectory}/maps" tag="${targetConfigTag}" />
