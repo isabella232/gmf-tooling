@@ -187,11 +187,17 @@
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
 		<antcall target="publish"/>
-		<ant antfile="productBuild.xml" dir="${pde.build.scripts}/productBuild" inheritAll="false">
-			<property name="builder" value="${buildDirectory}/component/product"/>
-			<property name="buildRoot" value="${buildRoot}" />
-			<property name="buildDirectory" value="${buildDirectory}" />
-		</ant>
+		<antcall target="productBuild"/>
+	</target>
+	
+	<target name="productBuild">
+		<delete failonerror="false">
+			<fileset dir="${buildDirectory}/component" includes="**/*"/>
+		</delete>
+		<copy file="" todir="${buildDirectory}/component" overwrite="true">
+			<fileset dir="${buildDirectory}/component/product" includes="**/*"/>
+		</copy>		
+		<ant antfile="productBuild.xml" dir="${pde.build.scripts}/productBuild"/>
 	</target>
 	
 	<!-- ===================================================================== -->
