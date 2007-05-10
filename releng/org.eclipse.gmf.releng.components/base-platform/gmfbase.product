@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.1"?>
 
-<product name="GMF Target Platform" id="org.eclipse.gmf.releng.base.product" application="org.eclipse.ui.ide.workbench" useFeatures="true">
+<product name="GMF Base Platform" id="org.eclipse.gmf.releng.base.product" application="org.eclipse.ui.ide.workbench" useFeatures="true">
+
 
    <configIni use="default"/>
 
@@ -11,12 +12,14 @@
 
    <windowImages/>
 
+
    <launcher>
       <solaris/>
       <win useIco="false">
          <bmp/>
       </win>
    </launcher>
+
 
    <vm>
    </vm>
@@ -25,9 +28,9 @@
    </plugins>
 
    <features>
+      <feature id="org.eclipse.gmf.releng.base" version="1.0.0"/>
       <feature id="org.eclipse.sdk" version="3.3.0.v20070319-7L7J-4DjllPLcCcxrZDgaddnelet"/>
       <feature id="org.eclipse.rcp" version="3.3.0.v20070316b-8l8VCEYXUPdNkSgt8LpKG"/>
-      <feature id="org.eclipse.gmf.releng.base" version="1.0.0"/>
    </features>
 
 </product>
