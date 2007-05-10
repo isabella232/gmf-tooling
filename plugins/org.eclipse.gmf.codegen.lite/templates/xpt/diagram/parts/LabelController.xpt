@@ -15,6 +15,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «EXTENSION xpt::diagram::parts::LabelController»
 «EXTENSION xpt::diagram::ViewmapAttributesUtils»
+«EXTENSION xpt::diagram::providers::ParserUtils»
 
 «DEFINE directEditManager FOR gmfgen::GenCommonBase-»
 «IF !isReadOnly()-»
@@ -75,11 +76,57 @@ return null;
 «ENDDEFINE»
 
 «DEFINE createLabelTextDisplayer(Boolean isReadOnly) FOR gmfgen::FeatureLabelModelFacet-»
-return new org.eclipse.gmf.runtime.lite.edit.parts.labels.SimpleLabelTextDisplayer("«viewPattern»"«IF !isReadOnly», "«(editPattern == null || editPattern.length() == 0) ? viewPattern : editPattern»"«ENDIF», «EXPAND features»);
+«IF viewMethod.literal == editMethod.literal-»
+return «EXPAND instantiateLabelTextDisplayer(isReadOnly)»;
+«ELSE-»
+org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer reader = «EXPAND instantiateLabelTextReader»;
+org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer writer = «IF isReadOnly»null«ELSE»«EXPAND instantiateLabelTextWriter»«ENDIF»;
+return new org.eclipse.gmf.runtime.lite.edit.parts.labels.CompositeLabelTextDisplayer(reader, writer);
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE features FOR gmfgen::FeatureLabelModelFacet-»
-new org.eclipse.emf.ecore.EStructuralFeature[] {«EXPAND xpt::Common::metaFeatureAccessor FOREACH metaFeatures SEPARATOR ', '»}«-»
+new org.eclipse.emf.ecore.EAttribute[] {«EXPAND xpt::Common::metaFeatureAccessor FOREACH metaFeatures SEPARATOR ', '»}«-»
+«ENDDEFINE»
+
+«DEFINE instantiateLabelTextDisplayer(Boolean isReadOnly) FOR gmfgen::FeatureLabelModelFacet-»
+«IF viewMethod.literal == gmfgen::LabelTextAccessMethod::MESSAGE_FORMAT.literal-»
+new org.eclipse.gmf.runtime.lite.edit.parts.labels.MessageFormatLabelTextDisplayer(«EXPAND readerPatterns»«IF !isReadOnly», «EXPAND writerPatterns»«ENDIF», «EXPAND features»)«-»
+«ELSEIF viewMethod.literal == gmfgen::LabelTextAccessMethod::NATIVE.literal-»
+	«IF metaFeatures.size() != 1»«ERROR "Unexpected features size for NATIVE label text access method"»«ENDIF-»
+new org.eclipse.gmf.runtime.lite.edit.parts.labels.NativeLabelTextDisplayer(«EXPAND features»)«-»
+«ELSEIF viewMethod.literal == gmfgen::LabelTextAccessMethod::PRINTF.literal-»
+new org.eclipse.gmf.runtime.lite.edit.parts.labels.PrintfLabelTextDisplayer(«EXPAND readerPatterns», «EXPAND features»)«-»
+«ELSE-»
+«ERROR "Unexpected label text access method"-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE instantiateLabelTextReader FOR gmfgen::FeatureLabelModelFacet»«EXPAND instantiateLabelTextDisplayer(true)»«ENDDEFINE»
+
+«DEFINE instantiateLabelTextWriter FOR gmfgen::FeatureLabelModelFacet-»
+«IF viewMethod.literal == gmfgen::LabelTextAccessMethod::MESSAGE_FORMAT.literal-»
+new org.eclipse.gmf.runtime.lite.edit.parts.labels.MessageFormatLabelTextDisplayer(null, null, «EXPAND writerPatterns», «EXPAND features»)«-»
+«ELSEIF viewMethod.literal == gmfgen::LabelTextAccessMethod::NATIVE.literal-»
+	«IF metaFeatures.size() != 1»«ERROR "Unexpected features size for NATIVE label text access method"»«ENDIF-»
+new org.eclipse.gmf.runtime.lite.edit.parts.labels.NativeLabelTextDisplayer(«EXPAND features»)«-»
+«ELSEIF editMethod.literal == gmfgen::LabelTextAccessMethod::REGEXP.literal-»
+new org.eclipse.gmf.runtime.lite.edit.parts.labels.RegexpParser(«EXPAND writerPatterns», «EXPAND features»)«-»
+«ELSE-»
+«ERROR "Unexpected label text access method"-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE readerPatterns FOR gmfgen::FeatureLabelModelFacet-»
+«EXPAND quote(viewPattern)», «EXPAND quote(isPatternSpecified(editorPattern) ? editorPattern : viewPattern)-»
+«ENDDEFINE»
+
+«DEFINE writerPatterns FOR gmfgen::FeatureLabelModelFacet-»
+«EXPAND quote(isPatternSpecified(editPattern) ? editPattern : (isPatternSpecified(editorPattern) ? editorPattern : viewPattern))-»
+«ENDDEFINE»
+
+«DEFINE quote(String text) FOR gmfgen::FeatureLabelModelFacet-»
+«IF text == null»null«ELSE»"«text»"«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE labelText FOR gmfgen::GenCommonBase-»
