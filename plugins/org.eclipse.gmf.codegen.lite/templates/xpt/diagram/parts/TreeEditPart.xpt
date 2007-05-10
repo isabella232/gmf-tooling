@@ -252,13 +252,14 @@ case «getEditPartQualifiedClassName()».VISUAL_ID:
 «ENDDEFINE»
 
 «DEFINE addChildren FOR gmfgen::GenCompartment-»
-case «getEditPartQualifiedClassName()».VISUAL_ID:
+case «getEditPartQualifiedClassName()».VISUAL_ID: {
 	org.eclipse.gmf.runtime.notation.DrawerStyle style = (org.eclipse.gmf.runtime.notation.DrawerStyle) next.getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getDrawerStyle());
 	if (style != null && style.isCollapsed()) {
 		break;
 	}
 	result.addAll(next.getVisibleChildren());
 	break;
+}
 «ENDDEFINE»
 
 «DEFINE className FOR gmfgen::GenCommonBase»TreeEditPartAdapter«ENDDEFINE»
