@@ -194,7 +194,7 @@
 		<delete failonerror="false">
 			<fileset dir="${buildDirectory}/component" includes="**/*"/>
 		</delete>
-		<copy file="" todir="${buildDirectory}/component" overwrite="true">
+		<copy todir="${buildDirectory}/component" overwrite="true">
 			<fileset dir="${buildDirectory}/component/product" includes="**/*"/>
 		</copy>		
 		<ant antfile="productBuild.xml" dir="${pde.build.scripts}/productBuild"/>
