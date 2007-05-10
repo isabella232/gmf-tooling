@@ -21,7 +21,7 @@
 	<!-- Add one target for each root element and each configuration -->
 	<!-- ===================================================================== -->
 
-	<target name="assemble.org.eclipse.gmf.targetplatform">		
+	<target name="assemble.org.eclipse.gmf.releng.base">		
 		<ant antfile="${assembleScriptName}" dir="${buildDirectory}"/>
 	</target>
 	
