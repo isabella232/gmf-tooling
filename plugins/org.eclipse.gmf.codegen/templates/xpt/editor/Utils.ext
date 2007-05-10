@@ -13,6 +13,11 @@
 import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
 import "http://www.eclipse.org/emf/2002/Ecore";
 
+boolean hasDiagramElementRule(gmfgen::GenAuditRoot audits) :
+	audits.rules.target.typeSelect(gmfgen::GenDiagramElementTarget).size() > 0 ||
+	audits.rules.target.typeSelect(gmfgen::GenNotationElementTarget).size() > 0
+;
+
 private String i18nKeyForDocumentProvider(gmfgen::GenDiagram diagram) :
 	// XXX might not be the best idea - as long as doc provider is single, no reason
 	// to have property names based on its name (stale properties in messages.properties once 

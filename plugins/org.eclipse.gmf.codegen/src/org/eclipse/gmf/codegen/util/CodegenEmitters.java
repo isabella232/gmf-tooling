@@ -490,6 +490,14 @@ public class CodegenEmitters {
 
 	// editor
 
+	public TextEmitter getValidateActionEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::editor::ValidateAction"); //$NON-NLS-1$
+	}
+
+	public String getValidateActionName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::ValidateAction", input); //$NON-NLS-1$
+	}
+
 	public TextEmitter getDiagramContentsInitializerEmitter() throws UnexpectedBehaviourException {
 		return retrieve(DiagramContentsInitializerGenerator.class);
 	}
