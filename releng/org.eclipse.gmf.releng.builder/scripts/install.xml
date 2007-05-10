@@ -292,7 +292,7 @@
 	
 	<target name="installGMFBasePlatform">
 		<delete dir="${baseLocationRoot}/eclipse" failonerror="false"/>
-<!--		<antcall target="unTarGMFBasePlatform"/> -->		
+<!--		<antcall target="unTarGMFBasePlatform"/> --> 		
 		<antcall target="unZipGMFBasePlatform"/>		
 	</target>
 
@@ -302,7 +302,7 @@
 	</target>
 	
 	<target name="unZipGMFBasePlatform">
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/drops/${buildLabel}/GMF-baseplatform-${buildId}-${basews}.${archiveType}" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/drops/${buildLabel}/GMF-baseplatform-${buildId}-${baseos}.${basews}.${basearch}.zip" />
 	</target>
 	
 	<target name="checkXercesInstalled">
