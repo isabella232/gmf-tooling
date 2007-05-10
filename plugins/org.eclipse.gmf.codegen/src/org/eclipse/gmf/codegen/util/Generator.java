@@ -692,14 +692,10 @@ public class Generator extends GeneratorBase implements Runnable {
 			myDiagram.getMetricProviderClassName(),
 			myDiagram);
 	}	
-	
+
 	private void generateMarkerNavigationProvider() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getMarkerNavigationProviderEmitter(),
-			myDiagram.getProvidersPackageName(),
-			myDiagram.getMarkerNavigationProviderClassName(),
-			myDiagram);
-	}	
+		doGenerateJavaClass(myEmitters.getMarkerNavigationProviderEmitter(), myDiagram.getMarkerNavigationProviderQualifiedClassName(), myDiagram);
+	}
 
 	// notation view factories
 

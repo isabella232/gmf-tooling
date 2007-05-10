@@ -59,7 +59,6 @@ import org.eclipse.gmf.codegen.templates.providers.ElementInitializersGenerator;
 import org.eclipse.gmf.codegen.templates.providers.IconProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.LabelTextViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.LabelViewFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.providers.MarkerNavigationProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.MetricProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ShortcutsDecoratorProviderGenerator;
@@ -159,7 +158,6 @@ public class CodegenEmitters {
 		put(tr, "/providers/ShortcutsDecoratorProvider.javajet", ShortcutsDecoratorProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/editor/ShortcutPropertyTester.javajet", ShortcutsPropertyTester.class); //$NON-NLS-1$
 		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
-		put(tr, "/providers/MarkerNavigationProvider.javajet", MarkerNavigationProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/editor/DiagramContentsInitializer.javajet", DiagramContentsInitializerGenerator.class);
 		put(tr, "/editor/VisualIDRegistry.javajet", VisualIDRegistryGenerator.class);
 		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
@@ -475,7 +473,7 @@ public class CodegenEmitters {
 	}	
 	
 	public TextEmitter getMarkerNavigationProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(MarkerNavigationProviderGenerator.class);
+		return getPrimaryEmitter("xpt::diagram::providers::MarkerNavigationProvider"); //$NON-NLS-1$
 	}	
 	
 	public TextEmitter getAbstractExpressionEmitter() throws UnexpectedBehaviourException {
