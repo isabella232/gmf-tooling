@@ -15,7 +15,7 @@
 	</target>
 	
 	<target name="main" depends="init,checkArgs">
-		<echo message="Building GMF Target Platform product..." />
+		<echo message="Building GMF Target Platform..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="targetplatform" />
 			<property name="cleanBase" value="true" />
@@ -23,7 +23,7 @@
 			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="componentsTag" value="${stable.components}" />
 		</ant>
-		<ant antfile="install.xml" target="installTargetPlatform"/>
+		<echo message="Producing the Product" />
 		<ant antfile="build.xml" target="product">
 			<property name="component" value="targetplatform.product" />
 			<property name="cleanBase" value="true" />
