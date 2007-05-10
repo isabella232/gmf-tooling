@@ -147,25 +147,25 @@ public class ValidateAction extends Action {
 	/**
 	 * @generated
 	 */
-	private static void validate(DiagramEditPart diagramEditPart, View target) {
-		IFile diagramFile = target.eResource() != null ? WorkspaceSynchronizer.getFile(target.eResource()) : null;
-		if (diagramFile != null) {
-			TaiPanMarkerNavigationProvider.deleteMarkers(diagramFile);
+	private static void validate(DiagramEditPart diagramEditPart, View view) {
+		IFile target = view.eResource() != null ? WorkspaceSynchronizer.getFile(view.eResource()) : null;
+		if (target != null) {
+			TaiPanMarkerNavigationProvider.deleteMarkers(target);
 		}
-		Diagnostic diagnostic = runEMFValidator(target);
-		createMarkers(diagramFile, diagnostic, diagramEditPart);
+		Diagnostic diagnostic = runEMFValidator(view);
+		createMarkers(target, diagnostic, diagramEditPart);
 		IBatchValidator validator = (IBatchValidator) ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
 		validator.setIncludeLiveConstraints(true);
-		if (target.isSetElement() && target.getElement() != null) {
-			IStatus status = validator.validate(target.getElement());
-			createMarkers(diagramFile, status, diagramEditPart);
+		if (view.isSetElement() && view.getElement() != null) {
+			IStatus status = validator.validate(view.getElement());
+			createMarkers(target, status, diagramEditPart);
 		}
 	}
 
 	/**
 	 * @generated
 	 */
-	private static void createMarkers(IFile diagramFile, IStatus validationStatus, DiagramEditPart diagramEditPart) {
+	private static void createMarkers(IFile target, IStatus validationStatus, DiagramEditPart diagramEditPart) {
 		if (validationStatus.isOK()) {
 			return;
 		}
@@ -176,14 +176,14 @@ public class ValidateAction extends Action {
 		for (Iterator it = allStatuses.iterator(); it.hasNext();) {
 			IConstraintStatus nextStatus = (IConstraintStatus) it.next();
 			View view = TaiPanDiagramEditorUtil.findView(diagramEditPart, nextStatus.getTarget(), element2ViewMap);
-			addMarker(diagramFile, view.eResource().getURIFragment(view), EMFCoreUtil.getQualifiedName(nextStatus.getTarget(), true), nextStatus.getMessage(), nextStatus.getSeverity());
+			addMarker(target, view.eResource().getURIFragment(view), EMFCoreUtil.getQualifiedName(nextStatus.getTarget(), true), nextStatus.getMessage(), nextStatus.getSeverity());
 		}
 	}
 
 	/**
 	 * @generated
 	 */
-	private static void createMarkers(IFile diagramFile, Diagnostic emfValidationStatus, DiagramEditPart diagramEditPart) {
+	private static void createMarkers(IFile target, Diagnostic emfValidationStatus, DiagramEditPart diagramEditPart) {
 		if (emfValidationStatus.getSeverity() == Diagnostic.OK) {
 			return;
 		}
@@ -197,7 +197,7 @@ public class ValidateAction extends Action {
 			if (data != null && !data.isEmpty() && data.get(0) instanceof EObject) {
 				EObject element = (EObject) data.get(0);
 				View view = TaiPanDiagramEditorUtil.findView(diagramEditPart, element, element2ViewMap);
-				addMarker(diagramFile, view.eResource().getURIFragment(view), EMFCoreUtil.getQualifiedName(element, true), nextDiagnostic.getMessage(), diagnosticToStatusSeverity(nextDiagnostic
+				addMarker(target, view.eResource().getURIFragment(view), EMFCoreUtil.getQualifiedName(element, true), nextDiagnostic.getMessage(), diagnosticToStatusSeverity(nextDiagnostic
 						.getSeverity()));
 			}
 		}
@@ -206,11 +206,11 @@ public class ValidateAction extends Action {
 	/**
 	 * @generated
 	 */
-	private static void addMarker(IFile file, String elementId, String location, String message, int statusSeverity) {
-		if (file == null) {
+	private static void addMarker(IFile target, String elementId, String location, String message, int statusSeverity) {
+		if (target == null) {
 			return;
 		}
-		TaiPanMarkerNavigationProvider.addMarker(file, elementId, location, message, statusSeverity);
+		TaiPanMarkerNavigationProvider.addMarker(target, elementId, location, message, statusSeverity);
 	}
 
 	/**
