@@ -30,6 +30,7 @@ import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMarkerNavigationProvider;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider;
 import org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor;
@@ -176,7 +177,8 @@ public class ValidateAction extends Action {
 		for (Iterator it = allStatuses.iterator(); it.hasNext();) {
 			IConstraintStatus nextStatus = (IConstraintStatus) it.next();
 			View view = TaiPanDiagramEditorUtil.findView(diagramEditPart, nextStatus.getTarget(), element2ViewMap);
-			addMarker(target, view.eResource().getURIFragment(view), EMFCoreUtil.getQualifiedName(nextStatus.getTarget(), true), nextStatus.getMessage(), nextStatus.getSeverity());
+			addMarker(diagramEditPart.getViewer(), target, view.eResource().getURIFragment(view), EMFCoreUtil.getQualifiedName(nextStatus.getTarget(), true), nextStatus.getMessage(), nextStatus
+					.getSeverity());
 		}
 	}
 
@@ -197,8 +199,8 @@ public class ValidateAction extends Action {
 			if (data != null && !data.isEmpty() && data.get(0) instanceof EObject) {
 				EObject element = (EObject) data.get(0);
 				View view = TaiPanDiagramEditorUtil.findView(diagramEditPart, element, element2ViewMap);
-				addMarker(target, view.eResource().getURIFragment(view), EMFCoreUtil.getQualifiedName(element, true), nextDiagnostic.getMessage(), diagnosticToStatusSeverity(nextDiagnostic
-						.getSeverity()));
+				addMarker(diagramEditPart.getViewer(), target, view.eResource().getURIFragment(view), EMFCoreUtil.getQualifiedName(element, true), nextDiagnostic.getMessage(),
+						diagnosticToStatusSeverity(nextDiagnostic.getSeverity()));
 			}
 		}
 	}
@@ -206,7 +208,7 @@ public class ValidateAction extends Action {
 	/**
 	 * @generated
 	 */
-	private static void addMarker(IFile target, String elementId, String location, String message, int statusSeverity) {
+	private static void addMarker(EditPartViewer viewer, IFile target, String elementId, String location, String message, int statusSeverity) {
 		if (target == null) {
 			return;
 		}
