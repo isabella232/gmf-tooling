@@ -1,7 +1,0 @@
-!*** Graphical Modeling Framework (GMF) tests map *******************************************
-
-!*** features ***************************************************************************
-feature@org.eclipse.gmf.targetplatform=v20070508-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/releng/org.eclipse.gmf.targetplatform-feature
-
-!*** plug-ins ***************************************************************************
-plugin@org.eclipse.gmf.targetplatform=v20070508-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/releng/org.eclipse.gmf.targetplatform
