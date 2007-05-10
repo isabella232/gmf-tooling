@@ -13,9 +13,12 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -28,6 +31,7 @@ import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider;
 import org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor;
 import org.eclipse.gmf.runtime.diagram.ui.OffscreenEditPartFactory;
@@ -145,6 +149,7 @@ public class ValidateAction extends Action {
 	 */
 	private static void validate(DiagramEditPart diagramEditPart, View view) {
 		View target = view;
+		getMarkers(diagramEditPart.getViewer()).clear();
 		Diagnostic diagnostic = runEMFValidator(view);
 		createMarkers(target, diagnostic, diagramEditPart);
 		IBatchValidator validator = (IBatchValidator) ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
@@ -169,7 +174,8 @@ public class ValidateAction extends Action {
 		for (Iterator it = allStatuses.iterator(); it.hasNext();) {
 			IConstraintStatus nextStatus = (IConstraintStatus) it.next();
 			View view = TaiPanDiagramEditorUtil.findView(diagramEditPart, nextStatus.getTarget(), element2ViewMap);
-			addMarker(target, view.eResource().getURIFragment(view), EMFCoreUtil.getQualifiedName(nextStatus.getTarget(), true), nextStatus.getMessage(), nextStatus.getSeverity());
+			addMarker(diagramEditPart.getViewer(), target, view.eResource().getURIFragment(view), EMFCoreUtil.getQualifiedName(nextStatus.getTarget(), true), nextStatus.getMessage(), nextStatus
+					.getSeverity());
 		}
 	}
 
@@ -190,8 +196,8 @@ public class ValidateAction extends Action {
 			if (data != null && !data.isEmpty() && data.get(0) instanceof EObject) {
 				EObject element = (EObject) data.get(0);
 				View view = TaiPanDiagramEditorUtil.findView(diagramEditPart, element, element2ViewMap);
-				addMarker(target, view.eResource().getURIFragment(view), EMFCoreUtil.getQualifiedName(element, true), nextDiagnostic.getMessage(), diagnosticToStatusSeverity(nextDiagnostic
-						.getSeverity()));
+				addMarker(diagramEditPart.getViewer(), target, view.eResource().getURIFragment(view), EMFCoreUtil.getQualifiedName(element, true), nextDiagnostic.getMessage(),
+						diagnosticToStatusSeverity(nextDiagnostic.getSeverity()));
 			}
 		}
 	}
@@ -199,10 +205,11 @@ public class ValidateAction extends Action {
 	/**
 	 * @generated
 	 */
-	private static void addMarker(View target, String elementId, String location, String message, int statusSeverity) {
+	private static void addMarker(EditPartViewer viewer, View target, String elementId, String location, String message, int statusSeverity) {
 		if (target == null) {
 			return;
 		}
+		getMarkers(viewer, target, true).add(new Marker(elementId, location, message, statusSeverity));
 	}
 
 	/**
@@ -255,5 +262,112 @@ public class ValidateAction extends Action {
 			}
 		}
 		return targetElementCollector;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Map getMarkers(EditPartViewer viewer) {
+		Map markers = (Map) viewer.getProperty(VALIDATE_ACTION_KEY);
+		if (markers == null) {
+			markers = new HashMap();
+			viewer.setProperty(VALIDATE_ACTION_KEY, markers);
+		}
+		return markers;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Set getMarkers(EditPartViewer viewer, View view, boolean create) {
+		Set markers = (Set) getMarkers(viewer).get(view);
+		if (markers == null) {
+			if (!create) {
+				return Collections.EMPTY_SET;
+			}
+			markers = new HashSet();
+			getMarkers(viewer).put(view, markers);
+		}
+		return markers;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Marker[] getMarkers(EditPartViewer viewer, View view) {
+		Set markers = getMarkers(viewer, view, false);
+		if (markers.isEmpty()) {
+			return Marker.EMPTY_ARRAY;
+		}
+		return (Marker[]) markers.toArray(new Marker[markers.size()]);
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class Marker {
+
+		/**
+		 * @generated
+		 */
+		public static final Marker[] EMPTY_ARRAY = new Marker[0];
+
+		/**
+		 * @generated
+		 */
+		private final String elementId;
+
+		/**
+		 * @generated
+		 */
+		private final String location;
+
+		/**
+		 * @generated
+		 */
+		private final String message;
+
+		/**
+		 * @generated
+		 */
+		private final int statusSeverity;
+
+		/**
+		 * @generated
+		 */
+		public Marker(String elementId, String location, String message, int statusSeverity) {
+			this.elementId = elementId;
+			this.location = location;
+			this.message = message;
+			this.statusSeverity = statusSeverity;
+		}
+
+		/**
+		 * @generated
+		 */
+		public String getElementId() {
+			return elementId;
+		}
+
+		/**
+		 * @generated
+		 */
+		public String getLocation() {
+			return location;
+		}
+
+		/**
+		 * @generated
+		 */
+		public String getMessage() {
+			return message;
+		}
+
+		/**
+		 * @generated
+		 */
+		public int getStatusSeverity() {
+			return statusSeverity;
+		}
 	}
 }
