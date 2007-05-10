@@ -11,15 +11,19 @@
 package org.eclipse.gmf.tests.migration;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
 import org.eclipse.gmf.internal.common.migrate.MigrationUtil;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
@@ -102,5 +106,83 @@ public class MigrationPatchesTest extends TestCase {
 		assertTrue("Expected model loading problems", //$NON-NLS-1$
 				caughtException != null || !resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty());
 		return caughtException;
+	}
+
+/*
+GenDiagram
+Removed attrs:
+attr String paletteProviderClassName;
+attr ProviderPriority paletteProviderPriority;
+attr String propertyProviderClassName;
+attr ProviderPriority propertyProviderPriority;
+attr String referenceConnectionEditPolicyClassName;
+attr String externalNodeLabelHostLayoutEditPolicyClassName;
+attr String diagramFileCreatorClassName;
+attr String preferenceInitializerClassName;
+	 */
+	public void testGenDiagram() throws Exception {
+		String genmodelFileName = "testGenDiagram.gmfgen"; //$NON-NLS-1$
+		
+		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
+		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
+
+		assertOnLoadModelMigrationSuccess(genmodelFileName);
+	}
+
+	public void testGenAuditRootDefaultAndNested() throws Exception {
+		String genmodelFileName = "testGenAuditRootDefaultAndNested.gmfgen"; //$NON-NLS-1$
+		
+		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
+		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
+
+		assertOnLoadModelMigrationSuccess(genmodelFileName);
+	}
+
+	public void testGenAuditRootNoDefaultButNested() throws Exception {
+		String genmodelFileName = "testGenAuditRootNoDefaultButNested.gmfgen"; //$NON-NLS-1$
+		
+		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
+		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
+
+		assertOnLoadModelMigrationSuccess(genmodelFileName);
+	}
+
+	public void testGenAudits() throws Exception {
+		String genmodelFileName = "testGenAudits.gmfgen"; //$NON-NLS-1$
+		
+		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
+		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
+
+		assertOnLoadModelMigrationSuccess(genmodelFileName);
+	}
+
+	public void testGenEditorAuditRootNoDefaultButNested() throws Exception {
+		String genmodelFileName = "testGenEditorAuditRootNoDefaultButNested.gmfgen"; //$NON-NLS-1$
+		
+		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
+		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
+
+		assertOnLoadModelMigrationSuccess(genmodelFileName);
+	}
+
+	public void testGenAuditsCorrectCategories() throws Exception {
+		String genmodelFileName = "testGenAuditsCorrectCategories.gmfgen"; //$NON-NLS-1$
+		
+		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
+		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
+
+		assertOnLoadModelMigrationSuccess(genmodelFileName);
+
+		URI uri = createURI(genmodelFileName);
+		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
+		Resource resource = loadHelper.getLoadedResource();
+		for (Iterator<EObject> it = resource.getAllContents(); it.hasNext();) {
+			EObject next = it.next();
+			if (next instanceof GenAuditRule) {
+				GenAuditRule nextRule = (GenAuditRule) next;
+				GenAuditContainer nextCategory = nextRule.getCategory();
+				assertEquals("Audit rule expected to be placed to correct audit category after migration", "rule:"+nextCategory.getId(), nextRule.getId()); //$NON-NLS-1$ //$NON-NLS-2$
+			}
+		}
 	}
 }
