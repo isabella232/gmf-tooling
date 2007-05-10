@@ -51,14 +51,24 @@ for(java.util.Iterator it = «EXPAND xpt::commands::Common::getFeatureValue("mode
 				«ENDIF-»
 				«LET ((gmfgen::TypeLinkModelFacet) nextLink.modelFacet).sourceMetaFeature AS sourceFeature-»
 				«IF sourceFeature != null-»
+					«IF sourceFeature.isListType()-»
+		java.util.List sources = «EXPAND xpt::commands::Common::getFeatureValue("nextValue", null, true) FOR sourceFeature»;
+		org.eclipse.emf.ecore.EObject source = sources.size() == 1 ? (org.eclipse.emf.ecore.EObject) sources.get(0) : null;
+					«ELSE-»
 		org.eclipse.emf.ecore.EObject source = (org.eclipse.emf.ecore.EObject) «EXPAND xpt::commands::Common::getFeatureValue("nextValue", null, false) FOR sourceFeature»;
+					«ENDIF-»
 				«ELSE-»
 		org.eclipse.emf.ecore.EObject source = modelObject;
 				«ENDIF-»
 				«ENDLET-»
 				«LET ((gmfgen::TypeLinkModelFacet) nextLink.modelFacet).targetMetaFeature AS targetFeature-»
 				«IF targetFeature != null-»
+					«IF targetFeature.isListType()-»
+		java.util.List targets = «EXPAND xpt::commands::Common::getFeatureValue("nextValue", null, true) FOR targetFeature»;
+		org.eclipse.emf.ecore.EObject target = targets.size() == 1 ? (org.eclipse.emf.ecore.EObject) targets.get(0) : null;
+					«ELSE-»
 		org.eclipse.emf.ecore.EObject target = (org.eclipse.emf.ecore.EObject) «EXPAND xpt::commands::Common::getFeatureValue("nextValue", null, false) FOR targetFeature»;
+					«ENDIF-»
 				«ELSE-»
 		org.eclipse.emf.ecore.EObject target = modelObject;
 				«ENDIF-»
