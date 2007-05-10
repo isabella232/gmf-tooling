@@ -191,52 +191,52 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case PortEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(TaiPanDiagramUpdater.getPort_2001ContainerLinks(view));
+			result.addAll(TaiPanDiagramUpdater.getPort_2001ContainedLinks(view));
 			break;
 		}
 		case ShipEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(TaiPanDiagramUpdater.getShip_2002ContainerLinks(view));
+			result.addAll(TaiPanDiagramUpdater.getShip_2002ContainedLinks(view));
 			break;
 		}
 		case WarshipEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(TaiPanDiagramUpdater.getWarship_2003ContainerLinks(view));
+			result.addAll(TaiPanDiagramUpdater.getWarship_2003ContainedLinks(view));
 			break;
 		}
 		case SmallItemsEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(TaiPanDiagramUpdater.getSmallItems_3001ContainerLinks(view));
+			result.addAll(TaiPanDiagramUpdater.getSmallItems_3001ContainedLinks(view));
 			break;
 		}
 		case LargeItemEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(TaiPanDiagramUpdater.getLargeItem_3002ContainerLinks(view));
+			result.addAll(TaiPanDiagramUpdater.getLargeItem_3002ContainedLinks(view));
 			break;
 		}
 		case EmptyBoxEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(TaiPanDiagramUpdater.getEmptyBox_3003ContainerLinks(view));
+			result.addAll(TaiPanDiagramUpdater.getEmptyBox_3003ContainedLinks(view));
 			break;
 		}
 		case ReliableRouteEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(TaiPanDiagramUpdater.getRoute_4002ContainerLinks(view));
+			result.addAll(TaiPanDiagramUpdater.getRoute_4002ContainedLinks(view));
 			break;
 		}
 		case UnreliableRouteEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(TaiPanDiagramUpdater.getRoute_4003ContainerLinks(view));
+			result.addAll(TaiPanDiagramUpdater.getRoute_4003ContainedLinks(view));
 			break;
 		}
 		case EscortShipsOrderEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(TaiPanDiagramUpdater.getEscortShipsOrder_4006ContainerLinks(view));
+			result.addAll(TaiPanDiagramUpdater.getEscortShipsOrder_4006ContainedLinks(view));
 			break;
 		}
 		case BesiegePortOrderEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(TaiPanDiagramUpdater.getBesiegePortOrder_4005ContainerLinks(view));
+			result.addAll(TaiPanDiagramUpdater.getBesiegePortOrder_4005ContainedLinks(view));
 			break;
 		}
 		}

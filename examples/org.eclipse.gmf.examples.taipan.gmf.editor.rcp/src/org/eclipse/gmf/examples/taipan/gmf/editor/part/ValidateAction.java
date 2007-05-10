@@ -12,15 +12,20 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.validation.model.EvaluationMode;
+import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider;
@@ -31,11 +36,7 @@ import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart;
 import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
@@ -142,24 +143,117 @@ public class ValidateAction extends Action {
 	/**
 	 * @generated
 	 */
-	private static void validate(DiagramEditPart diagramEditPart, View target) {
-		Diagnostic diagnostic = runEMFValidator(target);
-		if (diagnostic.getSeverity() != Diagnostic.OK) {
-			ErrorDialog.openError(Display.getCurrent().getActiveShell(), "Validation", "Validation failed.", BasicDiagnostic.toIStatus(diagnostic));
-			return;
-		}
+	private static void validate(DiagramEditPart diagramEditPart, View view) {
+		View target = view;
+		Diagnostic diagnostic = runEMFValidator(view);
+		createMarkers(target, diagnostic, diagramEditPart);
 		IBatchValidator validator = (IBatchValidator) ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
 		validator.setIncludeLiveConstraints(true);
-		if (target.isSetElement() && target.getElement() != null) {
-			IStatus status = validator.validate(target.getElement());
-			if (status.getSeverity() != IStatus.OK) {
-				ErrorDialog.openError(Display.getCurrent().getActiveShell(), "Validation", "Validation failed.", status);
-				return;
+		if (view.isSetElement() && view.getElement() != null) {
+			IStatus status = validator.validate(view.getElement());
+			createMarkers(target, status, diagramEditPart);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private static void createMarkers(View target, IStatus validationStatus, DiagramEditPart diagramEditPart) {
+		if (validationStatus.isOK()) {
+			return;
+		}
+		final IStatus rootStatus = validationStatus;
+		List allStatuses = new ArrayList();
+		TaiPanDiagramEditorUtil.LazyElement2ViewMap element2ViewMap = new TaiPanDiagramEditorUtil.LazyElement2ViewMap(diagramEditPart.getDiagramView(), collectTargetElements(rootStatus,
+				new HashSet(), allStatuses));
+		for (Iterator it = allStatuses.iterator(); it.hasNext();) {
+			IConstraintStatus nextStatus = (IConstraintStatus) it.next();
+			View view = TaiPanDiagramEditorUtil.findView(diagramEditPart, nextStatus.getTarget(), element2ViewMap);
+			addMarker(target, view.eResource().getURIFragment(view), EMFCoreUtil.getQualifiedName(nextStatus.getTarget(), true), nextStatus.getMessage(), nextStatus.getSeverity());
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private static void createMarkers(View target, Diagnostic emfValidationStatus, DiagramEditPart diagramEditPart) {
+		if (emfValidationStatus.getSeverity() == Diagnostic.OK) {
+			return;
+		}
+		final Diagnostic rootStatus = emfValidationStatus;
+		List allDiagnostics = new ArrayList();
+		TaiPanDiagramEditorUtil.LazyElement2ViewMap element2ViewMap = new TaiPanDiagramEditorUtil.LazyElement2ViewMap(diagramEditPart.getDiagramView(), collectTargetElements(rootStatus,
+				new HashSet(), allDiagnostics));
+		for (Iterator it = emfValidationStatus.getChildren().iterator(); it.hasNext();) {
+			Diagnostic nextDiagnostic = (Diagnostic) it.next();
+			List data = nextDiagnostic.getData();
+			if (data != null && !data.isEmpty() && data.get(0) instanceof EObject) {
+				EObject element = (EObject) data.get(0);
+				View view = TaiPanDiagramEditorUtil.findView(diagramEditPart, element, element2ViewMap);
+				addMarker(target, view.eResource().getURIFragment(view), EMFCoreUtil.getQualifiedName(element, true), nextDiagnostic.getMessage(), diagnosticToStatusSeverity(nextDiagnostic
+						.getSeverity()));
 			}
 		}
-		MessageBox mb = new MessageBox(Display.getCurrent().getActiveShell(), SWT.OK);
-		mb.setText("Validation");
-		mb.setMessage("Model is valid.");
-		mb.open();
+	}
+
+	/**
+	 * @generated
+	 */
+	private static void addMarker(View target, String elementId, String location, String message, int statusSeverity) {
+		if (target == null) {
+			return;
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private static int diagnosticToStatusSeverity(int diagnosticSeverity) {
+		if (diagnosticSeverity == Diagnostic.OK) {
+			return IStatus.OK;
+		} else if (diagnosticSeverity == Diagnostic.INFO) {
+			return IStatus.INFO;
+		} else if (diagnosticSeverity == Diagnostic.WARNING) {
+			return IStatus.WARNING;
+		} else if (diagnosticSeverity == Diagnostic.ERROR || diagnosticSeverity == Diagnostic.CANCEL) {
+			return IStatus.ERROR;
+		}
+		return IStatus.INFO;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Set collectTargetElements(IStatus status, Set targetElementCollector, List allConstraintStatuses) {
+		if (status instanceof IConstraintStatus) {
+			targetElementCollector.add(((IConstraintStatus) status).getTarget());
+			allConstraintStatuses.add(status);
+		}
+		if (status.isMultiStatus()) {
+			IStatus[] children = status.getChildren();
+			for (int i = 0; i < children.length; i++) {
+				collectTargetElements(children[i], targetElementCollector, allConstraintStatuses);
+			}
+		}
+		return targetElementCollector;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Set collectTargetElements(Diagnostic diagnostic, Set targetElementCollector, List allDiagnostics) {
+		List data = diagnostic.getData();
+		EObject target = null;
+		if (data != null && !data.isEmpty() && data.get(0) instanceof EObject) {
+			target = (EObject) data.get(0);
+			targetElementCollector.add(target);
+			allDiagnostics.add(diagnostic);
+		}
+		if (diagnostic.getChildren() != null && !diagnostic.getChildren().isEmpty()) {
+			for (Iterator it = diagnostic.getChildren().iterator(); it.hasNext();) {
+				collectTargetElements((Diagnostic) it.next(), targetElementCollector, allDiagnostics);
+			}
+		}
+		return targetElementCollector;
 	}
 }
