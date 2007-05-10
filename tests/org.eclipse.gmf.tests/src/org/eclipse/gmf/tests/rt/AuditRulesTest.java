@@ -243,10 +243,11 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 
 			Method validationMethod = null;
 			try {
-				Class<?> validationProviderClass = loadGeneratedClass(getGenModel().getGenDiagram().getValidationProviderQualifiedClassName() + "$ValidateAction"); //$NON-NLS-1$
+				Class<?> validationProviderClass = loadGeneratedClass(
+						getGenModel().getGenDiagram().getEditorGen().getEditor().getPackageName() + ".ValidateAction"); //$NON-NLS-1$
 				validationMethod = validationProviderClass.getMethod("runNonUIValidation", new Class[] { View.class } ); //$NON-NLS-1$
 			} catch (Exception e) {
-				fail(" Could not find runValidation operation in ValidationProvider"); //$NON-NLS-1$ 
+				fail("Could not find runNonUIValidation operation in ValidateAction"); //$NON-NLS-1$ 
 				e.printStackTrace();
 			}
 
