@@ -17,7 +17,7 @@
 	<target name="main" depends="init,checkArgs">
 		<echo message="Building GMF Target Platform..." />
 		<ant antfile="build.xml" target="main">
-			<property name="component" value="targetplatform" />
+			<property name="component" value="base" />
 			<property name="wipe" value="true" />
 			<property name="cleanBase" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
@@ -26,7 +26,7 @@
 		</ant>
 		<echo message="Producing the Product" />
 		<ant antfile="build.xml" target="product">
-			<property name="component" value="targetplatform.product" />
+			<property name="component" value="base-platform" />
 			<property name="wipe" value="true" />
 			<property name="cleanBase" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
