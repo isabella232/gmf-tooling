@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -241,18 +241,24 @@ public class MigrationResource extends ToolResource {
 
 		@Override
 		protected void setAttribValue(EObject object, String name, String value) {
-			if ((isMigrationEnabled() || fixmePotentiallyCompatibilityIssues) && config.shouldIgnoreAttribute(object, name)) {
-				Map<EObject, Map<String, String>> ignoredAttributes = resource().ignoredAttributes;
-				if (ignoredAttributes != null) {
-					Map<String, String> attrs = ignoredAttributes.get(object);
-					if (attrs == null) {
-						attrs = new HashMap<String, String>();
-						ignoredAttributes.put(object, attrs);
-					}
-					attrs.put(name, value);
+			if ((isMigrationEnabled() || fixmePotentiallyCompatibilityIssues)) {
+				if (config.setAttribValue(this, object, name, value)) {
+					notifyMigrationApplied();
+					return;
 				}
-				notifyMigrationApplied(); // notify we had to migrate
-				return; // do not try to set value 
+				if (config.shouldIgnoreAttribute(object, name)) {
+					Map<EObject, Map<String, String>> ignoredAttributes = resource().ignoredAttributes;
+					if (ignoredAttributes != null) {
+						Map<String, String> attrs = ignoredAttributes.get(object);
+						if (attrs == null) {
+							attrs = new HashMap<String, String>();
+							ignoredAttributes.put(object, attrs);
+						}
+						attrs.put(name, value);
+					}
+					notifyMigrationApplied(); // notify we had to migrate
+					return; // do not try to set value 
+				}
 			}
 			super.setAttribValue(object, name, value);
 		}
@@ -292,7 +298,7 @@ public class MigrationResource extends ToolResource {
 			}
 			super.handleFeature(prefix, name);
 		}
-
+		
 		/**
 		 * Make public for access from config.
 		 */
@@ -336,4 +342,5 @@ public class MigrationResource extends ToolResource {
 			resource().handleMigrationPatchApplied();
 		}
 	}
+	
 }
