@@ -94,7 +94,9 @@ public class FeatureSeqInitializerItemProvider
 				 null) {
 				protected Collection<?> getComboBoxObjects(Object object) {
 					if(object instanceof FeatureSeqInitializer) {
-						return FilterUtil.filterByFeatureSeqInitializer((Collection<EClass>)super.getComboBoxObjects(object), (FeatureSeqInitializer)object);
+						@SuppressWarnings("unchecked")
+						final Collection<EClass> original = (Collection<EClass>) super.getComboBoxObjects(object);
+						return FilterUtil.filterByFeatureSeqInitializer(original, (FeatureSeqInitializer)object);
 					}
 				
 					return super.getComboBoxObjects(object);

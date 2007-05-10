@@ -13,6 +13,7 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -92,7 +93,9 @@ public class FeatureLabelMappingItemProvider
 				 null,
 				 null) {
 						protected Collection<?> getComboBoxObjects(Object object) {
-							return FilterUtil.filterByContainerMetaclass(super.getComboBoxObjects(object), (FeatureLabelMapping) object);
+							@SuppressWarnings("unchecked")
+							Collection<EStructuralFeature> original = (Collection<EStructuralFeature>) super.getComboBoxObjects(object);
+							return FilterUtil.filterByContainerMetaclass(original, ((FeatureLabelMapping) object).getMapEntry());
 						}
 			});
 	}

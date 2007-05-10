@@ -13,6 +13,7 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -89,7 +90,9 @@ public class MappingEntryItemProvider
 				 getString("_UI_DomainmetainformationPropertyCategory"), 
 				 null) {
 						protected Collection<?> getComboBoxObjects(Object object) {
-							return FilterUtil.filterByContainmentFeature(super.getComboBoxObjects(object), (MappingEntry) object);
+							@SuppressWarnings("unchecked")
+							Collection<EClass> original = (Collection<EClass>) super.getComboBoxObjects(object);
+							return FilterUtil.filterByContainmentFeature(original, (MappingEntry) object);
 						}
 				 });
 	}

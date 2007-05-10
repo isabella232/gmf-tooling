@@ -13,6 +13,7 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -138,7 +139,9 @@ public class CanvasMappingItemProvider
 				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null) {
 						protected Collection<?> getComboBoxObjects(Object object) {
-							return FilterUtil.filterByResourceSet(super.getComboBoxObjects(object), ((CanvasMapping) object).eResource().getResourceSet());
+							@SuppressWarnings("unchecked")
+							Collection<EClass> original = (Collection<EClass>) super.getComboBoxObjects(object);
+							return FilterUtil.filterByResourceSet(original, ((CanvasMapping) object).eResource().getResourceSet());
 						}
 			});
 	}

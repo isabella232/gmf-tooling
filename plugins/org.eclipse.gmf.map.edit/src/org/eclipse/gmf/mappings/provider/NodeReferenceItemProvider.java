@@ -13,6 +13,7 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -87,7 +88,9 @@ public abstract class NodeReferenceItemProvider
 				 null,
 				 null) {
 						protected Collection<?> getComboBoxObjects(Object object) {
-							return FilterUtil.filterByContainerMetaclass(super.getComboBoxObjects(object), (NodeReference) object, true);
+							@SuppressWarnings("unchecked")
+							Collection<EReference> original = (Collection<EReference>) super.getComboBoxObjects(object);
+							return FilterUtil.filterByContainerMetaclass(original, (NodeReference) object, true);
 						}
 			});
 	}
@@ -111,7 +114,9 @@ public abstract class NodeReferenceItemProvider
 				 null,
 				 null) {
 						protected Collection<?> getComboBoxObjects(Object object) {
-							return FilterUtil.filterByContainerMetaclass(super.getComboBoxObjects(object), (NodeReference) object, false);
+							@SuppressWarnings("unchecked")
+							Collection<EReference> original = (Collection<EReference>) super.getComboBoxObjects(object);
+							return FilterUtil.filterByContainerMetaclass(original, (NodeReference) object, false);
 						}
 			});
 	}

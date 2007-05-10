@@ -13,6 +13,7 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -187,7 +188,9 @@ public class LinkMappingItemProvider
 				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null) {
 						protected Collection<?> getComboBoxObjects(Object object) {
-							return FilterUtil.filterByReferenceType(super.getComboBoxObjects(object), (LinkMapping) object);
+							@SuppressWarnings("unchecked")
+							Collection<EReference> original = (Collection<EReference>) super.getComboBoxObjects(object);
+							return FilterUtil.filterByReferenceType(original, (LinkMapping) object);
 						}
 				});
 	}
@@ -211,7 +214,9 @@ public class LinkMappingItemProvider
 				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null) {
 						protected Collection<?> getComboBoxObjects(Object object) {
-							return FilterUtil.filterByContainerMetaclass(super.getComboBoxObjects(object), (LinkMapping) object);
+							@SuppressWarnings("unchecked")
+							Collection<EStructuralFeature> original = (Collection<EStructuralFeature>) super.getComboBoxObjects(object);
+							return FilterUtil.filterByContainerMetaclass(original, (LinkMapping) object);
 						}
 			});
 	}
@@ -235,7 +240,9 @@ public class LinkMappingItemProvider
 				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null) {
 						protected Collection<?> getComboBoxObjects(Object object) {
-							return FilterUtil.filterByContainerMetaclass(super.getComboBoxObjects(object), (LinkMapping) object);
+							@SuppressWarnings("unchecked")
+							Collection<EStructuralFeature> original = (Collection<EStructuralFeature>) super.getComboBoxObjects(object);
+							return FilterUtil.filterByContainerMetaclass(original, (LinkMapping) object);
 						}
 			});
 	}

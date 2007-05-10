@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ReferenceNewElementSpecItemProvider.java,v 1.5 2007/04/03 16:29:19 atikhomirov Exp $
+ * $Id: ReferenceNewElementSpecItemProvider.java,v 1.6 2007/05/10 17:12:28 atikhomirov Exp $
  */
 package org.eclipse.gmf.mappings.provider;
 
@@ -92,8 +92,9 @@ public class ReferenceNewElementSpecItemProvider
 				 null) {
 					protected Collection<?> getComboBoxObjects(Object object) {
 						if(object instanceof FeatureInitializer) {
-							return FilterUtil.filterByFeatureInitializer(
-									(Collection<EStructuralFeature>)super.getComboBoxObjects(object), (FeatureInitializer)object);
+							@SuppressWarnings("unchecked")
+							final Collection<EStructuralFeature> original = (Collection<EStructuralFeature>) super.getComboBoxObjects(object);
+							return FilterUtil.filterByFeatureInitializer(original, (FeatureInitializer)object);
 						}
 					
 						return super.getComboBoxObjects(object);

@@ -90,8 +90,9 @@ public class FeatureValueSpecItemProvider
 				 null) {
 					protected Collection<?> getComboBoxObjects(Object object) {
 						if(object instanceof FeatureInitializer) {
-							return FilterUtil.filterByFeatureInitializer(
-									(Collection<EStructuralFeature>)super.getComboBoxObjects(object), (FeatureInitializer)object);
+							@SuppressWarnings("unchecked")
+							final Collection<EStructuralFeature> original = (Collection<EStructuralFeature>) super.getComboBoxObjects(object);
+							return FilterUtil.filterByFeatureInitializer(original, (FeatureInitializer)object);
 						}
 					
 						return super.getComboBoxObjects(object);
