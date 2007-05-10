@@ -3,6 +3,8 @@
 	<!-- ===================================================================== -->
 	<!-- ===================================================================== -->
 	<target name="getBaseComponents" unless="skipBase">
+		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${mapsRepo}" package="${mapsRoot}.target" dest="${buildDirectory}/maps" tag="${targetConfigTag}" />
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
 		<ant antfile="${scripts}/install.xml" target="installBase" />
 		<ant antfile="${scripts}/install.xml" target="installDeltaPack" />
 		<ant antfile="${scripts}/install.xml" target="installTargetPlatform" />
