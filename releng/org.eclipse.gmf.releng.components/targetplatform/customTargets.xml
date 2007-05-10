@@ -192,7 +192,7 @@
 	
 	<target name="productBuild">
 		<delete failonerror="false">
-			<fileset dir="${buildDirectory}/component" includes="**/*"/>
+			<fileset dir="${buildDirectory}/component" includes="*"/>
 		</delete>
 		<copy todir="${buildDirectory}/component" overwrite="true">
 			<fileset dir="${buildDirectory}/component/product" includes="**/*"/>
