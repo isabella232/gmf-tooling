@@ -19,6 +19,7 @@
 		     as these builds are not tagged as are integration and stable builds. -->
 		<!-- Delete all previous continuous builds -->
 		<ant antfile="build.xml" target="cleanupArtifacts"/>
+		<ant antfile="buildBase.xml" target="main"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
@@ -83,6 +84,7 @@
 	<target name="nightly" depends="init,checkArgs">
 		<!-- Note: for now, overriding calculated qualifier for continuous and nightly builds,
 		     as these builds are not tagged as are integration and stable builds. -->
+		<ant antfile="buildBase.xml" target="main"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
@@ -148,6 +150,7 @@
 	</target>
 	
 	<target name="integration" depends="init,checkArgs">
+		<ant antfile="buildBase.xml" target="main"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
@@ -217,6 +220,7 @@
 		<property name="buildType" value="S" />
 		<property name="buildId" value="${stable.maps}" />
 -->
+		<ant antfile="buildBase.xml" target="main"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
@@ -288,6 +292,7 @@
 		     as these builds are not tagged as are integration and stable builds. -->
 		<!-- Delete all previous continuous builds -->
 		<ant antfile="build.xml" target="cleanupArtifacts"/>
+		<ant antfile="buildBase.xml" target="main"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
