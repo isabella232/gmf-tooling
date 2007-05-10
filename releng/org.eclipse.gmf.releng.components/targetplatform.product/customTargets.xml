@@ -17,7 +17,6 @@
 		<ant antfile="${scripts}/install.xml" target="installTargetPlatform" />
 	</target>
 
-
 	<!-- ===================================================================== -->
 	<!-- Check out map files from correct repository -->
 	<!-- Replace values for mapsCheckoutTag as desired. -->
@@ -127,6 +126,7 @@
 	<!-- ===================================================================== -->
 	<target name="postBuild">
 		<antcall target="gatherLogs" />
+		<antcall target="publish"/>
 	</target>
 
 	<!-- ===================================================================== -->
@@ -139,6 +139,8 @@
 	<!-- Steps to do to publish the build results -->
 	<!-- ===================================================================== -->
 	<target name="publish">
+		<!-- Publishing zip archive containing packed jars for update site -->
+		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/drops/${buildLabel}"/>
 	</target>
 
 	<!-- ===================================================================== -->

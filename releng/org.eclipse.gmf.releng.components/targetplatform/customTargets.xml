@@ -15,6 +15,16 @@
 	</target>
 
 	<!-- ===================================================================== -->
+	<!-- ===================================================================== -->
+	<target name="getBaseComponents" unless="skipBase">
+		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${mapsRepo}" package="${mapsRoot}.target" dest="${buildDirectory}/maps" tag="${targetConfigTag}" />
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
+		<ant antfile="${scripts}/install.xml" target="installBase" />
+		<ant antfile="${scripts}/install.xml" target="installGEF" />
+		<ant antfile="${scripts}/install.xml" target="installEMF" />
+	</target>
+
+	<!-- ===================================================================== -->
 	<!-- Targets to assemble the built elements for particular configurations  -->
 	<!-- These generally call the generated assemble scripts (named in -->
 	<!-- ${assembleScriptName}) but may also add pre and post processing -->
@@ -25,41 +35,12 @@
 		<ant antfile="${assembleScriptName}" dir="${buildDirectory}"/>
 	</target>
 	
-	<target name="assemble.org.eclipse.gmf.targetplatform.win32.win32.x86">
-		<property name="archiveName" value="GMF-targetplatform-${buildId}-win32.zip"/>
-		<antcall target="assemble" />
-	</target>
-	
-	<target name="assemble.org.eclipse.gmf.targetplatform.linux.gtk.x86">
-		<property name="archiveName" value="GMF-targetplatform-${buildId}-linux-gtk.tar.gz"/>
-		<antcall target="assemble" />
-	</target>
-	
-	<target name="assemble.org.eclipse.gmf.targetplatform.macosx.carbon.x86">
-		<property name="archiveName" value="GMF-targetplatform-${buildId}-macosx-x86.tar.gz"/>
-		<antcall target="assemble" />
-	</target>
-	
-	<target name="assemble.org.eclipse.gmf.targetplatform.macosx.carbon.ppc">
-		<property name="archiveName" value="GMF-targetplatform-${buildId}-macosx-ppc.tar.gz"/>
-		<antcall target="assemble" />
-	</target>
-	
-	<target name="assemble">
-		<property name="archiveFullPath" value="${buildDirectory}/${buildLabel}/${archiveName}" />
-		<ant antfile="${assembleScriptName}" />
-	</target>
-
 	<!-- ===================================================================== -->
 	<!-- Check out map files from correct repository -->
 	<!-- Replace values for mapsCheckoutTag as desired. -->
 	<!-- ===================================================================== -->
 	<target name="getMapFiles" depends="checkLocalMaps" unless="skipMaps">
-		<property name="mapsCheckoutTag" value="HEAD" />
-		<property name="targetConfigTag" value="HEAD" />
 		<cvs command="checkout -d org.eclipse.gmf.releng" cvsRoot="${mapsRepo}" package="${mapsRoot}" dest="${buildDirectory}/maps" tag="${mapsCheckoutTag}" />
-		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${mapsRepo}" package="${mapsRoot}.target" dest="${buildDirectory}/maps" tag="${targetConfigTag}" />
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
 		<get src="${orbitMapURL}" dest="${buildDirectory}/maps/orbit-bundles.map" verbose="true" usetimestamp="true" />
 	</target>
 
@@ -110,8 +91,6 @@
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
 		<ant antfile="${scripts}/install.xml" target="installBase" />
 		<ant antfile="${scripts}/install.xml" target="installDeltaPack" />
-		<ant antfile="${scripts}/install.xml" target="installGEF" />
-		<ant antfile="${scripts}/install.xml" target="installEMF" />
 	</target>
 
 	<!-- ===================================================================== -->
@@ -187,19 +166,8 @@
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
 		<antcall target="publish"/>
-		<antcall target="productBuild"/>
 	</target>
-	
-	<target name="productBuild">
-		<delete failonerror="false">
-			<fileset dir="${buildDirectory}/component" includes="*"/>
-		</delete>
-		<copy todir="${buildDirectory}/component" overwrite="true">
-			<fileset dir="${buildDirectory}/component/product" includes="**/*"/>
-		</copy>		
-		<ant antfile="productBuild.xml" dir="${pde.build.scripts}/productBuild"/>
-	</target>
-	
+
 	<!-- ===================================================================== -->
 	<!-- Steps to do to test the build results -->
 	<!-- ===================================================================== -->
@@ -216,11 +184,6 @@
 		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsAndRepack" />
 		<!-- Publishing downloadable bits -->
 		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/drops/${buildLabel}"/>
-		<!-- workaround for CC until figure out how to tell CC about buildLabel -->
-		<delete dir="${artifacts}/cc" failonerror="false"/>
-		<copy todir="${artifacts}/cc">
-		    <fileset dir="${artifacts}/drops/${buildLabel}"/>
-		</copy>
 	</target>
 
 	<!-- ===================================================================== -->
