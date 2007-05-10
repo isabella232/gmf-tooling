@@ -184,24 +184,8 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getViewPatternGen() {
-		return viewPattern;
-	}
-
 	public String getViewPattern() {
-		String result = getViewPatternGen();
-		if (result == null || result.length() == 0) {
-			result = buildDefaultViewPattern();
-		}
-		return result;
-	}
-
-	private String buildDefaultViewPattern() {
-		StringBuilder result = new StringBuilder();
-		for(int i = 0, iMax = metaFeatures.size(); i < iMax; i++) {
-			result.append("{").append(i).append("} ");
-		}
-		return result.toString().trim();
+		return viewPattern;
 	}
 
 	/**
