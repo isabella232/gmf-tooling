@@ -124,70 +124,40 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static void validate(org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramEditPart,
-			org.eclipse.gmf.runtime.notation.View target) {
+			org.eclipse.gmf.runtime.notation.View view) {
 		«IF editorGen.application == null-»
-		org.eclipse.core.resources.IFile diagramFile = target.eResource() != null ?
-				org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(target.eResource()) : null;
-		if (diagramFile != null) {
-			«getMarkerNavigationProviderQualifiedClassName()».deleteMarkers(diagramFile);
+		org.eclipse.core.resources.IFile target = view.eResource() != null ?
+				org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(view.eResource()) : null;
+		if (target != null) {
+			«getMarkerNavigationProviderQualifiedClassName()».deleteMarkers(target);
 		}
-		«ENDIF-»
-		org.eclipse.emf.common.util.Diagnostic diagnostic = runEMFValidator(target);
-		«IF editorGen.application == null-»
-		createMarkers(diagramFile, diagnostic, diagramEditPart);
 		«ELSE-»
-		if (diagnostic.getSeverity() != org.eclipse.emf.common.util.Diagnostic.OK) {
-			org.eclipse.jface.dialogs.ErrorDialog.openError(
-				org.eclipse.swt.widgets.Display.getCurrent().getActiveShell(), "Validation", "Validation failed.",
-				org.eclipse.emf.common.util.BasicDiagnostic.toIStatus(diagnostic));
-			return;
-		}
+		org.eclipse.gmf.runtime.notation.View target = view;
+		getMarkers(diagramEditPart.getViewer()).clear();
 		«ENDIF-»
+		org.eclipse.emf.common.util.Diagnostic diagnostic = runEMFValidator(view);
+		createMarkers(target, diagnostic, diagramEditPart);
 		org.eclipse.emf.validation.service.IBatchValidator validator =
 				(org.eclipse.emf.validation.service.IBatchValidator)
 						org.eclipse.emf.validation.service.ModelValidationService.getInstance().newValidator(
 								org.eclipse.emf.validation.model.EvaluationMode.BATCH);
 		validator.setIncludeLiveConstraints(true);
-		if (target.isSetElement() && target.getElement() != null) {
-			org.eclipse.core.runtime.IStatus status = validator.validate(target.getElement());
-		«IF editorGen.application == null-»
-			createMarkers(diagramFile, status, diagramEditPart);
-		«ELSE-»
-			if (status.getSeverity() != org.eclipse.core.runtime.IStatus.OK) {
-				org.eclipse.jface.dialogs.ErrorDialog.openError(
-						org.eclipse.swt.widgets.Display.getCurrent().getActiveShell(),
-						"Validation", "Validation failed.", status);
-				return;
-			}
-		«ENDIF-»
+		if (view.isSetElement() && view.getElement() != null) {
+			org.eclipse.core.runtime.IStatus status = validator.validate(view.getElement());
+			createMarkers(target, status, diagramEditPart);
 		}
 		«IF editorGen.audits != null && hasDiagramElementRule(editorGen.audits)-»
 		validator.setTraversalStrategy(
 				«getValidationProviderQualifiedClassName()».getNotationTraversalStrategy(validator));
-		org.eclipse.core.runtime.IStatus status = validator.validate(target);
-			«IF editorGen.application == null-»
-		createMarkers(diagramFile, status, diagramEditPart);
-			«ELSE-»
-		if (status.getSeverity() != org.eclipse.core.runtime.IStatus.OK) {
-			org.eclipse.jface.dialogs.ErrorDialog.openError(
-					org.eclipse.swt.widgets.Display.getCurrent().getActiveShell(),
-					"Validation", "Validation failed.", status);
-			return;
-		}
-			«ENDIF-»
-		«ENDIF-»
-		«IF editorGen.application != null-»
-		org.eclipse.swt.widgets.MessageBox mb = new org.eclipse.swt.widgets.MessageBox(
-				org.eclipse.swt.widgets.Display.getCurrent().getActiveShell(), org.eclipse.swt.SWT.OK);
-		mb.setText("Validation");
-		mb.setMessage("Model is valid.");
-		mb.open();
+		org.eclipse.core.runtime.IStatus status = validator.validate(view);
+		createMarkers(target, status, diagramEditPart);
 		«ENDIF-»
 	}
-	«IF editorGen.application == null-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private static void createMarkers(org.eclipse.core.resources.IFile diagramFile,
+	private static void createMarkers(
+			«IF editorGen.application == null»org.eclipse.core.resources.IFile
+			«ELSE»org.eclipse.gmf.runtime.notation.View«ENDIF» target,
 			org.eclipse.core.runtime.IStatus validationStatus,
 			org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramEditPart) {
 		if (validationStatus.isOK()) {
@@ -204,14 +174,16 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 					(org.eclipse.emf.validation.model.IConstraintStatus) it.next();
 			org.eclipse.gmf.runtime.notation.View view = «getDiagramEditorUtilQualifiedClassName()».findView(
 					diagramEditPart, nextStatus.getTarget(), element2ViewMap);			
-			addMarker(diagramFile, view.eResource().getURIFragment(view), 
+			addMarker(diagramEditPart.getViewer(), target, view.eResource().getURIFragment(view), 
 					org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil.getQualifiedName(nextStatus.getTarget(), true), 
 					nextStatus.getMessage(), nextStatus.getSeverity());
 		}
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private static void createMarkers(org.eclipse.core.resources.IFile diagramFile,
+	private static void createMarkers(
+			«IF editorGen.application == null»org.eclipse.core.resources.IFile
+			«ELSE»org.eclipse.gmf.runtime.notation.View«ENDIF» target,
 			org.eclipse.emf.common.util.Diagnostic emfValidationStatus,
 			org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramEditPart) {
 		if (emfValidationStatus.getSeverity() == org.eclipse.emf.common.util.Diagnostic.OK) {
@@ -230,7 +202,7 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 				org.eclipse.emf.ecore.EObject element = (org.eclipse.emf.ecore.EObject) data.get(0);
 				org.eclipse.gmf.runtime.notation.View view = «getDiagramEditorUtilQualifiedClassName()».findView(
 						diagramEditPart, element, element2ViewMap);
-				addMarker(diagramFile, view.eResource().getURIFragment(view),
+				addMarker(diagramEditPart.getViewer(), target, view.eResource().getURIFragment(view),
 						org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil.getQualifiedName(element, true),
 						nextDiagnostic.getMessage(), diagnosticToStatusSeverity(nextDiagnostic.getSeverity()));
 			}
@@ -238,13 +210,19 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private static void addMarker(org.eclipse.core.resources.IFile file,
+	private static void addMarker(org.eclipse.gef.EditPartViewer viewer,
+			«IF editorGen.application == null»org.eclipse.core.resources.IFile
+			«ELSE»org.eclipse.gmf.runtime.notation.View«ENDIF» target,
 			String elementId, String location, String message, int statusSeverity) {
-		if (file == null) {
+		if (target == null) {
 			return;
 		}
+		«IF editorGen.application == null-»
 		«getMarkerNavigationProviderQualifiedClassName()».addMarker(
-				file, elementId, location, message, statusSeverity);
+				target, elementId, location, message, statusSeverity);
+		«ELSE-»
+		getMarkers(viewer, target, true).add(new Marker(elementId, location, message, statusSeverity));
+		«ENDIF-»
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -260,7 +238,7 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 			return org.eclipse.core.runtime.IStatus.ERROR;
 		}
 		return org.eclipse.core.runtime.IStatus.INFO;
-	}	
+	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static java.util.Set collectTargetElements(org.eclipse.core.runtime.IStatus status,
@@ -296,7 +274,89 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		}
 		return targetElementCollector;
 	}
-	«ENDIF-»
+«IF editorGen.application != null-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static java.util.Map getMarkers(org.eclipse.gef.EditPartViewer viewer) {
+		java.util.Map markers = (java.util.Map) viewer.getProperty(VALIDATE_ACTION_KEY);
+		if (markers == null) {
+			markers = new java.util.HashMap();
+			viewer.setProperty(VALIDATE_ACTION_KEY, markers);
+		}
+		return markers;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static java.util.Set getMarkers(org.eclipse.gef.EditPartViewer viewer,
+			org.eclipse.gmf.runtime.notation.View view, boolean create) {
+		java.util.Set markers = (java.util.Set) getMarkers(viewer).get(view);
+		if (markers == null) {
+			if (!create) {
+				return java.util.Collections.EMPTY_SET;
+			}
+			markers = new HashSet();
+			getMarkers(viewer).put(view, markers);
+		}
+		return markers;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static Marker[] getMarkers(org.eclipse.gef.EditPartViewer viewer,
+			org.eclipse.gmf.runtime.notation.View view) {
+		java.util.Set markers = getMarkers(viewer, view, false);
+		if (markers.isEmpty()) {
+			return Marker.EMPTY_ARRAY;
+		}
+		return (Marker[]) markers.toArray(new Marker[markers.size()]);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static class Marker {
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public static final Marker[] EMPTY_ARRAY = new Marker[0];
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private final String elementId;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private final String location;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private final String message;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private final int statusSeverity;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public Marker(String elementId, String location, String message, int statusSeverity) {
+			this.elementId = elementId;
+			this.location = location;
+			this.message = message;
+			this.statusSeverity = statusSeverity;
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public String getElementId() {
+			return elementId;
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public String getLocation() {
+			return location;
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public String getMessage() {
+			return message;
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public int getStatusSeverity() {
+			return statusSeverity;
+		}
+	}
+«ENDIF-»
 	«EXPAND additions-»
 }
 «ENDDEFINE»
