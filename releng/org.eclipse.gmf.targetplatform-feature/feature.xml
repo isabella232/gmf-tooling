@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipse.gmf.targetplatform"
-      label="GMF Target Platform"
+      id="org.eclipse.gmf.releng.base"
+      label="GMF Base"
       version="1.0.0">
 
    <description url="http://www.example.com/description">
@@ -41,7 +41,7 @@
          version="0.0.0"/>
 
    <plugin
-         id="org.eclipse.gmf.targetplatform"
+         id="org.eclipse.gmf.releng.base"
          download-size="0"
          install-size="0"
          version="0.0.0"
