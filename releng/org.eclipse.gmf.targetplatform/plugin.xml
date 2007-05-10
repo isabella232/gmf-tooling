@@ -7,10 +7,10 @@
          point="org.eclipse.core.runtime.products">
       <product
             application="org.eclipse.ui.ide.workbench"
-            name="GMF Target Platform">
+            name="GMF Base Platform">
          <property
                name="appName"
-               value="GMF Target Platform">
+               value="GMF Base Platform">
          </property>
       </product>
    </extension>
