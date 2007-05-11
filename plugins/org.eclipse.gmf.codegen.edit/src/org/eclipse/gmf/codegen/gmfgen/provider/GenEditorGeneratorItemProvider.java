@@ -293,6 +293,7 @@ public class GenEditorGeneratorItemProvider
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Plugin());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Editor());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Navigator());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenEditorGenerator_DiagramUpdater());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenEditorGenerator_PropertySheet());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Application());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenEditorGenerator_ExpressionProviders());
@@ -366,6 +367,7 @@ public class GenEditorGeneratorItemProvider
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN:
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__EDITOR:
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR:
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_UPDATER:
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PROPERTY_SHEET:
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__APPLICATION:
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS:
@@ -415,6 +417,11 @@ public class GenEditorGeneratorItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Navigator(),
 				 GMFGenFactory.eINSTANCE.createGenNavigator()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenEditorGenerator_DiagramUpdater(),
+				 GMFGenFactory.eINSTANCE.createGenDiagramUpdater()));
 
 		newChildDescriptors.add
 			(createChildParameter

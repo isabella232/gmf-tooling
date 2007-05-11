@@ -304,6 +304,29 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenDiagramUpdaterItemProvider genDiagramUpdaterItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGenDiagramUpdaterAdapter() {
+		if (genDiagramUpdaterItemProvider == null) {
+			genDiagramUpdaterItemProvider = new GenDiagramUpdaterItemProvider(this);
+		}
+
+		return genDiagramUpdaterItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenPlugin} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2022,6 +2045,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genCustomFontItemProvider != null) genCustomFontItemProvider.dispose();
 		if (genRGBColorItemProvider != null) genRGBColorItemProvider.dispose();
 		if (genConstantColorItemProvider != null) genConstantColorItemProvider.dispose();
+		if (genDiagramUpdaterItemProvider != null) genDiagramUpdaterItemProvider.dispose();
 		if (genPluginItemProvider != null) genPluginItemProvider.dispose();
 		if (customBehaviourItemProvider != null) customBehaviourItemProvider.dispose();
 		if (sharedBehaviourItemProvider != null) sharedBehaviourItemProvider.dispose();
