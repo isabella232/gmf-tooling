@@ -43,6 +43,9 @@ protected void performDirectEdit() {
 	if («getDiagram().getDiagramEditorUtilQualifiedClassName()».isReadOnly(«EXPAND xpt::diagram::parts::Common::getViewCode».getElement()) || «getDiagram().getDiagramEditorUtilQualifiedClassName()».isReadOnly(«EXPAND xpt::diagram::parts::Common::getViewCode»)) {
 		return;
 	}
+	if (getLabelTextDisplayer() == null) {
+		return;
+	}
 	getManager().show();
 }
 «ENDIF-»
@@ -135,6 +138,9 @@ private String defaultText;
 
 «EXPAND xpt::Common::generatedMemberComment»
 public void setLabelText(String text) {
+	if (text == null || text.length() == 0) {
+		text = defaultText;
+	}
 	getLabel().setText(text);
 }
 

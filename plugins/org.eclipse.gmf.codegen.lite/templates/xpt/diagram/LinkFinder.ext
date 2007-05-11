@@ -22,6 +22,10 @@ cached Collection[gmfgen::GenLink] incomingLinks(gmfgen::GenCommonBase gcb) :
 		gcb.getDiagram().links.select(e| e.incomingGenClass().ecoreClass.isSuperTypeOf(effectiveMetaClass.ecoreClass)))
 ;
 
+Collection[gmfgen::GenLink] incomingTypeLinks(gmfgen::GenCommonBase gcb) :
+	gcb.incomingLinks().select(e| {e.modelFacet}.typeSelect(gmfgen::TypeLinkModelFacet).size() > 0)
+;
+
 cached Collection[gmfgen::GenLink] outgoingLinks(gmfgen::GenCommonBase gcb) :
 	let effectiveMetaClass = gcb.getEffectiveMetaClass() :
 	(effectiveMetaClass == null ? {} :
