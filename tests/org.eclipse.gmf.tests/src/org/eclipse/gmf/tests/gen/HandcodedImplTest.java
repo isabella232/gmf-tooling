@@ -60,6 +60,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
@@ -901,9 +902,6 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkClassName(state, "EditPartCandies:BaseExternalNodeLabelEditPart", genDiagram.getBaseExternalNodeLabelEditPartClassName(), genDiagram.getBaseExternalNodeLabelEditPartQualifiedClassName());
 		checkClassName(state, "EditPartCandies:BaseItemSemanticEditPolicy", genDiagram.getBaseItemSemanticEditPolicyClassName(), genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName());
 		checkClassName(state, "EditPartCandies:BaseGraphicalNodeEditPolicy", genDiagram.getBaseGraphicalNodeEditPolicyClassName(), genDiagram.getBaseGraphicalNodeEditPolicyQualifiedClassName());
-		checkClassName(state, "Updater:DiagramUpdater", genDiagram.getDiagramUpdaterClassName(), genDiagram.getDiagramUpdaterQualifiedClassName());
-		checkClassName(state, "Updater:NodeDescriptor", genDiagram.getNodeDescriptorClassName(), genDiagram.getNodeDescriptorQualifiedClassName());
-		checkClassName(state, "Updater:LinkDescriptor", genDiagram.getLinkDescriptorClassName(), genDiagram.getLinkDescriptorQualifiedClassName());
 		checkClassName(state, "GenContainerBase:CanonicalEditPolicy", genDiagram.getCanonicalEditPolicyClassName(), genDiagram.getCanonicalEditPolicyQualifiedClassName());
 		checkClassName(state, "EditPartCandies:TextSelectionEditPolicy", genDiagram.getTextSelectionEditPolicyClassName(), genDiagram.getTextSelectionEditPolicyQualifiedClassName());
 		checkClassName(state, "EditPartCandies:TextNonResizableEditPolicy", genDiagram.getTextNonResizableEditPolicyClassName(), genDiagram.getTextNonResizableEditPolicyQualifiedClassName());
@@ -982,6 +980,17 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 			state.add("GenNavigator:LabelProvider");
 			state.add("GenNavigator:GroupWrapper");
 		}
+		GenDiagramUpdater updater = genDiagram.getEditorGen().getDiagramUpdater();
+		if (updater != null) {
+			checkClassName(state, "GenDiagramUpdater:DiagramUpdater", updater.getDiagramUpdaterClassName(), updater.getDiagramUpdaterQualifiedClassName());
+			checkClassName(state, "GenDiagramUpdater:NodeDescriptor", updater.getNodeDescriptorClassName(), updater.getNodeDescriptorQualifiedClassName());
+			checkClassName(state, "GenDiagramUpdater:LinkDescriptor", updater.getLinkDescriptorClassName(), updater.getLinkDescriptorQualifiedClassName());
+		} else {
+			state.add("GenDiagramUpdater:DiagramUpdater");
+			state.add("GenDiagramUpdater:NodeDescriptor");
+			state.add("GenDiagramUpdater:LinkDescriptor");
+		}
+		
 		GenPropertySheet propSheet = genDiagram.getEditorGen().getPropertySheet();
 		if (propSheet != null) {
 			checkPackageName(state, "GenPropertySheet:packageName", propSheet.getPackageName());

@@ -92,6 +92,7 @@ public class DiaGenSetup implements DiaGenSource {
 		myGenDiagram.setElementType(dgmmType);
 		genBurden.setDiagram(myGenDiagram);
 		genBurden.setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
+		genBurden.setDiagramUpdater(GMFGenFactory.eINSTANCE.createGenDiagramUpdater());
 
 		myNodeA = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
 		myNodeA.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getNode()));
