@@ -1,8 +1,8 @@
 !*** Graphical Modeling Framework (GMF) examples map *****************************************
 
 !*** GMF features ***************************************************************************
-feature@org.eclipse.gmf.examples=v20070504-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.examples-feature
-feature@org.eclipse.gmf.examples.pde=v20070330-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.examples.pde-feature
+feature@org.eclipse.gmf.examples=v20070511-1500,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.examples-feature
+feature@org.eclipse.gmf.examples.pde=v20070511-1500,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.examples.pde-feature
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf.examples=v20070403-1500,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/examples/org.eclipse.gmf.examples
