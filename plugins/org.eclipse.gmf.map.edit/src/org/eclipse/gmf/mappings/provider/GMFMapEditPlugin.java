@@ -9,6 +9,7 @@ package org.eclipse.gmf.mappings.provider;
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.ui.EclipseUIPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.provider.EcoreEditPlugin;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.gmfgraph.provider.GMFGraphEditPlugin;
@@ -48,6 +49,7 @@ public final class GMFMapEditPlugin extends EMFPlugin {
 			(new ResourceLocator [] {
 				GMFGraphEditPlugin.INSTANCE,
 				GMFToolEditPlugin.INSTANCE,
+				EcoreEditPlugin.INSTANCE,
 			});
 	}
 
