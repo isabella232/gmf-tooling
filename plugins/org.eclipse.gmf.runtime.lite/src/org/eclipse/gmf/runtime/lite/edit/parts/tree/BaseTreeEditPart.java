@@ -27,8 +27,9 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gef.editparts.AbstractTreeEditPart;
 import org.eclipse.gef.tools.CellEditorLocator;
-import org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer;
+import org.eclipse.gmf.runtime.lite.edit.parts.labels.AbstractLabelTextDisplayer;
 import org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelController;
+import org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer;
 import org.eclipse.gmf.runtime.lite.edit.parts.labels.ItemProviderLabelTextDisplayer;
 import org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart;
 import org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart;
@@ -103,6 +104,7 @@ public class BaseTreeEditPart extends AbstractTreeEditPart implements IUpdatable
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	protected List getModelChildren() {
 		return getNotationView().getVisibleChildren();
 	}
@@ -128,6 +130,9 @@ public class BaseTreeEditPart extends AbstractTreeEditPart implements IUpdatable
 	public final ILabelTextDisplayer getLabelTextDisplayer() {
 		if (myLabelTextDisplayer == null) {
 			myLabelTextDisplayer = createLabelTextDisplayer();
+			if (myLabelTextDisplayer == null) {
+				myLabelTextDisplayer = new NullLabelTextDisplayer();
+			}
 		}
 		return myLabelTextDisplayer;
 	}
@@ -137,7 +142,17 @@ public class BaseTreeEditPart extends AbstractTreeEditPart implements IUpdatable
 	}
 
 	public void setLabelText(String text) {
-		setWidgetText(text == null ? "" : text);	//$NON-NLS-1$
+		if (text == null || text.length() == 0) {
+			text = getDefaultLabelText();
+		}
+		setWidgetText(text);
+	}
+
+	/**
+	 * @return The text to use if an empty string would be displayed otherwise
+	 */
+	protected String getDefaultLabelText() {
+		return "";	//$NON-NLS-1$
 	}
 
 	private Image createImage() {
@@ -174,7 +189,10 @@ public class BaseTreeEditPart extends AbstractTreeEditPart implements IUpdatable
 	 */
 	protected String getText() {
 		String result = getLabelTextDisplayer().getDisplayText(getElement());
-		return result == null ? "" : result;
+		if (result == null || result.length() == 0) {
+			return getDefaultLabelText();
+		}
+		return result;
 	}
 
 	private HashMap<EStructuralFeature, Refresher> structuralFeatures2Refresher;
@@ -284,5 +302,17 @@ public class BaseTreeEditPart extends AbstractTreeEditPart implements IUpdatable
 			return false;
 		}
 		return editingDomain.isReadOnly(domainResource);
+	}
+
+	private class NullLabelTextDisplayer extends AbstractLabelTextDisplayer {
+		private NullLabelTextDisplayer() {}
+
+		public String getDisplayText(EObject source) {
+			return getDefaultLabelText();
+		}
+
+		public boolean isAffectingEvent(Notification notification) {
+			return false;
+		}
 	}
 }

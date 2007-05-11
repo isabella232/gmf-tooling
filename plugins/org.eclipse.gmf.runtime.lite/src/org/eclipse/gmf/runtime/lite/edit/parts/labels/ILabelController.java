@@ -39,10 +39,16 @@ public interface ILabelController {
 		}
 
 		public boolean isAffectingEvent(Notification msg) {
+			if (myController.getLabelTextDisplayer() == null) {
+				return false;
+			}
 			return myController.getLabelTextDisplayer().isAffectingEvent(msg);
 		}
 
 		public void refresh() {
+			if (myController.getLabelTextDisplayer() == null) {
+				return;
+			}
 			myController.setLabelText(myController.getLabelTextDisplayer().getDisplayText(mySource));
 		}
 	}
