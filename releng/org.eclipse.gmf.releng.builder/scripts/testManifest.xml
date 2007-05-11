@@ -19,8 +19,13 @@
 				fileName='&lt;a href="@base@GMF-runtime-@build@.zip">GMF-runtime-@build@.zip&lt;/a>'>
 			</platform>
 		</zipType>
-		<zipType name="Examples PDE">
+		<zipType name="Examples">
 			<platform id="EX" name="All"
+				fileName='&lt;a href="@base@GMF-examples-@build@.zip">GMF-examples-@build@.zip&lt;/a>'>
+			</platform>
+		</zipType>
+		<zipType name="Examples PDE">
+			<platform id="EXPDE" name="All"
 				fileName='&lt;a href="@base@GMF-examples-pde-@build@.zip">GMF-examples-pde-@build@.zip&lt;/a>'>
 			</platform>
 		</zipType>

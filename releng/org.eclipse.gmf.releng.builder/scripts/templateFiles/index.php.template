@@ -73,6 +73,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 <li><a href="#SDKExperimental">SDK Experimental</a></li>
 <li><a href="#Runtime">Runtime</a></li>
 <li><a href="#Examples">Examples</a></li>
+<li><a href="#ExamplesPDE">Examples PDE</a></li>
 <li><a href="#Tests">JUnit Plugin Tests</a></li>
  
   </li>
@@ -288,7 +289,7 @@ if (preg_match("/.eclipse.org/i",$servername)) {
 </div></td></tr>
 
 <tr><td><div class="homeitem3col">
-<h3><a name="Examples">GMF Examples PDE</a></h3>
+<h3><a name="ExamplesPDE">GMF Examples PDE</a></h3>
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" > 
 <TR> <TD> <P>Examples PDE Wizard</P></TD></TR></table>
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
