@@ -26,9 +26,10 @@
 			<arg line="-q ${archiveName} -d ${tmpsite}" />
 		</exec>
 		<unpackUpdateJars site="${tmpsite}/eclipse" output="${tmpsite}/new/eclipse"/>
+<!--
 		<antcall target="packageBatik"/>
 		<antcall target="packageXerces"/>
-		<antcall target="packageLicenseFiles"/>
+		<antcall target="packageLicenseFiles"/> -->
 		<zip destfile="${buildDirectory}/${buildLabel}/${archiveName}"
 			basedir="${tmpsite}/new"
 	  	/>
@@ -55,7 +56,8 @@
 	  	/>
 		<delete dir="${tmpsite}"/>
 	</target>
-	
+
+	<!--
 	<target name="packageBatik" if="packageBatik">
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
 		<mkdir dir="${tmpsite}/batik" />
@@ -86,5 +88,6 @@
 		<copy file="${buildRoot}/eclipse/epl-v10.html" todir="${tmpsite}/new/eclipse"/>
 		<copy file="${buildRoot}/eclipse/notice.html" todir="${tmpsite}/new/eclipse"/>
 	</target>
+	-->
 	
 </project>
