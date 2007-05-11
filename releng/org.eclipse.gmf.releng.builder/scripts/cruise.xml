@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project default="cruise">
+<project default="cruise" basedir=".">
 	<property file="build.properties" />
 	
 	<!-- Commonly used directories -->
