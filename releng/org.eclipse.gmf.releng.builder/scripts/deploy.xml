@@ -1,12 +1,16 @@
 <project default="main" basedir=".">
 
+	<import file="build-common.xml"/>
+
 	<target name="init">		
-		<delete file="label.properties" />
-		<ant antfile="build.xml" target="create.label.properties" />
-		<!-- The tags.properties file contains tags for map files containing 'stable' and 'integration' config -->
-		<property file="tags.properties"/>
-		<property file="label.properties"/>
-		<property file="build.properties"/>
+		<tstamp/>
+		<property name="date" value="${DSTAMP}" />
+		<property name="time" value="${TSTAMP}" />
+		<property name="timestamp" value="${date}${time}" />
+		<property name="buildType" value="C" />	
+		<property name="buildId" value="${buildType}${date}" />
+		<!--this naming convention used by php scripts on download server-->
+		<property name="buildLabel" value="${buildType}-${buildId}-${timestamp}" />
 		<condition property="skipUpload">
 			<or>
 				<!-- TODO: this should be checked for zips only
