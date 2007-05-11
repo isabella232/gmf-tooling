@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <project xmlns:antcontrib="antlib:net.sf.antcontrib" default="deploy.local" basedir=".">
-    <taskdef uri="antlib:net.sf.antcontrib"
+
+	<import file="build-common.xml"/>
+
+	<taskdef uri="antlib:net.sf.antcontrib"
 	    resource="net/sf/antcontrib/antlib.xml"
 	    classpath="${lib}/ant-contrib.jar"/>	
 <!--    <taskdef resource="net/sf/antcontrib/antcontrib.properties"/> -->	
@@ -20,12 +23,14 @@
     </target>	                                                                                                                                                              
     
 	<target name="init" depends="check.args">		
-		<delete file="label.properties" />
-		<ant antfile="build.xml" target="create.label.properties" />
-		<!-- The tags.properties file contains tags for map files containing 'stable' and 'integration' config -->
-		<property file="tags.properties"/>
-		<property file="label.properties"/>
-		<property file="build.properties"/>
+		<tstamp/>
+		<property name="date" value="${DSTAMP}" />
+		<property name="time" value="${TSTAMP}" />
+		<property name="timestamp" value="${date}${time}" />
+		<property name="buildType" value="C" />	
+		<property name="buildId" value="${buildType}${date}" />
+		<!--this naming convention used by php scripts on download server-->
+		<property name="buildLabel" value="${buildType}-${buildId}-${timestamp}" />
 	</target>	
 	
 	<!-- ************************************************************************************** -->
