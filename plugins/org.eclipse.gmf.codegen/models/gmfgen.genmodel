@@ -324,6 +324,7 @@
       <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/documentProviderClassName"/>
       <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/initDiagramFileActionClassName"/>
       <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/newDiagramFileWizardClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/diagramContentInitializerClassName"/>
       <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/matchingStrategyClassName"/>
       <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/visualIDRegistryClassName"/>
       <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/elementChooserClassName"/>
@@ -335,6 +336,7 @@
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getDocumentProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getInitDiagramFileActionQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getNewDiagramFileWizardQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getDiagramContentInitializerQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getMatchingStrategyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getVisualIDRegistryQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getElementChooserQualifiedClassName"/>

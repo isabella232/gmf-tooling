@@ -26,6 +26,8 @@ public class «nodeDescriptorClassName» {
 	«EXPAND getModelElement-»
 	
 	«EXPAND getVisualID-»
+	
+	«EXPAND getType-»
 		
 	«EXPAND additions-»
 }
@@ -37,6 +39,9 @@ private org.eclipse.emf.ecore.EObject myModelElement;
 	
 	«EXPAND xpt::Common::generatedMemberComment»
 private int myVisualID;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+private String myType;
 «ENDDEFINE»
 
 «DEFINE constructor FOR gmfgen::GenDiagram-»
@@ -58,6 +63,16 @@ public org.eclipse.emf.ecore.EObject getModelElement() {
 	«EXPAND xpt::Common::generatedMemberComment»
 public int getVisualID() {
 	return myVisualID;
+}
+«ENDDEFINE»
+
+«DEFINE getType FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public String getType() {
+	if (myType == null) {
+		myType = «getVisualIDRegistryQualifiedClassName()».getType(getVisualID());
+	}
+	return myType;
 }
 «ENDDEFINE»
 

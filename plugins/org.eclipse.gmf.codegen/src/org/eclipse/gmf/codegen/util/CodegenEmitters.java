@@ -34,7 +34,6 @@ import org.eclipse.gmf.codegen.templates.editor.BuildPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreateShortcutActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
-import org.eclipse.gmf.codegen.templates.editor.DiagramContentsInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.editor.EditorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ElementChooserGenerator;
 import org.eclipse.gmf.codegen.templates.editor.LoadResourceActionGenerator;
@@ -156,7 +155,6 @@ public class CodegenEmitters {
 		put(tr, "/providers/ShortcutsDecoratorProvider.javajet", ShortcutsDecoratorProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/editor/ShortcutPropertyTester.javajet", ShortcutsPropertyTester.class); //$NON-NLS-1$
 		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
-		put(tr, "/editor/DiagramContentsInitializer.javajet", DiagramContentsInitializerGenerator.class);
 		put(tr, "/editor/VisualIDRegistry.javajet", VisualIDRegistryGenerator.class);
 		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
 		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
@@ -495,9 +493,9 @@ public class CodegenEmitters {
 	public String getValidateActionName(Object... input) throws UnexpectedBehaviourException {
 		return getQualifiedClassName("xpt::editor::ValidateAction", input); //$NON-NLS-1$
 	}
-
-	public TextEmitter getDiagramContentsInitializerEmitter() throws UnexpectedBehaviourException {
-		return retrieve(DiagramContentsInitializerGenerator.class);
+	
+	public TextEmitter getDiagramContentInitializerEmitter() {
+		return getPrimaryEmitter("xpt::editor::DiagramContentInitializer"); //$NON-NLS-1$
 	}
 
 	public String getShortcutCreationWizardName(Object... input) throws UnexpectedBehaviourException {
@@ -528,7 +526,7 @@ public class CodegenEmitters {
 		return getQualifiedClassName("xpt::editor::NewDiagramFileWizard", input); //$NON-NLS-1$
 	}
 
-	public TextEmitter getNewDiagramFileWizardEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getNewDiagramFileWizardEmitter() {
 		return getPrimaryEmitter("xpt::editor::NewDiagramFileWizard"); //$NON-NLS-1$
 	}
 
@@ -782,7 +780,7 @@ public class CodegenEmitters {
      * Returns emitter for the primary definition in the specified template.
      * Primary definition has the same name as template file.
      */
-	private TextEmitter getPrimaryEmitter(String templateName) throws UnexpectedBehaviourException {
+	private TextEmitter getPrimaryEmitter(String templateName) {
 		String[] parts = templateName.split(PATH_SEPARATOR);
 		String definition = templateName + PATH_SEPARATOR + parts[parts.length-1];
 		return newXpandEmitter(definition);

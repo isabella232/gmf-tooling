@@ -55,11 +55,11 @@ cached List[gmfgen::GenCommonBase] getAllSemanticElements(gmfgen::GenDiagram dia
 	diagram.getAllNodes().toList().addAll(diagram.links).typeSelect(gmfgen::GenCommonBase).select(commonBase | null != getTypeModelFacet(commonBase))
 ;
 
-gmfgen::TypeLinkModelFacet getTypeModelFacet(gmfgen::GenCommonBase commonBase) :
+gmfgen::TypeModelFacet getTypeModelFacet(gmfgen::GenCommonBase commonBase) :
 	null
 ;
 
-gmfgen::TypeLinkModelFacet getTypeModelFacet(gmfgen::GenNode node) :
+gmfgen::TypeModelFacet getTypeModelFacet(gmfgen::GenNode node) :
 	node.modelFacet
 ;
 

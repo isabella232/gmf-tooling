@@ -26,16 +26,16 @@ boolean canBeContainer(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFac
 	null != link.modelFacet && canBeLinkEnd(getContainerClass(link.modelFacet), typeModelFacet)
 ;
 
-genmodel::GenClass getContainerClass(gmfgen::LinkModelFacet modelFacet) :
+private genmodel::GenClass getContainerClass(gmfgen::LinkModelFacet modelFacet) :
 // Should not be called
 	null
 ;
 
-genmodel::GenClass getContainerClass(gmfgen::TypeLinkModelFacet modelFacet) :
+private genmodel::GenClass getContainerClass(gmfgen::TypeLinkModelFacet modelFacet) :
 	modelFacet.containmentMetaFeature.genClass
 ;
 
-genmodel::GenClass getContainerClass(gmfgen::FeatureLinkModelFacet modelFacet) :
+private genmodel::GenClass getContainerClass(gmfgen::FeatureLinkModelFacet modelFacet) :
 	modelFacet.getSourceType()
 ;
 

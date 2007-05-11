@@ -46,7 +46,7 @@ public class «diagramUpdaterClassName» {
 	«EXPAND getOutgoingLinks FOREACH semanticElements-»
 	«EXPAND getContainedLinksByTypeMethod FOREACH getAllContainedLinks(this)-»
 	«EXPAND getIncomingLinksByTypeMethod FOREACH getAllIncomingLinks(this)-»
-	«EXPAND getOutgoingLinksByTypeMethod FOREACH getAllOutgoingLinks(this)-»
+	«EXPAND getOutgoingLinksByTypeMethod FOREACH getAllOutgoingLinks(this).select(link | null == getTypeModelFacet(link) || null != getTypeModelFacet(link).sourceMetaFeature)-»
 «ENDLET-»
 
 	«EXPAND additions-»
@@ -242,27 +242,69 @@ public static java.util.List «EXPAND linkGetterName(methodNameSuffix)»(org.eclip
 «ENDDEFINE»
 
 «DEFINE colectConnnectedLinks(String methodNameSuffix, boolean needCrossReferencer, boolean isExternalInterface) FOR gmfgen::GenLink-»
-result.addAll(«EXPAND getConnnectedLinksByTypeMethodName(methodNameSuffix)»(«EXPAND castLinkObject(methodNameSuffix, isExternalInterface) FOR modelFacet»modelElement«IF needCrossReferencer», crossReferences«ENDIF»));
+	«IF isExternalInterface-»
+if (modelElement instanceof «EXPAND getLinkEndType(methodNameSuffix) FOR modelFacet») {
+	«ENDIF-»
+	result.addAll(«EXPAND chooseConnnectedLinksByTypeMethodName(methodNameSuffix, this) FOR modelFacet»(«EXPAND castLinkObject(methodNameSuffix, isExternalInterface) FOR modelFacet»modelElement«IF needCrossReferencer», crossReferences«ENDIF»));	
+	«IF isExternalInterface-»
+}
+	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE castLinkObject(String methodNameSuffix, boolean isExternalInterface) FOR gmfgen::LinkModelFacet-»
-«IF isExternalInterface-»
-	«IF getIncomingLinksMethodNameSuffix() == methodNameSuffix-»
-(«getQualifiedInterfaceName(getTargetType())») «ELSEIF getOutgoingLinksMethodNameSuffix() == methodNameSuffix-»
-(«getQualifiedInterfaceName(getSourceType())») «ELSE-»
-(«getQualifiedInterfaceName(getContainerClass(this))») «ENDIF-»
+«DEFINE castLinkObject(String methodNameSuffix, boolean isExternalInterface) FOR gmfgen::LinkModelFacet»«IF isExternalInterface»(«EXPAND getLinkEndType(methodNameSuffix)») «ENDIF»«ENDDEFINE»
+
+«DEFINE getLinkEndType(String methodNameSuffix) FOR gmfgen::LinkModelFacet-»
+	«EXPAND incorrectLinkModelFacet-»
+«ENDDEFINE»
+
+«REM»
+	For FeatureModelFacet-based links we are calling 
+	getOutgoing???Links instead of getContained???Links
+«ENDREM»
+«DEFINE getLinkEndType(String methodNameSuffix) FOR gmfgen::FeatureLinkModelFacet-»
+«IF getIncomingLinksMethodNameSuffix() == methodNameSuffix-»
+«getQualifiedInterfaceName(getTargetType())»«ELSE-»
+«getQualifiedInterfaceName(getSourceType())»«ENDIF-»
+«ENDDEFINE»
+
+«REM»
+	For TypeModelFacet-based links we are calling 
+	getContained???Links instead of getOutgoinf???Links 
+	if sourceMetaFeature was not specified
+«ENDREM»
+«DEFINE getLinkEndType(String methodNameSuffix) FOR gmfgen::TypeLinkModelFacet-»
+«IF getIncomingLinksMethodNameSuffix() == methodNameSuffix-»
+«getQualifiedInterfaceName(getTargetType())»«ELSEIF getOutgoingLinksMethodNameSuffix() == methodNameSuffix && null != sourceMetaFeature-»
+«getQualifiedInterfaceName(getSourceType())»«ELSE-»
+«getQualifiedInterfaceName(containmentMetaFeature.genClass)»«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE chooseConnnectedLinksByTypeMethodName(String methodNameSuffix, gmfgen::GenLink genLink) FOR gmfgen::LinkModelFacet-»
+	«EXPAND incorrectLinkModelFacet-»
+«ENDDEFINE»
+
+«REM»
+	For FeatureModelFacet-based links we are calling 
+	getOutgoing???Links instead of getContained???Links
+«ENDREM»
+«DEFINE chooseConnnectedLinksByTypeMethodName(String methodNameSuffix, gmfgen::GenLink genLink) FOR gmfgen::FeatureLinkModelFacet-»
+«IF getContainedLinksMethodNameSuffix() == methodNameSuffix»«EXPAND getConnnectedLinksByTypeMethodName(getOutgoingLinksMethodNameSuffix()) FOR genLink-»
+«ELSE»«EXPAND getConnnectedLinksByTypeMethodName(methodNameSuffix) FOR genLink-»
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE getContainedLinksByTypeMethod FOR gmfgen::GenLink-»
-
-	«EXPAND xpt::Common::generatedMemberComment»
-private static java.util.Collection «EXPAND getConnnectedLinksByTypeMethodName(getContainedLinksMethodNameSuffix())»(«getQualifiedInterfaceName(getContainerClass(modelFacet))» container) {
-	java.util.Collection result = new java.util.LinkedList();
-	«EXPAND getContainedLinksByTypeMethodBody(this) FOR modelFacet-»
-	return result;	
-}
+«REM»
+	For TypeModelFacet-based links we are calling 
+	getContained???Links instead of getOutgoinf???Links 
+	if sourceMetaFeature was not specified
+«ENDREM»
+«DEFINE chooseConnnectedLinksByTypeMethodName(String methodNameSuffix, gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
+«IF getOutgoingLinksMethodNameSuffix() == methodNameSuffix && null == sourceMetaFeature»«EXPAND getConnnectedLinksByTypeMethodName(getContainedLinksMethodNameSuffix()) FOR genLink-»
+«ELSE»«EXPAND getConnnectedLinksByTypeMethodName(methodNameSuffix) FOR genLink-»
+«ENDIF-»
 «ENDDEFINE»
+
+«DEFINE getContainedLinksByTypeMethod FOR gmfgen::GenLink»«EXPAND getContainedLinksByTypeMethod(this) FOR modelFacet»«ENDDEFINE»
 
 «DEFINE getConnnectedLinksByTypeMethodName(String suffix) FOR gmfgen::GenLink»get«suffix»«EXPAND getConnectedLinksByTypeMethodFragment FOR modelFacet»_«visualID»«ENDDEFINE»
 
@@ -274,17 +316,34 @@ private static java.util.Collection «EXPAND getConnnectedLinksByTypeMethodName(g
 	«EXPAND incorrectLinkModelFacet-»
 «ENDDEFINE»
 
-«DEFINE getContainedLinksByTypeMethodBody(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
+«DEFINE getContainedLinksByTypeMethod(gmfgen::GenLink genLink) FOR gmfgen::LinkModelFacet-»
+	«EXPAND incorrectLinkModelFacet-»
+«ENDDEFINE»
+
+«DEFINE getContainedLinksByTypeMethod(gmfgen::GenLink genLink) FOR gmfgen::FeatureLinkModelFacet»«ENDDEFINE»
+
+«DEFINE getContainedLinksByTypeMethod(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+private static java.util.Collection «EXPAND getConnnectedLinksByTypeMethodName(getContainedLinksMethodNameSuffix()) FOR genLink»(«getQualifiedInterfaceName(containmentMetaFeature.genClass)» container) {
 	«EXPAND getContainedLinksByTypeMethodBody(genLink, false)-»
+}
 «ENDDEFINE»
 
 «DEFINE getContainedLinksByTypeMethodBody(gmfgen::GenLink genLink, boolean sourceVarDefined) FOR gmfgen::TypeLinkModelFacet-»
+java.util.Collection result = new java.util.LinkedList();
 	«LET childMetaFeature.isListType() AS inLoop-»
 		«IF inLoop-»
-for (java.util.Iterator links = «EXPAND xpt::Common::getFeatureValue("container", getContainerClass(this)) FOR childMetaFeature».iterator(); links.hasNext();) {
-	«getQualifiedInterfaceName(metaClass)» link = («getQualifiedInterfaceName(metaClass)») links.next();
+for (java.util.Iterator links = «EXPAND xpt::Common::getFeatureValue("container", containmentMetaFeature.genClass) FOR childMetaFeature».iterator(); links.hasNext();) {
+	Object linkObject = links.next();
+			«EXPAND defineLink(inLoop)-»
 		«ELSE-»
-«getQualifiedInterfaceName(metaClass)» link = («getQualifiedInterfaceName(metaClass)») «EXPAND xpt::Common::getFeatureValue("container", getSourceType()) FOR childMetaFeature»;
+			«IF getTypeGenClassX(childMetaFeature) == metaClass-»
+«getQualifiedInterfaceName(metaClass)» link = «EXPAND xpt::Common::getFeatureValue("container", getSourceType()) FOR childMetaFeature»;
+			«ELSE-»
+«getQualifiedInterfaceName(getTypeGenClassX(childMetaFeature))» linkObject = «EXPAND xpt::Common::getFeatureValue("container", getSourceType()) FOR childMetaFeature»;
+				«EXPAND defineLink(inLoop)-»
+			«ENDIF-»
 		«ENDIF-»
 		«EXPAND checkLinkVisualID(genLink, inLoop)-»
 		«EXPAND defineLinkDestination(inLoop)-»
@@ -301,6 +360,7 @@ for (java.util.Iterator links = «EXPAND xpt::Common::getFeatureValue("container"
 }
 		«ENDIF-»
 	«ENDLET-»
+return result;	
 «ENDDEFINE»
 
 «DEFINE addLinkDescriptor(gmfgen::GenLink genLink, String srcVar, String dstVar) FOR gmfgen::TypeLinkModelFacet-»
@@ -311,6 +371,13 @@ result.add(new «genLink.getDiagram().getLinkDescriptorQualifiedClassName()»(«EXP
 if («genLink.getEditPartQualifiedClassName()».VISUAL_ID != «genLink.getDiagram().getVisualIDRegistryQualifiedClassName()».getLinkWithClassVisualID(«EXPAND xpt::Common::castToEObject FOR metaClass»link)) {
 	«EXPAND stopLinkProcessing(inLoop)-»
 }
+«ENDDEFINE»
+
+«DEFINE defineLink(boolean inLoop) FOR gmfgen::TypeLinkModelFacet-»
+if (false == linkObject instanceof «getQualifiedInterfaceName(metaClass)») {
+	«EXPAND stopLinkProcessing(inLoop)-»
+}
+«getQualifiedInterfaceName(metaClass)» link = («getQualifiedInterfaceName(metaClass)») linkObject;
 «ENDDEFINE»
 
 «DEFINE defineLinkSource(boolean inLoop) FOR gmfgen::TypeLinkModelFacet-»
@@ -353,24 +420,8 @@ return result;
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE getContainedLinksByTypeMethodBody(gmfgen::GenLink genLink) FOR gmfgen::FeatureLinkModelFacet-»
-	«IF metaFeature.isListType()-»
-for (java.util.Iterator destinations = «EXPAND xpt::Common::getFeatureValue("container", getSourceType()) FOR metaFeature».iterator(); destinations.hasNext();) {
-	«getQualifiedInterfaceName(getTargetType())» destination = («getQualifiedInterfaceName(getTargetType())») destinations.next();
-	«ELSE-»
-«getQualifiedInterfaceName(getTargetType())» destination = «EXPAND xpt::Common::getFeatureValue("container", getSourceType()) FOR metaFeature»;
-	«ENDIF-»
-result.add(new «genLink.getDiagram().getLinkDescriptorQualifiedClassName()»(«EXPAND xpt::Common::castToEObject FOR getSourceType()»container, «EXPAND xpt::Common::castToEObject FOR getTargetType()»destination, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «genLink.getEditPartQualifiedClassName()».VISUAL_ID));
-	«IF metaFeature.isListType()-»
-}
-	«ENDIF-»
-«ENDDEFINE»
-
-«DEFINE getContainedLinksByTypeMethodBody(gmfgen::GenLink genLink) FOR gmfgen::LinkModelFacet-»
-	«EXPAND incorrectLinkModelFacet-»
-«ENDDEFINE»
-
 «DEFINE getIncomingLinksByTypeMethod FOR gmfgen::GenLink-»
+
 	«EXPAND xpt::Common::generatedMemberComment»
 private static java.util.Collection «EXPAND getConnnectedLinksByTypeMethodName(getIncomingLinksMethodNameSuffix())»(«getQualifiedInterfaceName(modelFacet.getTargetType())» target, java.util.Map crossReferences) {
 	java.util.Collection result = new java.util.LinkedList();
@@ -400,10 +451,10 @@ if (setting.getEStructuralFeature() != «EXPAND xpt::Common::metaFeatureAccessor 
 «ENDDEFINE»
 
 «DEFINE defineLinkContainer(boolean inLoop) FOR gmfgen::TypeLinkModelFacet-»
-if (false == «IF metaClass.isExternalInterface()»((org.eclipse.emf.ecore.EObject) «ENDIF»link«IF metaClass.isExternalInterface()»)«ENDIF».eContainer() instanceof «getQualifiedInterfaceName(getContainerClass(this))») {
+if (false == «IF metaClass.isExternalInterface()»((org.eclipse.emf.ecore.EObject) «ENDIF»link«IF metaClass.isExternalInterface()»)«ENDIF».eContainer() instanceof «getQualifiedInterfaceName(containmentMetaFeature.genClass)») {
 	«EXPAND stopLinkProcessing(inLoop)-»
 }
-«getQualifiedInterfaceName(getContainerClass(this))» container = («getQualifiedInterfaceName(getContainerClass(this))») «IF metaClass.isExternalInterface()»((org.eclipse.emf.ecore.EObject) «ENDIF»link«IF metaClass.isExternalInterface()»)«ENDIF».eContainer();
+«getQualifiedInterfaceName(containmentMetaFeature.genClass)» container = («getQualifiedInterfaceName(containmentMetaFeature.genClass)») «IF metaClass.isExternalInterface()»((org.eclipse.emf.ecore.EObject) «ENDIF»link«IF metaClass.isExternalInterface()»)«ENDIF».eContainer();
 «ENDDEFINE»
 
 «DEFINE getIncomingLinksByTypeMethodBody(gmfgen::GenLink genLink) FOR gmfgen::FeatureLinkModelFacet-»
@@ -417,40 +468,54 @@ if (setting.getEStructuralFeature() == «EXPAND xpt::Common::metaFeatureAccessor 
 «ENDDEFINE»
 
 «DEFINE getOutgoingLinksByTypeMethod FOR gmfgen::GenLink-»
-	«EXPAND xpt::Common::generatedMemberComment»
-private static java.util.Collection «EXPAND getConnnectedLinksByTypeMethodName(getOutgoingLinksMethodNameSuffix())»(«getQualifiedInterfaceName(modelFacet.getSourceType())» source) {
-	«EXPAND getOutgoingLinksByTypeMethodBody(this) FOR modelFacet-»
-}
+	«EXPAND getOutgoingLinksByTypeMethod(this) FOR modelFacet-»
 «ENDDEFINE»
 
-«DEFINE getOutgoingLinksByTypeMethodBody(gmfgen::GenLink genLink) FOR gmfgen::FeatureLinkModelFacet-»
-return «EXPAND getConnnectedLinksByTypeMethodName(getContainedLinksMethodNameSuffix()) FOR genLink»(source);
+«DEFINE getOutgoingLinksByTypeMethodSignature FOR gmfgen::GenLink»private static java.util.Collection «EXPAND getConnnectedLinksByTypeMethodName(getOutgoingLinksMethodNameSuffix())»(«getQualifiedInterfaceName(modelFacet.getSourceType())» source)«ENDDEFINE»
+
+«DEFINE getOutgoingLinksByTypeMethod(gmfgen::GenLink genLink) FOR gmfgen::FeatureLinkModelFacet-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+«EXPAND getOutgoingLinksByTypeMethodSignature FOR genLink» {
+	java.util.Collection result = new java.util.LinkedList();
+	«IF metaFeature.isListType()-»
+	for (java.util.Iterator destinations = «EXPAND xpt::Common::getFeatureValue("source", getSourceType()) FOR metaFeature».iterator(); destinations.hasNext();) {
+		«getQualifiedInterfaceName(getTargetType())» destination = («getQualifiedInterfaceName(getTargetType())») destinations.next();
+	«ELSE-»
+	«getQualifiedInterfaceName(getTargetType())» destination = «EXPAND xpt::Common::getFeatureValue("source", getSourceType()) FOR metaFeature»;
+	«ENDIF-»
+	result.add(new «genLink.getDiagram().getLinkDescriptorQualifiedClassName()»(«EXPAND xpt::Common::castToEObject FOR getSourceType()»source, «EXPAND xpt::Common::castToEObject FOR getTargetType()»destination, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «genLink.getEditPartQualifiedClassName()».VISUAL_ID));
+	«IF metaFeature.isListType()-»
+	}
+	«ENDIF-»
+	return result;
+}
 «ENDDEFINE»
 
 «REM»More careful way to find container should be used here then GMF will be modified in accordance«ENDREM»
-«DEFINE getOutgoingLinksByTypeMethodBody(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
-	«IF null == sourceMetaFeature-»
-return «EXPAND getConnnectedLinksByTypeMethodName(getContainedLinksMethodNameSuffix()) FOR genLink»(source);
-	«ELSE-»
-«getQualifiedInterfaceName(containmentMetaFeature.genClass)» container = null;
-// Find container element for the link.
-// Climb up by containment hierarchy starting from the source
-// and return the first element that is instance of the container class.
-for (org.eclipse.emf.ecore.EObject element = «EXPAND xpt::Common::castToEObject FOR getSourceType()» source; element != null && container == null; element = element.eContainer()) {
-	if (element instanceof «getQualifiedInterfaceName(containmentMetaFeature.genClass)») {
-		container = («getQualifiedInterfaceName(containmentMetaFeature.genClass)») element;
+«DEFINE getOutgoingLinksByTypeMethod(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
+	«IF null != sourceMetaFeature-»
+	
+		«EXPAND xpt::Common::generatedMemberComment»
+«EXPAND getOutgoingLinksByTypeMethodSignature FOR genLink» {
+	«getQualifiedInterfaceName(containmentMetaFeature.genClass)» container = null;
+	// Find container element for the link.
+	// Climb up by containment hierarchy starting from the source
+	// and return the first element that is instance of the container class.
+	for (org.eclipse.emf.ecore.EObject element = «EXPAND xpt::Common::castToEObject FOR getSourceType()» source; element != null && container == null; element = element.eContainer()) {
+		if (element instanceof «getQualifiedInterfaceName(containmentMetaFeature.genClass)») {
+			container = («getQualifiedInterfaceName(containmentMetaFeature.genClass)») element;
+		}
 	}
-}
-if (container == null) {
-	return java.util.Collections.EMPTY_LIST;
-}
-java.util.Collection result = new java.util.LinkedList();
-	«EXPAND getContainedLinksByTypeMethodBody(genLink, true)-»		
-return result;
+	if (container == null) {
+		return java.util.Collections.EMPTY_LIST;
+	}
+		«EXPAND getContainedLinksByTypeMethodBody(genLink, true)-»
+}		
 	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE getOutgoingLinksByTypeMethodBody(gmfgen::GenLink genLink) FOR gmfgen::LinkModelFacet-»
+«DEFINE getOutgoingLinksByTypeMethod(gmfgen::GenLink genLink) FOR gmfgen::LinkModelFacet-»
 	«EXPAND incorrectLinkModelFacet-»
 «ENDDEFINE»
 

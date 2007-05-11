@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDocumentProviderClassName <em>Document Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getNewDiagramFileWizardClassName <em>New Diagram File Wizard Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDiagramContentInitializerClassName <em>Diagram Content Initializer Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getMatchingStrategyClassName <em>Matching Strategy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getVisualIDRegistryClassName <em>Visual ID Registry Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getElementChooserClassName <em>Element Chooser Class Name</em>}</li>
@@ -253,6 +254,32 @@ public interface EditorCandies extends EObject {
 	void setNewDiagramFileWizardClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Diagram Content Initializer Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Diagram Content Initializer Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Diagram Content Initializer Class Name</em>' attribute.
+	 * @see #setDiagramContentInitializerClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEditorCandies_DiagramContentInitializerClassName()
+	 * @model
+	 * @generated
+	 */
+	String getDiagramContentInitializerClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDiagramContentInitializerClassName <em>Diagram Content Initializer Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Diagram Content Initializer Class Name</em>' attribute.
+	 * @see #getDiagramContentInitializerClassName()
+	 * @generated
+	 */
+	void setDiagramContentInitializerClassName(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Matching Strategy Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -429,6 +456,14 @@ public interface EditorCandies extends EObject {
 	 * @generated
 	 */
 	String getNewDiagramFileWizardQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getDiagramContentInitializerQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->
