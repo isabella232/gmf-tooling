@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <cruisecontrol>
 
-	<property file="cc.properties" />
-	<property file="label.properties" />
+	<property file="build.properties" />
 
 	<plugin name="htmlemail" mailhost="${mailhost}" skipusers="true"
 		returnaddress="${buildmaster.email}" returnname="Buildmaster"
