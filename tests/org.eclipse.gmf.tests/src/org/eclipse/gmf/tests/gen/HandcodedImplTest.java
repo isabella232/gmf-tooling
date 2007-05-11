@@ -922,6 +922,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkClassName(state, "GenEditorView:className", genEditor.getClassName(), genEditor.getQualifiedClassName());
 		checkClassName(state, "EditorCandies:InitDiagramFileAction", genDiagram.getInitDiagramFileActionClassName(), genDiagram.getInitDiagramFileActionQualifiedClassName());
 		checkClassName(state, "EditorCandies:NewDiagramFileWizard", genDiagram.getNewDiagramFileWizardClassName(), genDiagram.getNewDiagramFileWizardQualifiedClassName());
+		checkClassName(state, "EditorCandies:DiagramContentInitializer", genDiagram.getDiagramContentInitializerClassName(), genDiagram.getDiagramContentInitializerQualifiedClassName());
 		checkClassName(state, "EditorCandies:MatchingStrategy", genDiagram.getMatchingStrategyClassName(), genDiagram.getMatchingStrategyQualifiedClassName());
 		checkClassName(state, "EditorCandies:VisualIDRegistry", genDiagram.getVisualIDRegistryClassName(), genDiagram.getVisualIDRegistryQualifiedClassName());
 		checkClassName(state, "EditorCandies:LoadResourceAction", genDiagram.getLoadResourceActionClassName(), genDiagram.getLoadResourceActionQualifiedClassName());
