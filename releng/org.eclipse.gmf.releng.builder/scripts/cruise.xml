@@ -69,6 +69,15 @@ ccweb.ftp.passwd=${ccweb.ftp.passwd}
 		cvs.root=${cvs.root}
 				</echo>
 
+		<tstamp/>
+		<echo file="${basedir}/cc.properties" append="true">
+date=${DSTAMP}
+		</echo>
+		<echo file="${basedir}/cc.properties" append="true">
+time=${TSTAMP}
+		</echo>
+		
+		
 		
 		<mkdir dir="${logs}/continuous"/>
 		<mkdir dir="${logs}/integration"/>
