@@ -26,68 +26,15 @@
 			<arg line="-q ${archiveName} -d ${tmpsite}" />
 		</exec>
 		<unpackUpdateJars site="${tmpsite}/eclipse" output="${tmpsite}/new/eclipse"/>
-<!--
-		<antcall target="packageBatik"/>
-		<antcall target="packageXerces"/>
-		<antcall target="packageLicenseFiles"/> -->
-		<zip destfile="${buildDirectory}/${buildLabel}/${archiveName}"
-			basedir="${tmpsite}/new"
-	  	/>
-		<delete dir="${tmpsite}"/>
-	</target>
-
-	<target name="unpackUpdateJarsForPackaging">
-		<property name="tmpsite" value="${buildDirectory}/tmpsite" />
-		<mkdir dir="${tmpsite}/new/eclipse/features" />
-		<mkdir dir="${tmpsite}/new/eclipse/plugins" />
-		<exec executable="unzip" dir="${buildDirectory}/${buildLabel}">
-			<arg line="-q ${archiveName} -d ${tmpsite}" />
-		</exec>
-		<copy todir="${buildUpdateSitePath}">
-		    <fileset dir="${tmpsite}/eclipse"/>
+		<!-- copy root files -->
+		<copy todir="${tmpsite}/new/eclipse">
+			<fileset dir="${tmpsite}/eclipse">
+				<include name="*"/>
+			</fileset>
 		</copy>
-
-		<unpackUpdateJars site="${tmpsite}/eclipse" output="${tmpsite}/new/eclipse"/>
-		<antcall target="packageBatik"/>
-		<antcall target="packageXerces"/>
-		<antcall target="packageLicenseFiles"/>
 		<zip destfile="${buildDirectory}/${buildLabel}/${archiveName}"
 			basedir="${tmpsite}/new"
 	  	/>
 		<delete dir="${tmpsite}"/>
 	</target>
-
-	<!--
-	<target name="packageBatik" if="packageBatik">
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
-		<mkdir dir="${tmpsite}/batik" />
-		<ant antfile="${scripts}/update.xml" target="mirror">
-			<property name="featureId" value="${batikFeatureId}" />
-			<property name="version" value="${batikUpdateVersion}" />
-			<property name="from.updatesite" value="${batikUpdateSite}" />
-			<property name="to.updatesite" value="${tmpsite}/batik" />
-		</ant>		
-		<unpackUpdateJars site="${tmpsite}/batik" output="${tmpsite}/new/eclipse"/>
-		<delete dir="${tmpsite}/batik"/>
-	</target>
-	
-	<target name="packageXerces" if="packageXerces">
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
-		<mkdir dir="${tmpsite}/xerces" />
-		<ant antfile="${scripts}/update.xml" target="mirror">
-			<property name="featureId" value="${xercesFeatureId}" />
-			<property name="version" value="${xercesUpdateVersion}" />
-			<property name="from.updatesite" value="${xercesUpdateSite}" />
-			<property name="to.updatesite" value="${tmpsite}/xerces" />
-		</ant>		
-		<unpackUpdateJars site="${tmpsite}/xerces" output="${tmpsite}/new/eclipse"/>
-		<delete dir="${tmpsite}/xerces"/>
-	</target>
-	
-	<target name="packageLicenseFiles">
-		<copy file="${buildRoot}/eclipse/epl-v10.html" todir="${tmpsite}/new/eclipse"/>
-		<copy file="${buildRoot}/eclipse/notice.html" todir="${tmpsite}/new/eclipse"/>
-	</target>
-	-->
-	
 </project>

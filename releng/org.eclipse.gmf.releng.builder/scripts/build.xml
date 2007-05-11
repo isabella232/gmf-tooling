@@ -1,24 +1,11 @@
 <?xml version="1.0"?>
 <project default="main">
-	<property file="build.properties" />
-	
+
 	<target name="init">
-		<antcall target="wipe"/>
 		<touch file="${user.home}/.cvspass" />
+		<property name="buildDirectory" value="${buildRoot}/${component}"/>
+		<antcall target="wipe"/>
 		<cvs command="export -d component" cvsRoot="${cvs.root}" package="${componentsRoot}/${component}" dest="${buildDirectory}" tag="${componentsTag}" />		
-		<available file="label.properties" property="label.properties.present"/>
-		<antcall target="create.label.properties"/>
-		<property file="label.properties" />		
-		<antcall target="initCC"/>
-	</target>
-	
-	<target name="initCC" if="usingCC">
-		<copy todir="${ccwebapplocation}/css" overwrite="true">
-		    <fileset dir="${scripts}/css"/>
-		</copy>
-		<copy todir="${ccwebapplocation}/xsl" overwrite="true">
-		    <fileset dir="${scripts}/xsl"/>
-		</copy>
 	</target>
 	
 	<target name="main" depends="checkArgs,init">
@@ -33,55 +20,9 @@
 		</ant>
 	</target>
 	
-	<target name="cleanupArtifacts">
-		 <property file="build.properties"/>
-		<delete includeEmptyDirs="true">
-			<fileset dir="${buildRoot}/artifacts" includes="**/${buildType}*/**" defaultexcludes="no"/>
-		</delete>
-	</target>
-			
-	<!-- TODO: Get rid of this!! -->
-	<target name="initLocalMirror">		
-		<ant antfile="updatesite.local.xml" target="init.site">
-			<property name="updatesite.name" value="interim"/>
-		</ant>
-	</target>
-	
 	<target name="checkArgs" unless="component">
 		<echo message="-Dcomponent=&lt;path&gt; required." />
 		<fail/>
-	</target>
-	
-	<target name="create.label.properties" unless="label.properties.present">
-		<tstamp/>
-		<property name="date" value="${DSTAMP}" />
-		<property name="time" value="${TSTAMP}" />
-		<property name="timestamp" value="${date}${time}" />
-		<property name="buildType" value="N" />	
-		<property name="buildId" value="${buildType}${date}" />
-
-		<!--this naming convention used by php scripts on download server-->
-		<property name="buildLabel" value="${buildType}-${buildId}-${timestamp}" />
-
-		<!--store the build label information in a file-->
-		<echo file="label.properties" append="true" >
-		date=${date}
-		</echo>	
-		<echo file="label.properties" append="true" >
-		time=${time}
-		</echo>
-		<echo file="label.properties" append="true" >
-		buildType=${buildType}
-		</echo>
-		<echo file="label.properties" append="true" >
-		buildId=${buildId}
-		</echo>
-		<echo file="label.properties" append="true" >
-		timestamp=${timestamp}
-		</echo>
-		<echo file="label.properties" append="true" >
-		buildLabel=${buildLabel}
-		</echo>
 	</target>
 	
 	<target name="wipe" if="wipe">
