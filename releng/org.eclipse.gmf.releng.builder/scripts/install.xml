@@ -287,7 +287,7 @@
 
 	<target name="installGMFBase" unless="">
 		<echo message="Installing GMF Base from zip file " />
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/drops/${buildLabel}/GMF-base-${buildId}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="gmfBaseZip" />
 	</target>
 	
 	<target name="installGMFBasePlatform">
@@ -302,7 +302,7 @@
 	</target>
 	
 	<target name="unZipGMFBasePlatform">
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/drops/${buildLabel}/GMF-baseplatform-${buildId}-${baseos}.${basews}.${basearch}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${gmfBasePlatformZip}" />
 	</target>
 	
 	<target name="checkXercesInstalled">
