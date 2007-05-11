@@ -1,6 +1,5 @@
 <project name="Build specific targets and properties" default="noDefault">
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
-	
+
 	<property name="id" value="org.eclipse.gmf.examples"/>
 	<property name="archiveName" value="GMF-examples-${buildId}.zip"/>
 	<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
