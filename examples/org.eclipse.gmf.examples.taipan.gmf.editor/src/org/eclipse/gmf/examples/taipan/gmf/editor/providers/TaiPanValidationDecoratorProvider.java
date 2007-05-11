@@ -23,7 +23,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.Label;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gef.EditDomain;
@@ -71,7 +70,12 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 	/**
 	 * @generated
 	 */
-	private static MarkerObserver fileObserver = null;
+	private static MarkerObserver fileObserver;
+
+	/**
+	 * @generated
+	 */
+	private static Map/*<String, List<IDecorator>>*/allDecorators = new HashMap();
 
 	/**
 	 * @generated
@@ -146,8 +150,7 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 			if (view == null || view.eResource() == null) {
 				return;
 			}
-			IResource resource = getResource(view);
-			// make sure we have a resource and that it exists in an open project
+			IResource resource = WorkspaceSynchronizer.getFile(view.eResource());
 			if (resource == null || !resource.exists()) {
 				return;
 			}
@@ -231,17 +234,6 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 		/**
 		 * @generated
 		 */
-		private static IResource getResource(View view) {
-			Resource model = view.eResource();
-			if (model != null) {
-				return WorkspaceSynchronizer.getFile(model);
-			}
-			return null;
-		}
-
-		/**
-		 * @generated
-		 */
 		public void activate() {
 			View view = (View) getDecoratorTarget().getAdapter(View.class);
 			if (view == null) {
@@ -251,12 +243,19 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 			if (diagramView == null) {
 				return;
 			}
-			IFile file = WorkspaceSynchronizer.getFile(diagramView.eResource());
-			if (file != null) {
-				if (fileObserver == null) {
-					fileObserver = new MarkerObserver(diagramView);
-				}
-				fileObserver.registerDecorator(this);
+			if (viewId == null) {
+				return;
+			}
+			List list = (List) allDecorators.get(viewId);
+			if (list == null) {
+				list = new ArrayList(2);
+				list.add(this);
+				allDecorators.put(viewId, list);
+			} else if (!list.contains(this)) {
+				list.add(this);
+			}
+			if (fileObserver == null) {
+				FileChangeManager.getInstance().addFileObserver(fileObserver = new MarkerObserver(diagramView));
 			}
 		}
 
@@ -264,20 +263,21 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 		 * @generated
 		 */
 		public void deactivate() {
-			if (fileObserver != null) {
-				fileObserver.unregisterDecorator(this);
-				if (!fileObserver.isRegistered()) {
-					fileObserver = null;
+			if (viewId == null) {
+				return;
+			}
+			List list = (List) allDecorators.get(viewId);
+			if (list != null) {
+				list.remove(this);
+				if (list.isEmpty()) {
+					allDecorators.remove(viewId);
 				}
 			}
+			if (fileObserver != null && allDecorators.isEmpty()) {
+				FileChangeManager.getInstance().removeFileObserver(fileObserver);
+				fileObserver = null;
+			}
 			super.deactivate();
-		}
-
-		/**
-		 * @generated
-		 */
-		String getViewId() {
-			return viewId;
 		}
 	}
 
@@ -289,16 +289,6 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 		/**
 		 * @generated
 		 */
-		private HashMap mapOfIdsToDecorators;
-
-		/**
-		 * @generated
-		 */
-		private boolean registered;
-
-		/**
-		 * @generated
-		 */
 		private Diagram diagramView;
 
 		/**
@@ -306,65 +296,6 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 		 */
 		private MarkerObserver(Diagram diagramView) {
 			this.diagramView = diagramView;
-		}
-
-		/**
-		 * @generated
-		 */
-		private void registerDecorator(StatusDecorator decorator) {
-			if (decorator == null) {
-				return;
-			}
-			if (mapOfIdsToDecorators == null) {
-				mapOfIdsToDecorators = new HashMap();
-			}
-			String decoratorViewId = decorator.getViewId();
-			if (decoratorViewId == null) {
-				return;
-			}
-			List list = (List) mapOfIdsToDecorators.get(decoratorViewId);
-			if (list == null) {
-				list = new ArrayList(2);
-				list.add(decorator);
-				mapOfIdsToDecorators.put(decoratorViewId, list);
-			} else if (!list.contains(decorator)) {
-				list.add(decorator);
-			}
-			if (!isRegistered()) {
-				FileChangeManager.getInstance().addFileObserver(this);
-				registered = true;
-			}
-		}
-
-		/**
-		 * @generated
-		 */
-		private void unregisterDecorator(StatusDecorator decorator) {
-			if (decorator == null) {
-				return;
-			}
-			String decoratorViewId = decorator.getViewId();
-			if (decoratorViewId == null) {
-				return;
-			}
-			if (mapOfIdsToDecorators != null) {
-				List list = (List) mapOfIdsToDecorators.get(decoratorViewId);
-				if (list != null) {
-					list.remove(decorator);
-					if (list.isEmpty()) {
-						mapOfIdsToDecorators.remove(decoratorViewId);
-					}
-				}
-				if (mapOfIdsToDecorators.isEmpty()) {
-					mapOfIdsToDecorators = null;
-				}
-			}
-			if (mapOfIdsToDecorators == null) {
-				if (isRegistered()) {
-					FileChangeManager.getInstance().removeFileObserver(this);
-					registered = false;
-				}
-			}
 		}
 
 		/**
@@ -404,12 +335,8 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 		 * @generated
 		 */
 		public void handleMarkerDeleted(IMarker marker, Map attributes) {
-			if (mapOfIdsToDecorators == null) {
-				return;
-			}
-			// Extract the element guid from the marker and retrieve corresponding view
 			String elementId = (String) attributes.get(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID);
-			List list = elementId != null ? (List) mapOfIdsToDecorators.get(elementId) : null;
+			List list = elementId != null ? (List) allDecorators.get(elementId) : null;
 			if (list != null && !list.isEmpty()) {
 				refreshDecorators(list);
 			}
@@ -419,12 +346,11 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 		 * @generated
 		 */
 		public void handleMarkerChanged(IMarker marker) {
-			if (mapOfIdsToDecorators == null || !MARKER_TYPE.equals(getType(marker))) {
+			if (!MARKER_TYPE.equals(getType(marker))) {
 				return;
 			}
-			// Extract the element ID list from the marker and retrieve corresponding view	
 			String elementId = marker.getAttribute(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, ""); //$NON-NLS-1$
-			List list = elementId != null ? (List) mapOfIdsToDecorators.get(elementId) : null;
+			List list = elementId != null ? (List) allDecorators.get(elementId) : null;
 			if (list != null && !list.isEmpty()) {
 				refreshDecorators(list);
 			}
@@ -444,9 +370,7 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 							public void run() {
 								for (Iterator it = decoratorsToRefresh.iterator(); it.hasNext();) {
 									IDecorator decorator = (IDecorator) it.next();
-									if (decorator != null) {
-										decorator.refresh();
-									}
+									decorator.refresh();
 								}
 							}
 						});
@@ -455,13 +379,6 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 					}
 				}
 			});
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean isRegistered() {
-			return registered;
 		}
 
 		/**
