@@ -27,6 +27,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
@@ -50,6 +51,7 @@ import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getPlugin <em>Plugin</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getEditor <em>Editor</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getNavigator <em>Navigator</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getDiagramUpdater <em>Diagram Updater</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getPropertySheet <em>Property Sheet</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getApplication <em>Application</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getDomainGenModel <em>Domain Gen Model</em>}</li>
@@ -127,6 +129,16 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @ordered
 	 */
 	protected GenNavigator navigator;
+
+	/**
+	 * The cached value of the '{@link #getDiagramUpdater() <em>Diagram Updater</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDiagramUpdater()
+	 * @generated
+	 * @ordered
+	 */
+	protected GenDiagramUpdater diagramUpdater;
 
 	/**
 	 * The cached value of the '{@link #getPropertySheet() <em>Property Sheet</em>}' containment reference.
@@ -610,6 +622,49 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenDiagramUpdater getDiagramUpdater() {
+		return diagramUpdater;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetDiagramUpdater(GenDiagramUpdater newDiagramUpdater, NotificationChain msgs) {
+		GenDiagramUpdater oldDiagramUpdater = diagramUpdater;
+		diagramUpdater = newDiagramUpdater;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_UPDATER, oldDiagramUpdater, newDiagramUpdater);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDiagramUpdater(GenDiagramUpdater newDiagramUpdater) {
+		if (newDiagramUpdater != diagramUpdater) {
+			NotificationChain msgs = null;
+			if (diagramUpdater != null)
+				msgs = ((InternalEObject)diagramUpdater).eInverseRemove(this, GMFGenPackage.GEN_DIAGRAM_UPDATER__EDITOR_GEN, GenDiagramUpdater.class, msgs);
+			if (newDiagramUpdater != null)
+				msgs = ((InternalEObject)newDiagramUpdater).eInverseAdd(this, GMFGenPackage.GEN_DIAGRAM_UPDATER__EDITOR_GEN, GenDiagramUpdater.class, msgs);
+			msgs = basicSetDiagramUpdater(newDiagramUpdater, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_UPDATER, newDiagramUpdater, newDiagramUpdater));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GenPropertySheet getPropertySheet() {
 		return propertySheet;
 	}
@@ -1084,6 +1139,10 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				if (navigator != null)
 					msgs = ((InternalEObject)navigator).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR, null, msgs);
 				return basicSetNavigator((GenNavigator)otherEnd, msgs);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_UPDATER:
+				if (diagramUpdater != null)
+					msgs = ((InternalEObject)diagramUpdater).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_UPDATER, null, msgs);
+				return basicSetDiagramUpdater((GenDiagramUpdater)otherEnd, msgs);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PROPERTY_SHEET:
 				if (propertySheet != null)
 					msgs = ((InternalEObject)propertySheet).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__PROPERTY_SHEET, null, msgs);
@@ -1120,6 +1179,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return basicSetEditor(null, msgs);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR:
 				return basicSetNavigator(null, msgs);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_UPDATER:
+				return basicSetDiagramUpdater(null, msgs);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PROPERTY_SHEET:
 				return basicSetPropertySheet(null, msgs);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__APPLICATION:
@@ -1150,6 +1211,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return getEditor();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR:
 				return getNavigator();
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_UPDATER:
+				return getDiagramUpdater();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PROPERTY_SHEET:
 				return getPropertySheet();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__APPLICATION:
@@ -1204,6 +1267,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR:
 				setNavigator((GenNavigator)newValue);
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_UPDATER:
+				setDiagramUpdater((GenDiagramUpdater)newValue);
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PROPERTY_SHEET:
 				setPropertySheet((GenPropertySheet)newValue);
@@ -1271,6 +1337,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR:
 				setNavigator((GenNavigator)null);
 				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_UPDATER:
+				setDiagramUpdater((GenDiagramUpdater)null);
+				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PROPERTY_SHEET:
 				setPropertySheet((GenPropertySheet)null);
 				return;
@@ -1331,6 +1400,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return editor != null;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR:
 				return navigator != null;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_UPDATER:
+				return diagramUpdater != null;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PROPERTY_SHEET:
 				return propertySheet != null;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__APPLICATION:

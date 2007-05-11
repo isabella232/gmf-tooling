@@ -12,8 +12,8 @@
 
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 
-«DEFINE LinkDescriptor FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
+«DEFINE LinkDescriptor FOR gmfgen::GenDiagramUpdater-»
+	«EXPAND xpt::Common::copyright FOR editorGen-»
 package «editorGen.editor.packageName»;
 
 	«EXPAND xpt::Common::generatedClassComment»
@@ -38,7 +38,7 @@ public class «linkDescriptorClassName» extends «getNodeDescriptorQualifiedClassN
 «ENDDEFINE»
 
 
-«DEFINE attributes FOR gmfgen::GenDiagram-»
+«DEFINE attributes FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::generatedMemberComment»
 private org.eclipse.emf.ecore.EObject mySource;
 		
@@ -49,7 +49,7 @@ private org.eclipse.emf.ecore.EObject myDestination;
 private org.eclipse.core.runtime.IAdaptable mySemanticAdapter;
 «ENDDEFINE»
 
-«DEFINE constructor FOR gmfgen::GenDiagram-»
+«DEFINE constructor FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::generatedMemberComment»
 private «linkDescriptorClassName»(org.eclipse.emf.ecore.EObject source, org.eclipse.emf.ecore.EObject destination, org.eclipse.emf.ecore.EObject linkElement, int linkVID) {
 	super(linkElement, linkVID);
@@ -58,7 +58,7 @@ private «linkDescriptorClassName»(org.eclipse.emf.ecore.EObject source, org.ecli
 }
 «ENDDEFINE»
 
-«DEFINE refOnlyLinkConstructor FOR gmfgen::GenDiagram-»
+«DEFINE refOnlyLinkConstructor FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public «linkDescriptorClassName»(org.eclipse.emf.ecore.EObject source, org.eclipse.emf.ecore.EObject destination, org.eclipse.gmf.runtime.emf.type.core.IElementType elementType, int linkVID) {
 	this(source, destination, (org.eclipse.emf.ecore.EObject) null, linkVID);
@@ -72,7 +72,7 @@ public «linkDescriptorClassName»(org.eclipse.emf.ecore.EObject source, org.eclip
 }
 «ENDDEFINE»
 
-«DEFINE typeLinkConstructor FOR gmfgen::GenDiagram-»
+«DEFINE typeLinkConstructor FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public «linkDescriptorClassName»(org.eclipse.emf.ecore.EObject source, org.eclipse.emf.ecore.EObject destination, org.eclipse.emf.ecore.EObject linkElement, org.eclipse.gmf.runtime.emf.type.core.IElementType elementType, int linkVID) {
 	this(source, destination, linkElement, linkVID);
@@ -86,35 +86,35 @@ public «linkDescriptorClassName»(org.eclipse.emf.ecore.EObject source, org.eclip
 }
 «ENDDEFINE»
 
-«DEFINE elementTypeCopy FOR gmfgen::GenDiagram-»
+«DEFINE elementTypeCopy FOR gmfgen::GenDiagramUpdater-»
 final org.eclipse.gmf.runtime.emf.type.core.IElementType elementTypeCopy = elementType;
 «ENDDEFINE»
 
-«DEFINE elementTypeAdapter FOR gmfgen::GenDiagram-»
+«DEFINE elementTypeAdapter FOR gmfgen::GenDiagramUpdater-»
 if (org.eclipse.gmf.runtime.emf.type.core.IElementType.class.equals(adapter)) {
 	return elementTypeCopy;
 }
 «ENDDEFINE»
 
-«DEFINE getSource FOR gmfgen::GenDiagram-»
+«DEFINE getSource FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public org.eclipse.emf.ecore.EObject getSource() {
 	return mySource;
 }
 «ENDDEFINE»
 		
-«DEFINE getDestination FOR gmfgen::GenDiagram-»
+«DEFINE getDestination FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public org.eclipse.emf.ecore.EObject getDestination() {
 	return myDestination;
 }
 «ENDDEFINE»
 	
-«DEFINE getSemanticAdapter FOR gmfgen::GenDiagram-»
+«DEFINE getSemanticAdapter FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public org.eclipse.core.runtime.IAdaptable getSemanticAdapter() {
 	return mySemanticAdapter;
 }
 «ENDDEFINE»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+«DEFINE additions FOR gmfgen::GenDiagramUpdater»«ENDDEFINE»

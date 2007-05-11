@@ -180,7 +180,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass updaterEClass = null;
+	private EClass genDiagramUpdaterEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1112,7 +1112,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenEditorGenerator_PropertySheet() {
+	public EReference getGenEditorGenerator_DiagramUpdater() {
 		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -1121,7 +1121,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenEditorGenerator_Application() {
+	public EReference getGenEditorGenerator_PropertySheet() {
 		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -1130,7 +1130,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenEditorGenerator_DomainGenModel() {
+	public EReference getGenEditorGenerator_Application() {
 		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -1139,8 +1139,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_PackageNamePrefix() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(9);
+	public EReference getGenEditorGenerator_DomainGenModel() {
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -1148,7 +1148,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_ModelID() {
+	public EAttribute getGenEditorGenerator_PackageNamePrefix() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -1157,7 +1157,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_SameFileForDiagramAndModel() {
+	public EAttribute getGenEditorGenerator_ModelID() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -1166,7 +1166,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_DiagramFileExtension() {
+	public EAttribute getGenEditorGenerator_SameFileForDiagramAndModel() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -1175,7 +1175,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_DomainFileExtension() {
+	public EAttribute getGenEditorGenerator_DiagramFileExtension() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -1184,7 +1184,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_DynamicTemplates() {
+	public EAttribute getGenEditorGenerator_DomainFileExtension() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(14);
 	}
 
@@ -1193,7 +1193,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_TemplateDirectory() {
+	public EAttribute getGenEditorGenerator_DynamicTemplates() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -1202,7 +1202,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_CopyrightText() {
+	public EAttribute getGenEditorGenerator_TemplateDirectory() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -1211,8 +1211,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenEditorGenerator_CopyrightText() {
+		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(17);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getGenEditorGenerator_ExpressionProviders() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(17);
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(18);
 	}
 
 	/**
@@ -2417,8 +2426,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getUpdater() {
-		return updaterEClass;
+	public EClass getGenDiagramUpdater() {
+		return genDiagramUpdaterEClass;
 	}
 
 	/**
@@ -2426,8 +2435,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getUpdater_DiagramUpdaterClassName() {
-		return (EAttribute)updaterEClass.getEStructuralFeatures().get(0);
+	public EReference getGenDiagramUpdater_EditorGen() {
+		return (EReference)genDiagramUpdaterEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2435,8 +2444,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getUpdater_NodeDescriptorClassName() {
-		return (EAttribute)updaterEClass.getEStructuralFeatures().get(1);
+	public EAttribute getGenDiagramUpdater_DiagramUpdaterClassName() {
+		return (EAttribute)genDiagramUpdaterEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2444,8 +2453,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getUpdater_LinkDescriptorClassName() {
-		return (EAttribute)updaterEClass.getEStructuralFeatures().get(2);
+	public EAttribute getGenDiagramUpdater_NodeDescriptorClassName() {
+		return (EAttribute)genDiagramUpdaterEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramUpdater_LinkDescriptorClassName() {
+		return (EAttribute)genDiagramUpdaterEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -5858,6 +5876,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__PLUGIN);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__EDITOR);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__NAVIGATOR);
+		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__DIAGRAM_UPDATER);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__PROPERTY_SHEET);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__APPLICATION);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL);
@@ -6024,10 +6043,11 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		measurementUnitEClass = createEClass(MEASUREMENT_UNIT);
 		createEAttribute(measurementUnitEClass, MEASUREMENT_UNIT__UNITS);
 
-		updaterEClass = createEClass(UPDATER);
-		createEAttribute(updaterEClass, UPDATER__DIAGRAM_UPDATER_CLASS_NAME);
-		createEAttribute(updaterEClass, UPDATER__NODE_DESCRIPTOR_CLASS_NAME);
-		createEAttribute(updaterEClass, UPDATER__LINK_DESCRIPTOR_CLASS_NAME);
+		genDiagramUpdaterEClass = createEClass(GEN_DIAGRAM_UPDATER);
+		createEReference(genDiagramUpdaterEClass, GEN_DIAGRAM_UPDATER__EDITOR_GEN);
+		createEAttribute(genDiagramUpdaterEClass, GEN_DIAGRAM_UPDATER__DIAGRAM_UPDATER_CLASS_NAME);
+		createEAttribute(genDiagramUpdaterEClass, GEN_DIAGRAM_UPDATER__NODE_DESCRIPTOR_CLASS_NAME);
+		createEAttribute(genDiagramUpdaterEClass, GEN_DIAGRAM_UPDATER__LINK_DESCRIPTOR_CLASS_NAME);
 
 		genPluginEClass = createEClass(GEN_PLUGIN);
 		createEReference(genPluginEClass, GEN_PLUGIN__EDITOR_GEN);
@@ -6544,7 +6564,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genDiagramEClass.getESuperTypes().add(this.getShortcuts());
 		genDiagramEClass.getESuperTypes().add(this.getBatchValidation());
 		genDiagramEClass.getESuperTypes().add(this.getMeasurementUnit());
-		genDiagramEClass.getESuperTypes().add(this.getUpdater());
 		genCustomPreferencePageEClass.getESuperTypes().add(this.getGenPreferencePage());
 		genStandardPreferencePageEClass.getESuperTypes().add(this.getGenPreferencePage());
 		genStandardFontEClass.getESuperTypes().add(this.getGenFont());
@@ -6634,6 +6653,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenEditorGenerator_Plugin(), this.getGenPlugin(), this.getGenPlugin_EditorGen(), "plugin", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_Editor(), this.getGenEditorView(), this.getGenEditorView_EditorGen(), "editor", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_Navigator(), this.getGenNavigator(), this.getGenNavigator_EditorGen(), "navigator", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenEditorGenerator_DiagramUpdater(), this.getGenDiagramUpdater(), this.getGenDiagramUpdater_EditorGen(), "diagramUpdater", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_PropertySheet(), this.getGenPropertySheet(), this.getGenPropertySheet_EditorGen(), "propertySheet", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_Application(), this.getGenApplication(), this.getGenApplication_EditorGen(), "application", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_DomainGenModel(), theGenModelPackage.getGenModel(), null, "domainGenModel", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -6906,16 +6926,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(measurementUnitEClass, MeasurementUnit.class, "MeasurementUnit", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMeasurementUnit_Units(), ecorePackage.getEString(), "units", "Pixel", 0, 1, MeasurementUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(updaterEClass, Updater.class, "Updater", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getUpdater_DiagramUpdaterClassName(), ecorePackage.getEString(), "diagramUpdaterClassName", null, 0, 1, Updater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getUpdater_NodeDescriptorClassName(), ecorePackage.getEString(), "nodeDescriptorClassName", null, 0, 1, Updater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getUpdater_LinkDescriptorClassName(), ecorePackage.getEString(), "linkDescriptorClassName", null, 0, 1, Updater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(genDiagramUpdaterEClass, GenDiagramUpdater.class, "GenDiagramUpdater", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenDiagramUpdater_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_DiagramUpdater(), "editorGen", null, 0, 1, GenDiagramUpdater.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramUpdater_DiagramUpdaterClassName(), ecorePackage.getEString(), "diagramUpdaterClassName", null, 0, 1, GenDiagramUpdater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramUpdater_NodeDescriptorClassName(), ecorePackage.getEString(), "nodeDescriptorClassName", null, 0, 1, GenDiagramUpdater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramUpdater_LinkDescriptorClassName(), ecorePackage.getEString(), "linkDescriptorClassName", null, 0, 1, GenDiagramUpdater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(updaterEClass, ecorePackage.getEString(), "getDiagramUpdaterQualifiedClassName", 0, 1);
+		addEOperation(genDiagramUpdaterEClass, ecorePackage.getEString(), "getDiagramUpdaterQualifiedClassName", 0, 1);
 
-		addEOperation(updaterEClass, ecorePackage.getEString(), "getNodeDescriptorQualifiedClassName", 0, 1);
+		addEOperation(genDiagramUpdaterEClass, ecorePackage.getEString(), "getNodeDescriptorQualifiedClassName", 0, 1);
 
-		addEOperation(updaterEClass, ecorePackage.getEString(), "getLinkDescriptorQualifiedClassName", 0, 1);
+		addEOperation(genDiagramUpdaterEClass, ecorePackage.getEString(), "getLinkDescriptorQualifiedClassName", 0, 1);
 
 		initEClass(genPluginEClass, GenPlugin.class, "GenPlugin", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenPlugin_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Plugin(), "editorGen", null, 0, 1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -116,6 +116,15 @@ public interface GMFGenFactory extends EFactory {
 	GenConstantColor createGenConstantColor();
 
 	/**
+	 * Returns a new object of class '<em>Gen Diagram Updater</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Diagram Updater</em>'.
+	 * @generated
+	 */
+	GenDiagramUpdater createGenDiagramUpdater();
+
+	/**
 	 * Returns a new object of class '<em>Gen Plugin</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

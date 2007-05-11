@@ -116,7 +116,7 @@ private java.util.Collection refreshConnections() {
 		org.eclipse.emf.ecore.EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
 		int diagramLinkVisualID = «getVisualIDRegistryQualifiedClassName()».getVisualID(nextDiagramLink);
 		for (java.util.Iterator LinkDescriptorsIterator = linkDescriptors.iterator(); LinkDescriptorsIterator.hasNext();) {
-			«getLinkDescriptorQualifiedClassName()» nextLinkDescriptor = («getLinkDescriptorQualifiedClassName()») LinkDescriptorsIterator.next();
+			«editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()» nextLinkDescriptor = («editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()») LinkDescriptorsIterator.next();
 			if (diagramLinkObject == nextLinkDescriptor.getModelElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination() && diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
 				linksIterator.remove();
 				LinkDescriptorsIterator.remove();
@@ -162,7 +162,7 @@ private java.util.Collection collectAllLinks(org.eclipse.gmf.runtime.notation.Vi
 private java.util.Collection createConnections(java.util.Collection linkDescriptors, java.util.Map domain2NotationMap) {
 	java.util.List adapters = new java.util.LinkedList();
 	for (java.util.Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
-		final «getLinkDescriptorQualifiedClassName()» nextLinkDescriptor = («getLinkDescriptorQualifiedClassName()») linkDescriptorsIterator.next();
+		final «editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()» nextLinkDescriptor = («editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()») linkDescriptorsIterator.next();
 		org.eclipse.gef.EditPart sourceEditPart = getEditPart(nextLinkDescriptor.getSource(), domain2NotationMap);
 		org.eclipse.gef.EditPart targetEditPart = getEditPart(nextLinkDescriptor.getDestination(), domain2NotationMap);
 		if (sourceEditPart == null || targetEditPart == null) {

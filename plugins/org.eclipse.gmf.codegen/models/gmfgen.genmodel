@@ -142,6 +142,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/plugin"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/editor"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/navigator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/diagramUpdater"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/propertySheet"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/application"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/domainGenModel"/>
@@ -364,13 +365,14 @@
     <genClasses ecoreClass="gmfgen.ecore#//MeasurementUnit">
       <genFeatures createChild="false" propertyCategory="Diagram" ecoreFeature="ecore:EAttribute gmfgen.ecore#//MeasurementUnit/units"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="gmfgen.ecore#//Updater">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Updater/diagramUpdaterClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Updater/nodeDescriptorClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Updater/linkDescriptorClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//Updater/getDiagramUpdaterQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//Updater/getNodeDescriptorQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//Updater/getLinkDescriptorQualifiedClassName"/>
+    <genClasses ecoreClass="gmfgen.ecore#//GenDiagramUpdater">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagramUpdater/editorGen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramUpdater/diagramUpdaterClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramUpdater/nodeDescriptorClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramUpdater/linkDescriptorClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagramUpdater/getDiagramUpdaterQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagramUpdater/getNodeDescriptorQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagramUpdater/getLinkDescriptorQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenPlugin">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPlugin/editorGen"/>

@@ -73,7 +73,7 @@ private void «EXPAND createChildrenMethodName»(org.eclipse.gmf.runtime.notation.
 	«IF hasSemanticChildren(this)-»
 	java.util.Collection childNodeDescriptors = «EXPAND xpt::diagram::updater::DiagramUpdater::getSemanticChildrenMethodCall»(view);
 	for (java.util.Iterator it = childNodeDescriptors.iterator(); it.hasNext();) {
-		createNode(view, («getDiagram().getNodeDescriptorQualifiedClassName()») it.next());
+		createNode(view, («getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName()») it.next());
 	}
 	«ENDIF-»
 	«EXPAND createCompartmentsChildren-»
@@ -104,7 +104,7 @@ private void «EXPAND createChildrenMethodName»(org.eclipse.gmf.runtime.notation.
 
 «DEFINE createNode FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
-private void createNode(org.eclipse.gmf.runtime.notation.View parentView, «getNodeDescriptorQualifiedClassName()» nodeDescriptor) {
+private void createNode(org.eclipse.gmf.runtime.notation.View parentView, «editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName()» nodeDescriptor) {
 	org.eclipse.gmf.runtime.notation.Node node = org.eclipse.gmf.runtime.diagram.core.services.ViewService.createNode(parentView, nodeDescriptor.getModelElement(), nodeDescriptor.getType(), «editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
 	switch (nodeDescriptor.getVisualID()) {
 	«EXPAND createNodeCase FOREACH getAllNodes()-»
@@ -126,7 +126,7 @@ private void createLinks(org.eclipse.gmf.runtime.notation.Diagram diagram) {
 		continueLinkCreation = false;
 		java.util.Collection additionalDescriptors = new java.util.LinkedList();
 		for (java.util.Iterator it = myLinkDescriptors.iterator(); it.hasNext();) {
-			«getLinkDescriptorQualifiedClassName()» nextLinkDescriptor = («getLinkDescriptorQualifiedClassName()») it.next();
+			«editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()» nextLinkDescriptor = («editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()») it.next();
 			if (!myDomain2NotationMap.containsKey(nextLinkDescriptor.getSource()) || !myDomain2NotationMap.containsKey(nextLinkDescriptor.getDestination())) {
 				continue;
 			}

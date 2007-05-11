@@ -43,7 +43,7 @@ protected java.util.List getSemanticChildrenList() {
 	org.eclipse.gmf.runtime.notation.View viewObject = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
 	java.util.List result = new java.util.LinkedList();
 	for (java.util.Iterator it = «EXPAND xpt::diagram::updater::DiagramUpdater::getSemanticChildrenMethodCall»(viewObject).iterator(); it.hasNext();) {
-		result.add(((«getDiagram().getNodeDescriptorQualifiedClassName()») it.next()).getModelElement());
+		result.add(((«getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName()») it.next()).getModelElement());
 	}
 	return result;
 	«ELSE-»
@@ -64,7 +64,7 @@ protected boolean shouldDeleteView(org.eclipse.gmf.runtime.notation.View view) {
 
 «DEFINE checkShortcutProperty FOR gmfgen::GenDiagram-»
 	«IF !containsShortcutsTo.isEmpty()-»
-«getDiagramUpdaterQualifiedClassName()».isShortcutOrphaned(view);
+«editorGen.diagramUpdater.getDiagramUpdaterQualifiedClassName()».isShortcutOrphaned(view);
 	«ENDIF-»
 «ENDDEFINE»
 

@@ -36,6 +36,8 @@
         eType="#//GenEditorView" containment="true" eOpposite="#//GenEditorView/editorGen"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="navigator" eType="#//GenNavigator"
         containment="true" eOpposite="#//GenNavigator/editorGen"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="diagramUpdater" lowerBound="1"
+        eType="#//GenDiagramUpdater" containment="true" eOpposite="#//GenDiagramUpdater/editorGen"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propertySheet" eType="#//GenPropertySheet"
         containment="true" eOpposite="#//GenPropertySheet/editorGen"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="application" eType="#//GenApplication"
@@ -79,7 +81,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="expressionProviders" eType="#//GenExpressionProviderContainer"
         containment="true" eOpposite="#//GenExpressionProviderContainer/editorGen"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenDiagram" eSuperTypes="#//GenContainerBase #//PackageNames #//ProviderClassNames #//LinkConstraints #//EditPartCandies #//EditorCandies #//Shortcuts #//BatchValidation #//MeasurementUnit #//Updater">
+  <eClassifiers xsi:type="ecore:EClass" name="GenDiagram" eSuperTypes="#//GenContainerBase #//PackageNames #//ProviderClassNames #//LinkConstraints #//EditPartCandies #//EditorCandies #//Shortcuts #//BatchValidation #//MeasurementUnit">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
       <details key="ocl" value="diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = 'notation' and name = 'Diagram')"/>
       <details key="description" value="'Diagram Runtime Class' must be a notation::Diagram or sub-class"/>
@@ -498,10 +500,12 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="units" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="Pixel"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Updater" abstract="true" interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="GenDiagramUpdater">
     <eOperations name="getDiagramUpdaterQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getNodeDescriptorQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getLinkDescriptorQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" eType="#//GenEditorGenerator"
+        changeable="false" eOpposite="#//GenEditorGenerator/diagramUpdater"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="diagramUpdaterClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nodeDescriptorClassName"

@@ -860,15 +860,15 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	private void generateDiagramUpdater() throws InterruptedException {
-		doGenerateJavaClass(myEmitters.getDiagramUpdaterEmitter(), myDiagram.getDiagramUpdaterQualifiedClassName(), myDiagram);
+		doGenerateJavaClass(myEmitters.getDiagramUpdaterEmitter(), myEditorGen.getDiagramUpdater().getDiagramUpdaterQualifiedClassName(), myEditorGen.getDiagramUpdater());
 	}
 	
 	private void generateNodeDescriptor() throws InterruptedException {
-		doGenerateJavaClass(myEmitters.getNodeDescriptorEmitter(), myDiagram.getNodeDescriptorQualifiedClassName(), myDiagram);
+		doGenerateJavaClass(myEmitters.getNodeDescriptorEmitter(), myEditorGen.getDiagramUpdater().getNodeDescriptorQualifiedClassName(), myEditorGen.getDiagramUpdater());
 	}
 	
 	private void generateLinkDescriptor() throws InterruptedException {
-		doGenerateJavaClass(myEmitters.getLinkDescriptorEmitter(), myDiagram.getLinkDescriptorQualifiedClassName(), myDiagram);
+		doGenerateJavaClass(myEmitters.getLinkDescriptorEmitter(), myEditorGen.getDiagramUpdater().getLinkDescriptorQualifiedClassName(), myEditorGen.getDiagramUpdater());
 	}
 
 	private void generateActionBarContributor() throws UnexpectedBehaviourException, InterruptedException {

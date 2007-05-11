@@ -18,14 +18,14 @@
 «EXTENSION xpt::diagram::editpolicies::LinkUtils»
 «EXTENSION xpt::GenModelUtils»
 
-«DEFINE DiagramUpdater FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
+«DEFINE DiagramUpdater FOR gmfgen::GenDiagramUpdater-»
+	«EXPAND xpt::Common::copyright FOR editorGen-»
 package «editorGen.editor.packageName»;
 
 	«EXPAND xpt::Common::generatedClassComment»
 public class «diagramUpdaterClassName» {
 	«EXPAND isShortcutOrphaned-»
-«LET getAllContainers().select(container | hasSemanticChildren(container)) AS semanticContainers-»
+«LET editorGen.diagram.getAllContainers().select(container | hasSemanticChildren(container)) AS semanticContainers-»
 
 	«EXPAND getGenericSemanticChildrenOfView(semanticContainers)-»
 	«EXPAND getSemanticChildrenOfView FOREACH semanticContainers-»
@@ -34,7 +34,7 @@ public class «diagramUpdaterClassName» {
 	
 	«EXPAND isDomainMetaChild FOREACH semanticContainers-»
 «ENDLET-»
-«LET getAllSemanticElements(this) AS semanticElements-»
+«LET getAllSemanticElements(editorGen.diagram) AS semanticElements-»
 
 	«EXPAND getGenericConnectedLinks(semanticElements, getContainedLinksMethodNameSuffix())-»
 	
@@ -44,17 +44,17 @@ public class «diagramUpdaterClassName» {
 	«EXPAND getContainedLinks FOREACH semanticElements-»
 	«EXPAND getIncomingLinks FOREACH semanticElements-»
 	«EXPAND getOutgoingLinks FOREACH semanticElements-»
-	«EXPAND getContainedLinksByTypeMethod FOREACH getAllContainedLinks(this)-»
-	«EXPAND getIncomingLinksByTypeMethod FOREACH getAllIncomingLinks(this)-»
-	«EXPAND getOutgoingLinksByTypeMethod FOREACH getAllOutgoingLinks(this).select(link | null == getTypeModelFacet(link) || null != getTypeModelFacet(link).sourceMetaFeature)-»
+	«EXPAND getContainedLinksByTypeMethod FOREACH getAllContainedLinks(editorGen.diagram)-»
+	«EXPAND getIncomingLinksByTypeMethod FOREACH getAllIncomingLinks(editorGen.diagram)-»
+	«EXPAND getOutgoingLinksByTypeMethod FOREACH getAllOutgoingLinks(editorGen.diagram).select(link | null == getTypeModelFacet(link) || null != getTypeModelFacet(link).sourceMetaFeature)-»
 «ENDLET-»
 
 	«EXPAND additions-»
 }
 «ENDDEFINE»
 
-«DEFINE isShortcutOrphaned FOR gmfgen::GenDiagram-»
-	«IF !containsShortcutsTo.isEmpty()-»
+«DEFINE isShortcutOrphaned FOR gmfgen::GenDiagramUpdater-»
+	«IF !editorGen.diagram.containsShortcutsTo.isEmpty()-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 public static boolean isShortcutOrphaned(org.eclipse.gmf.runtime.notation.View view) {
@@ -63,11 +63,11 @@ public static boolean isShortcutOrphaned(org.eclipse.gmf.runtime.notation.View v
 	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE getGenericSemanticChildrenOfView(List[gmfgen::GenContainerBase] semanticContainers) FOR gmfgen::GenDiagram-»
+«DEFINE getGenericSemanticChildrenOfView(List[gmfgen::GenContainerBase] semanticContainers) FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public static java.util.List getSemanticChildren(org.eclipse.gmf.runtime.notation.View view) {
 	«IF !semanticContainers.isEmpty()-»
-	switch («getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
+	switch («editorGen.diagram.getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
 		«EXPAND getSemanticChildrenCase FOREACH semanticContainers-»
 	}
 	«ENDIF-»
@@ -91,7 +91,7 @@ public static java.util.List «EXPAND getSemanticChildrenMethodName»(org.eclipse.
 		org.eclipse.emf.ecore.EObject nextElement = (org.eclipse.emf.ecore.EObject) semanticIterator.next();
 		int visualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID(view, nextElement);
 		if («EXPAND isDomainMetaChildMethodName»(visualID)) {
-			result.add(new «getDiagram().getNodeDescriptorQualifiedClassName()»(nextElement, visualID));
+			result.add(new «getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName()»(nextElement, visualID));
 		}
 	}
 	return result;
@@ -116,7 +116,7 @@ private static java.util.List «EXPAND getSemanticChildrenMethodName»(«EXPAND get
 
 «DEFINE getSemanticChildrenMethodName FOR gmfgen::GenContainerBase»get«getUniqueIdentifier()»SemanticChildren«ENDDEFINE»
 
-«DEFINE getSemanticChildrenMethodCall FOR gmfgen::GenContainerBase»«getDiagram().getDiagramUpdaterQualifiedClassName()».«EXPAND getSemanticChildrenMethodName»«ENDDEFINE»
+«DEFINE getSemanticChildrenMethodCall FOR gmfgen::GenContainerBase»«getDiagram().editorGen.diagramUpdater.getDiagramUpdaterQualifiedClassName()».«EXPAND getSemanticChildrenMethodName»«ENDDEFINE»
 
 «DEFINE getModelelementType FOR gmfgen::GenContainerBase»«getQualifiedInterfaceName(getModelElementType())»«ENDDEFINE»
 
@@ -134,15 +134,15 @@ allValues.add(«EXPAND xpt::Common::getFeatureValue("modelElement", containerGenC
 
 «DEFINE collectPotentialPhantomNodes FOR gmfgen::GenContainerBase»«ENDDEFINE»
 
-«DEFINE collectPotentialPhantomNodes FOR gmfgen::GenDiagram-»
-	«IF !getPhantomNodes(this).isEmpty()-»
+«DEFINE collectPotentialPhantomNodes FOR gmfgen::GenDiagramUpdater-»
+	«IF !getPhantomNodes(editorGen.diagram).isEmpty()-»
 org.eclipse.emf.ecore.resource.Resource resource = modelElement.eResource();
 for (java.util.Iterator semanticIterator = getPhantomNodesIterator(resource); semanticIterator.hasNext();) {
 	org.eclipse.emf.ecore.EObject nextElement = (org.eclipse.emf.ecore.EObject) semanticIterator.next();
 	if (nextElement == modelElement) {
 		continue;
 	}
-	«EXPAND addNextIfPhantom FOREACH getPhantomNodes(this)-»
+	«EXPAND addNextIfPhantom FOREACH getPhantomNodes(editorGen.diagram)-»
 }
 	«ENDIF-»
 «ENDDEFINE»
@@ -154,8 +154,8 @@ if («EXPAND xpt::Common::metaClassAccessor FOR modelFacet.metaClass».isSuperType
 }
 «ENDDEFINE»
 
-«DEFINE getPhantomNodesIterator FOR gmfgen::GenDiagram-»
-	«IF !getPhantomNodes(this).isEmpty()-»
+«DEFINE getPhantomNodesIterator FOR gmfgen::GenDiagramUpdater-»
+	«IF !getPhantomNodes(editorGen.diagram).isEmpty()-»
 	
 	«EXPAND xpt::Common::generatedMemberComment»
 private static java.util.Iterator getPhantomNodesIterator(org.eclipse.emf.ecore.resource.Resource resource) {
@@ -179,13 +179,13 @@ public static boolean «EXPAND isDomainMetaChildMethodName»(int visualID) {
 
 «DEFINE isDomainMetaChildMethodName FOR gmfgen::GenContainerBase»is«getUniqueIdentifier()»DomainMetaChild«ENDDEFINE»
 
-«DEFINE isDomainMetaChildMethodCall FOR gmfgen::GenContainerBase»«getDiagram().getDiagramUpdaterQualifiedClassName()».«EXPAND isDomainMetaChildMethodName»«ENDDEFINE»
+«DEFINE isDomainMetaChildMethodCall FOR gmfgen::GenContainerBase»«getDiagram().editorGen.diagramUpdater.getDiagramUpdaterQualifiedClassName()».«EXPAND isDomainMetaChildMethodName»«ENDDEFINE»
 
-«DEFINE getGenericConnectedLinks(List[gmfgen::GenCommonBase] linkContainers, String methodNameSuffix) FOR gmfgen::GenDiagram-»
+«DEFINE getGenericConnectedLinks(List[gmfgen::GenCommonBase] linkContainers, String methodNameSuffix) FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public static java.util.List get«methodNameSuffix»Links(org.eclipse.gmf.runtime.notation.View view) {
 	«IF !linkContainers.isEmpty()-»
-	switch («getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
+	switch («editorGen.diagram.getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
 		«EXPAND getContainedLinksCase(methodNameSuffix) FOREACH linkContainers-»
 	}
 	«ENDIF-»
@@ -199,13 +199,13 @@ public static java.util.List get«methodNameSuffix»Links(org.eclipse.gmf.runtime.
 «ENDDEFINE»
 
 «REM»This DEFING can be used from other templates to inject call to the corresponding method«ENDREM»
-«DEFINE getContainedLinksMethodCall FOR gmfgen::GenCommonBase»«getDiagram().getDiagramUpdaterQualifiedClassName()».«EXPAND linkGetterName(getContainedLinksMethodNameSuffix())»«ENDDEFINE»
+«DEFINE getContainedLinksMethodCall FOR gmfgen::GenCommonBase»«getDiagram().editorGen.diagramUpdater.getDiagramUpdaterQualifiedClassName()».«EXPAND linkGetterName(getContainedLinksMethodNameSuffix())»«ENDDEFINE»
 
 «REM»This DEFING can be used from other templates to inject call to the corresponding method«ENDREM»
-«DEFINE getIncomingLinksMethodCall FOR gmfgen::GenCommonBase»«getDiagram().getDiagramUpdaterQualifiedClassName()».«EXPAND linkGetterName(getIncomingLinksMethodNameSuffix())»«ENDDEFINE»
+«DEFINE getIncomingLinksMethodCall FOR gmfgen::GenCommonBase»«getDiagram().editorGen.diagramUpdater.getDiagramUpdaterQualifiedClassName()».«EXPAND linkGetterName(getIncomingLinksMethodNameSuffix())»«ENDDEFINE»
 
 «REM»This DEFING can be used from other templates to inject call to the corresponding method«ENDREM»
-«DEFINE getOutgoingLinksMethodCall FOR gmfgen::GenCommonBase»«getDiagram().getDiagramUpdaterQualifiedClassName()».«EXPAND linkGetterName(getOutgoingLinksMethodNameSuffix())»«ENDDEFINE»
+«DEFINE getOutgoingLinksMethodCall FOR gmfgen::GenCommonBase»«getDiagram().editorGen.diagramUpdater.getDiagramUpdaterQualifiedClassName()».«EXPAND linkGetterName(getOutgoingLinksMethodNameSuffix())»«ENDDEFINE»
 
 «DEFINE linkGetterName(String suffix) FOR gmfgen::GenCommonBase»get«getUniqueIdentifier()»«suffix»Links«ENDDEFINE»
 
@@ -364,7 +364,7 @@ return result;
 «ENDDEFINE»
 
 «DEFINE addLinkDescriptor(gmfgen::GenLink genLink, String srcVar, String dstVar) FOR gmfgen::TypeLinkModelFacet-»
-result.add(new «genLink.getDiagram().getLinkDescriptorQualifiedClassName()»(«EXPAND xpt::Common::castToEObject FOR getSourceType()»«srcVar», «EXPAND xpt::Common::castToEObject FOR getTargetType()»«dstVar», «EXPAND xpt::Common::castToEObject FOR metaClass»link, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «genLink.getEditPartQualifiedClassName()».VISUAL_ID));
+result.add(new «genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()»(«EXPAND xpt::Common::castToEObject FOR getSourceType()»«srcVar», «EXPAND xpt::Common::castToEObject FOR getTargetType()»«dstVar», «EXPAND xpt::Common::castToEObject FOR metaClass»link, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «genLink.getEditPartQualifiedClassName()».VISUAL_ID));
 «ENDDEFINE»
 
 «DEFINE checkLinkVisualID(gmfgen::GenLink genLink, boolean inLoop) FOR gmfgen::TypeLinkModelFacet-»
@@ -459,7 +459,7 @@ if (false == «IF metaClass.isExternalInterface()»((org.eclipse.emf.ecore.EObject
 
 «DEFINE getIncomingLinksByTypeMethodBody(gmfgen::GenLink genLink) FOR gmfgen::FeatureLinkModelFacet-»
 if (setting.getEStructuralFeature() == «EXPAND xpt::Common::metaFeatureAccessor FOR metaFeature») {
-	result.add(new «genLink.getDiagram().getLinkDescriptorQualifiedClassName()»(setting.getEObject(), «EXPAND xpt::Common::castToEObject FOR getTargetType()»target, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «genLink.getEditPartQualifiedClassName()».VISUAL_ID));
+	result.add(new «genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()»(setting.getEObject(), «EXPAND xpt::Common::castToEObject FOR getTargetType()»target, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «genLink.getEditPartQualifiedClassName()».VISUAL_ID));
 }
 «ENDDEFINE»
 
@@ -484,7 +484,7 @@ if (setting.getEStructuralFeature() == «EXPAND xpt::Common::metaFeatureAccessor 
 	«ELSE-»
 	«getQualifiedInterfaceName(getTargetType())» destination = «EXPAND xpt::Common::getFeatureValue("source", getSourceType()) FOR metaFeature»;
 	«ENDIF-»
-	result.add(new «genLink.getDiagram().getLinkDescriptorQualifiedClassName()»(«EXPAND xpt::Common::castToEObject FOR getSourceType()»source, «EXPAND xpt::Common::castToEObject FOR getTargetType()»destination, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «genLink.getEditPartQualifiedClassName()».VISUAL_ID));
+	result.add(new «genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()»(«EXPAND xpt::Common::castToEObject FOR getSourceType()»source, «EXPAND xpt::Common::castToEObject FOR getTargetType()»destination, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «genLink.getEditPartQualifiedClassName()».VISUAL_ID));
 	«IF metaFeature.isListType()-»
 	}
 	«ENDIF-»
@@ -523,4 +523,4 @@ if (setting.getEStructuralFeature() == «EXPAND xpt::Common::metaFeatureAccessor 
 	«ERROR "Incorrect LinkModelFacet: " + this»
 «ENDDEFINE»
 
-«DEFINE additions FOR gmfgen::GenContainerBase»«ENDDEFINE»
+«DEFINE additions FOR gmfgen::GenDiagramUpdater»«ENDDEFINE»

@@ -12,8 +12,8 @@
 
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 
-«DEFINE NodeDescriptor FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
+«DEFINE NodeDescriptor FOR gmfgen::GenDiagramUpdater-»
+	«EXPAND xpt::Common::copyright FOR editorGen-»
 package «editorGen.editor.packageName»;
 
 	«EXPAND xpt::Common::generatedClassComment»
@@ -33,7 +33,7 @@ public class «nodeDescriptorClassName» {
 }
 «ENDDEFINE»
 
-«DEFINE attributes FOR gmfgen::GenDiagram-»
+«DEFINE attributes FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::generatedMemberComment»
 private org.eclipse.emf.ecore.EObject myModelElement;
 	
@@ -44,7 +44,7 @@ private int myVisualID;
 private String myType;
 «ENDDEFINE»
 
-«DEFINE constructor FOR gmfgen::GenDiagram-»
+«DEFINE constructor FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public «nodeDescriptorClassName»(org.eclipse.emf.ecore.EObject modelElement, int visualID) {
 	myModelElement = modelElement;
@@ -52,28 +52,28 @@ public «nodeDescriptorClassName»(org.eclipse.emf.ecore.EObject modelElement, int
 }
 «ENDDEFINE»
 
-«DEFINE getModelElement FOR gmfgen::GenDiagram-»
+«DEFINE getModelElement FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public org.eclipse.emf.ecore.EObject getModelElement() {
 	return myModelElement;
 }
 «ENDDEFINE»
 	
-«DEFINE getVisualID FOR gmfgen::GenDiagram-»
+«DEFINE getVisualID FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public int getVisualID() {
 	return myVisualID;
 }
 «ENDDEFINE»
 
-«DEFINE getType FOR gmfgen::GenDiagram-»
+«DEFINE getType FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public String getType() {
 	if (myType == null) {
-		myType = «getVisualIDRegistryQualifiedClassName()».getType(getVisualID());
+		myType = «editorGen.diagram.getVisualIDRegistryQualifiedClassName()».getType(getVisualID());
 	}
 	return myType;
 }
 «ENDDEFINE»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+«DEFINE additions FOR gmfgen::GenDiagramUpdater»«ENDDEFINE»
