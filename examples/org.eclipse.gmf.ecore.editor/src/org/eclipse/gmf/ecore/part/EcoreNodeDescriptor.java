@@ -31,6 +31,11 @@ public class EcoreNodeDescriptor {
 	/**
 	 * @generated
 	 */
+	private String myType;
+
+	/**
+	 * @generated
+	 */
 	public EcoreNodeDescriptor(EObject modelElement, int visualID) {
 		myModelElement = modelElement;
 		myVisualID = visualID;
@@ -48,6 +53,16 @@ public class EcoreNodeDescriptor {
 	 */
 	public int getVisualID() {
 		return myVisualID;
+	}
+
+	/**
+	 * @generated
+	 */
+	public String getType() {
+		if (myType == null) {
+			myType = EcoreVisualIDRegistry.getType(getVisualID());
+		}
+		return myType;
 	}
 
 }

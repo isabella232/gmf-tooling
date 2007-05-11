@@ -718,7 +718,7 @@ public class EcoreDiagramUpdater {
 		List result = new LinkedList();
 		result.addAll(getContainedTypeModelFacetLinks_EReference_4002(modelElement));
 		result.addAll(getContainedTypeModelFacetLinks_EReference_4003(modelElement));
-		result.addAll(getContainedFeatureModelFacetLinks_EClass_ESuperTypes_4004(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_EClass_ESuperTypes_4004(modelElement));
 		return result;
 	}
 
@@ -735,7 +735,7 @@ public class EcoreDiagramUpdater {
 	public static List getEAnnotation_2003ContainedLinks(View view) {
 		EAnnotation modelElement = (EAnnotation) view.getElement();
 		List result = new LinkedList();
-		result.addAll(getContainedFeatureModelFacetLinks_EAnnotation_References_4001(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement));
 		return result;
 	}
 
@@ -773,7 +773,7 @@ public class EcoreDiagramUpdater {
 	public static List getEAnnotation_3003ContainedLinks(View view) {
 		EAnnotation modelElement = (EAnnotation) view.getElement();
 		List result = new LinkedList();
-		result.addAll(getContainedFeatureModelFacetLinks_EAnnotation_References_4001(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement));
 		return result;
 	}
 
@@ -785,7 +785,7 @@ public class EcoreDiagramUpdater {
 		List result = new LinkedList();
 		result.addAll(getContainedTypeModelFacetLinks_EReference_4002(modelElement));
 		result.addAll(getContainedTypeModelFacetLinks_EReference_4003(modelElement));
-		result.addAll(getContainedFeatureModelFacetLinks_EClass_ESuperTypes_4004(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_EClass_ESuperTypes_4004(modelElement));
 		return result;
 	}
 
@@ -1030,8 +1030,8 @@ public class EcoreDiagramUpdater {
 	public static List getEClass_2001OutgoingLinks(View view) {
 		EClass modelElement = (EClass) view.getElement();
 		List result = new LinkedList();
-		result.addAll(getOutgoingTypeModelFacetLinks_EReference_4002(modelElement));
-		result.addAll(getOutgoingTypeModelFacetLinks_EReference_4003(modelElement));
+		result.addAll(getContainedTypeModelFacetLinks_EReference_4002(modelElement));
+		result.addAll(getContainedTypeModelFacetLinks_EReference_4003(modelElement));
 		result.addAll(getOutgoingFeatureModelFacetLinks_EClass_ESuperTypes_4004(modelElement));
 		return result;
 	}
@@ -1097,8 +1097,8 @@ public class EcoreDiagramUpdater {
 	public static List getEClass_3004OutgoingLinks(View view) {
 		EClass modelElement = (EClass) view.getElement();
 		List result = new LinkedList();
-		result.addAll(getOutgoingTypeModelFacetLinks_EReference_4002(modelElement));
-		result.addAll(getOutgoingTypeModelFacetLinks_EReference_4003(modelElement));
+		result.addAll(getContainedTypeModelFacetLinks_EReference_4002(modelElement));
+		result.addAll(getContainedTypeModelFacetLinks_EReference_4003(modelElement));
 		result.addAll(getOutgoingFeatureModelFacetLinks_EClass_ESuperTypes_4004(modelElement));
 		return result;
 	}
@@ -1155,22 +1155,14 @@ public class EcoreDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getContainedFeatureModelFacetLinks_EAnnotation_References_4001(EAnnotation container) {
-		Collection result = new LinkedList();
-		for (Iterator destinations = container.getReferences().iterator(); destinations.hasNext();) {
-			EObject destination = (EObject) destinations.next();
-			result.add(new EcoreLinkDescriptor(container, destination, EcoreElementTypes.EAnnotationReferences_4001, EAnnotationReferencesEditPart.VISUAL_ID));
-		}
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
 	private static Collection getContainedTypeModelFacetLinks_EReference_4002(EClass container) {
 		Collection result = new LinkedList();
 		for (Iterator links = container.getEStructuralFeatures().iterator(); links.hasNext();) {
-			EReference link = (EReference) links.next();
+			Object linkObject = links.next();
+			if (false == linkObject instanceof EReference) {
+				continue;
+			}
+			EReference link = (EReference) linkObject;
 			if (EReferenceEditPart.VISUAL_ID != EcoreVisualIDRegistry.getLinkWithClassVisualID(link)) {
 				continue;
 			}
@@ -1186,24 +1178,16 @@ public class EcoreDiagramUpdater {
 	private static Collection getContainedTypeModelFacetLinks_EReference_4003(EClass container) {
 		Collection result = new LinkedList();
 		for (Iterator links = container.getEStructuralFeatures().iterator(); links.hasNext();) {
-			EReference link = (EReference) links.next();
+			Object linkObject = links.next();
+			if (false == linkObject instanceof EReference) {
+				continue;
+			}
+			EReference link = (EReference) linkObject;
 			if (EReference2EditPart.VISUAL_ID != EcoreVisualIDRegistry.getLinkWithClassVisualID(link)) {
 				continue;
 			}
 			EClassifier dst = link.getEType();
 			result.add(new EcoreLinkDescriptor(container, dst, link, EcoreElementTypes.EReference_4003, EReference2EditPart.VISUAL_ID));
-		}
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static Collection getContainedFeatureModelFacetLinks_EClass_ESuperTypes_4004(EClass container) {
-		Collection result = new LinkedList();
-		for (Iterator destinations = container.getESuperTypes().iterator(); destinations.hasNext();) {
-			EClass destination = (EClass) destinations.next();
-			result.add(new EcoreLinkDescriptor(container, destination, EcoreElementTypes.EClassESuperTypes_4004, EClassESuperTypesEditPart.VISUAL_ID));
 		}
 		return result;
 	}
@@ -1292,28 +1276,24 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	private static Collection getOutgoingFeatureModelFacetLinks_EAnnotation_References_4001(EAnnotation source) {
-		return getContainedFeatureModelFacetLinks_EAnnotation_References_4001(source);
-	}
-
-	/**
-	 * @generated
-	 */
-	private static Collection getOutgoingTypeModelFacetLinks_EReference_4002(EClass source) {
-		return getContainedTypeModelFacetLinks_EReference_4002(source);
-	}
-
-	/**
-	 * @generated
-	 */
-	private static Collection getOutgoingTypeModelFacetLinks_EReference_4003(EClass source) {
-		return getContainedTypeModelFacetLinks_EReference_4003(source);
+		Collection result = new LinkedList();
+		for (Iterator destinations = source.getReferences().iterator(); destinations.hasNext();) {
+			EObject destination = (EObject) destinations.next();
+			result.add(new EcoreLinkDescriptor(source, destination, EcoreElementTypes.EAnnotationReferences_4001, EAnnotationReferencesEditPart.VISUAL_ID));
+		}
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
 	private static Collection getOutgoingFeatureModelFacetLinks_EClass_ESuperTypes_4004(EClass source) {
-		return getContainedFeatureModelFacetLinks_EClass_ESuperTypes_4004(source);
+		Collection result = new LinkedList();
+		for (Iterator destinations = source.getESuperTypes().iterator(); destinations.hasNext();) {
+			EClass destination = (EClass) destinations.next();
+			result.add(new EcoreLinkDescriptor(source, destination, EcoreElementTypes.EClassESuperTypes_4004, EClassESuperTypesEditPart.VISUAL_ID));
+		}
+		return result;
 	}
 
 }

@@ -70,9 +70,6 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	protected IParser createEClassName_5001Parser() {
 		EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("{0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -97,9 +94,6 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	protected IParser createEPackageName_5002Parser() {
 		EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("{0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -124,9 +118,6 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	protected IParser createEAnnotationSource_5003Parser() {
 		EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getEAnnotation_Source(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("{0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -151,9 +142,6 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	protected IParser createEDataTypeName_5004Parser() {
 		EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("{0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -178,9 +166,6 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	protected IParser createEEnumName_5005Parser() {
 		EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("{0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -232,9 +217,6 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	protected IParser createEOperation_3002Parser() {
 		EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("{0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -259,9 +241,6 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	protected IParser createEAnnotation_3003Parser() {
 		EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getEAnnotation_Source(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("{0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -286,9 +265,6 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	protected IParser createEClass_3004Parser() {
 		EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("{0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -313,9 +289,6 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	protected IParser createEPackage_3005Parser() {
 		EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("{0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -340,9 +313,6 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	protected IParser createEDataType_3006Parser() {
 		EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("{0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -367,9 +337,6 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	protected IParser createEEnum_3007Parser() {
 		EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("{0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -421,9 +388,6 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	protected IParser createEEnumLiteral_3009Parser() {
 		EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("{0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -448,9 +412,6 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	protected IParser createEReferenceName_6001Parser() {
 		EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("{0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -502,9 +463,6 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	protected IParser createEReferenceName_6002Parser() {
 		EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("{0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
 		return parser;
 	}
 
