@@ -63,7 +63,6 @@ import org.eclipse.gmf.codegen.templates.providers.MetricProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ShortcutsDecoratorProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ShortcutsPropertyTester;
-import org.eclipse.gmf.codegen.templates.providers.ValidationDecoratorProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ValidationProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewProviderGenerator;
@@ -154,7 +153,6 @@ public class CodegenEmitters {
 		put(tr, "/providers/IconProvider.javajet", IconProviderGenerator.class);
 		put(tr, "/providers/ElementInitializers.javajet", ElementInitializersGenerator.class);
 		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class); //$NON-NLS-1$
-		put(tr, "/providers/ValidationDecoratorProvider.javajet", ValidationDecoratorProviderGenerator.class); //$NON-NLS-1$		
 		put(tr, "/providers/ShortcutsDecoratorProvider.javajet", ShortcutsDecoratorProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/editor/ShortcutPropertyTester.javajet", ShortcutsPropertyTester.class); //$NON-NLS-1$
 		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
@@ -452,12 +450,16 @@ public class CodegenEmitters {
 		return retrieve(IconProviderGenerator.class);
 	}
 
+	public TextEmitter getMarkerNavigationProviderEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::diagram::providers::MarkerNavigationProvider"); //$NON-NLS-1$
+	}	
+
 	public TextEmitter getValidationProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ValidationProviderGenerator.class);
 	}
 
 	public TextEmitter getValidationDecoratorProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ValidationDecoratorProviderGenerator.class);
+		return getPrimaryEmitter("xpt::diagram::providers::ValidationDecoratorProvider"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getShortcutsDecoratorProviderEmitter() throws UnexpectedBehaviourException {
@@ -471,11 +473,7 @@ public class CodegenEmitters {
 	public TextEmitter getMetricProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(MetricProviderGenerator.class);
 	}	
-	
-	public TextEmitter getMarkerNavigationProviderEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::providers::MarkerNavigationProvider"); //$NON-NLS-1$
-	}	
-	
+
 	public TextEmitter getAbstractExpressionEmitter() throws UnexpectedBehaviourException {
 		return retrieve(AbstractExpressionGenerator.class);
 	}
