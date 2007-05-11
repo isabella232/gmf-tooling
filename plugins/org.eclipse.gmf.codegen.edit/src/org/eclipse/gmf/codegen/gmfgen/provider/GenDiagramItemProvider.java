@@ -101,6 +101,7 @@ public class GenDiagramItemProvider
 			addDocumentProviderClassNamePropertyDescriptor(object);
 			addInitDiagramFileActionClassNamePropertyDescriptor(object);
 			addNewDiagramFileWizardClassNamePropertyDescriptor(object);
+			addDiagramContentInitializerClassNamePropertyDescriptor(object);
 			addMatchingStrategyClassNamePropertyDescriptor(object);
 			addVisualIDRegistryClassNamePropertyDescriptor(object);
 			addElementChooserClassNamePropertyDescriptor(object);
@@ -1257,6 +1258,28 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Diagram Content Initializer Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDiagramContentInitializerClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EditorCandies_diagramContentInitializerClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_diagramContentInitializerClassName_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_DiagramContentInitializerClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Creation Wizard Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1719,6 +1742,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_CONTENT_INITIALIZER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
