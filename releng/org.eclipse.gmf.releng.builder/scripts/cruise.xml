@@ -11,67 +11,6 @@
 	<property name="cc.publish" value="${buildRoot}/ccpublish" />
 
 	<target name="init">	
-		<delete file="label.properties" />
-		<ant antfile="build.xml" target="create.label.properties" />
-		
-		<delete file="${basedir}/cc.properties" failonerror="false"/>
-		<!-- Store the build properties in a file for CruiseControl to pick up. -->
-		<echo file="${basedir}/cc.properties" append="true">
-buildRoot=${buildRoot}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-cc.home=${cc.home}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-buildmaster.email=${buildmaster.email}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-always.email=${always.email}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-mailhost=${mailhost}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-reporting.url=${reporting.url}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-reportdir=${reportdir}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-checkout=${checkout}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-remotelogs=${remotelogs}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-logs=${logs}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-artifacts=${artifacts}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-ext=${ext}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-cc.publish=${cc.publish}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-scripts=${scripts}
-		</echo>
-
-		<echo file="${basedir}/cc.properties" append="true">
-ccweb.ftp.host=${ccweb.ftp.host}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-ccweb.ftp.user=${ccweb.ftp.user}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-ccweb.ftp.passwd=${ccweb.ftp.passwd}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-		cvs.root=${cvs.root}
-				</echo>
-
 
 		<mkdir dir="${logs}/continuous"/>
 		<mkdir dir="${logs}/integration"/>
