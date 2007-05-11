@@ -227,6 +227,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 	}
 	
+	private void initGenUpdater() {
+		if (getGenEssence().getDiagramUpdater() == null) {
+			getGenEssence().setDiagramUpdater(GMFGenFactory.eINSTANCE.createGenDiagramUpdater());
+		}
+		
+	}
+	
 	private GenNavigator genGenNavigator() {
 		if (getGenEssence().getNavigator() == null) {
 			getGenEssence().setNavigator(GMFGenFactory.eINSTANCE.createGenNavigator());
@@ -279,6 +286,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		
 		initGenPlugin();
+		initGenUpdater();
 
 		myPropertySheetProcessor.initialize(createPropertySheet());
 		myPropertySheetProcessor.process(mapping);
