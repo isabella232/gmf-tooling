@@ -31,7 +31,10 @@ public class «validationDecoratorProviderClassName»
 			".«getValidationDiagnosticMarkerType()»"; //$NON-NLS-1$
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private static MarkerObserver fileObserver = null;
+	private static MarkerObserver fileObserver;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static java.util.Map/*<String, List<IDecorator>>*/ allDecorators = new java.util.HashMap();
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public void createDecorators(org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorTarget decoratorTarget) {
@@ -103,8 +106,7 @@ public class «validationDecoratorProviderClassName»
 			if (view == null || view.eResource() == null) {
 				return;
 			}
-			org.eclipse.core.resources.IResource resource = getResource(view);
-			// make sure we have a resource and that it exists in an open project
+			org.eclipse.core.resources.IResource resource = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(view.eResource());
 			if (resource == null || !resource.exists()) {
 				return;
 			}
@@ -190,15 +192,6 @@ public class «validationDecoratorProviderClassName»
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private static org.eclipse.core.resources.IResource getResource(org.eclipse.gmf.runtime.notation.View view) {
-			org.eclipse.emf.ecore.resource.Resource model = view.eResource();
-			if (model != null) {
-				return org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(model);
-			}
-			return null;
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
 		public void activate() {
 			org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getDecoratorTarget().getAdapter(
 					org.eclipse.gmf.runtime.notation.View.class);
@@ -209,29 +202,40 @@ public class «validationDecoratorProviderClassName»
 			if (diagramView == null) {
 				return;
 			}
-			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(diagramView.eResource());
-			if (file != null) {
-				if (fileObserver == null) {
-					fileObserver = new MarkerObserver(diagramView);
-				}
-				fileObserver.registerDecorator(this);
+			if (viewId == null) {
+				return;
+			}
+			java.util.List list = (java.util.List) allDecorators.get(viewId);
+			if (list == null) {
+				list = new java.util.ArrayList(2);
+				list.add(this);
+				allDecorators.put(viewId, list);
+			} else if (!list.contains(this)) {
+				list.add(this);
+			}
+			if (fileObserver == null) {
+				org.eclipse.gmf.runtime.common.ui.resources.FileChangeManager.getInstance().addFileObserver(
+						fileObserver = new MarkerObserver(diagramView));
 			}
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		public void deactivate() {
-			if (fileObserver != null) {
-				fileObserver.unregisterDecorator(this);
-				if (!fileObserver.isRegistered()) {
-					fileObserver = null;
+			if (viewId == null) {
+				return;
+			}
+			java.util.List list = (java.util.List) allDecorators.get(viewId);
+			if (list != null) {
+				list.remove(this);
+				if (list.isEmpty()) {
+					allDecorators.remove(viewId);
 				}
 			}
+			if (fileObserver != null && allDecorators.isEmpty()) {
+				org.eclipse.gmf.runtime.common.ui.resources.FileChangeManager.getInstance().removeFileObserver(fileObserver);
+				fileObserver = null;
+			}
 			super.deactivate();
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		String getViewId() {
-			return viewId;
 		}
 	}
 
@@ -239,72 +243,11 @@ public class «validationDecoratorProviderClassName»
 	static class MarkerObserver implements org.eclipse.gmf.runtime.common.ui.resources.IFileObserver {
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private java.util.HashMap mapOfIdsToDecorators;
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		private boolean registered;
-
-		«EXPAND xpt::Common::generatedMemberComment»
 		private org.eclipse.gmf.runtime.notation.Diagram diagramView;
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		private MarkerObserver(org.eclipse.gmf.runtime.notation.Diagram diagramView) {
 			this.diagramView = diagramView;
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		private void registerDecorator(StatusDecorator decorator) {
-			if (decorator == null) {
-				return;
-			}
-			if (mapOfIdsToDecorators == null) {
-				mapOfIdsToDecorators = new java.util.HashMap();
-			}
-			String decoratorViewId = decorator.getViewId();
-			if (decoratorViewId == null) {
-				return;
-			}
-			java.util.List list = (java.util.List) mapOfIdsToDecorators.get(decoratorViewId);
-			if (list == null) {
-				list = new java.util.ArrayList(2);
-				list.add(decorator);
-				mapOfIdsToDecorators.put(decoratorViewId, list);
-			} else if (!list.contains(decorator)) {
-				list.add(decorator);
-			}
-			if (!isRegistered()) {
-				org.eclipse.gmf.runtime.common.ui.resources.FileChangeManager.getInstance().addFileObserver(this);
-				registered = true;
-			}
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		private void unregisterDecorator(StatusDecorator decorator) {
-			if (decorator == null) {
-				return;
-			}
-			String decoratorViewId = decorator.getViewId();
-			if (decoratorViewId == null) {
-				return;
-			}
-			if (mapOfIdsToDecorators != null) {
-				java.util.List list = (java.util.List) mapOfIdsToDecorators.get(decoratorViewId);
-				if (list != null) {
-					list.remove(decorator);
-					if (list.isEmpty()) {
-						mapOfIdsToDecorators.remove(decoratorViewId);
-					}
-				}
-				if (mapOfIdsToDecorators.isEmpty()) {
-					mapOfIdsToDecorators = null;
-				}
-			}
-			if (mapOfIdsToDecorators == null) {
-				if (isRegistered()) {
-					org.eclipse.gmf.runtime.common.ui.resources.FileChangeManager.getInstance().removeFileObserver(this);
-					registered = false;
-				}
-			}
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
@@ -332,12 +275,8 @@ public class «validationDecoratorProviderClassName»
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		public void handleMarkerDeleted(org.eclipse.core.resources.IMarker marker, java.util.Map attributes) {
-			if (mapOfIdsToDecorators == null) {
-				return;
-			}
-			// Extract the element guid from the marker and retrieve corresponding view
 			String elementId = (String) attributes.get(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID);
-			java.util.List list = elementId != null ? (java.util.List) mapOfIdsToDecorators.get(elementId) : null;
+			java.util.List list = elementId != null ? (java.util.List) allDecorators.get(elementId) : null;
 			if (list != null && !list.isEmpty()) {
 				refreshDecorators(list);
 			}
@@ -345,13 +284,12 @@ public class «validationDecoratorProviderClassName»
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		public void handleMarkerChanged(org.eclipse.core.resources.IMarker marker) {
-			if (mapOfIdsToDecorators == null || !MARKER_TYPE.equals(getType(marker))) {
+			if (!MARKER_TYPE.equals(getType(marker))) {
 				return;
 			}
-			// Extract the element ID list from the marker and retrieve corresponding view	
 			String elementId = marker.getAttribute(
 					org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, ""); //$NON-NLS-1$
-			java.util.List list = elementId != null ? (java.util.List) mapOfIdsToDecorators.get(elementId) : null;
+			java.util.List list = elementId != null ? (java.util.List) allDecorators.get(elementId) : null;
 			if (list != null && !list.isEmpty()) {
 				refreshDecorators(list);
 			}
@@ -370,9 +308,7 @@ public class «validationDecoratorProviderClassName»
 								for (java.util.Iterator it = decoratorsToRefresh.iterator(); it.hasNext();) {
 									org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecorator decorator =
 											(org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecorator) it.next();
-									if (decorator != null) {
-										decorator.refresh();
-									}
+									decorator.refresh();
 								}
 							}
 						});
@@ -382,11 +318,6 @@ public class «validationDecoratorProviderClassName»
 					}
 				}
 			});
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		private boolean isRegistered() {
-			return registered;
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
