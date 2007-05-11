@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -28,7 +28,6 @@ import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditor;
@@ -39,6 +38,7 @@ import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.resources.FileChangeManager;
 import org.eclipse.gmf.runtime.common.ui.resources.IFileObserver;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditDomain;
 import org.eclipse.gmf.runtime.diagram.ui.services.decorator.AbstractDecorator;
 import org.eclipse.gmf.runtime.diagram.ui.services.decorator.CreateDecoratorsOperation;
@@ -53,7 +53,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
-/** 
+/**
  * @generated
  */
 public class TaiPanValidationDecoratorProvider extends AbstractProvider implements IDecoratorProvider {
@@ -66,7 +66,7 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 	/**
 	 * @generated
 	 */
-	private static final String MARKER_TYPE = TaiPanDiagramEditorPlugin.ID + "." + "diagnostic"; //$NON-NLS-1$ //$NON-NLS-2$
+	private static final String MARKER_TYPE = TaiPanDiagramEditorPlugin.ID + ".diagnostic"; //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -78,7 +78,7 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 	 */
 	public void createDecorators(IDecoratorTarget decoratorTarget) {
 		EditPart editPart = (EditPart) decoratorTarget.getAdapter(EditPart.class);
-		if (editPart instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart || editPart instanceof AbstractConnectionEditPart) {
+		if (editPart instanceof GraphicalEditPart || editPart instanceof AbstractConnectionEditPart) {
 			Object model = editPart.getModel();
 			if ((model instanceof View)) {
 				View view = (View) model;
@@ -103,7 +103,6 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 		if (!(operation instanceof CreateDecoratorsOperation)) {
 			return false;
 		}
-
 		IDecoratorTarget decoratorTarget = ((CreateDecoratorsOperation) operation).getDecoratorTarget();
 		View view = (View) decoratorTarget.getAdapter(View.class);
 		return view != null && AquatoryEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(view));
@@ -142,19 +141,16 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 		 */
 		public void refresh() {
 			removeDecoration();
-
 			View view = (View) getDecoratorTarget().getAdapter(View.class);
 			EditPart editPart = (EditPart) getDecoratorTarget().getAdapter(EditPart.class);
 			if (view == null || view.eResource() == null) {
 				return;
 			}
-
 			IResource resource = getResource(view);
 			// make sure we have a resource and that it exists in an open project
 			if (resource == null || !resource.exists()) {
 				return;
 			}
-
 			// query for all the validation markers of the current resource
 			IMarker[] markers = null;
 			try {
@@ -165,12 +161,10 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 			if (markers == null || markers.length == 0) {
 				return;
 			}
-
 			String elementId = ViewUtil.getIdStr(view);
 			if (elementId == null) {
 				return;
 			}
-
 			IMarker foundMarker = null;
 			Label toolTip = null;
 			int severity = IMarker.SEVERITY_INFO;
@@ -200,16 +194,15 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 			if (foundMarker == null) {
 				return;
 			}
-
 			// add decoration
-			if (editPart instanceof GraphicalEditPart) {
+			if (editPart instanceof org.eclipse.gef.GraphicalEditPart) {
 				Image img = getImage(severity);
 				if (view instanceof Edge) {
 					setDecoration(getDecoratorTarget().addConnectionDecoration(img, 50, true));
 				} else {
 					int margin = -1;
-					if (editPart instanceof GraphicalEditPart) {
-						margin = MapModeUtil.getMapMode(((GraphicalEditPart) editPart).getFigure()).DPtoLP(margin);
+					if (editPart instanceof org.eclipse.gef.GraphicalEditPart) {
+						margin = MapModeUtil.getMapMode(((org.eclipse.gef.GraphicalEditPart) editPart).getFigure()).DPtoLP(margin);
 					}
 					setDecoration(getDecoratorTarget().addShapeDecoration(img, IDecoratorTarget.Direction.NORTH_EAST, margin, true));
 				}
@@ -251,17 +244,18 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 		 */
 		public void activate() {
 			View view = (View) getDecoratorTarget().getAdapter(View.class);
-			if (view == null)
+			if (view == null) {
 				return;
+			}
 			Diagram diagramView = view.getDiagram();
-			if (diagramView == null)
+			if (diagramView == null) {
 				return;
+			}
 			IFile file = WorkspaceSynchronizer.getFile(diagramView.eResource());
 			if (file != null) {
 				if (fileObserver == null) {
 					fileObserver = new MarkerObserver(diagramView);
 				}
-
 				fileObserver.registerDecorator(this);
 			}
 		}
@@ -276,7 +270,6 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 					fileObserver = null;
 				}
 			}
-
 			super.deactivate();
 		}
 
@@ -296,12 +289,12 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 		/**
 		 * @generated
 		 */
-		private HashMap mapOfIdsToDecorators = null;
+		private HashMap mapOfIdsToDecorators;
 
 		/**
 		 * @generated
 		 */
-		private boolean isRegistered = false;
+		private boolean registered;
 
 		/**
 		 * @generated
@@ -322,17 +315,13 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 			if (decorator == null) {
 				return;
 			}
-
 			if (mapOfIdsToDecorators == null) {
 				mapOfIdsToDecorators = new HashMap();
 			}
-
 			String decoratorViewId = decorator.getViewId();
 			if (decoratorViewId == null) {
 				return;
 			}
-
-			/* Add to the list */
 			List list = (List) mapOfIdsToDecorators.get(decoratorViewId);
 			if (list == null) {
 				list = new ArrayList(2);
@@ -341,11 +330,9 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 			} else if (!list.contains(decorator)) {
 				list.add(decorator);
 			}
-
-			/* Register with the file change manager */
 			if (!isRegistered()) {
 				FileChangeManager.getInstance().addFileObserver(this);
-				isRegistered = true;
+				registered = true;
 			}
 		}
 
@@ -353,17 +340,13 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 		 * @generated
 		 */
 		private void unregisterDecorator(StatusDecorator decorator) {
-			/* Return if invalid decorator */
 			if (decorator == null) {
 				return;
 			}
-
-			/* Return if the decorator has invalid view id */
 			String decoratorViewId = decorator.getViewId();
 			if (decoratorViewId == null) {
 				return;
 			}
-
 			if (mapOfIdsToDecorators != null) {
 				List list = (List) mapOfIdsToDecorators.get(decoratorViewId);
 				if (list != null) {
@@ -372,17 +355,14 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 						mapOfIdsToDecorators.remove(decoratorViewId);
 					}
 				}
-
 				if (mapOfIdsToDecorators.isEmpty()) {
 					mapOfIdsToDecorators = null;
 				}
 			}
-
 			if (mapOfIdsToDecorators == null) {
-				/* Unregister with the file change manager */
 				if (isRegistered()) {
 					FileChangeManager.getInstance().removeFileObserver(this);
-					isRegistered = false;
+					registered = false;
 				}
 			}
 		}
@@ -390,25 +370,25 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 		/**
 		 * @generated
 		 */
-		public void handleFileRenamed(IFile oldFile, IFile file) { /* Empty Code */
+		public void handleFileRenamed(IFile oldFile, IFile file) {
 		}
 
 		/**
 		 * @generated
 		 */
-		public void handleFileMoved(IFile oldFile, IFile file) { /* Empty Code */
+		public void handleFileMoved(IFile oldFile, IFile file) {
 		}
 
 		/**
 		 * @generated
 		 */
-		public void handleFileDeleted(IFile file) { /* Empty Code */
+		public void handleFileDeleted(IFile file) {
 		}
 
 		/**
 		 * @generated
 		 */
-		public void handleFileChanged(IFile file) { /* Empty Code */
+		public void handleFileChanged(IFile file) {
 		}
 
 		/**
@@ -427,8 +407,7 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 			if (mapOfIdsToDecorators == null) {
 				return;
 			}
-			// Extract the element guid from the marker and retrieve
-			// corresponding view
+			// Extract the element guid from the marker and retrieve corresponding view
 			String elementId = (String) attributes.get(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID);
 			List list = elementId != null ? (List) mapOfIdsToDecorators.get(elementId) : null;
 			if (list != null && !list.isEmpty()) {
@@ -443,11 +422,9 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 			if (mapOfIdsToDecorators == null || !MARKER_TYPE.equals(getType(marker))) {
 				return;
 			}
-			// Extract the element ID list from the marker and retrieve
-			// corresponding view	
+			// Extract the element ID list from the marker and retrieve corresponding view	
 			String elementId = marker.getAttribute(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, ""); //$NON-NLS-1$
 			List list = elementId != null ? (List) mapOfIdsToDecorators.get(elementId) : null;
-
 			if (list != null && !list.isEmpty()) {
 				refreshDecorators(list);
 			}
@@ -484,7 +461,7 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 		 * @generated
 		 */
 		private boolean isRegistered() {
-			return isRegistered;
+			return registered;
 		}
 
 		/**
