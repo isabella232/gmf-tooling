@@ -44,11 +44,13 @@ import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 public class XpandContentAssistProcessor implements IContentAssistProcessor {
 
     private final XpandEditor editor;
+    private final ProposalComparator comparator;
 
     // FIXME AbstractOawContentAssistProcessor did a nature check - MOVE it Editor
 
     public XpandContentAssistProcessor(final XpandEditor editor) {
         this.editor = editor;
+        this.comparator = new ProposalComparator();
     }
 
     public ICompletionProposal[] computeCompletionProposals(final ITextViewer viewer, final int documentOffset) {
@@ -65,32 +67,35 @@ public class XpandContentAssistProcessor implements IContentAssistProcessor {
             if (p == XpandPartition.COMMENT) {
 				return new ICompletionProposal[0];
 			}
-            List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
+            List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>(20);
             final ProposalFactory f = new ProposalFactoryImpl(documentOffset);
 
             if (p == XpandPartition.TYPE_DECLARATION) {
                 ctx = FastAnalyzer.computeExecutionContext(txt, ctx);
                 proposals = new TypeProposalComputer().computeProposals(txt, ctx, f);
+    			Collections.sort(proposals, comparator);
             } else if (p == XpandPartition.EXPRESSION) {
                 ctx = FastAnalyzer.computeExecutionContext(txt, ctx);
                 final String expression = txt.substring(txt.lastIndexOf(XpandTokens.LT_CHAR) + 1);
-                proposals.addAll(new ExpressionProposalComputer().computeProposals(expression, ctx, f));
-                proposals.addAll(new KeywordProposalComputer(textPastInsertionPoint).computeProposals(txt, ctx, f));
+                List<ICompletionProposal> ep = new ExpressionProposalComputer().computeProposals(expression, ctx, f);
+    			Collections.sort(ep, comparator);
+				proposals.addAll(ep);
+                List<ICompletionProposal> kp = new KeywordProposalComputer(textPastInsertionPoint).computeProposals(txt, ctx, f);
+    			Collections.sort(kp, comparator);
+				proposals.addAll(kp);
             } else if (p == XpandPartition.EXPAND_STATEMENT) {
                 ctx = FastAnalyzer.computeExecutionContext(txt, ctx);
-                proposals.addAll(new ExpandProposalComputer().computeProposals(txt, ctx, f));
+                List<ICompletionProposal> ep = new ExpandProposalComputer().computeProposals(txt, ctx, f);
+    			Collections.sort(ep, comparator);
+				proposals.addAll(ep);
                 proposals.add(new org.eclipse.jface.text.contentassist.CompletionProposal(XpandTokens.LT + XpandTokens.RT, documentOffset, 0, 1));
             } else if (p == XpandPartition.DEFAULT) {
                 ctx = FastAnalyzer.computeExecutionContext(txt, ctx);
-                proposals.addAll(new StatementProposalComputer().computeProposals(txt, ctx, f));
+                List<ICompletionProposal> sp = new StatementProposalComputer().computeProposals(txt, ctx, f);
+    			Collections.sort(sp, comparator);
+				proposals.addAll(sp);
                 proposals.add(new org.eclipse.jface.text.contentassist.CompletionProposal(XpandTokens.LT + XpandTokens.RT, documentOffset, 0, 1));
             }
-            Collections.sort(proposals, new Comparator<ICompletionProposal>() {
-                public int compare(final ICompletionProposal p1, final ICompletionProposal p2) {
-                	// XXX better would be put most matching proposal first!!!
-                    return p1.getDisplayString().compareTo(p2.getDisplayString());
-                }
-            });
             return proposals.toArray(new ICompletionProposal[proposals.size()]);
         } catch (final Exception e) {
             Activator.logError(e);
@@ -117,5 +122,12 @@ public class XpandContentAssistProcessor implements IContentAssistProcessor {
     public IContextInformationValidator getContextInformationValidator() {
     	// TODO Auto-generated method stub
     	return null;
+    }
+
+    private static class ProposalComparator implements Comparator<ICompletionProposal> {
+        public int compare(final ICompletionProposal p1, final ICompletionProposal p2) {
+        	// XXX better would be put most matching proposal first!!!
+            return p1.getDisplayString().compareTo(p2.getDisplayString());
+        }
     }
 }
