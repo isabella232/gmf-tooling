@@ -13,12 +13,9 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -32,6 +29,7 @@ import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationDecoratorProvider;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider;
 import org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor;
 import org.eclipse.gmf.runtime.diagram.ui.OffscreenEditPartFactory;
@@ -149,7 +147,7 @@ public class ValidateAction extends Action {
 	 */
 	private static void validate(DiagramEditPart diagramEditPart, View view) {
 		View target = view;
-		getMarkers(diagramEditPart.getViewer()).clear();
+		ValidationMarker.removeAllMarkers(diagramEditPart.getViewer());
 		Diagnostic diagnostic = runEMFValidator(view);
 		createMarkers(target, diagnostic, diagramEditPart);
 		IBatchValidator validator = (IBatchValidator) ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
@@ -157,6 +155,13 @@ public class ValidateAction extends Action {
 		if (view.isSetElement() && view.getElement() != null) {
 			IStatus status = validator.validate(view.getElement());
 			createMarkers(target, status, diagramEditPart);
+		}
+		TaiPanValidationDecoratorProvider.refreshDecorators(view);
+		for (Iterator it = view.eAllContents(); it.hasNext();) {
+			EObject next = (EObject) it.next();
+			if (next instanceof View) {
+				TaiPanValidationDecoratorProvider.refreshDecorators((View) next);
+			}
 		}
 	}
 
@@ -209,7 +214,7 @@ public class ValidateAction extends Action {
 		if (target == null) {
 			return;
 		}
-		getMarkers(viewer, target, true).add(new Marker(elementId, location, message, statusSeverity));
+		new ValidationMarker(location, message, statusSeverity).add(viewer, elementId);
 	}
 
 	/**
@@ -262,112 +267,5 @@ public class ValidateAction extends Action {
 			}
 		}
 		return targetElementCollector;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static Map getMarkers(EditPartViewer viewer) {
-		Map markers = (Map) viewer.getProperty(VALIDATE_ACTION_KEY);
-		if (markers == null) {
-			markers = new HashMap();
-			viewer.setProperty(VALIDATE_ACTION_KEY, markers);
-		}
-		return markers;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static Set getMarkers(EditPartViewer viewer, View view, boolean create) {
-		Set markers = (Set) getMarkers(viewer).get(view);
-		if (markers == null) {
-			if (!create) {
-				return Collections.EMPTY_SET;
-			}
-			markers = new HashSet();
-			getMarkers(viewer).put(view, markers);
-		}
-		return markers;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static Marker[] getMarkers(EditPartViewer viewer, View view) {
-		Set markers = getMarkers(viewer, view, false);
-		if (markers.isEmpty()) {
-			return Marker.EMPTY_ARRAY;
-		}
-		return (Marker[]) markers.toArray(new Marker[markers.size()]);
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class Marker {
-
-		/**
-		 * @generated
-		 */
-		public static final Marker[] EMPTY_ARRAY = new Marker[0];
-
-		/**
-		 * @generated
-		 */
-		private final String elementId;
-
-		/**
-		 * @generated
-		 */
-		private final String location;
-
-		/**
-		 * @generated
-		 */
-		private final String message;
-
-		/**
-		 * @generated
-		 */
-		private final int statusSeverity;
-
-		/**
-		 * @generated
-		 */
-		public Marker(String elementId, String location, String message, int statusSeverity) {
-			this.elementId = elementId;
-			this.location = location;
-			this.message = message;
-			this.statusSeverity = statusSeverity;
-		}
-
-		/**
-		 * @generated
-		 */
-		public String getElementId() {
-			return elementId;
-		}
-
-		/**
-		 * @generated
-		 */
-		public String getLocation() {
-			return location;
-		}
-
-		/**
-		 * @generated
-		 */
-		public String getMessage() {
-			return message;
-		}
-
-		/**
-		 * @generated
-		 */
-		public int getStatusSeverity() {
-			return statusSeverity;
-		}
 	}
 }

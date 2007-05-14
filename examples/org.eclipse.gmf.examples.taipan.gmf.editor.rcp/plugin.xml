@@ -179,7 +179,7 @@ Contributors:
    <extension id="ValidationContributionItemProvider" name="Validation"
       point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
       <?gmfgen generated="true"?>
-      <contributionItemProvider checkPluginLoaded="true"
+      <contributionItemProvider
          class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider">
          <Priority name="Low"/>
          <partContribution id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
@@ -331,10 +331,12 @@ Contributors:
       </ParserProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+   <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
       <?gmfgen generated="true"?>
-      <decoratorProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanShortcutsDecoratorProvider">
+      <decoratorProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationDecoratorProvider">
          <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
+         <context decoratorTargets="PRIMARY_VIEW"/>
       </decoratorProvider>
    </extension>
 
@@ -618,4 +620,11 @@ Contributors:
                   <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ship_name"/>
                </binding>
                </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <?gmfgen generated="true"?>
+      <decoratorProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanShortcutsDecoratorProvider">
+         <Priority name="Lowest"/>
+      </decoratorProvider>
+   </extension>
 </plugin>
