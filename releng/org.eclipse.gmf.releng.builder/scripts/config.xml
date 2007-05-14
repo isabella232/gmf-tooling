@@ -214,45 +214,44 @@
 		</publishers>
 	</project>
 	
-	<project name="runtime.thirdparty" buildafterfailed="true">
+	<project name="gmfbase" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
-				file="${logs}/runtime.thirdparty/buildstatus.txt" />
+				file="${logs}/gmfbase/buildstatus.txt" />
 			<currentbuildstatusftplistener
 				targetHost="${ccweb.ftp.host}"
 				targetUser="${ccweb.ftp.user}"
 				targetPasswd="${ccweb.ftp.passwd}"
 				destdir="/"
-				file="${remotelogs}/runtime.thirdparty/buildstatus.txt" />
+				file="${remotelogs}/gmfbase/buildstatus.txt" />
 		</listeners>
 
 		<bootstrappers></bootstrappers>
 
-		<modificationset>
-			<alwaysbuild /> 
+		<modificationset quietperiod="10">
+			<cvs
+				cvsroot="${cvs.root}"
+				module="org.eclipse.gmf/releng/org.eclipse.gmf.releng.target" />
 		</modificationset>
 
 		<schedule>
-			<ant time="0300" antscript="./build.${ext}" buildfile="buildThirdparty.xml"
+			<ant interval="60" antscript="./build.${ext}" buildfile="buildBase.xml"
 				target="main" uselogger="true" usedebug="false" usequiet="true">				
-				<property name="fetchTag" value="HEAD" />
-				<property name="buildType" value="S" />
-				<property name="forceContextQualifier" value="v${date}-${time}" />
 			</ant>
 		</schedule>
 
-		<log dir="${logs}/runtime.thirdparty">
+		<log dir="${logs}/gmfbase">
 			<merge dir="${artifacts}/cc" />
 		</log>
 
 		<publishers>
-			<htmlemail buildresultsurl="${reporting.url}/buildresults/runtime.thirdparty"
-			logdir="${logs}/runtime.thirdparty">
+			<htmlemail buildresultsurl="${reporting.url}/buildresults/gmfbase"
+			logdir="${logs}/gmfbase">
 				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/cc"
-				dest="${cc.publish}/runtime.thirdparty/" />
-			<ftppublisher destDir="${remotelogs}/runtime.thirdparty" srcDir="${logs}/runtime.thirdparty"
+				dest="${cc.publish}/gmfbase/" />
+			<ftppublisher destDir="${remotelogs}/gmfbase" srcDir="${logs}/gmfbase"
 				targetHost="${ccweb.ftp.host}"
 				targetUser="${ccweb.ftp.user}"
 				targetPasswd="${ccweb.ftp.passwd}" />
