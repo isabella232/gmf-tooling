@@ -115,6 +115,42 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 	/**
 	 * @generated
 	 */
+	public static void refreshDecorators(View view) {
+		refreshDecorators(ViewUtil.getIdStr(view), view.getDiagram());
+	}
+
+	/**
+	 * @generated
+	 */
+	private static void refreshDecorators(String viewId, Diagram diagram) {
+		final List decorators = viewId != null ? (List) allDecorators.get(viewId) : null;
+		if (decorators == null || decorators.isEmpty() || diagram == null) {
+			return;
+		}
+		final Diagram fdiagram = diagram;
+		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+
+			public void run() {
+				try {
+					TransactionUtil.getEditingDomain(fdiagram).runExclusive(new Runnable() {
+
+						public void run() {
+							for (Iterator it = decorators.iterator(); it.hasNext();) {
+								IDecorator decorator = (IDecorator) it.next();
+								decorator.refresh();
+							}
+						}
+					});
+				} catch (Exception e) {
+					TaiPanDiagramEditorPlugin.getInstance().logError("Decorator refresh failure", e); //$NON-NLS-1$
+				}
+			}
+		});
+	}
+
+	/**
+	 * @generated
+	 */
 	public static class StatusDecorator extends AbstractDecorator {
 
 		/**
@@ -146,20 +182,20 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 		public void refresh() {
 			removeDecoration();
 			View view = (View) getDecoratorTarget().getAdapter(View.class);
-			EditPart editPart = (EditPart) getDecoratorTarget().getAdapter(EditPart.class);
 			if (view == null || view.eResource() == null) {
 				return;
 			}
+
+			// query for all the validation markers of the current resource
 			IResource resource = WorkspaceSynchronizer.getFile(view.eResource());
 			if (resource == null || !resource.exists()) {
 				return;
 			}
-			// query for all the validation markers of the current resource
 			IMarker[] markers = null;
 			try {
 				markers = resource.findMarkers(MARKER_TYPE, true, IResource.DEPTH_INFINITE);
 			} catch (CoreException e) {
-				TaiPanDiagramEditorPlugin.getInstance().logError("Validation marker refresh failure", e); //$NON-NLS-1$
+				TaiPanDiagramEditorPlugin.getInstance().logError("Validation markers refresh failure", e); //$NON-NLS-1$
 			}
 			if (markers == null || markers.length == 0) {
 				return;
@@ -197,17 +233,18 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 			if (foundMarker == null) {
 				return;
 			}
+
 			// add decoration
+			EditPart editPart = (EditPart) getDecoratorTarget().getAdapter(EditPart.class);
 			if (editPart instanceof org.eclipse.gef.GraphicalEditPart) {
-				Image img = getImage(severity);
 				if (view instanceof Edge) {
-					setDecoration(getDecoratorTarget().addConnectionDecoration(img, 50, true));
+					setDecoration(getDecoratorTarget().addConnectionDecoration(getImage(severity), 50, true));
 				} else {
 					int margin = -1;
 					if (editPart instanceof org.eclipse.gef.GraphicalEditPart) {
 						margin = MapModeUtil.getMapMode(((org.eclipse.gef.GraphicalEditPart) editPart).getFigure()).DPtoLP(margin);
 					}
-					setDecoration(getDecoratorTarget().addShapeDecoration(img, IDecoratorTarget.Direction.NORTH_EAST, margin, true));
+					setDecoration(getDecoratorTarget().addShapeDecoration(getImage(severity), IDecoratorTarget.Direction.NORTH_EAST, margin, true));
 				}
 				getDecoration().setToolTip(toolTip);
 			}
@@ -235,17 +272,11 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 		 * @generated
 		 */
 		public void activate() {
-			View view = (View) getDecoratorTarget().getAdapter(View.class);
-			if (view == null) {
-				return;
-			}
-			Diagram diagramView = view.getDiagram();
-			if (diagramView == null) {
-				return;
-			}
 			if (viewId == null) {
 				return;
 			}
+
+			// add self to global decorators registry
 			List list = (List) allDecorators.get(viewId);
 			if (list == null) {
 				list = new ArrayList(2);
@@ -253,6 +284,16 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 				allDecorators.put(viewId, list);
 			} else if (!list.contains(this)) {
 				list.add(this);
+			}
+
+			// start listening to changes in resources
+			View view = (View) getDecoratorTarget().getAdapter(View.class);
+			if (view == null) {
+				return;
+			}
+			Diagram diagramView = view.getDiagram();
+			if (diagramView == null) {
+				return;
 			}
 			if (fileObserver == null) {
 				FileChangeManager.getInstance().addFileObserver(fileObserver = new MarkerObserver(diagramView));
@@ -266,6 +307,8 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 			if (viewId == null) {
 				return;
 			}
+
+			// remove self from global decorators registry
 			List list = (List) allDecorators.get(viewId);
 			if (list != null) {
 				list.remove(this);
@@ -273,6 +316,8 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 					allDecorators.remove(viewId);
 				}
 			}
+
+			// stop listening to changes in resources if there are no more decorators
 			if (fileObserver != null && allDecorators.isEmpty()) {
 				FileChangeManager.getInstance().removeFileObserver(fileObserver);
 				fileObserver = null;
@@ -289,13 +334,13 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 		/**
 		 * @generated
 		 */
-		private Diagram diagramView;
+		private Diagram diagram;
 
 		/**
 		 * @generated
 		 */
-		private MarkerObserver(Diagram diagramView) {
-			this.diagramView = diagramView;
+		private MarkerObserver(Diagram diagram) {
+			this.diagram = diagram;
 		}
 
 		/**
@@ -335,11 +380,8 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 		 * @generated
 		 */
 		public void handleMarkerDeleted(IMarker marker, Map attributes) {
-			String elementId = (String) attributes.get(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID);
-			List list = elementId != null ? (List) allDecorators.get(elementId) : null;
-			if (list != null && !list.isEmpty()) {
-				refreshDecorators(list);
-			}
+			String viewId = (String) attributes.get(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID);
+			refreshDecorators(viewId, diagram);
 		}
 
 		/**
@@ -349,36 +391,8 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 			if (!MARKER_TYPE.equals(getType(marker))) {
 				return;
 			}
-			String elementId = marker.getAttribute(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, ""); //$NON-NLS-1$
-			List list = elementId != null ? (List) allDecorators.get(elementId) : null;
-			if (list != null && !list.isEmpty()) {
-				refreshDecorators(list);
-			}
-		}
-
-		/**
-		 * @generated
-		 */
-		private void refreshDecorators(List decorators) {
-			final List decoratorsToRefresh = decorators;
-			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-
-				public void run() {
-					try {
-						TransactionUtil.getEditingDomain(diagramView).runExclusive(new Runnable() {
-
-							public void run() {
-								for (Iterator it = decoratorsToRefresh.iterator(); it.hasNext();) {
-									IDecorator decorator = (IDecorator) it.next();
-									decorator.refresh();
-								}
-							}
-						});
-					} catch (Exception e) {
-						TaiPanDiagramEditorPlugin.getInstance().logError("Decorator refresh failure", e); //$NON-NLS-1$
-					}
-				}
-			});
+			String viewId = marker.getAttribute(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, ""); //$NON-NLS-1$
+			refreshDecorators(viewId, diagram);
 		}
 
 		/**
