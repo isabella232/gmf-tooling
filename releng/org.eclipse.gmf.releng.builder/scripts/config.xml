@@ -234,7 +234,7 @@
 				module="org.eclipse.gmf/releng/org.eclipse.gmf.releng.target" />
 		</modificationset>
 
-		<schedule interval="60">
+		<schedule interval="300">
 			<ant antscript="./build.${ext}" buildfile="buildBase.xml"
 				target="main" uselogger="true" usedebug="false" usequiet="true">				
 			</ant>
