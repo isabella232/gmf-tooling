@@ -318,7 +318,7 @@ public class TaiPanDiagramUpdater {
 	public static List getPort_2001ContainedLinks(View view) {
 		Port modelElement = (Port) view.getElement();
 		List result = new LinkedList();
-		result.addAll(getContainedFeatureModelFacetLinks_Port_Register_4007(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_Port_Register_4007(modelElement));
 		return result;
 	}
 
@@ -328,7 +328,7 @@ public class TaiPanDiagramUpdater {
 	public static List getShip_2002ContainedLinks(View view) {
 		Ship modelElement = (Ship) view.getElement();
 		List result = new LinkedList();
-		result.addAll(getContainedFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
 		return result;
 	}
 
@@ -338,7 +338,7 @@ public class TaiPanDiagramUpdater {
 	public static List getWarship_2003ContainedLinks(View view) {
 		Warship modelElement = (Warship) view.getElement();
 		List result = new LinkedList();
-		result.addAll(getContainedFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
 		result.addAll(getContainedTypeModelFacetLinks_EscortShipsOrder_4006(modelElement));
 		result.addAll(getContainedTypeModelFacetLinks_BesiegePortOrder_4005(modelElement));
 		return result;
@@ -509,8 +509,8 @@ public class TaiPanDiagramUpdater {
 		Warship modelElement = (Warship) view.getElement();
 		List result = new LinkedList();
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
-		result.addAll(getOutgoingTypeModelFacetLinks_EscortShipsOrder_4006(modelElement));
-		result.addAll(getOutgoingTypeModelFacetLinks_BesiegePortOrder_4005(modelElement));
+		result.addAll(getContainedTypeModelFacetLinks_EscortShipsOrder_4006(modelElement));
+		result.addAll(getContainedTypeModelFacetLinks_BesiegePortOrder_4005(modelElement));
 		return result;
 	}
 
@@ -566,19 +566,9 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getContainedFeatureModelFacetLinks_Ship_Destination_4001(Ship container) {
-		Collection result = new LinkedList();
-		Port destination = container.getDestination();
-		result.add(new TaiPanLinkDescriptor(container, destination, TaiPanElementTypes.ShipDestination_4001, ShipDestinationEditPart.VISUAL_ID));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
 	private static Collection getContainedTypeModelFacetLinks_EscortShipsOrder_4006(Warship container) {
 		Collection result = new LinkedList();
-		EscortShipsOrder link = (EscortShipsOrder) container.getEscortOrder();
+		EscortShipsOrder link = container.getEscortOrder();
 		if (EscortShipsOrderEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(link)) {
 			return result;
 		}
@@ -598,24 +588,16 @@ public class TaiPanDiagramUpdater {
 	private static Collection getContainedTypeModelFacetLinks_BesiegePortOrder_4005(Warship container) {
 		Collection result = new LinkedList();
 		for (Iterator links = container.getAttackOrders().iterator(); links.hasNext();) {
-			BesiegePortOrder link = (BesiegePortOrder) links.next();
+			Object linkObject = links.next();
+			if (false == linkObject instanceof BesiegePortOrder) {
+				continue;
+			}
+			BesiegePortOrder link = (BesiegePortOrder) linkObject;
 			if (BesiegePortOrderEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(link)) {
 				continue;
 			}
 			Port dst = link.getPort();
 			result.add(new TaiPanLinkDescriptor(container, dst, link, TaiPanElementTypes.BesiegePortOrder_4005, BesiegePortOrderEditPart.VISUAL_ID));
-		}
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static Collection getContainedFeatureModelFacetLinks_Port_Register_4007(Port container) {
-		Collection result = new LinkedList();
-		for (Iterator destinations = container.getRegister().iterator(); destinations.hasNext();) {
-			Ship destination = (Ship) destinations.next();
-			result.add(new TaiPanLinkDescriptor(container, destination, TaiPanElementTypes.PortRegister_4007, PortRegisterEditPart.VISUAL_ID));
 		}
 		return result;
 	}
@@ -746,7 +728,10 @@ public class TaiPanDiagramUpdater {
 	 * @generated
 	 */
 	private static Collection getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(Ship source) {
-		return getContainedFeatureModelFacetLinks_Ship_Destination_4001(source);
+		Collection result = new LinkedList();
+		Port destination = source.getDestination();
+		result.add(new TaiPanLinkDescriptor(source, destination, TaiPanElementTypes.ShipDestination_4001, ShipDestinationEditPart.VISUAL_ID));
+		return result;
 	}
 
 	/**
@@ -767,7 +752,11 @@ public class TaiPanDiagramUpdater {
 		}
 		Collection result = new LinkedList();
 		for (Iterator links = container.getRoutes().iterator(); links.hasNext();) {
-			Route link = (Route) links.next();
+			Object linkObject = links.next();
+			if (false == linkObject instanceof Route) {
+				continue;
+			}
+			Route link = (Route) linkObject;
 			if (ReliableRouteEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(link)) {
 				continue;
 			}
@@ -799,7 +788,11 @@ public class TaiPanDiagramUpdater {
 		}
 		Collection result = new LinkedList();
 		for (Iterator links = container.getRoutes().iterator(); links.hasNext();) {
-			Route link = (Route) links.next();
+			Object linkObject = links.next();
+			if (false == linkObject instanceof Route) {
+				continue;
+			}
+			Route link = (Route) linkObject;
 			if (UnreliableRouteEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(link)) {
 				continue;
 			}
@@ -816,22 +809,13 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getOutgoingTypeModelFacetLinks_EscortShipsOrder_4006(Warship source) {
-		return getContainedTypeModelFacetLinks_EscortShipsOrder_4006(source);
-	}
-
-	/**
-	 * @generated
-	 */
-	private static Collection getOutgoingTypeModelFacetLinks_BesiegePortOrder_4005(Warship source) {
-		return getContainedTypeModelFacetLinks_BesiegePortOrder_4005(source);
-	}
-
-	/**
-	 * @generated
-	 */
 	private static Collection getOutgoingFeatureModelFacetLinks_Port_Register_4007(Port source) {
-		return getContainedFeatureModelFacetLinks_Port_Register_4007(source);
+		Collection result = new LinkedList();
+		for (Iterator destinations = source.getRegister().iterator(); destinations.hasNext();) {
+			Ship destination = (Ship) destinations.next();
+			result.add(new TaiPanLinkDescriptor(source, destination, TaiPanElementTypes.PortRegister_4007, PortRegisterEditPart.VISUAL_ID));
+		}
+		return result;
 	}
 
 }
