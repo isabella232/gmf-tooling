@@ -12,7 +12,7 @@
 	<project name="checkout" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
-				file="${logs}/checkout/buildstatus.txt" /> 
+				file="${cc.logs}/checkout/buildstatus.txt" /> 
 			<currentbuildstatusftplistener
 				targetHost="${ccweb.ftp.host}"
 				targetUser="${ccweb.ftp.user}"
@@ -52,9 +52,9 @@
 		</schedule>
 
 		<!-- directory to write build logs to -->
-		<log dir="${logs}/checkout" />
+		<log dir="${cc.logs}/checkout" />
 		<publishers>
-			<ftppublisher destDir="${remotelogs}/checkout" srcDir="${logs}/checkout"
+			<ftppublisher destDir="${remotelogs}/checkout" srcDir="${cc.logs}/checkout"
 				targetHost="${ccweb.ftp.host}"
 				targetUser="${ccweb.ftp.user}"
 				targetPasswd="${ccweb.ftp.passwd}" />
@@ -64,7 +64,7 @@
 	<project name="continuous" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
-				file="${logs}/continuous/buildstatus.txt" />
+				file="${cc.logs}/continuous/buildstatus.txt" />
 			<currentbuildstatusftplistener
 				targetHost="${ccweb.ftp.host}"
 				targetUser="${ccweb.ftp.user}"
@@ -81,7 +81,7 @@
 			whether to run the build -->
 		<modificationset>
 <!--		    <alwaysbuild/>  -->
-		    <buildstatus logdir="${logs}/checkout" />
+		    <buildstatus logdir="${cc.logs}/checkout" />
 		</modificationset>
 
 		<!-- Configures the actual build loop, how often and which
@@ -97,19 +97,19 @@
 		</schedule>
 
 		<!-- directory to write build logs to -->
-		<log dir="${logs}/continuous">
-			<merge dir="${artifacts}/cc" />
+		<log dir="${cc.logs}/continuous">
+			<merge dir="${lastresults}" />
 		</log>
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
 			<htmlemail buildresultsurl="${reporting.url}/buildresults/continuous"
-			logdir="${logs}/continuous">
+			logdir="${cc.logs}/continuous">
 				<always address="${always.email}" />
 			</htmlemail>
-			<artifactspublisher dir="${artifacts}/cc"
-				dest="${cc.publish}/continuous/" />
-			<ftppublisher destDir="${remotelogs}/continuous" srcDir="${logs}/continuous"
+			<artifactspublisher dir="${lastresults}"
+				dest="${cc.artifacts}/continuous/" />
+			<ftppublisher destDir="${remotelogs}/continuous" srcDir="${cc.logs}/continuous"
 				targetHost="${ccweb.ftp.host}"
 				targetUser="${ccweb.ftp.user}"
 				targetPasswd="${ccweb.ftp.passwd}" />
@@ -119,7 +119,7 @@
 	<project name="nightly" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
-				file="${logs}/nightly/buildstatus.txt" />
+				file="${cc.logs}/nightly/buildstatus.txt" />
 			<currentbuildstatusftplistener
 				targetHost="${ccweb.ftp.host}"
 				targetUser="${ccweb.ftp.user}"
@@ -150,19 +150,19 @@
 		</schedule>
 
 		<!-- directory to write build logs to -->
-		<log dir="${logs}/nightly">
-			<merge dir="${artifacts}/cc" />
+		<log dir="${cc.logs}/nightly">
+			<merge dir="${lastresults}" />
 		</log>
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
 			<htmlemail buildresultsurl="${reporting.url}/buildresults/nightly"
-			logdir="${logs}/nightly">
+			logdir="${cc.logs}/nightly">
 				<always address="${always.email}" />
 			</htmlemail>
-			<artifactspublisher dir="${artifacts}/cc"
-				dest="${cc.publish}/nightly/" />
-			<ftppublisher destDir="${remotelogs}/nightly" srcDir="${logs}/nightly"
+			<artifactspublisher dir="${lastresults}"
+				dest="${cc.artifacts}/nightly/" />
+			<ftppublisher destDir="${remotelogs}/nightly" srcDir="${cc.logs}/nightly"
 				targetHost="${ccweb.ftp.host}"
 				targetUser="${ccweb.ftp.user}"
 				targetPasswd="${ccweb.ftp.passwd}" />
@@ -171,7 +171,7 @@
 	<project name="integration" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
-				file="${logs}/integration/buildstatus.txt" />
+				file="${cc.logs}/integration/buildstatus.txt" />
 			<currentbuildstatusftplistener
 				targetHost="${ccweb.ftp.host}"
 				targetUser="${ccweb.ftp.user}"
@@ -196,18 +196,18 @@
 			</ant>
 		</schedule>
 
-		<log dir="${logs}/integration">
-			<merge dir="${artifacts}/cc" />
+		<log dir="${cc.logs}/integration">
+			<merge dir="${lastresults}" />
 		</log>
 
 		<publishers>
 			<htmlemail buildresultsurl="${reporting.url}/buildresults/integration"
-			logdir="${logs}/integration">
+			logdir="${cc.logs}/integration">
 				<always address="${always.email}" />
 			</htmlemail>
-			<artifactspublisher dir="${artifacts}/cc"
-				dest="${cc.publish}/integration/" />
-			<ftppublisher destDir="${remotelogs}/integration" srcDir="${logs}/integration"
+			<artifactspublisher dir="${lastresults}"
+				dest="${cc.artifacts}/integration/" />
+			<ftppublisher destDir="${remotelogs}/integration" srcDir="${cc.logs}/integration"
 				targetHost="${ccweb.ftp.host}"
 				targetUser="${ccweb.ftp.user}"
 				targetPasswd="${ccweb.ftp.passwd}" />
@@ -217,7 +217,7 @@
 	<project name="gmfbase" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
-				file="${logs}/gmfbase/buildstatus.txt" />
+				file="${cc.logs}/gmfbase/buildstatus.txt" />
 			<currentbuildstatusftplistener
 				targetHost="${ccweb.ftp.host}"
 				targetUser="${ccweb.ftp.user}"
@@ -240,18 +240,18 @@
 			</ant>
 		</schedule>
 
-		<log dir="${logs}/gmfbase">
-			<merge dir="${artifacts}/cc" />
+		<log dir="${cc.logs}/gmfbase">
+			<merge dir="${lastresults}" />
 		</log>
 
 		<publishers>
 			<htmlemail buildresultsurl="${reporting.url}/buildresults/gmfbase"
-			logdir="${logs}/gmfbase">
+			logdir="${cc.logs}/gmfbase">
 				<always address="${always.email}" />
 			</htmlemail>
-			<artifactspublisher dir="${artifacts}/cc"
-				dest="${cc.publish}/gmfbase/" />
-			<ftppublisher destDir="${remotelogs}/gmfbase" srcDir="${logs}/gmfbase"
+			<artifactspublisher dir="${lastresults}"
+				dest="${cc.artifacts}/gmfbase/" />
+			<ftppublisher destDir="${remotelogs}/gmfbase" srcDir="${cc.logs}/gmfbase"
 				targetHost="${ccweb.ftp.host}"
 				targetUser="${ccweb.ftp.user}"
 				targetPasswd="${ccweb.ftp.passwd}" />

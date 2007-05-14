@@ -41,6 +41,6 @@
 			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="componentsTag" value="${stable.components}" />
 		</ant>
+		<antcall target="cc.publish"/>
 	</target>
-
 </project>

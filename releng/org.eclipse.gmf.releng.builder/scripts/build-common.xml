@@ -13,6 +13,14 @@
 		</copy>
 	</target>
 	
+	<target name="cc.publish">
+		<echo message="Publishing build results for CruiseControl"/>
+		<delete dir="${cc.publish}/lastresults" failonerror="false"/>
+		<copy todir="${cc.publish}/lastresults">
+		    <fileset dir="${artifacts}/drops/${buildLabel}"/>
+		</copy>
+	</target>
+
 	<target name="cleanupArtifacts">
 		 <property file="build.properties"/>
 		<delete includeEmptyDirs="true">
