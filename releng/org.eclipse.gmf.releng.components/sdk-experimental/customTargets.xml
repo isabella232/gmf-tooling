@@ -205,11 +205,6 @@
 		</ant>
 		<!-- Publishing downloadable bits -->
 		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/drops/${buildLabel}"/>
-		<!-- workaround for CC until figure out how to tell CC about buildLabel -->
-		<delete dir="${artifacts}/cc" failonerror="false"/>
-		<copy todir="${artifacts}/cc">
-		    <fileset dir="${artifacts}/drops/${buildLabel}"/>
-		</copy>
 	</target>
 
 	<!-- ===================================================================== -->
