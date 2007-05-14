@@ -14,6 +14,7 @@
  */
 package org.eclipse.gmf.internal.xpand.ast;
 
+import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 
@@ -23,10 +24,29 @@ public abstract class Statement extends SyntaxElement implements XpandAnalyzable
     }
 
     public final void evaluate(final XpandExecutionContext ctx) {
-        ctx.getOutput().enterStatement(this);
-        evaluateInternal(ctx);
-        ctx.getOutput().exitStatement(null);
+        try {
+        	notifyEnter(ctx);
+            ctx.getOutput().enterStatement(this);
+        	evaluateInternal(ctx);
+            ctx.getOutput().exitStatement(null);
+        } finally {
+        	notifyLeave(ctx);
+        }
     }
 
     protected abstract void evaluateInternal(XpandExecutionContext ctx);
+
+    private void notifyEnter(XpandExecutionContext ctx) {
+    	EvaluationListener l = ctx.getEvaluationListener();
+    	if (l != null) {
+    		l.enter(this, ctx);
+    	}
+    }
+
+    private void notifyLeave(XpandExecutionContext ctx) {
+    	EvaluationListener l = ctx.getEvaluationListener();
+    	if (l != null) {
+    		l.leave(this, ctx);
+    	}
+    }
 }

@@ -19,6 +19,7 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
+import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
 import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 
 /**
@@ -26,7 +27,9 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
  * @author Arno Haase
  * XXX [artem] I'd better split this into two parts, "Scope" (no subtypes) with Variables and Resource - the part that 
  * is actually being changed/cloned, and "Context" itself, with methods to access types/definition/templates/output/whatever
- * XXX leave this as "Context" and add "Environment"? 
+ * XXX leave this as "Context" and add "Environment"?
+ * Plus, would be great to have some cancellation behavior avialable from environment (i.e. for debuger to be able to stop execution)
+ * XXX move to xpand.model out from xpand.expression package 
  */
 public interface ExecutionContext {
 
@@ -66,4 +69,7 @@ public interface ExecutionContext {
 	
 	// instead of ResourceLoaderFactory.createResourceLoader()
 	Class loadClass(String value);
+
+	// [artem] if not null, should be notified about entering/leaving xpand ast elements
+	EvaluationListener getEvaluationListener();
 }

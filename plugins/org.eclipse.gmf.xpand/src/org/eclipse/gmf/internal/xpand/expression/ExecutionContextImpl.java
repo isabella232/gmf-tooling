@@ -34,6 +34,7 @@ import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
+import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
 import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 import org.eclipse.gmf.internal.xpand.xtend.ast.ExtensionFile;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
@@ -49,6 +50,8 @@ public class ExecutionContextImpl implements ExecutionContext {
     private final Map<String, Variable> globalVars = new HashMap<String, Variable> ();
 
     private ClassLoader contextClassLoader;
+
+    private EvaluationListener evaluationListener;
 
     /**
      * this field is conceptually final, i.e. it is set only at object construction time. To simplify implementation, it is however technically not
@@ -89,6 +92,7 @@ public class ExecutionContextImpl implements ExecutionContext {
     	this.variables.putAll(original.variables);
     	this.globalVars.putAll(original.globalVars);
     	this.contextClassLoader = original.contextClassLoader;
+    	this.evaluationListener = original.evaluationListener;
     }
 
     /*
@@ -339,5 +343,13 @@ public class ExecutionContextImpl implements ExecutionContext {
 
     public Extension getExtension(final String functionName, final EClassifier[] parameterTypes) {
         return PolymorphicResolver.getExtension(getAllExtensions(), functionName, Arrays.asList(parameterTypes));
+    }
+
+    public EvaluationListener getEvaluationListener() {
+    	return evaluationListener;
+    }
+
+    public void setEvaluationListener(EvaluationListener listener) {
+    	this.evaluationListener = listener;
     }
 }

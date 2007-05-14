@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
@@ -115,7 +116,9 @@ public abstract class Extension extends SyntaxElement /*implements Parameterized
             throw new IllegalStateException("No containing file!");
         }
         ctx = ctx.cloneWithResource(getExtensionFile());
+        notifyEnter(ctx);
         final Object result = evaluateInternal(parameters, ctx);
+        notifyLeave(ctx);
         if (cached) {
             cache.put(Arrays.asList(parameters), result);
         }
@@ -190,4 +193,17 @@ public abstract class Extension extends SyntaxElement /*implements Parameterized
         return isPrivate;
     }
 
+    private void notifyEnter(ExecutionContext ctx) {
+    	EvaluationListener l = ctx.getEvaluationListener();
+    	if (l != null) {
+    		l.enter(this, ctx);
+    	}
+    }
+
+    private void notifyLeave(ExecutionContext ctx) {
+    	EvaluationListener l = ctx.getEvaluationListener();
+    	if (l != null) {
+    		l.leave(this, ctx);
+    	}
+    }
 }

@@ -17,6 +17,7 @@ package org.eclipse.gmf.internal.xpand.expression.ast;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.Analyzable;
 import org.eclipse.gmf.internal.xpand.expression.Evaluatable;
@@ -39,14 +40,30 @@ public abstract class Expression extends SyntaxElement implements Analyzable, Ev
 
     public final Object evaluate(final ExecutionContext ctx) {
         try {
+        	notifyEnter(ctx);
             return evaluateInternal(ctx);
         } catch (final EvaluationException eve) {
             throw eve;
         } catch (final RuntimeException ex) {
             throw new EvaluationException(ex, this);
+        } finally {
+            notifyLeave(ctx);
         }
     }
 
     protected abstract Object evaluateInternal(ExecutionContext ctx);
 
+    private void notifyEnter(ExecutionContext ctx) {
+    	EvaluationListener l = ctx.getEvaluationListener();
+    	if (l != null) {
+    		l.enter(this, ctx);
+    	}
+    }
+
+    private void notifyLeave(ExecutionContext ctx) {
+    	EvaluationListener l = ctx.getEvaluationListener();
+    	if (l != null) {
+    		l.leave(this, ctx);
+    	}
+    }
 }
