@@ -894,6 +894,7 @@
       provider="Eclipse.org"
       version="2.0.0.qualifier"/>
   <editor/>
+  <diagramUpdater/>
   <propertySheet>
     <tabs
         xsi:type="gmfgen:GenStandardPropertyTab"
