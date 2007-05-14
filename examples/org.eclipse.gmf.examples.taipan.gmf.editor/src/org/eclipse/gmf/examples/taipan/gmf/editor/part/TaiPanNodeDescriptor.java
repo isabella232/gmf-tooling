@@ -31,6 +31,11 @@ public class TaiPanNodeDescriptor {
 	/**
 	 * @generated
 	 */
+	private String myType;
+
+	/**
+	 * @generated
+	 */
 	public TaiPanNodeDescriptor(EObject modelElement, int visualID) {
 		myModelElement = modelElement;
 		myVisualID = visualID;
@@ -48,6 +53,16 @@ public class TaiPanNodeDescriptor {
 	 */
 	public int getVisualID() {
 		return myVisualID;
+	}
+
+	/**
+	 * @generated
+	 */
+	public String getType() {
+		if (myType == null) {
+			myType = TaiPanVisualIDRegistry.getType(getVisualID());
+		}
+		return myType;
 	}
 
 }
