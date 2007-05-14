@@ -229,7 +229,7 @@
    <extension id="ValidationContributionItemProvider" name="Validation"
       point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
       «EXPAND xpt::Common::xmlGeneratedTag»
-      <contributionItemProvider checkPluginLoaded="true"
+      <contributionItemProvider
          class="«getValidationProviderQualifiedClassName()»">
          <Priority name="«validationProviderPriority»"/>
          <partContribution id="«editorGen.editor.iD»">
@@ -255,6 +255,7 @@
       <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
       <persistent value="true"/>
    </extension>   
+«ENDIF-»
 «IF validationDecorators-»
 
    <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
@@ -265,7 +266,6 @@
          <context decoratorTargets="PRIMARY_VIEW"/>
       </decoratorProvider>
    </extension>
-«ENDIF-»
 «ENDIF-»
 «ENDIF-»
 «ENDDEFINE»

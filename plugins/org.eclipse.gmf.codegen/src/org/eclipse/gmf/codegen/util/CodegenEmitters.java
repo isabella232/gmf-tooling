@@ -493,6 +493,14 @@ public class CodegenEmitters {
 	public String getValidateActionName(Object... input) throws UnexpectedBehaviourException {
 		return getQualifiedClassName("xpt::editor::ValidateAction", input); //$NON-NLS-1$
 	}
+
+	public TextEmitter getValidationMarkerEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::editor::ValidationMarker"); //$NON-NLS-1$
+	}
+
+	public String getValidationMarkerName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::ValidationMarker", input); //$NON-NLS-1$
+	}
 	
 	public TextEmitter getDiagramContentInitializerEmitter() {
 		return getPrimaryEmitter("xpt::editor::DiagramContentInitializer"); //$NON-NLS-1$

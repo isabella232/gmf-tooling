@@ -168,11 +168,14 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (myDiagram.isValidationEnabled() || myEditorGen.hasAudits()) {
 			generateValidationProvider();
 			generateValidateAction();
-			if (myDiagram.getEditorGen().getApplication() == null) {
+			if (myEditorGen.getApplication() != null) {
+				generateValidationMarker();
+			}
+			if (myDiagram.isValidationDecorators()) {
+				generateValidationDecoratorProvider();
+			}
+			if (myEditorGen.getApplication() == null) {
 				generateMarkerNavigationProvider();
-				if (myDiagram.isValidationDecorators()) {
-					generateValidationDecoratorProvider();
-				}
 			}
 		}
 		if (myEditorGen.getMetrics() != null) {
@@ -736,6 +739,10 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateValidateAction() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getValidateActionEmitter(), myEmitters.getValidateActionName(myDiagram), myDiagram);
+	}
+
+	private void generateValidationMarker() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getValidationMarkerEmitter(), myEmitters.getValidationMarkerName(myDiagram), myDiagram);
 	}
 
 	private void generateModelElementSelectionPage() throws UnexpectedBehaviourException, InterruptedException {

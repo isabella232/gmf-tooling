@@ -133,7 +133,7 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		}
 		«ELSE-»
 		org.eclipse.gmf.runtime.notation.View target = view;
-		getMarkers(diagramEditPart.getViewer()).clear();
+		«EXPAND xpt::editor::ValidationMarker::qualifiedClassName».removeAllMarkers(diagramEditPart.getViewer());
 		«ENDIF-»
 		org.eclipse.emf.common.util.Diagnostic diagnostic = runEMFValidator(view);
 		createMarkers(target, diagnostic, diagramEditPart);
@@ -151,6 +151,16 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 				«getValidationProviderQualifiedClassName()».getNotationTraversalStrategy(validator));
 		org.eclipse.core.runtime.IStatus status = validator.validate(view);
 		createMarkers(target, status, diagramEditPart);
+		«ENDIF-»
+		«IF editorGen.application != null && validationDecorators-»
+		«getValidationDecoratorProviderQualifedClassName()».refreshDecorators(view);
+		for (java.util.Iterator it = view.eAllContents(); it.hasNext();) {
+			org.eclipse.emf.ecore.EObject next = (org.eclipse.emf.ecore.EObject) it.next();
+			if (next instanceof org.eclipse.gmf.runtime.notation.View) {
+				«getValidationDecoratorProviderQualifedClassName()».refreshDecorators(
+						(org.eclipse.gmf.runtime.notation.View) next);
+			}
+		}
 		«ENDIF-»
 	}
 
@@ -221,7 +231,8 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		«getMarkerNavigationProviderQualifiedClassName()».addMarker(
 				target, elementId, location, message, statusSeverity);
 		«ELSE-»
-		getMarkers(viewer, target, true).add(new Marker(elementId, location, message, statusSeverity));
+		new «EXPAND xpt::editor::ValidationMarker::qualifiedClassName»(
+				location, message, statusSeverity).add(viewer, elementId);
 		«ENDIF-»
 	}
 
@@ -274,89 +285,6 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		}
 		return targetElementCollector;
 	}
-«IF editorGen.application != null-»
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	private static java.util.Map getMarkers(org.eclipse.gef.EditPartViewer viewer) {
-		java.util.Map markers = (java.util.Map) viewer.getProperty(VALIDATE_ACTION_KEY);
-		if (markers == null) {
-			markers = new java.util.HashMap();
-			viewer.setProperty(VALIDATE_ACTION_KEY, markers);
-		}
-		return markers;
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	private static java.util.Set getMarkers(org.eclipse.gef.EditPartViewer viewer,
-			org.eclipse.gmf.runtime.notation.View view, boolean create) {
-		java.util.Set markers = (java.util.Set) getMarkers(viewer).get(view);
-		if (markers == null) {
-			if (!create) {
-				return java.util.Collections.EMPTY_SET;
-			}
-			markers = new HashSet();
-			getMarkers(viewer).put(view, markers);
-		}
-		return markers;
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	private static Marker[] getMarkers(org.eclipse.gef.EditPartViewer viewer,
-			org.eclipse.gmf.runtime.notation.View view) {
-		java.util.Set markers = getMarkers(viewer, view, false);
-		if (markers.isEmpty()) {
-			return Marker.EMPTY_ARRAY;
-		}
-		return (Marker[]) markers.toArray(new Marker[markers.size()]);
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static class Marker {
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		public static final Marker[] EMPTY_ARRAY = new Marker[0];
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		private final String elementId;
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		private final String location;
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		private final String message;
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		private final int statusSeverity;
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		public Marker(String elementId, String location, String message, int statusSeverity) {
-			this.elementId = elementId;
-			this.location = location;
-			this.message = message;
-			this.statusSeverity = statusSeverity;
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		public String getElementId() {
-			return elementId;
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		public String getLocation() {
-			return location;
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		public String getMessage() {
-			return message;
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		public int getStatusSeverity() {
-			return statusSeverity;
-		}
-	}
-«ENDIF-»
 	«EXPAND additions-»
 }
 «ENDDEFINE»
