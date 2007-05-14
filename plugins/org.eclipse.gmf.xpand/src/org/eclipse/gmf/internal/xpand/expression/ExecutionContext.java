@@ -68,7 +68,7 @@ public interface ExecutionContext {
 	public EClassifier[] findTypesForPrefix(final String prefix);
 	
 	// instead of ResourceLoaderFactory.createResourceLoader()
-	Class loadClass(String value);
+	Class<?> loadClass(String value);
 
 	// [artem] if not null, should be notified about entering/leaving xpand ast elements
 	EvaluationListener getEvaluationListener();

@@ -35,6 +35,7 @@ import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
+import org.eclipse.gmf.internal.xpand.util.ClassLoadContext;
 import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 import org.eclipse.gmf.internal.xpand.xtend.ast.ExtensionFile;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
@@ -49,7 +50,7 @@ public class ExecutionContextImpl implements ExecutionContext {
 
     private final Map<String, Variable> globalVars = new HashMap<String, Variable> ();
 
-    private ClassLoader contextClassLoader;
+    private ClassLoadContext contextClassLoader;
 
     private EvaluationListener evaluationListener;
 
@@ -176,18 +177,18 @@ public class ExecutionContextImpl implements ExecutionContext {
     }
 
     /**
-     * {@link ClassLoader} to use in {@link #loadClass(String)}.
+     * {@link ClassLoadContext} to use in {@link #loadClass(String)}.
      * @param classLoader loader to use or null to use default system-wide
      */
-    public void setContextClassLoader(ClassLoader classLoader) {
-    	contextClassLoader = classLoader;
+    public void setContextClassLoader(ClassLoadContext classLoadContext) {
+    	this.contextClassLoader = classLoadContext;
     }
 
-    public Class loadClass(String value) {
+    public Class<?> loadClass(String value) {
     	// FIXME delegate to resourcemanager or Environment
     	try {
     		if (contextClassLoader != null) {
-    			Class c = contextClassLoader.loadClass(value);
+    			Class<?> c = contextClassLoader.load(value);
     			if (c != null) {
     				return c;
     			}

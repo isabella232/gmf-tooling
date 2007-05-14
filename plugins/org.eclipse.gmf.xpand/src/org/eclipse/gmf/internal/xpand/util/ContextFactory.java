@@ -25,14 +25,18 @@ import org.eclipse.gmf.internal.xpand.model.XpandExecutionContextImpl;
 public class ContextFactory {
 
 	public static XpandExecutionContext createXpandContext(ResourceManager resourceManager) {
-		return createXpandContext(resourceManager, null, null, null);
+		return createXpandContext(resourceManager, null, null, (ClassLoadContext) null);
 	}
 
 	public static XpandExecutionContext createXpandContext(ResourceManager resourceManager, Output output, Collection<Variable> globalVars) {
-		return createXpandContext(resourceManager, output, globalVars, null);
+		return createXpandContext(resourceManager, output, globalVars, (ClassLoadContext) null);
 	}
 
 	public static XpandExecutionContext createXpandContext(ResourceManager resourceManager, Output output, Collection<Variable> globalVars, ClassLoader context) {
+		return createXpandContext(resourceManager, output, globalVars, context == null ? (ClassLoadContext) null : new ClassLoadContext.Naive(context));
+	}
+
+	public static XpandExecutionContext createXpandContext(ResourceManager resourceManager, Output output, Collection<Variable> globalVars, ClassLoadContext context) {
 		final XpandExecutionContextImpl execCtx = new XpandExecutionContextImpl(resourceManager, output, null, globalVars);
 		execCtx.setContextClassLoader(context);
 		return execCtx;
