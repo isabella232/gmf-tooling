@@ -117,8 +117,12 @@ public abstract class Extension extends SyntaxElement /*implements Parameterized
         }
         ctx = ctx.cloneWithResource(getExtensionFile());
         notifyEnter(ctx);
-        final Object result = evaluateInternal(parameters, ctx);
-        notifyLeave(ctx);
+        final Object result;
+        try {
+        	result = evaluateInternal(parameters, ctx);
+        } finally {
+        	notifyLeave(ctx);
+        }
         if (cached) {
             cache.put(Arrays.asList(parameters), result);
         }
