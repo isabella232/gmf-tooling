@@ -137,6 +137,7 @@
         parent="//@diagram"
         child="//@diagram/@topLevelNodes.0"/>
   </navigator>
+  <diagramUpdater/>
   <propertySheet>
     <tabs
         xsi:type="gmfgen:GenStandardPropertyTab"
