@@ -3,13 +3,12 @@
 	<property file="build.properties" />
 	
 	<!-- Commonly used directories -->
-	<property name="reportdir" value="${cc.home}/reporting" />
 	<property name="checkout" value="${buildRoot}/checkout" />
-	<property name="logs" value="${buildRoot}/logs" />
+	<property name="cc.logs" value="${cc.publish}/logs" />
+	<property name="cc.artifacts" value="${cc.publish}/artifacts" />
+	<property name="lastresults" value="${cc.publish}/lastresults" />
 	<property name="remotelogs" value="logs" />
-	<property name="artifacts" value="${buildRoot}/artifacts" />
-	<property name="cc.publish" value="${buildRoot}/ccpublish" />
-
+	
 	<target name="init">	
 		<delete file="${basedir}/cc.properties" failonerror="false"/>
 		<!-- Store the build properties in a file for CruiseControl to pick up. -->
@@ -41,16 +40,16 @@ checkout=${checkout}
 remotelogs=${remotelogs}
 		</echo>
 		<echo file="${basedir}/cc.properties" append="true">
-logs=${logs}
+cc.logs=${cc.logs}
 		</echo>
 		<echo file="${basedir}/cc.properties" append="true">
-artifacts=${artifacts}
+cc.artifacts=${cc.artifacts}
+		</echo>
+		<echo file="${basedir}/cc.properties" append="true">
+lastresults=${lastresults}
 		</echo>
 		<echo file="${basedir}/cc.properties" append="true">
 ext=${ext}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-cc.publish=${cc.publish}
 		</echo>
 		<echo file="${basedir}/cc.properties" append="true">
 scripts=${scripts}
