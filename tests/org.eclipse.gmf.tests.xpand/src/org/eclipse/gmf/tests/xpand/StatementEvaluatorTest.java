@@ -55,6 +55,7 @@ public class StatementEvaluatorTest extends AbstractXpandTest {
 		buffer.setLength(0);
 		final XpandExecutionContextImpl result = new XpandExecutionContextImpl(new TestsResourceManager(), out, null);
 		// result.setFileEncoding("iso-8859-1");
+		result.setEvaluationListener(new DumpEvaluationListener());
 		return result;
 	}
 
