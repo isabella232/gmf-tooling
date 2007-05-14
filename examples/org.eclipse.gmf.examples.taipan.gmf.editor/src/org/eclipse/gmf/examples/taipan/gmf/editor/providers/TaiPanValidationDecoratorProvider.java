@@ -185,8 +185,18 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 			if (view == null || view.eResource() == null) {
 				return;
 			}
+			EditPart editPart = (EditPart) getDecoratorTarget().getAdapter(EditPart.class);
+			if (editPart == null || editPart.getViewer() == null) {
+				return;
+			}
 
 			// query for all the validation markers of the current resource
+			String elementId = ViewUtil.getIdStr(view);
+			if (elementId == null) {
+				return;
+			}
+			int severity = IMarker.SEVERITY_INFO;
+			IMarker foundMarker = null;
 			IResource resource = WorkspaceSynchronizer.getFile(view.eResource());
 			if (resource == null || !resource.exists()) {
 				return;
@@ -200,13 +210,7 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 			if (markers == null || markers.length == 0) {
 				return;
 			}
-			String elementId = ViewUtil.getIdStr(view);
-			if (elementId == null) {
-				return;
-			}
-			IMarker foundMarker = null;
 			Label toolTip = null;
-			int severity = IMarker.SEVERITY_INFO;
 			for (int i = 0; i < markers.length; i++) {
 				IMarker marker = markers[i];
 				String attribute = marker.getAttribute(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, ""); //$NON-NLS-1$
@@ -215,7 +219,8 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 					Image nextImage = getImage(nextSeverity);
 					if (foundMarker == null) {
 						foundMarker = marker;
-						toolTip = new Label(marker.getAttribute(IMarker.MESSAGE, ""), nextImage);
+						toolTip = new Label(marker.getAttribute(IMarker.MESSAGE, ""), //$NON-NLS-1$
+								nextImage);
 					} else {
 						if (toolTip.getChildren().isEmpty()) {
 							Label comositeLabel = new Label();
@@ -225,7 +230,8 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 							comositeLabel.add(toolTip);
 							toolTip = comositeLabel;
 						}
-						toolTip.add(new Label(marker.getAttribute(IMarker.MESSAGE, ""), nextImage)); //$NON-NLS-1$
+						toolTip.add(new Label(marker.getAttribute(IMarker.MESSAGE, ""), //$NON-NLS-1$
+								nextImage));
 					}
 					severity = (nextSeverity > severity) ? nextSeverity : severity;
 				}
@@ -235,7 +241,6 @@ public class TaiPanValidationDecoratorProvider extends AbstractProvider implemen
 			}
 
 			// add decoration
-			EditPart editPart = (EditPart) getDecoratorTarget().getAdapter(EditPart.class);
 			if (editPart instanceof org.eclipse.gef.GraphicalEditPart) {
 				if (view instanceof Edge) {
 					setDecoration(getDecoratorTarget().addConnectionDecoration(getImage(severity), 50, true));
