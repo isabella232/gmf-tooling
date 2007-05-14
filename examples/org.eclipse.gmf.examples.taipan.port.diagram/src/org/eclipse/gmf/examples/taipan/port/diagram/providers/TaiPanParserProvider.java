@@ -53,10 +53,8 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 * @generated
 	 */
 	protected IParser createBuildingAddress_5001Parser() {
-		MessageFormatParser parser = new MessageFormatParser(new EAttribute[] { TaiPanPackage.eINSTANCE.getBuilding_Address(), });
-		parser.setViewPattern("{0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
+		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getBuilding_Address(), };
+		MessageFormatParser parser = new MessageFormatParser(features);
 		return parser;
 	}
 

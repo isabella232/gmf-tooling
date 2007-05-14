@@ -74,4 +74,58 @@ public class TaiPanDiagramUpdater {
 		return false;
 	}
 
+	/**
+	 * @generated
+	 */
+	public static List getContainedLinks(View view) {
+		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
+		case BuildingEditPart.VISUAL_ID:
+			return getBuilding_2001ContainedLinks(view);
+		}
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getIncomingLinks(View view) {
+		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
+		case BuildingEditPart.VISUAL_ID:
+			return getBuilding_2001IncomingLinks(view);
+		}
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getOutgoingLinks(View view) {
+		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
+		case BuildingEditPart.VISUAL_ID:
+			return getBuilding_2001OutgoingLinks(view);
+		}
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getBuilding_2001ContainedLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getBuilding_2001IncomingLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getBuilding_2001OutgoingLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
 }
