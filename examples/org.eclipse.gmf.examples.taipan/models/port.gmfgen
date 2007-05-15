@@ -113,6 +113,21 @@
             genNodes="//@diagram/@topLevelNodes.0"/>
       </groups>
     </palette>
+    <preferences>
+      <defaultFont
+          xsi:type="gmfgen:GenCustomFont"
+          name="Lucida Grande"
+          height="12"/>
+      <fontColor
+          xsi:type="gmfgen:GenConstantColor"
+          name="darkGray"/>
+      <fillColor
+          xsi:type="gmfgen:GenConstantColor"
+          name="white"/>
+      <lineColor
+          xsi:type="gmfgen:GenConstantColor"
+          name="black"/>
+    </preferences>
     <preferencePages
         xsi:type="gmfgen:GenStandardPreferencePage"
         iD="org.eclipse.gmf.examples.taipan.diagram.general"
