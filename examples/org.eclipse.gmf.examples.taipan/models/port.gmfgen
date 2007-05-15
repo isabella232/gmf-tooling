@@ -74,6 +74,7 @@
           editHelperClassName="BuildingEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
+          layoutType="TOOLBAR_LAYOUT"
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.BuildingShape"/>
       <modelFacet>
         <metaClass
