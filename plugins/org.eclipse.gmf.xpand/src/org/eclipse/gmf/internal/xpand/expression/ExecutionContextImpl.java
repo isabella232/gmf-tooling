@@ -144,7 +144,6 @@ public class ExecutionContextImpl implements ExecutionContext {
         return rv;
     }
 
-    @SuppressWarnings("unchecked")
 	private EPackage findImportedNamespace(String namespace) {
     	assert namespace != null;
     	LinkedList<EPackage> potentialMatches = new LinkedList<EPackage>();
