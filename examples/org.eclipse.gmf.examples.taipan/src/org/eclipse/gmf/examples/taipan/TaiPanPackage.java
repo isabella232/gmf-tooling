@@ -275,13 +275,22 @@ public interface TaiPanPackage extends EPackage {
 	int BUILDING = 2;
 
 	/**
-	 * The feature id for the '<em><b>Address</b></em>' attribute.
+	 * The feature id for the '<em><b>Info</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUILDING__ADDRESS = 0;
+	int BUILDING__INFO = 0;
+
+	/**
+	 * The feature id for the '<em><b>Street</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUILDING__STREET = 1;
 
 	/**
 	 * The number of structural features of the '<em>Building</em>' class.
@@ -290,7 +299,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUILDING_FEATURE_COUNT = 1;
+	int BUILDING_FEATURE_COUNT = 2;
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' reference.
@@ -913,15 +922,26 @@ public interface TaiPanPackage extends EPackage {
 	EClass getBuilding();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.examples.taipan.Building#getAddress <em>Address</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.examples.taipan.Building#getInfo <em>Info</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Address</em>'.
-	 * @see org.eclipse.gmf.examples.taipan.Building#getAddress()
+	 * @return the meta object for the attribute '<em>Info</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.Building#getInfo()
 	 * @see #getBuilding()
 	 * @generated
 	 */
-	EAttribute getBuilding_Address();
+	EAttribute getBuilding_Info();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.examples.taipan.Building#getStreet <em>Street</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Street</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.Building#getStreet()
+	 * @see #getBuilding()
+	 * @generated
+	 */
+	EAttribute getBuilding_Street();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1237,12 +1257,20 @@ public interface TaiPanPackage extends EPackage {
 		EClass BUILDING = eINSTANCE.getBuilding();
 
 		/**
-		 * The meta object literal for the '<em><b>Address</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Info</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BUILDING__ADDRESS = eINSTANCE.getBuilding_Address();
+		EAttribute BUILDING__INFO = eINSTANCE.getBuilding_Info();
+
+		/**
+		 * The meta object literal for the '<em><b>Street</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BUILDING__STREET = eINSTANCE.getBuilding_Street();
 
 	}
 

@@ -512,8 +512,17 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getBuilding_Address() {
+	public EAttribute getBuilding_Info() {
 		return (EAttribute) buildingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBuilding_Street() {
+		return (EAttribute) buildingEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -556,7 +565,8 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		createEReference(portEClass, PORT__REGISTER);
 
 		buildingEClass = createEClass(BUILDING);
-		createEAttribute(buildingEClass, BUILDING__ADDRESS);
+		createEAttribute(buildingEClass, BUILDING__INFO);
+		createEAttribute(buildingEClass, BUILDING__STREET);
 
 		routeEClass = createEClass(ROUTE);
 		createEReference(routeEClass, ROUTE__SOURCE);
@@ -647,8 +657,10 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 				"register", null, 0, -1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(buildingEClass, Building.class, "Building", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getBuilding_Address(), ecorePackage.getEString(),
-				"address", null, 0, 1, Building.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getBuilding_Info(), ecorePackage.getEString(),
+				"info", null, 0, 1, Building.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getBuilding_Street(), ecorePackage.getEString(),
+				"street", null, 0, 1, Building.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(routeEClass, Route.class, "Route", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getRoute_Source(), this.getPort(), null,

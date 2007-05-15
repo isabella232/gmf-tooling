@@ -23,7 +23,8 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.examples.taipan.impl.BuildingImpl#getAddress <em>Address</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.taipan.impl.BuildingImpl#getInfo <em>Info</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.taipan.impl.BuildingImpl#getStreet <em>Street</em>}</li>
  * </ul>
  * </p>
  *
@@ -39,24 +40,44 @@ public class BuildingImpl extends EObjectImpl implements Building {
 	public static final String copyright = ""; //$NON-NLS-1$
 
 	/**
-	 * The default value of the '{@link #getAddress() <em>Address</em>}' attribute.
+	 * The default value of the '{@link #getInfo() <em>Info</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAddress()
+	 * @see #getInfo()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String ADDRESS_EDEFAULT = null;
+	protected static final String INFO_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getAddress() <em>Address</em>}' attribute.
+	 * The cached value of the '{@link #getInfo() <em>Info</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAddress()
+	 * @see #getInfo()
 	 * @generated
 	 * @ordered
 	 */
-	protected String address = ADDRESS_EDEFAULT;
+	protected String info = INFO_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getStreet() <em>Street</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStreet()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String STREET_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getStreet() <em>Street</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStreet()
+	 * @generated
+	 * @ordered
+	 */
+	protected String street = STREET_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -82,8 +103,8 @@ public class BuildingImpl extends EObjectImpl implements Building {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getAddress() {
-		return address;
+	public String getInfo() {
+		return info;
 	}
 
 	/**
@@ -91,11 +112,32 @@ public class BuildingImpl extends EObjectImpl implements Building {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAddress(String newAddress) {
-		String oldAddress = address;
-		address = newAddress;
+	public void setInfo(String newInfo) {
+		String oldInfo = info;
+		info = newInfo;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TaiPanPackage.BUILDING__ADDRESS, oldAddress, address));
+			eNotify(new ENotificationImpl(this, Notification.SET, TaiPanPackage.BUILDING__INFO, oldInfo, info));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getStreet() {
+		return street;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStreet(String newStreet) {
+		String oldStreet = street;
+		street = newStreet;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TaiPanPackage.BUILDING__STREET, oldStreet, street));
 	}
 
 	/**
@@ -106,8 +148,10 @@ public class BuildingImpl extends EObjectImpl implements Building {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case TaiPanPackage.BUILDING__ADDRESS:
-			return getAddress();
+		case TaiPanPackage.BUILDING__INFO:
+			return getInfo();
+		case TaiPanPackage.BUILDING__STREET:
+			return getStreet();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -120,8 +164,11 @@ public class BuildingImpl extends EObjectImpl implements Building {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case TaiPanPackage.BUILDING__ADDRESS:
-			setAddress((String) newValue);
+		case TaiPanPackage.BUILDING__INFO:
+			setInfo((String) newValue);
+			return;
+		case TaiPanPackage.BUILDING__STREET:
+			setStreet((String) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -135,8 +182,11 @@ public class BuildingImpl extends EObjectImpl implements Building {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case TaiPanPackage.BUILDING__ADDRESS:
-			setAddress(ADDRESS_EDEFAULT);
+		case TaiPanPackage.BUILDING__INFO:
+			setInfo(INFO_EDEFAULT);
+			return;
+		case TaiPanPackage.BUILDING__STREET:
+			setStreet(STREET_EDEFAULT);
 			return;
 		}
 		super.eUnset(featureID);
@@ -150,8 +200,10 @@ public class BuildingImpl extends EObjectImpl implements Building {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case TaiPanPackage.BUILDING__ADDRESS:
-			return ADDRESS_EDEFAULT == null ? address != null : !ADDRESS_EDEFAULT.equals(address);
+		case TaiPanPackage.BUILDING__INFO:
+			return INFO_EDEFAULT == null ? info != null : !INFO_EDEFAULT.equals(info);
+		case TaiPanPackage.BUILDING__STREET:
+			return STREET_EDEFAULT == null ? street != null : !STREET_EDEFAULT.equals(street);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -167,8 +219,10 @@ public class BuildingImpl extends EObjectImpl implements Building {
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (address: "); //$NON-NLS-1$
-		result.append(address);
+		result.append(" (info: "); //$NON-NLS-1$
+		result.append(info);
+		result.append(", street: "); //$NON-NLS-1$
+		result.append(street);
 		result.append(')');
 		return result.toString();
 	}

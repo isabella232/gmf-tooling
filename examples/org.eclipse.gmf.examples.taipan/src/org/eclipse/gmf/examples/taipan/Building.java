@@ -16,7 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.gmf.examples.taipan.Building#getAddress <em>Address</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.taipan.Building#getInfo <em>Info</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.taipan.Building#getStreet <em>Street</em>}</li>
  * </ul>
  * </p>
  *
@@ -34,29 +35,55 @@ public interface Building extends EObject {
 	String copyright = ""; //$NON-NLS-1$
 
 	/**
-	 * Returns the value of the '<em><b>Address</b></em>' attribute.
+	 * Returns the value of the '<em><b>Info</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Address</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Info</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Address</em>' attribute.
-	 * @see #setAddress(String)
-	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getBuilding_Address()
+	 * @return the value of the '<em>Info</em>' attribute.
+	 * @see #setInfo(String)
+	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getBuilding_Info()
 	 * @model
 	 * @generated
 	 */
-	String getAddress();
+	String getInfo();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.examples.taipan.Building#getAddress <em>Address</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.gmf.examples.taipan.Building#getInfo <em>Info</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Address</em>' attribute.
-	 * @see #getAddress()
+	 * @param value the new value of the '<em>Info</em>' attribute.
+	 * @see #getInfo()
 	 * @generated
 	 */
-	void setAddress(String value);
+	void setInfo(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Street</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Street</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Street</em>' attribute.
+	 * @see #setStreet(String)
+	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getBuilding_Street()
+	 * @model
+	 * @generated
+	 */
+	String getStreet();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.examples.taipan.Building#getStreet <em>Street</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Street</em>' attribute.
+	 * @see #getStreet()
+	 * @generated
+	 */
+	void setStreet(String value);
 
 } // Building
