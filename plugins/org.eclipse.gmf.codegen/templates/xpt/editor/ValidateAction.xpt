@@ -28,7 +28,7 @@ package «editorGen.editor.packageName»;
 public class «EXPAND className» extends org.eclipse.jface.action.Action {
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static final String VALIDATE_ACTION_KEY = "validateAction"; //$NON-NLS-1$
+	public static final String VALIDATE_ACTION_KEY = "validateAction"; «EXPAND xpt::Common::nonNLS»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor workbenchPartDescriptor;
@@ -63,7 +63,7 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 				.run(new org.eclipse.core.runtime.NullProgressMonitor());			
 			} catch (Exception e) {
 				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-						"Validation action failed", e); //$NON-NLS-1$
+						"Validation action failed", e); «EXPAND xpt::Common::nonNLS»
 			}
 		}
 	}
@@ -83,7 +83,7 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 			}
 		} catch (Exception e) {
 			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-					"Validation action failed", e); //$NON-NLS-1$
+					"Validation action failed", e); «EXPAND xpt::Common::nonNLS»
 		}
 	}
 
