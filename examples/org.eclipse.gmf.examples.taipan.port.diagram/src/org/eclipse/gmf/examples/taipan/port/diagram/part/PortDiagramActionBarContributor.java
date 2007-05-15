@@ -9,20 +9,26 @@
  * Contributors:
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.examples.taipan.port.diagram.preferences;
+package org.eclipse.gmf.examples.taipan.port.diagram.part;
 
-import org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorPlugin;
-import org.eclipse.gmf.runtime.diagram.ui.preferences.ConnectionsPreferencePage;
+import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramActionBarContributor;
 
 /**
  * @generated
  */
-public class DiagramConnectionsPreferencePage extends ConnectionsPreferencePage {
+public class PortDiagramActionBarContributor extends DiagramActionBarContributor {
 
 	/**
 	 * @generated
 	 */
-	public DiagramConnectionsPreferencePage() {
-		setPreferenceStore(PortDiagramEditorPlugin.getInstance().getPreferenceStore());
+	protected Class getEditorClass() {
+		return PortDiagramEditor.class;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String getEditorId() {
+		return PortDiagramEditor.ID;
 	}
 }

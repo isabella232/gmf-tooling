@@ -12,6 +12,7 @@
 package org.eclipse.gmf.examples.taipan.port.diagram.parsers;
 
 import java.util.Arrays;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EAttribute;

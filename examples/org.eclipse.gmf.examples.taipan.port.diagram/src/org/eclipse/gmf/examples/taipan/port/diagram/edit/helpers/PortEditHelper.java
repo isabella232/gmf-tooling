@@ -14,5 +14,5 @@ package org.eclipse.gmf.examples.taipan.port.diagram.edit.helpers;
 /**
  * @generated
  */
-public class PortEditHelper extends TaiPanBaseEditHelper {
+public class PortEditHelper extends PortBaseEditHelper {
 }

@@ -20,20 +20,20 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.commands.BuildingCreateCommand;
 
-import org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanElementTypes;
+import org.eclipse.gmf.examples.taipan.port.diagram.providers.PortElementTypes;
 
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 
 /**
  * @generated
  */
-public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
+public class PortItemSemanticEditPolicy extends PortBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (TaiPanElementTypes.Building_2001 == req.getElementType()) {
+		if (PortElementTypes.Building_2001 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getPort_Buildings());
 			}
