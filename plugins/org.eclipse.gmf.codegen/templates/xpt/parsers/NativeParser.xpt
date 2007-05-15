@@ -45,7 +45,7 @@ public class «EXPAND className» extends «EXPAND xpt::parsers::AbstractParser::qu
 		org.eclipse.emf.ecore.EAttribute feature = getAttribute();
 		String s = org.eclipse.emf.ecore.util.EcoreUtil.convertToString(
 				feature.getEAttributeType(), element.eGet(feature));
-		return s != null ? s : ""; //$NON-NLS-1$
+		return s != null ? s : ""; «EXPAND xpt::Common::nonNLS»
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
