@@ -24,12 +24,12 @@ public class «validationDecoratorProviderClassName»
 		implements org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorProvider {
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private static final String KEY = "validationStatus"; //$NON-NLS-1$
+	private static final String KEY = "validationStatus"; «EXPAND xpt::Common::nonNLS»
 	«IF editorGen.application == null-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static final String MARKER_TYPE = «editorGen.plugin.getActivatorQualifiedClassName()».ID +
-			".«getValidationDiagnosticMarkerType()»"; //$NON-NLS-1$
+			".«getValidationDiagnosticMarkerType()»"; «EXPAND xpt::Common::nonNLS»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static MarkerObserver fileObserver;
@@ -102,7 +102,7 @@ public class «validationDecoratorProviderClassName»
 					});
 				} catch (Exception e) {
 					«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-							"Decorator refresh failure", e); //$NON-NLS-1$
+							"Decorator refresh failure", e); «EXPAND xpt::Common::nonNLS»
 				}
 			}
 		});
@@ -129,7 +129,7 @@ public class «validationDecoratorProviderClassName»
 				});
 			} catch (Exception e) {
 				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-						"ViewID access failure", e); //$NON-NLS-1$			
+						"ViewID access failure", e); «EXPAND xpt::Common::nonNLS»			
 			}
 		}
 
@@ -163,7 +163,7 @@ public class «validationDecoratorProviderClassName»
 				markers = resource.findMarkers(MARKER_TYPE, true, org.eclipse.core.resources.IResource.DEPTH_INFINITE);
 			} catch (org.eclipse.core.runtime.CoreException e) {
 				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-						"Validation markers refresh failure", e); //$NON-NLS-1$
+						"Validation markers refresh failure", e); «EXPAND xpt::Common::nonNLS»
 			}
 			«ELSE-»
 			int severity = org.eclipse.core.runtime.IStatus.INFO;
@@ -178,7 +178,7 @@ public class «validationDecoratorProviderClassName»
 			for (int i = 0; i < markers.length; i++) {
 				«IF editorGen.application == null-»
 				org.eclipse.core.resources.IMarker marker = markers[i];
-				String attribute = marker.getAttribute(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, ""); //$NON-NLS-1$
+				String attribute = marker.getAttribute(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, ""); «EXPAND xpt::Common::nonNLS»
 				if (attribute.equals(elementId)) {
 					int nextSeverity = marker.getAttribute(org.eclipse.core.resources.IMarker.SEVERITY,
 							org.eclipse.core.resources.IMarker.SEVERITY_INFO);					
@@ -191,7 +191,7 @@ public class «validationDecoratorProviderClassName»
 						foundMarker = marker;
 						toolTip = new org.eclipse.draw2d.Label(
 							«IF editorGen.application == null-»
-								marker.getAttribute(org.eclipse.core.resources.IMarker.MESSAGE, ""), //$NON-NLS-1$
+								marker.getAttribute(org.eclipse.core.resources.IMarker.MESSAGE, ""), «EXPAND xpt::Common::nonNLS»
 							«ELSE-»
 								marker.getMessage(),
 							«ENDIF-»
@@ -207,7 +207,7 @@ public class «validationDecoratorProviderClassName»
 						}
 						toolTip.add(new org.eclipse.draw2d.Label(
 							«IF editorGen.application == null-»
-								marker.getAttribute(org.eclipse.core.resources.IMarker.MESSAGE, ""),  //$NON-NLS-1$
+								marker.getAttribute(org.eclipse.core.resources.IMarker.MESSAGE, ""),  «EXPAND xpt::Common::nonNLS»
 							«ELSE-»
 								marker.getMessage(),
 							«ENDIF-»
@@ -371,7 +371,7 @@ public class «validationDecoratorProviderClassName»
 				return;
 			}
 			String viewId = marker.getAttribute(
-					org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, ""); //$NON-NLS-1$
+					org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, ""); «EXPAND xpt::Common::nonNLS»
 			refreshDecorators(viewId, diagram);
 		}
 
@@ -381,8 +381,8 @@ public class «validationDecoratorProviderClassName»
 				return marker.getType();
 			} catch (org.eclipse.core.runtime.CoreException e) {
 				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-						"Validation marker refresh failure", e); //$NON-NLS-1$
-				return ""; //$NON-NLS-1$
+						"Validation marker refresh failure", e); «EXPAND xpt::Common::nonNLS»
+				return ""; «EXPAND xpt::Common::nonNLS»
 			}
 		}
 	}
