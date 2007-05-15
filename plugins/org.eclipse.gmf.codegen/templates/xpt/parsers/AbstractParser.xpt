@@ -114,7 +114,7 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 		Class iClass = feature.getEAttributeType().getInstanceClass();
 		if (String.class.equals(iClass)) {
 			if (value == null) {
-				value = ""; //$NON-NLS-1$
+				value = ""; «EXPAND xpt::Common::nonNLS»
 			}
 		}
 		return value;
@@ -136,7 +136,7 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 		}
 		org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand command =
 				new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(
-						editingDomain, "Set Values"); //$NON-NLS-1$
+						editingDomain, "Set Values"); «EXPAND xpt::Common::nonNLS»
 		for (int i = 0; i < values.length; i++) {
 			command.compose(getModificationCommand(element, features[i], values[i]));
 		}
