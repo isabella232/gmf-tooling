@@ -46,7 +46,7 @@
 			build file/target -->
 		<schedule interval="1200">
 			<!-- Perform checkout of all plug-ins and features, as builder uses export. -->
-			<ant antscript="ant.${ext}" buildfile="checkout.xml"
+			<ant antscript="./build.${ext}" buildfile="checkout.xml"
 				target="all" uselogger="true" usedebug="false" usequiet="true">
 			</ant>
 		</schedule>
