@@ -4,17 +4,11 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Stack;
 
-import org.eclipse.gmf.internal.xpand.ast.TextStatement;
-import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
-import org.eclipse.gmf.internal.xpand.model.Output;
-
-public class BufferOutput implements Output {
+public class BufferOutput extends AbstractOutput {
 	/**
 	 * INV: size > 0
 	 */
 	private final Stack<StringBuilder> outletStack;
-
-	private boolean deleteLine = false;
 
 	private final Map<String, StringBuilder> namedSlots;
 
@@ -53,36 +47,8 @@ public class BufferOutput implements Output {
 		assert outletStack.peek() != null;
 	}
 
-	public void enterStatement(SyntaxElement stmt) {
-		if (stmt instanceof TextStatement) {
-			deleteLine = ((TextStatement) stmt).isDeleteLine();
-		}
-	}
-
-	public void exitStatement(SyntaxElement stmt) {
-		deleteLine = false;
-	}
-
-	public void write(String text) {
-		if (deleteLine) {
-			int i = 0;
-			while (i < text.length()) {
-				char charAt = text.charAt(i);
-				if (Character.isWhitespace(charAt)) {
-					if ((charAt == '\r' || charAt == '\n') && (i+1 < text.length())) {
-						char nextToLF = text.charAt(++i);
-						if (nextToLF != charAt && (nextToLF == '\n' || nextToLF == '\r')) {
-							i++;
-						}
-						break;
-					}
-				}
-				i++;
-			}
-			outletStack.peek().append(text.substring(i));
-			deleteLine = false;
-		} else {
-			outletStack.peek().append(text);
-		}
+	@Override
+	protected void doAppend(String text) {
+		outletStack.peek().append(text);
 	}
 }
