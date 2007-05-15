@@ -62,7 +62,6 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide" version="1.0.0" match="compatible"/>
       <import plugin="org.eclipse.gmf.examples.runtime.diagram.logic.model" version="1.0.0" match="compatible"/>
       <import plugin="org.eclipse.gmf.runtime.draw2d.ui" version="1.0.0" match="compatible"/>
-      <import plugin="org.apache.batik" version="1.6.0" match="compatible"/>
       <import plugin="org.eclipse.gmf.runtime.draw2d.ui.render.awt" version="1.0.0" match="compatible"/>
       <import plugin="org.eclipse.pde.runtime" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.gmf.runtime.emf.type.core" version="1.0.0" match="compatible"/>
