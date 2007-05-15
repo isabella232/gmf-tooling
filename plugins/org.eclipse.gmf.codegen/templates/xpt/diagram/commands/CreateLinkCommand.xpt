@@ -38,7 +38,7 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 			org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
 			throws org.eclipse.core.commands.ExecutionException {
 		if (!canExecute()) {
-			throw new org.eclipse.core.commands.ExecutionException("Invalid arguments in create link command"); //$NON-NLS-1$
+			throw new org.eclipse.core.commands.ExecutionException("Invalid arguments in create link command"); «EXPAND xpt::Common::nonNLS»
 		}
 		return super.doExecuteWithResult(monitor, info);
 	}
