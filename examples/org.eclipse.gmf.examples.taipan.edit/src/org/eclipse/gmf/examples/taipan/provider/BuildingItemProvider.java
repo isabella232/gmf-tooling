@@ -65,21 +65,34 @@ public class BuildingItemProvider extends ItemProviderAdapter implements IEditin
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addAddressPropertyDescriptor(object);
+			addInfoPropertyDescriptor(object);
+			addStreetPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Address feature.
+	 * This adds a property descriptor for the Info feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addAddressPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Building_address_feature"), //$NON-NLS-1$
-				getString("_UI_PropertyDescriptor_description", "_UI_Building_address_feature", "_UI_Building_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				TaiPanPackage.Literals.BUILDING__ADDRESS, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	protected void addInfoPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Building_info_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_Building_info_feature", "_UI_Building_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				TaiPanPackage.Literals.BUILDING__INFO, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Street feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStreetPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Building_street_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_Building_street_feature", "_UI_Building_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				TaiPanPackage.Literals.BUILDING__STREET, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -101,7 +114,7 @@ public class BuildingItemProvider extends ItemProviderAdapter implements IEditin
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Building) object).getAddress();
+		String label = ((Building) object).getInfo();
 		return label == null || label.length() == 0 ? getString("_UI_Building_type") : //$NON-NLS-1$
 				getString("_UI_Building_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
@@ -118,7 +131,8 @@ public class BuildingItemProvider extends ItemProviderAdapter implements IEditin
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Building.class)) {
-		case TaiPanPackage.BUILDING__ADDRESS:
+		case TaiPanPackage.BUILDING__INFO:
+		case TaiPanPackage.BUILDING__STREET:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
