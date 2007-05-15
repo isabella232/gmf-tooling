@@ -98,6 +98,7 @@ public class BuildingEditPart extends ShapeNodeEditPart {
 		IFigure shape = createNodeShapeGen();
 		ToolbarLayout layout = new ToolbarLayout();
 		layout.setMinorAlignment(ToolbarLayout.ALIGN_CENTER);
+		layout.setStretchMinorAxis(false);
 		layout.setSpacing(getMapMode().DPtoLP(5));
 		shape.setLayoutManager(layout);
 		shape.setBorder(new MarginBorder(getMapMode().DPtoLP(5)));
