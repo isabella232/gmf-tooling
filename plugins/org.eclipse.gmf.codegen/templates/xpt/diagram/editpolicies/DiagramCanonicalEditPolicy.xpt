@@ -114,7 +114,7 @@ private java.util.Collection refreshConnections() {
 		org.eclipse.emf.ecore.EObject diagramLinkObject = nextDiagramLink.getElement();
 		org.eclipse.emf.ecore.EObject diagramLinkSrc = nextDiagramLink.getSource().getElement();
 		org.eclipse.emf.ecore.EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
-		int diagramLinkVisualID = «getVisualIDRegistryQualifiedClassName()».getVisualID(nextDiagramLink);
+		int diagramLinkVisualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(nextDiagramLink);
 		for (java.util.Iterator LinkDescriptorsIterator = linkDescriptors.iterator(); LinkDescriptorsIterator.hasNext();) {
 			«editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()» nextLinkDescriptor = («editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()») LinkDescriptorsIterator.next();
 			if (diagramLinkObject == nextLinkDescriptor.getModelElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination() && diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
@@ -132,7 +132,7 @@ private java.util.Collection refreshConnections() {
 	«EXPAND xpt::Common::generatedMemberComment»
 private java.util.Collection collectAllLinks(org.eclipse.gmf.runtime.notation.View view, java.util.Map domain2NotationMap) {
 	java.util.Collection result = new java.util.LinkedList();
-	switch («getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
+	switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(view)) {
 		«EXPAND caseSemanticElement FOREACH getAllSemanticElements(this)-»
 	}
 	for (java.util.Iterator children = view.getChildren().iterator(); children.hasNext();) {

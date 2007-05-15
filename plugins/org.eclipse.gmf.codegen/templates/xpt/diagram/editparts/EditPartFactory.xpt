@@ -24,7 +24,7 @@ public class «editPartFactoryClassName» implements org.eclipse.gef.EditPartFacto
 	public org.eclipse.gef.EditPart createEditPart(org.eclipse.gef.EditPart context, Object model) {
 		if (model instanceof org.eclipse.gmf.runtime.notation.View) {
 			org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) model;
-			switch («getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
+			switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(view)) {
 				«EXPAND createEditPart FOR this-»
 				«FOREACH (List[gmfgen::GenNode]) {}.addAll(topLevelNodes).addAll(childNodes) AS node-»
 					«EXPAND createEditPart FOR node-»

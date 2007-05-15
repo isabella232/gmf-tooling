@@ -71,6 +71,8 @@ public class «visualIDRegistryClassName» {
 
 «DEFINE visualID FOR gmfgen::GenCommonBase»«getEditPartQualifiedClassName()».VISUAL_ID«ENDDEFINE»
 
+«DEFINE modelID FOR gmfgen::GenDiagram»«getEditPartQualifiedClassName()».MODEL_ID«ENDDEFINE»
+
 «DEFINE getVisualIDMethodCall FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».«EXPAND getVisualIdMethodName»«ENDDEFINE»
 
 «DEFINE getModelIDMethodCall FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».«EXPAND getModelIDMethodName»«ENDDEFINE»
@@ -426,8 +428,6 @@ private static class «EXPAND javaConstraintContainerClassName» {
 «DEFINE oclConstraintVariableName FOR gmfgen::GenCommonBase»«getUniqueIdentifier()»_Constraint«ENDDEFINE»
 
 «DEFINE javaConstraintContainerClassName FOR gmfgen::GenCommonBase»JavaConstraints«ENDDEFINE»
-
-«DEFINE modelID FOR gmfgen::GenDiagram»«getEditPartQualifiedClassName()».MODEL_ID«ENDDEFINE»
 
 «DEFINE constraintsNotSupported FOR gmfgen::GenCommonBase-»
 	«ERROR "CehckConstraints method not supported for: " + this-»

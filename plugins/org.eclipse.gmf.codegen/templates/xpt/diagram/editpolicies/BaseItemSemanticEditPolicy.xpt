@@ -37,7 +37,7 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runti
 		if (request instanceof org.eclipse.gef.requests.ReconnectRequest) {
 			Object view = ((org.eclipse.gef.requests.ReconnectRequest) request).getConnectionEditPart().getModel();
 			if (view instanceof org.eclipse.gmf.runtime.notation.View) {
-				Integer id = new Integer(«getVisualIDRegistryQualifiedClassName()».getVisualID((org.eclipse.gmf.runtime.notation.View) view));
+				Integer id = new Integer(«EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»((org.eclipse.gmf.runtime.notation.View) view));
 				request.getExtendedData().put(VISUAL_ID_KEY, id);
 			}
 		}

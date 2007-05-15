@@ -203,7 +203,7 @@ public class «diagramEditorUtilClassName» {
 «IF domainDiagramElement != null-»
 				«IF domainDiagramElement.isExternalInterface()»(org.eclipse.emf.ecore.EObject) «ENDIF»model, 
 «ENDIF-»
-					«getEditPartQualifiedClassName()».MODEL_ID,	«editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
+					«EXPAND xpt::editor::VisualIDRegistry::modelID»,	«editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
 					diagram.setName(diagramName);

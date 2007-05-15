@@ -48,7 +48,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 		myFileCreationPage.setTitle(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewDiagramFileWizardCreationPage().titleKey()) FOR editorGen»);
 		myFileCreationPage.setDescription(org.eclipse.osgi.util.NLS.bind(
 				«EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewDiagramFileWizardCreationPage().descriptionKey()) FOR editorGen», 
-				«getEditPartQualifiedClassName()».MODEL_ID));
+				«EXPAND xpt::editor::VisualIDRegistry::modelID»));
 		org.eclipse.core.runtime.IPath filePath;
 		String fileName = domainModelURI.trimFileExtension().lastSegment();
 		if (domainModelURI.isPlatformResource()) {
@@ -105,7 +105,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 				}
 				org.eclipse.gmf.runtime.notation.Diagram diagram =
 					org.eclipse.gmf.runtime.diagram.core.services.ViewService.createDiagram(
-						diagramRootElementSelectionPage.getModelElement(), «getEditPartQualifiedClassName()».MODEL_ID,
+						diagramRootElementSelectionPage.getModelElement(), «EXPAND xpt::editor::VisualIDRegistry::modelID»,
 						«editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
 				diagramResource.getContents().add(diagram);
 				«IF editorGen.sameFileForDiagramAndModel-»
@@ -157,7 +157,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 			boolean result = org.eclipse.gmf.runtime.diagram.core.services.ViewService.getInstance().provides(
 				new org.eclipse.gmf.runtime.diagram.core.services.view.CreateDiagramViewOperation(
 					new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(selectedModelElement),
-					«getEditPartQualifiedClassName()».MODEL_ID,
+					«EXPAND xpt::editor::VisualIDRegistry::modelID»,
 					«editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT));
 			setErrorMessage(result ? null : «EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewDiagramFileWizardRootSelectionPageInvalidSelectionMessage()) FOR editorGen»);
 			return result;

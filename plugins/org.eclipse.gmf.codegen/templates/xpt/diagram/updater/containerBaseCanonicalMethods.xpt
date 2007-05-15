@@ -82,8 +82,8 @@ protected String getDefaultFactoryHint() {
 protected boolean isOrphaned(java.util.Collection semanticChildren, final org.eclipse.gmf.runtime.notation.View view) {
 	«EXPAND checkShortcutProperty-»
 	«IF hasSemanticChildren(this)-»
-	int visualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(view);
-	return «EXPAND xpt::diagram::updater::DiagramUpdater::isDomainMetaChildMethodCall»(visualID) && (!semanticChildren.contains(view.getElement()) || visualID != «getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID((org.eclipse.gmf.runtime.notation.View) getHost().getModel(), view.getElement()));
+	int visualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(view);
+	return «EXPAND xpt::diagram::updater::DiagramUpdater::isDomainMetaChildMethodCall»(visualID) && (!semanticChildren.contains(view.getElement()) || visualID != «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall FOR getDiagram()»((org.eclipse.gmf.runtime.notation.View) getHost().getModel(), view.getElement()));
 	«ELSE-»
 	return false;
 	«ENDIF-»	

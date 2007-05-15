@@ -70,7 +70,7 @@ public int getVisualID() {
 	«EXPAND xpt::Common::generatedMemberComment»
 public String getType() {
 	if (myType == null) {
-		myType = «editorGen.diagram.getVisualIDRegistryQualifiedClassName()».getType(getVisualID());
+		myType = «EXPAND xpt::editor::VisualIDRegistry::getTypeMethodCall FOR editorGen.diagram»(getVisualID());
 	}
 	return myType;
 }

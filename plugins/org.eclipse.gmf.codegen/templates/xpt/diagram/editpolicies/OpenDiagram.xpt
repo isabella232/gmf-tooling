@@ -147,7 +147,7 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		protected String getDiagramKind() {
-			return «IF diagramKind == null»«subject.getDiagram().getEditPartQualifiedClassName()».MODEL_ID«ELSE»"«diagramKind»"«ENDIF»;
+			return «IF diagramKind == null»«EXPAND xpt::editor::VisualIDRegistry::modelID FOR subject.getDiagram()»«ELSE»"«diagramKind»"«ENDIF»;
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»

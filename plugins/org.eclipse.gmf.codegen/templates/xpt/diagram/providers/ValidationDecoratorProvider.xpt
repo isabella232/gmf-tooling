@@ -70,8 +70,7 @@ public class «validationDecoratorProviderClassName»
 				((org.eclipse.gmf.runtime.diagram.ui.services.decorator.CreateDecoratorsOperation) operation).getDecoratorTarget();
 		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) decoratorTarget.getAdapter(
 				org.eclipse.gmf.runtime.notation.View.class);
-		return view != null && «getEditPartQualifiedClassName()».MODEL_ID.equals(
-				«getVisualIDRegistryQualifiedClassName()».getModelID(view));
+		return view != null && «EXPAND xpt::editor::VisualIDRegistry::modelID».equals(«EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall»(view));
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»

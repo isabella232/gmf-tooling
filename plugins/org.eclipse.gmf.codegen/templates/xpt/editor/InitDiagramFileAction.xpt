@@ -84,7 +84,7 @@ implements org.eclipse.ui.IObjectActionDelegate {
 		org.eclipse.jface.wizard.Wizard wizard = new «getNewDiagramFileWizardQualifiedClassName()»(domainModelURI, diagramRoot, editingDomain);
 		wizard.setWindowTitle(org.eclipse.osgi.util.NLS.bind(
 				    «EXPAND xpt::Externalizer::accessorCall(i18nKeyForInitDiagramFileWizardTitle()) FOR editorGen»,
-				    «getEditPartQualifiedClassName()».MODEL_ID));
+				    «EXPAND xpt::editor::VisualIDRegistry::modelID»));
 		«getDiagramEditorUtilQualifiedClassName()».runWizard(getShell(), wizard, "InitDiagramFile"); «EXPAND xpt::Common::nonNLS»
 	}
 	«ELSE-»
@@ -126,7 +126,7 @@ implements org.eclipse.ui.IWorkbenchWindowActionDelegate {
 		org.eclipse.jface.wizard.Wizard wizard = new «getNewDiagramFileWizardQualifiedClassName()»(resource.getURI(), diagramRoot, editingDomain);
 		wizard.setWindowTitle(org.eclipse.osgi.util.NLS.bind(
 				    «EXPAND xpt::Externalizer::accessorCall(i18nKeyForInitDiagramFileWizardTitle()) FOR editorGen»,
-				    «getEditPartQualifiedClassName()».MODEL_ID));
+				    «EXPAND xpt::editor::VisualIDRegistry::modelID»));
 		«getDiagramEditorUtilQualifiedClassName()».runWizard(getShell(), wizard, "InitDiagramFile"); «EXPAND xpt::Common::nonNLS»
 	}
 	«ENDIF-»

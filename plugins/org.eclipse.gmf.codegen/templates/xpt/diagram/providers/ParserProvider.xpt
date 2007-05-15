@@ -37,12 +37,12 @@ public class «parserProviderClassName» extends org.eclipse.gmf.runtime.common.co
 			org.eclipse.core.runtime.IAdaptable hint) {
 		String vid = (String) hint.getAdapter(String.class);
 		if (vid != null) {
-			return getParser(«getVisualIDRegistryQualifiedClassName()».getVisualID(vid));
+			return getParser(«EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(vid));
 		}
 		org.eclipse.gmf.runtime.notation.View view =
 				(org.eclipse.gmf.runtime.notation.View) hint.getAdapter(org.eclipse.gmf.runtime.notation.View.class);
 		if (view != null) {
-			return getParser(«getVisualIDRegistryQualifiedClassName()».getVisualID(view));
+			return getParser(«EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(view));
 		}
 		return null;
 	}

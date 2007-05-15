@@ -67,7 +67,7 @@ public static boolean isShortcutOrphaned(org.eclipse.gmf.runtime.notation.View v
 	«EXPAND xpt::Common::generatedMemberComment»
 public static java.util.List getSemanticChildren(org.eclipse.gmf.runtime.notation.View view) {
 	«IF !semanticContainers.isEmpty()-»
-	switch («editorGen.diagram.getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
+	switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR editorGen.diagram»(view)) {
 		«EXPAND getSemanticChildrenCase FOREACH semanticContainers-»
 	}
 	«ENDIF-»
@@ -89,7 +89,7 @@ public static java.util.List «EXPAND getSemanticChildrenMethodName»(org.eclipse.
 	java.util.List result = new java.util.LinkedList();
 	for (java.util.Iterator semanticIterator = «EXPAND getSemanticChildrenMethodName»(modelElement).iterator(); semanticIterator.hasNext();) {
 		org.eclipse.emf.ecore.EObject nextElement = (org.eclipse.emf.ecore.EObject) semanticIterator.next();
-		int visualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID(view, nextElement);
+		int visualID = «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall FOR getDiagram()»(view, nextElement);
 		if («EXPAND isDomainMetaChildMethodName»(visualID)) {
 			result.add(new «getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName()»(nextElement, visualID));
 		}
@@ -185,7 +185,7 @@ public static boolean «EXPAND isDomainMetaChildMethodName»(int visualID) {
 	«EXPAND xpt::Common::generatedMemberComment»
 public static java.util.List get«methodNameSuffix»Links(org.eclipse.gmf.runtime.notation.View view) {
 	«IF !linkContainers.isEmpty()-»
-	switch («editorGen.diagram.getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
+	switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR editorGen.diagram»(view)) {
 		«EXPAND getContainedLinksCase(methodNameSuffix) FOREACH linkContainers-»
 	}
 	«ENDIF-»
@@ -368,7 +368,7 @@ result.add(new «genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQ
 «ENDDEFINE»
 
 «DEFINE checkLinkVisualID(gmfgen::GenLink genLink, boolean inLoop) FOR gmfgen::TypeLinkModelFacet-»
-if («EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink» != «genLink.getDiagram().getVisualIDRegistryQualifiedClassName()».getLinkWithClassVisualID(«EXPAND xpt::Common::castToEObject FOR metaClass»link)) {
+if («EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink» != «EXPAND xpt::editor::VisualIDRegistry::getLinkWithClassVisualIDMethodCall FOR genLink.getDiagram()»(«EXPAND xpt::Common::castToEObject FOR metaClass»link)) {
 	«EXPAND stopLinkProcessing(inLoop)-»
 }
 «ENDDEFINE»

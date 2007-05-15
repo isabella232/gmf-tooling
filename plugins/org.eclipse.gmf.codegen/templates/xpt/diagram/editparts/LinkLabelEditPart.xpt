@@ -28,8 +28,7 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	static {
-		registerSnapBackPosition(
-			«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«EXPAND xpt::editor::VisualIDRegistry::visualID»),
+		registerSnapBackPosition(«EXPAND xpt::editor::VisualIDRegistry::getTypeMethodCall FOR getDiagram()»(«EXPAND xpt::editor::VisualIDRegistry::visualID»),
 			new org.eclipse.draw2d.geometry.Point(«labelOffsetX(viewmap, 0)», «labelOffsetY(viewmap, 0)»));
 	}
 

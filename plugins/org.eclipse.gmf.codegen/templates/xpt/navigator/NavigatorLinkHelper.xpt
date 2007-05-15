@@ -47,7 +47,7 @@ public org.eclipse.jface.viewers.IStructuredSelection findSelection(org.eclipse.
 org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(diagram.eResource());
 if (file != null) {
 	«IF isInsideGroup()-»
-	«navigator.getNavigatorGroupQualifiedClassName()» parentGroup = new «navigator.getNavigatorGroupQualifiedClassName()»("«groupName»", "«groupIcon»", «navigator.editorGen.diagram.getEditPartQualifiedClassName()».MODEL_ID, file);
+	«navigator.getNavigatorGroupQualifiedClassName()» parentGroup = new «navigator.getNavigatorGroupQualifiedClassName()»("«groupName»", "«groupIcon»", «EXPAND xpt::editor::VisualIDRegistry::modelID FOR navigator.editorGen.diagram», file);
 	«ENDIF-»
 	«navigator.getNavigatorItemQualifiedClassName()» item = new «navigator.getNavigatorItemQualifiedClassName()»(diagram, «IF isInsideGroup()»parentGroup«ELSE»file«ENDIF», false);
 	«IF isInsideGroup()-»

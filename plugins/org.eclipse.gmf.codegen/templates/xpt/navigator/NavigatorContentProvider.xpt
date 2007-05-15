@@ -265,7 +265,7 @@ return EMPTY_ARRAY;
 «DEFINE getViewChildren FOR gmfgen::GenNavigator-»
 «EXPAND xpt::Common::generatedMemberComment»
 private Object[] getViewChildren(org.eclipse.gmf.runtime.notation.View view, Object parentElement) {
-   	switch («editorGen.diagram.getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
+   	switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR editorGen.diagram»(view)) {
 	«EXPAND caseNavigatorNode(this) FOREACH getNavigatorNodes(this)-»
 	}
 	return EMPTY_ARRAY;
@@ -359,7 +359,7 @@ private java.util.Collection selectViewsByType(java.util.Collection views, Strin
 	
 «EXPAND xpt::Common::generatedMemberComment»
 private boolean isOwnView(org.eclipse.gmf.runtime.notation.View view) {
-	return «editorGen.diagram.getEditPartQualifiedClassName()».MODEL_ID.equals(«editorGen.diagram.getVisualIDRegistryQualifiedClassName()».getModelID(view));
+	return «EXPAND xpt::editor::VisualIDRegistry::modelID FOR editorGen.diagram».equals(«EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall FOR editorGen.diagram»(view));
 }
 	
 «EXPAND xpt::Common::generatedMemberComment»
@@ -374,10 +374,10 @@ private java.util.Collection createNavigatorItems(java.util.Collection views, Ob
 «ENDDEFINE»
 
 «DEFINE getTypeByVID FOR gmfgen::GenDiagram-»
-String type = «getVisualIDRegistryQualifiedClassName()».getType(visualID);
+String type = «EXPAND xpt::editor::VisualIDRegistry::getTypeMethodCall»(visualID);
 «ENDDEFINE»
 
-«DEFINE getType(String varName) FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».getType(«varName»)«ENDDEFINE»
+«DEFINE getType(String varName) FOR gmfgen::GenDiagram»«EXPAND xpt::editor::VisualIDRegistry::getTypeMethodCall»(«varName»)«ENDDEFINE»
 
 «DEFINE getForeignShortcuts FOR gmfgen::GenNavigator-»
 	«IF editorGen.diagram.generateCreateShortcutAction() && getChildReferencesFrom(this, editorGen.diagram).size() > 0-»
@@ -420,9 +420,9 @@ private java.util.Collection getForeignShortcuts(org.eclipse.gmf.runtime.notatio
 	«ENDLET-»
 «ENDDEFINE»
 
-«DEFINE getChildViewType FOR gmfgen::GenDiagram»«getEditPartQualifiedClassName()».MODEL_ID«ENDDEFINE»
+«DEFINE getChildViewType FOR gmfgen::GenDiagram»«EXPAND xpt::editor::VisualIDRegistry::modelID»«ENDDEFINE»
 
-«DEFINE getChildViewType FOR gmfgen::GenCommonBase»«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«EXPAND xpt::editor::VisualIDRegistry::visualID»)«ENDDEFINE»
+«DEFINE getChildViewType FOR gmfgen::GenCommonBase»«EXPAND xpt::editor::VisualIDRegistry::getTypeMethodCall FOR getDiagram()»(«EXPAND xpt::editor::VisualIDRegistry::visualID»)«ENDDEFINE»
 
 «DEFINE caseNavigatorNode(gmfgen::GenNavigator navigator) FOR gmfgen::GenCommonBase»
 «EXPAND xpt::Common::caseVisualID» {
