@@ -33,17 +33,17 @@ public class «EXPAND className» extends «EXPAND xpt::parsers::AbstractParser::qu
 	«EXPAND xpt::Common::generatedMemberComment»
 	public String getEditPattern() {
 		String pattern = super.getEditPattern();
-		return pattern != null ? pattern : " "; //$NON-NLS-1$
+		return pattern != null ? pattern : " "; «EXPAND xpt::Common::nonNLS»
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public String getPrintString(org.eclipse.core.runtime.IAdaptable adapter, int flags) {
-		return ""; //$NON-NLS-1$
+		return ""; «EXPAND xpt::Common::nonNLS»
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public String getEditString(org.eclipse.core.runtime.IAdaptable adapter, int flags) {
-		return ""; //$NON-NLS-1$
+		return ""; «EXPAND xpt::Common::nonNLS»
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
