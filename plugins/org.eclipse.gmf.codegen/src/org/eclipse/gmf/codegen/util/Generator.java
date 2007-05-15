@@ -776,13 +776,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 	
-	private void generateVisualIDRegistry() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getVisualIDRegistryEmitter(),
-			myEditorGen.getEditor().getPackageName(),
-			myDiagram.getVisualIDRegistryClassName(),
-			myDiagram
-		);
+	private void generateVisualIDRegistry() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getVisualIDRegistryEmitter(), myDiagram.getVisualIDRegistryQualifiedClassName(), myDiagram);
 	}
 
 	private void generateCreationWizard() throws UnexpectedBehaviourException, InterruptedException {

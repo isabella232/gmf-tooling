@@ -99,7 +99,7 @@ private void «EXPAND createChildrenMethodName»(org.eclipse.gmf.runtime.notation.
 	!this.isSansDomain() here.
 «ENDREM»
 «DEFINE callCreateCompartmentChildren FOR gmfgen::GenCompartment-»
-	«EXPAND createChildrenMethodName»(getCompartment(view, «getEditPartQualifiedClassName()».VISUAL_ID));
+	«EXPAND createChildrenMethodName»(getCompartment(view, «EXPAND xpt::editor::VisualIDRegistry::visualID»));
 «ENDDEFINE»
 
 «DEFINE createNode FOR gmfgen::GenDiagram-»

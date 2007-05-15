@@ -12,6 +12,27 @@
 
 import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
 import "http://www.eclipse.org/emf/2002/Ecore";
+import "http://www.eclipse.org/emf/2002/GenModel";
+
+String getUnrecognizedDiagramIDMethodName() :
+	"getUnrecognizedDiagramID"
+;
+
+String getUnrecognizedNodeIDMethodName() :
+	"getUnrecognizedNodeID"
+;
+
+String getUnrecognizedLinkWithClassIDMethodName() :
+	"getUnrecognizedLinkWithClassID"
+;
+
+String getUnrecognizedChildNodeIDMethodName(gmfgen::GenContainerBase container) :
+	"getUnrecognized" + container.getUniqueIdentifier() + "ChildNodeID"
+;
+
+String getUnrecognizedLinkLabelIDMethodName(gmfgen::GenLink link) :
+	"getUnrecognized" + link.getUniqueIdentifier() + "LinkLabelID"
+;
 
 boolean hasDiagramElementRule(gmfgen::GenAuditRoot audits) :
 	audits.rules.target.typeSelect(gmfgen::GenDiagramElementTarget).size() > 0 ||

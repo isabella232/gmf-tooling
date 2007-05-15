@@ -360,7 +360,7 @@ public static boolean canCreate«getUniqueIdentifier()»(«EXPAND canCreateParamete
 
 «EXPAND xpt::Common::generatedMemberComment»
 public static boolean canExist«getUniqueIdentifier()»(«EXPAND canCreateParameters FOR modelFacet») {
-	«IF creationConstraints != null && creationConstraints.isValid()-»
+	«IF creationConstraints != null && creationConstraints.isValid() && null != getDiagram().editorGen.expressionProviders-»
 		«IF null != creationConstraints.sourceEnd-»
 			«EXPAND checkAdditionalConstraint(creationConstraints, true) FOR getDiagram().editorGen.expressionProviders.getProvider(creationConstraints.sourceEnd)-»
 		«ENDIF-»

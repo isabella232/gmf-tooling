@@ -17,7 +17,16 @@
 
 «REM»Can be moved to xpt::policies::ItemSemanticEditPolicy.xpt«ENDREM»
 «DEFINE getExpressionWithEnv(gmfgen::ValueExpression valueExpr, genmodel::GenClass context) FOR gmfgen::GenExpressionInterpreter-»
-«EXPAND getExpressionFactoryMethod(valueExpr)»(«valueExpr.getBodyString()», «EXPAND xpt::Common::metaClassAccessor FOR context», env)«-»
+«EXPAND getExpression(valueExpr, context, true)-»
+«ENDDEFINE»
+
+«DEFINE getExpression(gmfgen::ValueExpression valueExpr, genmodel::GenClass context) FOR gmfgen::GenExpressionInterpreter-»
+«EXPAND getExpression(valueExpr, context, false)-»
+«ENDDEFINE»
+
+«REM»private«ENDREM»
+«DEFINE getExpression(gmfgen::ValueExpression valueExpr, genmodel::GenClass context, boolean includeEnvVariable) FOR gmfgen::GenExpressionInterpreter-»
+«EXPAND getExpressionFactoryMethod(valueExpr)»(«valueExpr.getBodyString()», «EXPAND xpt::Common::metaClassAccessor FOR context»«IF includeEnvVariable», env«ENDIF»)«-»
 «ENDDEFINE»
 
 «REM»Can be moved to xpt::policies::ItemSemanticEditPolicy.xpt«ENDREM»

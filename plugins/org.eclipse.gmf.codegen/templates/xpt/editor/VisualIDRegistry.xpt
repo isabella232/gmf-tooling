@@ -1,0 +1,436 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Alexander Shatalin (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+
+«EXTENSION xpt::editor::Utils»
+«EXTENSION xpt::GenModelUtils»
+
+«DEFINE VisualIDRegistry FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
+package «editorGen.editor.packageName»;
+
+	«EXPAND xpt::Common::generatedClassComment(
+		"This registry is used to determine which type of visual object should be\n" +
+		"created for the corresponding Diagram, Node, ChildNode or Link represented\n" + 
+		"by a domain model object.\n"	
+	)»
+public class «visualIDRegistryClassName» {
+
+	«EXPAND attributes-»
+
+	«EXPAND getViewVisualID-»
+	
+	«EXPAND getModelID-»
+	
+	«EXPAND getVisualID-»
+
+	«EXPAND getType-»
+	
+	«EXPAND getDiagramVisualID-»
+	
+	«EXPAND getDiagramVisualIDInternal-»
+	
+	«EXPAND getNodeVisualID-»
+	
+	«EXPAND getNodeVisualIDFull-»
+	
+	«EXPAND getLinkWithClassVisualID-»
+	
+	«EXPAND getLinkWithClassVisualIDFull-»
+	«EXPAND isDiagram-»
+	
+	«EXPAND getUnrecognizedIDMethod("org.eclipse.emf.ecore.EObject domainElement") FOR getUnrecognizedDiagramIDMethodName()-»
+	
+	«EXPAND getUnrecognizedIDMethod("org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.emf.ecore.EObject domainElement") FOR getUnrecognizedNodeIDMethodName()-»
+	
+	«EXPAND getUnrecognizedIDMethod("org.eclipse.emf.ecore.EObject domainElement") FOR getUnrecognizedLinkWithClassIDMethodName()-»
+	«EXPAND getUnrecognizedContainerChildIDMethod FOREACH getAllContainers()-»
+	«EXPAND getUnrecognizedLinkLabelIDMethod FOREACH links.select(link | !link.labels.isEmpty())-»
+	«EXPAND evaluateOCLExpression-»
+	«EXPAND javaConstraints-»
+
+	«EXPAND additions-»	
+}
+«ENDDEFINE»
+
+«REM»
+	<Definitions of templates for outside usage>
+«ENDREM»
+
+«DEFINE visualID FOR gmfgen::GenCommonBase»«getEditPartQualifiedClassName()».VISUAL_ID«ENDDEFINE»
+
+«DEFINE getVisualIDMethodCall FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».«EXPAND getVisualIdMethodName»«ENDDEFINE»
+
+«DEFINE getModelIDMethodCall FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».«EXPAND getModelIDMethodName»«ENDDEFINE»
+
+«DEFINE getTypeMethodCall FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».«EXPAND getTypeMethodName»«ENDDEFINE»
+
+«DEFINE getDiagramVisualIDMethodCall FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».«EXPAND getDiagramVisualIDMethodName»«ENDDEFINE»
+
+«DEFINE getNodeVisualIDMethodCall FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».«EXPAND getNodeVisualIDMethodName»«ENDDEFINE»
+
+«DEFINE getLinkWithClassVisualIDMethodCall FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».«EXPAND getLinkWithClassVisualIDMethodName»«ENDDEFINE»
+
+«REM»
+	</Definitions of templates for outside usage>
+«ENDREM»
+
+«DEFINE attributes FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+private static final String DEBUG_KEY = «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getBundle().getSymbolicName() + "/debug/visualID"; «EXPAND xpt::Common::nonNLS»
+	«IF null != editorGen.expressionProviders-»
+		«EXPAND defineOCLConstraintVariable FOREACH getAllNodes()-»
+		«EXPAND defineOCLConstraintVariable FOREACH links-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE defineOCLConstraintVariable FOR gmfgen::GenNode-»
+	«EXPAND defineOCLConstraintVariable(this) FOR modelFacet-»
+«ENDDEFINE»
+
+«DEFINE defineOCLConstraintVariable FOR gmfgen::GenLink-»
+	«EXPAND defineOCLConstraintVariable(modelFacet)-»
+«ENDDEFINE»
+
+«DEFINE defineOCLConstraintVariable(gmfgen::LinkModelFacet modelFacet) FOR gmfgen::GenLink»«ENDDEFINE»
+
+«DEFINE defineOCLConstraintVariable(gmfgen::TypeLinkModelFacet typeModelFacet) FOR gmfgen::GenLink-»
+	«EXPAND defineOCLConstraintVariable(this) FOR typeModelFacet-»
+«ENDDEFINE»
+
+«DEFINE defineOCLConstraintVariable(gmfgen::GenCommonBase commonBase) FOR gmfgen::TypeModelFacet-»
+	«IF null != modelElementSelector-»
+		«EXPAND defineOCLConstraint(commonBase, modelElementSelector, metaClass) FOR commonBase.getDiagram().editorGen.expressionProviders.getProvider(modelElementSelector)-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE defineOCLConstraint(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass metaclass) FOR gmfgen::GenExpressionProviderBase»«ENDDEFINE»
+
+«DEFINE defineOCLConstraint(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass metaclass) FOR gmfgen::GenExpressionInterpreter-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+private static final «container.editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» «EXPAND oclConstraintVariableName FOR commonBase» = «EXPAND xpt::expressions::getExpression::getExpression(valueExpression, metaclass)»;
+«ENDDEFINE»
+
+«DEFINE getViewVisualID FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public static int «EXPAND getVisualIdMethodName»(org.eclipse.gmf.runtime.notation.View view) {
+	if (view instanceof org.eclipse.gmf.runtime.notation.Diagram) {
+		if («EXPAND modelID».equals(view.getType())) {
+			return «EXPAND visualID»;
+		} else {
+			return -1;
+		}
+	}
+	return getVisualID(view.getType());
+}
+«ENDDEFINE»
+
+«DEFINE getVisualIdMethodName FOR gmfgen::GenDiagram»getVisualID«ENDDEFINE»
+
+«DEFINE getModelID FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public static String «EXPAND getModelIDMethodName»(org.eclipse.gmf.runtime.notation.View view) {
+	org.eclipse.gmf.runtime.notation.View diagram = view.getDiagram();
+	while (view != diagram) {
+		org.eclipse.emf.ecore.EAnnotation annotation = view.getEAnnotation("Shortcut"); «EXPAND xpt::Common::nonNLS»
+		if (annotation != null) {
+			return (String) annotation.getDetails().get("modelID"); «EXPAND xpt::Common::nonNLS»
+		}
+		view = (org.eclipse.gmf.runtime.notation.View) view.eContainer();
+	}
+	return diagram != null ? diagram.getType() : null;
+}
+«ENDDEFINE»
+
+«DEFINE getModelIDMethodName FOR gmfgen::GenDiagram»getModelID«ENDDEFINE»
+
+«DEFINE getVisualID FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public static int «EXPAND getVisualIdMethodName»(String type) {
+	try {
+		return Integer.parseInt(type);
+	} catch (NumberFormatException e) {
+		if (Boolean.TRUE.toString().equalsIgnoreCase(org.eclipse.core.runtime.Platform.getDebugOption(DEBUG_KEY))) {
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to parse view type as a visualID number: " + type);
+		}
+	}
+	return -1;
+}
+«ENDDEFINE»
+
+«DEFINE getType FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public static String «EXPAND getTypeMethodName»(int visualID) {
+	return String.valueOf(visualID);
+}
+«ENDDEFINE»
+
+«DEFINE getTypeMethodName FOR gmfgen::GenDiagram»getType«ENDDEFINE»
+
+«DEFINE getDiagramVisualID FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public static int «EXPAND getDiagramVisualIDMethodName»(org.eclipse.emf.ecore.EObject domainElement) {
+	if (domainElement == null) {
+		return -1;
+	}
+	org.eclipse.emf.ecore.EClass domainElementMetaclass = domainElement.eClass();
+	return «EXPAND getDiagramVisualIDMethodName»(domainElement, domainElementMetaclass);
+}
+«ENDDEFINE»
+
+«DEFINE getDiagramVisualIDMethodName FOR gmfgen::GenDiagram»getDiagramVisualID«ENDDEFINE»
+
+«DEFINE getDiagramVisualIDInternal FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+private static int «EXPAND getDiagramVisualIDMethodName»(org.eclipse.emf.ecore.EObject domainElement, org.eclipse.emf.ecore.EClass domainElementMetaclass) {
+«IF null != domainDiagramElement-»
+	if («EXPAND checkSemanticElement») {
+		return «EXPAND visualID»;
+	}
+«ENDIF-»
+	return «getUnrecognizedDiagramIDMethodName()»(domainElement);
+}
+«ENDDEFINE»
+
+«DEFINE getNodeVisualID FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public static int «EXPAND getNodeVisualIDMethodName»(org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.emf.ecore.EObject domainElement) {
+	if (domainElement == null) {
+		return -1;
+	}
+	org.eclipse.emf.ecore.EClass domainElementMetaclass = domainElement.eClass();
+	return «EXPAND getNodeVisualIDMethodName»(containerView, domainElement, domainElementMetaclass, null);
+}
+«ENDDEFINE»
+
+«DEFINE getNodeVisualIDMethodName FOR gmfgen::GenDiagram»getNodeVisualID«ENDDEFINE»
+
+«DEFINE getNodeVisualIDFull FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public static int «EXPAND getNodeVisualIDMethodName»(org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.emf.ecore.EObject domainElement, org.eclipse.emf.ecore.EClass domainElementMetaclass, String semanticHint) {
+	String containerModelID = «EXPAND getModelIDMethodCall»(containerView);
+	if (!«EXPAND modelID».equals(containerModelID)«EXPAND checkContainerModelID FOREACH shortcutsProvidedFor») {
+		return -1;
+	}
+	int containerVisualID;
+	if («EXPAND modelID».equals(containerModelID)) {
+		containerVisualID = «EXPAND getVisualIDMethodCall»(containerView);
+	} else {
+		if (containerView instanceof org.eclipse.gmf.runtime.notation.Diagram) {
+			containerVisualID = «visualID»;		
+		} else {
+			return -1;
+		}
+	}
+	int nodeVisualID = semanticHint != null ? «EXPAND getVisualIDMethodCall»(semanticHint) : -1;
+	switch (containerVisualID) {
+		«EXPAND caseContainerVisualID FOREACH getAllContainers()-»
+		«EXPAND caseLinkVisualID FOREACH links-»
+	}
+	return «getUnrecognizedNodeIDMethodName()»(containerView, domainElement);
+}
+«ENDDEFINE»
+
+«DEFINE checkContainerModelID FOR String» && !"«this»".equals(containerModelID)«ENDDEFINE»
+
+«DEFINE caseContainerVisualID FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::caseVisualID»
+	«EXPAND checkNodeEssentialChildren-»
+	«EXPAND checkChildNode FOREACH containedNodes-»
+	return «getUnrecognizedChildNodeIDMethodName(this)»(domainElement, semanticHint);
+«ENDDEFINE»
+
+«DEFINE caseLinkVisualID FOR gmfgen::GenLink-»
+	«IF !labels.isEmpty()-»
+«EXPAND xpt::Common::caseVisualID»
+	«EXPAND checkEssentialChild FOREACH labels-»
+	return «getUnrecognizedLinkLabelIDMethodName(this)»(semanticHint);
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkNodeEssentialChildren FOR gmfgen::GenContainerBase»«ENDDEFINE»
+
+«DEFINE checkNodeEssentialChildren FOR gmfgen::GenNode-»
+	«EXPAND checkEssentialChild FOREACH labels-»
+	«EXPAND checkEssentialChild FOREACH compartments-»
+«ENDDEFINE»
+
+«DEFINE checkEssentialChild FOR gmfgen::GenCommonBase-»
+if («EXPAND visualID» == nodeVisualID) {
+	return «EXPAND visualID»;
+}
+«ENDDEFINE»
+
+«DEFINE checkChildNode FOR gmfgen::GenNode-»
+if ((semanticHint == null || «EXPAND visualID» == nodeVisualID)«EXPAND checkSemanticElement(this) FOR modelFacet») {
+	return «EXPAND visualID»;
+}
+«ENDDEFINE»
+
+«DEFINE checkSemanticElement FOR gmfgen::GenDiagram»«EXPAND checkDomainElementMetaclass FOR domainDiagramElement» && «EXPAND isDiagramMethodName»((«getQualifiedInterfaceName(domainDiagramElement)») domainElement)«ENDDEFINE»
+
+«DEFINE checkSemanticElement(gmfgen::GenNode genNode) FOR gmfgen::TypeModelFacet-»
+ && «EXPAND checkDomainElementMetaclass FOR metaClass»«EXPAND checkDomainElementConstraints(genNode, genNode.getDiagram().editorGen.expressionProviders)-»
+«ENDDEFINE»
+
+«DEFINE checkDomainElementConstraints(gmfgen::GenCommonBase commonBase, gmfgen::GenExpressionProviderContainer providersContainer) FOR gmfgen::TypeModelFacet-»
+«IF null != modelElementSelector && null != providersContainer» && (domainElement == null || «EXPAND checkDomainElementConstraints(commonBase, modelElementSelector, metaClass) FOR providersContainer.getProvider(modelElementSelector)»)«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkDomainElementConstraints(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass contextMetaclass) FOR gmfgen::GenExpressionProviderBase-»
+	«ERROR "Unsupported expression provider: " + this-»
+«ENDDEFINE»
+
+«DEFINE checkDomainElementConstraints(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass contextMetaclass) FOR gmfgen::GenExpressionInterpreter»evaluate(«EXPAND oclConstraintVariableName FOR commonBase», domainElement)«ENDDEFINE»
+
+«DEFINE checkDomainElementConstraints(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass contextMetaclass) FOR gmfgen::GenJavaExpressionProvider»«EXPAND javaConstraintContainerClassName FOR commonBase».«getOperationName(valueExpression)»((«getQualifiedInstanceClassName(contextMetaclass)») domainElement).booleanValue()«ENDDEFINE»
+
+«DEFINE checkSemanticElement(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
+«EXPAND checkDomainElementMetaclass FOR metaClass»«EXPAND checkDomainElementConstraints(genLink, genLink.getDiagram().editorGen.expressionProviders)-»
+«ENDDEFINE»
+
+«DEFINE checkDomainElementMetaclass FOR genmodel::GenClass»«EXPAND xpt::Common::metaClassAccessor».isSuperTypeOf(domainElementMetaclass)«ENDDEFINE»
+
+«DEFINE getLinkWithClassVisualID FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public static int «EXPAND getLinkWithClassVisualIDMethodName»(org.eclipse.emf.ecore.EObject domainElement) {
+	if (domainElement == null) {
+		return -1;
+	}
+	org.eclipse.emf.ecore.EClass domainElementMetaclass = domainElement.eClass();
+	return «EXPAND getLinkWithClassVisualIDMethodName»(domainElement, domainElementMetaclass);
+}
+«ENDDEFINE»
+
+«DEFINE getLinkWithClassVisualIDMethodName FOR gmfgen::GenDiagram»getLinkWithClassVisualID«ENDDEFINE»
+
+«DEFINE getLinkWithClassVisualIDFull FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public static int «EXPAND getLinkWithClassVisualIDMethodName»(org.eclipse.emf.ecore.EObject domainElement, org.eclipse.emf.ecore.EClass domainElementMetaclass) {
+	«EXPAND checkLink FOREACH links-»
+	return «getUnrecognizedLinkWithClassIDMethodName()»(domainElement);
+}
+«ENDDEFINE»
+
+«DEFINE checkLink FOR gmfgen::GenLink-»
+	«EXPAND checkLink(this) FOR modelFacet-»
+«ENDDEFINE»
+
+«DEFINE checkLink(gmfgen::GenLink genLink) FOR gmfgen::LinkModelFacet»«ENDDEFINE»
+
+«DEFINE checkLink(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
+if («EXPAND checkSemanticElement(genLink)») {
+	return «EXPAND visualID FOR genLink»;
+}
+«ENDDEFINE»
+
+«DEFINE isDiagram FOR gmfgen::GenDiagram-»
+	«IF null != domainDiagramElement-»
+		«EXPAND xpt::Common::generatedMemberComment(
+			"User can change implementation of this method to handle some specific\n" +
+			"situations not covered by default logic.\n"
+		)»
+private static boolean «EXPAND isDiagramMethodName»(«getQualifiedInterfaceName(domainDiagramElement)» element) {
+	return true;
+}
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE isDiagramMethodName FOR gmfgen::GenDiagram»isDiagram«ENDDEFINE»
+
+«DEFINE getUnrecognizedContainerChildIDMethod FOR gmfgen::GenContainerBase-»
+	
+	«EXPAND getUnrecognizedIDMethod("org.eclipse.emf.ecore.EObject domainElement, String semanticHint") FOR getUnrecognizedChildNodeIDMethodName(this)-»
+«ENDDEFINE»
+
+«DEFINE getUnrecognizedLinkLabelIDMethod FOR gmfgen::GenLink-»
+
+	«EXPAND getUnrecognizedIDMethod("String semanticHint") FOR getUnrecognizedLinkLabelIDMethodName(this)-»
+«ENDDEFINE»
+
+«DEFINE getUnrecognizedIDMethod(String parameters) FOR String-»
+	«EXPAND xpt::Common::generatedMemberComment(
+		"User can change implementation of this method to handle some specific\n" +
+		"situations not covered by default logic.\n"
+	)»
+private static int «this»(«parameters») {
+	return -1;
+}
+«ENDDEFINE»
+
+«DEFINE evaluateOCLExpression FOR gmfgen::GenDiagram-»
+	«IF null != editorGen.expressionProviders && !editorGen.expressionProviders.providers.typeSelect(gmfgen::GenExpressionInterpreter).isEmpty()-»
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+private static boolean evaluate(«editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» expression, Object element) {
+	Object result = expression.evaluate(element);
+	return result instanceof Boolean && ((Boolean)result).booleanValue();			
+}
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE javaConstraints FOR gmfgen::GenDiagram-»
+	«IF null != editorGen.expressionProviders && !editorGen.expressionProviders.providers.typeSelect(gmfgen::GenJavaExpressionProvider).isEmpty()-»
+	
+		«EXPAND xpt::Common::generatedClassComment»
+private static class «EXPAND javaConstraintContainerClassName» {
+	«EXPAND defineJavaConstraintOperation FOREACH getAllNodes()-»
+	«EXPAND defineJavaConstraintOperation FOREACH links-»
+	
+}
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE defineJavaConstraintOperation FOR gmfgen::GenNode-»
+	«EXPAND defineJavaConstraintOperation(this) FOR modelFacet-»
+«ENDDEFINE»
+
+«DEFINE defineJavaConstraintOperation FOR gmfgen::GenLink-»
+	«EXPAND defineJavaConstraintOperation(modelFacet)-»
+«ENDDEFINE»
+
+«DEFINE defineJavaConstraintOperation(gmfgen::LinkModelFacet modelFacet) FOR gmfgen::GenLink»«ENDDEFINE»
+
+«DEFINE defineJavaConstraintOperation(gmfgen::TypeLinkModelFacet typeModelFacet) FOR gmfgen::GenLink-»
+	«EXPAND defineJavaConstraintOperation(this) FOR typeModelFacet-»
+«ENDDEFINE»
+
+«DEFINE defineJavaConstraintOperation(gmfgen::GenCommonBase commonBase) FOR gmfgen::TypeModelFacet-»
+	«IF null != modelElementSelector-»
+		«EXPAND defineJavaConstraintOperation(modelElementSelector, metaClass) FOR commonBase.getDiagram().editorGen.expressionProviders.getProvider(modelElementSelector)-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE defineJavaConstraintOperation(gmfgen::ValueExpression valueExpression, genmodel::GenClass genClass) FOR gmfgen::GenExpressionProviderBase»«ENDDEFINE»
+
+«DEFINE defineJavaConstraintOperation(gmfgen::ValueExpression valueExpression, genmodel::GenClass genClass) FOR gmfgen::GenJavaExpressionProvider-»
+	«IF !container.isCopy(valueExpression)-»
+
+		«EXPAND xpt::expressions::javaExpressionOperation::javaExpressionOperation(valueExpression, genClass, null)-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE oclConstraintVariableName FOR gmfgen::GenCommonBase»«getUniqueIdentifier()»_Constraint«ENDDEFINE»
+
+«DEFINE javaConstraintContainerClassName FOR gmfgen::GenCommonBase»JavaConstraints«ENDDEFINE»
+
+«DEFINE modelID FOR gmfgen::GenDiagram»«getEditPartQualifiedClassName()».MODEL_ID«ENDDEFINE»
+
+«DEFINE constraintsNotSupported FOR gmfgen::GenCommonBase-»
+	«ERROR "CehckConstraints method not supported for: " + this-»
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»

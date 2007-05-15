@@ -245,7 +245,7 @@ public class «editPartClassName» extends «EXPAND extendsList» {
 	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.gef.EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(
-			«((GenLabel) labels.toList().first()).getEditPartQualifiedClassName()».VISUAL_ID));
+			«EXPAND xpt::editor::VisualIDRegistry::visualID FOR (GenLabel) labels.toList().first()»));
 	}
 	«ENDIF-»
 
@@ -304,7 +304,7 @@ public class «editPartClassName» extends «EXPAND extendsList» {
 						if (type == «getDiagram().getElementTypesQualifiedClassName()».«childNode.getUniqueIdentifier()») {
 							org.eclipse.gef.EditPart compartmentEditPart =
 								getChildBySemanticHint(«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(
-									«compartment.getEditPartQualifiedClassName()».VISUAL_ID));
+									«EXPAND xpt::editor::VisualIDRegistry::visualID FOR compartment»));
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 								«ENDFOREACH-»

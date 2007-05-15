@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderContainer.java,v 1.4 2007/03/14 14:39:36 atikhomirov Exp $
+ * $Id: GenExpressionProviderContainer.java,v 1.5 2007/05/15 18:34:13 ashatalin Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
@@ -143,6 +143,12 @@ public interface GenExpressionProviderContainer extends EObject {
 	 */
 	String getAbstractExpressionQualifiedClassName();
 
-	boolean isCopy(ValueExpression expression); // Indicates whether the 'expression' represents a copy resulting from transformation of a reused mapping to gmfgen model 	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model expressionRequired="true"
+	 * @generated
+	 */
+	boolean isCopy(ValueExpression expression);
 
 } // GenExpressionProviderContainer

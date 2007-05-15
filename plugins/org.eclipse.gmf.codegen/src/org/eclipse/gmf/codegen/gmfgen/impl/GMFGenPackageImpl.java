@@ -7373,6 +7373,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genExpressionProviderContainerEClass, ecorePackage.getEString(), "getAbstractExpressionQualifiedClassName", 1, 1);
 
+		op = addEOperation(genExpressionProviderContainerEClass, ecorePackage.getEBoolean(), "isCopy", 0, 1);
+		addEParameter(op, this.getValueExpression(), "expression", 1, 1);
+
 		initEClass(genExpressionProviderBaseEClass, GenExpressionProviderBase.class, "GenExpressionProviderBase", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenExpressionProviderBase_Expressions(), this.getValueExpression(), null, "expressions", null, 0, -1, GenExpressionProviderBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenExpressionProviderBase_Container(), this.getGenExpressionProviderContainer(), this.getGenExpressionProviderContainer_Providers(), "container", null, 1, 1, GenExpressionProviderBase.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

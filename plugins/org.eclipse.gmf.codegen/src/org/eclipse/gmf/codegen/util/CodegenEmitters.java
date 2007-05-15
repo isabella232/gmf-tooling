@@ -39,7 +39,6 @@ import org.eclipse.gmf.codegen.templates.editor.ElementChooserGenerator;
 import org.eclipse.gmf.codegen.templates.editor.LoadResourceActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.OptionsFileGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
-import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
@@ -155,7 +154,6 @@ public class CodegenEmitters {
 		put(tr, "/providers/ShortcutsDecoratorProvider.javajet", ShortcutsDecoratorProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/editor/ShortcutPropertyTester.javajet", ShortcutsPropertyTester.class); //$NON-NLS-1$
 		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
-		put(tr, "/editor/VisualIDRegistry.javajet", VisualIDRegistryGenerator.class);
 		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
 		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
 		put(tr, "/editor/Editor.javajet", EditorGenerator.class);
@@ -546,8 +544,8 @@ public class CodegenEmitters {
 		return newXpandEmitter("xpt::editor::DiagramEditorUtil::DiagramEditorUtil"); //$NON-NLS-1$
 	}
 	
-	public TextEmitter getVisualIDRegistryEmitter() throws UnexpectedBehaviourException {
-		return retrieve(VisualIDRegistryGenerator.class);
+	public TextEmitter getVisualIDRegistryEmitter() {
+		return newXpandEmitter("xpt::editor::VisualIDRegistry::VisualIDRegistry"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getCreationWizardEmitter() throws UnexpectedBehaviourException {

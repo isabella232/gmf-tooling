@@ -98,8 +98,8 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 			protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(
 					org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
 						throws org.eclipse.core.commands.ExecutionException {
-				int diagramVID = «getVisualIDRegistryQualifiedClassName()».getDiagramVisualID(diagramRootElementSelectionPage.getModelElement());
-				if (diagramVID != «getEditPartQualifiedClassName()».VISUAL_ID) {
+				int diagramVID = «EXPAND xpt::editor::VisualIDRegistry::getDiagramVisualIDMethodCall»(diagramRootElementSelectionPage.getModelElement());
+				if (diagramVID != «EXPAND xpt::editor::VisualIDRegistry::visualID») {
 					return org.eclipse.gmf.runtime.common.core.command.CommandResult.newErrorCommandResult(
 						«EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewDiagramFileWizardIncorrectRootError()) FOR editorGen»);
 				}

@@ -422,7 +422,7 @@ private java.util.Collection getForeignShortcuts(org.eclipse.gmf.runtime.notatio
 
 «DEFINE getChildViewType FOR gmfgen::GenDiagram»«getEditPartQualifiedClassName()».MODEL_ID«ENDDEFINE»
 
-«DEFINE getChildViewType FOR gmfgen::GenCommonBase»«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«getEditPartQualifiedClassName()».VISUAL_ID)«ENDDEFINE»
+«DEFINE getChildViewType FOR gmfgen::GenCommonBase»«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«EXPAND xpt::editor::VisualIDRegistry::visualID»)«ENDDEFINE»
 
 «DEFINE caseNavigatorNode(gmfgen::GenNavigator navigator) FOR gmfgen::GenCommonBase»
 «EXPAND xpt::Common::caseVisualID» {
@@ -436,7 +436,7 @@ private java.util.Collection getForeignShortcuts(org.eclipse.gmf.runtime.notatio
 					«IF referencesIterator.isFirstIteration() && pathsIterator.isFirstIteration() && segmentsIterator.isFirstIteration()»java.util.Collection «ENDIF-»
 					connectedViews = «EXPAND childrenMethodName(reference.referenceType, segment) FOR segment.from-»
 					(«IF segmentsIterator.isFirstIteration()»java.util.Collections.singleton(view)«ELSE»connectedViews«ENDIF-»
-					, «segment.to.getEditPartQualifiedClassName()».VISUAL_ID);
+					, «EXPAND xpt::editor::VisualIDRegistry::visualID FOR segment.to»);
 				«ENDFOREACH-»
 				«EXPAND addNavigatorItemsPrefix FOR reference»connectedViews«EXPAND addNavigatorItemsSuffix('parentElement', reference.referenceType.value != gmfgen::GenNavigatorReferenceType::children.value) FOR reference-»
 			«ENDFOREACH-»
