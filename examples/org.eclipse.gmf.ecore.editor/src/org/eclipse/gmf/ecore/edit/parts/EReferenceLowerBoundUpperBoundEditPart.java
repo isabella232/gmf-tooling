@@ -91,7 +91,7 @@ public class EReferenceLowerBoundUpperBoundEditPart extends LabelEditPart implem
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(EcoreVisualIDRegistry.getType(EReferenceLowerBoundUpperBoundEditPart.VISUAL_ID), new Point(0, 60));
+		registerSnapBackPosition(EcoreVisualIDRegistry.getType(org.eclipse.gmf.ecore.edit.parts.EReferenceLowerBoundUpperBoundEditPart.VISUAL_ID), new Point(0, 60));
 	}
 
 	/**

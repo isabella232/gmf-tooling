@@ -91,7 +91,7 @@ public class EReferenceName2EditPart extends LabelEditPart implements ITextAware
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(EcoreVisualIDRegistry.getType(EReferenceName2EditPart.VISUAL_ID), new Point(0, 40));
+		registerSnapBackPosition(EcoreVisualIDRegistry.getType(org.eclipse.gmf.ecore.edit.parts.EReferenceName2EditPart.VISUAL_ID), new Point(0, 40));
 	}
 
 	/**

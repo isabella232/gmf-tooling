@@ -190,9 +190,6 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	protected IParser createEAttribute_3001Parser() {
 		EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("{0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
 		return parser;
 	}
 
