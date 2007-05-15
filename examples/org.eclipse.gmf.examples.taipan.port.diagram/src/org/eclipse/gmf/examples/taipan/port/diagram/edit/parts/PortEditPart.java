@@ -11,10 +11,19 @@
  */
 package org.eclipse.gmf.examples.taipan.port.diagram.edit.parts;
 
+import java.util.List;
+
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.PortCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.PortItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.port.diagram.layout.PortLayoutProvider;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ContainerEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.diagram.ui.providers.LeftRightProvider;
+import org.eclipse.gmf.runtime.diagram.ui.providers.TopDownProvider;
+import org.eclipse.gmf.runtime.diagram.ui.services.layout.ILayoutNodeProvider;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -42,9 +51,20 @@ public class PortEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
-	protected void createDefaultEditPolicies() {
+	protected void createDefaultEditPoliciesGen() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new PortItemSemanticEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new PortCanonicalEditPolicy());
+	}
+
+	protected void createDefaultEditPolicies() {
+		createDefaultEditPoliciesGen();
+		installEditPolicy(EditPolicy.CONTAINER_ROLE, new ContainerEditPolicy() {
+
+			public Runnable layoutNodes(List nodes, boolean offsetFromBoundingBox, IAdaptable layoutHint) {
+				ILayoutNodeProvider provider = new PortLayoutProvider();
+				return provider.layoutLayoutNodes(nodes, offsetFromBoundingBox, layoutHint);
+			}
+		});
 	}
 }
