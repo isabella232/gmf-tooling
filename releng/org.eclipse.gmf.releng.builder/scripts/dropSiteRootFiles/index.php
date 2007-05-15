@@ -114,9 +114,9 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 </div>
 <div id="topnav">
 	<ul>
-		<li><a>GMF Downloads</a></li>
+		<li><a href="http://www.eclipse.org/gmf" target="_self">GMF Homepage</a></li>
 		<li class="tabstartselected">&#160;&#160;&#160;</li>
-		<li><a class="tabselected" href="http://www.eclipse.org/gmf" target="_self">GMF Homepage</a></li>
+		<li><a class="tabselected">GMF Downloads</a></li>
 <!--
 		<li class="tabseparatorselected">&#160;&#160;&#160;</li>
 		<li><a class="" href="winPlatform.php" target="_self">Windows</a></li>
