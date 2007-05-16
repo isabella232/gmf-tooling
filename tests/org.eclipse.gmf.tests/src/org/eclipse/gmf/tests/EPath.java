@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -7,6 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: Radek Dvorak (Borland) - initial API and implementation
+ *           Artem Tikhomirov (Borland) - complete reimplementation with uriFragments
  */
 package org.eclipse.gmf.tests;
 
@@ -23,7 +24,8 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 /**
  * Utility class providing easy access and navigation to 
- * ecore metamodel elements by using paths.<p>
+ * ecore metamodel elements by using paths.
+ * @author artem
  */
 public final class EPath {
 	private final Resource myLookupResource;
