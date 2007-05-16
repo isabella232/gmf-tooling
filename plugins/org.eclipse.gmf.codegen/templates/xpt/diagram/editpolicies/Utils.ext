@@ -26,27 +26,11 @@ String getContainerVariable(gmfgen::TypeLinkModelFacet modelFacet) :
 ;
 
 boolean hasJavaConstraints(gmfgen::GenDiagram diagram) :
-	!getAllExpressionProviders(getValidLinkConstraints(diagram), getExpressionProvider(diagram)).typeSelect(gmfgen::GenJavaExpressionProvider).isEmpty()
+	!diagram.editorGen.expressionProviders.providers.typeSelect(gmfgen::GenJavaExpressionProvider).isEmpty()
 ;
 
-boolean hasOCLConstraints(gmfgen::GenDiagram diagram) :
-	!getAllExpressionProviders(getValidLinkConstraints(diagram), getExpressionProvider(diagram)).typeSelect(gmfgen::GenExpressionInterpreter).isEmpty()
-;
-
-private gmfgen::GenExpressionProviderContainer getExpressionProvider(gmfgen::GenDiagram diagram) :
-	diagram.editorGen.expressionProviders
-;
-
-private List[gmfgen::GenExpressionProviderBase] getAllExpressionProviders(List[gmfgen::GenLinkConstraints] constraints, gmfgen::GenExpressionProviderContainer providersContainer) :
-	constraints.collect(c | c.sourceEnd).addAll(constraints.collect(c | c.targetEnd)).select(c | null != c).typeSelect(gmfgen::GenConstraint).collect(c | providersContainer.getProvider(c))
-;
-
-String getTargetExpressionVarName(gmfgen::GenLink link) :
-	link.getUniqueIdentifier() + "_TargetExpression"
-;
-
-String getSourceExpressionVarName(gmfgen::GenLink link) :
-	link.getUniqueIdentifier() + "_SourceExpression"
+boolean hasInterpreterConstraints(gmfgen::GenDiagram diagram) :
+	!diagram.editorGen.expressionProviders.providers.typeSelect(gmfgen::GenExpressionInterpreter).isEmpty()
 ;
 
 List[gmfgen::GenLinkConstraints] getValidLinkConstraints(gmfgen::GenDiagram diagram) :

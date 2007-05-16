@@ -58,7 +58,7 @@ public class «visualIDRegistryClassName» {
 	«EXPAND getUnrecognizedIDMethod("org.eclipse.emf.ecore.EObject domainElement") FOR getUnrecognizedLinkWithClassIDMethodName()-»
 	«EXPAND getUnrecognizedContainerChildIDMethod FOREACH getAllContainers()-»
 	«EXPAND getUnrecognizedLinkLabelIDMethod FOREACH links.select(link | !link.labels.isEmpty())-»
-	«EXPAND evaluateOCLExpression-»
+	«EXPAND evaluateInterpreterExpression-»
 	«EXPAND javaConstraints-»
 
 	«EXPAND additions-»	
@@ -93,37 +93,9 @@ public class «visualIDRegistryClassName» {
 	«EXPAND xpt::Common::generatedMemberComment»
 private static final String DEBUG_KEY = «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getBundle().getSymbolicName() + "/debug/visualID"; «EXPAND xpt::Common::nonNLS»
 	«IF null != editorGen.expressionProviders-»
-		«EXPAND defineOCLConstraintVariable FOREACH getAllNodes()-»
-		«EXPAND defineOCLConstraintVariable FOREACH links-»
+		«EXPAND xpt::expressions::getExpression::defineInterptererExpressionConstant FOREACH getAllNodes()-»
+		«EXPAND xpt::expressions::getExpression::defineInterptererExpressionConstant FOREACH links-»
 	«ENDIF-»
-«ENDDEFINE»
-
-«DEFINE defineOCLConstraintVariable FOR gmfgen::GenNode-»
-	«EXPAND defineOCLConstraintVariable(this) FOR modelFacet-»
-«ENDDEFINE»
-
-«DEFINE defineOCLConstraintVariable FOR gmfgen::GenLink-»
-	«EXPAND defineOCLConstraintVariable(modelFacet)-»
-«ENDDEFINE»
-
-«DEFINE defineOCLConstraintVariable(gmfgen::LinkModelFacet modelFacet) FOR gmfgen::GenLink»«ENDDEFINE»
-
-«DEFINE defineOCLConstraintVariable(gmfgen::TypeLinkModelFacet typeModelFacet) FOR gmfgen::GenLink-»
-	«EXPAND defineOCLConstraintVariable(this) FOR typeModelFacet-»
-«ENDDEFINE»
-
-«DEFINE defineOCLConstraintVariable(gmfgen::GenCommonBase commonBase) FOR gmfgen::TypeModelFacet-»
-	«IF null != modelElementSelector-»
-		«EXPAND defineOCLConstraint(commonBase, modelElementSelector, metaClass) FOR commonBase.getDiagram().editorGen.expressionProviders.getProvider(modelElementSelector)-»
-	«ENDIF-»
-«ENDDEFINE»
-
-«DEFINE defineOCLConstraint(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass metaclass) FOR gmfgen::GenExpressionProviderBase»«ENDDEFINE»
-
-«DEFINE defineOCLConstraint(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass metaclass) FOR gmfgen::GenExpressionInterpreter-»
-
-	«EXPAND xpt::Common::generatedMemberComment»
-private static final «container.editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» «EXPAND oclConstraintVariableName FOR commonBase» = «EXPAND xpt::expressions::getExpression::getExpression(valueExpression, metaclass)»;
 «ENDDEFINE»
 
 «DEFINE getViewVisualID FOR gmfgen::GenDiagram-»
@@ -296,7 +268,7 @@ if ((semanticHint == null || «EXPAND visualID» == nodeVisualID)«EXPAND checkSema
 	«ERROR "Unsupported expression provider: " + this-»
 «ENDDEFINE»
 
-«DEFINE checkDomainElementConstraints(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass contextMetaclass) FOR gmfgen::GenExpressionInterpreter»evaluate(«EXPAND oclConstraintVariableName FOR commonBase», domainElement)«ENDDEFINE»
+«DEFINE checkDomainElementConstraints(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass contextMetaclass) FOR gmfgen::GenExpressionInterpreter»evaluate( «EXPAND xpt::expressions::getExpression::interptererExpressionConstantName FOR commonBase», domainElement)«ENDDEFINE»
 
 «DEFINE checkDomainElementConstraints(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass contextMetaclass) FOR gmfgen::GenJavaExpressionProvider»«EXPAND javaConstraintContainerClassName FOR commonBase».«getOperationName(valueExpression)»((«getQualifiedInstanceClassName(contextMetaclass)») domainElement).booleanValue()«ENDDEFINE»
 
@@ -373,7 +345,8 @@ private static int «this»(«parameters») {
 }
 «ENDDEFINE»
 
-«DEFINE evaluateOCLExpression FOR gmfgen::GenDiagram-»
+«REM»Can be moved to xpt::expressions::getExpression.xpt«ENDREM»
+«DEFINE evaluateInterpreterExpression FOR gmfgen::GenDiagram-»
 	«IF null != editorGen.expressionProviders && !editorGen.expressionProviders.providers.typeSelect(gmfgen::GenExpressionInterpreter).isEmpty()-»
 	
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -425,8 +398,7 @@ private static class «EXPAND javaConstraintContainerClassName» {
 	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE oclConstraintVariableName FOR gmfgen::GenCommonBase»«getUniqueIdentifier()»_Constraint«ENDDEFINE»
-
+«REM»Can be moved to xpt::expressions::getExpression.xpt«ENDREM»
 «DEFINE javaConstraintContainerClassName FOR gmfgen::GenCommonBase»JavaConstraints«ENDDEFINE»
 
 «DEFINE constraintsNotSupported FOR gmfgen::GenCommonBase-»

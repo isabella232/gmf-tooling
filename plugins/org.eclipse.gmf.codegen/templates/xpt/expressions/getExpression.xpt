@@ -15,26 +15,83 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «EXTENSION xpt::GenModelUtils»
 
-«REM»Can be moved to xpt::policies::ItemSemanticEditPolicy.xpt«ENDREM»
-«DEFINE getExpressionWithEnv(gmfgen::ValueExpression valueExpr, genmodel::GenClass context) FOR gmfgen::GenExpressionInterpreter-»
-«EXPAND getExpression(valueExpr, context, true)-»
+«REM»
+	These templates should be used to generate:
+	
+	- definition for a set of static final variables holding an instances 
+	of AbstractExpressions inside representing element selector constraints 
+	(for elements with TypeModelFacet) or link creation constraints 
+	(for GenLinkConstraints)
+	
+	- corresponding defined constant calls from the generated code
+
+	<Template definitions for outside usage>
+«ENDREM»
+«DEFINE defineInterptererExpressionConstant FOR gmfgen::GenNode-»
+	«EXPAND defineInterptererExpressionConstant(this) FOR modelFacet-»
 «ENDDEFINE»
 
-«DEFINE getExpression(gmfgen::ValueExpression valueExpr, genmodel::GenClass context) FOR gmfgen::GenExpressionInterpreter-»
-«EXPAND getExpression(valueExpr, context, false)-»
+«DEFINE defineInterptererExpressionConstant FOR gmfgen::GenLink-»
+	«EXPAND defineInterptererExpressionConstant(modelFacet)-»
 «ENDDEFINE»
 
-«REM»private«ENDREM»
+«DEFINE defineInterptererExpressionConstants FOR gmfgen::GenLinkConstraints-»
+	«LET link.getDiagram().editorGen.expressionProviders AS expressionProviders-»
+		«IF null != sourceEnd-»
+
+			«EXPAND defineLinkEndConstant(this, sourceEnd, getSourceEndContextClass(), getTargetEndContextClass()) FOR expressionProviders.getProvider(sourceEnd)-»
+		«ENDIF-»
+		«IF null != targetEnd-»
+
+			«EXPAND defineLinkEndConstant(this, targetEnd, getTargetEndContextClass(), getSourceEndContextClass()) FOR expressionProviders.getProvider(targetEnd)-»
+		«ENDIF-»
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE interptererExpressionConstantName FOR gmfgen::GenCommonBase»«getUniqueIdentifier()»_Constraint«ENDDEFINE»
+
+«DEFINE interptererExpressionConstantName(boolean source) FOR gmfgen::GenLinkConstraints»«link.getUniqueIdentifier()»_«IF source»Source«ELSE»Target«ENDIF»Expression«ENDDEFINE»
+«REM»
+	</Template definitions for outside usage>
+«ENDREM»
+
+«DEFINE defineInterptererExpressionConstant(gmfgen::LinkModelFacet modelFacet) FOR gmfgen::GenLink»«ENDDEFINE»
+
+«DEFINE defineInterptererExpressionConstant(gmfgen::TypeLinkModelFacet typeModelFacet) FOR gmfgen::GenLink-»
+	«EXPAND defineInterptererExpressionConstant(this) FOR typeModelFacet-»
+«ENDDEFINE»
+
+«DEFINE defineInterptererExpressionConstant(gmfgen::GenCommonBase commonBase) FOR gmfgen::TypeModelFacet-»
+	«IF null != modelElementSelector-»
+		«EXPAND defineInterptererExpressionConstant(commonBase, modelElementSelector, metaClass) FOR commonBase.getDiagram().editorGen.expressionProviders.getProvider(modelElementSelector)-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE defineInterptererExpressionConstant(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass metaclass) FOR gmfgen::GenExpressionProviderBase»«ENDDEFINE»
+
+«DEFINE defineInterptererExpressionConstant(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass metaclass) FOR gmfgen::GenExpressionInterpreter-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+«EXPAND interptererExpressionConstantSignature FOR commonBase» «EXPAND interptererExpressionConstantName FOR commonBase» = «EXPAND getExpression(valueExpression, metaclass, false)»;
+«ENDDEFINE»
+
+«DEFINE defineLinkEndConstant(gmfgen::GenLinkConstraints linkConstraints, gmfgen::ValueExpression valueExpression, genmodel::GenClass context, genmodel::GenClass oppositeEndContext) FOR gmfgen::GenExpressionProviderBase»«ENDDEFINE»
+
+«DEFINE defineLinkEndConstant(gmfgen::GenLinkConstraints linkConstraints, gmfgen::ValueExpression valueExpression, genmodel::GenClass context, genmodel::GenClass oppositeEndContext) FOR gmfgen::GenExpressionInterpreter-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+«EXPAND interptererExpressionConstantSignature FOR linkConstraints.link» «EXPAND interptererExpressionConstantName(linkConstraints.sourceEnd == valueExpression) FOR linkConstraints»;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+static {
+	java.util.Map env = new java.util.HashMap(3);
+	env.put(OPPOSITE_END_VAR, «EXPAND xpt::Common::metaClassAccessor FOR oppositeEndContext»);
+	«EXPAND interptererExpressionConstantName(linkConstraints.sourceEnd == valueExpression) FOR linkConstraints» = «EXPAND getExpression(valueExpression, context, true)»; «EXPAND xpt::Common::nonNLS»
+}
+«ENDDEFINE»
+
+«DEFINE interptererExpressionConstantSignature FOR gmfgen::GenCommonBase»private static final «getDiagram().editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()»«ENDDEFINE»
+
 «DEFINE getExpression(gmfgen::ValueExpression valueExpr, genmodel::GenClass context, boolean includeEnvVariable) FOR gmfgen::GenExpressionInterpreter-»
-«EXPAND getExpressionFactoryMethod(valueExpr)»(«valueExpr.getBodyString()», «EXPAND xpt::Common::metaClassAccessor FOR context»«IF includeEnvVariable», env«ENDIF»)«-»
-«ENDDEFINE»
-
-«REM»Can be moved to xpt::policies::ItemSemanticEditPolicy.xpt«ENDREM»
-«DEFINE initOppositeEndEnv FOR genmodel::GenClass-»
-java.util.Map env = new java.util.HashMap(3);
-env.put(OPPOSITE_END_VAR, «EXPAND xpt::Common::metaClassAccessor»);
-«ENDDEFINE»
-
-«DEFINE getExpressionFactoryMethod(gmfgen::ValueExpression valueExpr) FOR gmfgen::GenExpressionInterpreter-»
-«getQualifiedClassName()».«getExpressionAccessor(valueExpr)-»
+«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», «EXPAND xpt::Common::metaClassAccessor FOR context»«IF includeEnvVariable», env«ENDIF»)«-»
 «ENDDEFINE»
