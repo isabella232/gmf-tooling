@@ -11,19 +11,22 @@
  */
 package org.eclipse.gmf.examples.taipan.port.diagram.edit.parts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.PortCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.PortItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.port.diagram.layout.PortLayoutProvider;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ContainerEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.diagram.ui.providers.LeftRightProvider;
-import org.eclipse.gmf.runtime.diagram.ui.providers.TopDownProvider;
-import org.eclipse.gmf.runtime.diagram.ui.services.layout.ILayoutNodeProvider;
+import org.eclipse.gmf.runtime.diagram.ui.requests.ArrangeRequest;
+import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -40,6 +43,8 @@ public class PortEditPart extends DiagramEditPart {
 	 * @generated
 	 */
 	public static final int VISUAL_ID = 1000;
+
+	private PortLayoutProvider layoutProvider = new PortLayoutProvider();
 
 	/**
 	 * @generated
@@ -61,10 +66,32 @@ public class PortEditPart extends DiagramEditPart {
 		createDefaultEditPoliciesGen();
 		installEditPolicy(EditPolicy.CONTAINER_ROLE, new ContainerEditPolicy() {
 
+			protected Command getArrangeCommand(ArrangeRequest request) {
+				if (layoutProvider.isWorking()) {
+					return null;
+				}
+				return super.getArrangeCommand(request);
+			}
+
 			public Runnable layoutNodes(List nodes, boolean offsetFromBoundingBox, IAdaptable layoutHint) {
-				ILayoutNodeProvider provider = new PortLayoutProvider();
-				return provider.layoutLayoutNodes(nodes, offsetFromBoundingBox, layoutHint);
+				return layoutProvider.layoutLayoutNodes(nodes, offsetFromBoundingBox, layoutHint);
 			}
 		});
+	}
+
+	public Command getCommand(Request request) {
+		Command command = super.getCommand(request);
+		if (request.getType().equals(REQ_CREATE) 
+				|| request.getType().equals(REQ_MOVE_CHILDREN)
+				|| request.getType().equals(REQ_RESIZE_CHILDREN)) {
+			ArrangeRequest layoutRequest = new ArrangeRequest(RequestConstants.REQ_ARRANGE_DEFERRED);
+			List editParts = request instanceof GroupRequest ? ((GroupRequest) request).getEditParts() : getChildren();
+			layoutRequest.setViewAdaptersToArrange(new ArrayList(editParts));
+			Command layoutCommand = super.getCommand(layoutRequest);
+			if (layoutCommand != null) {
+				command = command.chain(layoutCommand);
+			}
+		}
+		return command;
 	}
 }

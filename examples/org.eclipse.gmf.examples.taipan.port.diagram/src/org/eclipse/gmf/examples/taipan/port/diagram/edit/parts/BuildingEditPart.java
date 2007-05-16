@@ -11,13 +11,19 @@
  */
 package org.eclipse.gmf.examples.taipan.port.diagram.edit.parts;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
+import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gmf.examples.taipan.figures.BuildingShape;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.BuildingItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.PortTextSelectionEditPolicy;
@@ -26,6 +32,8 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.diagram.ui.requests.ArrangeRequest;
+import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
@@ -85,6 +93,21 @@ public class BuildingEditPart extends ShapeNodeEditPart {
 			}
 		};
 		return lep;
+	}
+
+	public Command getCommand(Request request) {
+		Command command = super.getCommand(request);
+		if (request.getType().equals(REQ_DELETE)) {
+			ArrangeRequest layoutRequest = new ArrangeRequest(RequestConstants.REQ_ARRANGE_DEFERRED);
+			List editParts = new ArrayList(getParent().getChildren());
+			editParts.remove(this);
+			layoutRequest.setViewAdaptersToArrange(editParts);
+			Command layoutCommand = getParent().getCommand(layoutRequest);
+			if (layoutCommand != null) {
+				command = command.chain(layoutCommand);
+			}
+		}
+		return command;
 	}
 
 	/**
