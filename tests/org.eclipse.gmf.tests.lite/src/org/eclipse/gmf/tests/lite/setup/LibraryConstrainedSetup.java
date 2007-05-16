@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import junit.framework.Assert;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.tests.EPath;
@@ -46,26 +47,33 @@ public class LibraryConstrainedSetup extends SessionSetup {
 
 	protected DomainModelSource createDomainModel() {
 		DomainModelFileSetup modelSetup = new DomainModelFileSetup() {
+			private EPath modelAccess;
+			@Override
+			public DomainModelSource init(URI sourceURI) {
+				final DomainModelSource r = super.init(sourceURI);
+				modelAccess = new EPath(getModel().eResource());
+				return r;
+			}
 			public EClass getDiagramElement() {
-				return (EClass) EPath.ECORE.lookup(getModel(), "Library"); //$NON-NLS-1$
+				return modelAccess.findClass("//Library"); //$NON-NLS-1$
 			}
 			public NodeData getNodeA() {
-				EClass n = (EClass) EPath.ECORE.lookup(getModel(), "Writer"); //$NON-NLS-1$
-				EReference c = (EReference) EPath.ECORE.lookup(getModel(), "Library::writers"); //$NON-NLS-1$
+				EClass n = modelAccess.findClass("//Writer"); //$NON-NLS-1$
+				EReference c = modelAccess.findReference("//Library/writers"); //$NON-NLS-1$
 				return new NodeData(n, null, c);
 			}
 			public NodeData getNodeB() {
-				EClass n = (EClass) EPath.ECORE.lookup(getModel(), "Book"); //$NON-NLS-1$
-				EReference c = (EReference) EPath.ECORE.lookup(getModel(), "Library::books"); //$NON-NLS-1$
+				EClass n = modelAccess.findClass("//Book"); //$NON-NLS-1$
+				EReference c = modelAccess.findReference("//Library/books"); //$NON-NLS-1$
 				return new NodeData(n, null, c);
 			}
 			public EReference getLinkAsRef() {
-				return (EReference) EPath.ECORE.lookup(getModel(), "Book::author"); //$NON-NLS-1$
+				return modelAccess.findReference("//Book/author"); //$NON-NLS-1$
 			}
 			public LinkData getLinkAsClass() {
-				EClass l = (EClass) EPath.ECORE.lookup(getModel(), "Opinion"); //$NON-NLS-1$
-				EReference t = (EReference) EPath.ECORE.lookup(getModel(), "Opinion::book"); //$NON-NLS-1$
-				EReference c = (EReference) EPath.ECORE.lookup(getModel(), "Writer::opinions"); //$NON-NLS-1$
+				EClass l = modelAccess.findClass("//Opinion"); //$NON-NLS-1$
+				EReference t = modelAccess.findReference("//Opinion/book"); //$NON-NLS-1$
+				EReference c = modelAccess.findReference("//Writer/opinions"); //$NON-NLS-1$
 				return new LinkData(l, t, c);
 			}
 		};

@@ -46,7 +46,6 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.tests.EPath;
 import org.eclipse.gmf.tests.setup.AbstractGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
@@ -76,7 +75,7 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 		Diagram result = NotationFactory.eINSTANCE.createDiagram();
 		result.setElement(domainElement);
 		String diagramDecoratorClass = sessionSetup.getGenModel().getGenDiagram().getNotationViewFactoryQualifiedClassName();
-		Class pluginClass = sessionSetup.getGenProject().getBundle().loadClass(diagramDecoratorClass);
+		Class<?> pluginClass = sessionSetup.getGenProject().getBundle().loadClass(diagramDecoratorClass);
 		Field field = pluginClass.getField("INSTANCE");
 		IViewDecorator decorator = (IViewDecorator) field.get(null);
 		decorator.decorateView(result);
@@ -124,11 +123,10 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 		public Command getSetBusinessElementStructuralFeatureCommand(View view, String featureName, final Object value) {
 			final EObject instance = view.getElement();
 			Assert.assertNotNull("No business element bound to notation element", instance); //$NON-NLS-1$
-			EObject resultObj = EPath.findFeature(instance.eClass(), featureName);
-			if (!(resultObj instanceof EStructuralFeature)) {
+			final EStructuralFeature feature = instance.eClass().getEStructuralFeature(featureName);
+			if (feature == null) {
 				throw new IllegalArgumentException("Not existing feature: " + featureName); //$NON-NLS-1$
 			}
-			final EStructuralFeature feature = (EStructuralFeature) resultObj;
 			TransactionalEditingDomain txEditDomain = getEditDomain(instance);
 			return new WrappingCommand(txEditDomain, new AbstractCommand() {
 				private Object oldValue;
@@ -145,7 +143,8 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 						return;
 					}
 					if (FeatureMapUtil.isMany(instance,feature)) {
-						((Collection) instance.eGet(feature)).remove(value);
+						@SuppressWarnings("unchecked") Collection<Object> coll = (Collection<Object>) instance.eGet(feature);
+						coll.remove(value);
 					} else {
 						instance.eSet(feature, oldValue);
 					}
@@ -153,10 +152,12 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 				public void redo() {
 					execute();
 				}
+				
 				public void execute() {
 					wasSet = instance.eIsSet(feature);
 					if (FeatureMapUtil.isMany(instance,feature)) {
-						((Collection) instance.eGet(feature)).add(value);
+						@SuppressWarnings("unchecked") Collection<Object> coll = (Collection<Object>) instance.eGet(feature);
+						coll.add(value);
 
 					} else {
 						oldValue = instance.eGet(feature);
