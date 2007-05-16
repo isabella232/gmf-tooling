@@ -91,7 +91,7 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 			offset += thinkness + GAP;
 		}
 
-		return cc;
+		return cc.isEmpty() ? new Command("Nothing to layout") {} : cc; //$NON-NLS-1$
 	}
 
 	protected int getStreetThickness(Collection editParts) {
