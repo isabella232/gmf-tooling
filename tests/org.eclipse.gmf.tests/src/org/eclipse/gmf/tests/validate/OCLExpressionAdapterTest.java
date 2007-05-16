@@ -74,32 +74,32 @@ public class OCLExpressionAdapterTest extends TestCase {
 	}
 	
 	public void testAssignReferenceMany() throws Exception {
-		EReference ref = modelAccess.lookup("links::Root::elements", EReference.class); //$NON-NLS-1$
+		EReference ref = modelAccess.findReference("//Root/elements"); //$NON-NLS-1$
 		
 		assertTrue(expression("null.oclAsType(links::Node)").isAssignableToElement(ref)); //$NON-NLS-1$
-		assertTrue(ref.getEReferenceType().isSuperTypeOf(modelAccess.lookup("links::Node", EClass.class))); //$NON-NLS-1$		
+		assertTrue(ref.getEReferenceType().isSuperTypeOf(modelAccess.findClass("//Node"))); //$NON-NLS-1$		
 
 		assertTrue(expression("null.oclAsType(links::Container)").isAssignableToElement(ref)); //$NON-NLS-1$
-		assertTrue(ref.getEReferenceType().isSuperTypeOf(modelAccess.lookup("links::Container", EClass.class))); //$NON-NLS-1$
+		assertTrue(ref.getEReferenceType().isSuperTypeOf(modelAccess.findClass("//Container"))); //$NON-NLS-1$
 		assertTrue(expression("Bag { null.oclAsType(links::Container) }").isAssignableToElement(ref)); //$NON-NLS-1$
 		
 		assertFalse(expression("null.oclAsType(links::Root)").isAssignableToElement(ref)); //$NON-NLS-1$
-		assertFalse(ref.getEReferenceType().isSuperTypeOf(modelAccess.lookup("links::Root", EClass.class))); //$NON-NLS-1$		
+		assertFalse(ref.getEReferenceType().isSuperTypeOf(modelAccess.findClass("//Root"))); //$NON-NLS-1$		
 	}
 
 	public void testAssignReferenceSingle() throws Exception {
-		EReference ref = modelAccess.lookup("links::Link::target", EReference.class); //$NON-NLS-1$
+		EReference ref = modelAccess.findReference("//Link/target"); //$NON-NLS-1$
 
 		assertTrue(expression("null.oclAsType(links::Node)").isAssignableToElement(ref)); //$NON-NLS-1$
-		assertTrue(ref.getEReferenceType().isSuperTypeOf(modelAccess.lookup("links::Node", EClass.class))); //$NON-NLS-1$		
+		assertTrue(ref.getEReferenceType().isSuperTypeOf(modelAccess.findClass("//Node"))); //$NON-NLS-1$		
 		assertTrue(expression("null.oclAsType(links::Container)").isAssignableToElement(ref)); //$NON-NLS-1$
-		assertTrue(ref.getEReferenceType().isSuperTypeOf(modelAccess.lookup("links::Container", EClass.class))); //$NON-NLS-1$
+		assertTrue(ref.getEReferenceType().isSuperTypeOf(modelAccess.findClass("//Container"))); //$NON-NLS-1$
 		
 		assertFalse(expression("null.oclAsType(links::Root)").isAssignableToElement(ref)); //$NON-NLS-1$
-		assertFalse(ref.getEReferenceType().isSuperTypeOf(modelAccess.lookup("links::Root", EClass.class))); //$NON-NLS-1$
+		assertFalse(ref.getEReferenceType().isSuperTypeOf(modelAccess.findClass("//Root"))); //$NON-NLS-1$
 
 		assertFalse(expression("Bag{null.oclAsType(links::Root)}").isAssignableToElement(ref)); //$NON-NLS-1$
-		assertFalse(ref.getEReferenceType().isSuperTypeOf(modelAccess.lookup("links::Root", EClass.class))); //$NON-NLS-1$		
+		assertFalse(ref.getEReferenceType().isSuperTypeOf(modelAccess.findClass("//Root"))); //$NON-NLS-1$		
 	}	
 	
 	/*
@@ -178,11 +178,11 @@ public class OCLExpressionAdapterTest extends TestCase {
 	}
 	
 	public void testEnumerationLiteral() throws Exception {
-		EAttribute attr = modelAccess.lookup("links::Container::enumAttr_Init", EAttribute.class); //$NON-NLS-1$
+		EAttribute attr = modelAccess.findAttribute("//Container/enumAttr_Init"); //$NON-NLS-1$
 		assertTrue(expression("links::TestEnum::LIT1").isAssignableToElement(attr)); //$NON-NLS-1$		
 		assertFalse(expression("links::TestEnum").isAssignableToElement(attr)); //$NON-NLS-1$
 		
-		EAttribute manyEnumsAttr = createAttr(modelAccess.lookup("links::TestEnum", EClassifier.class)); //$NON-NLS-1$
+		EAttribute manyEnumsAttr = createAttr(modelAccess.lookup("//TestEnum", EClassifier.class)); //$NON-NLS-1$
 		manyEnumsAttr.setUpperBound(-1);
 		assertTrue(expression("Bag{links::TestEnum::LIT0, links::TestEnum::LIT1}").isAssignableToElement(manyEnumsAttr)); //$NON-NLS-1$
 		assertFalse(expression("Bag{links::TestEnum}").isAssignableToElement(manyEnumsAttr)); //$NON-NLS-1$		
@@ -191,7 +191,7 @@ public class OCLExpressionAdapterTest extends TestCase {
 	IModelExpression expression(String body) throws Exception {
 		EPackage.Registry reg = new EPackageRegistryImpl();
 		reg.putAll(EPackage.Registry.INSTANCE);
-		EPackage model = modelAccess.lookup("links", EPackage.class); //$NON-NLS-1$
+		EPackage model = modelAccess.lookup("/", EPackage.class); //$NON-NLS-1$
 		reg.put(model.getNsURI(), model);
 
 		IParseEnvironment env = EnvironmentProvider.createParseEnv();		

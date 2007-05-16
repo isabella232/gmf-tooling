@@ -59,7 +59,6 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.tests.EPath;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.swt.graphics.RGB;
 
@@ -101,12 +100,10 @@ public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfigu
 		public Command getSetBusinessElementStructuralFeatureCommand(View view, String featureName, Object value) {
 			EObject instance = view.getElement();
 			Assert.assertNotNull("No business element bound to notation element", instance); //$NON-NLS-1$
-			EObject resultObj = EPath.findFeature(instance.eClass(), featureName);
-			if (!(resultObj instanceof EStructuralFeature)) {
+			EStructuralFeature feature = instance.eClass().getEStructuralFeature(featureName);
+			if (feature == null) {
 				throw new IllegalArgumentException("Not existing feature: " + featureName); //$NON-NLS-1$
 			}
-	
-			EStructuralFeature feature = (EStructuralFeature) resultObj;
 			SetRequest setReq = new SetRequest(instance, feature, value);
 			EditPart editPart = findEditPart(view);
 			TransactionalEditingDomain txEditDomain = getEditDomain(editPart);

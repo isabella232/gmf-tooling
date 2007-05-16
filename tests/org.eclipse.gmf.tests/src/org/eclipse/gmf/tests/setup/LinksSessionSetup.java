@@ -25,13 +25,11 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.Diagnostician;
@@ -93,27 +91,34 @@ public class LinksSessionSetup extends SessionSetup {
 	
 	protected DomainModelSource createDomainModel() {
 		DomainModelFileSetup modelSetup = new DomainModelFileSetup() {
+			private EPath modelAccess;
+			@Override
+			public DomainModelSource init(URI sourceURI) {
+				DomainModelSource r = super.init(sourceURI);
+				modelAccess = new EPath(getModel().eResource());
+				return r;
+			}
 			public EClass getDiagramElement() {
-				return (EClass) EPath.ECORE.lookup(getModel(), "Root"); //$NON-NLS-1$
+				return modelAccess.findClass("//Root"); //$NON-NLS-1$
 			}
 			public NodeData getNodeA() {
-				EClass n = (EClass) EPath.ECORE.lookup(getModel(), "Container"); //$NON-NLS-1$
-				EReference c = (EReference) EPath.ECORE.lookup(getModel(), "Root::elements"); //$NON-NLS-1$
+				EClass n = modelAccess.findClass("//Container"); //$NON-NLS-1$
+				EReference c = modelAccess.findReference("//Root/elements"); //$NON-NLS-1$
 				return new NodeData(n, null, c);
 			}
 			public NodeData getNodeB() {
-				EClass n = (EClass) EPath.ECORE.lookup(getModel(), "Node"); //$NON-NLS-1$
-				EReference c = (EReference) EPath.ECORE.lookup(getModel(), "Root::elements"); //$NON-NLS-1$
+				EClass n = modelAccess.findClass("//Node"); //$NON-NLS-1$
+				EReference c = modelAccess.findReference("//Root/elements"); //$NON-NLS-1$
 				return new NodeData(n, null, c);
 			}
 			public LinkData getLinkAsClass() {
-				EClass l = (EClass) EPath.ECORE.lookup(getModel(), "Link"); //$NON-NLS-1$
-				EReference t = (EReference) EPath.ECORE.lookup(getModel(), "Link::target"); //$NON-NLS-1$
-				EReference c = (EReference) EPath.ECORE.lookup(getModel(), "Container::childNodes"); //$NON-NLS-1$
+				EClass l = modelAccess.findClass("//Link"); //$NON-NLS-1$
+				EReference t = modelAccess.findReference("//Link/target"); //$NON-NLS-1$
+				EReference c = modelAccess.findReference("//Container/childNodes"); //$NON-NLS-1$
 				return new LinkData(l, t, c);
 			}
 			public EReference getLinkAsRef() {
-				return (EReference) EPath.ECORE.lookup(getModel(), "Container::referenceOnlyLink"); //$NON-NLS-1$
+				return modelAccess.findReference("//Container/referenceOnlyLink"); //$NON-NLS-1$
 			}
 		};
 		try {
@@ -177,25 +182,19 @@ public class LinksSessionSetup extends SessionSetup {
 	 * Custom map-setup
 	 */
 	private static final class LinksMapSetup extends MapSetup {
-		private DomainModelSource domainSource;
-		private EPath ECORE;
+		private EPath modelAccess;
 		
 		public MapSetup init(DiaDefSource ddSource, DomainModelSource domainSource, ToolDefSource toolDef) {
-			this.domainSource = domainSource;
-			EPackage.Registry reg = new EPackageRegistryImpl();
-			reg.putAll(EPackage.Registry.INSTANCE);
-			EPackage model = domainSource.getModel();
-			reg.put(model.getNsURI(), model);
-			this.ECORE = EPath.createEcorePath(reg);
+			this.modelAccess = new EPath(domainSource.getModel().eResource());
 						
 			super.init(ddSource, domainSource, toolDef);
 						
 			// add mapping for InvalidNode, this node will be never created in tests
 			// but used for generation purposes of java expression support
-			EClass invalidNodeMetaClass = (EClass)EPath.ECORE.lookup(domainSource.getModel(), "InvalidNode"); //$NON-NLS-1$
+			EClass invalidNodeMetaClass = modelAccess.findClass("//InvalidNode"); //$NON-NLS-1$
 			createNodeMapping(ddSource.getNodeDef(), 
 					invalidNodeMetaClass, null, null,
-					(EReference)EPath.findFeature(domainSource.getModel(), "Root::elements"), //$NON-NLS-1$
+					modelAccess.findReference("//Root/elements"), //$NON-NLS-1$
 					true);
 					
 			// Note: needs metrics to be initialized before audits as audits may reference metric
@@ -221,25 +220,26 @@ public class LinksSessionSetup extends SessionSetup {
 		/* Setup element initializers */
 		protected void setupNodeMapping(NodeMapping nme) {
 			if("Container".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$
+				EPath ecoreModelAccess = new EPath(EcorePackage.eINSTANCE.eResource());
 				nme.setDomainInitializer(createFSeqInit(new FeatureInitDataHelper[] {
-					featureValOCL("links::Container::enumAttr_Init", "TestEnum::LIT1"), //$NON-NLS-1$ //$NON-NLS-2$
-					featureValOCL("links::Container::manyEnumAttr_Init", "Sequence { TestEnum::LIT0, TestEnum::LIT1 }"), //$NON-NLS-1$ //$NON-NLS-2$						
-					featureValOCL("links::Container::reference_Init", "Bag { self }" ), //$NON-NLS-1$ //$NON-NLS-2$
-					featureValOCL("links::Container::manyRealAttr_Init", "Sequence { 1, 1.5 }" ), //$NON-NLS-1$ //$NON-NLS-2$
+					featureValOCL("//Container/enumAttr_Init", "TestEnum::LIT1"), //$NON-NLS-1$ //$NON-NLS-2$
+					featureValOCL("//Container/manyEnumAttr_Init", "Sequence { TestEnum::LIT0, TestEnum::LIT1 }"), //$NON-NLS-1$ //$NON-NLS-2$						
+					featureValOCL("//Container/reference_Init", "Bag { self }" ), //$NON-NLS-1$ //$NON-NLS-2$
+					featureValOCL("//Container/manyRealAttr_Init", "Sequence { 1, 1.5 }" ), //$NON-NLS-1$ //$NON-NLS-2$
 					// test complex structure creation
-					refNewElement("links::Container::refNewElement", new FeatureSeqInitializer[] { //$NON-NLS-1$
+					refNewElement(modelAccess.findFeature("//Container/refNewElement"), new FeatureSeqInitializer[] { //$NON-NLS-1$
 						newElementFSeqInit(new FeatureInitDataHelper[] {
-							featureValOCL("ecore::ENamedElement::name", "'EClass'"), //$NON-NLS-1$ //$NON-NLS-2$
-							refNewElement("ecore::EClass::eStructuralFeatures", new FeatureSeqInitializer[] { //$NON-NLS-1$
+							featureValOCL(ecoreModelAccess.findFeature("//ENamedElement/name"), "'EClass'"), //$NON-NLS-1$ //$NON-NLS-2$
+							refNewElement(ecoreModelAccess.findFeature("//EClass/eStructuralFeatures"), new FeatureSeqInitializer[] { //$NON-NLS-1$
 								newElementFSeqInit(new FeatureInitDataHelper[] {
-									featureValOCL("ecore::ENamedElement::name", "'EAttribute'"), //$NON-NLS-1$ //$NON-NLS-2$
-									featureValOCL("ecore::ETypedElement::eType", "ecore::EString") //$NON-NLS-1$ //$NON-NLS-2$									
-								}, "ecore::EAttribute") //$NON-NLS-1$
+									featureValOCL(ecoreModelAccess.findFeature("//ENamedElement/name"), "'EAttribute'"), //$NON-NLS-1$ //$NON-NLS-2$
+									featureValOCL(ecoreModelAccess.findFeature("//ETypedElement/eType"), "ecore::EString") //$NON-NLS-1$ //$NON-NLS-2$									
+								}, ecoreModelAccess.findClass("//EAttribute")) //$NON-NLS-1$
 							}),
-							refNewElement("ecore::EClass::eOperations", new FeatureSeqInitializer[] { //$NON-NLS-1$
+							refNewElement(ecoreModelAccess.findFeature("//EClass/eOperations"), new FeatureSeqInitializer[] { //$NON-NLS-1$
 									newElementFSeqInit(new FeatureInitDataHelper[] {
-										featureValOCL("ecore::ENamedElement::name", "'EOperation'"), //$NON-NLS-1$ //$NON-NLS-2$
-										featureValOCL("ecore::ETypedElement::eType", "links::Container") //$NON-NLS-1$ //$NON-NLS-2$									
+										featureValOCL(ecoreModelAccess.findFeature("//ENamedElement/name"), "'EOperation'"), //$NON-NLS-1$ //$NON-NLS-2$
+										featureValOCL(ecoreModelAccess.findFeature("//ETypedElement/eType"), "links::Container") //$NON-NLS-1$ //$NON-NLS-2$									
 									}, null) 
 							})							
 						}, null),
@@ -253,33 +253,33 @@ public class LinksSessionSetup extends SessionSetup {
 				
 			} else if("Node".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$
 				nme.setDomainInitializer(createFSeqInit(new FeatureInitDataHelper[] {  
-					featureValOCL("links::Node::integers_Init", "Sequence { 10, 20 }" ), //$NON-NLS-1$ //$NON-NLS-2$
-					featureVal("links::Node::name", "setNodeName", Language.JAVA_LITERAL), //$NON-NLS-1$ //$NON-NLS-2$				
+					featureValOCL("//Node/integers_Init", "Sequence { 10, 20 }" ), //$NON-NLS-1$ //$NON-NLS-2$
+					featureValJava("//Node/name", "setNodeName"), //$NON-NLS-1$ //$NON-NLS-2$				
 				}));				
 			
-				createReusedChildNodes(nme, new String[] { "Node::nestedNodes1", "Node::nestedNodes2" }); //$NON-NLS-1$ //$NON-NLS-2$				
+				createReusedChildNodes(nme, new String[] { "//Node/nestedNodes1", "//Node/nestedNodes2" }); //$NON-NLS-1$ //$NON-NLS-2$				
 			} else if("InvalidNode".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$				
 				// test specializer with multiple java expressions coming from reused node mapping				
 				// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=144305
 				nme.setDomainInitializer(createFSeqInit(new FeatureInitDataHelper[] {
-					featureValOCL("links::Node::name", "'\"Quated-name tests literal escaping\"'"), //$NON-NLS-1$ //$NON-NLS-2$						
-					featureVal("links::Node::multiValPrimitive", "multiValPrimitive", Language.JAVA_LITERAL), //$NON-NLS-1$ //$NON-NLS-2$ 					
-					featureVal("links::Node::multiValObj", "multiValObj", Language.JAVA_LITERAL), //$NON-NLS-1$ //$NON-NLS-2$ 					
-					featureVal("links::Node::multiRef", "multiRef", Language.JAVA_LITERAL), //$NON-NLS-1$ //$NON-NLS-2$
-					featureVal("links::Node::singleValPrimitive", "singleValPrimitive", Language.JAVA_LITERAL), //$NON-NLS-1$ //$NON-NLS-2$ 					
-					featureVal("links::Node::singleValObj", "singleValObj", Language.JAVA_LITERAL), //$NON-NLS-1$ //$NON-NLS-2$ 					
-					featureVal("links::Node::singleRef", "singleRef",  Language.JAVA_LITERAL), //$NON-NLS-1$ //$NON-NLS-2$ 										
+					featureValOCL("//Node/name", "'\"Quated-name tests literal escaping\"'"), //$NON-NLS-1$ //$NON-NLS-2$						
+					featureValJava("//Node/multiValPrimitive", "multiValPrimitive"), //$NON-NLS-1$ //$NON-NLS-2$ 					
+					featureValJava("//Node/multiValObj", "multiValObj"), //$NON-NLS-1$ //$NON-NLS-2$ 					
+					featureValJava("//Node/multiRef", "multiRef"), //$NON-NLS-1$ //$NON-NLS-2$
+					featureValJava("//Node/singleValPrimitive", "singleValPrimitive"), //$NON-NLS-1$ //$NON-NLS-2$ 					
+					featureValJava("//Node/singleValObj", "singleValObj"), //$NON-NLS-1$ //$NON-NLS-2$ 					
+					featureValJava("//Node/singleRef", "singleRef"), //$NON-NLS-1$ //$NON-NLS-2$ 										
 				}));		
 		
 				Constraint selector = GMFMapFactory.eINSTANCE.createConstraint();
 				selector.setLanguage(Language.JAVA_LITERAL);				
 				selector.setBody("myNodeSelector"); //$NON-NLS-1$
 				nme.setDomainSpecialization(selector);
-				createReusedChildNodes(nme, new String[] { "InvalidNode::nestedNodes1" }); //$NON-NLS-1$				
+				createReusedChildNodes(nme, new String[] { "//Node/nestedNodes1" }); //$NON-NLS-1$				
 			}
 		}
 		
-		FeatureSeqInitializer createFSeqInit(FeatureInitDataHelper[] featureInits) {
+		static FeatureSeqInitializer createFSeqInit(FeatureInitDataHelper[] featureInits) {
 			FeatureSeqInitializer elementInitializer = GMFMapFactory.eINSTANCE.createFeatureSeqInitializer();
 			for (int i = 0; i < featureInits.length; i++) {
 				elementInitializer.getInitializers().add(featureInits[i].createInitializer());
@@ -287,32 +287,38 @@ public class LinksSessionSetup extends SessionSetup {
 			return elementInitializer;
 		}
 		
-		FeatureSeqInitializer newElementFSeqInit(FeatureInitDataHelper[] featureInits, String instanceClassQName) {
+		static FeatureSeqInitializer newElementFSeqInit(FeatureInitDataHelper[] featureInits, EClass elementClass) {
 			FeatureSeqInitializer elementInitializer = createFSeqInit(featureInits);
-			if(instanceClassQName != null) {
-				EClass elementClass = ECORE.lookup(instanceClassQName, EClass.class);
+			if(elementClass != null) {
 				elementInitializer.setElementClass(elementClass);
 			}
 			return elementInitializer;
 		}
 				
-		private abstract class FeatureInitDataHelper {
-			final EStructuralFeature feature;
+		private static abstract class FeatureInitDataHelper {
+			protected final EStructuralFeature feature;
 			
-			@SuppressWarnings("synthetic-access")
-			protected FeatureInitDataHelper(String featureQName) {
-				this.feature = ECORE.lookup(featureQName, EStructuralFeature.class);
+			protected FeatureInitDataHelper(EStructuralFeature feature) {
+				this.feature = feature;
 			}
 			
 			abstract FeatureInitializer createInitializer();
 		}
 		
 		FeatureInitDataHelper featureValOCL(String featureQName, final String expressionBody) {
-			return featureVal(featureQName, expressionBody, Language.OCL_LITERAL);
+			return featureValOCL(modelAccess.findFeature(featureQName), expressionBody);
 		}
-		
-		FeatureInitDataHelper featureVal(String featureQName, final String expressionBody, final Language expressionLang) {
-			return new FeatureInitDataHelper(featureQName) {
+
+		static FeatureInitDataHelper featureValOCL(EStructuralFeature sf, final String expressionBody) {
+			return featureVal(sf, expressionBody, Language.OCL_LITERAL);
+		}
+
+		FeatureInitDataHelper featureValJava(String featureQName, final String expressionBody) {
+			return featureVal(modelAccess.findFeature(featureQName), expressionBody, Language.JAVA_LITERAL);
+		}
+
+		private static FeatureInitDataHelper featureVal(EStructuralFeature sf, final String expressionBody, final Language expressionLang) {
+			return new FeatureInitDataHelper(sf) {
 				FeatureInitializer createInitializer() {
 					FeatureValueSpec featureValueSpec = GMFMapFactory.eINSTANCE.createFeatureValueSpec();				
 					featureValueSpec.setFeature(feature);
@@ -323,8 +329,8 @@ public class LinksSessionSetup extends SessionSetup {
 			};
 		}		
 		
-		FeatureInitDataHelper refNewElement(String featureQName, final FeatureSeqInitializer[] elementInitializers) {
-			return new FeatureInitDataHelper(featureQName) {
+		FeatureInitDataHelper refNewElement(EStructuralFeature sf, final FeatureSeqInitializer[] elementInitializers) {
+			return new FeatureInitDataHelper(sf) {
 				FeatureInitializer createInitializer() {
 					ReferenceNewElementSpec newElementSpec = GMFMapFactory.eINSTANCE.createReferenceNewElementSpec();
 					newElementSpec.setFeature(feature);
@@ -340,7 +346,7 @@ public class LinksSessionSetup extends SessionSetup {
 		private void createReusedChildNodes(NodeMapping topNode, String[] containmentFeatures) {
 			for (int i = 0; i < containmentFeatures.length; i++) {
 				ChildReference childRef = GMFMapFactory.eINSTANCE.createChildReference();
-				childRef.setContainmentFeature((EReference) EPath.findFeature(domainSource.getModel(), containmentFeatures[i])); 
+				childRef.setContainmentFeature(modelAccess.findReference(containmentFeatures[i])); 
 				childRef.setReferencedChild(topNode);
 				topNode.getChildren().add(childRef);
 			}
@@ -353,7 +359,7 @@ public class LinksSessionSetup extends SessionSetup {
 			DomainElementTarget classA = GMFMapFactory.eINSTANCE.createDomainElementTarget();
 			classA.setElement(getNodeA().getDomainMetaElement());
 			DomainElementTarget classB = GMFMapFactory.eINSTANCE.createDomainElementTarget();
-			classB.setElement((EClass)EPath.ECORE.lookup(domainSource.getModel(), "nestedPckg::ClassA")); //$NON-NLS-1$ 			
+			classB.setElement(modelAccess.findClass("//nestedPckg/ClassA")); //$NON-NLS-1$ 			
 			
 			// Note; constraints must allways be false in order to be collected in the asserted validation result
 			// create ID with xml markup chars to test xml escaping in plugin.xml
@@ -369,33 +375,33 @@ public class LinksSessionSetup extends SessionSetup {
 			
 			AuditContainer attrAuditContainer = createAuditContainer("audit_container.attributeTarget");  //$NON-NLS-1$
 			auditContainer.getChildContainers().add(attrAuditContainer);
-			
+
 			DomainAttributeTarget attrTarget1 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
-			attrTarget1.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::name")); //$NON-NLS-1$
+			attrTarget1.setAttribute(modelAccess.findAttribute("//Node/name")); //$NON-NLS-1$
 			attrTarget1.setNullAsError(true);
 			attrAuditContainer.getAudits().add(createAudit("audit.attributeTarget.id1", "self = ''", attrTarget1, Severity.ERROR_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
 			
 			DomainAttributeTarget attrTarget2 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
-			attrTarget2.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::acceptLinkKind")); //$NON-NLS-1$
+			attrTarget2.setAttribute(modelAccess.findAttribute("//Node/acceptLinkKind")); //$NON-NLS-1$
 			attrTarget2.setNullAsError(false);
 			AuditRule regexpRule = createAudit("audit.attributeTarget.id2", "a*b", attrTarget2, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
 			regexpRule.getRule().setLanguage(Language.REGEXP_LITERAL);				
 			attrAuditContainer.getAudits().add(regexpRule);
 									
 			DomainAttributeTarget attrTarget3 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
-			attrTarget3.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::acceptLinkKind")); //$NON-NLS-1$
+			attrTarget3.setAttribute(modelAccess.findAttribute("//Node/acceptLinkKind")); //$NON-NLS-1$
 			AuditRule javaRule1 = createAudit("audit.attributeTarget.id3", "myJavaAudit1", attrTarget3, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
 			javaRule1.getRule().setLanguage(Language.JAVA_LITERAL);				
 			attrAuditContainer.getAudits().add(javaRule1);
 		
 			DomainAttributeTarget attrTarget4 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
-			attrTarget4.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Container::enumAttr_Init")); //$NON-NLS-1$
+			attrTarget4.setAttribute(modelAccess.findAttribute("//Container/enumAttr_Init")); //$NON-NLS-1$
 			AuditRule javaRule2 = createAudit("audit.attributeTarget.id4", "myJavaAudit2", attrTarget4, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
 			javaRule2.getRule().setLanguage(Language.JAVA_LITERAL);		
 			attrAuditContainer.getAudits().add(javaRule2);
 			
 			DomainAttributeTarget attrTarget5 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
-			attrTarget5.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::multiValObj")); //$NON-NLS-1$
+			attrTarget5.setAttribute(modelAccess.findAttribute("//Node/multiValObj")); //$NON-NLS-1$
 			attrTarget5.setNullAsError(false);
 			AuditRule nregexpRule = createAudit("audit.attributeTarget.nregexp.id", "a*b", attrTarget5, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
 			nregexpRule.getRule().setLanguage(Language.NREGEXP_LITERAL);				
