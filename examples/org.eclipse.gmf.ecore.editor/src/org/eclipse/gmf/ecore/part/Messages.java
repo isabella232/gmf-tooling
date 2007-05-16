@@ -389,11 +389,6 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String EvaluateOCLLinkConstraintError;
-
-	/**
-	 * @generated
-	 */
 	public static String CommandName_OpenDiagram;
 
 	/**

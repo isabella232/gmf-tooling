@@ -33,7 +33,6 @@ import org.eclipse.gmf.ecore.expressions.EcoreAbstractExpression;
 import org.eclipse.gmf.ecore.expressions.EcoreOCLFactory;
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
-import org.eclipse.gmf.ecore.part.Messages;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -331,7 +330,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		private static EcoreAbstractExpression EReference_4002_TargetExpression;
+		private static final EcoreAbstractExpression EReference_4002_TargetExpression;
 
 		/**
 		 * @generated
@@ -345,7 +344,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		private static EcoreAbstractExpression EReference_4003_TargetExpression;
+		private static final EcoreAbstractExpression EReference_4003_TargetExpression;
 
 		/**
 		 * @generated
@@ -359,7 +358,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		private static EcoreAbstractExpression EClassESuperTypes_4004_TargetExpression;
+		private static final EcoreAbstractExpression EClassESuperTypes_4004_TargetExpression;
 
 		/**
 		 * @generated
@@ -458,7 +457,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 				Object val = constraint.evaluate(sourceEnd, evalEnv);
 				return (val instanceof Boolean) ? ((Boolean) val).booleanValue() : false;
 			} catch (Exception e) {
-				EcoreDiagramEditorPlugin.getInstance().logError(Messages.EvaluateOCLLinkConstraintError, e);
+				EcoreDiagramEditorPlugin.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
 				return false;
 			}
 		}
