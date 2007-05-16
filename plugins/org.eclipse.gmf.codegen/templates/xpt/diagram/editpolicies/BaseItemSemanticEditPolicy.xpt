@@ -483,15 +483,3 @@ private static class JavaConstraints {
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
-
-«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
-«IF null != editorGen.expressionProviders && hasInterpreterConstraints()-»
-    «EXPAND xpt::Externalizer::accessorField(i18nKeyForLinkConstraintErrorLog())-»
-«ENDIF-»
-«ENDDEFINE»
-
-«DEFINE i18nValues FOR gmfgen::GenDiagram-»
-«IF null != editorGen.expressionProviders && hasInterpreterConstraints()-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForLinkConstraintErrorLog(), "Link constraint evaluation error")-»
-«ENDIF-»
-«ENDDEFINE»

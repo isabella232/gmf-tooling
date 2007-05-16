@@ -106,10 +106,6 @@ private boolean isIncoming(gmfgen::GenLink link, gmfgen::TypeModelFacet typeMode
 	canBeTarget(link, typeModelFacet) && !isSelf(link, typeModelFacet)
 ;
 
-String i18nKeyForLinkConstraintErrorLog() :
-"EvaluateOCLLinkConstraintError"
-;
-
 String i18nKeyForOpenCommandName() :
 "CommandName.OpenDiagram"
 ;
