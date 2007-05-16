@@ -134,15 +134,15 @@ allValues.add(«EXPAND xpt::Common::getFeatureValue("modelElement", containerGenC
 
 «DEFINE collectPotentialPhantomNodes FOR gmfgen::GenContainerBase»«ENDDEFINE»
 
-«DEFINE collectPotentialPhantomNodes FOR gmfgen::GenDiagramUpdater-»
-	«IF !getPhantomNodes(editorGen.diagram).isEmpty()-»
+«DEFINE collectPotentialPhantomNodes FOR gmfgen::GenDiagram-»
+	«IF !getPhantomNodes(this).isEmpty()-»
 org.eclipse.emf.ecore.resource.Resource resource = modelElement.eResource();
 for (java.util.Iterator semanticIterator = getPhantomNodesIterator(resource); semanticIterator.hasNext();) {
 	org.eclipse.emf.ecore.EObject nextElement = (org.eclipse.emf.ecore.EObject) semanticIterator.next();
 	if (nextElement == modelElement) {
 		continue;
 	}
-	«EXPAND addNextIfPhantom FOREACH getPhantomNodes(editorGen.diagram)-»
+	«EXPAND addNextIfPhantom FOREACH getPhantomNodes(this)-»
 }
 	«ENDIF-»
 «ENDDEFINE»
