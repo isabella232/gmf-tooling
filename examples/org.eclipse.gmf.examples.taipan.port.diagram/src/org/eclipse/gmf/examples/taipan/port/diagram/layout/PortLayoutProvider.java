@@ -30,10 +30,12 @@ import org.eclipse.gmf.examples.taipan.Building;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingEditPart;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.diagram.ui.services.layout.AbstractLayoutEditPartProvider;
 import org.eclipse.gmf.runtime.diagram.ui.services.layout.ILayoutNodeOperation;
 import org.eclipse.gmf.runtime.diagram.ui.services.layout.LayoutType;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -98,7 +100,7 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 		int x = 0;
 		for (Iterator it = editParts.iterator(); it.hasNext();) {
 			BuildingEditPart editPart = (BuildingEditPart) it.next();
-			int h = editPart.getFigure().getBounds().height;
+			int h = getHeight(editPart);
 			if (h > x) {
 				x = h;
 			}
@@ -110,17 +112,17 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 		int xOffset = GAP;
 		for (Iterator it = editParts.iterator(); it.hasNext();) {
 			BuildingEditPart editPart = (BuildingEditPart) it.next();
-			Rectangle bounds = editPart.getFigure().getBounds();
-			Point location = new Point(xOffset, yOffset);
-			editPart.getFigure().translateToAbsolute(location);
+			Rectangle bounds = getBounds(editPart);
+			Point newLocation = new Point(xOffset, yOffset);
+			editPart.getFigure().translateToAbsolute(newLocation);
 			Point oldLocation = bounds.getLocation();
 			editPart.getFigure().translateToAbsolute(oldLocation);
-			Dimension delta = location.getDifference(oldLocation);
+			Dimension delta = newLocation.getDifference(oldLocation);
 			if (delta.width != 0 || delta.height != 0) {
 				ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 				request.setEditParts(editPart);
 				request.setMoveDelta(new Point(delta.width, delta.height));
-				request.setLocation(location);
+				request.setLocation(newLocation);
 				Command cmd = editPart.getCommand(request);
 				if (cmd != null && cmd.canExecute()) {
 					cc.add(cmd);
@@ -128,5 +130,17 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 			}
 			xOffset += bounds.width + GAP;
 		}
+	}
+
+	protected int getHeight(IGraphicalEditPart editPart) {
+		return ((Integer) editPart.getStructuralFeatureValue(NotationPackage.eINSTANCE.getSize_Height())).intValue();
+	}
+
+	protected Rectangle getBounds(IGraphicalEditPart editPart) {
+		int x = ((Integer) editPart.getStructuralFeatureValue(NotationPackage.eINSTANCE.getLocation_X())).intValue();
+		int y = ((Integer) editPart.getStructuralFeatureValue(NotationPackage.eINSTANCE.getLocation_Y())).intValue();
+		int width = ((Integer) editPart.getStructuralFeatureValue(NotationPackage.eINSTANCE.getSize_Width())).intValue();
+		int height = ((Integer) editPart.getStructuralFeatureValue(NotationPackage.eINSTANCE.getSize_Height())).intValue();
+		return new Rectangle(x, y, width, height);
 	}
 }
