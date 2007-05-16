@@ -15,6 +15,8 @@ import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureAccessor;
 import org.eclipse.gmf.gmfgraph.FigureHandle;
+import org.eclipse.gmf.mappings.LabelMapping;
+import org.eclipse.gmf.mappings.NodeMapping;
 
 /**
  * Handcoded decisions
@@ -34,6 +36,18 @@ public class Knowledge {
 			return false;
 		}
 		throw new IllegalStateException("No more known subclasses of FigureHandle: " + figure);
+	}
+
+	/**
+	 * @return whether nodeMapping has single label, no children and node's diagram 
+	 * element is DiagramLabel equivalent that of it's label
+	 */
+	public static boolean isPureLabelNode(NodeMapping childNodeMapping) {
+		if (childNodeMapping.getLabelMappings().size() == 1 && childNodeMapping.getChildren().isEmpty()) {
+			LabelMapping soleLabel = childNodeMapping.getLabelMappings().get(0);
+			return childNodeMapping.getDiagramNode() == soleLabel.getDiagramLabel(); 
+		}
+		return false;
 	}
 
 }

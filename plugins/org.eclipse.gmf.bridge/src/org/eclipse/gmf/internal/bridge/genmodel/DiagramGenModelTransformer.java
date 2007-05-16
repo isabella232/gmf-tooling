@@ -409,7 +409,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		final NodeMapping childNodeMapping = childNodeRef.getChild();
 		final GenChildNode childNode;
 		final boolean needCompartmentChildrenLabelProcessing;
-		if (isPureLabelNode(childNodeMapping)) {
+		if (Knowledge.isPureLabelNode(childNodeMapping)) {
 			LabelMapping soleLabel = childNodeMapping.getLabelMappings().get(0);
 			GenChildLabelNode childLabelNode = GMFGenFactory.eINSTANCE.createGenChildLabelNode();
 			childLabelNode.setViewmap(myViewmaps.create(soleLabel.getDiagramLabel()));
@@ -470,18 +470,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 	}
 	
-	/**
-	 * @return whether nodeMapping has single label, no children and node's diagram 
-	 * element is DiagramLabel equivalent that of it's label
-	 */
-	private boolean isPureLabelNode(NodeMapping childNodeMapping) {
-		if (childNodeMapping.getLabelMappings().size() == 1 && childNodeMapping.getChildren().isEmpty()) {
-			LabelMapping soleLabel = childNodeMapping.getLabelMappings().get(0);
-			return childNodeMapping.getDiagramNode() == soleLabel.getDiagramLabel(); 
-		}
-		return false;
-	}
-
 	private void processAbstractNode(NodeMapping mapping, GenNode genNode) {
 		HashMap<CompartmentMapping, GenCompartment> compartments2GenCompartmentsMap = new HashMap<CompartmentMapping, GenCompartment>();
 		for (CompartmentMapping compartmentMapping : mapping.getCompartments()) {
