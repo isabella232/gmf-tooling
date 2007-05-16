@@ -111,18 +111,20 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 		for (Iterator it = editParts.iterator(); it.hasNext();) {
 			BuildingEditPart editPart = (BuildingEditPart) it.next();
 			Rectangle bounds = editPart.getFigure().getBounds();
-			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			Point location = new Point(xOffset, yOffset);
 			editPart.getFigure().translateToAbsolute(location);
 			Point oldLocation = bounds.getLocation();
 			editPart.getFigure().translateToAbsolute(oldLocation);
 			Dimension delta = location.getDifference(oldLocation);
-			request.setEditParts(editPart);
-			request.setMoveDelta(new Point(delta.width, delta.height));
-			request.setLocation(location);
-			Command cmd = editPart.getCommand(request);
-			if (cmd != null && cmd.canExecute()) {
-				cc.add(cmd);
+			if (delta.width != 0 || delta.height != 0) {
+				ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
+				request.setEditParts(editPart);
+				request.setMoveDelta(new Point(delta.width, delta.height));
+				request.setLocation(location);
+				Command cmd = editPart.getCommand(request);
+				if (cmd != null && cmd.canExecute()) {
+					cc.add(cmd);
+				}
 			}
 			xOffset += bounds.width + GAP;
 		}
