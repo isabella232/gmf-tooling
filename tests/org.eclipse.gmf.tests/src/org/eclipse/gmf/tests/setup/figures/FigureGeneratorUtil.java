@@ -35,8 +35,8 @@ import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.RGBColor;
-import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
+import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Processor;
@@ -64,7 +64,7 @@ public class FigureGeneratorUtil {
 	// FigureGenerator: utility methods to generate/compile/instantiate figures
 
 	public static void generate(StandaloneGenerator.Config config, Processor processor) {
-		StandaloneGenerator generator = new StandaloneGenerator(processor, config, new RuntimeFQNSwitch());
+		StandaloneGenerator generator = new StandaloneGenerator(processor, config, null);
 		generator.run();
 		Assert.assertTrue(generator.getRunStatus().toString(), generator.getRunStatus().getSeverity() < IStatus.ERROR);
 	}
@@ -120,7 +120,7 @@ public class FigureGeneratorUtil {
 	}
 	
 	public static void generateAndParse(Figure f) {
-		generateAndParse(f, new FigureGenerator(new RuntimeFQNSwitch(), false));
+		generateAndParse(f, new FigureGenerator(null, false));
 	}
 
 	public static void generateAndParse(Figure f, FigureGenerator generator) {
@@ -162,7 +162,7 @@ public class FigureGeneratorUtil {
 	}
 	
 	public static Config createStandaloneGeneratorConfig(String packageName, boolean useMapMode) {
-		return new StandaloneGenerator.ConfigImpl(createTestPluginName(), packageName, useMapMode);
+		return new StandaloneGenerator.ConfigImpl(createTestPluginName(), packageName, useMapMode ? MapModeCodeGenStrategy.DYNAMIC : MapModeCodeGenStrategy.STATIC, null);
 	}
 
 	private static String createTestPluginName() {

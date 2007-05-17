@@ -16,7 +16,6 @@ import junit.framework.TestCase;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
-import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 import org.eclipse.gmf.tests.setup.figures.FigureGeneratorUtil;
@@ -62,6 +61,6 @@ public class MapModeStrategyTest extends TestCase {
 	}
 	
 	private FigureGenerator createGenerator(MapModeCodeGenStrategy strategy, String accessor) {
-		return new FigureGenerator(new RuntimeFQNSwitch(), strategy, accessor, false);
+		return new FigureGenerator(null, strategy, accessor, false);
 	}
 }

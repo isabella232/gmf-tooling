@@ -31,7 +31,6 @@ import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.LayoutData;
 import org.eclipse.gmf.gmfgraph.RGBColor;
-import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
 import org.eclipse.gmf.internal.graphdef.codegen.GalleryProcessor;
 
@@ -44,7 +43,7 @@ public class RTFigureTest extends TestCase {
 		FigureGallery fg = GMFGraphFactory.eINSTANCE.createFigureGallery();
 		fg.setName("fg");
 		fg.getFigures().add(createSampleFigure());
-		StandaloneGenerator generator = new StandaloneGenerator(new GalleryProcessor(fg), config, new RuntimeFQNSwitch());
+		StandaloneGenerator generator = new StandaloneGenerator(new GalleryProcessor(fg), config, null);
 		generator.run();
 		IStatus status = generator.getRunStatus();
 		assertTrue(status.getMessage(), status.isOK());
