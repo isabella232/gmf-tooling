@@ -39,9 +39,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.ExternalCrossReferencer;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
-import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
-import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
-import org.eclipse.gmf.gmfgraph.util.RuntimeLiteFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
@@ -330,10 +327,10 @@ public class TransformToGenModelOperation {
 	}
 
 	private ViewmapProducer detectTransformationOptions() {
-		FigureQualifiedNameSwitch fSwitch = getOptions().getUseRuntimeFigures() ? new RuntimeFQNSwitch() : new RuntimeLiteFQNSwitch();
+		String runtimeToken = getOptions().getUseRuntimeFigures() ? "full" : "lite";
 		MapModeCodeGenStrategy mmStrategy = getOptions().getUseMapMode() ? MapModeCodeGenStrategy.DYNAMIC : MapModeCodeGenStrategy.STATIC;
 		URL dynamicFigureTemplates = getOptions().getFigureTemplatesPath();
-		return new InnerClassViewmapProducer(fSwitch, mmStrategy, dynamicFigureTemplates == null ? null : new URL[] {dynamicFigureTemplates});
+		return new InnerClassViewmapProducer(runtimeToken, mmStrategy, dynamicFigureTemplates == null ? null : new URL[] {dynamicFigureTemplates});
 	}
 
 	private VisualIdentifierDispenserProvider getVisualIdDispenser() {
