@@ -81,12 +81,14 @@ protected String getDefaultFactoryHint() {
 	«EXPAND xpt::Common::generatedMemberComment»
 protected boolean isOrphaned(java.util.Collection semanticChildren, final org.eclipse.gmf.runtime.notation.View view) {
 	«EXPAND checkShortcutProperty-»
-	«IF hasSemanticChildren(this)-»
+	«IF !getSemanticChildren(this).isEmpty()-»
 	int visualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(view);
-	return «EXPAND xpt::diagram::updater::DiagramUpdater::isDomainMetaChildMethodCall»(visualID) && (!semanticChildren.contains(view.getElement()) || visualID != «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall FOR getDiagram()»((org.eclipse.gmf.runtime.notation.View) getHost().getModel(), view.getElement()));
-	«ELSE-»
-	return false;
-	«ENDIF-»	
+	switch (visualID) {
+		«EXPAND xpt::Common::caseVisualID FOREACH getSemanticChildren(this)»
+		return !semanticChildren.contains(view.getElement()) || visualID != «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall FOR getDiagram()»((org.eclipse.gmf.runtime.notation.View) getHost().getModel(), view.getElement());
+	}
+	«ENDIF-»
+	return false;	
 }
 «ENDDEFINE»
 

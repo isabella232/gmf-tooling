@@ -97,7 +97,19 @@ genmodel::GenClass getModelElementType(gmfgen::GenNode node) :
 ;
 
 cached Set[genmodel::GenFeature] getSemanticChildrenChildFeatures(gmfgen::GenContainerBase containerBase) :
-	getSemanticChildren(containerBase).select(node | !node.modelFacet.isPhantomElement()).collect(node | node.modelFacet.childMetaFeature).toSet()
+	getNonPhantomSemanticChildren(containerBase).collect(node | node.modelFacet.childMetaFeature).toSet()
+;
+
+cached List[gmfgen::GenNode] getSemanticChildren(gmfgen::GenContainerBase containerBase, genmodel::GenFeature childMetaFeature) :
+	getNonPhantomSemanticChildren(containerBase).select(node | node.modelFacet.childMetaFeature == childMetaFeature)
+;
+
+private cached List[gmfgen::GenNode] getNonPhantomSemanticChildren(gmfgen::GenContainerBase containerBase) :
+	getSemanticChildren(containerBase).select(node | !node.modelFacet.isPhantomElement())
+;
+
+cached List[gmfgen::GenNode] getPhantomNodes(gmfgen::GenContainerBase containerBase) :
+	{}
 ;
 
 cached List[gmfgen::GenNode] getPhantomNodes(gmfgen::GenDiagram diagram) :
