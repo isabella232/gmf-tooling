@@ -40,6 +40,7 @@ import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
+import org.eclipse.gmf.gmfgraph.util.RuntimeLiteFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 import org.eclipse.gmf.graphdef.codegen.NamingStrategy;
@@ -56,14 +57,14 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 	private final Set<Figure> processedFigures;
 
 	public InnerClassViewmapProducer() {
-		this(new RuntimeFQNSwitch(), MapModeCodeGenStrategy.DYNAMIC, null);
+		this(null, MapModeCodeGenStrategy.DYNAMIC, null);
 	}
 
-	public InnerClassViewmapProducer(FigureQualifiedNameSwitch figureNameSwitch, MapModeCodeGenStrategy mapModeCodeGenStrategy, URL[] dynamicFigureTemplates) {
-		assert figureNameSwitch != null;
-		fqnSwitch = figureNameSwitch;
+	public InnerClassViewmapProducer(String runtimeToken, MapModeCodeGenStrategy mapModeCodeGenStrategy, URL[] dynamicFigureTemplates) {
+		// FIXME get rid of fqnSwitch altogether
+		this.fqnSwitch = "lite".equalsIgnoreCase(runtimeToken) ? new RuntimeLiteFQNSwitch() : new RuntimeFQNSwitch();
 		processedFigures = new HashSet<Figure>();
-		figureGenerator = new FigureGenerator(fqnSwitch, mapModeCodeGenStrategy, null, true, dynamicFigureTemplates);
+		figureGenerator = new FigureGenerator(runtimeToken, mapModeCodeGenStrategy, null, true, dynamicFigureTemplates);
 	}
 
 	public Viewmap create(Node node) {
