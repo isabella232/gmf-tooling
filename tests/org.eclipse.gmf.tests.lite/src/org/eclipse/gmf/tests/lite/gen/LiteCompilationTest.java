@@ -15,7 +15,6 @@ import java.util.Collection;
 
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
-import org.eclipse.gmf.gmfgraph.util.RuntimeLiteFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
@@ -33,7 +32,7 @@ public class LiteCompilationTest extends CompilationTest {
 	}
 
 	protected ViewmapProducer getViewmapProducer() {
-		return new InnerClassViewmapProducer(new RuntimeLiteFQNSwitch(), MapModeCodeGenStrategy.STATIC, null);
+		return new InnerClassViewmapProducer("lite", MapModeCodeGenStrategy.STATIC, null);
 	}
 
 	@Override
