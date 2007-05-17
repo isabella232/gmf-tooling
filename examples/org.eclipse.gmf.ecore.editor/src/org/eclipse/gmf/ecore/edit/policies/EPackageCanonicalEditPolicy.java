@@ -92,8 +92,15 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	protected boolean isOrphaned(Collection semanticChildren, final View view) {
 		EcoreDiagramUpdater.isShortcutOrphaned(view);
 		int visualID = EcoreVisualIDRegistry.getVisualID(view);
-		return EcoreDiagramUpdater.isEPackage_1000DomainMetaChild(visualID)
-				&& (!semanticChildren.contains(view.getElement()) || visualID != EcoreVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement()));
+		switch (visualID) {
+		case EClassEditPart.VISUAL_ID:
+		case EPackage2EditPart.VISUAL_ID:
+		case EAnnotationEditPart.VISUAL_ID:
+		case EDataTypeEditPart.VISUAL_ID:
+		case EEnumEditPart.VISUAL_ID:
+			return !semanticChildren.contains(view.getElement()) || visualID != EcoreVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
+		}
+		return false;
 	}
 
 	/**

@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart;
 import org.eclipse.gmf.ecore.part.EcoreDiagramUpdater;
 import org.eclipse.gmf.ecore.part.EcoreNodeDescriptor;
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
@@ -52,8 +53,11 @@ public class EPackagePackagesCanonicalEditPolicy extends CanonicalEditPolicy {
 	 */
 	protected boolean isOrphaned(Collection semanticChildren, final View view) {
 		int visualID = EcoreVisualIDRegistry.getVisualID(view);
-		return EcoreDiagramUpdater.isEPackagePackages_7005DomainMetaChild(visualID)
-				&& (!semanticChildren.contains(view.getElement()) || visualID != EcoreVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement()));
+		switch (visualID) {
+		case EPackage3EditPart.VISUAL_ID:
+			return !semanticChildren.contains(view.getElement()) || visualID != EcoreVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
+		}
+		return false;
 	}
 
 	/**

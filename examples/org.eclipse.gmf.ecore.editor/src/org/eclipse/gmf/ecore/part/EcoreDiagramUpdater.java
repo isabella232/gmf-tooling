@@ -119,11 +119,11 @@ public class EcoreDiagramUpdater {
 	public static List getEClassAttributes_7001SemanticChildren(View view) {
 		EClass modelElement = (EClass) view.getElement();
 		List result = new LinkedList();
-		for (Iterator semanticIterator = getEClassAttributes_7001SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
-			EObject nextElement = (EObject) semanticIterator.next();
-			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
-			if (isEClassAttributes_7001DomainMetaChild(visualID)) {
-				result.add(new EcoreNodeDescriptor(nextElement, visualID));
+		for (Iterator it = modelElement.getEAttributes().iterator(); it.hasNext();) {
+			EAttribute childElement = (EAttribute) it.next();
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == EAttributeEditPart.VISUAL_ID) {
+				result.add(new EcoreNodeDescriptor(childElement, visualID));
 			}
 		}
 		return result;
@@ -135,11 +135,11 @@ public class EcoreDiagramUpdater {
 	public static List getEClassOperations_7002SemanticChildren(View view) {
 		EClass modelElement = (EClass) view.getElement();
 		List result = new LinkedList();
-		for (Iterator semanticIterator = getEClassOperations_7002SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
-			EObject nextElement = (EObject) semanticIterator.next();
-			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
-			if (isEClassOperations_7002DomainMetaChild(visualID)) {
-				result.add(new EcoreNodeDescriptor(nextElement, visualID));
+		for (Iterator it = modelElement.getEOperations().iterator(); it.hasNext();) {
+			EOperation childElement = (EOperation) it.next();
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == EOperationEditPart.VISUAL_ID) {
+				result.add(new EcoreNodeDescriptor(childElement, visualID));
 			}
 		}
 		return result;
@@ -151,11 +151,11 @@ public class EcoreDiagramUpdater {
 	public static List getEClassClassAnnotations_7003SemanticChildren(View view) {
 		EClass modelElement = (EClass) view.getElement();
 		List result = new LinkedList();
-		for (Iterator semanticIterator = getEClassClassAnnotations_7003SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
-			EObject nextElement = (EObject) semanticIterator.next();
-			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
-			if (isEClassClassAnnotations_7003DomainMetaChild(visualID)) {
-				result.add(new EcoreNodeDescriptor(nextElement, visualID));
+		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
+			EAnnotation childElement = (EAnnotation) it.next();
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == EAnnotation2EditPart.VISUAL_ID) {
+				result.add(new EcoreNodeDescriptor(childElement, visualID));
 			}
 		}
 		return result;
@@ -167,11 +167,11 @@ public class EcoreDiagramUpdater {
 	public static List getEPackageClasses_7004SemanticChildren(View view) {
 		EPackage modelElement = (EPackage) view.getElement();
 		List result = new LinkedList();
-		for (Iterator semanticIterator = getEPackageClasses_7004SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
-			EObject nextElement = (EObject) semanticIterator.next();
-			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
-			if (isEPackageClasses_7004DomainMetaChild(visualID)) {
-				result.add(new EcoreNodeDescriptor(nextElement, visualID));
+		for (Iterator it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
+			EClassifier childElement = (EClassifier) it.next();
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == EClass2EditPart.VISUAL_ID) {
+				result.add(new EcoreNodeDescriptor(childElement, visualID));
 			}
 		}
 		return result;
@@ -183,11 +183,11 @@ public class EcoreDiagramUpdater {
 	public static List getEPackagePackages_7005SemanticChildren(View view) {
 		EPackage modelElement = (EPackage) view.getElement();
 		List result = new LinkedList();
-		for (Iterator semanticIterator = getEPackagePackages_7005SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
-			EObject nextElement = (EObject) semanticIterator.next();
-			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
-			if (isEPackagePackages_7005DomainMetaChild(visualID)) {
-				result.add(new EcoreNodeDescriptor(nextElement, visualID));
+		for (Iterator it = modelElement.getESubpackages().iterator(); it.hasNext();) {
+			EPackage childElement = (EPackage) it.next();
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == EPackage3EditPart.VISUAL_ID) {
+				result.add(new EcoreNodeDescriptor(childElement, visualID));
 			}
 		}
 		return result;
@@ -199,11 +199,11 @@ public class EcoreDiagramUpdater {
 	public static List getEPackageDataTypes_7006SemanticChildren(View view) {
 		EPackage modelElement = (EPackage) view.getElement();
 		List result = new LinkedList();
-		for (Iterator semanticIterator = getEPackageDataTypes_7006SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
-			EObject nextElement = (EObject) semanticIterator.next();
-			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
-			if (isEPackageDataTypes_7006DomainMetaChild(visualID)) {
-				result.add(new EcoreNodeDescriptor(nextElement, visualID));
+		for (Iterator it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
+			EClassifier childElement = (EClassifier) it.next();
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == EDataType2EditPart.VISUAL_ID) {
+				result.add(new EcoreNodeDescriptor(childElement, visualID));
 			}
 		}
 		return result;
@@ -215,11 +215,11 @@ public class EcoreDiagramUpdater {
 	public static List getEPackageEnums_7007SemanticChildren(View view) {
 		EPackage modelElement = (EPackage) view.getElement();
 		List result = new LinkedList();
-		for (Iterator semanticIterator = getEPackageEnums_7007SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
-			EObject nextElement = (EObject) semanticIterator.next();
-			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
-			if (isEPackageEnums_7007DomainMetaChild(visualID)) {
-				result.add(new EcoreNodeDescriptor(nextElement, visualID));
+		for (Iterator it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
+			EClassifier childElement = (EClassifier) it.next();
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == EEnum2EditPart.VISUAL_ID) {
+				result.add(new EcoreNodeDescriptor(childElement, visualID));
 			}
 		}
 		return result;
@@ -231,11 +231,11 @@ public class EcoreDiagramUpdater {
 	public static List getEPackagePackageAnnotations_7008SemanticChildren(View view) {
 		EPackage modelElement = (EPackage) view.getElement();
 		List result = new LinkedList();
-		for (Iterator semanticIterator = getEPackagePackageAnnotations_7008SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
-			EObject nextElement = (EObject) semanticIterator.next();
-			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
-			if (isEPackagePackageAnnotations_7008DomainMetaChild(visualID)) {
-				result.add(new EcoreNodeDescriptor(nextElement, visualID));
+		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
+			EAnnotation childElement = (EAnnotation) it.next();
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == EAnnotation2EditPart.VISUAL_ID) {
+				result.add(new EcoreNodeDescriptor(childElement, visualID));
 			}
 		}
 		return result;
@@ -247,11 +247,11 @@ public class EcoreDiagramUpdater {
 	public static List getEAnnotationDetails_7009SemanticChildren(View view) {
 		EAnnotation modelElement = (EAnnotation) view.getElement();
 		List result = new LinkedList();
-		for (Iterator semanticIterator = getEAnnotationDetails_7009SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
-			EObject nextElement = (EObject) semanticIterator.next();
-			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
-			if (isEAnnotationDetails_7009DomainMetaChild(visualID)) {
-				result.add(new EcoreNodeDescriptor(nextElement, visualID));
+		for (Iterator it = modelElement.getDetails().iterator(); it.hasNext();) {
+			Map.Entry childElement = (Map.Entry) it.next();
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, (EObject) childElement);
+			if (visualID == EStringToStringMapEntryEditPart.VISUAL_ID) {
+				result.add(new EcoreNodeDescriptor((EObject) childElement, visualID));
 			}
 		}
 		return result;
@@ -263,11 +263,11 @@ public class EcoreDiagramUpdater {
 	public static List getEDataTypeDataTypeAnnotations_7010SemanticChildren(View view) {
 		EDataType modelElement = (EDataType) view.getElement();
 		List result = new LinkedList();
-		for (Iterator semanticIterator = getEDataTypeDataTypeAnnotations_7010SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
-			EObject nextElement = (EObject) semanticIterator.next();
-			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
-			if (isEDataTypeDataTypeAnnotations_7010DomainMetaChild(visualID)) {
-				result.add(new EcoreNodeDescriptor(nextElement, visualID));
+		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
+			EAnnotation childElement = (EAnnotation) it.next();
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == EAnnotation2EditPart.VISUAL_ID) {
+				result.add(new EcoreNodeDescriptor(childElement, visualID));
 			}
 		}
 		return result;
@@ -279,11 +279,11 @@ public class EcoreDiagramUpdater {
 	public static List getEEnumLiterals_7011SemanticChildren(View view) {
 		EEnum modelElement = (EEnum) view.getElement();
 		List result = new LinkedList();
-		for (Iterator semanticIterator = getEEnumLiterals_7011SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
-			EObject nextElement = (EObject) semanticIterator.next();
-			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
-			if (isEEnumLiterals_7011DomainMetaChild(visualID)) {
-				result.add(new EcoreNodeDescriptor(nextElement, visualID));
+		for (Iterator it = modelElement.getELiterals().iterator(); it.hasNext();) {
+			EEnumLiteral childElement = (EEnumLiteral) it.next();
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == EEnumLiteralEditPart.VISUAL_ID) {
+				result.add(new EcoreNodeDescriptor(childElement, visualID));
 			}
 		}
 		return result;
@@ -295,11 +295,11 @@ public class EcoreDiagramUpdater {
 	public static List getEEnumEnumAnnotations_7012SemanticChildren(View view) {
 		EEnum modelElement = (EEnum) view.getElement();
 		List result = new LinkedList();
-		for (Iterator semanticIterator = getEEnumEnumAnnotations_7012SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
-			EObject nextElement = (EObject) semanticIterator.next();
-			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
-			if (isEEnumEnumAnnotations_7012DomainMetaChild(visualID)) {
-				result.add(new EcoreNodeDescriptor(nextElement, visualID));
+		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
+			EAnnotation childElement = (EAnnotation) it.next();
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == EAnnotation2EditPart.VISUAL_ID) {
+				result.add(new EcoreNodeDescriptor(childElement, visualID));
 			}
 		}
 		return result;
@@ -311,280 +311,34 @@ public class EcoreDiagramUpdater {
 	public static List getEPackage_1000SemanticChildren(View view) {
 		EPackage modelElement = (EPackage) view.getElement();
 		List result = new LinkedList();
-		for (Iterator semanticIterator = getEPackage_1000SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
-			EObject nextElement = (EObject) semanticIterator.next();
-			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
-			if (isEPackage_1000DomainMetaChild(visualID)) {
-				result.add(new EcoreNodeDescriptor(nextElement, visualID));
+		for (Iterator it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
+			EClassifier childElement = (EClassifier) it.next();
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == EClassEditPart.VISUAL_ID) {
+				result.add(new EcoreNodeDescriptor(childElement, visualID));
+			}
+			if (visualID == EDataTypeEditPart.VISUAL_ID) {
+				result.add(new EcoreNodeDescriptor(childElement, visualID));
+			}
+			if (visualID == EEnumEditPart.VISUAL_ID) {
+				result.add(new EcoreNodeDescriptor(childElement, visualID));
+			}
+		}
+		for (Iterator it = modelElement.getESubpackages().iterator(); it.hasNext();) {
+			EPackage childElement = (EPackage) it.next();
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == EPackage2EditPart.VISUAL_ID) {
+				result.add(new EcoreNodeDescriptor(childElement, visualID));
+			}
+		}
+		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
+			EAnnotation childElement = (EAnnotation) it.next();
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == EAnnotationEditPart.VISUAL_ID) {
+				result.add(new EcoreNodeDescriptor(childElement, visualID));
 			}
 		}
 		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static List getEClassAttributes_7001SemanticChildren(EClass modelElement) {
-		List allValues = new LinkedList();
-		allValues.addAll(modelElement.getEAttributes());
-		return allValues;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static List getEClassOperations_7002SemanticChildren(EClass modelElement) {
-		List allValues = new LinkedList();
-		allValues.addAll(modelElement.getEOperations());
-		return allValues;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static List getEClassClassAnnotations_7003SemanticChildren(EClass modelElement) {
-		List allValues = new LinkedList();
-		allValues.addAll(modelElement.getEAnnotations());
-		return allValues;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static List getEPackageClasses_7004SemanticChildren(EPackage modelElement) {
-		List allValues = new LinkedList();
-		allValues.addAll(modelElement.getEClassifiers());
-		return allValues;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static List getEPackagePackages_7005SemanticChildren(EPackage modelElement) {
-		List allValues = new LinkedList();
-		allValues.addAll(modelElement.getESubpackages());
-		return allValues;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static List getEPackageDataTypes_7006SemanticChildren(EPackage modelElement) {
-		List allValues = new LinkedList();
-		allValues.addAll(modelElement.getEClassifiers());
-		return allValues;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static List getEPackageEnums_7007SemanticChildren(EPackage modelElement) {
-		List allValues = new LinkedList();
-		allValues.addAll(modelElement.getEClassifiers());
-		return allValues;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static List getEPackagePackageAnnotations_7008SemanticChildren(EPackage modelElement) {
-		List allValues = new LinkedList();
-		allValues.addAll(modelElement.getEAnnotations());
-		return allValues;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static List getEAnnotationDetails_7009SemanticChildren(EAnnotation modelElement) {
-		List allValues = new LinkedList();
-		allValues.addAll(modelElement.getDetails());
-		return allValues;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static List getEDataTypeDataTypeAnnotations_7010SemanticChildren(EDataType modelElement) {
-		List allValues = new LinkedList();
-		allValues.addAll(modelElement.getEAnnotations());
-		return allValues;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static List getEEnumLiterals_7011SemanticChildren(EEnum modelElement) {
-		List allValues = new LinkedList();
-		allValues.addAll(modelElement.getELiterals());
-		return allValues;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static List getEEnumEnumAnnotations_7012SemanticChildren(EEnum modelElement) {
-		List allValues = new LinkedList();
-		allValues.addAll(modelElement.getEAnnotations());
-		return allValues;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static List getEPackage_1000SemanticChildren(EPackage modelElement) {
-		List allValues = new LinkedList();
-		allValues.addAll(modelElement.getEClassifiers());
-		allValues.addAll(modelElement.getESubpackages());
-		allValues.addAll(modelElement.getEAnnotations());
-		return allValues;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static boolean isEClassAttributes_7001DomainMetaChild(int visualID) {
-		switch (visualID) {
-		case EAttributeEditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static boolean isEClassOperations_7002DomainMetaChild(int visualID) {
-		switch (visualID) {
-		case EOperationEditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static boolean isEClassClassAnnotations_7003DomainMetaChild(int visualID) {
-		switch (visualID) {
-		case EAnnotation2EditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static boolean isEPackageClasses_7004DomainMetaChild(int visualID) {
-		switch (visualID) {
-		case EClass2EditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static boolean isEPackagePackages_7005DomainMetaChild(int visualID) {
-		switch (visualID) {
-		case EPackage3EditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static boolean isEPackageDataTypes_7006DomainMetaChild(int visualID) {
-		switch (visualID) {
-		case EDataType2EditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static boolean isEPackageEnums_7007DomainMetaChild(int visualID) {
-		switch (visualID) {
-		case EEnum2EditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static boolean isEPackagePackageAnnotations_7008DomainMetaChild(int visualID) {
-		switch (visualID) {
-		case EAnnotation2EditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static boolean isEAnnotationDetails_7009DomainMetaChild(int visualID) {
-		switch (visualID) {
-		case EStringToStringMapEntryEditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static boolean isEDataTypeDataTypeAnnotations_7010DomainMetaChild(int visualID) {
-		switch (visualID) {
-		case EAnnotation2EditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static boolean isEEnumLiterals_7011DomainMetaChild(int visualID) {
-		switch (visualID) {
-		case EEnumLiteralEditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static boolean isEEnumEnumAnnotations_7012DomainMetaChild(int visualID) {
-		switch (visualID) {
-		case EAnnotation2EditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static boolean isEPackage_1000DomainMetaChild(int visualID) {
-		switch (visualID) {
-		case EClassEditPart.VISUAL_ID:
-		case EPackage2EditPart.VISUAL_ID:
-		case EAnnotationEditPart.VISUAL_ID:
-		case EDataTypeEditPart.VISUAL_ID:
-		case EEnumEditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
 	}
 
 	/**
