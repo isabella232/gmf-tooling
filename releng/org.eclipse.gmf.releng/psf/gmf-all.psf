@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <psf version="2.0">
 	<provider id="org.eclipse.team.cvs.core.cvsnature">
-		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.apache.batik,org.apache.batik"/>
-		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.apache.batik-feature,org.apache.batik-feature"/>
-		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/webtools,wst/components/xml/thirdparty/org.apache.xerces,org.apache.xerces"/>
-		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/webtools,wst/components/xml/thirdparty/org.apache.xerces.feature,org.apache.xerces.feature"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.batik.bridge,org.apache.batik.bridge,v1_6"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.batik.css,org.apache.batik.css,v1_6"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.batik.dom,org.apache.batik.dom,v1_6"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.batik.dom.svg,org.apache.batik.dom.svg,v1_6"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.batik.ext.awt,org.apache.batik.ext.awt,v1_6"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.batik.parser,org.apache.batik.parser,v1_6"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.batik.svggen,org.apache.batik.svggen,v1_6"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.batik.transcoder,org.apache.batik.transcoder,v1_6"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.batik.util,org.apache.batik.util,v1_6"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.batik.util.gui,org.apache.batik.util.gui,v1_6"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.batik.xml,org.apache.batik.xml,v1_6"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.xerces,org.apache.xerces,v2_8_0"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.xml.resolver,org.apache.xml.resolver,v1_6"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf,org.eclipse.gmf"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge,org.eclipse.gmf.bridge"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.ui,org.eclipse.gmf.bridge.ui"/>
@@ -16,6 +25,7 @@
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/doc/org.eclipse.gmf.doc,org.eclipse.gmf.doc"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/doc/org.eclipse.gmf.doc.ui,org.eclipse.gmf.doc.ui"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.eclipse.gmf.doc-feature,org.eclipse.gmf.doc-feature"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.eclipse.gmf.europa-feature,org.eclipse.gmf.europa-feature"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/examples/org.eclipse.gmf.examples,org.eclipse.gmf.examples"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.eclipse.gmf.examples-feature,org.eclipse.gmf.examples-feature"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.common.service,org.eclipse.gmf.examples.runtime.common.service"/>
@@ -63,7 +73,6 @@
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.render,org.eclipse.gmf.runtime.diagram.ui.render"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.resources.editor,org.eclipse.gmf.runtime.diagram.ui.resources.editor"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide,org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide"/>
-		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet,org.eclipse.gmf.runtime.doclet"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.draw2d.ui,org.eclipse.gmf.runtime.draw2d.ui"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.draw2d.ui.render,org.eclipse.gmf.runtime.draw2d.ui.render"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.draw2d.ui.render.awt,org.eclipse.gmf.runtime.draw2d.ui.render.awt"/>
@@ -78,10 +87,12 @@
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.notation,org.eclipse.gmf.runtime.notation"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.notation.edit,org.eclipse.gmf.runtime.notation.edit"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.notation.providers,org.eclipse.gmf.runtime.notation.providers"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.eclipse.gmf.runtime.thirdparty-feature,org.eclipse.gmf.runtime.thirdparty-feature"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.sdk,org.eclipse.gmf.sdk"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.eclipse.gmf.sdk-feature,org.eclipse.gmf.sdk-feature"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/tests/org.eclipse.gmf.tests,org.eclipse.gmf.tests"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.eclipse.gmf.tests-feature,org.eclipse.gmf.tests-feature"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.eclipse.gmf.tests.experimental-feature,org.eclipse.gmf.tests.experimental-feature"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.core,org.eclipse.gmf.tests.runtime.common.core"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui,org.eclipse.gmf.tests.runtime.common.ui"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services,org.eclipse.gmf.tests.runtime.common.ui.services"/>
@@ -99,10 +110,13 @@
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.gef.ui,org.eclipse.gmf.tests.runtime.gef.ui"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef,org.eclipse.gmf.tooldef"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef.edit,org.eclipse.gmf.tooldef.edit"/>
-		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/releng/org.eclipse.gmf.updatesite,org.eclipse.gmf.updatesite"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.validate,org.eclipse.gmf.validate"/>		
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.xpand,org.eclipse.gmf.xpand"/>		
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.xpand.editor,org.eclipse.gmf.xpand.editor"/>		
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.w3c.css.sac,org.w3c.css.sac,v1_3"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.w3c.dom,org.w3c.dom,v1_3_03"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.w3c.dom.smil,org.w3c.dom.smil,v1_0"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.w3c.dom.svg,org.w3c.dom.svg,v1_1"/>
 	<!-- Experimental SDK -->
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.eclipse.gmf.sdk.experimental-feature,org.eclipse.gmf.sdk.experimental-feature"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.lite,org.eclipse.gmf.runtime.lite"/>
