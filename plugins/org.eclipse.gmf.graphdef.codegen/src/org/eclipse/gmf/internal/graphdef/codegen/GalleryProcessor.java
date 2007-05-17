@@ -58,8 +58,9 @@ public class GalleryProcessor extends Processor {
 			if (myInput[i].getImplementationBundle() != null && myInput[i].getImplementationBundle().trim().length() > 0) {
 				rv.add(myInput[i].getImplementationBundle());
 			}
-			String[] additional = fqnSwitch.getDependencies(myInput[i]);
-			rv.addAll(Arrays.asList(additional));
+			if (fqnSwitch != null) {
+				rv.addAll(Arrays.asList(fqnSwitch.getDependencies(myInput[i])));
+			}
 		}
 		return rv.toArray(new String[rv.size()]);
 	}

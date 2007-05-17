@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -36,9 +36,9 @@
 
 «DEFINE Init(EString parentFigureVariable, EString owningFigureVariable) FOR gmfgraph::GridLayoutData»
 «LET "constraint" + owningFigureVariable.toFirstUpper() AS constraintVarName»
-«qualifiedClassNameGEF()» «constraintVarName» = new «qualifiedClassNameGEF()»();
-«constraintVarName».verticalAlignment = «qualifiedClassNameGEF()».«verticalAlignment.name»;«REM».literal, not .name!«ENDREM»
-«constraintVarName».horizontalAlignment = «qualifiedClassNameGEF()».«horizontalAlignment.name»;
+«EXPAND Runtime::newInstance(constraintVarName)»
+«constraintVarName».verticalAlignment = «EXPAND Runtime::fqn».«verticalAlignment.name»;«REM».literal, not .name!«ENDREM»
+«constraintVarName».horizontalAlignment = «EXPAND Runtime::fqn».«horizontalAlignment.name»;
 «constraintVarName».horizontalIndent = «horizontalIndent»;
 «constraintVarName».horizontalSpan = «horizontalSpan»;
 «constraintVarName».verticalSpan = «verticalSpan»;

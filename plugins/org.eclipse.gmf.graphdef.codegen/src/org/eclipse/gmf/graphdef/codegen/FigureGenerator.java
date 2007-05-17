@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.Figure;
-import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.graphdef.codegen.Activator;
 import org.eclipse.gmf.internal.xpand.BufferOutput;
@@ -31,6 +30,16 @@ import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 
 public class FigureGenerator implements TextEmitter {
+
+	private static final String VAR_MM_ACCESS = "mapModeAccessor";
+	private static final String VAR_OUTPUT_FIELDS = "outputStaticFields";
+	private static final String VAR_OUTPUT_METHODS = "outputAdditionalMethods";
+	private static final String VAR_PACKAGE_STMT = "packageStatement";
+	private static final String VAR_RT_TOKEN = "runtimeToken";
+
+	private static final String SLOT_FIELDS = "staticFields";
+	private static final String SLOT_METHODS = "additionalMethods";
+
 	private final XpandFacade xpandFacade;
 
 	private final StringBuilder result;
@@ -43,15 +52,21 @@ public class FigureGenerator implements TextEmitter {
 
 	private StringBuilder additionalFields;
 
-	public FigureGenerator(FigureQualifiedNameSwitch fqnSwitch, boolean asInnerClass) {
-		this(fqnSwitch, MapModeCodeGenStrategy.DYNAMIC, "getMapMode().", asInnerClass);
+
+	/**
+	 * XXX consider using enum for runtimeToken
+	 * @param runtimeToken either "full" or null to indicate full GMF runtime use, any other value is to be processed by custom templates 
+	 * @param asInnerClass
+	 */
+	public FigureGenerator(String runtimeToken, boolean asInnerClass) {
+		this(runtimeToken, MapModeCodeGenStrategy.DYNAMIC, "getMapMode().", asInnerClass);
 	}
 
-	public FigureGenerator(FigureQualifiedNameSwitch fqnSwitch, MapModeCodeGenStrategy mapModeStrategy, String mapModeAccessor, boolean asInnerClass) {
-		this(fqnSwitch, mapModeStrategy, mapModeAccessor, asInnerClass, null);
+	public FigureGenerator(String runtimeToken, MapModeCodeGenStrategy mapModeStrategy, String mapModeAccessor, boolean asInnerClass) {
+		this(runtimeToken, mapModeStrategy, mapModeAccessor, asInnerClass, null);
 	}
 
-	public FigureGenerator(FigureQualifiedNameSwitch fqnSwitch, MapModeCodeGenStrategy mapModeStrategy, String mapModeAccessor, boolean asInnerClass, URL[] dynamicTemplates) {
+	public FigureGenerator(String runtimeToken, MapModeCodeGenStrategy mapModeStrategy, String mapModeAccessor, boolean asInnerClass, URL[] dynamicTemplates) {
 		myIsInnerClassCode = asInnerClass;
 		if (mapModeStrategy == MapModeCodeGenStrategy.STATIC) {
 			if (mapModeAccessor != null && mapModeAccessor.trim().length() > 0) {
@@ -60,27 +75,29 @@ public class FigureGenerator implements TextEmitter {
 		}
 		final ArrayList<Variable> globals = new ArrayList<Variable>();
 		if (mapModeStrategy == MapModeCodeGenStrategy.DYNAMIC) {
-			globals.add(new Variable("mapModeAccessor", mapModeAccessor == null ? "" : mapModeAccessor));
+			globals.add(new Variable(VAR_MM_ACCESS, mapModeAccessor == null ? "" : mapModeAccessor));
 		}
-		globals.add(new Variable(FigureQualifiedNameSwitch.class.getSimpleName(), fqnSwitch));
-		packageStatement = new Variable("packageStatement", "");
+		if (runtimeToken != null) {
+			globals.add(new Variable(VAR_RT_TOKEN, runtimeToken));
+		}
+		packageStatement = new Variable(VAR_PACKAGE_STMT, "");
 		globals.add(packageStatement);
 		additionalMethods = new StringBuilder();
-		globals.add(new Variable("outputAdditionalMethods", "") {
+		globals.add(new Variable(VAR_OUTPUT_METHODS, "") {
 			public Object getValue() {
 				return additionalMethods.toString();
 			}
 		});
 		additionalFields = new StringBuilder();
-		globals.add(new Variable("outputStaticFields", "") {
+		globals.add(new Variable(VAR_OUTPUT_FIELDS, "") {
 			public Object getValue() {
 				return additionalFields.toString();
 			}
 		});
 		result = new StringBuilder(200);
 		Map<String, StringBuilder> slots = new HashMap<String, StringBuilder>();
-		slots.put("additionalMethods", additionalMethods);
-		slots.put("staticFields", additionalFields);
+		slots.put(SLOT_METHODS, additionalMethods);
+		slots.put(SLOT_FIELDS, additionalFields);
 		BufferOutput bufferOutput = new BufferOutput(result, slots);
 
 		ResourceManager resourceManager = Activator.createResourceEngine(mapModeStrategy, dynamicTemplates);

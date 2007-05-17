@@ -37,7 +37,6 @@ public class StandaloneGenerator extends GeneratorBase {
 	private final TextEmitter myFigureGenerator;
 	private final StandaloneEmitters myAuxiliaryGenerators;
 	private boolean mySkipPluginStructire;
-	protected final FigureQualifiedNameSwitch myFigureNameSwitch;
 	protected Processor myProcessor;
 	private final Map<String, Figure> myCallbackFigures = new LinkedHashMap<String, Figure>(); 
 	
@@ -49,8 +48,8 @@ public class StandaloneGenerator extends GeneratorBase {
 
 		public String getPluginActivatorClassName();
 		public String getPluginActivatorPackageName();
-
-		public boolean needsMapMode(); // FIXME remove or (?) return MapModeCodeGenStrategy
+		public MapModeCodeGenStrategy getMapMode();
+		public String getRuntimeToken();
 	}
 
 	public static class ConfigImpl implements Config {
@@ -62,24 +61,26 @@ public class StandaloneGenerator extends GeneratorBase {
 		private final String myPluginActivatorClassName;
 		private final String myPluginActivatorPackageName;
 
-		private final boolean myNeedsMapMode;
+		private final MapModeCodeGenStrategy myMapMode;
+		private final String myRuntimeToken;
 		
 		public ConfigImpl(String pluginId, String mainPackageName){
-			this(pluginId, mainPackageName, true);
+			this(pluginId, mainPackageName, MapModeCodeGenStrategy.DYNAMIC, null);
 		}
 
-		public ConfigImpl(String pluginId, String mainPackageName, boolean useMapMode) {
-			this(pluginId, mainPackageName, pluginId, "", "PluginActivator", (mainPackageName == null ? "" : mainPackageName + ".")  + "activator", useMapMode);
+		public ConfigImpl(String pluginId, String mainPackageName, MapModeCodeGenStrategy mapMode, String runtimeToken) {
+			this(pluginId, mainPackageName, pluginId, "", "PluginActivator", (mainPackageName == null ? "" : mainPackageName + ".")  + "activator", mapMode, null);
 		}
 
-		public ConfigImpl(String pluginId, String mainPackageName, String pluginFriendlyName, String pluginProviderName, String pluginActivatorClassName, String pluginActivatorPackageName, boolean needsMapMode){
+		public ConfigImpl(String pluginId, String mainPackageName, String pluginFriendlyName, String pluginProviderName, String pluginActivatorClassName, String pluginActivatorPackageName, MapModeCodeGenStrategy mapMode, String runtimeToken){
 			myPluginId = pluginId;
 			myMainPackageName = mainPackageName == null ? "" : mainPackageName;
 			myPluginFriendlyName = pluginFriendlyName;
 			myPluginProviderName = pluginProviderName;
 			myPluginActivatorClassName = pluginActivatorClassName;
 			myPluginActivatorPackageName = pluginActivatorPackageName;
-			myNeedsMapMode = needsMapMode;
+			myMapMode = mapMode;
+			myRuntimeToken = runtimeToken;
 		}
 		
 		public String getMainPackageName() {
@@ -106,8 +107,12 @@ public class StandaloneGenerator extends GeneratorBase {
 			return myPluginActivatorPackageName;
 		}
 		
-		public boolean needsMapMode() {
-			return myNeedsMapMode;
+		public MapModeCodeGenStrategy getMapMode() {
+			return myMapMode;
+		}
+
+		public String getRuntimeToken() {
+			return myRuntimeToken;
 		}
 	}
 
@@ -124,27 +129,26 @@ public class StandaloneGenerator extends GeneratorBase {
 	}
 
 
-	public StandaloneGenerator(Processor p, Config config, FigureQualifiedNameSwitch fqnSwitch) {
-		this(p, config, fqnSwitch, null);
+	public StandaloneGenerator(Processor p, Config config) {
+		this(p, config, null);
 	}
 
-	public StandaloneGenerator(Processor p, Config config, FigureQualifiedNameSwitch fqnSwitch, URL[] dynamicTemplates) {
-		assert p != null && config != null && fqnSwitch != null;
+	public StandaloneGenerator(Processor p, Config config, URL[] dynamicTemplates) {
+		assert p != null && config != null;
 		myArgs = config;
 		myProcessor = p;
-		myFigureNameSwitch = fqnSwitch;
 		String pluginActivatorFQN = composePluginActivatorClassFQN(config);
-		MapModeCodeGenStrategy strategy;
+		final MapModeCodeGenStrategy strategy;
 		String accessor;
-		if (config.needsMapMode()) {
+		if (config.getMapMode() == MapModeCodeGenStrategy.DYNAMIC) {
 			strategy = MapModeCodeGenStrategy.DYNAMIC;
 			accessor = pluginActivatorFQN + ".getDefault().";
 		} else {
-			strategy = MapModeCodeGenStrategy.STATIC;
+			strategy = config.getMapMode() == null ? MapModeCodeGenStrategy.STATIC : config.getMapMode();
 			accessor = null;
 		}
 		
-		myFigureGenerator = new FigureGenerator(fqnSwitch, strategy, accessor, false, dynamicTemplates);
+		myFigureGenerator = new FigureGenerator(config.getRuntimeToken(), strategy, accessor, false, dynamicTemplates);
 		myAuxiliaryGenerators = new StandaloneEmitters(strategy, dynamicTemplates);
 	}
 
@@ -187,7 +191,7 @@ public class StandaloneGenerator extends GeneratorBase {
 	
 	protected void generatePluginStructure() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateFile(myAuxiliaryGenerators.getBuildPropertiesEmitter(), new Path("build.properties"), myArgs);
-		doGenerateFile(myAuxiliaryGenerators.getManifestMFEmitter(), new Path("META-INF/MANIFEST.MF"), myArgs, myProcessor.getRequiredBundles(myFigureNameSwitch));
+		doGenerateFile(myAuxiliaryGenerators.getManifestMFEmitter(), new Path("META-INF/MANIFEST.MF"), myArgs, myProcessor.getRequiredBundles(null));
 		doGenerateFile(myAuxiliaryGenerators.getPluginPropertiesEmitter(), new Path("plugin.properties"), myArgs);
 	}
 

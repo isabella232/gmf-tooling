@@ -11,8 +11,8 @@
  */
 package org.eclipse.gmf.internal.graphdef.codegen;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -81,9 +81,16 @@ public class CanvasProcessor extends Processor {
 	}
 
 	public String[] getRequiredBundles(FigureQualifiedNameSwitch fqnSwitch) {
-		ArrayList<String> rv = new ArrayList<String>();
+		HashSet<String> rv = new HashSet<String>();
 		for (FigureGallery next : myInput.getFigures()) {
-			rv.addAll(Arrays.asList(fqnSwitch.getDependencies(next)));
+			if (next.getImplementationBundle() != null && next.getImplementationBundle().trim().length() > 0) {
+				// need this for a while, though this should be done in the fqnswitch. But as I'm trying to get rid of the
+				// switch, that's a temp hack to pass through
+				rv.add(next.getImplementationBundle());
+			}
+			if (fqnSwitch != null) {
+				rv.addAll(Arrays.asList(fqnSwitch.getDependencies(next)));
+			}
 		}
 		return rv.toArray(new String[rv.size()]);
 	}

@@ -15,7 +15,6 @@ package org.eclipse.gmf.graphdef.codegen;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
@@ -57,17 +56,13 @@ class StandaloneEmitters {
 			protected Object[] extractArguments(Object[] arguments) {
 				assert arguments != null && arguments.length > 1 && arguments[0] instanceof Config && arguments[1] instanceof String[];
 				Config config = (Config) arguments[0];
-				List<String> requiredBundles = new LinkedList<String>();
-				if (config.needsMapMode()) {
-					requiredBundles.add("org.eclipse.gmf.runtime.draw2d.ui");
-				}
-				requiredBundles.addAll(Arrays.asList((String[]) arguments[1]));
 				List<String> exportedPackages = (config.getMainPackageName() == null || config.getMainPackageName().trim().length() == 0) ? Collections.singletonList(config.getPluginActivatorPackageName()) : Arrays.asList(config.getPluginActivatorPackageName(), config.getMainPackageName());
+				List<String> referencedBundles = Arrays.asList((String[]) arguments[1]);
 				return new Object[] {
 					config.getPluginID(),
 					config.getPluginActivatorPackageName() + '.' + config.getPluginActivatorClassName(),
 					exportedPackages,
-					requiredBundles,
+					referencedBundles
 				};
 			}
 		};

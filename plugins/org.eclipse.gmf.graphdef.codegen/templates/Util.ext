@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -17,28 +17,14 @@ EString compilationUnitName(gmfgraph::Figure figure) :
 	figure.name.toFirstUpper()
 ;
 
-String qualifiedClassNameGEF(gmfgraph::Figure figure) :
-JAVA [FigureQualifiedNameSwitch] org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch.get(org.eclipse.emf.ecore.EObject)
-;
-
-String qualifiedClassNameGEF(gmfgraph::ScalablePolygon figure) :
-	"org.eclipse.draw2d.Shape"
-;
-
-String qualifiedClassNameGEF(gmfgraph::Layout layout) :
-JAVA [FigureQualifiedNameSwitch] org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch.get(org.eclipse.emf.ecore.EObject)
-;
-
-String qualifiedClassNameGEF(gmfgraph::LayoutData layout) :
-JAVA [FigureQualifiedNameSwitch] org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch.get(org.eclipse.emf.ecore.EObject)
-;
-
-String qualifiedClassNameGEF(gmfgraph::Border border) :
-JAVA [FigureQualifiedNameSwitch] org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch.get(org.eclipse.emf.ecore.EObject)
-;
-
 Boolean hasSourceDecoration(gmfgraph::PolylineConnection figure) :
 	null != figure.sourceDecoration
+;
+
+List[String] requiredBundles(List[String] referencedBundles) :
+	isFullRuntime() /*&& usesLabelOrPolyline) || usesMapMode()*/ ?
+		{"org.eclipse.core.runtime","org.eclipse.draw2d", "org.eclipse.gmf.runtime.draw2d.ui"}.union(referencedBundles).toList().purgeDups() :
+		{"org.eclipse.core.runtime","org.eclipse.draw2d"}.union(referencedBundles).toList().purgeDups()
 ;
 
 String packageStatement() :
@@ -61,6 +47,11 @@ EBoolean hasTargetDecoration(gmfgraph::PolylineConnection figure) :
 	null != figure.targetDecoration
 ;
 
+cached boolean isFullRuntime() :
+	internalCheckRuntimeToken() != null ? internalCheckRuntimeToken().toLowerCase() == "full" : true
+;
+
+private String internalCheckRuntimeToken() : GLOBALVAR runtimeToken;
 
 //nonNull(ecore::EObject obj) :
 //	{obj}.select(e | null != e)
