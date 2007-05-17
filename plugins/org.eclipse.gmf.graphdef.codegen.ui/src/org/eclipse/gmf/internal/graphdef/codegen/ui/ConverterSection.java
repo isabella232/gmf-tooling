@@ -36,9 +36,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
-import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
-import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
-import org.eclipse.gmf.gmfgraph.util.RuntimeLiteFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.wizard.Wizard;
@@ -109,16 +106,10 @@ public class ConverterSection extends OptionTemplateSection {
 	protected void generateFiles(IProgressMonitor monitor) throws CoreException {
 		Resource input = loadResource(myInputPathOption.getText());
 		StandaloneGenerator.Config config = new StandaloneGeneratorConfigAdapter(this);
-		FigureQualifiedNameSwitch fqnSwitch;
-		if (myUseRuntimeFiguresOption.isSelected()) {
-			fqnSwitch = new RuntimeFQNSwitch();
-		} else {
-			fqnSwitch = new RuntimeLiteFQNSwitch();
-		}
 		final ConverterOptions options = newConverterOptions();
 		final ConverterOutcome converterOutcome = new ConverterOutcome(options, new Resource[] {input});
 		assert converterOutcome.checkInputAgainstOptions().isOK();
-		StandaloneGenerator generator = new StandaloneGenerator(converterOutcome.getProcessor(), config, fqnSwitch);
+		StandaloneGenerator generator = new StandaloneGenerator(converterOutcome.getProcessor(), config);
 		generator.setSkipPluginStructure(false);
 		try {
 			generator.run(new SubProgressMonitor(monitor, 1));

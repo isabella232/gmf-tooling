@@ -77,7 +77,7 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 			return;
 		}
 		String pluginId = dialog.getPluginId();
-		final StandaloneGenerator.Config config = new StandaloneGenerator.ConfigImpl(pluginId, pluginId, dialog.isUseMapMode());
+		final StandaloneGenerator.Config config = new StandaloneGenerator.ConfigImpl(pluginId, pluginId, dialog.getMapModeCodeGenStrategy(), dialog.getRuntimeToken());
 		final ConverterOutcome converterOutcome = new ConverterOutcome(getOptions(), input);
 		final IStatus inputCheck = converterOutcome.checkInputAgainstOptions();
 		if (!inputCheck.isOK()) {
@@ -94,7 +94,7 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 				// fallthrough
 			}
 		}
-		final StandaloneGenerator generator = new StandaloneGenerator(converterOutcome.getProcessor(), config, dialog.getFigureQualifiedNameSwitch(), dynamicTemplates);
+		final StandaloneGenerator generator = new StandaloneGenerator(converterOutcome.getProcessor(), config, dynamicTemplates);
 		generator.setSkipPluginStructure(false);
 
 		new Job(action.getText()) {

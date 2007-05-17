@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,9 +11,6 @@
  */
 package org.eclipse.gmf.internal.graphdef.codegen.ui;
 
-import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
-import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
-import org.eclipse.gmf.gmfgraph.util.RuntimeLiteFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -102,24 +99,12 @@ public class FigureGeneratorOptionsDialog extends TitleAreaDialog {
     	super.okPressed();
     }
 
-    public FigureQualifiedNameSwitch getFigureQualifiedNameSwitch() {
-    	if (useRuntimeFigures) {
-    		return new RuntimeFQNSwitch();
-    	} else {
-    		return new RuntimeLiteFQNSwitch();
-    	}
+    public String getRuntimeToken() {
+    	return useRuntimeFigures ? null : "lite";
     }
 
     public MapModeCodeGenStrategy getMapModeCodeGenStrategy() {
-    	if (useMapMode) {
-    		return MapModeCodeGenStrategy.DYNAMIC;
-    	} else {
-    		return MapModeCodeGenStrategy.STATIC;
-    	}
-    }
-
-    public boolean isUseMapMode() {
-    	return useMapMode;
+    	return useMapMode ? MapModeCodeGenStrategy.DYNAMIC : MapModeCodeGenStrategy.STATIC;
     }
 
     public boolean isHelpAvailable() {

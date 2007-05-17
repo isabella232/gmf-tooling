@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,9 +11,10 @@
  */
 package org.eclipse.gmf.internal.graphdef.codegen.ui;
 
+import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
 
-public class StandaloneGeneratorConfigAdapter implements StandaloneGenerator.Config {
+class StandaloneGeneratorConfigAdapter implements StandaloneGenerator.Config {
 	private final ConverterSection mySection;
 
 	public StandaloneGeneratorConfigAdapter(ConverterSection section){
@@ -53,8 +54,13 @@ public class StandaloneGeneratorConfigAdapter implements StandaloneGenerator.Con
 		return notNull(mySection.getPluginProviderName());
 	}
 	
-	public boolean needsMapMode() {
-		return mySection.getBooleanOption(ConverterSection.OPTION_NEEDS_MAP_MODE);
+	public MapModeCodeGenStrategy getMapMode() {
+		return mySection.getBooleanOption(ConverterSection.OPTION_NEEDS_MAP_MODE) ? MapModeCodeGenStrategy.DYNAMIC : MapModeCodeGenStrategy.STATIC;
+	}
+
+	public String getRuntimeToken() {
+		// TODO Auto-generated method stub
+		return mySection.getBooleanOption(ConverterSection.OPTION_USE_RUNTIME_FIGURES) ? null : "lite";
 	}
 	
 	/**
