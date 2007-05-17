@@ -13,7 +13,7 @@
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.batik.util.gui,org.apache.batik.util.gui,v1_6"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.batik.xml,org.apache.batik.xml,v1_6"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.xerces,org.apache.xerces,v2_8_0"/>
-		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.xml.resolver,org.apache.xml.resolver,v1_6"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/tools,org.eclipse.orbit/org.apache.xml.resolver,org.apache.xml.resolver,v1_1_0"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf,org.eclipse.gmf"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge,org.eclipse.gmf.bridge"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.ui,org.eclipse.gmf.bridge.ui"/>
