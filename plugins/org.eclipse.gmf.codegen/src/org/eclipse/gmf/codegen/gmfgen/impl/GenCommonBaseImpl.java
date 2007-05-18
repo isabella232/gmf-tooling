@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gmf.codegen.gmfgen.Behaviour;
@@ -47,6 +48,7 @@ import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getItemSemanticEditPolicyClassName <em>Item Semantic Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getViewmap <em>Viewmap</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getStyles <em>Styles</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getBehaviour <em>Behaviour</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#isSansDomain <em>Sans Domain</em>}</li>
  * </ul>
@@ -164,6 +166,16 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @ordered
 	 */
 	protected Viewmap viewmap;
+
+	/**
+	 * The cached value of the '{@link #getStyles() <em>Styles</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStyles()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<GenClass> styles;
 
 	/**
 	 * The cached value of the '{@link #getBehaviour() <em>Behaviour</em>}' containment reference list.
@@ -429,6 +441,18 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<GenClass> getStyles() {
+		if (styles == null) {
+			styles = new EObjectResolvingEList<GenClass>(GenClass.class, this, GMFGenPackage.GEN_COMMON_BASE__STYLES);
+		}
+		return styles;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<Behaviour> getBehaviour() {
 		if (behaviour == null) {
 			behaviour = new EObjectContainmentWithInverseEList<Behaviour>(Behaviour.class, this, GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR, GMFGenPackage.BEHAVIOUR__SUBJECT);
@@ -560,6 +584,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return getNotationViewFactoryClassName();
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
 				return getViewmap();
+			case GMFGenPackage.GEN_COMMON_BASE__STYLES:
+				return getStyles();
 			case GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR:
 				return getBehaviour();
 			case GMFGenPackage.GEN_COMMON_BASE__SANS_DOMAIN:
@@ -598,6 +624,10 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
 				setViewmap((Viewmap)newValue);
 				return;
+			case GMFGenPackage.GEN_COMMON_BASE__STYLES:
+				getStyles().clear();
+				getStyles().addAll((Collection<? extends GenClass>)newValue);
+				return;
 			case GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR:
 				getBehaviour().clear();
 				getBehaviour().addAll((Collection<? extends Behaviour>)newValue);
@@ -635,6 +665,9 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
 				setViewmap((Viewmap)null);
 				return;
+			case GMFGenPackage.GEN_COMMON_BASE__STYLES:
+				getStyles().clear();
+				return;
 			case GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR:
 				getBehaviour().clear();
 				return;
@@ -664,6 +697,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
 				return viewmap != null;
+			case GMFGenPackage.GEN_COMMON_BASE__STYLES:
+				return styles != null && !styles.isEmpty();
 			case GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR:
 				return behaviour != null && !behaviour.isEmpty();
 			case GMFGenPackage.GEN_COMMON_BASE__SANS_DOMAIN:

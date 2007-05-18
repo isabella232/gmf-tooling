@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getItemSemanticEditPolicyClassName <em>Item Semantic Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getViewmap <em>Viewmap</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getStyles <em>Styles</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getBehaviour <em>Behaviour</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#isSansDomain <em>Sans Domain</em>}</li>
  * </ul>
@@ -39,6 +40,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCommonBase()
  * @model abstract="true"
+ *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='styles->forAll(style|style.ecoreClass.eAllSuperTypes->including(style.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Style\'))' description='Each style must be a notation::Style or sub-class'"
  * @generated
  */
 public interface GenCommonBase extends EObject {
@@ -231,6 +233,22 @@ public interface GenCommonBase extends EObject {
 	 * @generated
 	 */
 	void setViewmap(Viewmap value);
+
+	/**
+	 * Returns the value of the '<em><b>Styles</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.emf.codegen.ecore.genmodel.GenClass}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Styles</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Styles</em>' reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCommonBase_Styles()
+	 * @model type="org.eclipse.emf.codegen.ecore.genmodel.GenClass"
+	 * @generated
+	 */
+	EList<GenClass> getStyles();
 
 	/**
 	 * Returns the value of the '<em><b>Behaviour</b></em>' containment reference list.

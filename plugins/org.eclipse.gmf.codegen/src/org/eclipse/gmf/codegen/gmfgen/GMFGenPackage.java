@@ -326,13 +326,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_COMMON_BASE__VIEWMAP = 6;
 
 	/**
+	 * The feature id for the '<em><b>Styles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMMON_BASE__STYLES = 7;
+
+	/**
 	 * The feature id for the '<em><b>Behaviour</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMMON_BASE__BEHAVIOUR = 7;
+	int GEN_COMMON_BASE__BEHAVIOUR = 8;
 
 	/**
 	 * The feature id for the '<em><b>Sans Domain</b></em>' attribute.
@@ -341,7 +350,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMMON_BASE__SANS_DOMAIN = 8;
+	int GEN_COMMON_BASE__SANS_DOMAIN = 9;
 
 	/**
 	 * The number of structural features of the '<em>Gen Common Base</em>' class.
@@ -350,7 +359,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMMON_BASE_FEATURE_COUNT = 9;
+	int GEN_COMMON_BASE_FEATURE_COUNT = 10;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenContainerBase <em>Gen Container Base</em>}' class.
@@ -424,6 +433,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_CONTAINER_BASE__VIEWMAP = GEN_COMMON_BASE__VIEWMAP;
+
+	/**
+	 * The feature id for the '<em><b>Styles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTAINER_BASE__STYLES = GEN_COMMON_BASE__STYLES;
 
 	/**
 	 * The feature id for the '<em><b>Behaviour</b></em>' containment reference list.
@@ -542,6 +560,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_DIAGRAM__VIEWMAP = GEN_CONTAINER_BASE__VIEWMAP;
+
+	/**
+	 * The feature id for the '<em><b>Styles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM__STYLES = GEN_CONTAINER_BASE__STYLES;
 
 	/**
 	 * The feature id for the '<em><b>Behaviour</b></em>' containment reference list.
@@ -3032,6 +3059,15 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_CHILD_CONTAINER__VIEWMAP = GEN_CONTAINER_BASE__VIEWMAP;
 
 	/**
+	 * The feature id for the '<em><b>Styles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_CONTAINER__STYLES = GEN_CONTAINER_BASE__STYLES;
+
+	/**
 	 * The feature id for the '<em><b>Behaviour</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3147,6 +3183,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_NODE__VIEWMAP = GEN_CHILD_CONTAINER__VIEWMAP;
+
+	/**
+	 * The feature id for the '<em><b>Styles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NODE__STYLES = GEN_CHILD_CONTAINER__STYLES;
 
 	/**
 	 * The feature id for the '<em><b>Behaviour</b></em>' containment reference list.
@@ -3337,6 +3382,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_TOP_LEVEL_NODE__VIEWMAP = GEN_NODE__VIEWMAP;
+
+	/**
+	 * The feature id for the '<em><b>Styles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TOP_LEVEL_NODE__STYLES = GEN_NODE__STYLES;
 
 	/**
 	 * The feature id for the '<em><b>Behaviour</b></em>' containment reference list.
@@ -3536,6 +3590,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_CHILD_NODE__VIEWMAP = GEN_NODE__VIEWMAP;
+
+	/**
+	 * The feature id for the '<em><b>Styles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_NODE__STYLES = GEN_NODE__STYLES;
 
 	/**
 	 * The feature id for the '<em><b>Behaviour</b></em>' containment reference list.
@@ -3744,6 +3807,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_CHILD_SIDE_AFFIXED_NODE__VIEWMAP = GEN_CHILD_NODE__VIEWMAP;
+
+	/**
+	 * The feature id for the '<em><b>Styles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_SIDE_AFFIXED_NODE__STYLES = GEN_CHILD_NODE__STYLES;
 
 	/**
 	 * The feature id for the '<em><b>Behaviour</b></em>' containment reference list.
@@ -3961,6 +4033,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_CHILD_LABEL_NODE__VIEWMAP = GEN_CHILD_NODE__VIEWMAP;
+
+	/**
+	 * The feature id for the '<em><b>Styles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_LABEL_NODE__STYLES = GEN_CHILD_NODE__STYLES;
 
 	/**
 	 * The feature id for the '<em><b>Behaviour</b></em>' containment reference list.
@@ -4188,6 +4269,15 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_COMPARTMENT__VIEWMAP = GEN_CHILD_CONTAINER__VIEWMAP;
 
 	/**
+	 * The feature id for the '<em><b>Styles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__STYLES = GEN_CHILD_CONTAINER__STYLES;
+
+	/**
 	 * The feature id for the '<em><b>Behaviour</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4378,6 +4468,15 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_LINK__VIEWMAP = GEN_COMMON_BASE__VIEWMAP;
 
 	/**
+	 * The feature id for the '<em><b>Styles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK__STYLES = GEN_COMMON_BASE__STYLES;
+
+	/**
 	 * The feature id for the '<em><b>Behaviour</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4559,6 +4658,15 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_LABEL__VIEWMAP = GEN_COMMON_BASE__VIEWMAP;
 
 	/**
+	 * The feature id for the '<em><b>Styles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LABEL__STYLES = GEN_COMMON_BASE__STYLES;
+
+	/**
 	 * The feature id for the '<em><b>Behaviour</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4684,6 +4792,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_NODE_LABEL__VIEWMAP = GEN_LABEL__VIEWMAP;
+
+	/**
+	 * The feature id for the '<em><b>Styles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NODE_LABEL__STYLES = GEN_LABEL__STYLES;
 
 	/**
 	 * The feature id for the '<em><b>Behaviour</b></em>' containment reference list.
@@ -4822,6 +4939,15 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EXTERNAL_NODE_LABEL__VIEWMAP = GEN_NODE_LABEL__VIEWMAP;
 
 	/**
+	 * The feature id for the '<em><b>Styles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EXTERNAL_NODE_LABEL__STYLES = GEN_NODE_LABEL__STYLES;
+
+	/**
 	 * The feature id for the '<em><b>Behaviour</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4956,6 +5082,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_LINK_LABEL__VIEWMAP = GEN_LABEL__VIEWMAP;
+
+	/**
+	 * The feature id for the '<em><b>Styles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK_LABEL__STYLES = GEN_LABEL__STYLES;
 
 	/**
 	 * The feature id for the '<em><b>Behaviour</b></em>' containment reference list.
@@ -11457,6 +11592,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenCommonBase_Viewmap();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getStyles <em>Styles</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Styles</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getStyles()
+	 * @see #getGenCommonBase()
+	 * @generated
+	 */
+	EReference getGenCommonBase_Styles();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getBehaviour <em>Behaviour</em>}'.
