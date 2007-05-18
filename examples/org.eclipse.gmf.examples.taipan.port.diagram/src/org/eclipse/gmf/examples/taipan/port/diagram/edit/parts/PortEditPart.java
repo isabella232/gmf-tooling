@@ -81,9 +81,7 @@ public class PortEditPart extends DiagramEditPart {
 
 	public Command getCommand(Request request) {
 		Command command = super.getCommand(request);
-		if (request.getType().equals(REQ_CREATE) 
-				|| request.getType().equals(REQ_MOVE_CHILDREN)
-				|| request.getType().equals(REQ_RESIZE_CHILDREN)) {
+		if (request.getType().equals(REQ_CREATE) || request.getType().equals(REQ_MOVE_CHILDREN) || request.getType().equals(REQ_RESIZE_CHILDREN)) {
 			ArrangeRequest layoutRequest = new ArrangeRequest(RequestConstants.REQ_ARRANGE_DEFERRED);
 			List editParts = request instanceof GroupRequest ? ((GroupRequest) request).getEditParts() : getChildren();
 			layoutRequest.setViewAdaptersToArrange(new ArrayList(editParts));

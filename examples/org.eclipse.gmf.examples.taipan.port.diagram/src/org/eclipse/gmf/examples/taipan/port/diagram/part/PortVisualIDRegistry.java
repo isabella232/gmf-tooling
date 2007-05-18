@@ -107,7 +107,7 @@ public class PortVisualIDRegistry {
 	 * @generated
 	 */
 	private static int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElementMetaclass) && isDiagramPort_1000((Port) domainElement)) {
+		if (TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElementMetaclass) && isDiagram((Port) domainElement)) {
 			return PortEditPart.VISUAL_ID;
 		}
 		return getUnrecognizedDiagramID(domainElement);
@@ -128,21 +128,21 @@ public class PortVisualIDRegistry {
 	 * @generated
 	 */
 	public static int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {
-		String containerModelID = getModelID(containerView);
+		String containerModelID = org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry.getModelID(containerView);
 		if (!PortEditPart.MODEL_ID.equals(containerModelID)) {
 			return -1;
 		}
 		int containerVisualID;
 		if (PortEditPart.MODEL_ID.equals(containerModelID)) {
-			containerVisualID = getVisualID(containerView);
+			containerVisualID = org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry.getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
-				containerVisualID = PortEditPart.VISUAL_ID;
+				containerVisualID = 1000;
 			} else {
 				return -1;
 			}
 		}
-		int nodeVisualID = semanticHint != null ? getVisualID(semanticHint) : -1;
+		int nodeVisualID = semanticHint != null ? org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry.getVisualID(semanticHint) : -1;
 		switch (containerVisualID) {
 		case BuildingEditPart.VISUAL_ID:
 			if (BuildingInfoEditPart.VISUAL_ID == nodeVisualID) {
@@ -150,13 +150,12 @@ public class PortVisualIDRegistry {
 			}
 			return getUnrecognizedBuilding_2001ChildNodeID(domainElement, semanticHint);
 		case PortEditPart.VISUAL_ID:
-			if ((semanticHint == null || BuildingEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getBuilding().isSuperTypeOf(domainElementMetaclass)
-					&& (domainElement == null || isNodeBuilding_2001((Building) domainElement))) {
+			if ((semanticHint == null || BuildingEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getBuilding().isSuperTypeOf(domainElementMetaclass)) {
 				return BuildingEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedPort_1000ChildNodeID(domainElement, semanticHint);
 		}
-		return -1;
+		return getUnrecognizedNodeID(containerView, domainElement);
 	}
 
 	/**
@@ -174,18 +173,16 @@ public class PortVisualIDRegistry {
 	 * @generated
 	 */
 	public static int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		{
-			return getUnrecognizedLinkWithClassID(domainElement);
-		}
+		return getUnrecognizedLinkWithClassID(domainElement);
 	}
 
 	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 * 
 	 * @generated
 	 */
-	private static boolean isDiagramPort_1000(Port element) {
+	private static boolean isDiagram(Port element) {
 		return true;
 	}
 
@@ -200,13 +197,13 @@ public class PortVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 * 
 	 * @generated
 	 */
-	private static boolean isNodeBuilding_2001(Building element) {
-		return true;
+	private static int getUnrecognizedNodeID(View containerView, EObject domainElement) {
+		return -1;
 	}
 
 	/**

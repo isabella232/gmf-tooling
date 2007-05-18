@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.examples.taipan.Building;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingEditPart;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart;
@@ -44,34 +45,14 @@ public class PortDiagramUpdater {
 	public static List getPort_1000SemanticChildren(View view) {
 		Port modelElement = (Port) view.getElement();
 		List result = new LinkedList();
-		for (Iterator semanticIterator = getPort_1000SemanticChildren(modelElement).iterator(); semanticIterator.hasNext();) {
-			EObject nextElement = (EObject) semanticIterator.next();
-			int visualID = PortVisualIDRegistry.getNodeVisualID(view, nextElement);
-			if (isPort_1000DomainMetaChild(visualID)) {
-				result.add(new PortNodeDescriptor(nextElement, visualID));
+		for (Iterator it = modelElement.getBuildings().iterator(); it.hasNext();) {
+			Building childElement = (Building) it.next();
+			int visualID = PortVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == BuildingEditPart.VISUAL_ID) {
+				result.add(new PortNodeDescriptor(childElement, visualID));
 			}
 		}
 		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static List getPort_1000SemanticChildren(Port modelElement) {
-		List allValues = new LinkedList();
-		allValues.addAll(modelElement.getBuildings());
-		return allValues;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static boolean isPort_1000DomainMetaChild(int visualID) {
-		switch (visualID) {
-		case BuildingEditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
 	}
 
 	/**

@@ -21,6 +21,7 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingEditPart;
 import org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramUpdater;
 import org.eclipse.gmf.examples.taipan.port.diagram.part.PortNodeDescriptor;
 import org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry;
@@ -65,8 +66,11 @@ public class PortCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 */
 	protected boolean isOrphaned(Collection semanticChildren, final View view) {
 		int visualID = PortVisualIDRegistry.getVisualID(view);
-		return PortDiagramUpdater.isPort_1000DomainMetaChild(visualID)
-				&& (!semanticChildren.contains(view.getElement()) || visualID != PortVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement()));
+		switch (visualID) {
+		case BuildingEditPart.VISUAL_ID:
+			return !semanticChildren.contains(view.getElement()) || visualID != PortVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
+		}
+		return false;
 	}
 
 	/**
