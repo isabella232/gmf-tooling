@@ -275,7 +275,7 @@
    <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
       <?gmfgen generated="true"?>
       <ParserProvider class="org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapParserProvider">
-         <Priority name="Lowest"/>
+         <Priority name="Low"/>
       </ParserProvider>
    </extension>
 
@@ -651,4 +651,32 @@
          </propertySection>
       </propertySections>
    </extension>
+   
+         
+   <extension id="GeoshapesExampleGroupContributionItemProvider" name="GeoshapesExampleGroupContributionItemProvider" point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <contributionItemProvider class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContributionItemProvider">
+         <Priority name="Low">
+         </Priority>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria
+                  objectClass="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart"
+                  objectCount="2+">
+               <method
+                     name="getDiagramEditDomain().getEditorPart().getEditorSite().getId()"
+                     value="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorID"/>     
+            </popupStructuredContributionCriteria>     
+            <popupAction path="/formatMenu/miscellaneousGroup" id="groupAction">
+            </popupAction>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.runtime.diagram.ui.editparts.GroupEditPart">
+            	<method
+                     name="getDiagramEditDomain().getEditorPart().getEditorSite().getId()"
+                     value="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorID"/>     
+            </popupStructuredContributionCriteria>                    
+            <popupAction path="/formatMenu/miscellaneousGroup" id="ungroupAction">
+            </popupAction>   
+         </popupContribution>                                 
+      </contributionItemProvider>
+   </extension>  
 </plugin>
