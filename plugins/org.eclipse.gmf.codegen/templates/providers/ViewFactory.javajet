@@ -142,10 +142,12 @@ if (colorAttrs != null && colorAttrs.getForegroundColor() != null && colorAttrs.
 }
 if (isNode) {
 	GenNode genNode = (GenNode) genElement;
-	if (genNode.getBehaviour(OpenDiagramBehaviour.class).size() == 1) {%>
-		<%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> diagramFacet = <%=importManager.getImportedName("org.eclipse.emf.ecore.EcoreFactory")%>.eINSTANCE.createEAnnotation();
-		diagramFacet.setSource("<%=org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl.ANNOTATION_SOURCE%>");
-		view.getEAnnotations().add(diagramFacet);
+	if (genNode.getBehaviour(OpenDiagramBehaviour.class).size() == 1) /*XXX perhaps, add size() linkStyles with different hints and process them with single policy?*/ {%>
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle")%> diagramFacet = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createHintedDiagramLinkStyle();
+<%	if (genNode.getBehaviour(OpenDiagramBehaviour.class).get(0).getDiagramKind() != null) {%>
+		diagramFacet.setHint("<%=genNode.getBehaviour(OpenDiagramBehaviour.class).get(0).getDiagramKind()%>"); // $NON-NLS-1$
+<%	}%>
+		view.getStyles().add(diagramFacet);
 <%	}
 	if (colorAttrs != null && colorAttrs.getBackgroundColor() != null && colorAttrs.getBackgroundColor().trim().length() > 0) {%>
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.setStructuralFeatureValue(view, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFillStyle_FillColor(),

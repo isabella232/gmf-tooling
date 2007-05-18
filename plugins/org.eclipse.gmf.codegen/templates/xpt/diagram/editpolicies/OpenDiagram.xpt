@@ -29,8 +29,6 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 
 «DEFINE extendsList FOR OpenDiagramBehaviour»org.eclipse.gmf.runtime.diagram.ui.editpolicies.OpenEditPolicy«ENDDEFINE»
 
-«DEFINE annotationSourceConstant FOR OpenDiagramBehaviour»"uri://eclipse.org/gmf/openDiagramPolicy"«ENDDEFINE»
-
 «DEFINE getOpenCommand FOR OpenDiagramBehaviour»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gef.commands.Command getOpenCommand(org.eclipse.gef.Request request) {
@@ -38,11 +36,12 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 		if (false == targetEditPart.getModel() instanceof org.eclipse.gmf.runtime.notation.View) {
 			return null;
 		}
-		org.eclipse.emf.ecore.EAnnotation ann = ((org.eclipse.gmf.runtime.notation.View) targetEditPart.getModel()).getEAnnotation(«EXPAND annotationSourceConstant»);
-		if (ann == null) {
+		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) targetEditPart.getModel();
+		org.eclipse.gmf.runtime.notation.Style link = view.getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getHintedDiagramLinkStyle());
+		if (false == link instanceof org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle) {
 			return null;
 		}
-		return new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(new OpenDiagramCommand(ann));
+		return new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(new OpenDiagramCommand((org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle) link));
 	}
 «ENDDEFINE»
 
@@ -51,14 +50,14 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 	private static class OpenDiagramCommand extends org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand {
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private final org.eclipse.emf.ecore.EAnnotation diagramFacet;
+		private final org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle diagramFacet;
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		OpenDiagramCommand(org.eclipse.emf.ecore.EAnnotation annotation) {
+		OpenDiagramCommand(org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle linkStyle) {
 			// editing domain is taken for original diagram, 
 			// if we open diagram from another file, we should use another editing domain
-			super(org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(annotation), «EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenCommandName()) FOR subject.getDiagram().editorGen», null);
-			diagramFacet = annotation;
+			super(org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(linkStyle), «EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenCommandName()) FOR subject.getDiagram().editorGen», null);
+			diagramFacet = linkStyle;
 		}
 
 		// FIXME canExecute if  !(readOnly && getDiagramToOpen == null), i.e. open works on ro diagrams only when there's associated diagram already
@@ -83,14 +82,7 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		protected org.eclipse.gmf.runtime.notation.Diagram getDiagramToOpen() {
-			// take first
-			for (java.util.Iterator it = diagramFacet.getReferences().iterator(); it.hasNext();) {
-				Object next = it.next();
-				if (next instanceof org.eclipse.gmf.runtime.notation.Diagram) {
-					return (org.eclipse.gmf.runtime.notation.Diagram) next;
-				}
-			}
-			return null;
+			return diagramFacet.getDiagramLink();
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
@@ -99,7 +91,7 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 			if (d == null) {
 				throw new org.eclipse.core.commands.ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind");
 			}
-			diagramFacet.getReferences().add(d);
+			diagramFacet.setDiagramLink(d);
 			assert diagramFacet.eResource() != null;
 			diagramFacet.eResource().getContents().add(d);
 			try {
@@ -136,7 +128,7 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 		«EXPAND xpt::Common::generatedMemberComment»
 		protected org.eclipse.emf.ecore.EObject getDiagramDomainElement() {
 			// use same element as associated with EP
-			return ((org.eclipse.gmf.runtime.notation.View) diagramFacet.getEModelElement()).getElement();
+			return ((org.eclipse.gmf.runtime.notation.View) diagramFacet.eContainer()).getElement();
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»

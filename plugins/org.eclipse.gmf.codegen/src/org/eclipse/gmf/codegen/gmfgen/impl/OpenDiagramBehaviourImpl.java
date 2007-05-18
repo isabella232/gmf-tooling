@@ -38,8 +38,6 @@ import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
  */
 public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagramBehaviour {
 
-	public static final String ANNOTATION_SOURCE = "uri://eclipse.org/gmf/openDiagramPolicy"; 
-
 	/**
 	 * The default value of the '{@link #getEditPolicyClassName() <em>Edit Policy Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
