@@ -19,7 +19,6 @@ public class AllMigrationTests {
 	public static Test suite() {
 		TestSuite suite = new TestSuite("Test for org.eclipse.gmf.tests.migration"); //$NON-NLS-1$
 		//$JUnit-BEGIN$
-		suite.addTestSuite(FeatureKeyTest.class);
 		suite.addTestSuite(GenericMigrationTest.class);
 		suite.addTestSuite(MigrationPatchesTest.class);
 		//$JUnit-END$

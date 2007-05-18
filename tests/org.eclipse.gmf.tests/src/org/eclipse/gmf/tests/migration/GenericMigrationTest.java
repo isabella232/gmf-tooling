@@ -13,6 +13,8 @@ package org.eclipse.gmf.tests.migration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 
 import junit.framework.TestCase;
 
@@ -24,9 +26,14 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.Resource.Factory;
+import org.eclipse.emf.ecore.resource.impl.ResourceFactoryRegistryImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gmf.internal.common.migrate.MigrationConfig;
-import org.eclipse.gmf.internal.common.migrate.MigrationUtil;
+import org.eclipse.gmf.internal.common.ToolingResourceFactory;
+import org.eclipse.gmf.internal.common.migrate.MigrationHelper;
+import org.eclipse.gmf.internal.common.migrate.MigrationHelperDelegate;
+import org.eclipse.gmf.internal.common.migrate.MigrationResource;
+import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 
 /**
  * @author artem
@@ -66,7 +73,71 @@ public class GenericMigrationTest extends TestCase {
 		return myAttrToRemove.getEContainingClass().getEPackage();
 	}
 
-	@SuppressWarnings("unchecked")
+	public void oldTestRemovedAttribute() {
+		final EObject testObject = newInstance();
+		testObject.eSet(myAttrToRemove, "value");
+
+		final String oldNsURI = getMetaModel().getNsURI();
+		EPackage.Registry.INSTANCE.put(oldNsURI, getMetaModel());
+		final String newNsURI = oldNsURI + "/2";
+		EPackage.Registry.INSTANCE.put(newNsURI, getMetaModel());
+
+		try {
+			URI uri = null;
+			try {
+				uri = URI.createFileURI(File.createTempFile("removed", ".tests").getAbsolutePath());
+				final ResourceSetImpl resourceSetImpl = new ResourceSetImpl();
+				final Resource res = resourceSetImpl.createResource(uri);
+				res.getContents().add(testObject);
+				res.save(null);
+				resourceSetImpl.getResources().remove(testObject);
+			} catch (IOException ex) {
+				fail(ex.toString());
+			}
+			// remove attr from metamodel
+			myAttrToRemove.getEContainingClass().getEStructuralFeatures().remove(myAttrToRemove);
+
+			// try to load mm
+			try {
+				new ResourceSetImpl().createResource(uri).load(null);
+				fail("Load should fail because of missing meta-model attribute");
+			} catch (IOException ex) {
+				// expected
+				assertNotNull(ex.getMessage());
+				assertTrue(ex.getMessage().contains(myAttrToRemove.getName()));
+			}
+
+			EPackage.Registry.INSTANCE.put(oldNsURI, null);
+
+//			MigrationConfig.Registry.INSTANCE.register(new MigrationConfig.Descriptor() {
+//				private final MigrationConfig cfg = new MigrationConfig(newNsURI, new String[] { oldNsURI });
+//				{
+//					cfg.registerDeletedAttribute(testObject.eClass(), myAttrToRemove.getName());
+//				}
+//
+//				public MigrationConfig getConfig() {
+//					return cfg;
+//				}
+//
+//				public String getExtension() {
+//					return "tests";
+//				}
+//
+//			});
+//			Resource migrated = MigrationUtil.migrateModel(uri).getLoadedResource();
+//			assertNotNull(migrated);
+//			assertTrue(migrated.getErrors().isEmpty() && migrated.getWarnings().isEmpty());
+//			assertEquals(1, migrated.getContents().size());
+//			EObject migratedObj = migrated.getContents().get(0);
+//			assertEquals(testObject.eClass(), migratedObj.eClass());
+		} finally {
+			// clean-up, avoid any chances to affect other tests
+			// XXX MigrationConfig should be cleaned as well.
+			EPackage.Registry.INSTANCE.put(oldNsURI, null);
+			EPackage.Registry.INSTANCE.put(newNsURI, null);
+		}
+	}
+
 	public void testRemovedAttribute() {
 		final EObject testObject = newInstance();
 		testObject.eSet(myAttrToRemove, "value");
@@ -103,24 +174,35 @@ public class GenericMigrationTest extends TestCase {
 
 			EPackage.Registry.INSTANCE.put(oldNsURI, null);
 
-			MigrationConfig.Registry.INSTANCE.register(new MigrationConfig.Descriptor() {
-				private final MigrationConfig cfg = new MigrationConfig(newNsURI, new String[] { oldNsURI });
-				{
-					cfg.registerDeletedAttribute(testObject.eClass(), myAttrToRemove.getName());
-				}
+			Resource.Factory factory = new ToolingResourceFactory() {
 
-				public MigrationConfig getConfig() {
-					return cfg;
-				}
+				@Override
+				public Resource createResource(URI uri) {
+					return new MigrationResource(uri) {
+						protected MigrationHelperDelegate createDelegate() {
+							MigrationHelperDelegate delegate = new MigrationHelper.MigrationHelperDelegateImpl() {
+								{
+									registerDeletedAttributes(testObject.eClass(), myAttrToRemove.getName());
+								}
+							};
+							return delegate;
+						}
 
-				public String getExtension() {
-					return "tests";
-				}
+						protected Collection<String> getBackwardSupportedURIs() {
+							return Collections.singleton(oldNsURI);
+						}
 
-			});
-			Resource migrated = MigrationUtil.migrateModel(uri).getLoadedResource();
+						protected String getMetamodelNsURI() {
+							return newNsURI;
+						}
+					};
+				}
+				
+			};
+			Resource migrated = migrateModel(factory, uri).getLoadedResource();
 			assertNotNull(migrated);
-			assertTrue(migrated.getErrors().isEmpty() && migrated.getWarnings().isEmpty());
+			assertTrue(migrated.getErrors().isEmpty());
+			assertFalse(migrated.getWarnings().isEmpty());
 			assertEquals(1, migrated.getContents().size());
 			EObject migratedObj = migrated.getContents().get(0);
 			assertEquals(testObject.eClass(), migratedObj.eClass());
@@ -131,4 +213,20 @@ public class GenericMigrationTest extends TestCase {
 			EPackage.Registry.INSTANCE.put(newNsURI, null);
 		}
 	}
+
+	private static ModelLoadHelper migrateModel(final Resource.Factory factory, URI modelResourceURI) {
+		if(modelResourceURI == null) {
+			throw new IllegalArgumentException("null resource uri"); //$NON-NLS-1$
+		}
+		ResourceSetImpl rset = new ResourceSetImpl();
+		rset.setResourceFactoryRegistry(new ResourceFactoryRegistryImpl() {			
+			public Factory getFactory(URI uri) {
+				return factory;
+			}
+		});
+
+		ModelLoadHelper loadHelper = new ModelLoadHelper(rset, modelResourceURI);
+		return loadHelper;
+	}	
+
 }
