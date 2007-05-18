@@ -14,7 +14,7 @@
   </extension>
 
   <extension point="org.eclipse.emf.ecore.extension_parser">
-    <parser type="gmfmap" class="org.eclipse.gmf.internal.common.migrate.CompatibleToolResourceFactory$MigrateOnLoad" />
+    <parser type="gmfmap" class="org.eclipse.gmf.internal.map.util.GMFMapResource$Factory" />
   </extension>
 
   <extension point="org.eclipse.team.core.fileTypes">
