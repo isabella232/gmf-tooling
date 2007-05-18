@@ -93,7 +93,7 @@ public class UnreliableRouteDescEditPart extends LabelEditPart implements ITextA
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(UnreliableRouteDescEditPart.VISUAL_ID), new Point(0, 40));
+		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteDescEditPart.VISUAL_ID), new Point(0, 40));
 	}
 
 	/**

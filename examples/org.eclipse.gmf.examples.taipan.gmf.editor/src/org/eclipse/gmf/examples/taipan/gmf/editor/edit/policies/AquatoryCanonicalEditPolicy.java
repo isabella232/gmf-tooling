@@ -115,8 +115,13 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	protected boolean isOrphaned(Collection semanticChildren, final View view) {
 		TaiPanDiagramUpdater.isShortcutOrphaned(view);
 		int visualID = TaiPanVisualIDRegistry.getVisualID(view);
-		return TaiPanDiagramUpdater.isAquatory_1DomainMetaChild(visualID)
-				&& (!semanticChildren.contains(view.getElement()) || visualID != TaiPanVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement()));
+		switch (visualID) {
+		case PortEditPart.VISUAL_ID:
+		case ShipEditPart.VISUAL_ID:
+		case WarshipEditPart.VISUAL_ID:
+			return !semanticChildren.contains(view.getElement()) || visualID != TaiPanVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
+		}
+		return false;
 	}
 
 	/**

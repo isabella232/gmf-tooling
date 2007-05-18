@@ -73,6 +73,16 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * @generated
 	 */
+	private static final TaiPanAbstractExpression Route_4002_Constraint = TaiPanOCLFactory.getExpression("reliability >= 0.5", TaiPanPackage.eINSTANCE.getRoute());
+
+	/**
+	 * @generated
+	 */
+	private static final TaiPanAbstractExpression Route_4003_Constraint = TaiPanOCLFactory.getExpression("reliability < 0.5", TaiPanPackage.eINSTANCE.getRoute());
+
+	/**
+	 * @generated
+	 */
 	public static int getVisualID(View view) {
 		if (view instanceof Diagram) {
 			if (AquatoryEditPart.MODEL_ID.equals(view.getType())) {
@@ -135,7 +145,7 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	private static int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getAquatory().isSuperTypeOf(domainElementMetaclass) && isDiagramAquatory_1((Aquatory) domainElement)) {
+		if (TaiPanPackage.eINSTANCE.getAquatory().isSuperTypeOf(domainElementMetaclass) && isDiagram((Aquatory) domainElement)) {
 			return AquatoryEditPart.VISUAL_ID;
 		}
 		return getUnrecognizedDiagramID(domainElement);
@@ -156,21 +166,21 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	public static int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {
-		String containerModelID = getModelID(containerView);
-		if (!AquatoryEditPart.MODEL_ID.equals(containerModelID)) {
+		String containerModelID = org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getModelID(containerView);
+		if (!AquatoryEditPart.MODEL_ID.equals(containerModelID) && !"TaiPan".equals(containerModelID)) {
 			return -1;
 		}
 		int containerVisualID;
 		if (AquatoryEditPart.MODEL_ID.equals(containerModelID)) {
-			containerVisualID = getVisualID(containerView);
+			containerVisualID = org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
-				containerVisualID = AquatoryEditPart.VISUAL_ID;
+				containerVisualID = 1;
 			} else {
 				return -1;
 			}
 		}
-		int nodeVisualID = semanticHint != null ? getVisualID(semanticHint) : -1;
+		int nodeVisualID = semanticHint != null ? org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getVisualID(semanticHint) : -1;
 		switch (containerVisualID) {
 		case PortEditPart.VISUAL_ID:
 			if (PortLocationEditPart.VISUAL_ID == nodeVisualID) {
@@ -209,38 +219,31 @@ public class TaiPanVisualIDRegistry {
 		case EmptyBoxEditPart.VISUAL_ID:
 			return getUnrecognizedEmptyBox_3003ChildNodeID(domainElement, semanticHint);
 		case ShipSmallCargoEditPart.VISUAL_ID:
-			if ((semanticHint == null || SmallItemsEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getSmallItems().isSuperTypeOf(domainElementMetaclass)
-					&& (domainElement == null || isNodeSmallItems_3001((SmallItems) domainElement))) {
+			if ((semanticHint == null || SmallItemsEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getSmallItems().isSuperTypeOf(domainElementMetaclass)) {
 				return SmallItemsEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedShipSmallCargo_7001ChildNodeID(domainElement, semanticHint);
 		case ShipLargeCargoEditPart.VISUAL_ID:
-			if ((semanticHint == null || LargeItemEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getLargeItem().isSuperTypeOf(domainElementMetaclass)
-					&& (domainElement == null || isNodeLargeItem_3002((LargeItem) domainElement))) {
+			if ((semanticHint == null || LargeItemEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getLargeItem().isSuperTypeOf(domainElementMetaclass)) {
 				return LargeItemEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || EmptyBoxEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getEmptyBox().isSuperTypeOf(domainElementMetaclass)
-					&& (domainElement == null || isNodeEmptyBox_3003((EmptyBox) domainElement))) {
+			if ((semanticHint == null || EmptyBoxEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getEmptyBox().isSuperTypeOf(domainElementMetaclass)) {
 				return EmptyBoxEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedShipLargeCargo_7002ChildNodeID(domainElement, semanticHint);
 		case WarshipLargeCargoEditPart.VISUAL_ID:
-			if ((semanticHint == null || LargeItemEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getLargeItem().isSuperTypeOf(domainElementMetaclass)
-					&& (domainElement == null || isNodeLargeItem_3002((LargeItem) domainElement))) {
+			if ((semanticHint == null || LargeItemEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getLargeItem().isSuperTypeOf(domainElementMetaclass)) {
 				return LargeItemEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedWarshipLargeCargo_7003ChildNodeID(domainElement, semanticHint);
 		case AquatoryEditPart.VISUAL_ID:
-			if ((semanticHint == null || PortEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElementMetaclass)
-					&& (domainElement == null || isNodePort_2001((Port) domainElement))) {
+			if ((semanticHint == null || PortEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElementMetaclass)) {
 				return PortEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || ShipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElementMetaclass)
-					&& (domainElement == null || isNodeShip_2002((Ship) domainElement))) {
+			if ((semanticHint == null || ShipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElementMetaclass)) {
 				return ShipEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || WarshipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getWarship().isSuperTypeOf(domainElementMetaclass)
-					&& (domainElement == null || isNodeWarship_2003((Warship) domainElement))) {
+			if ((semanticHint == null || WarshipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getWarship().isSuperTypeOf(domainElementMetaclass)) {
 				return WarshipEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedAquatory_1ChildNodeID(domainElement, semanticHint);
@@ -266,7 +269,7 @@ public class TaiPanVisualIDRegistry {
 			}
 			return getUnrecognizedRoute_4003LinkLabelID(semanticHint);
 		}
-		return -1;
+		return getUnrecognizedNodeID(containerView, domainElement);
 	}
 
 	/**
@@ -284,28 +287,28 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	public static int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isLinkWithClassRoute_4002((Route) domainElement))) {
+		if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || evaluate(Route_4002_Constraint, domainElement))) {
 			return ReliableRouteEditPart.VISUAL_ID;
-		} else if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isLinkWithClassRoute_4003((Route) domainElement))) {
-			return UnreliableRouteEditPart.VISUAL_ID;
-		} else if (TaiPanPackage.eINSTANCE.getEscortShipsOrder().isSuperTypeOf(domainElementMetaclass)
-				&& (domainElement == null || isLinkWithClassEscortShipsOrder_4006((EscortShipsOrder) domainElement))) {
-			return EscortShipsOrderEditPart.VISUAL_ID;
-		} else if (TaiPanPackage.eINSTANCE.getBesiegePortOrder().isSuperTypeOf(domainElementMetaclass)
-				&& (domainElement == null || isLinkWithClassBesiegePortOrder_4005((BesiegePortOrder) domainElement))) {
-			return BesiegePortOrderEditPart.VISUAL_ID;
-		} else {
-			return getUnrecognizedLinkWithClassID(domainElement);
 		}
+		if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || evaluate(Route_4003_Constraint, domainElement))) {
+			return UnreliableRouteEditPart.VISUAL_ID;
+		}
+		if (TaiPanPackage.eINSTANCE.getEscortShipsOrder().isSuperTypeOf(domainElementMetaclass)) {
+			return EscortShipsOrderEditPart.VISUAL_ID;
+		}
+		if (TaiPanPackage.eINSTANCE.getBesiegePortOrder().isSuperTypeOf(domainElementMetaclass)) {
+			return BesiegePortOrderEditPart.VISUAL_ID;
+		}
+		return getUnrecognizedLinkWithClassID(domainElement);
 	}
 
 	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 * 
 	 * @generated
 	 */
-	private static boolean isDiagramAquatory_1(Aquatory element) {
+	private static boolean isDiagram(Aquatory element) {
 		return true;
 	}
 
@@ -320,63 +323,13 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 * 
 	 * @generated
 	 */
-	private static boolean isNodePort_2001(Port element) {
-		return true;
-	}
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private static boolean isNodeShip_2002(Ship element) {
-		return true;
-	}
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private static boolean isNodeWarship_2003(Warship element) {
-		return true;
-	}
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private static boolean isNodeSmallItems_3001(SmallItems element) {
-		return true;
-	}
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private static boolean isNodeLargeItem_3002(LargeItem element) {
-		return true;
-	}
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private static boolean isNodeEmptyBox_3003(EmptyBox element) {
-		return true;
+	private static int getUnrecognizedNodeID(View containerView, EObject domainElement) {
+		return -1;
 	}
 
 	/**
@@ -510,6 +463,21 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
+	 * @generated
+	 */
+	private static boolean evaluate(TaiPanAbstractExpression expression, Object element) {
+		Object result = expression.evaluate(element);
+		return result instanceof Boolean && ((Boolean) result).booleanValue();
+	}
+
+	/**
+	 * @generated
+	 */
+	private static class JavaConstraints {
+
+	}
+
+	/**
 	 * User can change implementation of this method to handle some specific
 	 * situations not covered by default logic.
 	 *
@@ -518,82 +486,4 @@ public class TaiPanVisualIDRegistry {
 	private static int getUnrecognizedLinkWithClassID(EObject domainElement) {
 		return -1;
 	}
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private static boolean isLinkWithClassRoute_4002(Route element) {
-		return Route_4002.matches(element);
-	}
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private static boolean isLinkWithClassRoute_4003(Route element) {
-		return Route_4003.matches(element);
-	}
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private static boolean isLinkWithClassEscortShipsOrder_4006(EscortShipsOrder element) {
-		return true;
-	}
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private static boolean isLinkWithClassBesiegePortOrder_4005(BesiegePortOrder element) {
-		return true;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static final Matcher Route_4002 = new Matcher(TaiPanOCLFactory.getExpression("reliability >= 0.5", //$NON-NLS-1$
-			TaiPanPackage.eINSTANCE.getRoute()));
-
-	/**
-	 * @generated
-	 */
-	private static final Matcher Route_4003 = new Matcher(TaiPanOCLFactory.getExpression("reliability < 0.5", //$NON-NLS-1$
-			TaiPanPackage.eINSTANCE.getRoute()));
-
-	/**
-	 * @generated	
-	 */
-	static class Matcher {
-
-		/**
-		 * @generated	
-		 */
-		private TaiPanAbstractExpression condition;
-
-		/**
-		 * @generated	
-		 */
-		Matcher(TaiPanAbstractExpression conditionExpression) {
-			this.condition = conditionExpression;
-		}
-
-		/**
-		 * @generated	
-		 */
-		boolean matches(Object object) {
-			Object result = condition.evaluate(object);
-			return result instanceof Boolean && ((Boolean) result).booleanValue();
-		}
-	}// Matcher
 }

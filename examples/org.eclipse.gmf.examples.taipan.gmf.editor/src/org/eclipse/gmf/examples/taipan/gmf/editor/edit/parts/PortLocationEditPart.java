@@ -95,7 +95,7 @@ public class PortLocationEditPart extends LabelEditPart implements ITextAwareEdi
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(PortLocationEditPart.VISUAL_ID), new Point(0, 0));
+		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortLocationEditPart.VISUAL_ID), new Point(0, 0));
 	}
 
 	/**

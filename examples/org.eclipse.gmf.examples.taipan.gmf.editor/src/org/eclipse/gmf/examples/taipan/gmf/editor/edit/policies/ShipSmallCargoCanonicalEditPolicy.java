@@ -58,8 +58,11 @@ public class ShipSmallCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 	 */
 	protected boolean isOrphaned(Collection semanticChildren, final View view) {
 		int visualID = TaiPanVisualIDRegistry.getVisualID(view);
-		return TaiPanDiagramUpdater.isShipSmallCargo_7001DomainMetaChild(visualID)
-				&& (!semanticChildren.contains(view.getElement()) || visualID != TaiPanVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement()));
+		switch (visualID) {
+		case SmallItemsEditPart.VISUAL_ID:
+			return !semanticChildren.contains(view.getElement()) || visualID != TaiPanVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
+		}
+		return false;
 	}
 
 	/**

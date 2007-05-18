@@ -331,7 +331,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		private static TaiPanAbstractExpression EscortShipsOrder_4006_SourceExpression;
+		private static final TaiPanAbstractExpression EscortShipsOrder_4006_SourceExpression;
 
 		/**
 		 * @generated
@@ -346,7 +346,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		private static TaiPanAbstractExpression EscortShipsOrder_4006_TargetExpression;
+		private static final TaiPanAbstractExpression EscortShipsOrder_4006_TargetExpression;
 
 		/**
 		 * @generated
@@ -360,7 +360,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		private static TaiPanAbstractExpression BesiegePortOrder_4005_SourceExpression;
+		private static final TaiPanAbstractExpression BesiegePortOrder_4005_SourceExpression;
 
 		/**
 		 * @generated
@@ -492,9 +492,16 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 				Object val = constraint.evaluate(sourceEnd, evalEnv);
 				return (val instanceof Boolean) ? ((Boolean) val).booleanValue() : false;
 			} catch (Exception e) {
-				TaiPanDiagramEditorPlugin.getInstance().logError(Messages.EvaluateOCLLinkConstraintError, e);
+				TaiPanDiagramEditorPlugin.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
 				return false;
 			}
+		}
+
+		/**
+		 * @generated
+		 */
+		private static class JavaConstraints {
+
 		}
 
 	}

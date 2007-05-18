@@ -94,7 +94,7 @@ public class ShipDestinationMarkerEditPart extends LabelEditPart implements ITex
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(ShipDestinationMarkerEditPart.VISUAL_ID), new Point(0, 40));
+		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationMarkerEditPart.VISUAL_ID), new Point(0, 40));
 	}
 
 	/**
