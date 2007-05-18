@@ -271,7 +271,7 @@ public class DefUtils {
 					}
 				}
 				// perform coverage check
-				List<IStatus> statuses = Collections.emptyList();
+				List<IStatus> statuses = new ArrayList<IStatus>();
 				for (Iterator<EClass> it = subTypes.iterator(); it.hasNext();) {
 					EClass nextClass = it.next();
 					
@@ -279,9 +279,6 @@ public class DefUtils {
 						String message = NLS.bind(Messages.def_NoCtxInProviderForCtxBinding, 
 								LabelProvider.INSTANCE.getObjectLabel(nextClass),
 								LabelProvider.INSTANCE.getFeatureLabel(contextRef));
-						if(statuses.isEmpty()) {
-							statuses = new ArrayList<IStatus>();
-						}
 						statuses.add(GMFValidationPlugin.createStatus(IStatus.ERROR, -1, message, null));
 					}
 				}
