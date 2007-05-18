@@ -53,17 +53,6 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 		<li><a href="http://download.eclipse.org/modeling/gmf/downloads/index.php" target="_self">GMF Downloads</a></li>
 		<li class="tabstartselected">&#160;&#160;&#160;</li>
 		<li><a class="tabselected">Build @build@</a></li>
-<!--
-		<li class="tabstart">&#160;&#160;&#160;</li>
-		<li><a class="" href="linPlatform.php" target="_self">Linux</a></li>
-		<li class="tabstart">&#160;&#160;&#160;</li>
-		<li><a class="" href="solPlatform.php" target="_self">Solaris</a></li>
-		<li class="tabstart">&#160;&#160;&#160;</li>
-		<li><a class="" href="aixPlatform.php" target="_self">AIX</a></li>
-		<li class="tabstart">&#160;&#160;&#160;</li>	
-		<li><a class="" href="macPlatform.php" target="_self">Macintosh</a></li>
-		<li class="tabseparator">&#160;&#160;&#160;</li>
--->					
 	</ul>
 </div>
 <div id="topnavsep"></div>
@@ -132,13 +121,16 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 		<div class="homeitem">
 			<h3>Requirements</h3>
 				<ul class="midlist">
+				<li><b>Single zip</b><br/>Includes an Eclipse platform+all required libraries as a single zip<br/>
+					[<a href="@eclipseDownloadPage@"><b>build page</b></a>]
+				</li>
 				<li>Eclipse build @eclipseBuildId@<br/>[<a href="@eclipseDownloadPage@"><b>build page</b></a>]</li>
-				<li>EMF build @emfVersion@<br/>[<a href="http://www.eclipse.org/modeling/emf/downloads/?project=emf"><b>build page</b></a>] [<a href="@emfUpdateSite@"><b>update site</b></a>]</li>
-				<li>GEF Build @gefVersion@<br/>[<a href="@gefDownloadPage@"><b>build page</b></a>] [<a href="@gefUpdateSite@"><b>update site</b></a>]</li>
-				<li>EMF OCL build @emfOCLVersion@<br/>[<a href="http://www.eclipse.org/emft/downloads/index.php?project=ocl&showAll=0&showMax=5"><b>build page</b></a>] [<a href="@emfOCLUpdateSite@"><b>update site</b></a>]</li>
-				<li>EMF Validation build @emfValidationVersion@<br/>[<a href="http://www.eclipse.org/emft/downloads/index.php?project=validation&showAll=0&showMax=5"><b>build page</b></a>] [<a href="@emfValidationUpdateSite@"><b>update site</b></a>]</li>
-				<li>EMF Query build @emfQueryVersion@<br/>[<a href="http://www.eclipse.org/emft/downloads/index.php?project=query&showAll=0&showMax=5"><b>build page</b></a>]  [<a href="@emfQueryUpdateSite@"><b>update site</b></a>]</li>
-				<li>EMF Transaction build @emfTransactionVersion@<br/>[<a href="http://www.eclipse.org/emft/downloads/index.php?project=transaction&showAll=0&showMax=5"><b>build page</b></a>] [<a href="@emfTransactionUpdateSite@"><b>update site</b></a>]</li>
+				<li>EMF @emfUpdateVersion@<br/>[<a href="@emfUpdateSite@"><b>update site</b></a>]</li>
+				<li>EMF Data Integrity Frameworks @emfQtvAllUpdateVersion@<br/>[<a href="@emfUpdateSite@"><b>update site</b></a>]</li>
+				<li>OCL @oclUpdateVersion@<br/>[<a href="@oclUpdateSite@"><b>update site</b></a>]</li>
+				<li>EMF OCL @emfOCLUpdateVersion@<br/>[<a href="@emfOCLUpdateSite@"><b>update site</b></a>]</li>
+				<li>GEF @gefUpdateVersion@<br/>[<a href="@gefUpdateSite@"><b>update site</b></a>]</li>
+				<li>Orbit Bundles build @orbitBuildId@<br/></li>
 				</ul>
 		</div>
 
