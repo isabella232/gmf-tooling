@@ -9,7 +9,7 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
+import "http://www.eclipse.org/gmf/2006/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
 
 // FIXME remove java-only GenEditorGenerator#hasAudits or declare it in metamodel

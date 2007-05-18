@@ -10,7 +10,7 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
+import "http://www.eclipse.org/gmf/2006/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
 
 Boolean isStoringChildPositions(gmfgen::GenNode node) :
@@ -64,4 +64,9 @@ String getSetterName(gmfgen::ParentAssignedViewmap viewmap) :
 
 String i18nKeyForCompartmentTitle(gmfgen::GenCompartment compartment) :
     compartment.editPartClassName+".title"
+;
+
+
+boolean shouldGenerateDiagramViewmap(gmfgen::GenDiagram genDiagram) :
+	!{gmfgen::ViewmapLayoutType::UNKNOWN.value, gmfgen::ViewmapLayoutType::XY_LAYOUT.value}.contains(genDiagram.viewmap.layoutType.value)
 ;

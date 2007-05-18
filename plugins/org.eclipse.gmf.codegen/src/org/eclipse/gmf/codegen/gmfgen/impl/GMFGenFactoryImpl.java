@@ -80,7 +80,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 */
 	public static GMFGenFactory init() {
 		try {
-			GMFGenFactory theGMFGenFactory = (GMFGenFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/gmf/2005/GenModel/2.0"); 
+			GMFGenFactory theGMFGenFactory = (GMFGenFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/gmf/2006/GenModel"); 
 			if (theGMFGenFactory != null) {
 				return theGMFGenFactory;
 			}

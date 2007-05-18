@@ -44,7 +44,7 @@ public interface GMFGenPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://www.eclipse.org/gmf/2005/GenModel/2.0";
+	String eNS_URI = "http://www.eclipse.org/gmf/2006/GenModel";
 
 	/**
 	 * The package namespace name.

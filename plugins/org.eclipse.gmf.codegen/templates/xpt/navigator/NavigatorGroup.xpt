@@ -10,7 +10,7 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 
 «DEFINE NavigatorGroup FOR gmfgen::GenNavigator-»
 	«EXPAND xpt::Common::copyright FOR editorGen-»
