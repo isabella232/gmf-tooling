@@ -95,39 +95,39 @@ public class GMFMapNavigatorLabelProvider extends LabelProvider implements IComm
 			GMFMapNavigatorItem navigatorItem = (GMFMapNavigatorItem) abstractNavigatorItem;
 			switch (navigatorItem.getVisualID()) {
 			case CanvasMappingEditPart.VISUAL_ID:
-				return getImage("Navigator?TopLevelNode?http://www.eclipse.org/gmf/2005/mappings/2.0?CanvasMapping", GMFMapElementTypes.CanvasMapping_2001);
+				return getImage("Navigator?TopLevelNode?http://www.eclipse.org/gmf/2006/mappings?CanvasMapping", GMFMapElementTypes.CanvasMapping_2001);
 			case NodeMappingEditPart.VISUAL_ID:
-				return getImage("Navigator?TopLevelNode?http://www.eclipse.org/gmf/2005/mappings/2.0?NodeMapping", GMFMapElementTypes.NodeMapping_2003);
+				return getImage("Navigator?TopLevelNode?http://www.eclipse.org/gmf/2006/mappings?NodeMapping", GMFMapElementTypes.NodeMapping_2003);
 			case LinkMappingEditPart.VISUAL_ID:
-				return getImage("Navigator?TopLevelNode?http://www.eclipse.org/gmf/2005/mappings/2.0?LinkMapping", GMFMapElementTypes.LinkMapping_2002);
+				return getImage("Navigator?TopLevelNode?http://www.eclipse.org/gmf/2006/mappings?LinkMapping", GMFMapElementTypes.LinkMapping_2002);
 			case TopNodeReferenceEditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2005/mappings/2.0?TopNodeReference", GMFMapElementTypes.TopNodeReference_3001);
+				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/mappings?TopNodeReference", GMFMapElementTypes.TopNodeReference_3001);
 			case FeatureLabelMappingEditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2005/mappings/2.0?FeatureLabelMapping", GMFMapElementTypes.FeatureLabelMapping_3006);
+				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/mappings?FeatureLabelMapping", GMFMapElementTypes.FeatureLabelMapping_3006);
 			case DesignLabelMappingEditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2005/mappings/2.0?DesignLabelMapping", GMFMapElementTypes.DesignLabelMapping_3007);
+				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/mappings?DesignLabelMapping", GMFMapElementTypes.DesignLabelMapping_3007);
 			case LabelMappingEditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2005/mappings/2.0?LabelMapping", GMFMapElementTypes.LabelMapping_3002);
+				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/mappings?LabelMapping", GMFMapElementTypes.LabelMapping_3002);
 			case ChildReferenceEditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2005/mappings/2.0?ChildReference", GMFMapElementTypes.ChildReference_3004);
+				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/mappings?ChildReference", GMFMapElementTypes.ChildReference_3004);
 			case CompartmentMappingEditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2005/mappings/2.0?CompartmentMapping", GMFMapElementTypes.CompartmentMapping_3005);
+				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/mappings?CompartmentMapping", GMFMapElementTypes.CompartmentMapping_3005);
 			case FeatureLabelMapping2EditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2005/mappings/2.0?FeatureLabelMapping", GMFMapElementTypes.FeatureLabelMapping_3008);
+				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/mappings?FeatureLabelMapping", GMFMapElementTypes.FeatureLabelMapping_3008);
 			case DesignLabelMapping2EditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2005/mappings/2.0?DesignLabelMapping", GMFMapElementTypes.DesignLabelMapping_3009);
+				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/mappings?DesignLabelMapping", GMFMapElementTypes.DesignLabelMapping_3009);
 			case LabelMapping2EditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2005/mappings/2.0?LabelMapping", GMFMapElementTypes.LabelMapping_3003);
+				return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/mappings?LabelMapping", GMFMapElementTypes.LabelMapping_3003);
 			case MappingEditPart.VISUAL_ID:
-				return getImage("Navigator?Diagram?http://www.eclipse.org/gmf/2005/mappings/2.0?Mapping", GMFMapElementTypes.Mapping_1000);
+				return getImage("Navigator?Diagram?http://www.eclipse.org/gmf/2006/mappings?Mapping", GMFMapElementTypes.Mapping_1000);
 			case TopNodeReferenceOwnedChildEditPart.VISUAL_ID:
-				return getImage("Navigator?Link?http://www.eclipse.org/gmf/2005/mappings/2.0?TopNodeReference?ownedChild", GMFMapElementTypes.TopNodeReferenceOwnedChild_4001);
+				return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/mappings?TopNodeReference?ownedChild", GMFMapElementTypes.TopNodeReferenceOwnedChild_4001);
 			case ChildReferenceOwnedChildEditPart.VISUAL_ID:
-				return getImage("Navigator?Link?http://www.eclipse.org/gmf/2005/mappings/2.0?ChildReference?ownedChild", GMFMapElementTypes.ChildReferenceOwnedChild_4004);
+				return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/mappings?ChildReference?ownedChild", GMFMapElementTypes.ChildReferenceOwnedChild_4004);
 			case ChildReferenceReferencedChildEditPart.VISUAL_ID:
-				return getImage("Navigator?Link?http://www.eclipse.org/gmf/2005/mappings/2.0?ChildReference?referencedChild", GMFMapElementTypes.ChildReferenceReferencedChild_4002);
+				return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/mappings?ChildReference?referencedChild", GMFMapElementTypes.ChildReferenceReferencedChild_4002);
 			case CompartmentMappingChildrenEditPart.VISUAL_ID:
-				return getImage("Navigator?Link?http://www.eclipse.org/gmf/2005/mappings/2.0?CompartmentMapping?children", GMFMapElementTypes.CompartmentMappingChildren_4003);
+				return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/mappings?CompartmentMapping?children", GMFMapElementTypes.CompartmentMappingChildren_4003);
 			default:
 				return getImage("Navigator?UnknownElement", null);
 			}

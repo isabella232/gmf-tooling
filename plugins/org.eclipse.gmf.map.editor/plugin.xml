@@ -266,7 +266,7 @@
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
 
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/mappings/2.0">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/mappings">
          <metamodelType
                id="org.eclipse.gmf.map.editor.Mapping_1000"
                name="Undefined"
@@ -277,7 +277,7 @@
          </metamodelType>
       </metamodel>
 
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/mappings/2.0">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/mappings">
          <metamodelType
                id="org.eclipse.gmf.map.editor.TopNodeReference_3001"
                name="TopNodeReference"
@@ -288,7 +288,7 @@
          </metamodelType>
       </metamodel>
 
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/mappings/2.0">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/mappings">
          <metamodelType
                id="org.eclipse.gmf.map.editor.FeatureLabelMapping_3006"
                name="FeatureLabelMapping"
@@ -299,7 +299,7 @@
          </metamodelType>
       </metamodel>
 
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/mappings/2.0">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/mappings">
          <metamodelType
                id="org.eclipse.gmf.map.editor.DesignLabelMapping_3007"
                name="DesignLabelMapping"
@@ -310,7 +310,7 @@
          </metamodelType>
       </metamodel>
 
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/mappings/2.0">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/mappings">
          <metamodelType
                id="org.eclipse.gmf.map.editor.LabelMapping_3002"
                name="LabelMapping"
@@ -321,7 +321,7 @@
          </metamodelType>
       </metamodel>
 
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/mappings/2.0">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/mappings">
          <metamodelType
                id="org.eclipse.gmf.map.editor.ChildReference_3004"
                name="ChildReference"
@@ -332,7 +332,7 @@
          </metamodelType>
       </metamodel>
 
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/mappings/2.0">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/mappings">
          <metamodelType
                id="org.eclipse.gmf.map.editor.CompartmentMapping_3005"
                name="CompartmentMapping"
@@ -343,7 +343,7 @@
          </metamodelType>
       </metamodel>
 
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/mappings/2.0">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/mappings">
          <specializationType
                id="org.eclipse.gmf.map.editor.FeatureLabelMapping_3008"
                name="FeatureLabelMapping"
@@ -354,7 +354,7 @@
          </specializationType>
       </metamodel>
 
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/mappings/2.0">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/mappings">
          <specializationType
                id="org.eclipse.gmf.map.editor.DesignLabelMapping_3009"
                name="DesignLabelMapping"
@@ -365,7 +365,7 @@
          </specializationType>
       </metamodel>
 
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/mappings/2.0">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/mappings">
          <specializationType
                id="org.eclipse.gmf.map.editor.LabelMapping_3003"
                name="LabelMapping"
@@ -376,7 +376,7 @@
          </specializationType>
       </metamodel>
 
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/mappings/2.0">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/mappings">
          <metamodelType
                id="org.eclipse.gmf.map.editor.CanvasMapping_2001"
                name="CanvasMapping"
@@ -387,7 +387,7 @@
          </metamodelType>
       </metamodel>
 
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/mappings/2.0">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/mappings">
          <metamodelType
                id="org.eclipse.gmf.map.editor.NodeMapping_2003"
                name="NodeMapping"
@@ -398,7 +398,7 @@
          </metamodelType>
       </metamodel>
 
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/mappings/2.0">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/mappings">
          <metamodelType
                id="org.eclipse.gmf.map.editor.LinkMapping_2002"
                name="LinkMapping"
@@ -409,7 +409,7 @@
          </metamodelType>
       </metamodel>
 
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/mappings/2.0">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/mappings">
          <specializationType
                id="org.eclipse.gmf.map.editor.TopNodeReferenceOwnedChild_4001"
                name="Undefined"
@@ -420,7 +420,7 @@
          </specializationType>
       </metamodel>
 
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/mappings/2.0">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/mappings">
          <specializationType
                id="org.eclipse.gmf.map.editor.ChildReferenceOwnedChild_4004"
                name="Undefined"
@@ -431,7 +431,7 @@
          </specializationType>
       </metamodel>
 
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/mappings/2.0">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/mappings">
          <specializationType
                id="org.eclipse.gmf.map.editor.ChildReferenceReferencedChild_4002"
                name="Undefined"
@@ -442,7 +442,7 @@
          </specializationType>
       </metamodel>
 
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/mappings/2.0">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/mappings">
          <specializationType
                id="org.eclipse.gmf.map.editor.CompartmentMappingChildren_4003"
                name="Undefined"
