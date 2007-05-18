@@ -39,7 +39,7 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 			return null;
 		}
 		<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> domain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(linkStyle);
-		<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> result = new OpenDiagramCommand(linkStyle);
+		<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> result = new OpenDiagramCommand((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle")%>) linkStyle);
 		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(domain, result);
 	}
 
