@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006 Borland Software Corp
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -14,7 +14,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -434,8 +433,6 @@ public class DiagnosticsDialog extends IconAndMessageDialog {
         	protected Control createButtonBar(Composite parent) {        
         		Control buttonBar = super.createButtonBar(parent);
         		Button proceedButton = getButton(IDialogConstants.PROCEED_ID);
-        		assert proceedButton != null;
-        		
         		if(proceedButton != null) {
         			proceedButton.setEnabled(!disableProceed);
         		}
@@ -743,10 +740,9 @@ public class DiagnosticsDialog extends IconAndMessageDialog {
 			data = new Object[] { status.getException() }; 			
 		}
 		
-		List<Diagnostic> children = Collections.emptyList();		
 		if(status.isMultiStatus()) {
 			IStatus[] nestedStatuses = status.getChildren();
-			children = new ArrayList<Diagnostic>(nestedStatuses.length);
+			List<Diagnostic> children = new ArrayList<Diagnostic>(nestedStatuses.length);
 			for (int i = 0; i < nestedStatuses.length; i++) {
 				children.add(toDiagnostic(nestedStatuses[i]));
 			}
