@@ -186,8 +186,7 @@ public abstract class GeneratorBase implements Runnable {
 	 * @see #initializeEditorProject(String, IPath, List)
 	 */
 	protected final void initializeEditorProject(String pluginId, IPath projectLocation) throws UnexpectedBehaviourException, InterruptedException {
-		final List<IProject> referencedProjects = Collections.emptyList();
-		initializeEditorProject(pluginId, projectLocation, referencedProjects);
+		initializeEditorProject(pluginId, projectLocation, Collections.<IProject>emptyList());
 	}
 
 	/**

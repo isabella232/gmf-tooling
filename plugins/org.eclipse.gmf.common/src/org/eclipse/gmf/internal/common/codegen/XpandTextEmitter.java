@@ -14,7 +14,6 @@ package org.eclipse.gmf.internal.common.codegen;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
@@ -74,7 +73,6 @@ public class XpandTextEmitter implements TextEmitter {
 
 	private XpandExecutionContext createContext(StringBuilder result) {
 		final BufferOutput output = new BufferOutput(result);
-		final List<Variable> globals = Collections.emptyList();
-		return ContextFactory.createXpandContext(myResourceManager, output, globals, myContext);
+		return ContextFactory.createXpandContext(myResourceManager, output, Collections.<Variable>emptyList(), myContext);
 	}
 }
