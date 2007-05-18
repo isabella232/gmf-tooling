@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -23,15 +23,15 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.Resource.Factory;
 import org.eclipse.emf.ecore.resource.impl.ResourceFactoryRegistryImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
-import org.eclipse.gmf.internal.common.migrate.MigrationHelper;
 import org.eclipse.gmf.internal.common.migrate.MigrationHelperDelegate;
+import org.eclipse.gmf.internal.common.migrate.MigrationHelperDelegateImpl;
 import org.eclipse.gmf.internal.common.migrate.MigrationResource;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 
@@ -40,6 +40,9 @@ import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
  */
 public class GenericMigrationTest extends TestCase {
 	private EAttribute myAttrToRemove;
+	private EAttribute myAttrToRename;
+	private EReference myWidenedRef;
+	private EAttribute myAttrNarrow;
 
 	public GenericMigrationTest(String name) {
 		super(name);
@@ -52,21 +55,41 @@ public class GenericMigrationTest extends TestCase {
 	}
 
 	private void createMetaModel() {
-		EPackage mm = EcoreFactory.eINSTANCE.createEPackage();
-		EClass mc = EcoreFactory.eINSTANCE.createEClass();
+		EPackage mmPackage = EcoreFactory.eINSTANCE.createEPackage();
+		EClass mClass = EcoreFactory.eINSTANCE.createEClass();
 		myAttrToRemove = EcoreFactory.eINSTANCE.createEAttribute();
-		mm.getEClassifiers().add(mc);
-		mc.getEStructuralFeatures().add(myAttrToRemove);
-		mm.setName("MM1");
-		mm.setNsPrefix("mm");
-		mm.setNsURI("uri:/mm/1");
-		mc.setName("MClass");
-		myAttrToRemove.setName("myAttr");
+		myAttrToRename = EcoreFactory.eINSTANCE.createEAttribute();
+		myWidenedRef = EcoreFactory.eINSTANCE.createEReference();
+		myAttrNarrow = EcoreFactory.eINSTANCE.createEAttribute();
+		EClass mNarrowClass = EcoreFactory.eINSTANCE.createEClass();
+		mmPackage.getEClassifiers().add(mClass);
+		mmPackage.getEClassifiers().add(mNarrowClass);
+		mClass.getEStructuralFeatures().add(myAttrToRemove);
+		mClass.getEStructuralFeatures().add(myAttrToRename);
+		mClass.getEStructuralFeatures().add(myWidenedRef);
+		mNarrowClass.getEStructuralFeatures().add(myAttrNarrow);
+		mmPackage.setName("MM1");
+		mmPackage.setNsPrefix("mm");
+		mmPackage.setNsURI("uri:/mm/1");
+		mClass.setName("MClass");
+		mNarrowClass.setName("NarrowClass");
+		myAttrToRemove.setName("myRemovedAttr");
 		myAttrToRemove.setEType(EcorePackage.eINSTANCE.getEString());
+		myAttrToRename.setName("myRenamedAttr");
+		myAttrToRename.setEType(EcorePackage.eINSTANCE.getEString());
+		myWidenedRef.setName("myWidenedRef");
+		myWidenedRef.setContainment(true);
+		myWidenedRef.setEType(mNarrowClass);
+		myAttrNarrow.setName("myNarrowAttr");
+		myAttrNarrow.setEType(EcorePackage.eINSTANCE.getEString());
 	}
 
 	private EObject newInstance() {
 		return getMetaModel().getEFactoryInstance().create(myAttrToRemove.getEContainingClass());
+	}
+
+	private EObject newNarrowInstance() {
+		return getMetaModel().getEFactoryInstance().create(myWidenedRef.getEReferenceType());
 	}
 
 	private EPackage getMetaModel() {
@@ -180,7 +203,7 @@ public class GenericMigrationTest extends TestCase {
 				public Resource createResource(URI uri) {
 					return new MigrationResource(uri) {
 						protected MigrationHelperDelegate createDelegate() {
-							MigrationHelperDelegate delegate = new MigrationHelper.MigrationHelperDelegateImpl() {
+							MigrationHelperDelegate delegate = new MigrationHelperDelegateImpl() {
 								{
 									registerDeletedAttributes(testObject.eClass(), myAttrToRemove.getName());
 								}
@@ -214,13 +237,117 @@ public class GenericMigrationTest extends TestCase {
 		}
 	}
 
+	public void testWidenedReference() {
+		final EObject testObject = newInstance();
+		EObject narrowValue = newNarrowInstance();
+		String attrValue = "narrow value";
+		
+		narrowValue.eSet(myAttrNarrow, attrValue);
+		testObject.eSet(myWidenedRef, narrowValue);
+
+		EPackage metamodel = getMetaModel();
+		
+		final String oldNsURI = metamodel.getNsURI();
+		EPackage.Registry.INSTANCE.put(oldNsURI, metamodel);
+		final String newNsURI = oldNsURI + "/2";
+		EPackage.Registry.INSTANCE.put(newNsURI, metamodel);
+
+		try {
+			URI uri = null;
+			try {
+				uri = URI.createFileURI(File.createTempFile("widened", ".tests").getAbsolutePath());
+				final ResourceSetImpl resourceSetImpl = new ResourceSetImpl();
+				final Resource res = resourceSetImpl.createResource(uri);
+				res.getContents().add(testObject);
+				res.save(null);
+				resourceSetImpl.getResources().remove(testObject);
+			} catch (IOException ex) {
+				fail(ex.toString());
+			}
+			
+			// widen reference in metamodel
+			
+			EClass mWideClass = EcoreFactory.eINSTANCE.createEClass();
+			myWidenedRef.getEContainingClass().getEPackage().getEClassifiers().add(mWideClass);
+			mWideClass.setName("WideClass");
+			mWideClass.setAbstract(true);
+			myWidenedRef.setEType(mWideClass);
+			myAttrNarrow.getEContainingClass().getESuperTypes().add(mWideClass);
+			
+			// try to load mm
+			try {
+				new ResourceSetImpl().createResource(uri).load(null);
+				fail("Load should fail because of unknown meta-model attribute");
+			} catch (RuntimeException ex) {
+				// expected
+				assertNotNull(ex.getMessage());
+			} catch (IOException ex) {
+				// expected
+				assertNotNull(ex.getMessage());
+			}
+
+			EPackage.Registry.INSTANCE.put(oldNsURI, null);
+
+			Resource.Factory factory = new ToolingResourceFactory() {
+
+				@Override
+				public Resource createResource(URI uri) {
+					return new MigrationResource(uri) {
+						protected MigrationHelperDelegate createDelegate() {
+							MigrationHelperDelegate delegate = new MigrationHelperDelegateImpl() {
+								{
+									registerNarrowReferenceType(myWidenedRef, myAttrNarrow.getEContainingClass());
+								}
+							};
+							return delegate;
+						}
+
+						protected Collection<String> getBackwardSupportedURIs() {
+							return Collections.<String>singleton(oldNsURI);
+						}
+
+						@Override
+						protected String getMetamodelNsURI() {
+							return newNsURI;
+						}
+					};
+				}
+				
+			};
+			
+			// try to load mm
+			Resource migrated = migrateModel(factory, uri).getLoadedResource();
+			assertNotNull(migrated);
+			assertTrue(migrated.getErrors().isEmpty());
+			assertFalse(migrated.getWarnings().isEmpty());
+			assertEquals(1, migrated.getContents().size());
+			EObject migratedObj = migrated.getContents().get(0);
+			assertEquals(testObject.eClass(), migratedObj.eClass());
+			
+			assertTrue(migratedObj.eIsSet(myWidenedRef));
+			Object narrowRef = migratedObj.eGet(myWidenedRef, true);
+			assertTrue(narrowRef instanceof EObject);
+			EObject narrowInstance = (EObject) narrowRef;
+			assertFalse(narrowInstance.eClass().isAbstract());
+			assertFalse(narrowInstance.eClass().equals(myWidenedRef.getEType()));
+			assertEquals(narrowInstance.eClass(), myAttrNarrow.getEContainingClass());
+			assertTrue(narrowInstance.eIsSet(myAttrNarrow));
+			Object haveValue = narrowInstance.eGet(myAttrNarrow, true);
+			assertEquals(attrValue, haveValue);
+		} finally {
+			// clean-up, avoid any chances to affect other tests
+			EPackage.Registry.INSTANCE.put(oldNsURI, null);
+			EPackage.Registry.INSTANCE.put(newNsURI, null);
+		}
+	}
+
 	private static ModelLoadHelper migrateModel(final Resource.Factory factory, URI modelResourceURI) {
 		if(modelResourceURI == null) {
 			throw new IllegalArgumentException("null resource uri"); //$NON-NLS-1$
 		}
 		ResourceSetImpl rset = new ResourceSetImpl();
 		rset.setResourceFactoryRegistry(new ResourceFactoryRegistryImpl() {			
-			public Factory getFactory(URI uri) {
+			public Resource.Factory getFactory(URI uri) {
 				return factory;
 			}
 		});
@@ -228,5 +355,4 @@ public class GenericMigrationTest extends TestCase {
 		ModelLoadHelper loadHelper = new ModelLoadHelper(rset, modelResourceURI);
 		return loadHelper;
 	}	
-
 }
