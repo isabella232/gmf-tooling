@@ -46,6 +46,7 @@ public class GMFMapResource extends MigrationResource {
 		if (myBackwardSupportedURIs == null) {
 			myBackwardSupportedURIs = Arrays.asList(new String[] {
 					"http://www.eclipse.org/gmf/2005/mappings", //$NON-NLS-1$
+					"http://www.eclipse.org/gmf/2005/mappings/2.0" //$NON-NLS-1$
 			});
 		}
 		return myBackwardSupportedURIs;
