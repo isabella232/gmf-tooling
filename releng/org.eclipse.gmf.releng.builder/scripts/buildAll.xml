@@ -398,7 +398,7 @@
 			<replacefilter token="@oclUpdateVersion@" value="${oclUpdateVersion}" />
 			<replacefilter token="@oclUpdateSite@" value="${oclUpdateSite}" />
 
-			<replacefilter token="@emfOCLVersion@" value="${emfOCLUpdateVersion}" />
+			<replacefilter token="@emfOCLUpdateVersion@" value="${emfOCLUpdateVersion}" />
 			<replacefilter token="@emfOCLUpdateSite@" value="${emfOCLUpdateSite}" />
 
 			<replacefilter token="@gefUpdateVersion@" value="${gefUpdateVersion}" />

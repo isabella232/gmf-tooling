@@ -125,11 +125,11 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 					[<a href="@eclipseDownloadPage@"><b>build page</b></a>]
 				</li>
 				<li>Eclipse build @eclipseBuildId@<br/>[<a href="@eclipseDownloadPage@"><b>build page</b></a>]</li>
-				<li>EMF @emfUpdateVersion@<br/>[<a href="@emfUpdateSite@"><b>update site</b></a>]</li>
-				<li>EMF Data Integrity Frameworks @emfQtvAllUpdateVersion@<br/>[<a href="@emfUpdateSite@"><b>update site</b></a>]</li>
-				<li>OCL @oclUpdateVersion@<br/>[<a href="@oclUpdateSite@"><b>update site</b></a>]</li>
-				<li>EMF OCL @emfOCLUpdateVersion@<br/>[<a href="@emfOCLUpdateSite@"><b>update site</b></a>]</li>
-				<li>GEF @gefUpdateVersion@<br/>[<a href="@gefUpdateSite@"><b>update site</b></a>]</li>
+				<li>EMF ver. @emfUpdateVersion@<br/>[<a href="@emfUpdateSite@"><b>update site</b></a>]</li>
+				<li>EMF Data Integrity Frameworks ver. @emfQtvAllUpdateVersion@<br/>[<a href="@emfUpdateSite@"><b>update site</b></a>]</li>
+				<li>OCL ver. @oclUpdateVersion@<br/>[<a href="@oclUpdateSite@"><b>update site</b></a>]</li>
+				<li>EMF OCL ver. @emfOCLUpdateVersion@<br/>[<a href="@emfOCLUpdateSite@"><b>update site</b></a>]</li>
+				<li>GEF ver. @gefUpdateVersion@<br/>[<a href="@gefUpdateSite@"><b>update site</b></a>]</li>
 				<li>Orbit Bundles build @orbitBuildId@<br/></li>
 				</ul>
 		</div>
