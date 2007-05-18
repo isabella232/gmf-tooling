@@ -147,16 +147,21 @@
 		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
 	</target>
 
-<!-- TODO	
-	<target name="deploy.updates.batik" depends="init"> 	
-		<antcall target="init.site">
-			<param name="updateSiteName" value="batik"/>
-		</antcall>
-		<antcall target="deploy.updates">
-			<param name="updateSiteName" value="batik"/>
-			<param name="updateSitePath" value=""/>
-		</antcall>
+	<target name="init.base">
+		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${cvs.root}"
+			package="${targetRoot}" dest="${basedir}" tag="${stable.target}" />
+		<property file="${basedir}/org.eclipse.gmf.releng.target/build.cfg"/>		
+		<tstamp/>
+		<property name="date" value="${gmfBaseDate}" />
+		<property name="time" value="${gmfBaseTime}" />
+		<property name="timestamp" value="${date}${time}" />
+		<property name="buildType" value="${gmfBaseBuildType}" />	
+		<property name="buildId" value="${gmfBaseBuildId}" />
+		<property name="buildLabel" value="${gmfBaseBuildLabel}" />
 	</target>
--->
-	
+		
+	<target name="deploy.base" depends="init.base">
+		<antcall target="deploy.zips"/>
+	</target>	
+
 </project>
