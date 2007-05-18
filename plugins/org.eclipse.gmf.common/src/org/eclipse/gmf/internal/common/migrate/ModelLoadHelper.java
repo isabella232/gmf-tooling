@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 /**
  * This class is helper for loading model from resource, handles load exceptions, result status
  * aggregation and safe root object access.
+ * XXX [artem] this class is needs a rewrite. Check MigrationPatchesTest#assertOnLoadModelMigrationSuccess
  */
 public class ModelLoadHelper {
 	private static final String DIAGNOSTIC_SOURCE = "gmf.common.modelLoadHelper"; //$NON-NLS-1$
@@ -58,7 +59,7 @@ public class ModelLoadHelper {
 	}
 
 	public boolean isOK() {
-		return diagnostic.getSeverity() == Diagnostic.OK;
+		return diagnostic.getSeverity() == Diagnostic.OK || diagnostic.getSeverity() == Diagnostic.WARNING;
 	}
 	
 	/**
@@ -145,11 +146,9 @@ public class ModelLoadHelper {
 			EcorePlugin.INSTANCE.getPluginLogger().log(e);			
 			resource.getErrors().add(ModelLoadHelper.createDiagnostic(resource, e));
 		}
+		EList<Resource.Diagnostic> errors = resource.getErrors();
 		EList<Resource.Diagnostic> warnings = resource.getWarnings();
-		if (warnings.size() == 1 && warnings.get(0) instanceof MigrationResource.Diagnostic) {
-			return diagnostic;
-		}
-		if(!resource.getErrors().isEmpty() || !warnings.isEmpty()) {
+		if(!errors.isEmpty() || !warnings.isEmpty()) {
 			Diagnostic resourceDiagnostic = EcoreUtil.computeDiagnostic(resource, true);
 			Integer severityOpt = new Integer(resourceDiagnostic.getSeverity() == Diagnostic.ERROR ? 0 : 1);    
 			String message = MessageFormat.format(Messages.modelLoadedWithProblems, 
