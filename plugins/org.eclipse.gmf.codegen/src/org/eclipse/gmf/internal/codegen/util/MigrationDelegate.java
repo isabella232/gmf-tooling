@@ -23,9 +23,9 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
-import org.eclipse.gmf.internal.common.migrate.MigrationHelper;
+import org.eclipse.gmf.internal.common.migrate.MigrationHelperDelegateImpl;
 
-class MigrationDelegate extends MigrationHelper.MigrationHelperDelegateImpl {
+class MigrationDelegate extends MigrationHelperDelegateImpl {
 	private EReference ourGenEditorGenerator_Audits;
 	private EReference ourGenAuditContainer_ChildContainers;
 	private EReference ourGenAuditContainer_Audits;
