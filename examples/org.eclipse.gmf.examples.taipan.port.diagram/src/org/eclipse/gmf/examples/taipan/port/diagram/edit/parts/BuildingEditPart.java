@@ -23,7 +23,6 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
-import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gmf.examples.taipan.figures.BuildingShape;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.BuildingItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.PortTextSelectionEditPolicy;
