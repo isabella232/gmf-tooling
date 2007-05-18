@@ -69,6 +69,7 @@ public class GenCommonBaseItemProvider
 			addEditPartClassNamePropertyDescriptor(object);
 			addItemSemanticEditPolicyClassNamePropertyDescriptor(object);
 			addNotationViewFactoryClassNamePropertyDescriptor(object);
+			addStylesPropertyDescriptor(object);
 			addSansDomainPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -181,6 +182,28 @@ public class GenCommonBaseItemProvider
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 getString("_UI_DiagramElementPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Styles feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStylesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenCommonBase_styles_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenCommonBase_styles_feature", "_UI_GenCommonBase_type"),
+				 GMFGenPackage.eINSTANCE.getGenCommonBase_Styles(),
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
 				 null));
 	}
 
