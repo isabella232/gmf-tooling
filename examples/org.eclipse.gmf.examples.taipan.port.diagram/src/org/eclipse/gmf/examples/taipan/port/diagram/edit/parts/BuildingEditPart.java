@@ -31,6 +31,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.requests.ArrangeRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
@@ -92,6 +93,23 @@ public class BuildingEditPart extends ShapeNodeEditPart {
 			}
 		};
 		return lep;
+	}
+
+	public EditPolicy getPrimaryDragEditPolicy() {
+		return new ResizableShapeEditPolicy() {
+
+			protected Command getAutoSizeCommand(Request request) {
+				Command command = super.getAutoSizeCommand(request);
+				ArrangeRequest layoutRequest = new ArrangeRequest(RequestConstants.REQ_ARRANGE_DEFERRED);
+				List editParts = new ArrayList(getParent().getChildren());
+				layoutRequest.setViewAdaptersToArrange(editParts);
+				Command layoutCommand = getParent().getCommand(layoutRequest);
+				if (layoutCommand != null) {
+					command = command.chain(layoutCommand);
+				}
+				return command;
+			}
+		};
 	}
 
 	public Command getCommand(Request request) {

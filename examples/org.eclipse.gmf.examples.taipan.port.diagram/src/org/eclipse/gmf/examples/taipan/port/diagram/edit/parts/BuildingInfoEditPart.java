@@ -130,8 +130,7 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 				Command command = super.getDirectEditCommand(edit);
 				if (command != null) {
 					ArrangeRequest layoutRequest = new ArrangeRequest(RequestConstants.REQ_ARRANGE_DEFERRED);
-					List editParts = new ArrayList();
-					editParts.add(getParent());
+					List editParts = new ArrayList(getParent().getParent().getChildren());
 					layoutRequest.setViewAdaptersToArrange(editParts);
 					Command layoutCommand = getParent().getParent().getCommand(layoutRequest);
 					if (layoutCommand != null) {
