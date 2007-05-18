@@ -222,7 +222,7 @@ public class GenericMigrationTest extends TestCase {
 				}
 				
 			};
-			Resource migrated = migrateModel(factory, uri).getLoadedResource();
+			Resource migrated = createLoadHelper(factory, uri).getLoadedResource();
 			assertNotNull(migrated);
 			assertTrue(migrated.getErrors().isEmpty());
 			assertFalse(migrated.getWarnings().isEmpty());
@@ -316,7 +316,7 @@ public class GenericMigrationTest extends TestCase {
 			};
 			
 			// try to load mm
-			Resource migrated = migrateModel(factory, uri).getLoadedResource();
+			Resource migrated = createLoadHelper(factory, uri).getLoadedResource();
 			assertNotNull(migrated);
 			assertTrue(migrated.getErrors().isEmpty());
 			assertFalse(migrated.getWarnings().isEmpty());
@@ -341,7 +341,7 @@ public class GenericMigrationTest extends TestCase {
 		}
 	}
 
-	private static ModelLoadHelper migrateModel(final Resource.Factory factory, URI modelResourceURI) {
+	private static ModelLoadHelper createLoadHelper(final Resource.Factory factory, URI modelResourceURI) {
 		if(modelResourceURI == null) {
 			throw new IllegalArgumentException("null resource uri"); //$NON-NLS-1$
 		}
@@ -352,7 +352,6 @@ public class GenericMigrationTest extends TestCase {
 			}
 		});
 
-		ModelLoadHelper loadHelper = new ModelLoadHelper(rset, modelResourceURI);
-		return loadHelper;
+		return new ModelLoadHelper(rset, modelResourceURI);
 	}	
 }
