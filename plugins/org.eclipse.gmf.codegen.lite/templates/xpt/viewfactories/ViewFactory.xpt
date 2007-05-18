@@ -163,14 +163,14 @@ view.setType(«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«get
 «DEFINE createOpenDiagramAnnotation FOR gmfgen::GenCommonBase-»
 «LET openDiagramBehaviours() AS openDiagramBehaviours-»
 «IF openDiagramBehaviours.size() == 1-»
-	org.eclipse.emf.ecore.EAnnotation diagramFacet = org.eclipse.emf.ecore.EcoreFactory.eINSTANCE.createEAnnotation();
-	diagramFacet.setSource(«EXPAND annotationSource FOR (OpenDiagramBehaviour) openDiagramBehaviours.first()»);
-	view.getEAnnotations().add(diagramFacet);
+	org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle diagramFacet = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createHintedDiagramLinkStyle();
+«IF openDiagramBehaviours.diagramKind.first() != null-»
+		diagramFacet.setHint("«openDiagramBehaviours.diagramKind.first()»"); «EXPAND xpt::Common::nonNLS»
+«ENDIF-»
+		view.getStyles().add(diagramFacet);
 «ENDIF-»
 «ENDLET-»
 «ENDDEFINE»
-
-«DEFINE annotationSource FOR gmfgen::OpenDiagramBehaviour»"uri://eclipse.org/gmf/openDiagramPolicy"«ENDDEFINE»
 
 «DEFINE createOpenDiagramAnnotation FOR gmfgen::GenDiagram-»
 «ENDDEFINE»

@@ -34,12 +34,12 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 	 * @generated
 	 */
 	protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getOpenCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
-		<%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> annotation = view.getEAnnotation("<%=org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl.ANNOTATION_SOURCE%>");
-		if (annotation == null) {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Style")%> linkStyle = view.getStyle(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getHintedDiagramLinkStyle());
+		if (false == linkStyle instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle")%>) {
 			return null;
 		}
-		<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> domain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(annotation);
-		<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> result = new OpenDiagramCommand(annotation);
+		<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> domain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(linkStyle);
+		<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> result = new OpenDiagramCommand(linkStyle);
 		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(domain, result);
 	}
 
@@ -50,13 +50,13 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 		/**
 		 * @generated
 		 */
-		private final <%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> myAnnotation;
+		private final <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle")%> myDiagramLink;
 
 		/**
 		 * @generated
 		 */
-		protected OpenDiagramCommand(<%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> annotation) {
-			myAnnotation = annotation;
+		protected OpenDiagramCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle")%> linkStyle) {
+			myDiagramLink = linkStyle;
 		}
 
 		/**
@@ -117,15 +117,10 @@ if (openAsEditor) {
 		 * @generated
 		 */
 		protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> getDiagramToOpen() {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> result = myDiagramLink.getDiagramLink();
 			// take first that matches the given model ID.
-			for (<%=importManager.getImportedName("java.util.Iterator")%> it = myAnnotation.getReferences().iterator(); it.hasNext(); ) {
-				Object next = it.next();
-				if (next instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>) {
-					<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> result = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>) next;
-					if (result.getType().equals(getDiagramKind())) {
-						return result;
-					}
-				}
+			if (result != null && result.getType().equals(getDiagramKind())) {
+				return result;
 			}
 			return null;
 		}
@@ -135,11 +130,11 @@ if (openAsEditor) {
 		 */
 		protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> createNewDiagram() {
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> result = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDiagram();
-			myAnnotation.getReferences().add(result);
+			myDiagramLink.setDiagramLink(result);
 			result.setElement(getDiagramDomainElement());
 			addToResource(result);
 			try {
-				for (<%=importManager.getImportedName("java.util.Iterator")%> it = myAnnotation.eResource().getResourceSet().getResources().iterator(); it.hasNext(); ) {
+				for (<%=importManager.getImportedName("java.util.Iterator")%> it = myDiagramLink.eResource().getResourceSet().getResources().iterator(); it.hasNext(); ) {
 					<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> next = (<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%>) it.next();
 					if (next.isLoaded() && !<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.isReadOnly(next)) {
 						next.save(<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.getSaveOptions());
@@ -158,17 +153,17 @@ if (openAsEditor) {
 		 * @generated
 		 */
 		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> getDiagramDomainElement() {
-			return ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) myAnnotation.getEModelElement()).getElement();
+			return ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) myDiagramLink.eContainer()).getElement();
 		}
 
 		/**
-		 * Adds the created diagram to a resource. By default, the diagram is added to the resource which contains the annotation.
+		 * Adds the created diagram to a resource. By default, the diagram is added to the resource which contains the initiating diagram.
 		 * @generated
 		 */
 		protected void addToResource(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram) {
 			assert diagram.eResource() == null;
-			assert myAnnotation.eResource() != null;
-			myAnnotation.eResource().getContents().add(diagram);
+			assert myDiagramLink.eResource() != null;
+			myDiagramLink.eResource().getContents().add(diagram);
 		}
 
 		/**
