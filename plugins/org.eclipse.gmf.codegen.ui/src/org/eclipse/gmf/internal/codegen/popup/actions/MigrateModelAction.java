@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -15,13 +15,12 @@ import java.util.Collections;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.gmf.internal.common.migrate.MigrationUtil;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -67,16 +66,14 @@ public class MigrateModelAction implements IObjectActionDelegate {
 	public void run(IAction action) {		
 		final IFile modelFile = this.fileSelection;
 		URI fileURI = URI.createPlatformResourceURI(modelFile.getFullPath().toString(), true);
-		ModelLoadHelper loadHelper = MigrationUtil.migrateModel(fileURI);
+		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), fileURI);
 
 		if (!loadHelper.isOK()) {
 			DiagnosticsDialog.openOk(getShell(), action.getText(), Messages.migration_problemsDetectedTitle, loadHelper.getDiagnostics());
 			return;
 		}
-		String modelExtension = modelFile.getFileExtension();
-		final IPath destPath = modelFile.getFullPath().removeFileExtension().addFileExtension(modelExtension);
 		InputDialog dlg = new InputDialog(getShell(), Messages.migration_modelDestinationFileTitle, 
-				Messages.migration_specifyFileNameLabel, destPath.lastSegment(), new IInputValidator() {
+				Messages.migration_specifyFileNameLabel, modelFile.getName(), new IInputValidator() {
 
 			public String isValid(String newText) {
 				IStatus fileNameStatus = ResourcesPlugin.getWorkspace().validateName(newText, IResource.FILE);
