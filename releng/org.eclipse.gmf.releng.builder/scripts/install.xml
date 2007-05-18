@@ -173,20 +173,11 @@
 	</target>
 
 	<target name="installGEF" unless="gefExists" depends="checkGEFInstalled">
-<!-- GEF doesn't currently have interim builds available via the update manager, so use zip		
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${gefFeatureId}" />
-			<property name="version" value="${gefVersion}" />
+			<property name="version" value="${gefUpdateVersion}" />
 			<property name="updateSite" value="${gefUpdateSite}" />
 		</ant>
--->
-		<available file="${baseLocationRoot}/${gefZipName}" property="gefZipExists" />
-		<antcall target="getGEF"/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${gefZipName}" />
-	</target>
-	
-	<target name="getGEF" unless="gefZipExists">
-		<get src="${gefZipURL}" dest="${baseLocationRoot}/${gefZipName}" verbose="true" usetimestamp="true" />
 	</target>
 	
 	<target name="checkGMFInstalled">
