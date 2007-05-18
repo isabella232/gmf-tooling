@@ -16,6 +16,7 @@ import java.text.MessageFormat;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
@@ -144,8 +145,11 @@ public class ModelLoadHelper {
 			EcorePlugin.INSTANCE.getPluginLogger().log(e);			
 			resource.getErrors().add(ModelLoadHelper.createDiagnostic(resource, e));
 		}
-		
-		if(!resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty()) {
+		EList<Resource.Diagnostic> warnings = resource.getWarnings();
+		if (warnings.size() == 1 && warnings.get(0) instanceof MigrationResource.Diagnostic) {
+			return diagnostic;
+		}
+		if(!resource.getErrors().isEmpty() || !warnings.isEmpty()) {
 			Diagnostic resourceDiagnostic = EcoreUtil.computeDiagnostic(resource, true);
 			Integer severityOpt = new Integer(resourceDiagnostic.getSeverity() == Diagnostic.ERROR ? 0 : 1);    
 			String message = MessageFormat.format(Messages.modelLoadedWithProblems, 
