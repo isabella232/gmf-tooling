@@ -134,9 +134,8 @@ public class TransformToGenModelOperation {
 			monitor.beginTask("", 100); //$NON-NLS-1$
 			subTask(monitor, 0, Messages.TransformToGenModelOperation_task_load, cancelMessage);
 			ModelLoadHelper loadHelper = new ModelLoadHelper(rs, uri);
-			status = loadHelper.getStatus();
-			if (!status.isOK()) {
-				throw new CoreException(status);
+			if (!loadHelper.isOK()) {
+				throw new CoreException(loadHelper.getStatus());
 			}
 			subTask(monitor, 20, Messages.TransformToGenModelOperation_task_validate, cancelMessage);
 			EObject root = loadHelper.getContentsRoot();
