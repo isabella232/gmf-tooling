@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.internal.common.migrate.MigrationHelper;
+import org.eclipse.gmf.internal.common.migrate.MigrationHelperDelegateImpl;
 import org.eclipse.gmf.mappings.FeatureLabelMapping;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.MappingEntry;
 
-class MigrationDelegate extends MigrationHelper.MigrationHelperDelegateImpl {
+class MigrationDelegate extends MigrationHelperDelegateImpl {
 	private Collection<FeatureLabelMapping> myFeatureLabelMappings;
 	
 	MigrationDelegate() {
