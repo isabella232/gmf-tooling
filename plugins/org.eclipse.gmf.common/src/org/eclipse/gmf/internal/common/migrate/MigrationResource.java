@@ -29,6 +29,7 @@ import org.xml.sax.helpers.DefaultHandler;
 public abstract class MigrationResource extends ToolResource {
 
 	private boolean isOldVersionDetected;
+	private MigrationHelper myMigrationHelper;
 
 	protected MigrationResource(URI uri) {
 		super(uri);
@@ -71,6 +72,9 @@ public abstract class MigrationResource extends ToolResource {
 	}
 
 	private void handleOldVersionDetected() {
+		if (myMigrationHelper != null) {
+			myMigrationHelper.enableDelegate(true);
+		}
 		isOldVersionDetected = true;
 	}
 
@@ -90,7 +94,8 @@ public abstract class MigrationResource extends ToolResource {
 	protected XMLHelper createXMLHelper() {
 		MigrationHelperDelegate delegate = createDelegate();
 		assert delegate != null;
-		return new MigrationHelper(this, delegate);
+		myMigrationHelper = new MigrationHelper(this, delegate);
+		return myMigrationHelper;
 	}
 
 	protected abstract Collection<String> getBackwardSupportedURIs();
