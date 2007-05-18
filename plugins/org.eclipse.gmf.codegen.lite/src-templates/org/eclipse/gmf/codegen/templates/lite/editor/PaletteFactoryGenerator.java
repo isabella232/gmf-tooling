@@ -430,10 +430,10 @@ if (toolEntry.getQualifiedToolName() != null && toolEntry.getQualifiedToolName()
     }
     
 		}
-	}
 
     stringBuffer.append(TEXT_82);
     
+	}
 	if (firstGenElement instanceof GenNode) {
 		hasNodeEntries = true;
 
