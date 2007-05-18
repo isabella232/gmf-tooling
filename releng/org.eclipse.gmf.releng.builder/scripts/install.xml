@@ -176,7 +176,8 @@
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${gefFeatureId}" />
 			<property name="version" value="${gefUpdateVersion}" />
-			<property name="updateSite" value="${gefUpdateSite}" />
+			<property name="from.updatesite" value="${gefUpdateSite}" />
+			<property name="updatesite.name" value="requirements" />
 		</ant>
 	</target>
 	
