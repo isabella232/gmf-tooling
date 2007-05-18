@@ -392,10 +392,10 @@ public class CodegenEmitters {
 		return getQualifiedClassName("xpt::parsers::RegexpParser", input); //$NON-NLS-1$
 	}
 
-	// providers
+	// view factories
 
-	public TextEmitter getParserProviderEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::providers::ParserProvider::ParserProvider"); //$NON-NLS-1$
+	public TextEmitter getDiagramViewFactoryEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::diagram::views::DiagramViewFactory"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getViewFactoryEmitter() throws UnexpectedBehaviourException {
@@ -408,6 +408,12 @@ public class CodegenEmitters {
 
 	public TextEmitter getLabelTextViewFactoryEmitter() throws UnexpectedBehaviourException {
 		return retrieve(LabelTextViewFactoryGenerator.class);
+	}
+
+	// providers
+
+	public TextEmitter getParserProviderEmitter() throws UnexpectedBehaviourException {
+		return newXpandEmitter("xpt::diagram::providers::ParserProvider::ParserProvider"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getElementInitializersEmitter() throws UnexpectedBehaviourException {

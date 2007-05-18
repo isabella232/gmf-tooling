@@ -152,7 +152,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			}
 		}
 		generateEditSupport(myDiagram);
-		generateViewFactory(myDiagram);
+		generateDiagramViewFactory();
 		generateDiagramEditPart();
 		generateEditPartFactory();
 		generateElementInitializers();
@@ -698,6 +698,10 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	// notation view factories
+
+	private void generateDiagramViewFactory() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getDiagramViewFactoryEmitter(), myDiagram.getNotationViewFactoryQualifiedClassName(), myDiagram);
+	}
 
 	private void generateViewFactory(GenCommonBase genElement) throws UnexpectedBehaviourException, InterruptedException {
 		internalGenerateJavaClass(

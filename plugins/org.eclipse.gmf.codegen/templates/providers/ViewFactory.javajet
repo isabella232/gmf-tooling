@@ -44,8 +44,6 @@ public class <%=genElement.getNotationViewFactoryClassName()%> extends
 	<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory")%>
 <%} else if (isCompartment) {%>
     <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.ListCompartmentViewFactory")%>
-<%} else if (isDiagram) {%>    
-	<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.DiagramViewFactory")%>
 <%} else if (isShape) {%>
 	<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory")%>
 <%} else {
@@ -72,11 +70,6 @@ public class <%=genElement.getNotationViewFactoryClassName()%> extends
 if (isLabel) {
 	//no styles for label
 	//FIXME: throw new IllegalStateExcpetion("Labels to be processed in the LabelTextViewFactory/LabelViewFactory");
-}
-if (isDiagram) {
-%>
-		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDiagramStyle());
-<%
 }
 if (isCompartment) {
 	GenCompartment genCompartment = (GenCompartment)genElement;
@@ -109,14 +102,6 @@ if (isShape || isCompartmentWithOwnBounds) {
 	/**
 	 * @generated
 	 */
-<%
-if (isDiagram) {
-%>
-	protected void decorateView(View view, IAdaptable semanticAdapter, String diagramKind){
-		super.decorateView(view, semanticAdapter, diagramKind);
-<%
-} else {
-%>
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter,
 			String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) { <%/* [++] important for the create shortcut functionality*/%>
@@ -132,8 +117,6 @@ if (isDiagram) {
 <%@ include file="../commands/createShortcutAnnotation.jetinc"%>
 		}
 <%
-}
-
 ColorAttributes colorAttrs = genElement.getViewmap() != null ? (ColorAttributes) genElement.getViewmap().find(ColorAttributes.class) : null;
 if (colorAttrs != null && colorAttrs.getForegroundColor() != null && colorAttrs.getForegroundColor().trim().length() > 0) {%>
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.setStructuralFeatureValue(view, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getLineStyle_LineColor(),
@@ -204,16 +187,7 @@ if (isNode) {
 		<%=importManager.getImportedName("org.eclipse.swt.graphics.RGB")%> fillRGB = <%=importManager.getImportedName("org.eclipse.jface.preference.PreferenceConverter")%>.getColor(store, <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants")%>.PREF_FILL_COLOR);
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.setStructuralFeatureValue(view, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFillStyle_FillColor(), <%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities")%>.RGBToInteger(fillRGB));
 	}
-<%}%>
-<%if (isDiagram && genDiagram.getUnits() != null && genDiagram.getUnits().trim().length() > 0) {%>
-	/**
-	 * @generated
-	 */
-	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.MeasurementUnit")%> getMeasurementUnit() {
-		return <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.MeasurementUnit")%>.<%=genDiagram.getUnits().toUpperCase()%>_LITERAL;
-	}
-<%}%>
-<%
+<%}
 if (isCompartment) {
 	String titleStyleFQN = importManager.getImportedName("org.eclipse.gmf.runtime.notation.TitleStyle");
 	String drawerStyleFQN = importManager.getImportedName("org.eclipse.gmf.runtime.notation.DrawerStyle");	
@@ -239,6 +213,5 @@ if (isCompartment) {
 		}
 	}
 <%}%>
-
 }
 <%importManager.emitSortedImports();%>
