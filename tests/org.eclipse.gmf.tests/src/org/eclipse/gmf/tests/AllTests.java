@@ -114,6 +114,7 @@ public class AllTests {
 		suite.addTestSuite(HandcodedGraphDefTest.class);
 		suite.addTestSuite(HandcodedPaletteTest.class);
 		suite.addTestSuite(HandcodedContributionItemTest.class);
+		suite.addTestSuite(HandcodedGMFMapItemProvidersTest.class);
 
 		suite.addTest(feed(GenModelTransformerSimpleTest.class, sessionSetup));
 		suite.addTest(feed(TransformToGenModelOperationTest.class, sessionSetup));
@@ -125,6 +126,12 @@ public class AllTests {
 		suite.addTestSuite(TestDefaultMergeService.class);
 		suite.addTestSuite(PluginXMLTextMergerTest.class);
 		suite.addTestSuite(ManifestMergeTest.class);
+        suite.addTestSuite(OrganizeImportsPostprocessorTest.class);
+
+		suite.addTestSuite(EcoreGenModelMatcherTest.class);
+		suite.addTestSuite(ModelLoadHelperTest.class);		
+		suite.addTest(AllMigrationTests.suite());
+		suite.addTest(AllValidateTests.suite());
 
 		suite.addTest(feed(FigureCodegenTest.class, new FigureCodegenSetup()));
 		suite.addTest(feed(LabelSupportTest.class, new LabelSupportSetup()));
@@ -157,16 +164,9 @@ public class AllTests {
 		suite.addTest(feed(LinkCreationTest.class, sessionSetup));
 		suite.addTest(feed(LinkCreationConstraintsTest.class, sessionSetup2));
 		suite.addTest(feed(MetricRulesTest.class, sessionSetup2));		
-		suite.addTestSuite(EcoreGenModelMatcherTest.class);
-		suite.addTestSuite(ModelLoadHelperTest.class);		
 		suite.addTestSuite(GenFeatureSeqInitializerTest.class);
-		suite.addTestSuite(HandcodedGMFMapItemProvidersTest.class);
-		suite.addTest(AllMigrationTests.suite());
-		suite.addTest(AllValidateTests.suite());
 		suite.addTestSuite(GenModelGraphAnalyzerTest.class);
 
-        suite.addTestSuite(OrganizeImportsPostprocessorTest.class);
-        
 		//$JUnit-END$
 		suite.addTest(new CleanupTest("testCleanup") {
 			protected void performCleanup() throws Exception {
