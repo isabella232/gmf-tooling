@@ -10,12 +10,16 @@
  */
 package org.eclipse.gmf.tests.migration;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -23,7 +27,9 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
 import org.eclipse.gmf.internal.common.migrate.MigrationResource;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
@@ -39,34 +45,54 @@ public class MigrationPatchesTest extends TestCase {
 	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=138440
 	 */
 	public void testPatch_138440() throws Exception {
-		String genmodelFileName = "patch_138440.gmfgen"; //$NON-NLS-1$
+		URI genmodelFileName = createURI("patch_138440.gmfgen"); //$NON-NLS-1$
 		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
 		assertTrue("expected IllegalArgumentException from metamodel EFactory", caughtGenException instanceof IllegalArgumentException); //$NON-NLS-1$				
 
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
 
-		String gmfmapmodelFileName = "patch_138440.gmfmap"; //$NON-NLS-1$
+		URI newGenUri = temporarySaveMigratedModel(genmodelFileName, "patch_138440", "gmfgen");
+		changeNsUriToOldOne(newGenUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
+		
+		assertOnLoadModelMigrationSuccess(newGenUri);
+		
+		URI gmfmapmodelFileName = createURI("patch_138440.gmfmap"); //$NON-NLS-1$
 		Exception caughtMapException = assertOrdinaryLoadModelProblems(gmfmapmodelFileName);
 		assertTrue("expected IllegalArgumentException from metamodel EFactory", caughtMapException instanceof IllegalArgumentException); //$NON-NLS-1$
 
 		assertOnLoadModelMigrationSuccess(gmfmapmodelFileName);
+
+		URI newMapUri = temporarySaveMigratedModel(gmfmapmodelFileName, "patch_138440", "gmfmap");
+		changeNsUriToOldOne(newMapUri, "gmfmap", "http://www.eclipse.org/gmf/2005/mappings/2.0");
+		
+		assertOnLoadModelMigrationSuccess(newMapUri);
 	}
 
 	/*
 	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=161380
 	 */
 	public void testPatch_161380() throws Exception {
-		String genmodelFileName = "patch_161380.gmfgen"; //$NON-NLS-1$
+		URI genmodelFileName = createURI("patch_161380.gmfgen"); //$NON-NLS-1$
 		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
 		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
 
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
 
-		String gmfmapmodelFileName = "patch_161380.gmfmap"; //$NON-NLS-1$		
+		URI newGenUri = temporarySaveMigratedModel(genmodelFileName, "patch_138440", "gmfgen");
+		changeNsUriToOldOne(newGenUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
+		
+		assertOnLoadModelMigrationSuccess(newGenUri);
+		
+		URI gmfmapmodelFileName = createURI("patch_161380.gmfmap"); //$NON-NLS-1$		
 		Exception caughtMapException = assertOrdinaryLoadModelProblems(gmfmapmodelFileName);
 		assertTrue("expected diagnostic exception", caughtMapException != null); //$NON-NLS-1$
 
 		assertOnLoadModelMigrationSuccess(gmfmapmodelFileName);
+
+		URI newUri = temporarySaveMigratedModel(gmfmapmodelFileName, "patch_161380", "gmfmap");
+		changeNsUriToOldOne(newUri, "gmfmap", "http://www.eclipse.org/gmf/2005/mappings/2.0");
+		
+		assertOnLoadModelMigrationSuccess(newUri);
 	}
 
 	private static URI createURI(String testModelFileName) {
@@ -79,8 +105,7 @@ public class MigrationPatchesTest extends TestCase {
 		return null;
 	}
 
-	void assertOnLoadModelMigrationSuccess(String modelFileName) throws Exception {
-		URI uri = createURI(modelFileName);
+	void assertOnLoadModelMigrationSuccess(URI uri) throws Exception {
 		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
 		
 		assertTrue("Migration warning load status expected", loadHelper.getStatus().matches(IStatus.WARNING)); //$NON-NLS-1$
@@ -88,11 +113,11 @@ public class MigrationPatchesTest extends TestCase {
 		assertEquals("Single Warning diagnostic expected", 1, warnings.size()); //$NON-NLS-1$		
 		assertTrue("MigrationDiagnostic expected as warning", warnings.get(0) instanceof MigrationResource.Diagnostic); //$NON-NLS-1$
 		
-		assertTrue(loadHelper.getLoadedResource().getErrors().isEmpty());
+		EList<Resource.Diagnostic> errors = loadHelper.getLoadedResource().getErrors();
+		assertTrue(errors.isEmpty());
 	}
 
-	Exception assertOrdinaryLoadModelProblems(String modelFileName) throws Exception {
-		URI uri = createURI(modelFileName);
+	Exception assertOrdinaryLoadModelProblems(URI uri) throws Exception {
 		Resource resource = new ToolingResourceFactory().createResource(uri);
 		ResourceSet rset = new ResourceSetImpl();
 		rset.getResources().add(resource);
@@ -121,12 +146,17 @@ public class MigrationPatchesTest extends TestCase {
 	attr String preferenceInitializerClassName;
 	 */
 	public void testGenDiagram() throws Exception {
-		String genmodelFileName = "testGenDiagram.gmfgen"; //$NON-NLS-1$
+		URI genmodelFileName = createURI("testGenDiagram.gmfgen"); //$NON-NLS-1$
 		
 		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
 		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
 
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
+
+		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testGenDiagram", "gmfgen");
+		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
+		
+		assertOnLoadModelMigrationSuccess(newUri);
 	}
 
 	/*
@@ -135,12 +165,17 @@ public class MigrationPatchesTest extends TestCase {
 	ref genmodel.GenFeature[1] metaFeature;
 	 */
 	public void testFeatureLabelModelFacet() throws Exception {
-		String genmodelFileName = "testFeatureLabelModelFacet.gmfgen"; //$NON-NLS-1$
+		URI genmodelFileName = createURI("testFeatureLabelModelFacet.gmfgen"); //$NON-NLS-1$
 		
 		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
 		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
 
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
+
+		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testFeatureLabelModelFacet", "gmfgen");
+		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
+		
+		assertOnLoadModelMigrationSuccess(newUri);
 	}
 
 //	/*
@@ -158,16 +193,21 @@ public class MigrationPatchesTest extends TestCase {
 //	}
 
 	public void testGenAuditRootDefaultAndNested() throws Exception {
-		String genmodelFileName = "testGenAuditRootDefaultAndNested.gmfgen"; //$NON-NLS-1$
+		URI genmodelFileName = createURI("testGenAuditRootDefaultAndNested.gmfgen"); //$NON-NLS-1$
 		
 		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
 		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
 
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
+
+		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testGenAuditRootDefaultAndNested", "gmfgen");
+		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
+		
+		assertOnLoadModelMigrationSuccess(newUri);
 	}
 
 	public void testGenAuditRootNoDefaultButNested() throws Exception {
-		String genmodelFileName = "testGenAuditRootNoDefaultButNested.gmfgen"; //$NON-NLS-1$
+		URI genmodelFileName = createURI("testGenAuditRootNoDefaultButNested.gmfgen"); //$NON-NLS-1$
 		
 		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
 		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
@@ -176,41 +216,105 @@ public class MigrationPatchesTest extends TestCase {
 	}
 
 	public void testGenAudits() throws Exception {
-		String genmodelFileName = "testGenAudits.gmfgen"; //$NON-NLS-1$
+		URI genmodelFileName = createURI("testGenAudits.gmfgen"); //$NON-NLS-1$
 		
 		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
 		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
 
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
+
+		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testGenAudits", "gmfgen");
+		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
+		
+		assertOnLoadModelMigrationSuccess(newUri);
 	}
 
 	public void testGenEditorAuditRootNoDefaultButNested() throws Exception {
-		String genmodelFileName = "testGenEditorAuditRootNoDefaultButNested.gmfgen"; //$NON-NLS-1$
+		URI genmodelFileName = createURI("testGenEditorAuditRootNoDefaultButNested.gmfgen"); //$NON-NLS-1$
 		
 		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
 		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
 
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
+
+		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testGenEditorAuditRootNoDefaultButNested", "gmfgen");
+		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
+		
+		assertOnLoadModelMigrationSuccess(newUri);
 	}
 
 	public void testGenAuditsCorrectCategories() throws Exception {
-		String genmodelFileName = "testGenAuditsCorrectCategories.gmfgen"; //$NON-NLS-1$
+		URI genmodelFileName = createURI("testGenAuditsCorrectCategories.gmfgen"); //$NON-NLS-1$
 		
 		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
 		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
 
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
+		
+		checkModelAndCorrectCategories(genmodelFileName);
 
-		URI uri = createURI(genmodelFileName);
+		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testGenAuditsCorrectCategories", "gmfgen");
+		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
+		
+		assertOnLoadModelMigrationSuccess(newUri);
+		
+		checkModelAndCorrectCategories(newUri);
+	}
+
+	private URI temporarySaveMigratedModel(URI uri, String tempFilename, String tempFileExtension) throws IOException {
 		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
 		Resource resource = loadHelper.getLoadedResource();
+		File newGenmodelFile = File.createTempFile(tempFilename, tempFileExtension.startsWith(".") ? tempFileExtension : "."+tempFileExtension);
+		URI newUri = URI.createFileURI(newGenmodelFile.getAbsolutePath());
+		resource.setURI(newUri);
+		try {
+			resource.save(null);
+		} catch (IOException ex) {
+			fail(ex.toString());
+		}
+		return newUri;
+	}
+
+	private void changeNsUriToOldOne(URI newUri, String nsPrefix, String nsUri) throws IOException {
+		Path path = new Path(newUri.toFileString());
+		File file = path.toFile();
+		FileReader reader = new FileReader(file);
+		char[] chars = new char[100000];
+		int length = reader.read(chars);
+		String content = new String(chars, 0, length).replaceFirst("xmlns:"+nsPrefix+"=\"[^\"]+\"", "xmlns:"+nsPrefix+"=\""+nsUri+"\"");
+		FileWriter writer = new FileWriter(file);
+		writer.write(content.toCharArray());
+		writer.flush();
+	}
+
+	private void checkModelAndCorrectCategories(URI uri) {
+		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
+		Resource resource = loadHelper.getLoadedResource();
+		int allContentsSize = 0;
 		for (Iterator<EObject> it = resource.getAllContents(); it.hasNext();) {
 			EObject next = it.next();
-			if (next instanceof GenAuditRule) {
+			allContentsSize++;
+			if (next instanceof GenEditorGenerator) {
+				GenEditorGenerator genEditor = (GenEditorGenerator) next;
+				assertNotNull(genEditor.getAudits());
+			} else if (next instanceof GenAuditRoot) {
+				GenAuditRoot root = (GenAuditRoot) next;
+				assertFalse(root.getCategories().isEmpty());
+				assertFalse(root.getRules().isEmpty());
+				assertEquals(3, root.getCategories().size());
+				assertEquals(3, root.getRules().size());
+			} else if (next instanceof GenAuditContainer) {
+				GenAuditContainer nextContainer = (GenAuditContainer) next;
+				assertFalse(nextContainer.getAudits().isEmpty());
+				assertEquals(nextContainer.getAudits().size(), 1);
+			} else if (next instanceof GenAuditRule) {
 				GenAuditRule nextRule = (GenAuditRule) next;
 				GenAuditContainer nextCategory = nextRule.getCategory();
+				assertNotNull(nextCategory);
 				assertEquals("Audit rule expected to be placed to correct audit category after migration", "rule:"+nextCategory.getId(), nextRule.getId()); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		}
+		assertEquals(8, allContentsSize);
 	}
+
 }
