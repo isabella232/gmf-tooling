@@ -10,21 +10,22 @@
  */
 package org.eclipse.gmf.internal.common.migrate;
 
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.impl.EReferenceImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIHelperImpl;
 
 public class MigrationHelper extends XMIHelperImpl {
 	private final MigrationHelperDelegate myDelegate;
-	private EStructuralFeature mySavedFeature;
-	private EReferenceImpl myFakeFeatureWithNarrowType;
 	private boolean myIsDelegateDisabled = true;
+	private Map<EStructuralFeature, EStructuralFeature> myNarrowedFeatureTypes;
 
 	public MigrationHelper(XMLResource resource, MigrationHelperDelegate delegate) {
 		super(resource);
@@ -55,8 +56,9 @@ public class MigrationHelper extends XMIHelperImpl {
 			super.setValue(object, feature, value, position);
 			return; 
 		}
-		if (feature != null && feature.equals(myFakeFeatureWithNarrowType)) {
-			feature = mySavedFeature;
+		EStructuralFeature originalFeature = getOriginalFeature(feature);
+		if (originalFeature != null) {
+			feature = originalFeature;
 		}
 		if (!myDelegate.setValue(object, feature, value, position)) {
 			super.setValue(object, feature, value, position);
@@ -74,11 +76,9 @@ public class MigrationHelper extends XMIHelperImpl {
 		}
 		EClass narrow = myDelegate.getStructuralFeatureType(result);
 		if (narrow != null) {
-			mySavedFeature = result;
-			myFakeFeatureWithNarrowType = new EReferenceImpl() {};
-			myFakeFeatureWithNarrowType.setName(result.getName());
-			myFakeFeatureWithNarrowType.setEType(narrow);
-			return myFakeFeatureWithNarrowType;
+			EStructuralFeature fake = addNarrowedFeature(result);
+			fake.setEType(narrow);
+			return fake;
 		}
 		return result;
 	}
@@ -102,5 +102,21 @@ public class MigrationHelper extends XMIHelperImpl {
 			return;
 		}
 		myDelegate.postProcess();
+	}
+	
+	protected EStructuralFeature getOriginalFeature(EStructuralFeature feature) {
+		if (myNarrowedFeatureTypes == null) {
+			myNarrowedFeatureTypes = new HashMap<EStructuralFeature, EStructuralFeature>();
+		}
+		return myNarrowedFeatureTypes.get(feature);
+	}
+	
+	protected EStructuralFeature addNarrowedFeature(EStructuralFeature originalFeature) {
+		if (myNarrowedFeatureTypes == null) {
+			myNarrowedFeatureTypes = new HashMap<EStructuralFeature, EStructuralFeature>();
+		}
+		EStructuralFeature result = (EStructuralFeature) EcoreUtil.copy(originalFeature);
+		myNarrowedFeatureTypes.put(result, originalFeature);
+		return result;
 	}
 }
