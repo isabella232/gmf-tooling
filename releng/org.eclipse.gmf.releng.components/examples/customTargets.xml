@@ -84,6 +84,7 @@
 	<target name="postSetup">
 		<ant antfile="${scripts}/install.xml" target="installGMFBasePlatform" />
 		<ant antfile="${scripts}/install.xml" target="installGMFRuntime" />
+		<ant antfile="${scripts}/install.xml" target="installEMFExamples" />
 	</target>
 	
 	<!-- ===================================================================== -->
