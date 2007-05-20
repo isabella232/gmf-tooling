@@ -16,24 +16,23 @@ public class NavigatorSorterGenerator
   }
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
-  protected final String TEXT_1 = "";
-  protected final String TEXT_2 = NL + "/*" + NL + " * ";
-  protected final String TEXT_3 = NL + " */";
-  protected final String TEXT_4 = NL;
-  protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_6 = " extends ";
-  protected final String TEXT_7 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate static final int GROUP_CATEGORY = ";
-  protected final String TEXT_8 = ";";
-  protected final String TEXT_9 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate static final int SHORTCUTS_CATEGORY = ";
-  protected final String TEXT_10 = ";";
-  protected final String TEXT_11 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic int category(Object element) {" + NL + "\t\tif (element instanceof ";
-  protected final String TEXT_12 = ") {" + NL + "\t\t\t";
-  protected final String TEXT_13 = " item = (";
-  protected final String TEXT_14 = ") element;";
-  protected final String TEXT_15 = NL + "\t\t\tif (item.getView().getEAnnotation(\"Shortcut\") != null) { //$NON-NLS-1$" + NL + "\t\t\t\treturn SHORTCUTS_CATEGORY;" + NL + "\t\t\t}";
-  protected final String TEXT_16 = NL + "\t\t\treturn ";
-  protected final String TEXT_17 = ".getVisualID(item.getView());" + NL + "\t\t}" + NL + "\t\treturn GROUP_CATEGORY;" + NL + "\t}" + NL + "\t" + NL + "}";
-  protected final String TEXT_18 = NL;
+  protected final String TEXT_1 = "/*" + NL + " * ";
+  protected final String TEXT_2 = NL + " */";
+  protected final String TEXT_3 = NL;
+  protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
+  protected final String TEXT_5 = " extends ";
+  protected final String TEXT_6 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate static final int GROUP_CATEGORY = ";
+  protected final String TEXT_7 = ";";
+  protected final String TEXT_8 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate static final int SHORTCUTS_CATEGORY = ";
+  protected final String TEXT_9 = ";";
+  protected final String TEXT_10 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic int category(Object element) {" + NL + "\t\tif (element instanceof ";
+  protected final String TEXT_11 = ") {" + NL + "\t\t\t";
+  protected final String TEXT_12 = " item = (";
+  protected final String TEXT_13 = ") element;";
+  protected final String TEXT_14 = NL + "\t\t\tif (item.getView().getEAnnotation(\"Shortcut\") != null) { //$NON-NLS-1$" + NL + "\t\t\t\treturn SHORTCUTS_CATEGORY;" + NL + "\t\t\t}";
+  protected final String TEXT_15 = NL + "\t\t\treturn ";
+  protected final String TEXT_16 = ".getVisualID(item.getView());" + NL + "\t\t}" + NL + "\t\treturn GROUP_CATEGORY;" + NL + "\t}" + NL + "\t" + NL + "}";
+  protected final String TEXT_17 = NL;
 
   public String generate(Object argument)
   {
@@ -55,45 +54,44 @@ for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
 int shortcutsVisualID = groupVisualID++;
 groupVisualID++;
 
-    stringBuffer.append(TEXT_1);
     
 String copyrightText = genDiagram.getEditorGen().getCopyrightText();
 if (copyrightText != null && copyrightText.trim().length() > 0) {
 
-    stringBuffer.append(TEXT_2);
+    stringBuffer.append(TEXT_1);
     stringBuffer.append(copyrightText.replaceAll("\n", "\n * "));
-    stringBuffer.append(TEXT_3);
+    stringBuffer.append(TEXT_2);
     }
     importManager.emitPackageStatement(stringBuffer);
-    stringBuffer.append(TEXT_4);
+    stringBuffer.append(TEXT_3);
     importManager.markImportLocation(stringBuffer);
-    stringBuffer.append(TEXT_5);
+    stringBuffer.append(TEXT_4);
     stringBuffer.append(genNavigator.getSorterClassName());
-    stringBuffer.append(TEXT_6);
+    stringBuffer.append(TEXT_5);
     stringBuffer.append(importManager.getImportedName("org.eclipse.jface.viewers.ViewerSorter"));
-    stringBuffer.append(TEXT_7);
+    stringBuffer.append(TEXT_6);
     stringBuffer.append(groupVisualID);
-    stringBuffer.append(TEXT_8);
+    stringBuffer.append(TEXT_7);
     if (genDiagram.generateCreateShortcutAction()) {
-    stringBuffer.append(TEXT_9);
+    stringBuffer.append(TEXT_8);
     stringBuffer.append(shortcutsVisualID);
-    stringBuffer.append(TEXT_10);
+    stringBuffer.append(TEXT_9);
     }
+    stringBuffer.append(TEXT_10);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
     stringBuffer.append(TEXT_11);
     stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
     stringBuffer.append(TEXT_12);
     stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
     stringBuffer.append(TEXT_13);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
-    stringBuffer.append(TEXT_14);
     if (genDiagram.generateCreateShortcutAction()) {
-    stringBuffer.append(TEXT_15);
+    stringBuffer.append(TEXT_14);
     }
-    stringBuffer.append(TEXT_16);
+    stringBuffer.append(TEXT_15);
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
-    stringBuffer.append(TEXT_17);
+    stringBuffer.append(TEXT_16);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_18);
+    stringBuffer.append(TEXT_17);
     return stringBuffer.toString();
   }
 }

@@ -16,19 +16,23 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.impl.EAttributeImpl;
 import org.eclipse.emf.ecore.impl.EReferenceImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
-import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.internal.common.migrate.MigrationHelperDelegateImpl;
 
 class MigrationDelegate extends MigrationHelperDelegateImpl {
-	private EReference ourGenEditorGenerator_Audits;
 	private EReference ourGenAuditContainer_ChildContainers;
 	private EReference ourGenAuditContainer_Audits;
+	private EAttributeImpl myGenAuditRoot_Id;
+	private EAttributeImpl myGenAuditRoot_Name;
+	private EAttributeImpl myGenAuditRoot_Description;
+	private GenAuditContainer myRootContainer;
 	
 	MigrationDelegate() {
 	}
@@ -60,12 +64,6 @@ class MigrationDelegate extends MigrationHelperDelegateImpl {
 			renamings.put("metaFeature", GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet_MetaFeatures()); //$NON-NLS-1$
 			registerRenamedAttributes(GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet(), renamings);
 		}
-		ourGenEditorGenerator_Audits = new EReferenceImpl() {};
-		ourGenEditorGenerator_Audits.setName("audits"); //$NON-NLS-1$
-		ourGenEditorGenerator_Audits.setEType(GMFGenPackage.eINSTANCE.getGenAuditContainer());
-		ourGenEditorGenerator_Audits.setContainment(true);
-		ourGenEditorGenerator_Audits.setLowerBound(0);
-		ourGenEditorGenerator_Audits.setUpperBound(1);
 		ourGenAuditContainer_ChildContainers = new EReferenceImpl() {};
 		ourGenAuditContainer_ChildContainers.setName("childContainers"); //$NON-NLS-1$
 		ourGenAuditContainer_ChildContainers.setEType(GMFGenPackage.eINSTANCE.getGenAuditContainer());
@@ -78,33 +76,66 @@ class MigrationDelegate extends MigrationHelperDelegateImpl {
 		ourGenAuditContainer_Audits.setContainment(true);
 		ourGenAuditContainer_Audits.setLowerBound(0);
 		ourGenAuditContainer_Audits.setUpperBound(-1);
-		{
-			Map<String, EStructuralFeature> renamings = new HashMap<String, EStructuralFeature>();
-			renamings.put(ourGenEditorGenerator_Audits.getName(), ourGenEditorGenerator_Audits);
-			registerRenamedAttributes(GMFGenPackage.eINSTANCE.getGenEditorGenerator(), renamings);
-		}
+		myGenAuditRoot_Id = (EAttributeImpl) EcoreUtil.copy(GMFGenPackage.eINSTANCE.getGenAuditContainer_Id());
+		myGenAuditRoot_Name = (EAttributeImpl) EcoreUtil.copy(GMFGenPackage.eINSTANCE.getGenAuditContainer_Name());
+		myGenAuditRoot_Description = (EAttributeImpl) EcoreUtil.copy(GMFGenPackage.eINSTANCE.getGenAuditContainer_Description());
 		{
 			Map<String, EStructuralFeature> renamings = new HashMap<String, EStructuralFeature>();
 			renamings.put(ourGenAuditContainer_Audits.getName(), ourGenAuditContainer_Audits);
 			renamings.put(ourGenAuditContainer_ChildContainers.getName(), ourGenAuditContainer_ChildContainers);
 			registerRenamedAttributes(GMFGenPackage.eINSTANCE.getGenAuditContainer(), renamings);
 		}
+		{
+			Map<String, EStructuralFeature> renamings = new HashMap<String, EStructuralFeature>();
+			renamings.put(ourGenAuditContainer_Audits.getName(), ourGenAuditContainer_Audits);
+			renamings.put(ourGenAuditContainer_ChildContainers.getName(), ourGenAuditContainer_ChildContainers);
+			renamings.put(myGenAuditRoot_Id.getName(), myGenAuditRoot_Id);
+			renamings.put(myGenAuditRoot_Name.getName(), myGenAuditRoot_Name);
+			renamings.put(myGenAuditRoot_Description.getName(), myGenAuditRoot_Description);
+			registerRenamedAttributes(GMFGenPackage.eINSTANCE.getGenAuditRoot(), renamings);
+		}
 		registerRenamedType("CompositeFeatureLabelModelFacet", GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet()); //$NON-NLS-1$
+		myRootContainer = null;
 	}
 	
 	@Override
 	public boolean setValue(EObject object, EStructuralFeature feature, Object value, int position) {
-		if (ourGenEditorGenerator_Audits.equals(feature)) {
-			GenEditorGenerator generator = (GenEditorGenerator) object;
-			GenAuditContainer rootContainer = (GenAuditContainer) value;
-			generator.setAudits(getOrCreateRoot(rootContainer));
-		} else if (ourGenAuditContainer_ChildContainers.equals(feature)) {
+		if (myGenAuditRoot_Id.equals(feature)) {
+			GenAuditRoot root = (GenAuditRoot) object;
+			String id = (String) value;
+			GenAuditContainer rootContainer = getOrCreateRootContainerOnce(root);
+			rootContainer.setId(id);
+		} else if (myGenAuditRoot_Name.equals(feature)) {
+			GenAuditRoot root = (GenAuditRoot) object;
+			String name = (String) value;
+			GenAuditContainer rootContainer = getOrCreateRootContainerOnce(root);
+			rootContainer.setName(name);
+		} else if (myGenAuditRoot_Description.equals(feature)) {
+			GenAuditRoot root = (GenAuditRoot) object;
+			String description = (String) value;
+			GenAuditContainer rootContainer = getOrCreateRootContainerOnce(root);
+			rootContainer.setDescription(description);
+		} else if (ourGenAuditContainer_ChildContainers.equals(feature) && object instanceof GenAuditRoot) {
+			GenAuditRoot root = (GenAuditRoot)object;
+			GenAuditContainer container = (GenAuditContainer)value;
+			if (myRootContainer != null) {
+				container.getPath().add(myRootContainer);
+			}
+			root.getCategories().add(container);
+		} else if (ourGenAuditContainer_Audits.equals(feature) && object instanceof GenAuditRoot) {
+			GenAuditRoot root = (GenAuditRoot)object;
+			GenAuditRule rule = (GenAuditRule)value;
+			if (myRootContainer != null) {
+				rule.setCategory(myRootContainer);
+			}
+			root.getRules().add(rule);
+		} else if (ourGenAuditContainer_ChildContainers.equals(feature) && object instanceof GenAuditContainer) {
 			GenAuditContainer parent = (GenAuditContainer)object;
 			GenAuditContainer container = (GenAuditContainer)value;
 			container.getPath().addAll(parent.getPath());
 			container.getPath().add(parent);
 			getOrCreateRoot(parent).getCategories().add(container);
-		} else if (ourGenAuditContainer_Audits.equals(feature)) {
+		} else if (ourGenAuditContainer_Audits.equals(feature) && object instanceof GenAuditContainer) {
 			GenAuditContainer container = (GenAuditContainer)object;
 			GenAuditRule rule = (GenAuditRule)value;
 			rule.setCategory(container);
@@ -114,6 +145,14 @@ class MigrationDelegate extends MigrationHelperDelegateImpl {
 			return super.setValue(object, feature, value, position);
 		}
 		return true;
+	}
+
+	private GenAuditContainer getOrCreateRootContainerOnce(GenAuditRoot root) {
+		if (myRootContainer == null) {
+			myRootContainer = GMFGenFactory.eINSTANCE.createGenAuditContainer();
+			root.getCategories().add(myRootContainer);
+		}
+		return myRootContainer;
 	}
 
 	private GenAuditRoot getOrCreateRoot(GenAuditContainer auditContainer) {
