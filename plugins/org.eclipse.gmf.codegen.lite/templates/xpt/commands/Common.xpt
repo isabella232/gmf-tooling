@@ -124,3 +124,5 @@ org.eclipse.emf.edit.command.SetCommand.create(«domainVar», «containerVar», «EXP
 «DEFINE commandNameInfix FOR genmodel::GenClass»«ecoreClass.name»«ENDDEFINE»
 
 «DEFINE commandNameInfix FOR gmfgen::FeatureLinkModelFacet»«metaFeature.getFeatureAccessorName()»«ENDDEFINE»
+
+«DEFINE getPhantomContainmentResource FOR String»«this».getDiagram().getElement().eResource()«ENDDEFINE»

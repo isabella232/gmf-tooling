@@ -157,9 +157,21 @@ return org.eclipse.emf.common.command.UnexecutableCommand.INSTANCE;
 	«IF reverseMetaFeature != null && !reverseMetaFeature.ecoreFeature.derived-»
 		«EXPAND checkFeature("target.getElement()", null) FOR reverseMetaFeature-»
 	«ENDIF-»
-	org.eclipse.emf.transaction.TransactionalEditingDomain domainModelEditDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(source.getDiagram().getElement());
-	return «EXPAND xpt::commands::Common::plugFeatureCommand("domainModelEditDomain", "source.getElement()", "target.getElement()") FOR metaFeature»;
 «ENDLET-»
+	org.eclipse.emf.transaction.TransactionalEditingDomain domainModelEditDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(source.getDiagram().getElement());
+«IF metaFeature.isContains()-»
+	if (target.getElement().eContainer() != null) {
+		return org.eclipse.emf.common.command.UnexecutableCommand.INSTANCE;
+	}
+	org.eclipse.emf.common.command.CompoundCommand result = new org.eclipse.emf.common.command.CompoundCommand();
+	if (target.getElement().eResource() != null) {
+		result.append(new org.eclipse.emf.edit.command.RemoveCommand(domainModelEditDomain, target.getElement().eResource().getContents(), target.getElement()));
+	}
+	result.append(«EXPAND xpt::commands::Common::plugFeatureCommand("domainModelEditDomain", "source.getElement()", "target.getElement()") FOR metaFeature»);
+	return result.unwrap();
+«ELSE-»
+	return «EXPAND xpt::commands::Common::plugFeatureCommand("domainModelEditDomain", "source.getElement()", "target.getElement()") FOR metaFeature»;
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE canUndo FOR gmfgen::GenLink-»

@@ -16,6 +16,7 @@
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION xpt::diagram::parts::NotationModelRefresher»
 «EXTENSION xpt::commands::CommandUtils»
+«EXTENSION xpt::diagram::PhantomUtils»
 
 «DEFINE installClause FOR gmfgen::GenContainerBase-»
 «IF needsNotationModelRefresher()-»
@@ -90,9 +91,11 @@ protected void refreshNotationModel() {
 «EXPAND xpt::Common::generatedClassComment»
 private class «EXPAND className» «EXPAND supertypes» {
 	«EXPAND getConstrainedChildrenFilter-»
+	«EXPAND getPhantomsFilter-»
 	«EXPAND createFilter-»
 	«EXPAND getCreateNotationalElementCommand-»
 	«EXPAND getSemanticChildNodes-»
+	«EXPAND xpt::diagram::parts::semanticChildren::getPhantomNodesIterator-»
 	«EXPAND shouldCreateView-»
 	«EXPAND getHost-»
 	«EXPAND additions-»
@@ -114,6 +117,23 @@ private org.eclipse.emf.transaction.NotificationFilter getConstrainedChildrenFil
 «ENDIF-»
 «ENDDEFINE»
 
+«DEFINE getPhantomsFilter FOR gmfgen::GenContainerBase»«ENDDEFINE»
+
+«DEFINE getPhantomsFilter FOR gmfgen::GenDiagram-»
+«IF getPhantomNodes().size() > 0-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.emf.transaction.NotificationFilter getPhantomsFilter() {
+«LET getPhantomFeatures() AS phantomFeatures-»
+«FOREACH phantomFeatures AS nextFeature ITERATOR it-»
+«IF it.isFirstIteration()»org.eclipse.emf.transaction.NotificationFilter phantomFeaturesFilter = «EXPAND createFeatureFilter FOR nextFeature»;«ELSE-»
+phantomFeaturesFilter = phantomFeaturesFilter.or(«EXPAND createFeatureFilter FOR nextFeature»);«ENDIF-»
+«ENDFOREACH-»
+	return «IF phantomFeatures.size() > 0»phantomFeaturesFilter.or(«ENDIF»org.eclipse.emf.transaction.NotificationFilter.createFeatureFilter(org.eclipse.emf.ecore.resource.Resource.class, org.eclipse.emf.ecore.resource.Resource.RESOURCE__CONTENTS)«IF phantomFeatures.size() > 0»)«ENDIF»;
+«ENDLET-»
+}
+«ENDIF-»
+«ENDDEFINE»
+
 «DEFINE createFilter FOR gmfgen::GenContainerBase-»
 «EXPAND xpt::Common::generatedMemberComment("Creates a notification filter which filters notifications that may possibly affect the notational model")»
 protected org.eclipse.emf.transaction.NotificationFilter createFilter() {
@@ -124,12 +144,21 @@ protected org.eclipse.emf.transaction.NotificationFilter createFilter() {
 	«ENDFOREACH-»
 	«IF genChildFeatures.size() > 0»filter = filter.and(«EXPAND createNotifierFilter»);«ELSE-»
 	org.eclipse.emf.transaction.NotificationFilter filter = «EXPAND createNotifierFilter»;«ENDIF-»
+	«EXPAND plugPhantomNotifier-»
 	«IF getConstraintsInChildren().size() > 0-»
 	filter = getConstrainedChildrenFilter().or(filter);
 	«ENDIF-»
 «ENDLET-»
 	return filter;
 }
+«ENDDEFINE»
+
+«DEFINE plugPhantomNotifier FOR gmfgen::GenContainerBase»«ENDDEFINE»
+
+«DEFINE plugPhantomNotifier FOR gmfgen::GenDiagram-»
+«IF getPhantomFeatures().size() > 0-»
+filter = filter.or(getPhantomsFilter());
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE createFeatureFilter FOR genmodel::GenFeature»org.eclipse.emf.transaction.NotificationFilter.createFeatureFilter(«EXPAND xpt::Common::metaFeatureAccessor»)«ENDDEFINE»

@@ -15,6 +15,7 @@ import "http://www.eclipse.org/emf/2002/GenModel";
 import "http://www.eclipse.org/gmf/2006/GenModel";
 extension xpt::GenModelUtils;
 extension xpt::commands::CommandUtils;
+extension xpt::diagram::PhantomUtils;
 
 cached Collection[gmfgen::GenLink] incomingLinks(gmfgen::GenCommonBase gcb) :
 	let effectiveMetaClass = gcb.getEffectiveMetaClass() :
@@ -30,6 +31,10 @@ cached Collection[gmfgen::GenLink] outgoingLinks(gmfgen::GenCommonBase gcb) :
 	let effectiveMetaClass = gcb.getEffectiveMetaClass() :
 	(effectiveMetaClass == null ? {} :
 		gcb.getDiagram().links.select(e| e.outgoingGenClass().ecoreClass.isSuperTypeOf(effectiveMetaClass.ecoreClass)))
+;
+
+cached Collection[gmfgen::GenLink] outgoingNonPhantomLinks(gmfgen::GenCommonBase gcb) :
+	gcb.outgoingLinks().select(e| !e.modelFacet.isPhantomLink(gcb.getDiagram()))
 ;
 
 cached Collection[gmfgen::GenLink] containedLinks(gmfgen::GenCommonBase gcb) :

@@ -38,15 +38,18 @@ return org.eclipse.emf.common.command.UnexecutableCommand.INSTANCE;
 «ENDDEFINE»
 
 «DEFINE deleteCommand(String domainVar, String elementVar) FOR gmfgen::TypeModelFacet-»
-«IF containmentMetaFeature == null-»
-return org.eclipse.emf.common.command.UnexecutableCommand.INSTANCE;
-«ELSE-»
 return org.eclipse.gmf.runtime.lite.commands.DestroyElementCommand.create(«domainVar», «elementVar».getElement());
-«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE domainModelRemoveCommand(String domainVar, String edgeVar) FOR gmfgen::FeatureLinkModelFacet-»
+«IF metaFeature.isContains()-»
+org.eclipse.emf.common.command.CompoundCommand result = new org.eclipse.emf.common.command.CompoundCommand();
+result.append(«EXPAND xpt::commands::Common::unplugFeatureCommand(domainVar, edgeVar + ".getSource().getElement()", edgeVar + ".getTarget().getElement()") FOR metaFeature»);
+result.append(new org.eclipse.emf.edit.command.AddCommand(«domainVar», «EXPAND xpt::commands::Common::getPhantomContainmentResource FOR edgeVar».getContents(), «edgeVar».getTarget().getElement()));
+return result;
+«ELSE-»
 return «EXPAND xpt::commands::Common::unplugFeatureCommand(domainVar, edgeVar + ".getSource().getElement()", edgeVar + ".getTarget().getElement()") FOR metaFeature»;
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE domainModelRemoveCommand(String nodeVar) FOR gmfgen::GenNode-»

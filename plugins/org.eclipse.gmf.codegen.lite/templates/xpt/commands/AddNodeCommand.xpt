@@ -120,7 +120,11 @@ protected org.eclipse.emf.common.command.Command createCommand() {
 result.append(«EXPAND xpt::commands::Common::plugFeatureCommand("editingDomain", "parentView.getElement()", "element") FOR childMetaFeature»);
 «ENDIF-»
 «ENDLET-»
+«IF containmentMetaFeature == null-»
+result.append(new org.eclipse.emf.edit.command.AddCommand(editingDomain, «EXPAND xpt::commands::Common::getPhantomContainmentResource FOR "parentView"».getContents(), element));
+«ELSE-»
 result.append(«EXPAND xpt::commands::Common::plugFeatureCommand("editingDomain", "parentView.getElement()", "element") FOR containmentMetaFeature»);
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE unplugFeatures FOR gmfgen::TypeModelFacet-»
@@ -129,7 +133,17 @@ result.append(«EXPAND xpt::commands::Common::plugFeatureCommand("editingDomain",
 result.append(«EXPAND xpt::commands::Common::unplugFeatureCommand("editingDomain", "element.eContainer()", "element") FOR childMetaFeature»);
 «ENDIF-»
 «ENDLET-»
+«IF containmentMetaFeature == null-»
+if (element.eContainer() != null) {
+	result.append(org.eclipse.emf.edit.command.RemoveCommand.create(editingDomain, element.eContainer(), element.eContainmentFeature(), element));
+} else if (element.eResource() != null) {
+	result.append(new org.eclipse.emf.edit.command.RemoveCommand(editingDomain, element.eResource().getContents(), element));
+} else {
+	result.append(org.eclipse.emf.common.command.UnexecutableCommand.INSTANCE);
+}
+«ELSE-»
 result.append(«EXPAND xpt::commands::Common::unplugFeatureCommand("editingDomain", "element.eContainer()", "element") FOR containmentMetaFeature»);
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE checkFeature(String containerVar, genmodel::GenClass containerClass) FOR genmodel::GenFeature-»

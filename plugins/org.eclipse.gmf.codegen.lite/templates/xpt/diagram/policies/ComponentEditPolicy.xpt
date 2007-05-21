@@ -60,7 +60,7 @@ public class «getComponentEditPolicyClassName()» «EXPAND supertypes» {
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command createDeleteCommand(org.eclipse.gef.requests.GroupRequest deleteRequest) {
 «LET incomingTypeLinks() AS incomingTypeLinks-»
-«LET outgoingLinks() AS outgoingLinks-»
+«LET outgoingNonPhantomLinks() AS outgoingLinks-»
 «IF incomingTypeLinks.size() > 0 || outgoingLinks.size() > 0-»
 	org.eclipse.gef.commands.CompoundCommand result = new org.eclipse.gef.commands.CompoundCommand();
 «ENDIF-»

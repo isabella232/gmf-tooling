@@ -147,7 +147,11 @@ public void dispose() {
 result.append(«EXPAND xpt::commands::Common::plugFeatureCommand("editingDomain", "parentView.getElement()", "copyResult") FOR childMetaFeature»);
 «ENDIF-»
 «ENDLET-»
+«IF containmentMetaFeature == null-»
+result.append(new org.eclipse.emf.edit.command.AddCommand(editingDomain, «EXPAND xpt::commands::Common::getPhantomContainmentResource FOR "parentView"».getContents(), copyResult));
+«ELSE-»
 result.append(«EXPAND xpt::commands::Common::plugFeatureCommand("editingDomain", "parentView.getElement()", "copyResult") FOR containmentMetaFeature»);
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE checkFeature(String containerVar, genmodel::GenClass containerClass) FOR genmodel::GenFeature-»

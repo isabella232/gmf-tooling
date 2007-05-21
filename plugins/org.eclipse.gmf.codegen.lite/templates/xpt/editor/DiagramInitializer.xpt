@@ -54,6 +54,7 @@ private static class DiagramInitializer {
 	«ENDLET-»
 «ENDIF-»
 	«EXPAND viewService-»
+	«EXPAND xpt::diagram::parts::semanticChildren::getPhantomNodesIterator-»
 	«EXPAND additions-»
 }
 «ENDDEFINE»

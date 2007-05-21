@@ -67,11 +67,19 @@ public class «EXPAND className» «EXPAND supertypes» {
 		org.eclipse.emf.transaction.TransactionalEditingDomain domainModelEditDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(parent.getDiagram().getElement());
 	«IF addChild-»
 		org.eclipse.emf.common.command.CompoundCommand compoundCommand = new org.eclipse.emf.common.command.CompoundCommand();
+		«IF containmentMetaFeature == null-»
+		compoundCommand.append(new org.eclipse.emf.edit.command.AddCommand(domainModelEditDomain, «EXPAND xpt::commands::Common::getPhantomContainmentResource FOR "parent"».getContents(), createdDomainElement));
+		«ELSE-»
 		compoundCommand.append(«EXPAND xpt::commands::Common::plugFeatureCommand("domainModelEditDomain", "parent.getElement()", "createdDomainElement") FOR containmentMetaFeature»);
+		«ENDIF-»
 		compoundCommand.append(«EXPAND xpt::commands::Common::plugFeatureCommand("domainModelEditDomain", "parent.getElement()", "createdDomainElement") FOR childMetaFeature»);
 		domainModelAddCommand = compoundCommand;
 	«ELSE-»
+		«IF containmentMetaFeature == null-»
+		domainModelAddCommand = new org.eclipse.emf.edit.command.AddCommand(domainModelEditDomain, «EXPAND xpt::commands::Common::getPhantomContainmentResource FOR "parent"».getContents(), createdDomainElement);
+		«ELSE-»
 		domainModelAddCommand = «EXPAND xpt::commands::Common::plugFeatureCommand("domainModelEditDomain", "parent.getElement()", "createdDomainElement") FOR containmentMetaFeature»;
+		«ENDIF-»
 	«ENDIF-»
 «ENDLET-»
 «ENDDEFINE»

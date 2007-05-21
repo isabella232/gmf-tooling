@@ -14,13 +14,20 @@ import "http://www.eclipse.org/emf/2002/Ecore";
 import "http://www.eclipse.org/emf/2002/GenModel";
 import "http://www.eclipse.org/gmf/2006/GenModel";
 extension xpt::commands::CommandUtils;
+extension xpt::diagram::PhantomUtils;
+extension xpt::GenModelUtils;
 
 boolean needsNotationModelRefresher(gmfgen::GenContainerBase gcb) :
 	gcb.getChildNodesForNotationModelRefresher().size() > 0
 ;
 
+boolean needsNotationModelRefresher(gmfgen::GenDiagram diagram) :
+	diagram.getChildNodesForNotationModelRefresher().size() > 0 || diagram.getPhantomNodes().size() > 0
+;
+
+//Phantom features are not included here 
 cached Collection[gmfgen::GenNode] getChildNodesForNotationModelRefresher(gmfgen::GenContainerBase gcb) :
-	gcb.getChildNodes().select(e| e.modelFacet != null && e.modelFacet.metaClass != null && e.modelFacet.childMetaFeature != null)
+	gcb.getChildNodes().select(e| e.modelFacet != null && e.modelFacet.metaClass != null && !e.modelFacet.isPhantomElement() && e.modelFacet.childMetaFeature != null)
 ;
 
 Collection[gmfgen::GenNode] getConstraintsInChildren(gmfgen::GenContainerBase gcb) :
@@ -52,4 +59,3 @@ Collection[gmfgen::GenContainerBase] getInitableGrandChildren(gmfgen::GenContain
 	let allInitableContainers = getAllInitableContainers(gcb.getDiagram()) :
 		gcb.getChildNodesForNotationModelRefresher().select(e| allInitableContainers.contains(e))
 ;
-

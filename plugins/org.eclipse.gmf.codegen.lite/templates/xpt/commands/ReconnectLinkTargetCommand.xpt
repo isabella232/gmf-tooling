@@ -178,9 +178,20 @@ result.append(«EXPAND xpt::commands::Common::plugFeatureCommand("editingDomain",
 «ENDDEFINE»
 
 «DEFINE appendDomainModelCommand FOR gmfgen::FeatureLinkModelFacet-»
-		«IF metaFeature.ecoreFeature.many-»
+«IF metaFeature.isContains()-»
+if (newTarget.getElement().eContainer() != null) {
+	result.append(org.eclipse.emf.common.command.UnexecutableCommand.INSTANCE);
+}
+«ENDIF-»
+«IF metaFeature.ecoreFeature.many-»
 result.append(«EXPAND xpt::commands::Common::unplugFeatureCommand("editingDomain", "edge.getSource().getElement()", "oldTarget.getElement()") FOR metaFeature»);
-		«ENDIF-»
+«ENDIF-»
+«IF metaFeature.isContains()-»
+result.append(new org.eclipse.emf.edit.command.AddCommand(editingDomain, «EXPAND xpt::commands::Common::getPhantomContainmentResource FOR "edge"».getContents(), oldTarget.getElement()));
+if (oldTarget.getElement().eResource() != null) {
+	result.append(new org.eclipse.emf.edit.command.RemoveCommand(editingDomain, newTarget.getElement().eResource().getContents(), newTarget.getElement()));
+}
+«ENDIF-»
 result.append(«EXPAND xpt::commands::Common::plugFeatureCommand("editingDomain", "edge.getSource().getElement()", "newTarget.getElement()") FOR metaFeature»);
 «ENDDEFINE»
 
