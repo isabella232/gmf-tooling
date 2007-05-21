@@ -13,11 +13,13 @@ package org.eclipse.gmf.runtime.lite.commands;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -97,7 +99,35 @@ public class DestroyElementCommand extends CompoundCommand {
 	}
 
 	protected void prepareCommand() {
-		append(RemoveCommand.create(domain, collection));
+		HashMap<Resource, Collection<Object>> uncontainedObjects = null;
+		Collection<Object> otherObjects = new BasicEList<Object>();
+		for (Object next : collection) {
+			if (next instanceof EObject) {
+				EObject nextEObject = (EObject) next;
+				if (nextEObject.eContainer() == null && nextEObject.eResource() != null) {
+					//Object directly contained within a resource should be removed differently
+					if (uncontainedObjects == null) {
+						uncontainedObjects = new HashMap<Resource, Collection<Object>>();
+					}
+					Collection<Object> uncontainedObjectsForResource = uncontainedObjects.get(nextEObject.eResource());
+					if (uncontainedObjectsForResource == null) {
+						uncontainedObjectsForResource = new BasicEList<Object>();
+						uncontainedObjects.put(nextEObject.eResource(), uncontainedObjectsForResource);
+					}
+					uncontainedObjectsForResource.add(nextEObject);
+					continue;
+				}
+			}
+			otherObjects.add(next);
+		}
+		if (!otherObjects.isEmpty()) {
+			append(RemoveCommand.create(domain, otherObjects));
+		}
+		if (uncontainedObjects != null) {
+			for (Map.Entry<Resource, Collection<Object>> nextEntry : uncontainedObjects.entrySet()) {
+				append(new RemoveCommand(domain, nextEntry.getKey().getContents(), nextEntry.getValue()));
+			}
+		}
 	}
 
 	@Override
