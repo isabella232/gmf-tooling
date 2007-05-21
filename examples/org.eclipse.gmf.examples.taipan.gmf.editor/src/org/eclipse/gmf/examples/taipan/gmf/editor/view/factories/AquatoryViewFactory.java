@@ -26,22 +26,6 @@ import org.eclipse.gmf.runtime.notation.View;
 public class AquatoryViewFactory extends DiagramViewFactory {
 
 	/**
-	 * @generated 
-	 */
-	protected List createStyles(View view) {
-		List styles = new ArrayList();
-		styles.add(NotationFactory.eINSTANCE.createDiagramStyle());
-		return styles;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void decorateView(View view, IAdaptable semanticAdapter, String diagramKind) {
-		super.decorateView(view, semanticAdapter, diagramKind);
-	}
-
-	/**
 	 * @generated
 	 */
 	protected MeasurementUnit getMeasurementUnit() {

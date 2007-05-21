@@ -23,6 +23,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortLocationEditPar
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
+import org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -55,9 +56,9 @@ public class PortViewFactory extends AbstractShapeViewFactory {
 			shortcutAnnotation.getDetails().put("modelID", AquatoryEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
-		EAnnotation diagramFacet = EcoreFactory.eINSTANCE.createEAnnotation();
-		diagramFacet.setSource("uri://eclipse.org/gmf/openDiagramPolicy");
-		view.getEAnnotations().add(diagramFacet);
+		HintedDiagramLinkStyle diagramFacet = NotationFactory.eINSTANCE.createHintedDiagramLinkStyle();
+		diagramFacet.setHint("Port"); // $NON-NLS-1$
+		view.getStyles().add(diagramFacet);
 		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(PortLocationEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 
