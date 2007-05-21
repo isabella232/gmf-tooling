@@ -3,8 +3,9 @@
 
 	<property file="cc.properties" />
 
-	<plugin name="htmlemail" mailhost="${mailhost}" skipusers="true"
-		returnaddress="${buildmaster.email}" returnname="Buildmaster"
+	<plugin name="htmlemail" mailhost="${mailhost}" mailport="${mailport}" 
+		usessl="true" username="${buildmaster.username}" password="${buildmaster.password}" skipusers="true"
+		returnaddress="${buildmaster.email}" returnname="GMF buildmaster"
 		css="${scripts}/css/cruisecontrol.css"
 		xsldir="${scripts}/xsl"
 	/>
@@ -13,12 +14,6 @@
 		<listeners>
 			<currentbuildstatuslistener
 				file="${cc.logs}/checkout/buildstatus.txt" /> 
-			<currentbuildstatusftplistener
-				targetHost="${ccweb.ftp.host}"
-				targetUser="${ccweb.ftp.user}"
-				targetPasswd="${ccweb.ftp.passwd}"
-				destdir="/"
-				file="${remotelogs}/checkout/buildstatus.txt" />
 		</listeners>
 
 		<!-- Bootstrappers are run every time the build runs, 
@@ -53,24 +48,12 @@
 
 		<!-- directory to write build logs to -->
 		<log dir="${cc.logs}/checkout" />
-		<publishers>
-			<ftppublisher destDir="${remotelogs}/checkout" srcDir="${cc.logs}/checkout"
-				targetHost="${ccweb.ftp.host}"
-				targetUser="${ccweb.ftp.user}"
-				targetPasswd="${ccweb.ftp.passwd}" />
-		</publishers>
 	</project>
 	
 	<project name="continuous" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
 				file="${cc.logs}/continuous/buildstatus.txt" />
-			<currentbuildstatusftplistener
-				targetHost="${ccweb.ftp.host}"
-				targetUser="${ccweb.ftp.user}"
-				targetPasswd="${ccweb.ftp.passwd}"
-				destdir="/"
-				file="${remotelogs}/continuous/buildstatus.txt" />
 		</listeners>
 
 		<!-- Bootstrappers are run every time the build runs, 
@@ -109,10 +92,6 @@
 			</htmlemail>
 			<artifactspublisher dir="${lastresults}"
 				dest="${cc.artifacts}/continuous/" />
-			<ftppublisher destDir="${remotelogs}/continuous" srcDir="${cc.logs}/continuous"
-				targetHost="${ccweb.ftp.host}"
-				targetUser="${ccweb.ftp.user}"
-				targetPasswd="${ccweb.ftp.passwd}" />
 		</publishers>
 	</project>
 	
@@ -120,12 +99,6 @@
 		<listeners>
 			<currentbuildstatuslistener
 				file="${cc.logs}/nightly/buildstatus.txt" />
-			<currentbuildstatusftplistener
-				targetHost="${ccweb.ftp.host}"
-				targetUser="${ccweb.ftp.user}"
-				targetPasswd="${ccweb.ftp.passwd}"
-				destdir="/"
-				file="${remotelogs}/nightly/buildstatus.txt" />
 		</listeners>
 
 		<!-- Bootstrappers are run every time the build runs, 
@@ -162,22 +135,12 @@
 			</htmlemail>
 			<artifactspublisher dir="${lastresults}"
 				dest="${cc.artifacts}/nightly/" />
-			<ftppublisher destDir="${remotelogs}/nightly" srcDir="${cc.logs}/nightly"
-				targetHost="${ccweb.ftp.host}"
-				targetUser="${ccweb.ftp.user}"
-				targetPasswd="${ccweb.ftp.passwd}" />
 		</publishers>
 	</project>
 	<project name="integration" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
 				file="${cc.logs}/integration/buildstatus.txt" />
-			<currentbuildstatusftplistener
-				targetHost="${ccweb.ftp.host}"
-				targetUser="${ccweb.ftp.user}"
-				targetPasswd="${ccweb.ftp.passwd}"
-				destdir="/"
-				file="${remotelogs}/integration/buildstatus.txt" />
 		</listeners>
 
 		<bootstrappers></bootstrappers>
@@ -207,10 +170,6 @@
 			</htmlemail>
 			<artifactspublisher dir="${lastresults}"
 				dest="${cc.artifacts}/integration/" />
-			<ftppublisher destDir="${remotelogs}/integration" srcDir="${cc.logs}/integration"
-				targetHost="${ccweb.ftp.host}"
-				targetUser="${ccweb.ftp.user}"
-				targetPasswd="${ccweb.ftp.passwd}" />
 		</publishers>
 	</project>
 	
@@ -218,12 +177,6 @@
 		<listeners>
 			<currentbuildstatuslistener
 				file="${cc.logs}/gmfbase/buildstatus.txt" />
-			<currentbuildstatusftplistener
-				targetHost="${ccweb.ftp.host}"
-				targetUser="${ccweb.ftp.user}"
-				targetPasswd="${ccweb.ftp.passwd}"
-				destdir="/"
-				file="${remotelogs}/gmfbase/buildstatus.txt" />
 		</listeners>
 
 		<bootstrappers></bootstrappers>
@@ -251,10 +204,6 @@
 			</htmlemail>
 			<artifactspublisher dir="${lastresults}"
 				dest="${cc.artifacts}/gmfbase/" />
-			<ftppublisher destDir="${remotelogs}/gmfbase" srcDir="${cc.logs}/gmfbase"
-				targetHost="${ccweb.ftp.host}"
-				targetUser="${ccweb.ftp.user}"
-				targetPasswd="${ccweb.ftp.passwd}" />
 		</publishers>
 	</project>
 </cruisecontrol>
