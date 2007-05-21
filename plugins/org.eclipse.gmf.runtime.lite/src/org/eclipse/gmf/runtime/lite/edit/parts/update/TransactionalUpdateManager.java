@@ -287,7 +287,9 @@ public class TransactionalUpdateManager extends ResourceSetListenerImpl {
 				listeners = new LinkedList<INotationModelRefresher>();
 				myListeners.put(view, listeners);
 			}
-			listeners.add(refresher);
+			if (!listeners.contains(refresher)) {
+				listeners.add(refresher);
+			}
 			if (myJustAddedListeners != null) {
 				myJustAddedListeners.add(refresher);
 			}
