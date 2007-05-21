@@ -22,10 +22,19 @@ cc.home=${cc.home}
 buildmaster.email=${buildmaster.email}
 		</echo>
 		<echo file="${basedir}/cc.properties" append="true">
+buildmaster.username=${buildmaster.username}
+		</echo>
+		<echo file="${basedir}/cc.properties" append="true">
+buildmaster.password=${buildmaster.password}
+		</echo>
+		<echo file="${basedir}/cc.properties" append="true">
 always.email=${always.email}
 		</echo>
 		<echo file="${basedir}/cc.properties" append="true">
 mailhost=${mailhost}
+		</echo>
+		<echo file="${basedir}/cc.properties" append="true">
+mailport=${mailport}
 		</echo>
 		<echo file="${basedir}/cc.properties" append="true">
 reporting.url=${reporting.url}
@@ -56,17 +65,8 @@ scripts=${scripts}
 		</echo>
 
 		<echo file="${basedir}/cc.properties" append="true">
-ccweb.ftp.host=${ccweb.ftp.host}
+cvs.root=${cvs.root}
 		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-ccweb.ftp.user=${ccweb.ftp.user}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-ccweb.ftp.passwd=${ccweb.ftp.passwd}
-		</echo>
-		<echo file="${basedir}/cc.properties" append="true">
-		cvs.root=${cvs.root}
-				</echo>
 
 		<tstamp/>
 		<echo file="${basedir}/cc.properties" append="true">
