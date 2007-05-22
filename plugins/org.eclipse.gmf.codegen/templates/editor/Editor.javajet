@@ -37,12 +37,24 @@ if (!ifaces.isEmpty()) {
 	 * @generated
 	 */
 	public static final String ID = "<%=genEditor.getID()%>"; //$NON-NLS-1$
+	
+	/**
+	 * @generated
+	 */
+	public static final String CONTEXT_ID = "<%=genEditor.getContextID()%>"; //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
 	public <%=genEditor.getClassName()%>() {
 		super(<%=genDiagram.getPalette() != null && genDiagram.getPalette().isFlyout()%>);
+	}
+	
+	/**
+	 * @generated
+	 */
+	protected String getContextID() {
+		return CONTEXT_ID;
 	}
 
 <%if (genDiagram.getPalette() != null) {%>

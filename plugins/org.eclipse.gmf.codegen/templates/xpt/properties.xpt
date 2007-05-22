@@ -25,7 +25,9 @@ preferences.printing=Printing
 preferences.rulersAndGrid=Rulers & Grid
 preferences.pathmaps=Path Maps
 
-editorName=«editorGen.modelID» Diagram Editor
+editorName=«editorGen.modelID» Diagram Editing
+context.description=«editorGen.modelID» Diagram Editing
+context.name=In «editorGen.modelID» Diagram Editor
 newWizardName=«editorGen.modelID» Diagram
 newWizardDesc=Creates «editorGen.modelID» diagram.
 
@@ -52,6 +54,8 @@ navigatorContentName=*.«editorGen.diagramFileExtension» diagram contents
 «IF null != editorGen.navigator && editorGen.navigator.generateDomainModelNavigator-»
 domainNavigatorContentName=*.«editorGen.domainFileExtension» model contents
 «ENDIF-»
+update.diagram.name=Update «editorGen.modelID» diagram
+update.diagram.description=Perform «editorGen.modelID» diagram update
 
 «EXPAND xpt::propsheet::extensions::i18n FOR editorGen.propertySheet-»
 «EXPAND xpt::diagram::preferences::extensions::i18n FOR editorGen.diagram-»

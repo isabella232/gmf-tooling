@@ -32,6 +32,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#getIconPathX <em>Icon Path X</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#getID <em>ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#isEclipseEditor <em>Eclipse Editor</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#getContextID <em>Context ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -167,6 +168,26 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	 * @ordered
 	 */
 	protected boolean eclipseEditor = ECLIPSE_EDITOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getContextID() <em>Context ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContextID()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CONTEXT_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getContextID() <em>Context ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContextID()
+	 * @generated
+	 * @ordered
+	 */
+	protected String contextID = CONTEXT_ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -389,6 +410,35 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getContextIDGen() {
+		return contextID;
+	}
+	
+	public String getContextID() {
+		String value = getContextIDGen();
+		if (GenCommonBaseImpl.isEmpty(value)) {
+			value = getEditorGen().getPackageNamePrefix() + ".ui.diagramContext"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setContextID(String newContextID) {
+		String oldContextID = contextID;
+		contextID = newContextID;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_VIEW__CONTEXT_ID, oldContextID, contextID));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String getActionBarContributorQualifiedClassName() {
@@ -472,6 +522,8 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 				return getID();
 			case GMFGenPackage.GEN_EDITOR_VIEW__ECLIPSE_EDITOR:
 				return isEclipseEditor() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_EDITOR_VIEW__CONTEXT_ID:
+				return getContextID();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -501,6 +553,9 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 				return;
 			case GMFGenPackage.GEN_EDITOR_VIEW__ECLIPSE_EDITOR:
 				setEclipseEditor(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGenPackage.GEN_EDITOR_VIEW__CONTEXT_ID:
+				setContextID((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -532,6 +587,9 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 			case GMFGenPackage.GEN_EDITOR_VIEW__ECLIPSE_EDITOR:
 				setEclipseEditor(ECLIPSE_EDITOR_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_EDITOR_VIEW__CONTEXT_ID:
+				setContextID(CONTEXT_ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -560,6 +618,8 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 				return ID_EDEFAULT == null ? iD != null : !ID_EDEFAULT.equals(iD);
 			case GMFGenPackage.GEN_EDITOR_VIEW__ECLIPSE_EDITOR:
 				return eclipseEditor != ECLIPSE_EDITOR_EDEFAULT;
+			case GMFGenPackage.GEN_EDITOR_VIEW__CONTEXT_ID:
+				return CONTEXT_ID_EDEFAULT == null ? contextID != null : !CONTEXT_ID_EDEFAULT.equals(contextID);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -586,6 +646,8 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 		result.append(iD);
 		result.append(", eclipseEditor: ");
 		result.append(eclipseEditor);
+		result.append(", contextID: ");
+		result.append(contextID);
 		result.append(')');
 		return result.toString();
 	}

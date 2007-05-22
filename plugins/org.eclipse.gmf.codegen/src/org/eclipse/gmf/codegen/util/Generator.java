@@ -219,6 +219,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			}
 		}
 		generateDiagramUpdater();
+		generateUpdateCommand();
 		generateNodeDescriptor();
 		generateLinkDescriptor();
 		generateActionBarContributor();
@@ -867,6 +868,10 @@ public class Generator extends GeneratorBase implements Runnable {
 	
 	private void generateDiagramUpdater() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getDiagramUpdaterEmitter(), myEditorGen.getDiagramUpdater().getDiagramUpdaterQualifiedClassName(), myEditorGen.getDiagramUpdater());
+	}
+	
+	private void generateUpdateCommand() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getUpdateCommandEmitter(), myEditorGen.getDiagramUpdater().getUpdateCommandQualifiedClassName(), myEditorGen.getDiagramUpdater());
 	}
 	
 	private void generateNodeDescriptor() throws InterruptedException {

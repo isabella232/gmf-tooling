@@ -589,6 +589,10 @@ public class CodegenEmitters {
 	public TextEmitter getDiagramUpdaterEmitter() {
 		return newXpandEmitter("xpt::diagram::updater::DiagramUpdater::DiagramUpdater"); //$NON-NLS-1$
 	}
+
+	public TextEmitter getUpdateCommandEmitter() {
+		return newXpandEmitter("xpt::diagram::updater::UpdateCommand::UpdateCommand"); //$NON-NLS-1$
+	}
 	
 	public TextEmitter getNodeDescriptorEmitter() {
 		return newXpandEmitter("xpt::diagram::updater::NodeDescriptor::NodeDescriptor"); //$NON-NLS-1$

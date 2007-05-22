@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater#getDiagramUpdaterClassName <em>Diagram Updater Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater#getNodeDescriptorClassName <em>Node Descriptor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater#getLinkDescriptorClassName <em>Link Descriptor Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater#getUpdateCommandClassName <em>Update Command Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater#getUpdateCommandID <em>Update Command ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -124,6 +126,58 @@ public interface GenDiagramUpdater extends EObject {
 	void setLinkDescriptorClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Update Command Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Update Command Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Update Command Class Name</em>' attribute.
+	 * @see #setUpdateCommandClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagramUpdater_UpdateCommandClassName()
+	 * @model
+	 * @generated
+	 */
+	String getUpdateCommandClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater#getUpdateCommandClassName <em>Update Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Update Command Class Name</em>' attribute.
+	 * @see #getUpdateCommandClassName()
+	 * @generated
+	 */
+	void setUpdateCommandClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Update Command ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Update Command ID</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Update Command ID</em>' attribute.
+	 * @see #setUpdateCommandID(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagramUpdater_UpdateCommandID()
+	 * @model
+	 * @generated
+	 */
+	String getUpdateCommandID();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater#getUpdateCommandID <em>Update Command ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Update Command ID</em>' attribute.
+	 * @see #getUpdateCommandID()
+	 * @generated
+	 */
+	void setUpdateCommandID(String value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
@@ -146,5 +200,13 @@ public interface GenDiagramUpdater extends EObject {
 	 * @generated
 	 */
 	String getLinkDescriptorQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getUpdateCommandQualifiedClassName();
 
 } // GenDiagramUpdater

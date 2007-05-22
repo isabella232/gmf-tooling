@@ -1346,13 +1346,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EDITOR_VIEW__ECLIPSE_EDITOR = 7;
 
 	/**
+	 * The feature id for the '<em><b>Context ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EDITOR_VIEW__CONTEXT_ID = 8;
+
+	/**
 	 * The number of structural features of the '<em>Gen Editor View</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_VIEW_FEATURE_COUNT = 8;
+	int GEN_EDITOR_VIEW_FEATURE_COUNT = 9;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPreferencePageImpl <em>Gen Preference Page</em>}' class.
@@ -2670,13 +2679,31 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_DIAGRAM_UPDATER__LINK_DESCRIPTOR_CLASS_NAME = 3;
 
 	/**
+	 * The feature id for the '<em><b>Update Command Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_CLASS_NAME = 4;
+
+	/**
+	 * The feature id for the '<em><b>Update Command ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_ID = 5;
+
+	/**
 	 * The number of structural features of the '<em>Gen Diagram Updater</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM_UPDATER_FEATURE_COUNT = 4;
+	int GEN_DIAGRAM_UPDATER_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl <em>Gen Plugin</em>}' class.
@@ -10024,6 +10051,17 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getGenEditorView_EclipseEditor();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#getContextID <em>Context ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Context ID</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorView#getContextID()
+	 * @see #getGenEditorView()
+	 * @generated
+	 */
+	EAttribute getGenEditorView_ContextID();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenPreferencePage <em>Gen Preference Page</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11301,6 +11339,28 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenDiagramUpdater_LinkDescriptorClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater#getUpdateCommandClassName <em>Update Command Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Update Command Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater#getUpdateCommandClassName()
+	 * @see #getGenDiagramUpdater()
+	 * @generated
+	 */
+	EAttribute getGenDiagramUpdater_UpdateCommandClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater#getUpdateCommandID <em>Update Command ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Update Command ID</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater#getUpdateCommandID()
+	 * @see #getGenDiagramUpdater()
+	 * @generated
+	 */
+	EAttribute getGenDiagramUpdater_UpdateCommandID();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin <em>Gen Plugin</em>}'.

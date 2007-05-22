@@ -30,6 +30,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramUpdaterImpl#getDiagramUpdaterClassName <em>Diagram Updater Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramUpdaterImpl#getNodeDescriptorClassName <em>Node Descriptor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramUpdaterImpl#getLinkDescriptorClassName <em>Link Descriptor Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramUpdaterImpl#getUpdateCommandClassName <em>Update Command Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramUpdaterImpl#getUpdateCommandID <em>Update Command ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -95,6 +97,46 @@ public class GenDiagramUpdaterImpl extends EObjectImpl implements GenDiagramUpda
 	 * @ordered
 	 */
 	protected String linkDescriptorClassName = LINK_DESCRIPTOR_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getUpdateCommandClassName() <em>Update Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUpdateCommandClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String UPDATE_COMMAND_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getUpdateCommandClassName() <em>Update Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUpdateCommandClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String updateCommandClassName = UPDATE_COMMAND_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getUpdateCommandID() <em>Update Command ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUpdateCommandID()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String UPDATE_COMMAND_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getUpdateCommandID() <em>Update Command ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUpdateCommandID()
+	 * @generated
+	 * @ordered
+	 */
+	protected String updateCommandID = UPDATE_COMMAND_ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -215,6 +257,64 @@ public class GenDiagramUpdaterImpl extends EObjectImpl implements GenDiagramUpda
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getUpdateCommandClassNameGen() {
+		return updateCommandClassName;
+	}
+	
+	public String getUpdateCommandClassName() {
+		String value = getUpdateCommandClassNameGen();
+		if(GenCommonBaseImpl.isEmpty(value)) {
+			value = getDomainPackageCapName() + "DiagramUpdateCommand"; //$NON-NLS-1$						
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUpdateCommandClassName(String newUpdateCommandClassName) {
+		String oldUpdateCommandClassName = updateCommandClassName;
+		updateCommandClassName = newUpdateCommandClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_CLASS_NAME, oldUpdateCommandClassName, updateCommandClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getUpdateCommandIDGen() {
+		return updateCommandID;
+	}
+	
+	public String getUpdateCommandID() {
+		String value = getUpdateCommandIDGen();
+		if (GenCommonBaseImpl.isEmpty(value)) {
+			value = getEditorGen().getPackageNamePrefix() + ".updateDiagram"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUpdateCommandID(String newUpdateCommandID) {
+		String oldUpdateCommandID = updateCommandID;
+		updateCommandID = newUpdateCommandID;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_ID, oldUpdateCommandID, updateCommandID));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String getDiagramUpdaterQualifiedClassName() {
@@ -237,6 +337,15 @@ public class GenDiagramUpdaterImpl extends EObjectImpl implements GenDiagramUpda
 	 */
 	public String getLinkDescriptorQualifiedClassName() {
 		return getEditorPackageName() + '.' + getLinkDescriptorClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getUpdateCommandQualifiedClassName() {
+		return getEditorPackageName() + '.' + getUpdateCommandClassName();
 	}
 
 	/**
@@ -299,6 +408,10 @@ public class GenDiagramUpdaterImpl extends EObjectImpl implements GenDiagramUpda
 				return getNodeDescriptorClassName();
 			case GMFGenPackage.GEN_DIAGRAM_UPDATER__LINK_DESCRIPTOR_CLASS_NAME:
 				return getLinkDescriptorClassName();
+			case GMFGenPackage.GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_CLASS_NAME:
+				return getUpdateCommandClassName();
+			case GMFGenPackage.GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_ID:
+				return getUpdateCommandID();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -319,6 +432,12 @@ public class GenDiagramUpdaterImpl extends EObjectImpl implements GenDiagramUpda
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_UPDATER__LINK_DESCRIPTOR_CLASS_NAME:
 				setLinkDescriptorClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_CLASS_NAME:
+				setUpdateCommandClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_ID:
+				setUpdateCommandID((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -341,6 +460,12 @@ public class GenDiagramUpdaterImpl extends EObjectImpl implements GenDiagramUpda
 			case GMFGenPackage.GEN_DIAGRAM_UPDATER__LINK_DESCRIPTOR_CLASS_NAME:
 				setLinkDescriptorClassName(LINK_DESCRIPTOR_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_CLASS_NAME:
+				setUpdateCommandClassName(UPDATE_COMMAND_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_ID:
+				setUpdateCommandID(UPDATE_COMMAND_ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -361,6 +486,10 @@ public class GenDiagramUpdaterImpl extends EObjectImpl implements GenDiagramUpda
 				return NODE_DESCRIPTOR_CLASS_NAME_EDEFAULT == null ? nodeDescriptorClassName != null : !NODE_DESCRIPTOR_CLASS_NAME_EDEFAULT.equals(nodeDescriptorClassName);
 			case GMFGenPackage.GEN_DIAGRAM_UPDATER__LINK_DESCRIPTOR_CLASS_NAME:
 				return LINK_DESCRIPTOR_CLASS_NAME_EDEFAULT == null ? linkDescriptorClassName != null : !LINK_DESCRIPTOR_CLASS_NAME_EDEFAULT.equals(linkDescriptorClassName);
+			case GMFGenPackage.GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_CLASS_NAME:
+				return UPDATE_COMMAND_CLASS_NAME_EDEFAULT == null ? updateCommandClassName != null : !UPDATE_COMMAND_CLASS_NAME_EDEFAULT.equals(updateCommandClassName);
+			case GMFGenPackage.GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_ID:
+				return UPDATE_COMMAND_ID_EDEFAULT == null ? updateCommandID != null : !UPDATE_COMMAND_ID_EDEFAULT.equals(updateCommandID);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -381,6 +510,10 @@ public class GenDiagramUpdaterImpl extends EObjectImpl implements GenDiagramUpda
 		result.append(nodeDescriptorClassName);
 		result.append(", linkDescriptorClassName: ");
 		result.append(linkDescriptorClassName);
+		result.append(", updateCommandClassName: ");
+		result.append(updateCommandClassName);
+		result.append(", updateCommandID: ");
+		result.append(updateCommandID);
 		result.append(')');
 		return result.toString();
 	}

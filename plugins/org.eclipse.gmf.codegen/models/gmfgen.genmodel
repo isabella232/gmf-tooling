@@ -189,6 +189,7 @@
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorView/iconPathX"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorView/iD"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorView/eclipseEditor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorView/contextID"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenEditorView/getActionBarContributorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenEditorView/getQualifiedClassName"/>
     </genClasses>
@@ -370,9 +371,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramUpdater/diagramUpdaterClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramUpdater/nodeDescriptorClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramUpdater/linkDescriptorClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramUpdater/updateCommandClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramUpdater/updateCommandID"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagramUpdater/getDiagramUpdaterQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagramUpdater/getNodeDescriptorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagramUpdater/getLinkDescriptorQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagramUpdater/getUpdateCommandQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenPlugin">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPlugin/editorGen"/>

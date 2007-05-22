@@ -1406,6 +1406,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenEditorView_ContextID() {
+		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenPreferencePage() {
 		return genPreferencePageEClass;
 	}
@@ -2461,6 +2470,24 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getGenDiagramUpdater_LinkDescriptorClassName() {
 		return (EAttribute)genDiagramUpdaterEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramUpdater_UpdateCommandClassName() {
+		return (EAttribute)genDiagramUpdaterEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramUpdater_UpdateCommandID() {
+		return (EAttribute)genDiagramUpdaterEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -5917,6 +5944,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ICON_PATH_X);
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ID);
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ECLIPSE_EDITOR);
+		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__CONTEXT_ID);
 
 		genPreferencePageEClass = createEClass(GEN_PREFERENCE_PAGE);
 		createEAttribute(genPreferencePageEClass, GEN_PREFERENCE_PAGE__ID);
@@ -6054,6 +6082,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genDiagramUpdaterEClass, GEN_DIAGRAM_UPDATER__DIAGRAM_UPDATER_CLASS_NAME);
 		createEAttribute(genDiagramUpdaterEClass, GEN_DIAGRAM_UPDATER__NODE_DESCRIPTOR_CLASS_NAME);
 		createEAttribute(genDiagramUpdaterEClass, GEN_DIAGRAM_UPDATER__LINK_DESCRIPTOR_CLASS_NAME);
+		createEAttribute(genDiagramUpdaterEClass, GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_CLASS_NAME);
+		createEAttribute(genDiagramUpdaterEClass, GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_ID);
 
 		genPluginEClass = createEClass(GEN_PLUGIN);
 		createEReference(genPluginEClass, GEN_PLUGIN__EDITOR_GEN);
@@ -6711,6 +6741,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenEditorView_IconPathX(), ecorePackage.getEString(), "iconPathX", null, 1, 1, GenEditorView.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorView_ID(), ecorePackage.getEString(), "iD", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorView_EclipseEditor(), ecorePackage.getEBoolean(), "eclipseEditor", "true", 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenEditorView_ContextID(), ecorePackage.getEString(), "contextID", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genEditorViewEClass, ecorePackage.getEString(), "getActionBarContributorQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -6938,12 +6969,16 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenDiagramUpdater_DiagramUpdaterClassName(), ecorePackage.getEString(), "diagramUpdaterClassName", null, 0, 1, GenDiagramUpdater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagramUpdater_NodeDescriptorClassName(), ecorePackage.getEString(), "nodeDescriptorClassName", null, 0, 1, GenDiagramUpdater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagramUpdater_LinkDescriptorClassName(), ecorePackage.getEString(), "linkDescriptorClassName", null, 0, 1, GenDiagramUpdater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramUpdater_UpdateCommandClassName(), ecorePackage.getEString(), "updateCommandClassName", null, 0, 1, GenDiagramUpdater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramUpdater_UpdateCommandID(), ecorePackage.getEString(), "updateCommandID", null, 0, 1, GenDiagramUpdater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genDiagramUpdaterEClass, ecorePackage.getEString(), "getDiagramUpdaterQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(genDiagramUpdaterEClass, ecorePackage.getEString(), "getNodeDescriptorQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(genDiagramUpdaterEClass, ecorePackage.getEString(), "getLinkDescriptorQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(genDiagramUpdaterEClass, ecorePackage.getEString(), "getUpdateCommandQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(genPluginEClass, GenPlugin.class, "GenPlugin", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenPlugin_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Plugin(), "editorGen", null, 0, 1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

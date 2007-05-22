@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#getIconPathX <em>Icon Path X</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#getID <em>ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#isEclipseEditor <em>Eclipse Editor</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#getContextID <em>Context ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -210,6 +211,32 @@ public interface GenEditorView extends EObject {
 	 * @generated
 	 */
 	void setEclipseEditor(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Context ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Context ID</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Context ID</em>' attribute.
+	 * @see #setContextID(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorView_ContextID()
+	 * @model
+	 * @generated
+	 */
+	String getContextID();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#getContextID <em>Context ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Context ID</em>' attribute.
+	 * @see #getContextID()
+	 * @generated
+	 */
+	void setContextID(String value);
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -47,6 +47,7 @@
 «EXPAND xpt::navigator::extensions::extensions FOR editorGen.navigator-»
 «EXPAND xpt::application::extensions::extensions FOR editorGen.application-»
 «EXPAND xpt::ConstraintProviders::extensions FOR editorGen-»
+«EXPAND xpt::diagram::updater::extensions::extensions FOR editorGen.diagramUpdater-»
 «EXPAND additions-»
 </plugin>
 «ENDDEFINE»

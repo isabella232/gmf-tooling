@@ -27,6 +27,16 @@
          contributorClass="«editor.getActionBarContributorQualifiedClassName()»">
       </editor>
    </extension>
+   
+   <extension point="org.eclipse.ui.contexts">
+      «EXPAND xpt::Common::xmlGeneratedTag»
+      <context
+         description="%context.description"
+         id="«editor.contextID»"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+      </context>
+   </extension>
 
    <extension point="org.eclipse.ui.newWizards">
       «EXPAND xpt::Common::xmlGeneratedTag»
