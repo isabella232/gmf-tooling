@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
@@ -33,6 +34,9 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
 import org.eclipse.gmf.internal.common.migrate.MigrationResource;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
+import org.eclipse.gmf.mappings.FeatureLabelMapping;
+import org.eclipse.gmf.mappings.LabelMapping;
+import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.tests.Plugin;
 
 public class MigrationPatchesTest extends TestCase {
@@ -171,11 +175,13 @@ public class MigrationPatchesTest extends TestCase {
 		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
 
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
+		checkFeatureLabelModelFacetsMigrated(genmodelFileName);
 
 		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testFeatureLabelModelFacet", "gmfgen");
 		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
 		
 		assertOnLoadModelMigrationSuccess(newUri);
+		checkFeatureLabelModelFacetsMigrated(newUri);
 	}
 
 //	/*
@@ -317,4 +323,59 @@ public class MigrationPatchesTest extends TestCase {
 		assertEquals(8, allContentsSize);
 	}
 
+	public void testNotChangingOrderOfLabelMappings() throws Exception {
+		URI gmfmapmodelFileName = createURI("testNotChangingOrderOfLabelMappings.gmfmap"); //$NON-NLS-1$
+		Exception caughtMapException = assertOrdinaryLoadModelProblems(gmfmapmodelFileName);
+		assertTrue("expected diagnostic exception", caughtMapException != null); //$NON-NLS-1$
+
+		assertOnLoadModelMigrationSuccess(gmfmapmodelFileName);
+		checkOrderOfLabelMappings(gmfmapmodelFileName);
+
+		URI newMapUri = temporarySaveMigratedModel(gmfmapmodelFileName, "testNotChangingOrderOfLabelMappings", "gmfmap"); //$NON-NLS-1$ //$NON-NLS-2$
+		changeNsUriToOldOne(newMapUri, "gmfmap", "http://www.eclipse.org/gmf/2005/mappings/2.0"); //$NON-NLS-1$ //$NON-NLS-2$
+		
+		assertOnLoadModelMigrationSuccess(newMapUri);
+		checkOrderOfLabelMappings(newMapUri);
+	}
+
+	private void checkOrderOfLabelMappings(URI modelURI) {
+		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), modelURI);
+		Resource res = loadHelper.getLoadedResource();
+		for (Iterator<EObject> it = res.getAllContents(); it.hasNext();) {
+			EObject next = it.next();
+			if (next instanceof MappingEntry) {
+				MappingEntry nextEntry = (MappingEntry) next;
+				EList<LabelMapping> labelMappings = nextEntry.getLabelMappings();
+				assertFalse(labelMappings.isEmpty());
+				assertEquals(5, labelMappings.size());
+				checkMapping(labelMappings.get(0), false);
+				checkMapping(labelMappings.get(1), true);
+				checkMapping(labelMappings.get(2), false);
+				checkMapping(labelMappings.get(3), true);
+				checkMapping(labelMappings.get(4), false);
+			}
+		}
+	}
+
+	private void checkMapping(LabelMapping mapping, boolean shouldBeNarrowed) {
+		assertEquals(shouldBeNarrowed, mapping instanceof FeatureLabelMapping);
+		assertNotNull(mapping.getDiagramLabel());
+		if (shouldBeNarrowed) {
+			assertFalse(((FeatureLabelMapping)mapping).getFeatures().isEmpty());
+		}
+	}
+
+	private void checkFeatureLabelModelFacetsMigrated(URI uri) {
+		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
+		Resource resource = loadHelper.getLoadedResource();
+		assertEquals(2, resource.getContents().size());
+		Object first = resource.getContents().get(0);
+		assertTrue(first instanceof FeatureLabelModelFacet);
+		FeatureLabelModelFacet firstFeatureLabelModelFacet = (FeatureLabelModelFacet) first;
+		assertEquals(1, firstFeatureLabelModelFacet.getMetaFeatures().size());
+		Object second = resource.getContents().get(1);
+		assertTrue(second instanceof FeatureLabelModelFacet);
+		FeatureLabelModelFacet secondFeatureLabelModelFacet = (FeatureLabelModelFacet) second;
+		assertEquals(2, secondFeatureLabelModelFacet.getMetaFeatures().size());
+	}
 }
