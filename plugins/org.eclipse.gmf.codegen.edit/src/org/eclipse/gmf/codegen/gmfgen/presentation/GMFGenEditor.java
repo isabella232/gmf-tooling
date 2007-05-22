@@ -68,6 +68,7 @@ import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
 import org.eclipse.emf.edit.ui.dnd.ViewerDragAdapter;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.emf.edit.ui.provider.UnwrappingSelectionProvider;
 import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -678,6 +679,56 @@ public class GMFGenEditor
 	}
 
 	/**
+	 * This sets up the editing domain for the model editor.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void initializeEditingDomain() {
+		// Create an adapter factory that yields item providers.
+		//
+		adapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+
+		adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new GMFGenItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new EcoreItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new GenModelItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
+
+		// Create the command stack that will notify this editor as commands are executed.
+		//
+		BasicCommandStack commandStack = new BasicCommandStack();
+
+		// Add a listener to set the most recent command's affected objects to be the selection of the viewer with focus.
+		//
+		commandStack.addCommandStackListener
+			(new CommandStackListener() {
+				 public void commandStackChanged(final EventObject event) {
+					 getContainer().getDisplay().asyncExec
+						 (new Runnable() {
+							  public void run() {
+								  firePropertyChange(IEditorPart.PROP_DIRTY);
+
+								  // Try to select the affected objects.
+								  //
+								  Command mostRecentCommand = ((CommandStack)event.getSource()).getMostRecentCommand();
+								  if (mostRecentCommand != null) {
+									  setSelectionToViewer(mostRecentCommand.getAffectedObjects());
+								  }
+								  if (propertySheetPage != null && !propertySheetPage.getControl().isDisposed()) {
+									  propertySheetPage.refresh();
+								  }
+							  }
+						  });
+				 }
+			 });
+
+		// Create the editing domain with a special command stack.
+		//
+		editingDomain = new AdapterFactoryEditingDomain(adapterFactory, commandStack, new HashMap<Resource, Boolean>());
+	}
+
+	/**
 	 * This is here for the listener to be able to call it.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -844,7 +895,7 @@ public class GMFGenEditor
 		contextMenu.addMenuListener(this);
 		Menu menu= contextMenu.createContextMenu(viewer.getControl());
 		viewer.getControl().setMenu(menu);
-		getSite().registerContextMenu(contextMenu, viewer);
+		getSite().registerContextMenu(contextMenu, new UnwrappingSelectionProvider(viewer));
 
 		int dndOperations = DND.DROP_COPY | DND.DROP_MOVE | DND.DROP_LINK;
 		Transfer[] transfers = new Transfer[] { LocalTransfer.getInstance() };
@@ -1416,6 +1467,11 @@ public class GMFGenEditor
 	 */
 	@Override
 	public void doSave(IProgressMonitor progressMonitor) {
+		// Save only resources that have actually changed.
+		//
+		final Map<Object, Object> saveOptions = new HashMap<Object, Object>();
+		saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+
 		// Do the work within an operation because this is a long running activity that modifies the workbench.
 		//
 		WorkspaceModifyOperation operation =
@@ -1431,7 +1487,7 @@ public class GMFGenEditor
 						if ((first || !resource.getContents().isEmpty() || isPersisted(resource)) && !editingDomain.isReadOnly(resource)) {
 							try {
 								savedResources.add(resource);
-								resource.save(Collections.EMPTY_MAP);
+								resource.save(saveOptions);
 							}
 							catch (Exception exception) {
 								resourceToDiagnosticMap.put(resource, analyzeResourceProblems(resource, exception));
