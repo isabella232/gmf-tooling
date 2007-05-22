@@ -4,8 +4,10 @@
 	<property file="cc.properties" />
 
 	<plugin name="htmlemail" mailhost="${mailhost}" mailport="${mailport}" 
-		usessl="true" username="${buildmaster.username}" password="${buildmaster.password}" skipusers="true"
+		usessl="false" startTls="true"
+		username="${buildmaster.username}" password="${buildmaster.password}" skipusers="true"
 		returnaddress="${buildmaster.email}" returnname="GMF buildmaster"
+		spamwhilebroken="false"
 		css="${scripts}/css/cruisecontrol.css"
 		xsldir="${scripts}/xsl"
 	/>
