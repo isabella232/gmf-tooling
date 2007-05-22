@@ -783,7 +783,9 @@
           kind="Pathmaps"/>
     </preferencePages>
   </diagram>
-  <plugin/>
+  <plugin>
+    <requiredPlugins>org.eclipse.ocl.ecore</requiredPlugins>
+  </plugin>
   <editor/>
   <navigator>
     <childReferences
@@ -998,7 +1000,6 @@
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
         expressions="//@diagram/@topLevelNodes.1/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@topLevelNodes.2/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.0/@modelFacet/@modelElementSelector //@diagram/@links.0/@creationConstraints/@targetEnd //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@creationConstraints/@targetEnd //@metrics/@metrics.0/@rule //@metrics/@metrics.1/@rule //@audits/@rules.0/@rule //@audits/@rules.1/@rule">
-      <requiredPluginIDs>org.eclipse.ocl.ecore</requiredPluginIDs>
     </providers>
   </expressionProviders>
 </gmfgen:GenEditorGenerator>
