@@ -64,7 +64,9 @@ protected boolean shouldDeleteView(org.eclipse.gmf.runtime.notation.View view) {
 
 «DEFINE checkShortcutProperty FOR gmfgen::GenDiagram-»
 	«IF !containsShortcutsTo.isEmpty()-»
-«editorGen.diagramUpdater.getDiagramUpdaterQualifiedClassName()».isShortcutOrphaned(view);
+if («editorGen.diagramUpdater.getDiagramUpdaterQualifiedClassName()».isShortcutOrphaned(view)) {
+	return true;
+}
 	«ENDIF-»
 «ENDDEFINE»
 
