@@ -266,9 +266,9 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		mockGenerator.setExpressionProviders(expressionProviderContainer);
 		GenExpressionInterpreter expressionProvider = GMFGenFactory.eINSTANCE.createGenExpressionInterpreter();
 		expressionProviderContainer.getProviders().add(expressionProvider);
-		expressionProvider.getRequiredPluginIDs().add(BUNDLE_EXPRESSIONS);
 		
 		GenPlugin mockPlugin = GMFGenFactory.eINSTANCE.createGenPlugin();
+		mockPlugin.getRequiredPlugins().add(BUNDLE_EXPRESSIONS);
 		mockGenerator.setPlugin(mockPlugin);
 		
 		GenDiagram mockDiagram = GMFGenFactory.eINSTANCE.createGenDiagram();
@@ -286,7 +286,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		mockViewmapB.getRequiredPluginIDs().addAll(Arrays.asList(BUNDLE_VIEWMAPS_MANY));
 		mockNodeB.setViewmap(mockViewmapB);
 		
-		List<String> allRequired = mockPlugin.getRequiredPluginIDs();  
+		List<String> allRequired = mockPlugin.getAllRequiredPlugins();  
 		assertTrue(allRequired.contains(BUNDLE_EXPRESSIONS));
 		assertTrue(allRequired.contains(BUNDLE_VIEWMAPS_ONE));
 		assertTrue(allRequired.containsAll(Arrays.asList(BUNDLE_VIEWMAPS_MANY)));
