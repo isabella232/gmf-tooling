@@ -10,18 +10,13 @@
  */
 package org.eclipse.gmf.internal.codegen.util;
 
-import java.util.Arrays;
-import java.util.Collection;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
 import org.eclipse.gmf.internal.common.migrate.MigrationHelperDelegate;
 import org.eclipse.gmf.internal.common.migrate.MigrationResource;
 
 public class GMFGenResource extends MigrationResource {
-	private Collection<String> myBackwardSupportedURIs;
 
 	public static class Factory extends ToolingResourceFactory {
 		@Override
@@ -40,21 +35,4 @@ public class GMFGenResource extends MigrationResource {
 		migrationHelper.init();
 		return migrationHelper;
 	}
-
-	@Override
-	protected Collection<String> getBackwardSupportedURIs() {
-		if (myBackwardSupportedURIs == null) {
-			myBackwardSupportedURIs = Arrays.asList(new String[] {
-					"http://www.eclipse.org/gmf/2005/GenModel", //$NON-NLS-1$
-					"http://www.eclipse.org/gmf/2005/GenModel/2.0" //$NON-NLS-1$
-			});
-		}
-		return myBackwardSupportedURIs;
-	}
-
-	@Override
-	protected String getMetamodelNsURI() {
-		return GMFGenPackage.eNS_URI;
-	}
-
 }

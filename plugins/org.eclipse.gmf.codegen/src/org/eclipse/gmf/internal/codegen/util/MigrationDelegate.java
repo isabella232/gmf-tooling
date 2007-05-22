@@ -10,14 +10,15 @@
  */
 package org.eclipse.gmf.internal.codegen.util;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.impl.EAttributeImpl;
-import org.eclipse.emf.ecore.impl.EReferenceImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -27,12 +28,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.internal.common.migrate.MigrationHelperDelegateImpl;
 
 class MigrationDelegate extends MigrationHelperDelegateImpl {
-	private EReference ourGenAuditContainer_ChildContainers;
-	private EReference ourGenAuditContainer_Audits;
-	private EAttributeImpl myGenAuditRoot_Id;
-	private EAttributeImpl myGenAuditRoot_Name;
-	private EAttributeImpl myGenAuditRoot_Description;
+	private EReference myGenAuditContainer_ChildContainers;
+	private EReference myGenAuditContainer_Audits;
+	private EAttribute myGenAuditRoot_Id;
+	private EAttribute myGenAuditRoot_Name;
+	private EAttribute myGenAuditRoot_Description;
 	private GenAuditContainer myRootContainer;
+	private Collection<String> myBackwardSupportedURIs;
 	
 	MigrationDelegate() {
 	}
@@ -42,7 +44,6 @@ class MigrationDelegate extends MigrationHelperDelegateImpl {
 						"diagramFileCreatorClassName", //$NON-NLS-1$
 						"preferenceInitializerClassName" //$NON-NLS-1$
 		);
-		registerDeletedAttributes(GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet(), "metaFeature"); //$NON-NLS-1$
 		registerDeletedAttributes(GMFGenPackage.eINSTANCE.getProviderClassNames(), 
 						"abstractParserClassName", //$NON-NLS-1$
 						"structuralFeatureParserClassName", //$NON-NLS-1$
@@ -64,40 +65,35 @@ class MigrationDelegate extends MigrationHelperDelegateImpl {
 			renamings.put("metaFeature", GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet_MetaFeatures()); //$NON-NLS-1$
 			registerRenamedAttributes(GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet(), renamings);
 		}
-		ourGenAuditContainer_ChildContainers = new EReferenceImpl() {};
-		ourGenAuditContainer_ChildContainers.setName("childContainers"); //$NON-NLS-1$
-		ourGenAuditContainer_ChildContainers.setEType(GMFGenPackage.eINSTANCE.getGenAuditContainer());
-		ourGenAuditContainer_ChildContainers.setContainment(true);
-		ourGenAuditContainer_ChildContainers.setLowerBound(0);
-		ourGenAuditContainer_ChildContainers.setUpperBound(-1);
-		ourGenAuditContainer_Audits = new EReferenceImpl() {};
-		ourGenAuditContainer_Audits.setName("audits"); //$NON-NLS-1$
-		ourGenAuditContainer_Audits.setEType(GMFGenPackage.eINSTANCE.getGenAuditRule());
-		ourGenAuditContainer_Audits.setContainment(true);
-		ourGenAuditContainer_Audits.setLowerBound(0);
-		ourGenAuditContainer_Audits.setUpperBound(-1);
-		myGenAuditRoot_Id = (EAttributeImpl) EcoreUtil.copy(GMFGenPackage.eINSTANCE.getGenAuditContainer_Id());
-		myGenAuditRoot_Name = (EAttributeImpl) EcoreUtil.copy(GMFGenPackage.eINSTANCE.getGenAuditContainer_Name());
-		myGenAuditRoot_Description = (EAttributeImpl) EcoreUtil.copy(GMFGenPackage.eINSTANCE.getGenAuditContainer_Description());
+		registerRenamedType("CompositeFeatureLabelModelFacet", GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet()); //$NON-NLS-1$
+		myGenAuditContainer_ChildContainers = createNewReference("childContainers", GMFGenPackage.eINSTANCE.getGenAuditContainer(), true); //$NON-NLS-1$
+		myGenAuditContainer_Audits = createNewReference("audits", GMFGenPackage.eINSTANCE.getGenAuditRule(), true); //$NON-NLS-1$
+		myGenAuditRoot_Id = (EAttribute) EcoreUtil.copy(GMFGenPackage.eINSTANCE.getGenAuditContainer_Id());
+		myGenAuditRoot_Name = (EAttribute) EcoreUtil.copy(GMFGenPackage.eINSTANCE.getGenAuditContainer_Name());
+		myGenAuditRoot_Description = (EAttribute) EcoreUtil.copy(GMFGenPackage.eINSTANCE.getGenAuditContainer_Description());
 		{
 			Map<String, EStructuralFeature> renamings = new HashMap<String, EStructuralFeature>();
-			renamings.put(ourGenAuditContainer_Audits.getName(), ourGenAuditContainer_Audits);
-			renamings.put(ourGenAuditContainer_ChildContainers.getName(), ourGenAuditContainer_ChildContainers);
+			renamings.put(myGenAuditContainer_Audits.getName(), myGenAuditContainer_Audits);
+			renamings.put(myGenAuditContainer_ChildContainers.getName(), myGenAuditContainer_ChildContainers);
 			registerRenamedAttributes(GMFGenPackage.eINSTANCE.getGenAuditContainer(), renamings);
 		}
 		{
 			Map<String, EStructuralFeature> renamings = new HashMap<String, EStructuralFeature>();
-			renamings.put(ourGenAuditContainer_Audits.getName(), ourGenAuditContainer_Audits);
-			renamings.put(ourGenAuditContainer_ChildContainers.getName(), ourGenAuditContainer_ChildContainers);
+			renamings.put(myGenAuditContainer_Audits.getName(), myGenAuditContainer_Audits);
+			renamings.put(myGenAuditContainer_ChildContainers.getName(), myGenAuditContainer_ChildContainers);
 			renamings.put(myGenAuditRoot_Id.getName(), myGenAuditRoot_Id);
 			renamings.put(myGenAuditRoot_Name.getName(), myGenAuditRoot_Name);
 			renamings.put(myGenAuditRoot_Description.getName(), myGenAuditRoot_Description);
 			registerRenamedAttributes(GMFGenPackage.eINSTANCE.getGenAuditRoot(), renamings);
 		}
-		registerRenamedType("CompositeFeatureLabelModelFacet", GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet()); //$NON-NLS-1$
 		myRootContainer = null;
 	}
-	
+
+	@Override
+	public boolean isOldVersionDetected(String uriString) {
+		return !getMetamodelNsURI().equals(uriString) && getBackwardSupportedURIs().contains(uriString);
+	}
+
 	@Override
 	public boolean setValue(EObject object, EStructuralFeature feature, Object value, int position) {
 		if (myGenAuditRoot_Id.equals(feature)) {
@@ -115,27 +111,27 @@ class MigrationDelegate extends MigrationHelperDelegateImpl {
 			String description = (String) value;
 			GenAuditContainer rootContainer = getOrCreateRootContainerOnce(root);
 			rootContainer.setDescription(description);
-		} else if (ourGenAuditContainer_ChildContainers.equals(feature) && object instanceof GenAuditRoot) {
+		} else if (myGenAuditContainer_ChildContainers.equals(feature) && object instanceof GenAuditRoot) {
 			GenAuditRoot root = (GenAuditRoot)object;
 			GenAuditContainer container = (GenAuditContainer)value;
 			if (myRootContainer != null) {
 				container.getPath().add(myRootContainer);
 			}
 			root.getCategories().add(container);
-		} else if (ourGenAuditContainer_Audits.equals(feature) && object instanceof GenAuditRoot) {
+		} else if (myGenAuditContainer_Audits.equals(feature) && object instanceof GenAuditRoot) {
 			GenAuditRoot root = (GenAuditRoot)object;
 			GenAuditRule rule = (GenAuditRule)value;
 			if (myRootContainer != null) {
 				rule.setCategory(myRootContainer);
 			}
 			root.getRules().add(rule);
-		} else if (ourGenAuditContainer_ChildContainers.equals(feature) && object instanceof GenAuditContainer) {
+		} else if (myGenAuditContainer_ChildContainers.equals(feature) && object instanceof GenAuditContainer) {
 			GenAuditContainer parent = (GenAuditContainer)object;
 			GenAuditContainer container = (GenAuditContainer)value;
 			container.getPath().addAll(parent.getPath());
 			container.getPath().add(parent);
 			getOrCreateRoot(parent).getCategories().add(container);
-		} else if (ourGenAuditContainer_Audits.equals(feature) && object instanceof GenAuditContainer) {
+		} else if (myGenAuditContainer_Audits.equals(feature) && object instanceof GenAuditContainer) {
 			GenAuditContainer container = (GenAuditContainer)object;
 			GenAuditRule rule = (GenAuditRule)value;
 			rule.setCategory(container);
@@ -164,4 +160,17 @@ class MigrationDelegate extends MigrationHelperDelegateImpl {
 		return result;
 	}
 
+	protected Collection<String> getBackwardSupportedURIs() {
+		if (myBackwardSupportedURIs == null) {
+			myBackwardSupportedURIs = Arrays.asList(new String[] {
+					"http://www.eclipse.org/gmf/2005/GenModel", //$NON-NLS-1$
+					"http://www.eclipse.org/gmf/2005/GenModel/2.0" //$NON-NLS-1$
+			});
+		}
+		return myBackwardSupportedURIs;
+	}
+
+	protected String getMetamodelNsURI() {
+		return GMFGenPackage.eNS_URI;
+	}
 }

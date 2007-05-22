@@ -8,6 +8,10 @@
        class = "org.eclipse.gmf.codegen.gmfgen.GMFGenPackage"
        genModel = "models/gmfgen.genmodel" /> 
     <package 
+       uri = "http://www.eclipse.org/gmf/2005/GenModel/2.0" 
+       class = "org.eclipse.gmf.codegen.gmfgen.GMFGenPackage"
+       genModel = "models/gmfgen.genmodel" /> 
+    <package 
        uri = "http://www.eclipse.org/gmf/2006/GenModel"
        class = "org.eclipse.gmf.codegen.gmfgen.GMFGenPackage"
        genModel = "models/gmfgen.genmodel" />       
