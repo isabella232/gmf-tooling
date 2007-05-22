@@ -11,8 +11,10 @@
 package org.eclipse.gmf.internal.map.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.internal.common.migrate.MigrationHelperDelegateImpl;
 import org.eclipse.gmf.mappings.FeatureLabelMapping;
@@ -22,6 +24,7 @@ import org.eclipse.gmf.mappings.MappingEntry;
 
 class MigrationDelegate extends MigrationHelperDelegateImpl {
 	private Collection<FeatureLabelMapping> myFeatureLabelMappings;
+	private Collection<String> myBackwardSupportedURIs;
 	
 	MigrationDelegate() {
 	}
@@ -29,20 +32,32 @@ class MigrationDelegate extends MigrationHelperDelegateImpl {
 	void init() {
 		registerNarrowReferenceType(GMFMapPackage.eINSTANCE.getFeatureSeqInitializer_Initializers(), GMFMapPackage.eINSTANCE.getFeatureValueSpec());
 		registerNarrowReferenceType(GMFMapPackage.eINSTANCE.getMappingEntry_LabelMappings(), GMFMapPackage.eINSTANCE.getFeatureLabelMapping());
+		myFeatureLabelMappings = null;
+	}
+
+	@Override
+	public boolean isOldVersionDetected(String uriString) {
+		return !getMetamodelNsURI().equals(uriString) && getBackwardSupportedURIs().contains(uriString);
 	}
 
 	@Override
 	public void postProcess() {
+		if (myFeatureLabelMappings == null) {
+			return;
+		}
 		for (FeatureLabelMapping mapping : getSavedFeatureLabelMappings()) {
 			if (mapping.getFeatures().isEmpty()) {
 				MappingEntry entry = mapping.getMapEntry();
-				entry.getLabelMappings().remove(mapping);
-				LabelMapping newMapping = GMFMapPackage.eINSTANCE.getGMFMapFactory().createLabelMapping();
-				newMapping.setDiagramLabel(mapping.getDiagramLabel());
-				if (mapping.isReadOnly()) {
-					newMapping.setReadOnly(true);
+				EList<LabelMapping> labelMappings = entry.getLabelMappings();
+				int originalIndex = labelMappings.indexOf(mapping);
+				if (originalIndex != -1) {
+					LabelMapping newMapping = GMFMapPackage.eINSTANCE.getGMFMapFactory().createLabelMapping();
+					newMapping.setDiagramLabel(mapping.getDiagramLabel());
+					if (mapping.isReadOnly()) {
+						newMapping.setReadOnly(true);
+					}
+					labelMappings.set(originalIndex, newMapping);
 				}
-				entry.getLabelMappings().add(newMapping);
 			}
 		}
 	}
@@ -59,5 +74,19 @@ class MigrationDelegate extends MigrationHelperDelegateImpl {
 			myFeatureLabelMappings = new ArrayList<FeatureLabelMapping>();
 		}
 		return myFeatureLabelMappings;
+	}
+
+	protected Collection<String> getBackwardSupportedURIs() {
+		if (myBackwardSupportedURIs == null) {
+			myBackwardSupportedURIs = Arrays.asList(new String[] {
+					"http://www.eclipse.org/gmf/2005/mappings", //$NON-NLS-1$
+					"http://www.eclipse.org/gmf/2005/mappings/2.0" //$NON-NLS-1$
+			});
+		}
+		return myBackwardSupportedURIs;
+	}
+
+	protected String getMetamodelNsURI() {
+		return GMFMapPackage.eNS_URI;
 	}
 }

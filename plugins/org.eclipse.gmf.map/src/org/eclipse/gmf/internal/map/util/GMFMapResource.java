@@ -10,19 +10,13 @@
  */
 package org.eclipse.gmf.internal.map.util;
 
-import java.util.Arrays;
-import java.util.Collection;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
 import org.eclipse.gmf.internal.common.migrate.MigrationHelperDelegate;
 import org.eclipse.gmf.internal.common.migrate.MigrationResource;
-import org.eclipse.gmf.mappings.GMFMapPackage;
 
 public class GMFMapResource extends MigrationResource {
-	private Collection<String> myBackwardSupportedURIs;
-	
 	public static class Factory extends ToolingResourceFactory {
 		@Override
 		public Resource createResource(URI uri) {
@@ -40,21 +34,4 @@ public class GMFMapResource extends MigrationResource {
 		migrationHelper.init();
 		return migrationHelper;
 	}
-
-	@Override
-	protected Collection<String> getBackwardSupportedURIs() {
-		if (myBackwardSupportedURIs == null) {
-			myBackwardSupportedURIs = Arrays.asList(new String[] {
-					"http://www.eclipse.org/gmf/2005/mappings", //$NON-NLS-1$
-					"http://www.eclipse.org/gmf/2005/mappings/2.0" //$NON-NLS-1$
-			});
-		}
-		return myBackwardSupportedURIs;
-	}
-
-	@Override
-	protected String getMetamodelNsURI() {
-		return GMFMapPackage.eNS_URI;
-	}
-
 }
