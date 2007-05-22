@@ -52,7 +52,7 @@ for (Iterator it = genModel.getAllUsedGenPackagesWithClassifiers().iterator(); i
 	}
 }
 
-requiredPluginIDs.addAll(genPlugin.getRequiredPluginIDs());
+requiredPluginIDs.addAll(genPlugin.getAllRequiredPlugins());
 Iterator requiredBundleIterator = requiredPluginIDs.iterator();
 
     stringBuffer.append(TEXT_1);
