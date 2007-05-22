@@ -1087,7 +1087,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		} else if(GenLanguage.OCL_LITERAL.equals(language)) {
 			GenExpressionInterpreter oclProvider = GMFGenFactory.eINSTANCE.createGenExpressionInterpreter();
 			oclProvider.setLanguage(language);
-			oclProvider.getRequiredPluginIDs().add("org.eclipse.ocl.ecore"); //$NON-NLS-1$
 			newProvider = oclProvider;
 		} else if(GenLanguage.REGEXP_LITERAL.equals(language) || GenLanguage.NREGEXP_LITERAL.equals(language)) {
 			GenExpressionInterpreter regexpProvider = GMFGenFactory.eINSTANCE.createGenExpressionInterpreter();
