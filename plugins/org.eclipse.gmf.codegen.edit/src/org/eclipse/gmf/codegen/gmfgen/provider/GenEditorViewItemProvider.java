@@ -69,6 +69,7 @@ public class GenEditorViewItemProvider
 			addIconPathXPropertyDescriptor(object);
 			addIDPropertyDescriptor(object);
 			addEclipseEditorPropertyDescriptor(object);
+			addContextIDPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -228,6 +229,28 @@ public class GenEditorViewItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Context ID feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addContextIDPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenEditorView_contextID_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorView_contextID_feature", "_UI_GenEditorView_type"),
+				 GMFGenPackage.eINSTANCE.getGenEditorView_ContextID(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns GenEditorView.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -271,6 +294,7 @@ public class GenEditorViewItemProvider
 			case GMFGenPackage.GEN_EDITOR_VIEW__ICON_PATH_X:
 			case GMFGenPackage.GEN_EDITOR_VIEW__ID:
 			case GMFGenPackage.GEN_EDITOR_VIEW__ECLIPSE_EDITOR:
+			case GMFGenPackage.GEN_EDITOR_VIEW__CONTEXT_ID:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

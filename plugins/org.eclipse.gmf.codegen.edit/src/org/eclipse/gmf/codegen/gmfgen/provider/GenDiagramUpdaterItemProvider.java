@@ -69,6 +69,8 @@ public class GenDiagramUpdaterItemProvider
 			addDiagramUpdaterClassNamePropertyDescriptor(object);
 			addNodeDescriptorClassNamePropertyDescriptor(object);
 			addLinkDescriptorClassNamePropertyDescriptor(object);
+			addUpdateCommandClassNamePropertyDescriptor(object);
+			addUpdateCommandIDPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -140,6 +142,50 @@ public class GenDiagramUpdaterItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Update Command Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUpdateCommandClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagramUpdater_updateCommandClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagramUpdater_updateCommandClassName_feature", "_UI_GenDiagramUpdater_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagramUpdater_UpdateCommandClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Update Command ID feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUpdateCommandIDPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagramUpdater_updateCommandID_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagramUpdater_updateCommandID_feature", "_UI_GenDiagramUpdater_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagramUpdater_UpdateCommandID(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns GenDiagramUpdater.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -179,6 +225,8 @@ public class GenDiagramUpdaterItemProvider
 			case GMFGenPackage.GEN_DIAGRAM_UPDATER__DIAGRAM_UPDATER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM_UPDATER__NODE_DESCRIPTOR_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM_UPDATER__LINK_DESCRIPTOR_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_ID:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
