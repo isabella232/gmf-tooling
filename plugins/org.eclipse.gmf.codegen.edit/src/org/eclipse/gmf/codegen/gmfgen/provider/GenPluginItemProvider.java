@@ -67,6 +67,7 @@ public class GenPluginItemProvider
 			addProviderPropertyDescriptor(object);
 			addVersionPropertyDescriptor(object);
 			addPrintingEnabledPropertyDescriptor(object);
+			addRequiredPluginsPropertyDescriptor(object);
 			addActivatorClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -183,6 +184,28 @@ public class GenPluginItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Required Plugins feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRequiredPluginsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenPlugin_requiredPlugins_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenPlugin_requiredPlugins_feature", "_UI_GenPlugin_type"),
+				 GMFGenPackage.eINSTANCE.getGenPlugin_RequiredPlugins(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Activator Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -246,6 +269,7 @@ public class GenPluginItemProvider
 			case GMFGenPackage.GEN_PLUGIN__PROVIDER:
 			case GMFGenPackage.GEN_PLUGIN__VERSION:
 			case GMFGenPackage.GEN_PLUGIN__PRINTING_ENABLED:
+			case GMFGenPackage.GEN_PLUGIN__REQUIRED_PLUGINS:
 			case GMFGenPackage.GEN_PLUGIN__ACTIVATOR_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

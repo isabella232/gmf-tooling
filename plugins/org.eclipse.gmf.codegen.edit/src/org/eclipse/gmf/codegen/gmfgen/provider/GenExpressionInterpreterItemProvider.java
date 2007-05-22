@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionInterpreterItemProvider.java,v 1.5 2007/04/03 16:29:56 atikhomirov Exp $
+ * $Id: GenExpressionInterpreterItemProvider.java,v 1.6 2007/05/22 17:27:41 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.provider;
 
@@ -63,7 +63,6 @@ public class GenExpressionInterpreterItemProvider
 
 			addLanguagePropertyDescriptor(object);
 			addClassNamePropertyDescriptor(object);
-			addRequiredPluginIDsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -82,28 +81,6 @@ public class GenExpressionInterpreterItemProvider
 				 getString("_UI_GenExpressionInterpreter_className_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenExpressionInterpreter_className_feature", "_UI_GenExpressionInterpreter_type"),
 				 GMFGenPackage.eINSTANCE.getGenExpressionInterpreter_ClassName(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Required Plugin IDs feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addRequiredPluginIDsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenExpressionInterpreter_requiredPluginIDs_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenExpressionInterpreter_requiredPluginIDs_feature", "_UI_GenExpressionInterpreter_type"),
-				 GMFGenPackage.eINSTANCE.getGenExpressionInterpreter_RequiredPluginIDs(),
 				 true,
 				 false,
 				 false,
@@ -173,7 +150,6 @@ public class GenExpressionInterpreterItemProvider
 		switch (notification.getFeatureID(GenExpressionInterpreter.class)) {
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__LANGUAGE:
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__CLASS_NAME:
-			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__REQUIRED_PLUGIN_IDS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
