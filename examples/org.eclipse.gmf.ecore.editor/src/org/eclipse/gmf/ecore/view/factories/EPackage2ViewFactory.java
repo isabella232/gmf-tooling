@@ -34,6 +34,7 @@ import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
 
+import org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -66,9 +67,8 @@ public class EPackage2ViewFactory extends AbstractShapeViewFactory {
 			shortcutAnnotation.getDetails().put("modelID", EPackageEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
-		EAnnotation diagramFacet = EcoreFactory.eINSTANCE.createEAnnotation();
-		diagramFacet.setSource("uri://eclipse.org/gmf/openDiagramPolicy");
-		view.getEAnnotations().add(diagramFacet);
+		HintedDiagramLinkStyle diagramFacet = NotationFactory.eINSTANCE.createHintedDiagramLinkStyle();
+		view.getStyles().add(diagramFacet);
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageNameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageClassesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackagePackagesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());

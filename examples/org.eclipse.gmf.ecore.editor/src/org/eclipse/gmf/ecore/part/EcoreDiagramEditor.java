@@ -73,6 +73,7 @@ import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.dnd.TransferData;
 
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
 import org.eclipse.ui.IEditorInput;
@@ -81,6 +82,7 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PlatformUI;
 
+import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.dialogs.SaveAsDialog;
 
 import org.eclipse.ui.ide.IGotoMarker;
@@ -100,8 +102,20 @@ public class EcoreDiagramEditor extends DiagramDocumentEditor implements IGotoMa
 	/**
 	 * @generated
 	 */
+	public static final String CONTEXT_ID = "org.eclipse.gmf.ecore.ui.diagramContext"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public EcoreDiagramEditor() {
 		super(true);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String getContextID() {
+		return CONTEXT_ID;
 	}
 
 	/**

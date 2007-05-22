@@ -90,7 +90,9 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected boolean isOrphaned(Collection semanticChildren, final View view) {
-		EcoreDiagramUpdater.isShortcutOrphaned(view);
+		if (EcoreDiagramUpdater.isShortcutOrphaned(view)) {
+			return true;
+		}
 		int visualID = EcoreVisualIDRegistry.getVisualID(view);
 		switch (visualID) {
 		case EClassEditPart.VISUAL_ID:

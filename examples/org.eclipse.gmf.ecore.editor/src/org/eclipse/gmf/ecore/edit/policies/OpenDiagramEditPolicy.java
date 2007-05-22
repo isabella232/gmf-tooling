@@ -40,6 +40,9 @@ import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.OpenEditPolicy;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
+import org.eclipse.gmf.runtime.notation.Style;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
@@ -59,11 +62,12 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 		if (false == targetEditPart.getModel() instanceof View) {
 			return null;
 		}
-		EAnnotation ann = ((View) targetEditPart.getModel()).getEAnnotation("uri://eclipse.org/gmf/openDiagramPolicy");
-		if (ann == null) {
+		View view = (View) targetEditPart.getModel();
+		Style link = view.getStyle(NotationPackage.eINSTANCE.getHintedDiagramLinkStyle());
+		if (false == link instanceof HintedDiagramLinkStyle) {
 			return null;
 		}
-		return new ICommandProxy(new OpenDiagramCommand(ann));
+		return new ICommandProxy(new OpenDiagramCommand((HintedDiagramLinkStyle) link));
 	}
 
 	/**
@@ -74,16 +78,16 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 		/**
 		 * @generated
 		 */
-		private final EAnnotation diagramFacet;
+		private final HintedDiagramLinkStyle diagramFacet;
 
 		/**
 		 * @generated
 		 */
-		OpenDiagramCommand(EAnnotation annotation) {
+		OpenDiagramCommand(HintedDiagramLinkStyle linkStyle) {
 			// editing domain is taken for original diagram, 
 			// if we open diagram from another file, we should use another editing domain
-			super(TransactionUtil.getEditingDomain(annotation), Messages.CommandName_OpenDiagram, null);
-			diagramFacet = annotation;
+			super(TransactionUtil.getEditingDomain(linkStyle), Messages.CommandName_OpenDiagram, null);
+			diagramFacet = linkStyle;
 		}
 
 		// FIXME canExecute if  !(readOnly && getDiagramToOpen == null), i.e. open works on ro diagrams only when there's associated diagram already
@@ -112,14 +116,7 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 		 * @generated
 		 */
 		protected Diagram getDiagramToOpen() {
-			// take first
-			for (Iterator it = diagramFacet.getReferences().iterator(); it.hasNext();) {
-				Object next = it.next();
-				if (next instanceof Diagram) {
-					return (Diagram) next;
-				}
-			}
-			return null;
+			return diagramFacet.getDiagramLink();
 		}
 
 		/**
@@ -130,7 +127,7 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 			if (d == null) {
 				throw new ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind");
 			}
-			diagramFacet.getReferences().add(d);
+			diagramFacet.setDiagramLink(d);
 			assert diagramFacet.eResource() != null;
 			diagramFacet.eResource().getContents().add(d);
 			try {
@@ -162,7 +159,7 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 		 */
 		protected EObject getDiagramDomainElement() {
 			// use same element as associated with EP
-			return ((View) diagramFacet.getEModelElement()).getElement();
+			return ((View) diagramFacet.eContainer()).getElement();
 		}
 
 		/**
