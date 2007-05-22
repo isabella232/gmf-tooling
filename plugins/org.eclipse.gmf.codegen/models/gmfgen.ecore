@@ -514,9 +514,9 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenPlugin">
-    <eOperations name="getRequiredPluginIDs" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eOperations name="getAllRequiredPlugins" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Computed additional dependencies of generated plug-in"/>
+        <details key="documentation" value="Computed additional dependencies (in form of plug-in identifiers), including those explicitly specified by user and those derived from referenced genmodels"/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getActivatorQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -529,6 +529,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="1.0.0.qualifier"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="printingEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="requiredPlugins" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="activatorClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenCommonBase" abstract="true">
@@ -1697,7 +1699,6 @@
         eType="#//GenEditorGenerator" eOpposite="#//GenEditorGenerator/expressionProviders"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenExpressionProviderBase" abstract="true">
-    <eOperations name="getRequiredPluginIDs" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getLanguage" lowerBound="1" eType="#//GenLanguage"/>
     <eOperations name="getQualifiedInstanceClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eParameters name="genClassifier" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClassifier"/>
@@ -1723,8 +1724,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="language" lowerBound="1"
         eType="#//GenLanguage"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="requiredPluginIDs" upperBound="-1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="GenLanguage">
     <eLiterals name="ocl"/>

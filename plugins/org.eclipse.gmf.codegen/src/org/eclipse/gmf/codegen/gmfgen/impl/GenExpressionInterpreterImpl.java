@@ -2,18 +2,14 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionInterpreterImpl.java,v 1.5 2007/04/11 08:10:23 dstadnik Exp $
+ * $Id: GenExpressionInterpreterImpl.java,v 1.6 2007/05/22 17:27:35 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
 import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
@@ -28,7 +24,6 @@ import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenExpressionInterpreterImpl#getLanguage <em>Language</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenExpressionInterpreterImpl#getClassName <em>Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenExpressionInterpreterImpl#getRequiredPluginIDs <em>Required Plugin IDs</em>}</li>
  * </ul>
  * </p>
  *
@@ -74,16 +69,6 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	 * @ordered
 	 */
 	protected String className = CLASS_NAME_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getRequiredPluginIDs() <em>Required Plugin IDs</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRequiredPluginIDs()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<String> requiredPluginIDs;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -144,18 +129,6 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<String> getRequiredPluginIDs() {
-		if (requiredPluginIDs == null) {
-			requiredPluginIDs = new EDataTypeUniqueEList<String>(String.class, this, GMFGenPackage.GEN_EXPRESSION_INTERPRETER__REQUIRED_PLUGIN_IDS);
-		}
-		return requiredPluginIDs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public GenLanguage getLanguage() {
 		return language;
 	}
@@ -202,8 +175,6 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 				return getLanguage();
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__CLASS_NAME:
 				return getClassName();
-			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__REQUIRED_PLUGIN_IDS:
-				return getRequiredPluginIDs();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -223,10 +194,6 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__CLASS_NAME:
 				setClassName((String)newValue);
 				return;
-			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__REQUIRED_PLUGIN_IDS:
-				getRequiredPluginIDs().clear();
-				getRequiredPluginIDs().addAll((Collection<? extends String>)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -245,9 +212,6 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__CLASS_NAME:
 				setClassName(CLASS_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__REQUIRED_PLUGIN_IDS:
-				getRequiredPluginIDs().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -264,8 +228,6 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 				return language != LANGUAGE_EDEFAULT;
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__CLASS_NAME:
 				return CLASS_NAME_EDEFAULT == null ? className != null : !CLASS_NAME_EDEFAULT.equals(className);
-			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__REQUIRED_PLUGIN_IDS:
-				return requiredPluginIDs != null && !requiredPluginIDs.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -284,8 +246,6 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 		result.append(language);
 		result.append(", className: ");
 		result.append(className);
-		result.append(", requiredPluginIDs: ");
-		result.append(requiredPluginIDs);
 		result.append(')');
 		return result.toString();
 	}

@@ -25,11 +25,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
+import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
@@ -46,6 +48,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl#getProvider <em>Provider</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl#getVersion <em>Version</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl#isPrintingEnabled <em>Printing Enabled</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl#getRequiredPlugins <em>Required Plugins</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl#getActivatorClassName <em>Activator Class Name</em>}</li>
  * </ul>
  * </p>
@@ -152,6 +155,16 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * @ordered
 	 */
 	protected boolean printingEnabled = PRINTING_ENABLED_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getRequiredPlugins() <em>Required Plugins</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRequiredPlugins()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> requiredPlugins;
 
 	/**
 	 * The default value of the '{@link #getActivatorClassName() <em>Activator Class Name</em>}' attribute.
@@ -338,6 +351,18 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_PLUGIN__PRINTING_ENABLED, oldPrintingEnabled, printingEnabled));
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<String> getRequiredPlugins() {
+		if (requiredPlugins == null) {
+			requiredPlugins = new EDataTypeUniqueEList<String>(String.class, this, GMFGenPackage.GEN_PLUGIN__REQUIRED_PLUGINS);
+		}
+		return requiredPlugins;
+	}
+
 	public String getActivatorClassName() {
 		String value = getActivatorClassNameGen();
 		if (GenCommonBaseImpl.isEmpty(value)) {
@@ -373,32 +398,32 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList<String> getRequiredPluginIDs() {
-		Collection<String> requiredPlugins = new LinkedHashSet<String>();
+	public EList<String> getAllRequiredPlugins() {
+		Collection<String> rv = new LinkedHashSet<String>(getRequiredPlugins());
 		if (getEditorGen() != null) {
 			final GenModel genModel = getEditorGen().getDomainGenModel();
 			if (genModel != null) {
-				requiredPlugins.add(genModel.getModelPluginID());
-				requiredPlugins.add(genModel.getEditPluginID());
+				rv.add(genModel.getModelPluginID());
+				rv.add(genModel.getEditPluginID());
 				for (Iterator<GenPackage> it = genModel.getAllUsedGenPackagesWithClassifiers().iterator(); it.hasNext();) {
 					GenModel nextGenModel = it.next().getGenModel();
 					if (nextGenModel.hasEditSupport()) {
-						requiredPlugins.add(nextGenModel.getModelPluginID());
-						requiredPlugins.add(nextGenModel.getEditPluginID());
+						rv.add(nextGenModel.getModelPluginID());
+						rv.add(nextGenModel.getEditPluginID());
 					}
 				}
 			}
+			rv.addAll(getExpressionsRequiredPluginIDs());
+			rv.addAll(getValidationRequiredPluginIDs());
+			rv.addAll(getMetricsRequiredPluginIDs());
+			rv.addAll(getViewmapRequiredPluginIDs());
 		}
-		requiredPlugins.addAll(getExpressionsRequiredPluginIDs());
-		requiredPlugins.addAll(getValidationRequiredPluginIDs());
-		requiredPlugins.addAll(getMetricsRequiredPluginIDs());
-		requiredPlugins.addAll(getViewmapRequiredPluginIDs());
-		for (Iterator<String> it = requiredPlugins.iterator(); it.hasNext();) {
+		for (Iterator<String> it = rv.iterator(); it.hasNext();) {
 			if (GenCommonBaseImpl.isEmpty(it.next())) {
 				it.remove();
 			}
 		}
-		return new BasicEList<String>(requiredPlugins);
+		return new BasicEList<String>(rv);
 	}
 
 	/**
@@ -411,18 +436,15 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	}
 
 	private Set<String> getExpressionsRequiredPluginIDs() {
-		Set<String> requiredIDs = new HashSet<String>();
 		if(getEditorGen().getExpressionProviders() != null) {
 			for (GenExpressionProviderBase nextProvider : getEditorGen().getExpressionProviders().getProviders()) {
-				requiredIDs.addAll(nextProvider.getRequiredPluginIDs());
+				if (nextProvider.getLanguage() == GenLanguage.OCL_LITERAL);
+				return Collections.singleton("org.eclipse.ocl.ecore"); //$NON-NLS-1$
 			}
 		}
-		return requiredIDs;
+		return Collections.emptySet();
 	}
 	
-	/**
-	 * @generated NOT
-	 */
 	private Collection<String> getViewmapRequiredPluginIDs() {
 		Collection<String> result = null;
 		for (TreeIterator<EObject> contents = EcoreUtil.getAllContents(getDiagram().getAllNodes()); contents.hasNext();){
@@ -533,6 +555,8 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 				return getVersion();
 			case GMFGenPackage.GEN_PLUGIN__PRINTING_ENABLED:
 				return isPrintingEnabled() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_PLUGIN__REQUIRED_PLUGINS:
+				return getRequiredPlugins();
 			case GMFGenPackage.GEN_PLUGIN__ACTIVATOR_CLASS_NAME:
 				return getActivatorClassName();
 		}
@@ -544,6 +568,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -561,6 +586,10 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 				return;
 			case GMFGenPackage.GEN_PLUGIN__PRINTING_ENABLED:
 				setPrintingEnabled(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGenPackage.GEN_PLUGIN__REQUIRED_PLUGINS:
+				getRequiredPlugins().clear();
+				getRequiredPlugins().addAll((Collection<? extends String>)newValue);
 				return;
 			case GMFGenPackage.GEN_PLUGIN__ACTIVATOR_CLASS_NAME:
 				setActivatorClassName((String)newValue);
@@ -592,6 +621,9 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 			case GMFGenPackage.GEN_PLUGIN__PRINTING_ENABLED:
 				setPrintingEnabled(PRINTING_ENABLED_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_PLUGIN__REQUIRED_PLUGINS:
+				getRequiredPlugins().clear();
+				return;
 			case GMFGenPackage.GEN_PLUGIN__ACTIVATOR_CLASS_NAME:
 				setActivatorClassName(ACTIVATOR_CLASS_NAME_EDEFAULT);
 				return;
@@ -619,6 +651,8 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
 			case GMFGenPackage.GEN_PLUGIN__PRINTING_ENABLED:
 				return printingEnabled != PRINTING_ENABLED_EDEFAULT;
+			case GMFGenPackage.GEN_PLUGIN__REQUIRED_PLUGINS:
+				return requiredPlugins != null && !requiredPlugins.isEmpty();
 			case GMFGenPackage.GEN_PLUGIN__ACTIVATOR_CLASS_NAME:
 				return ACTIVATOR_CLASS_NAME_EDEFAULT == null ? activatorClassName != null : !ACTIVATOR_CLASS_NAME_EDEFAULT.equals(activatorClassName);
 		}
@@ -645,6 +679,8 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 		result.append(version);
 		result.append(", printingEnabled: ");
 		result.append(printingEnabled);
+		result.append(", requiredPlugins: ");
+		result.append(requiredPlugins);
 		result.append(", activatorClassName: ");
 		result.append(activatorClassName);
 		result.append(')');

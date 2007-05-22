@@ -2743,13 +2743,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_PLUGIN__PRINTING_ENABLED = 5;
 
 	/**
+	 * The feature id for the '<em><b>Required Plugins</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PLUGIN__REQUIRED_PLUGINS = 6;
+
+	/**
 	 * The feature id for the '<em><b>Activator Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_PLUGIN__ACTIVATOR_CLASS_NAME = 6;
+	int GEN_PLUGIN__ACTIVATOR_CLASS_NAME = 7;
 
 	/**
 	 * The number of structural features of the '<em>Gen Plugin</em>' class.
@@ -2758,7 +2767,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_PLUGIN_FEATURE_COUNT = 7;
+	int GEN_PLUGIN_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.Behaviour <em>Behaviour</em>}' class.
@@ -8036,22 +8045,13 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EXPRESSION_INTERPRETER__CLASS_NAME = GEN_EXPRESSION_PROVIDER_BASE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Required Plugin IDs</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_EXPRESSION_INTERPRETER__REQUIRED_PLUGIN_IDS = GEN_EXPRESSION_PROVIDER_BASE_FEATURE_COUNT + 2;
-
-	/**
 	 * The number of structural features of the '<em>Gen Expression Interpreter</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EXPRESSION_INTERPRETER_FEATURE_COUNT = GEN_EXPRESSION_PROVIDER_BASE_FEATURE_COUNT + 3;
+	int GEN_EXPRESSION_INTERPRETER_FEATURE_COUNT = GEN_EXPRESSION_PROVIDER_BASE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenDomainModelNavigator <em>Gen Domain Model Navigator</em>}' class.
@@ -11379,6 +11379,17 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getGenPlugin_PrintingEnabled();
 
 	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getRequiredPlugins <em>Required Plugins</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Required Plugins</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPlugin#getRequiredPlugins()
+	 * @see #getGenPlugin()
+	 * @generated
+	 */
+	EAttribute getGenPlugin_RequiredPlugins();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getActivatorClassName <em>Activator Class Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -14129,17 +14140,6 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenExpressionInterpreter_ClassName();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter#getRequiredPluginIDs <em>Required Plugin IDs</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Required Plugin IDs</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter#getRequiredPluginIDs()
-	 * @see #getGenExpressionInterpreter()
-	 * @generated
-	 */
-	EAttribute getGenExpressionInterpreter_RequiredPluginIDs();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenDomainModelNavigator <em>Gen Domain Model Navigator</em>}'.

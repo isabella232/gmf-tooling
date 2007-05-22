@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getProvider <em>Provider</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getVersion <em>Version</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#isPrintingEnabled <em>Printing Enabled</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getRequiredPlugins <em>Required Plugins</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getActivatorClassName <em>Activator Class Name</em>}</li>
  * </ul>
  * </p>
@@ -183,6 +184,33 @@ public interface GenPlugin extends EObject {
 	void setPrintingEnabled(boolean value);
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Computed additional dependencies (in form of plug-in identifiers), including those explicitly specified by user and those derived from referenced genmodels
+	 * <!-- end-model-doc -->
+	 * @model kind="operation" type="java.lang.String"
+	 * @generated
+	 */
+	EList<String> getAllRequiredPlugins();
+
+	/**
+	 * Returns the value of the '<em><b>Required Plugins</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Required Plugins</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Required Plugins</em>' attribute list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPlugin_RequiredPlugins()
+	 * @model type="java.lang.String"
+	 * @generated
+	 */
+	EList<String> getRequiredPlugins();
+
+	/**
 	 * Returns the value of the '<em><b>Activator Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -207,17 +235,6 @@ public interface GenPlugin extends EObject {
 	 * @generated
 	 */
 	void setActivatorClassName(String value);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Computed additional dependencies of generated plug-in
-	 * <!-- end-model-doc -->
-	 * @model kind="operation" type="java.lang.String"
-	 * @generated
-	 */
-	EList<String> getRequiredPluginIDs();
 
 	/**
 	 * <!-- begin-user-doc -->

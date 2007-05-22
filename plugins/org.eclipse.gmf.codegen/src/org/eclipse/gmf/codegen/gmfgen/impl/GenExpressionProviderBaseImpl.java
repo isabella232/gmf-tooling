@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderBaseImpl.java,v 1.8 2007/05/01 13:28:04 ashatalin Exp $
+ * $Id: GenExpressionProviderBaseImpl.java,v 1.9 2007/05/22 17:27:35 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -128,13 +128,6 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 		if (eContainerFeatureID != GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__CONTAINER) return null;
 		return (GenExpressionProviderContainer)eContainer();
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public abstract EList<String> getRequiredPluginIDs();
 
 	/**
 	 * <!-- begin-user-doc -->

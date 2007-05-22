@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderBase.java,v 1.7 2007/05/01 13:28:04 ashatalin Exp $
+ * $Id: GenExpressionProviderBase.java,v 1.8 2007/05/22 17:27:35 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
@@ -90,13 +90,5 @@ public interface GenExpressionProviderBase extends EObject {
 	 * @generated
 	 */
 	GenExpressionProviderContainer getContainer();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation" type="java.lang.String"
-	 * @generated
-	 */
-	EList<String> getRequiredPluginIDs();
 
 } // GenExpressionProviderBase

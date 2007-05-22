@@ -381,8 +381,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPlugin/provider"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPlugin/version"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPlugin/printingEnabled"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPlugin/requiredPlugins"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPlugin/activatorClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenPlugin/getRequiredPluginIDs"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenPlugin/getAllRequiredPlugins"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenPlugin/getActivatorQualifiedClassName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenCommonBase">
@@ -763,7 +764,6 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenExpressionProviderBase">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenExpressionProviderBase/expressions"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenExpressionProviderBase/container"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenExpressionProviderBase/getRequiredPluginIDs"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenExpressionProviderBase/getLanguage"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenExpressionProviderBase/getQualifiedInstanceClassName">
         <genParameters ecoreParameter="gmfgen.ecore#//GenExpressionProviderBase/getQualifiedInstanceClassName/genClassifier"/>
@@ -780,7 +780,6 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenExpressionInterpreter">
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenExpressionInterpreter/language"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenExpressionInterpreter/className"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenExpressionInterpreter/requiredPluginIDs"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenExpressionInterpreter/getQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenExpressionInterpreter/getExpressionAccessor">
         <genParameters ecoreParameter="gmfgen.ecore#//GenExpressionInterpreter/getExpressionAccessor/expression"/>
