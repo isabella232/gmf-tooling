@@ -13,22 +13,15 @@ package org.eclipse.gmf.internal.common.migrate;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collection;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLHelper;
-import org.eclipse.emf.ecore.xmi.XMLLoad;
-import org.eclipse.emf.ecore.xmi.impl.SAXXMIHandler;
-import org.eclipse.emf.ecore.xmi.impl.XMILoadImpl;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory.ToolResource;
-import org.xml.sax.helpers.DefaultHandler;
 
 public abstract class MigrationResource extends ToolResource {
 
-	private boolean isOldVersionDetected;
 	private MigrationHelper myMigrationHelper;
 
 	protected MigrationResource(URI uri) {
@@ -38,7 +31,6 @@ public abstract class MigrationResource extends ToolResource {
 	@Override
 	public final void doLoad(InputStream inputStream, Map<?,?> options) throws IOException {
 		try {
-			isOldVersionDetected = false;
 			super.doLoad(inputStream, options);
 			handlePostLoadSuccess();
 		} catch (IOException e) {
@@ -50,36 +42,8 @@ public abstract class MigrationResource extends ToolResource {
 		}
 	}
 
-	@Override
-	protected XMLLoad createXMLLoad() {
-		return new XMILoadImpl(createXMLHelper()) {
-
-			@Override
-			protected DefaultHandler makeDefaultHandler() {
-				return new SAXXMIHandler(resource, helper, options) {
-					@Override
-					protected EPackage getPackageForURI(String uriString) {
-						// FIXME move the check to delegate
-						if (!getMetamodelNsURI().equals(uriString) && getBackwardSupportedURIs().contains(uriString)) {
-							handleOldVersionDetected();
-							return super.getPackageForURI(getMetamodelNsURI());
-						}
-						return super.getPackageForURI(uriString);
-					}
-				};
-			}
-		};
-	}
-
-	private void handleOldVersionDetected() {
-		if (myMigrationHelper != null) {
-			myMigrationHelper.enableDelegate(true);
-		}
-		isOldVersionDetected = true;
-	}
-
 	protected void handlePostLoadSuccess() {
-		if (isOldVersionDetected) {
+		if (myMigrationHelper != null && myMigrationHelper.isEnabled()) {
 			Diagnostic diagnostic = MigrationResource.createMessageDiagnostic(this, Messages.oldModelVersionLoadedMigrationRequired);
 			getWarnings().add(0, diagnostic);
 		}
@@ -98,11 +62,8 @@ public abstract class MigrationResource extends ToolResource {
 		return myMigrationHelper;
 	}
 
-	protected abstract Collection<String> getBackwardSupportedURIs();
 	protected abstract MigrationHelperDelegate createDelegate();
-	protected abstract String getMetamodelNsURI();
 
-	
 	/**
 	 * Creates resource diagnostic wrapping the given message.
 	 * @param resource the resource associated with the created diagnostic

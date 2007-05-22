@@ -37,6 +37,10 @@ public class MigrationHelper extends XMIHelperImpl {
 		myIsDelegateDisabled = !enabled;
 	}
 
+	boolean isEnabled() {
+		return !myIsDelegateDisabled;
+	}
+	
 	@Override
 	public EObject createObject(EFactory factory, EClassifier type) {
 		if (myIsDelegateDisabled) {
@@ -104,11 +108,16 @@ public class MigrationHelper extends XMIHelperImpl {
 		myDelegate.postProcess();
 	}
 	
-	protected EStructuralFeature getOriginalFeature(EStructuralFeature feature) {
-		if (myNarrowedFeatureTypes == null) {
-			myNarrowedFeatureTypes = new HashMap<EStructuralFeature, EStructuralFeature>();
+	@Override
+	public void addPrefix(String prefix, String uri) {
+		super.addPrefix(prefix, uri);
+		if (myDelegate.isOldVersionDetected(uri)) {
+			enableDelegate(true);
 		}
-		return myNarrowedFeatureTypes.get(feature);
+	}
+
+	protected EStructuralFeature getOriginalFeature(EStructuralFeature feature) {
+		return myNarrowedFeatureTypes == null ? null : myNarrowedFeatureTypes.get(feature);
 	}
 	
 	protected EStructuralFeature addNarrowedFeature(EStructuralFeature originalFeature) {

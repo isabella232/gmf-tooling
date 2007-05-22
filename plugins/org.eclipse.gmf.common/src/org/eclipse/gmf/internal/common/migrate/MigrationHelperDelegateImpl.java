@@ -27,15 +27,12 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 
 public class MigrationHelperDelegateImpl implements MigrationHelperDelegate {
+	private final EStructuralFeature myDeletedAttribute = EcoreFactory.eINSTANCE.createEAttribute();
 
 	public MigrationHelperDelegateImpl() {
 		super();
-	}
-
-	private static EStructuralFeature ourDeletedAttribute = EcoreFactory.eINSTANCE.createEAttribute();
-	static {
-		ourDeletedAttribute.setName("attributeIsDeleted"); //$NON-NLS-1$
-		ourDeletedAttribute.setEType(EcorePackage.eINSTANCE.getEString());
+		myDeletedAttribute.setName("attributeIsDeleted"); //$NON-NLS-1$
+		myDeletedAttribute.setEType(EcorePackage.eINSTANCE.getEString());
 	}
 
 	private Map<EClassifier, Collection<String>> myDeletedAttributes = new HashMap<EClassifier, Collection<String>>();
@@ -102,16 +99,16 @@ public class MigrationHelperDelegateImpl implements MigrationHelperDelegate {
 	}
 
 	public boolean setValue(EObject object, EStructuralFeature feature, Object value, int position) {
-		return ourDeletedAttribute.equals(feature);
+		return myDeletedAttribute.equals(feature);
 	}
 
 	public EStructuralFeature getFeature(EClass eClass, String namespaceURI, String name, boolean isElement) {
 		EStructuralFeature result = null;
 		EStructuralFeature rename = null;
-		if (isAttributeDeleted(eClass, name)) {
-			result = ourDeletedAttribute;
-		} else if ((rename = getRenamedFeatureFor(eClass, name)) != null) {
+		if ((rename = getRenamedFeatureFor(eClass, name)) != null) {
 			result = rename;
+		} else if (isAttributeDeleted(eClass, name)) {
+			result = myDeletedAttribute;
 		}
 		return result;
 	}
@@ -133,5 +130,19 @@ public class MigrationHelperDelegateImpl implements MigrationHelperDelegate {
 	}
 
 	public void processObject(EObject result) {
+	}
+
+	public boolean isOldVersionDetected(String uriString) {
+		return true;
+	}
+	
+	protected static EReference createNewReference(String name, EClass eType, boolean isContainment) {
+		EReference ref = EcoreFactory.eINSTANCE.createEReference();
+		ref.setName(name);
+		ref.setEType(eType);
+		ref.setContainment(isContainment);
+		ref.setLowerBound(0);
+		ref.setUpperBound(-1);
+		return ref;
 	}
 }

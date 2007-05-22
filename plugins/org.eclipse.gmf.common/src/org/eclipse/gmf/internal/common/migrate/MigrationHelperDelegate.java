@@ -31,4 +31,6 @@ public interface MigrationHelperDelegate {
 	public void postProcess();
 
 	public void processObject(EObject result);
+
+	public boolean isOldVersionDetected(String uriString);
 }
