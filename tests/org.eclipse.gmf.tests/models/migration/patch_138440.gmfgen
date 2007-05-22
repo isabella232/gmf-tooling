@@ -66,8 +66,6 @@
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
         expressions="//@diagram/@topLevelNodes.0/@modelFacet/@modelElementInitializer/@initializers.0">
-      <requiredPluginIDs>org.eclipse.emf.ocl</requiredPluginIDs>
-      <requiredPluginIDs>org.eclipse.emf.query.ocl</requiredPluginIDs>
     </providers>
   </expressionProviders>
 </gmfgen:GenEditorGenerator>

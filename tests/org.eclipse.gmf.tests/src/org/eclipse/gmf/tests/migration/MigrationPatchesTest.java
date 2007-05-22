@@ -31,6 +31,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
 import org.eclipse.gmf.internal.common.migrate.MigrationResource;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
@@ -112,13 +113,13 @@ public class MigrationPatchesTest extends TestCase {
 	void assertOnLoadModelMigrationSuccess(URI uri) throws Exception {
 		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
 		
+		EList<Resource.Diagnostic> errors = loadHelper.getLoadedResource().getErrors();
+		assertTrue(errors.isEmpty());
+		
 		assertTrue("Migration warning load status expected", loadHelper.getStatus().matches(IStatus.WARNING)); //$NON-NLS-1$
 		EList<Resource.Diagnostic> warnings = loadHelper.getLoadedResource().getWarnings();
 		assertEquals("Single Warning diagnostic expected", 1, warnings.size()); //$NON-NLS-1$		
 		assertTrue("MigrationDiagnostic expected as warning", warnings.get(0) instanceof MigrationResource.Diagnostic); //$NON-NLS-1$
-		
-		EList<Resource.Diagnostic> errors = loadHelper.getLoadedResource().getErrors();
-		assertTrue(errors.isEmpty());
 	}
 
 	Exception assertOrdinaryLoadModelProblems(URI uri) throws Exception {
@@ -336,6 +337,39 @@ public class MigrationPatchesTest extends TestCase {
 		
 		assertOnLoadModelMigrationSuccess(newMapUri);
 		checkOrderOfLabelMappings(newMapUri);
+	}
+
+	public void testRequiredPluginsMoved() throws Exception {
+		URI gmfmapmodelFileName = createURI("testRequiredPluginsMoved.gmfgen"); //$NON-NLS-1$
+		Exception caughtMapException = assertOrdinaryLoadModelProblems(gmfmapmodelFileName);
+		assertTrue("expected diagnostic exception", caughtMapException != null); //$NON-NLS-1$
+
+		assertOnLoadModelMigrationSuccess(gmfmapmodelFileName);
+		checkAllRequiredPluginsAreNotLost(gmfmapmodelFileName);
+
+		URI newMapUri = temporarySaveMigratedModel(gmfmapmodelFileName, "testRequiredPluginsMoved", "gmfmap"); //$NON-NLS-1$ //$NON-NLS-2$
+		changeNsUriToOldOne(newMapUri, "gmfmap", "http://www.eclipse.org/gmf/2005/mappings/2.0"); //$NON-NLS-1$ //$NON-NLS-2$
+		
+		assertOnLoadModelMigrationSuccess(newMapUri);
+		checkAllRequiredPluginsAreNotLost(newMapUri);
+	}
+
+	private void checkAllRequiredPluginsAreNotLost(URI modelUri) {
+		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), modelUri);
+		Resource resource = loadHelper.getLoadedResource();
+		assertEquals(1, resource.getContents().size());
+		Object first = resource.getContents().get(0);
+		assertTrue(first instanceof GenEditorGenerator);
+		GenEditorGenerator genEditor = (GenEditorGenerator) first;
+		assertNotNull(genEditor.getExpressionProviders());
+		assertFalse(genEditor.getExpressionProviders().getProviders().isEmpty());
+		GenPlugin plugin = genEditor.getPlugin();
+		assertNotNull(plugin);
+		EList<String> requiredPlugins = plugin.getRequiredPlugins();
+		assertEquals(3, requiredPlugins.size());
+		assertEquals("org.eclipse.emf.ocl", requiredPlugins.get(0));
+		assertEquals("org.eclipse.emf.query.ocl", requiredPlugins.get(1));
+		assertEquals("org.eclipse.emf.ecore", requiredPlugins.get(2));
 	}
 
 	private void checkOrderOfLabelMappings(URI modelURI) {
