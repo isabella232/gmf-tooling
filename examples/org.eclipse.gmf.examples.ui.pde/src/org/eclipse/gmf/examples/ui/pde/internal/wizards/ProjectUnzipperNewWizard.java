@@ -34,12 +34,12 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.gmf.examples.ui.pde.internal.GmfExamplesPlugin;
 import org.eclipse.gmf.examples.ui.pde.internal.GmfExamplesStatusCodes;
@@ -276,7 +276,7 @@ public class ProjectUnzipperNewWizard
 		 */
 		// URL urlZip = PdeUiPlugin.getDefault().find();
 		// URL urlZipLocal = Platform.asLocalURL(urlZip);
-		URL urlZipLocal = Platform.asLocalURL(url);
+		URL urlZipLocal = FileLocator.toFileURL(url);
 
 		/*
 		 * Walk each element and unzip
