@@ -76,8 +76,20 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor implements IGotoM
 	/**
 	 * @generated
 	 */
+	public static final String CONTEXT_ID = "org.eclipse.gmf.examples.taipan.gmf.editor.ui.diagramContext"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public TaiPanDiagramEditor() {
 		super(true);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String getContextID() {
+		return CONTEXT_ID;
 	}
 
 	/**

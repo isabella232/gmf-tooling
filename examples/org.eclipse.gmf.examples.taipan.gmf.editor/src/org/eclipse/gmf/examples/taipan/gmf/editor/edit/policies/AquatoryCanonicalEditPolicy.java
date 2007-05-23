@@ -113,7 +113,9 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected boolean isOrphaned(Collection semanticChildren, final View view) {
-		TaiPanDiagramUpdater.isShortcutOrphaned(view);
+		if (TaiPanDiagramUpdater.isShortcutOrphaned(view)) {
+			return true;
+		}
 		int visualID = TaiPanVisualIDRegistry.getVisualID(view);
 		switch (visualID) {
 		case PortEditPart.VISUAL_ID:

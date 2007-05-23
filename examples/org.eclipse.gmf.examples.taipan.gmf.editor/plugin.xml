@@ -727,4 +727,34 @@ Contributors:
                   <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.ship_name"/>
                </binding>
                </extension>
+
+   <extension point="org.eclipse.ui.contexts">
+      <?gmfgen generated="true"?>
+      <context
+         description="%context.description"
+         id="org.eclipse.gmf.examples.taipan.gmf.editor.ui.diagramContext"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+      </context>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands">
+      <?gmfgen generated="true"?>
+      <command
+         categoryId="org.eclipse.ui.category.edit"
+         defaultHandler="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramUpdateCommand"
+         description="%update.diagram.description"
+         id="org.eclipse.gmf.examples.taipan.gmf.editor.updateDiagram"
+         name="%update.diagram.name"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.bindings">
+      <?gmfgen generated="true"?>
+      <key 
+         commandId="org.eclipse.gmf.examples.taipan.gmf.editor.updateDiagram"
+         contextId="org.eclipse.gmf.examples.taipan.gmf.editor.ui.diagramContext"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="F5"/>
+   </extension>
+
 </plugin>
