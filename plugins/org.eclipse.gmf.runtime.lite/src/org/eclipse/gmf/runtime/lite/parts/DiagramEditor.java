@@ -367,6 +367,11 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 		getGraphicalViewer().getControl().setBackground(ColorConstants.listBackground);
 	}
 
+	protected double[] getZoomLevels() {
+		double[] result = {.05, .1, .25, .5, .75, 1, 1.25, 1.5, 1.75, 2, 4};
+		return result;
+	}
+
 	public abstract void configurePalette(PaletteRoot paletteRoot);
 
 	/**
