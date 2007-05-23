@@ -70,8 +70,20 @@ public class PortDiagramEditor extends DiagramDocumentEditor implements IGotoMar
 	/**
 	 * @generated
 	 */
+	public static final String CONTEXT_ID = "org.eclipse.gmf.examples.taipan.port.diagram.ui.diagramContext"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public PortDiagramEditor() {
 		super(true);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String getContextID() {
+		return CONTEXT_ID;
 	}
 
 	/**
