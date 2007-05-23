@@ -46,9 +46,7 @@ import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
-import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
@@ -532,21 +530,7 @@ public class ShipDestinationMarkerEditPart extends LabelEditPart implements ITex
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new ShipDestinationMarkerFigure();
-	}
-
-	/**
-	 * @generated
-	 */
-	public class ShipDestinationMarkerFigure extends WrapLabel {
-
-		/**
-		 * @generated
-		 */
-		public ShipDestinationMarkerFigure() {
-			this.setText("destination");
-		}
-
+		return new Label();
 	}
 
 }

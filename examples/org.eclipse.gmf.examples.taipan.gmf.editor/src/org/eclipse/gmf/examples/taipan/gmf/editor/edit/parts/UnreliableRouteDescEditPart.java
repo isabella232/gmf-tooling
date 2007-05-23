@@ -45,9 +45,7 @@ import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
-import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
@@ -535,21 +533,7 @@ public class UnreliableRouteDescEditPart extends LabelEditPart implements ITextA
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new UnreliableRouteDescriptionFigure();
-	}
-
-	/**
-	 * @generated
-	 */
-	public class UnreliableRouteDescriptionFigure extends WrapLabel {
-
-		/**
-		 * @generated
-		 */
-		public UnreliableRouteDescriptionFigure() {
-			this.setText("<...>");
-		}
-
+		return new Label();
 	}
 
 }
