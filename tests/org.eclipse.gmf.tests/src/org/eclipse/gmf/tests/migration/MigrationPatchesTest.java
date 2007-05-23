@@ -347,8 +347,8 @@ public class MigrationPatchesTest extends TestCase {
 		assertOnLoadModelMigrationSuccess(gmfmapmodelFileName);
 		checkAllRequiredPluginsAreNotLost(gmfmapmodelFileName);
 
-		URI newMapUri = temporarySaveMigratedModel(gmfmapmodelFileName, "testRequiredPluginsMoved", "gmfmap"); //$NON-NLS-1$ //$NON-NLS-2$
-		changeNsUriToOldOne(newMapUri, "gmfmap", "http://www.eclipse.org/gmf/2005/mappings/2.0"); //$NON-NLS-1$ //$NON-NLS-2$
+		URI newMapUri = temporarySaveMigratedModel(gmfmapmodelFileName, "testRequiredPluginsMoved", "gmfgen"); //$NON-NLS-1$ //$NON-NLS-2$
+		changeNsUriToOldOne(newMapUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0"); //$NON-NLS-1$ //$NON-NLS-2$
 		
 		assertOnLoadModelMigrationSuccess(newMapUri);
 		checkAllRequiredPluginsAreNotLost(newMapUri);
