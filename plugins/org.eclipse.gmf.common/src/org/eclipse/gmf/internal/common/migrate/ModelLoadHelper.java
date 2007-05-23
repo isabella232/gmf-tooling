@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 /**
  * This class is helper for loading model from resource, handles load exceptions, result status
  * aggregation and safe root object access.
- * XXX [artem] this class is needs a rewrite. Check MigrationPatchesTest#assertOnLoadModelMigrationSuccess
+ * XXX [artem] this class needs a rewrite. Check MigrationPatchesTest#assertOnLoadModelMigrationSuccess
  */
 public class ModelLoadHelper {
 	private static final String DIAGNOSTIC_SOURCE = "gmf.common.modelLoadHelper"; //$NON-NLS-1$
