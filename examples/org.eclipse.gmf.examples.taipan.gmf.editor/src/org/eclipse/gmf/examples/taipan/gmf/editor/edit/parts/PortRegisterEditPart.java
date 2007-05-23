@@ -12,11 +12,10 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.draw2d.Connection;
-import org.eclipse.draw2d.Graphics;
+import org.eclipse.gmf.examples.taipan.figures.DashedConnection;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortRegisterItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -54,27 +53,7 @@ public class PortRegisterEditPart extends ConnectionNodeEditPart {
 	 */
 	protected Connection createConnectionFigure() {
 
-		return new RegistrationFigure();
-	}
-
-	/**
-	 * @generated
-	 */
-	public class RegistrationFigure extends PolylineConnectionEx {
-
-		/**
-		 * @generated
-		 */
-		public RegistrationFigure() {
-			this.setFill(true);
-			this.setFillXOR(false);
-			this.setOutline(true);
-			this.setOutlineXOR(false);
-			this.setLineWidth(1);
-			this.setLineStyle(Graphics.LINE_DASH);
-
-		}
-
+		return new DashedConnection();
 	}
 
 }
