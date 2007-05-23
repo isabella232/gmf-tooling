@@ -55,7 +55,7 @@
       validationEnabled="true"
       validationDecorators="true">
     <diagramRunTimeClass
-        href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
+        href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
         xsi:type="gmfgen:MetamodelType"
         displayName="Aquatory"
@@ -78,7 +78,7 @@
         createCommandClassName="SmallItemsCreateCommand"
         containers="//@diagram/@compartments.0">
       <diagramRunTimeClass
-          href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+          href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
           displayName="Small Items"
@@ -121,7 +121,7 @@
         createCommandClassName="LargeItemCreateCommand"
         containers="//@diagram/@compartments.1 //@diagram/@compartments.2">
       <diagramRunTimeClass
-          href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+          href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
           displayName="Large Item"
@@ -148,7 +148,7 @@
           notationViewFactoryClassName="LargeItemArticleViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
-            href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+            href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:ParentAssignedViewmap"
             getterName="getFigureLargeItemArticleFigure"
@@ -165,7 +165,7 @@
           itemSemanticEditPolicyClassName="LargeItemWeightItemSemanticEditPolicy"
           notationViewFactoryClassName="LargeItemWeightViewFactory">
         <diagramRunTimeClass
-            href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+            href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:ParentAssignedViewmap"
             getterName="getFigureLargeItemWeightFigure"
@@ -187,7 +187,7 @@
         createCommandClassName="EmptyBoxCreateCommand"
         containers="//@diagram/@compartments.1">
       <diagramRunTimeClass
-          href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+          href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
           displayName="Empty Box"
@@ -216,7 +216,7 @@
         graphicalNodeEditPolicyClassName="PortGraphicalNodeEditPolicy"
         createCommandClassName="PortCreateCommand">
       <diagramRunTimeClass
-          href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+          href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
           editHelperClassName="PortEditHelper"/>
@@ -253,7 +253,7 @@
           itemSemanticEditPolicyClassName="PortLocationItemSemanticEditPolicy"
           notationViewFactoryClassName="PortLocationViewFactory">
         <diagramRunTimeClass
-            href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+            href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:InnerClassViewmap"
             className="PortLocationFigure"
@@ -280,7 +280,7 @@
         graphicalNodeEditPolicyClassName="ShipGraphicalNodeEditPolicy"
         createCommandClassName="ShipCreateCommand">
       <diagramRunTimeClass
-          href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+          href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
           editHelperClassName="ShipEditHelper"/>
@@ -306,7 +306,7 @@
           notationViewFactoryClassName="ShipNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
-            href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+            href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:ParentAssignedViewmap"
             getterName="getFigureShipNameFigure"
@@ -328,7 +328,7 @@
         graphicalNodeEditPolicyClassName="WarshipGraphicalNodeEditPolicy"
         createCommandClassName="WarshipCreateCommand">
       <diagramRunTimeClass
-          href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+          href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
           editHelperClassName="WarshipEditHelper"/>
@@ -354,7 +354,7 @@
           notationViewFactoryClassName="WarshipNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
-            href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+            href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:ParentAssignedViewmap"
             getterName="getFigureShipNameFigure"
@@ -374,7 +374,7 @@
         createCommandClassName="ShipDestinationCreateCommand"
         reorientCommandClassName="ShipDestinationReorientCommand">
       <diagramRunTimeClass
-          href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+          href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:SpecializationType"
           displayName="Ship Destination"
@@ -393,7 +393,7 @@
           itemSemanticEditPolicyClassName="ShipDestinationMarkerItemSemanticEditPolicy"
           notationViewFactoryClassName="ShipDestinationMarkerViewFactory">
         <diagramRunTimeClass
-            href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+            href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
             figureQualifiedClassName="org.eclipse.draw2d.Label">
@@ -413,7 +413,7 @@
         createCommandClassName="ReliableRouteCreateCommand"
         reorientCommandClassName="ReliableRouteReorientCommand">
       <diagramRunTimeClass
-          href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+          href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
           displayName="Reliable Route"
@@ -456,7 +456,7 @@
           notationViewFactoryClassName="ReliableRouteDescViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
-            href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+            href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
             figureQualifiedClassName="org.eclipse.draw2d.Label">
@@ -479,7 +479,7 @@
           itemSemanticEditPolicyClassName="ReliableRouteRelbItemSemanticEditPolicy"
           notationViewFactoryClassName="ReliableRouteRelbViewFactory">
         <diagramRunTimeClass
-            href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+            href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
             figureQualifiedClassName="org.eclipse.draw2d.Label">
@@ -505,7 +505,7 @@
         createCommandClassName="UnreliableRouteCreateCommand"
         reorientCommandClassName="UnreliableRouteReorientCommand">
       <diagramRunTimeClass
-          href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+          href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:SpecializationType"
           displayName="Unreliable Route"
@@ -549,7 +549,7 @@
           notationViewFactoryClassName="UnreliableRouteDescViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
-            href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+            href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
             figureQualifiedClassName="org.eclipse.draw2d.Label">
@@ -572,7 +572,7 @@
           itemSemanticEditPolicyClassName="UnreliableRouteRelbItemSemanticEditPolicy"
           notationViewFactoryClassName="UnreliableRouteRelbViewFactory">
         <diagramRunTimeClass
-            href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+            href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
             figureQualifiedClassName="org.eclipse.draw2d.Label">
@@ -599,7 +599,7 @@
         createCommandClassName="EscortShipsOrderCreateCommand"
         reorientCommandClassName="EscortShipsOrderReorientCommand">
       <diagramRunTimeClass
-          href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+          href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
           displayName="Escort Ships Order"
@@ -634,7 +634,7 @@
         createCommandClassName="BesiegePortOrderCreateCommand"
         reorientCommandClassName="BesiegePortOrderReorientCommand">
       <diagramRunTimeClass
-          href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+          href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
           displayName="Besiege Port Order"
@@ -668,7 +668,7 @@
         createCommandClassName="PortRegisterCreateCommand"
         reorientCommandClassName="PortRegisterReorientCommand">
       <diagramRunTimeClass
-          href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+          href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:SpecializationType"
           editHelperAdviceClassName="PortRegisterEditHelperAdvice"/>
@@ -691,7 +691,7 @@
         title="SmallCargo"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
-          href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+          href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
@@ -709,7 +709,7 @@
         node="//@diagram/@topLevelNodes.1"
         listLayout="false">
       <diagramRunTimeClass
-          href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+          href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
@@ -727,7 +727,7 @@
         node="//@diagram/@topLevelNodes.2"
         listLayout="false">
       <diagramRunTimeClass
-          href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+          href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
