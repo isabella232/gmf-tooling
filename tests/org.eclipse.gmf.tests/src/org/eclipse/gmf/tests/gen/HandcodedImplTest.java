@@ -985,10 +985,12 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 			checkClassName(state, "GenDiagramUpdater:DiagramUpdater", updater.getDiagramUpdaterClassName(), updater.getDiagramUpdaterQualifiedClassName());
 			checkClassName(state, "GenDiagramUpdater:NodeDescriptor", updater.getNodeDescriptorClassName(), updater.getNodeDescriptorQualifiedClassName());
 			checkClassName(state, "GenDiagramUpdater:LinkDescriptor", updater.getLinkDescriptorClassName(), updater.getLinkDescriptorQualifiedClassName());
+			checkClassName(state, "GenDiagramUpdater:UpdateCommand", updater.getUpdateCommandClassName(), updater.getUpdateCommandQualifiedClassName());
 		} else {
 			state.add("GenDiagramUpdater:DiagramUpdater");
 			state.add("GenDiagramUpdater:NodeDescriptor");
 			state.add("GenDiagramUpdater:LinkDescriptor");
+			state.add("GenDiagramUpdater:UpdateCommand");
 		}
 		
 		GenPropertySheet propSheet = genDiagram.getEditorGen().getPropertySheet();
