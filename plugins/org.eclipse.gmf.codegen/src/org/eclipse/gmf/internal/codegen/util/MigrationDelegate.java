@@ -10,9 +10,11 @@
  */
 package org.eclipse.gmf.internal.codegen.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -25,6 +27,10 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.internal.common.migrate.MigrationHelperDelegateImpl;
 
 class MigrationDelegate extends MigrationHelperDelegateImpl {
@@ -35,6 +41,8 @@ class MigrationDelegate extends MigrationHelperDelegateImpl {
 	private EAttribute myGenAuditRoot_Description;
 	private GenAuditContainer myRootContainer;
 	private Collection<String> myBackwardSupportedURIs;
+	private Map<GenExpressionInterpreter, Collection<String>> myRequiredPlugins;
+	private GenExpressionProviderContainer myProvidersContainer;
 	
 	MigrationDelegate() {
 	}
@@ -58,7 +66,11 @@ class MigrationDelegate extends MigrationHelperDelegateImpl {
 						"externalNodeLabelHostLayoutEditPolicyClassName" //$NON-NLS-1$
 		);
 		registerDeletedAttributes(GMFGenPackage.eINSTANCE.getTypeLinkModelFacet(), "createCommandClassName"); //$NON-NLS-1$
-
+		{
+			Map<String, EStructuralFeature> renamings = new HashMap<String, EStructuralFeature>();
+			renamings.put("requiredPluginIDs", GMFGenPackage.eINSTANCE.getGenPlugin_RequiredPlugins()); //$NON-NLS-1$
+			registerRenamedAttributes(GMFGenPackage.eINSTANCE.getGenExpressionInterpreter(), renamings);
+		}
 		registerNarrowReferenceType(GMFGenPackage.eINSTANCE.getGenFeatureSeqInitializer_Initializers(),	GMFGenPackage.eINSTANCE.getGenFeatureValueSpec());
 		{
 			Map<String, EStructuralFeature> renamings = new HashMap<String, EStructuralFeature>();
@@ -87,6 +99,8 @@ class MigrationDelegate extends MigrationHelperDelegateImpl {
 			registerRenamedAttributes(GMFGenPackage.eINSTANCE.getGenAuditRoot(), renamings);
 		}
 		myRootContainer = null;
+		myProvidersContainer = null;
+		myRequiredPlugins = null;
 	}
 
 	@Override
@@ -136,11 +150,66 @@ class MigrationDelegate extends MigrationHelperDelegateImpl {
 			GenAuditRule rule = (GenAuditRule)value;
 			rule.setCategory(container);
 			getOrCreateRoot(container).getRules().add(rule);
-		} else {
+		} else if (GMFGenPackage.eINSTANCE.getGenPlugin_RequiredPlugins().equals(feature) && object instanceof GenExpressionInterpreter) {
+			GenExpressionInterpreter expressionInterpreter = (GenExpressionInterpreter) object;
+			String requiredPlugin = (String) value;
+			saveRequiredPlugin(expressionInterpreter, requiredPlugin);
+	    } else {
 			// other cases are would be processed as defaults
 			return super.setValue(object, feature, value, position);
 		}
 		return true;
+	}
+
+	private void saveRequiredPlugin(GenExpressionInterpreter expressionProvider, String requiredPlugin) {
+		if (myRequiredPlugins == null) {
+			myRequiredPlugins = new LinkedHashMap<GenExpressionInterpreter, Collection<String>>();
+		}
+		Collection<String> requiredPlugins = myRequiredPlugins.get(expressionProvider);
+		if (requiredPlugins == null) {
+			requiredPlugins = new ArrayList<String>();
+		}
+		requiredPlugins.add(requiredPlugin);
+		myRequiredPlugins.put(expressionProvider, requiredPlugins);
+	}
+	
+	private Map<GenExpressionInterpreter, Collection<String>> getSavedRequiredPlugins() {
+		return myRequiredPlugins;
+	}
+
+	@Override
+	public void postProcess() {
+		if (getSavedRequiredPlugins() == null) {
+			return;
+		}
+		for (GenExpressionInterpreter expressionProvider : getSavedRequiredPlugins().keySet()) {
+			GenExpressionProviderContainer container = expressionProvider.getContainer();
+			if (container == null) {
+				container = getOrCreateParenlessProvidersContainerOnce(expressionProvider);
+				container.getProviders().add(expressionProvider);
+			}
+			GenEditorGenerator editor = container.getEditorGen();
+			if (editor == null) {
+				editor = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
+				container.eResource().getContents().add(editor);
+				editor.setExpressionProviders(container);
+			}
+			GenPlugin plugin = editor.getPlugin();
+			if (plugin == null) {
+				plugin = GMFGenFactory.eINSTANCE.createGenPlugin();
+				editor.setPlugin(plugin);
+			}
+			plugin.getRequiredPlugins().addAll(getSavedRequiredPlugins().get(expressionProvider));
+		}
+		getSavedRequiredPlugins().clear();
+	}
+
+	private GenExpressionProviderContainer getOrCreateParenlessProvidersContainerOnce(GenExpressionInterpreter expressionProvider) {
+		if (myProvidersContainer == null) {
+			myProvidersContainer = GMFGenFactory.eINSTANCE.createGenExpressionProviderContainer();
+			expressionProvider.eResource().getContents().add(myProvidersContainer);
+		}
+		return myProvidersContainer;
 	}
 
 	private GenAuditContainer getOrCreateRootContainerOnce(GenAuditRoot root) {
