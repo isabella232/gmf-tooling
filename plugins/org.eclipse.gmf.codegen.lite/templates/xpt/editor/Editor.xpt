@@ -614,6 +614,7 @@ if (updateManager != null) {
 	public void initializeGraphicalViewer() {
 		// initialize the viewer with input
 		org.eclipse.gef.editparts.ScalableFreeformRootEditPart root = new org.eclipse.gef.editparts.ScalableFreeformRootEditPart();
+		«EXPAND adjustRoot-»
 		getGraphicalViewer().setRootEditPart(root);
 		getGraphicalViewer().setEditPartFactory(new «editorGen.diagram.getEditPartFactoryQualifiedClassName()»());
 		org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager updateManager = new org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager(getGraphicalViewer());
@@ -626,6 +627,11 @@ if (updateManager != null) {
 			getCommandStack().execute(new org.eclipse.gmf.runtime.lite.commands.WrappingCommand(getEditingDomain(), updateCommand));
 		}
 	}
+«ENDDEFINE»
+
+«DEFINE adjustRoot FOR gmfgen::GenEditorView-»
+		root.getZoomManager().setZoomLevels(getZoomLevels());
+		root.getZoomManager().setZoomLevelContributions(java.util.Arrays.asList(new String[] {org.eclipse.gef.editparts.ZoomManager.FIT_WIDTH, org.eclipse.gef.editparts.ZoomManager.FIT_HEIGHT}));
 «ENDDEFINE»
 
 «DEFINE addLayers FOR gmfgen::GenEditorView-»
