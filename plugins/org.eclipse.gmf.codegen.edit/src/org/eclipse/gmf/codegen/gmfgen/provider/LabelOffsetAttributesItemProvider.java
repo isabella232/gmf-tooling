@@ -127,12 +127,12 @@ public class LabelOffsetAttributesItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		LabelOffsetAttributes labelOffsetAttributes = (LabelOffsetAttributes)object;
-		return getString("_UI_LabelOffsetAttributes_type") + " " + labelOffsetAttributes.getX();
+		return getString("_UI_LabelOffsetAttributes_type") + " " + labelOffsetAttributes.getX() + "," + labelOffsetAttributes.getY();
 	}
 
 	/**
