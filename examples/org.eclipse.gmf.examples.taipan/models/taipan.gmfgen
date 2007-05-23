@@ -237,7 +237,7 @@
       <behaviour
           xsi:type="gmfgen:OpenDiagramBehaviour"
           diagramKind="Port"
-          editorID="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramEditorID"/>
+          editorID="org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorID"/>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/Port"/>
@@ -1155,8 +1155,7 @@
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@creationConstraints/@sourceEnd //@diagram/@links.3/@creationConstraints/@targetEnd //@diagram/@links.4/@creationConstraints/@sourceEnd //@audits/@rules.0/@rule">
-    </providers>
+        expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@creationConstraints/@sourceEnd //@diagram/@links.3/@creationConstraints/@targetEnd //@diagram/@links.4/@creationConstraints/@sourceEnd //@audits/@rules.0/@rule"/>
     <providers
         xsi:type="gmfgen:GenJavaExpressionProvider"
         expressions="//@audits/@rules.1/@rule"/>
