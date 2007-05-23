@@ -179,7 +179,7 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 		 * @generated
 		 */
 		protected String getEditorID() {
-			return "org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramEditorID";
+			return "org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorID";
 		}
 	}
 
