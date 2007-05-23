@@ -13,6 +13,7 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.gmf.examples.taipan.figures.DashedConnection;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.UnreliableRouteItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
@@ -54,27 +55,7 @@ public class UnreliableRouteEditPart extends ConnectionNodeEditPart {
 	 */
 	protected Connection createConnectionFigure() {
 
-		return new UnreliableRouteFigure();
-	}
-
-	/**
-	 * @generated
-	 */
-	public class UnreliableRouteFigure extends PolylineConnectionEx {
-
-		/**
-		 * @generated
-		 */
-		public UnreliableRouteFigure() {
-			this.setFill(true);
-			this.setFillXOR(false);
-			this.setOutline(true);
-			this.setOutlineXOR(false);
-			this.setLineWidth(1);
-			this.setLineStyle(Graphics.LINE_DASH);
-
-		}
-
+		return new DashedConnection();
 	}
 
 }

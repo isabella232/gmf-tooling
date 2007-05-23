@@ -54,27 +54,7 @@ public class ReliableRouteEditPart extends ConnectionNodeEditPart {
 	 */
 	protected Connection createConnectionFigure() {
 
-		return new ReliableRouteFigure();
-	}
-
-	/**
-	 * @generated
-	 */
-	public class ReliableRouteFigure extends PolylineConnectionEx {
-
-		/**
-		 * @generated
-		 */
-		public ReliableRouteFigure() {
-			this.setFill(true);
-			this.setFillXOR(false);
-			this.setOutline(true);
-			this.setOutlineXOR(false);
-			this.setLineWidth(1);
-			this.setLineStyle(Graphics.LINE_SOLID);
-
-		}
-
+		return new PolylineConnectionEx();
 	}
 
 }
