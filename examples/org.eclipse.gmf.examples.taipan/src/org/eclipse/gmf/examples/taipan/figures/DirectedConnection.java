@@ -17,12 +17,10 @@ import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
 /**
  * @author dstadnik
  */
-public class ThickDirectedConnection extends PolylineConnectionEx {
+public class DirectedConnection extends PolylineConnectionEx {
 
-	public ThickDirectedConnection() {
-		setLineWidth(3);
+	public DirectedConnection() {
 		PolylineDecoration arrow = new PolylineDecoration();
-		arrow.setLineWidth(3);
 		setTargetDecoration(arrow);
 	}
 }
