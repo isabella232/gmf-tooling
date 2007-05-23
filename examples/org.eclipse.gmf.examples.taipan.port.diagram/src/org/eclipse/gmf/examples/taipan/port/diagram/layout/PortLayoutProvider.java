@@ -23,13 +23,13 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gmf.examples.taipan.Building;
-import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingEditPart;
-import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart;
+import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
@@ -73,10 +73,12 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 	}
 
 	public Command layoutEditParts(GraphicalEditPart containerEditPart, IAdaptable layoutHint) {
-		return layoutPort((PortEditPart) containerEditPart);
+		return layoutPort(containerEditPart);
 	}
 
-	protected Command layoutPort(PortEditPart portEditPart) {
+	protected Command layoutPort(GraphicalEditPart portEditPart) {
+		assert portEditPart instanceof IGraphicalEditPart
+				&& ((IGraphicalEditPart) portEditPart).resolveSemanticElement() instanceof Port;
 		if (working) {
 			throw new IllegalStateException("Recursive layout invocation"); //$NON-NLS-1$
 		}
@@ -87,9 +89,10 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 			// separate buildings by streets
 			Map rows = new TreeMap(); // street -> Collection:BuildingEditPart
 			for (Iterator it = portEditPart.getChildren().iterator(); it.hasNext();) {
-				GraphicalEditPart editPart = (GraphicalEditPart) it.next();
-				if (editPart instanceof BuildingEditPart) {
-					Building building = (Building) ((BuildingEditPart) editPart).resolveSemanticElement();
+				IGraphicalEditPart editPart = (IGraphicalEditPart) it.next();
+				EObject model = editPart.resolveSemanticElement();
+				if (model instanceof Building) {
+					Building building = (Building) model;
 					String street = building.getStreet() == null ? "" : building.getStreet(); //$NON-NLS-1$
 					Collection editParts = (Collection) rows.get(street);
 					if (editParts == null) {
@@ -118,7 +121,7 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 	protected void layoutStreet(Collection editParts, int yOffset, int thickness, CompoundCommand cc) {
 		int xOffset = GAP;
 		for (Iterator it = editParts.iterator(); it.hasNext();) {
-			BuildingEditPart editPart = (BuildingEditPart) it.next();
+			GraphicalEditPart editPart = (GraphicalEditPart) it.next();
 			Rectangle bounds = editPart.getFigure().getBounds();
 			Point newLocation = new Point(xOffset, yOffset);
 			editPart.getFigure().translateToAbsolute(newLocation);
@@ -142,7 +145,7 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 	protected int getStreetThickness(Collection editParts) {
 		int thickness = 0;
 		for (Iterator it = editParts.iterator(); it.hasNext();) {
-			BuildingEditPart editPart = (BuildingEditPart) it.next();
+			GraphicalEditPart editPart = (GraphicalEditPart) it.next();
 			int height = editPart.getFigure().getBounds().height;
 			if (height > thickness) {
 				thickness = height;
