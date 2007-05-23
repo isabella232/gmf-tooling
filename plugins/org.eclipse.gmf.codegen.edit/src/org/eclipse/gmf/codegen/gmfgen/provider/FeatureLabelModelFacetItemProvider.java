@@ -10,9 +10,11 @@ package org.eclipse.gmf.codegen.gmfgen.provider;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -219,14 +221,18 @@ public class FeatureLabelModelFacetItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((FeatureLabelModelFacet)object).getViewPattern();
-		return label == null || label.length() == 0 ?
-			getString("_UI_FeatureLabelModelFacet_type") :
-			getString("_UI_FeatureLabelModelFacet_type") + " " + label;
+		StringBuffer sb = new StringBuffer();
+		for (GenFeature feature : ((FeatureLabelModelFacet) object).getMetaFeatures()) {
+			if (sb.length() > 0) {
+				sb.append(", "); //$NON-NLS-1$
+			}
+			sb.append(feature.getName());
+		}
+		return getString("_UI_FeatureLabelModelFacet_type") + " " + sb.toString();
 	}
 
 	/**
