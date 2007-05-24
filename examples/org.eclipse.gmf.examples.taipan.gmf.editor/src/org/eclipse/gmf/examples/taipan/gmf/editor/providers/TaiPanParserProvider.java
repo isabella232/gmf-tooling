@@ -89,7 +89,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	protected IParser createShipName_5004Parser() {
 		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getShip_Name(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
+		NativeParser parser = new NativeParser(features);
 		return parser;
 	}
 
@@ -113,7 +113,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	protected IParser createWarshipName_5005Parser() {
 		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getShip_Name(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
+		NativeParser parser = new NativeParser(features);
 		return parser;
 	}
 
