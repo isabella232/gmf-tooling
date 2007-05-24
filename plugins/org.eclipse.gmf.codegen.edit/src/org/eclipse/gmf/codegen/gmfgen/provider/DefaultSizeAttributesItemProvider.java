@@ -127,12 +127,12 @@ public class DefaultSizeAttributesItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		DefaultSizeAttributes defaultSizeAttributes = (DefaultSizeAttributes)object;
-		return getString("_UI_DefaultSizeAttributes_type") + " " + defaultSizeAttributes.getWidth();
+		return getString("_UI_DefaultSizeAttributes_type") + " " + defaultSizeAttributes.getWidth() + "," + defaultSizeAttributes.getHeight();
 	}
 
 	/**
