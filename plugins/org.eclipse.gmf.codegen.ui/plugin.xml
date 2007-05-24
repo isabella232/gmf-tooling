@@ -64,6 +64,16 @@
 	</objectContribution>	
    </extension>
 
+   <extension point="org.eclipse.jdt.ui.javaElementFilters">
+      <filter
+            id="org.eclipse.gmf.codegen.ui.hide_generated"
+            targetId="org.eclipse.jdt.ui.PackageExplorer"
+            name="%filter.hide.generated.label"
+            description="%filter.hide.generated.description"
+			class="org.eclipse.gmf.internal.codegen.HideGeneratedFilter">
+      </filter>
+   </extension>
+
    <extension point="org.eclipse.gmf.bridge.ui.dashboard.actions">
       <action
          label="%dashboard.gende"
