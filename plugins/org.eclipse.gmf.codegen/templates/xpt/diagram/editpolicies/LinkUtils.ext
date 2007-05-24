@@ -14,16 +14,24 @@ import "http://www.eclipse.org/gmf/2006/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
 import "http://www.eclipse.org/emf/2002/GenModel";
 
-boolean canBeSource(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
-	null != link.modelFacet && canBeLinkEnd(link.modelFacet.getSourceType(), typeModelFacet)
+boolean canBeSource(gmfgen::GenLink link, gmfgen::TypeModelFacet modelFacet) :
+	canBeSource(link, modelFacet.metaClass)
 ;
 
-boolean canBeTarget(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
-	null != link.modelFacet && canBeLinkEnd(link.modelFacet.getTargetType(), typeModelFacet)
+boolean canBeSource(gmfgen::GenLink link, genmodel::GenClass metaClass) :
+	null != link.modelFacet && canBeLinkEnd(link.modelFacet.getSourceType(), metaClass)
 ;
 
-boolean canBeContainer(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
-	null != link.modelFacet && canBeLinkEnd(getContainerClass(link.modelFacet), typeModelFacet)
+boolean canBeTarget(gmfgen::GenLink link, gmfgen::TypeModelFacet modelFacet) :
+	canBeTarget(link, modelFacet.metaClass)
+;
+
+boolean canBeTarget(gmfgen::GenLink link, genmodel::GenClass metaClass) :
+	null != link.modelFacet && canBeLinkEnd(link.modelFacet.getTargetType(), metaClass)
+;
+
+boolean canBeContainer(gmfgen::GenLink link, genmodel::GenClass metaClass) :
+	null != link.modelFacet && canBeLinkEnd(getContainerClass(link.modelFacet), metaClass)
 ;
 
 private genmodel::GenClass getContainerClass(gmfgen::LinkModelFacet modelFacet) :
@@ -39,10 +47,6 @@ private genmodel::GenClass getContainerClass(gmfgen::FeatureLinkModelFacet model
 	modelFacet.getSourceType()
 ;
 
-private boolean canBeLinkEnd(genmodel::GenClass endType, gmfgen::TypeModelFacet typeModelFacet) :
-	null != endType && endType.ecoreClass.isSuperTypeOf(getMetaclass(typeModelFacet))
-;
-
-private ecore::EClass getMetaclass(gmfgen::TypeModelFacet typeModelFacet) :
-	typeModelFacet.metaClass.ecoreClass
+private boolean canBeLinkEnd(genmodel::GenClass endType, genmodel::GenClass metaClass) :
+	null != endType && endType.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)
 ;

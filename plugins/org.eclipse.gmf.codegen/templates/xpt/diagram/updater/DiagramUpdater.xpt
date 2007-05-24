@@ -31,20 +31,18 @@ public class «diagramUpdaterClassName» {
 	«EXPAND getSemanticChildrenOfView FOREACH semanticContainers-»
 	«EXPAND getPhantomNodesIterator-»
 «ENDLET-»
-«LET getAllSemanticElements(editorGen.diagram) AS semanticElements-»
 
-	«EXPAND getGenericConnectedLinks(semanticElements, getContainedLinksMethodNameSuffix())-»
+	«EXPAND getGenericConnectedLinks(getAllSemanticElements(editorGen.diagram), getContainedLinksMethodNameSuffix())-»
 	
-	«EXPAND getGenericConnectedLinks(semanticElements, getIncomingLinksMethodNameSuffix())-»
+	«EXPAND getGenericConnectedLinks(getAllSemanticDiagramElements(editorGen.diagram), getIncomingLinksMethodNameSuffix())-»
 	
-	«EXPAND getGenericConnectedLinks(semanticElements, getOutgoingLinksMethodNameSuffix())-»
-	«EXPAND getContainedLinks FOREACH semanticElements-»
-	«EXPAND getIncomingLinks FOREACH semanticElements-»
-	«EXPAND getOutgoingLinks FOREACH semanticElements-»
+	«EXPAND getGenericConnectedLinks(getAllSemanticDiagramElements(editorGen.diagram), getOutgoingLinksMethodNameSuffix())-»
+	«EXPAND getContainedLinks FOREACH getAllSemanticElements(editorGen.diagram)-»
+	«EXPAND getIncomingLinks FOREACH getAllSemanticDiagramElements(editorGen.diagram)-»
+	«EXPAND getOutgoingLinks FOREACH getAllSemanticDiagramElements(editorGen.diagram)-»
 	«EXPAND getContainedLinksByTypeMethod FOREACH getAllContainedLinks(editorGen.diagram)-»
 	«EXPAND getIncomingLinksByTypeMethod FOREACH getAllIncomingLinks(editorGen.diagram)-»
-	«EXPAND getOutgoingLinksByTypeMethod FOREACH getAllOutgoingLinks(editorGen.diagram).select(link | null == getTypeModelFacet(link) || null != getTypeModelFacet(link).sourceMetaFeature)-»
-«ENDLET-»
+	«EXPAND getOutgoingLinksByTypeMethod FOREACH getAllOutgoingLinks(editorGen.diagram)-»
 
 	«EXPAND additions-»
 }
@@ -173,15 +171,15 @@ public static java.util.List get«methodNameSuffix»Links(org.eclipse.gmf.runtime.
 «DEFINE linkGetterName(String suffix) FOR gmfgen::GenCommonBase»get«getUniqueIdentifier()»«suffix»Links«ENDDEFINE»
 
 «DEFINE getContainedLinks FOR gmfgen::GenCommonBase-»
-	«EXPAND getConnectedLinks(getContainedLinks(getTypeModelFacet(this), getDiagram()), getContainedLinksMethodNameSuffix(), false)-»
+	«EXPAND getConnectedLinks(getContainedLinks(getMetaClass(this), getDiagram()), getContainedLinksMethodNameSuffix(), false)-»
 «ENDDEFINE»
 
 «DEFINE getIncomingLinks FOR gmfgen::GenCommonBase-»
-	«EXPAND getConnectedLinks(getIncomingLinks(getTypeModelFacet(this), getDiagram()), getIncomingLinksMethodNameSuffix(), true)-»
+	«EXPAND getConnectedLinks(getIncomingLinks(getMetaClass(this), getDiagram()), getIncomingLinksMethodNameSuffix(), true)-»
 «ENDDEFINE»
 
 «DEFINE getOutgoingLinks FOR gmfgen::GenCommonBase-»
-	«EXPAND getConnectedLinks(getOutgoingLinks(getTypeModelFacet(this), getDiagram()), getOutgoingLinksMethodNameSuffix(), false)-»
+	«EXPAND getConnectedLinks(getOutgoingLinks(getMetaClass(this), getDiagram()), getOutgoingLinksMethodNameSuffix(), false)-»
 «ENDDEFINE»
 
 «DEFINE getConnectedLinks(List[gmfgen::GenLink] genLinks, String methodNameSuffix, boolean needCrossReferencer) FOR gmfgen::GenCommonBase-»
@@ -189,7 +187,7 @@ public static java.util.List get«methodNameSuffix»Links(org.eclipse.gmf.runtime.
 	«EXPAND xpt::Common::generatedMemberComment»
 public static java.util.List «EXPAND linkGetterName(methodNameSuffix)»(org.eclipse.gmf.runtime.notation.View view) {
 	«IF !genLinks.isEmpty()-»
-		«LET getTypeModelFacet(this).metaClass AS metaclass-»
+		«LET getMetaClass(this) AS metaclass-»
 	«getQualifiedInterfaceName(metaclass)» modelElement = («getQualifiedInterfaceName(metaclass)») view.getElement();
 			«IF needCrossReferencer-»
 	java.util.Map crossReferences = org.eclipse.emf.ecore.util.EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());

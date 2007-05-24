@@ -140,7 +140,7 @@ private void createLinks(org.eclipse.gmf.runtime.notation.Diagram diagram) {
 				}
 				continueLinkCreation = true;
 				switch (nextLinkDescriptor.getVisualID()) {
-	«EXPAND createLinksCase FOREACH links.select(link | null != getTypeModelFacet(link))-»
+	«EXPAND createLinksCase FOREACH links.select(link | null != getMetaClass(link))-»
 				}
 			}
 		}

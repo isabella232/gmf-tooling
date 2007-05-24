@@ -27,52 +27,74 @@ String getOutgoingLinksMethodNameSuffix() :
 	"Outgoing"
 ;
 
-cached List[gmfgen::GenLink] getContainedLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
-	diagram.links.select(link | canBeContainer(link, typeModelFacet))
+cached List[gmfgen::GenLink] getContainedLinks(genmodel::GenClass metaClass, gmfgen::GenDiagram diagram) :
+	diagram.links.select(link | canBeContainer(link, metaClass))
 ;
 
-cached List[gmfgen::GenLink] getOutgoingLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
-	diagram.links.select(link | canBeSource(link, typeModelFacet))
+cached List[gmfgen::GenLink] getOutgoingLinks(genmodel::GenClass metaClass, gmfgen::GenDiagram diagram) :
+	diagram.links.select(link | canBeSource(link, metaClass))
 ;
 
-cached List[gmfgen::GenLink] getIncomingLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
-	diagram.links.select(link | canBeTarget(link, typeModelFacet))
+cached List[gmfgen::GenLink] getIncomingLinks(genmodel::GenClass metaClass, gmfgen::GenDiagram diagram) :
+	diagram.links.select(link | canBeTarget(link, metaClass))
 ;
 
 List[gmfgen::GenLink] getAllContainedLinks(gmfgen::GenDiagram diagram) :
-	diagram.links.select(link | !getAllSemanticElements(diagram).select(commonBase | canBeContainer(link, getTypeModelFacet(commonBase))).isEmpty())
+	diagram.links.select(link | !getAllSemanticElements(diagram).select(commonBase | canBeContainer(link, getMetaClass(commonBase))).isEmpty())
 ;
 
 List[gmfgen::GenLink] getAllIncomingLinks(gmfgen::GenDiagram diagram) :
-	diagram.links.select(link | !getAllSemanticElements(diagram).select(commonBase | canBeTarget(link, getTypeModelFacet(commonBase))).isEmpty())
+	diagram.links.select(link | !getAllSemanticDiagramElements(diagram).select(commonBase | canBeTarget(link, getMetaClass(commonBase))).isEmpty())
 ;
 
 List[gmfgen::GenLink] getAllOutgoingLinks(gmfgen::GenDiagram diagram) :
-	diagram.links.select(link | !getAllSemanticElements(diagram).select(commonBase | canBeSource(link, getTypeModelFacet(commonBase))).isEmpty())
+	diagram.links.select(link | isOutgoingLink(link)).select(link | !getAllSemanticDiagramElements(diagram).select(commonBase | canBeSource(link, getMetaClass(commonBase))).isEmpty())
+;
+
+private boolean isOutgoingLink(gmfgen::GenLink link) :
+	null != link.modelFacet && isOutgoingLink(link.modelFacet)
+;
+
+private boolean isOutgoingLink(gmfgen::LinkModelFacet modelFacet) :
+	true
+;
+
+private boolean isOutgoingLink(gmfgen::TypeLinkModelFacet modelFacet) :
+	null != modelFacet.sourceMetaFeature
+;
+
+cached List[gmfgen::GenCommonBase] getAllSemanticDiagramElements(gmfgen::GenDiagram diagram) :
+	diagram.getAllNodes().toList().addAll(diagram.links).typeSelect(gmfgen::GenCommonBase).select(commonBase | null != getMetaClass(commonBase))
 ;
 
 cached List[gmfgen::GenCommonBase] getAllSemanticElements(gmfgen::GenDiagram diagram) :
-	diagram.getAllNodes().toList().addAll(diagram.links).typeSelect(gmfgen::GenCommonBase).select(commonBase | null != getTypeModelFacet(commonBase))
+	null != diagram.domainDiagramElement 
+		? {diagram}.addAll(getAllSemanticDiagramElements(diagram)) 
+		: getAllSemanticDiagramElements(diagram)
 ;
 
-gmfgen::TypeModelFacet getTypeModelFacet(gmfgen::GenCommonBase commonBase) :
+cached genmodel::GenClass getMetaClass(gmfgen::GenCommonBase commonBase) :
 	null
 ;
 
-gmfgen::TypeModelFacet getTypeModelFacet(gmfgen::GenNode node) :
-	node.modelFacet
+cached genmodel::GenClass getMetaClass(gmfgen::GenDiagram diagram) :
+	diagram.domainDiagramElement
 ;
 
-gmfgen::TypeLinkModelFacet getTypeModelFacet(gmfgen::GenLink link) :
-	null != link.modelFacet ? getTypeModelFacet(link.modelFacet) : null
+cached genmodel::GenClass getMetaClass(gmfgen::GenNode node) :
+	node.modelFacet.metaClass
 ;
 
-private gmfgen::TypeLinkModelFacet getTypeModelFacet(gmfgen::LinkModelFacet modelFacet) :
+cached genmodel::GenClass getMetaClass(gmfgen::GenLink link) :
+	null != link.modelFacet ? getMetaClass(link.modelFacet) : null
+;
+
+private genmodel::GenClass getMetaClass(gmfgen::LinkModelFacet modelFacet) :
 	null
 ;
 
-private gmfgen::TypeLinkModelFacet getTypeModelFacet(gmfgen::TypeLinkModelFacet modelFacet) :
-	modelFacet
+private genmodel::GenClass getMetaClass(gmfgen::TypeLinkModelFacet modelFacet) :
+	modelFacet.metaClass
 ;
 
 boolean hasSemanticChildren(gmfgen::GenContainerBase container) :
