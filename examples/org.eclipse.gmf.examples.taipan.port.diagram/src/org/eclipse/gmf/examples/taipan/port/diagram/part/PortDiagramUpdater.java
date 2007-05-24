@@ -60,6 +60,8 @@ public class PortDiagramUpdater {
 	 */
 	public static List getContainedLinks(View view) {
 		switch (PortVisualIDRegistry.getVisualID(view)) {
+		case PortEditPart.VISUAL_ID:
+			return getPort_1000ContainedLinks(view);
 		case BuildingEditPart.VISUAL_ID:
 			return getBuilding_2001ContainedLinks(view);
 		}
@@ -85,6 +87,13 @@ public class PortDiagramUpdater {
 		case BuildingEditPart.VISUAL_ID:
 			return getBuilding_2001OutgoingLinks(view);
 		}
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getPort_1000ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
