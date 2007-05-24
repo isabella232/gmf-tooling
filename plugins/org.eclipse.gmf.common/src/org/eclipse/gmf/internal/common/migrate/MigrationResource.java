@@ -43,26 +43,28 @@ public abstract class MigrationResource extends ToolResource {
 	}
 
 	protected void handlePostLoadSuccess() {
-		if (myMigrationHelper != null && myMigrationHelper.isEnabled()) {
+		if (myMigrationHelper != null && myMigrationHelper.isMigrationApplied()) {
 			Diagnostic diagnostic = MigrationResource.createMessageDiagnostic(this, Messages.oldModelVersionLoadedMigrationRequired);
 			getWarnings().add(0, diagnostic);
 		}
 	}
 
 	protected void handlePostLoadException(Exception e) {
-		Diagnostic diagnostic = MigrationResource.createMessageDiagnostic(this, Messages.oldModelVersionLoadErrorMigrationMayBeRequired);
-		getErrors().add(0, diagnostic);
+		if (myMigrationHelper != null && myMigrationHelper.isMigrationApplied()) {
+			Diagnostic diagnostic = MigrationResource.createMessageDiagnostic(this, Messages.oldModelVersionLoadErrorMigrationMayBeRequired);
+			getErrors().add(0, diagnostic);
+		}
 	}
 
 	@Override
 	protected XMLHelper createXMLHelper() {
-		MigrationHelperDelegate delegate = createDelegate();
+		MigrationDelegate delegate = createDelegate();
 		assert delegate != null;
 		myMigrationHelper = new MigrationHelper(this, delegate);
 		return myMigrationHelper;
 	}
 
-	protected abstract MigrationHelperDelegate createDelegate();
+	protected abstract MigrationDelegate createDelegate();
 
 	/**
 	 * Creates resource diagnostic wrapping the given message.

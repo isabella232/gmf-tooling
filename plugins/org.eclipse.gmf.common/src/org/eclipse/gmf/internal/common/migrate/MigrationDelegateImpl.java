@@ -26,17 +26,19 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 
-public class MigrationHelperDelegateImpl implements MigrationHelperDelegate {
+public class MigrationDelegateImpl implements MigrationDelegate {
 	private final EStructuralFeature myDeletedAttribute = EcoreFactory.eINSTANCE.createEAttribute();
+	private boolean isMigrationApplied;
 
-	public MigrationHelperDelegateImpl() {
+	public MigrationDelegateImpl() {
 		super();
 		myDeletedAttribute.setName("attributeIsDeleted"); //$NON-NLS-1$
 		myDeletedAttribute.setEType(EcorePackage.eINSTANCE.getEString());
+		isMigrationApplied = false;
 	}
 
 	private Map<EClassifier, Collection<String>> myDeletedAttributes = new HashMap<EClassifier, Collection<String>>();
-	private Map<EReference, EClass> myNarrowReferenceTypes = new HashMap<EReference, EClass>();
+	private Map<String, EClass> myNarrowedTypes = new HashMap<String, EClass>();
 	private Map<EClass, Map<String, EStructuralFeature>> myRenamedAttributes = new HashMap<EClass, Map<String, EStructuralFeature>>();
 	private Map<String, EClassifier> myRenamedTypes = new HashMap<String, EClassifier>();
 	
@@ -45,12 +47,12 @@ public class MigrationHelperDelegateImpl implements MigrationHelperDelegate {
 		myDeletedAttributes.put(classifier, Arrays.asList(deletedAttrNames));
 	}
 	
-	public void registerNarrowReferenceType(EReference reference, EClass concreteType) {
-		myNarrowReferenceTypes.put(reference, concreteType);
-	}
-	
 	public void registerRenamedAttributes(EClass eClass, Map<String, EStructuralFeature> renamedAttributes) {
 		myRenamedAttributes.put(eClass, renamedAttributes);
+	}
+	
+	public void registerNarrowedAbstractType(String abstractTypeName, EClass narrowedType) {
+		myNarrowedTypes.put(abstractTypeName, narrowedType);
 	}
 	
 	public void registerRenamedType(String oldTypeName, EClassifier newType) {
@@ -76,26 +78,17 @@ public class MigrationHelperDelegateImpl implements MigrationHelperDelegate {
 		return result;
 	}
 	
-	public EClass getNarrowReferenceType(EStructuralFeature feature) {
-		return myNarrowReferenceTypes.get(feature);
+	public EClass getNarrowReferenceType(String abstractTypeName) {
+		return myNarrowedTypes.get(abstractTypeName);
 	}
 
 	public EStructuralFeature getRenamedFeatureFor(EClass clazz, String name) {
 	    Map<String, EStructuralFeature> renamings = myRenamedAttributes.get(clazz);
-		EStructuralFeature result = renamings != null ? renamings.get(name) : null;
-		for (Iterator<EClass> it=clazz.getEAllSuperTypes().iterator(); result == null && it.hasNext();) {
-			EClass nextParent = it.next();
-			result = getRenamedFeatureFor(nextParent, name);
-		}
-		return result;
+		return renamings != null ? renamings.get(name) : null;
 	}
 
 	public EClassifier getRenamedType(String typeName) {
 		return myRenamedTypes.get(typeName);
-	}
-
-	public EClass getStructuralFeatureType(EStructuralFeature feature) {
-		return getNarrowReferenceType(feature);
 	}
 
 	public boolean setValue(EObject object, EStructuralFeature feature, Object value, int position) {
@@ -107,19 +100,26 @@ public class MigrationHelperDelegateImpl implements MigrationHelperDelegate {
 		EStructuralFeature rename = null;
 		if ((rename = getRenamedFeatureFor(eClass, name)) != null) {
 			result = rename;
+			fireMigrationApplied(true);
 		} else if (isAttributeDeleted(eClass, name)) {
 			result = myDeletedAttribute;
+			fireMigrationApplied(true);
 		}
 		return result;
 	}
 
 	public EClassifier getType(EFactory factory, String typeName) {
-		EClassifier result = null;
-		EClassifier type = getRenamedType(typeName);
-		if (type != null) {
-			result = type;
+		EClassifier renamedType = getRenamedType(typeName);
+		if (renamedType != null) {
+			fireMigrationApplied(true);
+			return renamedType;
 		}
-		return result;
+		EClassifier narrowedType = getNarrowReferenceType(typeName);
+		if (narrowedType != null) {
+			fireMigrationApplied(true);
+			return narrowedType;
+		}
+		return null;
 	}
 
 	public EObject createObject(EFactory factory, EClassifier type) {
@@ -132,8 +132,12 @@ public class MigrationHelperDelegateImpl implements MigrationHelperDelegate {
 	public void processObject(EObject result) {
 	}
 
-	public boolean isOldVersionDetected(String uriString) {
-		return true;
+	public boolean isMigrationApplied() {
+		return isMigrationApplied;
+	}
+	
+	protected void fireMigrationApplied(boolean applied) {
+		isMigrationApplied = applied;
 	}
 	
 	protected static EReference createNewReference(String name, EClass eType, boolean isContainment) {

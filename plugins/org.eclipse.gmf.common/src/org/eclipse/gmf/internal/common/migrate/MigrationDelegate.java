@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-public interface MigrationHelperDelegate {
+public interface MigrationDelegate {
 	
 	public boolean setValue(EObject object, EStructuralFeature feature, Object value, int position);
 	
@@ -24,13 +24,11 @@ public interface MigrationHelperDelegate {
 	
 	public EClassifier getType(EFactory factory, String typeName);
 	
-	public EClass getStructuralFeatureType(EStructuralFeature feature);
-
 	public EObject createObject(EFactory factory, EClassifier type);
 	
 	public void postProcess();
 
 	public void processObject(EObject result);
 
-	public boolean isOldVersionDetected(String uriString);
+	public boolean isMigrationApplied();
 }
