@@ -86,5 +86,4 @@ public class EClassClassAnnotationsViewFactory extends ListCompartmentViewFactor
 			drawerStyle.setCollapsed(false);
 		}
 	}
-
 }

@@ -76,5 +76,4 @@ public class EPackage2ViewFactory extends AbstractShapeViewFactory {
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageEnumsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackagePackageAnnotationsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
-
 }

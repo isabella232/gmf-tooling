@@ -57,5 +57,4 @@ public class EEnumLiteralViewFactory extends AbstractLabelViewFactory {
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
 	}
-
 }

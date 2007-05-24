@@ -86,5 +86,4 @@ public class EPackagePackageAnnotationsViewFactory extends ListCompartmentViewFa
 			drawerStyle.setCollapsed(false);
 		}
 	}
-
 }

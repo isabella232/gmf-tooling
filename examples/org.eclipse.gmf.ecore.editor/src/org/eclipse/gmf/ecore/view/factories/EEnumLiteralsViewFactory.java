@@ -86,5 +86,4 @@ public class EEnumLiteralsViewFactory extends ListCompartmentViewFactory {
 			drawerStyle.setCollapsed(false);
 		}
 	}
-
 }

@@ -78,4 +78,5 @@ public class EPackageEditPart extends DiagramEditPart {
 			}
 		});
 	}
+
 }

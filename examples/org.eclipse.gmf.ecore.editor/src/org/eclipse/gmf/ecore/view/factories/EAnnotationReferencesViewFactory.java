@@ -60,5 +60,4 @@ public class EAnnotationReferencesViewFactory extends ConnectionViewFactory {
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
 	}
-
 }

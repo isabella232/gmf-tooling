@@ -60,5 +60,4 @@ public class EClassESuperTypesViewFactory extends ConnectionViewFactory {
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
 	}
-
 }

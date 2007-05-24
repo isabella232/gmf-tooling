@@ -86,5 +86,4 @@ public class EDataTypeDataTypeAnnotationsViewFactory extends ListCompartmentView
 			drawerStyle.setCollapsed(false);
 		}
 	}
-
 }

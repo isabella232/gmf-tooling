@@ -86,5 +86,4 @@ public class EClassAttributesViewFactory extends ListCompartmentViewFactory {
 			drawerStyle.setCollapsed(false);
 		}
 	}
-
 }

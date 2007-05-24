@@ -66,5 +66,4 @@ public class EReferenceViewFactory extends ConnectionViewFactory {
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EReferenceNameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EReferenceLowerBoundUpperBoundEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
-
 }

@@ -346,6 +346,8 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List getContainedLinks(View view) {
 		switch (EcoreVisualIDRegistry.getVisualID(view)) {
+		case EPackageEditPart.VISUAL_ID:
+			return getEPackage_1000ContainedLinks(view);
 		case EClassEditPart.VISUAL_ID:
 			return getEClass_2001ContainedLinks(view);
 		case EPackage2EditPart.VISUAL_ID:
@@ -589,6 +591,13 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEReference_4003ContainedLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getEPackage_1000ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 

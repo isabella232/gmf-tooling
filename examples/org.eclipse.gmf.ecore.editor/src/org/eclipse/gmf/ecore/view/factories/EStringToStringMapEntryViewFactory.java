@@ -57,5 +57,4 @@ public class EStringToStringMapEntryViewFactory extends AbstractLabelViewFactory
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
 	}
-
 }

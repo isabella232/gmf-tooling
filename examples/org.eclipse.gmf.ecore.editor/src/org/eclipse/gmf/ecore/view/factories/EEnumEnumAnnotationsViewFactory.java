@@ -86,5 +86,4 @@ public class EEnumEnumAnnotationsViewFactory extends ListCompartmentViewFactory 
 			drawerStyle.setCollapsed(false);
 		}
 	}
-
 }

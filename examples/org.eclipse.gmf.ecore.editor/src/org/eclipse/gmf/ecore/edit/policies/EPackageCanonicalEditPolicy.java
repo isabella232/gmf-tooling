@@ -39,6 +39,7 @@ import org.eclipse.gmf.ecore.edit.parts.EEnumLiteralEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EOperationEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
@@ -212,6 +213,11 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	private Collection collectAllLinks(View view, Map domain2NotationMap) {
 		Collection result = new LinkedList();
 		switch (EcoreVisualIDRegistry.getVisualID(view)) {
+		case EPackageEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(EcoreDiagramUpdater.getEPackage_1000ContainedLinks(view));
+			break;
+		}
 		case EClassEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
 			result.addAll(EcoreDiagramUpdater.getEClass_2001ContainedLinks(view));

@@ -69,5 +69,4 @@ public class EClassViewFactory extends AbstractShapeViewFactory {
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EClassOperationsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EClassClassAnnotationsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
-
 }

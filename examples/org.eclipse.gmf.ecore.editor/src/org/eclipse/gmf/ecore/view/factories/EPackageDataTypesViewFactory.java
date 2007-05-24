@@ -86,5 +86,4 @@ public class EPackageDataTypesViewFactory extends ListCompartmentViewFactory {
 			drawerStyle.setCollapsed(false);
 		}
 	}
-
 }

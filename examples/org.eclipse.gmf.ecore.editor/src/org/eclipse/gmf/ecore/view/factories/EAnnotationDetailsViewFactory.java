@@ -86,5 +86,4 @@ public class EAnnotationDetailsViewFactory extends ListCompartmentViewFactory {
 			drawerStyle.setCollapsed(false);
 		}
 	}
-
 }

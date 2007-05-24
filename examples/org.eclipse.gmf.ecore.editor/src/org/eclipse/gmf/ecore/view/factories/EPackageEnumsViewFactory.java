@@ -86,5 +86,4 @@ public class EPackageEnumsViewFactory extends ListCompartmentViewFactory {
 			drawerStyle.setCollapsed(false);
 		}
 	}
-
 }
