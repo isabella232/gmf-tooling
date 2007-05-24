@@ -225,6 +225,11 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	private Collection collectAllLinks(View view, Map domain2NotationMap) {
 		Collection result = new LinkedList();
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
+		case AquatoryEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(TaiPanDiagramUpdater.getAquatory_1ContainedLinks(view));
+			break;
+		}
 		case PortEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
 			result.addAll(TaiPanDiagramUpdater.getPort_2001ContainedLinks(view));

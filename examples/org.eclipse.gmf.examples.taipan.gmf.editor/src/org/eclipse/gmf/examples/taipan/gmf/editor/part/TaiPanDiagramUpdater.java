@@ -160,6 +160,8 @@ public class TaiPanDiagramUpdater {
 	 */
 	public static List getContainedLinks(View view) {
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
+		case AquatoryEditPart.VISUAL_ID:
+			return getAquatory_1ContainedLinks(view);
 		case PortEditPart.VISUAL_ID:
 			return getPort_2001ContainedLinks(view);
 		case ShipEditPart.VISUAL_ID:
@@ -240,6 +242,17 @@ public class TaiPanDiagramUpdater {
 			return getBesiegePortOrder_4005OutgoingLinks(view);
 		}
 		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getAquatory_1ContainedLinks(View view) {
+		Aquatory modelElement = (Aquatory) view.getElement();
+		List result = new LinkedList();
+		result.addAll(getContainedTypeModelFacetLinks_Route_4002(modelElement));
+		result.addAll(getContainedTypeModelFacetLinks_Route_4003(modelElement));
+		return result;
 	}
 
 	/**
@@ -491,6 +504,48 @@ public class TaiPanDiagramUpdater {
 	 */
 	public static List getBesiegePortOrder_4005OutgoingLinks(View view) {
 		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection getContainedTypeModelFacetLinks_Route_4002(Aquatory container) {
+		Collection result = new LinkedList();
+		for (Iterator links = container.getRoutes().iterator(); links.hasNext();) {
+			Object linkObject = links.next();
+			if (false == linkObject instanceof Route) {
+				continue;
+			}
+			Route link = (Route) linkObject;
+			if (ReliableRouteEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(link)) {
+				continue;
+			}
+			Port dst = link.getDestination();
+			Port src = link.getSource();
+			result.add(new TaiPanLinkDescriptor(src, dst, link, TaiPanElementTypes.Route_4002, ReliableRouteEditPart.VISUAL_ID));
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection getContainedTypeModelFacetLinks_Route_4003(Aquatory container) {
+		Collection result = new LinkedList();
+		for (Iterator links = container.getRoutes().iterator(); links.hasNext();) {
+			Object linkObject = links.next();
+			if (false == linkObject instanceof Route) {
+				continue;
+			}
+			Route link = (Route) linkObject;
+			if (UnreliableRouteEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(link)) {
+				continue;
+			}
+			Port dst = link.getDestination();
+			Port src = link.getSource();
+			result.add(new TaiPanLinkDescriptor(src, dst, link, TaiPanElementTypes.Route_4003, UnreliableRouteEditPart.VISUAL_ID));
+		}
+		return result;
 	}
 
 	/**
