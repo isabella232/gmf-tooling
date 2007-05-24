@@ -1,13 +1,33 @@
+/*
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import org.eclipse.osgi.util.NLS;
 
-public class Messages extends org.eclipse.osgi.util.NLS {
+/**
+ * @generated
+ */
+public class Messages extends NLS {
 
+	/**
+	 * @generated
+	 */
 	static {
-		org.eclipse.osgi.util.NLS.initializeMessages("messages", Messages.class); //$NON-NLS-1$
+		NLS.initializeMessages("messages", Messages.class); //$NON-NLS-1$
 	}
 
+	/**
+	 * @generated
+	 */
 	private Messages() {
 	}
 
@@ -146,7 +166,6 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	 */
 	public static String TaiPanNewDiagramFileWizard_IncorrectRootError;
 
-	//TODO: put accessor fields manually	
 	/**
 	 * @generated
 	 */
@@ -310,22 +329,22 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	/**
 	 * @generated
 	 */
-	public static String NavigatorGroupName_Ship_2002_incominglinks;
-
-	/**
-	 * @generated
-	 */
 	public static String NavigatorGroupName_Ship_2002_outgoinglinks;
 
 	/**
 	 * @generated
 	 */
-	public static String NavigatorGroupName_Warship_2003_incominglinks;
+	public static String NavigatorGroupName_Ship_2002_incominglinks;
 
 	/**
 	 * @generated
 	 */
 	public static String NavigatorGroupName_Warship_2003_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Warship_2003_incominglinks;
 
 	/**
 	 * @generated

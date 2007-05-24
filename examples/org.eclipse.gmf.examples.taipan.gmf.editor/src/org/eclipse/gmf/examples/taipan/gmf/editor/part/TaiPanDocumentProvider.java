@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -747,26 +747,44 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 			mySynchronizer = new WorkspaceSynchronizer(getEditingDomain(), new SynchronizerDelegate());
 		}
 
+		/**
+		 * @generated
+		 */
 		public boolean isUpdateCache() {
 			return myUpdateCache;
 		}
 
+		/**
+		 * @generated
+		 */
 		public void setUpdateCache(boolean update) {
 			myUpdateCache = update;
 		}
 
+		/**
+		 * @generated
+		 */
 		public boolean isModifiable() {
 			return myModifiable;
 		}
 
+		/**
+		 * @generated
+		 */
 		public void setModifiable(boolean modifiable) {
 			myModifiable = modifiable;
 		}
 
+		/**
+		 * @generated
+		 */
 		public boolean isReadOnly() {
 			return myReadOnly;
 		}
 
+		/**
+		 * @generated
+		 */
 		public void setReadOnly(boolean readOnly) {
 			myReadOnly = readOnly;
 		}
@@ -910,6 +928,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 				}
 			}
 		}
+
 	}
 
 }
