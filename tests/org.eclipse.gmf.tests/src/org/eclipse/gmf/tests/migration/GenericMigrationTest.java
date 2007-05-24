@@ -36,8 +36,8 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreValidator;
-import org.eclipse.gmf.internal.common.migrate.MigrationHelperDelegate;
-import org.eclipse.gmf.internal.common.migrate.MigrationHelperDelegateImpl;
+import org.eclipse.gmf.internal.common.migrate.MigrationDelegate;
+import org.eclipse.gmf.internal.common.migrate.MigrationDelegateImpl;
 import org.eclipse.gmf.internal.common.migrate.MigrationResource;
 
 /**
@@ -194,7 +194,7 @@ public class GenericMigrationTest extends TestCase {
 		if (widenedRef.isMany()) {
 			result = new ArrayList<EObject>();
 			assertTrue(narrowRef instanceof EList);
-			EList narrowRefs = (EList) narrowRef;
+			EList<?> narrowRefs = (EList<?>) narrowRef;
 			assertFalse(narrowRefs.isEmpty());
 			for (int i=0; i<narrowRefs.size(); i++) {
 				Object migratedNarrowRefs = narrowRefs.get(i);
@@ -271,9 +271,9 @@ public class GenericMigrationTest extends TestCase {
 		String errorMessage = assertLoadingProblemsAfterMetamodelChanges(metamodel, uri);
 		assertTrue(errorMessage.contains(myAttrToRemove.getName()));
 
-		final MigrationHelperDelegate delegate = new MigrationHelperDelegateImpl() {{
-				registerDeletedAttributes(testObject.eClass(), myAttrToRemove.getName());
-		}};
+		final MigrationDelegateImpl delegate = new MigrationDelegateImpl();
+		delegate.registerDeletedAttributes(testObject.eClass(), myAttrToRemove.getName());
+
 		Resource migrated = loadMigrationResource(metamodel, delegate, uri);
 		checkResourceHasNoProblems(migrated);
 		
@@ -298,9 +298,8 @@ public class GenericMigrationTest extends TestCase {
 		String errorMessage = assertLoadingProblemsAfterMetamodelChanges(getMetaModel(), uri);
 		//assertTrue(errorMessage.contains(myWidenedRef1.getEType().getName())); //XXX check
 		
-		MigrationHelperDelegate delegate = new MigrationHelperDelegateImpl() {{
-				registerNarrowReferenceType(myWidenedRef1, myAttrNarrow.getEContainingClass());
-		}};
+		MigrationDelegateImpl delegate = new MigrationDelegateImpl();
+		delegate.registerNarrowedAbstractType(myWidenedRef1.getEType().getName(), myAttrNarrow.getEContainingClass());
 		
 		// try to load mm
 		Resource migrated = loadMigrationResource(metamodel, delegate, uri);
@@ -334,9 +333,8 @@ public class GenericMigrationTest extends TestCase {
 		String errorMessage = assertLoadingProblemsAfterMetamodelChanges(metamodel, uri);
 		// assertTrue(errorMessage.contains(myWidenedRef1.getEType().getName())); //XXX
 
-		MigrationHelperDelegate delegate = new MigrationHelperDelegateImpl() {{
-				registerNarrowReferenceType(myWidenedRef1, myAttrNarrow.getEContainingClass());
-		}};
+		MigrationDelegateImpl delegate = new MigrationDelegateImpl();
+		delegate.registerNarrowedAbstractType(myWidenedRef1.getEType().getName(), myAttrNarrow.getEContainingClass());
 
 		// try to load mm
 		Resource migrated = loadMigrationResource(metamodel, delegate, uri);
@@ -384,10 +382,9 @@ public class GenericMigrationTest extends TestCase {
 		String errorMessage = assertLoadingProblemsAfterMetamodelChanges(metamodel, uri);
 		// assertTrue(errorMessage.contains(myAttrNarrow.getName())); //XXX
 
-		MigrationHelperDelegate delegate = new MigrationHelperDelegateImpl() {{
-				registerNarrowReferenceType(myWidenedRef1, myAttrNarrow.getEContainingClass());
-				registerNarrowReferenceType(myWidenedRef2, myAttrNarrow.getEContainingClass());
-		}};
+		MigrationDelegateImpl delegate = new MigrationDelegateImpl();
+		delegate.registerNarrowedAbstractType(myWidenedRef1.getEType().getName(), myAttrNarrow.getEContainingClass());
+		delegate.registerNarrowedAbstractType(myWidenedRef2.getEType().getName(), myAttrNarrow.getEContainingClass());
 
 		// try to load mm
 		Resource migrated = loadMigrationResource(metamodel, delegate, uri);
@@ -462,9 +459,9 @@ public class GenericMigrationTest extends TestCase {
 		} catch (IOException ex) {
 			fail();
 		}
-		MigrationHelperDelegate badDelegate = new MigrationHelperDelegateImpl() {{
-			registerNarrowReferenceType(myWidenedRef1, myAttrNarrowChild.getEContainingClass());
-		}};
+		MigrationDelegateImpl badDelegate = new MigrationDelegateImpl();
+		badDelegate.registerNarrowedAbstractType(myWidenedRef1.getEType().getName(), myAttrNarrowChild.getEContainingClass());
+
 	
 		// try to load mm
 		Resource badMigrated = loadMigrationResource(getMetaModel(), badDelegate, uri);
@@ -472,9 +469,9 @@ public class GenericMigrationTest extends TestCase {
 		boolean validateBad = checkResourceHasNoProblems(badMigrated);
 		assertFalse("Should fail with obligatory metamodel attribute not set", validateBad);
 
-		MigrationHelperDelegate delegate = new MigrationHelperDelegateImpl() {
+		MigrationDelegateImpl delegate = new MigrationDelegateImpl() {
 			{
-				registerNarrowReferenceType(myWidenedRef1, myAttrNarrowChild.getEContainingClass());
+				registerNarrowedAbstractType(myWidenedRef1.getEType().getName(), myAttrNarrowChild.getEContainingClass());
 			}
 			private Collection<EObject> myToBeChecked = new ArrayList<EObject>();
 
@@ -498,7 +495,8 @@ public class GenericMigrationTest extends TestCase {
 							}
 						}
 						EObject parent = narrowed.eContainer();
-						EList children = (EList) parent.eGet(myWidenedRef1);
+						@SuppressWarnings("unchecked")
+						EList<EObject> children = (EList<EObject>) parent.eGet(myWidenedRef1);
 						int index = children.indexOf(narrowed);
 						children.remove(narrowed);
 						children.add(index, defaultTyped);
@@ -530,7 +528,7 @@ public class GenericMigrationTest extends TestCase {
 		checkNarrowedInstanceAttribute(narrowInstance2, myAttrNarrowChild, attrChildValue);
 	}
 	
-	private Resource loadMigrationResource(EPackage metamodel, MigrationHelperDelegate delegate, URI modelResourceURI) {
+	private Resource loadMigrationResource(EPackage metamodel, MigrationDelegate delegate, URI modelResourceURI) {
 		if(modelResourceURI == null) {
 			throw new IllegalArgumentException("null resource uri"); //$NON-NLS-1$
 		}
@@ -540,9 +538,9 @@ public class GenericMigrationTest extends TestCase {
 		return rset.getResource(modelResourceURI, true);
 	}
 	
-	private Resource createMigrationResource(final MigrationHelperDelegate delegate, URI modelResourceURI) {
+	private Resource createMigrationResource(final MigrationDelegate delegate, URI modelResourceURI) {
 		return new MigrationResource(modelResourceURI) {
-			protected MigrationHelperDelegate createDelegate() {
+			protected MigrationDelegate createDelegate() {
 				return delegate;
 			}
 		};

@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
@@ -59,7 +60,7 @@ public class MigrationPatchesTest extends TestCase {
 		URI newGenUri = temporarySaveMigratedModel(genmodelFileName, "patch_138440", "gmfgen");
 		changeNsUriToOldOne(newGenUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
 		
-		assertOnLoadModelMigrationSuccess(newGenUri);
+		assertOnLoadModelMigrationDidNothing(newGenUri);
 		
 		URI gmfmapmodelFileName = createURI("patch_138440.gmfmap"); //$NON-NLS-1$
 		Exception caughtMapException = assertOrdinaryLoadModelProblems(gmfmapmodelFileName);
@@ -70,7 +71,7 @@ public class MigrationPatchesTest extends TestCase {
 		URI newMapUri = temporarySaveMigratedModel(gmfmapmodelFileName, "patch_138440", "gmfmap");
 		changeNsUriToOldOne(newMapUri, "gmfmap", "http://www.eclipse.org/gmf/2005/mappings/2.0");
 		
-		assertOnLoadModelMigrationSuccess(newMapUri);
+		assertOnLoadModelMigrationDidNothing(newMapUri);
 	}
 
 	/*
@@ -86,7 +87,7 @@ public class MigrationPatchesTest extends TestCase {
 		URI newGenUri = temporarySaveMigratedModel(genmodelFileName, "patch_138440", "gmfgen");
 		changeNsUriToOldOne(newGenUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
 		
-		assertOnLoadModelMigrationSuccess(newGenUri);
+		assertOnLoadModelMigrationDidNothing(newGenUri);
 		
 		URI gmfmapmodelFileName = createURI("patch_161380.gmfmap"); //$NON-NLS-1$		
 		Exception caughtMapException = assertOrdinaryLoadModelProblems(gmfmapmodelFileName);
@@ -97,7 +98,7 @@ public class MigrationPatchesTest extends TestCase {
 		URI newUri = temporarySaveMigratedModel(gmfmapmodelFileName, "patch_161380", "gmfmap");
 		changeNsUriToOldOne(newUri, "gmfmap", "http://www.eclipse.org/gmf/2005/mappings/2.0");
 		
-		assertOnLoadModelMigrationSuccess(newUri);
+		assertOnLoadModelMigrationDidNothing(newUri);
 	}
 
 	private static URI createURI(String testModelFileName) {
@@ -114,12 +115,30 @@ public class MigrationPatchesTest extends TestCase {
 		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
 		
 		EList<Resource.Diagnostic> errors = loadHelper.getLoadedResource().getErrors();
-		assertTrue(errors.isEmpty());
+		assertTrue("Errors found after migration: "+errors, errors.isEmpty()); //$NON-NLS-1$
 		
 		assertTrue("Migration warning load status expected", loadHelper.getStatus().matches(IStatus.WARNING)); //$NON-NLS-1$
 		EList<Resource.Diagnostic> warnings = loadHelper.getLoadedResource().getWarnings();
 		assertEquals("Single Warning diagnostic expected", 1, warnings.size()); //$NON-NLS-1$		
 		assertTrue("MigrationDiagnostic expected as warning", warnings.get(0) instanceof MigrationResource.Diagnostic); //$NON-NLS-1$
+		
+		assertTrue(loadHelper.getLoadedResource() instanceof XMLResource);
+		XMLResource xmlResource = (XMLResource) loadHelper.getLoadedResource();
+		assertEquals("Unknown elements were found after migration", 0, xmlResource.getEObjectToExtensionMap().size());
+	}
+
+	void assertOnLoadModelMigrationDidNothing(URI uri) throws Exception {
+		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
+		
+		EList<Resource.Diagnostic> errors = loadHelper.getLoadedResource().getErrors();
+		assertTrue("Errors after re-run migration on new migrated model: "+errors, errors.isEmpty());
+		
+		EList<Resource.Diagnostic> warnings = loadHelper.getLoadedResource().getWarnings();
+		assertTrue("Warnings after re-run migration on new migrated model: "+warnings, warnings.isEmpty());
+		
+		assertTrue(loadHelper.getLoadedResource() instanceof XMLResource);
+		XMLResource xmlResource = (XMLResource) loadHelper.getLoadedResource();
+		assertEquals("Unknown elements were found after re-migration", 0, xmlResource.getEObjectToExtensionMap().size());
 	}
 
 	Exception assertOrdinaryLoadModelProblems(URI uri) throws Exception {
@@ -161,7 +180,7 @@ public class MigrationPatchesTest extends TestCase {
 		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testGenDiagram", "gmfgen");
 		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
 		
-		assertOnLoadModelMigrationSuccess(newUri);
+		assertOnLoadModelMigrationDidNothing(newUri);
 	}
 
 	/*
@@ -181,7 +200,7 @@ public class MigrationPatchesTest extends TestCase {
 		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testFeatureLabelModelFacet", "gmfgen");
 		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
 		
-		assertOnLoadModelMigrationSuccess(newUri);
+		assertOnLoadModelMigrationDidNothing(newUri);
 		checkFeatureLabelModelFacetsMigrated(newUri);
 	}
 
@@ -210,7 +229,7 @@ public class MigrationPatchesTest extends TestCase {
 		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testGenAuditRootDefaultAndNested", "gmfgen");
 		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
 		
-		assertOnLoadModelMigrationSuccess(newUri);
+		assertOnLoadModelMigrationDidNothing(newUri);
 	}
 
 	public void testGenAuditRootNoDefaultButNested() throws Exception {
@@ -233,7 +252,7 @@ public class MigrationPatchesTest extends TestCase {
 		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testGenAudits", "gmfgen");
 		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
 		
-		assertOnLoadModelMigrationSuccess(newUri);
+		assertOnLoadModelMigrationDidNothing(newUri);
 	}
 
 	public void testGenEditorAuditRootNoDefaultButNested() throws Exception {
@@ -247,7 +266,7 @@ public class MigrationPatchesTest extends TestCase {
 		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testGenEditorAuditRootNoDefaultButNested", "gmfgen");
 		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
 		
-		assertOnLoadModelMigrationSuccess(newUri);
+		assertOnLoadModelMigrationDidNothing(newUri);
 	}
 
 	public void testGenAuditsCorrectCategories() throws Exception {
@@ -263,7 +282,7 @@ public class MigrationPatchesTest extends TestCase {
 		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testGenAuditsCorrectCategories", "gmfgen");
 		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
 		
-		assertOnLoadModelMigrationSuccess(newUri);
+		assertOnLoadModelMigrationDidNothing(newUri);
 		
 		checkModelAndCorrectCategories(newUri);
 	}
@@ -272,6 +291,7 @@ public class MigrationPatchesTest extends TestCase {
 		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
 		Resource resource = loadHelper.getLoadedResource();
 		File newGenmodelFile = File.createTempFile(tempFilename, tempFileExtension.startsWith(".") ? tempFileExtension : "."+tempFileExtension);
+		newGenmodelFile.deleteOnExit();
 		URI newUri = URI.createFileURI(newGenmodelFile.getAbsolutePath());
 		resource.setURI(newUri);
 		try {
@@ -335,7 +355,7 @@ public class MigrationPatchesTest extends TestCase {
 		URI newMapUri = temporarySaveMigratedModel(gmfmapmodelFileName, "testNotChangingOrderOfLabelMappings", "gmfmap"); //$NON-NLS-1$ //$NON-NLS-2$
 		changeNsUriToOldOne(newMapUri, "gmfmap", "http://www.eclipse.org/gmf/2005/mappings/2.0"); //$NON-NLS-1$ //$NON-NLS-2$
 		
-		assertOnLoadModelMigrationSuccess(newMapUri);
+		assertOnLoadModelMigrationDidNothing(newMapUri);
 		checkOrderOfLabelMappings(newMapUri);
 	}
 
@@ -350,7 +370,7 @@ public class MigrationPatchesTest extends TestCase {
 		URI newMapUri = temporarySaveMigratedModel(gmfmapmodelFileName, "testRequiredPluginsMoved", "gmfgen"); //$NON-NLS-1$ //$NON-NLS-2$
 		changeNsUriToOldOne(newMapUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0"); //$NON-NLS-1$ //$NON-NLS-2$
 		
-		assertOnLoadModelMigrationSuccess(newMapUri);
+		assertOnLoadModelMigrationDidNothing(newMapUri);
 		checkAllRequiredPluginsAreNotLost(newMapUri);
 	}
 
