@@ -13,7 +13,6 @@ package org.eclipse.gmf.internal.map.util;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
-import org.eclipse.gmf.internal.common.migrate.MigrationHelperDelegate;
 import org.eclipse.gmf.internal.common.migrate.MigrationResource;
 
 public class GMFMapResource extends MigrationResource {
@@ -29,7 +28,7 @@ public class GMFMapResource extends MigrationResource {
 	}
 
 	@Override
-	protected MigrationHelperDelegate createDelegate() {
+	protected org.eclipse.gmf.internal.common.migrate.MigrationDelegate createDelegate() {
 		MigrationDelegate migrationHelper = new MigrationDelegate();
 		migrationHelper.init();
 		return migrationHelper;
