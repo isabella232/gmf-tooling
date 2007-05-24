@@ -184,9 +184,7 @@
           editHelperClassName="EmptyBoxEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure">
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui.render</requiredPluginIDs>
-      </viewmap>
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.BoxShape"/>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/EmptyBox"/>
