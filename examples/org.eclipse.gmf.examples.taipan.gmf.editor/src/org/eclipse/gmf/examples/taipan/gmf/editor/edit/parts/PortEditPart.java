@@ -11,25 +11,21 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
-import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.draw2d.FreeformLayout;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Layer;
-import org.eclipse.draw2d.Polygon;
 import org.eclipse.draw2d.PositionConstants;
-import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
-import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
+import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.editpolicies.ResizableEditPolicy;
+import org.eclipse.gef.requests.CreateRequest;
+import org.eclipse.gmf.examples.taipan.figures.PortShape;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.OpenDiagramEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
@@ -37,9 +33,8 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderedShapeEditPar
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
@@ -86,17 +81,25 @@ public class PortEditPart extends AbstractBorderedShapeEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		XYLayoutEditPolicy lep = new XYLayoutEditPolicy() {
+		LayoutEditPolicy lep = new LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				if (child instanceof IBorderItemEditPart) {
 					return new BorderItemSelectionEditPolicy();
 				}
-				EditPolicy result = super.createChildEditPolicy(child);
+				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 				if (result == null) {
-					return new ResizableShapeEditPolicy();
+					result = new NonResizableEditPolicy();
 				}
 				return result;
+			}
+
+			protected Command getMoveChildrenCommand(Request request) {
+				return null;
+			}
+
+			protected Command getCreateCommand(CreateRequest request) {
+				return null;
 			}
 		};
 		return lep;
@@ -106,15 +109,14 @@ public class PortEditPart extends AbstractBorderedShapeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		PortFigure figure = new PortFigure();
-		return primaryShape = figure;
+		return primaryShape = new PortShape();
 	}
 
 	/**
 	 * @generated
 	 */
-	public PortFigure getPrimaryShape() {
-		return (PortFigure) primaryShape;
+	public PortShape getPrimaryShape() {
+		return (PortShape) primaryShape;
 	}
 
 	/**
@@ -175,16 +177,9 @@ public class PortEditPart extends AbstractBorderedShapeEditPart {
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
 		if (nodeShape.getLayoutManager() == null) {
-			nodeShape.setLayoutManager(new FreeformLayout() {
-
-				public Object getConstraint(IFigure figure) {
-					Object result = constraints.get(figure);
-					if (result == null) {
-						result = new Rectangle(0, 0, -1, -1);
-					}
-					return result;
-				}
-			});
+			ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
+			layout.setSpacing(getMapMode().DPtoLP(5));
+			nodeShape.setLayoutManager(layout);
 		}
 		return nodeShape; // use nodeShape itself as contentPane
 	}
@@ -215,95 +210,6 @@ public class PortEditPart extends AbstractBorderedShapeEditPart {
 		} else {
 			super.handleNotificationEvent(event);
 		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public class PortFigure extends Layer {
-
-		/**
-		 * @generated
-		 */
-		public PortFigure() {
-
-			this.setLayoutManager(new XYLayout());
-
-			this.setPreferredSize(new Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
-			this.setMaximumSize(new Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
-			this.setMinimumSize(new Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
-			this.setSize(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50));
-			createContents();
-		}
-
-		/**
-		 * @generated
-		 */
-		private void createContents() {
-
-			RectangleFigure walls0 = new RectangleFigure();
-			walls0.setFill(true);
-			walls0.setFillXOR(false);
-			walls0.setOutline(true);
-			walls0.setOutlineXOR(false);
-			walls0.setLineWidth(1);
-			walls0.setLineStyle(Graphics.LINE_SOLID);
-			walls0.setForegroundColor(ColorConstants.black);
-			walls0.setBackgroundColor(ColorConstants.darkGray);
-
-			this.add(walls0, new Rectangle(getMapMode().DPtoLP(10), getMapMode().DPtoLP(40), getMapMode().DPtoLP(40), getMapMode().DPtoLP(10)));
-
-			Polygon mainRoof0 = new Polygon();
-			mainRoof0.addPoint(new Point(getMapMode().DPtoLP(30), getMapMode().DPtoLP(10)));
-			mainRoof0.addPoint(new Point(getMapMode().DPtoLP(60), getMapMode().DPtoLP(40)));
-			mainRoof0.addPoint(new Point(getMapMode().DPtoLP(0), getMapMode().DPtoLP(40)));
-			mainRoof0.setFill(true);
-			mainRoof0.setFillXOR(false);
-			mainRoof0.setOutline(true);
-			mainRoof0.setOutlineXOR(false);
-			mainRoof0.setLineWidth(1);
-			mainRoof0.setLineStyle(Graphics.LINE_SOLID);
-			mainRoof0.setForegroundColor(ColorConstants.orange);
-			mainRoof0.setBackgroundColor(ColorConstants.orange);
-
-			this.add(mainRoof0);
-
-			Polygon topRoof0 = new Polygon();
-			topRoof0.addPoint(new Point(getMapMode().DPtoLP(30), getMapMode().DPtoLP(0)));
-			topRoof0.addPoint(new Point(getMapMode().DPtoLP(50), getMapMode().DPtoLP(20)));
-			topRoof0.addPoint(new Point(getMapMode().DPtoLP(10), getMapMode().DPtoLP(20)));
-			topRoof0.setFill(true);
-			topRoof0.setFillXOR(false);
-			topRoof0.setOutline(true);
-			topRoof0.setOutlineXOR(false);
-			topRoof0.setLineWidth(1);
-			topRoof0.setLineStyle(Graphics.LINE_SOLID);
-			topRoof0.setForegroundColor(ColorConstants.orange);
-			topRoof0.setBackgroundColor(ColorConstants.orange);
-
-			this.add(topRoof0);
-
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean myUseLocalCoordinates = true;
-
-		/**
-		 * @generated
-		 */
-		protected boolean useLocalCoordinates() {
-			return myUseLocalCoordinates;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
-			myUseLocalCoordinates = useLocalCoordinates;
-		}
-
 	}
 
 }
