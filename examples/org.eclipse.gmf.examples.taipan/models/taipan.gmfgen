@@ -821,7 +821,9 @@
       version="2.0.0.qualifier"/>
   <editor/>
   <diagramUpdater/>
-  <propertySheet>
+  <propertySheet
+      packageName="org.eclipse.gmf.examples.taipan.gmf.editor.properties"
+      labelProviderClassName="TaiPanPropertiesLabelProvider">
     <tabs
         xsi:type="gmfgen:GenStandardPropertyTab"
         iD="appearance"/>
