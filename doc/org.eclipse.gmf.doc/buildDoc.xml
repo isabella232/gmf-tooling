@@ -418,12 +418,14 @@
 					input="@{file}"                                                                                                                                                              
 					regexp="${doc.plugin.dir}/reference/api/@{subsystem}/(.*)/package-summary.html"                                                                                                                          
 					select="\1"                                                                                                                                                                  
-					override="true"/>                                                                                                                                                            
+					override="true"/>  
+        		<echo message="................ ${package.path}"/>
 				<antcontrib:propertyregex property="package.name"                                                                                                                            
 					input="${package.path}"                                                                                                                                                              
 					regexp="([^/]*)/"                                                                                                                                                        
 					replace="\1\."                                                                                                                                                                  
 					override="true"/>                                                                                                                                                            
+        		<echo message="................ ${package.name}"/>
                 <echo file="${doc.plugin.dir}/toc-@{subsystem}.xml" append="true">
     		<![CDATA[<topic]]> label="${package.name}" href="reference/api/@{subsystem}/${package.path}/package-summary.html"<![CDATA[/>]]>
     			</echo>
