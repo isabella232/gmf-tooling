@@ -416,11 +416,11 @@
         	<sequential>
 				<antcontrib:propertyregex property="package.path"                                                                                                               
 					input="@{file}"                                                                                                                                                              
-					regexp="${doc.plugin.dir}/reference/api/@{subsystem}/(.*)/package-summary.html"                                                                                                                          
+					regexp="/reference/api/@{subsystem}/(.*)/package-summary.html"                                                                                                                          
 					select="\1"                                                                                                                                                                  
 					override="true"/>  
         		<echo message="file ................ @{file}"/>
-        		<echo message="regexp ................ ${doc.plugin.dir}/reference/api/@{subsystem}/(.*)/package-summary.html"/>
+        		<echo message="regexp ................ /reference/api/@{subsystem}/(.*)/package-summary.html"/>
         		<echo message="................ ${package.path}"/>
 				<antcontrib:propertyregex property="package.name"                                                                                                                            
 					input="${package.path}"                                                                                                                                                              
