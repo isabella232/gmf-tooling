@@ -84,12 +84,8 @@
           displayName="Small Items"
           editHelperClassName="SmallItemsEditHelper"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="SmallItemsFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SmallItemsFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SmallItemsFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-      </viewmap>
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.draw2d.Label"/>
       <modelFacet>
         <metaClass
             href="taipan_rcp.genmodel#//taipan/SmallItems"/>
@@ -127,12 +123,8 @@
           displayName="Large Item"
           editHelperClassName="LargeItemEditHelper"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="LargeItemFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class LargeItemFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public LargeItemFigure() {&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout layoutThis = new org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout();&#xA;&#xA;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;&#xA;org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel largeItemArticleFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xA;largeItemArticleFigure0.setText(&quot;&lt;...>&quot;);&#xA;&#xA;this.add(largeItemArticleFigure0);&#xA;setFigureLargeItemArticleFigure(largeItemArticleFigure0);&#xA;&#xA;&#xA;&#xA;org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel largeItemWeightFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xA;largeItemWeightFigure0.setText(&quot;&lt;...>&quot;);&#xA;&#xA;this.add(largeItemWeightFigure0);&#xA;setFigureLargeItemWeightFigure(largeItemWeightFigure0);&#xA;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fLargeItemArticleFigure; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureLargeItemArticleFigure() {&#xA;&#x9;&#x9;return fLargeItemArticleFigure;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureLargeItemArticleFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig){&#xA;&#x9;&#x9;fLargeItemArticleFigure = fig;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fLargeItemWeightFigure; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureLargeItemWeightFigure() {&#xA;&#x9;&#x9;return fLargeItemWeightFigure;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureLargeItemWeightFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig){&#xA;&#x9;&#x9;fLargeItemWeightFigure = fig;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-      </viewmap>
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape"/>
       <modelFacet>
         <metaClass
             href="taipan_rcp.genmodel#//taipan/LargeItem"/>
@@ -150,9 +142,8 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:ParentAssignedViewmap"
-            getterName="getFigureLargeItemArticleFigure"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.draw2d.Label"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeatures
@@ -167,9 +158,8 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:ParentAssignedViewmap"
-            getterName="getFigureLargeItemWeightFigure"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.draw2d.Label"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeatures
@@ -194,10 +184,7 @@
           editHelperClassName="EmptyBoxEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure">
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui.render</requiredPluginIDs>
-      </viewmap>
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.BoxShape"/>
       <modelFacet>
         <metaClass
             href="taipan_rcp.genmodel#//taipan/EmptyBox"/>
@@ -221,23 +208,19 @@
           xsi:type="gmfgen:MetamodelType"
           editHelperClassName="PortEditHelper"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          layoutType="XY_LAYOUT"
-          className="PortFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class PortFigure extends org.eclipse.draw2d.Layer {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public PortFigure() {&#xA;&#x9;&#x9;&#xA;this.setLayoutManager(new org.eclipse.draw2d.XYLayout());&#xA;&#x9;&#x9;&#xA;&#xA;this.setPreferredSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60)&#xA;, getMapMode().DPtoLP(50)&#xA;));&#xA;this.setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60)&#xA;, getMapMode().DPtoLP(50)&#xA;));&#xA;this.setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60)&#xA;, getMapMode().DPtoLP(50)&#xA;));&#xA;this.setSize(getMapMode().DPtoLP(60)&#xA;, getMapMode().DPtoLP(50)&#xA;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;&#xA;org.eclipse.draw2d.RectangleFigure walls0 = new org.eclipse.draw2d.RectangleFigure();&#xA;walls0.setFill(true);&#xA;walls0.setFillXOR(false);&#xA;walls0.setOutline(true);&#xA;walls0.setOutlineXOR(false);&#xA;walls0.setLineWidth(1);&#xA;walls0.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;walls0.setForegroundColor(org.eclipse.draw2d.ColorConstants.black);&#xA;&#x9;walls0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.darkGray);&#xA;&#xA;this.add(walls0, &#xA;new org.eclipse.draw2d.geometry.Rectangle(getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(40)&#xA;, getMapMode().DPtoLP(40)&#xA;, getMapMode().DPtoLP(10)&#xA;)&#xA;);&#xA;&#xA;&#xA;&#xA;&#xA;org.eclipse.draw2d.Polygon mainRoof0 = new org.eclipse.draw2d.Polygon();&#xA;mainRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(30)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;mainRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(60)&#xA;, getMapMode().DPtoLP(40)&#xA;));&#xA;mainRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(0)&#xA;, getMapMode().DPtoLP(40)&#xA;));&#xA;mainRoof0.setFill(true);&#xA;mainRoof0.setFillXOR(false);&#xA;mainRoof0.setOutline(true);&#xA;mainRoof0.setOutlineXOR(false);&#xA;mainRoof0.setLineWidth(1);&#xA;mainRoof0.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;mainRoof0.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);&#xA;&#x9;mainRoof0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);&#xA;&#xA;this.add(mainRoof0);&#xA;&#xA;&#xA;&#xA;&#xA;org.eclipse.draw2d.Polygon topRoof0 = new org.eclipse.draw2d.Polygon();&#xA;topRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(30)&#xA;, getMapMode().DPtoLP(0)&#xA;));&#xA;topRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(50)&#xA;, getMapMode().DPtoLP(20)&#xA;));&#xA;topRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(20)&#xA;));&#xA;topRoof0.setFill(true);&#xA;topRoof0.setFillXOR(false);&#xA;topRoof0.setOutline(true);&#xA;topRoof0.setOutlineXOR(false);&#xA;topRoof0.setLineWidth(1);&#xA;topRoof0.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;topRoof0.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);&#xA;&#x9;topRoof0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);&#xA;&#xA;this.add(topRoof0);&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = true;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PortShape">
         <attributes
             xsi:type="gmfgen:ResizeConstraints"/>
         <attributes
             xsi:type="gmfgen:DefaultSizeAttributes"
             width="60"
             height="50"/>
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <behaviour
           xsi:type="gmfgen:OpenDiagramBehaviour"
           diagramKind="Port"
-          editorID="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramEditorID"/>
+          editorID="org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorID"/>
       <modelFacet>
         <metaClass
             href="taipan_rcp.genmodel#//taipan/Port"/>
@@ -255,12 +238,8 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:InnerClassViewmap"
-            className="PortLocationFigure"
-            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class PortLocationFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public PortLocationFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
-          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-        </viewmap>
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.draw2d.Label"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewMethod="NATIVE"
@@ -285,12 +264,8 @@
           xsi:type="gmfgen:MetamodelType"
           editHelperClassName="ShipEditHelper"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="ShipFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ShipFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ShipFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;&#xA;org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel shipNameFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xA;shipNameFigure0.setText(&quot;&lt;...>&quot;);&#xA;&#xA;this.add(shipNameFigure0);&#xA;setFigureShipNameFigure(shipNameFigure0);&#xA;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fShipNameFigure; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureShipNameFigure() {&#xA;&#x9;&#x9;return fShipNameFigure;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureShipNameFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig){&#xA;&#x9;&#x9;fShipNameFigure = fig;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-      </viewmap>
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape"/>
       <modelFacet>
         <metaClass
             href="taipan_rcp.genmodel#//taipan/Ship"/>
@@ -308,11 +283,12 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:ParentAssignedViewmap"
-            getterName="getFigureShipNameFigure"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.draw2d.Label"/>
         <modelFacet
-            xsi:type="gmfgen:FeatureLabelModelFacet">
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            viewMethod="NATIVE"
+            editMethod="NATIVE">
           <metaFeatures
               href="taipan_rcp.genmodel#//taipan/Ship/name"/>
         </modelFacet>
@@ -333,12 +309,8 @@
           xsi:type="gmfgen:MetamodelType"
           editHelperClassName="WarshipEditHelper"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="ShipFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ShipFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ShipFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;&#xA;org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel shipNameFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xA;shipNameFigure0.setText(&quot;&lt;...>&quot;);&#xA;&#xA;this.add(shipNameFigure0);&#xA;setFigureShipNameFigure(shipNameFigure0);&#xA;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fShipNameFigure; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureShipNameFigure() {&#xA;&#x9;&#x9;return fShipNameFigure;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureShipNameFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig){&#xA;&#x9;&#x9;fShipNameFigure = fig;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-      </viewmap>
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape"/>
       <modelFacet>
         <metaClass
             href="taipan_rcp.genmodel#//taipan/Warship"/>
@@ -356,11 +328,12 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:ParentAssignedViewmap"
-            getterName="getFigureShipNameFigure"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.draw2d.Label"/>
         <modelFacet
-            xsi:type="gmfgen:FeatureLabelModelFacet">
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            viewMethod="NATIVE"
+            editMethod="NATIVE">
           <metaFeatures
               href="taipan_rcp.genmodel#//taipan/Ship/name"/>
         </modelFacet>
@@ -380,12 +353,8 @@
           displayName="Ship Destination"
           editHelperAdviceClassName="ShipDestinationEditHelperAdvice"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="ShipDestinationFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ShipDestinationFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ShipDestinationFigure() {&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#xA;&#x9;&#x9;setTargetDecoration(createTargetDecoration());&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.RotatableDecoration createTargetDecoration() {&#xA;&#x9;&#x9;org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();&#xA;df.setFill(true);&#xA;df.setFillXOR(false);&#xA;df.setOutline(true);&#xA;df.setOutlineXOR(false);&#xA;df.setLineWidth(1);&#xA;df.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;&#x9;return df;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-      </viewmap>
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DirectedConnection"/>
       <modelFacet
           xsi:type="gmfgen:FeatureLinkModelFacet">
         <metaFeature
@@ -399,14 +368,11 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:InnerClassViewmap"
-            className="ShipDestinationMarkerFigure"
-            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ShipDestinationMarkerFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ShipDestinationMarkerFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;destination&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.draw2d.Label">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
-          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:DesignLabelModelFacet"/>
@@ -426,12 +392,8 @@
           displayName="Reliable Route"
           editHelperClassName="RouteEditHelper"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="ReliableRouteFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ReliableRouteFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ReliableRouteFigure() {&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-      </viewmap>
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"/>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
@@ -465,14 +427,11 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:InnerClassViewmap"
-            className="ReliableRouteDescriptionFigure"
-            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ReliableRouteDescriptionFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ReliableRouteDescriptionFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.draw2d.Label">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
-          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
@@ -491,14 +450,11 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:InnerClassViewmap"
-            className="ReliableRouteReliabilityFigure"
-            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ReliableRouteReliabilityFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ReliableRouteReliabilityFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.draw2d.Label">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="60"/>
-          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
@@ -525,12 +481,8 @@
           metamodelType="//@diagram/@links.1/@elementType"
           editHelperAdviceClassName="RouteEditHelperAdvice"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="UnreliableRouteFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class UnreliableRouteFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public UnreliableRouteFigure() {&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xA;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-      </viewmap>
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DashedConnection"/>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
@@ -564,14 +516,11 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:InnerClassViewmap"
-            className="UnreliableRouteDescriptionFigure"
-            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class UnreliableRouteDescriptionFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public UnreliableRouteDescriptionFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.draw2d.Label">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
-          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
@@ -590,14 +539,11 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:InnerClassViewmap"
-            className="UnreliableRouteReliabilityFigure"
-            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class UnreliableRouteReliabilityFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public UnreliableRouteReliabilityFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.draw2d.Label">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="60"/>
-          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
@@ -624,12 +570,8 @@
           displayName="Escort Ships Order"
           editHelperClassName="EscortShipsOrderEditHelper"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="EscortShipsOrderFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class EscortShipsOrderFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public EscortShipsOrderFigure() {&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(3);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#xA;&#x9;&#x9;setTargetDecoration(createTargetDecoration());&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.RotatableDecoration createTargetDecoration() {&#xA;&#x9;&#x9;org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();&#xA;df.setFill(true);&#xA;df.setFillXOR(false);&#xA;df.setOutline(true);&#xA;df.setOutlineXOR(false);&#xA;df.setLineWidth(3);&#xA;df.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;&#x9;return df;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-      </viewmap>
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ThickDirectedConnection"/>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
@@ -664,10 +606,7 @@
           editHelperClassName="BesiegePortOrderEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ArrowConnection">
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-      </viewmap>
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ArrowConnection"/>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
@@ -699,12 +638,8 @@
           xsi:type="gmfgen:SpecializationType"
           editHelperAdviceClassName="PortRegisterEditHelperAdvice"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="RegistrationFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class RegistrationFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public RegistrationFigure() {&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xA;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-      </viewmap>
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DashedConnection"/>
       <modelFacet
           xsi:type="gmfgen:FeatureLinkModelFacet">
         <metaFeature
@@ -724,10 +659,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure">
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-      </viewmap>
+          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
     </compartments>
     <compartments
         visualID="7002"
@@ -745,10 +677,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure">
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-      </viewmap>
+          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
     </compartments>
     <compartments
         visualID="7003"
@@ -766,10 +695,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure">
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-      </viewmap>
+          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
     </compartments>
     <palette>
       <groups
@@ -1149,9 +1075,7 @@
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@creationConstraints/@sourceEnd //@diagram/@links.3/@creationConstraints/@targetEnd //@diagram/@links.4/@creationConstraints/@sourceEnd //@audits/@rules.0/@rule">
-      <requiredPluginIDs>org.eclipse.ocl.ecore</requiredPluginIDs>
-    </providers>
+        expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@creationConstraints/@sourceEnd //@diagram/@links.3/@creationConstraints/@targetEnd //@diagram/@links.4/@creationConstraints/@sourceEnd //@audits/@rules.0/@rule"/>
     <providers
         xsi:type="gmfgen:GenJavaExpressionProvider"
         expressions="//@audits/@rules.1/@rule"/>
