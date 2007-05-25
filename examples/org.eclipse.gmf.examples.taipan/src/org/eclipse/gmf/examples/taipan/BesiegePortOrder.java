@@ -30,13 +30,6 @@ package org.eclipse.gmf.examples.taipan;
 public interface BesiegePortOrder extends Order {
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	String copyright = ""; //$NON-NLS-1$
-
-	/**
 	 * Returns the value of the '<em><b>Port</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>

@@ -36,13 +36,6 @@ import org.eclipse.emf.ecore.EObject;
 public interface Aquatory extends EObject {
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	String copyright = ""; //$NON-NLS-1$
-
-	/**
 	 * Returns the value of the '<em><b>Ports</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.examples.taipan.Port}.
 	 * <!-- begin-user-doc -->

@@ -27,13 +27,6 @@ import org.eclipse.emf.common.util.EList;
 public interface EscortShipsOrder extends Order {
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	String copyright = ""; //$NON-NLS-1$
-
-	/**
 	 * Returns the value of the '<em><b>Ships</b></em>' reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.examples.taipan.Ship}.
 	 * <!-- begin-user-doc -->

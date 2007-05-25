@@ -33,13 +33,6 @@ import org.eclipse.emf.common.util.EList;
 public interface Warship extends Ship {
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	String copyright = ""; //$NON-NLS-1$
-
-	/**
 	 * Returns the value of the '<em><b>Escort Order</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>

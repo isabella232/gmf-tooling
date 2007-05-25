@@ -25,11 +25,4 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Order extends EObject {
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	String copyright = ""; //$NON-NLS-1$
-
 } // Order

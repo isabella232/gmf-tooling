@@ -33,13 +33,6 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 public class BuildingImpl extends EObjectImpl implements Building {
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = ""; //$NON-NLS-1$
-
-	/**
 	 * The default value of the '{@link #getInfo() <em>Info</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

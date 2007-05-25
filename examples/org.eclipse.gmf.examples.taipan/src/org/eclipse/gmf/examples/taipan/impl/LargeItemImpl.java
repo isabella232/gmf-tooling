@@ -31,13 +31,6 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 public class LargeItemImpl extends ItemImpl implements LargeItem {
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = ""; //$NON-NLS-1$
-
-	/**
 	 * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

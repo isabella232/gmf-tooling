@@ -53,13 +53,6 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 public class PortImpl extends EObjectImpl implements Port {
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = ""; //$NON-NLS-1$
-
-	/**
 	 * The default value of the '{@link #getLocation() <em>Location</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

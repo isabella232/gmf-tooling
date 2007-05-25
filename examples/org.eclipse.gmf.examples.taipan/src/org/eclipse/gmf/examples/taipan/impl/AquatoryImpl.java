@@ -49,13 +49,6 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 public class AquatoryImpl extends EObjectImpl implements Aquatory {
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = ""; //$NON-NLS-1$
-
-	/**
 	 * The cached value of the '{@link #getPorts() <em>Ports</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

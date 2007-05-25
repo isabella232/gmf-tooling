@@ -50,13 +50,6 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 public class ShipImpl extends EObjectImpl implements Ship {
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = ""; //$NON-NLS-1$
-
-	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

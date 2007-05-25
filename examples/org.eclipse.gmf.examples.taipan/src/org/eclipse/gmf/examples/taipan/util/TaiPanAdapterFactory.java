@@ -31,13 +31,6 @@ import org.eclipse.gmf.examples.taipan.*;
 public class TaiPanAdapterFactory extends AdapterFactoryImpl {
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = ""; //$NON-NLS-1$
-
-	/**
 	 * The cached model package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -26,12 +26,6 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 public class SmallItemsImpl extends ItemImpl implements SmallItems {
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = ""; //$NON-NLS-1$
-
-	/**
 	 * The default value of the '{@link #getQuantity() <em>Quantity</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getQuantity()

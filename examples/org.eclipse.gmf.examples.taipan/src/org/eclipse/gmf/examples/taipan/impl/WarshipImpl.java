@@ -41,12 +41,6 @@ import org.eclipse.gmf.examples.taipan.Warship;
 public class WarshipImpl extends ShipImpl implements Warship {
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = ""; //$NON-NLS-1$
-
-	/**
 	 * The cached value of the '{@link #getEscortOrder() <em>Escort Order</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

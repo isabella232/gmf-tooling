@@ -36,13 +36,6 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 public class EscortShipsOrderImpl extends EObjectImpl implements EscortShipsOrder {
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = ""; //$NON-NLS-1$
-
-	/**
 	 * The cached value of the '{@link #getShips() <em>Ships</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

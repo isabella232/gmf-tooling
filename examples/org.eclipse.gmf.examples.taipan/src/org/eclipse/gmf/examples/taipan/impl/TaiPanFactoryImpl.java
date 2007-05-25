@@ -30,13 +30,6 @@ import org.eclipse.gmf.examples.taipan.*;
 public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = ""; //$NON-NLS-1$
-
-	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -39,13 +39,6 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 public class BesiegePortOrderImpl extends EObjectImpl implements BesiegePortOrder {
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = ""; //$NON-NLS-1$
-
-	/**
 	 * The cached value of the '{@link #getPort() <em>Port</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

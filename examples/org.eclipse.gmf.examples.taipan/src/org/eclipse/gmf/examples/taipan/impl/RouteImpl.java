@@ -42,13 +42,6 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 public class RouteImpl extends EObjectImpl implements Route {
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = ""; //$NON-NLS-1$
-
-	/**
 	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
