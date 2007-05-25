@@ -262,7 +262,7 @@
 					<group title="Diagram UI Packages" packages="org.eclipse.gmf.runtime.diagram.ui*"/>
 			</package-groups>
 		</javadoc-subsystem>
-		<generate-toc subsystem="runtime"/>
+		<generate-toc subsystem="runtime" title="GMF Runtime"/>
 
 		<javadoc-subsystem subsystem="tooling" tocTitle="Generation Framework">
 			<package-sets>
@@ -307,7 +307,7 @@
 				<group title="Tooling Packages" packages="org.eclipse.gmf.tooldef*,org.eclipse.gmf.map*,org.eclipse.gmf.bridge*,org.eclipse.gmf.codegen*,org.eclipse.gmf.internal.codegen*,org.eclipse.gmf.graphdef*,org.eclipse.gmf.gmfgraph*"/>
 			</package-groups>
 		</javadoc-subsystem>
-		<generate-toc subsystem="tooling"/>
+		<generate-toc subsystem="tooling" title="GMF Generation Framework"/>
 		
 		<!-- Add your plug-ins to one of the "subsystem" (domain) doc sets above or, if
 		     necessary, create a new doc set. -->
@@ -403,11 +403,12 @@
 
 	<macrodef name="generate-toc">
 		<attribute name="subsystem"/>
+		<attribute name="title"/>
 		<sequential>
 	        <echo file="${doc.plugin.dir}/toc-@{subsystem}.xml" append="false"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>]]>                                                                                                                                               
 <![CDATA[<?NLS TYPE="org.eclipse.help.toc"?>]]>                                                                                                                               
 	<![CDATA[<toc label="Reference">]]>
-		<![CDATA[<topic label="API Reference"]]> href="reference/api/@{subsystem}/overview-summary.html"<![CDATA[>]]>
+		<![CDATA[<topic]]> label="@{title}" href="reference/api/@{subsystem}/overview-summary.html"<![CDATA[>]]>
 	        </echo>
         	<antcontrib:for param="file">
         	    <path>
