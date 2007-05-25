@@ -57,7 +57,7 @@
         xsi:type="gmfgen:FigureViewmap"
         figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
     <domainDiagramElement
-        href="taipan_rcp.genmodel#//taipan/Port"/>
+        href="taipan.genmodel#//taipan/Port"/>
     <topLevelNodes
         visualID="2001"
         editPartClassName="BuildingEditPart"
@@ -77,11 +77,11 @@
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.BuildingShape"/>
       <modelFacet>
         <metaClass
-            href="taipan_rcp.genmodel#//taipan/Building"/>
+            href="taipan.genmodel#//taipan/Building"/>
         <containmentMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Port/buildings"/>
+            href="taipan.genmodel#//taipan/Port/buildings"/>
         <childMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Port/buildings"/>
+            href="taipan.genmodel#//taipan/Port/buildings"/>
       </modelFacet>
       <labels
           visualID="3001">
@@ -95,7 +95,7 @@
             viewMethod="NATIVE"
             editMethod="NATIVE">
           <metaFeatures
-              href="taipan_rcp.genmodel#//taipan/Building/info"/>
+              href="taipan.genmodel#//taipan/Building/info"/>
         </modelFacet>
       </labels>
     </topLevelNodes>
@@ -422,5 +422,5 @@
     </mainToolBar>
   </application>
   <domainGenModel
-      href="taipan_rcp.genmodel#/"/>
+      href="taipan.genmodel#/"/>
 </gmfgen:GenEditorGenerator>

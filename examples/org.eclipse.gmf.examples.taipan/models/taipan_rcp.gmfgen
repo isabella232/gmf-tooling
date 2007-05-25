@@ -23,7 +23,7 @@
       <target
           xsi:type="gmfgen:GenDomainElementTarget">
         <element
-            href="taipan_rcp.genmodel#//taipan/Port"/>
+            href="taipan.genmodel#//taipan/Port"/>
       </target>
     </rules>
     <rules
@@ -39,7 +39,7 @@
           xsi:type="gmfgen:GenDomainAttributeTarget"
           nullAsError="true">
         <attribute
-            href="taipan_rcp.genmodel#//taipan/Ship/name"/>
+            href="taipan.genmodel#//taipan/Ship/name"/>
       </target>
     </rules>
   </audits>
@@ -66,7 +66,7 @@
     <containsShortcutsTo>taipan</containsShortcutsTo>
     <shortcutsProvidedFor>TaiPan</shortcutsProvidedFor>
     <domainDiagramElement
-        href="taipan_rcp.genmodel#//taipan/Aquatory"/>
+        href="taipan.genmodel#//taipan/Aquatory"/>
     <childNodes
         xsi:type="gmfgen:GenChildLabelNode"
         visualID="3001"
@@ -88,11 +88,11 @@
           figureQualifiedClassName="org.eclipse.draw2d.Label"/>
       <modelFacet>
         <metaClass
-            href="taipan_rcp.genmodel#//taipan/SmallItems"/>
+            href="taipan.genmodel#//taipan/SmallItems"/>
         <containmentMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Ship/cargo"/>
+            href="taipan.genmodel#//taipan/Ship/cargo"/>
         <childMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Ship/cargo"/>
+            href="taipan.genmodel#//taipan/Ship/cargo"/>
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:FeatureLabelModelFacet"
@@ -102,9 +102,9 @@
           viewMethod="PRINTF"
           editMethod="REGEXP">
         <metaFeatures
-            href="taipan_rcp.genmodel#//taipan/Item/article"/>
+            href="taipan.genmodel#//taipan/Item/article"/>
         <metaFeatures
-            href="taipan_rcp.genmodel#//taipan/SmallItems/quantity"/>
+            href="taipan.genmodel#//taipan/SmallItems/quantity"/>
       </labelModelFacet>
     </childNodes>
     <childNodes
@@ -127,11 +127,11 @@
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape"/>
       <modelFacet>
         <metaClass
-            href="taipan_rcp.genmodel#//taipan/LargeItem"/>
+            href="taipan.genmodel#//taipan/LargeItem"/>
         <containmentMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Ship/cargo"/>
+            href="taipan.genmodel#//taipan/Ship/cargo"/>
         <childMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Ship/cargo"/>
+            href="taipan.genmodel#//taipan/Ship/cargo"/>
       </modelFacet>
       <labels
           visualID="5002"
@@ -147,7 +147,7 @@
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeatures
-              href="taipan_rcp.genmodel#//taipan/Item/article"/>
+              href="taipan.genmodel#//taipan/Item/article"/>
         </modelFacet>
       </labels>
       <labels
@@ -163,7 +163,7 @@
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeatures
-              href="taipan_rcp.genmodel#//taipan/LargeItem/weight"/>
+              href="taipan.genmodel#//taipan/LargeItem/weight"/>
         </modelFacet>
       </labels>
     </childNodes>
@@ -187,11 +187,11 @@
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.BoxShape"/>
       <modelFacet>
         <metaClass
-            href="taipan_rcp.genmodel#//taipan/EmptyBox"/>
+            href="taipan.genmodel#//taipan/EmptyBox"/>
         <containmentMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Ship/cargo"/>
+            href="taipan.genmodel#//taipan/Ship/cargo"/>
         <childMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Ship/cargo"/>
+            href="taipan.genmodel#//taipan/Ship/cargo"/>
       </modelFacet>
     </childNodes>
     <topLevelNodes
@@ -223,11 +223,11 @@
           editorID="org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorID"/>
       <modelFacet>
         <metaClass
-            href="taipan_rcp.genmodel#//taipan/Port"/>
+            href="taipan.genmodel#//taipan/Port"/>
         <containmentMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Aquatory/ports"/>
+            href="taipan.genmodel#//taipan/Aquatory/ports"/>
         <childMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Aquatory/ports"/>
+            href="taipan.genmodel#//taipan/Aquatory/ports"/>
       </modelFacet>
       <labels
           xsi:type="gmfgen:GenExternalNodeLabel"
@@ -245,7 +245,7 @@
             viewMethod="NATIVE"
             editMethod="NATIVE">
           <metaFeatures
-              href="taipan_rcp.genmodel#//taipan/Port/location"/>
+              href="taipan.genmodel#//taipan/Port/location"/>
         </modelFacet>
       </labels>
     </topLevelNodes>
@@ -268,11 +268,11 @@
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape"/>
       <modelFacet>
         <metaClass
-            href="taipan_rcp.genmodel#//taipan/Ship"/>
+            href="taipan.genmodel#//taipan/Ship"/>
         <containmentMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Aquatory/ships"/>
+            href="taipan.genmodel#//taipan/Aquatory/ships"/>
         <childMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Aquatory/ships"/>
+            href="taipan.genmodel#//taipan/Aquatory/ships"/>
       </modelFacet>
       <labels
           visualID="5004"
@@ -290,7 +290,7 @@
             viewMethod="NATIVE"
             editMethod="NATIVE">
           <metaFeatures
-              href="taipan_rcp.genmodel#//taipan/Ship/name"/>
+              href="taipan.genmodel#//taipan/Ship/name"/>
         </modelFacet>
       </labels>
     </topLevelNodes>
@@ -313,11 +313,11 @@
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape"/>
       <modelFacet>
         <metaClass
-            href="taipan_rcp.genmodel#//taipan/Warship"/>
+            href="taipan.genmodel#//taipan/Warship"/>
         <containmentMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Aquatory/ships"/>
+            href="taipan.genmodel#//taipan/Aquatory/ships"/>
         <childMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Aquatory/ships"/>
+            href="taipan.genmodel#//taipan/Aquatory/ships"/>
       </modelFacet>
       <labels
           visualID="5005"
@@ -335,7 +335,7 @@
             viewMethod="NATIVE"
             editMethod="NATIVE">
           <metaFeatures
-              href="taipan_rcp.genmodel#//taipan/Ship/name"/>
+              href="taipan.genmodel#//taipan/Ship/name"/>
         </modelFacet>
       </labels>
     </topLevelNodes>
@@ -358,7 +358,7 @@
       <modelFacet
           xsi:type="gmfgen:FeatureLinkModelFacet">
         <metaFeature
-            href="taipan_rcp.genmodel#//taipan/Ship/destination"/>
+            href="taipan.genmodel#//taipan/Ship/destination"/>
       </modelFacet>
       <labels
           visualID="6001"
@@ -397,11 +397,11 @@
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
-            href="taipan_rcp.genmodel#//taipan/Route"/>
+            href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Aquatory/routes"/>
+            href="taipan.genmodel#//taipan/Aquatory/routes"/>
         <childMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Aquatory/routes"/>
+            href="taipan.genmodel#//taipan/Aquatory/routes"/>
         <modelElementSelector
             body="reliability >= 0.5"/>
         <modelElementInitializer
@@ -410,13 +410,13 @@
               xsi:type="gmfgen:GenFeatureValueSpec"
               body="0.8">
             <feature
-                href="taipan_rcp.genmodel#//taipan/Route/reliability"/>
+                href="taipan.genmodel#//taipan/Route/reliability"/>
           </initializers>
         </modelElementInitializer>
         <sourceMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Route/source"/>
+            href="taipan.genmodel#//taipan/Route/source"/>
         <targetMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Route/destination"/>
+            href="taipan.genmodel#//taipan/Route/destination"/>
       </modelFacet>
       <labels
           visualID="6002"
@@ -439,7 +439,7 @@
             editorPattern="{0}"
             editPattern="{0}">
           <metaFeatures
-              href="taipan_rcp.genmodel#//taipan/Route/description"/>
+              href="taipan.genmodel#//taipan/Route/description"/>
         </modelFacet>
       </labels>
       <labels
@@ -462,7 +462,7 @@
             editorPattern="{0,number,percent}"
             editPattern="{0,number,percent}">
           <metaFeatures
-              href="taipan_rcp.genmodel#//taipan/Route/reliability"/>
+              href="taipan.genmodel#//taipan/Route/reliability"/>
         </modelFacet>
       </labels>
     </links>
@@ -486,11 +486,11 @@
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
-            href="taipan_rcp.genmodel#//taipan/Route"/>
+            href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Aquatory/routes"/>
+            href="taipan.genmodel#//taipan/Aquatory/routes"/>
         <childMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Aquatory/routes"/>
+            href="taipan.genmodel#//taipan/Aquatory/routes"/>
         <modelElementSelector
             body="reliability &lt; 0.5"/>
         <modelElementInitializer
@@ -499,13 +499,13 @@
               xsi:type="gmfgen:GenFeatureValueSpec"
               body="0.2">
             <feature
-                href="taipan_rcp.genmodel#//taipan/Route/reliability"/>
+                href="taipan.genmodel#//taipan/Route/reliability"/>
           </initializers>
         </modelElementInitializer>
         <sourceMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Route/source"/>
+            href="taipan.genmodel#//taipan/Route/source"/>
         <targetMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Route/destination"/>
+            href="taipan.genmodel#//taipan/Route/destination"/>
       </modelFacet>
       <labels
           visualID="6004"
@@ -528,7 +528,7 @@
             editorPattern="{0}"
             editPattern="{0}">
           <metaFeatures
-              href="taipan_rcp.genmodel#//taipan/Route/description"/>
+              href="taipan.genmodel#//taipan/Route/description"/>
         </modelFacet>
       </labels>
       <labels
@@ -551,7 +551,7 @@
             editorPattern="{0,number,percent}"
             editPattern="{0,number,percent}">
           <metaFeatures
-              href="taipan_rcp.genmodel#//taipan/Route/reliability"/>
+              href="taipan.genmodel#//taipan/Route/reliability"/>
         </modelFacet>
       </labels>
     </links>
@@ -575,13 +575,13 @@
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
-            href="taipan_rcp.genmodel#//taipan/EscortShipsOrder"/>
+            href="taipan.genmodel#//taipan/EscortShipsOrder"/>
         <containmentMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Warship/escortOrder"/>
+            href="taipan.genmodel#//taipan/Warship/escortOrder"/>
         <childMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Warship/escortOrder"/>
+            href="taipan.genmodel#//taipan/Warship/escortOrder"/>
         <targetMetaFeature
-            href="taipan_rcp.genmodel#//taipan/EscortShipsOrder/ships"/>
+            href="taipan.genmodel#//taipan/EscortShipsOrder/ships"/>
       </modelFacet>
       <creationConstraints>
         <sourceEnd
@@ -610,13 +610,13 @@
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
-            href="taipan_rcp.genmodel#//taipan/BesiegePortOrder"/>
+            href="taipan.genmodel#//taipan/BesiegePortOrder"/>
         <containmentMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Warship/attackOrders"/>
+            href="taipan.genmodel#//taipan/Warship/attackOrders"/>
         <childMetaFeature
-            href="taipan_rcp.genmodel#//taipan/Warship/attackOrders"/>
+            href="taipan.genmodel#//taipan/Warship/attackOrders"/>
         <targetMetaFeature
-            href="taipan_rcp.genmodel#//taipan/BesiegePortOrder/port"/>
+            href="taipan.genmodel#//taipan/BesiegePortOrder/port"/>
       </modelFacet>
       <creationConstraints>
         <sourceEnd
@@ -643,7 +643,7 @@
       <modelFacet
           xsi:type="gmfgen:FeatureLinkModelFacet">
         <metaFeature
-            href="taipan_rcp.genmodel#//taipan/Port/register"/>
+            href="taipan.genmodel#//taipan/Port/register"/>
       </modelFacet>
     </links>
     <compartments
@@ -1071,7 +1071,7 @@
     </mainToolBar>
   </application>
   <domainGenModel
-      href="taipan_rcp.genmodel#/"/>
+      href="taipan.genmodel#/"/>
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
