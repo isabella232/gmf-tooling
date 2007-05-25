@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project default="build.docs">
+<project xmlns:antcontrib="antlib:net.sf.antcontrib" default="build.docs">
+	<taskdef uri="antlib:net.sf.antcontrib"
+		resource="net/sf/antcontrib/antlib.xml"
+	    classpath="${lib}/ant-contrib.jar"/>	
 
 <!-- Note that this script is called from the automated build system and expects
      the following properties to be passed in:
@@ -259,6 +262,7 @@
 					<group title="Diagram UI Packages" packages="org.eclipse.gmf.runtime.diagram.ui*"/>
 			</package-groups>
 		</javadoc-subsystem>
+		<generate-toc subsystem="runtime"/>
 
 		<javadoc-subsystem subsystem="tooling" tocTitle="Generation Framework">
 			<package-sets>
@@ -303,9 +307,11 @@
 				<group title="Tooling Packages" packages="org.eclipse.gmf.tooldef*,org.eclipse.gmf.map*,org.eclipse.gmf.bridge*,org.eclipse.gmf.codegen*,org.eclipse.gmf.internal.codegen*,org.eclipse.gmf.graphdef*,org.eclipse.gmf.gmfgraph*"/>
 			</package-groups>
 		</javadoc-subsystem>
+		<generate-toc subsystem="tooling"/>
 		
 		<!-- Add your plug-ins to one of the "subsystem" (domain) doc sets above or, if
 		     necessary, create a new doc set. -->
+
 		
     </target>
 	
@@ -394,4 +400,44 @@
 		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.resources.editor/plugin.xml" destination="${schema-destination}" />
 		
 	</target>
+
+	<macrodef name="generate-toc">
+		<attribute name="subsystem"/>
+		<sequential>
+	        <echo file="${doc.plugin.dir}/toc-@{subsystem}.xml" append="false"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>]]>                                                                                                                                               
+<![CDATA[<?NLS TYPE="org.eclipse.help.toc"?>]]>                                                                                                                               
+	<![CDATA[<toc label="Reference">]]>
+		<![CDATA[<topic label="API Reference"]]> href="reference/api/@{subsystem}/overview-summary.html"<![CDATA[>]]>
+	        </echo>
+        	<antcontrib:for param="file">
+        	    <path>
+        	        <fileset dir="${doc.plugin.dir}/reference/api/@{subsystem}" includes="**/package-summary.html" />
+        	    </path>
+        	<sequential>
+				<antcontrib:propertyregex property="package.path"                                                                                                               
+					input="@{file}"                                                                                                                                                              
+					regexp="${doc.plugin.dir}/reference/api/@{subsystem}/(.*)/package-summary.html"                                                                                                                          
+					select="\1"                                                                                                                                                                  
+					override="true"/>                                                                                                                                                            
+				<antcontrib:propertyregex property="package.name"                                                                                                                            
+					input="${package.path}"                                                                                                                                                              
+					regexp="([^/]*)/"                                                                                                                                                        
+					replace="\1\."                                                                                                                                                                  
+					override="true"/>                                                                                                                                                            
+			</sequential>
+            <echo file="${doc.plugin.dir}/toc-@{subsystem}.xml" append="true">
+		<![CDATA[<topic]]> label="${package.name}" href="reference/api/@{subsystem}/${package.path}/package-summary.html"<![CDATA[/>]]>
+			</echo>
+        	</antcontrib:for>    											        
+			<echo file="${doc.plugin.dir}/toc-@{subsystem}.xml" append="false">
+				<![CDATA[<?xml version="1.0" encoding="UTF-8"?>]]>                                                                                                                                               
+<![CDATA[<?NLS TYPE="org.eclipse.help.toc"?>]]>                                                                                                                               
+<![CDATA[<site pack200="${pack200}">]]>
+	<![CDATA[<toc label="Reference">]]>
+		<![CDATA[</topic>]]>
+	<![CDATA[</toc>]]>
+	        </echo>
+		</sequential>
+	</macrodef>
+        	
 </project>
