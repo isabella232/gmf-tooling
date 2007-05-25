@@ -14,12 +14,21 @@ package org.eclipse.gmf.examples.taipan.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.eclipse.gmf.examples.taipan.*;
+import org.eclipse.gmf.examples.taipan.Aquatory;
+import org.eclipse.gmf.examples.taipan.BesiegePortOrder;
+import org.eclipse.gmf.examples.taipan.Building;
+import org.eclipse.gmf.examples.taipan.EmptyBox;
+import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
+import org.eclipse.gmf.examples.taipan.LargeItem;
+import org.eclipse.gmf.examples.taipan.Port;
+import org.eclipse.gmf.examples.taipan.Route;
+import org.eclipse.gmf.examples.taipan.Ship;
+import org.eclipse.gmf.examples.taipan.SmallItems;
+import org.eclipse.gmf.examples.taipan.TaiPanFactory;
+import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+import org.eclipse.gmf.examples.taipan.Warship;
 
 /**
  * <!-- begin-user-doc -->
