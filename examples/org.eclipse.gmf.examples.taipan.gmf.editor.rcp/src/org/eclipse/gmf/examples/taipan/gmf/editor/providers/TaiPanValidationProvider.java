@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -17,38 +17,59 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Set;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+
 import org.eclipse.emf.common.util.Diagnostic;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
+
 import org.eclipse.emf.ecore.util.Diagnostician;
+
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+
 import org.eclipse.emf.transaction.util.TransactionUtil;
+
 import org.eclipse.emf.validation.AbstractModelConstraint;
 import org.eclipse.emf.validation.IValidationContext;
+
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IClientSelector;
 import org.eclipse.emf.validation.model.IConstraintStatus;
+
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
+
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.ValidateAction;
+
 import org.eclipse.gmf.runtime.common.ui.services.action.contributionitem.AbstractContributionItemProvider;
+
 import org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor;
+
 import org.eclipse.gmf.runtime.diagram.ui.OffscreenEditPartFactory;
+
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
+
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart;
+
 import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
+
 import org.eclipse.gmf.runtime.notation.View;
+
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
+
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;

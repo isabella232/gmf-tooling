@@ -85,5 +85,4 @@ public class WarshipLargeCargoViewFactory extends ListCompartmentViewFactory {
 			drawerStyle.setCollapsed(false);
 		}
 	}
-
 }

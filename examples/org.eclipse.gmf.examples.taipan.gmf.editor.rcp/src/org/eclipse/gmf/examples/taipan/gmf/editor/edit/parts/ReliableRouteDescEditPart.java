@@ -91,7 +91,7 @@ public class ReliableRouteDescEditPart extends LabelEditPart implements ITextAwa
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(ReliableRouteDescEditPart.VISUAL_ID), new Point(0, 40));
+		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteDescEditPart.VISUAL_ID), new Point(0, 40));
 	}
 
 	/**
@@ -533,21 +533,6 @@ public class ReliableRouteDescEditPart extends LabelEditPart implements ITextAwa
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new ReliableRouteDescriptionFigure();
+		return new Label();
 	}
-
-	/**
-	 * @generated
-	 */
-	public class ReliableRouteDescriptionFigure extends WrapLabel {
-
-		/**
-		 * @generated
-		 */
-		public ReliableRouteDescriptionFigure() {
-			this.setText("<...>");
-		}
-
-	}
-
 }

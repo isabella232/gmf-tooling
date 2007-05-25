@@ -66,5 +66,4 @@ public class ReliableRouteViewFactory extends ConnectionViewFactory {
 		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(ReliableRouteDescEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(ReliableRouteRelbEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
-
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -46,9 +46,7 @@ import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
-import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
@@ -94,7 +92,7 @@ public class ShipDestinationMarkerEditPart extends LabelEditPart implements ITex
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(ShipDestinationMarkerEditPart.VISUAL_ID), new Point(0, 40));
+		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationMarkerEditPart.VISUAL_ID), new Point(0, 40));
 	}
 
 	/**
@@ -532,21 +530,6 @@ public class ShipDestinationMarkerEditPart extends LabelEditPart implements ITex
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new ShipDestinationMarkerFigure();
+		return new Label();
 	}
-
-	/**
-	 * @generated
-	 */
-	public class ShipDestinationMarkerFigure extends WrapLabel {
-
-		/**
-		 * @generated
-		 */
-		public ShipDestinationMarkerFigure() {
-			this.setText("destination");
-		}
-
-	}
-
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,9 +11,7 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
@@ -22,13 +20,12 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
+import org.eclipse.gmf.examples.taipan.figures.PileShape;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.LargeItemItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
@@ -99,66 +96,14 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		LargeItemFigure figure = new LargeItemFigure();
-		return primaryShape = figure;
+		return primaryShape = new PileShape();
 	}
 
 	/**
 	 * @generated
 	 */
-	public LargeItemFigure getPrimaryShape() {
-		return (LargeItemFigure) primaryShape;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected boolean addFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof LargeItemArticleEditPart) {
-			((LargeItemArticleEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemArticleFigure());
-			return true;
-		}
-		if (childEditPart instanceof LargeItemWeightEditPart) {
-			((LargeItemWeightEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemWeightFigure());
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected boolean removeFixedChild(EditPart childEditPart) {
-
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (addFixedChild(childEditPart)) {
-			return;
-		}
-		super.addChildVisual(childEditPart, -1);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void removeChildVisual(EditPart childEditPart) {
-		if (removeFixedChild(childEditPart)) {
-			return;
-		}
-		super.removeChildVisual(childEditPart);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
-
-		return super.getContentPaneFor(editPart);
+	public PileShape getPrimaryShape() {
+		return (PileShape) primaryShape;
 	}
 
 	/**
@@ -216,107 +161,6 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 */
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(TaiPanVisualIDRegistry.getType(LargeItemArticleEditPart.VISUAL_ID));
-	}
-
-	/**
-	 * @generated
-	 */
-	public class LargeItemFigure extends RectangleFigure {
-
-		/**
-		 * @generated
-		 */
-		public LargeItemFigure() {
-
-			ConstrainedToolbarLayout layoutThis = new ConstrainedToolbarLayout();
-
-			this.setLayoutManager(layoutThis);
-
-			this.setFill(true);
-			this.setFillXOR(false);
-			this.setOutline(true);
-			this.setOutlineXOR(false);
-			this.setLineWidth(1);
-			this.setLineStyle(Graphics.LINE_SOLID);
-			createContents();
-		}
-
-		/**
-		 * @generated
-		 */
-		private void createContents() {
-
-			WrapLabel largeItemArticleFigure0 = new WrapLabel();
-			largeItemArticleFigure0.setText("<...>");
-
-			this.add(largeItemArticleFigure0);
-			setFigureLargeItemArticleFigure(largeItemArticleFigure0);
-
-			WrapLabel largeItemWeightFigure0 = new WrapLabel();
-			largeItemWeightFigure0.setText("<...>");
-
-			this.add(largeItemWeightFigure0);
-			setFigureLargeItemWeightFigure(largeItemWeightFigure0);
-
-		}
-
-		/**
-		 * @generated
-		 */
-		private WrapLabel fLargeItemArticleFigure;
-
-		/**
-		 * @generated
-		 */
-		public WrapLabel getFigureLargeItemArticleFigure() {
-			return fLargeItemArticleFigure;
-		}
-
-		/**
-		 * @generated
-		 */
-		private void setFigureLargeItemArticleFigure(WrapLabel fig) {
-			fLargeItemArticleFigure = fig;
-		}
-
-		/**
-		 * @generated
-		 */
-		private WrapLabel fLargeItemWeightFigure;
-
-		/**
-		 * @generated
-		 */
-		public WrapLabel getFigureLargeItemWeightFigure() {
-			return fLargeItemWeightFigure;
-		}
-
-		/**
-		 * @generated
-		 */
-		private void setFigureLargeItemWeightFigure(WrapLabel fig) {
-			fLargeItemWeightFigure = fig;
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean myUseLocalCoordinates = false;
-
-		/**
-		 * @generated
-		 */
-		protected boolean useLocalCoordinates() {
-			return myUseLocalCoordinates;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
-			myUseLocalCoordinates = useLocalCoordinates;
-		}
-
 	}
 
 }

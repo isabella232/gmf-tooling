@@ -12,7 +12,6 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.draw2d.Connection;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ReliableRouteItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
@@ -54,27 +53,7 @@ public class ReliableRouteEditPart extends ConnectionNodeEditPart {
 	 */
 	protected Connection createConnectionFigure() {
 
-		return new ReliableRouteFigure();
-	}
-
-	/**
-	 * @generated
-	 */
-	public class ReliableRouteFigure extends PolylineConnectionEx {
-
-		/**
-		 * @generated
-		 */
-		public ReliableRouteFigure() {
-			this.setFill(true);
-			this.setFillXOR(false);
-			this.setOutline(true);
-			this.setOutlineXOR(false);
-			this.setLineWidth(1);
-			this.setLineStyle(Graphics.LINE_SOLID);
-
-		}
-
+		return new PolylineConnectionEx();
 	}
 
 }

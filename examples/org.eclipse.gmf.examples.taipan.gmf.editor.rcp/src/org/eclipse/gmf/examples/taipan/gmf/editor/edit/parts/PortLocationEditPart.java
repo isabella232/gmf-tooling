@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -47,9 +47,7 @@ import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
-import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
@@ -95,7 +93,7 @@ public class PortLocationEditPart extends LabelEditPart implements ITextAwareEdi
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(PortLocationEditPart.VISUAL_ID), new Point(0, 0));
+		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortLocationEditPart.VISUAL_ID), new Point(0, 0));
 	}
 
 	/**
@@ -549,21 +547,6 @@ public class PortLocationEditPart extends LabelEditPart implements ITextAwareEdi
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new PortLocationFigure();
+		return new Label();
 	}
-
-	/**
-	 * @generated
-	 */
-	public class PortLocationFigure extends WrapLabel {
-
-		/**
-		 * @generated
-		 */
-		public PortLocationFigure() {
-			this.setText("<...>");
-		}
-
-	}
-
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,6 +11,9 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
+import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -18,24 +21,34 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
+
 import org.eclipse.emf.common.ui.URIEditorInput;
+
 import org.eclipse.emf.common.util.URI;
+
 import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.emf.ecore.resource.Resource;
+
 import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
+
 import org.eclipse.gef.EditPartViewer;
-import org.eclipse.gef.palette.PaletteRoot;
+
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
+
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramDropTargetListener;
+
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
+
 import org.eclipse.jface.util.LocalSelectionTransfer;
+
 import org.eclipse.jface.viewers.IStructuredSelection;
+
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.dnd.TransferData;
+
 import org.eclipse.ui.IEditorInput;
 
 /**
@@ -51,8 +64,20 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor {
 	/**
 	 * @generated
 	 */
+	public static final String CONTEXT_ID = "org.eclipse.gmf.examples.taipan.gmf.editor.ui.diagramContext"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public TaiPanDiagramEditor() {
 		super(true);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String getContextID() {
+		return CONTEXT_ID;
 	}
 
 	/**
@@ -81,17 +106,6 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor {
 	/**
 	 * @generated
 	 */
-	protected void setDocumentProvider(IEditorInput input) {
-		if (input instanceof URIEditorInput) {
-			setDocumentProvider(TaiPanDiagramEditorPlugin.getInstance().getDocumentProvider());
-		} else {
-			super.setDocumentProvider(input);
-		}
-	}
-
-	/**
-	 * @generated
-	 */
 	protected IDocumentProvider getDocumentProvider(IEditorInput input) {
 		if (input instanceof URIEditorInput) {
 			return TaiPanDiagramEditorPlugin.getInstance().getDocumentProvider();
@@ -108,6 +122,17 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor {
 			return ((IDiagramDocument) document).getEditingDomain();
 		}
 		return super.getEditingDomain();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setDocumentProvider(IEditorInput input) {
+		if (input instanceof URIEditorInput) {
+			setDocumentProvider(TaiPanDiagramEditorPlugin.getInstance().getDocumentProvider());
+		} else {
+			super.setDocumentProvider(input);
+		}
 	}
 
 	/**

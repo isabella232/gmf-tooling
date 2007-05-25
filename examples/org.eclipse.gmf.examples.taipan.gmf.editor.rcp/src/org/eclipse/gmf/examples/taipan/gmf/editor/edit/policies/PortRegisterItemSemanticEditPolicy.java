@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,9 +12,7 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
 import org.eclipse.gef.commands.Command;
-
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand;
-
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest;
 
 /**
@@ -28,4 +26,5 @@ public class PortRegisterItemSemanticEditPolicy extends TaiPanBaseItemSemanticEd
 	protected Command getDestroyReferenceCommand(DestroyReferenceRequest req) {
 		return getGEFWrapper(new DestroyReferenceCommand(req));
 	}
+
 }

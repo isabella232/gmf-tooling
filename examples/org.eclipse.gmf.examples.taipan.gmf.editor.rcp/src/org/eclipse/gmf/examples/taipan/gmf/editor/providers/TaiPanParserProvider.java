@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -89,7 +89,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	protected IParser createShipName_5004Parser() {
 		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getShip_Name(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
+		NativeParser parser = new NativeParser(features);
 		return parser;
 	}
 
@@ -113,7 +113,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	protected IParser createWarshipName_5005Parser() {
 		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getShip_Name(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
+		NativeParser parser = new NativeParser(features);
 		return parser;
 	}
 
@@ -364,14 +364,23 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	public static class HintAdapter extends ParserHintAdapter {
 
+		/**
+		 * @generated
+		 */
 		private final IElementType elementType;
 
+		/**
+		 * @generated
+		 */
 		public HintAdapter(IElementType type, EObject object, String parserHint) {
 			super(object, parserHint);
 			assert type != null;
 			elementType = type;
 		}
 
+		/**
+		 * @generated
+		 */
 		public Object getAdapter(Class adapter) {
 			if (IElementType.class.equals(adapter)) {
 				return elementType;
@@ -379,4 +388,5 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 			return super.getAdapter(adapter);
 		}
 	}
+
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,18 +16,14 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanFactory;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.commands.CreateRelationshipCommand;
-
 import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 
@@ -83,15 +79,12 @@ public class EscortShipsOrderCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	protected Warship getSource() {
-		return (Warship) source;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Ship getTarget() {
-		return (Ship) target;
+	protected EObject doDefaultElementCreation() {
+		// org.eclipse.gmf.examples.taipan.EscortShipsOrder newElement = (org.eclipse.gmf.examples.taipan.EscortShipsOrder) super.doDefaultElementCreation();
+		EscortShipsOrder newElement = TaiPanFactory.eINSTANCE.createEscortShipsOrder();
+		getSource().setEscortOrder(newElement);
+		newElement.getShips().add(getTarget());
+		return newElement;
 	}
 
 	/**
@@ -131,12 +124,14 @@ public class EscortShipsOrderCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	protected EObject doDefaultElementCreation() {
-		// org.eclipse.gmf.examples.taipan.EscortShipsOrder newElement = (org.eclipse.gmf.examples.taipan.EscortShipsOrder) super.doDefaultElementCreation();
-		EscortShipsOrder newElement = TaiPanFactory.eINSTANCE.createEscortShipsOrder();
-		getSource().setEscortOrder(newElement);
-		newElement.getShips().add(getTarget());
-		return newElement;
+	protected Warship getSource() {
+		return (Warship) source;
 	}
 
+	/**
+	 * @generated
+	 */
+	protected Ship getTarget() {
+		return (Ship) target;
+	}
 }
