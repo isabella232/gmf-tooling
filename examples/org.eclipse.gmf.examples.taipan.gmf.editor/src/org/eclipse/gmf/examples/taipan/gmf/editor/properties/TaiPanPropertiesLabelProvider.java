@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -9,7 +9,7 @@
  * Contributors:
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.examples.taipan.gmf.editor.sheet;
+package org.eclipse.gmf.examples.taipan.gmf.editor.properties;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
@@ -23,12 +23,12 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class TaiPanSheetLabelProvider extends DecoratingLabelProvider {
+public class TaiPanPropertiesLabelProvider extends DecoratingLabelProvider {
 
 	/**
 	 * @generated
 	 */
-	public TaiPanSheetLabelProvider() {
+	public TaiPanPropertiesLabelProvider() {
 		super(new AdapterFactoryLabelProvider(TaiPanDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()), null);
 	}
 
@@ -82,4 +82,5 @@ public class TaiPanSheetLabelProvider extends DecoratingLabelProvider {
 	private Object unwrapView(View view) {
 		return view.getElement() == null ? view : view.getElement();
 	}
+
 }
