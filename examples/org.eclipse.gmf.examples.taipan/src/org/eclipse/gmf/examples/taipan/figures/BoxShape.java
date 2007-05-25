@@ -23,6 +23,11 @@ import org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure;
 public class BoxShape extends ScalableImageFigure {
 
 	public BoxShape() {
-		super(RenderedImageFactory.getInstance(FileLocator.find(Platform.getBundle("org.eclipse.gmf.examples.taipan"), new Path("box.svg"), null)), true, true, true);
+		super(
+				RenderedImageFactory.getInstance(FileLocator.find(
+						Platform.getBundle("org.eclipse.gmf.examples.taipan"), //$NON-NLS-1$
+						new Path("box.svg"), //$NON-NLS-1$
+						null)),
+				true, true, true);
 	}
 }

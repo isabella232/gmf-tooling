@@ -30,11 +30,11 @@ public abstract class AnchorableShapeConnection extends ShapeConnection implemen
 
 	private static final String DEFAULT_ANCHOR_ID = ""; //$NON-NLS-1$
 
-	private Map connectionAnchors;
+	private Map<String, ConnectionAnchor> connectionAnchors;
 
-	protected Map getConnectionAnchors() {
+	protected Map<String, ConnectionAnchor> getConnectionAnchors() {
 		if (connectionAnchors == null) {
-			connectionAnchors = new HashMap(1);
+			connectionAnchors = new HashMap<String, ConnectionAnchor>(1);
 		}
 		return connectionAnchors;
 	}
@@ -57,10 +57,10 @@ public abstract class AnchorableShapeConnection extends ShapeConnection implemen
 			return ((BaseSlidableAnchor) c).getTerminal();
 		}
 		if (getConnectionAnchors().containsValue(c)) {
-			Iterator iter = getConnectionAnchors().keySet().iterator();
+			Iterator<String> iter = getConnectionAnchors().keySet().iterator();
 			String key;
 			while (iter.hasNext()) {
-				key = (String) iter.next();
+				key = iter.next();
 				if (getConnectionAnchors().get(key).equals(c)) {
 					return key;
 				}

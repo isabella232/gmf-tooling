@@ -17,7 +17,7 @@ public class BottomRightLayout extends StackLayout {
 
 	public void layout(IFigure figure) {
 		Rectangle r = figure.getClientArea();
-		List children = figure.getChildren();
+		List<?> children = figure.getChildren();
 		IFigure child;
 		for (int i = 0; i < children.size(); i++) {
 			child = (IFigure) children.get(i);
