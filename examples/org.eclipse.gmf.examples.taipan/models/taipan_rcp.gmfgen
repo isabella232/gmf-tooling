@@ -44,7 +44,7 @@
     </rules>
   </audits>
   <diagram
-      visualID="1"
+      visualID="1000"
       editPartClassName="AquatoryEditPart"
       itemSemanticEditPolicyClassName="AquatoryItemSemanticEditPolicy"
       notationViewFactoryClassName="AquatoryViewFactory"
