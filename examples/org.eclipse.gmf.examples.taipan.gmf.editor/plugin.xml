@@ -270,7 +270,9 @@ Contributors:
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
       <?gmfgen generated="true"?>
-      <propertyContributor contributorId="org.eclipse.gmf.examples.taipan.gmf.editor" labelProvider="org.eclipse.gmf.examples.taipan.gmf.editor.properties.TaiPanPropertiesLabelProvider">
+      <propertyContributor
+            contributorId="org.eclipse.gmf.examples.taipan.gmf.editor"
+            labelProvider="org.eclipse.gmf.examples.taipan.gmf.editor.properties.TaiPanPropertiesLabelProvider">
          <propertyCategory category="domain"/>
          <propertyCategory category="visual"/>
          <propertyCategory category="extra"/>
