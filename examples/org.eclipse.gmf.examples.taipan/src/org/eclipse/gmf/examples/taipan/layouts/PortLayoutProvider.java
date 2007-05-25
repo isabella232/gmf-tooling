@@ -66,6 +66,7 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 		return LayoutType.DEFAULT.equals(layoutType);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Command layoutEditParts(List selectedObjects, IAdaptable layoutHint) {
 		GraphicalEditPart editPart = (GraphicalEditPart) selectedObjects.get(0);
 		GraphicalEditPart containerEditPart = (GraphicalEditPart) editPart.getParent();
@@ -87,16 +88,17 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 			working = true;
 
 			// separate buildings by streets
-			Map rows = new TreeMap(); // street -> Collection:BuildingEditPart
-			for (Iterator it = portEditPart.getChildren().iterator(); it.hasNext();) {
+			Map<String, Collection<IGraphicalEditPart>> rows =
+					new TreeMap<String, Collection<IGraphicalEditPart>>(); // street -> [BuildingEditPart]
+			for (Iterator<?> it = portEditPart.getChildren().iterator(); it.hasNext();) {
 				IGraphicalEditPart editPart = (IGraphicalEditPart) it.next();
 				EObject model = editPart.resolveSemanticElement();
 				if (model instanceof Building) {
 					Building building = (Building) model;
 					String street = building.getStreet() == null ? "" : building.getStreet(); //$NON-NLS-1$
-					Collection editParts = (Collection) rows.get(street);
+					Collection<IGraphicalEditPart> editParts = rows.get(street);
 					if (editParts == null) {
-						editParts = new TreeSet(new XComparator());
+						editParts = new TreeSet<IGraphicalEditPart>(new XComparator());
 						rows.put(street, editParts);
 					}
 					editParts.add(editPart);
@@ -105,9 +107,8 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 
 			// layout streets
 			int offset = GAP;
-			for (Iterator it = rows.keySet().iterator(); it.hasNext();) {
-				String street = (String) it.next();
-				Collection editParts = (Collection) rows.get(street);
+			for (Iterator<String> it = rows.keySet().iterator(); it.hasNext();) {
+				Collection<IGraphicalEditPart> editParts = rows.get(it.next());
 				int thickness = getStreetThickness(editParts);
 				layoutStreet(editParts, offset, thickness, cc);
 				offset += thickness + GAP;
@@ -118,10 +119,11 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 		return cc.isEmpty() ? new Command("Nothing to layout") {} : cc; //$NON-NLS-1$
 	}
 
-	protected void layoutStreet(Collection editParts, int yOffset, int thickness, CompoundCommand cc) {
+	protected void layoutStreet(Collection<IGraphicalEditPart> editParts,
+			int yOffset, int thickness, CompoundCommand cc) {
 		int xOffset = GAP;
-		for (Iterator it = editParts.iterator(); it.hasNext();) {
-			GraphicalEditPart editPart = (GraphicalEditPart) it.next();
+		for (Iterator<IGraphicalEditPart> it = editParts.iterator(); it.hasNext();) {
+			GraphicalEditPart editPart = it.next();
 			Rectangle bounds = editPart.getFigure().getBounds();
 			Point newLocation = new Point(xOffset, yOffset);
 			editPart.getFigure().translateToAbsolute(newLocation);
@@ -142,11 +144,10 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 		}
 	}
 
-	protected int getStreetThickness(Collection editParts) {
+	protected int getStreetThickness(Collection<IGraphicalEditPart> editParts) {
 		int thickness = 0;
-		for (Iterator it = editParts.iterator(); it.hasNext();) {
-			GraphicalEditPart editPart = (GraphicalEditPart) it.next();
-			int height = editPart.getFigure().getBounds().height;
+		for (Iterator<IGraphicalEditPart> it = editParts.iterator(); it.hasNext();) {
+			int height = it.next().getFigure().getBounds().height;
 			if (height > thickness) {
 				thickness = height;
 			}
@@ -154,11 +155,9 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 		return thickness;
 	}
 
-	protected static class XComparator implements Comparator {
+	protected static class XComparator implements Comparator<IGraphicalEditPart> {
 
-		public int compare(Object o1, Object o2) {
-			IGraphicalEditPart p1 = (IGraphicalEditPart) o1;
-			IGraphicalEditPart p2 = (IGraphicalEditPart) o2;
+		public int compare(IGraphicalEditPart p1, IGraphicalEditPart p2) {
 			int x1 = p1.getFigure().getBounds().x;
 			int x2 = p2.getFigure().getBounds().x;
 			return x1 - x2;
