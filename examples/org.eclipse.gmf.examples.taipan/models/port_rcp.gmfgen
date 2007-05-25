@@ -241,14 +241,14 @@
       <items
           xsi:type="gmfgen:GenMenuManager"
           iD="org.eclipse.ui.IWorkbenchActionConstants.M_FILE"
-          name="&quot;&amp;File&quot;">
+          name="&amp;File">
         <items
             xsi:type="gmfgen:GenGroupMarker"
             groupName="org.eclipse.ui.IWorkbenchActionConstants.FILE_START"/>
         <items
             xsi:type="gmfgen:GenMenuManager"
             iD="&quot;new&quot;"
-            name="&quot;&amp;New&quot;">
+            name="&amp;New">
           <items
               xsi:type="gmfgen:GenGroupMarker"
               groupName="org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS"/>
@@ -289,7 +289,7 @@
       <items
           xsi:type="gmfgen:GenMenuManager"
           iD="org.eclipse.ui.IWorkbenchActionConstants.M_EDIT"
-          name="&quot;&amp;Edit&quot;">
+          name="&amp;Edit">
         <items
             xsi:type="gmfgen:GenGroupMarker"
             groupName="org.eclipse.ui.IWorkbenchActionConstants.EDIT_START"/>
@@ -342,7 +342,7 @@
       <items
           xsi:type="gmfgen:GenMenuManager"
           iD="org.eclipse.ui.IWorkbenchActionConstants.M_WINDOW"
-          name="&quot;&amp;Window&quot;">
+          name="&amp;Window">
         <items
             xsi:type="gmfgen:GenSharedContributionItem"
             actualItem="//@application/@sharedContributionItems.13"/>
@@ -353,7 +353,7 @@
       <items
           xsi:type="gmfgen:GenMenuManager"
           iD="org.eclipse.ui.IWorkbenchActionConstants.M_HELP"
-          name="&quot;&amp;Help&quot;">
+          name="&amp;Help">
         <items
             xsi:type="gmfgen:GenGroupMarker"
             groupName="org.eclipse.ui.IWorkbenchActionConstants.HELP_START"/>
