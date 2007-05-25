@@ -14,7 +14,6 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.sheet;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorGroup;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.viewers.DecoratingLabelProvider;
@@ -38,9 +37,6 @@ public class TaiPanSheetLabelProvider extends DecoratingLabelProvider {
 	 */
 	public String getText(Object element) {
 		Object selected = unwrap(element);
-		if (selected instanceof TaiPanNavigatorGroup) {
-			return ((TaiPanNavigatorGroup) selected).getGroupName();
-		}
 		return super.getText(selected);
 	}
 

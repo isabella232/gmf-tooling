@@ -166,7 +166,7 @@ public class TaiPanVisualIDRegistry {
 			containerVisualID = org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
-				containerVisualID = 1;
+				containerVisualID = 1000;
 			} else {
 				return -1;
 			}
@@ -237,7 +237,7 @@ public class TaiPanVisualIDRegistry {
 			if ((semanticHint == null || WarshipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getWarship().isSuperTypeOf(domainElementMetaclass)) {
 				return WarshipEditPart.VISUAL_ID;
 			}
-			return getUnrecognizedAquatory_1ChildNodeID(domainElement, semanticHint);
+			return getUnrecognizedAquatory_1000ChildNodeID(domainElement, semanticHint);
 		case ShipDestinationEditPart.VISUAL_ID:
 			if (ShipDestinationMarkerEditPart.VISUAL_ID == nodeVisualID) {
 				return ShipDestinationMarkerEditPart.VISUAL_ID;
@@ -416,10 +416,10 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * User can change implementation of this method to handle some specific
 	 * situations not covered by default logic.
-	 *
+	 * 
 	 * @generated
 	 */
-	private static int getUnrecognizedAquatory_1ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedAquatory_1000ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 

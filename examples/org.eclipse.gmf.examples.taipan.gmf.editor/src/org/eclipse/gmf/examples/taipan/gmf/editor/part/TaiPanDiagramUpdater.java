@@ -73,7 +73,7 @@ public class TaiPanDiagramUpdater {
 		case WarshipLargeCargoEditPart.VISUAL_ID:
 			return getWarshipLargeCargo_7003SemanticChildren(view);
 		case AquatoryEditPart.VISUAL_ID:
-			return getAquatory_1SemanticChildren(view);
+			return getAquatory_1000SemanticChildren(view);
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -132,7 +132,7 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getAquatory_1SemanticChildren(View view) {
+	public static List getAquatory_1000SemanticChildren(View view) {
 		Aquatory modelElement = (Aquatory) view.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getPorts().iterator(); it.hasNext();) {
@@ -161,7 +161,7 @@ public class TaiPanDiagramUpdater {
 	public static List getContainedLinks(View view) {
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case AquatoryEditPart.VISUAL_ID:
-			return getAquatory_1ContainedLinks(view);
+			return getAquatory_1000ContainedLinks(view);
 		case PortEditPart.VISUAL_ID:
 			return getPort_2001ContainedLinks(view);
 		case ShipEditPart.VISUAL_ID:
@@ -247,7 +247,7 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getAquatory_1ContainedLinks(View view) {
+	public static List getAquatory_1000ContainedLinks(View view) {
 		Aquatory modelElement = (Aquatory) view.getElement();
 		List result = new LinkedList();
 		result.addAll(getContainedTypeModelFacetLinks_Route_4002(modelElement));

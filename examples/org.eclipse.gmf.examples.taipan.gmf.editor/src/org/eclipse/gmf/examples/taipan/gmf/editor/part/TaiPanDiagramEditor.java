@@ -35,7 +35,6 @@ import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorItem;
 import org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramDropTargetListener;
@@ -43,7 +42,6 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocu
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
-import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -281,10 +279,7 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor implements IGotoM
 				IStructuredSelection selection = (IStructuredSelection) transferedObject;
 				for (Iterator it = selection.iterator(); it.hasNext();) {
 					Object nextSelectedObject = it.next();
-					if (nextSelectedObject instanceof TaiPanNavigatorItem) {
-						View view = ((TaiPanNavigatorItem) nextSelectedObject).getView();
-						nextSelectedObject = view.getElement();
-					} else if (nextSelectedObject instanceof IAdaptable) {
+					if (nextSelectedObject instanceof IAdaptable) {
 						IAdaptable adaptable = (IAdaptable) nextSelectedObject;
 						nextSelectedObject = adaptable.getAdapter(EObject.class);
 					}

@@ -68,7 +68,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	protected List getSemanticChildrenList() {
 		View viewObject = (View) getHost().getModel();
 		List result = new LinkedList();
-		for (Iterator it = TaiPanDiagramUpdater.getAquatory_1SemanticChildren(viewObject).iterator(); it.hasNext();) {
+		for (Iterator it = TaiPanDiagramUpdater.getAquatory_1000SemanticChildren(viewObject).iterator(); it.hasNext();) {
 			result.add(((TaiPanNodeDescriptor) it.next()).getModelElement());
 		}
 		return result;
@@ -199,7 +199,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case AquatoryEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(TaiPanDiagramUpdater.getAquatory_1ContainedLinks(view));
+			result.addAll(TaiPanDiagramUpdater.getAquatory_1000ContainedLinks(view));
 			break;
 		}
 		case PortEditPart.VISUAL_ID: {
