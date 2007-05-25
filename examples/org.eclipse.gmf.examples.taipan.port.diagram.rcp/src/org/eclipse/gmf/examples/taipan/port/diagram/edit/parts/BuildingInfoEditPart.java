@@ -44,6 +44,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
+import org.eclipse.gmf.runtime.diagram.ui.requests.ArrangeRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
@@ -100,7 +101,7 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 	/**
 	 * @generated
 	 */
-	protected void createDefaultEditPolicies() {
+	protected void createDefaultEditPoliciesGen() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new NonResizableEditPolicy() {
@@ -117,6 +118,26 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 
 			public boolean understandsRequest(Request request) {
 				return false;
+			}
+		});
+	}
+
+	protected void createDefaultEditPolicies() {
+		createDefaultEditPoliciesGen();
+		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy() {
+
+			protected Command getDirectEditCommand(DirectEditRequest edit) {
+				Command command = super.getDirectEditCommand(edit);
+				if (command != null) {
+					ArrangeRequest layoutRequest = new ArrangeRequest(RequestConstants.REQ_ARRANGE_DEFERRED);
+					List editParts = new ArrayList(getParent().getParent().getChildren());
+					layoutRequest.setViewAdaptersToArrange(editParts);
+					Command layoutCommand = getParent().getParent().getCommand(layoutRequest);
+					if (layoutCommand != null) {
+						command = command.chain(layoutCommand);
+					}
+				}
+				return command;
 			}
 		});
 	}
