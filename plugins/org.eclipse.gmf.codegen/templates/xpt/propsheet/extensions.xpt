@@ -17,7 +17,9 @@
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
       «EXPAND xpt::Common::xmlGeneratedTag»
-      <propertyContributor contributorId="«editorGen.plugin.iD»"«IF needsCaption» labelProvider="«getLabelProviderQualifiedClassName()»"«ENDIF»>
+      <propertyContributor
+            contributorId="«editorGen.plugin.iD»"«IF needsCaption»
+            labelProvider="«getLabelProviderQualifiedClassName()»"«ENDIF»>
          <propertyCategory category="domain"/>
          <propertyCategory category="visual"/>
          <propertyCategory category="extra"/>
