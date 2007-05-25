@@ -433,11 +433,7 @@
     			</echo>
 			</sequential>
         	</antcontrib:for>    											        
-			<echo file="${doc.plugin.dir}/toc-@{subsystem}.xml" append="false">
-				<![CDATA[<?xml version="1.0" encoding="UTF-8"?>]]>                                                                                                                                               
-<![CDATA[<?NLS TYPE="org.eclipse.help.toc"?>]]>                                                                                                                               
-<![CDATA[<site pack200="${pack200}">]]>
-	<![CDATA[<toc label="Reference">]]>
+			<echo file="${doc.plugin.dir}/toc-@{subsystem}.xml" append="true">
 		<![CDATA[</topic>]]>
 	<![CDATA[</toc>]]>
 	        </echo>
