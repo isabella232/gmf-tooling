@@ -32,14 +32,14 @@
    <extension point="org.eclipse.ui.editors">
       <?gmfgen generated="true"?>
       <editor
-         id="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramEditorID"
+         id="org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorID"
          name="%editorName"
-         icon="icons/obj16/TaiPanDiagramFile.gif"
+         icon="icons/PortDiagramFile.gif"
          extensions="port_diagram"
          default="true"
-         class="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramEditor"
-         matchingStrategy="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanMatchingStrategy"
-         contributorClass="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramActionBarContributor">
+         class="org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditor"
+         matchingStrategy="org.eclipse.gmf.examples.taipan.port.diagram.part.PortMatchingStrategy"
+         contributorClass="org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramActionBarContributor">
       </editor>
    </extension>
 
@@ -47,10 +47,10 @@
       <?gmfgen generated="true"?>
   	  <wizard
   	     name="%newWizardName"
-  	     icon="icons/obj16/TaiPanDiagramFile.gif"
+  	     icon="icons/PortDiagramFile.gif"
   	     category="org.eclipse.ui.Examples"
-  	     class="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanCreationWizard"
-  	     id="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanCreationWizardID">
+  	     class="org.eclipse.gmf.examples.taipan.port.diagram.part.PortCreationWizard"
+  	     id="org.eclipse.gmf.examples.taipan.port.diagram.part.PortCreationWizardID">
   	  	 <description>%newWizardDesc</description>  
       </wizard>
    </extension>
@@ -62,7 +62,7 @@
             id="org.eclipse.gmf.examples.taipan.port.diagram.rcp.LoadResource"
             objectClass="org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart">
          <action
-               class="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanLoadResourceAction"
+               class="org.eclipse.gmf.examples.taipan.port.diagram.part.PortLoadResourceAction"
                enablesFor="1"
                id="org.eclipse.gmf.examples.taipan.port.diagram.rcp.LoadResourceAction"
                label="%loadResourceActionLabel"
@@ -77,7 +77,7 @@
          class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
          id="PortPresentation">
          <Priority name="Lowest"/>
-         <ViewId id="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramEditorID">
+         <ViewId id="org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="delete"/>
             </ElementType>
@@ -90,7 +90,7 @@
             class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
             id="PortRender">
          <Priority name="Lowest"/>
-         <ViewId id="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramEditorID">
+         <ViewId id="org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="cut"/>
                <GlobalActionId actionId="copy"/>
@@ -106,11 +106,6 @@
             class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContributionItemProvider"
             checkPluginLoaded="false">
          <Priority name="Low"/>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingAddressEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
-         </popupContribution>
       </contributionItemProvider>
    </extension>
 
@@ -160,7 +155,7 @@
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
       <?gmfgen generated="true"?>
-      <propertyContributor contributorId="org.eclipse.gmf.examples.taipan.port.diagram.rcp" labelProvider="org.eclipse.gmf.examples.taipan.port.diagram.sheet.TaiPanSheetLabelProvider">
+      <propertyContributor contributorId="org.eclipse.gmf.examples.taipan.port.diagram.rcp" labelProvider="org.eclipse.gmf.examples.taipan.port.diagram.properties.PortPropertiesLabelProvider">
          <propertyCategory category="domain"/>
          <propertyCategory category="visual"/>
          <propertyCategory category="extra"/>
@@ -211,7 +206,7 @@
          <propertySection
             id="property.section.domain" 
             tab="property.tab.domain"
-            class="org.eclipse.gmf.examples.taipan.port.diagram.sheet.TaiPanPropertySection">
+            class="org.eclipse.gmf.examples.taipan.port.diagram.properties.TaiPanPropertySection">
             <input type="org.eclipse.gmf.runtime.notation.View"/>
             <input type="org.eclipse.gef.EditPart"/>
          </propertySection>
@@ -220,7 +215,7 @@
 
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
       <?gmfgen generated="true"?>
-      <viewProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanViewProvider">
+      <viewProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.PortViewProvider">
          <Priority name="Lowest"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Port"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
@@ -230,28 +225,28 @@
 
    <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
       <?gmfgen generated="true"?>
-      <editpartProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanEditPartProvider">
+      <editpartProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.PortEditPartProvider">
          <Priority name="Lowest"/>
       </editpartProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
       <?gmfgen generated="true"?>
-      <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanModelingAssistantProvider">
+      <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.PortModelingAssistantProvider">
          <Priority name="Lowest"/>
       </modelingAssistantProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
       <?gmfgen generated="true"?>
-      <IconProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanIconProvider">
+      <IconProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.PortIconProvider">
          <Priority name="Low"/>
       </IconProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
       <?gmfgen generated="true"?>
-      <ParserProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanParserProvider">
+      <ParserProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.PortParserProvider">
          <Priority name="Lowest"/>
       </ParserProvider>
    </extension>
@@ -346,7 +341,7 @@
             id="org.eclipse.gmf.examples.taipan.port.diagram.rcp.InitDiagram">
          <action
                label="%initDiagramActionLabel"
-               class="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanInitDiagramFileAction"
+               class="org.eclipse.gmf.examples.taipan.port.diagram.part.PortInitDiagramFileAction"
                menubarPath="file/additions"
                id="org.eclipse.gmf.examples.taipan.port.diagram.rcp.InitDiagramAction">
          </action>
@@ -386,6 +381,35 @@
                id="org.eclipse.gmf.examples.taipan.port.diagram.rcp.OpenAction">
          </action>
       </actionSet>
+   </extension>
+
+   <extension point="org.eclipse.ui.contexts">
+      <?gmfgen generated="true"?>
+      <context
+         description="%context.description"
+         id="org.eclipse.gmf.examples.taipan.port.diagram.ui.diagramContext"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+      </context>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands">
+      <?gmfgen generated="true"?>
+      <command
+         categoryId="org.eclipse.ui.category.edit"
+         defaultHandler="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramUpdateCommand"
+         description="%update.diagram.description"
+         id="org.eclipse.gmf.examples.taipan.port.diagram.updateDiagram"
+         name="%update.diagram.name"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.bindings">
+      <?gmfgen generated="true"?>
+      <key 
+         commandId="org.eclipse.gmf.examples.taipan.port.diagram.updateDiagram"
+         contextId="org.eclipse.gmf.examples.taipan.port.diagram.ui.diagramContext"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="F5"/>
    </extension>
 
 </plugin>

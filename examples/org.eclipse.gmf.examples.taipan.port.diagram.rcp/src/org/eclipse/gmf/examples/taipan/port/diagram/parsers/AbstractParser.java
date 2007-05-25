@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2007 Borland Software Corporation
- *  
- *  All rights reserved. This program and the accompanying materials
- *  are made available under the terms of the Eclipse Public License v1.0
- *  which accompanies this distribution, and is available at
- *  http://www.eclipse.org/legal/epl-v10.html
- *  
- *  Contributors:
- *     Dmitry Stadnik (Borland) - initial API and implementation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.port.diagram.parsers;
 
@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramEditorPlugin;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
@@ -206,7 +206,7 @@ public abstract class AbstractParser implements IParser {
 		for (int i = 0; i < values.length; i++) {
 			Object value = getValidNewValue(features[i], values[i]);
 			if (value instanceof InvalidValue) {
-				return new ParserEditStatus(TaiPanDiagramEditorPlugin.ID, IParserEditStatus.UNEDITABLE, value.toString());
+				return new ParserEditStatus(PortDiagramEditorPlugin.ID, IParserEditStatus.UNEDITABLE, value.toString());
 			}
 		}
 		return ParserEditStatus.EDITABLE_STATUS;

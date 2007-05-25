@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -97,8 +97,8 @@ public class ModelElementSelectionPage extends WizardPage {
 		layoutData.heightHint = 300;
 		layoutData.widthHint = 300;
 		modelVewer.getTree().setLayoutData(layoutData);
-		modelVewer.setContentProvider(new AdapterFactoryContentProvider(TaiPanDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()));
-		modelVewer.setLabelProvider(new AdapterFactoryLabelProvider(TaiPanDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()));
+		modelVewer.setContentProvider(new AdapterFactoryContentProvider(PortDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()));
+		modelVewer.setLabelProvider(new AdapterFactoryLabelProvider(PortDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()));
 		if (selectedModelElement != null) {
 			modelVewer.setInput(selectedModelElement.eResource());
 			modelVewer.setSelection(new StructuredSelection(selectedModelElement));

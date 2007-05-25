@@ -19,11 +19,11 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
-import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingAddressEditPart;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingEditPart;
+import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingInfoEditPart;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart;
 
-import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry;
 
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
@@ -51,17 +51,16 @@ public class BuildingViewFactory extends AbstractShapeViewFactory {
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = TaiPanVisualIDRegistry.getType(BuildingEditPart.VISUAL_ID);
+			semanticHint = PortVisualIDRegistry.getType(BuildingEditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
-		if (!PortEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(containerView))) {
+		if (!PortEditPart.MODEL_ID.equals(PortVisualIDRegistry.getModelID(containerView))) {
 			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
 			shortcutAnnotation.getDetails().put("modelID", PortEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
-		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(BuildingAddressEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, PortVisualIDRegistry.getType(BuildingInfoEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
-
 }

@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -34,152 +34,152 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String TaiPanDiagramEditorUtil_OpenModelResourceErrorDialogTitle;
+	public static String PortDiagramEditorUtil_OpenModelResourceErrorDialogTitle;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanDiagramEditorUtil_OpenModelResourceErrorDialogMessage;
+	public static String PortDiagramEditorUtil_OpenModelResourceErrorDialogMessage;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanDiagramEditorUtil_CreateDiagramProgressTask;
+	public static String PortDiagramEditorUtil_CreateDiagramProgressTask;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanDiagramEditorUtil_CreateDiagramCommandLabel;
+	public static String PortDiagramEditorUtil_CreateDiagramCommandLabel;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanDocumentProvider_isModifiable;
+	public static String PortDocumentProvider_isModifiable;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanDocumentProvider_handleElementContentChanged;
+	public static String PortDocumentProvider_handleElementContentChanged;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanDocumentProvider_IncorrectInputError;
+	public static String PortDocumentProvider_IncorrectInputError;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanDocumentProvider_NoDiagramInResourceError;
+	public static String PortDocumentProvider_NoDiagramInResourceError;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanDocumentProvider_DiagramLoadingError;
+	public static String PortDocumentProvider_DiagramLoadingError;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanDocumentProvider_UnsynchronizedFileSaveError;
+	public static String PortDocumentProvider_UnsynchronizedFileSaveError;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanDocumentProvider_SaveDiagramTask;
+	public static String PortDocumentProvider_SaveDiagramTask;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanDocumentProvider_SaveNextResourceTask;
+	public static String PortDocumentProvider_SaveNextResourceTask;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle;
+	public static String PortInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanInitDiagramFileAction_InitDiagramFileResourceErrorDialogMessage;
+	public static String PortInitDiagramFileAction_InitDiagramFileResourceErrorDialogMessage;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanInitDiagramFileAction_InitDiagramFileWizardTitle;
+	public static String PortInitDiagramFileAction_InitDiagramFileWizardTitle;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanInitDiagramFileAction_OpenModelFileDialogTitle;
+	public static String PortInitDiagramFileAction_OpenModelFileDialogTitle;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanNewDiagramFileWizard_CreationPageName;
+	public static String PortNewDiagramFileWizard_CreationPageName;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanNewDiagramFileWizard_CreationPageTitle;
+	public static String PortNewDiagramFileWizard_CreationPageTitle;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanNewDiagramFileWizard_CreationPageDescription;
+	public static String PortNewDiagramFileWizard_CreationPageDescription;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanNewDiagramFileWizard_RootSelectionPageName;
+	public static String PortNewDiagramFileWizard_RootSelectionPageName;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanNewDiagramFileWizard_RootSelectionPageTitle;
+	public static String PortNewDiagramFileWizard_RootSelectionPageTitle;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanNewDiagramFileWizard_RootSelectionPageDescription;
+	public static String PortNewDiagramFileWizard_RootSelectionPageDescription;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanNewDiagramFileWizard_RootSelectionPageSelectionTitle;
+	public static String PortNewDiagramFileWizard_RootSelectionPageSelectionTitle;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanNewDiagramFileWizard_RootSelectionPageNoSelectionMessage;
+	public static String PortNewDiagramFileWizard_RootSelectionPageNoSelectionMessage;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanNewDiagramFileWizard_RootSelectionPageInvalidSelectionMessage;
+	public static String PortNewDiagramFileWizard_RootSelectionPageInvalidSelectionMessage;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanNewDiagramFileWizard_InitDiagramCommand;
+	public static String PortNewDiagramFileWizard_InitDiagramCommand;
 
 	/**
 	 * @generated
 	 */
-	public static String TaiPanNewDiagramFileWizard_IncorrectRootError;
+	public static String PortNewDiagramFileWizard_IncorrectRootError;
 
 	/**
 	 * @generated
 	 */
-	public static String Port1Group_title;
+	public static String PortGroup_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Building1CreationTool_title;
+	public static String BuildingCreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Building1CreationTool_desc;
+	public static String BuildingCreationTool_desc;
 
 	/**
 	 * @generated

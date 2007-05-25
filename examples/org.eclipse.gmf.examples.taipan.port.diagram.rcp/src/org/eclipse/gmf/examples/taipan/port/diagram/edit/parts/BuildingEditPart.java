@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,32 +11,20 @@
  */
 package org.eclipse.gmf.examples.taipan.port.diagram.edit.parts;
 
-import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.draw2d.FreeformLayout;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Layer;
-import org.eclipse.draw2d.Polygon;
-import org.eclipse.draw2d.PositionConstants;
-import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
-import org.eclipse.draw2d.XYLayout;
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
-import org.eclipse.gef.editpolicies.ResizableEditPolicy;
+import org.eclipse.gmf.examples.taipan.figures.BuildingShape;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.BuildingItemSemanticEditPolicy;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderedShapeEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy;
+import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.PortTextSelectionEditPolicy;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
@@ -44,7 +32,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class BuildingEditPart extends AbstractBorderedShapeEditPart {
+public class BuildingEditPart extends ShapeNodeEditPart {
 
 	/**
 	 * @generated
@@ -82,17 +70,16 @@ public class BuildingEditPart extends AbstractBorderedShapeEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		XYLayoutEditPolicy lep = new XYLayoutEditPolicy() {
+
+		ConstrainedToolbarLayoutEditPolicy lep = new ConstrainedToolbarLayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
-				if (child instanceof IBorderItemEditPart) {
-					return new BorderItemSelectionEditPolicy();
+				if (child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE) == null) {
+					if (child instanceof ITextAwareEditPart) {
+						return new PortTextSelectionEditPolicy();
+					}
 				}
-				EditPolicy result = super.createChildEditPolicy(child);
-				if (result == null) {
-					return new ResizableShapeEditPolicy();
-				}
-				return result;
+				return super.createChildEditPolicy(child);
 			}
 		};
 		return lep;
@@ -102,47 +89,21 @@ public class BuildingEditPart extends AbstractBorderedShapeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		PortFigure figure = new PortFigure();
-		return primaryShape = figure;
+		return primaryShape = new BuildingShape();
 	}
 
 	/**
 	 * @generated
 	 */
-	public PortFigure getPrimaryShape() {
-		return (PortFigure) primaryShape;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void addBorderItem(IFigure borderItemContainer, IBorderItemEditPart borderItemEditPart) {
-		if (borderItemEditPart instanceof BuildingAddressEditPart) {
-			BorderItemLocator locator = new BorderItemLocator(getMainFigure(), PositionConstants.SOUTH);
-			locator.setBorderItemOffset(new Dimension(-20, -20));
-			borderItemContainer.add(borderItemEditPart.getFigure(), locator);
-		} else {
-			super.addBorderItem(borderItemContainer, borderItemEditPart);
-		}
+	public BuildingShape getPrimaryShape() {
+		return (BuildingShape) primaryShape;
 	}
 
 	/**
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	public EditPolicy getPrimaryDragEditPolicy() {
-		EditPolicy result = super.getPrimaryDragEditPolicy();
-		if (result instanceof ResizableEditPolicy) {
-			ResizableEditPolicy ep = (ResizableEditPolicy) result;
-			ep.setResizeDirections(PositionConstants.NONE);
-		}
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
 		return result;
 	}
 
@@ -154,7 +115,7 @@ public class BuildingEditPart extends AbstractBorderedShapeEditPart {
 	 * 
 	 * @generated
 	 */
-	protected NodeFigure createMainFigure() {
+	protected NodeFigure createNodeFigure() {
 		NodeFigure figure = createNodePlate();
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
@@ -171,16 +132,9 @@ public class BuildingEditPart extends AbstractBorderedShapeEditPart {
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
 		if (nodeShape.getLayoutManager() == null) {
-			nodeShape.setLayoutManager(new FreeformLayout() {
-
-				public Object getConstraint(IFigure figure) {
-					Object result = constraints.get(figure);
-					if (result == null) {
-						result = new Rectangle(0, 0, -1, -1);
-					}
-					return result;
-				}
-			});
+			ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
+			layout.setSpacing(getMapMode().DPtoLP(5));
+			nodeShape.setLayoutManager(layout);
 		}
 		return nodeShape; // use nodeShape itself as contentPane
 	}
@@ -199,96 +153,7 @@ public class BuildingEditPart extends AbstractBorderedShapeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(TaiPanVisualIDRegistry.getType(BuildingAddressEditPart.VISUAL_ID));
-	}
-
-	/**
-	 * @generated
-	 */
-	public class PortFigure extends Layer {
-
-		/**
-		 * @generated
-		 */
-		public PortFigure() {
-
-			this.setLayoutManager(new XYLayout());
-
-			this.setPreferredSize(new Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
-			this.setMaximumSize(new Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
-			this.setMinimumSize(new Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
-			this.setSize(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50));
-			createContents();
-		}
-
-		/**
-		 * @generated
-		 */
-		private void createContents() {
-
-			RectangleFigure walls0 = new RectangleFigure();
-			walls0.setFill(true);
-			walls0.setFillXOR(false);
-			walls0.setOutline(true);
-			walls0.setOutlineXOR(false);
-			walls0.setLineWidth(1);
-			walls0.setLineStyle(Graphics.LINE_SOLID);
-			walls0.setForegroundColor(ColorConstants.black);
-			walls0.setBackgroundColor(ColorConstants.darkGray);
-
-			this.add(walls0, new Rectangle(getMapMode().DPtoLP(10), getMapMode().DPtoLP(40), getMapMode().DPtoLP(40), getMapMode().DPtoLP(10)));
-
-			Polygon mainRoof0 = new Polygon();
-			mainRoof0.addPoint(new Point(getMapMode().DPtoLP(30), getMapMode().DPtoLP(10)));
-			mainRoof0.addPoint(new Point(getMapMode().DPtoLP(60), getMapMode().DPtoLP(40)));
-			mainRoof0.addPoint(new Point(getMapMode().DPtoLP(0), getMapMode().DPtoLP(40)));
-			mainRoof0.setFill(true);
-			mainRoof0.setFillXOR(false);
-			mainRoof0.setOutline(true);
-			mainRoof0.setOutlineXOR(false);
-			mainRoof0.setLineWidth(1);
-			mainRoof0.setLineStyle(Graphics.LINE_SOLID);
-			mainRoof0.setForegroundColor(ColorConstants.orange);
-			mainRoof0.setBackgroundColor(ColorConstants.orange);
-
-			this.add(mainRoof0);
-
-			Polygon topRoof0 = new Polygon();
-			topRoof0.addPoint(new Point(getMapMode().DPtoLP(30), getMapMode().DPtoLP(0)));
-			topRoof0.addPoint(new Point(getMapMode().DPtoLP(50), getMapMode().DPtoLP(20)));
-			topRoof0.addPoint(new Point(getMapMode().DPtoLP(10), getMapMode().DPtoLP(20)));
-			topRoof0.setFill(true);
-			topRoof0.setFillXOR(false);
-			topRoof0.setOutline(true);
-			topRoof0.setOutlineXOR(false);
-			topRoof0.setLineWidth(1);
-			topRoof0.setLineStyle(Graphics.LINE_SOLID);
-			topRoof0.setForegroundColor(ColorConstants.orange);
-			topRoof0.setBackgroundColor(ColorConstants.orange);
-
-			this.add(topRoof0);
-
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean myUseLocalCoordinates = true;
-
-		/**
-		 * @generated
-		 */
-		protected boolean useLocalCoordinates() {
-			return myUseLocalCoordinates;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
-			myUseLocalCoordinates = useLocalCoordinates;
-		}
-
+		return getChildBySemanticHint(PortVisualIDRegistry.getType(BuildingInfoEditPart.VISUAL_ID));
 	}
 
 }

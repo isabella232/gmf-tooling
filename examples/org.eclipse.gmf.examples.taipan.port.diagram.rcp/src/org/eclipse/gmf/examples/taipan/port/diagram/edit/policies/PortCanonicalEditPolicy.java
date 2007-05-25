@@ -11,53 +11,25 @@
  */
 package org.eclipse.gmf.examples.taipan.port.diagram.edit.policies;
 
-import java.util.List;
 import java.util.Collection;
-import org.eclipse.gmf.runtime.notation.Edge;
-import org.eclipse.emf.ecore.EObject;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Map;
-
+import java.util.List;
 import java.util.Set;
-import org.eclipse.core.runtime.IAdaptable;
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.gef.EditPart;
-
-import org.eclipse.gef.commands.Command;
-
-import org.eclipse.gmf.examples.taipan.Port;
-
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingEditPart;
-import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart;
-
-import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramUpdater;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanNodeDescriptor;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
-
-import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
-
+import org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramUpdater;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.PortNodeDescriptor;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.commands.DeferredLayoutCommand;
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
-
-import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
-
-import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest;
-import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
-
-import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -76,8 +48,8 @@ public class PortCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	protected List getSemanticChildrenList() {
 		View viewObject = (View) getHost().getModel();
 		List result = new LinkedList();
-		for (Iterator it = TaiPanDiagramUpdater.getPort_1000SemanticChildren(viewObject).iterator(); it.hasNext();) {
-			result.add(((TaiPanNodeDescriptor) it.next()).getModelElement());
+		for (Iterator it = PortDiagramUpdater.getPort_1000SemanticChildren(viewObject).iterator(); it.hasNext();) {
+			result.add(((PortNodeDescriptor) it.next()).getModelElement());
 		}
 		return result;
 	}
@@ -93,9 +65,12 @@ public class PortCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected boolean isOrphaned(Collection semanticChildren, final View view) {
-		int visualID = TaiPanVisualIDRegistry.getVisualID(view);
-		return TaiPanDiagramUpdater.isPort_1000DomainMetaChild(visualID)
-				&& (!semanticChildren.contains(view.getElement()) || visualID != TaiPanVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement()));
+		int visualID = PortVisualIDRegistry.getVisualID(view);
+		switch (visualID) {
+		case BuildingEditPart.VISUAL_ID:
+			return !semanticChildren.contains(view.getElement()) || visualID != PortVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
+		}
+		return false;
 	}
 
 	/**

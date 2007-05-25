@@ -39,7 +39,7 @@ public class BuildingCreateCommand extends CreateElementCommand {
 	 */
 	protected EClass getEClassToEdit() {
 		return TaiPanPackage.eINSTANCE.getPort();
-	};
+	}
 
 	/**
 	 * @generated

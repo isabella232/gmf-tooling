@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.examples.taipan.port.diagram.rcp; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramEditorPlugin
+Bundle-Activator: org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.eclipse.gmf.examples.taipan.port.diagram.edit.parts,

@@ -11,9 +11,7 @@
  */
 package org.eclipse.gmf.examples.taipan.port.diagram.providers;
 
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramEditorPlugin;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorPlugin;
 
 /**
  * @generated
