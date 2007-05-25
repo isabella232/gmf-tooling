@@ -15,20 +15,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.examples.taipan.Aquatory;
-import org.eclipse.gmf.examples.taipan.BesiegePortOrder;
-import org.eclipse.gmf.examples.taipan.Building;
-import org.eclipse.gmf.examples.taipan.EmptyBox;
-import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
-import org.eclipse.gmf.examples.taipan.Item;
-import org.eclipse.gmf.examples.taipan.LargeItem;
-import org.eclipse.gmf.examples.taipan.Order;
-import org.eclipse.gmf.examples.taipan.Port;
-import org.eclipse.gmf.examples.taipan.Route;
-import org.eclipse.gmf.examples.taipan.Ship;
-import org.eclipse.gmf.examples.taipan.SmallItems;
-import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-import org.eclipse.gmf.examples.taipan.Warship;
+import org.eclipse.gmf.examples.taipan.*;
 
 /**
  * <!-- begin-user-doc -->
