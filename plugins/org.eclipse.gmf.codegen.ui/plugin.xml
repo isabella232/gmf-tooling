@@ -70,6 +70,7 @@
             targetId="org.eclipse.jdt.ui.PackageExplorer"
             name="%filter.hide.generated.label"
             description="%filter.hide.generated.description"
+            enabled="false"
 			class="org.eclipse.gmf.internal.codegen.HideGeneratedFilter">
       </filter>
    </extension>
