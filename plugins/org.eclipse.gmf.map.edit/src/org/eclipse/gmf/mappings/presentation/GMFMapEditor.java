@@ -66,6 +66,7 @@ import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
 import org.eclipse.emf.edit.ui.dnd.ViewerDragAdapter;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.emf.edit.ui.provider.UnwrappingSelectionProvider;
 import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 import org.eclipse.gmf.gmfgraph.provider.GMFGraphItemProviderAdapterFactory;
@@ -632,18 +633,26 @@ public class GMFMapEditor
 	 */
 	public GMFMapEditor() {
 		super();
+		initializeEditingDomain();
+	}
 
+	/**
+	 * This sets up the editing domain for the model editor.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void initializeEditingDomain() {
 		// Create an adapter factory that yields item providers.
 		//
-		List<AdapterFactory> factories = new ArrayList<AdapterFactory>();
-		factories.add(new ResourceItemProviderAdapterFactory());
-		factories.add(new GMFMapItemProviderAdapterFactory());
-		factories.add(new GMFGraphItemProviderAdapterFactory());
-		factories.add(new GMFToolItemProviderAdapterFactory());
-		factories.add(new EcoreItemProviderAdapterFactory());
-		factories.add(new ReflectiveItemProviderAdapterFactory());
+		adapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 
-		adapterFactory = new ComposedAdapterFactory(factories);
+		adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new GMFMapItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new GMFGraphItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new GMFToolItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new EcoreItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 
 		// Create the command stack that will notify this editor as commands are executed.
 		//
@@ -845,7 +854,7 @@ public class GMFMapEditor
 		contextMenu.addMenuListener(this);
 		Menu menu= contextMenu.createContextMenu(viewer.getControl());
 		viewer.getControl().setMenu(menu);
-		getSite().registerContextMenu(contextMenu, viewer);
+		getSite().registerContextMenu(contextMenu, new UnwrappingSelectionProvider(viewer));
 
 		int dndOperations = DND.DROP_COPY | DND.DROP_MOVE | DND.DROP_LINK;
 		Transfer[] transfers = new Transfer[] { LocalTransfer.getInstance() };
@@ -1408,6 +1417,11 @@ public class GMFMapEditor
 	 */
 	@Override
 	public void doSave(IProgressMonitor progressMonitor) {
+		// Save only resources that have actually changed.
+		//
+		final Map<Object, Object> saveOptions = new HashMap<Object, Object>();
+		saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+
 		// Do the work within an operation because this is a long running activity that modifies the workbench.
 		//
 		WorkspaceModifyOperation operation =
@@ -1423,7 +1437,7 @@ public class GMFMapEditor
 						if ((first || !resource.getContents().isEmpty() || isPersisted(resource)) && !editingDomain.isReadOnly(resource)) {
 							try {
 								savedResources.add(resource);
-								resource.save(Collections.EMPTY_MAP);
+								resource.save(saveOptions);
 							}
 							catch (Exception exception) {
 								resourceToDiagnosticMap.put(resource, analyzeResourceProblems(resource, exception));
