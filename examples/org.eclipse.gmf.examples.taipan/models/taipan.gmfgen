@@ -273,6 +273,8 @@
             href="taipan.genmodel#//taipan/Aquatory/ships"/>
         <childMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/ships"/>
+        <modelElementSelector
+            body="not oclIsKindOf(taipan::Warship)"/>
       </modelFacet>
       <labels
           visualID="5004"
