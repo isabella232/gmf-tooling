@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -19,11 +19,12 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DecorationFigure;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
-import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
@@ -31,6 +32,7 @@ import org.eclipse.gmf.gmfgraph.Identity;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.internal.bridge.wizards.WizardUtil;
 import org.eclipse.gmf.internal.bridge.wizards.pages.simple.ResolvedItem.Resolution;
@@ -44,9 +46,9 @@ public class GraphDefBuilder {
 
 	protected final Canvas existingCanvas;
 
-	protected GMFGraphFactory gmfGraphFactory = GMFGraphPackage.eINSTANCE.getGMFGraphFactory();
+	protected final GMFGraphFactory gmfGraphFactory = GMFGraphPackage.eINSTANCE.getGMFGraphFactory();
 
-	protected NamesDispenser namesDispenser = new IncrementalNamesDispenser();
+	protected final NamesDispenser namesDispenser = new IncrementalNamesDispenser();
 
 	protected Canvas canvas;
 
@@ -160,33 +162,30 @@ public class GraphDefBuilder {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	protected Node createNode(EClass type) {
 		String baseName = WizardUtil.getCapName(type);
 		Rectangle figure = gmfGraphFactory.createRectangle();
 		figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
-		fGallery.getFigures().add(figure);
 		Node node = gmfGraphFactory.createNode();
-		node.setFigure(figure);
+		node.setFigure(newDescriptor(figure.getName(), figure));
+		fGallery.getDescriptors().add(node.getFigure());
 		node.setName(getUniqueName(baseName, null));
 		canvas.getNodes().add(node);
 		return node;
 	}
 
-	@SuppressWarnings("unchecked")
 	protected Connection createLink(EClass type) {
 		String baseName = WizardUtil.getCapName(type);
 		PolylineConnection figure = gmfGraphFactory.createPolylineConnection();
 		figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
-		fGallery.getFigures().add(figure);
 		Connection link = gmfGraphFactory.createConnection();
-		link.setFigure(figure);
+		link.setFigure(newDescriptor(figure.getName(), figure));
+		fGallery.getDescriptors().add(link.getFigure());
 		link.setName(getUniqueName(baseName, null));
 		canvas.getConnections().add(link);
 		return link;
 	}
 
-	@SuppressWarnings("unchecked")
 	protected Connection createLink(EReference ref, EClass containingClass) {
 		String baseName = WizardUtil.getCapName(ref, containingClass);
 		PolylineConnection figure = gmfGraphFactory.createPolylineConnection();
@@ -194,16 +193,15 @@ public class GraphDefBuilder {
 		DecorationFigure decoration = gmfGraphFactory.createPolylineDecoration();
 		decoration.setName(getUniqueName(baseName, Messages.GraphDefBuilder6));
 		figure.setTargetDecoration(decoration);
-		fGallery.getFigures().add(figure);
 		fGallery.getFigures().add(decoration);
 		Connection link = gmfGraphFactory.createConnection();
-		link.setFigure(figure);
+		link.setFigure(newDescriptor(figure.getName(), figure));
+		fGallery.getDescriptors().add(link.getFigure());
 		link.setName(getUniqueName(baseName, null));
 		canvas.getConnections().add(link);
 		return link;
 	}
 
-	@SuppressWarnings("unchecked")
 	protected DiagramLabel createLabel(EAttribute attr, EClass containingClass, DiagramElement parent) {
 		if (parent == null) {
 			return null; // makes no sense to define label without parent
@@ -212,12 +210,26 @@ public class GraphDefBuilder {
 		Label figure = gmfGraphFactory.createLabel();
 		figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
 		figure.setText(Messages.GraphDefBuilder5);
-		assert parent.getFigure() instanceof Figure : "We are creators of this gmfgraph; there should be no figure accessors"; //$NON-NLS-1$
-		((Figure) parent.getFigure()).getChildren().add(figure);
+		assert parent.getFigure().getActualFigure() instanceof RealFigure : "We are creators of this gmfgraph; there should be nothing but figure"; //$NON-NLS-1$
+		((RealFigure) parent.getFigure().getActualFigure()).getChildren().add(figure);
 		DiagramLabel label = gmfGraphFactory.createDiagramLabel();
-		label.setFigure(figure);
+		label.setFigure(parent.getFigure());
+		label.setAccessor(newAccess(parent.getFigure(), figure));
 		label.setName(getUniqueName(baseName, null));
 		canvas.getLabels().add(label);
 		return label;
+	}
+
+	private static FigureDescriptor newDescriptor(String name, RealFigure fig) {
+		FigureDescriptor fd = GMFGraphFactory.eINSTANCE.createFigureDescriptor();
+		fd.setActualFigure(fig);
+		fd.setName(name);
+		return fd;
+	}
+	private static ChildAccess newAccess(FigureDescriptor fd, RealFigure child) {
+		ChildAccess ca = GMFGraphFactory.eINSTANCE.createChildAccess();
+		ca.setFigure(child);
+		fd.getAccessors().add(ca);
+		return ca;
 	}
 }
