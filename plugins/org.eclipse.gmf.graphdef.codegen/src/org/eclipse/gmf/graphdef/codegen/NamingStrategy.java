@@ -13,15 +13,14 @@
 package org.eclipse.gmf.graphdef.codegen;
 
 import org.eclipse.emf.codegen.util.CodeGenUtil;
-import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.ChildAccess;
 
 /**
- * FIXME [artem] no reason for singleton
+ * XXX [artem] use gmfgraph::Util.ext figureFieldGetter instead or any other *common* way instead.
  */
 public class NamingStrategy {
-	public static NamingStrategy INSTANCE = new NamingStrategy();
-	
-	public String getChildFigureGetterName(Figure childFigure){
-		return "getFigure" + CodeGenUtil.capName(CodeGenUtil.validJavaIdentifier(childFigure.getName()));
+
+	public static String getChildFigureGetterName(ChildAccess childFigure){
+		return "getFigure" + CodeGenUtil.capName(CodeGenUtil.validJavaIdentifier(childFigure.getAccessor()));
 	}
 }

@@ -16,21 +16,18 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
-import org.eclipse.gmf.gmfgraph.Figure;
-import org.eclipse.gmf.gmfgraph.FigureAccessor;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
-import org.eclipse.gmf.gmfgraph.FigureHandle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
-import org.eclipse.gmf.graphdef.codegen.NamingStrategy;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Processor;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.ProcessorCallback;
@@ -97,86 +94,55 @@ public class CanvasProcessor extends Processor {
 
 	private void handleNodes() throws InterruptedException {
 		for (Node next : myInput.getNodes()) {
-			handleFigure(next.getNodeFigure());
+			handleFigure(next.getFigure());
 		}
 	}
 
 	private void handleLinks() throws InterruptedException {
 		for (Connection next : myInput.getConnections()) {
-			handleFigure(next.getConnectionFigure());
+			handleFigure(next.getFigure());
 		}
 	}
 
 	private void handleCompartments() throws InterruptedException {
 		for (Compartment next : myInput.getCompartments()) {
-			FigureHandle nextFigure = next.getFigure();
+			FigureDescriptor nextFigure = next.getFigure();
 			if (nextFigure == null){
 				throw new NullPointerException("Compartment without figure : " + next);
 			}
-			if (nextFigure instanceof Figure) {
-				handleFigure((Figure) nextFigure);
-			} else {
-				throw new IllegalStateException("Don't support accessors for compartments yet");
-			}
+			handleFigure(nextFigure);
 		}
 	}
 
 	private void handleLabels() throws InterruptedException {
 		for (DiagramLabel next : myInput.getLabels()) {
-			if (next.getFigure() instanceof FigureAccessor) {
-				assert myElementCopier.containsKey(next.getFigure()) : "Should be copied as part of previously referenced CustomFigure";
+			if (next.getAccessor() != null) {
+				// accessor
+				ChildAccess labelAccess = next.getAccessor();
+				// XXX nothing to do?
 			} else {
-				assert next.getFigure() instanceof Figure;
-				Figure f = (Figure) next.getFigure(); 
-				if (isInsideProcessedFigure(f)) {
-					// obviously, fact we got here means f is !getReferencingElements().isEmpty()
-					// feedback.findAccessorFor(f)
-					FigureAccessor accessor = GMFGraphFactory.eINSTANCE.createFigureAccessor();
-					accessor.setAccessor(NamingStrategy.INSTANCE.getChildFigureGetterName(f));
-					myElementCopier.put(f, accessor);
-					// find closest ancestor figure
-					/* XXX assume there's no cases like
-					 * Node1 -->   Rect1
-					 * Node2 -->     |- Rect2
-					 * Label -->          |- gef.Label
-					 * and the Label we process is from Node1. 
-					 * With the current approach, we'll get mirrored Rect2 instead of mirrored Rect1.
-					 */
-					Figure parent = f;
-					do {
-						parent = parent.getParent();
-						// parent can't be null, as we checked isInsideProcessedFigure prior to that.
-					} while (!myElementCopier.containsKey(parent));
-					assert myElementCopier.get(parent) instanceof CustomFigure : "We used to keep custom figures only in the mirrored gallery";
-					((CustomFigure) myElementCopier.get(parent)).getCustomChildren().add(accessor);
-				} else {
-					handleFigure(f);
-				}
-				
+				handleFigure(next.getFigure());
 			}
 		}
 	}
 
-	private boolean isInsideProcessedFigure(Figure f) {
-		return EcoreUtil.isAncestor(myElementCopier.keySet(), f);
-	}
-
-	private void handleFigure(Figure figure) throws InterruptedException {
-		if (myElementCopier.isSubstituted(figure)) {
+	private void handleFigure(FigureDescriptor fd) throws InterruptedException {
+		if (myElementCopier.isSubstituted(fd)) {
 			// already processed, nothing to do
 			return;
 			// XXX originally CustomFigures do not get into history of elementCopier, 
 			// hence may still get copied more than once. Perhaps, makes sense to have separate 'History'
 			// to keep track of processed figures?
 		}
-		if (figure instanceof CustomFigure && isPlainBareCustomFigure((CustomFigure) figure)) {
+		if (fd.getActualFigure() instanceof CustomFigure && isPlainBareCustomFigure((CustomFigure) fd.getActualFigure())) {
 			// XXX an implementationBundle might be an issue here (#x#),
 			// since myOutcomeGallery gonna get one we generate, while the original CustomFigure
-			// may have one specified in the ownining FigureGallery. 
-			myOutcomeGallery.getFigures().add((CustomFigure) myElementCopier.copy(figure));
+			// may have one specified in the ownining FigureGallery.
+			final CustomFigure f = (CustomFigure) fd.getActualFigure();
+			myOutcomeGallery.getFigures().add(myElementCopier.xcopy(f));
 		} else {
-			String fqn = myCallback.visitFigure(figure);
-			myElementCopier.registerSubstitution(figure, createCustomFigure(figure, fqn));
+			String fqn = myCallback.visitFigure(fd);
+			myElementCopier.registerSubstitution(fd, createCustomFigure(fd, fqn));
 		}
 	}
 
@@ -189,12 +155,9 @@ public class CanvasProcessor extends Processor {
 			return false;
 		}
 		final LinkedList<EStructuralFeature> featuresToCheck = new LinkedList<EStructuralFeature>(figure.eClass().getEAllStructuralFeatures());
-		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getIdentity_Name());
-		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getFigure_Children());
-		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getFigureMarker_Parent());
-		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getFigureHandle_ReferencingElements());
+		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getRealFigure_Name());
+		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getRealFigure_Children());
 
-		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomClass_BundleName());
 		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomClass_QualifiedClassName());
 		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomFigure_CustomChildren());
 
@@ -209,11 +172,13 @@ public class CanvasProcessor extends Processor {
 		return true;
 	}
 
-	private CustomFigure createCustomFigure(Figure original, String fqn) {
-		CustomFigure cf = DiagramElementsCopier.createCustomFigure(original);
-		cf.setName(original.getName());
+	private FigureDescriptor createCustomFigure(FigureDescriptor original, String fqn) {
+		CustomFigure cf = GalleryMirrorProcessor.createCustomFigure(original.getActualFigure());
 		cf.setQualifiedClassName(fqn);
-		myOutcomeGallery.getFigures().add(cf);
-		return cf;
+		FigureDescriptor fd = GMFGraphFactory.eINSTANCE.createFigureDescriptor();
+		fd.setName(original.getName());
+		fd.setActualFigure(cf);
+		myOutcomeGallery.getDescriptors().add(fd);
+		return fd;
 	}
 }

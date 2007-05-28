@@ -9,17 +9,20 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT "http://www.eclipse.org/gmf/2005/GraphicalDefinition"»
+«IMPORT "http://www.eclipse.org/gmf/2006/GraphicalDefinition"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
-// XXX call figureAttrs from this?
+«REM»
+org.eclipse.draw2d.Shape
+	private boolean fill = true, outline = true, xorFill, xorOutline;
+«ENDREM»
 «DEFINE shapeAttrs(EString figureVarName) FOR Shape-»
-«EXPAND fill(figureVarName)-»
-«EXPAND xorFill(figureVarName)-»
-«EXPAND outline(figureVarName)-»
-«EXPAND xorOutline(figureVarName)-»
-«EXPAND lineWidth(figureVarName)-»
-«EXPAND lineKind(figureVarName)-»
+«IF !fill»«EXPAND fill(figureVarName)»«ENDIF-»
+«IF xorFill»«EXPAND xorFill(figureVarName)»«ENDIF-»
+«IF !outline»«EXPAND outline(figureVarName)»«ENDIF-»
+«IF xorOutline»«EXPAND xorOutline(figureVarName)»«ENDIF-»
+«IF lineWidth != 1»«EXPAND lineWidth(figureVarName)»«ENDIF-»
+«IF lineKind.value != LineKind::LINE_SOLID.value»«EXPAND lineKind(figureVarName)»«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE fill(EString figureVarName) FOR Shape-»

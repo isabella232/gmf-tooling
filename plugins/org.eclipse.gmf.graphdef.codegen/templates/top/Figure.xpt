@@ -10,21 +10,22 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT "http://www.eclipse.org/gmf/2005/GraphicalDefinition"»
+«IMPORT "http://www.eclipse.org/gmf/2006/GraphicalDefinition"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «IMPORT "templates"»
 «EXTENSION Util»
 
-«DEFINE FigureClass(boolean isInnerClass) FOR gmfgraph::Figure-»
-«packageStatement()»
-/**
- * @generated
- */
-public class «compilationUnitName()» extends «EXPAND Runtime::fqn» {
+«DEFINE ClassBody(String cuName) FOR gmfgraph::Figure»«ERROR "abstract ClassBody(Figure)"»«ENDDEFINE»
+
+«DEFINE ClassBody(String cuName) FOR gmfgraph::FigureRef-»
+«EXPAND ClassBody(cuName) FOR figure-»
+«ENDDEFINE»
+
+«DEFINE ClassBody(String cuName) FOR gmfgraph::RealFigure-»
 	/**
 	 * @generated
 	 */
-	public «compilationUnitName()»() {
+	public «cuName»() {
 		«EXPAND Layout::Init("this") FOR layout-»
 		«EXPAND Attrs::Init("this")-»
 «IF !children.typeSelect(Figure).isEmpty()-»
@@ -34,30 +35,16 @@ public class «compilationUnitName()» extends «EXPAND Runtime::fqn» {
 «ELSE-»
 	}
 «ENDIF-»
-«additionalMethods()»
 «EXPAND Extras::extraMethods»
 «EXPAND Extras::localCoordinates»
-«IF isInnerClass-»
-}
-«additionalStaticFields()»
-«ELSE-»
-«additionalStaticFields()»
-}
-«ENDIF-»
+«EXPAND additions-»
 «ENDDEFINE»
 
-
-«DEFINE FigureClass(boolean isInnerClass) FOR gmfgraph::PolylineConnection-»
-«packageStatement()»
-/**
- * @generated
- */
-public class «compilationUnitName()» extends «EXPAND Runtime::fqn» {
-
+«DEFINE ClassBody(String cuName) FOR gmfgraph::PolylineConnection-»
 	/**
 	 * @generated
 	 */
-	public «compilationUnitName()»() {
+	public «cuName»() {
 		«EXPAND Attrs::Init("this")»
 «IF hasSourceDecoration()-»
 		setSourceDecoration(createSourceDecoration());
@@ -84,12 +71,8 @@ public class «compilationUnitName()» extends «EXPAND Runtime::fqn» {
 		return df;
 	}
 «ENDIF-»
-«additionalMethods()»
-«IF isInnerClass-»
-}
-«additionalStaticFields()»
-«ELSE-»
-«additionalStaticFields()»
-}
-«ENDIF-»
+«EXPAND additions-»
 «ENDDEFINE»
+
+«REM»Our regular way to add smth inside generated class body«ENDREM»
+«DEFINE additions FOR gmfgraph::Figure»«ENDDEFINE»

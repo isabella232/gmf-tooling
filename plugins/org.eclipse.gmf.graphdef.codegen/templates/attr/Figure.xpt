@@ -9,7 +9,7 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT "http://www.eclipse.org/gmf/2005/GraphicalDefinition"»
+«IMPORT "http://www.eclipse.org/gmf/2006/GraphicalDefinition"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «IMPORT "templates"»
 «EXTENSION Util»
@@ -17,20 +17,21 @@
 «DEFINE figureAttrs(EString figureVarName) FOR gmfgraph::Figure-»
 «EXPAND foregroundColor(this, figureVarName) FOR foregroundColor-»
 «EXPAND backgroundColor(this, figureVarName) FOR backgroundColor-»
-«EXPAND font(this, figureVarName) FOR font-»
+«EXPAND font(figureVarName) FOR font-»
 «EXPAND preferredSize(figureVarName) FOR preferredSize-»
 «EXPAND maximumSize(figureVarName) FOR maximumSize-»
 «EXPAND minimumSize(figureVarName) FOR minimumSize-»
+«EXPAND position(figureVarName) FOR location-»
 «EXPAND size(figureVarName) FOR size-»
 «EXPAND insets(figureVarName) FOR insets-»
 «EXPAND Border::Init(figureVarName) FOR border-»
 «ENDDEFINE»
 
 «DEFINE foregroundColor(gmfgraph::Figure figure, String figureVarName) FOR gmfgraph::Color-»
-	«figureVarName».setForegroundColor(«EXPAND color(figure.name.toUpperCase() + "_FORE")»);
+	«figureVarName».setForegroundColor(«EXPAND color(figureVarName.toUpperCase() + "_FORE")»);
 «ENDDEFINE»
 «DEFINE backgroundColor(gmfgraph::Figure figure, String figureVarName) FOR gmfgraph::Color-»
-	«figureVarName».setBackgroundColor(«EXPAND color(figure.name.toUpperCase() + "_BACK")»);
+	«figureVarName».setBackgroundColor(«EXPAND color(figureVarName.toUpperCase() + "_BACK")»);
 «ENDDEFINE»
 
 «DEFINE preferredSize(EString figureVarName) FOR gmfgraph::Dimension-»
@@ -45,6 +46,10 @@
 «figureVarName».setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(«EXPAND MapMode::map»));
 «ENDDEFINE»
 
+«DEFINE position(String figureVarName) FOR gmfgraph::Point-»
+«figureVarName».setLocation(new org.eclipse.draw2d.geometry.Point(«EXPAND MapMode::map»));
+«ENDDEFINE»
+
 «DEFINE size(EString figureVarName) FOR gmfgraph::Point-»
 «figureVarName».setSize(«EXPAND MapMode::map»);
 «ENDDEFINE»
@@ -54,7 +59,7 @@
 «figureVarName».setBorder(new org.eclipse.draw2d.MarginBorder(«EXPAND MapMode::map»));
 «ENDDEFINE»
 
-«DEFINE font(Figure figure, EString figureVarName) FOR gmfgraph::Font»
+«DEFINE font(String figureVarName) FOR gmfgraph::Font»
 «ERROR "This is abstact definition, just to overcome some xpand polymorphism limitations"»
 «ENDDEFINE»
 
@@ -76,8 +81,8 @@ static final org.eclipse.swt.graphics.Color «variableName» = new org.eclipse.swt
 org.eclipse.draw2d.ColorConstants.«value.literal-»
 «ENDDEFINE»
 
-«DEFINE font(Figure figure, EString figureVarName) FOR gmfgraph::BasicFont-»
-«LET figure.name + "_FONT" AS variableName»
+«DEFINE font(String figureVarName) FOR gmfgraph::BasicFont-»
+«LET figureVarName.toUpperCase() + "_FONT" AS variableName»
 «figureVarName».setFont(«variableName»);
 «FILE "" staticFields»
 /**

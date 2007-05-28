@@ -10,46 +10,36 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT "http://www.eclipse.org/gmf/2005/GraphicalDefinition"»
+«IMPORT "http://www.eclipse.org/gmf/2006/GraphicalDefinition"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «EXTENSION Util»
 
-«DEFINE Init(EString figureVarName) FOR gmfgraph::Border-»
+«DEFINE Init(String figureVarName) FOR gmfgraph::Border-»
 «figureVarName».setBorder(«EXPAND border(figureVarName)»);
 «ENDDEFINE»
 
-«DEFINE border(EString figureVarName) FOR gmfgraph::Border»
-«ERROR "This is an abstract definition"»
+«DEFINE Init(String figureVarName) FOR gmfgraph::CustomBorder-»
+{
+	«EXPAND Runtime::newInstance("result")»
+	«EXPAND attr::CustomClass::Init("result")»
+	«figureVarName».setBorder(result);
+}
 «ENDDEFINE»
 
-«DEFINE border(EString figureVarName) FOR gmfgraph::LineBorder-»
-new org.eclipse.draw2d.LineBorder(«IF null == color»null«ELSE»«EXPAND attr::Figure::color(figureVarName + "_BORDER") FOR color»«ENDIF», «EXPAND MapMode::map FOR width»)
+«DEFINE border(String figureVarName) FOR gmfgraph::Border»
+«ERROR "This is an abstract definition border(String, Border) invoked for " + this»
 «ENDDEFINE»
 
-«DEFINE border(EString figureVarName) FOR gmfgraph::CompoundBorder-»
-new org.eclipse.draw2d.CompoundBorder(«IF null == outer»null«ELSE»«EXPAND border(figureVarName) FOR outer»«ENDIF», «IF null == inner»null«ELSE»«EXPAND border(figureVarName) FOR inner»«ENDIF»)
+«DEFINE border(String figureVarName) FOR gmfgraph::LineBorder-»
+new org.eclipse.draw2d.LineBorder(«IF null == color»null«ELSE»«EXPAND attr::Figure::color(figureVarName.toUpperCase() + "_BORDER") FOR color»«ENDIF», «EXPAND MapMode::map FOR width»)«ENDDEFINE»
+
+«DEFINE border(String figureVarName) FOR gmfgraph::MarginBorder-»
+new org.eclipse.draw2d.MarginBorder(«EXPAND MapMode::map FOR insets»)«ENDDEFINE»
+
+«DEFINE border(String figureVarName) FOR gmfgraph::CompoundBorder-»
+new org.eclipse.draw2d.CompoundBorder(«IF outer == null»null«ELSE»«EXPAND internalNewInstance(figureVarName) FOR outer»«ENDIF», «IF inner == null»null«ELSE»«EXPAND internalNewInstance(figureVarName) FOR inner»«ENDIF»)
 «ENDDEFINE»
 
-«DEFINE border(EString figureVarName) FOR gmfgraph::MarginBorder-»
-new org.eclipse.draw2d.MarginBorder(«EXPAND MapMode::map FOR insets»)
-«ENDDEFINE»
-
-«DEFINE border(EString figureVarName) FOR gmfgraph::CustomBorder-»
-«LET methodName(figureVarName) AS methodName-»
-«methodName»()
-«EXPAND customBorderMethod(methodName)-»
-«ENDLET-»
-«ENDDEFINE»
-
-«DEFINE customBorderMethod(String methodName) FOR gmfgraph::CustomBorder-»
-«FILE "" additionalMethods-»
-	/**
-	 * @generated
-	 */
-	private org.eclipse.draw2d.Border «methodName»() {
-		«EXPAND Runtime::newInstance("result")»
-		«EXPAND attr::CustomClass::Init("result")»
-		return result;
-	}
-«ENDFILE-»
+«DEFINE internalNewInstance(String figureVarName) FOR gmfgraph::Border-»
+«IF {this}.typeSelect(gmfgraph::CustomBorder).isEmpty()»«EXPAND border(figureVarName)»«ELSE»«EXPAND Runtime::newInstance»«ENDIF-»
 «ENDDEFINE»

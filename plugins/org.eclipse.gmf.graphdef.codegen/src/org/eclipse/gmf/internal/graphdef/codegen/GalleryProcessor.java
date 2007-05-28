@@ -14,7 +14,7 @@ package org.eclipse.gmf.internal.graphdef.codegen;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
@@ -39,7 +39,7 @@ public class GalleryProcessor extends Processor {
 	
 	public void go(ProcessorCallback callback, Config config) throws InterruptedException {
 		for (int i = 0; i < myInput.length; i++) {
-			for (Figure next : myInput[i].getFigures()) {
+			for (FigureDescriptor next : myInput[i].getDescriptors()) {
 				String fqn = callback.visitFigure(next);
 				handle(next, fqn);
 			}
@@ -49,7 +49,7 @@ public class GalleryProcessor extends Processor {
 	/**
 	 * does nothing by default, override to do smth usable
 	 */
-	protected void handle(Figure next, String fqn) {
+	protected void handle(FigureDescriptor next, String fqn) {
 	}
 
 	public String[] getRequiredBundles(FigureQualifiedNameSwitch fqnSwitch) {

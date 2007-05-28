@@ -20,8 +20,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
-import org.eclipse.gmf.common.codegen.ImportAssistant;
-import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
@@ -38,7 +37,7 @@ public class StandaloneGenerator extends GeneratorBase {
 	private final StandaloneEmitters myAuxiliaryGenerators;
 	private boolean mySkipPluginStructire;
 	protected Processor myProcessor;
-	private final Map<String, Figure> myCallbackFigures = new LinkedHashMap<String, Figure>(); 
+	private final Map<String, FigureDescriptor> myCallbackFigures = new LinkedHashMap<String, FigureDescriptor>(); 
 	
 	public interface Config {
 		public String getPluginID();
@@ -125,7 +124,7 @@ public class StandaloneGenerator extends GeneratorBase {
 	}
 
 	public interface ProcessorCallback {
-		public String visitFigure(Figure f) throws InterruptedException;
+		public String visitFigure(FigureDescriptor f) throws InterruptedException;
 	}
 
 
@@ -148,7 +147,7 @@ public class StandaloneGenerator extends GeneratorBase {
 			accessor = null;
 		}
 		
-		myFigureGenerator = new FigureGenerator(config.getRuntimeToken(), strategy, accessor, false, dynamicTemplates);
+		myFigureGenerator = new FigureGenerator(config.getRuntimeToken(), getPackageName(), strategy, accessor, false, dynamicTemplates);
 		myAuxiliaryGenerators = new StandaloneEmitters(strategy, dynamicTemplates);
 	}
 
@@ -198,18 +197,21 @@ public class StandaloneGenerator extends GeneratorBase {
 	private void generateTopLevelFigures() throws InterruptedException {
 		myCallbackFigures.clear(); // just in case
 		myProcessor.go(new ProcessorCallback() {
-			public String visitFigure(Figure f) throws InterruptedException {
+			public String visitFigure(FigureDescriptor f) throws InterruptedException {
 				return StandaloneGenerator.this.visitFigure(f);
 			}
 		}, myArgs);
 	}
 	
-	private String visitFigure(Figure figure) throws InterruptedException {
-		final ImportAssistant importAssistant = new ImportUtil(getPackageName(), CodeGenUtil.validJavaIdentifier(figure.getName()));
-		Object[] args = new Object[] { figure, importAssistant };
-		doGenerateJavaClass(myFigureGenerator, getPackageName(), importAssistant.getCompilationUnitName(), args);
-		final String qualifiedName = composeFQN(getPackageName(), importAssistant.getCompilationUnitName());
-		myCallbackFigures.put(qualifiedName, figure);
+	private String visitFigure(FigureDescriptor figureDescriptor) throws InterruptedException {
+		// XXX either use compilationUnitName from Util.ext or pass cu name as template argument
+		if (figureDescriptor.getName() == null) {
+			throw new IllegalArgumentException("FigureDescriptor needs a name");
+		}
+		final String compilationUnitName = CodeGenUtil.validJavaIdentifier(CodeGenUtil.capName(figureDescriptor.getName()));  
+		doGenerateJavaClass(myFigureGenerator, getPackageName(), compilationUnitName, figureDescriptor);
+		final String qualifiedName = composeFQN(getPackageName(), compilationUnitName);
+		myCallbackFigures.put(qualifiedName, figureDescriptor);
 		return qualifiedName;
 	}
 

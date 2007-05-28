@@ -16,22 +16,23 @@ import java.util.HashSet;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.gmf.gmfgraph.ConnectionFigure;
-import org.eclipse.gmf.gmfgraph.CustomFigure;
-import org.eclipse.gmf.gmfgraph.DecorationFigure;
-import org.eclipse.gmf.gmfgraph.Figure;
-import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 
 class DiagramElementsCopier extends EcoreUtil.Copier {
-	private final HashSet<Figure> myOriginalFigures = new HashSet<Figure>();
+	private final HashSet<FigureDescriptor> myOriginalFigures = new HashSet<FigureDescriptor>();
 	
-	public void registerSubstitution(Figure original, CustomFigure substituted){
+	public void registerSubstitution(FigureDescriptor original, FigureDescriptor substituted){
 		put(original, substituted);
 		myOriginalFigures.add(original);
 	}
 
-	public boolean isSubstituted(Figure original) {
+	public boolean isSubstituted(FigureDescriptor original) {
 		return containsKey(original);
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T extends EObject> T xcopy(T original) {
+		return (T) super.copy(original);
 	}
 
 	protected void copyReference(EReference eReference, EObject eObject, EObject copyEObject) {
@@ -41,19 +42,4 @@ class DiagramElementsCopier extends EcoreUtil.Copier {
 		}
 		super.copyReference(eReference, eObject, copyEObject);
 	}
-
-	/**
-	 * 	FIXME this method has nothing to do with DiagramElementsCopier 
-	 */
-	static CustomFigure createCustomFigure(Figure original){
-		GMFGraphFactory factory = GMFGraphFactory.eINSTANCE;
-		if (original instanceof DecorationFigure){
-			return factory.createCustomDecoration();
-		} 
-		if (original instanceof ConnectionFigure){
-			return factory.createCustomConnection();
-		}
-		return factory.createCustomFigure();
-	}
-
 }

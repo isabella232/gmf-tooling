@@ -10,10 +10,10 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT "http://www.eclipse.org/gmf/2005/GraphicalDefinition"»
+«IMPORT "http://www.eclipse.org/gmf/2006/GraphicalDefinition"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
-«DEFINE localCoordinates FOR gmfgraph::Figure»
+«DEFINE localCoordinates FOR gmfgraph::RealFigure»
 	/**
 	 * @generated
 	 */

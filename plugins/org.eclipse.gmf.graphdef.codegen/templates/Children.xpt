@@ -10,29 +10,29 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT "http://www.eclipse.org/gmf/2005/GraphicalDefinition"»
+«IMPORT "http://www.eclipse.org/gmf/2006/GraphicalDefinition"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «EXTENSION Util»
 
-«DEFINE CreateChildren FOR gmfgraph::Figure-»
+«DEFINE CreateChildren FOR gmfgraph::RealFigure-»
 	/**
 	 * @generated
 	 */
 	private void createContents(){
-«EXPAND instantiate(0, this, "this") FOREACH children.typeSelect(gmfgraph::Figure)»
+«EXPAND instantiate(0, this, "this") FOREACH children»
 	}
-«EXPAND accessors FOREACH children.typeSelect(gmfgraph::Figure)»
 «ENDDEFINE»
 
-«DEFINE instantiate(EInt count, gmfgraph::Figure parentFigure, String parentFigureVariable) FOR gmfgraph::FigureMarker»
-«ERROR "Placeholder, though should never get here as long as there\'s typeSelect above"»
+«DEFINE instantiate(EInt count, gmfgraph::RealFigure parentFigure, String parentFigureVariable) FOR gmfgraph::Figure»
+«ERROR "Abstract instantiate(int, RealFigure, String)"»
 «ENDDEFINE»
 
-«DEFINE accessors FOR gmfgraph::FigureMarker»
-«ERROR "Placeholder, though should never get here as long as there\'s typeSelect above"»
+«DEFINE instantiate(EInt count, gmfgraph::RealFigure parentFigure, EString parentFigureVariable) FOR gmfgraph::FigureRef-»
+/*FIXME referenced figures are just not yet fully-functional; need process attrs and layout here*/
+«EXPAND instantiate(count, parentFigure, parentFigureVariable) FOR figure-»
 «ENDDEFINE»
 
-«DEFINE instantiate(EInt count, gmfgraph::Figure parentFigure, EString parentFigureVariable) FOR gmfgraph::Figure»
+«DEFINE instantiate(EInt count, gmfgraph::RealFigure parentFigure, EString parentFigureVariable) FOR gmfgraph::RealFigure»
 «LET figureVariableName(count) AS figureVarName»
 «EXPAND newFigureInstance(figureVarName)»
 «EXPAND Attrs::Init(figureVarName)-»
@@ -41,9 +41,9 @@
 «ELSE-»
 «EXPAND LayoutData::Init(parentFigureVariable, figureVarName) FOR layoutData-»
 «ENDIF-»
-«IF !referencingElements.isEmpty()»«figureFieldSetter()»(«figureVarName»);«ENDIF-»
+«IF needsField()»«figureFieldName()» = «figureVarName»;«ENDIF-»
 «EXPAND Layout::Init(figureVarName) FOR layout-»
-«EXPAND instantiate(count + 1, this, figureVarName) FOREACH children.typeSelect(gmfgraph::Figure)-»
+«EXPAND instantiate(count + 1, this, figureVarName) FOREACH children-»
 «ENDLET»
 «ENDDEFINE»
 
@@ -57,28 +57,3 @@ class «localClassName» extends «EXPAND Runtime::fqn» {
 «localClassName» «figureVarName» = new «localClassName»();
 «ENDLET-»
 «ENDDEFINE»
-
-«DEFINE accessors FOR gmfgraph::Figure-»
-«IF !referencingElements.isEmpty()-»
-	/**
-	 * @generated
-	 */
-	private «EXPAND Runtime::fqn» «figureFieldName()»; 
-
-	/**
-	 * @generated
-	 */
-	public «EXPAND Runtime::fqn» «figureFieldGetter()»() {
-		return «figureFieldName()»;
-	}
-	
-	/**
-	 * @generated
-	 */
-	private void «figureFieldSetter()»(«EXPAND Runtime::fqn» fig){
-		«figureFieldName()» = fig;
-	}
-«ENDIF-»
-«EXPAND accessors FOREACH children.typeSelect(gmfgraph::Figure)»
-«ENDDEFINE»
-

@@ -1,0 +1,57 @@
+«IMPORT "http://www.eclipse.org/gmf/2006/GraphicalDefinition"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "templates"»
+«EXTENSION Util»
+
+«DEFINE Top(String packageStmt) FOR gmfgraph::FigureDescriptor»
+«IF packageStmt != null && packageStmt.length() > 0»package «packageStmt»;
+«ENDIF-»
+/**
+ * @generated
+ */
+public class «compilationUnitName()» extends «EXPAND Runtime::fqn FOR actualFigure» {
+
+«EXPAND accessorField FOREACH accessors»
+
+«EXPAND Figure::ClassBody(compilationUnitName()) FOR actualFigure»
+
+«EXPAND accessorMethod FOREACH accessors»
+
+«additionalStaticFields()»
+}
+«ENDDEFINE»
+
+
+
+«DEFINE Inner FOR gmfgraph::FigureDescriptor»
+/**
+ * @generated
+ */
+public class «compilationUnitName()» extends «EXPAND Runtime::fqn FOR actualFigure» {
+
+«EXPAND accessorField FOREACH accessors»
+
+«EXPAND Figure::ClassBody(compilationUnitName()) FOR actualFigure»
+
+«EXPAND accessorMethod FOREACH accessors»
+}
+«additionalStaticFields()»
+«ENDDEFINE»
+
+
+«DEFINE accessorField FOR gmfgraph::ChildAccess-»
+	/**
+	 * @generated
+	 */
+	private «EXPAND Runtime::fqn FOR figure» «figureFieldName()»; 
+«ENDDEFINE»
+
+«DEFINE accessorMethod FOR gmfgraph::ChildAccess-»
+	/**
+	 * @generated
+	 */
+	public «EXPAND Runtime::fqn FOR figure» «figureFieldGetter()»() {
+		return «figureFieldName()»;
+	}
+«ENDDEFINE»
+

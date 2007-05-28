@@ -10,10 +10,10 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-import "http://www.eclipse.org/gmf/2005/GraphicalDefinition";
+import "http://www.eclipse.org/gmf/2006/GraphicalDefinition";
 import "http://www.eclipse.org/emf/2002/Ecore";
 
-EString compilationUnitName(gmfgraph::Figure figure) :
+String compilationUnitName(gmfgraph::FigureDescriptor figure) :
 	figure.name.toFirstUpper()
 ;
 
@@ -27,20 +27,8 @@ List[String] requiredBundles(List[String] referencedBundles) :
 		{"org.eclipse.core.runtime","org.eclipse.draw2d"}.union(referencedBundles).toList().purgeDups()
 ;
 
-String packageStatement() :
-GLOBALVAR packageStatement
-;
-
-String additionalMethods() :
-GLOBALVAR outputAdditionalMethods
-;
-
 String additionalStaticFields() :
 GLOBALVAR outputStaticFields
-;
-
-String methodName(gmfgraph::CustomBorder customBorder, String figureVarName) :
-	"createBorder" + figureVarName
 ;
 
 EBoolean hasTargetDecoration(gmfgraph::PolylineConnection figure) :
@@ -53,22 +41,49 @@ cached boolean isFullRuntime() :
 
 private String internalCheckRuntimeToken() : GLOBALVAR runtimeToken;
 
-//nonNull(ecore::EObject obj) :
-//	{obj}.select(e | null != e)
-//;
-
-figureVariableName(gmfgraph::Figure figure, EInt count) :
-	figure.name.toFirstLower() + count
+boolean needsField(gmfgraph::RealFigure figure) :
+	// XXX consider adding generation option "fields for all figures"
+	figure.descriptor != null && figure.descriptor.accessors.figure.contains(figure)
 ;
 
-figureFieldName(gmfgraph::Figure figure) :
-	"f" + figure.name
+String figureVariableName(gmfgraph::RealFigure figure, EInt count) :
+	figure.name != null && figure.name.trim().length() > 0 ?
+		figure.name.toFirstLower() + count :
+		variableNameStem(figure) + count
 ;
-figureFieldGetter(gmfgraph::Figure figure) :
-	"getFigure" + figure.name
+
+String nameStem(FigureRef fig) : variableNameStem(fig.figure);
+String nameStem(Figure fig) : variableNameStem(fig);
+
+// actually, should be smth like fig.eClass().name
+private String variableNameStem(Figure fig) : "fig";
+private String variableNameStem(RealFigure fig) : "fig";
+private String variableNameStem(Shape fig) : "shape";
+private String variableNameStem(Rectangle fig) : "rect";
+private String variableNameStem(RoundedRectangle fig) : "rrect";
+private String variableNameStem(Ellipse fig) : "elli";
+private String variableNameStem(Polyline fig) : "polyline";
+private String variableNameStem(Label fig) : "l";
+private String variableNameStem(DecorationFigure fig) : "dec";
+private String variableNameStem(ConnectionFigure fig) : "conn";
+
+
+// assert needsField() == true
+String figureFieldName(gmfgraph::RealFigure figure) :
+	figureFieldName(figure.descriptor.accessors.select(a | (figure == a.figure)))
 ;
-figureFieldSetter(gmfgraph::Figure figure) :
-	"setFigure" + figure.name
+
+private String figureFieldName(List[ChildAccess] aaa) :
+	aaa.collect(x | figureFieldName(x)).toList().first()
+;
+
+String figureFieldName(gmfgraph::ChildAccess childAccess) :
+	"f" + childAccess.accessor
+;
+
+// assert needsField() == true
+String figureFieldGetter(gmfgraph::ChildAccess childAccess) :
+	"getFigure" + childAccess.accessor
 ;
 
 String borderLayoutConstant(gmfgraph::BorderLayoutData layoutData) :

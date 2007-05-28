@@ -10,7 +10,7 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT "http://www.eclipse.org/gmf/2005/GraphicalDefinition"»
+«IMPORT "http://www.eclipse.org/gmf/2006/GraphicalDefinition"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «EXTENSION Util»
 
@@ -50,6 +50,7 @@
 «DEFINE fqn FOR BorderLayout»org.eclipse.draw2d.BorderLayout«ENDDEFINE»
 
 ////////////////////////
+«DEFINE fqn FOR FigureRef»«EXPAND fqn FOR figure»«ENDDEFINE»
 «DEFINE fqn FOR Label»«IF isFullRuntime()»org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel«ELSE»org.eclipse.draw2d.Label«ENDIF»«ENDDEFINE»
 «DEFINE fqn FOR LabeledContainer»org.eclipse.draw2d.LabeledContainer«ENDDEFINE»
 «DEFINE fqn FOR Rectangle»org.eclipse.draw2d.RectangleFigure«ENDDEFINE»

@@ -12,12 +12,14 @@
 package org.eclipse.gmf.internal.graphdef.codegen;
 
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
+import org.eclipse.gmf.gmfgraph.ConnectionFigure;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
+import org.eclipse.gmf.gmfgraph.DecorationFigure;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
@@ -29,12 +31,11 @@ import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.ProcessorCallback;
  * @author artem
  */
 public class GalleryMirrorProcessor extends GalleryProcessor {
-	private final GenerationInfoImpl myGenerationInfo;
+	private final Map<FigureDescriptor, String> myFigure2FQN = new IdentityHashMap<FigureDescriptor, String>();
 	private String myGeneratedBundle;
 
 	public GalleryMirrorProcessor(FigureGallery[] input) {
 		super(input);
-		myGenerationInfo = new GenerationInfoImpl();
 	}
 
 	public void go(ProcessorCallback callback, Config config) throws InterruptedException {
@@ -47,49 +48,34 @@ public class GalleryMirrorProcessor extends GalleryProcessor {
 		result.setName("GeneratedGallery"); // FIXME smth reasonable
 		result.setImplementationBundle(myGeneratedBundle);
 		
-		for (Enumeration<Figure> originalFigures = myGenerationInfo.getProcessedFigures(); originalFigures.hasMoreElements();) {
-			Figure nextOriginal = originalFigures.nextElement();
-			String nextConvertedFqn = myGenerationInfo.getGeneratedClassFQN(nextOriginal);
-			CustomFigure custom = DiagramElementsCopier.createCustomFigure(nextOriginal);
-			custom.setName(nextOriginal.getName());
-			custom.setBundleName(myGeneratedBundle);
+		for (FigureDescriptor fd : myFigure2FQN.keySet()) {
+			Figure nextOriginal = fd.getActualFigure();
+			String nextConvertedFqn = myFigure2FQN.get(fd);
+			CustomFigure custom = createCustomFigure(nextOriginal);
+			custom.setName(fd.getName());
 			custom.setQualifiedClassName(nextConvertedFqn);
-			
+
 			result.getFigures().add(custom);
 		}
 		return result;
 	}
 
-	public GenerationInfo getGenerationInfo() {
-		return myGenerationInfo;
+	public Map<FigureDescriptor, String> getGenerationInfo() {
+		return Collections.unmodifiableMap(myFigure2FQN);
 	}
 
-	protected void handle(Figure next, String fqn) {
-		myGenerationInfo.registerFQN(next, fqn);
+	protected void handle(FigureDescriptor next, String fqn) {
+		myFigure2FQN.put(next, fqn);
 	}
 
-	public interface GenerationInfo {
-		// FIXME use iterator instead to allow enhanced for loop
-		public Enumeration<Figure> getProcessedFigures();
-		public String getGeneratedClassFQN(Figure figure);
-	}
-
-	private static class GenerationInfoImpl implements GenerationInfo {
-		private final Map<Figure, String> myFigure2FQN = new IdentityHashMap<Figure, String>();
-		
-		public GenerationInfoImpl(){
+	static CustomFigure createCustomFigure(Figure original){
+		GMFGraphFactory factory = GMFGraphFactory.eINSTANCE;
+		if (original instanceof DecorationFigure){
+			return factory.createCustomDecoration();
+		} 
+		if (original instanceof ConnectionFigure){
+			return factory.createCustomConnection();
 		}
-		
-		public void registerFQN(Figure figure, String fqn){
-			myFigure2FQN.put(figure, fqn);
-		}
-		
-		public String getGeneratedClassFQN(Figure figure) {
-			return myFigure2FQN.get(figure);
-		}
-		
-		public Enumeration<Figure> getProcessedFigures() {
-			return Collections.enumeration(myFigure2FQN.keySet());
-		}	
+		return factory.createCustomFigure();
 	}
 }

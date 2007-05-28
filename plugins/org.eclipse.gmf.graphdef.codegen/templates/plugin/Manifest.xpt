@@ -11,6 +11,10 @@
  */
 «EXTENSION Util»
 
+/*
+ * FIXME add a simple model (either non-generated, .ecore only?) to descripbe GenConfig 
+ */
+
 «DEFINE Init(String pluginID, String pluginActivatorQualifiedName, List[String] exportedPackages, List[String] referencedBundles) FOR Object-»
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
