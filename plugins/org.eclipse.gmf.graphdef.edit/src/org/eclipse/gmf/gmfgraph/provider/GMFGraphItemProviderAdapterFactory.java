@@ -143,6 +143,29 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.ChildAccess} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ChildAccessItemProvider childAccessItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.ChildAccess}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createChildAccessAdapter() {
+		if (childAccessItemProvider == null) {
+			childAccessItemProvider = new ChildAccessItemProvider(this);
+		}
+
+		return childAccessItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.Connection} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -324,6 +347,29 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		}
 
 		return defaultSizeFacetItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.FigureDescriptor} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FigureDescriptorItemProvider figureDescriptorItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.FigureDescriptor}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFigureDescriptorAdapter() {
+		if (figureDescriptorItemProvider == null) {
+			figureDescriptorItemProvider = new FigureDescriptorItemProvider(this);
+		}
+
+		return figureDescriptorItemProvider;
 	}
 
 	/**
@@ -1287,6 +1333,8 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		if (gradientFacetItemProvider != null) gradientFacetItemProvider.dispose();
 		if (labelOffsetFacetItemProvider != null) labelOffsetFacetItemProvider.dispose();
 		if (defaultSizeFacetItemProvider != null) defaultSizeFacetItemProvider.dispose();
+		if (figureDescriptorItemProvider != null) figureDescriptorItemProvider.dispose();
+		if (childAccessItemProvider != null) childAccessItemProvider.dispose();
 		if (figureRefItemProvider != null) figureRefItemProvider.dispose();
 		if (labelItemProvider != null) labelItemProvider.dispose();
 		if (labeledContainerItemProvider != null) labeledContainerItemProvider.dispose();

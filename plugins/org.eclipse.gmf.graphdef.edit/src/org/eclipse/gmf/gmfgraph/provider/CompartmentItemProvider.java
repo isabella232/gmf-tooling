@@ -23,8 +23,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.gmfgraph.Compartment;
-import org.eclipse.gmf.gmfgraph.Figure;
-import org.eclipse.gmf.gmfgraph.FigureHandle;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 
 /**
@@ -64,6 +63,7 @@ public class CompartmentItemProvider
 
 			addCollapsiblePropertyDescriptor(object);
 			addNeedsTitlePropertyDescriptor(object);
+			addAccessorPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -113,6 +113,28 @@ public class CompartmentItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Accessor feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAccessorPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Compartment_accessor_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Compartment_accessor_feature", "_UI_Compartment_type"),
+				 GMFGraphPackage.eINSTANCE.getCompartment_Accessor(),
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns Compartment.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -144,8 +166,8 @@ public class CompartmentItemProvider
 	 */
 	public String getText(Object object) {
 		String textGen = getTextGen(object);
-		FigureHandle figure = ((Compartment)object).getFigure();
-		String figureName = (figure instanceof Figure) ? String.valueOf(((Figure)figure).getName()) : "null";
+		FigureDescriptor figureDescriptor = ((Compartment)object).getFigure();
+		String figureName = figureDescriptor.getName();
 		return textGen + "(" + figureName + ")";
 	}
 

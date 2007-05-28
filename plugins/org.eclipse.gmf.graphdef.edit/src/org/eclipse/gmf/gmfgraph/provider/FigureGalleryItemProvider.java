@@ -126,6 +126,7 @@ public class FigureGalleryItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigureGallery_Figures());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigureGallery_Descriptors());
 		}
 		return childrenFeatures;
 	}
@@ -185,6 +186,7 @@ public class FigureGalleryItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGraphPackage.FIGURE_GALLERY__FIGURES:
+			case GMFGraphPackage.FIGURE_GALLERY__DESCRIPTORS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -271,6 +273,11 @@ public class FigureGalleryItemProvider
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getFigureGallery_Figures(),
 				 GMFGraphFactory.eINSTANCE.createCustomConnection()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Descriptors(),
+				 GMFGraphFactory.eINSTANCE.createFigureDescriptor()));
 	}
 
 	/**

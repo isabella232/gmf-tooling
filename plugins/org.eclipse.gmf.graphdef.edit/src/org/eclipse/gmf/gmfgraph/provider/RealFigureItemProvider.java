@@ -12,8 +12,11 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -22,20 +25,20 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.gmfgraph.CustomLayout;
+
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.gmfgraph.CustomLayout} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.gmfgraph.RealFigure} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class CustomLayoutItemProvider
-	extends ItemProviderAdapter
+public class RealFigureItemProvider
+	extends AbstractFigureItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -48,7 +51,7 @@ public class CustomLayoutItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CustomLayoutItemProvider(AdapterFactory adapterFactory) {
+	public RealFigureItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -63,25 +66,25 @@ public class CustomLayoutItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addQualifiedClassNamePropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Qualified Class Name feature.
+	 * This adds a property descriptor for the Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addQualifiedClassNamePropertyDescriptor(Object object) {
+	protected void addNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_CustomClass_qualifiedClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CustomClass_qualifiedClassName_feature", "_UI_CustomClass_type"),
-				 GMFGraphPackage.eINSTANCE.getCustomClass_QualifiedClassName(),
+				 getString("_UI_RealFigure_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RealFigure_name_feature", "_UI_RealFigure_type"),
+				 GMFGraphPackage.eINSTANCE.getRealFigure_Name(),
 				 true,
 				 false,
 				 false,
@@ -102,7 +105,7 @@ public class CustomLayoutItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getCustomClass_Attributes());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getRealFigure_Children());
 		}
 		return childrenFeatures;
 	}
@@ -121,17 +124,6 @@ public class CustomLayoutItemProvider
 	}
 
 	/**
-	 * This returns CustomLayout.gif.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/CustomLayout"));
-	}
-
-	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -139,10 +131,10 @@ public class CustomLayoutItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CustomLayout)object).getQualifiedClassName();
+		String label = ((RealFigure)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_CustomLayout_type") :
-			getString("_UI_CustomLayout_type") + " " + label;
+			getString("_UI_RealFigure_type") :
+			getString("_UI_RealFigure_type") + " " + label;
 	}
 
 	/**
@@ -156,11 +148,11 @@ public class CustomLayoutItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CustomLayout.class)) {
-			case GMFGraphPackage.CUSTOM_LAYOUT__QUALIFIED_CLASS_NAME:
+		switch (notification.getFeatureID(RealFigure.class)) {
+			case GMFGraphPackage.REAL_FIGURE__NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case GMFGraphPackage.CUSTOM_LAYOUT__ATTRIBUTES:
+			case GMFGraphPackage.REAL_FIGURE__CHILDREN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -180,8 +172,106 @@ public class CustomLayoutItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getCustomClass_Attributes(),
-				 GMFGraphFactory.eINSTANCE.createCustomAttribute()));
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createFigureRef()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createLabel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createLabeledContainer()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createRectangle()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createRoundedRectangle()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createEllipse()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createPolyline()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createPolygon()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createScalablePolygon()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createPolylineConnection()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createPolylineDecoration()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createPolygonDecoration()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createCustomFigure()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createCustomDecoration()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createCustomConnection()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_MaximumSize() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_MinimumSize() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_PreferredSize() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_Location() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_Size();
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 	/**

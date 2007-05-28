@@ -12,7 +12,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -21,19 +23,20 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.gmfgraph.FigureDescriptor;
+
+import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.gmfgraph.Node;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.gmfgraph.Node} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.gmfgraph.ChildAccess} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class NodeItemProvider
-	extends AbstractNodeItemProvider
+public class ChildAccessItemProvider
+	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -46,7 +49,7 @@ public class NodeItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NodeItemProvider(AdapterFactory adapterFactory) {
+	public ChildAccessItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -61,27 +64,26 @@ public class NodeItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addResizeConstraintPropertyDescriptor(object);
-			addAffixedParentSidePropertyDescriptor(object);
-			addContentPanePropertyDescriptor(object);
+			addAccessorPropertyDescriptor(object);
+			addFigurePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Resize Constraint feature.
+	 * This adds a property descriptor for the Accessor feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addResizeConstraintPropertyDescriptor(Object object) {
+	protected void addAccessorPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Node_resizeConstraint_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Node_resizeConstraint_feature", "_UI_Node_type"),
-				 GMFGraphPackage.eINSTANCE.getNode_ResizeConstraint(),
+				 getString("_UI_ChildAccess_accessor_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ChildAccess_accessor_feature", "_UI_ChildAccess_type"),
+				 GMFGraphPackage.eINSTANCE.getChildAccess_Accessor(),
 				 true,
 				 false,
 				 false,
@@ -91,41 +93,19 @@ public class NodeItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Affixed Parent Side feature.
+	 * This adds a property descriptor for the Figure feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addAffixedParentSidePropertyDescriptor(Object object) {
+	protected void addFigurePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Node_affixedParentSide_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Node_affixedParentSide_feature", "_UI_Node_type"),
-				 GMFGraphPackage.eINSTANCE.getNode_AffixedParentSide(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Content Pane feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addContentPanePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Node_contentPane_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Node_contentPane_feature", "_UI_Node_type"),
-				 GMFGraphPackage.eINSTANCE.getNode_ContentPane(),
+				 getString("_UI_ChildAccess_figure_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ChildAccess_figure_feature", "_UI_ChildAccess_type"),
+				 GMFGraphPackage.eINSTANCE.getChildAccess_Figure(),
 				 true,
 				 false,
 				 true,
@@ -135,39 +115,28 @@ public class NodeItemProvider
 	}
 
 	/**
-	 * This returns Node.gif.
+	 * This returns ChildAccess.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Node"));
-	}
-
-	/**
-	 * @generated
-	 */
-	public String getTextGen(Object object) {
-		String label = ((Node)object).getName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_Node_type") :
-			getString("_UI_Node_type") + " " + label;
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ChildAccess"));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	@Override
 	public String getText(Object object) {
-		FigureDescriptor fd = ((Node) object).getFigure();
-		if (fd != null && fd.getName() != null) {
-			return getTextGen(object) + ' ' + '(' + fd.getName() + ')';
-		}
-		return getTextGen(object);
+		String label = ((ChildAccess)object).getAccessor();
+		return label == null || label.length() == 0 ?
+			getString("_UI_ChildAccess_type") :
+			getString("_UI_ChildAccess_type") + " " + label;
 	}
 
 	/**
@@ -181,9 +150,8 @@ public class NodeItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Node.class)) {
-			case GMFGraphPackage.NODE__RESIZE_CONSTRAINT:
-			case GMFGraphPackage.NODE__AFFIXED_PARENT_SIDE:
+		switch (notification.getFeatureID(ChildAccess.class)) {
+			case GMFGraphPackage.CHILD_ACCESS__ACCESSOR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

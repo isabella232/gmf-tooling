@@ -13,18 +13,12 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
-import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.LabeledContainer;
 
@@ -35,7 +29,7 @@ import org.eclipse.gmf.gmfgraph.LabeledContainer;
  * @generated
  */
 public class LabeledContainerItemProvider
-	extends ItemProviderAdapter
+	extends RealFigureItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -63,73 +57,8 @@ public class LabeledContainerItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Identity_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Identity_name_feature", "_UI_Identity_type"),
-				 GMFGraphPackage.eINSTANCE.getIdentity_Name(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData());
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getLayoutable_Layout());
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Children());
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor());
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor());
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_MaximumSize());
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_MinimumSize());
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_PreferredSize());
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Font());
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Insets());
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Border());
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Location());
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Size());
-		}
-		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -167,27 +96,6 @@ public class LabeledContainerItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(LabeledContainer.class)) {
-			case GMFGraphPackage.LABELED_CONTAINER__NAME:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case GMFGraphPackage.LABELED_CONTAINER__LAYOUT_DATA:
-			case GMFGraphPackage.LABELED_CONTAINER__LAYOUT:
-			case GMFGraphPackage.LABELED_CONTAINER__CHILDREN:
-			case GMFGraphPackage.LABELED_CONTAINER__FOREGROUND_COLOR:
-			case GMFGraphPackage.LABELED_CONTAINER__BACKGROUND_COLOR:
-			case GMFGraphPackage.LABELED_CONTAINER__MAXIMUM_SIZE:
-			case GMFGraphPackage.LABELED_CONTAINER__MINIMUM_SIZE:
-			case GMFGraphPackage.LABELED_CONTAINER__PREFERRED_SIZE:
-			case GMFGraphPackage.LABELED_CONTAINER__FONT:
-			case GMFGraphPackage.LABELED_CONTAINER__INSETS:
-			case GMFGraphPackage.LABELED_CONTAINER__BORDER:
-			case GMFGraphPackage.LABELED_CONTAINER__LOCATION:
-			case GMFGraphPackage.LABELED_CONTAINER__SIZE:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 
@@ -201,206 +109,6 @@ public class LabeledContainerItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(),
-				 GMFGraphFactory.eINSTANCE.createCustomLayoutData()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(),
-				 GMFGraphFactory.eINSTANCE.createGridLayoutData()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(),
-				 GMFGraphFactory.eINSTANCE.createBorderLayoutData()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(),
-				 GMFGraphFactory.eINSTANCE.createXYLayoutData()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
-				 GMFGraphFactory.eINSTANCE.createCustomLayout()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
-				 GMFGraphFactory.eINSTANCE.createGridLayout()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
-				 GMFGraphFactory.eINSTANCE.createBorderLayout()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
-				 GMFGraphFactory.eINSTANCE.createFlowLayout()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
-				 GMFGraphFactory.eINSTANCE.createXYLayout()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
-				 GMFGraphFactory.eINSTANCE.createStackLayout()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Children(),
-				 GMFGraphFactory.eINSTANCE.createFigureRef()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Children(),
-				 GMFGraphFactory.eINSTANCE.createLabel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Children(),
-				 GMFGraphFactory.eINSTANCE.createLabeledContainer()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Children(),
-				 GMFGraphFactory.eINSTANCE.createRectangle()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Children(),
-				 GMFGraphFactory.eINSTANCE.createRoundedRectangle()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Children(),
-				 GMFGraphFactory.eINSTANCE.createEllipse()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Children(),
-				 GMFGraphFactory.eINSTANCE.createPolyline()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Children(),
-				 GMFGraphFactory.eINSTANCE.createPolygon()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Children(),
-				 GMFGraphFactory.eINSTANCE.createScalablePolygon()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Children(),
-				 GMFGraphFactory.eINSTANCE.createPolylineConnection()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Children(),
-				 GMFGraphFactory.eINSTANCE.createPolylineDecoration()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Children(),
-				 GMFGraphFactory.eINSTANCE.createPolygonDecoration()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Children(),
-				 GMFGraphFactory.eINSTANCE.createCustomFigure()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Children(),
-				 GMFGraphFactory.eINSTANCE.createCustomDecoration()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Children(),
-				 GMFGraphFactory.eINSTANCE.createCustomConnection()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor(),
-				 GMFGraphFactory.eINSTANCE.createRGBColor()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor(),
-				 GMFGraphFactory.eINSTANCE.createConstantColor()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor(),
-				 GMFGraphFactory.eINSTANCE.createRGBColor()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor(),
-				 GMFGraphFactory.eINSTANCE.createConstantColor()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_MaximumSize(),
-				 GMFGraphFactory.eINSTANCE.createDimension()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_MinimumSize(),
-				 GMFGraphFactory.eINSTANCE.createDimension()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_PreferredSize(),
-				 GMFGraphFactory.eINSTANCE.createDimension()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Font(),
-				 GMFGraphFactory.eINSTANCE.createBasicFont()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Insets(),
-				 GMFGraphFactory.eINSTANCE.createInsets()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Border(),
-				 GMFGraphFactory.eINSTANCE.createLineBorder()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Border(),
-				 GMFGraphFactory.eINSTANCE.createMarginBorder()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Border(),
-				 GMFGraphFactory.eINSTANCE.createCompoundBorder()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Border(),
-				 GMFGraphFactory.eINSTANCE.createCustomBorder()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Location(),
-				 GMFGraphFactory.eINSTANCE.createPoint()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_Size(),
-				 GMFGraphFactory.eINSTANCE.createPoint()));
 	}
 
 	/**

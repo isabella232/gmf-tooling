@@ -61,6 +61,9 @@ public class DiagramLabelItemProvider
 			super.getPropertyDescriptors(object);
 
 			addElementIconPropertyDescriptor(object);
+			addAccessorPropertyDescriptor(object);
+			addContainerPropertyDescriptor(object);
+			addExternalPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -80,6 +83,72 @@ public class DiagramLabelItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_DiagramLabel_elementIcon_feature", "_UI_DiagramLabel_type"),
 				 GMFGraphPackage.eINSTANCE.getDiagramLabel_ElementIcon(),
 				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Accessor feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAccessorPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_DiagramLabel_accessor_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_DiagramLabel_accessor_feature", "_UI_DiagramLabel_type"),
+				 GMFGraphPackage.eINSTANCE.getDiagramLabel_Accessor(),
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Container feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addContainerPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_DiagramLabel_container_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_DiagramLabel_container_feature", "_UI_DiagramLabel_type"),
+				 GMFGraphPackage.eINSTANCE.getDiagramLabel_Container(),
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the External feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addExternalPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_DiagramLabel_external_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_DiagramLabel_external_feature", "_UI_DiagramLabel_type"),
+				 GMFGraphPackage.eINSTANCE.getDiagramLabel_External(),
+				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
@@ -125,6 +194,7 @@ public class DiagramLabelItemProvider
 
 		switch (notification.getFeatureID(DiagramLabel.class)) {
 			case GMFGraphPackage.DIAGRAM_LABEL__ELEMENT_ICON:
+			case GMFGraphPackage.DIAGRAM_LABEL__EXTERNAL:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

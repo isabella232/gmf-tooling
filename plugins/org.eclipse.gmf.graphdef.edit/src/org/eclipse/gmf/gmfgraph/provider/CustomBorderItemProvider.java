@@ -64,7 +64,6 @@ public class CustomBorderItemProvider
 			super.getPropertyDescriptors(object);
 
 			addQualifiedClassNamePropertyDescriptor(object);
-			addBundleNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -83,28 +82,6 @@ public class CustomBorderItemProvider
 				 getString("_UI_CustomClass_qualifiedClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_CustomClass_qualifiedClassName_feature", "_UI_CustomClass_type"),
 				 GMFGraphPackage.eINSTANCE.getCustomClass_QualifiedClassName(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Bundle Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addBundleNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_CustomClass_bundleName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CustomClass_bundleName_feature", "_UI_CustomClass_type"),
-				 GMFGraphPackage.eINSTANCE.getCustomClass_BundleName(),
 				 true,
 				 false,
 				 false,
@@ -181,7 +158,6 @@ public class CustomBorderItemProvider
 
 		switch (notification.getFeatureID(CustomBorder.class)) {
 			case GMFGraphPackage.CUSTOM_BORDER__QUALIFIED_CLASS_NAME:
-			case GMFGraphPackage.CUSTOM_BORDER__BUNDLE_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGraphPackage.CUSTOM_BORDER__ATTRIBUTES:
