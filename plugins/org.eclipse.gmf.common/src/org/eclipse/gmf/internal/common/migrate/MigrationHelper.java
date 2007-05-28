@@ -25,6 +25,7 @@ public class MigrationHelper extends XMIHelperImpl {
 		super(resource);
 		assert delegate != null;
 		myDelegate = delegate;
+		myDelegate.setResource(resource);
 	}
 
 	boolean isMigrationApplied() {
@@ -39,6 +40,19 @@ public class MigrationHelper extends XMIHelperImpl {
 		}
 		myDelegate.processObject(result);
 		return result;
+	}
+
+	@Override
+	public String getID(EObject obj) {
+		String result = myDelegate.getID(obj);
+		if (result == null) {
+			result = super.getID(obj);
+		}
+		return result;
+	}
+
+	public void setXMLMap(XMLResource.XMLMap map) {
+		//map.setIDAttributeName("");
 	}
 
 	@Override
@@ -71,4 +85,5 @@ public class MigrationHelper extends XMIHelperImpl {
 		super.popContext();
 		myDelegate.postProcess();
 	}
+
 }
