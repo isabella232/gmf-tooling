@@ -42,6 +42,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteRelb
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipLargeCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipNameEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipSmallCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
@@ -60,6 +61,11 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	private static final String DEBUG_KEY = TaiPanDiagramEditorPlugin.getInstance().getBundle().getSymbolicName() + "/debug/visualID"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	private static final TaiPanAbstractExpression Ship_2002_Constraint = TaiPanOCLFactory.getExpression("not oclIsKindOf(taipan::Warship)", TaiPanPackage.eINSTANCE.getShip());
 
 	/**
 	 * @generated
@@ -166,7 +172,7 @@ public class TaiPanVisualIDRegistry {
 			containerVisualID = org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
-				containerVisualID = 1;
+				containerVisualID = 1000;
 			} else {
 				return -1;
 			}
@@ -193,6 +199,9 @@ public class TaiPanVisualIDRegistry {
 			if (WarshipNameEditPart.VISUAL_ID == nodeVisualID) {
 				return WarshipNameEditPart.VISUAL_ID;
 			}
+			if (WarshipSmallCargoEditPart.VISUAL_ID == nodeVisualID) {
+				return WarshipSmallCargoEditPart.VISUAL_ID;
+			}
 			if (WarshipLargeCargoEditPart.VISUAL_ID == nodeVisualID) {
 				return WarshipLargeCargoEditPart.VISUAL_ID;
 			}
@@ -213,7 +222,7 @@ public class TaiPanVisualIDRegistry {
 			if ((semanticHint == null || SmallItemsEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getSmallItems().isSuperTypeOf(domainElementMetaclass)) {
 				return SmallItemsEditPart.VISUAL_ID;
 			}
-			return getUnrecognizedShipSmallCargo_7001ChildNodeID(domainElement, semanticHint);
+			return getUnrecognizedShipSmallcargo_7001ChildNodeID(domainElement, semanticHint);
 		case ShipLargeCargoEditPart.VISUAL_ID:
 			if ((semanticHint == null || LargeItemEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getLargeItem().isSuperTypeOf(domainElementMetaclass)) {
 				return LargeItemEditPart.VISUAL_ID;
@@ -222,22 +231,31 @@ public class TaiPanVisualIDRegistry {
 				return EmptyBoxEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedShipLargeCargo_7002ChildNodeID(domainElement, semanticHint);
+		case WarshipSmallCargoEditPart.VISUAL_ID:
+			if ((semanticHint == null || SmallItemsEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getSmallItems().isSuperTypeOf(domainElementMetaclass)) {
+				return SmallItemsEditPart.VISUAL_ID;
+			}
+			return getUnrecognizedWarshipSmallcargo_7003ChildNodeID(domainElement, semanticHint);
 		case WarshipLargeCargoEditPart.VISUAL_ID:
 			if ((semanticHint == null || LargeItemEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getLargeItem().isSuperTypeOf(domainElementMetaclass)) {
 				return LargeItemEditPart.VISUAL_ID;
 			}
-			return getUnrecognizedWarshipLargeCargo_7003ChildNodeID(domainElement, semanticHint);
+			if ((semanticHint == null || EmptyBoxEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getEmptyBox().isSuperTypeOf(domainElementMetaclass)) {
+				return EmptyBoxEditPart.VISUAL_ID;
+			}
+			return getUnrecognizedWarshipLargeCargo_7004ChildNodeID(domainElement, semanticHint);
 		case AquatoryEditPart.VISUAL_ID:
 			if ((semanticHint == null || PortEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElementMetaclass)) {
 				return PortEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || ShipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElementMetaclass)) {
+			if ((semanticHint == null || ShipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElementMetaclass)
+					&& (domainElement == null || evaluate(Ship_2002_Constraint, domainElement))) {
 				return ShipEditPart.VISUAL_ID;
 			}
 			if ((semanticHint == null || WarshipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getWarship().isSuperTypeOf(domainElementMetaclass)) {
 				return WarshipEditPart.VISUAL_ID;
 			}
-			return getUnrecognizedAquatory_1ChildNodeID(domainElement, semanticHint);
+			return getUnrecognizedAquatory_1000ChildNodeID(domainElement, semanticHint);
 		case ShipDestinationEditPart.VISUAL_ID:
 			if (ShipDestinationMarkerEditPart.VISUAL_ID == nodeVisualID) {
 				return ShipDestinationMarkerEditPart.VISUAL_ID;
@@ -399,7 +417,7 @@ public class TaiPanVisualIDRegistry {
 	 * 
 	 * @generated
 	 */
-	private static int getUnrecognizedShipSmallCargo_7001ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedShipSmallcargo_7001ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -419,7 +437,7 @@ public class TaiPanVisualIDRegistry {
 	 * 
 	 * @generated
 	 */
-	private static int getUnrecognizedWarshipLargeCargo_7003ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedWarshipSmallcargo_7003ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -429,7 +447,17 @@ public class TaiPanVisualIDRegistry {
 	 * 
 	 * @generated
 	 */
-	private static int getUnrecognizedAquatory_1ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedWarshipLargeCargo_7004ChildNodeID(EObject domainElement, String semanticHint) {
+		return -1;
+	}
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 * 
+	 * @generated
+	 */
+	private static int getUnrecognizedAquatory_1000ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 

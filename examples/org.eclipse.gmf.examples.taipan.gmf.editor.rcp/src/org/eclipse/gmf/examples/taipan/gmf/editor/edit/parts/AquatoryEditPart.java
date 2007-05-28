@@ -42,7 +42,7 @@ public class AquatoryEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 1;
+	public static final int VISUAL_ID = 1000;
 
 	private IFigure contentPane;
 
@@ -60,6 +60,7 @@ public class AquatoryEditPart extends DiagramEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new AquatoryItemSemanticEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new AquatoryCanonicalEditPolicy());
+		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.POPUPBAR_ROLE);
 	}
 
 	/**

@@ -19,8 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramUpdater;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanNodeDescriptor;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
@@ -30,7 +29,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class WarshipLargeCargoCanonicalEditPolicy extends CanonicalEditPolicy {
+public class WarshipSmallCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 
 	/**
 	 * @generated
@@ -43,7 +42,7 @@ public class WarshipLargeCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 	protected List getSemanticChildrenList() {
 		View viewObject = (View) getHost().getModel();
 		List result = new LinkedList();
-		for (Iterator it = TaiPanDiagramUpdater.getWarshipLargeCargo_7004SemanticChildren(viewObject).iterator(); it.hasNext();) {
+		for (Iterator it = TaiPanDiagramUpdater.getWarshipSmallcargo_7003SemanticChildren(viewObject).iterator(); it.hasNext();) {
 			result.add(((TaiPanNodeDescriptor) it.next()).getModelElement());
 		}
 		return result;
@@ -55,8 +54,7 @@ public class WarshipLargeCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 	protected boolean isOrphaned(Collection semanticChildren, final View view) {
 		int visualID = TaiPanVisualIDRegistry.getVisualID(view);
 		switch (visualID) {
-		case LargeItemEditPart.VISUAL_ID:
-		case EmptyBoxEditPart.VISUAL_ID:
+		case SmallItemsEditPart.VISUAL_ID:
 			return !semanticChildren.contains(view.getElement()) || visualID != TaiPanVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
 		}
 		return false;

@@ -81,6 +81,9 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 			case ShipLargeCargoEditPart.VISUAL_ID:
 				return new ShipLargeCargoEditPart(view);
 
+			case WarshipSmallCargoEditPart.VISUAL_ID:
+				return new WarshipSmallCargoEditPart(view);
+
 			case WarshipLargeCargoEditPart.VISUAL_ID:
 				return new WarshipLargeCargoEditPart(view);
 

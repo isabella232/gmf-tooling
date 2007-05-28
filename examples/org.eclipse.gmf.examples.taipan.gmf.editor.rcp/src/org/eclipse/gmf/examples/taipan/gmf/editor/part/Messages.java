@@ -169,127 +169,132 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String Taipan1Group_title;
+	public static String NodesGroup_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Port1CreationTool_title;
+	public static String LinksGroup_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Port1CreationTool_desc;
+	public static String PortTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Ship2CreationTool_title;
+	public static String PortTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String Ship2CreationTool_desc;
+	public static String ShipTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String SmallItems3CreationTool_title;
+	public static String ShipTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String SmallItems3CreationTool_desc;
+	public static String WarshipTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String LargeItem4CreationTool_title;
+	public static String WarshipTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String LargeItem4CreationTool_desc;
+	public static String SmallItemsTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String EmptyBox5CreationTool_title;
+	public static String SmallItemsTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String EmptyBox5CreationTool_desc;
+	public static String LargeItemTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String ReliableRoute6CreationTool_title;
+	public static String LargeItemTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String ReliableRoute6CreationTool_desc;
+	public static String EmptyBoxTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String UnreliableRoute7CreationTool_title;
+	public static String EmptyBoxTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String UnreliableRoute7CreationTool_desc;
+	public static String ReliableRouteTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String ShipDestination8CreationTool_title;
+	public static String ReliableRouteTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String ShipDestination8CreationTool_desc;
+	public static String UnreliableRouteTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Warship9CreationTool_title;
+	public static String UnreliableRouteTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String Warship9CreationTool_desc;
+	public static String RegistrationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String BesiegePortOrder10CreationTool_title;
+	public static String RegistrationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String BesiegePortOrder10CreationTool_desc;
+	public static String ShipDestinationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String EscortShipsOrder11CreationTool_title;
+	public static String ShipDestinationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String EscortShipsOrder11CreationTool_desc;
+	public static String BesiegePortOrderTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Registration12CreationTool_title;
+	public static String BesiegePortOrderTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String Registration12CreationTool_desc;
+	public static String EscortShipsOrderTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String EscortShipsOrderTool_desc;
 
 	/**
 	 * @generated
@@ -355,6 +360,11 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String ShipLargeCargoEditPart_title;
+
+	/**
+	 * @generated
+	 */
+	public static String WarshipSmallCargoEditPart_title;
 
 	/**
 	 * @generated

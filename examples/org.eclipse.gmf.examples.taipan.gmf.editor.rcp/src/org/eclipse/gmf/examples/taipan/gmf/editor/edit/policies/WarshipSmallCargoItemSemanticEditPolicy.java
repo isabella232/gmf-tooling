@@ -15,8 +15,7 @@ import org.eclipse.gef.commands.Command;
 
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EmptyBoxCreateCommand;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.LargeItemCreateCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.SmallItemsCreateCommand;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 
@@ -25,23 +24,17 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 /**
  * @generated
  */
-public class WarshipLargeCargoItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
+public class WarshipSmallCargoItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (TaiPanElementTypes.LargeItem_3002 == req.getElementType()) {
+		if (TaiPanElementTypes.SmallItems_3001 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getShip_Cargo());
 			}
-			return getGEFWrapper(new LargeItemCreateCommand(req));
-		}
-		if (TaiPanElementTypes.EmptyBox_3003 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getShip_Cargo());
-			}
-			return getGEFWrapper(new EmptyBoxCreateCommand(req));
+			return getGEFWrapper(new SmallItemsCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

@@ -46,6 +46,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipLargeCargoEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipSmallCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -67,13 +68,15 @@ public class TaiPanDiagramUpdater {
 	public static List getSemanticChildren(View view) {
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case ShipSmallCargoEditPart.VISUAL_ID:
-			return getShipSmallCargo_7001SemanticChildren(view);
+			return getShipSmallcargo_7001SemanticChildren(view);
 		case ShipLargeCargoEditPart.VISUAL_ID:
 			return getShipLargeCargo_7002SemanticChildren(view);
+		case WarshipSmallCargoEditPart.VISUAL_ID:
+			return getWarshipSmallcargo_7003SemanticChildren(view);
 		case WarshipLargeCargoEditPart.VISUAL_ID:
-			return getWarshipLargeCargo_7003SemanticChildren(view);
+			return getWarshipLargeCargo_7004SemanticChildren(view);
 		case AquatoryEditPart.VISUAL_ID:
-			return getAquatory_1SemanticChildren(view);
+			return getAquatory_1000SemanticChildren(view);
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -81,7 +84,7 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getShipSmallCargo_7001SemanticChildren(View view) {
+	public static List getShipSmallcargo_7001SemanticChildren(View view) {
 		Ship modelElement = (Ship) view.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getCargo().iterator(); it.hasNext();) {
@@ -116,13 +119,13 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getWarshipLargeCargo_7003SemanticChildren(View view) {
+	public static List getWarshipSmallcargo_7003SemanticChildren(View view) {
 		Warship modelElement = (Warship) view.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getCargo().iterator(); it.hasNext();) {
 			Item childElement = (Item) it.next();
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, childElement);
-			if (visualID == LargeItemEditPart.VISUAL_ID) {
+			if (visualID == SmallItemsEditPart.VISUAL_ID) {
 				result.add(new TaiPanNodeDescriptor(childElement, visualID));
 			}
 		}
@@ -132,7 +135,26 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getAquatory_1SemanticChildren(View view) {
+	public static List getWarshipLargeCargo_7004SemanticChildren(View view) {
+		Warship modelElement = (Warship) view.getElement();
+		List result = new LinkedList();
+		for (Iterator it = modelElement.getCargo().iterator(); it.hasNext();) {
+			Item childElement = (Item) it.next();
+			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == LargeItemEditPart.VISUAL_ID) {
+				result.add(new TaiPanNodeDescriptor(childElement, visualID));
+			}
+			if (visualID == EmptyBoxEditPart.VISUAL_ID) {
+				result.add(new TaiPanNodeDescriptor(childElement, visualID));
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getAquatory_1000SemanticChildren(View view) {
 		Aquatory modelElement = (Aquatory) view.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getPorts().iterator(); it.hasNext();) {
@@ -161,7 +183,7 @@ public class TaiPanDiagramUpdater {
 	public static List getContainedLinks(View view) {
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case AquatoryEditPart.VISUAL_ID:
-			return getAquatory_1ContainedLinks(view);
+			return getAquatory_1000ContainedLinks(view);
 		case PortEditPart.VISUAL_ID:
 			return getPort_2001ContainedLinks(view);
 		case ShipEditPart.VISUAL_ID:
@@ -247,7 +269,7 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getAquatory_1ContainedLinks(View view) {
+	public static List getAquatory_1000ContainedLinks(View view) {
 		Aquatory modelElement = (Aquatory) view.getElement();
 		List result = new LinkedList();
 		result.addAll(getContainedTypeModelFacetLinks_Route_4002(modelElement));
