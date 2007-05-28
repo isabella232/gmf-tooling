@@ -181,7 +181,7 @@ public class GMFGraphMigrationTest extends TestCase {
 				URI fileURI = URI.createFileURI(file.getAbsolutePath());
 				files.add(fileURI);
 			}
-		} else if (file.getName().charAt(0) != '.') {
+		} else if (file.getName().length() > 0 && file.getName().charAt(0) != '.') {
 			for (File child : file.listFiles()) {
 				collectFilesRecursive(child, files, filenameFilter);
 			}
