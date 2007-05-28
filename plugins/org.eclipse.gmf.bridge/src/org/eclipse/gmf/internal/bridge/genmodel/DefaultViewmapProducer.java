@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -22,15 +22,15 @@ import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DefaultSizeFacet;
+import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Direction;
 import org.eclipse.gmf.gmfgraph.Figure;
-import org.eclipse.gmf.gmfgraph.FigureHandle;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.Layout;
-import org.eclipse.gmf.gmfgraph.Layoutable;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.VisualFacet;
 import org.eclipse.gmf.gmfgraph.XYLayout;
 import org.eclipse.gmf.gmfgraph.util.GMFGraphSwitch;
 
@@ -85,19 +85,15 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 	}
 	
 	protected final void setupLayoutType(Viewmap viewmap, Node diagramNode){
-		FigureHandle figure = diagramNode.getFigure();
-		if (false == figure instanceof Layoutable){
-			return;
-		}
-		ViewmapLayoutType type = myLayoutTypeSwitch.getLayoutType(((Layoutable) figure).getLayout());
+		Figure figure = diagramNode.getFigure().getActualFigure();
+		ViewmapLayoutType type = myLayoutTypeSwitch.getLayoutType(figure.getLayout());
 		viewmap.setLayoutType(type);
 	}
 	
-	protected final void setupStyleAttributes(Viewmap viewmap, FigureHandle handle){
-		if (viewmap == null || false == handle instanceof Figure){
+	protected final void setupStyleAttributes(Viewmap viewmap, Figure figure){
+		if (viewmap == null || figure == null) {
 			return;
 		}
-		Figure figure = (Figure)handle;
 		StyleAttributes attributes = GMFGenFactory.eINSTANCE.createStyleAttributes();
 		boolean fixedSomething = false;
 		if (figure.getFont() != null){
@@ -123,24 +119,30 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 	 * It does not make sense to setup default size for labels, compartments, etc.
 	 */
 	protected final void setupDefaultSize(Viewmap viewmap, Node node) {
-		FigureHandle handle = node.getFigure();
-		if (handle instanceof Figure){
-			Figure figure = (Figure)handle;
-			Dimension defaultSize;
-			DefaultSizeFacet facet = (DefaultSizeFacet) node.find(DefaultSizeFacet.class);
-			if (facet != null){
-				defaultSize = facet.getDefaultSize();
-			} else {
-				defaultSize = figure.getPreferredSize();
-			}
-			
-			if (defaultSize != null){
-				DefaultSizeAttributes attributes = GMFGenFactory.eINSTANCE.createDefaultSizeAttributes();
-				attributes.setHeight(defaultSize.getDy());
-				attributes.setWidth(defaultSize.getDx());
-				viewmap.getAttributes().add(attributes);
+		Figure figure = node.getFigure().getActualFigure();
+		Dimension defaultSize;
+		DefaultSizeFacet facet = findVF(node, DefaultSizeFacet.class);
+		if (facet != null){
+			defaultSize = facet.getDefaultSize();
+		} else {
+			defaultSize = figure.getPreferredSize();
+		}
+		
+		if (defaultSize != null){
+			DefaultSizeAttributes attributes = GMFGenFactory.eINSTANCE.createDefaultSizeAttributes();
+			attributes.setHeight(defaultSize.getDy());
+			attributes.setWidth(defaultSize.getDx());
+			viewmap.getAttributes().add(attributes);
+		}
+	}
+
+	protected static <T extends VisualFacet> T findVF(DiagramElement de, Class<T> facetClass) {
+		for (VisualFacet vf : de.getFacets()) {
+			if (facetClass.isInstance(vf)) {
+				return facetClass.cast(vf);
 			}
 		}
+		return null;
 	}
 
 	private static class LayoutTypeSwitch extends GMFGraphSwitch<ViewmapLayoutType> {

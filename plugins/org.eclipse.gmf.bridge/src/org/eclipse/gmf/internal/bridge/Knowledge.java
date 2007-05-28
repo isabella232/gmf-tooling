@@ -11,10 +11,6 @@
  */
 package org.eclipse.gmf.internal.bridge;
 
-import org.eclipse.gmf.gmfgraph.DiagramLabel;
-import org.eclipse.gmf.gmfgraph.Figure;
-import org.eclipse.gmf.gmfgraph.FigureAccessor;
-import org.eclipse.gmf.gmfgraph.FigureHandle;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 
@@ -23,20 +19,6 @@ import org.eclipse.gmf.mappings.NodeMapping;
  * @author artem
  */
 public class Knowledge {
-
-	public static boolean isExternal(DiagramLabel diagramLabel) {
-		FigureHandle figure = diagramLabel.getFigure();
-		if (figure == null){
-			throw new NullPointerException("FigureHandler is null for: " + diagramLabel);
-		}
-		
-		if (figure instanceof Figure) {
-			return ((Figure) figure).getParent() == null;
-		} else if (figure instanceof FigureAccessor) {
-			return false;
-		}
-		throw new IllegalStateException("No more known subclasses of FigureHandle: " + figure);
-	}
 
 	/**
 	 * @return whether nodeMapping has single label, no children and node's diagram 

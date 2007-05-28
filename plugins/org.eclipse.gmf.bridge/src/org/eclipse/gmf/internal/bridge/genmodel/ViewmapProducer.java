@@ -26,6 +26,7 @@ public abstract class ViewmapProducer {
 
 	public abstract Viewmap create(Canvas canvasElement);
 
+	// XXX with Node split to AbstractNode, may need to reconsider this API
 	public abstract Viewmap create(Node node);
 
 	public abstract Viewmap create(Connection link);

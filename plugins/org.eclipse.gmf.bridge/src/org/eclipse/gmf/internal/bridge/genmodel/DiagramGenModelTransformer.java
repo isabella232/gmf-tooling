@@ -106,9 +106,11 @@ import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.AlignmentFacet;
 import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.Direction;
 import org.eclipse.gmf.gmfgraph.LabelOffsetFacet;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.VisualFacet;
 import org.eclipse.gmf.internal.bridge.History;
 import org.eclipse.gmf.internal.bridge.Knowledge;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
@@ -314,7 +316,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		genNode.setDiagramRunTimeClass(findRunTimeClass(nme));
 		genNode.setModelFacet(createModelFacet(topNode));
 		genNode.setVisualID(myVisualIDs.get(genNode));
-		genNode.setViewmap(myViewmaps.create(nme.getDiagramNode()));
+		genNode.setViewmap(myViewmaps.create((Node) nme.getDiagramNode()));
 		setupElementType(genNode); 
 		myPaletteProcessor.process(nme, genNode);
 
@@ -418,16 +420,16 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			childLabelNode.setLabelElementIcon(soleLabel.getDiagramLabel().isElementIcon());
 			childNode = childLabelNode;
 			needCompartmentChildrenLabelProcessing = false;
-		} else if (childNodeMapping.getDiagramNode().getAffixedParentSide() != Direction.NONE_LITERAL){
+		} else if (((Node) childNodeMapping.getDiagramNode()).getAffixedParentSide() != Direction.NONE_LITERAL){
 			GenChildSideAffixedNode sideAffixedNode = GMFGenFactory.eINSTANCE.createGenChildSideAffixedNode(); 
-			sideAffixedNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
-			String positionConstantName = getAffixedSideAsPositionConstantsName(childNodeMapping.getDiagramNode());
+			sideAffixedNode.setViewmap(myViewmaps.create((Node) childNodeMapping.getDiagramNode()));
+			String positionConstantName = getAffixedSideAsPositionConstantsName((Node) childNodeMapping.getDiagramNode());
 			sideAffixedNode.setPreferredSideName(positionConstantName);
 			childNode = sideAffixedNode;
 			needCompartmentChildrenLabelProcessing = true;
 		} else {
 			childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
-			childNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
+			childNode.setViewmap(myViewmaps.create((Node) childNodeMapping.getDiagramNode()));
 			needCompartmentChildrenLabelProcessing = true;
 		}
 		myHistory.log(childNodeMapping, childNode);
@@ -565,7 +567,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private GenNodeLabel createNodeLabel(GenNode node, LabelMapping mapping) {
 		GenNodeLabel label;
-		if (Knowledge.isExternal(mapping.getDiagramLabel())) {
+		if (mapping.getDiagramLabel().isExternal()) {
 			label = GMFGenFactory.eINSTANCE.createGenExternalNodeLabel();
 		} else {
 			label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
@@ -589,12 +591,12 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		label.setModelFacet(createLabelModelFacet(mapping));
 		label.setReadOnly(mapping.isReadOnly());
 		label.setElementIcon(mapping.getDiagramLabel().isElementIcon());
-		if (mapping.getDiagramLabel().find(AlignmentFacet.class) != null) {
-			AlignmentFacet af = (AlignmentFacet) mapping.getDiagramLabel().find(AlignmentFacet.class);
+		if (findVF(mapping.getDiagramLabel(), AlignmentFacet.class) != null) {
+			AlignmentFacet af = findVF(mapping.getDiagramLabel(), AlignmentFacet.class);
 			label.setAlignment(getLinkLabelAlignment(af.getAlignment()));
 		}
 		LabelOffsetAttributes loa = GMFGenFactory.eINSTANCE.createLabelOffsetAttributes();
-		LabelOffsetFacet lof = (LabelOffsetFacet) mapping.getDiagramLabel().find(LabelOffsetFacet.class);
+		LabelOffsetFacet lof = findVF(mapping.getDiagramLabel(), LabelOffsetFacet.class);
 		if (lof != null) {
 			loa.setX(lof.getX());
 			loa.setY(lof.getY());
@@ -605,6 +607,14 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		label.getViewmap().getAttributes().add(loa);
 		return label;
+	}
+	private static <T extends VisualFacet> T findVF(DiagramElement element, Class<T> facetClass) {
+		for (VisualFacet vf : element.getFacets()) {
+			if (facetClass.isInstance(vf)) {
+				return facetClass.cast(vf);
+			}
+		}
+		return null;
 	}
 
 	private LinkLabelAlignment getLinkLabelAlignment(Alignment alignment) {
