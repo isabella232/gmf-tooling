@@ -11,8 +11,8 @@
 package org.eclipse.gmf.tests.migration;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
 
 public class AllMigrationTests {
 
@@ -21,6 +21,9 @@ public class AllMigrationTests {
 		//$JUnit-BEGIN$
 		suite.addTestSuite(GenericMigrationTest.class);
 		suite.addTestSuite(MigrationPatchesTest.class);
+		for (TestCase fileTest : GMFGraphMigrationTest.createAllTests()) {
+			//suite.addTest(fileTest);
+		}
 		//$JUnit-END$
 		return suite;
 	}

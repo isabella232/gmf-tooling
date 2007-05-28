@@ -33,6 +33,19 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
+import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
+import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.FlowLayout;
+import org.eclipse.gmf.gmfgraph.Label;
+import org.eclipse.gmf.gmfgraph.LabeledContainer;
+import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.PolylineConnection;
+import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
 import org.eclipse.gmf.internal.common.migrate.MigrationResource;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
@@ -432,4 +445,146 @@ public class MigrationPatchesTest extends TestCase {
 		FeatureLabelModelFacet secondFeatureLabelModelFacet = (FeatureLabelModelFacet) second;
 		assertEquals(2, secondFeatureLabelModelFacet.getMetaFeatures().size());
 	}
+
+
+	public void testGraphReferencingElements() throws Exception {
+		URI gmfgraphFileName = createURI("basic.gmfgraph"); //$NON-NLS-1$
+		
+		Exception caughtGenException = assertOrdinaryLoadModelProblems(gmfgraphFileName);
+		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
+
+		assertOnLoadModelMigrationSuccess(gmfgraphFileName);
+		checkAllFigureReferences(gmfgraphFileName);
+
+		URI newUri = temporarySaveMigratedModel(gmfgraphFileName, "basic", "gmfgraph");
+		changeNsUriToOldOne(newUri, "gmfgraph", "http://www.eclipse.org/gmf/2005/GraphicalDefinition");
+		
+		assertOnLoadModelMigrationDidNothing(newUri);
+		checkAllFigureReferences(newUri);
+	}
+
+	private void checkAllFigureReferences(URI modelUri) {
+		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), modelUri);
+		Resource resource = loadHelper.getLoadedResource();
+		
+		assertEquals(1, resource.getContents().size());
+		Object first = resource.getContents().get(0);
+		assertTrue(first instanceof Canvas);
+		Canvas canvas = (Canvas) first;
+		assertEquals(8, canvas.eContents().size());
+		
+		assertNotNull(canvas.getFigures());
+		assertFalse(canvas.getFigures().isEmpty());
+		assertEquals(1, canvas.getFigures().size());
+		
+		FigureGallery fg = canvas.getFigures().get(0);
+		assertEquals("GenericDiagramFigures", fg.getName());
+		assertFalse(fg.getFigures().isEmpty());
+		assertEquals(5, fg.getFigures().size());
+		
+		assertFalse(fg.getDescriptors().isEmpty());
+		assertEquals(fg.getFigures().size(), fg.getDescriptors().size());
+		
+		FigureDescriptor fg1 = fg.getDescriptors().get(0);
+		assertTrue(fg1.getAccessors().isEmpty());
+		
+		FigureDescriptor fg5 = fg.getDescriptors().get(5);
+		assertFalse(fg5.getAccessors().isEmpty());
+		assertEquals(1, fg5.getAccessors().size());
+		
+		Figure figure1 = fg.getFigures().get(0);
+		assertTrue(figure1 instanceof Rectangle);
+		Rectangle nr  = (Rectangle) figure1;
+		assertEquals("NodeRectangle", nr.getName());
+		assertNotNull(nr.getLayout());
+		assertTrue(nr.getLayout() instanceof FlowLayout);
+		assertNotNull(nr.getDescriptor());
+		assertEquals(nr, nr.getDescriptor().getActualFigure());
+		assertEquals(0, nr.getDescriptor().getAccessors().size());
+		
+		Figure figure2 = fg.getFigures().get(1);
+		assertTrue(figure2 instanceof PolylineConnection);
+		PolylineConnection pc = (PolylineConnection) figure2;
+		assertEquals("ConnectionLine", pc.getName());
+		assertNotNull(pc.getDescriptor());
+		assertEquals(pc, pc.getDescriptor().getActualFigure());
+		assertEquals(0, pc.getDescriptor().getAccessors().size());
+		
+		Figure figure3 = fg.getFigures().get(2);
+		assertTrue(figure3 instanceof LabeledContainer);
+		LabeledContainer lc = (LabeledContainer) figure3;
+		assertEquals("ContainerFigure", lc.getName());
+		assertNotNull(lc.getDescriptor());
+		assertEquals(lc, lc.getDescriptor().getActualFigure());
+		assertEquals(0, lc.getDescriptor().getAccessors().size());
+		
+		Figure figure4 = fg.getFigures().get(3);
+		assertTrue(figure4 instanceof Label);
+		Label lab = (Label) figure4;
+		assertEquals("LabelFigure", lab.getName());
+		assertNotNull(lab.getDescriptor());
+		assertEquals(lab, lab.getDescriptor().getActualFigure());
+		assertEquals(0, lab.getDescriptor().getAccessors().size()); //2 references!!!
+		
+		Figure figure5 = fg.getFigures().get(4);
+		assertTrue(figure5 instanceof Rectangle);
+		Rectangle nnr = (Rectangle) figure5;
+		assertEquals("NamedNodeRectangle", nnr.getName());
+		assertNotNull(nnr.getLayout());
+		assertTrue(nnr.getLayout() instanceof FlowLayout);
+		assertNotNull(nnr.getChildren());
+		assertFalse(nnr.getChildren().isEmpty());
+		assertEquals(1, nnr.getChildren().size());
+		assertNotNull(nnr.getDescriptor());
+		assertEquals(nnr, nnr.getDescriptor().getActualFigure());
+
+		Figure figure1in5 = (Figure) nnr.getChildren().get(0);
+		assertTrue(figure1in5 instanceof Label);
+		Label nnrLabel = (Label) figure1in5;
+		assertEquals("NamedNode_NameLabelFigure", nnrLabel.getName());
+		assertNotNull(nnrLabel.getDescriptor());
+		assertEquals(nnrLabel.getDescriptor(), nnr.getDescriptor());
+		assertEquals(1, nnr.getDescriptor().getAccessors().size());
+		assertEquals(nnrLabel, nnr.getDescriptor().getAccessors().get(0).getFigure());
+		assertEquals(fg5.getAccessors(), nnr.getDescriptor().getAccessors().get(0));
+		assertEquals(nnrLabel, fg5.getAccessors().get(0).getFigure());
+
+		assertNotNull(canvas.getNodes());
+		assertFalse(canvas.getNodes().isEmpty());
+		assertEquals(2, canvas.getNodes().size());
+		
+		Node node1 = canvas.getNodes().get(0);
+		assertEquals("Node", node1.getName());
+		
+		Node node2 = canvas.getNodes().get(1);
+		assertEquals("NamedNode", node2.getName());
+		
+		assertNotNull(canvas.getConnections());
+		assertFalse(canvas.getConnections().isEmpty());
+		assertEquals(1, canvas.getConnections().size());
+		
+		Connection connection = canvas.getConnections().get(0);
+		assertEquals("Link", connection.getName());
+		
+		assertNotNull(canvas.getCompartments());
+		assertFalse(canvas.getCompartments().isEmpty());
+		assertEquals(1, canvas.getCompartments().size());
+		
+		Compartment compartment = canvas.getCompartments().get(0);
+		assertEquals("Compartment", compartment.getName());
+		
+		assertNotNull(canvas.getLabels());
+		assertFalse(canvas.getLabels().isEmpty());
+		assertEquals(3, canvas.getLabels().size());
+		
+		DiagramLabel l1 = canvas.getLabels().get(0);
+		assertEquals("NamedNode_Name", l1.getName());
+		
+		DiagramLabel l2 = canvas.getLabels().get(1);
+		assertEquals("Label", l2.getName());
+		
+		DiagramLabel l3 = canvas.getLabels().get(2);
+		assertEquals("LabelWOIcon", l3.getName());
+	}
+
 }
