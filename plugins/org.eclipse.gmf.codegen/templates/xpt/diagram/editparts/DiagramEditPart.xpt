@@ -100,6 +100,7 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 		});
 		«ENDIF-»
 		«EXPAND xpt::diagram::editparts::Common::behaviour FOR this-»
+		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.POPUPBAR_ROLE);
 «ENDDEFINE»
 
 «DEFINE initLayout(String varName) FOR gmfgen::ViewmapLayoutType-»
