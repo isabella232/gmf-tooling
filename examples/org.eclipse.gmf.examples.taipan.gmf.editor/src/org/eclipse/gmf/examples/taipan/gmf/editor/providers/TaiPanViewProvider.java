@@ -38,6 +38,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteRelb
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipLargeCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipNameEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipSmallCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.AquatoryViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.BesiegePortOrderViewFactory;
@@ -64,6 +65,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.UnreliableRoute
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.UnreliableRouteViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.WarshipLargeCargoViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.WarshipNameViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.WarshipSmallCargoViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.WarshipViewFactory;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -126,6 +128,8 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 			return ShipSmallCargoViewFactory.class;
 		case ShipLargeCargoEditPart.VISUAL_ID:
 			return ShipLargeCargoViewFactory.class;
+		case WarshipSmallCargoEditPart.VISUAL_ID:
+			return WarshipSmallCargoViewFactory.class;
 		case WarshipLargeCargoEditPart.VISUAL_ID:
 			return WarshipLargeCargoViewFactory.class;
 		case ShipDestinationMarkerEditPart.VISUAL_ID:

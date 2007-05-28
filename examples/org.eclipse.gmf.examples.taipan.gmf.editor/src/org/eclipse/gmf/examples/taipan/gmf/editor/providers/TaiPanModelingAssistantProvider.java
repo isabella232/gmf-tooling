@@ -54,6 +54,11 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 			types.add(TaiPanElementTypes.SmallItems_3001);
 			return types;
 		}
+		if (editPart instanceof WarshipEditPart) {
+			List types = new ArrayList();
+			types.add(TaiPanElementTypes.SmallItems_3001);
+			return types;
+		}
 		if (editPart instanceof ShipLargeCargoEditPart) {
 			List types = new ArrayList();
 			types.add(TaiPanElementTypes.LargeItem_3002);
@@ -63,6 +68,7 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 		if (editPart instanceof WarshipLargeCargoEditPart) {
 			List types = new ArrayList();
 			types.add(TaiPanElementTypes.LargeItem_3002);
+			types.add(TaiPanElementTypes.EmptyBox_3003);
 			return types;
 		}
 		if (editPart instanceof AquatoryEditPart) {
