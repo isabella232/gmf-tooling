@@ -528,6 +528,9 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	}
 
 	public String getClassNamePrefix() {
+		if (getNode() == null) {
+			return CLASS_NAME_PREFIX;
+		}
 		// should be consistent with ClassNamingStrategy
 		return getNode().getClassNamePrefix() + (isEmpty(getTitle()) ? CLASS_NAME_PREFIX : getValidClassName(getTitle()));
 	}
