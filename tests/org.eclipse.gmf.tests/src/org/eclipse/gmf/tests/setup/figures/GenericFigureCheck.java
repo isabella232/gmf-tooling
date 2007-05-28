@@ -31,7 +31,7 @@ import org.eclipse.gmf.gmfgraph.CustomAttribute;
 import org.eclipse.gmf.gmfgraph.CustomBorder;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
-import org.eclipse.gmf.gmfgraph.FigureMarker;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
@@ -75,18 +75,21 @@ public class GenericFigureCheck extends FigureCheck {
 	}
 
 	protected void checkFigureChildren(Figure gmfFigure, IFigure d2dFigure) {
-		List<FigureMarker> gmfChildren = gmfFigure.getChildren();
+		if (false == gmfFigure instanceof RealFigure) {
+			return;
+		}
+		List<Figure> gmfChildren = ((RealFigure) gmfFigure).getChildren();
 		@SuppressWarnings("unchecked")
 		List<IFigure> d2dChildren = d2dFigure.getChildren();
 		assertNotNull(gmfChildren);
 		assertNotNull(d2dChildren);
 		assertEquals(gmfChildren.size(), d2dChildren.size());
 
-		Iterator<FigureMarker> gmfIter = gmfChildren.iterator();
+		Iterator<Figure> gmfIter = gmfChildren.iterator();
 		Iterator<IFigure> d2dIter = d2dChildren.iterator();
 
 		while (gmfIter.hasNext() && d2dIter.hasNext()) {
-			Figure nextGMF = (Figure) gmfIter.next();
+			Figure nextGMF = gmfIter.next();
 			IFigure nextD2D = d2dIter.next();
 			checkFigure(nextGMF, nextD2D);
 		}
@@ -366,7 +369,7 @@ public class GenericFigureCheck extends FigureCheck {
 		}
 		
 		//it is pure check, but it should be enough for integers/strings
-		assertEquals(expectedValue, String.valueOf(result));
+		assertEquals("Attribute '" + eAttribute.getName() + "', ", expectedValue, String.valueOf(result));
 	}
 
 	protected final void checkMarginBorder(MarginBorder eBorder, org.eclipse.draw2d.Border d2dBorder, IFigure mainD2DFigure) {

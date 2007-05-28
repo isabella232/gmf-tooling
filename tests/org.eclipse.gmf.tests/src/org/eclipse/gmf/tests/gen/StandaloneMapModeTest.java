@@ -19,7 +19,7 @@ import junit.framework.TestCase;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
@@ -57,7 +57,7 @@ public class StandaloneMapModeTest extends TestCase {
 		new InstantiateFigureHook(123, 456, MapModeTypes.HIMETRIC_MM, config).go(figureClass);
 	}
 	
-	private Figure createTestFigure(){
+	private RealFigure createTestFigure(){
 		Rectangle result = GMFGraphFactory.eINSTANCE.createRectangle();
 		result.setName("TestFigure");
 		result.setSize(FigureGeneratorUtil.createPoint(123, 456));

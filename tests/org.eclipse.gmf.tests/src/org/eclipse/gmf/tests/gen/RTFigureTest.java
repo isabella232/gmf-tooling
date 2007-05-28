@@ -23,8 +23,8 @@ import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.Dimension;
-import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Label;
@@ -49,19 +49,19 @@ public class RTFigureTest extends TestCase {
 		assertTrue(status.getMessage(), status.isOK());
 	}
 	
-	private Figure createSampleFigure() {
-		Figure parent = GMFGraphFactory.eINSTANCE.createRectangle();
+	private RealFigure createSampleFigure() {
+		RealFigure parent = GMFGraphFactory.eINSTANCE.createRectangle();
 		parent.setName("Parent");
 		parent.setLayout(createLayout());
 
-		Figure leftGreenFilled = GMFGraphFactory.eINSTANCE.createRectangle();
+		RealFigure leftGreenFilled = GMFGraphFactory.eINSTANCE.createRectangle();
 		leftGreenFilled.setName("LeftGreen");
 		RGBColor green = GMFGraphFactory.eINSTANCE.createRGBColor();
 		green.setGreen(255);
 		leftGreenFilled.setBackgroundColor(green);
 		leftGreenFilled.setLayoutData(createLayoutData(Alignment.BEGINNING_LITERAL, false));
 
-		Figure rightRedOutline = GMFGraphFactory.eINSTANCE.createRectangle();
+		RealFigure rightRedOutline = GMFGraphFactory.eINSTANCE.createRectangle();
 		rightRedOutline.setName("CenterRed");
 		RGBColor red = GMFGraphFactory.eINSTANCE.createRGBColor();
 		red.setRed(255);
@@ -70,7 +70,6 @@ public class RTFigureTest extends TestCase {
 		
 		CustomFigure bottomCustom = GMFGraphFactory.eINSTANCE.createCustomFigure();
 		bottomCustom.setName("BottomCustom");
-		bottomCustom.setBundleName("org.eclipse.draw2d");
 		bottomCustom.setQualifiedClassName(Triangle.class.getName());
 		RGBColor blue = GMFGraphFactory.eINSTANCE.createRGBColor();
 		blue.setBlue(255);

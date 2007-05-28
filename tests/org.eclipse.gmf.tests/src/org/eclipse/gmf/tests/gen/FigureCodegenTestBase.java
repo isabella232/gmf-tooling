@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,7 +13,8 @@ package org.eclipse.gmf.tests.gen;
 
 import junit.framework.TestCase;
 
-import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.tests.NeedsSetup;
 import org.eclipse.gmf.tests.setup.figures.AbstractFigureGeneratorSetup;
 import org.eclipse.gmf.tests.setup.figures.FigureCheck;
@@ -34,9 +35,15 @@ public class FigureCodegenTestBase extends TestCase implements NeedsSetup {
 		mySessionSetup = sessionSetup;
 	}
 
-	protected void performTests(Figure f, FigureCheck check) {
+	protected void performTests(RealFigure f, FigureCheck check) {
 		FigureGeneratorUtil.generateAndParse(f);
 		Class<?> figureClass = mySessionSetup.getFigureClass(f);
+		check.go(figureClass);
+	}
+
+	protected void performTests(FigureDescriptor f, FigureCheck check) {
+		FigureGeneratorUtil.generateAndParse(f);
+		Class<?> figureClass = mySessionSetup.getFigureClass(f.getActualFigure());
 		check.go(figureClass);
 	}
 }

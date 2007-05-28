@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -23,6 +23,7 @@ import org.eclipse.draw2d.PolygonDecoration;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.ScrollBar;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
 import org.eclipse.gmf.tests.setup.figures.FigureCheck;
 import org.eclipse.gmf.tests.setup.figures.FigureCodegenSetup;
@@ -60,17 +61,17 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 	}
 
 	public void testGenCustomFigure() {
-		final Figure f = getSessionSetup().getCustomFigure();
+		final RealFigure f = getSessionSetup().getCustomFigure();
 		performTests(f, new GenericFigureCheck(f));
 	}
 
 	public void testGenSimpleShape() {
-		final Figure f = getSessionSetup().getSimpleShape();
+		final RealFigure f = getSessionSetup().getSimpleShape();
 		performTests(f, new GenericFigureCheck(f));
 	}
 
 	public void testGenComplexShape() {
-		final Figure f = getSessionSetup().getComplexShape();
+		final RealFigure f = getSessionSetup().getComplexShape();
 		performTests(f, new GenericFigureCheck(f));
 	}
 	
@@ -111,7 +112,8 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 	public void testGenCustomConnection(){
 		GenericFigureCheck constraintCheck = new GenericFigureCheck(getSessionSetup().getResult()){
 			protected void checkFigureItself(Figure gmfFigure, IFigure d2dFigure) {
-				assertEquals("Only one figure expected", getSessionSetup().getResult().getName(), gmfFigure.getName());
+				assertTrue("Assume tests are creating figures with names", gmfFigure instanceof RealFigure);
+				assertEquals("Only one figure expected", getSessionSetup().getResult().getName(), ((RealFigure) gmfFigure).getName());
 				super.checkFigureItself(gmfFigure, d2dFigure);
 				checkConstraint(d2dFigure);
 			}

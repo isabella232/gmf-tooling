@@ -92,7 +92,7 @@ public class AllTests {
 
 		/*
 		 * [AS++] Temporary workaround: loading all the projects in the
-		 * beggining to get rid of the problems with runtime registries
+		 * beginning to get rid of the problems with runtime registries
 		 * reloading. In particular - ViewService.
 		 */
 		try {

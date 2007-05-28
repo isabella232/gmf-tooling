@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -28,6 +28,7 @@ import org.eclipse.gmf.codegen.gmfgen.StyleAttributes;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
 import org.eclipse.gmf.gmfgraph.BasicFont;
+import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Color;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.Compartment;
@@ -40,20 +41,24 @@ import org.eclipse.gmf.gmfgraph.DefaultSizeFacet;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Direction;
+import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureAccessor;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.Node;
-import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
-import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
+import org.eclipse.gmf.gmfgraph.Rectangle;
+import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.graphdef.codegen.NamingStrategy;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
+import org.eclipse.gmf.tests.setup.DiaDefSetup;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
@@ -76,20 +81,14 @@ public class ViewmapProducersTest extends TestCase {
 		myProducer = new InnerClassViewmapProducer();
 	}
 
-	private FigureQualifiedNameSwitch getFigureSwitch() {
-		// FIXME should use same myProducer uses. 
-		// the reason I don't pass this to producer's constructor is
-		// to mirror DGMT that by default creates producer with no-arg cons.
-		return new RuntimeFQNSwitch();
-	}
-
 	public void testInnerViewmapProducerBareFigure() {
-		Node n = createNode("n1", GMFGraphFactory.eINSTANCE.createEllipse());
-		n.getNodeFigure().setName("elli");
+		final Ellipse ellipseFig = GMFGraphFactory.eINSTANCE.createEllipse();
+		ellipseFig.setName("elli");
+		Node n = createNode("n1", ellipseFig);
 		Viewmap v = getProducer().create(n);
 		assertNotNull(v);
 		assertTrue(v.getClass().getName(), v instanceof FigureViewmap);
-		assertEquals(getFigureSwitch().get(n.getFigure()), ((FigureViewmap) v).getFigureQualifiedClassName());
+		assertEquals("org.eclipse.draw2d.Ellipse", ((FigureViewmap) v).getFigureQualifiedClassName());
 	}
 
 	public void testAbleToProcessFigureAccessor() {
@@ -101,6 +100,13 @@ public class ViewmapProducersTest extends TestCase {
 		figureAccess1.setAccessor("getContents");
 		nodeFigure.getCustomChildren().add(figureAccess1);
 
+		// XXX this is to create ChildAccess, but there should be means to point to FigureAccess
+		// without typedFigure
+		final CustomFigure accessor1Type = GMFGraphFactory.eINSTANCE.createCustomFigure();
+		accessor1Type.setName("Accessor1Type");
+		accessor1Type.setQualifiedClassName("org.eclipse.draw2d.Figure");
+		figureAccess1.setTypedFigure(accessor1Type);
+
 		final CustomFigure accessor2Type = GMFGraphFactory.eINSTANCE.createCustomFigure();
 		accessor2Type.setName("Accessor2Type");
 		accessor2Type.setQualifiedClassName("org.eclipse.draw2d.Viewport");
@@ -108,15 +114,16 @@ public class ViewmapProducersTest extends TestCase {
 		final FigureAccessor figureAccess2 = GMFGraphFactory.eINSTANCE.createFigureAccessor();
 		figureAccess2.setAccessor("getViewport");
 		figureAccess2.setTypedFigure(accessor2Type);
-		nodeFigure.getCustomChildren().add(figureAccess1);
 		nodeFigure.getCustomChildren().add(figureAccess2);
 
 		final DiagramLabel l1 = GMFGraphFactory.eINSTANCE.createDiagramLabel();
 		l1.setName("L1");
-		l1.setFigure(figureAccess1);
+		l1.setFigure(n.getFigure());
+		l1.setAccessor(DiaDefSetup.newAccess(n.getFigure(), figureAccess1.getTypedFigure()));
 		final DiagramLabel l2 = GMFGraphFactory.eINSTANCE.createDiagramLabel();
 		l2.setName("L2");
-		l2.setFigure(figureAccess2);
+		l2.setFigure(n.getFigure());
+		l2.setAccessor(DiaDefSetup.newAccess(n.getFigure(), figureAccess2.getTypedFigure()));
 
 		final Viewmap nodeViewmap = getProducer().create(n);
 		final Viewmap label1Viewmap = getProducer().create(l1);
@@ -134,7 +141,7 @@ public class ViewmapProducersTest extends TestCase {
 
 		assertEquals(figureAccess2.getAccessor(), ((ParentAssignedViewmap) label2Viewmap).getGetterName());
 		assertNotNull(((ParentAssignedViewmap) label2Viewmap).getFigureQualifiedClassName());
-		assertEquals(figureAccess2.getTypedFigure().getQualifiedClassName(), ((ParentAssignedViewmap) label2Viewmap).getFigureQualifiedClassName());
+		assertEquals(((CustomFigure) figureAccess2.getTypedFigure()).getQualifiedClassName(), ((ParentAssignedViewmap) label2Viewmap).getFigureQualifiedClassName());
 		assertNull(((ParentAssignedViewmap) label2Viewmap).getSetterName());
 	}
 
@@ -143,21 +150,23 @@ public class ViewmapProducersTest extends TestCase {
 	 * and produces {@link ParentAssignedViewmap} to handle their placement correctly
 	 */
 	public void testRecognizesParentAssignedCases() {
-		final Node n = createNode("n1", GMFGraphFactory.eINSTANCE.createRoundedRectangle());
-		n.getNodeFigure().setName("RouRe");
+		final RoundedRectangle rootRect = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+		final Node n = createNode("n1", rootRect);
+		rootRect.setName("RouRe");
 
 		final Label lf = GMFGraphFactory.eINSTANCE.createLabel();
 		lf.setName("Lf");
-		n.getNodeFigure().getChildren().add(lf);
+		rootRect.getChildren().add(lf);
 		final DiagramLabel innerLabel = GMFGraphFactory.eINSTANCE.createDiagramLabel();
 		innerLabel.setName("DL1");
-		innerLabel.setFigure(lf);
+		innerLabel.setFigure(n.getFigure());
+		innerLabel.setAccessor(DiaDefSetup.newAccess(n.getFigure(), lf));
 
 		final Label topLevelLabelFigure = GMFGraphFactory.eINSTANCE.createLabel();
 		topLevelLabelFigure.setName("topLevelLabelFigure");
 		final DiagramLabel externalLabel = GMFGraphFactory.eINSTANCE.createDiagramLabel();
 		externalLabel.setName("DL2");
-		externalLabel.setFigure(topLevelLabelFigure);
+		externalLabel.setFigure(DiaDefSetup.newDescriptor(topLevelLabelFigure));
 
 		final ViewmapProducer p = getProducer();
 		p.create(n);
@@ -168,9 +177,9 @@ public class ViewmapProducersTest extends TestCase {
 		assertNotNull(innerLabelViewmap);
 		assertTrue(innerLabelViewmap.getClass().getName(), innerLabelViewmap instanceof ParentAssignedViewmap);
 		ParentAssignedViewmap pav = (ParentAssignedViewmap) innerLabelViewmap;
-		assertEquals(NamingStrategy.INSTANCE.getChildFigureGetterName(lf), pav.getGetterName());
+		assertEquals(NamingStrategy.getChildFigureGetterName(innerLabel.getAccessor()), pav.getGetterName());
 		assertNotNull(pav.getFigureQualifiedClassName());
-		assertEquals(getFigureSwitch().get(lf), pav.getFigureQualifiedClassName());
+		assertEquals("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel", pav.getFigureQualifiedClassName());
 
 		assertNotNull(externalLabelViewmap);
 		assertFalse(externalLabelViewmap instanceof ParentAssignedViewmap);
@@ -183,11 +192,11 @@ public class ViewmapProducersTest extends TestCase {
 		FigureGallery figureGallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
 		figureGallery.setName("Any");
 		
-		Figure normal = GMFGraphFactory.eINSTANCE.createRectangle();
+		RealFigure normal = GMFGraphFactory.eINSTANCE.createRectangle();
 		normal.setName("Normal");
 		figureGallery.getFigures().add(normal);
 		
-		Figure deep = GMFGraphFactory.eINSTANCE.createRectangle();
+		RealFigure deep = GMFGraphFactory.eINSTANCE.createRectangle();
 		deep.setName("Deep");
 		normal.getChildren().add(deep);
 		
@@ -205,27 +214,25 @@ public class ViewmapProducersTest extends TestCase {
 		CustomFigure customFigure = GMFGraphFactory.eINSTANCE.createCustomFigure();
 		customFigure.setName("ExternalFigure");
 		customFigure.setQualifiedClassName("com.mycompany.figures.TheFigure");
-		customFigure.setBundleName(BUNDLE);
 		
-		figureGallery.getFigures().add(customFigure);
 
 		Node node = GMFGraphFactory.eINSTANCE.createNode();
 		node.setName("Node");
-		node.setFigure(customFigure);
+		node.setFigure(DiaDefSetup.newDescriptor(customFigure));
+		figureGallery.getDescriptors().add(node.getFigure());
 
 		Compartment compartment = GMFGraphFactory.eINSTANCE.createCompartment();
 		compartment.setName("Compartment");
-		compartment.setFigure(customFigure);
+		compartment.setFigure(DiaDefSetup.newDescriptor((CustomFigure) EcoreUtil.copy(customFigure)));
+		figureGallery.getDescriptors().add(compartment.getFigure());
 
 		Connection connection = GMFGraphFactory.eINSTANCE.createConnection();
 		connection.setName("Link");
 		CustomConnection customLinkFigure = GMFGraphFactory.eINSTANCE.createCustomConnection();
 		customLinkFigure.setName("ExternalLink");
 		customLinkFigure.setQualifiedClassName("com.mycompany.figures.TheLink");
-		customLinkFigure.setBundleName(BUNDLE);
-		connection.setFigure(customLinkFigure);
-		
-		figureGallery.getFigures().add(customLinkFigure);
+		connection.setFigure(DiaDefSetup.newDescriptor(customLinkFigure));
+		figureGallery.getDescriptors().add(connection.getFigure());
 
 		class Checker extends Assert {
 			public void checkViewmap(Viewmap viewmap) {
@@ -242,13 +249,12 @@ public class ViewmapProducersTest extends TestCase {
 	}
 
 	public void testInnerViewmapProducerForNode() {
-		Node node = createNode("n1", GMFGraphFactory.eINSTANCE.createRoundedRectangle());
+		RealFigure figure;
+		Node node = createNode("n1", figure = GMFGraphFactory.eINSTANCE.createRoundedRectangle());
 		ConstantColor c = GMFGraphFactory.eINSTANCE.createConstantColor();
 		c.setValue(ColorConstants.CYAN_LITERAL);
-		Figure figure = node.getNodeFigure();
 		figure.setBackgroundColor(c);
 		figure.setName("RouRec1");
-		node.setFigure(figure);
 		Viewmap v = getProducer().create(node);
 		assertNotNull(v);
 		assertTrue(v instanceof InnerClassViewmap);
@@ -262,21 +268,22 @@ public class ViewmapProducersTest extends TestCase {
 	}
 	
 	public void testPinnedCompartment(){
-		Node rootNode = createNode("Root", GMFGraphFactory.eINSTANCE.createRectangle());
-		rootNode.getNodeFigure().setName("RootFig");
-		Figure compartmentPaneA = GMFGraphFactory.eINSTANCE.createRectangle();
+		final Rectangle rect = GMFGraphFactory.eINSTANCE.createRectangle();
+		Node rootNode = createNode("Root", rect);
+		rect.setName("RootFig");
+		RealFigure compartmentPaneA = GMFGraphFactory.eINSTANCE.createRectangle();
 		compartmentPaneA.setName("CompartmentA");
-		rootNode.getNodeFigure().getChildren().add(compartmentPaneA);
+		rect.getChildren().add(compartmentPaneA);
 		
-		Figure intermediate = GMFGraphFactory.eINSTANCE.createEllipse();
+		RealFigure intermediate = GMFGraphFactory.eINSTANCE.createEllipse();
 		intermediate.setName("Intermediate");
-		rootNode.getNodeFigure().getChildren().add(intermediate);
-		Figure compartmentPaneB = GMFGraphFactory.eINSTANCE.createRectangle();
+		rect.getChildren().add(intermediate);
+		RealFigure compartmentPaneB = GMFGraphFactory.eINSTANCE.createRectangle();
 		compartmentPaneB.setName("CompartmentB");
 		intermediate.getChildren().add(compartmentPaneB);
 		
-		Compartment compartmentA = createCompartment("CompartmentA", compartmentPaneA);
-		Compartment compartmentB = createCompartment("CompartmentB", compartmentPaneB);
+		Compartment compartmentA = createCompartment("CompartmentA", rootNode.getFigure(), compartmentPaneA);
+		Compartment compartmentB = createCompartment("CompartmentB", rootNode.getFigure(), compartmentPaneB);
 
 		getProducer().create(rootNode);
 		Viewmap viewmapA = getProducer().create(compartmentA); 
@@ -286,18 +293,18 @@ public class ViewmapProducersTest extends TestCase {
 		assertNotNull(viewmapB);
 		assertTrue(viewmapA.getClass().getName(), viewmapA instanceof ParentAssignedViewmap);
 		assertTrue(viewmapB.getClass().getName(), viewmapB instanceof ParentAssignedViewmap);
-		
-		assertEquals(((ParentAssignedViewmap) viewmapA).getGetterName(), NamingStrategy.INSTANCE.getChildFigureGetterName(compartmentPaneA));
-		assertEquals(((ParentAssignedViewmap) viewmapB).getGetterName(), NamingStrategy.INSTANCE.getChildFigureGetterName(compartmentPaneB));		
+
+		assertEquals(((ParentAssignedViewmap) viewmapA).getGetterName(), NamingStrategy.getChildFigureGetterName(compartmentA.getAccessor()));
+		assertEquals(((ParentAssignedViewmap) viewmapB).getGetterName(), NamingStrategy.getChildFigureGetterName(compartmentB.getAccessor()));		
 	}
 	
 	public void testFloatingCompartment(){
-		Compartment compartment = createCompartment("Floating", GMFGraphFactory.eINSTANCE.createEllipse());
+		Compartment compartment = createCompartment("Floating", null, GMFGraphFactory.eINSTANCE.createEllipse());
 		final Viewmap viewmapFloat = getProducer().create(compartment);
 		assertNotNull(viewmapFloat);
 		assertFalse(ParentAssignedViewmap.class.getName(), viewmapFloat instanceof ParentAssignedViewmap);
 		
-		Compartment noFigure = createCompartment("NoFigure", GMFGraphFactory.eINSTANCE.createCustomFigure());
+		Compartment noFigure = createCompartment("NoFigure", null, GMFGraphFactory.eINSTANCE.createCustomFigure());
 		noFigure.setFigure(null);
 		final Viewmap viewmapNoFigure = getProducer().create(noFigure);
 		assertNotNull(viewmapNoFigure);
@@ -305,7 +312,7 @@ public class ViewmapProducersTest extends TestCase {
 	}
 	
 	public void testResizeConstaintsSingleDiagonals(){
-		Figure f = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+		RealFigure f = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 		f.setName("Figure");
 		
 		new ResizeConstraintsChecker(new Direction[] {
@@ -330,13 +337,10 @@ public class ViewmapProducersTest extends TestCase {
 	}
 	
 	public void testResizeConstraintsMulty(){
-		Figure f = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
-		f.setName("Figure");
-		
-		Node explicitAny = createNode("ExplicitAll", f, Direction.NSEW_LITERAL);
-		Node implicitAny = createNode("ImplicitAll", f, null);
-		Node horizontal = createNode("Horizontal", f, Direction.EAST_WEST_LITERAL);
-		Node vertical = createNode("Vertical", f, Direction.NORTH_SOUTH_LITERAL);
+		Node explicitAny = createNode("ExplicitAll", GMFGraphFactory.eINSTANCE.createRoundedRectangle(), Direction.NSEW_LITERAL);
+		Node implicitAny = createNode("ImplicitAll", GMFGraphFactory.eINSTANCE.createRoundedRectangle(), null);
+		Node horizontal = createNode("Horizontal", GMFGraphFactory.eINSTANCE.createRoundedRectangle(), Direction.EAST_WEST_LITERAL);
+		Node vertical = createNode("Vertical", GMFGraphFactory.eINSTANCE.createRoundedRectangle(), Direction.NORTH_SOUTH_LITERAL);
 		
 		NoUselessResizeConstraintsChecker allDirectionsChecker = new NoUselessResizeConstraintsChecker();
 
@@ -347,7 +351,7 @@ public class ViewmapProducersTest extends TestCase {
 	}
 	
 	public void testResizeConstaintsSingleCartesians(){
-		Figure f = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+		RealFigure f = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 		f.setName("Figure");
 
 		Direction[] CARTESIANS = new Direction[] {
@@ -380,7 +384,7 @@ public class ViewmapProducersTest extends TestCase {
 				myExpectedSize = expected == null ? null : (Dimension)EcoreUtil.copy(expected);
 			}
 			
-			public void check(Figure figure){
+			public void check(RealFigure figure){
 				check(getProducer().create(createNode(figure.getName(), figure)));
 			}
 			
@@ -396,24 +400,24 @@ public class ViewmapProducersTest extends TestCase {
 			}
 		}
 		
-		Figure withPrefSize = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+		RealFigure withPrefSize = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 		withPrefSize.setName("WithPreferredSize");
 		withPrefSize.setPreferredSize((Dimension) EcoreUtil.copy(DIMENSION));
 		new Checker(withPrefSize).check(withPrefSize);
 		
-		Figure noPrefSize = GMFGraphFactory.eINSTANCE.createRectangle();
+		RealFigure noPrefSize = GMFGraphFactory.eINSTANCE.createRectangle();
 		noPrefSize.setName("NoPrefSize");
 		new Checker(noPrefSize).check(noPrefSize);
 		
-		Figure childHasPrefSizeButFigureDoesNot = GMFGraphFactory.eINSTANCE.createEllipse();
+		RealFigure childHasPrefSizeButFigureDoesNot = GMFGraphFactory.eINSTANCE.createEllipse();
 		childHasPrefSizeButFigureDoesNot.setName("Parent");
-		Figure child = GMFGraphFactory.eINSTANCE.createRectangle();
+		RealFigure child = GMFGraphFactory.eINSTANCE.createRectangle();
 		child.setName("child");
 		child.setPreferredSize((Dimension) EcoreUtil.copy(DIMENSION));
 		new Checker((Dimension)null).check(childHasPrefSizeButFigureDoesNot);
 		new Checker(DIMENSION).check(child);
 		
-		Figure noPrefSizeButFacet = GMFGraphFactory.eINSTANCE.createScalablePolygon();
+		RealFigure noPrefSizeButFacet = GMFGraphFactory.eINSTANCE.createScalablePolygon();
 		Node facetNode = createNode("NoPrefSizeButFacet", noPrefSizeButFacet);
 		DefaultSizeFacet facet = GMFGraphFactory.eINSTANCE.createDefaultSizeFacet();
 		facet.setDefaultSize((Dimension) EcoreUtil.copy(DIMENSION));
@@ -422,7 +426,7 @@ public class ViewmapProducersTest extends TestCase {
 		
 		final int FACET_VALUE = 42;
 		final int PREF_SIZE_VALUE = 42 * 2;
-		Figure bothFacetAndPrefSize = GMFGraphFactory.eINSTANCE.createRectangle();
+		RealFigure bothFacetAndPrefSize = GMFGraphFactory.eINSTANCE.createRectangle();
 		Node bothSizesNode = createNode("BothPrefSizeAndFacet", bothFacetAndPrefSize);
 		facet = GMFGraphFactory.eINSTANCE.createDefaultSizeFacet();
 		facet.setDefaultSize(GMFGraphFactory.eINSTANCE.createDimension());
@@ -488,7 +492,7 @@ public class ViewmapProducersTest extends TestCase {
 		checker.check(createNode("NODE_Empty", GMFGraphFactory.eINSTANCE.createRectangle()), false, false, false);
 		checker.check(createLink("LINK_Empty", GMFGraphFactory.eINSTANCE.createPolylineConnection()), false, false, false);
 	
-		Figure hasFont = GMFGraphFactory.eINSTANCE.createRectangle();
+		RealFigure hasFont = GMFGraphFactory.eINSTANCE.createRectangle();
 		BasicFont font = GMFGraphFactory.eINSTANCE.createBasicFont(); 
 		font.setFaceName("Arial");
 		font.setHeight(12);
@@ -496,11 +500,11 @@ public class ViewmapProducersTest extends TestCase {
 		hasFont.setFont(font);
 		checker.check(createNode("NODE_Font", hasFont), true, false, false);
 
-		Figure hasFore = GMFGraphFactory.eINSTANCE.createRectangle();
+		RealFigure hasFore = GMFGraphFactory.eINSTANCE.createRectangle();
 		hasFore.setForegroundColor(createColor(ColorConstants.GRAY_LITERAL));
 		checker.check(createNode("NODE_Fore_Color", hasFore), false, true, false);
 
-		Figure hasBack = GMFGraphFactory.eINSTANCE.createRectangle();
+		RealFigure hasBack = GMFGraphFactory.eINSTANCE.createRectangle();
 		hasBack.setBackgroundColor(createColor(ColorConstants.LIGHT_BLUE_LITERAL)) ;
 		checker.check(createNode("NODE_Back_Color", hasBack), false, false, true);
 		
@@ -512,9 +516,9 @@ public class ViewmapProducersTest extends TestCase {
 		polylineWithColor.setForegroundColor(createColor(ColorConstants.RED_LITERAL));
 		checker.check(createLink("Link_Font", polylineWithColor), false, true, false);
 		
-		Figure parent = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+		RealFigure parent = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 		parent.setName("ParentNoColor");
-		Figure child = GMFGraphFactory.eINSTANCE.createEllipse();
+		RealFigure child = GMFGraphFactory.eINSTANCE.createEllipse();
 		child.setName("ChildWithColor");
 		child.setForegroundColor(createColor(ColorConstants.GREEN_LITERAL));
 		parent.getChildren().add(child);
@@ -527,18 +531,20 @@ public class ViewmapProducersTest extends TestCase {
 		externalWithFont.setFont(font);
 		DiagramLabel diagramExternalLabel = GMFGraphFactory.eINSTANCE.createDiagramLabel();
 		diagramExternalLabel.setName("DiagramExternalLabelWithFont");
-		diagramExternalLabel.setFigure(externalWithFont);
+		diagramExternalLabel.setFigure(DiaDefSetup.newDescriptor(externalWithFont));
 		checker.check(getProducer().create(diagramExternalLabel), true, false, false);
 		
-		Figure labelParent = GMFGraphFactory.eINSTANCE.createRectangle();
+		RealFigure labelParent = GMFGraphFactory.eINSTANCE.createRectangle();
 		labelParent.setName("LabelParent");
 		Label innerWithFont = (Label) EcoreUtil.copy(externalWithFont);
 		labelParent.getChildren().add(innerWithFont);
 		DiagramLabel diagramInnerLabel = GMFGraphFactory.eINSTANCE.createDiagramLabel();
 		diagramInnerLabel.setName("DiagramInnerLabelWithFont");
-		diagramInnerLabel.setFigure(innerWithFont);
+		final FigureDescriptor fd = DiaDefSetup.newDescriptor(labelParent);
+		ChildAccess ca = DiaDefSetup.newAccess(fd, innerWithFont);
+		diagramInnerLabel.setFigure(fd);
+		diagramInnerLabel.setAccessor(ca);
 		checker.check(getProducer().create(diagramInnerLabel), true, false, false);
-		
 	}
 	
 	
@@ -555,34 +561,40 @@ public class ViewmapProducersTest extends TestCase {
 		return (TypeDeclaration) cu.types().get(0);
 	}
 	
-	private Node createNode(String name, Figure figure){
+	private static Node createNode(String name, RealFigure figure){
 		return createNode(name, figure, null);
 	}
 	
-	private Connection createLink(String name, ConnectionFigure connectionFigure) {
+	private static Connection createLink(String name, ConnectionFigure connectionFigure) {
 		Connection connection = GMFGraphFactory.eINSTANCE.createConnection();
 		connectionFigure.setName(name);
 		connection.setName(name);
-		connection.setFigure(connectionFigure);
+		connection.setFigure(DiaDefSetup.newDescriptor((RealFigure) connectionFigure));
 		return connection;
 	}
 
-	private Compartment createCompartment(String name, Figure figure){
+	private static Compartment createCompartment(String name, FigureDescriptor owner, RealFigure figure){
 		assertNotNull(name);
 		assertNotNull(figure);
 		Compartment result = GMFGraphFactory.eINSTANCE.createCompartment();
 		result.setName(name);
-		result.setFigure(figure);
+		if (owner == null) {
+			result.setFigure(DiaDefSetup.newDescriptor(name + "Fig", figure));
+		} else {
+			result.setFigure(owner);
+			result.setAccessor(DiaDefSetup.newAccess(owner, figure));
+		}
 		return result;
 	}
 	
-	private Node createNode(String name, Figure figure, Direction optionalConstaint){
+	private static Node createNode(String name, RealFigure figure, Direction optionalConstaint){
 		assertNotNull(name);
 		assertNotNull(figure);
 		Node result = GMFGraphFactory.eINSTANCE.createNode();
 		result.setName(name);
 		figure.setName(name);
-		result.setFigure(figure);
+		
+		result.setFigure(DiaDefSetup.newDescriptor(figure));
 		if (optionalConstaint != null){
 			result.setResizeConstraint(optionalConstaint);
 		}
@@ -593,7 +605,7 @@ public class ViewmapProducersTest extends TestCase {
 		return myProducer;
 	}
 	
-	private Color createColor(ColorConstants color) {
+	private static Color createColor(ColorConstants color) {
 		ConstantColor result = GMFGraphFactory.eINSTANCE.createConstantColor();
 		result.setValue(color);
 		return result;
@@ -643,19 +655,19 @@ public class ViewmapProducersTest extends TestCase {
 	}
 	
 	private class ViewmapLayoutTypeChecker {
-		private final Figure myFigure;
+		private final RealFigure myFigure;
 		private final Node myNode;
 		
 		public ViewmapLayoutTypeChecker(){
 			this(GMFGraphFactory.eINSTANCE.createRectangle(), GMFGraphFactory.eINSTANCE.createNode());
 		}
 
-		public ViewmapLayoutTypeChecker(Figure figure, Node node){
+		public ViewmapLayoutTypeChecker(RealFigure figure, Node node){
 			myFigure = figure;
 			myFigure.setName("Figure");
 			myNode = node;
 			myNode.setName("Node");
-			myNode.setFigure(myFigure);
+			myNode.setFigure(DiaDefSetup.newDescriptor(myFigure));
 		}
 		
 		public void check(Layout graphLayout, ViewmapLayoutType expected){

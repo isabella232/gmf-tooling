@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,40 +16,40 @@ import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
-import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.LabeledContainer;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Label;
-import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
+import org.eclipse.gmf.tests.setup.DiaDefSetup;
 
 
 public class LabelSupportSetup extends AbstractFigureGeneratorSetup {
 	
-	public static final String LABEL_NAME = "Typename";
+	private FigureDescriptor myCustom;
 
-	private CustomFigure myCustom;
+	private FigureDescriptor mySimple;
 
-	private Figure mySimple;
+	private FigureDescriptor myLabeledContainer;
 
-	private Figure myLabeledContainer;
-
-	private Figure myRoot;
+	private FigureDescriptor myRoot;
 
 	protected void addFigures(FigureGallery gallery) {
-		gallery.getFigures().add(getCustom());
-		gallery.getFigures().add(getSimple());
-		gallery.getFigures().add(getLabeledContainer());
-		gallery.getFigures().add(getRoot());
+		gallery.getDescriptors().add(getCustom());
+		gallery.getDescriptors().add(getSimple());
+		gallery.getDescriptors().add(getLabeledContainer());
+		gallery.getDescriptors().add(getRoot());
 	}
 	
-	public Figure getRoot() {
+	public FigureDescriptor getRoot() {
 		if (myRoot == null) {
-			myRoot = GMFGraphFactory.eINSTANCE.createRectangle();
-			myRoot.setName("Root");
+			final Rectangle rootFigure = GMFGraphFactory.eINSTANCE.createRectangle();
+			myRoot = DiaDefSetup.newDescriptor("Root", rootFigure);
 			BorderLayout layout = GMFGraphFactory.eINSTANCE.createBorderLayout();
-			myRoot.setLayout(layout);
+			myRoot.getActualFigure().setLayout(layout);
 			
 			RoundedRectangle padding = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 			padding.setName("Padding");
@@ -63,60 +63,47 @@ public class LabelSupportSetup extends AbstractFigureGeneratorSetup {
 			labelData.setAlignment(Alignment.BEGINNING_LITERAL);
 			labelData.setVertical(true);
 			intermediateLabelContainer.setLayoutData(labelData);
-			
-			addLabel(intermediateLabelContainer, LABEL_NAME);
 
-			myRoot.getChildren().add(intermediateLabelContainer);
-			myRoot.getChildren().add(padding);
+			rootFigure.getChildren().add(intermediateLabelContainer);
+			rootFigure.getChildren().add(padding);
+
+			addLabel(myRoot, intermediateLabelContainer);
 		}
 		return myRoot;
 	}
 
-	public Figure getLabeledContainer() {
+	public FigureDescriptor getLabeledContainer() {
 		if (myLabeledContainer == null) {
-			myLabeledContainer = GMFGraphFactory.eINSTANCE.createLabeledContainer();
-			addLabel(myLabeledContainer, "LabeledContainerAlreadyHasLabel_DoesItNeedOneMore", LABEL_NAME);
+			final LabeledContainer fig = GMFGraphFactory.eINSTANCE.createLabeledContainer();
+			myLabeledContainer = DiaDefSetup.newDescriptor("LabeledContainerAlreadyHasLabel_DoesItNeedOneMore", fig);
+			addLabel(myLabeledContainer, fig);
 		}
 		return myLabeledContainer;
 	}
 
-	public Figure getSimple() {
+	public FigureDescriptor getSimple() {
 		if (mySimple == null) {
-			mySimple = GMFGraphFactory.eINSTANCE.createRectangle();
-			addLabel(mySimple, "SimpleParent", LABEL_NAME);
+			Rectangle simpleFig = GMFGraphFactory.eINSTANCE.createRectangle();
+			mySimple = DiaDefSetup.newDescriptor("SimpleParent", simpleFig);
+			addLabel(mySimple, simpleFig);
 		}
 		return mySimple;
 	}
 
-	public Figure getCustom() {
+	public FigureDescriptor getCustom() {
 		if (myCustom == null) {
-			myCustom = GMFGraphFactory.eINSTANCE.createCustomFigure();
-			myCustom.setBundleName(FigureGeneratorUtil.DRAW2D); 
-			myCustom.setQualifiedClassName(RectangleFigure.class.getName());
-			addLabel(myCustom, "CustomParent", LABEL_NAME);
+			final CustomFigure fig = GMFGraphFactory.eINSTANCE.createCustomFigure();
+			fig.setQualifiedClassName(RectangleFigure.class.getName());
+			myCustom = DiaDefSetup.newDescriptor("CustomParent", fig);
+			addLabel(myCustom, fig);
 		}
 		return myCustom;
 	}
-	
-	public String getLabelName() {
-		return LABEL_NAME;
-	}
 
-	private void addLabel(Figure parent, String parentName, String labelName){
-		parent.setName(parentName);
+	private void addLabel(FigureDescriptor fd, RealFigure parent) {
 		parent.setPreferredSize(FigureGeneratorUtil.createDimension(60, 60));
-		addLabel(parent, labelName);
-	}
-	
-	private void addLabel(Figure parent, String labelName) {
 		Label label = GMFGraphFactory.eINSTANCE.createLabel();
-		label.setName(labelName);
-		
-		Node labelNode = GMFGraphFactory.eINSTANCE.createNode();
-		labelNode.setName("LabelNode");
-		labelNode.setFigure(label);
-		
 		parent.getChildren().add(label);
+		DiaDefSetup.newAccess(fd, label).setAccessor("Typename");
 	}
-
 }

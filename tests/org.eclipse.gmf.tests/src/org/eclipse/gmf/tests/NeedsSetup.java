@@ -12,6 +12,8 @@
 package org.eclipse.gmf.tests;
 
 /**
+ * FIXME guess, with Java 5 I may have configure(T param) method
+ *  
  * Marker interface used in conjunction with {@link TestConfiguration} class.
  * Test that needs some configuration object (i.e. one which implements {@link TestConfiguration})
  * should add this interface to the <code>implements</code> list <b>AND</b>

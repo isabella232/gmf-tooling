@@ -115,7 +115,7 @@ public class DiagramNodeTest extends GeneratedCanvasTest {
 					assertNotNull(notationLabel);
 					GraphicalEditPart labelEditPart = (GraphicalEditPart) findEditPart(notationLabel);
 					assertNotNull(labelEditPart);
-					checkFont(labelEditPart, (Figure)eLabel.getFigure());
+					checkFont(labelEditPart, eLabel.getFigure().getActualFigure());
 				}
 			}
 			
@@ -158,7 +158,7 @@ public class DiagramNodeTest extends GeneratedCanvasTest {
 	private void checkLinkColor(ConnectionEditPart newLinkEditPart, Connection gmfGraphConnection){
 		IFigure actual = newLinkEditPart.getFigure();
 		assertTrue(actual instanceof PolylineConnection);
-		Figure gmfFigure = (Figure)gmfGraphConnection.getFigure();
+		Figure gmfFigure = gmfGraphConnection.getFigure().getActualFigure();
 		Color gmfColor = gmfFigure.getForegroundColor();
 		RGB expectedRGB = gmfColor == null ? getViewerConfiguration().getDefaultLinkColor() : ourColorTransformer.gmf2swt(gmfColor);
 		assertEquals(expectedRGB, actual.getForegroundColor().getRGB());

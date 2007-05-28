@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -21,8 +21,8 @@ import org.eclipse.gmf.gmfgraph.CustomAttribute;
 import org.eclipse.gmf.gmfgraph.CustomConnection;
 import org.eclipse.gmf.gmfgraph.CustomDecoration;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
-import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Insets;
@@ -41,9 +41,9 @@ public class FigureCodegenSetup extends AbstractFigureGeneratorSetup {
 
 	private CustomFigure myCustom;
 
-	private Figure myRoot;
+	private RealFigure myRoot;
 
-	private Figure myRoot1;
+	private RealFigure myRoot1;
 
 	private CustomConnection myResult;
 
@@ -71,7 +71,6 @@ public class FigureCodegenSetup extends AbstractFigureGeneratorSetup {
 		if (myResult2 == null) {
 			myResult2 = GMFGraphFactory.eINSTANCE.createCustomFigure();
 			myResult2.setName("MyHorizontalScrollBar");
-			myResult2.setBundleName(FigureGeneratorUtil.DRAW2D);
 			myResult2.setQualifiedClassName(ScrollBar.class.getName());
 
 			CustomAttribute minimum = GMFGraphFactory.eINSTANCE.createCustomAttribute();
@@ -101,7 +100,6 @@ public class FigureCodegenSetup extends AbstractFigureGeneratorSetup {
 			final String POLYGON_DECORATION = PolygonDecoration.class.getName();
 
 			myResult1.setName("MyPolygonDecoration");
-			myResult1.setBundleName(FigureGeneratorUtil.DRAW2D);
 			myResult1.setQualifiedClassName(POLYGON_DECORATION);
 
 			Insets insets = GMFGraphFactory.eINSTANCE.createInsets();
@@ -137,7 +135,6 @@ public class FigureCodegenSetup extends AbstractFigureGeneratorSetup {
 			// use the same PolylineConnection as always but as custom one
 
 			myResult.setName(NAME);
-			myResult.setBundleName(FigureGeneratorUtil.DRAW2D);
 			myResult.setQualifiedClassName(PolylineConnection.class.getName());
 
 			CustomAttribute router = GMFGraphFactory.eINSTANCE.createCustomAttribute();
@@ -153,12 +150,12 @@ public class FigureCodegenSetup extends AbstractFigureGeneratorSetup {
 		return myResult;
 	}
 
-	public Figure getRoot1() {
+	public RealFigure getRoot1() {
 		if (myRoot1 == null) {
 			myRoot1 = GMFGraphFactory.eINSTANCE.createRectangle();
 			myRoot1.setName("MultiBorderedRoot");
 
-			Figure constantlyBordered = GMFGraphFactory.eINSTANCE.createRectangle();
+			RealFigure constantlyBordered = GMFGraphFactory.eINSTANCE.createRectangle();
 			constantlyBordered.setName("WithRedConstantBorder");
 			LineBorder constantRedBorder = GMFGraphFactory.eINSTANCE.createLineBorder();
 			constantRedBorder.setColor(FigureGeneratorUtil.createConstantColor(ColorConstants.RED_LITERAL));
@@ -166,7 +163,7 @@ public class FigureCodegenSetup extends AbstractFigureGeneratorSetup {
 			constantlyBordered.setBorder(constantRedBorder);
 			myRoot1.getChildren().add(constantlyBordered);
 
-			Figure rgbBordered = GMFGraphFactory.eINSTANCE.createRectangle();
+			RealFigure rgbBordered = GMFGraphFactory.eINSTANCE.createRectangle();
 			rgbBordered.setName("WithRedRGBBorder");
 			LineBorder rgbRedBorder = GMFGraphFactory.eINSTANCE.createLineBorder();
 			rgbRedBorder.setColor(FigureGeneratorUtil.createRGBColor(255, 0, 0));
@@ -177,7 +174,7 @@ public class FigureCodegenSetup extends AbstractFigureGeneratorSetup {
 		return myRoot1;
 	}
 
-	public Figure getRoot() {
+	public RealFigure getRoot() {
 		if (myRoot == null) {
 			myRoot = GMFGraphFactory.eINSTANCE.createEllipse();
 			myRoot.setName("FullOfColorsAndFonts");
@@ -215,7 +212,6 @@ public class FigureCodegenSetup extends AbstractFigureGeneratorSetup {
 	public CustomFigure getCustom() {
 		if (myCustom == null) {
 			myCustom = GMFGraphFactory.eINSTANCE.createCustomFigure();
-			myCustom.setBundleName(FigureGeneratorUtil.DRAW2D);
 			myCustom.setQualifiedClassName(ScrollBar.class.getName());
 			myCustom.setName(ScrollBar.class.getSimpleName());
 		}

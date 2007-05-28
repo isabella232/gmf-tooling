@@ -24,14 +24,15 @@ import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.CustomLayout;
 import org.eclipse.gmf.gmfgraph.CustomLayoutData;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
-import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.FigureRef;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GridLayout;
 import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.LayoutData;
+import org.eclipse.gmf.gmfgraph.Layoutable;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
@@ -39,23 +40,23 @@ import org.eclipse.gmf.gmfgraph.XYLayoutData;
 
 public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 
-	private Figure myParent;
-	private Figure myParent1;
-	private Figure myParent2;
-	private Figure myParent3;
-	private Figure myGroup;
-	private Figure myGroup1;
-	private Figure myGroup2;
-	private Figure myGroup3;
-	private Figure myGroup4;
+	private RealFigure myParent;
+	private RealFigure myParent1;
+	private RealFigure myParent2;
+	private RealFigure myParent3;
+	private RealFigure myGroup;
+	private RealFigure myGroup1;
+	private RealFigure myGroup2;
+	private RealFigure myGroup3;
+	private RealFigure myGroup4;
 	private CustomFigure myGroup5;
-	private Figure myParent4;
-	private Figure myParent5;
-	private Figure myParent6;
-	private Figure myParent7;
-	private Figure myParent8;
-	private Figure myParent9;
-	private Figure myFigureWithCustomLayoutData;
+	private RealFigure myParent4;
+	private RealFigure myParent5;
+	private RealFigure myParent6;
+	private RealFigure myParent7;
+	private RealFigure myParent8;
+	private RealFigure myParent9;
+	private RealFigure myFigureWithCustomLayoutData;
 
 	protected void addFigures(FigureGallery gallery) {
 		gallery.getFigures().add(getParent());
@@ -77,10 +78,9 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		gallery.getFigures().add(getFigureWithCustomLayoutData());
 	}
 	
-	public Figure getGroup5() {
+	public RealFigure getGroup5() {
 		if (myGroup5 == null) {
 			myGroup5 = GMFGraphFactory.eINSTANCE.createCustomFigure();
-			myGroup5.setBundleName("org.eclipse.draw2d");
 			myGroup5.setQualifiedClassName("org.eclipse.draw2d.Layer");
 			myGroup5.setName("CustomLayer");
 			
@@ -97,18 +97,18 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		return myGroup5;
 	}
 	
-	public Figure getGroup4() {
+	public RealFigure getGroup4() {
 		if (myGroup4 == null) {
 			myGroup4 = createRGBGroup("XY");
-			Figure left = (Figure) myGroup4.getChildren().get(0);
-			Figure right = (Figure) myGroup4.getChildren().get(1);
+			Figure left = myGroup4.getChildren().get(0);
+			Figure right = myGroup4.getChildren().get(1);
 
 			setupXYLayout(myGroup4, left, right);
 		}
 		return myGroup4;
 	}
 
-	public Figure getGroup3() {
+	public RealFigure getGroup3() {
 		if (myGroup3 == null) {
 			myGroup3 = createRGBGroup("Toolbar");
 			FlowLayout flowLayout = GMFGraphFactory.eINSTANCE.createFlowLayout();
@@ -120,7 +120,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		return myGroup3;
 	}
 
-	public Figure getGroup2() {
+	public RealFigure getGroup2() {
 		if (myGroup2 == null) {
 			myGroup2 = createRGBGroup("ToolbarBadConfig");
 			FlowLayout flowLayout = GMFGraphFactory.eINSTANCE.createFlowLayout();
@@ -132,7 +132,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		return myGroup2;
 	}
 
-	public Figure getGroup1() {
+	public RealFigure getGroup1() {
 		if (myGroup1 == null) {
 			myGroup1 = createRGBGroup("Flow");
 			FlowLayout flowLayout = GMFGraphFactory.eINSTANCE.createFlowLayout();
@@ -147,7 +147,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		return myGroup1;
 	}
 
-	public Figure getGroup() {
+	public RealFigure getGroup() {
 		if (myGroup == null) {
 			myGroup = createRGBGroup("Stack");
 			myGroup.setLayout(GMFGraphFactory.eINSTANCE.createStackLayout());
@@ -155,7 +155,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		return myGroup;
 	}
 	
-	public Figure getParent9() {
+	public RealFigure getParent9() {
 		if (myParent9 == null) {
 			CustomLayout layout = GMFGraphFactory.eINSTANCE.createCustomLayout();
 			layout.setQualifiedClassName("com.borland.layouts.TheBestLayoutManagerForever");
@@ -191,11 +191,11 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		return myParent9;
 	}
 
-	public Figure getFigureWithCustomLayoutData() {
+	public RealFigure getFigureWithCustomLayoutData() {
 		if (myFigureWithCustomLayoutData == null) {
 			myFigureWithCustomLayoutData = GMFGraphFactory.eINSTANCE.createRectangle();
 			myFigureWithCustomLayoutData.setName("MyFigureWithCustomLayoutData");
-			Figure fig = GMFGraphFactory.eINSTANCE.createRectangle();
+			RealFigure fig = GMFGraphFactory.eINSTANCE.createRectangle();
 			fig.setName("ActualDataOwner");
 
 			CustomLayoutData ld = GMFGraphFactory.eINSTANCE.createCustomLayoutData();
@@ -224,10 +224,10 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		return myFigureWithCustomLayoutData;
 	}
 
-	public Figure getParent8() {
+	public RealFigure getParent8() {
 		if (myParent8 == null) {
-			Figure actualContainer = createFigure2();
-			Figure referencedFigure = (Figure) actualContainer.getChildren().get(0);
+			RealFigure actualContainer = createFigure2();
+			RealFigure referencedFigure = (RealFigure) actualContainer.getChildren().get(0);
 			
 			myParent8 = GMFGraphFactory.eINSTANCE.createRectangle();
 			myParent8.setName("ReferencedFigureParent");
@@ -237,9 +237,13 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 			refChildA.setFigure(referencedFigure);
 			refChildA.setLayoutData(createGridLayoutDataAllProperties(false));
 			
-			//same figure is referenced, different layout data
+//			//same figure is referenced, different layout data
+//			FigureRef refChildB = GMFGraphFactory.eINSTANCE.createFigureRef();
+//			refChildB.setFigure(referencedFigure);
+//			refChildB.setLayoutData(createGridLayoutDataAllProperties(true));
+			// XXX use not the same, but different child
 			FigureRef refChildB = GMFGraphFactory.eINSTANCE.createFigureRef();
-			refChildB.setFigure(referencedFigure);
+			refChildB.setFigure((RealFigure) actualContainer.getChildren().get(1));
 			refChildB.setLayoutData(createGridLayoutDataAllProperties(true));
 			
 			myParent8.getChildren().add(refChildA);
@@ -248,18 +252,18 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		return myParent8;
 	}
 
-	public Figure getParent7() {
+	public RealFigure getParent7() {
 		if (myParent7 == null) {
 			myParent7 = GMFGraphFactory.eINSTANCE.createEllipse();
 			myParent7.setName("GenEllipse");
 			myParent7.setLayout(GMFGraphFactory.eINSTANCE.createGridLayout());
 			
-			Figure top = GMFGraphFactory.eINSTANCE.createLabel();
+			RealFigure top = GMFGraphFactory.eINSTANCE.createLabel();
 			top.setName("Top");
 			top.setLayoutData(GMFGraphFactory.eINSTANCE.createGridLayoutData());
 			myParent7.getChildren().add(top);
 			
-			Figure bottom = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+			RealFigure bottom = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 			bottom.setName("Bottom");
 			bottom.setLayoutData(GMFGraphFactory.eINSTANCE.createGridLayoutData());
 			myParent7.getChildren().add(bottom);
@@ -267,7 +271,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		return myParent7;
 	}
 
-	public Figure getParent6() {
+	public RealFigure getParent6() {
 		if (myParent6 == null) {
 			myParent6 = createFigure1();
 			myParent6.setName("Parent");
@@ -276,7 +280,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 			layout.setEqualWidth(false);
 			myParent6.setLayout(layout);
 			
-			for (FigureMarker next : myParent6.getChildren()){
+			for (Figure next : myParent6.getChildren()){
 				GridLayoutData data = createGridLayoutDataAllProperties(false);
 				data.setHorizontalAlignment(Alignment.FILL_LITERAL);
 				data.setOwner(next);
@@ -287,17 +291,17 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 	}
 
 	
-	public Figure getParent5() {
+	public RealFigure getParent5() {
 		if (myParent5 == null) {
 			myParent5 = createFigure2();
 			myParent5.setName("Parent5");
-			EList<FigureMarker> children = myParent5.getChildren();
+			EList<Figure> children = myParent5.getChildren();
 			Assert.assertFalse("Precondition -- children required to test layout", children.isEmpty());
 			
 			myParent5.setLayout(createGridLayoutAllProperties());
 			
 			boolean oddChild = false;
-			for (FigureMarker next : children){
+			for (Figure next : children){
 				oddChild = !oddChild;
 				LayoutData data = createGridLayoutDataAllProperties(oddChild);
 				next.setLayoutData(data);
@@ -307,7 +311,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		return myParent5;
 	}
 	
-	public Figure getParent4() {
+	public RealFigure getParent4() {
 		if (myParent4 == null) {
 			myParent4 = createFigure2();
 			myParent4.setName("Parent4");
@@ -316,7 +320,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		return myParent4;
 	}
 
-	public Figure getParent3() {
+	public RealFigure getParent3() {
 		if (myParent3 == null) {
 			myParent3 = GMFGraphFactory.eINSTANCE.createRectangle();
 			myParent3.setName("Matreshka");
@@ -328,13 +332,13 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 				createLayoutData(Alignment.FILL_LITERAL, false),
 			};
 			
-			Figure nextParent = myParent3;
+			RealFigure nextParent = myParent3;
 			for (int i = 0; i < allAreCenters.length; i++){
 				BorderLayout layout = GMFGraphFactory.eINSTANCE.createBorderLayout();
 				layout.setSpacing(FigureGeneratorUtil.createDimension(4, 2));
 				nextParent.setLayout(layout);
 
-				Figure child = GMFGraphFactory.eINSTANCE.createRectangle();
+				RealFigure child = GMFGraphFactory.eINSTANCE.createRectangle();
 				child.setName("Doll" + (i + 1));
 				child.setLayoutData(allAreCenters[i]);
 				
@@ -345,7 +349,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		return myParent3;
 	}
 
-	public Figure getParent2() {
+	public RealFigure getParent2() {
 		if (myParent2 == null) {
 			myParent2 = GMFGraphFactory.eINSTANCE.createRectangle();
 			myParent2.setName("BorderedContents");
@@ -354,23 +358,23 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 			layout.setSpacing(FigureGeneratorUtil.createDimension(2, 4));
 			myParent2.setLayout(layout);
 			
-			Figure centerA = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+			RealFigure centerA = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 			centerA.setName("Center_1");
 			centerA.setLayoutData(createLayoutData(Alignment.CENTER_LITERAL, false));
 
-			Figure left = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+			RealFigure left = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 			left.setName("Left");
 			left.setLayoutData(createLayoutData(Alignment.BEGINNING_LITERAL, false));
 
-			Figure right = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+			RealFigure right = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 			right.setName("Right");
 			right.setLayoutData(createLayoutData(Alignment.END_LITERAL, false));
 
-			Figure top = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+			RealFigure top = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 			top.setName("Top");
 			top.setLayoutData(createLayoutData(Alignment.BEGINNING_LITERAL, true));
 
-			Figure bottom = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+			RealFigure bottom = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 			bottom.setName("Bottom");
 			bottom.setLayoutData(createLayoutData(Alignment.END_LITERAL, true));
 			
@@ -379,13 +383,13 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		return myParent2;
 	}
 
-	public Figure getParent1() {
+	public RealFigure getParent1() {
 		if (myParent1 == null) {
 			myParent1 = GMFGraphFactory.eINSTANCE.createRectangle();
 			myParent1.setName("ParentWithoutLayout");
 			Assert.assertNull(myParent1.getLayout());
 			
-			Figure child = GMFGraphFactory.eINSTANCE.createRectangle();
+			RealFigure child = GMFGraphFactory.eINSTANCE.createRectangle();
 			child.setName("childWithLayoutData");
 			child.setLayoutData(createGridLayoutDataAllProperties(false));
 			
@@ -394,12 +398,12 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		return myParent1;
 	}
 
-	public Figure getParent() {
+	public RealFigure getParent() {
 		if (myParent == null) {
 			myParent = GMFGraphFactory.eINSTANCE.createRectangle();
 			myParent.setName("Root");
 			
-			Figure next = myParent;
+			RealFigure next = myParent;
 			for (int i = 0; i < 4; i++){
 				next = addPairOfChildRectanglesAndReturnLeft(next);
 			}
@@ -407,7 +411,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		return myParent;
 	}
 	
-	private Figure addPairOfChildRectanglesAndReturnLeft(Figure parent){
+	private RealFigure addPairOfChildRectanglesAndReturnLeft(RealFigure parent){
 		parent.setLayout(createBorderLayoutAllProperties());
 		
 		Rectangle left = GMFGraphFactory.eINSTANCE.createRectangle();
@@ -464,16 +468,16 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		return result;
 	}
 
-	private Figure createRGBGroup(String rootName){
-		Figure parent = GMFGraphFactory.eINSTANCE.createRectangle();
+	private RealFigure createRGBGroup(String rootName){
+		RealFigure parent = GMFGraphFactory.eINSTANCE.createRectangle();
 		parent.setForegroundColor(FigureGeneratorUtil.createRGBColor(0, 0, 255));
 		parent.setName(rootName);
 		
-		Figure greenEllipse = GMFGraphFactory.eINSTANCE.createEllipse();
+		RealFigure greenEllipse = GMFGraphFactory.eINSTANCE.createEllipse();
 		greenEllipse.setName("GreenEllipse");
 		greenEllipse.setForegroundColor(FigureGeneratorUtil.createRGBColor(0, 255, 0));
 		
-		Figure redRRectangle = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+		RealFigure redRRectangle = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 		redRRectangle.setName("RedRoundedRectangle");
 		redRRectangle.setForegroundColor(FigureGeneratorUtil.createRGBColor(255, 0, 0));
 		
@@ -483,7 +487,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		return parent;
 	}
 
-	private void setupXYLayout(final Figure group, final Figure left, final Figure right){
+	private void setupXYLayout(final RealFigure group, final Layoutable left, final Layoutable right){
 		Assert.assertTrue(group.getChildren().contains(left));
 		Assert.assertTrue(group.getChildren().contains(right));
 		Assert.assertNotSame(left, right);

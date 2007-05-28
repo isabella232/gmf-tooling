@@ -15,6 +15,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Color;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.Compartment;
@@ -22,11 +23,15 @@ import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.PolylineConnection;
+import org.eclipse.gmf.gmfgraph.Rectangle;
 
 /**
  * This class is intended to be subclassed
@@ -96,52 +101,49 @@ public class DiaDefSetup implements DiaDefSource {
 	private void commonSetupDecoratedLabelDef(DiagramLabel label) {
 		label.setName("DiagramLabelWithFont");
 		Label labelFigure = GMFGraphFactory.eINSTANCE.createLabel();
-		label.setFigure(labelFigure);
-		labelFigure.setName("LabelWithFont");
 		labelFigure.setText("LabelText");
+		label.setFigure(newDescriptor("LabelWithFont", labelFigure));
 		BasicFont font = GMFGraphFactory.eINSTANCE.createBasicFont();
 		font.setFaceName("Arial");
 		font.setHeight(18);
 		font.setStyle(FontStyle.BOLD_LITERAL);
 		labelFigure.setFont(font);
-		myFigureContainer.getFigures().add(labelFigure);
+		myFigureContainer.getDescriptors().add(label.getFigure());
 	}
 
 	private void commonSetupCompartmentA(Compartment compartment) {
 		compartment.setName("Compartment_Title_Collapse");
 		compartment.setNeedsTitle(true);
 		compartment.setCollapsible(true);
-		Figure compartmentFigure = GMFGraphFactory.eINSTANCE.createRectangle();
-		compartmentFigure.setName("CompartmentFigureA");
-		myFigureContainer.getFigures().add(compartmentFigure);
-		compartment.setFigure(compartmentFigure);
+		RealFigure compartmentFigure = GMFGraphFactory.eINSTANCE.createRectangle();
+		compartment.setFigure(newDescriptor("CompartmentFigureA", compartmentFigure));
+		myFigureContainer.getDescriptors().add(compartment.getFigure());
 	}
 
 	private void commonSetupCompartmentB(Compartment compartment) {
 		compartment.setName("Compartment_NoTitle_No_Collapse");
 		compartment.setNeedsTitle(false);
 		compartment.setCollapsible(false);
-		Figure compartmentFigure = GMFGraphFactory.eINSTANCE.createRectangle();
-		compartmentFigure.setName("CompartmentFigureB");
-		myFigureContainer.getFigures().add(compartmentFigure);
-		compartment.setFigure(compartmentFigure);
+		RealFigure compartmentFigure = GMFGraphFactory.eINSTANCE.createRectangle();
+		compartment.setFigure(newDescriptor("CompartmentFigureB", compartmentFigure));
+		myFigureContainer.getDescriptors().add(compartment.getFigure());
 	}
 	
 	private void commonSetupColoredNodeDef(Node coloredNodeDef) {
 		coloredNodeDef.setName("ColoredRectangleNode");
-		coloredNodeDef.setFigure(GMFGraphFactory.eINSTANCE.createRectangle());
-		coloredNodeDef.getNodeFigure().setForegroundColor(createColor(ColorConstants.RED_LITERAL));
-		coloredNodeDef.getNodeFigure().setBackgroundColor(createColor(ColorConstants.BLUE_LITERAL));
-		coloredNodeDef.getNodeFigure().setName("ColoredRectangle");
-		myFigureContainer.getFigures().add(coloredNodeDef.getNodeFigure());
+		final Rectangle rect = GMFGraphFactory.eINSTANCE.createRectangle();
+		coloredNodeDef.setFigure(newDescriptor("ColoredRectangle", rect));
+		rect.setForegroundColor(createColor(ColorConstants.RED_LITERAL));
+		rect.setBackgroundColor(createColor(ColorConstants.BLUE_LITERAL));
+		myFigureContainer.getDescriptors().add(coloredNodeDef.getFigure());
 	}
 
 	private void commonSetupColoredLinkDef(Connection coloredLinkDef) {
 		coloredLinkDef.setName("ColoredLinkConnection");
-		coloredLinkDef.setFigure(GMFGraphFactory.eINSTANCE.createPolylineConnection());
-		coloredLinkDef.getConnectionFigure().setName("ColoredLink");
-		coloredLinkDef.getConnectionFigure().setForegroundColor(createColor(ColorConstants.ORANGE_LITERAL));
-		myFigureContainer.getFigures().add(coloredLinkDef.getConnectionFigure());
+		final PolylineConnection pc = GMFGraphFactory.eINSTANCE.createPolylineConnection();
+		coloredLinkDef.setFigure(newDescriptor("ColoredLink", pc));
+		pc.setForegroundColor(createColor(ColorConstants.ORANGE_LITERAL));
+		myFigureContainer.getDescriptors().add(coloredLinkDef.getFigure());
 	}
 	
 	private Color createColor(ColorConstants color){
@@ -160,24 +162,21 @@ public class DiaDefSetup implements DiaDefSource {
 
 	private void commonSetupNodeDef(Node nodeDef) {
 		nodeDef.setName("Test-dd-node");
-		nodeDef.setFigure(GMFGraphFactory.eINSTANCE.createRoundedRectangle());
-		nodeDef.getNodeFigure().setName("nf1");
-		myFigureContainer.getFigures().add((Figure) nodeDef.getFigure());
+		nodeDef.setFigure(newDescriptor("nf1", GMFGraphFactory.eINSTANCE.createRoundedRectangle()));
+		myFigureContainer.getDescriptors().add(nodeDef.getFigure());
 	}
 
 	private void commonSetupLinkDef(Connection linkDef) {
 		linkDef.setName("Test-dd-link");
-		linkDef.setFigure(GMFGraphFactory.eINSTANCE.createPolylineConnection());
-		linkDef.getConnectionFigure().setName("lf1");
-		myFigureContainer.getFigures().add((Figure) linkDef.getFigure());
+		linkDef.setFigure(newDescriptor("lf1", GMFGraphFactory.eINSTANCE.createPolylineConnection()));
+		myFigureContainer.getDescriptors().add(linkDef.getFigure());
 	}
 	
 	private void commonSetupLabelDef(DiagramLabel labelDef) {
 		labelDef.setName("TestLabel");
-		Label figure; 
-		labelDef.setFigure(figure = GMFGraphFactory.eINSTANCE.createLabel());
-		figure.setName("LabelFig");
-		myFigureContainer.getFigures().add((Figure) labelDef.getFigure());
+		Label figure= GMFGraphFactory.eINSTANCE.createLabel();
+		labelDef.setFigure(newDescriptor("LabelFig", figure));
+		myFigureContainer.getDescriptors().add(labelDef.getFigure());
 	}
 
 	protected void setupCanvasDef(Canvas canvasDef) {
@@ -203,7 +202,8 @@ public class DiaDefSetup implements DiaDefSource {
 	public void setupColoredNodeDef(Node myColoredNodeDef2) {
 		//hook for subclasses
 	}
-	
+
+	// XXX private hook???
 	private void setupCompartmentA(Compartment compartment) {
 		//hook for subclasses
 	}
@@ -259,4 +259,20 @@ public class DiaDefSetup implements DiaDefSource {
 		return myDecoratedLabelDef;
 	}
 
+	public static FigureDescriptor newDescriptor(String name, Figure fig) {
+		assert name != null;
+		FigureDescriptor fd = GMFGraphFactory.eINSTANCE.createFigureDescriptor();
+		fd.setActualFigure(fig);
+		fd.setName(name);
+		return fd;
+	}
+	public static FigureDescriptor newDescriptor(RealFigure fig) {
+		return newDescriptor(fig.getName(), fig);
+	}
+	public static ChildAccess newAccess(FigureDescriptor fd, RealFigure child) {
+		ChildAccess ca = GMFGraphFactory.eINSTANCE.createChildAccess();
+		ca.setFigure(child);
+		fd.getAccessors().add(ca);
+		return ca;
+	}
 }

@@ -20,17 +20,20 @@ import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
-import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.gmfgraph.Rectangle;
+import org.eclipse.gmf.tests.setup.DiaDefSetup;
 import org.eclipse.gmf.tests.setup.DiaDefSource;
 
 /**
@@ -77,9 +80,10 @@ public class GraphDefASetup extends AbstractASetup implements DiaDefSource {
 	protected void processNode(EModelElement element, String name, List<Parameter> params) {
 		Node node = createNode(element, name, params);
 		canvas.getNodes().add(node);
-		Figure figure = createNodeFigure(node, element, params);
-		fGallery.getFigures().add(figure);
-		node.setFigure(figure);
+		RealFigure figure = createNodeFigure(node, element, params);
+		FigureDescriptor fd = DiaDefSetup.newDescriptor(figure);
+		fGallery.getDescriptors().add(fd);
+		node.setFigure(fd);
 		owners.put(element, node);
 	}
 
@@ -89,7 +93,7 @@ public class GraphDefASetup extends AbstractASetup implements DiaDefSource {
 		return node;
 	}
 
-	protected Figure createNodeFigure(Node node, EModelElement element, List<Parameter> params) {
+	protected RealFigure createNodeFigure(Node node, EModelElement element, List<Parameter> params) {
 		Rectangle figure = GMFGraphFactory.eINSTANCE.createRectangle();
 		figure.setName(node.getName() + "Figure"); //$NON-NLS-1$
 		return figure;
@@ -100,9 +104,10 @@ public class GraphDefASetup extends AbstractASetup implements DiaDefSource {
 	protected void processCompartment(EModelElement element, String name, List<Parameter> params) {
 		Compartment compartment = createCompartment(element, name, params);
 		canvas.getCompartments().add(compartment);
-		Figure figure = createCompartmentFigure(compartment, element, params);
-		fGallery.getFigures().add(figure);
-		compartment.setFigure(figure);
+		RealFigure figure = createCompartmentFigure(compartment, element, params);
+		FigureDescriptor fd = DiaDefSetup.newDescriptor(figure);
+		fGallery.getDescriptors().add(fd);
+		compartment.setFigure(fd);
 	}
 
 	protected Compartment createCompartment(EModelElement element, String name, List<Parameter> params) {
@@ -111,7 +116,7 @@ public class GraphDefASetup extends AbstractASetup implements DiaDefSource {
 		return compartment;
 	}
 
-	protected Figure createCompartmentFigure(Compartment compartment, EModelElement element, List<Parameter> params) {
+	protected RealFigure createCompartmentFigure(Compartment compartment, EModelElement element, List<Parameter> params) {
 		Rectangle figure = GMFGraphFactory.eINSTANCE.createRectangle();
 		figure.setName(compartment.getName() + "Figure"); //$NON-NLS-1$
 		return figure;
@@ -122,9 +127,10 @@ public class GraphDefASetup extends AbstractASetup implements DiaDefSource {
 	protected void processLink(EModelElement element, String name, List<Parameter> params) {
 		Connection connection = createLink(element, name, params);
 		canvas.getConnections().add(connection);
-		Figure figure = createLinkFigure(connection, element, params);
-		fGallery.getFigures().add(figure);
-		connection.setFigure(figure);
+		RealFigure figure = createLinkFigure(connection, element, params);
+		FigureDescriptor fd = DiaDefSetup.newDescriptor(figure);
+		fGallery.getDescriptors().add(fd);
+		connection.setFigure(fd);
 		owners.put(element, connection);
 	}
 
@@ -134,7 +140,7 @@ public class GraphDefASetup extends AbstractASetup implements DiaDefSource {
 		return connection;
 	}
 
-	protected Figure createLinkFigure(Connection connection, EModelElement element, List<Parameter> params) {
+	protected RealFigure createLinkFigure(Connection connection, EModelElement element, List<Parameter> params) {
 		PolylineConnection figure = GMFGraphFactory.eINSTANCE.createPolylineConnection();
 		figure.setName(connection.getName() + "Figure"); //$NON-NLS-1$
 		return figure;
@@ -145,17 +151,21 @@ public class GraphDefASetup extends AbstractASetup implements DiaDefSource {
 	protected void processLabel(EModelElement element, String name, List<Parameter> params) {
 		DiagramLabel label = createLabel(element, name, params);
 		canvas.getLabels().add(label);
-		Figure figure = createLabelFigure(label, element, params);
+		RealFigure figure = createLabelFigure(label, element, params);
 		// if label element is contained within element mapped to
 		// node or connection then label figure should be added to
 		// container figure
 		DiagramElement host = owners.get(element.eContainer());
 		if (host != null) {
-			((Figure) host.getFigure()).getChildren().add(figure);
+			((RealFigure) host.getFigure().getActualFigure()).getChildren().add(figure);
+			ChildAccess ca = DiaDefSetup.newAccess(host.getFigure(), figure);
+			label.setFigure(host.getFigure());
+			label.setAccessor(ca);
 		} else {
-			fGallery.getFigures().add(figure);
+			FigureDescriptor fd = DiaDefSetup.newDescriptor(figure);
+			fGallery.getDescriptors().add(fd);
+			label.setFigure(fd);
 		}
-		label.setFigure(figure);
 	}
 
 	protected DiagramLabel createLabel(EModelElement element, String name, List<Parameter> params) {
@@ -164,13 +174,11 @@ public class GraphDefASetup extends AbstractASetup implements DiaDefSource {
 		return label;
 	}
 
-	protected Figure createLabelFigure(DiagramLabel label, EModelElement element, List<Parameter> params) {
+	protected RealFigure createLabelFigure(DiagramLabel label, EModelElement element, List<Parameter> params) {
 		Label figure = GMFGraphFactory.eINSTANCE.createLabel();
 		figure.setName(label.getName() + "Figure"); //$NON-NLS-1$
 		return figure;
 	}
-
-	// source
 
 	public Canvas getCanvasDef() {
 		if (canvas == null) {

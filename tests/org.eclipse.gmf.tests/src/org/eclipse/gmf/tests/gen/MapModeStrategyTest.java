@@ -13,7 +13,7 @@ package org.eclipse.gmf.tests.gen;
 
 import junit.framework.TestCase;
 
-import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
@@ -37,7 +37,7 @@ public class MapModeStrategyTest extends TestCase {
 		checkAllStrategies(rounded);
 	}
 	
-	private void checkAllStrategies(Figure figure){
+	private void checkAllStrategies(RealFigure figure){
 		String baseName = figure.getName();
 		try {
 			figure.setName(baseName + "_StaticIdentity");
@@ -53,14 +53,14 @@ public class MapModeStrategyTest extends TestCase {
 		}
 	}
 	
-	private Figure createFigureWithPreferredSize(){
-		Figure figure = GMFGraphFactory.eINSTANCE.createRectangle();
+	private RealFigure createFigureWithPreferredSize(){
+		RealFigure figure = GMFGraphFactory.eINSTANCE.createRectangle();
 		figure.setName("Figure2WithPreferredSize");
 		figure.setPreferredSize(FigureGeneratorUtil.createDimension(234, 567));
 		return figure;
 	}
 	
 	private FigureGenerator createGenerator(MapModeCodeGenStrategy strategy, String accessor) {
-		return new FigureGenerator(null, strategy, accessor, false);
+		return new FigureGenerator(null, "org.some.pkg", strategy, accessor, false);
 	}
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006, 2007 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,8 +16,8 @@ import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.CompoundBorder;
 import org.eclipse.gmf.gmfgraph.CustomAttribute;
 import org.eclipse.gmf.gmfgraph.CustomBorder;
-import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Insets;
@@ -28,22 +28,21 @@ import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.ScalablePolygon;
 import org.eclipse.gmf.gmfgraph.Shape;
 
-
 public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 
-	private Figure myContainer;
+	private RealFigure myContainer;
 	private Shape myShape;
-	private Figure myShape1;
-	private Figure myWithInsets;
-	private Figure myContainer1;
-	private Figure myTester;
-	private Figure myMarginTester;
-	private Figure myRainbow;
-	private Figure myWithMinAndMaxSize;
-	private Figure myRoot;
-	private Figure myCustomBorderTester;
+	private RealFigure myShape1;
+	private RealFigure myWithInsets;
+	private RealFigure myContainer1;
+	private RealFigure myTester;
+	private RealFigure myMarginTester;
+	private RealFigure myRainbow;
+	private RealFigure myWithMinAndMaxSize;
+	private RealFigure myRoot;
+	private RealFigure myCustomBorderTester;
 	private ScalablePolygon myScalablePolygon;
-	private Figure myInnerScalablePolygonTester;
+	private RealFigure myInnerScalablePolygonTester;
 
 	protected void addFigures(FigureGallery gallery) {
 		gallery.getFigures().add(getContainer());
@@ -61,7 +60,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		gallery.getFigures().add(getInnerScalablePolygonTester());
 	}
 
-	public Figure getRoot() {
+	public RealFigure getRoot() {
 		if (myRoot == null) {
 			Rectangle noFontName = GMFGraphFactory.eINSTANCE.createRectangle();
 			noFontName.setName("NoFontName");
@@ -83,7 +82,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		return myRoot;
 	}
 
-	public Figure getWithMinAndMaxSize() {
+	public RealFigure getWithMinAndMaxSize() {
 		if (myWithMinAndMaxSize == null) {
 			myWithMinAndMaxSize = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 			myWithMinAndMaxSize.setName("WithMinAndMaxSize");
@@ -93,7 +92,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		return myWithMinAndMaxSize;
 	}
 
-	public Figure getRainbow() {
+	public RealFigure getRainbow() {
 		if (myRainbow == null) {
 			myRainbow = GMFGraphFactory.eINSTANCE.createRectangle();
 			myRainbow.setName("Rainbow");
@@ -107,7 +106,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		return myRainbow;
 	}
 
-	public Figure getMarginTester() {
+	public RealFigure getMarginTester() {
 		if (myMarginTester == null) {
 			MarginBorder border = GMFGraphFactory.eINSTANCE.createMarginBorder();
 			border.setInsets(GMFGraphFactory.eINSTANCE.createInsets());
@@ -123,7 +122,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		return myMarginTester;
 	}
 	
-	public Figure getCustomBorderTester(){
+	public RealFigure getCustomBorderTester(){
 		if (myCustomBorderTester == null){
 			myCustomBorderTester = GMFGraphFactory.eINSTANCE.createRectangle();
 			myCustomBorderTester.setName("CustomBorderTester");
@@ -140,7 +139,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 			singleCustomBorder.getAttributes().add(borderWidth);
 			myCustomBorderTester.setBorder(singleCustomBorder);
 			
-			Figure innerRectangle = GMFGraphFactory.eINSTANCE.createRectangle();
+			RealFigure innerRectangle = GMFGraphFactory.eINSTANCE.createRectangle();
 			innerRectangle.setName("TesterOfCompoundBorderWithCustomComponent");
 			myCustomBorderTester.getChildren().add(innerRectangle);
 			
@@ -170,7 +169,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		return myCustomBorderTester;
 	}
 
-	public Figure getTester() {
+	public RealFigure getTester() {
 		if (myTester == null) {
 			LineBorder outerOuter = GMFGraphFactory.eINSTANCE.createLineBorder();
 			outerOuter.setColor(FigureGeneratorUtil.createConstantColor(ColorConstants.BLUE_LITERAL));
@@ -203,7 +202,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		return myTester;
 	}
 
-	public Figure getContainer1() {
+	public RealFigure getContainer1() {
 		if (myContainer1 == null) {
 			myContainer1 = GMFGraphFactory.eINSTANCE.createRectangle();
 			myContainer1.setName("Container1");
@@ -240,7 +239,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		return myContainer1;
 	}
 
-	public Figure getWithInsets() {
+	public RealFigure getWithInsets() {
 		if (myWithInsets == null) {
 			myWithInsets = GMFGraphFactory.eINSTANCE.createRectangle();
 			myWithInsets.setName("WithInsets");
@@ -254,7 +253,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		return myWithInsets;
 	}
 
-	public Figure getShape1() {
+	public RealFigure getShape1() {
 		if (myShape1 == null) {
 			myShape1 = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 			myShape1.setName("WithArialFont");
@@ -263,7 +262,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		return myShape1;
 	}
 	
-	public Figure getShape() {
+	public RealFigure getShape() {
 		if (myShape == null) {
 			myShape = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 			myShape.setLineWidth(23);
@@ -272,7 +271,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		return myShape;
 	}
 
-	public Figure getContainer() {
+	public RealFigure getContainer() {
 		if (myContainer == null) {
 			myContainer = GMFGraphFactory.eINSTANCE.createRectangle();
 			myContainer.setName("Container");
@@ -286,7 +285,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		return myContainer;
 	}
 
-	public Figure getScalablePolygon(){
+	public RealFigure getScalablePolygon(){
 		if (myScalablePolygon == null){
 			myScalablePolygon = GMFGraphFactory.eINSTANCE.createScalablePolygon();
 			myScalablePolygon.setName("ScalableRhomb");
@@ -300,7 +299,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		return myScalablePolygon;
 	}
 	
-	public Figure getInnerScalablePolygonTester(){
+	public RealFigure getInnerScalablePolygonTester(){
 		if (myInnerScalablePolygonTester == null){
 			myInnerScalablePolygonTester = GMFGraphFactory.eINSTANCE.createRectangle();
 			myInnerScalablePolygonTester.setName("InnerScalablePolygonTester");

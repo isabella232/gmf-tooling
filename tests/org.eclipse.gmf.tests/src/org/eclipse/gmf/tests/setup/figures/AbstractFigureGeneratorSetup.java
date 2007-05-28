@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,6 +18,8 @@ import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.FigureRef;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Label;
@@ -39,11 +41,11 @@ public abstract class AbstractFigureGeneratorSetup implements TestConfiguration 
 
 	private PolylineConnection myEcoreContainmentRef;
 
-	private Figure myCustomFigure;
+	private RealFigure myCustomFigure;
 
-	private Figure mySimpleShape;
+	private RealFigure mySimpleShape;
 
-	private Figure myComplexShape;
+	private RealFigure myComplexShape;
 
 	private Config myConfig;
 	
@@ -52,11 +54,15 @@ public abstract class AbstractFigureGeneratorSetup implements TestConfiguration 
 	public Class<?> getFigureClass(Figure f) {
 		GeneratedClassData[] classDatas = getClassData();
 		for (int i = 0; i < classDatas.length; i++) {
-			if (classDatas[i].getFigureDef() == f) {
+			Figure toCheck = classDatas[i].getFigureDef().getActualFigure();
+			if (toCheck instanceof FigureRef) {
+				toCheck = ((FigureRef) toCheck).getFigure();
+			}
+			if (toCheck == f) {
 				return classDatas[i].getLoadedClass();
 			}
 		}
-		Assert.fail("Class was not found in generated plugin: " + getConfig().getPluginID() + "|" + getConfig().getMainPackageName() + "|" + f.getName());
+		Assert.fail("Class was not found in generated plugin: " + getConfig().getPluginID() + "|" + getConfig().getMainPackageName() + "|" + ((RealFigure) f).getName());
 		return null;
 	}
 	
@@ -79,7 +85,7 @@ public abstract class AbstractFigureGeneratorSetup implements TestConfiguration 
 			myFigureGallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
 			myFigureGallery.setName("bb");
 			addFigures(myFigureGallery);
-			Assert.assertFalse("No figures was added to the gallery by subclasses", myFigureGallery.getFigures().isEmpty());
+			Assert.assertFalse("No figures was added to the gallery by subclasses", myFigureGallery.getFigures().isEmpty() && myFigureGallery.getDescriptors().isEmpty());
 		}
 		return myFigureGallery;
 	}
@@ -110,7 +116,7 @@ public abstract class AbstractFigureGeneratorSetup implements TestConfiguration 
 		return df;
 	}
 	
-	public final Figure getCustomFigure() {
+	public final RealFigure getCustomFigure() {
 		if (myCustomFigure == null) {
 			myCustomFigure = createFigure1();
 		}
@@ -118,24 +124,23 @@ public abstract class AbstractFigureGeneratorSetup implements TestConfiguration 
 	}
 	
 
-	public final Figure getSimpleShape() {
+	public final RealFigure getSimpleShape() {
 		if (mySimpleShape == null) {
 			mySimpleShape = createFigure2();
 		}
 		return mySimpleShape;
 	}
 	
-	public final Figure getComplexShape() {
+	public final RealFigure getComplexShape() {
 		if (myComplexShape == null) {
 			myComplexShape = createFigure3();
 		}
 		return myComplexShape;
 	}
 
-	protected static Figure createFigure1() {
+	protected static RealFigure createFigure1() {
 		CustomFigure cf = GMFGraphFactory.eINSTANCE.createCustomFigure();
 		cf.setName("MyRRectangleAsCustom");
-		cf.setBundleName(FigureGeneratorUtil.DRAW2D);
 		cf.setQualifiedClassName(org.eclipse.draw2d.RoundedRectangle.class.getName());
 		Point p = GMFGraphFactory.eINSTANCE.createPoint();
 		p.setX(1023);
@@ -149,7 +154,7 @@ public abstract class AbstractFigureGeneratorSetup implements TestConfiguration 
 		return cf;
 	}
 
-	protected static Figure createFigure2() {
+	protected static RealFigure createFigure2() {
 		Rectangle r = GMFGraphFactory.eINSTANCE.createRectangle();
 		r.setName("MyRect");
 		r.setFill(true);
@@ -169,8 +174,8 @@ public abstract class AbstractFigureGeneratorSetup implements TestConfiguration 
 		return r;
 	}
 
-	private static Figure createFigure3() {
-		Figure myFigure3 = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+	private static RealFigure createFigure3() {
+		RealFigure myFigure3 = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 		myFigure3.setName("Rounded1");
 		Polygon pg = GMFGraphFactory.eINSTANCE.createPolygon();
 		pg.setName("Polygon1");

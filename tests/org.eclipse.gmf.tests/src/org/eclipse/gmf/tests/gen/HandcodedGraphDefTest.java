@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,20 +11,23 @@
  */
 package org.eclipse.gmf.tests.gen;
 
+import junit.framework.TestCase;
+
+import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
-import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.Ellipse;
+import org.eclipse.gmf.gmfgraph.FigureAccessor;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
-import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.FigureRef;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.gmfgraph.Rectangle;
-import org.eclipse.gmf.internal.bridge.Knowledge;
-
-import junit.framework.TestCase;
+import org.eclipse.gmf.tests.setup.DiaDefSetup;
 
 /**
  * @author artem
@@ -34,6 +37,7 @@ public class HandcodedGraphDefTest extends TestCase {
 	private Rectangle myFigureWithLabel;
 	private Node myNode;
 	private Connection myConnection;
+	private ChildAccess myFigureWithLabelAccess;
 
 	public HandcodedGraphDefTest(String name) {
 		super(name);
@@ -48,67 +52,68 @@ public class HandcodedGraphDefTest extends TestCase {
 		Label child = GMFGraphFactory.eINSTANCE.createLabel();
 		child.setName("CHLF");
 		myFigureWithLabel.getChildren().add(child);
-		myGallery.getFigures().add(myFigureWithLabel);
+		FigureDescriptor fd = DiaDefSetup.newDescriptor("RF_TLF", myFigureWithLabel);
+		myGallery.getDescriptors().add(fd);
 		myNode = GMFGraphFactory.eINSTANCE.createNode();
 		myNode.setName("N1");
-		myNode.setFigure(myFigureWithLabel);
+		myNode.setFigure(fd);
+		myFigureWithLabelAccess = DiaDefSetup.newAccess(fd, child);
 
 		myConnection = GMFGraphFactory.eINSTANCE.createConnection();
 		myConnection.setName("C1");
 		PolylineConnection c1 = GMFGraphFactory.eINSTANCE.createPolylineConnection();
 		c1.setName("c1fig");
-		myGallery.getFigures().add(c1);
-		myConnection.setFigure(c1);
+		fd = DiaDefSetup.newDescriptor("c1tlf", c1);
+		myGallery.getDescriptors().add(fd);
+		myConnection.setFigure(fd);
 	}
 
-	public void testDerivedNodeFigure() {
-		assertNotNull(myNode.getFigure());
-		assertNotNull(myNode.getNodeFigure());
-		assertEquals(myNode.getFigure(), myNode.getNodeFigure());
-	}
-
-	public void testDerivedConnectionFigure() {
-		assertNotNull(myConnection.getFigure());
-		assertNotNull(myConnection.getConnectionFigure());
-		assertEquals(myConnection.getFigure(), myConnection.getConnectionFigure());
+	public void testGetDescriptor() {
+		assertNotNull(myFigureWithLabel.getDescriptor());
+		assertEquals(myNode.getFigure(), myFigureWithLabel.getDescriptor());
+		assertNotNull(myFigureWithLabel.getChildren().get(0).getDescriptor());
+		assertEquals(myNode.getFigure(), myFigureWithLabel.getChildren().get(0).getDescriptor());
+		assertNotNull(myConnection.getFigure().getActualFigure().getDescriptor());
 	}
 
 	public void testIsLabelExternalLogic() {
 		DiagramLabel l = GMFGraphFactory.eINSTANCE.createDiagramLabel();
-		Label figure;
-		l.setFigure(figure = GMFGraphFactory.eINSTANCE.createLabel());
-		l.setName("L");
+		Label figure = GMFGraphFactory.eINSTANCE.createLabel();
 		figure.setName("LF");
-		assertTrue("Label out from figure hierarchy should be treated as external", dgmtSnippetIsExternal(l));
-		l.setFigure((Figure) myFigureWithLabel.getChildren().get(0));
-		assertFalse("Label from figures hierarchy should be treated as internal", dgmtSnippetIsExternal(l));
+		l.setFigure(DiaDefSetup.newDescriptor("x", figure));
+		l.setName("L");
+		assertTrue("Label out from figure hierarchy should be treated as external", l.isExternal());
+		l.setFigure(myFigureWithLabel.getDescriptor());
+		l.setAccessor(myFigureWithLabelAccess);
+		assertFalse("Label from figures hierarchy should be treated as internal", l.isExternal());
 	}
 
-	private static boolean dgmtSnippetIsExternal(DiagramLabel element) {
-		// Logic from DGMT to decide whether label is external or not 
-		return Knowledge.isExternal(element);
-	}
-
-	/**
-	 * There should be access from child figure/figure ref to parent. This check emerged when parent ref moved 
-	 * to FigureMarker, having Figure#children as backref,  which makes us question if this works in respect
-	 * of FigureRef, 
-	 */
-	public void testFigureRefParent() {
-		// sanity, make sure parent works for ordinary figures
-		assertParentOfFirstChild(myFigureWithLabel);
-		
-		final Figure figWithRef = GMFGraphFactory.eINSTANCE.createEllipse();
-		figWithRef.setName("EF");
-		final FigureRef fr = GMFGraphFactory.eINSTANCE.createFigureRef();
-		fr.setFigure((Figure) myFigureWithLabel.getChildren().get(0));
-		figWithRef.getChildren().add(fr);
-		assertParentOfFirstChild(figWithRef);
-	}
-
-	private static void assertParentOfFirstChild(Figure figure) {
-		final FigureMarker child = figure.getChildren().get(0);
-		assertNotNull(child.getParent());
-		assertEquals(figure, child.getParent());
+	public void testGetAccessor() {
+		assertNotNull(myFigureWithLabelAccess.getAccessor());
+		ChildAccess ca = GMFGraphFactory.eINSTANCE.createChildAccess();
+		ca.setAccessor("a1");
+		assertEquals("a1", ca.getAccessor());
+		//
+		Ellipse el = GMFGraphFactory.eINSTANCE.createEllipse();
+		ca.setFigure(el);
+		assertEquals("a1", ca.getAccessor());
+		el.setName("ElliName");
+		assertEquals("a1", ca.getAccessor());
+		ca.setAccessor("");
+		assertEquals("ElliName", ca.getAccessor());
+		ca.setFigure(null);
+		assertEquals("null", ca.getAccessor());
+		//
+		FigureRef fr = GMFGraphFactory.eINSTANCE.createFigureRef();
+		fr.setFigure(el);
+		ca.setFigure(fr);
+		assertEquals("ElliName", ca.getAccessor());
+		FigureAccessor fa = GMFGraphFactory.eINSTANCE.createFigureAccessor();
+		fa.setAccessor("ThroughFA");
+		CustomFigure cf = GMFGraphFactory.eINSTANCE.createCustomFigure();
+		cf.setQualifiedClassName("org.eclipse.draw2d.IFigure");
+		fa.setTypedFigure(cf);
+		ca.setFigure(cf);
+		assertEquals("ThroughFA", ca.getAccessor());
 	}
 }
