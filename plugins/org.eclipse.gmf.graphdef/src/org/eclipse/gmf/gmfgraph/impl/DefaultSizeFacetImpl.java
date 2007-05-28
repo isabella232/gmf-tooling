@@ -41,7 +41,7 @@ public class DefaultSizeFacetImpl extends EObjectImpl implements DefaultSizeFace
 	 * @generated
 	 * @ordered
 	 */
-	protected Dimension defaultSize = null;
+	protected Dimension defaultSize;
 
 	/**
 	 * <!-- begin-user-doc -->

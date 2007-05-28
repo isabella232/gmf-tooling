@@ -6,26 +6,15 @@
  */
 package org.eclipse.gmf.gmfgraph.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.eclipse.gmf.gmfgraph.CustomFigure;
-import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.FigureAccessor;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,7 +23,6 @@ import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.FigureAccessorImpl#getReferencingElements <em>Referencing Elements</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.FigureAccessorImpl#getAccessor <em>Accessor</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.FigureAccessorImpl#getTypedFigure <em>Typed Figure</em>}</li>
  * </ul>
@@ -43,16 +31,6 @@ import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
  * @generated
  */
 public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
-	/**
-	 * The cached value of the '{@link #getReferencingElements() <em>Referencing Elements</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getReferencingElements()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<DiagramElement> referencingElements = null;
-
 	/**
 	 * The default value of the '{@link #getAccessor() <em>Accessor</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -74,14 +52,14 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	protected String accessor = ACCESSOR_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getTypedFigure() <em>Typed Figure</em>}' reference.
+	 * The cached value of the '{@link #getTypedFigure() <em>Typed Figure</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getTypedFigure()
 	 * @generated
 	 * @ordered
 	 */
-	protected CustomFigure typedFigure = null;
+	protected RealFigure typedFigure;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -100,18 +78,6 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getFigureAccessor();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<DiagramElement> getReferencingElements() {
-		if (referencingElements == null) {
-			referencingElements = new EObjectWithInverseResolvingEList<DiagramElement>(DiagramElement.class, this, GMFGraphPackage.FIGURE_ACCESSOR__REFERENCING_ELEMENTS, GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE);
-		}
-		return referencingElements;
 	}
 
 	/**
@@ -140,15 +106,7 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CustomFigure getTypedFigure() {
-		if (typedFigure != null && typedFigure.eIsProxy()) {
-			InternalEObject oldTypedFigure = (InternalEObject)typedFigure;
-			typedFigure = (CustomFigure)eResolveProxy(oldTypedFigure);
-			if (typedFigure != oldTypedFigure) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGraphPackage.FIGURE_ACCESSOR__TYPED_FIGURE, oldTypedFigure, typedFigure));
-			}
-		}
+	public RealFigure getTypedFigure() {
 		return typedFigure;
 	}
 
@@ -157,20 +115,14 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CustomFigure basicGetTypedFigure() {
-		return typedFigure;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTypedFigure(CustomFigure newTypedFigure) {
-		CustomFigure oldTypedFigure = typedFigure;
+	public NotificationChain basicSetTypedFigure(RealFigure newTypedFigure, NotificationChain msgs) {
+		RealFigure oldTypedFigure = typedFigure;
 		typedFigure = newTypedFigure;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.FIGURE_ACCESSOR__TYPED_FIGURE, oldTypedFigure, typedFigure));
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGraphPackage.FIGURE_ACCESSOR__TYPED_FIGURE, oldTypedFigure, newTypedFigure);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -178,14 +130,18 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
-		@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GMFGraphPackage.FIGURE_ACCESSOR__REFERENCING_ELEMENTS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getReferencingElements()).basicAdd(otherEnd, msgs);
+	public void setTypedFigure(RealFigure newTypedFigure) {
+		if (newTypedFigure != typedFigure) {
+			NotificationChain msgs = null;
+			if (typedFigure != null)
+				msgs = ((InternalEObject)typedFigure).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGraphPackage.FIGURE_ACCESSOR__TYPED_FIGURE, null, msgs);
+			if (newTypedFigure != null)
+				msgs = ((InternalEObject)newTypedFigure).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGraphPackage.FIGURE_ACCESSOR__TYPED_FIGURE, null, msgs);
+			msgs = basicSetTypedFigure(newTypedFigure, msgs);
+			if (msgs != null) msgs.dispatch();
 		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.FIGURE_ACCESSOR__TYPED_FIGURE, newTypedFigure, newTypedFigure));
 	}
 
 	/**
@@ -196,8 +152,8 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFGraphPackage.FIGURE_ACCESSOR__REFERENCING_ELEMENTS:
-				return ((InternalEList<?>)getReferencingElements()).basicRemove(otherEnd, msgs);
+			case GMFGraphPackage.FIGURE_ACCESSOR__TYPED_FIGURE:
+				return basicSetTypedFigure(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -210,13 +166,10 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GMFGraphPackage.FIGURE_ACCESSOR__REFERENCING_ELEMENTS:
-				return getReferencingElements();
 			case GMFGraphPackage.FIGURE_ACCESSOR__ACCESSOR:
 				return getAccessor();
 			case GMFGraphPackage.FIGURE_ACCESSOR__TYPED_FIGURE:
-				if (resolve) return getTypedFigure();
-				return basicGetTypedFigure();
+				return getTypedFigure();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -230,15 +183,11 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGraphPackage.FIGURE_ACCESSOR__REFERENCING_ELEMENTS:
-				getReferencingElements().clear();
-				getReferencingElements().addAll((Collection<? extends DiagramElement>)newValue);
-				return;
 			case GMFGraphPackage.FIGURE_ACCESSOR__ACCESSOR:
 				setAccessor((String)newValue);
 				return;
 			case GMFGraphPackage.FIGURE_ACCESSOR__TYPED_FIGURE:
-				setTypedFigure((CustomFigure)newValue);
+				setTypedFigure((RealFigure)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -252,14 +201,11 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGraphPackage.FIGURE_ACCESSOR__REFERENCING_ELEMENTS:
-				getReferencingElements().clear();
-				return;
 			case GMFGraphPackage.FIGURE_ACCESSOR__ACCESSOR:
 				setAccessor(ACCESSOR_EDEFAULT);
 				return;
 			case GMFGraphPackage.FIGURE_ACCESSOR__TYPED_FIGURE:
-				setTypedFigure((CustomFigure)null);
+				setTypedFigure((RealFigure)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -273,8 +219,6 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GMFGraphPackage.FIGURE_ACCESSOR__REFERENCING_ELEMENTS:
-				return referencingElements != null && !referencingElements.isEmpty();
 			case GMFGraphPackage.FIGURE_ACCESSOR__ACCESSOR:
 				return ACCESSOR_EDEFAULT == null ? accessor != null : !ACCESSOR_EDEFAULT.equals(accessor);
 			case GMFGraphPackage.FIGURE_ACCESSOR__TYPED_FIGURE:

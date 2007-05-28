@@ -72,7 +72,7 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<FigureGallery> figures = null;
+	protected EList<FigureGallery> figures;
 
 	/**
 	 * The cached value of the '{@link #getNodes() <em>Nodes</em>}' containment reference list.
@@ -82,7 +82,7 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Node> nodes = null;
+	protected EList<Node> nodes;
 
 	/**
 	 * The cached value of the '{@link #getConnections() <em>Connections</em>}' containment reference list.
@@ -92,7 +92,7 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Connection> connections = null;
+	protected EList<Connection> connections;
 
 	/**
 	 * The cached value of the '{@link #getCompartments() <em>Compartments</em>}' containment reference list.
@@ -102,7 +102,7 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Compartment> compartments = null;
+	protected EList<Compartment> compartments;
 
 	/**
 	 * The cached value of the '{@link #getLabels() <em>Labels</em>}' containment reference list.
@@ -112,7 +112,7 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<DiagramLabel> labels = null;
+	protected EList<DiagramLabel> labels;
 
 	/**
 	 * <!-- begin-user-doc -->

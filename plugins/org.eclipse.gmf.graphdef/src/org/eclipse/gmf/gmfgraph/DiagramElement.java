@@ -28,7 +28,6 @@ import org.eclipse.emf.common.util.EList;
 public interface DiagramElement extends Identity {
 	/**
 	 * Returns the value of the '<em><b>Figure</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.gmfgraph.FigureHandle#getReferencingElements <em>Referencing Elements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Figure</em>' reference isn't clear,
@@ -36,13 +35,12 @@ public interface DiagramElement extends Identity {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Figure</em>' reference.
-	 * @see #setFigure(FigureHandle)
+	 * @see #setFigure(FigureDescriptor)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getDiagramElement_Figure()
-	 * @see org.eclipse.gmf.gmfgraph.FigureHandle#getReferencingElements
-	 * @model opposite="referencingElements" required="true"
+	 * @model required="true"
 	 * @generated
 	 */
-	FigureHandle getFigure();
+	FigureDescriptor getFigure();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.DiagramElement#getFigure <em>Figure</em>}' reference.
@@ -52,7 +50,7 @@ public interface DiagramElement extends Identity {
 	 * @see #getFigure()
 	 * @generated
 	 */
-	void setFigure(FigureHandle value);
+	void setFigure(FigureDescriptor value);
 
 	/**
 	 * Returns the value of the '<em><b>Facets</b></em>' containment reference list.
@@ -68,16 +66,5 @@ public interface DiagramElement extends Identity {
 	 * @generated
 	 */
 	EList<VisualFacet> getFacets();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * utility operation to get first visual facet assignable (in Java terms, {@link Class#isAssignableFrom(Class)}) to variables of designated class. Argument can't be null
-	 * <!-- end-model-doc -->
-	 * @model
-	 * @generated
-	 */
-	VisualFacet find(Class facetClass);
 
 } // DiagramElement

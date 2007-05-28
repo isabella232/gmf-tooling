@@ -17,5 +17,5 @@ package org.eclipse.gmf.gmfgraph;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface DecorationFigure extends Figure {
+public interface DecorationFigure extends RealFigure {
 } // DecorationFigure

@@ -14,60 +14,6 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.gmf.gmfgraph.*;
 
-import org.eclipse.gmf.gmfgraph.Alignment;
-import org.eclipse.gmf.gmfgraph.AlignmentFacet;
-import org.eclipse.gmf.gmfgraph.BasicFont;
-import org.eclipse.gmf.gmfgraph.BorderLayout;
-import org.eclipse.gmf.gmfgraph.BorderLayoutData;
-import org.eclipse.gmf.gmfgraph.Canvas;
-import org.eclipse.gmf.gmfgraph.ColorConstants;
-import org.eclipse.gmf.gmfgraph.Compartment;
-import org.eclipse.gmf.gmfgraph.CompoundBorder;
-import org.eclipse.gmf.gmfgraph.Connection;
-import org.eclipse.gmf.gmfgraph.ConstantColor;
-import org.eclipse.gmf.gmfgraph.CustomAttribute;
-import org.eclipse.gmf.gmfgraph.CustomBorder;
-import org.eclipse.gmf.gmfgraph.CustomConnection;
-import org.eclipse.gmf.gmfgraph.CustomDecoration;
-import org.eclipse.gmf.gmfgraph.CustomFigure;
-import org.eclipse.gmf.gmfgraph.CustomLayout;
-import org.eclipse.gmf.gmfgraph.CustomLayoutData;
-import org.eclipse.gmf.gmfgraph.DiagramLabel;
-import org.eclipse.gmf.gmfgraph.Dimension;
-import org.eclipse.gmf.gmfgraph.Direction;
-import org.eclipse.gmf.gmfgraph.Ellipse;
-import org.eclipse.gmf.gmfgraph.FigureAccessor;
-import org.eclipse.gmf.gmfgraph.FigureGallery;
-import org.eclipse.gmf.gmfgraph.FigureRef;
-import org.eclipse.gmf.gmfgraph.FlowLayout;
-import org.eclipse.gmf.gmfgraph.FontStyle;
-import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
-import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.gmfgraph.GeneralFacet;
-import org.eclipse.gmf.gmfgraph.GradientFacet;
-import org.eclipse.gmf.gmfgraph.GridLayout;
-import org.eclipse.gmf.gmfgraph.GridLayoutData;
-import org.eclipse.gmf.gmfgraph.Insets;
-import org.eclipse.gmf.gmfgraph.Label;
-import org.eclipse.gmf.gmfgraph.LabelOffsetFacet;
-import org.eclipse.gmf.gmfgraph.LabeledContainer;
-import org.eclipse.gmf.gmfgraph.LineBorder;
-import org.eclipse.gmf.gmfgraph.LineKind;
-import org.eclipse.gmf.gmfgraph.MarginBorder;
-import org.eclipse.gmf.gmfgraph.Node;
-import org.eclipse.gmf.gmfgraph.Point;
-import org.eclipse.gmf.gmfgraph.Polygon;
-import org.eclipse.gmf.gmfgraph.PolygonDecoration;
-import org.eclipse.gmf.gmfgraph.Polyline;
-import org.eclipse.gmf.gmfgraph.PolylineConnection;
-import org.eclipse.gmf.gmfgraph.PolylineDecoration;
-import org.eclipse.gmf.gmfgraph.RGBColor;
-import org.eclipse.gmf.gmfgraph.Rectangle;
-import org.eclipse.gmf.gmfgraph.RoundedRectangle;
-import org.eclipse.gmf.gmfgraph.StackLayout;
-import org.eclipse.gmf.gmfgraph.XYLayout;
-import org.eclipse.gmf.gmfgraph.XYLayoutData;
-
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model <b>Factory</b>.
@@ -83,7 +29,7 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	 */
 	public static GMFGraphFactory init() {
 		try {
-			GMFGraphFactory theGMFGraphFactory = (GMFGraphFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/gmf/2005/GraphicalDefinition"); 
+			GMFGraphFactory theGMFGraphFactory = (GMFGraphFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/gmf/2006/GraphicalDefinition"); 
 			if (theGMFGraphFactory != null) {
 				return theGMFGraphFactory;
 			}
@@ -123,6 +69,8 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.GRADIENT_FACET: return createGradientFacet();
 			case GMFGraphPackage.LABEL_OFFSET_FACET: return createLabelOffsetFacet();
 			case GMFGraphPackage.DEFAULT_SIZE_FACET: return createDefaultSizeFacet();
+			case GMFGraphPackage.FIGURE_DESCRIPTOR: return createFigureDescriptor();
+			case GMFGraphPackage.CHILD_ACCESS: return createChildAccess();
 			case GMFGraphPackage.FIGURE_REF: return createFigureRef();
 			case GMFGraphPackage.LABEL: return createLabel();
 			case GMFGraphPackage.LABELED_CONTAINER: return createLabeledContainer();
@@ -246,6 +194,16 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ChildAccess createChildAccess() {
+		ChildAccessImpl childAccess = new ChildAccessImpl();
+		return childAccess;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Connection createConnection() {
 		ConnectionImpl connection = new ConnectionImpl();
 		return connection;
@@ -319,6 +277,16 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	public DefaultSizeFacet createDefaultSizeFacet() {
 		DefaultSizeFacetImpl defaultSizeFacet = new DefaultSizeFacetImpl();
 		return defaultSizeFacet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FigureDescriptor createFigureDescriptor() {
+		FigureDescriptorImpl figureDescriptor = new FigureDescriptorImpl();
+		return figureDescriptor;
 	}
 
 	/**

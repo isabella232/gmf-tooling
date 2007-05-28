@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.gmfgraph.CustomClass#getQualifiedClassName <em>Qualified Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.CustomClass#getBundleName <em>Bundle Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.CustomClass#getAttributes <em>Attributes</em>}</li>
  * </ul>
  * </p>
@@ -53,32 +52,6 @@ public interface CustomClass extends EObject {
 	 * @generated
 	 */
 	void setQualifiedClassName(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Bundle Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Bundle Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Bundle Name</em>' attribute.
-	 * @see #setBundleName(String)
-	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getCustomClass_BundleName()
-	 * @model
-	 * @generated
-	 */
-	String getBundleName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.CustomClass#getBundleName <em>Bundle Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Bundle Name</em>' attribute.
-	 * @see #getBundleName()
-	 * @generated
-	 */
-	void setBundleName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Attributes</b></em>' containment reference list.

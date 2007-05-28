@@ -35,7 +35,7 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface Shape extends Figure {
+public interface Shape extends RealFigure {
 	/**
 	 * Returns the value of the '<em><b>Outline</b></em>' attribute.
 	 * The default value is <code>"true"</code>.

@@ -38,7 +38,7 @@ public class BorderLayoutImpl extends EObjectImpl implements BorderLayout {
 	 * @generated
 	 * @ordered
 	 */
-	protected Dimension spacing = null;
+	protected Dimension spacing;
 
 	/**
 	 * <!-- begin-user-doc -->

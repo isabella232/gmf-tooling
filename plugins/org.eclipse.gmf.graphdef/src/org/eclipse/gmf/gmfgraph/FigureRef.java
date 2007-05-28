@@ -27,21 +27,21 @@ package org.eclipse.gmf.gmfgraph;
  * @model
  * @generated
  */
-public interface FigureRef extends FigureMarker {
+public interface FigureRef extends AbstractFigure {
 	/**
 	 * Returns the value of the '<em><b>Figure</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * not FigureMarker because don't want to reference figure references.
+	 * not just Figure because don't want to reference figure references.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Figure</em>' reference.
-	 * @see #setFigure(Figure)
+	 * @see #setFigure(RealFigure)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFigureRef_Figure()
 	 * @model required="true"
 	 * @generated
 	 */
-	Figure getFigure();
+	RealFigure getFigure();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.FigureRef#getFigure <em>Figure</em>}' reference.
@@ -51,6 +51,6 @@ public interface FigureRef extends FigureMarker {
 	 * @see #getFigure()
 	 * @generated
 	 */
-	void setFigure(Figure value);
+	void setFigure(RealFigure value);
 
 } // FigureRef

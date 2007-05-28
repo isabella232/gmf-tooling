@@ -17,6 +17,7 @@ package org.eclipse.gmf.gmfgraph;
  * <ul>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Compartment#isCollapsible <em>Collapsible</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Compartment#isNeedsTitle <em>Needs Title</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.Compartment#getAccessor <em>Accessor</em>}</li>
  * </ul>
  * </p>
  *
@@ -76,5 +77,31 @@ public interface Compartment extends DiagramElement{
 	 * @generated
 	 */
 	void setNeedsTitle(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Accessor</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Accessor</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Accessor</em>' reference.
+	 * @see #setAccessor(ChildAccess)
+	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getCompartment_Accessor()
+	 * @model
+	 * @generated
+	 */
+	ChildAccess getAccessor();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.Compartment#getAccessor <em>Accessor</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Accessor</em>' reference.
+	 * @see #getAccessor()
+	 * @generated
+	 */
+	void setAccessor(ChildAccess value);
 
 } // Compartment

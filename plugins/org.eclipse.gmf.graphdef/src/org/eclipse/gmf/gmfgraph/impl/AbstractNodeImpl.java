@@ -7,25 +7,26 @@
 package org.eclipse.gmf.gmfgraph.impl;
 
 import org.eclipse.emf.ecore.EClass;
+
+import org.eclipse.gmf.gmfgraph.AbstractNode;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.gmfgraph.LabeledContainer;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Labeled Container</b></em>'.
+ * An implementation of the model object '<em><b>Abstract Node</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class LabeledContainerImpl extends RealFigureImpl implements LabeledContainer {
+public abstract class AbstractNodeImpl extends DiagramElementImpl implements AbstractNode {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected LabeledContainerImpl() {
+	protected AbstractNodeImpl() {
 		super();
 	}
 
@@ -36,7 +37,7 @@ public class LabeledContainerImpl extends RealFigureImpl implements LabeledConta
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return GMFGraphPackage.eINSTANCE.getLabeledContainer();
+		return GMFGraphPackage.eINSTANCE.getAbstractNode();
 	}
 
-} //LabeledContainerImpl
+} //AbstractNodeImpl

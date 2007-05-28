@@ -12,70 +12,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.gmfgraph.*;
 
-import org.eclipse.gmf.gmfgraph.AlignmentFacet;
-import org.eclipse.gmf.gmfgraph.BasicFont;
-import org.eclipse.gmf.gmfgraph.Border;
-import org.eclipse.gmf.gmfgraph.BorderLayout;
-import org.eclipse.gmf.gmfgraph.BorderLayoutData;
-import org.eclipse.gmf.gmfgraph.Canvas;
-import org.eclipse.gmf.gmfgraph.Color;
-import org.eclipse.gmf.gmfgraph.Compartment;
-import org.eclipse.gmf.gmfgraph.CompoundBorder;
-import org.eclipse.gmf.gmfgraph.Connection;
-import org.eclipse.gmf.gmfgraph.ConnectionFigure;
-import org.eclipse.gmf.gmfgraph.ConstantColor;
-import org.eclipse.gmf.gmfgraph.CustomAttribute;
-import org.eclipse.gmf.gmfgraph.CustomBorder;
-import org.eclipse.gmf.gmfgraph.CustomClass;
-import org.eclipse.gmf.gmfgraph.CustomConnection;
-import org.eclipse.gmf.gmfgraph.CustomDecoration;
-import org.eclipse.gmf.gmfgraph.CustomFigure;
-import org.eclipse.gmf.gmfgraph.CustomLayout;
-import org.eclipse.gmf.gmfgraph.CustomLayoutData;
-import org.eclipse.gmf.gmfgraph.DecorationFigure;
-import org.eclipse.gmf.gmfgraph.DiagramElement;
-import org.eclipse.gmf.gmfgraph.DiagramLabel;
-import org.eclipse.gmf.gmfgraph.Dimension;
-import org.eclipse.gmf.gmfgraph.Ellipse;
-import org.eclipse.gmf.gmfgraph.Figure;
-import org.eclipse.gmf.gmfgraph.FigureAccessor;
-import org.eclipse.gmf.gmfgraph.FigureGallery;
-import org.eclipse.gmf.gmfgraph.FigureHandle;
-import org.eclipse.gmf.gmfgraph.FigureMarker;
-import org.eclipse.gmf.gmfgraph.FigureRef;
-import org.eclipse.gmf.gmfgraph.FlowLayout;
-import org.eclipse.gmf.gmfgraph.Font;
-import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.gmfgraph.GeneralFacet;
-import org.eclipse.gmf.gmfgraph.GradientFacet;
-import org.eclipse.gmf.gmfgraph.GridLayout;
-import org.eclipse.gmf.gmfgraph.GridLayoutData;
-import org.eclipse.gmf.gmfgraph.Identity;
-import org.eclipse.gmf.gmfgraph.Insets;
-import org.eclipse.gmf.gmfgraph.Label;
-import org.eclipse.gmf.gmfgraph.LabelOffsetFacet;
-import org.eclipse.gmf.gmfgraph.LabeledContainer;
-import org.eclipse.gmf.gmfgraph.Layout;
-import org.eclipse.gmf.gmfgraph.LayoutData;
-import org.eclipse.gmf.gmfgraph.Layoutable;
-import org.eclipse.gmf.gmfgraph.LineBorder;
-import org.eclipse.gmf.gmfgraph.MarginBorder;
-import org.eclipse.gmf.gmfgraph.Node;
-import org.eclipse.gmf.gmfgraph.Point;
-import org.eclipse.gmf.gmfgraph.Polygon;
-import org.eclipse.gmf.gmfgraph.PolygonDecoration;
-import org.eclipse.gmf.gmfgraph.Polyline;
-import org.eclipse.gmf.gmfgraph.PolylineConnection;
-import org.eclipse.gmf.gmfgraph.PolylineDecoration;
-import org.eclipse.gmf.gmfgraph.RGBColor;
-import org.eclipse.gmf.gmfgraph.Rectangle;
-import org.eclipse.gmf.gmfgraph.RoundedRectangle;
-import org.eclipse.gmf.gmfgraph.Shape;
-import org.eclipse.gmf.gmfgraph.StackLayout;
-import org.eclipse.gmf.gmfgraph.VisualFacet;
-import org.eclipse.gmf.gmfgraph.XYLayout;
-import org.eclipse.gmf.gmfgraph.XYLayoutData;
-
 /**
  * <!-- begin-user-doc -->
  * The <b>Switch</b> for the model's inheritance hierarchy.
@@ -177,9 +113,18 @@ public class GMFGraphSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGraphPackage.ABSTRACT_NODE: {
+				AbstractNode abstractNode = (AbstractNode)theEObject;
+				T result = caseAbstractNode(abstractNode);
+				if (result == null) result = caseDiagramElement(abstractNode);
+				if (result == null) result = caseIdentity(abstractNode);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGraphPackage.NODE: {
 				Node node = (Node)theEObject;
 				T result = caseNode(node);
+				if (result == null) result = caseAbstractNode(node);
 				if (result == null) result = caseDiagramElement(node);
 				if (result == null) result = caseIdentity(node);
 				if (result == null) result = defaultCase(theEObject);
@@ -205,6 +150,7 @@ public class GMFGraphSwitch<T> {
 				DiagramLabel diagramLabel = (DiagramLabel)theEObject;
 				T result = caseDiagramLabel(diagramLabel);
 				if (result == null) result = caseNode(diagramLabel);
+				if (result == null) result = caseAbstractNode(diagramLabel);
 				if (result == null) result = caseDiagramElement(diagramLabel);
 				if (result == null) result = caseIdentity(diagramLabel);
 				if (result == null) result = defaultCase(theEObject);
@@ -251,33 +197,48 @@ public class GMFGraphSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFGraphPackage.FIGURE_MARKER: {
-				FigureMarker figureMarker = (FigureMarker)theEObject;
-				T result = caseFigureMarker(figureMarker);
-				if (result == null) result = caseLayoutable(figureMarker);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GMFGraphPackage.FIGURE_HANDLE: {
-				FigureHandle figureHandle = (FigureHandle)theEObject;
-				T result = caseFigureHandle(figureHandle);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case GMFGraphPackage.FIGURE: {
 				Figure figure = (Figure)theEObject;
 				T result = caseFigure(figure);
-				if (result == null) result = caseFigureMarker(figure);
-				if (result == null) result = caseFigureHandle(figure);
-				if (result == null) result = caseIdentity(figure);
 				if (result == null) result = caseLayoutable(figure);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.ABSTRACT_FIGURE: {
+				AbstractFigure abstractFigure = (AbstractFigure)theEObject;
+				T result = caseAbstractFigure(abstractFigure);
+				if (result == null) result = caseFigure(abstractFigure);
+				if (result == null) result = caseLayoutable(abstractFigure);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.FIGURE_DESCRIPTOR: {
+				FigureDescriptor figureDescriptor = (FigureDescriptor)theEObject;
+				T result = caseFigureDescriptor(figureDescriptor);
+				if (result == null) result = caseIdentity(figureDescriptor);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.CHILD_ACCESS: {
+				ChildAccess childAccess = (ChildAccess)theEObject;
+				T result = caseChildAccess(childAccess);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.REAL_FIGURE: {
+				RealFigure realFigure = (RealFigure)theEObject;
+				T result = caseRealFigure(realFigure);
+				if (result == null) result = caseAbstractFigure(realFigure);
+				if (result == null) result = caseFigure(realFigure);
+				if (result == null) result = caseLayoutable(realFigure);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.FIGURE_REF: {
 				FigureRef figureRef = (FigureRef)theEObject;
 				T result = caseFigureRef(figureRef);
-				if (result == null) result = caseFigureMarker(figureRef);
+				if (result == null) result = caseAbstractFigure(figureRef);
+				if (result == null) result = caseFigure(figureRef);
 				if (result == null) result = caseLayoutable(figureRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -285,10 +246,9 @@ public class GMFGraphSwitch<T> {
 			case GMFGraphPackage.CONNECTION_FIGURE: {
 				ConnectionFigure connectionFigure = (ConnectionFigure)theEObject;
 				T result = caseConnectionFigure(connectionFigure);
+				if (result == null) result = caseRealFigure(connectionFigure);
+				if (result == null) result = caseAbstractFigure(connectionFigure);
 				if (result == null) result = caseFigure(connectionFigure);
-				if (result == null) result = caseFigureMarker(connectionFigure);
-				if (result == null) result = caseFigureHandle(connectionFigure);
-				if (result == null) result = caseIdentity(connectionFigure);
 				if (result == null) result = caseLayoutable(connectionFigure);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -296,10 +256,9 @@ public class GMFGraphSwitch<T> {
 			case GMFGraphPackage.DECORATION_FIGURE: {
 				DecorationFigure decorationFigure = (DecorationFigure)theEObject;
 				T result = caseDecorationFigure(decorationFigure);
+				if (result == null) result = caseRealFigure(decorationFigure);
+				if (result == null) result = caseAbstractFigure(decorationFigure);
 				if (result == null) result = caseFigure(decorationFigure);
-				if (result == null) result = caseFigureMarker(decorationFigure);
-				if (result == null) result = caseFigureHandle(decorationFigure);
-				if (result == null) result = caseIdentity(decorationFigure);
 				if (result == null) result = caseLayoutable(decorationFigure);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -307,10 +266,9 @@ public class GMFGraphSwitch<T> {
 			case GMFGraphPackage.SHAPE: {
 				Shape shape = (Shape)theEObject;
 				T result = caseShape(shape);
+				if (result == null) result = caseRealFigure(shape);
+				if (result == null) result = caseAbstractFigure(shape);
 				if (result == null) result = caseFigure(shape);
-				if (result == null) result = caseFigureMarker(shape);
-				if (result == null) result = caseFigureHandle(shape);
-				if (result == null) result = caseIdentity(shape);
 				if (result == null) result = caseLayoutable(shape);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -318,10 +276,9 @@ public class GMFGraphSwitch<T> {
 			case GMFGraphPackage.LABEL: {
 				Label label = (Label)theEObject;
 				T result = caseLabel(label);
+				if (result == null) result = caseRealFigure(label);
+				if (result == null) result = caseAbstractFigure(label);
 				if (result == null) result = caseFigure(label);
-				if (result == null) result = caseFigureMarker(label);
-				if (result == null) result = caseFigureHandle(label);
-				if (result == null) result = caseIdentity(label);
 				if (result == null) result = caseLayoutable(label);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -329,10 +286,9 @@ public class GMFGraphSwitch<T> {
 			case GMFGraphPackage.LABELED_CONTAINER: {
 				LabeledContainer labeledContainer = (LabeledContainer)theEObject;
 				T result = caseLabeledContainer(labeledContainer);
+				if (result == null) result = caseRealFigure(labeledContainer);
+				if (result == null) result = caseAbstractFigure(labeledContainer);
 				if (result == null) result = caseFigure(labeledContainer);
-				if (result == null) result = caseFigureMarker(labeledContainer);
-				if (result == null) result = caseFigureHandle(labeledContainer);
-				if (result == null) result = caseIdentity(labeledContainer);
 				if (result == null) result = caseLayoutable(labeledContainer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -341,10 +297,9 @@ public class GMFGraphSwitch<T> {
 				Rectangle rectangle = (Rectangle)theEObject;
 				T result = caseRectangle(rectangle);
 				if (result == null) result = caseShape(rectangle);
+				if (result == null) result = caseRealFigure(rectangle);
+				if (result == null) result = caseAbstractFigure(rectangle);
 				if (result == null) result = caseFigure(rectangle);
-				if (result == null) result = caseFigureMarker(rectangle);
-				if (result == null) result = caseFigureHandle(rectangle);
-				if (result == null) result = caseIdentity(rectangle);
 				if (result == null) result = caseLayoutable(rectangle);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -353,10 +308,9 @@ public class GMFGraphSwitch<T> {
 				RoundedRectangle roundedRectangle = (RoundedRectangle)theEObject;
 				T result = caseRoundedRectangle(roundedRectangle);
 				if (result == null) result = caseShape(roundedRectangle);
+				if (result == null) result = caseRealFigure(roundedRectangle);
+				if (result == null) result = caseAbstractFigure(roundedRectangle);
 				if (result == null) result = caseFigure(roundedRectangle);
-				if (result == null) result = caseFigureMarker(roundedRectangle);
-				if (result == null) result = caseFigureHandle(roundedRectangle);
-				if (result == null) result = caseIdentity(roundedRectangle);
 				if (result == null) result = caseLayoutable(roundedRectangle);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -365,10 +319,9 @@ public class GMFGraphSwitch<T> {
 				Ellipse ellipse = (Ellipse)theEObject;
 				T result = caseEllipse(ellipse);
 				if (result == null) result = caseShape(ellipse);
+				if (result == null) result = caseRealFigure(ellipse);
+				if (result == null) result = caseAbstractFigure(ellipse);
 				if (result == null) result = caseFigure(ellipse);
-				if (result == null) result = caseFigureMarker(ellipse);
-				if (result == null) result = caseFigureHandle(ellipse);
-				if (result == null) result = caseIdentity(ellipse);
 				if (result == null) result = caseLayoutable(ellipse);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -377,10 +330,9 @@ public class GMFGraphSwitch<T> {
 				Polyline polyline = (Polyline)theEObject;
 				T result = casePolyline(polyline);
 				if (result == null) result = caseShape(polyline);
+				if (result == null) result = caseRealFigure(polyline);
+				if (result == null) result = caseAbstractFigure(polyline);
 				if (result == null) result = caseFigure(polyline);
-				if (result == null) result = caseFigureMarker(polyline);
-				if (result == null) result = caseFigureHandle(polyline);
-				if (result == null) result = caseIdentity(polyline);
 				if (result == null) result = caseLayoutable(polyline);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -390,10 +342,9 @@ public class GMFGraphSwitch<T> {
 				T result = casePolygon(polygon);
 				if (result == null) result = casePolyline(polygon);
 				if (result == null) result = caseShape(polygon);
+				if (result == null) result = caseRealFigure(polygon);
+				if (result == null) result = caseAbstractFigure(polygon);
 				if (result == null) result = caseFigure(polygon);
-				if (result == null) result = caseFigureMarker(polygon);
-				if (result == null) result = caseFigureHandle(polygon);
-				if (result == null) result = caseIdentity(polygon);
 				if (result == null) result = caseLayoutable(polygon);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -404,10 +355,9 @@ public class GMFGraphSwitch<T> {
 				if (result == null) result = casePolygon(scalablePolygon);
 				if (result == null) result = casePolyline(scalablePolygon);
 				if (result == null) result = caseShape(scalablePolygon);
+				if (result == null) result = caseRealFigure(scalablePolygon);
+				if (result == null) result = caseAbstractFigure(scalablePolygon);
 				if (result == null) result = caseFigure(scalablePolygon);
-				if (result == null) result = caseFigureMarker(scalablePolygon);
-				if (result == null) result = caseFigureHandle(scalablePolygon);
-				if (result == null) result = caseIdentity(scalablePolygon);
 				if (result == null) result = caseLayoutable(scalablePolygon);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -418,10 +368,9 @@ public class GMFGraphSwitch<T> {
 				if (result == null) result = casePolyline(polylineConnection);
 				if (result == null) result = caseConnectionFigure(polylineConnection);
 				if (result == null) result = caseShape(polylineConnection);
+				if (result == null) result = caseRealFigure(polylineConnection);
+				if (result == null) result = caseAbstractFigure(polylineConnection);
 				if (result == null) result = caseFigure(polylineConnection);
-				if (result == null) result = caseFigureMarker(polylineConnection);
-				if (result == null) result = caseFigureHandle(polylineConnection);
-				if (result == null) result = caseIdentity(polylineConnection);
 				if (result == null) result = caseLayoutable(polylineConnection);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -432,10 +381,9 @@ public class GMFGraphSwitch<T> {
 				if (result == null) result = casePolyline(polylineDecoration);
 				if (result == null) result = caseDecorationFigure(polylineDecoration);
 				if (result == null) result = caseShape(polylineDecoration);
+				if (result == null) result = caseRealFigure(polylineDecoration);
+				if (result == null) result = caseAbstractFigure(polylineDecoration);
 				if (result == null) result = caseFigure(polylineDecoration);
-				if (result == null) result = caseFigureMarker(polylineDecoration);
-				if (result == null) result = caseFigureHandle(polylineDecoration);
-				if (result == null) result = caseIdentity(polylineDecoration);
 				if (result == null) result = caseLayoutable(polylineDecoration);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -446,11 +394,10 @@ public class GMFGraphSwitch<T> {
 				if (result == null) result = casePolygon(polygonDecoration);
 				if (result == null) result = caseDecorationFigure(polygonDecoration);
 				if (result == null) result = casePolyline(polygonDecoration);
-				if (result == null) result = caseFigure(polygonDecoration);
+				if (result == null) result = caseRealFigure(polygonDecoration);
 				if (result == null) result = caseShape(polygonDecoration);
-				if (result == null) result = caseFigureMarker(polygonDecoration);
-				if (result == null) result = caseFigureHandle(polygonDecoration);
-				if (result == null) result = caseIdentity(polygonDecoration);
+				if (result == null) result = caseAbstractFigure(polygonDecoration);
+				if (result == null) result = caseFigure(polygonDecoration);
 				if (result == null) result = caseLayoutable(polygonDecoration);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -470,18 +417,16 @@ public class GMFGraphSwitch<T> {
 			case GMFGraphPackage.FIGURE_ACCESSOR: {
 				FigureAccessor figureAccessor = (FigureAccessor)theEObject;
 				T result = caseFigureAccessor(figureAccessor);
-				if (result == null) result = caseFigureHandle(figureAccessor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.CUSTOM_FIGURE: {
 				CustomFigure customFigure = (CustomFigure)theEObject;
 				T result = caseCustomFigure(customFigure);
-				if (result == null) result = caseFigure(customFigure);
+				if (result == null) result = caseRealFigure(customFigure);
 				if (result == null) result = caseCustomClass(customFigure);
-				if (result == null) result = caseFigureMarker(customFigure);
-				if (result == null) result = caseFigureHandle(customFigure);
-				if (result == null) result = caseIdentity(customFigure);
+				if (result == null) result = caseAbstractFigure(customFigure);
+				if (result == null) result = caseFigure(customFigure);
 				if (result == null) result = caseLayoutable(customFigure);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -491,11 +436,10 @@ public class GMFGraphSwitch<T> {
 				T result = caseCustomDecoration(customDecoration);
 				if (result == null) result = caseCustomFigure(customDecoration);
 				if (result == null) result = caseDecorationFigure(customDecoration);
-				if (result == null) result = caseFigure(customDecoration);
+				if (result == null) result = caseRealFigure(customDecoration);
 				if (result == null) result = caseCustomClass(customDecoration);
-				if (result == null) result = caseFigureMarker(customDecoration);
-				if (result == null) result = caseFigureHandle(customDecoration);
-				if (result == null) result = caseIdentity(customDecoration);
+				if (result == null) result = caseAbstractFigure(customDecoration);
+				if (result == null) result = caseFigure(customDecoration);
 				if (result == null) result = caseLayoutable(customDecoration);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -505,11 +449,10 @@ public class GMFGraphSwitch<T> {
 				T result = caseCustomConnection(customConnection);
 				if (result == null) result = caseCustomFigure(customConnection);
 				if (result == null) result = caseConnectionFigure(customConnection);
-				if (result == null) result = caseFigure(customConnection);
+				if (result == null) result = caseRealFigure(customConnection);
 				if (result == null) result = caseCustomClass(customConnection);
-				if (result == null) result = caseFigureMarker(customConnection);
-				if (result == null) result = caseFigureHandle(customConnection);
-				if (result == null) result = caseIdentity(customConnection);
+				if (result == null) result = caseAbstractFigure(customConnection);
+				if (result == null) result = caseFigure(customConnection);
 				if (result == null) result = caseLayoutable(customConnection);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -755,6 +698,21 @@ public class GMFGraphSwitch<T> {
 	}
 
 	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Abstract Node</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Abstract Node</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAbstractNode(AbstractNode object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpretting the object as an instance of '<em>Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -766,6 +724,36 @@ public class GMFGraphSwitch<T> {
 	 * @generated
 	 */
 	public T caseNode(Node object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Child Access</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Child Access</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseChildAccess(ChildAccess object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Real Figure</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Real Figure</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRealFigure(RealFigure object) {
 		return null;
 	}
 
@@ -905,36 +893,6 @@ public class GMFGraphSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Figure Marker</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Figure Marker</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseFigureMarker(FigureMarker object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Figure Handle</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Figure Handle</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseFigureHandle(FigureHandle object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpretting the object as an instance of '<em>Figure</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -946,6 +904,36 @@ public class GMFGraphSwitch<T> {
 	 * @generated
 	 */
 	public T caseFigure(Figure object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Figure Descriptor</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Figure Descriptor</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFigureDescriptor(FigureDescriptor object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Abstract Figure</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Abstract Figure</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAbstractFigure(AbstractFigure object) {
 		return null;
 	}
 

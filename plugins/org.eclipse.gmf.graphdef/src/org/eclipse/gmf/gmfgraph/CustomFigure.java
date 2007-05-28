@@ -29,7 +29,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface CustomFigure extends Figure, CustomClass {
+public interface CustomFigure extends RealFigure, CustomClass {
 	/**
 	 * Returns the value of the '<em><b>Custom Children</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.gmfgraph.FigureAccessor}.
@@ -39,6 +39,9 @@ public interface CustomFigure extends Figure, CustomClass {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Childrent enumerated with this feature are mere 'access points' to actual structure of the CustomFigure. They are not created, unlike those contained in regular Figure#children
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Custom Children</em>' containment reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getCustomFigure_CustomChildren()
 	 * @model type="org.eclipse.gmf.gmfgraph.FigureAccessor" containment="true"

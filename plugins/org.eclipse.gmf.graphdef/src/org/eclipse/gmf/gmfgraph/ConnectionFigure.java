@@ -17,5 +17,5 @@ package org.eclipse.gmf.gmfgraph;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface ConnectionFigure extends Figure {
+public interface ConnectionFigure extends RealFigure {
 } // ConnectionFigure

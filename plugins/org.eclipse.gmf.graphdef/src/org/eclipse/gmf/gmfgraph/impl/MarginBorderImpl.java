@@ -38,7 +38,7 @@ public class MarginBorderImpl extends EObjectImpl implements MarginBorder {
 	 * @generated
 	 * @ordered
 	 */
-	protected Insets insets = null;
+	protected Insets insets;
 
 	/**
 	 * <!-- begin-user-doc -->

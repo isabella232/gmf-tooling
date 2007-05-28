@@ -21,5 +21,5 @@ package org.eclipse.gmf.gmfgraph;
  * @model
  * @generated
  */
-public interface LabeledContainer extends Figure {
+public interface LabeledContainer extends RealFigure {
 } // LabeledContainer

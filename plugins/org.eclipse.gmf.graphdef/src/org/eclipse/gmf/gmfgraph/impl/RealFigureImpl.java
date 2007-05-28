@@ -10,34 +10,36 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.gmf.gmfgraph.DiagramElement;
-import org.eclipse.gmf.gmfgraph.FigureDescriptor;
+
+import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.gmfgraph.VisualFacet;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Diagram Element</b></em>'.
+ * An implementation of the model object '<em><b>Real Figure</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.DiagramElementImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.DiagramElementImpl#getFigure <em>Figure</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.DiagramElementImpl#getFacets <em>Facets</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.RealFigureImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.RealFigureImpl#getChildren <em>Children</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public abstract class DiagramElementImpl extends EObjectImpl implements DiagramElement {
+public abstract class RealFigureImpl extends AbstractFigureImpl implements RealFigure {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -59,31 +61,21 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getFigure() <em>Figure</em>}' reference.
+	 * The cached value of the '{@link #getChildren() <em>Children</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getFigure()
+	 * @see #getChildren()
 	 * @generated
 	 * @ordered
 	 */
-	protected FigureDescriptor figure;
-
-	/**
-	 * The cached value of the '{@link #getFacets() <em>Facets</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFacets()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<VisualFacet> facets;
+	protected EList<Figure> children;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected DiagramElementImpl() {
+	protected RealFigureImpl() {
 		super();
 	}
 
@@ -94,7 +86,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return GMFGraphPackage.eINSTANCE.getDiagramElement();
+		return GMFGraphPackage.eINSTANCE.getRealFigure();
 	}
 
 	/**
@@ -115,7 +107,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.DIAGRAM_ELEMENT__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.REAL_FIGURE__NAME, oldName, name));
 	}
 
 	/**
@@ -123,49 +115,11 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FigureDescriptor getFigure() {
-		if (figure != null && figure.eIsProxy()) {
-			InternalEObject oldFigure = (InternalEObject)figure;
-			figure = (FigureDescriptor)eResolveProxy(oldFigure);
-			if (figure != oldFigure) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE, oldFigure, figure));
-			}
+	public EList<Figure> getChildren() {
+		if (children == null) {
+			children = new EObjectContainmentEList<Figure>(Figure.class, this, GMFGraphPackage.REAL_FIGURE__CHILDREN);
 		}
-		return figure;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FigureDescriptor basicGetFigure() {
-		return figure;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setFigure(FigureDescriptor newFigure) {
-		FigureDescriptor oldFigure = figure;
-		figure = newFigure;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE, oldFigure, figure));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<VisualFacet> getFacets() {
-		if (facets == null) {
-			facets = new EObjectContainmentEList<VisualFacet>(VisualFacet.class, this, GMFGraphPackage.DIAGRAM_ELEMENT__FACETS);
-		}
-		return facets;
+		return children;
 	}
 
 	/**
@@ -176,8 +130,8 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFGraphPackage.DIAGRAM_ELEMENT__FACETS:
-				return ((InternalEList<?>)getFacets()).basicRemove(otherEnd, msgs);
+			case GMFGraphPackage.REAL_FIGURE__CHILDREN:
+				return ((InternalEList<?>)getChildren()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -190,13 +144,10 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GMFGraphPackage.DIAGRAM_ELEMENT__NAME:
+			case GMFGraphPackage.REAL_FIGURE__NAME:
 				return getName();
-			case GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE:
-				if (resolve) return getFigure();
-				return basicGetFigure();
-			case GMFGraphPackage.DIAGRAM_ELEMENT__FACETS:
-				return getFacets();
+			case GMFGraphPackage.REAL_FIGURE__CHILDREN:
+				return getChildren();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -207,18 +158,15 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-		@Override
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGraphPackage.DIAGRAM_ELEMENT__NAME:
+			case GMFGraphPackage.REAL_FIGURE__NAME:
 				setName((String)newValue);
 				return;
-			case GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE:
-				setFigure((FigureDescriptor)newValue);
-				return;
-			case GMFGraphPackage.DIAGRAM_ELEMENT__FACETS:
-				getFacets().clear();
-				getFacets().addAll((Collection<? extends VisualFacet>)newValue);
+			case GMFGraphPackage.REAL_FIGURE__CHILDREN:
+				getChildren().clear();
+				getChildren().addAll((Collection<? extends Figure>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -232,14 +180,11 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGraphPackage.DIAGRAM_ELEMENT__NAME:
+			case GMFGraphPackage.REAL_FIGURE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE:
-				setFigure((FigureDescriptor)null);
-				return;
-			case GMFGraphPackage.DIAGRAM_ELEMENT__FACETS:
-				getFacets().clear();
+			case GMFGraphPackage.REAL_FIGURE__CHILDREN:
+				getChildren().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -253,12 +198,10 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GMFGraphPackage.DIAGRAM_ELEMENT__NAME:
+			case GMFGraphPackage.REAL_FIGURE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE:
-				return figure != null;
-			case GMFGraphPackage.DIAGRAM_ELEMENT__FACETS:
-				return facets != null && !facets.isEmpty();
+			case GMFGraphPackage.REAL_FIGURE__CHILDREN:
+				return children != null && !children.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -279,4 +222,4 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 		return result.toString();
 	}
 
-} //DiagramElementImpl
+} //RealFigureImpl

@@ -189,7 +189,7 @@ public class GridLayoutDataImpl extends EObjectImpl implements GridLayoutData {
 	 * @generated
 	 * @ordered
 	 */
-	protected Dimension sizeHint = null;
+	protected Dimension sizeHint;
 
 	/**
 	 * <!-- begin-user-doc -->

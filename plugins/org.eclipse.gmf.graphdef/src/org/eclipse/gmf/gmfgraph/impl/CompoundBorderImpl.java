@@ -39,7 +39,7 @@ public class CompoundBorderImpl extends EObjectImpl implements CompoundBorder {
 	 * @generated
 	 * @ordered
 	 */
-	protected Border outer = null;
+	protected Border outer;
 
 	/**
 	 * The cached value of the '{@link #getInner() <em>Inner</em>}' containment reference.
@@ -49,7 +49,7 @@ public class CompoundBorderImpl extends EObjectImpl implements CompoundBorder {
 	 * @generated
 	 * @ordered
 	 */
-	protected Border inner = null;
+	protected Border inner;
 
 	/**
 	 * <!-- begin-user-doc -->

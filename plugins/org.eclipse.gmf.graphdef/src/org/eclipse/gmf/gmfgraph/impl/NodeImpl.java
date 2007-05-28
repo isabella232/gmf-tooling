@@ -8,9 +8,10 @@ package org.eclipse.gmf.gmfgraph.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Direction;
-import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Node;
 
@@ -21,15 +22,15 @@ import org.eclipse.gmf.gmfgraph.Node;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.NodeImpl#getNodeFigure <em>Node Figure</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.NodeImpl#getResizeConstraint <em>Resize Constraint</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.NodeImpl#getAffixedParentSide <em>Affixed Parent Side</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.NodeImpl#getContentPane <em>Content Pane</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class NodeImpl extends DiagramElementImpl implements Node {
+public class NodeImpl extends AbstractNodeImpl implements Node {
 	/**
 	 * The default value of the '{@link #getResizeConstraint() <em>Resize Constraint</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -71,6 +72,16 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 	protected Direction affixedParentSide = AFFIXED_PARENT_SIDE_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getContentPane() <em>Content Pane</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContentPane()
+	 * @generated
+	 * @ordered
+	 */
+	protected ChildAccess contentPane;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -87,15 +98,6 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getNode();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public Figure getNodeFigure() {
-		return getFigure() instanceof Figure ? (Figure) getFigure() : null;
 	}
 
 	/**
@@ -145,15 +147,54 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ChildAccess getContentPane() {
+		if (contentPane != null && contentPane.eIsProxy()) {
+			InternalEObject oldContentPane = (InternalEObject)contentPane;
+			contentPane = (ChildAccess)eResolveProxy(oldContentPane);
+			if (contentPane != oldContentPane) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGraphPackage.NODE__CONTENT_PANE, oldContentPane, contentPane));
+			}
+		}
+		return contentPane;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ChildAccess basicGetContentPane() {
+		return contentPane;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setContentPane(ChildAccess newContentPane) {
+		ChildAccess oldContentPane = contentPane;
+		contentPane = newContentPane;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.NODE__CONTENT_PANE, oldContentPane, contentPane));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GMFGraphPackage.NODE__NODE_FIGURE:
-				return getNodeFigure();
 			case GMFGraphPackage.NODE__RESIZE_CONSTRAINT:
 				return getResizeConstraint();
 			case GMFGraphPackage.NODE__AFFIXED_PARENT_SIDE:
 				return getAffixedParentSide();
+			case GMFGraphPackage.NODE__CONTENT_PANE:
+				if (resolve) return getContentPane();
+				return basicGetContentPane();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -163,6 +204,7 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -171,6 +213,9 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 				return;
 			case GMFGraphPackage.NODE__AFFIXED_PARENT_SIDE:
 				setAffixedParentSide((Direction)newValue);
+				return;
+			case GMFGraphPackage.NODE__CONTENT_PANE:
+				setContentPane((ChildAccess)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -190,6 +235,9 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 			case GMFGraphPackage.NODE__AFFIXED_PARENT_SIDE:
 				setAffixedParentSide(AFFIXED_PARENT_SIDE_EDEFAULT);
 				return;
+			case GMFGraphPackage.NODE__CONTENT_PANE:
+				setContentPane((ChildAccess)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -202,12 +250,12 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GMFGraphPackage.NODE__NODE_FIGURE:
-				return getNodeFigure() != null;
 			case GMFGraphPackage.NODE__RESIZE_CONSTRAINT:
 				return resizeConstraint != RESIZE_CONSTRAINT_EDEFAULT;
 			case GMFGraphPackage.NODE__AFFIXED_PARENT_SIDE:
 				return affixedParentSide != AFFIXED_PARENT_SIDE_EDEFAULT;
+			case GMFGraphPackage.NODE__CONTENT_PANE:
+				return contentPane != null;
 		}
 		return super.eIsSet(featureID);
 	}

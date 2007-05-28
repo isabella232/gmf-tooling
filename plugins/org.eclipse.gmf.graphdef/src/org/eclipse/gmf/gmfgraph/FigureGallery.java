@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.gmfgraph.FigureGallery#getFigures <em>Figures</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.FigureGallery#getDescriptors <em>Descriptors</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.FigureGallery#getImplementationBundle <em>Implementation Bundle</em>}</li>
  * </ul>
  * </p>
@@ -32,7 +33,7 @@ import org.eclipse.emf.common.util.EList;
 public interface FigureGallery extends Identity {
 	/**
 	 * Returns the value of the '<em><b>Figures</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.gmfgraph.Figure}.
+	 * The list contents are of type {@link org.eclipse.gmf.gmfgraph.RealFigure}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Figures</em>' containment reference list isn't clear,
@@ -41,10 +42,26 @@ public interface FigureGallery extends Identity {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Figures</em>' containment reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFigureGallery_Figures()
-	 * @model type="org.eclipse.gmf.gmfgraph.Figure" containment="true"
+	 * @model type="org.eclipse.gmf.gmfgraph.RealFigure" containment="true"
 	 * @generated
 	 */
-	EList<Figure> getFigures();
+	EList<RealFigure> getFigures();
+
+	/**
+	 * Returns the value of the '<em><b>Descriptors</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.gmfgraph.FigureDescriptor}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Descriptors</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Descriptors</em>' containment reference list.
+	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFigureGallery_Descriptors()
+	 * @model type="org.eclipse.gmf.gmfgraph.FigureDescriptor" containment="true"
+	 * @generated
+	 */
+	EList<FigureDescriptor> getDescriptors();
 
 	/**
 	 * Returns the value of the '<em><b>Implementation Bundle</b></em>' attribute.

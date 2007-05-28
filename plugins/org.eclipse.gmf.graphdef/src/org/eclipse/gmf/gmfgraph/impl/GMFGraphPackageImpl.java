@@ -9,10 +9,11 @@ package org.eclipse.gmf.gmfgraph.impl;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.gmf.gmfgraph.AbstractFigure;
+import org.eclipse.gmf.gmfgraph.AbstractNode;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.AlignmentFacet;
 import org.eclipse.gmf.gmfgraph.BasicFont;
@@ -20,6 +21,7 @@ import org.eclipse.gmf.gmfgraph.Border;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
 import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Color;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.Compartment;
@@ -44,9 +46,8 @@ import org.eclipse.gmf.gmfgraph.Direction;
 import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureAccessor;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
-import org.eclipse.gmf.gmfgraph.FigureHandle;
-import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.FigureRef;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.Font;
@@ -76,6 +77,7 @@ import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.gmfgraph.PolylineDecoration;
 import org.eclipse.gmf.gmfgraph.RGBColor;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.ScalablePolygon;
@@ -84,6 +86,7 @@ import org.eclipse.gmf.gmfgraph.StackLayout;
 import org.eclipse.gmf.gmfgraph.VisualFacet;
 import org.eclipse.gmf.gmfgraph.XYLayout;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
+import org.eclipse.gmf.gmfgraph.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -125,7 +128,28 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass abstractNodeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass nodeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass childAccessEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass realFigureEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -195,21 +219,21 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass figureMarkerEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass figureHandleEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass figureEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass figureDescriptorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass abstractFigureEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -720,8 +744,17 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getFigureGallery_Descriptors() {
+		return (EReference)figureGalleryEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getFigureGallery_ImplementationBundle() {
-		return (EAttribute)figureGalleryEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)figureGalleryEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -774,6 +807,15 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAbstractNode() {
+		return abstractNodeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getNode() {
 		return nodeEClass;
 	}
@@ -783,17 +825,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getNode_NodeFigure() {
-		return (EReference)nodeEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getNode_ResizeConstraint() {
-		return (EAttribute)nodeEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)nodeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -802,7 +835,79 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * @generated
 	 */
 	public EAttribute getNode_AffixedParentSide() {
-		return (EAttribute)nodeEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)nodeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getNode_ContentPane() {
+		return (EReference)nodeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getChildAccess() {
+		return childAccessEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getChildAccess_Owner() {
+		return (EReference)childAccessEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getChildAccess_Accessor() {
+		return (EAttribute)childAccessEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getChildAccess_Figure() {
+		return (EReference)childAccessEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRealFigure() {
+		return realFigureEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRealFigure_Name() {
+		return (EAttribute)realFigureEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getRealFigure_Children() {
+		return (EReference)realFigureEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -812,15 +917,6 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 */
 	public EClass getConnection() {
 		return connectionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getConnection_ConnectionFigure() {
-		return (EReference)connectionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -855,6 +951,15 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getCompartment_Accessor() {
+		return (EReference)compartmentEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getDiagramLabel() {
 		return diagramLabelEClass;
 	}
@@ -866,6 +971,33 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 */
 	public EAttribute getDiagramLabel_ElementIcon() {
 		return (EAttribute)diagramLabelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getDiagramLabel_Accessor() {
+		return (EReference)diagramLabelEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getDiagramLabel_Container() {
+		return (EReference)diagramLabelEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDiagramLabel_External() {
+		return (EAttribute)diagramLabelEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -990,42 +1122,6 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getFigureMarker() {
-		return figureMarkerEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFigureMarker_Parent() {
-		return (EReference)figureMarkerEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getFigureHandle() {
-		return figureHandleEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFigureHandle_ReferencingElements() {
-		return (EReference)figureHandleEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getFigure() {
 		return figureEClass;
 	}
@@ -1035,7 +1131,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFigure_Children() {
+	public EReference getFigure_Descriptor() {
 		return (EReference)figureEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1127,6 +1223,42 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 */
 	public EReference getFigure_Size() {
 		return (EReference)figureEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFigureDescriptor() {
+		return figureDescriptorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFigureDescriptor_ActualFigure() {
+		return (EReference)figureDescriptorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFigureDescriptor_Accessors() {
+		return (EReference)figureDescriptorEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAbstractFigure() {
+		return abstractFigureEClass;
 	}
 
 	/**
@@ -1413,17 +1545,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCustomClass_BundleName() {
-		return (EAttribute)customClassEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getCustomClass_Attributes() {
-		return (EReference)customClassEClass.getEStructuralFeatures().get(2);
+		return (EReference)customClassEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2273,6 +2396,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		figureGalleryEClass = createEClass(FIGURE_GALLERY);
 		createEReference(figureGalleryEClass, FIGURE_GALLERY__FIGURES);
+		createEReference(figureGalleryEClass, FIGURE_GALLERY__DESCRIPTORS);
 		createEAttribute(figureGalleryEClass, FIGURE_GALLERY__IMPLEMENTATION_BUNDLE);
 
 		identityEClass = createEClass(IDENTITY);
@@ -2282,20 +2406,25 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		createEReference(diagramElementEClass, DIAGRAM_ELEMENT__FIGURE);
 		createEReference(diagramElementEClass, DIAGRAM_ELEMENT__FACETS);
 
+		abstractNodeEClass = createEClass(ABSTRACT_NODE);
+
 		nodeEClass = createEClass(NODE);
-		createEReference(nodeEClass, NODE__NODE_FIGURE);
 		createEAttribute(nodeEClass, NODE__RESIZE_CONSTRAINT);
 		createEAttribute(nodeEClass, NODE__AFFIXED_PARENT_SIDE);
+		createEReference(nodeEClass, NODE__CONTENT_PANE);
 
 		connectionEClass = createEClass(CONNECTION);
-		createEReference(connectionEClass, CONNECTION__CONNECTION_FIGURE);
 
 		compartmentEClass = createEClass(COMPARTMENT);
 		createEAttribute(compartmentEClass, COMPARTMENT__COLLAPSIBLE);
 		createEAttribute(compartmentEClass, COMPARTMENT__NEEDS_TITLE);
+		createEReference(compartmentEClass, COMPARTMENT__ACCESSOR);
 
 		diagramLabelEClass = createEClass(DIAGRAM_LABEL);
 		createEAttribute(diagramLabelEClass, DIAGRAM_LABEL__ELEMENT_ICON);
+		createEReference(diagramLabelEClass, DIAGRAM_LABEL__ACCESSOR);
+		createEReference(diagramLabelEClass, DIAGRAM_LABEL__CONTAINER);
+		createEAttribute(diagramLabelEClass, DIAGRAM_LABEL__EXTERNAL);
 
 		visualFacetEClass = createEClass(VISUAL_FACET);
 
@@ -2316,14 +2445,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		defaultSizeFacetEClass = createEClass(DEFAULT_SIZE_FACET);
 		createEReference(defaultSizeFacetEClass, DEFAULT_SIZE_FACET__DEFAULT_SIZE);
 
-		figureMarkerEClass = createEClass(FIGURE_MARKER);
-		createEReference(figureMarkerEClass, FIGURE_MARKER__PARENT);
-
-		figureHandleEClass = createEClass(FIGURE_HANDLE);
-		createEReference(figureHandleEClass, FIGURE_HANDLE__REFERENCING_ELEMENTS);
-
 		figureEClass = createEClass(FIGURE);
-		createEReference(figureEClass, FIGURE__CHILDREN);
+		createEReference(figureEClass, FIGURE__DESCRIPTOR);
 		createEReference(figureEClass, FIGURE__FOREGROUND_COLOR);
 		createEReference(figureEClass, FIGURE__BACKGROUND_COLOR);
 		createEReference(figureEClass, FIGURE__MAXIMUM_SIZE);
@@ -2334,6 +2457,21 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		createEReference(figureEClass, FIGURE__BORDER);
 		createEReference(figureEClass, FIGURE__LOCATION);
 		createEReference(figureEClass, FIGURE__SIZE);
+
+		abstractFigureEClass = createEClass(ABSTRACT_FIGURE);
+
+		figureDescriptorEClass = createEClass(FIGURE_DESCRIPTOR);
+		createEReference(figureDescriptorEClass, FIGURE_DESCRIPTOR__ACTUAL_FIGURE);
+		createEReference(figureDescriptorEClass, FIGURE_DESCRIPTOR__ACCESSORS);
+
+		childAccessEClass = createEClass(CHILD_ACCESS);
+		createEReference(childAccessEClass, CHILD_ACCESS__OWNER);
+		createEAttribute(childAccessEClass, CHILD_ACCESS__ACCESSOR);
+		createEReference(childAccessEClass, CHILD_ACCESS__FIGURE);
+
+		realFigureEClass = createEClass(REAL_FIGURE);
+		createEAttribute(realFigureEClass, REAL_FIGURE__NAME);
+		createEReference(realFigureEClass, REAL_FIGURE__CHILDREN);
 
 		figureRefEClass = createEClass(FIGURE_REF);
 		createEReference(figureRefEClass, FIGURE_REF__FIGURE);
@@ -2381,7 +2519,6 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		customClassEClass = createEClass(CUSTOM_CLASS);
 		createEAttribute(customClassEClass, CUSTOM_CLASS__QUALIFIED_CLASS_NAME);
-		createEAttribute(customClassEClass, CUSTOM_CLASS__BUNDLE_NAME);
 		createEReference(customClassEClass, CUSTOM_CLASS__ATTRIBUTES);
 
 		customAttributeEClass = createEClass(CUSTOM_ATTRIBUTE);
@@ -2539,7 +2676,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		canvasEClass.getESuperTypes().add(this.getIdentity());
 		figureGalleryEClass.getESuperTypes().add(this.getIdentity());
 		diagramElementEClass.getESuperTypes().add(this.getIdentity());
-		nodeEClass.getESuperTypes().add(this.getDiagramElement());
+		abstractNodeEClass.getESuperTypes().add(this.getDiagramElement());
+		nodeEClass.getESuperTypes().add(this.getAbstractNode());
 		connectionEClass.getESuperTypes().add(this.getDiagramElement());
 		compartmentEClass.getESuperTypes().add(this.getDiagramElement());
 		diagramLabelEClass.getESuperTypes().add(this.getNode());
@@ -2548,16 +2686,16 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		gradientFacetEClass.getESuperTypes().add(this.getVisualFacet());
 		labelOffsetFacetEClass.getESuperTypes().add(this.getVisualFacet());
 		defaultSizeFacetEClass.getESuperTypes().add(this.getVisualFacet());
-		figureMarkerEClass.getESuperTypes().add(this.getLayoutable());
-		figureEClass.getESuperTypes().add(this.getFigureMarker());
-		figureEClass.getESuperTypes().add(this.getFigureHandle());
-		figureEClass.getESuperTypes().add(this.getIdentity());
-		figureRefEClass.getESuperTypes().add(this.getFigureMarker());
-		connectionFigureEClass.getESuperTypes().add(this.getFigure());
-		decorationFigureEClass.getESuperTypes().add(this.getFigure());
-		shapeEClass.getESuperTypes().add(this.getFigure());
-		labelEClass.getESuperTypes().add(this.getFigure());
-		labeledContainerEClass.getESuperTypes().add(this.getFigure());
+		figureEClass.getESuperTypes().add(this.getLayoutable());
+		abstractFigureEClass.getESuperTypes().add(this.getFigure());
+		figureDescriptorEClass.getESuperTypes().add(this.getIdentity());
+		realFigureEClass.getESuperTypes().add(this.getAbstractFigure());
+		figureRefEClass.getESuperTypes().add(this.getAbstractFigure());
+		connectionFigureEClass.getESuperTypes().add(this.getRealFigure());
+		decorationFigureEClass.getESuperTypes().add(this.getRealFigure());
+		shapeEClass.getESuperTypes().add(this.getRealFigure());
+		labelEClass.getESuperTypes().add(this.getRealFigure());
+		labeledContainerEClass.getESuperTypes().add(this.getRealFigure());
 		rectangleEClass.getESuperTypes().add(this.getShape());
 		roundedRectangleEClass.getESuperTypes().add(this.getShape());
 		ellipseEClass.getESuperTypes().add(this.getShape());
@@ -2570,8 +2708,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		polylineDecorationEClass.getESuperTypes().add(this.getDecorationFigure());
 		polygonDecorationEClass.getESuperTypes().add(this.getPolygon());
 		polygonDecorationEClass.getESuperTypes().add(this.getDecorationFigure());
-		figureAccessorEClass.getESuperTypes().add(this.getFigureHandle());
-		customFigureEClass.getESuperTypes().add(this.getFigure());
+		customFigureEClass.getESuperTypes().add(this.getRealFigure());
 		customFigureEClass.getESuperTypes().add(this.getCustomClass());
 		customDecorationEClass.getESuperTypes().add(this.getCustomFigure());
 		customDecorationEClass.getESuperTypes().add(this.getDecorationFigure());
@@ -2607,33 +2744,36 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEReference(getCanvas_Labels(), this.getDiagramLabel(), null, "labels", null, 0, -1, Canvas.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(figureGalleryEClass, FigureGallery.class, "FigureGallery", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFigureGallery_Figures(), this.getFigure(), null, "figures", null, 0, -1, FigureGallery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFigureGallery_Figures(), this.getRealFigure(), null, "figures", null, 0, -1, FigureGallery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFigureGallery_Descriptors(), this.getFigureDescriptor(), null, "descriptors", null, 0, -1, FigureGallery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFigureGallery_ImplementationBundle(), ecorePackage.getEString(), "implementationBundle", null, 0, 1, FigureGallery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(identityEClass, Identity.class, "Identity", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIdentity_Name(), ecorePackage.getEString(), "name", null, 1, 1, Identity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(diagramElementEClass, DiagramElement.class, "DiagramElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDiagramElement_Figure(), this.getFigureHandle(), this.getFigureHandle_ReferencingElements(), "figure", null, 1, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDiagramElement_Figure(), this.getFigureDescriptor(), null, "figure", null, 1, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDiagramElement_Facets(), this.getVisualFacet(), null, "facets", null, 0, -1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		EOperation op = addEOperation(diagramElementEClass, this.getVisualFacet(), "find", 0, 1);
-		addEParameter(op, ecorePackage.getEJavaClass(), "facetClass", 0, 1);
+		initEClass(abstractNodeEClass, AbstractNode.class, "AbstractNode", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(nodeEClass, Node.class, "Node", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getNode_NodeFigure(), this.getFigure(), null, "nodeFigure", null, 1, 1, Node.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getNode_ResizeConstraint(), this.getDirection(), "resizeConstraint", "NSEW", 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getNode_AffixedParentSide(), this.getDirection(), "affixedParentSide", "NONE", 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getNode_ContentPane(), this.getChildAccess(), null, "contentPane", null, 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(connectionEClass, Connection.class, "Connection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getConnection_ConnectionFigure(), this.getFigure(), null, "connectionFigure", null, 1, 1, Connection.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(compartmentEClass, Compartment.class, "Compartment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCompartment_Collapsible(), ecorePackage.getEBoolean(), "collapsible", null, 0, 1, Compartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCompartment_NeedsTitle(), ecorePackage.getEBoolean(), "needsTitle", null, 0, 1, Compartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCompartment_Accessor(), this.getChildAccess(), null, "accessor", null, 0, 1, Compartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(diagramLabelEClass, DiagramLabel.class, "DiagramLabel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDiagramLabel_ElementIcon(), ecorePackage.getEBoolean(), "elementIcon", "true", 0, 1, DiagramLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDiagramLabel_Accessor(), this.getChildAccess(), null, "accessor", null, 0, 1, DiagramLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDiagramLabel_Container(), this.getChildAccess(), null, "container", null, 0, 1, DiagramLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDiagramLabel_External(), ecorePackage.getEBoolean(), "external", null, 0, 1, DiagramLabel.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(visualFacetEClass, VisualFacet.class, "VisualFacet", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2654,14 +2794,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEClass(defaultSizeFacetEClass, DefaultSizeFacet.class, "DefaultSizeFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDefaultSizeFacet_DefaultSize(), this.getDimension(), null, "defaultSize", null, 0, 1, DefaultSizeFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(figureMarkerEClass, FigureMarker.class, "FigureMarker", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFigureMarker_Parent(), this.getFigure(), this.getFigure_Children(), "parent", null, 0, 1, FigureMarker.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(figureHandleEClass, FigureHandle.class, "FigureHandle", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFigureHandle_ReferencingElements(), this.getDiagramElement(), this.getDiagramElement_Figure(), "referencingElements", null, 0, -1, FigureHandle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(figureEClass, Figure.class, "Figure", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFigure_Children(), this.getFigureMarker(), this.getFigureMarker_Parent(), "children", null, 0, -1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFigure_Descriptor(), this.getFigureDescriptor(), null, "descriptor", null, 0, 1, Figure.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getFigure_ForegroundColor(), this.getColor(), null, "foregroundColor", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFigure_BackgroundColor(), this.getColor(), null, "backgroundColor", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFigure_MaximumSize(), this.getDimension(), null, "maximumSize", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2673,8 +2807,23 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEReference(getFigure_Location(), this.getPoint(), null, "location", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFigure_Size(), this.getPoint(), null, "size", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(abstractFigureEClass, AbstractFigure.class, "AbstractFigure", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(figureDescriptorEClass, FigureDescriptor.class, "FigureDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getFigureDescriptor_ActualFigure(), this.getFigure(), null, "actualFigure", null, 1, 1, FigureDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFigureDescriptor_Accessors(), this.getChildAccess(), this.getChildAccess_Owner(), "accessors", null, 0, -1, FigureDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(childAccessEClass, ChildAccess.class, "ChildAccess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getChildAccess_Owner(), this.getFigureDescriptor(), this.getFigureDescriptor_Accessors(), "owner", null, 1, 1, ChildAccess.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getChildAccess_Accessor(), ecorePackage.getEString(), "accessor", null, 0, 1, ChildAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getChildAccess_Figure(), this.getFigure(), null, "figure", null, 1, 1, ChildAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(realFigureEClass, RealFigure.class, "RealFigure", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRealFigure_Name(), ecorePackage.getEString(), "name", null, 0, 1, RealFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRealFigure_Children(), this.getFigure(), null, "children", null, 0, -1, RealFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(figureRefEClass, FigureRef.class, "FigureRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFigureRef_Figure(), this.getFigure(), null, "figure", null, 1, 1, FigureRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFigureRef_Figure(), this.getRealFigure(), null, "figure", null, 1, 1, FigureRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(connectionFigureEClass, ConnectionFigure.class, "ConnectionFigure", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2719,7 +2868,6 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		initEClass(customClassEClass, CustomClass.class, "CustomClass", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCustomClass_QualifiedClassName(), ecorePackage.getEString(), "qualifiedClassName", null, 0, 1, CustomClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCustomClass_BundleName(), ecorePackage.getEString(), "bundleName", null, 0, 1, CustomClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCustomClass_Attributes(), this.getCustomAttribute(), null, "attributes", null, 0, -1, CustomClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(customAttributeEClass, CustomAttribute.class, "CustomAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2730,7 +2878,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		initEClass(figureAccessorEClass, FigureAccessor.class, "FigureAccessor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFigureAccessor_Accessor(), ecorePackage.getEString(), "accessor", null, 1, 1, FigureAccessor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFigureAccessor_TypedFigure(), this.getCustomFigure(), null, "typedFigure", null, 0, 1, FigureAccessor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFigureAccessor_TypedFigure(), this.getRealFigure(), null, "typedFigure", null, 1, 1, FigureAccessor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(customFigureEClass, CustomFigure.class, "CustomFigure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCustomFigure_CustomChildren(), this.getFigureAccessor(), null, "customChildren", null, 0, -1, CustomFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

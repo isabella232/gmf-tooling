@@ -81,7 +81,7 @@ public class GridLayoutImpl extends EObjectImpl implements GridLayout {
 	 * @generated
 	 * @ordered
 	 */
-	protected Dimension margins = null;
+	protected Dimension margins;
 
 	/**
 	 * The cached value of the '{@link #getSpacing() <em>Spacing</em>}' containment reference.
@@ -91,7 +91,7 @@ public class GridLayoutImpl extends EObjectImpl implements GridLayout {
 	 * @generated
 	 * @ordered
 	 */
-	protected Dimension spacing = null;
+	protected Dimension spacing;
 
 	/**
 	 * <!-- begin-user-doc -->

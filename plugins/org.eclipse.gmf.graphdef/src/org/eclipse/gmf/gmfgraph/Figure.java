@@ -6,7 +6,6 @@
  */
 package org.eclipse.gmf.gmfgraph;
 
-import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -14,13 +13,13 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * org.eclipse.draw2d.Figure
+ * Anything you could combine visual representation from. Ordinary GEF figures, custom-defined or references to defined elsewhere. org.eclipse.draw2d.Figure
  * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getChildren <em>Children</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getDescriptor <em>Descriptor</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getForegroundColor <em>Foreground Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getBackgroundColor <em>Background Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getMaximumSize <em>Maximum Size</em>}</li>
@@ -38,24 +37,21 @@ import org.eclipse.emf.common.util.EList;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface Figure extends FigureMarker, FigureHandle, Identity {
+public interface Figure extends Layoutable {
 	/**
-	 * Returns the value of the '<em><b>Children</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.gmfgraph.FigureMarker}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.gmfgraph.FigureMarker#getParent <em>Parent</em>}'.
+	 * Returns the value of the '<em><b>Descriptor</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Children</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Descriptor</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Children</em>' containment reference list.
-	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFigure_Children()
-	 * @see org.eclipse.gmf.gmfgraph.FigureMarker#getParent
-	 * @model type="org.eclipse.gmf.gmfgraph.FigureMarker" opposite="parent" containment="true"
+	 * @return the value of the '<em>Descriptor</em>' reference.
+	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFigure_Descriptor()
+	 * @model resolveProxies="false" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
-	EList<FigureMarker> getChildren();
+	FigureDescriptor getDescriptor();
 
 	/**
 	 * Returns the value of the '<em><b>Foreground Color</b></em>' containment reference.

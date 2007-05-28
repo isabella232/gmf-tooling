@@ -40,7 +40,7 @@ public class PolylineImpl extends ShapeImpl implements Polyline {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Point> template = null;
+	protected EList<Point> template;
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -53,6 +53,15 @@ public interface GMFGraphFactory extends EFactory {
 	Node createNode();
 
 	/**
+	 * Returns a new object of class '<em>Child Access</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Child Access</em>'.
+	 * @generated
+	 */
+	ChildAccess createChildAccess();
+
+	/**
 	 * Returns a new object of class '<em>Connection</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -123,6 +132,15 @@ public interface GMFGraphFactory extends EFactory {
 	 * @generated
 	 */
 	DefaultSizeFacet createDefaultSizeFacet();
+
+	/**
+	 * Returns a new object of class '<em>Figure Descriptor</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Figure Descriptor</em>'.
+	 * @generated
+	 */
+	FigureDescriptor createFigureDescriptor();
 
 	/**
 	 * Returns a new object of class '<em>Figure Ref</em>'.

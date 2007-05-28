@@ -6,6 +6,8 @@
  */
 package org.eclipse.gmf.gmfgraph;
 
+import org.eclipse.emf.ecore.EObject;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -24,7 +26,7 @@ package org.eclipse.gmf.gmfgraph;
  * @model
  * @generated
  */
-public interface FigureAccessor extends FigureHandle {
+public interface FigureAccessor extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Accessor</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -52,29 +54,29 @@ public interface FigureAccessor extends FigureHandle {
 	void setAccessor(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Typed Figure</b></em>' reference.
+	 * Returns the value of the '<em><b>Typed Figure</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Typed Figure</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Typed Figure</em>' reference.
-	 * @see #setTypedFigure(CustomFigure)
+	 * @return the value of the '<em>Typed Figure</em>' containment reference.
+	 * @see #setTypedFigure(RealFigure)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFigureAccessor_TypedFigure()
-	 * @model
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	CustomFigure getTypedFigure();
+	RealFigure getTypedFigure();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.FigureAccessor#getTypedFigure <em>Typed Figure</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.FigureAccessor#getTypedFigure <em>Typed Figure</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Typed Figure</em>' reference.
+	 * @param value the new value of the '<em>Typed Figure</em>' containment reference.
 	 * @see #getTypedFigure()
 	 * @generated
 	 */
-	void setTypedFigure(CustomFigure value);
+	void setTypedFigure(RealFigure value);
 
 } // FigureAccessor

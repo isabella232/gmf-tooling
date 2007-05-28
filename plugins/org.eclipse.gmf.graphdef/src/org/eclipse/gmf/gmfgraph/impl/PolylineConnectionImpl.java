@@ -37,7 +37,7 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 	 * @generated
 	 * @ordered
 	 */
-	protected DecorationFigure sourceDecoration = null;
+	protected DecorationFigure sourceDecoration;
 
 	/**
 	 * The cached value of the '{@link #getTargetDecoration() <em>Target Decoration</em>}' reference.
@@ -47,7 +47,7 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 	 * @generated
 	 * @ordered
 	 */
-	protected DecorationFigure targetDecoration = null;
+	protected DecorationFigure targetDecoration;
 
 	/**
 	 * <!-- begin-user-doc -->

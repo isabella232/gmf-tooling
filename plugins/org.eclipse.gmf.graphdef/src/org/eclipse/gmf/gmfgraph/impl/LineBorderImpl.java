@@ -39,7 +39,7 @@ public class LineBorderImpl extends EObjectImpl implements LineBorder {
 	 * @generated
 	 * @ordered
 	 */
-	protected Color color = null;
+	protected Color color;
 
 	/**
 	 * The default value of the '{@link #getWidth() <em>Width</em>}' attribute.

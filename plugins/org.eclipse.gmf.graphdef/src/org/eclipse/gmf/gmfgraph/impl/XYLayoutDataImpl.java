@@ -47,7 +47,7 @@ public class XYLayoutDataImpl extends EObjectImpl implements XYLayoutData {
 	 * @generated
 	 * @ordered
 	 */
-	protected Point topLeft = null;
+	protected Point topLeft;
 
 	/**
 	 * The cached value of the '{@link #getSize() <em>Size</em>}' containment reference.
@@ -57,7 +57,7 @@ public class XYLayoutDataImpl extends EObjectImpl implements XYLayoutData {
 	 * @generated
 	 * @ordered
 	 */
-	protected Dimension size = null;
+	protected Dimension size;
 
 	/**
 	 * <!-- begin-user-doc -->

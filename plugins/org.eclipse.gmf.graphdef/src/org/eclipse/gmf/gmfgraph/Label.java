@@ -27,7 +27,7 @@ package org.eclipse.gmf.gmfgraph;
  * @model
  * @generated
  */
-public interface Label extends Figure {
+public interface Label extends RealFigure {
 	/**
 	 * Returns the value of the '<em><b>Text</b></em>' attribute.
 	 * <!-- begin-user-doc -->
