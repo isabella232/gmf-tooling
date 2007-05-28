@@ -46,11 +46,11 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	public org.eclipse.gmf.runtime.diagram.ui.figures.IBorderItemLocator getBorderItemLocator() {
+	public org.eclipse.gmf.runtime.draw2d.ui.figures.IBorderItemLocator getBorderItemLocator() {
 		org.eclipse.draw2d.IFigure parentFigure = getFigure().getParent();
 		if (parentFigure != null && parentFigure.getLayoutManager() != null) {
 			Object constraint = parentFigure.getLayoutManager().getConstraint(getFigure());
-			return (org.eclipse.gmf.runtime.diagram.ui.figures.IBorderItemLocator) constraint;
+			return (org.eclipse.gmf.runtime.draw2d.ui.figures.IBorderItemLocator) constraint;
 		}
 		return null;
 	}
