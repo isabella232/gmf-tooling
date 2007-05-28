@@ -64,6 +64,11 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * @generated
 	 */
+	private static final TaiPanAbstractExpression Ship_2002_Constraint = TaiPanOCLFactory.getExpression("not oclIsKindOf(taipan::Warship)", TaiPanPackage.eINSTANCE.getShip());
+
+	/**
+	 * @generated
+	 */
 	private static final TaiPanAbstractExpression Route_4002_Constraint = TaiPanOCLFactory.getExpression("reliability >= 0.5", TaiPanPackage.eINSTANCE.getRoute());
 
 	/**
@@ -231,7 +236,8 @@ public class TaiPanVisualIDRegistry {
 			if ((semanticHint == null || PortEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElementMetaclass)) {
 				return PortEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || ShipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElementMetaclass)) {
+			if ((semanticHint == null || ShipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElementMetaclass)
+					&& (domainElement == null || evaluate(Ship_2002_Constraint, domainElement))) {
 				return ShipEditPart.VISUAL_ID;
 			}
 			if ((semanticHint == null || WarshipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getWarship().isSuperTypeOf(domainElementMetaclass)) {
