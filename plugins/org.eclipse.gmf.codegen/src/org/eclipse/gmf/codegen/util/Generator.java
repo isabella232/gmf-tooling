@@ -615,13 +615,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(myEmitters.getElementTypesEmitter(), myDiagram.getElementTypesQualifiedClassName(), myDiagram);
 	}
 
-	private void generateViewProvider() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getViewProviderEmitter(),
-			myDiagram.getProvidersPackageName(),
-			myDiagram.getNotationViewProviderClassName(),
-			myDiagram
-		);
+	private void generateViewProvider() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getViewProviderEmitter(), myDiagram.getNotationViewProviderQualifiedClassName(), myDiagram);
 	}
 
 	private void generateEditPartProvider() throws UnexpectedBehaviourException, InterruptedException {

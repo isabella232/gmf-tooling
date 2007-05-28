@@ -93,7 +93,7 @@ public static java.util.List «EXPAND getSemanticChildrenMethodName»(org.eclipse.
 	{ «getQualifiedInterfaceName(getTypeGenClassX(childMetaFeature))» childElement = «EXPAND xpt::Common::getFeatureValue("modelElement", getModelElementType()) FOR childMetaFeature»;
 			«ENDIF-»
 		int visualID = «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall FOR getDiagram()»(view, «EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(childMetaFeature)»childElement);
-			«EXPAND checkChildElementVisualID FOREACH getSemanticChildren(this, childMetaFeature)-»
+			«EXPAND checkChildElementVisualID(null != childMetaFeature && isListType(childMetaFeature)) FOREACH getSemanticChildren(this, childMetaFeature)-»
 	}
 		«ENDFOREACH-»
 		«IF !getPhantomNodes(this).isEmpty()-»
@@ -117,9 +117,12 @@ public static java.util.List «EXPAND getSemanticChildrenMethodName»(org.eclipse.
 
 «DEFINE getSemanticChildrenMethodCall FOR gmfgen::GenContainerBase»«getDiagram().editorGen.diagramUpdater.getDiagramUpdaterQualifiedClassName()».«EXPAND getSemanticChildrenMethodName»«ENDDEFINE»
 
-«DEFINE checkChildElementVisualID FOR gmfgen::GenNode-»
+«DEFINE checkChildElementVisualID(boolean inLoop) FOR gmfgen::GenNode-»
 if (visualID == «EXPAND xpt::editor::VisualIDRegistry::visualID») {
 	result.add(new «getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName()»(«IF null != modelFacet.childMetaFeature»«EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(modelFacet.childMetaFeature)»«ENDIF»childElement, visualID));
+«IF inLoop-»
+	continue;
+«ENDIF-»
 }
 «ENDDEFINE»
 

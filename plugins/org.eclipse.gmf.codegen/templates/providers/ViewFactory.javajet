@@ -136,30 +136,54 @@ if (isNode) {
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.setStructuralFeatureValue(view, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFillStyle_FillColor(),
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities")%>.colorToInteger(<%=importManager.getImportedName("org.eclipse.draw2d.ColorConstants")%>.<%=colorAttrs.getBackgroundColor()%>));
 <%
-	}	
+	}
 	List labels = genNode.getLabels();
+	List genChildContainers = genNode.getCompartments();
+	if (labels.size() > 0 || genChildContainers.size() > 0) {
+		if (genNode.getModelFacet() != null) {
+%>
+	org.eclipse.emf.ecore.EObject eObject = (org.eclipse.emf.ecore.EObject) semanticAdapter.getAdapter(org.eclipse.emf.ecore.EObject.class);
+	IAdaptable eObjectAdapter = eObject != null ? new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(eObject) : null;
+<%
+		} else {
+%>
+	IAdaptable eObjectAdapter = null;
+<%
+		}
+	}	
 	for (int j = 0; j < labels.size(); j++) {
 		GenNodeLabel label = (GenNodeLabel) labels.get(j);
 %>
-		getViewService().createNode(semanticAdapter, view, <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>.VISUAL_ID),
+		getViewService().createNode(eObjectAdapter, view, <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>.VISUAL_ID),
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, true, getPreferencesHint());
 <%
 	}
-	List genChildContainers = genNode.getCompartments();
 	for (int j = 0; j < genChildContainers.size(); j++) {
 		GenCompartment genChildContainer = (GenCompartment) genChildContainers.get(j);
 %>
-		getViewService().createNode(semanticAdapter, view, <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(genChildContainer.getEditPartQualifiedClassName())%>.VISUAL_ID),
+		getViewService().createNode(eObjectAdapter, view, <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(genChildContainer.getEditPartQualifiedClassName())%>.VISUAL_ID),
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, true, getPreferencesHint());
 <%
 	}
 } else if (isLink) {
 	GenLink genLink = (GenLink) genElement;
 	List labels = genLink.getLabels();
+	if (labels.size() > 0) {
+		if (genLink.getModelFacet() != null) {
+%>
+	org.eclipse.emf.ecore.EObject eObject = (org.eclipse.emf.ecore.EObject) semanticAdapter.getAdapter(org.eclipse.emf.ecore.EObject.class);
+	IAdaptable eObjectAdapter = eObject != null ? new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(eObject) : null;
+<%
+		} else {
+%>
+	IAdaptable eObjectAdapter = null;
+<%
+		}
+	}	
 	for (int j = 0; j < labels.size(); j++) {
 		GenLinkLabel label = (GenLinkLabel) labels.get(j);
 %>
-		getViewService().createNode(semanticAdapter, view, <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>.VISUAL_ID),
+		getViewService().createNode(eObjectAdapter, view, <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>.VISUAL_ID),
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, true, getPreferencesHint());
 <%
 	}

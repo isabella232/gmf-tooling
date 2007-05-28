@@ -102,6 +102,8 @@ org.eclipse.emf.ecore.EObject «varName» = «IF !isMapEntry() && isExternalInterfa
 
 «DEFINE nonNLS FOR Object»«EXPAND nonNLS(1)»«ENDDEFINE»
 
+«DEFINE nonNLS(Collection[Object] indexes) FOR Object» «EXPAND nonNLS(indexes.add(this).size())»«ENDDEFINE»
+
 «DEFINE nonNLS(int i) FOR Object»//$NON-NLS-«i»$«ENDDEFINE»
 
 «DEFINE caseVisualID FOR gmfgen::GenCommonBase»case «EXPAND xpt::editor::VisualIDRegistry::visualID»:«ENDDEFINE»

@@ -63,7 +63,6 @@ import org.eclipse.gmf.codegen.templates.providers.ShortcutsDecoratorProviderGen
 import org.eclipse.gmf.codegen.templates.providers.ShortcutsPropertyTester;
 import org.eclipse.gmf.codegen.templates.providers.ValidationProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.providers.ViewProviderGenerator;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.codegen.dispatch.CachingEmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
@@ -144,7 +143,6 @@ public class CodegenEmitters {
 		put(tr, "/providers/ViewFactory.javajet", ViewFactoryGenerator.class);
 		put(tr, "/providers/LabelViewFactory.javajet", LabelViewFactoryGenerator.class);
 		put(tr, "/providers/LabelTextViewFactory.javajet", LabelTextViewFactoryGenerator.class);
-		put(tr, "/providers/ViewProvider.javajet", ViewProviderGenerator.class);
 		put(tr, "/providers/EditPartProvider.javajet", EditPartProviderGenerator.class);
 		put(tr, "/providers/ContributionItemProvider.javajet", ContributionItemProviderGenerator.class);
 		put(tr, "/providers/ModelingAssistantProvider.javajet", ModelingAssistantProviderGenerator.class);
@@ -424,8 +422,8 @@ public class CodegenEmitters {
 		return newXpandEmitter("xpt::diagram::providers::ElementTypes::ElementTypes"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getViewProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ViewProviderGenerator.class);
+	public TextEmitter getViewProviderEmitter() {
+		return newXpandEmitter("xpt::diagram::providers::ViewProvider::ViewProvider"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getEditPartProviderEmitter() throws UnexpectedBehaviourException {

@@ -49,14 +49,6 @@ List[gmfgen::GenLink] getReroutableRefLinks(gmfgen::TypeModelFacet typeModelFace
 	diagram.links.select(link | isRefLink(link) && (canBeSource(link, typeModelFacet) || canBeTarget(link, typeModelFacet)))
 ;
 
-private boolean isTypeLink(gmfgen::GenLink link) :
-	{link.modelFacet}.typeSelect(gmfgen::TypeLinkModelFacet).size() > 0
-;
-
-private boolean isRefLink(gmfgen::GenLink link) :
-	{link.modelFacet}.typeSelect(gmfgen::FeatureLinkModelFacet).size() > 0
-;
-
 private List[gmfgen::GenLink] selectValidLinks(List[gmfgen::GenLink] allLinks) :
 	allLinks.select(l | null != l.modelFacet)
 		.select(l | l.outgoingCreationAllowed || l.incomingCreationAllowed)
