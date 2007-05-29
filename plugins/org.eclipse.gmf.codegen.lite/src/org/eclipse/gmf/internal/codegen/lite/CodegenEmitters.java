@@ -21,16 +21,11 @@ import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.gmf.codegen.templates.lite.editor.ActionBarContributorGenerator;
-import org.eclipse.gmf.codegen.templates.lite.editor.BuildPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.CreationWizardPageGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.InitDiagramFileActionGenerator;
-import org.eclipse.gmf.codegen.templates.lite.editor.ManifestGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.NewDiagramFileWizardGenerator;
-import org.eclipse.gmf.codegen.templates.lite.editor.OpenDiagramFileInViewGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.PaletteFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.lite.editor.VisualIDRegistryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
@@ -110,16 +105,9 @@ public class CodegenEmitters {
 		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
 		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
 		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
-		// put(tr, "/editor/MatchingStrategy.javajet",
-		// MatchingStrategyGenerator.class);
 		put(tr, "/editor/PaletteFactory.javajet", PaletteFactoryGenerator.class);
-		put(tr, "/editor/VisualIDRegistry.javajet", VisualIDRegistryGenerator.class);
 		put(tr, "/parts/EditPartFactory.javajet", EditPartFactoryGenerator.class);
 		put(tr, "/providers/DomainElementInitializer.javajet", DomainElementInitializerGenerator.class);
-		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
-		put(tr, "/editor/OpenDiagramInViewAction.javajet", OpenDiagramFileInViewGenerator.class);
-		put(tr, "/editor/manifest.mfjet", ManifestGenerator.class);
-		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
 		put(tr, "/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGenerator.class);
 		put(tr, "/editor/NewDiagramFileWizard.javajet", NewDiagramFileWizardGenerator.class);
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class);
@@ -227,15 +215,15 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getActionBarContributorGenerator() throws UnexpectedBehaviourException {
-		return retrieve(ActionBarContributorGenerator.class);
+		return retrieveXpand("xpt::editor::ActionBarContributor::ActionBarContributor");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getOpenDiagramInViewActionGenerator() throws UnexpectedBehaviourException {
-		return retrieve(OpenDiagramFileInViewGenerator.class);
+		return retrieveXpand("xpt::editor::OpenDiagramInViewAction::OpenDiagramInViewAction");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getEditorGenerator() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::editor::Editor::Editor");
+		return retrieveXpand("xpt::editor::Editor::Editor");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getMatchingStrategyEmitter() {
@@ -259,15 +247,15 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getVisualIDRegistryGenerator() throws UnexpectedBehaviourException {
-		return retrieve(VisualIDRegistryGenerator.class);
+		return retrieveXpand("xpt::editor::VisualIDRegistry::VisualIDRegistry");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getManifestGenerator() throws UnexpectedBehaviourException {
-		return retrieve(ManifestGenerator.class);
+		return retrieveXpand("xpt::manifest::manifest");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getBuildPropertiesGenerator() throws UnexpectedBehaviourException {
-		return retrieve(BuildPropertiesGenerator.class);
+		return retrieveXpand("xpt::buildProperties::buildProperties");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getPluginXML() throws UnexpectedBehaviourException {

@@ -153,7 +153,7 @@ public static boolean isReadOnly(org.eclipse.emf.ecore.resource.Resource resourc
 «DEFINE initializeDiagram FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::generatedMemberComment»
 public static org.eclipse.gmf.runtime.notation.Diagram createDiagramFor(org.eclipse.emf.ecore.EObject diagramRoot) {
-	if («getEditPartQualifiedClassName()».VISUAL_ID != «getVisualIDRegistryQualifiedClassName()».INSTANCE.getDiagramVisualID(diagramRoot)) {
+	if («getEditPartQualifiedClassName()».VISUAL_ID != «getVisualIDRegistryQualifiedClassName()».getDiagramVisualID(diagramRoot)) {
 		return null;
 	}
 	org.eclipse.gmf.runtime.notation.Diagram result = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createDiagram();

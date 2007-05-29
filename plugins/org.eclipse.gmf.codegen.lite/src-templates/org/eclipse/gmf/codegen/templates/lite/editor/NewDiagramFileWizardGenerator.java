@@ -78,7 +78,7 @@ public class NewDiagramFileWizardGenerator
   protected final String TEXT_60 = " command = new ";
   protected final String TEXT_61 = "(\"Initializing diagram contents\") { //$NON-NLS-1$" + NL + "\t\t\tprivate ";
   protected final String TEXT_62 = " myCreatedDiagram;" + NL + "" + NL + "\t\t\tprotected boolean prepare() {" + NL + "\t\t\t\tint diagramVID = ";
-  protected final String TEXT_63 = ".INSTANCE.getDiagramVisualID(myDiagramRoot);" + NL + "\t\t\t\tif (diagramVID != ";
+  protected final String TEXT_63 = ".getDiagramVisualID(myDiagramRoot);" + NL + "\t\t\t\tif (diagramVID != ";
   protected final String TEXT_64 = ".VISUAL_ID) {" + NL + "\t\t\t\t\treturn false;" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn true;" + NL + "\t\t\t}" + NL + "\t\t\tpublic void execute() {" + NL + "\t\t\t\tmyCreatedDiagram = ";
   protected final String TEXT_65 = ".createDiagramFor(myDiagramRoot);" + NL + "\t\t\t\tassert myCreatedDiagram != null;" + NL + "\t\t\t\tdiagramResource.getContents().add(myCreatedDiagram);";
   protected final String TEXT_66 = NL + "\t\t\t\tdiagramResource.getContents().add(myCreatedDiagram.getElement());";
@@ -245,7 +245,7 @@ public class NewDiagramFileWizardGenerator
   protected final String TEXT_227 = ") {" + NL + "\t\t\t\t\t\tmyDiagramRoot = (";
   protected final String TEXT_228 = ") selectedElement;" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\tsetPageComplete(validatePage());" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/**" + NL + "    \t * @generated" + NL + "\t\t */\t" + NL + "\t\tprivate boolean validatePage() {" + NL + "\t\t\tif (myDiagramRoot == null) {" + NL + "\t\t\t\tsetErrorMessage(\"No diagram root element selected\");" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t}" + NL + "\t\t\tboolean result = ";
   protected final String TEXT_229 = ".VISUAL_ID == ";
-  protected final String TEXT_230 = ".INSTANCE.getDiagramVisualID(myDiagramRoot);" + NL + "\t\t\tsetErrorMessage(result ? null : \"Invalid diagram root element was selected\");" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t}" + NL + "}";
+  protected final String TEXT_230 = ".getDiagramVisualID(myDiagramRoot);" + NL + "\t\t\tsetErrorMessage(result ? null : \"Invalid diagram root element was selected\");" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t}" + NL + "}";
   protected final String TEXT_231 = NL;
 
   public String generate(Object argument)

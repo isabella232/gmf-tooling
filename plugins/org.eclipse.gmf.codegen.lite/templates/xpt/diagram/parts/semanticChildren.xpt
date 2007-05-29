@@ -37,7 +37,7 @@ for(java.util.Iterator it = «EXPAND xpt::commands::Common::getFeatureValue("mode
 		«ELSE-»
 nextValue = (org.eclipse.emf.ecore.EObject) «EXPAND xpt::commands::Common::getFeatureValue("modelObject", null, false) FOR childMetaFeature»;
 		«ENDIF-»
-nodeVID = «getDiagram().getVisualIDRegistryQualifiedClassName()».INSTANCE.getNodeVisualID(viewObject, nextValue);
+nodeVID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID(viewObject, nextValue);
 		«LET genNodesCollection.size() > 1 AS generateSwitch-»
 		«IF generateSwitch-»
 switch (nodeVID) {
@@ -80,7 +80,7 @@ for (java.util.Iterator semanticIterator = getPhantomNodesIterator(resource); se
 	if (childElement == modelObject) {
 		continue;
 	}
-	nodeVID = «getDiagram().getVisualIDRegistryQualifiedClassName()».INSTANCE.getNodeVisualID(viewObject, childElement);
+	nodeVID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID(viewObject, childElement);
 	switch (nodeVID) {
 	«EXPAND addNextIfPhantom FOREACH getPhantomNodes()-»
 	}

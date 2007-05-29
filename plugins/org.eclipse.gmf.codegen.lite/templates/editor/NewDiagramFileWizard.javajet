@@ -179,7 +179,7 @@ if (isRichClientPlatform) {
 			private <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> myCreatedDiagram;
 
 			protected boolean prepare() {
-				int diagramVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getDiagramVisualID(myDiagramRoot);
+				int diagramVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getDiagramVisualID(myDiagramRoot);
 				if (diagramVID != <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.VISUAL_ID) {
 					return false;
 				}
@@ -658,7 +658,7 @@ if (isRichClientPlatform) {
 				setErrorMessage("No diagram root element selected");
 				return false;
 			}
-			boolean result = <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.VISUAL_ID == <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getDiagramVisualID(myDiagramRoot);
+			boolean result = <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.VISUAL_ID == <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getDiagramVisualID(myDiagramRoot);
 			setErrorMessage(result ? null : "Invalid diagram root element was selected");
 			return result;
 		}

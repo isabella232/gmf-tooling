@@ -12,7 +12,6 @@
 
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
-«EXTENSION xpt::Util»
 
 «DEFINE plugin FOR gmfgen::GenPlugin-»
 <?xml version="1.0" encoding="UTF-8"?>
@@ -65,12 +64,10 @@
             objectClass="org.eclipse.core.resources.IFile">
          <action
                label="%_UI_Menu_OpenDiagramView_label"
-		«LET validJavaIdentifier("OpenDiagramIn" + editorGen.modelID + "DiagramViewAction") AS className-»
-               class="«editorGen.editor.packageName».«className»"
+               class="«editorGen.editor.packageName».«EXPAND xpt::editor::OpenDiagramInViewAction::className FOR editorGen.editor»"
                menubarPath="additions"
                enablesFor="1"
-               id="«editorGen.editor.packageName».«className»ID">
-        «ENDLET-»
+               id="«editorGen.editor.packageName».«EXPAND xpt::editor::OpenDiagramInViewAction::className FOR editorGen.editor»ID">
          </action>
       </objectContribution>
 	«ENDIF-»

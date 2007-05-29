@@ -78,7 +78,7 @@ protected org.eclipse.gef.commands.Command createAddCommand(org.eclipse.gef.Edit
 		org.eclipse.gmf.runtime.notation.Node childNode = (org.eclipse.gmf.runtime.notation.Node) child.getModel();
 		String modelID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getModelID(childNode);
 		if («getDiagram().getEditPartQualifiedClassName()».MODEL_ID.equals(modelID)) {
-			int newVisualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».INSTANCE.getNodeVisualID(«EXPAND xpt::diagram::policies::Common::getViewCode», childNode.getElement());
+			int newVisualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID(«EXPAND xpt::diagram::policies::Common::getViewCode», childNode.getElement());
 			org.eclipse.emf.common.command.Command command = null;
 			switch (newVisualID) {
 «EXPAND getAddCommandContribution(this) FOREACH getChildNodes()-»
@@ -106,7 +106,7 @@ protected org.eclipse.gef.commands.Command createCloneCommand(org.eclipse.gef.Ed
 		org.eclipse.gmf.runtime.notation.Node childNode = (org.eclipse.gmf.runtime.notation.Node) child.getModel();
 		String modelID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getModelID(childNode);
 		if («getDiagram().getEditPartQualifiedClassName()».MODEL_ID.equals(modelID)) {
-			int newVisualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».INSTANCE.getNodeVisualID(«EXPAND xpt::diagram::policies::Common::getViewCode», childNode.getElement());
+			int newVisualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID(«EXPAND xpt::diagram::policies::Common::getViewCode», childNode.getElement());
 			org.eclipse.emf.common.command.Command command = null;
 			switch (newVisualID) {
 «EXPAND getCloneCommandContribution(this) FOREACH getChildNodes()-»

@@ -38,7 +38,7 @@ for(java.util.Iterator it = «EXPAND xpt::commands::Common::getFeatureValue("mode
 			«ELSE-»
 	nextValue = (org.eclipse.emf.ecore.EObject) «EXPAND xpt::commands::Common::getFeatureValue("modelObject", null, false) FOR metaFeature»;
 			«ENDIF-»
-	linkVID = «getDiagram().getVisualIDRegistryQualifiedClassName()».INSTANCE.getLinkWithClassVisualID(nextValue);
+	linkVID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getLinkWithClassVisualID(nextValue);
 			«LET genLinksCollection.size() > 1 AS generateSwitch-»
 			«IF generateSwitch-»
 	switch (linkVID) {
