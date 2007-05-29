@@ -12,19 +12,17 @@
 package org.eclipse.gmf.ecore.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
-import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationDetailsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotationReferencesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationSourceEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAttributeEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClass2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClassAttributesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClassClassAnnotationsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClassESuperTypesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClassEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClassNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClassOperationsEditPart;
@@ -55,9 +53,7 @@ import org.eclipse.gmf.ecore.edit.parts.EReferenceLowerBoundUpperBoundEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceName2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
-
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
-
 import org.eclipse.gmf.ecore.view.factories.EAnnotation2ViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EAnnotationDetailsViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EAnnotationReferencesViewFactory;
@@ -98,6 +94,10 @@ import org.eclipse.gmf.ecore.view.factories.EReferenceName2ViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EReferenceNameViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EReferenceViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EStringToStringMapEntryViewFactory;
+import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -123,13 +123,56 @@ public class EcoreViewProvider extends AbstractViewProvider {
 			return null;
 		}
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (elementType != null && !EcoreElementTypes.isKnownElementType(elementType)) {
+		EObject domainElement = getSemanticElement(semanticAdapter);
+
+		int visualID;
+		if (semanticHint == null) {
+			if (elementType != null || domainElement == null) {
+				return null;
+			}
+			visualID = EcoreVisualIDRegistry.getNodeVisualID(containerView, domainElement);
+		} else {
+			visualID = EcoreVisualIDRegistry.getVisualID(semanticHint);
+			if (elementType != null) {
+				if (!EcoreElementTypes.isKnownElementType(elementType) || false == elementType instanceof IHintedType) {
+					return null;
+				}
+				String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
+				if (!semanticHint.equals(elementTypeHint)) {
+					return null;
+				}
+				if (domainElement != null && visualID != EcoreVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
+					return null;
+				}
+			} else {
+				switch (visualID) {
+				case EPackageEditPart.VISUAL_ID:
+				case EClassEditPart.VISUAL_ID:
+				case EPackage2EditPart.VISUAL_ID:
+				case EAnnotationEditPart.VISUAL_ID:
+				case EDataTypeEditPart.VISUAL_ID:
+				case EEnumEditPart.VISUAL_ID:
+				case EAttributeEditPart.VISUAL_ID:
+				case EOperationEditPart.VISUAL_ID:
+				case EAnnotation2EditPart.VISUAL_ID:
+				case EClass2EditPart.VISUAL_ID:
+				case EPackage3EditPart.VISUAL_ID:
+				case EDataType2EditPart.VISUAL_ID:
+				case EEnum2EditPart.VISUAL_ID:
+				case EStringToStringMapEntryEditPart.VISUAL_ID:
+				case EEnumLiteralEditPart.VISUAL_ID:
+				case EAnnotationReferencesEditPart.VISUAL_ID:
+				case EReferenceEditPart.VISUAL_ID:
+				case EReference2EditPart.VISUAL_ID:
+				case EClassESuperTypesEditPart.VISUAL_ID:
+					return null;
+				}
+			}
+		}
+		if (!EcoreVisualIDRegistry.canCreateNode(containerView, visualID)) {
 			return null;
 		}
-		EClass semanticType = getSemanticEClass(semanticAdapter);
-		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int nodeVID = EcoreVisualIDRegistry.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
-		switch (nodeVID) {
+		switch (visualID) {
 		case EClassEditPart.VISUAL_ID:
 			return EClassViewFactory.class;
 		case EClassNameEditPart.VISUAL_ID:
@@ -209,28 +252,35 @@ public class EcoreViewProvider extends AbstractViewProvider {
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (elementType != null && !EcoreElementTypes.isKnownElementType(elementType)) {
+		if (elementType == null) {
 			return null;
 		}
-		if (EcoreElementTypes.EAnnotationReferences_4001.equals(elementType)) {
+		if (!EcoreElementTypes.isKnownElementType(elementType) || false == elementType instanceof IHintedType) {
+			return null;
+		}
+		String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
+		if (elementTypeHint == null) {
+			return null;
+		}
+		if (semanticHint != null && !semanticHint.equals(elementTypeHint)) {
+			return null;
+		}
+		int visualID = EcoreVisualIDRegistry.getVisualID(elementTypeHint);
+		EObject domainElement = getSemanticElement(semanticAdapter);
+		if (domainElement != null && visualID != EcoreVisualIDRegistry.getLinkWithClassVisualID(domainElement)) {
+			return null;
+		}
+		switch (visualID) {
+		case EAnnotationReferencesEditPart.VISUAL_ID:
 			return EAnnotationReferencesViewFactory.class;
-		}
-		if (EcoreElementTypes.EClassESuperTypes_4004.equals(elementType)) {
-			return EClassESuperTypesViewFactory.class;
-		}
-		EClass semanticType = getSemanticEClass(semanticAdapter);
-		if (semanticType == null) {
-			return null;
-		}
-		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(semanticElement, semanticType);
-		switch (linkVID) {
 		case EReferenceEditPart.VISUAL_ID:
 			return EReferenceViewFactory.class;
 		case EReference2EditPart.VISUAL_ID:
 			return EReference2ViewFactory.class;
+		case EClassESuperTypesEditPart.VISUAL_ID:
+			return EClassESuperTypesViewFactory.class;
 		}
-		return getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);
+		return null;
 	}
 
 	/**
@@ -241,14 +291,6 @@ public class EcoreViewProvider extends AbstractViewProvider {
 			return null;
 		}
 		return (IElementType) semanticAdapter.getAdapter(IElementType.class);
-	}
-
-	/**
-	 * @generated
-	 */
-	private Class getUnrecognizedConnectorViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-		// Handle unrecognized child node classes here
-		return null;
 	}
 
 }

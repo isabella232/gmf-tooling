@@ -124,6 +124,7 @@ public class EcoreDiagramUpdater {
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EAttributeEditPart.VISUAL_ID) {
 				result.add(new EcoreNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
@@ -140,6 +141,7 @@ public class EcoreDiagramUpdater {
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EOperationEditPart.VISUAL_ID) {
 				result.add(new EcoreNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
@@ -156,6 +158,7 @@ public class EcoreDiagramUpdater {
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EAnnotation2EditPart.VISUAL_ID) {
 				result.add(new EcoreNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
@@ -172,6 +175,7 @@ public class EcoreDiagramUpdater {
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EClass2EditPart.VISUAL_ID) {
 				result.add(new EcoreNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
@@ -188,6 +192,7 @@ public class EcoreDiagramUpdater {
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EPackage3EditPart.VISUAL_ID) {
 				result.add(new EcoreNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
@@ -204,6 +209,7 @@ public class EcoreDiagramUpdater {
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EDataType2EditPart.VISUAL_ID) {
 				result.add(new EcoreNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
@@ -220,6 +226,7 @@ public class EcoreDiagramUpdater {
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EEnum2EditPart.VISUAL_ID) {
 				result.add(new EcoreNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
@@ -236,6 +243,7 @@ public class EcoreDiagramUpdater {
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EAnnotation2EditPart.VISUAL_ID) {
 				result.add(new EcoreNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
@@ -252,6 +260,7 @@ public class EcoreDiagramUpdater {
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, (EObject) childElement);
 			if (visualID == EStringToStringMapEntryEditPart.VISUAL_ID) {
 				result.add(new EcoreNodeDescriptor((EObject) childElement, visualID));
+				continue;
 			}
 		}
 		return result;
@@ -268,6 +277,7 @@ public class EcoreDiagramUpdater {
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EAnnotation2EditPart.VISUAL_ID) {
 				result.add(new EcoreNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
@@ -284,6 +294,7 @@ public class EcoreDiagramUpdater {
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EEnumLiteralEditPart.VISUAL_ID) {
 				result.add(new EcoreNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
@@ -300,6 +311,7 @@ public class EcoreDiagramUpdater {
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EAnnotation2EditPart.VISUAL_ID) {
 				result.add(new EcoreNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
@@ -316,12 +328,15 @@ public class EcoreDiagramUpdater {
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EClassEditPart.VISUAL_ID) {
 				result.add(new EcoreNodeDescriptor(childElement, visualID));
+				continue;
 			}
 			if (visualID == EDataTypeEditPart.VISUAL_ID) {
 				result.add(new EcoreNodeDescriptor(childElement, visualID));
+				continue;
 			}
 			if (visualID == EEnumEditPart.VISUAL_ID) {
 				result.add(new EcoreNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		for (Iterator it = modelElement.getESubpackages().iterator(); it.hasNext();) {
@@ -329,6 +344,7 @@ public class EcoreDiagramUpdater {
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EPackage2EditPart.VISUAL_ID) {
 				result.add(new EcoreNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
@@ -336,6 +352,7 @@ public class EcoreDiagramUpdater {
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EAnnotationEditPart.VISUAL_ID) {
 				result.add(new EcoreNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
@@ -469,6 +486,13 @@ public class EcoreDiagramUpdater {
 	/**
 	 * @generated
 	 */
+	public static List getEPackage_1000ContainedLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
 	public static List getEClass_2001ContainedLinks(View view) {
 		EClass modelElement = (EClass) view.getElement();
 		List result = new LinkedList();
@@ -591,13 +615,6 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEReference_4003ContainedLinks(View view) {
-		return Collections.EMPTY_LIST;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static List getEPackage_1000ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 

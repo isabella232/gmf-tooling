@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.ecore.edit.parts;
 
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
@@ -94,6 +93,8 @@ public class EDataTypeEditPart extends ShapeNodeEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EDataTypeItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
+		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 
 	/**
@@ -135,7 +136,7 @@ public class EDataTypeEditPart extends ShapeNodeEditPart {
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof EDataTypeNameEditPart) {
-			((EDataTypeNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureNamedNode_NameLabelFigure());
+			((EDataTypeNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureName());
 			return true;
 		}
 		return false;
@@ -253,6 +254,11 @@ public class EDataTypeEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
+		private WrapLabel fName;
+
+		/**
+		 * @generated
+		 */
 		public NamedNodeRectangle() {
 
 			ToolbarLayout layoutThis = new ToolbarLayout();
@@ -266,12 +272,6 @@ public class EDataTypeEditPart extends ShapeNodeEditPart {
 
 			this.setLayoutManager(layoutThis);
 
-			this.setFill(true);
-			this.setFillXOR(false);
-			this.setOutline(true);
-			this.setOutlineXOR(false);
-			this.setLineWidth(1);
-			this.setLineStyle(Graphics.LINE_SOLID);
 			createContents();
 		}
 
@@ -280,31 +280,12 @@ public class EDataTypeEditPart extends ShapeNodeEditPart {
 		 */
 		private void createContents() {
 
-			WrapLabel namedNode_NameLabelFigure0 = new WrapLabel();
-			namedNode_NameLabelFigure0.setText("");
+			WrapLabel l0 = new WrapLabel();
+			l0.setText("");
 
-			this.add(namedNode_NameLabelFigure0);
-			setFigureNamedNode_NameLabelFigure(namedNode_NameLabelFigure0);
+			this.add(l0);
+			fName = l0;
 
-		}
-
-		/**
-		 * @generated
-		 */
-		private WrapLabel fNamedNode_NameLabelFigure;
-
-		/**
-		 * @generated
-		 */
-		public WrapLabel getFigureNamedNode_NameLabelFigure() {
-			return fNamedNode_NameLabelFigure;
-		}
-
-		/**
-		 * @generated
-		 */
-		private void setFigureNamedNode_NameLabelFigure(WrapLabel fig) {
-			fNamedNode_NameLabelFigure = fig;
 		}
 
 		/**
@@ -324,6 +305,13 @@ public class EDataTypeEditPart extends ShapeNodeEditPart {
 		 */
 		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
 			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		public WrapLabel getFigureName() {
+			return fName;
 		}
 
 	}

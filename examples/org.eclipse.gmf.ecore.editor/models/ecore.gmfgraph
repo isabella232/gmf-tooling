@@ -2,17 +2,19 @@
 <gmfgraph:Canvas xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="Ecore Canvas">
+    xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" name="Ecore Canvas">
   <figures
       name="Ecore Figure Gallery">
-    <figures
-        xsi:type="gmfgraph:Rectangle"
-        referencingElements="attributes operations classAnnotations classes packages dataTypes enums packageAnnotations details dataTypeAnnotations literals enumAnnotations"
-        name="RectangleFigure"/>
-    <figures
-        xsi:type="gmfgraph:Label"
-        referencingElements="MultiplicityLabel"
-        name="LabelFigure"/>
+    <descriptors
+        name="RectangleFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Rectangle"/>
+    </descriptors>
+    <descriptors
+        name="LabelFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Label"/>
+    </descriptors>
   </figures>
   <compartments
       name="attributes"

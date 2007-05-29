@@ -569,14 +569,23 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	public static class HintAdapter extends ParserHintAdapter {
 
+		/**
+		 * @generated
+		 */
 		private final IElementType elementType;
 
+		/**
+		 * @generated
+		 */
 		public HintAdapter(IElementType type, EObject object, String parserHint) {
 			super(object, parserHint);
 			assert type != null;
 			elementType = type;
 		}
 
+		/**
+		 * @generated
+		 */
 		public Object getAdapter(Class adapter) {
 			if (IElementType.class.equals(adapter)) {
 				return elementType;

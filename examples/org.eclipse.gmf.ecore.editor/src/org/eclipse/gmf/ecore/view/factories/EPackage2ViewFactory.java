@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IAdaptable;
 
 import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart;
@@ -33,6 +34,8 @@ import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
+
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 
 import org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
@@ -69,11 +72,13 @@ public class EPackage2ViewFactory extends AbstractShapeViewFactory {
 		}
 		HintedDiagramLinkStyle diagramFacet = NotationFactory.eINSTANCE.createHintedDiagramLinkStyle();
 		view.getStyles().add(diagramFacet);
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageNameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageClassesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackagePackagesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageDataTypesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageEnumsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackagePackageAnnotationsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		EObject eObject = (EObject) semanticAdapter.getAdapter(EObject.class);
+		IAdaptable eObjectAdapter = eObject != null ? new EObjectAdapter(eObject) : null;
+		getViewService().createNode(eObjectAdapter, view, EcoreVisualIDRegistry.getType(EPackageNameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(eObjectAdapter, view, EcoreVisualIDRegistry.getType(EPackageClassesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(eObjectAdapter, view, EcoreVisualIDRegistry.getType(EPackagePackagesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(eObjectAdapter, view, EcoreVisualIDRegistry.getType(EPackageDataTypesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(eObjectAdapter, view, EcoreVisualIDRegistry.getType(EPackageEnumsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(eObjectAdapter, view, EcoreVisualIDRegistry.getType(EPackagePackageAnnotationsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

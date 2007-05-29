@@ -77,6 +77,7 @@ public class EPackageEditPart extends DiagramEditPart {
 				return null;
 			}
 		});
+		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.POPUPBAR_ROLE);
 	}
 
 }
