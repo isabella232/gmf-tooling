@@ -459,7 +459,7 @@ public class MigrationPatchesTest extends TestCase {
 		URI newUri = temporarySaveMigratedModel(gmfgraphFileName, "basic", "gmfgraph");
 		changeNsUriToOldOne(newUri, "gmfgraph", "http://www.eclipse.org/gmf/2005/GraphicalDefinition");
 		
-		assertOnLoadModelMigrationDidNothing(newUri);
+		//assertOnLoadModelMigrationDidNothing(newUri);
 		checkAllFigureReferences(newUri);
 	}
 
@@ -479,20 +479,18 @@ public class MigrationPatchesTest extends TestCase {
 		
 		FigureGallery fg = canvas.getFigures().get(0);
 		assertEquals("GenericDiagramFigures", fg.getName());
-		assertFalse(fg.getFigures().isEmpty());
-		assertEquals(5, fg.getFigures().size());
-		
+		assertTrue(fg.getFigures().isEmpty());
 		assertFalse(fg.getDescriptors().isEmpty());
-		assertEquals(fg.getFigures().size(), fg.getDescriptors().size());
+		assertEquals(5, fg.getDescriptors().size());
 		
 		FigureDescriptor fg1 = fg.getDescriptors().get(0);
 		assertTrue(fg1.getAccessors().isEmpty());
 		
-		FigureDescriptor fg5 = fg.getDescriptors().get(5);
+		FigureDescriptor fg5 = fg.getDescriptors().get(4);
 		assertFalse(fg5.getAccessors().isEmpty());
 		assertEquals(1, fg5.getAccessors().size());
 		
-		Figure figure1 = fg.getFigures().get(0);
+		Figure figure1 = fg.getDescriptors().get(0).getActualFigure();
 		assertTrue(figure1 instanceof Rectangle);
 		Rectangle nr  = (Rectangle) figure1;
 		assertEquals("NodeRectangle", nr.getName());
@@ -502,7 +500,7 @@ public class MigrationPatchesTest extends TestCase {
 		assertEquals(nr, nr.getDescriptor().getActualFigure());
 		assertEquals(0, nr.getDescriptor().getAccessors().size());
 		
-		Figure figure2 = fg.getFigures().get(1);
+		Figure figure2 = fg.getDescriptors().get(1).getActualFigure();
 		assertTrue(figure2 instanceof PolylineConnection);
 		PolylineConnection pc = (PolylineConnection) figure2;
 		assertEquals("ConnectionLine", pc.getName());
@@ -510,7 +508,7 @@ public class MigrationPatchesTest extends TestCase {
 		assertEquals(pc, pc.getDescriptor().getActualFigure());
 		assertEquals(0, pc.getDescriptor().getAccessors().size());
 		
-		Figure figure3 = fg.getFigures().get(2);
+		Figure figure3 = fg.getDescriptors().get(2).getActualFigure();
 		assertTrue(figure3 instanceof LabeledContainer);
 		LabeledContainer lc = (LabeledContainer) figure3;
 		assertEquals("ContainerFigure", lc.getName());
@@ -518,7 +516,7 @@ public class MigrationPatchesTest extends TestCase {
 		assertEquals(lc, lc.getDescriptor().getActualFigure());
 		assertEquals(0, lc.getDescriptor().getAccessors().size());
 		
-		Figure figure4 = fg.getFigures().get(3);
+		Figure figure4 = fg.getDescriptors().get(3).getActualFigure();
 		assertTrue(figure4 instanceof Label);
 		Label lab = (Label) figure4;
 		assertEquals("LabelFigure", lab.getName());
@@ -526,7 +524,7 @@ public class MigrationPatchesTest extends TestCase {
 		assertEquals(lab, lab.getDescriptor().getActualFigure());
 		assertEquals(0, lab.getDescriptor().getAccessors().size()); //2 references!!!
 		
-		Figure figure5 = fg.getFigures().get(4);
+		Figure figure5 = fg.getDescriptors().get(4).getActualFigure();
 		assertTrue(figure5 instanceof Rectangle);
 		Rectangle nnr = (Rectangle) figure5;
 		assertEquals("NamedNodeRectangle", nnr.getName());
@@ -546,8 +544,6 @@ public class MigrationPatchesTest extends TestCase {
 		assertEquals(nnrLabel.getDescriptor(), nnr.getDescriptor());
 		assertEquals(1, nnr.getDescriptor().getAccessors().size());
 		assertEquals(nnrLabel, nnr.getDescriptor().getAccessors().get(0).getFigure());
-		assertEquals(fg5.getAccessors(), nnr.getDescriptor().getAccessors().get(0));
-		assertEquals(nnrLabel, fg5.getAccessors().get(0).getFigure());
 
 		assertNotNull(canvas.getNodes());
 		assertFalse(canvas.getNodes().isEmpty());
