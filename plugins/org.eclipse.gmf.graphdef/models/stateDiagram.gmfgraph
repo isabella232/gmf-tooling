@@ -2,42 +2,9 @@
 <gmfgraph:Canvas xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="StateDiagram Canvas">
+    xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" name="StateDiagram Canvas">
   <figures
       name="ClassDiagram Figure Gallery">
-    <figures
-        xsi:type="gmfgraph:RoundedRectangle"
-        referencingElements="StateMachine_Node State"
-        name="RoundedRectangle"
-        cornerWidth="25"
-        cornerHeight="25">
-      <layout
-          xsi:type="gmfgraph:XYLayout"/>
-      <children
-          xsi:type="gmfgraph:Label"
-          referencingElements="StateMachine_Name State_Name"
-          name="RoundedRectangle_NameLabel"/>
-    </figures>
-    <figures
-        xsi:type="gmfgraph:Rectangle"
-        referencingElements="Region"
-        name="SimpleRectangle"
-        lineKind="LINE_DASH">
-      <layout
-          xsi:type="gmfgraph:XYLayout"/>
-      <children
-          xsi:type="gmfgraph:Label"
-          referencingElements="Region_Name"
-          name="SimpleRectangle_NameLabel"/>
-      <foregroundColor
-          xsi:type="gmfgraph:ConstantColor"
-          value="black"/>
-    </figures>
-    <figures
-        xsi:type="gmfgraph:PolylineConnection"
-        referencingElements="SolidLineWDstArrow"
-        name="SolidLineWDstArrowFigure"
-        targetDecoration="ArrowDecoration"/>
     <figures
         xsi:type="gmfgraph:PolylineDecoration"
         name="ArrowDecoration">
@@ -49,6 +16,46 @@
           x="-1"
           y="-1"/>
     </figures>
+    <descriptors
+        name="RoundedRectangle">
+      <actualFigure
+          xsi:type="gmfgraph:RoundedRectangle"
+          cornerWidth="25"
+          cornerHeight="25">
+        <layout
+            xsi:type="gmfgraph:XYLayout"/>
+        <children
+            xsi:type="gmfgraph:Label"
+            name="RoundedRectangle_NameLabel"/>
+      </actualFigure>
+      <accessors
+          accessor="Name"
+          figure="//@figures.0/@descriptors.0/@actualFigure/@children.0"/>
+    </descriptors>
+    <descriptors
+        name="SimpleRectangle">
+      <actualFigure
+          xsi:type="gmfgraph:Rectangle"
+          lineKind="LINE_DASH">
+        <layout
+            xsi:type="gmfgraph:XYLayout"/>
+        <foregroundColor
+            xsi:type="gmfgraph:ConstantColor"
+            value="black"/>
+        <children
+            xsi:type="gmfgraph:Label"
+            name="SimpleRectangle_NameLabel"/>
+      </actualFigure>
+      <accessors
+          accessor="Name"
+          figure="//@figures.0/@descriptors.1/@actualFigure/@children.0"/>
+    </descriptors>
+    <descriptors
+        name="SolidLineWDstArrowFigure">
+      <actualFigure
+          xsi:type="gmfgraph:PolylineConnection"
+          targetDecoration="//@figures.0/@figures.0"/>
+    </descriptors>
   </figures>
   <nodes
       name="StateMachine_Node"
@@ -64,11 +71,14 @@
       figure="SolidLineWDstArrowFigure"/>
   <labels
       name="StateMachine_Name"
-      figure="RoundedRectangle_NameLabel"/>
+      figure="RoundedRectangle"
+      accessor="//@figures.0/@descriptors.0/@accessors.0"/>
   <labels
       name="Region_Name"
-      figure="SimpleRectangle_NameLabel"/>
+      figure="SimpleRectangle"
+      accessor="//@figures.0/@descriptors.1/@accessors.0"/>
   <labels
       name="State_Name"
-      figure="RoundedRectangle_NameLabel"/>
+      figure="RoundedRectangle"
+      accessor="//@figures.0/@descriptors.0/@accessors.0"/>
 </gmfgraph:Canvas>
