@@ -18,24 +18,20 @@ cached List[gmfgen::GenNode] getContainedSemanticNodes(gmfgen::GenContainerBase 
 	container.containedNodes.select(node | null != node.modelFacet)
 ;
 
-String getUnrecognizedDiagramIDMethodName() :
-	"getUnrecognizedDiagramID"
+Collection[gmfgen::GenCommonBase] getEssentialVisualChildren(gmfgen::GenCommonBase visualParent) :
+	{}
 ;
 
-String getUnrecognizedNodeIDMethodName() :
-	"getUnrecognizedNodeID"
+Collection[gmfgen::GenCommonBase] getEssentialVisualChildren(gmfgen::GenLink visualParent) :
+	visualParent.labels
 ;
 
-String getUnrecognizedLinkWithClassIDMethodName() :
-	"getUnrecognizedLinkWithClassID"
+Collection[gmfgen::GenCommonBase] getEssentialVisualChildren(gmfgen::GenContainerBase visualParent) :
+	visualParent.containedNodes
 ;
 
-String getUnrecognizedChildNodeIDMethodName(gmfgen::GenContainerBase container) :
-	"getUnrecognized" + container.getUniqueIdentifier() + "ChildNodeID"
-;
-
-String getUnrecognizedLinkLabelIDMethodName(gmfgen::GenLink link) :
-	"getUnrecognized" + link.getUniqueIdentifier() + "LinkLabelID"
+Collection[gmfgen::GenCommonBase] getEssentialVisualChildren(gmfgen::GenNode visualParent) :
+	{}.addAll(visualParent.labels).addAll(visualParent.compartments).addAll(visualParent.containedNodes)
 ;
 
 boolean hasDiagramElementRule(gmfgen::GenAuditRoot audits) :

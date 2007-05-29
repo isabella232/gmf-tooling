@@ -230,8 +230,8 @@ public static boolean «EXPAND canCreateNodeMethodName»(org.eclipse.gmf.runtime.n
 		}
 	}
 	switch (containerVisualID) {
-		«EXPAND caseContainerVisualID FOREACH getAllContainers()-»
-		«EXPAND caseLinkVisualID FOREACH links-»
+		«EXPAND caseVisualID FOREACH getAllContainers().select(e| !e.getEssentialVisualChildren().isEmpty())-»
+		«EXPAND caseVisualID FOREACH links.select(e| !e.getEssentialVisualChildren().isEmpty())-»
 	}
 	return false;
 }
@@ -241,26 +241,10 @@ public static boolean «EXPAND canCreateNodeMethodName»(org.eclipse.gmf.runtime.n
 
 «DEFINE checkContainerModelID FOR String» && !"«this»".equals(containerModelID)«ENDDEFINE»
 
-«DEFINE caseContainerVisualID FOR gmfgen::GenContainerBase-»
+«DEFINE caseVisualID FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::caseVisualID»
-	«EXPAND checkNodeEssentialChildren-»
-	«EXPAND checkEssentialChild FOREACH containedNodes-»
+	«EXPAND checkEssentialChild FOREACH getEssentialVisualChildren()-»
 	break;
-«ENDDEFINE»
-
-«DEFINE caseLinkVisualID FOR gmfgen::GenLink-»
-	«IF !labels.isEmpty()-»
-«EXPAND xpt::Common::caseVisualID»
-	«EXPAND checkEssentialChild FOREACH labels-»
-	break;
-	«ENDIF-»
-«ENDDEFINE»
-
-«DEFINE checkNodeEssentialChildren FOR gmfgen::GenContainerBase»«ENDDEFINE»
-
-«DEFINE checkNodeEssentialChildren FOR gmfgen::GenNode-»
-	«EXPAND checkEssentialChild FOREACH labels-»
-	«EXPAND checkEssentialChild FOREACH compartments-»
 «ENDDEFINE»
 
 «DEFINE checkEssentialChild FOR gmfgen::GenCommonBase-»
