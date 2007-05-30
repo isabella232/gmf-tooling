@@ -165,7 +165,7 @@
 		<exec executable="rsync">
 			<arg value="-var"/>
 			<arg value="--delete"/>
-			<arg value="--password-file rsync.pwd"/>
+			<arg value="--password-file=${basedir}/rsync.pwd"/>
 			<arg value="${buildRoot}/artifacts/drops/${buildLabel}"/>
 			<arg value="${ftpUser}@download1.eclipse.org:${remoteDirectory}/downloads/drops/"/>
 		</exec>	
