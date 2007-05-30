@@ -48,12 +48,16 @@ public class «diagramUpdaterClassName» {
 }
 «ENDDEFINE»
 
+«REM»
+	Currently shortcuts are supported only for domain-based diagram element.
+	This means, view.isSetElement() == true.
+«ENDREM»
 «DEFINE isShortcutOrphaned FOR gmfgen::GenDiagramUpdater-»
 	«IF !editorGen.diagram.containsShortcutsTo.isEmpty()-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 public static boolean isShortcutOrphaned(org.eclipse.gmf.runtime.notation.View view) {
-	return view.getEAnnotation("Shortcut") != null && view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy()); «EXPAND xpt::Common::nonNLS»
+	return view.getEAnnotation("Shortcut") != null && (!view.isSetElement() || view.getElement() == null || view.getElement().eIsProxy()); «EXPAND xpt::Common::nonNLS»
 }
 	«ENDIF-»
 «ENDDEFINE»
@@ -80,7 +84,7 @@ public static java.util.List getSemanticChildren(org.eclipse.gmf.runtime.notatio
 	«EXPAND xpt::Common::generatedMemberComment»
 public static java.util.List «EXPAND getSemanticChildrenMethodName»(org.eclipse.gmf.runtime.notation.View view) {
 	«IF getSemanticChildrenChildFeatures(this).size() > 0 || getPhantomNodes(this).size() > 0-»
-	«EXPAND getModelelementType» modelElement = («EXPAND getModelelementType») view.getElement();
+	«EXPAND defineModelElement-»
 	java.util.List result = new java.util.LinkedList();
 «REM»childMetaFeature can be null here!«ENDREM»«-»
 		«FOREACH getSemanticChildrenChildFeatures(this) AS childMetaFeature-»
@@ -111,6 +115,24 @@ public static java.util.List «EXPAND getSemanticChildrenMethodName»(org.eclipse.
 	return java.util.Collections.EMPTY_LIST;
 	«ENDIF-»
 }
+«ENDDEFINE»
+
+«DEFINE defineModelElement FOR gmfgen::GenContainerBase-»
+if (!view.isSetElement()) {
+	return java.util.Collections.EMPTY_LIST;
+}
+«EXPAND getModelelementType» modelElement = («EXPAND getModelelementType») view.getElement();
+«ENDDEFINE»
+
+«DEFINE defineModelElement FOR gmfgen::GenCompartment-»
+if (false == view.eContainer() instanceof org.eclipse.gmf.runtime.notation.View) {
+	return java.util.Collections.EMPTY_LIST;
+}
+org.eclipse.gmf.runtime.notation.View containerView = (org.eclipse.gmf.runtime.notation.View) view.eContainer();
+if (!containerView.isSetElement()) {
+	return java.util.Collections.EMPTY_LIST;
+}
+«EXPAND getModelelementType» modelElement = («EXPAND getModelelementType») containerView.getElement();
 «ENDDEFINE»
 
 «DEFINE getSemanticChildrenMethodName FOR gmfgen::GenContainerBase»get«getUniqueIdentifier()»SemanticChildren«ENDDEFINE»
