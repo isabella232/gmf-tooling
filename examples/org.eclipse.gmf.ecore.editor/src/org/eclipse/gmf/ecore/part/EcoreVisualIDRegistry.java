@@ -325,24 +325,6 @@ public class EcoreVisualIDRegistry {
 				return true;
 			}
 			break;
-		case EAttributeEditPart.VISUAL_ID:
-			break;
-		case EOperationEditPart.VISUAL_ID:
-			break;
-		case EAnnotation2EditPart.VISUAL_ID:
-			break;
-		case EClass2EditPart.VISUAL_ID:
-			break;
-		case EPackage3EditPart.VISUAL_ID:
-			break;
-		case EDataType2EditPart.VISUAL_ID:
-			break;
-		case EEnum2EditPart.VISUAL_ID:
-			break;
-		case EStringToStringMapEntryEditPart.VISUAL_ID:
-			break;
-		case EEnumLiteralEditPart.VISUAL_ID:
-			break;
 		case EClassAttributesEditPart.VISUAL_ID:
 			if (EAttributeEditPart.VISUAL_ID == nodeVisualID) {
 				return true;

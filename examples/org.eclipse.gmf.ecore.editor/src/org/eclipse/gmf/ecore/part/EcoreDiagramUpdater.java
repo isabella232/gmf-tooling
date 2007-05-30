@@ -75,7 +75,7 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static boolean isShortcutOrphaned(View view) {
-		return view.getEAnnotation("Shortcut") != null && view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy()); //$NON-NLS-1$
+		return !view.isSetElement() || view.getElement() == null || view.getElement().eIsProxy();
 	}
 
 	/**
@@ -117,7 +117,14 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEClassAttributes_7001SemanticChildren(View view) {
-		EClass modelElement = (EClass) view.getElement();
+		if (false == view.eContainer() instanceof View) {
+			return Collections.EMPTY_LIST;
+		}
+		View containerView = (View) view.eContainer();
+		if (!containerView.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		EClass modelElement = (EClass) containerView.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getEAttributes().iterator(); it.hasNext();) {
 			EAttribute childElement = (EAttribute) it.next();
@@ -134,7 +141,14 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEClassOperations_7002SemanticChildren(View view) {
-		EClass modelElement = (EClass) view.getElement();
+		if (false == view.eContainer() instanceof View) {
+			return Collections.EMPTY_LIST;
+		}
+		View containerView = (View) view.eContainer();
+		if (!containerView.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		EClass modelElement = (EClass) containerView.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getEOperations().iterator(); it.hasNext();) {
 			EOperation childElement = (EOperation) it.next();
@@ -151,7 +165,14 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEClassClassAnnotations_7003SemanticChildren(View view) {
-		EClass modelElement = (EClass) view.getElement();
+		if (false == view.eContainer() instanceof View) {
+			return Collections.EMPTY_LIST;
+		}
+		View containerView = (View) view.eContainer();
+		if (!containerView.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		EClass modelElement = (EClass) containerView.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
 			EAnnotation childElement = (EAnnotation) it.next();
@@ -168,7 +189,14 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEPackageClasses_7004SemanticChildren(View view) {
-		EPackage modelElement = (EPackage) view.getElement();
+		if (false == view.eContainer() instanceof View) {
+			return Collections.EMPTY_LIST;
+		}
+		View containerView = (View) view.eContainer();
+		if (!containerView.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		EPackage modelElement = (EPackage) containerView.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
 			EClassifier childElement = (EClassifier) it.next();
@@ -185,7 +213,14 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEPackagePackages_7005SemanticChildren(View view) {
-		EPackage modelElement = (EPackage) view.getElement();
+		if (false == view.eContainer() instanceof View) {
+			return Collections.EMPTY_LIST;
+		}
+		View containerView = (View) view.eContainer();
+		if (!containerView.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		EPackage modelElement = (EPackage) containerView.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getESubpackages().iterator(); it.hasNext();) {
 			EPackage childElement = (EPackage) it.next();
@@ -202,7 +237,14 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEPackageDataTypes_7006SemanticChildren(View view) {
-		EPackage modelElement = (EPackage) view.getElement();
+		if (false == view.eContainer() instanceof View) {
+			return Collections.EMPTY_LIST;
+		}
+		View containerView = (View) view.eContainer();
+		if (!containerView.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		EPackage modelElement = (EPackage) containerView.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
 			EClassifier childElement = (EClassifier) it.next();
@@ -219,7 +261,14 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEPackageEnums_7007SemanticChildren(View view) {
-		EPackage modelElement = (EPackage) view.getElement();
+		if (false == view.eContainer() instanceof View) {
+			return Collections.EMPTY_LIST;
+		}
+		View containerView = (View) view.eContainer();
+		if (!containerView.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		EPackage modelElement = (EPackage) containerView.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
 			EClassifier childElement = (EClassifier) it.next();
@@ -236,7 +285,14 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEPackagePackageAnnotations_7008SemanticChildren(View view) {
-		EPackage modelElement = (EPackage) view.getElement();
+		if (false == view.eContainer() instanceof View) {
+			return Collections.EMPTY_LIST;
+		}
+		View containerView = (View) view.eContainer();
+		if (!containerView.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		EPackage modelElement = (EPackage) containerView.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
 			EAnnotation childElement = (EAnnotation) it.next();
@@ -253,7 +309,14 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEAnnotationDetails_7009SemanticChildren(View view) {
-		EAnnotation modelElement = (EAnnotation) view.getElement();
+		if (false == view.eContainer() instanceof View) {
+			return Collections.EMPTY_LIST;
+		}
+		View containerView = (View) view.eContainer();
+		if (!containerView.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		EAnnotation modelElement = (EAnnotation) containerView.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getDetails().iterator(); it.hasNext();) {
 			Map.Entry childElement = (Map.Entry) it.next();
@@ -270,7 +333,14 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEDataTypeDataTypeAnnotations_7010SemanticChildren(View view) {
-		EDataType modelElement = (EDataType) view.getElement();
+		if (false == view.eContainer() instanceof View) {
+			return Collections.EMPTY_LIST;
+		}
+		View containerView = (View) view.eContainer();
+		if (!containerView.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		EDataType modelElement = (EDataType) containerView.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
 			EAnnotation childElement = (EAnnotation) it.next();
@@ -287,7 +357,14 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEEnumLiterals_7011SemanticChildren(View view) {
-		EEnum modelElement = (EEnum) view.getElement();
+		if (false == view.eContainer() instanceof View) {
+			return Collections.EMPTY_LIST;
+		}
+		View containerView = (View) view.eContainer();
+		if (!containerView.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		EEnum modelElement = (EEnum) containerView.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getELiterals().iterator(); it.hasNext();) {
 			EEnumLiteral childElement = (EEnumLiteral) it.next();
@@ -304,7 +381,14 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEEnumEnumAnnotations_7012SemanticChildren(View view) {
-		EEnum modelElement = (EEnum) view.getElement();
+		if (false == view.eContainer() instanceof View) {
+			return Collections.EMPTY_LIST;
+		}
+		View containerView = (View) view.eContainer();
+		if (!containerView.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		EEnum modelElement = (EEnum) containerView.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
 			EAnnotation childElement = (EAnnotation) it.next();
@@ -321,6 +405,9 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEPackage_1000SemanticChildren(View view) {
+		if (!view.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
 		EPackage modelElement = (EPackage) view.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
