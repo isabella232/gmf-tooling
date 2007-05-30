@@ -1,4 +1,4 @@
-<project name="Publish Build" default="default">
+<project name="Publish Base Platform" default="default">
 
 <!-- Properties that must be passed to this script:
 	buildDirectory: Path to perform the build in.  (A working directory)
