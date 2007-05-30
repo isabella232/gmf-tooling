@@ -162,12 +162,12 @@
 		
 	<target name="deploy.base" depends="init.base">
 		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/downloads/drops/${buildLabel}" failonerror="false"/>
-		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/downloads/drops/${buildLabel}">
-	    <fileset dir="${buildRoot}/artifacts/drops/${buildLabel}">
-	    	<include name="*.zip"/>
-	    	<include name="*.tar.gz"/>
-	    </fileset>
-	  	</scp>
+		<exec executable="rsync">
+			<arg value="-var"/>
+			<arg value="--delete"/>
+			<arg value="${buildRoot}/artifacts/drops/${buildLabel}"/>
+			<arg value="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/downloads/drops/${buildLabel}"/>
+		</exec>	
 		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="chmod -R 775 ${remoteDirectory}/downloads/drops/${buildLabel}"/>
 	</target>	
 
