@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IAdaptable;
 
 import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingEditPart;
@@ -29,6 +30,7 @@ import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
 
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -61,7 +63,9 @@ public class BuildingViewFactory extends AbstractShapeViewFactory {
 			shortcutAnnotation.getDetails().put("modelID", PortEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
-		getViewService().createNode(semanticAdapter, view, PortVisualIDRegistry.getType(BuildingInfoEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		EObject eObject = (EObject) semanticAdapter.getAdapter(EObject.class);
+		IAdaptable eObjectAdapter = eObject != null ? new EObjectAdapter(eObject) : null;
+		getViewService().createNode(eObjectAdapter, view, PortVisualIDRegistry.getType(BuildingInfoEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 
 }

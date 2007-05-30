@@ -50,6 +50,7 @@ public class PortDiagramUpdater {
 			int visualID = PortVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == BuildingEditPart.VISUAL_ID) {
 				result.add(new PortNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;

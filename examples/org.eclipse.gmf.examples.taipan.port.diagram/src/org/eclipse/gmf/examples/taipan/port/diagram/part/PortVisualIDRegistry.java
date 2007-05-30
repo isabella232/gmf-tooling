@@ -99,63 +99,60 @@ public class PortVisualIDRegistry {
 		if (domainElement == null) {
 			return -1;
 		}
-		EClass domainElementMetaclass = domainElement.eClass();
-		return getDiagramVisualID(domainElement, domainElementMetaclass);
-	}
-
-	/**
-	 * @generated
-	 */
-	private static int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElementMetaclass) && isDiagram((Port) domainElement)) {
+		if (TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElement.eClass()) && isDiagram((Port) domainElement)) {
 			return PortEditPart.VISUAL_ID;
 		}
-		return getUnrecognizedDiagramID(domainElement);
+		return -1;
 	}
 
 	/**
 	 * @generated
 	 */
 	public static int getNodeVisualID(View containerView, EObject domainElement) {
-		if (domainElement == null) {
+		if (domainElement == null || !PortEditPart.MODEL_ID.equals(org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry.getModelID(containerView))) {
 			return -1;
 		}
-		EClass domainElementMetaclass = domainElement.eClass();
-		return getNodeVisualID(containerView, domainElement, domainElementMetaclass, null);
+		switch (org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry.getVisualID(containerView)) {
+		case PortEditPart.VISUAL_ID:
+			if (TaiPanPackage.eINSTANCE.getBuilding().isSuperTypeOf(domainElement.eClass())) {
+				return BuildingEditPart.VISUAL_ID;
+			}
+			break;
+		}
+		return -1;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {
+	public static boolean canCreateNode(View containerView, int nodeVisualID) {
 		String containerModelID = org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry.getModelID(containerView);
 		if (!PortEditPart.MODEL_ID.equals(containerModelID)) {
-			return -1;
+			return false;
 		}
 		int containerVisualID;
 		if (PortEditPart.MODEL_ID.equals(containerModelID)) {
 			containerVisualID = org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry.getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
-				containerVisualID = 1000;
+				containerVisualID = PortEditPart.VISUAL_ID;
 			} else {
-				return -1;
+				return false;
 			}
 		}
-		int nodeVisualID = semanticHint != null ? org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry.getVisualID(semanticHint) : -1;
 		switch (containerVisualID) {
 		case BuildingEditPart.VISUAL_ID:
 			if (BuildingInfoEditPart.VISUAL_ID == nodeVisualID) {
-				return BuildingInfoEditPart.VISUAL_ID;
+				return true;
 			}
-			return getUnrecognizedBuilding_2001ChildNodeID(domainElement, semanticHint);
+			break;
 		case PortEditPart.VISUAL_ID:
-			if ((semanticHint == null || BuildingEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getBuilding().isSuperTypeOf(domainElementMetaclass)) {
-				return BuildingEditPart.VISUAL_ID;
+			if (BuildingEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
 			}
-			return getUnrecognizedPort_1000ChildNodeID(domainElement, semanticHint);
+			break;
 		}
-		return getUnrecognizedNodeID(containerView, domainElement);
+		return false;
 	}
 
 	/**
@@ -165,15 +162,7 @@ public class PortVisualIDRegistry {
 		if (domainElement == null) {
 			return -1;
 		}
-		EClass domainElementMetaclass = domainElement.eClass();
-		return getLinkWithClassVisualID(domainElement, domainElementMetaclass);
-	}
-
-	/**
-	 * @generated
-	 */
-	public static int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		return getUnrecognizedLinkWithClassID(domainElement);
+		return -1;
 	}
 
 	/**
@@ -184,55 +173,5 @@ public class PortVisualIDRegistry {
 	 */
 	private static boolean isDiagram(Port element) {
 		return true;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedDiagramID(EObject domainElement) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 * 
-	 * @generated
-	 */
-	private static int getUnrecognizedNodeID(View containerView, EObject domainElement) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedBuilding_2001ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedPort_1000ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedLinkWithClassID(EObject domainElement) {
-		return -1;
 	}
 }

@@ -181,7 +181,9 @@ Contributors:
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
       <?gmfgen generated="true"?>
-      <propertyContributor contributorId="org.eclipse.gmf.examples.taipan.port.diagram" labelProvider="org.eclipse.gmf.examples.taipan.port.diagram.properties.PortPropertiesLabelProvider">
+      <propertyContributor
+            contributorId="org.eclipse.gmf.examples.taipan.port.diagram"
+            labelProvider="org.eclipse.gmf.examples.taipan.port.diagram.properties.PortPropertiesLabelProvider">
          <propertyCategory category="domain"/>
          <propertyCategory category="visual"/>
          <propertyCategory category="extra"/>
