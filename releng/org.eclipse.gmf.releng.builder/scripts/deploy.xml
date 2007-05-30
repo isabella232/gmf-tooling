@@ -43,7 +43,7 @@
 	    	<zipfileset dir="${buildRoot}/artifacts/drops/${buildLabel}/testresults" prefix="testresults"/>
 	  	</zip>
    
-		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/downloads/drops/${buildLabel}"/>
+		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/downloads/drops/${buildLabel}" failonerror="false"/>
 
 		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/downloads/drops/${buildLabel}">
 	    <fileset dir="${buildRoot}/artifacts/drops/${buildLabel}">
@@ -161,7 +161,7 @@
 	</target>
 		
 	<target name="deploy.base" depends="init.base">
-		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/downloads/drops/${buildLabel}"/>
+		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/downloads/drops/${buildLabel}" failonerror="false"/>
 		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/downloads/drops/${buildLabel}">
 	    <fileset dir="${buildRoot}/artifacts/drops/${buildLabel}">
 	    	<include name="*.zip"/>
