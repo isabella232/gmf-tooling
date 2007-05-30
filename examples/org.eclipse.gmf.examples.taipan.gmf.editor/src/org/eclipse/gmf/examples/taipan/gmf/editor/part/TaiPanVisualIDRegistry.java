@@ -134,151 +134,175 @@ public class TaiPanVisualIDRegistry {
 		if (domainElement == null) {
 			return -1;
 		}
-		EClass domainElementMetaclass = domainElement.eClass();
-		return getDiagramVisualID(domainElement, domainElementMetaclass);
-	}
-
-	/**
-	 * @generated
-	 */
-	private static int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getAquatory().isSuperTypeOf(domainElementMetaclass) && isDiagram((Aquatory) domainElement)) {
+		if (TaiPanPackage.eINSTANCE.getAquatory().isSuperTypeOf(domainElement.eClass()) && isDiagram((Aquatory) domainElement)) {
 			return AquatoryEditPart.VISUAL_ID;
 		}
-		return getUnrecognizedDiagramID(domainElement);
+		return -1;
 	}
 
 	/**
 	 * @generated
 	 */
 	public static int getNodeVisualID(View containerView, EObject domainElement) {
-		if (domainElement == null) {
+		if (domainElement == null || !AquatoryEditPart.MODEL_ID.equals(org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getModelID(containerView))) {
 			return -1;
 		}
-		EClass domainElementMetaclass = domainElement.eClass();
-		return getNodeVisualID(containerView, domainElement, domainElementMetaclass, null);
+		switch (org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getVisualID(containerView)) {
+		case ShipSmallCargoEditPart.VISUAL_ID:
+			if (TaiPanPackage.eINSTANCE.getSmallItems().isSuperTypeOf(domainElement.eClass())) {
+				return SmallItemsEditPart.VISUAL_ID;
+			}
+			break;
+		case ShipLargeCargoEditPart.VISUAL_ID:
+			if (TaiPanPackage.eINSTANCE.getLargeItem().isSuperTypeOf(domainElement.eClass())) {
+				return LargeItemEditPart.VISUAL_ID;
+			}
+			if (TaiPanPackage.eINSTANCE.getEmptyBox().isSuperTypeOf(domainElement.eClass())) {
+				return EmptyBoxEditPart.VISUAL_ID;
+			}
+			break;
+		case WarshipSmallCargoEditPart.VISUAL_ID:
+			if (TaiPanPackage.eINSTANCE.getSmallItems().isSuperTypeOf(domainElement.eClass())) {
+				return SmallItemsEditPart.VISUAL_ID;
+			}
+			break;
+		case WarshipLargeCargoEditPart.VISUAL_ID:
+			if (TaiPanPackage.eINSTANCE.getLargeItem().isSuperTypeOf(domainElement.eClass())) {
+				return LargeItemEditPart.VISUAL_ID;
+			}
+			if (TaiPanPackage.eINSTANCE.getEmptyBox().isSuperTypeOf(domainElement.eClass())) {
+				return EmptyBoxEditPart.VISUAL_ID;
+			}
+			break;
+		case AquatoryEditPart.VISUAL_ID:
+			if (TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElement.eClass())) {
+				return PortEditPart.VISUAL_ID;
+			}
+			if (TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElement.eClass()) && evaluate(Ship_2002_Constraint, domainElement)) {
+				return ShipEditPart.VISUAL_ID;
+			}
+			if (TaiPanPackage.eINSTANCE.getWarship().isSuperTypeOf(domainElement.eClass())) {
+				return WarshipEditPart.VISUAL_ID;
+			}
+			break;
+		}
+		return -1;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {
+	public static boolean canCreateNode(View containerView, int nodeVisualID) {
 		String containerModelID = org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getModelID(containerView);
-		if (!AquatoryEditPart.MODEL_ID.equals(containerModelID) && !"TaiPan".equals(containerModelID)) {
-			return -1;
+		if (!AquatoryEditPart.MODEL_ID.equals(containerModelID) && !"TaiPan".equals(containerModelID)) { //$NON-NLS-1$
+			return false;
 		}
 		int containerVisualID;
 		if (AquatoryEditPart.MODEL_ID.equals(containerModelID)) {
 			containerVisualID = org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
-				containerVisualID = 1000;
+				containerVisualID = AquatoryEditPart.VISUAL_ID;
 			} else {
-				return -1;
+				return false;
 			}
 		}
-		int nodeVisualID = semanticHint != null ? org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getVisualID(semanticHint) : -1;
 		switch (containerVisualID) {
 		case PortEditPart.VISUAL_ID:
 			if (PortLocationEditPart.VISUAL_ID == nodeVisualID) {
-				return PortLocationEditPart.VISUAL_ID;
+				return true;
 			}
-			return getUnrecognizedPort_2001ChildNodeID(domainElement, semanticHint);
+			break;
 		case ShipEditPart.VISUAL_ID:
 			if (ShipNameEditPart.VISUAL_ID == nodeVisualID) {
-				return ShipNameEditPart.VISUAL_ID;
+				return true;
 			}
 			if (ShipSmallCargoEditPart.VISUAL_ID == nodeVisualID) {
-				return ShipSmallCargoEditPart.VISUAL_ID;
+				return true;
 			}
 			if (ShipLargeCargoEditPart.VISUAL_ID == nodeVisualID) {
-				return ShipLargeCargoEditPart.VISUAL_ID;
+				return true;
 			}
-			return getUnrecognizedShip_2002ChildNodeID(domainElement, semanticHint);
+			break;
 		case WarshipEditPart.VISUAL_ID:
 			if (WarshipNameEditPart.VISUAL_ID == nodeVisualID) {
-				return WarshipNameEditPart.VISUAL_ID;
+				return true;
 			}
 			if (WarshipSmallCargoEditPart.VISUAL_ID == nodeVisualID) {
-				return WarshipSmallCargoEditPart.VISUAL_ID;
+				return true;
 			}
 			if (WarshipLargeCargoEditPart.VISUAL_ID == nodeVisualID) {
-				return WarshipLargeCargoEditPart.VISUAL_ID;
+				return true;
 			}
-			return getUnrecognizedWarship_2003ChildNodeID(domainElement, semanticHint);
-		case SmallItemsEditPart.VISUAL_ID:
-			return getUnrecognizedSmallItems_3001ChildNodeID(domainElement, semanticHint);
+			break;
 		case LargeItemEditPart.VISUAL_ID:
 			if (LargeItemArticleEditPart.VISUAL_ID == nodeVisualID) {
-				return LargeItemArticleEditPart.VISUAL_ID;
+				return true;
 			}
 			if (LargeItemWeightEditPart.VISUAL_ID == nodeVisualID) {
-				return LargeItemWeightEditPart.VISUAL_ID;
+				return true;
 			}
-			return getUnrecognizedLargeItem_3002ChildNodeID(domainElement, semanticHint);
-		case EmptyBoxEditPart.VISUAL_ID:
-			return getUnrecognizedEmptyBox_3003ChildNodeID(domainElement, semanticHint);
+			break;
 		case ShipSmallCargoEditPart.VISUAL_ID:
-			if ((semanticHint == null || SmallItemsEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getSmallItems().isSuperTypeOf(domainElementMetaclass)) {
-				return SmallItemsEditPart.VISUAL_ID;
+			if (SmallItemsEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
 			}
-			return getUnrecognizedShipSmallcargo_7001ChildNodeID(domainElement, semanticHint);
+			break;
 		case ShipLargeCargoEditPart.VISUAL_ID:
-			if ((semanticHint == null || LargeItemEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getLargeItem().isSuperTypeOf(domainElementMetaclass)) {
-				return LargeItemEditPart.VISUAL_ID;
+			if (LargeItemEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
 			}
-			if ((semanticHint == null || EmptyBoxEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getEmptyBox().isSuperTypeOf(domainElementMetaclass)) {
-				return EmptyBoxEditPart.VISUAL_ID;
+			if (EmptyBoxEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
 			}
-			return getUnrecognizedShipLargeCargo_7002ChildNodeID(domainElement, semanticHint);
+			break;
 		case WarshipSmallCargoEditPart.VISUAL_ID:
-			if ((semanticHint == null || SmallItemsEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getSmallItems().isSuperTypeOf(domainElementMetaclass)) {
-				return SmallItemsEditPart.VISUAL_ID;
+			if (SmallItemsEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
 			}
-			return getUnrecognizedWarshipSmallcargo_7003ChildNodeID(domainElement, semanticHint);
+			break;
 		case WarshipLargeCargoEditPart.VISUAL_ID:
-			if ((semanticHint == null || LargeItemEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getLargeItem().isSuperTypeOf(domainElementMetaclass)) {
-				return LargeItemEditPart.VISUAL_ID;
+			if (LargeItemEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
 			}
-			if ((semanticHint == null || EmptyBoxEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getEmptyBox().isSuperTypeOf(domainElementMetaclass)) {
-				return EmptyBoxEditPart.VISUAL_ID;
+			if (EmptyBoxEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
 			}
-			return getUnrecognizedWarshipLargeCargo_7004ChildNodeID(domainElement, semanticHint);
+			break;
 		case AquatoryEditPart.VISUAL_ID:
-			if ((semanticHint == null || PortEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElementMetaclass)) {
-				return PortEditPart.VISUAL_ID;
+			if (PortEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
 			}
-			if ((semanticHint == null || ShipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElementMetaclass)
-					&& (domainElement == null || evaluate(Ship_2002_Constraint, domainElement))) {
-				return ShipEditPart.VISUAL_ID;
+			if (ShipEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
 			}
-			if ((semanticHint == null || WarshipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getWarship().isSuperTypeOf(domainElementMetaclass)) {
-				return WarshipEditPart.VISUAL_ID;
+			if (WarshipEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
 			}
-			return getUnrecognizedAquatory_1000ChildNodeID(domainElement, semanticHint);
+			break;
 		case ShipDestinationEditPart.VISUAL_ID:
 			if (ShipDestinationMarkerEditPart.VISUAL_ID == nodeVisualID) {
-				return ShipDestinationMarkerEditPart.VISUAL_ID;
+				return true;
 			}
-			return getUnrecognizedShipDestination_4001LinkLabelID(semanticHint);
+			break;
 		case ReliableRouteEditPart.VISUAL_ID:
 			if (ReliableRouteDescEditPart.VISUAL_ID == nodeVisualID) {
-				return ReliableRouteDescEditPart.VISUAL_ID;
+				return true;
 			}
 			if (ReliableRouteRelbEditPart.VISUAL_ID == nodeVisualID) {
-				return ReliableRouteRelbEditPart.VISUAL_ID;
+				return true;
 			}
-			return getUnrecognizedRoute_4002LinkLabelID(semanticHint);
+			break;
 		case UnreliableRouteEditPart.VISUAL_ID:
 			if (UnreliableRouteDescEditPart.VISUAL_ID == nodeVisualID) {
-				return UnreliableRouteDescEditPart.VISUAL_ID;
+				return true;
 			}
 			if (UnreliableRouteRelbEditPart.VISUAL_ID == nodeVisualID) {
-				return UnreliableRouteRelbEditPart.VISUAL_ID;
+				return true;
 			}
-			return getUnrecognizedRoute_4003LinkLabelID(semanticHint);
+			break;
 		}
-		return getUnrecognizedNodeID(containerView, domainElement);
+		return false;
 	}
 
 	/**
@@ -288,27 +312,19 @@ public class TaiPanVisualIDRegistry {
 		if (domainElement == null) {
 			return -1;
 		}
-		EClass domainElementMetaclass = domainElement.eClass();
-		return getLinkWithClassVisualID(domainElement, domainElementMetaclass);
-	}
-
-	/**
-	 * @generated
-	 */
-	public static int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || evaluate(Route_4002_Constraint, domainElement))) {
+		if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElement.eClass()) && evaluate(Route_4002_Constraint, domainElement)) {
 			return ReliableRouteEditPart.VISUAL_ID;
 		}
-		if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || evaluate(Route_4003_Constraint, domainElement))) {
+		if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElement.eClass()) && evaluate(Route_4003_Constraint, domainElement)) {
 			return UnreliableRouteEditPart.VISUAL_ID;
 		}
-		if (TaiPanPackage.eINSTANCE.getEscortShipsOrder().isSuperTypeOf(domainElementMetaclass)) {
+		if (TaiPanPackage.eINSTANCE.getEscortShipsOrder().isSuperTypeOf(domainElement.eClass())) {
 			return EscortShipsOrderEditPart.VISUAL_ID;
 		}
-		if (TaiPanPackage.eINSTANCE.getBesiegePortOrder().isSuperTypeOf(domainElementMetaclass)) {
+		if (TaiPanPackage.eINSTANCE.getBesiegePortOrder().isSuperTypeOf(domainElement.eClass())) {
 			return BesiegePortOrderEditPart.VISUAL_ID;
 		}
-		return getUnrecognizedLinkWithClassID(domainElement);
+		return -1;
 	}
 
 	/**
@@ -319,166 +335,6 @@ public class TaiPanVisualIDRegistry {
 	 */
 	private static boolean isDiagram(Aquatory element) {
 		return true;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedDiagramID(EObject domainElement) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 * 
-	 * @generated
-	 */
-	private static int getUnrecognizedNodeID(View containerView, EObject domainElement) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedPort_2001ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedShip_2002ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedWarship_2003ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedSmallItems_3001ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedLargeItem_3002ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedEmptyBox_3003ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 * 
-	 * @generated
-	 */
-	private static int getUnrecognizedShipSmallcargo_7001ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedShipLargeCargo_7002ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 * 
-	 * @generated
-	 */
-	private static int getUnrecognizedWarshipSmallcargo_7003ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 * 
-	 * @generated
-	 */
-	private static int getUnrecognizedWarshipLargeCargo_7004ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 * 
-	 * @generated
-	 */
-	private static int getUnrecognizedAquatory_1000ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedShipDestination_4001LinkLabelID(String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedRoute_4002LinkLabelID(String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedRoute_4003LinkLabelID(String semanticHint) {
-		return -1;
 	}
 
 	/**
@@ -494,15 +350,5 @@ public class TaiPanVisualIDRegistry {
 	 */
 	private static class JavaConstraints {
 
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedLinkWithClassID(EObject domainElement) {
-		return -1;
 	}
 }

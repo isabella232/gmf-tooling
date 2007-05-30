@@ -23,9 +23,11 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemWeightEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortLocationEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortRegisterEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteDescEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteRelbEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationMarkerEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipLargeCargoEditPart;
@@ -69,6 +71,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.WarshipSmallCar
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.WarshipViewFactory;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -95,13 +98,50 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 			return null;
 		}
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (elementType != null && !TaiPanElementTypes.isKnownElementType(elementType)) {
+		EObject domainElement = getSemanticElement(semanticAdapter);
+
+		int visualID;
+		if (semanticHint == null) {
+			if (elementType != null || domainElement == null) {
+				return null;
+			}
+			visualID = TaiPanVisualIDRegistry.getNodeVisualID(containerView, domainElement);
+		} else {
+			visualID = TaiPanVisualIDRegistry.getVisualID(semanticHint);
+			if (elementType != null) {
+				if (!TaiPanElementTypes.isKnownElementType(elementType) || false == elementType instanceof IHintedType) {
+					return null;
+				}
+				String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
+				if (!semanticHint.equals(elementTypeHint)) {
+					return null;
+				}
+				if (domainElement != null && visualID != TaiPanVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
+					return null;
+				}
+			} else {
+				switch (visualID) {
+				case AquatoryEditPart.VISUAL_ID:
+				case PortEditPart.VISUAL_ID:
+				case ShipEditPart.VISUAL_ID:
+				case WarshipEditPart.VISUAL_ID:
+				case SmallItemsEditPart.VISUAL_ID:
+				case LargeItemEditPart.VISUAL_ID:
+				case EmptyBoxEditPart.VISUAL_ID:
+				case ShipDestinationEditPart.VISUAL_ID:
+				case ReliableRouteEditPart.VISUAL_ID:
+				case UnreliableRouteEditPart.VISUAL_ID:
+				case EscortShipsOrderEditPart.VISUAL_ID:
+				case BesiegePortOrderEditPart.VISUAL_ID:
+				case PortRegisterEditPart.VISUAL_ID:
+					return null;
+				}
+			}
+		}
+		if (!TaiPanVisualIDRegistry.canCreateNode(containerView, visualID)) {
 			return null;
 		}
-		EClass semanticType = getSemanticEClass(semanticAdapter);
-		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int nodeVID = TaiPanVisualIDRegistry.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
-		switch (nodeVID) {
+		switch (visualID) {
 		case PortEditPart.VISUAL_ID:
 			return PortViewFactory.class;
 		case PortLocationEditPart.VISUAL_ID:
@@ -151,22 +191,27 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (elementType != null && !TaiPanElementTypes.isKnownElementType(elementType)) {
+		if (elementType == null) {
 			return null;
 		}
-		if (TaiPanElementTypes.ShipDestination_4001.equals(elementType)) {
+		if (!TaiPanElementTypes.isKnownElementType(elementType) || false == elementType instanceof IHintedType) {
+			return null;
+		}
+		String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
+		if (elementTypeHint == null) {
+			return null;
+		}
+		if (semanticHint != null && !semanticHint.equals(elementTypeHint)) {
+			return null;
+		}
+		int visualID = TaiPanVisualIDRegistry.getVisualID(elementTypeHint);
+		EObject domainElement = getSemanticElement(semanticAdapter);
+		if (domainElement != null && visualID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(domainElement)) {
+			return null;
+		}
+		switch (visualID) {
+		case ShipDestinationEditPart.VISUAL_ID:
 			return ShipDestinationViewFactory.class;
-		}
-		if (TaiPanElementTypes.PortRegister_4007.equals(elementType)) {
-			return PortRegisterViewFactory.class;
-		}
-		EClass semanticType = getSemanticEClass(semanticAdapter);
-		if (semanticType == null) {
-			return null;
-		}
-		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(semanticElement, semanticType);
-		switch (linkVID) {
 		case ReliableRouteEditPart.VISUAL_ID:
 			return ReliableRouteViewFactory.class;
 		case UnreliableRouteEditPart.VISUAL_ID:
@@ -175,8 +220,10 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 			return EscortShipsOrderViewFactory.class;
 		case BesiegePortOrderEditPart.VISUAL_ID:
 			return BesiegePortOrderViewFactory.class;
+		case PortRegisterEditPart.VISUAL_ID:
+			return PortRegisterViewFactory.class;
 		}
-		return getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);
+		return null;
 	}
 
 	/**
@@ -187,14 +234,6 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 			return null;
 		}
 		return (IElementType) semanticAdapter.getAdapter(IElementType.class);
-	}
-
-	/**
-	 * @generated
-	 */
-	private Class getUnrecognizedConnectorViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-		// Handle unrecognized child node classes here
-		return null;
 	}
 
 }

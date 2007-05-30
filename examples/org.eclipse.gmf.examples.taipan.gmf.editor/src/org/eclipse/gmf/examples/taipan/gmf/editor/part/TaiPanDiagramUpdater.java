@@ -92,6 +92,7 @@ public class TaiPanDiagramUpdater {
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == SmallItemsEditPart.VISUAL_ID) {
 				result.add(new TaiPanNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
@@ -108,9 +109,11 @@ public class TaiPanDiagramUpdater {
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == LargeItemEditPart.VISUAL_ID) {
 				result.add(new TaiPanNodeDescriptor(childElement, visualID));
+				continue;
 			}
 			if (visualID == EmptyBoxEditPart.VISUAL_ID) {
 				result.add(new TaiPanNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
@@ -127,6 +130,7 @@ public class TaiPanDiagramUpdater {
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == SmallItemsEditPart.VISUAL_ID) {
 				result.add(new TaiPanNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
@@ -143,9 +147,11 @@ public class TaiPanDiagramUpdater {
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == LargeItemEditPart.VISUAL_ID) {
 				result.add(new TaiPanNodeDescriptor(childElement, visualID));
+				continue;
 			}
 			if (visualID == EmptyBoxEditPart.VISUAL_ID) {
 				result.add(new TaiPanNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
@@ -162,6 +168,7 @@ public class TaiPanDiagramUpdater {
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == PortEditPart.VISUAL_ID) {
 				result.add(new TaiPanNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		for (Iterator it = modelElement.getShips().iterator(); it.hasNext();) {
@@ -169,9 +176,11 @@ public class TaiPanDiagramUpdater {
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == ShipEditPart.VISUAL_ID) {
 				result.add(new TaiPanNodeDescriptor(childElement, visualID));
+				continue;
 			}
 			if (visualID == WarshipEditPart.VISUAL_ID) {
 				result.add(new TaiPanNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
