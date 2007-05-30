@@ -163,9 +163,9 @@
 	<target name="deploy.base" depends="init.base">
 <!--		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/downloads/drops/${buildLabel}" failonerror="false"/> -->
 		<exec executable="rsync">
+			<env key="RSYNC_PASSWORD" value="${ftpPassword}"/>
 			<arg value="-var"/>
 			<arg value="--delete"/>
-			<arg value="--password-file=${basedir}/rsync.pwd"/>
 			<arg value="${buildRoot}/artifacts/drops/${buildLabel}"/>
 			<arg value="${ftpUser}@download1.eclipse.org:${remoteDirectory}/downloads/drops/"/>
 		</exec>	
