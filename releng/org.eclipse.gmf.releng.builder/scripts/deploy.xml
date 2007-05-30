@@ -166,7 +166,7 @@
 			<arg value="-var"/>
 			<arg value="--delete"/>
 			<arg value="${buildRoot}/artifacts/drops/${buildLabel}"/>
-			<arg value="${ftpUser}@download1.eclipse.org:${remoteDirectory}/downloads/drops/${buildLabel}"/>
+			<arg value="${ftpUser}@download1.eclipse.org:${remoteDirectory}/downloads/drops/"/>
 		</exec>	
 		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="chmod -R 775 ${remoteDirectory}/downloads/drops/${buildLabel}"/>
 	</target>	
