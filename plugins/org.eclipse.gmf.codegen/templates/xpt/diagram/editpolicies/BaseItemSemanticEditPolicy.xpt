@@ -78,10 +78,29 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runti
 		}
 		return cmd;
 	}
+	
+	«EXPAND addDestroyShortcutsCommand-»
 
 	«EXPAND linkConstraints-»
 
 	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE addDestroyShortcutsCommand FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+protected void addDestroyShortcutsCommand(org.eclipse.gef.commands.CompoundCommand command) {
+	org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
+	if (view.getEAnnotation("Shortcut") != null) { «EXPAND xpt::Common::nonNLS»
+		return;
+	}
+	for (java.util.Iterator it = view.getDiagram().getChildren().iterator(); it.hasNext();) {
+		org.eclipse.gmf.runtime.notation.View nextView = (org.eclipse.gmf.runtime.notation.View) it.next();
+		if (nextView.getEAnnotation("Shortcut") == null || !nextView.isSetElement() || nextView.getElement() != view.getElement()) { «EXPAND xpt::Common::nonNLS»
+			continue;
+		}
+		command.add(getDestroyElementCommand(nextView));
+	}
 }
 «ENDDEFINE»
 
