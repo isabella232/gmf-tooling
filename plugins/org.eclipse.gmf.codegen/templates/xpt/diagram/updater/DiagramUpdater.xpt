@@ -57,7 +57,7 @@ public class «diagramUpdaterClassName» {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 public static boolean isShortcutOrphaned(org.eclipse.gmf.runtime.notation.View view) {
-	return view.getEAnnotation("Shortcut") != null && (!view.isSetElement() || view.getElement() == null || view.getElement().eIsProxy()); «EXPAND xpt::Common::nonNLS»
+	return !view.isSetElement() || view.getElement() == null || view.getElement().eIsProxy();
 }
 	«ENDIF-»
 «ENDDEFINE»
