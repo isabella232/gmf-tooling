@@ -53,7 +53,7 @@
 		<property name="indexFileName" value="index.php" />
 		<property name="result" value="${artifacts}/drops/${buildLabel}" />
 
-		<ant antfile="${publish.xml}" dir="${basedir}">
+		<ant antfile="${basedir}/publish.base.xml" dir="${basedir}">
 			<property name="dropTemplateFileName" value="${basedir}/templateFiles.base/index.php.template" />
 			<property name="platformIdentifierToken" value="%platform%"/>
 			<property name="platformSpecificTemplateList" value=""/>
@@ -63,7 +63,7 @@
 		</ant>
 
 		<!-- Copy the directory.txt file to destination for download page -->
-		<copy file="${buildRoot}/sdk/directory.txt" todir="${artifacts}/drops/${buildLabel}" />
+		<copy file="${buildDirectory}/directory.txt" todir="${artifacts}/drops/${buildLabel}" />
 
 		<replace file="${result}/${indexFileName}">
 			<!--  Insert url for supported eclipse drop-->
