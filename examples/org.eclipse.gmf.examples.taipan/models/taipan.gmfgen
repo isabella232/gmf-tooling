@@ -91,8 +91,6 @@
             href="taipan.genmodel#//taipan/SmallItems"/>
         <containmentMetaFeature
             href="taipan.genmodel#//taipan/Ship/cargo"/>
-        <childMetaFeature
-            href="taipan.genmodel#//taipan/Ship/cargo"/>
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:FeatureLabelModelFacet"
@@ -129,8 +127,6 @@
         <metaClass
             href="taipan.genmodel#//taipan/LargeItem"/>
         <containmentMetaFeature
-            href="taipan.genmodel#//taipan/Ship/cargo"/>
-        <childMetaFeature
             href="taipan.genmodel#//taipan/Ship/cargo"/>
       </modelFacet>
       <labels
@@ -190,8 +186,6 @@
             href="taipan.genmodel#//taipan/EmptyBox"/>
         <containmentMetaFeature
             href="taipan.genmodel#//taipan/Ship/cargo"/>
-        <childMetaFeature
-            href="taipan.genmodel#//taipan/Ship/cargo"/>
       </modelFacet>
     </childNodes>
     <topLevelNodes
@@ -225,8 +219,6 @@
         <metaClass
             href="taipan.genmodel#//taipan/Port"/>
         <containmentMetaFeature
-            href="taipan.genmodel#//taipan/Aquatory/ports"/>
-        <childMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/ports"/>
       </modelFacet>
       <labels
@@ -270,8 +262,6 @@
         <metaClass
             href="taipan.genmodel#//taipan/Ship"/>
         <containmentMetaFeature
-            href="taipan.genmodel#//taipan/Aquatory/ships"/>
-        <childMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/ships"/>
         <modelElementSelector
             body="not oclIsKindOf(taipan::Warship)"/>
@@ -317,8 +307,6 @@
         <metaClass
             href="taipan.genmodel#//taipan/Warship"/>
         <containmentMetaFeature
-            href="taipan.genmodel#//taipan/Aquatory/ships"/>
-        <childMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/ships"/>
       </modelFacet>
       <labels
@@ -401,8 +389,6 @@
         <metaClass
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
-            href="taipan.genmodel#//taipan/Aquatory/routes"/>
-        <childMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/routes"/>
         <modelElementSelector
             body="reliability >= 0.5"/>
@@ -491,8 +477,6 @@
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/routes"/>
-        <childMetaFeature
-            href="taipan.genmodel#//taipan/Aquatory/routes"/>
         <modelElementSelector
             body="reliability &lt; 0.5"/>
         <modelElementInitializer
@@ -580,8 +564,6 @@
             href="taipan.genmodel#//taipan/EscortShipsOrder"/>
         <containmentMetaFeature
             href="taipan.genmodel#//taipan/Warship/escortOrder"/>
-        <childMetaFeature
-            href="taipan.genmodel#//taipan/Warship/escortOrder"/>
         <targetMetaFeature
             href="taipan.genmodel#//taipan/EscortShipsOrder/ships"/>
       </modelFacet>
@@ -614,8 +596,6 @@
         <metaClass
             href="taipan.genmodel#//taipan/BesiegePortOrder"/>
         <containmentMetaFeature
-            href="taipan.genmodel#//taipan/Warship/attackOrders"/>
-        <childMetaFeature
             href="taipan.genmodel#//taipan/Warship/attackOrders"/>
         <targetMetaFeature
             href="taipan.genmodel#//taipan/BesiegePortOrder/port"/>
