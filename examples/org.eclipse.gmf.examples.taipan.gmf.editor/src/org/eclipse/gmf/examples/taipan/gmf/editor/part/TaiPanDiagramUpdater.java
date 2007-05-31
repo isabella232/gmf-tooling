@@ -59,7 +59,7 @@ public class TaiPanDiagramUpdater {
 	 * @generated
 	 */
 	public static boolean isShortcutOrphaned(View view) {
-		return view.getEAnnotation("Shortcut") != null && view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy()); //$NON-NLS-1$
+		return !view.isSetElement() || view.getElement() == null || view.getElement().eIsProxy();
 	}
 
 	/**
@@ -85,7 +85,14 @@ public class TaiPanDiagramUpdater {
 	 * @generated
 	 */
 	public static List getShipSmallcargo_7001SemanticChildren(View view) {
-		Ship modelElement = (Ship) view.getElement();
+		if (false == view.eContainer() instanceof View) {
+			return Collections.EMPTY_LIST;
+		}
+		View containerView = (View) view.eContainer();
+		if (!containerView.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		Ship modelElement = (Ship) containerView.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getCargo().iterator(); it.hasNext();) {
 			Item childElement = (Item) it.next();
@@ -102,7 +109,14 @@ public class TaiPanDiagramUpdater {
 	 * @generated
 	 */
 	public static List getShipLargeCargo_7002SemanticChildren(View view) {
-		Ship modelElement = (Ship) view.getElement();
+		if (false == view.eContainer() instanceof View) {
+			return Collections.EMPTY_LIST;
+		}
+		View containerView = (View) view.eContainer();
+		if (!containerView.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		Ship modelElement = (Ship) containerView.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getCargo().iterator(); it.hasNext();) {
 			Item childElement = (Item) it.next();
@@ -123,7 +137,14 @@ public class TaiPanDiagramUpdater {
 	 * @generated
 	 */
 	public static List getWarshipSmallcargo_7003SemanticChildren(View view) {
-		Warship modelElement = (Warship) view.getElement();
+		if (false == view.eContainer() instanceof View) {
+			return Collections.EMPTY_LIST;
+		}
+		View containerView = (View) view.eContainer();
+		if (!containerView.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		Warship modelElement = (Warship) containerView.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getCargo().iterator(); it.hasNext();) {
 			Item childElement = (Item) it.next();
@@ -140,7 +161,14 @@ public class TaiPanDiagramUpdater {
 	 * @generated
 	 */
 	public static List getWarshipLargeCargo_7004SemanticChildren(View view) {
-		Warship modelElement = (Warship) view.getElement();
+		if (false == view.eContainer() instanceof View) {
+			return Collections.EMPTY_LIST;
+		}
+		View containerView = (View) view.eContainer();
+		if (!containerView.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		Warship modelElement = (Warship) containerView.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getCargo().iterator(); it.hasNext();) {
 			Item childElement = (Item) it.next();
@@ -161,6 +189,9 @@ public class TaiPanDiagramUpdater {
 	 * @generated
 	 */
 	public static List getAquatory_1000SemanticChildren(View view) {
+		if (!view.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
 		Aquatory modelElement = (Aquatory) view.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getPorts().iterator(); it.hasNext();) {
