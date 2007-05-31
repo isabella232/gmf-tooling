@@ -10,8 +10,8 @@
 	<import file="${publish.xml}"/>
 
 	<target name="B">
-		<replace file="${result}/${indexFileName}" token="@type@" value="Base"/>
-		<replace dir="${result}" value="Base">
+		<replace file="${result}/${indexFileName}" token="@type@" value="GMF Base"/>
+		<replace dir="${result}" value="GMF Base">
 		  <include name="**/*.php"/>
 		  <replacetoken><![CDATA[@type@]]></replacetoken>
 		</replace>
