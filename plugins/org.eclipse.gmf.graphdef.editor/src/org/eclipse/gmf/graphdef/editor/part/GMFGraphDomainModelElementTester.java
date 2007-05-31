@@ -1,12 +1,12 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.part;
 
@@ -41,6 +41,9 @@ public class GMFGraphDomainModelElementTester extends PropertyTester {
 		if (eClass == GMFGraphPackage.eINSTANCE.getDiagramElement()) {
 			return true;
 		}
+		if (eClass == GMFGraphPackage.eINSTANCE.getAbstractNode()) {
+			return true;
+		}
 		if (eClass == GMFGraphPackage.eINSTANCE.getNode()) {
 			return true;
 		}
@@ -71,13 +74,19 @@ public class GMFGraphDomainModelElementTester extends PropertyTester {
 		if (eClass == GMFGraphPackage.eINSTANCE.getDefaultSizeFacet()) {
 			return true;
 		}
-		if (eClass == GMFGraphPackage.eINSTANCE.getFigureMarker()) {
-			return true;
-		}
-		if (eClass == GMFGraphPackage.eINSTANCE.getFigureHandle()) {
-			return true;
-		}
 		if (eClass == GMFGraphPackage.eINSTANCE.getFigure()) {
+			return true;
+		}
+		if (eClass == GMFGraphPackage.eINSTANCE.getAbstractFigure()) {
+			return true;
+		}
+		if (eClass == GMFGraphPackage.eINSTANCE.getFigureDescriptor()) {
+			return true;
+		}
+		if (eClass == GMFGraphPackage.eINSTANCE.getChildAccess()) {
+			return true;
+		}
+		if (eClass == GMFGraphPackage.eINSTANCE.getRealFigure()) {
 			return true;
 		}
 		if (eClass == GMFGraphPackage.eINSTANCE.getFigureRef()) {

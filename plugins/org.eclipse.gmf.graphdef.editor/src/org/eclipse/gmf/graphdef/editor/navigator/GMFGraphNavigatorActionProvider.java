@@ -1,39 +1,51 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.navigator;
 
 import java.util.Iterator;
 
 import org.eclipse.core.runtime.IAdaptable;
+
 import org.eclipse.emf.common.ui.URIEditorInput;
+
 import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.emf.ecore.resource.Resource;
+
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
+
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
+
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditor;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
+
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
+
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
+
 import org.eclipse.jface.viewers.IStructuredSelection;
+
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
+
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionConstants;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
+
 import org.eclipse.ui.part.FileEditorInput;
 
 /**

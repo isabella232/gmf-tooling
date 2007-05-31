@@ -1,36 +1,41 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.edit.policies;
 
-import org.eclipse.emf.ecore.EObject;
+import java.util.Iterator;
+
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.gef.commands.UnexecutableCommand;
-import org.eclipse.gmf.gmfgraph.DiagramElement;
-import org.eclipse.gmf.gmfgraph.FigureHandle;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.graphdef.editor.edit.commands.DiagramElementFigureReorientCommand;
+import org.eclipse.gmf.graphdef.editor.edit.commands.ChildAccessCreateCommand;
+import org.eclipse.gmf.graphdef.editor.edit.commands.ChildAccessReorientCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.EllipseCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.PolylineCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.Rectangle2CreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.RoundedRectangleCreateCommand;
-import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramElementFigureEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.ChildAccessEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangleEditPart;
+import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
+import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -41,29 +46,29 @@ public class EllipseItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEditP
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (GMFGraphElementTypes.Rectangle_3002 == req.getElementType()) {
+		if (GMFGraphElementTypes.Rectangle_3011 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigure_Children());
+				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getRealFigure_Children());
 			}
-			return getMSLWrapper(new Rectangle2CreateCommand(req));
+			return getGEFWrapper(new Rectangle2CreateCommand(req));
 		}
-		if (GMFGraphElementTypes.Ellipse_3003 == req.getElementType()) {
+		if (GMFGraphElementTypes.Ellipse_3012 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigure_Children());
+				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getRealFigure_Children());
 			}
-			return getMSLWrapper(new EllipseCreateCommand(req));
+			return getGEFWrapper(new EllipseCreateCommand(req));
 		}
-		if (GMFGraphElementTypes.RoundedRectangle_3004 == req.getElementType()) {
+		if (GMFGraphElementTypes.RoundedRectangle_3013 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigure_Children());
+				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getRealFigure_Children());
 			}
-			return getMSLWrapper(new RoundedRectangleCreateCommand(req));
+			return getGEFWrapper(new RoundedRectangleCreateCommand(req));
 		}
-		if (GMFGraphElementTypes.Polyline_3005 == req.getElementType()) {
+		if (GMFGraphElementTypes.Polyline_3014 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigure_Children());
+				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getRealFigure_Children());
 			}
-			return getMSLWrapper(new PolylineCreateCommand(req));
+			return getGEFWrapper(new PolylineCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -72,50 +77,81 @@ public class EllipseItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEditP
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		CompoundCommand cc = getDestroyEdgesCommand(req.isConfirmationRequired());
-		cc.add(getMSLWrapper(new DestroyElementCommand(req)));
+		CompoundCommand cc = getDestroyEdgesCommand();
+		addDestroyChildNodesCommand(cc);
+		addDestroyShortcutsCommand(cc);
+		cc.add(getGEFWrapper(new DestroyElementCommand(req)));
 		return cc.unwrap();
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
-		if (GMFGraphElementTypes.DiagramElementFigure_4001 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingDiagramElementFigure_4001Command(req);
+	protected void addDestroyChildNodesCommand(CompoundCommand cmd) {
+		View view = (View) getHost().getModel();
+		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
+		if (annotation != null) {
+			return;
 		}
-		return super.getCreateRelationshipCommand(req);
+		for (Iterator it = view.getChildren().iterator(); it.hasNext();) {
+			Node node = (Node) it.next();
+			switch (GMFGraphVisualIDRegistry.getVisualID(node)) {
+			case Rectangle2EditPart.VISUAL_ID:
+				cmd.add(getDestroyElementCommand(node));
+				break;
+			case EllipseEditPart.VISUAL_ID:
+				cmd.add(getDestroyElementCommand(node));
+				break;
+			case RoundedRectangleEditPart.VISUAL_ID:
+				cmd.add(getDestroyElementCommand(node));
+				break;
+			case PolylineEditPart.VISUAL_ID:
+				cmd.add(getDestroyElementCommand(node));
+				break;
+			}
+		}
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingDiagramElementFigure_4001Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof DiagramElement || false == targetEObject instanceof FigureHandle) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		DiagramElement source = (DiagramElement) sourceEObject;
-		FigureHandle target = (FigureHandle) targetEObject;
-		if (!GMFGraphBaseItemSemanticEditPolicy.LinkConstraints.canCreateDiagramElementFigure_4001(source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		SetRequest setReq = new SetRequest(sourceEObject, GMFGraphPackage.eINSTANCE.getDiagramElement_Figure(), target);
-		return getMSLWrapper(new SetValueCommand(setReq));
+	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
+		Command command = req.getTarget() == null ? getStartCreateRelationshipCommand(req) : getCompleteCreateRelationshipCommand(req);
+		return command != null ? command : super.getCreateRelationshipCommand(req);
 	}
 
 	/**
-	 * Returns command to reorient EReference based link. New link target or source
+	 * @generated
+	 */
+	protected Command getStartCreateRelationshipCommand(CreateRelationshipRequest req) {
+		if (GMFGraphElementTypes.ChildAccess_4002 == req.getElementType()) {
+			return null;
+		}
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCompleteCreateRelationshipCommand(CreateRelationshipRequest req) {
+		if (GMFGraphElementTypes.ChildAccess_4002 == req.getElementType()) {
+			return getGEFWrapper(new ChildAccessCreateCommand(req, req.getSource(), req.getTarget()));
+		}
+		return null;
+	}
+
+	/**
+	 * Returns command to reorient EClass based link. New link target or source
 	 * should be the domain model element associated with this node.
 	 * 
 	 * @generated
 	 */
-	protected Command getReorientReferenceRelationshipCommand(ReorientReferenceRelationshipRequest req) {
+	protected Command getReorientRelationshipCommand(ReorientRelationshipRequest req) {
 		switch (getVisualID(req)) {
-		case DiagramElementFigureEditPart.VISUAL_ID:
-			return getMSLWrapper(new DiagramElementFigureReorientCommand(req));
+		case ChildAccessEditPart.VISUAL_ID:
+			return getGEFWrapper(new ChildAccessReorientCommand(req));
 		}
-		return super.getReorientReferenceRelationshipCommand(req);
+		return super.getReorientRelationshipCommand(req);
 	}
+
 }

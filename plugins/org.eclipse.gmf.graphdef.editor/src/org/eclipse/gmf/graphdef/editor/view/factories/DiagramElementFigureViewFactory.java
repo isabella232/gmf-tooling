@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.view.factories;
 
@@ -38,9 +38,8 @@ public class DiagramElementFigureViewFactory extends ConnectionViewFactory {
 	 */
 	protected List createStyles(View view) {
 		List styles = new ArrayList();
-		styles.add(NotationFactory.eINSTANCE.createRoutingStyle());
+		styles.add(NotationFactory.eINSTANCE.createConnectorStyle());
 		styles.add(NotationFactory.eINSTANCE.createFontStyle());
-		styles.add(NotationFactory.eINSTANCE.createLineStyle());
 		return styles;
 	}
 
@@ -60,5 +59,4 @@ public class DiagramElementFigureViewFactory extends ConnectionViewFactory {
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
 	}
-
 }

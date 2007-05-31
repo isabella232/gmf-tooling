@@ -1,18 +1,19 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.PolylineDecoration;
+import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.gmf.graphdef.editor.edit.policies.DiagramElementFigureItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
@@ -28,7 +29,7 @@ public class DiagramElementFigureEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4001;
+	public static final int VISUAL_ID = 4005;
 
 	/**
 	 * @generated
@@ -67,25 +68,22 @@ public class DiagramElementFigureEditPart extends ConnectionNodeEditPart {
 		 * @generated
 		 */
 		public FigureConnectionFigure() {
-
 			this.setLineStyle(Graphics.LINE_DASHDOT);
+
 			setTargetDecoration(createTargetDecoration());
 		}
 
 		/**
 		 * @generated
 		 */
-		private PolylineDecoration createTargetDecoration() {
+		private RotatableDecoration createTargetDecoration() {
 			PolylineDecoration df = new PolylineDecoration();
-			// dispatchNext?
-
 			PointList pl = new PointList();
-			pl.addPoint(-1, 1);
-			pl.addPoint(0, 0);
-			pl.addPoint(-1, -1);
+			pl.addPoint(getMapMode().DPtoLP(-1), getMapMode().DPtoLP(1));
+			pl.addPoint(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
+			pl.addPoint(getMapMode().DPtoLP(-1), getMapMode().DPtoLP(-1));
 			df.setTemplate(pl);
 			df.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
-
 			return df;
 		}
 

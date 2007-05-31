@@ -2,41 +2,9 @@
 <gmfgraph:Canvas xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="gmfgraph">
+    xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" name="gmfgraph">
   <figures
       name="default">
-    <figures
-        xsi:type="gmfgraph:Rectangle"
-        referencingElements="FigureGalleryNode"
-        name="FigureGalleryFigure">
-      <children
-          xsi:type="gmfgraph:Label"
-          referencingElements="FigureGalleryNode_Name"
-          name="FigureGalleryFigure_NameLabel"/>
-    </figures>
-    <figures
-        xsi:type="gmfgraph:Rectangle"
-        referencingElements="DiagramElementNode"
-        name="DiagramElementFigure">
-      <children
-          xsi:type="gmfgraph:Label"
-          referencingElements="DiagramElementNode_Name"
-          name="DiagramElementFigure_NameLabel"/>
-    </figures>
-    <figures
-        xsi:type="gmfgraph:Rectangle"
-        referencingElements="VisualFacets"
-        name="VisualFacetCompartmentFigure"/>
-    <figures
-        xsi:type="gmfgraph:Rectangle"
-        referencingElements="Figures"
-        name="FiguresCompartmentFigure"/>
-    <figures
-        xsi:type="gmfgraph:PolylineConnection"
-        referencingElements="FigureLink"
-        name="FigureConnectionFigure"
-        lineKind="LINE_DASHDOT"
-        targetDecoration="ArrowDecoration"/>
     <figures
         xsi:type="gmfgraph:PolylineDecoration"
         name="ArrowDecoration">
@@ -48,31 +16,112 @@
           x="-1"
           y="-1"/>
     </figures>
-    <figures
-        xsi:type="gmfgraph:Rectangle"
-        referencingElements="RectangleNode"
+    <descriptors
+        name="FigureGalleryFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Rectangle"
+          name="FigureGalleryFigure">
+        <children
+            xsi:type="gmfgraph:Label"
+            name="FigureGalleryFigure_NameLabel"/>
+      </actualFigure>
+      <accessors
+          figure="//@figures.0/@descriptors.0/@actualFigure/@children.0"/>
+    </descriptors>
+    <descriptors
+        name="FigureDescriptorFigure">
+      <actualFigure
+          xsi:type="gmfgraph:RoundedRectangle"
+          name="FigureDescriptorFigure"
+          lineKind="LINE_DOT">
+        <children
+            xsi:type="gmfgraph:Label"
+            name="FigureDescriptorFigure_NameLabel"/>
+      </actualFigure>
+      <accessors
+          figure="//@figures.0/@descriptors.1/@actualFigure/@children.0"/>
+    </descriptors>
+    <descriptors
+        name="DiagramElementFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Rectangle"
+          name="DiagramElementFigure">
+        <children
+            xsi:type="gmfgraph:Label"
+            name="DiagramElementFigure_NameLabel"/>
+      </actualFigure>
+      <accessors
+          figure="//@figures.0/@descriptors.2/@actualFigure/@children.0"/>
+    </descriptors>
+    <descriptors
+        name="VisualFacetCompartmentFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Rectangle"
+          name="VisualFacetCompartmentFigure"/>
+    </descriptors>
+    <descriptors
+        name="FiguresCompartmentFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Rectangle"
+          name="FiguresCompartmentFigure"/>
+    </descriptors>
+    <descriptors
+        name="FigureConnectionFigure">
+      <actualFigure
+          xsi:type="gmfgraph:PolylineConnection"
+          name="FigureConnectionFigure"
+          lineKind="LINE_DASHDOT"
+          targetDecoration="//@figures.0/@figures.0"/>
+    </descriptors>
+    <descriptors
+        name="ChildAccessConnectionFigure">
+      <actualFigure
+          xsi:type="gmfgraph:PolylineConnection"
+          name="ChildAccessConnectionFigure"
+          lineKind="LINE_DOT"
+          targetDecoration="//@figures.0/@figures.0"/>
+    </descriptors>
+    <descriptors
+        name="NestedFigureAccessorConnectionFigure">
+      <actualFigure
+          xsi:type="gmfgraph:PolylineConnection"
+          name="NestedFigureAccessorConnectionFigure"
+          lineKind="LINE_DASH"
+          targetDecoration="//@figures.0/@figures.0"/>
+    </descriptors>
+    <descriptors
         name="RectangleFigure">
-      <layout
-          xsi:type="gmfgraph:XYLayout"/>
-    </figures>
-    <figures
-        xsi:type="gmfgraph:Ellipse"
-        referencingElements="EllipseNode"
+      <actualFigure
+          xsi:type="gmfgraph:Rectangle"
+          name="RectangleFigure">
+        <layout
+            xsi:type="gmfgraph:XYLayout"/>
+      </actualFigure>
+    </descriptors>
+    <descriptors
         name="EllipseFigure">
-      <layout
-          xsi:type="gmfgraph:XYLayout"/>
-    </figures>
-    <figures
-        xsi:type="gmfgraph:RoundedRectangle"
-        referencingElements="RoundedRectangleNode"
+      <actualFigure
+          xsi:type="gmfgraph:Ellipse"
+          name="EllipseFigure">
+        <layout
+            xsi:type="gmfgraph:XYLayout"/>
+      </actualFigure>
+    </descriptors>
+    <descriptors
         name="RoundedRectangleFigure">
-      <layout
-          xsi:type="gmfgraph:XYLayout"/>
-    </figures>
-    <figures
-        xsi:type="gmfgraph:Polyline"
-        referencingElements="PolylineNode"
-        name="PolylineFigure"/>
+      <actualFigure
+          xsi:type="gmfgraph:RoundedRectangle"
+          name="RoundedRectangleFigure">
+        <layout
+            xsi:type="gmfgraph:XYLayout"/>
+      </actualFigure>
+    </descriptors>
+    <descriptors
+        name="PolylineFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Polyline"
+          name="PolylineFigure"/>
+    </descriptors>
   </figures>
   <nodes
       name="DiagramElementNode"
@@ -92,9 +141,18 @@
   <nodes
       name="PolylineNode"
       figure="PolylineFigure"/>
+  <nodes
+      name="FigureDescriptorNode"
+      figure="FigureDescriptorFigure"/>
   <connections
       name="FigureLink"
       figure="FigureConnectionFigure"/>
+  <connections
+      name="ChildAccessLink"
+      figure="ChildAccessConnectionFigure"/>
+  <connections
+      name="NestedFigureAccessorLink"
+      figure="NestedFigureAccessorConnectionFigure"/>
   <compartments
       name="VisualFacets"
       figure="VisualFacetCompartmentFigure"
@@ -105,10 +163,21 @@
       figure="FiguresCompartmentFigure"
       collapsible="true"
       needsTitle="true"/>
+  <compartments
+      name="DescriptorsCompartmentFigure"
+      figure="FiguresCompartmentFigure"
+      collapsible="true"
+      needsTitle="true"/>
   <labels
       name="DiagramElementNode_Name"
-      figure="DiagramElementFigure_NameLabel"/>
+      figure="DiagramElementFigure"
+      accessor="//@figures.0/@descriptors.2/@accessors.0"/>
   <labels
       name="FigureGalleryNode_Name"
-      figure="FigureGalleryFigure_NameLabel"/>
+      figure="FigureGalleryFigure"
+      accessor="//@figures.0/@descriptors.0/@accessors.0"/>
+  <labels
+      name="FigureDescriptorNode_Name"
+      figure="FigureDescriptorFigure"
+      accessor="//@figures.0/@descriptors.1/@accessors.0"/>
 </gmfgraph:Canvas>

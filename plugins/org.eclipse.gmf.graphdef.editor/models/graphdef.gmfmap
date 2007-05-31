@@ -98,6 +98,47 @@
       <children
           compartment="//@nodes.3/@ownedChild/@compartments.0">
         <containmentFeature
+            href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//FigureGallery/descriptors"/>
+        <ownedChild>
+          <domainMetaElement
+              href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//FigureDescriptor"/>
+          <labelMappings
+              xsi:type="gmfmap:FeatureLabelMapping">
+            <diagramLabel
+                href="graphdef.gmfgraph#FigureDescriptorNode_Name"/>
+            <features
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Identity/name"/>
+          </labelMappings>
+          <tool
+              xsi:type="gmftool:CreationTool"
+              href="graphdef.gmftool#//@palette/@tools.1/@tools.5"/>
+          <diagramNode
+              href="graphdef.gmfgraph#FigureDescriptorNode"/>
+          <children
+              referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild">
+            <containmentFeature
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//FigureDescriptor/actualFigure"/>
+          </children>
+          <children
+              referencedChild="//@nodes.3/@ownedChild/@children.2/@ownedChild">
+            <containmentFeature
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//FigureDescriptor/actualFigure"/>
+          </children>
+          <children
+              referencedChild="//@nodes.3/@ownedChild/@children.3/@ownedChild">
+            <containmentFeature
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//FigureDescriptor/actualFigure"/>
+          </children>
+          <children
+              referencedChild="//@nodes.3/@ownedChild/@children.4/@ownedChild">
+            <containmentFeature
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//FigureDescriptor/actualFigure"/>
+          </children>
+        </ownedChild>
+      </children>
+      <children
+          compartment="//@nodes.3/@ownedChild/@compartments.0">
+        <containmentFeature
             href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//FigureGallery/figures"/>
         <ownedChild>
           <domainMetaElement
@@ -109,7 +150,7 @@
               href="graphdef.gmfgraph#RectangleNode"/>
           <children>
             <containmentFeature
-                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
             <ownedChild>
               <domainMetaElement
                   href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Rectangle"/>
@@ -119,31 +160,31 @@
               <diagramNode
                   href="graphdef.gmfgraph#RectangleNode"/>
               <children
-                  referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.0/@ownedChild">
+                  referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.0/@ownedChild">
                 <containmentFeature
-                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
               </children>
               <children
-                  referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.1/@ownedChild">
+                  referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.1/@ownedChild">
                 <containmentFeature
-                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
               </children>
               <children
-                  referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.2/@ownedChild">
+                  referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.2/@ownedChild">
                 <containmentFeature
-                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
               </children>
               <children
-                  referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.3/@ownedChild">
+                  referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.3/@ownedChild">
                 <containmentFeature
-                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
               </children>
             </ownedChild>
           </children>
           <children
-              referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild">
+              referencedChild="//@nodes.3/@ownedChild/@children.2/@ownedChild">
             <containmentFeature
-                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
             <ownedChild>
               <domainMetaElement
                   href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Ellipse"/>
@@ -153,31 +194,31 @@
               <diagramNode
                   href="graphdef.gmfgraph#EllipseNode"/>
               <children
-                  referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.0/@ownedChild">
+                  referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.0/@ownedChild">
                 <containmentFeature
-                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
               </children>
               <children
-                  referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.1/@ownedChild">
+                  referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.1/@ownedChild">
                 <containmentFeature
-                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
               </children>
               <children
-                  referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.2/@ownedChild">
+                  referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.2/@ownedChild">
                 <containmentFeature
-                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
               </children>
               <children
-                  referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.3/@ownedChild">
+                  referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.3/@ownedChild">
                 <containmentFeature
-                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
               </children>
             </ownedChild>
           </children>
           <children
-              referencedChild="//@nodes.3/@ownedChild/@children.2/@ownedChild">
+              referencedChild="//@nodes.3/@ownedChild/@children.3/@ownedChild">
             <containmentFeature
-                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
             <ownedChild>
               <domainMetaElement
                   href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RoundedRectangle"/>
@@ -187,31 +228,31 @@
               <diagramNode
                   href="graphdef.gmfgraph#RoundedRectangleNode"/>
               <children
-                  referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.0/@ownedChild">
+                  referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.0/@ownedChild">
                 <containmentFeature
-                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
               </children>
               <children
-                  referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.1/@ownedChild">
+                  referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.1/@ownedChild">
                 <containmentFeature
-                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
               </children>
               <children
-                  referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.2/@ownedChild">
+                  referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.2/@ownedChild">
                 <containmentFeature
-                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
               </children>
               <children
-                  referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.3/@ownedChild">
+                  referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.3/@ownedChild">
                 <containmentFeature
-                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
               </children>
             </ownedChild>
           </children>
           <children
-              referencedChild="//@nodes.3/@ownedChild/@children.3/@ownedChild">
+              referencedChild="//@nodes.3/@ownedChild/@children.4/@ownedChild">
             <containmentFeature
-                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
             <ownedChild>
               <domainMetaElement
                   href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Polyline"/>
@@ -237,24 +278,24 @@
           <diagramNode
               href="graphdef.gmfgraph#EllipseNode"/>
           <children
-              referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.0/@ownedChild">
+              referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.0/@ownedChild">
             <containmentFeature
-                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
           </children>
           <children
-              referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.1/@ownedChild">
+              referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.1/@ownedChild">
             <containmentFeature
-                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
           </children>
           <children
-              referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.2/@ownedChild">
+              referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.2/@ownedChild">
             <containmentFeature
-                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
           </children>
           <children
-              referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.3/@ownedChild">
+              referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.3/@ownedChild">
             <containmentFeature
-                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
           </children>
         </ownedChild>
       </children>
@@ -271,24 +312,24 @@
           <diagramNode
               href="graphdef.gmfgraph#RoundedRectangleNode"/>
           <children
-              referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.0/@ownedChild">
+              referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.0/@ownedChild">
             <containmentFeature
-                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
           </children>
           <children
-              referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.1/@ownedChild">
+              referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.1/@ownedChild">
             <containmentFeature
-                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
           </children>
           <children
-              referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.2/@ownedChild">
+              referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.2/@ownedChild">
             <containmentFeature
-                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
           </children>
           <children
-              referencedChild="//@nodes.3/@ownedChild/@children.0/@ownedChild/@children.3/@ownedChild">
+              referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.3/@ownedChild">
             <containmentFeature
-                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/children"/>
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
           </children>
         </ownedChild>
       </children>
@@ -307,12 +348,46 @@
         </ownedChild>
       </children>
       <compartments
-          children="//@nodes.3/@ownedChild/@children.0 //@nodes.3/@ownedChild/@children.1 //@nodes.3/@ownedChild/@children.2 //@nodes.3/@ownedChild/@children.3">
+          children="//@nodes.3/@ownedChild/@children.1 //@nodes.3/@ownedChild/@children.2 //@nodes.3/@ownedChild/@children.3 //@nodes.3/@ownedChild/@children.4 //@nodes.3/@ownedChild/@children.0">
         <compartment
             href="graphdef.gmfgraph#Figures"/>
       </compartments>
     </ownedChild>
   </nodes>
+  <links>
+    <domainMetaElement
+        href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//ChildAccess"/>
+    <containmentFeature
+        href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//FigureDescriptor/accessors"/>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="graphdef.gmftool#//@palette/@tools.0/@tools.5"/>
+    <diagramLink
+        href="graphdef.gmfgraph#NestedFigureAccessorLink"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//ChildAccess/figure"/>
+  </links>
+  <links>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="graphdef.gmftool#//@palette/@tools.0/@tools.6"/>
+    <diagramLink
+        href="graphdef.gmfgraph#ChildAccessLink"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Compartment/accessor"/>
+  </links>
+  <links>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="graphdef.gmftool#//@palette/@tools.0/@tools.6"/>
+    <diagramLink
+        href="graphdef.gmfgraph#ChildAccessLink"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//DiagramLabel/accessor"/>
+  </links>
   <links>
     <tool
         xsi:type="gmftool:CreationTool"

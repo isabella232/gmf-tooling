@@ -50,7 +50,15 @@
       <tools
           xsi:type="gmftool:CreationTool"
           title="Figure Link"
-          description="Link from the Diagram Element to the figure"/>
+          description="Link from the Diagram Element to the figure's descriptor"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Nested Figure Link"
+          description="Link from the Figure Descriptor to specify precisely nested Figure structure subpart (in the scope of its FigureDescriptor)"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Child Access Link"
+          description="Link from the Diagram Element to the structure subelement of its descriptor"/>
     </tools>
     <tools
         xsi:type="gmftool:ToolGroup"
@@ -60,7 +68,7 @@
       <tools
           xsi:type="gmftool:CreationTool"
           title="FigureGallery"
-          description="Create FigureGallery - physical container for figures">
+          description="Create FigureGallery - physical container for figures and descriptors">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>
         <largeIcon
@@ -97,6 +105,15 @@
           xsi:type="gmftool:CreationTool"
           title="Polyline"
           description="Create new PolylineConnection">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Figure Descriptor"
+          description="Create FigureDescriptor - figure structure to be referenced outside">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>
         <largeIcon

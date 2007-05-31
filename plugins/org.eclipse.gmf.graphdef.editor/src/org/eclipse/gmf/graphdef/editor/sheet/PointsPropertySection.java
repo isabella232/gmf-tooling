@@ -1,12 +1,12 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.sheet;
 
@@ -60,8 +60,10 @@ public class PointsPropertySection extends AdvancedPropertySection implements IP
 				IItemPropertyDescriptor nextPointPropertyDescriptorX = new ItemPropertyDescriptor(GMFGraphDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory(), titleX, titleX,
 						GMFGraphPackage.eINSTANCE.getPoint_X(), true, "Template");
 				compositeSource.addPropertySource(new EMFCompositePropertySource(nextPoint, new SingleDescriptorPropertySource(nextPointPropertyDescriptorX), "EMF") {
+
 					protected IPropertyDescriptor newPropertyDescriptor(IItemPropertyDescriptor itemPropertyDescriptor) {
 						return new EMFCompositeSourcePropertyDescriptor(object, itemPropertyDescriptor, getCategory()) {
+
 							public Object getId() {
 								return titleX;
 							}
@@ -73,8 +75,10 @@ public class PointsPropertySection extends AdvancedPropertySection implements IP
 				IItemPropertyDescriptor nextPointPropertyDescriptorY = new ItemPropertyDescriptor(GMFGraphDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory(), titleY, titleY,
 						GMFGraphPackage.eINSTANCE.getPoint_Y(), true, "Template");
 				compositeSource.addPropertySource(new EMFCompositePropertySource(nextPoint, new SingleDescriptorPropertySource(nextPointPropertyDescriptorY), "EMF") {
+
 					protected IPropertyDescriptor newPropertyDescriptor(IItemPropertyDescriptor itemPropertyDescriptor) {
 						return new EMFCompositeSourcePropertyDescriptor(object, itemPropertyDescriptor, getCategory()) {
+
 							public Object getId() {
 								return titleY;
 							}

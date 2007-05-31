@@ -10,7 +10,7 @@
  *    Anna Karjakina (Borland) - initial API and implementation
  */
 
-«IMPORT "http://www.eclipse.org/gmf/2005/GraphicalDefinition"»
+«IMPORT "http://www.eclipse.org/gmf/2006/GraphicalDefinition"»
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
@@ -251,7 +251,7 @@ if (modelElement.get«modelColorProperty»Color() != null) {
 							myNodeFigure.setPreferredSize(bounds.getWidth(), bounds.getHeight());
 							myNodeFigure.setLocation(new org.eclipse.draw2d.geometry.Point(bounds.getX(), bounds.getY()));
 				
-							if (modelElement.getLayoutData() instanceof org.eclipse.gmf.gmfgraph.XYLayoutData || (modelElement.getParent() != null && modelElement.getParent().getLayout() instanceof org.eclipse.gmf.gmfgraph.XYLayout)) {
+							if (modelElement.getLayoutData() instanceof org.eclipse.gmf.gmfgraph.XYLayoutData || (modelElement.eContainer() instanceof org.eclipse.gmf.gmfgraph.Layoutable && ((org.eclipse.gmf.gmfgraph.Layoutable)modelElement.eContainer()).getLayout() instanceof org.eclipse.gmf.gmfgraph.XYLayout)) {
 								org.eclipse.gmf.gmfgraph.XYLayoutData xyLayoutData = (org.eclipse.gmf.gmfgraph.XYLayoutData) modelElement.getLayoutData();
 								if (xyLayoutData == null) {
 									xyLayoutData = org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createXYLayoutData();
@@ -320,7 +320,7 @@ if (modelElement.get«modelColorProperty»Color() != null) {
 	
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void refreshBounds() {
-		if (((org.eclipse.gmf.runtime.notation.View) getParent().getModel()).getElement() instanceof org.eclipse.gmf.gmfgraph.FigureMarker) {
+		if (((org.eclipse.gmf.runtime.notation.View) getParent().getModel()).getElement() instanceof org.eclipse.gmf.gmfgraph.AbstractFigure) {
 			int width = ((Integer) getStructuralFeatureValue(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width())).intValue();
 			int height = ((Integer) getStructuralFeatureValue(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height())).intValue();
 			myNodeFigure.setPreferredSize(new org.eclipse.draw2d.geometry.Dimension(width, height));

@@ -29,7 +29,6 @@ import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
-import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.GridLayout;
@@ -38,6 +37,7 @@ import org.eclipse.gmf.gmfgraph.LayoutData;
 import org.eclipse.gmf.gmfgraph.Layoutable;
 import org.eclipse.gmf.gmfgraph.LineKind;
 import org.eclipse.gmf.gmfgraph.Point;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
@@ -311,7 +311,7 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 				if (next instanceof AbstractFigureEditPart) {
 					final AbstractFigureEditPart nextAF = (AbstractFigureEditPart) next;
 					View model = (View) nextAF.getModel();
-					Figure modelElement = (Figure) model.getElement();
+					RealFigure modelElement = (RealFigure) model.getElement();
 					String name = modelElement.getName();
 					tooltip = modelElement.eClass().getName()+":"+(name != null && name.length() != 0? name : String.valueOf(i+1));
 				}

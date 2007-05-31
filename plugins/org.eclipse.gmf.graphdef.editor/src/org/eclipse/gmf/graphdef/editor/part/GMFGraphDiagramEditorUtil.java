@@ -1,12 +1,12 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.part;
 
@@ -22,6 +22,7 @@ import java.util.Set;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
@@ -33,9 +34,7 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gef.EditPart;
@@ -58,7 +57,10 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.FileEditorInput;
 
 /**
  * @generated
@@ -68,26 +70,24 @@ public class GMFGraphDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	private static Map ourSaveOptions = null;
-
-	/**
-	 * @generated
-	 */
 	public static Map getSaveOptions() {
-		if (ourSaveOptions == null) {
-			ourSaveOptions = new HashMap();
-			ourSaveOptions.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-			ourSaveOptions.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
-			ourSaveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
-		}
-		return ourSaveOptions;
+		Map saveOptions = new HashMap();
+		saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+		saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+		return saveOptions;
 	}
 
 	/**
 	 * @generated
 	 */
 	public static boolean openDiagram(Resource diagram) throws PartInitException {
-		return EditUIUtil.openEditor((EObject) diagram.getContents().get(0));
+		String path = diagram.getURI().toPlatformString(true);
+		IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
+		if (workspaceResource instanceof IFile) {
+			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+			return null != page.openEditor(new FileEditorInput((IFile) workspaceResource), GMFGraphDiagramEditor.ID);
+		}
+		return false;
 	}
 
 	/**

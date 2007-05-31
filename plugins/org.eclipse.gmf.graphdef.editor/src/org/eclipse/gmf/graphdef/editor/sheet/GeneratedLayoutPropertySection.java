@@ -13,14 +13,13 @@ package org.eclipse.gmf.graphdef.editor.sheet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-
 import java.util.List;
+
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
-import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
 import org.eclipse.gmf.gmfgraph.CustomLayout;
@@ -39,6 +38,7 @@ import org.eclipse.gmf.gmfgraph.XYLayout;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
+import org.eclipse.gmf.runtime.notation.Alignment;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -297,11 +297,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 	/**
 	 * @generated
 	 */
-	private Text myBundleNameText;
-
-	/**
-	 * @generated
-	 */
 	private Text myQualifiedClassNameText;
 
 	/**
@@ -492,11 +487,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 	/**
 	 * @generated
 	 */
-	private Text myBundleName$1Text;
-
-	/**
-	 * @generated
-	 */
 	private Text myQualifiedClassName$1Text;
 
 	/**
@@ -674,10 +664,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 		myCustomParamsGroup = createGroupWidget(myLayoutCustomExpandGroupExpandableCompositeControl, "Layout Parameters", null, null, null, null, true, true, false, false);
 
-		myBundleNameText = createTextWidget(myCustomParamsGroup, getModelHelper().getNameMyBundleNameTextFromMetamodel(), null, null, null, null, true, true, false, false);
-		getListener().startListeningTo(myBundleNameText);
-
-		myQualifiedClassNameText = createTextWidget(myCustomParamsGroup, getModelHelper().getNameMyQualifiedClassNameTextFromMetamodel(), null, myBundleNameText, null, null, false, true, false, false);
+		myQualifiedClassNameText = createTextWidget(myCustomParamsGroup, getModelHelper().getNameMyQualifiedClassNameTextFromMetamodel(), null, myQualifiedClassNameText, null, null, false, true,
+				false, false);
 		getListener().startListeningTo(myQualifiedClassNameText);
 
 		myLayoutCustomExpandGroupExpandableComposite.setClient(myLayoutCustomExpandGroupExpandableCompositeControl);
@@ -807,11 +795,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		myMyCustomLayoutDataGroupGroup = createGroupWidget(myMyLayoutDataCompositeComposite, getModelHelper().getNameMyMyCustomLayoutDataGroupGroupFromMetamodel(), null, null, null, null, true, true,
 				false, false);
 
-		myBundleName$1Text = createTextWidget(myMyCustomLayoutDataGroupGroup, getModelHelper().getNameMyBundleName$1TextFromMetamodel(), null, null, null, null, true, true, false, false);
-		getListener().startListeningTo(myBundleName$1Text);
-
-		myQualifiedClassName$1Text = createTextWidget(myMyCustomLayoutDataGroupGroup, getModelHelper().getNameMyQualifiedClassName$1TextFromMetamodel(), null, myBundleName$1Text, null, null, false,
-				true, false, false);
+		myQualifiedClassName$1Text = createTextWidget(myMyCustomLayoutDataGroupGroup, getModelHelper().getNameMyQualifiedClassName$1TextFromMetamodel(), null, myQualifiedClassName$1Text, null, null,
+				false, true, false, false);
 		getListener().startListeningTo(myQualifiedClassName$1Text);
 
 	}
@@ -881,8 +866,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		getListener().stopListeningTo(myDy$2Spin);
 
 		myLayoutGridExpandGroupExpandableComposite.removeExpansionListener(getExpansionListener(null));
-		getListener().stopListeningTo(myBundleNameText);
-
 		getListener().stopListeningTo(myQualifiedClassNameText);
 
 		myLayoutCustomExpandGroupExpandableComposite.removeExpansionListener(getExpansionListener(null));
@@ -934,8 +917,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		getListener().stopListeningTo(myDy$3Spin);
 
 		getListener().stopListeningTo(myHorizontalIndentSpin);
-
-		getListener().stopListeningTo(myBundleName$1Text);
 
 		getListener().stopListeningTo(myQualifiedClassName$1Text);
 
@@ -1058,7 +1039,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (isMyLayoutCustomExpandGroupExpandableCompositeVisible) {
 
 					{
-						myBundleNameText.setText(getModelHelper().getValueForMyBundleNameText(target));
 						myQualifiedClassNameText.setText(getModelHelper().getValueForMyQualifiedClassNameText(target));
 					}
 				}
@@ -1127,7 +1107,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 			myMyCustomLayoutDataGroupGroup.setVisible(isMyMyCustomLayoutDataGroupGroupVisible);
 			if (isMyMyCustomLayoutDataGroupGroupVisible) {
-				myBundleName$1Text.setText(getModelHelper().getValueForMyBundleName$1Text(target));
 				myQualifiedClassName$1Text.setText(getModelHelper().getValueForMyQualifiedClassName$1Text(target));
 			}
 		}
@@ -1151,7 +1130,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 	/**
 	 * @generated
 	 */
-	public void applyChangesFrom(final Widget widget, int kindP) {
+	public void applyChangesFrom(final Widget widget, final int kindP) {
 		final String commandName = "Modifying model with ui data from " + widget.toString();
 		final int kind = kindP; // just to overcome jmerge limitation
 		ArrayList commands = new ArrayList(getSavedSelection().size());
@@ -1330,10 +1309,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 			getModelHelper().setValueForMyDy$2Spin(target, myDy$2Spin.getSelection());
 			return;
 		}
-		if (widget == myBundleNameText && myBundleNameText.isVisible()) {
-			getModelHelper().setValueForMyBundleNameText(target, myBundleNameText.getText());
-			return;
-		}
 		if (widget == myQualifiedClassNameText && myQualifiedClassNameText.isVisible()) {
 			getModelHelper().setValueForMyQualifiedClassNameText(target, myQualifiedClassNameText.getText());
 			return;
@@ -1460,10 +1435,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 			getModelHelper().setValueForMyHorizontalIndentSpin(target, myHorizontalIndentSpin.getSelection());
 			return;
 		}
-		if (widget == myBundleName$1Text && myBundleName$1Text.isVisible()) {
-			getModelHelper().setValueForMyBundleName$1Text(target, myBundleName$1Text.getText());
-			return;
-		}
 		if (widget == myQualifiedClassName$1Text && myQualifiedClassName$1Text.isVisible()) {
 			getModelHelper().setValueForMyQualifiedClassName$1Text(target, myQualifiedClassName$1Text.getText());
 			return;
@@ -1491,8 +1462,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		 * @generated NOT
 		 */
 		protected void setLayoutDataToChildren(org.eclipse.gmf.gmfgraph.Layoutable layoutable, org.eclipse.gmf.gmfgraph.LayoutData layoutData) {
-			if (layoutable instanceof org.eclipse.gmf.gmfgraph.Figure) {
-				org.eclipse.gmf.gmfgraph.Figure figure = (org.eclipse.gmf.gmfgraph.Figure) layoutable;
+			if (layoutable instanceof org.eclipse.gmf.gmfgraph.RealFigure) {
+				org.eclipse.gmf.gmfgraph.RealFigure figure = (org.eclipse.gmf.gmfgraph.RealFigure) layoutable;
 				for (java.util.Iterator it = figure.getChildren().iterator(); it.hasNext();) {
 					Object next = it.next();
 					if (next instanceof org.eclipse.gmf.gmfgraph.Layoutable) {
@@ -2423,8 +2394,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
 					if (flowLayout.getMinorAlignment() != null) {
-						Alignment alignment = flowLayout.getMinorAlignment();
-						value = (alignment.getValue() == Alignment.BEGINNING);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = flowLayout.getMinorAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.BEGINNING);
 
 					}
 
@@ -2445,7 +2416,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-					flowLayout.setMinorAlignment(Alignment.BEGINNING_LITERAL);
+					flowLayout.setMinorAlignment(org.eclipse.gmf.gmfgraph.Alignment.BEGINNING_LITERAL);
 
 				}
 
@@ -2463,8 +2434,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
 					if (flowLayout.getMinorAlignment() != null) {
-						Alignment alignment = flowLayout.getMinorAlignment();
-						value = (alignment.getValue() == Alignment.BEGINNING);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = flowLayout.getMinorAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.BEGINNING);
 
 					}
 
@@ -2485,7 +2456,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-					flowLayout.setMinorAlignment(Alignment.BEGINNING_LITERAL);
+					flowLayout.setMinorAlignment(org.eclipse.gmf.gmfgraph.Alignment.BEGINNING_LITERAL);
 
 				}
 
@@ -2503,8 +2474,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
 					if (flowLayout.getMinorAlignment() != null) {
-						Alignment alignment = flowLayout.getMinorAlignment();
-						value = (alignment.getValue() == Alignment.CENTER);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = flowLayout.getMinorAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.CENTER);
 
 					}
 
@@ -2525,7 +2496,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-					flowLayout.setMinorAlignment(Alignment.CENTER_LITERAL);
+					flowLayout.setMinorAlignment(org.eclipse.gmf.gmfgraph.Alignment.CENTER_LITERAL);
 
 				}
 
@@ -2543,8 +2514,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
 					if (flowLayout.getMinorAlignment() != null) {
-						Alignment alignment = flowLayout.getMinorAlignment();
-						value = (alignment.getValue() == Alignment.END);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = flowLayout.getMinorAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.END);
 
 					}
 
@@ -2565,7 +2536,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-					flowLayout.setMinorAlignment(Alignment.END_LITERAL);
+					flowLayout.setMinorAlignment(org.eclipse.gmf.gmfgraph.Alignment.END_LITERAL);
 
 				}
 
@@ -2583,8 +2554,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
 					if (flowLayout.getMinorAlignment() != null) {
-						Alignment alignment = flowLayout.getMinorAlignment();
-						value = (alignment.getValue() == Alignment.END);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = flowLayout.getMinorAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.END);
 
 					}
 
@@ -2605,7 +2576,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-					flowLayout.setMinorAlignment(Alignment.END_LITERAL);
+					flowLayout.setMinorAlignment(org.eclipse.gmf.gmfgraph.Alignment.END_LITERAL);
 
 				}
 
@@ -2630,8 +2601,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
 					if (flowLayout.getMajorAlignment() != null) {
-						Alignment alignment = flowLayout.getMajorAlignment();
-						value = (alignment.getValue() == Alignment.BEGINNING);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = flowLayout.getMajorAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.BEGINNING);
 
 					}
 
@@ -2652,7 +2623,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-					flowLayout.setMajorAlignment(Alignment.BEGINNING_LITERAL);
+					flowLayout.setMajorAlignment(org.eclipse.gmf.gmfgraph.Alignment.BEGINNING_LITERAL);
 
 				}
 
@@ -2670,8 +2641,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
 					if (flowLayout.getMajorAlignment() != null) {
-						Alignment alignment = flowLayout.getMajorAlignment();
-						value = (alignment.getValue() == Alignment.BEGINNING);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = flowLayout.getMajorAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.BEGINNING);
 
 					}
 
@@ -2692,7 +2663,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-					flowLayout.setMajorAlignment(Alignment.BEGINNING_LITERAL);
+					flowLayout.setMajorAlignment(org.eclipse.gmf.gmfgraph.Alignment.BEGINNING_LITERAL);
 
 				}
 
@@ -2710,8 +2681,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
 					if (flowLayout.getMajorAlignment() != null) {
-						Alignment alignment = flowLayout.getMajorAlignment();
-						value = (alignment.getValue() == Alignment.CENTER);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = flowLayout.getMajorAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.CENTER);
 
 					}
 
@@ -2732,7 +2703,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-					flowLayout.setMajorAlignment(Alignment.CENTER_LITERAL);
+					flowLayout.setMajorAlignment(org.eclipse.gmf.gmfgraph.Alignment.CENTER_LITERAL);
 
 				}
 
@@ -2750,8 +2721,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
 					if (flowLayout.getMajorAlignment() != null) {
-						Alignment alignment = flowLayout.getMajorAlignment();
-						value = (alignment.getValue() == Alignment.END);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = flowLayout.getMajorAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.END);
 
 					}
 
@@ -2772,7 +2743,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-					flowLayout.setMajorAlignment(Alignment.END_LITERAL);
+					flowLayout.setMajorAlignment(org.eclipse.gmf.gmfgraph.Alignment.END_LITERAL);
 
 				}
 
@@ -2790,8 +2761,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
 					if (flowLayout.getMajorAlignment() != null) {
-						Alignment alignment = flowLayout.getMajorAlignment();
-						value = (alignment.getValue() == Alignment.END);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = flowLayout.getMajorAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.END);
 
 					}
 
@@ -2812,7 +2783,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-					flowLayout.setMajorAlignment(Alignment.END_LITERAL);
+					flowLayout.setMajorAlignment(org.eclipse.gmf.gmfgraph.Alignment.END_LITERAL);
 
 				}
 
@@ -3157,52 +3128,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getValueForMyBundleNameText(Layoutable layoutable) {
-			String value = EMPTY_STRING;
-			if (layoutable.getLayout() != null) {
-				Layout layout = layoutable.getLayout();
-				if (layout instanceof CustomLayout) {
-					CustomLayout customLayout = ((CustomLayout) layout);
-					value = customLayout.getBundleName();
-
-				}
-
-			}
-
-			if (value != null) {
-				return value;
-			}
-			return EMPTY_STRING;
-		}
-
-		/**
-		 * @generated
-		 */
-		public void setValueForMyBundleNameText(Layoutable layoutable, String value) {
-
-			if (layoutable.getLayout() != null) {
-				Layout layout = layoutable.getLayout();
-
-				if (layout instanceof CustomLayout) {
-					CustomLayout customLayout = ((CustomLayout) layout);
-					customLayout.setBundleName(value);
-
-				}
-
-			}
-
-		}
-
-		/**
-		 * @generated
-		 */
-		public String getNameMyBundleNameTextFromMetamodel() {
-			return "BundleName";
-		}
-
-		/**
-		 * @generated
-		 */
 		public String getValueForMyQualifiedClassNameText(Layoutable layoutable) {
 			String value = EMPTY_STRING;
 			if (layoutable.getLayout() != null) {
@@ -3277,8 +3202,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layoutData instanceof BorderLayoutData) {
 					BorderLayoutData borderLayoutData = ((BorderLayoutData) layoutData);
 					if (borderLayoutData.getAlignment() != null) {
-						Alignment alignment = borderLayoutData.getAlignment();
-						value = (alignment.getValue() == Alignment.BEGINNING);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = borderLayoutData.getAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.BEGINNING);
 
 					}
 
@@ -3299,7 +3224,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layoutData instanceof BorderLayoutData) {
 					BorderLayoutData borderLayoutData = ((BorderLayoutData) layoutData);
-					borderLayoutData.setAlignment(Alignment.BEGINNING_LITERAL);
+					borderLayoutData.setAlignment(org.eclipse.gmf.gmfgraph.Alignment.BEGINNING_LITERAL);
 
 				}
 
@@ -3317,8 +3242,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layoutData instanceof BorderLayoutData) {
 					BorderLayoutData borderLayoutData = ((BorderLayoutData) layoutData);
 					if (borderLayoutData.getAlignment() != null) {
-						Alignment alignment = borderLayoutData.getAlignment();
-						value = (alignment.getValue() == Alignment.BEGINNING);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = borderLayoutData.getAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.BEGINNING);
 
 					}
 
@@ -3339,7 +3264,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layoutData instanceof BorderLayoutData) {
 					BorderLayoutData borderLayoutData = ((BorderLayoutData) layoutData);
-					borderLayoutData.setAlignment(Alignment.BEGINNING_LITERAL);
+					borderLayoutData.setAlignment(org.eclipse.gmf.gmfgraph.Alignment.BEGINNING_LITERAL);
 
 				}
 
@@ -3357,8 +3282,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layoutData instanceof BorderLayoutData) {
 					BorderLayoutData borderLayoutData = ((BorderLayoutData) layoutData);
 					if (borderLayoutData.getAlignment() != null) {
-						Alignment alignment = borderLayoutData.getAlignment();
-						value = (alignment.getValue() == Alignment.CENTER);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = borderLayoutData.getAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.CENTER);
 
 					}
 
@@ -3379,7 +3304,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layoutData instanceof BorderLayoutData) {
 					BorderLayoutData borderLayoutData = ((BorderLayoutData) layoutData);
-					borderLayoutData.setAlignment(Alignment.CENTER_LITERAL);
+					borderLayoutData.setAlignment(org.eclipse.gmf.gmfgraph.Alignment.CENTER_LITERAL);
 
 				}
 
@@ -3397,8 +3322,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layoutData instanceof BorderLayoutData) {
 					BorderLayoutData borderLayoutData = ((BorderLayoutData) layoutData);
 					if (borderLayoutData.getAlignment() != null) {
-						Alignment alignment = borderLayoutData.getAlignment();
-						value = (alignment.getValue() == Alignment.END);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = borderLayoutData.getAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.END);
 
 					}
 
@@ -3419,7 +3344,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layoutData instanceof BorderLayoutData) {
 					BorderLayoutData borderLayoutData = ((BorderLayoutData) layoutData);
-					borderLayoutData.setAlignment(Alignment.END_LITERAL);
+					borderLayoutData.setAlignment(org.eclipse.gmf.gmfgraph.Alignment.END_LITERAL);
 
 				}
 
@@ -3437,8 +3362,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layoutData instanceof BorderLayoutData) {
 					BorderLayoutData borderLayoutData = ((BorderLayoutData) layoutData);
 					if (borderLayoutData.getAlignment() != null) {
-						Alignment alignment = borderLayoutData.getAlignment();
-						value = (alignment.getValue() == Alignment.END);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = borderLayoutData.getAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.END);
 
 					}
 
@@ -3459,7 +3384,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layoutData instanceof BorderLayoutData) {
 					BorderLayoutData borderLayoutData = ((BorderLayoutData) layoutData);
-					borderLayoutData.setAlignment(Alignment.END_LITERAL);
+					borderLayoutData.setAlignment(org.eclipse.gmf.gmfgraph.Alignment.END_LITERAL);
 
 				}
 
@@ -3818,8 +3743,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
 					if (gridLayoutData.getVerticalAlignment() != null) {
-						Alignment alignment = gridLayoutData.getVerticalAlignment();
-						value = (alignment.getValue() == Alignment.BEGINNING);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = gridLayoutData.getVerticalAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.BEGINNING);
 
 					}
 
@@ -3840,7 +3765,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
-					gridLayoutData.setVerticalAlignment(Alignment.BEGINNING_LITERAL);
+					gridLayoutData.setVerticalAlignment(org.eclipse.gmf.gmfgraph.Alignment.BEGINNING_LITERAL);
 
 				}
 
@@ -3865,8 +3790,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
 					if (gridLayoutData.getVerticalAlignment() != null) {
-						Alignment alignment = gridLayoutData.getVerticalAlignment();
-						value = (alignment.getValue() == Alignment.CENTER);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = gridLayoutData.getVerticalAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.CENTER);
 
 					}
 
@@ -3887,7 +3812,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
-					gridLayoutData.setVerticalAlignment(Alignment.CENTER_LITERAL);
+					gridLayoutData.setVerticalAlignment(org.eclipse.gmf.gmfgraph.Alignment.CENTER_LITERAL);
 
 				}
 
@@ -3912,8 +3837,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
 					if (gridLayoutData.getVerticalAlignment() != null) {
-						Alignment alignment = gridLayoutData.getVerticalAlignment();
-						value = (alignment.getValue() == Alignment.END);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = gridLayoutData.getVerticalAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.END);
 
 					}
 
@@ -3934,7 +3859,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
-					gridLayoutData.setVerticalAlignment(Alignment.END_LITERAL);
+					gridLayoutData.setVerticalAlignment(org.eclipse.gmf.gmfgraph.Alignment.END_LITERAL);
 
 				}
 
@@ -3959,8 +3884,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
 					if (gridLayoutData.getVerticalAlignment() != null) {
-						Alignment alignment = gridLayoutData.getVerticalAlignment();
-						value = (alignment.getValue() == Alignment.FILL);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = gridLayoutData.getVerticalAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.FILL);
 
 					}
 
@@ -3981,7 +3906,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
-					gridLayoutData.setVerticalAlignment(Alignment.FILL_LITERAL);
+					gridLayoutData.setVerticalAlignment(org.eclipse.gmf.gmfgraph.Alignment.FILL_LITERAL);
 
 				}
 
@@ -4013,8 +3938,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
 					if (gridLayoutData.getHorizontalAlignment() != null) {
-						Alignment alignment = gridLayoutData.getHorizontalAlignment();
-						value = (alignment.getValue() == Alignment.BEGINNING);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = gridLayoutData.getHorizontalAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.BEGINNING);
 
 					}
 
@@ -4035,7 +3960,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
-					gridLayoutData.setHorizontalAlignment(Alignment.BEGINNING_LITERAL);
+					gridLayoutData.setHorizontalAlignment(org.eclipse.gmf.gmfgraph.Alignment.BEGINNING_LITERAL);
 
 				}
 
@@ -4060,8 +3985,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
 					if (gridLayoutData.getHorizontalAlignment() != null) {
-						Alignment alignment = gridLayoutData.getHorizontalAlignment();
-						value = (alignment.getValue() == Alignment.CENTER);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = gridLayoutData.getHorizontalAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.CENTER);
 
 					}
 
@@ -4082,7 +4007,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
-					gridLayoutData.setHorizontalAlignment(Alignment.CENTER_LITERAL);
+					gridLayoutData.setHorizontalAlignment(org.eclipse.gmf.gmfgraph.Alignment.CENTER_LITERAL);
 
 				}
 
@@ -4107,8 +4032,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
 					if (gridLayoutData.getHorizontalAlignment() != null) {
-						Alignment alignment = gridLayoutData.getHorizontalAlignment();
-						value = (alignment.getValue() == Alignment.END);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = gridLayoutData.getHorizontalAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.END);
 
 					}
 
@@ -4129,7 +4054,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
-					gridLayoutData.setHorizontalAlignment(Alignment.END_LITERAL);
+					gridLayoutData.setHorizontalAlignment(org.eclipse.gmf.gmfgraph.Alignment.END_LITERAL);
 
 				}
 
@@ -4154,8 +4079,8 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
 					if (gridLayoutData.getHorizontalAlignment() != null) {
-						Alignment alignment = gridLayoutData.getHorizontalAlignment();
-						value = (alignment.getValue() == Alignment.FILL);
+						org.eclipse.gmf.gmfgraph.Alignment alignment = gridLayoutData.getHorizontalAlignment();
+						value = (alignment.getValue() == org.eclipse.gmf.gmfgraph.Alignment.FILL);
 
 					}
 
@@ -4176,7 +4101,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
-					gridLayoutData.setHorizontalAlignment(Alignment.FILL_LITERAL);
+					gridLayoutData.setHorizontalAlignment(org.eclipse.gmf.gmfgraph.Alignment.FILL_LITERAL);
 
 				}
 
@@ -4428,52 +4353,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		 */
 		public String getNameMyMyCustomLayoutDataGroupGroupFromMetamodel() {
 			return "CustomLayoutData";
-		}
-
-		/**
-		 * @generated
-		 */
-		public String getValueForMyBundleName$1Text(Layoutable layoutable) {
-			String value = EMPTY_STRING;
-			if (layoutable.getLayoutData() != null) {
-				LayoutData layoutData = layoutable.getLayoutData();
-				if (layoutData instanceof CustomLayoutData) {
-					CustomLayoutData customLayoutData = ((CustomLayoutData) layoutData);
-					value = customLayoutData.getBundleName();
-
-				}
-
-			}
-
-			if (value != null) {
-				return value;
-			}
-			return EMPTY_STRING;
-		}
-
-		/**
-		 * @generated
-		 */
-		public void setValueForMyBundleName$1Text(Layoutable layoutable, String value) {
-
-			if (layoutable.getLayoutData() != null) {
-				LayoutData layoutData = layoutable.getLayoutData();
-
-				if (layoutData instanceof CustomLayoutData) {
-					CustomLayoutData customLayoutData = ((CustomLayoutData) layoutData);
-					customLayoutData.setBundleName(value);
-
-				}
-
-			}
-
-		}
-
-		/**
-		 * @generated
-		 */
-		public String getNameMyBundleName$1TextFromMetamodel() {
-			return "BundleName";
 		}
 
 		/**

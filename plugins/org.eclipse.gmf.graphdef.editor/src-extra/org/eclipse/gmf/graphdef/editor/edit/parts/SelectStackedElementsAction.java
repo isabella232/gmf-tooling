@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.gef.EditPart;
-import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
@@ -117,7 +117,7 @@ public class SelectStackedElementsAction extends Action implements IMenuCreator,
 			String preciseName = String.valueOf(i);
 			if (next instanceof AbstractFigureEditPart) {
 				View model = (View) ((AbstractFigureEditPart) next).getModel();
-				Figure modelElement = (Figure) model.getElement();
+				RealFigure modelElement = (RealFigure) model.getElement();
 				className = modelElement.eClass().getName();
 				String elementName = modelElement.getName();
 				if (elementName != null && elementName.length() != 0) {

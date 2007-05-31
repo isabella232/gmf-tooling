@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.part;
 
@@ -18,18 +18,19 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
-import org.eclipse.gmf.gmfgraph.provider.GMFGraphItemProviderAdapterFactory;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.eclipse.gmf.gmfgraph.provider.GMFGraphItemProviderAdapterFactory;
 
 /**
  * @generated
@@ -131,12 +132,11 @@ public class GMFGraphDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns an image descriptor for the image file at the given plug-in
-	 * relative path.
-	 * 
+	 * Returns an image descriptor for the image file at the given
+	 * plug-in relative path.
+	 *
 	 * @generated
-	 * @param path
-	 *            the path
+	 * @param path the path
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getBundledImageDescriptor(String path) {
@@ -144,14 +144,12 @@ public class GMFGraphDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Respects images residing in any plug-in. If path is relative, then this
-	 * bundle is looked up for the image, otherwise, for absolute path, first
-	 * segment is taken as id of plug-in with image
-	 * 
+	 * Respects images residing in any plug-in. If path is relative,
+	 * then this bundle is looked up for the image, otherwise, for absolute 
+	 * path, first segment is taken as id of plug-in with image
+	 *
 	 * @generated
-	 * @param path
-	 *            the path to image, either absolute (with plug-in id as first
-	 *            segment), or relative for bundled images
+	 * @param path the path to image, either absolute (with plug-in id as first segment), or relative for bundled images
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor findImageDescriptor(String path) {
@@ -165,7 +163,6 @@ public class GMFGraphDiagramEditorPlugin extends AbstractUIPlugin {
 
 	/**
 	 * Returns string from plug-in's resource bundle
-	 * 
 	 * @generated
 	 */
 	public static String getString(String key) {
@@ -174,12 +171,10 @@ public class GMFGraphDiagramEditorPlugin extends AbstractUIPlugin {
 
 	/**
 	 * Returns an image for the image file at the given plug-in relative path.
-	 * Client do not need to dispose this image. Images will be disposed
-	 * automatically.
-	 * 
+	 * Client do not need to dispose this image. Images will be disposed automatically.
+	 *
 	 * @generated
-	 * @param path
-	 *            the path
+	 * @param path the path
 	 * @return image instance
 	 */
 	public Image getBundledImage(String path) {
@@ -209,8 +204,7 @@ public class GMFGraphDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * @param throwable
-	 *            actual error or null could be passed
+	 * @param throwable actual error or null could be passed
 	 * @generated
 	 */
 	public void logError(String error, Throwable throwable) {
@@ -229,8 +223,7 @@ public class GMFGraphDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * @param throwable
-	 *            actual error or null could be passed
+	 * @param throwable actual error or null could be passed
 	 * @generated
 	 */
 	public void logInfo(String message, Throwable throwable) {

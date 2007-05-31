@@ -1,34 +1,50 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.part;
 
 import org.eclipse.core.commands.ExecutionException;
+
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
+
 import org.eclipse.core.runtime.NullProgressMonitor;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
+
 import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.gmf.graphdef.editor.edit.commands.GMFGraphCreateShortcutDecorationsCommand;
+
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
+
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
+
 import org.eclipse.gmf.runtime.diagram.ui.commands.CreateCommand;
+
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest;
+
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
+
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
+
 import org.eclipse.jface.action.IAction;
+
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+
 import org.eclipse.jface.window.Window;
+
 import org.eclipse.swt.widgets.Shell;
+
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 

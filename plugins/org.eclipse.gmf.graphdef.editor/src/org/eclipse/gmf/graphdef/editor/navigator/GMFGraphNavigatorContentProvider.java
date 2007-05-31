@@ -1,12 +1,12 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.navigator;
 
@@ -24,19 +24,27 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.ChildAccessEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentAccessorEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramElementFigureEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelAccessorEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RectangleEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangleEditPart;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 import org.eclipse.gmf.graphdef.editor.part.Messages;
@@ -247,6 +255,12 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), FigureGalleryEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getDiagramLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
+			links.addChildren(createNavigatorItems(connectedViews, links, false));
+			connectedViews = getDiagramLinksByType(Collections.singleton(view), CompartmentAccessorEditPart.VISUAL_ID);
+			links.addChildren(createNavigatorItems(connectedViews, links, false));
+			connectedViews = getDiagramLinksByType(Collections.singleton(view), DiagramLabelAccessorEditPart.VISUAL_ID);
+			links.addChildren(createNavigatorItems(connectedViews, links, false));
 			connectedViews = getDiagramLinksByType(Collections.singleton(view), DiagramElementFigureEditPart.VISUAL_ID);
 			links.addChildren(createNavigatorItems(connectedViews, links, false));
 			if (!links.isEmpty()) {
@@ -257,8 +271,10 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 
 		case CompartmentEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			GMFGraphNavigatorGroup outgoinglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Compartment_2001_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), DiagramElementFigureEditPart.VISUAL_ID);
+			GMFGraphNavigatorGroup outgoinglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Compartment_2005_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), CompartmentAccessorEditPart.VISUAL_ID);
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(view), DiagramElementFigureEditPart.VISUAL_ID);
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
 			if (!outgoinglinks.isEmpty()) {
 				result.add(outgoinglinks);
@@ -268,7 +284,7 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 
 		case NodeEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			GMFGraphNavigatorGroup outgoinglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Node_2002_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			GMFGraphNavigatorGroup outgoinglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Node_2006_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), DiagramElementFigureEditPart.VISUAL_ID);
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
 			if (!outgoinglinks.isEmpty()) {
@@ -279,7 +295,7 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 
 		case ConnectionEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			GMFGraphNavigatorGroup outgoinglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Connection_2003_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			GMFGraphNavigatorGroup outgoinglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Connection_2007_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), DiagramElementFigureEditPart.VISUAL_ID);
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
 			if (!outgoinglinks.isEmpty()) {
@@ -291,23 +307,51 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 		case FigureGalleryEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			Collection connectedViews = getChildrenByType(Collections.singleton(view), FigureGalleryFiguresEditPart.VISUAL_ID);
-			connectedViews = getChildrenByType(connectedViews, RectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, FigureDescriptorEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), FigureGalleryFiguresEditPart.VISUAL_ID);
-			connectedViews = getChildrenByType(connectedViews, Ellipse2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle3EditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), FigureGalleryFiguresEditPart.VISUAL_ID);
-			connectedViews = getChildrenByType(connectedViews, RoundedRectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Ellipse3EditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), FigureGalleryFiguresEditPart.VISUAL_ID);
-			connectedViews = getChildrenByType(connectedViews, Polyline2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangle3EditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), FigureGalleryFiguresEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Polyline3EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			return result.toArray();
+		}
+
+		case FigureDescriptorEditPart.VISUAL_ID: {
+			Collection result = new ArrayList();
+			GMFGraphNavigatorGroup outgoinglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_FigureDescriptor_3009_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_FigureDescriptor_3009_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection connectedViews = getChildrenByType(Collections.singleton(view), RectangleEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Ellipse2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangle2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Polyline2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), DiagramElementFigureEditPart.VISUAL_ID);
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
+			}
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
+			}
 			return result.toArray();
 		}
 
 		case RectangleEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Rectangle_3001_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Rectangle_3010_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
@@ -421,7 +465,7 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), DiagramElementFigureEditPart.VISUAL_ID);
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
@@ -431,7 +475,7 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 
 		case Rectangle2EditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Rectangle_3002_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Rectangle_3011_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
@@ -474,7 +518,7 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), DiagramElementFigureEditPart.VISUAL_ID);
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
@@ -484,7 +528,7 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 
 		case EllipseEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Ellipse_3003_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Ellipse_3012_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
@@ -527,7 +571,7 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), DiagramElementFigureEditPart.VISUAL_ID);
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
@@ -537,7 +581,7 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 
 		case RoundedRectangleEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_RoundedRectangle_3004_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_RoundedRectangle_3013_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
@@ -580,7 +624,7 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), DiagramElementFigureEditPart.VISUAL_ID);
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
@@ -590,8 +634,8 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 
 		case PolylineEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Polyline_3005_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), DiagramElementFigureEditPart.VISUAL_ID);
+			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Polyline_3014_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
@@ -601,7 +645,7 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 
 		case Ellipse2EditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Ellipse_3006_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Ellipse_3015_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
@@ -715,7 +759,7 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), DiagramElementFigureEditPart.VISUAL_ID);
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
@@ -725,7 +769,7 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 
 		case RoundedRectangle2EditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_RoundedRectangle_3007_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_RoundedRectangle_3016_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
@@ -839,7 +883,7 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), DiagramElementFigureEditPart.VISUAL_ID);
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
@@ -849,8 +893,8 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 
 		case Polyline2EditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Polyline_3008_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), DiagramElementFigureEditPart.VISUAL_ID);
+			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Polyline_3017_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
@@ -858,10 +902,393 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			return result.toArray();
 		}
 
-		case DiagramElementFigureEditPart.VISUAL_ID: {
+		case Rectangle3EditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			GMFGraphNavigatorGroup source = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_DiagramElementFigure_4001_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			GMFGraphNavigatorGroup target = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_DiagramElementFigure_4001_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Rectangle_3018_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
+			}
+			return result.toArray();
+		}
+
+		case Ellipse3EditPart.VISUAL_ID: {
+			Collection result = new ArrayList();
+			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Ellipse_3019_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
+			}
+			return result.toArray();
+		}
+
+		case RoundedRectangle3EditPart.VISUAL_ID: {
+			Collection result = new ArrayList();
+			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_RoundedRectangle_3020_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Rectangle2EditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EllipseEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
+			}
+			return result.toArray();
+		}
+
+		case Polyline3EditPart.VISUAL_ID: {
+			Collection result = new ArrayList();
+			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Polyline_3021_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
+			}
+			return result.toArray();
+		}
+
+		case ChildAccessEditPart.VISUAL_ID: {
+			Collection result = new ArrayList();
+			GMFGraphNavigatorGroup target = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_ChildAccess_4002_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			GMFGraphNavigatorGroup source = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_ChildAccess_4002_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getLinksTargetByType(Collections.singleton(view), RectangleEditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksTargetByType(Collections.singleton(view), Rectangle2EditPart.VISUAL_ID);
@@ -878,17 +1305,53 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksTargetByType(Collections.singleton(view), Polyline2EditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksTargetByType(Collections.singleton(view), Rectangle3EditPart.VISUAL_ID);
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksTargetByType(Collections.singleton(view), Ellipse3EditPart.VISUAL_ID);
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksTargetByType(Collections.singleton(view), RoundedRectangle3EditPart.VISUAL_ID);
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksTargetByType(Collections.singleton(view), Polyline3EditPart.VISUAL_ID);
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksSourceByType(Collections.singleton(view), FigureDescriptorEditPart.VISUAL_ID);
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			if (!target.isEmpty()) {
+				result.add(target);
+			}
+			if (!source.isEmpty()) {
+				result.add(source);
+			}
+			return result.toArray();
+		}
+
+		case CompartmentAccessorEditPart.VISUAL_ID: {
+			Collection result = new ArrayList();
+			GMFGraphNavigatorGroup source = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_CompartmentAccessor_4003_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection connectedViews = getLinksSourceByType(Collections.singleton(view), CompartmentEditPart.VISUAL_ID);
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			if (!source.isEmpty()) {
+				result.add(source);
+			}
+			return result.toArray();
+		}
+
+		case DiagramElementFigureEditPart.VISUAL_ID: {
+			Collection result = new ArrayList();
+			GMFGraphNavigatorGroup target = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_DiagramElementFigure_4005_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			GMFGraphNavigatorGroup source = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_DiagramElementFigure_4005_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection connectedViews = getLinksTargetByType(Collections.singleton(view), FigureDescriptorEditPart.VISUAL_ID);
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksSourceByType(Collections.singleton(view), CompartmentEditPart.VISUAL_ID);
 			source.addChildren(createNavigatorItems(connectedViews, source, true));
 			connectedViews = getLinksSourceByType(Collections.singleton(view), NodeEditPart.VISUAL_ID);
 			source.addChildren(createNavigatorItems(connectedViews, source, true));
 			connectedViews = getLinksSourceByType(Collections.singleton(view), ConnectionEditPart.VISUAL_ID);
 			source.addChildren(createNavigatorItems(connectedViews, source, true));
-			if (!source.isEmpty()) {
-				result.add(source);
-			}
 			if (!target.isEmpty()) {
 				result.add(target);
+			}
+			if (!source.isEmpty()) {
+				result.add(source);
 			}
 			return result.toArray();
 		}

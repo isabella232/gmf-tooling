@@ -1,12 +1,12 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
@@ -65,6 +65,12 @@ public class GMFGraphEditPartFactory implements EditPartFactory {
 			case FigureGalleryNameEditPart.VISUAL_ID:
 				return new FigureGalleryNameEditPart(view);
 
+			case FigureDescriptorEditPart.VISUAL_ID:
+				return new FigureDescriptorEditPart(view);
+
+			case FigureDescriptorNameEditPart.VISUAL_ID:
+				return new FigureDescriptorNameEditPart(view);
+
 			case RectangleEditPart.VISUAL_ID:
 				return new RectangleEditPart(view);
 
@@ -89,6 +95,18 @@ public class GMFGraphEditPartFactory implements EditPartFactory {
 			case Polyline2EditPart.VISUAL_ID:
 				return new Polyline2EditPart(view);
 
+			case Rectangle3EditPart.VISUAL_ID:
+				return new Rectangle3EditPart(view);
+
+			case Ellipse3EditPart.VISUAL_ID:
+				return new Ellipse3EditPart(view);
+
+			case RoundedRectangle3EditPart.VISUAL_ID:
+				return new RoundedRectangle3EditPart(view);
+
+			case Polyline3EditPart.VISUAL_ID:
+				return new Polyline3EditPart(view);
+
 			case CompartmentVisualFacetsEditPart.VISUAL_ID:
 				return new CompartmentVisualFacetsEditPart(view);
 
@@ -100,6 +118,15 @@ public class GMFGraphEditPartFactory implements EditPartFactory {
 
 			case FigureGalleryFiguresEditPart.VISUAL_ID:
 				return new FigureGalleryFiguresEditPart(view);
+
+			case ChildAccessEditPart.VISUAL_ID:
+				return new ChildAccessEditPart(view);
+
+			case CompartmentAccessorEditPart.VISUAL_ID:
+				return new CompartmentAccessorEditPart(view);
+
+			case DiagramLabelAccessorEditPart.VISUAL_ID:
+				return new DiagramLabelAccessorEditPart(view);
 
 			case DiagramElementFigureEditPart.VISUAL_ID:
 				return new DiagramElementFigureEditPart(view);

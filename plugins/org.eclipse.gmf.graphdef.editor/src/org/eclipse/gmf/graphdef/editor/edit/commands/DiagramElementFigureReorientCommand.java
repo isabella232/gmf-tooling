@@ -1,12 +1,12 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.edit.commands;
 
@@ -15,7 +15,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
-import org.eclipse.gmf.gmfgraph.FigureHandle;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.graphdef.editor.edit.policies.GMFGraphBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
@@ -78,20 +78,20 @@ public class DiagramElementFigureReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected boolean canReorientSource() {
-		if (!(oldEnd instanceof FigureHandle && newEnd instanceof DiagramElement)) {
+		if (!(oldEnd instanceof FigureDescriptor && newEnd instanceof DiagramElement)) {
 			return false;
 		}
-		return GMFGraphBaseItemSemanticEditPolicy.LinkConstraints.canExistDiagramElementFigure_4001(getNewSource(), getOldTarget());
+		return GMFGraphBaseItemSemanticEditPolicy.LinkConstraints.canExistDiagramElementFigure_4005(getNewSource(), getOldTarget());
 	}
 
 	/**
 	 * @generated
 	 */
 	protected boolean canReorientTarget() {
-		if (!(oldEnd instanceof FigureHandle && newEnd instanceof FigureHandle)) {
+		if (!(oldEnd instanceof FigureDescriptor && newEnd instanceof FigureDescriptor)) {
 			return false;
 		}
-		return GMFGraphBaseItemSemanticEditPolicy.LinkConstraints.canExistDiagramElementFigure_4001(getOldSource(), getNewTarget());
+		return GMFGraphBaseItemSemanticEditPolicy.LinkConstraints.canExistDiagramElementFigure_4005(getOldSource(), getNewTarget());
 	}
 
 	/**
@@ -144,14 +144,14 @@ public class DiagramElementFigureReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	protected FigureHandle getOldTarget() {
-		return (FigureHandle) oldEnd;
+	protected FigureDescriptor getOldTarget() {
+		return (FigureDescriptor) oldEnd;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected FigureHandle getNewTarget() {
-		return (FigureHandle) newEnd;
+	protected FigureDescriptor getNewTarget() {
+		return (FigureDescriptor) newEnd;
 	}
 }

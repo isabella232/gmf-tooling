@@ -1,12 +1,12 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Point;
@@ -31,6 +32,7 @@ import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.gef.tools.DirectEditManager;
 import org.eclipse.gmf.graphdef.editor.edit.policies.GMFGraphTextSelectionEditPolicy;
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
+import org.eclipse.gmf.graphdef.editor.providers.GMFGraphParserProvider;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
@@ -45,9 +47,7 @@ import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
-import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
@@ -67,7 +67,7 @@ public class NodeNameEditPart extends CompartmentEditPart implements ITextAwareE
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 5002;
+	public static final int VISUAL_ID = 5006;
 
 	/**
 	 * @generated
@@ -302,15 +302,7 @@ public class NodeNameEditPart extends CompartmentEditPart implements ITextAwareE
 	public IParser getParser() {
 		if (parser == null) {
 			String parserHint = ((View) getModel()).getType();
-			ParserHintAdapter hintAdapter = new ParserHintAdapter(getParserElement(), parserHint) {
-
-				public Object getAdapter(Class adapter) {
-					if (IElementType.class.equals(adapter)) {
-						return GMFGraphElementTypes.Node_2002;
-					}
-					return super.getAdapter(adapter);
-				}
-			};
+			IAdaptable hintAdapter = new GMFGraphParserProvider.HintAdapter(GMFGraphElementTypes.Node_2006, getParserElement(), parserHint);
 			parser = ParserService.getInstance().getParser(hintAdapter);
 		}
 		return parser;

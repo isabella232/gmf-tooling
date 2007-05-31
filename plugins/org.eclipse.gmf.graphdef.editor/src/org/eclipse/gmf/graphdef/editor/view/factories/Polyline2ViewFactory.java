@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.view.factories;
 
@@ -38,10 +38,7 @@ public class Polyline2ViewFactory extends AbstractShapeViewFactory {
 	 */
 	protected List createStyles(View view) {
 		List styles = new ArrayList();
-		styles.add(NotationFactory.eINSTANCE.createFontStyle());
-		styles.add(NotationFactory.eINSTANCE.createDescriptionStyle());
-		styles.add(NotationFactory.eINSTANCE.createFillStyle());
-		styles.add(NotationFactory.eINSTANCE.createLineStyle());
+		styles.add(NotationFactory.eINSTANCE.createShapeStyle());
 		return styles;
 	}
 
@@ -61,5 +58,4 @@ public class Polyline2ViewFactory extends AbstractShapeViewFactory {
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
 	}
-
 }

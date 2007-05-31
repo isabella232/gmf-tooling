@@ -1,47 +1,53 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.edit.policies;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.gmfgraph.Canvas;
-import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.ChildAccessEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramElementFigureEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RectangleEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangleEditPart;
+import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramUpdater;
+import org.eclipse.gmf.graphdef.editor.part.GMFGraphLinkDescriptor;
+import org.eclipse.gmf.graphdef.editor.part.GMFGraphNodeDescriptor;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
-import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.commands.DeferredLayoutCommand;
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
@@ -49,8 +55,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
-import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
@@ -63,39 +67,16 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
+	Set myFeaturesToSynchronize;
+
+	/**
+	 * @generated
+	 */
 	protected List getSemanticChildrenList() {
-		List result = new LinkedList();
-		EObject modelObject = ((View) getHost().getModel()).getElement();
 		View viewObject = (View) getHost().getModel();
-		EObject nextValue;
-		int nodeVID;
-		for (Iterator values = ((Canvas) modelObject).getCompartments().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = GMFGraphVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
-			if (CompartmentEditPart.VISUAL_ID == nodeVID) {
-				result.add(nextValue);
-			}
-		}
-		for (Iterator values = ((Canvas) modelObject).getNodes().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = GMFGraphVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
-			if (NodeEditPart.VISUAL_ID == nodeVID) {
-				result.add(nextValue);
-			}
-		}
-		for (Iterator values = ((Canvas) modelObject).getConnections().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = GMFGraphVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
-			if (ConnectionEditPart.VISUAL_ID == nodeVID) {
-				result.add(nextValue);
-			}
-		}
-		for (Iterator values = ((Canvas) modelObject).getFigures().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = GMFGraphVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
-			if (FigureGalleryEditPart.VISUAL_ID == nodeVID) {
-				result.add(nextValue);
-			}
+		List result = new LinkedList();
+		for (Iterator it = GMFGraphDiagramUpdater.getCanvas_1000SemanticChildren(viewObject).iterator(); it.hasNext();) {
+			result.add(((GMFGraphNodeDescriptor) it.next()).getModelElement());
 		}
 		return result;
 	}
@@ -104,16 +85,23 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected boolean shouldDeleteView(View view) {
-		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
-			return view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy());
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean isOrphaned(Collection semanticChildren, final View view) {
+		if (view.getEAnnotation("Shortcut") != null) {//$NON-NLS-1$
+			return GMFGraphDiagramUpdater.isShortcutOrphaned(view);
 		}
-		int nodeVID = GMFGraphVisualIDRegistry.getVisualID(view);
-		switch (nodeVID) {
+		int visualID = GMFGraphVisualIDRegistry.getVisualID(view);
+		switch (visualID) {
 		case CompartmentEditPart.VISUAL_ID:
 		case NodeEditPart.VISUAL_ID:
 		case ConnectionEditPart.VISUAL_ID:
 		case FigureGalleryEditPart.VISUAL_ID:
-			return true;
+			return !semanticChildren.contains(view.getElement()) || visualID != GMFGraphVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
 		}
 		return false;
 	}
@@ -123,6 +111,20 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 */
 	protected String getDefaultFactoryHint() {
 		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Set getFeaturesToSynchronize() {
+		if (myFeaturesToSynchronize == null) {
+			myFeaturesToSynchronize = new HashSet();
+			myFeaturesToSynchronize.add(GMFGraphPackage.eINSTANCE.getCanvas_Compartments());
+			myFeaturesToSynchronize.add(GMFGraphPackage.eINSTANCE.getCanvas_Nodes());
+			myFeaturesToSynchronize.add(GMFGraphPackage.eINSTANCE.getCanvas_Connections());
+			myFeaturesToSynchronize.add(GMFGraphPackage.eINSTANCE.getCanvas_Figures());
+		}
+		return myFeaturesToSynchronize;
 	}
 
 	/**
@@ -176,87 +178,156 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private Collection myLinkDescriptors = new LinkedList();
-
-	/**
-	 * @generated
-	 */
-	private Map myEObject2ViewMap = new HashMap();
+	private Diagram getDiagram() {
+		return ((View) getHost().getModel()).getDiagram();
+	}
 
 	/**
 	 * @generated
 	 */
 	private Collection refreshConnections() {
-		try {
-			collectAllLinks(getDiagram());
-			Collection existingLinks = new LinkedList(getDiagram().getEdges());
-			for (Iterator diagramLinks = existingLinks.iterator(); diagramLinks.hasNext();) {
-				Edge nextDiagramLink = (Edge) diagramLinks.next();
-				EObject diagramLinkObject = nextDiagramLink.getElement();
-				EObject diagramLinkSrc = nextDiagramLink.getSource().getElement();
-				EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
-				int diagramLinkVisualID = GMFGraphVisualIDRegistry.getVisualID(nextDiagramLink);
-				for (Iterator modelLinkDescriptors = myLinkDescriptors.iterator(); modelLinkDescriptors.hasNext();) {
-					LinkDescriptor nextLinkDescriptor = (LinkDescriptor) modelLinkDescriptors.next();
-					if (diagramLinkObject == nextLinkDescriptor.getLinkElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination()
-							&& diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
-						diagramLinks.remove();
-						modelLinkDescriptors.remove();
-					}
+		Map domain2NotationMap = new HashMap();
+		Collection linkDescriptors = collectAllLinks(getDiagram(), domain2NotationMap);
+		Collection existingLinks = new LinkedList(getDiagram().getEdges());
+		for (Iterator linksIterator = existingLinks.iterator(); linksIterator.hasNext();) {
+			Edge nextDiagramLink = (Edge) linksIterator.next();
+			EObject diagramLinkObject = nextDiagramLink.getElement();
+			EObject diagramLinkSrc = nextDiagramLink.getSource().getElement();
+			EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
+			int diagramLinkVisualID = GMFGraphVisualIDRegistry.getVisualID(nextDiagramLink);
+			for (Iterator LinkDescriptorsIterator = linkDescriptors.iterator(); LinkDescriptorsIterator.hasNext();) {
+				GMFGraphLinkDescriptor nextLinkDescriptor = (GMFGraphLinkDescriptor) LinkDescriptorsIterator.next();
+				if (diagramLinkObject == nextLinkDescriptor.getModelElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination()
+						&& diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
+					linksIterator.remove();
+					LinkDescriptorsIterator.remove();
 				}
 			}
-			deleteViews(existingLinks.iterator());
-			return createConnections(myLinkDescriptors);
-		} finally {
-			myLinkDescriptors.clear();
-			myEObject2ViewMap.clear();
 		}
+		deleteViews(existingLinks.iterator());
+		return createConnections(linkDescriptors, domain2NotationMap);
 	}
 
 	/**
 	 * @generated
 	 */
-	private void collectAllLinks(View view) {
-		EObject modelElement = view.getElement();
-		int diagramElementVisualID = GMFGraphVisualIDRegistry.getVisualID(view);
-		switch (diagramElementVisualID) {
-		case CompartmentEditPart.VISUAL_ID:
-		case NodeEditPart.VISUAL_ID:
-		case ConnectionEditPart.VISUAL_ID:
-		case FigureGalleryEditPart.VISUAL_ID:
-		case RectangleEditPart.VISUAL_ID:
-		case Rectangle2EditPart.VISUAL_ID:
-		case EllipseEditPart.VISUAL_ID:
-		case RoundedRectangleEditPart.VISUAL_ID:
-		case PolylineEditPart.VISUAL_ID:
-		case Ellipse2EditPart.VISUAL_ID:
-		case RoundedRectangle2EditPart.VISUAL_ID:
-		case Polyline2EditPart.VISUAL_ID:
+	private Collection collectAllLinks(View view, Map domain2NotationMap) {
+		Collection result = new LinkedList();
+		switch (GMFGraphVisualIDRegistry.getVisualID(view)) {
 		case CanvasEditPart.VISUAL_ID: {
-			myEObject2ViewMap.put(modelElement, view);
-			storeLinks(modelElement, getDiagram());
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getCanvas_1000ContainedLinks(view));
+			break;
 		}
-		default: {
+		case CompartmentEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getCompartment_2005ContainedLinks(view));
+			break;
 		}
-			for (Iterator children = view.getChildren().iterator(); children.hasNext();) {
-				View childView = (View) children.next();
-				collectAllLinks(childView);
-			}
+		case NodeEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getNode_2006ContainedLinks(view));
+			break;
 		}
+		case ConnectionEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getConnection_2007ContainedLinks(view));
+			break;
+		}
+		case FigureGalleryEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getFigureGallery_2008ContainedLinks(view));
+			break;
+		}
+		case FigureDescriptorEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getFigureDescriptor_3009ContainedLinks(view));
+			break;
+		}
+		case RectangleEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getRectangle_3010ContainedLinks(view));
+			break;
+		}
+		case Rectangle2EditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getRectangle_3011ContainedLinks(view));
+			break;
+		}
+		case EllipseEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getEllipse_3012ContainedLinks(view));
+			break;
+		}
+		case RoundedRectangleEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getRoundedRectangle_3013ContainedLinks(view));
+			break;
+		}
+		case PolylineEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getPolyline_3014ContainedLinks(view));
+			break;
+		}
+		case Ellipse2EditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getEllipse_3015ContainedLinks(view));
+			break;
+		}
+		case RoundedRectangle2EditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getRoundedRectangle_3016ContainedLinks(view));
+			break;
+		}
+		case Polyline2EditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getPolyline_3017ContainedLinks(view));
+			break;
+		}
+		case Rectangle3EditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getRectangle_3018ContainedLinks(view));
+			break;
+		}
+		case Ellipse3EditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getEllipse_3019ContainedLinks(view));
+			break;
+		}
+		case RoundedRectangle3EditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getRoundedRectangle_3020ContainedLinks(view));
+			break;
+		}
+		case Polyline3EditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getPolyline_3021ContainedLinks(view));
+			break;
+		}
+		case ChildAccessEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(GMFGraphDiagramUpdater.getChildAccess_4002ContainedLinks(view));
+			break;
+		}
+		}
+		for (Iterator children = view.getChildren().iterator(); children.hasNext();) {
+			result.addAll(collectAllLinks((View) children.next(), domain2NotationMap));
+		}
+		for (Iterator edges = view.getSourceEdges().iterator(); edges.hasNext();) {
+			result.addAll(collectAllLinks((View) edges.next(), domain2NotationMap));
+		}
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private Collection createConnections(Collection linkDescriptors) {
-		if (linkDescriptors.isEmpty()) {
-			return Collections.EMPTY_LIST;
-		}
+	private Collection createConnections(Collection linkDescriptors, Map domain2NotationMap) {
 		List adapters = new LinkedList();
 		for (Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
-			final LinkDescriptor nextLinkDescriptor = (LinkDescriptor) linkDescriptorsIterator.next();
-			EditPart sourceEditPart = getEditPartFor(nextLinkDescriptor.getSource());
-			EditPart targetEditPart = getEditPartFor(nextLinkDescriptor.getDestination());
+			final GMFGraphLinkDescriptor nextLinkDescriptor = (GMFGraphLinkDescriptor) linkDescriptorsIterator.next();
+			EditPart sourceEditPart = getEditPart(nextLinkDescriptor.getSource(), domain2NotationMap);
+			EditPart targetEditPart = getEditPart(nextLinkDescriptor.getDestination(), domain2NotationMap);
 			if (sourceEditPart == null || targetEditPart == null) {
 				continue;
 			}
@@ -283,157 +354,11 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private EditPart getEditPartFor(EObject modelElement) {
-		View view = (View) myEObject2ViewMap.get(modelElement);
+	private EditPart getEditPart(EObject domainModelElement, Map domain2NotationMap) {
+		View view = (View) domain2NotationMap.get(domainModelElement);
 		if (view != null) {
 			return (EditPart) getHost().getViewer().getEditPartRegistry().get(view);
 		}
 		return null;
 	}
-
-	/**
-	 *@generated
-	 */
-	private void storeLinks(EObject container, Diagram diagram) {
-		EClass containerMetaclass = container.eClass();
-		storeFeatureModelFacetLinks(container, containerMetaclass, diagram);
-		storeTypeModelFacetLinks(container, containerMetaclass);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void storeTypeModelFacetLinks(EObject container, EClass containerMetaclass) {
-	}
-
-	/**
-	 *@generated
-	 */
-	private void storeFeatureModelFacetLinks(EObject container, EClass containerMetaclass, Diagram diagram) {
-
-		if (GMFGraphPackage.eINSTANCE.getDiagramElement().isSuperTypeOf(containerMetaclass)) {
-			EObject nextDestination = (EObject) ((DiagramElement) container).getFigure();
-			myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, GMFGraphElementTypes.DiagramElementFigure_4001, DiagramElementFigureEditPart.VISUAL_ID));
-
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private Diagram getDiagram() {
-		return ((View) getHost().getModel()).getDiagram();
-	}
-
-	/**
-	 * @generated
-	 */
-	private class LinkDescriptor {
-
-		/**
-		 * @generated
-		 */
-		private EObject mySource;
-
-		/**
-		 * @generated
-		 */
-		private EObject myDestination;
-
-		/**
-		 * @generated
-		 */
-		private EObject myLinkElement;
-
-		/**
-		 * @generated
-		 */
-		private int myVisualID;
-
-		/**
-		 * @generated
-		 */
-		private IAdaptable mySemanticAdapter;
-
-		/**
-		 * @generated
-		 */
-		protected LinkDescriptor(EObject source, EObject destination, EObject linkElement, IElementType elementType, int linkVID) {
-			this(source, destination, linkVID);
-			myLinkElement = linkElement;
-			final IElementType elementTypeCopy = elementType;
-			mySemanticAdapter = new EObjectAdapter(linkElement) {
-
-				public Object getAdapter(Class adapter) {
-					if (IElementType.class.equals(adapter)) {
-						return elementTypeCopy;
-					}
-					return super.getAdapter(adapter);
-				}
-			};
-		}
-
-		/**
-		 * @generated
-		 */
-		protected LinkDescriptor(EObject source, EObject destination, IElementType elementType, int linkVID) {
-			this(source, destination, linkVID);
-			myLinkElement = null;
-			final IElementType elementTypeCopy = elementType;
-			mySemanticAdapter = new IAdaptable() {
-
-				public Object getAdapter(Class adapter) {
-					if (IElementType.class.equals(adapter)) {
-						return elementTypeCopy;
-					}
-					return null;
-				}
-			};
-		}
-
-		/**
-		 * @generated
-		 */
-		private LinkDescriptor(EObject source, EObject destination, int linkVID) {
-			mySource = source;
-			myDestination = destination;
-			myVisualID = linkVID;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EObject getSource() {
-			return mySource;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EObject getDestination() {
-			return myDestination;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EObject getLinkElement() {
-			return myLinkElement;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected int getVisualID() {
-			return myVisualID;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected IAdaptable getSemanticAdapter() {
-			return mySemanticAdapter;
-		}
-	}
-
 }

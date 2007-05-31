@@ -11,7 +11,7 @@
  *    Artem Tikhomirov (Borland) - cleaned and simplified outcome 
  */
 «IMPORT "http://www.eclipse.org/gmf/2007/GmfGraph/PropSheet"»
-«IMPORT "http://www.eclipse.org/gmf/2005/GraphicalDefinition"»
+«IMPORT "http://www.eclipse.org/gmf/2006/GraphicalDefinition"»
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»

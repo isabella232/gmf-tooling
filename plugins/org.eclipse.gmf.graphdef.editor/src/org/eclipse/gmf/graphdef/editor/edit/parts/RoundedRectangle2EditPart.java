@@ -1,12 +1,12 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
@@ -18,13 +18,10 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.draw2d.CompoundBorder;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
-import org.eclipse.draw2d.LineBorder;
-import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -35,11 +32,12 @@ import org.eclipse.emf.workspace.AbstractEMFOperation;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
+import org.eclipse.gmf.gmfgraph.AbstractFigure;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
-import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.Layoutable;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.XYLayout;
@@ -62,8 +60,6 @@ import org.eclipse.gmf.runtime.notation.LineStyle;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
 
 /**
  * @generated
@@ -73,7 +69,7 @@ public class RoundedRectangle2EditPart extends AbstractFigureEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 3007;
+	public static final int VISUAL_ID = 3016;
 
 	/**
 	 * @generated
@@ -103,6 +99,8 @@ public class RoundedRectangle2EditPart extends AbstractFigureEditPart {
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new RoundedRectangle2CanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
+		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 
 	/**
@@ -190,11 +188,7 @@ public class RoundedRectangle2EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
-		LineBorder contourBorder = new LineBorder(Display.getDefault().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
-		MarginBorder marginBorder = new MarginBorder(5);
-		CompoundBorder compoundBorder = new CompoundBorder(contourBorder, marginBorder);
-		result.setBorder(compoundBorder);
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
 		myNodeFigure = result;
 		return result;
 	}
@@ -202,8 +196,8 @@ public class RoundedRectangle2EditPart extends AbstractFigureEditPart {
 	/**
 	 * Creates figure for this edit part.
 	 * 
-	 * Body of this method does not depend on settings in generation model so
-	 * you may safely remove <i>generated</i> tag and modify it.
+	 * Body of this method does not depend on settings in generation model
+	 * so you may safely remove <i>generated</i> tag and modify it.
 	 * 
 	 * @generated
 	 */
@@ -217,11 +211,9 @@ public class RoundedRectangle2EditPart extends AbstractFigureEditPart {
 	}
 
 	/**
-	 * Default implementation treats passed figure as content pane. Respects
-	 * layout one may have set for generated figure.
-	 * 
-	 * @param nodeShape
-	 *            instance of generated figure class
+	 * Default implementation treats passed figure as content pane.
+	 * Respects layout one may have set for generated figure.
+	 * @param nodeShape instance of generated figure class
 	 * @generated
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
@@ -255,7 +247,7 @@ public class RoundedRectangle2EditPart extends AbstractFigureEditPart {
 	 */
 	private RoundedRectangleFigure myFigure;
 
-	// TODO: use myFigure?
+// TODO: use myFigure?
 	/**
 	 * @generated
 	 */
@@ -444,7 +436,8 @@ public class RoundedRectangle2EditPart extends AbstractFigureEditPart {
 							myNodeFigure.setPreferredSize(bounds.getWidth(), bounds.getHeight());
 							myNodeFigure.setLocation(new Point(bounds.getX(), bounds.getY()));
 
-							if (modelElement.getLayoutData() instanceof XYLayoutData || (modelElement.getParent() != null && modelElement.getParent().getLayout() instanceof XYLayout)) {
+							if (modelElement.getLayoutData() instanceof XYLayoutData
+									|| (modelElement.eContainer() instanceof Layoutable && ((Layoutable) modelElement.eContainer()).getLayout() instanceof XYLayout)) {
 								XYLayoutData xyLayoutData = (XYLayoutData) modelElement.getLayoutData();
 								if (xyLayoutData == null) {
 									xyLayoutData = GMFGraphFactory.eINSTANCE.createXYLayoutData();
@@ -631,7 +624,7 @@ public class RoundedRectangle2EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected void refreshBounds() {
-		if (((View) getParent().getModel()).getElement() instanceof FigureMarker) {
+		if (((View) getParent().getModel()).getElement() instanceof AbstractFigure) {
 			int width = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE.getSize_Width())).intValue();
 			int height = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE.getSize_Height())).intValue();
 			myNodeFigure.setPreferredSize(new Dimension(width, height));
@@ -722,19 +715,8 @@ public class RoundedRectangle2EditPart extends AbstractFigureEditPart {
 		 */
 		public RoundedRectangleFigure() {
 
-			org.eclipse.draw2d.XYLayout myGenLayoutManager = new org.eclipse.draw2d.XYLayout();
-
-			this.setLayoutManager(myGenLayoutManager);
-
+			this.setLayoutManager(new org.eclipse.draw2d.XYLayout());
 			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(8), getMapMode().DPtoLP(8)));
-
-			createContents();
-		}
-
-		/**
-		 * @generated
-		 */
-		private void createContents() {
 		}
 
 		/**

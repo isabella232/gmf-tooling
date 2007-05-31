@@ -3,70 +3,98 @@
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:trace="http://www.eclipse.org/gmf/2006/Trace">
   <nodeTraces
-      visualID="2001"
-      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'Compartment') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'Canvas') and _containmentMF_.name = 'compartments')">
+      visualID="2005"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Compartment') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Canvas') and _containmentMF_.name = 'compartments')">
     <nodeLabelTraces
-        visualID="5001"
+        visualID="5005"
         queryText="true"/>
     <compartmentTraces
-        visualID="7001"
+        visualID="7005"
         queryText="true"/>
   </nodeTraces>
   <nodeTraces
-      visualID="2002"
-      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'Node') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'Canvas') and _containmentMF_.name = 'nodes')">
+      visualID="2006"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Node') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Canvas') and _containmentMF_.name = 'nodes')">
     <nodeLabelTraces
-        visualID="5002"
+        visualID="5006"
         queryText="true"/>
     <compartmentTraces
-        visualID="7002"
+        visualID="7006"
         queryText="true"/>
   </nodeTraces>
   <nodeTraces
-      visualID="2003"
-      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'Connection') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'Canvas') and _containmentMF_.name = 'connections')">
+      visualID="2007"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Connection') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Canvas') and _containmentMF_.name = 'connections')">
     <nodeLabelTraces
-        visualID="5003"
+        visualID="5007"
         queryText="true"/>
     <compartmentTraces
-        visualID="7003"
+        visualID="7007"
         queryText="true"/>
   </nodeTraces>
   <nodeTraces
-      visualID="2004"
-      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'FigureGallery') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'Canvas') and _containmentMF_.name = 'figures')">
+      visualID="2008"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'FigureGallery') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Canvas') and _containmentMF_.name = 'figures')">
     <nodeLabelTraces
-        visualID="5004"
+        visualID="5009"
         queryText="true"/>
     <compartmentTraces
-        visualID="7004"
+        visualID="7008"
         queryText="true"/>
   </nodeTraces>
   <childNodeTraces
-      visualID="3001"
-      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'Rectangle') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'FigureGallery') and _containmentMF_.name = 'figures')"/>
+      visualID="3009"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'FigureDescriptor') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'FigureGallery') and _containmentMF_.name = 'descriptors')">
+    <nodeLabelTraces
+        visualID="5008"
+        queryText="true"/>
+  </childNodeTraces>
   <childNodeTraces
-      visualID="3002"
-      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'Rectangle') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'Figure') and _containmentMF_.name = 'children')"/>
+      visualID="3010"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Rectangle') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'FigureDescriptor') and _containmentMF_.name = 'actualFigure')"/>
   <childNodeTraces
-      visualID="3003"
-      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'Ellipse') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'Figure') and _containmentMF_.name = 'children')"/>
+      visualID="3011"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Rectangle') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'RealFigure') and _containmentMF_.name = 'children')"/>
   <childNodeTraces
-      visualID="3004"
-      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'RoundedRectangle') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'Figure') and _containmentMF_.name = 'children')"/>
+      visualID="3012"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Ellipse') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'RealFigure') and _containmentMF_.name = 'children')"/>
   <childNodeTraces
-      visualID="3005"
-      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'Polyline') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'Figure') and _containmentMF_.name = 'children')"/>
+      visualID="3013"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'RoundedRectangle') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'RealFigure') and _containmentMF_.name = 'children')"/>
   <childNodeTraces
-      visualID="3006"
-      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'Ellipse') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'FigureGallery') and _containmentMF_.name = 'figures')"/>
+      visualID="3014"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Polyline') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'RealFigure') and _containmentMF_.name = 'children')"/>
   <childNodeTraces
-      visualID="3007"
-      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'RoundedRectangle') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'FigureGallery') and _containmentMF_.name = 'figures')"/>
+      visualID="3015"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Ellipse') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'FigureDescriptor') and _containmentMF_.name = 'actualFigure')"/>
   <childNodeTraces
-      visualID="3008"
-      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'Polyline') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'FigureGallery') and _containmentMF_.name = 'figures')"/>
+      visualID="3016"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'RoundedRectangle') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'FigureDescriptor') and _containmentMF_.name = 'actualFigure')"/>
+  <childNodeTraces
+      visualID="3017"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Polyline') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'FigureDescriptor') and _containmentMF_.name = 'actualFigure')"/>
+  <childNodeTraces
+      visualID="3018"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Rectangle') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'FigureGallery') and _containmentMF_.name = 'figures')"/>
+  <childNodeTraces
+      visualID="3019"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Ellipse') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'FigureGallery') and _containmentMF_.name = 'figures')"/>
+  <childNodeTraces
+      visualID="3020"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'RoundedRectangle') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'FigureGallery') and _containmentMF_.name = 'figures')"/>
+  <childNodeTraces
+      visualID="3021"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Polyline') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'FigureGallery') and _containmentMF_.name = 'figures')"/>
   <linkTraces
-      visualID="4001"
-      queryText="modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet) and (let _feature_:ecore::EStructuralFeature = modelFacet.oclAsType(gmfgen::FeatureLinkModelFacet).metaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _feature_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2005/GraphicalDefinition' and _eClass_.name = 'DiagramElement') and _feature_.name = 'figure')"/>
+      visualID="4002"
+      queryText="modelFacet.oclIsKindOf(gmfgen::TypeLinkModelFacet) and (let _eClass_:ecore::EClass = modelFacet.oclAsType(gmfgen::TypeLinkModelFacet).metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'ChildAccess')"/>
+  <linkTraces
+      visualID="4003"
+      queryText="modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet) and (let _feature_:ecore::EStructuralFeature = modelFacet.oclAsType(gmfgen::FeatureLinkModelFacet).metaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _feature_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Compartment') and _feature_.name = 'accessor')"/>
+  <linkTraces
+      visualID="4004"
+      queryText="modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet) and (let _feature_:ecore::EStructuralFeature = modelFacet.oclAsType(gmfgen::FeatureLinkModelFacet).metaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _feature_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'DiagramLabel') and _feature_.name = 'accessor')"/>
+  <linkTraces
+      visualID="4005"
+      queryText="modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet) and (let _feature_:ecore::EStructuralFeature = modelFacet.oclAsType(gmfgen::FeatureLinkModelFacet).metaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _feature_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'DiagramElement') and _feature_.name = 'figure')"/>
 </trace:TraceModel>

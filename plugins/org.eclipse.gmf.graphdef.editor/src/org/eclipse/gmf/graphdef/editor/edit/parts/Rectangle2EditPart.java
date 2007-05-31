@@ -1,12 +1,12 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
@@ -31,12 +31,13 @@ import org.eclipse.emf.workspace.AbstractEMFOperation;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
+import org.eclipse.gmf.gmfgraph.AbstractFigure;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.Dimension;
-import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.Layoutable;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.XYLayout;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
@@ -67,7 +68,7 @@ public class Rectangle2EditPart extends AbstractFigureEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 3002;
+	public static final int VISUAL_ID = 3011;
 
 	/**
 	 * @generated
@@ -97,6 +98,8 @@ public class Rectangle2EditPart extends AbstractFigureEditPart {
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new Rectangle2CanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
+		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 
 	/**
@@ -178,7 +181,7 @@ public class Rectangle2EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
 		myNodeFigure = result;
 		return result;
 	}
@@ -186,8 +189,8 @@ public class Rectangle2EditPart extends AbstractFigureEditPart {
 	/**
 	 * Creates figure for this edit part.
 	 * 
-	 * Body of this method does not depend on settings in generation model so
-	 * you may safely remove <i>generated</i> tag and modify it.
+	 * Body of this method does not depend on settings in generation model
+	 * so you may safely remove <i>generated</i> tag and modify it.
 	 * 
 	 * @generated
 	 */
@@ -201,11 +204,9 @@ public class Rectangle2EditPart extends AbstractFigureEditPart {
 	}
 
 	/**
-	 * Default implementation treats passed figure as content pane. Respects
-	 * layout one may have set for generated figure.
-	 * 
-	 * @param nodeShape
-	 *            instance of generated figure class
+	 * Default implementation treats passed figure as content pane.
+	 * Respects layout one may have set for generated figure.
+	 * @param nodeShape instance of generated figure class
 	 * @generated
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
@@ -239,7 +240,7 @@ public class Rectangle2EditPart extends AbstractFigureEditPart {
 	 */
 	private RectangleFigure myFigure;
 
-	// TODO: use myFigure?
+// TODO: use myFigure?
 	/**
 	 * @generated
 	 */
@@ -412,7 +413,8 @@ public class Rectangle2EditPart extends AbstractFigureEditPart {
 							myNodeFigure.setPreferredSize(bounds.getWidth(), bounds.getHeight());
 							myNodeFigure.setLocation(new Point(bounds.getX(), bounds.getY()));
 
-							if (modelElement.getLayoutData() instanceof XYLayoutData || (modelElement.getParent() != null && modelElement.getParent().getLayout() instanceof XYLayout)) {
+							if (modelElement.getLayoutData() instanceof XYLayoutData
+									|| (modelElement.eContainer() instanceof Layoutable && ((Layoutable) modelElement.eContainer()).getLayout() instanceof XYLayout)) {
 								XYLayoutData xyLayoutData = (XYLayoutData) modelElement.getLayoutData();
 								if (xyLayoutData == null) {
 									xyLayoutData = GMFGraphFactory.eINSTANCE.createXYLayoutData();
@@ -599,7 +601,7 @@ public class Rectangle2EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected void refreshBounds() {
-		if (((View) getParent().getModel()).getElement() instanceof FigureMarker) {
+		if (((View) getParent().getModel()).getElement() instanceof AbstractFigure) {
 			int width = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE.getSize_Width())).intValue();
 			int height = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE.getSize_Height())).intValue();
 			myNodeFigure.setPreferredSize(new org.eclipse.draw2d.geometry.Dimension(width, height));
@@ -690,17 +692,7 @@ public class Rectangle2EditPart extends AbstractFigureEditPart {
 		 */
 		public RectangleFigure() {
 
-			org.eclipse.draw2d.XYLayout myGenLayoutManager = new org.eclipse.draw2d.XYLayout();
-
-			this.setLayoutManager(myGenLayoutManager);
-
-			createContents();
-		}
-
-		/**
-		 * @generated
-		 */
-		private void createContents() {
+			this.setLayoutManager(new org.eclipse.draw2d.XYLayout());
 		}
 
 		/**

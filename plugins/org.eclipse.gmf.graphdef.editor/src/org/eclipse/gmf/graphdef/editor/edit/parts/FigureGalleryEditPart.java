@@ -1,12 +1,12 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
@@ -41,7 +41,7 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2004;
+	public static final int VISUAL_ID = 2008;
 
 	/**
 	 * @generated
@@ -68,6 +68,8 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new FigureGalleryItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
+		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 
 	/**
@@ -170,8 +172,8 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 	/**
 	 * Creates figure for this edit part.
 	 * 
-	 * Body of this method does not depend on settings in generation model so
-	 * you may safely remove <i>generated</i> tag and modify it.
+	 * Body of this method does not depend on settings in generation model
+	 * so you may safely remove <i>generated</i> tag and modify it.
 	 * 
 	 * @generated
 	 */
@@ -185,11 +187,9 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	 * Default implementation treats passed figure as content pane. Respects
-	 * layout one may have set for generated figure.
-	 * 
-	 * @param nodeShape
-	 *            instance of generated figure class
+	 * Default implementation treats passed figure as content pane.
+	 * Respects layout one may have set for generated figure.
+	 * @param nodeShape instance of generated figure class
 	 * @generated
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
@@ -237,8 +237,12 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		public FigureGalleryFigure() {
+		private WrapLabel fFigureGalleryFigure_NameLabel;
 
+		/**
+		 * @generated
+		 */
+		public FigureGalleryFigure() {
 			createContents();
 		}
 
@@ -246,32 +250,13 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		private void createContents() {
-			WrapLabel fig_0 = new WrapLabel();
 
-			setFigureFigureGalleryFigure_NameLabel(fig_0);
+			WrapLabel figureGalleryFigure_NameLabel0 = new WrapLabel();
+			figureGalleryFigure_NameLabel0.setText("");
 
-			Object layData0 = null;
+			this.add(figureGalleryFigure_NameLabel0);
+			fFigureGalleryFigure_NameLabel = figureGalleryFigure_NameLabel0;
 
-			this.add(fig_0, layData0);
-		}
-
-		/**
-		 * @generated
-		 */
-		private WrapLabel fFigureGalleryFigure_NameLabel;
-
-		/**
-		 * @generated
-		 */
-		public WrapLabel getFigureFigureGalleryFigure_NameLabel() {
-			return fFigureGalleryFigure_NameLabel;
-		}
-
-		/**
-		 * @generated
-		 */
-		private void setFigureFigureGalleryFigure_NameLabel(WrapLabel fig) {
-			fFigureGalleryFigure_NameLabel = fig;
 		}
 
 		/**
@@ -291,6 +276,13 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 		 */
 		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
 			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		public WrapLabel getFigureFigureGalleryFigure_NameLabel() {
+			return fFigureGalleryFigure_NameLabel;
 		}
 
 	}

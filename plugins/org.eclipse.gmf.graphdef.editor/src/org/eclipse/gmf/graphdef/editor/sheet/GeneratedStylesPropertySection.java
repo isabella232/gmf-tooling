@@ -1,20 +1,20 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.sheet;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-
 import java.util.List;
+
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -355,7 +355,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 	/**
 	 * @generated
 	 */
-	public void applyChangesFrom(final Widget widget, int kindP) {
+	public void applyChangesFrom(final Widget widget, final int kindP) {
 		final String commandName = "Modifying model with ui data from " + widget.toString();
 		final int kind = kindP; // just to overcome jmerge limitation
 		ArrayList commands = new ArrayList(getSavedSelection().size());

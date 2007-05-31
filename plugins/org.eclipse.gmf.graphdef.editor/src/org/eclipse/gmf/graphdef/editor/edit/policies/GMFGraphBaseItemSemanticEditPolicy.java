@@ -1,19 +1,18 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.edit.policies;
 
 import java.util.Collections;
 import java.util.Iterator;
 
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPart;
@@ -22,8 +21,12 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.requests.ReconnectRequest;
+import org.eclipse.gmf.gmfgraph.ChildAccess;
+import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
-import org.eclipse.gmf.gmfgraph.FigureHandle;
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
+import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.graphdef.editor.edit.helpers.GMFGraphBaseEditHelper;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
@@ -67,6 +70,7 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	public static final String VISUAL_ID_KEY = "visual_id"; //$NON-NLS-1$
 
 	/**
+	 * Extended request data key to hold editpart visual id.
 	 * Add visual id of edited editpart to extended data of the request
 	 * so command switch can decide what kind of diagram element is being edited.
 	 * It is done in those cases when it's not possible to deduce diagram
@@ -112,12 +116,11 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) { //$NON-NLS-1$ 
 			elementType = null;
 		}
-		Command epCommand = getSemanticCommandSwitch(completedRequest);
-		if (epCommand != null) {
-			ICommand command = epCommand instanceof ICommandProxy ? ((ICommandProxy) epCommand).getICommand() : new CommandProxy(epCommand);
+		Command semanticCommand = getSemanticCommandSwitch(completedRequest);
+		if (semanticCommand != null) {
+			ICommand command = semanticCommand instanceof ICommandProxy ? ((ICommandProxy) semanticCommand).getICommand() : new CommandProxy(semanticCommand);
 			completedRequest.setParameter(GMFGraphBaseEditHelper.EDIT_POLICY_COMMAND, command);
 		}
-		Command ehCommand = null;
 		if (elementType != null) {
 			ICommand command = elementType.getEditCommand(completedRequest);
 			if (command != null) {
@@ -125,7 +128,7 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 					TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
 					command = new CompositeTransactionalCommand(editingDomain, null).compose(command);
 				}
-				ehCommand = new ICommandProxy(command);
+				semanticCommand = new ICommandProxy(command);
 			}
 		}
 		boolean shouldProceed = true;
@@ -136,9 +139,9 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			if (completedRequest instanceof DestroyRequest) {
 				TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
 				Command deleteViewCommand = new ICommandProxy(new DeleteCommand(editingDomain, (View) getHost().getModel()));
-				ehCommand = ehCommand == null ? deleteViewCommand : ehCommand.chain(deleteViewCommand);
+				semanticCommand = semanticCommand == null ? deleteViewCommand : semanticCommand.chain(deleteViewCommand);
 			}
-			return ehCommand;
+			return semanticCommand;
 		}
 		return null;
 	}
@@ -253,8 +256,17 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	/**
 	 * @generated
 	 */
-	protected Command getMSLWrapper(ICommand cmd) {
+	protected final Command getGEFWrapper(ICommand cmd) {
 		return new ICommandProxy(cmd);
+	}
+
+	/**
+	 * @deprecated use getGEFWrapper() instead
+	 * @generated
+	 */
+	protected final Command getMSLWrapper(ICommand cmd) {
+		// XXX deprecated: use getGEFWrapper() instead
+		return getGEFWrapper(cmd);
 	}
 
 	/**
@@ -262,26 +274,6 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 */
 	protected EObject getSemanticElement() {
 		return ViewUtil.resolveSemanticElement((View) getHost().getModel());
-	}
-
-	/**
-	 * Finds container element for the new relationship of the specified type.
-	 * Default implementation goes up by containment hierarchy starting from
-	 * the specified element and returns the first element that is instance of
-	 * the specified container class.
-	 * 
-	 * @generated
-	 */
-	protected EObject getRelationshipContainer(Object uelement, EClass containerClass, IElementType relationshipType) {
-		if (uelement instanceof EObject) {
-			EObject element = (EObject) uelement;
-			for (; element != null; element = element.eContainer()) {
-				if (containerClass.isSuperTypeOf(element.eClass())) {
-					return element;
-				}
-			}
-		}
-		return null;
 	}
 
 	/**
@@ -298,9 +290,9 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * 
 	 * @generated
 	 */
-	protected Command getDestroyEdgeCommand(Edge edge, boolean confirm) {
-		EditPart editPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(edge);
-		DestroyElementRequest request = new DestroyElementRequest(getEditingDomain(), confirm);
+	protected Command getDestroyElementCommand(View view) {
+		EditPart editPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(view);
+		DestroyElementRequest request = new DestroyElementRequest(getEditingDomain(), false);
 		return editPart.getCommand(new EditCommandRequestWrapper(request, Collections.EMPTY_MAP));
 	}
 
@@ -309,16 +301,33 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * 
 	 * @generated
 	 */
-	protected CompoundCommand getDestroyEdgesCommand(boolean confirm) {
+	protected CompoundCommand getDestroyEdgesCommand() {
 		CompoundCommand cmd = new CompoundCommand();
 		View view = (View) getHost().getModel();
 		for (Iterator it = view.getSourceEdges().iterator(); it.hasNext();) {
-			cmd.add(getDestroyEdgeCommand((Edge) it.next(), confirm));
+			cmd.add(getDestroyElementCommand((Edge) it.next()));
 		}
 		for (Iterator it = view.getTargetEdges().iterator(); it.hasNext();) {
-			cmd.add(getDestroyEdgeCommand((Edge) it.next(), confirm));
+			cmd.add(getDestroyElementCommand((Edge) it.next()));
 		}
 		return cmd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addDestroyShortcutsCommand(CompoundCommand command) {
+		View view = (View) getHost().getModel();
+		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+			return;
+		}
+		for (Iterator it = view.getDiagram().getChildren().iterator(); it.hasNext();) {
+			View nextView = (View) it.next();
+			if (nextView.getEAnnotation("Shortcut") == null || !nextView.isSetElement() || nextView.getElement() != view.getElement()) { //$NON-NLS-1$
+				continue;
+			}
+			command.add(getDestroyElementCommand(nextView));
+		}
 	}
 
 	/**
@@ -329,19 +338,71 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canCreateDiagramElementFigure_4001(DiagramElement source, FigureHandle target) {
-			if (source != null) {
-				if (source.getFigure() != null) {
-					return false;
-				}
-			}
-			return canExistDiagramElementFigure_4001(source, target);
+		public static boolean canCreateChildAccess_4002(FigureDescriptor source, Figure target) {
+			return canExistChildAccess_4002(source, target);
 		}
 
 		/**
 		 * @generated
 		 */
-		public static boolean canExistDiagramElementFigure_4001(DiagramElement source, FigureHandle target) {
+		public static boolean canCreateCompartmentAccessor_4003(Compartment source, ChildAccess target) {
+			if (source != null) {
+				if (source.getAccessor() != null) {
+					return false;
+				}
+			}
+			return canExistCompartmentAccessor_4003(source, target);
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canCreateDiagramLabelAccessor_4004(DiagramLabel source, ChildAccess target) {
+			if (source != null) {
+				if (source.getAccessor() != null) {
+					return false;
+				}
+			}
+			return canExistDiagramLabelAccessor_4004(source, target);
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canCreateDiagramElementFigure_4005(DiagramElement source, FigureDescriptor target) {
+			if (source != null) {
+				if (source.getFigure() != null) {
+					return false;
+				}
+			}
+			return canExistDiagramElementFigure_4005(source, target);
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canExistChildAccess_4002(FigureDescriptor source, Figure target) {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canExistCompartmentAccessor_4003(Compartment source, ChildAccess target) {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canExistDiagramLabelAccessor_4004(DiagramLabel source, ChildAccess target) {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canExistDiagramElementFigure_4005(DiagramElement source, FigureDescriptor target) {
 			return true;
 		}
 

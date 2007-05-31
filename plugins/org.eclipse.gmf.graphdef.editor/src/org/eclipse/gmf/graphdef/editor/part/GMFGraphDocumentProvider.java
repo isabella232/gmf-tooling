@@ -1,12 +1,12 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.part;
 
@@ -200,9 +200,6 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 						resource.unload();
 						throw e;
 					}
-				}
-				if (resource == null) {
-					throw new RuntimeException(Messages.GMFGraphDocumentProvider_UnableToLoadResourceError);
 				}
 				if (uri.fragment() != null) {
 					EObject rootElement = resource.getEObject(uri.fragment());
@@ -516,7 +513,7 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 				for (Iterator it = resources.iterator(); it.hasNext();) {
 					Resource nextResource = (Resource) it.next();
 					monitor.setTaskName(NLS.bind(Messages.GMFGraphDocumentProvider_SaveNextResourceTask, nextResource.getURI()));
-					if (nextResource.isLoaded()) {
+					if (nextResource.isLoaded() && !info.getEditingDomain().isReadOnly(nextResource)) {
 						try {
 							nextResource.save(GMFGraphDiagramEditorUtil.getSaveOptions());
 						} catch (IOException e) {
@@ -683,8 +680,15 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 		/**
 		 * @generated
 		 */
+		public TransactionalEditingDomain getEditingDomain() {
+			return myDocument.getEditingDomain();
+		}
+
+		/**
+		 * @generated
+		 */
 		public ResourceSet getResourceSet() {
-			return myDocument.getEditingDomain().getResourceSet();
+			return getEditingDomain().getResourceSet();
 		}
 
 		/**
@@ -739,7 +743,7 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 		 * @generated
 		 */
 		public final void startResourceListening() {
-			mySynchronizer = new WorkspaceSynchronizer(myDocument.getEditingDomain(), new SynchronizerDelegate());
+			mySynchronizer = new WorkspaceSynchronizer(getEditingDomain(), new SynchronizerDelegate());
 		}
 
 		/**

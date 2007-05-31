@@ -144,6 +144,16 @@
             checkPluginLoaded="false">
          <Priority name="Low"/>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentAccessorEditPart"/>
+            <popupAction path="/editGroup" id="deleteFromModelAction"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelAccessorEditPart"/>
+            <popupAction path="/editGroup" id="deleteFromModelAction"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.DiagramElementFigureEditPart"/>
             <popupAction path="/editGroup" id="deleteFromModelAction"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
@@ -197,7 +207,9 @@
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
       <?gmfgen generated="true"?>
-      <propertyContributor contributorId="org.eclipse.gmf.graphdef.editor" labelProvider="org.eclipse.gmf.graphdef.editor.sheet.GMFGraphSheetLabelProvider">
+      <propertyContributor
+            contributorId="org.eclipse.gmf.graphdef.editor"
+            labelProvider="org.eclipse.gmf.graphdef.editor.sheet.GMFGraphSheetLabelProvider">
          <propertyCategory category="domain"/>
          <propertyCategory category="visual"/>
          <propertyCategory category="extra"/>
@@ -215,6 +227,10 @@
              category="visual"
              id="property.tab.DiagramPropertySection"
              label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
           <propertyTab
              category="extra"
              id="property.tab.points"
@@ -253,6 +269,14 @@
             class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
             tab="property.tab.DiagramPropertySection">
          </propertySection>     
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.gmf.graphdef.editor.sheet.GMFGraphPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+            <input type="org.eclipse.gmf.graphdef.editor.navigator.GMFGraphAbstractNavigatorItem"/>
+         </propertySection>
          <propertySection
             id="property.section.points" 
             tab="property.tab.points"
@@ -321,7 +345,7 @@
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
       <?gmfgen generated="true"?>
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <metamodelType
                id="org.eclipse.gmf.graphdef.editor.Canvas_1000"
                name="%metatype.name.Canvas_1000"
@@ -331,134 +355,203 @@
             <param name="semanticHint" value="1000"/>
          </metamodelType>
       </metamodel>
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <metamodelType
-               id="org.eclipse.gmf.graphdef.editor.Compartment_2001"
-               name="%metatype.name.Compartment_2001"
+               id="org.eclipse.gmf.graphdef.editor.Compartment_2005"
+               name="%metatype.name.Compartment_2005"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Compartment"
                edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.CompartmentEditHelper">
-            <param name="semanticHint" value="2001"/>
+            <param name="semanticHint" value="2005"/>
          </metamodelType>
       </metamodel>
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <metamodelType
-               id="org.eclipse.gmf.graphdef.editor.Node_2002"
-               name="%metatype.name.Node_2002"
+               id="org.eclipse.gmf.graphdef.editor.Node_2006"
+               name="%metatype.name.Node_2006"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Node"
                edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.NodeEditHelper">
-            <param name="semanticHint" value="2002"/>
+            <param name="semanticHint" value="2006"/>
          </metamodelType>
       </metamodel>
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <metamodelType
-               id="org.eclipse.gmf.graphdef.editor.Connection_2003"
-               name="%metatype.name.Connection_2003"
+               id="org.eclipse.gmf.graphdef.editor.Connection_2007"
+               name="%metatype.name.Connection_2007"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Connection"
                edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.ConnectionEditHelper">
-            <param name="semanticHint" value="2003"/>
+            <param name="semanticHint" value="2007"/>
          </metamodelType>
       </metamodel>
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <metamodelType
-               id="org.eclipse.gmf.graphdef.editor.FigureGallery_2004"
-               name="%metatype.name.FigureGallery_2004"
+               id="org.eclipse.gmf.graphdef.editor.FigureGallery_2008"
+               name="%metatype.name.FigureGallery_2008"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="FigureGallery"
                edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.FigureGalleryEditHelper">
-            <param name="semanticHint" value="2004"/>
+            <param name="semanticHint" value="2008"/>
          </metamodelType>
       </metamodel>
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <metamodelType
-               id="org.eclipse.gmf.graphdef.editor.Rectangle_3001"
-               name="%metatype.name.Rectangle_3001"
+               id="org.eclipse.gmf.graphdef.editor.FigureDescriptor_3009"
+               name="%metatype.name.FigureDescriptor_3009"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="FigureDescriptor"
+               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.FigureDescriptorEditHelper">
+            <param name="semanticHint" value="3009"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
+         <metamodelType
+               id="org.eclipse.gmf.graphdef.editor.Rectangle_3010"
+               name="%metatype.name.Rectangle_3010"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Rectangle"
                edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.RectangleEditHelper">
-            <param name="semanticHint" value="3001"/>
+            <param name="semanticHint" value="3010"/>
          </metamodelType>
       </metamodel>
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <specializationType
-               id="org.eclipse.gmf.graphdef.editor.Rectangle_3002"
-               name="%metatype.name.Rectangle_3002"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.graphdef.editor.edit.helpers.RectangleEditHelperAdvice">
-            <specializes id="org.eclipse.gmf.graphdef.editor.Rectangle_3001"/>
-            <param name="semanticHint" value="3002"/>
+               id="org.eclipse.gmf.graphdef.editor.Rectangle_3011"
+               name="%metatype.name.Rectangle_3011"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.graphdef.editor.Rectangle_3010"/>
+            <param name="semanticHint" value="3011"/>
          </specializationType>
       </metamodel>
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <metamodelType
-               id="org.eclipse.gmf.graphdef.editor.Ellipse_3003"
-               name="%metatype.name.Ellipse_3003"
+               id="org.eclipse.gmf.graphdef.editor.Ellipse_3012"
+               name="%metatype.name.Ellipse_3012"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Ellipse"
                edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.EllipseEditHelper">
-            <param name="semanticHint" value="3003"/>
+            <param name="semanticHint" value="3012"/>
          </metamodelType>
       </metamodel>
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <metamodelType
-               id="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3004"
-               name="%metatype.name.RoundedRectangle_3004"
+               id="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3013"
+               name="%metatype.name.RoundedRectangle_3013"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="RoundedRectangle"
                edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.RoundedRectangleEditHelper">
-            <param name="semanticHint" value="3004"/>
+            <param name="semanticHint" value="3013"/>
          </metamodelType>
       </metamodel>
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <metamodelType
-               id="org.eclipse.gmf.graphdef.editor.Polyline_3005"
-               name="%metatype.name.Polyline_3005"
+               id="org.eclipse.gmf.graphdef.editor.Polyline_3014"
+               name="%metatype.name.Polyline_3014"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Polyline"
                edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.PolylineEditHelper">
-            <param name="semanticHint" value="3005"/>
+            <param name="semanticHint" value="3014"/>
          </metamodelType>
       </metamodel>
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <specializationType
-               id="org.eclipse.gmf.graphdef.editor.Ellipse_3006"
-               name="%metatype.name.Ellipse_3006"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.graphdef.editor.edit.helpers.EllipseEditHelperAdvice">
-            <specializes id="org.eclipse.gmf.graphdef.editor.Ellipse_3003"/>
-            <param name="semanticHint" value="3006"/>
+               id="org.eclipse.gmf.graphdef.editor.Ellipse_3015"
+               name="%metatype.name.Ellipse_3015"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.graphdef.editor.Ellipse_3012"/>
+            <param name="semanticHint" value="3015"/>
          </specializationType>
       </metamodel>
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <specializationType
-               id="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3007"
-               name="%metatype.name.RoundedRectangle_3007"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.graphdef.editor.edit.helpers.RoundedRectangleEditHelperAdvice">
-            <specializes id="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3004"/>
-            <param name="semanticHint" value="3007"/>
+               id="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3016"
+               name="%metatype.name.RoundedRectangle_3016"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3013"/>
+            <param name="semanticHint" value="3016"/>
          </specializationType>
       </metamodel>
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <specializationType
-               id="org.eclipse.gmf.graphdef.editor.Polyline_3008"
-               name="%metatype.name.Polyline_3008"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.graphdef.editor.edit.helpers.PolylineEditHelperAdvice">
-            <specializes id="org.eclipse.gmf.graphdef.editor.Polyline_3005"/>
-            <param name="semanticHint" value="3008"/>
+               id="org.eclipse.gmf.graphdef.editor.Polyline_3017"
+               name="%metatype.name.Polyline_3017"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.graphdef.editor.Polyline_3014"/>
+            <param name="semanticHint" value="3017"/>
          </specializationType>
       </metamodel>
-      <metamodel nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition">
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <specializationType
-               id="org.eclipse.gmf.graphdef.editor.DiagramElementFigure_4001"
-               name="%metatype.name.DiagramElementFigure_4001"
+               id="org.eclipse.gmf.graphdef.editor.Rectangle_3018"
+               name="%metatype.name.Rectangle_3018"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.graphdef.editor.Rectangle_3010"/>
+            <param name="semanticHint" value="3018"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
+         <specializationType
+               id="org.eclipse.gmf.graphdef.editor.Ellipse_3019"
+               name="%metatype.name.Ellipse_3019"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.graphdef.editor.Ellipse_3012"/>
+            <param name="semanticHint" value="3019"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
+         <specializationType
+               id="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3020"
+               name="%metatype.name.RoundedRectangle_3020"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3013"/>
+            <param name="semanticHint" value="3020"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
+         <specializationType
+               id="org.eclipse.gmf.graphdef.editor.Polyline_3021"
+               name="%metatype.name.Polyline_3021"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.graphdef.editor.Polyline_3014"/>
+            <param name="semanticHint" value="3021"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
+         <metamodelType
+               id="org.eclipse.gmf.graphdef.editor.ChildAccess_4002"
+               name="%metatype.name.ChildAccess_4002"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.graphdef.editor.edit.helpers.DiagramElementFigureEditHelperAdvice">
+               eclass="ChildAccess"
+               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.ChildAccessEditHelper">
+            <param name="semanticHint" value="4002"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
+         <specializationType
+               id="org.eclipse.gmf.graphdef.editor.CompartmentAccessor_4003"
+               name="%metatype.name.CompartmentAccessor_4003"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
-            <param name="semanticHint" value="4001"/>
+            <param name="semanticHint" value="4003"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
+         <specializationType
+               id="org.eclipse.gmf.graphdef.editor.DiagramLabelAccessor_4004"
+               name="%metatype.name.DiagramLabelAccessor_4004"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="4004"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
+         <specializationType
+               id="org.eclipse.gmf.graphdef.editor.DiagramElementFigure_4005"
+               name="%metatype.name.DiagramElementFigure_4005"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="4005"/>
          </specializationType>
       </metamodel>
    </extension>
@@ -474,19 +567,27 @@
       </clientContext> 
       <binding context="GMFGraphClientContext">
          <elementType ref="org.eclipse.gmf.graphdef.editor.Canvas_1000"/>
-         <elementType ref="org.eclipse.gmf.graphdef.editor.Compartment_2001"/>
-         <elementType ref="org.eclipse.gmf.graphdef.editor.Node_2002"/>
-         <elementType ref="org.eclipse.gmf.graphdef.editor.Connection_2003"/>
-         <elementType ref="org.eclipse.gmf.graphdef.editor.FigureGallery_2004"/>
-         <elementType ref="org.eclipse.gmf.graphdef.editor.Rectangle_3001"/>
-         <elementType ref="org.eclipse.gmf.graphdef.editor.Rectangle_3002"/>
-         <elementType ref="org.eclipse.gmf.graphdef.editor.Ellipse_3003"/>
-         <elementType ref="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3004"/>
-         <elementType ref="org.eclipse.gmf.graphdef.editor.Polyline_3005"/>
-         <elementType ref="org.eclipse.gmf.graphdef.editor.Ellipse_3006"/>
-         <elementType ref="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3007"/>
-         <elementType ref="org.eclipse.gmf.graphdef.editor.Polyline_3008"/>
-         <elementType ref="org.eclipse.gmf.graphdef.editor.DiagramElementFigure_4001"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Compartment_2005"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Node_2006"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Connection_2007"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.FigureGallery_2008"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.FigureDescriptor_3009"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Rectangle_3010"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Rectangle_3011"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Ellipse_3012"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3013"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Polyline_3014"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Ellipse_3015"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3016"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Polyline_3017"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Rectangle_3018"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Ellipse_3019"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3020"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Polyline_3021"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.ChildAccess_4002"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.CompartmentAccessor_4003"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.DiagramLabelAccessor_4004"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.DiagramElementFigure_4005"/>
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
    </extension>
@@ -654,6 +755,32 @@
                   menubarPath="additions">
             </action>
 		</objectContribution>
-	</extension>
+	</extension><extension point="org.eclipse.ui.contexts">
+      <?gmfgen generated="true"?>
+      <context
+         description="%context.description"
+         id="org.eclipse.gmf.graphdef.editor.ui.diagramContext"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+      </context>
+   </extension>
+<extension point="org.eclipse.ui.commands">
+      <?gmfgen generated="true"?>
+      <command
+         categoryId="org.eclipse.ui.category.edit"
+         defaultHandler="org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramUpdateCommand"
+         description="%update.diagram.description"
+         id="org.eclipse.gmf.graphdef.editor.updateDiagram"
+         name="%update.diagram.name"/>
+   </extension>
+<extension point="org.eclipse.ui.bindings">
+      <?gmfgen generated="true"?>
+      <key 
+         commandId="org.eclipse.gmf.graphdef.editor.updateDiagram"
+         contextId="org.eclipse.gmf.graphdef.editor.ui.diagramContext"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="F5"/>
+   </extension>
+
 
 </plugin>

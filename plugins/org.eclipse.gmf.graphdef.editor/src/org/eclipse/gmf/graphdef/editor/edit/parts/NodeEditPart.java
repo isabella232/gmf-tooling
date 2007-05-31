@@ -1,12 +1,12 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ * 
+ *  Contributors:
+ *      Borland Software Corporation - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
@@ -41,7 +41,7 @@ public class NodeEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2002;
+	public static final int VISUAL_ID = 2006;
 
 	/**
 	 * @generated
@@ -68,6 +68,8 @@ public class NodeEditPart extends ShapeNodeEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new NodeItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
+		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 
 	/**
@@ -170,8 +172,8 @@ public class NodeEditPart extends ShapeNodeEditPart {
 	/**
 	 * Creates figure for this edit part.
 	 * 
-	 * Body of this method does not depend on settings in generation model so
-	 * you may safely remove <i>generated</i> tag and modify it.
+	 * Body of this method does not depend on settings in generation model
+	 * so you may safely remove <i>generated</i> tag and modify it.
 	 * 
 	 * @generated
 	 */
@@ -185,11 +187,9 @@ public class NodeEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	 * Default implementation treats passed figure as content pane. Respects
-	 * layout one may have set for generated figure.
-	 * 
-	 * @param nodeShape
-	 *            instance of generated figure class
+	 * Default implementation treats passed figure as content pane.
+	 * Respects layout one may have set for generated figure.
+	 * @param nodeShape instance of generated figure class
 	 * @generated
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
@@ -237,8 +237,12 @@ public class NodeEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		public DiagramElementFigure() {
+		private WrapLabel fDiagramElementFigure_NameLabel;
 
+		/**
+		 * @generated
+		 */
+		public DiagramElementFigure() {
 			createContents();
 		}
 
@@ -246,32 +250,13 @@ public class NodeEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		private void createContents() {
-			WrapLabel fig_0 = new WrapLabel();
 
-			setFigureDiagramElementFigure_NameLabel(fig_0);
+			WrapLabel diagramElementFigure_NameLabel0 = new WrapLabel();
+			diagramElementFigure_NameLabel0.setText("");
 
-			Object layData0 = null;
+			this.add(diagramElementFigure_NameLabel0);
+			fDiagramElementFigure_NameLabel = diagramElementFigure_NameLabel0;
 
-			this.add(fig_0, layData0);
-		}
-
-		/**
-		 * @generated
-		 */
-		private WrapLabel fDiagramElementFigure_NameLabel;
-
-		/**
-		 * @generated
-		 */
-		public WrapLabel getFigureDiagramElementFigure_NameLabel() {
-			return fDiagramElementFigure_NameLabel;
-		}
-
-		/**
-		 * @generated
-		 */
-		private void setFigureDiagramElementFigure_NameLabel(WrapLabel fig) {
-			fDiagramElementFigure_NameLabel = fig;
 		}
 
 		/**
@@ -291,6 +276,13 @@ public class NodeEditPart extends ShapeNodeEditPart {
 		 */
 		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
 			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		public WrapLabel getFigureDiagramElementFigure_NameLabel() {
+			return fDiagramElementFigure_NameLabel;
 		}
 
 	}
