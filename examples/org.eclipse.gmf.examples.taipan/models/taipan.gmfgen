@@ -716,8 +716,8 @@
     </compartments>
     <palette>
       <groups
-          title="Nodes"
-          createMethodName="createNodesGroup">
+          title="Aquatory"
+          createMethodName="createAquatoryGroup">
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Port"
@@ -754,10 +754,6 @@
             description="Add empty box"
             createMethodName="createEmptyBoxTool"
             genNodes="//@diagram/@childNodes.2"/>
-      </groups>
-      <groups
-          title="Links"
-          createMethodName="createLinksGroup">
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Reliable Route"
