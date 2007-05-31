@@ -100,7 +100,7 @@ public static int «EXPAND getVisualIdMethodName»(org.eclipse.gmf.runtime.notatio
 			«EXPAND unrecognizedVID-»
 		}
 	}
-	return getVisualID(view.getType());
+	return «EXPAND getVisualIDMethodCall»(view.getType());
 }
 «ENDDEFINE»
 
