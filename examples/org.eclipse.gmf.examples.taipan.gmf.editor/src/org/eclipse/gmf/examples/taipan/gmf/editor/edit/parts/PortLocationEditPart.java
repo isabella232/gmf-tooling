@@ -547,7 +547,7 @@ public class PortLocationEditPart extends LabelEditPart implements ITextAwareEdi
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new Label();
+		return new WrapLabel();
 	}
 
 }

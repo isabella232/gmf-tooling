@@ -533,7 +533,7 @@ public class ReliableRouteDescEditPart extends LabelEditPart implements ITextAwa
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new Label();
+		return new WrapLabel();
 	}
 
 }
