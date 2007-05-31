@@ -169,12 +169,7 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String NodesGroup_title;
-
-	/**
-	 * @generated
-	 */
-	public static String LinksGroup_title;
+	public static String AquatoryGroup_title;
 
 	/**
 	 * @generated
