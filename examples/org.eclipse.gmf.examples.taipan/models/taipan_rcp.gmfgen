@@ -85,13 +85,11 @@
           editHelperClassName="SmallItemsEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+          figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/SmallItems"/>
         <containmentMetaFeature
-            href="taipan.genmodel#//taipan/Ship/cargo"/>
-        <childMetaFeature
             href="taipan.genmodel#//taipan/Ship/cargo"/>
       </modelFacet>
       <labelModelFacet
@@ -130,8 +128,6 @@
             href="taipan.genmodel#//taipan/LargeItem"/>
         <containmentMetaFeature
             href="taipan.genmodel#//taipan/Ship/cargo"/>
-        <childMetaFeature
-            href="taipan.genmodel#//taipan/Ship/cargo"/>
       </modelFacet>
       <labels
           visualID="5002"
@@ -143,7 +139,7 @@
             href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeatures
@@ -159,7 +155,7 @@
             href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeatures
@@ -189,8 +185,6 @@
         <metaClass
             href="taipan.genmodel#//taipan/EmptyBox"/>
         <containmentMetaFeature
-            href="taipan.genmodel#//taipan/Ship/cargo"/>
-        <childMetaFeature
             href="taipan.genmodel#//taipan/Ship/cargo"/>
       </modelFacet>
     </childNodes>
@@ -226,8 +220,6 @@
             href="taipan.genmodel#//taipan/Port"/>
         <containmentMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/ports"/>
-        <childMetaFeature
-            href="taipan.genmodel#//taipan/Aquatory/ports"/>
       </modelFacet>
       <labels
           xsi:type="gmfgen:GenExternalNodeLabel"
@@ -239,7 +231,7 @@
             href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewMethod="NATIVE"
@@ -271,8 +263,6 @@
             href="taipan.genmodel#//taipan/Ship"/>
         <containmentMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/ships"/>
-        <childMetaFeature
-            href="taipan.genmodel#//taipan/Aquatory/ships"/>
         <modelElementSelector
             body="not oclIsKindOf(taipan::Warship)"/>
       </modelFacet>
@@ -286,7 +276,7 @@
             href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewMethod="NATIVE"
@@ -318,8 +308,6 @@
             href="taipan.genmodel#//taipan/Warship"/>
         <containmentMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/ships"/>
-        <childMetaFeature
-            href="taipan.genmodel#//taipan/Aquatory/ships"/>
       </modelFacet>
       <labels
           visualID="5005"
@@ -331,7 +319,7 @@
             href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewMethod="NATIVE"
@@ -371,7 +359,7 @@
             href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.draw2d.Label">
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
@@ -392,7 +380,7 @@
       <elementType
           xsi:type="gmfgen:MetamodelType"
           displayName="Reliable Route"
-          editHelperClassName="RouteEditHelper"/>
+          editHelperClassName="ReliableRouteEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"/>
@@ -401,8 +389,6 @@
         <metaClass
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
-            href="taipan.genmodel#//taipan/Aquatory/routes"/>
-        <childMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/routes"/>
         <modelElementSelector
             body="reliability >= 0.5"/>
@@ -430,7 +416,7 @@
             href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.draw2d.Label">
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
@@ -453,7 +439,7 @@
             href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.draw2d.Label">
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="60"/>
@@ -481,7 +467,7 @@
           xsi:type="gmfgen:SpecializationType"
           displayName="Unreliable Route"
           metamodelType="//@diagram/@links.1/@elementType"
-          editHelperAdviceClassName="RouteEditHelperAdvice"/>
+          editHelperAdviceClassName="UnreliableRouteEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DashedConnection"/>
@@ -490,8 +476,6 @@
         <metaClass
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
-            href="taipan.genmodel#//taipan/Aquatory/routes"/>
-        <childMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/routes"/>
         <modelElementSelector
             body="reliability &lt; 0.5"/>
@@ -519,7 +503,7 @@
             href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.draw2d.Label">
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
@@ -542,7 +526,7 @@
             href="../../org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.draw2d.Label">
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="60"/>
@@ -580,8 +564,6 @@
             href="taipan.genmodel#//taipan/EscortShipsOrder"/>
         <containmentMetaFeature
             href="taipan.genmodel#//taipan/Warship/escortOrder"/>
-        <childMetaFeature
-            href="taipan.genmodel#//taipan/Warship/escortOrder"/>
         <targetMetaFeature
             href="taipan.genmodel#//taipan/EscortShipsOrder/ships"/>
       </modelFacet>
@@ -614,8 +596,6 @@
         <metaClass
             href="taipan.genmodel#//taipan/BesiegePortOrder"/>
         <containmentMetaFeature
-            href="taipan.genmodel#//taipan/Warship/attackOrders"/>
-        <childMetaFeature
             href="taipan.genmodel#//taipan/Warship/attackOrders"/>
         <targetMetaFeature
             href="taipan.genmodel#//taipan/BesiegePortOrder/port"/>
@@ -716,8 +696,8 @@
     </compartments>
     <palette>
       <groups
-          title="Nodes"
-          createMethodName="createNodesGroup">
+          title="Aquatory"
+          createMethodName="createAquatoryGroup">
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Port"
@@ -754,10 +734,6 @@
             description="Add empty box"
             createMethodName="createEmptyBoxTool"
             genNodes="//@diagram/@childNodes.2"/>
-      </groups>
-      <groups
-          title="Links"
-          createMethodName="createLinksGroup">
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Reliable Route"
