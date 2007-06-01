@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingEditPart;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingInfoEditPart;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart;
@@ -51,13 +52,39 @@ public class PortViewProvider extends AbstractViewProvider {
 			return null;
 		}
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (elementType != null && !PortElementTypes.isKnownElementType(elementType)) {
+		EObject domainElement = getSemanticElement(semanticAdapter);
+
+		int visualID;
+		if (semanticHint == null) {
+			if (elementType != null || domainElement == null) {
+				return null;
+			}
+			visualID = PortVisualIDRegistry.getNodeVisualID(containerView, domainElement);
+		} else {
+			visualID = PortVisualIDRegistry.getVisualID(semanticHint);
+			if (elementType != null) {
+				if (!PortElementTypes.isKnownElementType(elementType) || false == elementType instanceof IHintedType) {
+					return null;
+				}
+				String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
+				if (!semanticHint.equals(elementTypeHint)) {
+					return null;
+				}
+				if (domainElement != null && visualID != PortVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
+					return null;
+				}
+			} else {
+				switch (visualID) {
+				case PortEditPart.VISUAL_ID:
+				case BuildingEditPart.VISUAL_ID:
+					return null;
+				}
+			}
+		}
+		if (!PortVisualIDRegistry.canCreateNode(containerView, visualID)) {
 			return null;
 		}
-		EClass semanticType = getSemanticEClass(semanticAdapter);
-		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int nodeVID = PortVisualIDRegistry.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
-		switch (nodeVID) {
+		switch (visualID) {
 		case BuildingEditPart.VISUAL_ID:
 			return BuildingViewFactory.class;
 		case BuildingInfoEditPart.VISUAL_ID:
@@ -71,18 +98,27 @@ public class PortViewProvider extends AbstractViewProvider {
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (elementType != null && !PortElementTypes.isKnownElementType(elementType)) {
+		if (elementType == null) {
 			return null;
 		}
-		EClass semanticType = getSemanticEClass(semanticAdapter);
-		if (semanticType == null) {
+		if (!PortElementTypes.isKnownElementType(elementType) || false == elementType instanceof IHintedType) {
 			return null;
 		}
-		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int linkVID = PortVisualIDRegistry.getLinkWithClassVisualID(semanticElement, semanticType);
-		switch (linkVID) {
+		String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
+		if (elementTypeHint == null) {
+			return null;
 		}
-		return getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);
+		if (semanticHint != null && !semanticHint.equals(elementTypeHint)) {
+			return null;
+		}
+		int visualID = PortVisualIDRegistry.getVisualID(elementTypeHint);
+		EObject domainElement = getSemanticElement(semanticAdapter);
+		if (domainElement != null && visualID != PortVisualIDRegistry.getLinkWithClassVisualID(domainElement)) {
+			return null;
+		}
+		switch (visualID) {
+		}
+		return null;
 	}
 
 	/**
@@ -93,14 +129,6 @@ public class PortViewProvider extends AbstractViewProvider {
 			return null;
 		}
 		return (IElementType) semanticAdapter.getAdapter(IElementType.class);
-	}
-
-	/**
-	 * @generated
-	 */
-	private Class getUnrecognizedConnectorViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-		// Handle unrecognized child node classes here
-		return null;
 	}
 
 }

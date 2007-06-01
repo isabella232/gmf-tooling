@@ -42,6 +42,9 @@ public class PortDiagramUpdater {
 	 * @generated
 	 */
 	public static List getPort_1000SemanticChildren(View view) {
+		if (!view.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
 		Port modelElement = (Port) view.getElement();
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getBuildings().iterator(); it.hasNext();) {
@@ -49,6 +52,7 @@ public class PortDiagramUpdater {
 			int visualID = PortVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == BuildingEditPart.VISUAL_ID) {
 				result.add(new PortNodeDescriptor(childElement, visualID));
+				continue;
 			}
 		}
 		return result;
