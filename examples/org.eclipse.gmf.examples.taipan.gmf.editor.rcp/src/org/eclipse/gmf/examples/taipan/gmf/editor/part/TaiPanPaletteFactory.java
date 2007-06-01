@@ -32,31 +32,21 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	public void fillPalette(PaletteRoot paletteRoot) {
-		paletteRoot.add(createNodesGroup());
-		paletteRoot.add(createLinksGroup());
+		paletteRoot.add(createAquatoryGroup());
 	}
 
 	/**
-	 * Creates "Nodes" palette tool group
+	 * Creates "Aquatory" palette tool group
 	 * @generated
 	 */
-	private PaletteContainer createNodesGroup() {
-		PaletteGroup paletteContainer = new PaletteGroup(Messages.NodesGroup_title);
+	private PaletteContainer createAquatoryGroup() {
+		PaletteGroup paletteContainer = new PaletteGroup(Messages.AquatoryGroup_title);
 		paletteContainer.add(createPortTool());
 		paletteContainer.add(createShipTool());
 		paletteContainer.add(createWarshipTool());
 		paletteContainer.add(createSmallItemsTool());
 		paletteContainer.add(createLargeItemTool());
 		paletteContainer.add(createEmptyBoxTool());
-		return paletteContainer;
-	}
-
-	/**
-	 * Creates "Links" palette tool group
-	 * @generated
-	 */
-	private PaletteContainer createLinksGroup() {
-		PaletteGroup paletteContainer = new PaletteGroup(Messages.LinksGroup_title);
 		paletteContainer.add(createReliableRouteTool());
 		paletteContainer.add(createUnreliableRouteTool());
 		paletteContainer.add(createRegistrationTool());

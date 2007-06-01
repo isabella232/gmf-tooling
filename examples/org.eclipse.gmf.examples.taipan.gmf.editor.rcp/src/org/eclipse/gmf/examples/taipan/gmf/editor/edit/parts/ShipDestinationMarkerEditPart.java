@@ -530,6 +530,6 @@ public class ShipDestinationMarkerEditPart extends LabelEditPart implements ITex
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new Label();
+		return new WrapLabel();
 	}
 }

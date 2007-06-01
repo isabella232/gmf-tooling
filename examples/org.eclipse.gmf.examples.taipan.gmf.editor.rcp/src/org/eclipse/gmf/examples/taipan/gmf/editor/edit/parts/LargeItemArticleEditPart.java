@@ -554,6 +554,6 @@ public class LargeItemArticleEditPart extends CompartmentEditPart implements ITe
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new Label();
+		return new WrapLabel();
 	}
 }

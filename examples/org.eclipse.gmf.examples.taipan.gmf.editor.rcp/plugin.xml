@@ -447,7 +447,7 @@ Contributors:
                name="%metatype.name.Route_4002"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Route"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.RouteEditHelper">
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.ReliableRouteEditHelper">
             <param name="semanticHint" value="4002"/>
          </metamodelType>
       </metamodel>
@@ -456,7 +456,7 @@ Contributors:
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Route_4003"
                name="%metatype.name.Route_4003"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.RouteEditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.UnreliableRouteEditHelperAdvice">
             <specializes id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Route_4002"/>
             <param name="semanticHint" value="4003"/>
          </specializationType>

@@ -554,6 +554,6 @@ public class WarshipNameEditPart extends CompartmentEditPart implements ITextAwa
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new Label();
+		return new WrapLabel();
 	}
 }

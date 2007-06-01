@@ -533,6 +533,6 @@ public class UnreliableRouteDescEditPart extends LabelEditPart implements ITextA
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new Label();
+		return new WrapLabel();
 	}
 }
