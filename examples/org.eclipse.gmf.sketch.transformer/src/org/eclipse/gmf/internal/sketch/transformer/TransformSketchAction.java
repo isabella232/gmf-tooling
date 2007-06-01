@@ -27,6 +27,8 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.internal.common.reconcile.Reconciler;
+import org.eclipse.gmf.internal.sketch.transformer.reconcile.SketchReconcilerConfig;
 import org.eclipse.gmf.sketch.SketchDiagram;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -77,6 +79,10 @@ public class TransformSketchAction implements IObjectActionDelegate {
 		SketchTransformer transformer = createTransformer(diagram, genModel);
 		try {
 			transformer.run(new NullProgressMonitor());
+			GenEditorGenerator existingEditorGen = getExistingEditorGen(rs);
+			if (existingEditorGen != null) {
+				new Reconciler(new SketchReconcilerConfig()).reconcileTree(transformer.getResult(), existingEditorGen);
+			}
 		} catch (InvocationTargetException ite) {
 			Activator.logError(Messages.TransformSketchAction_ErrorTransforming, ite);
 		} catch (InterruptedException ie) {
@@ -105,12 +111,33 @@ public class TransformSketchAction implements IObjectActionDelegate {
 	protected GenModel getGenModel(ResourceSet rs) {
 		IPath path = sketchFile.getFullPath().removeFileExtension().addFileExtension("genmodel"); //$NON-NLS-1$
 		URI uri = URI.createPlatformResourceURI(path.toString(), false);
-		Resource resource = rs.getResource(uri, true);
-		if (resource.getContents().size() == 1) {
-			Object contents = resource.getContents().get(0);
-			if (contents instanceof GenModel) {
-				return (GenModel) contents;
+		try {
+			Resource resource = rs.getResource(uri, true);
+			if (resource.getContents().size() == 1) {
+				Object contents = resource.getContents().get(0);
+				if (contents instanceof GenModel) {
+					return (GenModel) contents;
+				}
 			}
+		} catch (Exception e) {
+			// not exists
+		}
+		return null;
+	}
+
+	protected GenEditorGenerator getExistingEditorGen(ResourceSet rs) {
+		IPath path = sketchFile.getFullPath().removeFileExtension().addFileExtension("gmfgen"); //$NON-NLS-1$
+		URI uri = URI.createPlatformResourceURI(path.toString(), false);
+		try {
+			Resource resource = rs.getResource(uri, true);
+			if (resource.getContents().size() == 1) {
+				Object contents = resource.getContents().get(0);
+				if (contents instanceof GenEditorGenerator) {
+					return (GenEditorGenerator) contents;
+				}
+			}
+		} catch (Exception e) {
+			// not exists
 		}
 		return null;
 	}
