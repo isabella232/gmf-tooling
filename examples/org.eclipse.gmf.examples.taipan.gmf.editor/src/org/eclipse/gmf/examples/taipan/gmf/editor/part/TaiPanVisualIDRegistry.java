@@ -88,7 +88,7 @@ public class TaiPanVisualIDRegistry {
 				return -1;
 			}
 		}
-		return getVisualID(view.getType());
+		return org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getVisualID(view.getType());
 	}
 
 	/**
