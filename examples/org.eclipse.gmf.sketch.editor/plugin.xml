@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+
+  <extension
+    point = "org.eclipse.ui.newWizards">
+    <category
+      id = "org.eclipse.emf.ecore.Wizard.category.ID"
+      name="%_UI_Wizard_category">
+    </category>
+    <wizard
+      id = "org.eclipse.gmf.sketch.presentation.SketchModelWizardID"
+      name = "%_UI_SketchModelWizard_label"
+      class = "org.eclipse.gmf.sketch.presentation.SketchModelWizard"
+      category = "org.eclipse.emf.ecore.Wizard.category.ID"
+      icon = "icons/full/obj16/SketchModelFile.gif">
+      <description>%_UI_SketchModelWizard_description</description>
+      <selection class = "org.eclipse.core.resources.IResource" />
+    </wizard>
+  </extension>
+
+  <extension point = "org.eclipse.ui.editors">
+    <editor
+        id = "org.eclipse.gmf.sketch.presentation.SketchEditorID"
+        name = "%_UI_SketchEditor_label"
+        icon = "icons/full/obj16/SketchModelFile.gif"
+        extensions = "sketch"
+        class = "org.eclipse.gmf.sketch.presentation.SketchEditor" 
+        contributorClass="org.eclipse.gmf.sketch.presentation.SketchActionBarContributor" >
+    </editor>
+  </extension>    
+
+</plugin>
