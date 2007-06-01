@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.eclipse.gmf.sketch.transform"
+            nameFilter="*.sketch"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="org.eclipse.gmf.internal.sketch.transformer.TransformSketchAction"
+               enablesFor="1"
+               id="org.eclipse.gmf.sketch.transformAction"
+               label="Create Generator Model"
+               menubarPath="additions">
+         </action>
+      </objectContribution>
+   </extension>
+
+</plugin>

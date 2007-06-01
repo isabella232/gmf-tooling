@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Sketch Transformer
+Bundle-SymbolicName: org.eclipse.gmf.sketch.transformer;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.eclipse.gmf.internal.sketch.transformer.Activator
+Bundle-Vendor: Eclipse.org
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.gmf.sketch,
+ org.eclipse.gmf.codegen,
+ org.eclipse.gmf.bridge
+Eclipse-LazyStart: true
