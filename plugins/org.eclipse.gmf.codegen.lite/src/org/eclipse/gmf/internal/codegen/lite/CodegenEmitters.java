@@ -31,7 +31,6 @@ import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerat
 import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorActionProviderGenerator;
 import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorLabelProviderGenerator;
-import org.eclipse.gmf.codegen.templates.lite.parts.EditPartFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.policies.OpenDiagramPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.DomainElementInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.MetricProviderGenerator;
@@ -106,7 +105,6 @@ public class CodegenEmitters {
 		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
 		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
 		put(tr, "/editor/PaletteFactory.javajet", PaletteFactoryGenerator.class);
-		put(tr, "/parts/EditPartFactory.javajet", EditPartFactoryGenerator.class);
 		put(tr, "/providers/DomainElementInitializer.javajet", DomainElementInitializerGenerator.class);
 		put(tr, "/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGenerator.class);
 		put(tr, "/editor/NewDiagramFileWizard.javajet", NewDiagramFileWizardGenerator.class);
@@ -187,7 +185,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getEditPartFactoryGenerator() throws UnexpectedBehaviourException {
-		return retrieve(EditPartFactoryGenerator.class);
+		return retrieveXpand("xpt::diagram::parts::EditPartFactory::EditPartFactory");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getLinkEditPartGenerator() throws UnexpectedBehaviourException {
