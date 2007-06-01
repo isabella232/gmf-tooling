@@ -167,8 +167,10 @@ public class CompartmentItemProvider
 	public String getText(Object object) {
 		String textGen = getTextGen(object);
 		FigureDescriptor figureDescriptor = ((Compartment)object).getFigure();
-		String figureName = figureDescriptor.getName();
-		return textGen + "(" + figureName + ")";
+		if (figureDescriptor != null && figureDescriptor.getName() != null) {
+			textGen += " (" + figureDescriptor.getName() + ")";
+		}
+		return textGen;
 	}
 
 	/**
