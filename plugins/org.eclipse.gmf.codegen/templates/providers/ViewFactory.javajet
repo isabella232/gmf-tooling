@@ -14,10 +14,9 @@ importManager.addImport("org.eclipse.gmf.runtime.notation.View");
 
 importManager.markImportLocation(stringBuffer);
 
-final boolean isLink = genElement instanceof GenLink;
 final boolean isLabel = genElement instanceof GenChildLabelNode;
-final boolean isShape = !isLink && !isLabel; // captures else
-final boolean isNode = !isLink;
+final boolean isShape = !isLabel;
+final boolean isNode = true;
 
 Viewmap viewmap = genElement.getViewmap();
 StyleAttributes styleAttributes = (viewmap == null) ? null : (StyleAttributes)viewmap.find(StyleAttributes.class);
@@ -29,9 +28,7 @@ boolean fixedFont = styleAttributes != null && styleAttributes.isFixedFont();
  * @generated
  */
 public class <%=genElement.getNotationViewFactoryClassName()%> extends 
-<%if (isLink) {%>
-	<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.ConnectionViewFactory")%>
-<%} else if (isLabel) {%>
+<%if (isLabel) {%>
 	<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory")%>
 <%} else if (isShape) {%>
 	<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory")%>
@@ -45,31 +42,17 @@ public class <%=genElement.getNotationViewFactoryClassName()%> extends
 	 */
 	protected List createStyles(View view) {
 		<%=importManager.getImportedName("java.util.List")%> styles = new <%=importManager.getImportedName("java.util.ArrayList")%>();
-<%if (isLink) {%>
-<%	if (!fixedForeground) {%>
-		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createConnectorStyle());
-<%	} else { /*only routing, no line style*/ %>
-		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createRoutingStyle());
-<%	} %>
-<%	if (!fixedFont) {%>
-		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createFontStyle());
-<%	}%>
 <%
-} /*isLink*/
-if (isLabel) {
-	//no styles for label
-	//FIXME: throw new IllegalStateExcpetion("Labels to be processed in the LabelTextViewFactory/LabelViewFactory");
-}
 if (isShape) {
-%>
-<%	if (!fixedFont) {%>
+	if (!fixedFont) {%>
 		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createShapeStyle());
 <%	} else { /*all but font style*/%>
 		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDescriptionStyle());
 		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createFillStyle());
 		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createLineStyle());
 <%	}
-} /*isShape*/ %>
+}
+%>
 		return styles;
 	}
 
@@ -132,28 +115,6 @@ if (isNode) {
 		GenCompartment genChildContainer = (GenCompartment) genChildContainers.get(j);
 %>
 		getViewService().createNode(eObjectAdapter, view, <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(genChildContainer.getEditPartQualifiedClassName())%>.VISUAL_ID),
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, true, getPreferencesHint());
-<%
-	}
-} else if (isLink) {
-	GenLink genLink = (GenLink) genElement;
-	List labels = genLink.getLabels();
-	if (labels.size() > 0) {
-		if (genLink.getModelFacet() != null) {
-%>
-	org.eclipse.emf.ecore.EObject eObject = (org.eclipse.emf.ecore.EObject) semanticAdapter.getAdapter(org.eclipse.emf.ecore.EObject.class);
-	IAdaptable eObjectAdapter = eObject != null ? new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(eObject) : null;
-<%
-		} else {
-%>
-	IAdaptable eObjectAdapter = null;
-<%
-		}
-	}	
-	for (int j = 0; j < labels.size(); j++) {
-		GenLinkLabel label = (GenLinkLabel) labels.get(j);
-%>
-		getViewService().createNode(eObjectAdapter, view, <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>.VISUAL_ID),
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, true, getPreferencesHint());
 <%
 	}

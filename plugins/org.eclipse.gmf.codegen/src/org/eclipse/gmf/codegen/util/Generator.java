@@ -134,7 +134,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			}
 		}
 		for (GenLink next: myDiagram.getLinks()) {
-			generateViewFactory(next);
+			generateLinkViewFactory(next);
 			generateEditSupport(next);
 			generateLinkEditPart(next);
 			generateBehaviours(next);
@@ -710,6 +710,10 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateCompartmentViewFactory(GenCompartment compartment) throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getCompartmentViewFactoryEmitter(), compartment.getNotationViewFactoryQualifiedClassName(), compartment);
+	}
+
+	private void generateLinkViewFactory(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getLinkViewFactoryEmitter(), link.getNotationViewFactoryQualifiedClassName(), link);
 	}
 
 	private void generateNodeLabelViewFactory(GenNodeLabel label) throws UnexpectedBehaviourException, InterruptedException {

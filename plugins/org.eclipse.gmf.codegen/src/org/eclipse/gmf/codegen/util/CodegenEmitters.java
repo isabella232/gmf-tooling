@@ -400,6 +400,10 @@ public class CodegenEmitters {
 		return getPrimaryEmitter("xpt::diagram::views::CompartmentViewFactory"); //$NON-NLS-1$
 	}
 
+	public TextEmitter getLinkViewFactoryEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::diagram::views::LinkViewFactory"); //$NON-NLS-1$
+	}
+
 	public TextEmitter getLabelViewFactoryEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryEmitter("xpt::diagram::views::LabelViewFactory"); //$NON-NLS-1$
 	}
