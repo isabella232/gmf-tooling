@@ -38,7 +38,7 @@
       </objectContribution>
 	<objectContribution
     		adaptable="true"
-	        id="gmf.codegen.ui.migrate.model.gmfgen"
+	        id="gmf.codegen.ui.migrate"
     	    objectClass="org.eclipse.core.resources.IFile">
 		<action
 				label="%migrate.model.action"
@@ -47,21 +47,14 @@
 				enablesFor="1"
 				id="gmf.codegen.ui.migrateAction">
 		</action>
-		<filter name="extension" value="gmfgen"/>
+		<visibility>
+		  <or>
+			<objectState name="extension" value="gmfgen"/>
+  			<objectState name="extension" value="gmfmap"/>
+  			<objectState name="extension" value="gmfgraph"/>
+		  </or>
+		</visibility>
 	</objectContribution>
-	<objectContribution
-    		adaptable="true"
-	        id="gmf.codegen.ui.migrate.model.gmfmap"
-    	    objectClass="org.eclipse.core.resources.IFile">
-		<action
-				label="%migrate.model.action"
-				class="org.eclipse.gmf.internal.codegen.popup.actions.MigrateModelAction"
-				menubarPath="additions"
-				enablesFor="1"
-				id="gmf.codegen.ui.migrateAction">
-		</action>
-  		<filter name="extension" value="gmfmap"/>
-	</objectContribution>	
    </extension>
 
    <extension point="org.eclipse.jdt.ui.javaElementFilters">
