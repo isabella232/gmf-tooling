@@ -16,6 +16,24 @@
 «EXTENSION xpt::diagram::ViewmapAttributesUtils»
 «EXTENSION xpt::GenModelUtils»
 
+«DEFINE updateSemanticHint FOR gmfgen::GenCommonBase-»
+	if (semanticHint == null) {
+		semanticHint = «getDiagram().getVisualIDRegistryQualifiedClassName()».getType(
+				«getEditPartQualifiedClassName()».VISUAL_ID);
+		view.setType(semanticHint);
+	}
+«ENDDEFINE»
+
+«DEFINE addShortcut FOR gmfgen::GenCommonBase-»
+	if (!«getDiagram().getEditPartQualifiedClassName()».MODEL_ID.equals(
+			«getDiagram().getVisualIDRegistryQualifiedClassName()».getModelID(containerView))) {
+		org.eclipse.emf.ecore.EAnnotation shortcutAnnotation = org.eclipse.emf.ecore.EcoreFactory.eINSTANCE.createEAnnotation();
+		shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
+		shortcutAnnotation.getDetails().put("modelID", «getDiagram().getEditPartQualifiedClassName()».MODEL_ID); //$NON-NLS-1$
+		view.getEAnnotations().add(shortcutAnnotation);
+	}
+«ENDDEFINE»
+
 «DEFINE foregroundColour(String viewVar) FOR gmfgen::Viewmap-»
 	«EXPAND foregroundColour(viewVar) FOREACH attributes-»
 «ENDDEFINE»

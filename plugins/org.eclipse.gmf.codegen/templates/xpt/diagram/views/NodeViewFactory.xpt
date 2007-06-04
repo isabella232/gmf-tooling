@@ -32,19 +32,9 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void decorateView(org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.gmf.runtime.notation.View view,
 			org.eclipse.core.runtime.IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
-		if (semanticHint == null) {
-			semanticHint = «getDiagram().getVisualIDRegistryQualifiedClassName()».getType(
-					«getEditPartQualifiedClassName()».VISUAL_ID);
-			view.setType(semanticHint);
-		}
+		«EXPAND xpt::diagram::views::Utils::updateSemanticHint-»
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
-		if (!«getDiagram().getEditPartQualifiedClassName()».MODEL_ID.equals(
-				«getDiagram().getVisualIDRegistryQualifiedClassName()».getModelID(containerView))) {
-			org.eclipse.emf.ecore.EAnnotation shortcutAnnotation = org.eclipse.emf.ecore.EcoreFactory.eINSTANCE.createEAnnotation();
-			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
-			shortcutAnnotation.getDetails().put("modelID", «getDiagram().getEditPartQualifiedClassName()».MODEL_ID); //$NON-NLS-1$
-			view.getEAnnotations().add(shortcutAnnotation);
-		}
+		«EXPAND xpt::diagram::views::Utils::addShortcut-»
 		«EXPAND xpt::diagram::views::Utils::foregroundColour("view") FOR viewmap-»
 		«EXPAND xpt::diagram::views::Utils::backgroundColour("view") FOR viewmap-»
 		«IF labels.size() > 0 || compartments.size() > 0-»
