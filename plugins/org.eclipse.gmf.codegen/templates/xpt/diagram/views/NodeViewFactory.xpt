@@ -1,0 +1,70 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«EXTENSION xpt::diagram::ViewmapAttributesUtils»
+
+«DEFINE NodeViewFactory FOR gmfgen::GenNode-»
+«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
+package «getDiagram().notationViewFactoriesPackageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory {
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected java.util.List createStyles(org.eclipse.gmf.runtime.notation.View view) {
+		java.util.List styles = new java.util.ArrayList();
+		«EXPAND xpt::diagram::views::Utils::addShapeStyle("styles") FOR viewmap-»
+		«EXPAND xpt::diagram::views::Utils::addLinkedDiagramStyle("styles")-»
+		return styles;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void decorateView(org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.gmf.runtime.notation.View view,
+			org.eclipse.core.runtime.IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
+		if (semanticHint == null) {
+			semanticHint = «getDiagram().getVisualIDRegistryQualifiedClassName()».getType(
+					«getEditPartQualifiedClassName()».VISUAL_ID);
+			view.setType(semanticHint);
+		}
+		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
+		if (!«getDiagram().getEditPartQualifiedClassName()».MODEL_ID.equals(
+				«getDiagram().getVisualIDRegistryQualifiedClassName()».getModelID(containerView))) {
+			org.eclipse.emf.ecore.EAnnotation shortcutAnnotation = org.eclipse.emf.ecore.EcoreFactory.eINSTANCE.createEAnnotation();
+			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
+			shortcutAnnotation.getDetails().put("modelID", «getDiagram().getEditPartQualifiedClassName()».MODEL_ID); //$NON-NLS-1$
+			view.getEAnnotations().add(shortcutAnnotation);
+		}
+		«EXPAND xpt::diagram::views::Utils::foregroundColour("view") FOR viewmap-»
+		«EXPAND xpt::diagram::views::Utils::backgroundColour("view") FOR viewmap-»
+		«IF labels.size() > 0 || compartments.size() > 0-»
+			«IF modelFacet != null-»
+		org.eclipse.emf.ecore.EObject eObject = (org.eclipse.emf.ecore.EObject) semanticAdapter.getAdapter(org.eclipse.emf.ecore.EObject.class);
+		org.eclipse.core.runtime.IAdaptable eObjectAdapter = eObject != null ? new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(eObject) : null;
+			«ELSE-»
+		org.eclipse.core.runtime.IAdaptable eObjectAdapter = null;
+			«ENDIF-»
+			«FOREACH labels AS label-»
+		getViewService().createNode(eObjectAdapter, view,
+				«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«label.getEditPartQualifiedClassName()».VISUAL_ID),
+				org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.APPEND, true, getPreferencesHint());
+			«ENDFOREACH-»
+			«FOREACH compartments AS compartment-»
+		getViewService().createNode(eObjectAdapter, view,
+				«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«compartment.getEditPartQualifiedClassName()».VISUAL_ID),
+				org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.APPEND, true, getPreferencesHint());
+			«ENDFOREACH-»
+		«ENDIF-»
+	}
+}
+«ENDDEFINE»

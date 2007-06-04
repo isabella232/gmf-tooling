@@ -60,7 +60,6 @@ import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGene
 import org.eclipse.gmf.codegen.templates.providers.ShortcutsDecoratorProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ShortcutsPropertyTester;
 import org.eclipse.gmf.codegen.templates.providers.ValidationProviderGenerator;
-import org.eclipse.gmf.codegen.templates.providers.ViewFactoryGenerator;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.codegen.dispatch.CachingEmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
@@ -138,7 +137,6 @@ public class CodegenEmitters {
 		put(tr, "/policies/DiagramItemSemanticEditPolicy.javajet", DiagramItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/CompartmentItemSemanticEditPolicy.javajet", CompartmentItemSemanticEditPolicyGenerator.class);
 		put(tr, "/commands/CreateTypeNodeCommand.javajet", CreateTypeNodeCommandGenerator.class);
-		put(tr, "/providers/ViewFactory.javajet", ViewFactoryGenerator.class);
 		put(tr, "/providers/EditPartProvider.javajet", EditPartProviderGenerator.class);
 		put(tr, "/providers/ContributionItemProvider.javajet", ContributionItemProviderGenerator.class);
 		put(tr, "/providers/ModelingAssistantProvider.javajet", ModelingAssistantProviderGenerator.class);
@@ -392,8 +390,8 @@ public class CodegenEmitters {
 		return getPrimaryEmitter("xpt::diagram::views::DiagramViewFactory"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ViewFactoryGenerator.class);
+	public TextEmitter getNodeViewFactoryEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::diagram::views::NodeViewFactory"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getLabelNodeViewFactoryEmitter() throws UnexpectedBehaviourException {
