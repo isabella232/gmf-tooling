@@ -13,7 +13,7 @@ public class OptionsFileGenerator
     return result;
   }
 
-  protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
+  public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "# Debugging options for the ";
   protected final String TEXT_2 = " plug-in" + NL + "" + NL + "# Turn on general debugging for the ";
   protected final String TEXT_3 = " plug-in";

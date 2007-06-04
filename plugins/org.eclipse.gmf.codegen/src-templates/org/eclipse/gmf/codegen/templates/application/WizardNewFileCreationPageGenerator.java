@@ -14,7 +14,7 @@ public class WizardNewFileCreationPageGenerator
     return result;
   }
 
-  protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
+  public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "/*" + NL + " * ";
   protected final String TEXT_2 = NL + " */";
   protected final String TEXT_3 = NL + NL + "import org.eclipse.core.runtime.IPath;" + NL + "import org.eclipse.core.runtime.Path;" + NL + "import org.eclipse.jface.viewers.IStructuredSelection;" + NL + "import org.eclipse.jface.wizard.WizardPage;" + NL + "import org.eclipse.swt.SWT;" + NL + "import org.eclipse.swt.events.ModifyEvent;" + NL + "import org.eclipse.swt.events.ModifyListener;" + NL + "import org.eclipse.swt.events.SelectionEvent;" + NL + "import org.eclipse.swt.events.SelectionListener;" + NL + "import org.eclipse.swt.layout.GridData;" + NL + "import org.eclipse.swt.layout.GridLayout;" + NL + "import org.eclipse.swt.widgets.Button;" + NL + "import org.eclipse.swt.widgets.Composite;" + NL + "import org.eclipse.swt.widgets.FileDialog;" + NL + "import org.eclipse.swt.widgets.Label;" + NL + "import org.eclipse.swt.widgets.Text;";

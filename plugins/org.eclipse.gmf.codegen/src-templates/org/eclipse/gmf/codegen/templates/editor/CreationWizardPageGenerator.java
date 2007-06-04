@@ -14,7 +14,7 @@ public class CreationWizardPageGenerator
     return result;
   }
 
-  protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
+  public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "/*" + NL + " * ";
   protected final String TEXT_2 = NL + " */";
   protected final String TEXT_3 = NL + NL + "import org.eclipse.core.runtime.IPath;" + NL + "import org.eclipse.core.runtime.Path;" + NL + "import org.eclipse.emf.common.util.URI;" + NL + "import org.eclipse.jface.viewers.IStructuredSelection;" + NL + "import org.eclipse.osgi.util.NLS;" + NL + "import org.eclipse.swt.widgets.Composite;";
