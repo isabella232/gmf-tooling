@@ -15,7 +15,7 @@ public class CreationWizardGenerator
     return result;
   }
 
-  protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
+  public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_2 = " extends ";
   protected final String TEXT_3 = " implements ";
