@@ -23,6 +23,7 @@
 	</target>
 	
 	<target name="main" depends="init,checkArgs">
+		<antcall target="cc.cleanup"/>
 		<echo message="Building GMF Base..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="base" />

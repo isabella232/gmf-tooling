@@ -25,6 +25,7 @@
 		     as these builds are not tagged as are integration and stable builds. -->
 		<!-- Delete all previous continuous builds -->
 		<antcall target="cleanupArtifacts"/>
+		<antcall target="cc.cleanup"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
@@ -90,6 +91,7 @@
 	<target name="nightly" depends="init,checkArgs">
 		<!-- Note: for now, overriding calculated qualifier for continuous and nightly builds,
 		     as these builds are not tagged as are integration and stable builds. -->
+		<antcall target="cc.cleanup"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
@@ -156,6 +158,7 @@
 	</target>
 	
 	<target name="integration" depends="init,checkArgs">
+		<antcall target="cc.cleanup"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
@@ -226,6 +229,7 @@
 		<property name="buildType" value="S" />
 		<property name="buildId" value="${stable.maps}" />
 -->
+		<antcall target="cc.cleanup"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
@@ -294,6 +298,7 @@
 	</target>
 
 	<target name="maintenance" depends="init,checkArgs">
+		<antcall target="cc.cleanup"/>
 		<!-- Note: for now, overriding calculated qualifier for continuous and nightly builds, 
 		     as these builds are not tagged as are integration and stable builds. -->
 		<!-- Delete all previous continuous builds -->
@@ -384,6 +389,9 @@
 		<copy file="${buildRoot}/sdk/directory.txt" todir="${artifacts}/drops/${buildLabel}" />
 
 		<replace file="${result}/${indexFileName}">
+			<!-- GMF Base download page -->
+			<replacefilter token="@gmfBaseDownloadPage@" value="${gmfBaseDownloadPage}" />
+			
 			<!--  Insert url for supported eclipse drop-->
 			<replacefilter token="@eclipseVersion@" value="${eclipseVersion}" />
 			<replacefilter token="@eclipseBuildId@" value="${eclipseBuildId}" />

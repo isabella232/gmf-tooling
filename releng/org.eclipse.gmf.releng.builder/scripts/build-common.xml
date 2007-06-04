@@ -4,7 +4,7 @@
 	<property file="build.properties"/>
 	<property file="tags.properties"/>
 
-	<target name="initCC" if="usingCC">
+	<target name="cc.init" if="usingCC">
 		<copy todir="${ccwebapplocation}/css" overwrite="true">
 		    <fileset dir="${scripts}/css"/>
 		</copy>
@@ -13,9 +13,13 @@
 		</copy>
 	</target>
 	
+	<target name="cc.cleanup">
+		<echo message="Cleaning up build results for CruiseControl"/>
+		<delete dir="${cc.publish}/lastresults" failonerror="false"/>
+	</target>
+		
 	<target name="cc.publish">
 		<echo message="Publishing build results for CruiseControl"/>
-		<delete dir="${cc.publish}/lastresults" failonerror="false"/>
 		<copy todir="${cc.publish}/lastresults">
 		    <fileset dir="${artifacts}/drops/${buildLabel}"/>
 		</copy>
