@@ -31,3 +31,10 @@
 			org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities.colorToInteger(
 					org.eclipse.draw2d.ColorConstants.«foregroundColor»));
 «ENDDEFINE»
+
+«DEFINE addTextStyle FOR gmfgen::LabelModelFacet-»
+«ENDDEFINE»
+
+«DEFINE addTextStyle FOR gmfgen::DesignLabelModelFacet-»
+	styles.add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createDescriptionStyle());
+«ENDDEFINE»

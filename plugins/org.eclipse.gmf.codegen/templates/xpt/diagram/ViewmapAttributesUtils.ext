@@ -13,6 +13,10 @@
 import "http://www.eclipse.org/gmf/2006/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
 
+Boolean isStoringChildPositions(gmfgen::ViewmapLayoutType layoutType) :
+	gmfgen::ViewmapLayoutType::XY_LAYOUT.literal == layoutType.literal
+;
+
 Boolean isFixedFont(gmfgen::Viewmap viewmap) :
 	null != viewmap && viewmap.attributes.typeSelect(gmfgen::StyleAttributes).exists(e | e.fixedFont)
 ;

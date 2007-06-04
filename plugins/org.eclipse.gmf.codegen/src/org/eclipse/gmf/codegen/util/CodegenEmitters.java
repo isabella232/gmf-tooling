@@ -55,8 +55,6 @@ import org.eclipse.gmf.codegen.templates.providers.ContributionItemProviderGener
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ElementInitializersGenerator;
 import org.eclipse.gmf.codegen.templates.providers.IconProviderGenerator;
-import org.eclipse.gmf.codegen.templates.providers.LabelTextViewFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.providers.LabelViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.MetricProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ShortcutsDecoratorProviderGenerator;
@@ -141,8 +139,6 @@ public class CodegenEmitters {
 		put(tr, "/policies/CompartmentItemSemanticEditPolicy.javajet", CompartmentItemSemanticEditPolicyGenerator.class);
 		put(tr, "/commands/CreateTypeNodeCommand.javajet", CreateTypeNodeCommandGenerator.class);
 		put(tr, "/providers/ViewFactory.javajet", ViewFactoryGenerator.class);
-		put(tr, "/providers/LabelViewFactory.javajet", LabelViewFactoryGenerator.class);
-		put(tr, "/providers/LabelTextViewFactory.javajet", LabelTextViewFactoryGenerator.class);
 		put(tr, "/providers/EditPartProvider.javajet", EditPartProviderGenerator.class);
 		put(tr, "/providers/ContributionItemProvider.javajet", ContributionItemProviderGenerator.class);
 		put(tr, "/providers/ModelingAssistantProvider.javajet", ModelingAssistantProviderGenerator.class);
@@ -401,11 +397,11 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getLabelViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return retrieve(LabelViewFactoryGenerator.class);
+		return getPrimaryEmitter("xpt::diagram::views::LabelViewFactory"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getLabelTextViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return retrieve(LabelTextViewFactoryGenerator.class);
+		return getPrimaryEmitter("xpt::diagram::views::LabelTextViewFactory"); //$NON-NLS-1$
 	}
 
 	// providers

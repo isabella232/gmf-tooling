@@ -1,0 +1,43 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
+«EXTENSION xpt::diagram::ViewmapAttributesUtils»
+
+«DEFINE LabelTextViewFactory FOR gmfgen::GenNodeLabel-»
+«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
+package «getDiagram().notationViewFactoriesPackageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «notationViewFactoryClassName» extends
+	«IF isStoringChildPositions(node.getLayoutType())-»
+		org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory
+	«ELSE-»
+		org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory
+	«ENDIF-»
+{
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected java.util.List createStyles(org.eclipse.gmf.runtime.notation.View view) {
+		java.util.List styles = new java.util.ArrayList();
+		«EXPAND xpt::diagram::views::Utils::addTextStyle FOR modelFacet-»
+		«IF isStoringChildPositions(node.getLayoutType())-»
+		styles.add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFillStyle());
+		styles.add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createLineStyle());
+			«IF !isFixedFont(viewmap)-»
+		styles.add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFontStyle());
+			«ENDIF-»
+		«ENDIF-»
+		return styles;
+	}
+}
+«ENDDEFINE»
