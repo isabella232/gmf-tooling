@@ -4,6 +4,10 @@
 	<property file="build.properties"/>
 	<property file="tags.properties"/>
 
+	<target name="init-common">
+		<antcall target="cc.cleanup"/>
+	</target>
+	
 	<target name="cc.init" if="usingCC">
 		<copy todir="${ccwebapplocation}/css" overwrite="true">
 		    <fileset dir="${scripts}/css"/>
@@ -13,12 +17,12 @@
 		</copy>
 	</target>
 	
-	<target name="cc.cleanup">
+	<target name="cc.cleanup" if="usingCC">
 		<echo message="Cleaning up build results for CruiseControl"/>
 		<delete dir="${cc.publish}/lastresults" failonerror="false"/>
 	</target>
 		
-	<target name="cc.publish">
+	<target name="cc.publish" if="usingCC">
 		<echo message="Publishing build results for CruiseControl"/>
 		<copy todir="${cc.publish}/lastresults">
 		    <fileset dir="${artifacts}/drops/${buildLabel}"/>

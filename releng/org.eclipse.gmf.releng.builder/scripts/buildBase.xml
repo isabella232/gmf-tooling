@@ -3,7 +3,7 @@
 	
 	<import file="build-common.xml"/>
 
-	<target name="init">		
+	<target name="init" depends="init-common">		
 		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${cvs.root}"
 			package="${targetRoot}" dest="${basedir}" tag="${stable.target}" />
 		<property file="${basedir}/org.eclipse.gmf.releng.target/build.cfg"/>		
@@ -14,7 +14,6 @@
 		<property name="buildType" value="${gmfBaseBuildType}" />	
 		<property name="buildId" value="${gmfBaseBuildId}" />
 		<property name="buildLabel" value="${gmfBaseBuildLabel}" />
-		<antcall target="initCC"/>
 	</target>
 	
 	<target name="checkArgs" unless="stable.target">
@@ -23,7 +22,6 @@
 	</target>
 	
 	<target name="main" depends="init,checkArgs">
-		<antcall target="cc.cleanup"/>
 		<echo message="Building GMF Base..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="base" />
