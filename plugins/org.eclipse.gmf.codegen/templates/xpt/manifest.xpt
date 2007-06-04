@@ -46,7 +46,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.emf.edit.ui,
- org.eclipse.gef;visibility:=reexport,
  org.eclipse.gmf.runtime.emf.core,
  org.eclipse.gmf.runtime.emf.commands.core,
  org.eclipse.gmf.runtime.emf.ui.properties,
@@ -70,7 +69,7 @@ Require-Bundle: org.eclipse.core.runtime,
 «FOREACH getAllRequiredPlugins() AS id-»
  «id»;visibility:=reexport,
 «ENDFOREACH-»
- org.eclipse.gmf.runtime.notation.providers
+ org.eclipse.gef;visibility:=reexport
 Eclipse-LazyStart: true
 Bundle-RequiredExecutionEnvironment: «IF editorGen.requiresParser(LabelTextAccessMethod::PRINTF)»J2SE-1.5«ELSE»J2SE-1.4«ENDIF»
 «ENDDEFINE»
