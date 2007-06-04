@@ -24,6 +24,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipLargeCargoEd
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
+import org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.ListCompartmentViewFactory;
 
 import org.eclipse.gmf.runtime.notation.DrawerStyle;
@@ -35,7 +36,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class WarshipLargeCargoViewFactory extends ListCompartmentViewFactory {
+public class WarshipLargeCargoViewFactory extends BasicNodeViewFactory {
 
 	/**
 	 * @generated 
