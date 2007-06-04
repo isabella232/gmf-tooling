@@ -305,7 +305,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
  
 	private void generateChildLabelNode(GenChildLabelNode child) throws UnexpectedBehaviourException, InterruptedException {
-		generateViewFactory(child);
+		generateLabelNodeViewFactory(child);
 		generateNodeItemSemanticEditPolicy(child);
 		generateNodeCreateCommand(child);
 		generateEditSupport(child);
@@ -706,6 +706,10 @@ public class Generator extends GeneratorBase implements Runnable {
 			genElement.getNotationViewFactoryClassName(),
 			genElement
 		);
+	}
+
+	private void generateLabelNodeViewFactory(GenChildLabelNode node) throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getLabelNodeViewFactoryEmitter(), node.getNotationViewFactoryQualifiedClassName(), node);
 	}
 
 	private void generateCompartmentViewFactory(GenCompartment compartment) throws UnexpectedBehaviourException, InterruptedException {

@@ -30,6 +30,20 @@
 					org.eclipse.draw2d.ColorConstants.«foregroundColor»));
 «ENDDEFINE»
 
+«DEFINE backgroundColour(String viewVar) FOR gmfgen::Viewmap-»
+	«EXPAND backgroundColour(viewVar) FOREACH attributes-»
+«ENDDEFINE»
+
+«DEFINE backgroundColour(String viewVar) FOR gmfgen::Attributes-»
+«ENDDEFINE»
+
+«DEFINE backgroundColour(String viewVar) FOR gmfgen::ColorAttributes-»
+	org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.setStructuralFeatureValue(«viewVar»,
+			org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFillStyle_FillColor(),
+			org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities.colorToInteger(
+					org.eclipse.draw2d.ColorConstants.«backgroundColor»));
+«ENDDEFINE»
+
 «DEFINE addShapeStyle(String stylesVar) FOR gmfgen::Viewmap-»
 	«IF isFixedFont()-»
 		«stylesVar».add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createDescriptionStyle());
@@ -45,4 +59,22 @@
 
 «DEFINE addTextStyle(String stylesVar) FOR gmfgen::DesignLabelModelFacet-»
 	«stylesVar».add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createDescriptionStyle());
+«ENDDEFINE»
+
+«DEFINE addLinkedDiagramStyle(String stylesVar) FOR gmfgen::GenCommonBase-»
+	«EXPAND addLinkedDiagramStyle(stylesVar) FOREACH behaviour-»
+«ENDDEFINE»
+
+«DEFINE addLinkedDiagramStyle(String stylesVar) FOR gmfgen::Behaviour-»
+«ENDDEFINE»
+
+«DEFINE addLinkedDiagramStyle(String stylesVar) FOR gmfgen::OpenDiagramBehaviour-»
+	{
+		org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle diagramFacet =
+				org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createHintedDiagramLinkStyle();
+	«IF diagramKind != null-»
+		diagramFacet.setHint("«diagramKind»"); // $NON-NLS-1$
+	«ENDIF-»
+		«stylesVar».add(diagramFacet);
+	}
 «ENDDEFINE»

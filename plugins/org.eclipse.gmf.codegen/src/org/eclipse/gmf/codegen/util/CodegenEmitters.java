@@ -396,6 +396,10 @@ public class CodegenEmitters {
 		return retrieve(ViewFactoryGenerator.class);
 	}
 
+	public TextEmitter getLabelNodeViewFactoryEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::diagram::views::LabelNodeViewFactory"); //$NON-NLS-1$
+	}
+
 	public TextEmitter getCompartmentViewFactoryEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryEmitter("xpt::diagram::views::CompartmentViewFactory"); //$NON-NLS-1$
 	}
