@@ -100,7 +100,7 @@ class MigrationDelegate extends MigrationDelegateImpl {
 	}
 
 	@Override
-	public void postProcess() {
+	public void preResolve() {
 		if (getSavedLabelMappingMigrations() == null) {
 			return;
 		}
