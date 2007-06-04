@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.ecore.resource.Resource;
 
 public interface MigrationDelegate {
 	
@@ -27,13 +27,15 @@ public interface MigrationDelegate {
 	
 	public EObject createObject(EFactory factory, EClassifier type);
 	
-	public void postProcess();
+	public void preResolve();
 
 	public void processObject(EObject result);
 
 	public boolean isMigrationApplied();
 
-	public String getID(EObject obj);
+	public void setResource(Resource resource);
 
-	public void setResource(XMLResource resource);
+	public boolean setManyReference(EObject object, EStructuralFeature feature, Object[] values);
+
+	public void postLoad();
 }

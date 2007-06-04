@@ -10,11 +10,14 @@
  */
 package org.eclipse.gmf.internal.common.migrate;
 
+import java.util.List;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.xmi.XMIException;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIHelperImpl;
 
@@ -43,16 +46,12 @@ public class MigrationHelper extends XMIHelperImpl {
 	}
 
 	@Override
-	public String getID(EObject obj) {
-		String result = myDelegate.getID(obj);
-		if (result == null) {
-			result = super.getID(obj);
+	public List<XMIException> setManyReference(ManyReference reference, String location) {
+		List<XMIException> result = null;
+		if (!myDelegate.setManyReference(reference.getObject(), reference.getFeature(), reference.getValues())) {
+			result = super.setManyReference(reference, location);
 		}
 		return result;
-	}
-
-	public void setXMLMap(XMLResource.XMLMap map) {
-		//map.setIDAttributeName("");
 	}
 
 	@Override
@@ -83,7 +82,10 @@ public class MigrationHelper extends XMIHelperImpl {
 	@Override
 	public void popContext() {
 		super.popContext();
-		myDelegate.postProcess();
+		myDelegate.preResolve();
 	}
 
+	public void postLoad() {
+		myDelegate.postLoad();
+	}
 }

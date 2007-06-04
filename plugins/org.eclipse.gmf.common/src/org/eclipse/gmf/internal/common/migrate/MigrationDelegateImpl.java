@@ -20,13 +20,14 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.ecore.resource.Resource;
 
 public class MigrationDelegateImpl implements MigrationDelegate {
 	private final EStructuralFeature myDeletedAttribute = EcoreFactory.eINSTANCE.createEAttribute();
@@ -43,8 +44,8 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 	private Map<String, EClass> myNarrowedTypes = new HashMap<String, EClass>();
 	private Map<EClass, Map<String, EStructuralFeature>> myRenamedAttributes = new HashMap<EClass, Map<String, EStructuralFeature>>();
 	private Map<String, EClassifier> myRenamedTypes = new HashMap<String, EClassifier>();
-	private Map<EClass, Map<String, EStructuralFeature>> myRenamedParentAttributes = new HashMap<EClass, Map<String, EStructuralFeature>>();
-	private XMLResource myResource;
+	private Map<EClass, Map<String, EStructuralFeature>> myTracedHierarchyFeatures = new HashMap<EClass, Map<String, EStructuralFeature>>();
+	private Resource myResource;
 	
 	public void registerDeletedAttributes(EClassifier classifier, String... deletedAttrNames) {
 		assert !myDeletedAttributes.containsKey(classifier);
@@ -55,8 +56,12 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 		myRenamedAttributes.put(eClass, renamedAttributes);
 	}
 	
-	public void registerRenamedParentAttributes(EClass eClass, Map<String, EStructuralFeature> renamedAttributes) {
-		myRenamedParentAttributes.put(eClass, renamedAttributes);
+	/**
+	 * Traced feature is a feature you use through the hierarchy as a marker, catching it in setValue and notifying of
+	 * whether migration has happened or not
+	 */
+	public void registerTracedFeatureForHierarchy(EClass eClass, Map<String, EStructuralFeature> tracedFeature) {
+		myTracedHierarchyFeatures.put(eClass, tracedFeature);
 	}
 	
 	public void registerNarrowedAbstractType(String abstractTypeName, EClass narrowedType) {
@@ -76,13 +81,17 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 		registerRenamedAttributes(eClass, renamedAttributes);
 	}
 	
-	public void registerRenamedParentAttribute(EClass eClass, String oldName, EStructuralFeature newStructuralFeature) {
-		Map<String, EStructuralFeature> renamedAttributes = myRenamedParentAttributes.get(eClass);
-		if (renamedAttributes == null) {
-			renamedAttributes = new HashMap<String, EStructuralFeature>();
+	/**
+	 * Traced feature is a feature you use through the hierarchy as a marker, catching it in setValue and notifying of
+	 * whether migration has happened or not
+	 */
+	public void registerTracedFeatureForHierarchy(EClass eClass, String xmlName, EStructuralFeature tracerFeature) {
+		Map<String, EStructuralFeature> tracedFeatures = myTracedHierarchyFeatures.get(eClass);
+		if (tracedFeatures == null) {
+			tracedFeatures = new HashMap<String, EStructuralFeature>();
 		}
-		renamedAttributes.put(oldName, newStructuralFeature);
-		registerRenamedParentAttributes(eClass, renamedAttributes);
+		tracedFeatures.put(xmlName, tracerFeature);
+		registerTracedFeatureForHierarchy(eClass, tracedFeatures);
 	}
 	
 	public boolean isAttributeDeleted(EClass clazz, String name) {
@@ -104,16 +113,16 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 		return renamings != null ? renamings.get(name) : null;
 	}
 
-	public EStructuralFeature getRenamedParentFeatureFor(EClass clazz, String name) {
-	    Map<String, EStructuralFeature> renamings = myRenamedParentAttributes.get(clazz);
-	    EStructuralFeature result = renamings != null ? renamings.get(name) : null;
+	public EStructuralFeature getTracedParentFeatureFor(EClass clazz, String name) {
+	    Map<String, EStructuralFeature> tracings = myTracedHierarchyFeatures.get(clazz);
+	    EStructuralFeature result = tracings != null ? tracings.get(name) : null;
 		for (Iterator<EClass> it=clazz.getEAllSuperTypes().iterator(); result == null && it.hasNext();) {
 			EClass nextParent = it.next();
-			result = getRenamedParentFeatureFor(nextParent, name);
+			result = getTracedParentFeatureFor(nextParent, name);
 		}
 		return result;
 	}
-
+	
 	public EClassifier getRenamedType(String typeName) {
 		return myRenamedTypes.get(typeName);
 	}
@@ -128,12 +137,13 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 		if ((rename = getRenamedFeatureFor(eClass, name)) != null) {
 			result = rename;
 			fireMigrationApplied(true);
-		} else if ((rename = getRenamedParentFeatureFor(eClass, name)) != null) {
-			result = rename;
-			fireMigrationApplied(true);
 		} else if (isAttributeDeleted(eClass, name)) {
 			result = myDeletedAttribute;
 			fireMigrationApplied(true);
+		} else if ((rename = getTracedParentFeatureFor(eClass, name)) != null) {
+			result = rename;
+			// if somebody has provided a feature to trace, it is his own business to notify us of whether 
+			// a migration is required and has happened, cause it is not necessary that anything has been actually changed.
 		}
 		return result;
 	}
@@ -156,16 +166,16 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 		return null;
 	}
 	
-	public String getID(EObject obj) {
-		return null;
-	}
-	
-	public void postProcess() {
+	public void preResolve() {
 	}
 
 	public void processObject(EObject result) {
 	}
 
+	public boolean setManyReference(EObject object, EStructuralFeature feature, Object[] values) {
+		return false;
+	}
+	
 	public boolean isMigrationApplied() {
 		return isMigrationApplied;
 	}
@@ -188,11 +198,11 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 		return ref;
 	}
 
-	protected static EAttribute createNewAttribute(String name, EClassifier eType, boolean isMany) {
+	protected static EAttribute createNewAttribute(String name, EDataType eType, boolean isMany) {
 		return createNewAttribute(name, eType, isMany, false);
 	}
 	
-	protected static EAttribute createNewAttribute(String name, EClassifier eType, boolean isMany, boolean isObligatory) {
+	protected static EAttribute createNewAttribute(String name, EDataType eType, boolean isMany, boolean isObligatory) {
 		EAttribute attr = EcoreFactory.eINSTANCE.createEAttribute();
 		attr.setName(name);
 		attr.setEType(eType);
@@ -201,11 +211,14 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 		return attr;
 	}
 
-	public void setResource(XMLResource resource) {
+	public void setResource(Resource resource) {
 		myResource = resource;
 	}
 	
-	protected XMLResource getResource() {
+	protected Resource getResource() {
 		return myResource;
+	}
+
+	public void postLoad(){
 	}
 }

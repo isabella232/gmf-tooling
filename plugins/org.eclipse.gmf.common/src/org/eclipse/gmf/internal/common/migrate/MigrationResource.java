@@ -43,14 +43,22 @@ public abstract class MigrationResource extends ToolResource {
 	}
 
 	protected void handlePostLoadSuccess() {
-		if (myMigrationHelper != null && myMigrationHelper.isMigrationApplied()) {
+		if (myMigrationHelper == null) {
+			return;
+		}
+		myMigrationHelper.postLoad();
+		if (myMigrationHelper.isMigrationApplied()) {
 			Diagnostic diagnostic = MigrationResource.createMessageDiagnostic(this, Messages.oldModelVersionLoadedMigrationRequired);
 			getWarnings().add(0, diagnostic);
 		}
 	}
 
 	protected void handlePostLoadException(Exception e) {
-		if (myMigrationHelper != null && myMigrationHelper.isMigrationApplied()) {
+		if (myMigrationHelper == null) {
+			return;
+		}
+		myMigrationHelper.postLoad();
+		if (myMigrationHelper.isMigrationApplied()) {
 			Diagnostic diagnostic = MigrationResource.createMessageDiagnostic(this, Messages.oldModelVersionLoadErrorMigrationMayBeRequired);
 			getErrors().add(0, diagnostic);
 		}
