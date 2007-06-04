@@ -404,7 +404,7 @@ class MigrationDelegate extends MigrationDelegateImpl {
 
 	private ChildAccess getOrCreateChildAccessForNested(Figure nestedFigure, FigureDescriptor toplevelDescriptor) {
 		for (ChildAccess haveAccess : toplevelDescriptor.getAccessors()) {
-			if (haveAccess.getFigure().equals(nestedFigure)) {
+			if (nestedFigure != null && nestedFigure.equals(haveAccess.getFigure())) {
 				return haveAccess;
 			}
 		}
