@@ -49,6 +49,23 @@
           referencingElements="NamedNode_Name"
           name="NamedNode_NameLabelFigure"/>
     </figures>
+    <figures
+        xsi:type="gmfgraph:PolylineConnection"
+        referencingElements="Link"
+        name="FigureConnectionFigure"
+        lineKind="LINE_DASHDOT"
+        targetDecoration="ArrowDecoration"/>
+    <figures
+        xsi:type="gmfgraph:PolylineDecoration"
+        name="ArrowDecoration">
+      <template
+          x="-1"
+          y="1"/>
+      <template/>
+      <template
+          x="-1"
+          y="-1"/>
+    </figures>
   </figures>
   <nodes
       name="Node"

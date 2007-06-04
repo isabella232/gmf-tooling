@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -36,15 +37,20 @@ import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
+import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.LabeledContainer;
+import org.eclipse.gmf.gmfgraph.LineKind;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
+import org.eclipse.gmf.gmfgraph.PolylineDecoration;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
 import org.eclipse.gmf.internal.common.migrate.MigrationResource;
@@ -459,7 +465,7 @@ public class MigrationPatchesTest extends TestCase {
 		URI newUri = temporarySaveMigratedModel(gmfgraphFileName, "basic", "gmfgraph");
 		changeNsUriToOldOne(newUri, "gmfgraph", "http://www.eclipse.org/gmf/2005/GraphicalDefinition");
 		
-		//assertOnLoadModelMigrationDidNothing(newUri);
+		assertOnLoadModelMigrationDidNothing(newUri);
 		checkAllFigureReferences(newUri);
 	}
 
@@ -479,9 +485,16 @@ public class MigrationPatchesTest extends TestCase {
 		
 		FigureGallery fg = canvas.getFigures().get(0);
 		assertEquals("GenericDiagramFigures", fg.getName());
-		assertTrue(fg.getFigures().isEmpty());
+		assertFalse(fg.getFigures().isEmpty());
+		assertEquals(1, fg.getFigures().size());
+
+		Figure figure0 = fg.getFigures().get(0);
+		assertTrue(figure0 instanceof PolylineDecoration);
+		PolylineDecoration linked = (PolylineDecoration) figure0;
+		assertEquals("ArrowDecoration", linked.getName());
+		
 		assertFalse(fg.getDescriptors().isEmpty());
-		assertEquals(5, fg.getDescriptors().size());
+		assertEquals(6, fg.getDescriptors().size());
 		
 		FigureDescriptor fg1 = fg.getDescriptors().get(0);
 		assertTrue(fg1.getAccessors().isEmpty());
@@ -536,7 +549,7 @@ public class MigrationPatchesTest extends TestCase {
 		assertNotNull(nnr.getDescriptor());
 		assertEquals(nnr, nnr.getDescriptor().getActualFigure());
 
-		Figure figure1in5 = (Figure) nnr.getChildren().get(0);
+		Figure figure1in5 = nnr.getChildren().get(0);
 		assertTrue(figure1in5 instanceof Label);
 		Label nnrLabel = (Label) figure1in5;
 		assertEquals("NamedNode_NameLabelFigure", nnrLabel.getName());
@@ -544,6 +557,16 @@ public class MigrationPatchesTest extends TestCase {
 		assertEquals(nnrLabel.getDescriptor(), nnr.getDescriptor());
 		assertEquals(1, nnr.getDescriptor().getAccessors().size());
 		assertEquals(nnrLabel, nnr.getDescriptor().getAccessors().get(0).getFigure());
+
+		Figure figure6 = fg.getDescriptors().get(5).getActualFigure();
+		assertTrue(figure6 instanceof PolylineConnection);
+		PolylineConnection fcf = (PolylineConnection) figure6;
+		assertEquals("FigureConnectionFigure", fcf.getName());
+		assertEquals(LineKind.LINE_DASHDOT_LITERAL, fcf.getLineKind());
+		assertNotNull(fcf.getTargetDecoration());
+		assertEquals(linked, fcf.getTargetDecoration());
+		assertNotNull(fcf.getDescriptor());
+		assertEquals(fcf, fcf.getDescriptor().getActualFigure());
 
 		assertNotNull(canvas.getNodes());
 		assertFalse(canvas.getNodes().isEmpty());
@@ -581,6 +604,131 @@ public class MigrationPatchesTest extends TestCase {
 		
 		DiagramLabel l3 = canvas.getLabels().get(2);
 		assertEquals("LabelWOIcon", l3.getName());
+	}
+
+	public void testCustomFigures() throws Exception {
+		assertTrue(((EClass)GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure().getEType()).isAbstract());
+		
+		URI gmfgraphFileName = createURI("customFigures.gmfgraph"); //$NON-NLS-1$
+		
+		Exception caughtGenException = assertOrdinaryLoadModelProblems(gmfgraphFileName);
+		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
+
+		assertOnLoadModelMigrationSuccess(gmfgraphFileName);
+		checkCustomFiguresContent(gmfgraphFileName);
+
+		URI newUri = temporarySaveMigratedModel(gmfgraphFileName, "customFigures", "gmfgraph");
+		changeNsUriToOldOne(newUri, "gmfgraph", "http://www.eclipse.org/gmf/2005/GraphicalDefinition");
+		
+		assertOnLoadModelMigrationDidNothing(newUri);
+		checkCustomFiguresContent(newUri);
+	}
+
+	private void checkCustomFiguresContent(URI modelUri) {
+		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), modelUri);
+		Resource resource = loadHelper.getLoadedResource();
+		
+		assertEquals(1, resource.getContents().size());
+		Object first = resource.getContents().get(0);
+		assertTrue(first instanceof Canvas);
+		Canvas canvas = (Canvas) first;
+		assertEquals(7, canvas.eContents().size());
+		
+		assertNotNull(canvas.getFigures());
+		assertEquals(1, canvas.getFigures().size());
+		FigureGallery fg = canvas.getFigures().get(0);
+		
+		assertNotNull(fg.getFigures());
+		assertEquals(3, fg.getFigures().size());
+		
+		Figure figure1 = fg.getFigures().get(0);
+		assertTrue(figure1 instanceof CustomFigure);
+		assertEquals("org.eclipse.draw2d.ScalableFigure", ((CustomFigure)figure1).getQualifiedClassName());
+		
+		assertNotNull(fg.getDescriptors());
+		assertEquals(4, fg.getDescriptors().size());
+		
+		Figure node1figure = fg.getDescriptors().get(0).getActualFigure();
+		assertNotNull(node1figure);
+		assertTrue(node1figure instanceof CustomFigure);
+		assertEquals(1, ((CustomFigure) node1figure).getCustomChildren().size());
+		RealFigure compartment2figure = ((CustomFigure) node1figure).getCustomChildren().get(0).getTypedFigure();
+		assertNotNull(compartment2figure);
+		assertTrue(compartment2figure instanceof CustomFigure);
+		assertEquals("org.eclipse.draw2d.IFigure", ((CustomFigure)compartment2figure).getQualifiedClassName());
+		
+		Figure node2figure = fg.getDescriptors().get(1).getActualFigure();
+		assertNotNull(node2figure);
+		assertTrue(node2figure instanceof CustomFigure);
+		assertEquals(1, ((CustomFigure) node2figure).getCustomChildren().size());
+		RealFigure compartment1figure = ((CustomFigure) node2figure).getCustomChildren().get(0).getTypedFigure();
+		assertNotNull(compartment1figure);
+		
+		Figure node3figure = fg.getDescriptors().get(2).getActualFigure();
+		assertNotNull(node3figure);
+		assertTrue(node3figure instanceof CustomFigure);
+		assertEquals(1, ((CustomFigure) node3figure).getCustomChildren().size());
+		RealFigure compartment4figure = ((CustomFigure) node3figure).getCustomChildren().get(0).getTypedFigure();
+		assertNotNull(compartment4figure);
+		assertTrue(compartment4figure instanceof CustomFigure);
+		assertEquals("org.eclipse.draw2d.ScalableFigure", ((CustomFigure)compartment4figure).getQualifiedClassName());
+		assertNotNull(node3figure);
+		
+		Figure compartment3figure = fg.getDescriptors().get(3).getActualFigure();
+		assertNotNull(compartment3figure);
+		
+		assertNotNull(canvas.getNodes());
+		assertEquals(2, canvas.getNodes().size());
+		
+		Node node1 = canvas.getNodes().get(0);
+		assertEquals("LocalPreconditionNode", node1.getName());
+		assertNotNull(node1.getFigure());
+		assertEquals(node1figure, node1.getFigure().getActualFigure());
+		
+		Node node2 = canvas.getNodes().get(1);
+		assertEquals("LocalPostconditionNode", node2.getName());
+		assertNotNull(node2.getFigure());
+		assertEquals(node2figure, node2.getFigure().getActualFigure());
+		
+		assertNotNull(canvas.getCompartments());
+		assertEquals(4, canvas.getCompartments().size());
+		
+		Compartment compartment1 = canvas.getCompartments().get(0);
+		assertEquals("postcondition", compartment1.getName());
+		assertNotNull(compartment1.getFigure());
+		assertNotNull(compartment1.getAccessor());
+		assertEquals(compartment1figure, compartment1.getAccessor().getFigure());
+		
+		Compartment compartment2 = canvas.getCompartments().get(1);
+		assertEquals("precondition", compartment2.getName());
+		assertNotNull(compartment2.getFigure());
+		assertNotNull(compartment2.getAccessor());
+		assertEquals(compartment2figure, compartment2.getAccessor().getFigure());
+		
+		Compartment compartment3 = canvas.getCompartments().get(2);
+		assertEquals("anotherPostcondition", compartment3.getName());
+		assertNotNull(compartment3.getFigure());
+		assertNull(compartment3.getAccessor());
+		
+		Compartment compartment4 = canvas.getCompartments().get(3);
+		assertEquals("TargetCustomDecorCompartment", compartment4.getName());
+		assertNotNull(compartment4.getFigure());
+		assertNotNull(compartment4.getAccessor());
+		assertEquals(compartment4figure, compartment4.getAccessor().getFigure());
+	}
+	
+	public void testMultifiles() throws Exception {
+		URI gmfgraphFileName = createURI("multifile_main.gmfgraph"); //$NON-NLS-1$
+		
+		Exception caughtGenException = assertOrdinaryLoadModelProblems(gmfgraphFileName);
+		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
+
+		assertOnLoadModelMigrationSuccess(gmfgraphFileName);
+
+		URI newUri = temporarySaveMigratedModel(gmfgraphFileName, "multifile_main", "gmfgraph");
+		changeNsUriToOldOne(newUri, "gmfgraph", "http://www.eclipse.org/gmf/2005/GraphicalDefinition");
+		
+		assertOnLoadModelMigrationDidNothing(newUri);
 	}
 
 }

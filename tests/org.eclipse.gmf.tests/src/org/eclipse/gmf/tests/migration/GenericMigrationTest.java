@@ -484,8 +484,8 @@ public class GenericMigrationTest extends TestCase {
 			}
 
 			@Override
-			public void postProcess() {
-				super.postProcess();
+			public void preResolve() {
+				super.preResolve();
 				for (EObject narrowed : myToBeChecked) {
 					if (!narrowed.eIsSet(myAttrNarrowChild)) {
 						EObject defaultTyped = narrowed.eClass().getEPackage().getEFactoryInstance().create((EClass) myWidenedRef1.getEType());
