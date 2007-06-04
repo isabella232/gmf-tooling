@@ -34,7 +34,7 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected java.util.List createStyles(org.eclipse.gmf.runtime.notation.View view) {
 		java.util.List styles = new java.util.ArrayList();
-		«EXPAND xpt::diagram::views::Utils::addTextStyle FOR modelFacet-»
+		«EXPAND xpt::diagram::views::Utils::addTextStyle("styles") FOR modelFacet-»
 		return styles;
 	}
 }

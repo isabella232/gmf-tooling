@@ -128,7 +128,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		for (GenCompartment compartment : myDiagram.getCompartments()) {
 			generateCompartmentEditPart(compartment);
 			generateCompartmentItemSemanticEditPolicy(compartment);
-			generateViewFactory(compartment);
+			generateCompartmentViewFactory(compartment);
 			if (compartment.needsCanonicalEditPolicy()) {
 				generateChildContainerCanonicalEditPolicy(compartment);
 			}
@@ -706,6 +706,10 @@ public class Generator extends GeneratorBase implements Runnable {
 			genElement.getNotationViewFactoryClassName(),
 			genElement
 		);
+	}
+
+	private void generateCompartmentViewFactory(GenCompartment compartment) throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getCompartmentViewFactoryEmitter(), compartment.getNotationViewFactoryQualifiedClassName(), compartment);
 	}
 
 	private void generateNodeLabelViewFactory(GenNodeLabel label) throws UnexpectedBehaviourException, InterruptedException {
