@@ -78,6 +78,10 @@ String i18nKeyForDocumentSaveNextResourceTask(gmfgen::GenDiagram diagram) :
 	diagram.i18nKeyForDocumentProvider()+".SaveNextResourceTask"
 ;
 
+String i18nKeyForDocumentSaveAs(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForDocumentProvider()+".SaveAsOperation"
+;
+
 private String i18nKeyForDiagramEditorUtil(gmfgen::GenDiagram diagram) :
 	diagram.diagramEditorUtilClassName
 ;

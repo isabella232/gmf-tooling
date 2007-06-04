@@ -118,7 +118,7 @@ if («IF null == editorGen.application»false == element instanceof «EXPAND fileEd
 throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, 
 		org.eclipse.osgi.util.NLS.bind(
 			«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderIncorrectInputError()) FOR editorGen»,
-			new Object[] {element, «IF null == editorGen.application»"«EXPAND fileEditorInputClassFQName»", «ENDIF»"«EXPAND uriEditorInputClassFQName»"}), 
+			new Object[] {element, «IF null == editorGen.application»"«EXPAND fileEditorInputClassFQName»", «ENDIF»"«EXPAND uriEditorInputClassFQName»"}), «EXPAND xpt::Common::nonNLS(1)»«IF null == editorGen.application» «EXPAND xpt::Common::nonNLS(2)»«ENDIF» 
 		null));
 «ENDDEFINE»
 
@@ -625,6 +625,43 @@ protected void doSaveDocument(org.eclipse.core.runtime.IProgressMonitor monitor,
 		} «IF null == editorGen.application» finally {
 			info.startResourceListening();
 		} «ENDIF»
+	} else {
+		org.eclipse.emf.common.util.URI newResoruceURI;
+		java.util.List affectedFiles = null;
+		«IF null == editorGen.application»if (element instanceof «EXPAND fileEditorInputClassFQName») {
+			org.eclipse.core.resources.IFile newFile = ((«EXPAND fileEditorInputClassFQName») element).getFile();
+			affectedFiles = java.util.Collections.singletonList(newFile);
+			newResoruceURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(newFile.getFullPath().toString(), true);
+		} else «ENDIF»if(element instanceof «EXPAND uriEditorInputClassFQName») {
+			newResoruceURI = ((«EXPAND uriEditorInputClassFQName») element).getURI();
+		} else {
+			fireElementStateChangeFailed(element);
+			«EXPAND throwIncorrectInputException-»
+		}
+		if (false == document instanceof org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) {
+			fireElementStateChangeFailed(element);
+			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0,
+			"Incorrect document used: " + document + " instead of org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument", null)); «EXPAND xpt::Common::nonNLS(1)» «EXPAND xpt::Common::nonNLS(2)»
+		}
+		org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument diagramDocument = (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) document;
+		final org.eclipse.emf.ecore.resource.Resource newResource = diagramDocument.getEditingDomain().getResourceSet().createResource(newResoruceURI);
+		final org.eclipse.gmf.runtime.notation.Diagram diagramCopy = (org.eclipse.gmf.runtime.notation.Diagram) org.eclipse.emf.ecore.util.EcoreUtil.copy(diagramDocument.getDiagram());
+		try {
+			new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(diagramDocument.getEditingDomain(), org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentSaveAs()) FOR editorGen», diagramCopy.getName()), affectedFiles) {
+				protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
+					newResource.getContents().add(diagramCopy);					
+					return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
+				}
+			}.execute(monitor, null);
+			newResource.save(«EXPAND xpt::Common::getSaveOptions»);
+		} catch (org.eclipse.core.commands.ExecutionException e) {
+			fireElementStateChangeFailed(element);
+			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, e.getLocalizedMessage(), null));
+		} catch (java.io.IOException e) {
+			fireElementStateChangeFailed(element);
+			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, e.getLocalizedMessage(), null));
+		}
+		newResource.unload();
 	}
 }
 «ENDDEFINE»
@@ -690,6 +727,7 @@ private static java.io.File getFile(org.eclipse.emf.ecore.resource.Resource reso
 	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentUnsynchronizedFileSaveError())-»
 	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentSaveDiagramTask())-»
 	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentSaveNextResourceTask())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentSaveAs())-»
 «ENDDEFINE»
 
 «DEFINE i18nValues FOR gmfgen::GenDiagram-»
@@ -701,6 +739,7 @@ private static java.io.File getFile(org.eclipse.emf.ecore.resource.Resource reso
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentUnsynchronizedFileSaveError(), "The file has been changed on the file system")-»
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentSaveDiagramTask(), "Saving diagram")-»
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentSaveNextResourceTask(), "Saving {0}")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentSaveAs(), "Saving {0} diagram as")-»
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram-»
