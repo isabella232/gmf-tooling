@@ -3,6 +3,7 @@
 !*** GMF features ***************************************************************************
 feature@org.eclipse.gmf=v20070601-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.runtime-feature
 feature@org.eclipse.gmf.runtime.thirdparty=v20070601-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.runtime.thirdparty-feature
+feature@org.eclipse.gmf.runtime.thirdparty.source=v20070601-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.runtime.thirdparty.source-feature
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf=v20070601-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf
