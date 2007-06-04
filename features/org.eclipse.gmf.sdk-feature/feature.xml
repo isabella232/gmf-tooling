@@ -41,6 +41,10 @@ http://www.eclipse.org/legal/epl-v10.html
          version="0.0.0"/>
 
    <includes
+         id="org.eclipse.gmf.runtime.thirdparty.source"
+         version="0.0.0"/>
+
+   <includes
          id="org.eclipse.gmf.source"
          version="0.0.0"
          name="GMF Runtime Developer Resources"/>
@@ -289,6 +293,20 @@ http://www.eclipse.org/legal/epl-v10.html
 
    <plugin
          id="org.eclipse.gmf.xpand.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.sourceforge.lpg.lpgjavaruntime"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.sourceforge.lpg.lpgjavaruntime.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
