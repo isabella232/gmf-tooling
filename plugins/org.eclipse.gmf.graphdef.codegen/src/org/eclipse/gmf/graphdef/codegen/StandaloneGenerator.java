@@ -68,7 +68,7 @@ public class StandaloneGenerator extends GeneratorBase {
 		}
 
 		public ConfigImpl(String pluginId, String mainPackageName, MapModeCodeGenStrategy mapMode, String runtimeToken) {
-			this(pluginId, mainPackageName, pluginId, "", "PluginActivator", (mainPackageName == null ? "" : mainPackageName + ".")  + "activator", mapMode, null);
+			this(pluginId, mainPackageName, pluginId, "", "PluginActivator", (mainPackageName == null ? "" : mainPackageName + ".")  + "activator", mapMode, runtimeToken);
 		}
 
 		public ConfigImpl(String pluginId, String mainPackageName, String pluginFriendlyName, String pluginProviderName, String pluginActivatorClassName, String pluginActivatorPackageName, MapModeCodeGenStrategy mapMode, String runtimeToken){
