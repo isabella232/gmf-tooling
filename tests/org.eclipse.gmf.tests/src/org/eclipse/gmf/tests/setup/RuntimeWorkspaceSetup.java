@@ -143,10 +143,7 @@ public class RuntimeWorkspaceSetup {
 				"org.eclipse.gmf.runtime.diagram.ui.render", //$NON-NLS-1$
 				"org.eclipse.gmf.runtime.diagram.ui.resources.editor", //$NON-NLS-1$
 				"org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide", //$NON-NLS-1$
-				"org.eclipse.gmf.runtime.notation.providers", //$NON-NLS-1$			
-				"org.eclipse.emf.ocl", //$NON-NLS-1$
-				"org.eclipse.emf.query", //$NON-NLS-1$	
-				"org.eclipse.emf.query.ocl", //$NON-NLS-1$
+				"org.eclipse.ocl.ecore", //$NON-NLS-1$
 				//
 				"org.eclipse.emf.edit", //$NON-NLS-1$
 				"org.eclipse.emf.transaction", //$NON-NLS-1$
@@ -159,7 +156,6 @@ public class RuntimeWorkspaceSetup {
 	public RuntimeWorkspaceSetup initLite() throws Exception {
 		init("org.eclipse.gmf.runtime.notation", //$NON-NLS-1$
 			"org.eclipse.gmf.runtime.notation.edit", //$NON-NLS-1$
-			"org.eclipse.emf.ocl", //$NON-NLS-1$
 			"org.eclipse.ocl.ecore", //$NON-NLS-1$
 			"org.eclipse.ocl", //$NON-NLS-1$
 			"org.eclipse.emf.query", //$NON-NLS-1$	
@@ -228,7 +224,7 @@ public class RuntimeWorkspaceSetup {
 			if (nextEntry.isValid()) {
 				entries.add(nextEntry);				
 			} else {
-				System.out.println("Bundle " + pluginIDs[i] + " is missing, skipped."); //$NON-NLS-1$ //$NON-NLS-2$
+				System.out.println(RuntimeWorkspaceSetup.class.getSimpleName() + ": Bundle " + pluginIDs[i] + " is missing, skipped."); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		}
 		return entries.toArray(new ClasspathEntry[entries.size()]);
