@@ -180,7 +180,7 @@ class MigrationDelegate extends MigrationDelegateImpl {
 	}
 
 	@Override
-	public void postProcess() {
+	public void preResolve() {
 		if (getSavedRequiredPlugins() == null) {
 			return;
 		}
