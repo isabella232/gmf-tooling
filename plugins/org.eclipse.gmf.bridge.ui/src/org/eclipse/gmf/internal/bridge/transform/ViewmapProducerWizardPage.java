@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -168,16 +168,7 @@ class ViewmapProducerWizardPage extends WizardPage {
 	private void initControls() {
 		TransformOptions options = getOperation().getOptions();
 		generateRCPButton.setSelection(options.getGenerateRCP());
-		boolean hasLite = TransformOptions.checkLiteOptionPresent();
-		boolean useRuntimeFigures = options.getUseRuntimeFigures();
-		if (hasLite) {
-			useRuntimeFiguresButton.setEnabled(true);
-			useRuntimeFiguresButton.setSelection(useRuntimeFigures);
-		} else {
-			useRuntimeFiguresButton.setEnabled(false);
-			useRuntimeFiguresButton.setSelection(true);
-			options.setUseRuntimeFigures(true);
-		}
+		useRuntimeFiguresButton.setSelection(options.getUseRuntimeFigures());
 		useMapModeButton.setSelection(options.getUseMapMode());
 		if (null != options.getFigureTemplatesPath()) {
 			templatesPathControl.setText(options.getFigureTemplatesPath().toString());
