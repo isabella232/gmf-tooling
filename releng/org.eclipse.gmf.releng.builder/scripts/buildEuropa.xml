@@ -3,7 +3,7 @@
 	
 	<import file="build-common.xml"/>
 
-	<target name="init" depends="init-common">		
+	<target name="init">		
 		<tstamp/>
 		<property name="date" value="${DSTAMP}" />
 		<property name="time" value="${TSTAMP}" />
