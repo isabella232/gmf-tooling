@@ -18,6 +18,14 @@ package «notationViewFactoriesPackageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
 public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diagram.ui.view.factories.DiagramViewFactory {
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected java.util.List createStyles(org.eclipse.gmf.runtime.notation.View view) {
+		java.util.List styles = new java.util.ArrayList();
+		styles.add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createDiagramStyle());
+		«EXPAND xpt::diagram::views::Utils::addCustomStyles("styles")-»
+		return styles;
+	}
 «IF units != null-»
 
 	«EXPAND xpt::Common::generatedMemberComment»

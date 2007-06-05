@@ -103,3 +103,9 @@
 		«stylesVar».add(diagramFacet);
 	}
 «ENDDEFINE»
+
+«DEFINE addCustomStyles(String stylesVar) FOR gmfgen::GenCommonBase-»
+	«FOREACH styles AS style-»
+		«stylesVar».add(«EXPAND xpt::Common::newInstance FOR style»);
+	«ENDFOREACH-»
+«ENDDEFINE»

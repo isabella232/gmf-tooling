@@ -34,6 +34,7 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 		«IF isStoringChildPositions(node.getLayoutType())-»
 			«EXPAND xpt::diagram::views::Utils::addShapeStyle("styles") FOR viewmap-»
 		«ENDIF-»
+		«EXPAND xpt::diagram::views::Utils::addCustomStyles("styles")-»
 		return styles;
 	}
 

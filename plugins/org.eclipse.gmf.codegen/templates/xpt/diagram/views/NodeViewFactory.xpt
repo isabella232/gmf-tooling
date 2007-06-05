@@ -26,6 +26,7 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 		java.util.List styles = new java.util.ArrayList();
 		«EXPAND xpt::diagram::views::Utils::addShapeStyle("styles") FOR viewmap-»
 		«EXPAND xpt::diagram::views::Utils::addLinkedDiagramStyle("styles")-»
+		«EXPAND xpt::diagram::views::Utils::addCustomStyles("styles")-»
 		return styles;
 	}
 
