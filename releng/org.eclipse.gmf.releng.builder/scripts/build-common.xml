@@ -4,10 +4,6 @@
 	<property file="build.properties"/>
 	<property file="tags.properties"/>
 
-	<target name="init-common">
-		<antcall target="cc.cleanup"/>
-	</target>
-	
 	<target name="cc.init" if="usingCC">
 		<copy todir="${ccwebapplocation}/css" overwrite="true">
 		    <fileset dir="${scripts}/css"/>
