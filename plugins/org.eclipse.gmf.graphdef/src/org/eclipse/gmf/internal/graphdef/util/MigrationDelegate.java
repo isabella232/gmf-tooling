@@ -12,6 +12,7 @@ package org.eclipse.gmf.internal.graphdef.util;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -56,23 +57,22 @@ class MigrationDelegate extends MigrationDelegateImpl {
 	}
 
 	void init() {
+		final GMFGraphPackage graphDefPkg = GMFGraphPackage.eINSTANCE;
 		// narrowing for reference FigureAccessor.typedFigure: (the only place where concrete CustomFigure was used)
-		registerNarrowedAbstractType("RealFigure", GMFGraphPackage.eINSTANCE.getCustomFigure()); //$NON-NLS-1$
+		registerNarrowedAbstractType("RealFigure", graphDefPkg.getCustomFigure()); //$NON-NLS-1$
 		
-		registerDeletedAttributes(GMFGraphPackage.eINSTANCE.getCustomClass(), "bundleName"); //$NON-NLS-1$
+		registerDeletedAttributes(graphDefPkg.getCustomClass(), "bundleName"); //$NON-NLS-1$
 		
-		myFigure_RefElements = createNewReference("referencingElementsFake", GMFGraphPackage.eINSTANCE.getDiagramElement(), false); //$NON-NLS-1$
-		registerTracedFeatureForHierarchy(GMFGraphPackage.eINSTANCE.getFigure(), "referencingElements", myFigure_RefElements); //$NON-NLS-1$
-		registerTracedFeatureForHierarchy(GMFGraphPackage.eINSTANCE.getFigureAccessor(), "referencingElements", myFigure_RefElements); //$NON-NLS-1$
+		myFigure_RefElements = createNewReference("referencingElementsFake", graphDefPkg.getDiagramElement(), false); //$NON-NLS-1$
+		registerTracedFeatureForHierarchy(graphDefPkg.getFigure(), "referencingElements", myFigure_RefElements); //$NON-NLS-1$
+		registerTracedFeatureForHierarchy(graphDefPkg.getFigureAccessor(), "referencingElements", myFigure_RefElements); //$NON-NLS-1$
 		
 		// look, we have replaced FigureDescriptor-typed reference with plain EString attribute to take full control on resolving it later in postLoad:
 		// but cross-resource references are going to be handled separately
 		myDiagramElement_RefFigure = createNewAttribute("figure", EcorePackage.eINSTANCE.getEString(), false); //$NON-NLS-1$
-		registerTracedAttributeForHierarchy(GMFGraphPackage.eINSTANCE.getDiagramElement(), "figure", myDiagramElement_RefFigure); //$NON-NLS-1$
-		
-		registerRemainedReferenceToFigure(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure());
-		registerRemainedReferenceToFigure(GMFGraphPackage.eINSTANCE.getPolylineConnection_SourceDecoration());
-		registerRemainedReferenceToFigure(GMFGraphPackage.eINSTANCE.getPolylineConnection_TargetDecoration());
+		registerTracedAttributeForHierarchy(graphDefPkg.getDiagramElement(), "figure", myDiagramElement_RefFigure); //$NON-NLS-1$
+
+		myRemainedFigureReferences = Arrays.asList(graphDefPkg.getFigureAccessor_TypedFigure(), graphDefPkg.getPolylineConnection_SourceDecoration(), graphDefPkg.getPolylineConnection_TargetDecoration());
 		
 		myId2EObject = null;
 		myProxiesToResolve = null;
@@ -80,36 +80,44 @@ class MigrationDelegate extends MigrationDelegateImpl {
 	}
 
 	private boolean isOneOfRemainedFigureReferences(EStructuralFeature feature) {
-		if (myRemainedFigureReferences == null) {
-			return false;
-		}
 		return myRemainedFigureReferences.contains(feature);
-	}
-
-	private void registerRemainedReferenceToFigure(EReference reference) {
-		if (myRemainedFigureReferences == null) {
-			myRemainedFigureReferences = new ArrayList<EReference>();
-		}
-		myRemainedFigureReferences.add(reference);
 	}
 
 	@Override
 	public boolean setValue(EObject object, EStructuralFeature feature, Object value, int position) {
 		// during load
 		
-		if (object instanceof Figure && "name".equals(feature.getName())) {
+		if (object instanceof Figure && "name".equals(feature.getName())) { //$NON-NLS-1$
 			// this feature used to be ID in old versions, so need to emulate this during processing to
 			// provide manual reference resolving later, in postLoad
 			String name = (String) value;
 			saveEObjectIdLocally(object, name);
 		}
-		if (isOneOfRemainedFigureReferences(feature) && value instanceof RealFigure) {
-			RealFigure figure = (RealFigure) value;
-			if (figure.eIsProxy()) {
-				// this could happen due to generating resource with references using an older style
-				// of hyperlink serialization, where it needs to be in separate element with
-				// "href" attribute (controlled by option XMIResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE)
-				saveReferenceToGetContainmentLater(figure);
+		if (GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure().equals(feature)) {
+			if (value instanceof RealFigure) {
+				RealFigure figure = (RealFigure) value;
+				if (figure.eIsProxy()) {
+					// this could happen due to generating resource with references using an older style
+					// of hyperlink serialization, where it needs to be in separate element with
+					// "href" attribute (controlled by option XMIResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE)
+					saveReferenceToGetContainmentLater(figure);
+					return false; // default processing is essential - it will set eContainer, which would be == "object",
+					// and we'll use this fact later, when deaing with myProxiesToResolve
+				} else if (value instanceof CustomFigure && figure.eContainer() != null) {
+					// not a proxy and has container - copy right away
+					CustomFigure custom = (CustomFigure) value;
+					FigureAccessor accessor = (FigureAccessor) object;
+					EObject container = custom.eContainer();
+					if (!custom.eIsProxy() && container != null) {
+						CustomFigure copy = (CustomFigure) EcoreUtil.copy(custom);
+						accessor.setTypedFigure(copy);
+						fireMigrationApplied(true);
+						return true;
+					} 
+					// opposite case for proxy is going to be processed in preReserve(), here we let the proxy value to be set as always,
+					// as well as ordinary containment value (we can recognize the case by null container yet)
+				}
+				// FALL-THROUGH (for check isOneOfRemainedFigureReferences && value instanceof FigureDescriptor)
 			}
 		}
 		if (myDiagramElement_RefFigure.equals(feature) ) {
@@ -144,19 +152,6 @@ class MigrationDelegate extends MigrationDelegateImpl {
 				object.eSet(feature, figure);
 				return true;
 			}
-		} 
-		if (GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure().equals(feature) && value instanceof CustomFigure) {
-			CustomFigure custom = (CustomFigure) value;
-			FigureAccessor accessor = (FigureAccessor) object;
-			EObject container = custom.eContainer();
-			if (!custom.eIsProxy() && container != null) {
-				CustomFigure copy = (CustomFigure) EcoreUtil.copy(custom);
-				accessor.setTypedFigure(copy);
-				fireMigrationApplied(true);
-				return true;
-			} 
-			// opposite case for proxy is going to be processed in preReserve(), here we let the proxy value to be set as always,
-			// as well as ordinary containment value (we can recognize the case by null container yet)
 		} 
 		if (myFigure_RefElements.equals(feature)) {
 			migrateFigureStructureToDescriptor((EObject) value, object);
