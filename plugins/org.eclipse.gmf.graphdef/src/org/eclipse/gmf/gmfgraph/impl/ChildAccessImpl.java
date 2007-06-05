@@ -6,6 +6,7 @@
  */
 package org.eclipse.gmf.gmfgraph.impl;
 
+import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -108,18 +109,18 @@ public class ChildAccessImpl extends EObjectImpl implements ChildAccess {
 		if (getAccessorGen() == null || getAccessorGen().trim().length() == 0) {
 			final Figure fig = getFigure();
 			if (fig == null) {
-				return String.valueOf((Object) null);
+				return "getFigure" + CodeGenUtil.capName(CodeGenUtil.validJavaIdentifier(String.valueOf((Object) null)));
 			}
 			if (fig.eContainer() instanceof FigureAccessor) {
 				return ((FigureAccessor) fig.eContainer()).getAccessor();
 			}
 			if (fig instanceof FigureRef) { // XXX bad, perhaps, ChildAccess
-				return String.valueOf(((FigureRef) fig).getFigure().getName());
+				return "getFigure" + CodeGenUtil.capName(CodeGenUtil.validJavaIdentifier(String.valueOf(((FigureRef) fig).getFigure().getName())));
 			}
 			assert fig instanceof RealFigure; // no more options here
-			return String.valueOf(((RealFigure) fig).getName());
+			return "getFigure" + CodeGenUtil.capName(CodeGenUtil.validJavaIdentifier(String.valueOf(((RealFigure) fig).getName())));
 		}
-		return getAccessorGen();
+		return CodeGenUtil.validJavaIdentifier(getAccessorGen());
 	}
 
 	/**
