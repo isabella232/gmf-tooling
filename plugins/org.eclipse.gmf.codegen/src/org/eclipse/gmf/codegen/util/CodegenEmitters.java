@@ -25,7 +25,6 @@ import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.gmf.codegen.templates.application.WizardNewFileCreationPageGenerator;
 import org.eclipse.gmf.codegen.templates.commands.CreateShortcutDecorationsCommand;
 import org.eclipse.gmf.codegen.templates.commands.CreateTypeNodeCommandGenerator;
 import org.eclipse.gmf.codegen.templates.commands.ReorientConnectionViewCommandGenerator;
@@ -163,7 +162,6 @@ public class CodegenEmitters {
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class); //$NON-NLS-1$
-		put(tr, "/application/WizardNewFileCreationPage.javajet", WizardNewFileCreationPageGenerator.class); //$NON-NLS-1$
 	}
 
 	/**
@@ -706,6 +704,18 @@ public class CodegenEmitters {
 		return newGIFEmitterAdapter("/editor/wizban.gif"); //$NON-NLS-1$
 	}
 
+    public TextEmitter getExternalizeEmitter() {
+        return newXpandEmitter("xpt::Externalizer::Access"); //$NON-NLS-1$
+    }
+
+    public TextEmitter getMessagesEmitter() {
+        return newXpandEmitter("xpt::Externalizer::Values"); //$NON-NLS-1$
+    }
+
+	public String getURIDiagramDocumentProviderName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::URIDiagramDocumentProvider", input); //$NON-NLS-1$
+	}
+
 	// preferences
 
 	public TextEmitter getPreferenceInitializerEmitter() throws UnexpectedBehaviourException {
@@ -759,41 +769,29 @@ public class CodegenEmitters {
 	// application
 
 	public TextEmitter getApplicationEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::application::Application::Application"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::application::Application"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getActionBarAdvisorEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::application::ActionBarAdvisor::ActionBarAdvisor"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::application::ActionBarAdvisor"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getPerspectiveEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::application::Perspective::Perspective"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::application::Perspective"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getWorkbenchAdvisorEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::application::WorkbenchAdvisor::WorkbenchAdvisor"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::application::WorkbenchAdvisor"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getWorkbenchWindowAdvisorEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::application::WorkbenchWindowAdvisor::WorkbenchWindowAdvisor"); //$NON-NLS-1$
-	}
-
-	public String getURIDiagramDocumentProviderName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::editor::URIDiagramDocumentProvider", input); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::application::WorkbenchWindowAdvisor"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getWizardNewFileCreationPageEmitter() throws UnexpectedBehaviourException {
-		return retrieve(WizardNewFileCreationPageGenerator.class);
+		return getPrimaryEmitter("xpt::application::WizardNewFileCreationPage"); //$NON-NLS-1$
 	}
 
-    public TextEmitter getExternalizeEmitter() {
-        return newXpandEmitter("xpt::Externalizer::Access"); //$NON-NLS-1$
-    }
-
-    public TextEmitter getMessagesEmitter() {
-        return newXpandEmitter("xpt::Externalizer::Values"); //$NON-NLS-1$
-    }
-    
 	// util
 
     /**

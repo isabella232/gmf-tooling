@@ -1061,6 +1061,15 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateBinaryFile(myEmitters.getWizardBannerImageEmitter(), new Path("icons/wizban/New" + stem + "Wizard.gif"), args); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
+    private void generateExternalizationSupport() throws UnexpectedBehaviourException, InterruptedException {
+        String packageName = myEditorGen.getEditor().getPackageName();
+        String messagesClassName = "Messages"; //$NON-NLS-1$
+        doGenerateJavaClass(myEmitters.getExternalizeEmitter(),
+        		packageName, messagesClassName, new Object[] { myEditorGen });
+        doGenerateFile(myEmitters.getMessagesEmitter(),
+        		new Path(messagesClassName.toLowerCase() + ".properties"), new Object[] { myEditorGen }); //$NON-NLS-1$
+    }
+
 	// application
 
 	private void generateApplication() throws UnexpectedBehaviourException, InterruptedException {
@@ -1096,22 +1105,8 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateWizardNewFileCreationPage(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getWizardNewFileCreationPageEmitter(),
-			application.getPackageName(),
-			"WizardNewFileCreationPage", //$NON-NLS-1$
-			application
-		);
+		doGenerateJavaClass(myEmitters.getWizardNewFileCreationPageEmitter(), application.getPackageName(), "WizardNewFileCreationPage", application); //$NON-NLS-1$
 	}
-
-    private void generateExternalizationSupport() throws UnexpectedBehaviourException, InterruptedException {
-        String packageName = myEditorGen.getEditor().getPackageName();
-        String messagesClassName = "Messages"; //$NON-NLS-1$
-        doGenerateJavaClass(myEmitters.getExternalizeEmitter(),
-        		packageName, messagesClassName, new Object[] { myEditorGen });
-        doGenerateFile(myEmitters.getMessagesEmitter(),
-        		new Path(messagesClassName.toLowerCase() + ".properties"), new Object[] { myEditorGen }); //$NON-NLS-1$
-    }
 
 	// util
 
