@@ -47,11 +47,5 @@ public class EmptyBoxViewFactory extends AbstractShapeViewFactory {
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
-		if (!AquatoryEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(containerView))) {
-			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
-			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
-			shortcutAnnotation.getDetails().put("modelID", AquatoryEditPart.MODEL_ID); //$NON-NLS-1$
-			view.getEAnnotations().add(shortcutAnnotation);
-		}
 	}
 }
