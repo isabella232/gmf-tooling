@@ -64,8 +64,12 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 					org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest dropRequest) {
 				java.util.List viewDescriptors = new java.util.ArrayList();
 				for (java.util.Iterator it = dropRequest.getObjects().iterator(); it.hasNext();) {
+					Object nextObject = it.next();
+					if (false == nextObject instanceof org.eclipse.emf.ecore.EObject) {
+						continue;
+					}
 					viewDescriptors.add(new org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor(
-						new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter((org.eclipse.emf.ecore.EObject) it.next()),
+						new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter((org.eclipse.emf.ecore.EObject) nextObject),
 							org.eclipse.gmf.runtime.notation.Node.class, null, getDiagramPreferencesHint()));
 				}
 				return createShortcutsCommand(dropRequest, viewDescriptors);
