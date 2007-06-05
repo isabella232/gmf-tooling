@@ -45,6 +45,7 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 	private Map<EClass, Map<String, EStructuralFeature>> myRenamedAttributes = new HashMap<EClass, Map<String, EStructuralFeature>>();
 	private Map<String, EClassifier> myRenamedTypes = new HashMap<String, EClassifier>();
 	private Map<EClass, Map<String, EStructuralFeature>> myTracedHierarchyFeatures = new HashMap<EClass, Map<String, EStructuralFeature>>();
+	private Map<EClass, Map<String, EStructuralFeature>> myTracedHierarchyAttributes = new HashMap<EClass, Map<String, EStructuralFeature>>();
 	private Resource myResource;
 	
 	public void registerDeletedAttributes(EClassifier classifier, String... deletedAttrNames) {
@@ -60,8 +61,12 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 	 * Traced feature is a feature you use through the hierarchy as a marker, catching it in setValue and notifying of
 	 * whether migration has happened or not
 	 */
-	public void registerTracedFeatureForHierarchy(EClass eClass, Map<String, EStructuralFeature> tracedFeature) {
+	public void registerTracedElementForHierarchy(EClass eClass, Map<String, EStructuralFeature> tracedFeature) {
 		myTracedHierarchyFeatures.put(eClass, tracedFeature);
+	}
+	
+	public void registerTracedAttributeForHierarchy(EClass eClass, Map<String, EStructuralFeature> tracedFeature) {
+		myTracedHierarchyAttributes.put(eClass, tracedFeature);
 	}
 	
 	public void registerNarrowedAbstractType(String abstractTypeName, EClass narrowedType) {
@@ -86,12 +91,26 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 	 * whether migration has happened or not
 	 */
 	public void registerTracedFeatureForHierarchy(EClass eClass, String xmlName, EStructuralFeature tracerFeature) {
+		registerTracedElementForHierarchy(eClass, xmlName, tracerFeature);
+		registerTracedAttributeForHierarchy(eClass, xmlName, tracerFeature);
+	}
+	
+	public void registerTracedAttributeForHierarchy(EClass eClass, String xmlName, EStructuralFeature tracerFeature) {
+		Map<String, EStructuralFeature> tracedFeatures = myTracedHierarchyAttributes.get(eClass);
+		if (tracedFeatures == null) {
+			tracedFeatures = new HashMap<String, EStructuralFeature>();
+		}
+		tracedFeatures.put(xmlName, tracerFeature);
+		registerTracedAttributeForHierarchy(eClass, tracedFeatures);
+	}
+	
+	public void registerTracedElementForHierarchy(EClass eClass, String xmlName, EStructuralFeature tracerFeature) {
 		Map<String, EStructuralFeature> tracedFeatures = myTracedHierarchyFeatures.get(eClass);
 		if (tracedFeatures == null) {
 			tracedFeatures = new HashMap<String, EStructuralFeature>();
 		}
 		tracedFeatures.put(xmlName, tracerFeature);
-		registerTracedFeatureForHierarchy(eClass, tracedFeatures);
+		registerTracedElementForHierarchy(eClass, tracedFeatures);
 	}
 	
 	public boolean isAttributeDeleted(EClass clazz, String name) {
@@ -123,6 +142,16 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 		return result;
 	}
 	
+	public EStructuralFeature getTracedParentAttributeFor(EClass clazz, String name) {
+	    Map<String, EStructuralFeature> tracings = myTracedHierarchyAttributes.get(clazz);
+	    EStructuralFeature result = tracings != null ? tracings.get(name) : null;
+		for (Iterator<EClass> it=clazz.getEAllSuperTypes().iterator(); result == null && it.hasNext();) {
+			EClass nextParent = it.next();
+			result = getTracedParentAttributeFor(nextParent, name);
+		}
+		return result;
+	}
+	
 	public EClassifier getRenamedType(String typeName) {
 		return myRenamedTypes.get(typeName);
 	}
@@ -140,7 +169,11 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 		} else if (isAttributeDeleted(eClass, name)) {
 			result = myDeletedAttribute;
 			fireMigrationApplied(true);
-		} else if ((rename = getTracedParentFeatureFor(eClass, name)) != null) {
+		} else if (isElement && (rename = getTracedParentFeatureFor(eClass, name)) != null) {
+			result = rename;
+			// if somebody has provided a feature to trace, it is his own business to notify us of whether 
+			// a migration is required and has happened, cause it is not necessary that anything has been actually changed.
+		} else if (!isElement && (rename = getTracedParentAttributeFor(eClass, name)) != null) {
 			result = rename;
 			// if somebody has provided a feature to trace, it is his own business to notify us of whether 
 			// a migration is required and has happened, cause it is not necessary that anything has been actually changed.
