@@ -14,7 +14,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «EXTENSION xpt::diagram::ViewmapAttributesUtils»
 
-«DEFINE LabelViewFactory FOR gmfgen::GenLabel-»
+«DEFINE FloatingLabelViewFactory FOR gmfgen::GenLabel-»
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
 package «getDiagram().notationViewFactoriesPackageName»;
 

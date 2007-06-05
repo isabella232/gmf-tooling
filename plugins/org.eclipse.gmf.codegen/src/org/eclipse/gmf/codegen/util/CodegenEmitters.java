@@ -406,8 +406,8 @@ public class CodegenEmitters {
 		return getPrimaryEmitter("xpt::diagram::views::LinkViewFactory"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getLabelViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::views::LabelViewFactory"); //$NON-NLS-1$
+	public TextEmitter getFloatingLabelViewFactoryEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::diagram::views::FloatingLabelViewFactory"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getLabelTextViewFactoryEmitter() throws UnexpectedBehaviourException {
