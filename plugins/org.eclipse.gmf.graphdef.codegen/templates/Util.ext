@@ -94,6 +94,8 @@ String borderLayoutConstant(gmfgraph::BorderLayoutData layoutData) :
 	}
 ;
 
+cached List[gmfgraph::CustomBorder] getBordersInUse() : {} ;
+
 EString messageFormat(EString pattern, List[Object] argument) :
 	JAVA java.text.MessageFormat.format(java.lang.String, java.lang.Object.List)
 ;

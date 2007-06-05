@@ -26,12 +26,14 @@
 	 * @generated
 	 */
 	public «cuName»() {
+«getBordersInUse().clear()->""-»
 		«EXPAND Layout::Init("this") FOR layout-»
 		«EXPAND Attrs::Init("this")-»
 «IF !children.typeSelect(Figure).isEmpty()-»
 		createContents();
 	}
 «EXPAND Children::CreateChildren-»
+«EXPAND Border::InitMethods»
 «ELSE-»
 	}
 «ENDIF-»
