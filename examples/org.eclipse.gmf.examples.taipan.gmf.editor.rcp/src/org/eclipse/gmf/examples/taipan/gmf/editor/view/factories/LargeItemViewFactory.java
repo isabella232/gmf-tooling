@@ -58,14 +58,11 @@ public class LargeItemViewFactory extends AbstractShapeViewFactory {
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
-		if (!AquatoryEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(containerView))) {
-			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
-			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
-			shortcutAnnotation.getDetails().put("modelID", AquatoryEditPart.MODEL_ID); //$NON-NLS-1$
-			view.getEAnnotations().add(shortcutAnnotation);
-		}
+		IAdaptable eObjectAdapter = null;
 		EObject eObject = (EObject) semanticAdapter.getAdapter(EObject.class);
-		IAdaptable eObjectAdapter = eObject != null ? new EObjectAdapter(eObject) : null;
+		if (eObject != null) {
+			eObjectAdapter = new EObjectAdapter(eObject);
+		}
 		getViewService().createNode(eObjectAdapter, view, TaiPanVisualIDRegistry.getType(LargeItemArticleEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(eObjectAdapter, view, TaiPanVisualIDRegistry.getType(LargeItemWeightEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}

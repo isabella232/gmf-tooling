@@ -46,6 +46,11 @@ public class PortViewFactory extends AbstractShapeViewFactory {
 	protected List createStyles(View view) {
 		List styles = new ArrayList();
 		styles.add(NotationFactory.eINSTANCE.createShapeStyle());
+		{
+			HintedDiagramLinkStyle diagramFacet = NotationFactory.eINSTANCE.createHintedDiagramLinkStyle();
+			diagramFacet.setHint("Port"); // $NON-NLS-1$
+			styles.add(diagramFacet);
+		}
 		return styles;
 	}
 
@@ -64,11 +69,11 @@ public class PortViewFactory extends AbstractShapeViewFactory {
 			shortcutAnnotation.getDetails().put("modelID", AquatoryEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
-		HintedDiagramLinkStyle diagramFacet = NotationFactory.eINSTANCE.createHintedDiagramLinkStyle();
-		diagramFacet.setHint("Port"); // $NON-NLS-1$
-		view.getStyles().add(diagramFacet);
+		IAdaptable eObjectAdapter = null;
 		EObject eObject = (EObject) semanticAdapter.getAdapter(EObject.class);
-		IAdaptable eObjectAdapter = eObject != null ? new EObjectAdapter(eObject) : null;
+		if (eObject != null) {
+			eObjectAdapter = new EObjectAdapter(eObject);
+		}
 		getViewService().createNode(eObjectAdapter, view, TaiPanVisualIDRegistry.getType(PortLocationEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }
