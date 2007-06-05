@@ -713,7 +713,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateNodeLabelViewFactory(GenNodeLabel label) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getLabelTextViewFactoryEmitter(), label.getNotationViewFactoryQualifiedClassName(), label);
+		doGenerateJavaClass(myEmitters.getLabelViewFactoryEmitter(), label.getNotationViewFactoryQualifiedClassName(), label);
 	}
 
 	private void generateExternalNodeLabelViewFactory(GenExternalNodeLabel label) throws UnexpectedBehaviourException, InterruptedException {

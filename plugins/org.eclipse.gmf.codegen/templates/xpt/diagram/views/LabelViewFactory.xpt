@@ -13,7 +13,7 @@
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 «EXTENSION xpt::diagram::ViewmapAttributesUtils»
 
-«DEFINE LabelTextViewFactory FOR gmfgen::GenNodeLabel-»
+«DEFINE LabelViewFactory FOR gmfgen::GenNodeLabel-»
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
 package «getDiagram().notationViewFactoriesPackageName»;
 
