@@ -47,7 +47,10 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 }
 «ENDDEFINE»
 
-«DEFINE addShortcut FOR gmfgen::GenCommonBase-»
+«DEFINE addShortcut FOR gmfgen::GenNode-»
+«ENDDEFINE»
+
+«DEFINE addShortcut FOR gmfgen::GenTopLevelNode-»
 	if (!«getDiagram().getEditPartQualifiedClassName()».MODEL_ID.equals(
 			«getDiagram().getVisualIDRegistryQualifiedClassName()».getModelID(containerView))) {
 		org.eclipse.emf.ecore.EAnnotation shortcutAnnotation =
