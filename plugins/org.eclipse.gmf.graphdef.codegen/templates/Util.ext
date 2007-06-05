@@ -78,12 +78,7 @@ private String figureFieldName(List[ChildAccess] aaa) :
 ;
 
 String figureFieldName(gmfgraph::ChildAccess childAccess) :
-	"f" + childAccess.accessor
-;
-
-// assert needsField() == true
-String figureFieldGetter(gmfgraph::ChildAccess childAccess) :
-	"getFigure" + childAccess.accessor
+	"f" + (childAccess.accessor.startsWith("get") && childAccess.accessor.length() > 3 ? childAccess.accessor.subString(3) : childAccess.accessor)
 ;
 
 String borderLayoutConstant(gmfgraph::BorderLayoutData layoutData) :

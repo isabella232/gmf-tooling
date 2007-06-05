@@ -46,11 +46,12 @@ public class «compilationUnitName()» extends «EXPAND Runtime::fqn FOR actualFigu
 	private «EXPAND Runtime::fqn FOR figure» «figureFieldName()»; 
 «ENDDEFINE»
 
+«REM»XXX what happens when childAccess points to figure from FigureAccessor - we don't need field in that case«ENDREM»
 «DEFINE accessorMethod FOR gmfgraph::ChildAccess-»
 	/**
 	 * @generated
 	 */
-	public «EXPAND Runtime::fqn FOR figure» «figureFieldGetter()»() {
+	public «EXPAND Runtime::fqn FOR figure» «accessor»() {
 		return «figureFieldName()»;
 	}
 «ENDDEFINE»
