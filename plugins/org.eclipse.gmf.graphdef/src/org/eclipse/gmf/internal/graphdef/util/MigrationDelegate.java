@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -46,6 +47,7 @@ class MigrationDelegate extends MigrationDelegateImpl {
 	private Map<String, EObject> myId2EObject;
 	private Collection<EObject> myProxiesToResolve;
 	private Map<DiagramElement, String> myDiagramElementReferencedFigure;
+	private Map<DiagramElement, EObject> myDiagramElementReferencedProxyFigure;
 	
 	private Collection<EReference> myRemainedFigureReferences;
 	private Map<FigureAccessor, ChildAccess> myAccessNeedsToBeSpecifiedLater;
@@ -64,8 +66,9 @@ class MigrationDelegate extends MigrationDelegateImpl {
 		registerTracedFeatureForHierarchy(GMFGraphPackage.eINSTANCE.getFigureAccessor(), "referencingElements", myFigure_RefElements); //$NON-NLS-1$
 		
 		// look, we have replaced FigureDescriptor-typed reference with plain EString attribute to take full control on resolving it later in postLoad:
+		// but cross-resource references are going to be handled separately
 		myDiagramElement_RefFigure = createNewAttribute("figure", EcorePackage.eINSTANCE.getEString(), false); //$NON-NLS-1$
-		registerTracedFeatureForHierarchy(GMFGraphPackage.eINSTANCE.getDiagramElement(), "figure", myDiagramElement_RefFigure); //$NON-NLS-1$
+		registerTracedAttributeForHierarchy(GMFGraphPackage.eINSTANCE.getDiagramElement(), "figure", myDiagramElement_RefFigure); //$NON-NLS-1$
 		
 		registerRemainedReferenceToFigure(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure());
 		registerRemainedReferenceToFigure(GMFGraphPackage.eINSTANCE.getPolylineConnection_SourceDecoration());
@@ -109,12 +112,21 @@ class MigrationDelegate extends MigrationDelegateImpl {
 				saveReferenceToGetContainmentLater(figure);
 			}
 		}
-		if (myDiagramElement_RefFigure.equals(feature)) {
+		if (myDiagramElement_RefFigure.equals(feature) ) {
 			// we are going to resolve figure references in postprocessing, ourselves, see postLoad()
 			DiagramElement diagramElement = (DiagramElement) object;
 			String figureRef = (String) value;
 			saveDiagramElementReferencedFigure(diagramElement, figureRef);
 			return true;
+		}
+		if (GMFGraphPackage.eINSTANCE.getDiagramElement_Figure().equals(feature) ) {
+			// we are going to resolve figure references in postprocessing, ourselves, see postLoad()
+			DiagramElement diagramElement = (DiagramElement) object;
+			EObject figureRef = (EObject) value;
+			if (figureRef.eIsProxy()) {
+				saveDiagramElementReferencedProxy(diagramElement, figureRef);
+				return true;
+			}
 		}
 		
 		// after end of document (between preResolve and postLoad calls), handling forward references:
@@ -146,14 +158,27 @@ class MigrationDelegate extends MigrationDelegateImpl {
 			// opposite case for proxy is going to be processed in preReserve(), here we let the proxy value to be set as always,
 			// as well as ordinary containment value (we can recognize the case by null container yet)
 		} 
-		if (myFigure_RefElements.equals(feature) && object instanceof Figure) {
-			DiagramElement node = (DiagramElement) resolveValue((EObject) value, object);
+		if (myFigure_RefElements.equals(feature)) {
+			migrateFigureStructureToDescriptor((EObject) value, object);
+		} else {
+			// other cases are would be processed as defaults
+			return super.setValue(object, feature, value, position);
+		}
+		return true;
+	}
+
+	private void migrateFigureStructureToDescriptor(EObject value, EObject object) {
+		if (value.eIsProxy()) {
+			// this will LOAD all referenced resources, and migrate them if necessary
+			value = EcoreUtil.resolve(value, object);
+		}
+		DiagramElement node = (DiagramElement) value;
+		if (object instanceof Figure) {
 			Figure figure = (Figure) object; // can be FigureRef as well
 			RealFigure topLevel = findTopLevelFigure(figure);
 			setFigureToDiagramElement(node, figure, topLevel);
 			fireMigrationApplied(true);
-		} else if (myFigure_RefElements.equals(feature) && object instanceof FigureAccessor) {
-			DiagramElement node = (DiagramElement) resolveValue((EObject) value, object);
+		} else if (object instanceof FigureAccessor) {
 			FigureAccessor accessor = (FigureAccessor) object;
 			Figure figure = accessor.getTypedFigure();
 			RealFigure topLevel = findTopLevelFigure((Figure) accessor.eContainer());
@@ -163,11 +188,7 @@ class MigrationDelegate extends MigrationDelegateImpl {
 				saveAccessNeedsToBeSpecifiedLater(accessor, access);
 			}
 			fireMigrationApplied(true);
-		} else {
-			// other cases are would be processed as defaults
-			return super.setValue(object, feature, value, position);
 		}
-		return true;
 	}
 
 	private void saveAccessNeedsToBeSpecifiedLater(FigureAccessor accessor, ChildAccess access) {
@@ -175,14 +196,6 @@ class MigrationDelegate extends MigrationDelegateImpl {
 			myAccessNeedsToBeSpecifiedLater = new HashMap<FigureAccessor, ChildAccess>();
 		}
 		myAccessNeedsToBeSpecifiedLater.put(accessor, access);
-	}
-
-	private EObject resolveValue(EObject value, EObject object) {
-		EObject result = value;
-		if (result.eIsProxy()) {
-			result = EcoreUtil.resolve(result, object);
-		}
-		return result;
 	}
 
 	private ChildAccess setFigureToDiagramElement(DiagramElement node, Figure figure, RealFigure topLevel) {
@@ -206,6 +219,15 @@ class MigrationDelegate extends MigrationDelegateImpl {
 		}
 		if (figureRef != null && figureRef.length() != 0) {
 			myDiagramElementReferencedFigure.put(diagramElement, figureRef);
+		}
+	}
+
+	private void saveDiagramElementReferencedProxy(DiagramElement diagramElement, EObject figureRef) {
+		if (myDiagramElementReferencedProxyFigure == null) {
+			myDiagramElementReferencedProxyFigure = new HashMap<DiagramElement, EObject>();
+		}
+		if (figureRef != null && figureRef.eIsProxy()) {
+			myDiagramElementReferencedProxyFigure.put(diagramElement, figureRef);
 		}
 	}
 
@@ -281,62 +303,78 @@ class MigrationDelegate extends MigrationDelegateImpl {
 					// that existed in the same file
 					continue;
 				}
-				// try to resolve this reference manually
-				String figureRef = myDiagramElementReferencedFigure.get(diagramElement);
 				// in the other case this reference either do not have a forward one (i.e. it
 				// is a new file, and the reference points to an existing descriptor),
-				// either it points to another old file, that should migrate and restructure
-				// itself at the moment it meets forward reference to our diagram element.
+				// either we have a reference to a figure that had no forward reference
+				// to ourselves, that was possible prior to GMF 1.0 RC2_10.
+				String figureRef = myDiagramElementReferencedFigure.get(diagramElement);
 				EObject referencedEObject = resource.getEObject(figureRef);
-				if (referencedEObject != null && referencedEObject.eIsProxy()) {
-					// this should LOAD all referenced resources, and migrate them if necessary
-					referencedEObject = EcoreUtil.resolve(referencedEObject, diagramElement);
-					Resource referencedResource = referencedEObject.eResource();
-					if (referencedResource != null && !referencedResource.equals(resource)) {
-						// our tests check for migration warning and error absence only on the created resource, 
-						// so temporarily collect them here:
-						resource.getWarnings().addAll(referencedResource.getWarnings());
-						resource.getErrors().addAll(referencedResource.getErrors());
-					}
-					if (diagramElement.getFigure() != null) {
+				setFigureDescriptorForDiagramElement(referencedEObject, diagramElement);
+			}
+			myDiagramElementReferencedFigure.clear();
+		}
+		if (myDiagramElementReferencedProxyFigure != null) {
+			for (DiagramElement diagramElement : myDiagramElementReferencedProxyFigure.keySet()) {
+				if (diagramElement.getFigure() != null && !diagramElement.getFigure().eIsProxy()) {
+					// this is the case of resolving this reference while processing forwardReference,
+					// that existed in the same file
+					continue;
+				}
+				// It is the case either of cross-resource reference (and that other resource
+				// can be either old or new one), either it is a kind of reference, produced
+				// using an older style of hyperlink serialization, where it needs to be in separate element with
+				// "href" attribute (controlled by option XMIResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE)
+				EObject proxyFigure = myDiagramElementReferencedProxyFigure.get(diagramElement);
+				URI proxyURI = EcoreUtil.getURI(proxyFigure);
+				// this should LOAD all referenced resources, and migrate them if necessary
+				Resource referencedResource = resource.getResourceSet().getResource(proxyURI.trimFragment(), false);
+				if (referencedResource == null) {
+					referencedResource = resource.getResourceSet().createResource(proxyURI.trimFragment());
+				}
+				// do not load the referenced resource, cause it may happen that it is loading us now
+				if (!((ResourceImpl)referencedResource).isLoading()) {
+					EObject referencedEObject = resource.getResourceSet().getEObject(proxyURI, true);
+					if (diagramElement.getFigure() != null && !diagramElement.getFigure().eIsProxy()) {
 						// referenced file is migrated, we got value during 'referencedElements' processing
 						fireMigrationApplied(true);
 						continue;
 					}
-				}
-				if (referencedEObject instanceof FigureDescriptor) {
-					// this is newest properly structured metamodel reference
-					diagramElement.setFigure((FigureDescriptor) referencedEObject);
-				} else if (referencedEObject instanceof Figure) {
-					// this could be the case of nested figure, that came for its name
-					Figure figure = (Figure) referencedEObject;
-					if (figure.getDescriptor() == null) {
-						// Otherwise we have a reference to a figure that had no forward reference
-						// to ourselves!! That was possible prior to GMF 1.0 RC2_10.
-						// Should we initialize wrapping it with descriptor in such case?
-						// Fortunately, FigureAccessor (with no ID attribute!) is introduced afterwards,
-						// since GMF 1.0 I20060526_1200 build (prior to RC1_0, though).
-						setValue(figure, myFigure_RefElements, diagramElement, 0);
-						fireMigrationApplied(true);
-					}
-					FigureDescriptor descriptor = figure.getDescriptor();
-					if (descriptor != null) {
-						diagramElement.setFigure(descriptor);
-					} else {
-						// this message is going to be shown to the user, so there should be i18n
-						throw new IllegalArgumentException(MessageFormat.format("Reference to the figure {0} could not be resolved to its descriptor for diagram element {1}", figure, diagramElement));
-					}
-				} else {
-					// this message is going to be shown to the user, so there should be i18n
-					throw new IllegalArgumentException(MessageFormat.format("Figure reference to {0} could not be resolved for {1}", referencedEObject, diagramElement));
+					setFigureDescriptorForDiagramElement(referencedEObject, diagramElement);
 				}
 			}
-			myDiagramElementReferencedFigure.clear();
+			myDiagramElementReferencedProxyFigure.clear();
 		}
-		Map<String, EObject> idMappings = ((ResourceImpl)resource).getIntrinsicIDToEObjectMap();
-		if (idMappings != null && myId2EObject != null) {
-			idMappings.keySet().removeAll(myId2EObject.keySet());
+		if (myId2EObject != null) {
 			myId2EObject.clear();
+		}
+	}
+
+	private void setFigureDescriptorForDiagramElement(EObject referencedEObject, DiagramElement diagramElement) {
+		if (referencedEObject instanceof FigureDescriptor) {
+			// this is newest properly structured metamodel reference
+			diagramElement.setFigure((FigureDescriptor) referencedEObject);
+		} else if (referencedEObject instanceof Figure) {
+			// this could be the case of nested figure, that came for its name
+			Figure figure = (Figure) referencedEObject;
+			if (figure.getDescriptor() == null) {
+				// Otherwise we have a reference to a figure that had no forward reference
+				// to ourselves!! That was possible prior to GMF 1.0 RC2_10.
+				// Should we initialize wrapping it with descriptor in such case?
+				// Fortunately, FigureAccessor (with no ID attribute!) is introduced afterwards,
+				// since GMF 1.0 I20060526_1200 build (prior to RC1_0, though).
+				setValue(figure, myFigure_RefElements, diagramElement, 0);
+				fireMigrationApplied(true);
+			}
+			FigureDescriptor descriptor = figure.getDescriptor();
+			if (descriptor != null) {
+				diagramElement.setFigure(descriptor);
+			} else {
+				// this message is going to be shown to the user, so there should be i18n
+				throw new IllegalArgumentException(MessageFormat.format("Reference to the figure {0} could not be resolved to its descriptor for diagram element {1}", figure, diagramElement));
+			}
+		} else {
+			// this message is going to be shown to the user, so there should be i18n
+			throw new IllegalArgumentException(MessageFormat.format("Figure reference to {0} could not be resolved for {1}", referencedEObject, diagramElement));
 		}
 	}
 
