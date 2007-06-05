@@ -158,16 +158,11 @@ public class RuntimeWorkspaceSetup {
 			"org.eclipse.gmf.runtime.notation.edit", //$NON-NLS-1$
 			"org.eclipse.ocl.ecore", //$NON-NLS-1$
 			"org.eclipse.ocl", //$NON-NLS-1$
-			"org.eclipse.emf.query", //$NON-NLS-1$	
-			"org.eclipse.emf.query.ocl", //$NON-NLS-1$
 			"org.eclipse.emf.transaction", //$NON-NLS-1$
 			"org.eclipse.emf.validation", //$NON-NLS-1$
 			"org.eclipse.emf.workspace", //$NON-NLS-1$
-			"org.eclipse.gmf.runtime.draw2d.ui", //$NON-NLS-1$
 			"org.eclipse.emf.edit", //$NON-NLS-1$
-			"org.eclipse.emf.transaction", //$NON-NLS-1$
-			"org.eclipse.emf.workspace", //$NON-NLS-1$
-			"org.eclipse.emf.validation", //$NON-NLS-1$
+			"org.eclipse.gmf.runtime.draw2d.ui", //$NON-NLS-1$
 			"org.eclipse.gmf.runtime.lite"); //$NON-NLS-1$
 		return this;
 	}
