@@ -392,7 +392,7 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 		if (image != null) {
 			radio.setImage(image);
 		}
-		radio.setData(KIND_KEY, Integer.valueOf(kind));
+		radio.setData(KIND_KEY, new Integer(kind));
 		FormData data = createFormData(leftControl, topControl, rightControl, null, defaultIsLeft, defaultIsTop, lowermost, rightmost);
 		if (leftControl == null && SWT.DEFAULT != leftAlignment) {
 			data.left = new FormAttachment(leftAlignment);
@@ -417,7 +417,7 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 
 	protected Button createCheckbox(Composite parent, String label, Control topControl, Control leftControl, int kind, boolean defaultIsTop, boolean defaultIsLeft, boolean lowermost, int leftAlignment) {
 		Button checkbox = getWidgetFactory().createButton(parent, label, SWT.CHECK);
-		checkbox.setData(KIND_KEY, Integer.valueOf(kind));
+		checkbox.setData(KIND_KEY, new Integer(kind));
 		FormData data = createFormData(leftControl, topControl, null, null, defaultIsLeft, defaultIsTop, lowermost, false);
 		if (leftAlignment != SWT.DEFAULT) {
 			data.left = new FormAttachment(leftAlignment);
@@ -442,7 +442,7 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 		spinner.setPageIncrement(pageInc);
 		spinner.setBackground(parent.getBackground());
 		spinner.setForeground(parent.getForeground());
-		spinner.setData(KIND_KEY, Integer.valueOf(kind));
+		spinner.setData(KIND_KEY, new Integer(kind));
 		Control leftWidget = leftControl;
 		if (label != null && label.length() != 0) {
 			leftWidget = createLabelWidget(parent, label, leftControl, topControl);
@@ -458,7 +458,7 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 	
 	protected Text createText(Composite parent, String label, Control leftControl, Control topControl, String initialText, int kind, boolean defaultIsTop, boolean defaultIsLeft, boolean lowermost, boolean rightmost) {
 		Text text = getWidgetFactory().createText(parent, initialText, SWT.BORDER);
-		text.setData(KIND_KEY, Integer.valueOf(kind));
+		text.setData(KIND_KEY, new Integer(kind));
 		Control leftWidget = leftControl;
 		if (label != null && label.length() != 0) {
 			leftWidget = createLabelWidget(parent, label, leftControl, topControl);
