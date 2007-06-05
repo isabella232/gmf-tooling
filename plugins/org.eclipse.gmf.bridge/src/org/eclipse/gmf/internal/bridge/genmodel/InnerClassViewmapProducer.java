@@ -30,18 +30,16 @@ import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Figure;
-import org.eclipse.gmf.gmfgraph.FigureAccessor;
 import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
-import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.gmfgraph.util.RuntimeLiteFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
-import org.eclipse.gmf.graphdef.codegen.NamingStrategy;
 
 /**
  * @author artem
@@ -129,24 +127,12 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 
 	private Viewmap createViewmap(FigureDescriptor owner, ChildAccess labelAccess) {
 		ParentAssignedViewmap v = GMFGenFactory.eINSTANCE.createParentAssignedViewmap();
-		// XXX yet another assumption - getter name
-		// FIXME introduce feedback to FigureGenerator to let us know exact names
-		v.setGetterName(NamingStrategy.getChildFigureGetterName(labelAccess));
+		v.setGetterName(labelAccess.getAccessor());
 		v.setFigureQualifiedClassName(figureGenerator.fqnSwitch(labelAccess.getFigure()));
 		setupStyleAttributes(v, labelAccess.getFigure());
 		return v;
 	}
 
-	// XXX needs review
-	private Viewmap createFigureAccessorViewmap(FigureAccessor figureAccess) {
-		ParentAssignedViewmap v = GMFGenFactory.eINSTANCE.createParentAssignedViewmap();
-		v.setGetterName(figureAccess.getAccessor());
-		if (figureAccess.getTypedFigure() != null) {
-			v.setFigureQualifiedClassName(figureGenerator.fqnSwitch(figureAccess.getTypedFigure()));
-		}
-		return v;
-	}
-	
 	private void setupPluginDependencies(Viewmap viewmap, Figure figure){
 		FigureGallery gallery = findAncestorFigureGallery(figure);
 		if (gallery != null){
