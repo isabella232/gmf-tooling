@@ -39,20 +39,11 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 			org.eclipse.core.runtime.IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		«EXPAND xpt::diagram::views::Utils::updateSemanticHint-»
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
-		«EXPAND xpt::diagram::views::Utils::addShortcut-»
 		«EXPAND xpt::diagram::views::Utils::foregroundColour("view") FOR viewmap-»
 		«IF labels.size() > 0-»
-			«IF modelFacet != null-»
-		org.eclipse.emf.ecore.EObject eObject = (org.eclipse.emf.ecore.EObject) semanticAdapter.getAdapter(org.eclipse.emf.ecore.EObject.class);
-		org.eclipse.core.runtime.IAdaptable eObjectAdapter = eObject != null ? new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(eObject) : null;
-			«ELSE-»
 		org.eclipse.core.runtime.IAdaptable eObjectAdapter = null;
-			«ENDIF-»
-			«FOREACH labels AS label-»
-		getViewService().createNode(eObjectAdapter, view,
-				«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«label.getEditPartQualifiedClassName()».VISUAL_ID),
-				org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.APPEND, true, getPreferencesHint());
-			«ENDFOREACH-»
+			«EXPAND xpt::diagram::views::Utils::domainElementAdapter("eObjectAdapter") FOR modelFacet-»
+			«EXPAND xpt::diagram::views::Utils::createChildNode FOREACH labels-»
 		«ENDIF-»
 	}
 }

@@ -24,13 +24,20 @@
 	}
 «ENDDEFINE»
 
-«DEFINE addShortcut FOR gmfgen::GenCommonBase-»
-	if (!«getDiagram().getEditPartQualifiedClassName()».MODEL_ID.equals(
-			«getDiagram().getVisualIDRegistryQualifiedClassName()».getModelID(containerView))) {
-		org.eclipse.emf.ecore.EAnnotation shortcutAnnotation = org.eclipse.emf.ecore.EcoreFactory.eINSTANCE.createEAnnotation();
-		shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
-		shortcutAnnotation.getDetails().put("modelID", «getDiagram().getEditPartQualifiedClassName()».MODEL_ID); //$NON-NLS-1$
-		view.getEAnnotations().add(shortcutAnnotation);
+«DEFINE createChildNode FOR gmfgen::GenCommonBase-»
+	getViewService().createNode(eObjectAdapter, view,
+			«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«getEditPartQualifiedClassName()».VISUAL_ID),
+			org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.APPEND, true, getPreferencesHint());
+«ENDDEFINE»
+
+«DEFINE domainElementAdapter(String adapterVar) FOR gmfgen::ModelFacet-»
+«ENDDEFINE»
+
+«DEFINE domainElementAdapter(String adapterVar) FOR gmfgen::TypeModelFacet-»
+	org.eclipse.emf.ecore.EObject eObject =
+			(org.eclipse.emf.ecore.EObject) semanticAdapter.getAdapter(org.eclipse.emf.ecore.EObject.class);
+	if (eObject != null) {
+		«adapterVar» = new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(eObject);
 	}
 «ENDDEFINE»
 

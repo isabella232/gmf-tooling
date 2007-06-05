@@ -33,7 +33,6 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 			org.eclipse.core.runtime.IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		«EXPAND xpt::diagram::views::Utils::updateSemanticHint-»
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
-		«EXPAND xpt::diagram::views::Utils::addShortcut-»
 		«EXPAND xpt::diagram::views::Utils::foregroundColour("view") FOR viewmap-»
 		«EXPAND xpt::diagram::views::Utils::backgroundColour("view") FOR viewmap-»
 	}
