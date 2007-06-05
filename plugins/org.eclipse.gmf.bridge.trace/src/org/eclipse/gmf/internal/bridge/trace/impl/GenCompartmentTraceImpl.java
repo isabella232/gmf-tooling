@@ -7,8 +7,6 @@
 package org.eclipse.gmf.internal.bridge.trace.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ocl.query.Query;
-import org.eclipse.emf.ocl.query.QueryFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.internal.bridge.trace.GenCompartmentTrace;
@@ -51,9 +49,9 @@ public class GenCompartmentTraceImpl extends MatchingTraceImpl implements GenCom
 	public void setContext(GenCompartment genCompartment) {
 		setQueryText("true");
 	}
-
-	public Query createQuery() {
-		return QueryFactory.eINSTANCE.createQuery(getQueryText(), GMFGenPackage.eINSTANCE.getGenCompartment());
+	
+	public EClass getQueryContext() {
+		return GMFGenPackage.eINSTANCE.getGenCompartment();
 	}
 	
 } //GenCompartmentTraceImpl

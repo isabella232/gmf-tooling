@@ -8,7 +8,6 @@ package org.eclipse.gmf.internal.bridge.trace.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;

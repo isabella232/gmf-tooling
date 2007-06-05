@@ -30,6 +30,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.internal.bridge.StatefulVisualIdentifierDispencer;
+import org.eclipse.ocl.ParserException;
 
 public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispencer {
 	
@@ -246,10 +247,14 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 			if (trace.isProcessed()) {
 				continue;
 			}
-			Object result = trace.getQuery().evaluate(context);
-			if (result instanceof Boolean && ((Boolean) result).booleanValue()) {
-				trace.setProcessed(true);
-				return trace.getVisualID();
+			try {
+				Object result = trace.getQuery().evaluate(context);
+				if (result instanceof Boolean && ((Boolean) result).booleanValue()) {
+					trace.setProcessed(true);
+					return trace.getVisualID();
+				}
+			} catch (ParserException e) {
+				GmfTracePlugin.getInstance().logError("Error while parcing expression body from trace", e);
 			}
 		}
 		return -1;

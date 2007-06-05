@@ -1,7 +1,5 @@
 package org.eclipse.gmf.internal.bridge.trace;
 
-import java.io.IOException;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
@@ -25,7 +23,7 @@ public class GmfTracePlugin extends Plugin {
 		return myInstance;
 	}
 
-	public void logError(String message, IOException exception) {
+	public void logError(String message, Throwable exception) {
 		getLog().log(new Status(IStatus.ERROR, getBundle().getSymbolicName(), 0, message, exception));
 	}
 

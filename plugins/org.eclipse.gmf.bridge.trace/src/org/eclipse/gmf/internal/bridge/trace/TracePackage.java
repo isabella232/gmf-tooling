@@ -189,22 +189,13 @@ public interface TracePackage extends EPackage {
 	int MATCHING_TRACE__QUERY_TEXT = ABSTRACT_TRACE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Query</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MATCHING_TRACE__QUERY = ABSTRACT_TRACE_FEATURE_COUNT + 1;
-
-	/**
 	 * The number of structural features of the '<em>Matching Trace</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MATCHING_TRACE_FEATURE_COUNT = ABSTRACT_TRACE_FEATURE_COUNT + 2;
+	int MATCHING_TRACE_FEATURE_COUNT = ABSTRACT_TRACE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.internal.bridge.trace.impl.GenNodeTraceImpl <em>Gen Node Trace</em>}' class.
@@ -242,15 +233,6 @@ public interface TracePackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_NODE_TRACE__QUERY_TEXT = MATCHING_TRACE__QUERY_TEXT;
-
-	/**
-	 * The feature id for the '<em><b>Query</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NODE_TRACE__QUERY = MATCHING_TRACE__QUERY;
 
 	/**
 	 * The feature id for the '<em><b>Node Label Traces</b></em>' containment reference list.
@@ -317,15 +299,6 @@ public interface TracePackage extends EPackage {
 	int GEN_CHILD_NODE_TRACE__QUERY_TEXT = GEN_NODE_TRACE__QUERY_TEXT;
 
 	/**
-	 * The feature id for the '<em><b>Query</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_NODE_TRACE__QUERY = GEN_NODE_TRACE__QUERY;
-
-	/**
 	 * The feature id for the '<em><b>Node Label Traces</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -390,15 +363,6 @@ public interface TracePackage extends EPackage {
 	int GEN_NODE_LABEL_TRACE__QUERY_TEXT = MATCHING_TRACE__QUERY_TEXT;
 
 	/**
-	 * The feature id for the '<em><b>Query</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NODE_LABEL_TRACE__QUERY = MATCHING_TRACE__QUERY;
-
-	/**
 	 * The number of structural features of the '<em>Gen Node Label Trace</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -443,15 +407,6 @@ public interface TracePackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_LINK_TRACE__QUERY_TEXT = MATCHING_TRACE__QUERY_TEXT;
-
-	/**
-	 * The feature id for the '<em><b>Query</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK_TRACE__QUERY = MATCHING_TRACE__QUERY;
 
 	/**
 	 * The feature id for the '<em><b>Link Label Traces</b></em>' containment reference list.
@@ -509,15 +464,6 @@ public interface TracePackage extends EPackage {
 	int GEN_COMPARTMENT_TRACE__QUERY_TEXT = MATCHING_TRACE__QUERY_TEXT;
 
 	/**
-	 * The feature id for the '<em><b>Query</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_COMPARTMENT_TRACE__QUERY = MATCHING_TRACE__QUERY;
-
-	/**
 	 * The number of structural features of the '<em>Gen Compartment Trace</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -564,15 +510,6 @@ public interface TracePackage extends EPackage {
 	int GEN_LINK_LABEL_TRACE__QUERY_TEXT = MATCHING_TRACE__QUERY_TEXT;
 
 	/**
-	 * The feature id for the '<em><b>Query</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK_LABEL_TRACE__QUERY = MATCHING_TRACE__QUERY;
-
-	/**
 	 * The number of structural features of the '<em>Gen Link Label Trace</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -617,15 +554,6 @@ public interface TracePackage extends EPackage {
 	 * @ordered
 	 */
 	int TOOL_GROUP_TRACE__QUERY_TEXT = MATCHING_TRACE__QUERY_TEXT;
-
-	/**
-	 * The feature id for the '<em><b>Query</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TOOL_GROUP_TRACE__QUERY = MATCHING_TRACE__QUERY;
 
 	/**
 	 * The number of structural features of the '<em>Tool Group Trace</em>' class.
@@ -743,17 +671,6 @@ public interface TracePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getMatchingTrace_QueryText();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.internal.bridge.trace.MatchingTrace#getQuery <em>Query</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Query</em>'.
-	 * @see org.eclipse.gmf.internal.bridge.trace.MatchingTrace#getQuery()
-	 * @see #getMatchingTrace()
-	 * @generated
-	 */
-	EReference getMatchingTrace_Query();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.internal.bridge.trace.GenNodeTrace <em>Gen Node Trace</em>}'.
@@ -965,14 +882,6 @@ public interface TracePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute MATCHING_TRACE__QUERY_TEXT = eINSTANCE.getMatchingTrace_QueryText();
-
-		/**
-		 * The meta object literal for the '<em><b>Query</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference MATCHING_TRACE__QUERY = eINSTANCE.getMatchingTrace_Query();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.gmf.internal.bridge.trace.impl.GenNodeTraceImpl <em>Gen Node Trace</em>}' class.

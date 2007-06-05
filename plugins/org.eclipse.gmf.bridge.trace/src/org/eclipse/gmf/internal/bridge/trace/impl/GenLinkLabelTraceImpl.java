@@ -7,8 +7,6 @@
 package org.eclipse.gmf.internal.bridge.trace.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ocl.query.Query;
-import org.eclipse.emf.ocl.query.QueryFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.internal.bridge.trace.GenLinkLabelTrace;
@@ -52,8 +50,8 @@ public class GenLinkLabelTraceImpl extends MatchingTraceImpl implements GenLinkL
 		setQueryText("true");
 	}
 	
-	public Query createQuery() {
-		return QueryFactory.eINSTANCE.createQuery(getQueryText(), GMFGenPackage.eINSTANCE.getGenLinkLabel());
+	public EClass getQueryContext() {
+		return GMFGenPackage.eINSTANCE.getGenLinkLabel();
 	}
 
 } //GenLinkLabelTraceImpl

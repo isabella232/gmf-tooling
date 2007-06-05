@@ -14,11 +14,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.emf.ocl.expressions.ExpressionsPackage;
-import org.eclipse.emf.ocl.query.QueryPackage;
-import org.eclipse.emf.ocl.types.TypesPackage;
-import org.eclipse.emf.ocl.uml.UMLPackage;
-import org.eclipse.emf.ocl.utilities.UtilitiesPackage;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.internal.bridge.trace.AbstractTrace;
 import org.eclipse.gmf.internal.bridge.trace.GenChildNodeTrace;
@@ -170,11 +165,6 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 		EcorePackage.eINSTANCE.eClass();
 		GenModelPackage.eINSTANCE.eClass();
 		GMFGenPackage.eINSTANCE.eClass();
-		TypesPackage.eINSTANCE.eClass();
-		ExpressionsPackage.eINSTANCE.eClass();
-		UMLPackage.eINSTANCE.eClass();
-		UtilitiesPackage.eINSTANCE.eClass();
-		QueryPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theTracePackage.createPackageContents();
@@ -276,15 +266,6 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 */
 	public EAttribute getMatchingTrace_QueryText() {
 		return (EAttribute)matchingTraceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getMatchingTrace_Query() {
-		return (EReference)matchingTraceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -417,7 +398,6 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 
 		matchingTraceEClass = createEClass(MATCHING_TRACE);
 		createEAttribute(matchingTraceEClass, MATCHING_TRACE__QUERY_TEXT);
-		createEReference(matchingTraceEClass, MATCHING_TRACE__QUERY);
 
 		genNodeTraceEClass = createEClass(GEN_NODE_TRACE);
 		createEReference(genNodeTraceEClass, GEN_NODE_TRACE__NODE_LABEL_TRACES);
@@ -461,7 +441,6 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		QueryPackage theQueryPackage = (QueryPackage)EPackage.Registry.INSTANCE.getEPackage(QueryPackage.eNS_URI);
 		GMFGenPackage theGMFGenPackage = (GMFGenPackage)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI);
 
 		// Create type parameters
@@ -485,15 +464,15 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 		initEReference(getTraceModel_LinkTraces(), this.getGenLinkTrace(), null, "linkTraces", null, 0, -1, TraceModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTraceModel_ToolGroupTraces(), this.getToolGroupTrace(), null, "toolGroupTraces", null, 0, -1, TraceModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		EOperation op = addEOperation(traceModelEClass, this.getGenNodeTrace(), "getNodeTrace", 0, 1);
-		addEParameter(op, ecorePackage.getEInt(), "visualID", 0, 1);
+		EOperation op = addEOperation(traceModelEClass, this.getGenNodeTrace(), "getNodeTrace", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEInt(), "visualID", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-		op = addEOperation(traceModelEClass, this.getGenLinkTrace(), "getLinkTrace", 0, 1);
-		addEParameter(op, ecorePackage.getEInt(), "visualID", 0, 1);
+		op = addEOperation(traceModelEClass, this.getGenLinkTrace(), "getLinkTrace", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEInt(), "visualID", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(traceModelEClass, this.getAbstractTrace(), "getAllAbstractTraces", 0, -1);
+		addEOperation(traceModelEClass, this.getAbstractTrace(), "getAllAbstractTraces", 0, -1, IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(traceModelEClass, null, "purgeUnprocessedTraces");
+		addEOperation(traceModelEClass, null, "purgeUnprocessedTraces", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(abstractTraceEClass, AbstractTrace.class, "AbstractTrace", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAbstractTrace_VisualID(), ecorePackage.getEInt(), "visualID", null, 0, 1, AbstractTrace.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -501,52 +480,51 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 
 		initEClass(matchingTraceEClass, MatchingTrace.class, "MatchingTrace", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMatchingTrace_QueryText(), ecorePackage.getEString(), "queryText", null, 0, 1, MatchingTrace.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEReference(getMatchingTrace_Query(), theQueryPackage.getQuery(), null, "query", null, 0, 1, MatchingTrace.class, IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
-		addEOperation(matchingTraceEClass, theQueryPackage.getQuery(), "createQuery", 0, 1);
+		addEOperation(matchingTraceEClass, ecorePackage.getEClass(), "getQueryContext", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-		op = addEOperation(matchingTraceEClass, ecorePackage.getEString(), "getEClassComparision", 0, 1);
-		addEParameter(op, ecorePackage.getEString(), "varName", 0, 1);
-		addEParameter(op, ecorePackage.getEClass(), "eClass", 0, 1);
+		op = addEOperation(matchingTraceEClass, ecorePackage.getEString(), "getEClassComparision", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "varName", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEClass(), "eClass", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-		op = addEOperation(matchingTraceEClass, ecorePackage.getEString(), "getEStructuralFeatureComparison", 0, 1);
-		addEParameter(op, ecorePackage.getEString(), "varName", 0, 1);
-		addEParameter(op, ecorePackage.getEStructuralFeature(), "feature", 0, 1);
+		op = addEOperation(matchingTraceEClass, ecorePackage.getEString(), "getEStructuralFeatureComparison", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "varName", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEStructuralFeature(), "feature", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(genNodeTraceEClass, GenNodeTrace.class, "GenNodeTrace", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenNodeTrace_NodeLabelTraces(), this.getGenNodeLabelTrace(), null, "nodeLabelTraces", null, 0, -1, GenNodeTrace.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenNodeTrace_CompartmentTraces(), this.getGenCompartmentTrace(), null, "compartmentTraces", null, 0, -1, GenNodeTrace.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		op = addEOperation(genNodeTraceEClass, null, "setContext");
-		addEParameter(op, theGMFGenPackage.getGenNode(), "genNode", 0, 1);
+		op = addEOperation(genNodeTraceEClass, null, "setContext", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theGMFGenPackage.getGenNode(), "genNode", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(genChildNodeTraceEClass, GenChildNodeTrace.class, "GenChildNodeTrace", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(genNodeLabelTraceEClass, GenNodeLabelTrace.class, "GenNodeLabelTrace", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		op = addEOperation(genNodeLabelTraceEClass, null, "setContext");
-		addEParameter(op, theGMFGenPackage.getGenNodeLabel(), "genNodeLabel", 0, 1);
+		op = addEOperation(genNodeLabelTraceEClass, null, "setContext", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theGMFGenPackage.getGenNodeLabel(), "genNodeLabel", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(genLinkTraceEClass, GenLinkTrace.class, "GenLinkTrace", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenLinkTrace_LinkLabelTraces(), this.getGenLinkLabelTrace(), null, "linkLabelTraces", null, 0, -1, GenLinkTrace.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		op = addEOperation(genLinkTraceEClass, null, "setContext");
-		addEParameter(op, theGMFGenPackage.getGenLink(), "genLink", 0, 1);
+		op = addEOperation(genLinkTraceEClass, null, "setContext", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theGMFGenPackage.getGenLink(), "genLink", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(genCompartmentTraceEClass, GenCompartmentTrace.class, "GenCompartmentTrace", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		op = addEOperation(genCompartmentTraceEClass, null, "setContext");
-		addEParameter(op, theGMFGenPackage.getGenCompartment(), "genCompartment", 0, 1);
+		op = addEOperation(genCompartmentTraceEClass, null, "setContext", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theGMFGenPackage.getGenCompartment(), "genCompartment", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(genLinkLabelTraceEClass, GenLinkLabelTrace.class, "GenLinkLabelTrace", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		op = addEOperation(genLinkLabelTraceEClass, null, "setContext");
-		addEParameter(op, theGMFGenPackage.getGenLinkLabel(), "genLinkLabel", 0, 1);
+		op = addEOperation(genLinkLabelTraceEClass, null, "setContext", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theGMFGenPackage.getGenLinkLabel(), "genLinkLabel", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(toolGroupTraceEClass, ToolGroupTrace.class, "ToolGroupTrace", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		op = addEOperation(toolGroupTraceEClass, null, "setContext");
-		addEParameter(op, theGMFGenPackage.getToolGroup(), "toolGroup", 0, 1);
+		op = addEOperation(toolGroupTraceEClass, null, "setContext", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theGMFGenPackage.getToolGroup(), "toolGroup", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

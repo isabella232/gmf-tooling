@@ -7,8 +7,6 @@
 package org.eclipse.gmf.internal.bridge.trace.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ocl.query.Query;
-import org.eclipse.emf.ocl.query.QueryFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.internal.bridge.trace.GenNodeLabelTrace;
@@ -51,9 +49,9 @@ public class GenNodeLabelTraceImpl extends MatchingTraceImpl implements GenNodeL
 	public void setContext(GenNodeLabel genNodeLabel) {
 		setQueryText("true");
 	}
-
-	public Query createQuery() {
-		return QueryFactory.eINSTANCE.createQuery(getQueryText(), GMFGenPackage.eINSTANCE.getGenNodeLabel());
+	
+	public EClass getQueryContext() {
+		return GMFGenPackage.eINSTANCE.getGenNodeLabel();
 	}
 	
 } //GenNodeLabelTraceImpl

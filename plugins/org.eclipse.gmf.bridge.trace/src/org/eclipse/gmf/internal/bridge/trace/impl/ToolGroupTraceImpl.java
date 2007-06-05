@@ -7,8 +7,6 @@
 package org.eclipse.gmf.internal.bridge.trace.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ocl.query.Query;
-import org.eclipse.emf.ocl.query.QueryFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.internal.bridge.trace.ToolGroupTrace;
@@ -53,9 +51,9 @@ public class ToolGroupTraceImpl extends MatchingTraceImpl implements ToolGroupTr
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();
 	}
-
-	public Query createQuery() {
-		return QueryFactory.eINSTANCE.createQuery(getQueryText(), GMFGenPackage.eINSTANCE.getToolGroup());
+	
+	public EClass getQueryContext() {
+		return GMFGenPackage.eINSTANCE.getToolGroup();
 	}
 
 } //ToolGroupTraceImpl

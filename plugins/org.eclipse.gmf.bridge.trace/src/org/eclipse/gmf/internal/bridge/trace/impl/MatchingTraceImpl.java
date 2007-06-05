@@ -7,14 +7,15 @@
 package org.eclipse.gmf.internal.bridge.trace.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ocl.query.Query;
 import org.eclipse.gmf.internal.bridge.trace.MatchingTrace;
 import org.eclipse.gmf.internal.bridge.trace.TracePackage;
+import org.eclipse.ocl.ParserException;
+import org.eclipse.ocl.ecore.OCL;
+import org.eclipse.ocl.ecore.OCL.Helper;
+import org.eclipse.ocl.ecore.OCL.Query;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,7 +25,6 @@ import org.eclipse.gmf.internal.bridge.trace.TracePackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.internal.bridge.trace.impl.MatchingTraceImpl#getQueryText <em>Query Text</em>}</li>
- *   <li>{@link org.eclipse.gmf.internal.bridge.trace.impl.MatchingTraceImpl#getQuery <em>Query</em>}</li>
  * </ul>
  * </p>
  *
@@ -51,14 +51,6 @@ public abstract class MatchingTraceImpl extends AbstractTraceImpl implements Mat
 	 */
 	protected String queryText = QUERY_TEXT_EDEFAULT;
 
-	/**
-	 * The cached value of the '{@link #getQuery() <em>Query</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getQuery()
-	 * @generated
-	 * @ordered
-	 */
 	protected Query query;
 
 	/**
@@ -106,34 +98,21 @@ public abstract class MatchingTraceImpl extends AbstractTraceImpl implements Mat
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public Query getQuery() {
+	public abstract EClass getQueryContext();
+
+	public Query getQuery() throws ParserException {
 		if (query == null) {
 			query = createQuery();
 		}
 		return query;
 	}
 	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetQuery(Query newQuery, NotificationChain msgs) {
-		Query oldQuery = query;
-		query = newQuery;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TracePackage.MATCHING_TRACE__QUERY, oldQuery, newQuery);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	private Query createQuery() throws ParserException {
+		OCL ocl = OCL.newInstance();
+		Helper oclHelper = ocl.createOCLHelper();
+		oclHelper.setContext(getQueryContext());
+		return ocl.createQuery(oclHelper.createQuery(getQueryText()));
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public abstract Query createQuery();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -178,26 +157,10 @@ public abstract class MatchingTraceImpl extends AbstractTraceImpl implements Mat
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case TracePackage.MATCHING_TRACE__QUERY:
-				return basicSetQuery(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracePackage.MATCHING_TRACE__QUERY_TEXT:
 				return getQueryText();
-			case TracePackage.MATCHING_TRACE__QUERY:
-				return getQuery();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -242,8 +205,6 @@ public abstract class MatchingTraceImpl extends AbstractTraceImpl implements Mat
 		switch (featureID) {
 			case TracePackage.MATCHING_TRACE__QUERY_TEXT:
 				return QUERY_TEXT_EDEFAULT == null ? queryText != null : !QUERY_TEXT_EDEFAULT.equals(queryText);
-			case TracePackage.MATCHING_TRACE__QUERY:
-				return query != null;
 		}
 		return super.eIsSet(featureID);
 	}

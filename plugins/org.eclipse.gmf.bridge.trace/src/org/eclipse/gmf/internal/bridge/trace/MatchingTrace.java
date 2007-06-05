@@ -8,8 +8,8 @@ package org.eclipse.gmf.internal.bridge.trace;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
-
-import org.eclipse.emf.ocl.query.Query;
+import org.eclipse.ocl.ParserException;
+import org.eclipse.ocl.ecore.OCL.Query;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,7 +20,6 @@ import org.eclipse.emf.ocl.query.Query;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.internal.bridge.trace.MatchingTrace#getQueryText <em>Query Text</em>}</li>
- *   <li>{@link org.eclipse.gmf.internal.bridge.trace.MatchingTrace#getQuery <em>Query</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,27 +55,18 @@ public interface MatchingTrace extends AbstractTrace {
 	void setQueryText(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Query</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Query</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Query Context</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Query</em>' containment reference.
-	 * @see org.eclipse.gmf.internal.bridge.trace.TracePackage#getMatchingTrace_Query()
-	 * @model containment="true" transient="true" changeable="false" derived="true"
+	 * @model kind="operation"
 	 * @generated
 	 */
-	Query getQuery();
+	EClass getQueryContext();
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model
-	 * @generated
-	 */
-	Query createQuery();
+	Query getQuery() throws ParserException;
 
 	/**
 	 * <!-- begin-user-doc -->

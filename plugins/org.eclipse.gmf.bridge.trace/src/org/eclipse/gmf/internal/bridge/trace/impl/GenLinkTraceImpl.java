@@ -15,8 +15,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.emf.ocl.query.Query;
-import org.eclipse.emf.ocl.query.QueryFactory;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -180,9 +178,9 @@ public class GenLinkTraceImpl extends MatchingTraceImpl implements GenLinkTrace 
 		}
 		return super.eIsSet(featureID);
 	}
-
-	public Query createQuery() {
-		return QueryFactory.eINSTANCE.createQuery(getQueryText(), GMFGenPackage.eINSTANCE.getGenLink());
+	
+	public EClass getQueryContext() {
+		return GMFGenPackage.eINSTANCE.getGenLink();
 	}
 	
 } //GenLinkTraceImpl
