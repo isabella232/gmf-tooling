@@ -18,8 +18,6 @@ import junit.framework.Assert;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.FigureDescriptor;
-import org.eclipse.gmf.gmfgraph.RealFigure;
-import org.eclipse.gmf.graphdef.codegen.NamingStrategy;
 import org.eclipse.gmf.tests.setup.figures.FigureCheck;
 import org.eclipse.gmf.tests.setup.figures.GenericFigureCheck;
 import org.eclipse.gmf.tests.setup.figures.LabelSupportSetup;
@@ -65,7 +63,7 @@ public class LabelSupportTest extends FigureCodegenTestBase {
 		protected void checkFigure(IFigure figure) {
 			assertNotNull(figure);
 			assertTrue("NodeEditPart requires this method in the inner figure class", 
-					hasMethod(figure, NamingStrategy.getChildFigureGetterName(myLabelAccess), null));
+					hasMethod(figure, myLabelAccess.getAccessor(), null));
 		}	
 		
 		private static boolean hasMethod(Object instance, String methodName, Class<?>[] params) {

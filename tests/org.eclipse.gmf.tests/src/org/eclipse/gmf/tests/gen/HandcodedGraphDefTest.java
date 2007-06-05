@@ -100,14 +100,14 @@ public class HandcodedGraphDefTest extends TestCase {
 		el.setName("ElliName");
 		assertEquals("a1", ca.getAccessor());
 		ca.setAccessor("");
-		assertEquals("ElliName", ca.getAccessor());
+		assertEquals("getFigureElliName", ca.getAccessor());
 		ca.setFigure(null);
-		assertEquals("null", ca.getAccessor());
+		assertEquals("getFigureNull", ca.getAccessor());
 		//
 		FigureRef fr = GMFGraphFactory.eINSTANCE.createFigureRef();
 		fr.setFigure(el);
 		ca.setFigure(fr);
-		assertEquals("ElliName", ca.getAccessor());
+		assertEquals("getFigureElliName", ca.getAccessor());
 		FigureAccessor fa = GMFGraphFactory.eINSTANCE.createFigureAccessor();
 		fa.setAccessor("ThroughFA");
 		CustomFigure cf = GMFGraphFactory.eINSTANCE.createCustomFigure();

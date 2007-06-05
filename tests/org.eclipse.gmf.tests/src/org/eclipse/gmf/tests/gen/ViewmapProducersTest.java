@@ -46,16 +46,15 @@ import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureAccessor;
 import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
-import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
-import org.eclipse.gmf.graphdef.codegen.NamingStrategy;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.tests.setup.DiaDefSetup;
@@ -97,8 +96,8 @@ public class ViewmapProducersTest extends TestCase {
 		nodeFigure.setName("ScrollPane");
 		nodeFigure.setQualifiedClassName("org.eclipse.draw2d.ScrollPane");
 		final FigureAccessor figureAccess1 = GMFGraphFactory.eINSTANCE.createFigureAccessor();
-		figureAccess1.setAccessor("getContents");
 		nodeFigure.getCustomChildren().add(figureAccess1);
+		figureAccess1.setAccessor("getContents");
 
 		// XXX this is to create ChildAccess, but there should be means to point to FigureAccess
 		// without typedFigure
@@ -108,7 +107,6 @@ public class ViewmapProducersTest extends TestCase {
 		figureAccess1.setTypedFigure(accessor1Type);
 
 		final CustomFigure accessor2Type = GMFGraphFactory.eINSTANCE.createCustomFigure();
-		accessor2Type.setName("Accessor2Type");
 		accessor2Type.setQualifiedClassName("org.eclipse.draw2d.Viewport");
 
 		final FigureAccessor figureAccess2 = GMFGraphFactory.eINSTANCE.createFigureAccessor();
@@ -136,7 +134,12 @@ public class ViewmapProducersTest extends TestCase {
 		assertTrue(label2Viewmap.getClass().getName(), label2Viewmap instanceof ParentAssignedViewmap);
 
 		assertEquals(figureAccess1.getAccessor(), ((ParentAssignedViewmap) label1Viewmap).getGetterName());
-		assertNull(((ParentAssignedViewmap) label1Viewmap).getFigureQualifiedClassName());
+
+		// XXX If we decide to make FigureAccessor#typedFigure optional some day, we might want to
+		// assertNull instead of assertNotNull
+		//assertNull(((ParentAssignedViewmap) label1Viewmap).getFigureQualifiedClassName());
+		assertNotNull(((ParentAssignedViewmap) label1Viewmap).getFigureQualifiedClassName());
+
 		assertNull(((ParentAssignedViewmap) label1Viewmap).getSetterName());
 
 		assertEquals(figureAccess2.getAccessor(), ((ParentAssignedViewmap) label2Viewmap).getGetterName());
@@ -177,7 +180,7 @@ public class ViewmapProducersTest extends TestCase {
 		assertNotNull(innerLabelViewmap);
 		assertTrue(innerLabelViewmap.getClass().getName(), innerLabelViewmap instanceof ParentAssignedViewmap);
 		ParentAssignedViewmap pav = (ParentAssignedViewmap) innerLabelViewmap;
-		assertEquals(NamingStrategy.getChildFigureGetterName(innerLabel.getAccessor()), pav.getGetterName());
+		assertEquals(innerLabel.getAccessor().getAccessor(), pav.getGetterName());
 		assertNotNull(pav.getFigureQualifiedClassName());
 		assertEquals("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel", pav.getFigureQualifiedClassName());
 
@@ -294,8 +297,8 @@ public class ViewmapProducersTest extends TestCase {
 		assertTrue(viewmapA.getClass().getName(), viewmapA instanceof ParentAssignedViewmap);
 		assertTrue(viewmapB.getClass().getName(), viewmapB instanceof ParentAssignedViewmap);
 
-		assertEquals(((ParentAssignedViewmap) viewmapA).getGetterName(), NamingStrategy.getChildFigureGetterName(compartmentA.getAccessor()));
-		assertEquals(((ParentAssignedViewmap) viewmapB).getGetterName(), NamingStrategy.getChildFigureGetterName(compartmentB.getAccessor()));		
+		assertEquals(((ParentAssignedViewmap) viewmapA).getGetterName(), compartmentA.getAccessor().getAccessor());
+		assertEquals(((ParentAssignedViewmap) viewmapB).getGetterName(), compartmentB.getAccessor().getAccessor());
 	}
 	
 	public void testFloatingCompartment(){
@@ -569,7 +572,7 @@ public class ViewmapProducersTest extends TestCase {
 		Connection connection = GMFGraphFactory.eINSTANCE.createConnection();
 		connectionFigure.setName(name);
 		connection.setName(name);
-		connection.setFigure(DiaDefSetup.newDescriptor((RealFigure) connectionFigure));
+		connection.setFigure(DiaDefSetup.newDescriptor(connectionFigure));
 		return connection;
 	}
 
