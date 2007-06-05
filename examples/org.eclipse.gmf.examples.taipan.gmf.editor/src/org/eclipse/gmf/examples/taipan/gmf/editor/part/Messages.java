@@ -94,6 +94,11 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String TaiPanDocumentProvider_SaveAsOperation;
+
+	/**
+	 * @generated
+	 */
 	public static String TaiPanInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle;
 
 	/**
