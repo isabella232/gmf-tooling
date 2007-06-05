@@ -159,6 +159,7 @@ import org.eclipse.emf.edit.ui.provider.UnwrappingSelectionProvider;
 
 import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 
+import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 
 import org.eclipse.gmf.sketch.provider.SketchItemProviderAdapterFactory;
@@ -931,10 +932,7 @@ public class SketchEditor extends MultiPageEditorPart implements IEditingDomainP
 	 * @generated
 	 */
 	public void createModel() {
-		// Assumes that the input is a file object.
-		//
-		IFileEditorInput modelFile = (IFileEditorInput) getEditorInput();
-		URI resourceURI = URI.createPlatformResourceURI(modelFile.getFile().getFullPath().toString(), true);
+		URI resourceURI = EditUIUtil.getURI(getEditorInput());
 		Exception exception = null;
 		Resource resource = null;
 		try {
@@ -1198,7 +1196,12 @@ public class SketchEditor extends MultiPageEditorPart implements IEditingDomainP
 				setPageText(pageIndex, getString("_UI_TreeWithColumnsPage_label")); //$NON-NLS-1$
 			}
 
-			setActivePage(0);
+			getSite().getShell().getDisplay().asyncExec(new Runnable() {
+
+				public void run() {
+					setActivePage(0);
+				}
+			});
 		}
 
 		// Ensures that this editor will only display the page's tab
@@ -1218,7 +1221,12 @@ public class SketchEditor extends MultiPageEditorPart implements IEditingDomainP
 			}
 		});
 
-		updateProblemIndication();
+		getSite().getShell().getDisplay().asyncExec(new Runnable() {
+
+			public void run() {
+				updateProblemIndication();
+			}
+		});
 	}
 
 	/**
