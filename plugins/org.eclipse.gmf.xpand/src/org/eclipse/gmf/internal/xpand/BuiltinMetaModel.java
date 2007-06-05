@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006, 2007 Eclipse.org
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,7 +16,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -639,6 +638,13 @@ public class BuiltinMetaModel {
 				return target;
 			}
 		});
+		collectionOps.add(new InternalOperation<Collection>(opf.create("clear", CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
+			@Override
+			public Object evaluate(Collection target, Object[] params) {
+				target.clear();
+				return target;
+			}
+		});
 		collectionOps.add(new InternalOperation<Collection>(opf.create("flatten", CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
@@ -762,6 +768,12 @@ public class BuiltinMetaModel {
 				return new LinkedList<Object>(new LinkedHashSet<Object>(target));
 			}
 		});
+		listOps.add(new InternalOperation<List>(opf.create("indexOf", ecorePkg.getEInt(), ecorePkg.getEJavaObject())) {
+			@Override
+			public Object evaluate(List target, Object[] params) {
+				return target.indexOf(params[0]);
+			}
+		});
 		internalOperationsMap.put(CollectionTypesSupport.LIST_TYPE, Collections.unmodifiableList(listOps));
 
 		final List<InternalOperation> definitionOps = new LinkedList<InternalOperation>();
@@ -859,7 +871,7 @@ public class BuiltinMetaModel {
 			if (targetType == void.class) {
 				return VOID;
 			}
-			for (EClassifier c : (List<EClassifier>) EcorePackage.eINSTANCE.getEClassifiers()) {
+			for (EClassifier c : EcorePackage.eINSTANCE.getEClassifiers()) {
 				if (c.getInstanceClass() == targetType) {
 					return c;
 				}
