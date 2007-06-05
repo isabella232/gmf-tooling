@@ -18,25 +18,12 @@
 package «getDiagram().notationViewFactoriesPackageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
-public class «notationViewFactoryClassName» extends
-	«IF isStoringChildPositions(node.getLayoutType())-»
-		org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory
-	«ELSE-»
-		org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory
-	«ENDIF-»
-{
+public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected java.util.List createStyles(org.eclipse.gmf.runtime.notation.View view) {
 		java.util.List styles = new java.util.ArrayList();
 		«EXPAND xpt::diagram::views::Utils::addTextStyle("styles") FOR modelFacet-»
-		«IF isStoringChildPositions(node.getLayoutType())-»
-		styles.add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFillStyle());
-		styles.add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createLineStyle());
-			«IF !isFixedFont(viewmap)-»
-		styles.add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFontStyle());
-			«ENDIF-»
-		«ENDIF-»
 		return styles;
 	}
 }
