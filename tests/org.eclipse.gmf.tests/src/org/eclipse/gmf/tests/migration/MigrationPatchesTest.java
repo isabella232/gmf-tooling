@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 
 import junit.framework.TestCase;
@@ -137,9 +139,13 @@ public class MigrationPatchesTest extends TestCase {
 		assertTrue("Errors found after migration: "+errors, errors.isEmpty()); //$NON-NLS-1$
 		
 		assertTrue("Migration warning load status expected", loadHelper.getStatus().matches(IStatus.WARNING)); //$NON-NLS-1$
-		EList<Resource.Diagnostic> warnings = loadHelper.getLoadedResource().getWarnings();
-		assertEquals("Single Warning diagnostic expected", 1, warnings.size()); //$NON-NLS-1$		
-		assertTrue("MigrationDiagnostic expected as warning", warnings.get(0) instanceof MigrationResource.Diagnostic); //$NON-NLS-1$
+		Collection<Resource.Diagnostic> warnings = new ArrayList<Resource.Diagnostic>();
+		for (Resource nextResource : loadHelper.getLoadedResource().getResourceSet().getResources()) {
+			warnings.addAll(nextResource.getWarnings());
+		}
+		for (Resource.Diagnostic warning : warnings) {
+			assertTrue("Migration Warning diagnostic expected", warning instanceof MigrationResource.Diagnostic); //$NON-NLS-1$
+		}
 		
 		assertTrue(loadHelper.getLoadedResource() instanceof XMLResource);
 		XMLResource xmlResource = (XMLResource) loadHelper.getLoadedResource();
@@ -309,14 +315,23 @@ public class MigrationPatchesTest extends TestCase {
 	private URI temporarySaveMigratedModel(URI uri, String tempFilename, String tempFileExtension) throws IOException {
 		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
 		Resource resource = loadHelper.getLoadedResource();
-		File newGenmodelFile = File.createTempFile(tempFilename, tempFileExtension.startsWith(".") ? tempFileExtension : "."+tempFileExtension);
-		newGenmodelFile.deleteOnExit();
-		URI newUri = URI.createFileURI(newGenmodelFile.getAbsolutePath());
-		resource.setURI(newUri);
-		try {
-			resource.save(null);
-		} catch (IOException ex) {
-			fail(ex.toString());
+		ResourceSet resourceSet = resource.getResourceSet();
+		URI newUri = null;
+		for (Resource nextResource : resourceSet.getResources()) {
+			File newGenmodelFile = File.createTempFile(tempFilename, tempFileExtension.startsWith(".") ? tempFileExtension : "."+tempFileExtension);
+			newGenmodelFile.deleteOnExit();
+			// all references for an old URI within resource set should be changed! 
+			nextResource.setURI(URI.createFileURI(newGenmodelFile.getAbsolutePath()));
+			if (nextResource.equals(resource)) {
+				newUri = nextResource.getURI();
+			}
+		}
+		for (Resource nextResource : resourceSet.getResources()) {
+			try {
+				nextResource.save(null);
+			} catch (IOException ex) {
+				fail(ex.toString());
+			}
 		}
 		return newUri;
 	}
@@ -731,4 +746,114 @@ public class MigrationPatchesTest extends TestCase {
 		assertOnLoadModelMigrationDidNothing(newUri);
 	}
 
+	public void testMultifilesLoadOrder() throws Exception {
+		// load figure gallery with referencing elements from another file
+		URI figureGalleryFileName = createURI("test_main.gmfgraph"); //$NON-NLS-1$
+		
+		Exception caughtFGException = assertOrdinaryLoadModelProblems(figureGalleryFileName);
+		assertTrue("expected diagnostic exception", caughtFGException != null); //$NON-NLS-1$				
+
+		assertOnLoadModelMigrationSuccess(figureGalleryFileName);
+		checkMultifilesStructure(figureGalleryFileName, false);
+		
+		URI newFigureGalleryUri = temporarySaveMigratedModel(figureGalleryFileName, "test_main", "gmfgraph");
+		changeNsUriToOldOne(newFigureGalleryUri, "gmfgraph", "http://www.eclipse.org/gmf/2005/GraphicalDefinition");
+		
+		assertOnLoadModelMigrationDidNothing(newFigureGalleryUri);
+		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), newFigureGalleryUri);
+		Resource mainResource = loadHelper.getLoadedResource();
+		assertEquals(1, mainResource.getResourceSet().getResources().size());
+		checkMultifilesGalleryStructure(mainResource);
+
+		// and opposite load order - nodes first
+		URI diagramElementsFileName = createURI("test_linked.gmfgraph"); //$NON-NLS-1$
+		
+		Exception caughtDEException = assertOrdinaryLoadModelProblems(diagramElementsFileName);
+		assertTrue("expected diagnostic exception", caughtDEException != null); //$NON-NLS-1$				
+
+		assertOnLoadModelMigrationSuccess(diagramElementsFileName);
+		checkMultifilesStructure(diagramElementsFileName, true);
+
+		URI newDiagramElementsUri = temporarySaveMigratedModel(diagramElementsFileName, "test_linked", "gmfgraph");
+		changeNsUriToOldOne(newDiagramElementsUri, "gmfgraph", "http://www.eclipse.org/gmf/2005/GraphicalDefinition");
+		
+		assertOnLoadModelMigrationDidNothing(newDiagramElementsUri);
+		checkMultifilesStructure(newDiagramElementsUri, true);
+	}
+
+	private void checkMultifilesStructure(URI modelUri, boolean revertOrder) {
+		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), modelUri);
+		Resource mainResource = loadHelper.getLoadedResource();
+		assertEquals(2, mainResource.getResourceSet().getResources().size());
+		Resource linkedResource = mainResource.getResourceSet().getResources().get(1);
+		if (revertOrder) {
+			checkMultifilesNodesStructure(mainResource);
+			checkMultifilesGalleryStructure(linkedResource);
+		} else {
+			checkMultifilesNodesStructure(linkedResource);
+			checkMultifilesGalleryStructure(mainResource);
+		}
+	}
+
+	private void checkMultifilesGalleryStructure(Resource resource) {
+		assertEquals(1, resource.getContents().size());
+		Object first = resource.getContents().get(0);
+		assertTrue(first instanceof Canvas);
+		Canvas canvas = (Canvas) first;
+		assertEquals(1, canvas.eContents().size());
+		
+		assertNotNull(canvas.getFigures());
+		assertEquals(1, canvas.getFigures().size());
+		FigureGallery fg = canvas.getFigures().get(0);
+		
+		assertNotNull(fg.getFigures());
+		assertEquals(1, fg.getFigures().size());
+		
+		assertNotNull(fg.getDescriptors());
+		assertEquals(3, fg.getDescriptors().size());
+		
+		FigureDescriptor descriptor1 = fg.getDescriptors().get(0);
+		assertEquals(0, descriptor1.getAccessors().size());
+		
+		FigureDescriptor descriptor2 = fg.getDescriptors().get(1);
+		assertEquals(1, descriptor2.getAccessors().size());
+		
+		FigureDescriptor descriptor3 = fg.getDescriptors().get(2);
+		assertEquals(2, descriptor3.getAccessors().size());
+	}
+	
+	private void checkMultifilesNodesStructure(Resource resource) {
+		assertEquals(1, resource.getContents().size());
+		Object first = resource.getContents().get(0);
+		assertTrue(first instanceof Canvas);
+		Canvas canvas = (Canvas) first;
+		assertEquals(6, canvas.eContents().size());
+		
+		assertNotNull(canvas.getFigures());
+		assertEquals(1, canvas.getFigures().size());
+		FigureGallery fg = canvas.getFigures().get(0);
+		
+		assertNotNull(fg.getFigures());
+		assertEquals(1, fg.getFigures().size());
+		assertNotNull(fg.getDescriptors());
+		assertEquals(1, fg.getDescriptors().size());
+
+		assertNotNull(canvas.getNodes());
+		assertEquals(1, canvas.getNodes().size());
+		assertNotNull(canvas.getNodes().get(0).getFigure());
+		
+		assertNotNull(canvas.getConnections());
+		assertEquals(1, canvas.getConnections().size());
+		assertNotNull(canvas.getConnections().get(0).getFigure());
+		
+		assertNotNull(canvas.getCompartments());
+		assertEquals(2, canvas.getCompartments().size());
+		assertNotNull(canvas.getCompartments().get(0).getFigure());
+		assertNotNull(canvas.getCompartments().get(1).getFigure());
+		
+		assertNotNull(canvas.getLabels());
+		assertEquals(1, canvas.getLabels().size());
+		assertNotNull(canvas.getLabels().get(0).getFigure());
+		
+	}
 }
