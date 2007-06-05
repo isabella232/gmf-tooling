@@ -94,6 +94,11 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String EcoreDocumentProvider_SaveAsOperation;
+
+	/**
+	 * @generated
+	 */
 	public static String EcoreInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle;
 
 	/**

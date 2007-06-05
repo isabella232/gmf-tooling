@@ -104,7 +104,7 @@ public class EcoreVisualIDRegistry {
 				return -1;
 			}
 		}
-		return getVisualID(view.getType());
+		return org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry.getVisualID(view.getType());
 	}
 
 	/**

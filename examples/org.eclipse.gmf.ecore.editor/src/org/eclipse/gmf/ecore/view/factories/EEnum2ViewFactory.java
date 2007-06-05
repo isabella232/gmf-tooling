@@ -15,17 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
-
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
-
 import org.eclipse.gmf.ecore.edit.parts.EEnum2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
-
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
-
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory;
-
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -34,7 +29,7 @@ import org.eclipse.gmf.runtime.notation.View;
 public class EEnum2ViewFactory extends AbstractLabelViewFactory {
 
 	/**
-	 * @generated 
+	 * @generated
 	 */
 	protected List createStyles(View view) {
 		List styles = new ArrayList();
