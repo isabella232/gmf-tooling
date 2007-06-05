@@ -15,10 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceLowerBoundUpperBound2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceName2EditPart;
@@ -53,14 +50,11 @@ public class EReference2ViewFactory extends ConnectionViewFactory {
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
-		if (!EPackageEditPart.MODEL_ID.equals(EcoreVisualIDRegistry.getModelID(containerView))) {
-			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
-			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
-			shortcutAnnotation.getDetails().put("modelID", EPackageEditPart.MODEL_ID); //$NON-NLS-1$
-			view.getEAnnotations().add(shortcutAnnotation);
-		}
+		IAdaptable eObjectAdapter = null;
 		EObject eObject = (EObject) semanticAdapter.getAdapter(EObject.class);
-		IAdaptable eObjectAdapter = eObject != null ? new EObjectAdapter(eObject) : null;
+		if (eObject != null) {
+			eObjectAdapter = new EObjectAdapter(eObject);
+		}
 		getViewService().createNode(eObjectAdapter, view, EcoreVisualIDRegistry.getType(EReferenceName2EditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(eObjectAdapter, view, EcoreVisualIDRegistry.getType(EReferenceLowerBoundUpperBound2EditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
