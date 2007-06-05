@@ -53,7 +53,7 @@ public class «editPartClassName» extends «EXPAND extendsList» {
 		«FOREACH getInnerFixedLabels() AS label-»
 			«LET (gmfgen::ParentAssignedViewmap) label.viewmap AS childViewmap-»
 		if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
-			((«label.getEditPartQualifiedClassName()») childEditPart).«getSetterName(childViewmap)»(
+			((«label.getEditPartQualifiedClassName()») childEditPart).«EXPAND TextAware::labelSetterName FOR childViewmap»(
 				getPrimaryShape().«childViewmap.getterName»());
 			return true;
 		}

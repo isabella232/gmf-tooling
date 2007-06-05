@@ -381,16 +381,10 @@
 «ENDDEFINE»
 
 «DEFINE labelSetterName FOR gmfgen::ParentAssignedViewmap-»
-	«IF setterName != null-»
-	«setterName»
-	«ELSE-»
-	setLabel
-	«ENDIF-»
+«IF setterName != null»«setterName»«ELSE»setLabel«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE labelSetterName FOR gmfgen::Viewmap-»
-	setLabel
-«ENDDEFINE»
+«DEFINE labelSetterName FOR gmfgen::Viewmap»setLabel«ENDDEFINE»
 
 «DEFINE labelSetterFigureClassName FOR gmfgen::ParentAssignedViewmap-»
 	«IF figureQualifiedClassName != null-»

@@ -58,10 +58,6 @@ Boolean needsGraphicalNodeEditPolicy(gmfgen::GenNode node) :
 	null != node.modelFacet && node.reorientedIncomingLinks.size() > 0
 ;
 
-String getSetterName(gmfgen::ParentAssignedViewmap viewmap) :
-	viewmap.setterName == null ? "setLabel" : viewmap.setterName
-;
-
 String i18nKeyForCompartmentTitle(gmfgen::GenCompartment compartment) :
     compartment.editPartClassName+".title"
 ;
