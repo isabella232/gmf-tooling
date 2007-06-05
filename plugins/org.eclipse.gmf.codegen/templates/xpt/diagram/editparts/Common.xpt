@@ -26,7 +26,11 @@
 «ENDDEFINE»
 
 «DEFINE behaviour FOR gmfgen::CustomBehaviour-»
+«IF editPolicyQualifiedClassName == null || editPolicyQualifiedClassName.trim().length() == null-»
+	removeEditPolicy(«key»); «IF key.startsWith('\"') && key.endsWith('\"')»«EXPAND xpt::Common::nonNLS»«ENDIF»
+«ELSE-»
 	installEditPolicy(«key», new «getEditPolicyQualifiedClassName()»()); «IF key.startsWith('\"') && key.endsWith('\"')»«EXPAND xpt::Common::nonNLS»«ENDIF»
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE behaviour FOR gmfgen::OpenDiagramBehaviour-»
