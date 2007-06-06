@@ -146,19 +146,25 @@ public class <%=genNavigator.getActionProviderClassName()%> extends <%=importMan
 		 * @generated
 		 */
 		private <%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> getEditorInput() {
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource = myDiagram.eResource();
 <%if (genDiagram.getEditorGen().getApplication() == null) {%>
-			for (<%=importManager.getImportedName("java.util.Iterator")%> it = diagramResource.getContents().iterator(); it.hasNext();) {
+			for (<%=importManager.getImportedName("java.util.Iterator")%> it = myDiagram.eResource().getContents().iterator(); it.hasNext();) {
 				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextEObject = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) it.next();
 				if (nextEObject == myDiagram) {
-					return new <%=importManager.getImportedName("org.eclipse.ui.part.FileEditorInput")%>(<%=importManager.getImportedName("org.eclipse.emf.workspace.util.WorkspaceSynchronizer")%>.getFile(diagramResource));
+					return new <%=importManager.getImportedName("org.eclipse.ui.part.FileEditorInput")%>(<%=importManager.getImportedName("org.eclipse.emf.workspace.util.WorkspaceSynchronizer")%>.getFile(myDiagram.eResource()));
 				}
 				if (nextEObject instanceof Diagram) {
 					break;
 				}
 			}
 <%}%>
-			return new <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>(diagramResource.getURI().appendFragment(diagramResource.getURIFragment(myDiagram)));
+<%
+	/*
+	Same code as in OpenDiagram.xpt
+	 */
+%>
+			<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> uri = <%=importManager.getImportedName("org.eclipse.emf.ecore.util.EcoreUtil")%>.getURI(myDiagram);
+			String editorName = uri.lastSegment() + "#" + myDiagram.eResource().getContents().indexOf(myDiagram); //$NON-NLS-1$
+			return new <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>(uri, editorName);
 		}
 		
 	}

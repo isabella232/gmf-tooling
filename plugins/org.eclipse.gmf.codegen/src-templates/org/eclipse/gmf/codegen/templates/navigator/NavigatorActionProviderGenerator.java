@@ -51,17 +51,18 @@ public class NavigatorActionProviderGenerator
   protected final String TEXT_34 = ".ID);" + NL + "\t\t\t} catch (";
   protected final String TEXT_35 = " e) {" + NL + "\t\t\t\t";
   protected final String TEXT_36 = ".getInstance().logError(\"Exception while openning diagram\", e);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate ";
-  protected final String TEXT_37 = " getEditorInput() {" + NL + "\t\t\t";
-  protected final String TEXT_38 = " diagramResource = myDiagram.eResource();";
-  protected final String TEXT_39 = NL + "\t\t\tfor (";
-  protected final String TEXT_40 = " it = diagramResource.getContents().iterator(); it.hasNext();) {" + NL + "\t\t\t\t";
-  protected final String TEXT_41 = " nextEObject = (";
-  protected final String TEXT_42 = ") it.next();" + NL + "\t\t\t\tif (nextEObject == myDiagram) {" + NL + "\t\t\t\t\treturn new ";
-  protected final String TEXT_43 = "(";
-  protected final String TEXT_44 = ".getFile(diagramResource));" + NL + "\t\t\t\t}" + NL + "\t\t\t\tif (nextEObject instanceof Diagram) {" + NL + "\t\t\t\t\tbreak;" + NL + "\t\t\t\t}" + NL + "\t\t\t}";
-  protected final String TEXT_45 = NL + "\t\t\treturn new ";
-  protected final String TEXT_46 = "(diagramResource.getURI().appendFragment(diagramResource.getURIFragment(myDiagram)));" + NL + "\t\t}" + NL + "\t\t" + NL + "\t}" + NL + "" + NL + "}";
-  protected final String TEXT_47 = NL;
+  protected final String TEXT_37 = " getEditorInput() {";
+  protected final String TEXT_38 = NL + "\t\t\tfor (";
+  protected final String TEXT_39 = " it = myDiagram.eResource().getContents().iterator(); it.hasNext();) {" + NL + "\t\t\t\t";
+  protected final String TEXT_40 = " nextEObject = (";
+  protected final String TEXT_41 = ") it.next();" + NL + "\t\t\t\tif (nextEObject == myDiagram) {" + NL + "\t\t\t\t\treturn new ";
+  protected final String TEXT_42 = "(";
+  protected final String TEXT_43 = ".getFile(myDiagram.eResource()));" + NL + "\t\t\t\t}" + NL + "\t\t\t\tif (nextEObject instanceof Diagram) {" + NL + "\t\t\t\t\tbreak;" + NL + "\t\t\t\t}" + NL + "\t\t\t}";
+  protected final String TEXT_44 = NL + "\t\t\t";
+  protected final String TEXT_45 = " uri = ";
+  protected final String TEXT_46 = ".getURI(myDiagram);" + NL + "\t\t\tString editorName = uri.lastSegment() + \"#\" + myDiagram.eResource().getContents().indexOf(myDiagram); //$NON-NLS-1$" + NL + "\t\t\treturn new ";
+  protected final String TEXT_47 = "(uri, editorName);" + NL + "\t\t}" + NL + "\t\t" + NL + "\t}" + NL + "" + NL + "}";
+  protected final String TEXT_48 = NL;
 
   public String generate(Object argument)
   {
@@ -163,26 +164,33 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_36);
     stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IEditorInput"));
     stringBuffer.append(TEXT_37);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource"));
-    stringBuffer.append(TEXT_38);
     if (genDiagram.getEditorGen().getApplication() == null) {
-    stringBuffer.append(TEXT_39);
+    stringBuffer.append(TEXT_38);
     stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(TEXT_39);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_40);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_41);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_42);
     stringBuffer.append(importManager.getImportedName("org.eclipse.ui.part.FileEditorInput"));
-    stringBuffer.append(TEXT_43);
+    stringBuffer.append(TEXT_42);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.workspace.util.WorkspaceSynchronizer"));
-    stringBuffer.append(TEXT_44);
+    stringBuffer.append(TEXT_43);
     }
+    
+	/*
+	Same code as in OpenDiagram.xpt
+	 */
+
+    stringBuffer.append(TEXT_44);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.URI"));
     stringBuffer.append(TEXT_45);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.util.EcoreUtil"));
     stringBuffer.append(TEXT_46);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput"));
     stringBuffer.append(TEXT_47);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_48);
     return stringBuffer.toString();
   }
 }
