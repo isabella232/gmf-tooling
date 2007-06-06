@@ -17,9 +17,11 @@ import org.eclipse.core.runtime.IAdaptable;
 
 import org.eclipse.emf.common.ui.URIEditorInput;
 
+import org.eclipse.emf.common.util.URI;
+
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 
@@ -170,17 +172,18 @@ public class EcoreNavigatorActionProvider extends CommonActionProvider {
 		 * @generated
 		 */
 		private IEditorInput getEditorInput() {
-			Resource diagramResource = myDiagram.eResource();
-			for (Iterator it = diagramResource.getContents().iterator(); it.hasNext();) {
+			for (Iterator it = myDiagram.eResource().getContents().iterator(); it.hasNext();) {
 				EObject nextEObject = (EObject) it.next();
 				if (nextEObject == myDiagram) {
-					return new FileEditorInput(WorkspaceSynchronizer.getFile(diagramResource));
+					return new FileEditorInput(WorkspaceSynchronizer.getFile(myDiagram.eResource()));
 				}
 				if (nextEObject instanceof Diagram) {
 					break;
 				}
 			}
-			return new URIEditorInput(diagramResource.getURI().appendFragment(diagramResource.getURIFragment(myDiagram)));
+			URI uri = EcoreUtil.getURI(myDiagram);
+			String editorName = uri.lastSegment() + "#" + myDiagram.eResource().getContents().indexOf(myDiagram); //$NON-NLS-1$
+			return new URIEditorInput(uri, editorName);
 		}
 
 	}
