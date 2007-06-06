@@ -61,6 +61,8 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeTabFilter;
 import org.eclipse.gmf.internal.bridge.genmodel.GenModelMatcher;
 import org.eclipse.gmf.internal.bridge.genmodel.RuntimeGenModelAccess;
+import org.eclipse.gmf.internal.common.reconcile.Reconciler;
+import org.eclipse.gmf.internal.sketch.transformer.reconcile.SketchReconcilerConfig;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.sketch.SketchCompartment;
 import org.eclipse.gmf.sketch.SketchDiagram;
@@ -152,6 +154,10 @@ public class SketchTransformer implements IRunnableWithProgress {
 			boundMetamodelTypes.clear();
 		}
 		status = Status.OK_STATUS;
+	}
+
+	public void reconcile(GenEditorGenerator existingEditorGen) {
+		new Reconciler(new SketchReconcilerConfig()).reconcileTree(editorGen, existingEditorGen);
 	}
 
 	protected void transformSketch() {

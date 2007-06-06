@@ -40,6 +40,20 @@ public class Messages extends NLS {
 
 	public static String TransformSketchAction_ErrorTransforming;
 
+	public static String TransformSketchWizard_GenDesc;
+
+	public static String TransformSketchWizard_GenTitle;
+
+	public static String TransformSketchWizard_SourceDesc;
+
+	public static String TransformSketchWizard_SourceTitle;
+
+	public static String TransformSketchWizard_TargetDesc;
+
+	public static String TransformSketchWizard_TargetTitle;
+
+	public static String TransformSketchWizard_Title;
+
 	public static String VisualIDsDispenser_Collision;
 
 	static {
