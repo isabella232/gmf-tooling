@@ -45,10 +45,6 @@
   </audits>
   <diagram
       visualID="1000"
-      editPartClassName="AquatoryEditPart"
-      itemSemanticEditPolicyClassName="AquatoryItemSemanticEditPolicy"
-      notationViewFactoryClassName="AquatoryViewFactory"
-      canonicalEditPolicyClassName="AquatoryCanonicalEditPolicy"
       iconProviderPriority="Low"
       creationWizardIconPath="{reuseEMFIcon}"
       validationProviderPriority="Low"
@@ -58,8 +54,7 @@
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
         xsi:type="gmfgen:MetamodelType"
-        displayName="Aquatory"
-        editHelperClassName="AquatoryEditHelper"/>
+        displayName="Aquatory"/>
     <viewmap
         xsi:type="gmfgen:FigureViewmap"
         figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
@@ -189,18 +184,11 @@
       </modelFacet>
     </childNodes>
     <topLevelNodes
-        visualID="2001"
-        editPartClassName="PortEditPart"
-        itemSemanticEditPolicyClassName="PortItemSemanticEditPolicy"
-        notationViewFactoryClassName="PortViewFactory"
-        canonicalEditPolicyClassName="PortCanonicalEditPolicy"
-        graphicalNodeEditPolicyClassName="PortGraphicalNodeEditPolicy"
-        createCommandClassName="PortCreateCommand">
+        visualID="2001">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:MetamodelType"
-          editHelperClassName="PortEditHelper"/>
+          xsi:type="gmfgen:MetamodelType"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PortShape">
@@ -243,18 +231,11 @@
     </topLevelNodes>
     <topLevelNodes
         visualID="2002"
-        editPartClassName="ShipEditPart"
-        itemSemanticEditPolicyClassName="ShipItemSemanticEditPolicy"
-        notationViewFactoryClassName="ShipViewFactory"
-        canonicalEditPolicyClassName="ShipCanonicalEditPolicy"
-        compartments="//@diagram/@compartments.0 //@diagram/@compartments.1"
-        graphicalNodeEditPolicyClassName="ShipGraphicalNodeEditPolicy"
-        createCommandClassName="ShipCreateCommand">
+        compartments="//@diagram/@compartments.0 //@diagram/@compartments.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:MetamodelType"
-          editHelperClassName="ShipEditHelper"/>
+          xsi:type="gmfgen:MetamodelType"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape"/>
@@ -288,18 +269,11 @@
     </topLevelNodes>
     <topLevelNodes
         visualID="2003"
-        editPartClassName="WarshipEditPart"
-        itemSemanticEditPolicyClassName="WarshipItemSemanticEditPolicy"
-        notationViewFactoryClassName="WarshipViewFactory"
-        canonicalEditPolicyClassName="WarshipCanonicalEditPolicy"
-        compartments="//@diagram/@compartments.2 //@diagram/@compartments.3"
-        graphicalNodeEditPolicyClassName="WarshipGraphicalNodeEditPolicy"
-        createCommandClassName="WarshipCreateCommand">
+        compartments="//@diagram/@compartments.2 //@diagram/@compartments.3">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:MetamodelType"
-          editHelperClassName="WarshipEditHelper"/>
+          xsi:type="gmfgen:MetamodelType"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape"/>
@@ -618,6 +592,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:SpecializationType"
+          displayName="Port Register"
           editHelperAdviceClassName="PortRegisterEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"

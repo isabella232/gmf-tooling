@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sketch:SketchDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:sketch="http://www.eclipse.org/gmf/2007/sketch" name="Aquatory" visualID="1000">
-  <nodes name="Port" shape="org.eclipse.gmf.examples.taipan.figures.PortShape" visualID="2001">
+<sketch:SketchDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:sketch="http://www.eclipse.org/gmf/2007/sketch" visualID="1000">
+  <nodes shape="org.eclipse.gmf.examples.taipan.figures.PortShape" visualID="2001">
     <labels name="Port Location" visualID="5001" external="true">
       <attributes href="taipan.ecore#//Port/location"/>
     </labels>
     <type href="taipan.ecore#//Port"/>
   </nodes>
-  <nodes name="Ship" shape="org.eclipse.gmf.examples.taipan.figures.PileShape" visualID="2002">
+  <nodes shape="org.eclipse.gmf.examples.taipan.figures.PileShape" visualID="2002">
     <compartments name="Ship Small Cargo" visualID="7001">
       <nodes name="Small Items" visualID="3001">
         <type href="taipan.ecore#//SmallItems"/>
@@ -33,7 +33,7 @@
     </labels>
     <type href="taipan.ecore#//Ship"/>
   </nodes>
-  <nodes name="Warship" shape="org.eclipse.gmf.examples.taipan.figures.PileShape" visualID="2003">
+  <nodes shape="org.eclipse.gmf.examples.taipan.figures.PileShape" visualID="2003">
     <compartments name="Warship Small Cargo" visualID="7003" referencedNodes="//@nodes.1/@compartments.0/@nodes.0"/>
     <compartments name="Warship Large Cargo" visualID="7004" referencedNodes="//@nodes.1/@compartments.1/@nodes.0 //@nodes.1/@compartments.1/@nodes.1"/>
     <labels name="Warship Name" visualID="5005">
