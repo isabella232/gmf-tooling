@@ -617,9 +617,9 @@ public class BuiltinMetaModel {
 		internalOperationsMap.put(ecorePkg.getEDouble(), doubleOps);
 
 		final List<InternalOperation> collectionOps = new LinkedList<InternalOperation>();
-		collectionOps.add(new InternalOperation<List>(opf.create("isEmpty", ecorePkg.getEBoolean())) {
+		collectionOps.add(new InternalOperation<Collection>(opf.create("isEmpty", ecorePkg.getEBoolean())) {
 			@Override
-			public Object evaluate(List target, Object[] params) {
+			public Object evaluate(Collection target, Object[] params) {
 				// TODO isEmpty is rather attribute
 				return target.isEmpty();
 			}
