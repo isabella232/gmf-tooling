@@ -23,6 +23,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorReferenceType;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
@@ -38,33 +39,36 @@ public class GenModelGraphAnalyzer {
 	public static List<List<GenCommonBase>> getConnectionPaths(GenNavigatorChildReference reference) {
 		assert reference.getParent() != null;
 		if (reference.getReferenceType() == GenNavigatorReferenceType.CHILDREN_LITERAL) {
-			return getChildConnectionPaths(reference.getParent(), reference.getChild());
+			return getChildConnectionPaths(reference.getParent(), reference.getChild(), reference.getNavigator());
 		} else if (reference.getReferenceType() == GenNavigatorReferenceType.IN_SOURCE_LITERAL) {
-			return getInSourceLinkConnectionPaths(reference.getParent(), reference.getChild(), reference.getNavigator().getEditorGen().getDiagram());
+			return getInSourceLinkConnectionPaths(reference.getParent(), reference.getChild(), reference.getNavigator());
 		} else if (reference.getReferenceType() == GenNavigatorReferenceType.OUT_TARGET_LITERAL) {
-			return getOutTargetLinkConnectionPaths(reference.getParent(), reference.getChild(), reference.getNavigator().getEditorGen().getDiagram());
+			return getOutTargetLinkConnectionPaths(reference.getParent(), reference.getChild(), reference.getNavigator());
 		}
 		return Collections.emptyList();
 	}
 
-	private static List<List<GenCommonBase>> getOutTargetLinkConnectionPaths(GenCommonBase source, GenCommonBase target, GenDiagram diagram) {
-		return new LinkedConnectionFinder(diagram, true).findConnectionPaths(source, target);
+	private static List<List<GenCommonBase>> getOutTargetLinkConnectionPaths(GenCommonBase source, GenCommonBase target, GenNavigator genNavigator) {
+		return new LinkedConnectionFinder(genNavigator, true).findConnectionPaths(source, target);
 	}
 
-	private static List<List<GenCommonBase>> getInSourceLinkConnectionPaths(GenCommonBase source, GenCommonBase target, GenDiagram diagram) {
-		return new LinkedConnectionFinder(diagram, false).findConnectionPaths(source, target);
+	private static List<List<GenCommonBase>> getInSourceLinkConnectionPaths(GenCommonBase source, GenCommonBase target, GenNavigator genNavigator) {
+		return new LinkedConnectionFinder(genNavigator, false).findConnectionPaths(source, target);
 	}
 
-	private static List<List<GenCommonBase>> getChildConnectionPaths(GenCommonBase source, GenCommonBase target) {
-		return new ChildConnectionFinder().findConnectionPaths(source, target);
+	private static List<List<GenCommonBase>> getChildConnectionPaths(GenCommonBase source, GenCommonBase target, GenNavigator genNavigator) {
+		return new ChildConnectionFinder(genNavigator).findConnectionPaths(source, target);
 	}
 
 	private static abstract class AbstractConnectionFinder {
 
 		private Set<GenCommonBase> myVisiting;
+		
+		private GenNavigator myNavigator;
 
-		public AbstractConnectionFinder() {
+		public AbstractConnectionFinder(GenNavigator genNavigator) {
 			myVisiting = new LinkedHashSet<GenCommonBase>();
+			myNavigator = genNavigator;
 		}
 
 		protected abstract Collection<GenCommonBase> getConnectedNodes(GenCommonBase source);
@@ -79,7 +83,7 @@ public class GenModelGraphAnalyzer {
 				return connections;
 			}
 
-			if (isVisiting(source)) {
+			if (isVisiting(source) || stopIterating(source)) {
 				// Loop found
 				return new ArrayList<List<GenCommonBase>>();
 			}
@@ -101,6 +105,17 @@ public class GenModelGraphAnalyzer {
 			} finally {
 				stopVisiting(source);
 			}
+		}
+
+		private boolean stopIterating(GenCommonBase source) {
+			if (myVisiting.size() > 0) {
+				for (GenNavigatorChildReference nextReference : myNavigator.getChildReferences()) {
+					if (nextReference.getParent() == source) {
+						return true;
+					}
+				}				
+			} 
+			return false;
 		}
 
 		private boolean isVisiting(GenCommonBase node) {
@@ -130,6 +145,10 @@ public class GenModelGraphAnalyzer {
 	}
 
 	private static class ChildConnectionFinder extends AbstractConnectionFinder {
+
+		public ChildConnectionFinder(GenNavigator genNavigator) {
+			super(genNavigator);
+		}
 
 		protected Collection<GenCommonBase> getConnectedNodes(GenCommonBase source) {
 			Collection<GenCommonBase> children = new ArrayList<GenCommonBase>();
@@ -164,8 +183,9 @@ public class GenModelGraphAnalyzer {
 		 */
 		private boolean myIsInLinkDirection;
 
-		public LinkedConnectionFinder(GenDiagram diagram, boolean inLinkDirection) {
-			myDiagram = diagram;
+		public LinkedConnectionFinder(GenNavigator genNavigator, boolean inLinkDirection) {
+			super(genNavigator);
+			myDiagram = genNavigator.getEditorGen().getDiagram();
 			myIsInLinkDirection = inLinkDirection;
 		}
 
