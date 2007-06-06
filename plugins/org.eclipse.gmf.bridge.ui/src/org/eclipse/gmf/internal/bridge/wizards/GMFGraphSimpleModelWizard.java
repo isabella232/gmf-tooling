@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.internal.bridge.wizards;
 
-import java.util.List;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -79,10 +77,9 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 		return builder.process(graphicalDefinitionPage.getModel());
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void reconcileModel() {
 		Canvas existingCanvas = null;
-		for (EObject element : (List<? extends EObject>) graphicalModelSelectionPage.getResource().getContents()) {
+		for (EObject element : graphicalModelSelectionPage.getResource().getContents()) {
 			if (element instanceof Canvas) {
 				existingCanvas = (Canvas) element;
 				break;

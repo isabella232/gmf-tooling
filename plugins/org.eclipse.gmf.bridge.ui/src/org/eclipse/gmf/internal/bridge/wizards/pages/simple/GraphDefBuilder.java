@@ -99,7 +99,6 @@ public class GraphDefBuilder {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public Canvas process(ResolvedItem item) {
 		if (existingCanvas == null) {
 			canvas = gmfGraphFactory.createCanvas();
@@ -211,7 +210,14 @@ public class GraphDefBuilder {
 		figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
 		figure.setText(Messages.GraphDefBuilder5);
 		assert parent.getFigure().getActualFigure() instanceof RealFigure : "We are creators of this gmfgraph; there should be nothing but figure"; //$NON-NLS-1$
-		((RealFigure) parent.getFigure().getActualFigure()).getChildren().add(figure);
+		final RealFigure realFigure = (RealFigure) parent.getFigure().getActualFigure();
+		if (parent instanceof Node) {
+			// safety check, not sure whether labels for links are created here or not
+			if (realFigure.getLayout() == null) {
+				realFigure.setLayout(GMFGraphFactory.eINSTANCE.createFlowLayout());
+			}
+		}
+		realFigure.getChildren().add(figure);
 		DiagramLabel label = gmfGraphFactory.createDiagramLabel();
 		label.setFigure(parent.getFigure());
 		label.setAccessor(newAccess(parent.getFigure(), figure));
