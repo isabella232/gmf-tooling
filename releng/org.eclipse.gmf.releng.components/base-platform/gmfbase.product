@@ -3,15 +3,14 @@
 
 <product name="GMF Base Platform" id="org.eclipse.gmf.releng.base.product" application="org.eclipse.ui.ide.workbench" useFeatures="true">
 
-
    <configIni use="default"/>
 
    <launcherArgs>
+      <vmArgs>-XX:MaxPermSize=128m -Xms128m -Xmx1024m</vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
    <windowImages/>
-
 
    <launcher>
       <solaris/>
@@ -19,7 +18,6 @@
          <bmp/>
       </win>
    </launcher>
-
 
    <vm>
    </vm>
