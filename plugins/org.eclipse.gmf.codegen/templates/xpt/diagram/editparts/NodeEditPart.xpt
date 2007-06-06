@@ -211,7 +211,7 @@ public class «editPartClassName» extends «EXPAND extendsList» {
 		"@param nodeShape instance of generated figure class"
 	)»
 	protected org.eclipse.draw2d.IFigure setupContentPane(org.eclipse.draw2d.IFigure nodeShape) {
-«IF !childNodes.isEmpty() || !compartments.isEmpty()-»
+«IF !childNodes.isEmpty() || !compartments.isEmpty() || !labels.without(labels.typeSelect(GenExternalNodeLabel)).isEmpty()-»
 		if (nodeShape.getLayoutManager() == null) {
 		«IF getLayoutType().value == gmfgen::ViewmapLayoutType::XY_LAYOUT.value-»
 		nodeShape.setLayoutManager(new org.eclipse.draw2d.FreeformLayout() {
