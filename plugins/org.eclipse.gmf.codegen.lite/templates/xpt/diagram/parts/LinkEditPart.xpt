@@ -106,7 +106,7 @@ private org.eclipse.draw2d.Connection primCreateFigure() {
 «DEFINE primCreateFigure FOR gmfgen::Viewmap»«ERROR "Unexpected viewmap type " + this»«ENDDEFINE»
 
 «DEFINE primCreateFigure FOR gmfgen::FigureViewmap-»
-	return new «figureQualifiedClassName == null ? "org.eclipse.gmf.runtime.draw2d.PolylineConnection" : figureQualifiedClassName»();
+	return new «figureQualifiedClassName == null ? "org.eclipse.draw2d.PolylineConnection" : figureQualifiedClassName»();
 «ENDDEFINE»
 
 «DEFINE primCreateFigure FOR gmfgen::SnippetViewmap-»
