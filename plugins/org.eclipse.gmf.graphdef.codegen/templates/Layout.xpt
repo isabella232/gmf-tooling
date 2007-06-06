@@ -73,14 +73,13 @@
 «ENDLET»
 «ENDDEFINE»
 
-«DEFINE alignment(EBoolean forceSingleLine) FOR gmfgraph::Alignment»
+«DEFINE alignment(EBoolean forceSingleLine) FOR gmfgraph::Alignment-»
 «IF value == Alignment::BEGINNING.value-»
 «IF forceSingleLine»ALIGN_TOPLEFT«ELSE»ALIGN_LEFTTOP«ENDIF-»
 «ELSEIF value == Alignment::END.value-»
 «IF forceSingleLine»ALIGN_BOTTOMRIGHT«ELSE»ALIGN_RIGHTBOTTOM«ENDIF-»
 «ELSE-»
-ALIGN_CENTER
-«ENDIF»
+ALIGN_CENTER«ENDIF-»
 «REM»XXX implement as extension
 switch (value) {
   case Alignment.BEGINNING : ""
