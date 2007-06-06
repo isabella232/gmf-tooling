@@ -40,7 +40,7 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «EXPAND className»(org.eclipse.emf.ecore.EAttribute[] features) {
 		if (features == null || features.length == 0 || java.util.Arrays.asList(features).contains(null)) {
-			throw new IllegalArgumentException(java.util.Arrays.toString(features));
+			throw new IllegalArgumentException();
 		}
 		this.features = features;
 	}
