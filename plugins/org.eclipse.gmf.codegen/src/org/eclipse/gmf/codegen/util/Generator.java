@@ -93,7 +93,7 @@ public class Generator extends GeneratorBase implements Runnable {
         generateExternalizationSupport();
         
 		// commands
-		generateReorientConnectionViewCommand();
+		generateReorientLinkViewCommand();
 
 		// edit helpers
 		generateBaseEditHelper();
@@ -313,13 +313,24 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	// commands
 
-	private void generateReorientConnectionViewCommand() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getReorientConnectionViewCommandEmitter(),
-			myDiagram.getEditCommandsPackageName(),
-			myDiagram.getReorientConnectionViewCommandClassName(),
-			myDiagram
-		);
+	private void generateReorientLinkViewCommand() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getReorientLinkViewCommandEmitter(), myDiagram.getReorientConnectionViewCommandQualifiedClassName(), myDiagram);
+	}
+
+	private void generateCreateLinkCommand(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getCreateLinkCommandEmitter(), link.getCreateCommandQualifiedClassName(), link);
+	}
+
+	private void generateCreateRefLinkCommand(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getCreateRefLinkCommandEmitter(), link.getCreateCommandQualifiedClassName(), link);
+	}
+
+	private void generateReorientLinkCommand(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getReorientLinkCommandEmitter(), link.getReorientCommandQualifiedClassName(), link);
+	}
+
+	private void generateReorientRefLinkCommand(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getReorientRefLinkCommandEmitter(), link.getReorientCommandQualifiedClassName(), link);
 	}
 
 	// helpers
@@ -503,22 +514,6 @@ public class Generator extends GeneratorBase implements Runnable {
 			return;
 		}
 		doGenerateJavaClass(myEmitters.getLinkItemSemanticEditPolicyEmitter(), genLink.getItemSemanticEditPolicyQualifiedClassName(), genLink);
-	}
-
-	private void generateCreateLinkCommand(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getCreateLinkCommandEmitter(), link.getCreateCommandQualifiedClassName(), link);
-	}
-
-	private void generateCreateRefLinkCommand(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getCreateRefLinkCommandEmitter(), link.getCreateCommandQualifiedClassName(), link);
-	}
-
-	private void generateReorientLinkCommand(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getReorientLinkCommandEmitter(), link.getReorientCommandQualifiedClassName(), link);
-	}
-
-	private void generateReorientRefLinkCommand(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getReorientRefLinkCommandEmitter(), link.getReorientCommandQualifiedClassName(), link);
 	}
 
 	private void generateTextSelectionEditPolicy() throws UnexpectedBehaviourException, InterruptedException {

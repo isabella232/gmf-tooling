@@ -27,7 +27,6 @@ import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.codegen.templates.commands.CreateShortcutDecorationsCommand;
 import org.eclipse.gmf.codegen.templates.commands.CreateTypeNodeCommandGenerator;
-import org.eclipse.gmf.codegen.templates.commands.ReorientConnectionViewCommandGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ActionBarContributorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.BuildPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreateShortcutActionGenerator;
@@ -128,7 +127,6 @@ public class CodegenEmitters {
 	}
 
 	private static void initRegistry(StaticTemplateRegistry tr) {
-		put(tr, "/commands/ReorientConnectionViewCommand.javajet", ReorientConnectionViewCommandGenerator.class);
 		put(tr, "/helpers/BaseEditHelper.javajet", BaseEditHelperGenerator.class);
 		put(tr, "/helpers/EditHelper.javajet", EditHelperGenerator.class);
 		put(tr, "/helpers/EditHelperAdvice.javajet", EditHelperAdviceGenerator.class);
@@ -210,24 +208,24 @@ public class CodegenEmitters {
 
 	// commands
 
-	public TextEmitter getReorientConnectionViewCommandEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ReorientConnectionViewCommandGenerator.class);
-	}
-
 	public TextEmitter getCreateLinkCommandEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::commands::CreateLinkCommand::CreateLinkCommand"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::commands::CreateLinkCommand"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getCreateRefLinkCommandEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::commands::CreateRefLinkCommand::CreateRefLinkCommand"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::commands::CreateRefLinkCommand"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getReorientLinkCommandEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::commands::ReorientLinkCommand::ReorientLinkCommand"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::commands::ReorientLinkCommand"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getReorientRefLinkCommandEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::commands::ReorientRefLinkCommand::ReorientRefLinkCommand"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::commands::ReorientRefLinkCommand"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getReorientLinkViewCommandEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::diagram::commands::ReorientLinkViewCommand"); //$NON-NLS-1$
 	}
 
 	// helpers
