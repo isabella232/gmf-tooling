@@ -39,6 +39,10 @@ public class GenModelUtils {
 		return genFeature.isListType();
 	}
 
+	public static boolean isDerived(GenFeature genFeature) {
+		return genFeature.isDerived();
+	}
+
 	public static GenClass getTypeGenClass(GenFeature genFeature) {
 		return genFeature.getTypeGenClass();
 	}
