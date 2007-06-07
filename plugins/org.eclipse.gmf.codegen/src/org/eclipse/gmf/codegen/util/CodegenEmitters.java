@@ -25,7 +25,6 @@ import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.gmf.codegen.templates.commands.CreateTypeNodeCommandGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ActionBarContributorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.BuildPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreateShortcutActionGenerator;
@@ -132,7 +131,6 @@ public class CodegenEmitters {
 		put(tr, "/policies/GraphicalNodeEditPolicy.javajet", GraphicalNodeEditPolicyGenerator.class);
 		put(tr, "/policies/DiagramItemSemanticEditPolicy.javajet", DiagramItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/CompartmentItemSemanticEditPolicy.javajet", CompartmentItemSemanticEditPolicyGenerator.class);
-		put(tr, "/commands/CreateTypeNodeCommand.javajet", CreateTypeNodeCommandGenerator.class);
 		put(tr, "/providers/EditPartProvider.javajet", EditPartProviderGenerator.class);
 		put(tr, "/providers/ContributionItemProvider.javajet", ContributionItemProviderGenerator.class);
 		put(tr, "/providers/ModelingAssistantProvider.javajet", ModelingAssistantProviderGenerator.class);
@@ -205,6 +203,10 @@ public class CodegenEmitters {
 	}
 
 	// commands
+
+	public TextEmitter getCreateNodeCommandEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::diagram::commands::CreateNodeCommand"); //$NON-NLS-1$
+	}
 
 	public TextEmitter getCreateLinkCommandEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryEmitter("xpt::diagram::commands::CreateLinkCommand"); //$NON-NLS-1$
@@ -314,10 +316,6 @@ public class CodegenEmitters {
 
 	public TextEmitter getNodeItemSemanticEditPolicyEmitter() {
 		return newXpandEmitter("xpt::diagram::editpolicies::NodeItemSemanticEditPolicy::NodeItemSemanticEditPolicy"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getNodeCreateCommandEmitter() throws UnexpectedBehaviourException {
-		return retrieve(CreateTypeNodeCommandGenerator.class);
 	}
 
 	public TextEmitter getLinkItemSemanticEditPolicyEmitter() {

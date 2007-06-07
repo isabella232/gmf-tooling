@@ -280,7 +280,9 @@ public class Generator extends GeneratorBase implements Runnable {
 	private void generateNode(GenNode node) throws UnexpectedBehaviourException, InterruptedException {
 		generateNodeViewFactory(node);
 		generateNodeItemSemanticEditPolicy(node);
-		generateNodeCreateCommand(node);
+		if (node.getModelFacet() != null) {
+			generateCreateNodeCommand(node);
+		}
 		generateEditSupport(node);
 		generateNodeEditPart(node);
 		generateBehaviours(node);
@@ -305,7 +307,9 @@ public class Generator extends GeneratorBase implements Runnable {
 	private void generateChildLabelNode(GenChildLabelNode child) throws UnexpectedBehaviourException, InterruptedException {
 		generateLabelNodeViewFactory(child);
 		generateNodeItemSemanticEditPolicy(child);
-		generateNodeCreateCommand(child);
+		if (child.getModelFacet() != null) {
+			generateCreateNodeCommand(child);
+		}
 		generateEditSupport(child);
 		generateBehaviours(child);
 		generateChildNodeLabelEditPart(child);
@@ -315,6 +319,10 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateReorientLinkViewCommand() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getReorientLinkViewCommandEmitter(), myDiagram.getReorientConnectionViewCommandQualifiedClassName(), myDiagram);
+	}
+
+	private void generateCreateNodeCommand(GenNode node) throws InterruptedException, UnexpectedBehaviourException {
+		doGenerateJavaClass(myEmitters.getCreateNodeCommandEmitter(), node.getCreateCommandQualifiedClassName(), node);
 	}
 
 	private void generateCreateLinkCommand(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
@@ -499,18 +507,6 @@ public class Generator extends GeneratorBase implements Runnable {
 			return;
 		}
 		doGenerateJavaClass(myEmitters.getNodeItemSemanticEditPolicyEmitter(), genNode.getItemSemanticEditPolicyQualifiedClassName(), genNode);
-	}
-	
-	private void generateNodeCreateCommand(GenNode genNode) throws InterruptedException, UnexpectedBehaviourException {
-		if (genNode.getModelFacet() == null) {
-			return;
-		}
-		internalGenerateJavaClass(
-				myEmitters.getNodeCreateCommandEmitter(),
-				myDiagram.getEditCommandsPackageName(),
-				genNode.getCreateCommandClassName(),
-				genNode
-			);
 	}
 
 	private void generateLinkItemSemanticEditPolicy(GenLink genLink) throws InterruptedException {
