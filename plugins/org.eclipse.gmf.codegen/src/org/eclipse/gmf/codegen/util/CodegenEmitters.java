@@ -25,7 +25,6 @@ import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.gmf.codegen.templates.commands.CreateShortcutDecorationsCommand;
 import org.eclipse.gmf.codegen.templates.commands.CreateTypeNodeCommandGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ActionBarContributorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.BuildPropertiesGenerator;
@@ -147,7 +146,6 @@ public class CodegenEmitters {
 		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
 		put(tr, "/editor/Editor.javajet", EditorGenerator.class);
 		put(tr, "/editor/CreateShortcutAction.javajet", CreateShortcutActionGenerator.class);
-		put(tr, "/commands/CreateShortcutDecorationsCommand.javajet", CreateShortcutDecorationsCommand.class);
 		put(tr, "/editor/LoadResourceAction.javajet", LoadResourceActionGenerator.class);
 		put(tr, "/editor/ElementChooser.javajet", ElementChooserGenerator.class);
 		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
@@ -226,6 +224,10 @@ public class CodegenEmitters {
 
 	public TextEmitter getReorientLinkViewCommandEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryEmitter("xpt::diagram::commands::ReorientLinkViewCommand"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getCreateShortcutDecorationsCommandEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::diagram::commands::CreateShortcutDecorationsCommand"); //$NON-NLS-1$
 	}
 
 	// helpers
@@ -568,10 +570,6 @@ public class CodegenEmitters {
 	
 	public TextEmitter getCreateShortcutActionEmitter() throws UnexpectedBehaviourException {
 		return retrieve(CreateShortcutActionGenerator.class);
-	}
-	
-	public TextEmitter getCreateShortcutDecorationCommandEmitter() throws UnexpectedBehaviourException {
-		return retrieve(CreateShortcutDecorationsCommand.class);
 	}
 
 	public TextEmitter getLoadResourceActionEmitter() throws UnexpectedBehaviourException {

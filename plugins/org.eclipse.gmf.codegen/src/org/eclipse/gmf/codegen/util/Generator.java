@@ -211,7 +211,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 		if (myDiagram.generateCreateShortcutAction()) {
 			generateCreateShortcutAction();
-			generateCreateShortcutDecorationCommand();
+			generateCreateShortcutDecorationsCommand();
 			if (myEditorGen.getApplication() == null) {
 				generateElementChooser();
 			} else {
@@ -331,6 +331,10 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateReorientRefLinkCommand(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getReorientRefLinkCommandEmitter(), link.getReorientCommandQualifiedClassName(), link);
+	}
+
+	private void generateCreateShortcutDecorationsCommand() throws InterruptedException, UnexpectedBehaviourException {
+		doGenerateJavaClass(myEmitters.getCreateShortcutDecorationsCommandEmitter(), myDiagram.getCreateShortcutDecorationsCommandQualifiedClassName(), myDiagram);
 	}
 
 	// helpers
@@ -800,18 +804,6 @@ public class Generator extends GeneratorBase implements Runnable {
 				myEmitters.getCreateShortcutActionEmitter(),
 				myEditorGen.getEditor().getPackageName(), 
 				myDiagram.getCreateShortcutActionClassName(),
-				myDiagram
-			);
-	}
-	
-	private void generateCreateShortcutDecorationCommand() throws InterruptedException, UnexpectedBehaviourException {
-		if (!myDiagram.generateCreateShortcutAction()) {
-			return;
-		}
-		internalGenerateJavaClass(
-				myEmitters.getCreateShortcutDecorationCommandEmitter(),
-				myDiagram.getEditCommandsPackageName(), 
-				myDiagram.getCreateShortcutDecorationsCommandClassName(),
 				myDiagram
 			);
 	}
