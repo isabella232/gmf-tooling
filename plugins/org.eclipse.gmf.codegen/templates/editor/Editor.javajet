@@ -240,6 +240,52 @@ if (genDiagram.generateCreateShortcutAction()) {%>
 			
 		});
 	}
+<%if (genEditor.getEditorGen().getApplication() == null) {%>
+
+	/**
+	 * @generated
+	 */
+    public <%=importManager.getImportedName("org.eclipse.ui.part.ShowInContext")%> getShowInContext() {
+    	return new ShowInContext(getEditorInput(), getNavigatorSelection());
+    }
+
+<%
+	/*
+		Similar to NavigatorLinkHelper.xpt
+	*/
+%>    
+	/**
+	 * @generated
+	 */
+    private <%=importManager.getImportedName("org.eclipse.jface.viewers.ISelection")%> getNavigatorSelection() {
+        <%=importManager.getImportedName("IDiagramDocument")%> document = getDiagramDocument();
+		if (document == null) {
+			return <%=importManager.getImportedName("org.eclipse.jface.viewers.StructuredSelection")%>.EMPTY;
+		}
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram = document.getDiagram();
+		<%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> file = <%=importManager.getImportedName("org.eclipse.emf.workspace.util.WorkspaceSynchronizer")%>.getFile(diagram.eResource());
+		if (file != null) {
+			<%=importManager.getImportedName(genEditor.getEditorGen().getNavigator().getNavigatorItemQualifiedClassName())%> item = new <%=importManager.getImportedName(genEditor.getEditorGen().getNavigator().getNavigatorItemQualifiedClassName())%>(diagram, file, false);
+			return new <%=importManager.getImportedName("org.eclipse.jface.viewers.StructuredSelection")%>(item);
+		}
+		return <%=importManager.getImportedName("org.eclipse.jface.viewers.StructuredSelection")%>.EMPTY;
+    }
+
+	/**
+	 * @generated
+	 */
+	public Object getAdapter(Class required) {
+		if (required == <%=importManager.getImportedName("org.eclipse.ui.part.IShowInTargetList")%>.class) {
+			return new <%=importManager.getImportedName("org.eclipse.ui.part.IShowInTargetList")%>() {
+				public String[] getShowInTargetIds() {
+					return new String[] { <%=importManager.getImportedName("org.eclipse.ui.navigator.resources.ProjectExplorer")%>.VIEW_ID };
+				}
+
+			};
+		}
+		return super.getAdapter(required);
+	}
+<%}%>
 	
 	/**
 	 * @generated
