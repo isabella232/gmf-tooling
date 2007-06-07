@@ -131,6 +131,9 @@ private java.util.Collection refreshConnections() {
 «DEFINE collectAllLinks FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 private java.util.Collection collectAllLinks(org.eclipse.gmf.runtime.notation.View view, java.util.Map domain2NotationMap) {
+	if (!«EXPAND xpt::editor::VisualIDRegistry::modelID».equals(«EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall»(view))) {
+		return java.util.Collections.EMPTY_LIST;
+	}
 	java.util.Collection result = new java.util.LinkedList();
 	switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(view)) {
 		«EXPAND caseSemanticElement FOREACH getAllSemanticElements(this)-»
