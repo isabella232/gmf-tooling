@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.ChildAccess;
@@ -22,11 +23,13 @@ import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
+import org.eclipse.gmf.gmfgraph.FigureAccessor;
 import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Processor;
@@ -116,13 +119,10 @@ public class CanvasProcessor extends Processor {
 
 	private void handleLabels() throws InterruptedException {
 		for (DiagramLabel next : myInput.getLabels()) {
-			if (next.getAccessor() != null) {
-				// accessor
-				ChildAccess labelAccess = next.getAccessor();
-				// XXX nothing to do?
-			} else {
+			if (next.getAccessor() == null) {
 				handleFigure(next.getFigure());
 			}
+			// else nothing to do as child accessors will get copied as part of parent figure process
 		}
 	}
 
@@ -142,9 +142,20 @@ public class CanvasProcessor extends Processor {
 			myOutcomeGallery.getFigures().add(myElementCopier.xcopy(f));
 		} else {
 			String fqn = myCallback.visitFigure(fd);
-			myElementCopier.registerSubstitution(fd, createCustomFigure(fd, fqn));
+			final FigureDescriptor newFD = createCustomFigure(fd, fqn);
+			myElementCopier.registerSubstitution(fd, newFD);
+			for (ChildAccess ca : fd.getAccessors()) {
+				FigureAccessor newFA = GMFGraphFactory.eINSTANCE.createFigureAccessor();
+				newFA.setAccessor(ca.getAccessor());
+				newFA.setTypedFigure(createReferencedFigure(ca));
+				((CustomFigure) newFD.getActualFigure()).getCustomChildren().add(newFA);
+				final ChildAccess newCA = myElementCopier.xcopy(ca);
+				newCA.setFigure(newFA.getTypedFigure());
+				newFD.getAccessors().add(newCA);
+			}
 		}
 	}
+
 
 	/**
 	 * FIXME diplicates {@link org.eclipse.gmf.bridge.genmodel.InnerClassViewmapProducer#isBareInstance}
@@ -180,5 +191,19 @@ public class CanvasProcessor extends Processor {
 		fd.setActualFigure(cf);
 		myOutcomeGallery.getDescriptors().add(fd);
 		return fd;
+	}
+
+	private static RealFigure createReferencedFigure(ChildAccess ca) {
+		// XXX ca.getFigure() may be FigureRef, need to revisit this usecase
+		if (false == ca.getFigure() instanceof RealFigure) {
+			return null;
+		}
+		EClass eType = ca.getFigure().eClass();
+		// it's just a type holder, hence no need to copy any attribute/children but type only.
+		RealFigure copy = (RealFigure) eType.getEPackage().getEFactoryInstance().create(eType);
+		if (copy instanceof CustomFigure) {
+			((CustomFigure) copy).setQualifiedClassName(((CustomFigure) ca.getFigure()).getQualifiedClassName());
+		}
+		return copy;
 	}
 }
