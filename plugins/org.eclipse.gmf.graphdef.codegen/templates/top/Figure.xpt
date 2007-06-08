@@ -48,6 +48,9 @@
 	 */
 	public «cuName»() {
 		«EXPAND Attrs::Init("this")»
+«IF !children.typeSelect(Figure).isEmpty()-»
+		createContents();
+«ENDIF-»
 «IF hasSourceDecoration()-»
 		setSourceDecoration(createSourceDecoration());
 «ENDIF-»
@@ -55,6 +58,9 @@
 		setTargetDecoration(createTargetDecoration());
 «ENDIF-»
 	}
+«IF !children.typeSelect(Figure).isEmpty()»
+«EXPAND Children::CreateChildren-»
+«ENDIF-»
 «IF hasSourceDecoration()»
 	/**
 	 * @generated
