@@ -142,6 +142,12 @@
 			<property name="updatesite.name" value="requirements" />
 		</ant>
 		<ant antfile="${scripts}/update.xml" target="install">
+			<property name="featureId" value="${emfOclFeatureId}" />
+			<property name="version" value="${emfOclUpdateVersion}" />
+			<property name="from.updatesite" value="${emfOclUpdateSite}" />
+			<property name="updatesite.name" value="requirements" />
+		</ant>
+		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfQtvAllFeatureId}" />
 			<property name="version" value="${emfQtvAllUpdateVersion}" />
 			<property name="from.updatesite" value="${emfUpdateSite}" />
