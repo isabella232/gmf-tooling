@@ -578,6 +578,7 @@ protected void handleElementChanged(ResourceSetInfo info, org.eclipse.emf.ecore.
 	} catch (org.eclipse.core.runtime.CoreException e) {
 		info.fStatus = e.getStatus();
 	}
+«REM»TODO: Remove this if and call setModificationStamp only from doSaveDocument method«ENDREM»«-»
 	if (!info.fCanBeSaved) {
 		info.setModificationStamp(computeModificationStamp(info));
 	}
@@ -619,6 +620,7 @@ protected void doSaveDocument(org.eclipse.core.runtime.IProgressMonitor monitor,
 				monitor.worked(1);
 			}
 			monitor.done();
+			info.setModificationStamp(computeModificationStamp(info));
 		} catch (RuntimeException x) {
 			fireElementStateChangeFailed(element);
 			throw x;
