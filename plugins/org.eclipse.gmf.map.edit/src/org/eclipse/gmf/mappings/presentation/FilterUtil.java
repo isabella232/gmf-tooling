@@ -67,7 +67,7 @@ public class FilterUtil {
 				superType = ((LinkMapping) mappingEntry).getContainmentFeature().getEReferenceType();
 			}
 		}
-		return sort(getSubtypesOf(filterValidEObjectsFrom(eClasses, mappingEntry.eResource().getResourceSet()), superType));
+		return sort(getConcreteEClasses(getSubtypesOf(filterValidEObjectsFrom(eClasses, mappingEntry.eResource().getResourceSet()), superType)));
 	}
 
 	public static List<EStructuralFeature> filterByContainerMetaclass(Collection<EStructuralFeature> eReferences, MappingEntry mappingEntry) {
@@ -167,6 +167,17 @@ public class FilterUtil {
 			if (nextEClass != null && !superType.isSuperTypeOf(nextEClass)) {
 				it.remove();
 			}
+		}
+		return eClasses;
+	}
+	
+	private static Collection<EClass> getConcreteEClasses(Collection<EClass> eClasses) {
+		for (Iterator<EClass> it = eClasses.iterator(); it.hasNext();) {
+			EClass nextEClass = it.next();
+			if (nextEClass != null && (nextEClass.isAbstract() || nextEClass.isInterface())) {
+				it.remove();
+			}
+			
 		}
 		return eClasses;
 	}
