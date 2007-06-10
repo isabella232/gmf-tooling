@@ -327,7 +327,7 @@ if (genDiagram.generateCreateShortcutAction()) {
     stringBuffer.append(importManager.getImportedName("org.eclipse.jface.viewers.ISelection"));
     stringBuffer.append(TEXT_78);
     stringBuffer.append(TEXT_79);
-    stringBuffer.append(importManager.getImportedName("IDiagramDocument"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument"));
     stringBuffer.append(TEXT_80);
     stringBuffer.append(importManager.getImportedName("org.eclipse.jface.viewers.StructuredSelection"));
     stringBuffer.append(TEXT_81);

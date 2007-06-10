@@ -258,7 +258,7 @@ if (genDiagram.generateCreateShortcutAction()) {%>
 	 * @generated
 	 */
     private <%=importManager.getImportedName("org.eclipse.jface.viewers.ISelection")%> getNavigatorSelection() {
-        <%=importManager.getImportedName("IDiagramDocument")%> document = getDiagramDocument();
+        <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument")%> document = getDiagramDocument();
 		if (document == null) {
 			return <%=importManager.getImportedName("org.eclipse.jface.viewers.StructuredSelection")%>.EMPTY;
 		}
