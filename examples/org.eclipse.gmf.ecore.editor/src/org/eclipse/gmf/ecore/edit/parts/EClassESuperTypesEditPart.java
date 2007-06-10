@@ -55,9 +55,16 @@ public class EClassESuperTypesEditPart extends ConnectionNodeEditPart {
 	 * 
 	 * @generated
 	 */
-	protected Connection createConnectionFigure() {
 
+	protected Connection createConnectionFigure() {
 		return new SolidLineWDstClosedArrow();
+	}
+
+	/**
+	 * @generated
+	 */
+	public SolidLineWDstClosedArrow getPrimaryShape() {
+		return (SolidLineWDstClosedArrow) getFigure();
 	}
 
 	/**

@@ -16,23 +16,15 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
-
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
-
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
-
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
-
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
-
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest;
-
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
-
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -68,7 +60,6 @@ public class EcoreCreateShortcutDecorationsCommand extends AbstractTransactional
 			CreateViewRequest.ViewDescriptor nextDescriptor = (CreateViewRequest.ViewDescriptor) it.next();
 			View view = (View) nextDescriptor.getAdapter(View.class);
 			if (view != null && view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
-
 				EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 				shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
 				shortcutAnnotation.getDetails().put("modelID", EPackageEditPart.MODEL_ID); //$NON-NLS-1$
@@ -77,5 +68,4 @@ public class EcoreCreateShortcutDecorationsCommand extends AbstractTransactional
 		}
 		return CommandResult.newOKCommandResult();
 	}
-
 }

@@ -534,6 +534,7 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 					monitor.worked(1);
 				}
 				monitor.done();
+				info.setModificationStamp(computeModificationStamp(info));
 			} catch (RuntimeException x) {
 				fireElementStateChangeFailed(element);
 				throw x;

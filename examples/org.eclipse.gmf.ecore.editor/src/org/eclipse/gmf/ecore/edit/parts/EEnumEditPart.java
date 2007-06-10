@@ -140,7 +140,7 @@ public class EEnumEditPart extends ShapeNodeEditPart {
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof EEnumNameEditPart) {
-			((EEnumNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureName());
+			((EEnumNameEditPart) childEditPart).setLabel(getPrimaryShape().Name());
 			return true;
 		}
 		return false;
@@ -267,9 +267,7 @@ public class EEnumEditPart extends ShapeNodeEditPart {
 
 			ToolbarLayout layoutThis = new ToolbarLayout();
 			layoutThis.setStretchMinorAxis(true);
-			layoutThis.setMinorAlignment(ToolbarLayout.ALIGN_CENTER
-
-			);
+			layoutThis.setMinorAlignment(ToolbarLayout.ALIGN_CENTER);
 
 			layoutThis.setSpacing(0);
 			layoutThis.setVertical(true);
@@ -314,7 +312,7 @@ public class EEnumEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		public WrapLabel getFigureName() {
+		public WrapLabel Name() {
 			return fName;
 		}
 

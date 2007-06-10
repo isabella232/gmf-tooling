@@ -14,11 +14,8 @@ package org.eclipse.gmf.ecore.edit.commands;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
-
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
-
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
-
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -36,13 +33,6 @@ public class EEnumLiteralCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	protected EClass getEClassToEdit() {
-		return EcorePackage.eINSTANCE.getEEnum();
-	}
-
-	/**
-	 * @generated
-	 */
 	protected EObject getElementToEdit() {
 		EObject container = ((CreateElementRequest) getRequest()).getContainer();
 		if (container instanceof View) {
@@ -51,4 +41,10 @@ public class EEnumLiteralCreateCommand extends CreateElementCommand {
 		return container;
 	}
 
+	/**
+	 * @generated
+	 */
+	protected EClass getEClassToEdit() {
+		return EcorePackage.eINSTANCE.getEEnum();
+	}
 }

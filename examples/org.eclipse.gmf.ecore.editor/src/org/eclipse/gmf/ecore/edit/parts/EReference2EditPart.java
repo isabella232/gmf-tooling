@@ -11,11 +11,11 @@
  */
 package org.eclipse.gmf.ecore.edit.parts;
 
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.PolygonDecoration;
 import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.draw2d.geometry.PointList;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.ecore.edit.policies.EReference2ItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
@@ -48,6 +48,23 @@ public class EReference2EditPart extends ConnectionNodeEditPart {
 	}
 
 	/**
+	 * @generated
+	 */
+	protected boolean addFixedChild(EditPart childEditPart) {
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (addFixedChild(childEditPart)) {
+			return;
+		}
+		super.addChildVisual(childEditPart, -1);
+	}
+
+	/**
 	 * Creates figure for this edit part.
 	 * 
 	 * Body of this method does not depend on settings in generation model
@@ -55,9 +72,16 @@ public class EReference2EditPart extends ConnectionNodeEditPart {
 	 * 
 	 * @generated
 	 */
-	protected Connection createConnectionFigure() {
 
+	protected Connection createConnectionFigure() {
 		return new SolidLineWSrcDiamond();
+	}
+
+	/**
+	 * @generated
+	 */
+	public SolidLineWSrcDiamond getPrimaryShape() {
+		return (SolidLineWSrcDiamond) getFigure();
 	}
 
 	/**
@@ -78,7 +102,6 @@ public class EReference2EditPart extends ConnectionNodeEditPart {
 		 */
 		private RotatableDecoration createSourceDecoration() {
 			PolygonDecoration df = new PolygonDecoration();
-			df.setBackgroundColor(ColorConstants.white);
 			PointList pl = new PointList();
 			pl.addPoint(getMapMode().DPtoLP(-1), getMapMode().DPtoLP(1));
 			pl.addPoint(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));

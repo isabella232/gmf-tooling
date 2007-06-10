@@ -136,7 +136,7 @@ public class EAnnotationEditPart extends ShapeNodeEditPart {
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof EAnnotationSourceEditPart) {
-			((EAnnotationSourceEditPart) childEditPart).setLabel(getPrimaryShape().getFigureName());
+			((EAnnotationSourceEditPart) childEditPart).setLabel(getPrimaryShape().Name());
 			return true;
 		}
 		return false;
@@ -263,9 +263,7 @@ public class EAnnotationEditPart extends ShapeNodeEditPart {
 
 			ToolbarLayout layoutThis = new ToolbarLayout();
 			layoutThis.setStretchMinorAxis(true);
-			layoutThis.setMinorAlignment(ToolbarLayout.ALIGN_CENTER
-
-			);
+			layoutThis.setMinorAlignment(ToolbarLayout.ALIGN_CENTER);
 
 			layoutThis.setSpacing(0);
 			layoutThis.setVertical(true);
@@ -310,7 +308,7 @@ public class EAnnotationEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		public WrapLabel getFigureName() {
+		public WrapLabel Name() {
 			return fName;
 		}
 

@@ -52,9 +52,16 @@ public class EAnnotationReferencesEditPart extends ConnectionNodeEditPart {
 	 * 
 	 * @generated
 	 */
-	protected Connection createConnectionFigure() {
 
+	protected Connection createConnectionFigure() {
 		return new DashedLineConnection();
+	}
+
+	/**
+	 * @generated
+	 */
+	public DashedLineConnection getPrimaryShape() {
+		return (DashedLineConnection) getFigure();
 	}
 
 	/**

@@ -211,6 +211,9 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	private Collection collectAllLinks(View view, Map domain2NotationMap) {
+		if (!EPackageEditPart.MODEL_ID.equals(EcoreVisualIDRegistry.getModelID(view))) {
+			return Collections.EMPTY_LIST;
+		}
 		Collection result = new LinkedList();
 		switch (EcoreVisualIDRegistry.getVisualID(view)) {
 		case EPackageEditPart.VISUAL_ID: {

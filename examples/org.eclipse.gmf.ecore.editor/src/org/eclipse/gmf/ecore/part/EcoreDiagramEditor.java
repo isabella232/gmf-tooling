@@ -42,6 +42,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 
 import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
 
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
+
 import org.eclipse.gef.EditPartViewer;
 
 import org.eclipse.gmf.ecore.navigator.EcoreNavigatorItem;
@@ -56,6 +58,7 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocu
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
 
+import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 
 import org.eclipse.jface.dialogs.ErrorDialog;
@@ -64,7 +67,9 @@ import org.eclipse.jface.dialogs.MessageDialog;
 
 import org.eclipse.jface.util.LocalSelectionTransfer;
 
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 
 import org.eclipse.jface.window.Window;
 
@@ -85,7 +90,11 @@ import org.eclipse.ui.dialogs.SaveAsDialog;
 
 import org.eclipse.ui.ide.IGotoMarker;
 
+import org.eclipse.ui.navigator.resources.ProjectExplorer;
+
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.part.IShowInTargetList;
+import org.eclipse.ui.part.ShowInContext;
 
 /**
  * @generated
@@ -279,6 +288,46 @@ public class EcoreDiagramEditor extends DiagramDocumentEditor implements IGotoMa
 			}
 
 		});
+	}
+
+	/**
+	 * @generated
+	 */
+	public ShowInContext getShowInContext() {
+		return new ShowInContext(getEditorInput(), getNavigatorSelection());
+	}
+
+	/**
+	 * @generated
+	 */
+	private ISelection getNavigatorSelection() {
+		IDiagramDocument document = getDiagramDocument();
+		if (document == null) {
+			return StructuredSelection.EMPTY;
+		}
+		Diagram diagram = document.getDiagram();
+		IFile file = WorkspaceSynchronizer.getFile(diagram.eResource());
+		if (file != null) {
+			EcoreNavigatorItem item = new EcoreNavigatorItem(diagram, file, false);
+			return new StructuredSelection(item);
+		}
+		return StructuredSelection.EMPTY;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Object getAdapter(Class required) {
+		if (required == IShowInTargetList.class) {
+			return new IShowInTargetList() {
+
+				public String[] getShowInTargetIds() {
+					return new String[] { ProjectExplorer.VIEW_ID };
+				}
+
+			};
+		}
+		return super.getAdapter(required);
 	}
 
 	/**
