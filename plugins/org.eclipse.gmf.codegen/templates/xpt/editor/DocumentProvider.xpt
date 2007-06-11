@@ -593,7 +593,8 @@ protected void doSaveDocument(org.eclipse.core.runtime.IProgressMonitor monitor,
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
 		if (!overwrite && !info.isSynchronized()) {
-			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, org.eclipse.core.runtime.IStatus.OK, 
+			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 
+				«IF null == editorGen.application»org.eclipse.core.resources.IResourceStatus.OUT_OF_SYNC_LOCAL«ELSE»org.eclipse.core.runtime.IStatus.ERROR«ENDIF», 
 				«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentUnsynchronizedFileSaveError()) FOR editorGen», 
 				null));
 		}
