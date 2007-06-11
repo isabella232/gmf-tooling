@@ -14,6 +14,18 @@ import "http://www.eclipse.org/gmf/2006/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
 import "http://www.eclipse.org/emf/2002/GenModel";
 
+int getMaxVisualID(gmfgen::GenNavigator navigator) :
+	getMaxVisualIDNavigatorNode(navigator).size() == 1 ? ((gmfgen::GenCommonBase) getMaxVisualIDNavigatorNode(navigator).first()).visualID : 0
+;
+
+private cached List[gmfgen::GenCommonBase] getMaxVisualIDNavigatorNode(gmfgen::GenNavigator navigator) :
+	getNavigatorNodes(navigator).select(navigatorNode | isMaximumVisualID(navigatorNode, getNavigatorNodes(navigator)))
+;
+
+private boolean isMaximumVisualID(gmfgen::GenCommonBase commonBase, List[gmfgen::GenCommonBase] allNavigatorNodes) :
+	allNavigatorNodes.select(navigatorNode | navigatorNode.visualID >  commonBase.visualID).isEmpty()
+;
+
 boolean isStringFeature(genmodel::GenFeature feature) :
 	feature.ecoreFeature.eType.name == "EString"
 ;

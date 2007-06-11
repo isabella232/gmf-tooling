@@ -41,7 +41,6 @@ import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGene
 import org.eclipse.gmf.codegen.templates.helpers.BaseEditHelperGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperAdviceGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperGenerator;
-import org.eclipse.gmf.codegen.templates.navigator.NavigatorSorterGenerator;
 import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.GraphicalNodeEditPolicyGenerator;
@@ -145,7 +144,6 @@ public class CodegenEmitters {
 		put(tr, "/editor/LoadResourceAction.javajet", LoadResourceActionGenerator.class);
 		put(tr, "/editor/ElementChooser.javajet", ElementChooserGenerator.class);
 		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
-		put(tr, "/navigator/NavigatorSorter.javajet", NavigatorSorterGenerator.class);
 		put(tr, "/editor/Plugin.javajet", PluginGenerator.class);
 		put(tr, "/editor/.optionsjet", OptionsFileGenerator.class);
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
@@ -634,8 +632,8 @@ public class CodegenEmitters {
 		return newXpandEmitter("xpt::navigator::NavigatorLinkHelper::NavigatorLinkHelper"); //$NON-NLS-1$
 	}
 	
-	public TextEmitter getNavigatorSorterEmitter() throws UnexpectedBehaviourException {
-		return retrieve(NavigatorSorterGenerator.class);
+	public TextEmitter getNavigatorSorterEmitter() {
+		return newXpandEmitter("xpt::navigator::NavigatorSorter::NavigatorSorter"); //$NON-NLS-1$
 	}
 	
 	public TextEmitter getNavigatorActionProviderEmitter() {
@@ -683,7 +681,7 @@ public class CodegenEmitters {
 	}
 	
 	public BinaryEmitter getGroupIconEmitter() throws UnexpectedBehaviourException {
-		return newGIFEmitter("/navigator/navigatorGroup.gif"); //$NON-NLS-1$
+		return newGIFEmitter("/xpt/navigator/navigatorGroup.gif"); //$NON-NLS-1$
 	}
 
 	public BinaryEmitter getDiagramIconEmitter() throws UnexpectedBehaviourException {
