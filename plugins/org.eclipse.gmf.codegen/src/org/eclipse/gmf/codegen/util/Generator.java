@@ -888,12 +888,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	private void generateNavigatorLabelProvider() throws InterruptedException, UnexpectedBehaviourException {
-		internalGenerateJavaClass(
-				myEmitters.getNavigatorLabelProviderEmitter(),
-				myEditorGen.getNavigator().getPackageName(),
-				myEditorGen.getNavigator().getLabelProviderClassName(),
-				myEditorGen.getNavigator()
-			);
+		doGenerateJavaClass(myEmitters.getNavigatorLabelProviderEmitter(), myEditorGen.getNavigator().getLabelProviderQualifiedClassName(), myEditorGen.getNavigator());
 	}
 	
 	private void generateNavigatorLinkHelper() throws InterruptedException {

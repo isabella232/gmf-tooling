@@ -266,7 +266,7 @@ return EMPTY_ARRAY;
 «EXPAND xpt::Common::generatedMemberComment»
 private Object[] getViewChildren(org.eclipse.gmf.runtime.notation.View view, Object parentElement) {
    	switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR editorGen.diagram»(view)) {
-	«EXPAND caseNavigatorNode(this) FOREACH getNavigatorNodes(this)-»
+	«EXPAND caseNavigatorNode(this) FOREACH getNavigatorContainerNodes(this)-»
 	}
 	return EMPTY_ARRAY;
 }
@@ -476,7 +476,7 @@ result.addAll(getForeignShortcuts((org.eclipse.gmf.runtime.notation.Diagram) vie
 	«LET getChildReferencesFrom(this, null) AS references-»
         «EXPAND internal_i18nAccessors(null) FOREACH getGroupNames(references)-»
 	«ENDLET-»
-	«FOREACH getNavigatorNodes(this) AS contextElement-»
+	«FOREACH getNavigatorContainerNodes(this) AS contextElement-»
         «LET getChildReferencesFrom(this, contextElement) AS references-»
             «EXPAND internal_i18nAccessors(contextElement) FOREACH getGroupNames(references)-»
         «ENDLET-»
@@ -491,7 +491,7 @@ result.addAll(getForeignShortcuts((org.eclipse.gmf.runtime.notation.Diagram) vie
 «LET getChildReferencesFrom(this, null) AS references-»
 «EXPAND internal_i18nValues(null) FOREACH getGroupNames(references)-»
 «ENDLET-»
-«FOREACH getNavigatorNodes(this) AS contextElement-»
+«FOREACH getNavigatorContainerNodes(this) AS contextElement-»
 «LET getChildReferencesFrom(this, contextElement) AS references-»
 «EXPAND internal_i18nValues(contextElement) FOREACH getGroupNames(references)-»
 «ENDLET-»

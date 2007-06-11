@@ -12,8 +12,21 @@
  
 import "http://www.eclipse.org/gmf/2006/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
+import "http://www.eclipse.org/emf/2002/GenModel";
 
-List[gmfgen::GenCommonBase] getNavigatorNodes(gmfgen::GenNavigator navigator) :
+boolean isStringFeature(genmodel::GenFeature feature) :
+	feature.ecoreFeature.eType.name == "EString"
+;
+
+cached List[gmfgen::GenCommonBase] getNavigatorContainerNodes(gmfgen::GenNavigator navigator) :
+	getNavigatorNodes(navigator).select( n | getChildReferencesFrom(navigator, n).size() > 0)
+;
+
+cached List[gmfgen::GenCommonBase] getNavigatorContainedNodes(gmfgen::GenNavigator navigator) :
+	getNavigatorNodes(navigator).select( n | getChildReferencesTo(navigator, n).size() > 0)
+;
+
+private List[gmfgen::GenCommonBase] getNavigatorNodes(gmfgen::GenNavigator navigator) :
 	let diagram = navigator.editorGen.diagram :
 	{ diagram }
 		.addAll(diagram.topLevelNodes)
@@ -21,7 +34,6 @@ List[gmfgen::GenCommonBase] getNavigatorNodes(gmfgen::GenNavigator navigator) :
 		.addAll(diagram.links)
 		.addAll(diagram.compartments)
 		.typeSelect(gmfgen::GenCommonBase)
-		.select( n | getChildReferencesFrom(navigator, n).size() > 0)
 ;
 
 Set[String] getGroupNames(List[gmfgen::GenNavigatorChildReference] references) :
@@ -34,6 +46,10 @@ gmfgen::GenNavigatorChildReference getNavigatorReference(String groupName, List[
 
 List[gmfgen::GenNavigatorChildReference] getChildReferencesFrom(gmfgen::GenNavigator navigator, gmfgen::GenCommonBase parent) :
 	navigator.childReferences.select(r | parent.visualID == r.parent.visualID)
+;
+
+List[gmfgen::GenNavigatorChildReference] getChildReferencesTo(gmfgen::GenNavigator navigator, gmfgen::GenCommonBase child) :
+	navigator.childReferences.select(r | child.visualID == r.child.visualID)
 ;
 
 GenNavigatorChildReference getDiagramTopReference(gmfgen::GenNavigator navigator) :
