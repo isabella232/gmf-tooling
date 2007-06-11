@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-
   <extension point="org.eclipse.team.core.fileTypes">
     <?gmfgen generated="true"?>
       <fileTypes
@@ -9,17 +8,17 @@
          extension="mmd">
       </fileTypes>
   </extension>
-
    <extension point="org.eclipse.ui.editors">
      <?gmfgen generated="true"?>
      <editor
-        id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.part.MindmapDiagramEditorID"
-        name="Mindmap Diagram Editor"
+        id="org.eclipse.gmf.examples.mindmap.lite.rcp.part.MindmapDiagramEditorID"
+        name="%editorName"
         icon="icons/obj16/MindmapDiagramFile.gif"
         extensions="mmd"
         default="true"
-        class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.part.MindmapDiagramEditor"
-        contributorClass="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.part.MindmapDiagramActionBarContributor">
+        class="org.eclipse.gmf.examples.mindmap.lite.rcp.part.MindmapDiagramEditor"
+        matchingStrategy="org.eclipse.gmf.examples.mindmap.lite.rcp.part.MindmapMatchingStrategy"
+        contributorClass="org.eclipse.gmf.examples.mindmap.lite.rcp.part.MindmapDiagramActionBarContributor">
      </editor>
    </extension>
   <extension
@@ -28,7 +27,7 @@
     <?gmfgen generated="true"?>
     <application>
       <run
-        class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.application.MindmapApplication">
+        class="org.eclipse.gmf.examples.mindmap.lite.rcp.application.MindmapApplication">
       </run>
     </application>
   </extension>
@@ -38,10 +37,11 @@
      <?gmfgen generated="true"?>
     <perspective
       name="%_UI_Perspective_label"
-      class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.application.DiagramEditorPerspective"
-      id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.MindmapPerspective">
+      class="org.eclipse.gmf.examples.mindmap.lite.rcp.application.DiagramEditorPerspective"
+      id="org.eclipse.gmf.examples.mindmap.lite.rcp.MindmapPerspective">
     </perspective>
   </extension>
+
   <extension
     point="org.eclipse.ui.commands">
      <?gmfgen generated="true"?>
@@ -49,23 +49,23 @@
       name="%_UI_Menu_OpenURI_label"
       description="%_UI_Menu_OpenURI_description"
       categoryId="org.eclipse.ui.category.file"
-      id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.OpenURICommand" />  
+      id="org.eclipse.gmf.examples.mindmap.lite.rcp.OpenURICommand" />  
     <command
       name="%_UI_Menu_Open_label"
       description="%_UI_Menu_Open_description"
       categoryId="org.eclipse.ui.category.file"
-      id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.OpenCommand" />  
-  </extension> 
+      id="org.eclipse.gmf.examples.mindmap.lite.rcp.OpenCommand" />  
+  </extension>
 
   <extension
     point="org.eclipse.ui.bindings">
      <?gmfgen generated="true"?>
     <key
-      commandId="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.OpenURICommand"
+      commandId="org.eclipse.gmf.examples.mindmap.lite.rcp.OpenURICommand"
       sequence="M1+U"
       schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" />
     <key
-      commandId="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.OpenCommand"
+      commandId="org.eclipse.gmf.examples.mindmap.lite.rcp.OpenCommand"
       sequence="M1+O"
       schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" />
   </extension>
@@ -73,48 +73,61 @@
     point="org.eclipse.ui.actionSets">
      <?gmfgen generated="true"?>
     <actionSet
-      label="%_UI_org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.part.MindmapDiagramEditorUtil_ActionSet_label"
+      label="%_UI_org.eclipse.gmf.examples.mindmap.lite.rcp.part.MindmapDiagramEditorUtil_ActionSet_label"
       visible="true"
-      id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.ActionSet">
+      id="org.eclipse.gmf.examples.mindmap.lite.rcp.ActionSet">
       <action
         label="%_UI_Menu_About_label"
-        class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.application.DiagramEditorActionBarAdvisor$AboutAction"
+        class="org.eclipse.gmf.examples.mindmap.lite.rcp.application.DiagramEditorActionBarAdvisor$AboutAction"
         menubarPath="help/additions"
-        id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.AboutAction">
+        id="org.eclipse.gmf.examples.mindmap.lite.rcp.AboutAction">
       </action>
       <action
         label="%_UI_Menu_OpenURI_label"
-        definitionId="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.OpenURICommand"
-        class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.application.DiagramEditorActionBarAdvisor$OpenURIAction"
+        definitionId="org.eclipse.gmf.examples.mindmap.lite.rcp.OpenURICommand"
+        class="org.eclipse.gmf.examples.mindmap.lite.rcp.application.DiagramEditorActionBarAdvisor$OpenURIAction"
         menubarPath="file/additions"
-        id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.OpenURIAction">
+        id="org.eclipse.gmf.examples.mindmap.lite.rcp.OpenURIAction">
       </action>
       <action
         label="%_UI_Menu_Open_label"
-        definitionId="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.OpenCommand"
-        class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.application.DiagramEditorActionBarAdvisor$OpenAction"
+        definitionId="org.eclipse.gmf.examples.mindmap.lite.rcp.OpenCommand"
+        class="org.eclipse.gmf.examples.mindmap.lite.rcp.application.DiagramEditorActionBarAdvisor$OpenAction"
         menubarPath="file/additions"
-        id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.application.DiagramEditorActionBarAdvisorOpenDiagramAction">
+        id="org.eclipse.gmf.examples.mindmap.lite.rcp.application.DiagramEditorActionBarAdvisorOpenDiagramAction">
       </action>
       <action
-        label="%_UI_org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.part.MindmapDiagramEditorUtilNewDiagramCommand"
-        class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.application.DiagramEditorActionBarAdvisor$NewDiagramAction"
+        label="%_UI_org.eclipse.gmf.examples.mindmap.lite.rcp.part.MindmapDiagramEditorUtilNewDiagramCommand"
+        class="org.eclipse.gmf.examples.mindmap.lite.rcp.application.DiagramEditorActionBarAdvisor$NewDiagramAction"
         menubarPath="file/new/additions"
-        id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.NewDiagramAction">
+        id="org.eclipse.gmf.examples.mindmap.lite.rcp.NewDiagramAction">
       </action>
       <action
-        label="Initialize mmd diagram file"
-        class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.part.MindmapInitDiagramFileAction"
+        label="%_UI_Menu_InitDiagramFile_label"
+        class="org.eclipse.gmf.examples.mindmap.lite.rcp.part.MindmapInitDiagramFileAction"
         menubarPath="file/additions"
-        id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.part.MindmapInitDiagramFileActionID">
+        id="org.eclipse.gmf.examples.mindmap.lite.rcp.part.MindmapInitDiagramFileActionID">
       </action>
     </actionSet> 
   </extension>
-
+   <extension point="org.eclipse.ui.popupMenus">
+     <?gmfgen generated="true"?>
+      <objectContribution
+            adaptable="false"
+            id="org.eclipse.gmf.examples.mindmap.lite.rcp.ui.objectContribution.MapEditPart2"
+            objectClass="org.eclipse.gmf.examples.mindmap.lite.rcp.edit.parts.MapEditPart">
+         <action
+               class="org.eclipse.gmf.examples.mindmap.lite.rcp.part.MindmapLoadResourceAction"
+               enablesFor="1"
+               id="org.eclipse.gmf.examples.mindmap.lite.rcp.part.MindmapLoadResourceActionID"
+               label="%loadResourceActionLabel"
+               menubarPath="additions">
+         </action>
+      </objectContribution>  
+   </extension>
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
       <?gmfgen generated="true"?>
-      <propertyContributor contributorId="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram"
-            labelProvider="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.sheet.MindmapSheetLabelProvider">
+      <propertyContributor contributorId="org.eclipse.gmf.examples.mindmap.lite.rcp" labelProvider="org.eclipse.gmf.examples.mindmap.lite.rcp.sheet.MindmapSheetLabelProvider">
          <propertyCategory category="domain"/>
          <propertyCategory category="visual"/>
          <propertyCategory category="extra"/>
@@ -123,7 +136,7 @@
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
       <?gmfgen generated="true"?>   
-      <propertyTabs contributorId="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram">
+      <propertyTabs contributorId="org.eclipse.gmf.examples.mindmap.lite.rcp">
          <propertyTab
              category="visual"
              id="property.tab.AppearancePropertySection"
@@ -141,16 +154,58 @@
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
       <?gmfgen generated="true"?>   
-      <propertySections contributorId="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram">
-         
-         
+      <propertySections contributorId="org.eclipse.gmf.examples.mindmap.lite.rcp">
          <propertySection
             id="property.section.domain" 
             tab="property.tab.domain"
-            class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.sheet.MindmapPropertySection">
+            class="org.eclipse.gmf.examples.mindmap.lite.rcp.sheet.MindmapPropertySection">
             <input type="org.eclipse.gmf.runtime.notation.View"/>
             <input type="org.eclipse.gef.EditPart"/>
          </propertySection>
       </propertySections>
    </extension>
+   <extension point="org.eclipse.emf.validation.constraintProviders">
+      <?gmfgen generated="true"?>
+            <category id="org.eclipse.gmf.examples.mindmap" mandatory="false" name="Mindmap Audits">
+         <![CDATA[Mindmap Audits]]>
+      </category>
+      <constraintProvider cache="true">
+         <package namespaceUri="http://www.example.org/mindmap"/>
+         <package namespaceUri="http://www.example.org/mindmap"/>
+               <constraints categories="org.eclipse.gmf.examples.mindmap">
+                  <constraint id="cycle"
+            lang="OCL"
+            name="Cyclic relationship check"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.relations->forAll(r1, r2 |  r1.target = r2.source and r1.type = r2.type implies r2.target <> r1.source)]]>
+            <description><![CDATA[This audit will detect situations where relationship links of the same type form a cycle.]]></description>
+            <message><![CDATA[A cycle was found in relationships between two Topic elements.]]></message>
+            <target class="mindmap.Map"/>
+         </constraint>
+                  <constraint id="notopicname"
+            lang="OCL"
+            name="No Topic Name"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[name.size() > 0]]>
+            <description><![CDATA[Detects Topics without a name set]]></description>
+            <message><![CDATA[All Topic elements should have a name set]]></message>
+            <target class="mindmap.Topic"/>
+         </constraint>
+                  </constraints>
+      </constraintProvider>
+   </extension>
+
+   <extension point="org.eclipse.emf.validation.constraintBindings">
+      <?gmfgen generated="true"?>
+                  <clientContext default="false" id="org.eclipse.gmf.examples.mindmap.lite.rcp.DefaultCtx">
+         <selector class="org.eclipse.gmf.examples.mindmap.lite.rcp.providers.MindmapValidationProvider$DefaultCtx"/>
+      </clientContext>
+      <binding context="org.eclipse.gmf.examples.mindmap.lite.rcp.DefaultCtx">
+                  <constraint ref="org.eclipse.gmf.examples.mindmap.lite.rcp.cycle"/>
+                  <constraint ref="org.eclipse.gmf.examples.mindmap.lite.rcp.notopicname"/>
+               </binding>
+               </extension>
+
 </plugin>
