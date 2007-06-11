@@ -12,7 +12,6 @@
 package org.eclipse.gmf.ecore.navigator;
 
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
-
 import org.eclipse.jface.viewers.ViewerSorter;
 
 /**
@@ -28,7 +27,7 @@ public class EcoreNavigatorSorter extends ViewerSorter {
 	/**
 	 * @generated
 	 */
-	private static final int SHORTCUTS_CATEGORY = 7012;
+	private static final int SHORTCUTS_CATEGORY = 7013;
 
 	/**
 	 * @generated

@@ -23,6 +23,7 @@ import java.util.Map;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -513,7 +514,7 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			if (!overwrite && !info.isSynchronized()) {
-				throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, IStatus.OK, Messages.EcoreDocumentProvider_UnsynchronizedFileSaveError, null));
+				throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, IResourceStatus.OUT_OF_SYNC_LOCAL, Messages.EcoreDocumentProvider_UnsynchronizedFileSaveError, null));
 			}
 			info.stopResourceListening();
 			fireElementStateChanging(element);

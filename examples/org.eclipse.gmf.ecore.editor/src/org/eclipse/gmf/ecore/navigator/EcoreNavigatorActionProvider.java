@@ -14,41 +14,29 @@ package org.eclipse.gmf.ecore.navigator;
 import java.util.Iterator;
 
 import org.eclipse.core.runtime.IAdaptable;
-
 import org.eclipse.emf.common.ui.URIEditorInput;
-
 import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
-
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
-
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
-
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditor;
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
-
+import org.eclipse.gmf.ecore.part.Messages;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
-
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
-
 import org.eclipse.jface.viewers.IStructuredSelection;
-
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
-
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionConstants;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
-
 import org.eclipse.ui.part.FileEditorInput;
 
 /**
@@ -125,7 +113,7 @@ public class EcoreNavigatorActionProvider extends CommonActionProvider {
 		 * @generated
 		 */
 		public OpenDiagramAction(ICommonViewerWorkbenchSite viewerSite) {
-			super("Open Diagram");
+			super(Messages.NavigatorActionProvider_OpenDiagramActionName);
 			myViewerSite = viewerSite;
 		}
 
@@ -164,7 +152,7 @@ public class EcoreNavigatorActionProvider extends CommonActionProvider {
 			try {
 				page.openEditor(editorInput, EcoreDiagramEditor.ID);
 			} catch (PartInitException e) {
-				EcoreDiagramEditorPlugin.getInstance().logError("Exception while openning diagram", e);
+				EcoreDiagramEditorPlugin.getInstance().logError("Exception while openning diagram", e); //$NON-NLS-1$
 			}
 		}
 
@@ -183,7 +171,8 @@ public class EcoreNavigatorActionProvider extends CommonActionProvider {
 			}
 			URI uri = EcoreUtil.getURI(myDiagram);
 			String editorName = uri.lastSegment() + "#" + myDiagram.eResource().getContents().indexOf(myDiagram); //$NON-NLS-1$
-			return new URIEditorInput(uri, editorName);
+			IEditorInput editorInput = new URIEditorInput(uri, editorName);
+			return editorInput;
 		}
 
 	}

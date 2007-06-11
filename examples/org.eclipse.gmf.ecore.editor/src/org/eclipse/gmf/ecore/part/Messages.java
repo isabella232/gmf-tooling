@@ -526,5 +526,10 @@ public class Messages extends NLS {
 	 */
 	public static String NavigatorGroupName_EClassESuperTypes_4004_source;
 
+	/**
+	 * @generated
+	 */
+	public static String NavigatorActionProvider_OpenDiagramActionName;
+
 	//TODO: put accessor fields manually	
 }
