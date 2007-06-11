@@ -4,6 +4,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.policies.ThreadThreadItemCompartmentCanonicalEditPolicy;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.policies.ThreadThreadItemCompartmentItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.Messages;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
@@ -41,7 +42,7 @@ public class ThreadThreadItemCompartmentEditPart extends
 	 * @generated
 	 */
 	public String getCompartmentName() {
-		return "ThreadItemCompartment";
+		return Messages.ThreadThreadItemCompartmentEditPart_title;
 	}
 
 	/**

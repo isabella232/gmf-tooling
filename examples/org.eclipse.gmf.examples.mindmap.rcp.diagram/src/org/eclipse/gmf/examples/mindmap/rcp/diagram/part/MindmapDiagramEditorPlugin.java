@@ -51,6 +51,11 @@ public class MindmapDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
+	private MindmapDocumentProvider myDocumentProvider;
+
+	/**
+	 * @generated
+	 */
 	public MindmapDiagramEditorPlugin() {
 	}
 
@@ -174,6 +179,16 @@ public class MindmapDiagramEditorPlugin extends AbstractUIPlugin {
 			image = getImageRegistry().get(path);
 		}
 		return image;
+	}
+
+	/**
+	 * @generated
+	 */
+	public MindmapDocumentProvider getDocumentProvider() {
+		if (myDocumentProvider == null) {
+			myDocumentProvider = new MindmapDocumentProvider();
+		}
+		return myDocumentProvider;
 	}
 
 	/**

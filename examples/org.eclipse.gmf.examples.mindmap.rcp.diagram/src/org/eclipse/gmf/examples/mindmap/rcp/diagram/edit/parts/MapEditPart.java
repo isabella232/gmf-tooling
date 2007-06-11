@@ -37,5 +37,6 @@ public class MapEditPart extends DiagramEditPart {
 				new MapItemSemanticEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
 				new MapCanonicalEditPolicy());
+		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.POPUPBAR_ROLE);
 	}
 }

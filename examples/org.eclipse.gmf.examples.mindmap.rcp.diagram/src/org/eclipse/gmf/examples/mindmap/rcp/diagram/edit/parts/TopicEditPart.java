@@ -55,11 +55,13 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
-		super.createDefaultEditPolicies();
 
+		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new TopicItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
+		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 
 	/**
@@ -157,7 +159,6 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode()
 				.DPtoLP(40), getMapMode().DPtoLP(40));
-
 		return result;
 	}
 
@@ -218,16 +219,15 @@ public class TopicEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
+		private WrapLabel fFigureTopicNameFigure;
+
+		/**
+		 * @generated
+		 */
 		public RoundedTopicFigure() {
 			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(20),
 					getMapMode().DPtoLP(20)));
-			this.setFill(true);
-			this.setFillXOR(false);
-			this.setOutline(true);
-			this.setOutlineXOR(false);
-			this.setLineWidth(1);
-			this.setLineStyle(Graphics.LINE_SOLID);
-			this.setForegroundColor(ROUNDEDTOPICFIGURE_FORE);
+			this.setForegroundColor(THIS_FORE);
 			createContents();
 		}
 
@@ -240,27 +240,15 @@ public class TopicEditPart extends ShapeNodeEditPart {
 			topicNameFigure0.setText("<...>");
 
 			this.add(topicNameFigure0);
-			setFigureTopicNameFigure(topicNameFigure0);
+			fFigureTopicNameFigure = topicNameFigure0;
 
 		}
-
-		/**
-		 * @generated
-		 */
-		private WrapLabel fTopicNameFigure;
 
 		/**
 		 * @generated
 		 */
 		public WrapLabel getFigureTopicNameFigure() {
-			return fTopicNameFigure;
-		}
-
-		/**
-		 * @generated
-		 */
-		private void setFigureTopicNameFigure(WrapLabel fig) {
-			fTopicNameFigure = fig;
+			return fFigureTopicNameFigure;
 		}
 
 		/**
@@ -287,6 +275,6 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	static final Color ROUNDEDTOPICFIGURE_FORE = new Color(null, 220, 220, 250);
+	static final Color THIS_FORE = new Color(null, 220, 220, 250);
 
 }

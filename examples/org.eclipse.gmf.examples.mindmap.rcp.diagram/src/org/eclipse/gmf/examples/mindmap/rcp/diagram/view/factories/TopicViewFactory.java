@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IAdaptable;
 
 import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.MapEditPart;
@@ -19,6 +20,7 @@ import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
 
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -32,10 +34,7 @@ public class TopicViewFactory extends AbstractShapeViewFactory {
 	 */
 	protected List createStyles(View view) {
 		List styles = new ArrayList();
-		styles.add(NotationFactory.eINSTANCE.createFontStyle());
-		styles.add(NotationFactory.eINSTANCE.createDescriptionStyle());
-		styles.add(NotationFactory.eINSTANCE.createFillStyle());
-		styles.add(NotationFactory.eINSTANCE.createLineStyle());
+		styles.add(NotationFactory.eINSTANCE.createShapeStyle());
 		return styles;
 	}
 
@@ -61,11 +60,16 @@ public class TopicViewFactory extends AbstractShapeViewFactory {
 					.put("modelID", MapEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
-		getViewService().createNode(semanticAdapter, view,
+		IAdaptable eObjectAdapter = null;
+		EObject eObject = (EObject) semanticAdapter.getAdapter(EObject.class);
+		if (eObject != null) {
+			eObjectAdapter = new EObjectAdapter(eObject);
+		}
+		getViewService().createNode(eObjectAdapter, view,
 				MindmapVisualIDRegistry.getType(TopicNameEditPart.VISUAL_ID),
 				ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(
-				semanticAdapter,
+				eObjectAdapter,
 				view,
 				MindmapVisualIDRegistry
 						.getType(TopicThreadCompartmentEditPart.VISUAL_ID),

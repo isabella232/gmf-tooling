@@ -1,5 +1,6 @@
 package org.eclipse.gmf.examples.mindmap.rcp.diagram.part;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 
@@ -7,8 +8,10 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
@@ -17,6 +20,14 @@ import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.osgi.util.NLS;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 
@@ -61,6 +72,17 @@ public class MindmapDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
+	public static java.util.Map getSaveOptions() {
+		java.util.Map saveOptions = new HashMap();
+		saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+		saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED,
+				Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+		return saveOptions;
+	}
+
+	/**
+	 * @generated
+	 */
 	public static boolean openDiagram(Resource diagram)
 			throws PartInitException {
 		IWorkbenchPage page = PlatformUI.getWorkbench()
@@ -73,19 +95,101 @@ public class MindmapDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static boolean exists(IPath path) {
-		return path.toFile().exists();
+	public static String getUniqueFileName(IPath containerFullPath,
+			String fileName, String extension) {
+		if (containerFullPath == null) {
+			containerFullPath = new Path(""); //$NON-NLS-1$
+		}
+		if (fileName == null || fileName.trim().length() == 0) {
+			fileName = "default"; //$NON-NLS-1$
+		}
+		IPath filePath = containerFullPath.append(fileName);
+		if (extension != null && !extension.equals(filePath.getFileExtension())) {
+			filePath = filePath.addFileExtension(extension);
+		}
+		extension = filePath.getFileExtension();
+		fileName = filePath.removeFileExtension().lastSegment();
+		int i = 1;
+		while (filePath.toFile().exists()) {
+			i++;
+			filePath = containerFullPath.append(fileName + i);
+			if (extension != null) {
+				filePath = filePath.addFileExtension(extension);
+			}
+		}
+		return filePath.lastSegment();
+	}
+
+	/**
+	 * Allows user to select file and loads it as a model.
+	 * 
+	 * @generated
+	 */
+	public static Resource openModel(Shell shell, String description,
+			TransactionalEditingDomain editingDomain) {
+		FileDialog fileDialog = new FileDialog(shell, SWT.OPEN);
+		if (description != null) {
+			fileDialog.setText(description);
+		}
+		fileDialog.open();
+		String fileName = fileDialog.getFileName();
+		if (fileName == null || fileName.length() == 0) {
+			return null;
+		}
+		if (fileDialog.getFilterPath() != null) {
+			fileName = fileDialog.getFilterPath() + File.separator + fileName;
+		}
+		URI uri = URI.createFileURI(fileName);
+		Resource resource = null;
+		try {
+			resource = editingDomain.getResourceSet().getResource(uri, true);
+		} catch (WrappedException we) {
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"Unable to load resource: " + uri, we); //$NON-NLS-1$
+			MessageDialog
+					.openError(
+							shell,
+							Messages.MindmapDiagramEditorUtil_OpenModelResourceErrorDialogTitle,
+							NLS
+									.bind(
+											Messages.MindmapDiagramEditorUtil_OpenModelResourceErrorDialogMessage,
+											fileName));
+		}
+		return resource;
+	}
+
+	/**
+	 * Runs the wizard in a dialog.
+	 * 
+	 * @generated
+	 */
+	public static void runWizard(Shell shell, Wizard wizard, String settingsKey) {
+		IDialogSettings pluginDialogSettings = MindmapDiagramEditorPlugin
+				.getInstance().getDialogSettings();
+		IDialogSettings wizardDialogSettings = pluginDialogSettings
+				.getSection(settingsKey);
+		if (wizardDialogSettings == null) {
+			wizardDialogSettings = pluginDialogSettings
+					.addNewSection(settingsKey);
+		}
+		wizard.setDialogSettings(wizardDialogSettings);
+		WizardDialog dialog = new WizardDialog(shell, wizard);
+		dialog.create();
+		dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x),
+				500);
+		dialog.open();
 	}
 
 	/**
 	 * @generated
 	 * @return the created resource, or <code>null</code> if the resource was not created
 	 */
-	public static final Resource createDiagram(URI diagramURI, URI modelURI,
+	public static Resource createDiagram(URI diagramURI, URI modelURI,
 			IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE
 				.createEditingDomain();
-		progressMonitor.beginTask("Creating diagram and model files", 3);
+		progressMonitor.beginTask(
+				Messages.MindmapDiagramEditorUtil_CreateDiagramProgressTask, 3);
 		final Resource diagramResource = editingDomain.getResourceSet()
 				.createResource(diagramURI);
 		final Resource modelResource = editingDomain.getResourceSet()
@@ -93,12 +197,14 @@ public class MindmapDiagramEditorUtil {
 		final String diagramName = diagramURI.lastSegment();
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(
 				editingDomain,
-				"Creating diagram and model", Collections.EMPTY_LIST) { //$NON-NLS-1$
+				Messages.MindmapDiagramEditorUtil_CreateDiagramCommandLabel,
+				Collections.EMPTY_LIST) {
 			protected CommandResult doExecuteWithResult(
 					IProgressMonitor monitor, IAdaptable info)
 					throws ExecutionException {
 				Map model = createInitialModel();
 				attachModelToResource(model, modelResource);
+
 				Diagram diagram = ViewService.createDiagram(model,
 						MapEditPart.MODEL_ID,
 						MindmapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
@@ -107,11 +213,14 @@ public class MindmapDiagramEditorUtil {
 					diagram.setName(diagramName);
 					diagram.setElement(model);
 				}
+
 				try {
-					java.util.Map options = new HashMap();
-					options.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-					modelResource.save(options);
-					diagramResource.save(options);
+					modelResource
+							.save(org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapDiagramEditorUtil
+									.getSaveOptions());
+					diagramResource
+							.save(org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapDiagramEditorUtil
+									.getSaveOptions());
 				} catch (IOException e) {
 
 					MindmapDiagramEditorPlugin.getInstance().logError(
@@ -147,14 +256,15 @@ public class MindmapDiagramEditorUtil {
 	 * @generated
 	 */
 	private static void attachModelToResource(Map model, Resource resource) {
-		resource.getContents().add(createInitialRoot(model));
+		resource.getContents().add(createDocumentRoot(model));
 	}
 
 	/**
 	 * @generated
 	 */
-	private static EObject createInitialRoot(Map model) {
+	private static DocumentRoot createDocumentRoot(Map model) {
 		DocumentRoot docRoot = MindmapFactory.eINSTANCE.createDocumentRoot();
+
 		docRoot.setMap(model);
 		return docRoot;
 	}

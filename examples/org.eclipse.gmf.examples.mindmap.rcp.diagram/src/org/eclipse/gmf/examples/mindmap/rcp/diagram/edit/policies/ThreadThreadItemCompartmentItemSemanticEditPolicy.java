@@ -25,7 +25,7 @@ public class ThreadThreadItemCompartmentItemSemanticEditPolicy extends
 				req.setContainmentFeature(MindmapPackage.eINSTANCE
 						.getThread_Items());
 			}
-			return getMSLWrapper(new ThreadItemCreateCommand(req));
+			return getGEFWrapper(new ThreadItemCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

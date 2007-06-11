@@ -1,21 +1,37 @@
 package org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.policies;
 
+import java.util.Iterator;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gmf.examples.mindmap.Map;
 import org.eclipse.gmf.examples.mindmap.MindmapPackage;
 import org.eclipse.gmf.examples.mindmap.Topic;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.commands.Relationship2TypeLinkCreateCommand;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.commands.Relationship3TypeLinkCreateCommand;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.commands.RelationshipCreateCommand;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.commands.RelationshipReorientCommand;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.commands.RelationshipTypeLinkCreateCommand;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.commands.TopicSubtopicsCreateCommand;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.commands.TopicSubtopicsReorientCommand;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.Relationship2EditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.Relationship3EditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.RelationshipEditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.ThreadEditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.TopicSubtopicsEditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.TopicThreadCompartmentEditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapVisualIDRegistry;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.providers.MindmapElementTypes;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
+import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -28,240 +44,134 @@ public class TopicItemSemanticEditPolicy extends
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		return getMSLWrapper(new DestroyElementCommand(req) {
+		CompoundCommand cc = getDestroyEdgesCommand();
+		addDestroyChildNodesCommand(cc);
+		addDestroyShortcutsCommand(cc);
+		View view = (View) getHost().getModel();
+		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+			req.setElementToDestroy(view);
+		}
+		cc.add(getGEFWrapper(new DestroyElementCommand(req)));
+		return cc.unwrap();
+	}
 
-			protected EObject getElementToDestroy() {
-				View view = (View) getHost().getModel();
-				EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
-				if (annotation != null) {
-					return view;
+	/**
+	 * @generated
+	 */
+	protected void addDestroyChildNodesCommand(CompoundCommand cmd) {
+		View view = (View) getHost().getModel();
+		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
+		if (annotation != null) {
+			return;
+		}
+		for (Iterator it = view.getChildren().iterator(); it.hasNext();) {
+			Node node = (Node) it.next();
+			switch (MindmapVisualIDRegistry.getVisualID(node)) {
+			case TopicThreadCompartmentEditPart.VISUAL_ID:
+				for (Iterator cit = node.getChildren().iterator(); cit
+						.hasNext();) {
+					Node cnode = (Node) cit.next();
+					switch (MindmapVisualIDRegistry.getVisualID(cnode)) {
+					case ThreadEditPart.VISUAL_ID:
+						cmd.add(getDestroyElementCommand(cnode));
+						break;
+					}
 				}
-				return super.getElementToDestroy();
+				break;
 			}
-
-		});
+		}
 	}
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
+		Command command = req.getTarget() == null ? getStartCreateRelationshipCommand(req)
+				: getCompleteCreateRelationshipCommand(req);
+		return command != null ? command : super
+				.getCreateRelationshipCommand(req);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getStartCreateRelationshipCommand(
+			CreateRelationshipRequest req) {
 		if (MindmapElementTypes.TopicSubtopics_4001 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingTopicSubtopics_4001Command(req)
-					: getCreateCompleteIncomingTopicSubtopics_4001Command(req);
+			return getGEFWrapper(new TopicSubtopicsCreateCommand(req, req
+					.getSource(), req.getTarget()));
 		}
 		if (MindmapElementTypes.Relationship_4002 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingRelationship_4002Command(req)
-					: getCreateCompleteIncomingRelationship_4002Command(req);
+			return getGEFWrapper(new RelationshipCreateCommand(req, req
+					.getSource(), req.getTarget()));
 		}
 		if (MindmapElementTypes.Relationship_4003 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingRelationship_4003Command(req)
-					: getCreateCompleteIncomingRelationship_4003Command(req);
+			return getGEFWrapper(new RelationshipCreateCommand(req, req
+					.getSource(), req.getTarget()));
 		}
 		if (MindmapElementTypes.Relationship_4004 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingRelationship_4004Command(req)
-					: getCreateCompleteIncomingRelationship_4004Command(req);
+			return getGEFWrapper(new RelationshipCreateCommand(req, req
+					.getSource(), req.getTarget()));
 		}
-		return super.getCreateRelationshipCommand(req);
+		return null;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingTopicSubtopics_4001Command(
+	protected Command getCompleteCreateRelationshipCommand(
 			CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		if (false == sourceEObject instanceof Topic) {
-			return UnexecutableCommand.INSTANCE;
+		if (MindmapElementTypes.TopicSubtopics_4001 == req.getElementType()) {
+			return getGEFWrapper(new TopicSubtopicsCreateCommand(req, req
+					.getSource(), req.getTarget()));
 		}
-		Topic source = (Topic) sourceEObject;
-		if (!MindmapBaseItemSemanticEditPolicy.LinkConstraints
-				.canCreateTopicSubtopics_4001(source, null)) {
-			return UnexecutableCommand.INSTANCE;
+		if (MindmapElementTypes.Relationship_4002 == req.getElementType()) {
+			return getGEFWrapper(new RelationshipCreateCommand(req, req
+					.getSource(), req.getTarget()));
 		}
-		return new Command() {
-		};
+		if (MindmapElementTypes.Relationship_4003 == req.getElementType()) {
+			return getGEFWrapper(new RelationshipCreateCommand(req, req
+					.getSource(), req.getTarget()));
+		}
+		if (MindmapElementTypes.Relationship_4004 == req.getElementType()) {
+			return getGEFWrapper(new RelationshipCreateCommand(req, req
+					.getSource(), req.getTarget()));
+		}
+		return null;
 	}
 
 	/**
+	 * Returns command to reorient EClass based link. New link target or source
+	 * should be the domain model element associated with this node.
+	 * 
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingTopicSubtopics_4001Command(
-			CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof Topic
-				|| false == targetEObject instanceof Topic) {
-			return UnexecutableCommand.INSTANCE;
+	protected Command getReorientRelationshipCommand(
+			ReorientRelationshipRequest req) {
+		switch (getVisualID(req)) {
+		case RelationshipEditPart.VISUAL_ID:
+			return getGEFWrapper(new RelationshipReorientCommand(req));
+		case Relationship2EditPart.VISUAL_ID:
+			return getGEFWrapper(new RelationshipReorientCommand(req));
+		case Relationship3EditPart.VISUAL_ID:
+			return getGEFWrapper(new RelationshipReorientCommand(req));
 		}
-		Topic source = (Topic) sourceEObject;
-		Topic target = (Topic) targetEObject;
-		if (!MindmapBaseItemSemanticEditPolicy.LinkConstraints
-				.canCreateTopicSubtopics_4001(source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		SetRequest setReq = new SetRequest(sourceEObject,
-				MindmapPackage.eINSTANCE.getTopic_Subtopics(), target);
-		return getMSLWrapper(new SetValueCommand(setReq));
+		return super.getReorientRelationshipCommand(req);
 	}
 
 	/**
+	 * Returns command to reorient EReference based link. New link target or source
+	 * should be the domain model element associated with this node.
+	 * 
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingRelationship_4002Command(
-			CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		if (false == sourceEObject instanceof Topic) {
-			return UnexecutableCommand.INSTANCE;
+	protected Command getReorientReferenceRelationshipCommand(
+			ReorientReferenceRelationshipRequest req) {
+		switch (getVisualID(req)) {
+		case TopicSubtopicsEditPart.VISUAL_ID:
+			return getGEFWrapper(new TopicSubtopicsReorientCommand(req));
 		}
-		Topic source = (Topic) sourceEObject;
-		Map container = (Map) getRelationshipContainer(source,
-				MindmapPackage.eINSTANCE.getMap(), req.getElementType());
-		if (container == null) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (!MindmapBaseItemSemanticEditPolicy.LinkConstraints
-				.canCreateRelationship_4002(container, source, null)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		return new Command() {
-		};
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingRelationship_4002Command(
-			CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof Topic
-				|| false == targetEObject instanceof Topic) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Topic source = (Topic) sourceEObject;
-		Topic target = (Topic) targetEObject;
-		Map container = (Map) getRelationshipContainer(source,
-				MindmapPackage.eINSTANCE.getMap(), req.getElementType());
-		if (container == null) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (!MindmapBaseItemSemanticEditPolicy.LinkConstraints
-				.canCreateRelationship_4002(container, source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(MindmapPackage.eINSTANCE
-					.getMap_Relations());
-		}
-		return getMSLWrapper(new RelationshipTypeLinkCreateCommand(req,
-				container, source, target));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateStartOutgoingRelationship_4003Command(
-			CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		if (false == sourceEObject instanceof Topic) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Topic source = (Topic) sourceEObject;
-		Map container = (Map) getRelationshipContainer(source,
-				MindmapPackage.eINSTANCE.getMap(), req.getElementType());
-		if (container == null) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (!MindmapBaseItemSemanticEditPolicy.LinkConstraints
-				.canCreateRelationship_4003(container, source, null)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		return new Command() {
-		};
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingRelationship_4003Command(
-			CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof Topic
-				|| false == targetEObject instanceof Topic) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Topic source = (Topic) sourceEObject;
-		Topic target = (Topic) targetEObject;
-		Map container = (Map) getRelationshipContainer(source,
-				MindmapPackage.eINSTANCE.getMap(), req.getElementType());
-		if (container == null) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (!MindmapBaseItemSemanticEditPolicy.LinkConstraints
-				.canCreateRelationship_4003(container, source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(MindmapPackage.eINSTANCE
-					.getMap_Relations());
-		}
-		return getMSLWrapper(new Relationship2TypeLinkCreateCommand(req,
-				container, source, target));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateStartOutgoingRelationship_4004Command(
-			CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		if (false == sourceEObject instanceof Topic) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Topic source = (Topic) sourceEObject;
-		Map container = (Map) getRelationshipContainer(source,
-				MindmapPackage.eINSTANCE.getMap(), req.getElementType());
-		if (container == null) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (!MindmapBaseItemSemanticEditPolicy.LinkConstraints
-				.canCreateRelationship_4004(container, source, null)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		return new Command() {
-		};
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingRelationship_4004Command(
-			CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof Topic
-				|| false == targetEObject instanceof Topic) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Topic source = (Topic) sourceEObject;
-		Topic target = (Topic) targetEObject;
-		Map container = (Map) getRelationshipContainer(source,
-				MindmapPackage.eINSTANCE.getMap(), req.getElementType());
-		if (container == null) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (!MindmapBaseItemSemanticEditPolicy.LinkConstraints
-				.canCreateRelationship_4004(container, source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(MindmapPackage.eINSTANCE
-					.getMap_Relations());
-		}
-		return getMSLWrapper(new Relationship3TypeLinkCreateCommand(req,
-				container, source, target));
+		return super.getReorientReferenceRelationshipCommand(req);
 	}
 
 }

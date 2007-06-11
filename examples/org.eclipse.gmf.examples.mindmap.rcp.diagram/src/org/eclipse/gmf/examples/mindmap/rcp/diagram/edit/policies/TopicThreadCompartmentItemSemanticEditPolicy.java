@@ -25,7 +25,7 @@ public class TopicThreadCompartmentItemSemanticEditPolicy extends
 				req.setContainmentFeature(MindmapPackage.eINSTANCE
 						.getTopic_Comments());
 			}
-			return getMSLWrapper(new ThreadCreateCommand(req));
+			return getGEFWrapper(new ThreadCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

@@ -48,12 +48,12 @@
       <?gmfgen generated="true"?>
       <objectContribution
             adaptable="false"
-            id="org.eclipse.gmf.examples.mindmap.rcp.diagram.ui.objectContribution.MapEditPart2"
+            id="org.eclipse.gmf.examples.mindmap.rcp.diagram.LoadResource"
             objectClass="org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.MapEditPart">
          <action
                class="org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapLoadResourceAction"
                enablesFor="1"
-               id="org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapLoadResourceActionID"
+               id="org.eclipse.gmf.examples.mindmap.rcp.diagram.LoadResourceAction"
                label="%loadResourceActionLabel"
                menubarPath="additions">
          </action>
@@ -132,36 +132,36 @@
       <?gmfgen generated="true"?>
       <page
             id="org.eclipse.gmf.examples.mindmap.diagram.general"
-            name="Mindmap Diagram"
+            name="%preference.page.title.org.eclipse.gmf.examples.mindmap.diagram.general"
             class="org.eclipse.gmf.examples.mindmap.rcp.diagram.preferences.DiagramGeneralPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.mindmap.diagram.appearance"
-            name="Appearance"
+            name="%preference.page.title.org.eclipse.gmf.examples.mindmap.diagram.appearance"
             category="org.eclipse.gmf.examples.mindmap.diagram.general"
             class="org.eclipse.gmf.examples.mindmap.rcp.diagram.preferences.DiagramAppearancePreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.mindmap.diagram.connections"
-            name="Connections"
+            name="%preference.page.title.org.eclipse.gmf.examples.mindmap.diagram.connections"
             category="org.eclipse.gmf.examples.mindmap.diagram.general"
             class="org.eclipse.gmf.examples.mindmap.rcp.diagram.preferences.DiagramConnectionsPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.mindmap.diagram.printing"
-            name="Printing"
+            name="%preference.page.title.org.eclipse.gmf.examples.mindmap.diagram.printing"
             category="org.eclipse.gmf.examples.mindmap.diagram.general"
             class="org.eclipse.gmf.examples.mindmap.rcp.diagram.preferences.DiagramPrintingPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.mindmap.diagram.rulersAndGrid"
-            name="Rulers And Grid"
+            name="%preference.page.title.org.eclipse.gmf.examples.mindmap.diagram.rulersAndGrid"
             category="org.eclipse.gmf.examples.mindmap.diagram.general"
             class="org.eclipse.gmf.examples.mindmap.rcp.diagram.preferences.DiagramRulersAndGridPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.mindmap.diagram.pathmaps"
-            name="Pathmaps"
+            name="%preference.page.title.org.eclipse.gmf.examples.mindmap.diagram.pathmaps"
             category="org.eclipse.gmf.examples.mindmap.diagram.general"
             class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage">
       </page>
@@ -169,7 +169,9 @@
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
       <?gmfgen generated="true"?>
-      <propertyContributor contributorId="org.eclipse.gmf.examples.mindmap.rcp.diagram" labelProvider="org.eclipse.gmf.examples.mindmap.rcp.diagram.sheet.MindmapSheetLabelProvider">
+      <propertyContributor
+            contributorId="org.eclipse.gmf.examples.mindmap.rcp.diagram"
+            labelProvider="org.eclipse.gmf.examples.mindmap.rcp.diagram.sheet.MindmapSheetLabelProvider">
          <propertyCategory category="domain"/>
          <propertyCategory category="visual"/>
          <propertyCategory category="extra"/>
@@ -270,7 +272,7 @@
       <metamodel nsURI="http://www.example.org/mindmap">
          <metamodelType
                id="org.eclipse.gmf.examples.mindmap.rcp.diagram.Map_1000"
-               name="Undefined"
+               name="%metatype.name.Map_1000"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Map"
                edithelper="org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.helpers.MapEditHelper">
@@ -280,7 +282,7 @@
       <metamodel nsURI="http://www.example.org/mindmap">
          <metamodelType
                id="org.eclipse.gmf.examples.mindmap.rcp.diagram.Topic_2001"
-               name="Topic"
+               name="%metatype.name.Topic_2001"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Topic"
                edithelper="org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.helpers.TopicEditHelper">
@@ -290,7 +292,7 @@
       <metamodel nsURI="http://www.example.org/mindmap">
          <metamodelType
                id="org.eclipse.gmf.examples.mindmap.rcp.diagram.Resource_2002"
-               name="Resource"
+               name="%metatype.name.Resource_2002"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Resource"
                edithelper="org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.helpers.ResourceEditHelper">
@@ -300,7 +302,7 @@
       <metamodel nsURI="http://www.example.org/mindmap">
          <metamodelType
                id="org.eclipse.gmf.examples.mindmap.rcp.diagram.Thread_3001"
-               name="Thread"
+               name="%metatype.name.Thread_3001"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Thread"
                edithelper="org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.helpers.ThreadEditHelper">
@@ -310,7 +312,7 @@
       <metamodel nsURI="http://www.example.org/mindmap">
          <metamodelType
                id="org.eclipse.gmf.examples.mindmap.rcp.diagram.ThreadItem_3002"
-               name="ThreadItem"
+               name="%metatype.name.ThreadItem_3002"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="ThreadItem"
                edithelper="org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.helpers.ThreadItemEditHelper">
@@ -320,7 +322,7 @@
       <metamodel nsURI="http://www.example.org/mindmap">
          <specializationType
                id="org.eclipse.gmf.examples.mindmap.rcp.diagram.TopicSubtopics_4001"
-               name="Undefined"
+               name="%metatype.name.TopicSubtopics_4001"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.helpers.TopicSubtopicsEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
@@ -330,7 +332,7 @@
       <metamodel nsURI="http://www.example.org/mindmap">
          <metamodelType
                id="org.eclipse.gmf.examples.mindmap.rcp.diagram.Relationship_4002"
-               name="Relationship"
+               name="%metatype.name.Relationship_4002"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Relationship"
                edithelper="org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.helpers.RelationshipEditHelper">
@@ -340,7 +342,7 @@
       <metamodel nsURI="http://www.example.org/mindmap">
          <specializationType
                id="org.eclipse.gmf.examples.mindmap.rcp.diagram.Relationship_4003"
-               name="Relationship"
+               name="%metatype.name.Relationship_4003"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.helpers.RelationshipEditHelperAdvice">
             <specializes id="org.eclipse.gmf.examples.mindmap.rcp.diagram.Relationship_4002"/>
@@ -350,7 +352,7 @@
       <metamodel nsURI="http://www.example.org/mindmap">
          <specializationType
                id="org.eclipse.gmf.examples.mindmap.rcp.diagram.Relationship_4004"
-               name="Relationship"
+               name="%metatype.name.Relationship_4004"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.helpers.Relationship2EditHelperAdvice">
             <specializes id="org.eclipse.gmf.examples.mindmap.rcp.diagram.Relationship_4002"/>
@@ -393,7 +395,7 @@
       <?gmfgen generated="true"?>
       <perspective
             id="org.eclipse.gmf.examples.mindmap.rcp.diagram.MindmapPerspective"
-            name="Mindmap Perspective"
+            name="%perspectiveName"
             class="org.eclipse.gmf.examples.mindmap.rcp.diagram.application.DiagramEditorPerspective">
       </perspective>
    </extension>
@@ -427,6 +429,73 @@
    <extension point="org.eclipse.ui.actionSets">
       <?gmfgen generated="true"?>
       <actionSet
+            label="%initDiagramActionLabel"
+            visible="true"
+            id="org.eclipse.gmf.examples.mindmap.rcp.diagram.InitDiagram">
+         <action
+               label="%initDiagramActionLabel"
+               class="org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapInitDiagramFileAction"
+               menubarPath="file/additions"
+               id="org.eclipse.gmf.examples.mindmap.rcp.diagram.InitDiagramAction">
+         </action>
+      </actionSet>
+   </extension>
+
+
+<extension point="org.eclipse.emf.validation.constraintProviders">
+      <?gmfgen generated="true"?>
+            <category id="org.eclipse.gmf.examples.mindmap" mandatory="false" name="Mindmap Audits">
+         <![CDATA[Mindmap Audits]]>
+      </category>
+      <constraintProvider cache="true">
+         <package namespaceUri="http://www.example.org/mindmap"/>
+         <package namespaceUri="http://www.example.org/mindmap"/>
+               <constraints categories="org.eclipse.gmf.examples.mindmap">
+                  <constraint id="cycle"
+            lang="OCL"
+            name="Cyclic relationship check"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.relations->forAll(r1, r2 |  r1.target = r2.source and r1.type = r2.type implies r2.target <> r1.source)]]>
+            <description><![CDATA[This audit will detect situations where relationship links of the same type form a cycle.]]></description>
+            <message><![CDATA[A cycle was found in relationships between two Topic elements.]]></message>
+            <target class="mindmap.Map"/>
+         </constraint>
+                  <constraint id="notopicname"
+            lang="OCL"
+            name="No Topic Name"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[name.size() > 0]]>
+            <description><![CDATA[Detects Topics without a name set]]></description>
+            <message><![CDATA[All Topic elements should have a name set]]></message>
+            <target class="mindmap.Topic"/>
+         </constraint>
+                  </constraints>
+      </constraintProvider>
+   </extension>
+
+<extension point="org.eclipse.emf.validation.constraintBindings">
+      <?gmfgen generated="true"?>
+                  <clientContext default="false" id="org.eclipse.gmf.examples.mindmap.rcp.diagram.DefaultCtx">
+         <selector class="org.eclipse.gmf.examples.mindmap.rcp.diagram.providers.MindmapValidationProvider$DefaultCtx"/>
+      </clientContext>
+      <binding context="org.eclipse.gmf.examples.mindmap.rcp.diagram.DefaultCtx">
+                  <constraint ref="org.eclipse.gmf.examples.mindmap.rcp.diagram.cycle"/>
+                  <constraint ref="org.eclipse.gmf.examples.mindmap.rcp.diagram.notopicname"/>
+               </binding>
+               </extension><extension point="org.eclipse.ui.contexts">
+      <?gmfgen generated="true"?>
+      <context
+         description="%context.description"
+         id="org.eclipse.gmf.examples.mindmap.rcp.diagram.ui.diagramContext"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+      </context>
+   </extension>
+<extension point="org.eclipse.ui.actionSets">
+      <?gmfgen generated="true"?>
+      <actionSet
             label="%applicationActionSetLabel"
             visible="true"
             id="org.eclipse.gmf.examples.mindmap.rcp.diagram.ActionSet">
@@ -458,51 +527,24 @@
          </action>
       </actionSet>
    </extension>
+<extension point="org.eclipse.ui.commands">
+      <?gmfgen generated="true"?>
+      <command
+         categoryId="org.eclipse.ui.category.edit"
+         defaultHandler="org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapDiagramUpdateCommand"
+         description="%update.diagram.description"
+         id="org.eclipse.gmf.examples.mindmap.rcp.diagram.updateDiagram"
+         name="%update.diagram.name"/>
+   </extension>
+<extension point="org.eclipse.ui.bindings">
+      <?gmfgen generated="true"?>
+      <key 
+         commandId="org.eclipse.gmf.examples.mindmap.rcp.diagram.updateDiagram"
+         contextId="org.eclipse.gmf.examples.mindmap.rcp.diagram.ui.diagramContext"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="F5"/>
+   </extension>
 
-
-<extension point="org.eclipse.emf.validation.constraintProviders">
-	<?gmfgen generated="true"?>
-	<category
-		id="org.eclipse.gmf.examples.mindmap"
-		mandatory="false"
-		name="Mindmap Audits">
-	<![CDATA[Mindmap Audits]]>
-	</category>		
-	<constraintProvider cache="true">
-		<package namespaceUri="http://www.example.org/mindmap"/>
-		<constraints categories="org.eclipse.gmf.examples.mindmap">		
-			<constraint id="cycle"
-				lang="OCL"
-				name="Cyclic relationship check" mode="Batch"
-				severity="ERROR" statusCode="200">
-				<![CDATA[self.relations->forAll(r1, r2 |  r1.target = r2.source and r1.type = r2.type implies r2.target <> r1.source)]]>			
-	            <description><![CDATA[This audit will detect situations where relationship links of the same type form a cycle.]]></description>
-	            <message><![CDATA[A cycle was found in relationships between two Topic elements.]]></message>
-				<target class="mindmap.Map"/>
-			</constraint>
-			<constraint id="notopicname"
-				lang="OCL"
-				name="No Topic Name" mode="Batch"
-				severity="ERROR" statusCode="201">
-				<![CDATA[name.size() > 0]]>			
-	            <description><![CDATA[Detects Topics without a name set]]></description>
-	            <message><![CDATA[All Topic elements should have a name set]]></message>
-				<target class="mindmap.Topic"/>
-			</constraint>
-		</constraints>
-	</constraintProvider>
-</extension>
-
-<extension point="org.eclipse.emf.validation.constraintBindings">
-	<?gmfgen generated="true"?>
-	<clientContext default="false" id="org.eclipse.gmf.examples.mindmap.rcp.diagram.DefaultCtx">
-		<selector class="org.eclipse.gmf.examples.mindmap.rcp.diagram.providers.MindmapValidationProvider$DefaultCtx"/>
-	</clientContext>
-	<binding context="org.eclipse.gmf.examples.mindmap.rcp.diagram.DefaultCtx">	
-		<constraint ref="org.eclipse.gmf.examples.mindmap.rcp.diagram.cycle"/>	
-		<constraint ref="org.eclipse.gmf.examples.mindmap.rcp.diagram.notopicname"/>
-	</binding>		
-</extension>
 
 
 </plugin>

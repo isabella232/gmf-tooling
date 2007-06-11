@@ -19,7 +19,7 @@ public class DiagramEditorPerspective implements IPerspectiveFactory {
 				"right", IPageLayout.RIGHT, 0.6f, layout.getEditorArea()); //$NON-NLS-1$
 		right.addView(IPageLayout.ID_OUTLINE);
 		IFolderLayout bottomRight = layout.createFolder(
-				"bottomRight", IPageLayout.BOTTOM, 0.6f, "right"); //$NON-NLS-1$ //$NON-NLS-2$
+				"bottomRight", IPageLayout.BOTTOM, 0.6f, "right"); //$NON-NLS-1$	//$NON-NLS-2$
 		bottomRight.addView(IPageLayout.ID_PROP_SHEET);
 	}
 }

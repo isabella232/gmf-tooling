@@ -60,11 +60,13 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
-		super.createDefaultEditPolicies();
 
+		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new ResourceItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
+		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 
 	/**
@@ -123,7 +125,6 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode()
 				.DPtoLP(40), getMapMode().DPtoLP(60));
-
 		return result;
 	}
 
@@ -151,18 +152,6 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 	 * @generated
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
-		if (nodeShape.getLayoutManager() == null) {
-			nodeShape.setLayoutManager(new FreeformLayout() {
-
-				public Object getConstraint(IFigure figure) {
-					Object result = constraints.get(figure);
-					if (result == null) {
-						result = new Rectangle(0, 0, -1, -1);
-					}
-					return result;
-				}
-			});
-		}
 		return nodeShape; // use nodeShape itself as contentPane
 	}
 
@@ -195,11 +184,8 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 
 			this.setLayoutManager(new XYLayout());
 			this.setFill(false);
-			this.setFillXOR(false);
 			this.setOutline(false);
-			this.setOutlineXOR(false);
 			this.setLineWidth(0);
-			this.setLineStyle(Graphics.LINE_SOLID);
 			this.setPreferredSize(new Dimension(getMapMode().DPtoLP(40),
 					getMapMode().DPtoLP(60)));
 			this.setMaximumSize(new Dimension(getMapMode().DPtoLP(40),
@@ -216,14 +202,8 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 		private void createContents() {
 
 			Ellipse head0 = new Ellipse();
-			head0.setFill(true);
-			head0.setFillXOR(false);
-			head0.setOutline(true);
-			head0.setOutlineXOR(false);
-			head0.setLineWidth(1);
-			head0.setLineStyle(Graphics.LINE_SOLID);
-			head0.setForegroundColor(HEAD_FORE);
-			head0.setBackgroundColor(HEAD_BACK);
+			head0.setForegroundColor(HEAD0_FORE);
+			head0.setBackgroundColor(HEAD0_BACK);
 			head0.setSize(getMapMode().DPtoLP(40), getMapMode().DPtoLP(20));
 
 			this.add(head0);
@@ -263,14 +243,8 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 					.DPtoLP(24)));
 			body0.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode()
 					.DPtoLP(19)));
-			body0.setFill(true);
-			body0.setFillXOR(false);
-			body0.setOutline(true);
-			body0.setOutlineXOR(false);
-			body0.setLineWidth(1);
-			body0.setLineStyle(Graphics.LINE_SOLID);
-			body0.setForegroundColor(BODY_FORE);
-			body0.setBackgroundColor(BODY_BACK);
+			body0.setForegroundColor(BODY0_FORE);
+			body0.setBackgroundColor(BODY0_BACK);
 
 			this.add(body0);
 
@@ -300,21 +274,21 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 	/**
 	 * @generated
 	 */
-	static final Color HEAD_FORE = new Color(null, 220, 220, 250);
+	static final Color HEAD0_FORE = new Color(null, 220, 220, 250);
 
 	/**
 	 * @generated
 	 */
-	static final Color HEAD_BACK = new Color(null, 230, 230, 255);
+	static final Color HEAD0_BACK = new Color(null, 230, 230, 255);
 
 	/**
 	 * @generated
 	 */
-	static final Color BODY_FORE = new Color(null, 220, 220, 250);
+	static final Color BODY0_FORE = new Color(null, 220, 220, 250);
 
 	/**
 	 * @generated
 	 */
-	static final Color BODY_BACK = new Color(null, 230, 230, 255);
+	static final Color BODY0_BACK = new Color(null, 230, 230, 255);
 
 }

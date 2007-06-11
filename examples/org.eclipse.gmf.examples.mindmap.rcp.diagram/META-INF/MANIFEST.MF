@@ -7,7 +7,7 @@ Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapDiagramEditorPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts, 
+Export-Package: org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts,
  org.eclipse.gmf.examples.mindmap.rcp.diagram.part,
  org.eclipse.gmf.examples.mindmap.rcp.diagram.providers
 Require-Bundle: org.eclipse.core.runtime,
@@ -32,5 +32,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ocl;visibility:=reexport,
  org.eclipse.emf.validation;visibility:=reexport,
  org.eclipse.gmf.runtime.draw2d.ui;visibility:=reexport,
- org.eclipse.draw2d;visibility:=reexport
+ org.eclipse.draw2d;visibility:=reexport,
+ org.eclipse.ocl.ecore;visibility:=reexport
 Eclipse-LazyStart: true
+Bundle-RequiredExecutionEnvironment: J2SE-1.4

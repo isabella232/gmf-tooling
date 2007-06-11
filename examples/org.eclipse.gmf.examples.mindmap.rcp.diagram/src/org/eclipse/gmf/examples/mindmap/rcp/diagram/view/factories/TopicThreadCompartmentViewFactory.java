@@ -13,6 +13,7 @@ import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.TopicThreadCompar
 
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapVisualIDRegistry;
 
+import org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.ListCompartmentViewFactory;
 
 import org.eclipse.gmf.runtime.notation.DrawerStyle;
@@ -24,8 +25,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class TopicThreadCompartmentViewFactory extends
-		ListCompartmentViewFactory {
+public class TopicThreadCompartmentViewFactory extends BasicNodeViewFactory {
 
 	/**
 	 * @generated 
@@ -53,15 +53,6 @@ public class TopicThreadCompartmentViewFactory extends
 				index, persisted);
 		setupCompartmentTitle(view);
 		setupCompartmentCollapsed(view);
-		if (!MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry
-				.getModelID(containerView))) {
-			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE
-					.createEAnnotation();
-			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
-			shortcutAnnotation.getDetails()
-					.put("modelID", MapEditPart.MODEL_ID); //$NON-NLS-1$
-			view.getEAnnotations().add(shortcutAnnotation);
-		}
 	}
 
 	/**

@@ -37,15 +37,11 @@ public abstract class MindmapAbstractExpression {
 	/**
 	 * @generated
 	 */
-	private String body;
+	private final String body;
 	/**
 	 * @generated
 	 */
-	private EClassifier context;
-	/**
-	 * @generated
-	 */
-	private Map env;
+	private final EClassifier context;
 	/**
 	 * @generated
 	 */
@@ -55,17 +51,15 @@ public abstract class MindmapAbstractExpression {
 	 * @generated
 	 */
 	protected MindmapAbstractExpression(EClassifier context) {
-		this.context = context;
+		this(null, context);
 	}
 
 	/**
 	 * @generated
 	 */
-	protected MindmapAbstractExpression(String body, EClassifier context,
-			Map env) {
+	protected MindmapAbstractExpression(String body, EClassifier context) {
 		this.body = body;
 		this.context = context;
-		this.env = env;
 	}
 
 	/**
@@ -134,13 +128,6 @@ public abstract class MindmapAbstractExpression {
 	 */
 	public EClassifier context() {
 		return context;
-	}
-
-	/**
-	 * @generated
-	 */
-	public Map environment() {
-		return env;
 	}
 
 	/**

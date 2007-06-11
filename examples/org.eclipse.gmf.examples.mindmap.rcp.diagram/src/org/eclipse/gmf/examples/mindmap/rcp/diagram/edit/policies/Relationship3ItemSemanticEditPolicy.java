@@ -16,6 +16,6 @@ public class Relationship3ItemSemanticEditPolicy extends
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		return getMSLWrapper(new DestroyElementCommand(req));
+		return getGEFWrapper(new DestroyElementCommand(req));
 	}
 }

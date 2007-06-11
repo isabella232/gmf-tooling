@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Point;
@@ -21,6 +22,7 @@ import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.gef.tools.DirectEditManager;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.policies.MindmapTextSelectionEditPolicy;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.providers.MindmapElementTypes;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.providers.MindmapParserProvider;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
@@ -43,6 +45,7 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.viewers.ICellEditorValidator;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.accessibility.AccessibleEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.FontData;
@@ -304,16 +307,9 @@ public class TopicNameEditPart extends CompartmentEditPart implements
 	public IParser getParser() {
 		if (parser == null) {
 			String parserHint = ((View) getModel()).getType();
-			ParserHintAdapter hintAdapter = new ParserHintAdapter(
-					getParserElement(), parserHint) {
-
-				public Object getAdapter(Class adapter) {
-					if (IElementType.class.equals(adapter)) {
-						return MindmapElementTypes.Topic_2001;
-					}
-					return super.getAdapter(adapter);
-				}
-			};
+			IAdaptable hintAdapter = new MindmapParserProvider.HintAdapter(
+					MindmapElementTypes.Topic_2001, getParserElement(),
+					parserHint);
 			parser = ParserService.getInstance().getParser(hintAdapter);
 		}
 		return parser;
@@ -455,11 +451,8 @@ public class TopicNameEditPart extends CompartmentEditPart implements
 				NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null) {
 			FontData fontData = new FontData(style.getFontName(), style
-					.getFontHeight(),
-					(style.isBold() ? org.eclipse.swt.SWT.BOLD
-							: org.eclipse.swt.SWT.NORMAL)
-							| (style.isItalic() ? org.eclipse.swt.SWT.ITALIC
-									: org.eclipse.swt.SWT.NORMAL));
+					.getFontHeight(), (style.isBold() ? SWT.BOLD : SWT.NORMAL)
+					| (style.isItalic() ? SWT.ITALIC : SWT.NORMAL));
 			setFont(fontData);
 		}
 	}

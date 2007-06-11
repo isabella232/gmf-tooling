@@ -29,14 +29,14 @@ public class MapItemSemanticEditPolicy extends
 				req.setContainmentFeature(MindmapPackage.eINSTANCE
 						.getMap_RootTopics());
 			}
-			return getMSLWrapper(new TopicCreateCommand(req));
+			return getGEFWrapper(new TopicCreateCommand(req));
 		}
 		if (MindmapElementTypes.Resource_2002 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(MindmapPackage.eINSTANCE
 						.getMap_Resources());
 			}
-			return getMSLWrapper(new ResourceCreateCommand(req));
+			return getGEFWrapper(new ResourceCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -47,7 +47,7 @@ public class MapItemSemanticEditPolicy extends
 	protected Command getDuplicateCommand(DuplicateElementsRequest req) {
 		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost())
 				.getEditingDomain();
-		return getMSLWrapper(new DuplicateAnythingCommand(editingDomain, req));
+		return getGEFWrapper(new DuplicateAnythingCommand(editingDomain, req));
 	}
 
 	/**
