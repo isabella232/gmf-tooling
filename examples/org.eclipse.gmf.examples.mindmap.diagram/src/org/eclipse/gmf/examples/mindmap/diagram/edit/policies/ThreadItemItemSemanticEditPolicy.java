@@ -14,6 +14,7 @@
 package org.eclipse.gmf.examples.mindmap.diagram.edit.policies;
 
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
@@ -24,30 +25,16 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class ThreadItemItemSemanticEditPolicy extends MindmapBaseItemSemanticEditPolicy {
+public class ThreadItemItemSemanticEditPolicy extends
+		MindmapBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		return getMSLWrapper(new DestroyElementCommand(req) {
-
-			protected EObject getElementToDestroy() {
-				View view = (View) getHost().getModel();
-				EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
-				if (annotation != null) {
-					return view;
-				}
-				return super.getElementToDestroy();
-			}
-
-		});
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
-		return super.getCreateRelationshipCommand(req);
+		CompoundCommand cc = getDestroyEdgesCommand();
+		addDestroyShortcutsCommand(cc);
+		cc.add(getGEFWrapper(new DestroyElementCommand(req)));
+		return cc.unwrap();
 	}
 }

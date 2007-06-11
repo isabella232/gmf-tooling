@@ -26,6 +26,7 @@ import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadThreadItemCompa
 
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
+import org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.ListCompartmentViewFactory;
 
 import org.eclipse.gmf.runtime.notation.DrawerStyle;
@@ -37,7 +38,8 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class ThreadThreadItemCompartmentViewFactory extends ListCompartmentViewFactory {
+public class ThreadThreadItemCompartmentViewFactory extends
+		BasicNodeViewFactory {
 
 	/**
 	 * @generated 
@@ -52,27 +54,26 @@ public class ThreadThreadItemCompartmentViewFactory extends ListCompartmentViewF
 	/**
 	 * @generated
 	 */
-	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
+	protected void decorateView(View containerView, View view,
+			IAdaptable semanticAdapter, String semanticHint, int index,
+			boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = MindmapVisualIDRegistry.getType(ThreadThreadItemCompartmentEditPart.VISUAL_ID);
+			semanticHint = MindmapVisualIDRegistry
+					.getType(ThreadThreadItemCompartmentEditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
-		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
+		super.decorateView(containerView, view, semanticAdapter, semanticHint,
+				index, persisted);
 		setupCompartmentTitle(view);
 		setupCompartmentCollapsed(view);
-		if (!MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry.getModelID(containerView))) {
-			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
-			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
-			shortcutAnnotation.getDetails().put("modelID", MapEditPart.MODEL_ID); //$NON-NLS-1$
-			view.getEAnnotations().add(shortcutAnnotation);
-		}
 	}
 
 	/**
 	 * @generated
 	 */
 	protected void setupCompartmentTitle(View view) {
-		TitleStyle titleStyle = (TitleStyle) view.getStyle(NotationPackage.eINSTANCE.getTitleStyle());
+		TitleStyle titleStyle = (TitleStyle) view
+				.getStyle(NotationPackage.eINSTANCE.getTitleStyle());
 		if (titleStyle != null) {
 			titleStyle.setShowTitle(true);
 		}
@@ -82,7 +83,8 @@ public class ThreadThreadItemCompartmentViewFactory extends ListCompartmentViewF
 	 * @generated
 	 */
 	protected void setupCompartmentCollapsed(View view) {
-		DrawerStyle drawerStyle = (DrawerStyle) view.getStyle(NotationPackage.eINSTANCE.getDrawerStyle());
+		DrawerStyle drawerStyle = (DrawerStyle) view
+				.getStyle(NotationPackage.eINSTANCE.getDrawerStyle());
 		if (drawerStyle != null) {
 			drawerStyle.setCollapsed(false);
 		}

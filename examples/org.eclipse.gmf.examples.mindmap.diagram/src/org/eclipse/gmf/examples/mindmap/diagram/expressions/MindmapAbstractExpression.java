@@ -42,23 +42,22 @@ public abstract class MindmapAbstractExpression {
 	/**
 	 * @generated
 	 */
-	private static final boolean DISABLED_NO_IMPL_EXCEPTION_LOG = Boolean.valueOf(
-			Platform.getDebugOption(MindmapDiagramEditorPlugin.getInstance().getBundle().getSymbolicName() + "/debug/disableNoExprImplExceptionLog")).booleanValue();
+	private static final boolean DISABLED_NO_IMPL_EXCEPTION_LOG = Boolean
+			.valueOf(
+					Platform.getDebugOption(MindmapDiagramEditorPlugin
+							.getInstance().getBundle().getSymbolicName()
+							+ "/debug/disableNoExprImplExceptionLog"))
+			.booleanValue();
 
 	/**
 	 * @generated
 	 */
-	private String body;
+	private final String body;
 
 	/**
 	 * @generated
 	 */
-	private EClassifier context;
-
-	/**
-	 * @generated
-	 */
-	private Map env;
+	private final EClassifier context;
 
 	/**
 	 * @generated
@@ -69,16 +68,15 @@ public abstract class MindmapAbstractExpression {
 	 * @generated
 	 */
 	protected MindmapAbstractExpression(EClassifier context) {
-		this.context = context;
+		this(null, context);
 	}
 
 	/**
 	 * @generated
 	 */
-	protected MindmapAbstractExpression(String body, EClassifier context, Map env) {
+	protected MindmapAbstractExpression(String body, EClassifier context) {
 		this.body = body;
 		this.context = context;
-		this.env = env;
 	}
 
 	/**
@@ -86,9 +84,13 @@ public abstract class MindmapAbstractExpression {
 	 */
 	protected void setStatus(int severity, String message, Throwable throwable) {
 		String pluginID = MindmapDiagramEditorPlugin.ID;
-		this.status = new Status(severity, pluginID, -1, (message != null) ? message : "", throwable); //$NON-NLS-1$
+		this.status = new Status(severity, pluginID, -1,
+				(message != null) ? message : "", throwable); //$NON-NLS-1$
 		if (!this.status.isOK()) {
-			MindmapDiagramEditorPlugin.getInstance().logError("Expression problem:" + message + "body:" + body, throwable); //$NON-NLS-1$ //$NON-NLS-2$
+			MindmapDiagramEditorPlugin
+					.getInstance()
+					.logError(
+							"Expression problem:" + message + "body:" + body, throwable); //$NON-NLS-1$ //$NON-NLS-2$
 
 		}
 	}
@@ -113,10 +115,12 @@ public abstract class MindmapAbstractExpression {
 			try {
 				return doEvaluate(context, env);
 			} catch (Exception e) {
-				if (DISABLED_NO_IMPL_EXCEPTION_LOG && e instanceof NoImplException) {
+				if (DISABLED_NO_IMPL_EXCEPTION_LOG
+						&& e instanceof NoImplException) {
 					return null;
 				}
-				MindmapDiagramEditorPlugin.getInstance().logError("Expression evaluation failure: " + body, e);
+				MindmapDiagramEditorPlugin.getInstance().logError(
+						"Expression evaluation failure: " + body, e);
 			}
 		}
 		return null;
@@ -146,13 +150,6 @@ public abstract class MindmapAbstractExpression {
 	/**
 	 * @generated
 	 */
-	public Map environment() {
-		return env;
-	}
-
-	/**
-	 * @generated
-	 */
 	public void assignTo(EStructuralFeature feature, EObject target) {
 		Object value = evaluate(target);
 		value = (value != null) ? performCast(value, feature) : null;
@@ -176,7 +173,8 @@ public abstract class MindmapAbstractExpression {
 	 * @generated
 	 */
 	protected Object performCast(Object value, ETypedElement targetType) {
-		if (targetType.getEType() == null || targetType.getEType().getInstanceClass() == null) {
+		if (targetType.getEType() == null
+				|| targetType.getEType().getInstanceClass() == null) {
 			return value;
 		}
 		Class targetClass = targetType.getEType().getInstanceClass();
@@ -215,9 +213,9 @@ public abstract class MindmapAbstractExpression {
 	/**
 	 * @generated
 	 */
-	public static final MindmapAbstractExpression createNullExpression(EClassifier context) {
+	public static final MindmapAbstractExpression createNullExpression(
+			EClassifier context) {
 		return new MindmapAbstractExpression(context) {
-
 			protected Object doEvaluate(Object context, Map env) {
 				// TODO - log entry about not provider available for this expression
 				return null;

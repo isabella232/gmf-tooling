@@ -19,6 +19,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IAdaptable;
 
 import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
@@ -31,6 +32,7 @@ import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.ConnectionViewFactory;
 
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -44,28 +46,35 @@ public class Relationship2ViewFactory extends ConnectionViewFactory {
 	 */
 	protected List createStyles(View view) {
 		List styles = new ArrayList();
-		styles.add(NotationFactory.eINSTANCE.createRoutingStyle());
+		styles.add(NotationFactory.eINSTANCE.createConnectorStyle());
 		styles.add(NotationFactory.eINSTANCE.createFontStyle());
-		styles.add(NotationFactory.eINSTANCE.createLineStyle());
 		return styles;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
+	protected void decorateView(View containerView, View view,
+			IAdaptable semanticAdapter, String semanticHint, int index,
+			boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = MindmapVisualIDRegistry.getType(Relationship2EditPart.VISUAL_ID);
+			semanticHint = MindmapVisualIDRegistry
+					.getType(Relationship2EditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
-		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
-		if (!MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry.getModelID(containerView))) {
-			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
-			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
-			shortcutAnnotation.getDetails().put("modelID", MapEditPart.MODEL_ID); //$NON-NLS-1$
-			view.getEAnnotations().add(shortcutAnnotation);
+		super.decorateView(containerView, view, semanticAdapter, semanticHint,
+				index, persisted);
+		IAdaptable eObjectAdapter = null;
+		EObject eObject = (EObject) semanticAdapter.getAdapter(EObject.class);
+		if (eObject != null) {
+			eObjectAdapter = new EObjectAdapter(eObject);
 		}
-		getViewService().createNode(semanticAdapter, view, MindmapVisualIDRegistry.getType(RelationshipLabel2EditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(
+				eObjectAdapter,
+				view,
+				MindmapVisualIDRegistry
+						.getType(RelationshipLabel2EditPart.VISUAL_ID),
+				ViewUtil.APPEND, true, getPreferencesHint());
 	}
 
 }

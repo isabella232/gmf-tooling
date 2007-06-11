@@ -28,6 +28,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -37,6 +38,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 
+import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
 
 import org.eclipse.emf.ecore.EObject;
@@ -56,6 +58,8 @@ import org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService
 
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramDropTargetListener;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
@@ -96,12 +100,18 @@ import org.eclipse.ui.part.FileEditorInput;
 /**
  * @generated
  */
-public class MindmapDiagramEditor extends DiagramDocumentEditor implements IGotoMarker {
+public class MindmapDiagramEditor extends DiagramDocumentEditor implements
+		IGotoMarker {
 
 	/**
 	 * @generated
 	 */
 	public static final String ID = "org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorID"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final String CONTEXT_ID = "org.eclipse.gmf.examples.mindmap.diagram.ui.diagramContext"; //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -113,46 +123,8 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor implements IGoto
 	/**
 	 * @generated
 	 */
-	protected String getEditingDomainID() {
-		return "org.eclipse.gmf.examples.mindmap.diagram.EditingDomain"; //$NON-NLS-1$
-	}
-
-	/**
-	 * @generated
-	 */
-	protected TransactionalEditingDomain createEditingDomain() {
-		TransactionalEditingDomain domain = super.createEditingDomain();
-		domain.setID(getEditingDomainID());
-		final NotificationFilter diagramResourceModifiedFilter = NotificationFilter.createNotifierFilter(domain.getResourceSet()).and(NotificationFilter.createEventTypeFilter(Notification.ADD)).and(
-				NotificationFilter.createFeatureFilter(ResourceSet.class, ResourceSet.RESOURCE_SET__RESOURCES));
-		domain.getResourceSet().eAdapters().add(new Adapter() {
-
-			private Notifier myTarger;
-
-			public Notifier getTarget() {
-				return myTarger;
-			}
-
-			public boolean isAdapterForType(Object type) {
-				return false;
-			}
-
-			public void notifyChanged(Notification notification) {
-				if (diagramResourceModifiedFilter.matches(notification)) {
-					Object value = notification.getNewValue();
-					if (value instanceof Resource) {
-						((Resource) value).setTrackingModification(true);
-					}
-				}
-			}
-
-			public void setTarget(Notifier newTarget) {
-				myTarger = newTarget;
-			}
-
-		});
-
-		return domain;
+	protected String getContextID() {
+		return CONTEXT_ID;
 	}
 
 	/**
@@ -181,16 +153,37 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor implements IGoto
 	/**
 	 * @generated
 	 */
-	private String contentObjectURI;
+	protected IDocumentProvider getDocumentProvider(IEditorInput input) {
+		if (input instanceof IFileEditorInput
+				|| input instanceof URIEditorInput) {
+			return MindmapDiagramEditorPlugin.getInstance()
+					.getDocumentProvider();
+		}
+		return super.getDocumentProvider(input);
+	}
+
+	/**
+	 * @generated
+	 */
+	public TransactionalEditingDomain getEditingDomain() {
+		IDocument document = getEditorInput() != null ? getDocumentProvider()
+				.getDocument(getEditorInput()) : null;
+		if (document instanceof IDiagramDocument) {
+			return ((IDiagramDocument) document).getEditingDomain();
+		}
+		return super.getEditingDomain();
+	}
 
 	/**
 	 * @generated
 	 */
 	protected void setDocumentProvider(IEditorInput input) {
-		if (input instanceof IFileEditorInput) {
-			setDocumentProvider(new MindmapDocumentProvider(contentObjectURI));
+		if (input instanceof IFileEditorInput
+				|| input instanceof URIEditorInput) {
+			setDocumentProvider(MindmapDiagramEditorPlugin.getInstance()
+					.getDocumentProvider());
 		} else {
-			setDocumentProvider(new StorageDiagramDocumentProvider());
+			super.setDocumentProvider(input);
 		}
 	}
 
@@ -222,7 +215,9 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor implements IGoto
 		Shell shell = getSite().getShell();
 		IEditorInput input = getEditorInput();
 		SaveAsDialog dialog = new SaveAsDialog(shell);
-		IFile original = input instanceof IFileEditorInput ? ((IFileEditorInput) input).getFile() : null;
+		IFile original = input instanceof IFileEditorInput ? ((IFileEditorInput) input)
+				.getFile()
+				: null;
 		if (original != null) {
 			dialog.setOriginalFile(original);
 		}
@@ -233,7 +228,9 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor implements IGoto
 			return;
 		}
 		if (provider.isDeleted(input) && original != null) {
-			String message = NLS.bind("The original file ''{0}'' has been deleted.", original.getName());
+			String message = NLS.bind(
+					"The original file ''{0}'' has been deleted.", original
+							.getName());
 			dialog.setErrorMessage(null);
 			dialog.setMessage(message, IMessageProvider.WARNING);
 		}
@@ -254,23 +251,31 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor implements IGoto
 		IFile file = workspaceRoot.getFile(filePath);
 		final IEditorInput newInput = new FileEditorInput(file);
 		// Check if the editor is already open
-		IEditorMatchingStrategy matchingStrategy = getEditorDescriptor().getEditorMatchingStrategy();
-		IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+		IEditorMatchingStrategy matchingStrategy = getEditorDescriptor()
+				.getEditorMatchingStrategy();
+		IEditorReference[] editorRefs = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getActivePage()
+				.getEditorReferences();
 		for (int i = 0; i < editorRefs.length; i++) {
 			if (matchingStrategy.matches(editorRefs[i], newInput)) {
-				MessageDialog.openWarning(shell, "Problem During Save As...", "Save could not be completed. Target file is already open in another editor.");
+				MessageDialog
+						.openWarning(shell, "Problem During Save As...",
+								"Save could not be completed. Target file is already open in another editor.");
 				return;
 			}
 		}
 		boolean success = false;
 		try {
 			provider.aboutToChange(newInput);
-			getDocumentProvider(newInput).saveDocument(progressMonitor, newInput, getDocumentProvider().getDocument(getEditorInput()), true);
+			getDocumentProvider(newInput).saveDocument(progressMonitor,
+					newInput,
+					getDocumentProvider().getDocument(getEditorInput()), true);
 			success = true;
 		} catch (CoreException x) {
 			IStatus status = x.getStatus();
 			if (status == null || status.getSeverity() != IStatus.CANCEL) {
-				ErrorDialog.openError(shell, "Save Problems", "Could not save file.", x.getStatus());
+				ErrorDialog.openError(shell, "Save Problems",
+						"Could not save file.", x.getStatus());
 			}
 		} finally {
 			provider.changed(newInput);
@@ -288,20 +293,25 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor implements IGoto
 	 */
 	protected void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
-		getDiagramGraphicalViewer().addDropTargetListener(new DropTargetListener(getDiagramGraphicalViewer(), LocalSelectionTransfer.getTransfer()) {
+		getDiagramGraphicalViewer().addDropTargetListener(
+				new DropTargetListener(getDiagramGraphicalViewer(),
+						LocalSelectionTransfer.getTransfer()) {
 
-			protected Object getJavaObject(TransferData data) {
-				return LocalSelectionTransfer.getTransfer().nativeToJava(data);
-			}
+					protected Object getJavaObject(TransferData data) {
+						return LocalSelectionTransfer.getTransfer()
+								.nativeToJava(data);
+					}
 
-		});
-		getDiagramGraphicalViewer().addDropTargetListener(new DropTargetListener(getDiagramGraphicalViewer(), LocalTransfer.getInstance()) {
+				});
+		getDiagramGraphicalViewer().addDropTargetListener(
+				new DropTargetListener(getDiagramGraphicalViewer(),
+						LocalTransfer.getInstance()) {
 
-			protected Object getJavaObject(TransferData data) {
-				return LocalTransfer.getInstance().nativeToJava(data);
-			}
+					protected Object getJavaObject(TransferData data) {
+						return LocalTransfer.getInstance().nativeToJava(data);
+					}
 
-		});
+				});
 	}
 
 	/**
@@ -329,13 +339,22 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor implements IGoto
 				for (Iterator it = selection.iterator(); it.hasNext();) {
 					Object nextSelectedObject = it.next();
 					if (nextSelectedObject instanceof MindmapNavigatorItem) {
-						View view = ((MindmapNavigatorItem) nextSelectedObject).getView();
+						View view = ((MindmapNavigatorItem) nextSelectedObject)
+								.getView();
 						nextSelectedObject = view.getElement();
+					} else if (nextSelectedObject instanceof IAdaptable) {
+						IAdaptable adaptable = (IAdaptable) nextSelectedObject;
+						nextSelectedObject = adaptable
+								.getAdapter(EObject.class);
 					}
+
 					if (nextSelectedObject instanceof EObject) {
 						EObject modelElement = (EObject) nextSelectedObject;
-						Resource modelElementResource = modelElement.eResource();
-						uris.add(modelElementResource.getURI().appendFragment(modelElementResource.getURIFragment(modelElement)));
+						Resource modelElementResource = modelElement
+								.eResource();
+						uris.add(modelElementResource.getURI().appendFragment(
+								modelElementResource
+										.getURIFragment(modelElement)));
 					}
 				}
 			}
@@ -343,7 +362,8 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor implements IGoto
 			List result = new ArrayList();
 			for (Iterator it = uris.iterator(); it.hasNext();) {
 				URI nextURI = (URI) it.next();
-				EObject modelObject = getEditingDomain().getResourceSet().getEObject(nextURI, true);
+				EObject modelObject = getEditingDomain().getResourceSet()
+						.getEObject(nextURI, true);
 				result.add(modelObject);
 			}
 			return result;

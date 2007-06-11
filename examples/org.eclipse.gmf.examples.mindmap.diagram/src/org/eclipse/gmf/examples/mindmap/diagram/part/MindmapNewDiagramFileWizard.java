@@ -28,6 +28,7 @@ import org.eclipse.core.resources.IFile;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -71,6 +72,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
 
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 
 import org.eclipse.swt.layout.GridData;
@@ -97,112 +99,115 @@ public class MindmapNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	private WizardNewFileCreationPage myFileCreationPage;
+	public MindmapNewDiagramFileWizard(URI domainModelURI, EObject diagramRoot,
+			TransactionalEditingDomain editingDomain) {
+		assert domainModelURI != null : "Domain model uri must be specified"; //$NON-NLS-1$
+		assert diagramRoot != null : "Doagram root element must be specified"; //$NON-NLS-1$
+		assert editingDomain != null : "Editing domain must be specified"; //$NON-NLS-1$
 
-	/**
-	 * @generated
-	 */
-	private IFile mySelectedModelFile;
+		myFileCreationPage = new WizardNewFileCreationPage(
+				Messages.MindmapNewDiagramFileWizard_CreationPageName,
+				StructuredSelection.EMPTY);
+		myFileCreationPage
+				.setTitle(Messages.MindmapNewDiagramFileWizard_CreationPageTitle);
+		myFileCreationPage.setDescription(NLS.bind(
+				Messages.MindmapNewDiagramFileWizard_CreationPageDescription,
+				MapEditPart.MODEL_ID));
+		IPath filePath;
+		String fileName = domainModelURI.trimFileExtension().lastSegment();
+		if (domainModelURI.isPlatformResource()) {
+			filePath = new Path(domainModelURI.trimSegments(1)
+					.toPlatformString(true));
+		} else if (domainModelURI.isFile()) {
+			filePath = new Path(domainModelURI.trimSegments(1).toFileString());
+		} else {
+			// TODO : use some default path
+			throw new IllegalArgumentException(
+					"Unsupported URI: " + domainModelURI); //$NON-NLS-1$
+		}
+		myFileCreationPage.setContainerFullPath(filePath);
+		myFileCreationPage.setFileName(MindmapDiagramEditorUtil
+				.getUniqueFileName(filePath, fileName, "mmd")); //$NON-NLS-1$
 
-	/**
-	 * @generated
-	 */
-	private IWorkbenchPage myWorkbenchPage;
+		diagramRootElementSelectionPage = new DiagramRootElementSelectionPage(
+				Messages.MindmapNewDiagramFileWizard_RootSelectionPageName);
+		diagramRootElementSelectionPage
+				.setTitle(Messages.MindmapNewDiagramFileWizard_RootSelectionPageTitle);
+		diagramRootElementSelectionPage
+				.setDescription(Messages.MindmapNewDiagramFileWizard_RootSelectionPageDescription);
+		diagramRootElementSelectionPage.setModelElement(diagramRoot);
 
-	/**
-	 * @generated
-	 */
-	private IStructuredSelection mySelection;
-
-	/**
-	 * @generated
-	 */
-	private EObject myDiagramRoot;
-
-	/**
-	 * @generated
-	 */
-	public MindmapNewDiagramFileWizard(IFile selectedModelFile, IWorkbenchPage workbenchPage, IStructuredSelection selection, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
-		assert selectedModelFile != null : "Null selectedModelFile in MindmapNewDiagramFileWizard constructor"; //$NON-NLS-1$
-		assert workbenchPage != null : "Null workbenchPage in MindmapNewDiagramFileWizard constructor"; //$NON-NLS-1$
-		assert selection != null : "Null selection in MindmapNewDiagramFileWizard constructor"; //$NON-NLS-1$
-		assert diagramRoot != null : "Null diagramRoot in MindmapNewDiagramFileWizard constructor"; //$NON-NLS-1$
-		assert editingDomain != null : "Null editingDomain in MindmapNewDiagramFileWizard constructor"; //$NON-NLS-1$
-
-		mySelectedModelFile = selectedModelFile;
-		myWorkbenchPage = workbenchPage;
-		mySelection = selection;
-		myDiagramRoot = diagramRoot;
 		myEditingDomain = editingDomain;
 	}
 
 	/**
 	 * @generated
 	 */
+	private WizardNewFileCreationPage myFileCreationPage;
+
+	/**
+	 * @generated
+	 */
+	private ModelElementSelectionPage diagramRootElementSelectionPage;
+
+	/**
+	 * @generated
+	 */
 	public void addPages() {
-		myFileCreationPage = new WizardNewFileCreationPage("Initialize new Ecore diagram file", mySelection) {
-
-			public void createControl(Composite parent) {
-				super.createControl(parent);
-
-				IContainer parentContainer = mySelectedModelFile.getParent();
-				String originalFileName = mySelectedModelFile.getProjectRelativePath().removeFileExtension().lastSegment();
-				String fileExtension = ".mmd"; //$NON-NLS-1$
-				String fileName = originalFileName + fileExtension;
-				for (int i = 1; parentContainer.getFile(new Path(fileName)).exists(); i++) {
-					fileName = originalFileName + i + fileExtension;
-				}
-				setFileName(fileName);
-			}
-
-		};
-		myFileCreationPage.setTitle("Diagram file");
-		myFileCreationPage.setDescription("Create new diagram based on " + MapEditPart.MODEL_ID + " model content");
 		addPage(myFileCreationPage);
-		addPage(new RootElementSelectorPage());
+		addPage(diagramRootElementSelectionPage);
 	}
 
 	/**
 	 * @generated
 	 */
 	public boolean performFinish() {
-		IFile diagramFile = myFileCreationPage.createNewFile();
-		try {
-			diagramFile.setCharset("UTF-8", new NullProgressMonitor()); //$NON-NLS-1$
-		} catch (CoreException e) {
-			MindmapDiagramEditorPlugin.getInstance().logError("Unable to set charset for diagram file", e); //$NON-NLS-1$
-		}
-
-		ResourceSet resourceSet = myEditingDomain.getResourceSet();
-		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true));
-
 		List affectedFiles = new LinkedList();
-		affectedFiles.add(mySelectedModelFile);
+		IFile diagramFile = myFileCreationPage.createNewFile();
+		MindmapDiagramEditorUtil.setCharset(diagramFile);
 		affectedFiles.add(diagramFile);
+		URI diagramModelURI = URI.createPlatformResourceURI(diagramFile
+				.getFullPath().toString(), true);
+		ResourceSet resourceSet = myEditingDomain.getResourceSet();
+		final Resource diagramResource = resourceSet
+				.createResource(diagramModelURI);
+		AbstractTransactionalCommand command = new AbstractTransactionalCommand(
+				myEditingDomain,
+				Messages.MindmapNewDiagramFileWizard_InitDiagramCommand,
+				affectedFiles) {
 
-		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
-
-			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				int diagramVID = MindmapVisualIDRegistry.getDiagramVisualID(myDiagramRoot);
+			protected CommandResult doExecuteWithResult(
+					IProgressMonitor monitor, IAdaptable info)
+					throws ExecutionException {
+				int diagramVID = MindmapVisualIDRegistry
+						.getDiagramVisualID(diagramRootElementSelectionPage
+								.getModelElement());
 				if (diagramVID != MapEditPart.VISUAL_ID) {
-					return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
+					return CommandResult
+							.newErrorCommandResult(Messages.MindmapNewDiagramFileWizard_IncorrectRootError);
 				}
-				Diagram diagram = ViewService.createDiagram(myDiagramRoot, MapEditPart.MODEL_ID, MindmapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				Diagram diagram = ViewService.createDiagram(
+						diagramRootElementSelectionPage.getModelElement(),
+						MapEditPart.MODEL_ID,
+						MindmapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				diagramResource.getContents().add(diagram);
 				return CommandResult.newOKCommandResult();
 			}
 		};
-
 		try {
-			OperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);
-			diagramResource.save(Collections.EMPTY_MAP);
+			OperationHistoryFactory.getOperationHistory().execute(command,
+					new NullProgressMonitor(), null);
+			diagramResource.save(MindmapDiagramEditorUtil.getSaveOptions());
 			MindmapDiagramEditorUtil.openDiagram(diagramResource);
 		} catch (ExecutionException e) {
-			MindmapDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"Unable to create model and diagram", e); //$NON-NLS-1$
 		} catch (IOException ex) {
-			MindmapDiagramEditorPlugin.getInstance().logError("Save operation failed for: " + diagramFile.getFullPath().toString(), ex); //$NON-NLS-1$
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"Save operation failed for: " + diagramModelURI, ex); //$NON-NLS-1$
 		} catch (PartInitException ex) {
-			MindmapDiagramEditorPlugin.getInstance().logError("Unable to open editor", ex); //$NON-NLS-1$
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"Unable to open editor", ex); //$NON-NLS-1$
 		}
 		return true;
 	}
@@ -210,93 +215,41 @@ public class MindmapNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	private class RootElementSelectorPage extends WizardPage implements ISelectionChangedListener {
+	private static class DiagramRootElementSelectionPage extends
+			ModelElementSelectionPage {
 
 		/**
 		 * @generated
 		 */
-		protected RootElementSelectorPage() {
-			super("Select diagram root element");
-			setTitle("Diagram root element");
-			setDescription("Select semantic model element to be depicted on diagram");
+		protected DiagramRootElementSelectionPage(String pageName) {
+			super(pageName);
 		}
 
 		/**
 		 * @generated
 		 */
-		public void createControl(Composite parent) {
-			initializeDialogUnits(parent);
-			Composite topLevel = new Composite(parent, SWT.NONE);
-			topLevel.setLayout(new GridLayout());
-			topLevel.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL | GridData.HORIZONTAL_ALIGN_FILL));
-			topLevel.setFont(parent.getFont());
-			setControl(topLevel);
-			createModelBrowser(topLevel);
-			setPageComplete(validatePage());
+		protected String getSelectionTitle() {
+			return Messages.MindmapNewDiagramFileWizard_RootSelectionPageSelectionTitle;
 		}
 
 		/**
 		 * @generated
 		 */
-		private void createModelBrowser(Composite parent) {
-			Composite panel = new Composite(parent, SWT.NONE);
-			panel.setLayoutData(new GridData(GridData.FILL_BOTH));
-			GridLayout layout = new GridLayout();
-			layout.marginWidth = 0;
-			panel.setLayout(layout);
-
-			Label label = new Label(panel, SWT.NONE);
-			label.setText("Select diagram root element:");
-			label.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
-
-			TreeViewer treeViewer = new TreeViewer(panel, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
-			GridData layoutData = new GridData(GridData.FILL_BOTH);
-			layoutData.heightHint = 300;
-			layoutData.widthHint = 300;
-			treeViewer.getTree().setLayoutData(layoutData);
-			treeViewer.setContentProvider(new AdapterFactoryContentProvider(MindmapDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()));
-			treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(MindmapDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()));
-			treeViewer.setInput(myDiagramRoot.eResource());
-			treeViewer.setSelection(new StructuredSelection(myDiagramRoot));
-			treeViewer.addSelectionChangedListener(this);
-		}
-
-		/**
-		 * @generated
-		 */
-		public void selectionChanged(SelectionChangedEvent event) {
-			myDiagramRoot = null;
-			if (event.getSelection() instanceof IStructuredSelection) {
-				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-				if (selection.size() == 1) {
-					Object selectedElement = selection.getFirstElement();
-					if (selectedElement instanceof IWrapperItemProvider) {
-						selectedElement = ((IWrapperItemProvider) selectedElement).getValue();
-					}
-					if (selectedElement instanceof FeatureMap.Entry) {
-						selectedElement = ((FeatureMap.Entry) selectedElement).getValue();
-					}
-					if (selectedElement instanceof EObject) {
-						myDiagramRoot = (EObject) selectedElement;
-					}
-				}
-			}
-			setPageComplete(validatePage());
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean validatePage() {
-			if (myDiagramRoot == null) {
-				setErrorMessage("No diagram root element selected");
+		protected boolean validatePage() {
+			if (selectedModelElement == null) {
+				setErrorMessage(Messages.MindmapNewDiagramFileWizard_RootSelectionPageNoSelectionMessage);
 				return false;
 			}
-			boolean result = ViewService.getInstance().provides(
-					new CreateDiagramViewOperation(new EObjectAdapter(myDiagramRoot), MapEditPart.MODEL_ID, MindmapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
-			setErrorMessage(result ? null : "Invalid diagram root element was selected");
+			boolean result = ViewService
+					.getInstance()
+					.provides(
+							new CreateDiagramViewOperation(
+									new EObjectAdapter(selectedModelElement),
+									MapEditPart.MODEL_ID,
+									MindmapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
+			setErrorMessage(result ? null
+					: Messages.MindmapNewDiagramFileWizard_RootSelectionPageInvalidSelectionMessage);
 			return result;
 		}
-
 	}
 }

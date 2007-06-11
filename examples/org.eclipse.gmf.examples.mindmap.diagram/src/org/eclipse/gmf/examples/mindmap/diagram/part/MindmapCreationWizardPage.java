@@ -34,7 +34,8 @@ public class MindmapCreationWizardPage extends WizardNewFileCreationPage {
 	/**
 	 * @generated
 	 */
-	public MindmapCreationWizardPage(String pageName, IStructuredSelection selection, String fileExtension) {
+	public MindmapCreationWizardPage(String pageName,
+			IStructuredSelection selection, String fileExtension) {
 		super(pageName, selection);
 		this.fileExtension = fileExtension;
 	}
@@ -52,7 +53,7 @@ public class MindmapCreationWizardPage extends WizardNewFileCreationPage {
 	 * @generated
 	 */
 	public URI getURI() {
-		return URI.createPlatformResourceURI(getFilePath().toString());
+		return URI.createPlatformResourceURI(getFilePath().toString(), false);
 	}
 
 	/**
@@ -73,38 +74,10 @@ public class MindmapCreationWizardPage extends WizardNewFileCreationPage {
 	/**
 	 * @generated
 	 */
-	private String getUniqueFileName(IPath containerFullPath, String fileName) {
-		if (containerFullPath == null) {
-			containerFullPath = new Path(""); //$NON-NLS-1$
-		}
-		if (fileName == null || fileName.trim().length() == 0) {
-			fileName = "default"; //$NON-NLS-1$
-		}
-		IPath filePath = containerFullPath.append(fileName);
-		String extension = getExtension();
-		if (extension != null && !extension.equals(filePath.getFileExtension())) {
-			filePath = filePath.addFileExtension(extension);
-		}
-
-		extension = filePath.getFileExtension();
-		fileName = filePath.removeFileExtension().lastSegment();
-		int i = 1;
-		while (MindmapDiagramEditorUtil.exists(filePath)) {
-			i++;
-			filePath = containerFullPath.append(fileName + i);
-			if (extension != null) {
-				filePath = filePath.addFileExtension(extension);
-			}
-		}
-		return filePath.lastSegment();
-	}
-
-	/**
-	 * @generated
-	 */
 	public void createControl(Composite parent) {
 		super.createControl(parent);
-		setFileName(getUniqueFileName(getContainerFullPath(), getFileName()));
+		setFileName(MindmapDiagramEditorUtil.getUniqueFileName(
+				getContainerFullPath(), getFileName(), getExtension()));
 		setPageComplete(validatePage());
 	}
 
@@ -116,8 +89,10 @@ public class MindmapCreationWizardPage extends WizardNewFileCreationPage {
 			return false;
 		}
 		String extension = getExtension();
-		if (extension != null && !getFilePath().toString().endsWith("." + extension)) {
-			setErrorMessage(NLS.bind("File name should have ''{0}'' extension.", extension));
+		if (extension != null
+				&& !getFilePath().toString().endsWith("." + extension)) {
+			setErrorMessage(NLS.bind(
+					"File name should have ''{0}'' extension.", extension));
 			return false;
 		}
 		return true;

@@ -43,8 +43,9 @@ public class MindmapPaletteFactory {
 	 * @generated
 	 */
 	private PaletteContainer createNodes1Group() {
-		PaletteDrawer paletteContainer = new PaletteDrawer(MindmapDiagramEditorPlugin.getString("Nodes1Group.title")); //$NON-NLS-1$
-		paletteContainer.setDescription(MindmapDiagramEditorPlugin.getString("Nodes1Group.desc")); //$NON-NLS-1$
+		PaletteDrawer paletteContainer = new PaletteDrawer(
+				Messages.Nodes1Group_title);
+		paletteContainer.setDescription(Messages.Nodes1Group_desc);
 		paletteContainer.add(createTopic1CreationTool());
 		paletteContainer.add(createThread2CreationTool());
 		paletteContainer.add(createThreadItem3CreationTool());
@@ -57,8 +58,9 @@ public class MindmapPaletteFactory {
 	 * @generated
 	 */
 	private PaletteContainer createLinks2Group() {
-		PaletteDrawer paletteContainer = new PaletteDrawer(MindmapDiagramEditorPlugin.getString("Links2Group.title")); //$NON-NLS-1$
-		paletteContainer.setDescription(MindmapDiagramEditorPlugin.getString("Links2Group.desc")); //$NON-NLS-1$
+		PaletteDrawer paletteContainer = new PaletteDrawer(
+				Messages.Links2Group_title);
+		paletteContainer.setDescription(Messages.Links2Group_desc);
 		paletteContainer.add(createDependency1CreationTool());
 		paletteContainer.add(createSubtopic2CreationTool());
 		paletteContainer.add(createIncludes3CreationTool());
@@ -71,9 +73,12 @@ public class MindmapPaletteFactory {
 	 */
 	private ToolEntry createTopic1CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(MindmapElementTypes.Topic_1001);
-		NodeToolEntry entry = new NodeToolEntry(MindmapDiagramEditorPlugin.getString("Topic1CreationTool.title"), MindmapDiagramEditorPlugin.getString("Topic1CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(MindmapElementTypes.getImageDescriptor(MindmapElementTypes.Topic_1001));
+		types.add(MindmapElementTypes.Topic_2001);
+		NodeToolEntry entry = new NodeToolEntry(
+				Messages.Topic1CreationTool_title,
+				Messages.Topic1CreationTool_desc, types);
+		entry.setSmallIcon(MindmapElementTypes
+				.getImageDescriptor(MindmapElementTypes.Topic_2001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -83,9 +88,12 @@ public class MindmapPaletteFactory {
 	 */
 	private ToolEntry createThread2CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(MindmapElementTypes.Thread_2001);
-		NodeToolEntry entry = new NodeToolEntry(MindmapDiagramEditorPlugin.getString("Thread2CreationTool.title"), MindmapDiagramEditorPlugin.getString("Thread2CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(MindmapElementTypes.getImageDescriptor(MindmapElementTypes.Thread_2001));
+		types.add(MindmapElementTypes.Thread_3001);
+		NodeToolEntry entry = new NodeToolEntry(
+				Messages.Thread2CreationTool_title,
+				Messages.Thread2CreationTool_desc, types);
+		entry.setSmallIcon(MindmapElementTypes
+				.getImageDescriptor(MindmapElementTypes.Thread_3001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -95,9 +103,12 @@ public class MindmapPaletteFactory {
 	 */
 	private ToolEntry createThreadItem3CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(MindmapElementTypes.ThreadItem_2002);
-		NodeToolEntry entry = new NodeToolEntry(MindmapDiagramEditorPlugin.getString("ThreadItem3CreationTool.title"), MindmapDiagramEditorPlugin.getString("ThreadItem3CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(MindmapElementTypes.getImageDescriptor(MindmapElementTypes.ThreadItem_2002));
+		types.add(MindmapElementTypes.ThreadItem_3002);
+		NodeToolEntry entry = new NodeToolEntry(
+				Messages.ThreadItem3CreationTool_title,
+				Messages.ThreadItem3CreationTool_desc, types);
+		entry.setSmallIcon(MindmapElementTypes
+				.getImageDescriptor(MindmapElementTypes.ThreadItem_3002));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -107,9 +118,12 @@ public class MindmapPaletteFactory {
 	 */
 	private ToolEntry createResource4CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(MindmapElementTypes.Resource_1002);
-		NodeToolEntry entry = new NodeToolEntry(MindmapDiagramEditorPlugin.getString("Resource4CreationTool.title"), MindmapDiagramEditorPlugin.getString("Resource4CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(MindmapElementTypes.getImageDescriptor(MindmapElementTypes.Resource_1002));
+		types.add(MindmapElementTypes.Resource_2002);
+		NodeToolEntry entry = new NodeToolEntry(
+				Messages.Resource4CreationTool_title,
+				Messages.Resource4CreationTool_desc, types);
+		entry.setSmallIcon(MindmapElementTypes
+				.getImageDescriptor(MindmapElementTypes.Resource_2002));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -119,9 +133,12 @@ public class MindmapPaletteFactory {
 	 */
 	private ToolEntry createDependency1CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(MindmapElementTypes.Relationship_3004);
-		LinkToolEntry entry = new LinkToolEntry(MindmapDiagramEditorPlugin.getString("Dependency1CreationTool.title"), MindmapDiagramEditorPlugin.getString("Dependency1CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(MindmapElementTypes.getImageDescriptor(MindmapElementTypes.Relationship_3004));
+		types.add(MindmapElementTypes.Relationship_4004);
+		LinkToolEntry entry = new LinkToolEntry(
+				Messages.Dependency1CreationTool_title,
+				Messages.Dependency1CreationTool_desc, types);
+		entry.setSmallIcon(MindmapElementTypes
+				.getImageDescriptor(MindmapElementTypes.Relationship_4004));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -131,9 +148,12 @@ public class MindmapPaletteFactory {
 	 */
 	private ToolEntry createSubtopic2CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(MindmapElementTypes.TopicSubtopics_3001);
-		LinkToolEntry entry = new LinkToolEntry(MindmapDiagramEditorPlugin.getString("Subtopic2CreationTool.title"), MindmapDiagramEditorPlugin.getString("Subtopic2CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(MindmapElementTypes.getImageDescriptor(MindmapElementTypes.TopicSubtopics_3001));
+		types.add(MindmapElementTypes.TopicSubtopics_4001);
+		LinkToolEntry entry = new LinkToolEntry(
+				Messages.Subtopic2CreationTool_title,
+				Messages.Subtopic2CreationTool_desc, types);
+		entry.setSmallIcon(MindmapElementTypes
+				.getImageDescriptor(MindmapElementTypes.TopicSubtopics_4001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -143,9 +163,12 @@ public class MindmapPaletteFactory {
 	 */
 	private ToolEntry createIncludes3CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(MindmapElementTypes.Relationship_3003);
-		LinkToolEntry entry = new LinkToolEntry(MindmapDiagramEditorPlugin.getString("Includes3CreationTool.title"), MindmapDiagramEditorPlugin.getString("Includes3CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(MindmapElementTypes.getImageDescriptor(MindmapElementTypes.Relationship_3003));
+		types.add(MindmapElementTypes.Relationship_4003);
+		LinkToolEntry entry = new LinkToolEntry(
+				Messages.Includes3CreationTool_title,
+				Messages.Includes3CreationTool_desc, types);
+		entry.setSmallIcon(MindmapElementTypes
+				.getImageDescriptor(MindmapElementTypes.Relationship_4003));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -155,9 +178,12 @@ public class MindmapPaletteFactory {
 	 */
 	private ToolEntry createExtends4CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(MindmapElementTypes.Relationship_3002);
-		LinkToolEntry entry = new LinkToolEntry(MindmapDiagramEditorPlugin.getString("Extends4CreationTool.title"), MindmapDiagramEditorPlugin.getString("Extends4CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(MindmapElementTypes.getImageDescriptor(MindmapElementTypes.Relationship_3002));
+		types.add(MindmapElementTypes.Relationship_4002);
+		LinkToolEntry entry = new LinkToolEntry(
+				Messages.Extends4CreationTool_title,
+				Messages.Extends4CreationTool_desc, types);
+		entry.setSmallIcon(MindmapElementTypes
+				.getImageDescriptor(MindmapElementTypes.Relationship_4002));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -175,7 +201,8 @@ public class MindmapPaletteFactory {
 		/**
 		 * @generated
 		 */
-		private NodeToolEntry(String title, String description, List elementTypes) {
+		private NodeToolEntry(String title, String description,
+				List elementTypes) {
 			super(title, description, null, null);
 			this.elementTypes = elementTypes;
 		}
@@ -203,7 +230,8 @@ public class MindmapPaletteFactory {
 		/**
 		 * @generated
 		 */
-		private LinkToolEntry(String title, String description, List relationshipTypes) {
+		private LinkToolEntry(String title, String description,
+				List relationshipTypes) {
 			super(title, description, null, null);
 			this.relationshipTypes = relationshipTypes;
 		}

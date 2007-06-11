@@ -41,6 +41,8 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 
+import org.eclipse.osgi.util.NLS;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
@@ -52,71 +54,76 @@ public class MindmapInitDiagramFileAction implements IObjectActionDelegate {
 	/**
 	 * @generated
 	 */
-	private IWorkbenchPart myPart;
+	private IWorkbenchPart targetPart;
 
 	/**
 	 * @generated
 	 */
-	private IFile mySelectedModelFile;
-
-	/**
-	 * @generated
-	 */
-	private IStructuredSelection mySelection;
+	private URI domainModelURI;
 
 	/**
 	 * @generated
 	 */
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-		myPart = targetPart;
+		this.targetPart = targetPart;
 	}
 
 	/**
 	 * @generated
 	 */
 	public void selectionChanged(IAction action, ISelection selection) {
-		mySelectedModelFile = null;
-		mySelection = StructuredSelection.EMPTY;
+		domainModelURI = null;
 		action.setEnabled(false);
-		if (selection instanceof IStructuredSelection == false || selection.isEmpty()) {
+		if (selection instanceof IStructuredSelection == false
+				|| selection.isEmpty()) {
 			return;
 		}
-		mySelection = (IStructuredSelection) selection;
-		mySelectedModelFile = (IFile) ((IStructuredSelection) selection).getFirstElement();
+		IFile file = (IFile) ((IStructuredSelection) selection)
+				.getFirstElement();
+		domainModelURI = URI.createPlatformResourceURI(file.getFullPath()
+				.toString(), true);
 		action.setEnabled(true);
 	}
 
 	/**
 	 * @generated
 	 */
+	private Shell getShell() {
+		return targetPart.getSite().getShell();
+	}
+
+	/**
+	 * @generated
+	 */
 	public void run(IAction action) {
-		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE
+				.createEditingDomain();
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		EObject diagramRoot = null;
 		try {
-			Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString(), true), true);
+			Resource resource = resourceSet.getResource(domainModelURI, true);
 			diagramRoot = (EObject) resource.getContents().get(0);
 		} catch (WrappedException ex) {
-			MindmapDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex); //$NON-NLS-1$
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"Unable to load resource: " + domainModelURI, ex); //$NON-NLS-1$
 		}
 		if (diagramRoot == null) {
-			MessageDialog.openError(myPart.getSite().getShell(), "Error", "Model file loading failed");
+			MessageDialog
+					.openError(
+							getShell(),
+							Messages.MindmapInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle,
+							Messages.MindmapInitDiagramFileAction_InitDiagramFileResourceErrorDialogMessage);
 			return;
 		}
-		Wizard wizard = new MindmapNewDiagramFileWizard(mySelectedModelFile, myPart.getSite().getPage(), mySelection, diagramRoot, editingDomain);
-		IDialogSettings pluginDialogSettings = MindmapDiagramEditorPlugin.getInstance().getDialogSettings();
-		IDialogSettings initDiagramFileSettings = pluginDialogSettings.getSection("InisDiagramFile"); //$NON-NLS-1$
-		if (initDiagramFileSettings == null) {
-			initDiagramFileSettings = pluginDialogSettings.addNewSection("InisDiagramFile"); //$NON-NLS-1$
-		}
-		wizard.setDialogSettings(initDiagramFileSettings);
-		wizard.setForcePreviousAndNextButtons(false);
-		wizard.setWindowTitle("Initialize new " + MapEditPart.MODEL_ID + " diagram file");
-
-		WizardDialog dialog = new WizardDialog(myPart.getSite().getShell(), wizard);
-		dialog.create();
-		dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x), 500);
-		dialog.open();
+		Wizard wizard = new MindmapNewDiagramFileWizard(domainModelURI,
+				diagramRoot, editingDomain);
+		wizard
+				.setWindowTitle(NLS
+						.bind(
+								Messages.MindmapInitDiagramFileAction_InitDiagramFileWizardTitle,
+								MapEditPart.MODEL_ID));
+		MindmapDiagramEditorUtil.runWizard(getShell(), wizard,
+				"InitDiagramFile"); //$NON-NLS-1$
 	}
 
 }

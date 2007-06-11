@@ -25,6 +25,7 @@ public class DiagramGeneralPreferencePage extends DiagramsPreferencePage {
 	 * @generated
 	 */
 	public DiagramGeneralPreferencePage() {
-		setPreferenceStore(MindmapDiagramEditorPlugin.getInstance().getPreferenceStore());
+		setPreferenceStore(MindmapDiagramEditorPlugin.getInstance()
+				.getPreferenceStore());
 	}
 }

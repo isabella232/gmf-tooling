@@ -76,7 +76,8 @@ import org.eclipse.ui.PlatformUI;
 /** 
  * @generated
  */
-public class MindmapValidationDecoratorProvider extends AbstractProvider implements IDecoratorProvider {
+public class MindmapValidationDecoratorProvider extends AbstractProvider
+		implements IDecoratorProvider {
 
 	/**
 	 * @generated
@@ -86,19 +87,27 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider impleme
 	/**
 	 * @generated
 	 */
-	private static final String MARKER_TYPE = MindmapDiagramEditorPlugin.ID + "." + "diagnostic"; //$NON-NLS-1$ //$NON-NLS-2$
+	private static final String MARKER_TYPE = MindmapDiagramEditorPlugin.ID
+			+ ".diagnostic"; //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * @generated
 	 */
-	private static MarkerObserver fileObserver = null;
+	private static MarkerObserver fileObserver;
+
+	/**
+	 * @generated
+	 */
+	private static Map/*<String, List<IDecorator>>*/allDecorators = new HashMap();
 
 	/**
 	 * @generated
 	 */
 	public void createDecorators(IDecoratorTarget decoratorTarget) {
-		EditPart editPart = (EditPart) decoratorTarget.getAdapter(EditPart.class);
-		if (editPart instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart || editPart instanceof AbstractConnectionEditPart) {
+		EditPart editPart = (EditPart) decoratorTarget
+				.getAdapter(EditPart.class);
+		if (editPart instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart
+				|| editPart instanceof AbstractConnectionEditPart) {
 			Object model = editPart.getModel();
 			if ((model instanceof View)) {
 				View view = (View) model;
@@ -111,7 +120,8 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider impleme
 				return;
 			}
 			if (((DiagramEditDomain) ed).getEditorPart() instanceof MindmapDiagramEditor) {
-				decoratorTarget.installDecorator(KEY, new StatusDecorator(decoratorTarget));
+				decoratorTarget.installDecorator(KEY, new StatusDecorator(
+						decoratorTarget));
 			}
 		}
 	}
@@ -123,10 +133,53 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider impleme
 		if (!(operation instanceof CreateDecoratorsOperation)) {
 			return false;
 		}
-
-		IDecoratorTarget decoratorTarget = ((CreateDecoratorsOperation) operation).getDecoratorTarget();
+		IDecoratorTarget decoratorTarget = ((CreateDecoratorsOperation) operation)
+				.getDecoratorTarget();
 		View view = (View) decoratorTarget.getAdapter(View.class);
-		return view != null && MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry.getModelID(view));
+		return view != null
+				&& MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry
+						.getModelID(view));
+	}
+
+	/**
+	 * @generated
+	 */
+	public static void refreshDecorators(View view) {
+		refreshDecorators(ViewUtil.getIdStr(view), view.getDiagram());
+	}
+
+	/**
+	 * @generated
+	 */
+	private static void refreshDecorators(String viewId, Diagram diagram) {
+		final List decorators = viewId != null ? (List) allDecorators
+				.get(viewId) : null;
+		if (decorators == null || decorators.isEmpty() || diagram == null) {
+			return;
+		}
+		final Diagram fdiagram = diagram;
+		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+
+			public void run() {
+				try {
+					TransactionUtil.getEditingDomain(fdiagram).runExclusive(
+							new Runnable() {
+
+								public void run() {
+									for (Iterator it = decorators.iterator(); it
+											.hasNext();) {
+										IDecorator decorator = (IDecorator) it
+												.next();
+										decorator.refresh();
+									}
+								}
+							});
+				} catch (Exception e) {
+					MindmapDiagramEditorPlugin.getInstance().logError(
+							"Decorator refresh failure", e); //$NON-NLS-1$
+				}
+			}
+		});
 	}
 
 	/**
@@ -145,15 +198,20 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider impleme
 		public StatusDecorator(IDecoratorTarget decoratorTarget) {
 			super(decoratorTarget);
 			try {
-				final View view = (View) getDecoratorTarget().getAdapter(View.class);
-				TransactionUtil.getEditingDomain(view).runExclusive(new Runnable() {
+				final View view = (View) getDecoratorTarget().getAdapter(
+						View.class);
+				TransactionUtil.getEditingDomain(view).runExclusive(
+						new Runnable() {
 
-					public void run() {
-						StatusDecorator.this.viewId = view != null ? ViewUtil.getIdStr(view) : null;
-					}
-				});
+							public void run() {
+								StatusDecorator.this.viewId = view != null ? ViewUtil
+										.getIdStr(view)
+										: null;
+							}
+						});
 			} catch (Exception e) {
-				MindmapDiagramEditorPlugin.getInstance().logError("ViewID access failure", e); //$NON-NLS-1$			
+				MindmapDiagramEditorPlugin.getInstance().logError(
+						"ViewID access failure", e); //$NON-NLS-1$			
 			}
 		}
 
@@ -162,47 +220,55 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider impleme
 		 */
 		public void refresh() {
 			removeDecoration();
-
 			View view = (View) getDecoratorTarget().getAdapter(View.class);
-			EditPart editPart = (EditPart) getDecoratorTarget().getAdapter(EditPart.class);
 			if (view == null || view.eResource() == null) {
 				return;
 			}
-
-			IResource resource = getResource(view);
-			// make sure we have a resource and that it exists in an open project
-			if (resource == null || !resource.exists()) {
+			EditPart editPart = (EditPart) getDecoratorTarget().getAdapter(
+					EditPart.class);
+			if (editPart == null || editPart.getViewer() == null) {
 				return;
 			}
 
 			// query for all the validation markers of the current resource
-			IMarker[] markers = null;
-			try {
-				markers = resource.findMarkers(MARKER_TYPE, true, IResource.DEPTH_INFINITE);
-			} catch (CoreException e) {
-				MindmapDiagramEditorPlugin.getInstance().logError("Validation marker refresh failure", e); //$NON-NLS-1$
-			}
-			if (markers == null || markers.length == 0) {
-				return;
-			}
-
 			String elementId = ViewUtil.getIdStr(view);
 			if (elementId == null) {
 				return;
 			}
-
-			IMarker foundMarker = null;
-			Label toolTip = null;
 			int severity = IMarker.SEVERITY_INFO;
+			IMarker foundMarker = null;
+			IResource resource = WorkspaceSynchronizer
+					.getFile(view.eResource());
+			if (resource == null || !resource.exists()) {
+				return;
+			}
+			IMarker[] markers = null;
+			try {
+				markers = resource.findMarkers(MARKER_TYPE, true,
+						IResource.DEPTH_INFINITE);
+			} catch (CoreException e) {
+				MindmapDiagramEditorPlugin.getInstance().logError(
+						"Validation markers refresh failure", e); //$NON-NLS-1$
+			}
+			if (markers == null || markers.length == 0) {
+				return;
+			}
+			Label toolTip = null;
 			for (int i = 0; i < markers.length; i++) {
 				IMarker marker = markers[i];
-				String attribute = marker.getAttribute(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, ""); //$NON-NLS-1$
+				String attribute = marker
+						.getAttribute(
+								org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID,
+								""); //$NON-NLS-1$
 				if (attribute.equals(elementId)) {
-					int nextSeverity = marker.getAttribute(IMarker.SEVERITY, IMarker.SEVERITY_INFO);
+					int nextSeverity = marker.getAttribute(IMarker.SEVERITY,
+							IMarker.SEVERITY_INFO);
 					Image nextImage = getImage(nextSeverity);
 					if (foundMarker == null) {
 						foundMarker = marker;
-						toolTip = new Label(marker.getAttribute(IMarker.MESSAGE, ""), nextImage);
+						toolTip = new Label(marker.getAttribute(
+								IMarker.MESSAGE, ""), //$NON-NLS-1$
+								nextImage);
 					} else {
 						if (toolTip.getChildren().isEmpty()) {
 							Label comositeLabel = new Label();
@@ -212,9 +278,12 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider impleme
 							comositeLabel.add(toolTip);
 							toolTip = comositeLabel;
 						}
-						toolTip.add(new Label(marker.getAttribute(IMarker.MESSAGE, ""), nextImage)); //$NON-NLS-1$
+						toolTip.add(new Label(marker.getAttribute(
+								IMarker.MESSAGE, ""), //$NON-NLS-1$
+								nextImage));
 					}
-					severity = (nextSeverity > severity) ? nextSeverity : severity;
+					severity = (nextSeverity > severity) ? nextSeverity
+							: severity;
 				}
 			}
 			if (foundMarker == null) {
@@ -223,15 +292,20 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider impleme
 
 			// add decoration
 			if (editPart instanceof GraphicalEditPart) {
-				Image img = getImage(severity);
 				if (view instanceof Edge) {
-					setDecoration(getDecoratorTarget().addConnectionDecoration(img, 50, true));
+					setDecoration(getDecoratorTarget().addConnectionDecoration(
+							getImage(severity), 50, true));
 				} else {
 					int margin = -1;
 					if (editPart instanceof GraphicalEditPart) {
-						margin = MapModeUtil.getMapMode(((GraphicalEditPart) editPart).getFigure()).DPtoLP(margin);
+						margin = MapModeUtil.getMapMode(
+								((GraphicalEditPart) editPart).getFigure())
+								.DPtoLP(margin);
 					}
-					setDecoration(getDecoratorTarget().addShapeDecoration(img, IDecoratorTarget.Direction.NORTH_EAST, margin, true));
+					setDecoration(getDecoratorTarget()
+							.addShapeDecoration(getImage(severity),
+									IDecoratorTarget.Direction.NORTH_EAST,
+									margin, true));
 				}
 				getDecoration().setToolTip(toolTip);
 			}
@@ -252,37 +326,40 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider impleme
 			default:
 				imageName = ISharedImages.IMG_OBJS_INFO_TSK;
 			}
-			return PlatformUI.getWorkbench().getSharedImages().getImage(imageName);
-		}
-
-		/**
-		 * @generated
-		 */
-		private static IResource getResource(View view) {
-			Resource model = view.eResource();
-			if (model != null) {
-				return WorkspaceSynchronizer.getFile(model);
-			}
-			return null;
+			return PlatformUI.getWorkbench().getSharedImages().getImage(
+					imageName);
 		}
 
 		/**
 		 * @generated
 		 */
 		public void activate() {
-			View view = (View) getDecoratorTarget().getAdapter(View.class);
-			if (view == null)
+			if (viewId == null) {
 				return;
-			Diagram diagramView = view.getDiagram();
-			if (diagramView == null)
-				return;
-			IFile file = WorkspaceSynchronizer.getFile(diagramView.eResource());
-			if (file != null) {
-				if (fileObserver == null) {
-					fileObserver = new MarkerObserver(diagramView);
-				}
+			}
 
-				fileObserver.registerDecorator(this);
+			// add self to global decorators registry
+			List list = (List) allDecorators.get(viewId);
+			if (list == null) {
+				list = new ArrayList(2);
+				list.add(this);
+				allDecorators.put(viewId, list);
+			} else if (!list.contains(this)) {
+				list.add(this);
+			}
+
+			// start listening to changes in resources
+			View view = (View) getDecoratorTarget().getAdapter(View.class);
+			if (view == null) {
+				return;
+			}
+			Diagram diagramView = view.getDiagram();
+			if (diagramView == null) {
+				return;
+			}
+			if (fileObserver == null) {
+				FileChangeManager.getInstance().addFileObserver(
+						fileObserver = new MarkerObserver(diagramView));
 			}
 		}
 
@@ -290,21 +367,26 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider impleme
 		 * @generated
 		 */
 		public void deactivate() {
-			if (fileObserver != null) {
-				fileObserver.unregisterDecorator(this);
-				if (!fileObserver.isRegistered()) {
-					fileObserver = null;
+			if (viewId == null) {
+				return;
+			}
+
+			// remove self from global decorators registry
+			List list = (List) allDecorators.get(viewId);
+			if (list != null) {
+				list.remove(this);
+				if (list.isEmpty()) {
+					allDecorators.remove(viewId);
 				}
 			}
 
+			// stop listening to changes in resources if there are no more decorators
+			if (fileObserver != null && allDecorators.isEmpty()) {
+				FileChangeManager.getInstance()
+						.removeFileObserver(fileObserver);
+				fileObserver = null;
+			}
 			super.deactivate();
-		}
-
-		/**
-		 * @generated
-		 */
-		String getViewId() {
-			return viewId;
 		}
 	}
 
@@ -316,126 +398,47 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider impleme
 		/**
 		 * @generated
 		 */
-		private HashMap mapOfIdsToDecorators = null;
+		private Diagram diagram;
 
 		/**
 		 * @generated
 		 */
-		private boolean isRegistered = false;
-
-		/**
-		 * @generated
-		 */
-		private Diagram diagramView;
-
-		/**
-		 * @generated
-		 */
-		private MarkerObserver(Diagram diagramView) {
-			this.diagramView = diagramView;
+		private MarkerObserver(Diagram diagram) {
+			this.diagram = diagram;
 		}
 
 		/**
 		 * @generated
 		 */
-		private void registerDecorator(StatusDecorator decorator) {
-			if (decorator == null) {
-				return;
-			}
-
-			if (mapOfIdsToDecorators == null) {
-				mapOfIdsToDecorators = new HashMap();
-			}
-
-			String decoratorViewId = decorator.getViewId();
-			if (decoratorViewId == null) {
-				return;
-			}
-
-			/* Add to the list */
-			List list = (List) mapOfIdsToDecorators.get(decoratorViewId);
-			if (list == null) {
-				list = new ArrayList(2);
-				list.add(decorator);
-				mapOfIdsToDecorators.put(decoratorViewId, list);
-			} else if (!list.contains(decorator)) {
-				list.add(decorator);
-			}
-
-			/* Register with the file change manager */
-			if (!isRegistered()) {
-				FileChangeManager.getInstance().addFileObserver(this);
-				isRegistered = true;
-			}
+		public void handleFileRenamed(IFile oldFile, IFile file) {
 		}
 
 		/**
 		 * @generated
 		 */
-		private void unregisterDecorator(StatusDecorator decorator) {
-			/* Return if invalid decorator */
-			if (decorator == null) {
-				return;
-			}
-
-			/* Return if the decorator has invalid view id */
-			String decoratorViewId = decorator.getViewId();
-			if (decoratorViewId == null) {
-				return;
-			}
-
-			if (mapOfIdsToDecorators != null) {
-				List list = (List) mapOfIdsToDecorators.get(decoratorViewId);
-				if (list != null) {
-					list.remove(decorator);
-					if (list.isEmpty()) {
-						mapOfIdsToDecorators.remove(decoratorViewId);
-					}
-				}
-
-				if (mapOfIdsToDecorators.isEmpty()) {
-					mapOfIdsToDecorators = null;
-				}
-			}
-
-			if (mapOfIdsToDecorators == null) {
-				/* Unregister with the file change manager */
-				if (isRegistered()) {
-					FileChangeManager.getInstance().removeFileObserver(this);
-					isRegistered = false;
-				}
-			}
+		public void handleFileMoved(IFile oldFile, IFile file) {
 		}
 
 		/**
 		 * @generated
 		 */
-		public void handleFileRenamed(IFile oldFile, IFile file) { /* Empty Code */
+		public void handleFileDeleted(IFile file) {
 		}
 
 		/**
 		 * @generated
 		 */
-		public void handleFileMoved(IFile oldFile, IFile file) { /* Empty Code */
-		}
-
-		/**
-		 * @generated
-		 */
-		public void handleFileDeleted(IFile file) { /* Empty Code */
-		}
-
-		/**
-		 * @generated
-		 */
-		public void handleFileChanged(IFile file) { /* Empty Code */
+		public void handleFileChanged(IFile file) {
 		}
 
 		/**
 		 * @generated
 		 */
 		public void handleMarkerAdded(IMarker marker) {
-			if (marker.getAttribute(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, null) != null) {
+			if (marker
+					.getAttribute(
+							org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID,
+							null) != null) {
 				handleMarkerChanged(marker);
 			}
 		}
@@ -444,67 +447,23 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider impleme
 		 * @generated
 		 */
 		public void handleMarkerDeleted(IMarker marker, Map attributes) {
-			if (mapOfIdsToDecorators == null) {
-				return;
-			}
-			// Extract the element guid from the marker and retrieve
-			// corresponding view
-			String elementId = (String) attributes.get(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID);
-			List list = elementId != null ? (List) mapOfIdsToDecorators.get(elementId) : null;
-			if (list != null && !list.isEmpty()) {
-				refreshDecorators(list);
-			}
+			String viewId = (String) attributes
+					.get(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID);
+			refreshDecorators(viewId, diagram);
 		}
 
 		/**
 		 * @generated
 		 */
 		public void handleMarkerChanged(IMarker marker) {
-			if (mapOfIdsToDecorators == null || !MARKER_TYPE.equals(getType(marker))) {
+			if (!MARKER_TYPE.equals(getType(marker))) {
 				return;
 			}
-			// Extract the element ID list from the marker and retrieve
-			// corresponding view	
-			String elementId = marker.getAttribute(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, ""); //$NON-NLS-1$
-			List list = elementId != null ? (List) mapOfIdsToDecorators.get(elementId) : null;
-
-			if (list != null && !list.isEmpty()) {
-				refreshDecorators(list);
-			}
-		}
-
-		/**
-		 * @generated
-		 */
-		private void refreshDecorators(List decorators) {
-			final List decoratorsToRefresh = decorators;
-			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-
-				public void run() {
-					try {
-						TransactionUtil.getEditingDomain(diagramView).runExclusive(new Runnable() {
-
-							public void run() {
-								for (Iterator it = decoratorsToRefresh.iterator(); it.hasNext();) {
-									IDecorator decorator = (IDecorator) it.next();
-									if (decorator != null) {
-										decorator.refresh();
-									}
-								}
-							}
-						});
-					} catch (Exception e) {
-						MindmapDiagramEditorPlugin.getInstance().logError("Decorator refresh failure", e); //$NON-NLS-1$
-					}
-				}
-			});
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean isRegistered() {
-			return isRegistered;
+			String viewId = marker
+					.getAttribute(
+							org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID,
+							""); //$NON-NLS-1$
+			refreshDecorators(viewId, diagram);
 		}
 
 		/**
@@ -514,7 +473,8 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider impleme
 			try {
 				return marker.getType();
 			} catch (CoreException e) {
-				MindmapDiagramEditorPlugin.getInstance().logError("Validation marker refresh failure", e); //$NON-NLS-1$
+				MindmapDiagramEditorPlugin.getInstance().logError(
+						"Validation marker refresh failure", e); //$NON-NLS-1$
 				return ""; //$NON-NLS-1$
 			}
 		}

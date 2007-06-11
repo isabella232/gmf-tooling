@@ -47,7 +47,7 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 1001;
+	public static final int VISUAL_ID = 2001;
 
 	/**
 	 * @generated
@@ -70,10 +70,13 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
-		super.createDefaultEditPolicies();
 
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new TopicItemSemanticEditPolicy());
+		super.createDefaultEditPolicies();
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
+				new TopicItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
+		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 
 	/**
@@ -83,7 +86,8 @@ public class TopicEditPart extends ShapeNodeEditPart {
 		LayoutEditPolicy lep = new LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
-				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+				EditPolicy result = child
+						.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 				if (result == null) {
 					result = new NonResizableEditPolicy();
 				}
@@ -121,7 +125,8 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof TopicNameEditPart) {
-			((TopicNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureTopicNameFigure());
+			((TopicNameEditPart) childEditPart).setLabel(getPrimaryShape()
+					.getFigureTopicNameFigure());
 			return true;
 		}
 		return false;
@@ -167,8 +172,8 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
-
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode()
+				.DPtoLP(40), getMapMode().DPtoLP(40));
 		return result;
 	}
 
@@ -218,14 +223,17 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(MindmapVisualIDRegistry.getType(TopicNameEditPart.VISUAL_ID));
+		return getChildBySemanticHint(MindmapVisualIDRegistry
+				.getType(TopicNameEditPart.VISUAL_ID));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected void handleNotificationEvent(Notification event) {
-		if (event.getNotifier() == getModel() && EcorePackage.eINSTANCE.getEModelElement_EAnnotations().equals(event.getFeature())) {
+		if (event.getNotifier() == getModel()
+				&& EcorePackage.eINSTANCE.getEModelElement_EAnnotations()
+						.equals(event.getFeature())) {
 			handleMajorSemanticChange();
 		} else {
 			super.handleNotificationEvent(event);
@@ -240,15 +248,15 @@ public class TopicEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
+		private WrapLabel fFigureTopicNameFigure;
+
+		/**
+		 * @generated
+		 */
 		public RoundedTopicFigure() {
-			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(20), getMapMode().DPtoLP(20)));
-			this.setFill(true);
-			this.setFillXOR(false);
-			this.setOutline(true);
-			this.setOutlineXOR(false);
-			this.setLineWidth(1);
-			this.setLineStyle(Graphics.LINE_SOLID);
-			this.setForegroundColor(ROUNDEDTOPICFIGURE_FORE);
+			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(20),
+					getMapMode().DPtoLP(20)));
+			this.setForegroundColor(THIS_FORE);
 			createContents();
 		}
 
@@ -261,27 +269,15 @@ public class TopicEditPart extends ShapeNodeEditPart {
 			topicNameFigure0.setText("<...>");
 
 			this.add(topicNameFigure0);
-			setFigureTopicNameFigure(topicNameFigure0);
+			fFigureTopicNameFigure = topicNameFigure0;
 
 		}
-
-		/**
-		 * @generated
-		 */
-		private WrapLabel fTopicNameFigure;
 
 		/**
 		 * @generated
 		 */
 		public WrapLabel getFigureTopicNameFigure() {
-			return fTopicNameFigure;
-		}
-
-		/**
-		 * @generated
-		 */
-		private void setFigureTopicNameFigure(WrapLabel fig) {
-			fTopicNameFigure = fig;
+			return fFigureTopicNameFigure;
 		}
 
 		/**
@@ -308,6 +304,6 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	static final Color ROUNDEDTOPICFIGURE_FORE = new Color(null, 220, 220, 250);
+	static final Color THIS_FORE = new Color(null, 220, 220, 250);
 
 }

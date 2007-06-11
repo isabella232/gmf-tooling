@@ -48,7 +48,8 @@ public class MindmapLoadResourceAction implements IObjectActionDelegate {
 	 * @generated
 	 */
 	public void run(IAction action) {
-		LoadResourceDialog loadResourceDialog = new LoadResourceDialog(myShell, mySelectedElement.getEditingDomain());
+		LoadResourceDialog loadResourceDialog = new LoadResourceDialog(myShell,
+				mySelectedElement.getEditingDomain());
 		loadResourceDialog.open();
 	}
 
@@ -59,8 +60,10 @@ public class MindmapLoadResourceAction implements IObjectActionDelegate {
 		mySelectedElement = null;
 		if (selection instanceof IStructuredSelection) {
 			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-			if (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof MapEditPart) {
-				mySelectedElement = (MapEditPart) structuredSelection.getFirstElement();
+			if (structuredSelection.size() == 1
+					&& structuredSelection.getFirstElement() instanceof MapEditPart) {
+				mySelectedElement = (MapEditPart) structuredSelection
+						.getFirstElement();
 			}
 		}
 		action.setEnabled(isEnabled());

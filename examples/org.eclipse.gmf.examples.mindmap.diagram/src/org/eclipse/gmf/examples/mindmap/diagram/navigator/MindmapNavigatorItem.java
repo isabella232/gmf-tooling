@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.Platform;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -30,19 +31,24 @@ public class MindmapNavigatorItem extends MindmapAbstractNavigatorItem {
 	 */
 	static {
 		final Class[] supportedTypes = new Class[] { View.class, EObject.class };
-		Platform.getAdapterManager().registerAdapters(new IAdapterFactory() {
+		Platform.getAdapterManager().registerAdapters(
+				new IAdapterFactory() {
 
-			public Object getAdapter(Object adaptableObject, Class adapterType) {
-				if (adaptableObject instanceof MindmapNavigatorItem && (adapterType == View.class || adapterType == EObject.class)) {
-					return ((MindmapNavigatorItem) adaptableObject).getView();
-				}
-				return null;
-			}
+					public Object getAdapter(Object adaptableObject,
+							Class adapterType) {
+						if (adaptableObject instanceof org.eclipse.gmf.examples.mindmap.diagram.navigator.MindmapNavigatorItem
+								&& (adapterType == View.class || adapterType == EObject.class)) {
+							return ((org.eclipse.gmf.examples.mindmap.diagram.navigator.MindmapNavigatorItem) adaptableObject)
+									.getView();
+						}
+						return null;
+					}
 
-			public Class[] getAdapterList() {
-				return supportedTypes;
-			}
-		}, MindmapNavigatorItem.class);
+					public Class[] getAdapterList() {
+						return supportedTypes;
+					}
+				},
+				org.eclipse.gmf.examples.mindmap.diagram.navigator.MindmapNavigatorItem.class);
 	}
 
 	/**
@@ -82,19 +88,22 @@ public class MindmapNavigatorItem extends MindmapAbstractNavigatorItem {
 	 * @generated
 	 */
 	public boolean equals(Object obj) {
-		if (obj instanceof MindmapNavigatorItem) {
-			EObject eObject = getView().getElement();
-			EObject anotherEObject = ((MindmapNavigatorItem) obj).getView().getElement();
-			if (eObject == null) {
-				return anotherEObject == null;
-			} else if (anotherEObject == null) {
-				return false;
-			}
-			if (eObject.eResource() != null) {
-				return eObject.eResource().getURIFragment(eObject).equals(anotherEObject.eResource().getURIFragment(anotherEObject));
-			}
+		if (obj instanceof org.eclipse.gmf.examples.mindmap.diagram.navigator.MindmapNavigatorItem) {
+			return EcoreUtil
+					.getURI(getView())
+					.equals(
+							EcoreUtil
+									.getURI(((org.eclipse.gmf.examples.mindmap.diagram.navigator.MindmapNavigatorItem) obj)
+											.getView()));
 		}
 		return super.equals(obj);
+	}
+
+	/**
+	 * @generated
+	 */
+	public int hashCode() {
+		return EcoreUtil.getURI(getView()).hashCode();
 	}
 
 }

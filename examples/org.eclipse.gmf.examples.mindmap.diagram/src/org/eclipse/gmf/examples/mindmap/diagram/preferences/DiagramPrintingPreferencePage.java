@@ -25,6 +25,7 @@ public class DiagramPrintingPreferencePage extends PrintingPreferencePage {
 	 * @generated
 	 */
 	public DiagramPrintingPreferencePage() {
-		setPreferenceStore(MindmapDiagramEditorPlugin.getInstance().getPreferenceStore());
+		setPreferenceStore(MindmapDiagramEditorPlugin.getInstance()
+				.getPreferenceStore());
 	}
 }

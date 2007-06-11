@@ -13,39 +13,46 @@
  */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.policies;
 
+import java.util.Collection;
+import java.util.HashSet;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.gmf.examples.mindmap.MindmapPackage;
 import org.eclipse.gmf.examples.mindmap.Thread;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadItemEditPart;
 
+import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramUpdater;
+import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapNodeDescriptor;
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
 /**
  * @generated
  */
-public class ThreadThreadItemCompartmentCanonicalEditPolicy extends CanonicalEditPolicy {
+public class ThreadThreadItemCompartmentCanonicalEditPolicy extends
+		CanonicalEditPolicy {
+
+	/**
+	 * @generated
+	 */
+	Set myFeaturesToSynchronize;
 
 	/**
 	 * @generated
 	 */
 	protected List getSemanticChildrenList() {
-		List result = new LinkedList();
-		EObject modelObject = ((View) getHost().getModel()).getElement();
 		View viewObject = (View) getHost().getModel();
-		EObject nextValue;
-		int nodeVID;
-		for (Iterator values = ((Thread) modelObject).getItems().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = MindmapVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
-			if (ThreadItemEditPart.VISUAL_ID == nodeVID) {
-				result.add(nextValue);
-			}
+		List result = new LinkedList();
+		for (Iterator it = MindmapDiagramUpdater
+				.getThreadThreadItemCompartment_7002SemanticChildren(viewObject)
+				.iterator(); it.hasNext();) {
+			result.add(((MindmapNodeDescriptor) it.next()).getModelElement());
 		}
 		return result;
 	}
@@ -53,8 +60,15 @@ public class ThreadThreadItemCompartmentCanonicalEditPolicy extends CanonicalEdi
 	/**
 	 * @generated
 	 */
-	protected boolean shouldDeleteView(View view) {
-		return view.isSetElement() && view.getElement() != null && view.getElement().eIsProxy();
+	protected boolean isOrphaned(Collection semanticChildren, final View view) {
+		int visualID = MindmapVisualIDRegistry.getVisualID(view);
+		switch (visualID) {
+		case ThreadItemEditPart.VISUAL_ID:
+			return !semanticChildren.contains(view.getElement())
+					|| visualID != MindmapVisualIDRegistry.getNodeVisualID(
+							(View) getHost().getModel(), view.getElement());
+		}
+		return false;
 	}
 
 	/**
@@ -62,6 +76,18 @@ public class ThreadThreadItemCompartmentCanonicalEditPolicy extends CanonicalEdi
 	 */
 	protected String getDefaultFactoryHint() {
 		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Set getFeaturesToSynchronize() {
+		if (myFeaturesToSynchronize == null) {
+			myFeaturesToSynchronize = new HashSet();
+			myFeaturesToSynchronize.add(MindmapPackage.eINSTANCE
+					.getThread_Items());
+		}
+		return myFeaturesToSynchronize;
 	}
 
 }

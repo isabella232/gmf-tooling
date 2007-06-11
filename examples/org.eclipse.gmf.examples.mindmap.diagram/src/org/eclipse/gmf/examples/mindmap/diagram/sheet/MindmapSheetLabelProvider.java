@@ -36,7 +36,8 @@ public class MindmapSheetLabelProvider extends DecoratingLabelProvider {
 	 * @generated
 	 */
 	public MindmapSheetLabelProvider() {
-		super(new AdapterFactoryLabelProvider(MindmapDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()), null);
+		super(new AdapterFactoryLabelProvider(MindmapDiagramEditorPlugin
+				.getInstance().getItemProvidersAdapterFactory()), null);
 	}
 
 	/**

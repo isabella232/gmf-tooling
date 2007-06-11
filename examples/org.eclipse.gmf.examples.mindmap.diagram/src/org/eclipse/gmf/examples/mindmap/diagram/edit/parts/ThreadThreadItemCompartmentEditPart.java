@@ -17,6 +17,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ThreadThreadItemCompartmentCanonicalEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ThreadThreadItemCompartmentItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.mindmap.diagram.part.Messages;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
@@ -35,7 +36,7 @@ ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 5002;
+	public static final int VISUAL_ID = 7002;
 
 	/**
 	 * @generated
@@ -55,14 +56,15 @@ ListCompartmentEditPart {
 	 * @generated
 	 */
 	public String getCompartmentName() {
-		return "ThreadItemCompartment";
+		return Messages.ThreadThreadItemCompartmentEditPart_title;
 	}
 
 	/**
 	 * @generated
 	 */
 	public IFigure createFigure() {
-		ResizableCompartmentFigure result = (ResizableCompartmentFigure) super.createFigure();
+		ResizableCompartmentFigure result = (ResizableCompartmentFigure) super
+				.createFigure();
 		result.setTitleVisibility(false);
 		return result;
 	}
@@ -72,10 +74,14 @@ ListCompartmentEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ThreadThreadItemCompartmentItemSemanticEditPolicy());
-		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
-		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ThreadThreadItemCompartmentCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
+				new ThreadThreadItemCompartmentItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE,
+				new CreationEditPolicy());
+		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE,
+				new DragDropEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
+				new ThreadThreadItemCompartmentCanonicalEditPolicy());
 	}
 
 	/**

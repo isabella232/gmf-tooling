@@ -22,12 +22,13 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 /**
  * @generated
  */
-public class Relationship2ItemSemanticEditPolicy extends MindmapBaseItemSemanticEditPolicy {
+public class Relationship2ItemSemanticEditPolicy extends
+		MindmapBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		return getMSLWrapper(new DestroyElementCommand(req));
+		return getGEFWrapper(new DestroyElementCommand(req));
 	}
 }

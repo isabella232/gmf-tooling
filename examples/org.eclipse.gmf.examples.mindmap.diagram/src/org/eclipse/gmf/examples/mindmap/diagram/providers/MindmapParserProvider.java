@@ -14,11 +14,15 @@
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 import org.eclipse.gmf.runtime.notation.View;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,106 +37,65 @@ import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadItemEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadSubjectEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicNameEditPart;
 
+import org.eclipse.gmf.examples.mindmap.diagram.parsers.MessageFormatParser;
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
 /**
  * @generated
  */
-public class MindmapParserProvider extends AbstractProvider implements IParserProvider {
+public class MindmapParserProvider extends AbstractProvider implements
+		IParserProvider {
 
 	/**
 	 * @generated
 	 */
-	private IParser threadThreadSubject_4001Parser;
+	private IParser topicName_5002Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getThreadThreadSubject_4001Parser() {
-		if (threadThreadSubject_4001Parser == null) {
-			threadThreadSubject_4001Parser = createThreadThreadSubject_4001Parser();
+	private IParser getTopicName_5002Parser() {
+		if (topicName_5002Parser == null) {
+			topicName_5002Parser = createTopicName_5002Parser();
 		}
-		return threadThreadSubject_4001Parser;
+		return topicName_5002Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createThreadThreadSubject_4001Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getThread_Subject());
+	protected IParser createTopicName_5002Parser() {
+		EAttribute[] features = new EAttribute[] { MindmapPackage.eINSTANCE
+				.getTopic_Name(), };
+		MessageFormatParser parser = new MessageFormatParser(features);
 		return parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	private IParser threadItemThreadItem_2002Parser;
+	private IParser resourceNameEmail_5003Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getThreadItemThreadItem_2002Parser() {
-		if (threadItemThreadItem_2002Parser == null) {
-			threadItemThreadItem_2002Parser = createThreadItemThreadItem_2002Parser();
+	private IParser getResourceNameEmail_5003Parser() {
+		if (resourceNameEmail_5003Parser == null) {
+			resourceNameEmail_5003Parser = createResourceNameEmail_5003Parser();
 		}
-		return threadItemThreadItem_2002Parser;
+		return resourceNameEmail_5003Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createThreadItemThreadItem_2002Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getThreadItem_Body());
-		return parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	private IParser topicTopicName_4002Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getTopicTopicName_4002Parser() {
-		if (topicTopicName_4002Parser == null) {
-			topicTopicName_4002Parser = createTopicTopicName_4002Parser();
-		}
-		return topicTopicName_4002Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createTopicTopicName_4002Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getTopic_Name());
-		return parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	private IParser resourceResourceNameEmail_4003Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getResourceResourceNameEmail_4003Parser() {
-		if (resourceResourceNameEmail_4003Parser == null) {
-			resourceResourceNameEmail_4003Parser = createResourceResourceNameEmail_4003Parser();
-		}
-		return resourceResourceNameEmail_4003Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createResourceResourceNameEmail_4003Parser() {
-		List features = new ArrayList(2);
-		features.add(MindmapPackage.eINSTANCE.getResource_Name());
-		features.add(MindmapPackage.eINSTANCE.getResource_Email());
-		MindmapStructuralFeaturesParser parser = new MindmapStructuralFeaturesParser(features);
+	protected IParser createResourceNameEmail_5003Parser() {
+		EAttribute[] features = new EAttribute[] {
+				MindmapPackage.eINSTANCE.getResource_Name(),
+				MindmapPackage.eINSTANCE.getResource_Email(), };
+		MessageFormatParser parser = new MessageFormatParser(features);
 		parser.setViewPattern("{0} [{1}]");
+		parser.setEditorPattern("{0} [{1}]");
 		parser.setEditPattern("{0} : {1}");
 		return parser;
 	}
@@ -140,69 +103,125 @@ public class MindmapParserProvider extends AbstractProvider implements IParserPr
 	/**
 	 * @generated
 	 */
-	private IParser relationshipRelationshipLabel_4004Parser;
+	private IParser threadSubject_5001Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getRelationshipRelationshipLabel_4004Parser() {
-		if (relationshipRelationshipLabel_4004Parser == null) {
-			relationshipRelationshipLabel_4004Parser = createRelationshipRelationshipLabel_4004Parser();
+	private IParser getThreadSubject_5001Parser() {
+		if (threadSubject_5001Parser == null) {
+			threadSubject_5001Parser = createThreadSubject_5001Parser();
 		}
-		return relationshipRelationshipLabel_4004Parser;
+		return threadSubject_5001Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createRelationshipRelationshipLabel_4004Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getRelationship_Label());
+	protected IParser createThreadSubject_5001Parser() {
+		EAttribute[] features = new EAttribute[] { MindmapPackage.eINSTANCE
+				.getThread_Subject(), };
+		MessageFormatParser parser = new MessageFormatParser(features);
 		return parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	private IParser relationshipRelationshipLabel_4005Parser;
+	private IParser threadItem_3002Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getRelationshipRelationshipLabel_4005Parser() {
-		if (relationshipRelationshipLabel_4005Parser == null) {
-			relationshipRelationshipLabel_4005Parser = createRelationshipRelationshipLabel_4005Parser();
+	private IParser getThreadItem_3002Parser() {
+		if (threadItem_3002Parser == null) {
+			threadItem_3002Parser = createThreadItem_3002Parser();
 		}
-		return relationshipRelationshipLabel_4005Parser;
+		return threadItem_3002Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createRelationshipRelationshipLabel_4005Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getRelationship_Label());
+	protected IParser createThreadItem_3002Parser() {
+		EAttribute[] features = new EAttribute[] { MindmapPackage.eINSTANCE
+				.getThreadItem_Body(), };
+		MessageFormatParser parser = new MessageFormatParser(features);
 		return parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	private IParser relationshipRelationshipLabel_4006Parser;
+	private IParser relationshipLabel_6001Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getRelationshipRelationshipLabel_4006Parser() {
-		if (relationshipRelationshipLabel_4006Parser == null) {
-			relationshipRelationshipLabel_4006Parser = createRelationshipRelationshipLabel_4006Parser();
+	private IParser getRelationshipLabel_6001Parser() {
+		if (relationshipLabel_6001Parser == null) {
+			relationshipLabel_6001Parser = createRelationshipLabel_6001Parser();
 		}
-		return relationshipRelationshipLabel_4006Parser;
+		return relationshipLabel_6001Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createRelationshipRelationshipLabel_4006Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getRelationship_Label());
+	protected IParser createRelationshipLabel_6001Parser() {
+		EAttribute[] features = new EAttribute[] { MindmapPackage.eINSTANCE
+				.getRelationship_Label(), };
+		MessageFormatParser parser = new MessageFormatParser(features);
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser relationshipLabel_6002Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getRelationshipLabel_6002Parser() {
+		if (relationshipLabel_6002Parser == null) {
+			relationshipLabel_6002Parser = createRelationshipLabel_6002Parser();
+		}
+		return relationshipLabel_6002Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createRelationshipLabel_6002Parser() {
+		EAttribute[] features = new EAttribute[] { MindmapPackage.eINSTANCE
+				.getRelationship_Label(), };
+		MessageFormatParser parser = new MessageFormatParser(features);
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser relationshipLabel_6003Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getRelationshipLabel_6003Parser() {
+		if (relationshipLabel_6003Parser == null) {
+			relationshipLabel_6003Parser = createRelationshipLabel_6003Parser();
+		}
+		return relationshipLabel_6003Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createRelationshipLabel_6003Parser() {
+		EAttribute[] features = new EAttribute[] { MindmapPackage.eINSTANCE
+				.getRelationship_Label(), };
+		MessageFormatParser parser = new MessageFormatParser(features);
 		return parser;
 	}
 
@@ -211,20 +230,20 @@ public class MindmapParserProvider extends AbstractProvider implements IParserPr
 	 */
 	protected IParser getParser(int visualID) {
 		switch (visualID) {
-		case ThreadSubjectEditPart.VISUAL_ID:
-			return getThreadThreadSubject_4001Parser();
-		case ThreadItemEditPart.VISUAL_ID:
-			return getThreadItemThreadItem_2002Parser();
 		case TopicNameEditPart.VISUAL_ID:
-			return getTopicTopicName_4002Parser();
+			return getTopicName_5002Parser();
 		case ResourceNameEmailEditPart.VISUAL_ID:
-			return getResourceResourceNameEmail_4003Parser();
+			return getResourceNameEmail_5003Parser();
+		case ThreadSubjectEditPart.VISUAL_ID:
+			return getThreadSubject_5001Parser();
+		case ThreadItemEditPart.VISUAL_ID:
+			return getThreadItem_3002Parser();
 		case RelationshipLabelEditPart.VISUAL_ID:
-			return getRelationshipRelationshipLabel_4004Parser();
+			return getRelationshipLabel_6001Parser();
 		case RelationshipLabel2EditPart.VISUAL_ID:
-			return getRelationshipRelationshipLabel_4005Parser();
+			return getRelationshipLabel_6002Parser();
 		case RelationshipLabel3EditPart.VISUAL_ID:
-			return getRelationshipRelationshipLabel_4006Parser();
+			return getRelationshipLabel_6003Parser();
 		}
 		return null;
 	}
@@ -256,5 +275,35 @@ public class MindmapParserProvider extends AbstractProvider implements IParserPr
 			return getParser(hint) != null;
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class HintAdapter extends ParserHintAdapter {
+
+		/**
+		 * @generated
+		 */
+		private final IElementType elementType;
+
+		/**
+		 * @generated
+		 */
+		public HintAdapter(IElementType type, EObject object, String parserHint) {
+			super(object, parserHint);
+			assert type != null;
+			elementType = type;
+		}
+
+		/**
+		 * @generated
+		 */
+		public Object getAdapter(Class adapter) {
+			if (IElementType.class.equals(adapter)) {
+				return elementType;
+			}
+			return super.getAdapter(adapter);
+		}
 	}
 }

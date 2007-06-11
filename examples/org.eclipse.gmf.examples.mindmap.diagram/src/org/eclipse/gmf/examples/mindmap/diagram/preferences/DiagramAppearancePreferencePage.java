@@ -25,6 +25,7 @@ public class DiagramAppearancePreferencePage extends AppearancePreferencePage {
 	 * @generated
 	 */
 	public DiagramAppearancePreferencePage() {
-		setPreferenceStore(MindmapDiagramEditorPlugin.getInstance().getPreferenceStore());
+		setPreferenceStore(MindmapDiagramEditorPlugin.getInstance()
+				.getPreferenceStore());
 	}
 }

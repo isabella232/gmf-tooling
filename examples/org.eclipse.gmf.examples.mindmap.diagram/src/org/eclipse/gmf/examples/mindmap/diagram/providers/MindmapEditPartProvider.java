@@ -135,7 +135,8 @@ public class MindmapEditPartProvider extends AbstractEditPartProvider {
 	public synchronized boolean provides(IOperation operation) {
 		if (operation instanceof CreateGraphicEditPartOperation) {
 			View view = ((IEditPartOperation) operation).getView();
-			if (!MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry.getModelID(view))) {
+			if (!MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry
+					.getModelID(view))) {
 				return false;
 			}
 			if (isAllowCaching() && getCachedPart(view) != null) {

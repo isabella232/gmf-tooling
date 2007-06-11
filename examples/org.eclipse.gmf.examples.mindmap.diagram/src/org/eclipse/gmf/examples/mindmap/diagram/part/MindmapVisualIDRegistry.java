@@ -62,7 +62,30 @@ public class MindmapVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	private static final String DEBUG_KEY = MindmapDiagramEditorPlugin.getInstance().getBundle().getSymbolicName() + "/debug/visualID"; //$NON-NLS-1$
+	private static final String DEBUG_KEY = MindmapDiagramEditorPlugin
+			.getInstance().getBundle().getSymbolicName()
+			+ "/debug/visualID"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	private static final MindmapAbstractExpression Relationship_4002_Constraint = MindmapOCLFactory
+			.getExpression("self.type = RelationshipType::EXTENDS",
+					MindmapPackage.eINSTANCE.getRelationship());
+
+	/**
+	 * @generated
+	 */
+	private static final MindmapAbstractExpression Relationship_4003_Constraint = MindmapOCLFactory
+			.getExpression("self.type = RelationshipType::INCLUDES",
+					MindmapPackage.eINSTANCE.getRelationship());
+
+	/**
+	 * @generated
+	 */
+	private static final MindmapAbstractExpression Relationship_4004_Constraint = MindmapOCLFactory
+			.getExpression("self.type = RelationshipType::DEPENDENCY",
+					MindmapPackage.eINSTANCE.getRelationship());
 
 	/**
 	 * @generated
@@ -75,7 +98,8 @@ public class MindmapVisualIDRegistry {
 				return -1;
 			}
 		}
-		return getVisualID(view.getType());
+		return org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry
+				.getVisualID(view.getType());
 	}
 
 	/**
@@ -100,8 +124,11 @@ public class MindmapVisualIDRegistry {
 		try {
 			return Integer.parseInt(type);
 		} catch (NumberFormatException e) {
-			if (Boolean.TRUE.toString().equalsIgnoreCase(Platform.getDebugOption(DEBUG_KEY))) {
-				MindmapDiagramEditorPlugin.getInstance().logError("Unable to parse view type as a visualID number: " + type);
+			if (Boolean.TRUE.toString().equalsIgnoreCase(
+					Platform.getDebugOption(DEBUG_KEY))) {
+				MindmapDiagramEditorPlugin.getInstance().logError(
+						"Unable to parse view type as a visualID number: "
+								+ type);
 			}
 		}
 		return -1;
@@ -121,113 +148,130 @@ public class MindmapVisualIDRegistry {
 		if (domainElement == null) {
 			return -1;
 		}
-		EClass domainElementMetaclass = domainElement.eClass();
-		return getDiagramVisualID(domainElement, domainElementMetaclass);
-	}
-
-	/**
-	 * @generated
-	 */
-	private static int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (MindmapPackage.eINSTANCE.getMap().isSuperTypeOf(domainElementMetaclass) && isDiagramMap_79((Map) domainElement)) {
+		if (MindmapPackage.eINSTANCE.getMap().isSuperTypeOf(
+				domainElement.eClass())
+				&& isDiagram((Map) domainElement)) {
 			return MapEditPart.VISUAL_ID;
 		}
-		return getUnrecognizedDiagramID(domainElement);
+		return -1;
 	}
 
 	/**
 	 * @generated
 	 */
 	public static int getNodeVisualID(View containerView, EObject domainElement) {
-		if (domainElement == null) {
+		if (domainElement == null
+				|| !MapEditPart.MODEL_ID
+						.equals(org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry
+								.getModelID(containerView))) {
 			return -1;
 		}
-		EClass domainElementMetaclass = domainElement.eClass();
-		return getNodeVisualID(containerView, domainElement, domainElementMetaclass, null);
+		switch (org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry
+				.getVisualID(containerView)) {
+		case TopicThreadCompartmentEditPart.VISUAL_ID:
+			if (MindmapPackage.eINSTANCE.getThread().isSuperTypeOf(
+					domainElement.eClass())) {
+				return ThreadEditPart.VISUAL_ID;
+			}
+			break;
+		case ThreadThreadItemCompartmentEditPart.VISUAL_ID:
+			if (MindmapPackage.eINSTANCE.getThreadItem().isSuperTypeOf(
+					domainElement.eClass())) {
+				return ThreadItemEditPart.VISUAL_ID;
+			}
+			break;
+		case MapEditPart.VISUAL_ID:
+			if (MindmapPackage.eINSTANCE.getTopic().isSuperTypeOf(
+					domainElement.eClass())) {
+				return TopicEditPart.VISUAL_ID;
+			}
+			if (MindmapPackage.eINSTANCE.getResource().isSuperTypeOf(
+					domainElement.eClass())) {
+				return ResourceEditPart.VISUAL_ID;
+			}
+			break;
+		}
+		return -1;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {
-		String containerModelID = getModelID(containerView);
-		if (!MapEditPart.MODEL_ID.equals(containerModelID) && !"mindmap".equals(containerModelID)) {
-			return -1;
+	public static boolean canCreateNode(View containerView, int nodeVisualID) {
+		String containerModelID = org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry
+				.getModelID(containerView);
+		if (!MapEditPart.MODEL_ID.equals(containerModelID)
+				&& !"mindmap".equals(containerModelID)) { //$NON-NLS-1$
+			return false;
 		}
 		int containerVisualID;
 		if (MapEditPart.MODEL_ID.equals(containerModelID)) {
-			containerVisualID = getVisualID(containerView);
+			containerVisualID = org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry
+					.getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
 				containerVisualID = MapEditPart.VISUAL_ID;
 			} else {
-				return -1;
+				return false;
 			}
 		}
-		int nodeVisualID = semanticHint != null ? getVisualID(semanticHint) : -1;
 		switch (containerVisualID) {
 		case TopicEditPart.VISUAL_ID:
 			if (TopicNameEditPart.VISUAL_ID == nodeVisualID) {
-				return TopicNameEditPart.VISUAL_ID;
+				return true;
 			}
 			if (TopicThreadCompartmentEditPart.VISUAL_ID == nodeVisualID) {
-				return TopicThreadCompartmentEditPart.VISUAL_ID;
+				return true;
 			}
-			return getUnrecognizedTopic_1001ChildNodeID(domainElement, semanticHint);
+			break;
 		case ResourceEditPart.VISUAL_ID:
 			if (ResourceNameEmailEditPart.VISUAL_ID == nodeVisualID) {
-				return ResourceNameEmailEditPart.VISUAL_ID;
+				return true;
 			}
-			return getUnrecognizedResource_1002ChildNodeID(domainElement, semanticHint);
+			break;
 		case ThreadEditPart.VISUAL_ID:
 			if (ThreadSubjectEditPart.VISUAL_ID == nodeVisualID) {
-				return ThreadSubjectEditPart.VISUAL_ID;
+				return true;
 			}
 			if (ThreadThreadItemCompartmentEditPart.VISUAL_ID == nodeVisualID) {
-				return ThreadThreadItemCompartmentEditPart.VISUAL_ID;
+				return true;
 			}
-			return getUnrecognizedThread_2001ChildNodeID(domainElement, semanticHint);
-		case ThreadItemEditPart.VISUAL_ID:
-			return getUnrecognizedThreadItem_2002ChildNodeID(domainElement, semanticHint);
+			break;
 		case TopicThreadCompartmentEditPart.VISUAL_ID:
-			if ((semanticHint == null || ThreadEditPart.VISUAL_ID == nodeVisualID) && MindmapPackage.eINSTANCE.getThread().isSuperTypeOf(domainElementMetaclass)
-					&& (domainElement == null || isNodeThread_2001((Thread) domainElement))) {
-				return ThreadEditPart.VISUAL_ID;
+			if (ThreadEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
 			}
-			return getUnrecognizedTopicThreadCompartment_5001ChildNodeID(domainElement, semanticHint);
+			break;
 		case ThreadThreadItemCompartmentEditPart.VISUAL_ID:
-			if ((semanticHint == null || ThreadItemEditPart.VISUAL_ID == nodeVisualID) && MindmapPackage.eINSTANCE.getThreadItem().isSuperTypeOf(domainElementMetaclass)
-					&& (domainElement == null || isNodeThreadItem_2002((ThreadItem) domainElement))) {
-				return ThreadItemEditPart.VISUAL_ID;
+			if (ThreadItemEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
 			}
-			return getUnrecognizedThreadThreadItemCompartment_5002ChildNodeID(domainElement, semanticHint);
+			break;
 		case MapEditPart.VISUAL_ID:
-			if ((semanticHint == null || TopicEditPart.VISUAL_ID == nodeVisualID) && MindmapPackage.eINSTANCE.getTopic().isSuperTypeOf(domainElementMetaclass)
-					&& (domainElement == null || isNodeTopic_1001((Topic) domainElement))) {
-				return TopicEditPart.VISUAL_ID;
+			if (TopicEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
 			}
-			if ((semanticHint == null || ResourceEditPart.VISUAL_ID == nodeVisualID) && MindmapPackage.eINSTANCE.getResource().isSuperTypeOf(domainElementMetaclass)
-					&& (domainElement == null || isNodeResource_1002((Resource) domainElement))) {
-				return ResourceEditPart.VISUAL_ID;
+			if (ResourceEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
 			}
-			return getUnrecognizedMap_79ChildNodeID(domainElement, semanticHint);
+			break;
 		case RelationshipEditPart.VISUAL_ID:
 			if (RelationshipLabelEditPart.VISUAL_ID == nodeVisualID) {
-				return RelationshipLabelEditPart.VISUAL_ID;
+				return true;
 			}
-			return getUnrecognizedRelationship_3002LinkLabelID(semanticHint);
+			break;
 		case Relationship2EditPart.VISUAL_ID:
 			if (RelationshipLabel2EditPart.VISUAL_ID == nodeVisualID) {
-				return RelationshipLabel2EditPart.VISUAL_ID;
+				return true;
 			}
-			return getUnrecognizedRelationship_3003LinkLabelID(semanticHint);
+			break;
 		case Relationship3EditPart.VISUAL_ID:
 			if (RelationshipLabel3EditPart.VISUAL_ID == nodeVisualID) {
-				return RelationshipLabel3EditPart.VISUAL_ID;
+				return true;
 			}
-			return getUnrecognizedRelationship_3004LinkLabelID(semanticHint);
+			break;
 		}
-		return -1;
+		return false;
 	}
 
 	/**
@@ -237,266 +281,40 @@ public class MindmapVisualIDRegistry {
 		if (domainElement == null) {
 			return -1;
 		}
-		EClass domainElementMetaclass = domainElement.eClass();
-		return getLinkWithClassVisualID(domainElement, domainElementMetaclass);
-	}
-
-	/**
-	 * @generated
-	 */
-	public static int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (MindmapPackage.eINSTANCE.getRelationship().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isLinkWithClassRelationship_3002((Relationship) domainElement))) {
+		if (MindmapPackage.eINSTANCE.getRelationship().isSuperTypeOf(
+				domainElement.eClass())
+				&& evaluate(Relationship_4002_Constraint, domainElement)) {
 			return RelationshipEditPart.VISUAL_ID;
-		} else if (MindmapPackage.eINSTANCE.getRelationship().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isLinkWithClassRelationship_3003((Relationship) domainElement))) {
+		}
+		if (MindmapPackage.eINSTANCE.getRelationship().isSuperTypeOf(
+				domainElement.eClass())
+				&& evaluate(Relationship_4003_Constraint, domainElement)) {
 			return Relationship2EditPart.VISUAL_ID;
-		} else if (MindmapPackage.eINSTANCE.getRelationship().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isLinkWithClassRelationship_3004((Relationship) domainElement))) {
+		}
+		if (MindmapPackage.eINSTANCE.getRelationship().isSuperTypeOf(
+				domainElement.eClass())
+				&& evaluate(Relationship_4004_Constraint, domainElement)) {
 			return Relationship3EditPart.VISUAL_ID;
-		} else {
-			return getUnrecognizedLinkWithClassID(domainElement);
 		}
+		return -1;
 	}
 
 	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 * 
 	 * @generated
 	 */
-	private static boolean isDiagramMap_79(Map element) {
+	private static boolean isDiagram(Map element) {
 		return true;
 	}
 
 	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedDiagramID(EObject domainElement) {
-		return -1;
+	private static boolean evaluate(MindmapAbstractExpression expression,
+			Object element) {
+		Object result = expression.evaluate(element);
+		return result instanceof Boolean && ((Boolean) result).booleanValue();
 	}
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private static boolean isNodeTopic_1001(Topic element) {
-		return true;
-	}
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private static boolean isNodeResource_1002(Resource element) {
-		return true;
-	}
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private static boolean isNodeThread_2001(Thread element) {
-		return true;
-	}
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private static boolean isNodeThreadItem_2002(ThreadItem element) {
-		return true;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedTopic_1001ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedResource_1002ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedThread_2001ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedThreadItem_2002ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedTopicThreadCompartment_5001ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedThreadThreadItemCompartment_5002ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedMap_79ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedRelationship_3002LinkLabelID(String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedRelationship_3003LinkLabelID(String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedRelationship_3004LinkLabelID(String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedLinkWithClassID(EObject domainElement) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private static boolean isLinkWithClassRelationship_3002(Relationship element) {
-		return Relationship_3002.matches(element);
-	}
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private static boolean isLinkWithClassRelationship_3003(Relationship element) {
-		return Relationship_3003.matches(element);
-	}
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private static boolean isLinkWithClassRelationship_3004(Relationship element) {
-		return Relationship_3004.matches(element);
-	}
-
-	/**
-	 * @generated
-	 */
-	private static final Matcher Relationship_3002 = new Matcher(MindmapOCLFactory.getExpression("self.type = RelationshipType::EXTENDS", //$NON-NLS-1$
-			MindmapPackage.eINSTANCE.getRelationship()));
-
-	/**
-	 * @generated
-	 */
-	private static final Matcher Relationship_3003 = new Matcher(MindmapOCLFactory.getExpression("self.type = RelationshipType::INCLUDES", //$NON-NLS-1$
-			MindmapPackage.eINSTANCE.getRelationship()));
-
-	/**
-	 * @generated
-	 */
-	private static final Matcher Relationship_3004 = new Matcher(MindmapOCLFactory.getExpression("self.type = RelationshipType::DEPENDENCY", //$NON-NLS-1$
-			MindmapPackage.eINSTANCE.getRelationship()));
-
-	/**
-	 * @generated	
-	 */
-	static class Matcher {
-
-		/**
-		 * @generated	
-		 */
-		private MindmapAbstractExpression condition;
-
-		/**
-		 * @generated	
-		 */
-		Matcher(MindmapAbstractExpression conditionExpression) {
-			this.condition = conditionExpression;
-		}
-
-		/**
-		 * @generated	
-		 */
-		boolean matches(EObject object) {
-			Object result = condition.evaluate(object);
-			return result instanceof Boolean && ((Boolean) result).booleanValue();
-		}
-	}// Matcher
 }

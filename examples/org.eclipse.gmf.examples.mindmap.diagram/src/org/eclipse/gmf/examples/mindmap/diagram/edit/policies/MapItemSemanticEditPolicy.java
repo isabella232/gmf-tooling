@@ -30,23 +30,26 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 /**
  * @generated
  */
-public class MapItemSemanticEditPolicy extends MindmapBaseItemSemanticEditPolicy {
+public class MapItemSemanticEditPolicy extends
+		MindmapBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (MindmapElementTypes.Topic_1001 == req.getElementType()) {
+		if (MindmapElementTypes.Topic_2001 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(MindmapPackage.eINSTANCE.getMap_RootTopics());
+				req.setContainmentFeature(MindmapPackage.eINSTANCE
+						.getMap_RootTopics());
 			}
-			return getMSLWrapper(new TopicCreateCommand(req));
+			return getGEFWrapper(new TopicCreateCommand(req));
 		}
-		if (MindmapElementTypes.Resource_1002 == req.getElementType()) {
+		if (MindmapElementTypes.Resource_2002 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(MindmapPackage.eINSTANCE.getMap_Resources());
+				req.setContainmentFeature(MindmapPackage.eINSTANCE
+						.getMap_Resources());
 			}
-			return getMSLWrapper(new ResourceCreateCommand(req));
+			return getGEFWrapper(new ResourceCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -55,20 +58,26 @@ public class MapItemSemanticEditPolicy extends MindmapBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getDuplicateCommand(DuplicateElementsRequest req) {
-		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
-		return getMSLWrapper(new DuplicateAnythingCommand(editingDomain, req));
+		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost())
+				.getEditingDomain();
+		return getGEFWrapper(new DuplicateAnythingCommand(editingDomain, req));
 	}
 
 	/**
 	 * @generated
 	 */
-	private static class DuplicateAnythingCommand extends DuplicateEObjectsCommand {
+	private static class DuplicateAnythingCommand extends
+			DuplicateEObjectsCommand {
 
 		/**
 		 * @generated
 		 */
-		public DuplicateAnythingCommand(TransactionalEditingDomain editingDomain, DuplicateElementsRequest req) {
-			super(editingDomain, req.getLabel(), req.getElementsToBeDuplicated(), req.getAllDuplicatedElementsMap());
+		public DuplicateAnythingCommand(
+				TransactionalEditingDomain editingDomain,
+				DuplicateElementsRequest req) {
+			super(editingDomain, req.getLabel(), req
+					.getElementsToBeDuplicated(), req
+					.getAllDuplicatedElementsMap());
 		}
 	}
 }

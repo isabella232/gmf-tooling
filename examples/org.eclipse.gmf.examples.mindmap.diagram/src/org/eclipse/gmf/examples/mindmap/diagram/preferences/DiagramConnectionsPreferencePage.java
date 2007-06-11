@@ -25,6 +25,7 @@ public class DiagramConnectionsPreferencePage extends ConnectionsPreferencePage 
 	 * @generated
 	 */
 	public DiagramConnectionsPreferencePage() {
-		setPreferenceStore(MindmapDiagramEditorPlugin.getInstance().getPreferenceStore());
+		setPreferenceStore(MindmapDiagramEditorPlugin.getInstance()
+				.getPreferenceStore());
 	}
 }

@@ -91,13 +91,20 @@ public class MindmapNavigatorGroup extends MindmapAbstractNavigatorItem {
 	 * @generated
 	 */
 	public boolean equals(Object obj) {
-		if (obj instanceof MindmapNavigatorGroup) {
-			MindmapNavigatorGroup anotherGroup = (MindmapNavigatorGroup) obj;
+		if (obj instanceof org.eclipse.gmf.examples.mindmap.diagram.navigator.MindmapNavigatorGroup) {
+			org.eclipse.gmf.examples.mindmap.diagram.navigator.MindmapNavigatorGroup anotherGroup = (org.eclipse.gmf.examples.mindmap.diagram.navigator.MindmapNavigatorGroup) obj;
 			if (getGroupName().equals(anotherGroup.getGroupName())) {
 				return getParent().equals(anotherGroup.getParent());
 			}
 		}
 		return super.equals(obj);
+	}
+
+	/**
+	 * @generated
+	 */
+	public int hashCode() {
+		return getGroupName().hashCode();
 	}
 
 }

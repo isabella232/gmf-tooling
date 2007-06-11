@@ -18,7 +18,8 @@ import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramActionBarContributor;
 /**
  * @generated
  */
-public class MindmapDiagramActionBarContributor extends DiagramActionBarContributor {
+public class MindmapDiagramActionBarContributor extends
+		DiagramActionBarContributor {
 
 	/**
 	 * @generated

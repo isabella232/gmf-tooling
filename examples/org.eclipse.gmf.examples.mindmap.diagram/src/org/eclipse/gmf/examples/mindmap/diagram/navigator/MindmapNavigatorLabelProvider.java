@@ -40,6 +40,7 @@ import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
 import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapElementTypes;
 
+import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapParserProvider;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;
@@ -68,15 +69,22 @@ import org.eclipse.ui.navigator.ICommonLabelProvider;
 /**
  * @generated
  */
-public class MindmapNavigatorLabelProvider extends LabelProvider implements ICommonLabelProvider, ITreePathLabelProvider {
+public class MindmapNavigatorLabelProvider extends LabelProvider implements
+		ICommonLabelProvider, ITreePathLabelProvider {
 
 	/**
 	 * @generated
 	 */
 	static {
-		MindmapDiagramEditorPlugin.getInstance().getImageRegistry().put("Navigator?InvalidElement", ImageDescriptor.getMissingImageDescriptor());
-		MindmapDiagramEditorPlugin.getInstance().getImageRegistry().put("Navigator?UnknownElement", ImageDescriptor.getMissingImageDescriptor());
-		MindmapDiagramEditorPlugin.getInstance().getImageRegistry().put("Navigator?ImageNotFound", ImageDescriptor.getMissingImageDescriptor());
+		MindmapDiagramEditorPlugin.getInstance().getImageRegistry().put(
+				"Navigator?InvalidElement",
+				ImageDescriptor.getMissingImageDescriptor());
+		MindmapDiagramEditorPlugin.getInstance().getImageRegistry().put(
+				"Navigator?UnknownElement",
+				ImageDescriptor.getMissingImageDescriptor());
+		MindmapDiagramEditorPlugin.getInstance().getImageRegistry().put(
+				"Navigator?ImageNotFound",
+				ImageDescriptor.getMissingImageDescriptor());
 	}
 
 	/**
@@ -84,7 +92,8 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements ICom
 	 */
 	public void updateLabel(ViewerLabel label, TreePath elementPath) {
 		Object element = elementPath.getLastSegment();
-		if (element instanceof MindmapNavigatorItem && !isOwnView(((MindmapNavigatorItem) element).getView())) {
+		if (element instanceof MindmapNavigatorItem
+				&& !isOwnView(((MindmapNavigatorItem) element).getView())) {
 			return;
 		}
 		label.setText(getText(element));
@@ -97,7 +106,8 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements ICom
 	public Image getImage(Object element) {
 		if (element instanceof MindmapNavigatorGroup) {
 			MindmapNavigatorGroup group = (MindmapNavigatorGroup) element;
-			return MindmapDiagramEditorPlugin.getInstance().getBundledImage(group.getIcon());
+			return MindmapDiagramEditorPlugin.getInstance().getBundledImage(
+					group.getIcon());
 		}
 
 		if (element instanceof MindmapNavigatorItem) {
@@ -124,23 +134,41 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements ICom
 	public Image getImage(View view) {
 		switch (MindmapVisualIDRegistry.getVisualID(view)) {
 		case TopicEditPart.VISUAL_ID:
-			return getImage("Navigator?TopLevelNode?http://www.example.org/mindmap?Topic", MindmapElementTypes.Topic_1001);
+			return getImage(
+					"Navigator?TopLevelNode?http://www.example.org/mindmap?Topic",
+					MindmapElementTypes.Topic_2001);
 		case ResourceEditPart.VISUAL_ID:
-			return getImage("Navigator?TopLevelNode?http://www.example.org/mindmap?Resource", MindmapElementTypes.Resource_1002);
+			return getImage(
+					"Navigator?TopLevelNode?http://www.example.org/mindmap?Resource",
+					MindmapElementTypes.Resource_2002);
 		case ThreadEditPart.VISUAL_ID:
-			return getImage("Navigator?Node?http://www.example.org/mindmap?Thread", MindmapElementTypes.Thread_2001);
+			return getImage(
+					"Navigator?Node?http://www.example.org/mindmap?Thread",
+					MindmapElementTypes.Thread_3001);
 		case ThreadItemEditPart.VISUAL_ID:
-			return getImage("Navigator?Node?http://www.example.org/mindmap?ThreadItem", MindmapElementTypes.ThreadItem_2002);
+			return getImage(
+					"Navigator?Node?http://www.example.org/mindmap?ThreadItem",
+					MindmapElementTypes.ThreadItem_3002);
 		case MapEditPart.VISUAL_ID:
-			return getImage("Navigator?Diagram?http://www.example.org/mindmap?Map", MindmapElementTypes.Map_79);
+			return getImage(
+					"Navigator?Diagram?http://www.example.org/mindmap?Map",
+					MindmapElementTypes.Map_1000);
 		case TopicSubtopicsEditPart.VISUAL_ID:
-			return getImage("Navigator?Link?http://www.example.org/mindmap?Topic?subtopics", MindmapElementTypes.TopicSubtopics_3001);
+			return getImage(
+					"Navigator?Link?http://www.example.org/mindmap?Topic?subtopics",
+					MindmapElementTypes.TopicSubtopics_4001);
 		case RelationshipEditPart.VISUAL_ID:
-			return getImage("Navigator?Link?http://www.example.org/mindmap?Relationship", MindmapElementTypes.Relationship_3002);
+			return getImage(
+					"Navigator?Link?http://www.example.org/mindmap?Relationship",
+					MindmapElementTypes.Relationship_4002);
 		case Relationship2EditPart.VISUAL_ID:
-			return getImage("Navigator?Link?http://www.example.org/mindmap?Relationship", MindmapElementTypes.Relationship_3003);
+			return getImage(
+					"Navigator?Link?http://www.example.org/mindmap?Relationship",
+					MindmapElementTypes.Relationship_4003);
 		case Relationship3EditPart.VISUAL_ID:
-			return getImage("Navigator?Link?http://www.example.org/mindmap?Relationship", MindmapElementTypes.Relationship_3004);
+			return getImage(
+					"Navigator?Link?http://www.example.org/mindmap?Relationship",
+					MindmapElementTypes.Relationship_4004);
 		default:
 			return getImage("Navigator?UnknownElement", null);
 		}
@@ -150,9 +178,11 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements ICom
 	 * @generated
 	 */
 	private Image getImage(String key, IElementType elementType) {
-		ImageRegistry imageRegistry = MindmapDiagramEditorPlugin.getInstance().getImageRegistry();
+		ImageRegistry imageRegistry = MindmapDiagramEditorPlugin.getInstance()
+				.getImageRegistry();
 		Image image = imageRegistry.get(key);
-		if (image == null && elementType != null && MindmapElementTypes.isKnownElementType(elementType)) {
+		if (image == null && elementType != null
+				&& MindmapElementTypes.isKnownElementType(elementType)) {
 			image = MindmapElementTypes.getImage(elementType);
 			imageRegistry.put(key, image);
 		}
@@ -195,25 +225,28 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements ICom
 	 * @generated
 	 */
 	public String getText(View view) {
+		if (view.getElement() != null && view.getElement().eIsProxy()) {
+			return getUnresolvedDomainElementProxyText(view);
+		}
 		switch (MindmapVisualIDRegistry.getVisualID(view)) {
 		case TopicEditPart.VISUAL_ID:
-			return getTopic_1001Text(view);
+			return getTopic_2001Text(view);
 		case ResourceEditPart.VISUAL_ID:
-			return getResource_1002Text(view);
+			return getResource_2002Text(view);
 		case ThreadEditPart.VISUAL_ID:
-			return getThread_2001Text(view);
+			return getThread_3001Text(view);
 		case ThreadItemEditPart.VISUAL_ID:
-			return getThreadItem_2002Text(view);
+			return getThreadItem_3002Text(view);
 		case MapEditPart.VISUAL_ID:
-			return getMap_79Text(view);
+			return getMap_1000Text(view);
 		case TopicSubtopicsEditPart.VISUAL_ID:
-			return getTopicSubtopics_3001Text(view);
+			return getTopicSubtopics_4001Text(view);
 		case RelationshipEditPart.VISUAL_ID:
-			return getRelationship_3002Text(view);
+			return getRelationship_4002Text(view);
 		case Relationship2EditPart.VISUAL_ID:
-			return getRelationship_3003Text(view);
+			return getRelationship_4003Text(view);
 		case Relationship3EditPart.VISUAL_ID:
-			return getRelationship_3004Text(view);
+			return getRelationship_4004Text(view);
 		default:
 			return getUnknownElementText(view);
 		}
@@ -222,23 +255,19 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements ICom
 	/**
 	 * @generated
 	 */
-	private String getTopic_1001Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+	private String getTopic_2001Text(View view) {
+		IAdaptable hintAdapter = new MindmapParserProvider.HintAdapter(
+				MindmapElementTypes.Topic_2001,
+				(view.getElement() != null ? view.getElement() : view),
+				MindmapVisualIDRegistry.getType(TopicNameEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return MindmapVisualIDRegistry.getType(TopicNameEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return MindmapElementTypes.Topic_1001;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE
+					.intValue());
 		} else {
-			MindmapDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 4002);
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"Parser was not found for label " + 5002);
 			return "";
 		}
 	}
@@ -246,23 +275,20 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements ICom
 	/**
 	 * @generated
 	 */
-	private String getResource_1002Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+	private String getResource_2002Text(View view) {
+		IAdaptable hintAdapter = new MindmapParserProvider.HintAdapter(
+				MindmapElementTypes.Resource_2002,
+				(view.getElement() != null ? view.getElement() : view),
+				MindmapVisualIDRegistry
+						.getType(ResourceNameEmailEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return MindmapVisualIDRegistry.getType(ResourceNameEmailEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return MindmapElementTypes.Resource_1002;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE
+					.intValue());
 		} else {
-			MindmapDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 4003);
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"Parser was not found for label " + 5003);
 			return "";
 		}
 	}
@@ -270,23 +296,20 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements ICom
 	/**
 	 * @generated
 	 */
-	private String getThread_2001Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+	private String getThread_3001Text(View view) {
+		IAdaptable hintAdapter = new MindmapParserProvider.HintAdapter(
+				MindmapElementTypes.Thread_3001,
+				(view.getElement() != null ? view.getElement() : view),
+				MindmapVisualIDRegistry
+						.getType(ThreadSubjectEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return MindmapVisualIDRegistry.getType(ThreadSubjectEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return MindmapElementTypes.Thread_2001;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE
+					.intValue());
 		} else {
-			MindmapDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 4001);
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"Parser was not found for label " + 5001);
 			return "";
 		}
 	}
@@ -294,23 +317,19 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements ICom
 	/**
 	 * @generated
 	 */
-	private String getThreadItem_2002Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+	private String getThreadItem_3002Text(View view) {
+		IAdaptable hintAdapter = new MindmapParserProvider.HintAdapter(
+				MindmapElementTypes.ThreadItem_3002,
+				(view.getElement() != null ? view.getElement() : view),
+				MindmapVisualIDRegistry.getType(ThreadItemEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return MindmapVisualIDRegistry.getType(ThreadItemEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return MindmapElementTypes.ThreadItem_2002;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE
+					.intValue());
 		} else {
-			MindmapDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 2002);
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"Parser was not found for label " + 3002);
 			return "";
 		}
 	}
@@ -318,12 +337,13 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements ICom
 	/**
 	 * @generated
 	 */
-	private String getMap_79Text(View view) {
+	private String getMap_1000Text(View view) {
 		EObject domainModelElement = view.getElement();
 		if (domainModelElement != null) {
 			return String.valueOf(((Map) domainModelElement).getTitle());
 		} else {
-			MindmapDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 79);
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"No domain element for view with visualID = " + 1000);
 			return "";
 		}
 	}
@@ -331,30 +351,27 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements ICom
 	/**
 	 * @generated
 	 */
-	private String getTopicSubtopics_3001Text(View view) {
+	private String getTopicSubtopics_4001Text(View view) {
 		return "";
 	}
 
 	/**
 	 * @generated
 	 */
-	private String getRelationship_3002Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+	private String getRelationship_4002Text(View view) {
+		IAdaptable hintAdapter = new MindmapParserProvider.HintAdapter(
+				MindmapElementTypes.Relationship_4002,
+				(view.getElement() != null ? view.getElement() : view),
+				MindmapVisualIDRegistry
+						.getType(RelationshipLabelEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return MindmapVisualIDRegistry.getType(RelationshipLabelEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return MindmapElementTypes.Relationship_3002;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE
+					.intValue());
 		} else {
-			MindmapDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 4004);
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"Parser was not found for label " + 6001);
 			return "";
 		}
 	}
@@ -362,23 +379,20 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements ICom
 	/**
 	 * @generated
 	 */
-	private String getRelationship_3003Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+	private String getRelationship_4003Text(View view) {
+		IAdaptable hintAdapter = new MindmapParserProvider.HintAdapter(
+				MindmapElementTypes.Relationship_4003,
+				(view.getElement() != null ? view.getElement() : view),
+				MindmapVisualIDRegistry
+						.getType(RelationshipLabel2EditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return MindmapVisualIDRegistry.getType(RelationshipLabel2EditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return MindmapElementTypes.Relationship_3003;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE
+					.intValue());
 		} else {
-			MindmapDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 4005);
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"Parser was not found for label " + 6002);
 			return "";
 		}
 	}
@@ -386,23 +400,20 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements ICom
 	/**
 	 * @generated
 	 */
-	private String getRelationship_3004Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+	private String getRelationship_4004Text(View view) {
+		IAdaptable hintAdapter = new MindmapParserProvider.HintAdapter(
+				MindmapElementTypes.Relationship_4004,
+				(view.getElement() != null ? view.getElement() : view),
+				MindmapVisualIDRegistry
+						.getType(RelationshipLabel3EditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return MindmapVisualIDRegistry.getType(RelationshipLabel3EditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return MindmapElementTypes.Relationship_3004;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE
+					.intValue());
 		} else {
-			MindmapDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 4006);
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"Parser was not found for label " + 6003);
 			return "";
 		}
 	}
@@ -412,6 +423,13 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements ICom
 	 */
 	private String getUnknownElementText(View view) {
 		return "<UnknownElement Visual_ID = " + view.getType() + ">";
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getUnresolvedDomainElementProxyText(View view) {
+		return "<Unresolved domain element Visual_ID = " + view.getType() + ">";
 	}
 
 	/**
@@ -443,7 +461,8 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements ICom
 	 * @generated
 	 */
 	private boolean isOwnView(View view) {
-		return MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry.getModelID(view));
+		return MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry
+				.getModelID(view));
 	}
 
 }

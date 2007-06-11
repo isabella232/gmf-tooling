@@ -49,21 +49,22 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 	 * @generated
 	 */
 	public List getTypesForPopupBar(IAdaptable host) {
-		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
+		IGraphicalEditPart editPart = (IGraphicalEditPart) host
+				.getAdapter(IGraphicalEditPart.class);
 		if (editPart instanceof ThreadEditPart) {
 			List types = new ArrayList();
-			types.add(MindmapElementTypes.ThreadItem_2002);
+			types.add(MindmapElementTypes.ThreadItem_3002);
 			return types;
 		}
 		if (editPart instanceof TopicThreadCompartmentEditPart) {
 			List types = new ArrayList();
-			types.add(MindmapElementTypes.Thread_2001);
+			types.add(MindmapElementTypes.Thread_3001);
 			return types;
 		}
 		if (editPart instanceof MapEditPart) {
 			List types = new ArrayList();
-			types.add(MindmapElementTypes.Topic_1001);
-			types.add(MindmapElementTypes.Resource_1002);
+			types.add(MindmapElementTypes.Topic_2001);
+			types.add(MindmapElementTypes.Resource_2002);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -73,13 +74,14 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 	 * @generated
 	 */
 	public List getRelTypesOnSource(IAdaptable source) {
-		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
+		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source
+				.getAdapter(IGraphicalEditPart.class);
 		if (sourceEditPart instanceof TopicEditPart) {
 			List types = new ArrayList();
-			types.add(MindmapElementTypes.TopicSubtopics_3001);
-			types.add(MindmapElementTypes.Relationship_3002);
-			types.add(MindmapElementTypes.Relationship_3003);
-			types.add(MindmapElementTypes.Relationship_3004);
+			types.add(MindmapElementTypes.TopicSubtopics_4001);
+			types.add(MindmapElementTypes.Relationship_4002);
+			types.add(MindmapElementTypes.Relationship_4003);
+			types.add(MindmapElementTypes.Relationship_4004);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -89,13 +91,14 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 	 * @generated
 	 */
 	public List getRelTypesOnTarget(IAdaptable target) {
-		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
+		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target
+				.getAdapter(IGraphicalEditPart.class);
 		if (targetEditPart instanceof TopicEditPart) {
 			List types = new ArrayList();
-			types.add(MindmapElementTypes.TopicSubtopics_3001);
-			types.add(MindmapElementTypes.Relationship_3002);
-			types.add(MindmapElementTypes.Relationship_3003);
-			types.add(MindmapElementTypes.Relationship_3004);
+			types.add(MindmapElementTypes.TopicSubtopics_4001);
+			types.add(MindmapElementTypes.Relationship_4002);
+			types.add(MindmapElementTypes.Relationship_4003);
+			types.add(MindmapElementTypes.Relationship_4004);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -104,22 +107,25 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 	/**
 	 * @generated
 	 */
-	public List getRelTypesOnSourceAndTarget(IAdaptable source, IAdaptable target) {
-		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
-		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
+	public List getRelTypesOnSourceAndTarget(IAdaptable source,
+			IAdaptable target) {
+		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source
+				.getAdapter(IGraphicalEditPart.class);
+		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target
+				.getAdapter(IGraphicalEditPart.class);
 		if (sourceEditPart instanceof TopicEditPart) {
 			List types = new ArrayList();
 			if (targetEditPart instanceof TopicEditPart) {
-				types.add(MindmapElementTypes.TopicSubtopics_3001);
+				types.add(MindmapElementTypes.TopicSubtopics_4001);
 			}
 			if (targetEditPart instanceof TopicEditPart) {
-				types.add(MindmapElementTypes.Relationship_3002);
+				types.add(MindmapElementTypes.Relationship_4002);
 			}
 			if (targetEditPart instanceof TopicEditPart) {
-				types.add(MindmapElementTypes.Relationship_3003);
+				types.add(MindmapElementTypes.Relationship_4003);
 			}
 			if (targetEditPart instanceof TopicEditPart) {
-				types.add(MindmapElementTypes.Relationship_3004);
+				types.add(MindmapElementTypes.Relationship_4004);
 			}
 			return types;
 		}
@@ -129,21 +135,23 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 	/**
 	 * @generated
 	 */
-	public List getTypesForSource(IAdaptable target, IElementType relationshipType) {
-		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
+	public List getTypesForSource(IAdaptable target,
+			IElementType relationshipType) {
+		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target
+				.getAdapter(IGraphicalEditPart.class);
 		if (targetEditPart instanceof TopicEditPart) {
 			List types = new ArrayList();
-			if (relationshipType == MindmapElementTypes.TopicSubtopics_3001) {
-				types.add(MindmapElementTypes.Topic_1001);
+			if (relationshipType == MindmapElementTypes.TopicSubtopics_4001) {
+				types.add(MindmapElementTypes.Topic_2001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_3002) {
-				types.add(MindmapElementTypes.Topic_1001);
+			if (relationshipType == MindmapElementTypes.Relationship_4002) {
+				types.add(MindmapElementTypes.Topic_2001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_3003) {
-				types.add(MindmapElementTypes.Topic_1001);
+			if (relationshipType == MindmapElementTypes.Relationship_4003) {
+				types.add(MindmapElementTypes.Topic_2001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_3004) {
-				types.add(MindmapElementTypes.Topic_1001);
+			if (relationshipType == MindmapElementTypes.Relationship_4004) {
+				types.add(MindmapElementTypes.Topic_2001);
 			}
 			return types;
 		}
@@ -153,21 +161,23 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 	/**
 	 * @generated
 	 */
-	public List getTypesForTarget(IAdaptable source, IElementType relationshipType) {
-		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
+	public List getTypesForTarget(IAdaptable source,
+			IElementType relationshipType) {
+		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source
+				.getAdapter(IGraphicalEditPart.class);
 		if (sourceEditPart instanceof TopicEditPart) {
 			List types = new ArrayList();
-			if (relationshipType == MindmapElementTypes.TopicSubtopics_3001) {
-				types.add(MindmapElementTypes.Topic_1001);
+			if (relationshipType == MindmapElementTypes.TopicSubtopics_4001) {
+				types.add(MindmapElementTypes.Topic_2001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_3002) {
-				types.add(MindmapElementTypes.Topic_1001);
+			if (relationshipType == MindmapElementTypes.Relationship_4002) {
+				types.add(MindmapElementTypes.Topic_2001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_3003) {
-				types.add(MindmapElementTypes.Topic_1001);
+			if (relationshipType == MindmapElementTypes.Relationship_4003) {
+				types.add(MindmapElementTypes.Topic_2001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_3004) {
-				types.add(MindmapElementTypes.Topic_1001);
+			if (relationshipType == MindmapElementTypes.Relationship_4004) {
+				types.add(MindmapElementTypes.Topic_2001);
 			}
 			return types;
 		}
@@ -177,15 +187,19 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 	/**
 	 * @generated
 	 */
-	public EObject selectExistingElementForSource(IAdaptable target, IElementType relationshipType) {
-		return selectExistingElement(target, getTypesForSource(target, relationshipType));
+	public EObject selectExistingElementForSource(IAdaptable target,
+			IElementType relationshipType) {
+		return selectExistingElement(target, getTypesForSource(target,
+				relationshipType));
 	}
 
 	/**
 	 * @generated
 	 */
-	public EObject selectExistingElementForTarget(IAdaptable source, IElementType relationshipType) {
-		return selectExistingElement(source, getTypesForTarget(source, relationshipType));
+	public EObject selectExistingElementForTarget(IAdaptable source,
+			IElementType relationshipType) {
+		return selectExistingElement(source, getTypesForTarget(source,
+				relationshipType));
 	}
 
 	/**
@@ -195,7 +209,8 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 		if (types.isEmpty()) {
 			return null;
 		}
-		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
+		IGraphicalEditPart editPart = (IGraphicalEditPart) host
+				.getAdapter(IGraphicalEditPart.class);
 		if (editPart == null) {
 			return null;
 		}
@@ -210,14 +225,16 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 		if (elements.isEmpty()) {
 			return null;
 		}
-		return selectElement((EObject[]) elements.toArray(new EObject[elements.size()]));
+		return selectElement((EObject[]) elements.toArray(new EObject[elements
+				.size()]));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected boolean isApplicableElement(EObject element, Collection types) {
-		IElementType type = ElementTypeRegistry.getInstance().getElementType(element);
+		IElementType type = ElementTypeRegistry.getInstance().getElementType(
+				element);
 		return types.contains(type);
 	}
 
@@ -226,8 +243,11 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 	 */
 	protected EObject selectElement(EObject[] elements) {
 		Shell shell = Display.getCurrent().getActiveShell();
-		ILabelProvider labelProvider = new AdapterFactoryLabelProvider(MindmapDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
-		ElementListSelectionDialog dialog = new ElementListSelectionDialog(shell, labelProvider);
+		ILabelProvider labelProvider = new AdapterFactoryLabelProvider(
+				MindmapDiagramEditorPlugin.getInstance()
+						.getItemProvidersAdapterFactory());
+		ElementListSelectionDialog dialog = new ElementListSelectionDialog(
+				shell, labelProvider);
 		dialog.setMessage("Available domain model elements:");
 		dialog.setTitle("Select domain model element");
 		dialog.setMultipleSelection(false);

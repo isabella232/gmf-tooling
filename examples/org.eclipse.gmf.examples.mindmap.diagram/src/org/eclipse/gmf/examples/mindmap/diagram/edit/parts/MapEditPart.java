@@ -45,7 +45,7 @@ public class MapEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 79;
+	public static final int VISUAL_ID = 1000;
 
 	/**
 	 * @generated
@@ -59,25 +59,47 @@ public class MapEditPart extends DiagramEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new MapItemSemanticEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new MapCanonicalEditPolicy());
-		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DiagramDragDropEditPolicy() {
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
+				new MapItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
+				new MapCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE,
+				new DiagramDragDropEditPolicy() {
+					public Command getDropObjectsCommand(
+							DropObjectsRequest dropRequest) {
+						List viewDescriptors = new ArrayList();
+						for (Iterator it = dropRequest.getObjects().iterator(); it
+								.hasNext();) {
+							Object nextObject = it.next();
+							if (false == nextObject instanceof EObject) {
+								continue;
+							}
+							viewDescriptors
+									.add(new CreateViewRequest.ViewDescriptor(
+											new EObjectAdapter(
+													(EObject) nextObject),
+											Node.class, null,
+											getDiagramPreferencesHint()));
+						}
+						return createShortcutsCommand(dropRequest,
+								viewDescriptors);
+					}
 
-			public Command getDropObjectsCommand(DropObjectsRequest dropRequest) {
-				List viewDescriptors = new ArrayList();
-				for (Iterator it = dropRequest.getObjects().iterator(); it.hasNext();) {
-					viewDescriptors.add(new CreateViewRequest.ViewDescriptor(new EObjectAdapter((EObject) it.next()), Node.class, null, getDiagramPreferencesHint()));
-				}
-				return createShortcutsCommand(dropRequest, viewDescriptors);
-			}
-
-			private Command createShortcutsCommand(DropObjectsRequest dropRequest, List viewDescriptors) {
-				Command command = createViewsAndArrangeCommand(dropRequest, viewDescriptors);
-				if (command != null) {
-					return command.chain(new ICommandProxy(new MindmapCreateShortcutDecorationsCommand(getEditingDomain(), (View) getModel(), viewDescriptors)));
-				}
-				return null;
-			}
-		});
+					private Command createShortcutsCommand(
+							DropObjectsRequest dropRequest, List viewDescriptors) {
+						Command command = createViewsAndArrangeCommand(
+								dropRequest, viewDescriptors);
+						if (command != null) {
+							return command
+									.chain(new ICommandProxy(
+											new MindmapCreateShortcutDecorationsCommand(
+													getEditingDomain(),
+													(View) getModel(),
+													viewDescriptors)));
+						}
+						return null;
+					}
+				});
+		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.POPUPBAR_ROLE);
 	}
 }

@@ -31,7 +31,7 @@ public class RelationshipEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 3002;
+	public static final int VISUAL_ID = 4002;
 
 	/**
 	 * @generated
@@ -45,7 +45,8 @@ public class RelationshipEditPart extends ConnectionNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new RelationshipItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
+				new RelationshipItemSemanticEditPolicy());
 	}
 
 	/**
@@ -70,11 +71,6 @@ public class RelationshipEditPart extends ConnectionNodeEditPart {
 		 * @generated
 		 */
 		public DashedLineOpenArrow() {
-			this.setFill(true);
-			this.setFillXOR(false);
-			this.setOutline(true);
-			this.setOutlineXOR(false);
-			this.setLineWidth(1);
 			this.setLineStyle(Graphics.LINE_DASH);
 
 			setTargetDecoration(createTargetDecoration());
@@ -85,12 +81,6 @@ public class RelationshipEditPart extends ConnectionNodeEditPart {
 		 */
 		private RotatableDecoration createTargetDecoration() {
 			PolylineDecoration df = new PolylineDecoration();
-			df.setFill(true);
-			df.setFillXOR(false);
-			df.setOutline(true);
-			df.setOutlineXOR(false);
-			df.setLineWidth(1);
-			df.setLineStyle(Graphics.LINE_SOLID);
 			return df;
 		}
 

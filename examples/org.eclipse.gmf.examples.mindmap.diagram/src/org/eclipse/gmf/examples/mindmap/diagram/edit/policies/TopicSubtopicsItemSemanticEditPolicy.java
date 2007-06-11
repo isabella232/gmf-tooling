@@ -22,12 +22,13 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest;
 /**
  * @generated
  */
-public class TopicSubtopicsItemSemanticEditPolicy extends MindmapBaseItemSemanticEditPolicy {
+public class TopicSubtopicsItemSemanticEditPolicy extends
+		MindmapBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
 	 */
 	protected Command getDestroyReferenceCommand(DestroyReferenceRequest req) {
-		return getMSLWrapper(new DestroyReferenceCommand(req));
+		return getGEFWrapper(new DestroyReferenceCommand(req));
 	}
 }

@@ -26,7 +26,8 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class MindmapReorientConnectionViewCommand extends AbstractTransactionalCommand {
+public class MindmapReorientConnectionViewCommand extends
+		AbstractTransactionalCommand {
 
 	/**
 	 * @generated
@@ -36,7 +37,8 @@ public class MindmapReorientConnectionViewCommand extends AbstractTransactionalC
 	/**
 	 * @generated
 	 */
-	public MindmapReorientConnectionViewCommand(TransactionalEditingDomain editingDomain, String label) {
+	public MindmapReorientConnectionViewCommand(
+			TransactionalEditingDomain editingDomain, String label) {
 		super(editingDomain, label, null);
 	}
 
@@ -68,7 +70,8 @@ public class MindmapReorientConnectionViewCommand extends AbstractTransactionalC
 	/**
 	 * @generated
 	 */
-	protected CommandResult doExecuteWithResult(IProgressMonitor progressMonitor, IAdaptable info) {
+	protected CommandResult doExecuteWithResult(
+			IProgressMonitor progressMonitor, IAdaptable info) {
 		assert null != edgeAdaptor : "Null child in MindmapReorientConnectionViewCommand"; //$NON-NLS-1$
 		Edge edge = (Edge) getEdgeAdaptor().getAdapter(Edge.class);
 		assert null != edge : "Null edge in MindmapReorientConnectionViewCommand"; //$NON-NLS-1$

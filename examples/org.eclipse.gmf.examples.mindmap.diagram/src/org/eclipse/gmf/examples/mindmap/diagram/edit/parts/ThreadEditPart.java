@@ -49,7 +49,7 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2001;
+	public static final int VISUAL_ID = 3001;
 
 	/**
 	 * @generated
@@ -72,27 +72,36 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
-		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy() {
-
-			public Command getCommand(Request request) {
-				if (understandsRequest(request)) {
-					if (request instanceof CreateViewAndElementRequest) {
-						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
-						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
-						if (type == MindmapElementTypes.ThreadItem_2002) {
-							EditPart compartmentEditPart = getChildBySemanticHint(MindmapVisualIDRegistry.getType(ThreadThreadItemCompartmentEditPart.VISUAL_ID));
-							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE,
+				new CreationEditPolicy() {
+					public Command getCommand(Request request) {
+						if (understandsRequest(request)) {
+							if (request instanceof CreateViewAndElementRequest) {
+								CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request)
+										.getViewAndElementDescriptor()
+										.getCreateElementRequestAdapter();
+								IElementType type = (IElementType) adapter
+										.getAdapter(IElementType.class);
+								if (type == MindmapElementTypes.ThreadItem_3002) {
+									EditPart compartmentEditPart = getChildBySemanticHint(MindmapVisualIDRegistry
+											.getType(ThreadThreadItemCompartmentEditPart.VISUAL_ID));
+									return compartmentEditPart == null ? null
+											: compartmentEditPart
+													.getCommand(request);
+								}
+							}
+							return super.getCommand(request);
 						}
+						return null;
 					}
-					return super.getCommand(request);
-				}
-				return null;
-			}
-		});
-		super.createDefaultEditPolicies();
+				});
 
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ThreadItemSemanticEditPolicy());
+		super.createDefaultEditPolicies();
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
+				new ThreadItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
+		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 
 	/**
@@ -102,7 +111,8 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 		LayoutEditPolicy lep = new LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
-				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+				EditPolicy result = child
+						.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 				if (result == null) {
 					result = new NonResizableEditPolicy();
 				}
@@ -140,7 +150,8 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof ThreadSubjectEditPart) {
-			((ThreadSubjectEditPart) childEditPart).setLabel(getPrimaryShape().getFigureStickyNoteNameFigure());
+			((ThreadSubjectEditPart) childEditPart).setLabel(getPrimaryShape()
+					.getFigureStickyNoteNameFigure());
 			return true;
 		}
 		return false;
@@ -186,8 +197,8 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
-
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode()
+				.DPtoLP(40), getMapMode().DPtoLP(40));
 		return result;
 	}
 
@@ -237,7 +248,8 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(MindmapVisualIDRegistry.getType(ThreadSubjectEditPart.VISUAL_ID));
+		return getChildBySemanticHint(MindmapVisualIDRegistry
+				.getType(ThreadSubjectEditPart.VISUAL_ID));
 	}
 
 	/**
@@ -248,14 +260,13 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
+		private WrapLabel fFigureStickyNoteNameFigure;
+
+		/**
+		 * @generated
+		 */
 		public StickyNoteFigure() {
-			this.setFill(true);
-			this.setFillXOR(false);
-			this.setOutline(true);
-			this.setOutlineXOR(false);
-			this.setLineWidth(1);
-			this.setLineStyle(Graphics.LINE_SOLID);
-			this.setBackgroundColor(STICKYNOTEFIGURE_BACK);
+			this.setBackgroundColor(THIS_BACK);
 			createContents();
 		}
 
@@ -268,27 +279,15 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 			stickyNoteNameFigure0.setText("<...>");
 
 			this.add(stickyNoteNameFigure0);
-			setFigureStickyNoteNameFigure(stickyNoteNameFigure0);
+			fFigureStickyNoteNameFigure = stickyNoteNameFigure0;
 
 		}
-
-		/**
-		 * @generated
-		 */
-		private WrapLabel fStickyNoteNameFigure;
 
 		/**
 		 * @generated
 		 */
 		public WrapLabel getFigureStickyNoteNameFigure() {
-			return fStickyNoteNameFigure;
-		}
-
-		/**
-		 * @generated
-		 */
-		private void setFigureStickyNoteNameFigure(WrapLabel fig) {
-			fStickyNoteNameFigure = fig;
+			return fFigureStickyNoteNameFigure;
 		}
 
 		/**
@@ -315,6 +314,6 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	static final Color STICKYNOTEFIGURE_BACK = new Color(null, 250, 250, 190);
+	static final Color THIS_BACK = new Color(null, 250, 250, 190);
 
 }

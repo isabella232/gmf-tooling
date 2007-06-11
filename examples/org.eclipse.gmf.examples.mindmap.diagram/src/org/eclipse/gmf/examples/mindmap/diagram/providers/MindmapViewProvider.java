@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship2EditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship3EditPart;
@@ -34,6 +35,7 @@ import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadSubjectEditPart
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadThreadItemCompartmentEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicNameEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicSubtopicsEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicThreadCompartmentEditPart;
 
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
@@ -64,9 +66,11 @@ public class MindmapViewProvider extends AbstractViewProvider {
 	/**
 	 * @generated
 	 */
-	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
+	protected Class getDiagramViewClass(IAdaptable semanticAdapter,
+			String diagramKind) {
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		if (MapEditPart.MODEL_ID.equals(diagramKind) && MindmapVisualIDRegistry.getDiagramVisualID(semanticElement) != -1) {
+		if (MapEditPart.MODEL_ID.equals(diagramKind)
+				&& MindmapVisualIDRegistry.getDiagramVisualID(semanticElement) != -1) {
 			return MapViewFactory.class;
 		}
 		return null;
@@ -75,18 +79,57 @@ public class MindmapViewProvider extends AbstractViewProvider {
 	/**
 	 * @generated
 	 */
-	protected Class getNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
+	protected Class getNodeViewClass(IAdaptable semanticAdapter,
+			View containerView, String semanticHint) {
 		if (containerView == null) {
 			return null;
 		}
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (elementType != null && !MindmapElementTypes.isKnownElementType(elementType)) {
+		EObject domainElement = getSemanticElement(semanticAdapter);
+
+		int visualID;
+		if (semanticHint == null) {
+			if (elementType != null || domainElement == null) {
+				return null;
+			}
+			visualID = MindmapVisualIDRegistry.getNodeVisualID(containerView,
+					domainElement);
+		} else {
+			visualID = MindmapVisualIDRegistry.getVisualID(semanticHint);
+			if (elementType != null) {
+				if (!MindmapElementTypes.isKnownElementType(elementType)
+						|| false == elementType instanceof IHintedType) {
+					return null;
+				}
+				String elementTypeHint = ((IHintedType) elementType)
+						.getSemanticHint();
+				if (!semanticHint.equals(elementTypeHint)) {
+					return null;
+				}
+				if (domainElement != null
+						&& visualID != MindmapVisualIDRegistry.getNodeVisualID(
+								containerView, domainElement)) {
+					return null;
+				}
+			} else {
+				switch (visualID) {
+				case MapEditPart.VISUAL_ID:
+				case TopicEditPart.VISUAL_ID:
+				case ResourceEditPart.VISUAL_ID:
+				case ThreadEditPart.VISUAL_ID:
+				case ThreadItemEditPart.VISUAL_ID:
+				case TopicSubtopicsEditPart.VISUAL_ID:
+				case RelationshipEditPart.VISUAL_ID:
+				case Relationship2EditPart.VISUAL_ID:
+				case Relationship3EditPart.VISUAL_ID:
+					return null;
+				}
+			}
+		}
+		if (!MindmapVisualIDRegistry.canCreateNode(containerView, visualID)) {
 			return null;
 		}
-		EClass semanticType = getSemanticEClass(semanticAdapter);
-		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int nodeVID = MindmapVisualIDRegistry.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
-		switch (nodeVID) {
+		switch (visualID) {
 		case TopicEditPart.VISUAL_ID:
 			return TopicViewFactory.class;
 		case TopicNameEditPart.VISUAL_ID:
@@ -118,21 +161,33 @@ public class MindmapViewProvider extends AbstractViewProvider {
 	/**
 	 * @generated
 	 */
-	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
+	protected Class getEdgeViewClass(IAdaptable semanticAdapter,
+			View containerView, String semanticHint) {
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (elementType != null && !MindmapElementTypes.isKnownElementType(elementType)) {
+		if (elementType == null) {
 			return null;
 		}
-		if (MindmapElementTypes.TopicSubtopics_3001.equals(elementType)) {
+		if (!MindmapElementTypes.isKnownElementType(elementType)
+				|| false == elementType instanceof IHintedType) {
+			return null;
+		}
+		String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
+		if (elementTypeHint == null) {
+			return null;
+		}
+		if (semanticHint != null && !semanticHint.equals(elementTypeHint)) {
+			return null;
+		}
+		int visualID = MindmapVisualIDRegistry.getVisualID(elementTypeHint);
+		EObject domainElement = getSemanticElement(semanticAdapter);
+		if (domainElement != null
+				&& visualID != MindmapVisualIDRegistry
+						.getLinkWithClassVisualID(domainElement)) {
+			return null;
+		}
+		switch (visualID) {
+		case TopicSubtopicsEditPart.VISUAL_ID:
 			return TopicSubtopicsViewFactory.class;
-		}
-		EClass semanticType = getSemanticEClass(semanticAdapter);
-		if (semanticType == null) {
-			return null;
-		}
-		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int linkVID = MindmapVisualIDRegistry.getLinkWithClassVisualID(semanticElement, semanticType);
-		switch (linkVID) {
 		case RelationshipEditPart.VISUAL_ID:
 			return RelationshipViewFactory.class;
 		case Relationship2EditPart.VISUAL_ID:
@@ -140,7 +195,7 @@ public class MindmapViewProvider extends AbstractViewProvider {
 		case Relationship3EditPart.VISUAL_ID:
 			return Relationship3ViewFactory.class;
 		}
-		return getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);
+		return null;
 	}
 
 	/**
@@ -151,14 +206,6 @@ public class MindmapViewProvider extends AbstractViewProvider {
 			return null;
 		}
 		return (IElementType) semanticAdapter.getAdapter(IElementType.class);
-	}
-
-	/**
-	 * @generated
-	 */
-	private Class getUnrecognizedConnectorViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-		// Handle unrecognized child node classes here
-		return null;
 	}
 
 }

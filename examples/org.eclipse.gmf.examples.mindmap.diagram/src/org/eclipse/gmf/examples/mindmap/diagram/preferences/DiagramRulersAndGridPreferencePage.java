@@ -25,6 +25,7 @@ public class DiagramRulersAndGridPreferencePage extends RulerGridPreferencePage 
 	 * @generated
 	 */
 	public DiagramRulersAndGridPreferencePage() {
-		setPreferenceStore(MindmapDiagramEditorPlugin.getInstance().getPreferenceStore());
+		setPreferenceStore(MindmapDiagramEditorPlugin.getInstance()
+				.getPreferenceStore());
 	}
 }

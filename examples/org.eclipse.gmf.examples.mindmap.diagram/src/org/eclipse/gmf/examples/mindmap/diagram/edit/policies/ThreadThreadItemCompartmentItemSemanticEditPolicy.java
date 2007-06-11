@@ -26,17 +26,19 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 /**
  * @generated
  */
-public class ThreadThreadItemCompartmentItemSemanticEditPolicy extends MindmapBaseItemSemanticEditPolicy {
+public class ThreadThreadItemCompartmentItemSemanticEditPolicy extends
+		MindmapBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (MindmapElementTypes.ThreadItem_2002 == req.getElementType()) {
+		if (MindmapElementTypes.ThreadItem_3002 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(MindmapPackage.eINSTANCE.getThread_Items());
+				req.setContainmentFeature(MindmapPackage.eINSTANCE
+						.getThread_Items());
 			}
-			return getMSLWrapper(new ThreadItemCreateCommand(req));
+			return getGEFWrapper(new ThreadItemCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

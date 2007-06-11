@@ -17,6 +17,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.TopicThreadCompartmentCanonicalEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.TopicThreadCompartmentItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.mindmap.diagram.part.Messages;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
@@ -34,7 +35,7 @@ public class TopicThreadCompartmentEditPart extends ShapeCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 5001;
+	public static final int VISUAL_ID = 7001;
 
 	/**
 	 * @generated
@@ -47,14 +48,15 @@ public class TopicThreadCompartmentEditPart extends ShapeCompartmentEditPart {
 	 * @generated
 	 */
 	public String getCompartmentName() {
-		return "ThreadCompartment";
+		return Messages.TopicThreadCompartmentEditPart_title;
 	}
 
 	/**
 	 * @generated
 	 */
 	public IFigure createFigure() {
-		ResizableCompartmentFigure result = (ResizableCompartmentFigure) super.createFigure();
+		ResizableCompartmentFigure result = (ResizableCompartmentFigure) super
+				.createFigure();
 		result.setTitleVisibility(false);
 		return result;
 	}
@@ -64,11 +66,16 @@ public class TopicThreadCompartmentEditPart extends ShapeCompartmentEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new ResizableCompartmentEditPolicy());
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new TopicThreadCompartmentItemSemanticEditPolicy());
-		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
-		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new TopicThreadCompartmentCanonicalEditPolicy());
+		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE,
+				new ResizableCompartmentEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
+				new TopicThreadCompartmentItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE,
+				new CreationEditPolicy());
+		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE,
+				new DragDropEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
+				new TopicThreadCompartmentCanonicalEditPolicy());
 	}
 
 	/**

@@ -28,7 +28,7 @@ public class TopicSubtopicsEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 3001;
+	public static final int VISUAL_ID = 4001;
 
 	/**
 	 * @generated
@@ -42,7 +42,8 @@ public class TopicSubtopicsEditPart extends ConnectionNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new TopicSubtopicsItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
+				new TopicSubtopicsItemSemanticEditPolicy());
 	}
 
 	/**
