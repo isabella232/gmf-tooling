@@ -67,3 +67,7 @@ JAVA org.eclipse.emf.codegen.util.CodeGenUtil.validJavaIdentifier(java.lang.Stri
 String i18nKeyForGroup(String groupName, gmfgen::GenCommonBase contextElement) :
 "NavigatorGroupName."+ (null != contextElement ? contextElement.getUniqueIdentifier() : "File") + "." + asValidJavaIdentifier(groupName)
 ;
+
+String i18nKeyForOpenDiagramActionName() :
+"NavigatorActionProvider.OpenDiagramActionName"
+;

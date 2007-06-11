@@ -41,7 +41,6 @@ import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGene
 import org.eclipse.gmf.codegen.templates.helpers.BaseEditHelperGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperAdviceGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperGenerator;
-import org.eclipse.gmf.codegen.templates.navigator.NavigatorActionProviderGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorSorterGenerator;
 import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramItemSemanticEditPolicyGenerator;
@@ -147,7 +146,6 @@ public class CodegenEmitters {
 		put(tr, "/editor/ElementChooser.javajet", ElementChooserGenerator.class);
 		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
 		put(tr, "/navigator/NavigatorSorter.javajet", NavigatorSorterGenerator.class);
-		put(tr, "/navigator/NavigatorActionProvider.javajet", NavigatorActionProviderGenerator.class);
 		put(tr, "/editor/Plugin.javajet", PluginGenerator.class);
 		put(tr, "/editor/.optionsjet", OptionsFileGenerator.class);
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
@@ -640,8 +638,8 @@ public class CodegenEmitters {
 		return retrieve(NavigatorSorterGenerator.class);
 	}
 	
-	public TextEmitter getNavigatorActionProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(NavigatorActionProviderGenerator.class);
+	public TextEmitter getNavigatorActionProviderEmitter() {
+		return newXpandEmitter("xpt::navigator::NavigatorActionProvider::NavigatorActionProvider"); //$NON-NLS-1$
 	}
 	
 	public TextEmitter getAbstractNavigatorItemEmitter() {

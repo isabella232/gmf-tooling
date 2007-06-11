@@ -47,6 +47,7 @@ public class «getAccessorName()» extends org.eclipse.osgi.util.NLS {
     «EXPAND xpt::diagram::editparts::CompartmentEditPart::i18nAccessors FOR diagram-»
     «EXPAND xpt::diagram::editpolicies::OpenDiagram::i18nAccessors FOR diagram-»
     «EXPAND xpt::navigator::NavigatorContentProvider::i18nAccessors FOR navigator-»
+    «EXPAND xpt::navigator::NavigatorActionProvider::i18nAccessors FOR navigator-»
 «ENDDEFINE»
 
 «DEFINE Values FOR gmfgen::GenEditorGenerator»
@@ -61,6 +62,7 @@ public class «getAccessorName()» extends org.eclipse.osgi.util.NLS {
 «EXPAND xpt::diagram::editparts::CompartmentEditPart::i18nValues FOR diagram-»
 «EXPAND xpt::diagram::editpolicies::OpenDiagram::i18nValues FOR diagram-»
 «EXPAND xpt::navigator::NavigatorContentProvider::i18nValues FOR navigator-»
+«EXPAND xpt::navigator::NavigatorActionProvider::i18nValues FOR navigator-»
 «ENDDEFINE»
 
 «DEFINE accessorField(String key) FOR Object»

@@ -887,7 +887,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(myEmitters.getURIEditorInputTesterEmitter(), myEditorGen.getNavigator().getUriInputTesterQualifiedClassName(), myEditorGen.getNavigator());
 	}
 	
-	private void generateNavigatorLabelProvider() throws InterruptedException, UnexpectedBehaviourException {
+	private void generateNavigatorLabelProvider() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getNavigatorLabelProviderEmitter(), myEditorGen.getNavigator().getLabelProviderQualifiedClassName(), myEditorGen.getNavigator());
 	}
 	
@@ -904,13 +904,8 @@ public class Generator extends GeneratorBase implements Runnable {
 			);
 	}
 	
-	private void generateNavigatorActionProvider() throws InterruptedException, UnexpectedBehaviourException {
-		internalGenerateJavaClass(
-				myEmitters.getNavigatorActionProviderEmitter(),
-				myEditorGen.getNavigator().getPackageName(),
-				myEditorGen.getNavigator().getActionProviderClassName(), 
-				myEditorGen.getNavigator()
-			);
+	private void generateNavigatorActionProvider() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getNavigatorActionProviderEmitter(), myEditorGen.getNavigator().getActionProviderQualifiedClassName(), myEditorGen.getNavigator());
 	}
 	
 	private void generateAbstractNavigatorItem() throws InterruptedException {
