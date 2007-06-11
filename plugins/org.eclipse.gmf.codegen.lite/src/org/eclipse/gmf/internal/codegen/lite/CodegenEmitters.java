@@ -35,7 +35,6 @@ import org.eclipse.gmf.codegen.templates.lite.policies.OpenDiagramPolicyGenerato
 import org.eclipse.gmf.codegen.templates.lite.providers.DomainElementInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.MetricProviderGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.ValidationProviderGenerator;
-import org.eclipse.gmf.codegen.templates.navigator.NavigatorSorterGenerator;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.codegen.dispatch.CachingEmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
@@ -114,7 +113,6 @@ public class CodegenEmitters {
 		put(tr, "/policies/OpenDiagramEditPolicy.javajet", OpenDiagramPolicyGenerator.class);
 
 		put(tr, "/navigator/NavigatorLabelProvider.javajet", NavigatorLabelProviderGenerator.class);
-		put(tr, "/navigator/NavigatorSorter.javajet", NavigatorSorterGenerator.class);
 		put(tr, "/navigator/NavigatorActionProvider.javajet", NavigatorActionProviderGenerator.class);
 
 		return tr;
@@ -392,7 +390,7 @@ public class CodegenEmitters {
 	}
 	
 	public TextEmitter getNavigatorSorterEmitter() throws UnexpectedBehaviourException {
-		return retrieve(NavigatorSorterGenerator.class);
+		return retrieveXpand("xpt::navigator::NavigatorSorter::NavigatorSorter");
 	}
 	
 	public TextEmitter getNavigatorActionProviderEmitter() throws UnexpectedBehaviourException {
@@ -412,7 +410,7 @@ public class CodegenEmitters {
 	}
 
 	public BinaryEmitter getGroupIconEmitter() throws UnexpectedBehaviourException {
-		return newGIFEmitter("/navigator/navigatorGroup.gif"); //$NON-NLS-1$
+		return newGIFEmitter("/xpt/navigator/navigatorGroup.gif"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getPropertySheetLabelProviderEmitter() throws UnexpectedBehaviourException {
