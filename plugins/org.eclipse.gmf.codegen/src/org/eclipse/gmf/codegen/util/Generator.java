@@ -804,13 +804,8 @@ public class Generator extends GeneratorBase implements Runnable {
 			);
 	}
 	
-	private void generateLoadResourceAction() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-				myEmitters.getLoadResourceActionEmitter(),
-				myEditorGen.getEditor().getPackageName(), 
-				myDiagram.getLoadResourceActionClassName(),
-				myDiagram
-			);
+	private void generateLoadResourceAction() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getLoadResourceActionEmitter(), myDiagram.getLoadResourceActionQualifiedClassName(), myDiagram);
 	}
 	
 	private void generateElementChooser() throws UnexpectedBehaviourException, InterruptedException {
