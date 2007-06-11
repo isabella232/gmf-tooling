@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ResourceImpl.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: ResourceImpl.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -44,13 +44,6 @@ import org.eclipse.gmf.examples.mindmap.Topic;
  */
 public class ResourceImpl extends EObjectImpl implements Resource {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = "";
-
-	/**
 	 * The cached value of the '{@link #getComments() <em>Comments</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -58,7 +51,7 @@ public class ResourceImpl extends EObjectImpl implements Resource {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList comments = null;
+	protected EList<org.eclipse.gmf.examples.mindmap.Thread> comments;
 
 	/**
 	 * The default value of the '{@link #getEmail() <em>Email</em>}' attribute.
@@ -108,7 +101,7 @@ public class ResourceImpl extends EObjectImpl implements Resource {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList topics = null;
+	protected EList<Topic> topics;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -124,6 +117,7 @@ public class ResourceImpl extends EObjectImpl implements Resource {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return MindmapPackage.Literals.RESOURCE;
 	}
@@ -133,9 +127,9 @@ public class ResourceImpl extends EObjectImpl implements Resource {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getComments() {
+	public EList<org.eclipse.gmf.examples.mindmap.Thread> getComments() {
 		if (comments == null) {
-			comments = new EObjectWithInverseResolvingEList(org.eclipse.gmf.examples.mindmap.Thread.class, this, MindmapPackage.RESOURCE__COMMENTS, MindmapPackage.THREAD__AUTHOR);
+			comments = new EObjectWithInverseResolvingEList<org.eclipse.gmf.examples.mindmap.Thread>(org.eclipse.gmf.examples.mindmap.Thread.class, this, MindmapPackage.RESOURCE__COMMENTS, MindmapPackage.THREAD__AUTHOR);
 		}
 		return comments;
 	}
@@ -187,9 +181,9 @@ public class ResourceImpl extends EObjectImpl implements Resource {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getTopics() {
+	public EList<Topic> getTopics() {
 		if (topics == null) {
-			topics = new EObjectWithInverseResolvingEList.ManyInverse(Topic.class, this, MindmapPackage.RESOURCE__TOPICS, MindmapPackage.TOPIC__RESOURCES);
+			topics = new EObjectWithInverseResolvingEList.ManyInverse<Topic>(Topic.class, this, MindmapPackage.RESOURCE__TOPICS, MindmapPackage.TOPIC__RESOURCES);
 		}
 		return topics;
 	}
@@ -199,12 +193,14 @@ public class ResourceImpl extends EObjectImpl implements Resource {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case MindmapPackage.RESOURCE__COMMENTS:
-				return ((InternalEList)getComments()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getComments()).basicAdd(otherEnd, msgs);
 			case MindmapPackage.RESOURCE__TOPICS:
-				return ((InternalEList)getTopics()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTopics()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -214,12 +210,13 @@ public class ResourceImpl extends EObjectImpl implements Resource {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case MindmapPackage.RESOURCE__COMMENTS:
-				return ((InternalEList)getComments()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getComments()).basicRemove(otherEnd, msgs);
 			case MindmapPackage.RESOURCE__TOPICS:
-				return ((InternalEList)getTopics()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getTopics()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -229,6 +226,7 @@ public class ResourceImpl extends EObjectImpl implements Resource {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case MindmapPackage.RESOURCE__COMMENTS:
@@ -248,11 +246,13 @@ public class ResourceImpl extends EObjectImpl implements Resource {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case MindmapPackage.RESOURCE__COMMENTS:
 				getComments().clear();
-				getComments().addAll((Collection)newValue);
+				getComments().addAll((Collection<? extends org.eclipse.gmf.examples.mindmap.Thread>)newValue);
 				return;
 			case MindmapPackage.RESOURCE__EMAIL:
 				setEmail((String)newValue);
@@ -262,7 +262,7 @@ public class ResourceImpl extends EObjectImpl implements Resource {
 				return;
 			case MindmapPackage.RESOURCE__TOPICS:
 				getTopics().clear();
-				getTopics().addAll((Collection)newValue);
+				getTopics().addAll((Collection<? extends Topic>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -273,6 +273,7 @@ public class ResourceImpl extends EObjectImpl implements Resource {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case MindmapPackage.RESOURCE__COMMENTS:
@@ -296,6 +297,7 @@ public class ResourceImpl extends EObjectImpl implements Resource {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case MindmapPackage.RESOURCE__COMMENTS:
@@ -315,6 +317,7 @@ public class ResourceImpl extends EObjectImpl implements Resource {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

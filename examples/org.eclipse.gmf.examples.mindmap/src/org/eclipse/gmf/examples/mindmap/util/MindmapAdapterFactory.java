@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapAdapterFactory.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: MindmapAdapterFactory.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.util;
 
@@ -31,13 +31,6 @@ import org.eclipse.gmf.examples.mindmap.Topic;
  */
 public class MindmapAdapterFactory extends AdapterFactoryImpl {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = "";
-
-	/**
 	 * The cached model package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -65,6 +58,7 @@ public class MindmapAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -81,30 +75,38 @@ public class MindmapAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected MindmapSwitch modelSwitch =
-		new MindmapSwitch() {
-			public Object caseDocumentRoot(DocumentRoot object) {
+	protected MindmapSwitch<Adapter> modelSwitch =
+		new MindmapSwitch<Adapter>() {
+			@Override
+			public Adapter caseDocumentRoot(DocumentRoot object) {
 				return createDocumentRootAdapter();
 			}
-			public Object caseMap(Map object) {
+			@Override
+			public Adapter caseMap(Map object) {
 				return createMapAdapter();
 			}
-			public Object caseRelationship(Relationship object) {
+			@Override
+			public Adapter caseRelationship(Relationship object) {
 				return createRelationshipAdapter();
 			}
-			public Object caseResource(Resource object) {
+			@Override
+			public Adapter caseResource(Resource object) {
 				return createResourceAdapter();
 			}
-			public Object caseThread(org.eclipse.gmf.examples.mindmap.Thread object) {
+			@Override
+			public Adapter caseThread(org.eclipse.gmf.examples.mindmap.Thread object) {
 				return createThreadAdapter();
 			}
-			public Object caseThreadItem(ThreadItem object) {
+			@Override
+			public Adapter caseThreadItem(ThreadItem object) {
 				return createThreadItemAdapter();
 			}
-			public Object caseTopic(Topic object) {
+			@Override
+			public Adapter caseTopic(Topic object) {
 				return createTopicAdapter();
 			}
-			public Object defaultCase(EObject object) {
+			@Override
+			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
 		};
@@ -117,8 +119,9 @@ public class MindmapAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
-		return (Adapter)modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject)target);
 	}
 
 

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: RelationshipType.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: RelationshipType.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,14 +21,35 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class RelationshipType extends AbstractEnumerator {
+public enum RelationshipType implements Enumerator
+{
 	/**
+	 * The '<em><b>DEPENDENCY</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @see #DEPENDENCY_VALUE
 	 * @generated
+	 * @ordered
 	 */
-	public static final String copyright = "";
-
+	DEPENDENCY(0, "DEPENDENCY", "DEPENDENCY"),
+	/**
+	 * The '<em><b>INCLUDES</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #INCLUDES_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	INCLUDES(1, "INCLUDES", "INCLUDES"),
+	/**
+	 * The '<em><b>EXTENDS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #EXTENDS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	EXTENDS(2, "EXTENDS", "EXTENDS");
 	/**
 	 * The '<em><b>DEPENDENCY</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -37,12 +58,12 @@ public final class RelationshipType extends AbstractEnumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #DEPENDENCY_LITERAL
+	 * @see #DEPENDENCY
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DEPENDENCY = 0;
+	public static final int DEPENDENCY_VALUE = 0;
 
 	/**
 	 * The '<em><b>INCLUDES</b></em>' literal value.
@@ -52,12 +73,12 @@ public final class RelationshipType extends AbstractEnumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #INCLUDES_LITERAL
+	 * @see #INCLUDES
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int INCLUDES = 1;
+	public static final int INCLUDES_VALUE = 1;
 
 	/**
 	 * The '<em><b>EXTENDS</b></em>' literal value.
@@ -67,42 +88,12 @@ public final class RelationshipType extends AbstractEnumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #EXTENDS_LITERAL
+	 * @see #EXTENDS
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int EXTENDS = 2;
-
-	/**
-	 * The '<em><b>DEPENDENCY</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DEPENDENCY
-	 * @generated
-	 * @ordered
-	 */
-	public static final RelationshipType DEPENDENCY_LITERAL = new RelationshipType(DEPENDENCY, "DEPENDENCY", "DEPENDENCY");
-
-	/**
-	 * The '<em><b>INCLUDES</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #INCLUDES
-	 * @generated
-	 * @ordered
-	 */
-	public static final RelationshipType INCLUDES_LITERAL = new RelationshipType(INCLUDES, "INCLUDES", "INCLUDES");
-
-	/**
-	 * The '<em><b>EXTENDS</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #EXTENDS
-	 * @generated
-	 * @ordered
-	 */
-	public static final RelationshipType EXTENDS_LITERAL = new RelationshipType(EXTENDS, "EXTENDS", "EXTENDS");
+	public static final int EXTENDS_VALUE = 2;
 
 	/**
 	 * An array of all the '<em><b>Relationship Type</b></em>' enumerators.
@@ -112,9 +103,9 @@ public final class RelationshipType extends AbstractEnumerator {
 	 */
 	private static final RelationshipType[] VALUES_ARRAY =
 		new RelationshipType[] {
-			DEPENDENCY_LITERAL,
-			INCLUDES_LITERAL,
-			EXTENDS_LITERAL,
+			DEPENDENCY,
+			INCLUDES,
+			EXTENDS,
 		};
 
 	/**
@@ -123,7 +114,7 @@ public final class RelationshipType extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<RelationshipType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Relationship Type</b></em>' literal with the specified literal value.
@@ -165,12 +156,33 @@ public final class RelationshipType extends AbstractEnumerator {
 	 */
 	public static RelationshipType get(int value) {
 		switch (value) {
-			case DEPENDENCY: return DEPENDENCY_LITERAL;
-			case INCLUDES: return INCLUDES_LITERAL;
-			case EXTENDS: return EXTENDS_LITERAL;
+			case DEPENDENCY_VALUE: return DEPENDENCY;
+			case INCLUDES_VALUE: return INCLUDES;
+			case EXTENDS_VALUE: return EXTENDS;
 		}
 		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -179,7 +191,46 @@ public final class RelationshipType extends AbstractEnumerator {
 	 * @generated
 	 */
 	private RelationshipType(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //RelationshipType
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

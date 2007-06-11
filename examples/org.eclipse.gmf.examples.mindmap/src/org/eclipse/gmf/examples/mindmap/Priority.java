@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Priority.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: Priority.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,14 +21,62 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class Priority extends AbstractEnumerator {
+public enum Priority implements Enumerator
+{
 	/**
+	 * The '<em><b>ZERO</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @see #ZERO_VALUE
 	 * @generated
+	 * @ordered
 	 */
-	public static final String copyright = "";
-
+	ZERO(0, "ZERO", "ZERO"),
+	/**
+	 * The '<em><b>ONE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ONE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ONE(1, "ONE", "ONE"),
+	/**
+	 * The '<em><b>TWO</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TWO_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	TWO(2, "TWO", "TWO"),
+	/**
+	 * The '<em><b>THREE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #THREE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	THREE(3, "THREE", "THREE"),
+	/**
+	 * The '<em><b>FOUR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #FOUR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	FOUR(4, "FOUR", "FOUR"),
+	/**
+	 * The '<em><b>FIVE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #FIVE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	FIVE(5, "FIVE", "FIVE");
 	/**
 	 * The '<em><b>ZERO</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -37,12 +85,12 @@ public final class Priority extends AbstractEnumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #ZERO_LITERAL
+	 * @see #ZERO
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int ZERO = 0;
+	public static final int ZERO_VALUE = 0;
 
 	/**
 	 * The '<em><b>ONE</b></em>' literal value.
@@ -52,12 +100,12 @@ public final class Priority extends AbstractEnumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #ONE_LITERAL
+	 * @see #ONE
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int ONE = 1;
+	public static final int ONE_VALUE = 1;
 
 	/**
 	 * The '<em><b>TWO</b></em>' literal value.
@@ -67,12 +115,12 @@ public final class Priority extends AbstractEnumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #TWO_LITERAL
+	 * @see #TWO
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int TWO = 2;
+	public static final int TWO_VALUE = 2;
 
 	/**
 	 * The '<em><b>THREE</b></em>' literal value.
@@ -82,12 +130,12 @@ public final class Priority extends AbstractEnumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #THREE_LITERAL
+	 * @see #THREE
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int THREE = 3;
+	public static final int THREE_VALUE = 3;
 
 	/**
 	 * The '<em><b>FOUR</b></em>' literal value.
@@ -97,12 +145,12 @@ public final class Priority extends AbstractEnumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #FOUR_LITERAL
+	 * @see #FOUR
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int FOUR = 4;
+	public static final int FOUR_VALUE = 4;
 
 	/**
 	 * The '<em><b>FIVE</b></em>' literal value.
@@ -112,72 +160,12 @@ public final class Priority extends AbstractEnumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #FIVE_LITERAL
+	 * @see #FIVE
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int FIVE = 5;
-
-	/**
-	 * The '<em><b>ZERO</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ZERO
-	 * @generated
-	 * @ordered
-	 */
-	public static final Priority ZERO_LITERAL = new Priority(ZERO, "ZERO", "ZERO");
-
-	/**
-	 * The '<em><b>ONE</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ONE
-	 * @generated
-	 * @ordered
-	 */
-	public static final Priority ONE_LITERAL = new Priority(ONE, "ONE", "ONE");
-
-	/**
-	 * The '<em><b>TWO</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #TWO
-	 * @generated
-	 * @ordered
-	 */
-	public static final Priority TWO_LITERAL = new Priority(TWO, "TWO", "TWO");
-
-	/**
-	 * The '<em><b>THREE</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #THREE
-	 * @generated
-	 * @ordered
-	 */
-	public static final Priority THREE_LITERAL = new Priority(THREE, "THREE", "THREE");
-
-	/**
-	 * The '<em><b>FOUR</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #FOUR
-	 * @generated
-	 * @ordered
-	 */
-	public static final Priority FOUR_LITERAL = new Priority(FOUR, "FOUR", "FOUR");
-
-	/**
-	 * The '<em><b>FIVE</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #FIVE
-	 * @generated
-	 * @ordered
-	 */
-	public static final Priority FIVE_LITERAL = new Priority(FIVE, "FIVE", "FIVE");
+	public static final int FIVE_VALUE = 5;
 
 	/**
 	 * An array of all the '<em><b>Priority</b></em>' enumerators.
@@ -187,12 +175,12 @@ public final class Priority extends AbstractEnumerator {
 	 */
 	private static final Priority[] VALUES_ARRAY =
 		new Priority[] {
-			ZERO_LITERAL,
-			ONE_LITERAL,
-			TWO_LITERAL,
-			THREE_LITERAL,
-			FOUR_LITERAL,
-			FIVE_LITERAL,
+			ZERO,
+			ONE,
+			TWO,
+			THREE,
+			FOUR,
+			FIVE,
 		};
 
 	/**
@@ -201,7 +189,7 @@ public final class Priority extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<Priority> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Priority</b></em>' literal with the specified literal value.
@@ -243,15 +231,36 @@ public final class Priority extends AbstractEnumerator {
 	 */
 	public static Priority get(int value) {
 		switch (value) {
-			case ZERO: return ZERO_LITERAL;
-			case ONE: return ONE_LITERAL;
-			case TWO: return TWO_LITERAL;
-			case THREE: return THREE_LITERAL;
-			case FOUR: return FOUR_LITERAL;
-			case FIVE: return FIVE_LITERAL;
+			case ZERO_VALUE: return ZERO;
+			case ONE_VALUE: return ONE;
+			case TWO_VALUE: return TWO;
+			case THREE_VALUE: return THREE;
+			case FOUR_VALUE: return FOUR;
+			case FIVE_VALUE: return FIVE;
 		}
 		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -260,7 +269,46 @@ public final class Priority extends AbstractEnumerator {
 	 * @generated
 	 */
 	private Priority(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //Priority
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

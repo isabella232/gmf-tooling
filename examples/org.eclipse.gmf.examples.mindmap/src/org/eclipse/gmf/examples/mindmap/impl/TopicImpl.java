@@ -2,12 +2,13 @@
  * <copyright>
  * </copyright>
  *
- * $Id: TopicImpl.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: TopicImpl.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
 import java.util.Collection;
 
+import javax.xml.datatype.XMLGregorianCalendar;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -52,13 +53,6 @@ import org.eclipse.gmf.examples.mindmap.Topic;
  */
 public class TopicImpl extends EObjectImpl implements Topic {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = "";
-
-	/**
 	 * The cached value of the '{@link #getComments() <em>Comments</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -66,7 +60,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList comments = null;
+	protected EList<org.eclipse.gmf.examples.mindmap.Thread> comments;
 
 	/**
 	 * The default value of the '{@link #getDuration() <em>Duration</em>}' attribute.
@@ -95,7 +89,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean durationESet = false;
+	protected boolean durationESet;
 
 	/**
 	 * The default value of the '{@link #getEndDate() <em>End Date</em>}' attribute.
@@ -105,7 +99,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object END_DATE_EDEFAULT = null;
+	protected static final XMLGregorianCalendar END_DATE_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getEndDate() <em>End Date</em>}' attribute.
@@ -115,7 +109,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * @generated
 	 * @ordered
 	 */
-	protected Object endDate = END_DATE_EDEFAULT;
+	protected XMLGregorianCalendar endDate = END_DATE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -164,7 +158,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean percentCompleteESet = false;
+	protected boolean percentCompleteESet;
 
 	/**
 	 * The default value of the '{@link #getPriority() <em>Priority</em>}' attribute.
@@ -174,7 +168,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Priority PRIORITY_EDEFAULT = Priority.ZERO_LITERAL;
+	protected static final Priority PRIORITY_EDEFAULT = Priority.ZERO;
 
 	/**
 	 * The cached value of the '{@link #getPriority() <em>Priority</em>}' attribute.
@@ -193,7 +187,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean priorityESet = false;
+	protected boolean priorityESet;
 
 	/**
 	 * The cached value of the '{@link #getResources() <em>Resources</em>}' reference list.
@@ -203,7 +197,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList resources = null;
+	protected EList<Resource> resources;
 
 	/**
 	 * The default value of the '{@link #getStartDate() <em>Start Date</em>}' attribute.
@@ -213,7 +207,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object START_DATE_EDEFAULT = null;
+	protected static final XMLGregorianCalendar START_DATE_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getStartDate() <em>Start Date</em>}' attribute.
@@ -223,7 +217,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * @generated
 	 * @ordered
 	 */
-	protected Object startDate = START_DATE_EDEFAULT;
+	protected XMLGregorianCalendar startDate = START_DATE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getSubtopics() <em>Subtopics</em>}' reference list.
@@ -233,7 +227,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList subtopics = null;
+	protected EList<Topic> subtopics;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -249,6 +243,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return MindmapPackage.Literals.TOPIC;
 	}
@@ -258,9 +253,9 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getComments() {
+	public EList<org.eclipse.gmf.examples.mindmap.Thread> getComments() {
 		if (comments == null) {
-			comments = new EObjectContainmentEList(org.eclipse.gmf.examples.mindmap.Thread.class, this, MindmapPackage.TOPIC__COMMENTS);
+			comments = new EObjectContainmentEList<org.eclipse.gmf.examples.mindmap.Thread>(org.eclipse.gmf.examples.mindmap.Thread.class, this, MindmapPackage.TOPIC__COMMENTS);
 		}
 		return comments;
 	}
@@ -316,7 +311,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getEndDate() {
+	public XMLGregorianCalendar getEndDate() {
 		return endDate;
 	}
 
@@ -325,8 +320,8 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setEndDate(Object newEndDate) {
-		Object oldEndDate = endDate;
+	public void setEndDate(XMLGregorianCalendar newEndDate) {
+		XMLGregorianCalendar oldEndDate = endDate;
 		endDate = newEndDate;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, MindmapPackage.TOPIC__END_DATE, oldEndDate, endDate));
@@ -450,9 +445,9 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getResources() {
+	public EList<Resource> getResources() {
 		if (resources == null) {
-			resources = new EObjectWithInverseResolvingEList.ManyInverse(Resource.class, this, MindmapPackage.TOPIC__RESOURCES, MindmapPackage.RESOURCE__TOPICS);
+			resources = new EObjectWithInverseResolvingEList.ManyInverse<Resource>(Resource.class, this, MindmapPackage.TOPIC__RESOURCES, MindmapPackage.RESOURCE__TOPICS);
 		}
 		return resources;
 	}
@@ -462,7 +457,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getStartDate() {
+	public XMLGregorianCalendar getStartDate() {
 		return startDate;
 	}
 
@@ -471,8 +466,8 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setStartDate(Object newStartDate) {
-		Object oldStartDate = startDate;
+	public void setStartDate(XMLGregorianCalendar newStartDate) {
+		XMLGregorianCalendar oldStartDate = startDate;
 		startDate = newStartDate;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, MindmapPackage.TOPIC__START_DATE, oldStartDate, startDate));
@@ -483,9 +478,9 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getSubtopics() {
+	public EList<Topic> getSubtopics() {
 		if (subtopics == null) {
-			subtopics = new EObjectResolvingEList(Topic.class, this, MindmapPackage.TOPIC__SUBTOPICS);
+			subtopics = new EObjectResolvingEList<Topic>(Topic.class, this, MindmapPackage.TOPIC__SUBTOPICS);
 		}
 		return subtopics;
 	}
@@ -495,10 +490,12 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case MindmapPackage.TOPIC__RESOURCES:
-				return ((InternalEList)getResources()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getResources()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -508,12 +505,13 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case MindmapPackage.TOPIC__COMMENTS:
-				return ((InternalEList)getComments()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getComments()).basicRemove(otherEnd, msgs);
 			case MindmapPackage.TOPIC__RESOURCES:
-				return ((InternalEList)getResources()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getResources()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -523,6 +521,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case MindmapPackage.TOPIC__COMMENTS:
@@ -552,17 +551,19 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case MindmapPackage.TOPIC__COMMENTS:
 				getComments().clear();
-				getComments().addAll((Collection)newValue);
+				getComments().addAll((Collection<? extends org.eclipse.gmf.examples.mindmap.Thread>)newValue);
 				return;
 			case MindmapPackage.TOPIC__DURATION:
 				setDuration(((Float)newValue).floatValue());
 				return;
 			case MindmapPackage.TOPIC__END_DATE:
-				setEndDate(newValue);
+				setEndDate((XMLGregorianCalendar)newValue);
 				return;
 			case MindmapPackage.TOPIC__NAME:
 				setName((String)newValue);
@@ -575,14 +576,14 @@ public class TopicImpl extends EObjectImpl implements Topic {
 				return;
 			case MindmapPackage.TOPIC__RESOURCES:
 				getResources().clear();
-				getResources().addAll((Collection)newValue);
+				getResources().addAll((Collection<? extends Resource>)newValue);
 				return;
 			case MindmapPackage.TOPIC__START_DATE:
-				setStartDate(newValue);
+				setStartDate((XMLGregorianCalendar)newValue);
 				return;
 			case MindmapPackage.TOPIC__SUBTOPICS:
 				getSubtopics().clear();
-				getSubtopics().addAll((Collection)newValue);
+				getSubtopics().addAll((Collection<? extends Topic>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -593,6 +594,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case MindmapPackage.TOPIC__COMMENTS:
@@ -631,6 +633,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case MindmapPackage.TOPIC__COMMENTS:
@@ -660,6 +663,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

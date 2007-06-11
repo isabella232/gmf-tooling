@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Map.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: Map.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
@@ -31,13 +31,6 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Map extends EObject {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	String copyright = "";
-
-	/**
 	 * Returns the value of the '<em><b>Root Topics</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.examples.mindmap.Topic}.
 	 * <!-- begin-user-doc -->
@@ -52,7 +45,7 @@ public interface Map extends EObject {
 	 *        extendedMetaData="kind='element' name='rootTopics'"
 	 * @generated
 	 */
-	EList getRootTopics();
+	EList<Topic> getRootTopics();
 
 	/**
 	 * Returns the value of the '<em><b>Relations</b></em>' containment reference list.
@@ -69,7 +62,7 @@ public interface Map extends EObject {
 	 *        extendedMetaData="kind='element' name='relations'"
 	 * @generated
 	 */
-	EList getRelations();
+	EList<Relationship> getRelations();
 
 	/**
 	 * Returns the value of the '<em><b>Resources</b></em>' containment reference list.
@@ -86,7 +79,7 @@ public interface Map extends EObject {
 	 *        extendedMetaData="kind='element' name='resources'"
 	 * @generated
 	 */
-	EList getResources();
+	EList<Resource> getResources();
 
 	/**
 	 * Returns the value of the '<em><b>Title</b></em>' attribute.

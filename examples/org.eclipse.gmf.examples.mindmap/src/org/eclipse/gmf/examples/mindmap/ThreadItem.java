@@ -2,10 +2,11 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ThreadItem.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: ThreadItem.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
+import javax.xml.datatype.XMLGregorianCalendar;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -27,13 +28,6 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface ThreadItem extends EObject {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	String copyright = "";
-
 	/**
 	 * Returns the value of the '<em><b>Author</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -96,13 +90,13 @@ public interface ThreadItem extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Item Post Date</em>' attribute.
-	 * @see #setItemPostDate(Object)
+	 * @see #setItemPostDate(XMLGregorianCalendar)
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getThreadItem_ItemPostDate()
 	 * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.Date"
 	 *        extendedMetaData="kind='attribute' name='itemPostDate'"
 	 * @generated
 	 */
-	Object getItemPostDate();
+	XMLGregorianCalendar getItemPostDate();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.examples.mindmap.ThreadItem#getItemPostDate <em>Item Post Date</em>}' attribute.
@@ -112,6 +106,6 @@ public interface ThreadItem extends EObject {
 	 * @see #getItemPostDate()
 	 * @generated
 	 */
-	void setItemPostDate(Object value);
+	void setItemPostDate(XMLGregorianCalendar value);
 
 } // ThreadItem

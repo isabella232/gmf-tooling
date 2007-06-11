@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapFactory.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: MindmapFactory.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
@@ -17,13 +17,6 @@ import org.eclipse.emf.ecore.EFactory;
  * @generated
  */
 public interface MindmapFactory extends EFactory {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	String copyright = "";
-
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->

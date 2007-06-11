@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Resource.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: Resource.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
@@ -31,13 +31,6 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Resource extends EObject {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	String copyright = "";
-
-	/**
 	 * Returns the value of the '<em><b>Comments</b></em>' reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.examples.mindmap.Thread}.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.examples.mindmap.Thread#getAuthor <em>Author</em>}'.
@@ -54,7 +47,7 @@ public interface Resource extends EObject {
 	 *        extendedMetaData="kind='attribute' name='comments'"
 	 * @generated
 	 */
-	EList getComments();
+	EList<org.eclipse.gmf.examples.mindmap.Thread> getComments();
 
 	/**
 	 * Returns the value of the '<em><b>Email</b></em>' attribute.
@@ -127,6 +120,6 @@ public interface Resource extends EObject {
 	 *        extendedMetaData="kind='attribute' name='topics'"
 	 * @generated
 	 */
-	EList getTopics();
+	EList<Topic> getTopics();
 
 } // Resource

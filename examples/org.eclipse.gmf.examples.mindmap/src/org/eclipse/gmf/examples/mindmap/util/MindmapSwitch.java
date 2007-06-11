@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapSwitch.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: MindmapSwitch.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.util;
 
@@ -32,14 +32,7 @@ import org.eclipse.gmf.examples.mindmap.Topic;
  * @see org.eclipse.gmf.examples.mindmap.MindmapPackage
  * @generated
  */
-public class MindmapSwitch {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = "";
-
+public class MindmapSwitch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -67,7 +60,7 @@ public class MindmapSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	public Object doSwitch(EObject theEObject) {
+	public T doSwitch(EObject theEObject) {
 		return doSwitch(theEObject.eClass(), theEObject);
 	}
 
@@ -78,16 +71,16 @@ public class MindmapSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(EClass theEClass, EObject theEObject) {
+	protected T doSwitch(EClass theEClass, EObject theEObject) {
 		if (theEClass.eContainer() == modelPackage) {
 			return doSwitch(theEClass.getClassifierID(), theEObject);
 		}
 		else {
-			List eSuperTypes = theEClass.getESuperTypes();
+			List<EClass> eSuperTypes = theEClass.getESuperTypes();
 			return
 				eSuperTypes.isEmpty() ?
 					defaultCase(theEObject) :
-					doSwitch((EClass)eSuperTypes.get(0), theEObject);
+					doSwitch(eSuperTypes.get(0), theEObject);
 		}
 	}
 
@@ -98,47 +91,47 @@ public class MindmapSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(int classifierID, EObject theEObject) {
+	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
 			case MindmapPackage.DOCUMENT_ROOT: {
 				DocumentRoot documentRoot = (DocumentRoot)theEObject;
-				Object result = caseDocumentRoot(documentRoot);
+				T result = caseDocumentRoot(documentRoot);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case MindmapPackage.MAP: {
 				Map map = (Map)theEObject;
-				Object result = caseMap(map);
+				T result = caseMap(map);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case MindmapPackage.RELATIONSHIP: {
 				Relationship relationship = (Relationship)theEObject;
-				Object result = caseRelationship(relationship);
+				T result = caseRelationship(relationship);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case MindmapPackage.RESOURCE: {
 				Resource resource = (Resource)theEObject;
-				Object result = caseResource(resource);
+				T result = caseResource(resource);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case MindmapPackage.THREAD: {
 				org.eclipse.gmf.examples.mindmap.Thread thread = (org.eclipse.gmf.examples.mindmap.Thread)theEObject;
-				Object result = caseThread(thread);
+				T result = caseThread(thread);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case MindmapPackage.THREAD_ITEM: {
 				ThreadItem threadItem = (ThreadItem)theEObject;
-				Object result = caseThreadItem(threadItem);
+				T result = caseThreadItem(threadItem);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case MindmapPackage.TOPIC: {
 				Topic topic = (Topic)theEObject;
-				Object result = caseTopic(topic);
+				T result = caseTopic(topic);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -157,7 +150,7 @@ public class MindmapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseDocumentRoot(DocumentRoot object) {
+	public T caseDocumentRoot(DocumentRoot object) {
 		return null;
 	}
 
@@ -172,7 +165,7 @@ public class MindmapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMap(Map object) {
+	public T caseMap(Map object) {
 		return null;
 	}
 
@@ -187,7 +180,7 @@ public class MindmapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseRelationship(Relationship object) {
+	public T caseRelationship(Relationship object) {
 		return null;
 	}
 
@@ -202,7 +195,7 @@ public class MindmapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseResource(Resource object) {
+	public T caseResource(Resource object) {
 		return null;
 	}
 
@@ -217,7 +210,7 @@ public class MindmapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseThread(org.eclipse.gmf.examples.mindmap.Thread object) {
+	public T caseThread(org.eclipse.gmf.examples.mindmap.Thread object) {
 		return null;
 	}
 
@@ -232,7 +225,7 @@ public class MindmapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseThreadItem(ThreadItem object) {
+	public T caseThreadItem(ThreadItem object) {
 		return null;
 	}
 
@@ -247,7 +240,7 @@ public class MindmapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseTopic(Topic object) {
+	public T caseTopic(Topic object) {
 		return null;
 	}
 
@@ -262,7 +255,7 @@ public class MindmapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
-	public Object defaultCase(EObject object) {
+	public T defaultCase(EObject object) {
 		return null;
 	}
 

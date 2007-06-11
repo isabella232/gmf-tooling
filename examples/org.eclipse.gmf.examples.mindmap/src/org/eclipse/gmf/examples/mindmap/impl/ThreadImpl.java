@@ -2,12 +2,13 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ThreadImpl.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: ThreadImpl.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
 import java.util.Collection;
 
+import javax.xml.datatype.XMLGregorianCalendar;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -44,13 +45,6 @@ import org.eclipse.gmf.examples.mindmap.ThreadItem;
  */
 public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.mindmap.Thread {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = "";
-
-	/**
 	 * The cached value of the '{@link #getItems() <em>Items</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -58,7 +52,7 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 * @generated
 	 * @ordered
 	 */
-	protected EList items = null;
+	protected EList<ThreadItem> items;
 
 	/**
 	 * The cached value of the '{@link #getAuthor() <em>Author</em>}' reference.
@@ -68,7 +62,7 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 * @generated
 	 * @ordered
 	 */
-	protected Resource author = null;
+	protected Resource author;
 
 	/**
 	 * The default value of the '{@link #getPostDate() <em>Post Date</em>}' attribute.
@@ -78,7 +72,7 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object POST_DATE_EDEFAULT = null;
+	protected static final XMLGregorianCalendar POST_DATE_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getPostDate() <em>Post Date</em>}' attribute.
@@ -88,7 +82,7 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 * @generated
 	 * @ordered
 	 */
-	protected Object postDate = POST_DATE_EDEFAULT;
+	protected XMLGregorianCalendar postDate = POST_DATE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getSubject() <em>Subject</em>}' attribute.
@@ -124,6 +118,7 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return MindmapPackage.Literals.THREAD;
 	}
@@ -133,9 +128,9 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getItems() {
+	public EList<ThreadItem> getItems() {
 		if (items == null) {
-			items = new EObjectContainmentEList(ThreadItem.class, this, MindmapPackage.THREAD__ITEMS);
+			items = new EObjectContainmentEList<ThreadItem>(ThreadItem.class, this, MindmapPackage.THREAD__ITEMS);
 		}
 		return items;
 	}
@@ -205,7 +200,7 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getPostDate() {
+	public XMLGregorianCalendar getPostDate() {
 		return postDate;
 	}
 
@@ -214,8 +209,8 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setPostDate(Object newPostDate) {
-		Object oldPostDate = postDate;
+	public void setPostDate(XMLGregorianCalendar newPostDate) {
+		XMLGregorianCalendar oldPostDate = postDate;
 		postDate = newPostDate;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, MindmapPackage.THREAD__POST_DATE, oldPostDate, postDate));
@@ -247,6 +242,7 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case MindmapPackage.THREAD__AUTHOR:
@@ -262,10 +258,11 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case MindmapPackage.THREAD__ITEMS:
-				return ((InternalEList)getItems()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getItems()).basicRemove(otherEnd, msgs);
 			case MindmapPackage.THREAD__AUTHOR:
 				return basicSetAuthor(null, msgs);
 		}
@@ -277,6 +274,7 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case MindmapPackage.THREAD__ITEMS:
@@ -297,17 +295,19 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case MindmapPackage.THREAD__ITEMS:
 				getItems().clear();
-				getItems().addAll((Collection)newValue);
+				getItems().addAll((Collection<? extends ThreadItem>)newValue);
 				return;
 			case MindmapPackage.THREAD__AUTHOR:
 				setAuthor((Resource)newValue);
 				return;
 			case MindmapPackage.THREAD__POST_DATE:
-				setPostDate(newValue);
+				setPostDate((XMLGregorianCalendar)newValue);
 				return;
 			case MindmapPackage.THREAD__SUBJECT:
 				setSubject((String)newValue);
@@ -321,6 +321,7 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case MindmapPackage.THREAD__ITEMS:
@@ -344,6 +345,7 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case MindmapPackage.THREAD__ITEMS:
@@ -363,6 +365,7 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

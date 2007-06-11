@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapPackage.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: MindmapPackage.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
@@ -29,13 +29,6 @@ import org.eclipse.emf.ecore.EReference;
  * @generated
  */
 public interface MindmapPackage extends EPackage {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	String copyright = "";
-
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->

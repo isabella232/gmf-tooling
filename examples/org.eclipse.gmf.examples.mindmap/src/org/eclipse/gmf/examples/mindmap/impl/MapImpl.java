@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MapImpl.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: MapImpl.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -46,13 +46,6 @@ import org.eclipse.gmf.examples.mindmap.Topic;
  */
 public class MapImpl extends EObjectImpl implements Map {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = "";
-
-	/**
 	 * The cached value of the '{@link #getRootTopics() <em>Root Topics</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -60,7 +53,7 @@ public class MapImpl extends EObjectImpl implements Map {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList rootTopics = null;
+	protected EList<Topic> rootTopics;
 
 	/**
 	 * The cached value of the '{@link #getRelations() <em>Relations</em>}' containment reference list.
@@ -70,7 +63,7 @@ public class MapImpl extends EObjectImpl implements Map {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList relations = null;
+	protected EList<Relationship> relations;
 
 	/**
 	 * The cached value of the '{@link #getResources() <em>Resources</em>}' containment reference list.
@@ -80,7 +73,7 @@ public class MapImpl extends EObjectImpl implements Map {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList resources = null;
+	protected EList<Resource> resources;
 
 	/**
 	 * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
@@ -116,6 +109,7 @@ public class MapImpl extends EObjectImpl implements Map {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return MindmapPackage.Literals.MAP;
 	}
@@ -125,9 +119,9 @@ public class MapImpl extends EObjectImpl implements Map {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getRootTopics() {
+	public EList<Topic> getRootTopics() {
 		if (rootTopics == null) {
-			rootTopics = new EObjectContainmentEList(Topic.class, this, MindmapPackage.MAP__ROOT_TOPICS);
+			rootTopics = new EObjectContainmentEList<Topic>(Topic.class, this, MindmapPackage.MAP__ROOT_TOPICS);
 		}
 		return rootTopics;
 	}
@@ -137,9 +131,9 @@ public class MapImpl extends EObjectImpl implements Map {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getRelations() {
+	public EList<Relationship> getRelations() {
 		if (relations == null) {
-			relations = new EObjectContainmentEList(Relationship.class, this, MindmapPackage.MAP__RELATIONS);
+			relations = new EObjectContainmentEList<Relationship>(Relationship.class, this, MindmapPackage.MAP__RELATIONS);
 		}
 		return relations;
 	}
@@ -149,9 +143,9 @@ public class MapImpl extends EObjectImpl implements Map {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getResources() {
+	public EList<Resource> getResources() {
 		if (resources == null) {
-			resources = new EObjectContainmentEList(Resource.class, this, MindmapPackage.MAP__RESOURCES);
+			resources = new EObjectContainmentEList<Resource>(Resource.class, this, MindmapPackage.MAP__RESOURCES);
 		}
 		return resources;
 	}
@@ -182,14 +176,15 @@ public class MapImpl extends EObjectImpl implements Map {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case MindmapPackage.MAP__ROOT_TOPICS:
-				return ((InternalEList)getRootTopics()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getRootTopics()).basicRemove(otherEnd, msgs);
 			case MindmapPackage.MAP__RELATIONS:
-				return ((InternalEList)getRelations()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getRelations()).basicRemove(otherEnd, msgs);
 			case MindmapPackage.MAP__RESOURCES:
-				return ((InternalEList)getResources()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getResources()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -199,6 +194,7 @@ public class MapImpl extends EObjectImpl implements Map {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case MindmapPackage.MAP__ROOT_TOPICS:
@@ -218,19 +214,21 @@ public class MapImpl extends EObjectImpl implements Map {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case MindmapPackage.MAP__ROOT_TOPICS:
 				getRootTopics().clear();
-				getRootTopics().addAll((Collection)newValue);
+				getRootTopics().addAll((Collection<? extends Topic>)newValue);
 				return;
 			case MindmapPackage.MAP__RELATIONS:
 				getRelations().clear();
-				getRelations().addAll((Collection)newValue);
+				getRelations().addAll((Collection<? extends Relationship>)newValue);
 				return;
 			case MindmapPackage.MAP__RESOURCES:
 				getResources().clear();
-				getResources().addAll((Collection)newValue);
+				getResources().addAll((Collection<? extends Resource>)newValue);
 				return;
 			case MindmapPackage.MAP__TITLE:
 				setTitle((String)newValue);
@@ -244,6 +242,7 @@ public class MapImpl extends EObjectImpl implements Map {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case MindmapPackage.MAP__ROOT_TOPICS:
@@ -267,6 +266,7 @@ public class MapImpl extends EObjectImpl implements Map {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case MindmapPackage.MAP__ROOT_TOPICS:
@@ -286,6 +286,7 @@ public class MapImpl extends EObjectImpl implements Map {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

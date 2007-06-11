@@ -2,10 +2,11 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ThreadItemImpl.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: ThreadItemImpl.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
+import javax.xml.datatype.XMLGregorianCalendar;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -35,13 +36,6 @@ import org.eclipse.gmf.examples.mindmap.ThreadItem;
  */
 public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = "";
-
-	/**
 	 * The cached value of the '{@link #getAuthor() <em>Author</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -49,7 +43,7 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 	 * @generated
 	 * @ordered
 	 */
-	protected Resource author = null;
+	protected Resource author;
 
 	/**
 	 * The default value of the '{@link #getBody() <em>Body</em>}' attribute.
@@ -79,7 +73,7 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object ITEM_POST_DATE_EDEFAULT = null;
+	protected static final XMLGregorianCalendar ITEM_POST_DATE_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getItemPostDate() <em>Item Post Date</em>}' attribute.
@@ -89,7 +83,7 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 	 * @generated
 	 * @ordered
 	 */
-	protected Object itemPostDate = ITEM_POST_DATE_EDEFAULT;
+	protected XMLGregorianCalendar itemPostDate = ITEM_POST_DATE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -105,6 +99,7 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return MindmapPackage.Literals.THREAD_ITEM;
 	}
@@ -173,7 +168,7 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getItemPostDate() {
+	public XMLGregorianCalendar getItemPostDate() {
 		return itemPostDate;
 	}
 
@@ -182,8 +177,8 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setItemPostDate(Object newItemPostDate) {
-		Object oldItemPostDate = itemPostDate;
+	public void setItemPostDate(XMLGregorianCalendar newItemPostDate) {
+		XMLGregorianCalendar oldItemPostDate = itemPostDate;
 		itemPostDate = newItemPostDate;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, MindmapPackage.THREAD_ITEM__ITEM_POST_DATE, oldItemPostDate, itemPostDate));
@@ -194,6 +189,7 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case MindmapPackage.THREAD_ITEM__AUTHOR:
@@ -212,6 +208,7 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case MindmapPackage.THREAD_ITEM__AUTHOR:
@@ -221,7 +218,7 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 				setBody((String)newValue);
 				return;
 			case MindmapPackage.THREAD_ITEM__ITEM_POST_DATE:
-				setItemPostDate(newValue);
+				setItemPostDate((XMLGregorianCalendar)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -232,6 +229,7 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case MindmapPackage.THREAD_ITEM__AUTHOR:
@@ -252,6 +250,7 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case MindmapPackage.THREAD_ITEM__AUTHOR:
@@ -269,6 +268,7 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

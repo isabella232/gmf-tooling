@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapPackageImpl.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: MindmapPackageImpl.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -35,13 +35,6 @@ import org.eclipse.gmf.examples.mindmap.Topic;
  * @generated
  */
 public class MindmapPackageImpl extends EPackageImpl implements MindmapPackage {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = "";
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -686,6 +679,10 @@ public class MindmapPackageImpl extends EPackageImpl implements MindmapPackage {
 		// Obtain other dependent packages
 		XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 
+		// Create type parameters
+
+		// Set bounds for type parameters
+
 		// Add supertypes to classes
 
 		// Initialize classes and features; add operations and parameters
@@ -737,17 +734,17 @@ public class MindmapPackageImpl extends EPackageImpl implements MindmapPackage {
 
 		// Initialize enums and add enum literals
 		initEEnum(priorityEEnum, Priority.class, "Priority");
-		addEEnumLiteral(priorityEEnum, Priority.ZERO_LITERAL);
-		addEEnumLiteral(priorityEEnum, Priority.ONE_LITERAL);
-		addEEnumLiteral(priorityEEnum, Priority.TWO_LITERAL);
-		addEEnumLiteral(priorityEEnum, Priority.THREE_LITERAL);
-		addEEnumLiteral(priorityEEnum, Priority.FOUR_LITERAL);
-		addEEnumLiteral(priorityEEnum, Priority.FIVE_LITERAL);
+		addEEnumLiteral(priorityEEnum, Priority.ZERO);
+		addEEnumLiteral(priorityEEnum, Priority.ONE);
+		addEEnumLiteral(priorityEEnum, Priority.TWO);
+		addEEnumLiteral(priorityEEnum, Priority.THREE);
+		addEEnumLiteral(priorityEEnum, Priority.FOUR);
+		addEEnumLiteral(priorityEEnum, Priority.FIVE);
 
 		initEEnum(relationshipTypeEEnum, RelationshipType.class, "RelationshipType");
-		addEEnumLiteral(relationshipTypeEEnum, RelationshipType.DEPENDENCY_LITERAL);
-		addEEnumLiteral(relationshipTypeEEnum, RelationshipType.INCLUDES_LITERAL);
-		addEEnumLiteral(relationshipTypeEEnum, RelationshipType.EXTENDS_LITERAL);
+		addEEnumLiteral(relationshipTypeEEnum, RelationshipType.DEPENDENCY);
+		addEEnumLiteral(relationshipTypeEEnum, RelationshipType.INCLUDES);
+		addEEnumLiteral(relationshipTypeEEnum, RelationshipType.EXTENDS);
 
 		// Initialize data types
 		initEDataType(priorityObjectEDataType, Priority.class, "PriorityObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS);

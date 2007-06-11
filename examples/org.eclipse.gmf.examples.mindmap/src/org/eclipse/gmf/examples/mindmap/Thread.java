@@ -2,10 +2,11 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Thread.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: Thread.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
+import javax.xml.datatype.XMLGregorianCalendar;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -31,13 +32,6 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Thread extends EObject {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	String copyright = "";
-
-	/**
 	 * Returns the value of the '<em><b>Items</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.examples.mindmap.ThreadItem}.
 	 * <!-- begin-user-doc -->
@@ -52,7 +46,7 @@ public interface Thread extends EObject {
 	 *        extendedMetaData="kind='element' name='items'"
 	 * @generated
 	 */
-	EList getItems();
+	EList<ThreadItem> getItems();
 
 	/**
 	 * Returns the value of the '<em><b>Author</b></em>' reference.
@@ -92,13 +86,13 @@ public interface Thread extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Post Date</em>' attribute.
-	 * @see #setPostDate(Object)
+	 * @see #setPostDate(XMLGregorianCalendar)
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getThread_PostDate()
 	 * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.Date"
 	 *        extendedMetaData="kind='attribute' name='postDate'"
 	 * @generated
 	 */
-	Object getPostDate();
+	XMLGregorianCalendar getPostDate();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.examples.mindmap.Thread#getPostDate <em>Post Date</em>}' attribute.
@@ -108,7 +102,7 @@ public interface Thread extends EObject {
 	 * @see #getPostDate()
 	 * @generated
 	 */
-	void setPostDate(Object value);
+	void setPostDate(XMLGregorianCalendar value);
 
 	/**
 	 * Returns the value of the '<em><b>Subject</b></em>' attribute.

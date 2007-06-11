@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapFactoryImpl.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: MindmapFactoryImpl.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -33,13 +33,6 @@ import org.eclipse.gmf.examples.mindmap.Topic;
  * @generated
  */
 public class MindmapFactoryImpl extends EFactoryImpl implements MindmapFactory {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = "";
-
 	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
@@ -74,6 +67,7 @@ public class MindmapFactoryImpl extends EFactoryImpl implements MindmapFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case MindmapPackage.DOCUMENT_ROOT: return createDocumentRoot();
@@ -93,6 +87,7 @@ public class MindmapFactoryImpl extends EFactoryImpl implements MindmapFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 			case MindmapPackage.PRIORITY:
@@ -113,6 +108,7 @@ public class MindmapFactoryImpl extends EFactoryImpl implements MindmapFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case MindmapPackage.PRIORITY:
@@ -289,6 +285,7 @@ public class MindmapFactoryImpl extends EFactoryImpl implements MindmapFactory {
 	 * @deprecated
 	 * @generated
 	 */
+	@Deprecated
 	public static MindmapPackage getPackage() {
 		return MindmapPackage.eINSTANCE;
 	}

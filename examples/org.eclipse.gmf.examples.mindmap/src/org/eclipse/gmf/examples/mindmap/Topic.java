@@ -2,10 +2,11 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Topic.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: Topic.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
+import javax.xml.datatype.XMLGregorianCalendar;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -36,13 +37,6 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Topic extends EObject {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	String copyright = "";
-
-	/**
 	 * Returns the value of the '<em><b>Comments</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.examples.mindmap.Thread}.
 	 * <!-- begin-user-doc -->
@@ -57,7 +51,7 @@ public interface Topic extends EObject {
 	 *        extendedMetaData="kind='element' name='comments'"
 	 * @generated
 	 */
-	EList getComments();
+	EList<org.eclipse.gmf.examples.mindmap.Thread> getComments();
 
 	/**
 	 * Returns the value of the '<em><b>Duration</b></em>' attribute.
@@ -123,13 +117,13 @@ public interface Topic extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>End Date</em>' attribute.
-	 * @see #setEndDate(Object)
+	 * @see #setEndDate(XMLGregorianCalendar)
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_EndDate()
 	 * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.Date"
 	 *        extendedMetaData="kind='attribute' name='endDate'"
 	 * @generated
 	 */
-	Object getEndDate();
+	XMLGregorianCalendar getEndDate();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.examples.mindmap.Topic#getEndDate <em>End Date</em>}' attribute.
@@ -139,7 +133,7 @@ public interface Topic extends EObject {
 	 * @see #getEndDate()
 	 * @generated
 	 */
-	void setEndDate(Object value);
+	void setEndDate(XMLGregorianCalendar value);
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -297,7 +291,7 @@ public interface Topic extends EObject {
 	 *        extendedMetaData="kind='attribute' name='resources'"
 	 * @generated
 	 */
-	EList getResources();
+	EList<Resource> getResources();
 
 	/**
 	 * Returns the value of the '<em><b>Start Date</b></em>' attribute.
@@ -308,13 +302,13 @@ public interface Topic extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Start Date</em>' attribute.
-	 * @see #setStartDate(Object)
+	 * @see #setStartDate(XMLGregorianCalendar)
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_StartDate()
 	 * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.Date"
 	 *        extendedMetaData="kind='attribute' name='startDate'"
 	 * @generated
 	 */
-	Object getStartDate();
+	XMLGregorianCalendar getStartDate();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.examples.mindmap.Topic#getStartDate <em>Start Date</em>}' attribute.
@@ -324,7 +318,7 @@ public interface Topic extends EObject {
 	 * @see #getStartDate()
 	 * @generated
 	 */
-	void setStartDate(Object value);
+	void setStartDate(XMLGregorianCalendar value);
 
 	/**
 	 * Returns the value of the '<em><b>Subtopics</b></em>' reference list.
@@ -341,6 +335,6 @@ public interface Topic extends EObject {
 	 *        extendedMetaData="kind='attribute' name='subtopics'"
 	 * @generated
 	 */
-	EList getSubtopics();
+	EList<Topic> getSubtopics();
 
 } // Topic

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: RelationshipImpl.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: RelationshipImpl.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -37,13 +37,6 @@ import org.eclipse.gmf.examples.mindmap.Topic;
  */
 public class RelationshipImpl extends EObjectImpl implements Relationship {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = "";
-
-	/**
 	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -71,7 +64,7 @@ public class RelationshipImpl extends EObjectImpl implements Relationship {
 	 * @generated
 	 * @ordered
 	 */
-	protected Topic source = null;
+	protected Topic source;
 
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
@@ -81,7 +74,7 @@ public class RelationshipImpl extends EObjectImpl implements Relationship {
 	 * @generated
 	 * @ordered
 	 */
-	protected Topic target = null;
+	protected Topic target;
 
 	/**
 	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -91,7 +84,7 @@ public class RelationshipImpl extends EObjectImpl implements Relationship {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final RelationshipType TYPE_EDEFAULT = RelationshipType.DEPENDENCY_LITERAL;
+	protected static final RelationshipType TYPE_EDEFAULT = RelationshipType.DEPENDENCY;
 
 	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -110,7 +103,7 @@ public class RelationshipImpl extends EObjectImpl implements Relationship {
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean typeESet = false;
+	protected boolean typeESet;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -126,6 +119,7 @@ public class RelationshipImpl extends EObjectImpl implements Relationship {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return MindmapPackage.Literals.RELATIONSHIP;
 	}
@@ -278,6 +272,7 @@ public class RelationshipImpl extends EObjectImpl implements Relationship {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case MindmapPackage.RELATIONSHIP__LABEL:
@@ -299,6 +294,7 @@ public class RelationshipImpl extends EObjectImpl implements Relationship {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case MindmapPackage.RELATIONSHIP__LABEL:
@@ -322,6 +318,7 @@ public class RelationshipImpl extends EObjectImpl implements Relationship {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case MindmapPackage.RELATIONSHIP__LABEL:
@@ -345,6 +342,7 @@ public class RelationshipImpl extends EObjectImpl implements Relationship {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case MindmapPackage.RELATIONSHIP__LABEL:
@@ -364,6 +362,7 @@ public class RelationshipImpl extends EObjectImpl implements Relationship {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapXMLProcessor.java,v 1.3 2007/01/09 19:02:33 rgronback Exp $
+ * $Id: MindmapXMLProcessor.java,v 1.4 2007/06/11 17:44:19 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.util;
 
@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.eclipse.emf.ecore.EPackage;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.util.XMLProcessor;
 
 import org.eclipse.gmf.examples.mindmap.MindmapPackage;
@@ -21,14 +22,6 @@ import org.eclipse.gmf.examples.mindmap.MindmapPackage;
  * @generated
  */
 public class MindmapXMLProcessor extends XMLProcessor {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = "";
-
-
 	/**
 	 * Public constructor to instantiate the helper.
 	 * <!-- begin-user-doc -->
@@ -46,7 +39,8 @@ public class MindmapXMLProcessor extends XMLProcessor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Map getRegistrations() {
+	@Override
+	protected Map<String, Resource.Factory> getRegistrations() {
 		if (registrations == null) {
 			super.getRegistrations();
 			registrations.put(XML_EXTENSION, new MindmapResourceFactoryImpl());
