@@ -665,12 +665,8 @@ public class Generator extends GeneratorBase implements Runnable {
 			myDiagram);
 	}
 	
-	private void generateShortcutPropertyTester() throws InterruptedException, UnexpectedBehaviourException {
-		internalGenerateJavaClass(
-				myEmitters.getShortcutPropertyTesterEmitter(),
-				myEditorGen.getEditor().getPackageName(),
-				myDiagram.getShortcutPropertyTesterClassName(),
-				myDiagram);
+	private void generateShortcutPropertyTester() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getShortcutPropertyTesterEmitter(), myDiagram.getShortcutPropertyTesterQualifiedClassName(), myDiagram);
 	}
 
 	private void generateMetricProvider() throws UnexpectedBehaviourException, InterruptedException {
