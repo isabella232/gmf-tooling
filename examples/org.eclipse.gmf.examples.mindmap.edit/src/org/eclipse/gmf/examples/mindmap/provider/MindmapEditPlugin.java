@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapEditPlugin.java,v 1.3 2007/01/09 17:21:18 rgronback Exp $
+ * $Id: MindmapEditPlugin.java,v 1.4 2007/06/11 17:44:37 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.provider;
 
@@ -52,6 +52,7 @@ public final class MindmapEditPlugin extends EMFPlugin {
 	 * @return the singleton instance.
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getPluginResourceLocator() {
 		return plugin;
 	}

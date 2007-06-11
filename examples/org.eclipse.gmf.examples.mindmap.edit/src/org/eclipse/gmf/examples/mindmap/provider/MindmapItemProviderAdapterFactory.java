@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapItemProviderAdapterFactory.java,v 1.3 2007/01/09 17:21:18 rgronback Exp $
+ * $Id: MindmapItemProviderAdapterFactory.java,v 1.4 2007/06/11 17:44:37 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.provider;
 
@@ -59,7 +59,7 @@ public class MindmapItemProviderAdapterFactory extends MindmapAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Collection supportedTypes = new ArrayList();
+	protected Collection<Object> supportedTypes = new ArrayList<Object>();
 
 	/**
 	 * This constructs an instance.
@@ -72,7 +72,7 @@ public class MindmapItemProviderAdapterFactory extends MindmapAdapterFactory imp
 		supportedTypes.add(IStructuredItemContentProvider.class);
 		supportedTypes.add(ITreeItemContentProvider.class);
 		supportedTypes.add(IItemLabelProvider.class);
-		supportedTypes.add(IItemPropertySource.class);		
+		supportedTypes.add(IItemPropertySource.class);
 	}
 
 	/**
@@ -89,6 +89,7 @@ public class MindmapItemProviderAdapterFactory extends MindmapAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createDocumentRootAdapter() {
 		if (documentRootItemProvider == null) {
 			documentRootItemProvider = new DocumentRootItemProvider(this);
@@ -111,6 +112,7 @@ public class MindmapItemProviderAdapterFactory extends MindmapAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createMapAdapter() {
 		if (mapItemProvider == null) {
 			mapItemProvider = new MapItemProvider(this);
@@ -133,6 +135,7 @@ public class MindmapItemProviderAdapterFactory extends MindmapAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createRelationshipAdapter() {
 		if (relationshipItemProvider == null) {
 			relationshipItemProvider = new RelationshipItemProvider(this);
@@ -155,6 +158,7 @@ public class MindmapItemProviderAdapterFactory extends MindmapAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createResourceAdapter() {
 		if (resourceItemProvider == null) {
 			resourceItemProvider = new ResourceItemProvider(this);
@@ -177,6 +181,7 @@ public class MindmapItemProviderAdapterFactory extends MindmapAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createThreadAdapter() {
 		if (threadItemProvider == null) {
 			threadItemProvider = new ThreadItemProvider(this);
@@ -199,6 +204,7 @@ public class MindmapItemProviderAdapterFactory extends MindmapAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createThreadItemAdapter() {
 		if (threadItemItemProvider == null) {
 			threadItemItemProvider = new ThreadItemItemProvider(this);
@@ -221,6 +227,7 @@ public class MindmapItemProviderAdapterFactory extends MindmapAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createTopicAdapter() {
 		if (topicItemProvider == null) {
 			topicItemProvider = new TopicItemProvider(this);
@@ -254,6 +261,7 @@ public class MindmapItemProviderAdapterFactory extends MindmapAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return supportedTypes.contains(type) || super.isFactoryForType(type);
 	}
@@ -264,6 +272,7 @@ public class MindmapItemProviderAdapterFactory extends MindmapAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter adapt(Notifier notifier, Object type) {
 		return super.adapt(notifier, this);
 	}
@@ -273,10 +282,11 @@ public class MindmapItemProviderAdapterFactory extends MindmapAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
-			if (!(type instanceof Class) || (((Class)type).isInstance(adapter))) {
+			if (!(type instanceof Class) || (((Class<?>)type).isInstance(adapter))) {
 				return adapter;
 			}
 		}
