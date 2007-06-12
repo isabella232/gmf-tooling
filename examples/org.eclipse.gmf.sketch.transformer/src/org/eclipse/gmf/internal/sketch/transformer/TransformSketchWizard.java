@@ -172,6 +172,9 @@ public class TransformSketchWizard extends Wizard implements INewWizard {
 	}
 
 	protected IFile getTargetFile() {
+		if (targetPage.getFileName() == null || targetPage.getFileName().length() == 0) {
+			return null;
+		}
 		return ResourcesPlugin.getWorkspace().getRoot().getFile(targetPage.getContainerFullPath().append(targetPage.getFileName()));
 	}
 
