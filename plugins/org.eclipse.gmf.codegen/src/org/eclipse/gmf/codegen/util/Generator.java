@@ -774,14 +774,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
-	private void generateEditor() throws UnexpectedBehaviourException, InterruptedException {
+	private void generateEditor() throws InterruptedException {
 		final GenEditorView editor = myEditorGen.getEditor();
-		internalGenerateJavaClass(
-			myEmitters.getEditorEmitter(),
-			editor.getPackageName(),
-			editor.getClassName(),
-			editor
-		);
+		doGenerateJavaClass(myEmitters.getEditorEmitter(), editor.getQualifiedClassName(), editor);
 	}
 	
 	private void generateCreateShortcutAction() throws UnexpectedBehaviourException, InterruptedException {

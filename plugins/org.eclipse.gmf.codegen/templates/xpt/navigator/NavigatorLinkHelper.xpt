@@ -33,9 +33,18 @@ public class «linkHelperClassName» implements org.eclipse.ui.navigator.ILinkHelp
 «DEFINE findSelection FOR gmfgen::GenNavigator-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public org.eclipse.jface.viewers.IStructuredSelection findSelection(org.eclipse.ui.IEditorInput anInput) {
+	«EXPAND defineDiagramDocument FOR editorGen.plugin-»
+	«EXPAND findSelectionBody-»
+}
+«ENDDEFINE»
+
+«DEFINE defineDiagramDocument FOR gmfgen::GenPlugin-»
+org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument document = «getActivatorQualifiedClassName()».getInstance().getDocumentProvider().getDiagramDocument(anInput);
+«ENDDEFINE»
+
+«DEFINE findSelectionBody FOR gmfgen::GenNavigator-»
 	«EXPAND getDiagramSelection FOR getDiagramTopReference(this)-»
 	return org.eclipse.jface.viewers.StructuredSelection.EMPTY;
-}
 «ENDDEFINE»
 
 «REM»
@@ -43,7 +52,10 @@ public org.eclipse.jface.viewers.IStructuredSelection findSelection(org.eclipse.
 	reference to the diagram. In this case diagram node will be selected in navigator.
 «ENDREM»
 «DEFINE getDiagramSelection FOR gmfgen::GenNavigatorChildReference-»
-	«EXPAND getDiagram FOR navigator.editorGen-»
+if (document == null) {
+	return org.eclipse.jface.viewers.StructuredSelection.EMPTY;
+}
+org.eclipse.gmf.runtime.notation.Diagram diagram = document.getDiagram();
 org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(diagram.eResource());
 if (file != null) {
 	«IF isInsideGroup()-»
@@ -55,14 +67,6 @@ if (file != null) {
 	«ENDIF-»
 	return new org.eclipse.jface.viewers.StructuredSelection(«IF isInsideGroup()»parentGroup«ELSE»item«ENDIF»);
 }
-«ENDDEFINE»
-
-«DEFINE getDiagram FOR gmfgen::GenEditorGenerator-»
-org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument document = «navigator.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getDocumentProvider().getDiagramDocument(anInput);
-if (document == null) {
-	return org.eclipse.jface.viewers.StructuredSelection.EMPTY;
-}
-org.eclipse.gmf.runtime.notation.Diagram diagram = document.getDiagram();
 «ENDDEFINE»
 
 «DEFINE activateEditor FOR gmfgen::GenNavigator-»

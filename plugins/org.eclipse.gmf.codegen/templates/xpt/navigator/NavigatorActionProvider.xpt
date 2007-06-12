@@ -198,9 +198,9 @@ private org.eclipse.ui.IEditorInput getEditorInput() {
 «ENDDEFINE»
 
 «DEFINE i18nValues FOR gmfgen::GenNavigator-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForOpenDiagramActionName(), "Open Diagram")»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForOpenDiagramActionName(), "Open Diagram")-»
 «ENDDEFINE»
 
 «DEFINE i18nAccessors FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenDiagramActionName())»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenDiagramActionName())-»
 «ENDDEFINE»
