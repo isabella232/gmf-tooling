@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.StringTokenizer;
 
+import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -154,7 +155,7 @@ public class GMFGenModelWizard extends Wizard implements INewWizard {
 					}
 				}
 			}
-			Collections.sort(initialObjectNames, java.text.Collator.getInstance());
+			Collections.sort(initialObjectNames, CommonPlugin.INSTANCE.getComparator());
 		}
 		return initialObjectNames;
 	}
