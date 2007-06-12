@@ -263,7 +263,7 @@
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getMarkerNavigationProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getMetricProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getMetricViewID"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getValidationDecoratorProviderQualifedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getValidationDecoratorProviderQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//ProviderClassNames">
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/elementTypesClassName"/>

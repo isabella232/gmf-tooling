@@ -261,7 +261,7 @@
 
    <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
       «EXPAND xpt::Common::xmlGeneratedTag»
-      <decoratorProvider class="«getValidationDecoratorProviderQualifedClassName()»">
+      <decoratorProvider class="«getValidationDecoratorProviderQualifiedClassName()»">
          <Priority name="«validationDecoratorProviderPriority»"/>
          <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
          <context decoratorTargets="PRIMARY_VIEW"/>

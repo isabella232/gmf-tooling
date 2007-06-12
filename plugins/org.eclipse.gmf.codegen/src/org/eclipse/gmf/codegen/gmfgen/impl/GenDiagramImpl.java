@@ -2228,7 +2228,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String getValidationDecoratorProviderQualifedClassName() {
+	public String getValidationDecoratorProviderQualifiedClassName() {
 		return getProvidersPackageName() + "." + getValidationDecoratorProviderClassName(); //$NON-NLS-1$
 	}
 

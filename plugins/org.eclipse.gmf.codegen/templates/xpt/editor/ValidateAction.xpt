@@ -153,11 +153,11 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		createMarkers(target, status, diagramEditPart);
 		«ENDIF-»
 		«IF editorGen.application != null && validationDecorators-»
-		«getValidationDecoratorProviderQualifedClassName()».refreshDecorators(view);
+		«getValidationDecoratorProviderQualifiedClassName()».refreshDecorators(view);
 		for (java.util.Iterator it = view.eAllContents(); it.hasNext();) {
 			org.eclipse.emf.ecore.EObject next = (org.eclipse.emf.ecore.EObject) it.next();
 			if (next instanceof org.eclipse.gmf.runtime.notation.View) {
-				«getValidationDecoratorProviderQualifedClassName()».refreshDecorators(
+				«getValidationDecoratorProviderQualifiedClassName()».refreshDecorators(
 						(org.eclipse.gmf.runtime.notation.View) next);
 			}
 		}

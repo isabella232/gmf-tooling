@@ -650,7 +650,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateValidationDecoratorProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getValidationDecoratorProviderEmitter(), myDiagram.getValidationDecoratorProviderQualifedClassName(), myDiagram);
+		doGenerateJavaClass(myEmitters.getValidationDecoratorProviderEmitter(), myDiagram.getValidationDecoratorProviderQualifiedClassName(), myDiagram);
 	}
 
 	private void generateShortcutsDecoratorProvider() throws UnexpectedBehaviourException, InterruptedException {

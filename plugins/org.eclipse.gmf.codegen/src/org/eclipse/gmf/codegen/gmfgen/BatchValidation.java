@@ -381,6 +381,6 @@ public interface BatchValidation extends EObject {
 	 * @model kind="operation"
 	 * @generated
 	 */
-	String getValidationDecoratorProviderQualifedClassName();
+	String getValidationDecoratorProviderQualifiedClassName();
 
 } // BatchValidation
