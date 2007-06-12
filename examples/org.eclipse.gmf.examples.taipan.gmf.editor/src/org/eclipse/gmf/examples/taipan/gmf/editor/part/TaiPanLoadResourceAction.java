@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
+import org.eclipse.emf.edit.ui.action.LoadResourceAction;
 import org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.jface.action.IAction;
@@ -46,7 +47,7 @@ public class TaiPanLoadResourceAction implements IObjectActionDelegate {
 	 * @generated
 	 */
 	public void run(IAction action) {
-		LoadResourceDialog loadResourceDialog = new LoadResourceDialog(myShell, mySelectedElement.getEditingDomain());
+		LoadResourceAction.LoadResourceDialog loadResourceDialog = new LoadResourceAction.LoadResourceDialog(myShell, mySelectedElement.getEditingDomain());
 		loadResourceDialog.open();
 	}
 

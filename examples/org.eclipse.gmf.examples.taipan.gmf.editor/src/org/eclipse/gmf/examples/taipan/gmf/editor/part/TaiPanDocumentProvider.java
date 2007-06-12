@@ -23,6 +23,7 @@ import java.util.Map;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -513,7 +514,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			if (!overwrite && !info.isSynchronized()) {
-				throw new CoreException(new Status(IStatus.ERROR, TaiPanDiagramEditorPlugin.ID, IStatus.OK, Messages.TaiPanDocumentProvider_UnsynchronizedFileSaveError, null));
+				throw new CoreException(new Status(IStatus.ERROR, TaiPanDiagramEditorPlugin.ID, IResourceStatus.OUT_OF_SYNC_LOCAL, Messages.TaiPanDocumentProvider_UnsynchronizedFileSaveError, null));
 			}
 			info.stopResourceListening();
 			fireElementStateChanging(element);
@@ -534,6 +535,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 					monitor.worked(1);
 				}
 				monitor.done();
+				info.setModificationStamp(computeModificationStamp(info));
 			} catch (RuntimeException x) {
 				fireElementStateChangeFailed(element);
 				throw x;
