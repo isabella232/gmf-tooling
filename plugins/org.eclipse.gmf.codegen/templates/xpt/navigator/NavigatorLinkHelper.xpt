@@ -52,10 +52,7 @@ org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument do
 	reference to the diagram. In this case diagram node will be selected in navigator.
 «ENDREM»
 «DEFINE getDiagramSelection FOR gmfgen::GenNavigatorChildReference-»
-if (document == null) {
-	return org.eclipse.jface.viewers.StructuredSelection.EMPTY;
-}
-org.eclipse.gmf.runtime.notation.Diagram diagram = document.getDiagram();
+«EXPAND getDiagram FOR navigator.editorGen-»
 org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(diagram.eResource());
 if (file != null) {
 	«IF isInsideGroup()-»
@@ -67,6 +64,13 @@ if (file != null) {
 	«ENDIF-»
 	return new org.eclipse.jface.viewers.StructuredSelection(«IF isInsideGroup()»parentGroup«ELSE»item«ENDIF»);
 }
+«ENDDEFINE»
+
+«DEFINE getDiagram FOR gmfgen::GenEditorGenerator-»
+if (document == null) {
+	return org.eclipse.jface.viewers.StructuredSelection.EMPTY;
+}
+org.eclipse.gmf.runtime.notation.Diagram diagram = document.getDiagram();
 «ENDDEFINE»
 
 «DEFINE activateEditor FOR gmfgen::GenNavigator-»
