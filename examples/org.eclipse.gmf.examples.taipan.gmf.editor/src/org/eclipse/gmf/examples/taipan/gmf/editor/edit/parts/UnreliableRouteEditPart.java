@@ -13,6 +13,7 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.examples.taipan.figures.DashedConnection;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.UnreliableRouteItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
@@ -46,6 +47,23 @@ public class UnreliableRouteEditPart extends ConnectionNodeEditPart {
 	}
 
 	/**
+	 * @generated
+	 */
+	protected boolean addFixedChild(EditPart childEditPart) {
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (addFixedChild(childEditPart)) {
+			return;
+		}
+		super.addChildVisual(childEditPart, -1);
+	}
+
+	/**
 	 * Creates figure for this edit part.
 	 * 
 	 * Body of this method does not depend on settings in generation model
@@ -54,8 +72,14 @@ public class UnreliableRouteEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
-
 		return new DashedConnection();
+	}
+
+	/**
+	 * @generated
+	 */
+	public DashedConnection getPrimaryShape() {
+		return (DashedConnection) getFigure();
 	}
 
 }

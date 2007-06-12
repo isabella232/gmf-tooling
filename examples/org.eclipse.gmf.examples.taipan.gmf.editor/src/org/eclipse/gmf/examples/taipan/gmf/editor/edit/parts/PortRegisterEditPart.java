@@ -52,8 +52,14 @@ public class PortRegisterEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
-
 		return new DashedConnection();
+	}
+
+	/**
+	 * @generated
+	 */
+	public DashedConnection getPrimaryShape() {
+		return (DashedConnection) getFigure();
 	}
 
 }
