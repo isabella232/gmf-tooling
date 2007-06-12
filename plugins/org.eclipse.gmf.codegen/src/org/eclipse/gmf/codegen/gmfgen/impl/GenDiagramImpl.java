@@ -3439,6 +3439,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public EList<GenNode> getAssistantNodes() {
+		return getContainedNodes();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public boolean needsCanonicalEditPolicy() {
 		return !isSansDomain() && isSynchronized() && !getContainedNodes().isEmpty();
 	}

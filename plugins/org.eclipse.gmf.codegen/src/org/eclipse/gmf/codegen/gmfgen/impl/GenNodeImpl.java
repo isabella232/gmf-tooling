@@ -507,6 +507,17 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 		return CLASS_NAME_PREFIX;
 	}
 
+	@Override
+	public EList<GenNode> getAssistantNodes() {
+		BasicEList<GenNode> nodes = new BasicEList<GenNode>(super.getAssistantNodes());
+		for (GenCompartment compartment : getCompartments()) {
+			if (compartment.isListLayout()) {
+				nodes.addAll(compartment.getContainedNodes());
+			}
+		}
+		return nodes;
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

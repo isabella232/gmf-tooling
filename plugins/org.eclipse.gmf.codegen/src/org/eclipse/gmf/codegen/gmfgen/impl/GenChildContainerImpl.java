@@ -115,6 +115,15 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public EList<GenNode> getAssistantNodes() {
+		return getContainedNodes();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public boolean needsCanonicalEditPolicy() {
 		// mirror logic previously on getSemanticChildrenList.jetinc - genNodes.size() > 0
 		// and refreshSemanticNode.jetinc - genClass2Phantom.size() > 0 && phantomLinks.size() > 0

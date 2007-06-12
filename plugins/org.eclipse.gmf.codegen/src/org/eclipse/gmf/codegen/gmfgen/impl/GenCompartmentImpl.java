@@ -8,6 +8,8 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -525,6 +527,14 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 		result.append(listLayout);
 		result.append(')');
 		return result.toString();
+	}
+
+	@Override
+	public EList<GenNode> getAssistantNodes() {
+		if (isListLayout()) {
+			return new BasicEList<GenNode>();
+		}
+		return super.getAssistantNodes();
 	}
 
 	public String getClassNamePrefix() {

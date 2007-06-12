@@ -73,6 +73,17 @@ public interface GenContainerBase extends GenCommonBase {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Returns child nodes that may be created in this container
+	 * <!-- end-model-doc -->
+	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenNode"
+	 * @generated
+	 */
+	EList<GenNode> getAssistantNodes();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
 	 */
