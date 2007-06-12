@@ -59,5 +59,5 @@ update.diagram.description=Perform «editorGen.modelID» diagram update
 
 «EXPAND xpt::propsheet::extensions::i18n FOR editorGen.propertySheet-»
 «EXPAND xpt::diagram::preferences::extensions::i18n FOR editorGen.diagram-»
-«EXPAND xpt::diagram::providers::extensions::i18n FOR editorGen.diagram-»
+«EXPAND xpt::providers::extensions::i18n FOR editorGen.diagram-»
 «ENDDEFINE»

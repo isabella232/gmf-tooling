@@ -401,7 +401,7 @@ public class CodegenEmitters {
 	// providers
 
 	public TextEmitter getParserProviderEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::providers::ParserProvider::ParserProvider"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::providers::ParserProvider"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getElementInitializersEmitter() throws UnexpectedBehaviourException {
@@ -409,11 +409,11 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getElementTypesEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::providers::ElementTypes::ElementTypes"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::providers::ElementTypes"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getViewProviderEmitter() {
-		return newXpandEmitter("xpt::diagram::providers::ViewProvider::ViewProvider"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::providers::ViewProvider"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getEditPartProviderEmitter() throws UnexpectedBehaviourException {
@@ -441,7 +441,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getMarkerNavigationProviderEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::providers::MarkerNavigationProvider"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::providers::MarkerNavigationProvider"); //$NON-NLS-1$
 	}	
 
 	public TextEmitter getValidationProviderEmitter() throws UnexpectedBehaviourException {
@@ -449,7 +449,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getValidationDecoratorProviderEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::providers::ValidationDecoratorProvider"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::providers::ValidationDecoratorProvider"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getShortcutsDecoratorProviderEmitter() throws UnexpectedBehaviourException {
