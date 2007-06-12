@@ -34,3 +34,6 @@ if (diagram == null) {
 	return org.eclipse.jface.viewers.StructuredSelection.EMPTY;
 }
 «ENDAROUND»
+
+«AROUND defineDiagramDocument FOR gmfgen::GenPlugin-»
+«ENDAROUND»
