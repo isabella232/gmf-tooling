@@ -1,13 +1,27 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
+
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 
 «AROUND Fields FOR GenEditorGenerator»
 	«EXPAND xpt::application::ActionBarAdvisor::i18nAccessors FOR application-»
     «EXPAND xpt::application::WorkbenchWindowAdvisor::i18nAccessors FOR application-»
     «EXPAND xpt::navigator::NavigatorContentProvider::i18nAccessors FOR navigator-»
+    «EXPAND xpt::navigator::NavigatorActionProvider::i18nAccessors FOR navigator-»
 «ENDAROUND»
 
 «AROUND Values FOR GenEditorGenerator»
 «EXPAND xpt::application::ActionBarAdvisor::i18nValues FOR application-»
 «EXPAND xpt::application::WorkbenchWindowAdvisor::i18nValues FOR application-»
 «EXPAND xpt::navigator::NavigatorContentProvider::i18nValues FOR navigator-»
+«EXPAND xpt::navigator::NavigatorActionProvider::i18nValues FOR navigator-»
 «ENDAROUND»

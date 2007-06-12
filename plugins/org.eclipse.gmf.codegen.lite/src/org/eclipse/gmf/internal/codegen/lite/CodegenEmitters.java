@@ -29,8 +29,6 @@ import org.eclipse.gmf.codegen.templates.lite.editor.PaletteFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorActionProviderGenerator;
-import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorLabelProviderGenerator;
 import org.eclipse.gmf.codegen.templates.lite.policies.OpenDiagramPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.DomainElementInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.MetricProviderGenerator;
@@ -111,9 +109,6 @@ public class CodegenEmitters {
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class);
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class);
 		put(tr, "/policies/OpenDiagramEditPolicy.javajet", OpenDiagramPolicyGenerator.class);
-
-		put(tr, "/navigator/NavigatorLabelProvider.javajet", NavigatorLabelProviderGenerator.class);
-		put(tr, "/navigator/NavigatorActionProvider.javajet", NavigatorActionProviderGenerator.class);
 
 		return tr;
 	}
@@ -382,7 +377,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getNavigatorLabelProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(NavigatorLabelProviderGenerator.class);
+		return retrieveXpand("xpt::navigator::NavigatorLabelProvider::NavigatorLabelProvider"); //$NON-NLS-1$
 	}
 	
 	public TextEmitter getNavigatorLinkHelperEmitter() {
@@ -394,7 +389,7 @@ public class CodegenEmitters {
 	}
 	
 	public TextEmitter getNavigatorActionProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(NavigatorActionProviderGenerator.class);
+		return retrieveXpand("xpt::navigator::NavigatorActionProvider::NavigatorActionProvider"); //$NON-NLS-1$
 	}
 	
 	public TextEmitter getAbstractNavigatorItemEmitter() throws UnexpectedBehaviourException {

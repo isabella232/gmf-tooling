@@ -138,10 +138,12 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 					if (getEditorInput() instanceof org.eclipse.emf.common.ui.URIEditorInput) {
 						org.eclipse.emf.common.util.URI newFileURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(newFile.getFullPath().toString(), true);
 						org.eclipse.emf.common.util.URI oldFileURI = ((org.eclipse.emf.common.ui.URIEditorInput) getEditorInput()).getURI();
+						String newEditorName = newFileURI.lastSegment();
 						if (oldFileURI.fragment() != null) {
 							newFileURI = newFileURI.appendFragment(oldFileURI.fragment());
+							newEditorName += '#' + oldFileURI.fragment();
 						}
-						newEditorInput = new org.eclipse.emf.common.ui.URIEditorInput(newFileURI);
+						newEditorInput = new org.eclipse.emf.common.ui.URIEditorInput(newFileURI, newEditorName);
 					} else {
 						newEditorInput = new org.eclipse.ui.part.FileEditorInput(newFile);
 					}
@@ -430,7 +432,7 @@ if (updateManager != null) {
 «EXPAND unhookResourceTracker-»
 		org.eclipse.emf.common.util.URI file = getURIFromInput(input);
 		load(file);
-		setPartName(file.lastSegment());
+		setPartName(input.getName());
 		super.setInput(input);
 «EXPAND hookResourceTracker-»
 «EXPAND hookValidation-»
