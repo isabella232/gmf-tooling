@@ -80,30 +80,47 @@ public void updateLabel(org.eclipse.jface.viewers.ViewerLabel label, org.eclipse
 «DEFINE getImage FOR gmfgen::GenNavigator-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public org.eclipse.swt.graphics.Image getImage(Object element) {
-	if (element instanceof «getNavigatorGroupQualifiedClassName()») {
-		«getNavigatorGroupQualifiedClassName()» group = («getNavigatorGroupQualifiedClassName()») element;
-		return «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getBundledImage(group.getIcon());
-	}
-		
-	if (element instanceof «getNavigatorItemQualifiedClassName()») {
-		«getNavigatorItemQualifiedClassName()» navigatorItem = («getNavigatorItemQualifiedClassName()») element;
-    	if (!isOwnView(navigatorItem.getView())) {
-    		return super.getImage(element);
-    	}
-    	return getImage(navigatorItem.getView());
-	}
+	«EXPAND getNavigatorGroupImage-»
 
-	«IF editorGen.diagram.generateShortcutIcon()-»
-	// Due to plugin.xml content will be called only for "own" views
-	if (element instanceof org.eclipse.core.runtime.IAdaptable) {
-		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) ((org.eclipse.core.runtime.IAdaptable) element).getAdapter(org.eclipse.gmf.runtime.notation.View.class);
-		if (view != null && isOwnView(view)) {
-			return getImage(view);
-		}
-	}
-	«ENDIF-»
+	«EXPAND getNavigatorItemImage-»
+
+	«EXPAND getAdaptableImage-»
+
+	«EXPAND getAdditionalInputImage-»
 	return super.getImage(element);
 }
+«ENDDEFINE»
+
+«DEFINE getNavigatorGroupImage FOR gmfgen::GenNavigator-»
+if (element instanceof «getNavigatorGroupQualifiedClassName()») {
+	«getNavigatorGroupQualifiedClassName()» group = («getNavigatorGroupQualifiedClassName()») element;
+	return «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getBundledImage(group.getIcon());
+}
+«ENDDEFINE»
+
+«DEFINE getNavigatorItemImage FOR gmfgen::GenNavigator-»
+if (element instanceof «getNavigatorItemQualifiedClassName()») {
+	«getNavigatorItemQualifiedClassName()» navigatorItem = («getNavigatorItemQualifiedClassName()») element;
+	if (!isOwnView(navigatorItem.getView())) {
+		return super.getImage(element);
+	}
+	return getImage(navigatorItem.getView());
+}
+«ENDDEFINE»
+
+«DEFINE getAdaptableImage FOR gmfgen::GenNavigator-»
+«IF editorGen.diagram.generateShortcutIcon()-»
+// Due to plugin.xml content will be called only for "own" views
+if (element instanceof org.eclipse.core.runtime.IAdaptable) {
+	org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) ((org.eclipse.core.runtime.IAdaptable) element).getAdapter(org.eclipse.gmf.runtime.notation.View.class);
+	if (view != null && isOwnView(view)) {
+		return getImage(view);
+	}
+}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getAdditionalInputImage FOR gmfgen::GenNavigator-»
 «ENDDEFINE»
 
 «DEFINE getViewImage FOR gmfgen::GenNavigator-»
@@ -144,30 +161,47 @@ private org.eclipse.swt.graphics.Image getImage(String key, org.eclipse.gmf.runt
 «DEFINE getText FOR gmfgen::GenNavigator-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public String getText(Object element) {
-	if (element instanceof «getNavigatorGroupQualifiedClassName()») {
-		«getNavigatorGroupQualifiedClassName()» group = («getNavigatorGroupQualifiedClassName()») element;
-		return group.getGroupName();
-	}
-		
-	if (element instanceof «getNavigatorItemQualifiedClassName()») {
-		«getNavigatorItemQualifiedClassName()» navigatorItem = («getNavigatorItemQualifiedClassName()») element;
+	«EXPAND getNavigatorGroupText-»
+
+	«EXPAND getNavigatorItemText-»
+
+	«EXPAND getAdaptableText-»
+
+	«EXPAND getAdditionalInputText-»
+	return super.getText(element);
+}
+«ENDDEFINE»
+
+«DEFINE getNavigatorGroupText FOR gmfgen::GenNavigator-»
+if (element instanceof «getNavigatorGroupQualifiedClassName()») {
+	«getNavigatorGroupQualifiedClassName()» group = («getNavigatorGroupQualifiedClassName()») element;
+	return group.getGroupName();
+}
+«ENDDEFINE»
+
+«DEFINE getNavigatorItemText FOR gmfgen::GenNavigator-»
+if (element instanceof «getNavigatorItemQualifiedClassName()») {
+	«getNavigatorItemQualifiedClassName()» navigatorItem = («getNavigatorItemQualifiedClassName()») element;
    		if (!isOwnView(navigatorItem.getView())) {
    			return null;
    		}
    		return getText(navigatorItem.getView());
 	}
-	
-	«IF editorGen.diagram.generateShortcutIcon()-»
-	// Due to plugin.xml content will be called only for "own" views
-	if (element instanceof org.eclipse.core.runtime.IAdaptable) {
-		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) ((org.eclipse.core.runtime.IAdaptable) element).getAdapter(org.eclipse.gmf.runtime.notation.View.class);
-		if (view != null && isOwnView(view)) {
-			return getText(view);
-		}
+«ENDDEFINE»
+
+«DEFINE getAdaptableText FOR gmfgen::GenNavigator-»
+«IF editorGen.diagram.generateShortcutIcon()-»
+// Due to plugin.xml content will be called only for "own" views
+if (element instanceof org.eclipse.core.runtime.IAdaptable) {
+	org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) ((org.eclipse.core.runtime.IAdaptable) element).getAdapter(org.eclipse.gmf.runtime.notation.View.class);
+	if (view != null && isOwnView(view)) {
+		return getText(view);
 	}
-	«ENDIF-»
-	return super.getText(element);
 }
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getAdditionalInputText FOR gmfgen::GenNavigator-»
 «ENDDEFINE»
 
 «DEFINE getViewText FOR gmfgen::GenNavigator-»

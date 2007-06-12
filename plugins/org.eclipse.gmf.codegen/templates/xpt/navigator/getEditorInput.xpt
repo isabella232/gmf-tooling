@@ -28,6 +28,17 @@ private static org.eclipse.ui.IEditorInput getEditorInput(org.eclipse.gmf.runtim
 		}
 	}
 «ENDIF-»
-	return new org.eclipse.emf.common.ui.URIEditorInput(org.eclipse.emf.ecore.util.EcoreUtil.getURI(diagram));
+	«EXPAND defineURIEditorInput("diagram") FOR diagram-»
+	return editorInput;
 }
+«ENDDEFINE»
+
+«DEFINE defineURIEditorInput(String diagramVarName) FOR gmfgen::GenDiagram-»
+«EXPAND defineURIEditorInput(diagramVarName, "editorInput")-»
+«ENDDEFINE»
+
+«DEFINE defineURIEditorInput(String diagramVarName, String editorInputVarName) FOR gmfgen::GenDiagram-»
+org.eclipse.emf.common.util.URI uri = org.eclipse.emf.ecore.util.EcoreUtil.getURI(«diagramVarName»);
+String editorName = uri.lastSegment() + "#" + «diagramVarName».eResource().getContents().indexOf(«diagramVarName»); «EXPAND xpt::Common::nonNLS»
+org.eclipse.ui.IEditorInput «editorInputVarName» = new org.eclipse.emf.common.ui.URIEditorInput(uri, editorName);
 «ENDDEFINE»

@@ -70,7 +70,7 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 				if (diagram == null) {
 					diagram = intializeNewDiagram();
 				}
-				«EXPAND defineURIEditorInput("diagram") FOR subject.getDiagram()-»
+				«EXPAND xpt::navigator::getEditorInput::defineURIEditorInput("diagram") FOR subject.getDiagram()-»
 				org.eclipse.ui.IWorkbenchPage page = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				page.openEditor(editorInput, getEditorID());
 				return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
@@ -146,12 +146,6 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 			return «IF editorID == null»«subject.getDiagram().editorGen.editor.getQualifiedClassName()».ID«ELSE»"«editorID»"«ENDIF»;
 		}
 	}
-«ENDDEFINE»
-
-«DEFINE defineURIEditorInput(String diagramVarName) FOR gmfgen::GenDiagram-»
-org.eclipse.emf.common.util.URI uri = org.eclipse.emf.ecore.util.EcoreUtil.getURI(«diagramVarName»);
-String editorName = uri.lastSegment() + "#" + «diagramVarName».eResource().getContents().indexOf(«diagramVarName»); «EXPAND xpt::Common::nonNLS»
-org.eclipse.ui.IEditorInput editorInput = new org.eclipse.emf.common.ui.URIEditorInput(uri, editorName);
 «ENDDEFINE»
 
 «DEFINE additions FOR OpenDiagramBehaviour»«ENDDEFINE»

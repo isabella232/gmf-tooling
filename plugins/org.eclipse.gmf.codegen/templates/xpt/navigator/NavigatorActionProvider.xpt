@@ -82,7 +82,6 @@ public void fillActionBars(org.eclipse.ui.IActionBars actionBars) {
 	«EXPAND xpt::Common::generatedMemberComment»
 public void fillContextMenu(org.eclipse.jface.action.IMenuManager menu) {
 «REM»
-<%
 /*
  * Put following code into the template to generate popup menu
  *
@@ -90,12 +89,12 @@ public void fillContextMenu(org.eclipse.jface.action.IMenuManager menu) {
 			return;
 		}
 
-		< %=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")% > selection = (< %=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")% >) getContext().getSelection();
+		org.eclipse.jface.viewers.IStructuredSelection selection = (org.eclipse.jface.viewers.IStructuredSelection) getContext().getSelection();
 
 		myOpenDiagramAction.selectionChanged(selection);
 		if (myOpenDiagramAction.isEnabled()) {
-			menu.insertAfter(< %=importManager.getImportedName("org.eclipse.ui.navigator.ICommonMenuConstants")% >.GROUP_OPEN, myOpenDiagramAction);
-		}*/%>
+			menu.insertAfter(org.eclipse.ui.navigator.ICommonMenuConstants.GROUP_OPEN, myOpenDiagramAction);
+		}*/
 «ENDREM»«-»		
 }
 «ENDDEFINE»
@@ -187,7 +186,7 @@ private org.eclipse.ui.IEditorInput getEditorInput() {
 		}
 	}
 	«ENDIF-»
-	«EXPAND xpt::diagram::editpolicies::OpenDiagram::defineURIEditorInput("myDiagram") FOR editorGen.diagram-»
+	«EXPAND xpt::navigator::getEditorInput::defineURIEditorInput("myDiagram") FOR editorGen.diagram-»
 	return editorInput;
 }
 «ENDDEFINE»
