@@ -27,14 +27,14 @@ public void run() {
  	try {
 		page.openEditor(editorInput, «editorGen.editor.getQualifiedClassName()».ID);
 	} catch (org.eclipse.ui.PartInitException e) {
-		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Exception while openning diagram", e); «EXPAND xpt::Common::nonNLS»
+		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Exception while opening diagram", e); «EXPAND xpt::Common::nonNLS»
 	}
 «ELSE-»
 	try {
 		org.eclipse.gmf.runtime.lite.parts.DiagramViewPart diagramView = (org.eclipse.gmf.runtime.lite.parts.DiagramViewPart)page.showView(«editorGen.editor.getQualifiedClassName()».ID);
 		diagramView.showDiagram(null, org.eclipse.emf.ecore.util.EcoreUtil.getURI(myDiagram));
 	} catch (org.eclipse.ui.PartInitException e) {
-		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Exception while openning diagram", e); «EXPAND xpt::Common::nonNLS»
+		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Exception while opening diagram", e); «EXPAND xpt::Common::nonNLS»
 	}
 «ENDIF-»
 		}

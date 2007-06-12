@@ -29,7 +29,6 @@ import org.eclipse.gmf.codegen.templates.lite.editor.PaletteFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.lite.policies.OpenDiagramPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.DomainElementInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.MetricProviderGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.ValidationProviderGenerator;
@@ -108,7 +107,6 @@ public class CodegenEmitters {
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class);
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class);
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class);
-		put(tr, "/policies/OpenDiagramEditPolicy.javajet", OpenDiagramPolicyGenerator.class);
 
 		return tr;
 	}
@@ -286,7 +284,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getOpenDiagramEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return retrieve(OpenDiagramPolicyGenerator.class);
+		return retrieveXpand("xpt::diagram::policies::OpenDiagramEditPolicy::OpenDiagramEditPolicy");	//$NON-NLS-1$
 	}
 
 	public BinaryEmitter getDiagramIconEmitter() throws UnexpectedBehaviourException {
