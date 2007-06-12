@@ -831,9 +831,6 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getNavigatorGroupQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getNavigatorItemQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getUriInputTesterQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getChildReferencesTo">
-        <genParameters ecoreParameter="gmfgen.ecore#//GenNavigator/getChildReferencesTo/child"/>
-      </genOperations>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenNavigatorChildReference">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNavigatorChildReference/navigator"/>

@@ -1769,12 +1769,6 @@
     <eOperations name="getNavigatorGroupQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getNavigatorItemQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getUriInputTesterQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getChildReferencesTo" upperBound="-1" eType="#//GenNavigatorChildReference">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="corresponding method should be implemented in .ext file"/>
-      </eAnnotations>
-      <eParameters name="child" eType="#//GenCommonBase"/>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" eType="#//GenEditorGenerator"
         changeable="false" eOpposite="#//GenEditorGenerator/navigator"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="contentExtensionID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
