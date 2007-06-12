@@ -174,6 +174,31 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String Editor_SavingDeletedFile;
+
+	/**
+	 * @generated
+	 */
+	public static String Editor_SaveAsErrorTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String Editor_SaveAsErrorMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String Editor_SaveErrorTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String Editor_SaveErrorMessage;
+
+	/**
+	 * @generated
+	 */
 	public static String AquatoryGroup_title;
 
 	/**
