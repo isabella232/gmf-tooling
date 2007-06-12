@@ -29,3 +29,11 @@ List[gmfgen::GenCommonBase] getElements(gmfgen::GenDiagram diagram) :
 boolean hasExplicitChildFeature(gmfgen::TypeModelFacet facet) :
 	!isDerived(facet.childMetaFeature) && facet.childMetaFeature != facet.containmentMetaFeature
 ;
+
+List[gmfgen::GenLink] getOutgoingLinks(gmfgen::GenNode node) :
+	node.getDiagram().links.select(link | link.getAssistantSources().contains(node))
+;
+
+List[gmfgen::GenLink] getIncomingLinks(gmfgen::GenNode node) :
+	node.getDiagram().links.select(link | link.getAssistantTargets().contains(node))
+;

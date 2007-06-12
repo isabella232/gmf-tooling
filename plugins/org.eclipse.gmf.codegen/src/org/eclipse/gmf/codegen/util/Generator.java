@@ -630,11 +630,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	private void generateModelingAssistantProvider() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getModelingAssistantProviderEmitter(),
-			myDiagram.getProvidersPackageName(),
-			myDiagram.getModelingAssistantProviderClassName(),
-			myDiagram);
+		doGenerateJavaClass(myEmitters.getModelingAssistantProviderEmitter(), myDiagram.getModelingAssistantProviderQualifiedClassName(), myDiagram);
 	}
 
 	private void generateIconProvider() throws UnexpectedBehaviourException, InterruptedException {

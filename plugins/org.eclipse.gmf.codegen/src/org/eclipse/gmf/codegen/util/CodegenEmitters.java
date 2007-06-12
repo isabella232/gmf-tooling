@@ -46,7 +46,6 @@ import org.eclipse.gmf.codegen.templates.providers.ContributionItemProviderGener
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ElementInitializersGenerator;
 import org.eclipse.gmf.codegen.templates.providers.MetricProviderGenerator;
-import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ShortcutsDecoratorProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ValidationProviderGenerator;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
@@ -126,7 +125,6 @@ public class CodegenEmitters {
 		put(tr, "/policies/CompartmentItemSemanticEditPolicy.javajet", CompartmentItemSemanticEditPolicyGenerator.class);
 		put(tr, "/providers/EditPartProvider.javajet", EditPartProviderGenerator.class);
 		put(tr, "/providers/ContributionItemProvider.javajet", ContributionItemProviderGenerator.class);
-		put(tr, "/providers/ModelingAssistantProvider.javajet", ModelingAssistantProviderGenerator.class);
 		put(tr, "/providers/ElementInitializers.javajet", ElementInitializersGenerator.class);
 		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/providers/ShortcutsDecoratorProvider.javajet", ShortcutsDecoratorProviderGenerator.class); //$NON-NLS-1$
@@ -423,7 +421,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getModelingAssistantProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ModelingAssistantProviderGenerator.class);
+		return getPrimaryEmitter("xpt::providers::ModelingAssistantProvider"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getPropertySheetLabelProviderEmitter() throws UnexpectedBehaviourException {
