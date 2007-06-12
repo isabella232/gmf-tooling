@@ -53,7 +53,7 @@ public class PortVisualIDRegistry {
 				return -1;
 			}
 		}
-		return getVisualID(view.getType());
+		return org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry.getVisualID(view.getType());
 	}
 
 	/**

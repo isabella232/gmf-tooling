@@ -63,8 +63,11 @@ public class BuildingViewFactory extends AbstractShapeViewFactory {
 			shortcutAnnotation.getDetails().put("modelID", PortEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
+		IAdaptable eObjectAdapter = null;
 		EObject eObject = (EObject) semanticAdapter.getAdapter(EObject.class);
-		IAdaptable eObjectAdapter = eObject != null ? new EObjectAdapter(eObject) : null;
+		if (eObject != null) {
+			eObjectAdapter = new EObjectAdapter(eObject);
+		}
 		getViewService().createNode(eObjectAdapter, view, PortVisualIDRegistry.getType(BuildingInfoEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 

@@ -94,6 +94,11 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String PortDocumentProvider_SaveAsOperation;
+
+	/**
+	 * @generated
+	 */
 	public static String PortInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle;
 
 	/**
