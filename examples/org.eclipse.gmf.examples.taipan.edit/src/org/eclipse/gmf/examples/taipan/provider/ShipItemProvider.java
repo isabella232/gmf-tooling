@@ -63,6 +63,7 @@ public class ShipItemProvider extends ItemProviderAdapter implements IEditingDom
 
 			addNamePropertyDescriptor(object);
 			addDestinationPropertyDescriptor(object);
+			addRoutePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -89,6 +90,18 @@ public class ShipItemProvider extends ItemProviderAdapter implements IEditingDom
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Ship_destination_feature"), //$NON-NLS-1$
 				getString("_UI_PropertyDescriptor_description", "_UI_Ship_destination_feature", "_UI_Ship_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				TaiPanPackage.Literals.SHIP__DESTINATION, true, false, false, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Route feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRoutePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Ship_route_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_Ship_route_feature", "_UI_Ship_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				TaiPanPackage.Literals.SHIP__ROUTE, true, false, true, null, null, null));
 	}
 
 	/**
