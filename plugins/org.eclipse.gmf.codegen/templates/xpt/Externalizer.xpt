@@ -42,6 +42,7 @@ public class «getAccessorName()» extends org.eclipse.osgi.util.NLS {
 	«EXPAND xpt::editor::InitDiagramFileAction::i18nAccessors FOR diagram-»
 	«EXPAND xpt::editor::NewDiagramFileWizard::i18nAccessors FOR diagram-»
 	«EXPAND xpt::editor::Editor::i18nAccessors FOR editor-»
+	«EXPAND xpt::editor::ElementChooser::i18nAccessors FOR diagram-»
 	«EXPAND xpt::editor::palette::PaletteFactory::i18nAccessors FOR diagram.palette-»
 	«EXPAND xpt::application::ActionBarAdvisor::i18nAccessors FOR application-»
     «EXPAND xpt::application::WorkbenchWindowAdvisor::i18nAccessors FOR application-»
@@ -58,6 +59,7 @@ public class «getAccessorName()» extends org.eclipse.osgi.util.NLS {
 «EXPAND xpt::editor::InitDiagramFileAction::i18nValues FOR diagram-»
 «EXPAND xpt::editor::NewDiagramFileWizard::i18nValues FOR diagram-»
 «EXPAND xpt::editor::Editor::i18nValues FOR editor-»
+«EXPAND xpt::editor::ElementChooser::i18nValues FOR diagram-»
 «EXPAND xpt::editor::palette::PaletteFactory::i18nValues FOR diagram.palette-»
 «EXPAND xpt::application::ActionBarAdvisor::i18nValues FOR application-»
 «EXPAND xpt::application::WorkbenchWindowAdvisor::i18nValues FOR application-»

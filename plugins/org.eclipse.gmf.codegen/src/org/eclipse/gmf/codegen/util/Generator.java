@@ -776,16 +776,11 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(myEmitters.getLoadResourceActionEmitter(), myDiagram.getLoadResourceActionQualifiedClassName(), myDiagram);
 	}
 	
-	private void generateElementChooser() throws UnexpectedBehaviourException, InterruptedException {
+	private void generateElementChooser() throws InterruptedException {
 		if (!myDiagram.generateCreateShortcutAction()) {
 			return;
 		}
-		internalGenerateJavaClass(
-				myEmitters.getElementChooserEmitter(),
-				myEditorGen.getEditor().getPackageName(), 
-				myDiagram.getElementChooserClassName(),
-				myDiagram
-			);
+		doGenerateJavaClass(myEmitters.getElementChooserEmitter(), myDiagram.getElementChooserQualifiedClassName(), myDiagram);
 	}
 
 	private void generateShortcutCreationWizard() throws UnexpectedBehaviourException, InterruptedException {

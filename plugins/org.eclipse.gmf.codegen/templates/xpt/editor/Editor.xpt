@@ -362,10 +362,10 @@ protected abstract Object getJavaObject(org.eclipse.swt.dnd.TransferData data);
 «ENDDEFINE»
 
 «DEFINE implementsList FOR List[String]-»
-«IF !isEmpty()» implements«EXPAND implementsListEntry(this) FOREACH this»«ENDIF-»
+«IF !isEmpty()» implements «EXPAND implementsListEntry FOREACH this SEPARATOR ", "»«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE implementsListEntry(List[String] implementsList) FOR String»«IF implementsList.first() != this»,«ENDIF» «this»«ENDDEFINE»
+«DEFINE implementsListEntry FOR String»«this»«ENDDEFINE»
 
 «DEFINE DTL_additions FOR gmfgen::GenEditorView-»
 «ENDDEFINE»

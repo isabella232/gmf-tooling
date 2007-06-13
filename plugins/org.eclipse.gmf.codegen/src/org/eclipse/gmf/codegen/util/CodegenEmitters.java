@@ -30,7 +30,6 @@ import org.eclipse.gmf.codegen.templates.editor.BuildPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreateShortcutActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
-import org.eclipse.gmf.codegen.templates.editor.ElementChooserGenerator;
 import org.eclipse.gmf.codegen.templates.editor.OptionsFileGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
@@ -126,7 +125,6 @@ public class CodegenEmitters {
 		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
 		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
 		put(tr, "/editor/CreateShortcutAction.javajet", CreateShortcutActionGenerator.class);
-		put(tr, "/editor/ElementChooser.javajet", ElementChooserGenerator.class);
 		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
 		put(tr, "/editor/Plugin.javajet", PluginGenerator.class);
 		put(tr, "/editor/.optionsjet", OptionsFileGenerator.class);
@@ -552,8 +550,8 @@ public class CodegenEmitters {
 		return newXpandEmitter("xpt::editor::LoadResourceAction::LoadResourceAction"); //$NON-NLS-1$
 	}
 	
-	public TextEmitter getElementChooserEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ElementChooserGenerator.class);
+	public TextEmitter getElementChooserEmitter() {
+		return newXpandEmitter("xpt::editor::ElementChooser::ElementChooser"); //$NON-NLS-1$
 	}
 	
 	public TextEmitter getDocumentProviderEmitter() {

@@ -216,7 +216,7 @@ public static int «EXPAND getNodeVisualIDMethodName»(org.eclipse.gmf.runtime.not
 	«EXPAND xpt::Common::generatedMemberComment»
 public static boolean «EXPAND canCreateNodeMethodName»(org.eclipse.gmf.runtime.notation.View containerView, int nodeVisualID) {
 	String containerModelID = «EXPAND getModelIDMethodCall»(containerView);
-	if (!«EXPAND modelID».equals(containerModelID)«EXPAND checkContainerModelID FOREACH shortcutsProvidedFor») {«EXPAND xpt::Common::nonNLS({}) FOREACH shortcutsProvidedFor»
+	if (!«EXPAND modelID».equals(containerModelID)«EXPAND checkContainerModelID FOREACH shortcutsProvidedFor») { «EXPAND xpt::Common::nonNLS({}) FOREACH shortcutsProvidedFor SEPARATOR " "»
 		return false;
 	}
 	int containerVisualID;
