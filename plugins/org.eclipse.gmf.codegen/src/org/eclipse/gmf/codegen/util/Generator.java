@@ -634,12 +634,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(myEmitters.getValidationDecoratorProviderEmitter(), myDiagram.getValidationDecoratorProviderQualifiedClassName(), myDiagram);
 	}
 
-	private void generateShortcutsDecoratorProvider() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getShortcutsDecoratorProviderEmitter(),
-			myDiagram.getProvidersPackageName(),
-			myDiagram.getShortcutsDecoratorProviderClassName(),
-			myDiagram);
+	private void generateShortcutsDecoratorProvider() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getShortcutsDecoratorProviderEmitter(), myDiagram.getShortcutsDecoratorProviderQualifiedClassName(), myDiagram);
 	}
 	
 	private void generateShortcutPropertyTester() throws InterruptedException {
