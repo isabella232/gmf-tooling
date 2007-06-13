@@ -15,8 +15,8 @@
 «EXTENSION xpt::diagram::editparts::Utils»
 
 «DEFINE DiagramEditPart FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
-package «getDiagram().editPartsPackageName»;
+«EXPAND xpt::Common::copyright FOR editorGen-»
+package «editPartsPackageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
 public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart {

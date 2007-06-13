@@ -348,12 +348,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	// helpers
 
 	private void generateBaseEditHelper() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getBaseEditHelperEmitter(),
-			myDiagram.getEditHelpersPackageName(),
-			myDiagram.getBaseEditHelperClassName(),
-			myDiagram
-		);
+		doGenerateJavaClass(myEmitters.getBaseEditHelperEmitter(), myDiagram.getBaseEditHelperQualifiedClassName(), myDiagram);
 	}
 
 	private void generateEditSupport(GenCommonBase diagramElement) throws UnexpectedBehaviourException, InterruptedException {
@@ -369,24 +364,14 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateEditHelper(MetamodelType genType) throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getEditHelperEmitter(),
-			myDiagram.getEditHelpersPackageName(),
-			genType.getEditHelperClassName(),
-			genType
-		);
+		doGenerateJavaClass(myEmitters.getEditHelperEmitter(), genType.getEditHelperQualifiedClassName(), genType);
 	}
 
 	private void generateEditHelperAdvice(SpecializationType genType) throws UnexpectedBehaviourException, InterruptedException {
 		if (!genType.eIsSet(GMFGenPackage.eINSTANCE.getSpecializationType_EditHelperAdviceClassName())) {
 			return;
 		}
-		internalGenerateJavaClass(
-			myEmitters.getEditHelperAdviceEmitter(),
-			myDiagram.getEditHelpersPackageName(),
-			genType.getEditHelperAdviceClassName(),
-			genType
-		);
+		doGenerateJavaClass(myEmitters.getEditHelperAdviceEmitter(), genType.getEditHelperAdviceQualifiedClassName(), genType);
 	}
 
 	// parts

@@ -36,9 +36,6 @@ import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.helpers.BaseEditHelperGenerator;
-import org.eclipse.gmf.codegen.templates.helpers.EditHelperAdviceGenerator;
-import org.eclipse.gmf.codegen.templates.helpers.EditHelperGenerator;
 import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.GraphicalNodeEditPolicyGenerator;
@@ -117,9 +114,6 @@ public class CodegenEmitters {
 	}
 
 	private static void initRegistry(StaticTemplateRegistry tr) {
-		put(tr, "/helpers/BaseEditHelper.javajet", BaseEditHelperGenerator.class);
-		put(tr, "/helpers/EditHelper.javajet", EditHelperGenerator.class);
-		put(tr, "/helpers/EditHelperAdvice.javajet", EditHelperAdviceGenerator.class);
 		put(tr, "/policies/GraphicalNodeEditPolicy.javajet", GraphicalNodeEditPolicyGenerator.class);
 		put(tr, "/policies/DiagramItemSemanticEditPolicy.javajet", DiagramItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/CompartmentItemSemanticEditPolicy.javajet", CompartmentItemSemanticEditPolicyGenerator.class);
@@ -219,71 +213,71 @@ public class CodegenEmitters {
 	// helpers
 
 	public TextEmitter getBaseEditHelperEmitter() throws UnexpectedBehaviourException {
-		return retrieve(BaseEditHelperGenerator.class);
+		return getPrimaryEmitter("xpt::diagram::edithelpers::BaseEditHelper"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getEditHelperEmitter() throws UnexpectedBehaviourException {
-		return retrieve(EditHelperGenerator.class);
+		return getPrimaryEmitter("xpt::diagram::edithelpers::EditHelper"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getEditHelperAdviceEmitter() throws UnexpectedBehaviourException {
-		return retrieve(EditHelperAdviceGenerator.class);
+		return getPrimaryEmitter("xpt::diagram::edithelpers::EditHelperAdvice"); //$NON-NLS-1$
 	}
 
 	// parts
 
 	public TextEmitter getDiagramEditPartEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::editparts::DiagramEditPart::DiagramEditPart"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::editparts::DiagramEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getNodeEditPartEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::editparts::NodeEditPart::NodeEditPart"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::editparts::NodeEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::editparts::NodeLabelEditPart::NodeLabelEditPart"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::editparts::NodeLabelEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getExternalNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::editparts::ExternalNodeLabelEditPart::ExternalNodeLabelEditPart"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::editparts::ExternalNodeLabelEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getChildNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::editparts::ChildNodeLabelEditPart::ChildNodeLabelEditPart"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::editparts::ChildNodeLabelEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getCompartmentEditPartEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::editparts::CompartmentEditPart::CompartmentEditPart"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::editparts::CompartmentEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getLinkEditPartEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::editparts::LinkEditPart::LinkEditPart"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::editparts::LinkEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getLinkLabelEditPartEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::editparts::LinkLabelEditPart::LinkLabelEditPart"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::editparts::LinkLabelEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getEditPartFactoryEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::editparts::EditPartFactory::EditPartFactory"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::editparts::EditPartFactory"); //$NON-NLS-1$
 	}
 
 	// policies
 
 	public TextEmitter getBaseItemSemanticEditPolicyEmitter() {
-		return newXpandEmitter("xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::BaseItemSemanticEditPolicy"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::editpolicies::BaseItemSemanticEditPolicy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getOpenDiagramEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::editpolicies::OpenDiagram::OpenDiagram"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::editpolicies::OpenDiagram"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getDiagramCanonicalEditPolicyEmitter() {
-		return newXpandEmitter("xpt::diagram::editpolicies::DiagramCanonicalEditPolicy::DiagramCanonicalEditPolicy"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::editpolicies::DiagramCanonicalEditPolicy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getChildContainerCanonicalEditPolicyEmitter() {
-		return newXpandEmitter("xpt::diagram::editpolicies::ChildContainerCanonicalEditPolicy::ChildContainerCanonicalEditPolicy"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::editpolicies::ChildContainerCanonicalEditPolicy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getDiagramItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
@@ -299,11 +293,11 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getNodeItemSemanticEditPolicyEmitter() {
-		return newXpandEmitter("xpt::diagram::editpolicies::NodeItemSemanticEditPolicy::NodeItemSemanticEditPolicy"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::editpolicies::NodeItemSemanticEditPolicy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getLinkItemSemanticEditPolicyEmitter() {
-		return newXpandEmitter("xpt::diagram::editpolicies::LinkItemSemanticEditPolicy::LinkItemSemanticEditPolicy"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::editpolicies::LinkItemSemanticEditPolicy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getTextSelectionEditPolicyEmitter() throws UnexpectedBehaviourException {
