@@ -619,30 +619,6 @@ public class CodegenEmitters {
 	public TextEmitter getNavigatorItemEmitter() {
 		return newXpandEmitter("xpt::navigator::NavigatorItem::NavigatorItem"); //$NON-NLS-1$
 	}
-	
-	public TextEmitter getPluginClassEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::plugin::Activator"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getPluginXmlEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::plugin"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getPluginPropertiesEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::properties"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getOptionsFileEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::plugin::options"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getBundleManifestEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::manifest"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getBuildPropertiesEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::plugin::build"); //$NON-NLS-1$
-	}
 
 	public BinaryEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {
 		return newGIFEmitter("/editor/shortcut.gif"); //$NON-NLS-1$
@@ -720,6 +696,32 @@ public class CodegenEmitters {
 
 	public String getRulersAndGridPreferencePageName(Object... input) throws UnexpectedBehaviourException {
 		return getQualifiedClassName("xpt::diagram::preferences::RulersAndGridPreferencePage", input); //$NON-NLS-1$
+	}
+
+	// plugin
+
+	public TextEmitter getActivatorEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::plugin::Activator"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getBundleManifestEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::plugin::manifest"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getPluginXmlEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::plugin::plugin"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getPluginPropertiesEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::plugin::properties"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getBuildPropertiesEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::plugin::build"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getOptionsFileEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::plugin::options"); //$NON-NLS-1$
 	}
 
 	// application
