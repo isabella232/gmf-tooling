@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -60,7 +60,7 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	private TaiPanDocumentProvider myDocumentProvider;
+	private TaiPanDocumentProvider documentProvider;
 
 	/**
 	 * @generated
@@ -162,14 +162,6 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns string from plug-in's resource bundle
-	 * @generated
-	 */
-	public static String getString(String key) {
-		return Platform.getResourceString(getInstance().getBundle(), "%" + key); //$NON-NLS-1$
-	}
-
-	/**
 	 * Returns an image for the image file at the given plug-in relative path.
 	 * Client do not need to dispose this image. Images will be disposed automatically.
 	 *
@@ -187,13 +179,22 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
+	 * Returns string from plug-in's resource bundle
+	 *
+	 * @generated
+	 */
+	public static String getString(String key) {
+		return Platform.getResourceString(getInstance().getBundle(), "%" + key); //$NON-NLS-1$
+	}
+
+	/**
 	 * @generated
 	 */
 	public TaiPanDocumentProvider getDocumentProvider() {
-		if (myDocumentProvider == null) {
-			myDocumentProvider = new TaiPanDocumentProvider();
+		if (documentProvider == null) {
+			documentProvider = new TaiPanDocumentProvider();
 		}
-		return myDocumentProvider;
+		return documentProvider;
 	}
 
 	/**
@@ -204,7 +205,6 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * @param throwable actual error or null could be passed
 	 * @generated
 	 */
 	public void logError(String error, Throwable throwable) {
@@ -223,7 +223,6 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * @param throwable actual error or null could be passed
 	 * @generated
 	 */
 	public void logInfo(String message, Throwable throwable) {
