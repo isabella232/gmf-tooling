@@ -85,16 +85,14 @@
 		<!-- Load build.cfg properties -->
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
 		<ant antfile="${scripts}/install.xml" target="installGMFBasePlatform" />
+		<ant antfile="${scripts}/install.xml" target="installGMFRuntime" />	
+		<ant antfile="${scripts}/install.xml" target="installExamples" />
 	</target>
 	
 	<!-- ===================================================================== -->
 	<!-- Steps to do before fetching the build elements -->
 	<!-- ===================================================================== -->
-	<target name="preFetch" if="copyRuntime">
-		<!-- Avoid repeated download of runtime... -->
-		<copy todir="${buildDirectory}/plugins">
-		    <fileset dir="${buildDirectory}/../runtime/plugins"/>
-		</copy>
+	<target name="preFetch">
 	</target>
 
 	<!-- ===================================================================== -->
