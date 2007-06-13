@@ -108,6 +108,7 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 				return getImage(view);
 			}
 		}
+
 		return super.getImage(element);
 	}
 
@@ -200,6 +201,7 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 				return getText(view);
 			}
 		}
+
 		return super.getText(element);
 	}
 

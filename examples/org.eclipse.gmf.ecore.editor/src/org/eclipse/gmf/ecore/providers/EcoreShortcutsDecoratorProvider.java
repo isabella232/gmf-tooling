@@ -13,6 +13,9 @@ package org.eclipse.gmf.ecore.providers;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
+import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
+import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionEditPart;
@@ -23,10 +26,6 @@ import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorProvider;
 import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorTarget;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
-
-import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
-import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
 /**
  * @generated
@@ -95,5 +94,7 @@ public class EcoreShortcutsDecoratorProvider extends AbstractProvider implements
 				setDecoration(getDecoratorTarget().addConnectionDecoration(image, 50, false));
 			}
 		}
+
 	}
+
 }

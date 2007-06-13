@@ -174,6 +174,36 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String EcoreDiagramEditor_SavingDeletedFile;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreDiagramEditor_SaveAsErrorTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreDiagramEditor_SaveAsErrorMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreDiagramEditor_SaveErrorTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreDiagramEditor_SaveErrorMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreElementChooserDialog_SelectModelElementTitle;
+
+	/**
+	 * @generated
+	 */
 	public static String Nodes1Group_title;
 
 	/**

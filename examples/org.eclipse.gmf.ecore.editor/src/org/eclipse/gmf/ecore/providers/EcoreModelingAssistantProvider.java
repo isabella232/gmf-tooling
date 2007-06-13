@@ -19,16 +19,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-import org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.ModelingAssistantProvider;
-import org.eclipse.gmf.runtime.notation.Diagram;
-import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.window.Window;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
@@ -39,8 +29,17 @@ import org.eclipse.gmf.ecore.edit.parts.EDataTypeEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnumEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
-
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
+import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.ModelingAssistantProvider;
+import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.window.Window;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
 /**
  * @generated
@@ -101,6 +100,13 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 	 */
 	public List getRelTypesOnSource(IAdaptable source) {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
+		if (sourceEditPart instanceof EClassEditPart) {
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EReference_4002);
+			types.add(EcoreElementTypes.EReference_4003);
+			types.add(EcoreElementTypes.EClassESuperTypes_4004);
+			return types;
+		}
 		if (sourceEditPart instanceof EAnnotationEditPart) {
 			List types = new ArrayList();
 			types.add(EcoreElementTypes.EAnnotationReferences_4001);
@@ -109,13 +115,6 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 		if (sourceEditPart instanceof EAnnotation2EditPart) {
 			List types = new ArrayList();
 			types.add(EcoreElementTypes.EAnnotationReferences_4001);
-			return types;
-		}
-		if (sourceEditPart instanceof EClassEditPart) {
-			List types = new ArrayList();
-			types.add(EcoreElementTypes.EReference_4002);
-			types.add(EcoreElementTypes.EReference_4003);
-			types.add(EcoreElementTypes.EClassESuperTypes_4004);
 			return types;
 		}
 		if (sourceEditPart instanceof EClass2EditPart) {
@@ -152,14 +151,6 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 	public List getRelTypesOnSourceAndTarget(IAdaptable source, IAdaptable target) {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
-		if (sourceEditPart instanceof EAnnotationEditPart) {
-			List types = new ArrayList();
-			return types;
-		}
-		if (sourceEditPart instanceof EAnnotation2EditPart) {
-			List types = new ArrayList();
-			return types;
-		}
 		if (sourceEditPart instanceof EClassEditPart) {
 			List types = new ArrayList();
 			if (targetEditPart instanceof EClassEditPart) {
@@ -168,6 +159,14 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 			if (targetEditPart instanceof EClass2EditPart) {
 				types.add(EcoreElementTypes.EClassESuperTypes_4004);
 			}
+			return types;
+		}
+		if (sourceEditPart instanceof EAnnotationEditPart) {
+			List types = new ArrayList();
+			return types;
+		}
+		if (sourceEditPart instanceof EAnnotation2EditPart) {
+			List types = new ArrayList();
 			return types;
 		}
 		if (sourceEditPart instanceof EClass2EditPart) {
@@ -216,14 +215,6 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 	 */
 	public List getTypesForTarget(IAdaptable source, IElementType relationshipType) {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
-		if (sourceEditPart instanceof EAnnotationEditPart) {
-			List types = new ArrayList();
-			return types;
-		}
-		if (sourceEditPart instanceof EAnnotation2EditPart) {
-			List types = new ArrayList();
-			return types;
-		}
 		if (sourceEditPart instanceof EClassEditPart) {
 			List types = new ArrayList();
 			if (relationshipType == EcoreElementTypes.EClassESuperTypes_4004) {
@@ -232,6 +223,14 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 			if (relationshipType == EcoreElementTypes.EClassESuperTypes_4004) {
 				types.add(EcoreElementTypes.EClass_3004);
 			}
+			return types;
+		}
+		if (sourceEditPart instanceof EAnnotationEditPart) {
+			List types = new ArrayList();
+			return types;
+		}
+		if (sourceEditPart instanceof EAnnotation2EditPart) {
+			List types = new ArrayList();
 			return types;
 		}
 		if (sourceEditPart instanceof EClass2EditPart) {
