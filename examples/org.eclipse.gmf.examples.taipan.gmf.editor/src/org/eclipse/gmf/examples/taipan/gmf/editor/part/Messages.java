@@ -174,27 +174,32 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String Editor_SavingDeletedFile;
+	public static String TaiPanDiagramEditor_SavingDeletedFile;
 
 	/**
 	 * @generated
 	 */
-	public static String Editor_SaveAsErrorTitle;
+	public static String TaiPanDiagramEditor_SaveAsErrorTitle;
 
 	/**
 	 * @generated
 	 */
-	public static String Editor_SaveAsErrorMessage;
+	public static String TaiPanDiagramEditor_SaveAsErrorMessage;
 
 	/**
 	 * @generated
 	 */
-	public static String Editor_SaveErrorTitle;
+	public static String TaiPanDiagramEditor_SaveErrorTitle;
 
 	/**
 	 * @generated
 	 */
-	public static String Editor_SaveErrorMessage;
+	public static String TaiPanDiagramEditor_SaveErrorMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanElementChooserDialog_SelectModelElementTitle;
 
 	/**
 	 * @generated

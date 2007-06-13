@@ -185,7 +185,7 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor implements IGotoM
 			return;
 		}
 		if (provider.isDeleted(input) && original != null) {
-			String message = NLS.bind(Messages.Editor_SavingDeletedFile, original.getName());
+			String message = NLS.bind(Messages.TaiPanDiagramEditor_SavingDeletedFile, original.getName());
 			dialog.setErrorMessage(null);
 			dialog.setMessage(message, IMessageProvider.WARNING);
 		}
@@ -210,7 +210,7 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor implements IGotoM
 		IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
 		for (int i = 0; i < editorRefs.length; i++) {
 			if (matchingStrategy.matches(editorRefs[i], newInput)) {
-				MessageDialog.openWarning(shell, Messages.Editor_SaveAsErrorTitle, Messages.Editor_SaveAsErrorMessage);
+				MessageDialog.openWarning(shell, Messages.TaiPanDiagramEditor_SaveAsErrorTitle, Messages.TaiPanDiagramEditor_SaveAsErrorMessage);
 				return;
 			}
 		}
@@ -222,7 +222,7 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor implements IGotoM
 		} catch (CoreException x) {
 			IStatus status = x.getStatus();
 			if (status == null || status.getSeverity() != IStatus.CANCEL) {
-				ErrorDialog.openError(shell, Messages.Editor_SaveErrorTitle, Messages.Editor_SaveErrorMessage, x.getStatus());
+				ErrorDialog.openError(shell, Messages.TaiPanDiagramEditor_SaveErrorTitle, Messages.TaiPanDiagramEditor_SaveErrorMessage, x.getStatus());
 			}
 		} finally {
 			provider.changed(newInput);

@@ -99,7 +99,7 @@ public class TaiPanElementChooserDialog extends Dialog {
 	 */
 	protected Control createDialogArea(Composite parent) {
 		Composite composite = (Composite) super.createDialogArea(parent);
-		getShell().setText("Select model element");
+		getShell().setText(Messages.TaiPanElementChooserDialog_SelectModelElementTitle);
 		createModelBrowser(composite);
 		return composite;
 	}
@@ -141,7 +141,7 @@ public class TaiPanElementChooserDialog extends Dialog {
 	 */
 	private boolean isValidModelFile(IFile file) {
 		String fileExtension = file.getFullPath().getFileExtension();
-		return "taipan".equals(fileExtension);
+		return "taipan".equals(fileExtension); //$NON-NLS-1$
 	}
 
 	/**
