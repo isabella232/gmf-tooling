@@ -30,7 +30,6 @@ import org.eclipse.gmf.codegen.templates.editor.BuildPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
 import org.eclipse.gmf.codegen.templates.editor.OptionsFileGenerator;
-import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
@@ -122,7 +121,6 @@ public class CodegenEmitters {
 		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
 		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
 		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
-		put(tr, "/editor/Plugin.javajet", PluginGenerator.class);
 		put(tr, "/editor/.optionsjet", OptionsFileGenerator.class);
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class); //$NON-NLS-1$		
@@ -631,7 +629,7 @@ public class CodegenEmitters {
 	}
 	
 	public TextEmitter getPluginClassEmitter() throws UnexpectedBehaviourException {
-		return retrieve(PluginGenerator.class);
+		return getPrimaryEmitter("xpt::plugin::Activator"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getPluginXmlEmitter() throws UnexpectedBehaviourException {

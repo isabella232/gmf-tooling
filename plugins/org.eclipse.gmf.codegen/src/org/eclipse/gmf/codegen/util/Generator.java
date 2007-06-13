@@ -877,12 +877,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	private void generatePluginClass() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getPluginClassEmitter(),
-			myEditorGen.getEditor().getPackageName(), 
-			myEditorGen.getPlugin().getActivatorClassName(),
-			myEditorGen.getPlugin()
-		);
+		doGenerateJavaClass(myEmitters.getPluginClassEmitter(), myEditorGen.getPlugin().getActivatorQualifiedClassName(), myEditorGen.getPlugin());
 	}
 
 	// property sheet 
