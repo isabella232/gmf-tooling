@@ -41,6 +41,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteEditPa
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipLargeCargoEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipSmallCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteEditPart;
@@ -334,6 +335,7 @@ public class TaiPanDiagramUpdater {
 		Ship modelElement = (Ship) view.getElement();
 		List result = new LinkedList();
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Route_4004(modelElement));
 		return result;
 	}
 
@@ -346,6 +348,7 @@ public class TaiPanDiagramUpdater {
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
 		result.addAll(getContainedTypeModelFacetLinks_EscortShipsOrder_4006(modelElement));
 		result.addAll(getContainedTypeModelFacetLinks_BesiegePortOrder_4005(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Route_4004(modelElement));
 		return result;
 	}
 
@@ -461,14 +464,22 @@ public class TaiPanDiagramUpdater {
 	 * @generated
 	 */
 	public static List getRoute_4002IncomingLinks(View view) {
-		return Collections.EMPTY_LIST;
+		Route modelElement = (Route) view.getElement();
+		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		List result = new LinkedList();
+		result.addAll(getIncomingFeatureModelFacetLinks_Ship_Route_4004(modelElement, crossReferences));
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
 	public static List getRoute_4003IncomingLinks(View view) {
-		return Collections.EMPTY_LIST;
+		Route modelElement = (Route) view.getElement();
+		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		List result = new LinkedList();
+		result.addAll(getIncomingFeatureModelFacetLinks_Ship_Route_4004(modelElement, crossReferences));
+		return result;
 	}
 
 	/**
@@ -504,6 +515,7 @@ public class TaiPanDiagramUpdater {
 		Ship modelElement = (Ship) view.getElement();
 		List result = new LinkedList();
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Route_4004(modelElement));
 		return result;
 	}
 
@@ -516,6 +528,7 @@ public class TaiPanDiagramUpdater {
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
 		result.addAll(getContainedTypeModelFacetLinks_EscortShipsOrder_4006(modelElement));
 		result.addAll(getContainedTypeModelFacetLinks_BesiegePortOrder_4005(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Route_4004(modelElement));
 		return result;
 	}
 
@@ -774,6 +787,21 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
+	private static Collection getIncomingFeatureModelFacetLinks_Ship_Route_4004(Route target, Map crossReferences) {
+		Collection result = new LinkedList();
+		Collection settings = (Collection) crossReferences.get(target);
+		for (Iterator it = settings.iterator(); it.hasNext();) {
+			EStructuralFeature.Setting setting = (EStructuralFeature.Setting) it.next();
+			if (setting.getEStructuralFeature() == TaiPanPackage.eINSTANCE.getShip_Route()) {
+				result.add(new TaiPanLinkDescriptor(setting.getEObject(), target, TaiPanElementTypes.ShipRoute_4004, ShipRouteEditPart.VISUAL_ID));
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
 	private static Collection getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(Ship source) {
 		Collection result = new LinkedList();
 		Port destination = source.getDestination();
@@ -862,6 +890,16 @@ public class TaiPanDiagramUpdater {
 			Ship destination = (Ship) destinations.next();
 			result.add(new TaiPanLinkDescriptor(source, destination, TaiPanElementTypes.PortRegister_4007, PortRegisterEditPart.VISUAL_ID));
 		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection getOutgoingFeatureModelFacetLinks_Ship_Route_4004(Ship source) {
+		Collection result = new LinkedList();
+		Route destination = source.getRoute();
+		result.add(new TaiPanLinkDescriptor(source, destination, TaiPanElementTypes.ShipRoute_4004, ShipRouteEditPart.VISUAL_ID));
 		return result;
 	}
 

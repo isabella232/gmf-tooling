@@ -329,6 +329,16 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String ShipRouteTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String ShipRouteTool_desc;
+
+	/**
+	 * @generated
+	 */
 	public static String ShipSmallCargoEditPart_title;
 
 	/**

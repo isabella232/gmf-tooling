@@ -22,12 +22,15 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.PortRegisterCrea
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.PortRegisterReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipDestinationCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipDestinationReorientCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipRouteCreateCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipRouteReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipsOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortRegisterEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipLargeCargoEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipSmallCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
@@ -120,6 +123,9 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
 			return getGEFWrapper(new PortRegisterCreateCommand(req, req.getTarget(), req.getSource()));
 		}
+		if (TaiPanElementTypes.ShipRoute_4004 == req.getElementType()) {
+			return getGEFWrapper(new ShipRouteCreateCommand(req, req.getSource(), req.getTarget()));
+		}
 		return null;
 	}
 
@@ -135,6 +141,9 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		}
 		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
 			return getGEFWrapper(new PortRegisterCreateCommand(req, req.getSource(), req.getTarget()));
+		}
+		if (TaiPanElementTypes.ShipRoute_4004 == req.getElementType()) {
+			return null;
 		}
 		return null;
 	}
@@ -165,6 +174,8 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 			return getGEFWrapper(new ShipDestinationReorientCommand(req));
 		case PortRegisterEditPart.VISUAL_ID:
 			return getGEFWrapper(new PortRegisterReorientCommand(req));
+		case ShipRouteEditPart.VISUAL_ID:
+			return getGEFWrapper(new ShipRouteReorientCommand(req));
 		}
 		return super.getReorientReferenceRelationshipCommand(req);
 	}

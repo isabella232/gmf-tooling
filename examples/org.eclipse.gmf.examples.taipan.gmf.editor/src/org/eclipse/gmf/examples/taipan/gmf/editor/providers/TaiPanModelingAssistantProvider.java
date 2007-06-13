@@ -96,6 +96,7 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 		if (sourceEditPart instanceof ShipEditPart) {
 			List types = new ArrayList();
 			types.add(TaiPanElementTypes.ShipDestination_4001);
+			types.add(TaiPanElementTypes.ShipRoute_4004);
 			return types;
 		}
 		if (sourceEditPart instanceof WarshipEditPart) {

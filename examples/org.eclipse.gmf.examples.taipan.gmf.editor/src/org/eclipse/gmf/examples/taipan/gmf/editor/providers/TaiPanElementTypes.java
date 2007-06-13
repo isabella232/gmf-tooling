@@ -181,6 +181,8 @@ public class TaiPanElementTypes extends ElementInitializers {
 			elements.put(BesiegePortOrder_4005, TaiPanPackage.eINSTANCE.getBesiegePortOrder());
 
 			elements.put(PortRegister_4007, TaiPanPackage.eINSTANCE.getPort_Register());
+
+			elements.put(ShipRoute_4004, TaiPanPackage.eINSTANCE.getShip_Route());
 		}
 		return (ENamedElement) elements.get(type);
 	}
@@ -248,6 +250,11 @@ public class TaiPanElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
+	public static final IElementType ShipRoute_4004 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.ShipRoute_4004"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	private static IElementType getElementType(String id) {
 		return ElementTypeRegistry.getInstance().getType(id);
 	}
@@ -281,6 +288,7 @@ public class TaiPanElementTypes extends ElementInitializers {
 			KNOWN_ELEMENT_TYPES.add(EscortShipsOrder_4006);
 			KNOWN_ELEMENT_TYPES.add(BesiegePortOrder_4005);
 			KNOWN_ELEMENT_TYPES.add(PortRegister_4007);
+			KNOWN_ELEMENT_TYPES.add(ShipRoute_4004);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
 	}

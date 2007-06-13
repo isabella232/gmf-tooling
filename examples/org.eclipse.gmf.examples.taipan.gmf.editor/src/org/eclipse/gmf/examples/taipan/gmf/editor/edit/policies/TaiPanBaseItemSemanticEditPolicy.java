@@ -26,6 +26,7 @@ import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.requests.ReconnectRequest;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Port;
+import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
@@ -449,6 +450,18 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
+		public static boolean canCreateShipRoute_4004(Ship source, Route target) {
+			if (source != null) {
+				if (source.getRoute() != null) {
+					return false;
+				}
+			}
+			return canExistShipRoute_4004(source, target);
+		}
+
+		/**
+		 * @generated
+		 */
 		public static boolean canExistShipDestination_4001(Ship source, Port target) {
 			return true;
 		}
@@ -494,6 +507,13 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistPortRegister_4007(Port source, Ship target) {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canExistShipRoute_4004(Ship source, Route target) {
 			return true;
 		}
 

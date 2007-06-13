@@ -53,6 +53,7 @@ public class TaiPanPaletteFactory {
 		paletteContainer.add(createShipDestinationTool());
 		paletteContainer.add(createBesiegePortOrderTool());
 		paletteContainer.add(createEscortShipsOrderTool());
+		paletteContainer.add(createShipRouteTool());
 		return paletteContainer;
 	}
 
@@ -196,6 +197,18 @@ public class TaiPanPaletteFactory {
 		types.add(TaiPanElementTypes.EscortShipsOrder_4006);
 		LinkToolEntry entry = new LinkToolEntry(Messages.EscortShipsOrderTool_title, Messages.EscortShipsOrderTool_desc, types);
 		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.EscortShipsOrder_4006));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createShipRouteTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(TaiPanElementTypes.ShipRoute_4004);
+		LinkToolEntry entry = new LinkToolEntry(Messages.ShipRouteTool_title, Messages.ShipRouteTool_desc, types);
+		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.ShipRoute_4004));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
