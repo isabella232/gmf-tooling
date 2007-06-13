@@ -58,13 +58,6 @@ import org.eclipse.ui.PartInitException;
 public class TaiPanActionBarContributor extends EditingDomainActionBarContributor implements ISelectionChangedListener {
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = ""; //$NON-NLS-1$
-
-	/**
 	 * This keeps track of the active editor.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
