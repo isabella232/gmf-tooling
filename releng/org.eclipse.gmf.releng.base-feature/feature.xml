@@ -33,10 +33,6 @@
          version="0.0.0"/>
 
    <includes
-         id="org.eclipse.emf.ocl.sdk"
-         version="0.0.0"/>
-
-   <includes
          id="org.eclipse.emf.emfqtv.all.sdk"
          version="0.0.0"/>
 
