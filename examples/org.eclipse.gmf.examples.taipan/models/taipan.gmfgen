@@ -603,6 +603,22 @@
             href="taipan.genmodel#//taipan/Port/register"/>
       </modelFacet>
     </links>
+    <links
+        visualID="4004">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <elementType
+          xsi:type="gmfgen:SpecializationType"
+          displayName="Ship Route"/>
+      <viewmap
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DirectedConnection"/>
+      <modelFacet
+          xsi:type="gmfgen:FeatureLinkModelFacet">
+        <metaFeature
+            href="taipan.genmodel#//taipan/Ship/route"/>
+      </modelFacet>
+    </links>
     <compartments
         visualID="7001"
         editPartClassName="ShipSmallCargoEditPart"
@@ -747,6 +763,12 @@
             description="Place new esort ships order"
             createMethodName="createEscortShipsOrderTool"
             genLinks="//@diagram/@links.3"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="Ship Route"
+            description="Set ship route"
+            createMethodName="createShipRouteTool"
+            genLinks="//@diagram/@links.6"/>
       </groups>
     </palette>
     <preferences

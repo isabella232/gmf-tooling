@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gmf.examples.taipan.Item;
 import org.eclipse.gmf.examples.taipan.Port;
+import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
@@ -41,6 +42,7 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
  * <ul>
  *   <li>{@link org.eclipse.gmf.examples.taipan.impl.ShipImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.taipan.impl.ShipImpl#getDestination <em>Destination</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.taipan.impl.ShipImpl#getRoute <em>Route</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.taipan.impl.ShipImpl#getCargo <em>Cargo</em>}</li>
  * </ul>
  * </p>
@@ -78,6 +80,16 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	 * @ordered
 	 */
 	protected Port destination;
+
+	/**
+	 * The cached value of the '{@link #getRoute() <em>Route</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRoute()
+	 * @generated
+	 * @ordered
+	 */
+	protected Route route;
 
 	/**
 	 * The cached value of the '{@link #getCargo() <em>Cargo</em>}' containment reference list.
@@ -172,6 +184,44 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Route getRoute() {
+		if (route != null && route.eIsProxy()) {
+			InternalEObject oldRoute = (InternalEObject) route;
+			route = (Route) eResolveProxy(oldRoute);
+			if (route != oldRoute) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TaiPanPackage.SHIP__ROUTE, oldRoute, route));
+			}
+		}
+		return route;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Route basicGetRoute() {
+		return route;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRoute(Route newRoute) {
+		Route oldRoute = route;
+		route = newRoute;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TaiPanPackage.SHIP__ROUTE, oldRoute, route));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<Item> getCargo() {
 		if (cargo == null) {
 			cargo = new EObjectContainmentEList<Item>(Item.class, this, TaiPanPackage.SHIP__CARGO);
@@ -207,6 +257,10 @@ public class ShipImpl extends EObjectImpl implements Ship {
 			if (resolve)
 				return getDestination();
 			return basicGetDestination();
+		case TaiPanPackage.SHIP__ROUTE:
+			if (resolve)
+				return getRoute();
+			return basicGetRoute();
 		case TaiPanPackage.SHIP__CARGO:
 			return getCargo();
 		}
@@ -227,6 +281,9 @@ public class ShipImpl extends EObjectImpl implements Ship {
 			return;
 		case TaiPanPackage.SHIP__DESTINATION:
 			setDestination((Port) newValue);
+			return;
+		case TaiPanPackage.SHIP__ROUTE:
+			setRoute((Route) newValue);
 			return;
 		case TaiPanPackage.SHIP__CARGO:
 			getCargo().clear();
@@ -250,6 +307,9 @@ public class ShipImpl extends EObjectImpl implements Ship {
 		case TaiPanPackage.SHIP__DESTINATION:
 			setDestination((Port) null);
 			return;
+		case TaiPanPackage.SHIP__ROUTE:
+			setRoute((Route) null);
+			return;
 		case TaiPanPackage.SHIP__CARGO:
 			getCargo().clear();
 			return;
@@ -269,6 +329,8 @@ public class ShipImpl extends EObjectImpl implements Ship {
 			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		case TaiPanPackage.SHIP__DESTINATION:
 			return destination != null;
+		case TaiPanPackage.SHIP__ROUTE:
+			return route != null;
 		case TaiPanPackage.SHIP__CARGO:
 			return cargo != null && !cargo.isEmpty();
 		}

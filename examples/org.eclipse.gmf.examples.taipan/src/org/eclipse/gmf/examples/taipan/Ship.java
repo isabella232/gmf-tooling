@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.gmf.examples.taipan.Ship#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.taipan.Ship#getDestination <em>Destination</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.taipan.Ship#getRoute <em>Route</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.taipan.Ship#getCargo <em>Cargo</em>}</li>
  * </ul>
  * </p>
@@ -86,6 +87,32 @@ public interface Ship extends EObject {
 	 * @generated
 	 */
 	void setDestination(Port value);
+
+	/**
+	 * Returns the value of the '<em><b>Route</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Route</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Route</em>' reference.
+	 * @see #setRoute(Route)
+	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getShip_Route()
+	 * @model
+	 * @generated
+	 */
+	Route getRoute();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.examples.taipan.Ship#getRoute <em>Route</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Route</em>' reference.
+	 * @see #getRoute()
+	 * @generated
+	 */
+	void setRoute(Route value);
 
 	/**
 	 * Returns the value of the '<em><b>Cargo</b></em>' containment reference list.

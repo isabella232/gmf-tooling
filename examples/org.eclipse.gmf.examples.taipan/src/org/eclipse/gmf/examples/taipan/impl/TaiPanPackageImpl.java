@@ -307,8 +307,17 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getShip_Cargo() {
+	public EReference getShip_Route() {
 		return (EReference) shipEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getShip_Cargo() {
+		return (EReference) shipEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -570,6 +579,7 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		shipEClass = createEClass(SHIP);
 		createEAttribute(shipEClass, SHIP__NAME);
 		createEReference(shipEClass, SHIP__DESTINATION);
+		createEReference(shipEClass, SHIP__ROUTE);
 		createEReference(shipEClass, SHIP__CARGO);
 
 		itemEClass = createEClass(ITEM);
@@ -670,6 +680,8 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 				"name", null, 0, 1, Ship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getShip_Destination(), this.getPort(), null,
 				"destination", null, 0, 1, Ship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getShip_Route(), this.getRoute(), null,
+				"route", null, 0, 1, Ship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getShip_Cargo(), this.getItem(), null,
 				"cargo", null, 0, -1, Ship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 

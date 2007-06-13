@@ -31,6 +31,7 @@
     <genClasses ecoreClass="taipan.ecore#//Ship">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taipan.ecore#//Ship/name"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference taipan.ecore#//Ship/destination"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference taipan.ecore#//Ship/route"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference taipan.ecore#//Ship/cargo"/>
     </genClasses>
     <genClasses ecoreClass="taipan.ecore#//Item">

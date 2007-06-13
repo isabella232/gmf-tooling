@@ -358,13 +358,22 @@ public interface TaiPanPackage extends EPackage {
 	int SHIP__DESTINATION = 1;
 
 	/**
+	 * The feature id for the '<em><b>Route</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHIP__ROUTE = 2;
+
+	/**
 	 * The feature id for the '<em><b>Cargo</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SHIP__CARGO = 2;
+	int SHIP__CARGO = 3;
 
 	/**
 	 * The number of structural features of the '<em>Ship</em>' class.
@@ -373,7 +382,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SHIP_FEATURE_COUNT = 3;
+	int SHIP_FEATURE_COUNT = 4;
 
 	/**
 	 * The feature id for the '<em><b>Article</b></em>' attribute.
@@ -482,6 +491,15 @@ public interface TaiPanPackage extends EPackage {
 	 * @ordered
 	 */
 	int WARSHIP__DESTINATION = SHIP__DESTINATION;
+
+	/**
+	 * The feature id for the '<em><b>Route</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WARSHIP__ROUTE = SHIP__ROUTE;
 
 	/**
 	 * The feature id for the '<em><b>Cargo</b></em>' containment reference list.
@@ -681,6 +699,17 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getShip_Destination();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.examples.taipan.Ship#getRoute <em>Route</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Route</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.Ship#getRoute()
+	 * @see #getShip()
+	 * @generated
+	 */
+	EReference getShip_Route();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.examples.taipan.Ship#getCargo <em>Cargo</em>}'.
@@ -1052,6 +1081,14 @@ public interface TaiPanPackage extends EPackage {
 		 * @generated
 		 */
 		EReference SHIP__DESTINATION = eINSTANCE.getShip_Destination();
+
+		/**
+		 * The meta object literal for the '<em><b>Route</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SHIP__ROUTE = eINSTANCE.getShip_Route();
 
 		/**
 		 * The meta object literal for the '<em><b>Cargo</b></em>' containment reference list feature.
