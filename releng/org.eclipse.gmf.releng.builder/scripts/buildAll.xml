@@ -400,9 +400,6 @@
 			<replacefilter token="@oclUpdateVersion@" value="${oclUpdateVersion}" />
 			<replacefilter token="@oclUpdateSite@" value="${oclUpdateSite}" />
 
-			<replacefilter token="@emfOclUpdateVersion@" value="${emfOclUpdateVersion}" />
-			<replacefilter token="@emfOclUpdateSite@" value="${emfOclUpdateSite}" />
-
 			<replacefilter token="@gefUpdateVersion@" value="${gefUpdateVersion}" />
 			<replacefilter token="@gefUpdateSite@" value="${gefUpdateSite}" />
 
