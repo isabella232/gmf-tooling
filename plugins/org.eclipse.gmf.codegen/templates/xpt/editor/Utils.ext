@@ -198,6 +198,18 @@ private String i18nKeyForElementChooser(gmfgen::GenDiagram diagram) :
 	diagram.elementChooserClassName
 ;
 
+String i18nKeyForOpenModel(gmfgen::GenDiagram diagram) :
+	i18nKeyForCreateShortcutAction(diagram) + ".OpenModel"
+;
+
+String i18nKeyForCreateShortcus(gmfgen::GenDiagram diagram) :
+	i18nKeyForCreateShortcutAction(diagram) + ".CreateShortcut"
+;
+
+private String i18nKeyForCreateShortcutAction(gmfgen::GenDiagram diagram) :
+	diagram.createShortcutActionClassName
+;
+
 String titleKey(String dialogKey) :
     dialogKey+"Title"
 ;

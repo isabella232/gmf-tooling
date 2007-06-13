@@ -27,7 +27,6 @@ import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.codegen.templates.editor.ActionBarContributorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.BuildPropertiesGenerator;
-import org.eclipse.gmf.codegen.templates.editor.CreateShortcutActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
 import org.eclipse.gmf.codegen.templates.editor.OptionsFileGenerator;
@@ -124,7 +123,6 @@ public class CodegenEmitters {
 		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
 		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
 		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
-		put(tr, "/editor/CreateShortcutAction.javajet", CreateShortcutActionGenerator.class);
 		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
 		put(tr, "/editor/Plugin.javajet", PluginGenerator.class);
 		put(tr, "/editor/.optionsjet", OptionsFileGenerator.class);
@@ -542,8 +540,8 @@ public class CodegenEmitters {
 		return newXpandEmitter("xpt::editor::Editor::Editor"); //$NON-NLS-1$
 	}
 	
-	public TextEmitter getCreateShortcutActionEmitter() throws UnexpectedBehaviourException {
-		return retrieve(CreateShortcutActionGenerator.class);
+	public TextEmitter getCreateShortcutActionEmitter() {
+		return newXpandEmitter("xpt::editor::CreateShortcutAction::CreateShortcutAction"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getLoadResourceActionEmitter() {
