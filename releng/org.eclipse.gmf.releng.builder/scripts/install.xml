@@ -136,6 +136,12 @@
 			<property name="updatesite.name" value="requirements" />
 		</ant>
 		<ant antfile="${scripts}/update.xml" target="install">
+			<property name="featureId" value="${uml2FeatureId}" />
+			<property name="version" value="${uml2UpdateVersion}" />
+			<property name="from.updatesite" value="${uml2UpdateSite}" />
+			<property name="updatesite.name" value="requirements" />
+		</ant>
+		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${oclFeatureId}" />
 			<property name="version" value="${oclUpdateVersion}" />
 			<property name="from.updatesite" value="${oclUpdateSite}" />
