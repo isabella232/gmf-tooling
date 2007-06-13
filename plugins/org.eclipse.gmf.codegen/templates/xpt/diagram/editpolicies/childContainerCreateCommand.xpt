@@ -14,22 +14,27 @@
 «EXTENSION xpt::GenModelUtils»
 
 «DEFINE childContainerCreateCommand FOR List[gmfgen::GenNode]-»
+	«IF !isEmpty()-»
+
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getCreateCommand(org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest req) {
 	«EXPAND childNodeCreateCommand FOREACH this-»
 	return super.getCreateCommand(req);
 }
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE childNodeCreateCommand FOR gmfgen::GenNode-»
-	«IF null == modelFacet»«ELSE-»
-if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» == req.getElementType()) {
-		«IF !modelFacet.isPhantomElement()-»
+	«EXPAND childNodeCreateCommand(this) FOR modelFacet-»
+«ENDDEFINE»
+
+«DEFINE childNodeCreateCommand(gmfgen::GenNode node) FOR gmfgen::TypeModelFacet-»
+if («node.getDiagram().getElementTypesQualifiedClassName()».«node.getUniqueIdentifier()» == req.getElementType()) {
+		«IF !isPhantomElement()-»
 	if (req.getContainmentFeature() == null) {
-		req.setContainmentFeature(«EXPAND xpt::Common::metaFeatureAccessor FOR modelFacet.containmentMetaFeature»);
+		req.setContainmentFeature(«IF null != containmentMetaFeature»«EXPAND xpt::Common::metaFeatureAccessor FOR containmentMetaFeature»«ELSE»/* FIXME no containment feature found in the genmodel, toolsmith need to specify correct one here manually */«ENDIF»);
 	}
 		«ENDIF-»
-	return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req));
+	return getGEFWrapper(new «node.getCreateCommandQualifiedClassName()»(req));
 }
-	«ENDIF-»
 «ENDDEFINE»

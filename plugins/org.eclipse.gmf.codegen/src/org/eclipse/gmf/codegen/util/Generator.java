@@ -454,28 +454,18 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(myEmitters.getChildContainerCanonicalEditPolicyEmitter(), genContainer.getCanonicalEditPolicyQualifiedClassName(), genContainer);
 	}
 
-	private void generateDiagramItemSemanticEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
+	private void generateDiagramItemSemanticEditPolicy() throws InterruptedException {
 		if (myDiagram.isSansDomain()) {
 			return;
 		}
-		internalGenerateJavaClass(
-			myEmitters.getDiagramItemSemanticEditPolicyEmitter(),
-			myDiagram.getEditPoliciesPackageName(),
-			myDiagram.getItemSemanticEditPolicyClassName(),
-			myDiagram
-		);
+		doGenerateJavaClass(myEmitters.getDiagramItemSemanticEditPolicyEmitter(), myDiagram.getItemSemanticEditPolicyQualifiedClassName(), myDiagram);
 	}
 
-	private void generateCompartmentItemSemanticEditPolicy(GenCompartment genCompartment) throws UnexpectedBehaviourException, InterruptedException {
+	private void generateCompartmentItemSemanticEditPolicy(GenCompartment genCompartment) throws InterruptedException {
 		if (genCompartment.isSansDomain()) {
 			return;
 		}
-		internalGenerateJavaClass(
-			myEmitters.getCompartmentItemSemanticEditPolicyEmitter(),
-			myDiagram.getEditPoliciesPackageName(),
-			genCompartment.getItemSemanticEditPolicyClassName(),
-			genCompartment
-		);
+		doGenerateJavaClass(myEmitters.getCompartmentItemSemanticEditPolicyEmitter(), genCompartment.getItemSemanticEditPolicyQualifiedClassName(), genCompartment);
 	}
 
 	private void generateNodeGraphicalNodeEditPolicy(GenNode genNode) throws UnexpectedBehaviourException, InterruptedException {
