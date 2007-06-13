@@ -42,6 +42,16 @@ Contributors:
          contributorClass="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramActionBarContributor">
       </editor>
    </extension>
+   
+   <extension point="org.eclipse.ui.contexts">
+      <?gmfgen generated="true"?>
+      <context
+         description="%context.description"
+         id="org.eclipse.gmf.examples.taipan.gmf.editor.ui.diagramContext"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+      </context>
+   </extension>
 
    <extension point="org.eclipse.ui.newWizards">
       <?gmfgen generated="true"?>
@@ -579,16 +589,6 @@ Contributors:
                   <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.ship_name"/>
                </binding>
                </extension>
-
-   <extension point="org.eclipse.ui.contexts">
-      <?gmfgen generated="true"?>
-      <context
-         description="%context.description"
-         id="org.eclipse.gmf.examples.taipan.gmf.editor.ui.diagramContext"
-         name="%context.name"
-         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
-      </context>
-   </extension>
 
    <extension point="org.eclipse.ui.commands">
       <?gmfgen generated="true"?>
