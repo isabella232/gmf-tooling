@@ -26,10 +26,8 @@ import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.codegen.templates.editor.ActionBarContributorGenerator;
-import org.eclipse.gmf.codegen.templates.editor.BuildPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
-import org.eclipse.gmf.codegen.templates.editor.OptionsFileGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
@@ -121,8 +119,6 @@ public class CodegenEmitters {
 		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
 		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
 		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
-		put(tr, "/editor/.optionsjet", OptionsFileGenerator.class);
-		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class); //$NON-NLS-1$
@@ -641,7 +637,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getOptionsFileEmitter() throws UnexpectedBehaviourException {
-		return retrieve(OptionsFileGenerator.class);
+		return getPrimaryEmitter("xpt::plugin::options"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getBundleManifestEmitter() throws UnexpectedBehaviourException {
@@ -649,9 +645,9 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getBuildPropertiesEmitter() throws UnexpectedBehaviourException {
-		return retrieve(BuildPropertiesGenerator.class);
+		return getPrimaryEmitter("xpt::plugin::build"); //$NON-NLS-1$
 	}
-	
+
 	public BinaryEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {
 		return newGIFEmitter("/editor/shortcut.gif"); //$NON-NLS-1$
 	}

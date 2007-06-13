@@ -940,7 +940,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	private void generateOptionsFile() throws InterruptedException, UnexpectedBehaviourException {
-		doGenerateFile(myEmitters.getOptionsFileEmitter(), new Path(".options"), new Object[] { myDiagram.getEditorGen().getPlugin()  }); //$NON-NLS-1$
+		doGenerateFile(myEmitters.getOptionsFileEmitter(), new Path(".options"), new Object[] { myEditorGen.getPlugin() }); //$NON-NLS-1$
 	}
 
 	private void generateBundleManifest() throws UnexpectedBehaviourException, InterruptedException {
@@ -948,7 +948,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateBuildProperties() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateFile(myEmitters.getBuildPropertiesEmitter(), new Path("build.properties"), new Object[] { myDiagram }); //$NON-NLS-1$
+		doGenerateFile(myEmitters.getBuildPropertiesEmitter(), new Path("build.properties"), new Object[] { myEditorGen.getPlugin() }); //$NON-NLS-1$
 	}
 	
 	private void generateShortcutIcon() throws UnexpectedBehaviourException, InterruptedException {
