@@ -25,6 +25,7 @@ import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.requests.ReconnectRequest;
 import org.eclipse.gmf.examples.taipan.Aquatory;
+import org.eclipse.gmf.examples.taipan.Destination;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
@@ -405,14 +406,14 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canCreateRoute_4002(Aquatory container, Port source, Port target) {
+		public static boolean canCreateRoute_4002(Aquatory container, Destination source, Destination target) {
 			return canExistRoute_4002(container, source, target);
 		}
 
 		/**
 		 * @generated
 		 */
-		public static boolean canCreateRoute_4003(Aquatory container, Port source, Port target) {
+		public static boolean canCreateRoute_4003(Aquatory container, Destination source, Destination target) {
 			return canExistRoute_4003(container, source, target);
 		}
 
@@ -469,14 +470,14 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canExistRoute_4002(Aquatory container, Port source, Port target) {
+		public static boolean canExistRoute_4002(Aquatory container, Destination source, Destination target) {
 			return true;
 		}
 
 		/**
 		 * @generated
 		 */
-		public static boolean canExistRoute_4003(Aquatory container, Port source, Port target) {
+		public static boolean canExistRoute_4003(Aquatory container, Destination source, Destination target) {
 			return true;
 		}
 

@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.Aquatory;
+import org.eclipse.gmf.examples.taipan.Destination;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.TaiPanFactory;
@@ -78,10 +79,10 @@ public class UnreliableRouteCreateCommand extends CreateElementCommand {
 		if (source == null && target == null) {
 			return false;
 		}
-		if (source != null && !(source instanceof Port)) {
+		if (source != null && !(source instanceof Destination)) {
 			return false;
 		}
-		if (target != null && !(target instanceof Port)) {
+		if (target != null && !(target instanceof Destination)) {
 			return false;
 		}
 		if (getSource() == null) {
@@ -144,15 +145,15 @@ public class UnreliableRouteCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	protected Port getSource() {
-		return (Port) source;
+	protected Destination getSource() {
+		return (Destination) source;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Port getTarget() {
-		return (Port) target;
+	protected Destination getTarget() {
+		return (Destination) target;
 	}
 
 	/**
