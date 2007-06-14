@@ -122,6 +122,8 @@ public class SketchSwitch<T> {
 			if (result == null)
 				result = caseSketchDiagramElement(sketchNode);
 			if (result == null)
+				result = caseSketchLinkEnd(sketchNode);
+			if (result == null)
 				result = caseSketchElement(sketchNode);
 			if (result == null)
 				result = defaultCase(theEObject);
@@ -144,7 +146,16 @@ public class SketchSwitch<T> {
 			if (result == null)
 				result = caseSketchDiagramElement(sketchLink);
 			if (result == null)
+				result = caseSketchLinkEnd(sketchLink);
+			if (result == null)
 				result = caseSketchElement(sketchLink);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SketchPackage.SKETCH_LINK_END: {
+			SketchLinkEnd sketchLinkEnd = (SketchLinkEnd) theEObject;
+			T result = caseSketchLinkEnd(sketchLinkEnd);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -252,6 +263,21 @@ public class SketchSwitch<T> {
 	 * @generated
 	 */
 	public T caseSketchLink(SketchLink object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Link End</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Link End</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSketchLinkEnd(SketchLinkEnd object) {
 		return null;
 	}
 

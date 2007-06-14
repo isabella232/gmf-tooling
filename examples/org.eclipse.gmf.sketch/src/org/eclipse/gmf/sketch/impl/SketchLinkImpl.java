@@ -24,10 +24,12 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gmf.sketch.SketchLabel;
 import org.eclipse.gmf.sketch.SketchLink;
+import org.eclipse.gmf.sketch.SketchLinkEnd;
 import org.eclipse.gmf.sketch.SketchNode;
 import org.eclipse.gmf.sketch.SketchPackage;
 
@@ -50,24 +52,24 @@ import org.eclipse.gmf.sketch.SketchPackage;
 public class SketchLinkImpl extends SketchDiagramElementImpl implements SketchLink {
 
 	/**
-	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
+	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getSource()
 	 * @generated
 	 * @ordered
 	 */
-	protected SketchNode source;
+	protected EList<SketchLinkEnd> source;
 
 	/**
-	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getTarget()
 	 * @generated
 	 * @ordered
 	 */
-	protected SketchNode target;
+	protected EList<SketchLinkEnd> target;
 
 	/**
 	 * The cached value of the '{@link #getLabels() <em>Labels</em>}' containment reference list.
@@ -113,14 +115,9 @@ public class SketchLinkImpl extends SketchDiagramElementImpl implements SketchLi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SketchNode getSource() {
-		if (source != null && source.eIsProxy()) {
-			InternalEObject oldSource = (InternalEObject) source;
-			source = (SketchNode) eResolveProxy(oldSource);
-			if (source != oldSource) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SketchPackage.SKETCH_LINK__SOURCE, oldSource, source));
-			}
+	public EList<SketchLinkEnd> getSource() {
+		if (source == null) {
+			source = new EObjectResolvingEList<SketchLinkEnd>(SketchLinkEnd.class, this, SketchPackage.SKETCH_LINK__SOURCE);
 		}
 		return source;
 	}
@@ -130,58 +127,11 @@ public class SketchLinkImpl extends SketchDiagramElementImpl implements SketchLi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SketchNode basicGetSource() {
-		return source;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSource(SketchNode newSource) {
-		SketchNode oldSource = source;
-		source = newSource;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SketchPackage.SKETCH_LINK__SOURCE, oldSource, source));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SketchNode getTarget() {
-		if (target != null && target.eIsProxy()) {
-			InternalEObject oldTarget = (InternalEObject) target;
-			target = (SketchNode) eResolveProxy(oldTarget);
-			if (target != oldTarget) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SketchPackage.SKETCH_LINK__TARGET, oldTarget, target));
-			}
+	public EList<SketchLinkEnd> getTarget() {
+		if (target == null) {
+			target = new EObjectResolvingEList<SketchLinkEnd>(SketchLinkEnd.class, this, SketchPackage.SKETCH_LINK__TARGET);
 		}
 		return target;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SketchNode basicGetTarget() {
-		return target;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTarget(SketchNode newTarget) {
-		SketchNode oldTarget = target;
-		target = newTarget;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SketchPackage.SKETCH_LINK__TARGET, oldTarget, target));
 	}
 
 	/**
@@ -257,13 +207,9 @@ public class SketchLinkImpl extends SketchDiagramElementImpl implements SketchLi
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case SketchPackage.SKETCH_LINK__SOURCE:
-			if (resolve)
-				return getSource();
-			return basicGetSource();
+			return getSource();
 		case SketchPackage.SKETCH_LINK__TARGET:
-			if (resolve)
-				return getTarget();
-			return basicGetTarget();
+			return getTarget();
 		case SketchPackage.SKETCH_LINK__LABELS:
 			return getLabels();
 		case SketchPackage.SKETCH_LINK__TYPE:
@@ -284,10 +230,12 @@ public class SketchLinkImpl extends SketchDiagramElementImpl implements SketchLi
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case SketchPackage.SKETCH_LINK__SOURCE:
-			setSource((SketchNode) newValue);
+			getSource().clear();
+			getSource().addAll((Collection<? extends SketchLinkEnd>) newValue);
 			return;
 		case SketchPackage.SKETCH_LINK__TARGET:
-			setTarget((SketchNode) newValue);
+			getTarget().clear();
+			getTarget().addAll((Collection<? extends SketchLinkEnd>) newValue);
 			return;
 		case SketchPackage.SKETCH_LINK__LABELS:
 			getLabels().clear();
@@ -309,10 +257,10 @@ public class SketchLinkImpl extends SketchDiagramElementImpl implements SketchLi
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case SketchPackage.SKETCH_LINK__SOURCE:
-			setSource((SketchNode) null);
+			getSource().clear();
 			return;
 		case SketchPackage.SKETCH_LINK__TARGET:
-			setTarget((SketchNode) null);
+			getTarget().clear();
 			return;
 		case SketchPackage.SKETCH_LINK__LABELS:
 			getLabels().clear();
@@ -333,9 +281,9 @@ public class SketchLinkImpl extends SketchDiagramElementImpl implements SketchLi
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case SketchPackage.SKETCH_LINK__SOURCE:
-			return source != null;
+			return source != null && !source.isEmpty();
 		case SketchPackage.SKETCH_LINK__TARGET:
-			return target != null;
+			return target != null && !target.isEmpty();
 		case SketchPackage.SKETCH_LINK__LABELS:
 			return labels != null && !labels.isEmpty();
 		case SketchPackage.SKETCH_LINK__TYPE:

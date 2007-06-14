@@ -34,59 +34,39 @@ import org.eclipse.emf.ecore.EClass;
  * @model
  * @generated
  */
-public interface SketchLink extends SketchDiagramElement {
+public interface SketchLink extends SketchDiagramElement, SketchLinkEnd {
 
 	/**
-	 * Returns the value of the '<em><b>Source</b></em>' reference.
+	 * Returns the value of the '<em><b>Source</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.sketch.SketchLinkEnd}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Source</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Source</em>' reference.
-	 * @see #setSource(SketchNode)
+	 * @return the value of the '<em>Source</em>' reference list.
 	 * @see org.eclipse.gmf.sketch.SketchPackage#getSketchLink_Source()
-	 * @model required="true"
+	 * @model type="org.eclipse.gmf.sketch.SketchLinkEnd" required="true"
 	 * @generated
 	 */
-	SketchNode getSource();
+	EList<SketchLinkEnd> getSource();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.sketch.SketchLink#getSource <em>Source</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Source</em>' reference.
-	 * @see #getSource()
-	 * @generated
-	 */
-	void setSource(SketchNode value);
-
-	/**
-	 * Returns the value of the '<em><b>Target</b></em>' reference.
+	 * Returns the value of the '<em><b>Target</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.sketch.SketchLinkEnd}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Target</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Target</em>' reference.
-	 * @see #setTarget(SketchNode)
+	 * @return the value of the '<em>Target</em>' reference list.
 	 * @see org.eclipse.gmf.sketch.SketchPackage#getSketchLink_Target()
-	 * @model required="true"
+	 * @model type="org.eclipse.gmf.sketch.SketchLinkEnd" required="true"
 	 * @generated
 	 */
-	SketchNode getTarget();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.sketch.SketchLink#getTarget <em>Target</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target</em>' reference.
-	 * @see #getTarget()
-	 * @generated
-	 */
-	void setTarget(SketchNode value);
+	EList<SketchLinkEnd> getTarget();
 
 	/**
 	 * Returns the value of the '<em><b>Labels</b></em>' containment reference list.

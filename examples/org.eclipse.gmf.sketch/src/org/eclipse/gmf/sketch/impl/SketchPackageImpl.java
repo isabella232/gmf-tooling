@@ -27,6 +27,7 @@ import org.eclipse.gmf.sketch.SketchElement;
 import org.eclipse.gmf.sketch.SketchFactory;
 import org.eclipse.gmf.sketch.SketchLabel;
 import org.eclipse.gmf.sketch.SketchLink;
+import org.eclipse.gmf.sketch.SketchLinkEnd;
 import org.eclipse.gmf.sketch.SketchNode;
 import org.eclipse.gmf.sketch.SketchPackage;
 
@@ -79,6 +80,13 @@ public class SketchPackageImpl extends EPackageImpl implements SketchPackage {
 	 * @generated
 	 */
 	private EClass sketchLinkEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass sketchLinkEndEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -398,6 +406,15 @@ public class SketchPackageImpl extends EPackageImpl implements SketchPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getSketchLinkEnd() {
+		return sketchLinkEndEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getSketchLabel() {
 		return sketchLabelEClass;
 	}
@@ -481,6 +498,8 @@ public class SketchPackageImpl extends EPackageImpl implements SketchPackage {
 		createEReference(sketchLinkEClass, SKETCH_LINK__LABELS);
 		createEReference(sketchLinkEClass, SKETCH_LINK__TYPE);
 
+		sketchLinkEndEClass = createEClass(SKETCH_LINK_END);
+
 		sketchLabelEClass = createEClass(SKETCH_LABEL);
 		createEReference(sketchLabelEClass, SKETCH_LABEL__ATTRIBUTES);
 		createEAttribute(sketchLabelEClass, SKETCH_LABEL__EXTERNAL);
@@ -521,8 +540,10 @@ public class SketchPackageImpl extends EPackageImpl implements SketchPackage {
 		sketchDiagramElementEClass.getESuperTypes().add(this.getSketchElement());
 		sketchDiagramEClass.getESuperTypes().add(this.getSketchDiagramElement());
 		sketchNodeEClass.getESuperTypes().add(this.getSketchDiagramElement());
+		sketchNodeEClass.getESuperTypes().add(this.getSketchLinkEnd());
 		sketchCompartmentEClass.getESuperTypes().add(this.getSketchDiagramElement());
 		sketchLinkEClass.getESuperTypes().add(this.getSketchDiagramElement());
+		sketchLinkEClass.getESuperTypes().add(this.getSketchLinkEnd());
 		sketchLabelEClass.getESuperTypes().add(this.getSketchDiagramElement());
 
 		// Initialize classes and features; add operations and parameters
@@ -562,10 +583,12 @@ public class SketchPackageImpl extends EPackageImpl implements SketchPackage {
 				"referencedNodes", null, 0, -1, SketchCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(sketchLinkEClass, SketchLink.class, "SketchLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getSketchLink_Source(), this.getSketchNode(), null, "source", null, 1, 1, SketchLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getSketchLink_Target(), this.getSketchNode(), null, "target", null, 1, 1, SketchLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSketchLink_Source(), this.getSketchLinkEnd(), null, "source", null, 1, -1, SketchLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSketchLink_Target(), this.getSketchLinkEnd(), null, "target", null, 1, -1, SketchLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSketchLink_Labels(), this.getSketchLabel(), null, "labels", null, 0, -1, SketchLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSketchLink_Type(), theEcorePackage.getEClass(), null, "type", null, 0, 1, SketchLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(sketchLinkEndEClass, SketchLinkEnd.class, "SketchLinkEnd", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
 		initEClass(sketchLabelEClass, SketchLabel.class, "SketchLabel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getSketchLabel_Attributes(), theEcorePackage.getEAttribute(), null,

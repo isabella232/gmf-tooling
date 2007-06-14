@@ -108,6 +108,11 @@ public class SketchAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseSketchLinkEnd(SketchLinkEnd object) {
+			return createSketchLinkEndAdapter();
+		}
+
+		@Override
 		public Adapter caseSketchLabel(SketchLabel object) {
 			return createSketchLabelAdapter();
 		}
@@ -212,6 +217,20 @@ public class SketchAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSketchLinkAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.sketch.SketchLinkEnd <em>Link End</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.sketch.SketchLinkEnd
+	 * @generated
+	 */
+	public Adapter createSketchLinkEndAdapter() {
 		return null;
 	}
 

@@ -43,6 +43,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sketch.ecore#//SketchLink/labels"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference sketch.ecore#//SketchLink/type"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="sketch.ecore#//SketchLinkEnd"/>
     <genClasses ecoreClass="sketch.ecore#//SketchLabel">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference sketch.ecore#//SketchLabel/attributes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sketch.ecore#//SketchLabel/external"/>

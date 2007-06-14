@@ -38,7 +38,7 @@ import org.eclipse.emf.ecore.EClass;
  * @model
  * @generated
  */
-public interface SketchNode extends SketchDiagramElement {
+public interface SketchNode extends SketchDiagramElement, SketchLinkEnd {
 
 	/**
 	 * Returns the value of the '<em><b>Nodes</b></em>' containment reference list.

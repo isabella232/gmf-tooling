@@ -468,7 +468,7 @@ public interface SketchPackage extends EPackage {
 	int SKETCH_LINK__VISUAL_ID = SKETCH_DIAGRAM_ELEMENT__VISUAL_ID;
 
 	/**
-	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * The feature id for the '<em><b>Source</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -477,7 +477,7 @@ public interface SketchPackage extends EPackage {
 	int SKETCH_LINK__SOURCE = SKETCH_DIAGRAM_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * The feature id for the '<em><b>Target</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -513,6 +513,25 @@ public interface SketchPackage extends EPackage {
 	int SKETCH_LINK_FEATURE_COUNT = SKETCH_DIAGRAM_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.sketch.SketchLinkEnd <em>Link End</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.sketch.SketchLinkEnd
+	 * @see org.eclipse.gmf.sketch.impl.SketchPackageImpl#getSketchLinkEnd()
+	 * @generated
+	 */
+	int SKETCH_LINK_END = 6;
+
+	/**
+	 * The number of structural features of the '<em>Link End</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SKETCH_LINK_END_FEATURE_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.sketch.impl.SketchLabelImpl <em>Label</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -520,7 +539,7 @@ public interface SketchPackage extends EPackage {
 	 * @see org.eclipse.gmf.sketch.impl.SketchPackageImpl#getSketchLabel()
 	 * @generated
 	 */
-	int SKETCH_LABEL = 6;
+	int SKETCH_LABEL = 7;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -822,10 +841,10 @@ public interface SketchPackage extends EPackage {
 	EClass getSketchLink();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.sketch.SketchLink#getSource <em>Source</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.sketch.SketchLink#getSource <em>Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Source</em>'.
+	 * @return the meta object for the reference list '<em>Source</em>'.
 	 * @see org.eclipse.gmf.sketch.SketchLink#getSource()
 	 * @see #getSketchLink()
 	 * @generated
@@ -833,10 +852,10 @@ public interface SketchPackage extends EPackage {
 	EReference getSketchLink_Source();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.sketch.SketchLink#getTarget <em>Target</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.sketch.SketchLink#getTarget <em>Target</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Target</em>'.
+	 * @return the meta object for the reference list '<em>Target</em>'.
 	 * @see org.eclipse.gmf.sketch.SketchLink#getTarget()
 	 * @see #getSketchLink()
 	 * @generated
@@ -864,6 +883,16 @@ public interface SketchPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getSketchLink_Type();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.sketch.SketchLinkEnd <em>Link End</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Link End</em>'.
+	 * @see org.eclipse.gmf.sketch.SketchLinkEnd
+	 * @generated
+	 */
+	EClass getSketchLinkEnd();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.sketch.SketchLabel <em>Label</em>}'.
@@ -1109,7 +1138,7 @@ public interface SketchPackage extends EPackage {
 		EClass SKETCH_LINK = eINSTANCE.getSketchLink();
 
 		/**
-		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Source</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1117,7 +1146,7 @@ public interface SketchPackage extends EPackage {
 		EReference SKETCH_LINK__SOURCE = eINSTANCE.getSketchLink_Source();
 
 		/**
-		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Target</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1139,6 +1168,16 @@ public interface SketchPackage extends EPackage {
 		 * @generated
 		 */
 		EReference SKETCH_LINK__TYPE = eINSTANCE.getSketchLink_Type();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.gmf.sketch.SketchLinkEnd <em>Link End</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.gmf.sketch.SketchLinkEnd
+		 * @see org.eclipse.gmf.sketch.impl.SketchPackageImpl#getSketchLinkEnd()
+		 * @generated
+		 */
+		EClass SKETCH_LINK_END = eINSTANCE.getSketchLinkEnd();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.gmf.sketch.impl.SketchLabelImpl <em>Label</em>}' class.
