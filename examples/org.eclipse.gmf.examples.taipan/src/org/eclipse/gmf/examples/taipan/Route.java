@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Route extends EObject {
+public interface Route extends Destination {
 
 	/**
 	 * Returns the value of the '<em><b>Source</b></em>' reference.
@@ -43,12 +43,12 @@ public interface Route extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source</em>' reference.
-	 * @see #setSource(Port)
+	 * @see #setSource(Destination)
 	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getRoute_Source()
 	 * @model required="true"
 	 * @generated
 	 */
-	Port getSource();
+	Destination getSource();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.examples.taipan.Route#getSource <em>Source</em>}' reference.
@@ -58,7 +58,7 @@ public interface Route extends EObject {
 	 * @see #getSource()
 	 * @generated
 	 */
-	void setSource(Port value);
+	void setSource(Destination value);
 
 	/**
 	 * Returns the value of the '<em><b>Destination</b></em>' reference.
@@ -69,12 +69,12 @@ public interface Route extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Destination</em>' reference.
-	 * @see #setDestination(Port)
+	 * @see #setDestination(Destination)
 	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getRoute_Destination()
 	 * @model required="true"
 	 * @generated
 	 */
-	Port getDestination();
+	Destination getDestination();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.examples.taipan.Route#getDestination <em>Destination</em>}' reference.
@@ -84,7 +84,7 @@ public interface Route extends EObject {
 	 * @see #getDestination()
 	 * @generated
 	 */
-	void setDestination(Port value);
+	void setDestination(Destination value);
 
 	/**
 	 * Returns the value of the '<em><b>Description</b></em>' attribute.

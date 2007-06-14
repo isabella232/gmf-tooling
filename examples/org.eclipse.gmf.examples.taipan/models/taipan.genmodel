@@ -13,6 +13,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference taipan.ecore#//Aquatory/routes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference taipan.ecore#//Aquatory/ships"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="taipan.ecore#//Destination"/>
     <genClasses ecoreClass="taipan.ecore#//Port">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taipan.ecore#//Port/location"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference taipan.ecore#//Port/buildings"/>

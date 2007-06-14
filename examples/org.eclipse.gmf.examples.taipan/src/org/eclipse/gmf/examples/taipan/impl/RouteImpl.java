@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.gmf.examples.taipan.Destination;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
@@ -49,7 +50,7 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 * @generated
 	 * @ordered
 	 */
-	protected Port source;
+	protected Destination source;
 
 	/**
 	 * The cached value of the '{@link #getDestination() <em>Destination</em>}' reference.
@@ -59,7 +60,7 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 * @generated
 	 * @ordered
 	 */
-	protected Port destination;
+	protected Destination destination;
 
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -125,10 +126,10 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Port getSource() {
+	public Destination getSource() {
 		if (source != null && source.eIsProxy()) {
 			InternalEObject oldSource = (InternalEObject) source;
-			source = (Port) eResolveProxy(oldSource);
+			source = (Destination) eResolveProxy(oldSource);
 			if (source != oldSource) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TaiPanPackage.ROUTE__SOURCE, oldSource, source));
@@ -142,7 +143,7 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Port basicGetSource() {
+	public Destination basicGetSource() {
 		return source;
 	}
 
@@ -151,8 +152,8 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSource(Port newSource) {
-		Port oldSource = source;
+	public void setSource(Destination newSource) {
+		Destination oldSource = source;
 		source = newSource;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, TaiPanPackage.ROUTE__SOURCE, oldSource, source));
@@ -163,10 +164,10 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Port getDestination() {
+	public Destination getDestination() {
 		if (destination != null && destination.eIsProxy()) {
 			InternalEObject oldDestination = (InternalEObject) destination;
-			destination = (Port) eResolveProxy(oldDestination);
+			destination = (Destination) eResolveProxy(oldDestination);
 			if (destination != oldDestination) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TaiPanPackage.ROUTE__DESTINATION, oldDestination, destination));
@@ -180,7 +181,7 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Port basicGetDestination() {
+	public Destination basicGetDestination() {
 		return destination;
 	}
 
@@ -189,8 +190,8 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDestination(Port newDestination) {
-		Port oldDestination = destination;
+	public void setDestination(Destination newDestination) {
+		Destination oldDestination = destination;
 		destination = newDestination;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, TaiPanPackage.ROUTE__DESTINATION, oldDestination, destination));
@@ -271,10 +272,10 @@ public class RouteImpl extends EObjectImpl implements Route {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case TaiPanPackage.ROUTE__SOURCE:
-			setSource((Port) newValue);
+			setSource((Destination) newValue);
 			return;
 		case TaiPanPackage.ROUTE__DESTINATION:
-			setDestination((Port) newValue);
+			setDestination((Destination) newValue);
 			return;
 		case TaiPanPackage.ROUTE__DESCRIPTION:
 			setDescription((String) newValue);
@@ -295,10 +296,10 @@ public class RouteImpl extends EObjectImpl implements Route {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case TaiPanPackage.ROUTE__SOURCE:
-			setSource((Port) null);
+			setSource((Destination) null);
 			return;
 		case TaiPanPackage.ROUTE__DESTINATION:
-			setDestination((Port) null);
+			setDestination((Destination) null);
 			return;
 		case TaiPanPackage.ROUTE__DESCRIPTION:
 			setDescription(DESCRIPTION_EDEFAULT);

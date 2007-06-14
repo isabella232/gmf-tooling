@@ -112,6 +112,25 @@ public interface TaiPanPackage extends EPackage {
 	int AQUATORY_FEATURE_COUNT = 3;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.Destination <em>Destination</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.examples.taipan.Destination
+	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getDestination()
+	 * @generated
+	 */
+	int DESTINATION = 1;
+
+	/**
+	 * The number of structural features of the '<em>Destination</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESTINATION_FEATURE_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.PortImpl <em>Port</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -119,7 +138,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getPort()
 	 * @generated
 	 */
-	int PORT = 1;
+	int PORT = 2;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' attribute.
@@ -128,7 +147,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PORT__LOCATION = 0;
+	int PORT__LOCATION = DESTINATION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Buildings</b></em>' containment reference list.
@@ -137,7 +156,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PORT__BUILDINGS = 1;
+	int PORT__BUILDINGS = DESTINATION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Register</b></em>' reference list.
@@ -146,7 +165,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PORT__REGISTER = 2;
+	int PORT__REGISTER = DESTINATION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Port</em>' class.
@@ -155,7 +174,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_FEATURE_COUNT = 3;
+	int PORT_FEATURE_COUNT = DESTINATION_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.ShipImpl <em>Ship</em>}' class.
@@ -165,7 +184,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getShip()
 	 * @generated
 	 */
-	int SHIP = 4;
+	int SHIP = 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.ItemImpl <em>Item</em>}' class.
@@ -175,7 +194,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getItem()
 	 * @generated
 	 */
-	int ITEM = 5;
+	int ITEM = 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.LargeItemImpl <em>Large Item</em>}' class.
@@ -185,7 +204,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getLargeItem()
 	 * @generated
 	 */
-	int LARGE_ITEM = 6;
+	int LARGE_ITEM = 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.SmallItemsImpl <em>Small Items</em>}' class.
@@ -195,7 +214,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getSmallItems()
 	 * @generated
 	 */
-	int SMALL_ITEMS = 7;
+	int SMALL_ITEMS = 8;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.EmptyBoxImpl <em>Empty Box</em>}' class.
@@ -205,7 +224,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getEmptyBox()
 	 * @generated
 	 */
-	int EMPTY_BOX = 8;
+	int EMPTY_BOX = 9;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.WarshipImpl <em>Warship</em>}' class.
@@ -215,7 +234,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getWarship()
 	 * @generated
 	 */
-	int WARSHIP = 9;
+	int WARSHIP = 10;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.Order <em>Order</em>}' class.
@@ -225,7 +244,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getOrder()
 	 * @generated
 	 */
-	int ORDER = 10;
+	int ORDER = 11;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.EscortShipsOrderImpl <em>Escort Ships Order</em>}' class.
@@ -235,7 +254,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getEscortShipsOrder()
 	 * @generated
 	 */
-	int ESCORT_SHIPS_ORDER = 11;
+	int ESCORT_SHIPS_ORDER = 12;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.BesiegePortOrderImpl <em>Besiege Port Order</em>}' class.
@@ -245,7 +264,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getBesiegePortOrder()
 	 * @generated
 	 */
-	int BESIEGE_PORT_ORDER = 12;
+	int BESIEGE_PORT_ORDER = 13;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.RouteImpl <em>Route</em>}' class.
@@ -255,7 +274,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getRoute()
 	 * @generated
 	 */
-	int ROUTE = 3;
+	int ROUTE = 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.BuildingImpl <em>Building</em>}' class.
@@ -265,7 +284,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getBuilding()
 	 * @generated
 	 */
-	int BUILDING = 2;
+	int BUILDING = 3;
 
 	/**
 	 * The feature id for the '<em><b>Info</b></em>' attribute.
@@ -301,7 +320,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ROUTE__SOURCE = 0;
+	int ROUTE__SOURCE = DESTINATION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Destination</b></em>' reference.
@@ -310,7 +329,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ROUTE__DESTINATION = 1;
+	int ROUTE__DESTINATION = DESTINATION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -319,7 +338,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ROUTE__DESCRIPTION = 2;
+	int ROUTE__DESCRIPTION = DESTINATION_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Reliability</b></em>' attribute.
@@ -328,7 +347,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ROUTE__RELIABILITY = 3;
+	int ROUTE__RELIABILITY = DESTINATION_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Route</em>' class.
@@ -337,7 +356,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ROUTE_FEATURE_COUNT = 4;
+	int ROUTE_FEATURE_COUNT = DESTINATION_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -613,6 +632,16 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getAquatory_Ships();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.Destination <em>Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Destination</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.Destination
+	 * @generated
+	 */
+	EClass getDestination();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.examples.taipan.Aquatory#getRoutes <em>Routes</em>}'.
@@ -1013,6 +1042,16 @@ public interface TaiPanPackage extends EPackage {
 		 * @generated
 		 */
 		EReference AQUATORY__SHIPS = eINSTANCE.getAquatory_Ships();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.Destination <em>Destination</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.gmf.examples.taipan.Destination
+		 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getDestination()
+		 * @generated
+		 */
+		EClass DESTINATION = eINSTANCE.getDestination();
 
 		/**
 		 * The meta object literal for the '<em><b>Routes</b></em>' containment reference list feature.

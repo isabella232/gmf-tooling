@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.BesiegePortOrder;
 import org.eclipse.gmf.examples.taipan.Building;
+import org.eclipse.gmf.examples.taipan.Destination;
 import org.eclipse.gmf.examples.taipan.EmptyBox;
 import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
 import org.eclipse.gmf.examples.taipan.Item;
@@ -48,6 +49,13 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * @generated
 	 */
 	private EClass aquatoryEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass destinationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -228,6 +236,15 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 */
 	public EReference getAquatory_Ships() {
 		return (EReference) aquatoryEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getDestination() {
+		return destinationEClass;
 	}
 
 	/**
@@ -561,6 +578,8 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		createEReference(aquatoryEClass, AQUATORY__ROUTES);
 		createEReference(aquatoryEClass, AQUATORY__SHIPS);
 
+		destinationEClass = createEClass(DESTINATION);
+
 		portEClass = createEClass(PORT);
 		createEAttribute(portEClass, PORT__LOCATION);
 		createEReference(portEClass, PORT__BUILDINGS);
@@ -635,6 +654,8 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		portEClass.getESuperTypes().add(this.getDestination());
+		routeEClass.getESuperTypes().add(this.getDestination());
 		largeItemEClass.getESuperTypes().add(this.getItem());
 		smallItemsEClass.getESuperTypes().add(this.getItem());
 		emptyBoxEClass.getESuperTypes().add(this.getItem());
@@ -651,6 +672,8 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		initEReference(getAquatory_Ships(), this.getShip(), null,
 				"ships", null, 0, -1, Aquatory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
+		initEClass(destinationEClass, Destination.class, "Destination", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
 		initEClass(portEClass, Port.class, "Port", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getPort_Location(), ecorePackage.getEString(),
 				"location", null, 0, 1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -666,9 +689,9 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 				"street", null, 0, 1, Building.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(routeEClass, Route.class, "Route", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getRoute_Source(), this.getPort(), null,
+		initEReference(getRoute_Source(), this.getDestination(), null,
 				"source", null, 1, 1, Route.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getRoute_Destination(), this.getPort(), null,
+		initEReference(getRoute_Destination(), this.getDestination(), null,
 				"destination", null, 1, 1, Route.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getRoute_Description(), ecorePackage.getEString(),
 				"description", null, 0, 1, Route.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$

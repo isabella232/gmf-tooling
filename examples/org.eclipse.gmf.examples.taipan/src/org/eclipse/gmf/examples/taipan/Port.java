@@ -33,7 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Port extends EObject {
+public interface Port extends Destination {
 
 	/**
 	 * Returns the value of the '<em><b>Location</b></em>' attribute.
