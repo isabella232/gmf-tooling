@@ -69,5 +69,6 @@
     <type href="taipan.ecore#//BesiegePortOrder"/>
   </links>
   <links name="Port Register" shape="org.eclipse.gmf.examples.taipan.figures.DashedConnection" visualID="4007" source="//@nodes.0" target="//@nodes.1"/>
+  <links name="Ship Route" shape="org.eclipse.gmf.examples.taipan.figures.DirectedConnection" visualID="4004" source="//@nodes.1" target="//@links.1 //@links.2"/>
   <type href="taipan.ecore#//Aquatory"/>
 </sketch:SketchDiagram>

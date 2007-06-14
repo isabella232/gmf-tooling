@@ -604,12 +604,18 @@
       </modelFacet>
     </links>
     <links
-        visualID="4004">
+        visualID="4004"
+        editPartClassName="ShipRouteEditPart"
+        itemSemanticEditPolicyClassName="ShipRouteItemSemanticEditPolicy"
+        notationViewFactoryClassName="ShipRouteViewFactory"
+        createCommandClassName="ShipRouteCreateCommand"
+        reorientCommandClassName="ShipRouteReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:SpecializationType"
-          displayName="Ship Route"/>
+          displayName="Ship Route"
+          editHelperAdviceClassName="ShipRouteEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DirectedConnection"/>
