@@ -526,7 +526,8 @@ Contributors:
          <specializationType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.ShipRoute_4004"
                name="%metatype.name.ShipRoute_4004"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.ShipRouteEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
             <param name="semanticHint" value="4004"/>
          </specializationType>
