@@ -62,13 +62,13 @@
     </labels>
     <type href="taipan.ecore#//Route"/>
   </links>
-  <links name="Escort Ships Order" shape="org.eclipse.gmf.examples.taipan.figures.ThickDirectedConnection" visualID="4006" source="//@nodes.2" target="//@nodes.1">
-    <type href="taipan.ecore#//EscortShipsOrder"/>
-  </links>
+  <links name="Ship Route" shape="org.eclipse.gmf.examples.taipan.figures.DirectedConnection" visualID="4004" source="//@nodes.1" target="//@links.1 //@links.2"/>
   <links name="Besiege Port Order" shape="org.eclipse.gmf.examples.taipan.figures.ArrowConnection" visualID="4005" source="//@nodes.2" target="//@nodes.0">
     <type href="taipan.ecore#//BesiegePortOrder"/>
   </links>
+  <links name="Escort Ships Order" shape="org.eclipse.gmf.examples.taipan.figures.ThickDirectedConnection" visualID="4006" source="//@nodes.2" target="//@nodes.1">
+    <type href="taipan.ecore#//EscortShipsOrder"/>
+  </links>
   <links name="Port Register" shape="org.eclipse.gmf.examples.taipan.figures.DashedConnection" visualID="4007" source="//@nodes.0" target="//@nodes.1"/>
-  <links name="Ship Route" shape="org.eclipse.gmf.examples.taipan.figures.DirectedConnection" visualID="4004" source="//@nodes.1" target="//@links.1 //@links.2"/>
   <type href="taipan.ecore#//Aquatory"/>
 </sketch:SketchDiagram>
