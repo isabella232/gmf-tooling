@@ -87,17 +87,36 @@ protected Class getNodeViewClass(org.eclipse.core.runtime.IAdaptable semanticAda
 			if (domainElement != null && visualID != «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall»(containerView, domainElement)) {
 				return null;
 			}
-		} «IF !getElements(this).select(commonBase | null != commonBase.elementType).isEmpty()»	else {
+		} else {
 «REM»
-	elementType was not specified. This should happen only for compartments and labels. Checking that 
-	semanticHint reference to one of these elements + do not checking domainElement visualID since passed
-	domainElement belongs to the parent view.
+	elementType was not specified. DomainElement shoud present. Result of calling this method with EObjectAdapter
+	as a parameter:
+	- ViewService.createNode(View container, EObject eObject, String type, PreferencesHint preferencesHint) 
+	- generated ViewFactory.decorateView() for parent element). 
+
+	In first case (passed semanticHint corresponds to the domain element-based diagram node) comparing visualID
+	returned from the registry with the semanticHint one.
+	In the last case (passed semanticHint corresponds to the compartment or label) checking passed domain model 
+	element is the same as specified for the parent view (contract for compartment and labels). 
 «ENDREM»«-»
-			switch (visualID) {
-				«EXPAND xpt::Common::caseVisualID FOREACH getElements(this).select(commonBase | null != commonBase.elementType)»
+	«IF !getElements(this).select(commonBase | null != commonBase.elementType).isEmpty()-»
+			if (domainElement == null) {
 				return null;
 			}
-		}«ENDIF»
+			switch (visualID) {
+				«EXPAND xpt::Common::caseVisualID FOREACH getElements(this).select(commonBase | null != commonBase.elementType)»
+					if (visualID != «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall FOR getDiagram()»(containerView, domainElement)) {
+						return null;
+					}
+					break;
+				«EXPAND caseEssentialChildrenVisualID FOREACH getElements(this).select(commonBase | null != commonBase.elementType).typeSelect(gmfgen::GenNode)-»
+			default: 
+				return null;
+			}
+	«ELSE-»
+			return null;
+	«ENDIF-»
+		}
 	}
 	if (!«EXPAND xpt::editor::VisualIDRegistry::canCreateNodeMethodCall»(containerView, visualID)) {
 		return null;
@@ -108,6 +127,17 @@ protected Class getNodeViewClass(org.eclipse.core.runtime.IAdaptable semanticAda
 	}
 	return null;
 }
+«ENDDEFINE»
+
+«DEFINE caseEssentialChildrenVisualID FOR gmfgen::GenNode-»
+«EXPAND xpt::Common::caseVisualID FOREACH labels»
+«EXPAND xpt::Common::caseVisualID FOREACH compartments»
+«IF !labels.isEmpty() || !compartments.isEmpty()-»
+if («EXPAND xpt::editor::VisualIDRegistry::visualID» != «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(containerView) || containerView.getElement() != domainElement) {
+	return null;
+}
+break;
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE defineElementTypeHint FOR gmfgen::GenDiagram-»
