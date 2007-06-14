@@ -23,6 +23,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -69,6 +70,7 @@ import org.eclipse.gmf.sketch.SketchDiagram;
 import org.eclipse.gmf.sketch.SketchDiagramElement;
 import org.eclipse.gmf.sketch.SketchLabel;
 import org.eclipse.gmf.sketch.SketchLink;
+import org.eclipse.gmf.sketch.SketchLinkEnd;
 import org.eclipse.gmf.sketch.SketchNode;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
@@ -341,19 +343,19 @@ public class SketchTransformer implements IRunnableWithProgress {
 	}
 
 	protected void createLink(SketchLink link, ToolGroup group) {
-		if (link.getSource() == null) {
+		if (link.getSource().isEmpty()) {
 			Activator.logWarning(Messages.SketchTransformer_NoLinkSource);
 			return;
 		}
-		if (link.getTarget() == null) {
+		if (link.getTarget().isEmpty()) {
 			Activator.logWarning(Messages.SketchTransformer_NoLinkTarget);
 			return;
 		}
 		GenLink genLink = GMFGenFactory.eINSTANCE.createGenLink();
 		genLink.setDiagramRunTimeClass(ntEdge);
 		genLink.setViewmap(createViewmap(link.getShape(), genLink));
-		EClass sourceType = link.getSource().getType();
-		EClass targetType = link.getTarget().getType();
+		EClass sourceType = getType(link.getSource());
+		EClass targetType = getType(link.getTarget());
 		EClass type = link.getType();
 		ElementType elementType;
 		if (type != null) {
@@ -361,10 +363,12 @@ public class SketchTransformer implements IRunnableWithProgress {
 			elementType = createElementType(type);
 			TypeLinkModelFacet modelFacet = GMFGenFactory.eINSTANCE.createTypeLinkModelFacet();
 			modelFacet.setMetaClass(genModelMatcher.findGenClass(type));
-			for (EObject element = link.getSource();; element = element.eContainer()) {
+			for (EObject element = link.getSource().iterator().next();; element = element.eContainer()) {
 				EClass containerType = null;
 				if (element instanceof SketchNode) {
 					containerType = ((SketchNode) element).getType();
+				} else if (element instanceof SketchLink) {
+					containerType = ((SketchLink) element).getType();
 				} else if (element instanceof SketchDiagram) {
 					containerType = ((SketchDiagram) element).getType();
 				} else {
@@ -417,6 +421,26 @@ public class SketchTransformer implements IRunnableWithProgress {
 			initLabel(label, genLabel);
 			genLink.getLabels().add(genLabel);
 		}
+	}
+
+	/*
+	 * Finds common type; returns null if there is no such a type.
+	 */
+	protected EClass getType(List<SketchLinkEnd> ends) {
+		UniqueEList<EClass> types = new UniqueEList<EClass>();
+		for (SketchLinkEnd end : ends) {
+			types.add(getType(end));
+		}
+		return types.size() == 1 ? types.get(0) : null;
+	}
+
+	protected EClass getType(SketchLinkEnd end) {
+		if (end instanceof SketchNode) {
+			return ((SketchNode) end).getType();
+		} else if (end instanceof SketchLink) {
+			return ((SketchLink) end).getType();
+		}
+		return null;
 	}
 
 	protected void initLabel(SketchLabel label, GenLabel genLabel) {
