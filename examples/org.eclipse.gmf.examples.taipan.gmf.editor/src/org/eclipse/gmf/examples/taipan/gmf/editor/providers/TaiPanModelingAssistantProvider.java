@@ -101,8 +101,8 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 		}
 		if (sourceEditPart instanceof WarshipEditPart) {
 			List types = new ArrayList();
-			types.add(TaiPanElementTypes.EscortShipsOrder_4006);
 			types.add(TaiPanElementTypes.BesiegePortOrder_4005);
+			types.add(TaiPanElementTypes.EscortShipsOrder_4006);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -158,11 +158,11 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 		}
 		if (sourceEditPart instanceof WarshipEditPart) {
 			List types = new ArrayList();
-			if (targetEditPart instanceof ShipEditPart) {
-				types.add(TaiPanElementTypes.EscortShipsOrder_4006);
-			}
 			if (targetEditPart instanceof PortEditPart) {
 				types.add(TaiPanElementTypes.BesiegePortOrder_4005);
+			}
+			if (targetEditPart instanceof ShipEditPart) {
+				types.add(TaiPanElementTypes.EscortShipsOrder_4006);
 			}
 			return types;
 		}
@@ -230,11 +230,11 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 		}
 		if (sourceEditPart instanceof WarshipEditPart) {
 			List types = new ArrayList();
-			if (relationshipType == TaiPanElementTypes.EscortShipsOrder_4006) {
-				types.add(TaiPanElementTypes.Ship_2002);
-			}
 			if (relationshipType == TaiPanElementTypes.BesiegePortOrder_4005) {
 				types.add(TaiPanElementTypes.Port_2001);
+			}
+			if (relationshipType == TaiPanElementTypes.EscortShipsOrder_4006) {
+				types.add(TaiPanElementTypes.Ship_2002);
 			}
 			return types;
 		}

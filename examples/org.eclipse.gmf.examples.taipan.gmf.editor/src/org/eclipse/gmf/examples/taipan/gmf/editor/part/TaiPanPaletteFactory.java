@@ -51,9 +51,9 @@ public class TaiPanPaletteFactory {
 		paletteContainer.add(createUnreliableRouteTool());
 		paletteContainer.add(createRegistrationTool());
 		paletteContainer.add(createShipDestinationTool());
+		paletteContainer.add(createShipRouteTool());
 		paletteContainer.add(createBesiegePortOrderTool());
 		paletteContainer.add(createEscortShipsOrderTool());
-		paletteContainer.add(createShipRouteTool());
 		return paletteContainer;
 	}
 

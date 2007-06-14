@@ -117,14 +117,14 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (TaiPanElementTypes.ShipDestination_4001 == req.getElementType()) {
 			return getGEFWrapper(new ShipDestinationCreateCommand(req, req.getSource(), req.getTarget()));
 		}
+		if (TaiPanElementTypes.ShipRoute_4004 == req.getElementType()) {
+			return getGEFWrapper(new ShipRouteCreateCommand(req, req.getSource(), req.getTarget()));
+		}
 		if (TaiPanElementTypes.EscortShipsOrder_4006 == req.getElementType()) {
 			return getGEFWrapper(new EscortShipsOrderCreateCommand(req, req.getTarget(), req.getSource()));
 		}
 		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
 			return getGEFWrapper(new PortRegisterCreateCommand(req, req.getTarget(), req.getSource()));
-		}
-		if (TaiPanElementTypes.ShipRoute_4004 == req.getElementType()) {
-			return getGEFWrapper(new ShipRouteCreateCommand(req, req.getSource(), req.getTarget()));
 		}
 		return null;
 	}
@@ -136,14 +136,14 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (TaiPanElementTypes.ShipDestination_4001 == req.getElementType()) {
 			return null;
 		}
+		if (TaiPanElementTypes.ShipRoute_4004 == req.getElementType()) {
+			return null;
+		}
 		if (TaiPanElementTypes.EscortShipsOrder_4006 == req.getElementType()) {
 			return getGEFWrapper(new EscortShipsOrderCreateCommand(req, req.getSource(), req.getTarget()));
 		}
 		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
 			return getGEFWrapper(new PortRegisterCreateCommand(req, req.getSource(), req.getTarget()));
-		}
-		if (TaiPanElementTypes.ShipRoute_4004 == req.getElementType()) {
-			return null;
 		}
 		return null;
 	}
@@ -172,10 +172,10 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		switch (getVisualID(req)) {
 		case ShipDestinationEditPart.VISUAL_ID:
 			return getGEFWrapper(new ShipDestinationReorientCommand(req));
-		case PortRegisterEditPart.VISUAL_ID:
-			return getGEFWrapper(new PortRegisterReorientCommand(req));
 		case ShipRouteEditPart.VISUAL_ID:
 			return getGEFWrapper(new ShipRouteReorientCommand(req));
+		case PortRegisterEditPart.VISUAL_ID:
+			return getGEFWrapper(new PortRegisterReorientCommand(req));
 		}
 		return super.getReorientReferenceRelationshipCommand(req);
 	}

@@ -318,11 +318,11 @@ public class TaiPanVisualIDRegistry {
 		if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElement.eClass()) && evaluate(Route_4003_Constraint, domainElement)) {
 			return UnreliableRouteEditPart.VISUAL_ID;
 		}
-		if (TaiPanPackage.eINSTANCE.getEscortShipsOrder().isSuperTypeOf(domainElement.eClass())) {
-			return EscortShipsOrderEditPart.VISUAL_ID;
-		}
 		if (TaiPanPackage.eINSTANCE.getBesiegePortOrder().isSuperTypeOf(domainElement.eClass())) {
 			return BesiegePortOrderEditPart.VISUAL_ID;
+		}
+		if (TaiPanPackage.eINSTANCE.getEscortShipsOrder().isSuperTypeOf(domainElement.eClass())) {
+			return EscortShipsOrderEditPart.VISUAL_ID;
 		}
 		return -1;
 	}

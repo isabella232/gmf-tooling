@@ -241,10 +241,10 @@ public class TaiPanDiagramUpdater {
 			return getRoute_4002ContainedLinks(view);
 		case UnreliableRouteEditPart.VISUAL_ID:
 			return getRoute_4003ContainedLinks(view);
-		case EscortShipsOrderEditPart.VISUAL_ID:
-			return getEscortShipsOrder_4006ContainedLinks(view);
 		case BesiegePortOrderEditPart.VISUAL_ID:
 			return getBesiegePortOrder_4005ContainedLinks(view);
+		case EscortShipsOrderEditPart.VISUAL_ID:
+			return getEscortShipsOrder_4006ContainedLinks(view);
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -270,10 +270,10 @@ public class TaiPanDiagramUpdater {
 			return getRoute_4002IncomingLinks(view);
 		case UnreliableRouteEditPart.VISUAL_ID:
 			return getRoute_4003IncomingLinks(view);
-		case EscortShipsOrderEditPart.VISUAL_ID:
-			return getEscortShipsOrder_4006IncomingLinks(view);
 		case BesiegePortOrderEditPart.VISUAL_ID:
 			return getBesiegePortOrder_4005IncomingLinks(view);
+		case EscortShipsOrderEditPart.VISUAL_ID:
+			return getEscortShipsOrder_4006IncomingLinks(view);
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -299,10 +299,10 @@ public class TaiPanDiagramUpdater {
 			return getRoute_4002OutgoingLinks(view);
 		case UnreliableRouteEditPart.VISUAL_ID:
 			return getRoute_4003OutgoingLinks(view);
-		case EscortShipsOrderEditPart.VISUAL_ID:
-			return getEscortShipsOrder_4006OutgoingLinks(view);
 		case BesiegePortOrderEditPart.VISUAL_ID:
 			return getBesiegePortOrder_4005OutgoingLinks(view);
+		case EscortShipsOrderEditPart.VISUAL_ID:
+			return getEscortShipsOrder_4006OutgoingLinks(view);
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -346,9 +346,9 @@ public class TaiPanDiagramUpdater {
 		Warship modelElement = (Warship) view.getElement();
 		List result = new LinkedList();
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
-		result.addAll(getContainedTypeModelFacetLinks_EscortShipsOrder_4006(modelElement));
-		result.addAll(getContainedTypeModelFacetLinks_BesiegePortOrder_4005(modelElement));
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Route_4004(modelElement));
+		result.addAll(getContainedTypeModelFacetLinks_BesiegePortOrder_4005(modelElement));
+		result.addAll(getContainedTypeModelFacetLinks_EscortShipsOrder_4006(modelElement));
 		return result;
 	}
 
@@ -526,9 +526,9 @@ public class TaiPanDiagramUpdater {
 		Warship modelElement = (Warship) view.getElement();
 		List result = new LinkedList();
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
-		result.addAll(getContainedTypeModelFacetLinks_EscortShipsOrder_4006(modelElement));
-		result.addAll(getContainedTypeModelFacetLinks_BesiegePortOrder_4005(modelElement));
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Route_4004(modelElement));
+		result.addAll(getContainedTypeModelFacetLinks_BesiegePortOrder_4005(modelElement));
+		result.addAll(getContainedTypeModelFacetLinks_EscortShipsOrder_4006(modelElement));
 		return result;
 	}
 

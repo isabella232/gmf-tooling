@@ -122,17 +122,17 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 		if (TaiPanElementTypes.ShipDestination_4001 == req.getElementType()) {
 			return getGEFWrapper(new ShipDestinationCreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		if (TaiPanElementTypes.EscortShipsOrder_4006 == req.getElementType()) {
-			return getGEFWrapper(new EscortShipsOrderCreateCommand(req, req.getSource(), req.getTarget()));
+		if (TaiPanElementTypes.ShipRoute_4004 == req.getElementType()) {
+			return getGEFWrapper(new ShipRouteCreateCommand(req, req.getSource(), req.getTarget()));
 		}
 		if (TaiPanElementTypes.BesiegePortOrder_4005 == req.getElementType()) {
 			return getGEFWrapper(new BesiegePortOrderCreateCommand(req, req.getSource(), req.getTarget()));
 		}
+		if (TaiPanElementTypes.EscortShipsOrder_4006 == req.getElementType()) {
+			return getGEFWrapper(new EscortShipsOrderCreateCommand(req, req.getSource(), req.getTarget()));
+		}
 		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
 			return getGEFWrapper(new PortRegisterCreateCommand(req, req.getTarget(), req.getSource()));
-		}
-		if (TaiPanElementTypes.ShipRoute_4004 == req.getElementType()) {
-			return getGEFWrapper(new ShipRouteCreateCommand(req, req.getSource(), req.getTarget()));
 		}
 		return null;
 	}
@@ -144,17 +144,17 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 		if (TaiPanElementTypes.ShipDestination_4001 == req.getElementType()) {
 			return null;
 		}
-		if (TaiPanElementTypes.EscortShipsOrder_4006 == req.getElementType()) {
-			return getGEFWrapper(new EscortShipsOrderCreateCommand(req, req.getSource(), req.getTarget()));
+		if (TaiPanElementTypes.ShipRoute_4004 == req.getElementType()) {
+			return null;
 		}
 		if (TaiPanElementTypes.BesiegePortOrder_4005 == req.getElementType()) {
 			return getGEFWrapper(new BesiegePortOrderCreateCommand(req, req.getTarget(), req.getSource()));
 		}
+		if (TaiPanElementTypes.EscortShipsOrder_4006 == req.getElementType()) {
+			return getGEFWrapper(new EscortShipsOrderCreateCommand(req, req.getSource(), req.getTarget()));
+		}
 		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
 			return getGEFWrapper(new PortRegisterCreateCommand(req, req.getSource(), req.getTarget()));
-		}
-		if (TaiPanElementTypes.ShipRoute_4004 == req.getElementType()) {
-			return null;
 		}
 		return null;
 	}
@@ -167,10 +167,10 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 	 */
 	protected Command getReorientRelationshipCommand(ReorientRelationshipRequest req) {
 		switch (getVisualID(req)) {
-		case EscortShipsOrderEditPart.VISUAL_ID:
-			return getGEFWrapper(new EscortShipsOrderReorientCommand(req));
 		case BesiegePortOrderEditPart.VISUAL_ID:
 			return getGEFWrapper(new BesiegePortOrderReorientCommand(req));
+		case EscortShipsOrderEditPart.VISUAL_ID:
+			return getGEFWrapper(new EscortShipsOrderReorientCommand(req));
 		}
 		return super.getReorientRelationshipCommand(req);
 	}
@@ -185,10 +185,10 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 		switch (getVisualID(req)) {
 		case ShipDestinationEditPart.VISUAL_ID:
 			return getGEFWrapper(new ShipDestinationReorientCommand(req));
-		case PortRegisterEditPart.VISUAL_ID:
-			return getGEFWrapper(new PortRegisterReorientCommand(req));
 		case ShipRouteEditPart.VISUAL_ID:
 			return getGEFWrapper(new ShipRouteReorientCommand(req));
+		case PortRegisterEditPart.VISUAL_ID:
+			return getGEFWrapper(new PortRegisterReorientCommand(req));
 		}
 		return super.getReorientReferenceRelationshipCommand(req);
 	}

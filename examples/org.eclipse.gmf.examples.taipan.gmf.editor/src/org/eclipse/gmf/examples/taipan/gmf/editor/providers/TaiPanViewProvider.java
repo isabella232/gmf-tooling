@@ -133,10 +133,10 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 				case ShipDestinationEditPart.VISUAL_ID:
 				case ReliableRouteEditPart.VISUAL_ID:
 				case UnreliableRouteEditPart.VISUAL_ID:
-				case EscortShipsOrderEditPart.VISUAL_ID:
-				case BesiegePortOrderEditPart.VISUAL_ID:
-				case PortRegisterEditPart.VISUAL_ID:
 				case ShipRouteEditPart.VISUAL_ID:
+				case BesiegePortOrderEditPart.VISUAL_ID:
+				case EscortShipsOrderEditPart.VISUAL_ID:
+				case PortRegisterEditPart.VISUAL_ID:
 					return null;
 				}
 			}
@@ -219,14 +219,14 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 			return ReliableRouteViewFactory.class;
 		case UnreliableRouteEditPart.VISUAL_ID:
 			return UnreliableRouteViewFactory.class;
-		case EscortShipsOrderEditPart.VISUAL_ID:
-			return EscortShipsOrderViewFactory.class;
-		case BesiegePortOrderEditPart.VISUAL_ID:
-			return BesiegePortOrderViewFactory.class;
-		case PortRegisterEditPart.VISUAL_ID:
-			return PortRegisterViewFactory.class;
 		case ShipRouteEditPart.VISUAL_ID:
 			return ShipRouteViewFactory.class;
+		case BesiegePortOrderEditPart.VISUAL_ID:
+			return BesiegePortOrderViewFactory.class;
+		case EscortShipsOrderEditPart.VISUAL_ID:
+			return EscortShipsOrderViewFactory.class;
+		case PortRegisterEditPart.VISUAL_ID:
+			return PortRegisterViewFactory.class;
 		}
 		return null;
 	}

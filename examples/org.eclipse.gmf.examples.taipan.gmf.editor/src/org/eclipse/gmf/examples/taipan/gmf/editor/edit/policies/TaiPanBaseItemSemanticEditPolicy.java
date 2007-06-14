@@ -356,9 +356,9 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 */
 		static {
 			Map env = new HashMap(3);
-			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getShip());
-			EscortShipsOrder_4006_SourceExpression = TaiPanOCLFactory.getExpression(
-					"self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
+			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getPort());
+			BesiegePortOrder_4005_SourceExpression = TaiPanOCLFactory
+					.getExpression("self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
 		}
 
 		/**
@@ -371,8 +371,9 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 */
 		static {
 			Map env = new HashMap(3);
-			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getWarship());
-			EscortShipsOrder_4006_TargetExpression = TaiPanOCLFactory.getExpression("not self.oclIsKindOf(Warship)", TaiPanPackage.eINSTANCE.getShip(), env); //$NON-NLS-1$
+			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getShip());
+			EscortShipsOrder_4006_SourceExpression = TaiPanOCLFactory.getExpression(
+					"self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
 		}
 
 		/**
@@ -385,9 +386,8 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 */
 		static {
 			Map env = new HashMap(3);
-			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getPort());
-			BesiegePortOrder_4005_SourceExpression = TaiPanOCLFactory
-					.getExpression("self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
+			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getWarship());
+			EscortShipsOrder_4006_TargetExpression = TaiPanOCLFactory.getExpression("not self.oclIsKindOf(Warship)", TaiPanPackage.eINSTANCE.getShip(), env); //$NON-NLS-1$
 		}
 
 		/**
