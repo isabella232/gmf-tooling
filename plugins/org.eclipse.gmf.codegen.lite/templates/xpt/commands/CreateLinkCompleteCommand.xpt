@@ -82,7 +82,7 @@ public class «EXPAND className» «EXPAND supertypes» {
 «DEFINE setEdgeElement(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
 	«EXPAND xpt::Common::newInstance("createdDomainElement") FOR metaClass-»
 	createdEdge.setElement(«unparenthesizedCast("createdDomainElement", metaClass, null)»);
-	«EXPAND xpt::commands::Common::DomainElementInitializerQualifiedClassName FOR genLink».«genLink.getUniqueIdentifier()».initializeElement(«unparenthesizedCast("createdDomainElement", metaClass, null)»);
+	«EXPAND xpt::providers::DomainElementInitializer::qualifiedClassName FOR genLink.getDiagram()».«genLink.getUniqueIdentifier()».initializeElement(«unparenthesizedCast("createdDomainElement", metaClass, null)»);
 «ENDDEFINE»
 
 «DEFINE prepare FOR gmfgen::GenLink-»

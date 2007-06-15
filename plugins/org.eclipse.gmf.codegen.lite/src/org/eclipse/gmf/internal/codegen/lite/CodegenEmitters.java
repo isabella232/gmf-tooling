@@ -29,7 +29,6 @@ import org.eclipse.gmf.codegen.templates.lite.editor.PaletteFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.lite.providers.DomainElementInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.MetricProviderGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.ValidationProviderGenerator;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
@@ -101,7 +100,6 @@ public class CodegenEmitters {
 		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
 		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
 		put(tr, "/editor/PaletteFactory.javajet", PaletteFactoryGenerator.class);
-		put(tr, "/providers/DomainElementInitializer.javajet", DomainElementInitializerGenerator.class);
 		put(tr, "/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGenerator.class);
 		put(tr, "/editor/NewDiagramFileWizard.javajet", NewDiagramFileWizardGenerator.class);
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class);
@@ -162,9 +160,13 @@ public class CodegenEmitters {
 	public TextEmitter getMetricProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(MetricProviderGenerator.class);
 	}	
-	
+
 	public TextEmitter getDomainElementInitializerGenerator() throws UnexpectedBehaviourException {
-		return retrieve(DomainElementInitializerGenerator.class);
+		return retrieveXpand("xpt::providers::DomainElementInitializer::DomainElementInitializer");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getDomainElementInitializerQualifiedNameGenerator() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::providers::DomainElementInitializer::qualifiedClassName");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getCompartmentEditPartGenerator() throws UnexpectedBehaviourException {

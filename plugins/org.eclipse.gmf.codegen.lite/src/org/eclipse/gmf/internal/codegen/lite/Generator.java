@@ -11,11 +11,13 @@
  */
 package org.eclipse.gmf.internal.codegen.lite;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
@@ -164,7 +166,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateLayoutEditPolicy(next);
 		}
 		internalGenerateJavaClass(myEmitters.getViewFactoryGenerator(), myDiagram.getNotationViewFactoryQualifiedClassName(), myDiagram);
-		internalGenerateJavaClass(myEmitters.getDomainElementInitializerGenerator(), myDiagram.getNotationViewFactoriesPackageName(), "DomainElementInitializer",myDiagram); // XXX: allow customization!
+		internalGenerateJavaClass(myEmitters.getDomainElementInitializerGenerator(), myEmitters.getDomainElementInitializerQualifiedNameGenerator(), myDiagram); // XXX: allow customization!
 		internalGenerateJavaClass(myEmitters.getVisualIDRegistryGenerator(), myDiagram.getVisualIDRegistryQualifiedClassName(), myDiagram);
 		if(myDiagram.getEditorGen().getExpressionProviders() != null) {
 			generateExpressionProviders();
@@ -536,6 +538,18 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void internalGenerateJavaClass(TextEmitter emitter, String qualifiedClassName, Object argument) throws InterruptedException {
 		internalGenerateJavaClass(emitter, CodeGenUtil.getPackageName(qualifiedClassName), CodeGenUtil.getSimpleClassName(qualifiedClassName), argument);
+	}
+
+	private void internalGenerateJavaClass(TextEmitter emitter, TextEmitter qualifiedClassNameEmitter, Object argument) throws InterruptedException {
+		String qualifiedClassName = null;
+		try {
+			qualifiedClassName = qualifiedClassNameEmitter.generate(new NullProgressMonitor(), new Object[] {argument});
+		} catch (InvocationTargetException e) {
+			handleException(e);
+		} catch (UnexpectedBehaviourException e) {
+			handleException(e);
+		}
+		internalGenerateJavaClass(emitter, qualifiedClassName, argument);
 	}
 
 	/**

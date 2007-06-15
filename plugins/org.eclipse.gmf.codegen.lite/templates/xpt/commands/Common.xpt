@@ -57,7 +57,7 @@
 «ENDDEFINE»
 
 «DEFINE checkLinkConstraints(String sourceVar, String targetVar) FOR gmfgen::GenLinkConstraints-»
-	if(!«EXPAND DomainElementInitializerQualifiedClassName FOR link».«link.diagram.getLinkCreationConstraintsClassName()».«getConstraintsInstanceFieldName()».canCreateLink(«sourceVar», «targetVar», false)) {
+	if(!«EXPAND xpt::providers::DomainElementInitializer::qualifiedClassName FOR link.getDiagram()».«link.diagram.getLinkCreationConstraintsClassName()».canExist«link.getUniqueIdentifier()»(«sourceVar», «targetVar»)) {
 		return false;
 	}
 «ENDDEFINE»
@@ -96,18 +96,6 @@ org.eclipse.emf.edit.command.SetCommand.create(«domainVar», «containerVar», «EXP
 
 «DEFINE defaultWidth FOR gmfgen::GenNode»«defaultSizeWidth(viewmap, 40)»«ENDDEFINE»
 «DEFINE defaultHeight FOR gmfgen::GenNode»«defaultSizeHeight(viewmap, 40)»«ENDDEFINE»
-
-/*
- * TODO: replace with xpt::commands::DomainElementInitializer::qualifiedClassName.
- */
-«DEFINE DomainElementInitializerQualifiedClassName FOR gmfgen::GenCommonBase-»
-«getDiagram().notationViewFactoriesPackageName».«EXPAND DomainElementInitializerClassName-»
-«ENDDEFINE»
-
-/*
- * TODO: replace with xpt::commands::DomainElementInitializer::className.
- */
-«DEFINE DomainElementInitializerClassName FOR gmfgen::GenCommonBase»DomainElementInitializer«ENDDEFINE»
 
 «DEFINE commandNameInfix FOR gmfgen::GenNode-»
 «EXPAND commandNameInfix FOR modelFacet.metaClass»«visualID-»

@@ -1,0 +1,83 @@
+/*
+ * Copyright (c) 2007 Borland Software Corp.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    bblajer (Borland) - initial API and implementation
+ */
+
+import "http://www.eclipse.org/emf/2002/Ecore";
+import "http://www.eclipse.org/gmf/2006/GenModel";
+
+cached Collection[gmfgen::GenCommonBase] getAllInitableElements(gmfgen::GenDiagram diagram) :
+	((Collection[gmfgen::GenCommonBase]) {}.addAll(diagram.links).addAll(diagram.getAllNodes())).select(e| e.getTypeModelFacet() != null)
+;
+
+cached Collection[gmfgen::GenCommonBase] elementsWithNullInitializer(gmfgen::GenDiagram diagram) :
+	diagram.getAllInitableElements().without(diagram.elementsWithInitializer())
+;
+
+cached Collection[gmfgen::GenCommonBase] elementsWithInitializer(gmfgen::GenDiagram diagram) :
+	diagram.getAllInitableElements().select(e| e.getTypeModelFacet().modelElementInitializer != null)
+;
+
+gmfgen::TypeModelFacet getTypeModelFacet(gmfgen::GenCommonBase gcb) :
+	null
+;
+
+gmfgen::TypeModelFacet getTypeModelFacet(gmfgen::GenNode node) :
+	node.modelFacet
+;
+
+gmfgen::TypeModelFacet getTypeModelFacet(gmfgen::GenLink link) :
+	{link.modelFacet}.typeSelect(gmfgen::TypeModelFacet).first()
+;
+
+List[gmfgen::GenFeatureValueSpec] getJavaInitializers(gmfgen::GenDiagram diagram) :
+	diagram.elementsWithInitializer().collect(e| e.getTypeModelFacet().modelElementInitializer.getJavaExpressionFeatureInitializers(diagram.editorGen.expressionProviders)).flatten()
+;
+
+List[gmfgen::GenFeatureValueSpec] getJavaExpressionFeatureInitializers(gmfgen::GenElementInitializer initializer, gmfgen::GenExpressionProviderContainer expressionProviders) :
+	{}
+;
+
+List[gmfgen::GenFeatureValueSpec] getJavaExpressionFeatureInitializers(gmfgen::GenFeatureSeqInitializer initializer, gmfgen::GenExpressionProviderContainer expressionProviders) :
+	expressionProviders == null ? {} :
+		initializer.initializers.collect(e| e.getJavaExpressionFeatureInitializers(expressionProviders)).flatten()
+;
+
+List[gmfgen::GenFeatureValueSpec] getJavaExpressionFeatureInitializers(gmfgen::GenFeatureInitializer featureInitializer, gmfgen::GenExpressionProviderContainer expressionProviders) :
+	{}
+;
+
+List[gmfgen::GenFeatureValueSpec] getJavaExpressionFeatureInitializers(gmfgen::GenFeatureValueSpec featureValueSpec, gmfgen::GenExpressionProviderContainer expressionProviders) :
+	(!expressionProviders.isCopy(featureValueSpec) && expressionProviders.getProvider(featureValueSpec).isJavaExpressionProvider()) ? {featureValueSpec} : {} 
+;
+
+List[gmfgen::GenFeatureValueSpec] getJavaExpressionFeatureInitializers(gmfgen::GenReferenceNewElementSpec newElementSpec, gmfgen::GenExpressionProviderContainer expressionProviders) :
+	newElementSpec.newElementInitializers.collect(e| e.getAllFeatureSeqInitializers().collect(i| i.getJavaExpressionFeatureInitializers(expressionProviders)).flatten()).flatten()
+;
+
+List[gmfgen::GenFeatureSeqInitializer] getAllFeatureSeqInitializers(gmfgen::GenFeatureSeqInitializer initializer) :
+	{initializer}.addAll(initializer.initializers.collect(e| e.getAllFeatureSeqInitializers())).flatten()
+;
+
+List[gmfgen::GenFeatureSeqInitializer] getAllFeatureSeqInitializers(gmfgen::GenFeatureInitializer gfi) :
+	{}
+;
+
+List[gmfgen::GenFeatureSeqInitializer] getAllFeatureSeqInitializers(gmfgen::GenReferenceNewElementSpec newElementSpec) :
+	newElementSpec.newElementInitializers.collect(e| e.getAllFeatureSeqInitializers()).flatten()
+;
+
+private boolean isJavaExpressionProvider(gmfgen::GenExpressionProviderBase gepb) :
+	false
+;
+
+private boolean isJavaExpressionProvider(gmfgen::GenJavaExpressionProvider gepb) :
+	true
+;

@@ -1,0 +1,273 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    bblajer (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«EXTENSION xpt::GenModelUtils»
+«EXTENSION xpt::providers::DomainElementInitializer»
+
+«DEFINE className FOR gmfgen::GenDiagram»DomainElementInitializer«ENDDEFINE»
+
+«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«notationViewFactoriesPackageName».«EXPAND className»«ENDDEFINE»
+
+«DEFINE DomainElementInitializer FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::copyright FOR editorGen-»
+package «notationViewFactoriesPackageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «EXPAND className» «EXPAND supertypes»{
+	«EXPAND IElementInitializer-»
+«LET elementsWithNullInitializer() AS elementsWithNullInitializer-»
+	«IF elementsWithNullInitializer.size() > 0-»
+	«EXPAND NullInitializer-»
+	«ENDIF-»
+	«EXPAND defineNullInitializer FOREACH elementsWithNullInitializer-»
+«ENDLET-»
+«LET elementsWithInitializer() AS elementsWithInitializer-»
+	«EXPAND defineInitializer FOREACH elementsWithInitializer-»
+	«IF elementsWithInitializer.size() > 0-»
+	«EXPAND ObjectInitializer-»
+	«EXPAND FeatureInitializer-»
+	«EXPAND createNewElementFeatureInitializer-»
+	«EXPAND createExpressionFeatureInitializer-»
+	«EXPAND javaInitializers-»
+	«ENDIF-»
+«ENDLET-»
+
+	«EXPAND xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::linkConstraints-»
+
+	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE supertypes FOR gmfgen::GenDiagram»«ENDDEFINE»
+
+«DEFINE IElementInitializer FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedClassComment»
+public static interface IElementInitializer {
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void initializeElement(org.eclipse.emf.ecore.EObject instance);
+}
+«ENDDEFINE»
+
+«DEFINE NullInitializer FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment»
+private static IElementInitializer NULL_INITIALIZER = new IElementInitializer() {
+	public void initializeElement(org.eclipse.emf.ecore.EObject instance) {
+	}
+};
+«ENDDEFINE»
+
+«DEFINE defineNullInitializer FOR gmfgen::GenCommonBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+public static IElementInitializer «getUniqueIdentifier()» = NULL_INITIALIZER;
+«ENDDEFINE»
+
+«DEFINE defineInitializer FOR gmfgen::GenCommonBase-»
+«LET (gmfgen::GenFeatureSeqInitializer) getTypeModelFacet().modelElementInitializer AS rootFtSeqInitializer-»
+«EXPAND xpt::Common::generatedMemberComment»
+public static final IElementInitializer «EXPAND initializerFieldName(getUniqueIdentifier()) FOR rootFtSeqInitializer» = new ObjectInitializer(«EXPAND xpt::Common::metaClassAccessor FOR rootFtSeqInitializer.elementClass») {
+	«EXPAND defineInitializer(rootFtSeqInitializer)-»
+«EXPAND defineInnerInitializer(this) FOREACH rootFtSeqInitializer.getAllFeatureSeqInitializers().select(e| e != rootFtSeqInitializer)-»
+};	// «EXPAND initializerFieldName(getUniqueIdentifier()) FOR rootFtSeqInitializer» ObjectInitializer
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE defineInnerInitializer(gmfgen::GenCommonBase element) FOR gmfgen::GenFeatureSeqInitializer-»
+«EXPAND defineInnerInitializer(this) FOR element»
+«ENDDEFINE»
+
+«DEFINE defineInnerInitializer(gmfgen::GenFeatureSeqInitializer innerInitializer) FOR gmfgen::GenCommonBase-»
+ObjectInitializer «EXPAND initializerMethodName(getUniqueIdentifier()) FOR innerInitializer» {
+	return new ObjectInitializer(«EXPAND xpt::Common::metaClassAccessor FOR innerInitializer.elementClass») {
+		«EXPAND defineInitializer(innerInitializer)-»
+	}; // «EXPAND initializerMethodName(getUniqueIdentifier()) FOR innerInitializer» ObjectInitializer
+}
+«ENDDEFINE»
+
+«DEFINE defineInitializer(gmfgen::GenFeatureSeqInitializer initializer) FOR gmfgen::GenCommonBase-»
+protected void init() {
+	«EXPAND addInitializer(this, initializer) FOREACH initializer.initializers-»
+}
+«ENDDEFINE»
+
+«DEFINE addInitializer(gmfgen::GenCommonBase element, gmfgen::GenFeatureSeqInitializer initializer) FOR gmfgen::GenFeatureInitializer»«ENDDEFINE»
+
+«DEFINE addInitializer(gmfgen::GenCommonBase element, gmfgen::GenFeatureSeqInitializer initializer) FOR gmfgen::GenReferenceNewElementSpec-»
+add(createNewElementFeatureInitializer(«EXPAND xpt::Common::metaFeatureAccessor FOR feature», new ObjectInitializer[] {
+	«EXPAND initializerMethodName(element.getUniqueIdentifier()) FOREACH newElementInitializers SEPARATOR ','-»
+}));
+«ENDDEFINE»
+
+«DEFINE addInitializer(gmfgen::GenCommonBase element, gmfgen::GenFeatureSeqInitializer initializer) FOR gmfgen::GenFeatureValueSpec-»
+add(createExpressionFeatureInitializer(«EXPAND xpt::Common::metaFeatureAccessor FOR feature», «EXPAND getExpression(element, initializer, this) FOR element.getDiagram().editorGen.expressionProviders.getProvider(this)»));«EXPAND expressionNonNLS FOR element.getDiagram().editorGen.expressionProviders.getProvider(this)»
+«ENDDEFINE»
+
+«DEFINE getExpression(gmfgen::GenCommonBase element, gmfgen::GenFeatureSeqInitializer initializer, gmfgen::GenFeatureValueSpec valueSpec) FOR gmfgen::GenExpressionProviderBase»null«ENDDEFINE»
+
+«DEFINE getExpression(gmfgen::GenCommonBase element, gmfgen::GenFeatureSeqInitializer initializer, gmfgen::GenFeatureValueSpec valueSpec) FOR gmfgen::GenExpressionInterpreter»«EXPAND xpt::expressions::getExpression::getExpression(valueSpec, initializer.elementClass, false)»«ENDDEFINE»
+
+«DEFINE getExpression(gmfgen::GenCommonBase element, gmfgen::GenFeatureSeqInitializer initializer, gmfgen::GenFeatureValueSpec valueSpec) FOR gmfgen::GenJavaExpressionProvider-»
+new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND xpt::Common::metaClassAccessor FOR initializer.elementClass») {
+	protected Object doEvaluate(Object context, java.util.Map env) {
+		«getQualifiedInstanceClassName(initializer.elementClass)» self = («getQualifiedInstanceClassName(initializer.elementClass)») context;
+		return «EXPAND javaInitializersClassName FOR element.getDiagram()».«this.getOperationName(valueSpec)»(self);
+	}
+}
+«ENDDEFINE»
+
+«DEFINE expressionNonNLS FOR gmfgen::GenExpressionProviderBase»«ENDDEFINE»
+
+«DEFINE expressionNonNLS FOR gmfgen::GenExpressionInterpreter»«EXPAND xpt::Common::nonNLS»«ENDDEFINE»
+
+«DEFINE initializerMethodName(String id) FOR gmfgen::GenFeatureSeqInitializer»«EXPAND initializerFieldName(id)»()«ENDDEFINE»
+
+«DEFINE initializerFieldName(String id) FOR gmfgen::GenFeatureSeqInitializer-»
+«IF creatingInitializer != null && creatingInitializer.featureSeqInitializer != null-»
+«LET creatingInitializer.featureSeqInitializer AS parentFSeqInitializer-»
+«IF parentFSeqInitializer.creatingInitializer != null»«EXPAND initializerFieldName(id) FOR parentFSeqInitializer»_«ENDIF-»
+«ENDLET-»
+«IF creatingInitializer.feature != null»«creatingInitializer.feature.ecoreFeature.name-»
+«LET creatingInitializer.newElementInitializers AS siblingInitalizers-»
+«IF siblingInitalizers.size() > 1»_«siblingInitalizers.indexOf(this) + 1»«ENDIF-»
+«ENDLET-»
+«ENDIF-»
+«ELSE-»
+«id-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE ObjectInitializer FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedClassComment»
+public static abstract class ObjectInitializer implements IElementInitializer {
+	«EXPAND xpt::Common::generatedMemberComment»
+	final org.eclipse.emf.ecore.EClass element;		
+	«EXPAND xpt::Common::generatedMemberComment»
+	private java.util.List featureInitializers = new java.util.ArrayList();
+	«EXPAND xpt::Common::generatedMemberComment»
+	ObjectInitializer(org.eclipse.emf.ecore.EClass element) {
+		this.element = element;
+		init();
+	}
+	«EXPAND xpt::Common::generatedMemberComment»
+ 	protected abstract void init();							
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected final FeatureInitializer add(FeatureInitializer initializer) {
+		featureInitializers.add(initializer);
+		return initializer;
+	}
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void initializeElement(org.eclipse.emf.ecore.EObject instance) {
+		for (java.util.Iterator it = featureInitializers.iterator(); it.hasNext();) {
+			FeatureInitializer nextExpr = (FeatureInitializer)it.next();
+			try {
+				nextExpr.init(instance);
+			} catch(RuntimeException e) {
+				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Feature initialization failed", e);	«EXPAND xpt::Common::nonNLS»
+			}
+		}
+	}
+} // end of ObjectInitializer
+«ENDDEFINE»
+
+«DEFINE FeatureInitializer FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedClassComment»
+interface FeatureInitializer {
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void init(org.eclipse.emf.ecore.EObject contextInstance);
+}
+«ENDDEFINE»
+
+«DEFINE createNewElementFeatureInitializer FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment»
+static FeatureInitializer createNewElementFeatureInitializer(org.eclipse.emf.ecore.EStructuralFeature initFeature, ObjectInitializer[] newObjectInitializers) {
+	return new NewElementFeatureInitializer(initFeature, newObjectInitializers);
+}
+
+«EXPAND xpt::Common::generatedClassComment»
+private static class NewElementFeatureInitializer implements FeatureInitializer {
+	«EXPAND xpt::Common::generatedMemberComment»
+	private final org.eclipse.emf.ecore.EStructuralFeature myFeature;
+	«EXPAND xpt::Common::generatedMemberComment»
+	private final ObjectInitializer[] myInitializers;
+	«EXPAND xpt::Common::generatedMemberComment»
+	public NewElementFeatureInitializer(org.eclipse.emf.ecore.EStructuralFeature initFeature, ObjectInitializer[] newObjectInitializers) {
+		myFeature = initFeature;
+		myInitializers = newObjectInitializers;
+	}
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void init(org.eclipse.emf.ecore.EObject contextInstance) {
+		for (int i = 0; i < myInitializers.length; i++) {
+			org.eclipse.emf.ecore.EObject newInstance = myInitializers[i].element.getEPackage().getEFactoryInstance().create(myInitializers[i].element);
+			if(myFeature.isMany()) {
+				((java.util.Collection)contextInstance.eGet(myFeature)).add(newInstance);
+			} else {
+				contextInstance.eSet(myFeature, newInstance);
+			}						
+			myInitializers[i].initializeElement(newInstance);
+		}
+	}
+}
+«ENDDEFINE»
+
+«DEFINE createExpressionFeatureInitializer FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment»
+static FeatureInitializer createExpressionFeatureInitializer(org.eclipse.emf.ecore.EStructuralFeature initFeature, «editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» valueExpression) {
+	return new ExpressionFeatureInitializer(initFeature, valueExpression);
+}
+
+«EXPAND xpt::Common::generatedClassComment»
+private static class ExpressionFeatureInitializer implements FeatureInitializer {
+	«EXPAND xpt::Common::generatedMemberComment»
+	private final org.eclipse.emf.ecore.EStructuralFeature myFeature;
+	«EXPAND xpt::Common::generatedMemberComment»
+	private final «editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» myExpression;
+	«EXPAND xpt::Common::generatedMemberComment»
+	public ExpressionFeatureInitializer(org.eclipse.emf.ecore.EStructuralFeature initFeature, «editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» valueExpression) {
+		myFeature = initFeature;
+		myExpression = valueExpression;
+	}
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void init(org.eclipse.emf.ecore.EObject contextInstance) {
+		myExpression.assignTo(myFeature, contextInstance);
+	}
+}
+«ENDDEFINE»
+
+«DEFINE javaInitializers FOR gmfgen::GenDiagram-»
+«LET getJavaInitializers() AS javaInitializers-»
+«IF javaInitializers.size() > 0-»
+«EXPAND xpt::Common::generatedClassComment»
+static class «EXPAND javaInitializersClassName» {
+	«EXPAND defineJavaInitializerOperation(editorGen.expressionProviders) FOREACH javaInitializers-»
+}
+«ENDIF-»
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE defineJavaInitializerOperation(gmfgen::GenExpressionProviderContainer expressionProviders) FOR gmfgen::GenFeatureValueSpec-»
+«EXPAND defineJavaInitializerOperation(this) FOR expressionProviders.getProvider(this)-»
+«ENDDEFINE»
+
+«DEFINE defineJavaInitializerOperation(gmfgen::GenFeatureValueSpec spec) FOR gmfgen::GenExpressionProviderBase»«ENDDEFINE»
+
+«DEFINE defineJavaInitializerOperation(gmfgen::GenFeatureValueSpec spec) FOR gmfgen::GenJavaExpressionProvider-»
+«IF !container.isCopy(spec)-»
+	«EXPAND xpt::expressions::javaExpressionOperation::javaExpressionOperation(spec, spec.featureSeqInitializer.elementClass, null)-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE javaInitializersClassName FOR gmfgen::GenDiagram»JavaInitializers«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+
