@@ -60,11 +60,11 @@ private org.eclipse.swt.graphics.Image getImage(String key, org.eclipse.emf.ecor
 «AROUND getDiagramLabelText(gmfgen::GenCommonBase elementTypeHolder, gmfgen::GenCommonBase hintHolder) FOR gmfgen::LabelModelFacet-»
 org.eclipse.emf.ecore.EObject domainModelElement = view.getElement();
 if (domainModelElement == null) {
-	return "";
+	return "";	«EXPAND xpt::Common::nonNLS»
 }
 String result = «hintHolder.getEditPartQualifiedClassName()».LABEL_DISPLAYER.getDisplayText(domainModelElement);
 	if (result == null) {
-	return "";
+	return "";	«EXPAND xpt::Common::nonNLS»
 }
 return result;
 «ENDAROUND»
