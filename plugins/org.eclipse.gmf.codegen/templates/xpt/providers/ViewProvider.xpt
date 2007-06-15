@@ -17,57 +17,47 @@
 «EXTENSION xpt::diagram::Utils»
 
 «DEFINE ViewProvider FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
+«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
 package «providersPackageName»;
 
-	«EXPAND xpt::Common::generatedClassComment»
+«EXPAND xpt::Common::generatedClassComment»
 public class «notationViewProviderClassName» extends org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider {
-
 	«EXPAND getDiagramViewClass-»
-	
 	«EXPAND getNodeViewClass-»
-	
 	«EXPAND getEdgeViewClass-»
-	
 	«EXPAND getSemanticElementType-»
-	
 	«EXPAND additions-»
 }
 «ENDDEFINE»
 
 «DEFINE getDiagramViewClass FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+
+«EXPAND xpt::Common::generatedMemberComment»
 protected Class getDiagramViewClass(org.eclipse.core.runtime.IAdaptable semanticAdapter, String diagramKind) {
-	«EXPAND defineSemanticElement FOR domainDiagramElement-»
-	if («EXPAND xpt::editor::VisualIDRegistry::modelID».equals(diagramKind)«EXPAND checkSemanticElement(this) FOR domainDiagramElement») {
-			return «getNotationViewFactoryQualifiedClassName()».class;
+	org.eclipse.emf.ecore.EObject semanticElement = getSemanticElement(semanticAdapter);
+	if («EXPAND xpt::editor::VisualIDRegistry::modelID».equals(diagramKind)
+			&& «EXPAND xpt::editor::VisualIDRegistry::getDiagramVisualIDMethodCall»(semanticElement) != -1) {
+		return «getNotationViewFactoryQualifiedClassName()».class;
 	}
 	return null;
 }
 «ENDDEFINE»
 
-«DEFINE defineSemanticElement FOR genmodel::GenClass-»
-org.eclipse.emf.ecore.EObject semanticElement = getSemanticElement(semanticAdapter);
-«ENDDEFINE»
-
-«DEFINE checkSemanticElement(gmfgen::GenDiagram diagram) FOR genmodel::GenClass» && «EXPAND xpt::editor::VisualIDRegistry::getDiagramVisualIDMethodCall FOR diagram»(semanticElement) != -1«ENDDEFINE»
-	
 «DEFINE getNodeViewClass FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-protected Class getNodeViewClass(org.eclipse.core.runtime.IAdaptable semanticAdapter, org.eclipse.gmf.runtime.notation.View containerView, String semanticHint) {
+
+«EXPAND xpt::Common::generatedMemberComment»
+protected Class getNodeViewClass(org.eclipse.core.runtime.IAdaptable semanticAdapter,
+		org.eclipse.gmf.runtime.notation.View containerView, String semanticHint) {
 	if (containerView == null) {
 		return null;
 	}
 	org.eclipse.gmf.runtime.emf.type.core.IElementType elementType = getSemanticElementType(semanticAdapter);
 	org.eclipse.emf.ecore.EObject domainElement = getSemanticElement(semanticAdapter);
-	
 	int visualID;
 	if (semanticHint == null) {
-«REM»
-	No semanticHint specified. Can be a result of call from CanonicalEditPolicy.
-	In this situation there should be NO elementType, visualID will be determined
-	by VisualIDRegistry.getNodeVisualID() for domainElement.
-«ENDREM»«-»
+		// Semantic hint is not specified. Can be a result of call from CanonicalEditPolicy.
+		// In this situation there should be NO elementType, visualID will be determined
+		// by VisualIDRegistry.getNodeVisualID() for domainElement.
 		if (elementType != null || domainElement == null) {
 			return null;
 		}
@@ -75,42 +65,38 @@ protected Class getNodeViewClass(org.eclipse.core.runtime.IAdaptable semanticAda
 	} else {
 		visualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(semanticHint);
 		if (elementType != null) {
-«REM»
-	semanticHint specified together with elementType. Both parameters should describe exactly the same 
-	diagram element. In addition cecking visualID returned by VisualIDRegistry.getNodeVisualID() for
-	domainElement (if specified) - there should be same value.
-«ENDREM»«-»
-			«EXPAND defineElementTypeHint-»
+			// Semantic hint is specified together with element type.
+			// Both parameters should describe exactly the same diagram element.
+			// In addition we check that visualID returned by VisualIDRegistry.getNodeVisualID() for
+			// domainElement (if specified) is the same as in element type.
+			if (!«getElementTypesQualifiedClassName()».isKnownElementType(elementType)
+					|| (!(elementType instanceof org.eclipse.gmf.runtime.emf.type.core.IHintedType))) {
+				return null; // foreign element type
+			}
+			String elementTypeHint = ((org.eclipse.gmf.runtime.emf.type.core.IHintedType) elementType).getSemanticHint();
 			if (!semanticHint.equals(elementTypeHint)) {
-				return null;
+				return null; // if semantic hint is specified it should be the same as in element type
 			}
 			if (domainElement != null && visualID != «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall»(containerView, domainElement)) {
-				return null;
+				return null; // visual id for node EClass should match visual id from element type
 			}
 		} else {
-«REM»
-	elementType was not specified. DomainElement shoud present. Result of calling this method with EObjectAdapter
-	as a parameter:
-	- ViewService.createNode(View container, EObject eObject, String type, PreferencesHint preferencesHint) 
-	- generated ViewFactory.decorateView() for parent element). 
-
-	In first case (passed semanticHint corresponds to the domain element-based diagram node) comparing visualID
-	returned from the registry with the semanticHint one.
-	In the last case (passed semanticHint corresponds to the compartment or label) checking passed domain model 
-	element is the same as specified for the parent view (contract for compartment and labels). 
-«ENDREM»«-»
-	«IF !getElements(this).select(commonBase | null != commonBase.elementType).isEmpty()-»
-			if (domainElement == null) {
-				return null;
+			// Element type is not specified. Domain element should be present.
+			// This method is called with EObjectAdapter as parameter from:
+			//   - ViewService.createNode(View container, EObject eObject, String type, PreferencesHint preferencesHint) 
+			//   - generated ViewFactory.decorateView() for parent element
+	«IF getElements(this).select(e | e.elementType != null).size() > 0-»
+			if (!«getEditPartQualifiedClassName()».MODEL_ID.equals(«getVisualIDRegistryQualifiedClassName()».getModelID(containerView))) {
+				return null; // foreign diagram
 			}
 			switch (visualID) {
-				«EXPAND xpt::Common::caseVisualID FOREACH getElements(this).select(commonBase | null != commonBase.elementType)»
-					if (visualID != «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall FOR getDiagram()»(containerView, domainElement)) {
-						return null;
-					}
-					break;
-				«EXPAND caseEssentialChildrenVisualID FOREACH getElements(this).select(commonBase | null != commonBase.elementType).typeSelect(gmfgen::GenNode)-»
-			default: 
+			«EXPAND xpt::Common::caseVisualID FOREACH getElements(this).select(e | e.elementType != null).typeSelect(gmfgen::GenNode)-»
+				if (domainElement == null || visualID != «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall»(containerView, domainElement)) {
+					return null; // visual id in semantic hint should match visual id for domain element
+				}
+				break;
+			«EXPAND checkChildrenVisualIDs FOREACH getElements(this).select(e | e.elementType != null)-»
+			default:
 				return null;
 			}
 	«ELSE-»
@@ -118,33 +104,46 @@ protected Class getNodeViewClass(org.eclipse.core.runtime.IAdaptable semanticAda
 	«ENDIF-»
 		}
 	}
-	if (!«EXPAND xpt::editor::VisualIDRegistry::canCreateNodeMethodCall»(containerView, visualID)) {
+	return getNodeViewClass(containerView, visualID);
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+protected Class getNodeViewClass(org.eclipse.gmf.runtime.notation.View containerView, int visualID) {
+	if (containerView == null || !«EXPAND xpt::editor::VisualIDRegistry::canCreateNodeMethodCall»(containerView, visualID)) {
 		return null;
 	}
 	switch (visualID) {
-		«EXPAND caseContainerVisualID FOREACH getAllChildContainers()-»
-		«EXPAND caseEntry FOREACH links.labels-»
+	«EXPAND caseContainerVisualID FOREACH getAllChildContainers()-»
+	«EXPAND caseEntry FOREACH links.labels-»
 	}
 	return null;
 }
 «ENDDEFINE»
 
-«DEFINE caseEssentialChildrenVisualID FOR gmfgen::GenNode-»
-«EXPAND xpt::Common::caseVisualID FOREACH labels»
-«EXPAND xpt::Common::caseVisualID FOREACH compartments»
-«IF !labels.isEmpty() || !compartments.isEmpty()-»
-if («EXPAND xpt::editor::VisualIDRegistry::visualID» != «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(containerView) || containerView.getElement() != domainElement) {
-	return null;
-}
-break;
-«ENDIF-»
+«DEFINE checkChildrenVisualIDs FOR gmfgen::GenCommonBase-»
 «ENDDEFINE»
 
-«DEFINE defineElementTypeHint FOR gmfgen::GenDiagram-»
-if (!«getElementTypesQualifiedClassName()».isKnownElementType(elementType) || false == elementType instanceof org.eclipse.gmf.runtime.emf.type.core.IHintedType) {
-	return null;
+«DEFINE checkChildrenVisualIDs FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::caseVisualID FOREACH labels-»
+	«EXPAND xpt::Common::caseVisualID FOREACH compartments-»
+	«IF !labels.isEmpty() || !compartments.isEmpty()-»
+if («EXPAND xpt::editor::VisualIDRegistry::visualID» != «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(containerView)
+		|| containerView.getElement() != domainElement) {
+	return null; // wrong container
 }
-String elementTypeHint = ((org.eclipse.gmf.runtime.emf.type.core.IHintedType) elementType).getSemanticHint();
+break;
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkChildrenVisualIDs FOR gmfgen::GenLink-»
+	«EXPAND xpt::Common::caseVisualID FOREACH labels-»
+	«IF !labels.isEmpty()-»
+if («EXPAND xpt::editor::VisualIDRegistry::visualID» != «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(containerView)
+		|| containerView.getElement() != domainElement) {
+	return null; // wrong container
+}
+break;
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE caseContainerVisualID FOR gmfgen::GenChildContainer-»
@@ -157,45 +156,54 @@ String elementTypeHint = ((org.eclipse.gmf.runtime.emf.type.core.IHintedType) el
 «ENDDEFINE»
 
 «DEFINE caseEntry FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::caseVisualID»
-	return «getNotationViewFactoryQualifiedClassName()».class;
+	«EXPAND xpt::Common::caseVisualID» return «getNotationViewFactoryQualifiedClassName()».class;
 «ENDDEFINE»
 
-	
 «DEFINE getEdgeViewClass FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-protected Class getEdgeViewClass(org.eclipse.core.runtime.IAdaptable semanticAdapter, org.eclipse.gmf.runtime.notation.View containerView, String semanticHint) {
+
+«EXPAND xpt::Common::generatedMemberComment»
+protected Class getEdgeViewClass(org.eclipse.core.runtime.IAdaptable semanticAdapter,
+		org.eclipse.gmf.runtime.notation.View containerView, String semanticHint) {
 	org.eclipse.gmf.runtime.emf.type.core.IElementType elementType = getSemanticElementType(semanticAdapter);
-	if (elementType == null) {
-		return null;
+	if (!«getElementTypesQualifiedClassName()».isKnownElementType(elementType)
+			|| (!(elementType instanceof org.eclipse.gmf.runtime.emf.type.core.IHintedType))) {
+		return null; // foreign element type
 	}
-	«EXPAND defineElementTypeHint-»
+	String elementTypeHint = ((org.eclipse.gmf.runtime.emf.type.core.IHintedType) elementType).getSemanticHint();
 	if (elementTypeHint == null) {
-		return null;
+		return null; // our hint is visual id and must be specified
 	}
 	if (semanticHint != null && !semanticHint.equals(elementTypeHint)) {
-		return null;
+		return null; // if semantic hint is specified it should be the same as in element type
 	}
 	int visualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(elementTypeHint);
 	org.eclipse.emf.ecore.EObject domainElement = getSemanticElement(semanticAdapter);
 	if (domainElement != null && visualID != «EXPAND xpt::editor::VisualIDRegistry::getLinkWithClassVisualIDMethodCall»(domainElement)) {
-		return null;
+		return null; // visual id for link EClass should match visual id from element type
 	}
+	return getEdgeViewClass(visualID);
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+protected Class getEdgeViewClass(int visualID) {
 	switch (visualID) {
-		«EXPAND caseEntry FOREACH links-»
+	«EXPAND caseEntry FOREACH links-»
 	}
 	return null;
 }
 «ENDDEFINE»
 
 «DEFINE getSemanticElementType FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-private org.eclipse.gmf.runtime.emf.type.core.IElementType getSemanticElementType(org.eclipse.core.runtime.IAdaptable semanticAdapter) {
+
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.gmf.runtime.emf.type.core.IElementType getSemanticElementType(
+		org.eclipse.core.runtime.IAdaptable semanticAdapter) {
 	if (semanticAdapter == null) {
 		return null;
 	}
-	return (org.eclipse.gmf.runtime.emf.type.core.IElementType) semanticAdapter.getAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
+	return (org.eclipse.gmf.runtime.emf.type.core.IElementType) semanticAdapter.getAdapter(
+			org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
 }
 «ENDDEFINE»
-	
+
 «DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
