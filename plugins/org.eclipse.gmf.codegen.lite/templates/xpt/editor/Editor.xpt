@@ -15,6 +15,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION xpt::providers::ValidationUtils»
+«EXTENSION xpt::editor::i18n»
 
 «DEFINE Editor FOR gmfgen::GenEditorView-»
 «IF eclipseEditor-»
@@ -381,7 +382,7 @@ if (updateManager != null) {
 			save(monitor);
 			getCommandStack().markSaveLocation();
 		} catch (org.eclipse.core.runtime.CoreException e) {
-			org.eclipse.jface.dialogs.ErrorDialog.openError(getSite().getShell(), "Error During Save", "The current «editorGen.domainGenModel.modelName» model could not be saved.", e.getStatus());
+			org.eclipse.jface.dialogs.ErrorDialog.openError(getSite().getShell(), «EXPAND xpt::Externalizer::accessorCall(i18nKeyForEditorErrorDuringSave().titleKey()) FOR editorGen», «EXPAND xpt::Externalizer::accessorCall(i18nKeyForEditorErrorDuringSave().messageKey()) FOR editorGen», e.getStatus());
 		}
 	}
 «ENDDEFINE»
@@ -417,12 +418,12 @@ if (updateManager != null) {
 	public void init(org.eclipse.ui.IEditorSite site, org.eclipse.ui.IEditorInput input) throws org.eclipse.ui.PartInitException {
 		org.eclipse.emf.common.util.URI file = getURIFromInput(input);
 		if (file == null) {
-			throw new org.eclipse.ui.PartInitException("The specified input is not valid.");
+			throw new org.eclipse.ui.PartInitException(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForEditorInvalidInputMsg()) FOR editorGen»);
 		}
 		super.init(site, input);
 		// validate
 		if (getDiagramRoot() == null) {
-			throw new org.eclipse.ui.PartInitException("The specified input is not valid.");
+			throw new org.eclipse.ui.PartInitException(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForEditorInvalidInputMsg()) FOR editorGen»);
 		}
 	}
 
@@ -499,7 +500,7 @@ if (updateManager != null) {
 		load(diagramURI);
 		if (diagram == null || diagramRoot == null) {
 			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR,
-				«editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, "Failed to load diagram", null));
+				«editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, «EXPAND xpt::Externalizer::accessorCall(i18nKeyForEditorFailedLoadDiagramMsg()) FOR editorGen», null));
 		}
 «EXPAND hookValidation-»
 	}
@@ -520,7 +521,7 @@ if (updateManager != null) {
 		if (diagramResource == null) {
 			return;
 		}
-		org.eclipse.emf.workspace.AbstractEMFOperation operation = new org.eclipse.emf.workspace.AbstractEMFOperation(editingDomain, "Load diagram", null) {
+		org.eclipse.emf.workspace.AbstractEMFOperation operation = new org.eclipse.emf.workspace.AbstractEMFOperation(editingDomain, «EXPAND xpt::Externalizer::accessorCall(i18nKeyForEditorLoadDiagramLabel()) FOR editorGen», null) {
 			protected org.eclipse.core.runtime.IStatus doExecute(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
 				if (diagramFileURI.fragment() != null) {
 					org.eclipse.emf.ecore.EObject possibleDiagram = diagramResource.getEObject(diagramFileURI.fragment());
@@ -693,7 +694,7 @@ protected java.util.Map getSaveOptions() {
 				}
 			}
 		} catch (org.eclipse.core.runtime.CoreException e) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Failed to navigate to marker", e);
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Failed to navigate to marker", e);	«EXPAND xpt::Common::nonNLS»
 		}
 	}
 «ENDDEFINE»
@@ -729,7 +730,7 @@ protected java.util.Map getSaveOptions() {
 		«EXPAND xpt::Common::generatedMemberComment»
 		private void appendAlignmentSubmenu(org.eclipse.jface.action.IMenuManager menuManager) {
 			// Alignment Actions
-			org.eclipse.jface.action.MenuManager submenu = new org.eclipse.jface.action.MenuManager("Align");
+			org.eclipse.jface.action.MenuManager submenu = new org.eclipse.jface.action.MenuManager(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForEditorAlignMenu()) FOR editorGen»);
 			submenu.add(new org.eclipse.jface.action.Separator(org.eclipse.gef.ui.actions.GEFActionConstants.MB_ADDITIONS));
 	
 			appendActionToMenu(submenu, org.eclipse.gef.ui.actions.GEFActionConstants.ALIGN_LEFT, org.eclipse.gef.ui.actions.GEFActionConstants.MB_ADDITIONS);
@@ -793,4 +794,28 @@ protected java.util.Map getSaveOptions() {
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenEditorView-»
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenEditorView-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForEditorAlignMenu())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForEditorLoadDiagramLabel())-»
+«IF !eclipseEditor-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForEditorFailedLoadDiagramMsg())-»
+«ELSE-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForEditorInvalidInputMsg())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForEditorErrorDuringSave().titleKey())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForEditorErrorDuringSave().messageKey())-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenEditorView-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForEditorAlignMenu(), "Align")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForEditorLoadDiagramLabel(), "Load Diagram")-»
+«IF !eclipseEditor-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForEditorFailedLoadDiagramMsg(), "Failed to load diagram")-»
+«ELSE-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForEditorInvalidInputMsg(), "The specified input is not valid.")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForEditorErrorDuringSave().titleKey(), "Error during save")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForEditorErrorDuringSave().messageKey(), "The current " + editorGen.domainGenModel.modelName + " model could not be saved")-»
+«ENDIF-»
 «ENDDEFINE»

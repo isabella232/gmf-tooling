@@ -37,7 +37,7 @@ public class «editPartFactoryClassName» «EXPAND supertypes» {
 
 «DEFINE externalNodeLabels FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::generatedMemberComment»
-public static final String EXTERNAL_NODE_LABELS_LAYER = "External Node Labels";
+public static final String EXTERNAL_NODE_LABELS_LAYER = "External Node Labels";	«EXPAND xpt::Common::nonNLS»
 «ENDDEFINE»
 
 «DEFINE createEditPart FOR gmfgen::GenDiagram-»
