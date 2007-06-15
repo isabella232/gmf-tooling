@@ -45,10 +45,6 @@
   </audits>
   <diagram
       visualID="1000"
-      editPartClassName="AquatoryEditPart"
-      itemSemanticEditPolicyClassName="AquatoryItemSemanticEditPolicy"
-      notationViewFactoryClassName="AquatoryViewFactory"
-      canonicalEditPolicyClassName="AquatoryCanonicalEditPolicy"
       iconProviderPriority="Low"
       creationWizardIconPath="{reuseEMFIcon}"
       validationProviderPriority="Low"
@@ -58,8 +54,7 @@
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
         xsi:type="gmfgen:MetamodelType"
-        displayName="Aquatory"
-        editHelperClassName="AquatoryEditHelper"/>
+        displayName="Aquatory"/>
     <viewmap
         xsi:type="gmfgen:FigureViewmap"
         figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
@@ -189,18 +184,11 @@
       </modelFacet>
     </childNodes>
     <topLevelNodes
-        visualID="2001"
-        editPartClassName="PortEditPart"
-        itemSemanticEditPolicyClassName="PortItemSemanticEditPolicy"
-        notationViewFactoryClassName="PortViewFactory"
-        canonicalEditPolicyClassName="PortCanonicalEditPolicy"
-        graphicalNodeEditPolicyClassName="PortGraphicalNodeEditPolicy"
-        createCommandClassName="PortCreateCommand">
+        visualID="2001">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:MetamodelType"
-          editHelperClassName="PortEditHelper"/>
+          xsi:type="gmfgen:MetamodelType"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PortShape">
@@ -243,18 +231,11 @@
     </topLevelNodes>
     <topLevelNodes
         visualID="2002"
-        editPartClassName="ShipEditPart"
-        itemSemanticEditPolicyClassName="ShipItemSemanticEditPolicy"
-        notationViewFactoryClassName="ShipViewFactory"
-        canonicalEditPolicyClassName="ShipCanonicalEditPolicy"
-        compartments="//@diagram/@compartments.0 //@diagram/@compartments.1"
-        graphicalNodeEditPolicyClassName="ShipGraphicalNodeEditPolicy"
-        createCommandClassName="ShipCreateCommand">
+        compartments="//@diagram/@compartments.0 //@diagram/@compartments.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:MetamodelType"
-          editHelperClassName="ShipEditHelper"/>
+          xsi:type="gmfgen:MetamodelType"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape"/>
@@ -288,18 +269,11 @@
     </topLevelNodes>
     <topLevelNodes
         visualID="2003"
-        editPartClassName="WarshipEditPart"
-        itemSemanticEditPolicyClassName="WarshipItemSemanticEditPolicy"
-        notationViewFactoryClassName="WarshipViewFactory"
-        canonicalEditPolicyClassName="WarshipCanonicalEditPolicy"
-        compartments="//@diagram/@compartments.2 //@diagram/@compartments.3"
-        graphicalNodeEditPolicyClassName="WarshipGraphicalNodeEditPolicy"
-        createCommandClassName="WarshipCreateCommand">
+        compartments="//@diagram/@compartments.2 //@diagram/@compartments.3">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:MetamodelType"
-          editHelperClassName="WarshipEditHelper"/>
+          xsi:type="gmfgen:MetamodelType"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape"/>
@@ -542,37 +516,26 @@
       </labels>
     </links>
     <links
-        visualID="4006"
-        editPartClassName="EscortShipsOrderEditPart"
-        itemSemanticEditPolicyClassName="EscortShipsOrderItemSemanticEditPolicy"
-        notationViewFactoryClassName="EscortShipsOrderViewFactory"
-        incomingCreationAllowed="true"
-        createCommandClassName="EscortShipsOrderCreateCommand"
-        reorientCommandClassName="EscortShipsOrderReorientCommand">
+        visualID="4004"
+        editPartClassName="ShipRouteEditPart"
+        itemSemanticEditPolicyClassName="ShipRouteItemSemanticEditPolicy"
+        notationViewFactoryClassName="ShipRouteViewFactory"
+        createCommandClassName="ShipRouteCreateCommand"
+        reorientCommandClassName="ShipRouteReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
-          xsi:type="gmfgen:MetamodelType"
-          displayName="Escort Ships Order"
-          editHelperClassName="EscortShipsOrderEditHelper"/>
+          xsi:type="gmfgen:SpecializationType"
+          displayName="Ship Route"
+          editHelperAdviceClassName="ShipRouteEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ThickDirectedConnection"/>
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DirectedConnection"/>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet">
-        <metaClass
-            href="taipan.genmodel#//taipan/EscortShipsOrder"/>
-        <containmentMetaFeature
-            href="taipan.genmodel#//taipan/Warship/escortOrder"/>
-        <targetMetaFeature
-            href="taipan.genmodel#//taipan/EscortShipsOrder/ships"/>
+          xsi:type="gmfgen:FeatureLinkModelFacet">
+        <metaFeature
+            href="taipan.genmodel#//taipan/Ship/route"/>
       </modelFacet>
-      <creationConstraints>
-        <sourceEnd
-            body="self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()"/>
-        <targetEnd
-            body="not self.oclIsKindOf(Warship)"/>
-      </creationConstraints>
     </links>
     <links
         visualID="4005"
@@ -606,6 +569,39 @@
       </creationConstraints>
     </links>
     <links
+        visualID="4006"
+        editPartClassName="EscortShipsOrderEditPart"
+        itemSemanticEditPolicyClassName="EscortShipsOrderItemSemanticEditPolicy"
+        notationViewFactoryClassName="EscortShipsOrderViewFactory"
+        incomingCreationAllowed="true"
+        createCommandClassName="EscortShipsOrderCreateCommand"
+        reorientCommandClassName="EscortShipsOrderReorientCommand">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <elementType
+          xsi:type="gmfgen:MetamodelType"
+          displayName="Escort Ships Order"
+          editHelperClassName="EscortShipsOrderEditHelper"/>
+      <viewmap
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ThickDirectedConnection"/>
+      <modelFacet
+          xsi:type="gmfgen:TypeLinkModelFacet">
+        <metaClass
+            href="taipan.genmodel#//taipan/EscortShipsOrder"/>
+        <containmentMetaFeature
+            href="taipan.genmodel#//taipan/Warship/escortOrder"/>
+        <targetMetaFeature
+            href="taipan.genmodel#//taipan/EscortShipsOrder/ships"/>
+      </modelFacet>
+      <creationConstraints>
+        <sourceEnd
+            body="self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()"/>
+        <targetEnd
+            body="not self.oclIsKindOf(Warship)"/>
+      </creationConstraints>
+    </links>
+    <links
         visualID="4007"
         editPartClassName="PortRegisterEditPart"
         itemSemanticEditPolicyClassName="PortRegisterItemSemanticEditPolicy"
@@ -618,6 +614,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:SpecializationType"
+          displayName="Port Register"
           editHelperAdviceClassName="PortRegisterEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
@@ -738,20 +735,26 @@
             xsi:type="gmfgen:ToolEntry"
             title="Reliable Route"
             description="Mark reliable route"
+            largeIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/Route.gif"
+            smallIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/Route.gif"
             createMethodName="createReliableRouteTool"
             genLinks="//@diagram/@links.1"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Unreliable Route"
             description="Mark unreliable route"
+            largeIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/UnreliableRoute.gif"
+            smallIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/UnreliableRoute.gif"
             createMethodName="createUnreliableRouteTool"
             genLinks="//@diagram/@links.2"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Registration"
             description="Register ship in port"
+            largeIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipRegistration.gif"
+            smallIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipRegistration.gif"
             createMethodName="createRegistrationTool"
-            genLinks="//@diagram/@links.5"/>
+            genLinks="//@diagram/@links.6"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Ship Destination"
@@ -760,6 +763,14 @@
             smallIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipDestination.gif"
             createMethodName="createShipDestinationTool"
             genLinks="//@diagram/@links.0"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="Ship Route"
+            description="Set ship route"
+            largeIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipRoute.gif"
+            smallIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipRoute.gif"
+            createMethodName="createShipRouteTool"
+            genLinks="//@diagram/@links.3"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Besiege Port Order"
@@ -771,7 +782,7 @@
             title="Escort Ships Order"
             description="Place new esort ships order"
             createMethodName="createEscortShipsOrderTool"
-            genLinks="//@diagram/@links.3"/>
+            genLinks="//@diagram/@links.5"/>
       </groups>
     </palette>
     <preferences
@@ -1087,7 +1098,7 @@
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@creationConstraints/@sourceEnd //@diagram/@links.3/@creationConstraints/@targetEnd //@diagram/@links.4/@creationConstraints/@sourceEnd //@audits/@rules.0/@rule"/>
+        expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.5/@creationConstraints/@sourceEnd //@diagram/@links.5/@creationConstraints/@targetEnd //@diagram/@links.4/@creationConstraints/@sourceEnd //@audits/@rules.0/@rule"/>
     <providers
         xsi:type="gmfgen:GenJavaExpressionProvider"
         expressions="//@audits/@rules.1/@rule"/>
