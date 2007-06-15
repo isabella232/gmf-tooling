@@ -168,6 +168,13 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
+	private Diagram getDiagram() {
+		return ((View) getHost().getModel()).getDiagram();
+	}
+
+	/**
+	 * @generated
+	 */
 	private Collection refreshConnections() {
 		Map domain2NotationMap = new HashMap();
 		Collection linkDescriptors = collectAllLinks(getDiagram(), domain2NotationMap);
@@ -307,12 +314,4 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		}
 		return null;
 	}
-
-	/**
-	 * @generated
-	 */
-	private Diagram getDiagram() {
-		return ((View) getHost().getModel()).getDiagram();
-	}
-
 }

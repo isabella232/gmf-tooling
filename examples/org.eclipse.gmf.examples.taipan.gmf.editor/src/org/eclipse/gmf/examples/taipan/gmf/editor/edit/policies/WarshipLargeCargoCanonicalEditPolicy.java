@@ -16,11 +16,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
 import java.util.Set;
-import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramUpdater;

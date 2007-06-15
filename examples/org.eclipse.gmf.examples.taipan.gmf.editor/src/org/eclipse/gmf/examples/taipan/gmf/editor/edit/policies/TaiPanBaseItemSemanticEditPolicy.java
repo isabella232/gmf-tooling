@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -34,7 +34,6 @@ import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.TaiPanBaseEditHelper;
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.part.Messages;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
@@ -78,6 +77,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	public static final String VISUAL_ID_KEY = "visual_id"; //$NON-NLS-1$
 
 	/**
+	 * Extended request data key to hold editpart visual id.
 	 * Add visual id of edited editpart to extended data of the request
 	 * so command switch can decide what kind of diagram element is being edited.
 	 * It is done in those cases when it's not possible to deduce diagram
@@ -350,7 +350,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		private static final TaiPanAbstractExpression EscortShipsOrder_4006_SourceExpression;
+		private static final TaiPanAbstractExpression BesiegePortOrder_4005_SourceExpression;
 
 		/**
 		 * @generated
@@ -365,7 +365,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		private static final TaiPanAbstractExpression EscortShipsOrder_4006_TargetExpression;
+		private static final TaiPanAbstractExpression EscortShipsOrder_4006_SourceExpression;
 
 		/**
 		 * @generated
@@ -380,7 +380,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		private static final TaiPanAbstractExpression BesiegePortOrder_4005_SourceExpression;
+		private static final TaiPanAbstractExpression EscortShipsOrder_4006_TargetExpression;
 
 		/**
 		 * @generated
@@ -420,13 +420,13 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canCreateEscortShipsOrder_4006(Warship source, Ship target) {
+		public static boolean canCreateShipRoute_4004(Ship source, Route target) {
 			if (source != null) {
-				if (source.getEscortOrder() != null) {
+				if (source.getRoute() != null) {
 					return false;
 				}
 			}
-			return canExistEscortShipsOrder_4006(source, target);
+			return canExistShipRoute_4004(source, target);
 		}
 
 		/**
@@ -439,6 +439,18 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
+		public static boolean canCreateEscortShipsOrder_4006(Warship source, Ship target) {
+			if (source != null) {
+				if (source.getEscortOrder() != null) {
+					return false;
+				}
+			}
+			return canExistEscortShipsOrder_4006(source, target);
+		}
+
+		/**
+		 * @generated
+		 */
 		public static boolean canCreatePortRegister_4007(Port source, Ship target) {
 			if (source != null) {
 				if (source.getRegister().contains(target)) {
@@ -446,18 +458,6 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 				}
 			}
 			return canExistPortRegister_4007(source, target);
-		}
-
-		/**
-		 * @generated
-		 */
-		public static boolean canCreateShipRoute_4004(Ship source, Route target) {
-			if (source != null) {
-				if (source.getRoute() != null) {
-					return false;
-				}
-			}
-			return canExistShipRoute_4004(source, target);
 		}
 
 		/**
@@ -484,13 +484,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canExistEscortShipsOrder_4006(Warship source, Ship target) {
-			if (!evaluate(EscortShipsOrder_4006_SourceExpression, source, target, false)) {
-				return false;
-			}
-			if (!evaluate(EscortShipsOrder_4006_TargetExpression, target, source, true)) {
-				return false;
-			}
+		public static boolean canExistShipRoute_4004(Ship source, Route target) {
 			return true;
 		}
 
@@ -507,14 +501,20 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canExistPortRegister_4007(Port source, Ship target) {
+		public static boolean canExistEscortShipsOrder_4006(Warship source, Ship target) {
+			if (!evaluate(EscortShipsOrder_4006_SourceExpression, source, target, false)) {
+				return false;
+			}
+			if (!evaluate(EscortShipsOrder_4006_TargetExpression, target, source, true)) {
+				return false;
+			}
 			return true;
 		}
 
 		/**
 		 * @generated
 		 */
-		public static boolean canExistShipRoute_4004(Ship source, Route target) {
+		public static boolean canExistPortRegister_4007(Port source, Ship target) {
 			return true;
 		}
 
