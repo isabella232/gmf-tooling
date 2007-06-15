@@ -122,6 +122,9 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 					return null;
 				}
 			} else {
+				if (domainElement == null) {
+					return null;
+				}
 				switch (visualID) {
 				case AquatoryEditPart.VISUAL_ID:
 				case PortEditPart.VISUAL_ID:
@@ -137,6 +140,40 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 				case BesiegePortOrderEditPart.VISUAL_ID:
 				case EscortShipsOrderEditPart.VISUAL_ID:
 				case PortRegisterEditPart.VISUAL_ID:
+					if (visualID != TaiPanVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
+						return null;
+					}
+					break;
+				case PortLocationEditPart.VISUAL_ID:
+
+					if (PortEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
+						return null;
+					}
+					break;
+				case ShipNameEditPart.VISUAL_ID:
+				case ShipSmallCargoEditPart.VISUAL_ID:
+				case ShipLargeCargoEditPart.VISUAL_ID:
+					if (ShipEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
+						return null;
+					}
+					break;
+				case WarshipNameEditPart.VISUAL_ID:
+				case WarshipSmallCargoEditPart.VISUAL_ID:
+				case WarshipLargeCargoEditPart.VISUAL_ID:
+					if (WarshipEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
+						return null;
+					}
+					break;
+
+				case LargeItemArticleEditPart.VISUAL_ID:
+				case LargeItemWeightEditPart.VISUAL_ID:
+
+					if (LargeItemEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
+						return null;
+					}
+					break;
+
+				default:
 					return null;
 				}
 			}
