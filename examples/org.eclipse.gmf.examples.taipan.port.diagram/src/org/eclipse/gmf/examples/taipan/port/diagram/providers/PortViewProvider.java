@@ -74,9 +74,23 @@ public class PortViewProvider extends AbstractViewProvider {
 					return null;
 				}
 			} else {
+				if (domainElement == null) {
+					return null;
+				}
 				switch (visualID) {
 				case PortEditPart.VISUAL_ID:
 				case BuildingEditPart.VISUAL_ID:
+					if (visualID != PortVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
+						return null;
+					}
+					break;
+				case BuildingInfoEditPart.VISUAL_ID:
+
+					if (BuildingEditPart.VISUAL_ID != PortVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
+						return null;
+					}
+					break;
+				default:
 					return null;
 				}
 			}

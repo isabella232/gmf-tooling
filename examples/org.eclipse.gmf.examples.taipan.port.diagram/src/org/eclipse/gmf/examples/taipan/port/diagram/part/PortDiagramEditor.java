@@ -181,7 +181,7 @@ public class PortDiagramEditor extends DiagramDocumentEditor implements IGotoMar
 			return;
 		}
 		if (provider.isDeleted(input) && original != null) {
-			String message = NLS.bind(Messages.Editor_SavingDeletedFile, original.getName());
+			String message = NLS.bind(Messages.PortDiagramEditor_SavingDeletedFile, original.getName());
 			dialog.setErrorMessage(null);
 			dialog.setMessage(message, IMessageProvider.WARNING);
 		}
@@ -206,7 +206,7 @@ public class PortDiagramEditor extends DiagramDocumentEditor implements IGotoMar
 		IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
 		for (int i = 0; i < editorRefs.length; i++) {
 			if (matchingStrategy.matches(editorRefs[i], newInput)) {
-				MessageDialog.openWarning(shell, Messages.Editor_SaveAsErrorTitle, Messages.Editor_SaveAsErrorMessage);
+				MessageDialog.openWarning(shell, Messages.PortDiagramEditor_SaveAsErrorTitle, Messages.PortDiagramEditor_SaveAsErrorMessage);
 				return;
 			}
 		}
@@ -218,7 +218,7 @@ public class PortDiagramEditor extends DiagramDocumentEditor implements IGotoMar
 		} catch (CoreException x) {
 			IStatus status = x.getStatus();
 			if (status == null || status.getSeverity() != IStatus.CANCEL) {
-				ErrorDialog.openError(shell, Messages.Editor_SaveErrorTitle, Messages.Editor_SaveErrorMessage, x.getStatus());
+				ErrorDialog.openError(shell, Messages.PortDiagramEditor_SaveErrorTitle, Messages.PortDiagramEditor_SaveErrorMessage, x.getStatus());
 			}
 		} finally {
 			provider.changed(newInput);

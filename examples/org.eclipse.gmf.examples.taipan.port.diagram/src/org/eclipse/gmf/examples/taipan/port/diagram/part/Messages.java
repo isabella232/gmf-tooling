@@ -174,27 +174,32 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String Editor_SavingDeletedFile;
+	public static String PortDiagramEditor_SavingDeletedFile;
 
 	/**
 	 * @generated
 	 */
-	public static String Editor_SaveAsErrorTitle;
+	public static String PortDiagramEditor_SaveAsErrorTitle;
 
 	/**
 	 * @generated
 	 */
-	public static String Editor_SaveAsErrorMessage;
+	public static String PortDiagramEditor_SaveAsErrorMessage;
 
 	/**
 	 * @generated
 	 */
-	public static String Editor_SaveErrorTitle;
+	public static String PortDiagramEditor_SaveErrorTitle;
 
 	/**
 	 * @generated
 	 */
-	public static String Editor_SaveErrorMessage;
+	public static String PortDiagramEditor_SaveErrorMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String PortElementChooserDialog_SelectModelElementTitle;
 
 	/**
 	 * @generated
