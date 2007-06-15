@@ -31,7 +31,6 @@ import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.policies.GraphicalNodeEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ContributionItemProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ElementInitializersGenerator;
@@ -106,7 +105,6 @@ public class CodegenEmitters {
 	}
 
 	private static void initRegistry(StaticTemplateRegistry tr) {
-		put(tr, "/policies/GraphicalNodeEditPolicy.javajet", GraphicalNodeEditPolicyGenerator.class);
 		put(tr, "/providers/EditPartProvider.javajet", EditPartProviderGenerator.class);
 		put(tr, "/providers/ContributionItemProvider.javajet", ContributionItemProviderGenerator.class);
 		put(tr, "/providers/ElementInitializers.javajet", ElementInitializersGenerator.class);
@@ -265,15 +263,15 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getDiagramItemSemanticEditPolicyEmitter() {
-		return newXpandEmitter("xpt::diagram::editpolicies::DiagramItemSemanticEditPolicy::DiagramItemSemanticEditPolicy"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::editpolicies::DiagramItemSemanticEditPolicy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getCompartmentItemSemanticEditPolicyEmitter() {
-		return newXpandEmitter("xpt::diagram::editpolicies::CompartmentItemSemanticEditPolicy::CompartmentItemSemanticEditPolicy"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::editpolicies::CompartmentItemSemanticEditPolicy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getGraphicalNodeEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return retrieve(GraphicalNodeEditPolicyGenerator.class);
+		return getPrimaryEmitter("xpt::diagram::editpolicies::GraphicalNodeEditPolicy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getNodeItemSemanticEditPolicyEmitter() {
