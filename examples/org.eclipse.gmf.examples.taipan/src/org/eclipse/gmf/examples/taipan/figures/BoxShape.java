@@ -26,7 +26,7 @@ public class BoxShape extends ScalableImageFigure {
 		super(
 				RenderedImageFactory.getInstance(FileLocator.find(
 						Platform.getBundle("org.eclipse.gmf.examples.taipan"), //$NON-NLS-1$
-						new Path("box.svg"), //$NON-NLS-1$
+						new Path("images/box.svg"), //$NON-NLS-1$
 						null)),
 				true, true, true);
 	}
