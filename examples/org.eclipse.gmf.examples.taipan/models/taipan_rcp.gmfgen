@@ -238,7 +238,7 @@
           xsi:type="gmfgen:MetamodelType"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape"/>
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ShipShape"/>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/Ship"/>
@@ -251,8 +251,7 @@
           visualID="5004"
           editPartClassName="ShipNameEditPart"
           itemSemanticEditPolicyClassName="ShipNameItemSemanticEditPolicy"
-          notationViewFactoryClassName="ShipNameViewFactory"
-          elementIcon="true">
+          notationViewFactoryClassName="ShipNameViewFactory">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -276,7 +275,7 @@
           xsi:type="gmfgen:MetamodelType"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape"/>
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.WarshipShape"/>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/Warship"/>
@@ -287,8 +286,7 @@
           visualID="5005"
           editPartClassName="WarshipNameEditPart"
           itemSemanticEditPolicyClassName="WarshipNameItemSemanticEditPolicy"
-          notationViewFactoryClassName="WarshipNameViewFactory"
-          elementIcon="true">
+          notationViewFactoryClassName="WarshipNameViewFactory">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -632,7 +630,9 @@
         notationViewFactoryClassName="ShipSmallCargoViewFactory"
         canonicalEditPolicyClassName="ShipSmallCargoCanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.0"
-        title="small cargo"
+        title="SmallCargo"
+        hideIfEmpty="false"
+        needsTitle="false"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -649,6 +649,7 @@
         childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2"
         title="LargeCargo"
         canCollapse="false"
+        hideIfEmpty="false"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.1"
         listLayout="false">
@@ -665,7 +666,9 @@
         notationViewFactoryClassName="WarshipSmallCargoViewFactory"
         canonicalEditPolicyClassName="WarshipSmallCargoCanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.0"
-        title="small cargo"
+        title="SmallCargo"
+        hideIfEmpty="false"
+        needsTitle="false"
         node="//@diagram/@topLevelNodes.2">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -682,6 +685,7 @@
         childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2"
         title="LargeCargo"
         canCollapse="false"
+        hideIfEmpty="false"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.2"
         listLayout="false">
