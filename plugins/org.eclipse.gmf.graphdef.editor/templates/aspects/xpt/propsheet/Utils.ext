@@ -24,7 +24,7 @@ boolean isPointTab(gmfgen::GenCustomPropertyTab tab) :
 ;
 
 boolean isGeneratedTab(gmfgen::GenCustomPropertyTab tab) :
-"genLayout" == tab.iD || "genStyles" == tab.iD
+"genLayout" == tab.iD || "genStyles" == tab.iD || "genName" == tab.iD
 ;
 
 cached propsheet::FeatureReference getModelElement(propsheet::Group modelElementOwner) :
@@ -36,6 +36,34 @@ modelElementOwner.modelElement
 ;
 
 cached propsheet::FeatureReference getModelElement(propsheet::Checkbox modelElementOwner) :
+modelElementOwner.modelElement
+;
+
+cached propsheet::FeatureReference getModelElement(propsheet::TextArea modelElementOwner) :
+modelElementOwner.modelElement
+;
+
+cached propsheet::FeatureReference getModelElement(propsheet::Date modelElementOwner) :
+modelElementOwner.modelElement
+;
+
+cached propsheet::FeatureReference getModelElement(propsheet::Time modelElementOwner) :
+modelElementOwner.modelElement
+;
+
+cached propsheet::FeatureReference getModelElement(propsheet::StringCombo modelElementOwner) :
+modelElementOwner.modelElement
+;
+
+cached propsheet::FeatureReference getModelElement(propsheet::IntCombo modelElementOwner) :
+modelElementOwner.modelElement
+;
+
+cached propsheet::FeatureReference getModelElement(propsheet::BooleanCombo modelElementOwner) :
+modelElementOwner.modelElement
+;
+
+cached propsheet::FeatureReference getModelElement(propsheet::CustomCombo modelElementOwner) :
 modelElementOwner.modelElement
 ;
 
@@ -110,7 +138,7 @@ section.parent == null ? ((propsheet::CustomPropertySection) section) : getCusto
 ;
 
 boolean createLabel(propsheet::Labeled labeled) :
-labeled.text != null ? labeled.text.createLabel : true
+labeled.text != null ? labeled.text.createLabel : null != labeled.getModelElement()
 ;
 
 boolean isVisibleOnlyForTargets(propsheet::Group group) :
@@ -173,6 +201,22 @@ private cached String getSectionableKindSuffix(propsheet::Radio section) :
 
 private cached String getSectionableKindSuffix(propsheet::Checkbox section) :
 "Checkbox"
+;
+
+private cached String getSectionableKindSuffix(propsheet::TextArea section) :
+"TextArea"
+;
+
+private cached String getSectionableKindSuffix(propsheet::Date section) :
+"Date"
+;
+
+private cached String getSectionableKindSuffix(propsheet::Time section) :
+"Time"
+;
+
+private cached String getSectionableKindSuffix(propsheet::Combo section) :
+"Combo"
 ;
 
 private cached String getSectionableKindSuffix(propsheet::Spin section) :
@@ -290,4 +334,30 @@ ofType.feature == null && ofType.isOfType == null
 
 boolean isNullCheck(propsheet::Reference ofType) :
 false
+;
+
+cached List[propsheet::Date] collectAllDates(propsheet::Group group, List[propsheet::Date] collected) :
+collected.addAll(group.contents.typeSelect(propsheet::Date)) ->
+group.contents.typeSelect(propsheet::Group).collectAllDates(collected) ->
+collected
+;
+
+cached List[propsheet::Time] collectAllTimes(propsheet::Group group, List[propsheet::Time] collected) :
+collected.addAll(group.contents.typeSelect(propsheet::Time)) ->
+group.contents.typeSelect(propsheet::Group).collectAllTimes(collected) ->
+collected
+;
+
+cached List[propsheet::CustomCombo] collectAllCustomCombos(propsheet::Group group, List[propsheet::CustomCombo] collected) :
+collected.addAll(group.contents.typeSelect(propsheet::CustomCombo)) ->
+group.contents.typeSelect(propsheet::Group).collectAllCustomCombos(collected) ->
+collected
+;
+
+cached Set[String] getUniqueQualifiedTargetTypeNamesUsed(List[propsheet::Sectionable] widgets) :
+widgets.select(next | null != next.getModelElement()).getModelElement().feature.getFeatureTargetType().toSet()
+;
+
+cached String getUnqualifiedTypeName(String qualifiedTypeName) :
+qualifiedTypeName.split("\\.").last()
 ;

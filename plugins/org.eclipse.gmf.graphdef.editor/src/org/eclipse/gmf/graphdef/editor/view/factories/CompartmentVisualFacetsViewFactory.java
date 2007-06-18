@@ -23,6 +23,7 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentVisualFacetsEditPar
 
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 
+import org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.ListCompartmentViewFactory;
 
 import org.eclipse.gmf.runtime.notation.DrawerStyle;
@@ -34,7 +35,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class CompartmentVisualFacetsViewFactory extends ListCompartmentViewFactory {
+public class CompartmentVisualFacetsViewFactory extends BasicNodeViewFactory {
 
 	/**
 	 * @generated 
@@ -59,12 +60,6 @@ public class CompartmentVisualFacetsViewFactory extends ListCompartmentViewFacto
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
 		setupCompartmentTitle(view);
 		setupCompartmentCollapsed(view);
-		if (!CanvasEditPart.MODEL_ID.equals(GMFGraphVisualIDRegistry.getModelID(containerView))) {
-			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
-			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
-			shortcutAnnotation.getDetails().put("modelID", CanvasEditPart.MODEL_ID); //$NON-NLS-1$
-			view.getEAnnotations().add(shortcutAnnotation);
-		}
 	}
 
 	/**

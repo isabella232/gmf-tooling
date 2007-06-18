@@ -22,6 +22,7 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -35,6 +36,7 @@ import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Spinner;
@@ -53,7 +55,6 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 	protected abstract ModelUpdater createModelUpdater();
 
 	protected static final String EMPTY_STRING = ""; //$NON-NLS-1$
-	private static final String KIND_KEY = "kind"; //$NON-NLS-1$
 	
 	private TabbedPropertySheetPage myTabbedPropertySheetPage;
 	private boolean areControlsCreated;
@@ -76,6 +77,10 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 		super.dispose();
 	}
 
+	public boolean shouldUseExtraSpace() {
+		return true;
+	}
+	
 	// XXX [artem] revisit - what's the reason to save copy of selection when it's available from super?
 	protected final Collection getSavedSelection() {
 		//StructuredSelection structured = (StructuredSelection) super.getSelection();
@@ -132,7 +137,7 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 	}
 
 	public static abstract class ModelUpdater implements ModifyListener, SelectionListener {
-		public abstract void applyChangesFrom(Widget widget, int kind);
+		public abstract void applyChangesFrom(Widget widget);
 
 		private boolean nonUserChange;
 
@@ -142,8 +147,7 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 
 		public void modifyText(ModifyEvent e) {
 			if (!isNonUserChange()) {
-				Integer kind = (Integer) e.widget.getData(KIND_KEY);
-				applyChangesFrom(e.widget, kind.intValue());
+				applyChangesFrom(e.widget);
 			}
 		}
 
@@ -153,8 +157,7 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 
 		public void widgetSelected(SelectionEvent e) {
 			if (!isNonUserChange()) {
-				Integer kind = (Integer) e.widget.getData(KIND_KEY);
-				applyChangesFrom(e.widget, kind.intValue());
+				applyChangesFrom(e.widget);
 			}
 		}
 
@@ -167,6 +170,26 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 			if (!spinner.isDisposed()) {
 				spinner.removeModifyListener(this);
 				spinner.removeSelectionListener(this);
+			}
+		}
+
+		public void startListeningTo(DateTime dateTime) {
+			dateTime.addSelectionListener(this);
+		}
+
+		public void stopListeningTo(DateTime dateTime) {
+			if (!dateTime.isDisposed()) {
+				dateTime.removeSelectionListener(this);
+			}
+		}
+
+		public void startListeningTo(CCombo combo) {
+			combo.addSelectionListener(this);
+		}
+
+		public void stopListeningTo(CCombo combo) {
+			if (!combo.isDisposed()) {
+				combo.removeSelectionListener(this);
 			}
 		}
 
@@ -306,6 +329,15 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 		return data;
 	}
 
+	protected static FormData createFillFormData(Control leftControl, Control topControl, Control rightControl, Control bottomControl, boolean defaultIsLeft, boolean defaultIsTop, boolean lowermost, boolean rightmost, boolean fillHorizonral, boolean fillVertical) {
+		FormData data = new FormData();
+		data.left = new FormAttachment(0);
+		data.right = new FormAttachment(100);
+		data.top = new FormAttachment(0);
+		data.bottom = new FormAttachment(100);
+		return data;
+	}
+	
 	protected Composite createFlatFormComposite(Composite parent, int leftPosition) {
 		return createFlatFormComposite(parent, leftPosition, false);
 	}
@@ -354,45 +386,44 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 	}
 	
 	protected Group createGroup(Composite parent, String label, Control leftComposite, Control topComposite, boolean noData) {
-		return createGroup(parent, label, leftComposite, topComposite, true, true, false, noData);
+		return createGroup(parent, label, leftComposite, topComposite, true, true, false, false, noData);
 	}
 
-	protected Group createGroup(Composite parent, String label, Control leftComposite, Control topComposite, boolean defaultIsTop, boolean defaultIsLeft, boolean lowermost, boolean noData) {
+	protected Group createGroup(Composite parent, String label, Control leftComposite, Control topComposite, boolean defaultIsTop, boolean defaultIsLeft, boolean lowermost, boolean rightmost, boolean noData) {
 		Group group = getWidgetFactory().createGroup(parent, label);
 		if (!noData) {
-			FormData data = createFormData(leftComposite, topComposite, null, null, defaultIsLeft, defaultIsTop, lowermost, false);
+			FormData data = createFormData(leftComposite, topComposite, null, null, defaultIsLeft, defaultIsTop, lowermost, rightmost);
 			group.setLayoutData(data);
 		}
 		group.setLayout(createStandardFormLayout());
 		return group;
 	}
 
-	protected Button createRadio(Composite parent, Control topControl, boolean lowermost, Image image, int kind) {
-		return createRadio(parent, image, EMPTY_STRING, kind, 0, SWT.DEFAULT, topControl, 0, lowermost);
+	protected Button createRadio(Composite parent, Control topControl, boolean lowermost, Image image) {
+		return createRadio(parent, image, EMPTY_STRING, 0, SWT.DEFAULT, topControl, 0, lowermost);
 	}
 
-	protected Button createRadio(Composite parent, String label, int kind, Control topControl, int rightAlignment) {
-		return createRadio(parent, null, label, kind, 0, rightAlignment, topControl, SWT.DEFAULT, false);
+	protected Button createRadio(Composite parent, String label, Control topControl, int rightAlignment) {
+		return createRadio(parent, null, label, 0, rightAlignment, topControl, SWT.DEFAULT, false);
 	}
 
-	protected Button createRadio(Composite parent, String label, int kind, Control topControl, boolean lowermost) {
-		return createRadio(parent, null, label, kind, 0, SWT.DEFAULT, topControl, SWT.DEFAULT, lowermost);
+	protected Button createRadio(Composite parent, String label, Control topControl, boolean lowermost) {
+		return createRadio(parent, null, label, 0, SWT.DEFAULT, topControl, SWT.DEFAULT, lowermost);
 	}
 
-	protected Button createRadio(Composite parent, Image image, String label, int kind, int leftAlignment, int rightAlignment, int topAlignment, boolean lowermost) {
-		return createRadio(parent, image, label, kind, leftAlignment, rightAlignment, null, topAlignment, lowermost);
+	protected Button createRadio(Composite parent, Image image, String label, int leftAlignment, int rightAlignment, int topAlignment, boolean lowermost) {
+		return createRadio(parent, image, label, leftAlignment, rightAlignment, null, topAlignment, lowermost);
 	}
 	
-	protected Button createRadio(Composite parent, Image image, String label, int kind, int leftAlignment, int rightAlignment, Control topControl, int topAlignment, boolean lowermost) {
-		return createRadio(parent, image, label, null, leftAlignment, topControl, topAlignment, null, rightAlignment, true, true, lowermost, false, kind);
+	protected Button createRadio(Composite parent, Image image, String label, int leftAlignment, int rightAlignment, Control topControl, int topAlignment, boolean lowermost) {
+		return createRadio(parent, image, label, null, leftAlignment, topControl, topAlignment, null, rightAlignment, true, true, lowermost, false);
 	}
 
-	protected Button createRadio(Composite parent, Image image, String label, Control leftControl, int leftAlignment, Control topControl, int topAlignment, Control rightControl, int rightAlignment, boolean defaultIsLeft, boolean defaultIsTop, boolean lowermost, boolean rightmost, int kind) {
+	protected Button createRadio(Composite parent, Image image, String label, Control leftControl, int leftAlignment, Control topControl, int topAlignment, Control rightControl, int rightAlignment, boolean defaultIsLeft, boolean defaultIsTop, boolean lowermost, boolean rightmost) {
 		Button radio = getWidgetFactory().createButton(parent, label == null ? EMPTY_STRING : label, SWT.RADIO);
 		if (image != null) {
 			radio.setImage(image);
 		}
-		radio.setData(KIND_KEY, new Integer(kind));
 		FormData data = createFormData(leftControl, topControl, rightControl, null, defaultIsLeft, defaultIsTop, lowermost, rightmost);
 		if (leftControl == null && SWT.DEFAULT != leftAlignment) {
 			data.left = new FormAttachment(leftAlignment);
@@ -407,17 +438,16 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 		return radio;
 	}
 	
-	protected Button createCheckbox(Composite parent, String label, Control topControl, Control leftControl, int kind) {
-		return createCheckbox(parent, label, topControl, leftControl, kind, false);
+	protected Button createCheckbox(Composite parent, String label, Control topControl, Control leftControl) {
+		return createCheckbox(parent, label, topControl, leftControl, false);
 	}
 
-	protected Button createCheckbox(Composite parent, String label, Control topControl, Control leftControl, int kind, boolean lowermost) {
-		return createCheckbox(parent, label, topControl, leftControl, kind, true, true, lowermost, SWT.DEFAULT);
+	protected Button createCheckbox(Composite parent, String label, Control topControl, Control leftControl, boolean lowermost) {
+		return createCheckbox(parent, label, topControl, leftControl, true, true, lowermost, SWT.DEFAULT);
 	}
 
-	protected Button createCheckbox(Composite parent, String label, Control topControl, Control leftControl, int kind, boolean defaultIsTop, boolean defaultIsLeft, boolean lowermost, int leftAlignment) {
+	protected Button createCheckbox(Composite parent, String label, Control topControl, Control leftControl, boolean defaultIsTop, boolean defaultIsLeft, boolean lowermost, int leftAlignment) {
 		Button checkbox = getWidgetFactory().createButton(parent, label, SWT.CHECK);
-		checkbox.setData(KIND_KEY, new Integer(kind));
 		FormData data = createFormData(leftControl, topControl, null, null, defaultIsLeft, defaultIsTop, lowermost, false);
 		if (leftAlignment != SWT.DEFAULT) {
 			data.left = new FormAttachment(leftAlignment);
@@ -426,15 +456,15 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 		return checkbox;
 	}
 
-	protected Spinner createSpinnerWidget(Composite parent, String label, Control leftWidget, int kind) {
-		return createSpinnerWidget(parent, label, leftWidget, null, false, kind, false);
+	protected Spinner createSpinnerWidget(Composite parent, String label, Control leftWidget) {
+		return createSpinnerWidget(parent, label, leftWidget, null, false, false);
 	}
 
-	protected Spinner createSpinnerWidget(Composite parent, String label, Control leftWidget, Control topWidget, boolean rightlast, int kind, boolean horizontalNotVertical) {
-		return createSpinnerWidget(parent, label, leftWidget, topWidget, false, rightlast, kind, horizontalNotVertical, 1, 999, 1, 100);
+	protected Spinner createSpinnerWidget(Composite parent, String label, Control leftWidget, Control topWidget, boolean rightlast, boolean horizontalNotVertical) {
+		return createSpinnerWidget(parent, label, leftWidget, topWidget, false, rightlast, horizontalNotVertical, 1, 999, 1, 100);
 	}
 	
-	protected Spinner createSpinnerWidget(Composite parent, String label, Control leftControl, Control topControl, boolean lowermost, boolean rightmost, int kind, boolean horizontalNotVertical, int min, int max, int inc, int pageInc) {
+	protected Spinner createSpinnerWidget(Composite parent, String label, Control leftControl, Control topControl, boolean lowermost, boolean rightmost, boolean horizontalNotVertical, int min, int max, int inc, int pageInc) {
 		Spinner spinner = new Spinner(parent, SWT.BORDER | (horizontalNotVertical ? SWT.H_SCROLL : SWT.V_SCROLL));
 		spinner.setMinimum(min);
 		spinner.setMaximum(max);
@@ -442,7 +472,6 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 		spinner.setPageIncrement(pageInc);
 		spinner.setBackground(parent.getBackground());
 		spinner.setForeground(parent.getForeground());
-		spinner.setData(KIND_KEY, new Integer(kind));
 		Control leftWidget = leftControl;
 		if (label != null && label.length() != 0) {
 			leftWidget = createLabelWidget(parent, label, leftControl, topControl);
@@ -452,18 +481,28 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 		return spinner;
 	}
 
-	protected Text createText(Composite parent, String label, Control leftWidget, Control topWidget, String initialText, int kind) {
-		return createText(parent, label, leftWidget, topWidget, initialText, kind, true, true, false, true);
+	protected Text createText(Composite parent, String label, Control leftWidget, Control topWidget, String initialText) {
+		return createText(parent, label, leftWidget, topWidget, initialText, true, true, false, true);
 	}
 	
-	protected Text createText(Composite parent, String label, Control leftControl, Control topControl, String initialText, int kind, boolean defaultIsTop, boolean defaultIsLeft, boolean lowermost, boolean rightmost) {
+	protected Text createText(Composite parent, String label, Control leftControl, Control topControl, String initialText, boolean defaultIsTop, boolean defaultIsLeft, boolean lowermost, boolean rightmost) {
 		Text text = getWidgetFactory().createText(parent, initialText, SWT.BORDER);
-		text.setData(KIND_KEY, new Integer(kind));
 		Control leftWidget = leftControl;
 		if (label != null && label.length() != 0) {
 			leftWidget = createLabelWidget(parent, label, leftControl, topControl);
 		}
 		FormData data = createFormData(leftWidget, topControl, null, null, defaultIsLeft, defaultIsTop, lowermost, rightmost);
+		text.setLayoutData(data);
+		return text;
+	}
+
+	protected Text createExtendedText(Composite parent, String label, Control leftControl, Control topControl, String initialText, boolean defaultIsTop, boolean defaultIsLeft, boolean lowermost, boolean rightmost) {
+		Control leftWidget = leftControl;
+		if (label != null && label.length() != 0) {
+			leftWidget = createLabelWidget(parent, label, leftControl, topControl);
+		}
+		Text text = getWidgetFactory().createText(parent, initialText, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL | SWT.WRAP);
+		FormData data = createFormData(leftWidget, topControl, null, null, true, true, true, true);
 		text.setLayoutData(data);
 		return text;
 	}
@@ -477,6 +516,45 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 		FormData data = createFormData(leftWidget, topWidget, null, false);
 		label.setLayoutData(data);
 		return label;
+	}
+	
+	private DateTime createDate(Composite parent, String label, Control leftControl, Control topControl, boolean defaultIsTop, boolean defaultIsLeft, boolean lowermost, boolean rightmost) {
+		DateTime date = new DateTime(parent, SWT.DATE);
+		date.setBackground(parent.getBackground());
+		date.setForeground(parent.getForeground());
+		getWidgetFactory().adapt(date);
+		Control leftWidget = leftControl;
+		if (label != null && label.length() != 0) {
+			leftWidget = createLabelWidget(parent, label, leftControl, topControl);
+		}
+		FormData data = createFormData(leftWidget, topControl, null, null, defaultIsLeft, defaultIsTop, lowermost, rightmost);
+		date.setLayoutData(data);
+		return date;
+	}
+	
+	private DateTime createTime(Composite parent, String label, Control leftControl, Control topControl, boolean defaultIsTop, boolean defaultIsLeft, boolean lowermost, boolean rightmost) {
+		DateTime time = new DateTime(parent, SWT.TIME);
+		time.setBackground(parent.getBackground());
+		time.setForeground(parent.getForeground());
+		getWidgetFactory().adapt(time);
+		Control leftWidget = leftControl;
+		if (label != null && label.length() != 0) {
+			leftWidget = createLabelWidget(parent, label, leftControl, topControl);
+		}
+		FormData data = createFormData(leftWidget, topControl, null, null, defaultIsLeft, defaultIsTop, lowermost, rightmost);
+		time.setLayoutData(data);
+		return time;
+	}
+	
+	private CCombo createCombo(Composite parent, String label, Control leftControl, Control topControl, boolean defaultIsTop, boolean defaultIsLeft, boolean lowermost, boolean rightmost) {
+		CCombo combo = getWidgetFactory().createCCombo(parent, SWT.NONE);
+		Control leftWidget = leftControl;
+		if (label != null && label.length() != 0) {
+			leftWidget = createLabelWidget(parent, label, leftControl, topControl);
+		}
+		FormData data = createFormData(leftWidget, topControl, null, null, defaultIsLeft, defaultIsTop, lowermost, rightmost);
+		combo.setLayoutData(data);
+		return combo;
 	}
 	
 	// these ones are used in model customization example templates!
@@ -494,27 +572,45 @@ public abstract class AbstractCustomSectionParent extends AbstractModelerPropert
 	}
 
 	public Group createGroupWidget(Composite parent, String label, Control leftControl, Control topControl, Control rightControl, Control bottomControl, boolean defaultIsLeft, boolean defaultIsTop, boolean lowermost, boolean rightmost) {
-		return createGroup(parent, label, leftControl, topControl, defaultIsTop, defaultIsLeft, lowermost, false);
+		Group group = createGroup(parent, label, leftControl, topControl, defaultIsTop, defaultIsLeft, lowermost, rightmost, false);
+		return group;
 	}
 
 	public Button createRadioButton(Composite parent, String label, Control leftControl, Control topControl, Control rightControl, Control bottomControl, boolean defaultIsLeft, boolean defaultIsTop, boolean lowermost, boolean rightmost) {
-		return createRadio(parent, null, label, leftControl, SWT.DEFAULT, topControl, SWT.DEFAULT, rightControl, SWT.DEFAULT, defaultIsLeft, defaultIsTop, lowermost, rightmost, 0);
+		return createRadio(parent, null, label, leftControl, SWT.DEFAULT, topControl, SWT.DEFAULT, rightControl, SWT.DEFAULT, defaultIsLeft, defaultIsTop, lowermost, rightmost);
 	}
 
 	public Button createCheckboxButton(Composite parent, String label, Control leftControl, Control topControl, Control rightControl, Control bottomControl, boolean defaultIsLeft, boolean defaultIsTop, boolean lowermost, boolean rightmost) {
-		return createCheckbox(parent, label, topControl, leftControl, 0, defaultIsTop, defaultIsLeft, lowermost, SWT.DEFAULT);
+		return createCheckbox(parent, label, topControl, leftControl, defaultIsTop, defaultIsLeft, lowermost, SWT.DEFAULT);
 	}
 	
 	public Spinner createSpinnerWidget(Composite parent, String label, int min, int max, int inc, int pageInc, Control leftControl, Control topControl, Control rightControl, Control bottomControl, boolean defaultIsLeft, boolean defaultIsTop, boolean lowermost, boolean rightmost) {
-		return createSpinnerWidget(parent, label, leftControl, topControl, lowermost, rightmost, 0, false, min, max, inc, pageInc);
+		return createSpinnerWidget(parent, label, leftControl, topControl, lowermost, rightmost, false, min, max, inc, pageInc);
 	}
 	
 	public Text createTextWidget(Composite parent, String label, Control leftControl, Control topControl, Control rightControl, Control bottomControl, boolean defaultIsLeft, boolean defaultIsTop, boolean lowermost, boolean rightmost) {
-		return createText(parent, label, leftControl, topControl, EMPTY_STRING, 0, defaultIsTop, defaultIsLeft, lowermost, rightmost);
+		return createText(parent, label, leftControl, topControl, EMPTY_STRING, defaultIsTop, defaultIsLeft, lowermost, rightmost);
+	}
+
+	public Text createExtendedTextWidget(Composite parent, String label, Control leftControl, Control topControl, Control rightControl, Control bottomControl, boolean defaultIsLeft, boolean defaultIsTop, boolean lowermost, boolean rightmost) {
+		Text extendedText = createExtendedText(parent, label, leftControl, topControl, EMPTY_STRING, defaultIsTop, defaultIsLeft, lowermost, rightmost);
+		return extendedText;
 	}
 
 	public CLabel createLabelWidget(Composite parent, String label, Control leftControl, Control topControl, Control rightControl, Control bottomControl, boolean defaultIsLeft, boolean defaultIsTop, boolean lowermost, boolean rightmost) {
 		return createLabelWidget(parent, label, leftControl, topControl);
+	}
+
+	public DateTime createDateWidget(Composite parent, String label, Control leftControl, Control topControl, Control rightControl, Control bottomControl, boolean defaultIsLeft, boolean defaultIsTop, boolean lowermost, boolean rightmost) {
+		return createDate(parent, label, leftControl, topControl, defaultIsTop, defaultIsLeft, lowermost, rightmost);
+	}
+
+	public DateTime createTimeWidget(Composite parent, String label, Control leftControl, Control topControl, Control rightControl, Control bottomControl, boolean defaultIsLeft, boolean defaultIsTop, boolean lowermost, boolean rightmost) {
+		return createTime(parent, label, leftControl, topControl, defaultIsTop, defaultIsLeft, lowermost, rightmost);
+	}
+
+	public CCombo createComboBox(Composite parent, String label, Control leftControl, Control topControl, Control rightControl, Control bottomControl, boolean defaultIsLeft, boolean defaultIsTop, boolean lowermost, boolean rightmost) {
+		return createCombo(parent, label, leftControl, topControl, defaultIsTop, defaultIsLeft, lowermost, rightmost);
 	}
 
 }

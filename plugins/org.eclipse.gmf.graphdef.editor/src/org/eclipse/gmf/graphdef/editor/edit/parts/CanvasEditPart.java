@@ -63,7 +63,11 @@ public class CanvasEditPart extends DiagramEditPart {
 			public Command getDropObjectsCommand(DropObjectsRequest dropRequest) {
 				List viewDescriptors = new ArrayList();
 				for (Iterator it = dropRequest.getObjects().iterator(); it.hasNext();) {
-					viewDescriptors.add(new CreateViewRequest.ViewDescriptor(new EObjectAdapter((EObject) it.next()), Node.class, null, getDiagramPreferencesHint()));
+					Object nextObject = it.next();
+					if (false == nextObject instanceof EObject) {
+						continue;
+					}
+					viewDescriptors.add(new CreateViewRequest.ViewDescriptor(new EObjectAdapter((EObject) nextObject), Node.class, null, getDiagramPreferencesHint()));
 				}
 				return createShortcutsCommand(dropRequest, viewDescriptors);
 			}

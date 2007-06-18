@@ -93,6 +93,11 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String GMFGraphDocumentProvider_SaveAsOperation;
+
+	/**
+	 * @generated
+	 */
 	public static String GMFGraphInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle;
 
 	/**

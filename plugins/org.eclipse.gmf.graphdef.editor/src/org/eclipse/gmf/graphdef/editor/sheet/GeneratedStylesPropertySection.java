@@ -346,8 +346,8 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 	public ModelUpdater createModelUpdater() {
 		return new ModelUpdater() {
 
-			public void applyChangesFrom(Widget widget, int kind) {
-				GeneratedStylesPropertySection.this.applyChangesFrom(widget, kind);
+			public void applyChangesFrom(Widget widget) {
+				GeneratedStylesPropertySection.this.applyChangesFrom(widget);
 			}
 		};
 	}
@@ -355,9 +355,8 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 	/**
 	 * @generated
 	 */
-	public void applyChangesFrom(final Widget widget, final int kindP) {
+	public void applyChangesFrom(final Widget widget) {
 		final String commandName = "Modifying model with ui data from " + widget.toString();
-		final int kind = kindP; // just to overcome jmerge limitation
 		ArrayList commands = new ArrayList(getSavedSelection().size());
 		for (Iterator it = getSavedSelection().iterator(); it.hasNext();) {
 			Object next = it.next();
@@ -368,7 +367,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 
 					protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 						// XXX perhaps, should pass collection of targets instead of multiple commands?
-						applyModelModifier(target, widget, kind);
+						applyModelModifier(target, widget);
 						return CommandResult.newOKCommandResult();
 					}
 				};
@@ -383,7 +382,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 	/**
 	 * @generated
 	 */
-	void applyModelModifier(final Shape target, final Widget widget, int kind) {
+	void applyModelModifier(final Shape target, final Widget widget) {
 		if (widget == myLINESOLIDRadio && myLINESOLIDRadio.isVisible()) {
 			if (myLINESOLIDRadio.getSelection()) {
 				getModelHelper().setValueForMyLINESOLIDRadio(target, true);

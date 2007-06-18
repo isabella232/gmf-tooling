@@ -92,6 +92,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="BooleanCondition" eSuperTypes="#//FeatureReference"/>
   <eClassifiers xsi:type="ecore:EClass" name="IntValue" eSuperTypes="#//FeatureReference"/>
   <eClassifiers xsi:type="ecore:EClass" name="StringValue" eSuperTypes="#//FeatureReference"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomFeatureValue" eSuperTypes="#//FeatureReference"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsFeatureOfTypeReference" eSuperTypes="#//BooleanCondition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="isOfType" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
   </eClassifiers>
@@ -104,4 +105,39 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="afterSettingValueToModel"
         eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TextArea" eSuperTypes="#//Labeled">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="#//StringValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Date" eSuperTypes="#//Labeled">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="#//CustomFeatureValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Time" eSuperTypes="#//Labeled">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="#//CustomFeatureValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BooleanCombo" eSuperTypes="#//Combo">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="#//BooleanCondition"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StringCombo" eSuperTypes="#//Combo">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="#//StringValue"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="values" upperBound="-1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IntCombo" eSuperTypes="#//Combo">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="#//IntValue"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="values" upperBound="-1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomCombo" eSuperTypes="#//Combo">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="#//CustomFeatureValue"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="values" upperBound="-1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EJavaObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Combo" abstract="true" eSuperTypes="#//Labeled"/>
 </ecore:EPackage>

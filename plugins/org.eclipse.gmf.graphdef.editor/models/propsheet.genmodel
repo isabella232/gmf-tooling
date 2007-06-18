@@ -80,6 +80,7 @@
     <genClasses image="false" ecoreClass="propsheet.ecore#//BooleanCondition"/>
     <genClasses ecoreClass="propsheet.ecore#//IntValue"/>
     <genClasses ecoreClass="propsheet.ecore#//StringValue"/>
+    <genClasses ecoreClass="propsheet.ecore#//CustomFeatureValue"/>
     <genClasses ecoreClass="propsheet.ecore#//IsFeatureOfTypeReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference propsheet.ecore#//IsFeatureOfTypeReference/isOfType"/>
     </genClasses>
@@ -90,5 +91,30 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//AdditionalModelTuning/afterGettingValueFromModel"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//AdditionalModelTuning/afterSettingValueToModel"/>
     </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//TextArea">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//TextArea/modelElement"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//Date">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//Date/modelElement"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//Time">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//Time/modelElement"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//BooleanCombo">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//BooleanCombo/modelElement"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//StringCombo">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//StringCombo/modelElement"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//StringCombo/values"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//IntCombo">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//IntCombo/modelElement"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//IntCombo/values"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//CustomCombo">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//CustomCombo/modelElement"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//CustomCombo/values"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="propsheet.ecore#//Combo"/>
   </genPackages>
 </genmodel:GenModel>

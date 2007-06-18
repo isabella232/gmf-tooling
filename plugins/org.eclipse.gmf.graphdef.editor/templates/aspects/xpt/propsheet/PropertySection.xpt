@@ -201,16 +201,15 @@ private static class SingleDescriptorPropertySource implements org.eclipse.emf.e
 	public ModelUpdater createModelUpdater() {
 		return new ModelUpdater() {
 
-			public void applyChangesFrom(org.eclipse.swt.widgets.Widget widget, int kind) {
-				«genTab.className».this.applyChangesFrom(widget, kind);
+			public void applyChangesFrom(org.eclipse.swt.widgets.Widget widget) {
+				«genTab.className».this.applyChangesFrom(widget);
 			}
 		};
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	public void applyChangesFrom(final org.eclipse.swt.widgets.Widget widget, final int kindP) {
+	public void applyChangesFrom(final org.eclipse.swt.widgets.Widget widget) {
 		final String commandName = "Modifying model with ui data from "+widget.toString();
-		final int kind = kindP; // just to overcome jmerge limitation
 		java.util.ArrayList commands = new java.util.ArrayList(getSavedSelection().size());
 		for (java.util.Iterator it = getSavedSelection().iterator(); it.hasNext();) {
 			Object next = it.next();
@@ -221,7 +220,7 @@ private static class SingleDescriptorPropertySource implements org.eclipse.emf.e
 
 		            protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
 		            	// XXX perhaps, should pass collection of targets instead of multiple commands?
-		            	applyModelModifier(target, widget, kind);
+		            	applyModelModifier(target, widget);
 		            	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
 					}
 				};
@@ -234,7 +233,7 @@ private static class SingleDescriptorPropertySource implements org.eclipse.emf.e
 	}
 	
 	«EXPAND xpt::Common::generatedMemberComment»
-	void applyModelModifier(final «getTarget().getQualifiedInterfaceName()» target, final org.eclipse.swt.widgets.Widget widget, int kind) {
+	void applyModelModifier(final «getTarget().getQualifiedInterfaceName()» target, final org.eclipse.swt.widgets.Widget widget) {
 		«EXPAND applyModelChangesHelper("target", "widget") FOREACH contents-»
 	}
 
@@ -270,6 +269,26 @@ private org.eclipse.swt.widgets.Spinner «name()»;
 «DEFINE initVars FOR propsheet::TextField-»
 «EXPAND xpt::Common::generatedMemberComment»
 private org.eclipse.swt.widgets.Text «name()»;
+«ENDDEFINE»
+
+«DEFINE initVars FOR propsheet::TextArea-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.swt.widgets.Text «name()»;
+«ENDDEFINE»
+
+«DEFINE initVars FOR propsheet::Date-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.swt.widgets.DateTime «name()»;
+«ENDDEFINE»
+
+«DEFINE initVars FOR propsheet::Time-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.swt.widgets.DateTime «name()»;
+«ENDDEFINE»
+
+«DEFINE initVars FOR propsheet::Combo-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.swt.custom.CCombo «name()»;
 «ENDDEFINE»
 
 «DEFINE initVars FOR propsheet::Label-»
@@ -335,6 +354,53 @@ org.eclipse.swt.widgets.Composite «name()»Control = createCompositeWidget(«name(
 «IF null != modelElement»«EXPAND installListener»«ENDIF»
 «ENDDEFINE»
 
+«DEFINE createControls(String parentVar) FOR propsheet::TextArea-»
+«name()» = createExtendedTextWidget(«parentVar», «EXPAND createLabel», «EXPAND layoutArgs»);
+«IF null != modelElement»«EXPAND installListener»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE createControls(String parentVar) FOR propsheet::Date-»
+«name()» = createDateWidget(«parentVar», «EXPAND createLabel», «EXPAND layoutArgs»);
+«IF null != modelElement»«EXPAND installListener»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE createControls(String parentVar) FOR propsheet::Time-»
+«name()» = createTimeWidget(«parentVar», «EXPAND createLabel», «EXPAND layoutArgs»);
+«IF null != modelElement»«EXPAND installListener»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE createControls(String parentVar) FOR propsheet::Combo-»
+«name()» = createComboBox(«parentVar», «EXPAND createLabel», «EXPAND layoutArgs»);
+«IF null != getModelElement()»«EXPAND installListener»«ENDIF-»
+«EXPAND addComboItems(name())-»
+«ENDDEFINE»
+
+«DEFINE addComboItems(String comboboxInstanceVar) FOR propsheet::Combo-»
+«ERROR "Unknown type of Combo box values for "+comboboxInstanceVar»
+«ENDDEFINE»
+
+«DEFINE addComboItems(String comboboxInstanceVar) FOR propsheet::StringCombo-»
+«FOREACH values AS value»«comboboxInstanceVar».add("«value»");
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE addComboItems(String comboboxInstanceVar) FOR propsheet::IntCombo-»
+«FOREACH values AS value»«comboboxInstanceVar».add("«value»");
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE addComboItems(String comboboxInstanceVar) FOR propsheet::BooleanCombo-»
+«comboboxInstanceVar».add(String.valueOf(true));
+«comboboxInstanceVar».add(String.valueOf(false));
+
+«ENDDEFINE»
+
+«DEFINE addComboItems(String comboboxInstanceVar) FOR propsheet::CustomCombo-»
+«FOREACH values AS value»
+«comboboxInstanceVar».add(«IF null != modelElement»getModelHelper().extractComboValueFrom«modelElement.feature.getFeatureTargetType().getUnqualifiedTypeName()»(«value»)«ELSE»"«value»"«ENDIF»);
+«ENDFOREACH»
+«ENDDEFINE»
+
 «DEFINE createControls(String parentVar) FOR propsheet::Label-»
 «name()» = createLabelWidget(«parentVar», «EXPAND createLabel», «EXPAND layoutArgs»);
 «IF null != iconPath»«EXPAND createImage(iconPath)»«ENDIF»
@@ -380,7 +446,7 @@ null, «anchorControl.name()», null, null, false, true, «lowermost», «rightmost»
 null, null, null, «anchorControl.name()», false, false, «lowermost», «rightmost»
 	«ENDIF-»
 «ELSE-»
-null, null, null, null, false, false, «lowermost», «rightmost»
+null, null, null, null, true, true, «lowermost», «rightmost»
 «ENDIF-»
 «ENDDEFINE»
 
@@ -406,6 +472,22 @@ null, null, null, null, false, false, «lowermost», «rightmost»
 
 «DEFINE disposeControl FOR propsheet::TextField-»
 «IF null != modelElement»«EXPAND deinstallListener»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE disposeControl FOR propsheet::TextArea-»
+«IF null != modelElement»«EXPAND deinstallListener»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE disposeControl FOR propsheet::Date-»
+«IF null != modelElement»«EXPAND deinstallListener»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE disposeControl FOR propsheet::Time-»
+«IF null != modelElement»«EXPAND deinstallListener»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE disposeControl FOR propsheet::Combo-»
+«IF null != getModelElement()»«EXPAND deinstallListener»«ENDIF»
 «ENDDEFINE»
 
 «DEFINE disposeControl FOR propsheet::Label-»
@@ -472,6 +554,48 @@ if («name()».getSelection()) {
 «ENDLET-»
 «ENDDEFINE»
 
+«DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::TextArea-»
+«LET name() + ".getText()" AS value-»
+«EXPAND callSetterForModelProperty(modelVar, value)»;
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::Date-»
+«LET "getModelHelper().produce"+modelElement.feature.getFeatureTargetType().getUnqualifiedTypeName()+"ForDate(" + name() + ".getYear(), " + name() + ".getMonth(), " + name() + ".getDay())" AS value-»
+«EXPAND callSetterForModelProperty(modelVar, value)»;
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::Time-»
+«LET "getModelHelper().produce"+modelElement.feature.getFeatureTargetType().getUnqualifiedTypeName()+"ForTime(" + name() + ".getHours(), " + name() + ".getMinutes(), " + name() + ".getSeconds())" AS value-»
+«EXPAND callSetterForModelProperty(modelVar, value)»;
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::StringCombo-»
+«LET name() + ".getText()" AS value-»
+«EXPAND callSetterForModelProperty(modelVar, value)»;
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::IntCombo-»
+«LET "Integer.parseInt(" + name() + ".getText())" AS value-»
+«EXPAND callSetterForModelProperty(modelVar, value)»;
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::BooleanCombo-»
+«LET "Boolean.getBoolean(" + name() + ".getText())" AS value-»
+«EXPAND callSetterForModelProperty(modelVar, value)»;
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::CustomCombo-»
+«LET "getModelHelper().produce"+modelElement.feature.getFeatureTargetType().getUnqualifiedTypeName()+"ForCombo(" + name() + ".getText())" AS value-»
+«EXPAND callSetterForModelProperty(modelVar, value)»;
+«ENDLET-»
+«ENDDEFINE»
+
 «DEFINE callSetterForModelProperty(String targetVar, String valueVar) FOR propsheet::Sectionable»getModelHelper().setValueFor«name().toFirstUpper()»(«targetVar», «valueVar»)«ENDDEFINE»
 
 «DEFINE callGetterForModelProperty(String targetVar) FOR propsheet::Sectionable»getModelHelper().getValueFor«name().toFirstUpper()»(«targetVar»)«ENDDEFINE»
@@ -521,6 +645,45 @@ if (is«name().toFirstUpper()»Visible)«ENDIF» {
 «name()».setText(«EXPAND callGetterForModelProperty(targetVar)»);«ENDIF»
 «ENDDEFINE»
 
+«DEFINE updateUIValue(String targetVar) FOR propsheet::TextArea-»
+«IF null != modelElement-»
+«name()».setText(«EXPAND callGetterForModelProperty(targetVar)»);«ENDIF»
+«ENDDEFINE»
+
+«DEFINE updateUIValue(String targetVar) FOR propsheet::Date-»
+«IF null != modelElement-»
+«name()».setYear(getModelHelper().extractYearFrom«modelElement.feature.getFeatureTargetType().getUnqualifiedTypeName()»(«EXPAND callGetterForModelProperty(targetVar)»));
+«name()».setMonth(getModelHelper().extractMonthFrom«modelElement.feature.getFeatureTargetType().getUnqualifiedTypeName()»(«EXPAND callGetterForModelProperty(targetVar)»));
+«name()».setDay(getModelHelper().extractDayFrom«modelElement.feature.getFeatureTargetType().getUnqualifiedTypeName()»(«EXPAND callGetterForModelProperty(targetVar)»));«ENDIF»
+«ENDDEFINE»
+
+«DEFINE updateUIValue(String targetVar) FOR propsheet::Time-»
+«IF null != modelElement-»
+«name()».setHours(getModelHelper().extractHoursFrom«modelElement.feature.getFeatureTargetType().getUnqualifiedTypeName()»(«EXPAND callGetterForModelProperty(targetVar)»));
+«name()».setMinutes(getModelHelper().extractMinutesFrom«modelElement.feature.getFeatureTargetType().getUnqualifiedTypeName()»(«EXPAND callGetterForModelProperty(targetVar)»));
+«name()».setSeconds(getModelHelper().extractSecondsFrom«modelElement.feature.getFeatureTargetType().getUnqualifiedTypeName()»(«EXPAND callGetterForModelProperty(targetVar)»));«ENDIF»
+«ENDDEFINE»
+
+«DEFINE updateUIValue(String targetVar) FOR propsheet::StringCombo-»
+«IF null != modelElement-»
+«name()».setText(«EXPAND callGetterForModelProperty(targetVar)»);«ENDIF»
+«ENDDEFINE»
+
+«DEFINE updateUIValue(String targetVar) FOR propsheet::IntCombo-»
+«IF null != modelElement-»
+«name()».setText(String.valueOf(«EXPAND callGetterForModelProperty(targetVar)»));«ENDIF»
+«ENDDEFINE»
+
+«DEFINE updateUIValue(String targetVar) FOR propsheet::BooleanCombo-»
+«IF null != modelElement-»
+«name()».setText(String.valueOf(«EXPAND callGetterForModelProperty(targetVar)»));«ENDIF»
+«ENDDEFINE»
+
+«DEFINE updateUIValue(String targetVar) FOR propsheet::CustomCombo-»
+«IF null != modelElement-»
+«name()».setText(getModelHelper().extractComboValueFrom«modelElement.feature.getFeatureTargetType().getUnqualifiedTypeName()»(«EXPAND callGetterForModelProperty(targetVar)»));«ENDIF»
+«ENDDEFINE»
+
 «DEFINE updateUIValue(String targetVar) FOR propsheet::Label-»
 «IF createLabel()-»
 «name()».setText(«EXPAND createLabel»);«ENDIF»
@@ -534,6 +697,7 @@ if (is«name().toFirstUpper()»Visible)«ENDIF» {
 «EXPAND xpt::Common::generatedMemberComment»
 public final class ModelHelper {
 «EXPAND createAccessors-»
+«EXPAND dataAdaptationAdditions-»
 «EXPAND modelHelperAdditions-»
 }
 «ENDDEFINE»
@@ -542,6 +706,87 @@ public final class ModelHelper {
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.emf.ecore.EObject cloneVars(org.eclipse.emf.ecore.EObject target) {
 	return target;
+}
+«ENDDEFINE»
+
+«DEFINE dataAdaptationAdditions FOR propsheet::CustomPropertySection»
+«EXPAND dateDataAdaptationAdditions FOREACH getUniqueQualifiedTargetTypeNamesUsed(collectAllDates(this, {}))»
+«EXPAND timeDataAdaptationAdditions FOREACH getUniqueQualifiedTargetTypeNamesUsed(collectAllTimes(this, {}))»
+«EXPAND comboDataAdaptationAdditions FOREACH getUniqueQualifiedTargetTypeNamesUsed(collectAllCustomCombos(this, {}))»
+«ENDDEFINE»
+
+«DEFINE comboDataAdaptationAdditions FOR String»
+public «this» produce«split("\\.").last()»ForCombo(String value) {
+	«this» result = null;
+	// TODO: Auto-generated method stub. Please, mark as @generated NOT and implement yourself!
+	return result;
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+public String extractComboValueFrom«split("\\.").last()»(«this» value) {
+	String result = "---";
+	// TODO: Auto-generated method stub. Please, mark as @generated NOT and implement yourself!
+	return result;
+}
+«ENDDEFINE»
+
+«DEFINE timeDataAdaptationAdditions FOR String»
+«EXPAND xpt::Common::generatedMemberComment»
+public «this» produce«split("\\.").last()»ForTime(int hours, int minutes, int seconds) {
+	«this» result = null;
+	// TODO: Auto-generated method stub. Please, mark as @generated NOT and implement yourself!
+	return result;
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+public int extractHoursFrom«split("\\.").last()»(«this» value) {
+	int result = 0;
+	// TODO: Auto-generated method stub. Please, mark as @generated NOT and implement yourself!
+	return result;
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+public int extractMinutesFrom«split("\\.").last()»(«this» value) {
+	int result = 0;
+	// TODO: Auto-generated method stub. Please, mark as @generated NOT and implement yourself!
+	return result;
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+public int extractSecondsFrom«split("\\.").last()»(«this» value) {
+	int result = 0;
+	// TODO: Auto-generated method stub. Please, mark as @generated NOT and implement yourself!
+	return result;
+}
+«ENDDEFINE»
+
+«DEFINE dateDataAdaptationAdditions FOR String»
+«EXPAND xpt::Common::generatedMemberComment»
+public «this» produce«split("\\.").last()»ForDate(int year, int month, int day) {
+	«this» result = null;
+	// TODO: Auto-generated method stub. Please, mark as @generated NOT and implement yourself!
+	return result;
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+public int extractYearFrom«split("\\.").last()»(«this» value) {
+	int result = 0;
+	// TODO: Auto-generated method stub. Please, mark as @generated NOT and implement yourself!
+	return result;
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+public int extractMonthFrom«split("\\.").last()»(«this» value) {
+	int result = 0;
+	// TODO: Auto-generated method stub. Please, mark as @generated NOT and implement yourself!
+	return result;
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+public int extractDayFrom«split("\\.").last()»(«this» value) {
+	int result = 0;
+	// TODO: Auto-generated method stub. Please, mark as @generated NOT and implement yourself!
+	return result;
 }
 «ENDDEFINE»
 
@@ -598,6 +843,26 @@ public String getName«sectionable.name().toFirstUpper()»FromMetamodel() {
 
 «DEFINE createSetterForModelProperty(propsheet::Sectionable sectionable) FOR propsheet::FeatureReference-»
 «ERROR "Unexpected setter model reference kind"»
+«ENDDEFINE»
+
+«DEFINE createGetterForModelProperty(propsheet::Sectionable sectionable) FOR propsheet::CustomFeatureValue-»
+«LET sectionable.getCustomPropertySection().getTarget().getName().toFirstLower() AS targetVar-»
+«EXPAND xpt::Common::generatedMemberComment»
+public «feature.getFeatureTargetType()» getValueFor«sectionable.name().toFirstUpper()»(«sectionable.getCustomPropertySection().getTarget().getQualifiedInterfaceName()» «targetVar») {
+	«feature.getFeatureTargetType()» value;
+	«EXPAND extractModelElement(targetVar, "value") FOR sectionable-»
+	return value;
+}
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE createSetterForModelProperty(propsheet::Sectionable sectionable) FOR propsheet::CustomFeatureValue-»
+«LET sectionable.getCustomPropertySection().getTarget().getName().toFirstLower() AS targetVar-»
+«EXPAND xpt::Common::generatedMemberComment»
+public void setValueFor«sectionable.name().toFirstUpper()»(«sectionable.getCustomPropertySection().getTarget().getQualifiedInterfaceName()» «targetVar», «feature.getFeatureTargetType()» value) {
+	«EXPAND intractModelElement(targetVar, "value") FOR sectionable-»
+}
+«ENDLET»
 «ENDDEFINE»
 
 «DEFINE createGetterForModelProperty(propsheet::Sectionable sectionable) FOR propsheet::BooleanCondition-»
@@ -726,6 +991,10 @@ public void setValueFor«sectionable.name().toFirstUpper()»(«sectionable.getCusto
 «ERROR "Cannot make a model call for this type of FeatureReference"»
 «ENDDEFINE»
 
+«DEFINE makeModelCall(String varName, String valueVarName) FOR propsheet::CustomFeatureValue-»
+«valueVarName» = «varName».«feature.getGetAccessor()»();
+«ENDDEFINE»
+
 «DEFINE makeModelCall(String varName, String valueVarName) FOR propsheet::ModelMediatorFeature-»
 «valueVarName» = («varName»«addFeatureCall()» «IF null != cast»instanceof «cast.getQualifiedInterfaceName()»«ELSE»!= null«ENDIF»);
 «ENDDEFINE»
@@ -801,6 +1070,10 @@ public void setValueFor«sectionable.name().toFirstUpper()»(«sectionable.getCusto
 
 «DEFINE saveModelCall(String elementName, String valueName, propsheet::ModelMediatorFeature parentModelElement) FOR propsheet::FeatureReference-»
 «ERROR "Cannot make a model call for this type of FeatureReference"»
+«ENDDEFINE»
+
+«DEFINE saveModelCall(String elementName, String valueName, propsheet::ModelMediatorFeature parentModelElement) FOR propsheet::CustomFeatureValue-»
+«elementName».«feature.getSetterAccessor()»(«valueName»);
 «ENDDEFINE»
 
 «DEFINE saveModelCall(String elementName, String valueName, propsheet::ModelMediatorFeature parentModelElement) FOR propsheet::IntValue-»

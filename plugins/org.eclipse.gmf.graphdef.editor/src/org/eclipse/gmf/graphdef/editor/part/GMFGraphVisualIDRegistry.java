@@ -71,7 +71,7 @@ public class GMFGraphVisualIDRegistry {
 				return -1;
 			}
 		}
-		return getVisualID(view.getType());
+		return org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry.getVisualID(view.getType());
 	}
 
 	/**

@@ -64,8 +64,11 @@ public class NodeViewFactory extends AbstractShapeViewFactory {
 			shortcutAnnotation.getDetails().put("modelID", CanvasEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
+		IAdaptable eObjectAdapter = null;
 		EObject eObject = (EObject) semanticAdapter.getAdapter(EObject.class);
-		IAdaptable eObjectAdapter = eObject != null ? new EObjectAdapter(eObject) : null;
+		if (eObject != null) {
+			eObjectAdapter = new EObjectAdapter(eObject);
+		}
 		getViewService().createNode(eObjectAdapter, view, GMFGraphVisualIDRegistry.getType(NodeNameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(eObjectAdapter, view, GMFGraphVisualIDRegistry.getType(NodeVisualFacetsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
