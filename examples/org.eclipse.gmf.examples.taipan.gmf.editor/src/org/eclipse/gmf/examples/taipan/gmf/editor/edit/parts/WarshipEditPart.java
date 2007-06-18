@@ -22,7 +22,8 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
-import org.eclipse.gmf.examples.taipan.figures.PileShape;
+import org.eclipse.gmf.examples.taipan.figures.LargeCargoBorder;
+import org.eclipse.gmf.examples.taipan.figures.WarshipShape;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.WarshipGraphicalNodeEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.WarshipItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
@@ -31,6 +32,8 @@ import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdap
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure;
+import org.eclipse.gmf.runtime.diagram.ui.figures.ShapeCompartmentFigure;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -124,14 +127,14 @@ public class WarshipEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		return primaryShape = new PileShape();
+		return primaryShape = new WarshipShape();
 	}
 
 	/**
 	 * @generated
 	 */
-	public PileShape getPrimaryShape() {
-		return (PileShape) primaryShape;
+	public WarshipShape getPrimaryShape() {
+		return (WarshipShape) primaryShape;
 	}
 
 	/**
@@ -182,6 +185,31 @@ public class WarshipEditPart extends ShapeNodeEditPart {
 			return contentPane;
 		}
 		return super.getContentPane();
+	}
+
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (childEditPart instanceof WarshipNameEditPart) {
+			((WarshipNameEditPart) childEditPart).setLabel(getPrimaryShape().getLabel());
+		} else if (childEditPart instanceof WarshipSmallCargoEditPart) {
+			ResizableCompartmentFigure childFigure = ((WarshipSmallCargoEditPart) childEditPart).getCompartmentFigure();
+			getPrimaryShape().getSmallCargo().add(childFigure);
+		} else if (childEditPart instanceof WarshipLargeCargoEditPart) {
+			ShapeCompartmentFigure childFigure = ((WarshipLargeCargoEditPart) childEditPart).getShapeCompartmentFigure();
+			childFigure.setBorder(new LargeCargoBorder());
+			getPrimaryShape().getLargeCargo().add(childFigure);
+		} else {
+			super.addChildVisual(childEditPart, index);
+		}
+	}
+
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (childEditPart instanceof WarshipSmallCargoEditPart) {
+			getPrimaryShape().getSmallCargo().remove(((WarshipSmallCargoEditPart) childEditPart).getFigure());
+		} else if (childEditPart instanceof WarshipLargeCargoEditPart) {
+			getPrimaryShape().getLargeCargo().remove(((WarshipLargeCargoEditPart) childEditPart).getFigure());
+		} else {
+			super.removeChildVisual(childEditPart);
+		}
 	}
 
 	/**

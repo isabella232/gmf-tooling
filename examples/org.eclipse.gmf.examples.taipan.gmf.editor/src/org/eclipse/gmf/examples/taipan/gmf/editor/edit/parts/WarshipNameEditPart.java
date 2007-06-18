@@ -202,11 +202,7 @@ public class WarshipNameEditPart extends CompartmentEditPart implements ITextAwa
 	 * @generated
 	 */
 	protected Image getLabelIcon() {
-		EObject parserElement = getParserElement();
-		if (parserElement == null) {
-			return null;
-		}
-		return TaiPanElementTypes.getImage(parserElement.eClass());
+		return null;
 	}
 
 	/**

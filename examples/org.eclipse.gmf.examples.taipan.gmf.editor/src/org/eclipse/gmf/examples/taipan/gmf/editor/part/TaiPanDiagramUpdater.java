@@ -70,11 +70,11 @@ public class TaiPanDiagramUpdater {
 	public static List getSemanticChildren(View view) {
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case ShipSmallCargoEditPart.VISUAL_ID:
-			return getShipSmallcargo_7001SemanticChildren(view);
+			return getShipSmallCargo_7001SemanticChildren(view);
 		case ShipLargeCargoEditPart.VISUAL_ID:
 			return getShipLargeCargo_7002SemanticChildren(view);
 		case WarshipSmallCargoEditPart.VISUAL_ID:
-			return getWarshipSmallcargo_7003SemanticChildren(view);
+			return getWarshipSmallCargo_7003SemanticChildren(view);
 		case WarshipLargeCargoEditPart.VISUAL_ID:
 			return getWarshipLargeCargo_7004SemanticChildren(view);
 		case AquatoryEditPart.VISUAL_ID:
@@ -86,7 +86,7 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getShipSmallcargo_7001SemanticChildren(View view) {
+	public static List getShipSmallCargo_7001SemanticChildren(View view) {
 		if (false == view.eContainer() instanceof View) {
 			return Collections.EMPTY_LIST;
 		}
@@ -138,7 +138,7 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getWarshipSmallcargo_7003SemanticChildren(View view) {
+	public static List getWarshipSmallCargo_7003SemanticChildren(View view) {
 		if (false == view.eContainer() instanceof View) {
 			return Collections.EMPTY_LIST;
 		}
