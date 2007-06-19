@@ -13,16 +13,13 @@ package org.eclipse.gmf.examples.taipan.port.diagram.edit.policies;
 
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+import org.eclipse.gmf.examples.taipan.port.diagram.edit.commands.BuildingCreateCommand;
+import org.eclipse.gmf.examples.taipan.port.diagram.providers.PortElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsCommand;
-import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
-import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-
-import org.eclipse.gmf.examples.taipan.port.diagram.edit.commands.BuildingCreateCommand;
-
-import org.eclipse.gmf.examples.taipan.port.diagram.providers.PortElementTypes;
-
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
 
 /**
  * @generated
@@ -61,5 +58,7 @@ public class PortItemSemanticEditPolicy extends PortBaseItemSemanticEditPolicy {
 		public DuplicateAnythingCommand(TransactionalEditingDomain editingDomain, DuplicateElementsRequest req) {
 			super(editingDomain, req.getLabel(), req.getElementsToBeDuplicated(), req.getAllDuplicatedElementsMap());
 		}
+
 	}
+
 }
