@@ -7,7 +7,7 @@ Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.eclipse.gmf.examples.taipan.port.diagram.edit.parts,
+Export-Package: org.eclipse.gmf.examples.taipan.port.diagram.edit.parts, 
  org.eclipse.gmf.examples.taipan.port.diagram.part,
  org.eclipse.gmf.examples.taipan.port.diagram.providers
 Require-Bundle: org.eclipse.core.runtime,
@@ -18,7 +18,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.emf.edit.ui,
- org.eclipse.gef;visibility:=reexport,
  org.eclipse.gmf.runtime.emf.core,
  org.eclipse.gmf.runtime.emf.commands.core,
  org.eclipse.gmf.runtime.emf.ui.properties,
@@ -31,6 +30,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide,
  org.eclipse.gmf.examples.taipan;visibility:=reexport,
  org.eclipse.gmf.examples.taipan.edit;visibility:=reexport,
- org.eclipse.gmf.runtime.notation.providers
+ org.eclipse.gef;visibility:=reexport
 Eclipse-LazyStart: true
-Bundle-RequiredExecutionEnvironment: J2SE-1.4
