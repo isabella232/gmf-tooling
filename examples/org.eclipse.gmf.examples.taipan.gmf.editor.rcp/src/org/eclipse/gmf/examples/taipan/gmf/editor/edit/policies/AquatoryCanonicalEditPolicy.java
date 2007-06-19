@@ -202,6 +202,9 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	private Collection collectAllLinks(View view, Map domain2NotationMap) {
+		if (!AquatoryEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(view))) {
+			return Collections.EMPTY_LIST;
+		}
 		Collection result = new LinkedList();
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case AquatoryEditPart.VISUAL_ID: {
@@ -249,14 +252,14 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			result.addAll(TaiPanDiagramUpdater.getRoute_4003ContainedLinks(view));
 			break;
 		}
-		case EscortShipsOrderEditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(TaiPanDiagramUpdater.getEscortShipsOrder_4006ContainedLinks(view));
-			break;
-		}
 		case BesiegePortOrderEditPart.VISUAL_ID: {
 			domain2NotationMap.put(view.getElement(), view);
 			result.addAll(TaiPanDiagramUpdater.getBesiegePortOrder_4005ContainedLinks(view));
+			break;
+		}
+		case EscortShipsOrderEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			result.addAll(TaiPanDiagramUpdater.getEscortShipsOrder_4006ContainedLinks(view));
 			break;
 		}
 		}

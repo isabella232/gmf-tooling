@@ -63,7 +63,7 @@ public class ValidateAction extends Action {
 	 */
 	public ValidateAction(IWorkbenchPartDescriptor workbenchPartDescriptor) {
 		setId(VALIDATE_ACTION_KEY);
-		setText("Validate");
+		setText(Messages.ValidateActionMessage);
 		this.workbenchPartDescriptor = workbenchPartDescriptor;
 	}
 

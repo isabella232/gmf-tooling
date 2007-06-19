@@ -12,6 +12,7 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.draw2d.Connection;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.examples.taipan.figures.DirectedConnection;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipDestinationItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
@@ -44,6 +45,23 @@ public class ShipDestinationEditPart extends ConnectionNodeEditPart {
 	}
 
 	/**
+	 * @generated
+	 */
+	protected boolean addFixedChild(EditPart childEditPart) {
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (addFixedChild(childEditPart)) {
+			return;
+		}
+		super.addChildVisual(childEditPart, -1);
+	}
+
+	/**
 	 * Creates figure for this edit part.
 	 * 
 	 * Body of this method does not depend on settings in generation model
@@ -52,8 +70,14 @@ public class ShipDestinationEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
-
 		return new DirectedConnection();
+	}
+
+	/**
+	 * @generated
+	 */
+	public DirectedConnection getPrimaryShape() {
+		return (DirectedConnection) getFigure();
 	}
 
 }

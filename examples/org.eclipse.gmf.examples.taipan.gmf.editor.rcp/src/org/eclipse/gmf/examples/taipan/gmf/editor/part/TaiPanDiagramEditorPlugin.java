@@ -61,7 +61,7 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	private TaiPanDocumentProvider myDocumentProvider;
+	private TaiPanDocumentProvider documentProvider;
 
 	/**
 	 * @generated
@@ -191,10 +191,10 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	 * @generated
 	 */
 	public TaiPanDocumentProvider getDocumentProvider() {
-		if (myDocumentProvider == null) {
-			myDocumentProvider = new TaiPanDocumentProvider();
+		if (documentProvider == null) {
+			documentProvider = new TaiPanDocumentProvider();
 		}
-		return myDocumentProvider;
+		return documentProvider;
 	}
 
 	/**

@@ -42,7 +42,7 @@ public class WarshipSmallCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 	protected List getSemanticChildrenList() {
 		View viewObject = (View) getHost().getModel();
 		List result = new LinkedList();
-		for (Iterator it = TaiPanDiagramUpdater.getWarshipSmallcargo_7003SemanticChildren(viewObject).iterator(); it.hasNext();) {
+		for (Iterator it = TaiPanDiagramUpdater.getWarshipSmallCargo_7003SemanticChildren(viewObject).iterator(); it.hasNext();) {
 			result.add(((TaiPanNodeDescriptor) it.next()).getModelElement());
 		}
 		return result;

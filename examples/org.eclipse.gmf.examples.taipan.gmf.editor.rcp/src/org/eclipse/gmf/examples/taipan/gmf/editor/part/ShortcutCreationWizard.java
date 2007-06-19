@@ -48,9 +48,9 @@ public class ShortcutCreationWizard extends Wizard {
 	 * @generated
 	 */
 	public ShortcutCreationWizard(EObject modelElement, View view, TransactionalEditingDomain editingDomain) {
-		referencedElementSelectionPage = new ReferencedElementSelectionPage("Select referenced element", view);
-		referencedElementSelectionPage.setTitle("Referenced element");
-		referencedElementSelectionPage.setDescription("Select element that the new shortcut will refer to.");
+		referencedElementSelectionPage = new ReferencedElementSelectionPage(Messages.ShortcutCreationWizard_ReferencedElementSelectionPageName, view);
+		referencedElementSelectionPage.setTitle(Messages.ShortcutCreationWizard_ReferencedElementSelectionPageTitle);
+		referencedElementSelectionPage.setDescription(Messages.ShortcutCreationWizard_ReferencedElementSelectionPageDescription);
 		referencedElementSelectionPage.setModelElement(modelElement);
 
 		this.editingDomain = editingDomain;
@@ -108,7 +108,7 @@ public class ShortcutCreationWizard extends Wizard {
 		 * @generated
 		 */
 		protected String getSelectionTitle() {
-			return "Select referenced element:";
+			return Messages.ShortcutCreationWizard_ReferencedElementSelectionPageMessage;
 		}
 
 		/**
@@ -116,12 +116,12 @@ public class ShortcutCreationWizard extends Wizard {
 		 */
 		protected boolean validatePage() {
 			if (selectedModelElement == null) {
-				setErrorMessage("Referenced element is not selected");
+				setErrorMessage(Messages.ShortcutCreationWizard_ReferencedElementSelectionPageEmptyError);
 				return false;
 			}
 			boolean result = ViewService.getInstance().provides(Node.class, new EObjectAdapter(selectedModelElement), view, null, ViewUtil.APPEND, true,
 					TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-			setErrorMessage(result ? null : "Invalid referenced element is selected");
+			setErrorMessage(result ? null : Messages.ShortcutCreationWizard_ReferencedElementSelectionPageInvalidError);
 			return result;
 		}
 	}

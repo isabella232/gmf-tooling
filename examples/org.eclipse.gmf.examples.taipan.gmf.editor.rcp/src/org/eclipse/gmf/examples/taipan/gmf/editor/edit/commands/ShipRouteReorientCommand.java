@@ -15,24 +15,28 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.examples.taipan.Aquatory;
-import org.eclipse.gmf.examples.taipan.Destination;
-import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
+import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 
 /**
  * @generated
  */
-public class UnreliableRouteReorientCommand extends EditElementCommand {
+public class ShipRouteReorientCommand extends EditElementCommand {
 
 	/**
 	 * @generated
 	 */
 	private final int reorientDirection;
+
+	/**
+	 * @generated
+	 */
+	private final EObject referenceOwner;
 
 	/**
 	 * @generated
@@ -47,9 +51,10 @@ public class UnreliableRouteReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	public UnreliableRouteReorientCommand(ReorientRelationshipRequest request) {
-		super(request.getLabel(), request.getRelationship(), request);
+	public ShipRouteReorientCommand(ReorientReferenceRelationshipRequest request) {
+		super(request.getLabel(), null, request);
 		reorientDirection = request.getDirection();
+		referenceOwner = request.getReferenceOwner();
 		oldEnd = request.getOldRelationshipEnd();
 		newEnd = request.getNewRelationshipEnd();
 	}
@@ -58,7 +63,7 @@ public class UnreliableRouteReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (!(getElementToEdit() instanceof Route)) {
+		if (!(referenceOwner instanceof Ship)) {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
@@ -74,30 +79,20 @@ public class UnreliableRouteReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected boolean canReorientSource() {
-		if (!(oldEnd instanceof Destination && newEnd instanceof Destination)) {
+		if (!(oldEnd instanceof Route && newEnd instanceof Ship)) {
 			return false;
 		}
-		Destination target = getLink().getDestination();
-		if (!(getLink().eContainer() instanceof Aquatory)) {
-			return false;
-		}
-		Aquatory container = (Aquatory) getLink().eContainer();
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4003(container, getNewSource(), target);
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistShipRoute_4004(getNewSource(), getOldTarget());
 	}
 
 	/**
 	 * @generated
 	 */
 	protected boolean canReorientTarget() {
-		if (!(oldEnd instanceof Destination && newEnd instanceof Destination)) {
+		if (!(oldEnd instanceof Route && newEnd instanceof Route)) {
 			return false;
 		}
-		Destination source = getLink().getSource();
-		if (!(getLink().eContainer() instanceof Aquatory)) {
-			return false;
-		}
-		Aquatory container = (Aquatory) getLink().eContainer();
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4003(container, source, getNewTarget());
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistShipRoute_4004(getOldSource(), getNewTarget());
 	}
 
 	/**
@@ -120,50 +115,44 @@ public class UnreliableRouteReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult reorientSource() throws ExecutionException {
-		getLink().setSource(getNewSource());
-		return CommandResult.newOKCommandResult(getLink());
+		getOldSource().setRoute(null);
+		getNewSource().setRoute(getOldTarget());
+		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 
 	/**
 	 * @generated
 	 */
 	protected CommandResult reorientTarget() throws ExecutionException {
-		getLink().setDestination(getNewTarget());
-		return CommandResult.newOKCommandResult(getLink());
+		getOldSource().setRoute(getNewTarget());
+		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Route getLink() {
-		return (Route) getElementToEdit();
+	protected Ship getOldSource() {
+		return (Ship) referenceOwner;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Destination getOldSource() {
-		return (Destination) oldEnd;
+	protected Ship getNewSource() {
+		return (Ship) newEnd;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Destination getNewSource() {
-		return (Destination) newEnd;
+	protected Route getOldTarget() {
+		return (Route) oldEnd;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Destination getOldTarget() {
-		return (Destination) oldEnd;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Destination getNewTarget() {
-		return (Destination) newEnd;
+	protected Route getNewTarget() {
+		return (Route) newEnd;
 	}
 }

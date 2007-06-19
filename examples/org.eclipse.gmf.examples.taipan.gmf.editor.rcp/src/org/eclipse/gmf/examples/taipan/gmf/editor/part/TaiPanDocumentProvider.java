@@ -374,7 +374,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			if (!overwrite && !info.isSynchronized()) {
-				throw new CoreException(new Status(IStatus.ERROR, TaiPanDiagramEditorPlugin.ID, IStatus.OK, Messages.TaiPanDocumentProvider_UnsynchronizedFileSaveError, null));
+				throw new CoreException(new Status(IStatus.ERROR, TaiPanDiagramEditorPlugin.ID, IStatus.ERROR, Messages.TaiPanDocumentProvider_UnsynchronizedFileSaveError, null));
 			}
 			fireElementStateChanging(element);
 			List resources = info.getResourceSet().getResources();
@@ -394,6 +394,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 					monitor.worked(1);
 				}
 				monitor.done();
+				info.setModificationStamp(computeModificationStamp(info));
 			} catch (RuntimeException x) {
 				fireElementStateChangeFailed(element);
 				throw x;

@@ -94,12 +94,12 @@ public class TaiPanCreateShortcutAction implements IObjectActionDelegate {
 	 */
 	public void run(IAction action) {
 		final View view = (View) mySelectedElement.getModel();
-		Resource resource = TaiPanDiagramEditorUtil.openModel(myShell, "Select model to reference", mySelectedElement.getEditingDomain());
+		Resource resource = TaiPanDiagramEditorUtil.openModel(myShell, Messages.TaiPanCreateShortcutAction_OpenModelTitle, mySelectedElement.getEditingDomain());
 		if (resource == null || resource.getContents().isEmpty()) {
 			return;
 		}
 		ShortcutCreationWizard wizard = new ShortcutCreationWizard((EObject) resource.getContents().get(0), view, mySelectedElement.getEditingDomain());
-		wizard.setWindowTitle("Create shortcut");
+		wizard.setWindowTitle(Messages.TaiPanCreateShortcutAction_CreateShortcutTitle);
 		TaiPanDiagramEditorUtil.runWizard(myShell, wizard, "CreateShortcut"); //$NON-NLS-1$
 	}
 }

@@ -23,6 +23,7 @@ import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gmf.examples.taipan.figures.PileShape;
+import org.eclipse.gmf.examples.taipan.figures.ShipShape;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
@@ -122,14 +123,14 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		return primaryShape = new PileShape();
+		return primaryShape = new ShipShape();
 	}
 
 	/**
 	 * @generated
 	 */
-	public PileShape getPrimaryShape() {
-		return (PileShape) primaryShape;
+	public ShipShape getPrimaryShape() {
+		return (ShipShape) primaryShape;
 	}
 
 	/**

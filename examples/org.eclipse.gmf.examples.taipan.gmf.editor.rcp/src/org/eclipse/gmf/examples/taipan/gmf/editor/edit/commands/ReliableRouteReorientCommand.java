@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.Aquatory;
+import org.eclipse.gmf.examples.taipan.Destination;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
@@ -73,10 +74,10 @@ public class ReliableRouteReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected boolean canReorientSource() {
-		if (!(oldEnd instanceof Port && newEnd instanceof Port)) {
+		if (!(oldEnd instanceof Destination && newEnd instanceof Destination)) {
 			return false;
 		}
-		Port target = getLink().getDestination();
+		Destination target = getLink().getDestination();
 		if (!(getLink().eContainer() instanceof Aquatory)) {
 			return false;
 		}
@@ -88,10 +89,10 @@ public class ReliableRouteReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected boolean canReorientTarget() {
-		if (!(oldEnd instanceof Port && newEnd instanceof Port)) {
+		if (!(oldEnd instanceof Destination && newEnd instanceof Destination)) {
 			return false;
 		}
-		Port source = getLink().getSource();
+		Destination source = getLink().getSource();
 		if (!(getLink().eContainer() instanceof Aquatory)) {
 			return false;
 		}
@@ -141,28 +142,28 @@ public class ReliableRouteReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	protected Port getOldSource() {
-		return (Port) oldEnd;
+	protected Destination getOldSource() {
+		return (Destination) oldEnd;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Port getNewSource() {
-		return (Port) newEnd;
+	protected Destination getNewSource() {
+		return (Destination) newEnd;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Port getOldTarget() {
-		return (Port) oldEnd;
+	protected Destination getOldTarget() {
+		return (Destination) oldEnd;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Port getNewTarget() {
-		return (Port) newEnd;
+	protected Destination getNewTarget() {
+		return (Destination) newEnd;
 	}
 }

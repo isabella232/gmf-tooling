@@ -38,6 +38,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipLargeCargoEditP
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipLargeCargoEditPart;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.Messages;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
 /**
@@ -87,22 +88,21 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 	 */
 	public List getRelTypesOnSource(IAdaptable source) {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
+		if (sourceEditPart instanceof PortEditPart) {
+			List types = new ArrayList();
+			types.add(TaiPanElementTypes.PortRegister_4007);
+			return types;
+		}
 		if (sourceEditPart instanceof ShipEditPart) {
 			List types = new ArrayList();
 			types.add(TaiPanElementTypes.ShipDestination_4001);
-			return types;
-		}
-		if (sourceEditPart instanceof PortEditPart) {
-			List types = new ArrayList();
-			types.add(TaiPanElementTypes.Route_4002);
-			types.add(TaiPanElementTypes.Route_4003);
-			types.add(TaiPanElementTypes.PortRegister_4007);
+			types.add(TaiPanElementTypes.ShipRoute_4004);
 			return types;
 		}
 		if (sourceEditPart instanceof WarshipEditPart) {
 			List types = new ArrayList();
-			types.add(TaiPanElementTypes.EscortShipsOrder_4006);
 			types.add(TaiPanElementTypes.BesiegePortOrder_4005);
+			types.add(TaiPanElementTypes.EscortShipsOrder_4006);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -116,8 +116,6 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 		if (targetEditPart instanceof PortEditPart) {
 			List types = new ArrayList();
 			types.add(TaiPanElementTypes.ShipDestination_4001);
-			types.add(TaiPanElementTypes.Route_4002);
-			types.add(TaiPanElementTypes.Route_4003);
 			types.add(TaiPanElementTypes.BesiegePortOrder_4005);
 			return types;
 		}
@@ -136,6 +134,13 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 	public List getRelTypesOnSourceAndTarget(IAdaptable source, IAdaptable target) {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
+		if (sourceEditPart instanceof PortEditPart) {
+			List types = new ArrayList();
+			if (targetEditPart instanceof ShipEditPart) {
+				types.add(TaiPanElementTypes.PortRegister_4007);
+			}
+			return types;
+		}
 		if (sourceEditPart instanceof ShipEditPart) {
 			List types = new ArrayList();
 			if (targetEditPart instanceof PortEditPart) {
@@ -143,26 +148,13 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 			}
 			return types;
 		}
-		if (sourceEditPart instanceof PortEditPart) {
-			List types = new ArrayList();
-			if (targetEditPart instanceof PortEditPart) {
-				types.add(TaiPanElementTypes.Route_4002);
-			}
-			if (targetEditPart instanceof PortEditPart) {
-				types.add(TaiPanElementTypes.Route_4003);
-			}
-			if (targetEditPart instanceof ShipEditPart) {
-				types.add(TaiPanElementTypes.PortRegister_4007);
-			}
-			return types;
-		}
 		if (sourceEditPart instanceof WarshipEditPart) {
 			List types = new ArrayList();
-			if (targetEditPart instanceof ShipEditPart) {
-				types.add(TaiPanElementTypes.EscortShipsOrder_4006);
-			}
 			if (targetEditPart instanceof PortEditPart) {
 				types.add(TaiPanElementTypes.BesiegePortOrder_4005);
+			}
+			if (targetEditPart instanceof ShipEditPart) {
+				types.add(TaiPanElementTypes.EscortShipsOrder_4006);
 			}
 			return types;
 		}
@@ -178,12 +170,6 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 			List types = new ArrayList();
 			if (relationshipType == TaiPanElementTypes.ShipDestination_4001) {
 				types.add(TaiPanElementTypes.Ship_2002);
-			}
-			if (relationshipType == TaiPanElementTypes.Route_4002) {
-				types.add(TaiPanElementTypes.Port_2001);
-			}
-			if (relationshipType == TaiPanElementTypes.Route_4003) {
-				types.add(TaiPanElementTypes.Port_2001);
 			}
 			if (relationshipType == TaiPanElementTypes.BesiegePortOrder_4005) {
 				types.add(TaiPanElementTypes.Warship_2003);
@@ -208,6 +194,13 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 	 */
 	public List getTypesForTarget(IAdaptable source, IElementType relationshipType) {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
+		if (sourceEditPart instanceof PortEditPart) {
+			List types = new ArrayList();
+			if (relationshipType == TaiPanElementTypes.PortRegister_4007) {
+				types.add(TaiPanElementTypes.Ship_2002);
+			}
+			return types;
+		}
 		if (sourceEditPart instanceof ShipEditPart) {
 			List types = new ArrayList();
 			if (relationshipType == TaiPanElementTypes.ShipDestination_4001) {
@@ -215,26 +208,13 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 			}
 			return types;
 		}
-		if (sourceEditPart instanceof PortEditPart) {
-			List types = new ArrayList();
-			if (relationshipType == TaiPanElementTypes.Route_4002) {
-				types.add(TaiPanElementTypes.Port_2001);
-			}
-			if (relationshipType == TaiPanElementTypes.Route_4003) {
-				types.add(TaiPanElementTypes.Port_2001);
-			}
-			if (relationshipType == TaiPanElementTypes.PortRegister_4007) {
-				types.add(TaiPanElementTypes.Ship_2002);
-			}
-			return types;
-		}
 		if (sourceEditPart instanceof WarshipEditPart) {
 			List types = new ArrayList();
-			if (relationshipType == TaiPanElementTypes.EscortShipsOrder_4006) {
-				types.add(TaiPanElementTypes.Ship_2002);
-			}
 			if (relationshipType == TaiPanElementTypes.BesiegePortOrder_4005) {
 				types.add(TaiPanElementTypes.Port_2001);
+			}
+			if (relationshipType == TaiPanElementTypes.EscortShipsOrder_4006) {
+				types.add(TaiPanElementTypes.Ship_2002);
 			}
 			return types;
 		}
@@ -295,8 +275,8 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 		Shell shell = Display.getCurrent().getActiveShell();
 		ILabelProvider labelProvider = new AdapterFactoryLabelProvider(TaiPanDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
 		ElementListSelectionDialog dialog = new ElementListSelectionDialog(shell, labelProvider);
-		dialog.setMessage("Available domain model elements:");
-		dialog.setTitle("Select domain model element");
+		dialog.setMessage(Messages.TaiPanModelingAssistantProviderMessage);
+		dialog.setTitle(Messages.TaiPanModelingAssistantProviderTitle);
 		dialog.setMultipleSelection(false);
 		dialog.setElements(elements);
 		EObject selected = null;

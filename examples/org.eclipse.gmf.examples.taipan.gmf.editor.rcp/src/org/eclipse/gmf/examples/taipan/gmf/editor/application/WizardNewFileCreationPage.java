@@ -13,6 +13,7 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.application;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.Messages;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -168,12 +169,12 @@ public class WizardNewFileCreationPage extends WizardPage {
 		Composite plate = new Composite(parent, SWT.NONE);
 		plate.setLayout(new GridLayout(2, false));
 		Label label = new Label(plate, SWT.NONE);
-		label.setText("File:");
+		label.setText(Messages.WizardNewFileCreationPage_FileLabel);
 		label.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false, 2, 1));
 		fileNameEditor = new Text(plate, SWT.SINGLE | SWT.BORDER);
 		fileNameEditor.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		Button button = new Button(plate, SWT.PUSH);
-		button.setText("Browse");
+		button.setText(Messages.WizardNewFileCreationPage_BrowseButton);
 		button.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
 
 		// logic
@@ -187,7 +188,7 @@ public class WizardNewFileCreationPage extends WizardPage {
 
 			public void widgetSelected(SelectionEvent e) {
 				FileDialog dialog = new FileDialog(getShell(), SWT.SAVE);
-				dialog.setText("Select new file");
+				dialog.setText(Messages.WizardNewFileCreationPage_SelectNewFileDialog);
 				dialog.setFileName(getFileName());
 				String fileName = dialog.open();
 				if (fileName != null) {
@@ -211,11 +212,11 @@ public class WizardNewFileCreationPage extends WizardPage {
 	protected boolean validatePage() {
 		String fileName = fileNameEditor.getText().trim();
 		if (fileName.length() == 0) {
-			setErrorMessage("Specify file name");
+			setErrorMessage(Messages.WizardNewFileCreationPage_EmptyFileNameError);
 			return false;
 		}
 		if (!new Path("").isValidPath(fileName)) { //$NON-NLS-1$
-			setErrorMessage("Invalid file name");
+			setErrorMessage(Messages.WizardNewFileCreationPage_InvalidFileNameError);
 			return false;
 		}
 		setErrorMessage(null);

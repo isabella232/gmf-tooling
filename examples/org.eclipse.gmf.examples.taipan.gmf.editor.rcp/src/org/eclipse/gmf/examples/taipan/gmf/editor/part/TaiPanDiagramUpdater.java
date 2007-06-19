@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.BesiegePortOrder;
+import org.eclipse.gmf.examples.taipan.Destination;
 import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
 import org.eclipse.gmf.examples.taipan.Item;
 import org.eclipse.gmf.examples.taipan.Port;
@@ -41,6 +42,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteEditPa
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipLargeCargoEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipSmallCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteEditPart;
@@ -68,11 +70,11 @@ public class TaiPanDiagramUpdater {
 	public static List getSemanticChildren(View view) {
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case ShipSmallCargoEditPart.VISUAL_ID:
-			return getShipSmallcargo_7001SemanticChildren(view);
+			return getShipSmallCargo_7001SemanticChildren(view);
 		case ShipLargeCargoEditPart.VISUAL_ID:
 			return getShipLargeCargo_7002SemanticChildren(view);
 		case WarshipSmallCargoEditPart.VISUAL_ID:
-			return getWarshipSmallcargo_7003SemanticChildren(view);
+			return getWarshipSmallCargo_7003SemanticChildren(view);
 		case WarshipLargeCargoEditPart.VISUAL_ID:
 			return getWarshipLargeCargo_7004SemanticChildren(view);
 		case AquatoryEditPart.VISUAL_ID:
@@ -84,7 +86,7 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getShipSmallcargo_7001SemanticChildren(View view) {
+	public static List getShipSmallCargo_7001SemanticChildren(View view) {
 		if (false == view.eContainer() instanceof View) {
 			return Collections.EMPTY_LIST;
 		}
@@ -136,7 +138,7 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getWarshipSmallcargo_7003SemanticChildren(View view) {
+	public static List getWarshipSmallCargo_7003SemanticChildren(View view) {
 		if (false == view.eContainer() instanceof View) {
 			return Collections.EMPTY_LIST;
 		}
@@ -240,10 +242,10 @@ public class TaiPanDiagramUpdater {
 			return getRoute_4002ContainedLinks(view);
 		case UnreliableRouteEditPart.VISUAL_ID:
 			return getRoute_4003ContainedLinks(view);
-		case EscortShipsOrderEditPart.VISUAL_ID:
-			return getEscortShipsOrder_4006ContainedLinks(view);
 		case BesiegePortOrderEditPart.VISUAL_ID:
 			return getBesiegePortOrder_4005ContainedLinks(view);
+		case EscortShipsOrderEditPart.VISUAL_ID:
+			return getEscortShipsOrder_4006ContainedLinks(view);
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -269,10 +271,10 @@ public class TaiPanDiagramUpdater {
 			return getRoute_4002IncomingLinks(view);
 		case UnreliableRouteEditPart.VISUAL_ID:
 			return getRoute_4003IncomingLinks(view);
-		case EscortShipsOrderEditPart.VISUAL_ID:
-			return getEscortShipsOrder_4006IncomingLinks(view);
 		case BesiegePortOrderEditPart.VISUAL_ID:
 			return getBesiegePortOrder_4005IncomingLinks(view);
+		case EscortShipsOrderEditPart.VISUAL_ID:
+			return getEscortShipsOrder_4006IncomingLinks(view);
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -298,10 +300,10 @@ public class TaiPanDiagramUpdater {
 			return getRoute_4002OutgoingLinks(view);
 		case UnreliableRouteEditPart.VISUAL_ID:
 			return getRoute_4003OutgoingLinks(view);
-		case EscortShipsOrderEditPart.VISUAL_ID:
-			return getEscortShipsOrder_4006OutgoingLinks(view);
 		case BesiegePortOrderEditPart.VISUAL_ID:
 			return getBesiegePortOrder_4005OutgoingLinks(view);
+		case EscortShipsOrderEditPart.VISUAL_ID:
+			return getEscortShipsOrder_4006OutgoingLinks(view);
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -334,6 +336,7 @@ public class TaiPanDiagramUpdater {
 		Ship modelElement = (Ship) view.getElement();
 		List result = new LinkedList();
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Route_4004(modelElement));
 		return result;
 	}
 
@@ -344,8 +347,9 @@ public class TaiPanDiagramUpdater {
 		Warship modelElement = (Warship) view.getElement();
 		List result = new LinkedList();
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
-		result.addAll(getContainedTypeModelFacetLinks_EscortShipsOrder_4006(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Route_4004(modelElement));
 		result.addAll(getContainedTypeModelFacetLinks_BesiegePortOrder_4005(modelElement));
+		result.addAll(getContainedTypeModelFacetLinks_EscortShipsOrder_4006(modelElement));
 		return result;
 	}
 
@@ -461,14 +465,26 @@ public class TaiPanDiagramUpdater {
 	 * @generated
 	 */
 	public static List getRoute_4002IncomingLinks(View view) {
-		return Collections.EMPTY_LIST;
+		Route modelElement = (Route) view.getElement();
+		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		List result = new LinkedList();
+		result.addAll(getIncomingTypeModelFacetLinks_Route_4002(modelElement, crossReferences));
+		result.addAll(getIncomingTypeModelFacetLinks_Route_4003(modelElement, crossReferences));
+		result.addAll(getIncomingFeatureModelFacetLinks_Ship_Route_4004(modelElement, crossReferences));
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
 	public static List getRoute_4003IncomingLinks(View view) {
-		return Collections.EMPTY_LIST;
+		Route modelElement = (Route) view.getElement();
+		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		List result = new LinkedList();
+		result.addAll(getIncomingTypeModelFacetLinks_Route_4002(modelElement, crossReferences));
+		result.addAll(getIncomingTypeModelFacetLinks_Route_4003(modelElement, crossReferences));
+		result.addAll(getIncomingFeatureModelFacetLinks_Ship_Route_4004(modelElement, crossReferences));
+		return result;
 	}
 
 	/**
@@ -504,6 +520,7 @@ public class TaiPanDiagramUpdater {
 		Ship modelElement = (Ship) view.getElement();
 		List result = new LinkedList();
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Route_4004(modelElement));
 		return result;
 	}
 
@@ -514,8 +531,9 @@ public class TaiPanDiagramUpdater {
 		Warship modelElement = (Warship) view.getElement();
 		List result = new LinkedList();
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
-		result.addAll(getContainedTypeModelFacetLinks_EscortShipsOrder_4006(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Route_4004(modelElement));
 		result.addAll(getContainedTypeModelFacetLinks_BesiegePortOrder_4005(modelElement));
+		result.addAll(getContainedTypeModelFacetLinks_EscortShipsOrder_4006(modelElement));
 		return result;
 	}
 
@@ -544,14 +562,22 @@ public class TaiPanDiagramUpdater {
 	 * @generated
 	 */
 	public static List getRoute_4002OutgoingLinks(View view) {
-		return Collections.EMPTY_LIST;
+		Route modelElement = (Route) view.getElement();
+		List result = new LinkedList();
+		result.addAll(getOutgoingTypeModelFacetLinks_Route_4002(modelElement));
+		result.addAll(getOutgoingTypeModelFacetLinks_Route_4003(modelElement));
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
 	public static List getRoute_4003OutgoingLinks(View view) {
-		return Collections.EMPTY_LIST;
+		Route modelElement = (Route) view.getElement();
+		List result = new LinkedList();
+		result.addAll(getOutgoingTypeModelFacetLinks_Route_4002(modelElement));
+		result.addAll(getOutgoingTypeModelFacetLinks_Route_4003(modelElement));
+		return result;
 	}
 
 	/**
@@ -582,8 +608,8 @@ public class TaiPanDiagramUpdater {
 			if (ReliableRouteEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(link)) {
 				continue;
 			}
-			Port dst = link.getDestination();
-			Port src = link.getSource();
+			Destination dst = link.getDestination();
+			Destination src = link.getSource();
 			result.add(new TaiPanLinkDescriptor(src, dst, link, TaiPanElementTypes.Route_4002, ReliableRouteEditPart.VISUAL_ID));
 		}
 		return result;
@@ -603,8 +629,8 @@ public class TaiPanDiagramUpdater {
 			if (UnreliableRouteEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(link)) {
 				continue;
 			}
-			Port dst = link.getDestination();
-			Port src = link.getSource();
+			Destination dst = link.getDestination();
+			Destination src = link.getSource();
 			result.add(new TaiPanLinkDescriptor(src, dst, link, TaiPanElementTypes.Route_4003, UnreliableRouteEditPart.VISUAL_ID));
 		}
 		return result;
@@ -667,7 +693,7 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getIncomingTypeModelFacetLinks_Route_4002(Port target, Map crossReferences) {
+	private static Collection getIncomingTypeModelFacetLinks_Route_4002(Destination target, Map crossReferences) {
 		Collection result = new LinkedList();
 		Collection settings = (Collection) crossReferences.get(target);
 		for (Iterator it = settings.iterator(); it.hasNext();) {
@@ -679,7 +705,7 @@ public class TaiPanDiagramUpdater {
 			if (ReliableRouteEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(link)) {
 				continue;
 			}
-			Port src = link.getSource();
+			Destination src = link.getSource();
 			result.add(new TaiPanLinkDescriptor(src, target, link, TaiPanElementTypes.Route_4002, ReliableRouteEditPart.VISUAL_ID));
 		}
 		return result;
@@ -688,7 +714,7 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getIncomingTypeModelFacetLinks_Route_4003(Port target, Map crossReferences) {
+	private static Collection getIncomingTypeModelFacetLinks_Route_4003(Destination target, Map crossReferences) {
 		Collection result = new LinkedList();
 		Collection settings = (Collection) crossReferences.get(target);
 		for (Iterator it = settings.iterator(); it.hasNext();) {
@@ -700,8 +726,23 @@ public class TaiPanDiagramUpdater {
 			if (UnreliableRouteEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(link)) {
 				continue;
 			}
-			Port src = link.getSource();
+			Destination src = link.getSource();
 			result.add(new TaiPanLinkDescriptor(src, target, link, TaiPanElementTypes.Route_4003, UnreliableRouteEditPart.VISUAL_ID));
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection getIncomingFeatureModelFacetLinks_Ship_Route_4004(Route target, Map crossReferences) {
+		Collection result = new LinkedList();
+		Collection settings = (Collection) crossReferences.get(target);
+		for (Iterator it = settings.iterator(); it.hasNext();) {
+			EStructuralFeature.Setting setting = (EStructuralFeature.Setting) it.next();
+			if (setting.getEStructuralFeature() == TaiPanPackage.eINSTANCE.getShip_Route()) {
+				result.add(new TaiPanLinkDescriptor(setting.getEObject(), target, TaiPanElementTypes.ShipRoute_4004, ShipRouteEditPart.VISUAL_ID));
+			}
 		}
 		return result;
 	}
@@ -784,7 +825,7 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getOutgoingTypeModelFacetLinks_Route_4002(Port source) {
+	private static Collection getOutgoingTypeModelFacetLinks_Route_4002(Destination source) {
 		Aquatory container = null;
 		// Find container element for the link.
 		// Climb up by containment hierarchy starting from the source
@@ -807,8 +848,8 @@ public class TaiPanDiagramUpdater {
 			if (ReliableRouteEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(link)) {
 				continue;
 			}
-			Port dst = link.getDestination();
-			Port src = link.getSource();
+			Destination dst = link.getDestination();
+			Destination src = link.getSource();
 			if (src != source) {
 				continue;
 			}
@@ -820,7 +861,7 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getOutgoingTypeModelFacetLinks_Route_4003(Port source) {
+	private static Collection getOutgoingTypeModelFacetLinks_Route_4003(Destination source) {
 		Aquatory container = null;
 		// Find container element for the link.
 		// Climb up by containment hierarchy starting from the source
@@ -843,13 +884,23 @@ public class TaiPanDiagramUpdater {
 			if (UnreliableRouteEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(link)) {
 				continue;
 			}
-			Port dst = link.getDestination();
-			Port src = link.getSource();
+			Destination dst = link.getDestination();
+			Destination src = link.getSource();
 			if (src != source) {
 				continue;
 			}
 			result.add(new TaiPanLinkDescriptor(src, dst, link, TaiPanElementTypes.Route_4003, UnreliableRouteEditPart.VISUAL_ID));
 		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection getOutgoingFeatureModelFacetLinks_Ship_Route_4004(Ship source) {
+		Collection result = new LinkedList();
+		Route destination = source.getRoute();
+		result.add(new TaiPanLinkDescriptor(source, destination, TaiPanElementTypes.ShipRoute_4004, ShipRouteEditPart.VISUAL_ID));
 		return result;
 	}
 

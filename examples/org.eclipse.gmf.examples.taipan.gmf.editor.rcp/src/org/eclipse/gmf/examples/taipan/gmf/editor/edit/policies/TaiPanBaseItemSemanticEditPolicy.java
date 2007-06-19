@@ -25,7 +25,9 @@ import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.requests.ReconnectRequest;
 import org.eclipse.gmf.examples.taipan.Aquatory;
+import org.eclipse.gmf.examples.taipan.Destination;
 import org.eclipse.gmf.examples.taipan.Port;
+import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
@@ -355,9 +357,9 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 */
 		static {
 			Map env = new HashMap(3);
-			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getShip());
-			EscortShipsOrder_4006_SourceExpression = TaiPanOCLFactory.getExpression(
-					"self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
+			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getPort());
+			BesiegePortOrder_4005_SourceExpression = TaiPanOCLFactory
+					.getExpression("self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
 		}
 
 		/**
@@ -370,8 +372,9 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 */
 		static {
 			Map env = new HashMap(3);
-			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getWarship());
-			EscortShipsOrder_4006_TargetExpression = TaiPanOCLFactory.getExpression("not self.oclIsKindOf(Warship)", TaiPanPackage.eINSTANCE.getShip(), env); //$NON-NLS-1$
+			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getShip());
+			EscortShipsOrder_4006_SourceExpression = TaiPanOCLFactory.getExpression(
+					"self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
 		}
 
 		/**
@@ -384,9 +387,8 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 */
 		static {
 			Map env = new HashMap(3);
-			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getPort());
-			BesiegePortOrder_4005_SourceExpression = TaiPanOCLFactory
-					.getExpression("self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
+			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getWarship());
+			EscortShipsOrder_4006_TargetExpression = TaiPanOCLFactory.getExpression("not self.oclIsKindOf(Warship)", TaiPanPackage.eINSTANCE.getShip(), env); //$NON-NLS-1$
 		}
 
 		/**
@@ -404,15 +406,27 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canCreateRoute_4002(Aquatory container, Port source, Port target) {
+		public static boolean canCreateRoute_4002(Aquatory container, Destination source, Destination target) {
 			return canExistRoute_4002(container, source, target);
 		}
 
 		/**
 		 * @generated
 		 */
-		public static boolean canCreateRoute_4003(Aquatory container, Port source, Port target) {
+		public static boolean canCreateRoute_4003(Aquatory container, Destination source, Destination target) {
 			return canExistRoute_4003(container, source, target);
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canCreateShipRoute_4004(Ship source, Route target) {
+			if (source != null) {
+				if (source.getRoute() != null) {
+					return false;
+				}
+			}
+			return canExistShipRoute_4004(source, target);
 		}
 
 		/**
@@ -456,14 +470,21 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canExistRoute_4002(Aquatory container, Port source, Port target) {
+		public static boolean canExistRoute_4002(Aquatory container, Destination source, Destination target) {
 			return true;
 		}
 
 		/**
 		 * @generated
 		 */
-		public static boolean canExistRoute_4003(Aquatory container, Port source, Port target) {
+		public static boolean canExistRoute_4003(Aquatory container, Destination source, Destination target) {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canExistShipRoute_4004(Ship source, Route target) {
 			return true;
 		}
 
