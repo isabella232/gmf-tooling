@@ -91,8 +91,10 @@
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.emf.ecore.EObject getParserElement() {
+«IF modelFacet == null»
 		org.eclipse.emf.ecore.EObject element = resolveSemanticElement();
 		return element != null ? element : (org.eclipse.gmf.runtime.notation.View) getModel();
+«ELSE»«EXPAND getParserElement FOR modelFacet»«ENDIF-»
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -111,9 +113,10 @@
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected String getLabelText() {
 		String text = null;
-		if (getParser() != null) {
+		org.eclipse.emf.ecore.EObject parserElement = getParserElement();
+		if (parserElement != null && getParser() != null) {
 			text = getParser().getPrintString(
-				new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(getParserElement()),
+				new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(parserElement),
 				getParserOptions().intValue());
 		}
 		if (text == null || text.length() == 0) {
@@ -133,7 +136,7 @@
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public String getEditText() {
-		if (getParser() == null) {
+		if (getParserElement() == null || getParser() == null) {
 			return ""; «EXPAND xpt::Common::nonNLS»
 		}
 		return getParser().getEditString(
@@ -183,7 +186,7 @@
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.jface.text.contentassist.IContentAssistProcessor getCompletionProcessor() {
-		if (getParser() == null) {
+		if (getParserElement() == null || getParser() == null) {
 			return null;
 		}
 		return getParser().getCompletionProcessor(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(getParserElement()));
@@ -404,4 +407,12 @@
 
 «DEFINE parserHint FOR gmfgen::DesignLabelModelFacet-»
 	org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint.DESCRIPTION;
+«ENDDEFINE»
+
+«DEFINE getParserElement FOR gmfgen::LabelModelFacet-»
+		return resolveSemanticElement();
+«ENDDEFINE»
+
+«DEFINE getParserElement FOR gmfgen::DesignLabelModelFacet-»
+		return (org.eclipse.gmf.runtime.notation.View) getModel();
 «ENDDEFINE»
