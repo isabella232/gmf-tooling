@@ -23,9 +23,6 @@ import org.eclipse.gmf.internal.common.reconcile.ReconcilerConfigBase;
 import org.eclipse.gmf.internal.common.reconcile.ReflectiveMatcher;
 import org.eclipse.gmf.internal.common.reconcile.StringPatternDecision;
 
-/**
- * XXX Perhaps, org.eclipse.gmf.codegen/oeg.internal.util would be better place for this class. 
- */
 public class GMFGenConfig extends ReconcilerConfigBase {
 
 	private final GMFGenPackage GMFGEN = GMFGenPackage.eINSTANCE;
