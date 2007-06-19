@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -58,6 +58,27 @@ public class TaiPanCreateShortcutAction implements IObjectActionDelegate {
 	/**
 	 * @generated
 	 */
+	public void selectionChanged(IAction action, ISelection selection) {
+		mySelectedElement = null;
+		if (selection instanceof IStructuredSelection) {
+			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+			if (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof AquatoryEditPart) {
+				mySelectedElement = (AquatoryEditPart) structuredSelection.getFirstElement();
+			}
+		}
+		action.setEnabled(isEnabled());
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEnabled() {
+		return mySelectedElement != null;
+	}
+
+	/**
+	 * @generated
+	 */
 	public void run(IAction action) {
 		final View view = (View) mySelectedElement.getModel();
 		TaiPanElementChooserDialog elementChooser = new TaiPanElementChooserDialog(myShell, view);
@@ -86,27 +107,6 @@ public class TaiPanCreateShortcutAction implements IObjectActionDelegate {
 		} catch (ExecutionException e) {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to create shortcut", e); //$NON-NLS-1$
 		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public void selectionChanged(IAction action, ISelection selection) {
-		mySelectedElement = null;
-		if (selection instanceof IStructuredSelection) {
-			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-			if (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof AquatoryEditPart) {
-				mySelectedElement = (AquatoryEditPart) structuredSelection.getFirstElement();
-			}
-		}
-		action.setEnabled(isEnabled());
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isEnabled() {
-		return mySelectedElement != null;
 	}
 
 }

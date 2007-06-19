@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -180,6 +180,18 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
+	private ToolEntry createShipRouteTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(TaiPanElementTypes.ShipRoute_4004);
+		LinkToolEntry entry = new LinkToolEntry(Messages.ShipRouteTool_title, Messages.ShipRouteTool_desc, types);
+		entry.setSmallIcon(TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipRoute.gif")); //$NON-NLS-1$
+		entry.setLargeIcon(TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipRoute.gif")); //$NON-NLS-1$
+		return entry;
+	}
+
+	/**
+	 * @generated
+	 */
 	private ToolEntry createBesiegePortOrderTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(TaiPanElementTypes.BesiegePortOrder_4005);
@@ -198,18 +210,6 @@ public class TaiPanPaletteFactory {
 		LinkToolEntry entry = new LinkToolEntry(Messages.EscortShipsOrderTool_title, Messages.EscortShipsOrderTool_desc, types);
 		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.EscortShipsOrder_4006));
 		entry.setLargeIcon(entry.getSmallIcon());
-		return entry;
-	}
-
-	/**
-	 * @generated
-	 */
-	private ToolEntry createShipRouteTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.ShipRoute_4004);
-		LinkToolEntry entry = new LinkToolEntry(Messages.ShipRouteTool_title, Messages.ShipRouteTool_desc, types);
-		entry.setSmallIcon(TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipRoute.gif")); //$NON-NLS-1$
-		entry.setLargeIcon(TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipRoute.gif")); //$NON-NLS-1$
 		return entry;
 	}
 

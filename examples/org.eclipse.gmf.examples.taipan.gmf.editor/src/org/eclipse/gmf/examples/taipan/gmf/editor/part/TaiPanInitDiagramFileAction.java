@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -55,13 +55,6 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 	/**
 	 * @generated
 	 */
-	private Shell getShell() {
-		return targetPart.getSite().getShell();
-	}
-
-	/**
-	 * @generated
-	 */
 	public void selectionChanged(IAction action, ISelection selection) {
 		domainModelURI = null;
 		action.setEnabled(false);
@@ -71,6 +64,13 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 		IFile file = (IFile) ((IStructuredSelection) selection).getFirstElement();
 		domainModelURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 		action.setEnabled(true);
+	}
+
+	/**
+	 * @generated
+	 */
+	private Shell getShell() {
+		return targetPart.getSite().getShell();
 	}
 
 	/**

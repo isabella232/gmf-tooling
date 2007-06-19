@@ -319,6 +319,16 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String ShipRouteTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String ShipRouteTool_desc;
+
+	/**
+	 * @generated
+	 */
 	public static String BesiegePortOrderTool_title;
 
 	/**
@@ -335,16 +345,6 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String EscortShipsOrderTool_desc;
-
-	/**
-	 * @generated
-	 */
-	public static String ShipRouteTool_title;
-
-	/**
-	 * @generated
-	 */
-	public static String ShipRouteTool_desc;
 
 	/**
 	 * @generated

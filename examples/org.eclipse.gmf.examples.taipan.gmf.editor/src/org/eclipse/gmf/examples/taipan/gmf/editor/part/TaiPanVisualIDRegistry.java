@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,7 +13,6 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
@@ -50,9 +49,9 @@ import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * This registry is used to determine which type of visual object should be
- * created for the corresponding Diagram, Node, ChildNode or Link represented 
+ * created for the corresponding Diagram, Node, ChildNode or Link represented
  * by a domain model object.
- *
+ * 
  * @generated
  */
 public class TaiPanVisualIDRegistry {
@@ -351,4 +350,5 @@ public class TaiPanVisualIDRegistry {
 	private static class JavaConstraints {
 
 	}
+
 }

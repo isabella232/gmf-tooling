@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -35,9 +35,7 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gef.EditPart;
@@ -238,27 +236,6 @@ public class TaiPanDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static View findView(DiagramEditPart diagramEditPart, EObject targetElement, LazyElement2ViewMap lazyElement2ViewMap) {
-		boolean hasStructuralURI = false;
-		if (targetElement.eResource() instanceof XMLResource) {
-			hasStructuralURI = ((XMLResource) targetElement.eResource()).getID(targetElement) == null;
-		}
-
-		View view = null;
-		if (hasStructuralURI && !lazyElement2ViewMap.getElement2ViewMap().isEmpty()) {
-			view = (View) lazyElement2ViewMap.getElement2ViewMap().get(targetElement);
-		} else if (findElementsInDiagramByID(diagramEditPart, targetElement, lazyElement2ViewMap.editPartTmpHolder) > 0) {
-			EditPart editPart = (EditPart) lazyElement2ViewMap.editPartTmpHolder.get(0);
-			lazyElement2ViewMap.editPartTmpHolder.clear();
-			view = editPart.getModel() instanceof View ? (View) editPart.getModel() : null;
-		}
-
-		return (view == null) ? diagramEditPart.getDiagramView() : view;
-	}
-
-	/**
-	 * @generated
-	 */
 	private static int findElementsInDiagramByID(DiagramEditPart diagramPart, EObject element, List editPartCollector) {
 		IDiagramGraphicalViewer viewer = (IDiagramGraphicalViewer) diagramPart.getViewer();
 		final int intialNumOfEditParts = editPartCollector.size();
@@ -295,6 +272,27 @@ public class TaiPanDiagramEditorUtil {
 			}
 		}
 		return editPartCollector.size() - intialNumOfEditParts;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static View findView(DiagramEditPart diagramEditPart, EObject targetElement, LazyElement2ViewMap lazyElement2ViewMap) {
+		boolean hasStructuralURI = false;
+		if (targetElement.eResource() instanceof XMLResource) {
+			hasStructuralURI = ((XMLResource) targetElement.eResource()).getID(targetElement) == null;
+		}
+
+		View view = null;
+		if (hasStructuralURI && !lazyElement2ViewMap.getElement2ViewMap().isEmpty()) {
+			view = (View) lazyElement2ViewMap.getElement2ViewMap().get(targetElement);
+		} else if (findElementsInDiagramByID(diagramEditPart, targetElement, lazyElement2ViewMap.editPartTmpHolder) > 0) {
+			EditPart editPart = (EditPart) lazyElement2ViewMap.editPartTmpHolder.get(0);
+			lazyElement2ViewMap.editPartTmpHolder.clear();
+			view = editPart.getModel() instanceof View ? (View) editPart.getModel() : null;
+		}
+
+		return (view == null) ? diagramEditPart.getDiagramView() : view;
 	}
 
 	/**
@@ -383,4 +381,5 @@ public class TaiPanDiagramEditorUtil {
 			return element2ViewMap;
 		}
 	} //LazyElement2ViewMap	
+
 }
