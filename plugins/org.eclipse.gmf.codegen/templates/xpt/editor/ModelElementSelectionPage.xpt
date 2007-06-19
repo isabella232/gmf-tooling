@@ -12,8 +12,9 @@
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «EXTENSION xpt::editor::GenDiagram»
+«EXTENSION xpt::editor::Utils»
 
-«DEFINE className FOR gmfgen::GenDiagram»ModelElementSelectionPage«ENDDEFINE»
+«DEFINE className FOR gmfgen::GenDiagram»«defaultModelElementSelectionPageClassName()»«ENDDEFINE»
 
 «DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«editorGen.editor.packageName».«EXPAND className»«ENDDEFINE»
 
@@ -115,7 +116,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.WizardPage {
 	 * @generated
 	 */
 	protected String getSelectionTitle() {
-		return "Select model element:";
+		return «EXPAND xpt::Externalizer::accessorCall(i18nKeyForModelElementSelectionPage().messageKey()) FOR editorGen»;
 	}
 
 	/**
@@ -147,4 +148,12 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.WizardPage {
 		return true;
 	}
 }
+«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForModelElementSelectionPage().messageKey(), "Select model element:")-»
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForModelElementSelectionPage().messageKey())-»
 «ENDDEFINE»

@@ -14,6 +14,8 @@
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
+«EXTENSION xpt::parsers::i18n»
+
 «DEFINE className FOR gmfgen::GenDiagram»MessageFormatParser«ENDDEFINE»
 
 «DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«parsersPackageName».«EXPAND className»«ENDDEFINE»
@@ -159,7 +161,7 @@ public class «EXPAND className» extends «EXPAND xpt::parsers::AbstractParser::qu
 			return new org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus(
 					«editorGen.plugin.getActivatorQualifiedClassName()».ID,
 					org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus.UNEDITABLE,
-					"Invalid input at " + pos.getErrorIndex());
+					org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForMessageFormatParserInvalidInputError()) FOR editorGen», new Integer(pos.getErrorIndex())));
 		}
 		return validateNewValues(values);
 	}
@@ -175,3 +177,11 @@ public class «EXPAND className» extends «EXPAND xpt::parsers::AbstractParser::qu
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForMessageFormatParserInvalidInputError(), "Invalid input at {0}")-»
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForMessageFormatParserInvalidInputError())-»
+«ENDDEFINE»

@@ -13,6 +13,8 @@
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
+«EXTENSION xpt::application::i18n»
+
 «DEFINE WizardNewFileCreationPage FOR gmfgen::GenApplication-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
 package «packageName»;
@@ -129,12 +131,12 @@ public class WizardNewFileCreationPage extends org.eclipse.jface.wizard.WizardPa
 		org.eclipse.swt.widgets.Composite plate = new org.eclipse.swt.widgets.Composite(parent, org.eclipse.swt.SWT.NONE);
 		plate.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
 		org.eclipse.swt.widgets.Label label = new org.eclipse.swt.widgets.Label(plate, org.eclipse.swt.SWT.NONE);
-		label.setText("File:");
+		label.setText(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewFileWizardFileLabel()) FOR editorGen»);
 		label.setLayoutData(new org.eclipse.swt.layout.GridData(org.eclipse.swt.SWT.BEGINNING, org.eclipse.swt.SWT.CENTER, false, false, 2, 1));
 		fileNameEditor = new org.eclipse.swt.widgets.Text(plate, org.eclipse.swt.SWT.SINGLE | org.eclipse.swt.SWT.BORDER);
 		fileNameEditor.setLayoutData(new org.eclipse.swt.layout.GridData(org.eclipse.swt.SWT.FILL, org.eclipse.swt.SWT.CENTER, true, false));
 		org.eclipse.swt.widgets.Button button = new org.eclipse.swt.widgets.Button(plate, org.eclipse.swt.SWT.PUSH);
-		button.setText("Browse");
+		button.setText(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewFileWizardBrowseButton()) FOR editorGen»);
 		button.setLayoutData(new org.eclipse.swt.layout.GridData(org.eclipse.swt.SWT.BEGINNING, org.eclipse.swt.SWT.CENTER, false, false));
 
 		// logic
@@ -148,7 +150,7 @@ public class WizardNewFileCreationPage extends org.eclipse.jface.wizard.WizardPa
 
 			public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
 				org.eclipse.swt.widgets.FileDialog dialog = new org.eclipse.swt.widgets.FileDialog(getShell(), org.eclipse.swt.SWT.SAVE);
-				dialog.setText("Select new file");
+				dialog.setText(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewFileWizardSelectDialog()) FOR editorGen»);
 				dialog.setFileName(getFileName());
 				String fileName = dialog.open();
 				if (fileName != null) {
@@ -170,11 +172,11 @@ public class WizardNewFileCreationPage extends org.eclipse.jface.wizard.WizardPa
 	protected boolean validatePage() {
 		String fileName = fileNameEditor.getText().trim();
 		if (fileName.length() == 0) {
-			setErrorMessage("Specify file name");
+			setErrorMessage(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewFileWizardEmpty()) FOR editorGen»);
 			return false;
 		}
 		if (!new org.eclipse.core.runtime.Path("").isValidPath(fileName)) { //$NON-NLS-1$
-			setErrorMessage("Invalid file name");
+			setErrorMessage(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewFileWizardInvalid()) FOR editorGen»);
 			return false;
 		}
 		setErrorMessage(null);
@@ -185,4 +187,20 @@ public class WizardNewFileCreationPage extends org.eclipse.jface.wizard.WizardPa
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenApplication-»
+«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenApplication-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForNewFileWizardFileLabel(), "File:")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForNewFileWizardBrowseButton(), "Browse")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForNewFileWizardSelectDialog(), "Select new file")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForNewFileWizardEmpty(), "Specify file name")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForNewFileWizardInvalid(), "Invalid file name")-»
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenApplication-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForNewFileWizardFileLabel())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForNewFileWizardBrowseButton())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForNewFileWizardSelectDialog())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForNewFileWizardEmpty())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForNewFileWizardInvalid())-»
 «ENDDEFINE»

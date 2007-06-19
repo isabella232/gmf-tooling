@@ -67,6 +67,18 @@ boolean hasDiagramElementRule(gmfgen::GenAuditRoot audits) :
 	audits.rules.target.typeSelect(gmfgen::GenNotationElementTarget).size() > 0
 ;
 
+String defaultShortcutCreationWizardClassName(gmfgen::GenDiagram diagram) :
+"ShortcutCreationWizard"
+;
+
+String defaultModelElementSelectionPageClassName(gmfgen::GenDiagram diagram) :
+"ModelElementSelectionPage"
+;
+
+String defaultValidateActionClassName(gmfgen::GenDiagram diagram) :
+"ValidateAction"
+;
+
 private String i18nKeyForDocumentProvider(gmfgen::GenDiagram diagram) :
 	// XXX might not be the best idea - as long as doc provider is single, no reason
 	// to have property names based on its name (stale properties in messages.properties once 
@@ -208,6 +220,26 @@ String i18nKeyForCreateShortcus(gmfgen::GenDiagram diagram) :
 
 private String i18nKeyForCreateShortcutAction(gmfgen::GenDiagram diagram) :
 	diagram.createShortcutActionClassName
+;
+
+String i18nKeyForShortcutWizardReferencedElementPage(gmfgen::GenDiagram diagram) :
+	diagram.defaultShortcutCreationWizardClassName()+".ReferencedElementSelectionPage"
+;
+
+String i18nKeyForModelElementSelectionPage(gmfgen::GenDiagram diagram) :
+	diagram.defaultModelElementSelectionPageClassName()
+;
+
+String i18nKeyForValidateAction(gmfgen::GenDiagram diagram) :
+	diagram.defaultValidateActionClassName()
+;
+
+String i18nKeyForShortcutWizardReferencedElementPageEmptyError(gmfgen::GenDiagram diagram) :
+diagram.i18nKeyForShortcutWizardReferencedElementPage()+"EmptyError"
+;
+
+String i18nKeyForShortcutWizardReferencedElementPageInvalidError(gmfgen::GenDiagram diagram) :
+diagram.i18nKeyForShortcutWizardReferencedElementPage()+"InvalidError"
 ;
 
 String titleKey(String dialogKey) :

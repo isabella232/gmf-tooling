@@ -49,3 +49,29 @@ List[gmfgen::GenContributionManager] collectAllContributionItems(Collection[gmfg
     let managers = allItems.typeSelect(gmfgen::GenContributionManager) :
     managers.addAll(managers.collect(item| collectAllContributionItems(item.items)).flatten())
 ;
+
+String i18nKeyForNewFileWizardFileLabel(gmfgen::GenApplication app) :
+app.wizardNewFileCreationPageClassName()+".FileLabel"
+;
+
+String i18nKeyForNewFileWizardBrowseButton(gmfgen::GenApplication app) :
+app.wizardNewFileCreationPageClassName()+".BrowseButton"
+;
+
+String i18nKeyForNewFileWizardSelectDialog(gmfgen::GenApplication app) :
+app.wizardNewFileCreationPageClassName()+".SelectNewFileDialog"
+;
+
+String i18nKeyForNewFileWizardEmpty(gmfgen::GenApplication app) :
+app.wizardNewFileCreationPageClassName()+".EmptyFileNameError"
+;
+
+String i18nKeyForNewFileWizardInvalid(gmfgen::GenApplication app) :
+app.wizardNewFileCreationPageClassName()+".InvalidFileNameError"
+;
+
+private String wizardNewFileCreationPageClassName(gmfgen::GenApplication app) :
+"WizardNewFileCreationPage"
+;
+
+

@@ -14,7 +14,9 @@
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
-«DEFINE className FOR gmfgen::GenDiagram»AbstractParser«ENDDEFINE»
+«EXTENSION xpt::parsers::i18n»
+
+«DEFINE className FOR gmfgen::GenDiagram»«defaultAbstractParserClassName()»«ENDDEFINE»
 
 «DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«parsersPackageName».«EXPAND className»«ENDDEFINE»
 
@@ -183,7 +185,7 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 				} else if (value instanceof String) {
 					value = Boolean.valueOf((String) value);
 				} else {
-					value = new InvalidValue("Value of type Boolean is expected");
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», iClass.getName()));
 				}
 			} else if (Character.TYPE.equals(iClass)) {
 				if (value instanceof Character) {
@@ -196,7 +198,7 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 						value = new Character(s.charAt(0));
 					}
 				} else {
-					value = new InvalidValue("Value of type Character is expected");
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», iClass.getName()));
 				}
 			} else if (Byte.TYPE.equals(iClass)) {
 				if (value instanceof Byte) {
@@ -211,11 +213,11 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 						try {
 							value = Byte.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue("String value does not convert to Byte value");
+							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGen», iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue("Value of type Byte is expected");
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», iClass.getName()));
 				}
 			} else if (Short.TYPE.equals(iClass)) {
 				if (value instanceof Short) {
@@ -230,11 +232,11 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 						try {
 							value = Short.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue("String value does not convert to Short value");
+							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGen», iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue("Value of type Short is expected");
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», iClass.getName()));
 				}
 			} else if (Integer.TYPE.equals(iClass)) {
 				if (value instanceof Integer) {
@@ -249,11 +251,11 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 						try {
 							value = Integer.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue("String value does not convert to Integer value");
+							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGen», iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue("Value of type Integer is expected");
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», iClass.getName()));
 				}
 			} else if (Long.TYPE.equals(iClass)) {
 				if (value instanceof Long) {
@@ -268,11 +270,11 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 						try {
 							value = Long.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue("String value does not convert to Long value");
+							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGen», iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue("Value of type Long is expected");
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», iClass.getName()));
 				}
 			} else if (Float.TYPE.equals(iClass)) {
 				if (value instanceof Float) {
@@ -287,11 +289,11 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 						try {
 							value = Float.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue("String value does not convert to Float value");
+							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGen», iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue("Value of type Float is expected");
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», iClass.getName()));
 				}
 			} else if (Double.TYPE.equals(iClass)) {
 				if (value instanceof Double) {
@@ -306,23 +308,23 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 						try {
 							value = Double.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue("String value does not convert to Double value");
+							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGen», iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue("Value of type Double is expected");
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», iClass.getName()));
 				}
 			} else if (type instanceof org.eclipse.emf.ecore.EEnum) {
 				if (value instanceof String) {
 					org.eclipse.emf.ecore.EEnumLiteral literal =
 							((org.eclipse.emf.ecore.EEnum) type).getEEnumLiteralByLiteral((String) value);
 					if (literal == null) {
-						value = new InvalidValue("Unknown literal: " + value);
+						value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnknownLiteralMessage()) FOR editorGen», value));
 					} else {
 						value = literal.getInstance();
 					}
 				} else {
-					value = new InvalidValue("Value of type String is expected");
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», String.class.getName()));
 				}
 			}
 		}
@@ -350,3 +352,15 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForAbstractParserUnexpectedValueTypeMessage(), "Value of type {0} is expected")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForAbstractParserWrongStringConversionMessage(), "String value does not convert to {0} value")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForAbstractParserUnknownLiteralMessage(), "Unknown literal: {0}")-»
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForAbstractParserUnexpectedValueTypeMessage())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForAbstractParserWrongStringConversionMessage())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForAbstractParserUnknownLiteralMessage())-»
+«ENDDEFINE»

@@ -16,7 +16,7 @@
 
 «EXTENSION xpt::editor::Utils»
 
-«DEFINE className FOR gmfgen::GenDiagram»ValidateAction«ENDDEFINE»
+«DEFINE className FOR gmfgen::GenDiagram»«defaultValidateActionClassName()»«ENDDEFINE»
 
 «DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«editorGen.editor.packageName».«EXPAND className»«ENDDEFINE»
 
@@ -36,7 +36,7 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «EXPAND className»(org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor workbenchPartDescriptor) {
 		setId(VALIDATE_ACTION_KEY);
-		setText("Validate");
+		setText(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForValidateAction().messageKey()) FOR editorGen»);
 		this.workbenchPartDescriptor = workbenchPartDescriptor;
 	}
 
@@ -290,3 +290,11 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForValidateAction().messageKey(), "Validate")-»
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForValidateAction().messageKey())-»
+«ENDDEFINE»
