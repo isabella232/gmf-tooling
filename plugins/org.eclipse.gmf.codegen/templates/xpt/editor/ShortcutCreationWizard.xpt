@@ -135,19 +135,23 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 «ENDDEFINE»
 
 «DEFINE i18nValues FOR gmfgen::GenDiagram-»
+«IF null != editorGen.application-»
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForShortcutWizardReferencedElementPage().nameKey(), "Select referenced element")-»
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForShortcutWizardReferencedElementPage().titleKey(), "Referenced element")-»
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForShortcutWizardReferencedElementPage().descriptionKey(), "Select element that the new shortcut will refer to.")-»
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForShortcutWizardReferencedElementPage().messageKey(), "Select referenced element:")-»
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForShortcutWizardReferencedElementPageEmptyError(), "Referenced element is not selected")-»
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForShortcutWizardReferencedElementPageInvalidError(), "Invalid referenced element is selected")-»
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
+«IF null != editorGen.application-»
 	«EXPAND xpt::Externalizer::accessorField(i18nKeyForShortcutWizardReferencedElementPage().nameKey())-»
 	«EXPAND xpt::Externalizer::accessorField(i18nKeyForShortcutWizardReferencedElementPage().titleKey())-»
 	«EXPAND xpt::Externalizer::accessorField(i18nKeyForShortcutWizardReferencedElementPage().descriptionKey())-»
 	«EXPAND xpt::Externalizer::accessorField(i18nKeyForShortcutWizardReferencedElementPage().messageKey())-»
 	«EXPAND xpt::Externalizer::accessorField(i18nKeyForShortcutWizardReferencedElementPageEmptyError())-»
 	«EXPAND xpt::Externalizer::accessorField(i18nKeyForShortcutWizardReferencedElementPageInvalidError())-»
+«ENDIF-»
 «ENDDEFINE»
