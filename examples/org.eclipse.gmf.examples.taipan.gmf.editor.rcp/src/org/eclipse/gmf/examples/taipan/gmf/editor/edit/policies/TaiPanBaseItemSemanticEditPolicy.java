@@ -350,7 +350,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		private static final TaiPanAbstractExpression EscortShipsOrder_4006_SourceExpression;
+		private static final TaiPanAbstractExpression BesiegePortOrder_4005_SourceExpression;
 
 		/**
 		 * @generated
@@ -365,7 +365,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		private static final TaiPanAbstractExpression EscortShipsOrder_4006_TargetExpression;
+		private static final TaiPanAbstractExpression EscortShipsOrder_4006_SourceExpression;
 
 		/**
 		 * @generated
@@ -380,7 +380,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		private static final TaiPanAbstractExpression BesiegePortOrder_4005_SourceExpression;
+		private static final TaiPanAbstractExpression EscortShipsOrder_4006_TargetExpression;
 
 		/**
 		 * @generated
@@ -432,6 +432,13 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
+		public static boolean canCreateBesiegePortOrder_4005(Warship source, Port target) {
+			return canExistBesiegePortOrder_4005(source, target);
+		}
+
+		/**
+		 * @generated
+		 */
 		public static boolean canCreateEscortShipsOrder_4006(Warship source, Ship target) {
 			if (source != null) {
 				if (source.getEscortOrder() != null) {
@@ -439,13 +446,6 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 				}
 			}
 			return canExistEscortShipsOrder_4006(source, target);
-		}
-
-		/**
-		 * @generated
-		 */
-		public static boolean canCreateBesiegePortOrder_4005(Warship source, Port target) {
-			return canExistBesiegePortOrder_4005(source, target);
 		}
 
 		/**
@@ -491,11 +491,8 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canExistEscortShipsOrder_4006(Warship source, Ship target) {
-			if (!evaluate(EscortShipsOrder_4006_SourceExpression, source, target, false)) {
-				return false;
-			}
-			if (!evaluate(EscortShipsOrder_4006_TargetExpression, target, source, true)) {
+		public static boolean canExistBesiegePortOrder_4005(Warship source, Port target) {
+			if (!evaluate(BesiegePortOrder_4005_SourceExpression, source, target, false)) {
 				return false;
 			}
 			return true;
@@ -504,8 +501,11 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canExistBesiegePortOrder_4005(Warship source, Port target) {
-			if (!evaluate(BesiegePortOrder_4005_SourceExpression, source, target, false)) {
+		public static boolean canExistEscortShipsOrder_4006(Warship source, Ship target) {
+			if (!evaluate(EscortShipsOrder_4006_SourceExpression, source, target, false)) {
+				return false;
+			}
+			if (!evaluate(EscortShipsOrder_4006_TargetExpression, target, source, true)) {
 				return false;
 			}
 			return true;

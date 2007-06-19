@@ -12,13 +12,9 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
 import org.eclipse.gef.commands.Command;
-
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.SmallItemsCreateCommand;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
-
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 
 /**
@@ -38,4 +34,5 @@ public class ShipSmallCargoItemSemanticEditPolicy extends TaiPanBaseItemSemantic
 		}
 		return super.getCreateCommand(req);
 	}
+
 }

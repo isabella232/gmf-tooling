@@ -69,6 +69,7 @@ public class ReliableRouteEditPart extends ConnectionNodeEditPart {
 	 * 
 	 * @generated
 	 */
+
 	protected Connection createConnectionFigure() {
 		return new PolylineConnectionEx();
 	}

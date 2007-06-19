@@ -69,6 +69,7 @@ public class ShipDestinationEditPart extends ConnectionNodeEditPart {
 	 * 
 	 * @generated
 	 */
+
 	protected Connection createConnectionFigure() {
 		return new DirectedConnection();
 	}

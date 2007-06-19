@@ -69,6 +69,7 @@ public class UnreliableRouteEditPart extends ConnectionNodeEditPart {
 	 * 
 	 * @generated
 	 */
+
 	protected Connection createConnectionFigure() {
 		return new DashedConnection();
 	}
