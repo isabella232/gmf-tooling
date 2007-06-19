@@ -25,9 +25,6 @@ import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.gmf.codegen.templates.editor.ActionBarContributorGenerator;
-import org.eclipse.gmf.codegen.templates.editor.CreationWizardGenerator;
-import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
@@ -110,9 +107,6 @@ public class CodegenEmitters {
 		put(tr, "/providers/ElementInitializers.javajet", ElementInitializersGenerator.class);
 		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
-		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
-		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
-		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class); //$NON-NLS-1$
@@ -507,115 +501,115 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getDiagramEditorUtilEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::editor::DiagramEditorUtil::DiagramEditorUtil"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::editor::DiagramEditorUtil"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getVisualIDRegistryEmitter() {
-		return newXpandEmitter("xpt::editor::VisualIDRegistry::VisualIDRegistry"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::editor::VisualIDRegistry"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getCreationWizardEmitter() throws UnexpectedBehaviourException {
-		return retrieve(CreationWizardGenerator.class);
+		return getPrimaryEmitter("xpt::editor::CreationWizard"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getCreationWizardPageEmitter() throws UnexpectedBehaviourException {
-		return retrieve(CreationWizardPageGenerator.class);
+		return getPrimaryEmitter("xpt::editor::CreationWizardPage"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getEditorEmitter() {
-		return newXpandEmitter("xpt::editor::Editor::Editor"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::editor::Editor"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getCreateShortcutActionEmitter() {
-		return newXpandEmitter("xpt::editor::CreateShortcutAction::CreateShortcutAction"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::editor::CreateShortcutAction"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getLoadResourceActionEmitter() {
-		return newXpandEmitter("xpt::editor::LoadResourceAction::LoadResourceAction"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::editor::LoadResourceAction"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getElementChooserEmitter() {
-		return newXpandEmitter("xpt::editor::ElementChooser::ElementChooser"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::editor::ElementChooser"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getDocumentProviderEmitter() {
-		return newXpandEmitter("xpt::editor::DocumentProvider::DocumentProvider"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::editor::DocumentProvider"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getDiagramUpdaterEmitter() {
-		return newXpandEmitter("xpt::diagram::updater::DiagramUpdater::DiagramUpdater"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::updater::DiagramUpdater"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getUpdateCommandEmitter() {
-		return newXpandEmitter("xpt::diagram::updater::UpdateCommand::UpdateCommand"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::updater::UpdateCommand"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getNodeDescriptorEmitter() {
-		return newXpandEmitter("xpt::diagram::updater::NodeDescriptor::NodeDescriptor"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::updater::NodeDescriptor"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getLinkDescriptorEmitter() {
-		return newXpandEmitter("xpt::diagram::updater::LinkDescriptor::LinkDescriptor"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::updater::LinkDescriptor"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getActionBarContributorEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ActionBarContributorGenerator.class);
+		return getPrimaryEmitter("xpt::editor::ActionBarContributor"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getMatchingStrategyEmitter() {
-		return newXpandEmitter("xpt::editor::MatchingStrategy::MatchingStrategy"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::editor::MatchingStrategy"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getNavigatorContentProviderEmitter() {
-		return newXpandEmitter("xpt::navigator::NavigatorContentProvider::NavigatorContentProvider"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::navigator::NavigatorContentProvider"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getDomainNavigatorContentProviderEmitter() {
-		return newXpandEmitter("xpt::navigator::DomainNavigatorContentProvider::DomainNavigatorContentProvider"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::navigator::DomainNavigatorContentProvider"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getDomainNavigatorLabelProviderEmitter() {
-		return newXpandEmitter("xpt::navigator::DomainNavigatorLabelProvider::DomainNavigatorLabelProvider"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::navigator::DomainNavigatorLabelProvider"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getDomainNavigatorItemEmitter() {
-		return newXpandEmitter("xpt::navigator::DomainNavigatorItem::DomainNavigatorItem"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::navigator::DomainNavigatorItem"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getDomainModelElementTesterEmitter() {
-		return newXpandEmitter("xpt::editor::DomainModelElementTester::DomainModelElementTester"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::editor::DomainModelElementTester"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getURIEditorInputTesterEmitter() {
-		return newXpandEmitter("xpt::editor::UriEditorInputTester::UriEditorInputTester"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::editor::UriEditorInputTester"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getNavigatorLabelProviderEmitter() {
-		return newXpandEmitter("xpt::navigator::NavigatorLabelProvider::NavigatorLabelProvider"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::navigator::NavigatorLabelProvider"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getNavigatorLinkHelperEmitter() {
-		return newXpandEmitter("xpt::navigator::NavigatorLinkHelper::NavigatorLinkHelper"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::navigator::NavigatorLinkHelper"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getNavigatorSorterEmitter() {
-		return newXpandEmitter("xpt::navigator::NavigatorSorter::NavigatorSorter"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::navigator::NavigatorSorter"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getNavigatorActionProviderEmitter() {
-		return newXpandEmitter("xpt::navigator::NavigatorActionProvider::NavigatorActionProvider"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::navigator::NavigatorActionProvider"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getAbstractNavigatorItemEmitter() {
-		return newXpandEmitter("xpt::navigator::AbstractNavigatorItem::AbstractNavigatorItem"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::navigator::AbstractNavigatorItem"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getNavigatorGroupEmitter() {
-		return newXpandEmitter("xpt::navigator::NavigatorGroup::NavigatorGroup"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::navigator::NavigatorGroup"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getNavigatorItemEmitter() {
-		return newXpandEmitter("xpt::navigator::NavigatorItem::NavigatorItem"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::navigator::NavigatorItem"); //$NON-NLS-1$
 	}
 
 	public BinaryEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {

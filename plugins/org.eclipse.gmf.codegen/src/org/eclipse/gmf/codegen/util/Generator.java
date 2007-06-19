@@ -713,21 +713,11 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateCreationWizard() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getCreationWizardEmitter(),
-			myEditorGen.getEditor().getPackageName(),
-			myDiagram.getCreationWizardClassName(),
-			myDiagram
-		);
+		doGenerateJavaClass(myEmitters.getCreationWizardEmitter(), myDiagram.getCreationWizardQualifiedClassName(), myDiagram);
 	}
 
 	private void generateCreationWizardPage() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getCreationWizardPageEmitter(),
-			myEditorGen.getEditor().getPackageName(),
-			myDiagram.getCreationWizardPageClassName(),
-			myDiagram
-		);
+		doGenerateJavaClass(myEmitters.getCreationWizardPageEmitter(), myDiagram.getCreationWizardPageQualifiedClassName(), myDiagram);
 	}
 
 	private void generateEditor() throws InterruptedException {
@@ -779,12 +769,7 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateActionBarContributor() throws UnexpectedBehaviourException, InterruptedException {
 		final GenEditorView editor = myEditorGen.getEditor();
-		internalGenerateJavaClass(
-			myEmitters.getActionBarContributorEmitter(),
-			editor.getPackageName(),
-			editor.getActionBarContributorClassName(),
-			editor
-		);
+		doGenerateJavaClass(myEmitters.getActionBarContributorEmitter(), editor.getActionBarContributorQualifiedClassName(), editor);
 	}
 
 	private void generateMatchingStrategy() throws InterruptedException {
