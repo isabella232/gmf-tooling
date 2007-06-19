@@ -22,7 +22,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
-import org.eclipse.gmf.examples.taipan.figures.PileShape;
+import org.eclipse.gmf.examples.taipan.figures.LargeCargoBorder;
 import org.eclipse.gmf.examples.taipan.figures.ShipShape;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
@@ -31,6 +31,8 @@ import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdap
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure;
+import org.eclipse.gmf.runtime.diagram.ui.figures.ShapeCompartmentFigure;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -144,8 +146,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	/**
 	 * Creates figure for this edit part.
 	 * 
-	 * Body of this method does not depend on settings in generation model
-	 * so you may safely remove <i>generated</i> tag and modify it.
+	 * Body of this method does not depend on settings in generation model so you may safely remove <i>generated</i> tag and modify it.
 	 * 
 	 * @generated
 	 */
@@ -159,9 +160,10 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	 * Default implementation treats passed figure as content pane.
-	 * Respects layout one may have set for generated figure.
-	 * @param nodeShape instance of generated figure class
+	 * Default implementation treats passed figure as content pane. Respects layout one may have set for generated figure.
+	 * 
+	 * @param nodeShape
+	 *            instance of generated figure class
 	 * @generated
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
@@ -181,6 +183,31 @@ public class ShipEditPart extends ShapeNodeEditPart {
 			return contentPane;
 		}
 		return super.getContentPane();
+	}
+
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (childEditPart instanceof ShipNameEditPart) {
+			((ShipNameEditPart) childEditPart).setLabel(getPrimaryShape().getLabel());
+		} else if (childEditPart instanceof ShipSmallCargoEditPart) {
+			ResizableCompartmentFigure childFigure = ((ShipSmallCargoEditPart) childEditPart).getCompartmentFigure();
+			getPrimaryShape().getSmallCargo().add(childFigure);
+		} else if (childEditPart instanceof ShipLargeCargoEditPart) {
+			ShapeCompartmentFigure childFigure = ((ShipLargeCargoEditPart) childEditPart).getShapeCompartmentFigure();
+			childFigure.setBorder(new LargeCargoBorder());
+			getPrimaryShape().getLargeCargo().add(childFigure);
+		} else {
+			super.addChildVisual(childEditPart, index);
+		}
+	}
+
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (childEditPart instanceof ShipSmallCargoEditPart) {
+			getPrimaryShape().getSmallCargo().remove(((ShipSmallCargoEditPart) childEditPart).getFigure());
+		} else if (childEditPart instanceof ShipLargeCargoEditPart) {
+			getPrimaryShape().getLargeCargo().remove(((ShipLargeCargoEditPart) childEditPart).getFigure());
+		} else {
+			super.removeChildVisual(childEditPart);
+		}
 	}
 
 	/**

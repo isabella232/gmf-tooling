@@ -24,7 +24,6 @@ import org.eclipse.gmf.examples.taipan.figures.BoxShape;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.EmptyBoxItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
