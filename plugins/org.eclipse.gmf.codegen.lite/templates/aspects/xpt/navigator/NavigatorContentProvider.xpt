@@ -20,3 +20,6 @@
 
 «AROUND getForeignShortcuts FOR gmfgen::GenNavigator-»
 «ENDAROUND»
+
+«AROUND addForeignShortcuts FOR gmfgen::GenDiagram-»
+«ENDAROUND»
