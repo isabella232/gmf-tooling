@@ -1,7 +1,7 @@
-# Debugging options for the org.eclipse.gmf.ecore.editor plug-in
+# Tracing options for the org.eclipse.gmf.ecore.editor plug-in
 
-# Turn on general debugging for the org.eclipse.gmf.ecore.editor plug-in
+# Common issues
 org.eclipse.gmf.ecore.editor/debug=false
 
-# Turn on debugging of visualID processing
-org.eclipse.gmf.ecore.editor/debug/visualID=true
+# Visual IDs
+org.eclipse.gmf.ecore.editor/debug/visualID=false
