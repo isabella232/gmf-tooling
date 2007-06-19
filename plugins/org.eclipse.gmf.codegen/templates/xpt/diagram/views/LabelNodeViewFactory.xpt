@@ -37,5 +37,8 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 		«EXPAND xpt::diagram::views::Utils::foregroundColour("view") FOR viewmap-»
 		«EXPAND xpt::diagram::views::Utils::backgroundColour("view") FOR viewmap-»
 	}
+	«EXPAND additions-»
 }
 «ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenChildLabelNode»«ENDDEFINE»

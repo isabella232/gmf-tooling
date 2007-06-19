@@ -45,6 +45,7 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 			«EXPAND xpt::diagram::views::Utils::createChildNode FOREACH compartments-»
 		«ENDIF-»
 	}
+	«EXPAND additions-»
 }
 «ENDDEFINE»
 
@@ -57,3 +58,5 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 		«EXPAND xpt::Common::addShortcutAnnotation("view") FOR getDiagram()-»
 	}
 «ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenNode»«ENDDEFINE»

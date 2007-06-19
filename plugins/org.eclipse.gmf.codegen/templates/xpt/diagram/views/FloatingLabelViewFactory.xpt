@@ -38,6 +38,7 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 		«EXPAND xpt::diagram::views::Utils::addCustomStyles("styles")-»
 		return styles;
 	}
+	«EXPAND additions-»
 }
 «ENDDEFINE»
 
@@ -65,3 +66,5 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 	location.setX(mapMode.DPtoLP(«x»));
 	location.setY(mapMode.DPtoLP(«y»));
 «ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenLabel»«ENDDEFINE»

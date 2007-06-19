@@ -47,5 +47,8 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 			«EXPAND xpt::diagram::views::Utils::createChildNode FOREACH labels-»
 		«ENDIF-»
 	}
+	«EXPAND additions-»
 }
 «ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenLink»«ENDDEFINE»

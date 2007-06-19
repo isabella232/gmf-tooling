@@ -84,5 +84,8 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 			drawerStyle.setCollapsed(false);
 		}
 	}
+	«EXPAND additions-»
 }
 «ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenCompartment»«ENDDEFINE»

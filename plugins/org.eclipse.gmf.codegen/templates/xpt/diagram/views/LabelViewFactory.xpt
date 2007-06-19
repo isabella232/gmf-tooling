@@ -27,5 +27,8 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 		«EXPAND xpt::diagram::views::Utils::addCustomStyles("styles")-»
 		return styles;
 	}
+	«EXPAND additions-»
 }
 «ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenNodeLabel»«ENDDEFINE»
