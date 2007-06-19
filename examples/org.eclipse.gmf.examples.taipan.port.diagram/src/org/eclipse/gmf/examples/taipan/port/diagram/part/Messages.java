@@ -204,6 +204,46 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageName;
+
+	/**
+	 * @generated
+	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageDescription;
+
+	/**
+	 * @generated
+	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageEmptyError;
+
+	/**
+	 * @generated
+	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageInvalidError;
+
+	/**
+	 * @generated
+	 */
+	public static String ModelElementSelectionPageMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String ValidateActionMessage;
+
+	/**
+	 * @generated
+	 */
 	public static String PortGroup_title;
 
 	/**
@@ -220,6 +260,36 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String CommandName_OpenDiagram;
+
+	/**
+	 * @generated
+	 */
+	public static String AbstractParser_UnexpectedValueTypeMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String AbstractParser_WrongStringConversionMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String AbstractParser_UnknownLiteralMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String MessageFormatParser_InvalidInputError;
+
+	/**
+	 * @generated
+	 */
+	public static String PortModelingAssistantProviderTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String PortModelingAssistantProviderMessage;
 
 	//TODO: put accessor fields manually	
 }

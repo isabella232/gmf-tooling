@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart;
 
+import org.eclipse.gmf.examples.taipan.port.diagram.part.Messages;
 import org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorPlugin;
 
 /**
@@ -148,8 +149,8 @@ public class PortModelingAssistantProvider extends ModelingAssistantProvider {
 		Shell shell = Display.getCurrent().getActiveShell();
 		ILabelProvider labelProvider = new AdapterFactoryLabelProvider(PortDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
 		ElementListSelectionDialog dialog = new ElementListSelectionDialog(shell, labelProvider);
-		dialog.setMessage("Available domain model elements:");
-		dialog.setTitle("Select domain model element");
+		dialog.setMessage(Messages.PortModelingAssistantProviderMessage);
+		dialog.setTitle(Messages.PortModelingAssistantProviderTitle);
 		dialog.setMultipleSelection(false);
 		dialog.setElements(elements);
 		EObject selected = null;
