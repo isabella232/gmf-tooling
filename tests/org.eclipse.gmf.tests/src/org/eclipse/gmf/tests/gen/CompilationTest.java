@@ -12,11 +12,13 @@
 package org.eclipse.gmf.tests.gen;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -92,7 +94,7 @@ public abstract class CompilationTest extends TestCase {
 	 * Installs java compiler options specified in the map, the map gets updated with
 	 * old values.
 	 */
-	private void switchJavaOptions(HashMap<String, String> options) {
+	private static void switchJavaOptions(HashMap<String, String> options) {
 		@SuppressWarnings("unchecked")
 		Hashtable<Object, Object> settings = JavaCore.getOptions();
 		for (String key : options.keySet()) {
@@ -126,7 +128,7 @@ public abstract class CompilationTest extends TestCase {
 		DiaGenSource gmfGenSource = new DiaGenSetup(getViewmapProducer()).init(mapSource);
 		generateAndCompile(gmfGenSource, NO_MUTATORS);
 	}
-	
+
 	public void testCompileInstanceClassNames() throws Exception {
 		DomainModelSetup domainModelSetup = new DomainModelSetupInstanceClassName().init();
 		MapDefSource mapSource = new MapSetup().init(new DiaDefSetup().init(), domainModelSetup, new ToolDefSetup());
@@ -166,15 +168,14 @@ public abstract class CompilationTest extends TestCase {
 	}
 
 	protected Collection<IGenDiagramMutator> getMutators() {
-		Collection<IGenDiagramMutator> result = new ArrayList<IGenDiagramMutator>();
-		result.add(SAME_FILE_MUTATOR);
-		result.add(SYNCHRONIZED_MUTATOR);
+		ArrayList<IGenDiagramMutator> result = new ArrayList<IGenDiagramMutator>();
+		Collections.addAll(result, SAME_FILE_MUTATOR, SYNCHRONIZED_MUTATOR, SHORTCUT_STUFF_MUTATOR);
 		return result;
 	}
 
 	protected Collection<IGenDiagramMutator> getMutatorsForRCP() {
-		Collection<IGenDiagramMutator> result = new ArrayList<IGenDiagramMutator>();
-		result.add(SAME_FILE_MUTATOR);
+		ArrayList<IGenDiagramMutator> result = new ArrayList<IGenDiagramMutator>();
+		Collections.addAll(result, SAME_FILE_MUTATOR, SHORTCUT_STUFF_MUTATOR);
 		return result;
 	}
 
@@ -184,6 +185,10 @@ public abstract class CompilationTest extends TestCase {
 		return result;
 	}
 
+	/**
+	 * XXX this approach (mutators) actually hides which particular mutator instance causes problem
+	 * e.g. unlike with regular junit tests one can't tell the reason of failure just from method/test name 
+	 */
 	protected static interface IGenDiagramMutator {
 		public void doMutation(GenDiagram d);
 		public void undoMutation(GenDiagram d);
@@ -215,6 +220,23 @@ public abstract class CompilationTest extends TestCase {
 		}
 		public void undoMutation(GenDiagram d) {
 			d.setSynchronized(myIsSynchronized);
+			d.getEditorGen().getPlugin().setID(myPluginId);
+		}
+	};
+
+	protected static final IGenDiagramMutator SHORTCUT_STUFF_MUTATOR = new IGenDiagramMutator() {
+		private List<String> myShortcutsTo;
+		private String myPluginId;
+		public void doMutation(GenDiagram d) {
+			myShortcutsTo = new ArrayList<String>(d.getContainsShortcutsTo());
+			d.getContainsShortcutsTo().clear();
+			d.getContainsShortcutsTo().add(d.getEditorGen().getModelID());
+			myPluginId = d.getEditorGen().getPlugin().getID();
+			d.getEditorGen().getPlugin().setID(myPluginId + ".shortcuts");
+		}
+		public void undoMutation(GenDiagram d) {
+			d.getContainsShortcutsTo().clear();
+			d.getContainsShortcutsTo().addAll(myShortcutsTo);
 			d.getEditorGen().getPlugin().setID(myPluginId);
 		}
 	};
