@@ -61,7 +61,7 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	private EcoreDocumentProvider myDocumentProvider;
+	private EcoreDocumentProvider documentProvider;
 
 	/**
 	 * @generated
@@ -191,10 +191,10 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 	 * @generated
 	 */
 	public EcoreDocumentProvider getDocumentProvider() {
-		if (myDocumentProvider == null) {
-			myDocumentProvider = new EcoreDocumentProvider();
+		if (documentProvider == null) {
+			documentProvider = new EcoreDocumentProvider();
 		}
-		return myDocumentProvider;
+		return documentProvider;
 	}
 
 	/**

@@ -124,9 +124,11 @@ public class EcoreViewProvider extends AbstractViewProvider {
 		}
 		IElementType elementType = getSemanticElementType(semanticAdapter);
 		EObject domainElement = getSemanticElement(semanticAdapter);
-
 		int visualID;
 		if (semanticHint == null) {
+			// Semantic hint is not specified. Can be a result of call from CanonicalEditPolicy.
+			// In this situation there should be NO elementType, visualID will be determined
+			// by VisualIDRegistry.getNodeVisualID() for domainElement.
 			if (elementType != null || domainElement == null) {
 				return null;
 			}
@@ -134,19 +136,29 @@ public class EcoreViewProvider extends AbstractViewProvider {
 		} else {
 			visualID = EcoreVisualIDRegistry.getVisualID(semanticHint);
 			if (elementType != null) {
-				if (!EcoreElementTypes.isKnownElementType(elementType) || false == elementType instanceof IHintedType) {
-					return null;
+				// Semantic hint is specified together with element type.
+				// Both parameters should describe exactly the same diagram element.
+				// In addition we check that visualID returned by VisualIDRegistry.getNodeVisualID() for
+				// domainElement (if specified) is the same as in element type.
+				if (!EcoreElementTypes.isKnownElementType(elementType) || (!(elementType instanceof IHintedType))) {
+					return null; // foreign element type
 				}
 				String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
 				if (!semanticHint.equals(elementTypeHint)) {
-					return null;
+					return null; // if semantic hint is specified it should be the same as in element type
 				}
 				if (domainElement != null && visualID != EcoreVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
-					return null;
+					return null; // visual id for node EClass should match visual id from element type
 				}
 			} else {
+				// Element type is not specified. Domain element should be present.
+				// This method is called with EObjectAdapter as parameter from:
+				//   - ViewService.createNode(View container, EObject eObject, String type, PreferencesHint preferencesHint) 
+				//   - generated ViewFactory.decorateView() for parent element
+				if (!EPackageEditPart.MODEL_ID.equals(EcoreVisualIDRegistry.getModelID(containerView))) {
+					return null; // foreign diagram
+				}
 				switch (visualID) {
-				case EPackageEditPart.VISUAL_ID:
 				case EClassEditPart.VISUAL_ID:
 				case EPackage2EditPart.VISUAL_ID:
 				case EAnnotationEditPart.VISUAL_ID:
@@ -161,15 +173,72 @@ public class EcoreViewProvider extends AbstractViewProvider {
 				case EEnum2EditPart.VISUAL_ID:
 				case EStringToStringMapEntryEditPart.VISUAL_ID:
 				case EEnumLiteralEditPart.VISUAL_ID:
-				case EAnnotationReferencesEditPart.VISUAL_ID:
-				case EReferenceEditPart.VISUAL_ID:
-				case EReference2EditPart.VISUAL_ID:
-				case EClassESuperTypesEditPart.VISUAL_ID:
+					if (domainElement == null || visualID != EcoreVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
+						return null; // visual id in semantic hint should match visual id for domain element
+					}
+					break;
+				case EClassNameEditPart.VISUAL_ID:
+				case EClassAttributesEditPart.VISUAL_ID:
+				case EClassOperationsEditPart.VISUAL_ID:
+				case EClassClassAnnotationsEditPart.VISUAL_ID:
+					if (EClassEditPart.VISUAL_ID != EcoreVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
+						return null; // wrong container
+					}
+					break;
+				case EPackageNameEditPart.VISUAL_ID:
+				case EPackageClassesEditPart.VISUAL_ID:
+				case EPackagePackagesEditPart.VISUAL_ID:
+				case EPackageDataTypesEditPart.VISUAL_ID:
+				case EPackageEnumsEditPart.VISUAL_ID:
+				case EPackagePackageAnnotationsEditPart.VISUAL_ID:
+					if (EPackage2EditPart.VISUAL_ID != EcoreVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
+						return null; // wrong container
+					}
+					break;
+				case EAnnotationSourceEditPart.VISUAL_ID:
+				case EAnnotationDetailsEditPart.VISUAL_ID:
+					if (EAnnotationEditPart.VISUAL_ID != EcoreVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
+						return null; // wrong container
+					}
+					break;
+				case EDataTypeNameEditPart.VISUAL_ID:
+				case EDataTypeDataTypeAnnotationsEditPart.VISUAL_ID:
+					if (EDataTypeEditPart.VISUAL_ID != EcoreVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
+						return null; // wrong container
+					}
+					break;
+				case EEnumNameEditPart.VISUAL_ID:
+				case EEnumLiteralsEditPart.VISUAL_ID:
+				case EEnumEnumAnnotationsEditPart.VISUAL_ID:
+					if (EEnumEditPart.VISUAL_ID != EcoreVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
+						return null; // wrong container
+					}
+					break;
+				case EReferenceNameEditPart.VISUAL_ID:
+				case EReferenceLowerBoundUpperBoundEditPart.VISUAL_ID:
+					if (EReferenceEditPart.VISUAL_ID != EcoreVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
+						return null; // wrong container
+					}
+					break;
+				case EReferenceName2EditPart.VISUAL_ID:
+				case EReferenceLowerBoundUpperBound2EditPart.VISUAL_ID:
+					if (EReference2EditPart.VISUAL_ID != EcoreVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
+						return null; // wrong container
+					}
+					break;
+				default:
 					return null;
 				}
 			}
 		}
-		if (!EcoreVisualIDRegistry.canCreateNode(containerView, visualID)) {
+		return getNodeViewClass(containerView, visualID);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Class getNodeViewClass(View containerView, int visualID) {
+		if (containerView == null || !EcoreVisualIDRegistry.canCreateNode(containerView, visualID)) {
 			return null;
 		}
 		switch (visualID) {
@@ -252,24 +321,28 @@ public class EcoreViewProvider extends AbstractViewProvider {
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (elementType == null) {
-			return null;
-		}
-		if (!EcoreElementTypes.isKnownElementType(elementType) || false == elementType instanceof IHintedType) {
-			return null;
+		if (!EcoreElementTypes.isKnownElementType(elementType) || (!(elementType instanceof IHintedType))) {
+			return null; // foreign element type
 		}
 		String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
 		if (elementTypeHint == null) {
-			return null;
+			return null; // our hint is visual id and must be specified
 		}
 		if (semanticHint != null && !semanticHint.equals(elementTypeHint)) {
-			return null;
+			return null; // if semantic hint is specified it should be the same as in element type
 		}
 		int visualID = EcoreVisualIDRegistry.getVisualID(elementTypeHint);
 		EObject domainElement = getSemanticElement(semanticAdapter);
 		if (domainElement != null && visualID != EcoreVisualIDRegistry.getLinkWithClassVisualID(domainElement)) {
-			return null;
+			return null; // visual id for link EClass should match visual id from element type
 		}
+		return getEdgeViewClass(visualID);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Class getEdgeViewClass(int visualID) {
 		switch (visualID) {
 		case EAnnotationReferencesEditPart.VISUAL_ID:
 			return EAnnotationReferencesViewFactory.class;
