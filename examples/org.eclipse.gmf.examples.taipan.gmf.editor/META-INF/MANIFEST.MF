@@ -7,7 +7,7 @@ Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts,
+Export-Package: org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts, 
  org.eclipse.gmf.examples.taipan.gmf.editor.part,
  org.eclipse.gmf.examples.taipan.gmf.editor.providers
 Require-Bundle: org.eclipse.core.runtime,
@@ -35,4 +35,3 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.validation;visibility:=reexport,
  org.eclipse.gef;visibility:=reexport
 Eclipse-LazyStart: true
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
