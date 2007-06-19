@@ -12,27 +12,21 @@
 package org.eclipse.gmf.examples.taipan.port.diagram.part;
 
 import org.eclipse.core.runtime.Platform;
-
 import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
-import org.eclipse.gmf.examples.taipan.Building;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingEditPart;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingInfoEditPart;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * This registry is used to determine which type of visual object should be
- * created for the corresponding Diagram, Node, ChildNode or Link represented 
+ * created for the corresponding Diagram, Node, ChildNode or Link represented
  * by a domain model object.
- *
+ * 
  * @generated
  */
 public class PortVisualIDRegistry {
@@ -174,4 +168,5 @@ public class PortVisualIDRegistry {
 	private static boolean isDiagram(Port element) {
 		return true;
 	}
+
 }

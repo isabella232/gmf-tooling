@@ -204,36 +204,6 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String ShortcutCreationWizard_ReferencedElementSelectionPageName;
-
-	/**
-	 * @generated
-	 */
-	public static String ShortcutCreationWizard_ReferencedElementSelectionPageTitle;
-
-	/**
-	 * @generated
-	 */
-	public static String ShortcutCreationWizard_ReferencedElementSelectionPageDescription;
-
-	/**
-	 * @generated
-	 */
-	public static String ShortcutCreationWizard_ReferencedElementSelectionPageMessage;
-
-	/**
-	 * @generated
-	 */
-	public static String ShortcutCreationWizard_ReferencedElementSelectionPageEmptyError;
-
-	/**
-	 * @generated
-	 */
-	public static String ShortcutCreationWizard_ReferencedElementSelectionPageInvalidError;
-
-	/**
-	 * @generated
-	 */
 	public static String ModelElementSelectionPageMessage;
 
 	/**

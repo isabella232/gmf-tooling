@@ -16,7 +16,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.Building;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingEditPart;
