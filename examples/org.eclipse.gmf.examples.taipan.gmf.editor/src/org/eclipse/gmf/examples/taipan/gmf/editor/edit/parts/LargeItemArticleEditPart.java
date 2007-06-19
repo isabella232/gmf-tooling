@@ -194,8 +194,7 @@ public class LargeItemArticleEditPart extends CompartmentEditPart implements ITe
 	 * @generated
 	 */
 	protected EObject getParserElement() {
-		EObject element = resolveSemanticElement();
-		return element != null ? element : (View) getModel();
+		return resolveSemanticElement();
 	}
 
 	/**
@@ -214,8 +213,9 @@ public class LargeItemArticleEditPart extends CompartmentEditPart implements ITe
 	 */
 	protected String getLabelText() {
 		String text = null;
-		if (getParser() != null) {
-			text = getParser().getPrintString(new EObjectAdapter(getParserElement()), getParserOptions().intValue());
+		EObject parserElement = getParserElement();
+		if (parserElement != null && getParser() != null) {
+			text = getParser().getPrintString(new EObjectAdapter(parserElement), getParserOptions().intValue());
 		}
 		if (text == null || text.length() == 0) {
 			text = defaultText;
@@ -238,7 +238,7 @@ public class LargeItemArticleEditPart extends CompartmentEditPart implements ITe
 	 * @generated
 	 */
 	public String getEditText() {
-		if (getParser() == null) {
+		if (getParserElement() == null || getParser() == null) {
 			return ""; //$NON-NLS-1$
 		}
 		return getParser().getEditString(new EObjectAdapter(getParserElement()), getParserOptions().intValue());
@@ -284,7 +284,7 @@ public class LargeItemArticleEditPart extends CompartmentEditPart implements ITe
 	 * @generated
 	 */
 	public IContentAssistProcessor getCompletionProcessor() {
-		if (getParser() == null) {
+		if (getParserElement() == null || getParser() == null) {
 			return null;
 		}
 		return getParser().getCompletionProcessor(new EObjectAdapter(getParserElement()));
