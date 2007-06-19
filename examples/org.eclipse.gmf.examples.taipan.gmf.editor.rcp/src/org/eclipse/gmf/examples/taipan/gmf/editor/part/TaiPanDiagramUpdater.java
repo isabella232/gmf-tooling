@@ -391,14 +391,14 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getEscortShipsOrder_4006ContainedLinks(View view) {
+	public static List getBesiegePortOrder_4005ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getBesiegePortOrder_4005ContainedLinks(View view) {
+	public static List getEscortShipsOrder_4006ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
@@ -490,14 +490,14 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getEscortShipsOrder_4006IncomingLinks(View view) {
+	public static List getBesiegePortOrder_4005IncomingLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getBesiegePortOrder_4005IncomingLinks(View view) {
+	public static List getEscortShipsOrder_4006IncomingLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
@@ -583,14 +583,14 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getEscortShipsOrder_4006OutgoingLinks(View view) {
+	public static List getBesiegePortOrder_4005OutgoingLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getBesiegePortOrder_4005OutgoingLinks(View view) {
+	public static List getEscortShipsOrder_4006OutgoingLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
@@ -639,25 +639,6 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getContainedTypeModelFacetLinks_EscortShipsOrder_4006(Warship container) {
-		Collection result = new LinkedList();
-		EscortShipsOrder link = container.getEscortOrder();
-		if (EscortShipsOrderEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(link)) {
-			return result;
-		}
-		List targets = link.getShips();
-		Object theTarget = targets.size() == 1 ? targets.get(0) : null;
-		if (false == theTarget instanceof Ship) {
-			return result;
-		}
-		Ship dst = (Ship) theTarget;
-		result.add(new TaiPanLinkDescriptor(container, dst, link, TaiPanElementTypes.EscortShipsOrder_4006, EscortShipsOrderEditPart.VISUAL_ID));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
 	private static Collection getContainedTypeModelFacetLinks_BesiegePortOrder_4005(Warship container) {
 		Collection result = new LinkedList();
 		for (Iterator links = container.getAttackOrders().iterator(); links.hasNext();) {
@@ -672,6 +653,25 @@ public class TaiPanDiagramUpdater {
 			Port dst = link.getPort();
 			result.add(new TaiPanLinkDescriptor(container, dst, link, TaiPanElementTypes.BesiegePortOrder_4005, BesiegePortOrderEditPart.VISUAL_ID));
 		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection getContainedTypeModelFacetLinks_EscortShipsOrder_4006(Warship container) {
+		Collection result = new LinkedList();
+		EscortShipsOrder link = container.getEscortOrder();
+		if (EscortShipsOrderEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(link)) {
+			return result;
+		}
+		List targets = link.getShips();
+		Object theTarget = targets.size() == 1 ? targets.get(0) : null;
+		if (false == theTarget instanceof Ship) {
+			return result;
+		}
+		Ship dst = (Ship) theTarget;
+		result.add(new TaiPanLinkDescriptor(container, dst, link, TaiPanElementTypes.EscortShipsOrder_4006, EscortShipsOrderEditPart.VISUAL_ID));
 		return result;
 	}
 
@@ -750,31 +750,6 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getIncomingTypeModelFacetLinks_EscortShipsOrder_4006(Ship target, Map crossReferences) {
-		Collection result = new LinkedList();
-		Collection settings = (Collection) crossReferences.get(target);
-		for (Iterator it = settings.iterator(); it.hasNext();) {
-			EStructuralFeature.Setting setting = (EStructuralFeature.Setting) it.next();
-			if (setting.getEStructuralFeature() != TaiPanPackage.eINSTANCE.getEscortShipsOrder_Ships() || false == setting.getEObject() instanceof EscortShipsOrder) {
-				continue;
-			}
-			EscortShipsOrder link = (EscortShipsOrder) setting.getEObject();
-			if (EscortShipsOrderEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(link)) {
-				continue;
-			}
-			if (false == link.eContainer() instanceof Warship) {
-				continue;
-			}
-			Warship container = (Warship) link.eContainer();
-			result.add(new TaiPanLinkDescriptor(container, target, link, TaiPanElementTypes.EscortShipsOrder_4006, EscortShipsOrderEditPart.VISUAL_ID));
-
-		}
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
 	private static Collection getIncomingTypeModelFacetLinks_BesiegePortOrder_4005(Port target, Map crossReferences) {
 		Collection result = new LinkedList();
 		Collection settings = (Collection) crossReferences.get(target);
@@ -792,6 +767,31 @@ public class TaiPanDiagramUpdater {
 			}
 			Warship container = (Warship) link.eContainer();
 			result.add(new TaiPanLinkDescriptor(container, target, link, TaiPanElementTypes.BesiegePortOrder_4005, BesiegePortOrderEditPart.VISUAL_ID));
+
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection getIncomingTypeModelFacetLinks_EscortShipsOrder_4006(Ship target, Map crossReferences) {
+		Collection result = new LinkedList();
+		Collection settings = (Collection) crossReferences.get(target);
+		for (Iterator it = settings.iterator(); it.hasNext();) {
+			EStructuralFeature.Setting setting = (EStructuralFeature.Setting) it.next();
+			if (setting.getEStructuralFeature() != TaiPanPackage.eINSTANCE.getEscortShipsOrder_Ships() || false == setting.getEObject() instanceof EscortShipsOrder) {
+				continue;
+			}
+			EscortShipsOrder link = (EscortShipsOrder) setting.getEObject();
+			if (EscortShipsOrderEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(link)) {
+				continue;
+			}
+			if (false == link.eContainer() instanceof Warship) {
+				continue;
+			}
+			Warship container = (Warship) link.eContainer();
+			result.add(new TaiPanLinkDescriptor(container, target, link, TaiPanElementTypes.EscortShipsOrder_4006, EscortShipsOrderEditPart.VISUAL_ID));
 
 		}
 		return result;

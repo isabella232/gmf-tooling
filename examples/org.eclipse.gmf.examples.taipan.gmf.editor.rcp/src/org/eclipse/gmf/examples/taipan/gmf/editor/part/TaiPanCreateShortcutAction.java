@@ -11,38 +11,14 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
-import org.eclipse.core.commands.ExecutionException;
-
-import org.eclipse.core.commands.operations.OperationHistoryFactory;
-
-import org.eclipse.core.runtime.NullProgressMonitor;
-
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.common.util.WrappedException;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
-
-import org.eclipse.gmf.runtime.diagram.ui.commands.CreateCommand;
-
-import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest;
-
-import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-
-import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
-
 import org.eclipse.jface.action.IAction;
-
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-
-import org.eclipse.jface.window.Window;
-
 import org.eclipse.swt.widgets.Shell;
-
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
@@ -102,4 +78,5 @@ public class TaiPanCreateShortcutAction implements IObjectActionDelegate {
 		wizard.setWindowTitle(Messages.TaiPanCreateShortcutAction_CreateShortcutTitle);
 		TaiPanDiagramEditorUtil.runWizard(myShell, wizard, "CreateShortcut"); //$NON-NLS-1$
 	}
+
 }

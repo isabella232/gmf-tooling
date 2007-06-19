@@ -11,13 +11,11 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.gmf.examples.taipan.gmf.editor.application.WizardNewFileCreationPage;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.gmf.examples.taipan.gmf.editor.application.WizardNewFileCreationPage;
 
 /**
  * @generated

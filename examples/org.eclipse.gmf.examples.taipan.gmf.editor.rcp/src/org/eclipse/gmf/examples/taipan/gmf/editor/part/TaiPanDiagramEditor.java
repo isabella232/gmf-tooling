@@ -11,9 +11,6 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
-import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -21,34 +18,24 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
-
 import org.eclipse.emf.common.ui.URIEditorInput;
-
 import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.resource.Resource;
-
 import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
-
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPartViewer;
-
+import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
-
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramDropTargetListener;
-
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
-
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.jface.util.LocalSelectionTransfer;
-
 import org.eclipse.jface.viewers.IStructuredSelection;
-
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.dnd.TransferData;
-
 import org.eclipse.ui.IEditorInput;
 
 /**
