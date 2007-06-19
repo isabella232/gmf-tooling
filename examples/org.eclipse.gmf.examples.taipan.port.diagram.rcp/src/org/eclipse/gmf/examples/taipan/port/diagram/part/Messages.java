@@ -34,6 +34,16 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String PortCreateShortcutAction_OpenModelTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String PortCreateShortcutAction_CreateShortcutTitle;
+
+	/**
+	 * @generated
+	 */
 	public static String PortDiagramEditorUtil_OpenModelResourceErrorDialogTitle;
 
 	/**
@@ -90,6 +100,11 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String PortDocumentProvider_SaveNextResourceTask;
+
+	/**
+	 * @generated
+	 */
+	public static String PortDocumentProvider_SaveAsOperation;
 
 	/**
 	 * @generated
@@ -169,6 +184,76 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String PortDiagramEditor_SavingDeletedFile;
+
+	/**
+	 * @generated
+	 */
+	public static String PortDiagramEditor_SaveAsErrorTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String PortDiagramEditor_SaveAsErrorMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String PortDiagramEditor_SaveErrorTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String PortDiagramEditor_SaveErrorMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String PortElementChooserDialog_SelectModelElementTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageName;
+
+	/**
+	 * @generated
+	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageDescription;
+
+	/**
+	 * @generated
+	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageEmptyError;
+
+	/**
+	 * @generated
+	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageInvalidError;
+
+	/**
+	 * @generated
+	 */
+	public static String ModelElementSelectionPageMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String ValidateActionMessage;
+
+	/**
+	 * @generated
+	 */
 	public static String PortGroup_title;
 
 	/**
@@ -239,7 +324,62 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String WizardNewFileCreationPage_FileLabel;
+
+	/**
+	 * @generated
+	 */
+	public static String WizardNewFileCreationPage_BrowseButton;
+
+	/**
+	 * @generated
+	 */
+	public static String WizardNewFileCreationPage_SelectNewFileDialog;
+
+	/**
+	 * @generated
+	 */
+	public static String WizardNewFileCreationPage_EmptyFileNameError;
+
+	/**
+	 * @generated
+	 */
+	public static String WizardNewFileCreationPage_InvalidFileNameError;
+
+	/**
+	 * @generated
+	 */
 	public static String CommandName_OpenDiagram;
+
+	/**
+	 * @generated
+	 */
+	public static String AbstractParser_UnexpectedValueTypeMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String AbstractParser_WrongStringConversionMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String AbstractParser_UnknownLiteralMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String MessageFormatParser_InvalidInputError;
+
+	/**
+	 * @generated
+	 */
+	public static String PortModelingAssistantProviderTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String PortModelingAssistantProviderMessage;
 
 	//TODO: put accessor fields manually	
 }
