@@ -16,6 +16,7 @@ import java.util.List;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -77,5 +78,14 @@ public abstract class ListLayoutEditPolicy extends ConstrainedLayoutEditPolicy {
 	@Override
 	protected Object getConstraintFor(Rectangle rect) {
 		return null;
+	}
+
+	@Override
+	protected EditPolicy createChildEditPolicy(EditPart child) {
+		EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+		if (result != null) {
+			return result;
+		}
+		return super.createChildEditPolicy(child);
 	}
 }
