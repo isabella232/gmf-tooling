@@ -25,11 +25,6 @@
           toolKind="MARQUEE"/>
       <tools
           xsi:type="gmftool:StandardTool"
-          title="Pan Zoom"
-          description="Pan Zoom"
-          toolKind="ZOOM_PAN"/>
-      <tools
-          xsi:type="gmftool:StandardTool"
           title="Zoom In"
           description="Zoom In"
           toolKind="ZOOM_IN"/>

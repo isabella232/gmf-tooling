@@ -695,11 +695,6 @@
             kind="MARQUEE"/>
         <entries
             xsi:type="gmfgen:StandardEntry"
-            title="Pan Zoom"
-            description="Pan Zoom"
-            kind="ZOOM"/>
-        <entries
-            xsi:type="gmfgen:StandardEntry"
             title="Zoom In"
             description="Zoom In"/>
         <entries
@@ -974,6 +969,7 @@
         groupName="outgoing links"
         groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
   </navigator>
+  <diagramUpdater/>
   <propertySheet>
     <tabs
         xsi:type="gmfgen:GenStandardPropertyTab"
@@ -999,7 +995,6 @@
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@topLevelNodes.1/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@topLevelNodes.2/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.0/@modelFacet/@modelElementSelector //@diagram/@links.0/@creationConstraints/@targetEnd //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@creationConstraints/@targetEnd //@metrics/@metrics.0/@rule //@metrics/@metrics.1/@rule //@audits/@rules.0/@rule //@audits/@rules.1/@rule">
-    </providers>
+        expressions="//@diagram/@topLevelNodes.1/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@topLevelNodes.2/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.0/@modelFacet/@modelElementSelector //@diagram/@links.0/@creationConstraints/@targetEnd //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@creationConstraints/@targetEnd //@metrics/@metrics.0/@rule //@metrics/@metrics.1/@rule //@audits/@rules.0/@rule //@audits/@rules.1/@rule"/>
   </expressionProviders>
 </gmfgen:GenEditorGenerator>
