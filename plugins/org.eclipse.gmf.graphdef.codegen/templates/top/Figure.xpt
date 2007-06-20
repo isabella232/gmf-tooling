@@ -48,7 +48,7 @@
 	 */
 	public «cuName»() {
 		«EXPAND Attrs::Init("this")»
-«IF !children.typeSelect(Figure).isEmpty()-»
+«IF !children.typeSelect(Label).isEmpty()-»
 		createContents();
 «ENDIF-»
 «IF hasSourceDecoration()-»
@@ -58,8 +58,18 @@
 		setTargetDecoration(createTargetDecoration());
 «ENDIF-»
 	}
-«IF !children.typeSelect(Figure).isEmpty()»
-«EXPAND Children::CreateChildren-»
+«IF !children.typeSelect(Label).isEmpty()»
+«REM»
+	Copy of Children::CreateChildren with temp workaround to generate child figures for labels only.
+	Though this is temp workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=193180, I'm not sure
+	what's the right approach with e.g. decoration as child of a link.
+«ENDREM»
+	/**
+	 * @generated
+	 */
+	private void createContents(){
+«EXPAND Children::instantiate(0, this, "this") FOREACH children.typeSelect(Label)»
+	}
 «ENDIF-»
 «IF hasSourceDecoration()»
 	/**

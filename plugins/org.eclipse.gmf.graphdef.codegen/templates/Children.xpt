@@ -41,19 +41,18 @@
 «ELSE-»
 «EXPAND LayoutData::Init(parentFigureVariable, figureVarName) FOR layoutData-»
 «ENDIF-»
-«IF needsField()»«figureFieldName()» = «figureVarName»;«ENDIF-»
 «EXPAND Layout::Init(figureVarName) FOR layout-»
 «EXPAND instantiate(count + 1, this, figureVarName) FOREACH children-»
 «ENDLET»
 «ENDDEFINE»
 
-«DEFINE newFigureInstance(String figureVarName) FOR gmfgraph::Figure»«EXPAND Runtime::newInstance(figureVarName)»«ENDDEFINE»
+«DEFINE newFigureInstance(String figureVarName) FOR gmfgraph::RealFigure»«IF needsField()»«figureVarName» = «EXPAND Runtime::newInstance»;«ELSE»«EXPAND Runtime::newInstance(figureVarName)»«ENDIF»«ENDDEFINE»
 
 «DEFINE newFigureInstance(String figureVarName) FOR gmfgraph::ScalablePolygon-»
 «LET figureVarName.toFirstUpper() + "Class" AS localClassName-»
 class «localClassName» extends «EXPAND Runtime::fqn» {
 «EXPAND xtras::ScalablePolygon::behaviour-»
 };
-«localClassName» «figureVarName» = new «localClassName»();
+«IF !needsField()»«localClassName» «ENDIF»«figureVarName» = new «localClassName»();
 «ENDLET-»
 «ENDDEFINE»

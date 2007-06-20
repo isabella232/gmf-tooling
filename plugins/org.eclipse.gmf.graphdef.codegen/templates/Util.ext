@@ -47,9 +47,11 @@ boolean needsField(gmfgraph::RealFigure figure) :
 ;
 
 String figureVariableName(gmfgraph::RealFigure figure, EInt count) :
-	figure.name != null && figure.name.trim().length() > 0 ?
-		figure.name.toFirstLower() + count :
-		variableNameStem(figure) + count
+	needsField(figure)
+		? figureFieldName(figure)
+		: (	figure.name != null && figure.name.trim().length() > 0
+			? figure.name.toFirstLower() + count
+			: variableNameStem(figure) + count )
 ;
 
 String nameStem(FigureRef fig) : variableNameStem(fig.figure);
