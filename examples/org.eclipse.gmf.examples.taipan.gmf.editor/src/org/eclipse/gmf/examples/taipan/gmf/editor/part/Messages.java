@@ -34,6 +34,46 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String TaiPanCreationWizardTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanCreationWizard_DiagramModelFilePageTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanCreationWizard_DiagramModelFilePageDescription;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanCreationWizard_DomainModelFilePageTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanCreationWizard_DomainModelFilePageDescription;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanCreationWizardOpenEditorError;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanCreationWizardCreationError;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanCreationWizardPageExtensionError;
+
+	/**
+	 * @generated
+	 */
 	public static String TaiPanDiagramEditorUtil_OpenModelResourceErrorDialogTitle;
 
 	/**

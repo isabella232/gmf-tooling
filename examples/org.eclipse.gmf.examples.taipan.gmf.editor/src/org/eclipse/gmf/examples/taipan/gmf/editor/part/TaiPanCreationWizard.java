@@ -101,7 +101,7 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.workbench = workbench;
 		this.selection = selection;
-		setWindowTitle("New TaiPan Diagram");
+		setWindowTitle(Messages.TaiPanCreationWizardTitle);
 		setDefaultPageImageDescriptor(TaiPanDiagramEditorPlugin.getBundledImageDescriptor("icons/wizban/NewTaiPanWizard.gif")); //$NON-NLS-1$
 		setNeedsProgressMonitor(true);
 	}
@@ -111,13 +111,13 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 	 */
 	public void addPages() {
 		diagramModelFilePage = new TaiPanCreationWizardPage("DiagramModelFile", getSelection(), "taipan_diagram"); //$NON-NLS-1$ //$NON-NLS-2$
-		diagramModelFilePage.setTitle("Create TaiPan Diagram");
-		diagramModelFilePage.setDescription("Select file that will contain diagram model.");
+		diagramModelFilePage.setTitle(Messages.TaiPanCreationWizard_DiagramModelFilePageTitle);
+		diagramModelFilePage.setDescription(Messages.TaiPanCreationWizard_DiagramModelFilePageDescription);
 		addPage(diagramModelFilePage);
 
 		domainModelFilePage = new TaiPanCreationWizardPage("DomainModelFile", getSelection(), "taipan"); //$NON-NLS-1$ //$NON-NLS-2$
-		domainModelFilePage.setTitle("Create TaiPan Diagram");
-		domainModelFilePage.setDescription("Select file that will contain domain model.");
+		domainModelFilePage.setTitle(Messages.TaiPanCreationWizard_DomainModelFilePageTitle);
+		domainModelFilePage.setDescription(Messages.TaiPanCreationWizard_DomainModelFilePageDescription);
 		addPage(domainModelFilePage);
 	}
 
@@ -133,7 +133,7 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 					try {
 						TaiPanDiagramEditorUtil.openDiagram(diagram);
 					} catch (PartInitException e) {
-						ErrorDialog.openError(getContainer().getShell(), "Error opening diagram editor", null, e.getStatus());
+						ErrorDialog.openError(getContainer().getShell(), Messages.TaiPanCreationWizardOpenEditorError, null, e.getStatus());
 					}
 				}
 			}
@@ -144,7 +144,7 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 			return false;
 		} catch (InvocationTargetException e) {
 			if (e.getTargetException() instanceof CoreException) {
-				ErrorDialog.openError(getContainer().getShell(), "Creation Problems", null, ((CoreException) e.getTargetException()).getStatus());
+				ErrorDialog.openError(getContainer().getShell(), Messages.TaiPanCreationWizardCreationError, null, ((CoreException) e.getTargetException()).getStatus());
 			} else {
 				TaiPanDiagramEditorPlugin.getInstance().logError("Error creating diagram", e.getTargetException()); //$NON-NLS-1$
 			}
