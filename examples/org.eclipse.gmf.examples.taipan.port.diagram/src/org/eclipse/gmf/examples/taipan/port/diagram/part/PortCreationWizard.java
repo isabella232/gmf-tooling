@@ -101,7 +101,7 @@ public class PortCreationWizard extends Wizard implements INewWizard {
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.workbench = workbench;
 		this.selection = selection;
-		setWindowTitle("New Port Diagram");
+		setWindowTitle(Messages.PortCreationWizardTitle);
 		setDefaultPageImageDescriptor(PortDiagramEditorPlugin.getBundledImageDescriptor("icons/wizban/NewTaiPanWizard.gif")); //$NON-NLS-1$
 		setNeedsProgressMonitor(true);
 	}
@@ -111,13 +111,13 @@ public class PortCreationWizard extends Wizard implements INewWizard {
 	 */
 	public void addPages() {
 		diagramModelFilePage = new PortCreationWizardPage("DiagramModelFile", getSelection(), "port_diagram"); //$NON-NLS-1$ //$NON-NLS-2$
-		diagramModelFilePage.setTitle("Create Port Diagram");
-		diagramModelFilePage.setDescription("Select file that will contain diagram model.");
+		diagramModelFilePage.setTitle(Messages.PortCreationWizard_DiagramModelFilePageTitle);
+		diagramModelFilePage.setDescription(Messages.PortCreationWizard_DiagramModelFilePageDescription);
 		addPage(diagramModelFilePage);
 
 		domainModelFilePage = new PortCreationWizardPage("DomainModelFile", getSelection(), "taipan"); //$NON-NLS-1$ //$NON-NLS-2$
-		domainModelFilePage.setTitle("Create Port Diagram");
-		domainModelFilePage.setDescription("Select file that will contain domain model.");
+		domainModelFilePage.setTitle(Messages.PortCreationWizard_DomainModelFilePageTitle);
+		domainModelFilePage.setDescription(Messages.PortCreationWizard_DomainModelFilePageDescription);
 		addPage(domainModelFilePage);
 	}
 
@@ -133,7 +133,7 @@ public class PortCreationWizard extends Wizard implements INewWizard {
 					try {
 						PortDiagramEditorUtil.openDiagram(diagram);
 					} catch (PartInitException e) {
-						ErrorDialog.openError(getContainer().getShell(), "Error opening diagram editor", null, e.getStatus());
+						ErrorDialog.openError(getContainer().getShell(), Messages.PortCreationWizardOpenEditorError, null, e.getStatus());
 					}
 				}
 			}
@@ -144,7 +144,7 @@ public class PortCreationWizard extends Wizard implements INewWizard {
 			return false;
 		} catch (InvocationTargetException e) {
 			if (e.getTargetException() instanceof CoreException) {
-				ErrorDialog.openError(getContainer().getShell(), "Creation Problems", null, ((CoreException) e.getTargetException()).getStatus());
+				ErrorDialog.openError(getContainer().getShell(), Messages.PortCreationWizardCreationError, null, ((CoreException) e.getTargetException()).getStatus());
 			} else {
 				PortDiagramEditorPlugin.getInstance().logError("Error creating diagram", e.getTargetException()); //$NON-NLS-1$
 			}

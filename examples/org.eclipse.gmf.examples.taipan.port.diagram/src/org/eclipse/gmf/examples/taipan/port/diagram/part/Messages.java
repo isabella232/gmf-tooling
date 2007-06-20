@@ -34,6 +34,46 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String PortCreationWizardTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String PortCreationWizard_DiagramModelFilePageTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String PortCreationWizard_DiagramModelFilePageDescription;
+
+	/**
+	 * @generated
+	 */
+	public static String PortCreationWizard_DomainModelFilePageTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String PortCreationWizard_DomainModelFilePageDescription;
+
+	/**
+	 * @generated
+	 */
+	public static String PortCreationWizardOpenEditorError;
+
+	/**
+	 * @generated
+	 */
+	public static String PortCreationWizardCreationError;
+
+	/**
+	 * @generated
+	 */
+	public static String PortCreationWizardPageExtensionError;
+
+	/**
+	 * @generated
+	 */
 	public static String PortDiagramEditorUtil_OpenModelResourceErrorDialogTitle;
 
 	/**
