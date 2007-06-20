@@ -267,7 +267,7 @@ public class TransactionalUpdateManager extends ResourceSetListenerImpl {
 	}
 
 	protected boolean isFiltered(View view) {
-		return myEditPartViewer.getEditPartRegistry().get(view) == null;
+		return false == myEditPartViewer.getEditPartRegistry().get(view) instanceof IUpdatableEditPart;
 	}
 
 	private static class NotationModelRefresherHolder {
