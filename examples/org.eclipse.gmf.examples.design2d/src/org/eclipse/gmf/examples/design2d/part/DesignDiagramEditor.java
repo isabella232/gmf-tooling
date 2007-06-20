@@ -1,72 +1,49 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *    Dmitry Stadnik (Borland) - initial API and implementation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation
+ *  
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *  Contributors:
+ *     Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.design2d.part;
 
-import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.ui.URIEditorInput;
-
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-
-import org.eclipse.emf.transaction.NotificationFilter;
-
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService;
-
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
-
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
-
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
-
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
-
 import org.eclipse.jface.window.Window;
-
 import org.eclipse.osgi.util.NLS;
-
 import org.eclipse.swt.widgets.Shell;
-
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorMatchingStrategy;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PlatformUI;
-
 import org.eclipse.ui.dialogs.SaveAsDialog;
-
 import org.eclipse.ui.ide.IGotoMarker;
-
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.part.ShowInContext;
 
 /**
  * @generated
@@ -81,8 +58,20 @@ public class DesignDiagramEditor extends DiagramDocumentEditor implements IGotoM
 	/**
 	 * @generated
 	 */
+	public static final String CONTEXT_ID = "org.eclipse.gmf.examples.design2d.ui.diagramContext"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public DesignDiagramEditor() {
 		super(true);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String getContextID() {
+		return CONTEXT_ID;
 	}
 
 	/**
@@ -179,7 +168,7 @@ public class DesignDiagramEditor extends DiagramDocumentEditor implements IGotoM
 			return;
 		}
 		if (provider.isDeleted(input) && original != null) {
-			String message = NLS.bind("The original file ''{0}'' has been deleted.", original.getName());
+			String message = NLS.bind(Messages.DesignDiagramEditor_SavingDeletedFile, original.getName());
 			dialog.setErrorMessage(null);
 			dialog.setMessage(message, IMessageProvider.WARNING);
 		}
@@ -204,7 +193,7 @@ public class DesignDiagramEditor extends DiagramDocumentEditor implements IGotoM
 		IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
 		for (int i = 0; i < editorRefs.length; i++) {
 			if (matchingStrategy.matches(editorRefs[i], newInput)) {
-				MessageDialog.openWarning(shell, "Problem During Save As...", "Save could not be completed. Target file is already open in another editor.");
+				MessageDialog.openWarning(shell, Messages.DesignDiagramEditor_SaveAsErrorTitle, Messages.DesignDiagramEditor_SaveAsErrorMessage);
 				return;
 			}
 		}
@@ -216,7 +205,7 @@ public class DesignDiagramEditor extends DiagramDocumentEditor implements IGotoM
 		} catch (CoreException x) {
 			IStatus status = x.getStatus();
 			if (status == null || status.getSeverity() != IStatus.CANCEL) {
-				ErrorDialog.openError(shell, "Save Problems", "Could not save file.", x.getStatus());
+				ErrorDialog.openError(shell, Messages.DesignDiagramEditor_SaveErrorTitle, Messages.DesignDiagramEditor_SaveErrorMessage, x.getStatus());
 			}
 		} finally {
 			provider.changed(newInput);
@@ -227,6 +216,13 @@ public class DesignDiagramEditor extends DiagramDocumentEditor implements IGotoM
 		if (progressMonitor != null) {
 			progressMonitor.setCanceled(!success);
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public ShowInContext getShowInContext() {
+		return new ShowInContext(getEditorInput(), getGraphicalViewer().getSelection());
 	}
 
 }

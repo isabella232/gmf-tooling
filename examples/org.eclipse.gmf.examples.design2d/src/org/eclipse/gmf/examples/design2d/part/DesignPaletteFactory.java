@@ -1,13 +1,13 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *    Dmitry Stadnik (Borland) - initial API and implementation
+ *  
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *  Contributors:
+ *     Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.design2d.part;
 
@@ -32,29 +32,29 @@ public class DesignPaletteFactory {
 	 * @generated
 	 */
 	public void fillPalette(PaletteRoot paletteRoot) {
-		paletteRoot.add(createPrimaryShapes1Group());
+		paletteRoot.add(createPrimaryShapesGroup());
 	}
 
 	/**
 	 * Creates "Primary Shapes" palette tool group
 	 * @generated
 	 */
-	private PaletteContainer createPrimaryShapes1Group() {
-		PaletteDrawer paletteContainer = new PaletteDrawer(Messages.PrimaryShapes1Group_title);
-		paletteContainer.add(createSolidRectangle1CreationTool());
-		paletteContainer.add(createSolidEllipse2CreationTool());
-		paletteContainer.add(createSolidLine3CreationTool());
+	private PaletteContainer createPrimaryShapesGroup() {
+		PaletteDrawer paletteContainer = new PaletteDrawer(Messages.PrimaryShapesGroup_title);
+		paletteContainer.add(createSolidRectangleCreationTool());
+		paletteContainer.add(createSolidEllipseCreationTool());
+		paletteContainer.add(createSolidLineCreationTool());
 		return paletteContainer;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createSolidRectangle1CreationTool() {
+	private ToolEntry createSolidRectangleCreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(2);
 		types.add(DesignElementTypes.Node_2001);
 		types.add(DesignElementTypes.Node_3001);
-		NodeToolEntry entry = new NodeToolEntry(Messages.SolidRectangle1CreationTool_title, null, types);
+		NodeToolEntry entry = new NodeToolEntry(Messages.SolidRectangleCreationTool_title, null, types);
 		entry.setSmallIcon(DesignElementTypes.getImageDescriptor(DesignElementTypes.Node_2001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
@@ -63,11 +63,11 @@ public class DesignPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createSolidEllipse2CreationTool() {
+	private ToolEntry createSolidEllipseCreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(2);
 		types.add(DesignElementTypes.Node_3002);
 		types.add(DesignElementTypes.Node_2002);
-		NodeToolEntry entry = new NodeToolEntry(Messages.SolidEllipse2CreationTool_title, null, types);
+		NodeToolEntry entry = new NodeToolEntry(Messages.SolidEllipseCreationTool_title, null, types);
 		entry.setSmallIcon(DesignElementTypes.getImageDescriptor(DesignElementTypes.Node_3002));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
@@ -76,10 +76,10 @@ public class DesignPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createSolidLine3CreationTool() {
+	private ToolEntry createSolidLineCreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(DesignElementTypes.Link_4001);
-		LinkToolEntry entry = new LinkToolEntry(Messages.SolidLine3CreationTool_title, null, types);
+		LinkToolEntry entry = new LinkToolEntry(Messages.SolidLineCreationTool_title, null, types);
 		entry.setSmallIcon(DesignElementTypes.getImageDescriptor(DesignElementTypes.Link_4001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;

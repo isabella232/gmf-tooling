@@ -1,19 +1,20 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *    Dmitry Stadnik (Borland) - initial API and implementation
+ *  
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *  Contributors:
+ *     Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.design2d.edit.parts;
 
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.ConnectionLocator;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
@@ -29,6 +30,7 @@ import org.eclipse.gef.tools.DirectEditManager;
 import org.eclipse.gmf.examples.design2d.edit.policies.DesignTextSelectionEditPolicy;
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 import org.eclipse.gmf.examples.design2d.providers.DesignElementTypes;
+import org.eclipse.gmf.examples.design2d.providers.DesignParserProvider;
 import org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
@@ -44,9 +46,7 @@ import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
-import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
@@ -92,7 +92,7 @@ public class SolidLineCommentEditPart extends LabelEditPart implements ITextAwar
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(DesignVisualIDRegistry.getType(SolidLineCommentEditPart.VISUAL_ID), new Point(0, 40));
+		registerSnapBackPosition(DesignVisualIDRegistry.getType(org.eclipse.gmf.examples.design2d.edit.parts.SolidLineCommentEditPart.VISUAL_ID), new Point(0, 40));
 	}
 
 	/**
@@ -190,8 +190,7 @@ public class SolidLineCommentEditPart extends LabelEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected EObject getParserElement() {
-		EObject element = resolveSemanticElement();
-		return element != null ? element : (View) getModel();
+		return (View) getModel();
 	}
 
 	/**
@@ -206,8 +205,9 @@ public class SolidLineCommentEditPart extends LabelEditPart implements ITextAwar
 	 */
 	protected String getLabelText() {
 		String text = null;
-		if (getParser() != null) {
-			text = getParser().getPrintString(new EObjectAdapter(getParserElement()), getParserOptions().intValue());
+		EObject parserElement = getParserElement();
+		if (parserElement != null && getParser() != null) {
+			text = getParser().getPrintString(new EObjectAdapter(parserElement), getParserOptions().intValue());
 		}
 		if (text == null || text.length() == 0) {
 			text = defaultText;
@@ -230,7 +230,7 @@ public class SolidLineCommentEditPart extends LabelEditPart implements ITextAwar
 	 * @generated
 	 */
 	public String getEditText() {
-		if (getParser() == null) {
+		if (getParserElement() == null || getParser() == null) {
 			return ""; //$NON-NLS-1$
 		}
 		return getParser().getEditString(new EObjectAdapter(getParserElement()), getParserOptions().intValue());
@@ -276,7 +276,7 @@ public class SolidLineCommentEditPart extends LabelEditPart implements ITextAwar
 	 * @generated
 	 */
 	public IContentAssistProcessor getCompletionProcessor() {
-		if (getParser() == null) {
+		if (getParserElement() == null || getParser() == null) {
 			return null;
 		}
 		return getParser().getCompletionProcessor(new EObjectAdapter(getParserElement()));
@@ -295,15 +295,7 @@ public class SolidLineCommentEditPart extends LabelEditPart implements ITextAwar
 	public IParser getParser() {
 		if (parser == null) {
 			String parserHint = CommonParserHint.DESCRIPTION;
-			ParserHintAdapter hintAdapter = new ParserHintAdapter(getParserElement(), parserHint) {
-
-				public Object getAdapter(Class adapter) {
-					if (IElementType.class.equals(adapter)) {
-						return DesignElementTypes.Link_4001;
-					}
-					return super.getAdapter(adapter);
-				}
-			};
+			IAdaptable hintAdapter = new DesignParserProvider.HintAdapter(DesignElementTypes.Link_4001, getParserElement(), parserHint);
 			parser = ParserService.getInstance().getParser(hintAdapter);
 		}
 		return parser;

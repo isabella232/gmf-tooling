@@ -1,29 +1,24 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *    Dmitry Stadnik (Borland) - initial API and implementation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation
+ *  
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *  Contributors:
+ *     Dmitry Stadnik (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.examples.design2d.sheet;
+package org.eclipse.gmf.examples.design2d.properties;
 
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.jface.viewers.DecoratingLabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.core.runtime.IAdaptable;
-
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-
-import org.eclipse.gmf.examples.design2d.navigator.DesignNavigatorGroup;
-
-import org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin;
-
-import org.eclipse.jface.viewers.DecoratingLabelProvider;
 
 /**
  * @generated
@@ -42,9 +37,6 @@ public class DesignSheetLabelProvider extends DecoratingLabelProvider {
 	 */
 	public String getText(Object element) {
 		Object selected = unwrap(element);
-		if (selected instanceof DesignNavigatorGroup) {
-			return ((DesignNavigatorGroup) selected).getGroupName();
-		}
 		return super.getText(selected);
 	}
 
@@ -90,4 +82,5 @@ public class DesignSheetLabelProvider extends DecoratingLabelProvider {
 	private Object unwrapView(View view) {
 		return view.getElement() == null ? view : view.getElement();
 	}
+
 }

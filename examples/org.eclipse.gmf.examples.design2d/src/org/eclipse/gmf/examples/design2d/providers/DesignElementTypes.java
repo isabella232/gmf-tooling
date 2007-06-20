@@ -1,13 +1,13 @@
 /*
  *  Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *    Dmitry Stadnik (Borland) - initial API and implementation
+ *  
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *  Contributors:
+ *     Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.design2d.providers;
 
@@ -48,6 +48,41 @@ public class DesignElementTypes extends ElementInitializers {
 	 * @generated
 	 */
 	private static ImageRegistry imageRegistry;
+
+	/**
+	 * @generated
+	 */
+	private static Set KNOWN_ELEMENT_TYPES;
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Diagram_1000 = getElementType("org.eclipse.gmf.examples.design2d.Diagram"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Node_2001 = getElementType("org.eclipse.gmf.examples.design2d.Node_2001"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Node_2002 = getElementType("org.eclipse.gmf.examples.design2d.Node_2002"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Node_3001 = getElementType("org.eclipse.gmf.examples.design2d.Node_3001"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Node_3002 = getElementType("org.eclipse.gmf.examples.design2d.SolidEllipseInt"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Link_4001 = getElementType("org.eclipse.gmf.examples.design2d.SolidLine"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -161,44 +196,9 @@ public class DesignElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
-	public static final IElementType Diagram_1000 = getElementType("org.eclipse.gmf.examples.design2d.Diagram_1000"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType Node_2001 = getElementType("org.eclipse.gmf.examples.design2d.Node_2001"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType Node_2002 = getElementType("org.eclipse.gmf.examples.design2d.Node_2002"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType Node_3001 = getElementType("org.eclipse.gmf.examples.design2d.Node_3001"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType Node_3002 = getElementType("org.eclipse.gmf.examples.design2d.Node_3002"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType Link_4001 = getElementType("org.eclipse.gmf.examples.design2d.Link_4001"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
 	private static IElementType getElementType(String id) {
 		return ElementTypeRegistry.getInstance().getType(id);
 	}
-
-	/**
-	 * @generated
-	 */
-	private static Set KNOWN_ELEMENT_TYPES;
 
 	/**
 	 * @generated
@@ -215,4 +215,5 @@ public class DesignElementTypes extends ElementInitializers {
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
 	}
+
 }

@@ -1,23 +1,20 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *    Dmitry Stadnik (Borland) - initial API and implementation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation
+ *  
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *  Contributors:
+ *     Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.design2d.view.factories;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.runtime.IAdaptable;
-
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.DiagramViewFactory;
-
 import org.eclipse.gmf.runtime.notation.MeasurementUnit;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
@@ -28,21 +25,12 @@ import org.eclipse.gmf.runtime.notation.View;
 public class Design2DViewFactory extends DiagramViewFactory {
 
 	/**
-	 * @generated 
+	 * @generated
 	 */
 	protected List createStyles(View view) {
 		List styles = new ArrayList();
-		styles.add(NotationFactory.eINSTANCE.createPageStyle());
-		styles.add(NotationFactory.eINSTANCE.createGuideStyle());
-		styles.add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		styles.add(NotationFactory.eINSTANCE.createDiagramStyle());
 		return styles;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void decorateView(View view, IAdaptable semanticAdapter, String diagramKind) {
-		super.decorateView(view, semanticAdapter, diagramKind);
 	}
 
 	/**
@@ -51,5 +39,4 @@ public class Design2DViewFactory extends DiagramViewFactory {
 	protected MeasurementUnit getMeasurementUnit() {
 		return MeasurementUnit.PIXEL_LITERAL;
 	}
-
 }

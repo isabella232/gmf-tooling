@@ -11,24 +11,42 @@
  */
 package org.eclipse.gmf.examples.design2d.part;
 
-import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramActionBarContributor;
+import java.util.Collections;
+import java.util.List;
+
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
  */
-public class DesignDiagramActionBarContributor extends DiagramActionBarContributor {
+public class DesignDiagramUpdater {
 
 	/**
 	 * @generated
 	 */
-	protected Class getEditorClass() {
-		return DesignDiagramEditor.class;
+	public static List getSemanticChildren(View view) {
+		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected String getEditorId() {
-		return DesignDiagramEditor.ID;
+	public static List getContainedLinks(View view) {
+		return Collections.EMPTY_LIST;
 	}
+
+	/**
+	 * @generated
+	 */
+	public static List getIncomingLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getOutgoingLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
 }

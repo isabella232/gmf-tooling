@@ -1,13 +1,13 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *    Dmitry Stadnik (Borland) - initial API and implementation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation
+ *  
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *  Contributors:
+ *     Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.design2d.part;
 
@@ -96,7 +96,7 @@ public class DesignCreationWizard extends Wizard implements INewWizard {
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.workbench = workbench;
 		this.selection = selection;
-		setWindowTitle("New Design2D Diagram");
+		setWindowTitle(Messages.DesignCreationWizardTitle);
 		setDefaultPageImageDescriptor(DesignDiagramEditorPlugin.getBundledImageDescriptor("icons/wizban/NewWizard.gif")); //$NON-NLS-1$
 		setNeedsProgressMonitor(true);
 	}
@@ -106,8 +106,8 @@ public class DesignCreationWizard extends Wizard implements INewWizard {
 	 */
 	public void addPages() {
 		diagramModelFilePage = new DesignCreationWizardPage("DiagramModelFile", getSelection(), "design2d"); //$NON-NLS-1$ //$NON-NLS-2$
-		diagramModelFilePage.setTitle("Create Design2D Diagram");
-		diagramModelFilePage.setDescription("Select file that will contain diagram and domain models.");
+		diagramModelFilePage.setTitle(Messages.DesignCreationWizard_DiagramModelFilePageTitle);
+		diagramModelFilePage.setDescription(Messages.DesignCreationWizard_DiagramModelFilePageDescription);
 		addPage(diagramModelFilePage);
 	}
 
@@ -123,7 +123,7 @@ public class DesignCreationWizard extends Wizard implements INewWizard {
 					try {
 						DesignDiagramEditorUtil.openDiagram(diagram);
 					} catch (PartInitException e) {
-						ErrorDialog.openError(getContainer().getShell(), "Error opening diagram editor", null, e.getStatus());
+						ErrorDialog.openError(getContainer().getShell(), Messages.DesignCreationWizardOpenEditorError, null, e.getStatus());
 					}
 				}
 			}
@@ -134,7 +134,7 @@ public class DesignCreationWizard extends Wizard implements INewWizard {
 			return false;
 		} catch (InvocationTargetException e) {
 			if (e.getTargetException() instanceof CoreException) {
-				ErrorDialog.openError(getContainer().getShell(), "Creation Problems", null, ((CoreException) e.getTargetException()).getStatus());
+				ErrorDialog.openError(getContainer().getShell(), Messages.DesignCreationWizardCreationError, null, ((CoreException) e.getTargetException()).getStatus());
 			} else {
 				DesignDiagramEditorPlugin.getInstance().logError("Error creating diagram", e.getTargetException()); //$NON-NLS-1$
 			}
