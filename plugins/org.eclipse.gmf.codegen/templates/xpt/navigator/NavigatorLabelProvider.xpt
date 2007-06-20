@@ -240,7 +240,11 @@ private String «EXPAND getTextMethodName»(org.eclipse.gmf.runtime.notation.View 
 «ENDDEFINE»
 
 «DEFINE getText FOR gmfgen::GenChildLabelNode-»
+«IF labelModelFacet == null-»
+	«EXPAND getDiagramLabelTextNoModelFacet(this)-»
+«ELSE-»
 	«EXPAND getDiagramLabelText(this, this) FOR labelModelFacet-»
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE getText FOR gmfgen::GenLinkLabel-»
@@ -272,8 +276,26 @@ private String «EXPAND getTextMethodName»(org.eclipse.gmf.runtime.notation.View 
 		«ERROR "Empty list of labels passed"-»
 	«ENDIF-»
 	«LET (gmfgen::GenLabel) labels.first() AS label-»
+	«IF label.modelFacet == null-»
+		«EXPAND getDiagramLabelTextNoModelFacet(label)-»
+	«ELSE-»
 		«EXPAND getDiagramLabelText(this, label) FOR label.modelFacet-»
+	«ENDIF»
 	«ENDLET-»
+«ENDDEFINE»
+
+«REM»FIXME: Refactor. This is a fast copy of getDiagramLabelText template (below) to fix #193178. Need to reuse parts of TextAware.xpt«ENDREM»
+«DEFINE getDiagramLabelTextNoModelFacet(gmfgen::GenCommonBase label) FOR gmfgen::GenCommonBase»
+		org.eclipse.core.runtime.IAdaptable hintAdapter = new «getDiagram().getParserProviderQualifiedClassName()».HintAdapter(
+			«getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()», 
+			(view.getElement() != null ? view.getElement() : view), 
+			«EXPAND xpt::editor::VisualIDRegistry::getTypeMethodCall FOR label.getDiagram()»(«EXPAND xpt::editor::VisualIDRegistry::visualID FOR label»));
+		org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser = org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().getParser(hintAdapter);
+		if (parser != null) {
+			return parser.getPrintString(hintAdapter, org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions.NONE.intValue());
+		} else {
+			«EXPAND returnEmptyString-»
+		}
 «ENDDEFINE»
 
 «DEFINE getText(gmfgen::LinkModelFacet modelFacet) FOR gmfgen::GenLink-»
