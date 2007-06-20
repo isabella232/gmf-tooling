@@ -113,12 +113,12 @@ public class TaiPanElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
-	public static final IElementType EscortShipsOrder_4006 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.rcp.EscortShipsOrder_4006"); //$NON-NLS-1$
+	public static final IElementType BesiegePortOrder_4005 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.rcp.BesiegePortOrder_4005"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType BesiegePortOrder_4005 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.rcp.BesiegePortOrder_4005"); //$NON-NLS-1$
+	public static final IElementType EscortShipsOrder_4006 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.rcp.EscortShipsOrder_4006"); //$NON-NLS-1$
 
 	/**
 	 * @generated

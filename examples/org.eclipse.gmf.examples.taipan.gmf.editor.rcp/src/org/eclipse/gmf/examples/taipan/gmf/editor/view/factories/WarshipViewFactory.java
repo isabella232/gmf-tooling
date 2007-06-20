@@ -15,23 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
-
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcoreFactory;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipLargeCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipNameEditPart;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipSmallCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
-
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
-
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
-
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
@@ -42,7 +36,7 @@ import org.eclipse.gmf.runtime.notation.View;
 public class WarshipViewFactory extends AbstractShapeViewFactory {
 
 	/**
-	 * @generated 
+	 * @generated
 	 */
 	protected List createStyles(View view) {
 		List styles = new ArrayList();
