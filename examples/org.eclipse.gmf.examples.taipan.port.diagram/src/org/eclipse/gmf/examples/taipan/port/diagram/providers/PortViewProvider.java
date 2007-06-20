@@ -13,19 +13,17 @@ package org.eclipse.gmf.examples.taipan.port.diagram.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
-import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingEditPart;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingInfoEditPart;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart;
-
 import org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry;
-
 import org.eclipse.gmf.examples.taipan.port.diagram.view.factories.BuildingInfoViewFactory;
 import org.eclipse.gmf.examples.taipan.port.diagram.view.factories.BuildingViewFactory;
 import org.eclipse.gmf.examples.taipan.port.diagram.view.factories.PortViewFactory;
+import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -162,5 +160,4 @@ public class PortViewProvider extends AbstractViewProvider {
 		}
 		return (IElementType) semanticAdapter.getAdapter(IElementType.class);
 	}
-
 }
