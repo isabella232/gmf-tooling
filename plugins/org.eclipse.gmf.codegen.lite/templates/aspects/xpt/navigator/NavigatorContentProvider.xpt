@@ -12,7 +12,7 @@
  
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 
-«AROUND createEditingDomain FOR gmfgen::GenNavigator»org.eclipse.emf.workspace.WorkspaceEditingDomainFactory.INSTANCE.createEditingDomain()«ENDAROUND»
+«AROUND createEditingDomain FOR gmfgen::GenNavigator»«EXPAND xpt::editor::Common::createEditingDomain FOR editorGen»«ENDAROUND»
 
 «AROUND getAdaptableChildren FOR gmfgen::GenNavigator-»
 «REM»Currently, no shortcuts are generated in lite mode«ENDREM-»

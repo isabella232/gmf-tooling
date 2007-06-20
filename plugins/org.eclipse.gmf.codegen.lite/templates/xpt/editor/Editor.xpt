@@ -391,7 +391,7 @@ if (updateManager != null) {
 	«EXPAND xpt::Common::generatedMemberComment»
 	public void configurePalette(org.eclipse.gef.palette.PaletteRoot paletteRoot) {
 «IF null != editorGen.diagram.palette-»
-		new «editorGen.diagram.palette.getFactoryQualifiedClassName()»(getDomainAdapterFactory()).contributeToPalette(paletteRoot);
+		new «editorGen.diagram.palette.getFactoryQualifiedClassName()»().contributeToPalette(paletteRoot);
 «ENDIF-»
 	}
 «ENDDEFINE»

@@ -94,7 +94,7 @@ public void run(org.eclipse.jface.action.IAction action) {
 }
 «ENDDEFINE»
 
-«DEFINE createEditingDomain FOR gmfgen::GenEditorView»org.eclipse.emf.workspace.WorkspaceEditingDomainFactory.INSTANCE.createEditingDomain()«ENDDEFINE»
+«DEFINE createEditingDomain FOR gmfgen::GenEditorView»«EXPAND xpt::editor::Common::createEditingDomain FOR editorGen»«ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenEditorView»«ENDDEFINE»
 

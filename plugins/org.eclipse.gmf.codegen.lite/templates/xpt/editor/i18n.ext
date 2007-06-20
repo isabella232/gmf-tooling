@@ -77,3 +77,135 @@ String i18nKeyForDiagramEditorUtilErrorOpeningView(gmfgen::GenDiagram diagram) :
 diagram.diagramEditorUtilClassName + ".ErrorOpeningView"
 ;
 
+String i18nKeyForCreationWizardWindowTitle(gmfgen::GenDiagram diagram) :
+diagram.creationWizardClassName + ".WindowTitle"
+;
+
+String i18nKeyForCreationWizardPagePageName(gmfgen::GenDiagram diagram) :
+diagram.creationWizardPageClassName + ".PageName"
+;
+
+String i18nKeyForCreationWizardPageTitle(gmfgen::GenDiagram diagram) :
+diagram.creationWizardPageClassName + ".Title"
+;
+
+String i18nKeyForCreationWizardPageDescription(gmfgen::GenDiagram diagram) :
+diagram.creationWizardPageClassName + ".Description"
+;
+
+String i18nKeyForCreationWizardPageResourceURILabel(gmfgen::GenDiagram diagram) :
+diagram.creationWizardPageClassName + ".ResourceURILabel"
+;
+
+String i18nKeyForCreationWizardPageBrowseButtonLabel(gmfgen::GenDiagram diagram) :
+diagram.creationWizardPageClassName + ".BrowseButtonLabel"
+;
+
+String i18nKeyForCreationWizardPageDiagramFileExists(gmfgen::GenDiagram diagram) :
+diagram.creationWizardPageClassName + ".DiagramFileExists"
+;
+
+String i18nKeyForCreationWizardPageIncorrectExtension(gmfgen::GenDiagram diagram) :
+diagram.creationWizardPageClassName + ".IncorrectExtension"
+;
+
+String i18nKeyForCreationWizardPageModelFileExists(gmfgen::GenDiagram diagram) :
+diagram.creationWizardPageClassName + ".ModelFileExists"
+;
+
+String i18nKeyForCreationWizardPageCreationFailed(gmfgen::GenDiagram diagram) :
+diagram.creationWizardPageClassName + ".CreationFailed"
+;
+
+String i18nKeyForCreationWizardPageCommandLabel(gmfgen::GenDiagram diagram) :
+diagram.creationWizardPageClassName + ".CommandLabel"
+;
+
+String i18nKeyForCreationWizardPageTaskName(gmfgen::GenDiagram diagram) :
+diagram.creationWizardPageClassName + ".TaskName"
+;
+
+String i18nKeyForCreationWizardPageSaveFailed(gmfgen::GenDiagram diagram) :
+diagram.creationWizardPageClassName + ".SaveFailed"
+;
+
+String i18nKeyForInitDiagramFileResourceErrorDialog(gmfgen::GenDiagram diagram) :
+diagram.initDiagramFileActionClassName + ".ResourceErrorDialog"
+;
+
+String i18nKeyForInitDiagramFileWizardTitle(gmfgen::GenDiagram diagram) :
+diagram.initDiagramFileActionClassName + ".WizardTitle"
+;
+
+String i18nForNewDiagramFileWizardIncorrectExtension(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".IncorrectExtension"
+;
+
+String i18nForNewDiagramFileWizardBrowseButton(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".BrowseButton"
+;
+
+String i18nForNewDiagramFileWizardFileLabel(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".FileLabel"
+;
+
+String i18nForNewDiagramFileWizardNoSourceFile(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".NoSourceFile"
+;
+
+String i18nForNewDiagramFileWizardSourceURISelectorPageName(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".SourceURISelectorPageName"
+;
+
+String i18nForNewDiagramFileWizardSourceURISelectorPageTitle(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".SourceURISelectorPageTitle"
+;
+
+String i18nForNewDiagramFileWizardSourceURISelectorPageDescription(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".SourceURISelectorPageDescription"
+;
+
+String i18nForNewDiagramFileWizardDiagramFileExists(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".DiagramFileExists"
+;
+
+String i18nForNewDiagramFileWizardDiagramURISelectorPageName(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".DiagramURISelectorPageName"
+;
+
+String i18nForNewDiagramFileWizardDiagramURISelectorPageTitle(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".DiagramURISelectorPageTitle"
+;
+
+String i18nForNewDiagramFileWizardDiagramURISelectorPageDescription(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".DiagramURISelectorPageDescription"
+;
+
+String i18nForNewDiagramFileWizardRootElementSelectorPageName(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".RootElementSelectorPageName"
+;
+
+String i18nForNewDiagramFileWizardRootElementSelectorPageTitle(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".RootElementSelectorPageTitle"
+;
+
+String i18nForNewDiagramFileWizardRootElementSelectorPageDescription(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".RootElementSelectorPageDescription"
+;
+
+String i18nForNewDiagramFileWizardRootElementSelectorPageLabelText(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".RootElementSelectorPageLabelText"
+;
+
+String i18nForNewDiagramFileWizardRootElementSelectorPageNoRootSelected(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".RootElementSelectorPageNoRootSelected"
+;
+
+String i18nForNewDiagramFileWizardRootElementSelectorPageInvalidRootSelected(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".RootElementSelectorPageInvalidRootSelected"
+;
+
+String i18nForNewDiagramFileWizardCommandLabel(gmfgen::GenDiagram diagram) :
+diagram.newDiagramFileWizardClassName + ".CommandLabel"
+;
+

@@ -18,11 +18,16 @@
     «EXPAND xpt::navigator::NavigatorContentProvider::i18nAccessors FOR navigator-»
     «EXPAND xpt::navigator::NavigatorActionProvider::i18nAccessors FOR navigator-»
     «EXPAND xpt::editor::ActionBarContributor::i18nAccessors FOR editor-»
+	«EXPAND xpt::editor::palette::PaletteFactory::i18nAccessors FOR diagram.palette-»
 «IF !editor.eclipseEditor-»
     «EXPAND xpt::editor::OpenDiagramInViewAction::i18nAccessors FOR editor-»
 «ENDIF-»
     «EXPAND xpt::editor::Editor::i18nAccessors FOR editor-»
     «EXPAND xpt::editor::DiagramEditorUtil::i18nAccessors FOR diagram-»
+    «EXPAND xpt::editor::CreationWizard::i18nAccessors FOR diagram-»
+    «EXPAND xpt::editor::CreationWizardPage::i18nAccessors FOR diagram-»
+	«EXPAND xpt::editor::InitDiagramFileAction::i18nAccessors FOR diagram-»
+	«EXPAND xpt::editor::NewDiagramFileWizard::i18nAccessors FOR diagram-»
 	«EXPAND xpt::providers::MarkerNavigationProvider::i18nAccessors FOR diagram-»
 «ENDAROUND»
 
@@ -33,10 +38,15 @@
 «EXPAND xpt::navigator::NavigatorContentProvider::i18nValues FOR navigator-»
 «EXPAND xpt::navigator::NavigatorActionProvider::i18nValues FOR navigator-»
 «EXPAND xpt::editor::ActionBarContributor::i18nValues FOR editor-»
+«EXPAND xpt::editor::palette::PaletteFactory::i18nValues FOR diagram.palette-»
 «IF !editor.eclipseEditor-»
 «EXPAND xpt::editor::OpenDiagramInViewAction::i18nValues FOR editor-»
 «ENDIF-»
 «EXPAND xpt::editor::Editor::i18nValues FOR editor-»
 «EXPAND xpt::editor::DiagramEditorUtil::i18nValues FOR diagram-»
+«EXPAND xpt::editor::CreationWizard::i18nValues FOR diagram-»
+«EXPAND xpt::editor::CreationWizardPage::i18nValues FOR diagram-»
+«EXPAND xpt::editor::InitDiagramFileAction::i18nValues FOR diagram-»
+«EXPAND xpt::editor::NewDiagramFileWizard::i18nValues FOR diagram-»
 «EXPAND xpt::providers::MarkerNavigationProvider::i18nValues FOR diagram-»
 «ENDAROUND»

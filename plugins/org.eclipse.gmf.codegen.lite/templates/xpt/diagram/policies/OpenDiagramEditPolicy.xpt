@@ -16,6 +16,9 @@
 «EXTENSION xpt::GenModelUtils»
 
 «DEFINE OpenDiagramEditPolicy FOR gmfgen::OpenDiagramBehaviour-»
+«EXPAND xpt::Common::copyright FOR subject.getDiagram().editorGen-»
+package «subject.getDiagram().editPoliciesPackageName»;
+
 «EXPAND xpt::Common::generatedClassComment»
 public class «editPolicyClassName» «EXPAND supertypes» {
 	«EXPAND commandForRequest-»
@@ -210,7 +213,7 @@ protected String getDiagramKind() {
 «DEFINE OpenDiagramCommandClassGetID FOR gmfgen::OpenDiagramBehaviour-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected String «EXPAND getIDName»() {
-	return «IF editorID == null»«subject.getDiagram().editorGen.editor.getQualifiedClassName()».ID«ELSE»"«editorID»";	«EXPAND xpt::Common::nonNLS»«ENDIF»
+	return «IF editorID == null»«subject.getDiagram().editorGen.editor.getQualifiedClassName()».ID;«ELSE»"«editorID»";	«EXPAND xpt::Common::nonNLS»«ENDIF»
 }
 «ENDDEFINE»
 

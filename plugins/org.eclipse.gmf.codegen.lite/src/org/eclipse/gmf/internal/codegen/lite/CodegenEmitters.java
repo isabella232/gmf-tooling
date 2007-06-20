@@ -21,11 +21,6 @@ import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.gmf.codegen.templates.lite.editor.CreationWizardGenerator;
-import org.eclipse.gmf.codegen.templates.lite.editor.CreationWizardPageGenerator;
-import org.eclipse.gmf.codegen.templates.lite.editor.InitDiagramFileActionGenerator;
-import org.eclipse.gmf.codegen.templates.lite.editor.NewDiagramFileWizardGenerator;
-import org.eclipse.gmf.codegen.templates.lite.editor.PaletteFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
@@ -96,12 +91,7 @@ public class CodegenEmitters {
 		final StaticTemplateRegistry tr = new StaticTemplateRegistry(CodegenEmitters.class.getClassLoader());
 
 		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class);
-		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
-		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
-		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
-		put(tr, "/editor/PaletteFactory.javajet", PaletteFactoryGenerator.class);
-		put(tr, "/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGenerator.class);
-		put(tr, "/editor/NewDiagramFileWizard.javajet", NewDiagramFileWizardGenerator.class);
+		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class);
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class);
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class);
@@ -222,11 +212,11 @@ public class CodegenEmitters {
 	}
 	
 	public TextEmitter getCreationWizardGenerator() throws UnexpectedBehaviourException {
-		return retrieve(CreationWizardGenerator.class);
+		return retrieveXpand("xpt::editor::CreationWizard::CreationWizard");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getCreationWizardPageGenerator() throws UnexpectedBehaviourException {
-		return retrieve(CreationWizardPageGenerator.class);
+		return retrieveXpand("xpt::editor::CreationWizardPage::CreationWizardPage");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getDiagramEditorUtilGenerator() throws UnexpectedBehaviourException {
@@ -234,7 +224,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getPaletteFactoryGenerator() throws UnexpectedBehaviourException {
-		return retrieve(PaletteFactoryGenerator.class);
+		return retrieveXpand("xpt::editor::palette::PaletteFactory::Factory");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getVisualIDRegistryGenerator() throws UnexpectedBehaviourException {
@@ -254,11 +244,11 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getInitDiagramFileActionGenerator() throws UnexpectedBehaviourException {
-		return retrieve(InitDiagramFileActionGenerator.class);
+		return retrieveXpand("xpt::editor::InitDiagramFileAction::InitDiagramFileAction");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getNewDiagramFileWizardGenerator() throws UnexpectedBehaviourException {
-		return retrieve(NewDiagramFileWizardGenerator.class);
+		return retrieveXpand("xpt::editor::NewDiagramFileWizard::NewDiagramFileWizard");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getLoadResourceActionGenerator() throws UnexpectedBehaviourException {
@@ -295,6 +285,14 @@ public class CodegenEmitters {
 
 	public BinaryEmitter getWizardBannerImageEmitter() throws UnexpectedBehaviourException {
 		return newGIFEmitterAdapter("/editor/wizban.gif"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getWizardBannerStemEmitter()  throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::editor::CreationWizard::wizardBannerStem");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getWizardBannerLocationEmitter()  throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::editor::CreationWizard::wizardBannerLocation");	//$NON-NLS-1$
 	}
 
 	/**

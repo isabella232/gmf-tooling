@@ -110,7 +110,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			internalGenerateJavaClass(myEmitters.getOpenDiagramInViewActionGenerator(), myEditorGen.getEditor().getPackageName(), className, myEditorGen.getEditor());
 		}
 		if (myDiagram.getPalette() != null) {
-			internalGenerateJavaClass(myEmitters.getPaletteFactoryGenerator(), myDiagram.getPalette().getFactoryQualifiedClassName(), myDiagram);
+			internalGenerateJavaClass(myEmitters.getPaletteFactoryGenerator(), myDiagram.getPalette().getFactoryQualifiedClassName(), myDiagram.getPalette());
 		}
 		internalGenerateJavaClass(myEmitters.getEditPartFactoryGenerator(), myDiagram.getEditPartFactoryQualifiedClassName(), myDiagram);
 		internalGenerateJavaClass(myEmitters.getDiagramEditPartGenerator(), myDiagram.getEditPartQualifiedClassName(), myDiagram);
@@ -251,10 +251,14 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateWizardBanner() throws UnexpectedBehaviourException, InterruptedException {
-		String stem = myDiagram.getDomainDiagramElement() == null ? "" : myDiagram.getDomainDiagramElement().getGenPackage().getPrefix(); //$NON-NLS-1$
 		// @see GenPackageImpl#generateEditor - it passes prefix to ModelWizardGIFEmitter
-		Object[] args = new Object[] {stem.length() == 0 ? myEditorGen.getDiagramFileExtension() : stem };
-		doGenerateBinaryFile(myEmitters.getWizardBannerImageEmitter(), new Path("icons/wizban/New" + stem + "Wizard.gif"), args); //$NON-NLS-1$ //$NON-NLS-2$
+		try {
+			Object[] args = new Object[] {myEmitters.getWizardBannerStemEmitter().generate(new NullProgressMonitor(), new Object[] {myDiagram}) };
+			String path = myEmitters.getWizardBannerLocationEmitter().generate(new NullProgressMonitor(), new Object[] {myDiagram});
+			doGenerateBinaryFile(myEmitters.getWizardBannerImageEmitter(), new Path(path), args);
+		} catch (InvocationTargetException e) {
+			handleException(e);
+		}
 	}
 
 	private void generateBehaviors(GenCommonBase element, HashSet<OpenDiagramBehaviour> generatedBehaviors) throws UnexpectedBehaviourException, InterruptedException {
