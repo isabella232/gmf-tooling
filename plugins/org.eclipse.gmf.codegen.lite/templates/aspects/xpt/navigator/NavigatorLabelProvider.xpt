@@ -58,13 +58,22 @@ private org.eclipse.swt.graphics.Image getImage(String key, org.eclipse.emf.ecor
 «ENDAROUND»
 
 «AROUND getDiagramLabelText(gmfgen::GenCommonBase elementTypeHolder, gmfgen::GenCommonBase hintHolder) FOR gmfgen::LabelModelFacet-»
+«EXPAND getDisplayerDisplayText FOR hintHolder-»
+«ENDAROUND»
+
+«DEFINE getDisplayerDisplayText FOR gmfgen::GenCommonBase-»
 org.eclipse.emf.ecore.EObject domainModelElement = view.getElement();
 if (domainModelElement == null) {
 	return "";	«EXPAND xpt::Common::nonNLS»
 }
-String result = «hintHolder.getEditPartQualifiedClassName()».LABEL_DISPLAYER.getDisplayText(domainModelElement);
+String result = «getEditPartQualifiedClassName()».LABEL_DISPLAYER.getDisplayText(domainModelElement);
 	if (result == null) {
 	return "";	«EXPAND xpt::Common::nonNLS»
 }
 return result;
+«ENDDEFINE»
+
+«AROUND getDiagramLabelTextNoModelFacet(gmfgen::GenCommonBase label) FOR gmfgen::GenCommonBase-»
+«EXPAND getDisplayerDisplayText FOR label-»
 «ENDAROUND»
+

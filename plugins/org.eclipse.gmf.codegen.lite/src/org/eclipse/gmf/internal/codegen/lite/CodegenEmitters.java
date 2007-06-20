@@ -16,7 +16,6 @@ import java.util.HashMap;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETCompiler;
-import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
@@ -280,11 +279,11 @@ public class CodegenEmitters {
 	}
 
 	public BinaryEmitter getDiagramIconEmitter() throws UnexpectedBehaviourException {
-		return newGIFEmitterAdapter("/editor/diagram.gif"); //$NON-NLS-1$
+		return newGIFEmitterAdapter("/xpt/editor/diagram.gif"); //$NON-NLS-1$
 	}
 
 	public BinaryEmitter getWizardBannerImageEmitter() throws UnexpectedBehaviourException {
-		return newGIFEmitterAdapter("/editor/wizban.gif"); //$NON-NLS-1$
+		return newGIFEmitterAdapter("/xpt/editor/wizban.gif"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getWizardBannerStemEmitter()  throws UnexpectedBehaviourException {
@@ -342,12 +341,8 @@ public class CodegenEmitters {
 		return getTemplatesBundle().getEntry("/templates/emf-merge.xml");
 	}
 
-	public GIFEmitter getShortcutImageEmitter() throws JETException {
-		String templateLocation = JETCompiler.find(getTemplatePath(), "/editor/shortcut.gif");
-		if (templateLocation == null) {
-			throw new JETException("shortcut image template not found");
-		}
-		return new GIFEmitter(templateLocation);
+	public BinaryEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {
+		return newGIFEmitter("/xpt/editor/shortcut.gif"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getNavigatorContentProviderEmitter() {
