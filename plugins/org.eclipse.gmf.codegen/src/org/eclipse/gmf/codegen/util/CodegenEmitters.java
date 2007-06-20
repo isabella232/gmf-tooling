@@ -28,8 +28,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.providers.ContributionItemProviderGenerator;
-import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ElementInitializersGenerator;
 import org.eclipse.gmf.codegen.templates.providers.MetricProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ValidationProviderGenerator;
@@ -102,9 +100,7 @@ public class CodegenEmitters {
 	}
 
 	private static void initRegistry(StaticTemplateRegistry tr) {
-		put(tr, "/providers/EditPartProvider.javajet", EditPartProviderGenerator.class);
-		put(tr, "/providers/ContributionItemProvider.javajet", ContributionItemProviderGenerator.class);
-		put(tr, "/providers/ElementInitializers.javajet", ElementInitializersGenerator.class);
+		put(tr, "/providers/ElementInitializers.javajet", ElementInitializersGenerator.class); //$NON-NLS-1$
 		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class); //$NON-NLS-1$		
@@ -284,6 +280,54 @@ public class CodegenEmitters {
 		return newXpandEmitter("xpt::diagram::editpolicies::TextFeedback::TextNonResizableEditPolicy"); //$NON-NLS-1$
 	}
 
+	// view factories
+
+	public TextEmitter getDiagramViewFactoryEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::diagram::views::DiagramViewFactory"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getNodeViewFactoryEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::diagram::views::NodeViewFactory"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getLabelNodeViewFactoryEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::diagram::views::LabelNodeViewFactory"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getCompartmentViewFactoryEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::diagram::views::CompartmentViewFactory"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getLinkViewFactoryEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::diagram::views::LinkViewFactory"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getFloatingLabelViewFactoryEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::diagram::views::FloatingLabelViewFactory"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getLabelViewFactoryEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::diagram::views::LabelViewFactory"); //$NON-NLS-1$
+	}
+
+	// updater
+
+	public TextEmitter getDiagramUpdaterEmitter() {
+		return getPrimaryEmitter("xpt::diagram::updater::DiagramUpdater"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getUpdateCommandEmitter() {
+		return getPrimaryEmitter("xpt::diagram::updater::UpdateCommand"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getNodeDescriptorEmitter() {
+		return getPrimaryEmitter("xpt::diagram::updater::NodeDescriptor"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getLinkDescriptorEmitter() {
+		return getPrimaryEmitter("xpt::diagram::updater::LinkDescriptor"); //$NON-NLS-1$
+	}
+
 	// parsers
 
 	public TextEmitter getAbstractParserEmitter() throws UnexpectedBehaviourException {
@@ -334,36 +378,6 @@ public class CodegenEmitters {
 		return getQualifiedClassName("xpt::parsers::RegexpParser", input); //$NON-NLS-1$
 	}
 
-	// view factories
-
-	public TextEmitter getDiagramViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::views::DiagramViewFactory"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getNodeViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::views::NodeViewFactory"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getLabelNodeViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::views::LabelNodeViewFactory"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getCompartmentViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::views::CompartmentViewFactory"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getLinkViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::views::LinkViewFactory"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getFloatingLabelViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::views::FloatingLabelViewFactory"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getLabelViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::views::LabelViewFactory"); //$NON-NLS-1$
-	}
-
 	// providers
 
 	public TextEmitter getParserProviderEmitter() throws UnexpectedBehaviourException {
@@ -383,23 +397,15 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getEditPartProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(EditPartProviderGenerator.class);
+		return getPrimaryEmitter("xpt::providers::EditPartProvider"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getContributionItemProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ContributionItemProviderGenerator.class);
+		return getPrimaryEmitter("xpt::providers::ContributionItemProvider"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getModelingAssistantProviderEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryEmitter("xpt::providers::ModelingAssistantProvider"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getPropertySheetLabelProviderEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::propsheet::LabelProvider::Class"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getPropertySectionEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::propsheet::PropertySection::Class"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getIconProviderEmitter() throws UnexpectedBehaviourException {
@@ -419,11 +425,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getShortcutsDecoratorProviderEmitter() {
-		return newXpandEmitter("xpt::providers::ShortcutsDecoratorProvider::ShortcutsDecoratorProvider"); //$NON-NLS-1$
-	}
-	
-	public TextEmitter getShortcutPropertyTesterEmitter() {
-		return newXpandEmitter("xpt::editor::ShortcutPropertyTester::ShortcutPropertyTester"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::providers::ShortcutsDecoratorProvider"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getMetricProviderEmitter() throws UnexpectedBehaviourException {
@@ -440,6 +442,16 @@ public class CodegenEmitters {
 	
 	public TextEmitter getRegexpExpressionFactoryEmitter() throws UnexpectedBehaviourException {
 		return retrieve(RegexpExpressionFactoryGenerator.class);
+	}
+
+	// property sheet
+
+	public TextEmitter getPropertySheetLabelProviderEmitter() throws UnexpectedBehaviourException {
+		return newXpandEmitter("xpt::propsheet::LabelProvider::Class"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getPropertySectionEmitter() throws UnexpectedBehaviourException {
+		return newXpandEmitter("xpt::propsheet::PropertySection::Class"); //$NON-NLS-1$
 	}
 
 	// editor
@@ -462,6 +474,10 @@ public class CodegenEmitters {
 	
 	public TextEmitter getDiagramContentInitializerEmitter() {
 		return getPrimaryEmitter("xpt::editor::DiagramContentInitializer"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getShortcutPropertyTesterEmitter() {
+		return getPrimaryEmitter("xpt::editor::ShortcutPropertyTester"); //$NON-NLS-1$
 	}
 
 	public String getShortcutCreationWizardName(Object... input) throws UnexpectedBehaviourException {
@@ -536,22 +552,6 @@ public class CodegenEmitters {
 		return getPrimaryEmitter("xpt::editor::DocumentProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getDiagramUpdaterEmitter() {
-		return getPrimaryEmitter("xpt::diagram::updater::DiagramUpdater"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getUpdateCommandEmitter() {
-		return getPrimaryEmitter("xpt::diagram::updater::UpdateCommand"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getNodeDescriptorEmitter() {
-		return getPrimaryEmitter("xpt::diagram::updater::NodeDescriptor"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getLinkDescriptorEmitter() {
-		return getPrimaryEmitter("xpt::diagram::updater::LinkDescriptor"); //$NON-NLS-1$
-	}
-
 	public TextEmitter getActionBarContributorEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryEmitter("xpt::editor::ActionBarContributor"); //$NON-NLS-1$
 	}
@@ -559,6 +559,28 @@ public class CodegenEmitters {
 	public TextEmitter getMatchingStrategyEmitter() {
 		return getPrimaryEmitter("xpt::editor::MatchingStrategy"); //$NON-NLS-1$
 	}
+
+	public TextEmitter getDomainModelElementTesterEmitter() {
+		return getPrimaryEmitter("xpt::editor::DomainModelElementTester"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getURIEditorInputTesterEmitter() {
+		return getPrimaryEmitter("xpt::editor::UriEditorInputTester"); //$NON-NLS-1$
+	}
+
+	public BinaryEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {
+		return newGIFEmitter("/xpt/editor/shortcut.gif"); //$NON-NLS-1$
+	}
+
+	public BinaryEmitter getDiagramIconEmitter() throws UnexpectedBehaviourException {
+		return newGIFEmitterAdapter("/xpt/editor/diagram.gif"); //$NON-NLS-1$
+	}
+
+	public BinaryEmitter getWizardBannerImageEmitter() throws UnexpectedBehaviourException {
+		return newGIFEmitterAdapter("/xpt/editor/wizban.gif"); //$NON-NLS-1$
+	}
+
+	// navigator
 
 	public TextEmitter getNavigatorContentProviderEmitter() {
 		return getPrimaryEmitter("xpt::navigator::NavigatorContentProvider"); //$NON-NLS-1$
@@ -574,14 +596,6 @@ public class CodegenEmitters {
 
 	public TextEmitter getDomainNavigatorItemEmitter() {
 		return getPrimaryEmitter("xpt::navigator::DomainNavigatorItem"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getDomainModelElementTesterEmitter() {
-		return getPrimaryEmitter("xpt::editor::DomainModelElementTester"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getURIEditorInputTesterEmitter() {
-		return getPrimaryEmitter("xpt::editor::UriEditorInputTester"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getNavigatorLabelProviderEmitter() {
@@ -612,32 +626,8 @@ public class CodegenEmitters {
 		return getPrimaryEmitter("xpt::navigator::NavigatorItem"); //$NON-NLS-1$
 	}
 
-	public BinaryEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {
-		return newGIFEmitter("/editor/shortcut.gif"); //$NON-NLS-1$
-	}
-	
 	public BinaryEmitter getGroupIconEmitter() throws UnexpectedBehaviourException {
 		return newGIFEmitter("/xpt/navigator/navigatorGroup.gif"); //$NON-NLS-1$
-	}
-
-	public BinaryEmitter getDiagramIconEmitter() throws UnexpectedBehaviourException {
-		return newGIFEmitterAdapter("/editor/diagram.gif"); //$NON-NLS-1$
-	}
-
-	public BinaryEmitter getWizardBannerImageEmitter() throws UnexpectedBehaviourException {
-		return newGIFEmitterAdapter("/editor/wizban.gif"); //$NON-NLS-1$
-	}
-
-    public TextEmitter getExternalizeEmitter() {
-        return newXpandEmitter("xpt::Externalizer::Access"); //$NON-NLS-1$
-    }
-
-    public TextEmitter getMessagesEmitter() {
-        return newXpandEmitter("xpt::Externalizer::Values"); //$NON-NLS-1$
-    }
-
-	public String getURIDiagramDocumentProviderName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::editor::URIDiagramDocumentProvider", input); //$NON-NLS-1$
 	}
 
 	// preferences
@@ -715,6 +705,14 @@ public class CodegenEmitters {
 	public TextEmitter getOptionsFileEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryEmitter("xpt::plugin::options"); //$NON-NLS-1$
 	}
+
+    public TextEmitter getExternalizeEmitter() {
+        return newXpandEmitter("xpt::Externalizer::Access"); //$NON-NLS-1$
+    }
+
+    public TextEmitter getMessagesEmitter() {
+        return newXpandEmitter("xpt::Externalizer::Values"); //$NON-NLS-1$
+    }
 
 	// application
 
