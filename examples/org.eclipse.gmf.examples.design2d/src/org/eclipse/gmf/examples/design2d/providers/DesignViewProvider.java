@@ -14,19 +14,19 @@ package org.eclipse.gmf.examples.design2d.providers;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
-import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipse2EditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.InnerSolidEllipseEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.InnerSolidRectangleEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipseEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidLineCommentEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidLineEditPart;
-import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangle2EditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangleEditPart;
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 import org.eclipse.gmf.examples.design2d.view.factories.Design2DViewFactory;
-import org.eclipse.gmf.examples.design2d.view.factories.SolidEllipse2ViewFactory;
+import org.eclipse.gmf.examples.design2d.view.factories.InnerSolidEllipseViewFactory;
+import org.eclipse.gmf.examples.design2d.view.factories.InnerSolidRectangleViewFactory;
 import org.eclipse.gmf.examples.design2d.view.factories.SolidEllipseViewFactory;
 import org.eclipse.gmf.examples.design2d.view.factories.SolidLineCommentViewFactory;
 import org.eclipse.gmf.examples.design2d.view.factories.SolidLineViewFactory;
-import org.eclipse.gmf.examples.design2d.view.factories.SolidRectangle2ViewFactory;
 import org.eclipse.gmf.examples.design2d.view.factories.SolidRectangleViewFactory;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -94,9 +94,9 @@ public class DesignViewProvider extends AbstractViewProvider {
 				}
 				switch (visualID) {
 				case SolidRectangleEditPart.VISUAL_ID:
-				case SolidEllipse2EditPart.VISUAL_ID:
-				case SolidRectangle2EditPart.VISUAL_ID:
 				case SolidEllipseEditPart.VISUAL_ID:
+				case InnerSolidRectangleEditPart.VISUAL_ID:
+				case InnerSolidEllipseEditPart.VISUAL_ID:
 					if (domainElement == null || visualID != DesignVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
 						return null; // visual id in semantic hint should match visual id for domain element
 					}
@@ -124,12 +124,12 @@ public class DesignViewProvider extends AbstractViewProvider {
 		switch (visualID) {
 		case SolidRectangleEditPart.VISUAL_ID:
 			return SolidRectangleViewFactory.class;
-		case SolidEllipse2EditPart.VISUAL_ID:
-			return SolidEllipse2ViewFactory.class;
-		case SolidRectangle2EditPart.VISUAL_ID:
-			return SolidRectangle2ViewFactory.class;
 		case SolidEllipseEditPart.VISUAL_ID:
 			return SolidEllipseViewFactory.class;
+		case InnerSolidRectangleEditPart.VISUAL_ID:
+			return InnerSolidRectangleViewFactory.class;
+		case InnerSolidEllipseEditPart.VISUAL_ID:
+			return InnerSolidEllipseViewFactory.class;
 		case SolidLineCommentEditPart.VISUAL_ID:
 			return SolidLineCommentViewFactory.class;
 		}

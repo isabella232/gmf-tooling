@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangle2EditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.InnerSolidEllipseEditPart;
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
@@ -24,7 +24,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class SolidRectangle2ViewFactory extends AbstractShapeViewFactory {
+public class InnerSolidEllipseViewFactory extends AbstractShapeViewFactory {
 
 	/**
 	 * @generated
@@ -40,7 +40,7 @@ public class SolidRectangle2ViewFactory extends AbstractShapeViewFactory {
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = DesignVisualIDRegistry.getType(SolidRectangle2EditPart.VISUAL_ID);
+			semanticHint = DesignVisualIDRegistry.getType(InnerSolidEllipseEditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);

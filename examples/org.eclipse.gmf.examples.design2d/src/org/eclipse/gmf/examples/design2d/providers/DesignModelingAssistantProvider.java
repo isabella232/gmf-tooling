@@ -22,9 +22,9 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
-import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipse2EditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.InnerSolidEllipseEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.InnerSolidRectangleEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipseEditPart;
-import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangle2EditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangleEditPart;
 import org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin;
 import org.eclipse.gmf.examples.design2d.part.Messages;
@@ -55,19 +55,19 @@ public class DesignModelingAssistantProvider extends ModelingAssistantProvider {
 			types.add(DesignElementTypes.Node_3002);
 			return types;
 		}
-		if (editPart instanceof SolidEllipse2EditPart) {
-			List types = new ArrayList();
-			types.add(DesignElementTypes.Node_3001);
-			types.add(DesignElementTypes.Node_3002);
-			return types;
-		}
-		if (editPart instanceof SolidRectangle2EditPart) {
-			List types = new ArrayList();
-			types.add(DesignElementTypes.Node_3001);
-			types.add(DesignElementTypes.Node_3002);
-			return types;
-		}
 		if (editPart instanceof SolidEllipseEditPart) {
+			List types = new ArrayList();
+			types.add(DesignElementTypes.Node_3001);
+			types.add(DesignElementTypes.Node_3002);
+			return types;
+		}
+		if (editPart instanceof InnerSolidRectangleEditPart) {
+			List types = new ArrayList();
+			types.add(DesignElementTypes.Node_3001);
+			types.add(DesignElementTypes.Node_3002);
+			return types;
+		}
+		if (editPart instanceof InnerSolidEllipseEditPart) {
 			List types = new ArrayList();
 			types.add(DesignElementTypes.Node_3001);
 			types.add(DesignElementTypes.Node_3002);

@@ -62,22 +62,22 @@ public class DesignElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
-	public static final IElementType Node_2001 = getElementType("org.eclipse.gmf.examples.design2d.Node_2001"); //$NON-NLS-1$
+	public static final IElementType Node_2001 = getElementType("org.eclipse.gmf.examples.design2d.SolidRectangle"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Node_2002 = getElementType("org.eclipse.gmf.examples.design2d.Node_2002"); //$NON-NLS-1$
+	public static final IElementType Node_2002 = getElementType("org.eclipse.gmf.examples.design2d.SolidEllipse"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Node_3001 = getElementType("org.eclipse.gmf.examples.design2d.Node_3001"); //$NON-NLS-1$
+	public static final IElementType Node_3001 = getElementType("org.eclipse.gmf.examples.design2d.InnerSolidRectangle"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Node_3002 = getElementType("org.eclipse.gmf.examples.design2d.SolidEllipseInt"); //$NON-NLS-1$
+	public static final IElementType Node_3002 = getElementType("org.eclipse.gmf.examples.design2d.InnerSolidEllipse"); //$NON-NLS-1$
 
 	/**
 	 * @generated

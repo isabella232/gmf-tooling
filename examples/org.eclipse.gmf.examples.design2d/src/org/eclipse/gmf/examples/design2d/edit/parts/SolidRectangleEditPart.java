@@ -12,11 +12,9 @@
 package org.eclipse.gmf.examples.design2d.edit.parts;
 
 import org.eclipse.draw2d.FreeformLayout;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
-import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
@@ -93,16 +91,19 @@ public class SolidRectangleEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		SolidRectangleFigure figure = new SolidRectangleFigure();
-		figure.setUseLocalCoordinates(true);
-		return primaryShape = figure;
+		return primaryShape = new RectangleFigure() {
+
+			protected boolean useLocalCoordinates() {
+				return true;
+			}
+		};
 	}
 
 	/**
 	 * @generated
 	 */
-	public SolidRectangleFigure getPrimaryShape() {
-		return (SolidRectangleFigure) primaryShape;
+	public RectangleFigure getPrimaryShape() {
+		return (RectangleFigure) primaryShape;
 	}
 
 	/**
@@ -160,46 +161,6 @@ public class SolidRectangleEditPart extends ShapeNodeEditPart {
 			return contentPane;
 		}
 		return super.getContentPane();
-	}
-
-	/**
-	 * @generated
-	 */
-	public class SolidRectangleFigure extends RectangleFigure {
-
-		/**
-		 * @generated
-		 */
-		public SolidRectangleFigure() {
-
-			this.setLayoutManager(new XYLayout());
-			this.setFill(true);
-			this.setFillXOR(false);
-			this.setOutline(true);
-			this.setOutlineXOR(false);
-			this.setLineWidth(1);
-			this.setLineStyle(Graphics.LINE_SOLID);
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean myUseLocalCoordinates = false;
-
-		/**
-		 * @generated
-		 */
-		protected boolean useLocalCoordinates() {
-			return myUseLocalCoordinates;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
-			myUseLocalCoordinates = useLocalCoordinates;
-		}
-
 	}
 
 }

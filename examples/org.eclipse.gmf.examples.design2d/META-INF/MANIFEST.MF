@@ -2,12 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.examples.design2d; singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.eclipse.gmf.examples.design2d.edit.parts,
+Export-Package: org.eclipse.gmf.examples.design2d.edit.parts, 
  org.eclipse.gmf.examples.design2d.part,
  org.eclipse.gmf.examples.design2d.providers
 Require-Bundle: org.eclipse.core.runtime,
@@ -28,7 +28,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.runtime.diagram.ui.render,
  org.eclipse.gmf.runtime.diagram.ui.resources.editor,
  org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide,
- org.eclipse.gmf.runtime.draw2d.ui;visibility:=reexport,
- org.eclipse.draw2d;visibility:=reexport,
  org.eclipse.gef;visibility:=reexport
 Eclipse-LazyStart: true

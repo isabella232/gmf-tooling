@@ -15,10 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
-import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipse2EditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.InnerSolidRectangleEditPart;
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
@@ -27,7 +24,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class SolidEllipse2ViewFactory extends AbstractShapeViewFactory {
+public class InnerSolidRectangleViewFactory extends AbstractShapeViewFactory {
 
 	/**
 	 * @generated
@@ -43,15 +40,9 @@ public class SolidEllipse2ViewFactory extends AbstractShapeViewFactory {
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = DesignVisualIDRegistry.getType(SolidEllipse2EditPart.VISUAL_ID);
+			semanticHint = DesignVisualIDRegistry.getType(InnerSolidRectangleEditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
-		if (!Design2DEditPart.MODEL_ID.equals(DesignVisualIDRegistry.getModelID(containerView))) {
-			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
-			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
-			shortcutAnnotation.getDetails().put("modelID", Design2DEditPart.MODEL_ID); //$NON-NLS-1$
-			view.getEAnnotations().add(shortcutAnnotation);
-		}
 	}
 }

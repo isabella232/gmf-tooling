@@ -12,7 +12,6 @@
 package org.eclipse.gmf.examples.design2d.edit.parts;
 
 import org.eclipse.draw2d.Connection;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
@@ -74,34 +73,14 @@ public class SolidLineEditPart extends ConnectionNodeEditPart {
 	 */
 
 	protected Connection createConnectionFigure() {
-		return new SolidLineFigure();
+		return new PolylineConnectionEx();
 	}
 
 	/**
 	 * @generated
 	 */
-	public SolidLineFigure getPrimaryShape() {
-		return (SolidLineFigure) getFigure();
-	}
-
-	/**
-	 * @generated
-	 */
-	public class SolidLineFigure extends PolylineConnectionEx {
-
-		/**
-		 * @generated
-		 */
-		public SolidLineFigure() {
-			this.setFill(true);
-			this.setFillXOR(false);
-			this.setOutline(true);
-			this.setOutlineXOR(false);
-			this.setLineWidth(1);
-			this.setLineStyle(Graphics.LINE_SOLID);
-
-		}
-
+	public PolylineConnectionEx getPrimaryShape() {
+		return (PolylineConnectionEx) getFigure();
 	}
 
 }

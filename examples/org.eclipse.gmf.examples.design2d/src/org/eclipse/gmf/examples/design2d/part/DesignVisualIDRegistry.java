@@ -15,11 +15,11 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
-import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipse2EditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.InnerSolidEllipseEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.InnerSolidRectangleEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipseEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidLineCommentEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidLineEditPart;
-import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangle2EditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangleEditPart;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
@@ -130,34 +130,34 @@ public class DesignVisualIDRegistry {
 		}
 		switch (containerVisualID) {
 		case SolidRectangleEditPart.VISUAL_ID:
-			if (SolidRectangle2EditPart.VISUAL_ID == nodeVisualID) {
+			if (InnerSolidRectangleEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
-			if (SolidEllipseEditPart.VISUAL_ID == nodeVisualID) {
-				return true;
-			}
-			break;
-		case SolidEllipse2EditPart.VISUAL_ID:
-			if (SolidRectangle2EditPart.VISUAL_ID == nodeVisualID) {
-				return true;
-			}
-			if (SolidEllipseEditPart.VISUAL_ID == nodeVisualID) {
-				return true;
-			}
-			break;
-		case SolidRectangle2EditPart.VISUAL_ID:
-			if (SolidRectangle2EditPart.VISUAL_ID == nodeVisualID) {
-				return true;
-			}
-			if (SolidEllipseEditPart.VISUAL_ID == nodeVisualID) {
+			if (InnerSolidEllipseEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
 		case SolidEllipseEditPart.VISUAL_ID:
-			if (SolidRectangle2EditPart.VISUAL_ID == nodeVisualID) {
+			if (InnerSolidRectangleEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
-			if (SolidEllipseEditPart.VISUAL_ID == nodeVisualID) {
+			if (InnerSolidEllipseEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
+		case InnerSolidRectangleEditPart.VISUAL_ID:
+			if (InnerSolidRectangleEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			if (InnerSolidEllipseEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
+		case InnerSolidEllipseEditPart.VISUAL_ID:
+			if (InnerSolidRectangleEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			if (InnerSolidEllipseEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
@@ -165,7 +165,7 @@ public class DesignVisualIDRegistry {
 			if (SolidRectangleEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
-			if (SolidEllipse2EditPart.VISUAL_ID == nodeVisualID) {
+			if (SolidEllipseEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;

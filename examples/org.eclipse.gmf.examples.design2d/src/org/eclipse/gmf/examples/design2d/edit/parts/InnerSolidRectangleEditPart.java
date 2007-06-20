@@ -11,12 +11,10 @@
  */
 package org.eclipse.gmf.examples.design2d.edit.parts;
 
-import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.FreeformLayout;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
-import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
@@ -34,12 +32,12 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class SolidEllipse2EditPart extends ShapeNodeEditPart {
+public class InnerSolidRectangleEditPart extends ShapeNodeEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2002;
+	public static final int VISUAL_ID = 3001;
 
 	/**
 	 * @generated
@@ -54,7 +52,7 @@ public class SolidEllipse2EditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public SolidEllipse2EditPart(View view) {
+	public InnerSolidRectangleEditPart(View view) {
 		super(view);
 	}
 
@@ -93,16 +91,19 @@ public class SolidEllipse2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		SolidEllipseFigure figure = new SolidEllipseFigure();
-		figure.setUseLocalCoordinates(true);
-		return primaryShape = figure;
+		return primaryShape = new RectangleFigure() {
+
+			protected boolean useLocalCoordinates() {
+				return true;
+			}
+		};
 	}
 
 	/**
 	 * @generated
 	 */
-	public SolidEllipseFigure getPrimaryShape() {
-		return (SolidEllipseFigure) primaryShape;
+	public RectangleFigure getPrimaryShape() {
+		return (RectangleFigure) primaryShape;
 	}
 
 	/**
@@ -160,46 +161,6 @@ public class SolidEllipse2EditPart extends ShapeNodeEditPart {
 			return contentPane;
 		}
 		return super.getContentPane();
-	}
-
-	/**
-	 * @generated
-	 */
-	public class SolidEllipseFigure extends Ellipse {
-
-		/**
-		 * @generated
-		 */
-		public SolidEllipseFigure() {
-
-			this.setLayoutManager(new XYLayout());
-			this.setFill(true);
-			this.setFillXOR(false);
-			this.setOutline(true);
-			this.setOutlineXOR(false);
-			this.setLineWidth(1);
-			this.setLineStyle(Graphics.LINE_SOLID);
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean myUseLocalCoordinates = false;
-
-		/**
-		 * @generated
-		 */
-		protected boolean useLocalCoordinates() {
-			return myUseLocalCoordinates;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
-			myUseLocalCoordinates = useLocalCoordinates;
-		}
-
 	}
 
 }

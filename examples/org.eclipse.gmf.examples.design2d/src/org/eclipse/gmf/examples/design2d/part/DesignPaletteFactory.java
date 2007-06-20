@@ -32,15 +32,15 @@ public class DesignPaletteFactory {
 	 * @generated
 	 */
 	public void fillPalette(PaletteRoot paletteRoot) {
-		paletteRoot.add(createPrimaryShapesGroup());
+		paletteRoot.add(createShapesGroup());
 	}
 
 	/**
-	 * Creates "Primary Shapes" palette tool group
+	 * Creates "Shapes" palette tool group
 	 * @generated
 	 */
-	private PaletteContainer createPrimaryShapesGroup() {
-		PaletteDrawer paletteContainer = new PaletteDrawer(Messages.PrimaryShapesGroup_title);
+	private PaletteContainer createShapesGroup() {
+		PaletteDrawer paletteContainer = new PaletteDrawer(Messages.ShapesGroup_title);
 		paletteContainer.add(createSolidRectangleCreationTool());
 		paletteContainer.add(createSolidEllipseCreationTool());
 		paletteContainer.add(createSolidLineCreationTool());

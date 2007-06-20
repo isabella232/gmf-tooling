@@ -239,28 +239,28 @@
          <param name="semanticHint" value="1000"/>
       </specializationType>
       <specializationType
-            id="org.eclipse.gmf.examples.design2d.Node_2001"
+            id="org.eclipse.gmf.examples.design2d.SolidRectangle"
             name="%metatype.name.Node_2001"
             kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
          <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
          <param name="semanticHint" value="2001"/>
       </specializationType>
       <specializationType
-            id="org.eclipse.gmf.examples.design2d.Node_2002"
+            id="org.eclipse.gmf.examples.design2d.SolidEllipse"
             name="%metatype.name.Node_2002"
             kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
          <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
          <param name="semanticHint" value="2002"/>
       </specializationType>
       <specializationType
-            id="org.eclipse.gmf.examples.design2d.Node_3001"
+            id="org.eclipse.gmf.examples.design2d.InnerSolidRectangle"
             name="%metatype.name.Node_3001"
             kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
          <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
          <param name="semanticHint" value="3001"/>
       </specializationType>
       <specializationType
-            id="org.eclipse.gmf.examples.design2d.SolidEllipseInt"
+            id="org.eclipse.gmf.examples.design2d.InnerSolidEllipse"
             name="%metatype.name.Node_3002"
             kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
          <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
@@ -286,10 +286,10 @@
       </clientContext> 
       <binding context="Design2DClientContext">
          <elementType ref="org.eclipse.gmf.examples.design2d.Diagram"/>
-         <elementType ref="org.eclipse.gmf.examples.design2d.Node_2001"/>
-         <elementType ref="org.eclipse.gmf.examples.design2d.Node_2002"/>
-         <elementType ref="org.eclipse.gmf.examples.design2d.Node_3001"/>
-         <elementType ref="org.eclipse.gmf.examples.design2d.SolidEllipseInt"/>
+         <elementType ref="org.eclipse.gmf.examples.design2d.SolidRectangle"/>
+         <elementType ref="org.eclipse.gmf.examples.design2d.SolidEllipse"/>
+         <elementType ref="org.eclipse.gmf.examples.design2d.InnerSolidRectangle"/>
+         <elementType ref="org.eclipse.gmf.examples.design2d.InnerSolidEllipse"/>
          <elementType ref="org.eclipse.gmf.examples.design2d.SolidLine"/>
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>

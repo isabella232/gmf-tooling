@@ -25,49 +25,45 @@
         figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
     <childNodes
         visualID="3001"
-        editPartClassName="SolidRectangle2EditPart"
-        itemSemanticEditPolicyClassName="SolidRectangle2ItemSemanticEditPolicy"
-        notationViewFactoryClassName="SolidRectangle2ViewFactory"
-        canonicalEditPolicyClassName="SolidRectangle2CanonicalEditPolicy"
+        editPartClassName="InnerSolidRectangleEditPart"
+        itemSemanticEditPolicyClassName="InnerSolidRectangleItemSemanticEditPolicy"
+        notationViewFactoryClassName="InnerSolidRectangleViewFactory"
+        canonicalEditPolicyClassName="InnerSolidRectangleCanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.1"
-        graphicalNodeEditPolicyClassName="SolidRectangle2GraphicalNodeEditPolicy"
-        createCommandClassName="SolidRectangle2CreateCommand"
+        graphicalNodeEditPolicyClassName="InnerSolidRectangleGraphicalNodeEditPolicy"
+        createCommandClassName="InnerSolidRectangleCreateCommand"
         containers="//@diagram/@childNodes.0 //@diagram/@childNodes.1 //@diagram/@topLevelNodes.0 //@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:NotationType"
+          uniqueIdentifier="org.eclipse.gmf.examples.design2d.InnerSolidRectangle"
           displayName="Solid Rectangle"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
+          xsi:type="gmfgen:FigureViewmap"
           layoutType="XY_LAYOUT"
-          className="SolidRectangleFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SolidRectangleFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SolidRectangleFigure() {&#xA;&#x9;&#x9;&#xA;this.setLayoutManager(new org.eclipse.draw2d.XYLayout());&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-      </viewmap>
+          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
     </childNodes>
     <childNodes
         visualID="3002"
-        editPartClassName="SolidEllipseEditPart"
-        itemSemanticEditPolicyClassName="SolidEllipseItemSemanticEditPolicy"
-        notationViewFactoryClassName="SolidEllipseViewFactory"
-        canonicalEditPolicyClassName="SolidEllipseCanonicalEditPolicy"
+        editPartClassName="InnerSolidEllipseEditPart"
+        itemSemanticEditPolicyClassName="InnerSolidEllipseItemSemanticEditPolicy"
+        notationViewFactoryClassName="InnerSolidEllipseViewFactory"
+        canonicalEditPolicyClassName="InnerSolidEllipseCanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.1"
-        graphicalNodeEditPolicyClassName="SolidEllipseGraphicalNodeEditPolicy"
-        createCommandClassName="SolidEllipseCreateCommand"
+        graphicalNodeEditPolicyClassName="InnerSolidEllipseGraphicalNodeEditPolicy"
+        createCommandClassName="InnerSolidEllipseCreateCommand"
         containers="//@diagram/@childNodes.1 //@diagram/@childNodes.0 //@diagram/@topLevelNodes.0 //@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:NotationType"
-          uniqueIdentifier="org.eclipse.gmf.examples.design2d.SolidEllipseInt"
+          uniqueIdentifier="org.eclipse.gmf.examples.design2d.InnerSolidEllipse"
           displayName="Solid Ellipse"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
+          xsi:type="gmfgen:FigureViewmap"
           layoutType="XY_LAYOUT"
-          className="SolidEllipseFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SolidEllipseFigure extends org.eclipse.draw2d.Ellipse {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SolidEllipseFigure() {&#xA;&#x9;&#x9;&#xA;this.setLayoutManager(new org.eclipse.draw2d.XYLayout());&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;"/>
+          figureQualifiedClassName="org.eclipse.draw2d.Ellipse"/>
     </childNodes>
     <topLevelNodes
         visualID="2001"
@@ -82,38 +78,32 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:NotationType"
+          uniqueIdentifier="org.eclipse.gmf.examples.design2d.SolidRectangle"
           displayName="Solid Rectangle"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
+          xsi:type="gmfgen:FigureViewmap"
           layoutType="XY_LAYOUT"
-          className="SolidRectangleFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SolidRectangleFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SolidRectangleFigure() {&#xA;&#x9;&#x9;&#xA;this.setLayoutManager(new org.eclipse.draw2d.XYLayout());&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-      </viewmap>
+          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
     </topLevelNodes>
     <topLevelNodes
         visualID="2002"
-        editPartClassName="SolidEllipse2EditPart"
-        itemSemanticEditPolicyClassName="SolidEllipse2ItemSemanticEditPolicy"
-        notationViewFactoryClassName="SolidEllipse2ViewFactory"
-        canonicalEditPolicyClassName="SolidEllipse2CanonicalEditPolicy"
+        editPartClassName="SolidEllipseEditPart"
+        itemSemanticEditPolicyClassName="SolidEllipseItemSemanticEditPolicy"
+        notationViewFactoryClassName="SolidEllipseViewFactory"
+        canonicalEditPolicyClassName="SolidEllipseCanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.1"
-        graphicalNodeEditPolicyClassName="SolidEllipse2GraphicalNodeEditPolicy"
-        createCommandClassName="SolidEllipse2CreateCommand">
+        graphicalNodeEditPolicyClassName="SolidEllipseGraphicalNodeEditPolicy"
+        createCommandClassName="SolidEllipseCreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:NotationType"
+          uniqueIdentifier="org.eclipse.gmf.examples.design2d.SolidEllipse"
           displayName="Solid Ellipse"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
+          xsi:type="gmfgen:FigureViewmap"
           layoutType="XY_LAYOUT"
-          className="SolidEllipseFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SolidEllipseFigure extends org.eclipse.draw2d.Ellipse {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SolidEllipseFigure() {&#xA;&#x9;&#x9;&#xA;this.setLayoutManager(new org.eclipse.draw2d.XYLayout());&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
-        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-      </viewmap>
+          figureQualifiedClassName="org.eclipse.draw2d.Ellipse"/>
     </topLevelNodes>
     <links
         visualID="4001"
@@ -129,9 +119,8 @@
           uniqueIdentifier="org.eclipse.gmf.examples.design2d.SolidLine"
           displayName="Solid Line"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="SolidLineFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SolidLineFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SolidLineFigure() {&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;"/>
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"/>
       <labels
           visualID="6001"
           editPartClassName="SolidLineCommentEditPart"
@@ -152,22 +141,22 @@
     </links>
     <palette>
       <groups
-          title="Primary Shapes"
-          createMethodName="createPrimaryShapesGroup"
+          title="Shapes"
+          createMethodName="createShapesGroup"
           collapse="true">
         <entries
             xsi:type="gmfgen:ToolEntry"
-            title="Solid Rectangle"
+            title="Rectangle"
             createMethodName="createSolidRectangleCreationTool"
             genNodes="//@diagram/@topLevelNodes.0 //@diagram/@childNodes.0"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
-            title="Solid Ellipse"
+            title="Ellipse"
             createMethodName="createSolidEllipseCreationTool"
             genNodes="//@diagram/@childNodes.1 //@diagram/@topLevelNodes.1"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
-            title="Solid Line"
+            title="Line"
             createMethodName="createSolidLineCreationTool"
             genLinks="//@diagram/@links.0"/>
       </groups>
@@ -176,7 +165,8 @@
   <plugin
       iD="org.eclipse.gmf.examples.design2d"
       name="Design2D Editor"
-      provider="Eclipse.org"/>
+      provider="Eclipse.org"
+      version="2.0.0.qualifier"/>
   <editor
       iconPath="{reuseEMFIcon}"/>
   <diagramUpdater/>

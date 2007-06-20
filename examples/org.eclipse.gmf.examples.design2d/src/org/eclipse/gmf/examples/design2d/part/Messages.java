@@ -244,7 +244,7 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String PrimaryShapesGroup_title;
+	public static String ShapesGroup_title;
 
 	/**
 	 * @generated
