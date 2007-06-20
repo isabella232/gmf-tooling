@@ -246,6 +246,30 @@ String i18nKeyForShortcutWizardReferencedElementPageInvalidError(gmfgen::GenDiag
 diagram.i18nKeyForShortcutWizardReferencedElementPage()+"InvalidError"
 ;
 
+String i18nKeyForCreationWizard(gmfgen::GenDiagram diagram) :
+diagram.creationWizardClassName
+;
+
+String i18nKeyForCreationWizardDiagramPage(gmfgen::GenDiagram diagram) :
+diagram.creationWizardClassName+".DiagramModelFilePage"
+;
+
+String i18nKeyForCreationWizardDomainPage(gmfgen::GenDiagram diagram) :
+diagram.creationWizardClassName+".DomainModelFilePage"
+;
+
+String i18nKeyForCreationWizardOpenEditorError(gmfgen::GenDiagram diagram) :
+diagram.creationWizardClassName+"OpenEditorError"
+;
+
+String i18nKeyForCreationWizardCreationError(gmfgen::GenDiagram diagram) :
+diagram.creationWizardClassName+"CreationError"
+;
+
+String i18nKeyForCreationWizardPageExtensionError(gmfgen::GenDiagram diagram) :
+diagram.creationWizardPageClassName+"ExtensionError"
+;
+
 String titleKey(String dialogKey) :
     dialogKey+"Title"
 ;

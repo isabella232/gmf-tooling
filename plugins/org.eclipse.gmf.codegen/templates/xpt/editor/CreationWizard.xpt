@@ -70,7 +70,7 @@ public class «creationWizardClassName»
 	public void init(org.eclipse.ui.IWorkbench workbench, org.eclipse.jface.viewers.IStructuredSelection selection) {
         this.workbench = workbench;
         this.selection = selection;
-		setWindowTitle("New «editorGen.modelID» Diagram");
+		setWindowTitle(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForCreationWizard().titleKey()) FOR editorGen»);
 		setDefaultPageImageDescriptor(«editorGen.plugin.getActivatorQualifiedClassName()».getBundledImageDescriptor(
 				"icons/wizban/New«IF domainDiagramElement != null»«domainDiagramElement.genPackage.prefix»«ENDIF»Wizard.gif")); //$NON-NLS-1$
 		setNeedsProgressMonitor(true);
@@ -80,19 +80,15 @@ public class «creationWizardClassName»
 	public void addPages() {
 		diagramModelFilePage = new «getCreationWizardPageQualifiedClassName()»(
 				"DiagramModelFile", getSelection(), "«editorGen.diagramFileExtension»"); //$NON-NLS-1$ //$NON-NLS-2$
-		diagramModelFilePage.setTitle("Create «editorGen.modelID» Diagram");
-	«IF isStandaloneDomainModel()-»
-		diagramModelFilePage.setDescription("Select file that will contain diagram model.");
-	«ELSE-»
-		diagramModelFilePage.setDescription("Select file that will contain diagram and domain models.");
-	«ENDIF-»
+		diagramModelFilePage.setTitle(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForCreationWizardDiagramPage().titleKey()) FOR editorGen»);
+		diagramModelFilePage.setDescription(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForCreationWizardDiagramPage().descriptionKey()) FOR editorGen»);
 		addPage(diagramModelFilePage);
 	«IF isStandaloneDomainModel()-»
 
 		domainModelFilePage = new «getCreationWizardPageQualifiedClassName()»(
 				"DomainModelFile", getSelection(), "«editorGen.domainFileExtension»"); //$NON-NLS-1$ //$NON-NLS-2$
-		domainModelFilePage.setTitle("Create «editorGen.modelID» Diagram");
-		domainModelFilePage.setDescription("Select file that will contain domain model.");
+		domainModelFilePage.setTitle(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForCreationWizardDomainPage().titleKey()) FOR editorGen»);
+		domainModelFilePage.setDescription(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForCreationWizardDomainPage().descriptionKey()) FOR editorGen»);
 		addPage(domainModelFilePage);
 	«ENDIF-»
 	}
@@ -121,7 +117,7 @@ public class «creationWizardClassName»
 						«getDiagramEditorUtilQualifiedClassName()».openDiagram(diagram);
 					} catch (org.eclipse.ui.PartInitException e) {
 						org.eclipse.jface.dialogs.ErrorDialog.openError(getContainer().getShell(),
-								"Error opening diagram editor", null, e.getStatus());
+								«EXPAND xpt::Externalizer::accessorCall(i18nKeyForCreationWizardOpenEditorError()) FOR editorGen», null, e.getStatus());
 					}
 				}
 			}
@@ -133,7 +129,7 @@ public class «creationWizardClassName»
 		} catch (java.lang.reflect.InvocationTargetException e) {
 			if (e.getTargetException() instanceof org.eclipse.core.runtime.CoreException) {
 				org.eclipse.jface.dialogs.ErrorDialog.openError(getContainer().getShell(),
-						"Creation Problems", null,
+						«EXPAND xpt::Externalizer::accessorCall(i18nKeyForCreationWizardCreationError()) FOR editorGen», null,
 						((org.eclipse.core.runtime.CoreException) e.getTargetException()).getStatus());
 			} else {
 				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
@@ -148,3 +144,27 @@ public class «creationWizardClassName»
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForCreationWizard().titleKey(), "New "+editorGen.modelID+" Diagram")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForCreationWizardDiagramPage().titleKey(), "Create "+editorGen.modelID+" Diagram")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForCreationWizardDiagramPage().descriptionKey(), (isStandaloneDomainModel() ? "Select file that will contain diagram model." : "Select file that will contain diagram and domain models."))-»
+«IF isStandaloneDomainModel()-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForCreationWizardDomainPage().titleKey(), "Create "+editorGen.modelID+" Diagram")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForCreationWizardDomainPage().descriptionKey(), "Select file that will contain domain model.")-»
+«ENDIF-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForCreationWizardOpenEditorError(), "Error opening diagram editor")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForCreationWizardCreationError(), "Creation Problems")-»
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForCreationWizard().titleKey())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForCreationWizardDiagramPage().titleKey())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForCreationWizardDiagramPage().descriptionKey())-»
+	«IF isStandaloneDomainModel()-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForCreationWizardDomainPage().titleKey())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForCreationWizardDomainPage().descriptionKey())-»
+	«ENDIF-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForCreationWizardOpenEditorError())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForCreationWizardCreationError())-»
+«ENDDEFINE»

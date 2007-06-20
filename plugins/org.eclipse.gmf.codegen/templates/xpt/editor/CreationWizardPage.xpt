@@ -11,6 +11,8 @@
  */
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 
+«EXTENSION xpt::editor::Utils»
+
 «DEFINE CreationWizardPage FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
 package «editorGen.editor.packageName»;
@@ -83,7 +85,7 @@ public class «creationWizardPageClassName» extends
 		String extension = getExtension();
 		if (extension != null && !getFilePath().toString().endsWith("." + extension)) {
 			setErrorMessage(org.eclipse.osgi.util.NLS.bind(
-					"File name should have ''{0}'' extension.", extension));
+					«EXPAND xpt::Externalizer::accessorCall(i18nKeyForCreationWizardPageExtensionError()) FOR editorGen», extension));
 			return false;
 		}
 		return true;
@@ -93,3 +95,11 @@ public class «creationWizardPageClassName» extends
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForCreationWizardPageExtensionError(), "File name should have {0} extension.")-»
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForCreationWizardPageExtensionError())-»
+«ENDDEFINE»
