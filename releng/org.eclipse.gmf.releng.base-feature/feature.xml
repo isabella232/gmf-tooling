@@ -29,6 +29,10 @@
          version="0.0.0"/>
 
    <includes
+         id="org.eclipse.uml2"
+         version="0.0.0"/>
+
+   <includes
          id="org.eclipse.ocl.all.sdk"
          version="0.0.0"/>
 
