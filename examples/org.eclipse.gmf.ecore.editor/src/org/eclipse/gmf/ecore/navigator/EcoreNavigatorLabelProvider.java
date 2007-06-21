@@ -282,6 +282,7 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5001); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
@@ -298,6 +299,7 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5002); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
@@ -314,6 +316,7 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5003); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
@@ -330,6 +333,7 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5004); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
@@ -346,6 +350,7 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5005); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
@@ -513,6 +518,7 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 6001); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
@@ -529,6 +535,7 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 6002); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
