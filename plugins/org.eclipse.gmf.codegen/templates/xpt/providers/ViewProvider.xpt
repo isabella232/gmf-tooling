@@ -34,14 +34,20 @@ public class «notationViewProviderClassName» extends org.eclipse.gmf.runtime.dia
 
 «EXPAND xpt::Common::generatedMemberComment»
 protected Class getDiagramViewClass(org.eclipse.core.runtime.IAdaptable semanticAdapter, String diagramKind) {
-	org.eclipse.emf.ecore.EObject semanticElement = getSemanticElement(semanticAdapter);
-	if («EXPAND xpt::editor::VisualIDRegistry::modelID».equals(diagramKind)
-			&& «EXPAND xpt::editor::VisualIDRegistry::getDiagramVisualIDMethodCall»(semanticElement) != -1) {
-		return «getNotationViewFactoryQualifiedClassName()».class;
+	«REM»When diagram domain element is null only diagram kind is checked«ENDREM-»
+	«EXPAND defineSemanticElement FOR domainDiagramElement-»
+	if («EXPAND xpt::editor::VisualIDRegistry::modelID».equals(diagramKind)«EXPAND checkSemanticElement(this) FOR domainDiagramElement») {
+			return «getNotationViewFactoryQualifiedClassName()».class;
 	}
 	return null;
 }
 «ENDDEFINE»
+
+«DEFINE defineSemanticElement FOR genmodel::GenClass-»
+org.eclipse.emf.ecore.EObject semanticElement = getSemanticElement(semanticAdapter);
+«ENDDEFINE»
+
+«DEFINE checkSemanticElement(gmfgen::GenDiagram diagram) FOR genmodel::GenClass» && «EXPAND xpt::editor::VisualIDRegistry::getDiagramVisualIDMethodCall FOR diagram»(semanticElement) != -1«ENDDEFINE»
 
 «DEFINE getNodeViewClass FOR gmfgen::GenDiagram-»
 
@@ -81,7 +87,7 @@ protected Class getNodeViewClass(org.eclipse.core.runtime.IAdaptable semanticAda
 				return null; // visual id for node EClass should match visual id from element type
 			}
 		} else {
-			// Element type is not specified. Domain element should be present.
+			// Element type is not specified. Domain element should be present (except pure design elements).
 			// This method is called with EObjectAdapter as parameter from:
 			//   - ViewService.createNode(View container, EObject eObject, String type, PreferencesHint preferencesHint) 
 			//   - generated ViewFactory.decorateView() for parent element
@@ -90,11 +96,19 @@ protected Class getNodeViewClass(org.eclipse.core.runtime.IAdaptable semanticAda
 				return null; // foreign diagram
 			}
 			switch (visualID) {
-			«EXPAND xpt::Common::caseVisualID FOREACH getElements(this).select(e | e.elementType != null).typeSelect(gmfgen::GenNode)-»
+		«IF getElements(this).typeSelect(gmfgen::GenNode).elementType.typeSelect(gmfgen::NotationType).size() > 0-»
+			«EXPAND caseVisualID FOREACH getElements(this).typeSelect(gmfgen::GenNode).elementType.typeSelect(gmfgen::NotationType)-»
+				break; // pure design element
+		«ENDIF-»
+		«IF getElements(this).typeSelect(gmfgen::GenNode).elementType.typeSelect(gmfgen::MetamodelType).size() > 0 ||
+				getElements(this).typeSelect(gmfgen::GenNode).elementType.typeSelect(gmfgen::SpecializationType).size() > 0-»
+			«EXPAND caseVisualID FOREACH getElements(this).typeSelect(gmfgen::GenNode).elementType.typeSelect(gmfgen::MetamodelType)-»
+			«EXPAND caseVisualID FOREACH getElements(this).typeSelect(gmfgen::GenNode).elementType.typeSelect(gmfgen::SpecializationType)-»
 				if (domainElement == null || visualID != «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall»(containerView, domainElement)) {
 					return null; // visual id in semantic hint should match visual id for domain element
 				}
 				break;
+		«ENDIF-»
 			«EXPAND checkChildrenVisualIDs FOREACH getElements(this).select(e | e.elementType != null)-»
 			default:
 				return null;
@@ -118,6 +132,10 @@ protected Class getNodeViewClass(org.eclipse.gmf.runtime.notation.View container
 	}
 	return null;
 }
+«ENDDEFINE»
+
+«DEFINE caseVisualID FOR gmfgen::ElementType-»
+	«EXPAND xpt::Common::caseVisualID FOR diagramElement»
 «ENDDEFINE»
 
 «DEFINE checkChildrenVisualIDs FOR gmfgen::GenCommonBase-»
