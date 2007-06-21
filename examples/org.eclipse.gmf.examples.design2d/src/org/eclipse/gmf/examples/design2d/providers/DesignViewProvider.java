@@ -42,8 +42,7 @@ public class DesignViewProvider extends AbstractViewProvider {
 	 * @generated
 	 */
 	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
-		EObject semanticElement = getSemanticElement(semanticAdapter);
-		if (Design2DEditPart.MODEL_ID.equals(diagramKind) && DesignVisualIDRegistry.getDiagramVisualID(semanticElement) != -1) {
+		if (Design2DEditPart.MODEL_ID.equals(diagramKind)) {
 			return Design2DViewFactory.class;
 		}
 		return null;
