@@ -151,7 +151,7 @@ public class EcoreViewProvider extends AbstractViewProvider {
 					return null; // visual id for node EClass should match visual id from element type
 				}
 			} else {
-				// Element type is not specified. Domain element should be present.
+				// Element type is not specified. Domain element should be present (except pure design elements).
 				// This method is called with EObjectAdapter as parameter from:
 				//   - ViewService.createNode(View container, EObject eObject, String type, PreferencesHint preferencesHint) 
 				//   - generated ViewFactory.decorateView() for parent element
@@ -160,19 +160,19 @@ public class EcoreViewProvider extends AbstractViewProvider {
 				}
 				switch (visualID) {
 				case EClassEditPart.VISUAL_ID:
-				case EPackage2EditPart.VISUAL_ID:
-				case EAnnotationEditPart.VISUAL_ID:
-				case EDataTypeEditPart.VISUAL_ID:
-				case EEnumEditPart.VISUAL_ID:
 				case EAttributeEditPart.VISUAL_ID:
 				case EOperationEditPart.VISUAL_ID:
 				case EAnnotation2EditPart.VISUAL_ID:
-				case EClass2EditPart.VISUAL_ID:
-				case EPackage3EditPart.VISUAL_ID:
 				case EDataType2EditPart.VISUAL_ID:
 				case EEnum2EditPart.VISUAL_ID:
 				case EStringToStringMapEntryEditPart.VISUAL_ID:
 				case EEnumLiteralEditPart.VISUAL_ID:
+				case EPackage2EditPart.VISUAL_ID:
+				case EAnnotationEditPart.VISUAL_ID:
+				case EDataTypeEditPart.VISUAL_ID:
+				case EEnumEditPart.VISUAL_ID:
+				case EClass2EditPart.VISUAL_ID:
+				case EPackage3EditPart.VISUAL_ID:
 					if (domainElement == null || visualID != EcoreVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
 						return null; // visual id in semantic hint should match visual id for domain element
 					}

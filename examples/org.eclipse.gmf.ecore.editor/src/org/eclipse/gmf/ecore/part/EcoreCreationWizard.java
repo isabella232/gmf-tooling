@@ -101,7 +101,7 @@ public class EcoreCreationWizard extends Wizard implements INewWizard {
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.workbench = workbench;
 		this.selection = selection;
-		setWindowTitle("New Ecore Diagram");
+		setWindowTitle(Messages.EcoreCreationWizardTitle);
 		setDefaultPageImageDescriptor(EcoreDiagramEditorPlugin.getBundledImageDescriptor("icons/wizban/NewEcoreWizard.gif")); //$NON-NLS-1$
 		setNeedsProgressMonitor(true);
 	}
@@ -111,13 +111,13 @@ public class EcoreCreationWizard extends Wizard implements INewWizard {
 	 */
 	public void addPages() {
 		diagramModelFilePage = new EcoreCreationWizardPage("DiagramModelFile", getSelection(), "ecore_diagram"); //$NON-NLS-1$ //$NON-NLS-2$
-		diagramModelFilePage.setTitle("Create Ecore Diagram");
-		diagramModelFilePage.setDescription("Select file that will contain diagram model.");
+		diagramModelFilePage.setTitle(Messages.EcoreCreationWizard_DiagramModelFilePageTitle);
+		diagramModelFilePage.setDescription(Messages.EcoreCreationWizard_DiagramModelFilePageDescription);
 		addPage(diagramModelFilePage);
 
 		domainModelFilePage = new EcoreCreationWizardPage("DomainModelFile", getSelection(), "ecore"); //$NON-NLS-1$ //$NON-NLS-2$
-		domainModelFilePage.setTitle("Create Ecore Diagram");
-		domainModelFilePage.setDescription("Select file that will contain domain model.");
+		domainModelFilePage.setTitle(Messages.EcoreCreationWizard_DomainModelFilePageTitle);
+		domainModelFilePage.setDescription(Messages.EcoreCreationWizard_DomainModelFilePageDescription);
 		addPage(domainModelFilePage);
 	}
 
@@ -133,7 +133,7 @@ public class EcoreCreationWizard extends Wizard implements INewWizard {
 					try {
 						EcoreDiagramEditorUtil.openDiagram(diagram);
 					} catch (PartInitException e) {
-						ErrorDialog.openError(getContainer().getShell(), "Error opening diagram editor", null, e.getStatus());
+						ErrorDialog.openError(getContainer().getShell(), Messages.EcoreCreationWizardOpenEditorError, null, e.getStatus());
 					}
 				}
 			}
@@ -144,7 +144,7 @@ public class EcoreCreationWizard extends Wizard implements INewWizard {
 			return false;
 		} catch (InvocationTargetException e) {
 			if (e.getTargetException() instanceof CoreException) {
-				ErrorDialog.openError(getContainer().getShell(), "Creation Problems", null, ((CoreException) e.getTargetException()).getStatus());
+				ErrorDialog.openError(getContainer().getShell(), Messages.EcoreCreationWizardCreationError, null, ((CoreException) e.getTargetException()).getStatus());
 			} else {
 				EcoreDiagramEditorPlugin.getInstance().logError("Error creating diagram", e.getTargetException()); //$NON-NLS-1$
 			}

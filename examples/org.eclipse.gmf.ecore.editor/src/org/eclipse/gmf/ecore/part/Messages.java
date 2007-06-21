@@ -34,6 +34,46 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String EcoreCreationWizardTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreCreationWizard_DiagramModelFilePageTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreCreationWizard_DiagramModelFilePageDescription;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreCreationWizard_DomainModelFilePageTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreCreationWizard_DomainModelFilePageDescription;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreCreationWizardOpenEditorError;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreCreationWizardCreationError;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreCreationWizardPageExtensionError;
+
+	/**
+	 * @generated
+	 */
 	public static String EcoreDiagramEditorUtil_OpenModelResourceErrorDialogTitle;
 
 	/**
@@ -200,36 +240,6 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String EcoreElementChooserDialog_SelectModelElementTitle;
-
-	/**
-	 * @generated
-	 */
-	public static String ShortcutCreationWizard_ReferencedElementSelectionPageName;
-
-	/**
-	 * @generated
-	 */
-	public static String ShortcutCreationWizard_ReferencedElementSelectionPageTitle;
-
-	/**
-	 * @generated
-	 */
-	public static String ShortcutCreationWizard_ReferencedElementSelectionPageDescription;
-
-	/**
-	 * @generated
-	 */
-	public static String ShortcutCreationWizard_ReferencedElementSelectionPageMessage;
-
-	/**
-	 * @generated
-	 */
-	public static String ShortcutCreationWizard_ReferencedElementSelectionPageEmptyError;
-
-	/**
-	 * @generated
-	 */
-	public static String ShortcutCreationWizard_ReferencedElementSelectionPageInvalidError;
 
 	/**
 	 * @generated
