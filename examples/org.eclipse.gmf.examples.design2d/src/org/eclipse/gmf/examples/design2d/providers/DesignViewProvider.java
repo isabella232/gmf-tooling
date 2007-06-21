@@ -84,7 +84,7 @@ public class DesignViewProvider extends AbstractViewProvider {
 					return null; // visual id for node EClass should match visual id from element type
 				}
 			} else {
-				// Element type is not specified. Domain element should be present.
+				// Element type is not specified. Domain element should be present (except pure design elements).
 				// This method is called with EObjectAdapter as parameter from:
 				//   - ViewService.createNode(View container, EObject eObject, String type, PreferencesHint preferencesHint) 
 				//   - generated ViewFactory.decorateView() for parent element
@@ -96,10 +96,7 @@ public class DesignViewProvider extends AbstractViewProvider {
 				case SolidEllipseEditPart.VISUAL_ID:
 				case InnerSolidRectangleEditPart.VISUAL_ID:
 				case InnerSolidEllipseEditPart.VISUAL_ID:
-					if (domainElement == null || visualID != DesignVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
-						return null; // visual id in semantic hint should match visual id for domain element
-					}
-					break;
+					break; // pure design element
 				case SolidLineCommentEditPart.VISUAL_ID:
 					if (SolidLineEditPart.VISUAL_ID != DesignVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
 						return null; // wrong container
