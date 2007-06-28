@@ -88,7 +88,7 @@ public class AbstractToolEntryItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ToolPropertyCategory"),
 				 null));
 	}
 
@@ -110,7 +110,7 @@ public class AbstractToolEntryItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ToolPropertyCategory"),
 				 null));
 	}
 
@@ -152,7 +152,7 @@ public class AbstractToolEntryItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((AbstractToolEntry)object).getCreateMethodName();
+		String label = ((AbstractToolEntry)object).getTitle();
 		return label == null || label.length() == 0 ?
 			getString("_UI_AbstractToolEntry_type") :
 			getString("_UI_AbstractToolEntry_type") + " " + label;

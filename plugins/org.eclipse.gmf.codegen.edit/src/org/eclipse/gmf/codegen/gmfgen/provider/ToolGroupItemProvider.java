@@ -185,7 +185,7 @@ public class ToolGroupItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((ToolGroup)object).getCreateMethodName();
+		String label = ((ToolGroup)object).getTitle();
 		return label == null || label.length() == 0 ?
 			getString("_UI_ToolGroup_type") :
 			getString("_UI_ToolGroup_type") + " " + label;

@@ -84,7 +84,7 @@ public class StandardEntryItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ToolPropertyCategory"),
 				 null));
 	}
 
@@ -107,7 +107,7 @@ public class StandardEntryItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((StandardEntry)object).getCreateMethodName();
+		String label = ((StandardEntry)object).getTitle();
 		return label == null || label.length() == 0 ?
 			getString("_UI_StandardEntry_type") :
 			getString("_UI_StandardEntry_type") + " " + label;

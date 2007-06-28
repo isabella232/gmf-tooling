@@ -189,7 +189,7 @@ public class EntryBaseItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((EntryBase)object).getCreateMethodName();
+		String label = ((EntryBase)object).getTitle();
 		return label == null || label.length() == 0 ?
 			getString("_UI_EntryBase_type") :
 			getString("_UI_EntryBase_type") + " " + label;

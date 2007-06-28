@@ -109,6 +109,17 @@ public class ToolEntryItemProvider
 	}
 
 	/**
+	 * This returns ToolEntry.gif.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object getImage(Object object) {
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ToolEntry"));
+	}
+
+	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -116,7 +127,7 @@ public class ToolEntryItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((ToolEntry)object).getCreateMethodName();
+		String label = ((ToolEntry)object).getTitle();
 		return label == null || label.length() == 0 ?
 			getString("_UI_ToolEntry_type") :
 			getString("_UI_ToolEntry_type") + " " + label;
