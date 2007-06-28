@@ -137,7 +137,7 @@ public class GenCommonBaseItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_DiagramElementPropertyCategory"),
+				 getString("_UI_ClassNamesPropertyCategory"),
 				 null));
 	}
 
@@ -159,7 +159,7 @@ public class GenCommonBaseItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_DiagramElementPropertyCategory"),
+				 getString("_UI_ClassNamesPropertyCategory"),
 				 null));
 	}
 
@@ -181,7 +181,7 @@ public class GenCommonBaseItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_DiagramElementPropertyCategory"),
+				 getString("_UI_ClassNamesPropertyCategory"),
 				 null));
 	}
 
@@ -203,7 +203,7 @@ public class GenCommonBaseItemProvider
 				 false,
 				 true,
 				 null,
-				 null,
+				 getString("_UI_DiagramElementPropertyCategory"),
 				 null));
 	}
 
@@ -225,7 +225,7 @@ public class GenCommonBaseItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramElementPropertyCategory"),
 				 null));
 	}
 

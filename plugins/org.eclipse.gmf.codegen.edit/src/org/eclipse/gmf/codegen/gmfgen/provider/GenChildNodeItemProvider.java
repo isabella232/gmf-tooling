@@ -82,7 +82,7 @@ public class GenChildNodeItemProvider
 				 false,
 				 false,
 				 null,
-				 getString("_UI_DiagramContainmentPropertyCategory"),
+				 getString("_UI_DiagramElementPropertyCategory"),
 				 null));
 	}
 

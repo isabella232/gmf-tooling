@@ -90,7 +90,7 @@ public class GenLinkItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 getString("_UI_DiagramLinkPropertyCategory"),
+				 getString("_UI_DiagramElementPropertyCategory"),
 				 null));
 	}
 
@@ -112,7 +112,7 @@ public class GenLinkItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 getString("_UI_DiagramLinkPropertyCategory"),
+				 getString("_UI_DiagramElementPropertyCategory"),
 				 null));
 	}
 
@@ -134,7 +134,7 @@ public class GenLinkItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 getString("_UI_DiagramLinkPropertyCategory"),
+				 getString("_UI_DiagramElementPropertyCategory"),
 				 null));
 	}
 
@@ -156,7 +156,7 @@ public class GenLinkItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ClassNamesPropertyCategory"),
 				 null));
 	}
 
@@ -178,7 +178,7 @@ public class GenLinkItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ClassNamesPropertyCategory"),
 				 null));
 	}
 

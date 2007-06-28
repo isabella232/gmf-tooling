@@ -88,7 +88,7 @@ public class GenCompartmentItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_DiagramCompartmentPropertyCategory"),
+				 getString("_UI_CompartmentPropertyCategory"),
 				 null));
 	}
 
@@ -110,7 +110,7 @@ public class GenCompartmentItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 getString("_UI_DiagramCompartmentPropertyCategory"),
+				 getString("_UI_CompartmentPropertyCategory"),
 				 null));
 	}
 
@@ -132,7 +132,7 @@ public class GenCompartmentItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 getString("_UI_DiagramCompartmentPropertyCategory"),
+				 getString("_UI_CompartmentPropertyCategory"),
 				 null));
 	}
 
@@ -154,7 +154,7 @@ public class GenCompartmentItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 getString("_UI_DiagramCompartmentPropertyCategory"),
+				 getString("_UI_CompartmentPropertyCategory"),
 				 null));
 	}
 
@@ -176,7 +176,7 @@ public class GenCompartmentItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 getString("_UI_DiagramCompartmentPropertyCategory"),
+				 getString("_UI_CompartmentPropertyCategory"),
 				 null));
 	}
 

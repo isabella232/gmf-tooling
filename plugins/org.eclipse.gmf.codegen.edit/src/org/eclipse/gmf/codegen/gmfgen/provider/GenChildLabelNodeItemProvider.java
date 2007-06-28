@@ -87,7 +87,7 @@ public class GenChildLabelNodeItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramElementPropertyCategory"),
 				 null));
 	}
 
@@ -109,7 +109,7 @@ public class GenChildLabelNodeItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 getString("_UI_DiagramLabelPropertyCategory"),
+				 getString("_UI_DiagramElementPropertyCategory"),
 				 null));
 	}
 

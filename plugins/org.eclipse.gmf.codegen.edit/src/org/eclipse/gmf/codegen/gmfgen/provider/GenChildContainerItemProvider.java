@@ -85,7 +85,7 @@ public class GenChildContainerItemProvider
 				 false,
 				 false,
 				 null,
-				 getString("_UI_DiagramContainmentPropertyCategory"),
+				 getString("_UI_DiagramElementPropertyCategory"),
 				 null));
 	}
 
@@ -107,7 +107,7 @@ public class GenChildContainerItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_EditPoliciesPropertyCategory"),
+				 getString("_UI_ClassNamesPropertyCategory"),
 				 null));
 	}
 
