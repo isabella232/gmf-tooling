@@ -48,6 +48,9 @@ public class DesignEditPartFactory implements EditPartFactory {
 			case SolidEllipseEditPart.VISUAL_ID:
 				return new SolidEllipseEditPart(view);
 
+			case CustomNodeEditPart.VISUAL_ID:
+				return new CustomNodeEditPart(view);
+
 			case InnerSolidRectangleEditPart.VISUAL_ID:
 				return new InnerSolidRectangleEditPart(view);
 

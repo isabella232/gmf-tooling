@@ -253,6 +253,13 @@
          <param name="semanticHint" value="2002"/>
       </specializationType>
       <specializationType
+            id="org.eclipse.gmf.examples.design2d.Node"
+            name="%metatype.name.Node_2003"
+            kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
+         <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+         <param name="semanticHint" value="2003"/>
+      </specializationType>
+      <specializationType
             id="org.eclipse.gmf.examples.design2d.InnerSolidRectangle"
             name="%metatype.name.Node_3001"
             kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
@@ -288,6 +295,7 @@
          <elementType ref="org.eclipse.gmf.examples.design2d.Diagram"/>
          <elementType ref="org.eclipse.gmf.examples.design2d.SolidRectangle"/>
          <elementType ref="org.eclipse.gmf.examples.design2d.SolidEllipse"/>
+         <elementType ref="org.eclipse.gmf.examples.design2d.Node"/>
          <elementType ref="org.eclipse.gmf.examples.design2d.InnerSolidRectangle"/>
          <elementType ref="org.eclipse.gmf.examples.design2d.InnerSolidEllipse"/>
          <elementType ref="org.eclipse.gmf.examples.design2d.SolidLine"/>

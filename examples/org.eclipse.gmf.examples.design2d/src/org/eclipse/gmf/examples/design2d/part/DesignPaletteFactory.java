@@ -44,6 +44,7 @@ public class DesignPaletteFactory {
 		paletteContainer.add(createSolidRectangleCreationTool());
 		paletteContainer.add(createSolidEllipseCreationTool());
 		paletteContainer.add(createSolidLineCreationTool());
+		paletteContainer.add(createCustomNodeTool());
 		return paletteContainer;
 	}
 
@@ -81,6 +82,18 @@ public class DesignPaletteFactory {
 		types.add(DesignElementTypes.Link_4001);
 		LinkToolEntry entry = new LinkToolEntry(Messages.SolidLineCreationTool_title, null, types);
 		entry.setSmallIcon(DesignElementTypes.getImageDescriptor(DesignElementTypes.Link_4001));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createCustomNodeTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(DesignElementTypes.Node_2003);
+		NodeToolEntry entry = new NodeToolEntry(Messages.CustomNodeTool_title, null, types);
+		entry.setSmallIcon(DesignElementTypes.getImageDescriptor(DesignElementTypes.Node_2003));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}

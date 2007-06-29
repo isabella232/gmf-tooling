@@ -13,6 +13,7 @@ package org.eclipse.gmf.examples.design2d.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.examples.design2d.edit.parts.CustomNodeEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.InnerSolidEllipseEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.InnerSolidRectangleEditPart;
@@ -21,6 +22,7 @@ import org.eclipse.gmf.examples.design2d.edit.parts.SolidLineCommentEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidLineEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangleEditPart;
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
+import org.eclipse.gmf.examples.design2d.view.factories.CustomNodeViewFactory;
 import org.eclipse.gmf.examples.design2d.view.factories.Design2DViewFactory;
 import org.eclipse.gmf.examples.design2d.view.factories.InnerSolidEllipseViewFactory;
 import org.eclipse.gmf.examples.design2d.view.factories.InnerSolidRectangleViewFactory;
@@ -94,6 +96,7 @@ public class DesignViewProvider extends AbstractViewProvider {
 				switch (visualID) {
 				case SolidRectangleEditPart.VISUAL_ID:
 				case SolidEllipseEditPart.VISUAL_ID:
+				case CustomNodeEditPart.VISUAL_ID:
 				case InnerSolidRectangleEditPart.VISUAL_ID:
 				case InnerSolidEllipseEditPart.VISUAL_ID:
 					break; // pure design element
@@ -122,6 +125,8 @@ public class DesignViewProvider extends AbstractViewProvider {
 			return SolidRectangleViewFactory.class;
 		case SolidEllipseEditPart.VISUAL_ID:
 			return SolidEllipseViewFactory.class;
+		case CustomNodeEditPart.VISUAL_ID:
+			return CustomNodeViewFactory.class;
 		case InnerSolidRectangleEditPart.VISUAL_ID:
 			return InnerSolidRectangleViewFactory.class;
 		case InnerSolidEllipseEditPart.VISUAL_ID:

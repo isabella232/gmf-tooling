@@ -72,6 +72,11 @@ public class DesignElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
+	public static final IElementType Node_2003 = getElementType("org.eclipse.gmf.examples.design2d.Node"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public static final IElementType Node_3001 = getElementType("org.eclipse.gmf.examples.design2d.InnerSolidRectangle"); //$NON-NLS-1$
 
 	/**
@@ -209,6 +214,7 @@ public class DesignElementTypes extends ElementInitializers {
 			KNOWN_ELEMENT_TYPES.add(Diagram_1000);
 			KNOWN_ELEMENT_TYPES.add(Node_2001);
 			KNOWN_ELEMENT_TYPES.add(Node_2002);
+			KNOWN_ELEMENT_TYPES.add(Node_2003);
 			KNOWN_ELEMENT_TYPES.add(Node_3001);
 			KNOWN_ELEMENT_TYPES.add(Node_3002);
 			KNOWN_ELEMENT_TYPES.add(Link_4001);

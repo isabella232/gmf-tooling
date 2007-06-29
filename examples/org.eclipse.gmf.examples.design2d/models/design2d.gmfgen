@@ -105,6 +105,26 @@
           layoutType="XY_LAYOUT"
           figureQualifiedClassName="org.eclipse.draw2d.Ellipse"/>
     </topLevelNodes>
+    <topLevelNodes
+        visualID="2003"
+        editPartClassName="CustomNodeEditPart"
+        itemSemanticEditPolicyClassName="CustomNodeItemSemanticEditPolicy"
+        notationViewFactoryClassName="CustomNodeViewFactory"
+        canonicalEditPolicyClassName="CustomNodeCanonicalEditPolicy"
+        graphicalNodeEditPolicyClassName="CustomNodeGraphicalNodeEditPolicy"
+        createCommandClassName="CustomNodeCreateCommand">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType
+          xsi:type="gmfgen:NotationType"
+          uniqueIdentifier="org.eclipse.gmf.examples.design2d.Node"
+          displayName="Node"/>
+      <viewmap
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.draw2d.Figure"/>
+      <styles
+          href="../../org.eclipse.gmf.examples.design2d.notation/models/design2d.genmodel#//design2d/ClassDesignStyle"/>
+    </topLevelNodes>
     <links
         visualID="4001"
         editPartClassName="SolidLineEditPart"
@@ -159,6 +179,11 @@
             title="Line"
             createMethodName="createSolidLineCreationTool"
             genLinks="//@diagram/@links.0"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="Node"
+            createMethodName="createCustomNodeTool"
+            genNodes="//@diagram/@topLevelNodes.2"/>
       </groups>
     </palette>
   </diagram>

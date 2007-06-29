@@ -28,5 +28,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.runtime.diagram.ui.render,
  org.eclipse.gmf.runtime.diagram.ui.resources.editor,
  org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide,
+ org.eclipse.gmf.examples.design2d.notation,
  org.eclipse.gef;visibility:=reexport
 Eclipse-LazyStart: true

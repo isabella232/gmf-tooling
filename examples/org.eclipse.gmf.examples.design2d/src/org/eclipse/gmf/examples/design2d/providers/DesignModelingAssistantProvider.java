@@ -77,6 +77,7 @@ public class DesignModelingAssistantProvider extends ModelingAssistantProvider {
 			List types = new ArrayList();
 			types.add(DesignElementTypes.Node_2001);
 			types.add(DesignElementTypes.Node_2002);
+			types.add(DesignElementTypes.Node_2003);
 			return types;
 		}
 		return Collections.EMPTY_LIST;

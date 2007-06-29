@@ -14,6 +14,7 @@ package org.eclipse.gmf.examples.design2d.part;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.examples.design2d.edit.parts.CustomNodeEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.InnerSolidEllipseEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.InnerSolidRectangleEditPart;
@@ -166,6 +167,9 @@ public class DesignVisualIDRegistry {
 				return true;
 			}
 			if (SolidEllipseEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			if (CustomNodeEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
