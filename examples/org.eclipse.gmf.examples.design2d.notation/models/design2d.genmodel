@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.examples.design2d.notation/src"
+    modelPluginID="org.eclipse.gmf.examples.design2d.notation" modelName="Design2D"
+    nonNLSMarkers="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation">
+  <foreignModel>design2d.ecore</foreignModel>
+  <genPackages prefix="Design2D" basePackage="org.eclipse.gmf.examples" disposableProviderFactory="true"
+      ecorePackage="design2d.ecore#/">
+    <genClasses image="false" ecoreClass="design2d.ecore#//DesignStyle"/>
+    <genClasses ecoreClass="design2d.ecore#//ClassDesignStyle">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute design2d.ecore#//ClassDesignStyle/qualifiedClassName"/>
+    </genClasses>
+    <genClasses ecoreClass="design2d.ecore#//PluginDesignStyle">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute design2d.ecore#//PluginDesignStyle/pluginId"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
