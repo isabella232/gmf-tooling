@@ -15,19 +15,14 @@ import org.eclipse.draw2d.AbstractLocator;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-import org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart;
-import org.eclipse.gmf.runtime.lite.edit.parts.update.UpdaterUtil;
 import org.eclipse.gmf.runtime.notation.Location;
 import org.eclipse.gmf.runtime.notation.Node;
-import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 
-public abstract class BaseExternalNodeLabelEditPart extends AbstractGraphicalEditPart {
+public abstract class BaseExternalNodeLabelEditPart extends BaseExternalLabelEditPart {
 	public BaseExternalNodeLabelEditPart(View view) {
-		setModel(view);
+		super(view);
 	}
 
 	public void refreshBounds() {
@@ -46,26 +41,6 @@ public abstract class BaseExternalNodeLabelEditPart extends AbstractGraphicalEdi
 			}
 		});
 	}
-
-	protected void refreshVisuals() {
-		super.refreshVisuals();
-		refreshBounds();
-	}
-
-	protected IExternallyUpdatableEditPart.ExternalRefresher boundsRefresher = new IExternallyUpdatableEditPart.ExternalRefresher() {
-		public void refresh() {
-			refreshBounds();
-		}
-		public boolean isAffectingEvent(Notification msg) {
-			if (NotationPackage.eINSTANCE.getLocation().getEStructuralFeatures().contains(msg.getFeature())) {
-				return true;
-			}
-			if (NotationPackage.eINSTANCE.getNode_LayoutConstraint() == msg.getFeature()) {
-				return UpdaterUtil.affects(msg, NotationPackage.eINSTANCE.getLocation());
-			}
-			return false;
-		}
-	};
 
 	public Point getReferencePoint() {
 		return getLabelLocation(((GraphicalEditPart) getParent()).getFigure());
