@@ -92,6 +92,7 @@ public class «EXPAND className» «EXPAND supertypes» {
 «ENDDEFINE»
 
 «DEFINE className FOR gmfgen::GenNode»Create«EXPAND xpt::commands::Common::commandNameInfix»Command«ENDDEFINE»
+«DEFINE qualifiedClassName FOR gmfgen::GenNode»«getDiagram().editCommandsPackageName».«EXPAND className»«ENDDEFINE»
 «DEFINE supertypes FOR gmfgen::GenNode»extends org.eclipse.emf.common.command.AbstractCommand«ENDDEFINE»
 
 «DEFINE canUndo FOR gmfgen::GenNode-»

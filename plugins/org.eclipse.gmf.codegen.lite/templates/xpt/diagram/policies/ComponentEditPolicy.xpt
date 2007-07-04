@@ -23,7 +23,7 @@
 package «getDiagram().editPoliciesPackageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
-public class «getComponentEditPolicyClassName()» «EXPAND supertypes» {
+public class «EXPAND className» «EXPAND supertypes» {
 	«EXPAND createDeleteCommand-»
 «IF needsGetGraphicalEditPart()-»
 	«EXPAND getGraphicalEditPart-»
@@ -53,6 +53,9 @@ public class «getComponentEditPolicyClassName()» «EXPAND supertypes» {
 «DEFINE getDiagramElement FOR GenLink-»
 «EXPAND getDiagramEdge-»
 «ENDDEFINE»
+
+«DEFINE className FOR gmfgen::GenCommonBase»«getComponentEditPolicyClassName()»«ENDDEFINE»
+«DEFINE qualifiedClassName FOR gmfgen::GenCommonBase»«getDiagram().editPoliciesPackageName».«EXPAND className»«ENDDEFINE»
 
 «DEFINE supertypes FOR gmfgen::GenCommonBase»extends org.eclipse.gef.editpolicies.ComponentEditPolicy«ENDDEFINE»
 

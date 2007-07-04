@@ -30,6 +30,8 @@ public class «EXPAND className» «EXPAND supertypes» {
 }
 «ENDDEFINE»
 
+«DEFINE qualifiedClassName FOR gmfgen::GenEditorView»«packageName».«EXPAND className»«ENDDEFINE»
+
 «DEFINE className FOR gmfgen::GenEditorView»«validJavaIdentifier("OpenDiagramIn" + editorGen.modelID + "DiagramViewAction")»«ENDDEFINE»
 
 «DEFINE supertypes FOR gmfgen::GenEditorView»implements org.eclipse.ui.IObjectActionDelegate«ENDDEFINE»

@@ -37,26 +37,30 @@ public class «editPartClassName» «EXPAND supertypes» {
 	«EXPAND xpt::diagram::parts::LabelController::getUpdatableParent-»
 	«EXPAND xpt::diagram::parts::Common::activate-»
 	«EXPAND xpt::diagram::parts::Common::deactivate-»
+	«EXPAND getAlignment-»
 
 	«EXPAND xpt::diagram::parts::Common::viewmap FOR viewmap-»
 	«EXPAND additions-»
 }
 «ENDDEFINE»
 
-«DEFINE supertypes FOR gmfgen::GenLinkLabel»extends org.eclipse.gef.editparts.AbstractGraphicalEditPart implements org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelController«ENDDEFINE»
+«DEFINE supertypes FOR gmfgen::GenLinkLabel»extends org.eclipse.gmf.runtime.lite.edit.parts.labels.BaseLinkLabelEditPart implements org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelController«ENDDEFINE»
 
 «DEFINE createEditPolicies FOR gmfgen::GenLinkLabel-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected void createEditPolicies() {
-	installEditPolicy(org.eclipse.gef.EditPolicy.CONNECTION_ENDPOINTS_ROLE, new org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy() {
-		public org.eclipse.gef.EditPart getHost() {
-			return getUpdatableParent();
-		}
-	});
+	super.createEditPolicies();
 «IF !isReadOnly()-»
 	installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.lite.edit.policies.LabelDirectEditPolicy());
 «ENDIF-»
 	«EXPAND xpt::diagram::parts::Common::behaviour-»
+}
+«ENDDEFINE»
+
+«DEFINE getAlignment FOR gmfgen::GenLinkLabel-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected int getAlignment() {
+	return org.eclipse.draw2d.ConnectionLocator.«alignment.literal»;
 }
 «ENDDEFINE»
 

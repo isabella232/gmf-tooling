@@ -323,9 +323,9 @@ updatableParent.removeExternalRefresher(boundsRefresher);
 «ENDDEFINE»
 
 «DEFINE activateMore FOR gmfgen::GenLinkLabel-»
-updatableParent.addExternalRefresher(locationRefresher);
+updatableParent.addExternalRefresher(boundsRefresher);
 «ENDDEFINE»
 
 «DEFINE deactivateMore FOR gmfgen::GenLinkLabel-»
-updatableParent.removeExternalRefresher(locationRefresher);
+updatableParent.removeExternalRefresher(boundsRefresher);
 «ENDDEFINE»

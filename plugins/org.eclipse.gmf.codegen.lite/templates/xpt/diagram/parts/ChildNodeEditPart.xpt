@@ -13,7 +13,6 @@
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
-«EXTENSION xpt::diagram::policies::ClassNames»
 «EXTENSION xpt::diagram::parts::LabelController»
 
 «DEFINE ChildNodeEditPart FOR gmfgen::GenChildLabelNode-»
@@ -24,6 +23,7 @@ package «getDiagram().editPartsPackageName»;
 public class «editPartClassName» «EXPAND supertypes» {
 	«EXPAND xpt::diagram::parts::Common::visualIDConstant-»
 	«EXPAND xpt::diagram::parts::Common::ctors-»
+	«EXPAND isSelectable-»
 
 	«EXPAND xpt::diagram::parts::Common::declareViewCode-»
 	«EXPAND xpt::diagram::parts::Common::registerModel-»
@@ -61,13 +61,29 @@ public class «editPartClassName» «EXPAND supertypes» {
 
 «DEFINE supertypes FOR gmfgen::GenChildLabelNode»extends org.eclipse.gef.editparts.AbstractGraphicalEditPart implements org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart, org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart, org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelController«ENDDEFINE»
 
+«DEFINE isSelectable FOR gmfgen::GenChildLabelNode-»
+«EXPAND xpt::Common::generatedMemberComment»
+public boolean isSelectable() {
+	if (!super.isSelectable()) {
+		return false;
+	}
+	if (!isActive()) {
+		return false;
+	}
+	if (getViewer().getContents().equals(getViewer().getFocusEditPart())) {
+		return false;
+	}
+	return true;
+}
+«ENDDEFINE»
+
 «DEFINE createEditPolicies FOR gmfgen::GenChildLabelNode-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected void createEditPolicies() {
 «IF !isReadOnly()-»
 	installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.lite.edit.policies.LabelDirectEditPolicy());
 «ENDIF-»
-	installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE, new «getComponentEditPolicyQualifiedClassName()»());
+	installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE, new «EXPAND xpt::diagram::policies::ComponentEditPolicy::qualifiedClassName»());
 	«EXPAND xpt::diagram::parts::Common::behaviour-»
 }
 «ENDDEFINE»

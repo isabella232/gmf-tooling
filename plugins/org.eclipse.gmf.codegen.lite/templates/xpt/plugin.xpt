@@ -64,10 +64,10 @@
             objectClass="org.eclipse.core.resources.IFile">
          <action
                label="%_UI_Menu_OpenDiagramView_label"
-               class="«editorGen.editor.packageName».«EXPAND xpt::editor::OpenDiagramInViewAction::className FOR editorGen.editor»"
+               class="«EXPAND xpt::editor::OpenDiagramInViewAction::qualifiedClassName FOR editorGen.editor»"
                menubarPath="additions"
                enablesFor="1"
-               id="«editorGen.editor.packageName».«EXPAND xpt::editor::OpenDiagramInViewAction::className FOR editorGen.editor»ID">
+               id="«EXPAND xpt::editor::OpenDiagramInViewAction::qualifiedClassName FOR editorGen.editor»ID">
          </action>
       </objectContribution>
 	«ENDIF-»

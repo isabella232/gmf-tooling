@@ -16,3 +16,75 @@ import "http://www.eclipse.org/gmf/2006/GenModel";
 boolean validationNeeded(gmfgen::GenDiagram diagram) :
 	diagram.validationEnabled || (diagram.editorGen.audits != null && diagram.editorGen.audits.rules.size() > 0)
 ;
+
+boolean hasNotationModelAudit(gmfgen::GenDiagram diagram) :
+	let audits = diagram.editorGen.audits : 
+		(audits == null ? false : 
+		audits.rules.select(e| e.target.isNotationModelAudit()).size() > 0)
+;
+
+boolean isNotationModelAudit(gmfgen::GenAuditable auditable) :
+	false
+;
+
+boolean isNotationModelAudit(gmfgen::GenDiagramElementTarget diagramElementTarget) :
+	true
+;
+
+boolean isNotationModelAudit(gmfgen::GenNotationElementTarget notationElementTarget) :
+	true
+;
+
+cached Collection[String] getClientContextIDs(gmfgen::GenAuditRoot audits) :
+	{}.union(audits.rules.select(e| e.target != null).collect(e| e.target.getClientContextID()))
+;
+
+cached List[gmfgen::GenAuditRule] getAuditsForClientContextID(gmfgen::GenAuditRoot audits, String clientContextId) :
+	audits.rules.select(e| e.target != null && e.target.getClientContextID() == clientContextId)
+;
+
+boolean usesNotationContextSwitch(gmfgen::GenAuditRoot audits) :
+	audits.rules.select(e| {e.target}.typeSelect(gmfgen::GenDiagramElementTarget).size() > 0).size() > 0
+;
+
+List[gmfgen::GenCommonBase] getViewsThatNeedSelectorClass(gmfgen::GenAuditRoot audits) :
+	audits.rules.collect(e| e.target.getViewsThatNeedSelectorClass()).flatten()
+;
+
+List[gmfgen::GenCommonBase] getViewsThatNeedSelectorClass(gmfgen::GenAuditable auditable) :
+	{}
+;
+
+List[gmfgen::GenCommonBase] getViewsThatNeedSelectorClass(gmfgen::GenDiagramElementTarget diagramElementTarget) :
+	diagramElementTarget.element
+;
+
+//TODO: introduce into the gmfgen model
+String getConstraintAdapterLocalClassName(gmfgen::GenAuditRule rule) :
+	"Adapter" + (rule.root.rules.indexOf(rule) + 1)
+;
+
+List[gmfgen::GenAuditRule] getJavaAuditRules(gmfgen::GenDiagram diagram) :
+	diagram.editorGen.audits.rules.select(e| e.rule != null && diagram.editorGen.expressionProviders.getProvider(e.rule).isJavaExpressionProvider())
+;
+
+List[gmfgen::GenMetricRule] getJavaMetricRules(gmfgen::GenDiagram diagram) :
+	diagram.editorGen.metrics.metrics.select(e| e.rule != null && e.target != null && e.target.getContext() != null && diagram.editorGen.expressionProviders.getProvider(e.rule).isJavaExpressionProvider())
+;
+
+private boolean isJavaExpressionProvider(gmfgen::GenExpressionProviderBase gepb) :
+	false
+;
+
+private boolean isJavaExpressionProvider(gmfgen::GenJavaExpressionProvider gepb) :
+	true
+;
+
+String toStringLiteral(String strValue) :
+JAVA org.eclipse.gmf.internal.common.codegen.Conversions.toStringLiteral(java.lang.String)
+;
+
+List[gmfgen::GenMetricRule] getMetricRules(gmfgen::GenDiagram diagram) :
+	diagram.editorGen.metrics.metrics.select(e| e.rule != null && e.target != null && e.target.getContext() != null)
+;
+

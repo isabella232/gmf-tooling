@@ -49,6 +49,7 @@ public class «editPartClassName» «EXPAND supertypes» {
 «DEFINE createEditPolicies FOR gmfgen::GenNodeLabel-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected void createEditPolicies() {
+«EXPAND createSuperEditPolicies-»
 «IF !isReadOnly()-»
 	installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.lite.edit.policies.LabelDirectEditPolicy());
 «ENDIF-»
@@ -58,3 +59,9 @@ protected void createEditPolicies() {
 
 «DEFINE additions FOR gmfgen::GenNodeLabel»«ENDDEFINE»
 
+«DEFINE createSuperEditPolicies FOR gmfgen::GenNodeLabel-»
+«ENDDEFINE»
+
+«DEFINE createSuperEditPolicies FOR gmfgen::GenExternalNodeLabel-»
+super.createEditPolicies();
+«ENDDEFINE»

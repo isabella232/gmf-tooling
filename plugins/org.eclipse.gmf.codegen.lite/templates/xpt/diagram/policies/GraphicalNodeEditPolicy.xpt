@@ -24,7 +24,7 @@
 package «getDiagram().editPoliciesPackageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
-public class «getGraphicalNodeEditPolicyClassName()» «EXPAND supertypes» {
+public class «EXPAND className» «EXPAND supertypes» {
 	«EXPAND getConnectionCreateCommand-»
 	«EXPAND getConnectionCompleteCommand-»
 	«EXPAND getReconnectSourceCommand-»
@@ -32,6 +32,9 @@ public class «getGraphicalNodeEditPolicyClassName()» «EXPAND supertypes» {
 	«EXPAND additions-»
 }
 «ENDDEFINE»
+
+«DEFINE className FOR gmfgen::GenCommonBase»«getGraphicalNodeEditPolicyClassName()»«ENDDEFINE»
+«DEFINE qualifiedClassName FOR gmfgen::GenCommonBase»«getDiagram().editPoliciesPackageName».«EXPAND className»«ENDDEFINE»
 
 «DEFINE supertypes FOR gmfgen::GenCommonBase»extends org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy«ENDDEFINE»
 

@@ -17,16 +17,8 @@ String getComponentEditPolicyClassName(gmfgen::GenCommonBase element) :
 getBaseName(element) + "ComponentEditPolicy"
 ;
 
-String getComponentEditPolicyQualifiedClassName(gmfgen::GenCommonBase element) :
-element.getDiagram().editPoliciesPackageName + "." + getComponentEditPolicyClassName(element)
-;
-
 String getLayoutEditPolicyClassName(gmfgen::GenContainerBase element) :
 getBaseName(element) + "LayoutEditPolicy"
-;
-
-String getLayoutEditPolicyQualifiedClassName(gmfgen::GenContainerBase element) :
-element.getDiagram().editPoliciesPackageName + "." + getLayoutEditPolicyClassName(element)
 ;
 
 String getGraphicalNodeEditPolicyClassName(gmfgen::GenCommonBase gcb) :
@@ -37,8 +29,8 @@ String getGraphicalNodeEditPolicyClassName(gmfgen::GenNode node) :
 node.graphicalNodeEditPolicyClassName
 ;
 
-String getGraphicalNodeEditPolicyQualifiedClassName(gmfgen::GenCommonBase gcb) :
-gcb.getDiagram().editPoliciesPackageName + "." + getGraphicalNodeEditPolicyClassName(gcb)
+String getConnectionEndpointEditPolicyClassName(gmfgen::GenLink link) :
+getBaseName(link) + "EndpointEditPolicy"
 ;
 
 private String getBaseName(gmfgen::GenCommonBase element) :

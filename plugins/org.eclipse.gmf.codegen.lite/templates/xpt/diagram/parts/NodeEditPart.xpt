@@ -13,7 +13,6 @@
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
-«EXTENSION xpt::diagram::policies::ClassNames»
 «EXTENSION xpt::diagram::parts::Common»
 «EXTENSION xpt::diagram::parts::NodeEditPart»
 «EXTENSION xpt::diagram::ViewmapAttributesUtils»
@@ -104,12 +103,12 @@ protected org.eclipse.draw2d.IFigure primaryShape;
 «DEFINE createEditPolicies FOR gmfgen::GenNode-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected void createEditPolicies() {
-	installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE, new «getComponentEditPolicyQualifiedClassName()»());
+	installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE, new «EXPAND xpt::diagram::policies::ComponentEditPolicy::qualifiedClassName»());
 	installEditPolicy(org.eclipse.gef.EditPolicy.GRAPHICAL_NODE_ROLE, new «getGraphicalNodeEditPolicyQualifiedClassName()»());
 «IF getPrimaryLabel() != null-»
 	installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.lite.edit.policies.DelegatingDirectEditPolicy());
 «ENDIF-»
-	installEditPolicy(org.eclipse.gef.EditPolicy.LAYOUT_ROLE, new «getLayoutEditPolicyQualifiedClassName()»());
+	installEditPolicy(org.eclipse.gef.EditPolicy.LAYOUT_ROLE, new «EXPAND xpt::diagram::policies::LayoutEditPolicy::qualifiedClassName»());
 	«EXPAND xpt::diagram::parts::Common::behaviour-»
 	installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, getPrimaryDragEditPolicy());
 	«EXPAND xpt::diagram::parts::NotationModelRefresher::installClause-»
@@ -123,7 +122,7 @@ protected org.eclipse.gef.EditPolicy getPrimaryDragEditPolicy() {
 «IF primaryDragEditPolicyQualifiedClassName != null-»
 	return new «primaryDragEditPolicyQualifiedClassName»();
 «ELSE-»
-	«IF compartments.size() == 0-»
+	«IF compartments.size() + getExternalLabels().size() == 0-»
 		org.eclipse.gef.editpolicies.ResizableEditPolicy result = new org.eclipse.gef.editpolicies.ResizableEditPolicy();
 	«ELSE-»
 		org.eclipse.gef.editpolicies.ResizableEditPolicy result = new org.eclipse.gef.editpolicies.ResizableEditPolicy() {
@@ -134,6 +133,7 @@ protected org.eclipse.gef.EditPolicy getPrimaryDragEditPolicy() {
 					org.eclipse.gmf.runtime.notation.View nextView = (org.eclipse.gmf.runtime.notation.View) next.getModel();
 					switch («getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(nextView)) {
 					«EXPAND addSelectionHandles FOREACH compartments-»
+					«EXPAND addSelectionHandles FOREACH getExternalLabels()-»
 					}
 				}
 				return result;
@@ -167,7 +167,7 @@ protected org.eclipse.draw2d.IFigure createFigure() {
 }
 «ENDDEFINE»
 
-«DEFINE addSelectionHandles FOR gmfgen::GenCompartment-»
+«DEFINE addSelectionHandles FOR gmfgen::GenCommonBase-»
 case «getEditPartQualifiedClassName()».VISUAL_ID:
 	result.addAll(((«getEditPartQualifiedClassName()») next).createSelectionHandles());
 	break;

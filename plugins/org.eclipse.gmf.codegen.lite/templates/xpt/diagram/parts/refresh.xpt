@@ -304,14 +304,6 @@ protected org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEdi
 «EXPAND labelRefresher-»
 «EXPAND externalFontRefresher-»
 «EXPAND externalFontColorRefresher-»
-«EXPAND moreRefreshMethods-»
-«ENDDEFINE»
-
-«DEFINE moreRefreshMethods FOR gmfgen::GenLabel»«ENDDEFINE»
-
-«DEFINE moreRefreshMethods FOR gmfgen::GenLinkLabel-»
-«EXPAND refreshLocation-»
-«EXPAND externalLocationRefresher-»
 «ENDDEFINE»
 
 «DEFINE refreshMethods FOR gmfgen::GenLink-»
@@ -362,25 +354,6 @@ private org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditP
 };
 «ENDDEFINE»
 
-«DEFINE externalLocationRefresher FOR gmfgen::GenLinkLabel-»
-«EXPAND xpt::Common::generatedMemberComment»
-private org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher locationRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher() {
-	public void refresh() {
-		«EXPAND ignoreIfInactive-»
-		refreshLocation();
-	}
-	public boolean isAffectingEvent(org.eclipse.emf.common.notify.Notification msg) {
-		if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation().getEStructuralFeatures().contains(msg.getFeature())) {
-			return true;
-		}
-		if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getNode_LayoutConstraint() == msg.getFeature()) {
-			return true;
-		}
-		return false;
-	}
-};
-«ENDDEFINE»
-
 «DEFINE refreshVisibility FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected void refreshVisibility() {
@@ -417,23 +390,6 @@ protected void refreshBendpoints() {
 		figureConstraint.add(rbp);
 	}
 	getConnectionFigure().setRoutingConstraint(figureConstraint);
-}
-«ENDDEFINE»
-
-«DEFINE refreshLocation FOR gmfgen::GenLinkLabel-»
-«EXPAND xpt::Common::generatedMemberComment»
-protected void refreshLocation() {
-	org.eclipse.gmf.runtime.notation.Node node = «EXPAND xpt::diagram::parts::Common::getViewCode»;
-	assert node.getLayoutConstraint() instanceof org.eclipse.gmf.runtime.notation.Location;
-	final org.eclipse.gmf.runtime.notation.Location location = (org.eclipse.gmf.runtime.notation.Location) node.getLayoutConstraint();
-	«getLabelHostQualifiedClassName()» parent = getUpdatableParent();
-	org.eclipse.draw2d.Connection connection = (org.eclipse.draw2d.Connection) parent.getFigure();
-	((org.eclipse.gef.GraphicalEditPart) getParent()).setLayoutConstraint(this,
-			getFigure(), new org.eclipse.draw2d.ConnectionLocator(connection, org.eclipse.draw2d.ConnectionLocator.«alignment.literal») {
-				protected org.eclipse.draw2d.geometry.Point getReferencePoint() {
-					return super.getReferencePoint().translate(location.getX(), location.getY());
-				}
-			});
 }
 «ENDDEFINE»
 
@@ -656,14 +612,7 @@ protected void refreshVisuals() {
 	refreshFont();
 «ENDIF-»
 	refreshFontColor();
-	«EXPAND moreRefreshVisuals-»
 }
-«ENDDEFINE»
-
-«DEFINE moreRefreshVisuals FOR gmfgen::GenLabel»«ENDDEFINE»
-
-«DEFINE moreRefreshVisuals FOR gmfgen::GenLinkLabel-»
-refreshLocation();
 «ENDDEFINE»
 
 «DEFINE refreshVisuals FOR gmfgen::GenLink-»

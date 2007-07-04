@@ -35,6 +35,7 @@ public class «EXPAND className» «EXPAND supertypes» {
 «ENDDEFINE»
 
 «DEFINE className FOR gmfgen::GenNode»Add«EXPAND xpt::commands::Common::commandNameInfix»Command«ENDDEFINE»
+«DEFINE qualifiedClassName FOR gmfgen::GenNode»«getDiagram().editCommandsPackageName».«EXPAND className»«ENDDEFINE»
 «DEFINE supertypes FOR gmfgen::GenNode»extends org.eclipse.emf.common.command.CommandWrapper«ENDDEFINE»
 
 «DEFINE attributes(boolean multipleRelatedNodes) FOR gmfgen::GenNode-»

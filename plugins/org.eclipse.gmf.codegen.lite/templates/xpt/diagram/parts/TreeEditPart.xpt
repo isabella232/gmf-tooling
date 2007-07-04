@@ -14,7 +14,6 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «EXTENSION xpt::GenModelUtils»
-«EXTENSION xpt::diagram::policies::ClassNames»
 «EXTENSION xpt::diagram::policies::ComponentEditPolicy»
 «EXTENSION xpt::diagram::parts::TreeEditPart»
 «EXTENSION xpt::diagram::parts::Common»
@@ -93,13 +92,13 @@ public void setWidget(org.eclipse.swt.widgets.Widget widget) {
 installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE, «EXPAND instantiateComponentEditPolicy»);
 «ENDDEFINE»
 
-«DEFINE instantiateComponentEditPolicyPrim FOR gmfgen::GenCommonBase»new «getComponentEditPolicyQualifiedClassName()»()«ENDDEFINE»
+«DEFINE instantiateComponentEditPolicyPrim FOR gmfgen::GenCommonBase»new «EXPAND xpt::diagram::policies::ComponentEditPolicy::qualifiedClassName»()«ENDDEFINE»
 
 «DEFINE instantiateComponentEditPolicy FOR gmfgen::GenDiagram»new org.eclipse.gef.editpolicies.RootComponentEditPolicy()«ENDDEFINE»
 
 «DEFINE instantiateComponentEditPolicy FOR gmfgen::GenCommonBase-»
 «IF needsGetGraphicalEditPart()-»
-new «getComponentEditPolicyQualifiedClassName()»() {
+new «EXPAND xpt::diagram::policies::ComponentEditPolicy::qualifiedClassName»() {
 	protected org.eclipse.gef.GraphicalEditPart getGraphicalEditPart() {
 		return «editPartClassName».this;
 	}

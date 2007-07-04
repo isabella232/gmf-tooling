@@ -19,9 +19,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
-import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
@@ -42,7 +40,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
-import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
@@ -104,10 +101,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			internalGenerateJavaClass(myEmitters.getMatchingStrategyEmitter(), myDiagram.getMatchingStrategyQualifiedClassName(), myDiagram);
 		}
 		if (myEditorGen.getApplication() == null && !myEditorGen.getEditor().isEclipseEditor()) {
-			//See plugin.xmljet
-			String className = "OpenDiagramIn" + myEditorGen.getDomainGenModel().getModelName() + "DiagramViewAction";
-			className = CodeGenUtil.validJavaIdentifier(className);
-			internalGenerateJavaClass(myEmitters.getOpenDiagramInViewActionGenerator(), myEditorGen.getEditor().getPackageName(), className, myEditorGen.getEditor());
+			internalGenerateJavaClass(myEmitters.getOpenDiagramInViewActionGenerator(), myEmitters.getOpenDiagramInViewActionQualifiedClassNameGenerator(), myEditorGen.getEditor());
 		}
 		if (myDiagram.getPalette() != null) {
 			internalGenerateJavaClass(myEmitters.getPaletteFactoryGenerator(), myDiagram.getPalette().getFactoryQualifiedClassName(), myDiagram.getPalette());
@@ -150,6 +144,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		for (GenLink next : (List<? extends GenLink>) myDiagram.getLinks()) {
 			internalGenerateJavaClass(myEmitters.getLinkEditPartGenerator(), next.getEditPartQualifiedClassName(), next);
 			generateGraphicalEditPolicy(next);
+			if (next.getLabels().size() > 0) {
+				generateConnectionEndpointEditPolicy(next);
+			}
 			for (GenLinkLabel label : (List<? extends GenLinkLabel>) next.getLabels()) {
 				internalGenerateJavaClass(myEmitters.getLinkLabelEditPartGenerator(), label.getEditPartQualifiedClassName(), label);
 				internalGenerateJavaClass(myEmitters.getViewFactoryGenerator(), label.getNotationViewFactoryQualifiedClassName(), label);
@@ -276,6 +273,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getValidationProviderClassName(),
 			myDiagram);
+		internalGenerateJavaClass(myEmitters.getValidateActionGenerator(), myEmitters.getValidateActionQualifiedNameGenerator(), myDiagram);
 	}
 
 	private void generateMarkerNavigationProvider() throws UnexpectedBehaviourException, InterruptedException {
@@ -292,6 +290,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getMetricProviderClassName(),
 			myDiagram);
+		internalGenerateJavaClass(myEmitters.getMetricsActionEmitter(), myEmitters.getMetricsActionQualifiedNameEmitter(), myDiagram);
 	}	
 
 	private void generateOpenDiagramEditPolicy(OpenDiagramBehaviour behaviour) throws UnexpectedBehaviourException, InterruptedException {
@@ -299,74 +298,25 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateCommands(GenNode genNode) throws UnexpectedBehaviourException, InterruptedException {
-		String commandNameInfix = genNode.getDomainMetaClass().getName() + genNode.getVisualID();
 		if (!genNode.getDomainMetaClass().isAbstract()) {
-			internalGenerateJavaClass(myEmitters.getCreateNodeCommandEmitter(), 
-					myDiagram.getEditCommandsPackageName(),
-					"Create" + commandNameInfix + "Command",
-					genNode
-				);
+			internalGenerateJavaClass(myEmitters.getCreateNodeCommandEmitter(), myEmitters.getCreateNodeCommandQualifiedClassNameEmitter(), genNode);
 		}
-		internalGenerateJavaClass(myEmitters.getAddNodeCommandEmitter(), 
-				myDiagram.getEditCommandsPackageName(),
-				"Add" + commandNameInfix + "Command",
-				genNode
-			);
-		internalGenerateJavaClass(myEmitters.getCloneNodeCommandEmitter(), 
-				myDiagram.getEditCommandsPackageName(),
-				"Clone" + commandNameInfix + "Command",
-				genNode
-			);
+		internalGenerateJavaClass(myEmitters.getAddNodeCommandEmitter(), myEmitters.getAddNodeCommandQualifiedClassNameEmitter(), genNode);
+		internalGenerateJavaClass(myEmitters.getCloneNodeCommandEmitter(), myEmitters.getCloneNodeCommandQualifiedClassNameEmitter(), genNode);
 	}
 
 	private void generateCommands(GenLink genLink) throws UnexpectedBehaviourException, InterruptedException {
 		if (!genLink.isViewDirectionAlignedWithModel()) {
 			return;
 		}
-		String commandNameInfix;
-		if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
-			TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
-			commandNameInfix = modelFacet.getMetaClass().getName();
-		} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
-			GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
-			commandNameInfix = metaFeature.getFeatureAccessorName();
-		} else {
-			return;
-		}
-		commandNameInfix += genLink.getVisualID();
-		internalGenerateJavaClass(
-				myEmitters.getCreateLinkStartCommandEmitter(),
-				myDiagram.getEditCommandsPackageName(),
-				"Create" + commandNameInfix + "StartCommand",
-				genLink
-			);
-		internalGenerateJavaClass(
-				myEmitters.getCreateLinkCompleteCommandEmitter(),
-				myDiagram.getEditCommandsPackageName(),
-				"Create" + commandNameInfix + "Command",
-				genLink
-			);
-		internalGenerateJavaClass(
-				myEmitters.getReconnectLinkSourceCommandEmitter(),
-				myDiagram.getEditCommandsPackageName(),
-				"Reconnect" + commandNameInfix + "SourceCommand",
-				genLink
-			);
-		internalGenerateJavaClass(
-				myEmitters.getReconnectLinkTargetCommandEmitter(),
-				myDiagram.getEditCommandsPackageName(),
-				"Reconnect" + commandNameInfix + "TargetCommand",
-				genLink
-			);
+		internalGenerateJavaClass(myEmitters.getCreateLinkStartCommandEmitter(), myEmitters.getCreateLinkStartCommandQualifiedClassNameEmitter(), genLink);
+		internalGenerateJavaClass(myEmitters.getCreateLinkCompleteCommandEmitter(), myEmitters.getCreateLinkCompleteCommandQualifiedClassNameEmitter(), genLink);
+		internalGenerateJavaClass(myEmitters.getReconnectLinkSourceCommandEmitter(), myEmitters.getReconnectLinkSourceCommandQualifiedClassNameEmitter(), genLink);
+		internalGenerateJavaClass(myEmitters.getReconnectLinkTargetCommandEmitter(), myEmitters.getReconnectLinkTargetCommandQualifiedClassNameEmitter(), genLink);
 	}
 
 	private void generateLayoutEditPolicy(GenContainerBase containerBase) throws InterruptedException, UnexpectedBehaviourException {
-		String editPolicyClassName = containerBase.getEditPartClassName();
-		if (editPolicyClassName.endsWith(GenCommonBase.EDIT_PART_SUFFIX)) {
-			editPolicyClassName = editPolicyClassName.substring(0, editPolicyClassName.length() - GenCommonBase.EDIT_PART_SUFFIX.length());
-		}
-		editPolicyClassName += "LayoutEditPolicy";
-		internalGenerateJavaClass(myEmitters.getLayoutEditPolicyEmitter(), myDiagram.getEditPoliciesPackageName(), editPolicyClassName, containerBase);
+		internalGenerateJavaClass(myEmitters.getLayoutEditPolicyEmitter(), myEmitters.getLayoutEditPolicyQualifiedClassNameEmitter(), containerBase);
 	}
 
 	private void generateGraphicalEditPolicy(GenNode genNode) throws InterruptedException, UnexpectedBehaviourException {
@@ -374,22 +324,15 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateGraphicalEditPolicy(GenLink genLink) throws InterruptedException, UnexpectedBehaviourException {
-		String editPolicyClassName = genLink.getEditPartClassName();
-		if (editPolicyClassName.endsWith(GenCommonBase.EDIT_PART_SUFFIX)) {
-			editPolicyClassName = editPolicyClassName.substring(0, editPolicyClassName.length() - GenCommonBase.EDIT_PART_SUFFIX.length());
-		}
-		editPolicyClassName += "GraphicalNodeEditPolicy";
-		internalGenerateJavaClass(myEmitters.getGraphicalEditPolicyEmitter(), myDiagram.getEditPoliciesPackageName(), editPolicyClassName, genLink);
+		internalGenerateJavaClass(myEmitters.getGraphicalEditPolicyEmitter(), myEmitters.getGraphicalEditPolicyQualifiedClassNameEmitter(), genLink);
 	}
 
 	private void generateComponentEditPolicy(GenCommonBase genElement) throws InterruptedException, UnexpectedBehaviourException {
-		//Actually, next is expected to be either GenLink or GenNode
-		String editPolicyClassName = genElement.getEditPartClassName();
-		if (editPolicyClassName.endsWith(GenCommonBase.EDIT_PART_SUFFIX)) {
-			editPolicyClassName = editPolicyClassName.substring(0, editPolicyClassName.length() - GenCommonBase.EDIT_PART_SUFFIX.length());
-		}
-		editPolicyClassName += "ComponentEditPolicy";
-		internalGenerateJavaClass(myEmitters.getComponentEditPolicyEmitter(), myDiagram.getEditPoliciesPackageName(), editPolicyClassName, genElement);
+		internalGenerateJavaClass(myEmitters.getComponentEditPolicyEmitter(), myEmitters.getComponentEditPolicyQualifiedClassNameEmitter(), genElement);
+	}
+
+	private void generateConnectionEndpointEditPolicy(GenLink genLink) throws InterruptedException, UnexpectedBehaviourException {
+		internalGenerateJavaClass(myEmitters.getConnectionEndpointEditPolicyEmitter(), myEmitters.getConnectionEndpointEditPolicyQualifiedClassNameEmitter(), genLink);
 	}
 
 	private void generateNavigatorContentProvider() throws InterruptedException {

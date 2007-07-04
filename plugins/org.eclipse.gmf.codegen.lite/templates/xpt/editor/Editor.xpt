@@ -335,11 +335,11 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 «ENDDEFINE»
 
 «DEFINE validateActions FOR gmfgen::GenEditorView-»
-		addAction(new «editorGen.diagram.getValidationProviderQualifiedClassName()».ValidateAction(this));
+		addAction(new «EXPAND xpt::providers::ValidateAction::qualifiedClassName FOR editorGen.diagram»(this));
 «ENDDEFINE»
 
 «DEFINE metricsActions FOR gmfgen::GenMetricContainer-»
-		addAction(new «editorGen.diagram.getMetricProviderQualifiedClassName()».MetricsAction(this));
+		addAction(new «EXPAND xpt::providers::MetricsAction::qualifiedClassName FOR editorGen.diagram»(this));
 «ENDDEFINE»
 
 «DEFINE moreActions FOR gmfgen::GenEditorView-»
@@ -783,11 +783,11 @@ protected java.util.Map getSaveOptions() {
 «ENDDEFINE»
 
 «DEFINE provideValidateActions FOR gmfgen::GenEditorView-»
-			appendActionToMenu(menuManager, «editorGen.diagram.getValidationProviderQualifiedClassName()».ValidateAction.VALIDATE_ACTION_KEY, org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_REST);
+			appendActionToMenu(menuManager, «EXPAND xpt::providers::ValidateAction::actionKey FOR editorGen.diagram», org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_REST);
 «ENDDEFINE»
 
 «DEFINE provideMetricsActions FOR gmfgen::GenMetricContainer-»
-			appendActionToMenu(menuManager, «editorGen.diagram.getMetricProviderQualifiedClassName()».MetricsAction.ACTION_KEY, org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_REST);
+			appendActionToMenu(menuManager, «EXPAND xpt::providers::MetricsAction::actionKey FOR editorGen.diagram», org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_REST);
 «ENDDEFINE»
 
 «DEFINE provideMoreActions FOR gmfgen::GenEditorView-»

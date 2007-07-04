@@ -34,7 +34,7 @@ public class «EXPAND className» «EXPAND supertypes» {
 «ENDDEFINE»
 
 «DEFINE className FOR gmfgen::GenLink»Reconnect«EXPAND xpt::commands::Common::commandNameInfix»TargetCommand«ENDDEFINE»
-
+«DEFINE qualifiedClassName FOR gmfgen::GenLink»«getDiagram().editCommandsPackageName».«EXPAND className»«ENDDEFINE»
 «DEFINE supertypes FOR gmfgen::GenLink»extends org.eclipse.emf.common.command.CommandWrapper«ENDDEFINE»
 
 «DEFINE attributes FOR gmfgen::GenLink-»

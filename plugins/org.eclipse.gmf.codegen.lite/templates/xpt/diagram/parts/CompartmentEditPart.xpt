@@ -13,7 +13,6 @@
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
-«EXTENSION xpt::diagram::policies::ClassNames»
 
 «DEFINE CompartmentEditPart FOR gmfgen::GenCompartment-»
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen»
@@ -61,7 +60,7 @@ protected java.util.List getModelChildren() {
 «DEFINE createEditPolicies FOR gmfgen::GenCompartment-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected void createEditPolicies() {
-	installEditPolicy(org.eclipse.gef.EditPolicy.LAYOUT_ROLE, new «getLayoutEditPolicyQualifiedClassName()»());
+	installEditPolicy(org.eclipse.gef.EditPolicy.LAYOUT_ROLE, new «EXPAND xpt::diagram::policies::LayoutEditPolicy::qualifiedClassName»());
 	«EXPAND xpt::diagram::parts::Common::behaviour-»
 	«EXPAND xpt::diagram::parts::NotationModelRefresher::installClause-»
 }

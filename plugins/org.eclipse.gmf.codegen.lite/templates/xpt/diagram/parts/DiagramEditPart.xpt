@@ -13,7 +13,6 @@
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
-«EXTENSION xpt::diagram::policies::ClassNames»
 
 «DEFINE DiagramEditPart FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen»
@@ -30,6 +29,7 @@ public class «editPartClassName» «EXPAND supertypes» {
 	«EXPAND xpt::diagram::parts::Common::registerModel-»
 	«EXPAND createEditPolicies-»
 	«EXPAND createFigure-»
+	«EXPAND getDragTracker-»
 	«EXPAND xpt::diagram::parts::Common::getAdapter-»
 	«EXPAND xpt::diagram::parts::TreeEditPart::getTreeEditPartAdapter-»
 	«EXPAND xpt::diagram::parts::Common::getModelChildren-»
@@ -51,8 +51,25 @@ public class «editPartClassName» «EXPAND supertypes» {
 protected org.eclipse.draw2d.IFigure createFigure() {
 	org.eclipse.draw2d.IFigure f = new org.eclipse.draw2d.FreeformLayer();
 	f.setBorder(new org.eclipse.draw2d.MarginBorder(5));
+	f.setOpaque(true);
 	f.setLayoutManager(new org.eclipse.draw2d.FreeformLayout());
 	return f;
+}
+«ENDDEFINE»
+
+«DEFINE getDragTracker FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment»
+public org.eclipse.gef.DragTracker getDragTracker(org.eclipse.gef.Request request) {
+	return new org.eclipse.gef.tools.MarqueeDragTracker() {
+		protected boolean handleButtonDown(int button) {
+			if (super.handleButtonDown(button)) {
+				getViewer().setSelection(org.eclipse.jface.viewers.StructuredSelection.EMPTY);
+				getViewer().setFocus(null);
+				return true;
+			}
+			return false;
+		}
+	};
 }
 «ENDDEFINE»
 
@@ -60,7 +77,7 @@ protected org.eclipse.draw2d.IFigure createFigure() {
 «EXPAND xpt::Common::generatedMemberComment»
 protected void createEditPolicies() {
 	installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE, new org.eclipse.gef.editpolicies.RootComponentEditPolicy());
-	installEditPolicy(org.eclipse.gef.EditPolicy.LAYOUT_ROLE, new «getLayoutEditPolicyQualifiedClassName()»());
+	installEditPolicy(org.eclipse.gef.EditPolicy.LAYOUT_ROLE, new «EXPAND xpt::diagram::policies::LayoutEditPolicy::qualifiedClassName»());
 	«EXPAND xpt::diagram::parts::Common::behaviour-»
 	«EXPAND xpt::diagram::parts::NotationModelRefresher::installClause-»
 	«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::installClause-»
