@@ -92,6 +92,6 @@ static {
 
 «DEFINE interptererExpressionConstantSignature FOR gmfgen::GenCommonBase»private static final «getDiagram().editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()»«ENDDEFINE»
 
-«DEFINE getExpression(gmfgen::ValueExpression valueExpr, genmodel::GenClass context, boolean includeEnvVariable) FOR gmfgen::GenExpressionInterpreter-»
+«DEFINE getExpression(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context, boolean includeEnvVariable) FOR gmfgen::GenExpressionInterpreter-»
 «getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», «EXPAND xpt::Common::metaClassAccessor FOR context»«IF includeEnvVariable», env«ENDIF»)«-»
 «ENDDEFINE»

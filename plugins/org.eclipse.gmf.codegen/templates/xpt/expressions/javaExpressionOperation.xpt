@@ -14,7 +14,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «EXTENSION xpt::GenModelUtils»
 
-«DEFINE javaExpressionOperation(gmfgen::ValueExpression valueExpr, genmodel::GenClass context, genmodel::GenClass oppositeEndContext) FOR gmfgen::GenJavaExpressionProvider-»
+«DEFINE javaExpressionOperation(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context, genmodel::GenClassifier oppositeEndContext) FOR gmfgen::GenJavaExpressionProvider-»
 «EXPAND xpt::Common::generatedMemberComment»
 private static «EXPAND javaExpressionReturnTypeFQName(this) FOR valueExpr» «getOperationName(valueExpr)»(«getQualifiedInstanceClassName(context)» self«IF oppositeEndContext != null», «getQualifiedInstanceClassName(oppositeEndContext)» oppositeEnd«ENDIF») {
 	// TODO: implement this method

@@ -79,7 +79,7 @@
 	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE metaClassAccessor FOR genmodel::GenClass»«getQualifiedPackageInterfaceName(genPackage)».eINSTANCE.get«getClassifierAccessorName(this)»()«ENDDEFINE»
+«DEFINE metaClassAccessor FOR genmodel::GenClassifier»«getQualifiedPackageInterfaceName(genPackage)».eINSTANCE.get«getClassifierAccessorName(this)»()«ENDDEFINE»
 
 «DEFINE metaFeatureAccessor FOR genmodel::GenFeature»«getQualifiedPackageInterfaceName(genClass.genPackage)».eINSTANCE.get«getFeatureAccessorName(this)»()«ENDDEFINE»
 

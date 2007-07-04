@@ -54,14 +54,25 @@ String getQualifiedInterfaceName(genmodel::GenClass gc) :
 //
 // GenClass#getClassifierAccessorName
 //
-String getClassifierAccessorName(genmodel::GenClass gc) :
-	switch (gc.ecoreClass.name) {
+String getClassifierAccessorName(genmodel::GenClassifier gc) :
+	switch (gc.getEcoreClassifier().name) {
 		case "Class" : "Class_"
 		case "Name" : "Name_"
-		default : gc.ecoreClass.name
+		default : gc.getEcoreClassifier().name
 	}
 ;
 
+ecore::EClassifier getEcoreClassifier(genmodel::GenClassifier gc) :
+	null
+;
+
+ecore::EClassifier getEcoreClassifier(genmodel::GenClass gc) :
+	gc.ecoreClass
+;
+
+ecore::EClassifier getEcoreClassifier(genmodel::GenDataType gc) :
+	gc.ecoreDataType
+;
 
 //
 // GenFeature#getFeatureAccessorName
@@ -80,7 +91,7 @@ String getQualifiedFeatureAccessorName(genmodel::GenFeature gf) :
 //
 // GenClassifier#getQualifiedClassifierAccessor
 //
-String getQualifiedClassifierAccessor(genmodel::GenClass gc) :
+String getQualifiedClassifierAccessor(genmodel::GenClassifier gc) :
 	getQualifiedPackageInterfaceName(gc.genPackage) + ".eINSTANCE.get" + getClassifierAccessorName(gc)
 ;
 
