@@ -334,7 +334,18 @@ public class ModelSelectionPage extends WizardPage {
 		return uri;
 	}
 
+	protected void unloadResource() {
+		if (this.resource != null) {
+			if (this.resource.isLoaded()) {
+				this.resource.unload();
+			}
+			getResourceSet().getResources().remove(this.resource);
+			this.resource = null;
+		}
+	}
+
 	protected Resource loadResource() {
+		unloadResource();
 		assert uri != null;
 		Resource resource = getResourceSet().createResource(uri);
 		if (resource == null) {
@@ -352,9 +363,7 @@ public class ModelSelectionPage extends WizardPage {
 	}
 
 	protected final void setResource(Resource resource) {
-		if (this.resource != null && this.resource.isLoaded()) {
-			this.resource.unload();
-		}
+		unloadResource();
 		this.resource = resource;
 		validatePage();
 		resourceChanged();
