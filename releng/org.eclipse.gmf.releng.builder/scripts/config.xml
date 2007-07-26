@@ -161,7 +161,7 @@
 		<schedule interval="300">
 			<ant antscript="./build.${ext}" buildfile="buildAll.xml"
 				target="maintenance" uselogger="true" usedebug="false" usequiet="true">
-				<property name="fetchTag" value="M2_0_maintenance" />
+				<property name="fetchTag" value="R2_0_maintenance" />
 				<property name="buildType" value="M" />
 				<property name="forceContextQualifier" value="v${date}-${time}" />
 				<property name="skipJavadoc" value="true" />
