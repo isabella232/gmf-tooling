@@ -164,7 +164,8 @@
 				<property name="fetchTag" value="M2_0_maintenance" />
 				<property name="buildType" value="M" />
 				<property name="forceContextQualifier" value="v${date}-${time}" />
-				<property name="skipJavadoc" value="true" />			
+				<property name="skipJavadoc" value="true" />
+				<property name="skipUpload" value="true" />			
 			</ant>
 		</schedule>
 

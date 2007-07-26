@@ -296,7 +296,6 @@
 		<!-- Note: for now, overriding calculated qualifier for continuous and nightly builds, 
 		     as these builds are not tagged as are integration and stable builds. -->
 		<!-- Delete all previous continuous builds -->
-		<ant antfile="build.xml" target="cleanupArtifacts"/>
 		<antcall target="cc.cleanup"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
