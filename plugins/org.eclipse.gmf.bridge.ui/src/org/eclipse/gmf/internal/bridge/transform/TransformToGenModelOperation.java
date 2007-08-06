@@ -277,7 +277,11 @@ public class TransformToGenModelOperation {
 				return Status.CANCEL_STATUS;
 			}
 			monitor.subTask(Messages.TransformToGenModelOperation_task_validate);
-			validation = ValidationHelper.validate(genEditor, true, monitor);
+			try {
+				validation = ValidationHelper.validate(genEditor, true, monitor);
+			} catch (RuntimeException re) {
+				validation = BasicDiagnostic.toDiagnostic(re);
+			}
 			if (Diagnostic.CANCEL != validation.getSeverity()) {
 				idDispenser.release();
 			}
