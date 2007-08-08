@@ -218,11 +218,16 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	public String getID() {
 		String value = getIDGen();
 		if (GenCommonBaseImpl.isEmpty(value)) {
-			String prefix = "design";
+			String prefix = "design"; //$NON-NLS-1$
 			if (getEditorGen().getDomainGenModel() != null) {
 				prefix = getEditorGen().getDomainGenModel().getModelPluginID();
 			}
-			return prefix + ".diagram";
+			if (prefix == null) {
+				prefix = ""; //$NON-NLS-1$
+			} else if (prefix.endsWith(".model")) { //$NON-NLS-1$
+				prefix = prefix.substring(0, prefix.length() - ".model".length()); //$NON-NLS-1$
+			}
+			return prefix + ".diagram"; //$NON-NLS-1$
 		}
 		return value;
 	}
