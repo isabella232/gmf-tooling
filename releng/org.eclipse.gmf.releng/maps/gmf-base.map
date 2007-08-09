@@ -2,7 +2,7 @@
 
 !*** features ***************************************************************************
 feature@org.eclipse.gmf.releng.base=R2_0_maintenance,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/releng/org.eclipse.gmf.releng.base-feature
-feature@org.eclipse.gmf.runtime.thirdparty=R2_0_maintenance,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.runtime.thirdparty-feature
+feature@org.eclipse.gmf.runtime.thirdparty=v20070809-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.runtime.thirdparty-feature
 feature@org.eclipse.gmf.runtime.thirdparty.source=R2_0_maintenance,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.runtime.thirdparty.source-feature
 
 !*** plug-ins ***************************************************************************
