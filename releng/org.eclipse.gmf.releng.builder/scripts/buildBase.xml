@@ -51,7 +51,7 @@
 			<property name="component" value="base" />
 			<property name="wipe" value="true" />
 			<property name="cleanBase" value="true" />
-			<property name="mapsCheckoutTag" value="${mainenance.maps}" />
+			<property name="mapsCheckoutTag" value="${maintenance.maps}" />
 			<property name="targetConfigTag" value="${maintenance.target}" />
 			<property name="componentsTag" value="${maintenance.components}" />
 		</ant>
