@@ -44,6 +44,29 @@
 		<antcall target="cc.publish"/>
 	</target>
 
+	<target name="maintenance" depends="init,checkArgs">
+		<antcall target="cc.cleanup"/>
+		<echo message="Building GMF Base..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="base" />
+			<property name="wipe" value="true" />
+			<property name="cleanBase" value="true" />
+			<property name="mapsCheckoutTag" value="${mainenance.maps}" />
+			<property name="targetConfigTag" value="${maintenance.target}" />
+			<property name="componentsTag" value="${maintenance.components}" />
+		</ant>
+		<echo message="Building GMF Base Platform..." />
+		<ant antfile="build.xml" target="product">
+			<property name="component" value="base-platform" />
+			<property name="wipe" value="true" />
+			<property name="cleanBase" value="true" />
+			<property name="mapsCheckoutTag" value="${maintenance.maps}" />
+			<property name="targetConfigTag" value="${maintenance.target}" />
+			<property name="componentsTag" value="${maintenance.components}" />
+		</ant>
+		<antcall target="cc.publish"/>
+	</target>
+
 	<target name="publish" depends="init">
 		<property name="component" value="base" />
 		<property name="buildDirectory" value="${buildRoot}/${component}"/>
