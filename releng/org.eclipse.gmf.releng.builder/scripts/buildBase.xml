@@ -3,25 +3,29 @@
 	
 	<import file="build-common.xml"/>
 
-	<target name="init">		
-		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${cvs.root}"
-			package="${targetRoot}" dest="${basedir}" tag="${stable.target}" />
-		<property file="${basedir}/org.eclipse.gmf.releng.target/build.cfg"/>		
-		<tstamp/>
-		<property name="date" value="${gmfBaseDate}" />
-		<property name="time" value="${gmfBaseTime}" />
-		<property name="timestamp" value="${date}${time}" />
-		<property name="buildType" value="${gmfBaseBuildType}" />	
-		<property name="buildId" value="${gmfBaseBuildId}" />
-		<property name="buildLabel" value="${gmfBaseBuildLabel}" />
-	</target>
+	<macrodef name="initparams">
+	   <attribute name="targetConfigTag"/>
+	   <sequential>
+			<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${cvs.root}"
+				package="${targetRoot}" dest="${basedir}" tag="@{targetConfigTag}" />
+			<property file="${basedir}/org.eclipse.gmf.releng.target/build.cfg"/>		
+			<tstamp/>
+			<property name="date" value="${gmfBaseDate}" />
+			<property name="time" value="${gmfBaseTime}" />
+			<property name="timestamp" value="${date}${time}" />
+			<property name="buildType" value="${gmfBaseBuildType}" />	
+			<property name="buildId" value="${gmfBaseBuildId}" />
+			<property name="buildLabel" value="${gmfBaseBuildLabel}" />
+		</sequential>
+	</macrodef>	
 	
 	<target name="checkArgs" unless="stable.target">
 		<echo message="tags.properties file is required." />
 		<fail/>
 	</target>
 	
-	<target name="main" depends="init,checkArgs">
+	<target name="main" depends="checkArgs">
+		<initparams targetConfigTag="${stable.target}"/>
 		<antcall target="cc.cleanup"/>
 		<echo message="Building GMF Base..." />
 		<ant antfile="build.xml" target="main">
@@ -44,7 +48,8 @@
 		<antcall target="cc.publish"/>
 	</target>
 
-	<target name="maintenance" depends="init,checkArgs">
+	<target name="maintenance" depends="checkArgs">
+		<initparams targetConfigTag="${maintenance.target}"/>
 		<antcall target="cc.cleanup"/>
 		<echo message="Building GMF Base..." />
 		<ant antfile="build.xml" target="main">
@@ -67,7 +72,7 @@
 		<antcall target="cc.publish"/>
 	</target>
 
-	<target name="publish" depends="init">
+	<target name="publish">
 		<property name="component" value="base" />
 		<property name="buildDirectory" value="${buildRoot}/${component}"/>
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg" />
