@@ -37,6 +37,7 @@ public class «diagramEditorUtilClassName» «EXPAND supertypes» {
 	«EXPAND setCharset-»
 «ENDIF-»
 	«EXPAND saveOptions-»
+	«EXPAND isKnownShortcutModelID-»
 	«EXPAND additions-»
 }
 «ENDDEFINE»
@@ -189,6 +190,26 @@ public static java.util.Map getSaveOptions() {
 	saveOptions.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
 	saveOptions.put(org.eclipse.emf.ecore.resource.Resource.OPTION_SAVE_ONLY_IF_CHANGED, org.eclipse.emf.ecore.resource.Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
 	return saveOptions;
+}
+«ENDDEFINE»
+
+«DEFINE isKnownShortcutModelID FOR gmfgen::GenDiagram-»
+«IF containsShortcutsTo.size() > 0-»
+«EXPAND xpt::Common::generatedMemberComment»
+public static boolean isKnownShortcutModelID(String modelID) {
+	«EXPAND acceptModelID(this) FOREACH containsShortcutsTo-»
+	return false;
+}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE acceptModelID(gmfgen::GenDiagram diagram) FOR String-»
+«IF this == diagram.editorGen.modelID-»
+if («diagram.getEditPartQualifiedClassName()».MODEL_ID.equals(modelID)) {
+«ELSE-»
+if ("«this»".equals(modelID)) {	«EXPAND xpt::Common::nonNLS»
+«ENDIF-»
+	return true;
 }
 «ENDDEFINE»
 

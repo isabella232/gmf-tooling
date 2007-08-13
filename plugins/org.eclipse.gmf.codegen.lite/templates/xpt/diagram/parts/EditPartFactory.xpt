@@ -45,10 +45,18 @@ public static final String EXTERNAL_NODE_LABELS_LAYER = "External Node Labels";	
 	public org.eclipse.gef.EditPart createEditPart(org.eclipse.gef.EditPart context, Object model) {
 		if (model instanceof org.eclipse.gmf.runtime.notation.View) {
 			org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) model;
-			if (!«EXPAND xpt::editor::VisualIDRegistry::modelID».equals(«EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall»(view))) {
+			String modelID = «EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall»(view);
+			if (!«EXPAND xpt::editor::VisualIDRegistry::modelID».equals(modelID)) {
+«IF containsShortcutsTo.size() > 0-»
+				if («getDiagramEditorUtilQualifiedClassName()».isKnownShortcutModelID(modelID)) {
+					org.eclipse.gmf.runtime.lite.shortcuts.IShortcutProvider shortcutProvider = org.eclipse.gmf.runtime.lite.shortcuts.ShortcutProvidersRegistry.INSTANCE.getShortcutProvider(modelID);
+					if (shortcutProvider != null) {
+						return shortcutProvider.createShortcutEditPart(context, view);
+					}
+				}
+«ENDIF-»
 				return null;
 			}
-			
 			int viewVisualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(view);
 			switch (viewVisualID) {
 				«EXPAND doCreate FOREACH getAllContainers()-»
@@ -74,7 +82,7 @@ public static final String EXTERNAL_NODE_LABELS_LAYER = "External Node Labels";	
 
 «DEFINE caseVisualID FOR gmfgen::GenCommonBase-»
 case «EXPAND xpt::editor::VisualIDRegistry::visualID»:
-	return new «editPartClassName»(«EXPAND cast»view);
+	return new «getEditPartQualifiedClassName()»(«EXPAND cast»view);
 «ENDDEFINE»
 
 «DEFINE cast FOR gmfgen::GenCommonBase»«ENDDEFINE»

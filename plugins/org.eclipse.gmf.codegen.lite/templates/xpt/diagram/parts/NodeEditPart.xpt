@@ -161,7 +161,7 @@ protected org.eclipse.draw2d.IFigure createFigure() {
 	org.eclipse.draw2d.IFigure decorationShape = createDecorationPane();
 	if (decorationShape != null) {
 		myDecorationManager = createDecorationManager(decorationShape);
-		invisibleRectangle.add(decorationShape, 0);
+		invisibleRectangle.add(decorationShape);
 	}
 	return invisibleRectangle;
 }
@@ -249,6 +249,7 @@ protected org.eclipse.draw2d.IFigure setupContentPane(org.eclipse.draw2d.IFigure
 «ENDDEFINE»
 
 «DEFINE setupChildNodesPane FOR gmfgen::GenNode-»
+«EXPAND xpt::Common::generatedMemberComment»
 protected void setupChildNodesPane(org.eclipse.draw2d.IFigure shape) {
 	if (shape.getLayoutManager() == null) {
 		«EXPAND setLayoutManager("shape", isXYLayout())-»
@@ -277,7 +278,7 @@ layout.setSpacing(5);
 «DEFINE createDecorationPane FOR gmfgen::GenNode-»
 «EXPAND xpt::Common::generatedMemberComment»
 private org.eclipse.draw2d.IFigure createDecorationPane() {
-	return new org.eclipse.draw2d.Figure();
+	return new org.eclipse.draw2d.Layer();
 }
 «ENDDEFINE»
 

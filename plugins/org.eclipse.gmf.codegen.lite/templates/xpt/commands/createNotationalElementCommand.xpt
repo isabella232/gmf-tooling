@@ -23,16 +23,22 @@
 org.eclipse.emf.ecore.EObject domainElement = descriptor.getElement();
 int nodeVisualID = descriptor.getVisualID();
 switch (nodeVisualID) {
-«FOREACH getChildNodes().select(e|e.modelFacet != null && e.modelFacet.metaClass != null) AS nextNode-»
-case «nextNode.getEditPartQualifiedClassName()».VISUAL_ID:
-	if (domainElement instanceof «nextNode.modelFacet.metaClass.getQualifiedInterfaceName()») {
-		return new org.eclipse.gmf.runtime.lite.commands.CreateNotationalNodeCommand(«parentViewCode», domainElement, «EXPAND defaultConstraint(needsXYLayout()) FOR nextNode», «nextNode.getNotationViewFactoryQualifiedClassName()».INSTANCE, false);
-	}
-	return null;
-«ENDFOREACH-»
+«EXPAND createNotationalNodeCommandForChild(this, parentViewCode, "domainElement") FOREACH getChildNodes().select(e|e.modelFacet != null && e.modelFacet.metaClass != null)-»
 default:
 	return null;
 }
+«ENDDEFINE»
+
+«DEFINE createNotationalNodeCommandForChild(gmfgen::GenContainerBase parentContainer, String parentViewCode, String domainElementCode) FOR gmfgen::GenNode-»
+«EXPAND createNotationalNodeCommandForChild(parentContainer, parentViewCode, domainElementCode, "org.eclipse.gmf.runtime.lite.commands.CreateNotationalNodeCommand")-»
+«ENDDEFINE»
+
+«DEFINE createNotationalNodeCommandForChild(gmfgen::GenContainerBase parentContainer, String parentViewCode, String domainElementCode, String createNotationalNodeCommandFQN) FOR gmfgen::GenNode-»
+case «getEditPartQualifiedClassName()».VISUAL_ID:
+	if («domainElementCode» instanceof «modelFacet.metaClass.getQualifiedInterfaceName()») {
+		return new «createNotationalNodeCommandFQN»(«parentViewCode», «domainElementCode», «EXPAND defaultConstraint(parentContainer.needsXYLayout())», «getNotationViewFactoryQualifiedClassName()».INSTANCE, false);
+	}
+	return null;
 «ENDDEFINE»
 
 «DEFINE defaultConstraint(boolean xyLayouted) FOR gmfgen::GenNode-»
@@ -40,6 +46,11 @@ default:
 «ENDDEFINE»
 
 «DEFINE createNotationalEdgeCommand(String parentDiagramCode) FOR gmfgen::GenCommonBase-»
+«EXPAND defineDecorator-»
+«EXPAND instantiateNotationalEdgeCommand(parentDiagramCode)-»
+«ENDDEFINE»
+
+«DEFINE defineDecorator FOR gmfgen::GenCommonBase-»
 org.eclipse.gmf.runtime.notation.View sourceView = getViewService().findView(linkDescriptor.getSource());
 org.eclipse.gmf.runtime.notation.View targetView = getViewService().findView(linkDescriptor.getDestination());
 org.eclipse.gmf.runtime.lite.services.IViewDecorator decorator = null;
@@ -66,7 +77,6 @@ switch (linkDescriptor.getVisualID()) {
 if (decorator == null) {
 	return null;
 }
-return new org.eclipse.gmf.runtime.lite.commands.CreateNotationalEdgeCommand(«parentDiagramCode», linkDescriptor.getElement(), sourceView, targetView, decorator);
 «ENDDEFINE»
 
 «DEFINE createDecorator FOR gmfgen::GenLink-»
@@ -77,6 +87,10 @@ case «getEditPartQualifiedClassName()».VISUAL_ID:
 		decorator = «getNotationViewFactoryQualifiedClassName()».INSTANCE;
 	}
 	break;
+«ENDDEFINE»
+
+«DEFINE instantiateNotationalEdgeCommand(String parentDiagramCode) FOR gmfgen::GenCommonBase-»
+return new org.eclipse.gmf.runtime.lite.commands.CreateNotationalEdgeCommand(«parentDiagramCode», linkDescriptor.getElement(), sourceView, targetView, decorator);
 «ENDDEFINE»
 
 «DEFINE linkDescriptorCondition FOR gmfgen::LinkModelFacet»«ERROR "Unexpected type"»«ENDDEFINE»

@@ -44,7 +44,16 @@ uninstallNotationModelRefresher();
 «EXPAND xpt::Common::generatedMemberComment»
 private void installNotationModelRefresher() {
 	org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ChildNotationModelRefresher refresher = getNotationModelRefresher();
-	getTransactionalUpdateManager().addNotationModelRefresher(refresher);
+	if (!getTransactionalUpdateManager().isNotationModelRefresherInstalled(refresher)) {
+		getTransactionalUpdateManager().addNotationModelRefresher(refresher);
+		try {
+			refreshNotationModel();
+		} catch (java.lang.IllegalStateException readOnlyContext) {
+			//Most likely, this means that the host element was created in a precommit notification of a transaction.
+			//While it is impossible to execute this command here, it will be executed as a trigger command.
+			//See org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager for details.
+		}
+	}
 }
 «ENDDEFINE»
 
@@ -75,9 +84,6 @@ private org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ChildNotationMo
 «EXPAND xpt::Common::generatedMemberComment»
 protected void refreshNotationModel() {
 	org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ChildNotationModelRefresher childRefresher = getNotationModelRefresher();
-	if (!childRefresher.isInstalled()) {
-		return;
-	}
 	org.eclipse.emf.common.command.Command command = childRefresher.buildRefreshNotationModelCommand();
 	if (command == null) {
 		return;
@@ -97,6 +103,7 @@ private class «EXPAND className» «EXPAND supertypes» {
 	«EXPAND getSemanticChildNodes-»
 	«EXPAND xpt::diagram::parts::semanticChildren::getPhantomNodesIterator-»
 	«EXPAND shouldCreateView-»
+	«EXPAND externalViews-»
 	«EXPAND getHost-»
 	«EXPAND additions-»
 }
@@ -137,7 +144,7 @@ phantomFeaturesFilter = phantomFeaturesFilter.or(«EXPAND createFeatureFilter FOR
 «DEFINE createFilter FOR gmfgen::GenContainerBase-»
 «EXPAND xpt::Common::generatedMemberComment("Creates a notification filter which filters notifications that may possibly affect the notational model")»
 protected org.eclipse.emf.transaction.NotificationFilter createFilter() {
-«LET getChildFeatures() AS genChildFeatures-»
+«LET getChildFeaturesForFilter() AS genChildFeatures-»
 	«FOREACH genChildFeatures AS nextFeature ITERATOR it-»
 		«IF it.isFirstIteration()»org.eclipse.emf.transaction.NotificationFilter filter = «EXPAND createFeatureFilter FOR nextFeature»;«ELSE-»
 		filter = filter.or(«EXPAND createFeatureFilter FOR nextFeature»);«ENDIF-»
@@ -190,6 +197,36 @@ protected boolean shouldCreateView(org.eclipse.gmf.runtime.lite.edit.parts.updat
 	}
 	return style.isCanonical();
 }
+«ENDDEFINE»
+
+«DEFINE externalViews FOR gmfgen::GenContainerBase»«ENDDEFINE»
+
+«DEFINE externalViews FOR gmfgen::GenDiagram-»
+«IF containsShortcutsTo.size() > 0-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected boolean shouldRemoveView(org.eclipse.gmf.runtime.notation.View view) {
+	org.eclipse.emf.ecore.EAnnotation annotation = view.getEAnnotation("Shortcut"); «EXPAND xpt::Common::nonNLS»
+	if (annotation == null) {
+		return super.shouldRemoveView(view);
+	}
+	String modelID = «EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall»(view);
+	if («getDiagramEditorUtilQualifiedClassName()».isKnownShortcutModelID(modelID)) {
+		return !view.isSetElement() || view.getElement() == null || view.getElement().eIsProxy();
+	}
+	return true;
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.emf.common.command.Command getRefreshExternalElementCommand(org.eclipse.gmf.runtime.notation.View view) {
+	//the element is a shortcut that exists, but may have changed: see #shouldRemoveView(org.eclipse.gmf.runtime.notation.View)
+	String modelID = «EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall»(view);
+	org.eclipse.gmf.runtime.lite.shortcuts.IShortcutProvider shortcutProvider = org.eclipse.gmf.runtime.lite.shortcuts.ShortcutProvidersRegistry.INSTANCE.getShortcutProvider(modelID);
+	if (shortcutProvider == null) {
+		return null;
+	}
+	return shortcutProvider.getRefreshShortcutCommand(view);
+}
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE getHost FOR gmfgen::GenContainerBase-»

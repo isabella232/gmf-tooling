@@ -90,7 +90,28 @@ public class Generator extends GeneratorBase implements Runnable {
 		internalGenerateJavaClass(myEmitters.getCreationWizardPageGenerator(), myDiagram.getCreationWizardPageQualifiedClassName(), myDiagram);
 		internalGenerateJavaClass(myEmitters.getPluginGenerator(), myEditorGen.getPlugin().getActivatorQualifiedClassName(), myEditorGen.getPlugin());
 		internalGenerateJavaClass(myEmitters.getInitDiagramFileActionGenerator(), myDiagram.getInitDiagramFileActionQualifiedClassName(), myDiagram);
+		internalGenerateJavaClass(myEmitters.getModelElementSelectionPageEmitter(), myEmitters.getModelElementSelectionPageQualifiedNameEmitter(), myDiagram);
 		internalGenerateJavaClass(myEmitters.getNewDiagramFileWizardGenerator(), myDiagram.getNewDiagramFileWizardQualifiedClassName(), myDiagram);
+		if (myEditorGen.getApplication() != null) {
+			internalGenerateJavaClass(myEmitters.getURISelectorPageGenerator(), myEmitters.getURISelectorPageQualifiedClassNameGenerator(), myDiagram);
+		}
+		if (myDiagram.generateCreateShortcutAction()) {
+			internalGenerateJavaClass(myEmitters.getCreateShortcutActionEmitter(), myDiagram.getCreateShortcutActionQualifiedClassName(), myDiagram);
+			if (myEditorGen.getApplication() != null) {
+				internalGenerateJavaClass(myEmitters.getShortcutCreationWizardEmitter(), myEmitters.getShortcutCreationWizardQualifiedClassNameEmitter(), myDiagram);
+			} else {
+				internalGenerateJavaClass(myEmitters.getElementChooserEmitter(), myDiagram.getElementChooserQualifiedClassName(), myDiagram);
+			}
+		}
+		if (myDiagram.generateShortcutIcon()) {
+			internalGenerateJavaClass(myEmitters.getShortcutProviderEmitter(), myEmitters.getShortcutProviderQualifiedClassNameEmitter(), myDiagram);
+			internalGenerateJavaClass(myEmitters.getCreateShortcutNodeCommandEmitter(), myEmitters.getCreateShortcutNodeCommandQualifiedClassNameEmitter(), myDiagram);
+			internalGenerateJavaClass(myEmitters.getCreateShortcutEdgeCommandEmitter(), myEmitters.getCreateShortcutEdgeCommandQualifiedClassNameEmitter(), myDiagram);
+			generateShortcutIcon();
+			if (myEditorGen.getApplication() == null) {
+				internalGenerateJavaClass(myEmitters.getShortcutPropertyTesterEmitter(), myDiagram.getShortcutPropertyTesterQualifiedClassName(), myDiagram);
+			}
+		}
 		internalGenerateJavaClass(myEmitters.getLoadResourceActionGenerator(), myDiagram.getLoadResourceActionQualifiedClassName(), myDiagram);
 		internalGenerateJavaClass(myEmitters.getElementTypesGenerator(), myDiagram.getElementTypesQualifiedClassName(), myDiagram);
 
@@ -163,7 +184,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateLayoutEditPolicy(next);
 		}
 		internalGenerateJavaClass(myEmitters.getViewFactoryGenerator(), myDiagram.getNotationViewFactoryQualifiedClassName(), myDiagram);
-		internalGenerateJavaClass(myEmitters.getDomainElementInitializerGenerator(), myEmitters.getDomainElementInitializerQualifiedNameGenerator(), myDiagram); // XXX: allow customization!
+		internalGenerateJavaClass(myEmitters.getDomainElementInitializerGenerator(), myEmitters.getDomainElementInitializerQualifiedNameGenerator(), myDiagram);
 		internalGenerateJavaClass(myEmitters.getVisualIDRegistryGenerator(), myDiagram.getVisualIDRegistryQualifiedClassName(), myDiagram);
 		if(myDiagram.getEditorGen().getExpressionProviders() != null) {
 			generateExpressionProviders();
@@ -240,6 +261,10 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 	}
 
+	private void generateShortcutIcon() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateBinaryFile(myEmitters.getShortcutImageEmitter(), new Path("icons/shortcut.gif"), null); //$NON-NLS-1$
+	}
+	
 	private void generateDiagramIcon(String path) throws UnexpectedBehaviourException, InterruptedException {
 		// use genModel.prefix if available to match colors of model icons and diagram icons
 		// @see GenPackageImpl#generateEditor - it passes prefix to ModelGIFEmitter 

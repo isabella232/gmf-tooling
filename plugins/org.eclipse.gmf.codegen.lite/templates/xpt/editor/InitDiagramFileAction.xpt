@@ -134,12 +134,7 @@ public void run(org.eclipse.jface.action.IAction action) {
 	}
 «ENDIF-»
 	org.eclipse.jface.wizard.Wizard wizard = new «getNewDiagramFileWizardQualifiedClassName()»(«EXPAND selectedModelFileName», «EXPAND additionalWizardParameters»diagramRoot, editingDomain);
-	org.eclipse.jface.dialogs.IDialogSettings pluginDialogSettings = «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getDialogSettings();
-	org.eclipse.jface.dialogs.IDialogSettings initDiagramFileSettings = pluginDialogSettings.getSection("InitDiagramFile"); «EXPAND xpt::Common::nonNLS»
-	if (initDiagramFileSettings == null) {
-		initDiagramFileSettings = pluginDialogSettings.addNewSection("InitDiagramFile"); «EXPAND xpt::Common::nonNLS»
-	}
-	wizard.setDialogSettings(initDiagramFileSettings);
+	«EXPAND xpt::editor::Common::wizardDialogSettings("wizard", "InitDiagramFile")-»
 	wizard.setForcePreviousAndNextButtons(«EXPAND needsForceButtons»);
 	wizard.setWindowTitle(org.eclipse.osgi.util.NLS.bind(
 	    «EXPAND xpt::Externalizer::accessorCall(i18nKeyForInitDiagramFileWizardTitle()) FOR editorGen»,
@@ -147,7 +142,7 @@ public void run(org.eclipse.jface.action.IAction action) {
 
     org.eclipse.jface.wizard.WizardDialog dialog = new org.eclipse.jface.wizard.WizardDialog(«EXPAND getShell», wizard);
     dialog.create();
-    dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x), 500);
+    «EXPAND xpt::editor::Common::setDefaultShellSize("dialog.getShell()")-»
     dialog.open();
 }
 «ENDDEFINE»

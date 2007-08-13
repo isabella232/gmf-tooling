@@ -39,6 +39,15 @@ Collection[genmodel::GenFeature] getChildFeatures(gmfgen::GenContainerBase gcb) 
 	{}.union(gcb.getChildNodesForNotationModelRefresher().modelFacet.childMetaFeature)
 ;
 
+Collection[genmodel::GenFeature] getChildFeaturesForFilter(gmfgen::GenContainerBase gcb) :
+	//{}.union() provides uniqueness
+	{}.union(gcb.getChildNodesForNotationModelRefresher().modelFacet.childMetaFeatureForFilter())
+;
+
+private genmodel::GenFeature childMetaFeatureForFilter(gmfgen::TypeModelFacet modelFacet) :
+	modelFacet.childMetaFeature.ecoreFeature.derived ? modelFacet.containmentMetaFeature : modelFacet.childMetaFeature
+;
+
 Collection[gmfgen::GenNode] getGenNodes(gmfgen::GenContainerBase genContainerBase, genmodel::GenFeature genFeature) :
 JAVA org.eclipse.gmf.internal.codegen.lite.utils.SemanticSyncUtils.getGenNodes(org.eclipse.gmf.codegen.gmfgen.GenContainerBase, org.eclipse.emf.codegen.ecore.genmodel.GenFeature)
 ;

@@ -15,5 +15,5 @@ import "http://www.eclipse.org/gmf/2006/GenModel";
 extension xpt::diagram::LinkFinder;
 
 boolean needsGetGraphicalEditPart(gmfgen::GenCommonBase gcb) :
-gcb.outgoingNonPhantomLinks().size() > 0 || gcb.incomingTypeLinks().size() > 0
+gcb.outgoingLinks().size() > 0 || gcb.incomingLinks().size() > 0
 ;

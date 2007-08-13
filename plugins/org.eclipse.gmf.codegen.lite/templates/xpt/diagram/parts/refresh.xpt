@@ -65,6 +65,7 @@ private void createRefreshers() {
 «EXPAND fontColor-»
 «EXPAND fillColor-»
 «EXPAND lineColor-»
+«EXPAND shortcutAnnotation-»
 «ENDDEFINE»
 
 «DEFINE fillRefreshers FOR gmfgen::GenChildLabelNode-»
@@ -102,6 +103,9 @@ Refresher childrenRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update
 		if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getView_Visible() == msg.getFeature()) {
 			return msg.getNotifier() != «EXPAND xpt::diagram::parts::Common::getViewCode»;
 		}
+		if (org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEModelElement_EAnnotations() == msg.getFeature()) {
+			return msg.getNotifier() != «EXPAND xpt::diagram::parts::Common::getViewCode»;
+		}
 		return false;
 	}
 };
@@ -110,6 +114,7 @@ myRefreshersRegistry.add(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTA
 myRefreshersRegistry.add(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getView_Styles(), childrenRefresher);
 myRefreshersRegistry.add(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getDrawerStyle_Collapsed(), childrenRefresher);
 myRefreshersRegistry.add(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getView_Visible(), childrenRefresher);
+myRefreshersRegistry.add(org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEModelElement_EAnnotations(), childrenRefresher);
 «ENDDEFINE»
 
 «DEFINE visibility FOR gmfgen::GenCommonBase-»
@@ -243,7 +248,7 @@ myRefreshersRegistry.add(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTA
 «ENDDEFINE»
 
 «DEFINE fontColor FOR gmfgen::GenCommonBase-»
-Refresher fontColorRefresher = new Refresher() {
+Refresher fontColorRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher() {
 	public void refresh() {
 		«EXPAND ignoreIfInactive-»
 		refreshFontColor();
@@ -259,6 +264,30 @@ Refresher fontColorRefresher = new Refresher() {
 	}
 };
 myRefreshersRegistry.add(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontColor(), fontColorRefresher);
+«ENDDEFINE»
+
+«DEFINE shortcutAnnotation FOR gmfgen::GenNode-»
+«IF getDiagram().shortcutsProvidedFor.size() > 0-»
+Refresher shortcutPropertyRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher() {
+	public void refresh() {
+		«EXPAND ignoreIfInactive-»
+		refreshShortcutDecoration();
+	}
+	public boolean isAffectingEvent(org.eclipse.emf.common.notify.Notification msg) {
+		if (org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEModelElement_EAnnotations() == msg.getFeature()) {
+			java.util.Collection affectedAnnotations = org.eclipse.gmf.runtime.lite.edit.parts.update.UpdaterUtil.getAffectedValues(msg, org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEAnnotation());
+			for (java.util.Iterator it = affectedAnnotations.iterator(); it.hasNext(); ) {
+				org.eclipse.emf.ecore.EAnnotation nextAnnotation = (org.eclipse.emf.ecore.EAnnotation) it.next();
+				if ("Shortcut".equals(nextAnnotation.getSource())) {	«EXPAND xpt::Common::nonNLS»
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+};
+myRefreshersRegistry.add(org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEModelElement_EAnnotations(), shortcutPropertyRefresher);
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE labelRefresher FOR gmfgen::GenCommonBase-»
@@ -287,6 +316,7 @@ protected org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEdi
 «EXPAND refreshFontColor-»
 «EXPAND refreshBackgroundColor-»
 «EXPAND refreshForegroundColor-»
+«EXPAND refreshShortcutDecoration-»
 «ENDDEFINE»
 
 «DEFINE refreshMethods FOR gmfgen::GenChildLabelNode-»
@@ -561,6 +591,23 @@ protected void refreshLabel() {
 }
 «ENDDEFINE»
 
+«DEFINE refreshShortcutDecoration FOR gmfgen::GenNode-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshShortcutDecoration() {
+	org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecorationManager decorationManager = getDecorationManager();
+	if (decorationManager == null) {
+		return;
+	}
+	org.eclipse.draw2d.Label decorationFigure = null;
+	org.eclipse.emf.ecore.EAnnotation annotation = «EXPAND xpt::diagram::parts::Common::getViewCode».getEAnnotation("Shortcut"); «EXPAND xpt::Common::nonNLS»
+	if (annotation != null) {
+		org.eclipse.swt.graphics.Image image = «getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getBundledImage("icons/shortcut.gif"); «EXPAND xpt::Common::nonNLS»
+		decorationFigure = new org.eclipse.draw2d.Label(image);
+	}
+	decorationManager.installDecoration("Shortcut", decorationFigure);
+}
+«ENDDEFINE»
+
 «DEFINE refreshVisuals FOR gmfgen::GenCommonBase»«ENDDEFINE»
 
 «DEFINE refreshVisuals FOR gmfgen::GenCompartment-»
@@ -586,6 +633,9 @@ protected void refreshVisuals() {
 «ENDIF-»
 «IF !viewmap.isFixedForeground()-»
 	refreshForegroundColor();
+«ENDIF-»
+«IF getDiagram().shortcutsProvidedFor.size() > 0-»
+	refreshShortcutDecoration();
 «ENDIF-»
 }
 «ENDDEFINE»

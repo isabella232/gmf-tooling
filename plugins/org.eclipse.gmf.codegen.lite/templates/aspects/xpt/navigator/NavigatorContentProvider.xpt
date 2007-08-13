@@ -14,12 +14,3 @@
 
 «AROUND createEditingDomain FOR gmfgen::GenNavigator»«EXPAND xpt::editor::Common::createEditingDomain FOR editorGen»«ENDAROUND»
 
-«AROUND getAdaptableChildren FOR gmfgen::GenNavigator-»
-«REM»Currently, no shortcuts are generated in lite mode«ENDREM-»
-«ENDAROUND»
-
-«AROUND getForeignShortcuts FOR gmfgen::GenNavigator-»
-«ENDAROUND»
-
-«AROUND addForeignShortcuts FOR gmfgen::GenDiagram-»
-«ENDAROUND»

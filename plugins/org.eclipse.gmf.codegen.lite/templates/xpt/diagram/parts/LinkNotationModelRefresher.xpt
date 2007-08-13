@@ -46,7 +46,16 @@ uninstallLinkNotationModelRefresher();
 «EXPAND xpt::Common::generatedMemberComment»
 private void installLinkNotationModelRefresher() {
 	«EXPAND className» refresher = getLinkNotationModelRefresher();
-	getTransactionalUpdateManager().addNotationModelRefresher(refresher);
+	if (!getTransactionalUpdateManager().isNotationModelRefresherInstalled(refresher)) {
+		getTransactionalUpdateManager().addNotationModelRefresher(refresher);
+		try {
+			refreshLinkNotationModel();
+		} catch (java.lang.IllegalStateException readOnlyContext) {
+			//Most likely, this means that the host element was created in a precommit notification of a transaction.
+			//While it is impossible to execute this command here, it will be executed as a trigger command.
+			//See org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager for details.
+		}
+	}
 }
 «ENDDEFINE»
 
@@ -88,9 +97,6 @@ private org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.IViewService ge
 «EXPAND xpt::Common::generatedMemberComment»
 protected void refreshLinkNotationModel() {
 	«EXPAND className» linkRefresher = getLinkNotationModelRefresher();
-	if (!linkRefresher.isInstalled()) {
-		return;
-	}
 	org.eclipse.emf.common.command.Command command = linkRefresher.buildRefreshNotationModelCommand();
 	if (command == null) {
 		return;
@@ -266,7 +272,14 @@ case «getEditPartQualifiedClassName()».VISUAL_ID:
 protected org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand getCreateNotationalElementCommand(org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ElementDescriptor descriptor) {
 «IF primNeedsLinkNotationModelRefresher()-»
 	org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.LinkDescriptor linkDescriptor = (org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.LinkDescriptor) descriptor;
-	«EXPAND xpt::commands::createNotationalElementCommand::createNotationalEdgeCommand("getHost().getDiagram()")-»
+	«EXPAND xpt::commands::createNotationalElementCommand::defineDecorator-»
+	«IF getDiagram().shortcutsProvidedFor.size() > 0-»
+	String diagramModelID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getModelID(getHost().getDiagram());
+	if (!«getDiagram().getEditPartQualifiedClassName()».MODEL_ID.equals(diagramModelID)) {
+		return new «EXPAND xpt::commands::CreateShortcutEdgeCommand::qualifiedClassName FOR getDiagram()»(getHost().getDiagram(), linkDescriptor.getElement(), sourceView, targetView, decorator);
+	}
+	«ENDIF-»
+	«EXPAND xpt::commands::createNotationalElementCommand::instantiateNotationalEdgeCommand("getHost().getDiagram()")-»
 «ELSE-»
 	return null;
 «ENDIF-»

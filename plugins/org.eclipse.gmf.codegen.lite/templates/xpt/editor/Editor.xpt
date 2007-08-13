@@ -297,7 +297,9 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 «ENDDEFINE»
 
 «DEFINE editPartActions FOR gmfgen::GenEditorView-»
-		addEditPartAction(new org.eclipse.gef.ui.actions.DeleteAction((org.eclipse.ui.IWorkbenchPart) this));
+		addEditPartAction(new org.eclipse.gmf.runtime.lite.ui.actions.DeleteAction((org.eclipse.ui.IWorkbenchPart) this));
+		addEditPartAction(new org.eclipse.gmf.runtime.lite.ui.actions.DeleteViewAction((org.eclipse.ui.IWorkbenchPart) this));
+		addEditPartAction(new org.eclipse.gmf.runtime.lite.ui.actions.DeleteViewOrModelAction((org.eclipse.ui.IWorkbenchPart) this));
 		addEditPartAction(new org.eclipse.gef.ui.actions.DirectEditAction((org.eclipse.ui.IWorkbenchPart) this));
 «EXPAND alignActions-»
 «ENDDEFINE»
@@ -317,6 +319,9 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 «ENDIF-»
 		addEditorAction(new org.eclipse.gef.ui.actions.PrintAction(this));
 		addEditorAction(new org.eclipse.gmf.runtime.lite.ui.actions.LayoutDiagramAction(this));
+«IF editorGen.diagram.generateCreateShortcutAction()-»
+		addEditorAction(new «editorGen.diagram.getCreateShortcutActionQualifiedClassName()»(this));
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE zoomActions FOR gmfgen::GenEditorView-»
@@ -330,7 +335,9 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 
 «DEFINE hookKeyHandler FOR gmfgen::GenEditorView-»
 		org.eclipse.gef.KeyHandler keyHandler = getGraphicalViewer().getKeyHandler();
-		keyHandler.put(org.eclipse.gef.KeyStroke.getPressed(org.eclipse.swt.SWT.DEL, 127, 0), getActionRegistry().getAction(org.eclipse.ui.actions.ActionFactory.DELETE.getId()));
+		keyHandler.put(org.eclipse.gef.KeyStroke.getPressed(org.eclipse.swt.SWT.DEL, 127, 0), getActionRegistry().getAction(org.eclipse.gmf.runtime.lite.ui.actions.ActionIds.DELETE_VIEW_OR_MODEL));
+		keyHandler.put(org.eclipse.gef.KeyStroke.getPressed((char) 0x4, 100, SWT.CTRL), getActionRegistry().getAction(org.eclipse.ui.actions.ActionFactory.DELETE.getId()));
+		keyHandler.put(org.eclipse.gef.KeyStroke.getPressed((char) 0x4, 100, SWT.CTRL | SWT.SHIFT), getActionRegistry().getAction(org.eclipse.gmf.runtime.lite.ui.actions.ActionIds.DELETE_VIEW));
 		keyHandler.put(org.eclipse.gef.KeyStroke.getPressed(org.eclipse.swt.SWT.F2, 0), getActionRegistry().getAction(org.eclipse.gef.ui.actions.GEFActionConstants.DIRECT_EDIT));
 «ENDDEFINE»
 
@@ -671,6 +678,7 @@ if (updateManager != null) {
 «ENDDEFINE»
 
 «DEFINE getSaveOptions FOR gmfgen::GenEditorView-»
+«EXPAND xpt::Common::generatedMemberComment»
 protected java.util.Map getSaveOptions() {
 	return «editorGen.diagram.getDiagramEditorUtilQualifiedClassName()».getSaveOptions();
 }
@@ -766,6 +774,7 @@ protected java.util.Map getSaveOptions() {
 «DEFINE provideEditPartActions FOR gmfgen::GenEditorView-»
 			appendActionToMenu(menuManager, org.eclipse.ui.actions.ActionFactory.COPY.getId(), org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_EDIT);
 			appendActionToMenu(menuManager, org.eclipse.ui.actions.ActionFactory.PASTE.getId(), org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_EDIT);
+			appendActionToMenu(menuManager, org.eclipse.gmf.runtime.lite.ui.actions.ActionIds.DELETE_VIEW, org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_EDIT);
 			appendActionToMenu(menuManager, org.eclipse.ui.actions.ActionFactory.DELETE.getId(), org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_EDIT);
 			appendActionToMenu(menuManager, org.eclipse.gef.ui.actions.GEFActionConstants.DIRECT_EDIT, org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_EDIT);
 «EXPAND provideAlignmentActions-»
@@ -780,6 +789,9 @@ protected java.util.Map getSaveOptions() {
 			appendActionToMenu(menuManager, org.eclipse.ui.actions.ActionFactory.SAVE.getId(), org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_SAVE);
 «ENDIF-»
 			appendActionToMenu(menuManager, org.eclipse.gmf.runtime.lite.ui.actions.ActionIds.LAYOUT_ALL_ACTION, org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_REST);
+«IF editorGen.diagram.generateCreateShortcutAction()-»
+			appendActionToMenu(menuManager, «editorGen.diagram.getCreateShortcutActionQualifiedClassName()».CREATE_SHORTCUT_ACTION, org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_REST);
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE provideValidateActions FOR gmfgen::GenEditorView-»

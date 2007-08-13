@@ -17,6 +17,7 @@
 «DEFINE extensions FOR gmfgen::GenEditorGenerator-»
 «EXPAND markers-»
 «EXPAND metrics FOR metrics-»
+«EXPAND shortcutProviders-»
 «ENDDEFINE»
 
 «DEFINE i18n FOR gmfgen::GenEditorGenerator-»
@@ -55,6 +56,18 @@
 			id="«editorGen.diagram.getMetricViewID()»"
 			name="%UI_Metrics_View_name"/>
 	</extension>
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE shortcutProviders FOR gmfgen::GenEditorGenerator-»
+«IF diagram.generateShortcutIcon()-»
+<extension point="org.eclipse.gmf.runtime.lite.shortcutProviders">
+	«EXPAND xpt::Common::xmlGeneratedTag»
+	<shortcutProvider
+		class="«EXPAND xpt::providers::ShortcutProvider::qualifiedClassName FOR diagram»"
+	    modelID="«modelID»">
+	</shortcutProvider>
+</extension>
 «ENDIF-»
 «ENDDEFINE»
 

@@ -15,14 +15,6 @@
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «EXTENSION xpt::GenModelUtils»
 
-«AROUND getAdaptableImage FOR gmfgen::GenNavigator-»
-«REM»No shortcuts so far«ENDREM-»
-«ENDAROUND»
-
-«AROUND getAdaptableText FOR gmfgen::GenNavigator-»
-«REM»No shortcuts so far«ENDREM-»
-«ENDAROUND»
-
 «AROUND caseImage FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::caseVisualID»
 	return getImage("«EXPAND xpt::navigator::NavigatorLabelProvider::key»", «EXPAND underlyingElementForIcon»); «EXPAND xpt::Common::nonNLS»

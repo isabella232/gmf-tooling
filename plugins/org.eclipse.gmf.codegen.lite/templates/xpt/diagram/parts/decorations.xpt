@@ -29,7 +29,9 @@ public org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecorationManager ge
 «DEFINE createDecorationManager FOR gmfgen::GenNode-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecorationManager createDecorationManager(org.eclipse.draw2d.IFigure decorationShape) {
-	return new org.eclipse.gmf.runtime.lite.edit.parts.decorations.PaneDecorationManager(decorationShape);
+	org.eclipse.gmf.runtime.lite.edit.parts.decorations.PaneDecorationManager result = new org.eclipse.gmf.runtime.lite.edit.parts.decorations.PaneDecorationManager(decorationShape);
+	«EXPAND adjustDecorationManager-»
+	return result;
 }
 «ENDDEFINE»
 
@@ -38,4 +40,13 @@ protected org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecorationManager
 protected org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecorationManager createDecorationManager(org.eclipse.draw2d.Connection connection) {
 	return new org.eclipse.gmf.runtime.lite.edit.parts.decorations.ConnectionDecorationManager(connection);
 }
+«ENDDEFINE»
+
+«DEFINE adjustDecorationManager FOR gmfgen::GenNode-»
+«ENDDEFINE»
+
+«DEFINE adjustDecorationManager FOR gmfgen::GenTopLevelNode-»
+«IF getDiagram().shortcutsProvidedFor.size() > 0-»
+	result.installDecorationPosition("Shortcut", org.eclipse.draw2d.PositionConstants.SOUTH_WEST);	«EXPAND xpt::Common::nonNLS»
+«ENDIF-»
 «ENDDEFINE»

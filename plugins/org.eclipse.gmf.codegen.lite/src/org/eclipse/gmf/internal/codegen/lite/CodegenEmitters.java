@@ -63,6 +63,9 @@ public class CodegenEmitters {
 		for (int i = 0; i < templatesURI.size(); i++) {
 			myTemplatePath[i] = templatesURI.get(i).toString();
 		}
+		if (usePrecompiled) {
+			myCachedXpandEmitters = new HashMap<String, TextEmitter>();
+		}
 	}
 
 	private static URL getDynamicTemplatesURL(String templateDirectory) {
@@ -302,12 +305,72 @@ public class CodegenEmitters {
 		return retrieveXpand("xpt::plugin::plugin");	//$NON-NLS-1$
 	}
 
+	public TextEmitter getModelElementSelectionPageEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::editor::ModelElementSelectionPage::ModelElementSelectionPage");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getModelElementSelectionPageQualifiedNameEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::editor::ModelElementSelectionPage::qualifiedClassName");	//$NON-NLS-1$
+	}
+
 	public TextEmitter getInitDiagramFileActionGenerator() throws UnexpectedBehaviourException {
 		return retrieveXpand("xpt::editor::InitDiagramFileAction::InitDiagramFileAction");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getNewDiagramFileWizardGenerator() throws UnexpectedBehaviourException {
 		return retrieveXpand("xpt::editor::NewDiagramFileWizard::NewDiagramFileWizard");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getURISelectorPageGenerator() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::editor::URISelectorPage::URISelectorPage");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getURISelectorPageQualifiedClassNameGenerator() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::editor::URISelectorPage::qualifiedClassName");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getShortcutPropertyTesterEmitter() {
+		return retrieveXpand("xpt::editor::ShortcutPropertyTester::ShortcutPropertyTester"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getShortcutCreationWizardEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::editor::ShortcutCreationWizard::ShortcutCreationWizard");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getShortcutCreationWizardQualifiedClassNameEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::editor::ShortcutCreationWizard::qualifiedClassName");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getCreateShortcutActionEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::editor::CreateShortcutAction::CreateShortcutAction");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getShortcutProviderEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::providers::ShortcutProvider::ShortcutProvider");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getShortcutProviderQualifiedClassNameEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::providers::ShortcutProvider::qualifiedClassName");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getCreateShortcutNodeCommandEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::commands::CreateShortcutNodeCommand::CreateShortcutNodeCommand");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getCreateShortcutNodeCommandQualifiedClassNameEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::commands::CreateShortcutNodeCommand::qualifiedClassName");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getCreateShortcutEdgeCommandEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::commands::CreateShortcutEdgeCommand::CreateShortcutEdgeCommand");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getCreateShortcutEdgeCommandQualifiedClassNameEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::commands::CreateShortcutEdgeCommand::qualifiedClassName");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getElementChooserEmitter() {
+		return retrieveXpand("xpt::editor::ElementChooser::ElementChooser"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getLoadResourceActionGenerator() throws UnexpectedBehaviourException {
@@ -486,13 +549,20 @@ public class CodegenEmitters {
     }
 
 	private TextEmitter retrieveXpand(String templateFQN) {
+		if (myCachedXpandEmitters == null) {
+			return newXpandEmitter(templateFQN);
+		}
 		TextEmitter result = myCachedXpandEmitters.get(templateFQN);
 		if (result == null) {
-			result = new XpandTextEmitter(myResourceManager, templateFQN, getClass().getClassLoader());
+			result = newXpandEmitter(templateFQN);
 			myCachedXpandEmitters.put(templateFQN, result);
 		}
 		return result;
 	}
 
-	private HashMap<String, TextEmitter> myCachedXpandEmitters = new HashMap<String, TextEmitter>();
+	private TextEmitter newXpandEmitter(String templateFQN) {
+		return new XpandTextEmitter(myResourceManager, templateFQN, getClass().getClassLoader());
+	}
+
+	private HashMap<String, TextEmitter> myCachedXpandEmitters;
 }

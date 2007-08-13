@@ -37,3 +37,20 @@ diagram.getAllNodes().select(e| nodeClass.ecoreClass.isSuperTypeOf(e.getDomainMe
 Collection[gmfgen::GenNode] getRelatedChildLabelGenNodes(gmfgen::GenDiagram diagram, genmodel::GenClass nodeClass) :
 getRelatedGenNodes(diagram, nodeClass).typeSelect(gmfgen::GenChildLabelNode)
 ;
+
+String getCreateShortcutNodeCommandClassName(gmfgen::GenDiagram diagram) :
+	"CreateShortcutNodeCommand"
+;
+
+String getCreateShortcutNodeCommandQualifiedClassName(gmfgen::GenDiagram diagram) :
+	diagram.editCommandsPackageName + "." + diagram.getCreateShortcutNodeCommandClassName()
+;
+
+String getCreateShortcutEdgeCommandClassName(gmfgen::GenDiagram diagram) :
+	"CreateShortcutEdgeCommand"
+;
+
+String getCreateShortcutEdgeCommandQualifiedClassName(gmfgen::GenDiagram diagram) :
+	diagram.editCommandsPackageName + "." + diagram.getCreateShortcutEdgeCommandClassName()
+;
+

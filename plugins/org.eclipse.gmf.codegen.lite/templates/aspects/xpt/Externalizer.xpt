@@ -28,10 +28,15 @@
     «EXPAND xpt::editor::CreationWizardPage::i18nAccessors FOR diagram-»
 	«EXPAND xpt::editor::InitDiagramFileAction::i18nAccessors FOR diagram-»
 	«EXPAND xpt::editor::NewDiagramFileWizard::i18nAccessors FOR diagram-»
+	«EXPAND xpt::editor::URISelectorPage::i18nAccessors FOR diagram-»
 	«EXPAND xpt::providers::MarkerNavigationProvider::i18nAccessors FOR diagram-»
 	«EXPAND xpt::providers::ValidateAction::i18nAccessors FOR diagram-»
 	«EXPAND xpt::providers::MetricsAction::i18nAccessors FOR diagram-»
 	«EXPAND xpt::providers::MetricProvider::i18nAccessors FOR diagram-»
+	«EXPAND xpt::editor::ModelElementSelectionPage::i18nAccessors FOR diagram-»
+	«EXPAND xpt::editor::ShortcutCreationWizard::i18nAccessors FOR diagram-»
+	«EXPAND xpt::editor::CreateShortcutAction::i18nAccessors FOR diagram-»
+	«EXPAND xpt::editor::ElementChooser::i18nAccessors FOR diagram-»
 «ENDAROUND»
 
 «AROUND Values FOR GenEditorGenerator»
@@ -51,8 +56,13 @@
 «EXPAND xpt::editor::CreationWizardPage::i18nValues FOR diagram-»
 «EXPAND xpt::editor::InitDiagramFileAction::i18nValues FOR diagram-»
 «EXPAND xpt::editor::NewDiagramFileWizard::i18nValues FOR diagram-»
+«EXPAND xpt::editor::URISelectorPage::i18nValues FOR diagram-»
 «EXPAND xpt::providers::MarkerNavigationProvider::i18nValues FOR diagram-»
 «EXPAND xpt::providers::ValidateAction::i18nValues FOR diagram-»
 «EXPAND xpt::providers::MetricsAction::i18nValues FOR diagram-»
 «EXPAND xpt::providers::MetricProvider::i18nValues FOR diagram-»
+«EXPAND xpt::editor::ModelElementSelectionPage::i18nValues FOR diagram-»
+«EXPAND xpt::editor::ShortcutCreationWizard::i18nValues FOR diagram-»
+«EXPAND xpt::editor::CreateShortcutAction::i18nValues FOR diagram-»
+«EXPAND xpt::editor::ElementChooser::i18nValues FOR diagram-»
 «ENDAROUND»
