@@ -20,6 +20,7 @@ import org.eclipse.emf.transaction.ResourceSetChangeEvent;
 import org.eclipse.emf.transaction.ResourceSetListenerImpl;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand;
+import org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -37,6 +38,9 @@ public abstract class AbstractNotationModelRefresher extends ResourceSetListener
 		return getHost();
 	}
 
+	/**
+	 * @deprecated Use {@link TransactionalUpdateManager}.
+	 */
 	public void install(TransactionalEditingDomain editingDomain) {
 		if (this.myEditingDomain != null && !this.myEditingDomain.equals(editingDomain)) {
 			throw new IllegalStateException("Already listening to another editing domain");
@@ -45,10 +49,16 @@ public abstract class AbstractNotationModelRefresher extends ResourceSetListener
 		this.myEditingDomain.addResourceSetListener(this);
 	}
 
+	/**
+	 * @deprecated Use {@link TransactionalUpdateManager}.
+	 */
 	public boolean isInstalled() {
 		return myEditingDomain != null;
 	}
 
+	/**
+	 * @deprecated Use {@link TransactionalUpdateManager}.
+	 */
 	public void uninstall() {
 		if (isInstalled()) {
 			myEditingDomain.removeResourceSetListener(this);
@@ -80,7 +90,7 @@ public abstract class AbstractNotationModelRefresher extends ResourceSetListener
 		if (getHost() == null || getHost().getElement() == null) {
 			return false;
 		}
-		for(Iterator it = event.getNotifications().iterator(); it.hasNext(); ) {
+		for(Iterator<?> it = event.getNotifications().iterator(); it.hasNext(); ) {
 			Notification next = (Notification) it.next();
 			if (shouldHandleNotification(next)) {
 				return true;

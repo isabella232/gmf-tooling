@@ -11,6 +11,9 @@
  */
 package org.eclipse.gmf.runtime.lite.edit.parts.decorations;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.draw2d.DelegatingLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Locator;
@@ -26,6 +29,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @author bblajer
  */
 public class PaneDecorationManager extends AbstractDecorationManager {
+	private Map<String, Integer> myPositionsForKeys;
+
 	public PaneDecorationManager(IFigure decorationParent) {
 		super(decorationParent);
 		decorationParent.setLayoutManager(new DelegatingLayout());
@@ -38,12 +43,53 @@ public class PaneDecorationManager extends AbstractDecorationManager {
 
 	/**
 	 * Returns the {@link PositionConstants position} where the decorator with the given key
-	 * should appear. By default, all decorators are positioned to the north-west of the parent figure.
+	 * should appear. 
+	 * Positions for keys may be installed using {@link #installDecorationPosition(String, int)}
+	 * If the key is unknown (was never installed or was uninstalled), 
+	 * the {@link #getDefaultDecorationPosition() default position} is used.
 	 * Subclasses may reimplement.
 	 * @param key the key which is used to install the decorator
 	 */
 	protected int getDecorationPosition(String key) {
+		if (myPositionsForKeys != null) {
+			int predefinedResult = myPositionsForKeys.get(key);
+			if (predefinedResult > 0) {
+				return predefinedResult;
+			}
+		}
+		return getDefaultDecorationPosition();
+	}
+
+	/**
+	 * Returns the {@link PositionConstants position} where the decorator with an unregistered key should appear. 
+	 * By default, all decorators are positioned to the north-west of the parent figure.
+	 * Subclasses may reimplement.
+	 */
+	protected int getDefaultDecorationPosition() {
 		return PositionConstants.NORTH_WEST;
+	}
+
+	/**
+	 * Registers the given position for the given key. 
+	 * @param key the key which is used to install a decorator
+	 * @param decorationPosition position where the decorator with this key should appear.
+	 */
+	public void installDecorationPosition(String key, int decorationPosition) {
+		if (myPositionsForKeys == null) {
+			myPositionsForKeys = new HashMap<String, Integer>();
+		}
+		myPositionsForKeys.put(key, decorationPosition);
+	}
+
+	/**
+	 * Unregisters the given position for the given key. Subsequently, decorator with the given key will appear
+	 * at the default location. 
+	 * @param key the key which is used to install a decorator
+	 */
+	public void uninstallDecorationPosition(String key) {
+		if (myPositionsForKeys != null) {
+			myPositionsForKeys.remove(key);
+		}
 	}
 
 	private class DecorationLocator implements Locator {

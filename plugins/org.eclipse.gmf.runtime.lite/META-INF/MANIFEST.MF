@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: org.eclipse.gmf.runtime.lite
+Bundle-SymbolicName: org.eclipse.gmf.runtime.lite;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.gmf.internal.runtime.lite.Activator
 Bundle-Localization: plugin
@@ -32,6 +32,7 @@ Export-Package: org.eclipse.gmf.runtime.lite.commands,
  org.eclipse.gmf.runtime.lite.properties,
  org.eclipse.gmf.runtime.lite.requests,
  org.eclipse.gmf.runtime.lite.services,
+ org.eclipse.gmf.runtime.lite.shortcuts,
  org.eclipse.gmf.runtime.lite.ui.actions,
  org.eclipse.gmf.runtime.lite.validation
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

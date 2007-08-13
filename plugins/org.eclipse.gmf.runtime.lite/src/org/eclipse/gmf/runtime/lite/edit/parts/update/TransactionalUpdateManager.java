@@ -28,6 +28,7 @@ import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.transaction.ResourceSetChangeEvent;
 import org.eclipse.emf.transaction.ResourceSetListenerImpl;
 import org.eclipse.emf.transaction.RollbackException;
@@ -103,6 +104,10 @@ public class TransactionalUpdateManager extends ResourceSetListenerImpl {
 
 	public void removeNotationModelRefresher(INotationModelRefresher refresher) {
 		myNotationModelRefreshers.removeNotationModelRefresher(refresher);
+	}
+
+	public boolean isNotationModelRefresherInstalled(INotationModelRefresher refresher) {
+		return myNotationModelRefreshers.isNotationModelRefresherInstalled(refresher);
 	}
 
 	/**
@@ -248,7 +253,7 @@ public class TransactionalUpdateManager extends ResourceSetListenerImpl {
 			if (view != null) {
 				EditPart affectedEditPart = (EditPart) myEditPartViewer.getEditPartRegistry().get(view);
 				if (affectedEditPart instanceof IUpdatableEditPart) {
-					if (msg.getFeature() == NotationPackage.eINSTANCE.getView_Visible() && affectedEditPart.getModel() == view && affectedEditPart.getParent() instanceof IUpdatableEditPart) {
+					if (shouldNotifyParent(msg) && affectedEditPart.getModel() == view && affectedEditPart.getParent() instanceof IUpdatableEditPart) {
 						return Arrays.asList((IUpdatableEditPart) affectedEditPart, (IUpdatableEditPart) affectedEditPart.getParent());
 					}
 					return Collections.singleton((IUpdatableEditPart) affectedEditPart);
@@ -257,6 +262,16 @@ public class TransactionalUpdateManager extends ResourceSetListenerImpl {
 			}
 		}
 		return Collections.emptyList();
+	}
+
+	protected boolean shouldNotifyParent(Notification msg) {
+		if (msg.getFeature() == NotationPackage.eINSTANCE.getView_Visible()) {
+			return true;
+		}
+		if (msg.getFeature() == EcorePackage.eINSTANCE.getEModelElement_EAnnotations()) {
+			return msg.getNotifier() instanceof View;
+		}
+		return false;
 	}
 
 	private View getView(EObject offspring) {
@@ -293,6 +308,24 @@ public class TransactionalUpdateManager extends ResourceSetListenerImpl {
 			if (myJustAddedListeners != null) {
 				myJustAddedListeners.add(refresher);
 			}
+		}
+
+		boolean isNotationModelRefresherInstalled(INotationModelRefresher refresher) {
+			if (myJustAddedListeners != null && myJustAddedListeners.contains(refresher)) {
+				return true;
+			}
+			if (refresher == null) {
+				return false;
+			}
+			View view = refresher.getView();
+			if (view == null) {
+				return false;
+			}
+			Collection<INotationModelRefresher> listeners = myListeners.get(view);
+			if (listeners == null) {
+				return false;
+			}
+			return listeners.contains(refresher);
 		}
 
 		void processCanonicalStyleEvent(Notification msg) {

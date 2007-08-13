@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -31,15 +31,16 @@ public abstract class ChildNotationModelRefresher extends AbstractNotationModelR
 	public ChildNotationModelRefresher() {
 	}
 
+	@SuppressWarnings("unchecked")
 	public Command buildRefreshNotationModelCommand() {
-		List/*<ElementDescriptor>*/ semanticChildren = getSemanticChildNodes();
-		List/*<View>*/ notationalChildren = getHost().getChildren();
+		List<ElementDescriptor> semanticChildren = getSemanticChildNodes();
+		List<View> notationalChildren = (List<View>) getHost().getChildren();
 		if (semanticChildren.isEmpty() && notationalChildren.isEmpty()) {
 			return null;
 		}
-		final Map semanticToNotational = new HashMap();
-		for(Iterator it = notationalChildren.iterator(); it.hasNext(); ) {
-			View next = (View) it.next();
+		final Map<EObject, View> semanticToNotational = new HashMap<EObject, View>();
+		for(Iterator<View> it = notationalChildren.iterator(); it.hasNext(); ) {
+			View next = it.next();
 			if (next.isSetElement()) {
 				EObject nextSemantic = next.getElement();
 				if (nextSemantic != null) {
@@ -48,10 +49,10 @@ public abstract class ChildNotationModelRefresher extends AbstractNotationModelR
 			}
 		}
 		CompoundCommand command = new CompoundCommand();
-		for(Iterator it = semanticChildren.iterator(); it.hasNext(); ) {
-			ElementDescriptor next = (ElementDescriptor) it.next();
+		for(Iterator<ElementDescriptor> it = semanticChildren.iterator(); it.hasNext(); ) {
+			ElementDescriptor next = it.next();
 			EObject node = next.getElement();
-			View currentView = (View) semanticToNotational.remove(node);
+			View currentView = semanticToNotational.remove(node);
 			int nodeVisualID = next.getVisualID();
 			if (currentView == null) {
 				if (shouldCreateView(next)) {
@@ -66,12 +67,24 @@ public abstract class ChildNotationModelRefresher extends AbstractNotationModelR
 				}
 			}
 		}
-		for(Iterator it = semanticToNotational.values().iterator(); it.hasNext(); ) {
-			View obsoleteView = (View) it.next();
-			command.appendIfCanExecute(new RemoveNotationalElementCommand(getHost(), obsoleteView));
+		for(Iterator<View> it = semanticToNotational.values().iterator(); it.hasNext(); ) {
+			View obsoleteView = it.next();
+			if (shouldRemoveView(obsoleteView)) {
+				command.appendIfCanExecute(new RemoveNotationalElementCommand(getHost(), obsoleteView));
+			} else {
+				command.appendIfCanExecute(getRefreshExternalElementCommand(obsoleteView));
+			}
 		}
 		return command.getCommandList().isEmpty() ? null : command;
 	}
 
-	protected abstract List/*<ElementDescriptor>*/ getSemanticChildNodes();
+	protected Command getRefreshExternalElementCommand(View externalView) {
+		return null;
+	}
+
+	protected abstract List<ElementDescriptor> getSemanticChildNodes();
+
+	protected boolean shouldRemoveView(View view) {
+		return true;
+	}
 }
