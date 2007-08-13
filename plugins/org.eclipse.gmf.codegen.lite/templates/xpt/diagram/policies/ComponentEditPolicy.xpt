@@ -219,7 +219,7 @@ private boolean canDeleteView() {
 
 «DEFINE unwrapResult FOR gmfgen::GenCommonBase-»
 	if (result.size() > 1) {
-		
+		return result;
 	} else {
 		return result.unwrap();
 	}
