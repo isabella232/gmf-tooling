@@ -37,6 +37,7 @@
 	«EXPAND xpt::editor::ShortcutCreationWizard::i18nAccessors FOR diagram-»
 	«EXPAND xpt::editor::CreateShortcutAction::i18nAccessors FOR diagram-»
 	«EXPAND xpt::editor::ElementChooser::i18nAccessors FOR diagram-»
+	«EXPAND xpt::diagram::policies::ComponentEditPolicy::i18nAccessors FOR diagram-»
 «ENDAROUND»
 
 «AROUND Values FOR GenEditorGenerator»
@@ -65,4 +66,5 @@
 «EXPAND xpt::editor::ShortcutCreationWizard::i18nValues FOR diagram-»
 «EXPAND xpt::editor::CreateShortcutAction::i18nValues FOR diagram-»
 «EXPAND xpt::editor::ElementChooser::i18nValues FOR diagram-»
+«EXPAND xpt::diagram::policies::ComponentEditPolicy::i18nValues FOR diagram-»
 «ENDAROUND»
