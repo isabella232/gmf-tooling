@@ -192,6 +192,9 @@ protected org.eclipse.swt.graphics.Image getImage() {
 «IF primaryLabel != null-»
 «EXPAND xpt::Common::generatedMemberComment»
 private «primaryLabel.getEditPartQualifiedClassName()» getPrimaryLabelEditPart() {
+	if (!isActive() || !«editPartClassName».this.isActive()) {
+		return null;
+	}
 	for(java.util.Iterator it = «EXPAND xpt::diagram::parts::Common::getViewCode».getChildren().iterator(); it.hasNext(); ) {
 		org.eclipse.gmf.runtime.notation.View nextChild = (org.eclipse.gmf.runtime.notation.View)it.next();
 		if («getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(nextChild) == «primaryLabel.getEditPartQualifiedClassName()».VISUAL_ID) {
