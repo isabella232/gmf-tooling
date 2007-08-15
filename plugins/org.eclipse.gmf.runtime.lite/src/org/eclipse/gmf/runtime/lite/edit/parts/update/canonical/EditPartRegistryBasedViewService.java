@@ -36,7 +36,7 @@ public class EditPartRegistryBasedViewService extends DelegatingViewService {
 
 		public View findView(EObject modelElement) {
 			EditPart editPart = (EditPart) myViewer.getEditPartRegistry().get(modelElement);
-			if (editPart != null && editPart.getModel() instanceof View) {
+			if (editPart != null && editPart.isActive() && editPart.getModel() instanceof View) {
 				return (View) editPart.getModel();
 			}
 			return null;
