@@ -358,6 +358,7 @@
 		<antcall target="cc.publish"/>
 		<antcall target="publish" />
 		<ant antfile="deploy.xml" target="deploy.zips" />		
+		<ant antfile="deploy.xml" target="deploy.updates.maintenance" />		
 	</target>
 	
 	<target name="publish" depends="init">

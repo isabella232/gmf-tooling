@@ -60,73 +60,49 @@
 		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="chmod -R 775 ${remoteDirectory}/downloads/drops/${buildLabel}"/>
 	</target>
 	
+	<macrodef name="syncup">
+	   <attribute name="buildtype"/>
+	   <sequential>
+		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-${buildId}.zip"
+			dest="${buildRoot}/uploadsite"/>
+		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-experimental-${buildId}.zip"
+			dest="${buildRoot}/uploadsite"/>
+		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-${buildId}.zip"
+			dest="${buildRoot}/uploadsite"/>
+		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-experimental-${buildId}.zip"
+			dest="${buildRoot}/uploadsite"/>
+		<ant antfile="deploy.updates.xml" target="deploy.local">
+			<property name="updates.path" value="${buildRoot}/uploadsite/eclipse"/>
+			<property name="updatesite.name" value="@{buildtype}"/>
+			<property name="features.list" value="*"/>
+		</ant>
+		<ant antfile="updatesite.local.xml" target="rsync.up">
+			<property name="updatesite.name" value="@{buildtype}"/>
+		</ant>
+		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
+	   </sequential>
+	</macrodef>
+	
 	<target name="deploy.updates.interim" depends="init"> 	
 		<ant antfile="updatesite.local.xml" target="init.site">
 			<property name="updatesite.name" value="interim"/>
 		</ant> 
-		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-${buildId}.zip"
-			dest="${buildRoot}/uploadsite"/>
-		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-experimental-${buildId}.zip"
-			dest="${buildRoot}/uploadsite"/>
-		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-${buildId}.zip"
-			dest="${buildRoot}/uploadsite"/>
-		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-experimental-${buildId}.zip"
-			dest="${buildRoot}/uploadsite"/>
-		<ant antfile="deploy.updates.xml" target="deploy.local">
-			<property name="updates.path" value="${buildRoot}/uploadsite/eclipse"/>
-			<property name="updatesite.name" value="interim"/>
-			<property name="features.list" value="*"/>
-		</ant>
-		<ant antfile="updatesite.local.xml" target="rsync.up">
-			<property name="updatesite.name" value="interim"/>
-		</ant>
-		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
+		<syncup buildtype="interim"/>
 	</target>
 	
 	<target name="deploy.updates.milestone" depends="init"> 	
-		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-${buildId}.zip"
-			dest="${buildRoot}/uploadsite"/>
-		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-experimental-${buildId}.zip"
-			dest="${buildRoot}/uploadsite"/>
-		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-${buildId}.zip"
-			dest="${buildRoot}/uploadsite"/>
-		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-experimental-${buildId}.zip"
-			dest="${buildRoot}/uploadsite"/>
-		<ant antfile="updatesite.local.xml" target="rsync.down">
-			<property name="updatesite.name" value="milestone"/>
-		</ant>
-		<ant antfile="deploy.updates.xml" target="deploy.local">
-			<property name="updates.path" value="${buildRoot}/uploadsite/eclipse"/>
-			<property name="updatesite.name" value="milestone"/>
-			<property name="features.list" value="*"/>
-		</ant>
-		<ant antfile="updatesite.local.xml" target="rsync.up">
-			<property name="updatesite.name" value="milestone"/>
-		</ant>
-		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
+		<syncup buildtype="milestone"/>
 	</target>
 	
 	<target name="deploy.updates.release" depends="init"> 	
-		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-${buildId}.zip"
-			dest="${buildRoot}/uploadsite"/>
-		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-experimental-${buildId}.zip"
-			dest="${buildRoot}/uploadsite"/>
-		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-${buildId}.zip"
-			dest="${buildRoot}/uploadsite"/>
-		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-experimental-${buildId}.zip"
-			dest="${buildRoot}/uploadsite"/>
-		<ant antfile="updatesite.local.xml" target="rsync.down">
-			<property name="updatesite.name" value="releases"/>
-		</ant>
-		<ant antfile="deploy.updates.xml" target="deploy.local">
-			<property name="updates.path" value="${buildRoot}/uploadsite/eclipse"/>
-			<property name="updatesite.name" value="releases"/>
-			<property name="features.list" value="*"/>
-		</ant>
-		<ant antfile="updatesite.local.xml" target="rsync.up">
-			<property name="updatesite.name" value="releases"/>
-		</ant>
-		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
+		<syncup buildtype="releases"/>
+	</target>
+
+	<target name="deploy.updates.maintenance" depends="init"> 	
+		<ant antfile="updatesite.local.xml" target="init.site">
+			<property name="updatesite.name" value="maintenance"/>
+		</ant> 
+		<syncup buildtype="maintenance"/>
 	</target>
 
 	<target name="deploy.updates.europa" depends="init"> 	
