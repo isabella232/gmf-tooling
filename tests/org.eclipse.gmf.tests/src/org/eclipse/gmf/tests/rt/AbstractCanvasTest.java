@@ -18,6 +18,8 @@ import junit.framework.Assert;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
@@ -26,6 +28,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
@@ -82,55 +85,29 @@ public abstract class AbstractCanvasTest extends ConfiguredTestCase {
 	}
 	
  	protected Node createNode(GenCommonBase nodeType, View notationContainer) {
-		final Object[] newObjHolder = new Object[1];
-
-		Adapter adapter = new AdapterImpl() {
-			public void notifyChanged(Notification msg) {
-				super.notifyChanged(msg);
-				if (msg.getEventType() == Notification.ADD) {
-					newObjHolder[0] = msg.getNewValue();
-				}
-			}
-
-			public boolean isAdapterForType(Object type) {
-				return true;
-			}
-		};
+ 		CreateListener createListener = new CreateListener(NotationPackage.eINSTANCE.getView());
 		Command cmd = getViewerConfiguration().getCreateNodeCommand(notationContainer, nodeType);
 		Assert.assertNotNull("No command is available for request", cmd); //$NON-NLS-1$		
-		notationContainer.eAdapters().add(adapter);
+		notationContainer.eAdapters().add(createListener);
 		try {
 			execute(cmd);
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail("Node creation failure: " + e.getLocalizedMessage()); //$NON-NLS-1$			
 		} finally {
-			notationContainer.eAdapters().remove(adapter);
+			notationContainer.eAdapters().remove(createListener);
 		}
-		assertTrue("Faile to create notation model Node", newObjHolder[0] instanceof Node); //$NON-NLS-1$
-		Node createdNode = (Node) newObjHolder[0];
+		assertTrue("Failed to create notation model Node", createListener.getCreatedChild() instanceof Node); //$NON-NLS-1$
+		Node createdNode = (Node) createListener.getCreatedChild();
 		assertTrue("Node was not created", createdNode.eContainer() == notationContainer);
 		assertEquals("Incorrect node type used", String.valueOf(nodeType.getVisualID()), createdNode.getType());
 		return createdNode;
 	}
 	
 	protected Edge createLink(GenLink linkType, View source, View target) {
-		final Object[] newObjHolder = new Object[1];
-
-		Adapter adapter = new AdapterImpl() {
-			public void notifyChanged(Notification msg) {
-				super.notifyChanged(msg);
-				if (msg.getEventType() == Notification.ADD && msg.getNewValue() instanceof Edge) {
-					newObjHolder[0] = msg.getNewValue();
-				}
-			}
-
-			public boolean isAdapterForType(Object type) {
-				return true;
-			}
-		};
+ 		CreateListener createListener = new CreateListener(NotationPackage.eINSTANCE.getEdge());
 		Diagram diagram = getDiagram();
-		diagram.eAdapters().add(adapter);
+		diagram.eAdapters().add(createListener);
 		try {
 			Command targetCmd = getViewerConfiguration().getCreateLinkCommand(source, target, linkType);
 			if (targetCmd == null || !targetCmd.canExecute()) {
@@ -141,10 +118,10 @@ public abstract class AbstractCanvasTest extends ConfiguredTestCase {
 			e.printStackTrace();
 			Assert.fail("Edge creation failure: " + e.getLocalizedMessage()); //$NON-NLS-1$
 		} finally {
-			diagram.eAdapters().remove(adapter);
+			diagram.eAdapters().remove(createListener);
 		}
-		assertTrue("Faile to create notation model Edge", newObjHolder[0] instanceof Edge); //$NON-NLS-1$		
-		return (Edge) newObjHolder[0];
+		assertTrue("Failed to create notation model Edge", createListener.getCreatedChild() instanceof Edge); //$NON-NLS-1$		
+		return (Edge) createListener.getCreatedChild();
 	}
 
 	protected static View findChildView(View parentView, GenCommonBase childType){
@@ -175,4 +152,31 @@ public abstract class AbstractCanvasTest extends ConfiguredTestCase {
 	}
 
 	protected abstract GeneratorConfiguration.ViewerConfiguration createViewerConfiguration() throws Exception;
+
+	protected static class CreateListener extends AdapterImpl {
+		private EObject myCreatedChild;
+		private EClass myChildClass;
+		public CreateListener(EClass expectedChildClass) {
+			myChildClass = expectedChildClass;
+		}
+		@Override
+		public void notifyChanged(Notification msg) {
+			super.notifyChanged(msg);
+			if (msg.getEventType() != Notification.ADD) {
+				return;
+			}
+			if (myCreatedChild != null) {
+				return;
+			}
+			if (myChildClass != null && myChildClass.isInstance(msg.getNewValue())) {
+				myCreatedChild = (EObject) msg.getNewValue();
+			}
+		}
+		public boolean isAdapterForType(Object type) {
+			return true;
+		}
+		public EObject getCreatedChild() {
+			return myCreatedChild;
+		}
+	}
 }

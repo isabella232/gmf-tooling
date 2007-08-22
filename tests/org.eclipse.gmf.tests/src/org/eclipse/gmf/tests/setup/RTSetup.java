@@ -57,6 +57,7 @@ import org.osgi.framework.Bundle;
  * @author artem
  */
 public class RTSetup implements RTSource {
+	private static int ourURISuffix = 1;
 
 	private Diagram myCanvas;
 	private Node myNodeA;
@@ -73,14 +74,24 @@ public class RTSetup implements RTSource {
 	}
 
 	public final RTSetup init(Bundle b, DiaGenSource genSource) {
-		initDiagramFileContents(new CoolDomainInstanceProducer(b), genSource);
-		saveDiagramFile(genSource.getGenDiagram().getEditingDomainID());
-		return this;
+		return init(b, genSource, null);
+	}
+
+	public final RTSetup init(Bundle b, DiaGenSource genSource, TransactionalEditingDomain domain) {
+		return init(new CoolDomainInstanceProducer(b), genSource, domain);
 	}
 
 	public final RTSetup init(DiaGenSource genSource) {
-		initDiagramFileContents(new NaiveDomainInstanceProducer(), genSource);
-		saveDiagramFile(genSource.getGenDiagram().getEditingDomainID());
+		return init(genSource, null);
+	}
+
+	public final RTSetup init(DiaGenSource genSource, TransactionalEditingDomain domain) {
+		return init(new NaiveDomainInstanceProducer(), genSource, domain);
+	}
+
+	private RTSetup init(DomainInstanceProducer producer, DiaGenSource genSource, TransactionalEditingDomain domain) {
+		initDiagramFileContents(producer, genSource);
+		saveDiagramFile(domain, genSource.getGenDiagram().getEditingDomainID());
 		return this;
 	}
 
@@ -186,20 +197,22 @@ public class RTSetup implements RTSource {
 		return compartments;
 	}
 	
-	private void saveDiagramFile(String editingDomainId){
-        TransactionalEditingDomain ted = DiagramEditingDomainFactory.getInstance().createEditingDomain();
-        ted.setID(editingDomainId);
-        ((AdapterFactoryEditingDomain) ted).setResourceToReadOnlyMap(new HashMap<Resource, Boolean>() {
-        	@Override
-        	public Boolean get(Object key) {
-        		if (key instanceof Resource && "uri".equals(((Resource) key).getURI().scheme())) {
-        			return Boolean.FALSE;
-        		}
-        		return super.get(key);
-        	}
-        });
+	private void saveDiagramFile(TransactionalEditingDomain ted, String editingDomainId){
+		if (ted == null) {
+			ted = DiagramEditingDomainFactory.getInstance().createEditingDomain();
+	        ted.setID(editingDomainId);
+	        ((AdapterFactoryEditingDomain) ted).setResourceToReadOnlyMap(new HashMap<Resource, Boolean>() {
+	        	@Override
+	        	public Boolean get(Object key) {
+	        		if (key instanceof Resource && "uri".equals(((Resource) key).getURI().scheme())) {
+	        			return Boolean.FALSE;
+	        		}
+	        		return super.get(key);
+	        	}
+	        });
+		}
 		ResourceSet rs = ted.getResourceSet();
-		URI uri = URI.createURI("uri://fake/z"); //$NON-NLS-1$
+		URI uri = URI.createURI("uri://fake/z" + ourURISuffix++); //$NON-NLS-1$
 		Resource r = rs.getResource(uri, false);
 		if (r == null) {
 			r = rs.createResource(uri);

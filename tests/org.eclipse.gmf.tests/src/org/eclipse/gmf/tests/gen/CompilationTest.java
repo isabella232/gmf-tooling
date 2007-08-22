@@ -12,7 +12,6 @@
 package org.eclipse.gmf.tests.gen;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -226,17 +225,23 @@ public abstract class CompilationTest extends TestCase {
 
 	protected static final IGenDiagramMutator SHORTCUT_STUFF_MUTATOR = new IGenDiagramMutator() {
 		private List<String> myShortcutsTo;
+		private List<String> myShortcutsFor;
 		private String myPluginId;
 		public void doMutation(GenDiagram d) {
 			myShortcutsTo = new ArrayList<String>(d.getContainsShortcutsTo());
 			d.getContainsShortcutsTo().clear();
 			d.getContainsShortcutsTo().add(d.getEditorGen().getModelID());
+			myShortcutsFor = new ArrayList<String>(d.getShortcutsProvidedFor());
+			d.getShortcutsProvidedFor().clear();
+			d.getShortcutsProvidedFor().add(d.getEditorGen().getModelID());
 			myPluginId = d.getEditorGen().getPlugin().getID();
 			d.getEditorGen().getPlugin().setID(myPluginId + ".shortcuts");
 		}
 		public void undoMutation(GenDiagram d) {
 			d.getContainsShortcutsTo().clear();
 			d.getContainsShortcutsTo().addAll(myShortcutsTo);
+			d.getShortcutsProvidedFor().clear();
+			d.getShortcutsProvidedFor().addAll(myShortcutsFor);
 			d.getEditorGen().getPlugin().setID(myPluginId);
 		}
 	};
