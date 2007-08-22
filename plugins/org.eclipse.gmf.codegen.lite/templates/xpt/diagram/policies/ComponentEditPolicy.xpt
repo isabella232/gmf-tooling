@@ -119,7 +119,7 @@ protected org.eclipse.gef.commands.Command createDeleteCommand(org.eclipse.gef.r
 
 «DEFINE deleteDependentLinks(boolean deleteFromModel) FOR gmfgen::GenCommonBase-»
 {
-	org.eclipse.gef.requests.GroupRequest deleteLinkRequest = new org.eclipse.gef.requests.GroupRequest(«IF deleteFromModel»org.eclipse.gef.RequestConstants.REQ_DELETE«ELSE»org.eclipse.gmf.runtime.lite.requests.RequestConstants.REQ_DELETE_VIEW«ENDIF»);
+	org.eclipse.gef.requests.GroupRequest deleteLinkRequest = new org.eclipse.gef.requests.GroupRequest(«IF deleteFromModel»org.eclipse.gef.RequestConstants.REQ_DELETE«ELSE»org.eclipse.gmf.runtime.lite.requests.RequestConstants.REQ_FORCED_DELETE_VIEW«ENDIF»);
 	deleteLinkRequest.setEditParts(nextEditPart);
 	result.add(nextEditPart.getCommand(deleteLinkRequest));
 	break;
@@ -171,8 +171,8 @@ protected org.eclipse.gmf.runtime.notation.Edge «EXPAND getDiagramElementMethodN
 
 «DEFINE getDeleteViewCommand FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
-protected org.eclipse.gef.commands.Command getDeleteViewCommand(org.eclipse.gef.requests.GroupRequest deleteRequest) {
-	if (!canDeleteView()) {
+protected org.eclipse.gef.commands.Command getDeleteViewCommand(org.eclipse.gef.requests.GroupRequest deleteRequest, boolean isForced) {
+	if (!isForced && !canDeleteView()) {
 		return org.eclipse.gef.commands.UnexecutableCommand.INSTANCE;
 	}
 	org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(«EXPAND getDiagramElementMethodName»().getDiagram().getElement());
@@ -200,7 +200,7 @@ protected org.eclipse.gef.commands.Command getDeleteViewCommand(org.eclipse.gef.
 «DEFINE canDeleteView FOR gmfgen::GenLink-»
 «EXPAND xpt::Common::generatedMemberComment»
 private boolean canDeleteView() {
-	return true;
+	return false;
 }
 «ENDDEFINE»
 
