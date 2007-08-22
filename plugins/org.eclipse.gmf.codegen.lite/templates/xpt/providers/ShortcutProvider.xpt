@@ -53,6 +53,17 @@ public org.eclipse.gef.EditPart createShortcutEditPart(org.eclipse.gef.EditPart 
 «DEFINE getCreateShortcutCommand FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::generatedMemberComment»
 public org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand getCreateShortcutCommand(org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.emf.ecore.EObject domainElement) {
+	org.eclipse.emf.transaction.TransactionalEditingDomain elementEditingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(domainElement);
+	if (elementEditingDomain == null) {
+		return null;
+	}
+	org.eclipse.emf.transaction.TransactionalEditingDomain containerEditingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(containerView);
+	if (containerEditingDomain == null) {
+		return null;
+	}
+	if (!elementEditingDomain.equals(containerEditingDomain)) {
+		domainElement = containerEditingDomain.getResourceSet().getEObject(org.eclipse.emf.ecore.util.EcoreUtil.getURI(domainElement), true);
+	}
 	int visualID = «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall»(containerView, domainElement);
 	switch (visualID) {
 	«EXPAND xpt::commands::createNotationalElementCommand::createNotationalNodeCommandForChild(this, "containerView", "domainElement", getCreateShortcutNodeCommandQualifiedClassName()) FOREACH topLevelNodes.select(e|e.modelFacet != null && e.modelFacet.metaClass != null)-»
