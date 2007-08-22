@@ -88,6 +88,7 @@
     <viewmap
         xsi:type="gmfgen:FigureViewmap"
         figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
+    <shortcutsProvidedFor>Links</shortcutsProvidedFor>
     <domainDiagramElement
         href="library.genmodel#//library/Library"/>
     <childNodes

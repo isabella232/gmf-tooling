@@ -25,12 +25,14 @@ import org.eclipse.gmf.tests.lite.gef.DiagramNodeCloneMoveTest;
 import org.eclipse.gmf.tests.lite.gef.ExternalNodeLabelsTest;
 import org.eclipse.gmf.tests.lite.gef.NotationRefreshTest;
 import org.eclipse.gmf.tests.lite.gen.LiteCompilationTestWithImportConflicts;
+import org.eclipse.gmf.tests.lite.multi.ShortcutCreationTest;
 import org.eclipse.gmf.tests.lite.rt.ElementInitializerTest;
 import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
 import org.eclipse.gmf.tests.lite.setup.LiteLinksSessionSetup;
 import org.eclipse.gmf.tests.lite.setup.LiteSessionSetup;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
+import org.eclipse.gmf.tests.setup.MultiSetup;
 import org.eclipse.gmf.tests.setup.RuntimeWorkspaceSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 
@@ -45,6 +47,7 @@ public class AllTests extends org.eclipse.gmf.tests.AllTests {
 		final SessionSetup sessionSetup = LiteSessionSetup.getInstance();
 		final LinksSessionSetup sessionSetup2 = LiteLinksSessionSetup.getInstance();
 		final LibraryConstrainedSetup sessionSetup3 = LibraryConstrainedSetup.getInstance();
+		final MultiSetup multiSetup = new MultiSetup(sessionSetup2, sessionSetup3);
 
 		SessionSetup.disallowSingleTestCaseUse();
 
@@ -59,6 +62,8 @@ public class AllTests extends org.eclipse.gmf.tests.AllTests {
 		suite.addTest(feed(ElementInitializerTest.class, sessionSetup2));
 		suite.addTest(feed(LinkCreationConstraintsTest.class, sessionSetup2));
 		suite.addTest(feed(NotationRefreshTest.class, sessionSetup3));
+
+		suite.addTest(feed(ShortcutCreationTest.class, multiSetup));
 
 		suite.addTest(new CleanupTest("testCleanup") {
 			protected void performCleanup() throws Exception {

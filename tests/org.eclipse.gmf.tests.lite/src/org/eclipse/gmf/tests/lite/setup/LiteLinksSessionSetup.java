@@ -12,6 +12,7 @@
 package org.eclipse.gmf.tests.lite.setup;
 
 import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
+import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 
@@ -26,5 +27,13 @@ public class LiteLinksSessionSetup extends LinksSessionSetup {
 
 	protected GeneratorConfiguration createGeneratorConfiguration() {
 		return new LiteGeneratorConfiguration();
+	}
+
+	@Override
+	protected DiaGenSource createGenModel() {
+		DiaGenSource result = super.createGenModel();
+		result.getGenDiagram().getContainsShortcutsTo().add("Library");	//$NON-NLS-1$
+		result.getGenDiagram().getContainsShortcutsTo().add(result.getGenDiagram().getEditorGen().getModelID());	//$NON-NLS-1$
+		return result;
 	}
 }
