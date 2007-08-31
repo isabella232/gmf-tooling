@@ -67,16 +67,20 @@
 		<modificationset quietperiod="10">
 			<cvs
 				cvsroot="${cvs.root}"
-				module="org.eclipse.gmf/plugins" />
+				module="org.eclipse.gmf/plugins" 
+				tag="R2_0_maintenance"/>
 				<cvs
 				cvsroot="${cvs.root}"
-				module="org.eclipse.gmf/features" />
+				module="org.eclipse.gmf/features" 
+				tag="R2_0_maintenance"/>
 			<cvs
 				cvsroot="${cvs.root}"
-				module="org.eclipse.gmf/tests" />
+				module="org.eclipse.gmf/tests" 
+				tag="R2_0_maintenance"/>
 			<cvs
 				cvsroot="${cvs.root}"
-				module="org.eclipse.gmf/examples" />
+				module="org.eclipse.gmf/examples" 
+				tag="R2_0_maintenance"/>
 		</modificationset>
 
 		<!-- Configures the actual build loop, how often and which
@@ -309,7 +313,8 @@
 		<modificationset quietperiod="10">
 			<cvs
 				cvsroot="${cvs.root}"
-				module="org.eclipse.gmf/releng/org.eclipse.gmf.releng.target" />
+				module="org.eclipse.gmf/releng/org.eclipse.gmf.releng.target" 
+				tag="R2_0_maintenance"/>
 		</modificationset>
 
 		<schedule interval="300">
