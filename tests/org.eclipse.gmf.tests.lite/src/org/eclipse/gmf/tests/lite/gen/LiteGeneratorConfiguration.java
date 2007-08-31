@@ -45,20 +45,20 @@ import org.eclipse.gmf.runtime.lite.services.IViewDecorator;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.setup.AbstractGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
 
 public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
-	
+
 	public GeneratorBase createGenerator(GenDiagram diagram) {
 		return new Generator(diagram.getEditorGen());
 	}
@@ -83,8 +83,8 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 	}
 
 	private static class LiteViewerConfiguration extends AbstractViewerConfiguration {
-		private RGB myDefaultLinkColor; 
-		
+		private RGB myDefaultLinkColor;
+
 		public LiteViewerConfiguration(SessionSetup sessionSetup, EditPartViewer viewer) throws Exception {
 			super(sessionSetup, viewer);
 		}
@@ -152,7 +152,6 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 				public void redo() {
 					execute();
 				}
-				
 				public void execute() {
 					wasSet = instance.eIsSet(feature);
 					if (FeatureMapUtil.isMany(instance,feature)) {
@@ -189,15 +188,14 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 				}
 			});
 		}
-		
+
 		public RGB getDefaultLinkColor() {
-			if (myDefaultLinkColor == null){
-				if (getViewer() != null && getViewer().getControl() != null) {
-					Color color = getViewer().getControl().getForeground();
-					myDefaultLinkColor = color.getRGB();
-				} else {
-					myDefaultLinkColor = new RGB(0, 0, 0);
-				}
+			if (myDefaultLinkColor == null) {
+				int defaultLineColor = ((Integer)NotationPackage.eINSTANCE.getLineStyle_LineColor().getDefaultValue()).intValue();
+				int red = defaultLineColor & 0x000000FF;
+				int green = (defaultLineColor & 0x0000FF00) >> 8;
+				int blue = (defaultLineColor & 0x00FF0000) >> 16;
+				myDefaultLinkColor = new RGB(red, green, blue);
 			}
 			return myDefaultLinkColor;
 		}
