@@ -297,4 +297,38 @@
 				dest="${cc.artifacts}/gmfbase/" />
 		</publishers>
 	</project>
+	
+	<project name="gmfbase.maintenance" buildafterfailed="true">
+		<listeners>
+			<currentbuildstatuslistener
+				file="${cc.logs}/gmfbase.maintenance/buildstatus.txt" />
+		</listeners>
+
+		<bootstrappers></bootstrappers>
+
+		<modificationset quietperiod="10">
+			<cvs
+				cvsroot="${cvs.root}"
+				module="org.eclipse.gmf/releng/org.eclipse.gmf.releng.target" />
+		</modificationset>
+
+		<schedule interval="300">
+			<ant antscript="./build.${ext}" buildfile="buildBase.xml"
+				target="maintenance" uselogger="true" usedebug="false" usequiet="true">				
+			</ant>
+		</schedule>
+
+		<log dir="${cc.logs}/gmfbase.maintenance">
+			<merge dir="${lastresults}" />
+		</log>
+
+		<publishers>
+			<htmlemail buildresultsurl="${reporting.url}/buildresults/gmfbase.maintenance"
+			logdir="${cc.logs}/gmfbase.maintenance">
+				<always address="${always.email}" />
+			</htmlemail>
+			<artifactspublisher dir="${lastresults}"
+				dest="${cc.artifacts}/gmfbase.maintenance/" />
+		</publishers>
+	</project>
 </cruisecontrol>
