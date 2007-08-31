@@ -24,7 +24,6 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.views.properties.PropertySheetEntry;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
 public abstract class AdvancedPropertySection extends org.eclipse.ui.views.properties.tabbed.AdvancedPropertySection {
@@ -42,9 +41,8 @@ public abstract class AdvancedPropertySection extends org.eclipse.ui.views.prope
 			return;
 		}
 		final StructuredSelection structuredSelection = ((StructuredSelection) selection);
-		ArrayList transformedSelection = new ArrayList(structuredSelection
-				.size());
-		for (Iterator it = structuredSelection.iterator(); it.hasNext();) {
+		ArrayList<Object> transformedSelection = new ArrayList<Object>(structuredSelection.size());
+		for (Iterator<?> it = structuredSelection.iterator(); it.hasNext(); ) {
 			Object r = transformSelection(it.next());
 			if (r != null) {
 				transformedSelection.add(r);
@@ -55,27 +53,35 @@ public abstract class AdvancedPropertySection extends org.eclipse.ui.views.prope
 		super.setInput(part, new StructuredSelection(transformedSelection));
 	}
 
-	protected CommandStack getCommandStack(ArrayList selection) {
+	protected CommandStack getCommandStack(ArrayList<?> selection) {
 		CommandStack result = null;
 		for(Object next : selection) {
 			TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(next);
 			if (editingDomain == null) {
 				return null;
 			}
-			CommandStackAdapterManager adapterManager = (CommandStackAdapterManager) EcoreUtil.getExistingAdapter(editingDomain.getResourceSet(), CommandStackAdapterManager.class);
-			if (adapterManager == null || adapterManager.isReleased()) {
+			CommandStack nextStackCandidate = getCommandStack(editingDomain);
+			if (nextStackCandidate == null) {
 				return null;
 			}
-			CommandStack nextStackCandidate = adapterManager.getCommandStack();
-			if (nextStackCandidate != null) {
-				if (result == null) {
-					result = nextStackCandidate;
-				} else if (result != nextStackCandidate) {
-					return null;
-				}
+			if (result == null) {
+				result = nextStackCandidate;
+			} else if (result != nextStackCandidate) {
+				return null;
 			}
 		}
 		return result;
+	}
+
+	static CommandStack getCommandStack(TransactionalEditingDomain editingDomain) {
+		if (editingDomain == null) {
+			return null;
+		}
+		CommandStackAdapterManager adapterManager = (CommandStackAdapterManager) EcoreUtil.getExistingAdapter(editingDomain.getResourceSet(), CommandStackAdapterManager.class);
+		if (adapterManager == null || adapterManager.isReleased()) {
+			return null;
+		}
+		return adapterManager.getCommandStack();
 	}
 
 	protected PropertySourceProvider getPropertySourceProvider() {
