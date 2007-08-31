@@ -55,6 +55,10 @@ private void createRefreshers() {
 «EXPAND visibility-»
 «ENDDEFINE»
 
+/*
+ * By default, nodes have FontStyle installed. However, the color part of this style is only used by its child labels.
+ * Otherwise, there is a conflict between the font color and the foreground color.
+ */
 «DEFINE fillRefreshers FOR gmfgen::GenNode-»
 «EXPAND children-»
 «EXPAND visibility-»
@@ -62,7 +66,6 @@ private void createRefreshers() {
 «EXPAND targetEdges-»
 «EXPAND bounds-»
 «EXPAND font-»
-«EXPAND fontColor-»
 «EXPAND fillColor-»
 «EXPAND lineColor-»
 «EXPAND shortcutAnnotation-»
@@ -74,13 +77,15 @@ private void createRefreshers() {
 «EXPAND fontColor-»
 «ENDDEFINE»
 
+/*
+ * By default, links have FontStyle installed. However, this style is only used by its child labels.
+ */
 «DEFINE fillRefreshers FOR gmfgen::GenLink-»
 «EXPAND children-»
 «EXPAND visibility-»
 «EXPAND sourceEdges-»
 «EXPAND targetEdges-»
 «EXPAND bendpoints-»
-«EXPAND font-»
 «EXPAND fillColor-»
 «EXPAND lineColor-»
 «ENDDEFINE»
@@ -248,6 +253,7 @@ myRefreshersRegistry.add(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTA
 «ENDDEFINE»
 
 «DEFINE fontColor FOR gmfgen::GenCommonBase-»
+«IF !viewmap.isFixedFont()-»
 Refresher fontColorRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher() {
 	public void refresh() {
 		«EXPAND ignoreIfInactive-»
@@ -264,6 +270,7 @@ Refresher fontColorRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.updat
 	}
 };
 myRefreshersRegistry.add(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontColor(), fontColorRefresher);
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE shortcutAnnotation FOR gmfgen::GenNode-»
@@ -313,7 +320,6 @@ protected org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEdi
 «EXPAND refreshVisibility-»
 «EXPAND refreshBounds-»
 «EXPAND refreshFont-»
-«EXPAND refreshFontColor-»
 «EXPAND refreshBackgroundColor-»
 «EXPAND refreshForegroundColor-»
 «EXPAND refreshShortcutDecoration-»
@@ -339,18 +345,17 @@ protected org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEdi
 «DEFINE refreshMethods FOR gmfgen::GenLink-»
 «EXPAND refreshVisibility-»
 «EXPAND refreshBendpoints-»
-«EXPAND refreshFont-»
 «EXPAND refreshBackgroundColor-»
 «EXPAND refreshForegroundColor-»
 «ENDDEFINE»
 
-«DEFINE externalFontRefresher FOR gmfgen::GenLabel-»
+«DEFINE externalFontColorRefresher FOR gmfgen::GenLabel-»
 «IF !viewmap.isFixedFont()-»
 «EXPAND xpt::Common::generatedMemberComment»
-private org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher fontRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher() {
+private org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher fontColorRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher() {
 	public void refresh() {
 		«EXPAND ignoreIfInactive-»
-		refreshFont();
+		refreshFontColor();
 	}
 	public boolean isAffectingEvent(org.eclipse.emf.common.notify.Notification msg) {
 		if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontColor() == msg.getFeature()) {
@@ -365,12 +370,13 @@ private org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditP
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE externalFontColorRefresher FOR gmfgen::GenLabel-»
+«DEFINE externalFontRefresher FOR gmfgen::GenLabel-»
+«IF !viewmap.isFixedFont()-»
 «EXPAND xpt::Common::generatedMemberComment»
-private org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher fontColorRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher() {
+private org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher fontRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher() {
 	public void refresh() {
 		«EXPAND ignoreIfInactive-»
-		refreshFontColor();
+		refreshFont();
 	}
 	public boolean isAffectingEvent(org.eclipse.emf.common.notify.Notification msg) {
 		if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle().getEStructuralFeatures().contains(msg.getFeature())) {
@@ -382,6 +388,7 @@ private org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditP
 		return false;
 	}
 };
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE refreshVisibility FOR gmfgen::GenCommonBase-»
@@ -458,6 +465,15 @@ protected void refreshFont() {
 	if (style != null) {
 		String fontName = style.getFontName();
 		int fontHeight = style.getFontHeight();
+		if (fontName == null || fontHeight <= 0) {
+			org.eclipse.swt.graphics.FontData defaultFont = getViewer().getControl().getFont().getFontData()[0];
+			if (fontName == null) {
+				fontName = defaultFont.getName();
+			}
+			if (fontHeight <= 0) {
+				fontHeight = defaultFont.getHeight();
+			}
+		}
 		int fontStyle = org.eclipse.swt.SWT.NORMAL;
 		if (style.isBold()) {
 			fontStyle |= org.eclipse.swt.SWT.BOLD;
@@ -491,6 +507,7 @@ private org.eclipse.swt.graphics.Font createdFont;
 «ENDDEFINE»
 
 «DEFINE refreshFontColor FOR gmfgen::GenCommonBase-»
+«IF !isFixedFont(viewmap)-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected void refreshFontColor() {
 	org.eclipse.gmf.runtime.notation.FontStyle style = (org.eclipse.gmf.runtime.notation.FontStyle)  «EXPAND getStyleHolderCode».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle());
@@ -518,6 +535,7 @@ protected void refreshFontColor() {
 «EXPAND xpt::Common::generatedMemberComment("The color (created by {@link #refreshFontColor()}) currently assigned to the label.\n" + 
  "Whenever another color is assigned to it, it is safe to dispose the previous one.")»
 private org.eclipse.swt.graphics.Color createdFontColor;
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE refreshForegroundColor FOR gmfgen::GenCommonBase-»
@@ -627,7 +645,6 @@ protected void refreshVisuals() {
 «IF !viewmap.isFixedFont()-»
 	refreshFont();
 «ENDIF-»
-	refreshFontColor();
 «IF !viewmap.isFixedBackground()-»
 	refreshBackgroundColor();
 «ENDIF-»
@@ -648,8 +665,8 @@ protected void refreshVisuals() {
 	refreshLabel();
 «IF !viewmap.isFixedFont()-»
 	refreshFont();
-«ENDIF-»
 	refreshFontColor();
+«ENDIF-»
 }
 «ENDDEFINE»
 
@@ -660,8 +677,8 @@ protected void refreshVisuals() {
 	refreshLabel();
 «IF !viewmap.isFixedFont()-»
 	refreshFont();
-«ENDIF-»
 	refreshFontColor();
+«ENDIF-»
 }
 «ENDDEFINE»
 
@@ -671,9 +688,6 @@ protected void refreshVisuals() {
 	super.refreshVisuals();
 	refreshVisibility();
 	refreshBendpoints();
-«IF !viewmap.isFixedFont()-»
-	refreshFont();
-«ENDIF-»
 «IF !viewmap.isFixedBackground()-»
 	refreshBackgroundColor();
 «ENDIF-»

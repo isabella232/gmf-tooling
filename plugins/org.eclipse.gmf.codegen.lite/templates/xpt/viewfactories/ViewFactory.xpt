@@ -45,9 +45,14 @@ public void decorateView(org.eclipse.gmf.runtime.notation.View view) {
 	}
 «EXPAND setViewType-»
 «EXPAND initStyles-»
+«EXPAND addCustomStyle FOREACH styles-»
 «EXPAND instantiatePredefinedChildren-»
 «EXPAND createOpenDiagramAnnotation-»
 }
+«ENDDEFINE»
+
+«DEFINE addCustomStyle FOR genmodel::GenClass-»
+view.getStyles().add(«EXPAND xpt::Common::newInstance»);
 «ENDDEFINE»
 
 «DEFINE setViewType FOR gmfgen::GenCommonBase-»
@@ -67,11 +72,30 @@ view.setType(«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«get
 «ENDDEFINE»
 
 «DEFINE initStyles FOR gmfgen::GenNode-»
+«IF viewmap.isFixedFont() || viewmap.isFixedForeground() || viewmap.isFixedBackground()-»
+	«IF !viewmap.isFixedFont()-»
+	org.eclipse.gmf.runtime.notation.FontStyle style = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFontStyle();
+	view.getStyles().add(style);
+	«ENDIF-»
+	«IF !viewmap.isFixedForeground()-»
+	org.eclipse.gmf.runtime.notation.LineStyle lineStyle = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createLineStyle();
+	view.getStyles().add(lineStyle);
+	«ENDIF-»
+	«IF !viewmap.isFixedBackground()-»
+	org.eclipse.gmf.runtime.notation.FillStyle fillStyle = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFillStyle();
+	view.getStyles().add(fillStyle);
+	«ENDIF-»
+«ELSE-»
 	org.eclipse.gmf.runtime.notation.ShapeStyle style = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createShapeStyle();
 	view.getStyles().add(style);
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE initStyles FOR gmfgen::GenChildLabelNode-»
+«IF !viewmap.isFixedFont()-»
+	org.eclipse.gmf.runtime.notation.FontStyle style = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFontStyle();
+	view.getStyles().add(style);
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE initStyles FOR gmfgen::GenCompartment-»
@@ -79,6 +103,21 @@ view.setType(«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«get
 	view.getStyles().add(drawerStyle);
 	org.eclipse.gmf.runtime.notation.TitleStyle titleStyle = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createTitleStyle();
 	view.getStyles().add(titleStyle);
+«ENDDEFINE»
+
+«DEFINE initStyles FOR gmfgen::GenLink-»
+«IF !viewmap.isFixedFont()-»
+	org.eclipse.gmf.runtime.notation.FontStyle fontStyle = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFontStyle();
+	view.getStyles().add(fontStyle);
+«ENDIF-»
+«IF !viewmap.isFixedForeground()-»
+	org.eclipse.gmf.runtime.notation.LineStyle lineStyle = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createLineStyle();
+	view.getStyles().add(lineStyle);
+«ENDIF-»
+«IF !viewmap.isFixedBackground()-»
+	org.eclipse.gmf.runtime.notation.FillStyle fillStyle = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFillStyle();
+	view.getStyles().add(fillStyle);
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE initStyles FOR gmfgen::GenLinkLabel-»

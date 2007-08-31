@@ -77,12 +77,18 @@
 «ENDDEFINE»
 
 «DEFINE section FOR gmfgen::GenStandardPropertyTab-»
-«IF iD == "advanced"-»
+«IF iD == "appearance"-»
+         <propertySection id="property.section.ShapeColorAndFontPropertySection"
+            filter="org.eclipse.gmf.runtime.lite.properties.filters.FontColorHolderEditPartPropertySectionFilter"
+            class="org.eclipse.gmf.runtime.lite.properties.ColorsAndFontsPropertySection"
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+«ELSEIF iD == "advanced"-»
          <propertySection id="property.section.AdvancedPropertySection"
-            class="org.eclipse.gmf.runtime.lite.properties.sections.AdvancedPropertySection"
+            class="org.eclipse.gmf.runtime.lite.properties.AdvancedPropertySection"
             filter="org.eclipse.gmf.runtime.lite.properties.filters.EditPartPropertySectionFilter"
             tab="property.tab.AdvancedPropertySection">
-         </propertySection>            
+         </propertySection>
 «ENDIF-»
 «ENDDEFINE»
 
