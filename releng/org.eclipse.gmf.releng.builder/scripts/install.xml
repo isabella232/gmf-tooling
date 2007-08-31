@@ -156,13 +156,13 @@
 	</target>
 	
 	<target name="checkEMFExamplesInstalled">
-		<available file="${baseLocation}/features/${emfExamplesFeatureId}_${emfUpdateVersion}/feature.xml" property="emfExampleExists" />
+		<available file="${baseLocation}/features/${emfExamplesFeatureId}_${emfExamplesUpdateVersion}/feature.xml" property="emfExampleExists" />
 	</target>
 	
 	<target name="installEMFExamples" unless="emfExampleExists" depends="checkEMFExamplesInstalled">
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfExamplesFeatureId}" />
-			<property name="version" value="${emfUpdateVersion}" />
+			<property name="version" value="${emfExamplesUpdateVersion}" />
 			<property name="from.updatesite" value="${emfUpdateSite}" />
 			<property name="updatesite.name" value="requirements" />
 		</ant>
