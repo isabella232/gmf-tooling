@@ -54,7 +54,7 @@ public interface GenNavigator extends GenDomainModelNavigator {
 	 * @return the value of the '<em>Editor Gen</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNavigator_EditorGen()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getNavigator
-	 * @model opposite="navigator" changeable="false"
+	 * @model opposite="navigator" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();
@@ -488,7 +488,7 @@ public interface GenNavigator extends GenDomainModelNavigator {
 	 * @return the value of the '<em>Child References</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNavigator_ChildReferences()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getNavigator
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference" opposite="navigator" containment="true"
+	 * @model opposite="navigator" containment="true"
 	 * @generated
 	 */
 	EList<GenNavigatorChildReference> getChildReferences();

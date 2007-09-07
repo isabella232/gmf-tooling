@@ -39,7 +39,7 @@ public interface GenChildNode extends GenNode {
 	 * @return the value of the '<em>Diagram</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenChildNode_Diagram()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getChildNodes
-	 * @model opposite="childNodes" required="true" changeable="false"
+	 * @model opposite="childNodes" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenDiagram getDiagram();
@@ -57,7 +57,7 @@ public interface GenChildNode extends GenNode {
 	 * @return the value of the '<em>Containers</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenChildNode_Containers()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildContainer#getChildNodes
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenChildContainer" opposite="childNodes" changeable="false"
+	 * @model opposite="childNodes" changeable="false"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let cmps:OrderedSet(GenChildContainer)=containers->select(oclIsKindOf(GenCompartment)) in cmps->exists(oclAsType(GenCompartment).listLayout) implies not cmps->exists(not oclAsType(GenCompartment).listLayout)' description='Node is referenced from multiple containers with different \'List Layout\' value'"
 	 * @generated
 	 */

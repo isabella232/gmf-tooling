@@ -48,7 +48,7 @@ public interface GenAuditContainer extends EObject {
 	 * @return the value of the '<em>Root</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditContainer_Root()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRoot#getCategories
-	 * @model opposite="categories" required="true" changeable="false"
+	 * @model opposite="categories" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenAuditRoot getRoot();
@@ -146,7 +146,7 @@ public interface GenAuditContainer extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Path</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditContainer_Path()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenAuditContainer" required="true"
+	 * @model required="true"
 	 * @generated
 	 */
 	EList<GenAuditContainer> getPath();
@@ -164,7 +164,7 @@ public interface GenAuditContainer extends EObject {
 	 * @return the value of the '<em>Audits</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditContainer_Audits()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getCategory
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenAuditRule" opposite="category"
+	 * @model opposite="category"
 	 * @generated
 	 */
 	EList<GenAuditRule> getAudits();

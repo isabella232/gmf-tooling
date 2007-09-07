@@ -43,7 +43,7 @@ public interface GenChildContainer extends GenContainerBase {
 	 * @return the value of the '<em>Child Nodes</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenChildContainer_ChildNodes()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildNode#getContainers
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenChildNode" opposite="containers"
+	 * @model opposite="containers"
 	 * @generated
 	 */
 	EList<GenChildNode> getChildNodes();

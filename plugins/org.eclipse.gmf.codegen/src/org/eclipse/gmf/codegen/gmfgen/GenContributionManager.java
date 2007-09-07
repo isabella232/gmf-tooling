@@ -69,7 +69,7 @@ public interface GenContributionManager extends GenContributionItem {
 	 * @return the value of the '<em>Items</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenContributionManager_Items()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenContributionItem#getOwner
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenContributionItem" opposite="owner" containment="true"
+	 * @model opposite="owner" containment="true"
 	 * @generated
 	 */
 	EList<GenContributionItem> getItems();

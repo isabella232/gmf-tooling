@@ -42,7 +42,7 @@ public interface ToolGroup extends EntryBase, ToolGroupItem {
 	 * @return the value of the '<em>Palette</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getToolGroup_Palette()
 	 * @see org.eclipse.gmf.codegen.gmfgen.Palette#getGroups
-	 * @model opposite="groups" required="true" changeable="false"
+	 * @model opposite="groups" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	Palette getPalette();
@@ -112,7 +112,7 @@ public interface ToolGroup extends EntryBase, ToolGroupItem {
 	 * @return the value of the '<em>Entries</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getToolGroup_Entries()
 	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroupItem#getGroup
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.ToolGroupItem" opposite="group" containment="true" required="true"
+	 * @model opposite="group" containment="true" required="true"
 	 * @generated
 	 */
 	EList<ToolGroupItem> getEntries();

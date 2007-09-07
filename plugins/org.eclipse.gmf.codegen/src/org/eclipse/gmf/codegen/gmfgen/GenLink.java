@@ -49,7 +49,7 @@ public interface GenLink extends GenCommonBase {
 	 * @return the value of the '<em>Diagram</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_Diagram()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getLinks
-	 * @model opposite="links" required="true" changeable="false"
+	 * @model opposite="links" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenDiagram getDiagram();
@@ -93,7 +93,7 @@ public interface GenLink extends GenCommonBase {
 	 * @return the value of the '<em>Labels</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_Labels()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getLink
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenLinkLabel" opposite="link" containment="true"
+	 * @model opposite="link" containment="true"
 	 * @generated
 	 */
 	EList<GenLinkLabel> getLabels();
@@ -265,7 +265,7 @@ public interface GenLink extends GenCommonBase {
 	 * <!-- begin-model-doc -->
 	 * Returns link sources in this genmodel
 	 * <!-- end-model-doc -->
-	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenCommonBase"
+	 * @model kind="operation"
 	 * @generated
 	 */
 	EList<GenCommonBase> getAssistantSources();
@@ -276,7 +276,7 @@ public interface GenLink extends GenCommonBase {
 	 * <!-- begin-model-doc -->
 	 * Returns link targets in this genmodel
 	 * <!-- end-model-doc -->
-	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenCommonBase"
+	 * @model kind="operation"
 	 * @generated
 	 */
 	EList<GenCommonBase> getAssistantTargets();

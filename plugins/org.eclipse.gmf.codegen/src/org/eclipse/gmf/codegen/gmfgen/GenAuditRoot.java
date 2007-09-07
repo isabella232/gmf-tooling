@@ -44,7 +44,7 @@ public interface GenAuditRoot extends EObject {
 	 * @return the value of the '<em>Editor Gen</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRoot_EditorGen()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getAudits
-	 * @model opposite="audits" required="true" changeable="false"
+	 * @model opposite="audits" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();
@@ -62,7 +62,7 @@ public interface GenAuditRoot extends EObject {
 	 * @return the value of the '<em>Categories</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRoot_Categories()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getRoot
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenAuditContainer" opposite="root" containment="true"
+	 * @model opposite="root" containment="true"
 	 * @generated
 	 */
 	EList<GenAuditContainer> getCategories();
@@ -80,7 +80,7 @@ public interface GenAuditRoot extends EObject {
 	 * @return the value of the '<em>Rules</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRoot_Rules()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getRoot
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenAuditRule" opposite="root" containment="true"
+	 * @model opposite="root" containment="true"
 	 * @generated
 	 */
 	EList<GenAuditRule> getRules();

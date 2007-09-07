@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderContainer.java,v 1.5 2007/05/15 18:34:13 ashatalin Exp $
+ * $Id: GenExpressionProviderContainer.java,v 1.6 2007/09/07 18:16:49 dstadnik Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
@@ -94,7 +94,7 @@ public interface GenExpressionProviderContainer extends EObject {
 	 * @return the value of the '<em>Providers</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenExpressionProviderContainer_Providers()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase#getContainer
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase" opposite="container" containment="true"
+	 * @model opposite="container" containment="true"
 	 * @generated
 	 */
 	EList<GenExpressionProviderBase> getProviders();
@@ -112,7 +112,7 @@ public interface GenExpressionProviderContainer extends EObject {
 	 * @see #setEditorGen(GenEditorGenerator)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenExpressionProviderContainer_EditorGen()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getExpressionProviders
-	 * @model opposite="expressionProviders" required="true"
+	 * @model opposite="expressionProviders" required="true" transient="false"
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();

@@ -119,7 +119,7 @@ public interface GenMetricRule extends GenRuleBase {
 	 * @see #setContainer(GenMetricContainer)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenMetricRule_Container()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenMetricContainer#getMetrics
-	 * @model opposite="metrics" required="true"
+	 * @model opposite="metrics" required="true" transient="false"
 	 * @generated
 	 */
 	GenMetricContainer getContainer();

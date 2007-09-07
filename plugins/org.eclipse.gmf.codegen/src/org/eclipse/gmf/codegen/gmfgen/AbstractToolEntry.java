@@ -91,7 +91,7 @@ public interface AbstractToolEntry extends EntryBase, ToolGroupItem {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Properties</em>' map.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getAbstractToolEntry_Properties()
-	 * @model mapType="org.eclipse.emf.ecore.EStringToStringMapEntry" keyType="java.lang.String" valueType="java.lang.String"
+	 * @model mapType="org.eclipse.emf.ecore.EStringToStringMapEntry<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EString>"
 	 * @generated
 	 */
 	EMap<String, String> getProperties();

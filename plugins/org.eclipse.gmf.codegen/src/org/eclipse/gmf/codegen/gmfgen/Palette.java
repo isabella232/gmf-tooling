@@ -44,7 +44,7 @@ public interface Palette extends EObject {
 	 * @return the value of the '<em>Diagram</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getPalette_Diagram()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPalette
-	 * @model opposite="palette" required="true" changeable="false"
+	 * @model opposite="palette" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenDiagram getDiagram();
@@ -88,7 +88,7 @@ public interface Palette extends EObject {
 	 * @return the value of the '<em>Groups</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getPalette_Groups()
 	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroup#getPalette
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.ToolGroup" opposite="palette" containment="true" required="true"
+	 * @model opposite="palette" containment="true" required="true"
 	 * @generated
 	 */
 	EList<ToolGroup> getGroups();

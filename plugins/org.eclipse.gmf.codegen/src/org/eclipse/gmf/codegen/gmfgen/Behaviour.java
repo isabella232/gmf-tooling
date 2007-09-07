@@ -37,7 +37,7 @@ public interface Behaviour extends EObject {
 	 * @return the value of the '<em>Subject</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getBehaviour_Subject()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getBehaviour
-	 * @model opposite="behaviour" changeable="false"
+	 * @model opposite="behaviour" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenCommonBase getSubject();

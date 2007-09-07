@@ -47,7 +47,7 @@ public interface FeatureLabelModelFacet extends LabelModelFacet {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Meta Features</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getFeatureLabelModelFacet_MetaFeatures()
-	 * @model type="org.eclipse.emf.codegen.ecore.genmodel.GenFeature" required="true"
+	 * @model required="true"
 	 * @generated
 	 */
 	EList<GenFeature> getMetaFeatures();

@@ -48,7 +48,7 @@ public interface GenPropertySheet extends EObject {
 	 * @return the value of the '<em>Editor Gen</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPropertySheet_EditorGen()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPropertySheet
-	 * @model opposite="propertySheet" required="true" changeable="false"
+	 * @model opposite="propertySheet" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();
@@ -66,7 +66,7 @@ public interface GenPropertySheet extends EObject {
 	 * @return the value of the '<em>Tabs</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPropertySheet_Tabs()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertyTab#getSheet
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenPropertyTab" opposite="sheet" containment="true" required="true"
+	 * @model opposite="sheet" containment="true" required="true"
 	 * @generated
 	 */
 	EList<GenPropertyTab> getTabs();

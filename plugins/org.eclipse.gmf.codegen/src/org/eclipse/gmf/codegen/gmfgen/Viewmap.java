@@ -39,7 +39,7 @@ public interface Viewmap extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Required Plugin IDs</em>' attribute list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getViewmap_RequiredPluginIDs()
-	 * @model type="java.lang.String"
+	 * @model
 	 * @generated
 	 */
 	EList<String> getRequiredPluginIDs();
@@ -85,7 +85,7 @@ public interface Viewmap extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Attributes</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getViewmap_Attributes()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.Attributes" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Attributes> getAttributes();

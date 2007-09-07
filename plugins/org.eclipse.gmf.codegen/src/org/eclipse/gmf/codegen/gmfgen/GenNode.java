@@ -87,7 +87,7 @@ public interface GenNode extends GenChildContainer {
 	 * @return the value of the '<em>Labels</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_Labels()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenNodeLabel#getNode
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNodeLabel" opposite="node" containment="true"
+	 * @model opposite="node" containment="true"
 	 * @generated
 	 */
 	EList<GenNodeLabel> getLabels();
@@ -105,7 +105,7 @@ public interface GenNode extends GenChildContainer {
 	 * @return the value of the '<em>Compartments</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_Compartments()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenCompartment#getNode
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenCompartment" opposite="node"
+	 * @model opposite="node"
 	 * @generated
 	 */
 	EList<GenCompartment> getCompartments();
@@ -202,7 +202,7 @@ public interface GenNode extends GenChildContainer {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Reoriented Incoming Links</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_ReorientedIncomingLinks()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenLink" transient="true" changeable="false" volatile="true" derived="true"
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList<GenLink> getReorientedIncomingLinks();

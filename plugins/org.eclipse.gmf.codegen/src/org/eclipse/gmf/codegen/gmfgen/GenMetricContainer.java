@@ -43,7 +43,7 @@ public interface GenMetricContainer extends EObject {
 	 * @return the value of the '<em>Editor Gen</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenMetricContainer_EditorGen()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getMetrics
-	 * @model opposite="metrics" required="true" changeable="false"
+	 * @model opposite="metrics" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();
@@ -61,7 +61,7 @@ public interface GenMetricContainer extends EObject {
 	 * @return the value of the '<em>Metrics</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenMetricContainer_Metrics()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getContainer
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenMetricRule" opposite="container" containment="true" required="true"
+	 * @model opposite="container" containment="true" required="true"
 	 * @generated
 	 */
 	EList<GenMetricRule> getMetrics();

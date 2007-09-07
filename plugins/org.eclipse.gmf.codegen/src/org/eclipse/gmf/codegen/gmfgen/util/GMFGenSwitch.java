@@ -933,13 +933,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Editor Generator</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Editor Generator</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Editor Generator</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Editor Generator</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -948,13 +948,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Diagram</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Diagram</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Diagram</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Diagram</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -963,13 +963,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Editor View</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Editor View</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Editor View</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Editor View</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -978,13 +978,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Preference Page</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Preference Page</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Preference Page</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Preference Page</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -993,13 +993,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Custom Preference Page</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Custom Preference Page</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Custom Preference Page</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Custom Preference Page</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1008,13 +1008,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Standard Preference Page</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Standard Preference Page</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Standard Preference Page</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Standard Preference Page</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1023,13 +1023,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Diagram Preferences</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Diagram Preferences</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Diagram Preferences</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Diagram Preferences</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1038,13 +1038,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Font</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Font</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Font</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Font</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1053,13 +1053,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Standard Font</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Standard Font</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Standard Font</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Standard Font</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1068,13 +1068,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Custom Font</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Custom Font</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Custom Font</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Custom Font</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1083,13 +1083,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Color</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Color</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Color</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Color</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1098,13 +1098,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen RGB Color</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen RGB Color</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen RGB Color</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen RGB Color</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1113,13 +1113,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Constant Color</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Constant Color</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Constant Color</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Constant Color</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1128,13 +1128,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Batch Validation</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Batch Validation</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Batch Validation</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Batch Validation</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1143,13 +1143,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Provider Class Names</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Provider Class Names</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Provider Class Names</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Provider Class Names</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1158,13 +1158,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Shortcuts</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Shortcuts</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Shortcuts</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Shortcuts</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1173,13 +1173,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Package Names</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Package Names</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Package Names</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Package Names</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1188,13 +1188,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Link Constraints</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Link Constraints</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Link Constraints</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Link Constraints</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1203,13 +1203,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Editor Candies</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Editor Candies</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Editor Candies</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Editor Candies</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1218,13 +1218,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Edit Part Candies</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Edit Part Candies</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Edit Part Candies</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Edit Part Candies</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1233,13 +1233,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Measurement Unit</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Measurement Unit</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Measurement Unit</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Measurement Unit</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1248,13 +1248,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Diagram Updater</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Diagram Updater</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Diagram Updater</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Diagram Updater</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1263,13 +1263,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Plugin</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Plugin</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Plugin</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Plugin</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1278,13 +1278,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Element Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Element Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Element Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Element Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1293,13 +1293,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Metamodel Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Metamodel Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Metamodel Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Metamodel Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1308,13 +1308,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Specialization Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Specialization Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Specialization Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Specialization Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1323,13 +1323,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Notation Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Notation Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Notation Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Notation Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1338,13 +1338,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Common Base</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Common Base</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Common Base</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Common Base</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1353,13 +1353,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Behaviour</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Behaviour</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Behaviour</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Behaviour</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1368,13 +1368,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Custom Behaviour</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Custom Behaviour</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Custom Behaviour</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Custom Behaviour</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1383,13 +1383,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Shared Behaviour</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Shared Behaviour</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Shared Behaviour</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Shared Behaviour</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1398,13 +1398,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Open Diagram Behaviour</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Open Diagram Behaviour</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Open Diagram Behaviour</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Open Diagram Behaviour</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1413,13 +1413,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Container Base</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Container Base</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Container Base</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Container Base</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1428,13 +1428,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Node</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Node</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Node</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1443,13 +1443,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Top Level Node</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Top Level Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Top Level Node</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Top Level Node</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1458,13 +1458,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Child Node</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Child Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Child Node</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Child Node</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1473,13 +1473,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Child Side Affixed Node</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Child Side Affixed Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Child Side Affixed Node</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Child Side Affixed Node</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1488,13 +1488,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Child Label Node</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Child Label Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Child Label Node</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Child Label Node</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1503,13 +1503,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Compartment</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Compartment</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Compartment</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Compartment</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1518,13 +1518,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Child Container</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Child Container</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Child Container</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Child Container</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1533,13 +1533,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Link</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Link</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Link</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Link</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1548,13 +1548,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Label</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Label</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Label</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Label</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1563,13 +1563,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Node Label</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Node Label</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Node Label</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Node Label</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1578,13 +1578,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen External Node Label</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen External Node Label</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen External Node Label</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen External Node Label</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1593,13 +1593,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Link Label</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Link Label</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Link Label</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Link Label</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1608,13 +1608,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Model Facet</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Model Facet</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Model Facet</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1623,13 +1623,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Link Model Facet</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Link Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Link Model Facet</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Link Model Facet</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1638,13 +1638,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Label Model Facet</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Label Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Label Model Facet</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Label Model Facet</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1653,13 +1653,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Type Model Facet</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Type Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Type Model Facet</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Type Model Facet</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1668,13 +1668,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Feature Label Model Facet</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Feature Label Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Feature Label Model Facet</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Feature Label Model Facet</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1683,13 +1683,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Design Label Model Facet</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Design Label Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Design Label Model Facet</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Design Label Model Facet</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1698,13 +1698,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Type Link Model Facet</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Type Link Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Type Link Model Facet</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Type Link Model Facet</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1713,13 +1713,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Feature Link Model Facet</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Feature Link Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Feature Link Model Facet</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Feature Link Model Facet</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1728,13 +1728,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Viewmap</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Viewmap</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Viewmap</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Viewmap</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1743,13 +1743,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Attributes</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Attributes</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Attributes</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Attributes</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1758,13 +1758,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Color Attributes</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Color Attributes</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Color Attributes</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Color Attributes</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1773,13 +1773,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Style Attributes</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Style Attributes</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Style Attributes</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Style Attributes</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1788,13 +1788,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Resize Constraints</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Resize Constraints</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Resize Constraints</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Resize Constraints</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1803,13 +1803,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Default Size Attributes</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Default Size Attributes</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Default Size Attributes</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Default Size Attributes</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1818,13 +1818,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Label Offset Attributes</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Label Offset Attributes</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Label Offset Attributes</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Label Offset Attributes</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1833,13 +1833,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Figure Viewmap</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Figure Viewmap</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Figure Viewmap</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Figure Viewmap</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1848,13 +1848,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Snippet Viewmap</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Snippet Viewmap</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Snippet Viewmap</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Snippet Viewmap</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1863,13 +1863,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Inner Class Viewmap</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Inner Class Viewmap</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Inner Class Viewmap</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Inner Class Viewmap</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1878,13 +1878,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Parent Assigned Viewmap</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Parent Assigned Viewmap</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Parent Assigned Viewmap</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Parent Assigned Viewmap</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1893,13 +1893,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Palette</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Palette</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Palette</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Palette</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1908,13 +1908,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Entry Base</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Entry Base</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Entry Base</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Entry Base</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1923,13 +1923,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Abstract Tool Entry</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Abstract Tool Entry</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Abstract Tool Entry</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Abstract Tool Entry</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1938,13 +1938,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Tool Entry</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Tool Entry</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Tool Entry</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Tool Entry</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1953,13 +1953,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Standard Entry</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Standard Entry</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Standard Entry</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Standard Entry</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1968,13 +1968,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Tool Group Item</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Tool Group Item</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Tool Group Item</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Tool Group Item</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1983,13 +1983,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Separator</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Separator</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Separator</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Separator</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -1998,13 +1998,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Tool Group</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Tool Group</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Tool Group</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Tool Group</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2013,13 +2013,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Element Initializer</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Element Initializer</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Element Initializer</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Element Initializer</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2028,13 +2028,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Feature Seq Initializer</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Feature Seq Initializer</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Feature Seq Initializer</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Feature Seq Initializer</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2043,13 +2043,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Feature Value Spec</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Feature Value Spec</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Feature Value Spec</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Feature Value Spec</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2058,13 +2058,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Reference New Element Spec</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Reference New Element Spec</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Reference New Element Spec</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Reference New Element Spec</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2073,13 +2073,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Feature Initializer</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Feature Initializer</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Feature Initializer</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Feature Initializer</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2088,13 +2088,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Link Constraints</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Link Constraints</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Link Constraints</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Link Constraints</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2103,13 +2103,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Audit Root</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Audit Root</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Audit Root</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Audit Root</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2118,13 +2118,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Audit Container</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Audit Container</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Audit Container</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Audit Container</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2133,13 +2133,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Audit Rule</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Audit Rule</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Audit Rule</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Audit Rule</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2148,13 +2148,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Rule Target</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Rule Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Rule Target</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Rule Target</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2163,13 +2163,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Domain Element Target</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Domain Element Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Domain Element Target</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Domain Element Target</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2178,13 +2178,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Diagram Element Target</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Diagram Element Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Diagram Element Target</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Diagram Element Target</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2193,13 +2193,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Domain Attribute Target</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Domain Attribute Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Domain Attribute Target</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Domain Attribute Target</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2208,13 +2208,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Notation Element Target</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Notation Element Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Notation Element Target</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Notation Element Target</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2223,13 +2223,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Metric Container</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Metric Container</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Metric Container</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Metric Container</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2238,13 +2238,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Metric Rule</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Metric Rule</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Metric Rule</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Metric Rule</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2253,13 +2253,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Audited Metric Target</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Audited Metric Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Audited Metric Target</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Audited Metric Target</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2268,13 +2268,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Auditable</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Auditable</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Auditable</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Auditable</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2283,13 +2283,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Measurable</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Measurable</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Measurable</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Measurable</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2298,13 +2298,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Expression Provider Container</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Expression Provider Container</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Expression Provider Container</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Expression Provider Container</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2313,13 +2313,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Expression Provider Base</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Expression Provider Base</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Expression Provider Base</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Expression Provider Base</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2328,13 +2328,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Java Expression Provider</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Java Expression Provider</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Java Expression Provider</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Java Expression Provider</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2343,13 +2343,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Expression Interpreter</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Expression Interpreter</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Expression Interpreter</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Expression Interpreter</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2358,13 +2358,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Domain Model Navigator</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Domain Model Navigator</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Domain Model Navigator</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Domain Model Navigator</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2373,13 +2373,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Navigator</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Navigator</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Navigator</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Navigator</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2388,13 +2388,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Navigator Child Reference</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Navigator Child Reference</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Navigator Child Reference</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Navigator Child Reference</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2403,13 +2403,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Navigator Path</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Navigator Path</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Navigator Path</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Navigator Path</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2418,13 +2418,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Navigator Path Segment</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Navigator Path Segment</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Navigator Path Segment</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Navigator Path Segment</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2433,13 +2433,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Property Sheet</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Property Sheet</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Property Sheet</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Property Sheet</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2448,13 +2448,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Property Tab</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Property Tab</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Property Tab</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Property Tab</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2463,13 +2463,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Standard Property Tab</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Standard Property Tab</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Standard Property Tab</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Standard Property Tab</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2478,13 +2478,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Custom Property Tab</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Custom Property Tab</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Custom Property Tab</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Custom Property Tab</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2493,13 +2493,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Property Tab Filter</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Property Tab Filter</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Property Tab Filter</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Property Tab Filter</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2508,13 +2508,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Type Tab Filter</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Type Tab Filter</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Type Tab Filter</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Type Tab Filter</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2523,13 +2523,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Custom Tab Filter</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Custom Tab Filter</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Custom Tab Filter</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Custom Tab Filter</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2538,13 +2538,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Contribution Item</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Contribution Item</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Contribution Item</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Contribution Item</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2553,13 +2553,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Shared Contribution Item</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Shared Contribution Item</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Shared Contribution Item</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Shared Contribution Item</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2568,13 +2568,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Group Marker</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Group Marker</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Group Marker</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Group Marker</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2583,13 +2583,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Separator</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Separator</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Separator</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Separator</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2598,13 +2598,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Action Factory Contribution Item</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Action Factory Contribution Item</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Action Factory Contribution Item</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Action Factory Contribution Item</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2613,13 +2613,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Contribution Manager</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Contribution Manager</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Contribution Manager</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Contribution Manager</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2628,13 +2628,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Menu Manager</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Menu Manager</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Menu Manager</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Menu Manager</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2643,13 +2643,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Tool Bar Manager</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Tool Bar Manager</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Tool Bar Manager</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Tool Bar Manager</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2658,13 +2658,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Application</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Application</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Application</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Application</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2673,13 +2673,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Rule Base</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Rule Base</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Rule Base</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Rule Base</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2688,13 +2688,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Value Expression</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Value Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Value Expression</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Value Expression</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2703,13 +2703,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Constraint</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Constraint</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Constraint</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Constraint</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -2718,13 +2718,13 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>EObject</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch, but this is the last case anyway.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>EObject</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */

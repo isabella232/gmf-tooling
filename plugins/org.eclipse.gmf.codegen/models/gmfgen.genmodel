@@ -665,6 +665,9 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureSeqInitializer/creatingInitializer"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getElementClassAccessorName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getElementQualifiedPackageInterfaceName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getJavaExpressionFeatureInitializersList">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenFeatureSeqInitializer/getJavaExpressionFeatureInitializersList/expressionProviders"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenFeatureValueSpec" labelFeature="#//gmfgen/ValueExpression/body"/>
     <genClasses ecoreClass="gmfgen.ecore#//GenReferenceNewElementSpec">

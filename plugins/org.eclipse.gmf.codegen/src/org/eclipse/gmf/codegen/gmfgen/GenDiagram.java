@@ -54,7 +54,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @return the value of the '<em>Editor Gen</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_EditorGen()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDiagram
-	 * @model opposite="diagram" changeable="false"
+	 * @model opposite="diagram" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();
@@ -98,7 +98,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @return the value of the '<em>Child Nodes</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_ChildNodes()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildNode#getDiagram
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenChildNode" opposite="diagram" containment="true"
+	 * @model opposite="diagram" containment="true"
 	 * @generated
 	 */
 	EList<GenChildNode> getChildNodes();
@@ -116,7 +116,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @return the value of the '<em>Top Level Nodes</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_TopLevelNodes()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode#getDiagram
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode" opposite="diagram" containment="true"
+	 * @model opposite="diagram" containment="true"
 	 * @generated
 	 */
 	EList<GenTopLevelNode> getTopLevelNodes();
@@ -134,7 +134,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @return the value of the '<em>Links</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_Links()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenLink#getDiagram
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenLink" opposite="diagram" containment="true"
+	 * @model opposite="diagram" containment="true"
 	 * @generated
 	 */
 	EList<GenLink> getLinks();
@@ -152,7 +152,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @return the value of the '<em>Compartments</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_Compartments()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenCompartment#getDiagram
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenCompartment" opposite="diagram" containment="true"
+	 * @model opposite="diagram" containment="true"
 	 * @generated
 	 */
 	EList<GenCompartment> getCompartments();
@@ -249,7 +249,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Preference Pages</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_PreferencePages()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenPreferencePage" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<GenPreferencePage> getPreferencePages();
@@ -257,7 +257,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenNode"
+	 * @model kind="operation"
 	 * @generated
 	 */
 	EList<GenNode> getAllNodes();
@@ -265,7 +265,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenChildContainer"
+	 * @model kind="operation"
 	 * @generated
 	 */
 	EList<GenChildContainer> getAllChildContainers();
@@ -273,7 +273,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenContainerBase"
+	 * @model kind="operation"
 	 * @generated
 	 */
 	EList<GenContainerBase> getAllContainers();
@@ -306,9 +306,14 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * Shorthand for <code>importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedPackageInterfaceName())</code>
 	 * NOTE: genPackage for domainDiagramElement only (not editor-wide domain model!), don't use it for
 	 * features/classes/references found in GenLink/GenNodes!
+	 * 
+	 * @deprecated obsolete
 	 */
 	String getMetaPackageName(ImportAssistant importManager);
 
+	/**
+	 * @deprecated obsolete
+	 */
 	Map<TypeModelFacet, GenCommonBase> getTypeModelFacet2GenBaseMap();	
 
 	Map<GenClass, GenTopLevelNode> getGenClass2PhantomMap();
