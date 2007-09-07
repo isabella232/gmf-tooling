@@ -45,7 +45,7 @@ public interface ElementType extends EObject {
 	 * @see #setDiagramElement(GenCommonBase)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getElementType_DiagramElement()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getElementType
-	 * @model opposite="elementType" required="true"
+	 * @model opposite="elementType" required="true" transient="false"
 	 * @generated
 	 */
 	GenCommonBase getDiagramElement();

@@ -15,6 +15,7 @@ import java.util.List;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -214,6 +215,15 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 		return (genClass != null) ? genClass.getGenPackage().getQualifiedPackageInterfaceName() : null;		
 	}
 		
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<GenFeatureValueSpec> getJavaExpressionFeatureInitializersList(GenExpressionProviderContainer expressionProviders) {
+		return new BasicEList<GenFeatureValueSpec>(getJavaExpressionFeatureInitializers(expressionProviders));
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

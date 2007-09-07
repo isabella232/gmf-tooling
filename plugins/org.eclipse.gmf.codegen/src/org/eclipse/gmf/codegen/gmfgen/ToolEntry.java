@@ -38,7 +38,7 @@ public interface ToolEntry extends AbstractToolEntry {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Gen Nodes</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getToolEntry_GenNodes()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNode"
+	 * @model
 	 * @generated
 	 */
 	EList<GenNode> getGenNodes();
@@ -54,7 +54,7 @@ public interface ToolEntry extends AbstractToolEntry {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Gen Links</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getToolEntry_GenLinks()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenLink"
+	 * @model
 	 * @generated
 	 */
 	EList<GenLink> getGenLinks();
@@ -73,7 +73,7 @@ public interface ToolEntry extends AbstractToolEntry {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Elements</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getToolEntry_Elements()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenCommonBase" transient="true" changeable="false" volatile="true" derived="true"
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList<GenCommonBase> getElements();

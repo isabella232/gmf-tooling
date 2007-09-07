@@ -5112,10 +5112,16 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		return getEditorGen().getEditor().getPackageName();
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public String getMetaPackageName(ImportAssistant importManager) {
 		return importManager.getImportedName(getDomainDiagramElement().getGenPackage().getQualifiedPackageInterfaceName());
 	}
 	
+	/**
+	 * @deprecated
+	 */
 	public Map<TypeModelFacet, GenCommonBase> getTypeModelFacet2GenBaseMap() {
 		Map<TypeModelFacet, GenCommonBase> resultMap = new LinkedHashMap<TypeModelFacet, GenCommonBase>();
 		for (GenNode next : getAllNodes()) {

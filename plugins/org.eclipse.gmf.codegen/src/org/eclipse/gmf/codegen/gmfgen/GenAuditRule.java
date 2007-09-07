@@ -50,7 +50,7 @@ public interface GenAuditRule extends GenRuleBase {
 	 * @return the value of the '<em>Root</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRule_Root()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRoot#getRules
-	 * @model opposite="rules" required="true" changeable="false"
+	 * @model opposite="rules" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenAuditRoot getRoot();

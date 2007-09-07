@@ -52,7 +52,7 @@ public interface GenApplication extends EObject {
 	 * @return the value of the '<em>Editor Gen</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_EditorGen()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getApplication
-	 * @model opposite="application" required="true" changeable="false"
+	 * @model opposite="application" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();
@@ -286,7 +286,7 @@ public interface GenApplication extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Shared Contribution Items</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_SharedContributionItems()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenContributionItem" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<GenContributionItem> getSharedContributionItems();

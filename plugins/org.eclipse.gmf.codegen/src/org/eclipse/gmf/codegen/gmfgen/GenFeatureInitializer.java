@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenFeatureInitializer.java,v 1.2 2006/10/19 14:13:40 radvorak Exp $
+ * $Id: GenFeatureInitializer.java,v 1.2.2.1 2007/09/07 18:10:37 dstadnik Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
@@ -68,7 +68,7 @@ public interface GenFeatureInitializer extends EObject {
 	 * @return the value of the '<em>Feature Seq Initializer</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenFeatureInitializer_FeatureSeqInitializer()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer#getInitializers
-	 * @model opposite="initializers" required="true" changeable="false"
+	 * @model opposite="initializers" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenFeatureSeqInitializer getFeatureSeqInitializer();

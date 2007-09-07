@@ -43,7 +43,7 @@ public interface GenLinkLabel extends GenLabel {
 	 * @see #setLink(GenLink)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLinkLabel_Link()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenLink#getLabels
-	 * @model opposite="labels" required="true"
+	 * @model opposite="labels" required="true" transient="false"
 	 * @generated
 	 */
 	GenLink getLink();

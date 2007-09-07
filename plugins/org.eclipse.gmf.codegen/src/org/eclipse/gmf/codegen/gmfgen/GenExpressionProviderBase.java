@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderBase.java,v 1.8 2007/05/22 17:27:35 atikhomirov Exp $
+ * $Id: GenExpressionProviderBase.java,v 1.8.2.1 2007/09/07 18:10:36 dstadnik Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
@@ -69,7 +69,7 @@ public interface GenExpressionProviderBase extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Expressions</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenExpressionProviderBase_Expressions()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.ValueExpression"
+	 * @model
 	 * @generated
 	 */
 	EList<ValueExpression> getExpressions();
@@ -86,7 +86,7 @@ public interface GenExpressionProviderBase extends EObject {
 	 * @return the value of the '<em>Container</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenExpressionProviderBase_Container()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer#getProviders
-	 * @model opposite="providers" required="true" changeable="false"
+	 * @model opposite="providers" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenExpressionProviderContainer getContainer();

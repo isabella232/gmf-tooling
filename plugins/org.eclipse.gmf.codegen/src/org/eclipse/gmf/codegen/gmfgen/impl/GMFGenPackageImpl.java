@@ -7304,6 +7304,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getElementQualifiedPackageInterfaceName", 1, 1, IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(genFeatureSeqInitializerEClass, this.getGenFeatureValueSpec(), "getJavaExpressionFeatureInitializersList", 0, -1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getGenExpressionProviderContainer(), "expressionProviders", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(genFeatureValueSpecEClass, GenFeatureValueSpec.class, "GenFeatureValueSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(genReferenceNewElementSpecEClass, GenReferenceNewElementSpec.class, "GenReferenceNewElementSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

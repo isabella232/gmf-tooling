@@ -40,7 +40,7 @@ public interface GenNavigatorPath extends EObject {
 	 * @return the value of the '<em>Segments</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNavigatorPath_Segments()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment#getPath
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment" opposite="path" containment="true"
+	 * @model opposite="path" containment="true"
 	 * @generated
 	 */
 	EList<GenNavigatorPathSegment> getSegments();

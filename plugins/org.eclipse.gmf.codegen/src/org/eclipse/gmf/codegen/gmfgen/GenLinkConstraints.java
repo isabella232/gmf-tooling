@@ -49,7 +49,7 @@ public interface GenLinkConstraints extends EObject {
 	 * @see #setLink(GenLink)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLinkConstraints_Link()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenLink#getCreationConstraints
-	 * @model opposite="creationConstraints" required="true"
+	 * @model opposite="creationConstraints" required="true" transient="false"
 	 * @generated
 	 */
 	GenLink getLink();

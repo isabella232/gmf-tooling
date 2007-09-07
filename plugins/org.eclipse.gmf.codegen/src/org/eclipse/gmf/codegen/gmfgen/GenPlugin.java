@@ -46,7 +46,7 @@ public interface GenPlugin extends EObject {
 	 * @return the value of the '<em>Editor Gen</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPlugin_EditorGen()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPlugin
-	 * @model opposite="plugin" changeable="false"
+	 * @model opposite="plugin" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();
@@ -189,7 +189,7 @@ public interface GenPlugin extends EObject {
 	 * <!-- begin-model-doc -->
 	 * Computed additional dependencies (in form of plug-in identifiers), including those explicitly specified by user and those derived from referenced genmodels
 	 * <!-- end-model-doc -->
-	 * @model kind="operation" type="java.lang.String"
+	 * @model kind="operation"
 	 * @generated
 	 */
 	EList<String> getAllRequiredPlugins();
@@ -205,7 +205,7 @@ public interface GenPlugin extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Required Plugins</em>' attribute list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPlugin_RequiredPlugins()
-	 * @model type="java.lang.String"
+	 * @model
 	 * @generated
 	 */
 	EList<String> getRequiredPlugins();

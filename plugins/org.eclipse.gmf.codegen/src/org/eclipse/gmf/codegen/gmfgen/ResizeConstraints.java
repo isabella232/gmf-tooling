@@ -94,7 +94,7 @@ public interface ResizeConstraints extends Attributes {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Resize Handle Names</em>' attribute list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getResizeConstraints_ResizeHandleNames()
-	 * @model type="java.lang.String" transient="true" changeable="false" volatile="true" derived="true"
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList<String> getResizeHandleNames();
@@ -109,7 +109,7 @@ public interface ResizeConstraints extends Attributes {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Non Resize Handle Names</em>' attribute list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getResizeConstraints_NonResizeHandleNames()
-	 * @model type="java.lang.String" transient="true" changeable="false" volatile="true" derived="true"
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList<String> getNonResizeHandleNames();

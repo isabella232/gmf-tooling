@@ -562,7 +562,7 @@ public interface GenEditorGenerator extends EObject {
 	 * <!-- begin-model-doc -->
 	 * Returns all genpackages from domain genmodel
 	 * <!-- end-model-doc -->
-	 * @model type="org.eclipse.emf.codegen.ecore.genmodel.GenPackage"
+	 * @model
 	 * @generated
 	 */
 	EList<GenPackage> getAllDomainGenPackages(boolean withUsed);

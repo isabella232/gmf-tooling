@@ -172,11 +172,11 @@ public interface Shortcuts extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Set of domain meta-model file extensions. Elements of the corresponding models could be shortcutted on this diagram.
+	 * Set of domain meta-model file extensions. Elements of the corresponding models could be added as a shortcut on this diagram.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Contains Shortcuts To</em>' attribute list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getShortcuts_ContainsShortcutsTo()
-	 * @model type="java.lang.String"
+	 * @model
 	 * @generated
 	 */
 	EList<String> getContainsShortcutsTo();
@@ -191,7 +191,7 @@ public interface Shortcuts extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Shortcuts Provided For</em>' attribute list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getShortcuts_ShortcutsProvidedFor()
-	 * @model type="java.lang.String"
+	 * @model
 	 * @generated
 	 */
 	EList<String> getShortcutsProvidedFor();

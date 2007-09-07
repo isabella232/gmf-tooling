@@ -245,7 +245,7 @@ public interface GenCommonBase extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Styles</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCommonBase_Styles()
-	 * @model type="org.eclipse.emf.codegen.ecore.genmodel.GenClass"
+	 * @model
 	 * @generated
 	 */
 	EList<GenClass> getStyles();
@@ -263,7 +263,7 @@ public interface GenCommonBase extends EObject {
 	 * @return the value of the '<em>Behaviour</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCommonBase_Behaviour()
 	 * @see org.eclipse.gmf.codegen.gmfgen.Behaviour#getSubject
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.Behaviour" opposite="subject" containment="true"
+	 * @model opposite="subject" containment="true"
 	 * @generated
 	 */
 	EList<Behaviour> getBehaviour();

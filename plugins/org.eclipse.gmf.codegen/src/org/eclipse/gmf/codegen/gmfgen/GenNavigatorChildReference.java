@@ -45,7 +45,7 @@ public interface GenNavigatorChildReference extends EObject {
 	 * @return the value of the '<em>Navigator</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNavigatorChildReference_Navigator()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigator#getChildReferences
-	 * @model opposite="childReferences" changeable="false"
+	 * @model opposite="childReferences" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenNavigator getNavigator();
@@ -221,7 +221,7 @@ public interface GenNavigatorChildReference extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath"
+	 * @model
 	 * @generated
 	 */
 	EList<GenNavigatorPath> findConnectionPaths();

@@ -48,7 +48,7 @@ public interface GenFeatureSeqInitializer extends GenElementInitializer {
 	 * @return the value of the '<em>Initializers</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenFeatureSeqInitializer_Initializers()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer#getFeatureSeqInitializer
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer" opposite="featureSeqInitializer" containment="true" required="true"
+	 * @model opposite="featureSeqInitializer" containment="true" required="true"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='self.elementClass'"
 	 * @generated
 	 */
@@ -93,7 +93,7 @@ public interface GenFeatureSeqInitializer extends GenElementInitializer {
 	 * @return the value of the '<em>Creating Initializer</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenFeatureSeqInitializer_CreatingInitializer()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec#getNewElementInitializers
-	 * @model opposite="newElementInitializers" changeable="false"
+	 * @model opposite="newElementInitializers" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenReferenceNewElementSpec getCreatingInitializer();
@@ -119,6 +119,14 @@ public interface GenFeatureSeqInitializer extends GenElementInitializer {
 	 * @generated
 	 */
 	String getElementQualifiedPackageInterfaceName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	EList<GenFeatureValueSpec> getJavaExpressionFeatureInitializersList(GenExpressionProviderContainer expressionProviders);
 
 	List<GenFeatureSeqInitializer> getAllFeatureSeqInitializers();
 	

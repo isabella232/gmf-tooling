@@ -37,7 +37,7 @@ public interface GenContainerBase extends GenCommonBase {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Contained Nodes</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenContainerBase_ContainedNodes()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNode" transient="true" changeable="false" volatile="true" derived="true"
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList<GenNode> getContainedNodes();
@@ -76,7 +76,7 @@ public interface GenContainerBase extends GenCommonBase {
 	 * <!-- begin-model-doc -->
 	 * Returns child nodes that may be created in this container
 	 * <!-- end-model-doc -->
-	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenNode"
+	 * @model kind="operation"
 	 * @generated
 	 */
 	EList<GenNode> getAssistantNodes();

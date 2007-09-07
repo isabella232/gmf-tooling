@@ -44,7 +44,7 @@ public interface GenDiagramElementTarget extends GenAuditable, GenMeasurable {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Element</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagramElementTarget_Element()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenCommonBase" required="true"
+	 * @model required="true"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='element <> null and element->size() > 1 implies element->forAll(oclIsKindOf(GenNode))' description='Multiple diagram elements must be GenNode type conformant'"
 	 * @generated
 	 */

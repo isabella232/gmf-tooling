@@ -115,7 +115,7 @@ public interface GenChildLabelNode extends GenChildNode {
 	 * <!-- begin-model-doc -->
 	 * Returns structural features that provide label content
 	 * <!-- end-model-doc -->
-	 * @model kind="operation" type="org.eclipse.emf.codegen.ecore.genmodel.GenFeature"
+	 * @model kind="operation"
 	 * @generated
 	 */
 	EList<GenFeature> getLabelMetaFeatures();

@@ -39,7 +39,7 @@ public interface GenNavigatorPathSegment extends EObject {
 	 * @return the value of the '<em>Path</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNavigatorPathSegment_Path()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath#getSegments
-	 * @model opposite="segments" changeable="false"
+	 * @model opposite="segments" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenNavigatorPath getPath();
