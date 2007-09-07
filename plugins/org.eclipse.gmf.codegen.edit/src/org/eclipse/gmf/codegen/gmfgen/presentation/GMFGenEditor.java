@@ -70,6 +70,7 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.emf.edit.ui.provider.UnwrappingSelectionProvider;
 import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
+import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.provider.GMFGenItemProviderAdapterFactory;
@@ -972,7 +973,7 @@ public class GMFGenEditor
 	}
 
 	/**
-	 * Returns a dignostic describing the errors and warnings listed in the resource
+	 * Returns a diagnostic describing the errors and warnings listed in the resource
 	 * and the specified exception (if any).
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1529,7 +1530,7 @@ public class GMFGenEditor
 	}
 
 	/**
-	 * This returns wether something has been persisted to the URI of the specified resource.
+	 * This returns whether something has been persisted to the URI of the specified resource.
 	 * The implementation uses the URI converter from the editor's resource set to try to open an input stream. 
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
