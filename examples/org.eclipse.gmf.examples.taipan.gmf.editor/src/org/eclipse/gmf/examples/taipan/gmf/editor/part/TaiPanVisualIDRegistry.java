@@ -143,10 +143,24 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	public static int getNodeVisualID(View containerView, EObject domainElement) {
-		if (domainElement == null || !AquatoryEditPart.MODEL_ID.equals(org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getModelID(containerView))) {
+		if (domainElement == null) {
 			return -1;
 		}
-		switch (org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getVisualID(containerView)) {
+		String containerModelID = org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getModelID(containerView);
+		if (!AquatoryEditPart.MODEL_ID.equals(containerModelID) && !"TaiPan".equals(containerModelID)) { //$NON-NLS-1$
+			return -1;
+		}
+		int containerVisualID;
+		if (AquatoryEditPart.MODEL_ID.equals(containerModelID)) {
+			containerVisualID = org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getVisualID(containerView);
+		} else {
+			if (containerView instanceof Diagram) {
+				containerVisualID = AquatoryEditPart.VISUAL_ID;
+			} else {
+				return -1;
+			}
+		}
+		switch (containerVisualID) {
 		case ShipSmallCargoEditPart.VISUAL_ID:
 			if (TaiPanPackage.eINSTANCE.getSmallItems().isSuperTypeOf(domainElement.eClass())) {
 				return SmallItemsEditPart.VISUAL_ID;
