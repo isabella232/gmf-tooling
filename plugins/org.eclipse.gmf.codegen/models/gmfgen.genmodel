@@ -655,6 +655,9 @@
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenElementInitializer">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenElementInitializer/typeModelFacet"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenElementInitializer/getInitializerFieldName">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenElementInitializer/getInitializerFieldName/elementID"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenFeatureSeqInitializer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureSeqInitializer/initializers"/>
@@ -662,6 +665,10 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureSeqInitializer/creatingInitializer"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getElementClassAccessorName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getElementQualifiedPackageInterfaceName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getElementClassAccessor"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getFeatureAccessor">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenFeatureSeqInitializer/getFeatureAccessor/ftInitializer"/>
+      </genOperations>
       <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getJavaExpressionFeatureInitializersList">
         <genParameters ecoreParameter="gmfgen.ecore#//GenFeatureSeqInitializer/getJavaExpressionFeatureInitializersList/expressionProviders"/>
       </genOperations>

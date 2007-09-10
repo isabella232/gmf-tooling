@@ -1263,6 +1263,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Base class for initializers of domain model elements"/>
     </eAnnotations>
+    <eOperations name="getInitializerFieldName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eParameters name="elementID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeModelFacet" lowerBound="1"
         eType="#//TypeModelFacet" changeable="false" volatile="true" transient="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1283,6 +1286,10 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Gets the qualified name of the package interface which contains this initializer's element class meta object"/>
       </eAnnotations>
+    </eOperations>
+    <eOperations name="getElementClassAccessor" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getFeatureAccessor" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eParameters name="ftInitializer" eType="#//GenFeatureInitializer"/>
     </eOperations>
     <eOperations name="getJavaExpressionFeatureInitializersList" upperBound="-1" eType="#//GenFeatureValueSpec">
       <eParameters name="expressionProviders" eType="#//GenExpressionProviderContainer"/>

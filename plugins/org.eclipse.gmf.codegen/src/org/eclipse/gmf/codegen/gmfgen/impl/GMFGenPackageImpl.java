@@ -7295,6 +7295,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(genElementInitializerEClass, GenElementInitializer.class, "GenElementInitializer", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenElementInitializer_TypeModelFacet(), this.getTypeModelFacet(), null, "typeModelFacet", null, 1, 1, GenElementInitializer.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		op = addEOperation(genElementInitializerEClass, ecorePackage.getEString(), "getInitializerFieldName", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "elementID", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(genFeatureSeqInitializerEClass, GenFeatureSeqInitializer.class, "GenFeatureSeqInitializer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenFeatureSeqInitializer_Initializers(), this.getGenFeatureInitializer(), this.getGenFeatureInitializer_FeatureSeqInitializer(), "initializers", null, 1, -1, GenFeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenFeatureSeqInitializer_ElementClass(), theGenModelPackage.getGenClass(), null, "elementClass", null, 0, 1, GenFeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7303,6 +7306,11 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getElementClassAccessorName", 1, 1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getElementQualifiedPackageInterfaceName", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getElementClassAccessor", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getFeatureAccessor", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getGenFeatureInitializer(), "ftInitializer", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(genFeatureSeqInitializerEClass, this.getGenFeatureValueSpec(), "getJavaExpressionFeatureInitializersList", 0, -1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getGenExpressionProviderContainer(), "expressionProviders", 0, 1, IS_UNIQUE, IS_ORDERED);

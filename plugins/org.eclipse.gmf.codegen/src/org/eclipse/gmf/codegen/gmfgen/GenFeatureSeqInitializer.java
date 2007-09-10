@@ -123,16 +123,44 @@ public interface GenFeatureSeqInitializer extends GenElementInitializer {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	String getElementClassAccessor();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model required="true"
+	 * @generated
+	 */
+	String getFeatureAccessor(GenFeatureInitializer ftInitializer);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
 	 */
 	EList<GenFeatureValueSpec> getJavaExpressionFeatureInitializersList(GenExpressionProviderContainer expressionProviders);
 
+	/**
+	 * @deprecated
+	 */
 	List<GenFeatureSeqInitializer> getAllFeatureSeqInitializers();
 	
+	/**
+	 * @deprecated
+	 */
 	String getFeatureAccessor(GenFeatureInitializer featureInitializer, ImportAssistant importAssistant);	
 
+	/**
+	 * @deprecated
+	 */
 	LinkedHashSet<GenFeatureValueSpec> getJavaExpressionFeatureInitializers(GenExpressionProviderContainer expressionProviders);
 	
+	/**
+	 * @deprecated
+	 */
 	String getElementClassAccessor(ImportAssistant importAssistant);	
 } // GenFeatureSeqInitializer
