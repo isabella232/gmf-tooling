@@ -220,6 +220,24 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public String getElementClassAccessor() {
+		return getElementClassAccessor(null);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getFeatureAccessor(GenFeatureInitializer ftInitializer) {
+		return getFeatureAccessor(ftInitializer, null);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public EList<GenFeatureValueSpec> getJavaExpressionFeatureInitializersList(GenExpressionProviderContainer expressionProviders) {
 		return new BasicEList<GenFeatureValueSpec>(getJavaExpressionFeatureInitializers(expressionProviders));
 	}
@@ -413,7 +431,11 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 			return ""; //$NON-NLS-1$
 		}
 		StringBuffer buf = new StringBuffer();
-		buf.append(importAssistant.getImportedName(featureInitializer.getFeatureQualifiedPackageInterfaceName()))
+		String fqn = featureInitializer.getFeatureQualifiedPackageInterfaceName();
+		if (importAssistant != null) {
+			fqn = importAssistant.getImportedName(fqn);
+		}
+		buf.append(fqn)
 			.append(".eINSTANCE.get") //$NON-NLS-1$
 			.append(featureInitializer.getFeature().getFeatureAccessorName())
 			.append("()"); //$NON-NLS-1$
