@@ -559,12 +559,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateElementInitializers() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getElementInitializersEmitter(),
-			myDiagram.getProvidersPackageName(),
-			"ElementInitializers", //$NON-NLS-1$
-			myDiagram
-		);
+		doGenerateJavaClass(myEmitters.getElementInitializersEmitter(), myDiagram.getProvidersPackageName() + ".ElementInitializers", myDiagram); //$NON-NLS-1$
 	}
 
 	private void generateElementTypes() throws UnexpectedBehaviourException, InterruptedException {
