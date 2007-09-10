@@ -10,84 +10,84 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-´IMPORT "http://www.eclipse.org/gmf/2006/GenModel"ª
-´IMPORT "http://www.eclipse.org/emf/2002/GenModel"ª
-´EXTENSION xpt::GenModelUtilsª
+«IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«EXTENSION xpt::GenModelUtils»
 
-´DEFINE ElementInitializers FOR gmfgen::GenDiagram-ª
-´EXPAND xpt::Common::copyright FOR editorGen-ª
-package ´providersPackageNameª;
+«DEFINE ElementInitializers FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::copyright FOR editorGen-»
+package «providersPackageName»;
 
-´EXPAND xpt::Common::generatedClassCommentª
+«EXPAND xpt::Common::generatedClassComment»
 public class ElementInitializers {
-	´EXPAND Initializers(this) FOR editorGen.expressionProviders-ª
-	´EXPAND additions-ª
+	«EXPAND Initializers(this) FOR editorGen.expressionProviders-»
+	«EXPAND additions-»
 }
-´ENDDEFINEª
+«ENDDEFINE»
 
-´DEFINE Initializers(GenDiagram diagram) FOR GenExpressionProviderContainer-ª
+«DEFINE Initializers(GenDiagram diagram) FOR GenExpressionProviderContainer-»
 
-´EXPAND xpt::Common::generatedClassCommentª
+«EXPAND xpt::Common::generatedClassComment»
 public static class Initializers {
-	´EXPAND initializer FOREACH diagram.getAllNodes()-ª
-	´EXPAND initializer FOREACH diagram.links-ª
+	«EXPAND initializer FOREACH diagram.getAllNodes()-»
+	«EXPAND initializer FOREACH diagram.links-»
 
-	´EXPAND xpt::Common::generatedMemberCommentª
+	«EXPAND xpt::Common::generatedMemberComment»
 	private Initializers() {}
 
-	´EXPAND xpt::Common::generatedMemberCommentª
+	«EXPAND xpt::Common::generatedMemberComment»
 	public static interface IObjectInitializer {
 
-		´EXPAND xpt::Common::generatedMemberCommentª
+		«EXPAND xpt::Common::generatedMemberComment»
 		public void init(org.eclipse.emf.ecore.EObject instance);
 	}
 
-	´EXPAND xpt::Common::generatedMemberCommentª
+	«EXPAND xpt::Common::generatedMemberComment»
 	public static abstract class ObjectInitializer implements IObjectInitializer {
 
-		´EXPAND xpt::Common::generatedMemberCommentª
+		«EXPAND xpt::Common::generatedMemberComment»
 		final org.eclipse.emf.ecore.EClass element;
 
-		´EXPAND xpt::Common::generatedMemberCommentª
+		«EXPAND xpt::Common::generatedMemberComment»
 		private java.util.List featureInitializers = new java.util.ArrayList();
 
-		´EXPAND xpt::Common::generatedMemberCommentª
+		«EXPAND xpt::Common::generatedMemberComment»
 		ObjectInitializer(org.eclipse.emf.ecore.EClass element) {
 			this.element = element;
 			init();
 		}
 
-		´EXPAND xpt::Common::generatedMemberCommentª
+		«EXPAND xpt::Common::generatedMemberComment»
 		protected abstract void init();
 
-		´EXPAND xpt::Common::generatedMemberCommentª
+		«EXPAND xpt::Common::generatedMemberComment»
 		protected final IFeatureInitializer add(IFeatureInitializer initializer) {
 			featureInitializers.add(initializer);
 			return initializer;
 		}
 
-		´EXPAND xpt::Common::generatedMemberCommentª
+		«EXPAND xpt::Common::generatedMemberComment»
 		public void init(org.eclipse.emf.ecore.EObject instance) {
 			for (java.util.Iterator it = featureInitializers.iterator(); it.hasNext();) {
 				IFeatureInitializer nextExpr = (IFeatureInitializer)it.next();
 				try {
 					nextExpr.init(instance);
 				} catch(RuntimeException e) {
-					´editorGen.plugin.getActivatorQualifiedClassName()ª.getInstance().logError(
+					«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
 							"Feature initialization failed", e); //$NON-NLS-1$						
 				}
 			}
 		}
 	}
 
-	´EXPAND xpt::Common::generatedMemberCommentª
+	«EXPAND xpt::Common::generatedMemberComment»
 	interface IFeatureInitializer {
 
-		´EXPAND xpt::Common::generatedMemberCommentª
+		«EXPAND xpt::Common::generatedMemberComment»
 		void init(org.eclipse.emf.ecore.EObject contextInstance);
 	}
 
-	´EXPAND xpt::Common::generatedMemberCommentª
+	«EXPAND xpt::Common::generatedMemberComment»
 	static IFeatureInitializer createNewElementFeatureInitializer(org.eclipse.emf.ecore.EStructuralFeature initFeature, ObjectInitializer[] newObjectInitializers) {
 		final org.eclipse.emf.ecore.EStructuralFeature feature = initFeature;
 		final ObjectInitializer[] initializers = newObjectInitializers;
@@ -107,11 +107,11 @@ public static class Initializers {
 		};
 	}
 
-	´EXPAND xpt::Common::generatedMemberCommentª
+	«EXPAND xpt::Common::generatedMemberComment»
 	static IFeatureInitializer createExpressionFeatureInitializer(org.eclipse.emf.ecore.EStructuralFeature initFeature,
-			 ´editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()ª valueExpression) {
+			 «editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» valueExpression) {
 		final org.eclipse.emf.ecore.EStructuralFeature feature = initFeature;
-		final ´editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()ª expression = valueExpression;
+		final «editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» expression = valueExpression;
 		return new IFeatureInitializer() {
 
 			public void init(org.eclipse.emf.ecore.EObject contextInstance) {
@@ -120,151 +120,151 @@ public static class Initializers {
 		};
 	}
 
-	´EXPAND xpt::Common::generatedMemberCommentª
+	«EXPAND xpt::Common::generatedMemberComment»
 	static class Java {
-		´EXPAND javaInitializer FOREACH diagram.getAllNodes()-ª
-		´EXPAND javaInitializer FOREACH diagram.links-ª
+		«EXPAND javaInitializer FOREACH diagram.getAllNodes()-»
+		«EXPAND javaInitializer FOREACH diagram.links-»
 	}
 }
-´ENDDEFINEª
+«ENDDEFINE»
 
-´DEFINE additions FOR gmfgen::GenDiagramª´ENDDEFINEª
+«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
 
 
-´REMª
+«REM»
 	Definitions of initializer objects.
-´ENDREMª
+«ENDREM»
 
-´DEFINE initializer FOR GenNode-ª
-	´EXPAND initializer(this) FOR modelFacet-ª
-´ENDDEFINEª
+«DEFINE initializer FOR GenNode-»
+	«EXPAND initializer(this) FOR modelFacet-»
+«ENDDEFINE»
 
-´DEFINE initializer FOR GenLink-ª
-	´EXPAND initializer(this) FOR modelFacet-ª
-´ENDDEFINEª
+«DEFINE initializer FOR GenLink-»
+	«EXPAND initializer(this) FOR modelFacet-»
+«ENDDEFINE»
 
-´DEFINE initializer(GenCommonBase diagramElement) FOR ModelFacet-ª
-´ENDDEFINEª
+«DEFINE initializer(GenCommonBase diagramElement) FOR ModelFacet-»
+«ENDDEFINE»
 
-´DEFINE initializer(GenCommonBase diagramElement) FOR TypeModelFacet-ª
-	´EXPAND initializer(diagramElement) FOR modelElementInitializer-ª
-´ENDDEFINEª
+«DEFINE initializer(GenCommonBase diagramElement) FOR TypeModelFacet-»
+	«EXPAND initializer(diagramElement) FOR modelElementInitializer-»
+«ENDDEFINE»
 
-´DEFINE initializer(GenCommonBase diagramElement) FOR GenElementInitializer-ª
-´ENDDEFINEª
+«DEFINE initializer(GenCommonBase diagramElement) FOR GenElementInitializer-»
+«ENDDEFINE»
 
-´DEFINE initializer(GenCommonBase diagramElement) FOR GenFeatureSeqInitializer-ª
+«DEFINE initializer(GenCommonBase diagramElement) FOR GenFeatureSeqInitializer-»
 
-		´EXPAND xpt::Common::generatedMemberCommentª
-		public static final IObjectInitializer ´getInitializerFieldName(diagramElement.getUniqueIdentifier())ª =
-				new ObjectInitializer(´getElementClassAccessor()ª) {
+		«EXPAND xpt::Common::generatedMemberComment»
+		public static final IObjectInitializer «getInitializerFieldName(diagramElement.getUniqueIdentifier())» =
+				new ObjectInitializer(«getElementClassAccessor()») {
 
 		 	protected void init() {
-		 	´EXPAND addInitializer(diagramElement) FOREACH initializers-ª
+		 	«EXPAND addInitializer(diagramElement) FOREACH initializers-»
 			}
-			´EXPAND nestedInitializer(diagramElement) FOREACH initializers-ª
+			«EXPAND nestedInitializer(diagramElement) FOREACH initializers-»
 		};
-´ENDDEFINEª
+«ENDDEFINE»
 
-´DEFINE nestedInitializer(GenCommonBase diagramElement) FOR GenFeatureInitializer-ª
-´ENDDEFINEª
+«DEFINE nestedInitializer(GenCommonBase diagramElement) FOR GenFeatureInitializer-»
+«ENDDEFINE»
 
-´DEFINE nestedInitializer(GenCommonBase diagramElement) FOR GenReferenceNewElementSpec-ª
-	´FOREACH newElementInitializers AS seqInitializer-ª
+«DEFINE nestedInitializer(GenCommonBase diagramElement) FOR GenReferenceNewElementSpec-»
+	«FOREACH newElementInitializers AS seqInitializer-»
 
-		ObjectInitializer ´seqInitializer.getInitializerFieldName(diagramElement.getUniqueIdentifier())ª() {
-			return new ObjectInitializer(´seqInitializer.getElementClassAccessor()ª) {
+		ObjectInitializer «seqInitializer.getInitializerFieldName(diagramElement.getUniqueIdentifier())»() {
+			return new ObjectInitializer(«seqInitializer.getElementClassAccessor()») {
 
 		 		protected void init() {
-		 			´EXPAND addInitializer(diagramElement) FOREACH seqInitializer.initializers-ª
+		 			«EXPAND addInitializer(diagramElement) FOREACH seqInitializer.initializers-»
 				}
 			};
 		}
-		´EXPAND nestedInitializer(diagramElement) FOREACH seqInitializer.initializers-ª
-	´ENDFOREACH-ª
-´ENDDEFINEª
+		«EXPAND nestedInitializer(diagramElement) FOREACH seqInitializer.initializers-»
+	«ENDFOREACH-»
+«ENDDEFINE»
 
-´DEFINE addInitializer(GenCommonBase diagramElement) FOR GenFeatureInitializer-ª
-´ENDDEFINEª
+«DEFINE addInitializer(GenCommonBase diagramElement) FOR GenFeatureInitializer-»
+«ENDDEFINE»
 
-´DEFINE addInitializer(GenCommonBase diagramElement) FOR GenReferenceNewElementSpec-ª
-	add(createNewElementFeatureInitializer(´featureSeqInitializer.getFeatureAccessor(this)ª, new ObjectInitializer[] {
-	´FOREACH newElementInitializers AS newElemInit-ª
-		´newElemInit.getInitializerFieldName(diagramElement.getUniqueIdentifier())ª(),
-	´ENDFOREACH-ª
+«DEFINE addInitializer(GenCommonBase diagramElement) FOR GenReferenceNewElementSpec-»
+	add(createNewElementFeatureInitializer(«featureSeqInitializer.getFeatureAccessor(this)», new ObjectInitializer[] {
+	«FOREACH newElementInitializers AS newElemInit-»
+		«newElemInit.getInitializerFieldName(diagramElement.getUniqueIdentifier())»(),
+	«ENDFOREACH-»
 	}));
-´ENDDEFINEª
+«ENDDEFINE»
 
-´DEFINE addInitializer(GenCommonBase diagramElement) FOR GenFeatureValueSpec-ª
-	add(createExpressionFeatureInitializer(´featureSeqInitializer.getFeatureAccessor(this)ª,
-	´LET diagramElement.getDiagram().editorGen.expressionProviders AS providers-ª
-		´EXPAND initializerExpr(this) FOR providers.getProvider(this)-ª
-	´ENDLET-ª
+«DEFINE addInitializer(GenCommonBase diagramElement) FOR GenFeatureValueSpec-»
+	add(createExpressionFeatureInitializer(«featureSeqInitializer.getFeatureAccessor(this)»,
+	«LET diagramElement.getDiagram().editorGen.expressionProviders AS providers-»
+		«EXPAND initializerExpr(this) FOR providers.getProvider(this)-»
+	«ENDLET-»
 	 ));
-´ENDDEFINEª
+«ENDDEFINE»
 
-´DEFINE initializerExpr(GenFeatureValueSpec valueExpr) FOR GenExpressionProviderBase-ª
-´ENDDEFINEª
+«DEFINE initializerExpr(GenFeatureValueSpec valueExpr) FOR GenExpressionProviderBase-»
+«ENDDEFINE»
 
-´DEFINE initializerExpr(GenFeatureValueSpec valueExpr) FOR GenExpressionInterpreter-ª
-	´getQualifiedClassName()ª.´getExpressionAccessor(valueExpr)ª(´valueExpr.getBodyString()ª, //$NON-NLS-1$
-		´getQualifiedClassifierAccessor(valueExpr.featureSeqInitializer.elementClass)ª())
-´ENDDEFINEª
+«DEFINE initializerExpr(GenFeatureValueSpec valueExpr) FOR GenExpressionInterpreter-»
+	«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», //$NON-NLS-1$
+		«getQualifiedClassifierAccessor(valueExpr.featureSeqInitializer.elementClass)»())
+«ENDDEFINE»
 
-´DEFINE initializerExpr(GenFeatureValueSpec valueExpr) FOR GenJavaExpressionProvider-ª
-	´LET valueExpr.featureSeqInitializer.elementClass AS exprContext-ª
-	new ´container.getAbstractExpressionQualifiedClassName()ª(´getQualifiedClassifierAccessor(exprContext)ª()) {
+«DEFINE initializerExpr(GenFeatureValueSpec valueExpr) FOR GenJavaExpressionProvider-»
+	«LET valueExpr.featureSeqInitializer.elementClass AS exprContext-»
+	new «container.getAbstractExpressionQualifiedClassName()»(«getQualifiedClassifierAccessor(exprContext)»()) {
 
 		protected Object doEvaluate(Object context, java.util.Map env) {
-			´getQualifiedInstanceClassName(exprContext)ª self = (´getQualifiedInstanceClassName(exprContext)ª) context;
-			return Java.´getOperationName(valueExpr)ª(self);
+			«getQualifiedInstanceClassName(exprContext)» self = («getQualifiedInstanceClassName(exprContext)») context;
+			return Java.«getOperationName(valueExpr)»(self);
 		}
 	}
-	´ENDLET-ª
-´ENDDEFINEª
+	«ENDLET-»
+«ENDDEFINE»
 
 
-´REMª
+«REM»
 	Definitions of Java initialization methods.
-´ENDREMª
+«ENDREM»
 
-´DEFINE javaInitializer FOR GenNode-ª
-	´EXPAND javaInitializer(this) FOR modelFacet-ª
-´ENDDEFINEª
+«DEFINE javaInitializer FOR GenNode-»
+	«EXPAND javaInitializer(this) FOR modelFacet-»
+«ENDDEFINE»
 
-´DEFINE javaInitializer FOR GenLink-ª
-	´EXPAND javaInitializer(this) FOR modelFacet-ª
-´ENDDEFINEª
+«DEFINE javaInitializer FOR GenLink-»
+	«EXPAND javaInitializer(this) FOR modelFacet-»
+«ENDDEFINE»
 
-´DEFINE javaInitializer(GenCommonBase diagramElement) FOR ModelFacet-ª
-´ENDDEFINEª
+«DEFINE javaInitializer(GenCommonBase diagramElement) FOR ModelFacet-»
+«ENDDEFINE»
 
-´DEFINE javaInitializer(GenCommonBase diagramElement) FOR TypeModelFacet-ª
-	´EXPAND javaInitializer(diagramElement) FOR modelElementInitializer-ª
-´ENDDEFINEª
+«DEFINE javaInitializer(GenCommonBase diagramElement) FOR TypeModelFacet-»
+	«EXPAND javaInitializer(diagramElement) FOR modelElementInitializer-»
+«ENDDEFINE»
 
-´DEFINE javaInitializer(GenCommonBase diagramElement) FOR GenElementInitializer-ª
-´ENDDEFINEª
+«DEFINE javaInitializer(GenCommonBase diagramElement) FOR GenElementInitializer-»
+«ENDDEFINE»
 
-´DEFINE javaInitializer(GenCommonBase diagramElement) FOR GenFeatureSeqInitializer-ª
-	´LET diagramElement.getDiagram().editorGen.expressionProviders AS providers-ª
-		´FOREACH getJavaExpressionFeatureInitializersList(providers) AS valueExpression-ª
-			´EXPAND javaInitializer(valueExpression, valueExpression.featureSeqInitializer.elementClass, null) FOR providers.getProvider(valueExpression)-ª
-		´ENDFOREACH-ª
-	´ENDLET-ª
-	´EXPAND nestedJavaInitializer(diagramElement) FOREACH initializers-ª
-´ENDDEFINEª
+«DEFINE javaInitializer(GenCommonBase diagramElement) FOR GenFeatureSeqInitializer-»
+	«LET diagramElement.getDiagram().editorGen.expressionProviders AS providers-»
+		«FOREACH getJavaExpressionFeatureInitializersList(providers) AS valueExpression-»
+			«EXPAND javaInitializer(valueExpression, valueExpression.featureSeqInitializer.elementClass, null) FOR providers.getProvider(valueExpression)-»
+		«ENDFOREACH-»
+	«ENDLET-»
+	«EXPAND nestedJavaInitializer(diagramElement) FOREACH initializers-»
+«ENDDEFINE»
 
-´DEFINE nestedJavaInitializer(GenCommonBase diagramElement) FOR GenFeatureInitializer-ª
-´ENDDEFINEª
+«DEFINE nestedJavaInitializer(GenCommonBase diagramElement) FOR GenFeatureInitializer-»
+«ENDDEFINE»
 
-´DEFINE nestedJavaInitializer(GenCommonBase diagramElement) FOR GenReferenceNewElementSpec-ª
-	´EXPAND javaInitializer(diagramElement) FOREACH newElementInitializers-ª
-´ENDDEFINEª
+«DEFINE nestedJavaInitializer(GenCommonBase diagramElement) FOR GenReferenceNewElementSpec-»
+	«EXPAND javaInitializer(diagramElement) FOREACH newElementInitializers-»
+«ENDDEFINE»
 
-´DEFINE javaInitializer(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context, genmodel::GenClassifier oppositeEndContext) FOR GenExpressionProviderBase-ª
-´ENDDEFINEª
+«DEFINE javaInitializer(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context, genmodel::GenClassifier oppositeEndContext) FOR GenExpressionProviderBase-»
+«ENDDEFINE»
 
-´DEFINE javaInitializer(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context, genmodel::GenClassifier oppositeEndContext) FOR GenJavaExpressionProvider-ª
-	´EXPAND xpt::expressions::javaExpressionOperation::javaExpressionOperation(valueExpr, context, oppositeEndContext)-ª
-´ENDDEFINEª
+«DEFINE javaInitializer(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context, genmodel::GenClassifier oppositeEndContext) FOR GenJavaExpressionProvider-»
+	«EXPAND xpt::expressions::javaExpressionOperation::javaExpressionOperation(valueExpr, context, oppositeEndContext)-»
+«ENDDEFINE»
