@@ -19,12 +19,9 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
 /**
@@ -46,7 +43,7 @@ public class ElementInitializers {
 				add(createExpressionFeatureInitializer(TaiPanPackage.eINSTANCE.getRoute_Reliability(), TaiPanOCLFactory.getExpression("0.8", //$NON-NLS-1$
 						TaiPanPackage.eINSTANCE.getRoute())));
 			}
-		}; // Route_4002 ObjectInitializer		
+		};
 
 		/**
 		 * @generated
@@ -57,41 +54,41 @@ public class ElementInitializers {
 				add(createExpressionFeatureInitializer(TaiPanPackage.eINSTANCE.getRoute_Reliability(), TaiPanOCLFactory.getExpression("0.2", //$NON-NLS-1$
 						TaiPanPackage.eINSTANCE.getRoute())));
 			}
-		}; // Route_4003 ObjectInitializer
+		};
 
-		/** 
+		/**
 		 * @generated
 		 */
 		private Initializers() {
 		}
 
-		/** 
+		/**
 		 * @generated
 		 */
 		public static interface IObjectInitializer {
 
-			/** 
+			/**
 			 * @generated
 			 */
 			public void init(EObject instance);
 		}
 
-		/** 
+		/**
 		 * @generated
 		 */
 		public static abstract class ObjectInitializer implements IObjectInitializer {
 
-			/** 
+			/**
 			 * @generated
 			 */
 			final EClass element;
 
-			/** 
+			/**
 			 * @generated
 			 */
 			private List featureInitializers = new ArrayList();
 
-			/** 
+			/**
 			 * @generated
 			 */
 			ObjectInitializer(EClass element) {
@@ -104,7 +101,7 @@ public class ElementInitializers {
 			 */
 			protected abstract void init();
 
-			/** 
+			/**
 			 * @generated
 			 */
 			protected final IFeatureInitializer add(IFeatureInitializer initializer) {
@@ -112,7 +109,7 @@ public class ElementInitializers {
 				return initializer;
 			}
 
-			/** 
+			/**
 			 * @generated
 			 */
 			public void init(EObject instance) {
@@ -125,9 +122,9 @@ public class ElementInitializers {
 					}
 				}
 			}
-		} // end of ObjectInitializer
+		}
 
-		/** 
+		/**
 		 * @generated
 		 */
 		interface IFeatureInitializer {
@@ -173,5 +170,11 @@ public class ElementInitializers {
 				}
 			};
 		}
-	} // end of Initializers
+
+		/**
+		 * @generated
+		 */
+		static class Java {
+		}
+	}
 }
