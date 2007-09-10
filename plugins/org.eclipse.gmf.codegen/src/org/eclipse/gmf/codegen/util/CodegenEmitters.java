@@ -28,7 +28,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.providers.ElementInitializersGenerator;
 import org.eclipse.gmf.codegen.templates.providers.MetricProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ValidationProviderGenerator;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
@@ -100,7 +99,6 @@ public class CodegenEmitters {
 	}
 
 	private static void initRegistry(StaticTemplateRegistry tr) {
-		put(tr, "/providers/ElementInitializers.javajet", ElementInitializersGenerator.class); //$NON-NLS-1$
 		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class); //$NON-NLS-1$		
@@ -385,7 +383,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getElementInitializersEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ElementInitializersGenerator.class);
+		return getPrimaryEmitter("xpt::providers::ElementInitializers"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getElementTypesEmitter() throws UnexpectedBehaviourException {
