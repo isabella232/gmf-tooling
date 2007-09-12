@@ -612,11 +612,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateMetricProvider() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getMetricProviderEmitter(),
-			myDiagram.getProvidersPackageName(),
-			myDiagram.getMetricProviderClassName(),
-			myDiagram);
+		doGenerateJavaClass(myEmitters.getMetricProviderEmitter(), myDiagram.getMetricProviderQualifiedClassName(), myDiagram);
 	}	
 
 	private void generateMarkerNavigationProvider() throws UnexpectedBehaviourException, InterruptedException {
