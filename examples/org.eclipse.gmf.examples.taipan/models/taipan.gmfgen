@@ -43,6 +43,37 @@
       </target>
     </rules>
   </audits>
+  <metrics>
+    <metrics
+        name="Route Reliability"
+        description="Safety of the route."
+        key="RouteRelb"
+        lowLimit="0.1"
+        highLimit="0.9">
+      <rule
+          body="reliability"/>
+      <target
+          xsi:type="gmfgen:GenDomainElementTarget">
+        <element
+            href="taipan.genmodel#//taipan/Route"/>
+      </target>
+    </metrics>
+    <metrics
+        name="Ship Load"
+        description="Quantity of items loaded on ship."
+        key="ShipLoad"
+        lowLimit="1.0"
+        highLimit="5.0">
+      <rule
+          body="cargo.size()"
+          language="java"/>
+      <target
+          xsi:type="gmfgen:GenDomainElementTarget">
+        <element
+            href="taipan.genmodel#//taipan/Ship"/>
+      </target>
+    </metrics>
+  </metrics>
   <diagram
       visualID="1000"
       iconProviderPriority="Low"
@@ -872,9 +903,9 @@
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.5/@creationConstraints/@sourceEnd //@diagram/@links.5/@creationConstraints/@targetEnd //@diagram/@links.4/@creationConstraints/@sourceEnd //@audits/@rules.0/@rule"/>
+        expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.5/@creationConstraints/@sourceEnd //@diagram/@links.5/@creationConstraints/@targetEnd //@diagram/@links.4/@creationConstraints/@sourceEnd //@audits/@rules.0/@rule //@metrics/@metrics.0/@rule"/>
     <providers
         xsi:type="gmfgen:GenJavaExpressionProvider"
-        expressions="//@audits/@rules.1/@rule"/>
+        expressions="//@audits/@rules.1/@rule //@metrics/@metrics.1/@rule"/>
   </expressionProviders>
 </gmfgen:GenEditorGenerator>
