@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.util.EcoreUtil.CrossReferencer;
+import org.eclipse.gmf.internal.common.codegen.Conversions;
 
 public class EmfUtils {
 	
@@ -33,5 +34,9 @@ public class EmfUtils {
             result.add(setting.getEObject());
         }
 		return result;
+	}
+
+	public static final String toStringLiteral(String s) {
+		return Conversions.toStringLiteral(s);
 	}
 }

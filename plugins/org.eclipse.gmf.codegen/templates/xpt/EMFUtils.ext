@@ -13,5 +13,9 @@
 import "http://www.eclipse.org/emf/2002/Ecore";
 
 List[Object] getReferencingObjects(Object target) :
-JAVA org.eclipse.gmf.internal.codegen.util.EmfUtils.getReferencingObjects(org.eclipse.emf.ecore.EObject)
+	JAVA org.eclipse.gmf.internal.codegen.util.EmfUtils.getReferencingObjects(org.eclipse.emf.ecore.EObject)
+;
+
+String toStringLiteral(String strValue) :
+	JAVA org.eclipse.gmf.internal.codegen.util.EmfUtils.toStringLiteral(java.lang.String)
 ;
