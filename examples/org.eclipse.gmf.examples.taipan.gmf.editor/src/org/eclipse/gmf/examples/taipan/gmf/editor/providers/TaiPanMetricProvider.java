@@ -200,7 +200,6 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 						elementMetrics.target = null; // detach EObject
 						elementMetrics.diagramElementID = targetView.eResource().getURIFragment(targetView);
 					}
-
 					setResult(metrics);
 				}
 			});
@@ -235,7 +234,6 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 				throw new UnsupportedOperationException();
 			}
 		};
-
 		ArrayList metricsPerContext = new ArrayList();
 		while (it.hasNext()) {
 			Object nextElement = it.next();
@@ -256,14 +254,12 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 					}
 					nextTarget = superTypeIt.hasNext() ? (EClass) superTypeIt.next() : null;
 				}
-
 				if (!metricsPerContext.isEmpty()) {
 					metricsList.add(new ElementMetrics(nextEObj, (Metric[]) metricsPerContext.toArray(new Metric[metricsPerContext.size()])));
 					metricsPerContext.clear();
 				}
 			}
 		}
-
 		return metricsList;
 	}
 
@@ -291,7 +287,6 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 		void setInput(IDiagramWorkbenchPart diagramPart) {
 			diagramResource = diagramPart.getDiagram().eResource();
 			setTitleToolTip(diagramResource.getURI().path());
-
 			List metrics = calculateMetrics(diagramPart);
 			adjustLayout(metrics);
 			viewer.setInput(metrics);
@@ -304,8 +299,7 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 			Map maxValStrMap = calcMetricMaxValueStrLenMap(metricResultList);
 			Table table = viewer.getTable();
 			TableLayout layout = new TableLayout();
-
-			GC gc = new GC(table);
+			org.eclipse.swt.graphics.GC gc = new org.eclipse.swt.graphics.GC(table);
 			gc.setFont(JFaceResources.getDialogFont());
 			int padding = gc.stringExtent("X").x * 2; //$NON-NLS-1$
 			for (int i = 0; i < getMetrics().size(); i++) {
@@ -315,7 +309,6 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 				layout.addColumnData(new ColumnPixelData(minWidth, true));
 			}
 			gc.dispose();
-
 			layout.addColumnData(new ColumnWeightData(1, 50, true));
 			viewer.getTable().setLayout(layout);
 			viewer.getTable().layout(true, true);
@@ -329,7 +322,6 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 			final Table table = viewer.getTable();
 			table.setHeaderVisible(true);
 			table.setLinesVisible(true);
-
 			for (int i = 0; i < getMetrics().size(); i++) {
 				MetricDef nextMetric = ((MetricDef) getMetrics().get(i));
 				TableColumn column = new TableColumn(table, SWT.NONE);
@@ -338,11 +330,9 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 				column.setText(nextMetric.key);
 				column.setToolTipText(nextMetric.getToolTipText());
 			}
-
 			TableColumn objectColumn = new TableColumn(table, SWT.NONE);
 			objectColumn.setText("Element");
 			objectColumn.setToolTipText("Measurement element");
-
 			viewer.setLabelProvider(new Labels());
 			viewer.setContentProvider(new ArrayContentProvider());
 			viewer.addOpenListener(new IOpenListener() {
@@ -351,7 +341,6 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 					handleOpen(event);
 				}
 			});
-
 			SelectionListener headerSelListener = new SelectionListener() {
 
 				public void widgetSelected(SelectionEvent e) {
@@ -367,7 +356,6 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 			for (int i = 0; i < columns.length; i++) {
 				columns[i].addSelectionListener(headerSelListener);
 			}
-
 			viewer.setSorter(new ViewerSorter() {
 
 				public int compare(Viewer viewer, Object e1, Object e2) {
@@ -383,7 +371,6 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 					return table.getSortDirection() == SWT.DOWN ? result : -result;
 				}
 			});
-
 			IEditorPart editor = getSite().getPage().getActiveEditor();
 			if (editor != null && editor.getClass().equals(TaiPanDiagramEditor.class)) {
 				setInput((TaiPanDiagramEditor) editor);
@@ -400,7 +387,6 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 					return;
 				}
 				IDiagramWorkbenchPart diagramPart = (IDiagramWorkbenchPart) editorPart.getAdapter(IDiagramWorkbenchPart.class);
-
 				ElementMetrics selection = (ElementMetrics) ((IStructuredSelection) event.getSelection()).getFirstElement();
 				String viewID = selection.diagramElementID;
 				if (viewID != null) {
@@ -427,7 +413,6 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 				int trimPos = Math.min(nextKey.length(), MAX_VISIBLE_KEY_CHAR_COUNT);
 				metric2MaxStrLen.put(nextKey, nextKey.substring(0, trimPos));
 			}
-
 			for (Iterator it = allMetrics.iterator(); it.hasNext();) {
 				ElementMetrics elementMetrics = (ElementMetrics) it.next();
 				for (int i = 0; i < elementMetrics.metrics.length; i++) {
@@ -471,11 +456,9 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 			 */
 			public String getColumnText(Object element, int columnIndex) {
 				ElementMetrics elementMetrics = (ElementMetrics) element;
-
 				if (columnIndex == getMetrics().size()) {
 					return elementMetrics.targetElementQName;
 				}
-
 				String key = ((MetricDef) getMetrics().get(columnIndex)).key;
 				Metric metric = elementMetrics.getMetricByKey(key);
 				return (metric != null) ? metric.displayValue : "-"; //$NON-NLS-1$
@@ -492,8 +475,9 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 			 * @generated
 			 */
 			public Color getForeground(Object element, int columnIndex) {
-				if (isElementColumn(columnIndex))
+				if (isElementColumn(columnIndex)) {
 					return null;
+				}
 				ElementMetrics columnElement = (ElementMetrics) element;
 				String key = ((MetricDef) getMetrics().get(columnIndex)).key;
 				Metric metric = columnElement.getMetricByKey(key);
@@ -542,7 +526,6 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 			this.metrics = metrics;
 			assert metrics.length > 0;
 			this.target = target;
-
 			EClass imageTarget = target.eClass();
 			if (target instanceof View) {
 				View viewTarget = (View) target;
@@ -554,7 +537,6 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 				}
 				int visualID = TaiPanVisualIDRegistry.getVisualID(viewTarget);
 				notationQNameBuf.append('[').append(visualID < 0 ? Integer.toString(System.identityHashCode(viewTarget)) : Integer.toString(visualID)).append(']');
-
 				this.targetElementQName = notationQNameBuf.toString();
 			} else {
 				this.targetElementQName = EMFCoreUtil.getQualifiedName(target, true);
@@ -690,14 +672,18 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 		 */
 		String getToolTipText() {
 			StringBuffer buf = new StringBuffer();
-			if (name != null)
+			if (name != null) {
 				buf.append(name);
-			if (description != null)
+			}
+			if (description != null) {
 				buf.append('\n').append(description).append('\n');
-			if (lowLimit != null)
+			}
+			if (lowLimit != null) {
 				buf.append("low:").append(lowLimit);
-			if (highLimit != null)
+			}
+			if (highLimit != null) {
 				buf.append(" high:").append(highLimit);
+			}
 			return buf.toString();
 		}
 	}
@@ -738,12 +724,11 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 	 * @generated
 	 */
 	private static void initializeRegistry() {
-		if (context2MetricsMap != null)
+		if (context2MetricsMap != null) {
 			return;
-
+		}
 		register(new MetricDef("RouteRelb", TaiPanOCLFactory.getExpression("reliability", //$NON-NLS-1$
 				TaiPanPackage.eINSTANCE.getRoute()), null, new Double(0.1), new Double(0.9), "Route Reliability", "Safety of the route."));
-
 		register(new MetricDef("ShipLoad", new TaiPanAbstractExpression(TaiPanPackage.eINSTANCE.getShip()) {
 
 			protected Object doEvaluate(Object context, Map env) {
