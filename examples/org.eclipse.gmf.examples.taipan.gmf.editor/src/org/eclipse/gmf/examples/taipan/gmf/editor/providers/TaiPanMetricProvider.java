@@ -21,44 +21,30 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.draw2d.ColorConstants;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.resource.Resource;
-
 import org.eclipse.emf.transaction.RunnableWithResult;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
-
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditor;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorUtil;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
-
 import org.eclipse.gmf.runtime.common.ui.services.action.contributionitem.AbstractContributionItemProvider;
-
 import org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart;
-
 import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
-
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
-
 import org.eclipse.jface.resource.JFaceResources;
-
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnPixelData;
 import org.eclipse.jface.viewers.ColumnWeightData;
@@ -72,26 +58,19 @@ import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
-
 import org.eclipse.swt.SWT;
-
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ViewPart;
 
@@ -104,14 +83,17 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 	 * @generated
 	 */
 	private static HashMap context2MetricsMap;
+
 	/**
 	 * @generated
 	 */
 	private static List metricsRegistry;
+
 	/**
 	 * @generated
 	 */
 	private static HashMap key2MetricMap;
+
 	/**
 	 * @generated
 	 */
@@ -136,6 +118,7 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 		 * @generated
 		 */
 		public static final String ACTION_KEY = "metricsAction"; //$NON-NLS-1$
+
 		/**
 		 * @generated
 		 */
@@ -272,10 +255,12 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 		 * @generated
 		 */
 		public static final String VIEW_ID = "org.eclipse.gmf.examples.taipan.gmf.editor.metricView"; //$NON-NLS-1$
+
 		/**
 		 * @generated
 		 */
 		private TableViewer viewer;
+
 		/**
 		 * @generated
 		 */
@@ -502,18 +487,22 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 		 * @generated
 		 */
 		final Metric[] metrics;
+
 		/**
 		 * @generated
 		 */
 		final String targetElementQName;
+
 		/**
 		 * @generated
 		 */
 		final Image elementImage;
+
 		/**
 		 * @generated
 		 */
 		String diagramElementID;
+
 		/**
 		 * @generated
 		 */
@@ -566,10 +555,12 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 		 * @generated
 		 */
 		final MetricDef def;
+
 		/**
 		 * @generated
 		 */
 		final Number value;
+
 		/**
 		 * @generated
 		 */
@@ -605,26 +596,32 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 		 * @generated
 		 */
 		final Double lowLimit;
+
 		/**
 		 * @generated
 		 */
 		final Double highLimit;
+
 		/**
 		 * @generated
 		 */
 		final String key;
+
 		/**
 		 * @generated
 		 */
 		final TaiPanAbstractExpression expression;
+
 		/**
 		 * @generated
 		 */
 		final int[] semanticIDs;
+
 		/**
 		 * @generated
 		 */
 		final String name;
+
 		/**
 		 * @generated
 		 */
@@ -768,6 +765,5 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 		private static Double cargosize(Ship self) {
 			return new Double(self.getCargo().size());
 		}
-	} //JavaRules		
-
+	}
 }
