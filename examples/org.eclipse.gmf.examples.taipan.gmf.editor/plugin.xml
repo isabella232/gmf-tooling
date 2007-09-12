@@ -625,4 +625,23 @@ Contributors:
          sequence="F5"/>
    </extension>
 
+   <extension id="MetricContributionItemProvider" name="Metrics"
+		point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+        <?gmfgen generated="true"?>
+		<contributionItemProvider checkPluginLoaded="true" class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMetricProvider">
+			<Priority name="Lowest"/>		
+			<partContribution id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
+				<partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
+				<partAction id="metricsAction" menubarPath="/diagramMenu/validationGroup"/>
+			</partContribution>		
+		</contributionItemProvider>
+	</extension>
+
+   <extension point="org.eclipse.ui.views">
+      <?gmfgen generated="true"?>
+   	  <view class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMetricProvider$ResultView"
+			id="org.eclipse.gmf.examples.taipan.gmf.editor.metricView"
+			name="TaiPan Diagram Metrics"/>
+   </extension>
+
 </plugin>
