@@ -570,6 +570,8 @@ Contributors:
       <constraintProvider cache="true">
          <package namespaceUri="http://www.eclipse.org/examples/gmf/taipan"/>
          <package namespaceUri="http://www.eclipse.org/examples/gmf/taipan"/>
+         <package namespaceUri="http://www.eclipse.org/examples/gmf/taipan"/>
+         <package namespaceUri="http://www.eclipse.org/gmf/runtime/1.0.1/notation"/>
                <constraints categories="taipan">
                   <constraint id="port_location"
             lang="OCL"
@@ -591,6 +593,26 @@ Contributors:
             <message><![CDATA[Ship name should not be empty]]></message>
             <target class="taipan.Ship"/>
          </constraint>
+                  <constraint id="litem_weight"
+            lang="OCL"
+            name="Large Item Weight"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[weight > 0]]>
+            <description><![CDATA[Large item weight check]]></description>
+            <message><![CDATA[Large item weight should be greater than zero.]]></message>
+            <target class="taipan.LargeItem"/>
+         </constraint>
+                  <constraint id="ship_type"
+            lang="OCL"
+            name="Ship Type"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[element.eClass().name = 'Ship']]>
+            <description><![CDATA[Ship type check]]></description>
+            <message><![CDATA[Invalid ship type.]]></message>
+            <target class="notation.Node"/>
+         </constraint>
                   </constraints>
       </constraintProvider>
    </extension>
@@ -603,6 +625,13 @@ Contributors:
       <binding context="org.eclipse.gmf.examples.taipan.gmf.editor.DefaultCtx">
                   <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.port_location"/>
                   <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.ship_name"/>
+                  <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.litem_weight"/>
+               </binding>
+            <clientContext default="false" id="org.eclipse.gmf.examples.taipan.gmf.editor.Ctx_2002">
+         <selector class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider$ShipType"/>
+      </clientContext>
+      <binding context="org.eclipse.gmf.examples.taipan.gmf.editor.Ctx_2002">
+                  <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.ship_type"/>
                </binding>
                </extension>
 
