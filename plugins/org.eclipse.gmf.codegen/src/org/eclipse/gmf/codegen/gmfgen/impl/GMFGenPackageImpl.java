@@ -7376,6 +7376,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genAuditRuleEClass, ecorePackage.getEString(), "getConstraintAdapterQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		addEOperation(genAuditRuleEClass, ecorePackage.getEString(), "getConstraintAdapterLocalClassName", 1, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(genRuleTargetEClass, GenRuleTarget.class, "GenRuleTarget", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		addEOperation(genRuleTargetEClass, theGenModelPackage.getGenClassifier(), "getContext", 1, 1, IS_UNIQUE, IS_ORDERED);

@@ -727,6 +727,7 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenAuditRule/getContextSelectorClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenAuditRule/getContextSelectorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenAuditRule/getConstraintAdapterQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenAuditRule/getConstraintAdapterLocalClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenRuleTarget">
       <genOperations ecoreOperation="gmfgen.ecore#//GenRuleTarget/getContext"/>
