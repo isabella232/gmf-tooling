@@ -620,7 +620,7 @@ Contributors:
    <extension point="org.eclipse.emf.validation.constraintBindings">
       <?gmfgen generated="true"?>
                   <clientContext default="false" id="org.eclipse.gmf.examples.taipan.gmf.editor.DefaultCtx">
-         <selector class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider$DefaultCtx"/>
+         <selector class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider$PortLocation"/>
       </clientContext>
       <binding context="org.eclipse.gmf.examples.taipan.gmf.editor.DefaultCtx">
                   <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.port_location"/>

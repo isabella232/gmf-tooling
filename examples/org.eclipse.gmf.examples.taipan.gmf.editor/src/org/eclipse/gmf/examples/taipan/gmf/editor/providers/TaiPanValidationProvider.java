@@ -116,7 +116,20 @@ public class TaiPanValidationProvider extends AbstractContributionItemProvider {
 	/**
 	 * @generated
 	 */
-	public static class DefaultCtx implements IClientSelector {
+	public static class PortLocation implements IClientSelector {
+
+		/**
+		 * @generated
+		 */
+		public boolean selects(Object object) {
+			return isInDefaultEditorContext(object);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class ShipName implements IClientSelector {
 
 		/**
 		 * @generated
