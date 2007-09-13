@@ -28,7 +28,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.providers.ValidationProviderGenerator;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.codegen.dispatch.CachingEmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
@@ -98,7 +97,6 @@ public class CodegenEmitters {
 	}
 
 	private static void initRegistry(StaticTemplateRegistry tr) {
-		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class); //$NON-NLS-1$
@@ -413,7 +411,7 @@ public class CodegenEmitters {
 	}	
 
 	public TextEmitter getValidationProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ValidationProviderGenerator.class);
+		return getPrimaryEmitter("xpt::providers::ValidationProvider"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getValidationDecoratorProviderEmitter() throws UnexpectedBehaviourException {

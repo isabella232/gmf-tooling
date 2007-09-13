@@ -423,10 +423,11 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 		if (getContextSelectorLocalClassNameGen() != null) {
 			return getContextSelectorLocalClassNameGen();
 		}
-		if(getTarget() == null) {
-			return "NoCtx"; //$NON-NLS-1$
+		String name = "NoCtx"; //$NON-NLS-1$
+		if (getTarget() != null) {
+			name = getTarget().getClientContextID(); 
 		}
-		return getTarget().getClientContextID(); 
+		return name + (getRoot().getRules().indexOf(this) + 1);
 	}
 
 	/**

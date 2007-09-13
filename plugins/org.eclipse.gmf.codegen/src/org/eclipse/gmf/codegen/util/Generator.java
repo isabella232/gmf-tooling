@@ -592,11 +592,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateValidationProvider() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getValidationProviderEmitter(),
-			myDiagram.getProvidersPackageName(),
-			myDiagram.getValidationProviderClassName(),
-			myDiagram);
+		doGenerateJavaClass(myEmitters.getValidationProviderEmitter(), myDiagram.getValidationProviderQualifiedClassName(), myDiagram);
 	}
 
 	private void generateValidationDecoratorProvider() throws UnexpectedBehaviourException, InterruptedException {

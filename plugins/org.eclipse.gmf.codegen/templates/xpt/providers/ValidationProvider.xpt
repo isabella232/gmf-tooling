@@ -1,0 +1,318 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«EXTENSION xpt::GenModelUtils»
+«EXTENSION xpt::EMFUtils»
+
+«DEFINE ValidationProvider FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::copyright FOR editorGen-»
+package «providersPackageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «validationProviderClassName»
+		extends org.eclipse.gmf.runtime.common.ui.services.action.contributionitem.AbstractContributionItemProvider {
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static boolean constraintsActive = false;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static boolean shouldConstraintsBePrivate() {
+		return false;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.jface.action.IAction createAction(String actionId,
+			org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor partDescriptor) {
+		if («editorGen.editor.packageName».ValidateAction.VALIDATE_ACTION_KEY.equals(actionId)) {
+			return new «editorGen.editor.packageName».ValidateAction(partDescriptor);
+		}
+		return super.createAction(actionId, partDescriptor);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static void runWithConstraints(org.eclipse.gmf.runtime.notation.View view, Runnable op) {
+		final Runnable fop = op;
+		Runnable task = new Runnable() {
+
+			public void run() {
+				try {
+					constraintsActive = true;
+					fop.run();
+				} finally {
+					constraintsActive = false;
+				}
+			}
+		};
+		org.eclipse.emf.transaction.TransactionalEditingDomain txDomain =
+				org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(view);
+		if (txDomain != null) {
+			try {
+				txDomain.runExclusive(task);
+			} catch (Exception e) {
+				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
+						"Validation action failed", e); //$NON-NLS-1$
+			}
+		} else {
+			task.run();
+		}
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	static boolean isInDefaultEditorContext(Object object) {
+		if (shouldConstraintsBePrivate() && !constraintsActive) {
+			return false;
+		}
+		if (object instanceof org.eclipse.gmf.runtime.notation.View) {
+			return constraintsActive && «getEditPartQualifiedClassName()».MODEL_ID.equals(
+					«getVisualIDRegistryQualifiedClassName()».getModelID((org.eclipse.gmf.runtime.notation.View) object));
+		}
+		return true;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	static final java.util.Map semanticCtxIdMap = new java.util.HashMap();
+	«EXPAND selectors FOR editorGen.audits-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static org.eclipse.emf.validation.service.ITraversalStrategy getNotationTraversalStrategy(
+			org.eclipse.emf.validation.service.IBatchValidator validator) {
+		return new CtxSwitchStrategy(validator);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static class CtxSwitchStrategy implements org.eclipse.emf.validation.service.ITraversalStrategy {
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private org.eclipse.emf.validation.service.ITraversalStrategy defaultStrategy;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private String currentSemanticCtxId;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private boolean ctxChanged = true;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private org.eclipse.emf.ecore.EObject currentTarget;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private org.eclipse.emf.ecore.EObject preFetchedNextTarget;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		CtxSwitchStrategy(org.eclipse.emf.validation.service.IBatchValidator validator) {
+			this.defaultStrategy = validator.getDefaultTraversalStrategy();
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public void elementValidated(org.eclipse.emf.ecore.EObject element,
+				org.eclipse.core.runtime.IStatus status) {
+			defaultStrategy.elementValidated(element, status);
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public boolean hasNext() {
+			return defaultStrategy.hasNext();
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public boolean isClientContextChanged() {
+			if (preFetchedNextTarget == null) {
+				preFetchedNextTarget = next();
+				prepareNextClientContext(preFetchedNextTarget);
+			}
+			return ctxChanged;
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public org.eclipse.emf.ecore.EObject next() {
+			org.eclipse.emf.ecore.EObject nextTarget = preFetchedNextTarget;
+			if (nextTarget == null) {
+				nextTarget = defaultStrategy.next();
+			}
+			this.preFetchedNextTarget = null;
+			return this.currentTarget = nextTarget;
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public void startTraversal(java.util.Collection traversalRoots,
+				org.eclipse.core.runtime.IProgressMonitor monitor) {
+			defaultStrategy.startTraversal(traversalRoots, monitor);
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private void prepareNextClientContext(org.eclipse.emf.ecore.EObject nextTarget) { 
+			if (nextTarget != null && currentTarget != null) {
+				if (nextTarget instanceof org.eclipse.gmf.runtime.notation.View) {
+					String id = ((org.eclipse.gmf.runtime.notation.View) nextTarget).getType();
+					String nextSemanticId = id != null && semanticCtxIdMap.containsKey(id) ? id : null;
+					if ((currentSemanticCtxId != null && !currentSemanticCtxId.equals(nextSemanticId))
+							|| (nextSemanticId != null && !nextSemanticId.equals(currentSemanticCtxId))) {
+						this.ctxChanged = true;
+					}
+					currentSemanticCtxId = nextSemanticId;
+				} else {
+					// context of domain model
+					this.ctxChanged = currentSemanticCtxId != null;
+					currentSemanticCtxId = null;
+				}
+			} else {
+				this.ctxChanged = false;
+			}
+		}
+	}
+	«IF editorGen.expressionProviders != null-»
+		«EXPAND constraintAdapters(this) FOR editorGen.audits-»
+	«ENDIF-»
+	«IF editorGen.audits != null && editorGen.expressionProviders != null-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+static class JavaAudits {
+	«FOREACH editorGen.audits.rules AS rule-»
+		«IF rule.rule != null && rule.target != null && rule.target.getContext() != null-»
+			«EXPAND javaInitializer(rule.rule, rule.target.getContext(), null) FOR editorGen.expressionProviders.getProvider(rule.rule)-»
+		«ENDIF-»
+	«ENDFOREACH-»
+}
+	«ENDIF-»
+	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE javaInitializer(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context, genmodel::GenClassifier oppositeEndContext) FOR GenExpressionProviderBase-»
+«ENDDEFINE»
+
+«DEFINE javaInitializer(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context, genmodel::GenClassifier oppositeEndContext) FOR GenJavaExpressionProvider-»
+	«EXPAND xpt::expressions::javaExpressionOperation::javaExpressionOperation(valueExpr, context, oppositeEndContext)-»
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+
+«DEFINE selectors FOR GenAuditRoot-»
+	«FOREACH rules AS rule-»
+		«IF null != rule.target && null != rule.target.getClientContextID()-»
+			«EXPAND selector FOR rule-»
+		«ENDIF-»
+	«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE selector FOR GenAuditRule-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static class «contextSelectorLocalClassName» implements org.eclipse.emf.validation.model.IClientSelector {
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public boolean selects(Object object) {
+		«IF { target }.typeSelect(GenDiagramElementTarget).size() > 0 -»
+			if (isInDefaultEditorContext(object) && object instanceof org.eclipse.gmf.runtime.notation.View) {
+				String id = ((org.eclipse.gmf.runtime.notation.View) object).getType();
+				return id != null && semanticCtxIdMap.get(id) == «contextSelectorLocalClassName».class;
+			}
+			return false;
+		«ELSE-»
+			return isInDefaultEditorContext(object);
+		«ENDIF-»
+		}
+	}
+	«EXPAND contexts(this) FOR target-»
+«ENDDEFINE»
+
+«DEFINE contexts(GenAuditRule rule) FOR GenAuditable-»
+«ENDDEFINE»
+
+«DEFINE contexts(GenAuditRule rule) FOR GenDiagramElementTarget-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	static {
+	«FOREACH element AS element-»
+		semanticCtxIdMap.put(String.valueOf(«element.getEditPartQualifiedClassName()».VISUAL_ID),
+				«rule.contextSelectorLocalClassName».class); //$NON-NLS-1$
+	«ENDFOREACH-»
+	}
+«ENDDEFINE»
+
+«DEFINE constraintAdapters(GenDiagram diagram) FOR GenAuditRoot-»
+	«FOREACH rules AS rule-»
+		«IF rule.requiresConstraintAdapter && null != rule.rule && null != rule.target && null != rule.target.getContext()-»
+			«EXPAND constraintAdapter(diagram) FOR rule-»
+		«ENDIF-»
+	«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE constraintAdapter(GenDiagram diagram) FOR GenAuditRule-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static class «getConstraintAdapterLocalClassName()»
+			extends org.eclipse.emf.validation.AbstractModelConstraint {
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private «diagram.editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» expression;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public «getConstraintAdapterLocalClassName()»() {
+			expression = «EXPAND initializerExpr(rule, target.getContext()) FOR diagram.editorGen.expressionProviders.getProvider(rule)»;
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public org.eclipse.core.runtime.IStatus validate(org.eclipse.emf.validation.IValidationContext ctx) {
+			Object evalCtx = ctx.getTarget();
+			«EXPAND evalContext(diagram) FOR target-»
+			Object result = expression.evaluate(evalCtx);
+			if (result instanceof Boolean && ((Boolean) result).booleanValue()) {
+				return org.eclipse.core.runtime.Status.OK_STATUS;
+			}
+			return ctx.createFailureStatus(new Object[] {
+				 org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil.getQualifiedName(ctx.getTarget(), true) });
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE initializerExpr(ValueExpression valueExpr, GenClassifier exprContext) FOR GenExpressionProviderBase-»
+«ENDDEFINE»
+
+«DEFINE initializerExpr(ValueExpression valueExpr, GenClassifier exprContext) FOR GenExpressionInterpreter-»
+	«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», //$NON-NLS-1$
+		«getQualifiedClassifierAccessor(exprContext)»())
+«ENDDEFINE»
+
+«DEFINE initializerExpr(ValueExpression valueExpr, GenClassifier exprContext) FOR GenJavaExpressionProvider-»
+	new «container.getAbstractExpressionQualifiedClassName()»(«getQualifiedClassifierAccessor(exprContext)»()) {
+
+		protected Object doEvaluate(Object context, java.util.Map env) {
+			«getQualifiedInstanceClassName(exprContext)» self = («getQualifiedInstanceClassName(exprContext)») context;
+			return JavaAudits.«getOperationName(valueExpr)»(self);
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE evalContext(GenDiagram diagram) FOR GenAuditable-»
+«ENDDEFINE»
+
+«DEFINE evalContext(GenDiagram diagram) FOR GenDomainAttributeTarget-»
+	if (evalCtx instanceof org.eclipse.emf.ecore.EObject) {
+		evalCtx = ((org.eclipse.emf.ecore.EObject) evalCtx).eGet(«getQualifiedFeatureAccessorName(attribute)»());
+	}
+	if (evalCtx == null) {
+	«IF nullAsError-»
+		return ctx.createFailureStatus(new Object[] {
+				org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil.getQualifiedName(ctx.getTarget(), true) });
+	«ELSE-»
+		return org.eclipse.core.runtime.Status.OK_STATUS;
+	«ENDIF-»
+	}			
+«ENDDEFINE»
+
+«DEFINE evalContext(GenDiagram diagram) FOR GenAuditedMetricTarget-»
+	«LET metric == null ? "" : metric.key AS metricKey-»
+	evalCtx = «diagram.getMetricProviderQualifiedClassName()».calculateMetric(«toStringLiteral(metricKey)», evalCtx);
+	«ENDLET-»
+«ENDDEFINE»
