@@ -15,6 +15,7 @@
     <rules
         name="Port Location"
         description="Empty port location check"
+        contextSelectorLocalClassName="PortLocation"
         id="port_location"
         message="Port location should not be empty"
         category="//@audits/@categories.0">
@@ -29,6 +30,7 @@
     <rules
         name="Ship Name"
         description="Empty ship name check"
+        contextSelectorLocalClassName="ShipName"
         id="ship_name"
         message="Ship name should not be empty"
         category="//@audits/@categories.0">
