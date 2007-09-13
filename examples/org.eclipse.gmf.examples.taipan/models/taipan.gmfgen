@@ -11,7 +11,7 @@
         name="TaiPan Audits"
         description="All TaiPan audits"
         path="//@audits/@categories.0"
-        audits="//@audits/@rules.0 //@audits/@rules.1"/>
+        audits="//@audits/@rules.0 //@audits/@rules.1 //@audits/@rules.2 //@audits/@rules.3"/>
     <rules
         name="Port Location"
         description="Empty port location check"
@@ -41,6 +41,34 @@
         <attribute
             href="taipan.genmodel#//taipan/Ship/name"/>
       </target>
+    </rules>
+    <rules
+        name="Large Item Weight"
+        description="Large item weight check"
+        contextSelectorLocalClassName="LargeItemWeight"
+        id="litem_weight"
+        message="Large item weight should be greater than zero."
+        category="//@audits/@categories.0">
+      <rule
+          body="weight > 0"/>
+      <target
+          xsi:type="gmfgen:GenDomainElementTarget">
+        <element
+            href="taipan.genmodel#//taipan/LargeItem"/>
+      </target>
+    </rules>
+    <rules
+        name="Ship Type"
+        description="Ship type check"
+        contextSelectorLocalClassName="ShipType"
+        id="ship_type"
+        message="Invalid ship type."
+        category="//@audits/@categories.0">
+      <rule
+          body="element.eClass().name = 'Ship'"/>
+      <target
+          xsi:type="gmfgen:GenDiagramElementTarget"
+          element="//@diagram/@topLevelNodes.1"/>
     </rules>
   </audits>
   <metrics>
@@ -903,7 +931,7 @@
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.5/@creationConstraints/@sourceEnd //@diagram/@links.5/@creationConstraints/@targetEnd //@diagram/@links.4/@creationConstraints/@sourceEnd //@audits/@rules.0/@rule //@metrics/@metrics.0/@rule"/>
+        expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.5/@creationConstraints/@sourceEnd //@diagram/@links.5/@creationConstraints/@targetEnd //@diagram/@links.4/@creationConstraints/@sourceEnd //@audits/@rules.0/@rule //@metrics/@metrics.0/@rule //@audits/@rules.2/@rule //@audits/@rules.3/@rule"/>
     <providers
         xsi:type="gmfgen:GenJavaExpressionProvider"
         expressions="//@audits/@rules.1/@rule //@metrics/@metrics.1/@rule"/>
