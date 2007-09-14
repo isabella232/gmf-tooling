@@ -20,8 +20,6 @@ import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.MetricProviderGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.ValidationProviderGenerator;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
@@ -87,12 +85,8 @@ public class CodegenEmitters {
 
 	private static StaticTemplateRegistry initRegistry() {
 		final StaticTemplateRegistry tr = new StaticTemplateRegistry(CodegenEmitters.class.getClassLoader());
-
 		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class);
 		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$
-		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class);
-		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class);
-
 		return tr;
 	}
 
@@ -265,11 +259,11 @@ public class CodegenEmitters {
 	}
 	
 	public TextEmitter getOCLExpressionFactoryEmitter() throws UnexpectedBehaviourException {
-		return retrieve(OCLExpressionFactoryGenerator.class);
+		return retrieveXpand("xpt::expressions::OCLExpressionFactory::OCLExpressionFactory");	//$NON-NLS-1$
 	}	
 	
 	public TextEmitter getRegexpExpressionFactoryEmitter() throws UnexpectedBehaviourException {
-		return retrieve(RegexpExpressionFactoryGenerator.class);
+		return retrieveXpand("xpt::expressions::RegexpExpressionFactory::RegexpExpressionFactory");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getOpenDiagramEditPolicyEmitter() throws UnexpectedBehaviourException {
