@@ -842,35 +842,31 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	// expressions
-	
+
 	private void generateExpressionProviders() throws UnexpectedBehaviourException, InterruptedException {
 		GenExpressionProviderContainer providerContainer = myEditorGen.getExpressionProviders();
 		doGenerateJavaClass(myEmitters.getAbstractExpressionEmitter(), providerContainer.getAbstractExpressionQualifiedClassName(), myDiagram);
-
 		for (GenExpressionProviderBase nextProvider : providerContainer.getProviders()) {
-			if(nextProvider instanceof GenExpressionInterpreter) {
+			if (nextProvider instanceof GenExpressionInterpreter) {
 				TextEmitter providerEmitter = null;
-				if(GenLanguage.OCL_LITERAL.equals(nextProvider.getLanguage())) {
+				if (GenLanguage.OCL_LITERAL.equals(nextProvider.getLanguage())) {
 					providerEmitter = myEmitters.getOCLExpressionFactoryEmitter();
-				} else if(GenLanguage.REGEXP_LITERAL.equals(nextProvider.getLanguage()) || GenLanguage.NREGEXP_LITERAL.equals(nextProvider.getLanguage())) {
+				} else if (GenLanguage.REGEXP_LITERAL.equals(nextProvider.getLanguage())
+						|| GenLanguage.NREGEXP_LITERAL.equals(nextProvider.getLanguage())) {
 					providerEmitter = myEmitters.getRegexpExpressionFactoryEmitter();
 				}
 				GenExpressionInterpreter interpreter = (GenExpressionInterpreter) nextProvider;
-				if(providerEmitter != null) {
-					internalGenerateJavaClass(
-							providerEmitter,
-							providerContainer.getExpressionsPackageName(),
-							interpreter.getClassName(),
-							interpreter);
+				if (providerEmitter != null) {
+					doGenerateJavaClass(providerEmitter, interpreter.getQualifiedClassName(), interpreter);
 				}
 			}
 		}
 	}
-	
+
 	private void generateShortcutIcon() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateBinaryFile(myEmitters.getShortcutImageEmitter(), new Path("icons/shortcut.gif"), null); //$NON-NLS-1$
 	}
-	
+
 	private void generateGroupIcon(Path groupIconPath) throws InterruptedException, UnexpectedBehaviourException {
 		doGenerateBinaryFile(myEmitters.getGroupIconEmitter(), groupIconPath, null);	
 	}

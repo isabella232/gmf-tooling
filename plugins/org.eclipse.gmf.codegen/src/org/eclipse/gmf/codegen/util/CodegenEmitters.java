@@ -25,8 +25,6 @@ import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.codegen.dispatch.CachingEmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
@@ -46,8 +44,6 @@ import org.eclipse.gmf.internal.xpand.util.BundleResourceManager;
 import org.osgi.framework.Bundle;
 
 /**
- * Provides JET templates.
- * 
  * @author artem
  */
 public class CodegenEmitters {
@@ -64,7 +60,6 @@ public class CodegenEmitters {
 	}
 	
 	public CodegenEmitters(boolean usePrecompiled, String templateDirectory, String[] variables, StaticTemplateRegistry registry) {
-		initRegistry(registry);
 		final URL baseURL = getTemplatesBundle().getEntry("/templates/"); //$NON-NLS-1$
 		final URL dynamicURL = usePrecompiled ? null : getDynamicTemplatesURL(templateDirectory);
 		
@@ -93,18 +88,6 @@ public class CodegenEmitters {
 			return new DefaultTextMerger(controlModel);
 		}
 		return null;
-	}
-
-	private static void initRegistry(StaticTemplateRegistry tr) {
-		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class); //$NON-NLS-1$		
-		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class); //$NON-NLS-1$
-	}
-
-	/**
-	 * @see #retrieve(Class)
-	 */
-	protected static void put(StaticTemplateRegistry tr, String path, Class<?> precompiledTemplate) {
-		tr.put(precompiledTemplate, path, precompiledTemplate);
 	}
 
 	/**
@@ -429,11 +412,11 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getOCLExpressionFactoryEmitter() throws UnexpectedBehaviourException {
-		return retrieve(OCLExpressionFactoryGenerator.class);
+		return getPrimaryEmitter("xpt::expressions::OCLExpressionFactory"); //$NON-NLS-1$
 	}	
 
 	public TextEmitter getRegexpExpressionFactoryEmitter() throws UnexpectedBehaviourException {
-		return retrieve(RegexpExpressionFactoryGenerator.class);
+		return getPrimaryEmitter("xpt::expressions::RegexpExpressionFactory"); //$NON-NLS-1$
 	}
 
 	// property sheet
