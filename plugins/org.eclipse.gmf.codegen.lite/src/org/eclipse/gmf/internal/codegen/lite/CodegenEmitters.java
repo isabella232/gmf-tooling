@@ -11,24 +11,29 @@
  */
 package org.eclipse.gmf.internal.codegen.lite;
 
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.codegen.jet.JETCompiler;
 import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
-import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.lite.providers.MetricProviderGenerator;
+import org.eclipse.gmf.codegen.templates.lite.providers.ValidationProviderGenerator;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
+import org.eclipse.gmf.internal.codegen.dispatch.CachingEmitterFactory;
+import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
+import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactoryImpl;
+import org.eclipse.gmf.internal.codegen.dispatch.NoSuchTemplateException;
+import org.eclipse.gmf.internal.codegen.dispatch.StaticTemplateRegistry;
 import org.eclipse.gmf.internal.common.codegen.BinaryEmitter;
 import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
 import org.eclipse.gmf.internal.common.codegen.GIFEmitter;
+import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.JETGIFEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextMerger;
@@ -38,7 +43,7 @@ import org.eclipse.gmf.internal.xpand.util.BundleResourceManager;
 import org.osgi.framework.Bundle;
 
 /**
- * Provides Xpand templates.
+ * Provides JET templates.
  * FIXME Merge with {@link org.eclipse.gmf.codegen.util.CodegenEmitters}
  * 
  * @author artem
@@ -46,35 +51,25 @@ import org.osgi.framework.Bundle;
 public class CodegenEmitters {
 	private static final String CODEGEN_PLUGIN_ID = "org.eclipse.gmf.codegen";	//$NON-NLS-1$
 
+	private final EmitterFactory myFactory;
+
 	private final String[] myTemplatePath;
+
+	private static StaticTemplateRegistry myRegistry;
 
 	private ResourceManager myResourceManager;
 	public CodegenEmitters(boolean usePrecompiled, String templateDirectory) {
-		ArrayList<URL> templatesURI = new ArrayList<URL>(3);
-		templatesURI.add(getTemplatesBundle().getEntry("/templates/"));	//$NON-NLS-1$
-		templatesURI.add(getCodegenTemplatesBundle().getEntry("/templates/"));	//$NON-NLS-1$
-		URL dynamicTemplatesPath = getDynamicTemplatesURL(templateDirectory);
-		if (dynamicTemplatesPath != null) {
-			templatesURI.add(dynamicTemplatesPath);
-		}
-		myResourceManager = new BundleResourceManager(templatesURI.toArray(new URL[templatesURI.size()]));
+		myRegistry = initRegistry();
+		String[] variables = new String[] { "org.eclipse.emf.codegen", "org.eclipse.emf.codegen.ecore", "org.eclipse.emf.common", "org.eclipse.emf.ecore", "org.eclipse.gmf.common",
+				"org.eclipse.gmf.codegen" };
+		URL liteTemplatesPath = getTemplatesBundle().getEntry("/templates/");
+		URL runtimeTemplatesPath = Platform.getBundle(CODEGEN_PLUGIN_ID).getEntry("/templates/");
+		myTemplatePath = new String[] {
+				usePrecompiled ? null : templateDirectory != null && templateDirectory.indexOf(":") == -1 ? URI.createPlatformResourceURI(templateDirectory, true).toString() : templateDirectory,
+				liteTemplatesPath.toString(), runtimeTemplatesPath.toString() };
+		myFactory = new CachingEmitterFactory(new EmitterFactoryImpl(getTemplatePath(), myRegistry, usePrecompiled, variables));
 
-		myTemplatePath = new String[templatesURI.size()];
-		for (int i = 0; i < templatesURI.size(); i++) {
-			myTemplatePath[i] = templatesURI.get(i).toString();
-		}
-	}
-
-	private static URL getDynamicTemplatesURL(String templateDirectory) {
-		if (templateDirectory != null) {
-			URI templatesURI = templateDirectory.indexOf(":") == -1 ? URI.createPlatformResourceURI(templateDirectory, true) : URI.createURI(templateDirectory); //$NON-NLS-1$
-			try {
-				return new URL(CommonPlugin.resolve(templatesURI).toString());
-			} catch (MalformedURLException e) {
-				Activator.getInstance().getLog().log(new Status(IStatus.ERROR, Activator.getPluginID(), 0, "Incorrect dynamic templates location", e)); //$NON-NLS-1$
-			}
-		}
-		return null;
+		myResourceManager = new BundleResourceManager(liteTemplatesPath, runtimeTemplatesPath);
 	}
 
 	public TextMerger createMergeService() {
@@ -90,60 +85,43 @@ public class CodegenEmitters {
 		return null;
 	}
 
-	public TextEmitter getCreateNodeCommandEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::commands::CreateNodeCommand::CreateNodeCommand");	//$NON-NLS-1$
+	private static StaticTemplateRegistry initRegistry() {
+		final StaticTemplateRegistry tr = new StaticTemplateRegistry(CodegenEmitters.class.getClassLoader());
+
+		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class);
+		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$
+		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class);
+		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class);
+
+		return tr;
 	}
 
-	public TextEmitter getCreateNodeCommandQualifiedClassNameEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::commands::CreateNodeCommand::qualifiedClassName");	//$NON-NLS-1$
+	public TextEmitter getCreateNodeCommandEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::commands::CreateNodeCommand::CreateNodeCommand");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getAddNodeCommandEmitter() throws UnexpectedBehaviourException {
 		return retrieveXpand("xpt::commands::AddNodeCommand::AddNodeCommand");	//$NON-NLS-1$
 	}
 
-	public TextEmitter getAddNodeCommandQualifiedClassNameEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::commands::AddNodeCommand::qualifiedClassName");	//$NON-NLS-1$
-	}
-
 	public TextEmitter getCloneNodeCommandEmitter() throws UnexpectedBehaviourException {
 		return retrieveXpand("xpt::commands::CloneNodeCommand::CloneNodeCommand");	//$NON-NLS-1$
-	}
-
-	public TextEmitter getCloneNodeCommandQualifiedClassNameEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::commands::CloneNodeCommand::qualifiedClassName");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getCreateLinkStartCommandEmitter() throws UnexpectedBehaviourException {
 		return retrieveXpand("xpt::commands::CreateLinkStartCommand::CreateLinkStartCommand");	//$NON-NLS-1$
 	}
 
-	public TextEmitter getCreateLinkStartCommandQualifiedClassNameEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::commands::CreateLinkStartCommand::qualifiedClassName");	//$NON-NLS-1$
-	}
-
 	public TextEmitter getCreateLinkCompleteCommandEmitter() throws UnexpectedBehaviourException {
 		return retrieveXpand("xpt::commands::CreateLinkCompleteCommand::CreateLinkCompleteCommand");	//$NON-NLS-1$
-	}
-
-	public TextEmitter getCreateLinkCompleteCommandQualifiedClassNameEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::commands::CreateLinkCompleteCommand::qualifiedClassName");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getReconnectLinkSourceCommandEmitter() throws UnexpectedBehaviourException {
 		return retrieveXpand("xpt::commands::ReconnectLinkSourceCommand::ReconnectLinkSourceCommand");	//$NON-NLS-1$
 	}
 
-	public TextEmitter getReconnectLinkSourceCommandQualifiedClassNameEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::commands::ReconnectLinkSourceCommand::qualifiedClassName");	//$NON-NLS-1$
-	}
-
 	public TextEmitter getReconnectLinkTargetCommandEmitter() throws UnexpectedBehaviourException {
 		return retrieveXpand("xpt::commands::ReconnectLinkTargetCommand::ReconnectLinkTargetCommand");	//$NON-NLS-1$
-	}
-
-	public TextEmitter getReconnectLinkTargetCommandQualifiedClassNameEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::commands::ReconnectLinkTargetCommand::qualifiedClassName");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getViewFactoryGenerator() throws UnexpectedBehaviourException {
@@ -154,56 +132,20 @@ public class CodegenEmitters {
 		return retrieveXpand("xpt::diagram::policies::ComponentEditPolicy::ComponentEditPolicy");	//$NON-NLS-1$
 	}
 
-	public TextEmitter getComponentEditPolicyQualifiedClassNameEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::diagram::policies::ComponentEditPolicy::qualifiedClassName");	//$NON-NLS-1$
-	}
-
 	public TextEmitter getLayoutEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieveXpand("xpt::diagram::policies::LayoutEditPolicy::LayoutEditPolicy");	//$NON-NLS-1$
-	}
-
-	public TextEmitter getLayoutEditPolicyQualifiedClassNameEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::diagram::policies::LayoutEditPolicy::qualifiedClassName");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getGraphicalEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieveXpand("xpt::diagram::policies::GraphicalNodeEditPolicy::GraphicalNodeEditPolicy");	//$NON-NLS-1$
 	}
 
-	public TextEmitter getGraphicalEditPolicyQualifiedClassNameEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::diagram::policies::GraphicalNodeEditPolicy::qualifiedClassName");	//$NON-NLS-1$
-	}
-
-	public TextEmitter getConnectionEndpointEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::diagram::policies::ConnectionEndpointEditPolicy::ConnectionEndpointEditPolicy");	//$NON-NLS-1$
-	}
-
-	public TextEmitter getConnectionEndpointEditPolicyQualifiedClassNameEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::diagram::policies::ConnectionEndpointEditPolicy::qualifiedClassName");	//$NON-NLS-1$
-	}
-
 	public TextEmitter getValidationProviderGenerator() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::providers::ValidationProvider::ValidationProvider");	//$NON-NLS-1$
-	}
-
-	public TextEmitter getValidateActionGenerator() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::providers::ValidateAction::ValidateAction");	//$NON-NLS-1$
-	}
-
-	public TextEmitter getValidateActionQualifiedNameGenerator() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::providers::ValidateAction::qualifiedClassName");	//$NON-NLS-1$
+		return retrieve(ValidationProviderGenerator.class);
 	}
 
 	public TextEmitter getMetricProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::providers::MetricProvider::MetricProvider");	//$NON-NLS-1$
-	}	
-
-	public TextEmitter getMetricsActionEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::providers::MetricsAction::MetricsAction");	//$NON-NLS-1$
-	}	
-
-	public TextEmitter getMetricsActionQualifiedNameEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::providers::MetricsAction::qualifiedClassName");	//$NON-NLS-1$
+		return retrieve(MetricProviderGenerator.class);
 	}	
 
 	public TextEmitter getDomainElementInitializerGenerator() throws UnexpectedBehaviourException {
@@ -256,10 +198,6 @@ public class CodegenEmitters {
 
 	public TextEmitter getOpenDiagramInViewActionGenerator() throws UnexpectedBehaviourException {
 		return retrieveXpand("xpt::editor::OpenDiagramInViewAction::OpenDiagramInViewAction");	//$NON-NLS-1$
-	}
-
-	public TextEmitter getOpenDiagramInViewActionQualifiedClassNameGenerator() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::editor::OpenDiagramInViewAction::qualifiedClassName");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getEditorGenerator() throws UnexpectedBehaviourException {
@@ -323,15 +261,15 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getAbstractExpressionEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::expressions::AbstractExpression::AbstractExpression");
+		return retrieveXpand("xpt::expressions::AbstractExpression::AbstractExpression");	//$NON-NLS-1$
 	}
 	
 	public TextEmitter getOCLExpressionFactoryEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::expressions::OCLExpressionFactory::OCLExpressionFactory");
+		return retrieve(OCLExpressionFactoryGenerator.class);
 	}	
 	
 	public TextEmitter getRegexpExpressionFactoryEmitter() throws UnexpectedBehaviourException {
-		return retrieveXpand("xpt::expressions::RegexpExpressionFactory::RegexpExpressionFactory");
+		return retrieve(RegexpExpressionFactoryGenerator.class);
 	}
 
 	public TextEmitter getOpenDiagramEditPolicyEmitter() throws UnexpectedBehaviourException {
@@ -353,6 +291,26 @@ public class CodegenEmitters {
 	public TextEmitter getWizardBannerLocationEmitter()  throws UnexpectedBehaviourException {
 		return retrieveXpand("xpt::editor::CreationWizard::wizardBannerLocation");	//$NON-NLS-1$
 	}
+
+	/**
+	 * @see #retrieve(Class)
+	 */
+	private static void put(StaticTemplateRegistry tr, String path, Class<?> precompiledTemplate) {
+		tr.put(precompiledTemplate, path, precompiledTemplate);
+	}
+
+	/**
+	 * depends on {@link #put(StaticTemplateRegistry, String, Class) } impl -
+	 * class object of precompiled template serves as a key
+	 */
+	private TextEmitter retrieve(Class<?> key) throws UnexpectedBehaviourException {
+		try {
+			return new JETEmitterAdapter(myFactory.acquireEmitter(key));
+		} catch (NoSuchTemplateException ex) {
+			throw new UnexpectedBehaviourException(ex.getMessage(), ex);
+		}
+	}
+
 	private BinaryEmitter newGIFEmitter(String relativePath) throws UnexpectedBehaviourException {
 		return new GIFEmitter(checkTemplateLocation(relativePath));
 	}
@@ -377,12 +335,8 @@ public class CodegenEmitters {
 		return Activator.getDefault();
 	}
 
-	private static Bundle getCodegenTemplatesBundle() {
-		return Platform.getBundle(CODEGEN_PLUGIN_ID);
-	}
-
 	public URL getJMergeControlFile() {
-		return getCodegenTemplatesBundle().getEntry("/templates/emf-merge.xml");
+		return getTemplatesBundle().getEntry("/templates/emf-merge.xml");
 	}
 
 	public BinaryEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {
