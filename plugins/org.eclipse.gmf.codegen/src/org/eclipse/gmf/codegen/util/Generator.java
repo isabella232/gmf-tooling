@@ -845,12 +845,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	
 	private void generateExpressionProviders() throws UnexpectedBehaviourException, InterruptedException {
 		GenExpressionProviderContainer providerContainer = myEditorGen.getExpressionProviders();
-		internalGenerateJavaClass(
-			myEmitters.getAbstractExpressionEmitter(),
-			providerContainer.getExpressionsPackageName(), 
-			providerContainer.getAbstractExpressionClassName(),
-			myDiagram
-		);
+		doGenerateJavaClass(myEmitters.getAbstractExpressionEmitter(), providerContainer.getAbstractExpressionQualifiedClassName(), myDiagram);
 
 		for (GenExpressionProviderBase nextProvider : providerContainer.getProviders()) {
 			if(nextProvider instanceof GenExpressionInterpreter) {
