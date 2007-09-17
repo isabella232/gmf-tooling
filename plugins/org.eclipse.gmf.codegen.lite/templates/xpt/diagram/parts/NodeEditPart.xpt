@@ -122,7 +122,7 @@ protected org.eclipse.gef.EditPolicy getPrimaryDragEditPolicy() {
 «IF primaryDragEditPolicyQualifiedClassName != null-»
 	return new «primaryDragEditPolicyQualifiedClassName»();
 «ELSE-»
-	«IF compartments.size() + getExternalLabels().size() == 0-»
+	«IF compartments.size() == 0-»
 		org.eclipse.gef.editpolicies.ResizableEditPolicy result = new org.eclipse.gef.editpolicies.ResizableEditPolicy();
 	«ELSE-»
 		org.eclipse.gef.editpolicies.ResizableEditPolicy result = new org.eclipse.gef.editpolicies.ResizableEditPolicy() {
@@ -133,7 +133,6 @@ protected org.eclipse.gef.EditPolicy getPrimaryDragEditPolicy() {
 					org.eclipse.gmf.runtime.notation.View nextView = (org.eclipse.gmf.runtime.notation.View) next.getModel();
 					switch («getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(nextView)) {
 					«EXPAND addSelectionHandles FOREACH compartments-»
-					«EXPAND addSelectionHandles FOREACH getExternalLabels()-»
 					}
 				}
 				return result;
@@ -167,7 +166,7 @@ protected org.eclipse.draw2d.IFigure createFigure() {
 }
 «ENDDEFINE»
 
-«DEFINE addSelectionHandles FOR gmfgen::GenCommonBase-»
+«DEFINE addSelectionHandles FOR gmfgen::GenCompartment-»
 case «getEditPartQualifiedClassName()».VISUAL_ID:
 	result.addAll(((«getEditPartQualifiedClassName()») next).createSelectionHandles());
 	break;
@@ -249,6 +248,7 @@ protected org.eclipse.draw2d.IFigure setupContentPane(org.eclipse.draw2d.IFigure
 «ENDDEFINE»
 
 «DEFINE setupChildNodesPane FOR gmfgen::GenNode-»
+«EXPAND xpt::Common::generatedMemberComment»
 protected void setupChildNodesPane(org.eclipse.draw2d.IFigure shape) {
 	if (shape.getLayoutManager() == null) {
 		«EXPAND setLayoutManager("shape", isXYLayout())-»

@@ -144,9 +144,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		for (GenLink next : (List<? extends GenLink>) myDiagram.getLinks()) {
 			internalGenerateJavaClass(myEmitters.getLinkEditPartGenerator(), next.getEditPartQualifiedClassName(), next);
 			generateGraphicalEditPolicy(next);
-			if (next.getLabels().size() > 0) {
-				generateConnectionEndpointEditPolicy(next);
-			}
 			for (GenLinkLabel label : (List<? extends GenLinkLabel>) next.getLabels()) {
 				internalGenerateJavaClass(myEmitters.getLinkLabelEditPartGenerator(), label.getEditPartQualifiedClassName(), label);
 				internalGenerateJavaClass(myEmitters.getViewFactoryGenerator(), label.getNotationViewFactoryQualifiedClassName(), label);
@@ -329,10 +326,6 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateComponentEditPolicy(GenCommonBase genElement) throws InterruptedException, UnexpectedBehaviourException {
 		internalGenerateJavaClass(myEmitters.getComponentEditPolicyEmitter(), myEmitters.getComponentEditPolicyQualifiedClassNameEmitter(), genElement);
-	}
-
-	private void generateConnectionEndpointEditPolicy(GenLink genLink) throws InterruptedException, UnexpectedBehaviourException {
-		internalGenerateJavaClass(myEmitters.getConnectionEndpointEditPolicyEmitter(), myEmitters.getConnectionEndpointEditPolicyQualifiedClassNameEmitter(), genLink);
 	}
 
 	private void generateNavigatorContentProvider() throws InterruptedException {

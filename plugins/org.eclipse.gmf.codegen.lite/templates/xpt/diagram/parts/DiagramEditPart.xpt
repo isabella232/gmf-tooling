@@ -29,7 +29,6 @@ public class «editPartClassName» «EXPAND supertypes» {
 	«EXPAND xpt::diagram::parts::Common::registerModel-»
 	«EXPAND createEditPolicies-»
 	«EXPAND createFigure-»
-	«EXPAND getDragTracker-»
 	«EXPAND xpt::diagram::parts::Common::getAdapter-»
 	«EXPAND xpt::diagram::parts::TreeEditPart::getTreeEditPartAdapter-»
 	«EXPAND xpt::diagram::parts::Common::getModelChildren-»
@@ -51,25 +50,8 @@ public class «editPartClassName» «EXPAND supertypes» {
 protected org.eclipse.draw2d.IFigure createFigure() {
 	org.eclipse.draw2d.IFigure f = new org.eclipse.draw2d.FreeformLayer();
 	f.setBorder(new org.eclipse.draw2d.MarginBorder(5));
-	f.setOpaque(true);
 	f.setLayoutManager(new org.eclipse.draw2d.FreeformLayout());
 	return f;
-}
-«ENDDEFINE»
-
-«DEFINE getDragTracker FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-public org.eclipse.gef.DragTracker getDragTracker(org.eclipse.gef.Request request) {
-	return new org.eclipse.gef.tools.MarqueeDragTracker() {
-		protected boolean handleButtonDown(int button) {
-			if (super.handleButtonDown(button)) {
-				getViewer().setSelection(org.eclipse.jface.viewers.StructuredSelection.EMPTY);
-				getViewer().setFocus(null);
-				return true;
-			}
-			return false;
-		}
-	};
 }
 «ENDDEFINE»
 

@@ -29,6 +29,7 @@ public class «EXPAND className» «EXPAND supertypes» {
 	«EXPAND createAddCommand-»
 	«EXPAND createCloneCommand-»
 «ENDIF-»
+	«EXPAND createChildEditPolicy-»
 	«EXPAND createChangeConstraintCommand-»
 	«EXPAND additions-»
 }
@@ -127,6 +128,31 @@ protected org.eclipse.gef.commands.Command createCloneCommand(org.eclipse.gef.Ed
 case «getEditPartQualifiedClassName()».VISUAL_ID:
 	command = new «getDiagram().editCommandsPackageName».«EXPAND xpt::commands::CloneNodeCommand::className»(«EXPAND xpt::diagram::policies::Common::getViewCode FOR container», childNode, «IF container.needsXYLayout()»(org.eclipse.draw2d.geometry.Rectangle) constraint«ELSE»null«ENDIF»);
 	break;
+«ENDDEFINE»
+
+«DEFINE createChildEditPolicy FOR gmfgen::GenContainerBase»«ENDDEFINE»
+
+«DEFINE createChildEditPolicy FOR gmfgen::GenNode-»
+«IF getExternalLabels().size() > 0-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
+	org.eclipse.gef.EditPolicy result = child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
+	if (result != null) {
+		return result;
+	}
+	if ((«EXPAND xpt::diagram::policies::Common::getCastToEditPart»).isExternalLabel(child)) {
+		return new org.eclipse.gef.editpolicies.ResizableEditPolicy() {
+			public org.eclipse.gef.EditPart getTargetEditPart(org.eclipse.gef.Request request) {
+				if (org.eclipse.gef.RequestConstants.REQ_SELECTION.equals(request.getType())) {
+					return «getLayoutEditPolicyClassName()».this.getHost();
+				}
+				return super.getTargetEditPart(request);
+			}
+		};
+	}
+	return super.createChildEditPolicy(child);
+}
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE createChangeConstraintCommand FOR gmfgen::GenContainerBase»«ENDDEFINE»

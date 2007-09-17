@@ -23,7 +23,6 @@ package «getDiagram().editPartsPackageName»;
 public class «editPartClassName» «EXPAND supertypes» {
 	«EXPAND xpt::diagram::parts::Common::visualIDConstant-»
 	«EXPAND xpt::diagram::parts::Common::ctors-»
-	«EXPAND isSelectable-»
 
 	«EXPAND xpt::diagram::parts::Common::declareViewCode-»
 	«EXPAND xpt::diagram::parts::Common::registerModel-»
@@ -60,22 +59,6 @@ public class «editPartClassName» «EXPAND supertypes» {
 «ENDDEFINE»
 
 «DEFINE supertypes FOR gmfgen::GenChildLabelNode»extends org.eclipse.gef.editparts.AbstractGraphicalEditPart implements org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart, org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart, org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelController«ENDDEFINE»
-
-«DEFINE isSelectable FOR gmfgen::GenChildLabelNode-»
-«EXPAND xpt::Common::generatedMemberComment»
-public boolean isSelectable() {
-	if (!super.isSelectable()) {
-		return false;
-	}
-	if (!isActive()) {
-		return false;
-	}
-	if (getViewer().getContents().equals(getViewer().getFocusEditPart())) {
-		return false;
-	}
-	return true;
-}
-«ENDDEFINE»
 
 «DEFINE createEditPolicies FOR gmfgen::GenChildLabelNode-»
 «EXPAND xpt::Common::generatedMemberComment»

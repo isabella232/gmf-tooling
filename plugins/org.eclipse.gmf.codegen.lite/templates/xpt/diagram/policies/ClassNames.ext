@@ -29,10 +29,6 @@ String getGraphicalNodeEditPolicyClassName(gmfgen::GenNode node) :
 node.graphicalNodeEditPolicyClassName
 ;
 
-String getConnectionEndpointEditPolicyClassName(gmfgen::GenLink link) :
-getBaseName(link) + "EndpointEditPolicy"
-;
-
 private String getBaseName(gmfgen::GenCommonBase element) :
 	let editPartClassName = element.editPartClassName :
 		editPartClassName.endsWith("EditPart") ? editPartClassName.subString(0, editPartClassName.length() - "EditPart".length())

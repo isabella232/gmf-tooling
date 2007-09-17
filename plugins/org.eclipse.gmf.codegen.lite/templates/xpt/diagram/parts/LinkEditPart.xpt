@@ -63,7 +63,7 @@ public class «editPartClassName» «EXPAND supertypes» {
 «EXPAND xpt::Common::generatedMemberComment»
 protected void createEditPolicies() {
 	installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE, new «EXPAND xpt::diagram::policies::ComponentEditPolicy::qualifiedClassName»());
-	installEditPolicy(org.eclipse.gef.EditPolicy.CONNECTION_ENDPOINTS_ROLE, «IF labels.size() > 0»new «EXPAND xpt::diagram::policies::ConnectionEndpointEditPolicy::qualifiedClassName»()«ELSE»new org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy()«ENDIF»);
+	installEditPolicy(org.eclipse.gef.EditPolicy.CONNECTION_ENDPOINTS_ROLE, new org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy());
 	installEditPolicy(org.eclipse.gef.EditPolicy.CONNECTION_BENDPOINTS_ROLE, new org.eclipse.gmf.runtime.lite.edit.policies.BendpointEditPolicy());
 «IF getPrimaryLabel() != null-»
 	installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.lite.edit.policies.DelegatingDirectEditPolicy());

@@ -671,6 +671,7 @@ if (updateManager != null) {
 «ENDDEFINE»
 
 «DEFINE getSaveOptions FOR gmfgen::GenEditorView-»
+«EXPAND xpt::Common::generatedMemberComment»
 protected java.util.Map getSaveOptions() {
 	return «editorGen.diagram.getDiagramEditorUtilQualifiedClassName()».getSaveOptions();
 }
