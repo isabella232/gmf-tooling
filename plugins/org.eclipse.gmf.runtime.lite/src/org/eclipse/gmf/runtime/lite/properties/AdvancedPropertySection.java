@@ -107,6 +107,5 @@ public abstract class AdvancedPropertySection extends org.eclipse.ui.views.prope
 	}
 
 	private PropertySourceProvider myPropertySourceProvider;
-	private CommandStack myCommandStack;
 	private RootUndoablePropertySheetEntry myPropertySheetEntry;
 }
