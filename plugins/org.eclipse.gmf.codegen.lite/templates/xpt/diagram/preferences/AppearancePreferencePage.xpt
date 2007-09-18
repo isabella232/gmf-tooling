@@ -38,6 +38,7 @@ public class «EXPAND className» «EXPAND supertypes» {
 «EXPAND xpt::Common::generatedClassComment»
 public static class «EXPAND preferenceInitializerClassName» «EXPAND PreferenceInitializer_supertypes» {
 	«EXPAND PreferenceInitializer_ctor-»
+	«EXPAND PreferenceInitializer_preferences FOR preferences-»
 	«EXPAND PreferenceInitializer_additions-»
 }
 «ENDDEFINE»
@@ -51,6 +52,53 @@ public static class «EXPAND preferenceInitializerClassName» «EXPAND PreferenceIn
 public «EXPAND preferenceInitializerClassName»() {
 	super(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore());
 }
+«ENDDEFINE»
+
+«DEFINE PreferenceInitializer_preferences FOR gmfgen::GenDiagramPreferences-»
+«EXPAND getDefaultFontData FOR defaultFont-»
+«EXPAND getDefaultColor("getDefaultFontColor") FOR fontColor-»
+«EXPAND getDefaultColor("getDefaultFillColor") FOR fillColor-»
+«EXPAND getDefaultColor("getDefaultLineColor") FOR lineColor-»
+«ENDDEFINE»
+
+«DEFINE getDefaultFontData FOR gmfgen::GenFont-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.swt.graphics.FontData getDefaultFontData() {
+	return «EXPAND fontData»;
+}
+«ENDDEFINE»
+
+«DEFINE fontData FOR gmfgen::GenFont-»
+«ERROR "Unknown font: " + this»
+«ENDDEFINE»
+
+«DEFINE fontData FOR gmfgen::GenCustomFont-»
+new org.eclipse.swt.graphics.FontData("«name»", «height», org.eclipse.swt.SWT.«style»)
+«ENDDEFINE»
+
+«DEFINE fontData FOR gmfgen::GenStandardFont-»
+org.eclipse.jface.resource.JFaceResources.get«name»Font().getFontData()
+«ENDDEFINE»
+
+«DEFINE getDefaultColor(String methodName) FOR gmfgen::GenColor-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.swt.graphics.RGB «methodName»() {
+	return «EXPAND rgb»;
+}
+«ENDDEFINE»
+
+«DEFINE rgb FOR gmfgen::GenColor-»
+«ERROR "Unknown colour: " + this»
+«ENDDEFINE»
+
+«DEFINE rgb FOR gmfgen::GenConstantColor-»
+«REM»TODO: support DIAGRAM_* constants«ENDREM»
+«IF this.name.value > gmfgen::DiagramColors::darkBlue.value»«ERROR "Color constant not supported: " + this»«ENDIF-»
+org.eclipse.draw2d.ColorConstants.«name».getRGB()
+«ENDDEFINE»
+
+«DEFINE rgb FOR gmfgen::GenRGBColor-»
+new org.eclipse.swt.graphics.RGB(«red», «green», «blue»)
 «ENDDEFINE»
 
 «DEFINE PreferenceInitializer_additions FOR gmfgen::GenDiagram»«ENDDEFINE»
