@@ -38,6 +38,7 @@ import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.lite.commands.WrappingCommand;
 import org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager;
+import org.eclipse.gmf.runtime.lite.preferences.IPreferenceConstants;
 import org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx;
 import org.eclipse.gmf.runtime.lite.requests.CreateRequestEx;
 import org.eclipse.gmf.runtime.lite.requests.ModelCreationFactory;
@@ -45,16 +46,18 @@ import org.eclipse.gmf.runtime.lite.services.IViewDecorator;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
-import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.setup.AbstractGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 
 public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
@@ -83,8 +86,6 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 	}
 
 	private static class LiteViewerConfiguration extends AbstractViewerConfiguration {
-		private RGB myDefaultLinkColor;
-
 		public LiteViewerConfiguration(SessionSetup sessionSetup, EditPartViewer viewer) throws Exception {
 			super(sessionSetup, viewer);
 		}
@@ -190,14 +191,21 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 		}
 
 		public RGB getDefaultLinkColor() {
-			if (myDefaultLinkColor == null) {
-				int defaultLineColor = ((Integer)NotationPackage.eINSTANCE.getLineStyle_LineColor().getDefaultValue()).intValue();
-				int red = defaultLineColor & 0x000000FF;
-				int green = (defaultLineColor & 0x0000FF00) >> 8;
-				int blue = (defaultLineColor & 0x00FF0000) >> 16;
-				myDefaultLinkColor = new RGB(red, green, blue);
+			return PreferenceConverter.getColor(getDefaultPreferences(), IPreferenceConstants.LINE_COLOR);
+		}
+
+		@Override
+		protected IPreferenceStore getDefaultPreferences() {
+			if (myPreferenceStore == null) {
+				try {
+					Class<?> activatorClazz = loadGeneratedClass(getGenModel().getGenDiagram().getEditorGen().getPlugin().getActivatorQualifiedClassName());
+					AbstractUIPlugin pluginInstance = (AbstractUIPlugin) activatorClazz.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
+					myPreferenceStore = pluginInstance.getPreferenceStore();
+				} catch (Throwable e) {
+					Assert.fail("Failed to obtain default preferences");
+				}
 			}
-			return myDefaultLinkColor;
+			return myPreferenceStore;
 		}
 
 		protected TransactionalEditingDomain getEditDomain(EditPart editPart) {
@@ -206,6 +214,8 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 		protected TransactionalEditingDomain getEditDomain(EObject object) {
 			return TransactionUtil.getEditingDomain(object);
 		}
+
+		private IPreferenceStore myPreferenceStore;
 	}
 
 	private static class FakeLiteViewer extends AbstractFakeViewer {
