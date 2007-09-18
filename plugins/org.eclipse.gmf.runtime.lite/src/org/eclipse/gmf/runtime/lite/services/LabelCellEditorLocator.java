@@ -40,20 +40,24 @@ public class LabelCellEditorLocator implements CellEditorLocator {
 	public void relocate(CellEditor celleditor) {
 		Rectangle rect = getLabel().getTextBounds();
 		getLabel().translateToAbsolute(rect);
-		ZoomManager zoomManager = getZoomManager();
-		double zoomLevel = zoomManager == null ? 1.0 : zoomManager.getZoom();
-		if (zoomLevel > 1.0 && getLabel().getFont() != null) {
-			FontData[] datas = getLabel().getFont().getFontData();
-			for(int i = 0; i < datas.length; i++) {
-				datas[i].height *= zoomLevel;
-			}
-			final Font font = new Font(getLabel().getFont().getDevice(), datas);
-			celleditor.getControl().setFont(font);
-			celleditor.getControl().addDisposeListener(new DisposeListener() {
-				public void widgetDisposed(DisposeEvent e) {
-					font.dispose();
+		if (getLabel().getFont() != null) {
+			ZoomManager zoomManager = getZoomManager();
+			double zoomLevel = zoomManager == null ? 1.0 : zoomManager.getZoom();
+			if (zoomLevel > 1.0) {
+				FontData[] datas = getLabel().getFont().getFontData();
+				for(int i = 0; i < datas.length; i++) {
+					datas[i].height *= zoomLevel;
 				}
-			});
+				final Font font = new Font(getLabel().getFont().getDevice(), datas);
+				celleditor.getControl().setFont(font);
+				celleditor.getControl().addDisposeListener(new DisposeListener() {
+					public void widgetDisposed(DisposeEvent e) {
+						font.dispose();
+					}
+				});
+			} else {
+				celleditor.getControl().setFont(getLabel().getFont());
+			}
 		}
 		int avr = FigureUtilities.getFontMetrics(celleditor.getControl().getFont()).getAverageCharWidth();
 		rect.setSize(new Dimension(celleditor.getControl().computeSize(SWT.DEFAULT, SWT.DEFAULT)).expand(avr * 2, 0));
