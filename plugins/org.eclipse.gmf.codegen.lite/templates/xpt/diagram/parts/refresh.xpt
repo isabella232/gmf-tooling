@@ -461,12 +461,18 @@ protected void refreshBounds() {
 «EXPAND xpt::Common::generatedMemberComment»
 protected void refreshFont() {
 	org.eclipse.gmf.runtime.notation.FontStyle style = (org.eclipse.gmf.runtime.notation.FontStyle) «EXPAND getStyleHolderCode».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle());
-	org.eclipse.swt.graphics.Font toDispose = createdFont;
+	org.eclipse.jface.resource.FontDescriptor toDispose = createdFontDescriptor;
 	if (style != null) {
 		String fontName = style.getFontName();
+		if (fontName != null && «getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().isStrictFont()) {
+			org.eclipse.swt.graphics.FontData[] matchingDatas = getViewer().getControl().getDisplay().getFontList(fontName, true);
+			if (matchingDatas == null || matchingDatas.length == 0) {
+				fontName = null;
+			}
+		}
 		int fontHeight = style.getFontHeight();
 		if (fontName == null || fontHeight <= 0) {
-			org.eclipse.swt.graphics.FontData defaultFont = getViewer().getControl().getFont().getFontData()[0];
+			org.eclipse.swt.graphics.FontData defaultFont = org.eclipse.jface.preference.PreferenceConverter.getFontData(«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore(), org.eclipse.gmf.runtime.lite.preferences.IPreferenceConstants.DEFAULT_FONT);
 			if (fontName == null) {
 				fontName = defaultFont.getName();
 			}
@@ -488,21 +494,21 @@ protected void refreshFont() {
 				return;
 			}
 		}
-		createdFont = new org.eclipse.swt.graphics.Font(null, fontName, fontHeight, fontStyle);
-		getFigure().setFont(createdFont);
+		createdFontDescriptor = org.eclipse.jface.resource.FontDescriptor.createFrom(fontName, fontHeight, fontStyle);
+		getFigure().setFont(getViewer().getResourceManager().createFont(createdFontDescriptor));
 	} else {
 		//revert to the default font
 		getFigure().setFont(getViewer().getControl().getFont());
-		createdFont = null;
+		createdFontDescriptor = null;
 	}
 	if (toDispose != null) {
-		toDispose.dispose();
+		getViewer().getResourceManager().destroyFont(toDispose);
 	}
 }
 
-«EXPAND xpt::Common::generatedMemberComment("The font (created by {@link #refreshFont()}) currently assigned to the label (unless the default font is assigned).\n" + 
- "Whenever another non-default font is assigned to it, it is safe to dispose the previous one.")»
-private org.eclipse.swt.graphics.Font createdFont;
+«EXPAND xpt::Common::generatedMemberComment("The font descriptor (created by {@link #refreshFont()}) currently assigned to the label (unless the default font is assigned).\n" + 
+ "Whenever another non-default font is assigned to it, the previous one should be destroyed through the resource manager.")»
+private org.eclipse.jface.resource.FontDescriptor createdFontDescriptor;
 «ENDIF-»
 «ENDDEFINE»
 
@@ -511,7 +517,7 @@ private org.eclipse.swt.graphics.Font createdFont;
 «EXPAND xpt::Common::generatedMemberComment»
 protected void refreshFontColor() {
 	org.eclipse.gmf.runtime.notation.FontStyle style = (org.eclipse.gmf.runtime.notation.FontStyle)  «EXPAND getStyleHolderCode».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle());
-	org.eclipse.swt.graphics.Color toDispose = createdFontColor;
+	org.eclipse.jface.resource.ColorDescriptor toDispose = createdFontColorDescriptor;
 	if (style != null) {
 		int fontColor = style.getFontColor();
 		int red = fontColor & 0x000000FF;
@@ -521,20 +527,19 @@ protected void refreshFontColor() {
 		if (currentColor != null && currentColor.getRed() == red && currentColor.getGreen() == green && currentColor.getBlue() == blue) {
 			return;
 		}
-		createdFontColor = new org.eclipse.swt.graphics.Color(null, red, green, blue);
-		getFigure().setForegroundColor(createdFontColor);
+		createdFontColorDescriptor = org.eclipse.jface.resource.ColorDescriptor.createFrom(new org.eclipse.swt.graphics.RGB(red, green, blue));
 	} else {
-		getFigure().setForegroundColor(getViewer().getControl().getForeground());
-		createdFontColor = null;
+		createdFontColorDescriptor = org.eclipse.jface.resource.ColorDescriptor.createFrom(«EXPAND defaultColor("FONT_COLOR")»);
 	}
+	getFigure().setForegroundColor(getViewer().getResourceManager().createColor(createdFontColorDescriptor));
 	if (toDispose != null) {
-		toDispose.dispose();
+		getViewer().getResourceManager().destroyColor(toDispose);
 	}
 }
 
-«EXPAND xpt::Common::generatedMemberComment("The color (created by {@link #refreshFontColor()}) currently assigned to the label.\n" + 
- "Whenever another color is assigned to it, it is safe to dispose the previous one.")»
-private org.eclipse.swt.graphics.Color createdFontColor;
+«EXPAND xpt::Common::generatedMemberComment("The color descriptor (created by {@link #refreshFontColor()}) currently assigned to the label.\n" + 
+ "Whenever another color is assigned to it, the previous one should be destroyed through the resource manager.")»
+private org.eclipse.jface.resource.ColorDescriptor createdFontColorDescriptor;
 «ENDIF-»
 «ENDDEFINE»
 
@@ -543,7 +548,7 @@ private org.eclipse.swt.graphics.Color createdFontColor;
 «EXPAND xpt::Common::generatedMemberComment»
 protected void refreshForegroundColor() {
 	org.eclipse.gmf.runtime.notation.LineStyle style = (org.eclipse.gmf.runtime.notation.LineStyle)  «EXPAND getStyleHolderCode».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLineStyle());
-	org.eclipse.swt.graphics.Color toDispose = createdForegroundColor;
+	org.eclipse.jface.resource.ColorDescriptor toDispose = createdForegroundColorDescriptor;
 	if (style != null) {
 		int foregroundColor = style.getLineColor();
 		int red = foregroundColor & 0x000000FF;
@@ -553,20 +558,19 @@ protected void refreshForegroundColor() {
 		if (currentColor != null && currentColor.getRed() == red && currentColor.getGreen() == green && currentColor.getBlue() == blue) {
 			return;
 		}
-		createdForegroundColor = new org.eclipse.swt.graphics.Color(null, red, green, blue);
-		getFigure().setForegroundColor(createdForegroundColor);
+		createdForegroundColorDescriptor = org.eclipse.jface.resource.ColorDescriptor.createFrom(new org.eclipse.swt.graphics.RGB(red, green, blue));
 	} else {
-		getFigure().setForegroundColor(getViewer().getControl().getForeground());
-		createdForegroundColor = null;
+		createdForegroundColorDescriptor = org.eclipse.jface.resource.ColorDescriptor.createFrom(«EXPAND defaultColor("LINE_COLOR")»);
 	}
+	getFigure().setForegroundColor(getViewer().getResourceManager().createColor(createdForegroundColorDescriptor));
 	if (toDispose != null) {
-		toDispose.dispose();
+		getViewer().getResourceManager().destroyColor(toDispose);
 	}
 }
 
-«EXPAND xpt::Common::generatedMemberComment("The color (created by {@link #refreshForegroundColor()}) currently assigned to the figure.\n" + 
- "Whenever another color is assigned to it, it is safe to dispose the previous one.")»
-private org.eclipse.swt.graphics.Color createdForegroundColor;
+«EXPAND xpt::Common::generatedMemberComment("The color descriptor (created by {@link #refreshForegroundColor()}) currently assigned to the figure.\n" + 
+ "Whenever another color is assigned to it, the previous one should be destroyed through the resource manager.")»
+private org.eclipse.jface.resource.ColorDescriptor createdForegroundColorDescriptor;
 «ENDIF-»
 «ENDDEFINE»
 
@@ -575,7 +579,7 @@ private org.eclipse.swt.graphics.Color createdForegroundColor;
 «EXPAND xpt::Common::generatedMemberComment»
 protected void refreshBackgroundColor() {
 	org.eclipse.gmf.runtime.notation.FillStyle style = (org.eclipse.gmf.runtime.notation.FillStyle)  «EXPAND getStyleHolderCode».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFillStyle());
-	org.eclipse.swt.graphics.Color toDispose = createdBackgroundColor;
+	org.eclipse.jface.resource.ColorDescriptor toDispose = createdBackgroundColorDescriptor;
 	if (style != null) {
 		int backgroundColor = style.getFillColor();
 		int red = backgroundColor & 0x000000FF;
@@ -585,19 +589,19 @@ protected void refreshBackgroundColor() {
 		if (currentColor != null && currentColor.getRed() == red && currentColor.getGreen() == green && currentColor.getBlue() == blue) {
 			return;
 		}
-		createdBackgroundColor = new org.eclipse.swt.graphics.Color(null, red, green, blue);
-		getFigure().setBackgroundColor(createdBackgroundColor);
+		createdBackgroundColorDescriptor = org.eclipse.jface.resource.ColorDescriptor.createFrom(new org.eclipse.swt.graphics.RGB(red, green, blue));
 	} else {
-		getFigure().setBackgroundColor(getViewer().getControl().getBackground());
+		createdBackgroundColorDescriptor = org.eclipse.jface.resource.ColorDescriptor.createFrom(«EXPAND defaultColor("FILL_COLOR")»);
 	}
+	getFigure().setBackgroundColor(getViewer().getResourceManager().createColor(createdBackgroundColorDescriptor));
 	if (toDispose != null) {
-		toDispose.dispose();
+		getViewer().getResourceManager().destroyColor(toDispose);
 	}
 }
 
-«EXPAND xpt::Common::generatedMemberComment("The color (created by {@link #refreshBackgroundColor()}) currently assigned to the figure.\n" + 
-  "Whenever another color is assigned to it, it is safe to dispose the previous one.")»
-private org.eclipse.swt.graphics.Color createdBackgroundColor;
+«EXPAND xpt::Common::generatedMemberComment("The color descriptor (created by {@link #refreshBackgroundColor()}) currently assigned to the figure.\n" + 
+ "Whenever another color is assigned to it, the previous one should be destroyed through the resource manager.")»
+private org.eclipse.jface.resource.ColorDescriptor createdBackgroundColorDescriptor;
 «ENDIF-»
 «ENDDEFINE»
 
@@ -730,3 +734,5 @@ if (!isActive()) {
 	return;
 }
 «ENDDEFINE»
+
+«DEFINE defaultColor(String colorConstant) FOR gmfgen::GenCommonBase»org.eclipse.jface.preference.PreferenceConverter.getColor(«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore(), org.eclipse.gmf.runtime.lite.preferences.IPreferenceConstants.«colorConstant»)«ENDDEFINE»

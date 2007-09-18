@@ -49,6 +49,8 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramEdito
 «EXPAND loadDiagramFile-»
 «EXPAND initializeGraphicalViewer-»
 «EXPAND configureGraphicalViewer-»
+«EXPAND defaultFontAttribute-»
+«EXPAND preferenceStoreListener-»
 «EXPAND flyoutPalette-»
 «EXPAND getSaveOptions-»
 «IF editorGen.diagram.validationNeeded() && null == editorGen.application-»
@@ -78,6 +80,8 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 «EXPAND loadDiagramFile-»
 «EXPAND initializeGraphicalViewer-»
 «EXPAND configureGraphicalViewer-»
+«EXPAND defaultFontAttribute-»
+«EXPAND preferenceStoreListener-»
 «EXPAND flyoutPalette-»
 «EXPAND getSaveOptions-»
 «EXPAND ContextMenuProvider-»
@@ -359,6 +363,8 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 «EXPAND unhookValidation-»
 «EXPAND disposeTransactionalUpdateManager-»
 		// important: always call super implementation of dispose
+«EXPAND disposeDefaultFont-»
+«EXPAND unhookPreferenceStoreListener-»
 		super.dispose();
 	}
 «ENDDEFINE»
@@ -370,6 +376,8 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 		myActionBarContributor = null;
 «EXPAND unhookValidation-»
 «EXPAND disposeTransactionalUpdateManager-»
+«EXPAND disposeDefaultFont-»
+«EXPAND unhookPreferenceStoreListener-»
 		// important: always call super implementation of dispose
 		super.dispose();
 	}
@@ -656,6 +664,8 @@ if (updateManager != null) {
 	public void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
 		org.eclipse.gef.GraphicalViewer viewer = getGraphicalViewer();
+		«EXPAND configureDefaultFont-»
+		«EXPAND hookPreferenceStoreListener-»
 		// configure the context menu
 		org.eclipse.gef.ContextMenuProvider provider = new «className»ContextMenuProvider(viewer);
 		viewer.setContextMenu(provider);
@@ -666,6 +676,82 @@ if (updateManager != null) {
 
 		viewer.setProperty(org.eclipse.gef.MouseWheelHandler.KeyGenerator.getKey(org.eclipse.swt.SWT.CTRL), org.eclipse.gef.MouseWheelZoomHandler.SINGLETON);
 	}
+«ENDDEFINE»
+
+«DEFINE configureDefaultFont FOR gmfgen::GenEditorView-»
+org.eclipse.swt.graphics.FontData[] defaultFontData = org.eclipse.jface.preference.PreferenceConverter.getFontDataArray(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore(), org.eclipse.gmf.runtime.lite.preferences.IPreferenceConstants.DEFAULT_FONT);
+myDefaultFont = new org.eclipse.swt.graphics.Font(null, defaultFontData);
+viewer.getControl().setFont(myDefaultFont);
+«ENDDEFINE»
+
+«DEFINE hookPreferenceStoreListener FOR gmfgen::GenEditorView-»
+myPreferenceStoreChangeListener = new org.eclipse.jface.util.IPropertyChangeListener() {
+	public void propertyChange(org.eclipse.jface.util.PropertyChangeEvent event) {
+		org.eclipse.gef.GraphicalViewer viewer = getGraphicalViewer();
+		if (org.eclipse.gmf.runtime.lite.preferences.IPreferenceConstants.DEFAULT_FONT.equals(event.getProperty())) {
+			org.eclipse.swt.graphics.FontData[] defaultFontData = org.eclipse.jface.preference.PreferenceConverter.getFontDataArray(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore(), org.eclipse.gmf.runtime.lite.preferences.IPreferenceConstants.DEFAULT_FONT);
+			org.eclipse.swt.graphics.Font newDefaultFont = new org.eclipse.swt.graphics.Font(null, defaultFontData);
+			viewer.getControl().setFont(newDefaultFont);
+			refreshDiagram();
+			myDefaultFont.dispose();
+			myDefaultFont = newDefaultFont;
+		} else if (org.eclipse.gmf.runtime.lite.preferences.IPreferenceConstants.FONT_COLOR.equals(event.getProperty()) ||
+			org.eclipse.gmf.runtime.lite.preferences.IPreferenceConstants.LINE_COLOR.equals(event.getProperty()) ||
+			org.eclipse.gmf.runtime.lite.preferences.IPreferenceConstants.FILL_COLOR.equals(event.getProperty())) {
+			refreshDiagram();
+		}
+	}
+	/**
+	 * Do a full refresh on the editor so that all elements pick up their defaults.
+	 */
+	private void refreshDiagram() {
+		org.eclipse.gef.GraphicalViewer viewer = getGraphicalViewer();
+		viewer.getControl().setRedraw(false);
+		try {
+			org.eclipse.gef.EditPart contents = viewer.getRootEditPart().getContents();
+			refreshRecursive(contents);
+		} finally {
+			viewer.getControl().setRedraw(true);
+		}
+	}
+
+	/**
+	 * Refreshes the given edit part and all its children.
+	 */
+	private void refreshRecursive(org.eclipse.gef.EditPart editPart) {
+		if (editPart == null || !editPart.isActive()) {
+			return;
+		}
+		editPart.refresh();
+		for (java.util.Iterator it = editPart.getChildren().iterator(); it.hasNext(); ) {
+			org.eclipse.gef.EditPart nextChild = (org.eclipse.gef.EditPart) it.next();
+			refreshRecursive(nextChild);
+		}
+	}
+};
+«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore().addPropertyChangeListener(myPreferenceStoreChangeListener);
+«ENDDEFINE»
+
+«DEFINE defaultFontAttribute FOR gmfgen::GenEditorView-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.swt.graphics.Font myDefaultFont;
+«ENDDEFINE»
+
+«DEFINE disposeDefaultFont FOR gmfgen::GenEditorView-»
+if (myDefaultFont != null) {
+	myDefaultFont.dispose();
+}
+«ENDDEFINE»
+
+«DEFINE preferenceStoreListener FOR gmfgen::GenEditorView-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.jface.util.IPropertyChangeListener myPreferenceStoreChangeListener;
+«ENDDEFINE»
+
+«DEFINE unhookPreferenceStoreListener FOR gmfgen::GenEditorView-»
+if (myPreferenceStoreChangeListener != null) {
+	«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore().removePropertyChangeListener(myPreferenceStoreChangeListener);
+}
 «ENDDEFINE»
 
 «DEFINE flyoutPalette FOR gmfgen::GenEditorView-»

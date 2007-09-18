@@ -24,6 +24,7 @@ providerName=«provider»
 
 «EXPAND menu-»
 «EXPAND xpt::navigator::extensions::i18n FOR editorGen.navigator-»
+«EXPAND xpt::diagram::preferences::extensions::i18n FOR editorGen.diagram-»
 
 «EXPAND additions-»
 «ENDDEFINE»

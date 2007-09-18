@@ -401,6 +401,22 @@ public class CodegenEmitters {
 		return retrieveXpand("xpt::diagram::policies::OpenDiagramEditPolicy::OpenDiagramEditPolicy");	//$NON-NLS-1$
 	}
 
+	public TextEmitter getAppearancePreferencePageEmitter() {
+		return retrieveXpand("xpt::diagram::preferences::AppearancePreferencePage::AppearancePreferencePage");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getAppearancePreferencePageQualifiedClassNameEmitter() {
+		return retrieveXpand("xpt::diagram::preferences::AppearancePreferencePage::qualifiedClassName");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getGeneralPreferencePageEmitter() {
+		return retrieveXpand("xpt::diagram::preferences::GeneralPreferencePage::GeneralPreferencePage");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getGeneralPreferencePageQualifiedClassNameEmitter() {
+		return retrieveXpand("xpt::diagram::preferences::GeneralPreferencePage::qualifiedClassName");	//$NON-NLS-1$
+	}
+
 	public BinaryEmitter getDiagramIconEmitter() throws UnexpectedBehaviourException {
 		return newGIFEmitterAdapter("/xpt/editor/diagram.gif"); //$NON-NLS-1$
 	}

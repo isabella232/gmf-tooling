@@ -20,6 +20,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
@@ -38,7 +39,9 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
+import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
@@ -222,6 +225,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			generatePropertySheetSections();
 		}
 		generateApplication();
+		generatePreferences();
 		generateExternalizationSupport();
 	}
 
@@ -501,7 +505,32 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 	}
 
-    private void generateExternalizationSupport() throws UnexpectedBehaviourException, InterruptedException {
+	private void generatePreferences() throws UnexpectedBehaviourException, InterruptedException {
+		generatePreferences(myDiagram.getPreferencePages());
+	}
+
+	private void generatePreferences(EList<GenPreferencePage> pages) throws UnexpectedBehaviourException, InterruptedException {
+		for (GenPreferencePage preferencePage : pages) {
+			if (preferencePage instanceof GenStandardPreferencePage) {
+				generatePreferencePage((GenStandardPreferencePage) preferencePage);
+			}
+			generatePreferences(preferencePage.getChildren());
+		}
+	}
+
+	private void generatePreferencePage(GenStandardPreferencePage preferencePage) throws UnexpectedBehaviourException, InterruptedException {
+		switch (preferencePage.getKind()) {
+		case APPEARANCE_LITERAL:
+			internalGenerateJavaClass(myEmitters.getAppearancePreferencePageEmitter(), myEmitters.getAppearancePreferencePageQualifiedClassNameEmitter(), myDiagram);
+			break;
+		case GENERAL_LITERAL:
+			internalGenerateJavaClass(myEmitters.getGeneralPreferencePageEmitter(), myEmitters.getGeneralPreferencePageQualifiedClassNameEmitter(), myDiagram);
+			break;
+		//TODO support more standard preference pages.
+		}
+	}
+
+	private void generateExternalizationSupport() throws UnexpectedBehaviourException, InterruptedException {
         String packageName = myEditorGen.getEditor().getPackageName();
         String messagesClassName = "Messages";
         doGenerateJavaClass(myEmitters.getExternalizeEmitter(), packageName, messagesClassName, new Object[] { myEditorGen });

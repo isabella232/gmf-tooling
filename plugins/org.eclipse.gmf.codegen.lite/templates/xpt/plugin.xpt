@@ -26,6 +26,7 @@
 «EXPAND xpt::propsheet::extensions::extensions FOR editorGen.propertySheet-»
 «EXPAND xpt::providers::extensions::extensions FOR editorGen-»
 «EXPAND xpt::ConstraintProviders::extensions FOR editorGen-»
+«EXPAND xpt::diagram::preferences::extensions::extensions FOR editorGen.diagram-»
 
 «EXPAND additions-»
 </plugin>

@@ -1,0 +1,56 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    bblajer (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«DEFINE className FOR gmfgen::GenDiagram»DiagramAppearancePreferencePage«ENDDEFINE»
+
+«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«preferencesPackageName».«EXPAND className»«ENDDEFINE»
+
+«DEFINE preferenceInitializerClassName FOR gmfgen::GenDiagram»PreferenceInitializer«ENDDEFINE»
+«DEFINE preferenceInitializerQualifiedClassName FOR gmfgen::GenDiagram»«EXPAND qualifiedClassName»$«EXPAND preferenceInitializerClassName»«ENDDEFINE»
+
+«DEFINE AppearancePreferencePage FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::copyright FOR editorGen-»
+package «preferencesPackageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «EXPAND className» «EXPAND supertypes» {
+	«EXPAND xpt::diagram::preferences::Common::doGetPreferenencePage-»
+	«EXPAND PreferenceInitializer-»
+	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE supertypes FOR gmfgen::GenDiagram»extends org.eclipse.gmf.runtime.lite.preferences.ColorsAndFontsPreferencePage«ENDDEFINE»
+
+«DEFINE PreferenceInitializer FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedClassComment»
+public static class «EXPAND preferenceInitializerClassName» «EXPAND PreferenceInitializer_supertypes» {
+	«EXPAND PreferenceInitializer_ctor-»
+	«EXPAND PreferenceInitializer_additions-»
+}
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+
+«DEFINE PreferenceInitializer_supertypes FOR gmfgen::GenDiagram»extends org.eclipse.gmf.runtime.lite.preferences.ColorsAndFontsPreferencePage.ColorsAndFontsPreferenceInitializer«ENDDEFINE»
+
+«DEFINE PreferenceInitializer_ctor FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment»
+public «EXPAND preferenceInitializerClassName»() {
+	super(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore());
+}
+«ENDDEFINE»
+
+«DEFINE PreferenceInitializer_additions FOR gmfgen::GenDiagram»«ENDDEFINE»

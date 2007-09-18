@@ -37,6 +37,7 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin
 	public void start(org.osgi.framework.BundleContext context) throws Exception {
 		super.start(context);
 		instance = this;
+«EXPAND initDebugOptions-»
 «EXPAND hookServices-»
 	}
 
@@ -59,6 +60,7 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin
 «EXPAND bundledImages-»
 «EXPAND bundleString-»
 «EXPAND logging-»
+«EXPAND debugOptions-»
 «EXPAND additions-»
 }
 «ENDDEFINE»
@@ -267,6 +269,31 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin
 			throwable.printStackTrace();
 		}
 	}
+«ENDDEFINE»
+
+«DEFINE debugOptions FOR gmfgen::GenPlugin-»
+«EXPAND strictFontOption-»
+«ENDDEFINE»
+
+«DEFINE strictFontOption FOR gmfgen::GenPlugin-»
+«EXPAND xpt::Common::generatedMemberComment»
+private static String STRICT_FONT_OPTION = ID + "/strictFont";	«EXPAND xpt::Common::nonNLS»
+
+«EXPAND xpt::Common::generatedMemberComment»
+private boolean myIsStrictFont;
+
+«EXPAND xpt::Common::generatedMemberComment»
+public boolean isStrictFont() {
+	return myIsStrictFont;
+}
+«ENDDEFINE»
+
+«DEFINE initDebugOptions FOR gmfgen::GenPlugin-»
+«EXPAND initStrictFontOption-»
+«ENDDEFINE»
+
+«DEFINE initStrictFontOption FOR gmfgen::GenPlugin-»
+myIsStrictFont = Boolean.valueOf(org.eclipse.core.runtime.Platform.getDebugOption(STRICT_FONT_OPTION)).booleanValue();
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenPlugin-»
