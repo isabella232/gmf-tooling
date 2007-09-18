@@ -15,7 +15,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.gmf.tests.CleanupTest;
-import org.eclipse.gmf.tests.gef.DiagramNodeTest;
+import org.eclipse.gmf.tests.lite.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramEditorMatchingStrategyTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramEditorOutlineTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramElementDeleteTest;
