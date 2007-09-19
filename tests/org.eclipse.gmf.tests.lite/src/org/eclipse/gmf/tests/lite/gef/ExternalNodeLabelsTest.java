@@ -17,6 +17,9 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.edit.command.SetCommand;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
@@ -25,13 +28,22 @@ import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.runtime.lite.commands.WrappingCommand;
+import org.eclipse.gmf.runtime.lite.preferences.IPreferenceConstants;
+import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.Location;
 import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.gef.AbstractDiagramEditorTest;
 import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.PreferenceConverter;
+import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 public class ExternalNodeLabelsTest extends AbstractDiagramEditorTest {
 	public ExternalNodeLabelsTest(String name) {
@@ -110,5 +122,48 @@ public class ExternalNodeLabelsTest extends AbstractDiagramEditorTest {
 		assertNotNull(zoomManager);
 		zoomManager.setZoom(4.0);
 		testExternalNodeLabelsPosition();
+	}
+
+	/**
+	 * Makes sure that if font style specifies no font name, the diagram correctly updates when the default font changes.
+	 */
+	public void testDefaultFont() throws Exception {
+		GenNode nodeB = getSetup().getGenModel().getNodeB();
+		GenExternalNodeLabel firstExternalNodeLabel = getFirstExternalNodeLabel(nodeB);
+		assertNotNull("Incorrect setup: expected ", firstExternalNodeLabel);
+		Node nodeBInstance = createNode(nodeB, getDiagram());
+		View extLabelInstance = findChildView(nodeBInstance, firstExternalNodeLabel);
+		assertTrue("External node label was not created automatically", extLabelInstance instanceof Node);
+		GraphicalEditPart nodeBEP = (GraphicalEditPart) findEditPart(nodeBInstance);
+		assertNotNull(nodeBEP);
+		GraphicalEditPart extLabelEP = (GraphicalEditPart) findEditPart(extLabelInstance);
+		assertNotNull(extLabelEP);
+		FontStyle style = (FontStyle)nodeBInstance.getStyle(NotationPackage.eINSTANCE.getFontStyle());
+		assertNotNull("Font style should not be null here", style);
+		TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(style);
+		org.eclipse.emf.common.command.Command create = SetCommand.create(domain, style, NotationPackage.eINSTANCE.getFontStyle_FontName(), null);
+		execute(new WrappingCommand(domain, create));
+		assertNull("Command failed to execute", style.getFontName());
+		IPreferenceStore preferenceStore;
+		try {
+			Class<?> activatorClazz = loadGeneratedClass(getSetup().getGenModel().getGenDiagram().getEditorGen().getPlugin().getActivatorQualifiedClassName());
+			AbstractUIPlugin pluginInstance = (AbstractUIPlugin) activatorClazz.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
+			preferenceStore = pluginInstance.getPreferenceStore();
+		} catch (Throwable e) {
+			fail("Failed to obtain default preferences");
+			return;
+		}
+		FontData[] defaultFont = PreferenceConverter.getFontDataArray(preferenceStore, IPreferenceConstants.DEFAULT_FONT);
+		String defaultName = defaultFont[0].getName();
+		assertEquals(defaultName, extLabelEP.getFigure().getFont().getFontData()[0].getName());
+		FontData[] fonts = Display.getDefault().getFontList(null, true);
+		assertTrue(fonts.length > 1);
+		int index = (int) (Math.random() * fonts.length);
+		while (fonts[index].getName().equals(defaultName)) {
+			index = (int) (Math.random() * fonts.length);
+		}
+		PreferenceConverter.setValue(preferenceStore, IPreferenceConstants.DEFAULT_FONT, fonts[index]);
+		//Check that the font of the label has changed in response.
+		assertEquals(fonts[index].getName(), extLabelEP.getFigure().getFont().getFontData()[0].getName());
 	}
 }
