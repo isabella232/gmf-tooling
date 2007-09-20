@@ -9,24 +9,24 @@
 		<xslt style="extract-config.xsl" in="emf-site.xml" out="emf2.txt">
 			<param name="feature-id" expression="org.eclipse.emf.examples"/>
 			<param name="token" expression="emfExamples"/>
-			<param name="build-type" expression="I2007"/>
+			<param name="build-type" expression="M2007"/>
 		</xslt>
 		<xslt style="extract-config.xsl" in="emf-site.xml" out="emf3.txt">
 			<param name="feature-id" expression="org.eclipse.emf.emfqtv.all.sdk"/>
 			<param name="token" expression="emfQtvAll"/>
-			<param name="build-type" expression="I2007"/>
+			<param name="build-type" expression="M2007"/>
 		</xslt>
 		<!-- -->
 		<get dest="mdt-site.xml" src="http://download.eclipse.org/modeling/mdt/updates/site-interim.xml"/>
 		<xslt style="extract-config.xsl" in="mdt-site.xml" out="mdt1.txt">
 			<param name="feature-id" expression="org.eclipse.uml2"/>
 			<param name="token" expression="uml2"/>
-			<param name="build-type" expression="I2007"/>
+			<param name="build-type" expression="M2007"/>
 		</xslt>
 		<xslt style="extract-config.xsl" in="mdt-site.xml" out="mdt2.txt">
 			<param name="feature-id" expression="org.eclipse.ocl.all.sdk"/>
 			<param name="token" expression="ocl"/>
-			<param name="build-type" expression="I2007"/>
+			<param name="build-type" expression="M2007"/>
 		</xslt>
 		<!-- -->
 		<concat destfile="buildcfg.txt">
