@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,9 +7,12 @@
  *******************************************************************************/
 package org.eclipse.gmf.internal.xpand.build;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import org.eclipse.core.resources.ICommand;
@@ -31,6 +34,8 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 // FIXME package-local?, refactor Activator.getResourceManager uses
 public class WorkspaceResourceManager extends ResourceManagerImpl {
 	private final IProject contextProject;
+	private long configStamp = IResource.NULL_STAMP;
+	private IPath[] configuredRoots;
 
 	public WorkspaceResourceManager(IProject context) {
 		this.contextProject = context;
@@ -80,14 +85,16 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 	}
 
 	protected Reader resolve(String fqn, String ext) throws IOException {
-		IPath p = new Path(fqn.replaceAll(SyntaxConstants.NS_DELIM, "/")).addFileExtension(ext);
-		IResource r = contextProject.findMember(p);
-		if (r == null) {
-			// XXX confiugre manager with path defined as preference/resource variable
-			r = contextProject.findMember(new Path("templates/").append(p));
+		IPath fp = new Path(fqn.replaceAll(SyntaxConstants.NS_DELIM, "/")).addFileExtension(ext);
+		IResource r = null;
+		for (IPath p : getResolutions(fp)) {
+			r = contextProject.findMember(p);
+			if (r != null) {
+				break;
+			}
 		}
 		if (false == r instanceof IFile) {
-			throw new FileNotFoundException(p.toString());
+			throw new FileNotFoundException(fp.toString());
 		}
 		try {
 			return new StreamConverter().toContentsReader((IFile) r);
@@ -96,6 +103,51 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 			wrap.initCause(ex);
 			throw wrap;
 		}
+	}
+	private IPath[] getResolutions(IPath p) {
+		IPath[] configured = getConfiguredRoots();
+		IPath[] rv = new IPath[configured.length + 1];
+		rv[0] = p;
+		for (int i = 0; i < configured.length; i++) {
+			rv[i+1] = configured[i].append(p);
+		}
+		return rv;
+	}
+	private IPath[] getConfiguredRoots() {
+		IFile config = contextProject.getFile(".xpand-root");
+		if (!config.exists()) {
+			return new IPath[] { new Path("templates/") };
+		}
+		if (config.getModificationStamp() != configStamp) {
+			configuredRoots = new IPath[0];
+			final ArrayList<IPath> read = new ArrayList<IPath>();
+			BufferedReader in = null;
+			try {
+				in = new BufferedReader(new InputStreamReader(config.getContents(), config.getCharset()));
+				String line;
+				while((line = in.readLine()) != null) {
+					line = line.trim();
+					if (line.length() > 0 && line.charAt(0) != '#') {
+						read.add(new Path(line));
+					}
+				}
+			} catch (CoreException ex) {
+				// IGNORE
+			} catch (IOException ex) {
+				// IGNORE
+			} finally {
+				if (in != null) {
+					try {
+						in.close();
+					} catch (IOException ex) {
+						/* IGNORE */
+					}
+				}
+			}
+			configuredRoots = read.toArray(new IPath[read.size()]);
+			configStamp = config.getModificationStamp();
+		}
+		return configuredRoots;
 	}
 
 	protected ResourceManager[] getDependenies() {
