@@ -178,10 +178,24 @@ if («EXPAND checkSemanticElement») {
 «DEFINE getNodeVisualID FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public static int «EXPAND getNodeVisualIDMethodName»(org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.emf.ecore.EObject domainElement) {
-	if (domainElement == null || !«EXPAND modelID».equals(«EXPAND getModelIDMethodCall»(containerView))) {
+	if (domainElement == null) {
 		«EXPAND unrecognizedVID-»
 	}
-	switch («EXPAND getVisualIDMethodCall»(containerView)) {
+	String containerModelID = «EXPAND getModelIDMethodCall»(containerView);
+	if (!«EXPAND modelID».equals(containerModelID)«EXPAND checkContainerModelID FOREACH shortcutsProvidedFor») { «EXPAND xpt::Common::nonNLS({}) FOREACH shortcutsProvidedFor SEPARATOR " "»
+		«EXPAND unrecognizedVID-»
+	}
+	int containerVisualID;
+	if («EXPAND modelID».equals(containerModelID)) {
+		containerVisualID = «EXPAND getVisualIDMethodCall»(containerView);
+	} else {
+		if (containerView instanceof org.eclipse.gmf.runtime.notation.Diagram) {
+			containerVisualID = «EXPAND visualID»;		
+		} else {
+			«EXPAND unrecognizedVID-»
+		}
+	}
+	switch (containerVisualID) {
 		«EXPAND caseDomainContainerVisualID FOREACH getAllContainers()-»
 	}
 	«EXPAND unrecognizedVID-»
