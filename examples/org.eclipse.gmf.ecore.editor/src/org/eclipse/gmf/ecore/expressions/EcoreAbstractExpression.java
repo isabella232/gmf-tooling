@@ -80,8 +80,7 @@ public abstract class EcoreAbstractExpression {
 		String pluginID = EcoreDiagramEditorPlugin.ID;
 		this.status = new Status(severity, pluginID, -1, (message != null) ? message : "", throwable); //$NON-NLS-1$
 		if (!this.status.isOK()) {
-			EcoreDiagramEditorPlugin.getInstance().logError("Expression problem:" + message + "body:" + body, throwable); //$NON-NLS-1$ //$NON-NLS-2$
-
+			EcoreDiagramEditorPlugin.getInstance().logError("Expression problem: " + message + " body: " + body, throwable); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
