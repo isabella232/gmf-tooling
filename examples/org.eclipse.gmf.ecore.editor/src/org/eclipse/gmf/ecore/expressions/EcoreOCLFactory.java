@@ -12,32 +12,23 @@
 package org.eclipse.gmf.ecore.expressions;
 
 import java.lang.ref.WeakReference;
-
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
-
 import org.eclipse.core.runtime.IStatus;
-
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.ETypedElement;
-
 import org.eclipse.ocl.Environment;
 import org.eclipse.ocl.EvaluationEnvironment;
 import org.eclipse.ocl.ParserException;
 import org.eclipse.ocl.Query;
-
 import org.eclipse.ocl.ecore.EcoreFactory;
-import org.eclipse.ocl.ecore.OCL;
-
 import org.eclipse.ocl.expressions.OCLExpression;
 import org.eclipse.ocl.expressions.OperationCallExp;
 import org.eclipse.ocl.expressions.Variable;
-
 import org.eclipse.ocl.helper.OCLHelper;
-
 import org.eclipse.ocl.utilities.AbstractVisitor;
 import org.eclipse.ocl.utilities.PredefinedType;
 
@@ -47,51 +38,51 @@ import org.eclipse.ocl.utilities.PredefinedType;
 public class EcoreOCLFactory {
 
 	/**
-	 * @generated 
+	 * @generated
 	 */
 	private EcoreOCLFactory() {
 	}
 
 	/**
-	 * @generated 
+	 * @generated
 	 */
 	public static EcoreAbstractExpression getExpression(String body, EClassifier context, Map environment) {
 		return new Expression(body, context, environment);
 	}
 
 	/**
-	 * @generated 
+	 * @generated
 	 */
 	public static EcoreAbstractExpression getExpression(String body, EClassifier context) {
 		return getExpression(body, context, Collections.EMPTY_MAP);
 	}
 
 	/**
-	 * @generated 
+	 * @generated
 	 */
 	private static class Expression extends EcoreAbstractExpression {
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		private WeakReference queryRef;
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
-		private final OCL oclInstance;
+		private final org.eclipse.ocl.ecore.OCL oclInstance;
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		public Expression(String body, EClassifier context, Map environment) {
 			super(body, context);
-			oclInstance = OCL.newInstance();
+			oclInstance = org.eclipse.ocl.ecore.OCL.newInstance();
 			initCustomEnv(oclInstance.getEnvironment(), environment);
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		protected Query getQuery() {
 			Query oclQuery = null;
@@ -114,7 +105,7 @@ public class EcoreOCLFactory {
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		protected Object doEvaluate(Object context, Map env) {
 			Query oclQuery = getQuery();
@@ -127,7 +118,6 @@ public class EcoreOCLFactory {
 				Map.Entry nextEntry = (Map.Entry) it.next();
 				evalEnv.replace((String) nextEntry.getKey(), nextEntry.getValue());
 			}
-
 			try {
 				initExtentMap(context);
 				Object result = oclQuery.evaluate(context);
@@ -160,7 +150,6 @@ public class EcoreOCLFactory {
 			}
 			final Query queryToInit = getQuery();
 			final Object extentContext = context;
-
 			queryToInit.getExtentMap().clear();
 			if (queryToInit.queryText() != null && queryToInit.queryText().indexOf(PredefinedType.ALL_INSTANCES_NAME) >= 0) {
 				AbstractVisitor visitior = new AbstractVisitor() {
@@ -182,7 +171,7 @@ public class EcoreOCLFactory {
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		private static void initCustomEnv(Environment ecoreEnv, Map environment) {
 			for (Iterator it = environment.keySet().iterator(); it.hasNext();) {
@@ -193,13 +182,14 @@ public class EcoreOCLFactory {
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		private static Variable createVar(Environment ecoreEnv, String name, EClassifier type) {
-			Variable var = EcoreFactory.eINSTANCE.createVariable(); // or ecoreEnv.getOCLFactory().createVariable()?
+			Variable var = EcoreFactory.eINSTANCE.createVariable();
 			var.setName(name);
 			var.setType(ecoreEnv.getUMLReflection().getOCLType(type));
 			return var;
 		}
 	}
+
 }

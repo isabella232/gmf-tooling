@@ -160,10 +160,24 @@ public class EcoreVisualIDRegistry {
 	 * @generated
 	 */
 	public static int getNodeVisualID(View containerView, EObject domainElement) {
-		if (domainElement == null || !EPackageEditPart.MODEL_ID.equals(org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry.getModelID(containerView))) {
+		if (domainElement == null) {
 			return -1;
 		}
-		switch (org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry.getVisualID(containerView)) {
+		String containerModelID = org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry.getModelID(containerView);
+		if (!EPackageEditPart.MODEL_ID.equals(containerModelID) && !"ecore".equals(containerModelID)) { //$NON-NLS-1$
+			return -1;
+		}
+		int containerVisualID;
+		if (EPackageEditPart.MODEL_ID.equals(containerModelID)) {
+			containerVisualID = org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry.getVisualID(containerView);
+		} else {
+			if (containerView instanceof Diagram) {
+				containerVisualID = EPackageEditPart.VISUAL_ID;
+			} else {
+				return -1;
+			}
+		}
+		switch (containerVisualID) {
 		case EClassAttributesEditPart.VISUAL_ID:
 			if (EcorePackage.eINSTANCE.getEAttribute().isSuperTypeOf(domainElement.eClass())) {
 				return EAttributeEditPart.VISUAL_ID;
