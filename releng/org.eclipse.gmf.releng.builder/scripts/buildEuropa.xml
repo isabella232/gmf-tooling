@@ -34,4 +34,18 @@
 		-->
 	</target>
 
+	<target name="maintenance" depends="init,checkArgs">
+		<echo message="Building europa feature..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="europa" />
+			<property name="wipe" value="true" />
+			<property name="cleanBase" value="true" />
+			<property name="mapsCheckoutTag" value="${maintenance.maps}" />
+			<property name="targetConfigTag" value="${maintenance.target}" />
+			<property name="componentsTag" value="${maintenance.components}" />
+		</ant>
+		<!-- Removing auto-deployment of stable builds - better do deploy them manually
+		<ant antfile="deploy.xml" target="deploy.updates.europa" />		
+		-->
+	</target>
 </project>
