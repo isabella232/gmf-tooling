@@ -22,13 +22,7 @@
  * @generated
  */
 public class «compilationUnitName()» extends «EXPAND Runtime::fqn FOR actualFigure» {
-
-«EXPAND accessorField FOREACH accessors»
-
-«EXPAND Figure::ClassBody(compilationUnitName()) FOR actualFigure»
-
-«EXPAND accessorMethod FOREACH accessors»
-
+«EXPAND body»
 «additionalStaticFields()»
 }
 «ENDDEFINE»
@@ -40,14 +34,22 @@ public class «compilationUnitName()» extends «EXPAND Runtime::fqn FOR actualFigu
  * @generated
  */
 public class «compilationUnitName()» extends «EXPAND Runtime::fqn FOR actualFigure» {
+«EXPAND body»
+}
+«additionalStaticFields()»
+«ENDDEFINE»
 
-«EXPAND accessorField FOREACH accessors»
+«REM»«ENDREM»
+«DEFINE body FOR gmfgraph::FigureDescriptor»
+
+«EXPAND accessorField FOREACH accessors.select(a | !allCustomAccessors().typedFigure.contains(a.figure))»
 
 «EXPAND Figure::ClassBody(compilationUnitName()) FOR actualFigure»
 
-«EXPAND accessorMethod FOREACH accessors»
-}
-«additionalStaticFields()»
+«EXPAND accessorToField FOREACH accessors.select(a | !allCustomAccessors().typedFigure.contains(a.figure))»
+«FOREACH accessors.select(a | allCustomAccessors().typedFigure.contains(a.figure)) AS a-»
+«EXPAND accessorToCustom(allCustomAccessors().select(fa | fa.typedFigure == a.figure)) FOR a»
+«ENDFOREACH-»
 «ENDDEFINE»
 
 
@@ -58,8 +60,8 @@ public class «compilationUnitName()» extends «EXPAND Runtime::fqn FOR actualFigu
 	private «EXPAND Runtime::fqn FOR figure» «figureFieldName()»; 
 «ENDDEFINE»
 
-«REM»XXX what happens when childAccess points to figure from FigureAccessor - we don't need field in that case«ENDREM»
-«DEFINE accessorMethod FOR gmfgraph::ChildAccess-»
+«REM»ChildAccess points to figure we've generated, there's a field for it«ENDREM»
+«DEFINE accessorToField FOR gmfgraph::ChildAccess-»
 	/**
 	 * @generated
 	 */
@@ -68,3 +70,15 @@ public class «compilationUnitName()» extends «EXPAND Runtime::fqn FOR actualFigu
 	}
 «ENDDEFINE»
 
+«REM»ChildAccess points to some child of a CustomFigure, need to delegate to it's accessor
+Perhaps, should add support for ChildAccess not being generated (in case they are have same name as 
+FigureAccessor.accessor
+«ENDREM»
+«DEFINE accessorToCustom(List[FigureAccessor] fa) FOR gmfgraph::ChildAccess-»
+	/**
+	 * @generated
+	 */
+	public «EXPAND Runtime::fqn FOR figure» «accessor»() {
+		return «fa.accessor.first()»;
+	}
+«ENDDEFINE»

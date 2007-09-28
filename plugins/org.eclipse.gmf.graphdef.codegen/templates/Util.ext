@@ -93,6 +93,17 @@ String borderLayoutConstant(gmfgraph::BorderLayoutData layoutData) :
 
 cached List[gmfgraph::CustomBorder] getBordersInUse() : {} ;
 
+
+cached List[FigureAccessor] allCustomAccessors(FigureDescriptor fd) :
+	filterCustom( { fd.actualFigure } ).customChildren
+;
+
+// all CustimFigures in the hierarchy of each figure 
+private List[CustomFigure] filterCustom(List[Figure] figures) :
+	figures.isEmpty() ? {}
+		: figures.typeSelect(CustomFigure).union(filterCustom(figures.typeSelect(RealFigure).children))
+;
+
 EString messageFormat(EString pattern, List[Object] argument) :
 	JAVA java.text.MessageFormat.format(java.lang.String, java.lang.Object.List)
 ;
