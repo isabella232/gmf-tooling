@@ -187,7 +187,7 @@
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//FigureAccessor">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//FigureAccessor/accessor"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureAccessor/typedFigure"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureAccessor/typedFigure"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//CustomFigure">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//CustomFigure/customChildren"/>

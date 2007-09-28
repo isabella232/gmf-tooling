@@ -64,7 +64,7 @@ public interface CustomClass extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Attributes</em>' containment reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getCustomClass_Attributes()
-	 * @model type="org.eclipse.gmf.gmfgraph.CustomAttribute" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<CustomAttribute> getAttributes();

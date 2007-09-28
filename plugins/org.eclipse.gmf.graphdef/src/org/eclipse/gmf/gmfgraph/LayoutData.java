@@ -38,7 +38,7 @@ public interface LayoutData extends EObject {
 	 * @see #setOwner(Layoutable)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getLayoutData_Owner()
 	 * @see org.eclipse.gmf.gmfgraph.Layoutable#getLayoutData
-	 * @model opposite="layoutData" required="true"
+	 * @model opposite="layoutData" required="true" transient="false"
 	 * @generated
 	 */
 	Layoutable getOwner();

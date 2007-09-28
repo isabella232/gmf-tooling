@@ -69,7 +69,7 @@ public interface FigureDescriptor extends Identity {
 	 * @return the value of the '<em>Accessors</em>' containment reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFigureDescriptor_Accessors()
 	 * @see org.eclipse.gmf.gmfgraph.ChildAccess#getOwner
-	 * @model type="org.eclipse.gmf.gmfgraph.ChildAccess" opposite="owner" containment="true"
+	 * @model opposite="owner" containment="true"
 	 * @generated
 	 */
 	EList<ChildAccess> getAccessors();

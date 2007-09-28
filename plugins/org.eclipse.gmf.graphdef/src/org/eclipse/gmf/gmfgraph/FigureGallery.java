@@ -42,7 +42,7 @@ public interface FigureGallery extends Identity {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Figures</em>' containment reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFigureGallery_Figures()
-	 * @model type="org.eclipse.gmf.gmfgraph.RealFigure" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<RealFigure> getFigures();
@@ -58,7 +58,7 @@ public interface FigureGallery extends Identity {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Descriptors</em>' containment reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFigureGallery_Descriptors()
-	 * @model type="org.eclipse.gmf.gmfgraph.FigureDescriptor" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<FigureDescriptor> getDescriptors();

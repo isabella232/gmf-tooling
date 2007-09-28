@@ -44,7 +44,7 @@ public interface CustomFigure extends RealFigure, CustomClass {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Custom Children</em>' containment reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getCustomFigure_CustomChildren()
-	 * @model type="org.eclipse.gmf.gmfgraph.FigureAccessor" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<FigureAccessor> getCustomChildren();

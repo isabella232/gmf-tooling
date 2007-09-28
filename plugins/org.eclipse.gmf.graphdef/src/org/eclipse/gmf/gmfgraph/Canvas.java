@@ -43,7 +43,7 @@ public interface Canvas extends Identity {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Figures</em>' containment reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getCanvas_Figures()
-	 * @model type="org.eclipse.gmf.gmfgraph.FigureGallery" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<FigureGallery> getFigures();
@@ -59,7 +59,7 @@ public interface Canvas extends Identity {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Nodes</em>' containment reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getCanvas_Nodes()
-	 * @model type="org.eclipse.gmf.gmfgraph.Node" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Node> getNodes();
@@ -75,7 +75,7 @@ public interface Canvas extends Identity {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Connections</em>' containment reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getCanvas_Connections()
-	 * @model type="org.eclipse.gmf.gmfgraph.Connection" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Connection> getConnections();
@@ -91,7 +91,7 @@ public interface Canvas extends Identity {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Compartments</em>' containment reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getCanvas_Compartments()
-	 * @model type="org.eclipse.gmf.gmfgraph.Compartment" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Compartment> getCompartments();
@@ -107,7 +107,7 @@ public interface Canvas extends Identity {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Labels</em>' containment reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getCanvas_Labels()
-	 * @model type="org.eclipse.gmf.gmfgraph.DiagramLabel" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<DiagramLabel> getLabels();

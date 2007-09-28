@@ -40,7 +40,7 @@ public interface Polyline extends Shape {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Template</em>' containment reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getPolyline_Template()
-	 * @model type="org.eclipse.gmf.gmfgraph.Point" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Point> getTemplate();

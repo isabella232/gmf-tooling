@@ -62,7 +62,7 @@ public interface DiagramElement extends Identity {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Facets</em>' containment reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getDiagramElement_Facets()
-	 * @model type="org.eclipse.gmf.gmfgraph.VisualFacet" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<VisualFacet> getFacets();

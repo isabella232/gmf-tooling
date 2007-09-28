@@ -67,7 +67,7 @@ public interface RealFigure extends AbstractFigure {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Children</em>' containment reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getRealFigure_Children()
-	 * @model type="org.eclipse.gmf.gmfgraph.Figure" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Figure> getChildren();

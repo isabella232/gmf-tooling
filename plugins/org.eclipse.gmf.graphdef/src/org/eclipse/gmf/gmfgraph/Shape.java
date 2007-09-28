@@ -212,7 +212,7 @@ public interface Shape extends RealFigure {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Resolved Children</em>' reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getShape_ResolvedChildren()
-	 * @model type="org.eclipse.gmf.gmfgraph.Figure" transient="true" changeable="false" volatile="true" derived="true"
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList<Figure> getResolvedChildren();
