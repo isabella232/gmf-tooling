@@ -1,7 +1,7 @@
 !*** Graphical Modeling Framework (GMF) SDK map ********************************************
 
 !*** GMF features ***************************************************************************
-feature@org.eclipse.gmf.sdk=v20070608-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.sdk-feature
+feature@org.eclipse.gmf.sdk=v20071003-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.sdk-feature
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf.sdk=v20070601-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.sdk
@@ -9,17 +9,17 @@ plugin@org.eclipse.gmf.common=v20070903-0000,:pserver:anonymous@dev.eclipse.org:
 plugin@org.eclipse.gmf.bridge=v20070621-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge
 plugin@org.eclipse.gmf.bridge.ui=v20070903-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.ui
 plugin@org.eclipse.gmf.bridge.ui.dashboard=v20070621-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.ui.dashboard
-plugin@org.eclipse.gmf.codegen=v20070903-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen
-plugin@org.eclipse.gmf.codegen.edit=v20070903-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.edit
+plugin@org.eclipse.gmf.codegen=v20071003-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen
+plugin@org.eclipse.gmf.codegen.edit=v20071003-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.edit
 plugin@org.eclipse.gmf.codegen.ui=v20070621-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.ui
-plugin@org.eclipse.gmf.graphdef=v20070621-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef
-plugin@org.eclipse.gmf.graphdef.codegen=v20070621-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.codegen
+plugin@org.eclipse.gmf.graphdef=v20071003-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef
+plugin@org.eclipse.gmf.graphdef.codegen=v20071003-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.codegen
 plugin@org.eclipse.gmf.graphdef.codegen.ui=v20070621-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.codegen.ui
-plugin@org.eclipse.gmf.graphdef.edit=v20070601-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.edit
+plugin@org.eclipse.gmf.graphdef.edit=v20071003-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.edit
 plugin@org.eclipse.gmf.map=v20070621-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.map
 plugin@org.eclipse.gmf.map.edit=v20070621-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.map.edit
 plugin@org.eclipse.gmf.map.editor=v20070601-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.map.editor
 plugin@org.eclipse.gmf.tooldef=v20070621-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef
 plugin@org.eclipse.gmf.tooldef.edit=v20070601-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef.edit
 plugin@org.eclipse.gmf.validate=v20070621-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.validate
-plugin@org.eclipse.gmf.xpand=v20070903-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.xpand
+plugin@org.eclipse.gmf.xpand=v20071003-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.xpand
