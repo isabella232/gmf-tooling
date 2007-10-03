@@ -112,51 +112,51 @@
 		</unzip>
 		
 		<unzip dest="${javadoc.link.location}/emf/">
-			<patternset refid="package.list"/>			
-			<fileset dir="${baseLocation}/plugins/org.eclipse.emf.doc_${fullEmfVersion}.v${emfBuildDate}${emfBuildTime}">
-				<include name="doc.zip"/>
+			<patternset refid="package.list"/>
+			<fileset dir="${baseLocation}/plugins">
+				<include name="org.eclipse.emf.doc_*.jar"/>
 			</fileset>
 		</unzip>
 		
 		<unzip dest="${javadoc.link.location}/emf.query/">
 			<patternset refid="package.list"/>
 			<fileset dir="${baseLocation}/plugins">
-				<include name="org.eclipse.emf.query.doc*.jar"/>
+				<include name="org.eclipse.emf.query.doc_*.jar"/>
 			</fileset>
 		</unzip>
 
 		<unzip dest="${javadoc.link.location}/emf.transaction/">
 			<patternset refid="package.list"/>
 			<fileset dir="${baseLocation}/plugins">
-				<include name="org.eclipse.emf.transaction.doc*.jar"/>
+				<include name="org.eclipse.emf.transaction.doc_*.jar"/>
 			</fileset>
 		</unzip>
 		
 		<unzip dest="${javadoc.link.location}/emf.validation/">
 			<patternset refid="package.list"/>
 			<fileset dir="${baseLocation}/plugins">
-				<include name="org.eclipse.emf.validation.doc*.jar"/>
+				<include name="org.eclipse.emf.validation.doc_*.jar"/>
 			</fileset>
 		</unzip>
 		
 		<unzip dest="${javadoc.link.location}/emf.workspace/">
 			<patternset refid="package.list"/>
 			<fileset dir="${baseLocation}/plugins">
-				<include name="org.eclipse.emf.workspace.doc*.jar"/>
+				<include name="org.eclipse.emf.workspace.doc_*.jar"/>
 			</fileset>
 		</unzip>
 
 		<unzip dest="${javadoc.link.location}/emf.ocl/">
 			<patternset refid="package.list"/>
 			<fileset dir="${baseLocation}/plugins">
-				<include name="org.eclipse.emf.ocl.doc*.jar"/>
+				<include name="org.eclipse.emf.ocl.doc_*.jar"/>
 			</fileset>
 		</unzip>
 
 		<unzip dest="${javadoc.link.location}/ocl/">
 			<patternset refid="package.list"/>
 			<fileset dir="${baseLocation}/plugins">
-				<include name="org.eclipse.ocl.doc*.jar"/>
+				<include name="org.eclipse.ocl.doc_*.jar"/>
 			</fileset>
 		</unzip>
 		
