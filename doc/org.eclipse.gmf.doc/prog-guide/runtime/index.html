@@ -1,30 +1,192 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<meta name="GENERATOR" content="IBM Software Development Platform" />
-<meta http-equiv="Content-Style-Type" content="text/css" />
-<link href="../../book.css" rel="stylesheet" type="text/css" />
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 10">
+<meta name=Originator content="Microsoft Word 10">
+<link rel=File-List href="index_files/filelist.xml">
+<link rel=Edit-Time-Data href="index_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
 <title>GMF Runtime Programmer's Guide</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>aboyko</o:Author>
+  <o:LastAuthor>aboyko</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>1</o:TotalTime>
+  <o:Created>2007-10-05T14:28:00Z</o:Created>
+  <o:LastSaved>2007-10-05T14:30:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>150</o:Words>
+  <o:Characters>859</o:Characters>
+  <o:Company>IBM</o:Company>
+  <o:Lines>7</o:Lines>
+  <o:Paragraphs>2</o:Paragraphs>
+  <o:CharactersWithSpaces>1007</o:CharactersWithSpaces>
+  <o:Version>10.6830</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]-->
+<link rel=Stylesheet type="text/css" media=all href="../../book.css">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:2;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
+	font-size:24.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+p
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:35.4pt;
+	mso-footer-margin:35.4pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:461506206;
+	mso-list-template-ids:165062416;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";}
+</style>
+<![endif]-->
+<meta http-equiv=Content-Style-Type content="text/css">
 </head>
-<body>
+
+<body lang=EN-US link=blue vlink=blue style='tab-interval:.5in'>
+
+<div class=Section1>
+
 <h1>GMF Programmer's Guide</h1>
+
 <p>This guide presents the GMF Runtime Programmer's Guide.</p>
 
-<ul>
-	<li><a href="Developer Guide to Command Framework.html">Developer Guide to Command Framework</a></li>
-	<li><a href="Developer Guide to Global Actions.html">Developer Guide to Global Actions</a></li>
-	<li><a href="Developer Guide to Contribution Item Service.html">Developer Guide to Contribution Item Service</a></li>
-	<li><a href="Developers Guide to the Extensible Type Registry/Developers Guide to the Extensible Type Registry.html">Developer Guide to the Extensible Type Registry</a></li>
-	<li><a href="Developer Guide to Diagram Runtime.html">Developer Guide to Diagram Runtime Framework</a></li>
-	<li><a href="Developer Guide to Keyboard Accessibility.html">Developer Guide to Keyboard Accessibility</a></li>
+<ul type=disc>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l0 level1 lfo1;tab-stops:list .5in'><a
+     href="Developer%20Guide%20to%20Command%20Framework.html">Developer Guide
+     to Command Framework</a></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l0 level1 lfo1;tab-stops:list .5in'><a
+     href="Developer%20Guide%20to%20Global%20Actions.html">Developer Guide to Global
+     Actions</a></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l0 level1 lfo1;tab-stops:list .5in'><a
+     href="Developer%20Guide%20to%20Contribution%20Item%20Service.html">Developer
+     Guide to Contribution Item Service</a></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l0 level1 lfo1;tab-stops:list .5in'><a
+     href="Developers%20Guide%20to%20the%20Extensible%20Type%20Registry/Developers%20Guide%20to%20the%20Extensible%20Type%20Registry.html">Developer
+     Guide to the Extensible Type Registry</a></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l0 level1 lfo1;tab-stops:list .5in'><a
+     href="Developer%20Guide%20to%20Diagram%20Runtime.html">Developer Guide to
+     Diagram Runtime Framework</a></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l0 level1 lfo1;tab-stops:list .5in'><a
+     href="Developer%20Guide%20to%20Keyboard%20Accessibility.html">Developer
+     Guide to Keyboard Accessibility</a></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l0 level1 lfo1;tab-stops:list .5in'><a
+     href="Notational%20MetaModel%20Extensibility%20Guide.htm">Developer Guide
+     to Extending Notational Meta-Model</a></li>
 </ul>
-<br/>
-<br/>
-<hr/>
-<p><a href="http://www.eclipse.org/legal/epl-v10.html">
-Copyright (c) 2000,2005 IBM Corporation and others. All Rights Reserved.</a></p>
 
-<hr/>
-<br/>
-<br/></body></html>
+<p class=MsoNormal style='margin-bottom:12.0pt'><o:p>&nbsp;</o:p></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<p><a href="http://www.eclipse.org/legal/epl-v10.html">Copyright (c) 2000,2005
+IBM Corporation and others. All Rights Reserved.</a></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal style='margin-bottom:12.0pt'><o:p>&nbsp;</o:p></p>
+
+</div>
+
+</body>
+
+</html>
