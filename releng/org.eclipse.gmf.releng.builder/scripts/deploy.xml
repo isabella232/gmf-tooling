@@ -148,4 +148,28 @@
 		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="chmod -R 775 ${remoteDirectory}/downloads/drops/${buildLabel}"/>
 	</target>	
 
+	<target name="init.base.maintenance">
+		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${cvs.root}"
+			package="${targetRoot}" dest="${basedir}" tag="${maintenance.target}" />
+		<property file="${basedir}/org.eclipse.gmf.releng.target/build.cfg"/>		
+		<tstamp/>
+		<property name="date" value="${gmfBaseDate}" />
+		<property name="time" value="${gmfBaseTime}" />
+		<property name="timestamp" value="${date}${time}" />
+		<property name="buildType" value="${gmfBaseBuildType}" />	
+		<property name="buildId" value="${gmfBaseBuildId}" />
+		<property name="buildLabel" value="${gmfBaseBuildLabel}" />
+	</target>
+		
+	<target name="deploy.base.maintenance" depends="init.base.maintenance">
+<!--		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/downloads/drops/${buildLabel}" failonerror="false"/> -->
+		<exec executable="rsync">
+			<env key="RSYNC_PASSWORD" value="${ftpPassword}"/>
+			<arg value="-var"/>
+			<arg value="--delete"/>
+			<arg value="${buildRoot}/artifacts/drops/${buildLabel}"/>
+			<arg value="${ftpUser}@download1.eclipse.org:${remoteDirectory}/downloads/drops/"/>
+		</exec>	
+		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="chmod -R 775 ${remoteDirectory}/downloads/drops/${buildLabel}"/>
+	</target>	
 </project>
