@@ -142,12 +142,12 @@
 	</macrodef>	
 	
 	<target name="deploy.base">
-		<initparams targetConfigTag="${stable.target}"/>
+		<initparams.base targetConfigTag="${stable.target}"/>
 		<antcall target="deploy.base.interim"/>
 	</target>
 
 	<target name="deploy.base.maintenance">
-		<initparams targetConfigTag="${maintenance.target}"/>
+		<initparams.base targetConfigTag="${maintenance.target}"/>
 		<antcall target="deploy.base.interim"/>
 	</target>
 	
