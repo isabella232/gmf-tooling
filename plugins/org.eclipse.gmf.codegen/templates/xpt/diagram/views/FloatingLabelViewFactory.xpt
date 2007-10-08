@@ -48,7 +48,7 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 «DEFINE offset FOR gmfgen::GenLinkLabel-»
 	«LET labelOffsetX(viewmap, 0) AS x-»
 	«LET labelOffsetY(viewmap, 0) AS y-»
-	«IF x > 0 || y > 0-»
+	«IF x != 0 || y != 0-»
 		«EXPAND offset(x, y)-»
 	«ENDIF-»
 	«ENDLET-»
