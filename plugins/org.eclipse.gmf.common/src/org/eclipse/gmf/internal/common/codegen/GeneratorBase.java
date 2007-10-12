@@ -336,28 +336,36 @@ public abstract class GeneratorBase implements Runnable {
 			IPackageFragment pf = myDestRoot.createPackageFragment(packageName, true, new SubProgressMonitor(pm, 1));
 			ICompilationUnit cu = pf.getCompilationUnit(className + ".java"); //$NON-NLS-1$
 			if (cu.exists()) {
-				final String oldContents = cu.getSource();
-                IImportDeclaration[] declaredImports = cu.getImports();
-				cu.getBuffer().setContents(genText);
+				ICompilationUnit workingCopy = null;
 				try {
-                    //Since we do organizeImports prior to merge, we must ensure imports added manually are known to OrganizeImportsProcessor
-                    String[] declaredImportsAsStrings = new String[declaredImports.length];
-                    for (int i=0; i<declaredImports.length; i++) {
-                        declaredImportsAsStrings[i] = declaredImports[i].getElementName();
-                    }
-					getImportsPostrocessor().organizeImports(cu, declaredImportsAsStrings, new SubProgressMonitor(pm, 1));
-				} catch (CoreException e) {
-					cu.save(new SubProgressMonitor(pm, 1), true); // save to investigate contents
-					throw e;
-				}
-				genText = mergeJavaCode(oldContents, cu.getSource(), new SubProgressMonitor(pm, 1));
-				genText = formatCode(genText);
-				if (!genText.equals(oldContents)) {
-					cu.getBuffer().setContents(genText);
-					cu.save(new SubProgressMonitor(pm, 1), true);
-				} else {
-					cu.getBuffer().close(); // discard changes
-					pm.worked(1);
+					workingCopy = cu.getWorkingCopy(new SubProgressMonitor(pm, 1));
+					final String oldContents = workingCopy.getSource();
+	                IImportDeclaration[] declaredImports = workingCopy.getImports();
+	                workingCopy.getBuffer().setContents(genText);
+	                workingCopy.reconcile(ICompilationUnit.NO_AST, false, null, null);
+					try {
+	                    //Since we do organizeImports prior to merge, we must ensure imports added manually are known to OrganizeImportsProcessor
+	                    String[] declaredImportsAsStrings = new String[declaredImports.length];
+	                    for (int i=0; i<declaredImports.length; i++) {
+	                        declaredImportsAsStrings[i] = declaredImports[i].getElementName();
+	                    }
+						getImportsPostrocessor().organizeImports(workingCopy, declaredImportsAsStrings, new SubProgressMonitor(pm, 1));
+					} catch (CoreException e) {
+						workingCopy.commitWorkingCopy(true, new SubProgressMonitor(pm, 1)); // save to investigate contents
+						throw e;
+					}
+					genText = mergeJavaCode(oldContents, workingCopy.getSource(), new SubProgressMonitor(pm, 1));
+					genText = formatCode(genText);
+					if (!genText.equals(oldContents)) {
+						workingCopy.getBuffer().setContents(genText);
+						workingCopy.reconcile(ICompilationUnit.NO_AST, false, null, null);
+						workingCopy.commitWorkingCopy(true, new SubProgressMonitor(pm, 1));
+					} else {
+						// discard changes - would happen in finally, nothing else to do
+						pm.worked(1);
+					}
+				} finally {
+					workingCopy.discardWorkingCopy();
 				}
 			} else {
 				cu = pf.createCompilationUnit(cu.getElementName(), genText, true, new SubProgressMonitor(pm, 1));
