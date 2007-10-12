@@ -35,6 +35,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 
 /**
  * Operation that processes templates to generate diagram editor.
@@ -107,6 +108,10 @@ public class ExecuteTemplatesOperation implements IRunnableWithProgress {
 				if (DiagnosticsDialog.openProceedCancel(getShell(), getName(), msg, isGenModelValid) == IDialogConstants.CANCEL_ID) {
 					return;
 				}
+			}
+
+			if (!PlatformUI.getWorkbench().saveAllEditors(true)) {
+				return;
 			}
 
 			doRunWithStatus();
