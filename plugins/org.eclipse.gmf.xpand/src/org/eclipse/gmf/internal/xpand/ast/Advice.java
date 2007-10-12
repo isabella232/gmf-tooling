@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
@@ -86,8 +87,11 @@ public class Advice extends AbstractDefinition implements XpandAdvice {
         if (p == null) {
             p = Pattern.compile(pointCut.getValue().replaceAll("\\*", ".*"));
         }
-        final Matcher m = p.matcher(def.getName());
-        if (m.matches()) {
+        // 1) AROUND simpleName
+        final Matcher m1 = p.matcher(def.getName());
+        // 2) AROUND fully::qualified::name
+        final Matcher m2 = p.matcher(def.getOwner().getFullyQualifiedName() + SyntaxConstants.NS_DELIM + def.getName());
+        if (m1.matches() || m2.matches()) {
             ctx = ctx.cloneWithResource(def.getOwner());
             final EClassifier t = ctx.getTypeForName(def.getTargetType());
             final EClassifier[] paramTypes = new EClassifier[def.getParams().length];
