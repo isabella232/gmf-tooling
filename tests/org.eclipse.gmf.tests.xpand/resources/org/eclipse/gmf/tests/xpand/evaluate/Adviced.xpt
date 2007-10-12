@@ -1,6 +1,8 @@
-«DEFINE test1 FOR Object»«ENDDEFINE»
-«DEFINE test2 FOR Object»«ENDDEFINE»
+«DEFINE advtest1 FOR Object»«ENDDEFINE»
+«DEFINE advtest2 FOR Object»«ENDDEFINE»
 «DEFINE te2st FOR Object»«ENDDEFINE»
-«DEFINE test1 FOR String»«ENDDEFINE»
-«DEFINE test1(String s) FOR String»«ENDDEFINE»
-«DEFINE test1(String s, String s2) FOR String»«ENDDEFINE»
+«DEFINE advtest1 FOR String»«ENDDEFINE»
+«DEFINE advtest1(String s) FOR String»«ENDDEFINE»
+«DEFINE advtest1(String s, String s2) FOR String»«ENDDEFINE»
+
+«DEFINE advtest3 FOR String»test3«ENDDEFINE»

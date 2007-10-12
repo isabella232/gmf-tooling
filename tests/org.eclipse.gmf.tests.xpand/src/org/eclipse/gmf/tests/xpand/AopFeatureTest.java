@@ -36,13 +36,13 @@ public class AopFeatureTest extends TestCase {
     }
 
     public final void test_test1_Object() {
-        final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::test1", EcorePackage.eINSTANCE.getEJavaObject(), null);
+        final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::advtest1", EcorePackage.eINSTANCE.getEJavaObject(), null);
         def.evaluate(execCtx);
         assertEquals("12", buffer.toString());
     }
 
     public final void test_test2_Object() {
-        final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::test2", EcorePackage.eINSTANCE.getEJavaObject(), null);
+        final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::advtest2", EcorePackage.eINSTANCE.getEJavaObject(), null);
         def.evaluate(execCtx);
         assertEquals("13", buffer.toString());
     }
@@ -54,26 +54,33 @@ public class AopFeatureTest extends TestCase {
     }
 
     public final void test_test1_String() {
-        final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::test1", EcorePackage.eINSTANCE.getEString(), null);
+        final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::advtest1", EcorePackage.eINSTANCE.getEString(), null);
         def.evaluate(execCtx);
         assertEquals("1258", buffer.toString());
     }
 
     public final void test_test1_StringParam_String() {
-        final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::test1", EcorePackage.eINSTANCE.getEString(),
+        final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::advtest1", EcorePackage.eINSTANCE.getEString(),
                 new EClassifier[] { EcorePackage.eINSTANCE.getEString() });
         def.evaluate(execCtx);
         assertEquals("678", buffer.toString());
     }
 
     public final void test_test1_StringParams_String() {
-        final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::test1", EcorePackage.eINSTANCE.getEString(),
+        final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::advtest1", EcorePackage.eINSTANCE.getEString(),
                 new EClassifier[] { EcorePackage.eINSTANCE.getEString(), EcorePackage.eINSTANCE.getEString() });
         def.evaluate(execCtx);
         assertEquals("78", buffer.toString());
     }
 
+    public final void testQualifiedAspect() {
+        final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::advtest3", EcorePackage.eINSTANCE.getEString(), null);
+        def.evaluate(execCtx);
+        assertEquals("15qualified-test3", buffer.toString());
+    }
+
     private static String prefix() {
         return "org::eclipse::gmf::tests::xpand::evaluate::";
     }
+
 }
