@@ -171,7 +171,12 @@ public class EvaluationTest extends AbstractExpressionTest {
 
 		expr = parse("5 / 2.0");
 		assertEquals(new Double(2.5), expr.evaluate(ec));
+	}
 
+	//https://bugs.eclipse.org/bugs/show_bug.cgi?id=200786
+	public final void testArithmetic4_Precedence() {
+		Expression expr = parse("10-5-5");
+		assertEquals(0, expr.evaluate(ec));
 	}
 
 	public final void testNegation() {
@@ -187,7 +192,7 @@ public class EvaluationTest extends AbstractExpressionTest {
 
 	public final void testStringConcatenation1() {
 		final Expression expr = parse("\"test\" + 3 + 4");
-		assertEquals("test7", expr.evaluate(ec));
+		assertEquals("test34", expr.evaluate(ec));
 	}
 
 	public final void testStringConcatenation2() {
