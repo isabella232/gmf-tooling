@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -65,10 +66,10 @@ public class MapDefFeeder {
 	@SuppressWarnings("unchecked")
 	public void feedDefaultMapping() {
 		final Hierarchy hierarchy = getHierarchy();
-		myNodeCandidates = new UniqueEList(hierarchy.getAllClasses());
+		myNodeCandidates = new UniqueEList<EClass>(hierarchy.getAllClasses());
 		createNodeFilter().filter(myNodeCandidates, hierarchy);
 
-		myLinkCandidates = new ArrayList();
+		myLinkCandidates = new LinkedList<EObject>();
 		createLinkFilter().filter(myLinkCandidates, hierarchy);
 
 		myLinkCandidates.addAll(hierarchy.getAccessibleReferences(myNodeCandidates.iterator()));
@@ -88,15 +89,15 @@ public class MapDefFeeder {
 		return myHierarchy;
 	}
 
-	private Strategy createNodeFilter() {
+	private Strategy<EClass> createNodeFilter() {
 		// TODO add UI and instantiate strategies from descriptors
-		return new CompositeStrategy(new AccessibleClassNodeStrategy(), new LeafNodeStrategy());
+		return new CompositeStrategy<EClass>(new AccessibleClassNodeStrategy(), new LeafNodeStrategy());
 	}
 
-	private Strategy createLinkFilter() {
+	private Strategy<EObject> createLinkFilter() {
 		//MergingStrategy?
 		// default: Accessible, Leaf
-		return new Strategy() {
+		return new Strategy<EObject>() {
 			public String getID() {
 				throw new UnsupportedOperationException("QuickHack");
 			}

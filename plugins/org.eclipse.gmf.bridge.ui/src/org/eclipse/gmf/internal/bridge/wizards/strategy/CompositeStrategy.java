@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,10 +18,10 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * @author artem
  */
-public class CompositeStrategy implements Strategy {
-	private final Strategy[] myStrategies;
+public class CompositeStrategy<T extends EObject> implements Strategy<T> {
+	private final Strategy<T>[] myStrategies;
 
-	public CompositeStrategy(Strategy... strategies) {
+	public CompositeStrategy(Strategy<T>... strategies) {
 		assert strategies != null;
 		myStrategies = strategies;
 		for (int i = 0 ; i < strategies.length; i++) {
@@ -36,7 +36,7 @@ public class CompositeStrategy implements Strategy {
 		return "composite";
 	}
 
-	public <T extends EObject> void filter(Collection<T> soFar, Hierarchy hierarchy) {
+	public void filter(Collection<T> soFar, Hierarchy hierarchy) {
 		for (int i = 0 ; i < myStrategies.length; i++) {
 			myStrategies[i].filter(soFar, hierarchy);
 		}

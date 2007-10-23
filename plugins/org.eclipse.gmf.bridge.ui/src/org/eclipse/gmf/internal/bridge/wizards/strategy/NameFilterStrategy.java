@@ -17,13 +17,12 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import org.eclipse.emf.ecore.ENamedElement;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * Removes elements that don't match specified patterns 
  * @author artem
  */
-public class NameFilterStrategy implements Strategy {
+public class NameFilterStrategy implements Strategy<ENamedElement> {
 	private final Pattern[] myPatterns;
 
 	/**
@@ -49,10 +48,9 @@ public class NameFilterStrategy implements Strategy {
 	/**
 	 * @param soFar - expects <code>List&lt;ENamedElement&gt;</code>
 	 */
-	public void filter(Collection<EObject> soFar, Hierarchy hierarchy) {
-		for (Iterator<EObject> it = soFar.iterator(); it.hasNext();) {
-			ENamedElement next = (ENamedElement) it.next();
-			if (!match(next.getName())) {
+	public void filter(Collection<ENamedElement> soFar, Hierarchy hierarchy) {
+		for (Iterator<ENamedElement> it = soFar.iterator(); it.hasNext();) {
+			if (!match(it.next().getName())) {
 				it.remove();
 			}
 		}

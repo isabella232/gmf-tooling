@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * @author artem
  */
-public interface Strategy {
+public interface Strategy<T extends EObject> {
 
 	String getID();
 
@@ -27,5 +27,5 @@ public interface Strategy {
 	 * @param hierarchy accessor to domain model  
 	 * @return 
 	 */
-	<T extends EObject> void filter(Collection<T> soFar, Hierarchy hierarchy);
+	void filter(Collection<T> soFar, Hierarchy hierarchy);
 }

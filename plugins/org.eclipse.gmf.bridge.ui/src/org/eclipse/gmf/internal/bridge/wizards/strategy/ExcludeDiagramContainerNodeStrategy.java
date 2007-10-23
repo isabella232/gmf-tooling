@@ -15,12 +15,11 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * @author artem
  */
-public class ExcludeDiagramContainerNodeStrategy implements Strategy {
+public class ExcludeDiagramContainerNodeStrategy implements Strategy<EClass> {
 
 	private final boolean myWithSubclasses;
 
@@ -36,10 +35,10 @@ public class ExcludeDiagramContainerNodeStrategy implements Strategy {
 		return "excludeDiagramContainer";
 	}
 
-	public void filter(Collection<EObject> soFar, Hierarchy hierarchy) {// FIXME Collection<EClass>
+	public void filter(Collection<EClass> soFar, Hierarchy hierarchy) {
 		if (myWithSubclasses && hierarchy.getDiagramContainer() != null) {
-			for (Iterator<EObject> it = soFar.iterator(); it.hasNext();) {
-				EClass next = (EClass) it.next();
+			for (Iterator<EClass> it = soFar.iterator(); it.hasNext();) {
+				EClass next = it.next();
 				if (hierarchy.getDiagramContainer().isSuperTypeOf(next)) {
 					it.remove();
 				}
@@ -48,5 +47,4 @@ public class ExcludeDiagramContainerNodeStrategy implements Strategy {
 			soFar.remove(hierarchy.getDiagramContainer());
 		}
 	}
-
 }
