@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2006 Borland Software Corp.
+-- Copyright (c) 2006, 2007 Borland Software Corp.
 -- 
 -- All rights reserved. This program and the accompanying materials
 -- are made available under the terms of the Eclipse Public License v1.0
@@ -20,7 +20,7 @@
 
 $Notice
 /./*******************************************************************************
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006, 2007 Eclipse.org
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -210,8 +210,8 @@ $Rules
 			setResult(getLeftIToken());
 		$EndJava./
 
-	additiveExpression ::= multiplicativeExpression
-	additiveExpression ::= multiplicativeExpression additiveOperator additiveExpression 
+	additiveExpression -> multiplicativeExpression
+	additiveExpression ::= additiveExpression additiveOperator multiplicativeExpression 
 		/.$BeginJava
 			Expression e = (Expression) getRhsSym(1);
 			IToken t = (IToken) getRhsSym(2);
