@@ -276,8 +276,8 @@ public class ExecutionContextImpl implements ExecutionContext {
     public Variable getGlobalVariable(String name) {
     	return globalVars.get(name);
     }
-    
-    @SuppressWarnings("unchecked")
+
+	@SuppressWarnings("unchecked")
 	public ExecutionContext cloneWithVariable(final Variable... vars) {
         final ExecutionContextImpl result = (ExecutionContextImpl) cloneContext();
         for (Variable v : vars) {
@@ -287,8 +287,8 @@ public class ExecutionContextImpl implements ExecutionContext {
     }
 
     @SuppressWarnings("unchecked")
-    public ExecutionContext cloneWithVariable(Collection<Variable> v) {
-    	return cloneWithVariable(v.toArray(new Variable[v.size()]));
+    public <T extends ExecutionContext> T cloneWithVariable(Collection<Variable> v) {
+    	return (T) cloneWithVariable(v.toArray(new Variable[v.size()]));
     }
 
     @SuppressWarnings("unchecked")
