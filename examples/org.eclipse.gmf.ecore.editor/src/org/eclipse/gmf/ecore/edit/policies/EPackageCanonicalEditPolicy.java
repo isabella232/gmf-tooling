@@ -190,10 +190,16 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		Collection existingLinks = new LinkedList(getDiagram().getEdges());
 		for (Iterator linksIterator = existingLinks.iterator(); linksIterator.hasNext();) {
 			Edge nextDiagramLink = (Edge) linksIterator.next();
+			int diagramLinkVisualID = EcoreVisualIDRegistry.getVisualID(nextDiagramLink);
+			if (diagramLinkVisualID == -1) {
+				if (nextDiagramLink.getSource() != null && nextDiagramLink.getTarget() != null) {
+					linksIterator.remove();
+				}
+				continue;
+			}
 			EObject diagramLinkObject = nextDiagramLink.getElement();
 			EObject diagramLinkSrc = nextDiagramLink.getSource().getElement();
 			EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
-			int diagramLinkVisualID = EcoreVisualIDRegistry.getVisualID(nextDiagramLink);
 			for (Iterator LinkDescriptorsIterator = linkDescriptors.iterator(); LinkDescriptorsIterator.hasNext();) {
 				EcoreLinkDescriptor nextLinkDescriptor = (EcoreLinkDescriptor) LinkDescriptorsIterator.next();
 				if (diagramLinkObject == nextLinkDescriptor.getModelElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination()
