@@ -102,11 +102,16 @@ public class RuntimeWorkspaceSetup {
 
 	/**
 	 * Copy (almost, except for strange unused assignment) of <code>PDECore.isDevLaunchMode()</code>
+	 * Since PDECore.isDevLaunchMode and -pdelaunch cmdline argument gone, use
+	 * framework property "eclipse.pde.launch" instead
 	 */
 	private static boolean isDevLaunchMode() {
+		if ("true".equals(Plugin.getBundleContext().getProperty("eclipse.pde.launch"))) {
+			return true;
+		}
 		String[] args = Platform.getApplicationArgs();
 		for (int i = 0; i < args.length; i++) {
-			if (args[i].equals("-pdelaunch")) { //$NON-NLS-1$
+			if ("-pdelaunch".equals(args[i])) { //$NON-NLS-1$
 				return true;
 			}
 		}
@@ -231,7 +236,9 @@ public class RuntimeWorkspaceSetup {
 
 	/**
 	 * a substiture for "-dev bin" command-line argument - update
-	 * a manifest.mf with explicit bin/ classpath for classloading to work 
+	 * a manifest.mf with explicit bin/ classpath for classloading to work
+	 *  
+	 * FIXME copy class files to the root instead of modify manifest file
 	 */
 	public void getReadyToStartAsBundle(IProject project) {
 		if (isDevBinPresent) {
