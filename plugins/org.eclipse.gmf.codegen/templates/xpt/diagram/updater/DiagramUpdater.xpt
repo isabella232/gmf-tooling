@@ -469,6 +469,9 @@ if (setting.getEStructuralFeature() == «EXPAND xpt::Common::metaFeatureAccessor 
 		«getQualifiedInterfaceName(getTargetType())» destination = («getQualifiedInterfaceName(getTargetType())») destinations.next();
 	«ELSE-»
 	«getQualifiedInterfaceName(getTargetType())» destination = «EXPAND xpt::Common::getFeatureValue("source", getSourceType()) FOR metaFeature»;
+	if (destination == null) {
+		return result;
+	}
 	«ENDIF-»
 	result.add(new «genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()»(«EXPAND xpt::Common::castToEObject FOR getSourceType()»source, «EXPAND xpt::Common::castToEObject FOR getTargetType()»destination, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink»));
 	«IF metaFeature.isListType()-»
