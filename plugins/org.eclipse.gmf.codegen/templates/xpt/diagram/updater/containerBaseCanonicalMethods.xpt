@@ -101,7 +101,7 @@ protected boolean isOrphaned(java.util.Collection semanticChildren, final org.ec
 protected java.util.Set getFeaturesToSynchronize(){
 	if (myFeaturesToSynchronize == null) {
 		myFeaturesToSynchronize = new java.util.HashSet();
-		«EXPAND addContainmentFeature FOREACH getSemanticChildrenChildFeatures(this)-»
+		«EXPAND addContainmentFeature FOREACH getSemanticChildrenContainmentFeatures(this)-»
 	}
 	return myFeaturesToSynchronize;
 }
