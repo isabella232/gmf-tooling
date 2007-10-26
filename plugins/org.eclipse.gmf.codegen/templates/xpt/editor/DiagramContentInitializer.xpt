@@ -107,7 +107,7 @@ private void «EXPAND createChildrenMethodName»(org.eclipse.gmf.runtime.notation.
 private void createNode(org.eclipse.gmf.runtime.notation.View parentView, «editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName()» nodeDescriptor) {
 	org.eclipse.gmf.runtime.notation.Node node = org.eclipse.gmf.runtime.diagram.core.services.ViewService.createNode(parentView, nodeDescriptor.getModelElement(), nodeDescriptor.getType(), «editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
 	switch (nodeDescriptor.getVisualID()) {
-	«EXPAND createNodeCase FOREACH getAllNodes()-»
+	«EXPAND createNodeCase FOREACH getAllNodes().select(node | !node.sansDomain)-»
 	}
 }
 «ENDDEFINE»
