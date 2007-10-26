@@ -29,7 +29,7 @@
 «ENDDEFINE»
 
 «DEFINE attributes FOR gmfgen::GenContainerBase-»
-«IF getSemanticChildrenChildFeatures(this).size() > 0-»
+«IF getSemanticChildrenContainmentFeatures(this).size() > 0-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 java.util.Set myFeaturesToSynchronize;
