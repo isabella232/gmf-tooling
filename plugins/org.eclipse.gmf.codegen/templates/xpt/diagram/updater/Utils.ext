@@ -122,6 +122,10 @@ cached Set[genmodel::GenFeature] getSemanticChildrenChildFeatures(gmfgen::GenCon
 	getNonPhantomSemanticChildren(containerBase).collect(node | node.modelFacet.childMetaFeature).toSet()
 ;
 
+cached Set[genmodel::GenFeature] getSemanticChildrenContainmentFeatures(gmfgen::GenContainerBase containerBase) :
+	getNonPhantomSemanticChildren(containerBase).collect(node | node.modelFacet.containmentMetaFeature).toSet()
+;
+
 cached List[gmfgen::GenNode] getSemanticChildren(gmfgen::GenContainerBase containerBase, genmodel::GenFeature childMetaFeature) :
 	getNonPhantomSemanticChildren(containerBase).select(node | node.modelFacet.childMetaFeature == childMetaFeature)
 ;
