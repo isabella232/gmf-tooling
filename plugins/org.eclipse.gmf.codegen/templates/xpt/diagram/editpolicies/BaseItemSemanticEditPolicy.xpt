@@ -416,6 +416,11 @@ if («sourceVar» != null) {
 		«IF metaFeature.ecoreFeature.upperBound != 1»«EXPAND featureUniquenessComparator(sourceVar, getSourceType()) FOR metaFeature»«ENDIF») {
 		return false;
 	}
+		«IF metaFeature.isContains()-»
+	if (source == target) {
+		return false;
+	}
+		«ENDIF-»	
 }
 	«ENDLET-»
 «ENDDEFINE»
