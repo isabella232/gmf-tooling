@@ -23,125 +23,146 @@ package «getDiagram().editCommandsPackageName»;
 «EXPAND xpt::Common::generatedClassComment»
 public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand {
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «createCommandClassName»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest req) {
-		super(req);
-	}
-	«EXPAND body(this) FOR modelFacet-»
+	«EXPAND constructor-»
+	«IF modelFacet.isPhantomElement() || modelFacet.containmentMetaFeature != null || modelFacet.childMetaFeature != null-»
+	
+		«EXPAND getElementToEdit-»
+		«IF modelFacet.isPhantomElement()-»
+
+			«EXPAND canExecute_Phantom-»
+			
+			«EXPAND getContainmentFeature-»
+			
+			«EXPAND doDefaultElementCreation_Phantom-»
+		«ELSE-»
+			«EXPAND canExecute_Normal FOR modelFacet-»
+			
+			«EXPAND getEClassToEdit FOR modelFacet-»			
+			«EXPAND doDefaultElementCreation_Normal(this) FOR modelFacet-»
+		«ENDIF-»
+	«ENDIF-»
+	
 }
 «ENDDEFINE»
 
-«DEFINE body(gmfgen::GenNode node) FOR gmfgen::ModelFacet-»
+«DEFINE constructor FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public «createCommandClassName»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest req) {
+	super(req);
+}
 «ENDDEFINE»
 
-«DEFINE body(gmfgen::GenNode node) FOR gmfgen::TypeModelFacet-»
-	«IF isPhantomElement() || containmentMetaFeature != null || childMetaFeature != null-»
-
+«DEFINE getElementToEdit FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	protected org.eclipse.emf.ecore.EObject getElementToEdit() {
-		org.eclipse.emf.ecore.EObject container =
-				((org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest) getRequest()).getContainer();
-		if (container instanceof org.eclipse.gmf.runtime.notation.View) {
-			container = ((org.eclipse.gmf.runtime.notation.View) container).getElement();
-		}
-		return container;
+protected org.eclipse.emf.ecore.EObject getElementToEdit() {
+	org.eclipse.emf.ecore.EObject container = ((org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest) getRequest()).getContainer();
+	if (container instanceof org.eclipse.gmf.runtime.notation.View) {
+		container = ((org.eclipse.gmf.runtime.notation.View) container).getElement();
 	}
-		«IF isPhantomElement()-»
-			«EXPAND phantomBody-»
-		«ELSE-»
-			«EXPAND normalBody(node)-»
-		«ENDIF-»
-	«ENDIF-»
+	return container;
+}
 «ENDDEFINE»
 
-«DEFINE phantomBody FOR gmfgen::TypeModelFacet-»
-
+«REM»
+	TODO: Shouldn't this method just return true?
+«ENDREM»
+«DEFINE canExecute_Phantom FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	public boolean canExecute() {
-		if (getEClass() != null) {
-			return getEClass().isSuperTypeOf(getEClassToEdit());
-		}
-		return true;
+public boolean canExecute() {
+	if (getEClass() != null) {
+		return getEClass().isSuperTypeOf(getEClassToEdit());
 	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected org.eclipse.emf.ecore.EReference getContainmentFeature() {
-		return null;
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
-		// Uncomment to put "phantom" objects into the diagram file.		
-		// org.eclipse.emf.ecore.resource.Resource resource = 
-		// 		((org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest) getRequest()).getContainer().eResource();
-		// if (resource == null) {
-		// 	return null;
-		// }
-		org.eclipse.emf.ecore.resource.Resource resource = getElementToEdit().eResource();
-		org.eclipse.emf.ecore.EClass eClass = getElementType().getEClass();
-		org.eclipse.emf.ecore.EObject eObject = eClass.getEPackage().getEFactoryInstance().create(eClass);
-		resource.getContents().add(eObject);
-		return eObject;
-	}
+	return true;
+}
 «ENDDEFINE»
 
-«DEFINE normalBody(gmfgen::GenNode node) FOR gmfgen::TypeModelFacet-»
+«DEFINE canExecute_Normal FOR gmfgen::TypeModelFacet-»
+	«IF containmentMetaFeature.ecoreFeature.upperBound > 0 || (childMetaFeature != containmentMetaFeature && childMetaFeature.ecoreFeature.upperBound > 0)-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	protected org.eclipse.emf.ecore.EClass getEClassToEdit() {
-		return «EXPAND xpt::Common::metaClassAccessor FOR containmentMetaFeature.genClass»;
-	}
-	«IF modelElementInitializer != null || hasExplicitChildFeature()-»
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
-		«getQualifiedInterfaceName(metaClass)» newElement = («getQualifiedInterfaceName(metaClass)») super.doDefaultElementCreation();
-		if (newElement != null) {
-		«IF hasExplicitChildFeature()-»
-			«getQualifiedInterfaceName(childMetaFeature.genClass)» container =
-					(«getQualifiedInterfaceName(childMetaFeature.genClass)») getElementToEdit();
-			if (container != null) {
-			«IF isListType(childMetaFeature)-»
-				java.util.Collection featureValues = container.«getGetAccessor(childMetaFeature)»();
-				featureValues.add(newElement);
-			«ELSE-»
-				«EXPAND xpt::Common::setFeatureValue("container", childMetaFeature.genClass, "newElement") FOR childMetaFeature-»
-			«ENDIF-»
-			}
-		«ENDIF-»
-		«IF modelElementInitializer != null-»
-			«node.getDiagram().getElementTypesQualifiedClassName()».Initializers.«node.getUniqueIdentifier()».init(newElement);
-		«ENDIF-»
-		}
-		return newElement;
-	}
-	«ENDIF-»
-	«IF containmentMetaFeature.ecoreFeature.upperBound > 0 ||
-			(childMetaFeature != containmentMetaFeature && childMetaFeature.ecoreFeature.upperBound > 0)-»
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	public boolean canExecute() {
-		«getQualifiedInterfaceName(containmentMetaFeature.genClass)» container =
-				(«getQualifiedInterfaceName(containmentMetaFeature.genClass)») getElementToEdit();
+public boolean canExecute() {
+	«getQualifiedInterfaceName(containmentMetaFeature.genClass)» container = («getQualifiedInterfaceName(containmentMetaFeature.genClass)») getElementToEdit();
 		«IF containmentMetaFeature.ecoreFeature.upperBound > 0-»
 			«IF containmentMetaFeature.ecoreFeature.upperBound == 1-»
-			if (container.«getGetAccessor(containmentMetaFeature)»() != null) {
+		if (container.«getGetAccessor(containmentMetaFeature)»() != null) {
 			«ELSE-»
-			if (container.«getGetAccessor(containmentMetaFeature)»().size() >= «containmentMetaFeature.ecoreFeature.upperBound») {
+		if (container.«getGetAccessor(containmentMetaFeature)»().size() >= «containmentMetaFeature.ecoreFeature.upperBound») {
 			«ENDIF-»
-				return false;
-			}
+			return false;
+		}
 		«ENDIF-»
 		«IF childMetaFeature != containmentMetaFeature && childMetaFeature.ecoreFeature.upperBound > 0-»
 			«IF childMetaFeature.ecoreFeature.upperBound == 1-»
-			if (container.«getGetAccessor(childMetaFeature)»() != null) {
+		if (container.«getGetAccessor(childMetaFeature)»() != null) {
 			«ELSE-»
-			if (container.«getGetAccessor(childMetaFeature)»().size() >= «childMetaFeature.ecoreFeature.upperBound») {
+		if (container.«getGetAccessor(childMetaFeature)»().size() >= «childMetaFeature.ecoreFeature.upperBound») {
 			«ENDIF-»
-				return false;
-			}
+			return false;
+		}
 		«ENDIF-»
-		return true;
+	return true;
+}
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getContainmentFeature FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.emf.ecore.EReference getContainmentFeature() {
+	return null;
+}
+«ENDDEFINE»
+
+«DEFINE getEClassToEdit FOR gmfgen::TypeModelFacet-»
+	«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.emf.ecore.EClass getEClassToEdit() {
+	return «EXPAND xpt::Common::metaClassAccessor FOR containmentMetaFeature.genClass»;
+}
+«ENDDEFINE»
+
+«DEFINE doDefaultElementCreation_Phantom FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
+	// Uncomment to put "phantom" objects into the diagram file.		
+	// org.eclipse.emf.ecore.resource.Resource resource = 
+	// 		((org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest) getRequest()).getContainer().eResource();
+	// if (resource == null) {
+	// 	return null;
+	// }
+	org.eclipse.emf.ecore.resource.Resource resource = getElementToEdit().eResource();
+	org.eclipse.emf.ecore.EClass eClass = getElementType().getEClass();
+	org.eclipse.emf.ecore.EObject newElement = eClass.getEPackage().getEFactoryInstance().create(eClass);
+	resource.getContents().add(newElement);
+	«EXPAND initialize(this) FOR modelFacet-»
+	return newElement;
+}
+«ENDDEFINE»
+
+«DEFINE doDefaultElementCreation_Normal(gmfgen::GenNode node) FOR gmfgen::TypeModelFacet-»
+	«IF modelElementInitializer != null || hasExplicitChildFeature(this)-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
+	«getQualifiedInterfaceName(metaClass)» newElement = («getQualifiedInterfaceName(metaClass)») super.doDefaultElementCreation();
+	if (newElement != null) {
+		«IF hasExplicitChildFeature(this)-»
+		«getQualifiedInterfaceName(childMetaFeature.genClass)» container = («getQualifiedInterfaceName(childMetaFeature.genClass)») getElementToEdit();
+		if (container != null) {
+			«IF isListType(childMetaFeature)-»
+				«EXPAND xpt::Common::getFeatureValue("container", childMetaFeature.genClass) FOR childMetaFeature».add(newElement);
+			«ELSE-»
+				«EXPAND xpt::Common::setFeatureValue("container", childMetaFeature.genClass, "newElement") FOR childMetaFeature-»
+			«ENDIF-»
+		}
+		«ENDIF-»
+		«EXPAND initialize(node)-»
 	}
+	return «EXPAND xpt::Common::castToEObject FOR metaClass»newElement;
+}
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE initialize(gmfgen::GenNode node) FOR gmfgen::TypeModelFacet-»
+	«IF modelElementInitializer != null-»
+		«node.getDiagram().getElementTypesQualifiedClassName()».Initializers.«node.getUniqueIdentifier()».init(«EXPAND xpt::Common::castToEObject FOR metaClass»newElement);
 	«ENDIF-»
 «ENDDEFINE»
