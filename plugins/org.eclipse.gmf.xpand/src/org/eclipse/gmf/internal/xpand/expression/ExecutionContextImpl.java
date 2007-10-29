@@ -1,7 +1,7 @@
 /*
  * <copyright>
  *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005-2007 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -37,7 +37,6 @@ import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
 import org.eclipse.gmf.internal.xpand.util.ClassLoadContext;
 import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
-import org.eclipse.gmf.internal.xpand.xtend.ast.ExtensionFile;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 
 /**
@@ -240,15 +239,15 @@ public class ExecutionContextImpl implements ExecutionContext {
     }
 
     protected String[] getImportedNamespaces() {
-    	if (currentResource() instanceof ExtensionFile) {
-    		return ((ExtensionFile) currentResource()).getImportedNamespaces();
+    	if (currentResource() instanceof XtendResource) {
+    		return ((XtendResource) currentResource()).getImportedNamespaces();
     	}
     	return new String[0];
     }
 
     protected String[] getImportedExtensions() {
-    	if (currentResource() instanceof ExtensionFile) {
-    		return ((ExtensionFile) currentResource()).getImportedExtensions();
+    	if (currentResource() instanceof XtendResource) {
+    		return ((XtendResource) currentResource()).getImportedExtensions();
     	}
     	return new String[0];
     }

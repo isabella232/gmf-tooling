@@ -1,7 +1,7 @@
 /*
  * <copyright>
  *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005-2007 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -118,7 +118,7 @@ public class PolymorphicResolver {
 	    	return filterWithComparator(candidates2, comparator);
 	    } catch (IllegalStateException ex) {
 			throw new RuntimeException("Ambiguous definitions " + candidates2.get(0).toString() + " and "
-                    + candidates2.get(1).toString() + " for param types " + paramTypes);
+                    + candidates2.get(1).toString() + " for param types " + paramTypes, ex);
 	    }    }
     /**
      * @throws IllegalStateException when there are more than one candidates with same priority

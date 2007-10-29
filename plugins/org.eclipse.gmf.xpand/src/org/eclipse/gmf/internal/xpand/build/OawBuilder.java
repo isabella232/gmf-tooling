@@ -1,7 +1,7 @@
 /*
  * <copyright>
  *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005-2007 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,8 @@
  */
 package org.eclipse.gmf.internal.xpand.build;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -28,8 +30,10 @@ import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.gmf.internal.xpand.Activator;
+import org.eclipse.gmf.internal.xpand.RootManager;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
@@ -40,11 +44,12 @@ import org.eclipse.gmf.internal.xpand.util.ParserException;
 import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 
-public class OawBuilder extends IncrementalProjectBuilder {
+public class OawBuilder extends IncrementalProjectBuilder implements RootManager.IRootChangeListener {
+	private RootManager myRootManager;
 
-	private boolean firstBuild = true; // XXX odd
-	private WorkspaceResourceManager resourceManager;
 	private WorkspaceModelRegistry modelRegistry;
+
+	private boolean myRootsChanged = true;
 
 	// XXX again, using map as mere pairs
 	private final Map<XtendResource, IFile> xtendResourcesToAnalyze = new HashMap<XtendResource, IFile>();
@@ -57,10 +62,8 @@ public class OawBuilder extends IncrementalProjectBuilder {
 	@Override
 	protected void startupOnInitialize() {
 		super.startupOnInitialize();
-		resourceManager = new WorkspaceResourceManager(getProject());
-		// FIXME if codesense has been activated, there's already manager instance and we fail with exception here
-		Activator.registerResourceManager(getProject(), resourceManager);
-		firstBuild = true;
+		myRootManager = Activator.getRootManager(getProject());
+		myRootManager.addRootChangeListener(this);
 		modelRegistry = new WorkspaceModelRegistry();
 		Activator.registerModelSource(modelRegistry);
 	}
@@ -68,53 +71,77 @@ public class OawBuilder extends IncrementalProjectBuilder {
 	@Override
 	protected IProject[] build(final int kind, final Map args, final IProgressMonitor monitor) throws CoreException {
 		try {
-			if (firstBuild || (kind == FULL_BUILD)) {
-				fullBuild(monitor);
-			} else {
-				final IResourceDelta delta = getDelta(getProject());
-				if (delta == null) {
-					fullBuild(monitor);
-				} else {
-					incrementalBuild(delta, monitor);
-				}
-			}
+			doBuild(kind, args, monitor);
 		} catch (final Throwable e) {
 			e.printStackTrace();
 		}
-		firstBuild = false;
 		// TODO to separate thread
-		
 		for (XtendResource r : xtendResourcesToAnalyze.keySet()) {
-	        final ExecutionContext ctx = ContextFactory.createXtendContext(getResourceManager());
+	        final ExecutionContext ctx = ContextFactory.createXtendContext(getResourceManager(xtendResourcesToAnalyze.get(r)));
 	        final Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
 	        r.analyze(ctx, issues);
 	        updateMarkers(xtendResourcesToAnalyze.get(r), issues);
 		}
 		for (XpandResource r : xpandResourcesToAnalyze.keySet()) {
-	        final XpandExecutionContext ctx = ContextFactory.createXpandContext(getResourceManager());
+	        final XpandExecutionContext ctx = ContextFactory.createXpandContext(getResourceManager(xpandResourcesToAnalyze.get(r)));
 	        final Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
 	        r.analyze(ctx, issues);
 	        updateMarkers(xpandResourcesToAnalyze.get(r), issues);
 		}
-		// XXX is builder's instance shared for several projects - if yes, we may get ConcurrentModificationEx here 
 		xtendResourcesToAnalyze.clear();
 		xpandResourcesToAnalyze.clear();
-		return null;
+
+		myRootsChanged = false;
+		Set<IProject> referencedProjects = myRootManager.getReferencedProjects();
+		referencedProjects.remove(getProject());
+		return referencedProjects.toArray(new IProject[referencedProjects.size()]);
+	}
+
+	private void doBuild(int kind, Map<?, ?> args, IProgressMonitor monitor) throws CoreException {
+		if ((kind == FULL_BUILD) || haveRootsChangedSinceLastBuild()) {
+			fullBuild(monitor);
+		} else {
+			Set<IProject> referencedProjects = myRootManager.getReferencedProjects();
+			referencedProjects.remove(getProject());
+			Collection<IResourceDelta> deltas = new ArrayList<IResourceDelta>(referencedProjects.size());
+			IResourceDelta projectDelta = getDelta(getProject());
+			if (projectDelta == null) {
+				fullBuild(monitor);
+				return;
+			}
+			for (IProject next : referencedProjects) {
+				final IResourceDelta delta = getDelta(next);
+				if (delta == null) {
+					fullBuild(monitor);
+					return;
+				}
+				deltas.add(delta);
+			}
+			incrementalBuild(projectDelta, deltas, monitor);
+		}
+	}
+
+	public void rootsChanged(RootManager rootManager) {
+		myRootsChanged = true;
+	}
+
+	private boolean haveRootsChangedSinceLastBuild() {
+		return myRootsChanged;
 	}
 
 	void reloadResource(final IFile resource) {
+		getResourceManager(resource).forget(resource);
 		if (!resource.exists()) {
 			return;
 		}
-		getResourceManager().forget(resource);
 		try {
 			if (isXpand(resource)) {
-				XpandResource r = getResourceManager().loadXpandResource(resource);
+				XpandResource r = getResourceManager(resource).loadXpandResource(resource);
 				if (r != null) {
 					xpandResourcesToAnalyze.put(r, resource);
 				}
 			} else if (isXtend(resource)) {
-				XtendResource r = getResourceManager().loadXtendResource(resource);
+				XtendResource r = getResourceManager(resource).loadXtendResource(resource);
 				if (r != null) {
 					xtendResourcesToAnalyze.put(r, resource);
 				}
@@ -131,25 +158,52 @@ public class OawBuilder extends IncrementalProjectBuilder {
 
 	public void handleRemovement(final IFile resource) {
 		OawMarkerManager.deleteMarkers(resource);
-		getResourceManager().forget(resource);
+		getResourceManager(resource).forget(resource);
+	}
+
+	private WorkspaceResourceManager getResourceManager(IFile file) {
+		WorkspaceResourceManager result = myRootManager.getResourceManager(file);
+		assert result != null;
+		return result;
 	}
 
 	protected void fullBuild(final IProgressMonitor monitor) throws CoreException {
-		monitor.beginTask(null, 2);
-		getProject().accept(new XpandResourceVisitor(new SubProgressMonitor(monitor, 1)));
-		modelRegistry.build(getProject(), new SubProgressMonitor(monitor, 1));
-		monitor.done();
+		Set<IProject> referencedProjects = myRootManager.getReferencedProjects();
+		referencedProjects.add(getProject());
+		OawMarkerManager.deleteMarkers(getProject());	//to delete markers from obsolete roots.
+		monitor.beginTask(null, 1 + referencedProjects.size());
+		try {
+			for (IProject next : referencedProjects) {
+				checkCanceled(monitor);
+				next.accept(new XpandResourceVisitor(new SubProgressMonitor(monitor, 1)));
+			}
+			checkCanceled(monitor);
+			modelRegistry.build(getProject(), new SubProgressMonitor(monitor, 1));
+		} finally {
+			monitor.done();
+		}
 	}
 
-	protected void incrementalBuild(final IResourceDelta delta, final IProgressMonitor monitor) throws CoreException {
-		monitor.beginTask(null, 2);
-		delta.accept(new XpandResourceVisitor(new SubProgressMonitor(monitor, 1)));
-		modelRegistry.build(getProject(), delta, new SubProgressMonitor(monitor, 1));
-		monitor.done();
+	protected void incrementalBuild(final IResourceDelta projectDelta, final Collection<IResourceDelta> referencedProjectDeltas, final IProgressMonitor monitor) throws CoreException {
+		monitor.beginTask(null, 2 + referencedProjectDeltas.size());
+		try {
+			for (IResourceDelta delta : referencedProjectDeltas) {
+				checkCanceled(monitor);
+				delta.accept(new XpandResourceVisitor(new SubProgressMonitor(monitor, 1)));
+			}
+			checkCanceled(monitor);
+			projectDelta.accept(new XpandResourceVisitor(new SubProgressMonitor(monitor, 1)));
+			checkCanceled(monitor);
+			modelRegistry.build(getProject(), projectDelta, new SubProgressMonitor(monitor, 1));
+		} finally {
+			monitor.done();
+		}
 	}
 
-	private WorkspaceResourceManager getResourceManager() {
-		return resourceManager;
+	private void checkCanceled(final IProgressMonitor monitor) {
+		if (monitor.isCanceled()) {
+			throw new OperationCanceledException();
+		}
 	}
 
 	private static void updateMarkers(IFile resource, Set<AnalysationIssue> issues) {
@@ -170,8 +224,14 @@ public class OawBuilder extends IncrementalProjectBuilder {
 		return XpandResource.TEMPLATE_EXTENSION.equals(resource.getFileExtension());
 	}
 
-	private static boolean isFileOfInterest(IFile file) {
-		return isXpand(file) || isXtend(file);
+	private boolean isFileOfInterest(IFile file) {
+		if (!isXpand(file) && !isXtend(file)) {
+			return false;
+		}
+		if (getResourceManager(file) == null) {
+			return false;
+		}
+		return true;
 	}
 
 	private class XpandResourceVisitor implements IResourceVisitor, IResourceDeltaVisitor {
@@ -223,4 +283,5 @@ public class OawBuilder extends IncrementalProjectBuilder {
 			return true;
 		}
 	}
+
 }

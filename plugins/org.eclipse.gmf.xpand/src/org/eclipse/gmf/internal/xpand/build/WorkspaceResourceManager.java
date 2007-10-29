@@ -7,70 +7,62 @@
  *******************************************************************************/
 package org.eclipse.gmf.internal.xpand.build;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
-import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.gmf.internal.xpand.Activator;
-import org.eclipse.gmf.internal.xpand.ResourceManager;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.util.ParserException;
 import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
 import org.eclipse.gmf.internal.xpand.util.StreamConverter;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
+import org.osgi.framework.Bundle;
 
 // FIXME package-local?, refactor Activator.getResourceManager uses
 public class WorkspaceResourceManager extends ResourceManagerImpl {
 	private final IProject contextProject;
-	private long configStamp = IResource.NULL_STAMP;
-	private IPath[] configuredRoots;
+	private final IPath[] myConfiguredRoots;
 
-	public WorkspaceResourceManager(IProject context) {
+	public WorkspaceResourceManager(IProject context, IPath[] configuredRoots) {
 		this.contextProject = context;
+		myConfiguredRoots = configuredRoots;
 	}
 
 	public XtendResource loadXtendResource(IFile file) throws CoreException, IOException, ParserException {
 		if (file == null) {
 			return null;
 		}
-		assert file.getProject() == contextProject;
-		Reader r = null;
-		try {
-			r = new StreamConverter().toContentsReader(file);
-			return super.loadXtendResource(r, toFullyQualifiedName(file));
-		} finally {
-			if (r != null) {
-				r.close();
-			}
+		String fullyQualifiedName = toFullyQualifiedName(file);
+		if (fullyQualifiedName == null) {
+			return null;
 		}
+		return super.loadXtendResource(fullyQualifiedName);
 	}
 
 	public XpandResource loadXpandResource(IFile file) throws CoreException, IOException, ParserException {
 		if (file == null) {
 			return null;
 		}
-		assert file.getProject() == contextProject;
-		Reader r = null;
-		try {
-			r = new StreamConverter().toContentsReader(file);
-			return super.loadXpandResource(r, toFullyQualifiedName(file));
-		} finally {
-			if (r != null) {
-				r.close();
-			}
+		String fullyQualifiedName = toFullyQualifiedName(file);
+		if (fullyQualifiedName == null) {
+			return null;
 		}
+		fullyQualifiedName = getNonAspectsTemplateName(fullyQualifiedName);
+		return super.loadXpandResource(fullyQualifiedName);
 	}
 
 	@Override
@@ -104,78 +96,89 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 			throw wrap;
 		}
 	}
+
+	@Override
+	protected Reader[] resolveMultiple(String fqn, String ext) throws IOException {
+		IPath fp = new Path(fqn.replaceAll(SyntaxConstants.NS_DELIM, "/")).addFileExtension(ext);
+		IPath[] resolutions = getResolutions(fp);
+		ArrayList<Reader> result = new ArrayList<Reader>(resolutions.length);
+		for (IPath p : getResolutions(fp)) {
+			Reader nextReader = getReader(p);
+			if (nextReader != null) {
+				result.add(nextReader);
+			}
+		}
+		if (result.isEmpty()) {
+			throw new FileNotFoundException(fp.toString());
+		}
+		return result.toArray(new Reader[result.size()]);
+	}
+
+	private Reader getReader(IPath p) throws IOException {
+		if (p.isAbsolute()) {
+			assert p.segmentCount() > 1;
+			//Try workspace-relative first.
+			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(p.segment(0));
+			if (project.isAccessible()) {
+				return getWorkspaceFileReader(project, p.removeFirstSegments(1));
+			}
+			//Fallback to platform location
+			Bundle platformBundle = Platform.getBundle(p.segment(0));
+			if (platformBundle != null) {
+				URL url = platformBundle.getEntry(p.removeFirstSegments(1).toString());
+				if (url != null) {
+					InputStream is = url.openStream();
+					return new InputStreamReader(is, Charset.forName("ISO-8859-1"));	//$NON-NLS-1$
+				}
+			}
+		} else {
+			return getWorkspaceFileReader(contextProject, p);
+		}
+		return null;
+	}
+
+	private Reader getWorkspaceFileReader(IProject project, IPath path) throws IOException {
+		IResource r = project.findMember(path);
+		if (r instanceof IFile) {
+			try {
+				return new StreamConverter().toContentsReader((IFile) r);
+			} catch (CoreException ex) {
+				IOException wrap = new IOException(ex.getStatus().getMessage());
+				wrap.initCause(ex);
+				throw wrap;
+			}
+		}
+		return null;
+	}
+
 	private IPath[] getResolutions(IPath p) {
 		IPath[] configured = getConfiguredRoots();
-		IPath[] rv = new IPath[configured.length + 1];
-		rv[0] = p;
+		IPath[] rv = new IPath[configured.length];
 		for (int i = 0; i < configured.length; i++) {
-			rv[i+1] = configured[i].append(p);
+			rv[i] = configured[i].append(p);
 		}
 		return rv;
 	}
 	private IPath[] getConfiguredRoots() {
-		IFile config = contextProject.getFile(".xpand-root");
-		if (!config.exists()) {
-			return new IPath[] { new Path("templates/") };
-		}
-		if (config.getModificationStamp() != configStamp) {
-			configuredRoots = new IPath[0];
-			final ArrayList<IPath> read = new ArrayList<IPath>();
-			BufferedReader in = null;
-			try {
-				in = new BufferedReader(new InputStreamReader(config.getContents(), config.getCharset()));
-				String line;
-				while((line = in.readLine()) != null) {
-					line = line.trim();
-					if (line.length() > 0 && line.charAt(0) != '#') {
-						read.add(new Path(line));
-					}
-				}
-			} catch (CoreException ex) {
-				// IGNORE
-			} catch (IOException ex) {
-				// IGNORE
-			} finally {
-				if (in != null) {
-					try {
-						in.close();
-					} catch (IOException ex) {
-						/* IGNORE */
-					}
-				}
-			}
-			configuredRoots = read.toArray(new IPath[read.size()]);
-			configStamp = config.getModificationStamp();
-		}
-		return configuredRoots;
-	}
-
-	protected ResourceManager[] getDependenies() {
-		LinkedList<ResourceManager> rv = new LinkedList<ResourceManager>();
-		try {
-			IProject[] referencedProjects = contextProject.getReferencedProjects();
-				for (IProject next : referencedProjects) {
-					if (!next.isAccessible() || !hasXpandBuilder(next)) {
-						continue;
-					}
-					rv.add(Activator.getResourceManager(next));
-				}
-		} catch (CoreException e) {
-			//ignore
-		}
-		return rv.toArray(new ResourceManager[rv.size()]);
-	}
-
-	private static boolean hasXpandBuilder(IProject p) throws CoreException {
-		for (ICommand c : p.getDescription().getBuildSpec()) {
-			if (OawBuilder.getBUILDER_ID().equals(c.getBuilderName())) {
-				return true;
-			}
-		}
-		return false;
+		return myConfiguredRoots;
 	}
 
 	private String toFullyQualifiedName(IFile file) {
-		return file.getProjectRelativePath().toString().replaceAll("/", SyntaxConstants.NS_DELIM);
+		for (IPath nextRoot : getConfiguredRoots()) {
+			if (!nextRoot.isAbsolute()) {
+				if (file.getProject().equals(contextProject) && nextRoot.isPrefixOf(file.getProjectRelativePath())) {
+					return toFullyQualifiedName(file.getProjectRelativePath().removeFirstSegments(nextRoot.segmentCount()));
+				}
+			} else {
+				if (nextRoot.isPrefixOf(file.getFullPath())) {
+					return toFullyQualifiedName(file.getFullPath().removeFirstSegments(nextRoot.segmentCount()));
+				}
+			}
+		}
+		return null;
+	}
+
+	private String toFullyQualifiedName(IPath filePath) {
+		return filePath.removeFileExtension().toString().replace("/", SyntaxConstants.NS_DELIM);
 	}
 }

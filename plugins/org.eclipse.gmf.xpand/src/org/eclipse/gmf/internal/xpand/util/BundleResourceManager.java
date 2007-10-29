@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package org.eclipse.gmf.internal.xpand.util;
 
 import java.io.FileNotFoundException;
@@ -8,6 +15,7 @@ import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
@@ -53,11 +61,7 @@ public class BundleResourceManager extends ResourceManagerImpl {
 		final String urlPath = fullyQualifiedName.replaceAll(SyntaxConstants.NS_DELIM, "/") + '.' + extension;
 		for (int i = 0; i < paths.length; i++) {
 			try {
-				URL u = new URL(paths[i], urlPath);
-				InputStream is = u.openStream();
-				// XXX here we ignore the fact paths[i] may point to workspace location
-				// and hence charset can be derived from IFile
-				return new InputStreamReader(is, Charset.forName("ISO-8859-1"));
+				return createReader(urlPath, paths[i]);
 			} catch (MalformedURLException ex) {
 				/*IGNORE*/
 			} catch (IOException ex) {
@@ -69,5 +73,36 @@ public class BundleResourceManager extends ResourceManagerImpl {
 			}
 		}
 		throw new FileNotFoundException(fullyQualifiedName);
+	}
+
+	private Reader createReader(String urlPath, URL baseUrl) throws MalformedURLException, IOException {
+		URL u = new URL(baseUrl, urlPath);
+		InputStream is = u.openStream();
+		// XXX here we ignore the fact baseUrl may point to workspace location
+		// and hence charset can be derived from IFile
+		return new InputStreamReader(is, Charset.forName("ISO-8859-1"));
+	}
+
+	@Override
+	protected Reader[] resolveMultiple(String fullyQualifiedName, String extension) throws IOException {
+		final String urlPath = fullyQualifiedName.replaceAll(SyntaxConstants.NS_DELIM, "/") + '.' + extension;
+		ArrayList<Reader> result = new ArrayList<Reader>(paths.length);
+		for (int i = 0; i < paths.length; i++) {
+			try {
+				result.add(createReader(urlPath, paths[i]));
+			} catch (MalformedURLException ex) {
+				/*IGNORE*/
+			} catch (IOException ex) {
+				// XXX perhaps, conditionally turn logging on to debug template loading issues?
+				/*IGNORE*/
+			} catch (Exception ex) {
+				// just in case
+				Activator.logError(ex);
+			}
+		}
+		if (result.isEmpty()) {
+			throw new FileNotFoundException(fullyQualifiedName);
+		}
+		return result.toArray(new Reader[result.size()]);
 	}
 }

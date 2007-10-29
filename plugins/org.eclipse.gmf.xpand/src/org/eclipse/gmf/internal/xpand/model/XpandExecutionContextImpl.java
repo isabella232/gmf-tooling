@@ -1,7 +1,7 @@
 /*
  * <copyright>
  *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005-2007 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -77,12 +77,13 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
     }
 
     public XpandDefinition findDefinition(final String name, final EClassifier target, final EClassifier[] paramTypes) {
-        XpandResource tpl = null;
-        if (name.indexOf(SyntaxConstants.NS_DELIM) != -1) { // local call
-            tpl = findTemplate(TypeNameUtil.withoutLastSegment(name));
+        String templateName;
+        if (name.indexOf(SyntaxConstants.NS_DELIM) < 0) {	//local call
+        	templateName = ((XpandResource) currentResource()).getFullyQualifiedName();	//need an enclosing resource in case of composite
         } else {
-            tpl = (XpandResource) currentResource();
+        	templateName = TypeNameUtil.withoutLastSegment(name);
         }
+        XpandResource tpl = findTemplate(templateName);
         if (tpl == null) {
 			return null;
 		}
@@ -90,6 +91,13 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
         XpandDefinition def = findDefinition(tpl.getDefinitions(), name, target, paramTypes, ctx);
         if (def == null) {
         	return null;
+        }
+        XpandAdvice[] advicesInResource = tpl.getAdvices();
+        for (int x = advicesInResource.length - 1; x >= 0; x--) {
+            final XpandAdvice adv = advicesInResource[x];
+            if (adv.matches(def, this)) {
+                def = new AdvicedDefinition(adv, def);
+            }
         }
         for (int x = registeredAdvices.size() - 1; x >= 0; x--) {
             final XpandAdvice adv = registeredAdvices.get(x);
@@ -145,20 +153,20 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
         for (String name : possibleNames) {
             final XpandResource tpl = getResourceManager().loadXpandResource(name);
             if (tpl != null) {
-            	installAspectsFor(templateName);
+//            	installAspectsFor(templateName);
 				return tpl;
 			}
         }
         return null;
     }
 
-    private void installAspectsFor(String templateName) {
-    	String aspectsTemplateName = "aspects" + SyntaxConstants.NS_DELIM + templateName;
-    	XpandResource aspects = getResourceManager().loadXpandResource(aspectsTemplateName);
-    	if (aspects != null) {
-    		registeredAdvices.addAll(Arrays.asList(aspects.getAdvices()));
-    	}
-	}
+//    private void installAspectsFor(String templateName) {
+//    	String aspectsTemplateName = "aspects" + SyntaxConstants.NS_DELIM + templateName;
+//    	XpandResource aspects = getResourceManager().loadXpandResource(aspectsTemplateName);
+//    	if (aspects != null) {
+//    		registeredAdvices.addAll(Arrays.asList(aspects.getAdvices()));
+//    	}
+//	}
 
 	private List<String> getPossibleNames(final String name, final String[] importedNs) {
         final String typeName = TypeNameUtil.getTypeName(name);
@@ -187,12 +195,13 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
 
     /**
      * resolves the correct definition (using parametric polymorphism)
+	 * XXX: get rid of the ctx argument and redeclare as non-static?
      * @param definitions
      * @param target
      * @param paramTypes
      * @return
      */
-    private XpandDefinition findDefinition(final XpandDefinition[] definitions, final String name, final EClassifier target,
+    private static XpandDefinition findDefinition(final XpandDefinition[] definitions, final String name, final EClassifier target,
             EClassifier[] paramTypes, final XpandExecutionContext ctx) {
         if (paramTypes == null) {
             paramTypes = new EClassifier[0];

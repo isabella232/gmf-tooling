@@ -100,7 +100,7 @@ public class Advice extends AbstractDefinition implements XpandAdvice {
             }
             if ((getParams().length == paramTypes.length) || (wildParams && (getParams().length <= paramTypes.length))) {
 
-                ctx = (XpandExecutionContext) ctx.cloneWithResource(def.getOwner());
+                ctx = (XpandExecutionContext) ctx.cloneWithResource(this.getOwner());	//need to resolve in the context of the aspect
                 final EClassifier at = ctx.getTypeForName(getTargetType());
                 if (BuiltinMetaModel.isAssignableFrom(at, t)) {
                     for (int i = 0; i < getParams().length; i++) {

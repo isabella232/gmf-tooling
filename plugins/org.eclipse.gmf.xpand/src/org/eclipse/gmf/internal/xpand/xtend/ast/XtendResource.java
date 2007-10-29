@@ -1,7 +1,7 @@
 /*
  * <copyright>
  *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005-2007 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,7 +22,6 @@ import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 
-// XXX don't really need this as long as all casts in ExecutionContext happen to ExtensionFile
 public interface XtendResource extends ResourceMarker {
 
     public static final String FILE_EXTENSION = "ext";
@@ -30,6 +29,10 @@ public interface XtendResource extends ResourceMarker {
     List<Extension> getExtensions();
 
     List<Extension> getPublicExtensions(ResourceManager resourceManager);
+
+    public String[] getImportedNamespaces();
+
+    public String[] getImportedExtensions();
 
     void analyze(ExecutionContext ctx, Set<AnalysationIssue> issues);
 }
