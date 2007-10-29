@@ -1,0 +1,5 @@
+extension org::eclipse::gmf::tests::xpand::evaluate::Overridable;
+
+String funcFromAdded() :
+addedMethod()
+;
