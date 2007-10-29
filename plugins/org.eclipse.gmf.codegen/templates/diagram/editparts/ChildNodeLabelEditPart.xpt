@@ -52,23 +52,23 @@ public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsList» {
 
 «DEFINE getDragTracker FOR gmfgen::GenChildLabelNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
-public org.eclipse.gef.DragTracker getDragTracker(org.eclipse.gef.Request request) {
-	«EXPAND impl::diagram::editparts::ChildNodeLabelEditPart::getDragTrackerBody-»
-}
+	public org.eclipse.gef.DragTracker getDragTracker(org.eclipse.gef.Request request) {
+		«EXPAND impl::diagram::editparts::ChildNodeLabelEditPart::getDragTrackerBody-»
+	}
 «ENDDEFINE»
 
 «DEFINE createDefaultEditPolicies FOR gmfgen::GenChildLabelNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
-protected void createDefaultEditPolicies() {
-	«EXPAND impl::diagram::editparts::ChildNodeLabelEditPart::createDefaultEditPoliciesBody-»
-}
+	protected void createDefaultEditPolicies() {
+		«EXPAND impl::diagram::editparts::ChildNodeLabelEditPart::createDefaultEditPoliciesBody-»
+	}
 «ENDDEFINE»
 
 «DEFINE handleNotificationEvent FOR gmfgen::GenChildLabelNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
-protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification event) {
-	«EXPAND impl::diagram::editparts::ChildNodeLabelEditPart::handleNotificationEventBody-»
-}
+	protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification event) {
+		«EXPAND impl::diagram::editparts::ChildNodeLabelEditPart::handleNotificationEventBody-»
+	}
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenChildLabelNode»«ENDDEFINE»
