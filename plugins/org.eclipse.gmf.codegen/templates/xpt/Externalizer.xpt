@@ -53,7 +53,7 @@ public class «getAccessorName()» extends org.eclipse.osgi.util.NLS {
 	«EXPAND xpt::application::ActionBarAdvisor::i18nAccessors FOR application-»
     «EXPAND xpt::application::WorkbenchWindowAdvisor::i18nAccessors FOR application-»
     «EXPAND xpt::application::WizardNewFileCreationPage::i18nAccessors FOR application-»
-    «EXPAND xpt::diagram::editparts::CompartmentEditPart::i18nAccessors FOR diagram-»
+    «EXPAND impl::diagram::editparts::CompartmentEditPart::i18nAccessors FOR diagram-»
     «EXPAND xpt::diagram::editpolicies::OpenDiagram::i18nAccessors FOR diagram-»
     «EXPAND xpt::navigator::NavigatorContentProvider::i18nAccessors FOR navigator-»
     «EXPAND xpt::navigator::NavigatorActionProvider::i18nAccessors FOR navigator-»
@@ -80,7 +80,7 @@ public class «getAccessorName()» extends org.eclipse.osgi.util.NLS {
 «EXPAND xpt::application::ActionBarAdvisor::i18nValues FOR application-»
 «EXPAND xpt::application::WorkbenchWindowAdvisor::i18nValues FOR application-»
 «EXPAND xpt::application::WizardNewFileCreationPage::i18nValues FOR application-»
-«EXPAND xpt::diagram::editparts::CompartmentEditPart::i18nValues FOR diagram-»
+«EXPAND impl::diagram::editparts::CompartmentEditPart::i18nValues FOR diagram-»
 «EXPAND xpt::diagram::editpolicies::OpenDiagram::i18nValues FOR diagram-»
 «EXPAND xpt::navigator::NavigatorContentProvider::i18nValues FOR navigator-»
 «EXPAND xpt::navigator::NavigatorActionProvider::i18nValues FOR navigator-»

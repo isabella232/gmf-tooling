@@ -194,7 +194,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getCompartmentEditPartEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::editparts::CompartmentEditPart"); //$NON-NLS-1$
+		return getMainEmitter("diagram::editparts::CompartmentEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getLinkEditPartEmitter() throws UnexpectedBehaviourException {
