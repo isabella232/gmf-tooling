@@ -1,7 +1,7 @@
 /*
  * <copyright>
  *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005-2007 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -57,7 +57,7 @@ public class XpandEditor extends TextEditor {
     	if (context == null) {
     		assert getEditorInput().getAdapter(IFile.class) != null;
     		IFile aFile = (IFile) getEditorInput().getAdapter(IFile.class);
-	    	final ResourceManager resourceManager = org.eclipse.gmf.internal.xpand.Activator.getResourceManager(aFile.getProject());
+	    	final ResourceManager resourceManager = org.eclipse.gmf.internal.xpand.Activator.getResourceManager(aFile);
 	    	context = ContextFactory.createXpandContext(resourceManager);
     	}
     	return context;
