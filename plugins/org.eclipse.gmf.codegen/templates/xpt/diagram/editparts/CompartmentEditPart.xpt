@@ -10,8 +10,11 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
+«REM»
+	@deprecated: This template file will be removed in GMF version 2.1
+«ENDREM»
+
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
-«EXTENSION xpt::diagram::editparts::Utils»
 
 «DEFINE CompartmentEditPart FOR gmfgen::GenCompartment-»
 	«EXPAND diagram::editparts::CompartmentEditPart::Main-»
