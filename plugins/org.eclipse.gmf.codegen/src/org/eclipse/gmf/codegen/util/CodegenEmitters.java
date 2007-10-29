@@ -190,7 +190,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getChildNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::editparts::ChildNodeLabelEditPart"); //$NON-NLS-1$
+		return getMainEmitter("diagram::editparts::ChildNodeLabelEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getCompartmentEditPartEmitter() throws UnexpectedBehaviourException {
@@ -725,6 +725,13 @@ public class CodegenEmitters {
 		String[] parts = templateName.split(PATH_SEPARATOR);
 		String definition = templateName + PATH_SEPARATOR + parts[parts.length-1];
 		return newXpandEmitter(definition);
+	}
+	
+    /**
+     * Returns "Main" emitter for the specified template file.
+     */
+	private TextEmitter getMainEmitter(String templateFilePath) {
+		return newXpandEmitter(templateFilePath + PATH_SEPARATOR + "Main"); //$NON-NLS-1$
 	}
 
     /**
