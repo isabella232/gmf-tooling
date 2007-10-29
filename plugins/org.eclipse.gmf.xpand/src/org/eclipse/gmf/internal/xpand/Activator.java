@@ -8,9 +8,6 @@
  *******************************************************************************/
 package org.eclipse.gmf.internal.xpand;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -26,14 +23,10 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.internal.xpand.build.MetaModelSource;
-import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
-import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
-import org.eclipse.gmf.internal.xpand.util.StreamConverter;
 import org.osgi.framework.BundleContext;
 
 public class Activator extends Plugin {
@@ -79,29 +72,8 @@ public class Activator extends Plugin {
 		//TODO: return a delegating resource manager to XpandEditor, to silently change context when roots change.
 		RootManager manager = getRootManager(file.getProject());
 		ResourceManager result = manager.getResourceManager(file);
-		if (result != null) {
-			return result;
-		}
-		//Must not return null here. Return a fake resource manager that only knows how to handle the given file
-		return new ResourceManagerImpl() {
-			@Override
-			protected boolean shouldCache() {
-				return false;
-			}
-			@Override
-			protected Reader resolve(String fullyQualifiedName, String extension) throws IOException {
-				if (extension.equals(file.getFileExtension()) && fullyQualifiedName.replace(SyntaxConstants.NS_DELIM, "/").equals(file.getProjectRelativePath().toString())) {
-					try {
-						return new StreamConverter().toContentsReader(file);
-					} catch (CoreException ex) {
-						IOException wrap = new IOException(ex.getStatus().getMessage());
-						wrap.initCause(ex);
-						throw wrap;
-					}
-				}
-				return null;
-			}
-		};
+		assert result != null;
+		return result;
 	}
 
 	public static RootManager getRootManager(IProject project) {

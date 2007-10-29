@@ -78,14 +78,19 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
 
     public XpandDefinition findDefinition(final String name, final EClassifier target, final EClassifier[] paramTypes) {
         String templateName;
-        if (name.indexOf(SyntaxConstants.NS_DELIM) < 0) {	//local call
+        boolean localCall = name.indexOf(SyntaxConstants.NS_DELIM) < 0;
+        if (localCall) {
         	templateName = ((XpandResource) currentResource()).getFullyQualifiedName();	//need an enclosing resource in case of composite
         } else {
         	templateName = TypeNameUtil.withoutLastSegment(name);
         }
         XpandResource tpl = findTemplate(templateName);
         if (tpl == null) {
-			return null;
+        	if (localCall) {
+        		tpl = (XpandResource) currentResource();
+        	} else {
+        		return null;
+        	}
 		}
         final XpandExecutionContext ctx = (XpandExecutionContext) cloneWithResource(tpl);
         XpandDefinition def = findDefinition(tpl.getDefinitions(), name, target, paramTypes, ctx);
@@ -108,7 +113,7 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
         return def;
     }
 
-    public void registerAdvices(final String fullyQualifiedName) {
+	public void registerAdvices(final String fullyQualifiedName) {
         final XpandResource tpl = findTemplate(fullyQualifiedName);
         if (tpl == null) {
 			throw new RuntimeException("Couldn't find template : " + fullyQualifiedName);
@@ -148,6 +153,9 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
     }
 
     public XpandResource findTemplate(final String templateName) {
+    	if (getResourceManager() == null) {
+    		return null;
+    	}
     	// XXX findTemplate needs kinda file uri, while metamodel import needs nsURI
     	final List<String> possibleNames = getPossibleNames(templateName, getImportedNamespaces());
         for (String name : possibleNames) {

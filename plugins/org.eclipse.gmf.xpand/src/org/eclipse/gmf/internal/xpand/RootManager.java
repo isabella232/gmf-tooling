@@ -23,7 +23,6 @@ import java.util.Set;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -38,6 +37,7 @@ public class RootManager {
 	private final IFile myConfig;
 	private List<RootDescription> myRoots;
 	private List<IRootChangeListener> myListeners = new ArrayList<IRootChangeListener>(2);
+	private RootDescription myFallbackRoot;
 
 	public RootManager(IProject project) {
 		myConfig = project.getFile(PROJECT_RELATIVE_PATH_TO_CONFIG_FILE);
@@ -65,15 +65,22 @@ public class RootManager {
 	}
 
 	public WorkspaceResourceManager getResourceManager(IFile file) {
-		for (IRootDescription nextDescription : getRoots()) {
+		for (RootDescription nextDescription : getRoots()) {
 			if (nextDescription.contains(file)) {
 				return nextDescription.getManager();
 			}
 		}
-		return null;
+		return getFallbackRoot().getManager();
 	}
 
-	public List<? extends IRootDescription> getRoots() {
+	private RootDescription getFallbackRoot() {
+		if (myFallbackRoot == null) {
+			myFallbackRoot = new RootDescription(Collections.<IPath>singletonList(new Path("")));
+		}
+		return myFallbackRoot;
+	}
+
+	private List<RootDescription> getRoots() {
 		if (myRoots == null) {
 			reloadRoots();
 		}
@@ -127,7 +134,7 @@ public class RootManager {
 
 	public Set<IProject> getReferencedProjects() {
 		Set<IProject> result = new LinkedHashSet<IProject>();
-		for (IRootDescription nextDescription : getRoots()) {
+		for (RootDescription nextDescription : getRoots()) {
 			for (IPath next : nextDescription.getRoots()) {
 				if (next.isAbsolute() && next.segmentCount() > 1) {
 					IProject candidate = ResourcesPlugin.getWorkspace().getRoot().getProject(next.segment(0));
@@ -160,13 +167,7 @@ public class RootManager {
 		public void rootsChanged(RootManager rootManager);
 	}
 
-	public interface IRootDescription {
-		public List<IPath> getRoots();
-		public boolean contains(IResource resource);
-		public WorkspaceResourceManager getManager();
-	}
-
-	private class RootDescription implements IRootDescription {
+	private class RootDescription {
 		private final List<IPath> myRoots;
 		private WorkspaceResourceManager myManager;
 		public RootDescription(List<IPath> roots) {
