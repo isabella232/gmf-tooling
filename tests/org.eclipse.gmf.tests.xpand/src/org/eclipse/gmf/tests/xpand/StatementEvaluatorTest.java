@@ -15,6 +15,7 @@
 package org.eclipse.gmf.tests.xpand;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.gmf.internal.xpand.BufferOutput;
@@ -26,9 +27,11 @@ import org.eclipse.gmf.internal.xpand.ast.Template;
 import org.eclipse.gmf.internal.xpand.ast.TextStatement;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.model.Output;
+import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
+import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 
 /**
  * *
@@ -179,4 +182,14 @@ public class StatementEvaluatorTest extends AbstractXpandTest {
 //		assertEquals("1A2B3C", result[2].trim()); XXX uncomment iterator in Foreach.xpt
 	}
 
+	public void testReferenceAnotherDefinition() throws Exception {
+		String test = tag("DEFINE test FOR String") + "TEST" + tag("EXPAND test2") + tag("ENDDEFINE");
+		String test2 = tag("DEFINE test2 FOR String") + "2" + tag("ENDDEFINE");
+		final XpandResource t = parse(test + "\n" + test2);
+		XpandDefinition xpandDefinition = t.getDefinitions()[0];
+		XpandExecutionContext ctx = ContextFactory.createXpandContext(null, out, Collections.<Variable>emptyList());
+		ctx = ctx.cloneWithVariable(new Variable("this", ""));
+		xpandDefinition.evaluate(ctx);
+		assertEquals("TEST2", buffer.toString());
+	}
 }
