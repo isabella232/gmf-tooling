@@ -156,11 +156,28 @@ private java.util.Collection collectAllLinks(org.eclipse.gmf.runtime.notation.Vi
 
 «DEFINE caseSemanticElement FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::caseVisualID» {
-	domain2NotationMap.put(view.getElement(), view);
-	result.addAll(«EXPAND xpt::diagram::updater::DiagramUpdater::getContainedLinksMethodCall»(view));	
+	if (!domain2NotationMap.containsKey(view.getElement())) {
+«REM»
+	Processing each domain element only once. Prevents us from 
+	having duplicated links if a shortcut to one of the "main"
+	diagram elements present on diagram.
+«ENDREM»«-»
+		result.addAll(«EXPAND xpt::diagram::updater::DiagramUpdater::getContainedLinksMethodCall»(view));
+	}
+	if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { «EXPAND xpt::Common::nonNLS»
+«REM»
+	Storing element view or replacing shortcut by the "original" element view.
+«ENDREM»«-»
+		domain2NotationMap.put(view.getElement(), view);
+	}	
 	break;	
 }
 «ENDDEFINE»
+
+«REM»
+	GMF has no links to "leaf" child nodes.
+«ENDREM»
+«DEFINE caseSemanticElement FOR gmfgen::GenChildLabelNode»«ENDDEFINE»
 
 «DEFINE colectContainedLink FOR gmfgen::GenLink-»
 «EXPAND xpt::diagram::updater::DiagramUpdater::getContainedLinksMethodCall»(modelElement));
