@@ -33,6 +33,7 @@ import org.eclipse.gmf.runtime.lite.commands.ChangeLocationCommand;
 import org.eclipse.gmf.runtime.lite.commands.WrappingCommand;
 import org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart;
 import org.eclipse.gmf.runtime.lite.edit.parts.update.UpdaterUtil;
+import org.eclipse.gmf.runtime.lite.figures.ExternalChildPositionTracker;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
@@ -88,6 +89,27 @@ public abstract class BaseExternalLabelEditPart extends AbstractGraphicalEditPar
 		};
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object getAdapter(Class key) {
+		if (ExternalChildPositionTracker.class == key) {
+			return getPositionTracker();
+		}
+		return super.getAdapter(key);
+	}
+
+	@Override
+	public DragTracker getDragTracker(Request request) {
+		return getLabelDragTracker();
+	}
+
+	public ExternalChildPositionTracker getPositionTracker() {
+		if (myPositionTracker == null) {
+			myPositionTracker = new ExternalChildPositionTracker(this);
+		}
+		return myPositionTracker;
+	}
+
 	protected IExternallyUpdatableEditPart.ExternalRefresher boundsRefresher = new IExternallyUpdatableEditPart.ExternalRefresher() {
 		public void refresh() {
 			if (!isActive()) {
@@ -112,4 +134,6 @@ public abstract class BaseExternalLabelEditPart extends AbstractGraphicalEditPar
 	}
 
 	protected abstract void refreshBounds();
+
+	private ExternalChildPositionTracker myPositionTracker;
 }

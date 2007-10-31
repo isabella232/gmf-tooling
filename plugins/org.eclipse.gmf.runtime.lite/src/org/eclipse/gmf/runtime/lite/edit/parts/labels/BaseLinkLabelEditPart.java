@@ -12,10 +12,7 @@
 package org.eclipse.gmf.runtime.lite.edit.parts.labels;
 
 import org.eclipse.draw2d.Connection;
-import org.eclipse.gef.EditPart;
-import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 import org.eclipse.gmf.runtime.notation.Location;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.runtime.notation.Node;
@@ -28,11 +25,6 @@ public abstract class BaseLinkLabelEditPart extends BaseExternalLabelEditPart {
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-//		installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE, new ConnectionEndpointEditPolicy() {
-//			public EditPart getHost() {
-//				return getParent();
-//			}
-//		});
 	}
 
 	protected void refreshBounds() {
