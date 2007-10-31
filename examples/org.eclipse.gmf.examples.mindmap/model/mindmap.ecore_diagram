@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.0/notation" xmi:id="_LOsBcZ_-Eduspc36EYQaOw" type="Ecore" measurementUnit="Pixel">
-  <styles xmi:type="notation:PageStyle" xmi:id="_LOsogJ_-Eduspc36EYQaOw"/>
-  <styles xmi:type="notation:GuideStyle" xmi:id="_LOsogZ_-Eduspc36EYQaOw"/>
-  <styles xmi:type="notation:DescriptionStyle" xmi:id="_LOsogp_-Eduspc36EYQaOw"/>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.1/notation" xmi:id="_Zn6QAYcMEdyOdrNu96KOvA" type="Ecore" measurementUnit="Pixel">
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_Zn63EIcMEdyOdrNu96KOvA"/>
   <element xmi:type="ecore:EPackage" href="mindmap.ecore#/"/>
 </notation:Diagram>

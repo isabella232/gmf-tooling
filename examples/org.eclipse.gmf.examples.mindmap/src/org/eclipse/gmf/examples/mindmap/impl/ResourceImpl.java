@@ -1,8 +1,14 @@
 /**
- * <copyright>
- * </copyright>
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  *
- * $Id: ResourceImpl.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
+ * $Id: ResourceImpl.java,v 1.6 2007/10/31 02:57:50 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -194,7 +200,7 @@ public class ResourceImpl extends EObjectImpl implements Resource {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-		@Override
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case MindmapPackage.RESOURCE__COMMENTS:
@@ -247,7 +253,7 @@ public class ResourceImpl extends EObjectImpl implements Resource {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-		@Override
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case MindmapPackage.RESOURCE__COMMENTS:

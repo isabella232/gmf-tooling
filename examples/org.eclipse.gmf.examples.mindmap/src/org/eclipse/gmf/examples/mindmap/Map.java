@@ -1,8 +1,14 @@
 /**
- * <copyright>
- * </copyright>
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  *
- * $Id: Map.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
+ * $Id: Map.java,v 1.6 2007/10/31 02:57:50 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
@@ -41,7 +47,7 @@ public interface Map extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Root Topics</em>' containment reference list.
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getMap_RootTopics()
-	 * @model type="org.eclipse.gmf.examples.mindmap.Topic" containment="true"
+	 * @model containment="true"
 	 *        extendedMetaData="kind='element' name='rootTopics'"
 	 * @generated
 	 */
@@ -58,7 +64,7 @@ public interface Map extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Relations</em>' containment reference list.
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getMap_Relations()
-	 * @model type="org.eclipse.gmf.examples.mindmap.Relationship" containment="true"
+	 * @model containment="true"
 	 *        extendedMetaData="kind='element' name='relations'"
 	 * @generated
 	 */
@@ -75,7 +81,7 @@ public interface Map extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Resources</em>' containment reference list.
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getMap_Resources()
-	 * @model type="org.eclipse.gmf.examples.mindmap.Resource" containment="true"
+	 * @model containment="true"
 	 *        extendedMetaData="kind='element' name='resources'"
 	 * @generated
 	 */

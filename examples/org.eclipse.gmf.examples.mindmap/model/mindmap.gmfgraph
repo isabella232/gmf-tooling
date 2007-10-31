@@ -5,14 +5,19 @@
     xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" name="mindmap">
   <figures
       name="Default">
-    <figures
-        xsi:type="gmfgraph:PolylineDecoration"
-        name="OpenArrow"/>
     <descriptors
         name="StickyNoteFigure">
       <actualFigure
           xsi:type="gmfgraph:Rectangle"
           name="StickyNoteFigure">
+        <layout
+            xsi:type="gmfgraph:FlowLayout"
+            vertical="true"
+            matchMinorSize="true"
+            forceSingleLine="true"
+            minorAlignment="CENTER"
+            majorSpacing="0"
+            minorSpacing="0"/>
         <backgroundColor
             xsi:type="gmfgraph:RGBColor"
             red="250"
@@ -22,115 +27,17 @@
             xsi:type="gmfgraph:Label"
             name="StickyNoteNameFigure"
             text="&lt;...>"/>
+        <children
+            xsi:type="gmfgraph:Rectangle"
+            name="ThreadItems">
+          <layout
+              xsi:type="gmfgraph:StackLayout"/>
+        </children>
       </actualFigure>
       <accessors
+          figure="//@figures.0/@descriptors.0/@actualFigure/@children.1"/>
+      <accessors
           figure="//@figures.0/@descriptors.0/@actualFigure/@children.0"/>
-    </descriptors>
-    <descriptors
-        name="ResourceFigure">
-      <actualFigure
-          xsi:type="gmfgraph:Rectangle"
-          name="ResourceFigure"
-          outline="false"
-          fill="false"
-          lineWidth="0">
-        <layout
-            xsi:type="gmfgraph:XYLayout"/>
-        <maximumSize
-            dx="40"
-            dy="60"/>
-        <minimumSize
-            dx="40"
-            dy="60"/>
-        <preferredSize
-            dx="40"
-            dy="60"/>
-        <size
-            x="40"
-            y="60"/>
-        <children
-            xsi:type="gmfgraph:Ellipse"
-            name="Head">
-          <foregroundColor
-              xsi:type="gmfgraph:RGBColor"
-              red="220"
-              green="220"
-              blue="250"/>
-          <backgroundColor
-              xsi:type="gmfgraph:RGBColor"
-              red="230"
-              green="230"
-              blue="255"/>
-          <size
-              x="40"
-              y="20"/>
-        </children>
-        <children
-            xsi:type="gmfgraph:Polygon"
-            name="Body">
-          <foregroundColor
-              xsi:type="gmfgraph:RGBColor"
-              red="220"
-              green="220"
-              blue="250"/>
-          <backgroundColor
-              xsi:type="gmfgraph:RGBColor"
-              red="230"
-              green="230"
-              blue="255"/>
-          <template
-              x="23"
-              y="19"/>
-          <template
-              x="23"
-              y="24"/>
-          <template
-              x="39"
-              y="24"/>
-          <template
-              x="39"
-              y="29"/>
-          <template
-              x="23"
-              y="29"/>
-          <template
-              x="23"
-              y="36"/>
-          <template
-              x="39"
-              y="48"/>
-          <template
-              x="39"
-              y="53"/>
-          <template
-              x="20"
-              y="42"/>
-          <template
-              x="1"
-              y="53"/>
-          <template
-              x="1"
-              y="48"/>
-          <template
-              x="17"
-              y="36"/>
-          <template
-              x="17"
-              y="29"/>
-          <template
-              x="1"
-              y="29"/>
-          <template
-              x="1"
-              y="24"/>
-          <template
-              x="17"
-              y="24"/>
-          <template
-              x="17"
-              y="19"/>
-        </children>
-      </actualFigure>
     </descriptors>
     <descriptors
         name="TopicSubtopicsFigure">
@@ -143,8 +50,8 @@
       <actualFigure
           xsi:type="gmfgraph:RoundedRectangle"
           name="RoundedTopicFigure"
-          cornerWidth="20"
-          cornerHeight="20">
+          cornerWidth="12"
+          cornerHeight="12">
         <foregroundColor
             xsi:type="gmfgraph:RGBColor"
             red="220"
@@ -152,11 +59,10 @@
             blue="250"/>
         <children
             xsi:type="gmfgraph:Label"
-            name="TopicNameFigure"
-            text="&lt;...>"/>
+            name="TopicNameFigure"/>
       </actualFigure>
       <accessors
-          figure="//@figures.0/@descriptors.3/@actualFigure/@children.0"/>
+          figure="//@figures.0/@descriptors.2/@actualFigure/@children.0"/>
     </descriptors>
     <descriptors
         name="ThreadItemLabelFigure">
@@ -170,7 +76,11 @@
           xsi:type="gmfgraph:PolylineConnection"
           name="DashedLineOpenArrow"
           lineKind="LINE_DASH"
-          targetDecoration="//@figures.0/@figures.0"/>
+          targetDecoration="//@figures.0/@descriptors.4/@actualFigure/@children.0">
+        <children
+            xsi:type="gmfgraph:PolylineDecoration"
+            name="OpenArrow"/>
+      </actualFigure>
     </descriptors>
     <descriptors
         name="DashedLineLabelFigure">
@@ -184,6 +94,115 @@
           xsi:type="gmfgraph:Label"
           name="BasicLabelFigure"/>
     </descriptors>
+    <descriptors
+        name="ResourceFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Rectangle"
+          name="ResourceFigure"
+          outline="false"
+          fill="false">
+        <layout
+            xsi:type="gmfgraph:StackLayout"/>
+        <children
+            xsi:type="gmfgraph:Rectangle"
+            name="Resource"
+            outline="false"
+            fill="false">
+          <layout
+              xsi:type="gmfgraph:FlowLayout"
+              vertical="true"
+              forceSingleLine="true"
+              minorAlignment="CENTER"
+              majorSpacing="0"
+              minorSpacing="0"/>
+          <children
+              xsi:type="gmfgraph:Ellipse"
+              name="Head">
+            <foregroundColor
+                xsi:type="gmfgraph:RGBColor"
+                red="220"
+                green="220"
+                blue="250"/>
+            <backgroundColor
+                xsi:type="gmfgraph:RGBColor"
+                red="230"
+                green="230"
+                blue="255"/>
+            <size
+                x="40"
+                y="20"/>
+          </children>
+          <children
+              xsi:type="gmfgraph:Polygon"
+              name="Body">
+            <foregroundColor
+                xsi:type="gmfgraph:RGBColor"
+                red="220"
+                green="220"
+                blue="250"/>
+            <backgroundColor
+                xsi:type="gmfgraph:RGBColor"
+                red="230"
+                green="230"
+                blue="255"/>
+            <template
+                x="23"
+                y="19"/>
+            <template
+                x="23"
+                y="24"/>
+            <template
+                x="39"
+                y="24"/>
+            <template
+                x="39"
+                y="29"/>
+            <template
+                x="23"
+                y="29"/>
+            <template
+                x="23"
+                y="36"/>
+            <template
+                x="39"
+                y="48"/>
+            <template
+                x="39"
+                y="53"/>
+            <template
+                x="20"
+                y="42"/>
+            <template
+                x="1"
+                y="53"/>
+            <template
+                x="1"
+                y="48"/>
+            <template
+                x="17"
+                y="36"/>
+            <template
+                x="17"
+                y="29"/>
+            <template
+                x="1"
+                y="29"/>
+            <template
+                x="1"
+                y="24"/>
+            <template
+                x="17"
+                y="24"/>
+            <template
+                x="17"
+                y="19"/>
+            <template
+                x="23"
+                y="19"/>
+          </children>
+        </children>
+      </actualFigure>
+    </descriptors>
   </figures>
   <nodes
       name="Topic"
@@ -192,8 +211,15 @@
       name="Thread"
       figure="StickyNoteFigure"/>
   <nodes
-      name="ResourceNode"
-      figure="ResourceFigure"/>
+      name="Resource"
+      figure="ResourceFigure">
+    <facets
+        xsi:type="gmfgraph:DefaultSizeFacet">
+      <defaultSize
+          dx="40"
+          dy="60"/>
+    </facets>
+  </nodes>
   <connections
       name="TopicSubtopics"
       figure="TopicSubtopicsFigure"/>
@@ -206,24 +232,24 @@
       collapsible="true"/>
   <compartments
       name="ThreadItemCompartment"
-      figure="StickyNoteFigure"/>
-  <labels
-      name="TopicName"
-      figure="RoundedTopicFigure"
-      accessor="//@figures.0/@descriptors.3/@accessors.0"/>
-  <labels
-      name="ThreadName"
       figure="StickyNoteFigure"
       accessor="//@figures.0/@descriptors.0/@accessors.0"/>
   <labels
+      name="TopicName"
+      figure="RoundedTopicFigure"
+      accessor="//@figures.0/@descriptors.2/@accessors.0"/>
+  <labels
+      name="ThreadName"
+      figure="StickyNoteFigure"
+      accessor="//@figures.0/@descriptors.0/@accessors.1"/>
+  <labels
       name="ThreadItemLabel"
-      figure="ThreadItemLabelFigure"/>
+      figure="ThreadItemLabelFigure"
+      elementIcon="false"/>
   <labels
       name="RelationshipLabel"
       figure="DashedLineLabelFigure"
       elementIcon="false"/>
   <labels
-      name="ResourceLabel"
-      figure="BasicLabelFigure"
-      elementIcon="false"/>
+      name="ResourceLabel"/>
 </gmfgraph:Canvas>

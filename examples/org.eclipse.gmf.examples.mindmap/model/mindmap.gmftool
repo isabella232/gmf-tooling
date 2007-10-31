@@ -8,7 +8,6 @@
     <tools
         xsi:type="gmftool:ToolGroup"
         title="Nodes"
-        description=""
         collapsible="true">
       <tools
           xsi:type="gmftool:CreationTool"
@@ -50,12 +49,11 @@
     <tools
         xsi:type="gmftool:ToolGroup"
         title="Links"
-        description=""
         collapsible="true">
       <tools
           xsi:type="gmftool:CreationTool"
-          title="Dependency"
-          description="Create new Dependency">
+          title="Subtopic"
+          description="Create new Subtopic link">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>
         <largeIcon
@@ -63,8 +61,8 @@
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
-          title="Subtopic"
-          description="Create new Subtopic">
+          title="Dependency"
+          description="Create new Dependency">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>
         <largeIcon

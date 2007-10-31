@@ -1,8 +1,14 @@
 /**
- * <copyright>
- * </copyright>
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  *
- * $Id: Priority.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
+ * $Id: Priority.java,v 1.6 2007/10/31 02:57:50 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
@@ -18,11 +24,10 @@ import org.eclipse.emf.common.util.Enumerator;
  * and utility methods for working with them.
  * <!-- end-user-doc -->
  * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getPriority()
- * @model
+ * @model extendedMetaData="name='Priority'"
  * @generated
  */
-public enum Priority implements Enumerator
-{
+public enum Priority implements Enumerator {
 	/**
 	 * The '<em><b>ZERO</b></em>' literal object.
 	 * <!-- begin-user-doc -->
@@ -32,6 +37,7 @@ public enum Priority implements Enumerator
 	 * @ordered
 	 */
 	ZERO(0, "ZERO", "ZERO"),
+
 	/**
 	 * The '<em><b>ONE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
@@ -41,6 +47,7 @@ public enum Priority implements Enumerator
 	 * @ordered
 	 */
 	ONE(1, "ONE", "ONE"),
+
 	/**
 	 * The '<em><b>TWO</b></em>' literal object.
 	 * <!-- begin-user-doc -->
@@ -50,6 +57,7 @@ public enum Priority implements Enumerator
 	 * @ordered
 	 */
 	TWO(2, "TWO", "TWO"),
+
 	/**
 	 * The '<em><b>THREE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
@@ -59,6 +67,7 @@ public enum Priority implements Enumerator
 	 * @ordered
 	 */
 	THREE(3, "THREE", "THREE"),
+
 	/**
 	 * The '<em><b>FOUR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
@@ -68,6 +77,7 @@ public enum Priority implements Enumerator
 	 * @ordered
 	 */
 	FOUR(4, "FOUR", "FOUR"),
+
 	/**
 	 * The '<em><b>FIVE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
@@ -77,6 +87,7 @@ public enum Priority implements Enumerator
 	 * @ordered
 	 */
 	FIVE(5, "FIVE", "FIVE");
+
 	/**
 	 * The '<em><b>ZERO</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -311,4 +322,5 @@ public enum Priority implements Enumerator
 	public String toString() {
 		return literal;
 	}
-}
+	
+} //Priority

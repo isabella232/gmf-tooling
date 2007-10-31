@@ -1,12 +1,19 @@
 /**
- * <copyright>
- * </copyright>
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  *
- * $Id: Topic.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
+ * $Id: Topic.java,v 1.6 2007/10/31 02:57:50 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
 import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -47,7 +54,7 @@ public interface Topic extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Comments</em>' containment reference list.
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_Comments()
-	 * @model type="org.eclipse.gmf.examples.mindmap.Thread" containment="true"
+	 * @model containment="true"
 	 *        extendedMetaData="kind='element' name='comments'"
 	 * @generated
 	 */
@@ -287,7 +294,7 @@ public interface Topic extends EObject {
 	 * @return the value of the '<em>Resources</em>' reference list.
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_Resources()
 	 * @see org.eclipse.gmf.examples.mindmap.Resource#getTopics
-	 * @model type="org.eclipse.gmf.examples.mindmap.Resource" opposite="topics"
+	 * @model opposite="topics"
 	 *        extendedMetaData="kind='attribute' name='resources'"
 	 * @generated
 	 */
@@ -331,8 +338,7 @@ public interface Topic extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Subtopics</em>' reference list.
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_Subtopics()
-	 * @model type="org.eclipse.gmf.examples.mindmap.Topic"
-	 *        extendedMetaData="kind='attribute' name='subtopics'"
+	 * @model extendedMetaData="kind='attribute' name='subtopics'"
 	 * @generated
 	 */
 	EList<Topic> getSubtopics();

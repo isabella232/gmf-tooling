@@ -1,8 +1,14 @@
 /**
- * <copyright>
- * </copyright>
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  *
- * $Id: Resource.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
+ * $Id: Resource.java,v 1.6 2007/10/31 02:57:50 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
@@ -43,7 +49,7 @@ public interface Resource extends EObject {
 	 * @return the value of the '<em>Comments</em>' reference list.
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getResource_Comments()
 	 * @see org.eclipse.gmf.examples.mindmap.Thread#getAuthor
-	 * @model type="org.eclipse.gmf.examples.mindmap.Thread" opposite="author"
+	 * @model opposite="author"
 	 *        extendedMetaData="kind='attribute' name='comments'"
 	 * @generated
 	 */
@@ -116,7 +122,7 @@ public interface Resource extends EObject {
 	 * @return the value of the '<em>Topics</em>' reference list.
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getResource_Topics()
 	 * @see org.eclipse.gmf.examples.mindmap.Topic#getResources
-	 * @model type="org.eclipse.gmf.examples.mindmap.Topic" opposite="resources"
+	 * @model opposite="resources"
 	 *        extendedMetaData="kind='attribute' name='topics'"
 	 * @generated
 	 */

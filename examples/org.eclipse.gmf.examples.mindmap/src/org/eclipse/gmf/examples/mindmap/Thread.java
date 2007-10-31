@@ -1,12 +1,19 @@
 /**
- * <copyright>
- * </copyright>
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  *
- * $Id: Thread.java,v 1.5 2007/06/11 17:44:19 rgronback Exp $
+ * $Id: Thread.java,v 1.6 2007/10/31 02:57:50 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
 import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -42,7 +49,7 @@ public interface Thread extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Items</em>' containment reference list.
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getThread_Items()
-	 * @model type="org.eclipse.gmf.examples.mindmap.ThreadItem" containment="true"
+	 * @model containment="true"
 	 *        extendedMetaData="kind='element' name='items'"
 	 * @generated
 	 */
