@@ -1,0 +1,9 @@
+#Wed Oct 31 08:45:37 EDT 2007
+eclipse.preferences.version=1
+gmf_dashboard/domainGenerationModel=platform\:/resource/org.eclipse.gmf.examples.mindmap.lite/model/mindmap.genmodel
+gmf_dashboard/domainModel=platform\:/resource/org.eclipse.gmf.examples.mindmap.lite/model/mindmap.ecore
+gmf_dashboard/generationModel=platform\:/resource/org.eclipse.gmf.examples.mindmap.lite/model/mindmap.gmfgen
+gmf_dashboard/graphicalDefinitionModel=platform\:/resource/org.eclipse.gmf.examples.mindmap.lite/model/mindmap.gmfgraph
+gmf_dashboard/mappingModel=platform\:/resource/org.eclipse.gmf.examples.mindmap.lite/model/mindmap.gmfmap
+gmf_dashboard/option_rcp=*
+gmf_dashboard/toolingDefinitionModel=platform\:/resource/org.eclipse.gmf.examples.mindmap.lite/model/mindmap.gmftool
