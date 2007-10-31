@@ -1,28 +1,27 @@
 package org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts;
 
 import org.eclipse.draw2d.Ellipse;
-import org.eclipse.draw2d.FreeformLayout;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Polygon;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
-import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
+import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
+import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.policies.ResourceItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderedShapeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
@@ -73,17 +72,26 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		XYLayoutEditPolicy lep = new XYLayoutEditPolicy() {
+		LayoutEditPolicy lep = new LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				if (child instanceof IBorderItemEditPart) {
 					return new BorderItemSelectionEditPolicy();
 				}
-				EditPolicy result = super.createChildEditPolicy(child);
+				EditPolicy result = child
+						.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 				if (result == null) {
-					return new ResizableShapeEditPolicy();
+					result = new NonResizableEditPolicy();
 				}
 				return result;
+			}
+
+			protected Command getMoveChildrenCommand(Request request) {
+				return null;
+			}
+
+			protected Command getCreateCommand(CreateRequest request) {
+				return null;
 			}
 		};
 		return lep;
@@ -177,22 +185,15 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 	 * @generated
 	 */
 	public class ResourceFigure extends RectangleFigure {
+
 		/**
 		 * @generated
 		 */
 		public ResourceFigure() {
 
-			this.setLayoutManager(new XYLayout());
+			this.setLayoutManager(new StackLayout());
 			this.setFill(false);
 			this.setOutline(false);
-			this.setLineWidth(0);
-			this.setPreferredSize(new Dimension(getMapMode().DPtoLP(40),
-					getMapMode().DPtoLP(60)));
-			this.setMaximumSize(new Dimension(getMapMode().DPtoLP(40),
-					getMapMode().DPtoLP(60)));
-			this.setMinimumSize(new Dimension(getMapMode().DPtoLP(40),
-					getMapMode().DPtoLP(60)));
-			this.setSize(getMapMode().DPtoLP(40), getMapMode().DPtoLP(60));
 			createContents();
 		}
 
@@ -201,57 +202,76 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 		 */
 		private void createContents() {
 
-			Ellipse head0 = new Ellipse();
-			head0.setForegroundColor(HEAD0_FORE);
-			head0.setBackgroundColor(HEAD0_BACK);
-			head0.setSize(getMapMode().DPtoLP(40), getMapMode().DPtoLP(20));
+			RectangleFigure resource0 = new RectangleFigure();
+			resource0.setFill(false);
+			resource0.setOutline(false);
 
-			this.add(head0);
+			this.add(resource0);
 
-			Polygon body0 = new Polygon();
-			body0.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode()
+			ToolbarLayout layoutResource0 = new ToolbarLayout();
+			layoutResource0.setStretchMinorAxis(false);
+			layoutResource0.setMinorAlignment(ToolbarLayout.ALIGN_CENTER);
+
+			layoutResource0.setSpacing(0);
+			layoutResource0.setVertical(true);
+
+			resource0.setLayoutManager(layoutResource0);
+
+			Ellipse head1 = new Ellipse();
+			head1.setForegroundColor(HEAD1_FORE);
+			head1.setBackgroundColor(HEAD1_BACK);
+			head1.setSize(getMapMode().DPtoLP(40), getMapMode().DPtoLP(20));
+
+			resource0.add(head1);
+
+			Polygon body1 = new Polygon();
+			body1.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode()
 					.DPtoLP(19)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode()
+			body1.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode()
 					.DPtoLP(24)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode()
+			body1.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode()
 					.DPtoLP(24)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode()
+			body1.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode()
 					.DPtoLP(29)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode()
+			body1.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode()
 					.DPtoLP(29)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode()
+			body1.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode()
 					.DPtoLP(36)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode()
+			body1.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode()
 					.DPtoLP(48)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode()
+			body1.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode()
 					.DPtoLP(53)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(20), getMapMode()
+			body1.addPoint(new Point(getMapMode().DPtoLP(20), getMapMode()
 					.DPtoLP(42)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode()
+			body1.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode()
 					.DPtoLP(53)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode()
+			body1.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode()
 					.DPtoLP(48)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode()
+			body1.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode()
 					.DPtoLP(36)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode()
+			body1.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode()
 					.DPtoLP(29)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode()
+			body1.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode()
 					.DPtoLP(29)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode()
+			body1.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode()
 					.DPtoLP(24)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode()
+			body1.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode()
 					.DPtoLP(24)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode()
+			body1.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode()
 					.DPtoLP(19)));
-			body0.setForegroundColor(BODY0_FORE);
-			body0.setBackgroundColor(BODY0_BACK);
+			body1.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode()
+					.DPtoLP(19)));
+			body1.setForegroundColor(BODY1_FORE);
+			body1.setBackgroundColor(BODY1_BACK);
+			
+			body1.setFill(true);
 
-			this.add(body0);
+			resource0.add(body1);
 
 		}
 
 		/**
-		 * @generated
+		 * @generated NOT
 		 */
 		private boolean myUseLocalCoordinates = true;
 
@@ -274,21 +294,21 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 	/**
 	 * @generated
 	 */
-	static final Color HEAD0_FORE = new Color(null, 220, 220, 250);
+	static final Color HEAD1_FORE = new Color(null, 220, 220, 250);
 
 	/**
 	 * @generated
 	 */
-	static final Color HEAD0_BACK = new Color(null, 230, 230, 255);
+	static final Color HEAD1_BACK = new Color(null, 230, 230, 255);
 
 	/**
 	 * @generated
 	 */
-	static final Color BODY0_FORE = new Color(null, 220, 220, 250);
+	static final Color BODY1_FORE = new Color(null, 220, 220, 250);
 
 	/**
 	 * @generated
 	 */
-	static final Color BODY0_BACK = new Color(null, 230, 230, 255);
+	static final Color BODY1_BACK = new Color(null, 230, 230, 255);
 
 }

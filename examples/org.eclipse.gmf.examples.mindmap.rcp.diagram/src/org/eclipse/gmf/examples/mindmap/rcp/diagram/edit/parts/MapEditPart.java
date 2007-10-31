@@ -39,4 +39,5 @@ public class MapEditPart extends DiagramEditPart {
 				new MapCanonicalEditPolicy());
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.POPUPBAR_ROLE);
 	}
+
 }

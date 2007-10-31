@@ -1,16 +1,13 @@
 package org.eclipse.gmf.examples.mindmap.rcp.diagram.sheet;
 
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.jface.viewers.DecoratingLabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.core.runtime.IAdaptable;
-
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapDiagramEditorPlugin;
-
-import org.eclipse.jface.viewers.DecoratingLabelProvider;
 
 /**
  * @generated
@@ -75,4 +72,5 @@ public class MindmapSheetLabelProvider extends DecoratingLabelProvider {
 	private Object unwrapView(View view) {
 		return view.getElement() == null ? view : view.getElement();
 	}
+
 }

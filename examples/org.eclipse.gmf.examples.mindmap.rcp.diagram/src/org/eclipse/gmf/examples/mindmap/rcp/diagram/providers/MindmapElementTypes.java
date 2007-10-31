@@ -42,6 +42,48 @@ public class MindmapElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
+	private static Set KNOWN_ELEMENT_TYPES;
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Map_1000 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.Map_1000"); //$NON-NLS-1$
+	/**
+	 * @generated
+	 */
+	public static final IElementType Topic_2001 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.Topic_2001"); //$NON-NLS-1$
+	/**
+	 * @generated
+	 */
+	public static final IElementType Resource_2002 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.Resource_2002"); //$NON-NLS-1$
+	/**
+	 * @generated
+	 */
+	public static final IElementType Thread_3001 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.Thread_3001"); //$NON-NLS-1$
+	/**
+	 * @generated
+	 */
+	public static final IElementType ThreadItem_3002 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.ThreadItem_3002"); //$NON-NLS-1$
+	/**
+	 * @generated
+	 */
+	public static final IElementType TopicSubtopics_4001 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.TopicSubtopics_4001"); //$NON-NLS-1$
+	/**
+	 * @generated
+	 */
+	public static final IElementType Relationship_4002 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.Relationship_4002"); //$NON-NLS-1$
+	/**
+	 * @generated
+	 */
+	public static final IElementType Relationship_4003 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.Relationship_4003"); //$NON-NLS-1$
+	/**
+	 * @generated
+	 */
+	public static final IElementType Relationship_4004 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.Relationship_4004"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	private static ImageRegistry getImageRegistry() {
 		if (imageRegistry == null) {
 			imageRegistry = new ImageRegistry();
@@ -179,51 +221,9 @@ public class MindmapElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
-	public static final IElementType Map_1000 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.Map_1000"); //$NON-NLS-1$
-	/**
-	 * @generated
-	 */
-	public static final IElementType Topic_2001 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.Topic_2001"); //$NON-NLS-1$
-	/**
-	 * @generated
-	 */
-	public static final IElementType Resource_2002 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.Resource_2002"); //$NON-NLS-1$
-	/**
-	 * @generated
-	 */
-	public static final IElementType Thread_3001 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.Thread_3001"); //$NON-NLS-1$
-	/**
-	 * @generated
-	 */
-	public static final IElementType ThreadItem_3002 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.ThreadItem_3002"); //$NON-NLS-1$
-	/**
-	 * @generated
-	 */
-	public static final IElementType TopicSubtopics_4001 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.TopicSubtopics_4001"); //$NON-NLS-1$
-	/**
-	 * @generated
-	 */
-	public static final IElementType Relationship_4002 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.Relationship_4002"); //$NON-NLS-1$
-	/**
-	 * @generated
-	 */
-	public static final IElementType Relationship_4003 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.Relationship_4003"); //$NON-NLS-1$
-	/**
-	 * @generated
-	 */
-	public static final IElementType Relationship_4004 = getElementType("org.eclipse.gmf.examples.mindmap.rcp.diagram.Relationship_4004"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
 	private static IElementType getElementType(String id) {
 		return ElementTypeRegistry.getInstance().getType(id);
 	}
-
-	/**
-	 * @generated
-	 */
-	private static Set KNOWN_ELEMENT_TYPES;
 
 	/**
 	 * @generated
@@ -243,4 +243,5 @@ public class MindmapElementTypes extends ElementInitializers {
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
 	}
+
 }

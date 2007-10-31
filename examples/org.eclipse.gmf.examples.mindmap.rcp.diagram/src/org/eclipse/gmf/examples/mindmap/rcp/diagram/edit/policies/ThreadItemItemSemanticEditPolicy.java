@@ -20,4 +20,5 @@ public class ThreadItemItemSemanticEditPolicy extends
 		cc.add(getGEFWrapper(new DestroyElementCommand(req)));
 		return cc.unwrap();
 	}
+
 }

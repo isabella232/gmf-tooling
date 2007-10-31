@@ -8,6 +8,14 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.MapEditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.ThreadEditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.TopicEditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.TopicThreadCompartmentEditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.Messages;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -18,14 +26,6 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.MapEditPart;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.ThreadEditPart;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.TopicEditPart;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.TopicThreadCompartmentEditPart;
-
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapDiagramEditorPlugin;
 
 /**
  * @generated
@@ -235,8 +235,8 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 						.getItemProvidersAdapterFactory());
 		ElementListSelectionDialog dialog = new ElementListSelectionDialog(
 				shell, labelProvider);
-		dialog.setMessage("Available domain model elements:");
-		dialog.setTitle("Select domain model element");
+		dialog.setMessage(Messages.MindmapModelingAssistantProviderMessage);
+		dialog.setTitle(Messages.MindmapModelingAssistantProviderTitle);
 		dialog.setMultipleSelection(false);
 		dialog.setElements(elements);
 		EObject selected = null;

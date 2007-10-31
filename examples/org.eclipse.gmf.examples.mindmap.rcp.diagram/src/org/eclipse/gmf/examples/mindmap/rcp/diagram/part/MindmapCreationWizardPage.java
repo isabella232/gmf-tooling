@@ -1,12 +1,10 @@
 package org.eclipse.gmf.examples.mindmap.rcp.diagram.part;
 
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.application.WizardNewFileCreationPage;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.application.WizardNewFileCreationPage;
 
 /**
  * @generated
@@ -63,8 +61,9 @@ public class MindmapCreationWizardPage extends WizardNewFileCreationPage {
 		String extension = getExtension();
 		if (extension != null
 				&& !getFilePath().toString().endsWith("." + extension)) {
-			setErrorMessage(NLS.bind(
-					"File name should have ''{0}'' extension.", extension));
+			setErrorMessage(NLS
+					.bind(Messages.MindmapCreationWizardPageExtensionError,
+							extension));
 			return false;
 		}
 		return true;

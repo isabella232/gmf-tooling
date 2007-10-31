@@ -23,6 +23,56 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String MindmapCreateShortcutAction_OpenModelTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String MindmapCreateShortcutAction_CreateShortcutTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String MindmapCreationWizardTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String MindmapCreationWizard_DiagramModelFilePageTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String MindmapCreationWizard_DiagramModelFilePageDescription;
+
+	/**
+	 * @generated
+	 */
+	public static String MindmapCreationWizard_DomainModelFilePageTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String MindmapCreationWizard_DomainModelFilePageDescription;
+
+	/**
+	 * @generated
+	 */
+	public static String MindmapCreationWizardOpenEditorError;
+
+	/**
+	 * @generated
+	 */
+	public static String MindmapCreationWizardCreationError;
+
+	/**
+	 * @generated
+	 */
+	public static String MindmapCreationWizardPageExtensionError;
+
+	/**
+	 * @generated
+	 */
 	public static String MindmapDiagramEditorUtil_OpenModelResourceErrorDialogTitle;
 
 	/**
@@ -163,22 +213,82 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String MindmapDiagramEditor_SavingDeletedFile;
+
+	/**
+	 * @generated
+	 */
+	public static String MindmapDiagramEditor_SaveAsErrorTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String MindmapDiagramEditor_SaveAsErrorMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String MindmapDiagramEditor_SaveErrorTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String MindmapDiagramEditor_SaveErrorMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String MindmapElementChooserDialog_SelectModelElementTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageName;
+
+	/**
+	 * @generated
+	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageDescription;
+
+	/**
+	 * @generated
+	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageEmptyError;
+
+	/**
+	 * @generated
+	 */
+	public static String ShortcutCreationWizard_ReferencedElementSelectionPageInvalidError;
+
+	/**
+	 * @generated
+	 */
+	public static String ModelElementSelectionPageMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String ValidateActionMessage;
+
+	/**
+	 * @generated
+	 */
 	public static String Nodes1Group_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Nodes1Group_desc;
-
-	/**
-	 * @generated
-	 */
 	public static String Links2Group_title;
-
-	/**
-	 * @generated
-	 */
-	public static String Links2Group_desc;
 
 	/**
 	 * @generated
@@ -223,22 +333,22 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String Dependency1CreationTool_title;
+	public static String Subtopic1CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Dependency1CreationTool_desc;
+	public static String Subtopic1CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String Subtopic2CreationTool_title;
+	public static String Dependency2CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Subtopic2CreationTool_desc;
+	public static String Dependency2CreationTool_desc;
 
 	/**
 	 * @generated
@@ -318,6 +428,31 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String WizardNewFileCreationPage_FileLabel;
+
+	/**
+	 * @generated
+	 */
+	public static String WizardNewFileCreationPage_BrowseButton;
+
+	/**
+	 * @generated
+	 */
+	public static String WizardNewFileCreationPage_SelectNewFileDialog;
+
+	/**
+	 * @generated
+	 */
+	public static String WizardNewFileCreationPage_EmptyFileNameError;
+
+	/**
+	 * @generated
+	 */
+	public static String WizardNewFileCreationPage_InvalidFileNameError;
+
+	/**
+	 * @generated
+	 */
 	public static String TopicThreadCompartmentEditPart_title;
 
 	/**
@@ -329,6 +464,36 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String CommandName_OpenDiagram;
+
+	/**
+	 * @generated
+	 */
+	public static String AbstractParser_UnexpectedValueTypeMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String AbstractParser_WrongStringConversionMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String AbstractParser_UnknownLiteralMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String MessageFormatParser_InvalidInputError;
+
+	/**
+	 * @generated
+	 */
+	public static String MindmapModelingAssistantProviderTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String MindmapModelingAssistantProviderMessage;
 
 	//TODO: put accessor fields manually	
 }

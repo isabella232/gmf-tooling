@@ -32,7 +32,6 @@ public class MindmapPaletteFactory {
 	private PaletteContainer createNodes1Group() {
 		PaletteDrawer paletteContainer = new PaletteDrawer(
 				Messages.Nodes1Group_title);
-		paletteContainer.setDescription(Messages.Nodes1Group_desc);
 		paletteContainer.add(createTopic1CreationTool());
 		paletteContainer.add(createThread2CreationTool());
 		paletteContainer.add(createThreadItem3CreationTool());
@@ -47,9 +46,8 @@ public class MindmapPaletteFactory {
 	private PaletteContainer createLinks2Group() {
 		PaletteDrawer paletteContainer = new PaletteDrawer(
 				Messages.Links2Group_title);
-		paletteContainer.setDescription(Messages.Links2Group_desc);
-		paletteContainer.add(createDependency1CreationTool());
-		paletteContainer.add(createSubtopic2CreationTool());
+		paletteContainer.add(createSubtopic1CreationTool());
+		paletteContainer.add(createDependency2CreationTool());
 		paletteContainer.add(createIncludes3CreationTool());
 		paletteContainer.add(createExtends4CreationTool());
 		return paletteContainer;
@@ -118,14 +116,14 @@ public class MindmapPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createDependency1CreationTool() {
+	private ToolEntry createSubtopic1CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(MindmapElementTypes.Relationship_4004);
+		types.add(MindmapElementTypes.TopicSubtopics_4001);
 		LinkToolEntry entry = new LinkToolEntry(
-				Messages.Dependency1CreationTool_title,
-				Messages.Dependency1CreationTool_desc, types);
+				Messages.Subtopic1CreationTool_title,
+				Messages.Subtopic1CreationTool_desc, types);
 		entry.setSmallIcon(MindmapElementTypes
-				.getImageDescriptor(MindmapElementTypes.Relationship_4004));
+				.getImageDescriptor(MindmapElementTypes.TopicSubtopics_4001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -133,14 +131,14 @@ public class MindmapPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createSubtopic2CreationTool() {
+	private ToolEntry createDependency2CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(MindmapElementTypes.TopicSubtopics_4001);
+		types.add(MindmapElementTypes.Relationship_4004);
 		LinkToolEntry entry = new LinkToolEntry(
-				Messages.Subtopic2CreationTool_title,
-				Messages.Subtopic2CreationTool_desc, types);
+				Messages.Dependency2CreationTool_title,
+				Messages.Dependency2CreationTool_desc, types);
 		entry.setSmallIcon(MindmapElementTypes
-				.getImageDescriptor(MindmapElementTypes.TopicSubtopics_4001));
+				.getImageDescriptor(MindmapElementTypes.Relationship_4004));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}

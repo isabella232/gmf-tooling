@@ -73,4 +73,5 @@ public class TopicThreadCompartmentEditPart extends ShapeCompartmentEditPart {
 			super.setRatio(ratio);
 		}
 	}
+
 }

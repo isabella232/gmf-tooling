@@ -1,25 +1,13 @@
 package org.eclipse.gmf.examples.mindmap.rcp.diagram.part;
 
-import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.ui.URIEditorInput;
-
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-
-import org.eclipse.emf.transaction.NotificationFilter;
-
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
-
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
-
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.ui.IEditorInput;
 
 /**
@@ -77,18 +65,6 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor {
 	/**
 	 * @generated
 	 */
-	protected void setDocumentProvider(IEditorInput input) {
-		if (input instanceof URIEditorInput) {
-			setDocumentProvider(MindmapDiagramEditorPlugin.getInstance()
-					.getDocumentProvider());
-		} else {
-			super.setDocumentProvider(input);
-		}
-	}
-
-	/**
-	 * @generated
-	 */
 	protected IDocumentProvider getDocumentProvider(IEditorInput input) {
 		if (input instanceof URIEditorInput) {
 			return MindmapDiagramEditorPlugin.getInstance()
@@ -107,6 +83,18 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor {
 			return ((IDiagramDocument) document).getEditingDomain();
 		}
 		return super.getEditingDomain();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setDocumentProvider(IEditorInput input) {
+		if (input instanceof URIEditorInput) {
+			setDocumentProvider(MindmapDiagramEditorPlugin.getInstance()
+					.getDocumentProvider());
+		} else {
+			super.setDocumentProvider(input);
+		}
 	}
 
 }

@@ -420,7 +420,7 @@ public class MindmapDocumentProvider extends AbstractDocumentProvider implements
 						new Status(
 								IStatus.ERROR,
 								MindmapDiagramEditorPlugin.ID,
-								IStatus.OK,
+								IStatus.ERROR,
 								Messages.MindmapDocumentProvider_UnsynchronizedFileSaveError,
 								null));
 			}
@@ -454,6 +454,7 @@ public class MindmapDocumentProvider extends AbstractDocumentProvider implements
 					monitor.worked(1);
 				}
 				monitor.done();
+				info.setModificationStamp(computeModificationStamp(info));
 			} catch (RuntimeException x) {
 				fireElementStateChangeFailed(element);
 				throw x;

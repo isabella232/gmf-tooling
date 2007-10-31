@@ -1,7 +1,5 @@
 package org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.policies;
 
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
@@ -27,4 +25,5 @@ public class ResourceItemSemanticEditPolicy extends
 		cc.add(getGEFWrapper(new DestroyElementCommand(req)));
 		return cc.unwrap();
 	}
+
 }

@@ -2,22 +2,18 @@ package org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.policies;
 
 import java.util.Collection;
 import java.util.HashSet;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
-import org.eclipse.gmf.runtime.notation.View;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
 import java.util.Set;
-import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.gmf.examples.mindmap.MindmapPackage;
-import org.eclipse.gmf.examples.mindmap.Thread;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.ThreadItemEditPart;
-
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapDiagramUpdater;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapNodeDescriptor;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapVisualIDRegistry;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated

@@ -1,13 +1,9 @@
 package org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.policies;
 
 import org.eclipse.gef.commands.Command;
-
 import org.eclipse.gmf.examples.mindmap.MindmapPackage;
-
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.commands.ThreadItemCreateCommand;
-
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.providers.MindmapElementTypes;
-
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 
 /**
@@ -29,4 +25,5 @@ public class ThreadThreadItemCompartmentItemSemanticEditPolicy extends
 		}
 		return super.getCreateCommand(req);
 	}
+
 }

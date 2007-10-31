@@ -1,6 +1,10 @@
 package org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.policies;
 
-import org.eclipse.emf.ecore.EClass;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPart;
@@ -9,6 +13,13 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.requests.ReconnectRequest;
+import org.eclipse.gmf.examples.mindmap.MindmapPackage;
+import org.eclipse.gmf.examples.mindmap.Topic;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.helpers.MindmapBaseEditHelper;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.expressions.MindmapAbstractExpression;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.expressions.MindmapOCLFactory;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapDiagramEditorPlugin;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -36,21 +47,6 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipReques
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
-import org.eclipse.gmf.examples.mindmap.MindmapPackage;
-import org.eclipse.gmf.examples.mindmap.Topic;
-
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.helpers.MindmapBaseEditHelper;
-
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.expressions.MindmapAbstractExpression;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.expressions.MindmapOCLFactory;
-
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapDiagramEditorPlugin;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapVisualIDRegistry;
 
 /**
  * @generated
@@ -274,6 +270,7 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	}
 
 	/**
+	 * @deprecated use getGEFWrapper() instead
 	 * @generated
 	 */
 	protected final Command getMSLWrapper(ICommand cmd) {
@@ -347,22 +344,21 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	}
 
 	/**
-	 * @generated 
+	 * @generated
 	 */
 	public static class LinkConstraints {
-
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		private static final String OPPOSITE_END_VAR = "oppositeEnd"; //$NON-NLS-1$
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		private static final MindmapAbstractExpression TopicSubtopics_4001_SourceExpression;
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		static {
 			Map env = new HashMap(3);
@@ -373,7 +369,7 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		public static boolean canCreateTopicSubtopics_4001(Topic source,
 				Topic target) {
@@ -386,7 +382,7 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		public static boolean canCreateRelationship_4002(
 				org.eclipse.gmf.examples.mindmap.Map container, Topic source,
@@ -395,7 +391,7 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		public static boolean canCreateRelationship_4003(
 				org.eclipse.gmf.examples.mindmap.Map container, Topic source,
@@ -404,7 +400,7 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		public static boolean canCreateRelationship_4004(
 				org.eclipse.gmf.examples.mindmap.Map container, Topic source,
@@ -452,7 +448,7 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		private static boolean evaluate(MindmapAbstractExpression constraint,
 				Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
@@ -471,6 +467,7 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 				return false;
 			}
 		}
+
 	}
 
 }

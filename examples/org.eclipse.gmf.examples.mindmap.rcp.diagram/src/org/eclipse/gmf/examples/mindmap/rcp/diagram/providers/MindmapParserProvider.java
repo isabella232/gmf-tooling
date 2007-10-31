@@ -3,6 +3,16 @@ package org.eclipse.gmf.examples.mindmap.rcp.diagram.providers;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.examples.mindmap.MindmapPackage;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.RelationshipLabel2EditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.RelationshipLabel3EditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.RelationshipLabelEditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.ResourceNameEmailEditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.ThreadItemEditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.ThreadSubjectEditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.TopicNameEditPart;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.parsers.MessageFormatParser;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
@@ -11,21 +21,6 @@ import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 import org.eclipse.gmf.runtime.notation.View;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.gmf.examples.mindmap.MindmapPackage;
-
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.RelationshipLabel2EditPart;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.RelationshipLabel3EditPart;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.RelationshipLabelEditPart;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.ResourceNameEmailEditPart;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.ThreadItemEditPart;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.ThreadSubjectEditPart;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.TopicNameEditPart;
-
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.parsers.MessageFormatParser;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapVisualIDRegistry;
 
 /**
  * @generated
@@ -82,7 +77,7 @@ public class MindmapParserProvider extends AbstractProvider implements
 				MindmapPackage.eINSTANCE.getResource_Email(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
 		parser.setViewPattern("{0} [{1}]");
-		parser.setEditorPattern("{0} [{1}]");
+		parser.setEditorPattern("{0} : {1}");
 		parser.setEditPattern("{0} : {1}");
 		return parser;
 	}
@@ -159,6 +154,9 @@ public class MindmapParserProvider extends AbstractProvider implements
 		EAttribute[] features = new EAttribute[] { MindmapPackage.eINSTANCE
 				.getRelationship_Label(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
+		parser.setViewPattern("Ç{0}È");
+		parser.setEditorPattern("Ç{0}È");
+		parser.setEditPattern("Ç{0}È");
 		return parser;
 	}
 
@@ -184,6 +182,9 @@ public class MindmapParserProvider extends AbstractProvider implements
 		EAttribute[] features = new EAttribute[] { MindmapPackage.eINSTANCE
 				.getRelationship_Label(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
+		parser.setViewPattern("Ç{0}È");
+		parser.setEditorPattern("Ç{0}È");
+		parser.setEditPattern("Ç{0}È");
 		return parser;
 	}
 
@@ -209,6 +210,9 @@ public class MindmapParserProvider extends AbstractProvider implements
 		EAttribute[] features = new EAttribute[] { MindmapPackage.eINSTANCE
 				.getRelationship_Label(), };
 		MessageFormatParser parser = new MessageFormatParser(features);
+		parser.setViewPattern("Ç{0}È");
+		parser.setEditorPattern("Ç{0}È");
+		parser.setEditPattern("Ç{0}È");
 		return parser;
 	}
 
@@ -293,4 +297,5 @@ public class MindmapParserProvider extends AbstractProvider implements
 			return super.getAdapter(adapter);
 		}
 	}
+
 }

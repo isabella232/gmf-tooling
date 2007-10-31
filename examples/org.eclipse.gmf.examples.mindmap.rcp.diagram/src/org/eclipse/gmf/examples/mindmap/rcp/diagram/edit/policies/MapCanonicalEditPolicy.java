@@ -1,29 +1,20 @@
 package org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.policies;
 
-import java.util.List;
-import java.util.Set;
 import java.util.Collection;
-import org.eclipse.gmf.runtime.notation.Edge;
-import org.eclipse.emf.ecore.EObject;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IAdaptable;
-
-import org.eclipse.emf.ecore.EClass;
-
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
-
 import org.eclipse.gef.commands.Command;
-
-import org.eclipse.gmf.examples.mindmap.Map;
 import org.eclipse.gmf.examples.mindmap.MindmapPackage;
-import org.eclipse.gmf.examples.mindmap.Relationship;
-import org.eclipse.gmf.examples.mindmap.Topic;
-
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.MapEditPart;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.Relationship2EditPart;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.Relationship3EditPart;
@@ -32,32 +23,19 @@ import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.ResourceEditPart;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.ThreadEditPart;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.ThreadItemEditPart;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.TopicEditPart;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.TopicSubtopicsEditPart;
-
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapDiagramUpdater;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapLinkDescriptor;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapNodeDescriptor;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapVisualIDRegistry;
-
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.providers.MindmapElementTypes;
-
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
-
 import org.eclipse.gmf.runtime.diagram.ui.commands.DeferredLayoutCommand;
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
-
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
-
-import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -179,8 +157,15 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
+	private Diagram getDiagram() {
+		return ((View) getHost().getModel()).getDiagram();
+	}
+
+	/**
+	 * @generated
+	 */
 	private Collection refreshConnections() {
-		java.util.Map domain2NotationMap = new HashMap();
+		Map domain2NotationMap = new HashMap();
 		Collection linkDescriptors = collectAllLinks(getDiagram(),
 				domain2NotationMap);
 		Collection existingLinks = new LinkedList(getDiagram().getEdges());
@@ -214,8 +199,11 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private Collection collectAllLinks(View view,
-			java.util.Map domain2NotationMap) {
+	private Collection collectAllLinks(View view, Map domain2NotationMap) {
+		if (!MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry
+				.getModelID(view))) {
+			return Collections.EMPTY_LIST;
+		}
 		Collection result = new LinkedList();
 		switch (MindmapVisualIDRegistry.getVisualID(view)) {
 		case MapEditPart.VISUAL_ID: {
@@ -284,7 +272,7 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	private Collection createConnections(Collection linkDescriptors,
-			java.util.Map domain2NotationMap) {
+			Map domain2NotationMap) {
 		List adapters = new LinkedList();
 		for (Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator
 				.hasNext();) {
@@ -324,7 +312,7 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	private EditPart getEditPart(EObject domainModelElement,
-			java.util.Map domain2NotationMap) {
+			Map domain2NotationMap) {
 		View view = (View) domain2NotationMap.get(domainModelElement);
 		if (view != null) {
 			return (EditPart) getHost().getViewer().getEditPartRegistry().get(
@@ -332,12 +320,4 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		}
 		return null;
 	}
-
-	/**
-	 * @generated
-	 */
-	private Diagram getDiagram() {
-		return ((View) getHost().getModel()).getDiagram();
-	}
-
 }

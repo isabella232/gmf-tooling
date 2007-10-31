@@ -31,6 +31,16 @@
          contributorClass="org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapDiagramActionBarContributor">
       </editor>
    </extension>
+   
+   <extension point="org.eclipse.ui.contexts">
+      <?gmfgen generated="true"?>
+      <context
+         description="%context.description"
+         id="org.eclipse.gmf.examples.mindmap.rcp.diagram.ui.diagramContext"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+      </context>
+   </extension>
 
    <extension point="org.eclipse.ui.newWizards">
       <?gmfgen generated="true"?>
@@ -60,6 +70,21 @@
       </objectContribution>           
    </extension>
 
+      <extension point="org.eclipse.ui.actionSets">
+      <?gmfgen generated="true"?>
+      <actionSet
+            label="%initDiagramActionLabel"
+            visible="true"
+            id="org.eclipse.gmf.examples.mindmap.rcp.diagram.InitDiagram">
+         <action
+               label="%initDiagramActionLabel"
+               class="org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapInitDiagramFileAction"
+               menubarPath="file/additions"
+               id="org.eclipse.gmf.examples.mindmap.rcp.diagram.InitDiagramAction">
+         </action>
+      </actionSet>
+   </extension>
+	
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
       <?gmfgen generated="true"?>
       <GlobalActionHandlerProvider
@@ -429,73 +454,6 @@
    <extension point="org.eclipse.ui.actionSets">
       <?gmfgen generated="true"?>
       <actionSet
-            label="%initDiagramActionLabel"
-            visible="true"
-            id="org.eclipse.gmf.examples.mindmap.rcp.diagram.InitDiagram">
-         <action
-               label="%initDiagramActionLabel"
-               class="org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapInitDiagramFileAction"
-               menubarPath="file/additions"
-               id="org.eclipse.gmf.examples.mindmap.rcp.diagram.InitDiagramAction">
-         </action>
-      </actionSet>
-   </extension>
-
-
-<extension point="org.eclipse.emf.validation.constraintProviders">
-      <?gmfgen generated="true"?>
-            <category id="org.eclipse.gmf.examples.mindmap" mandatory="false" name="Mindmap Audits">
-         <![CDATA[Mindmap Audits]]>
-      </category>
-      <constraintProvider cache="true">
-         <package namespaceUri="http://www.example.org/mindmap"/>
-         <package namespaceUri="http://www.example.org/mindmap"/>
-               <constraints categories="org.eclipse.gmf.examples.mindmap">
-                  <constraint id="cycle"
-            lang="OCL"
-            name="Cyclic relationship check"
-            mode="Batch"
-            severity="ERROR" statusCode="200">
-            <![CDATA[self.relations->forAll(r1, r2 |  r1.target = r2.source and r1.type = r2.type implies r2.target <> r1.source)]]>
-            <description><![CDATA[This audit will detect situations where relationship links of the same type form a cycle.]]></description>
-            <message><![CDATA[A cycle was found in relationships between two Topic elements.]]></message>
-            <target class="mindmap.Map"/>
-         </constraint>
-                  <constraint id="notopicname"
-            lang="OCL"
-            name="No Topic Name"
-            mode="Batch"
-            severity="ERROR" statusCode="200">
-            <![CDATA[name.size() > 0]]>
-            <description><![CDATA[Detects Topics without a name set]]></description>
-            <message><![CDATA[All Topic elements should have a name set]]></message>
-            <target class="mindmap.Topic"/>
-         </constraint>
-                  </constraints>
-      </constraintProvider>
-   </extension>
-
-<extension point="org.eclipse.emf.validation.constraintBindings">
-      <?gmfgen generated="true"?>
-                  <clientContext default="false" id="org.eclipse.gmf.examples.mindmap.rcp.diagram.DefaultCtx">
-         <selector class="org.eclipse.gmf.examples.mindmap.rcp.diagram.providers.MindmapValidationProvider$DefaultCtx"/>
-      </clientContext>
-      <binding context="org.eclipse.gmf.examples.mindmap.rcp.diagram.DefaultCtx">
-                  <constraint ref="org.eclipse.gmf.examples.mindmap.rcp.diagram.cycle"/>
-                  <constraint ref="org.eclipse.gmf.examples.mindmap.rcp.diagram.notopicname"/>
-               </binding>
-               </extension><extension point="org.eclipse.ui.contexts">
-      <?gmfgen generated="true"?>
-      <context
-         description="%context.description"
-         id="org.eclipse.gmf.examples.mindmap.rcp.diagram.ui.diagramContext"
-         name="%context.name"
-         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
-      </context>
-   </extension>
-<extension point="org.eclipse.ui.actionSets">
-      <?gmfgen generated="true"?>
-      <actionSet
             label="%applicationActionSetLabel"
             visible="true"
             id="org.eclipse.gmf.examples.mindmap.rcp.diagram.ActionSet">
@@ -527,7 +485,50 @@
          </action>
       </actionSet>
    </extension>
-<extension point="org.eclipse.ui.commands">
+   <extension point="org.eclipse.emf.validation.constraintProviders">
+      <?gmfgen generated="true"?>
+            <category id="org.eclipse.gmf.examples.mindmap.audits" mandatory="false" name="Mindmap Audits">
+         <![CDATA[Audits to detect problems in mindmap diagrams.]]>
+      </category>
+      <constraintProvider cache="true">
+         <package namespaceUri="http://www.example.org/mindmap"/>
+         <package namespaceUri="http://www.example.org/mindmap"/>
+               <constraints categories="org.eclipse.gmf.examples.mindmap.audits">
+                  <constraint id="cycle"
+            lang="OCL"
+            name="Cyclic relationship check"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.relations->forAll(r1, r2 |  r1.target = r2.source and r1.type = r2.type implies r2.target <> r1.source)]]>
+            <description><![CDATA[This audit detects (simple) cycles between Topic relationships]]></description>
+            <message><![CDATA[A cycle was found in relationships between two Topic elements.]]></message>
+            <target class="mindmap.Map"/>
+         </constraint>
+                  <constraint id="topic.name"
+            lang="OCL"
+            name="Topic name audit"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[name.size() > 0]]>
+            <description><![CDATA[A Topic must have a name provided.]]></description>
+            <message><![CDATA[Topics must have a name]]></message>
+            <target class="mindmap.Topic"/>
+         </constraint>
+                  </constraints>
+      </constraintProvider>
+   </extension>
+
+   <extension point="org.eclipse.emf.validation.constraintBindings">
+      <?gmfgen generated="true"?>
+                  <clientContext default="false" id="org.eclipse.gmf.examples.mindmap.rcp.diagram.DefaultCtx">
+         <selector class="org.eclipse.gmf.examples.mindmap.rcp.diagram.providers.MindmapValidationProvider$DefaultCtx1"/>
+      </clientContext>
+      <binding context="org.eclipse.gmf.examples.mindmap.rcp.diagram.DefaultCtx">
+                  <constraint ref="org.eclipse.gmf.examples.mindmap.rcp.diagram.cycle"/>
+                  <constraint ref="org.eclipse.gmf.examples.mindmap.rcp.diagram.topic.name"/>
+               </binding>
+               </extension>
+   <extension point="org.eclipse.ui.commands">
       <?gmfgen generated="true"?>
       <command
          categoryId="org.eclipse.ui.category.edit"
@@ -536,7 +537,8 @@
          id="org.eclipse.gmf.examples.mindmap.rcp.diagram.updateDiagram"
          name="%update.diagram.name"/>
    </extension>
-<extension point="org.eclipse.ui.bindings">
+   
+   <extension point="org.eclipse.ui.bindings">
       <?gmfgen generated="true"?>
       <key 
          commandId="org.eclipse.gmf.examples.mindmap.rcp.diagram.updateDiagram"
@@ -544,7 +546,4 @@
          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
          sequence="F5"/>
    </extension>
-
-
-
 </plugin>

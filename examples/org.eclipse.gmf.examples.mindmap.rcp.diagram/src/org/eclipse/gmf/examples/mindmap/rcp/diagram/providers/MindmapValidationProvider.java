@@ -1,77 +1,31 @@
 package org.eclipse.gmf.examples.mindmap.rcp.diagram.providers;
 
-import java.lang.reflect.InvocationTargetException;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
-
-import org.eclipse.emf.common.util.BasicDiagnostic;
-import org.eclipse.emf.common.util.Diagnostic;
-
 import org.eclipse.emf.ecore.EObject;
-
-import org.eclipse.emf.ecore.util.Diagnostician;
-
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-
 import org.eclipse.emf.transaction.util.TransactionUtil;
-
-import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IClientSelector;
-
-import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.service.IBatchValidator;
-import org.eclipse.emf.validation.service.ModelValidationService;
-
+import org.eclipse.emf.validation.service.ITraversalStrategy;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.MapEditPart;
-
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapDiagramEditorPlugin;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapDiagramEditorUtil;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapVisualIDRegistry;
-
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.ValidateAction;
 import org.eclipse.gmf.runtime.common.ui.services.action.contributionitem.AbstractContributionItemProvider;
-
 import org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor;
-
-import org.eclipse.gmf.runtime.diagram.ui.OffscreenEditPartFactory;
-
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
-
-import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart;
-
-import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
-
 import org.eclipse.gmf.runtime.notation.View;
-
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
-
-import org.eclipse.jface.dialogs.ErrorDialog;
-
-import org.eclipse.jface.operation.IRunnableWithProgress;
-
-import org.eclipse.swt.SWT;
-
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
-
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.PlatformUI;
 
 /**
  * @generated
  */
 public class MindmapValidationProvider extends AbstractContributionItemProvider {
+
 	/**
 	 * @generated
 	 */
@@ -143,7 +97,13 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 	/**
 	 * @generated
 	 */
-	public static class DefaultCtx implements IClientSelector {
+	static final Map semanticCtxIdMap = new HashMap();
+
+	/**
+	 * @generated
+	 */
+	public static class DefaultCtx1 implements IClientSelector {
+
 		/**
 		 * @generated
 		 */
@@ -152,4 +112,139 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 		}
 	}
 
-} //MindmapValidationProvider
+	/**
+	 * @generated
+	 */
+	public static class DefaultCtx2 implements IClientSelector {
+
+		/**
+		 * @generated
+		 */
+		public boolean selects(Object object) {
+			return isInDefaultEditorContext(object);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public static ITraversalStrategy getNotationTraversalStrategy(
+			IBatchValidator validator) {
+		return new CtxSwitchStrategy(validator);
+	}
+
+	/**
+	 * @generated
+	 */
+	private static class CtxSwitchStrategy implements ITraversalStrategy {
+
+		/**
+		 * @generated
+		 */
+		private ITraversalStrategy defaultStrategy;
+
+		/**
+		 * @generated
+		 */
+		private String currentSemanticCtxId;
+
+		/**
+		 * @generated
+		 */
+		private boolean ctxChanged = true;
+
+		/**
+		 * @generated
+		 */
+		private EObject currentTarget;
+
+		/**
+		 * @generated
+		 */
+		private EObject preFetchedNextTarget;
+
+		/**
+		 * @generated
+		 */
+		CtxSwitchStrategy(IBatchValidator validator) {
+			this.defaultStrategy = validator.getDefaultTraversalStrategy();
+		}
+
+		/**
+		 * @generated
+		 */
+		public void elementValidated(EObject element, IStatus status) {
+			defaultStrategy.elementValidated(element, status);
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean hasNext() {
+			return defaultStrategy.hasNext();
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean isClientContextChanged() {
+			if (preFetchedNextTarget == null) {
+				preFetchedNextTarget = next();
+				prepareNextClientContext(preFetchedNextTarget);
+			}
+			return ctxChanged;
+		}
+
+		/**
+		 * @generated
+		 */
+		public EObject next() {
+			EObject nextTarget = preFetchedNextTarget;
+			if (nextTarget == null) {
+				nextTarget = defaultStrategy.next();
+			}
+			this.preFetchedNextTarget = null;
+			return this.currentTarget = nextTarget;
+		}
+
+		/**
+		 * @generated
+		 */
+		public void startTraversal(Collection traversalRoots,
+				IProgressMonitor monitor) {
+			defaultStrategy.startTraversal(traversalRoots, monitor);
+		}
+
+		/**
+		 * @generated
+		 */
+		private void prepareNextClientContext(EObject nextTarget) {
+			if (nextTarget != null && currentTarget != null) {
+				if (nextTarget instanceof View) {
+					String id = ((View) nextTarget).getType();
+					String nextSemanticId = id != null
+							&& semanticCtxIdMap.containsKey(id) ? id : null;
+					if ((currentSemanticCtxId != null && !currentSemanticCtxId
+							.equals(nextSemanticId))
+							|| (nextSemanticId != null && !nextSemanticId
+									.equals(currentSemanticCtxId))) {
+						this.ctxChanged = true;
+					}
+					currentSemanticCtxId = nextSemanticId;
+				} else {
+					// context of domain model
+					this.ctxChanged = currentSemanticCtxId != null;
+					currentSemanticCtxId = null;
+				}
+			} else {
+				this.ctxChanged = false;
+			}
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	static class JavaAudits {
+	}
+}

@@ -1,19 +1,10 @@
 package org.eclipse.gmf.examples.mindmap.rcp.diagram.part;
 
 import org.eclipse.core.runtime.Platform;
-
 import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.gmf.examples.mindmap.Map;
 import org.eclipse.gmf.examples.mindmap.MindmapPackage;
-import org.eclipse.gmf.examples.mindmap.Relationship;
-import org.eclipse.gmf.examples.mindmap.Resource;
-import org.eclipse.gmf.examples.mindmap.Thread;
-import org.eclipse.gmf.examples.mindmap.ThreadItem;
-import org.eclipse.gmf.examples.mindmap.Topic;
-
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.MapEditPart;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.Relationship2EditPart;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.Relationship3EditPart;
@@ -30,18 +21,16 @@ import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.ThreadThreadItemC
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.TopicEditPart;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.TopicNameEditPart;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.TopicThreadCompartmentEditPart;
-
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.expressions.MindmapAbstractExpression;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.expressions.MindmapOCLFactory;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * This registry is used to determine which type of visual object should be
- * created for the corresponding Diagram, Node, ChildNode or Link represented 
+ * created for the corresponding Diagram, Node, ChildNode or Link represented
  * by a domain model object.
- *
+ * 
  * @generated
  */
 public class MindmapVisualIDRegistry {
@@ -147,14 +136,26 @@ public class MindmapVisualIDRegistry {
 	 * @generated
 	 */
 	public static int getNodeVisualID(View containerView, EObject domainElement) {
-		if (domainElement == null
-				|| !MapEditPart.MODEL_ID
-						.equals(org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapVisualIDRegistry
-								.getModelID(containerView))) {
+		if (domainElement == null) {
 			return -1;
 		}
-		switch (org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapVisualIDRegistry
-				.getVisualID(containerView)) {
+		String containerModelID = org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapVisualIDRegistry
+				.getModelID(containerView);
+		if (!MapEditPart.MODEL_ID.equals(containerModelID)) {
+			return -1;
+		}
+		int containerVisualID;
+		if (MapEditPart.MODEL_ID.equals(containerModelID)) {
+			containerVisualID = org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapVisualIDRegistry
+					.getVisualID(containerView);
+		} else {
+			if (containerView instanceof Diagram) {
+				containerVisualID = MapEditPart.VISUAL_ID;
+			} else {
+				return -1;
+			}
+		}
+		switch (containerVisualID) {
 		case TopicThreadCompartmentEditPart.VISUAL_ID:
 			if (MindmapPackage.eINSTANCE.getThread().isSuperTypeOf(
 					domainElement.eClass())) {
@@ -303,4 +304,5 @@ public class MindmapVisualIDRegistry {
 		Object result = expression.evaluate(element);
 		return result instanceof Boolean && ((Boolean) result).booleanValue();
 	}
+
 }

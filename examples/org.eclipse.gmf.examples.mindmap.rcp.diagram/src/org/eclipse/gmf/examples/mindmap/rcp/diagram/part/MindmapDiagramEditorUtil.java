@@ -2,19 +2,39 @@ package org.eclipse.gmf.examples.mindmap.rcp.diagram.part;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gmf.examples.mindmap.DocumentRoot;
+import org.eclipse.gmf.examples.mindmap.MindmapFactory;
+import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.MapEditPart;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramGraphicalViewer;
+import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
@@ -28,40 +48,8 @@ import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import org.eclipse.core.runtime.IPath;
-
-import org.eclipse.emf.common.ui.URIEditorInput;
-
-import org.eclipse.emf.ecore.EObject;
-
-import org.eclipse.emf.ecore.xmi.XMIResource;
-import org.eclipse.emf.ecore.xmi.XMLResource;
-
-import org.eclipse.gef.EditPart;
-
-import org.eclipse.gmf.examples.mindmap.DocumentRoot;
-import org.eclipse.gmf.examples.mindmap.Map;
-import org.eclipse.gmf.examples.mindmap.MindmapFactory;
-
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.MapEditPart;
-
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart;
-
-import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramGraphicalViewer;
-import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart;
-
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 /**
@@ -72,8 +60,8 @@ public class MindmapDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static java.util.Map getSaveOptions() {
-		java.util.Map saveOptions = new HashMap();
+	public static Map getSaveOptions() {
+		Map saveOptions = new HashMap();
 		saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
 		saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED,
 				Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
@@ -182,7 +170,6 @@ public class MindmapDiagramEditorUtil {
 
 	/**
 	 * @generated
-	 * @return the created resource, or <code>null</code> if the resource was not created
 	 */
 	public static Resource createDiagram(URI diagramURI, URI modelURI,
 			IProgressMonitor progressMonitor) {
@@ -202,7 +189,7 @@ public class MindmapDiagramEditorUtil {
 			protected CommandResult doExecuteWithResult(
 					IProgressMonitor monitor, IAdaptable info)
 					throws ExecutionException {
-				Map model = createInitialModel();
+				org.eclipse.gmf.examples.mindmap.Map model = createInitialModel();
 				attachModelToResource(model, modelResource);
 
 				Diagram diagram = ViewService.createDiagram(model,
@@ -245,7 +232,7 @@ public class MindmapDiagramEditorUtil {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static Map createInitialModel() {
+	private static org.eclipse.gmf.examples.mindmap.Map createInitialModel() {
 		return MindmapFactory.eINSTANCE.createMap();
 	}
 
@@ -255,14 +242,16 @@ public class MindmapDiagramEditorUtil {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static void attachModelToResource(Map model, Resource resource) {
+	private static void attachModelToResource(
+			org.eclipse.gmf.examples.mindmap.Map model, Resource resource) {
 		resource.getContents().add(createDocumentRoot(model));
 	}
 
 	/**
 	 * @generated
 	 */
-	private static DocumentRoot createDocumentRoot(Map model) {
+	private static DocumentRoot createDocumentRoot(
+			org.eclipse.gmf.examples.mindmap.Map model) {
 		DocumentRoot docRoot = MindmapFactory.eINSTANCE.createDocumentRoot();
 
 		docRoot.setMap(model);
@@ -290,34 +279,6 @@ public class MindmapDiagramEditorUtil {
 					firstPrimary != null ? firstPrimary : (EditPart) editParts
 							.get(0));
 		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public static View findView(DiagramEditPart diagramEditPart,
-			EObject targetElement, LazyElement2ViewMap lazyElement2ViewMap) {
-		boolean hasStructuralURI = false;
-		if (targetElement.eResource() instanceof XMLResource) {
-			hasStructuralURI = ((XMLResource) targetElement.eResource())
-					.getID(targetElement) == null;
-		}
-
-		View view = null;
-		if (hasStructuralURI
-				&& !lazyElement2ViewMap.getElement2ViewMap().isEmpty()) {
-			view = (View) lazyElement2ViewMap.getElement2ViewMap().get(
-					targetElement);
-		} else if (findElementsInDiagramByID(diagramEditPart, targetElement,
-				lazyElement2ViewMap.editPartTmpHolder) > 0) {
-			EditPart editPart = (EditPart) lazyElement2ViewMap.editPartTmpHolder
-					.get(0);
-			lazyElement2ViewMap.editPartTmpHolder.clear();
-			view = editPart.getModel() instanceof View ? (View) editPart
-					.getModel() : null;
-		}
-
-		return (view == null) ? diagramEditPart.getDiagramView() : view;
 	}
 
 	/**
@@ -370,19 +331,50 @@ public class MindmapDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
+	public static View findView(DiagramEditPart diagramEditPart,
+			EObject targetElement, LazyElement2ViewMap lazyElement2ViewMap) {
+		boolean hasStructuralURI = false;
+		if (targetElement.eResource() instanceof XMLResource) {
+			hasStructuralURI = ((XMLResource) targetElement.eResource())
+					.getID(targetElement) == null;
+		}
+
+		View view = null;
+		if (hasStructuralURI
+				&& !lazyElement2ViewMap.getElement2ViewMap().isEmpty()) {
+			view = (View) lazyElement2ViewMap.getElement2ViewMap().get(
+					targetElement);
+		} else if (findElementsInDiagramByID(diagramEditPart, targetElement,
+				lazyElement2ViewMap.editPartTmpHolder) > 0) {
+			EditPart editPart = (EditPart) lazyElement2ViewMap.editPartTmpHolder
+					.get(0);
+			lazyElement2ViewMap.editPartTmpHolder.clear();
+			view = editPart.getModel() instanceof View ? (View) editPart
+					.getModel() : null;
+		}
+
+		return (view == null) ? diagramEditPart.getDiagramView() : view;
+	}
+
+	/**
+	 * @generated
+	 */
 	public static class LazyElement2ViewMap {
 		/**
 		 * @generated
 		 */
-		private java.util.Map element2ViewMap;
+		private Map element2ViewMap;
+
 		/**
 		 * @generated
 		 */
 		private View scope;
+
 		/**
 		 * @generated
 		 */
 		private Set elementSet;
+
 		/**
 		 * @generated
 		 */
@@ -399,7 +391,7 @@ public class MindmapDiagramEditorUtil {
 		/**
 		 * @generated
 		 */
-		public final java.util.Map getElement2ViewMap() {
+		public final Map getElement2ViewMap() {
 			if (element2ViewMap == null) {
 				element2ViewMap = new HashMap();
 				// map possible notation elements to itself as these can't be found by view.getElement()
@@ -421,8 +413,8 @@ public class MindmapDiagramEditorUtil {
 		/**
 		 * @generated
 		 */
-		static java.util.Map buildElement2ViewMap(View parentView,
-				java.util.Map element2ViewMap, Set elements) {
+		static Map buildElement2ViewMap(View parentView, Map element2ViewMap,
+				Set elements) {
 			if (elements.size() == element2ViewMap.size())
 				return element2ViewMap;
 
@@ -458,4 +450,5 @@ public class MindmapDiagramEditorUtil {
 			return element2ViewMap;
 		}
 	} //LazyElement2ViewMap	
+
 }

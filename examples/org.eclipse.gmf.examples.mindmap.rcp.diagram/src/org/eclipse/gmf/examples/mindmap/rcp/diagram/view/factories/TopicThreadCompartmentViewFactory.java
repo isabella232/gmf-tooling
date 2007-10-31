@@ -4,18 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
-
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EcoreFactory;
-
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.MapEditPart;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.TopicThreadCompartmentEditPart;
-
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapVisualIDRegistry;
-
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory;
-import org.eclipse.gmf.runtime.diagram.ui.view.factories.ListCompartmentViewFactory;
-
 import org.eclipse.gmf.runtime.notation.DrawerStyle;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
@@ -28,7 +19,7 @@ import org.eclipse.gmf.runtime.notation.View;
 public class TopicThreadCompartmentViewFactory extends BasicNodeViewFactory {
 
 	/**
-	 * @generated 
+	 * @generated
 	 */
 	protected List createStyles(View view) {
 		List styles = new ArrayList();
@@ -76,5 +67,4 @@ public class TopicThreadCompartmentViewFactory extends BasicNodeViewFactory {
 			drawerStyle.setCollapsed(false);
 		}
 	}
-
 }

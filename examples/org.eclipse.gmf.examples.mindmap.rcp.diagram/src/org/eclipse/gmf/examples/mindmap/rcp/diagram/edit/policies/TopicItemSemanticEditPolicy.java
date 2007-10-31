@@ -1,19 +1,12 @@
 package org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.policies;
 
 import java.util.Iterator;
+
 import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.gef.commands.UnexecutableCommand;
-import org.eclipse.gmf.examples.mindmap.Map;
-import org.eclipse.gmf.examples.mindmap.MindmapPackage;
-import org.eclipse.gmf.examples.mindmap.Topic;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.commands.Relationship2TypeLinkCreateCommand;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.commands.Relationship3TypeLinkCreateCommand;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.commands.RelationshipCreateCommand;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.commands.RelationshipReorientCommand;
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.commands.RelationshipTypeLinkCreateCommand;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.commands.TopicSubtopicsCreateCommand;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.commands.TopicSubtopicsReorientCommand;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.Relationship2EditPart;
@@ -25,12 +18,10 @@ import org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.parts.TopicThreadCompar
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.part.MindmapVisualIDRegistry;
 import org.eclipse.gmf.examples.mindmap.rcp.diagram.providers.MindmapElementTypes;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 

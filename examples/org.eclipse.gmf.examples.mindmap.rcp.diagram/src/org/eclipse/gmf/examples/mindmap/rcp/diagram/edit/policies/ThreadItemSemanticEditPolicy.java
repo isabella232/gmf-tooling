@@ -1,6 +1,7 @@
 package org.eclipse.gmf.examples.mindmap.rcp.diagram.edit.policies;
 
 import java.util.Iterator;
+
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
@@ -55,4 +56,5 @@ public class ThreadItemSemanticEditPolicy extends
 			}
 		}
 	}
+
 }
