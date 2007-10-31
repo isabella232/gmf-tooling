@@ -230,6 +230,52 @@
       </compartments>
     </ownedChild>
   </nodes>
+  <nodes>
+    <containmentFeature
+        href="library.ecore#//Library/communities"/>
+    <ownedChild>
+      <domainMetaElement
+          href="library.ecore#//Community"/>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping"
+          viewPattern="{0}"
+          editorPattern="{0}"
+          editPattern="{0}">
+        <diagramLabel
+            href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
+        <features
+            href="library.ecore#//Community/name"/>
+      </labelMappings>
+      <tool
+          xsi:type="gmftool:CreationTool"
+          href="library_constrained.gmftool#//@palette/@tools.3/@tools.0"/>
+      <diagramNode
+          href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
+      <children>
+        <containmentFeature
+            href="library.ecore#//Community/roles"/>
+        <ownedChild>
+          <domainMetaElement
+              href="library.ecore#//CommunityRole"/>
+          <labelMappings
+              xsi:type="gmfmap:FeatureLabelMapping"
+              viewPattern="{0}"
+              editorPattern="{0}"
+              editPattern="{0}">
+            <diagramLabel
+                href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#LabelWOIcon"/>
+            <features
+                href="library.ecore#//CommunityRole/role"/>
+          </labelMappings>
+          <tool
+              xsi:type="gmftool:CreationTool"
+              href="library_constrained.gmftool#//@palette/@tools.3/@tools.1"/>
+          <diagramNode
+              href="library.gmfgraph#AffixedRect"/>
+        </ownedChild>
+      </children>
+    </ownedChild>
+  </nodes>
   <links>
     <domainMetaElement
         href="library.ecore#//Opinion"/>
@@ -295,6 +341,16 @@
       <targetEnd
           body="pages > 250"/>
     </creationConstraints>
+  </links>
+  <links>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="library_constrained.gmftool#//@palette/@tools.3/@tools.2"/>
+    <diagramLink
+        href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="library.ecore#//Writer/participates"/>
   </links>
   <diagram>
     <diagramCanvas

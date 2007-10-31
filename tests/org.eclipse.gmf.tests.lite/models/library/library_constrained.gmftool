@@ -74,5 +74,22 @@
           title="Book Author"
           description="Associate With Author"/>
     </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Communities"
+        description="Community-related elements">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Community"
+          description="Create a new Community"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Community Role"
+          description="Create a new Community Role"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Community Participant"
+          description="Create a new Community Participant"/>
+    </tools>
   </palette>
 </gmftool:ToolRegistry>

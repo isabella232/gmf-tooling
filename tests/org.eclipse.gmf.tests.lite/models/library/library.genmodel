@@ -16,12 +16,14 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute library.ecore#//Library/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference library.ecore#//Library/writers"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference library.ecore#//Library/books"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference library.ecore#//Library/communities"/>
     </genClasses>
     <genClasses ecoreClass="library.ecore#//Writer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute library.ecore#//Writer/name"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference library.ecore#//Writer/books"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference library.ecore#//Writer/brochures"/>
       <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference library.ecore#//Writer/opinions"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference library.ecore#//Writer/participates"/>
     </genClasses>
     <genClasses ecoreClass="library.ecore#//Book">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute library.ecore#//Book/title"/>
@@ -45,6 +47,16 @@
     </genClasses>
     <genClasses ecoreClass="library.ecore#//Chapter">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute library.ecore#//Chapter/name"/>
+    </genClasses>
+    <genClasses ecoreClass="library.ecore#//Community">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference library.ecore#//Community/roles"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute library.ecore#//Community/name"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference library.ecore#//Community/library"/>
+    </genClasses>
+    <genClasses ecoreClass="library.ecore#//CommunityRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute library.ecore#//CommunityRole/role"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference library.ecore#//CommunityRole/community"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference library.ecore#//CommunityRole/participants"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -14,7 +14,6 @@ package org.eclipse.gmf.tests.lite.multi;
 import java.util.Iterator;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;

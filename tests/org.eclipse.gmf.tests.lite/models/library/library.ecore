@@ -12,6 +12,8 @@
         eType="#//Writer" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="books" upperBound="-1"
         eType="#//Book" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="communities" upperBound="-1"
+        eType="#//Community" containment="true" eOpposite="#//Community/library"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Writer">
     <eAnnotations source="http:///org/eclipse/example/library.ecore">
@@ -24,6 +26,8 @@
         eType="#//Book" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="opinions" upperBound="2"
         eType="#//Opinion" containment="true" eOpposite="#//Opinion/writer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="participates" ordered="false"
+        upperBound="-1" eType="#//CommunityRole" eOpposite="#//CommunityRole/participants"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Book">
     <eAnnotations source="http:///org/eclipse/example/library.ecore">
@@ -77,5 +81,21 @@
       <details key="note" value="Should be modeled as direct child of book without compartments"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Community">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="roles" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//CommunityRole" containment="true"
+        eOpposite="#//CommunityRole/community"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="library" eType="#//Library"
+        eOpposite="#//Library/communities"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CommunityRole">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="role" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="co-author"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="community" eType="#//Community"
+        eOpposite="#//Community/roles"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="participants" ordered="false"
+        upperBound="-1" eType="#//Writer" eOpposite="#//Writer/participates"/>
   </eClassifiers>
 </ecore:EPackage>
