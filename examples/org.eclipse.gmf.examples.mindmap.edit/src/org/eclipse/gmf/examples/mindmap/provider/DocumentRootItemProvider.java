@@ -1,8 +1,14 @@
 /**
- * <copyright>
- * </copyright>
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  *
- * $Id: DocumentRootItemProvider.java,v 1.3 2007/06/11 17:44:37 rgronback Exp $
+ * $Id: DocumentRootItemProvider.java,v 1.4 2007/10/31 02:57:41 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.provider;
 
@@ -16,6 +22,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
