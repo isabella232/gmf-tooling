@@ -24,6 +24,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
@@ -163,7 +164,21 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateBehaviors(next, openDiagramBehaviors);
 			generateCommands(next);
 			generateComponentEditPolicy(next);
-			generateLayoutEditPolicy(next);
+			boolean shouldGenerateLayoutEditPolicy = false;
+			boolean shouldGenerateSideAffixedLayoutEditPolicy = false;
+			for (GenNode nextChild : next.getChildNodes()) {
+				if (nextChild instanceof GenChildSideAffixedNode) {
+					shouldGenerateSideAffixedLayoutEditPolicy = true;
+				} else {
+					shouldGenerateLayoutEditPolicy = true;
+				}
+			}
+			if (shouldGenerateLayoutEditPolicy) {
+				generateLayoutEditPolicy(next);
+			}
+			if (shouldGenerateSideAffixedLayoutEditPolicy) {
+				generateSideAffixedLayoutEditPolicy(next);
+			}
 		}
 		for (GenLink next : (List<? extends GenLink>) myDiagram.getLinks()) {
 			internalGenerateJavaClass(myEmitters.getLinkEditPartGenerator(), next.getEditPartQualifiedClassName(), next);
@@ -346,6 +361,10 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateLayoutEditPolicy(GenContainerBase containerBase) throws InterruptedException, UnexpectedBehaviourException {
 		internalGenerateJavaClass(myEmitters.getLayoutEditPolicyEmitter(), myEmitters.getLayoutEditPolicyQualifiedClassNameEmitter(), containerBase);
+	}
+
+	private void generateSideAffixedLayoutEditPolicy(GenNode node) throws InterruptedException, UnexpectedBehaviourException {
+		internalGenerateJavaClass(myEmitters.getSideAffixedLayoutEditPolicyEmitter(), myEmitters.getSideAffixedLayoutEditPolicyQualifiedClassNameEmitter(), node);
 	}
 
 	private void generateGraphicalEditPolicy(GenNode genNode) throws InterruptedException, UnexpectedBehaviourException {

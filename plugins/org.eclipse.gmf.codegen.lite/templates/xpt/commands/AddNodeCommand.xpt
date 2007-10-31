@@ -46,9 +46,9 @@ private final org.eclipse.gmf.runtime.notation.Node childNode;
 «IF multipleRelatedNodes-»
 «EXPAND xpt::Common::generatedMemberComment»
 private final int oldVisualID;
-«ENDIF-»
 «EXPAND xpt::Common::generatedMemberComment»
 private final int newVisualID;
+«ENDIF-»
 «EXPAND xpt::Common::generatedMemberComment»
 private final org.eclipse.draw2d.geometry.Rectangle constraint;
 «ENDDEFINE»
@@ -60,8 +60,8 @@ public «EXPAND className»(org.eclipse.gmf.runtime.notation.View parentView, org.
 	this.childNode = childNode;
 «IF multipleRelatedNodes-»
 	this.oldVisualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(childNode);
-«ENDIF-»
 	this.newVisualID = newVisualID;
+«ENDIF-»
 	this.constraint = constraint;
 }
 «ENDDEFINE»

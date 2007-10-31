@@ -13,6 +13,8 @@
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
+«EXTENSION xpt::Util»
+
 «AROUND openEditor FOR gmfgen::GenEditorView-»
 «ENDAROUND»
 

@@ -30,6 +30,7 @@ public class «editPartClassName» «EXPAND supertypes» {
 	«EXPAND xpt::diagram::parts::Common::registerModel-»
 	«EXPAND createEditPolicies-»
 	«EXPAND getPrimaryDragEditPolicy-»
+	«EXPAND getDragTracker-»
 
 	«EXPAND createFigure-»
 
@@ -46,7 +47,7 @@ public class «editPartClassName» «EXPAND supertypes» {
 	«EXPAND xpt::diagram::parts::Common::contentPane-»
 
 	«EXPAND xpt::diagram::parts::Common::declareViewCode-»
-«IF getInnerFixedLabels().size() > 0 || getPinnedCompartments().size() > 0-»
+«IF getInnerFixedLabels().size() > 0 || getPinnedCompartments().size() > 0 || getSideAffixedChildren().size() > 0-»
 	«EXPAND addFixedChild-»
 	«EXPAND removeFixedChild-»
 «ENDIF-»
@@ -56,18 +57,24 @@ public class «editPartClassName» «EXPAND supertypes» {
 	«EXPAND xpt::diagram::parts::requests::getLabelEditPart-»
 «IF getExternalLabels().size() > 0-»
 	«EXPAND isExternalLabel-»
+«ENDIF-»
+«IF getExternalLabels().size() > 0 || getSideAffixedChildren().size() > 0-»
 	«EXPAND getExternalLabelsContainer-»
 «ENDIF-»
 
-«IF compartments.size() > 0 && hasDirectChildren()-»
+«IF (compartments.size() > 0 || getSideAffixedChildren().size() > 0) && hasDirectChildren()-»
 	«EXPAND isDirectChild-»
 «ENDIF-»
 
-«IF getExternalLabels().size() > 0 || (compartments.size() > 0 && hasDirectChildren()) || getPinnedCompartments().size() > 0 || getInnerFixedLabels().size() > 0-»
+«IF getSideAffixedChildren().size() > 0-»
+	«EXPAND isSideAffixedChild-»
+«ENDIF-»
+
+«IF getExternalLabels().size() > 0 || (compartments.size() > 0 && hasDirectChildren()) || getPinnedCompartments().size() > 0 || getInnerFixedLabels().size() > 0 || getSideAffixedChildren().size() > 0-»
 	«EXPAND addChildVisual-»
 	«EXPAND removeChildVisual-»
 «ENDIF-»
-«IF getExternalLabels().size() > 0-»
+«IF getExternalLabels().size() > 0 || getSideAffixedChildren().size() > 0-»
 	«EXPAND removeNotify-»
 «ENDIF-»
 
@@ -78,6 +85,7 @@ public class «editPartClassName» «EXPAND supertypes» {
 	«EXPAND xpt::diagram::parts::Common::getAdapter-»
 
 	«EXPAND xpt::diagram::parts::TreeEditPart::getTreeEditPartAdapter-»
+	«EXPAND xpt::diagram::parts::Common::externalChildPositionTracker-»
 
 	«EXPAND xpt::diagram::parts::Common::activate-»
 	«EXPAND xpt::diagram::parts::Common::deactivate-»
@@ -108,12 +116,21 @@ protected void createEditPolicies() {
 «IF getPrimaryLabel() != null-»
 	installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.lite.edit.policies.DelegatingDirectEditPolicy());
 «ENDIF-»
+«IF getDirectChildren().size() > 0-»
 	installEditPolicy(org.eclipse.gef.EditPolicy.LAYOUT_ROLE, new «EXPAND xpt::diagram::policies::LayoutEditPolicy::qualifiedClassName»());
+«ENDIF-»
+«IF getSideAffixedChildren().size() > 0-»
+	installEditPolicy(org.eclipse.gmf.runtime.lite.edit.policies.EditPolicyRoles.SIDE_AFFIXED_LAYOUT_ROLE, new «EXPAND xpt::diagram::policies::LayoutEditPolicy::SideAffixedQualifiedClassName»());
+«ENDIF-»
 	«EXPAND xpt::diagram::parts::Common::behaviour-»
 	installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, getPrimaryDragEditPolicy());
-	«EXPAND xpt::diagram::parts::NotationModelRefresher::installClause-»
-	«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::installClause-»
+	«EXPAND installRefreshers-»
 	}
+«ENDDEFINE»
+
+«DEFINE installRefreshers FOR gmfgen::GenNode-»
+«EXPAND xpt::diagram::parts::NotationModelRefresher::installClause-»
+«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::installClause-»
 «ENDDEFINE»
 
 «DEFINE getPrimaryDragEditPolicy FOR gmfgen::GenNode-»
@@ -122,27 +139,49 @@ protected org.eclipse.gef.EditPolicy getPrimaryDragEditPolicy() {
 «IF primaryDragEditPolicyQualifiedClassName != null-»
 	return new «primaryDragEditPolicyQualifiedClassName»();
 «ELSE-»
-	«IF compartments.size() + getExternalLabels().size() == 0-»
-		org.eclipse.gef.editpolicies.ResizableEditPolicy result = new org.eclipse.gef.editpolicies.ResizableEditPolicy();
-	«ELSE-»
-		org.eclipse.gef.editpolicies.ResizableEditPolicy result = new org.eclipse.gef.editpolicies.ResizableEditPolicy() {
-			protected java.util.List createSelectionHandles() {
-				java.util.List result = super.createSelectionHandles();
-				for(java.util.Iterator it = getChildren().iterator(); it.hasNext(); ) {
-					org.eclipse.gef.EditPart next = (org.eclipse.gef.EditPart) it.next();
-					org.eclipse.gmf.runtime.notation.View nextView = (org.eclipse.gmf.runtime.notation.View) next.getModel();
-					switch («getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(nextView)) {
-					«EXPAND addSelectionHandles FOREACH compartments-»
-					«EXPAND addSelectionHandles FOREACH getExternalLabels()-»
-					}
-				}
-				return result;
-			}
-		};
-	«ENDIF-»
-	«EXPAND setResizeConstraints FOR viewmap.getResizeConstraints()-»
-		return result;
+	«EXPAND returnPrimaryDragEditPolicy-»
 «ENDIF-»
+}
+«ENDDEFINE»
+
+«DEFINE returnPrimaryDragEditPolicy FOR gmfgen::GenNode-»
+org.eclipse.gef.editpolicies.ResizableEditPolicy result = new org.eclipse.gef.editpolicies.ResizableEditPolicy()«EXPAND contributeSelectionHandles»;
+«EXPAND setResizeConstraints FOR viewmap.getResizeConstraints()-»
+return result;
+«ENDDEFINE»
+
+«DEFINE returnPrimaryDragEditPolicy FOR gmfgen::GenChildSideAffixedNode-»
+return new org.eclipse.gmf.runtime.lite.edit.policies.SideAffixedDragEditPolicy()«EXPAND contributeSelectionHandles»;
+«ENDDEFINE»
+
+«DEFINE contributeSelectionHandles FOR gmfgen::GenNode-»
+«IF compartments.size() + getExternalLabels().size() > 0-»
+{
+	protected java.util.List createSelectionHandles() {
+		java.util.List result = super.createSelectionHandles();
+		for(java.util.Iterator it = getChildren().iterator(); it.hasNext(); ) {
+			org.eclipse.gef.EditPart next = (org.eclipse.gef.EditPart) it.next();
+			org.eclipse.gmf.runtime.notation.View nextView = (org.eclipse.gmf.runtime.notation.View) next.getModel();
+			switch («getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(nextView)) {
+			«EXPAND addSelectionHandles FOREACH compartments-»
+			«EXPAND addSelectionHandles FOREACH getExternalLabels()-»
+			}
+		}
+		return result;
+	}
+}«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getDragTracker FOR gmfgen::GenNode»«ENDDEFINE»
+
+«DEFINE getDragTracker FOR gmfgen::GenChildSideAffixedNode-»
+«EXPAND xpt::Common::generatedMemberComment»
+public org.eclipse.gef.DragTracker getDragTracker(org.eclipse.gef.Request request) {
+	return new org.eclipse.gef.tools.DragEditPartsTracker(this) {
+		protected boolean isMove() {
+			return true;
+		}
+	};
 }
 «ENDDEFINE»
 
@@ -346,6 +385,14 @@ public boolean isDirectChild(org.eclipse.gef.EditPart childEditPart) {
 }
 «ENDDEFINE»
 
+«DEFINE isSideAffixedChild FOR gmfgen::GenNode-»
+«EXPAND xpt::Common::generatedMemberComment»
+public boolean isSideAffixedChild(org.eclipse.gef.EditPart childEditPart) {
+	«EXPAND returnInstanceof("childEditPart") FOREACH getSideAffixedChildren()-»
+	return false;
+}
+«ENDDEFINE»
+
 «DEFINE returnInstanceof(String var) FOR gmfgen::GenCommonBase-»
 if («var» instanceof «getEditPartQualifiedClassName()») {
 	return true;
@@ -357,8 +404,17 @@ if («var» instanceof «getEditPartQualifiedClassName()») {
 protected void addChildVisual(org.eclipse.gef.EditPart childEditPart, int index) {
 «IF getExternalLabels().size() > 0-»
 		if (isExternalLabel(childEditPart)) {
-			org.eclipse.draw2d.IFigure labelFigure = ((org.eclipse.gef.GraphicalEditPart) childEditPart).getFigure();
-			getExternalLabelsContainer().add(labelFigure);
+			org.eclipse.draw2d.IFigure childFigure = ((org.eclipse.gef.GraphicalEditPart) childEditPart).getFigure();
+			getExternalLabelsContainer().add(childFigure);
+			«EXPAND addPositionTracker-»
+			return;
+		}
+«ENDIF-»
+«IF getSideAffixedChildren().size() > 0-»
+		if (isSideAffixedChild(childEditPart)) {
+			org.eclipse.draw2d.IFigure childFigure = ((org.eclipse.gef.GraphicalEditPart) childEditPart).getFigure();
+			getExternalLabelsContainer().add(childFigure);
+			«EXPAND addPositionTracker-»
 			return;
 		}
 «ENDIF-»
@@ -383,13 +439,22 @@ protected void addChildVisual(org.eclipse.gef.EditPart childEditPart, int index)
 protected void removeChildVisual(org.eclipse.gef.EditPart childEditPart) {
 «IF getExternalLabels().size() > 0-»
 		if (isExternalLabel(childEditPart)) {
-			org.eclipse.draw2d.IFigure labelFigure = ((org.eclipse.gef.GraphicalEditPart) childEditPart).getFigure();
-			getExternalLabelsContainer().remove(labelFigure);
+			org.eclipse.draw2d.IFigure childFigure = ((org.eclipse.gef.GraphicalEditPart) childEditPart).getFigure();
+			«EXPAND removePositionTracker-»
+			getExternalLabelsContainer().remove(childFigure);
+			return;
+		}
+«ENDIF-»
+«IF getSideAffixedChildren().size() > 0-»
+		if (isSideAffixedChild(childEditPart)) {
+			org.eclipse.draw2d.IFigure childFigure = ((org.eclipse.gef.GraphicalEditPart) childEditPart).getFigure();
+			«EXPAND removePositionTracker-»
+			getExternalLabelsContainer().remove(childFigure);
 			return;
 		}
 «ENDIF-»
 «IF getInnerFixedLabels().size() > 0 || getPinnedCompartments().size() > 0-»
-		if (removeFixedChild(childEditPart)){
+		if (removeFixedChild(childEditPart)) {
 			return;
 		}
 «ENDIF-»
@@ -401,6 +466,20 @@ protected void removeChildVisual(org.eclipse.gef.EditPart childEditPart) {
 		}
 «ENDIF-»
 	super.removeChildVisual(childEditPart);
+}
+«ENDDEFINE»
+
+«DEFINE addPositionTracker FOR gmfgen::GenNode-»
+org.eclipse.gmf.runtime.lite.figures.ExternalChildPositionTracker positionTracker = (org.eclipse.gmf.runtime.lite.figures.ExternalChildPositionTracker) childEditPart.getAdapter(org.eclipse.gmf.runtime.lite.figures.ExternalChildPositionTracker.class);
+if (positionTracker != null) {
+	getFigure().addAncestorListener(positionTracker);
+}
+«ENDDEFINE»
+
+«DEFINE removePositionTracker FOR gmfgen::GenNode-»
+org.eclipse.gmf.runtime.lite.figures.ExternalChildPositionTracker positionTracker = (org.eclipse.gmf.runtime.lite.figures.ExternalChildPositionTracker) childEditPart.getAdapter(org.eclipse.gmf.runtime.lite.figures.ExternalChildPositionTracker.class);
+if (positionTracker != null) {
+	getFigure().removeAncestorListener(positionTracker);
 }
 «ENDDEFINE»
 
@@ -417,10 +496,20 @@ protected org.eclipse.draw2d.IFigure getExternalLabelsContainer() {
 public void removeNotify() {
 	for (java.util.Iterator it = getChildren().iterator(); it.hasNext(); ) {
 		org.eclipse.gef.EditPart childEditPart = (org.eclipse.gef.EditPart) it.next();
+«IF getExternalLabels().size() > 0-»
 		if (isExternalLabel(childEditPart)) {
-			org.eclipse.draw2d.IFigure labelFigure = ((org.eclipse.gef.GraphicalEditPart) childEditPart).getFigure();
-			getExternalLabelsContainer().remove(labelFigure);
+			«EXPAND removePositionTracker-»
+			org.eclipse.draw2d.IFigure childFigure = ((org.eclipse.gef.GraphicalEditPart) childEditPart).getFigure();
+			getExternalLabelsContainer().remove(childFigure);
 		}
+«ENDIF-»
+«IF getSideAffixedChildren().size() > 0-»
+		if (isSideAffixedChild(childEditPart)) {
+			«EXPAND removePositionTracker-»
+			org.eclipse.draw2d.IFigure childFigure = ((org.eclipse.gef.GraphicalEditPart) childEditPart).getFigure();
+			getExternalLabelsContainer().remove(childFigure);
+		}
+«ENDIF-»
 	}
 	super.removeNotify();
 }

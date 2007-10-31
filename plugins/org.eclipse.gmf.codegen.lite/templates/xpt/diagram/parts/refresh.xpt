@@ -451,8 +451,26 @@ protected void refreshBounds() {
 		y -= height;
 		height = -height;
 	}
-	((org.eclipse.gef.GraphicalEditPart) getParent()).setLayoutConstraint(this, getFigure(), 
-		new org.eclipse.draw2d.geometry.Rectangle(x, y, width, height));
+	«EXPAND setLayoutConstraint-»
+}
+«ENDDEFINE»
+
+«DEFINE setLayoutConstraint FOR gmfgen::GenCommonBase-»
+((org.eclipse.gef.GraphicalEditPart) getParent()).setLayoutConstraint(this, getFigure(), new org.eclipse.draw2d.geometry.Rectangle(x, y, width, height));
+«ENDDEFINE»
+
+«DEFINE setLayoutConstraint FOR gmfgen::GenChildSideAffixedNode-»
+org.eclipse.draw2d.IFigure parentFigure = getFigure().getParent();
+if (parentFigure != null && parentFigure.getLayoutManager() != null) {
+	Object constraint = parentFigure.getLayoutManager().getConstraint(getFigure());
+	org.eclipse.gmf.runtime.lite.figures.BorderItemLocator locator;
+	if (constraint instanceof org.eclipse.gmf.runtime.lite.figures.BorderItemLocator) {
+		locator = (org.eclipse.gmf.runtime.lite.figures.BorderItemLocator) constraint;
+	} else {
+		locator = new org.eclipse.gmf.runtime.lite.figures.BorderItemLocator(this);
+		parentFigure.getLayoutManager().setConstraint(getFigure(), locator);
+	}
+	locator.setModelConstraint(new org.eclipse.draw2d.geometry.Rectangle(x, y, width, height));
 }
 «ENDDEFINE»
 

@@ -21,6 +21,10 @@ String getLayoutEditPolicyClassName(gmfgen::GenContainerBase element) :
 getBaseName(element) + "LayoutEditPolicy"
 ;
 
+String getSideAffixedLayoutEditPolicyClassName(gmfgen::GenContainerBase element) :
+getBaseName(element) + "SideAffixedLayoutEditPolicy"
+;
+
 String getGraphicalNodeEditPolicyClassName(gmfgen::GenCommonBase gcb) :
 getBaseName(gcb) + "GraphicalNodeEditPolicy"
 ;

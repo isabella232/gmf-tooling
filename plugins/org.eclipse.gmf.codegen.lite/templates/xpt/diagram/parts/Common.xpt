@@ -51,6 +51,7 @@
 public Object getAdapter(Class key) {
 	«EXPAND snapToAdapter-»
 	«EXPAND xpt::diagram::parts::TreeEditPart::getAdapterClause-»
+	«EXPAND externalChildPositionTrackerAdapter-»
 	«EXPAND getAdapterAdditions-»
 	return super.getAdapter(key);
 }
@@ -66,6 +67,31 @@ if (org.eclipse.gef.SnapToHelper.class == key) {
 	return new org.eclipse.gef.SnapToGrid(this);
 }
 «ENDIF-»
+«ENDDEFINE»
+
+«DEFINE externalChildPositionTrackerAdapter FOR gmfgen::GenCommonBase-»
+«ENDDEFINE»
+
+«DEFINE externalChildPositionTrackerAdapter FOR gmfgen::GenChildSideAffixedNode-»
+if (org.eclipse.gmf.runtime.lite.figures.ExternalChildPositionTracker.class == key) {
+	return getPositionTracker();
+}
+«ENDDEFINE»
+
+«DEFINE externalChildPositionTracker FOR gmfgen::GenCommonBase-»
+«ENDDEFINE»
+
+«DEFINE externalChildPositionTracker FOR gmfgen::GenChildSideAffixedNode-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.gmf.runtime.lite.figures.ExternalChildPositionTracker myPositionTracker;
+
+«EXPAND xpt::Common::generatedMemberComment»
+public org.eclipse.gmf.runtime.lite.figures.ExternalChildPositionTracker getPositionTracker() {
+	if (myPositionTracker == null) {
+		myPositionTracker = new org.eclipse.gmf.runtime.lite.figures.ExternalChildPositionTracker(this);
+	}
+	return myPositionTracker;
+}
 «ENDDEFINE»
 
 «DEFINE behaviour FOR gmfgen::GenCommonBase»«EXPAND behaviour FOREACH behaviour»«ENDDEFINE»

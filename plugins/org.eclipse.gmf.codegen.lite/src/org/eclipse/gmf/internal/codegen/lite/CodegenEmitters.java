@@ -55,7 +55,7 @@ public class CodegenEmitters {
 		templatesURI.add(getCodegenTemplatesBundle().getEntry("/templates/"));	//$NON-NLS-1$
 		URL dynamicTemplatesPath = getDynamicTemplatesURL(templateDirectory);
 		if (dynamicTemplatesPath != null) {
-			templatesURI.add(dynamicTemplatesPath);
+			templatesURI.add(0, dynamicTemplatesPath);
 		}
 		myResourceManager = new BundleResourceManager(templatesURI.toArray(new URL[templatesURI.size()]));
 
@@ -167,6 +167,14 @@ public class CodegenEmitters {
 
 	public TextEmitter getLayoutEditPolicyQualifiedClassNameEmitter() throws UnexpectedBehaviourException {
 		return retrieveXpand("xpt::diagram::policies::LayoutEditPolicy::qualifiedClassName");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getSideAffixedLayoutEditPolicyEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::diagram::policies::LayoutEditPolicy::SideAffixedLayoutEditPolicy");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getSideAffixedLayoutEditPolicyQualifiedClassNameEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::diagram::policies::LayoutEditPolicy::SideAffixedQualifiedClassName");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getGraphicalEditPolicyEmitter() throws UnexpectedBehaviourException {

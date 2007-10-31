@@ -36,7 +36,7 @@ default:
 «DEFINE createNotationalNodeCommandForChild(gmfgen::GenContainerBase parentContainer, String parentViewCode, String domainElementCode, String createNotationalNodeCommandFQN) FOR gmfgen::GenNode-»
 case «getEditPartQualifiedClassName()».VISUAL_ID:
 	if («domainElementCode» instanceof «modelFacet.metaClass.getQualifiedInterfaceName()») {
-		return new «createNotationalNodeCommandFQN»(«parentViewCode», «domainElementCode», «EXPAND defaultConstraint(parentContainer.needsXYLayout())», «getNotationViewFactoryQualifiedClassName()».INSTANCE, false);
+		return new «createNotationalNodeCommandFQN»(«parentViewCode», «domainElementCode», «EXPAND defaultConstraint(parentContainer.needsXYLayout() || {this}.typeSelect(gmfgen::GenChildSideAffixedNode).size() > 0)», «getNotationViewFactoryQualifiedClassName()».INSTANCE, false);
 	}
 	return null;
 «ENDDEFINE»

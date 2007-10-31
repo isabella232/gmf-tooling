@@ -24,12 +24,14 @@ package «getDiagram().editPoliciesPackageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
 public class «EXPAND className» «EXPAND supertypes» {
-	«EXPAND getCreateCommand-»
-«IF getChildNodes().size() > 0-»
-	«EXPAND createAddCommand-»
-	«EXPAND createCloneCommand-»
+	«EXPAND getCreateCommand(getDirectChildren())-»
+	«EXPAND createAddCommand(getDirectChildren())-»
+	«EXPAND createCloneCommand(getDirectChildren())-»
+	«EXPAND createChangeConstraintCommand(getDirectChildren())-»
+«IF needsXYLayout() && null != getDiagram().palette && getDirectChildren().size() > 0-»
+	«EXPAND showSizeOnDropFeedback-»
+	«EXPAND adjustConstraint(getDirectChildren())-»
 «ENDIF-»
-	«EXPAND createChangeConstraintCommand-»
 	«EXPAND additions-»
 }
 «ENDDEFINE»
@@ -37,14 +39,38 @@ public class «EXPAND className» «EXPAND supertypes» {
 «DEFINE className FOR gmfgen::GenContainerBase»«getLayoutEditPolicyClassName()»«ENDDEFINE»
 «DEFINE qualifiedClassName FOR gmfgen::GenContainerBase»«getDiagram().editPoliciesPackageName».«EXPAND className»«ENDDEFINE»
 
+«DEFINE SideAffixedLayoutEditPolicy FOR gmfgen::GenNode-»
+«EXPAND xpt::Common::copyright FOR getDiagram().editorGen»
+package «getDiagram().editPoliciesPackageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «EXPAND SideAffixedClassName» «EXPAND SideAffixedSupertypes» {
+	«EXPAND getCreateCommand(getSideAffixedChildren())-»
+	«EXPAND createAddCommand(getSideAffixedChildren())-»
+	«EXPAND createCloneCommand(getSideAffixedChildren())-»
+	«EXPAND createChangeSideAffixedConstraintCommand(getSideAffixedChildren())-»
+«IF null != getDiagram().palette-»
+	«EXPAND showSizeOnDropFeedback-»
+	«EXPAND adjustConstraint(getSideAffixedChildren())-»
+	«EXPAND getExternalLabelsContainer-»
+«ENDIF-»
+	«EXPAND SideAffixedAdditions-»
+}
+«ENDDEFINE»
+
+«DEFINE SideAffixedClassName FOR gmfgen::GenContainerBase»«getSideAffixedLayoutEditPolicyClassName()»«ENDDEFINE»
+«DEFINE SideAffixedQualifiedClassName FOR gmfgen::GenContainerBase»«getDiagram().editPoliciesPackageName».«EXPAND SideAffixedClassName»«ENDDEFINE»
+
 «DEFINE supertypes FOR gmfgen::GenContainerBase-»
 «IF needsXYLayout()»extends org.eclipse.gmf.runtime.lite.edit.policies.XYLayoutEditPolicyEx«ELSE»extends org.eclipse.gmf.runtime.lite.edit.policies.ListLayoutEditPolicy«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE getCreateCommand FOR gmfgen::GenContainerBase-»
+«DEFINE SideAffixedSupertypes FOR gmfgen::GenNode»extends org.eclipse.gmf.runtime.lite.edit.policies.SideAffixedLayoutEditPolicy«ENDDEFINE»
+
+«DEFINE getCreateCommand(Collection[gmfgen::GenNode] childNodes) FOR gmfgen::GenContainerBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getCreateCommand(org.eclipse.gef.requests.CreateRequest request) {
-«IF null != getDiagram().palette && getChildNodes().size() > 0-»
+«IF null != getDiagram().palette && childNodes.size() > 0-»
 	if (request instanceof org.eclipse.gmf.runtime.lite.requests.CreateRequestEx) {
 		org.eclipse.gmf.runtime.lite.requests.CreateRequestEx requestEx = (org.eclipse.gmf.runtime.lite.requests.CreateRequestEx) request;
 		if (!«getDiagram().getEditPartQualifiedClassName()».MODEL_ID.equals(requestEx.getModelID())) {
@@ -55,7 +81,7 @@ protected org.eclipse.gef.commands.Command getCreateCommand(org.eclipse.gef.requ
 		for(int i = 0; i < visualIds.length; i++) {
 			int nextVisualId = visualIds[i];
 			switch (nextVisualId) {
-«EXPAND getCreateCommandContribution(this) FOREACH getChildNodes()-»
+«EXPAND getCreateCommandContribution(this) FOREACH childNodes-»
 			}
 		}
 		return new org.eclipse.gmf.runtime.lite.commands.WrappingCommand(org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(«EXPAND xpt::diagram::policies::Common::getDiagramElementCode»), result);
@@ -68,12 +94,12 @@ protected org.eclipse.gef.commands.Command getCreateCommand(org.eclipse.gef.requ
 «DEFINE getCreateCommandContribution(gmfgen::GenContainerBase container) FOR gmfgen::GenNode-»
 «IF !sansDomain && !modelFacet.metaClass.ecoreClass.abstract-»
 case «getEditPartQualifiedClassName()».VISUAL_ID:
-	result.append(new «getDiagram().editCommandsPackageName».«EXPAND xpt::commands::CreateNodeCommand::className»(«EXPAND xpt::diagram::policies::Common::getViewCode FOR container», requestEx«IF container.needsXYLayout()», (org.eclipse.draw2d.geometry.Rectangle) getConstraintFor(request)«ENDIF»));
+	result.append(new «getDiagram().editCommandsPackageName».«EXPAND xpt::commands::CreateNodeCommand::className»(«EXPAND xpt::diagram::policies::Common::getViewCode FOR container», requestEx«IF container.needsXYLayout(this)», (org.eclipse.draw2d.geometry.Rectangle) getConstraintFor(request)«ENDIF»));
 	break;
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE createAddCommand FOR gmfgen::GenContainerBase-»
+«DEFINE createAddCommand(Collection[gmfgen::GenNode] childNodes)  FOR gmfgen::GenContainerBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command createAddCommand(org.eclipse.gef.EditPart child, Object constraint) {
 	if (child.getModel() instanceof org.eclipse.gmf.runtime.notation.Node) {
@@ -83,7 +109,7 @@ protected org.eclipse.gef.commands.Command createAddCommand(org.eclipse.gef.Edit
 			int newVisualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID(«EXPAND xpt::diagram::policies::Common::getViewCode», childNode.getElement());
 			org.eclipse.emf.common.command.Command command = null;
 			switch (newVisualID) {
-«EXPAND getAddCommandContribution(this) FOREACH getChildNodes()-»
+«EXPAND getAddCommandContribution(this) FOREACH childNodes-»
 			}
 			if (command != null) {
 				org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(childNode.getDiagram().getElement());
@@ -97,11 +123,11 @@ protected org.eclipse.gef.commands.Command createAddCommand(org.eclipse.gef.Edit
 
 «DEFINE getAddCommandContribution(gmfgen::GenContainerBase container) FOR gmfgen::GenNode-»
 case «getEditPartQualifiedClassName()».VISUAL_ID:
-	command = new «getDiagram().editCommandsPackageName».«EXPAND xpt::commands::AddNodeCommand::className»(«EXPAND xpt::diagram::policies::Common::getViewCode FOR container», childNode, newVisualID, «IF container.needsXYLayout()»(org.eclipse.draw2d.geometry.Rectangle) constraint«ELSE»null«ENDIF»);
+	command = new «getDiagram().editCommandsPackageName».«EXPAND xpt::commands::AddNodeCommand::className»(«EXPAND xpt::diagram::policies::Common::getViewCode FOR container», childNode, newVisualID, «IF container.needsXYLayout(this)»(org.eclipse.draw2d.geometry.Rectangle) constraint«ELSE»null«ENDIF»);
 	break;
 «ENDDEFINE»
 
-«DEFINE createCloneCommand FOR gmfgen::GenContainerBase-»
+«DEFINE createCloneCommand(Collection[gmfgen::GenNode] childNodes)  FOR gmfgen::GenContainerBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command createCloneCommand(org.eclipse.gef.EditPart child, Object constraint) {
 	if (child.getModel() instanceof org.eclipse.gmf.runtime.notation.Node) {
@@ -111,7 +137,7 @@ protected org.eclipse.gef.commands.Command createCloneCommand(org.eclipse.gef.Ed
 			int newVisualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID(«EXPAND xpt::diagram::policies::Common::getViewCode», childNode.getElement());
 			org.eclipse.emf.common.command.Command command = null;
 			switch (newVisualID) {
-«EXPAND getCloneCommandContribution(this) FOREACH getChildNodes()-»
+«EXPAND getCloneCommandContribution(this) FOREACH childNodes-»
 			}
 			if (command != null) {
 				org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(childNode.getDiagram().getElement());
@@ -125,22 +151,92 @@ protected org.eclipse.gef.commands.Command createCloneCommand(org.eclipse.gef.Ed
 
 «DEFINE getCloneCommandContribution(gmfgen::GenContainerBase container) FOR gmfgen::GenNode-»
 case «getEditPartQualifiedClassName()».VISUAL_ID:
-	command = new «getDiagram().editCommandsPackageName».«EXPAND xpt::commands::CloneNodeCommand::className»(«EXPAND xpt::diagram::policies::Common::getViewCode FOR container», childNode, «IF container.needsXYLayout()»(org.eclipse.draw2d.geometry.Rectangle) constraint«ELSE»null«ENDIF»);
+	command = new «getDiagram().editCommandsPackageName».«EXPAND xpt::commands::CloneNodeCommand::className»(«EXPAND xpt::diagram::policies::Common::getViewCode FOR container», childNode, «IF container.needsXYLayout(this)»(org.eclipse.draw2d.geometry.Rectangle) constraint«ELSE»null«ENDIF»);
 	break;
 «ENDDEFINE»
 
-«DEFINE createChangeConstraintCommand FOR gmfgen::GenContainerBase»«ENDDEFINE»
+«DEFINE createChangeConstraintCommand(Collection[gmfgen::GenNode] childNodes) FOR gmfgen::GenContainerBase»«ENDDEFINE»
 
-«DEFINE createChangeConstraintCommand FOR gmfgen::GenNode-»
+«DEFINE createChangeConstraintCommand(Collection[gmfgen::GenNode] childNodes) FOR gmfgen::GenNode-»
 «IF needsXYLayout()-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command createChangeConstraintCommand(org.eclipse.gef.requests.ChangeBoundsRequest request, org.eclipse.gef.EditPart child, Object constraint) {
-	if (!(«EXPAND xpt::diagram::policies::Common::getCastToEditPart»).isDirectChild(child)) {
-		return org.eclipse.gef.commands.UnexecutableCommand.INSTANCE;
+«IF hasDirectChildren()-»
+	if ((«EXPAND xpt::diagram::policies::Common::getCastToEditPart»).isDirectChild(child)) {
+		return super.createChangeConstraintCommand(request, child, constraint);
 	}
-	return super.createChangeConstraintCommand(request, child, constraint);
+«ENDIF-»
+	return null;
 }
 «ENDIF-»
 «ENDDEFINE»
 
+«DEFINE createChangeSideAffixedConstraintCommand(Collection[gmfgen::GenNode] childNodes) FOR gmfgen::GenNode-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.gef.commands.Command createChangeConstraintCommand(org.eclipse.gef.requests.ChangeBoundsRequest request, org.eclipse.gef.EditPart child, Object constraint) {
+	return null;
+}
+«ENDDEFINE»
+
+«DEFINE showSizeOnDropFeedback FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void showSizeOnDropFeedback(org.eclipse.gef.requests.CreateRequest request) {
+	org.eclipse.draw2d.IFigure feedback = getSizeOnDropFeedback(request);
+	org.eclipse.draw2d.geometry.Rectangle rect = new org.eclipse.draw2d.geometry.Rectangle(request.getLocation(), request.getSize());
+	getLayoutContainer().translateToRelative(rect);
+	adjustConstraint(request, rect);
+	getLayoutContainer().translateToAbsolute(rect);
+	feedback.translateToRelative(rect);
+	feedback.setBounds(rect.expand(getCreationFeedbackOffset(request)));
+}
+«ENDDEFINE»
+
+«DEFINE adjustConstraint(Collection[gmfgen::GenNode] childNodes) FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void adjustConstraint(org.eclipse.gef.requests.CreateRequest request, org.eclipse.draw2d.geometry.Rectangle constraint) {
+	if (request instanceof org.eclipse.gmf.runtime.lite.requests.CreateRequestEx) {
+		org.eclipse.gmf.runtime.lite.requests.CreateRequestEx requestEx = (org.eclipse.gmf.runtime.lite.requests.CreateRequestEx) request;
+		if («getDiagram().getEditPartQualifiedClassName()».MODEL_ID.equals(requestEx.getModelID())) {
+			int[] visualIds = requestEx.getVisualIds();
+			boolean adjusted = false;
+			for(int i = 0; i < visualIds.length && !adjusted; i++) {
+				int nextVisualId = visualIds[i];
+				switch (nextVisualId) {
+«EXPAND adjustConstraint FOREACH childNodes-»
+				}
+			}
+		}
+	}
+}
+«ENDDEFINE»
+
+«DEFINE adjustConstraint FOR gmfgen::GenNode-»
+«IF !sansDomain && !modelFacet.metaClass.ecoreClass.abstract-»
+case «getEditPartQualifiedClassName()».VISUAL_ID: {
+	«EXPAND xpt::commands::Common::adjustConstraint-»
+	«EXPAND adjustConstraintLocation-»
+	adjusted = true;
+	break;
+}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE adjustConstraintLocation FOR gmfgen::GenNode-»
+«ENDDEFINE»
+
+«DEFINE adjustConstraintLocation FOR gmfgen::GenChildSideAffixedNode-»
+org.eclipse.gmf.runtime.lite.figures.SideAffixedFeedbackPositioner elementPositioner = getSideAffixedElementPositionerForRequest(request);
+elementPositioner.setSiblingsParent(getExternalLabelsContainer());
+constraint.setBounds(elementPositioner.getValidLocation(constraint));
+«ENDDEFINE»
+
+«DEFINE getExternalLabelsContainer FOR gmfgen::GenNode-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.draw2d.IFigure getExternalLabelsContainer() {
+	org.eclipse.gef.editparts.LayerManager root = (org.eclipse.gef.editparts.LayerManager) getHost().getRoot();
+	return root.getLayer(«getDiagram().getEditPartFactoryQualifiedClassName()».EXTERNAL_NODE_LABELS_LAYER);
+}
+«ENDDEFINE»
+
 «DEFINE additions FOR gmfgen::GenContainerBase»«ENDDEFINE»
+«DEFINE SideAffixedAdditions FOR gmfgen::GenContainerBase»«ENDDEFINE»

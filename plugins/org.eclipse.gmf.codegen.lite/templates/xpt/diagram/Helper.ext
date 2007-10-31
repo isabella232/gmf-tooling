@@ -12,6 +12,7 @@
 
 import "http://www.eclipse.org/emf/2002/Ecore";
 import "http://www.eclipse.org/gmf/2006/GenModel";
+extension xpt::commands::CommandUtils;
 
 boolean isXYLayout(gmfgen::GenNode node) :
 	node.getLayoutType().value == gmfgen::ViewmapLayoutType::XY_LAYOUT.value
@@ -19,6 +20,10 @@ boolean isXYLayout(gmfgen::GenNode node) :
 
 boolean hasDirectChildren(gmfgen::GenNode node) :
 	node.getDirectChildren().size() > 0
+;
+
+Collection[gmfgen::GenNode] getDirectChildren(gmfgen::GenContainerBase gcb) :
+	gcb.getChildNodes()
 ;
 
 Collection[gmfgen::GenNode] getDirectChildren(gmfgen::GenNode node) :
@@ -38,14 +43,29 @@ boolean needsXYLayout(gmfgen::GenCompartment compartment) :
 ;
 
 boolean needsXYLayout(gmfgen::GenNode node) :
-	node.hasDirectChildren() && node.isXYLayout()
+	(node.hasDirectChildren() && node.isXYLayout())
 ;
 
 boolean needsXYLayout(gmfgen::GenChildLabelNode node) :
 	false
 ;
 
+boolean needsXYLayout(gmfgen::GenContainerBase container, gmfgen::GenNode child) :
+	container.needsXYLayout()
+;
+
+boolean needsXYLayout(gmfgen::GenContainerBase container, gmfgen::GenChildSideAffixedNode child) :
+	true
+;
 
 Collection[gmfgen::GenExternalNodeLabel] getExternalLabels(gmfgen::GenNode node) :
 	node.labels.typeSelect(gmfgen::GenExternalNodeLabel)
+;
+
+Collection[gmfgen::GenChildSideAffixedNode] getSideAffixedChildren(gmfgen::GenNode node) :
+	node.childNodes.typeSelect(gmfgen::GenChildSideAffixedNode)
+;
+
+boolean hasSideAffixedChildren(gmfgen::GenNode node) :
+	node.getSideAffixedChildren().size() > 0
 ;
