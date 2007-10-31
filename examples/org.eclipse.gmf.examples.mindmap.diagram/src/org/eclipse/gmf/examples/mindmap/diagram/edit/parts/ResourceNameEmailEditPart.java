@@ -1,15 +1,12 @@
 /*
- * 
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Richard Gronback (Borland) - initial API and implementation
- 
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
@@ -17,8 +14,14 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.Polygon;
+import org.eclipse.draw2d.RectangleFigure;
+import org.eclipse.draw2d.ToolbarLayout;
+import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Notification;
@@ -49,9 +52,7 @@ import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
-import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
@@ -222,15 +223,18 @@ public class ResourceNameEmailEditPart extends LabelEditPart implements
 	 * @generated
 	 */
 	protected EObject getParserElement() {
-		EObject element = resolveSemanticElement();
-		return element != null ? element : (View) getModel();
+		return resolveSemanticElement();
 	}
 
 	/**
 	 * @generated
 	 */
 	protected Image getLabelIcon() {
-		return null;
+		EObject parserElement = getParserElement();
+		if (parserElement == null) {
+			return null;
+		}
+		return MindmapElementTypes.getImage(parserElement.eClass());
 	}
 
 	/**
@@ -238,9 +242,10 @@ public class ResourceNameEmailEditPart extends LabelEditPart implements
 	 */
 	protected String getLabelText() {
 		String text = null;
-		if (getParser() != null) {
+		EObject parserElement = getParserElement();
+		if (parserElement != null && getParser() != null) {
 			text = getParser().getPrintString(
-					new EObjectAdapter(getParserElement()),
+					new EObjectAdapter(parserElement),
 					getParserOptions().intValue());
 		}
 		if (text == null || text.length() == 0) {
@@ -264,7 +269,7 @@ public class ResourceNameEmailEditPart extends LabelEditPart implements
 	 * @generated
 	 */
 	public String getEditText() {
-		if (getParser() == null) {
+		if (getParserElement() == null || getParser() == null) {
 			return ""; //$NON-NLS-1$
 		}
 		return getParser().getEditString(
@@ -316,7 +321,7 @@ public class ResourceNameEmailEditPart extends LabelEditPart implements
 	 * @generated
 	 */
 	public IContentAssistProcessor getCompletionProcessor() {
-		if (getParser() == null) {
+		if (getParserElement() == null || getParser() == null) {
 			return null;
 		}
 		return getParser().getCompletionProcessor(
@@ -601,6 +606,7 @@ public class ResourceNameEmailEditPart extends LabelEditPart implements
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new WrapLabel();
+		return new Label();
 	}
+
 }

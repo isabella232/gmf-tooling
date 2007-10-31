@@ -1,25 +1,17 @@
 /*
- *
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Richard Gronback (Borland) - initial API and implementation
- 
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
-import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship2EditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship3EditPart;
@@ -37,9 +29,7 @@ import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicNameEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicSubtopicsEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicThreadCompartmentEditPart;
-
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
-
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.MapViewFactory;
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.Relationship2ViewFactory;
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.Relationship3ViewFactory;
@@ -57,6 +47,10 @@ import org.eclipse.gmf.examples.mindmap.diagram.view.factories.TopicNameViewFact
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.TopicSubtopicsViewFactory;
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.TopicThreadCompartmentViewFactory;
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.TopicViewFactory;
+import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -86,9 +80,11 @@ public class MindmapViewProvider extends AbstractViewProvider {
 		}
 		IElementType elementType = getSemanticElementType(semanticAdapter);
 		EObject domainElement = getSemanticElement(semanticAdapter);
-
 		int visualID;
 		if (semanticHint == null) {
+			// Semantic hint is not specified. Can be a result of call from CanonicalEditPolicy.
+			// In this situation there should be NO elementType, visualID will be determined
+			// by VisualIDRegistry.getNodeVisualID() for domainElement.
 			if (elementType != null || domainElement == null) {
 				return null;
 			}
@@ -97,36 +93,104 @@ public class MindmapViewProvider extends AbstractViewProvider {
 		} else {
 			visualID = MindmapVisualIDRegistry.getVisualID(semanticHint);
 			if (elementType != null) {
+				// Semantic hint is specified together with element type.
+				// Both parameters should describe exactly the same diagram element.
+				// In addition we check that visualID returned by VisualIDRegistry.getNodeVisualID() for
+				// domainElement (if specified) is the same as in element type.
 				if (!MindmapElementTypes.isKnownElementType(elementType)
-						|| false == elementType instanceof IHintedType) {
-					return null;
+						|| (!(elementType instanceof IHintedType))) {
+					return null; // foreign element type
 				}
 				String elementTypeHint = ((IHintedType) elementType)
 						.getSemanticHint();
 				if (!semanticHint.equals(elementTypeHint)) {
-					return null;
+					return null; // if semantic hint is specified it should be the same as in element type
 				}
 				if (domainElement != null
 						&& visualID != MindmapVisualIDRegistry.getNodeVisualID(
 								containerView, domainElement)) {
-					return null;
+					return null; // visual id for node EClass should match visual id from element type
 				}
 			} else {
+				// Element type is not specified. Domain element should be present (except pure design elements).
+				// This method is called with EObjectAdapter as parameter from:
+				//   - ViewService.createNode(View container, EObject eObject, String type, PreferencesHint preferencesHint) 
+				//   - generated ViewFactory.decorateView() for parent element
+				if (!MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry
+						.getModelID(containerView))) {
+					return null; // foreign diagram
+				}
 				switch (visualID) {
-				case MapEditPart.VISUAL_ID:
 				case TopicEditPart.VISUAL_ID:
 				case ResourceEditPart.VISUAL_ID:
 				case ThreadEditPart.VISUAL_ID:
 				case ThreadItemEditPart.VISUAL_ID:
-				case TopicSubtopicsEditPart.VISUAL_ID:
-				case RelationshipEditPart.VISUAL_ID:
-				case Relationship2EditPart.VISUAL_ID:
-				case Relationship3EditPart.VISUAL_ID:
+					if (domainElement == null
+							|| visualID != MindmapVisualIDRegistry
+									.getNodeVisualID(containerView,
+											domainElement)) {
+						return null; // visual id in semantic hint should match visual id for domain element
+					}
+					break;
+				case TopicNameEditPart.VISUAL_ID:
+				case TopicThreadCompartmentEditPart.VISUAL_ID:
+					if (TopicEditPart.VISUAL_ID != MindmapVisualIDRegistry
+							.getVisualID(containerView)
+							|| containerView.getElement() != domainElement) {
+						return null; // wrong container
+					}
+					break;
+				case ResourceNameEmailEditPart.VISUAL_ID:
+					if (ResourceEditPart.VISUAL_ID != MindmapVisualIDRegistry
+							.getVisualID(containerView)
+							|| containerView.getElement() != domainElement) {
+						return null; // wrong container
+					}
+					break;
+				case ThreadSubjectEditPart.VISUAL_ID:
+				case ThreadThreadItemCompartmentEditPart.VISUAL_ID:
+					if (ThreadEditPart.VISUAL_ID != MindmapVisualIDRegistry
+							.getVisualID(containerView)
+							|| containerView.getElement() != domainElement) {
+						return null; // wrong container
+					}
+					break;
+				case RelationshipLabelEditPart.VISUAL_ID:
+					if (RelationshipEditPart.VISUAL_ID != MindmapVisualIDRegistry
+							.getVisualID(containerView)
+							|| containerView.getElement() != domainElement) {
+						return null; // wrong container
+					}
+					break;
+				case RelationshipLabel2EditPart.VISUAL_ID:
+					if (Relationship2EditPart.VISUAL_ID != MindmapVisualIDRegistry
+							.getVisualID(containerView)
+							|| containerView.getElement() != domainElement) {
+						return null; // wrong container
+					}
+					break;
+				case RelationshipLabel3EditPart.VISUAL_ID:
+					if (Relationship3EditPart.VISUAL_ID != MindmapVisualIDRegistry
+							.getVisualID(containerView)
+							|| containerView.getElement() != domainElement) {
+						return null; // wrong container
+					}
+					break;
+				default:
 					return null;
 				}
 			}
 		}
-		if (!MindmapVisualIDRegistry.canCreateNode(containerView, visualID)) {
+		return getNodeViewClass(containerView, visualID);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Class getNodeViewClass(View containerView, int visualID) {
+		if (containerView == null
+				|| !MindmapVisualIDRegistry.canCreateNode(containerView,
+						visualID)) {
 			return null;
 		}
 		switch (visualID) {
@@ -164,27 +228,31 @@ public class MindmapViewProvider extends AbstractViewProvider {
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter,
 			View containerView, String semanticHint) {
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (elementType == null) {
-			return null;
-		}
 		if (!MindmapElementTypes.isKnownElementType(elementType)
-				|| false == elementType instanceof IHintedType) {
-			return null;
+				|| (!(elementType instanceof IHintedType))) {
+			return null; // foreign element type
 		}
 		String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
 		if (elementTypeHint == null) {
-			return null;
+			return null; // our hint is visual id and must be specified
 		}
 		if (semanticHint != null && !semanticHint.equals(elementTypeHint)) {
-			return null;
+			return null; // if semantic hint is specified it should be the same as in element type
 		}
 		int visualID = MindmapVisualIDRegistry.getVisualID(elementTypeHint);
 		EObject domainElement = getSemanticElement(semanticAdapter);
 		if (domainElement != null
 				&& visualID != MindmapVisualIDRegistry
 						.getLinkWithClassVisualID(domainElement)) {
-			return null;
+			return null; // visual id for link EClass should match visual id from element type
 		}
+		return getEdgeViewClass(visualID);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Class getEdgeViewClass(int visualID) {
 		switch (visualID) {
 		case TopicSubtopicsEditPart.VISUAL_ID:
 			return TopicSubtopicsViewFactory.class;
@@ -207,5 +275,4 @@ public class MindmapViewProvider extends AbstractViewProvider {
 		}
 		return (IElementType) semanticAdapter.getAdapter(IElementType.class);
 	}
-
 }

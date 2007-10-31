@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.parsers;
 
 import java.util.Arrays;
@@ -12,6 +22,7 @@ import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
+import org.eclipse.gmf.examples.mindmap.diagram.part.Messages;
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand;
@@ -22,6 +33,7 @@ import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalC
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
+import org.eclipse.osgi.util.NLS;
 
 /**
  * @generated
@@ -52,9 +64,8 @@ public abstract class AbstractParser implements IParser {
 	 * @generated
 	 */
 	public AbstractParser(EAttribute[] features) {
-		if (features == null || features.length == 0
-				|| Arrays.asList(features).contains(null)) {
-			throw new IllegalArgumentException(Arrays.toString(features));
+		if (features == null || Arrays.asList(features).contains(null)) {
+			throw new IllegalArgumentException();
 		}
 		this.features = features;
 	}
@@ -222,8 +233,9 @@ public abstract class AbstractParser implements IParser {
 				} else if (value instanceof String) {
 					value = Boolean.valueOf((String) value);
 				} else {
-					value = new InvalidValue(
-							"Value of type Boolean is expected");
+					value = new InvalidValue(NLS.bind(
+							Messages.AbstractParser_UnexpectedValueTypeMessage,
+							iClass.getName()));
 				}
 			} else if (Character.TYPE.equals(iClass)) {
 				if (value instanceof Character) {
@@ -236,8 +248,9 @@ public abstract class AbstractParser implements IParser {
 						value = new Character(s.charAt(0));
 					}
 				} else {
-					value = new InvalidValue(
-							"Value of type Character is expected");
+					value = new InvalidValue(NLS.bind(
+							Messages.AbstractParser_UnexpectedValueTypeMessage,
+							iClass.getName()));
 				}
 			} else if (Byte.TYPE.equals(iClass)) {
 				if (value instanceof Byte) {
@@ -253,11 +266,16 @@ public abstract class AbstractParser implements IParser {
 							value = Byte.valueOf(s);
 						} catch (NumberFormatException nfe) {
 							value = new InvalidValue(
-									"String value does not convert to Byte value");
+									NLS
+											.bind(
+													Messages.AbstractParser_WrongStringConversionMessage,
+													iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue("Value of type Byte is expected");
+					value = new InvalidValue(NLS.bind(
+							Messages.AbstractParser_UnexpectedValueTypeMessage,
+							iClass.getName()));
 				}
 			} else if (Short.TYPE.equals(iClass)) {
 				if (value instanceof Short) {
@@ -273,11 +291,16 @@ public abstract class AbstractParser implements IParser {
 							value = Short.valueOf(s);
 						} catch (NumberFormatException nfe) {
 							value = new InvalidValue(
-									"String value does not convert to Short value");
+									NLS
+											.bind(
+													Messages.AbstractParser_WrongStringConversionMessage,
+													iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue("Value of type Short is expected");
+					value = new InvalidValue(NLS.bind(
+							Messages.AbstractParser_UnexpectedValueTypeMessage,
+							iClass.getName()));
 				}
 			} else if (Integer.TYPE.equals(iClass)) {
 				if (value instanceof Integer) {
@@ -293,12 +316,16 @@ public abstract class AbstractParser implements IParser {
 							value = Integer.valueOf(s);
 						} catch (NumberFormatException nfe) {
 							value = new InvalidValue(
-									"String value does not convert to Integer value");
+									NLS
+											.bind(
+													Messages.AbstractParser_WrongStringConversionMessage,
+													iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue(
-							"Value of type Integer is expected");
+					value = new InvalidValue(NLS.bind(
+							Messages.AbstractParser_UnexpectedValueTypeMessage,
+							iClass.getName()));
 				}
 			} else if (Long.TYPE.equals(iClass)) {
 				if (value instanceof Long) {
@@ -314,11 +341,16 @@ public abstract class AbstractParser implements IParser {
 							value = Long.valueOf(s);
 						} catch (NumberFormatException nfe) {
 							value = new InvalidValue(
-									"String value does not convert to Long value");
+									NLS
+											.bind(
+													Messages.AbstractParser_WrongStringConversionMessage,
+													iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue("Value of type Long is expected");
+					value = new InvalidValue(NLS.bind(
+							Messages.AbstractParser_UnexpectedValueTypeMessage,
+							iClass.getName()));
 				}
 			} else if (Float.TYPE.equals(iClass)) {
 				if (value instanceof Float) {
@@ -334,11 +366,16 @@ public abstract class AbstractParser implements IParser {
 							value = Float.valueOf(s);
 						} catch (NumberFormatException nfe) {
 							value = new InvalidValue(
-									"String value does not convert to Float value");
+									NLS
+											.bind(
+													Messages.AbstractParser_WrongStringConversionMessage,
+													iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue("Value of type Float is expected");
+					value = new InvalidValue(NLS.bind(
+							Messages.AbstractParser_UnexpectedValueTypeMessage,
+							iClass.getName()));
 				}
 			} else if (Double.TYPE.equals(iClass)) {
 				if (value instanceof Double) {
@@ -354,23 +391,32 @@ public abstract class AbstractParser implements IParser {
 							value = Double.valueOf(s);
 						} catch (NumberFormatException nfe) {
 							value = new InvalidValue(
-									"String value does not convert to Double value");
+									NLS
+											.bind(
+													Messages.AbstractParser_WrongStringConversionMessage,
+													iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue("Value of type Double is expected");
+					value = new InvalidValue(NLS.bind(
+							Messages.AbstractParser_UnexpectedValueTypeMessage,
+							iClass.getName()));
 				}
 			} else if (type instanceof EEnum) {
 				if (value instanceof String) {
 					EEnumLiteral literal = ((EEnum) type)
 							.getEEnumLiteralByLiteral((String) value);
 					if (literal == null) {
-						value = new InvalidValue("Unknown literal: " + value);
+						value = new InvalidValue(NLS.bind(
+								Messages.AbstractParser_UnknownLiteralMessage,
+								value));
 					} else {
 						value = literal.getInstance();
 					}
 				} else {
-					value = new InvalidValue("Value of type String is expected");
+					value = new InvalidValue(NLS.bind(
+							Messages.AbstractParser_UnexpectedValueTypeMessage,
+							String.class.getName()));
 				}
 			}
 		}

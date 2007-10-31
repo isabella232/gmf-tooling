@@ -1,95 +1,59 @@
 /*
- *
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Richard Gronback (Borland) - initial API and implementation
- 
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
 import java.io.IOException;
-
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
-
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
-
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-
 import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-
-import org.eclipse.emf.ecore.util.FeatureMap;
-
-import org.eclipse.emf.edit.provider.IWrapperItemProvider;
-
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
-
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
-
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
-
 import org.eclipse.gmf.runtime.diagram.core.services.view.CreateDiagramViewOperation;
-
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
-
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
-
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.TreeViewer;
-
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jface.wizard.WizardPage;
-
 import org.eclipse.osgi.util.NLS;
-import org.eclipse.swt.SWT;
-
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
-
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
-
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 
 /**
  * @generated
  */
 public class MindmapNewDiagramFileWizard extends Wizard {
+
+	/**
+	 * @generated
+	 */
+	private WizardNewFileCreationPage myFileCreationPage;
+
+	/**
+	 * @generated
+	 */
+	private ModelElementSelectionPage diagramRootElementSelectionPage;
 
 	/**
 	 * @generated
@@ -139,16 +103,6 @@ public class MindmapNewDiagramFileWizard extends Wizard {
 
 		myEditingDomain = editingDomain;
 	}
-
-	/**
-	 * @generated
-	 */
-	private WizardNewFileCreationPage myFileCreationPage;
-
-	/**
-	 * @generated
-	 */
-	private ModelElementSelectionPage diagramRootElementSelectionPage;
 
 	/**
 	 * @generated

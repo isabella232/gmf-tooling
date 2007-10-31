@@ -1,24 +1,17 @@
 /*
- *
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Richard Gronback (Borland) - initial API and implementation
- 
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.mindmap.diagram.navigator;
 
 import org.eclipse.core.runtime.IAdaptable;
-
-import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.gmf.examples.mindmap.Map;
-
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship2EditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship3EditPart;
@@ -34,35 +27,23 @@ import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadSubjectEditPart
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicNameEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicSubtopicsEditPart;
-
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
-
 import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapElementTypes;
-
 import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapParserProvider;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;
-
-import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-
 import org.eclipse.gmf.runtime.notation.View;
-
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
-
 import org.eclipse.jface.viewers.ITreePathLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.ViewerLabel;
-
 import org.eclipse.swt.graphics.Image;
-
 import org.eclipse.ui.IMemento;
-
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
 import org.eclipse.ui.navigator.ICommonLabelProvider;
 
@@ -76,15 +57,16 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements
 	 * @generated
 	 */
 	static {
-		MindmapDiagramEditorPlugin.getInstance().getImageRegistry().put(
-				"Navigator?InvalidElement",
-				ImageDescriptor.getMissingImageDescriptor());
-		MindmapDiagramEditorPlugin.getInstance().getImageRegistry().put(
-				"Navigator?UnknownElement",
-				ImageDescriptor.getMissingImageDescriptor());
-		MindmapDiagramEditorPlugin.getInstance().getImageRegistry().put(
-				"Navigator?ImageNotFound",
-				ImageDescriptor.getMissingImageDescriptor());
+		MindmapDiagramEditorPlugin
+				.getInstance()
+				.getImageRegistry()
+				.put(
+						"Navigator?UnknownElement", ImageDescriptor.getMissingImageDescriptor()); //$NON-NLS-1$
+		MindmapDiagramEditorPlugin
+				.getInstance()
+				.getImageRegistry()
+				.put(
+						"Navigator?ImageNotFound", ImageDescriptor.getMissingImageDescriptor()); //$NON-NLS-1$
 	}
 
 	/**
@@ -125,6 +107,7 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements
 				return getImage(view);
 			}
 		}
+
 		return super.getImage(element);
 	}
 
@@ -133,45 +116,35 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements
 	 */
 	public Image getImage(View view) {
 		switch (MindmapVisualIDRegistry.getVisualID(view)) {
-		case TopicEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?TopLevelNode?http://www.example.org/mindmap?Topic",
-					MindmapElementTypes.Topic_2001);
-		case ResourceEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?TopLevelNode?http://www.example.org/mindmap?Resource",
-					MindmapElementTypes.Resource_2002);
-		case ThreadEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?Node?http://www.example.org/mindmap?Thread",
-					MindmapElementTypes.Thread_3001);
-		case ThreadItemEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?Node?http://www.example.org/mindmap?ThreadItem",
-					MindmapElementTypes.ThreadItem_3002);
 		case MapEditPart.VISUAL_ID:
 			return getImage(
-					"Navigator?Diagram?http://www.example.org/mindmap?Map",
-					MindmapElementTypes.Map_1000);
+					"Navigator?Diagram?http://www.example.org/mindmap?Map", MindmapElementTypes.Map_1000); //$NON-NLS-1$
+		case TopicEditPart.VISUAL_ID:
+			return getImage(
+					"Navigator?TopLevelNode?http://www.example.org/mindmap?Topic", MindmapElementTypes.Topic_2001); //$NON-NLS-1$
+		case ResourceEditPart.VISUAL_ID:
+			return getImage(
+					"Navigator?TopLevelNode?http://www.example.org/mindmap?Resource", MindmapElementTypes.Resource_2002); //$NON-NLS-1$
+		case ThreadEditPart.VISUAL_ID:
+			return getImage(
+					"Navigator?Node?http://www.example.org/mindmap?Thread", MindmapElementTypes.Thread_3001); //$NON-NLS-1$
+		case ThreadItemEditPart.VISUAL_ID:
+			return getImage(
+					"Navigator?Node?http://www.example.org/mindmap?ThreadItem", MindmapElementTypes.ThreadItem_3002); //$NON-NLS-1$
 		case TopicSubtopicsEditPart.VISUAL_ID:
 			return getImage(
-					"Navigator?Link?http://www.example.org/mindmap?Topic?subtopics",
-					MindmapElementTypes.TopicSubtopics_4001);
+					"Navigator?Link?http://www.example.org/mindmap?Topic?subtopics", MindmapElementTypes.TopicSubtopics_4001); //$NON-NLS-1$
 		case RelationshipEditPart.VISUAL_ID:
 			return getImage(
-					"Navigator?Link?http://www.example.org/mindmap?Relationship",
-					MindmapElementTypes.Relationship_4002);
+					"Navigator?Link?http://www.example.org/mindmap?Relationship", MindmapElementTypes.Relationship_4002); //$NON-NLS-1$
 		case Relationship2EditPart.VISUAL_ID:
 			return getImage(
-					"Navigator?Link?http://www.example.org/mindmap?Relationship",
-					MindmapElementTypes.Relationship_4003);
+					"Navigator?Link?http://www.example.org/mindmap?Relationship", MindmapElementTypes.Relationship_4003); //$NON-NLS-1$
 		case Relationship3EditPart.VISUAL_ID:
 			return getImage(
-					"Navigator?Link?http://www.example.org/mindmap?Relationship",
-					MindmapElementTypes.Relationship_4004);
-		default:
-			return getImage("Navigator?UnknownElement", null);
+					"Navigator?Link?http://www.example.org/mindmap?Relationship", MindmapElementTypes.Relationship_4004); //$NON-NLS-1$
 		}
+		return getImage("Navigator?UnknownElement", null); //$NON-NLS-1$
 	}
 
 	/**
@@ -188,7 +161,7 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements
 		}
 
 		if (image == null) {
-			image = imageRegistry.get("Navigator?ImageNotFound");
+			image = imageRegistry.get("Navigator?ImageNotFound"); //$NON-NLS-1$
 			imageRegistry.put(key, image);
 		}
 		return image;
@@ -218,6 +191,7 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements
 				return getText(view);
 			}
 		}
+
 		return super.getText(element);
 	}
 
@@ -229,6 +203,8 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements
 			return getUnresolvedDomainElementProxyText(view);
 		}
 		switch (MindmapVisualIDRegistry.getVisualID(view)) {
+		case MapEditPart.VISUAL_ID:
+			return getMap_1000Text(view);
 		case TopicEditPart.VISUAL_ID:
 			return getTopic_2001Text(view);
 		case ResourceEditPart.VISUAL_ID:
@@ -237,8 +213,6 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements
 			return getThread_3001Text(view);
 		case ThreadItemEditPart.VISUAL_ID:
 			return getThreadItem_3002Text(view);
-		case MapEditPart.VISUAL_ID:
-			return getMap_1000Text(view);
 		case TopicSubtopicsEditPart.VISUAL_ID:
 			return getTopicSubtopics_4001Text(view);
 		case RelationshipEditPart.VISUAL_ID:
@@ -247,8 +221,21 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements
 			return getRelationship_4003Text(view);
 		case Relationship3EditPart.VISUAL_ID:
 			return getRelationship_4004Text(view);
-		default:
-			return getUnknownElementText(view);
+		}
+		return getUnknownElementText(view);
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getMap_1000Text(View view) {
+		Map domainModelElement = (Map) view.getElement();
+		if (domainModelElement != null) {
+			return String.valueOf(domainModelElement.getTitle());
+		} else {
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"No domain element for view with visualID = " + 1000); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -267,9 +254,10 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements
 					.intValue());
 		} else {
 			MindmapDiagramEditorPlugin.getInstance().logError(
-					"Parser was not found for label " + 5002);
-			return "";
+					"Parser was not found for label " + 5002); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
@@ -288,9 +276,10 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements
 					.intValue());
 		} else {
 			MindmapDiagramEditorPlugin.getInstance().logError(
-					"Parser was not found for label " + 5003);
-			return "";
+					"Parser was not found for label " + 5003); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
@@ -309,9 +298,10 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements
 					.intValue());
 		} else {
 			MindmapDiagramEditorPlugin.getInstance().logError(
-					"Parser was not found for label " + 5001);
-			return "";
+					"Parser was not found for label " + 5001); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
@@ -329,22 +319,8 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements
 					.intValue());
 		} else {
 			MindmapDiagramEditorPlugin.getInstance().logError(
-					"Parser was not found for label " + 3002);
-			return "";
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private String getMap_1000Text(View view) {
-		EObject domainModelElement = view.getElement();
-		if (domainModelElement != null) {
-			return String.valueOf(((Map) domainModelElement).getTitle());
-		} else {
-			MindmapDiagramEditorPlugin.getInstance().logError(
-					"No domain element for view with visualID = " + 1000);
-			return "";
+					"Parser was not found for label " + 3002); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -352,7 +328,7 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements
 	 * @generated
 	 */
 	private String getTopicSubtopics_4001Text(View view) {
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 	/**
@@ -371,9 +347,10 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements
 					.intValue());
 		} else {
 			MindmapDiagramEditorPlugin.getInstance().logError(
-					"Parser was not found for label " + 6001);
-			return "";
+					"Parser was not found for label " + 6001); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
@@ -392,9 +369,10 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements
 					.intValue());
 		} else {
 			MindmapDiagramEditorPlugin.getInstance().logError(
-					"Parser was not found for label " + 6002);
-			return "";
+					"Parser was not found for label " + 6002); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
@@ -413,23 +391,24 @@ public class MindmapNavigatorLabelProvider extends LabelProvider implements
 					.intValue());
 		} else {
 			MindmapDiagramEditorPlugin.getInstance().logError(
-					"Parser was not found for label " + 6003);
-			return "";
+					"Parser was not found for label " + 6003); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
 	 * @generated
 	 */
 	private String getUnknownElementText(View view) {
-		return "<UnknownElement Visual_ID = " + view.getType() + ">";
+		return "<UnknownElement Visual_ID = " + view.getType() + ">"; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
 	 * @generated
 	 */
 	private String getUnresolvedDomainElementProxyText(View view) {
-		return "<Unresolved domain element Visual_ID = " + view.getType() + ">";
+		return "<Unresolved domain element Visual_ID = " + view.getType() + ">"; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

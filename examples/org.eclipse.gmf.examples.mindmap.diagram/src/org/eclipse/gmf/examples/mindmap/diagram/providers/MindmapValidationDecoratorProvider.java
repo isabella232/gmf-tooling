@@ -1,15 +1,12 @@
 /*
- *
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Richard Gronback (Borland) - initial API and implementation
- 
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
@@ -22,58 +19,39 @@ import java.util.Map;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
-
 import org.eclipse.core.runtime.CoreException;
-
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.Label;
-
-import org.eclipse.emf.ecore.resource.Resource;
-
 import org.eclipse.emf.transaction.util.TransactionUtil;
-
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
-
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.GraphicalEditPart;
-
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
-
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
-
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditor;
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
-
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
-
 import org.eclipse.gmf.runtime.common.ui.resources.FileChangeManager;
 import org.eclipse.gmf.runtime.common.ui.resources.IFileObserver;
-
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
-
+import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditDomain;
-
 import org.eclipse.gmf.runtime.diagram.ui.services.decorator.AbstractDecorator;
 import org.eclipse.gmf.runtime.diagram.ui.services.decorator.CreateDecoratorsOperation;
 import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecorator;
 import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorProvider;
 import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorTarget;
-
 import org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapModeUtil;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
-
 import org.eclipse.swt.graphics.Image;
-
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
-/** 
+/**
  * @generated
  */
 public class MindmapValidationDecoratorProvider extends AbstractProvider
@@ -88,7 +66,7 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider
 	 * @generated
 	 */
 	private static final String MARKER_TYPE = MindmapDiagramEditorPlugin.ID
-			+ ".diagnostic"; //$NON-NLS-1$ //$NON-NLS-2$
+			+ ".diagnostic"; //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -106,7 +84,7 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider
 	public void createDecorators(IDecoratorTarget decoratorTarget) {
 		EditPart editPart = (EditPart) decoratorTarget
 				.getAdapter(EditPart.class);
-		if (editPart instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart
+		if (editPart instanceof GraphicalEditPart
 				|| editPart instanceof AbstractConnectionEditPart) {
 			Object model = editPart.getModel();
 			if ((model instanceof View)) {
@@ -291,16 +269,16 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider
 			}
 
 			// add decoration
-			if (editPart instanceof GraphicalEditPart) {
+			if (editPart instanceof org.eclipse.gef.GraphicalEditPart) {
 				if (view instanceof Edge) {
 					setDecoration(getDecoratorTarget().addConnectionDecoration(
 							getImage(severity), 50, true));
 				} else {
 					int margin = -1;
-					if (editPart instanceof GraphicalEditPart) {
+					if (editPart instanceof org.eclipse.gef.GraphicalEditPart) {
 						margin = MapModeUtil.getMapMode(
-								((GraphicalEditPart) editPart).getFigure())
-								.DPtoLP(margin);
+								((org.eclipse.gef.GraphicalEditPart) editPart)
+										.getFigure()).DPtoLP(margin);
 					}
 					setDecoration(getDecoratorTarget()
 							.addShapeDecoration(getImage(severity),

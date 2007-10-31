@@ -1,48 +1,50 @@
+/*
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.expressions;
 
 import java.lang.ref.WeakReference;
-
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
-
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.ETypedElement;
-
 import org.eclipse.ocl.Environment;
 import org.eclipse.ocl.EvaluationEnvironment;
 import org.eclipse.ocl.ParserException;
 import org.eclipse.ocl.Query;
-
 import org.eclipse.ocl.ecore.EcoreFactory;
-import org.eclipse.ocl.ecore.OCL;
-
 import org.eclipse.ocl.expressions.OCLExpression;
 import org.eclipse.ocl.expressions.OperationCallExp;
 import org.eclipse.ocl.expressions.Variable;
-
 import org.eclipse.ocl.helper.OCLHelper;
-
 import org.eclipse.ocl.utilities.AbstractVisitor;
 import org.eclipse.ocl.utilities.PredefinedType;
 
 /**
- * @generated 
+ * @generated
  */
 public class MindmapOCLFactory {
 
 	/**
-	 * @generated 
+	 * @generated
 	 */
 	private MindmapOCLFactory() {
 	}
 
 	/**
-	 * @generated 
+	 * @generated
 	 */
 	public static MindmapAbstractExpression getExpression(String body,
 			EClassifier context, Map environment) {
@@ -50,7 +52,7 @@ public class MindmapOCLFactory {
 	}
 
 	/**
-	 * @generated 
+	 * @generated
 	 */
 	public static MindmapAbstractExpression getExpression(String body,
 			EClassifier context) {
@@ -58,30 +60,31 @@ public class MindmapOCLFactory {
 	}
 
 	/**
-	 * @generated 
+	 * @generated
 	 */
 	private static class Expression extends MindmapAbstractExpression {
+
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		private WeakReference queryRef;
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
-		private final OCL oclInstance;
+		private final org.eclipse.ocl.ecore.OCL oclInstance;
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		public Expression(String body, EClassifier context, Map environment) {
 			super(body, context);
-			oclInstance = OCL.newInstance();
+			oclInstance = org.eclipse.ocl.ecore.OCL.newInstance();
 			initCustomEnv(oclInstance.getEnvironment(), environment);
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		protected Query getQuery() {
 			Query oclQuery = null;
@@ -104,7 +107,7 @@ public class MindmapOCLFactory {
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		protected Object doEvaluate(Object context, Map env) {
 			Query oclQuery = getQuery();
@@ -118,7 +121,6 @@ public class MindmapOCLFactory {
 				evalEnv.replace((String) nextEntry.getKey(), nextEntry
 						.getValue());
 			}
-
 			try {
 				initExtentMap(context);
 				Object result = oclQuery.evaluate(context);
@@ -154,12 +156,12 @@ public class MindmapOCLFactory {
 			}
 			final Query queryToInit = getQuery();
 			final Object extentContext = context;
-
 			queryToInit.getExtentMap().clear();
 			if (queryToInit.queryText() != null
 					&& queryToInit.queryText().indexOf(
 							PredefinedType.ALL_INSTANCES_NAME) >= 0) {
 				AbstractVisitor visitior = new AbstractVisitor() {
+
 					private boolean usesAllInstances = false;
 
 					public Object visitOperationCallExp(OperationCallExp oc) {
@@ -184,7 +186,7 @@ public class MindmapOCLFactory {
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		private static void initCustomEnv(Environment ecoreEnv, Map environment) {
 			for (Iterator it = environment.keySet().iterator(); it.hasNext();) {
@@ -196,11 +198,11 @@ public class MindmapOCLFactory {
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		private static Variable createVar(Environment ecoreEnv, String name,
 				EClassifier type) {
-			Variable var = EcoreFactory.eINSTANCE.createVariable(); // or ecoreEnv.getOCLFactory().createVariable()?
+			Variable var = EcoreFactory.eINSTANCE.createVariable();
 			var.setName(name);
 			var.setType(ecoreEnv.getUMLReflection().getOCLType(type));
 			return var;

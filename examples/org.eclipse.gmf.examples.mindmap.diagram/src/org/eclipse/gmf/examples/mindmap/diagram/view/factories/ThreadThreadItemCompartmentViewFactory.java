@@ -1,15 +1,12 @@
 /*
- *
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Richard Gronback (Borland) - initial API and implementation
- 
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.mindmap.diagram.view.factories;
 
@@ -17,18 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
-
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EcoreFactory;
-
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadThreadItemCompartmentEditPart;
-
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
-
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory;
-import org.eclipse.gmf.runtime.diagram.ui.view.factories.ListCompartmentViewFactory;
-
 import org.eclipse.gmf.runtime.notation.DrawerStyle;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
@@ -42,7 +30,7 @@ public class ThreadThreadItemCompartmentViewFactory extends
 		BasicNodeViewFactory {
 
 	/**
-	 * @generated 
+	 * @generated
 	 */
 	protected List createStyles(View view) {
 		List styles = new ArrayList();
@@ -89,5 +77,4 @@ public class ThreadThreadItemCompartmentViewFactory extends
 			drawerStyle.setCollapsed(false);
 		}
 	}
-
 }

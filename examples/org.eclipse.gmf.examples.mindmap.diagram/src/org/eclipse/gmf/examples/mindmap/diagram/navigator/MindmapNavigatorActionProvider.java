@@ -1,46 +1,37 @@
 /*
- *
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Richard Gronback (Borland) - initial API and implementation
- 
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.mindmap.diagram.navigator;
 
 import java.util.Iterator;
-import org.eclipse.core.runtime.IAdaptable;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.ui.URIEditorInput;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
-
+import org.eclipse.gmf.examples.mindmap.diagram.part.Messages;
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditor;
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
-
-import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
-
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
-
 import org.eclipse.jface.viewers.IStructuredSelection;
-
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
-
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionConstants;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
@@ -123,7 +114,7 @@ public class MindmapNavigatorActionProvider extends CommonActionProvider {
 		 * @generated
 		 */
 		public OpenDiagramAction(ICommonViewerWorkbenchSite viewerSite) {
-			super("Open Diagram");
+			super(Messages.NavigatorActionProvider_OpenDiagramActionName);
 			myViewerSite = viewerSite;
 		}
 
@@ -166,7 +157,7 @@ public class MindmapNavigatorActionProvider extends CommonActionProvider {
 				page.openEditor(editorInput, MindmapDiagramEditor.ID);
 			} catch (PartInitException e) {
 				MindmapDiagramEditorPlugin.getInstance().logError(
-						"Exception while openning diagram", e);
+						"Exception while openning diagram", e); //$NON-NLS-1$
 			}
 		}
 
@@ -174,20 +165,22 @@ public class MindmapNavigatorActionProvider extends CommonActionProvider {
 		 * @generated
 		 */
 		private IEditorInput getEditorInput() {
-			Resource diagramResource = myDiagram.eResource();
-			for (Iterator it = diagramResource.getContents().iterator(); it
+			for (Iterator it = myDiagram.eResource().getContents().iterator(); it
 					.hasNext();) {
 				EObject nextEObject = (EObject) it.next();
 				if (nextEObject == myDiagram) {
 					return new FileEditorInput(WorkspaceSynchronizer
-							.getFile(diagramResource));
+							.getFile(myDiagram.eResource()));
 				}
 				if (nextEObject instanceof Diagram) {
 					break;
 				}
 			}
-			return new URIEditorInput(diagramResource.getURI().appendFragment(
-					diagramResource.getURIFragment(myDiagram)));
+			URI uri = EcoreUtil.getURI(myDiagram);
+			String editorName = uri.lastSegment()
+					+ "#" + myDiagram.eResource().getContents().indexOf(myDiagram); //$NON-NLS-1$
+			IEditorInput editorInput = new URIEditorInput(uri, editorName);
+			return editorInput;
 		}
 
 	}

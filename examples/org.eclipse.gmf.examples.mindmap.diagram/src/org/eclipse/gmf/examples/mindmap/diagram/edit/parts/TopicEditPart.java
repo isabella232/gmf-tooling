@@ -1,19 +1,15 @@
 /*
- * 
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Richard Gronback (Borland) - initial API and implementation
- 
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.StackLayout;
@@ -254,8 +250,8 @@ public class TopicEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		public RoundedTopicFigure() {
-			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(20),
-					getMapMode().DPtoLP(20)));
+			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(12),
+					getMapMode().DPtoLP(12)));
 			this.setForegroundColor(THIS_FORE);
 			createContents();
 		}
@@ -265,19 +261,11 @@ public class TopicEditPart extends ShapeNodeEditPart {
 		 */
 		private void createContents() {
 
-			WrapLabel topicNameFigure0 = new WrapLabel();
-			topicNameFigure0.setText("<...>");
+			fFigureTopicNameFigure = new WrapLabel();
+			fFigureTopicNameFigure.setText("");
 
-			this.add(topicNameFigure0);
-			fFigureTopicNameFigure = topicNameFigure0;
+			this.add(fFigureTopicNameFigure);
 
-		}
-
-		/**
-		 * @generated
-		 */
-		public WrapLabel getFigureTopicNameFigure() {
-			return fFigureTopicNameFigure;
 		}
 
 		/**
@@ -297,6 +285,13 @@ public class TopicEditPart extends ShapeNodeEditPart {
 		 */
 		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
 			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		public WrapLabel getFigureTopicNameFigure() {
+			return fFigureTopicNameFigure;
 		}
 
 	}

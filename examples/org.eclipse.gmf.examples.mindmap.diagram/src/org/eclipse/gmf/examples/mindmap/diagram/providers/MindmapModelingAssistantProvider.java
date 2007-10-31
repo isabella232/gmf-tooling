@@ -1,15 +1,12 @@
 /*
- *
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Richard Gronback (Borland) - initial API and implementation
- 
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
@@ -21,6 +18,14 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicThreadCompartmentEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.part.Messages;
+import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -31,14 +36,6 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicThreadCompartmentEditPart;
-
-import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 
 /**
  * @generated
@@ -248,8 +245,8 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 						.getItemProvidersAdapterFactory());
 		ElementListSelectionDialog dialog = new ElementListSelectionDialog(
 				shell, labelProvider);
-		dialog.setMessage("Available domain model elements:");
-		dialog.setTitle("Select domain model element");
+		dialog.setMessage(Messages.MindmapModelingAssistantProviderMessage);
+		dialog.setTitle(Messages.MindmapModelingAssistantProviderTitle);
 		dialog.setMultipleSelection(false);
 		dialog.setElements(elements);
 		EObject selected = null;

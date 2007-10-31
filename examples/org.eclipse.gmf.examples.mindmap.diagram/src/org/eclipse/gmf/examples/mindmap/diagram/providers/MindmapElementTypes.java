@@ -1,15 +1,12 @@
 /*
- * 
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Richard Gronback (Borland) - initial API and implementation
- 
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
@@ -51,6 +48,49 @@ public class MindmapElementTypes extends ElementInitializers {
 	 * @generated
 	 */
 	private static ImageRegistry imageRegistry;
+
+	/**
+	 * @generated
+	 */
+	private static Set KNOWN_ELEMENT_TYPES;
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Map_1000 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Map_1000"); //$NON-NLS-1$
+	/**
+	 * @generated
+	 */
+	public static final IElementType Topic_2001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Topic_2001"); //$NON-NLS-1$
+	/**
+	 * @generated
+	 */
+	public static final IElementType Resource_2002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Resource_2002"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Thread_3001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Thread_3001"); //$NON-NLS-1$
+	/**
+	 * @generated
+	 */
+	public static final IElementType ThreadItem_3002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.ThreadItem_3002"); //$NON-NLS-1$
+	/**
+	 * @generated
+	 */
+	public static final IElementType TopicSubtopics_4001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.TopicSubtopics_4001"); //$NON-NLS-1$
+	/**
+	 * @generated
+	 */
+	public static final IElementType Relationship_4002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4002"); //$NON-NLS-1$
+	/**
+	 * @generated
+	 */
+	public static final IElementType Relationship_4003 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4003"); //$NON-NLS-1$
+	/**
+	 * @generated
+	 */
+	public static final IElementType Relationship_4004 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4004"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -199,56 +239,6 @@ public class MindmapElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
-	private static Set KNOWN_ELEMENT_TYPES;
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType Map_1000 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Map_1000"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType Topic_2001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Topic_2001"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType Resource_2002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Resource_2002"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType Thread_3001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Thread_3001"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType ThreadItem_3002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.ThreadItem_3002"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType TopicSubtopics_4001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.TopicSubtopics_4001"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType Relationship_4002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4002"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType Relationship_4003 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4003"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType Relationship_4004 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4004"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
 	public static boolean isKnownElementType(IElementType elementType) {
 		if (KNOWN_ELEMENT_TYPES == null) {
 			KNOWN_ELEMENT_TYPES = new HashSet();
@@ -264,4 +254,5 @@ public class MindmapElementTypes extends ElementInitializers {
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
 	}
+
 }

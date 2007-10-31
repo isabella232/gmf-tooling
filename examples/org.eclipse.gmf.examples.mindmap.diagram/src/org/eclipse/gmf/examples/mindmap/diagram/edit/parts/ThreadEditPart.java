@@ -1,35 +1,33 @@
 /*
- * 
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Richard Gronback (Borland) - initial API and implementation
- 
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
-import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
-import org.eclipse.gef.requests.CreateRequest;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MindmapTextSelectionEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ThreadItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapElementTypes;
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
@@ -108,23 +106,16 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		LayoutEditPolicy lep = new LayoutEditPolicy() {
+
+		ConstrainedToolbarLayoutEditPolicy lep = new ConstrainedToolbarLayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
-				EditPolicy result = child
-						.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
-				if (result == null) {
-					result = new NonResizableEditPolicy();
+				if (child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE) == null) {
+					if (child instanceof ITextAwareEditPart) {
+						return new MindmapTextSelectionEditPolicy();
+					}
 				}
-				return result;
-			}
-
-			protected Command getMoveChildrenCommand(Request request) {
-				return null;
-			}
-
-			protected Command getCreateCommand(CreateRequest request) {
-				return null;
+				return super.createChildEditPolicy(child);
 			}
 		};
 		return lep;
@@ -154,6 +145,13 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 					.getFigureStickyNoteNameFigure());
 			return true;
 		}
+		if (childEditPart instanceof ThreadThreadItemCompartmentEditPart) {
+			IFigure pane = getPrimaryShape().getFigureThreadItems();
+			setupContentPane(pane); // FIXME each comparment should handle his content pane in his own way 
+			pane.add(((ThreadThreadItemCompartmentEditPart) childEditPart)
+					.getFigure());
+			return true;
+		}
 		return false;
 	}
 
@@ -162,6 +160,13 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	 */
 	protected boolean removeFixedChild(EditPart childEditPart) {
 
+		if (childEditPart instanceof ThreadThreadItemCompartmentEditPart) {
+			IFigure pane = getPrimaryShape().getFigureThreadItems();
+			setupContentPane(pane); // FIXME each comparment should handle his content pane in his own way 
+			pane.remove(((ThreadThreadItemCompartmentEditPart) childEditPart)
+					.getFigure());
+			return true;
+		}
 		return false;
 	}
 
@@ -190,6 +195,9 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	 */
 	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
 
+		if (editPart instanceof ThreadThreadItemCompartmentEditPart) {
+			return getPrimaryShape().getFigureThreadItems();
+		}
 		return super.getContentPaneFor(editPart);
 	}
 
@@ -260,12 +268,26 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
+		private RectangleFigure fFigureThreadItems;
+		/**
+		 * @generated
+		 */
 		private WrapLabel fFigureStickyNoteNameFigure;
 
 		/**
 		 * @generated
 		 */
 		public StickyNoteFigure() {
+
+			ToolbarLayout layoutThis = new ToolbarLayout();
+			layoutThis.setStretchMinorAxis(true);
+			layoutThis.setMinorAlignment(ToolbarLayout.ALIGN_CENTER);
+
+			layoutThis.setSpacing(0);
+			layoutThis.setVertical(true);
+
+			this.setLayoutManager(layoutThis);
+
 			this.setBackgroundColor(THIS_BACK);
 			createContents();
 		}
@@ -275,19 +297,17 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 		 */
 		private void createContents() {
 
-			WrapLabel stickyNoteNameFigure0 = new WrapLabel();
-			stickyNoteNameFigure0.setText("<...>");
+			fFigureStickyNoteNameFigure = new WrapLabel();
+			fFigureStickyNoteNameFigure.setText("<...>");
 
-			this.add(stickyNoteNameFigure0);
-			fFigureStickyNoteNameFigure = stickyNoteNameFigure0;
+			this.add(fFigureStickyNoteNameFigure);
 
-		}
+			fFigureThreadItems = new RectangleFigure();
 
-		/**
-		 * @generated
-		 */
-		public WrapLabel getFigureStickyNoteNameFigure() {
-			return fFigureStickyNoteNameFigure;
+			this.add(fFigureThreadItems);
+
+			fFigureThreadItems.setLayoutManager(new StackLayout());
+
 		}
 
 		/**
@@ -307,6 +327,20 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 		 */
 		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
 			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		public RectangleFigure getFigureThreadItems() {
+			return fFigureThreadItems;
+		}
+
+		/**
+		 * @generated
+		 */
+		public WrapLabel getFigureStickyNoteNameFigure() {
+			return fFigureStickyNoteNameFigure;
 		}
 
 	}

@@ -1,53 +1,29 @@
 /*
- *
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Richard Gronback (Borland) - initial API and implementation
- 
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
-
-import org.eclipse.emf.common.util.Diagnostic;
-
 import org.eclipse.emf.ecore.EObject;
-
-import org.eclipse.emf.validation.model.IConstraintStatus;
-
 import org.eclipse.gef.EditPart;
-
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorUtil;
-
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
-
-import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
-
 import org.eclipse.gmf.runtime.emf.ui.providers.marker.AbstractModelMarkerNavigationProvider;
-
-import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated

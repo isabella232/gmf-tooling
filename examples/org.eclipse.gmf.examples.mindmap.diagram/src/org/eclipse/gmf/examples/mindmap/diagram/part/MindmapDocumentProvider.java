@@ -1,20 +1,16 @@
 /*
- *
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Richard Gronback (Borland) - initial API and implementation
- 
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -23,51 +19,33 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import java.util.Map.Entry;
-
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceChangeEvent;
-import org.eclipse.core.resources.IResourceChangeListener;
-import org.eclipse.core.resources.IResourceDelta;
-import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.IStorage;
-import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
-
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-
 import org.eclipse.emf.ecore.util.EContentAdapter;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
-
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.AbstractDocumentProvider;
@@ -75,26 +53,15 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocum
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
-
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDocumentProvider;
-
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.EditorStatusCodes;
-
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.DiagramIOUtil;
-
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
-
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Display;
-
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.IStorageEditorInput;
-
 import org.eclipse.ui.part.FileEditorInput;
 
 /**
@@ -628,7 +595,7 @@ public class MindmapDocumentProvider extends AbstractDocumentProvider implements
 						new Status(
 								IStatus.ERROR,
 								MindmapDiagramEditorPlugin.ID,
-								IStatus.OK,
+								IResourceStatus.OUT_OF_SYNC_LOCAL,
 								Messages.MindmapDocumentProvider_UnsynchronizedFileSaveError,
 								null));
 			}
@@ -663,6 +630,7 @@ public class MindmapDocumentProvider extends AbstractDocumentProvider implements
 					monitor.worked(1);
 				}
 				monitor.done();
+				info.setModificationStamp(computeModificationStamp(info));
 			} catch (RuntimeException x) {
 				fireElementStateChangeFailed(element);
 				throw x;
@@ -1152,6 +1120,7 @@ public class MindmapDocumentProvider extends AbstractDocumentProvider implements
 				}
 			}
 		}
+
 	}
 
 }

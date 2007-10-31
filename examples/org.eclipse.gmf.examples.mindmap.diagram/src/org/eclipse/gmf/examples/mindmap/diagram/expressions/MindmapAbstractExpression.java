@@ -1,21 +1,17 @@
 /*
- *
- * Copyright (c) 2006, 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Richard Gronback (Borland) - initial API and implementation
- 
+ * Copyright (c) 2006, 2007 Borland Software Corporation.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Richard Gronback (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.mindmap.diagram.expressions;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -24,14 +20,11 @@ import java.util.Map;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.ETypedElement;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
-
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 
 /**
@@ -90,8 +83,7 @@ public abstract class MindmapAbstractExpression {
 			MindmapDiagramEditorPlugin
 					.getInstance()
 					.logError(
-							"Expression problem:" + message + "body:" + body, throwable); //$NON-NLS-1$ //$NON-NLS-2$
-
+							"Expression problem: " + message + " body: " + body, throwable); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -216,6 +208,7 @@ public abstract class MindmapAbstractExpression {
 	public static final MindmapAbstractExpression createNullExpression(
 			EClassifier context) {
 		return new MindmapAbstractExpression(context) {
+
 			protected Object doEvaluate(Object context, Map env) {
 				// TODO - log entry about not provider available for this expression
 				return null;
