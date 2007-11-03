@@ -23,6 +23,9 @@
 «ENDDEFINE»
 
 «DEFINE initMethod(int c) FOR gmfgraph::CustomBorder-»
+	/**
+	 * @generated
+	 */
 	private org.eclipse.draw2d.Border createBorder«c»() {
 		«EXPAND Runtime::newInstance("result")»
 		«EXPAND attr::CustomClass::Init("result")»
