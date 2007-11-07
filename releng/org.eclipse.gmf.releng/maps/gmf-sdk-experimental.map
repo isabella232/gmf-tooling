@@ -4,11 +4,11 @@
 feature@org.eclipse.gmf.sdk.experimental=v20071003-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.sdk.experimental-feature
 
 !*** GMF Experimental plug-ins ***************************************************************************
-plugin@org.eclipse.gmf.codegen.lite=v20071003-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.lite
+plugin@org.eclipse.gmf.codegen.lite=v20071108-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.lite
 plugin@org.eclipse.gmf.codegen.lite.ui=v20070903-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.lite.ui
 plugin@org.eclipse.gmf.graphdef.editor=v20070621-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.editor
 plugin@org.eclipse.gmf.bridge.trace=v20070605-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.trace
-plugin@org.eclipse.gmf.runtime.lite=v20071003-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.lite
-plugin@org.eclipse.gmf.xpand.editor=v20070601-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.xpand.editor
+plugin@org.eclipse.gmf.runtime.lite=v20071108-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.lite
+plugin@org.eclipse.gmf.xpand.editor=v20071108-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.xpand.editor
 
 !*** ECore sample plugin is in the gmf-examples.map
