@@ -74,15 +74,15 @@
 
 	<target name="publish">
 		<initparams targetConfigTag="${stable.target}"/>
-		<antcall target="publish.interim"/>
+		<antcall target="publish.do"/>
 	</target>
 		
 	<target name="publish.maintenance">
 		<initparams targetConfigTag="${maintenance.target}"/>
-		<antcall target="publish.interim"/>
+		<antcall target="publish.do"/>
 	</target>
 		
-	<target name="publish.interim">
+	<target name="publish.do">
 		<property name="component" value="base" />
 		<property name="buildDirectory" value="${buildRoot}/${component}"/>
 		<property name="publish.xml" value="../../org.eclipse.releng.basebuilder/plugins/org.eclipse.build.tools/scripts/publish.xml" />
