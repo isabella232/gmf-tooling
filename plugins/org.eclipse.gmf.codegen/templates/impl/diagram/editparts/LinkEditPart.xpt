@@ -47,7 +47,7 @@
 
 «DEFINE addLabel(gmfgen::GenLinkLabel label) FOR gmfgen::ParentAssignedViewmap-»
 	if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
-		((«label.getEditPartQualifiedClassName()») childEditPart).«EXPAND xpt::diagram::editparts::TextAware::labelSetterName»(
+		((«label.getEditPartQualifiedClassName()») childEditPart).«EXPAND impl::diagram::editparts::TextAware::labelSetterName»(
 				getPrimaryShape().«getterName»());
 		return true;
 	}

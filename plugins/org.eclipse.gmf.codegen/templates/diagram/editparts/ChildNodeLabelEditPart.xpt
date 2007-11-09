@@ -28,7 +28,7 @@ public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsList» {
 	
 	«EXPAND createDefaultEditPolicies-»
 
-	«EXPAND xpt::diagram::editparts::TextAware::methods(false, labelReadOnly, labelElementIcon, viewmap, labelModelFacet, this, getDiagram()) FOR this-»
+	«EXPAND impl::diagram::editparts::TextAware::methods(false, labelReadOnly, labelElementIcon, viewmap, labelModelFacet, this, getDiagram()) FOR this-»
 
 	«EXPAND xpt::diagram::editparts::Common::notationalListeners FOR this-»
 	
@@ -47,7 +47,7 @@ public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsList» {
 «DEFINE attributes FOR gmfgen::GenChildLabelNode-»
 	«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR this-»
 
-	«EXPAND xpt::diagram::editparts::TextAware::fields FOR this-»
+	«EXPAND impl::diagram::editparts::TextAware::fields FOR this-»
 «ENDDEFINE»
 
 «DEFINE getDragTracker FOR gmfgen::GenChildLabelNode-»

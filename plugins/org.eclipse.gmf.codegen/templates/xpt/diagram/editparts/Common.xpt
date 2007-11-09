@@ -41,7 +41,7 @@
 «DEFINE labelFigure FOR gmfgen::ParentAssignedViewmap-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.draw2d.IFigure createFigure() {
-		// Parent should assign one using «EXPAND TextAware::labelSetterName»() method
+		// Parent should assign one using «EXPAND impl::diagram::editparts::TextAware::labelSetterName»() method
 		return null;
 	}
 «ENDDEFINE»

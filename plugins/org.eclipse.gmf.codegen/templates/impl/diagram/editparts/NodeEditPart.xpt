@@ -235,7 +235,7 @@
 			«FOREACH getInnerFixedLabels() AS label-»
 				«LET (gmfgen::ParentAssignedViewmap) label.viewmap AS childViewmap-»
 					if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
-						((«label.getEditPartQualifiedClassName()») childEditPart).«EXPAND xpt::diagram::editparts::TextAware::labelSetterName FOR childViewmap»(getPrimaryShape().«childViewmap.getterName»());
+						((«label.getEditPartQualifiedClassName()») childEditPart).«EXPAND impl::diagram::editparts::TextAware::labelSetterName FOR childViewmap»(getPrimaryShape().«childViewmap.getterName»());
 						return true;
 					}
 				«ENDLET-»

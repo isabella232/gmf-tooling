@@ -30,7 +30,7 @@ public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsList» {
 	
 	«EXPAND impl::diagram::editparts::LinkLabelEditPart::getKeyPoint-»
 	
-	«EXPAND xpt::diagram::editparts::TextAware::methods(false, readOnly, elementIcon, viewmap, modelFacet, link, getDiagram())-»
+	«EXPAND impl::diagram::editparts::TextAware::methods(false, readOnly, elementIcon, viewmap, modelFacet, link, getDiagram())-»
 	
 	«EXPAND handleNotificationEvent-»
 	
@@ -47,7 +47,7 @@ public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsList» {
 «DEFINE attributes FOR gmfgen::GenLinkLabel-»
 	«EXPAND xpt::diagram::editparts::Common::visualIDConstant-»
 
-	«EXPAND xpt::diagram::editparts::TextAware::fields-»
+	«EXPAND impl::diagram::editparts::TextAware::fields-»
 «ENDDEFINE»
 
 «DEFINE createDefaultEditPolicies FOR gmfgen::GenLinkLabel-»
