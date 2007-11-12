@@ -116,70 +116,6 @@
 		<echo message="Installing GMF Experimental tests from zip file..."/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/drops/${buildLabel}/GMF-tests-experimental-${buildId}.zip" />
 	</target>
-
-	<target name="checkEMFInstalled">
-		<condition property="emfExists">
-			<and>
-				<available file="${baseLocation}/features/${emfFeatureId}_${emfUpdateVersion}/feature.xml"/>
-				<available file="${baseLocation}/features/${oclFeatureId}_${oclUpdateVersion}/feature.xml"/>
-				<available file="${baseLocation}/features/${emfOclAllFeatureId}_${emfOclAllUpdateVersion}/feature.xml"/>
-				<available file="${baseLocation}/features/${emfQtvAllFeatureId}_${emfQtvAllUpdateVersion}/feature.xml"/>
-			</and>
-		</condition>		
-	</target>
-
-	<target name="installEMF" unless="emfExists" depends="checkEMFInstalled">
-		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${emfFeatureId}" />
-			<property name="version" value="${emfUpdateVersion}" />
-			<property name="from.updatesite" value="${emfUpdateSite}" />
-			<property name="updatesite.name" value="requirements" />
-		</ant>
-		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${uml2FeatureId}" />
-			<property name="version" value="${uml2UpdateVersion}" />
-			<property name="from.updatesite" value="${uml2UpdateSite}" />
-			<property name="updatesite.name" value="requirements" />
-		</ant>
-		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${oclFeatureId}" />
-			<property name="version" value="${oclUpdateVersion}" />
-			<property name="from.updatesite" value="${oclUpdateSite}" />
-			<property name="updatesite.name" value="requirements" />
-		</ant>
-		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${emfQtvAllFeatureId}" />
-			<property name="version" value="${emfQtvAllUpdateVersion}" />
-			<property name="from.updatesite" value="${emfUpdateSite}" />
-			<property name="updatesite.name" value="requirements" />
-		</ant>
-	</target>
-	
-	<target name="checkEMFExamplesInstalled">
-		<available file="${baseLocation}/features/${emfExamplesFeatureId}_${emfExamplesUpdateVersion}/feature.xml" property="emfExampleExists" />
-	</target>
-	
-	<target name="installEMFExamples" unless="emfExampleExists" depends="checkEMFExamplesInstalled">
-		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${emfExamplesFeatureId}" />
-			<property name="version" value="${emfExamplesUpdateVersion}" />
-			<property name="from.updatesite" value="${emfUpdateSite}" />
-			<property name="updatesite.name" value="requirements" />
-		</ant>
-	</target>
-	
-	<target name="checkGEFInstalled">
-		<available file="${baseLocation}/features/${gefFeatureId}_${gefUpdateVersion}/feature.xml" property="gefExists" />
-	</target>
-
-	<target name="installGEF" unless="gefExists" depends="checkGEFInstalled">
-		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${gefFeatureId}" />
-			<property name="version" value="${gefUpdateVersion}" />
-			<property name="from.updatesite" value="${gefUpdateSite}" />
-			<property name="updatesite.name" value="requirements" />
-		</ant>
-	</target>
 	
 	<target name="checkGMFInstalled">
 		<property file="${buildRoot}/sdk/finalFeaturesVersions.properties"/>
@@ -296,42 +232,15 @@
 	<target name="unZipGMFBasePlatform">
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${gmfBasePlatformZip}" />
 	</target>
-	
-	<target name="checkXercesInstalled">
-		<available file="${baseLocation}/features/${xercesFeatureId}_${xercesUpdateVersion}/feature.xml" property="xercesExists" />
-	</target>
-
-	<target name="installXerces" unless="xercesExists" depends="checkXercesInstalled">	
-		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${xercesFeatureId}" />
-			<property name="version" value="${xercesUpdateVersion}" />
-			<property name="from.updatesite" value="${xercesUpdateSite}" />
-			<property name="updatesite.name" value="requirements" />
-	</ant>
-	</target>
-	
-	<target name="checkBatikInstalled">
-		<available file="${baseLocation}/features/${batikFeatureId}_${batikUpdateVersion}/feature.xml" property="batikExists" />
-	</target>
-
-	<target name="installBatik" unless="batikExists" depends="checkBatikInstalled">	
-		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${batikFeatureId}" />
-			<property name="version" value="${batikUpdateVersion}" />
-			<property name="from.updatesite" value="${batikUpdateSite}" />
-			<property name="updatesite.name" value="requirements" />
-		</ant>
-	</target>
 
 	<!-- Creates a development target for your workspace -->
+<!-- TODO: re-write
 	<target name="createDevTarget">
-		<!-- Override the base location root (pass in your own) : this is the folder above 'eclipse' -->
 		<property name="baseLocationRoot" value="${basedir}/../../../targets/integration"/>
 		<property name="baseLocation" value="${baseLocationRoot}/eclipse"/>
 		<delete dir="${baseLocation}"/>
 		<mkdir dir="${baseLocationRoot}"/>
 		<echo message="Mirror status: ${usingMirror}"/>
-		<!-- Assume builder is sibling of releng -->
 		<property file="../../org.eclipse.gmf.releng.target/build.cfg"/>		
 		<antcall target="installBase" />
 		<antcall target="installTestingFramework" />
@@ -342,4 +251,5 @@
 		<antcall target="installXerces" />
 		<antcall target="installBatik" />
 	</target>
+-->	
 </project>
