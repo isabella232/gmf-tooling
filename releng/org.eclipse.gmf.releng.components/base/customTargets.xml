@@ -31,6 +31,7 @@
 	<!-- ===================================================================== -->
 	<target name="getMapFiles" depends="checkLocalMaps" unless="skipMaps">
 		<cvs command="checkout -d org.eclipse.gmf.releng" cvsRoot="${mapsRepo}" package="${mapsRoot}" dest="${buildDirectory}/maps" tag="${mapsCheckoutTag}" />
+		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${mapsRepo}" package="${mapsRoot}.target" dest="${buildDirectory}/maps" tag="${targetConfigTag}" />
 		<get src="${orbitMapURL}" dest="${buildDirectory}/maps/orbit-bundles.map" verbose="true" usetimestamp="true" />
 	</target>
 
@@ -77,9 +78,12 @@
 	<!-- Steps to do after setup but before starting the build proper -->
 	<!-- ===================================================================== -->
 	<target name="postSetup">
-		
 		<ant antfile="${scripts}/install.xml" target="installBase" />
-		<ant antfile="${scripts}/install-dependencies.xml" target="install.dependencies" />
+   		<ant antfile="${scripts}/install-dependencies.xml.gen/build.xml" target="main">
+   			<property name="basedir" value="${scripts}/install-dependencies.xml.gen"/>
+   			<property name="dependencies.xml" value="${buildDirectory}/maps/org.eclipse.gmf.releng.target/dependencies.xml"/>
+   		</ant>
+		<ant antfile="${scripts}/install-dependencies.xml.gen/install-dependencies.xml" target="install.dependencies" />
 	</target>
 
 	<!-- ===================================================================== -->
