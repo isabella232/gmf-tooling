@@ -6,7 +6,7 @@
 	</update-site>	
 
 	<update-site name="emf"
-		url="http://download.eclipse.org/modeling/emf/updates/site.xml"
+		url="http://download.eclipse.org/modeling/emf/updates/site-interim.xml"
 		build-type="S2007">
 		<feature id="org.eclipse.emf.sdk"/> 
 		<feature id="org.eclipse.emf.examples"/>
