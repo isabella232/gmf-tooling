@@ -83,7 +83,7 @@
    			<property name="basedir" value="${scripts}/install-dependencies.xml.gen"/>
    			<property name="dependencies.xml" value="${buildDirectory}/maps/org.eclipse.gmf.releng.target/dependencies.xml"/>
    		</ant>
-		<ant antfile="${scripts}/install-dependencies.xml.gen/install-dependencies.xml" target="install.dependencies" />
+		<ant antfile="${scripts}/install-dependencies.xml" target="install.dependencies" />
 	</target>
 
 	<!-- ===================================================================== -->
