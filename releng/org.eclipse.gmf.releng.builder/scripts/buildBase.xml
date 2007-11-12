@@ -8,7 +8,7 @@
 	   <sequential>
 			<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${cvs.root}"
 				package="${targetRoot}" dest="${basedir}" tag="@{targetConfigTag}" />
-			<property file="${basedir}/org.eclipse.gmf.releng.target/build.cfg"/>		
+			<property file="${basedir}/org.eclipse.gmf.releng.target/base.cfg"/>		
 			<tstamp/>
 			<property name="date" value="${gmfBaseDate}" />
 			<property name="time" value="${gmfBaseTime}" />
@@ -16,6 +16,9 @@
 			<property name="buildType" value="${gmfBaseBuildType}" />	
 			<property name="buildId" value="${gmfBaseBuildId}" />
 			<property name="buildLabel" value="${gmfBaseBuildLabel}" />
+	   		<ant antfile="install-dependencies.xml.gen/build.xml" target="main">
+	   			<property name="dependencies.xml" value="org.eclipse.gmf.releng.target/dependencies.xml"/>
+	   		</ant>	
 		</sequential>
 	</macrodef>	
 	
