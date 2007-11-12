@@ -1,6 +1,6 @@
 <dependencies>
 	<update-site name="gef"
-		url="http://download.eclipse.org/tools/gef/update-site/integrations/site.xml"
+		url="http://download.eclipse.org/tools/gef/update-site/milestones/site.xml"
 		build-type="S2007">
 		<feature id="org.eclipse.gef.sdk"/> 
 	</update-site>	
