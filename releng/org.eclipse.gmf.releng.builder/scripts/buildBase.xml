@@ -18,7 +18,7 @@
 			<property name="buildLabel" value="${gmfBaseBuildLabel}" />
 	   		<ant antfile="install-dependencies.xml.gen/build.xml" target="main">
 	   			<property name="basedir" value="${basedir}/install-dependencies.xml.gen"/>
-	   			<property name="dependencies.xml" value="org.eclipse.gmf.releng.target/dependencies.xml"/>
+	   			<property name="dependencies.xml" value="${basedir}/org.eclipse.gmf.releng.target/dependencies.xml"/>
 	   		</ant>	
 		</sequential>
 	</macrodef>	
