@@ -1,6 +1,6 @@
 <project name="gen-install" basedir="." default="main">
 	<target name="main">
-		<xslt style="${basedir}/gen-install.xsl" in="${dependencies.xml}" out="gen-install.xml"/>
+		<xslt style="gen-install.xsl" in="${dependencies.xml}" out="gen-install.xml"/>
 		<ant antfile="gen-install.xml"/>
 		<delete file="gen-install.xml" failonerror="false"/>
 	</target>
