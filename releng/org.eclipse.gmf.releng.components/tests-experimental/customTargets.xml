@@ -88,7 +88,6 @@
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/base.cfg"/>
 		<ant antfile="${scripts}/install.xml" target="installGMFBasePlatform" />
 		<ant antfile="${scripts}/install.xml" target="installTestingFramework" />		
-		<ant antfile="${scripts}/install.xml" target="installEMFExamples" />		
 		<ant antfile="${scripts}/install.xml" target="installGMF" />
 		<ant antfile="${scripts}/install.xml" target="installExamples" />
 		<ant antfile="${scripts}/install.xml" target="installTests" />
