@@ -79,8 +79,8 @@
 	<!-- Steps to do after setup but before starting the build proper -->
 	<!-- ===================================================================== -->
 	<target name="postSetup">
-		<!-- Load build.cfg properties -->
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
+		<!-- Load base.cfg properties -->
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/base.cfg"/>		
 		<ant antfile="${scripts}/install.xml" target="installBase" />
 		<ant antfile="${scripts}/install.xml" target="installXerces" />
 	</target>

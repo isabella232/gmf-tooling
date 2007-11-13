@@ -5,7 +5,7 @@
 
 	<property name="id" value="org.eclipse.gmf.tests"/>
 	<property name="archiveName" value="GMF-tests-${buildId}.zip"/>
-	<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
+	<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/base.cfg"/>
 	
 	<!-- ===================================================================== -->
 	<!-- Run a given ${target} on all elements being built -->

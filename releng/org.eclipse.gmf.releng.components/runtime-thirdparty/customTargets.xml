@@ -34,7 +34,7 @@
 		<property name="targetConfigTag" value="HEAD" />
 		<cvs command="checkout -d org.eclipse.gmf.releng" cvsRoot="${mapsRepo}" package="${mapsRoot}" dest="${buildDirectory}/maps" tag="${mapsCheckoutTag}" />
 		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${mapsRepo}" package="${mapsRoot}.target" dest="${buildDirectory}/maps" tag="${targetConfigTag}" />
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/base.cfg"/>		
 		<get src="${orbitMapURL}" dest="${buildDirectory}/maps/orbit-bundles.map" verbose="true" usetimestamp="true" />
 	</target>
 
@@ -81,8 +81,8 @@
 	<!-- Steps to do after setup but before starting the build proper -->
 	<!-- ===================================================================== -->
 	<target name="postSetup">
-		<!-- Load build.cfg properties -->
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
+		<!-- Load base.cfg properties -->
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/base.cfg"/>		
 		<ant antfile="${scripts}/install.xml" target="installBase" />
 	</target>
 
