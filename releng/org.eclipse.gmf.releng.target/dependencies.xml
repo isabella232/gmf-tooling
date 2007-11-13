@@ -1,7 +1,7 @@
 <dependencies>
 	<update-site name="gef"
 		url="http://download.eclipse.org/tools/gef/update-site/milestones/site.xml"
-		build-type="S2007">
+		build-type="M3">
 		<feature id="org.eclipse.gef.sdk"/> 
 	</update-site>	
 
