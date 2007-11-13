@@ -16,8 +16,8 @@
 		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot=":pserver:anonymous@dev.eclipse.org/cvsroot/technology" 
 			package="org.eclipse.gmf/releng/org.eclipse.gmf.releng.target" dest="${baseLocationRoot}" tag="${stable.target}" 
 		/>
-		<property file="${baseLocationRoot}/build.cfg"/>
-		<delete file="${baseLocationRoot}/build.cfg"/>
+		<property file="${baseLocationRoot}/base.cfg"/>
+		<delete file="${baseLocationRoot}/base.cfg"/>
 	</target>
 	
 	<target name="main" depends="init">

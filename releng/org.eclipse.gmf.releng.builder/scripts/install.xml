@@ -241,7 +241,7 @@
 		<delete dir="${baseLocation}"/>
 		<mkdir dir="${baseLocationRoot}"/>
 		<echo message="Mirror status: ${usingMirror}"/>
-		<property file="../../org.eclipse.gmf.releng.target/build.cfg"/>		
+		<property file="../../org.eclipse.gmf.releng.target/base.cfg"/>		
 		<antcall target="installBase" />
 		<antcall target="installTestingFramework" />
 		<antcall target="installGEF" />
