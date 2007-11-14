@@ -22,6 +22,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableCompartmentEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
 import org.eclipse.gmf.runtime.notation.DrawerStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.TitleStyle;
@@ -131,9 +132,9 @@ public final class CompartmentPropertiesTest extends GeneratedCanvasTest {
 		assertTrue(textPane.isVisible());
 		assertFalse(textPane.getChildren().isEmpty());
 		IFigure label = (IFigure) textPane.getChildren().get(0);
-		assertTrue(label instanceof WrapLabel);
+		assertTrue(label instanceof WrappingLabel);
 		assertTrue(label.isVisible());
-		String text = ((WrapLabel)label).getText();
+		String text = ((WrappingLabel)label).getText();
 		assertTrue(text != null && text.trim().length() > 0);
 	}
 

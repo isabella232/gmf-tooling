@@ -83,12 +83,28 @@ public class GenericFigureCheck extends FigureCheck {
 		List<IFigure> d2dChildren = d2dFigure.getChildren();
 		assertNotNull(gmfChildren);
 		assertNotNull(d2dChildren);
-		assertEquals(gmfChildren.size(), d2dChildren.size());
+		/*
+		 * [AS]: Following line was commented-out and substituted by weaker
+		 * assertion (gmfChildren.size() <= d2dChildren.size()). The reason is:
+		 * Draw2D figure hierarchy could reflect GMFGraph one not strictly. This
+		 * means: some additional figures should present in Draw2D hierarchy.
+		 * 
+		 * To fix this problem we should correct this test. I suppose the
+		 * following logic should be placed here:
+		 * 
+		 * TODO: we should select proper figure from Draw2D children collection
+		 * for each gmfChild figure. This could be done by introducing a map
+		 * "gmfChild figure eClass" -> "java.lang.Class" and using this map to
+		 * find next Draw2D child to compare with this GMFGraph one.
+		 */
+//		assertEquals(gmfChildren.size(), d2dChildren.size());
+		assertTrue(gmfChildren.size() <= d2dChildren.size());
+
 
 		Iterator<Figure> gmfIter = gmfChildren.iterator();
 		Iterator<IFigure> d2dIter = d2dChildren.iterator();
 
-		while (gmfIter.hasNext() && d2dIter.hasNext()) {
+		while (gmfIter.hasNext()/* && d2dIter.hasNext()*/) {
 			Figure nextGMF = gmfIter.next();
 			IFigure nextD2D = d2dIter.next();
 			checkFigure(nextGMF, nextD2D);
