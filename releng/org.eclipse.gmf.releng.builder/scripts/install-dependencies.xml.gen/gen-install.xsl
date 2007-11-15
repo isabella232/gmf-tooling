@@ -7,7 +7,8 @@
 	<target name="main">
 		<echo file="install-dependencies.xml"><![CDATA[
 <project name="install-dependencies" default="install.dependencies">
-	<target name="install.dependencies">]]>
+	<target name="install.dependencies">
+		<delete file="${scripts}/dependencies.info"]]>
 		</echo>		
 			<xsl:apply-templates/>
 		<echo file="install-dependencies.xml" append="true"><![CDATA[

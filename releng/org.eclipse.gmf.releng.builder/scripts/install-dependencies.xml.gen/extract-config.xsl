@@ -40,8 +40,9 @@
 </xsl:element>
 
 <xsl:element name="echo">
-	<xsl:attribute name="file">dependencies.info</xsl:attribute>
+	<xsl:attribute name="file"><![CDATA[${scripts}]]>/dependencies.info</xsl:attribute>
 	<xsl:attribute name="message"><xsl:value-of select="$token"/>Version=<xsl:value-of select="category/@name"/></xsl:attribute>
+	<xsl:attribute name="append">true</xsl:attribute>
 </xsl:element>
 
 </xsl:if>
