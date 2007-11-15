@@ -1,19 +1,22 @@
 <dependencies>
-	<update-site name="gef"
-		url="http://download.eclipse.org/tools/gef/update-site/milestones/site.xml"
+	<dependency name="gef"
+		download-url="http://download.eclipse.org/tools/gef/downloads/index.php"
+		update-site="http://download.eclipse.org/tools/gef/update-site/milestones/site.xml"
 		build-type="M3">
 		<feature id="org.eclipse.gef.sdk"/> 
 	</update-site>	
 
-	<update-site name="emf"
-		url="http://download.eclipse.org/modeling/emf/updates/site-interim.xml"
+	<dependency name="emf"
+		download-url="http://www.eclipse.org/modeling/emf/downloads/index.php?project=emf&showAll=0&showMax=5"
+		update-site="http://download.eclipse.org/modeling/emf/updates/site-interim.xml"
 		build-type="S2007">
 		<feature id="org.eclipse.emf.sdk"/> 
 		<feature id="org.eclipse.emf.examples"/>
 	</update-site>	
 
-	<update-site name="mdt"
-		url="http://download.eclipse.org/modeling/mdt/updates/site-interim.xml"
+	<dependency name="ocl"
+		download-url="http://www.eclipse.org/modeling/mdt/downloads/index.php?project=ocl&showAll=0&showMax=5"
+		update-site="http://download.eclipse.org/modeling/mdt/updates/site-interim.xml"
 		build-type="I2007">
 		<feature id="org.eclipse.ocl"/> 
 		<feature id="org.eclipse.ocl.doc"/>
@@ -23,8 +26,9 @@
 		<feature id="org.eclipse.emf.ocl.source"/>
 	</update-site>	
 	
-	<update-site name="qtvAll"
-		url="http://download.eclipse.org/modeling/emf/updates/site-interim.xml"
+	<dependency name="qtvAll"
+		download-url=""
+		update-site="http://download.eclipse.org/modeling/emf/updates/site-interim.xml"
 		build-type="S2007">
 		<feature id="org.eclipse.emf.emfqtv.all.sdk"/>
 	</update-site>	
