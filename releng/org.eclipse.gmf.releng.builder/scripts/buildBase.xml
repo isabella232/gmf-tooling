@@ -46,6 +46,7 @@
 			<property name="componentsTag" value="${stable.components}" />
 		</ant>
 		<antcall target="cc.publish"/>
+		<antcall target="publish"/>
 	</target>
 
 	<target name="maintenance" depends="checkArgs">
@@ -70,6 +71,7 @@
 			<property name="componentsTag" value="${maintenance.components}" />
 		</ant>
 		<antcall target="cc.publish"/>
+		<antcall target="publish.maintenance"/>
 	</target>
 
 	<target name="publish">
