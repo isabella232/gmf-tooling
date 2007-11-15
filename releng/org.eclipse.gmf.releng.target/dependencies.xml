@@ -7,7 +7,7 @@
 	</dependency>	
 
 	<dependency name="emf"
-		download-url="http://www.eclipse.org/modeling/emf/downloads/index.php?project=emf&showAll=0&showMax=5"
+		download-url="http://www.eclipse.org/modeling/emf/downloads/index.php?project=emf"
 		update-site="http://download.eclipse.org/modeling/emf/updates/site-interim.xml"
 		build-type="S2007">
 		<feature id="org.eclipse.emf.sdk"/> 
@@ -15,7 +15,7 @@
 	</dependency>	
 
 	<dependency name="ocl"
-		download-url="http://www.eclipse.org/modeling/mdt/downloads/index.php?project=ocl&showAll=0&showMax=5"
+		download-url="http://www.eclipse.org/modeling/mdt/downloads/index.php?project=ocl"
 		update-site="http://download.eclipse.org/modeling/mdt/updates/site-interim.xml"
 		build-type="I2007">
 		<feature id="org.eclipse.ocl"/> 
