@@ -8,7 +8,7 @@
 		<echo file="install-dependencies.xml"><![CDATA[
 <project name="install-dependencies" default="install.dependencies">
 	<target name="install.dependencies">
-		<delete file="${scripts}/dependencies.info"]]>
+		<delete file="${scripts}/dependencies.info"/>]]>
 		</echo>		
 			<xsl:apply-templates/>
 		<echo file="install-dependencies.xml" append="true"><![CDATA[
@@ -20,10 +20,10 @@
 		</xsl:template>
 		
 
-		<xsl:template match="update-site">
+		<xsl:template match="dependency">
 			<xsl:element name="get">
 				<xsl:attribute name="dest">site.xml</xsl:attribute>
-				<xsl:attribute name="src"><xsl:value-of select="@url"/></xsl:attribute>
+				<xsl:attribute name="src"><xsl:value-of select="@update-site"/></xsl:attribute>
 			</xsl:element>
 			<xsl:apply-templates/>
 			<xsl:element name="delete">
@@ -32,7 +32,7 @@
 			</xsl:element>
 		</xsl:template>
 
-		<xsl:template match="update-site/feature">
+		<xsl:template match="dependency/feature">
 			<xsl:element name="xslt">
 				<xsl:attribute name="style">extract-config.xsl</xsl:attribute>
 				<xsl:attribute name="in">site.xml</xsl:attribute>
@@ -47,11 +47,15 @@
 				</xsl:element>
 				<xsl:element name="param">
 					<xsl:attribute name="name">update-site</xsl:attribute>
-					<xsl:attribute name="expression"><xsl:value-of select="../@url"/></xsl:attribute>
+					<xsl:attribute name="expression"><xsl:value-of select="../@update-site"/></xsl:attribute>
 				</xsl:element>
 				<xsl:element name="param">
 					<xsl:attribute name="name">token</xsl:attribute>
 					<xsl:attribute name="expression"><xsl:value-of select="../@name"/></xsl:attribute>
+				</xsl:element>
+				<xsl:element name="param">
+					<xsl:attribute name="name">download-url</xsl:attribute>
+					<xsl:attribute name="expression"><xsl:value-of select="../@download-url"/></xsl:attribute>
 				</xsl:element>
 			</xsl:element>
 			<xsl:element name="concat">

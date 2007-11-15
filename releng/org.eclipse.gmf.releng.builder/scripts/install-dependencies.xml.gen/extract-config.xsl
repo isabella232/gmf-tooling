@@ -6,6 +6,7 @@
 <xsl:param name="feature-id"/>
 <xsl:param name="token"/>
 <xsl:param name="update-site"/>
+<xsl:param name="download-url"/>
 
 <xsl:key name="f" match="feature" use="@id"/>
 
@@ -39,9 +40,15 @@
 	</xsl:element>	
 </xsl:element>
 
+<!-- exporting dependencies.info properties file containing versions and download locations for publishing -->
 <xsl:element name="echo">
 	<xsl:attribute name="file"><![CDATA[${scripts}]]>/dependencies.info</xsl:attribute>
 	<xsl:attribute name="message"><xsl:value-of select="$token"/>Version=<xsl:value-of select="category/@name"/></xsl:attribute>
+	<xsl:attribute name="append">true</xsl:attribute>
+</xsl:element>
+<xsl:element name="echo">
+	<xsl:attribute name="file"><![CDATA[${scripts}]]>/dependencies.info</xsl:attribute>
+	<xsl:attribute name="message"><xsl:value-of select="$token"/>URL=<xsl:value-of select="$download-url"/></xsl:attribute>
 	<xsl:attribute name="append">true</xsl:attribute>
 </xsl:element>
 
