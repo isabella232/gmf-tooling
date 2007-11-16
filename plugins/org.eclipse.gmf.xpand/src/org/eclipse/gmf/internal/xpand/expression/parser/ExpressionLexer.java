@@ -109,7 +109,7 @@ public class ExpressionLexer extends LpgLexStream implements ExpressionParsersym
 	@Override
 	public void reportError(int errorCode, String locationInfo, String tokenText) {
 		try {
-			Matcher m = Pattern.compile("[^:]+:(\\d+):(\\d+):(\\d+):(\\d+):.*").matcher(locationInfo);
+			Matcher m = Pattern.compile("(?:[^:]+::)*[^:]+:(\\d+):(\\d+):(\\d+):(\\d+):.*").matcher(locationInfo);
 			boolean t = m.matches(); // ignore return value, rely on exception if anything wrong
 			assert t;
 			final int leftTokenLine = getLine(Integer.parseInt(m.group(1)));
@@ -118,7 +118,7 @@ public class ExpressionLexer extends LpgLexStream implements ExpressionParsersym
 			final int rightTokenColumn = getEndColumn(Integer.parseInt(m.group(4)));
 			final String msg = tokenText + errorMsgText[errorCode];
 			errors.add(new ErrorLocationInfo(msg, leftTokenLine, leftTokenColumn, rightTokenLine, rightTokenColumn));
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 			// ignore
 			errors.add(new ErrorLocationInfo(tokenText + errorMsgText[errorCode]));
 		}
