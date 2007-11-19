@@ -201,7 +201,7 @@ public class GenLinkItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramElementPropertyCategory"),
 				 null));
 	}
 
