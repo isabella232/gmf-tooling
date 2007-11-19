@@ -668,7 +668,8 @@
         incomingCreationAllowed="true"
         viewDirectionAlignedWithModel="false"
         createCommandClassName="PortRegisterCreateCommand"
-        reorientCommandClassName="PortRegisterReorientCommand">
+        reorientCommandClassName="PortRegisterReorientCommand"
+        treeBranch="true">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
