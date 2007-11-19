@@ -25,6 +25,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getCreationConstraints <em>Creation Constraints</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getReorientCommandClassName <em>Reorient Command Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isTreeBranch <em>Tree Branch</em>}</li>
  * </ul>
  * </p>
  *
@@ -258,6 +259,33 @@ public interface GenLink extends GenCommonBase {
 	 * @generated
 	 */
 	void setReorientCommandClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Tree Branch</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Tree Branch</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Tree Branch</em>' attribute.
+	 * @see #setTreeBranch(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_TreeBranch()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isTreeBranch();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isTreeBranch <em>Tree Branch</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Tree Branch</em>' attribute.
+	 * @see #isTreeBranch()
+	 * @generated
+	 */
+	void setTreeBranch(boolean value);
 
 	/**
 	 * <!-- begin-user-doc -->

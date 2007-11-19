@@ -4612,13 +4612,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_LINK__REORIENT_COMMAND_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 8;
 
 	/**
+	 * The feature id for the '<em><b>Tree Branch</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK__TREE_BRANCH = GEN_COMMON_BASE_FEATURE_COUNT + 9;
+
+	/**
 	 * The number of structural features of the '<em>Gen Link</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LINK_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 9;
+	int GEN_LINK_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 10;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLabelImpl <em>Gen Label</em>}' class.
@@ -12277,6 +12286,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenLink_ReorientCommandClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isTreeBranch <em>Tree Branch</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Tree Branch</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLink#isTreeBranch()
+	 * @see #getGenLink()
+	 * @generated
+	 */
+	EAttribute getGenLink_TreeBranch();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenLabel <em>Gen Label</em>}'.
