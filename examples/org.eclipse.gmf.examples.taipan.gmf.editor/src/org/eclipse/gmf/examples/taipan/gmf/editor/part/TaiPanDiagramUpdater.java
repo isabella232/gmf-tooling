@@ -818,6 +818,9 @@ public class TaiPanDiagramUpdater {
 	private static Collection getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(Ship source) {
 		Collection result = new LinkedList();
 		Port destination = source.getDestination();
+		if (destination == null) {
+			return result;
+		}
 		result.add(new TaiPanLinkDescriptor(source, destination, TaiPanElementTypes.ShipDestination_4001, ShipDestinationEditPart.VISUAL_ID));
 		return result;
 	}
@@ -900,6 +903,9 @@ public class TaiPanDiagramUpdater {
 	private static Collection getOutgoingFeatureModelFacetLinks_Ship_Route_4004(Ship source) {
 		Collection result = new LinkedList();
 		Route destination = source.getRoute();
+		if (destination == null) {
+			return result;
+		}
 		result.add(new TaiPanLinkDescriptor(source, destination, TaiPanElementTypes.ShipRoute_4004, ShipRouteEditPart.VISUAL_ID));
 		return result;
 	}
