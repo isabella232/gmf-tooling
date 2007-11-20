@@ -68,6 +68,7 @@ public class GenLinkItemProvider
 			addViewDirectionAlignedWithModelPropertyDescriptor(object);
 			addCreateCommandClassNamePropertyDescriptor(object);
 			addReorientCommandClassNamePropertyDescriptor(object);
+			addTreeBranchPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -90,7 +91,7 @@ public class GenLinkItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 getString("_UI_DiagramElementPropertyCategory"),
+				 getString("_UI_DiagramLinkPropertyCategory"),
 				 null));
 	}
 
@@ -112,7 +113,7 @@ public class GenLinkItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 getString("_UI_DiagramElementPropertyCategory"),
+				 getString("_UI_DiagramLinkPropertyCategory"),
 				 null));
 	}
 
@@ -134,7 +135,7 @@ public class GenLinkItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 getString("_UI_DiagramElementPropertyCategory"),
+				 getString("_UI_DiagramLinkPropertyCategory"),
 				 null));
 	}
 
@@ -156,7 +157,7 @@ public class GenLinkItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_ClassNamesPropertyCategory"),
+				 null,
 				 null));
 	}
 
@@ -178,7 +179,29 @@ public class GenLinkItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_ClassNamesPropertyCategory"),
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Tree Branch feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTreeBranchPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenLink_treeBranch_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenLink_treeBranch_feature", "_UI_GenLink_type"),
+				 GMFGenPackage.eINSTANCE.getGenLink_TreeBranch(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 getString("_UI_DiagramLinkPropertyCategory"),
 				 null));
 	}
 
@@ -256,6 +279,7 @@ public class GenLinkItemProvider
 			case GMFGenPackage.GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL:
 			case GMFGenPackage.GEN_LINK__CREATE_COMMAND_CLASS_NAME:
 			case GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME:
+			case GMFGenPackage.GEN_LINK__TREE_BRANCH:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
