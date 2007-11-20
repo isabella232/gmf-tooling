@@ -15,13 +15,12 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * Simple strategy that filters out metaclasses that are not leaves
  * @author artem
  */
-public class LeafNodeStrategy implements Strategy {
+public class LeafNodeStrategy implements Strategy<EClass> {
 
 	public String getID() {
 		return "leafNode";
@@ -30,10 +29,9 @@ public class LeafNodeStrategy implements Strategy {
 	/**
 	 * @param soFar - expects <code>List&lt;EClass&gt;</code>
 	 */
-	public void filter(Collection<EObject> soFar, Hierarchy hierarchy) {
-		for (Iterator<EObject> it = soFar.iterator(); it.hasNext();) {
-			EClass next = (EClass) it.next();
-			if (!hierarchy.isLeaf(next)) {
+	public void filter(Collection<EClass> soFar, Hierarchy hierarchy) {
+		for (Iterator<EClass> it = soFar.iterator(); it.hasNext();) {
+			if (!hierarchy.isLeaf(it.next())) {
 				it.remove();
 			}
 		}
