@@ -48,6 +48,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getCreationConstraints <em>Creation Constraints</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getReorientCommandClassName <em>Reorient Command Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isTreeBranch <em>Tree Branch</em>}</li>
  * </ul>
  * </p>
  *
@@ -183,6 +184,26 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * @ordered
 	 */
 	protected String reorientCommandClassName = REORIENT_COMMAND_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isTreeBranch() <em>Tree Branch</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isTreeBranch()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean TREE_BRANCH_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isTreeBranch() <em>Tree Branch</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isTreeBranch()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean treeBranch = TREE_BRANCH_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -427,6 +448,27 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isTreeBranch() {
+		return treeBranch;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTreeBranch(boolean newTreeBranch) {
+		boolean oldTreeBranch = treeBranch;
+		treeBranch = newTreeBranch;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__TREE_BRANCH, oldTreeBranch, treeBranch));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public EList<GenCommonBase> getAssistantSources() {
@@ -562,6 +604,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return getCreateCommandClassName();
 			case GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME:
 				return getReorientCommandClassName();
+			case GMFGenPackage.GEN_LINK__TREE_BRANCH:
+				return isTreeBranch() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -600,6 +644,9 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME:
 				setReorientCommandClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_LINK__TREE_BRANCH:
+				setTreeBranch(((Boolean)newValue).booleanValue());
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -636,6 +683,9 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME:
 				setReorientCommandClassName(REORIENT_COMMAND_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_LINK__TREE_BRANCH:
+				setTreeBranch(TREE_BRANCH_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -666,6 +716,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return CREATE_COMMAND_CLASS_NAME_EDEFAULT == null ? createCommandClassName != null : !CREATE_COMMAND_CLASS_NAME_EDEFAULT.equals(createCommandClassName);
 			case GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME:
 				return REORIENT_COMMAND_CLASS_NAME_EDEFAULT == null ? reorientCommandClassName != null : !REORIENT_COMMAND_CLASS_NAME_EDEFAULT.equals(reorientCommandClassName);
+			case GMFGenPackage.GEN_LINK__TREE_BRANCH:
+				return treeBranch != TREE_BRANCH_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -690,6 +742,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 		result.append(createCommandClassName);
 		result.append(", reorientCommandClassName: ");
 		result.append(reorientCommandClassName);
+		result.append(", treeBranch: ");
+		result.append(treeBranch);
 		result.append(')');
 		return result.toString();
 	}

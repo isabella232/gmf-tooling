@@ -3260,6 +3260,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenLink_TreeBranch() {
+		return (EAttribute)genLinkEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenLabel() {
 		return genLabelEClass;
 	}
@@ -6173,6 +6182,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genLinkEClass, GEN_LINK__CREATION_CONSTRAINTS);
 		createEAttribute(genLinkEClass, GEN_LINK__CREATE_COMMAND_CLASS_NAME);
 		createEAttribute(genLinkEClass, GEN_LINK__REORIENT_COMMAND_CLASS_NAME);
+		createEAttribute(genLinkEClass, GEN_LINK__TREE_BRANCH);
 
 		genLabelEClass = createEClass(GEN_LABEL);
 		createEAttribute(genLabelEClass, GEN_LABEL__READ_ONLY);
@@ -7104,6 +7114,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenLink_CreationConstraints(), this.getGenLinkConstraints(), this.getGenLinkConstraints_Link(), "creationConstraints", null, 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenLink_CreateCommandClassName(), ecorePackage.getEString(), "createCommandClassName", null, 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenLink_ReorientCommandClassName(), ecorePackage.getEString(), "reorientCommandClassName", null, 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenLink_TreeBranch(), ecorePackage.getEBoolean(), "treeBranch", "false", 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genLinkEClass, this.getGenCommonBase(), "getAssistantSources", 0, -1, IS_UNIQUE, IS_ORDERED);
 

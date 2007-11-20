@@ -489,6 +489,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/creationConstraints"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/createCommandClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/reorientCommandClassName"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Link" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/treeBranch"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getAssistantSources"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getAssistantTargets"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getCreateCommandQualifiedClassName"/>
