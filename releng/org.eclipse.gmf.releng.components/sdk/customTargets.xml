@@ -82,8 +82,8 @@
 	<!-- Steps to do after setup but before starting the build proper -->
 	<!-- ===================================================================== -->
 	<target name="postSetup">
-		<!-- Load build.cfg properties -->
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
+		<!-- Load base.cfg properties -->
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/base.cfg"/>
 		<ant antfile="${scripts}/install.xml" target="installGMFBasePlatform" />
 		<ant antfile="${scripts}/install.xml" target="installGMFRuntime" />	
 		<ant antfile="${scripts}/install.xml" target="installExamples" />
@@ -142,12 +142,12 @@
 	<!-- Steps to do before running the build.xmls for the elements being built. -->
 	<!-- ===================================================================== -->
 	<target name="preProcess">
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/base.cfg"/>
 		<antcall target="runJavadoc"/>		
 	</target>
 	
 	<target name="runJavadoc" unless="skipJavadoc">
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/base.cfg"/>
 		<ant antfile="${buildDirectory}/plugins/org.eclipse.gmf.doc/buildDoc.xml" />
 	</target>
 
