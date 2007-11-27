@@ -1,7 +1,7 @@
 !*** Graphical Modeling Framework (GMF) SDK map ********************************************
 
 !*** GMF Experimental features ***************************************************************************
-feature@org.eclipse.gmf.sdk.experimental=v20070809-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.sdk.experimental-feature
+feature@org.eclipse.gmf.sdk.experimental=v20071124-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.sdk.experimental-feature
 
 !*** GMF Experimental plug-ins ***************************************************************************
 plugin@org.eclipse.gmf.codegen.lite=v20070921-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.lite
