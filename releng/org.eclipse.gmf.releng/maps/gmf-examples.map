@@ -7,8 +7,8 @@ feature@org.eclipse.gmf.examples.pde=v20070511-1500,:pserver:anonymous@dev.eclip
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf.examples=v20070601-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/examples/org.eclipse.gmf.examples
 plugin@org.eclipse.gmf.examples.runtime.common.service=v20070601-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.common.service
-plugin@org.eclipse.gmf.examples.runtime.diagram.geoshapes=v20071108-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.geoshapes
-plugin@org.eclipse.gmf.examples.runtime.diagram.logic=v20070621-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic
+plugin@org.eclipse.gmf.examples.runtime.diagram.geoshapes=v20071130-1111,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.geoshapes
+plugin@org.eclipse.gmf.examples.runtime.diagram.logic=v20071130-1111,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic
 plugin@org.eclipse.gmf.examples.runtime.diagram.logic.model=v20070601-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic.model
 plugin@org.eclipse.gmf.examples.runtime.diagram.logic.model.edit=v20070601-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic.model.edit
 plugin@org.eclipse.gmf.examples.runtime.diagram.logic.model.editor=v20070601-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic.model.editor
