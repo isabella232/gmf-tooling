@@ -53,6 +53,6 @@ public class RuntimeFQNSwitch extends PureGEFFigureQualifiedNameSwitch {
 	}
 
 	public String caseLabel(Label object) {
-		return "org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"; //$NON-NLS-1$
+		return "org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"; //$NON-NLS-1$
 	}
 }
