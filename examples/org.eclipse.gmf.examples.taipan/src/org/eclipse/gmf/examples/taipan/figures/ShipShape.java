@@ -17,7 +17,7 @@ import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.StackLayout;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
@@ -29,7 +29,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  */
 public class ShipShape extends Figure {
 
-	private WrapLabel label;
+	private WrappingLabel label;
 
 	private IFigure smallCargo;
 
@@ -39,7 +39,7 @@ public class ShipShape extends Figure {
 		GridLayout layout = new GridLayout(2, false);
 		setLayoutManager(layout);
 		add(new ImageFigure(getShipImage()), new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false, 1, 2));
-		add(label = new WrapLabel(), new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false, 1, 1));
+		add(label = new WrappingLabel(), new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false, 1, 1));
 		add(smallCargo = new Figure(), new GridData(SWT.FILL, SWT.BEGINNING, true, false, 1, 1));
 		smallCargo.setLayoutManager(new StackLayout());
 		add(largeCargo = new Figure(), new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
@@ -62,7 +62,7 @@ public class ShipShape extends Figure {
 		return image;
 	}
 
-	public WrapLabel getLabel() {
+	public WrappingLabel getLabel() {
 		return label;
 	}
 
