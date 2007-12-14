@@ -513,7 +513,7 @@ public class SketchTransformer implements IRunnableWithProgress {
 		if (genElement instanceof GenDiagram) {
 			return "org.eclipse.draw2d.FreeformLayer"; //$NON-NLS-1$
 		} else if (genElement instanceof GenChildLabelNode || genElement instanceof GenLabel) {
-			return "org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"; //$NON-NLS-1$
+			return "org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"; //$NON-NLS-1$
 		} else if (genElement instanceof GenNode || genElement instanceof GenCompartment) {
 			return "org.eclipse.draw2d.RectangleFigure"; //$NON-NLS-1$
 		} else if (genElement instanceof GenLink) {
