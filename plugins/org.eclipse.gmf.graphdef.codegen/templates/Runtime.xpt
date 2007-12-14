@@ -51,7 +51,7 @@
 
 ////////////////////////
 «DEFINE fqn FOR FigureRef»«EXPAND fqn FOR figure»«ENDDEFINE»
-«DEFINE fqn FOR Label»«IF isFullRuntime()»org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel«ELSE»org.eclipse.draw2d.Label«ENDIF»«ENDDEFINE»
+«DEFINE fqn FOR Label»«IF isFullRuntime()»org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel«ELSE»org.eclipse.draw2d.Label«ENDIF»«ENDDEFINE»
 «DEFINE fqn FOR LabeledContainer»org.eclipse.draw2d.LabeledContainer«ENDDEFINE»
 «DEFINE fqn FOR Rectangle»org.eclipse.draw2d.RectangleFigure«ENDDEFINE»
 «DEFINE fqn FOR RoundedRectangle»org.eclipse.draw2d.RoundedRectangle«ENDDEFINE»
@@ -69,5 +69,5 @@ template file as well.
 // Full GMF Runtime
 ////////////////////////
 «AROUND fqn FOR PolylineConnection»«IF isFullRuntime()»org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx«ELSE»«targetDef.proceed()»«ENDIF»«ENDAROUND»
-«AROUND fqn FOR Label»«IF isFullRuntime()»org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel«ELSE»«targetDef.proceed()»«ENDIF»«ENDAROUND»
+«AROUND fqn FOR Label»«IF isFullRuntime()»org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel«ELSE»«targetDef.proceed()»«ENDIF»«ENDAROUND»
 «ENDREM»
