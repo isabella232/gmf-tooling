@@ -182,7 +182,7 @@ public class ViewmapProducersTest extends TestCase {
 		ParentAssignedViewmap pav = (ParentAssignedViewmap) innerLabelViewmap;
 		assertEquals(innerLabel.getAccessor().getAccessor(), pav.getGetterName());
 		assertNotNull(pav.getFigureQualifiedClassName());
-		assertEquals("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel", pav.getFigureQualifiedClassName());
+		assertEquals("org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel", pav.getFigureQualifiedClassName());
 
 		assertNotNull(externalLabelViewmap);
 		assertFalse(externalLabelViewmap instanceof ParentAssignedViewmap);

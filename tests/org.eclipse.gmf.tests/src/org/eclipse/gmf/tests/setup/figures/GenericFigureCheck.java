@@ -48,7 +48,7 @@ import org.eclipse.gmf.gmfgraph.PolylineDecoration;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.ScalablePolygon;
 import org.eclipse.gmf.gmfgraph.Shape;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
@@ -215,12 +215,12 @@ public class GenericFigureCheck extends FigureCheck {
 				org.eclipse.draw2d.Label d2dLabel = (org.eclipse.draw2d.Label) d2dFigure;
 				Label gmfLabel = (Label) gmfFigure;
 				assertEquals(gmfLabel.getText(), d2dLabel.getText());
-			} else if (d2dFigure instanceof WrapLabel) {
-				WrapLabel d2dLabel = (WrapLabel) d2dFigure;
+			} else if (d2dFigure instanceof WrappingLabel) {
+				WrappingLabel d2dLabel = (WrappingLabel) d2dFigure;
 				Label gmfLabel = (Label) gmfFigure;
 				assertEquals(gmfLabel.getText(), d2dLabel.getText());
 			} else {
-				fail("draw2d.IFigure for gmfgraph.Label is not either WrapLabel or draw2d.Label");
+				fail("draw2d.IFigure for gmfgraph.Label is not either WrappingLabel or draw2d.Label");
 			}
 		}
 	}

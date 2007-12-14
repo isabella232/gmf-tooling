@@ -179,7 +179,7 @@ public class StandalonePluginConverterTest extends TestCase {
 		topFigure.setName("TopRect");
 
 		final CustomFigure customLabel = GMFGraphFactory.eINSTANCE.createCustomFigure();
-		customLabel.setQualifiedClassName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel");
+		customLabel.setQualifiedClassName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel");
 		customLabel.setName("CustomLabel");
 
 		final Label ordinaryLabel = GMFGraphFactory.eINSTANCE.createLabel();
