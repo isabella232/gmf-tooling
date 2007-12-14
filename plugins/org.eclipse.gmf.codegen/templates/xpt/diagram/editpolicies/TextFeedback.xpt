@@ -53,9 +53,9 @@ public class «textNonResizableEditPolicyClassName» extends org.eclipse.gmf.runti
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void showPrimarySelection() {
-		if (getHostFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) {
-			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) getHostFigure()).setSelected(true);
-			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) getHostFigure()).setFocus(true);
+		if (getHostFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
+			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) getHostFigure()).setSelected(true);
+			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) getHostFigure()).setFocus(true);
 		} else {
 			showSelection();
 			showFocus();
@@ -64,9 +64,9 @@ public class «textNonResizableEditPolicyClassName» extends org.eclipse.gmf.runti
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void showSelection() {
-		if (getHostFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) {
-			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) getHostFigure()).setSelected(true);
-			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) getHostFigure()).setFocus(false);
+		if (getHostFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
+			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) getHostFigure()).setSelected(true);
+			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) getHostFigure()).setFocus(false);
 		} else {
 			hideSelection();
 			addFeedback(selectionFeedbackFigure = createSelectionFeedbackFigure());
@@ -77,9 +77,9 @@ public class «textNonResizableEditPolicyClassName» extends org.eclipse.gmf.runti
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void hideSelection() {
-		if (getHostFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) {
-			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) getHostFigure()).setSelected(false);
-			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) getHostFigure()).setFocus(false);
+		if (getHostFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
+			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) getHostFigure()).setSelected(false);
+			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) getHostFigure()).setFocus(false);
 		} else {
 			if (selectionFeedbackFigure != null) {
 				removeFeedback(selectionFeedbackFigure);
@@ -91,8 +91,8 @@ public class «textNonResizableEditPolicyClassName» extends org.eclipse.gmf.runti
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void showFocus() {
-		if (getHostFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) {
-			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) getHostFigure()).setFocus(true);
+		if (getHostFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
+			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) getHostFigure()).setFocus(true);
 		} else {
 			hideFocus();
 			addFeedback(focusFeedbackFigure = createFocusFeedbackFigure());
@@ -102,8 +102,8 @@ public class «textNonResizableEditPolicyClassName» extends org.eclipse.gmf.runti
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void hideFocus() {
-		if (getHostFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) {
-			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) getHostFigure()).setFocus(false);
+		if (getHostFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
+			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) getHostFigure()).setFocus(false);
 		} else {
 			if (focusFeedbackFigure != null) {
 				removeFeedback(focusFeedbackFigure);

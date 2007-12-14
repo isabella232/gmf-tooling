@@ -55,8 +55,8 @@ public class «editPartFactoryClassName» implements org.eclipse.gef.EditPartFacto
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static org.eclipse.gef.tools.CellEditorLocator getTextCellEditorLocator(
 			org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart source) {
-        if (source.getFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel)
-            return new TextCellEditorLocator((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) source.getFigure());
+        if (source.getFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel)
+            return new TextCellEditorLocator((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) source.getFigure());
         else {
             return new LabelCellEditorLocator((org.eclipse.draw2d.Label) source.getFigure());
         }
@@ -66,15 +66,15 @@ public class «editPartFactoryClassName» implements org.eclipse.gef.EditPartFacto
 	static private class TextCellEditorLocator implements org.eclipse.gef.tools.CellEditorLocator {
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel wrapLabel;
+		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel wrapLabel;
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		public TextCellEditorLocator(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel wrapLabel) {
+		public TextCellEditorLocator(org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel wrapLabel) {
 			this.wrapLabel = wrapLabel;
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getWrapLabel() {
+		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getWrapLabel() {
 			return wrapLabel;
 		}
 
@@ -83,7 +83,7 @@ public class «editPartFactoryClassName» implements org.eclipse.gef.EditPartFacto
 			org.eclipse.swt.widgets.Text text = (org.eclipse.swt.widgets.Text) celleditor.getControl();
 			org.eclipse.draw2d.geometry.Rectangle rect = getWrapLabel().getTextBounds().getCopy();
 			getWrapLabel().translateToAbsolute(rect);
-			if (getWrapLabel().isTextWrapped() && getWrapLabel().getText().length() > 0) {
+			if (getWrapLabel().isTextWrapOn() && getWrapLabel().getText().length() > 0) {
 				rect.setSize(new org.eclipse.draw2d.geometry.Dimension(
 					text.computeSize(rect.width, org.eclipse.swt.SWT.DEFAULT)));
 			} else {
@@ -95,7 +95,6 @@ public class «editPartFactoryClassName» implements org.eclipse.gef.EditPartFacto
 				text.setBounds(rect.x, rect.y, rect.width, rect.height);
 			}
 		}
-
 	}
 
 	«EXPAND xpt::Common::generatedClassComment»

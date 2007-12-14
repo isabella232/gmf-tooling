@@ -107,8 +107,8 @@
 «DEFINE getLabelTextHelper FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected String getLabelTextHelper(org.eclipse.draw2d.IFigure figure) {
-		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) {
-			return ((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) figure).getText();
+		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
+			return ((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) figure).getText();
 		} else {
 			return ((org.eclipse.draw2d.Label) figure).getText();
 		}
@@ -118,8 +118,8 @@
 «DEFINE setLabelTextHelper FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void setLabelTextHelper(org.eclipse.draw2d.IFigure figure, String text) {
-		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) {
-			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) figure).setText(text);
+		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
+			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) figure).setText(text);
 		} else {
 			((org.eclipse.draw2d.Label) figure).setText(text);
 		}
@@ -129,8 +129,8 @@
 «DEFINE getLabelIconHelper FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.swt.graphics.Image getLabelIconHelper(org.eclipse.draw2d.IFigure figure) {
-		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) {
-			return ((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) figure).getIcon();
+		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
+			return ((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) figure).getIcon();
 		} else {
 			return ((org.eclipse.draw2d.Label) figure).getIcon();
 		}
@@ -140,8 +140,8 @@
 «DEFINE setLabelIconHelper FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void setLabelIconHelper(org.eclipse.draw2d.IFigure figure, org.eclipse.swt.graphics.Image icon) {
-		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) {
-			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) figure).setIcon(icon);
+		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
+			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) figure).setIcon(icon);
 		} else {
 			((org.eclipse.draw2d.Label) figure).setIcon(icon);
 		}
@@ -449,8 +449,8 @@
 		org.eclipse.gmf.runtime.notation.FontStyle style =
 			(org.eclipse.gmf.runtime.notation.FontStyle) getFontStyleOwnerView().getStyle(
 				org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle());
-		if (style != null && getFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) {
-			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) getFigure()).setTextUnderline(style.isUnderline());
+		if (style != null && getFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
+			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) getFigure()).setTextUnderline(style.isUnderline());
 		}
 	}
 «ENDDEFINE»
@@ -461,8 +461,8 @@
 		org.eclipse.gmf.runtime.notation.FontStyle style =
 			(org.eclipse.gmf.runtime.notation.FontStyle) getFontStyleOwnerView().getStyle(
 				org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle());
-		if (style != null && getFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) {
-			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) getFigure()).setTextStrikeThrough(style.isStrikeThrough());
+		if (style != null && getFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
+			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) getFigure()).setTextStrikeThrough(style.isStrikeThrough());
 		}
 	}
 «ENDDEFINE»
