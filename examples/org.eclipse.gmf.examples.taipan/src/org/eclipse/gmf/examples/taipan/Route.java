@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.examples.taipan;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
