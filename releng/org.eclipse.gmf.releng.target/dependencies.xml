@@ -1,8 +1,8 @@
 <dependencies>
 	<dependency name="gef"
 		download-url="http://download.eclipse.org/tools/gef/downloads/index.php"
-		update-site="http://download.eclipse.org/tools/gef/update-site/integrations/site.xml"
-		build-type="I2007">
+		update-site="http://download.eclipse.org/tools/gef/update-site/milestones/site.xml"
+		build-type="M3">
 		<feature id="org.eclipse.gef.sdk"/> 
 	</dependency>	
 
