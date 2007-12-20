@@ -21,7 +21,16 @@
 	</target>
 	
 	<target name="runtests" description="Executes the junit tests for a specified plug-in.">
-		<ant antfile="${basedir}/src/${testPlugin}_${version}/test.xml" dir="${eclipse-home}" />
+		<!-- Pull the test.xml out of the test bundle -->
+		<unzip src="${baseLocation}/plugins/${testPlugin}_${version}.jar" dest="${baseLocation}/plugins/${testPlugin}_${version}">
+		    <patternset>
+		        <include name="test.xml"/>
+		    </patternset>
+		</unzip>
+		<!-- Invoke the tests -->
+		<ant antfile="${baseLocation}/plugins/${testPlugin}_${version}/test.xml" dir="${eclipse-home}" />
+		<!--- Remove extracted test.xml -->
+		<delete dir="${baseLocation}/plugins/${testPlugin}_${version}"/>
 		<move file="${baseLocation}/${testPlugin}.xml" tofile="${basedir}/testresults/xml/${testPlugin}.xml" />
 	</target>
 
