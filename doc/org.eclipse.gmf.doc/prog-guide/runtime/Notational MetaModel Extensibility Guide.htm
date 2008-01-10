@@ -1,0 +1,773 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 10">
+<meta name=Originator content="Microsoft Word 10">
+<link rel=File-List
+href="Notational%20MetaModel%20Extensibility%20Guide_files/filelist.xml">
+<link rel=Edit-Time-Data
+href="Notational%20MetaModel%20Extensibility%20Guide_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title> </title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>aboyko</o:Author>
+  <o:LastAuthor>aboyko</o:LastAuthor>
+  <o:Revision>51</o:Revision>
+  <o:TotalTime>2057</o:TotalTime>
+  <o:Created>2007-06-19T21:47:00Z</o:Created>
+  <o:LastSaved>2007-10-05T14:47:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>2389</o:Words>
+  <o:Characters>13621</o:Characters>
+  <o:Company>IBM</o:Company>
+  <o:Lines>113</o:Lines>
+  <o:Paragraphs>31</o:Paragraphs>
+  <o:CharactersWithSpaces>15979</o:CharactersWithSpaces>
+  <o:Version>10.6830</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:2;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
+	font-size:24.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h2
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:18.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h3
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:13.5pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+p.MsoBodyText, li.MsoBodyText, div.MsoBodyText
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+code
+	{font-family:"Courier New";
+	mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";}
+pre
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";}
+p.backto, li.backto, div.backto
+	{mso-style-name:backto;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:35.4pt;
+	mso-footer-margin:35.4pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:216742525;
+	mso-list-template-ids:1146789404;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;
+	color:windowtext;}
+@list l0:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:"Courier New";
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;}
+@list l0:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+@list l0:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1
+	{mso-list-id:557592569;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1491746 -1737446474 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l1:level1
+	{mso-level-text:"%1\)";
+	mso-level-tab-stop:21.0pt;
+	mso-level-number-position:left;
+	margin-left:21.0pt;
+	text-indent:-.25in;}
+@list l1:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2
+	{mso-list-id:1303461045;
+	mso-list-template-ids:-768543346;}
+@list l2:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:"Courier New";
+	mso-bidi-font-family:"Times New Roman";}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="6146"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=EN-US link=blue vlink=purple style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<p class=MsoNormal><!--[if gte vml 1]><v:shapetype id="_x0000_t75" coordsize="21600,21600"
+ o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe" filled="f"
+ stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:260.25pt;
+ height:100.5pt'>
+ <v:imagedata src="Notational%20MetaModel%20Extensibility%20Guide_files/image001.gif"
+  o:title="gmf_header"/>
+</v:shape><![endif]--><![if !vml]><img width=347 height=134
+src="Notational%20MetaModel%20Extensibility%20Guide_files/image001.gif" v:shapes="_x0000_i1025"><![endif]></p>
+
+<h1 align=center style='text-align:center'><a name="_Developer's_Guide_to"></a>Developer
+Guide to Extending the Notational Meta-Model</h1>
+
+<h2>Contents</h2>
+
+<ul type=disc>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l0 level1 lfo3;tab-stops:list .5in'><a href="#intro">Introduction</a></li>
+ <li class=MsoNormal style='color:blue;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l0 level1 lfo3;tab-stops:list .5in'><span
+     class=MsoHyperlink><a href="#_General_Purpose_Styles_1">General Purpose
+     Style Design Diagram</a><o:p></o:p></span></li>
+ <li class=MsoNormal style='color:blue;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l0 level1 lfo3;tab-stops:list .5in'><span
+     class=MsoHyperlink><a href="#_General_Purpose_Styles_2">General Purpose
+     Styles Overview</a><o:p></o:p></span></li>
+ <ul type=circle>
+  <li class=MsoNormal style='color:blue;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+      auto;mso-list:l0 level2 lfo3;tab-stops:list 1.0in'><span
+      class=MsoHyperlink><a href="#_Generic_Value_Styles">Generic Value Styles</a><o:p></o:p></span></li>
+  <li class=MsoNormal style='color:blue;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+      auto;mso-list:l0 level2 lfo3;tab-stops:list 1.0in'><span
+      class=MsoHyperlink><a href="#_Set_of_Generic">Set of Generic Values Style</a><o:p></o:p></span></li>
+ </ul>
+ <li class=MsoNormal style='color:blue;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l0 level1 lfo3;tab-stops:list .5in'><span
+     class=MsoHyperlink><a href="#_Example_of_PropertiesSetStyle">Example</a>
+     of PropertiesSetStyle Usage<o:p></o:p></span></li>
+ <ul type=circle>
+  <li class=MsoNormal style='color:blue;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+      auto;mso-list:l0 level2 lfo3;tab-stops:list 1.0in'><span
+      class=MsoHyperlink><a href="#_Installing_PropertiesSetStyle_on">Installing
+      PropertiesSetStyle on a View</a><o:p></o:p></span></li>
+  <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+      auto;mso-list:l0 level2 lfo3;tab-stops:list 1.0in'><span
+      class=MsoHyperlink><a href="#_Modifying_PropertyValue_with">Modifying
+      PropertyValue with the Command</a></span><span class=MsoHyperlink><span
+      style='color:windowtext;text-decoration:none;text-underline:none'><o:p></o:p></span></span></li>
+  <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+      auto;mso-list:l0 level2 lfo3;tab-stops:list 1.0in'><span
+      class=MsoHyperlink><a href="#_Handling_Notification_Event">Handling
+      Notification Event</a></span></li>
+ </ul>
+ <li class=MsoNormal style='color:blue;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l0 level1 lfo3;tab-stops:list .5in'><span
+     class=MsoHyperlink><a href="#_Conclusion">Conclusion</a><o:p></o:p></span></li>
+</ul>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h2><a name=intro></a>Introduction</h2>
+
+<p class=backto><span style='font-size:10.0pt'>[<a href="#_Developer's_Guide_to">back
+to top</a>]<o:p></o:p></span></p>
+
+<p>GMF is the project aimed to ease the creation of various graphical editors
+for different models by bridging between GEF (Graphical Editing Framework) and
+EMF (Eclipse Modeling Framework). The graphical editors use the
+Model-View-Controller architecture imposed by GEF.<span
+style='mso-spacerun:yes'>  </span>GEF leaves the model part entirely opened for
+clients. GMF, as a GEF client project, fills the model gap with the EMF model.</p>
+
+<p>The model in GMF consists of two parts: the semantic model and the
+notational model. The semantic model of an element describes its semantic
+properties such as name, etc. The notational model describes notational
+properties of the element such as its size, location, color etc. The meta-model
+for the semantic model is entirely implemented by a client, hence there is no
+lack of extensibility for the semantic part of the model. The notational
+meta-model is fully implemented by the GMF runtime component. Any notational
+element is a View. Different notational element can be created with the help of
+different styles, i.e. ShapeStyle, DrawerStyle, FontStyle, LineStyle, etc. that
+are installed on the View. For an example, a shape can be created with the help
+of ShapeStyle, however, if DrawerStyle is installed as well the element becomes
+a compartment shape. Notational meta-model defines a limited set of elements,
+Hence, the client may have difficulties introducing new notational data for his
+elements not covered by the elements present in the notational meta-model.
+(Refer to <span class=MsoHyperlink>Developer Guide to the GMF Runtime <a
+href="Developer%20Guide%20to%20Diagram%20Runtime.html">Framework</a></span> for
+more information on <span class=MsoHyperlink><a
+href="Developer%20Guide%20to%20Diagram%20Runtime.html#_Toc119420268">Notation
+Meta-model</a></span>)</p>
+
+<p>Notational data is added to views (notational model elements) via installing
+various styles on them. The number of styles in GMF’s notational meta-model is
+limited and each style has its own purpose defined and supported in the GMF
+runtime code. Therefore, if clients need to define extra notational data for a
+View via style it’s unlikely that they would find the proper style defined in
+GMF’s notational meta-model before 2.0. Consequently, it’s been decided to add
+a number of general purpose styles for clients in GMF 2.0 such that they have a
+possibility to introduce specific notational data for visual elements on their
+diagrams.</p>
+
+<p>A general purpose style has a name and a value of some type.<span
+style='mso-spacerun:yes'>  </span>Clients can choose one of the general purpose
+styles holding the appropriate type value defined in GMF 2.0 notational
+meta-model, name it, and install it on the View.<span
+style='mso-spacerun:yes'>  </span>For an example, let’s say you wanted to have
+the ability to rotate a shape on your diagram.<span style='mso-spacerun:yes'> 
+</span>You could install an IntValueStyle, named “RotationStyle”, on your
+shape’s view, which will hold the value of a rotation angle in degrees.</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h2><a name="_General_Purpose_Styles"></a><a name="_General_Purpose_Styles_1"></a>General
+Purpose Styles Design Diagram</h2>
+
+<p class=backto><span style='font-size:10.0pt'>[<a href="#_Developer's_Guide_to">back
+to top</a>]<o:p></o:p></span></p>
+
+<p class=backto>The green boxes (green class shapes) represent general purpose
+styles clients can install on Views. Yellow boxes represent auxiliary data
+structures used by the styles. Red boxes (in our case just one box) represent
+elements referenced from the ECore meta-model.</p>
+
+<p><!--[if gte vml 1]><v:shape id="_x0000_i1028" type="#_x0000_t75" style='width:921pt;
+ height:491.25pt'>
+ <v:imagedata src="Notational%20MetaModel%20Extensibility%20Guide_files/image002.gif"
+  o:title="General_Purpose_Styles_Design"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=1228 height=655
+src="Notational%20MetaModel%20Extensibility%20Guide_files/image002.gif" v:shapes="_x0000_i1028"><![endif]></p>
+
+<p><o:p>&nbsp;</o:p></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h2><a name="_General_Purpose_Styles_2"></a>General Purpose Styles Overview</h2>
+
+<p class=backto><span style='font-size:10.0pt'>[<a href="#_Developer's_Guide_to">back
+to top</a>]<o:p></o:p></span></p>
+
+<p>The simplest general purpose style is NamedStyle which just has a name. All
+general purpose styles that hold a value are derived from NamedStyle and
+essentially just add values of various types to the style object. The general
+purpose styles can be subdivided into categories as follows: (it’s just a
+schema – not a UML Class diagram)</p>
+
+<p><!--[if gte vml 1]><v:shape id="_x0000_i1030" type="#_x0000_t75" style='width:953.25pt;
+ height:284.25pt'>
+ <v:imagedata src="Notational%20MetaModel%20Extensibility%20Guide_files/image003.gif"
+  o:title="General_Purpose_Styles_Categories"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=1271 height=379
+src="Notational%20MetaModel%20Extensibility%20Guide_files/image003.gif" v:shapes="_x0000_i1030"><![endif]></p>
+
+<p>Primitive type value styles hold a java primitive type value or a list of
+such values. This is expected to be the most frequently used style. They are
+simple and easy to use in terms of notification events, because they are
+similar to the ones fired from other styles. Essentially, the same comment goes
+to EObject value styles that have a single reference to EObject and list of
+references to EObjects – they are also simple in terms of notifications.</p>
+
+<h3><a name="_Generic_Value_Styles"></a>Generic Value Styles</h3>
+
+<p>Generic value styles are the ones that can hold a value of potentially any
+type of Java object as long as clients provide a way to convert it to and from
+the String. The generic value styles must be provided with
+org.eclipse.emf.ecore.EDataType type of the value. The EDataType defines the
+actual Java type for the value (Integer, Double, etc.) and the mechanism to
+convert it to and from the String of the object of this type with the help of
+the EFactory of the EDataType. For example, SingleValueStyle can simulate
+IntValueStyle as follows:</p>
+
+<pre><span style='font-size:9.0pt'>SingleValueStyle style = NotationFactory.eINSTANCE.createSingleValueStyle();<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'>style.setName(“MyIntValueStyle”);<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'>style.setEDataType(EcorePackage.Literals.EINT);<o:p></o:p></span></pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+generic value the style holds is stored as the String at all times, however,
+there are utilities defined on generic styles that convert the String value to
+the java.lang.Object and vice versa. In fact, SingleValueStyle has utilities
+for setting and getting java.lang.Object value. Hence, to hold an integer value
+5, we could do it in two ways: either set the string raw value (which will be
+validated against the EDataType of the style)</p>
+
+<pre><span style='font-size:9.0pt'>style.setRawValue(“5”);<o:p></o:p></span></pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>or
+set the object.</p>
+
+<pre><span style='font-size:9.0pt'>style.setObject(new Integer(5));<o:p></o:p></span></pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+notification, however, that is fired due to the change to the value held by the
+style will have newValue and oldValue of type String, since only the String representation
+of the value is stored and therefore modified. These String values can be
+converted to the java.lang.Object (this is specified by the EDataType) with the
+help of getStringFromObject(Object) and getObjectFromString(String) methods
+defined on the style.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>For
+any custom Java object type values that a style may hold, the ecore model must
+be created and an EDataType for this object defined with String to Java Object
+conversion methods implemented in the corresponding EFactory class. In this
+case, if you have a Java object that holds a boolean and the String value, for
+example, and you have defined the EDataType for this object, notification
+events will tell you that the value has changed even if you’ve changed only the
+boolean value of the object. If you’d like to receive events on changes to a
+specific attribute of your custom Java object value, you might be better off
+with the PropertiesSetStyle</p>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="_Set_of_Generic"></a>Set of Generic Values Style</h3>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Suppose,
+you want to have a Java object type value in a style and the Java object is
+holding a mix of attributes of different Java primitive types or other types.
+Two possible solutions are:</p>
+
+<p style='margin-left:21.0pt;text-indent:-.25in;mso-list:l1 level1 lfo5;
+tab-stops:list 21.0pt left 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><![if !supportLists]><span
+style='mso-list:Ignore'>1)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Install a number of SingleValueStyle with appropriate
+data types or even use the existing Primitive Type Value Styles. However, this
+would increase the memory consumption, since every style is an EObject and a
+possible confusion due to the fact that properties that belong together will be
+separated into multiple styles. </p>
+
+<p style='margin-left:21.0pt;text-indent:-.25in;mso-list:l1 level1 lfo5;
+tab-stops:list 21.0pt left 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><![if !supportLists]><span
+style='mso-list:Ignore'>2)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Notational meta-model has PropertiesSetStyle. This
+style basically contains an EMap of property names (String) to property values
+(PropertyValue). PropertyValue is similar to a generic value style. It defines
+a holder for generic value. It has a rawValue of the object (its String
+representation) and instanceType (EDataType) of the object to be able to
+convert to and from String. A number of utility methods are defined on the
+PropertiesSetStyle to ease the work with the style. The disadvantage of this
+style is that notification coming in from changing property values look
+different from all other styles, hence handling of these events is bit more
+complex.</p>
+
+<div class=MsoNormal align=center style='text-align:center;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="_Example_of_PropertiesSetStyle"></a>Example of PropertiesSetStyle Usage</h2>
+
+<p class=backto style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><span
+style='font-size:10.0pt'>[<a href="#_Developer's_Guide_to">back to top</a>]<o:p></o:p></span></p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>An
+example of how to deal with the PropertiesSetStyle is encapsulated within the
+GMF Logic example editor. A feature of changing ports (or pins) color on
+Circuits and LEDs has been added with the help of<span
+style='mso-spacerun:yes'>  </span>a PropertiesSetStyle. The style, in this
+case, contains only one entry in the map. The PropertyValue has an
+EIntegerObject data type from ecore. There is a menu item added “Modify Ports
+Color” on the popup menu on a LED and a Circuit, the request for modifying
+ports color assembled; there is an editpolicy that handles this request and
+creates the command for updating the style with a new color value and a code on
+corresponding editparts handling the notification event fired according to the
+change. Here, we’ll talk only about installing the style on a LED View,
+modifying the color value on the style from the command and handling the
+notification event the editpart receives due to the change of the color value.
+Code snippets are based on the implementation of “ports color” feature from
+Logic example editor.<span style='mso-bidi-font-size:10.0pt'><o:p></o:p></span></p>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="_Installing_PropertiesSetStyle_on"></a>Installing PropertiesSetStyle on a
+View</h3>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Since
+we’re installing the style on the LED view, we need to override the
+#createStyles() method on the LEDViewFactory. Create our PropertiesSetStyle,
+assign it a name, add appropriate properties to it (with the help of utility
+methods defined on the style, so we don’t need to access the map directly) and
+add our style to the list of styles. <span style='mso-bidi-font-size:10.0pt'><o:p></o:p></span></p>
+
+<pre><span style='font-size:9.0pt'>Protected List createStyles(View view) {<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'><span style='mso-tab-count:1'>         </span>List styles = super.createStyles(view);<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'><span style='mso-tab-count:1'>         </span>PropertiesSetStyle properties = NotationFactory.eINSTANCE.createPropertiesSetStyle();<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'><span style='mso-tab-count:1'>         </span>properties.setName(StringConstants.PORTS_PROPERTIES_STYLE_NAME);<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'><span style='mso-tab-count:1'>         </span>properties.createProperty(StringConstants.PORTS_COLOR_PROPERTY_NAME, EcorePackage.Literals.EINTEGER_OBJECT, null);<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'><span style='mso-tab-count:1'>         </span>styles.add(properties);<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'><span style='mso-tab-count:1'>         </span>return styles;<o:p></o:p></span></pre>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:9.0pt;
+font-family:"Courier New"'>}<o:p></o:p></span></p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+method #createProperty(String propertyName, EDataType instanceType, Object
+value) is one of the utility methods defined on the style. It creates the
+PropertyValue and inserts it in the map against the propertyName key. (See <span
+class=MsoHyperlink><a href="#_General_Purpose_Styles_1">General Purpose Styles
+Design Diagram</a></span>)<span style='mso-bidi-font-size:10.0pt'><o:p></o:p></span></p>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="_Modifying_PropertyValue_with"></a>Modifying PropertyValue with the
+Command</h3>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>We’ll
+assume that the command has the integer value for the color already as well as
+the View of a LED for which the ports color needs to be changed (see
+ModifyPortsColorCommand). Now to modify the color of the ports all we need is
+to get our PropertiesSetStyle the name of which is known and set the ports
+color property a value of the new color. So, to get our style we need to do the
+following:</p>
+
+<pre><span style='font-size:9.0pt'>PropertiesSetStyle properties = (PropertiesSetStyle)view.getNamedStyle(NotationPackage.Literals.PROPERTIES_SET_STYLE, StringConstants.PORT_PROPERTIES_STYLE_NAME);<o:p></o:p></span></pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Note
+that here we use the View#getNamedStyle(EClass eClass, String name) method that
+does the job of finding the style with given EClass and name on the View from
+the ones installed on it. This method should be used for getting any other
+general purpose styles from a View.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Now
+we need to update the ports color property with a new color value. Before we do
+so we ensure that the style has been found (i.e. it’s not null) and that the
+ports color property belongs to this style (just for safety, otherwise it may
+need to be created).</p>
+
+<pre><span style='font-size:9.0pt'>if (properties != null &amp;&amp; properties.hasProperty(StringConstants.PORTS_COLOR_PROPERTY_NAME)) {<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'><span style='mso-tab-count:1'>         </span>properties.setProperty(StringConstants.PORTS_COLOR_PROPERTY_NAME, newColor);<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'>}<o:p></o:p></span></pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>This
+should update the LED View with the new ports color value. The next thing is
+handling the notification event fired for this model change.</p>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="_Handling_Notification_Event"></a>Handling Notification Event</h3>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Since
+we’ve modified the feature on the PropertyValue, namely the rawValue, the
+feature in the notification will be
+NotationPackage.Literals.RAW_VALUE__PROPERTY_VALUE. The notification will have
+new and old value as strings (as for other generic value holder styles –
+mentioned above), so if you need those values you’ll have to convert them to
+Java objects as explained above (see <span class=MsoHyperlink><a
+href="#_Generic_Value_Styles">Generic Value Styles</a></span>). However, in our
+example we only care about the new value which we can get directly from the
+style, so there is no conversion involved.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>First
+of all we need to ensure that the notification event came from our
+PropertiesSetStyle installed on the LED View. The notifier object for the
+notification is the PropertyValue. The event is caught on the View. If the
+PropertyValue belongs to our PropertiesSetStyle installed on the LED view then
+the following hierarchy must be satisfied: PropertyValue -&gt; map entry -&gt;
+PropertiesSetStyle -&gt; view. We need to ensure that the view is our LED view,
+so that we handle an event that came from our editpart’s view - just a safety
+check.<span style='mso-bidi-font-size:10.0pt'><o:p></o:p></span></p>
+
+<pre><span style='font-size:9.0pt'>View viewContainer = ViewUtil.getViewContainer((EObject)notification.getNotifier());<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'>if (viewContainer != null &amp;&amp; viewContainer.equals(this.getNotationView())) {<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'><span style='mso-tab-count:1'>         </span>/* Put the handling code here */<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'>}<o:p></o:p></span></pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Note
+that the notification is handled on LEDEditPart which is a subclass of GMF’s
+GraphicalEditPart and that we use a utility method
+ViewUtil#getViewContainer(EObject eObject) that finds the first View parent of
+the passed EObject.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Now,
+we need to ensure that the PropertyValue belongs to our PropertiesSetStyle. The
+best way to check that is get our PropertiesSetStyle from the View of our
+editpart and get the PropertyValue from the EMap, since property name (the key)
+is known – we’re interested in ports color property here. Once we have this
+PropertyValue a simple comparison of a notifier object with the obtained
+PropertyValue will tell us whether the event needs to be handled. Handling of
+the event in this case will be just refreshing the ports figures (input/output
+terminals).</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Therefore
+the chunk of code handling the change in ports color value including everything
+will look as following:</p>
+
+<pre><span style='font-size:9.0pt'>if (NotationPackage.Literals.RAW_VALUE__PROPERTY_VALUE.equals(notification.getFeature()) {<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'><span style='mso-tab-count:1'>         </span>View viewContainer = ViewUtil.getViewContainer((EObject)notification.getNotifier());<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'><span style='mso-tab-count:1'>         </span>if (viewContainer != null &amp;&amp; viewContainer.equals(this.getNotationView())) {<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'><span style='mso-tab-count:2'>                 </span>PropertiesSetStyle style = (PropertiesSetStyle)this.getNotationView()<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'><span style='mso-tab-count:3'>                          </span>.getNamedStyle(NotationPackage.Literals.PROPERTIES_SET_STYLE, StringConstants. StringConstants.PORT_PROPERTIES_STYLE_NAME);<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'><span style='mso-tab-count:2'>                 </span>if (style != null &amp;&amp; notification.getNotifier().equals(style.getPropertiesMap().get(StringConstants.PORTS_COLOR_PROPERTY_NAME))) {<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'><span style='mso-tab-count:3'>                          </span>/* Repaint ports figure with new color here */<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'><span style='mso-tab-count:2'>                 </span>}<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'><span style='mso-tab-count:1'>         </span>}<o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'>}<a name="ext_points"></a><o:p></o:p></span></pre><pre><span
+style='font-size:9.0pt'><o:p>&nbsp;</o:p></span></pre><pre style='text-align:
+center'>
+
+<hr size=2 width="100%" align=center>
+
+</pre>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="_Conclusion"></a>Conclusion</h2>
+
+<p class=backto style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><span
+style='font-size:10.0pt'>[<a href="#_Developer's_Guide_to">back to top</a>]<o:p></o:p></span></p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>GMF
+2.0 introduces a library of general purpose styles for clients, so that they can
+store notational information that their application requires. Clients are free
+to pick any style that best suites their purposes. Primitive Types Value Styles
+and EObject Value Styles are the easiest to use. Generic Value Styles are a bit
+more complicated because clients may want to define a custom EDataType for
+values as well as notifications will have new and old values as String rather
+than actual objects. PropertiesSetStyle is the most generic of all, yet the
+most complicated of all to use, since notifications will be arriving from
+PropertyValue (which is inside the map entry and map entry inside the style)
+rather than the style object itself as for any other style defined in
+Notational meta-model. Feel free to take a look at the example of use of PropertiesSetStyle
+in GMF’s Logic example editor.</p>
+
+<div align=center style='text-align:center;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<pre style='text-align:center'><o:p>&nbsp;</o:p></pre><pre style='text-align:
+center'><o:p>&nbsp;</o:p></pre><pre style='text-align:center'><o:p>&nbsp;</o:p></pre><pre
+style='text-align:center'><o:p>&nbsp;</o:p></pre><pre style='text-align:center'><o:p>&nbsp;</o:p></pre><pre
+style='text-align:center'><o:p>&nbsp;</o:p></pre><pre style='text-align:center'><o:p>&nbsp;</o:p></pre><pre
+style='text-align:center'><o:p>&nbsp;</o:p></pre><pre style='text-align:center'><o:p>&nbsp;</o:p></pre><pre
+style='text-align:center'><o:p>&nbsp;</o:p></pre></div>
+
+</body>
+
+</html>
