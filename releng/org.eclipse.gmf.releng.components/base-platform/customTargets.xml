@@ -48,6 +48,7 @@
 	<!-- ===================================================================== -->
 	<target name="postSetup">
 		<ant antfile="${scripts}/install.xml" target="installBase" />
+		<ant antfile="${scripts}/install.xml" target="installTestingFramework" />
 		<ant antfile="${scripts}/install.xml" target="installDeltaPack" />
 		<ant antfile="${scripts}/install.xml" target="installGMFBase" />
 	</target>
