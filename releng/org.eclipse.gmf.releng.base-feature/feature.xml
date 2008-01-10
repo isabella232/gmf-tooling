@@ -60,10 +60,6 @@
          id="org.eclipse.emf.ocl.source"
          version="0.0.0"/>
 
-   <includes
-         id="org.eclipse.test"
-         version="0.0.0"/>
-
    <plugin
          id="org.eclipse.gmf.releng.base"
          download-size="0"
