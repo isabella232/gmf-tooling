@@ -29,6 +29,7 @@
       <feature id="org.eclipse.gmf.releng.base" version="1.0.0"/>
       <feature id="org.eclipse.sdk" version="3.3.0.v20070319-7L7J-4DjllPLcCcxrZDgaddnelet"/>
       <feature id="org.eclipse.rcp" version="3.3.0.v20070316b-8l8VCEYXUPdNkSgt8LpKG"/>
+      <feature id="org.eclipse.test" version="3.2.0"/>
    </features>
 
 </product>
