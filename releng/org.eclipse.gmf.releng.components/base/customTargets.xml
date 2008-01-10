@@ -79,6 +79,7 @@
 	<!-- ===================================================================== -->
 	<target name="postSetup">
 		<ant antfile="${scripts}/install.xml" target="installBase" />
+		<ant antfile="${scripts}/install.xml" target="installTestingFramework" />
    		<ant antfile="${scripts}/install-dependencies.xml.gen/build.xml" target="main">
    			<property name="basedir" value="${scripts}/install-dependencies.xml.gen"/>
    			<property name="dependencies.xml" value="${buildDirectory}/maps/org.eclipse.gmf.releng.target/dependencies.xml"/>
