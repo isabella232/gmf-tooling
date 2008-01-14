@@ -6,7 +6,7 @@ feature@org.eclipse.gmf.sdk.experimental=v20071124-0000,:pserver:anonymous@dev.e
 !*** GMF Experimental plug-ins ***************************************************************************
 plugin@org.eclipse.gmf.codegen.lite=v20070921-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.lite
 plugin@org.eclipse.gmf.codegen.lite.ui=v20070809-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.lite.ui
-plugin@org.eclipse.gmf.graphdef.editor=v20070809-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.editor
+plugin@org.eclipse.gmf.graphdef.editor=v20080114-2222,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.editor
 plugin@org.eclipse.gmf.bridge.trace=v20070809-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.trace
 plugin@org.eclipse.gmf.runtime.lite=v20070921-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.lite
 plugin@org.eclipse.gmf.xpand.editor=v20070809-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.xpand.editor
