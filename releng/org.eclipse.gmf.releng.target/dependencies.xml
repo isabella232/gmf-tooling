@@ -9,7 +9,7 @@
 	<dependency name="emf"
 		download-url="http://www.eclipse.org/modeling/emf/downloads/index.php?project=emf"
 		update-site="http://download.eclipse.org/modeling/emf/updates/site-interim.xml"
-		build-type="M2008">
+		build-type="M2007">
 		<feature id="org.eclipse.emf.sdk"/> 
 		<feature id="org.eclipse.emf.examples"/>
 	</dependency>	
