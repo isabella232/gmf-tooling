@@ -29,7 +29,7 @@
 	<dependency name="qtvAll"
 		download-url=""
 		update-site="http://download.eclipse.org/modeling/emf/updates/site-interim.xml"
-		build-type="M2008">
+		build-type="M2007">
 		<feature id="org.eclipse.emf.emfqtv.all.sdk"/>
 	</dependency>	
 	
