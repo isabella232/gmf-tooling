@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ * Copyright (c) 2006, 2008 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,14 +12,10 @@
 package org.eclipse.gmf.ecore.providers;
 
 import org.eclipse.gmf.runtime.common.ui.services.action.contributionitem.AbstractContributionItemProvider;
-
 import org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor;
-
 import org.eclipse.gmf.runtime.diagram.ui.printing.actions.PrintPreviewAction;
-
 import org.eclipse.gmf.runtime.diagram.ui.printing.render.actions.EnhancedPrintActionHelper;
 import org.eclipse.gmf.runtime.diagram.ui.printing.render.actions.RenderedPrintPreviewAction;
-
 import org.eclipse.jface.action.IAction;
 
 /**
@@ -36,5 +32,4 @@ public class EcoreContributionItemProvider extends AbstractContributionItemProvi
 		}
 		return super.createAction(actionId, partDescriptor);
 	}
-
 }

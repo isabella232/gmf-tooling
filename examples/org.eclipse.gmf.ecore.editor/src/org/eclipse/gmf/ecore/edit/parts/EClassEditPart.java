@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ * Copyright (c) 2006, 2008 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -285,11 +285,10 @@ public class EClassEditPart extends ShapeNodeEditPart {
 		 */
 		private void createContents() {
 
-			WrapLabel l0 = new WrapLabel();
-			l0.setText("");
+			fName = new WrapLabel();
+			fName.setText("");
 
-			this.add(l0);
-			fName = l0;
+			this.add(fName);
 
 		}
 

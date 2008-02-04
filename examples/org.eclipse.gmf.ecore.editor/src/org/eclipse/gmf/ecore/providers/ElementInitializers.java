@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ * Copyright (c) 2006, 2008 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -20,10 +20,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
-
 import org.eclipse.gmf.ecore.expressions.EcoreAbstractExpression;
 import org.eclipse.gmf.ecore.expressions.EcoreOCLFactory;
-
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
 /**
@@ -45,7 +43,7 @@ public class ElementInitializers {
 				add(createExpressionFeatureInitializer(EcorePackage.eINSTANCE.getEReference_Containment(), EcoreOCLFactory.getExpression("false", //$NON-NLS-1$
 						EcorePackage.eINSTANCE.getEReference())));
 			}
-		}; // EReference_4002 ObjectInitializer		
+		};
 
 		/**
 		 * @generated
@@ -56,41 +54,41 @@ public class ElementInitializers {
 				add(createExpressionFeatureInitializer(EcorePackage.eINSTANCE.getEReference_Containment(), EcoreOCLFactory.getExpression("true", //$NON-NLS-1$
 						EcorePackage.eINSTANCE.getEReference())));
 			}
-		}; // EReference_4003 ObjectInitializer
+		};
 
-		/** 
+		/**
 		 * @generated
 		 */
 		private Initializers() {
 		}
 
-		/** 
+		/**
 		 * @generated
 		 */
 		public static interface IObjectInitializer {
 
-			/** 
+			/**
 			 * @generated
 			 */
 			public void init(EObject instance);
 		}
 
-		/** 
+		/**
 		 * @generated
 		 */
 		public static abstract class ObjectInitializer implements IObjectInitializer {
 
-			/** 
+			/**
 			 * @generated
 			 */
 			final EClass element;
 
-			/** 
+			/**
 			 * @generated
 			 */
 			private List featureInitializers = new ArrayList();
 
-			/** 
+			/**
 			 * @generated
 			 */
 			ObjectInitializer(EClass element) {
@@ -103,7 +101,7 @@ public class ElementInitializers {
 			 */
 			protected abstract void init();
 
-			/** 
+			/**
 			 * @generated
 			 */
 			protected final IFeatureInitializer add(IFeatureInitializer initializer) {
@@ -111,7 +109,7 @@ public class ElementInitializers {
 				return initializer;
 			}
 
-			/** 
+			/**
 			 * @generated
 			 */
 			public void init(EObject instance) {
@@ -124,9 +122,9 @@ public class ElementInitializers {
 					}
 				}
 			}
-		} // end of ObjectInitializer
+		}
 
-		/** 
+		/**
 		 * @generated
 		 */
 		interface IFeatureInitializer {
@@ -178,5 +176,5 @@ public class ElementInitializers {
 		 */
 		static class Java {
 		}
-	} // end of Initializers
+	}
 }

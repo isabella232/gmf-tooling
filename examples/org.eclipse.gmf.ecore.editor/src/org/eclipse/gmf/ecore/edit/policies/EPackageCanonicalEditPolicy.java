@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ * Copyright (c) 2006, 2008 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -26,23 +26,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EAttributeEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EClass2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClassEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EDataType2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EDataTypeEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EEnum2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnumEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EEnumLiteralEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EOperationEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
 import org.eclipse.gmf.ecore.part.EcoreDiagramUpdater;
 import org.eclipse.gmf.ecore.part.EcoreLinkDescriptor;
 import org.eclipse.gmf.ecore.part.EcoreNodeDescriptor;
