@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -570,7 +571,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 				reorientedLinks.add(genLink);
 			}
 		}
-		return new BasicEList.UnmodifiableEList<GenLink>(reorientedLinks.size(), reorientedLinks.toArray());
+		return new EcoreEList.UnmodifiableEList<GenLink>(this, GMFGenPackage.eINSTANCE.getGenNode_ReorientedIncomingLinks(), reorientedLinks.size(), reorientedLinks.toArray());
 	}
 	
 	public boolean isSansDomain() {
