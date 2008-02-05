@@ -442,7 +442,7 @@ public class TransformToGenModelOperation {
 				}
 				// and replace old values with new
 				for (EStructuralFeature.Setting s : crossReferences.get(old)) {
-					s.set(current);
+					EcoreUtil.replace(s, old, current);
 				}
 			}
 		}.reconcileTree(newEditorGenerator, oldEditorGenerator);
