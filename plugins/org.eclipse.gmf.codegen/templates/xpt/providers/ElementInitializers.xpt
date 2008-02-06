@@ -252,14 +252,6 @@ public static class Initializers {
 			«EXPAND javaInitializer(valueExpression, valueExpression.featureSeqInitializer.elementClass, null) FOR providers.getProvider(valueExpression)-»
 		«ENDFOREACH-»
 	«ENDLET-»
-	«EXPAND nestedJavaInitializer(diagramElement) FOREACH initializers-»
-«ENDDEFINE»
-
-«DEFINE nestedJavaInitializer(GenCommonBase diagramElement) FOR GenFeatureInitializer-»
-«ENDDEFINE»
-
-«DEFINE nestedJavaInitializer(GenCommonBase diagramElement) FOR GenReferenceNewElementSpec-»
-	«EXPAND javaInitializer(diagramElement) FOREACH newElementInitializers-»
 «ENDDEFINE»
 
 «DEFINE javaInitializer(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context, genmodel::GenClassifier oppositeEndContext) FOR GenExpressionProviderBase-»
