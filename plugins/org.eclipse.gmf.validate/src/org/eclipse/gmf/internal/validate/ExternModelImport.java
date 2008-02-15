@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.osgi.util.NLS;
 
 public class ExternModelImport {
-	private static final String DIAGNOSTIC_SOURCE = GMFValidationPlugin.getDefault().getBundle().getSymbolicName() + ".imports"; //$NON-NLS-1$ 
+	private static final String DIAGNOSTIC_SOURCE = "org.eclipse.gmf.validate.imports"; //$NON-NLS-1$ 
 	
 	private static final EValidator VALIDATOR = new AbstractValidator() {
 		
