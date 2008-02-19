@@ -246,6 +246,30 @@
       </propertyTabs>
    </extension>
 
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <?gmfgen generated="false"?>
+      <!-- Temp solution, while I investigate another UI codegen model: register tabs manually -->
+      <propertyTabs contributorId="org.eclipse.gmf.graphdef.editor">
+          <propertyTab
+             category="extra"
+             id="tab.layout-gen2"
+             label="Layout - gen2"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <?gmfgen generated="false"?>
+      <!-- Temp solution, while I investigate another UI codegen model: register tabs manually -->
+      <propertySections contributorId="org.eclipse.gmf.graphdef.editor">
+         <propertySection
+            id="property.section.layout-gen2" 
+            tab="tab.layout-gen2"
+            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$LayoutableFilter"
+            class="org.eclipse.gmf.graphdef.editor.sheet.LayoutSection">
+         </propertySection>
+      </propertySections>
+   </extension>
+
    <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
       <?gmfgen generated="true"?>   
       <propertySections contributorId="org.eclipse.gmf.graphdef.editor">
