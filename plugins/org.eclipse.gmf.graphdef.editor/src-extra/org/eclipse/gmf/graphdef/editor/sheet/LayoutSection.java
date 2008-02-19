@@ -298,9 +298,10 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 				myFlowLayoutMajAlign.select(((FlowLayout) getInput().getLayout()).getMinorAlignment().getValue());
 				myFlowLayoutMinAlign.select(((FlowLayout) getInput().getLayout()).getMajorAlignment().getValue());
 			}
-			myR1.setSelection(true); // XXX or use RadioGroupController
+			myR1.setSelection(true);
 			myFlowLayoutDetails.setVisible(true);
 		} else {
+			myR1.setSelection(false);
 			myFlowLayoutDetails.setVisible(false);
 		}
 		if (getInput().getLayout() instanceof BorderLayout) {
@@ -308,9 +309,10 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 				myBorderLayoutSpacingX.setSelection(((BorderLayout) getInput().getLayout()).getSpacing().getDx());
 				myBorderLayoutSpacingY.setSelection(((BorderLayout) getInput().getLayout()).getSpacing().getDy());
 			}
-			myR2.setSelection(true); // XXX or use RadioGroupController
+			myR2.setSelection(true);
 			myBorderLayoutDetails.setVisible(true);
 		} else {
+			myR2.setSelection(false);
 			myBorderLayoutDetails.setVisible(false);
 		}
 		if (getInput().getLayout() instanceof GridLayout) {
@@ -326,16 +328,21 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 				myGridLayoutSpacingX.setSelection(((GridLayout) getInput().getLayout()).getSpacing().getDx());
 				myGridLayoutSpacingY.setSelection(((GridLayout) getInput().getLayout()).getSpacing().getDy());
 			}
-			myR3.setSelection(true); // XXX or use RadioGroupController
+			myR3.setSelection(true);
 			myGridLayoutDetails.setVisible(true);
 		} else {
+			myR3.setSelection(false);
 			myGridLayoutDetails.setVisible(false);
 		}
 		if (getInput().getLayout() instanceof StackLayout) {
-			myR4.setSelection(true); // XXX or use RadioGroupController
+			myR4.setSelection(true);
+		} else {
+			myR4.setSelection(false);
 		}
 		if (getInput().getLayout() instanceof XYLayout) {
-			myR5.setSelection(true); // XXX or use RadioGroupController
+			myR5.setSelection(true);
+		} else {
+			myR5.setSelection(false);
 		}
 		if (getInput().getLayout() instanceof CustomLayout) {
 			if (getInput().getLayout() != null) {
@@ -344,13 +351,16 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 																											 * getInput().getLayout()).getQualifiedClassName());
 																											 */
 			}
-			myR6.setSelection(true); // XXX or use RadioGroupController
+			myR6.setSelection(true);
 			myCustomLayoutDetails.setVisible(true);
 		} else {
+			myR6.setSelection(false);
 			myCustomLayoutDetails.setVisible(false);
 		}
 		if (getInput().getLayout() == null) {
-			myR7.setSelection(true); // XXX or use RadioGroupController
+			myR7.setSelection(true);
+		} else {
+			myR7.setSelection(false);
 		}
 
 		myIsRefresh = false;
