@@ -164,7 +164,7 @@ protected org.eclipse.gef.commands.Command getSemanticCommand(org.eclipse.gmf.ru
 		if (command != null) {
 			if (!(command instanceof org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand)) {
 				org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
-				command = new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(editingDomain, null).compose(command);
+				command = new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(editingDomain, command.getLabel()).compose(command);
 			}
 			semanticCommand = new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(command);
 		}
