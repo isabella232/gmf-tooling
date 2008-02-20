@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ * Copyright (c) 2006, 2008 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -20,7 +20,7 @@ import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.SWT;
@@ -175,8 +175,8 @@ public class EcoreEditPartFactory implements EditPartFactory {
 	 * @generated
 	 */
 	public static CellEditorLocator getTextCellEditorLocator(ITextAwareEditPart source) {
-		if (source.getFigure() instanceof WrapLabel)
-			return new TextCellEditorLocator((WrapLabel) source.getFigure());
+		if (source.getFigure() instanceof WrappingLabel)
+			return new TextCellEditorLocator((WrappingLabel) source.getFigure());
 		else {
 			return new LabelCellEditorLocator((Label) source.getFigure());
 		}
@@ -190,19 +190,19 @@ public class EcoreEditPartFactory implements EditPartFactory {
 		/**
 		 * @generated
 		 */
-		private WrapLabel wrapLabel;
+		private WrappingLabel wrapLabel;
 
 		/**
 		 * @generated
 		 */
-		public TextCellEditorLocator(WrapLabel wrapLabel) {
+		public TextCellEditorLocator(WrappingLabel wrapLabel) {
 			this.wrapLabel = wrapLabel;
 		}
 
 		/**
 		 * @generated
 		 */
-		public WrapLabel getWrapLabel() {
+		public WrappingLabel getWrapLabel() {
 			return wrapLabel;
 		}
 
@@ -213,7 +213,7 @@ public class EcoreEditPartFactory implements EditPartFactory {
 			Text text = (Text) celleditor.getControl();
 			Rectangle rect = getWrapLabel().getTextBounds().getCopy();
 			getWrapLabel().translateToAbsolute(rect);
-			if (getWrapLabel().isTextWrapped() && getWrapLabel().getText().length() > 0) {
+			if (getWrapLabel().isTextWrapOn() && getWrapLabel().getText().length() > 0) {
 				rect.setSize(new Dimension(text.computeSize(rect.width, SWT.DEFAULT)));
 			} else {
 				int avr = FigureUtilities.getFontMetrics(text.getFont()).getAverageCharWidth();
@@ -223,7 +223,6 @@ public class EcoreEditPartFactory implements EditPartFactory {
 				text.setBounds(rect.x, rect.y, rect.width, rect.height);
 			}
 		}
-
 	}
 
 	/**

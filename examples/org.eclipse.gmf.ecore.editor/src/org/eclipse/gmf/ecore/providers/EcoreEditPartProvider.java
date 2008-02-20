@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ * Copyright (c) 2006, 2008 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,16 +15,15 @@ import java.lang.ref.WeakReference;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
+import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EcoreEditPartFactory;
+import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.services.editpart.AbstractEditPartProvider;
 import org.eclipse.gmf.runtime.diagram.ui.services.editpart.CreateGraphicEditPartOperation;
 import org.eclipse.gmf.runtime.diagram.ui.services.editpart.IEditPartOperation;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.ecore.edit.parts.EcoreEditPartFactory;
-import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
-
-import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
 /**
  * @generated

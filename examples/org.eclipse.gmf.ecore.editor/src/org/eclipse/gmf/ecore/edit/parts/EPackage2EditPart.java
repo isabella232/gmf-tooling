@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ * Copyright (c) 2006, 2008 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -36,7 +36,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
@@ -106,7 +106,6 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 				return null;
 			}
 		});
-
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EPackage2ItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
@@ -272,7 +271,7 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		private WrapLabel fName;
+		private WrappingLabel fName;
 
 		/**
 		 * @generated
@@ -296,11 +295,10 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 		 */
 		private void createContents() {
 
-			WrapLabel l0 = new WrapLabel();
-			l0.setText("");
+			fName = new WrappingLabel();
+			fName.setText("");
 
-			this.add(l0);
-			fName = l0;
+			this.add(fName);
 
 		}
 
@@ -326,7 +324,7 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		public WrapLabel Name() {
+		public WrappingLabel Name() {
 			return fName;
 		}
 

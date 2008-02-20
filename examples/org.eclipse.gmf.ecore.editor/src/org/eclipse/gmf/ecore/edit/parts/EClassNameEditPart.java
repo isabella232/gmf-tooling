@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ * Copyright (c) 2006, 2008 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -46,7 +46,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
 import org.eclipse.gmf.runtime.notation.FontStyle;
@@ -125,8 +125,8 @@ public class EClassNameEditPart extends CompartmentEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected String getLabelTextHelper(IFigure figure) {
-		if (figure instanceof WrapLabel) {
-			return ((WrapLabel) figure).getText();
+		if (figure instanceof WrappingLabel) {
+			return ((WrappingLabel) figure).getText();
 		} else {
 			return ((Label) figure).getText();
 		}
@@ -136,8 +136,8 @@ public class EClassNameEditPart extends CompartmentEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected void setLabelTextHelper(IFigure figure, String text) {
-		if (figure instanceof WrapLabel) {
-			((WrapLabel) figure).setText(text);
+		if (figure instanceof WrappingLabel) {
+			((WrappingLabel) figure).setText(text);
 		} else {
 			((Label) figure).setText(text);
 		}
@@ -147,8 +147,8 @@ public class EClassNameEditPart extends CompartmentEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected Image getLabelIconHelper(IFigure figure) {
-		if (figure instanceof WrapLabel) {
-			return ((WrapLabel) figure).getIcon();
+		if (figure instanceof WrappingLabel) {
+			return ((WrappingLabel) figure).getIcon();
 		} else {
 			return ((Label) figure).getIcon();
 		}
@@ -158,8 +158,8 @@ public class EClassNameEditPart extends CompartmentEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected void setLabelIconHelper(IFigure figure, Image icon) {
-		if (figure instanceof WrapLabel) {
-			((WrapLabel) figure).setIcon(icon);
+		if (figure instanceof WrappingLabel) {
+			((WrappingLabel) figure).setIcon(icon);
 		} else {
 			((Label) figure).setIcon(icon);
 		}
@@ -168,7 +168,7 @@ public class EClassNameEditPart extends CompartmentEditPart implements ITextAwar
 	/**
 	 * @generated
 	 */
-	public void setLabel(WrapLabel figure) {
+	public void setLabel(WrappingLabel figure) {
 		unregisterVisuals();
 		setFigure(figure);
 		defaultText = getLabelTextHelper(figure);
@@ -409,8 +409,8 @@ public class EClassNameEditPart extends CompartmentEditPart implements ITextAwar
 	 */
 	protected void refreshUnderline() {
 		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
-		if (style != null && getFigure() instanceof WrapLabel) {
-			((WrapLabel) getFigure()).setTextUnderline(style.isUnderline());
+		if (style != null && getFigure() instanceof WrappingLabel) {
+			((WrappingLabel) getFigure()).setTextUnderline(style.isUnderline());
 		}
 	}
 
@@ -419,8 +419,8 @@ public class EClassNameEditPart extends CompartmentEditPart implements ITextAwar
 	 */
 	protected void refreshStrikeThrough() {
 		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
-		if (style != null && getFigure() instanceof WrapLabel) {
-			((WrapLabel) getFigure()).setTextStrikeThrough(style.isStrikeThrough());
+		if (style != null && getFigure() instanceof WrappingLabel) {
+			((WrappingLabel) getFigure()).setTextStrikeThrough(style.isStrikeThrough());
 		}
 	}
 
@@ -548,4 +548,5 @@ public class EClassNameEditPart extends CompartmentEditPart implements ITextAwar
 		// Parent should assign one using setLabel() method
 		return null;
 	}
+
 }

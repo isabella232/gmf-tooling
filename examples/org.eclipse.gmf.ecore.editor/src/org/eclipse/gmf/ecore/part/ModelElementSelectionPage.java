@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ * Copyright (c) 2006, 2008 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -30,7 +30,6 @@ import org.eclipse.swt.widgets.Label;
 
 /**
  * Wizard page that allows to select element from model.
- * 
  * @generated
  */
 public class ModelElementSelectionPage extends WizardPage {
@@ -115,7 +114,6 @@ public class ModelElementSelectionPage extends WizardPage {
 
 	/**
 	 * Override to provide custom model element description.
-	 * 
 	 * @generated
 	 */
 	protected String getSelectionTitle() {
@@ -144,10 +142,10 @@ public class ModelElementSelectionPage extends WizardPage {
 
 	/**
 	 * Override to provide specific validation of the selected model element.
-	 * 
 	 * @generated
 	 */
 	protected boolean validatePage() {
 		return true;
 	}
+
 }

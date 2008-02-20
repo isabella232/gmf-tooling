@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ * Copyright (c) 2006, 2008 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,22 +11,19 @@
  */
 package org.eclipse.gmf.ecore.edit.policies;
 
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsCommand;
-import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
-import org.eclipse.emf.ecore.EcorePackage;
-
 import org.eclipse.gmf.ecore.edit.commands.EAnnotationCreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EClassCreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EDataTypeCreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EEnumCreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EPackageCreateCommand;
-
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
-
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
+import org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
 
 /**
  * @generated
@@ -89,5 +86,7 @@ public class EPackageItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPol
 		public DuplicateAnythingCommand(TransactionalEditingDomain editingDomain, DuplicateElementsRequest req) {
 			super(editingDomain, req.getLabel(), req.getElementsToBeDuplicated(), req.getAllDuplicatedElementsMap());
 		}
+
 	}
+
 }

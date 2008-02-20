@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ * Copyright (c) 2006, 2008 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,6 +15,7 @@ import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EEnum;
@@ -33,7 +34,7 @@ import org.eclipse.ocl.utilities.AbstractVisitor;
 import org.eclipse.ocl.utilities.PredefinedType;
 
 /**
- * @generated 
+ * @generated
  */
 public class EcoreOCLFactory {
 
@@ -191,5 +192,4 @@ public class EcoreOCLFactory {
 			return var;
 		}
 	}
-
 }
