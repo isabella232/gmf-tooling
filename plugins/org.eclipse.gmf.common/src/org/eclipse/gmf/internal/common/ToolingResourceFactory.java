@@ -50,6 +50,12 @@ public class ToolingResourceFactory extends XMIResourceFactoryImpl {
 			// Do not mark all resources referenced from resourceset as changed on any change
 			// (e.g. saving .gmfmap should not result in changed .gmfgraph and .gmftool)
 			getDefaultSaveOptions().put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
-		}		
+
+			// It doesn't hurt to always allow to save schemaLocation
+			// (is't not written unless there's model instance in use, with metamodel not from a registry).
+			// This helps when GMF model refer to or extended by dynamic model instances.
+			// @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=215282
+			getDefaultSaveOptions().put(XMLResource.OPTION_SCHEMA_LOCATION, Boolean.TRUE);
+		}
 	}	
 }
