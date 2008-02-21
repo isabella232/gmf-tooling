@@ -80,7 +80,7 @@
 	«IF sourceMetaFeature != null-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private «getQualifiedInterfaceName(containmentMetaFeature.genClass)» container;
+	private «EXPAND MetaModel::QualifiedClassName FOR containmentMetaFeature.genClass» container;
 	«ENDIF-»
 «ENDDEFINE»
 
@@ -90,13 +90,13 @@
 «DEFINE accessors FOR gmfgen::LinkModelFacet-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	protected «getQualifiedInterfaceName(getSourceType())» getSource() {
-		return («getQualifiedInterfaceName(getSourceType())») source;
+	protected «EXPAND MetaModel::QualifiedClassName FOR getSourceType()» getSource() {
+		return «EXPAND MetaModel::CastEObject("source") FOR getSourceType()»;
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	protected «getQualifiedInterfaceName(getTargetType())» getTarget() {
-		return («getQualifiedInterfaceName(getTargetType())») target;
+	protected «EXPAND MetaModel::QualifiedClassName FOR getTargetType()» getTarget() {
+		return «EXPAND MetaModel::CastEObject("target") FOR getTargetType()»;
 	}
 	«EXPAND containerAccessor-»
 «ENDDEFINE»
@@ -108,7 +108,7 @@
 	«IF sourceMetaFeature != null-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	public «getQualifiedInterfaceName(containmentMetaFeature.genClass)» getContainer() {
+	public «EXPAND MetaModel::QualifiedClassName FOR containmentMetaFeature.genClass» getContainer() {
 		return container;
 	}
 	«ENDIF-»
@@ -140,7 +140,7 @@
 	// and return the first element that is instance of the container class.
 	for (org.eclipse.emf.ecore.EObject element = source; element != null; element = element.eContainer()) {
 		if («EXPAND MetaModel::IsInstance("element") FOR containmentMetaFeature.genClass») {
-			container = («getQualifiedInterfaceName(containmentMetaFeature.genClass)») element;
+			container = «EXPAND MetaModel::CastEObject("element") FOR containmentMetaFeature.genClass»;
 			super.«EXPAND setElementToEdit("container") FOR containmentMetaFeature-»
 			break;
 		}

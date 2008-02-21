@@ -420,7 +420,7 @@ private static java.util.Collection «EXPAND getConnnectedLinksByTypeMethodName(g
 «ENDDEFINE»
 
 «DEFINE getIncomingLinksByTypeMethodBody(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
-if (setting.getEStructuralFeature() != «EXPAND xpt::Common::metaFeatureAccessor FOR targetMetaFeature» || false == setting.getEObject() instanceof «getQualifiedInterfaceName(metaClass)») {
+if (setting.getEStructuralFeature() != «EXPAND xpt::Common::metaFeatureAccessor FOR targetMetaFeature» || false == «EXPAND MetaModel::IsInstance("setting.getEObject()") FOR metaClass») {
 	continue;
 }
 «EXPAND MetaModel::DeclareAndAssign("link", "setting.getEObject()") FOR metaClass»
@@ -436,10 +436,10 @@ if (setting.getEStructuralFeature() != «EXPAND xpt::Common::metaFeatureAccessor 
 «ENDDEFINE»
 
 «DEFINE defineLinkContainer(boolean inLoop) FOR gmfgen::TypeLinkModelFacet-»
-if (false == «IF metaClass.isExternalInterface()»((org.eclipse.emf.ecore.EObject) «ENDIF»link«IF metaClass.isExternalInterface()»)«ENDIF».eContainer() instanceof «getQualifiedInterfaceName(containmentMetaFeature.genClass)») {
+if (false == «EXPAND MetaModel::IsContainerInstance("link", metaClass) FOR containmentMetaFeature.genClass») {
 	«EXPAND stopLinkProcessing(inLoop)-»
 }
-«getQualifiedInterfaceName(containmentMetaFeature.genClass)» container = («getQualifiedInterfaceName(containmentMetaFeature.genClass)») «IF metaClass.isExternalInterface()»((org.eclipse.emf.ecore.EObject) «ENDIF»link«IF metaClass.isExternalInterface()»)«ENDIF».eContainer();
+«EXPAND MetaModel::DeclareAndAssignContainer("container", "link", metaClass) FOR containmentMetaFeature.genClass»
 «ENDDEFINE»
 
 «DEFINE getIncomingLinksByTypeMethodBody(gmfgen::GenLink genLink) FOR gmfgen::FeatureLinkModelFacet-»
@@ -486,13 +486,13 @@ if (setting.getEStructuralFeature() == «EXPAND xpt::Common::metaFeatureAccessor 
 	
 		«EXPAND xpt::Common::generatedMemberComment»
 «EXPAND getOutgoingLinksByTypeMethodSignature FOR genLink» {
-	«getQualifiedInterfaceName(containmentMetaFeature.genClass)» container = null;
+	«EXPAND MetaModel::QualifiedClassName FOR containmentMetaFeature.genClass» container = null;
 	// Find container element for the link.
 	// Climb up by containment hierarchy starting from the source
 	// and return the first element that is instance of the container class.
 	for (org.eclipse.emf.ecore.EObject element = «EXPAND xpt::Common::castToEObject FOR getSourceType()» source; element != null && container == null; element = element.eContainer()) {
 		if («EXPAND MetaModel::IsInstance("element") FOR containmentMetaFeature.genClass») {
-			container = («getQualifiedInterfaceName(containmentMetaFeature.genClass)») element;
+			container = «EXPAND MetaModel::CastEObject("element") FOR containmentMetaFeature.genClass»;
 		}
 	}
 	if (container == null) {

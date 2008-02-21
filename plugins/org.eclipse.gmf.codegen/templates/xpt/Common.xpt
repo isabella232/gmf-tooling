@@ -108,6 +108,7 @@ org.eclipse.emf.ecore.EObject «varName» = «IF !isMapEntry() && isExternalInterfa
 
 «DEFINE caseVisualID FOR gmfgen::GenCommonBase»case «EXPAND xpt::editor::VisualIDRegistry::visualID»:«ENDDEFINE»
 
+// TODO: replace with MetaModel::_getEObjectFeature and friends.
 «DEFINE castToEObject FOR genmodel::GenClass»«IF isExternalInterface()»(org.eclipse.emf.ecore.EObject) «ENDIF»«ENDDEFINE»
 
 «DEFINE addShortcutAnnotation(String viewVar) FOR gmfgen::GenDiagram-»

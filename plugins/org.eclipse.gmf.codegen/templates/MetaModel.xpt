@@ -29,6 +29,17 @@ MetaModelFacility.getEClass("«ecoreClass.name»").isSuperTypeOf(«IF true /*isEObj
 // XXX shorthand: !(EXPAND IsInstance)
 «ENDDEFINE»
 
+/**
+ * Special kind of instanceof check, that compares eContainer() of the object.
+ * Since metaClass may be an external interface, eContainer() might need cast to EObject  
+ */
+«DEFINE IsContainerInstance(String object, GenClass metaClass) FOR GenClass-»
+«EXPAND _getEObjectFeature(object, "eContainer()") FOR metaClass» instanceof «getQualifiedInterfaceName()»«ENDDEFINE»
+
+«DEFINE _getEObjectFeature(String object, String feature) FOR GenClass-»
+«IF isExternalInterface()»((org.eclipse.emf.ecore.EObject) «object»).«feature»«ELSE»«object».«feature»«ENDIF-»
+«ENDDEFINE»
+
 «DEFINE NewInstance FOR GenClass-»
 «ENDDEFINE»
 
@@ -41,12 +52,27 @@ MetaModelFacility.getEClass("«ecoreClass.name»").isSuperTypeOf(«IF true /*isEObj
 «DEFINE DeclareAndAssign(String assignee, String value) FOR GenClass-»
 «getQualifiedInterfaceName()» «assignee» = («getQualifiedInterfaceName()») «value»;«ENDDEFINE»
 
+// @see IsContainerInstance
+«DEFINE DeclareAndAssignContainer(String assignee, String object, GenClass metaClass) FOR GenClass-»
+«getQualifiedInterfaceName()» «assignee» = («getQualifiedInterfaceName()») «EXPAND _getEObjectFeature(object, "eContainer()") FOR metaClass»;«ENDDEFINE»
+
 /*
  * Declares new variable of context type and assignes a value obtained from 'src',
  * which is of type 'srcMetaClass', via 'srcFeature'
  */
 «DEFINE DeclareAndAssign(String assignee, String src, GenClass srcMetaClass, GenFeature srcFeature) FOR GenClass-»
 «getQualifiedInterfaceName()» «assignee» = «EXPAND xpt::Common::getFeatureValue(src, srcMetaClass) FOR srcFeature»;«ENDDEFINE»
+
+/*
+ * Cast value of type EObject to specific type. Would be no-op with dynamic model instances.  
+ */
+«DEFINE CastEObject(String eObjectValue) FOR GenClass»(«getQualifiedInterfaceName()») «eObjectValue»«ENDDEFINE»
+
+/**
+ * Qualified interface name of the generated EClass, or EObject for dynamic models.
+ * SHOULD NEVER APPEAR in instanceof or any other similar comparison operation
+ */
+«DEFINE QualifiedClassName FOR GenClass»«getQualifiedInterfaceName()»«ENDDEFINE»
 
 «DEFINE Facility FOR Object»
 public class MetaModelFacility {
