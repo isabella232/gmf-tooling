@@ -92,9 +92,9 @@ public static java.util.List «EXPAND getSemanticChildrenMethodName»(org.eclipse.
 	{ /*FIXME no containment/child feature found in the genmodel, toolsmith need to specify Class here manually*/ childElement = /*FIXME no containment/child feature found in the genmodel, toolsmith need to specify correct one here manually*/;
 			«ELSEIF isListType(childMetaFeature)-»
 	for (java.util.Iterator it = «EXPAND xpt::Common::getFeatureValue("modelElement", getModelElementType()) FOR childMetaFeature».iterator(); it.hasNext();) {
-		«EXPAND MetaModel::CastAndAssign("childElement", "it.next()") FOR getTypeGenClassX(childMetaFeature)»
+		«EXPAND MetaModel::DeclareAndAssign("childElement", "it.next()") FOR getTypeGenClassX(childMetaFeature)»
 			«ELSE-»
-	{ «getQualifiedInterfaceName(getTypeGenClassX(childMetaFeature))» childElement = «EXPAND xpt::Common::getFeatureValue("modelElement", getModelElementType()) FOR childMetaFeature»;
+	{ «EXPAND MetaModel::DeclareAndAssign("childElement", "modelElement", getModelElementType(), childMetaFeature) FOR getTypeGenClassX(childMetaFeature)»
 			«ENDIF-»
 		int visualID = «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall FOR getDiagram()»(view, «EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(childMetaFeature)»childElement);
 			«EXPAND checkChildElementVisualID(null != childMetaFeature && isListType(childMetaFeature)) FOREACH getSemanticChildren(this, childMetaFeature)-»
@@ -121,7 +121,7 @@ public static java.util.List «EXPAND getSemanticChildrenMethodName»(org.eclipse.
 if (!view.isSetElement()) {
 	return java.util.Collections.EMPTY_LIST;
 }
-«EXPAND getModelelementType» modelElement = («EXPAND getModelelementType») view.getElement();
+«EXPAND MetaModel::DeclareAndAssign("modelElement", "view.getElement()") FOR getModelElementType()»
 «ENDDEFINE»
 
 «DEFINE defineModelElement FOR gmfgen::GenCompartment-»
@@ -132,7 +132,7 @@ org.eclipse.gmf.runtime.notation.View containerView = (org.eclipse.gmf.runtime.n
 if (!containerView.isSetElement()) {
 	return java.util.Collections.EMPTY_LIST;
 }
-«EXPAND getModelelementType» modelElement = («EXPAND getModelelementType») containerView.getElement();
+«EXPAND MetaModel::DeclareAndAssign("modelElement", "containerView.getElement()") FOR getModelElementType()»
 «ENDDEFINE»
 
 «DEFINE getSemanticChildrenMethodName FOR gmfgen::GenContainerBase»get«getUniqueIdentifier()»SemanticChildren«ENDDEFINE»
@@ -155,7 +155,6 @@ if («EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall FOR getDiag
 }
 «ENDDEFINE»
 
-«DEFINE getModelelementType FOR gmfgen::GenContainerBase»«getQualifiedInterfaceName(getModelElementType())»«ENDDEFINE»
 
 «DEFINE getPhantomNodesIterator FOR gmfgen::GenDiagramUpdater-»
 	«IF !getPhantomNodes(editorGen.diagram).isEmpty()-»
@@ -213,7 +212,7 @@ public static java.util.List get«methodNameSuffix»Links(org.eclipse.gmf.runtime.
 public static java.util.List «EXPAND linkGetterName(methodNameSuffix)»(org.eclipse.gmf.runtime.notation.View view) {
 	«IF !genLinks.isEmpty()-»
 		«LET getMetaClass(this) AS metaclass-»
-	«EXPAND MetaModel::CastAndAssign("modelElement", "view.getElement()") FOR metaclass»
+	«EXPAND MetaModel::DeclareAndAssign("modelElement", "view.getElement()") FOR metaclass»
 			«IF needCrossReferencer-»
 	java.util.Map crossReferences = org.eclipse.emf.ecore.util.EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
 			«ENDIF-»
@@ -325,9 +324,9 @@ for (java.util.Iterator links = «EXPAND xpt::Common::getFeatureValue("container"
 			«EXPAND defineLink(inLoop)-»
 		«ELSE-»
 			«IF getTypeGenClassX(childMetaFeature) == metaClass-»
-«getQualifiedInterfaceName(metaClass)» link = «EXPAND xpt::Common::getFeatureValue("container", getSourceType()) FOR childMetaFeature»;
+«EXPAND MetaModel::DeclareAndAssign("link", "container", getSourceType(), childMetaFeature) FOR metaClass»
 			«ELSE-»
-«getQualifiedInterfaceName(getTypeGenClassX(childMetaFeature))» linkObject = «EXPAND xpt::Common::getFeatureValue("container", getSourceType()) FOR childMetaFeature»;
+«EXPAND MetaModel::DeclareAndAssign("linkObject", "container", getSourceType(), childMetaFeature) FOR getTypeGenClassX(childMetaFeature)»
 				«EXPAND defineLink(inLoop)-»
 			«ENDIF-»
 		«ENDIF-»
@@ -363,7 +362,7 @@ if («EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink» != «EXPAND xpt:
 if (false == «EXPAND MetaModel::IsInstance("linkObject") FOR metaClass») {
 	«EXPAND stopLinkProcessing(inLoop)-»
 }
-«EXPAND MetaModel::CastAndAssign("link", "linkObject") FOR metaClass»
+«EXPAND MetaModel::DeclareAndAssign("link", "linkObject") FOR metaClass»
 «ENDDEFINE»
 
 «DEFINE defineLinkSource(boolean inLoop) FOR gmfgen::TypeLinkModelFacet-»
@@ -373,9 +372,9 @@ Object theSource = sources.size() == 1 ? sources.get(0) : null;
 if (false == «EXPAND MetaModel::IsInstance("theSource") FOR getSourceType()») {
 	«EXPAND stopLinkProcessing(inLoop)-»
 }
-«EXPAND MetaModel::CastAndAssign("src", "theSource") FOR getSourceType()»
+«EXPAND MetaModel::DeclareAndAssign("src", "theSource") FOR getSourceType()»
 	«ELSE-»
-«getQualifiedInterfaceName(getSourceType())» src = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR sourceMetaFeature»;
+«EXPAND MetaModel::DeclareAndAssign("src", "link", metaClass, sourceMetaFeature) FOR getSourceType()»
 	«ENDIF-»
 «ENDDEFINE»
 
@@ -392,9 +391,9 @@ Object theTarget = targets.size() == 1 ? targets.get(0) : null;
 if (false == «EXPAND MetaModel::IsInstance("theTarget") FOR getTargetType()») {
 	«EXPAND stopLinkProcessing(inLoop)-»
 }
-«EXPAND MetaModel::CastAndAssign("dst", "theTarget") FOR getTargetType()»
+«EXPAND MetaModel::DeclareAndAssign("dst", "theTarget") FOR getTargetType()»
 	«ELSE-»
-«getQualifiedInterfaceName(getTargetType())» dst = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR targetMetaFeature»;
+«EXPAND MetaModel::DeclareAndAssign("dst", "link", metaClass, targetMetaFeature) FOR getTargetType()»
 	«ENDIF-»
 «ENDDEFINE»
 
@@ -424,7 +423,7 @@ private static java.util.Collection «EXPAND getConnnectedLinksByTypeMethodName(g
 if (setting.getEStructuralFeature() != «EXPAND xpt::Common::metaFeatureAccessor FOR targetMetaFeature» || false == setting.getEObject() instanceof «getQualifiedInterfaceName(metaClass)») {
 	continue;
 }
-«EXPAND MetaModel::CastAndAssign("link", "setting.getEObject()") FOR metaClass»
+«EXPAND MetaModel::DeclareAndAssign("link", "setting.getEObject()") FOR metaClass»
 	«EXPAND checkLinkVisualID(genLink, true)-»
 	«IF null != sourceMetaFeature-»
 		«EXPAND defineLinkSource(true)-»
@@ -466,9 +465,9 @@ if (setting.getEStructuralFeature() == «EXPAND xpt::Common::metaFeatureAccessor 
 	java.util.Collection result = new java.util.LinkedList();
 	«IF metaFeature.isListType()-»
 	for (java.util.Iterator destinations = «EXPAND xpt::Common::getFeatureValue("source", getSourceType()) FOR metaFeature».iterator(); destinations.hasNext();) {
-		«EXPAND MetaModel::CastAndAssign("destination", "destinations.next()") FOR getTargetType()»
+		«EXPAND MetaModel::DeclareAndAssign("destination", "destinations.next()") FOR getTargetType()»
 	«ELSE-»
-	«getQualifiedInterfaceName(getTargetType())» destination = «EXPAND xpt::Common::getFeatureValue("source", getSourceType()) FOR metaFeature»;
+	«EXPAND MetaModel::DeclareAndAssign("destination", "source", getSourceType(), metaFeature) FOR getTargetType()»
 	if (destination == null) {
 		return result;
 	}

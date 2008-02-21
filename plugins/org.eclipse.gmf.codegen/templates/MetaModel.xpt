@@ -38,8 +38,15 @@ MetaModelFacility.getEClass("«ecoreClass.name»").isSuperTypeOf(«IF true /*isEObj
 /*
  * Declares new variable of appropriate type and assigns casted value to it.
  */
-«DEFINE CastAndAssign(String assignee, String value) FOR GenClass-»
+«DEFINE DeclareAndAssign(String assignee, String value) FOR GenClass-»
 «getQualifiedInterfaceName()» «assignee» = («getQualifiedInterfaceName()») «value»;«ENDDEFINE»
+
+/*
+ * Declares new variable of context type and assignes a value obtained from 'src',
+ * which is of type 'srcMetaClass', via 'srcFeature'
+ */
+«DEFINE DeclareAndAssign(String assignee, String src, GenClass srcMetaClass, GenFeature srcFeature) FOR GenClass-»
+«getQualifiedInterfaceName()» «assignee» = «EXPAND xpt::Common::getFeatureValue(src, srcMetaClass) FOR srcFeature»;«ENDDEFINE»
 
 «DEFINE Facility FOR Object»
 public class MetaModelFacility {

@@ -328,7 +328,7 @@ if (parser != null) {
 
 «DEFINE getLabelFeatureText(genmodel::GenClass genClass) FOR gmfgen::GenCommonBase-»
 	«IF null != genClass && null != genClass.labelFeature-»
-«EXPAND MetaModel::CastAndAssign("domainModelElement", "view.getElement()") FOR genClass»
+«EXPAND MetaModel::DeclareAndAssign("domainModelElement", "view.getElement()") FOR genClass»
 if (domainModelElement != null) {
 	return «IF !isStringFeature(genClass.labelFeature)»String.valueOf(«ENDIF»«EXPAND xpt::Common::getFeatureValue("domainModelElement", genClass) FOR genClass.labelFeature»«IF !isStringFeature(genClass.labelFeature)»)«ENDIF»;
 } else {

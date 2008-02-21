@@ -81,7 +81,7 @@ public boolean canExecute() {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 public boolean canExecute() {
-	«EXPAND MetaModel::CastAndAssign("container", "getElementToEdit()") FOR containmentMetaFeature.genClass-»
+	«EXPAND MetaModel::DeclareAndAssign("container", "getElementToEdit()") FOR containmentMetaFeature.genClass-»
 		«IF containmentMetaFeature.ecoreFeature.upperBound > 0-»
 			«IF containmentMetaFeature.ecoreFeature.upperBound == 1»
 		if (container.«getGetAccessor(containmentMetaFeature)»() != null) {
@@ -143,10 +143,10 @@ protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
 	«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
 	// FIXME replace with «EXPAND xpt::Common::newInstance("newElement") FOR metaClass»
-	«EXPAND MetaModel::CastAndAssign("newElement", "super.doDefaultElementCreation()") FOR metaClass»
+	«EXPAND MetaModel::DeclareAndAssign("newElement", "super.doDefaultElementCreation()") FOR metaClass»
 	if (newElement != null) {
 		«IF hasExplicitChildFeature(this)-»
-		«EXPAND MetaModel::CastAndAssign("container", "getElementToEdit()") FOR childMetaFeature.genClass»
+		«EXPAND MetaModel::DeclareAndAssign("container", "getElementToEdit()") FOR childMetaFeature.genClass»
 		if (container != null) {
 			«IF isListType(childMetaFeature)-»
 				«EXPAND xpt::Common::getFeatureValue("container", childMetaFeature.genClass) FOR childMetaFeature».add(newElement);
