@@ -92,7 +92,7 @@ public static java.util.List «EXPAND getSemanticChildrenMethodName»(org.eclipse.
 	{ /*FIXME no containment/child feature found in the genmodel, toolsmith need to specify Class here manually*/ childElement = /*FIXME no containment/child feature found in the genmodel, toolsmith need to specify correct one here manually*/;
 			«ELSEIF isListType(childMetaFeature)-»
 	for (java.util.Iterator it = «EXPAND xpt::Common::getFeatureValue("modelElement", getModelElementType()) FOR childMetaFeature».iterator(); it.hasNext();) {
-		«getQualifiedInterfaceName(getTypeGenClassX(childMetaFeature))» childElement = («getQualifiedInterfaceName(getTypeGenClassX(childMetaFeature))») it.next();
+		«EXPAND MetaModel::CastAndAssign("childElement", "it.next()") FOR getTypeGenClassX(childMetaFeature)»
 			«ELSE-»
 	{ «getQualifiedInterfaceName(getTypeGenClassX(childMetaFeature))» childElement = «EXPAND xpt::Common::getFeatureValue("modelElement", getModelElementType()) FOR childMetaFeature»;
 			«ENDIF-»
@@ -213,7 +213,7 @@ public static java.util.List get«methodNameSuffix»Links(org.eclipse.gmf.runtime.
 public static java.util.List «EXPAND linkGetterName(methodNameSuffix)»(org.eclipse.gmf.runtime.notation.View view) {
 	«IF !genLinks.isEmpty()-»
 		«LET getMetaClass(this) AS metaclass-»
-	«getQualifiedInterfaceName(metaclass)» modelElement = («getQualifiedInterfaceName(metaclass)») view.getElement();
+	«EXPAND MetaModel::CastAndAssign("modelElement", "view.getElement()") FOR metaclass»
 			«IF needCrossReferencer-»
 	java.util.Map crossReferences = org.eclipse.emf.ecore.util.EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
 			«ENDIF-»
@@ -360,20 +360,20 @@ if («EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink» != «EXPAND xpt:
 «ENDDEFINE»
 
 «DEFINE defineLink(boolean inLoop) FOR gmfgen::TypeLinkModelFacet-»
-if (false == linkObject instanceof «getQualifiedInterfaceName(metaClass)») {
+if (false == «EXPAND MetaModel::IsInstance("linkObject") FOR metaClass») {
 	«EXPAND stopLinkProcessing(inLoop)-»
 }
-«getQualifiedInterfaceName(metaClass)» link = («getQualifiedInterfaceName(metaClass)») linkObject;
+«EXPAND MetaModel::CastAndAssign("link", "linkObject") FOR metaClass»
 «ENDDEFINE»
 
 «DEFINE defineLinkSource(boolean inLoop) FOR gmfgen::TypeLinkModelFacet-»
 	«IF sourceMetaFeature.isListType()-»
 java.util.List sources = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR sourceMetaFeature»;
 Object theSource = sources.size() == 1 ? sources.get(0) : null;
-if (false == theSource instanceof «getQualifiedInterfaceName(getSourceType())») {
+if (false == «EXPAND MetaModel::IsInstance("theSource") FOR getSourceType()») {
 	«EXPAND stopLinkProcessing(inLoop)-»
 }
-«getQualifiedInterfaceName(getSourceType())» src = («getQualifiedInterfaceName(getSourceType())») theSource;
+«EXPAND MetaModel::CastAndAssign("src", "theSource") FOR getSourceType()»
 	«ELSE-»
 «getQualifiedInterfaceName(getSourceType())» src = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR sourceMetaFeature»;
 	«ENDIF-»
@@ -389,10 +389,10 @@ if (src != source) {
 	«IF targetMetaFeature.isListType()-»
 java.util.List targets = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR targetMetaFeature»;
 Object theTarget = targets.size() == 1 ? targets.get(0) : null;
-if (false == theTarget instanceof «getQualifiedInterfaceName(getTargetType())») {
+if (false == «EXPAND MetaModel::IsInstance("theTarget") FOR getTargetType()») {
 	«EXPAND stopLinkProcessing(inLoop)-»
 }
-«getQualifiedInterfaceName(getTargetType())» dst = («getQualifiedInterfaceName(getTargetType())») theTarget;
+«EXPAND MetaModel::CastAndAssign("dst", "theTarget") FOR getTargetType()»
 	«ELSE-»
 «getQualifiedInterfaceName(getTargetType())» dst = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR targetMetaFeature»;
 	«ENDIF-»
@@ -424,7 +424,7 @@ private static java.util.Collection «EXPAND getConnnectedLinksByTypeMethodName(g
 if (setting.getEStructuralFeature() != «EXPAND xpt::Common::metaFeatureAccessor FOR targetMetaFeature» || false == setting.getEObject() instanceof «getQualifiedInterfaceName(metaClass)») {
 	continue;
 }
-«getQualifiedInterfaceName(metaClass)» link = («getQualifiedInterfaceName(metaClass)») setting.getEObject();
+«EXPAND MetaModel::CastAndAssign("link", "setting.getEObject()") FOR metaClass»
 	«EXPAND checkLinkVisualID(genLink, true)-»
 	«IF null != sourceMetaFeature-»
 		«EXPAND defineLinkSource(true)-»
@@ -466,7 +466,7 @@ if (setting.getEStructuralFeature() == «EXPAND xpt::Common::metaFeatureAccessor 
 	java.util.Collection result = new java.util.LinkedList();
 	«IF metaFeature.isListType()-»
 	for (java.util.Iterator destinations = «EXPAND xpt::Common::getFeatureValue("source", getSourceType()) FOR metaFeature».iterator(); destinations.hasNext();) {
-		«getQualifiedInterfaceName(getTargetType())» destination = («getQualifiedInterfaceName(getTargetType())») destinations.next();
+		«EXPAND MetaModel::CastAndAssign("destination", "destinations.next()") FOR getTargetType()»
 	«ELSE-»
 	«getQualifiedInterfaceName(getTargetType())» destination = «EXPAND xpt::Common::getFeatureValue("source", getSourceType()) FOR metaFeature»;
 	if (destination == null) {
@@ -492,7 +492,7 @@ if (setting.getEStructuralFeature() == «EXPAND xpt::Common::metaFeatureAccessor 
 	// Climb up by containment hierarchy starting from the source
 	// and return the first element that is instance of the container class.
 	for (org.eclipse.emf.ecore.EObject element = «EXPAND xpt::Common::castToEObject FOR getSourceType()» source; element != null && container == null; element = element.eContainer()) {
-		if (element instanceof «getQualifiedInterfaceName(containmentMetaFeature.genClass)») {
+		if («EXPAND MetaModel::IsInstance("element") FOR containmentMetaFeature.genClass») {
 			container = («getQualifiedInterfaceName(containmentMetaFeature.genClass)») element;
 		}
 	}

@@ -27,10 +27,10 @@
 		if (source == null && target == null) {
 			return false;
 		}
-		if (source != null && !(source instanceof «getQualifiedInterfaceName(getSourceType())»)) {
+		if (source != null && !(«EXPAND MetaModel::IsInstance("source") FOR getSourceType()»)) {
 			return false;
 		}
-		if (target != null && !(target instanceof «getQualifiedInterfaceName(getTargetType())»)) {
+		if (target != null && !(«EXPAND MetaModel::IsInstance("target") FOR getTargetType()»)) {
 			return false;
 		}
 		if (getSource() == null) {
@@ -139,7 +139,7 @@
 	// Climb up by containment hierarchy starting from the source
 	// and return the first element that is instance of the container class.
 	for (org.eclipse.emf.ecore.EObject element = source; element != null; element = element.eContainer()) {
-		if (element instanceof «getQualifiedInterfaceName(containmentMetaFeature.genClass)») {
+		if («EXPAND MetaModel::IsInstance("element") FOR containmentMetaFeature.genClass») {
 			container = («getQualifiedInterfaceName(containmentMetaFeature.genClass)») element;
 			super.«EXPAND setElementToEdit("container") FOR containmentMetaFeature-»
 			break;

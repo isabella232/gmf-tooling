@@ -1,0 +1,75 @@
+/*
+ * Copyright (c) 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+
+«EXTENSION xpt::GenModelUtils»
+
+/*
+ * Does instanceof check.
+ */
+«DEFINE IsInstance(String accessor) FOR GenClass-»
+«IF true /*useJavaModelCode*/-»
+«accessor» instanceof «getQualifiedInterfaceName()»«ELSE-»
+MetaModelFacility.getEClass("«ecoreClass.name»").isSuperTypeOf(«IF true /*isEObjectNotExternalInterface(genClass)*/»«accessor»«ELSE»((org.eclipse.emf.ecore.EObject) «accessor»«ENDIF».eClass())«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE NotInstance FOR GenClass-»
+// XXX shorthand: !(EXPAND IsInstance)
+«ENDDEFINE»
+
+«DEFINE NewInstance FOR GenClass-»
+«ENDDEFINE»
+
+«DEFINE MetaClass FOR GenClass-»
+«ENDDEFINE»
+
+/*
+ * Declares new variable of appropriate type and assigns casted value to it.
+ */
+«DEFINE CastAndAssign(String assignee, String value) FOR GenClass-»
+«getQualifiedInterfaceName()» «assignee» = («getQualifiedInterfaceName()») «value»;«ENDDEFINE»
+
+«DEFINE Facility FOR Object»
+public class MetaModelFacility {
+
+	private static MetaModelFacility instance;
+
+	private MetaModelFacility(EPackage ePackage) {
+	}
+
+	private void doInit() {
+	}
+
+	public static MetaModelFacility get«"NameBasedOnMetaModelPackageName"»() {
+		if (instance«"XX"» == null) {
+			instance«"XX"» = new MetaModelFacility(«"load EPackage"»);
+			instance«"XX"».doInit();
+		}
+		return instance«"XX"»;
+	}
+
+	public static isInstance(EObject obj, String metaClassName) {
+		EClass eMetaClass = getInstance(metaModelName).findMetaClass(metaClassName);
+		return obj != null && eMetaClass.isSuperTypeOf(obj.eClass());
+	}
+
+	public static EObject newInstance(String metaClassName) {
+	}
+
+	public static EClass getEClass(String metaClassName) {
+		return instance.findMetaClass(metaClassName);
+	}
+}
+«ENDDEFINE»

@@ -55,8 +55,8 @@ public void initDiagramContent(org.eclipse.gmf.runtime.notation.Diagram diagram)
 		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Incorrect diagram passed as a parameter: " + diagram.getType());
 		return;
 	}
-	if (false == diagram.getElement() instanceof «getQualifiedInterfaceName(domainDiagramElement)») {
-		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Incorrect diagram element specified: " + diagram.getElement() + " instead of «getQualifiedInterfaceName(domainDiagramElement)»");
+	if (false == «EXPAND MetaModel::IsInstance("diagram.getElement()") FOR domainDiagramElement») {
+		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Incorrect diagram element specified: " + diagram.getElement() + " instead of «domainDiagramElement.ecoreClass.name»");
 		return;
 	}
 	«EXPAND createChildrenMethodName»(diagram);

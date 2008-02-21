@@ -115,13 +115,13 @@
 «ENDDEFINE»
 
 «DEFINE checkLinkValidity FOR gmfgen::TypeLinkModelFacet-»
-	if (!(getElementToEdit() instanceof «getQualifiedInterfaceName(metaClass)»)) {
+	if (!(«EXPAND MetaModel::IsInstance("getElementToEdit()") FOR metaClass»)) {
 		return false;
 	}
 «ENDDEFINE»
 
 «DEFINE checkLinkValidity FOR gmfgen::FeatureLinkModelFacet-»
-	if (!(referenceOwner instanceof «getQualifiedInterfaceName(getSourceType())»)) {
+	if (!(«EXPAND MetaModel::IsInstance("referenceOwner") FOR getSourceType()»)) {
 		return false;
 	}
 «ENDDEFINE»
@@ -130,7 +130,7 @@
 «ENDDEFINE»
 
 «DEFINE checkSourceRequestValidity(gmfgen::GenLink link) FOR gmfgen::TypeLinkModelFacet-»
-	if (!(oldEnd instanceof «getQualifiedInterfaceName(getSourceType())» && newEnd instanceof «getQualifiedInterfaceName(getSourceType())»)) {
+	if (!(«EXPAND MetaModel::IsInstance("oldEnd") FOR getSourceType()» && «EXPAND MetaModel::IsInstance("newEnd") FOR getSourceType()»)) {
 		return false;
 	}
 	«EXPAND extractFeatureWithCheck("getLink()", metaClass, "target", getQualifiedInterfaceName(getTargetType())) FOR targetMetaFeature-»
@@ -141,7 +141,7 @@
 	When feature source is being reoriented oldEnd is the link target.
 «ENDREM»
 «DEFINE checkSourceRequestValidity(gmfgen::GenLink link) FOR gmfgen::FeatureLinkModelFacet-»
-	if (!(oldEnd instanceof «getQualifiedInterfaceName(getTargetType())» && newEnd instanceof «getQualifiedInterfaceName(getSourceType())»)) {
+	if (!(«EXPAND MetaModel::IsInstance("oldEnd") FOR getTargetType()» && «EXPAND MetaModel::IsInstance("newEnd") FOR getSourceType()»)) {
 		return false;
 	}
 	return «EXPAND checkLinkConstraintInvocation FOR link»(getNewSource(), getOldTarget());
@@ -151,7 +151,7 @@
 «ENDDEFINE»
 
 «DEFINE checkTargetRequestValidity(gmfgen::GenLink link) FOR gmfgen::TypeLinkModelFacet-»
-	if (!(oldEnd instanceof «getQualifiedInterfaceName(getTargetType())» && newEnd instanceof «getQualifiedInterfaceName(getTargetType())»)) {
+	if (!(«EXPAND MetaModel::IsInstance("oldEnd") FOR getTargetType()» && «EXPAND MetaModel::IsInstance("newEnd") FOR getTargetType()»)) {
 		return false;
 	}
 	«IF sourceMetaFeature != null-»
@@ -166,7 +166,7 @@
 «ENDDEFINE»
 
 «DEFINE checkTargetRequestValidity(gmfgen::GenLink link) FOR gmfgen::FeatureLinkModelFacet-»
-	if (!(oldEnd instanceof «getQualifiedInterfaceName(getTargetType())» && newEnd instanceof «getQualifiedInterfaceName(getTargetType())»)) {
+	if (!(«EXPAND MetaModel::IsInstance("oldEnd") FOR getTargetType()» && «EXPAND MetaModel::IsInstance("newEnd") FOR getTargetType()»)) {
 		return false;
 	}
 	return «EXPAND checkLinkConstraintInvocation FOR link»(getOldSource(), getNewTarget());
