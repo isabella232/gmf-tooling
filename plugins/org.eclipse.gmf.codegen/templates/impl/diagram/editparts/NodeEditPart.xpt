@@ -93,93 +93,97 @@
 «DEFINE createLayoutEditPolicy FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gef.editpolicies.LayoutEditPolicy createLayoutEditPolicy() {
-		«IF gmfgen::ViewmapLayoutType::XY_LAYOUT.value == getLayoutType().value-»
-			org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy lep = new org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy() {
+		«EXPAND createLayoutEditPolicyBody-»
+	}
+«ENDDEFINE»
 
-				protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-					«IF hasBorderItems()-»
-						if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
-							return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
-						}
-					«ENDIF-»
-					org.eclipse.gef.EditPolicy result = super.createChildEditPolicy(child);
-					if (result == null) {
-						return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy();
+«DEFINE createLayoutEditPolicyBody FOR gmfgen::GenNode-»
+	«IF gmfgen::ViewmapLayoutType::XY_LAYOUT.value == getLayoutType().value-»
+		org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy lep = new org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy() {
+
+			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
+				«IF hasBorderItems()-»
+					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
+						return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
 					}
-					return result;
+				«ENDIF-»
+				org.eclipse.gef.EditPolicy result = super.createChildEditPolicy(child);
+				if (result == null) {
+					return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy();
 				}
-			};
-			return lep;
-		«ELSEIF gmfgen::ViewmapLayoutType::TOOLBAR_LAYOUT.value == getLayoutType().value»
-			org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy lep = new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy() {
+				return result;
+			}
+		};
+		return lep;
+	«ELSEIF gmfgen::ViewmapLayoutType::TOOLBAR_LAYOUT.value == getLayoutType().value»
+		org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy lep = new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy() {
 
+			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
+				«IF hasBorderItems()-»
+					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
+						return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
+					}
+				«ENDIF-»
+				if (child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE) == null) {
+					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart) {
+						return new «getDiagram().getTextSelectionEditPolicyQualifiedClassName()»();
+					}
+				}
+				return super.createChildEditPolicy(child);
+			}
+		};
+		return lep;
+	«ELSEIF gmfgen::ViewmapLayoutType::FLOW_LAYOUT.value == getLayoutType().value»
+		org.eclipse.gef.editpolicies.FlowLayoutEditPolicy lep = new org.eclipse.gef.editpolicies.FlowLayoutEditPolicy() {
+
+			«IF hasBorderItems()-»
 				protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-					«IF hasBorderItems()-»
-						if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
-							return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
-						}
-					«ENDIF-»
-					if (child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE) == null) {
-						if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart) {
-							return new «getDiagram().getTextSelectionEditPolicyQualifiedClassName()»();
-						}
+					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
+						return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
 					}
 					return super.createChildEditPolicy(child);
 				}
-			};
-			return lep;
-		«ELSEIF gmfgen::ViewmapLayoutType::FLOW_LAYOUT.value == getLayoutType().value»
-			org.eclipse.gef.editpolicies.FlowLayoutEditPolicy lep = new org.eclipse.gef.editpolicies.FlowLayoutEditPolicy() {
+			«ENDIF-»
 
+			protected org.eclipse.gef.commands.Command createAddCommand(org.eclipse.gef.EditPart child, org.eclipse.gef.EditPart after) {
+				return null;
+			}
+
+			protected org.eclipse.gef.commands.Command createMoveChildCommand(org.eclipse.gef.EditPart child, org.eclipse.gef.EditPart after) {
+				return null;
+			}
+
+			protected org.eclipse.gef.commands.Command getCreateCommand(org.eclipse.gef.requests.CreateRequest request) {
+				return null;
+			}
+		};
+		return lep;
+	«ELSE-»
+		org.eclipse.gef.editpolicies.LayoutEditPolicy lep = new org.eclipse.gef.editpolicies.LayoutEditPolicy() {
+
+			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
 				«IF hasBorderItems()-»
-					protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-						if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
-							return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
-						}
-						return super.createChildEditPolicy(child);
+					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
+						return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
 					}
 				«ENDIF-»
-
-				protected org.eclipse.gef.commands.Command createAddCommand(org.eclipse.gef.EditPart child, org.eclipse.gef.EditPart after) {
-					return null;
+				org.eclipse.gef.EditPolicy result = child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
+				if (result == null) {
+					result = new org.eclipse.gef.editpolicies.NonResizableEditPolicy();
 				}
+				return result;
+			}
 
-				protected org.eclipse.gef.commands.Command createMoveChildCommand(org.eclipse.gef.EditPart child, org.eclipse.gef.EditPart after) {
-					return null;
-				}
+			protected org.eclipse.gef.commands.Command getMoveChildrenCommand(org.eclipse.gef.Request request) {
+				return null;
+			}
 
-				protected org.eclipse.gef.commands.Command getCreateCommand(org.eclipse.gef.requests.CreateRequest request) {
-					return null;
-				}
-			};
-			return lep;
-		«ELSE-»
-			org.eclipse.gef.editpolicies.LayoutEditPolicy lep = new org.eclipse.gef.editpolicies.LayoutEditPolicy() {
-
-				protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-					«IF hasBorderItems()-»
-						if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
-							return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
-						}
-					«ENDIF-»
-					org.eclipse.gef.EditPolicy result = child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
-					if (result == null) {
-						result = new org.eclipse.gef.editpolicies.NonResizableEditPolicy();
-					}
-					return result;
-				}
-
-				protected org.eclipse.gef.commands.Command getMoveChildrenCommand(org.eclipse.gef.Request request) {
-					return null;
-				}
-
-				protected org.eclipse.gef.commands.Command getCreateCommand(org.eclipse.gef.requests.CreateRequest request) {
-					return null;
-				}
-			};
-			return lep;
-		«ENDIF-»
-	}
+			protected org.eclipse.gef.commands.Command getCreateCommand(org.eclipse.gef.requests.CreateRequest request) {
+				return null;
+			}
+		};
+		return lep;
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE createNodeShape(gmfgen::GenNode node) FOR gmfgen::Viewmap-»
