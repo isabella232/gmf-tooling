@@ -86,6 +86,7 @@
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/base.cfg"/>
 		<ant antfile="${scripts}/install.xml" target="installGMFBasePlatform" />
 		<ant antfile="${scripts}/install.xml" target="installGMFRuntime" />	
+		<ant antfile="${scripts}/install.xml" target="installGMFTooling" />	
 		<ant antfile="${scripts}/install.xml" target="installExamples" />
 	</target>
 	
