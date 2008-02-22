@@ -72,8 +72,8 @@ MetaModelFacility.getEClass("«ecoreClass.name»").isSuperTypeOf(«IF true /*isEObj
 «getQualifiedInterfaceName()» «assignee» = «IF needCast»(«getQualifiedInterfaceName()») «ENDIF»«EXPAND xpt::Common::getFeatureValue(src, srcMetaClass) FOR srcFeature».«srcExt»;«ENDDEFINE»
 
 /*
- * Cast value of type EObject to specific type. Would be no-op with dynamic model instances.
- 
+ * Cast value of type EObject to specific type. Would be no-op with dynamic model instances,
+ * therefore, the fact eObjectValue is actually EObject is essential
  */
 «DEFINE CastEObject(String eObjectValue) FOR GenClass»(«getQualifiedInterfaceName()») «eObjectValue»«ENDDEFINE»
 
