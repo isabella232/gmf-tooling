@@ -1,10 +1,10 @@
-/*******************************************************************************
- * Copyright (c) 2006, 2007 Borland Software Corporation
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
+ */
 package org.eclipse.gmf.internal.xpand.util;
 
 import java.io.FileNotFoundException;
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
+import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
 
 /**
  * Node: no support for relative paths (i.e. '..::templates::SomeTemplate.xpt')
@@ -57,22 +58,11 @@ public class BundleResourceManager extends ResourceManagerImpl {
 	}
 
 	@Override
-	protected Reader resolve(String fullyQualifiedName, String extension) throws IOException {
-		final String urlPath = fullyQualifiedName.replaceAll(SyntaxConstants.NS_DELIM, "/") + '.' + extension;
-		for (int i = 0; i < paths.length; i++) {
-			try {
-				return createReader(urlPath, paths[i]);
-			} catch (MalformedURLException ex) {
-				/*IGNORE*/
-			} catch (IOException ex) {
-				// XXX perhaps, conditionally turn logging on to debug template loading issues?
-				/*IGNORE*/
-			} catch (Exception ex) {
-				// just in case
-				Activator.logError(ex);
-			}
+	protected void handleParserException(ParserException ex) {
+		Activator.logWarn(ex.getResourceName() + ":" + ex.getClass().getName());
+		for (ErrorLocationInfo ei : ex.getParsingErrors()) {
+			Activator.logWarn(ei.startLine + ":" + ei.message);
 		}
-		throw new FileNotFoundException(fullyQualifiedName);
 	}
 
 	private Reader createReader(String urlPath, URL baseUrl) throws MalformedURLException, IOException {

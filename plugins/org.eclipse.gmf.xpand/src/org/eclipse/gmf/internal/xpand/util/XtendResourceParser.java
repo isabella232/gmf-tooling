@@ -1,7 +1,7 @@
 /*
  * <copyright>
  *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -42,7 +42,7 @@ public class XtendResourceParser {
         	if (errors.length == 0) {
         		throw new IOException("Unexpected exception while parsing");
         	} else {
-        		throw new ParserException(errors);
+        		throw new ParserException(name, errors);
         	}
         }
         if (tpl != null) {
@@ -51,7 +51,7 @@ public class XtendResourceParser {
         }
 		ParserException.ErrorLocationInfo[] errors = extractErrors(scanner, parser);
 		assert errors.length > 0 : "otherwise, no reason not to get template";
-		throw new ParserException(errors);
+		throw new ParserException(name, errors);
     }
 
     private static ErrorLocationInfo[] extractErrors(XtendLexer scanner, XtendParser parser) {

@@ -1,11 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2006, 2007 Eclipse.org
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
+ * 
+ * Contributors:
+ *     Artem Tikhomirov (Borland)
+ *     Boris Blajer (Borland) - support for composite resources
+ */
 package org.eclipse.gmf.internal.xpand.util;
 
 import java.io.FileNotFoundException;
@@ -26,42 +30,34 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	private final Map<String, XpandResource> cachedXpand = new TreeMap<String, XpandResource>();
 
 	public XtendResource loadXtendResource(String fullyQualifiedName) {
-		if (hasCachedXtend(fullyQualifiedName)) {
-			return cachedXtend.get(fullyQualifiedName);
-		}
 		try {
-			final XtendResource loaded = doLoadXtendResource(fullyQualifiedName);
-			assert loaded != null; // this is the contract of loadXtendResource
-			if (shouldCache()) {
-				cachedXtend.put(fullyQualifiedName, loaded);
-			}
-			return loaded;
+			return loadXtendThroughCache(fullyQualifiedName);
 		} catch (FileNotFoundException ex) {
 			return null;	//Missing resource is an anticipated situation, not a error that should be handled
 		} catch (IOException ex) {
 			Activator.logError(ex);
 		} catch (ParserException ex) {
-			handleParserException(fullyQualifiedName, ex);
+			handleParserException(ex);
 		}
 		return null;
 	}
 
+	protected XtendResource loadXtendThroughCache(String qualifiedName) throws IOException, ParserException {
+		if (hasCachedXtend(qualifiedName)) {
+			return cachedXtend.get(qualifiedName);
+		}
+		final XtendResource loaded = doLoadXtendResource(qualifiedName);
+		assert loaded != null; // this is the contract of loadXtendResource
+		if (shouldCache()) {
+			cachedXtend.put(qualifiedName, loaded);
+		}
+		return loaded;
+	}
+	
 	private XtendResource doLoadXtendResource(String fullyQualifiedName) throws IOException, ParserException {
 		Reader[] rs = resolveMultiple(fullyQualifiedName, XtendResource.FILE_EXTENSION);
 		assert rs != null && rs.length > 0;
-		XtendResource[] result = new XtendResource[rs.length];
-		for (int i = 0; i < rs.length; i++) {
-			Reader r = rs[i];
-			assert r != null;
-			try {
-				result[i] = loadXtendResource(r, fullyQualifiedName);
-				assert result[i] != null; // this is the contract of loadXpandResource
-			} finally {
-				try {
-					r.close();
-				} catch (Exception ex) {/*IGNORE*/}
-			}
-		}
+		XtendResource[] result = loadXtendResources(rs, fullyQualifiedName);
 		if (result.length == 1) {
 			return result[0];
 		}
@@ -69,38 +65,46 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	}
 
 	public XpandResource loadXpandResource(String fullyQualifiedName) {
-		if (hasCachedXpand(fullyQualifiedName)) {
-			return cachedXpand.get(fullyQualifiedName);
-		}
 		try {
-			final XpandResource loaded = doLoadXpandResource(fullyQualifiedName);
-			if (shouldCache()) {
-				cachedXpand.put(fullyQualifiedName, loaded);
-			}
-			return loaded;
+			return loadXpandThroughCache(fullyQualifiedName);
 		} catch (FileNotFoundException ex) {
 			return null;	//Missing resource is an anticipated situation, not a error that should be handled
 		} catch (IOException ex) {
 			// XXX come up with better handling
 			Activator.logWarn(ex.getMessage());
 		} catch (ParserException ex) {
-			handleParserException(fullyQualifiedName, ex);
+			handleParserException(ex);
 		}
 		return null;
 	}
 
+	protected XpandResource loadXpandThroughCache(String qualifiedName) throws IOException, ParserException {
+		if (hasCachedXpand(qualifiedName)) {
+			return cachedXpand.get(qualifiedName);
+		}
+		final XpandResource loaded = doLoadXpandResource(qualifiedName);
+		if (shouldCache()) {
+			cachedXpand.put(qualifiedName, loaded);
+		}
+		return loaded;
+	}
+
 	private XpandResource doLoadXpandResource(String fullyQualifiedName) throws IOException, ParserException {
-		XpandResource[] unadvised = internalLoadXpandResources(fullyQualifiedName);
+		Reader[] rs1 = resolveMultiple(fullyQualifiedName, XpandResource.TEMPLATE_EXTENSION);
+		assert rs1 != null && rs1.length > 0; // exception should be thrown to indicate issues with resolve
+		XpandResource[] unadvised = loadXpandResources(rs1, fullyQualifiedName);
 		XpandResource[] advices = null;
 		try {
 	    	String aspectsTemplateName = getAspectsTemplateName(fullyQualifiedName);
-	    	advices = internalLoadXpandResources(aspectsTemplateName);
+	    	Reader[] rs2 = resolveMultiple(aspectsTemplateName, XpandResource.TEMPLATE_EXTENSION);
+	    	// XXX relax resolveMultiple to return empty array and use length==0 here instead of exception
+	    	advices = loadXpandResources(rs2, aspectsTemplateName);
 		} catch (FileNotFoundException e) {
 		} catch (IOException ex) {
 			// XXX come up with better handling
 			Activator.logWarn(ex.getMessage());
 		} catch (ParserException ex) {
-			handleParserException(fullyQualifiedName, ex);
+			handleParserException(ex);
 		}
 		if (advices == null && unadvised.length == 1) {
 			return unadvised[0];
@@ -129,55 +133,53 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		return possiblyAspectedFullyQualifiedName;
 	}
 
-	private XpandResource[] internalLoadXpandResources(String fullyQualifiedName) throws IOException, ParserException {
-		Reader[] rs = resolveMultiple(fullyQualifiedName, XpandResource.TEMPLATE_EXTENSION);
-		assert rs != null && rs.length > 0; // exception should be thrown to indicate issues with resolve
-		XpandResource[] result = new XpandResource[rs.length];
-		for (int i = 0; i < rs.length; i++) {
-			Reader r = rs[i];
-			assert r != null;
+	protected abstract void handleParserException(ParserException ex);
+
+	/**
+	 * Returns an array of resolutions, in the order from newest to oldest. 
+	 * This is to enable one template to partially override only a subset of parent templates.
+	 *  
+	 * @return never return <code>null</code> or an empty array, throw exception instead
+	 * @throws IOException in case resource can't be read. Throw {@link java.io.FileNotFoundException} to indicate resource was not found. 
+	 */
+	protected abstract Reader[] resolveMultiple(String fullyQualifiedName, String extension) throws IOException;
+
+	/**
+	 * Readers get closed after parse attempt. 
+	 */
+	protected XtendResource[] loadXtendResources(Reader[] readers, String fullyQualifiedName) throws IOException, ParserException {
+		XtendResource[] result = new XtendResource[readers.length];
+		for (int i = 0; i < readers.length; i++) {
+			assert readers[i] != null;
 			try {
-				result[i] = loadXpandResource(r, fullyQualifiedName);
+				result[i] = new XtendResourceParser().parse(readers[i], fullyQualifiedName);
 				assert result[i] != null; // this is the contract of loadXpandResource
 			} finally {
 				try {
-					r.close();
+					readers[i].close();
 				} catch (Exception ex) {/*IGNORE*/}
 			}
 		}
 		return result;
 	}
 
-	protected void handleParserException(String name, ParserException ex) {
-		Activator.logWarn(name + ":" + ex.getClass().getName());
-	}
-
 	/**
-	 * @return never return <code>null</code>, throw exception instead
-	 * @throws IOException in case resource can't be read. Throw {@link java.io.FileNotFoundException} to indicate resource was not found. 
-	 * @deprecated use {@link #resolveMultiple(String, String)} instead.
+	 * Readers get closed after parse attempt.
 	 */
-	@Deprecated
-	protected abstract Reader resolve(String fullyQualifiedName, String extension) throws IOException;
-
-	/**
-	 * Returns an array of resolutions, in the order from newest to oldest. 
-	 * This is to enable one template to partially override only a subset of parent templates. 
-	 * By default, returns an array consisting of one Reader, the one that {@link #resolve(String, String)} returns.
-	 * Subclasses should override.
-	 * @return never return <code>null</code> or an empty array, throw exception instead
-	 * @throws IOException in case resource can't be read. Throw {@link java.io.FileNotFoundException} to indicate resource was not found. 
-	 */
-	protected Reader[] resolveMultiple(String fullyQualifiedName, String extension) throws IOException {
-		return new Reader[] {resolve(fullyQualifiedName, extension)};
-	}
-
-	protected XtendResource loadXtendResource(Reader reader, String fullyQualifiedName) throws IOException, ParserException {
-		return new XtendResourceParser().parse(reader, fullyQualifiedName);
-	}
-
-	protected XpandResource loadXpandResource(Reader reader, String fullyQualifiedName) throws IOException, ParserException {
-		return new XpandResourceParser().parse(reader, fullyQualifiedName);
+	protected XpandResource[] loadXpandResources(Reader[] readers, String fullyQualifiedName) throws IOException, ParserException {
+		XpandResource[] result = new XpandResource[readers.length];
+		for (int i = 0; i < readers.length; i++) {
+			assert readers[i] != null;
+			try {
+				result[i] = new XpandResourceParser().parse(readers[i], fullyQualifiedName);
+				assert result[i] != null; // this is the contract of parse
+			} finally {
+				try {
+					readers[i].close();
+				} catch (Exception ex) {/*IGNORE*/}
+			}
+		}
+		return result;
 	}
 
 	protected abstract boolean shouldCache();

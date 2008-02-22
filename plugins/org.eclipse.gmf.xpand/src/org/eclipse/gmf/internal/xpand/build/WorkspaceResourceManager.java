@@ -1,10 +1,14 @@
-/*******************************************************************************
- * Copyright (c) 2006, 2007 Borland Software Corporation
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
+ * 
+ * Contributors:
+ *     Artem Tikhomirov (Borland)
+ *     Boris Blajer (Borland) - support for composite resources
+ */
 package org.eclipse.gmf.internal.xpand.build;
 
 import java.io.FileNotFoundException;
@@ -24,6 +28,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.util.ParserException;
@@ -43,26 +48,45 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 	}
 
 	public XtendResource loadXtendResource(IFile file) throws CoreException, IOException, ParserException {
-		if (file == null) {
+		String fullyQualifiedName;
+		if (file == null || (fullyQualifiedName = toFullyQualifiedName(file)) == null) {
 			return null;
 		}
-		String fullyQualifiedName = toFullyQualifiedName(file);
-		if (fullyQualifiedName == null) {
-			return null;
+		// try file directly, to get IO/Parse exceptions, if any.
+		Reader r = new StreamConverter().toContentsReader(file);
+		loadXtendResources(new Reader[] { r }, fullyQualifiedName);
+		//
+		try {
+			return loadXtendThroughCache(fullyQualifiedName);
+		} catch (FileNotFoundException ex) {
+			return null;	//Missing resource is an anticipated situation, not a error that should be handled
 		}
-		return super.loadXtendResource(fullyQualifiedName);
 	}
 
 	public XpandResource loadXpandResource(IFile file) throws CoreException, IOException, ParserException {
-		if (file == null) {
+		String fullyQualifiedName;
+		if (file == null || (fullyQualifiedName = toFullyQualifiedName(file)) == null) {
 			return null;
 		}
-		String fullyQualifiedName = toFullyQualifiedName(file);
-		if (fullyQualifiedName == null) {
-			return null;
-		}
+		// try file directly, to get IO/Parse exceptions, if any.
+		Reader r = new StreamConverter().toContentsReader(file);
+		loadXpandResources(new Reader[] { r }, fullyQualifiedName);
+		//
 		fullyQualifiedName = getNonAspectsTemplateName(fullyQualifiedName);
-		return super.loadXpandResource(fullyQualifiedName);
+		try {
+			return loadXpandThroughCache(fullyQualifiedName);
+		} catch (FileNotFoundException ex) {
+			return null;	//Missing resource is an anticipated situation, not a error that should be handled
+		}
+	}
+
+	@Override
+	protected void handleParserException(ParserException ex) {
+		// may get here only when some referenced template/xtend file is
+		// broken. Since it's expected to get compiled anyway (either prior
+		// to compilation of its use or afterwards), error messages should get
+		// into problems view sooner or later.
+		Activator.logWarn(ex.getClass().getSimpleName() + ":" + ex.getResourceName());
 	}
 
 	@Override
@@ -74,27 +98,6 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 
 	public void forget(IFile resource) {
 		// implement when caching
-	}
-
-	protected Reader resolve(String fqn, String ext) throws IOException {
-		IPath fp = new Path(fqn.replaceAll(SyntaxConstants.NS_DELIM, "/")).addFileExtension(ext);
-		IResource r = null;
-		for (IPath p : getResolutions(fp)) {
-			r = contextProject.findMember(p);
-			if (r != null) {
-				break;
-			}
-		}
-		if (false == r instanceof IFile) {
-			throw new FileNotFoundException(fp.toString());
-		}
-		try {
-			return new StreamConverter().toContentsReader((IFile) r);
-		} catch (CoreException ex) {
-			IOException wrap = new IOException(ex.getStatus().getMessage());
-			wrap.initCause(ex);
-			throw wrap;
-		}
 	}
 
 	@Override
@@ -152,19 +155,14 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 	}
 
 	private IPath[] getResolutions(IPath p) {
-		IPath[] configured = getConfiguredRoots();
-		IPath[] rv = new IPath[configured.length];
-		for (int i = 0; i < configured.length; i++) {
-			rv[i] = configured[i].append(p);
+		IPath[] rv = new IPath[myConfiguredRoots.length];
+		for (int i = 0; i < myConfiguredRoots.length; i++) {
+			rv[i] = myConfiguredRoots[i].append(p);
 		}
 		return rv;
 	}
-	private IPath[] getConfiguredRoots() {
-		return myConfiguredRoots;
-	}
-
 	private String toFullyQualifiedName(IFile file) {
-		for (IPath nextRoot : getConfiguredRoots()) {
+		for (IPath nextRoot : myConfiguredRoots) {
 			if (!nextRoot.isAbsolute()) {
 				if (file.getProject().equals(contextProject) && nextRoot.isPrefixOf(file.getProjectRelativePath())) {
 					return toFullyQualifiedName(file.getProjectRelativePath().removeFirstSegments(nextRoot.segmentCount()));
@@ -178,7 +176,7 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 		return null;
 	}
 
-	private String toFullyQualifiedName(IPath filePath) {
+	private static String toFullyQualifiedName(IPath filePath) {
 		return filePath.removeFileExtension().toString().replace("/", SyntaxConstants.NS_DELIM);
 	}
 }
