@@ -50,10 +50,7 @@
 
 «DEFINE featureMultiplicityComparator(String ownerVar, genmodel::GenClass ownerClass) FOR genmodel::GenFeature-»
 «IF ecoreFeature.upperBound == 1»«EXPAND getFeatureValue(ownerVar, ownerClass, false)» != null«ELSE-»
-«LET getQualifiedFeatureAccessorName() + "().getUpperBound()" AS featureUpperBound-»
-«featureUpperBound» > 1 && «EXPAND getFeatureValue(ownerVar, ownerClass, true)».size() >= «featureUpperBound-»
-«ENDLET-»
-«ENDIF-»
+«EXPAND xpt::Common::metaFeatureAccessor».getUpperBound() > 1 && «EXPAND getFeatureValue(ownerVar, ownerClass, true)».size() >= «EXPAND xpt::Common::metaFeatureAccessor».getUpperBound()«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE checkLinkConstraints(String sourceVar, String targetVar) FOR gmfgen::GenLinkConstraints-»
