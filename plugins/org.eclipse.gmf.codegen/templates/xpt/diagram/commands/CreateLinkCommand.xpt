@@ -88,7 +88,7 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.emf.ecore.EClass getEClassToEdit() {
-		return «getQualifiedClassifierAccessor(containmentMetaFeature.genClass)»();
+		return «EXPAND xpt::Common::metaClassAccessor FOR containmentMetaFeature.genClass»;
 	}
 «ENDDEFINE»
 

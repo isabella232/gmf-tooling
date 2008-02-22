@@ -81,20 +81,6 @@ String getFeatureAccessorName(genmodel::GenFeature gf) :
 	gf.genClass.ecoreClass.name + "_" + gf.ecoreFeature.name.toFirstUpper()
 ;
 
-//
-// GenFeature#getQualifiedFeatureAccessorName
-//
-String getQualifiedFeatureAccessorName(genmodel::GenFeature gf) :
-	getQualifiedPackageInterfaceName(gf.genClass.genPackage) + ".eINSTANCE.get" + getFeatureAccessorName(gf)
-;
-
-//
-// GenClassifier#getQualifiedClassifierAccessor
-//
-String getQualifiedClassifierAccessor(genmodel::GenClassifier gc) :
-	getQualifiedPackageInterfaceName(gc.genPackage) + ".eINSTANCE.get" + getClassifierAccessorName(gc)
-;
-
 // GenFeatureImpl#getAccessorName
 String getAccessorName(genmodel::GenFeature gf) :
 	isMapEntryFeature(gf) ? "Typed" + gf.ecoreFeature.name.toFirstUpper() : gf.ecoreFeature.name.toFirstUpper()

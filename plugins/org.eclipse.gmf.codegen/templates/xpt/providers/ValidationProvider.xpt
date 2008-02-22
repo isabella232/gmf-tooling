@@ -281,11 +281,11 @@ static class JavaAudits {
 
 «DEFINE initializerExpr(ValueExpression valueExpr, GenClassifier exprContext) FOR GenExpressionInterpreter-»
 	«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», //$NON-NLS-1$
-		«getQualifiedClassifierAccessor(exprContext)»())
+		«EXPAND xpt::Common::metaClassAccessor FOR exprContext»)
 «ENDDEFINE»
 
 «DEFINE initializerExpr(ValueExpression valueExpr, GenClassifier exprContext) FOR GenJavaExpressionProvider-»
-	new «container.getAbstractExpressionQualifiedClassName()»(«getQualifiedClassifierAccessor(exprContext)»()) {
+	new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND xpt::Common::metaClassAccessor FOR exprContext») {
 
 		protected Object doEvaluate(Object context, java.util.Map env) {
 			«getQualifiedInstanceClassName(exprContext)» self = («getQualifiedInstanceClassName(exprContext)») context;
@@ -299,7 +299,7 @@ static class JavaAudits {
 
 «DEFINE evalContext(GenDiagram diagram) FOR GenDomainAttributeTarget-»
 	if (evalCtx instanceof org.eclipse.emf.ecore.EObject) {
-		evalCtx = ((org.eclipse.emf.ecore.EObject) evalCtx).eGet(«getQualifiedFeatureAccessorName(attribute)»());
+		evalCtx = ((org.eclipse.emf.ecore.EObject) evalCtx).eGet(«EXPAND xpt::Common::metaFeatureAccessor FOR attribute»);
 	}
 	if (evalCtx == null) {
 	«IF nullAsError-»
