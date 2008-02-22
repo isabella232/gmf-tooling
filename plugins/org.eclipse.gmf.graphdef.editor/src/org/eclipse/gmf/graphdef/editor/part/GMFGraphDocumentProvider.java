@@ -22,6 +22,7 @@ import java.util.Map;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -512,7 +513,8 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			if (!overwrite && !info.isSynchronized()) {
-				throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, IStatus.OK, Messages.GMFGraphDocumentProvider_UnsynchronizedFileSaveError, null));
+				throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, IResourceStatus.OUT_OF_SYNC_LOCAL, Messages.GMFGraphDocumentProvider_UnsynchronizedFileSaveError,
+						null));
 			}
 			info.stopResourceListening();
 			fireElementStateChanging(element);
@@ -533,6 +535,7 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 					monitor.worked(1);
 				}
 				monitor.done();
+				info.setModificationStamp(computeModificationStamp(info));
 			} catch (RuntimeException x) {
 				fireElementStateChangeFailed(element);
 				throw x;

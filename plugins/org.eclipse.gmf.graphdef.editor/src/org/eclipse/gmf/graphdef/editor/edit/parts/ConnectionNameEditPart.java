@@ -46,6 +46,7 @@ import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
 import org.eclipse.gmf.runtime.notation.FontStyle;
@@ -124,8 +125,8 @@ public class ConnectionNameEditPart extends CompartmentEditPart implements IText
 	 * @generated
 	 */
 	protected String getLabelTextHelper(IFigure figure) {
-		if (figure instanceof WrapLabel) {
-			return ((WrapLabel) figure).getText();
+		if (figure instanceof WrappingLabel) {
+			return ((WrappingLabel) figure).getText();
 		} else {
 			return ((Label) figure).getText();
 		}
@@ -135,8 +136,8 @@ public class ConnectionNameEditPart extends CompartmentEditPart implements IText
 	 * @generated
 	 */
 	protected void setLabelTextHelper(IFigure figure, String text) {
-		if (figure instanceof WrapLabel) {
-			((WrapLabel) figure).setText(text);
+		if (figure instanceof WrappingLabel) {
+			((WrappingLabel) figure).setText(text);
 		} else {
 			((Label) figure).setText(text);
 		}
@@ -146,8 +147,8 @@ public class ConnectionNameEditPart extends CompartmentEditPart implements IText
 	 * @generated
 	 */
 	protected Image getLabelIconHelper(IFigure figure) {
-		if (figure instanceof WrapLabel) {
-			return ((WrapLabel) figure).getIcon();
+		if (figure instanceof WrappingLabel) {
+			return ((WrappingLabel) figure).getIcon();
 		} else {
 			return ((Label) figure).getIcon();
 		}
@@ -157,8 +158,8 @@ public class ConnectionNameEditPart extends CompartmentEditPart implements IText
 	 * @generated
 	 */
 	protected void setLabelIconHelper(IFigure figure, Image icon) {
-		if (figure instanceof WrapLabel) {
-			((WrapLabel) figure).setIcon(icon);
+		if (figure instanceof WrappingLabel) {
+			((WrappingLabel) figure).setIcon(icon);
 		} else {
 			((Label) figure).setIcon(icon);
 		}
@@ -193,8 +194,7 @@ public class ConnectionNameEditPart extends CompartmentEditPart implements IText
 	 * @generated
 	 */
 	protected EObject getParserElement() {
-		EObject element = resolveSemanticElement();
-		return element != null ? element : (View) getModel();
+		return resolveSemanticElement();
 	}
 
 	/**
@@ -213,8 +213,9 @@ public class ConnectionNameEditPart extends CompartmentEditPart implements IText
 	 */
 	protected String getLabelText() {
 		String text = null;
-		if (getParser() != null) {
-			text = getParser().getPrintString(new EObjectAdapter(getParserElement()), getParserOptions().intValue());
+		EObject parserElement = getParserElement();
+		if (parserElement != null && getParser() != null) {
+			text = getParser().getPrintString(new EObjectAdapter(parserElement), getParserOptions().intValue());
 		}
 		if (text == null || text.length() == 0) {
 			text = defaultText;
@@ -237,7 +238,7 @@ public class ConnectionNameEditPart extends CompartmentEditPart implements IText
 	 * @generated
 	 */
 	public String getEditText() {
-		if (getParser() == null) {
+		if (getParserElement() == null || getParser() == null) {
 			return ""; //$NON-NLS-1$
 		}
 		return getParser().getEditString(new EObjectAdapter(getParserElement()), getParserOptions().intValue());
@@ -283,7 +284,7 @@ public class ConnectionNameEditPart extends CompartmentEditPart implements IText
 	 * @generated
 	 */
 	public IContentAssistProcessor getCompletionProcessor() {
-		if (getParser() == null) {
+		if (getParserElement() == null || getParser() == null) {
 			return null;
 		}
 		return getParser().getCompletionProcessor(new EObjectAdapter(getParserElement()));
@@ -408,8 +409,8 @@ public class ConnectionNameEditPart extends CompartmentEditPart implements IText
 	 */
 	protected void refreshUnderline() {
 		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
-		if (style != null && getFigure() instanceof WrapLabel) {
-			((WrapLabel) getFigure()).setTextUnderline(style.isUnderline());
+		if (style != null && getFigure() instanceof WrappingLabel) {
+			((WrappingLabel) getFigure()).setTextUnderline(style.isUnderline());
 		}
 	}
 
@@ -418,8 +419,8 @@ public class ConnectionNameEditPart extends CompartmentEditPart implements IText
 	 */
 	protected void refreshStrikeThrough() {
 		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
-		if (style != null && getFigure() instanceof WrapLabel) {
-			((WrapLabel) getFigure()).setTextStrikeThrough(style.isStrikeThrough());
+		if (style != null && getFigure() instanceof WrappingLabel) {
+			((WrappingLabel) getFigure()).setTextStrikeThrough(style.isStrikeThrough());
 		}
 	}
 

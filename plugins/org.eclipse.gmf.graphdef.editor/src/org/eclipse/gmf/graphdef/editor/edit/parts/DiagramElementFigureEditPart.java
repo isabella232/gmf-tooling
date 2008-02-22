@@ -55,8 +55,14 @@ public class DiagramElementFigureEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
-
 		return new FigureConnectionFigure();
+	}
+
+	/**
+	 * @generated
+	 */
+	public FigureConnectionFigure getPrimaryShape() {
+		return (FigureConnectionFigure) getFigure();
 	}
 
 	/**

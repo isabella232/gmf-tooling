@@ -127,10 +127,24 @@ public class GMFGraphVisualIDRegistry {
 	 * @generated
 	 */
 	public static int getNodeVisualID(View containerView, EObject domainElement) {
-		if (domainElement == null || !CanvasEditPart.MODEL_ID.equals(org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry.getModelID(containerView))) {
+		if (domainElement == null) {
 			return -1;
 		}
-		switch (org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry.getVisualID(containerView)) {
+		String containerModelID = org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry.getModelID(containerView);
+		if (!CanvasEditPart.MODEL_ID.equals(containerModelID) && !"GMFGraph".equals(containerModelID)) { //$NON-NLS-1$
+			return -1;
+		}
+		int containerVisualID;
+		if (CanvasEditPart.MODEL_ID.equals(containerModelID)) {
+			containerVisualID = org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry.getVisualID(containerView);
+		} else {
+			if (containerView instanceof Diagram) {
+				containerVisualID = CanvasEditPart.VISUAL_ID;
+			} else {
+				return -1;
+			}
+		}
+		switch (containerVisualID) {
 		case FigureDescriptorEditPart.VISUAL_ID:
 			if (GMFGraphPackage.eINSTANCE.getRectangle().isSuperTypeOf(domainElement.eClass())) {
 				return RectangleEditPart.VISUAL_ID;

@@ -98,7 +98,7 @@ public class GMFGraphElementChooserDialog extends Dialog {
 	 */
 	protected Control createDialogArea(Composite parent) {
 		Composite composite = (Composite) super.createDialogArea(parent);
-		getShell().setText("Select model element");
+		getShell().setText(Messages.GMFGraphElementChooserDialog_SelectModelElementTitle);
 		createModelBrowser(composite);
 		return composite;
 	}
@@ -140,7 +140,7 @@ public class GMFGraphElementChooserDialog extends Dialog {
 	 */
 	private boolean isValidModelFile(IFile file) {
 		String fileExtension = file.getFullPath().getFileExtension();
-		return "gmfgen".equals(fileExtension);
+		return "gmfgen".equals(fileExtension); //$NON-NLS-1$
 	}
 
 	/**

@@ -191,10 +191,16 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		Collection existingLinks = new LinkedList(getDiagram().getEdges());
 		for (Iterator linksIterator = existingLinks.iterator(); linksIterator.hasNext();) {
 			Edge nextDiagramLink = (Edge) linksIterator.next();
+			int diagramLinkVisualID = GMFGraphVisualIDRegistry.getVisualID(nextDiagramLink);
+			if (diagramLinkVisualID == -1) {
+				if (nextDiagramLink.getSource() != null && nextDiagramLink.getTarget() != null) {
+					linksIterator.remove();
+				}
+				continue;
+			}
 			EObject diagramLinkObject = nextDiagramLink.getElement();
 			EObject diagramLinkSrc = nextDiagramLink.getSource().getElement();
 			EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
-			int diagramLinkVisualID = GMFGraphVisualIDRegistry.getVisualID(nextDiagramLink);
 			for (Iterator LinkDescriptorsIterator = linkDescriptors.iterator(); LinkDescriptorsIterator.hasNext();) {
 				GMFGraphLinkDescriptor nextLinkDescriptor = (GMFGraphLinkDescriptor) LinkDescriptorsIterator.next();
 				if (diagramLinkObject == nextLinkDescriptor.getModelElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination()
@@ -212,101 +218,180 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	private Collection collectAllLinks(View view, Map domain2NotationMap) {
+		if (!CanvasEditPart.MODEL_ID.equals(GMFGraphVisualIDRegistry.getModelID(view))) {
+			return Collections.EMPTY_LIST;
+		}
 		Collection result = new LinkedList();
 		switch (GMFGraphVisualIDRegistry.getVisualID(view)) {
 		case CanvasEditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getCanvas_1000ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getCanvas_1000ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case CompartmentEditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getCompartment_2005ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getCompartment_2005ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case NodeEditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getNode_2006ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getNode_2006ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case ConnectionEditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getConnection_2007ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getConnection_2007ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case FigureGalleryEditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getFigureGallery_2008ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getFigureGallery_2008ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case FigureDescriptorEditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getFigureDescriptor_3009ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getFigureDescriptor_3009ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case RectangleEditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getRectangle_3010ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getRectangle_3010ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case Rectangle2EditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getRectangle_3011ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getRectangle_3011ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case EllipseEditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getEllipse_3012ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getEllipse_3012ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case RoundedRectangleEditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getRoundedRectangle_3013ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getRoundedRectangle_3013ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case PolylineEditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getPolyline_3014ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getPolyline_3014ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case Ellipse2EditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getEllipse_3015ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getEllipse_3015ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case RoundedRectangle2EditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getRoundedRectangle_3016ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getRoundedRectangle_3016ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case Polyline2EditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getPolyline_3017ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getPolyline_3017ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case Rectangle3EditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getRectangle_3018ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getRectangle_3018ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case Ellipse3EditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getEllipse_3019ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getEllipse_3019ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case RoundedRectangle3EditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getRoundedRectangle_3020ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getRoundedRectangle_3020ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case Polyline3EditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getPolyline_3021ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getPolyline_3021ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		case ChildAccessEditPart.VISUAL_ID: {
-			domain2NotationMap.put(view.getElement(), view);
-			result.addAll(GMFGraphDiagramUpdater.getChildAccess_4002ContainedLinks(view));
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getChildAccess_4002ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
 			break;
 		}
 		}

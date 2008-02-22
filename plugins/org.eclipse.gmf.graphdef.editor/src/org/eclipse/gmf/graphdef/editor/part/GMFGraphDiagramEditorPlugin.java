@@ -60,7 +60,7 @@ public class GMFGraphDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	private GMFGraphDocumentProvider myDocumentProvider;
+	private GMFGraphDocumentProvider documentProvider;
 
 	/**
 	 * @generated
@@ -190,10 +190,10 @@ public class GMFGraphDiagramEditorPlugin extends AbstractUIPlugin {
 	 * @generated
 	 */
 	public GMFGraphDocumentProvider getDocumentProvider() {
-		if (myDocumentProvider == null) {
-			myDocumentProvider = new GMFGraphDocumentProvider();
+		if (documentProvider == null) {
+			documentProvider = new GMFGraphDocumentProvider();
 		}
-		return myDocumentProvider;
+		return documentProvider;
 	}
 
 	/**

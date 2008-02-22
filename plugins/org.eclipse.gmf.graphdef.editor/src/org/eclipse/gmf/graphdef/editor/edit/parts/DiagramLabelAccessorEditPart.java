@@ -55,8 +55,14 @@ public class DiagramLabelAccessorEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
-
 		return new ChildAccessConnectionFigure();
+	}
+
+	/**
+	 * @generated
+	 */
+	public ChildAccessConnectionFigure getPrimaryShape() {
+		return (ChildAccessConnectionFigure) getFigure();
 	}
 
 	/**

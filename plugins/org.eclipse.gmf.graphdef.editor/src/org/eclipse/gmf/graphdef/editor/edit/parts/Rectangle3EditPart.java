@@ -49,6 +49,7 @@ import org.eclipse.gmf.graphdef.editor.edit.policies.Rectangle3ItemSemanticEditP
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
@@ -97,7 +98,6 @@ public class Rectangle3EditPart extends AbstractFigureEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
-
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new Rectangle3ItemSemanticEditPolicy());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
@@ -186,7 +186,7 @@ public class Rectangle3EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
 		LineBorder contourBorder = new LineBorder(Display.getDefault().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
 		MarginBorder marginBorder = new MarginBorder(5);
 		CompoundBorder compoundBorder = new CompoundBorder(contourBorder, marginBorder);
@@ -247,9 +247,42 @@ public class Rectangle3EditPart extends AbstractFigureEditPart {
 	/**
 	 * @generated
 	 */
+	public class RectangleFigure extends org.eclipse.draw2d.RectangleFigure {
+
+		/**
+		 * @generated
+		 */
+		public RectangleFigure() {
+
+			this.setLayoutManager(new org.eclipse.draw2d.XYLayout());
+		}
+
+		/**
+		 * @generated
+		 */
+		private boolean myUseLocalCoordinates = false;
+
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
+	}
+
+	/**
+	 * @generated
+	 */
 	private RectangleFigure myFigure;
 
-// TODO: use myFigure?
 	/**
 	 * @generated
 	 */
@@ -689,40 +722,6 @@ public class Rectangle3EditPart extends AbstractFigureEditPart {
 			rgbColor = -1;
 		}
 		return rgbColor;
-	}
-
-	/**
-	 * @generated
-	 */
-	public class RectangleFigure extends org.eclipse.draw2d.RectangleFigure {
-
-		/**
-		 * @generated
-		 */
-		public RectangleFigure() {
-
-			this.setLayoutManager(new org.eclipse.draw2d.XYLayout());
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean myUseLocalCoordinates = false;
-
-		/**
-		 * @generated
-		 */
-		protected boolean useLocalCoordinates() {
-			return myUseLocalCoordinates;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
-			myUseLocalCoordinates = useLocalCoordinates;
-		}
-
 	}
 
 }

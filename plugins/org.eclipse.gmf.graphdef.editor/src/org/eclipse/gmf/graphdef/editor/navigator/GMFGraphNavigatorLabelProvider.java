@@ -14,10 +14,15 @@ import org.eclipse.core.runtime.IAdaptable;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.ChildAccess;
+import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.Identity;
+import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.gmfgraph.RealFigure;
 
+import org.eclipse.gmf.gmfgraph.Rectangle;
+import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.ChildAccessEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentAccessorEditPart;
@@ -84,9 +89,8 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	static {
-		GMFGraphDiagramEditorPlugin.getInstance().getImageRegistry().put("Navigator?InvalidElement", ImageDescriptor.getMissingImageDescriptor());
-		GMFGraphDiagramEditorPlugin.getInstance().getImageRegistry().put("Navigator?UnknownElement", ImageDescriptor.getMissingImageDescriptor());
-		GMFGraphDiagramEditorPlugin.getInstance().getImageRegistry().put("Navigator?ImageNotFound", ImageDescriptor.getMissingImageDescriptor());
+		GMFGraphDiagramEditorPlugin.getInstance().getImageRegistry().put("Navigator?UnknownElement", ImageDescriptor.getMissingImageDescriptor()); //$NON-NLS-1$
+		GMFGraphDiagramEditorPlugin.getInstance().getImageRegistry().put("Navigator?ImageNotFound", ImageDescriptor.getMissingImageDescriptor()); //$NON-NLS-1$
 	}
 
 	/**
@@ -125,6 +129,7 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 				return getImage(view);
 			}
 		}
+
 		return super.getImage(element);
 	}
 
@@ -133,53 +138,52 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 */
 	public Image getImage(View view) {
 		switch (GMFGraphVisualIDRegistry.getVisualID(view)) {
-		case CompartmentEditPart.VISUAL_ID:
-			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Compartment", GMFGraphElementTypes.Compartment_2005);
-		case NodeEditPart.VISUAL_ID:
-			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Node", GMFGraphElementTypes.Node_2006);
-		case ConnectionEditPart.VISUAL_ID:
-			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Connection", GMFGraphElementTypes.Connection_2007);
-		case FigureGalleryEditPart.VISUAL_ID:
-			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/gmf/2006/GraphicalDefinition?FigureGallery", GMFGraphElementTypes.FigureGallery_2008);
-		case FigureDescriptorEditPart.VISUAL_ID:
-			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?FigureDescriptor", GMFGraphElementTypes.FigureDescriptor_3009);
-		case RectangleEditPart.VISUAL_ID:
-			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Rectangle", GMFGraphElementTypes.Rectangle_3010);
-		case Rectangle2EditPart.VISUAL_ID:
-			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Rectangle", GMFGraphElementTypes.Rectangle_3011);
-		case EllipseEditPart.VISUAL_ID:
-			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Ellipse", GMFGraphElementTypes.Ellipse_3012);
-		case RoundedRectangleEditPart.VISUAL_ID:
-			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?RoundedRectangle", GMFGraphElementTypes.RoundedRectangle_3013);
-		case PolylineEditPart.VISUAL_ID:
-			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polyline", GMFGraphElementTypes.Polyline_3014);
-		case Ellipse2EditPart.VISUAL_ID:
-			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Ellipse", GMFGraphElementTypes.Ellipse_3015);
-		case RoundedRectangle2EditPart.VISUAL_ID:
-			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?RoundedRectangle", GMFGraphElementTypes.RoundedRectangle_3016);
-		case Polyline2EditPart.VISUAL_ID:
-			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polyline", GMFGraphElementTypes.Polyline_3017);
-		case Rectangle3EditPart.VISUAL_ID:
-			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Rectangle", GMFGraphElementTypes.Rectangle_3018);
-		case Ellipse3EditPart.VISUAL_ID:
-			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Ellipse", GMFGraphElementTypes.Ellipse_3019);
-		case RoundedRectangle3EditPart.VISUAL_ID:
-			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?RoundedRectangle", GMFGraphElementTypes.RoundedRectangle_3020);
-		case Polyline3EditPart.VISUAL_ID:
-			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polyline", GMFGraphElementTypes.Polyline_3021);
 		case CanvasEditPart.VISUAL_ID:
-			return getImage("Navigator?Diagram?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Canvas", GMFGraphElementTypes.Canvas_1000);
+			return getImage("Navigator?Diagram?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Canvas", GMFGraphElementTypes.Canvas_1000); //$NON-NLS-1$
+		case CompartmentEditPart.VISUAL_ID:
+			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Compartment", GMFGraphElementTypes.Compartment_2005); //$NON-NLS-1$
+		case NodeEditPart.VISUAL_ID:
+			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Node", GMFGraphElementTypes.Node_2006); //$NON-NLS-1$
+		case ConnectionEditPart.VISUAL_ID:
+			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Connection", GMFGraphElementTypes.Connection_2007); //$NON-NLS-1$
+		case FigureGalleryEditPart.VISUAL_ID:
+			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/gmf/2006/GraphicalDefinition?FigureGallery", GMFGraphElementTypes.FigureGallery_2008); //$NON-NLS-1$
+		case FigureDescriptorEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?FigureDescriptor", GMFGraphElementTypes.FigureDescriptor_3009); //$NON-NLS-1$
+		case RectangleEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Rectangle", GMFGraphElementTypes.Rectangle_3010); //$NON-NLS-1$
+		case Rectangle2EditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Rectangle", GMFGraphElementTypes.Rectangle_3011); //$NON-NLS-1$
+		case EllipseEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Ellipse", GMFGraphElementTypes.Ellipse_3012); //$NON-NLS-1$
+		case RoundedRectangleEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?RoundedRectangle", GMFGraphElementTypes.RoundedRectangle_3013); //$NON-NLS-1$
+		case PolylineEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polyline", GMFGraphElementTypes.Polyline_3014); //$NON-NLS-1$
+		case Ellipse2EditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Ellipse", GMFGraphElementTypes.Ellipse_3015); //$NON-NLS-1$
+		case RoundedRectangle2EditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?RoundedRectangle", GMFGraphElementTypes.RoundedRectangle_3016); //$NON-NLS-1$
+		case Polyline2EditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polyline", GMFGraphElementTypes.Polyline_3017); //$NON-NLS-1$
+		case Rectangle3EditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Rectangle", GMFGraphElementTypes.Rectangle_3018); //$NON-NLS-1$
+		case Ellipse3EditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Ellipse", GMFGraphElementTypes.Ellipse_3019); //$NON-NLS-1$
+		case RoundedRectangle3EditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?RoundedRectangle", GMFGraphElementTypes.RoundedRectangle_3020); //$NON-NLS-1$
+		case Polyline3EditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polyline", GMFGraphElementTypes.Polyline_3021); //$NON-NLS-1$
 		case ChildAccessEditPart.VISUAL_ID:
-			return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/GraphicalDefinition?ChildAccess", GMFGraphElementTypes.ChildAccess_4002);
+			return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/GraphicalDefinition?ChildAccess", GMFGraphElementTypes.ChildAccess_4002); //$NON-NLS-1$
 		case CompartmentAccessorEditPart.VISUAL_ID:
-			return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Compartment?accessor", GMFGraphElementTypes.CompartmentAccessor_4003);
+			return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Compartment?accessor", GMFGraphElementTypes.CompartmentAccessor_4003); //$NON-NLS-1$
 		case DiagramLabelAccessorEditPart.VISUAL_ID:
-			return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/GraphicalDefinition?DiagramLabel?accessor", GMFGraphElementTypes.DiagramLabelAccessor_4004);
+			return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/GraphicalDefinition?DiagramLabel?accessor", GMFGraphElementTypes.DiagramLabelAccessor_4004); //$NON-NLS-1$
 		case DiagramElementFigureEditPart.VISUAL_ID:
-			return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/GraphicalDefinition?DiagramElement?figure", GMFGraphElementTypes.DiagramElementFigure_4005);
-		default:
-			return getImage("Navigator?UnknownElement", null);
+			return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/GraphicalDefinition?DiagramElement?figure", GMFGraphElementTypes.DiagramElementFigure_4005); //$NON-NLS-1$
 		}
+		return getImage("Navigator?UnknownElement", null); //$NON-NLS-1$
 	}
 
 	/**
@@ -194,7 +198,7 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 		}
 
 		if (image == null) {
-			image = imageRegistry.get("Navigator?ImageNotFound");
+			image = imageRegistry.get("Navigator?ImageNotFound"); //$NON-NLS-1$
 			imageRegistry.put(key, image);
 		}
 		return image;
@@ -224,6 +228,7 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 				return getText(view);
 			}
 		}
+
 		return super.getText(element);
 	}
 
@@ -235,6 +240,8 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getUnresolvedDomainElementProxyText(view);
 		}
 		switch (GMFGraphVisualIDRegistry.getVisualID(view)) {
+		case CanvasEditPart.VISUAL_ID:
+			return getCanvas_1000Text(view);
 		case CompartmentEditPart.VISUAL_ID:
 			return getCompartment_2005Text(view);
 		case NodeEditPart.VISUAL_ID:
@@ -269,8 +276,6 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getRoundedRectangle_3020Text(view);
 		case Polyline3EditPart.VISUAL_ID:
 			return getPolyline_3021Text(view);
-		case CanvasEditPart.VISUAL_ID:
-			return getCanvas_1000Text(view);
 		case ChildAccessEditPart.VISUAL_ID:
 			return getChildAccess_4002Text(view);
 		case CompartmentAccessorEditPart.VISUAL_ID:
@@ -279,9 +284,8 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getDiagramLabelAccessor_4004Text(view);
 		case DiagramElementFigureEditPart.VISUAL_ID:
 			return getDiagramElementFigure_4005Text(view);
-		default:
-			return getUnknownElementText(view);
 		}
+		return getUnknownElementText(view);
 	}
 
 	/**
@@ -295,9 +299,10 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 		if (parser != null) {
 			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5005);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5005); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
@@ -311,9 +316,10 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 		if (parser != null) {
 			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5006);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5006); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
@@ -327,9 +333,10 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 		if (parser != null) {
 			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5007);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5007); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
@@ -343,9 +350,10 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 		if (parser != null) {
 			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5009);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5009); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
@@ -359,21 +367,22 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 		if (parser != null) {
 			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5008);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5008); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
+
 	}
 
 	/**
 	 * @generated
 	 */
 	private String getRectangle_3010Text(View view) {
-		EObject domainModelElement = view.getElement();
+		Rectangle domainModelElement = (Rectangle) view.getElement();
 		if (domainModelElement != null) {
-			return ((RealFigure) domainModelElement).getName();
+			return domainModelElement.getName();
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3010);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3010); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -381,12 +390,12 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getRectangle_3011Text(View view) {
-		EObject domainModelElement = view.getElement();
+		Rectangle domainModelElement = (Rectangle) view.getElement();
 		if (domainModelElement != null) {
-			return ((RealFigure) domainModelElement).getName();
+			return domainModelElement.getName();
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3011);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3011); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -394,12 +403,12 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getEllipse_3012Text(View view) {
-		EObject domainModelElement = view.getElement();
+		Ellipse domainModelElement = (Ellipse) view.getElement();
 		if (domainModelElement != null) {
-			return ((RealFigure) domainModelElement).getName();
+			return domainModelElement.getName();
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3012);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3012); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -407,12 +416,12 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getRoundedRectangle_3013Text(View view) {
-		EObject domainModelElement = view.getElement();
+		RoundedRectangle domainModelElement = (RoundedRectangle) view.getElement();
 		if (domainModelElement != null) {
-			return ((RealFigure) domainModelElement).getName();
+			return domainModelElement.getName();
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3013);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3013); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -420,12 +429,12 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getPolyline_3014Text(View view) {
-		EObject domainModelElement = view.getElement();
+		Polyline domainModelElement = (Polyline) view.getElement();
 		if (domainModelElement != null) {
-			return ((RealFigure) domainModelElement).getName();
+			return domainModelElement.getName();
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3014);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3014); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -433,12 +442,12 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getEllipse_3015Text(View view) {
-		EObject domainModelElement = view.getElement();
+		Ellipse domainModelElement = (Ellipse) view.getElement();
 		if (domainModelElement != null) {
-			return ((RealFigure) domainModelElement).getName();
+			return domainModelElement.getName();
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3015);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3015); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -446,12 +455,12 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getRoundedRectangle_3016Text(View view) {
-		EObject domainModelElement = view.getElement();
+		RoundedRectangle domainModelElement = (RoundedRectangle) view.getElement();
 		if (domainModelElement != null) {
-			return ((RealFigure) domainModelElement).getName();
+			return domainModelElement.getName();
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3016);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3016); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -459,12 +468,12 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getPolyline_3017Text(View view) {
-		EObject domainModelElement = view.getElement();
+		Polyline domainModelElement = (Polyline) view.getElement();
 		if (domainModelElement != null) {
-			return ((RealFigure) domainModelElement).getName();
+			return domainModelElement.getName();
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3017);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3017); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -472,12 +481,12 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getRectangle_3018Text(View view) {
-		EObject domainModelElement = view.getElement();
+		Rectangle domainModelElement = (Rectangle) view.getElement();
 		if (domainModelElement != null) {
-			return ((RealFigure) domainModelElement).getName();
+			return domainModelElement.getName();
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3018);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3018); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -485,12 +494,12 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getEllipse_3019Text(View view) {
-		EObject domainModelElement = view.getElement();
+		Ellipse domainModelElement = (Ellipse) view.getElement();
 		if (domainModelElement != null) {
-			return ((RealFigure) domainModelElement).getName();
+			return domainModelElement.getName();
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3019);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3019); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -498,12 +507,12 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getRoundedRectangle_3020Text(View view) {
-		EObject domainModelElement = view.getElement();
+		RoundedRectangle domainModelElement = (RoundedRectangle) view.getElement();
 		if (domainModelElement != null) {
-			return ((RealFigure) domainModelElement).getName();
+			return domainModelElement.getName();
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3020);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3020); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -511,12 +520,12 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getPolyline_3021Text(View view) {
-		EObject domainModelElement = view.getElement();
+		Polyline domainModelElement = (Polyline) view.getElement();
 		if (domainModelElement != null) {
-			return ((RealFigure) domainModelElement).getName();
+			return domainModelElement.getName();
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3021);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3021); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -524,12 +533,12 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getCanvas_1000Text(View view) {
-		EObject domainModelElement = view.getElement();
+		Canvas domainModelElement = (Canvas) view.getElement();
 		if (domainModelElement != null) {
-			return ((Identity) domainModelElement).getName();
+			return domainModelElement.getName();
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 1000);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 1000); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -537,12 +546,12 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getChildAccess_4002Text(View view) {
-		EObject domainModelElement = view.getElement();
+		ChildAccess domainModelElement = (ChildAccess) view.getElement();
 		if (domainModelElement != null) {
-			return ((ChildAccess) domainModelElement).getAccessor();
+			return domainModelElement.getAccessor();
 		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 4002);
-			return "";
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 4002); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -550,35 +559,35 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getCompartmentAccessor_4003Text(View view) {
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 	/**
 	 * @generated
 	 */
 	private String getDiagramLabelAccessor_4004Text(View view) {
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 	/**
 	 * @generated
 	 */
 	private String getDiagramElementFigure_4005Text(View view) {
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 	/**
 	 * @generated
 	 */
 	private String getUnknownElementText(View view) {
-		return "<UnknownElement Visual_ID = " + view.getType() + ">";
+		return "<UnknownElement Visual_ID = " + view.getType() + ">"; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
 	 * @generated
 	 */
 	private String getUnresolvedDomainElementProxyText(View view) {
-		return "<Unresolved domain element Visual_ID = " + view.getType() + ">";
+		return "<Unresolved domain element Visual_ID = " + view.getType() + ">"; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

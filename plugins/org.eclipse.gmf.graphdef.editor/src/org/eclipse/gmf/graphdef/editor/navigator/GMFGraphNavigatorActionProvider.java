@@ -16,10 +16,12 @@ import org.eclipse.core.runtime.IAdaptable;
 
 import org.eclipse.emf.common.ui.URIEditorInput;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.emf.ecore.resource.Resource;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
@@ -28,6 +30,7 @@ import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditor;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 
+import org.eclipse.gmf.graphdef.editor.part.Messages;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -122,7 +125,7 @@ public class GMFGraphNavigatorActionProvider extends CommonActionProvider {
 		 * @generated
 		 */
 		public OpenDiagramAction(ICommonViewerWorkbenchSite viewerSite) {
-			super("Open Diagram");
+			super(Messages.NavigatorActionProvider_OpenDiagramActionName);
 			myViewerSite = viewerSite;
 		}
 
@@ -161,7 +164,7 @@ public class GMFGraphNavigatorActionProvider extends CommonActionProvider {
 			try {
 				page.openEditor(editorInput, GMFGraphDiagramEditor.ID);
 			} catch (PartInitException e) {
-				GMFGraphDiagramEditorPlugin.getInstance().logError("Exception while openning diagram", e);
+				GMFGraphDiagramEditorPlugin.getInstance().logError("Exception while openning diagram", e); //$NON-NLS-1$
 			}
 		}
 
@@ -169,17 +172,19 @@ public class GMFGraphNavigatorActionProvider extends CommonActionProvider {
 		 * @generated
 		 */
 		private IEditorInput getEditorInput() {
-			Resource diagramResource = myDiagram.eResource();
-			for (Iterator it = diagramResource.getContents().iterator(); it.hasNext();) {
+			for (Iterator it = myDiagram.eResource().getContents().iterator(); it.hasNext();) {
 				EObject nextEObject = (EObject) it.next();
 				if (nextEObject == myDiagram) {
-					return new FileEditorInput(WorkspaceSynchronizer.getFile(diagramResource));
+					return new FileEditorInput(WorkspaceSynchronizer.getFile(myDiagram.eResource()));
 				}
 				if (nextEObject instanceof Diagram) {
 					break;
 				}
 			}
-			return new URIEditorInput(diagramResource.getURI().appendFragment(diagramResource.getURIFragment(myDiagram)));
+			URI uri = EcoreUtil.getURI(myDiagram);
+			String editorName = uri.lastSegment() + "#" + myDiagram.eResource().getContents().indexOf(myDiagram); //$NON-NLS-1$
+			IEditorInput editorInput = new URIEditorInput(uri, editorName);
+			return editorInput;
 		}
 
 	}

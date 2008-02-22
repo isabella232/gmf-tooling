@@ -47,6 +47,7 @@ import org.eclipse.gmf.graphdef.editor.edit.policies.RoundedRectangleItemSemanti
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
@@ -93,7 +94,6 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
-
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new RoundedRectangleItemSemanticEditPolicy());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
@@ -188,7 +188,7 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
 		myNodeFigure = result;
 		return result;
 	}
@@ -245,9 +245,43 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 	/**
 	 * @generated
 	 */
+	public class RoundedRectangleFigure extends org.eclipse.draw2d.RoundedRectangle {
+
+		/**
+		 * @generated
+		 */
+		public RoundedRectangleFigure() {
+
+			this.setLayoutManager(new org.eclipse.draw2d.XYLayout());
+			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(8), getMapMode().DPtoLP(8)));
+		}
+
+		/**
+		 * @generated
+		 */
+		private boolean myUseLocalCoordinates = false;
+
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
+	}
+
+	/**
+	 * @generated
+	 */
 	private RoundedRectangleFigure myFigure;
 
-// TODO: use myFigure?
 	/**
 	 * @generated
 	 */
@@ -703,41 +737,6 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 			rgbColor = -1;
 		}
 		return rgbColor;
-	}
-
-	/**
-	 * @generated
-	 */
-	public class RoundedRectangleFigure extends org.eclipse.draw2d.RoundedRectangle {
-
-		/**
-		 * @generated
-		 */
-		public RoundedRectangleFigure() {
-
-			this.setLayoutManager(new org.eclipse.draw2d.XYLayout());
-			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(8), getMapMode().DPtoLP(8)));
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean myUseLocalCoordinates = false;
-
-		/**
-		 * @generated
-		 */
-		protected boolean useLocalCoordinates() {
-			return myUseLocalCoordinates;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
-			myUseLocalCoordinates = useLocalCoordinates;
-		}
-
 	}
 
 }

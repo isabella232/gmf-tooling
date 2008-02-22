@@ -15,6 +15,7 @@ import java.util.Iterator;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.ui.URIEditorInput;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -54,7 +55,10 @@ public class GMFGraphNavigatorLinkHelper implements ILinkHelper {
 				break;
 			}
 		}
-		return new URIEditorInput(EcoreUtil.getURI(diagram));
+		URI uri = EcoreUtil.getURI(diagram);
+		String editorName = uri.lastSegment() + "#" + diagram.eResource().getContents().indexOf(diagram); //$NON-NLS-1$
+		IEditorInput editorInput = new URIEditorInput(uri, editorName);
+		return editorInput;
 	}
 
 	/**

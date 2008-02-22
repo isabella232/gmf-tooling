@@ -1210,6 +1210,9 @@ public class GMFGraphDiagramUpdater {
 	private static Collection getOutgoingFeatureModelFacetLinks_Compartment_Accessor_4003(Compartment source) {
 		Collection result = new LinkedList();
 		ChildAccess destination = source.getAccessor();
+		if (destination == null) {
+			return result;
+		}
 		result.add(new GMFGraphLinkDescriptor(source, destination, GMFGraphElementTypes.CompartmentAccessor_4003, CompartmentAccessorEditPart.VISUAL_ID));
 		return result;
 	}
@@ -1220,6 +1223,9 @@ public class GMFGraphDiagramUpdater {
 	private static Collection getOutgoingFeatureModelFacetLinks_DiagramElement_Figure_4005(DiagramElement source) {
 		Collection result = new LinkedList();
 		FigureDescriptor destination = source.getFigure();
+		if (destination == null) {
+			return result;
+		}
 		result.add(new GMFGraphLinkDescriptor(source, destination, GMFGraphElementTypes.DiagramElementFigure_4005, DiagramElementFigureEditPart.VISUAL_ID));
 		return result;
 	}

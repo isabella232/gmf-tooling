@@ -67,7 +67,6 @@ public class GMFGraphCreateShortcutDecorationsCommand extends AbstractTransactio
 			CreateViewRequest.ViewDescriptor nextDescriptor = (CreateViewRequest.ViewDescriptor) it.next();
 			View view = (View) nextDescriptor.getAdapter(View.class);
 			if (view != null && view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
-
 				EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 				shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
 				shortcutAnnotation.getDetails().put("modelID", CanvasEditPart.MODEL_ID); //$NON-NLS-1$

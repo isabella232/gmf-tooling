@@ -27,7 +27,7 @@ public class GMFGraphNavigatorSorter extends ViewerSorter {
 	/**
 	 * @generated
 	 */
-	private static final int SHORTCUTS_CATEGORY = 7008;
+	private static final int SHORTCUTS_CATEGORY = 7009;
 
 	/**
 	 * @generated

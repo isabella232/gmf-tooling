@@ -45,6 +45,7 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangleEditPart;
 
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
+import org.eclipse.gmf.graphdef.editor.part.Messages;
 
 /**
  * @generated
@@ -161,14 +162,14 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 	 */
 	public List getRelTypesOnSource(IAdaptable source) {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
-		if (sourceEditPart instanceof FigureDescriptorEditPart) {
-			List types = new ArrayList();
-			types.add(GMFGraphElementTypes.ChildAccess_4002);
-			return types;
-		}
 		if (sourceEditPart instanceof CompartmentEditPart) {
 			List types = new ArrayList();
 			types.add(GMFGraphElementTypes.CompartmentAccessor_4003);
+			return types;
+		}
+		if (sourceEditPart instanceof FigureDescriptorEditPart) {
+			List types = new ArrayList();
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -193,11 +194,11 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 	public List getRelTypesOnSourceAndTarget(IAdaptable source, IAdaptable target) {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
-		if (sourceEditPart instanceof FigureDescriptorEditPart) {
+		if (sourceEditPart instanceof CompartmentEditPart) {
 			List types = new ArrayList();
 			return types;
 		}
-		if (sourceEditPart instanceof CompartmentEditPart) {
+		if (sourceEditPart instanceof FigureDescriptorEditPart) {
 			List types = new ArrayList();
 			return types;
 		}
@@ -221,11 +222,11 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 	 */
 	public List getTypesForTarget(IAdaptable source, IElementType relationshipType) {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
-		if (sourceEditPart instanceof FigureDescriptorEditPart) {
+		if (sourceEditPart instanceof CompartmentEditPart) {
 			List types = new ArrayList();
 			return types;
 		}
-		if (sourceEditPart instanceof CompartmentEditPart) {
+		if (sourceEditPart instanceof FigureDescriptorEditPart) {
 			List types = new ArrayList();
 			return types;
 		}
@@ -286,8 +287,8 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 		Shell shell = Display.getCurrent().getActiveShell();
 		ILabelProvider labelProvider = new AdapterFactoryLabelProvider(GMFGraphDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
 		ElementListSelectionDialog dialog = new ElementListSelectionDialog(shell, labelProvider);
-		dialog.setMessage("Available domain model elements:");
-		dialog.setTitle("Select domain model element");
+		dialog.setMessage(Messages.GMFGraphModelingAssistantProviderMessage);
+		dialog.setTitle(Messages.GMFGraphModelingAssistantProviderTitle);
 		dialog.setMultipleSelection(false);
 		dialog.setElements(elements);
 		EObject selected = null;

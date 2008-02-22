@@ -33,6 +33,46 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String GMFGraphCreationWizardTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String GMFGraphCreationWizard_DiagramModelFilePageTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String GMFGraphCreationWizard_DiagramModelFilePageDescription;
+
+	/**
+	 * @generated
+	 */
+	public static String GMFGraphCreationWizard_DomainModelFilePageTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String GMFGraphCreationWizard_DomainModelFilePageDescription;
+
+	/**
+	 * @generated
+	 */
+	public static String GMFGraphCreationWizardOpenEditorError;
+
+	/**
+	 * @generated
+	 */
+	public static String GMFGraphCreationWizardCreationError;
+
+	/**
+	 * @generated
+	 */
+	public static String GMFGraphCreationWizardPageExtensionError;
+
+	/**
+	 * @generated
+	 */
 	public static String GMFGraphDiagramEditorUtil_OpenModelResourceErrorDialogTitle;
 
 	/**
@@ -169,6 +209,46 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String GMFGraphNewDiagramFileWizard_IncorrectRootError;
+
+	/**
+	 * @generated
+	 */
+	public static String GMFGraphDiagramEditor_SavingDeletedFile;
+
+	/**
+	 * @generated
+	 */
+	public static String GMFGraphDiagramEditor_SaveAsErrorTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String GMFGraphDiagramEditor_SaveAsErrorMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String GMFGraphDiagramEditor_SaveErrorTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String GMFGraphDiagramEditor_SaveErrorMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String GMFGraphElementChooserDialog_SelectModelElementTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String ModelElementSelectionPageMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String ValidateActionMessage;
 
 	/**
 	 * @generated
@@ -459,6 +539,41 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String NavigatorGroupName_DiagramElementFigure_4005_source;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorActionProvider_OpenDiagramActionName;
+
+	/**
+	 * @generated
+	 */
+	public static String AbstractParser_UnexpectedValueTypeMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String AbstractParser_WrongStringConversionMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String AbstractParser_UnknownLiteralMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String MessageFormatParser_InvalidInputError;
+
+	/**
+	 * @generated
+	 */
+	public static String GMFGraphModelingAssistantProviderTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String GMFGraphModelingAssistantProviderMessage;
 
 	//TODO: put accessor fields manually	
 }

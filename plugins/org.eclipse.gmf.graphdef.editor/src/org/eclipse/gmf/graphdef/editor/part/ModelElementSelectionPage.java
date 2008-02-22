@@ -42,7 +42,7 @@ public class ModelElementSelectionPage extends WizardPage {
 	/**
 	 * @generated
 	 */
-	private TreeViewer modelVewer;
+	private TreeViewer modelViewer;
 
 	/**
 	 * @generated
@@ -63,12 +63,12 @@ public class ModelElementSelectionPage extends WizardPage {
 	 */
 	public void setModelElement(EObject modelElement) {
 		selectedModelElement = modelElement;
-		if (modelVewer != null) {
+		if (modelViewer != null) {
 			if (selectedModelElement != null) {
-				modelVewer.setInput(selectedModelElement.eResource());
-				modelVewer.setSelection(new StructuredSelection(selectedModelElement));
+				modelViewer.setInput(selectedModelElement.eResource());
+				modelViewer.setSelection(new StructuredSelection(selectedModelElement));
 			} else {
-				modelVewer.setInput(null);
+				modelViewer.setInput(null);
 			}
 			setPageComplete(validatePage());
 		}
@@ -91,18 +91,18 @@ public class ModelElementSelectionPage extends WizardPage {
 		label.setText(getSelectionTitle());
 		label.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 
-		modelVewer = new TreeViewer(plate, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+		modelViewer = new TreeViewer(plate, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 		GridData layoutData = new GridData(GridData.FILL_BOTH);
 		layoutData.heightHint = 300;
 		layoutData.widthHint = 300;
-		modelVewer.getTree().setLayoutData(layoutData);
-		modelVewer.setContentProvider(new AdapterFactoryContentProvider(GMFGraphDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()));
-		modelVewer.setLabelProvider(new AdapterFactoryLabelProvider(GMFGraphDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()));
+		modelViewer.getTree().setLayoutData(layoutData);
+		modelViewer.setContentProvider(new AdapterFactoryContentProvider(GMFGraphDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()));
+		modelViewer.setLabelProvider(new AdapterFactoryLabelProvider(GMFGraphDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()));
 		if (selectedModelElement != null) {
-			modelVewer.setInput(selectedModelElement.eResource());
-			modelVewer.setSelection(new StructuredSelection(selectedModelElement));
+			modelViewer.setInput(selectedModelElement.eResource());
+			modelViewer.setSelection(new StructuredSelection(selectedModelElement));
 		}
-		modelVewer.addSelectionChangedListener(new ISelectionChangedListener() {
+		modelViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 
 			public void selectionChanged(SelectionChangedEvent event) {
 				ModelElementSelectionPage.this.updateSelection((IStructuredSelection) event.getSelection());
@@ -118,7 +118,7 @@ public class ModelElementSelectionPage extends WizardPage {
 	 * @generated
 	 */
 	protected String getSelectionTitle() {
-		return "Select model element:";
+		return Messages.ModelElementSelectionPageMessage;
 	}
 
 	/**

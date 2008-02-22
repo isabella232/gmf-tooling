@@ -12,7 +12,9 @@ package org.eclipse.gmf.graphdef.editor.part;
 
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
+import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -63,8 +65,10 @@ import org.eclipse.jface.dialogs.MessageDialog;
 
 import org.eclipse.jface.util.LocalSelectionTransfer;
 
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 
 import org.eclipse.osgi.util.NLS;
@@ -84,7 +88,10 @@ import org.eclipse.ui.dialogs.SaveAsDialog;
 
 import org.eclipse.ui.ide.IGotoMarker;
 
+import org.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.part.IShowInTargetList;
+import org.eclipse.ui.part.ShowInContext;
 
 /**
  * @generated
@@ -136,6 +143,21 @@ public class GMFGraphDiagramEditor extends DiagramDocumentEditor implements IGot
 	 */
 	public String getContributorId() {
 		return GMFGraphDiagramEditorPlugin.ID;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Object getAdapter(Class type) {
+		if (type == IShowInTargetList.class) {
+			return new IShowInTargetList() {
+
+				public String[] getShowInTargetIds() {
+					return new String[] { ProjectExplorer.VIEW_ID };
+				}
+			};
+		}
+		return super.getAdapter(type);
 	}
 
 	/**
@@ -209,7 +231,7 @@ public class GMFGraphDiagramEditor extends DiagramDocumentEditor implements IGot
 			return;
 		}
 		if (provider.isDeleted(input) && original != null) {
-			String message = NLS.bind("The original file ''{0}'' has been deleted.", original.getName());
+			String message = NLS.bind(Messages.GMFGraphDiagramEditor_SavingDeletedFile, original.getName());
 			dialog.setErrorMessage(null);
 			dialog.setMessage(message, IMessageProvider.WARNING);
 		}
@@ -234,7 +256,7 @@ public class GMFGraphDiagramEditor extends DiagramDocumentEditor implements IGot
 		IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
 		for (int i = 0; i < editorRefs.length; i++) {
 			if (matchingStrategy.matches(editorRefs[i], newInput)) {
-				MessageDialog.openWarning(shell, "Problem During Save As...", "Save could not be completed. Target file is already open in another editor.");
+				MessageDialog.openWarning(shell, Messages.GMFGraphDiagramEditor_SaveAsErrorTitle, Messages.GMFGraphDiagramEditor_SaveAsErrorMessage);
 				return;
 			}
 		}
@@ -246,7 +268,7 @@ public class GMFGraphDiagramEditor extends DiagramDocumentEditor implements IGot
 		} catch (CoreException x) {
 			IStatus status = x.getStatus();
 			if (status == null || status.getSeverity() != IStatus.CANCEL) {
-				ErrorDialog.openError(shell, "Save Problems", "Could not save file.", x.getStatus());
+				ErrorDialog.openError(shell, Messages.GMFGraphDiagramEditor_SaveErrorTitle, Messages.GMFGraphDiagramEditor_SaveErrorMessage, x.getStatus());
 			}
 		} finally {
 			provider.changed(newInput);
@@ -257,6 +279,30 @@ public class GMFGraphDiagramEditor extends DiagramDocumentEditor implements IGot
 		if (progressMonitor != null) {
 			progressMonitor.setCanceled(!success);
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public ShowInContext getShowInContext() {
+		return new ShowInContext(getEditorInput(), getNavigatorSelection());
+	}
+
+	/**
+	 * @generated
+	 */
+	private ISelection getNavigatorSelection() {
+		IDiagramDocument document = getDiagramDocument();
+		if (document == null) {
+			return StructuredSelection.EMPTY;
+		}
+		Diagram diagram = document.getDiagram();
+		IFile file = WorkspaceSynchronizer.getFile(diagram.eResource());
+		if (file != null) {
+			GMFGraphNavigatorItem item = new GMFGraphNavigatorItem(diagram, file, false);
+			return new StructuredSelection(item);
+		}
+		return StructuredSelection.EMPTY;
 	}
 
 	/**

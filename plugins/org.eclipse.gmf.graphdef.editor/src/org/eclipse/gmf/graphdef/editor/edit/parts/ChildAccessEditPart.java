@@ -55,8 +55,14 @@ public class ChildAccessEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
-
 		return new NestedFigureAccessorConnectionFigure();
+	}
+
+	/**
+	 * @generated
+	 */
+	public NestedFigureAccessorConnectionFigure getPrimaryShape() {
+		return (NestedFigureAccessorConnectionFigure) getFigure();
 	}
 
 	/**
