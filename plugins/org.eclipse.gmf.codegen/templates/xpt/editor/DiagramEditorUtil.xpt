@@ -256,7 +256,7 @@ public class «diagramEditorUtilClassName» {
 		«EXPAND xpt::Common::newInstance("docRoot") FOR getDocumentRoot()»
 «LET getDocumentRootSetFeature() AS f»«IF f == null-»
 		docRoot.set«domainDiagramElement.ecoreClass.name»(model); // FIXME name of the set method is pure guess«ELSE-»
-		docRoot.set«f.getAccessorName()»(model);«ENDIF»
+		«EXPAND xpt::Common::setFeatureValue("docRoot", getDocumentRoot(), "model") FOR f»;«ENDIF»
 «ENDLET-»
 		return docRoot;
 	}
