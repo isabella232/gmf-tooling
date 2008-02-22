@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -171,7 +171,7 @@ if («EXPAND checkSemanticElement») {
 	«ERROR "checkSemanticElement not supported for: " + this-»
 «ENDDEFINE»
 
-«DEFINE checkSemanticElement FOR gmfgen::GenDiagram»«EXPAND checkDomainElementMetaclass FOR domainDiagramElement» && «EXPAND isDiagramMethodName»((«getQualifiedInterfaceName(domainDiagramElement)») domainElement)«ENDDEFINE»
+«DEFINE checkSemanticElement FOR gmfgen::GenDiagram»«EXPAND checkDomainElementMetaclass FOR domainDiagramElement» && isDiagram(«EXPAND MetaModel::CastEObject("domainElement") FOR domainDiagramElement»)«ENDDEFINE»
 
 «DEFINE checkDomainElementMetaclass FOR genmodel::GenClass»«EXPAND xpt::Common::metaClassAccessor».isSuperTypeOf(domainElement.eClass())«ENDDEFINE»
 
@@ -296,13 +296,12 @@ public static int «EXPAND getLinkWithClassVisualIDMethodName»(org.eclipse.emf.ec
 			"User can change implementation of this method to handle some specific\n" +
 			"situations not covered by default logic.\n"
 		)»
-private static boolean «EXPAND isDiagramMethodName»(«getQualifiedInterfaceName(domainDiagramElement)» element) {
+private static boolean isDiagram(«EXPAND MetaModel::QualifiedClassName FOR domainDiagramElement» element) {
 	return true;
 }
 	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE isDiagramMethodName FOR gmfgen::GenDiagram»isDiagram«ENDDEFINE»
 
 «REM»Can be moved to xpt::expressions::getExpression.xpt«ENDREM»
 «DEFINE evaluateInterpreterExpression FOR gmfgen::GenDiagram-»

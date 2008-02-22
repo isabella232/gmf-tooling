@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -133,7 +133,7 @@
 	if (!(«EXPAND MetaModel::IsInstance("oldEnd") FOR getSourceType()» && «EXPAND MetaModel::IsInstance("newEnd") FOR getSourceType()»)) {
 		return false;
 	}
-	«EXPAND extractFeatureWithCheck("getLink()", metaClass, "target", getQualifiedInterfaceName(getTargetType())) FOR targetMetaFeature-»
+	«EXPAND extractFeatureWithCheck("getLink()", metaClass, "target", getTargetType()) FOR targetMetaFeature-»
 	«EXPAND checkLinkConstraint(link, "getNewSource()", "target")-»
 «ENDDEFINE»
 
@@ -155,7 +155,7 @@
 		return false;
 	}
 	«IF sourceMetaFeature != null-»
-		«EXPAND extractFeatureWithCheck("getLink()", metaClass, "source", getQualifiedInterfaceName(getSourceType())) FOR sourceMetaFeature-»
+		«EXPAND extractFeatureWithCheck("getLink()", metaClass, "source", getSourceType()) FOR sourceMetaFeature-»
 	«ELSE-»
 		if (!(«EXPAND MetaModel::IsContainerInstance("getLink()", metaClass) FOR getSourceType()»)) {
 			return false;
@@ -172,14 +172,14 @@
 	return «EXPAND checkLinkConstraintInvocation FOR link»(getOldSource(), getNewTarget());
 «ENDDEFINE»
 
-«DEFINE extractFeatureWithCheck(String containerVar, genmodel::GenClass containerGenClass, String featureVar, String featureTypeFQN) FOR genmodel::GenFeature-»
+«DEFINE extractFeatureWithCheck(String containerVar, GenClass containerMetaClass, String var, GenClass varMetaClass) FOR genmodel::GenFeature-»
 	«IF ecoreFeature.many-»
-		if («EXPAND xpt::Common::getFeatureValue(containerVar, containerGenClass)».size() != 1) {
+		if («EXPAND xpt::Common::getFeatureValue(containerVar, containerMetaClass)».size() != 1) {
 			return false;
 		}
-		«featureTypeFQN» «featureVar» = («featureTypeFQN») «EXPAND xpt::Common::getFeatureValue(containerVar, containerGenClass)».get(0);
+		«EXPAND MetaModel::DeclareAndAssign2(var, containerVar, containerMetaClass, this, "get(0)", true) FOR varMetaClass»
 	«ELSE-»
-		«featureTypeFQN» «featureVar» = «EXPAND xpt::Common::getFeatureValue(containerVar, containerGenClass)»;
+		«EXPAND MetaModel::DeclareAndAssign(var, containerVar, containerMetaClass, this) FOR varMetaClass»
 	«ENDIF-»
 «ENDDEFINE»
 

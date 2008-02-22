@@ -145,3 +145,28 @@ cached List[gmfgen::GenNode] getPhantomNodes(gmfgen::GenDiagram diagram) :
 cached List[gmfgen::GenNode] getSemanticChildren(gmfgen::GenContainerBase containerBase) :
 	containerBase.containedNodes.select(node | null != node.modelFacet)
 ;
+
+
+GenClass getLinkEndType(gmfgen::LinkModelFacet f, String methodNameSuffix) :
+	null
+;
+
+//	For FeatureModelFacet-based links we are calling 
+//	getOutgoing???Links instead of getContained???Links
+GenClass getLinkEndType(gmfgen::FeatureLinkModelFacet f, String methodNameSuffix) :
+	getIncomingLinksMethodNameSuffix() == methodNameSuffix
+		? f.getTargetType()
+		: f.getSourceType()
+;
+
+// 	For TypeModelFacet-based links we are calling 
+//	getContained???Links instead of getOutgoinf???Links 
+//	if sourceMetaFeature was not specified
+GenClass getLinkEndType(gmfgen::TypeLinkModelFacet f, String methodNameSuffix) :
+	getIncomingLinksMethodNameSuffix() == methodNameSuffix
+		? f.getTargetType()
+		: (getOutgoingLinksMethodNameSuffix() == methodNameSuffix && null != f.sourceMetaFeature
+			? f.getSourceType()
+			: f.containmentMetaFeature.genClass
+		)
+;

@@ -59,17 +59,27 @@ MetaModelFacility.getEClass("«ecoreClass.name»").isSuperTypeOf(«IF true /*isEObj
 /*
  * Declares new variable of context type and assignes a value obtained from 'src',
  * which is of type 'srcMetaClass', via 'srcFeature'
+ *
+ * XXX in certain scenarions may need extra cast of the feature value
  */
 «DEFINE DeclareAndAssign(String assignee, String src, GenClass srcMetaClass, GenFeature srcFeature) FOR GenClass-»
 «getQualifiedInterfaceName()» «assignee» = «EXPAND xpt::Common::getFeatureValue(src, srcMetaClass) FOR srcFeature»;«ENDDEFINE»
 
 /*
- * Cast value of type EObject to specific type. Would be no-op with dynamic model instances.  
+ * Same as DeclareAndAssign, with extra operation applied to source object
+ */
+«DEFINE DeclareAndAssign2(String assignee, String src, GenClass srcMetaClass, GenFeature srcFeature, String srcExt, boolean needCast) FOR GenClass-»
+«getQualifiedInterfaceName()» «assignee» = «IF needCast»(«getQualifiedInterfaceName()») «ENDIF»«EXPAND xpt::Common::getFeatureValue(src, srcMetaClass) FOR srcFeature».«srcExt»;«ENDDEFINE»
+
+/*
+ * Cast value of type EObject to specific type. Would be no-op with dynamic model instances.
+ 
  */
 «DEFINE CastEObject(String eObjectValue) FOR GenClass»(«getQualifiedInterfaceName()») «eObjectValue»«ENDDEFINE»
 
 /**
  * Qualified interface name of the generated EClass, or EObject for dynamic models.
+ * Use whenever class name is inevitable (e.g. method arguments)
  * SHOULD NEVER APPEAR in instanceof or any other similar comparison operation
  */
 «DEFINE QualifiedClassName FOR GenClass»«getQualifiedInterfaceName()»«ENDDEFINE»

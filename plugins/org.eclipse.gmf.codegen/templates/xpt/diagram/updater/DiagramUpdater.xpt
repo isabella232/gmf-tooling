@@ -217,7 +217,7 @@ public static java.util.List «EXPAND linkGetterName(methodNameSuffix)»(org.eclip
 	java.util.Map crossReferences = org.eclipse.emf.ecore.util.EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
 			«ENDIF-»
 	java.util.List result = new java.util.LinkedList();
-			«EXPAND colectConnnectedLinks(methodNameSuffix, needCrossReferencer, metaclass.isExternalInterface()) FOREACH genLinks-»
+			«EXPAND colectConnectedLinks(methodNameSuffix, needCrossReferencer, metaclass.isExternalInterface()) FOREACH genLinks-»
 	return result;
 		«ENDLET-»
 	«ELSE-»
@@ -226,19 +226,18 @@ public static java.util.List «EXPAND linkGetterName(methodNameSuffix)»(org.eclip
 }
 «ENDDEFINE»
 
-«DEFINE colectConnnectedLinks(String methodNameSuffix, boolean needCrossReferencer, boolean isExternalInterface) FOR gmfgen::GenLink-»
-	«IF isExternalInterface-»
-if (modelElement instanceof «EXPAND getLinkEndType(methodNameSuffix) FOR modelFacet») {
-	«ENDIF-»
-	result.addAll(«EXPAND chooseConnnectedLinksByTypeMethodName(methodNameSuffix, this) FOR modelFacet»(«EXPAND castLinkObject(methodNameSuffix, isExternalInterface) FOR modelFacet»modelElement«IF needCrossReferencer», crossReferences«ENDIF»));	
-	«IF isExternalInterface-»
-}
-	«ENDIF-»
+«DEFINE colectConnectedLinks(String methodNameSuffix, boolean needCrossReferencer, boolean isExternalInterface) FOR gmfgen::GenLink-»
+«IF isExternalInterface-»
+	if («EXPAND MetaModel::IsInstance("modelElement") FOR modelFacet.getLinkEndType(methodNameSuffix)») {
+«ENDIF-»
+	result.addAll(«EXPAND chooseConnectedLinksByTypeMethodName(methodNameSuffix, this) FOR modelFacet»(«IF isExternalInterface-»
+«EXPAND MetaModel::CastEObject("modelElement") FOR getLinkEndType(modelFacet, methodNameSuffix)»«ELSE»modelElement«ENDIF»«IF needCrossReferencer», crossReferences«ENDIF»));	
+«IF isExternalInterface-»
+	}
+«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE castLinkObject(String methodNameSuffix, boolean isExternalInterface) FOR gmfgen::LinkModelFacet»«IF isExternalInterface»(«EXPAND getLinkEndType(methodNameSuffix)») «ENDIF»«ENDDEFINE»
-
-«DEFINE getLinkEndType(String methodNameSuffix) FOR gmfgen::LinkModelFacet-»
+«DEFINE chooseConnectedLinksByTypeMethodName(String methodNameSuffix, gmfgen::GenLink genLink) FOR gmfgen::LinkModelFacet-»
 	«EXPAND incorrectLinkModelFacet-»
 «ENDDEFINE»
 
@@ -246,35 +245,9 @@ if (modelElement instanceof «EXPAND getLinkEndType(methodNameSuffix) FOR modelFa
 	For FeatureModelFacet-based links we are calling 
 	getOutgoing???Links instead of getContained???Links
 «ENDREM»
-«DEFINE getLinkEndType(String methodNameSuffix) FOR gmfgen::FeatureLinkModelFacet-»
-«IF getIncomingLinksMethodNameSuffix() == methodNameSuffix-»
-«getQualifiedInterfaceName(getTargetType())»«ELSE-»
-«getQualifiedInterfaceName(getSourceType())»«ENDIF-»
-«ENDDEFINE»
-
-«REM»
-	For TypeModelFacet-based links we are calling 
-	getContained???Links instead of getOutgoinf???Links 
-	if sourceMetaFeature was not specified
-«ENDREM»
-«DEFINE getLinkEndType(String methodNameSuffix) FOR gmfgen::TypeLinkModelFacet-»
-«IF getIncomingLinksMethodNameSuffix() == methodNameSuffix-»
-«getQualifiedInterfaceName(getTargetType())»«ELSEIF getOutgoingLinksMethodNameSuffix() == methodNameSuffix && null != sourceMetaFeature-»
-«getQualifiedInterfaceName(getSourceType())»«ELSE-»
-«getQualifiedInterfaceName(containmentMetaFeature.genClass)»«ENDIF-»
-«ENDDEFINE»
-
-«DEFINE chooseConnnectedLinksByTypeMethodName(String methodNameSuffix, gmfgen::GenLink genLink) FOR gmfgen::LinkModelFacet-»
-	«EXPAND incorrectLinkModelFacet-»
-«ENDDEFINE»
-
-«REM»
-	For FeatureModelFacet-based links we are calling 
-	getOutgoing???Links instead of getContained???Links
-«ENDREM»
-«DEFINE chooseConnnectedLinksByTypeMethodName(String methodNameSuffix, gmfgen::GenLink genLink) FOR gmfgen::FeatureLinkModelFacet-»
-«IF getContainedLinksMethodNameSuffix() == methodNameSuffix»«EXPAND getConnnectedLinksByTypeMethodName(getOutgoingLinksMethodNameSuffix()) FOR genLink-»
-«ELSE»«EXPAND getConnnectedLinksByTypeMethodName(methodNameSuffix) FOR genLink-»
+«DEFINE chooseConnectedLinksByTypeMethodName(String methodNameSuffix, gmfgen::GenLink genLink) FOR gmfgen::FeatureLinkModelFacet-»
+«IF getContainedLinksMethodNameSuffix() == methodNameSuffix»«EXPAND getConnectedLinksByTypeMethodName(getOutgoingLinksMethodNameSuffix()) FOR genLink-»
+«ELSE»«EXPAND getConnectedLinksByTypeMethodName(methodNameSuffix) FOR genLink-»
 «ENDIF-»
 «ENDDEFINE»
 
@@ -283,15 +256,15 @@ if (modelElement instanceof «EXPAND getLinkEndType(methodNameSuffix) FOR modelFa
 	getContained???Links instead of getOutgoinf???Links 
 	if sourceMetaFeature was not specified
 «ENDREM»
-«DEFINE chooseConnnectedLinksByTypeMethodName(String methodNameSuffix, gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
-«IF getOutgoingLinksMethodNameSuffix() == methodNameSuffix && null == sourceMetaFeature»«EXPAND getConnnectedLinksByTypeMethodName(getContainedLinksMethodNameSuffix()) FOR genLink-»
-«ELSE»«EXPAND getConnnectedLinksByTypeMethodName(methodNameSuffix) FOR genLink-»
+«DEFINE chooseConnectedLinksByTypeMethodName(String methodNameSuffix, gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
+«IF getOutgoingLinksMethodNameSuffix() == methodNameSuffix && null == sourceMetaFeature»«EXPAND getConnectedLinksByTypeMethodName(getContainedLinksMethodNameSuffix()) FOR genLink-»
+«ELSE»«EXPAND getConnectedLinksByTypeMethodName(methodNameSuffix) FOR genLink-»
 «ENDIF-»
 «ENDDEFINE»
 
 «DEFINE getContainedLinksByTypeMethod FOR gmfgen::GenLink»«EXPAND getContainedLinksByTypeMethod(this) FOR modelFacet»«ENDDEFINE»
 
-«DEFINE getConnnectedLinksByTypeMethodName(String suffix) FOR gmfgen::GenLink»get«suffix»«EXPAND getConnectedLinksByTypeMethodFragment FOR modelFacet»_«visualID»«ENDDEFINE»
+«DEFINE getConnectedLinksByTypeMethodName(String suffix) FOR gmfgen::GenLink»get«suffix»«EXPAND getConnectedLinksByTypeMethodFragment FOR modelFacet»_«visualID»«ENDDEFINE»
 
 «DEFINE getConnectedLinksByTypeMethodFragment FOR gmfgen::TypeLinkModelFacet»TypeModelFacetLinks_«metaClass.ecoreClass.name»«ENDDEFINE»
 
@@ -310,7 +283,7 @@ if (modelElement instanceof «EXPAND getLinkEndType(methodNameSuffix) FOR modelFa
 «DEFINE getContainedLinksByTypeMethod(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-private static java.util.Collection «EXPAND getConnnectedLinksByTypeMethodName(getContainedLinksMethodNameSuffix()) FOR genLink»(«getQualifiedInterfaceName(containmentMetaFeature.genClass)» container) {
+private static java.util.Collection «EXPAND getConnectedLinksByTypeMethodName(getContainedLinksMethodNameSuffix()) FOR genLink»(«EXPAND MetaModel::QualifiedClassName FOR containmentMetaFeature.genClass» container) {
 	«EXPAND getContainedLinksByTypeMethodBody(genLink, false)-»
 }
 «ENDDEFINE»
@@ -408,7 +381,7 @@ return result;
 «DEFINE getIncomingLinksByTypeMethod FOR gmfgen::GenLink-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-private static java.util.Collection «EXPAND getConnnectedLinksByTypeMethodName(getIncomingLinksMethodNameSuffix())»(«getQualifiedInterfaceName(modelFacet.getTargetType())» target, java.util.Map crossReferences) {
+private static java.util.Collection «EXPAND getConnectedLinksByTypeMethodName(getIncomingLinksMethodNameSuffix())»(«EXPAND MetaModel::QualifiedClassName FOR modelFacet.getTargetType()» target, java.util.Map crossReferences) {
 	java.util.Collection result = new java.util.LinkedList();
 	java.util.Collection settings = (java.util.Collection) crossReferences.get(target);
 	for (java.util.Iterator it = settings.iterator(); it.hasNext();) {
@@ -456,7 +429,7 @@ if (setting.getEStructuralFeature() == «EXPAND xpt::Common::metaFeatureAccessor 
 	«EXPAND getOutgoingLinksByTypeMethod(this) FOR modelFacet-»
 «ENDDEFINE»
 
-«DEFINE getOutgoingLinksByTypeMethodSignature FOR gmfgen::GenLink»private static java.util.Collection «EXPAND getConnnectedLinksByTypeMethodName(getOutgoingLinksMethodNameSuffix())»(«getQualifiedInterfaceName(modelFacet.getSourceType())» source)«ENDDEFINE»
+«DEFINE getOutgoingLinksByTypeMethodSignature FOR gmfgen::GenLink»private static java.util.Collection «EXPAND getConnectedLinksByTypeMethodName(getOutgoingLinksMethodNameSuffix())»(«EXPAND MetaModel::QualifiedClassName FOR modelFacet.getSourceType()» source)«ENDDEFINE»
 
 «DEFINE getOutgoingLinksByTypeMethod(gmfgen::GenLink genLink) FOR gmfgen::FeatureLinkModelFacet-»
 

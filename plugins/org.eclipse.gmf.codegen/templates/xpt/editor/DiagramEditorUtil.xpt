@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -196,7 +196,7 @@ public class «diagramEditorUtilClassName» {
 		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand command = new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(editingDomain, «EXPAND xpt::Externalizer::accessorCall(i18nKeyForCreateDiagramCommandLabel()) FOR editorGen», java.util.Collections.EMPTY_LIST) {
 			protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
 «IF domainDiagramElement != null-»
-				«domainDiagramElement.getQualifiedInterfaceName()» model = createInitialModel();
+				«EXPAND MetaModel::QualifiedClassName FOR domainDiagramElement» model = createInitialModel();
 				attachModelToResource(model, «IF standaloneDomainModel()»model«ELSE»diagram«ENDIF»Resource);
 «ENDIF»
 				org.eclipse.gmf.runtime.notation.Diagram diagram = org.eclipse.gmf.runtime.diagram.core.services.ViewService.createDiagram(
@@ -237,14 +237,14 @@ public class «diagramEditorUtilClassName» {
 
 «DEFINE createInitialModelMethod FOR gmfgen::GenDiagram»
 	«EXPAND xpt::Common::generatedMemberComment("Create a new instance of domain element associated with canvas.\n<!-- begin-user-doc -->\n<!-- end-user-doc -->")»
-	private static «domainDiagramElement.getQualifiedInterfaceName()» createInitialModel() {
+	private static «EXPAND MetaModel::QualifiedClassName FOR domainDiagramElement» createInitialModel() {
 		return «EXPAND xpt::Common::newInstance FOR domainDiagramElement»;
 	}
 «ENDDEFINE»
 
 «DEFINE attachModelMethod FOR gmfgen::GenDiagram»
 	«EXPAND xpt::Common::generatedMemberComment("Store model element in the resource.\n<!-- begin-user-doc -->\n<!-- end-user-doc -->")»
-	private static void attachModelToResource(«domainDiagramElement.getQualifiedInterfaceName()» model, org.eclipse.emf.ecore.resource.Resource resource) {
+	private static void attachModelToResource(«EXPAND MetaModel::QualifiedClassName FOR domainDiagramElement» model, org.eclipse.emf.ecore.resource.Resource resource) {
 		resource.getContents().add(«IF hasDocumentRoot()»createDocumentRoot(model)«ELSE»«IF domainDiagramElement.isExternalInterface()»(org.eclipse.emf.ecore.EObject) «ENDIF»model«ENDIF»);
 	}
 «ENDDEFINE»
@@ -252,7 +252,7 @@ public class «diagramEditorUtilClassName» {
 // invoke only when there's DocumentRoot in the domain model
 «DEFINE createDocumentRootMethod FOR gmfgen::GenDiagram»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private static «getDocumentRoot().getQualifiedInterfaceName()» createDocumentRoot(«domainDiagramElement.getQualifiedInterfaceName()» model) {
+	private static «EXPAND MetaModel::QualifiedClassName FOR getDocumentRoot()» createDocumentRoot(«EXPAND MetaModel::QualifiedClassName FOR domainDiagramElement» model) {
 		«EXPAND xpt::Common::newInstance("docRoot") FOR getDocumentRoot()»
 «LET getDocumentRootSetFeature() AS f»«IF f == null-»
 		docRoot.set«domainDiagramElement.ecoreClass.name»(model); // FIXME name of the set method is pure guess«ELSE-»
