@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -22,13 +22,13 @@ import java.util.Collections;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BufferOutput;
-import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.expression.TypeNameUtil;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 import org.eclipse.gmf.internal.xpand.util.ContextFactory;
+import org.eclipse.gmf.internal.xpand.util.ParserException;
 import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
 
 import junit.framework.TestCase;
@@ -113,11 +113,6 @@ public class CompositeResourcesTest extends TestCase {
 			return true;
 		}
 		@Override
-		protected Reader resolve(String fullyQualifiedName, String extension) throws IOException {
-			fail("This method should not be called");
-			return null;
-		}
-		@Override
 		protected String getAspectsTemplateName(String fullyQualifiedName) {
 			return fullyQualifiedName + "_Aspects";
 		}
@@ -147,6 +142,10 @@ public class CompositeResourcesTest extends TestCase {
 				return null;
 			}
 			return new InputStreamReader(resourceAsStream);
+		}
+		@Override
+		protected void handleParserException(ParserException ex) {
+			fail(ex.getClass().getName());
 		}
 	}
 }
