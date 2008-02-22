@@ -2,6 +2,7 @@
 <psf version="2.0">
 	<provider id="org.eclipse.team.cvs.core.cvsnature">
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf,org.eclipse.gmf"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.tooling,org.eclipse.gmf.tooling"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge,org.eclipse.gmf.bridge"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.ui,org.eclipse.gmf.bridge.ui"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.ui.dashboard,org.eclipse.gmf.bridge.ui.dashboard"/>
@@ -12,6 +13,7 @@
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/doc/org.eclipse.gmf.doc,org.eclipse.gmf.doc"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/doc/org.eclipse.gmf.doc.ui,org.eclipse.gmf.doc.ui"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.eclipse.gmf.doc-feature,org.eclipse.gmf.doc-feature"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.eclipse.gmf.tooling-feature,org.eclipse.gmf.tooling-feature"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.eclipse.gmf.europa-feature,org.eclipse.gmf.europa-feature"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/examples/org.eclipse.gmf.examples,org.eclipse.gmf.examples"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.eclipse.gmf.examples-feature,org.eclipse.gmf.examples-feature"/>
