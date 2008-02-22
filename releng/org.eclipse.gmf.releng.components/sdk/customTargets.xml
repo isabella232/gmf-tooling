@@ -87,8 +87,8 @@
 		<ant antfile="${scripts}/install.xml" target="installGMFBasePlatform" />
 <!--
 		<ant antfile="${scripts}/install.xml" target="installGMFRuntime" />	
-		<ant antfile="${scripts}/install.xml" target="installGMFTooling" />	 -->
-		<ant antfile="${scripts}/install.xml" target="installExamples" />
+		<ant antfile="${scripts}/install.xml" target="installGMFTooling" />	
+		<ant antfile="${scripts}/install.xml" target="installExamples" /> -->
 	</target>
 	
 	<!-- ===================================================================== -->
