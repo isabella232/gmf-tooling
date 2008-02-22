@@ -1,6 +1,6 @@
 <project name="Build specific targets and properties" default="noDefault">
 	
-	<property name="id" value="org.eclipse.gmf" />
+	<property name="id" value="org.eclipse.gmf.tooling" />
 	<property name="archiveName" value="GMF-tooling-${buildId}.zip"/>
 	
 	<!-- ===================================================================== -->
