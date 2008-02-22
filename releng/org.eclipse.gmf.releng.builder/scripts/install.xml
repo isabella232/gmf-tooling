@@ -63,6 +63,12 @@
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${testingFrameworkZipName}" />
 	</target>
 	
+	<target name="installComponent" unless="componentName">
+		<echo message="Installing GMF component for ..." />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/drops/${buildLabel}/GMF-${componentName}-${buildId}.zip" />
+	</target>
+		
+	
 	<target name="installTests">		
 <!-- 	<antcall target="installTestsFromMirror"/> TODO: restore when updating site.xml takes place during build -->
 		<antcall target="installTestsFromZip"/>
@@ -163,6 +169,30 @@
 	<target name="installGMFRuntimeFromZip" unless=""> <!-- TODO: restore usingMirror -->
 		<echo message="Installing GMF Runtime from zip file..." />
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/drops/${buildLabel}/GMF-runtime-${buildId}.zip" />
+	</target>
+
+	<target name="checkGMFToolingInstalled">
+		<property file="${buildRoot}/runtime/finalFeaturesVersions.properties"/>
+		<available file="${baseLocation}/features/org.eclipse.gmf.tooling_${org.eclipse.gmf.tooling}/feature.xml" property="gmfToolingExists" />
+	</target>
+
+	<target name="installGMFTooling" unless="gmfToolingExists" depends="checkGMFToolingInstalled">
+<!-- TODO: restore install from mirror capability after devising a way to update site.xml -->		
+<!--	<antcall target="installGMFToolingFromMirror" /> -->
+		<antcall target="installGMFToolingFromZip" />
+	</target>
+
+	<target name="installGMFToolingFromMirror" if="usingMirror">
+		<property file="${buildRoot}/runtime/finalFeaturesVersions.properties"/>
+		<ant antfile="${scripts}/update.xml" target="install">
+			<property name="featureId" value="org.eclipse.gmf.tooling" />
+			<property name="version" value="${org.eclipse.gmf.tooling}" />
+		</ant>
+	</target>
+
+	<target name="installGMFToolingFromZip" unless=""> <!-- TODO: restore usingMirror -->
+		<echo message="Installing GMF Tooling from zip file..." />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/drops/${buildLabel}/GMF-tooling-${buildId}.zip" />
 	</target>
 
 	<target name="checkGMFExperimentalInstalled">
