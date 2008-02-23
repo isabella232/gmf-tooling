@@ -29,17 +29,15 @@ http://www.eclipse.org/legal/epl-v10.html
       <import feature="org.eclipse.gmf.sdk.experimental" version="1.0.0.qualifier"/>
    </requires>
 
+   <includes
+         id="org.eclipse.gmf.tests.experimental.source"
+         version="0.0.0"/>
+
    <plugin
          id="org.eclipse.gmf.tests.lite"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-  <plugin
-         id="org.eclipse.gmf.tests.lite.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
 
 </feature>
