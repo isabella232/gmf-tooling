@@ -1,7 +1,7 @@
 !*** Graphical Modeling Framework (GMF) Tooling map ********************************************
 
 !*** GMF features ***************************************************************************
-feature@org.eclipse.gmf.tooling=v20080222-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.tooling-feature
+feature@org.eclipse.gmf.tooling=v20080223-0300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.tooling-feature
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf.tooling=v20080222-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.tooling
