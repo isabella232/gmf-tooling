@@ -26,15 +26,6 @@
 		<antcall target="cleanupArtifacts"/>
 		<antcall target="cc.cleanup"/>
 		<echo message="Building tooling..." />
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="tooling" />
-			<property name="cleanBase" value="true" />
-			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${stable.maps}" />
-			<property name="targetConfigTag" value="${stable.target}" />
-			<property name="componentsTag" value="${stable.components}" />
-		</ant>
-		<!--
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
@@ -93,7 +84,7 @@
 			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="componentsTag" value="${stable.components}" />
 		</ant>
-		<antcall target="cc.publish"/> -->
+		<antcall target="cc.publish"/>
 	</target>
 
 	<target name="nightly" depends="init,checkArgs">
@@ -166,15 +157,6 @@
 	
 	<target name="integration" depends="init,checkArgs">
 		<antcall target="cc.cleanup"/>
-		<echo message="Building tooling..." />
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="tooling" />
-			<property name="cleanBase" value="true" />
-			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${integration.maps}" />
-			<property name="targetConfigTag" value="${integration.target}" />
-			<property name="componentsTag" value="${integration.components}" />
-		</ant>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
