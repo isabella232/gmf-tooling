@@ -185,12 +185,12 @@
 		<ant antfile="${scripts}/install.xml" target="installTestsExperimental"/>	
 		<!-- discover feature version -->
 		<antcontrib:var file="${buildRoot}/tests-experimental/finalPluginsVersions.properties"/>
-		<property name="sourceVersion" value="${org.eclipse.gmf.tests.experimental.source}"/>		
+		<property name="sourceVersion" value="${org.eclipse.gmf.tests.lite.source}"/>		
 	  	<antcontrib:var name="org.eclipse.gmf.tests.lite" unset="true"/>
 		<!-- run the tests -->
 		<!-- run the tests -->
-		<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.experimental.source_${sourceVersion}/test.xml"
-	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.experimental.source_${sourceVersion}" />
+		<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.lite.source_${sourceVersion}/test.xml"
+	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.lite.source_${sourceVersion}" />
 		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.experimental.source_${sourceVersion}/testresults" todir="${artifacts}/drops/${buildLabel}" failonerror="false"/>
 	</target>
 
