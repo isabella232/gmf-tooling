@@ -181,7 +181,7 @@
 	<target name="test" unless="skipTests">
 		<ant antfile="${scripts}/install.xml" target="installTests"/>
 		<!-- discover feature version -->
-		<antcontrib:var file="${buildRoot}/tests/finalPluginsVersions.properties"/>
+		<antcontrib:var file="${buildRoot}/tests/finalFeaturesVersions.properties"/>
 		<property name="sourceVersion" value="${org.eclipse.gmf.tests.source}"/>		
 	  	<antcontrib:var name="org.eclipse.gmf.tests" unset="true"/>
 		<!-- run the tests -->
