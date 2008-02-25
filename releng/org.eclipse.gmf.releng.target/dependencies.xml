@@ -2,7 +2,7 @@
 	<dependency name="gef"
 		download-url="http://download.eclipse.org/tools/gef/downloads/index.php"
 		update-site="http://download.eclipse.org/tools/gef/updates/site.xml"
-		build-type="R3.3.1">
+		build-type="R3.3.2">
 		<feature id="org.eclipse.gef.sdk"/> 
 	</dependency>	
 
@@ -17,7 +17,7 @@
 	<dependency name="ocl"
 		download-url="http://www.eclipse.org/modeling/mdt/downloads/index.php?project=ocl"
 		update-site="http://download.eclipse.org/modeling/mdt/updates/site-interim.xml"
-		build-type="M2007">
+		build-type="M2008">
 		<feature id="org.eclipse.ocl"/> 
 		<feature id="org.eclipse.ocl.doc"/>
 		<feature id="org.eclipse.ocl.source"/>
@@ -29,7 +29,7 @@
 	<dependency name="qtvAll"
 		download-url=""
 		update-site="http://download.eclipse.org/modeling/emf/updates/site-interim.xml"
-		build-type="M2007">
+		build-type="M2008">
 		<feature id="org.eclipse.emf.emfqtv.all.sdk"/>
 	</dependency>	
 	
