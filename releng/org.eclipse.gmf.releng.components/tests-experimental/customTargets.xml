@@ -185,13 +185,13 @@
 		<ant antfile="${scripts}/install.xml" target="installTestsExperimental"/>	
 		<!-- discover feature version -->
 		<antcontrib:var file="${buildRoot}/tests-experimental/finalFeaturesVersions.properties"/>
-		<property name="featureVersion" value="${org.eclipse.gmf.tests.experimental}"/>		
-	  	<antcontrib:var name="org.eclipse.gmf.tests.experimental" unset="true"/>
+		<property name="featureVersion" value="${org.eclipse.gmf.tests.experimental.source}"/>		
+	  	<antcontrib:var name="org.eclipse.gmf.tests.experimental.source" unset="true"/>
 		<!-- run the tests -->
 		<!-- run the tests -->
-		<ant antfile="${baseLocation}/features/org.eclipse.gmf.tests.experimental_${featureVersion}/test.xml"
-	  		 dir="${baseLocation}/features/org.eclipse.gmf.tests.experimental_${featureVersion}" />
-		<move file="${baseLocation}/features/org.eclipse.gmf.tests.experimental_${featureVersion}/testresults" todir="${artifacts}/drops/${buildLabel}" failonerror="true"/>
+		<ant antfile="${baseLocation}/features/org.eclipse.gmf.tests.experimental.source_${featureVersion}/test.xml"
+	  		 dir="${baseLocation}/features/org.eclipse.gmf.tests.experimental.source_${featureVersion}" />
+		<move file="${baseLocation}/features/org.eclipse.gmf.tests.experimental.source_${featureVersion}/testresults" todir="${artifacts}/drops/${buildLabel}" failonerror="true"/>
 	</target>
 
 	<!-- ===================================================================== -->
