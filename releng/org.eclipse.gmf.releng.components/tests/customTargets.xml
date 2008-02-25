@@ -185,9 +185,9 @@
 		<property name="sourceVersion" value="${org.eclipse.gmf.tests.source}"/>		
 	  	<antcontrib:var name="org.eclipse.gmf.tests" unset="true"/>
 		<!-- run the tests -->
-		<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${sourceVersion}/test.xml"
-	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${sourceVersion}" />
-		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${sourceVersion}/testresults" todir="${artifacts}/drops/${buildLabel}" failonerror="false"/>
+		<ant antfile="${baseLocation}/features/org.eclipse.gmf.tests.source_${sourceVersion}/test.xml"
+	  		 dir="${baseLocation}/features/org.eclipse.gmf.tests.source_${sourceVersion}" />
+		<move file="${baseLocation}/features/org.eclipse.gmf.tests.source_${sourceVersion}/testresults" todir="${artifacts}/drops/${buildLabel}" failonerror="false"/>
 	</target>
 
 	<!-- ===================================================================== -->
