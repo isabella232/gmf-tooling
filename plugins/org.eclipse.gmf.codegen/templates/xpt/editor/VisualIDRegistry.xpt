@@ -173,7 +173,7 @@ if («EXPAND checkSemanticElement») {
 
 «DEFINE checkSemanticElement FOR gmfgen::GenDiagram»«EXPAND checkDomainElementMetaclass FOR domainDiagramElement» && isDiagram(«EXPAND MetaModel::CastEObject("domainElement") FOR domainDiagramElement»)«ENDDEFINE»
 
-«DEFINE checkDomainElementMetaclass FOR genmodel::GenClass»«EXPAND xpt::Common::metaClassAccessor».isSuperTypeOf(domainElement.eClass())«ENDDEFINE»
+«DEFINE checkDomainElementMetaclass FOR genmodel::GenClass»«EXPAND MetaModel::MetaClass».isSuperTypeOf(domainElement.eClass())«ENDDEFINE»
 
 «DEFINE getNodeVisualID FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»

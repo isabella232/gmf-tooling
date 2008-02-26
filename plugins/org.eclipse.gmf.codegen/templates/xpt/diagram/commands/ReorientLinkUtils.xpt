@@ -174,7 +174,7 @@
 
 «DEFINE extractFeatureWithCheck(String containerVar, GenClass containerMetaClass, String var, GenClass varMetaClass) FOR genmodel::GenFeature-»
 	«IF ecoreFeature.many-»
-		if («EXPAND xpt::Common::getFeatureValue(containerVar, containerMetaClass)».size() != 1) {
+		if («EXPAND MetaModel::getFeatureValue(containerVar, containerMetaClass)».size() != 1) {
 			return false;
 		}
 		«EXPAND MetaModel::DeclareAndAssign2(var, containerVar, containerMetaClass, this, "get(0)", true) FOR varMetaClass»
@@ -273,10 +273,10 @@
 «ENDREM»
 «DEFINE changeTarget(String sourceVar, genmodel::GenClass sourceVarGenClass, String oldTargetVar, String newTargetVar) FOR genmodel::GenFeature-»
 	«IF isListType()-»
-		«EXPAND xpt::Common::getFeatureValue(sourceVar, sourceVarGenClass)».remove(«oldTargetVar»);
-		«EXPAND xpt::Common::getFeatureValue(sourceVar, sourceVarGenClass)».add(«newTargetVar»);
+		«EXPAND MetaModel::getFeatureValue(sourceVar, sourceVarGenClass)».remove(«oldTargetVar»);
+		«EXPAND MetaModel::getFeatureValue(sourceVar, sourceVarGenClass)».add(«newTargetVar»);
 	«ELSE-»
-		«EXPAND xpt::Common::setFeatureValue(sourceVar, sourceVarGenClass, newTargetVar)»;
+		«EXPAND MetaModel::setFeatureValue(sourceVar, sourceVarGenClass, newTargetVar)»;
 	«ENDIF-»
 «ENDDEFINE»
 
@@ -285,10 +285,10 @@
 «ENDREM»
 «DEFINE changeSource(String targetVar, String oldSourceVar, String newSourceVar, genmodel::GenClass sourceVarGenClass) FOR genmodel::GenFeature-»
 	«IF isListType()-»
-		«EXPAND xpt::Common::getFeatureValue(oldSourceVar, sourceVarGenClass)».remove(«targetVar»);
-		«EXPAND xpt::Common::getFeatureValue(newSourceVar, sourceVarGenClass)».add(«targetVar»);
+		«EXPAND MetaModel::getFeatureValue(oldSourceVar, sourceVarGenClass)».remove(«targetVar»);
+		«EXPAND MetaModel::getFeatureValue(newSourceVar, sourceVarGenClass)».add(«targetVar»);
 	«ELSE-»
-		«EXPAND xpt::Common::setFeatureValue(oldSourceVar, sourceVarGenClass, "null")»;
-		«EXPAND xpt::Common::setFeatureValue(newSourceVar, sourceVarGenClass, targetVar)»;
+		«EXPAND MetaModel::setFeatureValue(oldSourceVar, sourceVarGenClass, "null")»;
+		«EXPAND MetaModel::setFeatureValue(newSourceVar, sourceVarGenClass, targetVar)»;
 	«ENDIF-»
 «ENDDEFINE»

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -66,7 +66,7 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
-		«EXPAND xpt::Common::newInstance("newElement") FOR metaClass-»
+		«EXPAND MetaModel::NewInstance("newElement") FOR metaClass-»
 		«EXPAND addValue(sourceMetaFeature != null ? "getContainer()" : "getSource()", containmentMetaFeature.genClass, "newElement") FOR containmentMetaFeature-»
 		«IF sourceMetaFeature != null-»
 			«EXPAND addValue("newElement", metaClass, "getSource()") FOR sourceMetaFeature-»
@@ -83,19 +83,19 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 			«link.diagram.getElementTypesQualifiedClassName()».Initializers.«link.getUniqueIdentifier()».init(
 					«IF isExternalInterface(metaClass)»(org.eclipse.emf.ecore.EObject) «ENDIF»newElement);
 		«ENDIF-»
-		return «EXPAND xpt::Common::castToEObject FOR metaClass»newElement;
+		return «EXPAND MetaModel::DowncastToEObject("newElement") FOR metaClass»;
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.emf.ecore.EClass getEClassToEdit() {
-		return «EXPAND xpt::Common::metaClassAccessor FOR containmentMetaFeature.genClass»;
+		return «EXPAND MetaModel::MetaClass FOR containmentMetaFeature.genClass»;
 	}
 «ENDDEFINE»
 
 «DEFINE addValue(String containerVar, genmodel::GenClass containerClass, String valueVar) FOR genmodel::GenFeature-»
 	«IF isListType()-»
-		«EXPAND xpt::Common::getFeatureValue(containerVar, containerClass)».add(«valueVar»);
+		«EXPAND MetaModel::getFeatureValue(containerVar, containerClass)».add(«valueVar»);
 	«ELSE-»
-		«EXPAND xpt::Common::setFeatureValue(containerVar, containerClass, valueVar)»;
+		«EXPAND MetaModel::setFeatureValue(containerVar, containerClass, valueVar)»;
 	«ENDIF-»
 «ENDDEFINE»

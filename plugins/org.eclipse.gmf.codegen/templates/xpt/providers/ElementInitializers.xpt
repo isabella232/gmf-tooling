@@ -208,12 +208,12 @@ public static class Initializers {
 
 «DEFINE initializerExpr(GenFeatureValueSpec valueExpr) FOR GenExpressionInterpreter-»
 	«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», //$NON-NLS-1$
-		«EXPAND xpt::Common::metaClassAccessor FOR valueExpr.featureSeqInitializer.elementClass»)
+		«EXPAND MetaModel::MetaClass FOR valueExpr.featureSeqInitializer.elementClass»)
 «ENDDEFINE»
 
 «DEFINE initializerExpr(GenFeatureValueSpec valueExpr) FOR GenJavaExpressionProvider-»
 	«LET valueExpr.featureSeqInitializer.elementClass AS exprContext-»
-	new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND xpt::Common::metaClassAccessor FOR exprContext») {
+	new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND MetaModel::MetaClass FOR exprContext») {
 
 		protected Object doEvaluate(Object context, java.util.Map env) {
 			«getQualifiedInstanceClassName(exprContext)» self = («getQualifiedInstanceClassName(exprContext)») context;

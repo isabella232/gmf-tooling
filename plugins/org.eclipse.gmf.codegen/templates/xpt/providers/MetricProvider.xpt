@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -637,11 +637,11 @@ public class «metricProviderClassName»
 
 «DEFINE initializerExpr(ValueExpression valueExpr, GenClassifier exprContext) FOR GenExpressionInterpreter-»
 	«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», //$NON-NLS-1$
-		«EXPAND xpt::Common::metaClassAccessor FOR exprContext»)
+		«EXPAND MetaModel::MetaClass FOR exprContext»)
 «ENDDEFINE»
 
 «DEFINE initializerExpr(ValueExpression valueExpr, GenClassifier exprContext) FOR GenJavaExpressionProvider-»
-	new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND xpt::Common::metaClassAccessor FOR exprContext») {
+	new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND MetaModel::MetaClass FOR exprContext») {
 
 		protected Object doEvaluate(Object context, java.util.Map env) {
 			«getQualifiedInstanceClassName(exprContext)» self = («getQualifiedInstanceClassName(exprContext)») context;

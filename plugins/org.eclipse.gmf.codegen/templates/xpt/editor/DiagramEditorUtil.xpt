@@ -238,7 +238,7 @@ public class «diagramEditorUtilClassName» {
 «DEFINE createInitialModelMethod FOR gmfgen::GenDiagram»
 	«EXPAND xpt::Common::generatedMemberComment("Create a new instance of domain element associated with canvas.\n<!-- begin-user-doc -->\n<!-- end-user-doc -->")»
 	private static «EXPAND MetaModel::QualifiedClassName FOR domainDiagramElement» createInitialModel() {
-		return «EXPAND xpt::Common::newInstance FOR domainDiagramElement»;
+		return «EXPAND MetaModel::NewInstance FOR domainDiagramElement»;
 	}
 «ENDDEFINE»
 
@@ -253,10 +253,10 @@ public class «diagramEditorUtilClassName» {
 «DEFINE createDocumentRootMethod FOR gmfgen::GenDiagram»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static «EXPAND MetaModel::QualifiedClassName FOR getDocumentRoot()» createDocumentRoot(«EXPAND MetaModel::QualifiedClassName FOR domainDiagramElement» model) {
-		«EXPAND xpt::Common::newInstance("docRoot") FOR getDocumentRoot()»
+		«EXPAND MetaModel::NewInstance("docRoot") FOR getDocumentRoot()»
 «LET getDocumentRootSetFeature() AS f»«IF f == null-»
 		docRoot.set«domainDiagramElement.ecoreClass.name»(model); // FIXME name of the set method is pure guess«ELSE-»
-		«EXPAND xpt::Common::setFeatureValue("docRoot", getDocumentRoot(), "model") FOR f»;«ENDIF»
+		«EXPAND MetaModel::setFeatureValue("docRoot", getDocumentRoot(), "model") FOR f»;«ENDIF»
 «ENDLET-»
 		return docRoot;
 	}

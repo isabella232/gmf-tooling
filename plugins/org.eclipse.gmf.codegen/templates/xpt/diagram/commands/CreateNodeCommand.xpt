@@ -84,18 +84,18 @@ public boolean canExecute() {
 	«EXPAND MetaModel::DeclareAndAssign("container", "getElementToEdit()") FOR containmentMetaFeature.genClass-»
 		«IF containmentMetaFeature.ecoreFeature.upperBound > 0-»
 			«IF containmentMetaFeature.ecoreFeature.upperBound == 1»
-		if («EXPAND xpt::Common::getFeatureValue("container", containmentMetaFeature.genClass) FOR containmentMetaFeature» != null) {
+		if («EXPAND MetaModel::getFeatureValue("container", containmentMetaFeature.genClass) FOR containmentMetaFeature» != null) {
 			«ELSE-»
-		if («EXPAND xpt::Common::getFeatureValue("container", containmentMetaFeature.genClass) FOR containmentMetaFeature».size() >= «containmentMetaFeature.ecoreFeature.upperBound») {
+		if («EXPAND MetaModel::getFeatureValue("container", containmentMetaFeature.genClass) FOR containmentMetaFeature».size() >= «containmentMetaFeature.ecoreFeature.upperBound») {
 			«ENDIF-»
 			return false;
 		}
 		«ENDIF-»
 		«IF childMetaFeature != containmentMetaFeature && childMetaFeature.ecoreFeature.upperBound > 0-»
 			«IF childMetaFeature.ecoreFeature.upperBound == 1-»
-		if («EXPAND xpt::Common::getFeatureValue("container", containmentMetaFeature.genClass) FOR childMetaFeature» != null) {
+		if («EXPAND MetaModel::getFeatureValue("container", containmentMetaFeature.genClass) FOR childMetaFeature» != null) {
 			«ELSE-»
-		if («EXPAND xpt::Common::getFeatureValue("container", containmentMetaFeature.genClass) FOR childMetaFeature».size() >= «childMetaFeature.ecoreFeature.upperBound») {
+		if («EXPAND MetaModel::getFeatureValue("container", containmentMetaFeature.genClass) FOR childMetaFeature».size() >= «childMetaFeature.ecoreFeature.upperBound») {
 			«ENDIF-»
 			return false;
 		}
@@ -115,7 +115,7 @@ protected org.eclipse.emf.ecore.EReference getContainmentFeature() {
 «DEFINE getEClassToEdit FOR gmfgen::TypeModelFacet-»
 	«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.emf.ecore.EClass getEClassToEdit() {
-	return «EXPAND xpt::Common::metaClassAccessor FOR containmentMetaFeature.genClass»;
+	return «EXPAND MetaModel::MetaClass FOR containmentMetaFeature.genClass»;
 }
 «ENDDEFINE»
 
@@ -142,28 +142,28 @@ protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
-	// FIXME replace with «EXPAND xpt::Common::newInstance("newElement") FOR metaClass»
+	// FIXME replace with «EXPAND MetaModel::NewInstance("newElement") FOR metaClass»
 	«EXPAND MetaModel::DeclareAndAssign("newElement", "super.doDefaultElementCreation()") FOR metaClass»
 	if (newElement != null) {
 		«IF hasExplicitChildFeature(this)-»
 		«EXPAND MetaModel::DeclareAndAssign("container", "getElementToEdit()") FOR childMetaFeature.genClass»
 		if (container != null) {
 			«IF isListType(childMetaFeature)-»
-				«EXPAND xpt::Common::getFeatureValue("container", childMetaFeature.genClass) FOR childMetaFeature».add(newElement);
+				«EXPAND MetaModel::getFeatureValue("container", childMetaFeature.genClass) FOR childMetaFeature».add(newElement);
 			«ELSE-»
-				«EXPAND xpt::Common::setFeatureValue("container", childMetaFeature.genClass, "newElement") FOR childMetaFeature-»
+				«EXPAND MetaModel::setFeatureValue("container", childMetaFeature.genClass, "newElement") FOR childMetaFeature-»
 			«ENDIF-»
 		}
 		«ENDIF-»
 		«EXPAND initialize(node)-»
 	}
-	return «EXPAND xpt::Common::castToEObject FOR metaClass»newElement;
+	return «EXPAND MetaModel::DowncastToEObject("newElement") FOR metaClass»;
 }
 	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE initialize(gmfgen::GenNode node) FOR gmfgen::TypeModelFacet-»
 	«IF modelElementInitializer != null-»
-		«node.getDiagram().getElementTypesQualifiedClassName()».Initializers.«node.getUniqueIdentifier()».init(«EXPAND xpt::Common::castToEObject FOR metaClass»newElement);
+		«node.getDiagram().getElementTypesQualifiedClassName()».Initializers.«node.getUniqueIdentifier()».init(«EXPAND MetaModel::DowncastToEObject("newElement") FOR metaClass»);
 	«ENDIF-»
 «ENDDEFINE»

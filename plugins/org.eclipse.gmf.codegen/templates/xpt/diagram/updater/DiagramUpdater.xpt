@@ -91,12 +91,12 @@ public static java.util.List «EXPAND getSemanticChildrenMethodName»(org.eclipse.
 			«IF null == childMetaFeature-»
 	{ /*FIXME no containment/child feature found in the genmodel, toolsmith need to specify Class here manually*/ childElement = /*FIXME no containment/child feature found in the genmodel, toolsmith need to specify correct one here manually*/;
 			«ELSEIF isListType(childMetaFeature)-»
-	for (java.util.Iterator it = «EXPAND xpt::Common::getFeatureValue("modelElement", getModelElementType()) FOR childMetaFeature».iterator(); it.hasNext();) {
+	for (java.util.Iterator it = «EXPAND MetaModel::getFeatureValue("modelElement", getModelElementType()) FOR childMetaFeature».iterator(); it.hasNext();) {
 		«EXPAND MetaModel::DeclareAndAssign("childElement", "it.next()") FOR getTypeGenClassX(childMetaFeature)»
 			«ELSE-»
 	{ «EXPAND MetaModel::DeclareAndAssign("childElement", "modelElement", getModelElementType(), childMetaFeature) FOR getTypeGenClassX(childMetaFeature)»
 			«ENDIF-»
-		int visualID = «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall FOR getDiagram()»(view, «EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(childMetaFeature)»childElement);
+		int visualID = «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall FOR getDiagram()»(view, «EXPAND MetaModel::DowncastToEObject("childElement") FOR getTypeGenClassX(childMetaFeature)»);
 			«EXPAND checkChildElementVisualID(null != childMetaFeature && isListType(childMetaFeature)) FOREACH getSemanticChildren(this, childMetaFeature)-»
 	}
 		«ENDFOREACH-»
@@ -141,7 +141,7 @@ if (!containerView.isSetElement()) {
 
 «DEFINE checkChildElementVisualID(boolean inLoop) FOR gmfgen::GenNode-»
 if (visualID == «EXPAND xpt::editor::VisualIDRegistry::visualID») {
-	result.add(new «getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName()»(«IF null != modelFacet.childMetaFeature»«EXPAND xpt::Common::castToEObject FOR getTypeGenClassX(modelFacet.childMetaFeature)»«ENDIF»childElement, visualID));
+	result.add(new «getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName()»(«IF null != modelFacet.childMetaFeature»«EXPAND MetaModel::DowncastToEObject("childElement") FOR getTypeGenClassX(modelFacet.childMetaFeature)»«ENDIF», visualID));
 «IF inLoop-»
 	continue;
 «ENDIF-»
@@ -292,7 +292,7 @@ private static java.util.Collection «EXPAND getConnectedLinksByTypeMethodName(ge
 java.util.Collection result = new java.util.LinkedList();
 	«LET childMetaFeature.isListType() AS inLoop-»
 		«IF inLoop-»
-for (java.util.Iterator links = «EXPAND xpt::Common::getFeatureValue("container", containmentMetaFeature.genClass) FOR childMetaFeature».iterator(); links.hasNext();) {
+for (java.util.Iterator links = «EXPAND MetaModel::getFeatureValue("container", containmentMetaFeature.genClass) FOR childMetaFeature».iterator(); links.hasNext();) {
 	Object linkObject = links.next();
 			«EXPAND defineLink(inLoop)-»
 		«ELSE-»
@@ -322,11 +322,11 @@ return result;
 «ENDDEFINE»
 
 «DEFINE addLinkDescriptor(gmfgen::GenLink genLink, String srcVar, String dstVar) FOR gmfgen::TypeLinkModelFacet-»
-result.add(new «genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()»(«EXPAND xpt::Common::castToEObject FOR getSourceType()»«srcVar», «EXPAND xpt::Common::castToEObject FOR getTargetType()»«dstVar», «EXPAND xpt::Common::castToEObject FOR metaClass»link, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink»));
+result.add(new «genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()»(«EXPAND MetaModel::DowncastToEObject(srcVar) FOR getSourceType()», «EXPAND MetaModel::DowncastToEObject(dstVar) FOR getTargetType()», «EXPAND MetaModel::DowncastToEObject("link") FOR metaClass», «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink»));
 «ENDDEFINE»
 
 «DEFINE checkLinkVisualID(gmfgen::GenLink genLink, boolean inLoop) FOR gmfgen::TypeLinkModelFacet-»
-if («EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink» != «EXPAND xpt::editor::VisualIDRegistry::getLinkWithClassVisualIDMethodCall FOR genLink.getDiagram()»(«EXPAND xpt::Common::castToEObject FOR metaClass»link)) {
+if («EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink» != «EXPAND xpt::editor::VisualIDRegistry::getLinkWithClassVisualIDMethodCall FOR genLink.getDiagram()»(«EXPAND MetaModel::DowncastToEObject("link") FOR metaClass»)) {
 	«EXPAND stopLinkProcessing(inLoop)-»
 }
 «ENDDEFINE»
@@ -340,7 +340,7 @@ if (false == «EXPAND MetaModel::IsInstance("linkObject") FOR metaClass») {
 
 «DEFINE defineLinkSource(boolean inLoop) FOR gmfgen::TypeLinkModelFacet-»
 	«IF sourceMetaFeature.isListType()-»
-java.util.List sources = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR sourceMetaFeature»;
+java.util.List sources = «EXPAND MetaModel::getFeatureValue("link", metaClass) FOR sourceMetaFeature»;
 Object theSource = sources.size() == 1 ? sources.get(0) : null;
 if (false == «EXPAND MetaModel::IsInstance("theSource") FOR getSourceType()») {
 	«EXPAND stopLinkProcessing(inLoop)-»
@@ -359,7 +359,7 @@ if (src != source) {
 
 «DEFINE defineLinkDestination(boolean inLoop) FOR gmfgen::TypeLinkModelFacet-»
 	«IF targetMetaFeature.isListType()-»
-java.util.List targets = «EXPAND xpt::Common::getFeatureValue("link", metaClass) FOR targetMetaFeature»;
+java.util.List targets = «EXPAND MetaModel::getFeatureValue("link", metaClass) FOR targetMetaFeature»;
 Object theTarget = targets.size() == 1 ? targets.get(0) : null;
 if (false == «EXPAND MetaModel::IsInstance("theTarget") FOR getTargetType()») {
 	«EXPAND stopLinkProcessing(inLoop)-»
@@ -393,7 +393,7 @@ private static java.util.Collection «EXPAND getConnectedLinksByTypeMethodName(ge
 «ENDDEFINE»
 
 «DEFINE getIncomingLinksByTypeMethodBody(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
-if (setting.getEStructuralFeature() != «EXPAND xpt::Common::metaFeatureAccessor FOR targetMetaFeature» || false == «EXPAND MetaModel::IsInstance("setting.getEObject()") FOR metaClass») {
+if (setting.getEStructuralFeature() != «EXPAND MetaModel::MetaFeature FOR targetMetaFeature» || false == «EXPAND MetaModel::IsInstance("setting.getEObject()") FOR metaClass») {
 	continue;
 }
 «EXPAND MetaModel::DeclareAndAssign("link", "setting.getEObject()") FOR metaClass»
@@ -416,8 +416,8 @@ if (false == «EXPAND MetaModel::IsContainerInstance("link", metaClass) FOR conta
 «ENDDEFINE»
 
 «DEFINE getIncomingLinksByTypeMethodBody(gmfgen::GenLink genLink) FOR gmfgen::FeatureLinkModelFacet-»
-if (setting.getEStructuralFeature() == «EXPAND xpt::Common::metaFeatureAccessor FOR metaFeature») {
-	result.add(new «genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()»(setting.getEObject(), «EXPAND xpt::Common::castToEObject FOR getTargetType()»target, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink»));
+if (setting.getEStructuralFeature() == «EXPAND MetaModel::MetaFeature FOR metaFeature») {
+	result.add(new «genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()»(setting.getEObject(), «EXPAND MetaModel::DowncastToEObject("target") FOR getTargetType()», «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink»));
 }
 «ENDDEFINE»
 
@@ -437,7 +437,7 @@ if (setting.getEStructuralFeature() == «EXPAND xpt::Common::metaFeatureAccessor 
 «EXPAND getOutgoingLinksByTypeMethodSignature FOR genLink» {
 	java.util.Collection result = new java.util.LinkedList();
 	«IF metaFeature.isListType()-»
-	for (java.util.Iterator destinations = «EXPAND xpt::Common::getFeatureValue("source", getSourceType()) FOR metaFeature».iterator(); destinations.hasNext();) {
+	for (java.util.Iterator destinations = «EXPAND MetaModel::getFeatureValue("source", getSourceType()) FOR metaFeature».iterator(); destinations.hasNext();) {
 		«EXPAND MetaModel::DeclareAndAssign("destination", "destinations.next()") FOR getTargetType()»
 	«ELSE-»
 	«EXPAND MetaModel::DeclareAndAssign("destination", "source", getSourceType(), metaFeature) FOR getTargetType()»
@@ -445,7 +445,7 @@ if (setting.getEStructuralFeature() == «EXPAND xpt::Common::metaFeatureAccessor 
 		return result;
 	}
 	«ENDIF-»
-	result.add(new «genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()»(«EXPAND xpt::Common::castToEObject FOR getSourceType()»source, «EXPAND xpt::Common::castToEObject FOR getTargetType()»destination, «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink»));
+	result.add(new «genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()»(«EXPAND MetaModel::DowncastToEObject("source") FOR getSourceType()», «EXPAND MetaModel::DowncastToEObject("destination") FOR getTargetType()», «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink»));
 	«IF metaFeature.isListType()-»
 	}
 	«ENDIF-»
@@ -463,7 +463,7 @@ if (setting.getEStructuralFeature() == «EXPAND xpt::Common::metaFeatureAccessor 
 	// Find container element for the link.
 	// Climb up by containment hierarchy starting from the source
 	// and return the first element that is instance of the container class.
-	for (org.eclipse.emf.ecore.EObject element = «EXPAND xpt::Common::castToEObject FOR getSourceType()» source; element != null && container == null; element = element.eContainer()) {
+	for (org.eclipse.emf.ecore.EObject element = «EXPAND MetaModel::DowncastToEObject("source") FOR getSourceType()»; element != null && container == null; element = element.eContainer()) {
 		if («EXPAND MetaModel::IsInstance("element") FOR containmentMetaFeature.genClass») {
 			container = «EXPAND MetaModel::CastEObject("element") FOR containmentMetaFeature.genClass»;
 		}

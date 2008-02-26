@@ -188,7 +188,7 @@ public static org.eclipse.emf.ecore.ENamedElement getElement(org.eclipse.core.ru
 «ENDDEFINE»
 
 «DEFINE bindUniqueIdentifierToNamedElement(String id) FOR genmodel::GenClass»
-	elements.put(«id», «EXPAND xpt::Common::metaClassAccessor»);
+	elements.put(«id», «EXPAND MetaModel::MetaClass»);
 «ENDDEFINE»
 
 «DEFINE bindUniqueIdentifierToNamedElement(String id) FOR gmfgen::ModelFacet»
@@ -200,7 +200,7 @@ public static org.eclipse.emf.ecore.ENamedElement getElement(org.eclipse.core.ru
 «ENDDEFINE»
 
 «DEFINE bindUniqueIdentifierToNamedElement(String id) FOR gmfgen::FeatureLinkModelFacet»
-	elements.put(«id», «EXPAND xpt::Common::metaFeatureAccessor FOR metaFeature»);
+	elements.put(«id», «EXPAND MetaModel::MetaFeature FOR metaFeature»);
 «ENDDEFINE»
 
 «DEFINE elementTypeField FOR gmfgen::GenCommonBase-»

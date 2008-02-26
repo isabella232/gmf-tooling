@@ -14,7 +14,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 
-«EXTENSION xpt::GenModelUtils»
+«EXTENSION MetaModel»
 
 /*
  * Does instanceof check.
@@ -40,11 +40,55 @@ MetaModelFacility.getEClass("«ecoreClass.name»").isSuperTypeOf(«IF true /*isEObj
 «IF isExternalInterface()»((org.eclipse.emf.ecore.EObject) «object»).«feature»«ELSE»«object».«feature»«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE NewInstance FOR GenClass-»
+«DEFINE getFeatureValue(String containerVar, genmodel::GenClass containerClass) FOR genmodel::GenFeature-»
+	«IF isExternalInterface(containerClass)-»
+((«getFeatureTargetType()») ((org.eclipse.emf.ecore.EObject) «containerVar»).eGet(«EXPAND MetaFeature»))«-»
+	«ELSE-»
+«containerVar».«getGetAccessor()»()«-»
+	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE MetaClass FOR GenClass-»
+«DEFINE setFeatureValue(String containerVar, genmodel::GenClass containerGenClass, String valueVar) FOR genmodel::GenFeature-»
+	«IF isExternalInterface(containerGenClass)-»
+((org.eclipse.emf.ecore.EObject) «containerVar»).eSet(«EXPAND MetaFeature», «valueVar»)«-»
+	«ELSE-»
+«containerVar».set«getAccessorName(this)»(«valueVar»)«-»
+	«ENDIF-»
 «ENDDEFINE»
+
+«DEFINE MetaClass FOR genmodel::GenClassifier»«getQualifiedPackageInterfaceName(genPackage)».eINSTANCE.get«getClassifierAccessorName(this)»()«ENDDEFINE»
+
+«DEFINE MetaFeature FOR genmodel::GenFeature»«getQualifiedPackageInterfaceName(genClass.genPackage)».eINSTANCE.get«getFeatureAccessorName(this)»()«ENDDEFINE»
+
+// SomeFactory.eINSTANCE.createBlaBla();
+//NB: for map entries, the resulting type is EObject, not the qualified interface name. If cast is needed, use (un)parenthesizedCast() extension.
+//see GenClassImpl#hasFactoryInterfaceCreateMethod() for details why map entries should be treated differently
+«DEFINE NewInstance FOR genmodel::GenClass-»
+«IF isMapEntry()-»
+«genPackage.getQualifiedFactoryInterfaceName()».«genPackage.getFactoryInstanceName()».create(«EXPAND MetaClass»)«ELSE-»
+«genPackage.getQualifiedFactoryInterfaceName()».«genPackage.getFactoryInstanceName()».create«ecoreClass.name»()«ENDIF-»
+«ENDDEFINE»
+
+// XXX Need to take into account possible GenClass from generated and always available code
+// e.g. Notation or Ecore 
+
+«DEFINE NewInstance(String varName) FOR genmodel::GenClass-»
+«getQualifiedInterfaceName()» «varName» = «IF isMapEntry()»(«getQualifiedInterfaceName()») «ENDIF»«EXPAND NewInstance»;
+«ENDDEFINE»
+
+«REM»
+XXX looks like we don't use it any longer
+«DEFINE NewEObjectInstance(String varName) FOR genmodel::GenClass-»
+org.eclipse.emf.ecore.EObject «varName» = «IF !isMapEntry() && isExternalInterface()»(org.eclipse.emf.ecore.EObject) «ENDIF»«EXPAND NewInstance»;
+«ENDDEFINE»
+«ENDREM»
+
+/*
+ * Ensures value is of type EObject, may be no-op if context GenClass is compatible with EObject.
+ * Note, injected value is not surrounded with parenthesis, may need to introduce another
+ * template to accomplish that if needed.
+ */
+«DEFINE DowncastToEObject(String value) FOR genmodel::GenClass»«IF isExternalInterface()»(org.eclipse.emf.ecore.EObject) «ENDIF»«value»«ENDDEFINE»
 
 /*
  * Declares new variable of appropriate type and assigns casted value to it.
@@ -63,13 +107,13 @@ MetaModelFacility.getEClass("«ecoreClass.name»").isSuperTypeOf(«IF true /*isEObj
  * XXX in certain scenarions may need extra cast of the feature value
  */
 «DEFINE DeclareAndAssign(String assignee, String src, GenClass srcMetaClass, GenFeature srcFeature) FOR GenClass-»
-«getQualifiedInterfaceName()» «assignee» = «EXPAND xpt::Common::getFeatureValue(src, srcMetaClass) FOR srcFeature»;«ENDDEFINE»
+«getQualifiedInterfaceName()» «assignee» = «EXPAND getFeatureValue(src, srcMetaClass) FOR srcFeature»;«ENDDEFINE»
 
 /*
  * Same as DeclareAndAssign, with extra operation applied to source object
  */
 «DEFINE DeclareAndAssign2(String assignee, String src, GenClass srcMetaClass, GenFeature srcFeature, String srcExt, boolean needCast) FOR GenClass-»
-«getQualifiedInterfaceName()» «assignee» = «IF needCast»(«getQualifiedInterfaceName()») «ENDIF»«EXPAND xpt::Common::getFeatureValue(src, srcMetaClass) FOR srcFeature».«srcExt»;«ENDDEFINE»
+«getQualifiedInterfaceName()» «assignee» = «IF needCast»(«getQualifiedInterfaceName()») «ENDIF»«EXPAND getFeatureValue(src, srcMetaClass) FOR srcFeature».«srcExt»;«ENDDEFINE»
 
 /*
  * Cast value of type EObject to specific type. Would be no-op with dynamic model instances,
@@ -84,7 +128,13 @@ MetaModelFacility.getEClass("«ecoreClass.name»").isSuperTypeOf(«IF true /*isEObj
  */
 «DEFINE QualifiedClassName FOR GenClass»«getQualifiedInterfaceName()»«ENDDEFINE»
 
-«DEFINE Facility FOR Object»
+«DEFINE PopulateItemProviderFactories(String factoryListVar) FOR GenEditorGenerator-»
+«FOREACH getAllDomainGenPackages(true) AS genPackage-»
+		«factoryListVar».add(new «genPackage.getQualifiedItemProviderAdapterFactoryClassName()»());
+«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE Facility FOR GenEditorGenerator»
 public class MetaModelFacility {
 
 	private static MetaModelFacility instance;
@@ -93,6 +143,8 @@ public class MetaModelFacility {
 	}
 
 	private void doInit() {
+	«FOREACH getAllDomainGenPackages(true) AS genPackage-»
+	«ENDFOREACH»
 	}
 
 	public static MetaModelFacility get«"NameBasedOnMetaModelPackageName"»() {

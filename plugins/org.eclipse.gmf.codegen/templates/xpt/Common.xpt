@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -63,43 +63,6 @@
 «getDiagramEditorUtilQualifiedClassName()».setCharset(«varName»);
 «ENDDEFINE»
 
-«DEFINE getFeatureValue(String containerVar, genmodel::GenClass containerClass) FOR genmodel::GenFeature-»
-	«IF isExternalInterface(containerClass)-»
-((«getFeatureTargetType()») ((org.eclipse.emf.ecore.EObject) «containerVar»).eGet(«EXPAND metaFeatureAccessor»))«-»
-	«ELSE-»
-«containerVar».«getGetAccessor()»()«-»
-	«ENDIF-»
-«ENDDEFINE»
-
-«DEFINE setFeatureValue(String containerVar, genmodel::GenClass containerGenClass, String valueVar) FOR genmodel::GenFeature-»
-	«IF isExternalInterface(containerGenClass)-»
-((org.eclipse.emf.ecore.EObject) «containerVar»).eSet(«EXPAND metaFeatureAccessor», «valueVar»)«-»
-	«ELSE-»
-«containerVar».set«getAccessorName(this)»(«valueVar»)«-»
-	«ENDIF-»
-«ENDDEFINE»
-
-«DEFINE metaClassAccessor FOR genmodel::GenClassifier»«getQualifiedPackageInterfaceName(genPackage)».eINSTANCE.get«getClassifierAccessorName(this)»()«ENDDEFINE»
-
-«DEFINE metaFeatureAccessor FOR genmodel::GenFeature»«getQualifiedPackageInterfaceName(genClass.genPackage)».eINSTANCE.get«getFeatureAccessorName(this)»()«ENDDEFINE»
-
-// SomeFactory.eINSTANCE.createBlaBla();
-//NB: for map entries, the resulting type is EObject, not the qualified interface name. If cast is needed, use (un)parenthesizedCast() extension.
-//see GenClassImpl#hasFactoryInterfaceCreateMethod() for details why map entries should be treated differently
-«DEFINE newInstance FOR genmodel::GenClass-»
-«IF isMapEntry()-»
-«genPackage.getQualifiedFactoryInterfaceName()».«genPackage.getFactoryInstanceName()».create(«EXPAND metaClassAccessor»)«ELSE-»
-«genPackage.getQualifiedFactoryInterfaceName()».«genPackage.getFactoryInstanceName()».create«ecoreClass.name»()«ENDIF-»
-«ENDDEFINE»
-
-«DEFINE newInstance(String varName) FOR genmodel::GenClass-»
-«getQualifiedInterfaceName()» «varName» = «IF isMapEntry()»(«getQualifiedInterfaceName()») «ENDIF»«EXPAND newInstance»;
-«ENDDEFINE»
-
-«DEFINE newInstanceAsEObject(String varName) FOR genmodel::GenClass-»
-org.eclipse.emf.ecore.EObject «varName» = «IF !isMapEntry() && isExternalInterface()»(org.eclipse.emf.ecore.EObject) «ENDIF»«EXPAND newInstance»;
-«ENDDEFINE»
-
 «DEFINE nonNLS FOR Object»«EXPAND nonNLS(1)»«ENDDEFINE»
 
 «DEFINE nonNLS(Collection[Object] indexes) FOR Object» «EXPAND nonNLS(indexes.add(this).size())»«ENDDEFINE»
@@ -107,9 +70,6 @@ org.eclipse.emf.ecore.EObject «varName» = «IF !isMapEntry() && isExternalInterfa
 «DEFINE nonNLS(int i) FOR Object»//$NON-NLS-«i»$«ENDDEFINE»
 
 «DEFINE caseVisualID FOR gmfgen::GenCommonBase»case «EXPAND xpt::editor::VisualIDRegistry::visualID»:«ENDDEFINE»
-
-// TODO: replace with MetaModel::_getEObjectFeature and friends.
-«DEFINE castToEObject FOR genmodel::GenClass»«IF isExternalInterface()»(org.eclipse.emf.ecore.EObject) «ENDIF»«ENDDEFINE»
 
 «DEFINE addShortcutAnnotation(String viewVar) FOR gmfgen::GenDiagram-»
 	org.eclipse.emf.ecore.EAnnotation shortcutAnnotation = org.eclipse.emf.ecore.EcoreFactory.eINSTANCE.createEAnnotation();

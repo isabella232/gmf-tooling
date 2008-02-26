@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006,2007 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -330,7 +330,7 @@ if (parser != null) {
 	«IF null != genClass && null != genClass.labelFeature-»
 «EXPAND MetaModel::DeclareAndAssign("domainModelElement", "view.getElement()") FOR genClass»
 if (domainModelElement != null) {
-	return «IF !isStringFeature(genClass.labelFeature)»String.valueOf(«ENDIF»«EXPAND xpt::Common::getFeatureValue("domainModelElement", genClass) FOR genClass.labelFeature»«IF !isStringFeature(genClass.labelFeature)»)«ENDIF»;
+	return «IF !isStringFeature(genClass.labelFeature)»String.valueOf(«ENDIF»«EXPAND MetaModel::getFeatureValue("domainModelElement", genClass) FOR genClass.labelFeature»«IF !isStringFeature(genClass.labelFeature)»)«ENDIF»;
 } else {
 	«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("No domain element for view with visualID = " + «visualID»); «EXPAND xpt::Common::nonNLS»
 		«EXPAND returnEmptyString-»
