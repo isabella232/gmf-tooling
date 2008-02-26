@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -122,7 +122,8 @@ return false;
 return false;
 «ELSE-»
 «ENDIF-»
-«containmentMetaFeature.genClass.getQualifiedInterfaceName()» container = («containmentMetaFeature.genClass.getQualifiedInterfaceName()») getRelationshipContainer(newSource.getElement(), «EXPAND xpt::Common::metaClassAccessor FOR containmentMetaFeature.genClass»);
+org.eclipse.emf.ecore.EObject containerEObj = getRelationshipContainer(newSource.getElement(), «EXPAND MetaModel::MetaClass FOR containmentMetaFeature.genClass»);
+«EXPAND MetaModel::DeclareAndAssign("container", "containerEObj") FOR containmentMetaFeature.genClass»
 if (container == null) {
 	return false;
 }
@@ -176,7 +177,7 @@ result.append(org.eclipse.emf.common.command.UnexecutableCommand.INSTANCE);
 «LET sourceMetaFeature != null && !sourceMetaFeature.ecoreFeature.derived && ecore::EReference.isSuperTypeOf(sourceMetaFeature.ecoreFeature.eClass()) 
 	&& ((ecore::EReference) sourceMetaFeature.ecoreFeature).eOpposite !=containmentMetaFeature.ecoreFeature && 
 		(setChild implies ((ecore::EReference) sourceMetaFeature.ecoreFeature).eOpposite != childMetaFeature.ecoreFeature) AS setSource-»
-		org.eclipse.emf.ecore.EObject container = getRelationshipContainer(newSource.getElement(), «EXPAND xpt::Common::metaClassAccessor FOR containmentMetaFeature.genClass»);
+		org.eclipse.emf.ecore.EObject container = getRelationshipContainer(newSource.getElement(), «EXPAND MetaModel::MetaClass FOR containmentMetaFeature.genClass»);
 		if (container == null) {
 			return org.eclipse.emf.common.command.UnexecutableCommand.INSTANCE;
 		}

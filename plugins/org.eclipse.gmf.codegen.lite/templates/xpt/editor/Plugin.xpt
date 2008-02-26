@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -125,9 +125,7 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void fillItemProviderFactories(java.util.List factories) {
-«FOREACH editorGen.getAllDomainGenPackages(true) AS genPackage-»
-		factories.add(new «((GenPackage) genPackage).getQualifiedItemProviderAdapterFactoryClassName()»());
-«ENDFOREACH-»
+«EXPAND MetaModel::PopulateItemProviderFactories("factories") FOR editorGen-»
 		factories.add(new org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory());
 		factories.add(new org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory());
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -33,10 +33,10 @@ int linkVID;
 		«FOREACH genTypeLinkFeatures AS metaFeature-»
 			«LET getTypeGenLinksForFeature(metaFeature, containedLinks()) AS genLinksCollection-»
 			«IF metaFeature.isListType()-»
-for(java.util.Iterator it = «EXPAND xpt::commands::Common::getFeatureValue("modelObject", null, true) FOR metaFeature».iterator(); it.hasNext(); ) {
+for(java.util.Iterator it = «EXPAND MetaModel::getFeatureValue("modelObject", null, true) FOR metaFeature».iterator(); it.hasNext(); ) {
 	nextValue = (org.eclipse.emf.ecore.EObject) it.next();
 			«ELSE-»
-	nextValue = (org.eclipse.emf.ecore.EObject) «EXPAND xpt::commands::Common::getFeatureValue("modelObject", null, false) FOR metaFeature»;
+	nextValue = (org.eclipse.emf.ecore.EObject) «EXPAND MetaModel::getFeatureValue("modelObject", null, false) FOR metaFeature»;
 			«ENDIF-»
 	linkVID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getLinkWithClassVisualID(nextValue);
 			«LET genLinksCollection.size() > 1 AS generateSwitch-»
@@ -52,10 +52,10 @@ for(java.util.Iterator it = «EXPAND xpt::commands::Common::getFeatureValue("mode
 				«LET ((gmfgen::TypeLinkModelFacet) nextLink.modelFacet).sourceMetaFeature AS sourceFeature-»
 				«IF sourceFeature != null-»
 					«IF sourceFeature.isListType()-»
-		java.util.List sources = «EXPAND xpt::commands::Common::getFeatureValue("nextValue", null, true) FOR sourceFeature»;
+		java.util.List sources = «EXPAND MetaModel::getFeatureValue("nextValue", null, true) FOR sourceFeature»;
 		org.eclipse.emf.ecore.EObject source = sources.size() == 1 ? (org.eclipse.emf.ecore.EObject) sources.get(0) : null;
 					«ELSE-»
-		org.eclipse.emf.ecore.EObject source = (org.eclipse.emf.ecore.EObject) «EXPAND xpt::commands::Common::getFeatureValue("nextValue", null, false) FOR sourceFeature»;
+		org.eclipse.emf.ecore.EObject source = (org.eclipse.emf.ecore.EObject) «EXPAND MetaModel::getFeatureValue("nextValue", null, false) FOR sourceFeature»;
 					«ENDIF-»
 				«ELSE-»
 		org.eclipse.emf.ecore.EObject source = modelObject;
@@ -64,10 +64,10 @@ for(java.util.Iterator it = «EXPAND xpt::commands::Common::getFeatureValue("mode
 				«LET ((gmfgen::TypeLinkModelFacet) nextLink.modelFacet).targetMetaFeature AS targetFeature-»
 				«IF targetFeature != null-»
 					«IF targetFeature.isListType()-»
-		java.util.List targets = «EXPAND xpt::commands::Common::getFeatureValue("nextValue", null, true) FOR targetFeature»;
+		java.util.List targets = «EXPAND MetaModel::getFeatureValue("nextValue", null, true) FOR targetFeature»;
 		org.eclipse.emf.ecore.EObject target = targets.size() == 1 ? (org.eclipse.emf.ecore.EObject) targets.get(0) : null;
 					«ELSE-»
-		org.eclipse.emf.ecore.EObject target = (org.eclipse.emf.ecore.EObject) «EXPAND xpt::commands::Common::getFeatureValue("nextValue", null, false) FOR targetFeature»;
+		org.eclipse.emf.ecore.EObject target = (org.eclipse.emf.ecore.EObject) «EXPAND MetaModel::getFeatureValue("nextValue", null, false) FOR targetFeature»;
 					«ENDIF-»
 				«ELSE-»
 		org.eclipse.emf.ecore.EObject target = modelObject;
@@ -95,10 +95,10 @@ for(java.util.Iterator it = «EXPAND xpt::commands::Common::getFeatureValue("mode
 		«FOREACH genFeatureLinkFeatures AS metaFeature-»
 			«LET getFeatureGenLinksForFeature(metaFeature, containedLinks()) AS genLinksCollection-»
 			«IF metaFeature.isListType()-»
-for(java.util.Iterator it = «EXPAND xpt::commands::Common::getFeatureValue("modelObject", null, true) FOR metaFeature».iterator(); it.hasNext(); ) {
+for(java.util.Iterator it = «EXPAND MetaModel::getFeatureValue("modelObject", null, true) FOR metaFeature».iterator(); it.hasNext(); ) {
 	nextValue = (org.eclipse.emf.ecore.EObject) it.next();
 			«ELSE-»
-	nextValue = (org.eclipse.emf.ecore.EObject) «EXPAND xpt::commands::Common::getFeatureValue("modelObject", null, false) FOR metaFeature»;
+	nextValue = (org.eclipse.emf.ecore.EObject) «EXPAND MetaModel::getFeatureValue("modelObject", null, false) FOR metaFeature»;
 			«ENDIF-»
 	if (nextValue != null) {
 			«FOREACH genLinksCollection AS nextLink-»

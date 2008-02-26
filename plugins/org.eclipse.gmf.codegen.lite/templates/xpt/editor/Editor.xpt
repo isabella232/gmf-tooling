@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -210,9 +210,7 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 		if (domainAdapterFactory == null) {
 			java.util.List factories = new java.util.ArrayList();
 			factories.add(new org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory());
-«FOREACH editorGen.getAllDomainGenPackages(true) AS genPackage-»
-			factories.add(new «((GenPackage) genPackage).getQualifiedItemProviderAdapterFactoryClassName()»());
-«ENDFOREACH-»
+«EXPAND MetaModel::PopulateItemProviderFactories("factories") FOR editorGen-»
 			factories.add(new org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory());
 			factories.add(new org.eclipse.gmf.runtime.notation.provider.NotationItemProviderAdapterFactory());
 			domainAdapterFactory = new org.eclipse.emf.edit.provider.ComposedAdapterFactory(factories);
@@ -224,13 +222,13 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 
 «DEFINE diagramAttributes FOR gmfgen::GenEditorView-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private «editorGen.diagram.domainDiagramElement.getQualifiedInterfaceName()» diagramRoot;
+	private «EXPAND MetaModel::QualifiedClassName FOR editorGen.diagram.domainDiagramElement» diagramRoot;
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.gmf.runtime.notation.Diagram diagram;
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	public «editorGen.diagram.domainDiagramElement.getQualifiedInterfaceName()» getDiagramRoot() {
+	public «EXPAND MetaModel::QualifiedClassName FOR editorGen.diagram.domainDiagramElement» getDiagramRoot() {
 		return diagramRoot;
 	}
 
@@ -560,7 +558,7 @@ if (updateManager != null) {
 						}
 					}
 				}
-				diagramRoot = («editorGen.diagram.domainDiagramElement.getQualifiedInterfaceName()») diagram.getElement();
+				diagramRoot = «EXPAND MetaModel::CastEObject("diagram.getElement()") FOR editorGen.diagram.domainDiagramElement»;
 				if (diagramRoot == null) {
 «LET editorGen.sameFileForDiagramAndModel ? "diagramResource" : "modelResource" AS resourceToUse-»
 «IF !editorGen.sameFileForDiagramAndModel-»
@@ -571,10 +569,14 @@ if (updateManager != null) {
 						return org.eclipse.core.runtime.Status.CANCEL_STATUS;
 					}
 «ENDIF-»
-					diagramRoot = («editorGen.diagram.domainDiagramElement.getQualifiedInterfaceName()») findInResource(«resourceToUse», «editorGen.diagram.domainDiagramElement.getQualifiedInterfaceName()».class);
+«REM»
+		FIXME: for code-less domain model findInResource(, Class) is useless. 
+		Another approach to get appropriate diagram root element is needed.
+«ENDREM»
+					diagramRoot = («EXPAND MetaModel::QualifiedClassName FOR editorGen.diagram.domainDiagramElement») findInResource(«resourceToUse», «EXPAND MetaModel::QualifiedClassName FOR editorGen.diagram.domainDiagramElement».class);
 					if (diagramRoot == null) {
-						diagramRoot = «EXPAND xpt::Common::newInstance FOR editorGen.diagram.domainDiagramElement»;
-						«resourceToUse».getContents().add(0, «unparenthesizedCast("diagramRoot", editorGen.diagram.domainDiagramElement, null)»);
+						diagramRoot = «EXPAND MetaModel::NewInstance FOR editorGen.diagram.domainDiagramElement»;
+						«resourceToUse».getContents().add(0, «EXPAND MetaModel::DowncastToEObject("diagramRoot") FOR editorGen.diagram.domainDiagramElement»);
 						//We don't want this auxiliary creation to be undoable.
 						try {
 							«resourceToUse».save(getSaveOptions());
@@ -585,7 +587,7 @@ if (updateManager != null) {
 						}
 					}
 					if (!diagramRoot.equals(diagram.getElement())) {
-						diagram.setElement(«unparenthesizedCast("diagramRoot", editorGen.diagram.domainDiagramElement, null)»);
+						diagram.setElement(«EXPAND MetaModel::DowncastToEObject("diagramRoot") FOR editorGen.diagram.domainDiagramElement»);
 					}
 				}
 				if (!diagram.eIsSet(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getView_Type())) {

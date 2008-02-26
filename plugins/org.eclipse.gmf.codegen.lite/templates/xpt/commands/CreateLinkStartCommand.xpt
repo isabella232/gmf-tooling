@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -71,7 +71,8 @@ return false;
 «ENDDEFINE»
 
 «DEFINE shouldExecuteForNonNullContainmentMetaFeature FOR gmfgen::TypeLinkModelFacet-»
-	«containmentMetaFeature.genClass.getQualifiedInterfaceName()» container = («containmentMetaFeature.genClass.getQualifiedInterfaceName()») getRelationshipContainer(source.getElement(), «EXPAND xpt::Common::metaClassAccessor FOR containmentMetaFeature.genClass»);
+	org.eclipse.emf.ecore.EObject containerEObj = getRelationshipContainer(source.getElement(), «EXPAND MetaModel::MetaClass FOR containmentMetaFeature.genClass»);
+	«EXPAND MetaModel::DeclareAndAssign("container", "containerEObj") FOR containmentMetaFeature.genClass»
 	if (container == null) {
 		return false;
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -263,7 +263,7 @@ public static class «getConstraintAdapterLocalClassName()» extends org.eclipse.e
 
 «DEFINE adjustEvalCtx(gmfgen::GenDiagram diagram) FOR gmfgen::GenDomainAttributeTarget-»
 if(evalCtx instanceof org.eclipse.emf.ecore.EObject) {
-	evalCtx = ((org.eclipse.emf.ecore.EObject) evalCtx).eGet(«EXPAND xpt::Common::metaFeatureAccessor FOR attribute»);
+	evalCtx = ((org.eclipse.emf.ecore.EObject) evalCtx).eGet(«EXPAND MetaModel::MetaFeature FOR attribute»);
 }
 «ENDDEFINE»
 
@@ -276,7 +276,7 @@ evalCtx = «diagram.getMetricProviderQualifiedClassName()».calculateMetric(«toStr
 «DEFINE getExpression(gmfgen::GenDiagram diagram, gmfgen::ValueExpression valueSpec, genmodel::GenClassifier genClassifier) FOR gmfgen::GenExpressionInterpreter»«EXPAND xpt::expressions::getExpression::getExpression(valueSpec, genClassifier, false)»«ENDDEFINE»
 
 «DEFINE getExpression(gmfgen::GenDiagram diagram, gmfgen::ValueExpression valueSpec, genmodel::GenClassifier genClassifier) FOR gmfgen::GenJavaExpressionProvider-»
-new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND xpt::Common::metaClassAccessor FOR genClassifier») {
+new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND MetaModel::MetaClass FOR genClassifier») {
 	protected Object doEvaluate(Object context, java.util.Map env) {
 		«getQualifiedInstanceClassName(genClassifier)» self = («getQualifiedInstanceClassName(genClassifier)») context;
 		return «EXPAND javaConstraintsClassName FOR diagram».«this.getOperationName(valueSpec)»(self);

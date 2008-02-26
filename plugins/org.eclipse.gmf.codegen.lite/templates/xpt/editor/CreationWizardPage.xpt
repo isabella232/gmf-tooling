@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -352,14 +352,14 @@ final org.eclipse.emf.ecore.resource.Resource modelResource = resourceSet.create
 monitor.beginTask(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForCreationWizardPageTaskName()) FOR editorGen», 1);
 try {
 «IF domainDiagramElement != null-»
-	«domainDiagramElement.getQualifiedInterfaceName()» model = «EXPAND createInitialModel»;
+	«EXPAND createInitialModel("model")»
 	«LET standaloneDomainModel() ? "modelResource" : "diagramResource" AS resourceToUse-»
-	«resourceToUse».getContents().add(«IF hasDocumentRoot()»createDocumentRoot(model)«ELSE»«unparenthesizedCast("model", domainDiagramElement, null)»«ENDIF»);
+	«resourceToUse».getContents().add(«IF hasDocumentRoot()»createDocumentRoot(model)«ELSE»«EXPAND MetaModel::DowncastToEObject("model") FOR domainDiagramElement»«ENDIF»);
 	«ENDLET-»
 «ENDIF-»
 	org.eclipse.gmf.runtime.notation.Diagram diagram = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createDiagram();
 «IF domainDiagramElement != null-»
-	diagram.setElement(«unparenthesizedCast("model", domainDiagramElement, null)»);
+	diagram.setElement(«EXPAND MetaModel::DowncastToEObject("model") FOR domainDiagramElement»);
 «ENDIF-»
 	«getNotationViewFactoryQualifiedClassName()».INSTANCE.decorateView(diagram);
 	diagramResource.getContents().add(diagram);
@@ -377,7 +377,8 @@ try {
 }
 «ENDDEFINE»
 
-«DEFINE createInitialModel FOR gmfgen::GenDiagram»«EXPAND xpt::Common::newInstance FOR domainDiagramElement»«ENDDEFINE»
+// TODO: introduce separate method as in FullRT
+«DEFINE createInitialModel(String varName) FOR gmfgen::GenDiagram»«EXPAND MetaModel::NewInstance(varName) FOR domainDiagramElement»«ENDDEFINE»
 
 «DEFINE setCharset FOR gmfgen::GenDiagram-»
 «IF !isRichClientPlatform()-»
@@ -411,11 +412,11 @@ if («getDiagramEditorUtilQualifiedClassName()».showView(diagramResource.getURI()
 
 «DEFINE createDocumentRoot FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::generatedMemberComment»
-private static «getDocumentRoot().getQualifiedInterfaceName()» createDocumentRoot(«domainDiagramElement.getQualifiedInterfaceName()» model) {
-	«EXPAND xpt::Common::newInstance("docRoot") FOR getDocumentRoot()»
+private static «EXPAND MetaModel::QualifiedClassName FOR getDocumentRoot()» createDocumentRoot(«EXPAND MetaModel::QualifiedClassName FOR domainDiagramElement» model) {
+	«EXPAND MetaModel::NewInstance("docRoot") FOR getDocumentRoot()»
 «LET getDocumentRootSetFeature() AS f»«IF f == null-»
 	docRoot.set«domainDiagramElement.ecoreClass.name»(model); // FIXME name of the set method is pure guess«ELSE-»
-	docRoot.set«f.getAccessorName()»(model);«ENDIF»
+	«EXPAND MetaModel::setFeatureValue("docRoot", getDocumentRoot(), "model") FOR f»;«ENDIF»
 «ENDLET-»
 	return docRoot;
 }

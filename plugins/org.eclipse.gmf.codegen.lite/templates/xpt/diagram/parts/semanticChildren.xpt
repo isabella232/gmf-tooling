@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -32,10 +32,10 @@ int nodeVID;
 	«LET getGenNodes(childMetaFeature) AS genNodesCollection-»
 	«IF genNodesCollection.size() > 0-»
 		«IF childMetaFeature.isListType()-»
-for(java.util.Iterator it = «EXPAND xpt::commands::Common::getFeatureValue("modelObject", null, true) FOR childMetaFeature».iterator(); it.hasNext(); ) {
+for(java.util.Iterator it = «EXPAND MetaModel::getFeatureValue("modelObject", null, true) FOR childMetaFeature».iterator(); it.hasNext(); ) {
 	nextValue = (org.eclipse.emf.ecore.EObject) it.next();
 		«ELSE-»
-nextValue = (org.eclipse.emf.ecore.EObject) «EXPAND xpt::commands::Common::getFeatureValue("modelObject", null, false) FOR childMetaFeature»;
+nextValue = (org.eclipse.emf.ecore.EObject) «EXPAND MetaModel::getFeatureValue("modelObject", null, false) FOR childMetaFeature»;
 		«ENDIF-»
 nodeVID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID(viewObject, nextValue);
 		«LET genNodesCollection.size() > 1 AS generateSwitch-»
@@ -100,7 +100,7 @@ case «getEditPartQualifiedClassName()».VISUAL_ID: {
 }
 «ENDDEFINE»
 
-«DEFINE checkFeature FOR genmodel::GenFeature»containmentFeature == «EXPAND xpt::Common::metaFeatureAccessor»«ENDDEFINE»
+«DEFINE checkFeature FOR genmodel::GenFeature»containmentFeature == «EXPAND MetaModel::MetaFeature»«ENDDEFINE»
 
 «DEFINE getPhantomNodesIterator FOR gmfgen::GenContainerBase»«ENDDEFINE»
 

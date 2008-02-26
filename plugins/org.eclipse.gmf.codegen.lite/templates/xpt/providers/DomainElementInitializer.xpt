@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -76,7 +76,7 @@ public static IElementInitializer «getUniqueIdentifier()» = NULL_INITIALIZER;
 «DEFINE defineInitializer FOR gmfgen::GenCommonBase-»
 «LET (gmfgen::GenFeatureSeqInitializer) getTypeModelFacet().modelElementInitializer AS rootFtSeqInitializer-»
 «EXPAND xpt::Common::generatedMemberComment»
-public static final IElementInitializer «EXPAND initializerFieldName(getUniqueIdentifier()) FOR rootFtSeqInitializer» = new ObjectInitializer(«EXPAND xpt::Common::metaClassAccessor FOR rootFtSeqInitializer.elementClass») {
+public static final IElementInitializer «EXPAND initializerFieldName(getUniqueIdentifier()) FOR rootFtSeqInitializer» = new ObjectInitializer(«EXPAND MetaModel::MetaClass FOR rootFtSeqInitializer.elementClass») {
 	«EXPAND defineInitializer(rootFtSeqInitializer)-»
 «EXPAND defineInnerInitializer(this) FOREACH rootFtSeqInitializer.getAllFeatureSeqInitializers().select(e| e != rootFtSeqInitializer)-»
 };	// «EXPAND initializerFieldName(getUniqueIdentifier()) FOR rootFtSeqInitializer» ObjectInitializer
@@ -89,7 +89,7 @@ public static final IElementInitializer «EXPAND initializerFieldName(getUniqueId
 
 «DEFINE defineInnerInitializer(gmfgen::GenFeatureSeqInitializer innerInitializer) FOR gmfgen::GenCommonBase-»
 ObjectInitializer «EXPAND initializerMethodName(getUniqueIdentifier()) FOR innerInitializer» {
-	return new ObjectInitializer(«EXPAND xpt::Common::metaClassAccessor FOR innerInitializer.elementClass») {
+	return new ObjectInitializer(«EXPAND MetaModel::MetaClass FOR innerInitializer.elementClass») {
 		«EXPAND defineInitializer(innerInitializer)-»
 	}; // «EXPAND initializerMethodName(getUniqueIdentifier()) FOR innerInitializer» ObjectInitializer
 }
@@ -104,13 +104,13 @@ protected void init() {
 «DEFINE addInitializer(gmfgen::GenCommonBase element, gmfgen::GenFeatureSeqInitializer initializer) FOR gmfgen::GenFeatureInitializer»«ENDDEFINE»
 
 «DEFINE addInitializer(gmfgen::GenCommonBase element, gmfgen::GenFeatureSeqInitializer initializer) FOR gmfgen::GenReferenceNewElementSpec-»
-add(createNewElementFeatureInitializer(«EXPAND xpt::Common::metaFeatureAccessor FOR feature», new ObjectInitializer[] {
+add(createNewElementFeatureInitializer(«EXPAND MetaModel::MetaFeature FOR feature», new ObjectInitializer[] {
 	«EXPAND initializerMethodName(element.getUniqueIdentifier()) FOREACH newElementInitializers SEPARATOR ','-»
 }));
 «ENDDEFINE»
 
 «DEFINE addInitializer(gmfgen::GenCommonBase element, gmfgen::GenFeatureSeqInitializer initializer) FOR gmfgen::GenFeatureValueSpec-»
-add(createExpressionFeatureInitializer(«EXPAND xpt::Common::metaFeatureAccessor FOR feature», «EXPAND getExpression(element, initializer, this) FOR element.getDiagram().editorGen.expressionProviders.getProvider(this)»));«EXPAND expressionNonNLS FOR element.getDiagram().editorGen.expressionProviders.getProvider(this)»
+add(createExpressionFeatureInitializer(«EXPAND MetaModel::MetaFeature FOR feature», «EXPAND getExpression(element, initializer, this) FOR element.getDiagram().editorGen.expressionProviders.getProvider(this)»));«EXPAND expressionNonNLS FOR element.getDiagram().editorGen.expressionProviders.getProvider(this)»
 «ENDDEFINE»
 
 «DEFINE getExpression(gmfgen::GenCommonBase element, gmfgen::GenFeatureSeqInitializer initializer, gmfgen::GenFeatureValueSpec valueSpec) FOR gmfgen::GenExpressionProviderBase»null«ENDDEFINE»
@@ -118,7 +118,7 @@ add(createExpressionFeatureInitializer(«EXPAND xpt::Common::metaFeatureAccessor 
 «DEFINE getExpression(gmfgen::GenCommonBase element, gmfgen::GenFeatureSeqInitializer initializer, gmfgen::GenFeatureValueSpec valueSpec) FOR gmfgen::GenExpressionInterpreter»«EXPAND xpt::expressions::getExpression::getExpression(valueSpec, initializer.elementClass, false)»«ENDDEFINE»
 
 «DEFINE getExpression(gmfgen::GenCommonBase element, gmfgen::GenFeatureSeqInitializer initializer, gmfgen::GenFeatureValueSpec valueSpec) FOR gmfgen::GenJavaExpressionProvider-»
-new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND xpt::Common::metaClassAccessor FOR initializer.elementClass») {
+new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND MetaModel::MetaClass FOR initializer.elementClass») {
 	protected Object doEvaluate(Object context, java.util.Map env) {
 		«getQualifiedInstanceClassName(initializer.elementClass)» self = («getQualifiedInstanceClassName(initializer.elementClass)») context;
 		return «EXPAND javaInitializersClassName FOR element.getDiagram()».«this.getOperationName(valueSpec)»(self);

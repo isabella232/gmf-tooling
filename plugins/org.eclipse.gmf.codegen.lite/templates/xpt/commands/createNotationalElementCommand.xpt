@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -35,7 +35,7 @@ default:
 
 «DEFINE createNotationalNodeCommandForChild(gmfgen::GenContainerBase parentContainer, String parentViewCode, String domainElementCode, String createNotationalNodeCommandFQN) FOR gmfgen::GenNode-»
 case «getEditPartQualifiedClassName()».VISUAL_ID:
-	if («domainElementCode» instanceof «modelFacet.metaClass.getQualifiedInterfaceName()») {
+	if («EXPAND MetaModel::IsInstance(domainElementCode) FOR modelFacet.metaClass») {
 		return new «createNotationalNodeCommandFQN»(«parentViewCode», «domainElementCode», «EXPAND defaultConstraint(parentContainer.needsXYLayout() || {this}.typeSelect(gmfgen::GenChildSideAffixedNode).size() > 0)», «getNotationViewFactoryQualifiedClassName()».INSTANCE, false);
 	}
 	return null;
@@ -95,7 +95,7 @@ return new org.eclipse.gmf.runtime.lite.commands.CreateNotationalEdgeCommand(«pa
 
 «DEFINE linkDescriptorCondition FOR gmfgen::LinkModelFacet»«ERROR "Unexpected type"»«ENDDEFINE»
 
-«DEFINE linkDescriptorCondition FOR gmfgen::TypeLinkModelFacet»linkDescriptor.getElement() instanceof «metaClass.getQualifiedInterfaceName()»«ENDDEFINE»
+«DEFINE linkDescriptorCondition FOR gmfgen::TypeLinkModelFacet»«EXPAND MetaModel::IsInstance("linkDescriptor.getElement()") FOR metaClass»«ENDDEFINE»
 
 «DEFINE linkDescriptorCondition FOR gmfgen::FeatureLinkModelFacet»linkDescriptor.getElement() == null«ENDDEFINE»
 

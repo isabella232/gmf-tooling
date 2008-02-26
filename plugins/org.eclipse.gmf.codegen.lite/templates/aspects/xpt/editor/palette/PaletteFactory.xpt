@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -101,8 +101,8 @@ final int[] visualIds = new int[] {
 
 «DEFINE getElement FOR gmfgen::LinkModelFacet»«ERROR "Unexpected model facet: " + this»«ENDDEFINE»
 
-«DEFINE getElement FOR gmfgen::TypeModelFacet»«EXPAND xpt::Common::metaClassAccessor FOR metaClass»«ENDDEFINE»
-«DEFINE getElement FOR gmfgen::TypeLinkModelFacet»«EXPAND xpt::Common::metaClassAccessor FOR metaClass»«ENDDEFINE»
-«DEFINE getElement FOR gmfgen::FeatureLinkModelFacet»«EXPAND xpt::Common::metaFeatureAccessor FOR metaFeature»«ENDDEFINE»
+«DEFINE getElement FOR gmfgen::TypeModelFacet»«EXPAND MetaModel::MetaClass FOR metaClass»«ENDDEFINE»
+«DEFINE getElement FOR gmfgen::TypeLinkModelFacet»«EXPAND MetaModel::MetaClass FOR metaClass»«ENDDEFINE»
+«DEFINE getElement FOR gmfgen::FeatureLinkModelFacet»«EXPAND MetaModel::MetaFeature FOR metaFeature»«ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::Palette»«ENDDEFINE»
