@@ -41,11 +41,28 @@ MetaModelFacility.getEClass("«ecoreClass.name»").isSuperTypeOf(«IF true /*isEObj
 «ENDDEFINE»
 
 «DEFINE getFeatureValue(String containerVar, genmodel::GenClass containerClass) FOR genmodel::GenFeature-»
-	«IF isExternalInterface(containerClass)-»
+«IF isExternalInterface(containerClass)-»
 ((«getFeatureTargetType()») ((org.eclipse.emf.ecore.EObject) «containerVar»).eGet(«EXPAND MetaFeature»))«-»
-	«ELSE-»
+«ELSE-»
 «containerVar».«getGetAccessor()»()«-»
-	«ENDIF-»
+«ENDIF-»
+«ENDDEFINE»
+
+/*
+ * FIXME leave only one version of these two getFeatureValue
+ *
+ * A slightly more sophisticated version of getFeatureValue().
+ * @param containerName the name of the container
+ * @param feature the feature whose value is in interest
+ * @param containerMetaClass the <code>GenClass</code> of the container, or <code>null</code>, if the container is declared as an <code>org.eclipse.emf.ecore.EObject</code>.
+ * @param needsCastToResultType whether the cast to the result type is required (this parameter is only used if the <code>org.eclipse.emf.ecore.EClass</code> this feature belongs to is an external interface). 
+ */
+«DEFINE getFeatureValue(String containerVar, genmodel::GenClass container, boolean needsCastToResultType) FOR genmodel::GenFeature-»
+«IF isExternalInterface(genClass)-»
+«IF needsCastToResultType»((«getFeatureTargetType()») «ENDIF»«containerVar.parenthesizedCast(container, null)».eGet(«EXPAND MetaFeature»)«IF needsCastToResultType»)«ENDIF-»
+«ELSE-»
+«containerVar.parenthesizedCast(container, genClass)».«getGetAccessor()»()«-»
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE setFeatureValue(String containerVar, genmodel::GenClass containerGenClass, String valueVar) FOR genmodel::GenFeature-»
