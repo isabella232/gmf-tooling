@@ -93,13 +93,6 @@ MetaModelFacility.getEClass("«ecoreClass.name»").isSuperTypeOf(«IF true /*isEObj
 «getQualifiedInterfaceName()» «varName» = «IF isMapEntry()»(«getQualifiedInterfaceName()») «ENDIF»«EXPAND NewInstance»;
 «ENDDEFINE»
 
-«REM»
-XXX looks like we don't use it any longer
-«DEFINE NewEObjectInstance(String varName) FOR genmodel::GenClass-»
-org.eclipse.emf.ecore.EObject «varName» = «IF !isMapEntry() && isExternalInterface()»(org.eclipse.emf.ecore.EObject) «ENDIF»«EXPAND NewInstance»;
-«ENDDEFINE»
-«ENDREM»
-
 /*
  * Ensures value is of type EObject, may be no-op if context GenClass is compatible with EObject.
  * Note, injected value is not surrounded with parenthesis, may need to introduce another
