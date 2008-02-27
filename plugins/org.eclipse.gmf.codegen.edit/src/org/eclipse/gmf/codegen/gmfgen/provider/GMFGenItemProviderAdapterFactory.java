@@ -350,6 +350,29 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.DynamicModelAccess} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DynamicModelAccessItemProvider dynamicModelAccessItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.DynamicModelAccess}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDynamicModelAccessAdapter() {
+		if (dynamicModelAccessItemProvider == null) {
+			dynamicModelAccessItemProvider = new DynamicModelAccessItemProvider(this);
+		}
+
+		return dynamicModelAccessItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.CustomBehaviour} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2047,6 +2070,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genConstantColorItemProvider != null) genConstantColorItemProvider.dispose();
 		if (genDiagramUpdaterItemProvider != null) genDiagramUpdaterItemProvider.dispose();
 		if (genPluginItemProvider != null) genPluginItemProvider.dispose();
+		if (dynamicModelAccessItemProvider != null) dynamicModelAccessItemProvider.dispose();
 		if (customBehaviourItemProvider != null) customBehaviourItemProvider.dispose();
 		if (sharedBehaviourItemProvider != null) sharedBehaviourItemProvider.dispose();
 		if (openDiagramBehaviourItemProvider != null) openDiagramBehaviourItemProvider.dispose();
