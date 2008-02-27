@@ -143,38 +143,3 @@ MetaModelFacility.getEClass("«ecoreClass.name»").isSuperTypeOf(«IF true /*isEObj
 		«factoryListVar».add(new «genPackage.getQualifiedItemProviderAdapterFactoryClassName()»());
 «ENDFOREACH-»
 «ENDDEFINE»
-
-«DEFINE Facility FOR GenEditorGenerator»
-public class MetaModelFacility {
-
-	private static MetaModelFacility instance;
-
-	private MetaModelFacility(EPackage ePackage) {
-	}
-
-	private void doInit() {
-	«FOREACH getAllDomainGenPackages(true) AS genPackage-»
-	«ENDFOREACH»
-	}
-
-	public static MetaModelFacility get«"NameBasedOnMetaModelPackageName"»() {
-		if (instance«"XX"» == null) {
-			instance«"XX"» = new MetaModelFacility(«"load EPackage"»);
-			instance«"XX"».doInit();
-		}
-		return instance«"XX"»;
-	}
-
-	public static isInstance(EObject obj, String metaClassName) {
-		EClass eMetaClass = getInstance(metaModelName).findMetaClass(metaClassName);
-		return obj != null && eMetaClass.isSuperTypeOf(obj.eClass());
-	}
-
-	public static EObject newInstance(String metaClassName) {
-	}
-
-	public static EClass getEClass(String metaClassName) {
-		return instance.findMetaClass(metaClassName);
-	}
-}
-«ENDDEFINE»

@@ -15,55 +15,6 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 import org.eclipse.gmf.codegen.gmfgen.*;
 
-import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
-import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
-import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
-import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
-import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
-import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
-import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
-import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
-import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
-import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
-import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
-import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
-import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
-import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
-import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
-import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
-import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
-import org.eclipse.gmf.codegen.gmfgen.NotationType;
-import org.eclipse.gmf.codegen.gmfgen.Palette;
-import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
-import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
-import org.eclipse.gmf.codegen.gmfgen.Separator;
-import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
-import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
-import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
-import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
-import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -121,6 +72,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_CONSTANT_COLOR: return createGenConstantColor();
 			case GMFGenPackage.GEN_DIAGRAM_UPDATER: return createGenDiagramUpdater();
 			case GMFGenPackage.GEN_PLUGIN: return createGenPlugin();
+			case GMFGenPackage.DYNAMIC_MODEL_ACCESS: return createDynamicModelAccess();
 			case GMFGenPackage.CUSTOM_BEHAVIOUR: return createCustomBehaviour();
 			case GMFGenPackage.SHARED_BEHAVIOUR: return createSharedBehaviour();
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR: return createOpenDiagramBehaviour();
@@ -399,6 +351,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenPlugin createGenPlugin() {
 		GenPluginImpl genPlugin = new GenPluginImpl();
 		return genPlugin;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DynamicModelAccess createDynamicModelAccess() {
+		DynamicModelAccessImpl dynamicModelAccess = new DynamicModelAccessImpl();
+		return dynamicModelAccess;
 	}
 
 	/**

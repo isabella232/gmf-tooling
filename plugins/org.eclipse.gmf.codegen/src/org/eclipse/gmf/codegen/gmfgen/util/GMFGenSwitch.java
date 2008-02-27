@@ -240,6 +240,12 @@ public class GMFGenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.DYNAMIC_MODEL_ACCESS: {
+				DynamicModelAccess dynamicModelAccess = (DynamicModelAccess)theEObject;
+				T result = caseDynamicModelAccess(dynamicModelAccess);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.GEN_COMMON_BASE: {
 				GenCommonBase genCommonBase = (GenCommonBase)theEObject;
 				T result = caseGenCommonBase(genCommonBase);
@@ -1274,6 +1280,21 @@ public class GMFGenSwitch<T> {
 	 * @generated
 	 */
 	public T caseGenPlugin(GenPlugin object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Dynamic Model Access</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Dynamic Model Access</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDynamicModelAccess(DynamicModelAccess object) {
 		return null;
 	}
 

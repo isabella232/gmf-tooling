@@ -155,6 +155,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/templateDirectory"/>
       <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/copyrightText"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/expressionProviders"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/modelAccess"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenEditorGenerator/getAllDomainGenPackages">
         <genParameters ecoreParameter="gmfgen.ecore#//GenEditorGenerator/getAllDomainGenPackages/withUsed"/>
       </genOperations>
@@ -390,6 +391,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPlugin/activatorClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenPlugin/getAllRequiredPlugins"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenPlugin/getActivatorQualifiedClassName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//DynamicModelAccess">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//DynamicModelAccess/editorGen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//DynamicModelAccess/packageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//DynamicModelAccess/className"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//DynamicModelAccess/getQualifiedClassName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenCommonBase">
       <genFeatures notify="false" createChild="false" propertyCategory="Diagram Element"

@@ -192,6 +192,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass dynamicModelAccessEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass elementTypeEClass = null;
 
 	/**
@@ -1219,6 +1226,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EReference getGenEditorGenerator_ExpressionProviders() {
 		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(18);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenEditorGenerator_ModelAccess() {
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(19);
 	}
 
 	/**
@@ -2569,6 +2585,42 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getGenPlugin_ActivatorClassName() {
 		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getDynamicModelAccess() {
+		return dynamicModelAccessEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getDynamicModelAccess_EditorGen() {
+		return (EReference)dynamicModelAccessEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDynamicModelAccess_PackageName() {
+		return (EAttribute)dynamicModelAccessEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDynamicModelAccess_ClassName() {
+		return (EAttribute)dynamicModelAccessEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -5931,6 +5983,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY);
 		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS);
+		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__MODEL_ACCESS);
 
 		genDiagramEClass = createEClass(GEN_DIAGRAM);
 		createEReference(genDiagramEClass, GEN_DIAGRAM__EDITOR_GEN);
@@ -6103,6 +6156,11 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genPluginEClass, GEN_PLUGIN__PRINTING_ENABLED);
 		createEAttribute(genPluginEClass, GEN_PLUGIN__REQUIRED_PLUGINS);
 		createEAttribute(genPluginEClass, GEN_PLUGIN__ACTIVATOR_CLASS_NAME);
+
+		dynamicModelAccessEClass = createEClass(DYNAMIC_MODEL_ACCESS);
+		createEReference(dynamicModelAccessEClass, DYNAMIC_MODEL_ACCESS__EDITOR_GEN);
+		createEAttribute(dynamicModelAccessEClass, DYNAMIC_MODEL_ACCESS__PACKAGE_NAME);
+		createEAttribute(dynamicModelAccessEClass, DYNAMIC_MODEL_ACCESS__CLASS_NAME);
 
 		genCommonBaseEClass = createEClass(GEN_COMMON_BASE);
 		createEReference(genCommonBaseEClass, GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS);
@@ -6713,6 +6771,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenEditorGenerator_TemplateDirectory(), ecorePackage.getEString(), "templateDirectory", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorGenerator_CopyrightText(), ecorePackage.getEString(), "copyrightText", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_ExpressionProviders(), this.getGenExpressionProviderContainer(), this.getGenExpressionProviderContainer_EditorGen(), "expressionProviders", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenEditorGenerator_ModelAccess(), this.getDynamicModelAccess(), this.getDynamicModelAccess_EditorGen(), "modelAccess", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		EOperation op = addEOperation(genEditorGeneratorEClass, theGenModelPackage.getGenPackage(), "getAllDomainGenPackages", 0, -1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEBoolean(), "withUsed", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -7003,6 +7062,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(genPluginEClass, ecorePackage.getEString(), "getAllRequiredPlugins", 0, -1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(genPluginEClass, ecorePackage.getEString(), "getActivatorQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(dynamicModelAccessEClass, DynamicModelAccess.class, "DynamicModelAccess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getDynamicModelAccess_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_ModelAccess(), "editorGen", null, 0, 1, DynamicModelAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDynamicModelAccess_PackageName(), ecorePackage.getEString(), "packageName", null, 0, 1, DynamicModelAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDynamicModelAccess_ClassName(), ecorePackage.getEString(), "className", "MetaModelFacility", 0, 1, DynamicModelAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(dynamicModelAccessEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(genCommonBaseEClass, GenCommonBase.class, "GenCommonBase", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenCommonBase_DiagramRunTimeClass(), theGenModelPackage.getGenClass(), null, "diagramRunTimeClass", null, 1, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7792,7 +7858,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																							
+		   });																																																																																																																																																																																																									
 	}
 
 	/**
@@ -7808,14 +7874,14 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "import", "http://www.eclipse.org/gmf/runtime/1.0.0/notation"
-		   });										
+		   });											
 		addAnnotation
 		  (genDiagramEClass, 
 		   source, 
 		   new String[] {
 			 "ocl", "diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Diagram\')",
 			 "description", "\'Diagram Runtime Class\' must be a notation::Diagram or sub-class"
-		   });														
+		   });															
 		addAnnotation
 		  (genCommonBaseEClass, 
 		   source, 
@@ -8035,13 +8101,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createDeprecatedAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2006/deprecated";																				
+		String source = "http://www.eclipse.org/gmf/2006/deprecated";																					
 		addAnnotation
 		  (linkConstraintsEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "documentation", "LinkCreationConstants should be generated if diagram has any links"
-		   });																																																																																																																																																																																					
+		   });																																																																																																																																																																																						
 	}
 
 	/**
@@ -8051,7 +8117,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																													
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																															
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 

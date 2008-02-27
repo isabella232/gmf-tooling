@@ -134,6 +134,15 @@ public interface GMFGenFactory extends EFactory {
 	GenPlugin createGenPlugin();
 
 	/**
+	 * Returns a new object of class '<em>Dynamic Model Access</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Dynamic Model Access</em>'.
+	 * @generated
+	 */
+	DynamicModelAccess createDynamicModelAccess();
+
+	/**
 	 * Returns a new object of class '<em>Custom Behaviour</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -161,6 +161,10 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 				return createGenPluginAdapter();
 			}
 			@Override
+			public Adapter caseDynamicModelAccess(DynamicModelAccess object) {
+				return createDynamicModelAccessAdapter();
+			}
+			@Override
 			public Adapter caseGenCommonBase(GenCommonBase object) {
 				return createGenCommonBaseAdapter();
 			}
@@ -883,6 +887,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenPluginAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.DynamicModelAccess <em>Dynamic Model Access</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.DynamicModelAccess
+	 * @generated
+	 */
+	public Adapter createDynamicModelAccessAdapter() {
 		return null;
 	}
 

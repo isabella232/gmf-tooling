@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getTemplateDirectory <em>Template Directory</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getCopyrightText <em>Copyright Text</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getExpressionProviders <em>Expression Providers</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getModelAccess <em>Model Access</em>}</li>
  * </ul>
  * </p>
  *
@@ -555,6 +556,33 @@ public interface GenEditorGenerator extends EObject {
 	 * @generated
 	 */
 	void setExpressionProviders(GenExpressionProviderContainer value);
+
+	/**
+	 * Returns the value of the '<em><b>Model Access</b></em>' containment reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.DynamicModelAccess#getEditorGen <em>Editor Gen</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If present, specifies dynamic access to domain model(s), without using generated Java code
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Model Access</em>' containment reference.
+	 * @see #setModelAccess(DynamicModelAccess)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_ModelAccess()
+	 * @see org.eclipse.gmf.codegen.gmfgen.DynamicModelAccess#getEditorGen
+	 * @model opposite="editorGen" containment="true"
+	 * @generated
+	 */
+	DynamicModelAccess getModelAccess();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getModelAccess <em>Model Access</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Model Access</em>' containment reference.
+	 * @see #getModelAccess()
+	 * @generated
+	 */
+	void setModelAccess(DynamicModelAccess value);
 
 	/**
 	 * <!-- begin-user-doc -->

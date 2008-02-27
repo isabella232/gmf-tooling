@@ -61,6 +61,7 @@ public class CodegenEmitters {
 	
 	public CodegenEmitters(boolean usePrecompiled, String templateDirectory, String[] variables, StaticTemplateRegistry registry) {
 		final URL baseURL = getTemplatesBundle().getEntry("/templates/"); //$NON-NLS-1$
+		final URL dynModelBase = getTemplatesBundle().getEntry("/templates-dynmodel/"); //$NON-NLS-1$
 		final URL dynamicURL = usePrecompiled ? null : getDynamicTemplatesURL(templateDirectory);
 		
 		myTemplatePath = new String[] { dynamicURL != null ? dynamicURL.toString() : null, baseURL.toString() };
@@ -68,9 +69,9 @@ public class CodegenEmitters {
 		myFactory = new CachingEmitterFactory(new EmitterFactoryImpl(getTemplatePath(), registry, usePrecompiled, variables));
 		
 		if (dynamicURL == null) {
-			myResourceManager = new BundleResourceManager(baseURL);	
+			myResourceManager = new BundleResourceManager(baseURL, dynModelBase);	
 		} else {
-			myResourceManager = new BundleResourceManager(dynamicURL, baseURL);
+			myResourceManager = new BundleResourceManager(dynamicURL, baseURL, dynModelBase);
 		}
 	}
 
@@ -553,6 +554,10 @@ public class CodegenEmitters {
 
 	public BinaryEmitter getWizardBannerImageEmitter() throws UnexpectedBehaviourException {
 		return newGIFEmitterAdapter("/xpt/editor/wizban.gif"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getModelAccessFacilityEmitter() {
+		return getMainEmitter("Facility"); //$NON-NLS-1$
 	}
 
 	// navigator

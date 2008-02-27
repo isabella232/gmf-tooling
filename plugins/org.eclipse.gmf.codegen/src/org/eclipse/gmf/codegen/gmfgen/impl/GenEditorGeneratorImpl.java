@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.gmf.codegen.gmfgen.DynamicModelAccess;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
@@ -64,6 +65,7 @@ import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getTemplateDirectory <em>Template Directory</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getCopyrightText <em>Copyright Text</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getExpressionProviders <em>Expression Providers</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getModelAccess <em>Model Access</em>}</li>
  * </ul>
  * </p>
  *
@@ -339,6 +341,16 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @ordered
 	 */
 	protected GenExpressionProviderContainer expressionProviders;
+
+	/**
+	 * The cached value of the '{@link #getModelAccess() <em>Model Access</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModelAccess()
+	 * @generated
+	 * @ordered
+	 */
+	protected DynamicModelAccess modelAccess;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1054,6 +1066,49 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DynamicModelAccess getModelAccess() {
+		return modelAccess;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetModelAccess(DynamicModelAccess newModelAccess, NotificationChain msgs) {
+		DynamicModelAccess oldModelAccess = modelAccess;
+		modelAccess = newModelAccess;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ACCESS, oldModelAccess, newModelAccess);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setModelAccess(DynamicModelAccess newModelAccess) {
+		if (newModelAccess != modelAccess) {
+			NotificationChain msgs = null;
+			if (modelAccess != null)
+				msgs = ((InternalEObject)modelAccess).eInverseRemove(this, GMFGenPackage.DYNAMIC_MODEL_ACCESS__EDITOR_GEN, DynamicModelAccess.class, msgs);
+			if (newModelAccess != null)
+				msgs = ((InternalEObject)newModelAccess).eInverseAdd(this, GMFGenPackage.DYNAMIC_MODEL_ACCESS__EDITOR_GEN, DynamicModelAccess.class, msgs);
+			msgs = basicSetModelAccess(newModelAccess, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ACCESS, newModelAccess, newModelAccess));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public EList<GenPackage> getAllDomainGenPackages(boolean withUsed) {
@@ -1155,6 +1210,10 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				if (expressionProviders != null)
 					msgs = ((InternalEObject)expressionProviders).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS, null, msgs);
 				return basicSetExpressionProviders((GenExpressionProviderContainer)otherEnd, msgs);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ACCESS:
+				if (modelAccess != null)
+					msgs = ((InternalEObject)modelAccess).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ACCESS, null, msgs);
+				return basicSetModelAccess((DynamicModelAccess)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -1187,6 +1246,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return basicSetApplication(null, msgs);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS:
 				return basicSetExpressionProviders(null, msgs);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ACCESS:
+				return basicSetModelAccess(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -1238,6 +1299,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return getCopyrightText();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS:
 				return getExpressionProviders();
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ACCESS:
+				return getModelAccess();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1306,6 +1369,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS:
 				setExpressionProviders((GenExpressionProviderContainer)newValue);
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ACCESS:
+				setModelAccess((DynamicModelAccess)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -1376,6 +1442,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS:
 				setExpressionProviders((GenExpressionProviderContainer)null);
 				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ACCESS:
+				setModelAccess((DynamicModelAccess)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1426,6 +1495,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return COPYRIGHT_TEXT_EDEFAULT == null ? copyrightText != null : !COPYRIGHT_TEXT_EDEFAULT.equals(copyrightText);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS:
 				return expressionProviders != null;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ACCESS:
+				return modelAccess != null;
 		}
 		return super.eIsSet(featureID);
 	}

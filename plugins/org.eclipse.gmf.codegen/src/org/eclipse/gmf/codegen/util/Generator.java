@@ -184,6 +184,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (myEditorGen.getExpressionProviders() != null) {
 			generateExpressionProviders();
 		}
+		if (myEditorGen.getModelAccess() != null) {
+			generateModelAccessFacility();
+		}
 
 		// preferences
 		generatePreferenceInitializer();
@@ -861,6 +864,10 @@ public class Generator extends GeneratorBase implements Runnable {
 				}
 			}
 		}
+	}
+
+	private void generateModelAccessFacility() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getModelAccessFacilityEmitter(), myEditorGen.getModelAccess().getQualifiedClassName(), myEditorGen.getModelAccess());
 	}
 
 	private void generateShortcutIcon() throws UnexpectedBehaviourException, InterruptedException {
