@@ -22,6 +22,8 @@
 «DEFINE IsInstance(String accessor) FOR GenClass-»
 MetaModelFacility.get«getNameToken(genPackage)»().isInstance(«accessor», "«ecoreClass.name»")«ENDDEFINE»
 
+«DEFINE NotInstance(String accessor) FOR GenClass»!«EXPAND IsInstance(accessor)»«ENDDEFINE»
+
 «DEFINE IsContainerInstance(String object, GenClass metaClass) FOR GenClass-»
 MetaModelFacility.get«getNameToken(genPackage)»().isInstance(«IF isExternalInterface()»((org.eclipse.emf.ecore.EObject) «object»)«ELSE»«object»«ENDIF».eContainer(), "«ecoreClass.name»")«ENDDEFINE»
 

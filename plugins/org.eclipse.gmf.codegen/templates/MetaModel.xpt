@@ -20,14 +20,13 @@
  * Does instanceof check.
  */
 «DEFINE IsInstance(String accessor) FOR GenClass-»
-«IF true /*useJavaModelCode*/-»
-«accessor» instanceof «getQualifiedInterfaceName()»«ELSE-»
-MetaModelFacility.getEClass("«ecoreClass.name»").isSuperTypeOf(«IF true /*isEObjectNotExternalInterface(genClass)*/»«accessor»«ELSE»((org.eclipse.emf.ecore.EObject) «accessor»«ENDIF».eClass())«ENDIF-»
-«ENDDEFINE»
+«accessor» instanceof «getQualifiedInterfaceName()»«ENDDEFINE»
 
-«DEFINE NotInstance FOR GenClass-»
-// XXX shorthand: !(EXPAND IsInstance)
-«ENDDEFINE»
+// Shorthand, negates IsInstance - handy if you consider
+// different approaches for generated and dynamic models: false == instanceof
+// vs. !MetaModelFacility.isInstance
+«DEFINE NotInstance(String accessor) FOR GenClass-»
+false == «EXPAND IsInstance(accessor)»«ENDDEFINE»
 
 /**
  * Special kind of instanceof check, that compares eContainer() of the object.

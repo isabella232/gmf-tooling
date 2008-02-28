@@ -332,7 +332,7 @@ if («EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink» != «EXPAND xpt:
 «ENDDEFINE»
 
 «DEFINE defineLink(boolean inLoop) FOR gmfgen::TypeLinkModelFacet-»
-if (false == «EXPAND MetaModel::IsInstance("linkObject") FOR metaClass») {
+if («EXPAND MetaModel::NotInstance("linkObject") FOR metaClass») {
 	«EXPAND stopLinkProcessing(inLoop)-»
 }
 «EXPAND MetaModel::DeclareAndAssign("link", "linkObject") FOR metaClass»
@@ -342,7 +342,7 @@ if (false == «EXPAND MetaModel::IsInstance("linkObject") FOR metaClass») {
 	«IF sourceMetaFeature.isListType()-»
 java.util.List sources = «EXPAND MetaModel::getFeatureValue("link", metaClass) FOR sourceMetaFeature»;
 Object theSource = sources.size() == 1 ? sources.get(0) : null;
-if (false == «EXPAND MetaModel::IsInstance("theSource") FOR getSourceType()») {
+if («EXPAND MetaModel::NotInstance("theSource") FOR getSourceType()») {
 	«EXPAND stopLinkProcessing(inLoop)-»
 }
 «EXPAND MetaModel::DeclareAndAssign("src", "theSource") FOR getSourceType()»
@@ -361,7 +361,7 @@ if (src != source) {
 	«IF targetMetaFeature.isListType()-»
 java.util.List targets = «EXPAND MetaModel::getFeatureValue("link", metaClass) FOR targetMetaFeature»;
 Object theTarget = targets.size() == 1 ? targets.get(0) : null;
-if (false == «EXPAND MetaModel::IsInstance("theTarget") FOR getTargetType()») {
+if («EXPAND MetaModel::NotInstance("theTarget") FOR getTargetType()») {
 	«EXPAND stopLinkProcessing(inLoop)-»
 }
 «EXPAND MetaModel::DeclareAndAssign("dst", "theTarget") FOR getTargetType()»
@@ -393,7 +393,7 @@ private static java.util.Collection «EXPAND getConnectedLinksByTypeMethodName(ge
 «ENDDEFINE»
 
 «DEFINE getIncomingLinksByTypeMethodBody(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
-if (setting.getEStructuralFeature() != «EXPAND MetaModel::MetaFeature FOR targetMetaFeature» || false == «EXPAND MetaModel::IsInstance("setting.getEObject()") FOR metaClass») {
+if (setting.getEStructuralFeature() != «EXPAND MetaModel::MetaFeature FOR targetMetaFeature» || «EXPAND MetaModel::NotInstance("setting.getEObject()") FOR metaClass») {
 	continue;
 }
 «EXPAND MetaModel::DeclareAndAssign("link", "setting.getEObject()") FOR metaClass»
