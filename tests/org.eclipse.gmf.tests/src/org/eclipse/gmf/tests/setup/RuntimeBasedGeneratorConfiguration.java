@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -69,7 +69,7 @@ public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfigu
 		// using caching EmitterSource saves few seconds on test execution (115-118 compared to 112)
 		// but it seems reasonable to avoid unpredictability of reuse (due to use of soft references)
 		// and might be good idea to have separate test to test emitter reuse explicitly
-		return new Generator(editorGen, new CodegenEmitters(!editorGen.isDynamicTemplates(), editorGen.getTemplateDirectory()));
+		return new Generator(editorGen, new CodegenEmitters(!editorGen.isDynamicTemplates(), editorGen.getTemplateDirectory(), editorGen.getModelAccess() != null));
 	}
 
 	public ViewerConfiguration createViewerConfiguration(SessionSetup sessionSetup, EditPartViewer viewer) throws Exception {
