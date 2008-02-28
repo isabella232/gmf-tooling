@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2006 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -86,7 +86,7 @@ public class CodeGenUIPlugin extends AbstractUIPlugin {
 			emitterSource = new EmitterSource<GenEditorGenerator, CodegenEmitters>() {
 				@Override
 				protected CodegenEmitters newEmitters(GenEditorGenerator genModel) {
-					return new CodegenEmitters(!genModel.isDynamicTemplates(), genModel.getTemplateDirectory());
+					return new CodegenEmitters(!genModel.isDynamicTemplates(), genModel.getTemplateDirectory(), genModel.getModelAccess() != null);
 				}
 			};
 		}
