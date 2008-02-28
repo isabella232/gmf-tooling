@@ -151,7 +151,7 @@ protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
 			«IF isListType(childMetaFeature)-»
 				«EXPAND MetaModel::getFeatureValue("container", childMetaFeature.genClass) FOR childMetaFeature».add(newElement);
 			«ELSE-»
-				«EXPAND MetaModel::setFeatureValue("container", childMetaFeature.genClass, "newElement") FOR childMetaFeature-»
+				«EXPAND MetaModel::setFeatureValue("container", childMetaFeature.genClass, "newElement") FOR childMetaFeature»;
 			«ENDIF-»
 		}
 		«ENDIF-»
