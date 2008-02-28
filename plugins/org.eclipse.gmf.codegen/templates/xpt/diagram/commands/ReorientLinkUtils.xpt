@@ -115,13 +115,13 @@
 «ENDDEFINE»
 
 «DEFINE checkLinkValidity FOR gmfgen::TypeLinkModelFacet-»
-	if (!(«EXPAND MetaModel::IsInstance("getElementToEdit()") FOR metaClass»)) {
+	if («EXPAND MetaModel::NotInstance("getElementToEdit()") FOR metaClass») {
 		return false;
 	}
 «ENDDEFINE»
 
 «DEFINE checkLinkValidity FOR gmfgen::FeatureLinkModelFacet-»
-	if (!(«EXPAND MetaModel::IsInstance("referenceOwner") FOR getSourceType()»)) {
+	if («EXPAND MetaModel::NotInstance("referenceOwner") FOR getSourceType()») {
 		return false;
 	}
 «ENDDEFINE»
