@@ -21,7 +21,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.codegen.jet.JETCompiler;
 import org.eclipse.emf.codegen.jet.JETException;
 
-
+// XXX actually, this is "CopyEmitter" or "AnyFileEmitter" rather than GIFEmitter 
 public class GIFEmitter implements BinaryEmitter {
 	
 	private String myLocation;
