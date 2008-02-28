@@ -55,6 +55,35 @@ public class «className» {
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.emf.ecore.EStructuralFeature getEFeature(String metaClassName, String metaFeatureName) {
+		assert metaFeatureName != null;
+		org.eclipse.emf.ecore.EClass metaClass = getEClass(metaClassName);
+		org.eclipse.emf.ecore.EStructuralFeature f = metaClass.getEStructuralFeature(metaFeatureName);
+		assertMetaFeature(f, metaClass, metaFeatureName);
+		return f;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.emf.ecore.EDataType getEDataType(String metaClassName) {
+		assert metaClassName != null;
+		org.eclipse.emf.ecore.EClassifier c = this.ePackage.getEClassifier(metaClassName);
+		if (false == c instanceof org.eclipse.emf.ecore.EDataType) {
+			return null;
+		}
+		return (org.eclipse.emf.ecore.EDataType) c;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.emf.ecore.EEnum getEEnum(String metaClassName) {
+		assert metaClassName != null;
+		org.eclipse.emf.ecore.EClassifier c = this.ePackage.getEClassifier(metaClassName);
+		if (false == c instanceof org.eclipse.emf.ecore.EEnum) {
+			return null;
+		}
+		return (org.eclipse.emf.ecore.EEnum) c;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.emf.ecore.EClass findMetaClass(String name) {
 		org.eclipse.emf.ecore.EClassifier c = this.ePackage.getEClassifier(name);
 		if (false == c instanceof org.eclipse.emf.ecore.EClass) {
@@ -67,6 +96,13 @@ public class «className» {
 	private void assertMetaClass(org.eclipse.emf.ecore.EClass metaClass, String metaClassName) {
 		if (metaClass == null) {
 			throw new IllegalStateException(java.text.MessageFormat.format("Can't find class {0} in the package {1}", new Object[] {metaClassName, this.ePackage.getName()}));
+		}
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment("Default implementation throws IllegalStateException if meta-feature is null")»
+	private void assertMetaFeature(org.eclipse.emf.ecore.EStructuralFeature metaFeature, org.eclipse.emf.ecore.EClass metaClass, String featureName) {
+		if (metaFeature == null) {
+			throw new IllegalStateException(java.text.MessageFormat.format("Can't find feature {0} of class {1} in the package {2}", new Object[] {featureName, metaClass.getName(), this.ePackage.getName()}));
 		}
 	}
 

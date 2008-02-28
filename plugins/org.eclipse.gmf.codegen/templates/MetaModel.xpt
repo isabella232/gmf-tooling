@@ -40,6 +40,9 @@ MetaModelFacility.getEClass("«ecoreClass.name»").isSuperTypeOf(«IF true /*isEObj
 «IF isExternalInterface()»((org.eclipse.emf.ecore.EObject) «object»).«feature»«ELSE»«object».«feature»«ENDIF-»
 «ENDDEFINE»
 
+// Public/API-sort templates are named with first letter capitalized.
+// FIXME getFeatureValue* and setFeatureValue start with lowercase to indicate pending refactoring
+
 «DEFINE getFeatureValue(String containerVar, genmodel::GenClass containerClass) FOR genmodel::GenFeature-»
 «IF isExternalInterface(containerClass)-»
 ((«getFeatureTargetType()») ((org.eclipse.emf.ecore.EObject) «containerVar»).eGet(«EXPAND MetaFeature»))«-»
