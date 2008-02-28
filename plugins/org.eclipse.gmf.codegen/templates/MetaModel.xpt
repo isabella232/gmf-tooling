@@ -108,6 +108,13 @@ false == «EXPAND IsInstance(accessor)»«ENDDEFINE»
 «DEFINE DeclareAndAssign(String assignee, String value) FOR GenClass-»
 «getQualifiedInterfaceName()» «assignee» = («getQualifiedInterfaceName()») «value»;«ENDDEFINE»
 
+/*
+ * third boolean parameter is to indicate the value is not EObject, si may
+ * need extra cast in case dynamic model instances are in use.
+ */
+«DEFINE DeclareAndAssign(String assignee, String value, boolean isPlainObjectValue) FOR GenClass-»
+«EXPAND DeclareAndAssign(assignee, value)»«ENDDEFINE»
+
 // @see IsContainerInstance
 «DEFINE DeclareAndAssignContainer(String assignee, String object, GenClass metaClass) FOR GenClass-»
 «getQualifiedInterfaceName()» «assignee» = («getQualifiedInterfaceName()») «EXPAND _getEObjectFeature(object, "eContainer()") FOR metaClass»;«ENDDEFINE»

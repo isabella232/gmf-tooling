@@ -36,9 +36,9 @@ public class «className» {
 	«EXPAND getRegistryMethod»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	public boolean isInstance(org.eclipse.emf.ecore.EObject obj, String metaClassName) {
+	public boolean isInstance(Object obj, String metaClassName) {
 		org.eclipse.emf.ecore.EClass metaClass = getEClass(metaClassName);
-		return obj != null && metaClass.isSuperTypeOf(obj.eClass());
+		return obj instanceof org.eclipse.emf.ecore.EObject && metaClass.isSuperTypeOf(((org.eclipse.emf.ecore.EObject) obj).eClass());
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»

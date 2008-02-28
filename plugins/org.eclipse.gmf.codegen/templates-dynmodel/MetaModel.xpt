@@ -71,6 +71,9 @@ org.eclipse.emf.ecore.EObject «varName» = «EXPAND NewInstance»;«ENDDEFINE»
 «DEFINE DeclareAndAssign(String assignee, String value) FOR GenClass-»
 org.eclipse.emf.ecore.EObject «assignee» = «value»;«ENDDEFINE»
 
+«DEFINE DeclareAndAssign(String assignee, String value, boolean isPlainObjectValue) FOR GenClass-»
+org.eclipse.emf.ecore.EObject «assignee» = «IF isPlainObjectValue»(org.eclipse.emf.ecore.EObject)«ENDIF»«value»;«ENDDEFINE»
+
 «DEFINE DeclareAndAssignContainer(String assignee, String object, GenClass metaClass) FOR GenClass-»
 org.eclipse.emf.ecore.EObject «assignee» = «IF isExternalInterface(metaClass)»((org.eclipse.emf.ecore.EObject) «object»)«ELSE»«object»«ENDIF».eContainer();«ENDDEFINE»
 

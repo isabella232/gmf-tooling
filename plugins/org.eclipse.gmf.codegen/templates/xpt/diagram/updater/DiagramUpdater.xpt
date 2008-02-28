@@ -92,7 +92,7 @@ public static java.util.List «EXPAND getSemanticChildrenMethodName»(org.eclipse.
 	{ /*FIXME no containment/child feature found in the genmodel, toolsmith need to specify Class here manually*/ childElement = /*FIXME no containment/child feature found in the genmodel, toolsmith need to specify correct one here manually*/;
 			«ELSEIF isListType(childMetaFeature)-»
 	for (java.util.Iterator it = «EXPAND MetaModel::getFeatureValue("modelElement", getModelElementType()) FOR childMetaFeature».iterator(); it.hasNext();) {
-		«EXPAND MetaModel::DeclareAndAssign("childElement", "it.next()") FOR getTypeGenClassX(childMetaFeature)»
+		«EXPAND MetaModel::DeclareAndAssign("childElement", "it.next()", true) FOR getTypeGenClassX(childMetaFeature)»
 			«ELSE-»
 	{ «EXPAND MetaModel::DeclareAndAssign("childElement", "modelElement", getModelElementType(), childMetaFeature) FOR getTypeGenClassX(childMetaFeature)»
 			«ENDIF-»
@@ -291,18 +291,24 @@ private static java.util.Collection «EXPAND getConnectedLinksByTypeMethodName(ge
 «DEFINE getContainedLinksByTypeMethodBody(gmfgen::GenLink genLink, boolean sourceVarDefined) FOR gmfgen::TypeLinkModelFacet-»
 java.util.Collection result = new java.util.LinkedList();
 	«LET childMetaFeature.isListType() AS inLoop-»
-		«IF inLoop-»
+«IF inLoop-»
 for (java.util.Iterator links = «EXPAND MetaModel::getFeatureValue("container", containmentMetaFeature.genClass) FOR childMetaFeature».iterator(); links.hasNext();) {
-	Object linkObject = links.next();
-			«EXPAND defineLink(inLoop)-»
-		«ELSE-»
-			«IF getTypeGenClassX(childMetaFeature) == metaClass-»
-«EXPAND MetaModel::DeclareAndAssign("link", "container", getSourceType(), childMetaFeature) FOR metaClass»
-			«ELSE-»
-«EXPAND MetaModel::DeclareAndAssign("linkObject", "container", getSourceType(), childMetaFeature) FOR getTypeGenClassX(childMetaFeature)»
-				«EXPAND defineLink(inLoop)-»
-			«ENDIF-»
-		«ENDIF-»
+	org.eclipse.emf.ecore.EObject linkObject = (org.eclipse.emf.ecore.EObject ) links.next();
+	if («EXPAND MetaModel::NotInstance("linkObject") FOR metaClass») {
+		continue;
+	}
+	«EXPAND MetaModel::DeclareAndAssign("link", "linkObject") FOR metaClass»
+«ELSE-»
+	«IF getTypeGenClassX(childMetaFeature) == metaClass-»
+		«EXPAND MetaModel::DeclareAndAssign("link", "container", getSourceType(), childMetaFeature) FOR metaClass»
+	«ELSE-»
+		«EXPAND MetaModel::DeclareAndAssign("linkObject", "container", getSourceType(), childMetaFeature) FOR getTypeGenClassX(childMetaFeature)»
+		if («EXPAND MetaModel::NotInstance("linkObject") FOR metaClass») {
+			return result;
+		}
+		«EXPAND MetaModel::DeclareAndAssign("link", "linkObject") FOR metaClass»
+	«ENDIF-»
+«ENDIF-»
 		«EXPAND checkLinkVisualID(genLink, inLoop)-»
 		«EXPAND defineLinkDestination(inLoop)-»
 		«IF null != sourceMetaFeature-»
@@ -314,9 +320,9 @@ for (java.util.Iterator links = «EXPAND MetaModel::getFeatureValue("container", 
 		«ELSE-»
 			«EXPAND addLinkDescriptor(genLink, "container", "dst")-»
 		«ENDIF-»
-		«IF inLoop-»
+«IF inLoop-»
 }
-		«ENDIF-»
+«ENDIF-»
 	«ENDLET-»
 return result;	
 «ENDDEFINE»
@@ -331,13 +337,6 @@ if («EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink» != «EXPAND xpt:
 }
 «ENDDEFINE»
 
-«DEFINE defineLink(boolean inLoop) FOR gmfgen::TypeLinkModelFacet-»
-if («EXPAND MetaModel::NotInstance("linkObject") FOR metaClass») {
-	«EXPAND stopLinkProcessing(inLoop)-»
-}
-«EXPAND MetaModel::DeclareAndAssign("link", "linkObject") FOR metaClass»
-«ENDDEFINE»
-
 «DEFINE defineLinkSource(boolean inLoop) FOR gmfgen::TypeLinkModelFacet-»
 	«IF sourceMetaFeature.isListType()-»
 java.util.List sources = «EXPAND MetaModel::getFeatureValue("link", metaClass) FOR sourceMetaFeature»;
@@ -345,7 +344,7 @@ Object theSource = sources.size() == 1 ? sources.get(0) : null;
 if («EXPAND MetaModel::NotInstance("theSource") FOR getSourceType()») {
 	«EXPAND stopLinkProcessing(inLoop)-»
 }
-«EXPAND MetaModel::DeclareAndAssign("src", "theSource") FOR getSourceType()»
+«EXPAND MetaModel::DeclareAndAssign("src", "theSource", true) FOR getSourceType()»
 	«ELSE-»
 «EXPAND MetaModel::DeclareAndAssign("src", "link", metaClass, sourceMetaFeature) FOR getSourceType()»
 	«ENDIF-»
@@ -364,7 +363,7 @@ Object theTarget = targets.size() == 1 ? targets.get(0) : null;
 if («EXPAND MetaModel::NotInstance("theTarget") FOR getTargetType()») {
 	«EXPAND stopLinkProcessing(inLoop)-»
 }
-«EXPAND MetaModel::DeclareAndAssign("dst", "theTarget") FOR getTargetType()»
+«EXPAND MetaModel::DeclareAndAssign("dst", "theTarget", true) FOR getTargetType()»
 	«ELSE-»
 «EXPAND MetaModel::DeclareAndAssign("dst", "link", metaClass, targetMetaFeature) FOR getTargetType()»
 	«ENDIF-»
@@ -438,7 +437,7 @@ if (setting.getEStructuralFeature() == «EXPAND MetaModel::MetaFeature FOR metaFe
 	java.util.Collection result = new java.util.LinkedList();
 	«IF metaFeature.isListType()-»
 	for (java.util.Iterator destinations = «EXPAND MetaModel::getFeatureValue("source", getSourceType()) FOR metaFeature».iterator(); destinations.hasNext();) {
-		«EXPAND MetaModel::DeclareAndAssign("destination", "destinations.next()") FOR getTargetType()»
+		«EXPAND MetaModel::DeclareAndAssign("destination", "destinations.next()", true) FOR getTargetType()»
 	«ELSE-»
 	«EXPAND MetaModel::DeclareAndAssign("destination", "source", getSourceType(), metaFeature) FOR getTargetType()»
 	if (destination == null) {
