@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,6 +14,7 @@ package org.eclipse.gmf.codegen.util;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -26,15 +27,9 @@ import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
-import org.eclipse.gmf.internal.codegen.dispatch.CachingEmitterFactory;
-import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
-import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactoryImpl;
-import org.eclipse.gmf.internal.codegen.dispatch.NoSuchTemplateException;
-import org.eclipse.gmf.internal.codegen.dispatch.StaticTemplateRegistry;
 import org.eclipse.gmf.internal.common.codegen.BinaryEmitter;
 import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
 import org.eclipse.gmf.internal.common.codegen.GIFEmitter;
-import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.JETGIFEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextMerger;
@@ -50,29 +45,21 @@ public class CodegenEmitters {
 
 	private static final String PATH_SEPARATOR = "::"; //$NON-NLS-1$
 
-	private static final String TEMPLATES_PLUGIN_ID = "org.eclipse.gmf.codegen"; //$NON-NLS-1$
-	private final EmitterFactory myFactory;
-	private final String[] myTemplatePath;
-	private ResourceManager myResourceManager;
+	private final ResourceManager myResourceManager;
+	private final URL[] myLocations;
 
-	public CodegenEmitters(boolean usePrecompiled, String templateDirectory) {
-		this(usePrecompiled, templateDirectory, getDefaultVariables(), new StaticTemplateRegistry(CodegenEmitters.class.getClassLoader()));
-	}
-	
-	public CodegenEmitters(boolean usePrecompiled, String templateDirectory, String[] variables, StaticTemplateRegistry registry) {
-		final URL baseURL = getTemplatesBundle().getEntry("/templates/"); //$NON-NLS-1$
-		final URL dynModelBase = getTemplatesBundle().getEntry("/templates-dynmodel/"); //$NON-NLS-1$
-		final URL dynamicURL = usePrecompiled ? null : getDynamicTemplatesURL(templateDirectory);
-		
-		myTemplatePath = new String[] { dynamicURL != null ? dynamicURL.toString() : null, baseURL.toString() };
-		// actually, that's new JETEmitterFactory with JETTemplateRegistry
-		myFactory = new CachingEmitterFactory(new EmitterFactoryImpl(getTemplatePath(), registry, usePrecompiled, variables));
-		
-		if (dynamicURL == null) {
-			myResourceManager = new BundleResourceManager(baseURL, dynModelBase);	
-		} else {
-			myResourceManager = new BundleResourceManager(dynamicURL, baseURL, dynModelBase);
+	public CodegenEmitters(boolean useBaseTemplatesOnly, String templateDirectory, boolean includeDynamicModelTemplates) {
+		ArrayList<URL> urls = new ArrayList<URL>(5);
+		if (!useBaseTemplatesOnly) {
+			urls.add(getDynamicTemplatesURL(templateDirectory));
 		}
+		if (includeDynamicModelTemplates) {
+			urls.add(getTemplatesBundle().getEntry("/templates-dynmodel/")); //$NON-NLS-1$
+		}
+		urls.add(getTemplatesBundle().getEntry("/templates/")); //$NON-NLS-1$
+	
+		myLocations = urls.toArray(new URL[urls.size()]);
+		myResourceManager = new BundleResourceManager(myLocations);
 	}
 
 	/**
@@ -91,24 +78,8 @@ public class CodegenEmitters {
 		return null;
 	}
 
-	/**
-	 * depends on {@link #put(StaticTemplateRegistry, String, Class) } impl - class object of
-	 * precompiled template serves as a key
-	 */
-	public TextEmitter retrieve(Class<?> key) throws UnexpectedBehaviourException {
-		try {
-			return new JETEmitterAdapter(myFactory.acquireEmitter(key));
-		} catch (NoSuchTemplateException ex) {
-			throw new UnexpectedBehaviourException(ex.getMessage(), ex);
-		}
-	}
-
-	private String[] getTemplatePath() {
-		return myTemplatePath;
-	}
-
 	private static Bundle getTemplatesBundle() {
-		return Platform.getBundle(TEMPLATES_PLUGIN_ID);
+		return Platform.getBundle("org.eclipse.gmf.codegen"); //$NON-NLS-1$
 	}
 	
 	private static URL getDynamicTemplatesURL(String templateDirectory) {
@@ -117,8 +88,7 @@ public class CodegenEmitters {
 			try {
 				return new URL(CommonPlugin.resolve(templatesURI).toString());
 			} catch (MalformedURLException e) {
-				String pluginID = "org.eclipse.gmf.codegen"; //$NON-NLS-1$
-				Platform.getLog(Platform.getBundle(pluginID)).log(new Status(IStatus.ERROR, pluginID, 0, "Incorrecct dynamic templates location", e)); //$NON-NLS-1$
+				Platform.getLog(getTemplatesBundle()).log(new Status(IStatus.ERROR, getTemplatesBundle().getSymbolicName(), 0, "Incorrecct dynamic templates location", e)); //$NON-NLS-1$
 			}
 		}
 		return null;
@@ -779,7 +749,11 @@ public class CodegenEmitters {
 	}
 
 	private String checkTemplateLocation(String relativePath) throws UnexpectedBehaviourException {
-		String templateLocation = JETCompiler.find(getTemplatePath(), relativePath);
+		String[] templatesPath = new String[myLocations.length];
+		for (int i = 0; i < myLocations.length; i++) {
+			templatesPath[i] = myLocations[i].toString();
+		}
+		String templateLocation = JETCompiler.find(templatesPath, relativePath);
 		if (templateLocation == null) {
 			throw new UnexpectedBehaviourException("Template " + relativePath +" not found");
 		}
@@ -789,16 +763,4 @@ public class CodegenEmitters {
 	protected TextEmitter newXpandEmitter(String definition) {
 		return new XpandTextEmitter(myResourceManager, definition, getClass().getClassLoader());
 	}
-
-	protected static String[] getDefaultVariables(){
-		return new String[] {
-		        "org.eclipse.emf.codegen", //$NON-NLS-1$
-				"org.eclipse.emf.codegen.ecore", //$NON-NLS-1$
-				"org.eclipse.emf.common", //$NON-NLS-1$
-				"org.eclipse.emf.ecore", //$NON-NLS-1$
-				"org.eclipse.gmf.common", //$NON-NLS-1$
-				"org.eclipse.gmf.codegen", //$NON-NLS-1$
-		};
-	}
-
 }
