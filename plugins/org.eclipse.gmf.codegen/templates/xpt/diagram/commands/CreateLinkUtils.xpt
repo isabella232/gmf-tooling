@@ -27,7 +27,7 @@
 		if (source == null && target == null) {
 			return false;
 		}
-		if (source != null && «EXPAND MetaModel::NotInstance("source") FOR getSourceType()»)) {
+		if (source != null && «EXPAND MetaModel::NotInstance("source") FOR getSourceType()») {
 			return false;
 		}
 		if (target != null && «EXPAND MetaModel::NotInstance("target") FOR getTargetType()») {
