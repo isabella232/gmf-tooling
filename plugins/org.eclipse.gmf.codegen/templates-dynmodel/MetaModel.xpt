@@ -20,16 +20,24 @@
 // XXX is isExternalInterface use valid here, won't all objects be just EObject?
 
 «DEFINE IsInstance(String accessor) FOR GenClass-»
-MetaModelFacility.get«getNameToken(genPackage)»().isInstance(«accessor»)«ENDDEFINE»
+MetaModelFacility.get«getNameToken(genPackage)»().isInstance(«accessor», "«ecoreClass.name»")«ENDDEFINE»
 
 «DEFINE IsContainerInstance(String object, GenClass metaClass) FOR GenClass-»
-MetaModelFacility.get«getNameToken(genPackage)»().isInstance(«IF isExternalInterface()»((org.eclipse.emf.ecore.EObject) «object»)«ELSE»«object»«ENDIF».eContainer())«ENDDEFINE»
+MetaModelFacility.get«getNameToken(genPackage)»().isInstance(«IF isExternalInterface()»((org.eclipse.emf.ecore.EObject) «object»)«ELSE»«object»«ENDIF».eContainer(), "«ecoreClass.name»")«ENDDEFINE»
 
 «DEFINE getFeatureValue(String containerVar, genmodel::GenClass containerClass) FOR genmodel::GenFeature-»
-«IF isExternalInterface(containerClass)-»
+((«EXPAND _featureTargetType(this) FOR ecoreFeature») «IF isExternalInterface(containerClass)-»
 ((org.eclipse.emf.ecore.EObject) «containerVar»)«ELSE-»
 «containerVar»«ENDIF-»
-.eGet(«EXPAND MetaFeature»)«ENDDEFINE»
+.eGet(«EXPAND MetaFeature»))«ENDDEFINE»
+
+«DEFINE _featureTargetType(GenFeature gf) FOR EStructuralFeature»NO-OP«ENDDEFINE»
+«DEFINE _featureTargetType(GenFeature gf) FOR EReference-»
+«IF isListType(gf)»java.util.List«ELSE»org.eclipse.emf.ecore.EObject«ENDIF-»
+«ENDDEFINE»
+«DEFINE _featureTargetType(GenFeature gf) FOR EAttribute-»
+«IF isListType(gf)»java.util.List«ELSE»«eAttributeType.instanceClassName»«ENDIF-»
+«ENDDEFINE»
 
 «DEFINE getFeatureValue(String containerVar, genmodel::GenClass container, boolean needsCastToResultType) FOR genmodel::GenFeature-»
 «ENDDEFINE»
@@ -44,7 +52,11 @@ MetaModelFacility.get«getNameToken(genPackage)»().isInstance(«IF isExternalInter
 «DEFINE MetaClass FOR genmodel::GenEnum»MetaModelFacility.get«getNameToken(genPackage)»().getEEnum("«ecoreEnum.name»")«ENDDEFINE»
 «DEFINE MetaClass FOR genmodel::GenClass»MetaModelFacility.get«getNameToken(genPackage)»().getEClass("«ecoreClass.name»")«ENDDEFINE»
 
-«DEFINE MetaFeature FOR genmodel::GenFeature»MetaModelFacility.get«getNameToken(genClass.genPackage)»().getEFeature("«genClass.ecoreClass.name»", "«ecoreFeature.name»")«ENDDEFINE»
+«DEFINE MetaFeature FOR genmodel::GenFeature»«EXPAND _metaFeature(ecoreFeature)»«ENDDEFINE»
+
+«DEFINE _metaFeature(EStructuralFeature f) FOR GenFeature»no-op«ENDDEFINE»
+«DEFINE _metaFeature(EReference eRef) FOR GenFeature»MetaModelFacility.get«getNameToken(genClass.genPackage)»().getEReference("«genClass.ecoreClass.name»", "«ecoreFeature.name»")«ENDDEFINE»
+«DEFINE _metaFeature(EAttribute eAttr) FOR GenFeature»MetaModelFacility.get«getNameToken(genClass.genPackage)»().getEAttribute("«genClass.ecoreClass.name»", "«ecoreFeature.name»")«ENDDEFINE»
 
 «DEFINE NewInstance FOR genmodel::GenClass-»
 MetaModelFacility.get«getNameToken(genPackage)»().newInstance("«ecoreClass.name»")«ENDDEFINE»

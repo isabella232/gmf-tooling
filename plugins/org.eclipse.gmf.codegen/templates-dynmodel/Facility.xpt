@@ -64,6 +64,16 @@ public class «className» {
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.emf.ecore.EAttribute getEAttribute(String metaClassName, String metaFeatureName) {
+		return (org.eclipse.emf.ecore.EAttribute) getEFeature(metaClassName, metaFeatureName);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.emf.ecore.EReference getEReference(String metaClassName, String metaFeatureName) {
+		return (org.eclipse.emf.ecore.EReference) getEFeature(metaClassName, metaFeatureName);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.emf.ecore.EDataType getEDataType(String metaClassName) {
 		assert metaClassName != null;
 		org.eclipse.emf.ecore.EClassifier c = this.ePackage.getEClassifier(metaClassName);
