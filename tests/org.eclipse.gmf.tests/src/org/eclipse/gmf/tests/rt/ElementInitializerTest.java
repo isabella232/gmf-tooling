@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -119,23 +119,23 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 						primitiveTypeAttrTested = true;
 					} 
 					else if(!genFeature.isReferenceType() && genFeature.getEcoreFeature().isMany() && genFeature.getEcoreFeature().getEType().getInstanceClass().isPrimitive()) {
-						assertEquals(method.getReturnType().getName(), EList.class.getName());
-						multiValPrimitiveTypeAttrTested = true; 
+						assertEquals(List.class.getName(), method.getReturnType().getName());
+						multiValPrimitiveTypeAttrTested = true;
 					} 
 					else if(!genFeature.isReferenceType() && !genFeature.isPrimitiveType() && !genFeature.isListType()) {
-						assertEquals(method.getReturnType().getName(), genFeature.getType());
+						assertEquals(genFeature.getType(), method.getReturnType().getName());
 						objValTypeAttrTested = true;
 					} 
 					else if(!genFeature.isReferenceType() && !genFeature.isPrimitiveType() && genFeature.isListType()) {
-						assertEquals(method.getReturnType().getName(), EList.class.getName());						
-						multiObjValTypeAttrTested = true;								
+						assertEquals(List.class.getName(), method.getReturnType().getName());
+						multiObjValTypeAttrTested = true;
 					} 
 					else if(genFeature.isReferenceType() && !genFeature.isListType()) {
-						assertEquals(method.getReturnType().getName(), genFeature.getTypeGenClass().getQualifiedInterfaceName());
-						refTested = true;				
+						assertEquals(genFeature.getTypeGenClass().getQualifiedInterfaceName(), method.getReturnType().getName());
+						refTested = true;
 					}   							
 					else if(genFeature.isReferenceType() && genFeature.isListType()) {
-						assertEquals(method.getReturnType().getName(), EList.class.getName());
+						assertEquals(List.class.getName(), method.getReturnType().getName());
 						multiRefTested = true;								
 					}   														
 				}

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -9,8 +9,6 @@
  * Contributors: dvorak - initial API and implementation
  */
 package org.eclipse.gmf.tests.gen;
-
-import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -111,13 +109,6 @@ public class GenFeatureSeqInitializerTest extends TestCase {
 		assertSame(genModelMatcher.findGenClass(EcorePackage.eINSTANCE.getEClassifier()), initializer_EClass_eReferences_eReferenceType.getElementClass());		
 	}
 	
-	public void testAllFeatureSeqInitializes() throws Exception {
-		List<GenFeatureSeqInitializer> initList = rootInitializer.getAllFeatureSeqInitializers();
-		assertEquals(0, initList.indexOf(rootInitializer));
-		assertEquals(1, initList.indexOf(initializer_EClass_eReferences));
-		assertEquals(2, initList.indexOf(initializer_EClass_eReferences_eReferenceType));		
-	}
-
 	@SuppressWarnings("unchecked")	
 	private GenFeatureSeqInitializer createNewElementInitializer(GenReferenceNewElementSpec newElementSpec, EClass elementClass) {
 		GenFeatureSeqInitializer seqInitializer = GMFGenFactory.eINSTANCE.createGenFeatureSeqInitializer();
