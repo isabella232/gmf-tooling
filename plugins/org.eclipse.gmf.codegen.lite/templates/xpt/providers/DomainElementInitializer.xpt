@@ -120,7 +120,7 @@ add(createExpressionFeatureInitializer(«EXPAND MetaModel::MetaFeature FOR featur
 «DEFINE getExpression(gmfgen::GenCommonBase element, gmfgen::GenFeatureSeqInitializer initializer, gmfgen::GenFeatureValueSpec valueSpec) FOR gmfgen::GenJavaExpressionProvider-»
 new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND MetaModel::MetaClass FOR initializer.elementClass») {
 	protected Object doEvaluate(Object context, java.util.Map env) {
-		«getQualifiedInstanceClassName(initializer.elementClass)» self = («getQualifiedInstanceClassName(initializer.elementClass)») context;
+		«EXPAND MetaModel::DeclareAndAssign("self", "context", true) FOR initializer.elementClass»
 		return «EXPAND javaInitializersClassName FOR element.getDiagram()».«this.getOperationName(valueSpec)»(self);
 	}
 }

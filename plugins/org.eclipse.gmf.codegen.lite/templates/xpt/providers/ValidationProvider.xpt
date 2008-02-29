@@ -278,7 +278,7 @@ evalCtx = «diagram.getMetricProviderQualifiedClassName()».calculateMetric(«toStr
 «DEFINE getExpression(gmfgen::GenDiagram diagram, gmfgen::ValueExpression valueSpec, genmodel::GenClassifier genClassifier) FOR gmfgen::GenJavaExpressionProvider-»
 new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND MetaModel::MetaClass FOR genClassifier») {
 	protected Object doEvaluate(Object context, java.util.Map env) {
-		«getQualifiedInstanceClassName(genClassifier)» self = («getQualifiedInstanceClassName(genClassifier)») context;
+		«EXPAND MetaModel::DeclareAndAssign("self", "context", true) FOR genClassifier»
 		return «EXPAND javaConstraintsClassName FOR diagram».«this.getOperationName(valueSpec)»(self);
 	}
 }«-»
