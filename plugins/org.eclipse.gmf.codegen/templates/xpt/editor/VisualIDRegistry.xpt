@@ -224,7 +224,7 @@ public static int «EXPAND getNodeVisualIDMethodName»(org.eclipse.gmf.runtime.not
 
 «DEFINE checkDomainElementConstraints(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass contextMetaclass) FOR gmfgen::GenExpressionInterpreter»evaluate( «EXPAND xpt::expressions::getExpression::interptererExpressionConstantName FOR commonBase», domainElement)«ENDDEFINE»
 
-«DEFINE checkDomainElementConstraints(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass contextMetaclass) FOR gmfgen::GenJavaExpressionProvider»«EXPAND javaConstraintContainerClassName FOR commonBase».«getOperationName(valueExpression)»((«getQualifiedInstanceClassName(contextMetaclass)») domainElement).booleanValue()«ENDDEFINE»
+«DEFINE checkDomainElementConstraints(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass contextMetaclass) FOR gmfgen::GenJavaExpressionProvider»«EXPAND javaConstraintContainerClassName FOR commonBase».«getOperationName(valueExpression)»(«EXPAND MetaModel::CastEObject("domainElement") FOR contextMetaclass»).booleanValue()«ENDDEFINE»
 
 «DEFINE canCreateNode FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»

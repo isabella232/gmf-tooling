@@ -64,11 +64,21 @@ private String getItemProviderAdapterFactoryClassName(genmodel::GenPackage gp) :
 String getQualifiedInterfaceName(genmodel::GenClass gc) :
 	null != gc.ecoreClass.instanceClassName 
 		? gc.ecoreClass.instanceClassName.replaceAll('\\$', '\\.')
-		: (let gp = gc.genPackage
-			: (null != gp.basePackage && gp.basePackage.length() > 0 ? gp.basePackage + "." : "") 
-				+ safeName(gp.ecorePackage.name) 
-				+ (null != gp.interfacePackageSuffix && gp.interfacePackageSuffix.length() > 0 ? "." + gp.interfacePackageSuffix : "")
-				+ "." + gc.ecoreClass.name)
+		: (getInterfacePackageName(gc.genPackage) + "." + gc.ecoreClass.name)
+;
+
+//
+// GenPackageImpl#getInterfacePackageName()
+//
+private String getInterfacePackageName(GenPackage gp) :
+	getQualifiedPackageName(gp, gp.interfacePackageSuffix)
+;
+
+String getQualifiedClassName(GenClassifier dt) : null ;
+// NOTE GenDataType#getQualifiedInstanceClassName returns primitive types as is,
+// while we return their java.lang wrappers
+String getQualifiedClassName(GenDataType dt) : getObjectCompatibleClassName(dt.ecoreDataType) ; 
+String getQualifiedClassName(GenEnum e) : getInterfacePackageName(e.genPackage) + "." + e.ecoreEnum.name
 ;
 
 //
@@ -97,16 +107,6 @@ String getAccessorName(genmodel::GenFeature gf) :
 // GenFeature#getGetAccessor()
 String getGetAccessor(genmodel::GenFeature gf) :
 JAVA org.eclipse.gmf.internal.codegen.util.GenModelUtils.getGetAccessor(org.eclipse.emf.codegen.ecore.genmodel.GenFeature)
-;
-
-// move it to static java method
-String getFeatureTargetType(genmodel::GenFeature feature) :
-	isListType(feature)
-		? "java.util.List"
-		: (let classifier = findGenClassifier(feature.genClass.genPackage.genModel, feature.ecoreFeature.eType)
-			: {classifier}.typeSelect(genmodel::GenClass).isEmpty() 
-				? ((genmodel::GenDataType) classifier).ecoreDataType.instanceClassName
-				: getQualifiedInterfaceName((genmodel::GenClass) classifier))
 ;
 
 // GenClassImpl#isMapEntry

@@ -644,7 +644,7 @@ public class «metricProviderClassName»
 	new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND MetaModel::MetaClass FOR exprContext») {
 
 		protected Object doEvaluate(Object context, java.util.Map env) {
-			«getQualifiedInstanceClassName(exprContext)» self = («getQualifiedInstanceClassName(exprContext)») context;
+			«EXPAND MetaModel::DeclareAndAssign("self", "context", true) FOR exprContext»
 			return JavaRules.«getOperationName(valueExpr)»(self);
 		}
 	}

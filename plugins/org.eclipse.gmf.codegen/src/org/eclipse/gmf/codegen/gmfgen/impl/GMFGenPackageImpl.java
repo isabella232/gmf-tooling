@@ -7380,18 +7380,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenFeatureSeqInitializer_ElementClass(), theGenModelPackage.getGenClass(), null, "elementClass", null, 0, 1, GenFeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenFeatureSeqInitializer_CreatingInitializer(), this.getGenReferenceNewElementSpec(), this.getGenReferenceNewElementSpec_NewElementInitializers(), "creatingInitializer", null, 0, 1, GenFeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getElementClassAccessorName", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getElementQualifiedPackageInterfaceName", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getElementClassAccessor", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getFeatureAccessor", 1, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getGenFeatureInitializer(), "ftInitializer", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(genFeatureSeqInitializerEClass, this.getGenFeatureValueSpec(), "getJavaExpressionFeatureInitializersList", 0, -1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getGenExpressionProviderContainer(), "expressionProviders", 0, 1, IS_UNIQUE, IS_ORDERED);
-
 		initEClass(genFeatureValueSpecEClass, GenFeatureValueSpec.class, "GenFeatureValueSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(genReferenceNewElementSpecEClass, GenReferenceNewElementSpec.class, "GenReferenceNewElementSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -7400,8 +7388,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(genFeatureInitializerEClass, GenFeatureInitializer.class, "GenFeatureInitializer", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenFeatureInitializer_Feature(), theGenModelPackage.getGenFeature(), null, "feature", null, 1, 1, GenFeatureInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenFeatureInitializer_FeatureSeqInitializer(), this.getGenFeatureSeqInitializer(), this.getGenFeatureSeqInitializer_Initializers(), "featureSeqInitializer", null, 1, 1, GenFeatureInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genFeatureInitializerEClass, ecorePackage.getEString(), "getFeatureQualifiedPackageInterfaceName", 1, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(genLinkConstraintsEClass, GenLinkConstraints.class, "GenLinkConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenLinkConstraints_Link(), this.getGenLink(), this.getGenLink_CreationConstraints(), "link", null, 1, 1, GenLinkConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7517,12 +7503,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenExpressionProviderBase_Container(), this.getGenExpressionProviderContainer(), this.getGenExpressionProviderContainer_Providers(), "container", null, 1, 1, GenExpressionProviderBase.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genExpressionProviderBaseEClass, this.getGenLanguage(), "getLanguage", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(genExpressionProviderBaseEClass, ecorePackage.getEString(), "getQualifiedInstanceClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theGenModelPackage.getGenClassifier(), "genClassifier", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(genExpressionProviderBaseEClass, ecorePackage.getEString(), "getQualifiedTypeInstanceClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theGenModelPackage.getGenTypedElement(), "genTypedElement", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(genJavaExpressionProviderEClass, GenJavaExpressionProvider.class, "GenJavaExpressionProvider", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -7858,7 +7838,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																									
+		   });
 	}
 
 	/**
@@ -8000,7 +7980,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "metaFeature.ecoreFeature.unique",
 			 "description", "All references are unique in EMF due to the current code generation"
-		   });																																							
+		   });
 		addAnnotation
 		  (getGenFeatureSeqInitializer_ElementClass(), 
 		   source, 
@@ -8021,7 +8001,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "feature <> null implies feature.ecoreFeature.oclIsKindOf(ecore::EReference)",
 			 "description", "\'feature\' of \'GenReferenceNewElementSpec\' must refer to ecore::EReference"
-		   });				
+		   });
 		addAnnotation
 		  (getGenFeatureInitializer_Feature(), 
 		   source, 
@@ -8107,7 +8087,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "documentation", "LinkCreationConstants should be generated if diagram has any links"
-		   });																																																																																																																																																																																						
+		   });
 	}
 
 	/**
@@ -8148,7 +8128,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "def", "Constraint"
-		   });											
+		   });
 		addAnnotation
 		  (getGenFeatureSeqInitializer_Initializers(), 
 		   source, 
@@ -8168,7 +8148,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "type",
 			 "ocl", "feature.ecoreFeature"
-		   });															
+		   });
 		addAnnotation
 		  (getGenLinkConstraints_SourceEnd(), 
 		   source, 

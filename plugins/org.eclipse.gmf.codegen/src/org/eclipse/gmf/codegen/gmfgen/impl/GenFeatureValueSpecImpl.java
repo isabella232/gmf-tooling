@@ -6,9 +6,6 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -111,25 +108,6 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 		if (eContainerFeatureID != GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER) return null;
 		return (GenFeatureSeqInitializer)eContainer();
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public String getFeatureQualifiedPackageInterfaceName() {
-		if(getFeature() == null) {
-			return null;
-		}
-		return getFeature().getGenClass().getGenPackage().getQualifiedPackageInterfaceName();
-	}
-	
-	/**
-	 * @generated NOT
-	 */	
-	public List<GenFeatureSeqInitializer> getAllFeatureSeqInitializers() {
-		return Collections.emptyList();			
-	}	
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -44,11 +44,13 @@ false == «EXPAND IsInstance(accessor)»«ENDDEFINE»
 
 «DEFINE getFeatureValue(String containerVar, genmodel::GenClass containerClass) FOR genmodel::GenFeature-»
 «IF isExternalInterface(containerClass)-»
-((«getFeatureTargetType()») ((org.eclipse.emf.ecore.EObject) «containerVar»).eGet(«EXPAND MetaFeature»))«-»
+((«EXPAND featureTargetType») ((org.eclipse.emf.ecore.EObject) «containerVar»).eGet(«EXPAND MetaFeature»))«-»
 «ELSE-»
 «containerVar».«getGetAccessor()»()«-»
 «ENDIF-»
 «ENDDEFINE»
+
+«DEFINE featureTargetType FOR GenFeature»«IF isListType()»java.util.List«ELSE»«EXPAND QualifiedClassName FOR findGenClassifier(genClass.genPackage.genModel, ecoreFeature.eType)»«ENDIF»«ENDDEFINE»
 
 /*
  * FIXME leave only one version of these two getFeatureValue
@@ -61,7 +63,7 @@ false == «EXPAND IsInstance(accessor)»«ENDDEFINE»
  */
 «DEFINE getFeatureValue(String containerVar, genmodel::GenClass container, boolean needsCastToResultType) FOR genmodel::GenFeature-»
 «IF isExternalInterface(genClass)-»
-«IF needsCastToResultType»((«getFeatureTargetType()») «ENDIF»«containerVar.parenthesizedCast(container, null)».eGet(«EXPAND MetaFeature»)«IF needsCastToResultType»)«ENDIF-»
+«IF needsCastToResultType»((«EXPAND featureTargetType») «ENDIF»«containerVar.parenthesizedCast(container, null)».eGet(«EXPAND MetaFeature»)«IF needsCastToResultType»)«ENDIF-»
 «ELSE-»
 «containerVar.parenthesizedCast(container, genClass)».«getGetAccessor()»()«-»
 «ENDIF-»
@@ -115,6 +117,9 @@ false == «EXPAND IsInstance(accessor)»«ENDDEFINE»
 «DEFINE DeclareAndAssign(String assignee, String value, boolean isPlainObjectValue) FOR GenClass-»
 «EXPAND DeclareAndAssign(assignee, value)»«ENDDEFINE»
 
+«DEFINE DeclareAndAssign(String assignee, String value, boolean isPlainObjectValue) FOR GenClassifier-»
+«getQualifiedClassName()» «assignee» = («getQualifiedClassName()») «value»;«ENDDEFINE»
+
 // @see IsContainerInstance
 «DEFINE DeclareAndAssignContainer(String assignee, String object, GenClass metaClass) FOR GenClass-»
 «getQualifiedInterfaceName()» «assignee» = («getQualifiedInterfaceName()») «EXPAND _getEObjectFeature(object, "eContainer()") FOR metaClass»;«ENDDEFINE»
@@ -146,6 +151,7 @@ false == «EXPAND IsInstance(accessor)»«ENDDEFINE»
  * SHOULD NEVER APPEAR in instanceof or any other similar comparison operation
  */
 «DEFINE QualifiedClassName FOR GenClass»«getQualifiedInterfaceName()»«ENDDEFINE»
+«DEFINE QualifiedClassName FOR GenClassifier»«getQualifiedClassName()»«ENDDEFINE»
 
 «DEFINE PopulateItemProviderFactories(String factoryListVar) FOR GenEditorGenerator-»
 «FOREACH getAllDomainGenPackages(true) AS genPackage-»

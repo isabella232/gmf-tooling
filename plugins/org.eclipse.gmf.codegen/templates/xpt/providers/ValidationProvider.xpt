@@ -288,7 +288,7 @@ static class JavaAudits {
 	new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND MetaModel::MetaClass FOR exprContext») {
 
 		protected Object doEvaluate(Object context, java.util.Map env) {
-			«getQualifiedInstanceClassName(exprContext)» self = («getQualifiedInstanceClassName(exprContext)») context;
+			«EXPAND MetaModel::DeclareAndAssign("self", "context", true) FOR exprContext»
 			return JavaAudits.«getOperationName(valueExpr)»(self);
 		}
 	}

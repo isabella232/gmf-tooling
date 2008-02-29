@@ -2,11 +2,9 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenFeatureInitializer.java,v 1.3 2007/09/07 18:16:49 dstadnik Exp $
+ * $Id: GenFeatureInitializer.java,v 1.4 2008/02/29 21:19:52 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
-
-import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
@@ -72,18 +70,5 @@ public interface GenFeatureInitializer extends EObject {
 	 * @generated
 	 */
 	GenFeatureSeqInitializer getFeatureSeqInitializer();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Gets the qualified name of the package interface which contains the given feature meta object
-	 * <!-- end-model-doc -->
-	 * @model kind="operation" required="true"
-	 * @generated
-	 */
-	String getFeatureQualifiedPackageInterfaceName();
-
-	List<GenFeatureSeqInitializer> getAllFeatureSeqInitializers();	
 
 } // GenFeatureInitializer

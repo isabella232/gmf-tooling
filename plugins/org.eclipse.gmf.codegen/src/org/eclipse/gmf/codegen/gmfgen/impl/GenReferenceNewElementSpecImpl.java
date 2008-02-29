@@ -2,14 +2,11 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenReferenceNewElementSpecImpl.java,v 1.3 2007/04/11 08:10:23 dstadnik Exp $
+ * $Id: GenReferenceNewElementSpecImpl.java,v 1.4 2008/02/29 21:19:52 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
@@ -129,29 +126,6 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 			newElementInitializers = new EObjectContainmentWithInverseEList<GenFeatureSeqInitializer>(GenFeatureSeqInitializer.class, this, GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER);
 		}
 		return newElementInitializers;
-	}
-
-	/**
-	 * @generated NOT
-	 */
-	public List<GenFeatureSeqInitializer> getAllFeatureSeqInitializers() {
-		List<GenFeatureSeqInitializer> result = new ArrayList<GenFeatureSeqInitializer>();
-		for (GenFeatureSeqInitializer element : getNewElementInitializers()) {
-			result.addAll(element.getAllFeatureSeqInitializers());
-		}
-		return Collections.unmodifiableList(result);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated NOT
-	 */
-	public String getFeatureQualifiedPackageInterfaceName() {
-		if(getFeature() == null) {
-			return null;
-		}
-		return getFeature().getGenClass().getGenPackage().getQualifiedPackageInterfaceName();		
 	}
 
 	/**

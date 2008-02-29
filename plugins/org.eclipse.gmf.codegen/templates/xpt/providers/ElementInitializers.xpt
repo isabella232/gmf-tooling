@@ -8,11 +8,13 @@
  *
  * Contributors:
  *    Dmitry Stadnik (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) - refactored javaInitilizers not to use methods from GMFGen model 
  */
 
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 
+«EXTENSION xpt::providers::ElementInitializers»
 
 «DEFINE ElementInitializers FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
@@ -157,7 +159,7 @@ public static class Initializers {
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		public static final IObjectInitializer «getInitializerFieldName(diagramElement.getUniqueIdentifier())» =
-				new ObjectInitializer(«getElementClassAccessor()») {
+				new ObjectInitializer(«EXPAND MetaModel::MetaClass FOR elementClass») {
 
 		 	protected void init() {
 		 	«EXPAND addInitializer(diagramElement) FOREACH initializers-»
@@ -173,7 +175,7 @@ public static class Initializers {
 	«FOREACH newElementInitializers AS seqInitializer-»
 
 		ObjectInitializer «seqInitializer.getInitializerFieldName(diagramElement.getUniqueIdentifier())»() {
-			return new ObjectInitializer(«seqInitializer.getElementClassAccessor()») {
+			return new ObjectInitializer(«EXPAND MetaModel::MetaClass FOR seqInitializer.elementClass») {
 
 		 		protected void init() {
 		 			«EXPAND addInitializer(diagramElement) FOREACH seqInitializer.initializers-»
@@ -188,7 +190,7 @@ public static class Initializers {
 «ENDDEFINE»
 
 «DEFINE addInitializer(GenCommonBase diagramElement) FOR GenReferenceNewElementSpec-»
-	add(createNewElementFeatureInitializer(«featureSeqInitializer.getFeatureAccessor(this)», new ObjectInitializer[] {
+	add(createNewElementFeatureInitializer(«EXPAND MetaModel::MetaFeature FOR feature», new ObjectInitializer[] {
 	«FOREACH newElementInitializers AS newElemInit-»
 		«newElemInit.getInitializerFieldName(diagramElement.getUniqueIdentifier())»(),
 	«ENDFOREACH-»
@@ -196,7 +198,7 @@ public static class Initializers {
 «ENDDEFINE»
 
 «DEFINE addInitializer(GenCommonBase diagramElement) FOR GenFeatureValueSpec-»
-	add(createExpressionFeatureInitializer(«featureSeqInitializer.getFeatureAccessor(this)»,
+	add(createExpressionFeatureInitializer(«EXPAND MetaModel::MetaFeature FOR feature»,
 	«LET diagramElement.getDiagram().editorGen.expressionProviders AS providers-»
 		«EXPAND initializerExpr(this) FOR providers.getProvider(this)-»
 	«ENDLET-»
@@ -216,7 +218,7 @@ public static class Initializers {
 	new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND MetaModel::MetaClass FOR exprContext») {
 
 		protected Object doEvaluate(Object context, java.util.Map env) {
-			«getQualifiedInstanceClassName(exprContext)» self = («getQualifiedInstanceClassName(exprContext)») context;
+			«EXPAND MetaModel::DeclareAndAssign("self", "context", true) FOR exprContext»
 			return Java.«getOperationName(valueExpr)»(self);
 		}
 	}
@@ -247,16 +249,9 @@ public static class Initializers {
 «ENDDEFINE»
 
 «DEFINE javaInitializer(GenCommonBase diagramElement) FOR GenFeatureSeqInitializer-»
-	«LET diagramElement.getDiagram().editorGen.expressionProviders AS providers-»
-		«FOREACH getJavaExpressionFeatureInitializersList(providers) AS valueExpression-»
-			«EXPAND javaInitializer(valueExpression, valueExpression.featureSeqInitializer.elementClass, null) FOR providers.getProvider(valueExpression)-»
-		«ENDFOREACH-»
-	«ENDLET-»
-«ENDDEFINE»
-
-«DEFINE javaInitializer(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context, genmodel::GenClassifier oppositeEndContext) FOR GenExpressionProviderBase-»
-«ENDDEFINE»
-
-«DEFINE javaInitializer(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context, genmodel::GenClassifier oppositeEndContext) FOR GenJavaExpressionProvider-»
-	«EXPAND xpt::expressions::javaExpressionOperation::javaExpressionOperation(valueExpr, context, oppositeEndContext)-»
+«FOREACH diagramElement.getDiagram().editorGen.expressionProviders.providers.typeSelect(GenJavaExpressionProvider) AS jp-»
+«FOREACH getFeatureInitializers(this, jp) AS valueExpression-»
+«EXPAND xpt::expressions::javaExpressionOperation::javaExpressionOperation(valueExpression, valueExpression.featureSeqInitializer.elementClass, null) FOR jp-»
+«ENDFOREACH-»
+«ENDFOREACH-»
 «ENDDEFINE»

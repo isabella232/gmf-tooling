@@ -28,17 +28,21 @@ MetaModelFacility.get«getNameToken(genPackage)»().isInstance(«accessor», "«ecore
 MetaModelFacility.get«getNameToken(genPackage)»().isInstance(«IF isExternalInterface()»((org.eclipse.emf.ecore.EObject) «object»)«ELSE»«object»«ENDIF».eContainer(), "«ecoreClass.name»")«ENDDEFINE»
 
 «DEFINE getFeatureValue(String containerVar, genmodel::GenClass containerClass) FOR genmodel::GenFeature-»
-((«EXPAND _featureTargetType(this) FOR ecoreFeature») «IF isExternalInterface(containerClass)-»
+((«EXPAND featureTargetType») «IF isExternalInterface(containerClass)-»
 ((org.eclipse.emf.ecore.EObject) «containerVar»)«ELSE-»
 «containerVar»«ENDIF-»
 .eGet(«EXPAND MetaFeature»))«ENDDEFINE»
+
+«DEFINE featureTargetType FOR GenFeature-»
+«EXPAND _featureTargetType(this) FOR ecoreFeature-»
+«ENDDEFINE»
 
 «DEFINE _featureTargetType(GenFeature gf) FOR EStructuralFeature»NO-OP«ENDDEFINE»
 «DEFINE _featureTargetType(GenFeature gf) FOR EReference-»
 «IF isListType(gf)»java.util.List«ELSE»org.eclipse.emf.ecore.EObject«ENDIF-»
 «ENDDEFINE»
 «DEFINE _featureTargetType(GenFeature gf) FOR EAttribute-»
-«IF isListType(gf)»java.util.List«ELSE»«eAttributeType.instanceClassName»«ENDIF-»
+«IF isListType(gf)»java.util.List«ELSE»«getObjectCompatibleClassName(eAttributeType)»«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE getFeatureValue(String containerVar, genmodel::GenClass container, boolean needsCastToResultType) FOR genmodel::GenFeature-»
@@ -74,6 +78,9 @@ org.eclipse.emf.ecore.EObject «assignee» = «value»;«ENDDEFINE»
 «DEFINE DeclareAndAssign(String assignee, String value, boolean isPlainObjectValue) FOR GenClass-»
 org.eclipse.emf.ecore.EObject «assignee» = «IF isPlainObjectValue»(org.eclipse.emf.ecore.EObject)«ENDIF»«value»;«ENDDEFINE»
 
+«DEFINE DeclareAndAssign(String assignee, String value, boolean isPlainObjectValue) FOR GenClassifier-»
+«ENDDEFINE»
+
 «DEFINE DeclareAndAssignContainer(String assignee, String object, GenClass metaClass) FOR GenClass-»
 org.eclipse.emf.ecore.EObject «assignee» = «IF isExternalInterface(metaClass)»((org.eclipse.emf.ecore.EObject) «object»)«ELSE»«object»«ENDIF».eContainer();«ENDDEFINE»
 
@@ -86,7 +93,10 @@ org.eclipse.emf.ecore.EObject «assignee» = «EXPAND getFeatureValue(src, srcMetaC
 
 «DEFINE CastEObject(String eObjectValue) FOR GenClass»«eObjectValue»«ENDDEFINE»
 
+«DEFINE QualifiedClassName FOR GenClassifier»NO-OP«ENDDEFINE»
 «DEFINE QualifiedClassName FOR GenClass»org.eclipse.emf.ecore.EObject«ENDDEFINE»
+«DEFINE QualifiedClassName FOR GenEnum»org.eclipse.emf.common.util.Enumerator«ENDDEFINE»
+«DEFINE QualifiedClassName FOR GenDataType»«getObjectCompatibleClassName(ecoreDataType)»«ENDDEFINE»
 
 «DEFINE PopulateItemProviderFactories(String factoryListVar) FOR GenEditorGenerator-»
 «REM»

@@ -674,15 +674,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureSeqInitializer/initializers"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureSeqInitializer/elementClass"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureSeqInitializer/creatingInitializer"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getElementClassAccessorName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getElementQualifiedPackageInterfaceName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getElementClassAccessor"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getFeatureAccessor">
-        <genParameters ecoreParameter="gmfgen.ecore#//GenFeatureSeqInitializer/getFeatureAccessor/ftInitializer"/>
-      </genOperations>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getJavaExpressionFeatureInitializersList">
-        <genParameters ecoreParameter="gmfgen.ecore#//GenFeatureSeqInitializer/getJavaExpressionFeatureInitializersList/expressionProviders"/>
-      </genOperations>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenFeatureValueSpec" labelFeature="#//gmfgen/ValueExpression/body"/>
     <genClasses ecoreClass="gmfgen.ecore#//GenReferenceNewElementSpec">
@@ -692,7 +683,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureInitializer/feature"/>
       <genFeatures property="None" notify="false" createChild="false" propertySortChoices="true"
           ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureInitializer/featureSeqInitializer"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureInitializer/getFeatureQualifiedPackageInterfaceName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenLinkConstraints">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkConstraints/link"/>
@@ -792,12 +782,6 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenExpressionProviderBase/expressions"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenExpressionProviderBase/container"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenExpressionProviderBase/getLanguage"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenExpressionProviderBase/getQualifiedInstanceClassName">
-        <genParameters ecoreParameter="gmfgen.ecore#//GenExpressionProviderBase/getQualifiedInstanceClassName/genClassifier"/>
-      </genOperations>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenExpressionProviderBase/getQualifiedTypeInstanceClassName">
-        <genParameters ecoreParameter="gmfgen.ecore#//GenExpressionProviderBase/getQualifiedTypeInstanceClassName/genTypedElement"/>
-      </genOperations>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenJavaExpressionProvider">
       <genOperations ecoreOperation="gmfgen.ecore#//GenJavaExpressionProvider/getOperationName">

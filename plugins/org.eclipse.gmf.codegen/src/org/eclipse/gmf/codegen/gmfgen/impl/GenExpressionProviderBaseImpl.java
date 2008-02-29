@@ -2,23 +2,18 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderBaseImpl.java,v 1.9 2007/05/22 17:27:35 atikhomirov Exp $
+ * $Id: GenExpressionProviderBaseImpl.java,v 1.10 2008/02/29 21:19:52 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
-import org.eclipse.emf.codegen.ecore.genmodel.GenDataType;
-import org.eclipse.emf.codegen.ecore.genmodel.GenTypedElement;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
@@ -76,37 +71,6 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 */
 	public abstract GenLanguage getLanguage();
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */	
-	public String getQualifiedInstanceClassName(GenClassifier genClassifier) {
-		if(genClassifier instanceof GenClass) {
-			return ((GenClass)genClassifier).getQualifiedInterfaceName();
-		} else if(genClassifier instanceof GenDataType) {
-			Class<?> clazz = genClassifier.getEcoreClassifier().getInstanceClass();
-			if(clazz != null && clazz.isPrimitive()) {
-				return EcoreUtil.wrapperClassFor(clazz).getName();
-			}
-			return ((GenDataType)genClassifier).getQualifiedInstanceClassName();
-		}
-		return "java.lang.Object"; //$NON-NLS-1$
-	}
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public String getQualifiedTypeInstanceClassName(GenTypedElement genTypedElement) {
-		if(genTypedElement.isPrimitiveType() && !genTypedElement.isListType()) {
-			return getQualifiedInstanceClassName(genTypedElement.getTypeGenClassifier());
-		}
-		String type = genTypedElement.getType();
-		return (type != null) ? type : "java.lang.Object"; //$NON-NLS-1$
-	}
-	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

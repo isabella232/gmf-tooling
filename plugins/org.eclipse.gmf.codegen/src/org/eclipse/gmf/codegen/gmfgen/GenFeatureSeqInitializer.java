@@ -6,12 +6,8 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
-import java.util.LinkedHashSet;
-import java.util.List;
-
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.gmf.common.codegen.ImportAssistant;
 
 /**
  * <!-- begin-user-doc -->
@@ -97,70 +93,4 @@ public interface GenFeatureSeqInitializer extends GenElementInitializer {
 	 * @generated
 	 */
 	GenReferenceNewElementSpec getCreatingInitializer();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Gets the accessor name of this initializer's element class meta object within its package interface
-	 * <!-- end-model-doc -->
-	 * @model kind="operation" required="true"
-	 * @generated
-	 */
-	String getElementClassAccessorName();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Gets the qualified name of the package interface which contains this initializer's element class meta object
-	 * <!-- end-model-doc -->
-	 * @model kind="operation" required="true"
-	 * @generated
-	 */
-	String getElementQualifiedPackageInterfaceName();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation" required="true"
-	 * @generated
-	 */
-	String getElementClassAccessor();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model required="true"
-	 * @generated
-	 */
-	String getFeatureAccessor(GenFeatureInitializer ftInitializer);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model
-	 * @generated
-	 */
-	EList<GenFeatureValueSpec> getJavaExpressionFeatureInitializersList(GenExpressionProviderContainer expressionProviders);
-
-	/**
-	 * @deprecated
-	 */
-	List<GenFeatureSeqInitializer> getAllFeatureSeqInitializers();
-	
-	/**
-	 * @deprecated
-	 */
-	String getFeatureAccessor(GenFeatureInitializer featureInitializer, ImportAssistant importAssistant);	
-
-	/**
-	 * @deprecated
-	 */
-	LinkedHashSet<GenFeatureValueSpec> getJavaExpressionFeatureInitializers(GenExpressionProviderContainer expressionProviders);
-	
-	/**
-	 * @deprecated
-	 */
-	String getElementClassAccessor(ImportAssistant importAssistant);	
 } // GenFeatureSeqInitializer

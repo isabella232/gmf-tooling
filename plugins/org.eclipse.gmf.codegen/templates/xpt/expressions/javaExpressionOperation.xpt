@@ -15,7 +15,7 @@
 
 «DEFINE javaExpressionOperation(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context, genmodel::GenClassifier oppositeEndContext) FOR gmfgen::GenJavaExpressionProvider-»
 «EXPAND xpt::Common::generatedMemberComment»
-private static «EXPAND javaExpressionReturnTypeFQName(this) FOR valueExpr» «getOperationName(valueExpr)»(«getQualifiedInstanceClassName(context)» self«IF oppositeEndContext != null», «getQualifiedInstanceClassName(oppositeEndContext)» oppositeEnd«ENDIF») {
+private static «EXPAND javaExpressionReturnTypeFQName FOR valueExpr» «getOperationName(valueExpr)»(«EXPAND MetaModel::QualifiedClassName FOR context» self«IF oppositeEndContext != null», «EXPAND MetaModel::QualifiedClassName FOR oppositeEndContext» oppositeEnd«ENDIF») {
 	// TODO: implement this method
 	// Ensure that you remove @generated or mark it @generated NOT
 	
@@ -23,9 +23,9 @@ private static «EXPAND javaExpressionReturnTypeFQName(this) FOR valueExpr» «getO
 }
 «ENDDEFINE»
 
-«DEFINE javaExpressionReturnTypeFQName(gmfgen::GenExpressionProviderBase provider) FOR gmfgen::GenConstraint»java.lang.Boolean«ENDDEFINE»
+«DEFINE javaExpressionReturnTypeFQName FOR gmfgen::GenConstraint»java.lang.Boolean«ENDDEFINE»
 
-«DEFINE javaExpressionReturnTypeFQName(gmfgen::GenExpressionProviderBase provider) FOR gmfgen::GenFeatureValueSpec»«provider.getQualifiedTypeInstanceClassName(feature)»«ENDDEFINE»
+«DEFINE javaExpressionReturnTypeFQName FOR gmfgen::GenFeatureValueSpec»«EXPAND MetaModel::featureTargetType FOR feature»«ENDDEFINE»
 
 «REM»Used for Metrics only. Corresponding type of ValueExpression should be exposed in gmfgen model«ENDREM»
-«DEFINE javaExpressionReturnTypeFQName(gmfgen::GenExpressionProviderBase provider) FOR gmfgen::ValueExpression»java.lang.Double«ENDDEFINE»
+«DEFINE javaExpressionReturnTypeFQName FOR gmfgen::ValueExpression»java.lang.Double«ENDDEFINE»
