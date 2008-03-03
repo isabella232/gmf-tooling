@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EValidator;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.validate.GMFValidator;
@@ -1028,7 +1027,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		isInited = true;
 
 		// Initialize simple dependencies
-		EcorePackage.eINSTANCE.eClass();
 		GenModelPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
@@ -7838,7 +7836,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });
+		   });																																																																																																																																																																																																						
 	}
 
 	/**
@@ -7980,7 +7978,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "metaFeature.ecoreFeature.unique",
 			 "description", "All references are unique in EMF due to the current code generation"
-		   });
+		   });																																					
 		addAnnotation
 		  (getGenFeatureSeqInitializer_ElementClass(), 
 		   source, 
@@ -8001,7 +7999,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "feature <> null implies feature.ecoreFeature.oclIsKindOf(ecore::EReference)",
 			 "description", "\'feature\' of \'GenReferenceNewElementSpec\' must refer to ecore::EReference"
-		   });
+		   });			
 		addAnnotation
 		  (getGenFeatureInitializer_Feature(), 
 		   source, 
@@ -8087,7 +8085,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "documentation", "LinkCreationConstants should be generated if diagram has any links"
-		   });
+		   });																																																																																																																																																																																			
 	}
 
 	/**
@@ -8128,7 +8126,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "def", "Constraint"
-		   });
+		   });									
 		addAnnotation
 		  (getGenFeatureSeqInitializer_Initializers(), 
 		   source, 
@@ -8148,7 +8146,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "type",
 			 "ocl", "feature.ecoreFeature"
-		   });
+		   });														
 		addAnnotation
 		  (getGenLinkConstraints_SourceEnd(), 
 		   source, 
