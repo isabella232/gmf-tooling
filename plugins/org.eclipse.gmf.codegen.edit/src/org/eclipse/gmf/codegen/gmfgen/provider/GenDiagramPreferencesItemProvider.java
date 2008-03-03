@@ -27,7 +27,6 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences;
-import org.eclipse.gmf.codegen.gmfgen.Routing;
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
