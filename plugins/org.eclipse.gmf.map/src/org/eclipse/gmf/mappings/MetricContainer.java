@@ -40,7 +40,7 @@ public interface MetricContainer extends EObject {
 	 * @return the value of the '<em>Metrics</em>' containment reference list.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMetricContainer_Metrics()
 	 * @see org.eclipse.gmf.mappings.MetricRule#getContainer
-	 * @model type="org.eclipse.gmf.mappings.MetricRule" opposite="container" containment="true" required="true"
+	 * @model opposite="container" containment="true" required="true"
 	 * @generated
 	 */
 	EList<MetricRule> getMetrics();

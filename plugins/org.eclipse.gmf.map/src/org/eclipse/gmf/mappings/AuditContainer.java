@@ -124,7 +124,7 @@ public interface AuditContainer extends EObject {
 	 * @see #setParentContainer(AuditContainer)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAuditContainer_ParentContainer()
 	 * @see org.eclipse.gmf.mappings.AuditContainer#getChildContainers
-	 * @model opposite="childContainers"
+	 * @model opposite="childContainers" transient="false"
 	 * @generated
 	 */
 	AuditContainer getParentContainer();
@@ -151,7 +151,7 @@ public interface AuditContainer extends EObject {
 	 * @return the value of the '<em>Audits</em>' containment reference list.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAuditContainer_Audits()
 	 * @see org.eclipse.gmf.mappings.AuditRule#getContainer
-	 * @model type="org.eclipse.gmf.mappings.AuditRule" opposite="container" containment="true"
+	 * @model opposite="container" containment="true"
 	 * @generated
 	 */
 	EList<AuditRule> getAudits();
@@ -169,7 +169,7 @@ public interface AuditContainer extends EObject {
 	 * @return the value of the '<em>Child Containers</em>' containment reference list.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAuditContainer_ChildContainers()
 	 * @see org.eclipse.gmf.mappings.AuditContainer#getParentContainer
-	 * @model type="org.eclipse.gmf.mappings.AuditContainer" opposite="parentContainer" containment="true"
+	 * @model opposite="parentContainer" containment="true"
 	 * @generated
 	 */
 	EList<AuditContainer> getChildContainers();

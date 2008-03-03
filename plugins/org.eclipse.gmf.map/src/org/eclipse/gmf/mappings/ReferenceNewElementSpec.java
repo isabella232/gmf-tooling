@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ReferenceNewElementSpec.java,v 1.2 2007/03/14 13:00:05 atikhomirov Exp $
+ * $Id: ReferenceNewElementSpec.java,v 1.3 2008/03/03 17:45:08 atikhomirov Exp $
  */
 package org.eclipse.gmf.mappings;
 
@@ -39,7 +39,7 @@ public interface ReferenceNewElementSpec extends FeatureInitializer {
 	 * @return the value of the '<em>New Element Initializers</em>' containment reference list.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getReferenceNewElementSpec_NewElementInitializers()
 	 * @see org.eclipse.gmf.mappings.FeatureSeqInitializer#getCreatingInitializer
-	 * @model type="org.eclipse.gmf.mappings.FeatureSeqInitializer" opposite="creatingInitializer" containment="true" required="true"
+	 * @model opposite="creatingInitializer" containment="true" required="true"
 	 * @generated
 	 */
 	EList<FeatureSeqInitializer> getNewElementInitializers();

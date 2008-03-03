@@ -362,13 +362,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Mapping Entry</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Mapping Entry</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Mapping Entry</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Mapping Entry</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -377,13 +377,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Needs Containment</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Needs Containment</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Needs Containment</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Needs Containment</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -392,13 +392,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Node Reference</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Node Reference</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Node Reference</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Node Reference</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -407,13 +407,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Child Reference</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Child Reference</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Child Reference</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Child Reference</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -422,13 +422,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Top Node Reference</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Top Node Reference</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Top Node Reference</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Top Node Reference</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -437,13 +437,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Node Mapping</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Node Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Node Mapping</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Node Mapping</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -452,13 +452,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Compartment Mapping</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Compartment Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Compartment Mapping</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Compartment Mapping</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -467,13 +467,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Link Mapping</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Link Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Link Mapping</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Link Mapping</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -482,13 +482,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Canvas Mapping</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Canvas Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Canvas Mapping</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Canvas Mapping</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -497,13 +497,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Label Mapping</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Label Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Label Mapping</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Label Mapping</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -512,13 +512,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Feature Label Mapping</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Feature Label Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Feature Label Mapping</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Feature Label Mapping</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -527,13 +527,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Design Label Mapping</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Design Label Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Design Label Mapping</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Design Label Mapping</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -542,13 +542,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Mapping</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Mapping</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Mapping</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -557,13 +557,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Constraint</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Constraint</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Constraint</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Constraint</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -572,13 +572,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Link Constraints</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Link Constraints</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Link Constraints</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Link Constraints</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -587,13 +587,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Value Expression</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Value Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Value Expression</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Value Expression</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -602,13 +602,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Element Initializer</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Element Initializer</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Element Initializer</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Element Initializer</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -617,13 +617,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Feature Seq Initializer</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Feature Seq Initializer</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Feature Seq Initializer</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Feature Seq Initializer</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -632,13 +632,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Feature Initializer</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Feature Initializer</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Feature Initializer</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Feature Initializer</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -647,13 +647,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Feature Value Spec</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Feature Value Spec</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Feature Value Spec</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Feature Value Spec</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -662,13 +662,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Reference New Element Spec</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Reference New Element Spec</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Reference New Element Spec</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Reference New Element Spec</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -677,13 +677,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Menu Owner</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Menu Owner</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Menu Owner</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Menu Owner</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -692,13 +692,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Tool Owner</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Tool Owner</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Tool Owner</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Tool Owner</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -707,13 +707,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Appearance Steward</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Appearance Steward</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Appearance Steward</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Appearance Steward</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -722,13 +722,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Audit Container</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Audit Container</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Audit Container</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Audit Container</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -737,13 +737,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Audit Rule</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Audit Rule</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Audit Rule</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Audit Rule</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -752,13 +752,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Rule Base</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Rule Base</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Rule Base</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Rule Base</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -767,13 +767,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Domain Element Target</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Domain Element Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Domain Element Target</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Domain Element Target</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -782,13 +782,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Domain Attribute Target</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Domain Attribute Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Domain Attribute Target</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Domain Attribute Target</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -797,13 +797,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Diagram Element Target</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Diagram Element Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Diagram Element Target</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Diagram Element Target</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -812,13 +812,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Notation Element Target</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Notation Element Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Notation Element Target</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Notation Element Target</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -827,13 +827,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Metric Container</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Metric Container</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Metric Container</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Metric Container</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -842,13 +842,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Metric Rule</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Metric Rule</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Metric Rule</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Metric Rule</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -857,13 +857,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Audited Metric Target</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Audited Metric Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Audited Metric Target</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Audited Metric Target</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -872,13 +872,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Auditable</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Auditable</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Auditable</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Auditable</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -887,13 +887,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Measurable</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Measurable</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Measurable</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Measurable</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -902,13 +902,13 @@ public class GMFMapSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>EObject</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch, but this is the last case anyway.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>EObject</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */

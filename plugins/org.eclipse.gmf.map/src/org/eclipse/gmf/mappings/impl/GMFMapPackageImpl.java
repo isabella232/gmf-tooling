@@ -1793,7 +1793,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEReference(getMappingEntry_LabelMappings(), this.getLabelMapping(), this.getLabelMapping_MapEntry(), "labelMappings", null, 0, -1, MappingEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMappingEntry_RelatedDiagrams(), this.getCanvasMapping(), null, "relatedDiagrams", null, 0, -1, MappingEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(mappingEntryEClass, ecorePackage.getEClass(), "getDomainContext", 0, 1);
+		addEOperation(mappingEntryEClass, ecorePackage.getEClass(), "getDomainContext", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(needsContainmentEClass, NeedsContainment.class, "NeedsContainment", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getNeedsContainment_ContainmentFeature(), ecorePackage.getEReference(), null, "containmentFeature", null, 0, 1, NeedsContainment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

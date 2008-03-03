@@ -43,7 +43,7 @@ public interface Mapping extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Nodes</em>' containment reference list.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMapping_Nodes()
-	 * @model type="org.eclipse.gmf.mappings.TopNodeReference" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<TopNodeReference> getNodes();
@@ -59,7 +59,7 @@ public interface Mapping extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Links</em>' containment reference list.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMapping_Links()
-	 * @model type="org.eclipse.gmf.mappings.LinkMapping" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<LinkMapping> getLinks();
@@ -101,7 +101,7 @@ public interface Mapping extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Appearance Styles</em>' containment reference list.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMapping_AppearanceStyles()
-	 * @model type="org.eclipse.gmf.tooldef.StyleSelector" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<StyleSelector> getAppearanceStyles();

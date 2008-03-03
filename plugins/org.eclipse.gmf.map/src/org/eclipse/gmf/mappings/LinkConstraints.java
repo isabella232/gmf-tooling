@@ -42,7 +42,7 @@ public interface LinkConstraints extends EObject {
 	 * @return the value of the '<em>Link Mapping</em>' container reference.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkConstraints_LinkMapping()
 	 * @see org.eclipse.gmf.mappings.LinkMapping#getCreationConstraints
-	 * @model opposite="creationConstraints" required="true" changeable="false"
+	 * @model opposite="creationConstraints" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	LinkMapping getLinkMapping();

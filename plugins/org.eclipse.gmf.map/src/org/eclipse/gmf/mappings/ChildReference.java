@@ -45,7 +45,7 @@ public interface ChildReference extends NodeReference {
 	 * @see #setParentNode(NodeMapping)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getChildReference_ParentNode()
 	 * @see org.eclipse.gmf.mappings.NodeMapping#getChildren
-	 * @model opposite="children" required="true"
+	 * @model opposite="children" required="true" transient="false"
 	 * @generated
 	 */
 	NodeMapping getParentNode();

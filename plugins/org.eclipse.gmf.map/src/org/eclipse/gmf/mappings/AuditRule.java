@@ -199,7 +199,7 @@ public interface AuditRule extends RuleBase {
 	 * @see #setContainer(AuditContainer)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAuditRule_Container()
 	 * @see org.eclipse.gmf.mappings.AuditContainer#getAudits
-	 * @model opposite="audits" required="true"
+	 * @model opposite="audits" required="true" transient="false"
 	 * @generated
 	 */
 	AuditContainer getContainer();

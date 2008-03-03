@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: FeatureInitializer.java,v 1.2 2006/10/19 14:13:36 radvorak Exp $
+ * $Id: FeatureInitializer.java,v 1.3 2008/03/03 17:45:08 atikhomirov Exp $
  */
 package org.eclipse.gmf.mappings;
 
@@ -67,7 +67,7 @@ public interface FeatureInitializer extends EObject {
 	 * @return the value of the '<em>Feature Seq Initializer</em>' container reference.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getFeatureInitializer_FeatureSeqInitializer()
 	 * @see org.eclipse.gmf.mappings.FeatureSeqInitializer#getInitializers
-	 * @model opposite="initializers" required="true" changeable="false"
+	 * @model opposite="initializers" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	FeatureSeqInitializer getFeatureSeqInitializer();

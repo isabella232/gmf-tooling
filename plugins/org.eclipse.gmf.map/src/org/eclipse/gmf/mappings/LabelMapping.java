@@ -97,7 +97,7 @@ public interface LabelMapping extends EObject {
 	 * @return the value of the '<em>Map Entry</em>' container reference.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLabelMapping_MapEntry()
 	 * @see org.eclipse.gmf.mappings.MappingEntry#getLabelMappings
-	 * @model opposite="labelMappings" required="true" changeable="false"
+	 * @model opposite="labelMappings" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	MappingEntry getMapEntry();

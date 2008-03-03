@@ -49,7 +49,7 @@ public interface FeatureSeqInitializer extends ElementInitializer {
 	 * @return the value of the '<em>Initializers</em>' containment reference list.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getFeatureSeqInitializer_Initializers()
 	 * @see org.eclipse.gmf.mappings.FeatureInitializer#getFeatureSeqInitializer
-	 * @model type="org.eclipse.gmf.mappings.FeatureInitializer" opposite="featureSeqInitializer" containment="true" required="true"
+	 * @model opposite="featureSeqInitializer" containment="true" required="true"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='self.elementClass'"
 	 * @generated
 	 */
@@ -94,7 +94,7 @@ public interface FeatureSeqInitializer extends ElementInitializer {
 	 * @return the value of the '<em>Creating Initializer</em>' container reference.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getFeatureSeqInitializer_CreatingInitializer()
 	 * @see org.eclipse.gmf.mappings.ReferenceNewElementSpec#getNewElementInitializers
-	 * @model opposite="newElementInitializers" changeable="false"
+	 * @model opposite="newElementInitializers" transient="false" changeable="false"
 	 * @generated
 	 */
 	ReferenceNewElementSpec getCreatingInitializer();

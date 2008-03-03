@@ -152,7 +152,7 @@ public interface CanvasMapping extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Menu Contributions</em>' reference list.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getCanvasMapping_MenuContributions()
-	 * @model type="org.eclipse.gmf.tooldef.MainMenu"
+	 * @model
 	 * @generated
 	 */
 	EList<MainMenu> getMenuContributions();
@@ -168,7 +168,7 @@ public interface CanvasMapping extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Toolbar Contributions</em>' reference list.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getCanvasMapping_ToolbarContributions()
-	 * @model type="org.eclipse.gmf.tooldef.Toolbar"
+	 * @model
 	 * @generated
 	 */
 	EList<Toolbar> getToolbarContributions();

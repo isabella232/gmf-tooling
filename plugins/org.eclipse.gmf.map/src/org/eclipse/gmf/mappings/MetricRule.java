@@ -177,7 +177,7 @@ public interface MetricRule extends RuleBase {
 	 * @see #setContainer(MetricContainer)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMetricRule_Container()
 	 * @see org.eclipse.gmf.mappings.MetricContainer#getMetrics
-	 * @model opposite="metrics" required="true"
+	 * @model opposite="metrics" required="true" transient="false"
 	 * @generated
 	 */
 	MetricContainer getContainer();
