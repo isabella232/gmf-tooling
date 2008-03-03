@@ -7,7 +7,7 @@
     complianceLevel="5.0">
   <foreignModel>gmfgraph.ecore</foreignModel>
   <genPackages prefix="GMFGraph" basePackage="org.eclipse.gmf" disposableProviderFactory="true"
-      literalsInterface="false" ecorePackage="gmfgraph.ecore#/">
+      literalsInterface="false" extensibleProviderFactory="true" ecorePackage="gmfgraph.ecore#/">
     <genEnums ecoreEnum="gmfgraph.ecore#//ColorConstants">
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//ColorConstants/white"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//ColorConstants/black"/>
