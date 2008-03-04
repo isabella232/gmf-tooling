@@ -254,17 +254,17 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String PortGroup_title;
+	public static String Port1Group_title;
 
 	/**
 	 * @generated
 	 */
-	public static String BuildingCreationTool_title;
+	public static String Building1CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String BuildingCreationTool_desc;
+	public static String Building1CreationTool_desc;
 
 	/**
 	 * @generated

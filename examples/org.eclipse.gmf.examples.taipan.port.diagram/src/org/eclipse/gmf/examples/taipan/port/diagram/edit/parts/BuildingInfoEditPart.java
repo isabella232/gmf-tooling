@@ -571,6 +571,6 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new Label();
+		return new WrappingLabel();
 	}
 }
