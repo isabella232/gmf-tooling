@@ -133,7 +133,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			if (command != null) {
 				if (!(command instanceof CompositeTransactionalCommand)) {
 					TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
-					command = new CompositeTransactionalCommand(editingDomain, null).compose(command);
+					command = new CompositeTransactionalCommand(editingDomain, command.getLabel()).compose(command);
 				}
 				semanticCommand = new ICommandProxy(command);
 			}
