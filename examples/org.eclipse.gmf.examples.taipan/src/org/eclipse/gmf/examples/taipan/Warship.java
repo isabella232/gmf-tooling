@@ -69,7 +69,7 @@ public interface Warship extends Ship {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Attack Orders</em>' containment reference list.
 	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getWarship_AttackOrders()
-	 * @model type="org.eclipse.gmf.examples.taipan.BesiegePortOrder" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<BesiegePortOrder> getAttackOrders();

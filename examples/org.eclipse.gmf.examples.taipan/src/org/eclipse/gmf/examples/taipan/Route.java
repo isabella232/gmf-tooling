@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.examples.taipan;
 
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Route</b></em>'.

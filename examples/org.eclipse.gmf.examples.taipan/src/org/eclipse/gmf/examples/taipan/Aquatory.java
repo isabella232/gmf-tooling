@@ -46,7 +46,7 @@ public interface Aquatory extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Ports</em>' containment reference list.
 	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getAquatory_Ports()
-	 * @model type="org.eclipse.gmf.examples.taipan.Port" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Port> getPorts();
@@ -62,7 +62,7 @@ public interface Aquatory extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Ships</em>' containment reference list.
 	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getAquatory_Ships()
-	 * @model type="org.eclipse.gmf.examples.taipan.Ship" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Ship> getShips();
@@ -78,7 +78,7 @@ public interface Aquatory extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Routes</em>' containment reference list.
 	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getAquatory_Routes()
-	 * @model type="org.eclipse.gmf.examples.taipan.Route" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Route> getRoutes();

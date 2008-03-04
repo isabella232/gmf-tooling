@@ -70,7 +70,7 @@ public interface Port extends Destination {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Buildings</em>' containment reference list.
 	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getPort_Buildings()
-	 * @model type="org.eclipse.gmf.examples.taipan.Building" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Building> getBuildings();
@@ -86,7 +86,7 @@ public interface Port extends Destination {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Register</em>' reference list.
 	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getPort_Register()
-	 * @model type="org.eclipse.gmf.examples.taipan.Ship"
+	 * @model
 	 * @generated
 	 */
 	EList<Ship> getRegister();

@@ -125,7 +125,7 @@ public interface Ship extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Cargo</em>' containment reference list.
 	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getShip_Cargo()
-	 * @model type="org.eclipse.gmf.examples.taipan.Item" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Item> getCargo();

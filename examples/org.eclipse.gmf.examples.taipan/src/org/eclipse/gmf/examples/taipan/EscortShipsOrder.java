@@ -37,7 +37,7 @@ public interface EscortShipsOrder extends Order {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Ships</em>' reference list.
 	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getEscortShipsOrder_Ships()
-	 * @model type="org.eclipse.gmf.examples.taipan.Ship" required="true"
+	 * @model required="true"
 	 * @generated
 	 */
 	EList<Ship> getShips();
