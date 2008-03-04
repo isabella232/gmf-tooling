@@ -94,7 +94,7 @@ public interface FeatureSeqInitializer extends ElementInitializer {
 	 * @return the value of the '<em>Creating Initializer</em>' container reference.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getFeatureSeqInitializer_CreatingInitializer()
 	 * @see org.eclipse.gmf.mappings.ReferenceNewElementSpec#getNewElementInitializers
-	 * @model opposite="newElementInitializers" transient="false" changeable="false"
+	 * @model opposite="newElementInitializers" resolveProxies="false" transient="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	ReferenceNewElementSpec getCreatingInitializer();

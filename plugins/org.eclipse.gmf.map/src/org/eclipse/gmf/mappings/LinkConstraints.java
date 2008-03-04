@@ -40,12 +40,23 @@ public interface LinkConstraints extends EObject {
 	 * References the link mapping restricted by these constraints
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Link Mapping</em>' container reference.
+	 * @see #setLinkMapping(LinkMapping)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkConstraints_LinkMapping()
 	 * @see org.eclipse.gmf.mappings.LinkMapping#getCreationConstraints
-	 * @model opposite="creationConstraints" required="true" transient="false" changeable="false"
+	 * @model opposite="creationConstraints" resolveProxies="false" required="true" transient="false"
 	 * @generated
 	 */
 	LinkMapping getLinkMapping();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.LinkConstraints#getLinkMapping <em>Link Mapping</em>}' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Link Mapping</em>' container reference.
+	 * @see #getLinkMapping()
+	 * @generated
+	 */
+	void setLinkMapping(LinkMapping value);
 
 	/**
 	 * Returns the value of the '<em><b>Source End</b></em>' containment reference.

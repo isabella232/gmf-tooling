@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LinkConstraints;
@@ -80,6 +81,37 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	public LinkMapping getLinkMapping() {
 		if (eContainerFeatureID != GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING) return null;
 		return (LinkMapping)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetLinkMapping(LinkMapping newLinkMapping, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newLinkMapping, GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLinkMapping(LinkMapping newLinkMapping) {
+		if (newLinkMapping != eInternalContainer() || (eContainerFeatureID != GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING && newLinkMapping != null)) {
+			if (EcoreUtil.isAncestor(this, newLinkMapping))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newLinkMapping != null)
+				msgs = ((InternalEObject)newLinkMapping).eInverseAdd(this, GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS, LinkMapping.class, msgs);
+			msgs = basicSetLinkMapping(newLinkMapping, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING, newLinkMapping, newLinkMapping));
 	}
 
 	/**
@@ -179,7 +211,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 			case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING, msgs);
+				return basicSetLinkMapping((LinkMapping)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -193,7 +225,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:
-				return eBasicSetContainer(null, GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING, msgs);
+				return basicSetLinkMapping(null, msgs);
 			case GMFMapPackage.LINK_CONSTRAINTS__SOURCE_END:
 				return basicSetSourceEnd(null, msgs);
 			case GMFMapPackage.LINK_CONSTRAINTS__TARGET_END:
@@ -242,6 +274,9 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:
+				setLinkMapping((LinkMapping)newValue);
+				return;
 			case GMFMapPackage.LINK_CONSTRAINTS__SOURCE_END:
 				setSourceEnd((Constraint)newValue);
 				return;
@@ -260,6 +295,9 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:
+				setLinkMapping((LinkMapping)null);
+				return;
 			case GMFMapPackage.LINK_CONSTRAINTS__SOURCE_END:
 				setSourceEnd((Constraint)null);
 				return;

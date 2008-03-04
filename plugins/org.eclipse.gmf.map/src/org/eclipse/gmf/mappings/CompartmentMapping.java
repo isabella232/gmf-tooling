@@ -67,7 +67,7 @@ public interface CompartmentMapping extends EObject {
 	 * @return the value of the '<em>Parent Node</em>' container reference.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getCompartmentMapping_ParentNode()
 	 * @see org.eclipse.gmf.mappings.NodeMapping#getCompartments
-	 * @model opposite="compartments" required="true" transient="false" changeable="false"
+	 * @model opposite="compartments" resolveProxies="false" required="true" transient="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	NodeMapping getParentNode();

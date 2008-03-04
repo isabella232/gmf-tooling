@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ReferenceNewElementSpecImpl.java,v 1.3 2007/04/25 08:08:29 dstadnik Exp $
+ * $Id: ReferenceNewElementSpecImpl.java,v 1.4 2008/03/04 16:50:29 atikhomirov Exp $
  */
 package org.eclipse.gmf.mappings.impl;
 
@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
@@ -135,6 +136,37 @@ public class ReferenceNewElementSpecImpl extends EObjectImpl implements Referenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetFeatureSeqInitializer(FeatureSeqInitializer newFeatureSeqInitializer, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newFeatureSeqInitializer, GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFeatureSeqInitializer(FeatureSeqInitializer newFeatureSeqInitializer) {
+		if (newFeatureSeqInitializer != eInternalContainer() || (eContainerFeatureID != GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER && newFeatureSeqInitializer != null)) {
+			if (EcoreUtil.isAncestor(this, newFeatureSeqInitializer))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newFeatureSeqInitializer != null)
+				msgs = ((InternalEObject)newFeatureSeqInitializer).eInverseAdd(this, GMFMapPackage.FEATURE_SEQ_INITIALIZER__INITIALIZERS, FeatureSeqInitializer.class, msgs);
+			msgs = basicSetFeatureSeqInitializer(newFeatureSeqInitializer, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER, newFeatureSeqInitializer, newFeatureSeqInitializer));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<FeatureSeqInitializer> getNewElementInitializers() {
 		if (newElementInitializers == null) {
 			newElementInitializers = new EObjectContainmentWithInverseEList<FeatureSeqInitializer>(FeatureSeqInitializer.class, this, GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS, GMFMapPackage.FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER);
@@ -154,7 +186,7 @@ public class ReferenceNewElementSpecImpl extends EObjectImpl implements Referenc
 			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
+				return basicSetFeatureSeqInitializer((FeatureSeqInitializer)otherEnd, msgs);
 			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getNewElementInitializers()).basicAdd(otherEnd, msgs);
 		}
@@ -170,7 +202,7 @@ public class ReferenceNewElementSpecImpl extends EObjectImpl implements Referenc
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER:
-				return eBasicSetContainer(null, GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
+				return basicSetFeatureSeqInitializer(null, msgs);
 			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS:
 				return ((InternalEList<?>)getNewElementInitializers()).basicRemove(otherEnd, msgs);
 		}
@@ -222,6 +254,9 @@ public class ReferenceNewElementSpecImpl extends EObjectImpl implements Referenc
 			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE:
 				setFeature((EStructuralFeature)newValue);
 				return;
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER:
+				setFeatureSeqInitializer((FeatureSeqInitializer)newValue);
+				return;
 			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS:
 				getNewElementInitializers().clear();
 				getNewElementInitializers().addAll((Collection<? extends FeatureSeqInitializer>)newValue);
@@ -240,6 +275,9 @@ public class ReferenceNewElementSpecImpl extends EObjectImpl implements Referenc
 		switch (featureID) {
 			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE:
 				setFeature((EStructuralFeature)null);
+				return;
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER:
+				setFeatureSeqInitializer((FeatureSeqInitializer)null);
 				return;
 			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS:
 				getNewElementInitializers().clear();

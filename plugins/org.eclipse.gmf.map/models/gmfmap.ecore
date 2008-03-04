@@ -144,7 +144,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="compartment" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Compartment"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentNode" lowerBound="1"
-        eType="#//NodeMapping" changeable="false" eOpposite="#//NodeMapping/compartments"/>
+        eType="#//NodeMapping" resolveProxies="false" eOpposite="#//NodeMapping/compartments">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="suppressedSetVisibility" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
         eType="#//ChildReference" eOpposite="#//ChildReference/compartment"/>
   </eClassifiers>
@@ -205,7 +209,11 @@
         eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//DiagramLabel"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="readOnly" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mapEntry" lowerBound="1"
-        eType="#//MappingEntry" changeable="false" eOpposite="#//MappingEntry/labelMappings"/>
+        eType="#//MappingEntry" resolveProxies="false" eOpposite="#//MappingEntry/labelMappings">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="suppressedSetVisibility" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureLabelMapping" eSuperTypes="#//LabelMapping">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -264,9 +272,12 @@
       <details key="description" value="Either 'sourceEnd' or 'targetEnd' constraint must be specified"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="linkMapping" lowerBound="1"
-        eType="#//LinkMapping" changeable="false" eOpposite="#//LinkMapping/creationConstraints">
+        eType="#//LinkMapping" resolveProxies="false" eOpposite="#//LinkMapping/creationConstraints">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="References the link mapping restricted by these constraints"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="suppressedSetVisibility" value="true"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourceEnd" eType="#//Constraint"
@@ -365,7 +376,11 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="creatingInitializer" eType="#//ReferenceNewElementSpec"
-        changeable="false" eOpposite="#//ReferenceNewElementSpec/newElementInitializers"/>
+        resolveProxies="false" eOpposite="#//ReferenceNewElementSpec/newElementInitializers">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="suppressedSetVisibility" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureInitializer" abstract="true"
       interface="true">
@@ -388,7 +403,11 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureSeqInitializer"
-        lowerBound="1" eType="#//FeatureSeqInitializer" changeable="false" eOpposite="#//FeatureSeqInitializer/initializers"/>
+        lowerBound="1" eType="#//FeatureSeqInitializer" resolveProxies="false" eOpposite="#//FeatureSeqInitializer/initializers">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="suppressedSetVisibility" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureValueSpec" eSuperTypes="#//ValueExpression #//FeatureInitializer">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
