@@ -13,38 +13,10 @@
       itemSemanticEditPolicyClassName="PortItemSemanticEditPolicy"
       notationViewFactoryClassName="PortViewFactory"
       canonicalEditPolicyClassName="PortCanonicalEditPolicy"
-      elementTypesClassName="PortElementTypes"
-      notationViewProviderClassName="PortViewProvider"
-      editPartProviderClassName="PortEditPartProvider"
-      modelingAssistantProviderClassName="PortModelingAssistantProvider"
-      iconProviderClassName="PortIconProvider"
       iconProviderPriority="Low"
-      parserProviderClassName="PortParserProvider"
-      contributionItemProviderClassName="PortContributionItemProvider"
-      reorientConnectionViewCommandClassName="PortReorientConnectionViewCommand"
-      baseEditHelperClassName="PortBaseEditHelper"
-      editPartFactoryClassName="PortEditPartFactory"
-      baseExternalNodeLabelEditPartClassName="PortExtNodeLabelEditPart"
-      baseItemSemanticEditPolicyClassName="PortBaseItemSemanticEditPolicy"
-      baseGraphicalNodeEditPolicyClassName="PortGraphicalNodeEditPolicy"
-      textSelectionEditPolicyClassName="PortTextSelectionEditPolicy"
-      textNonResizableEditPolicyClassName="PortTextNonResizableEditPolicy"
-      creationWizardClassName="PortCreationWizard"
-      creationWizardPageClassName="PortCreationWizardPage"
       creationWizardIconPath="icons/PortDiagramFile.gif"
-      diagramEditorUtilClassName="PortDiagramEditorUtil"
-      documentProviderClassName="PortDocumentProvider"
-      initDiagramFileActionClassName="PortInitDiagramFileAction"
-      newDiagramFileWizardClassName="PortNewDiagramFileWizard"
-      matchingStrategyClassName="PortMatchingStrategy"
-      visualIDRegistryClassName="PortVisualIDRegistry"
-      elementChooserClassName="PortElementChooserDialog"
-      loadResourceActionClassName="PortLoadResourceAction"
-      shortcutsDecoratorProviderClassName="PortShortcutsDecoratorProvider"
-      createShortcutActionClassName="PortCreateShortcutAction"
       validationProviderClassName="PortValidationProvider"
       validationProviderPriority="Low"
-      markerNavigationProviderClassName="PortMarkerNavigationProvider"
       metricProviderClassName="PortMetricProvider"
       validationDecoratorProviderClassName="PortValidationDecoratorProvider">
     <diagramRunTimeClass
@@ -74,7 +46,9 @@
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           layoutType="TOOLBAR_LAYOUT"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.BuildingShape"/>
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.BuildingShape">
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/Building"/>
@@ -89,7 +63,9 @@
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+        </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewMethod="NATIVE"
@@ -99,16 +75,13 @@
         </modelFacet>
       </labels>
     </topLevelNodes>
-    <palette
-        factoryClassName="PortPaletteFactory">
+    <palette>
       <groups
-          title="Port"
-          createMethodName="createPortGroup">
+          title="Port">
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Building"
-            description="Create new Building"
-            createMethodName="createBuildingCreationTool"
+            description="Create new building"
             genNodes="//@diagram/@topLevelNodes.0"/>
       </groups>
     </palette>
@@ -164,12 +137,8 @@
       provider="Eclipse.org"
       activatorClassName="PortDiagramEditorPlugin"/>
   <editor
-      actionBarContributorClassName="PortDiagramActionBarContributor"
       className="PortDiagramEditor"/>
-  <diagramUpdater
-      diagramUpdaterClassName="PortDiagramUpdater"
-      nodeDescriptorClassName="PortNodeDescriptor"
-      linkDescriptorClassName="PortLinkDescriptor"/>
+  <diagramUpdater/>
   <propertySheet
       packageName="org.eclipse.gmf.examples.taipan.port.diagram.properties"
       labelProviderClassName="PortPropertiesLabelProvider">
@@ -183,7 +152,7 @@
     <tabs
         xsi:type="gmfgen:GenCustomPropertyTab"
         iD="domain"
-        label="Domain Model">
+        label="Core">
       <filter
           xsi:type="gmfgen:TypeTabFilter">
         <types>org.eclipse.gmf.runtime.notation.View</types>
