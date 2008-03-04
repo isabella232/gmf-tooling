@@ -28,7 +28,7 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 /**
  * @generated
  */
-public class PortCreationWizard extends Wizard implements INewWizard {
+public class TaiPanCreationWizard extends Wizard implements INewWizard {
 
 	/**
 	 * @generated
@@ -43,12 +43,12 @@ public class PortCreationWizard extends Wizard implements INewWizard {
 	/**
 	 * @generated
 	 */
-	protected PortCreationWizardPage diagramModelFilePage;
+	protected TaiPanCreationWizardPage diagramModelFilePage;
 
 	/**
 	 * @generated
 	 */
-	protected PortCreationWizardPage domainModelFilePage;
+	protected TaiPanCreationWizardPage domainModelFilePage;
 
 	/**
 	 * @generated
@@ -101,7 +101,7 @@ public class PortCreationWizard extends Wizard implements INewWizard {
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.workbench = workbench;
 		this.selection = selection;
-		setWindowTitle(Messages.PortCreationWizardTitle);
+		setWindowTitle(Messages.TaiPanCreationWizardTitle);
 		setDefaultPageImageDescriptor(PortDiagramEditorPlugin.getBundledImageDescriptor("icons/wizban/NewTaiPanWizard.gif")); //$NON-NLS-1$
 		setNeedsProgressMonitor(true);
 	}
@@ -110,14 +110,14 @@ public class PortCreationWizard extends Wizard implements INewWizard {
 	 * @generated
 	 */
 	public void addPages() {
-		diagramModelFilePage = new PortCreationWizardPage("DiagramModelFile", getSelection(), "port_diagram"); //$NON-NLS-1$ //$NON-NLS-2$
-		diagramModelFilePage.setTitle(Messages.PortCreationWizard_DiagramModelFilePageTitle);
-		diagramModelFilePage.setDescription(Messages.PortCreationWizard_DiagramModelFilePageDescription);
+		diagramModelFilePage = new TaiPanCreationWizardPage("DiagramModelFile", getSelection(), "port_diagram"); //$NON-NLS-1$ //$NON-NLS-2$
+		diagramModelFilePage.setTitle(Messages.TaiPanCreationWizard_DiagramModelFilePageTitle);
+		diagramModelFilePage.setDescription(Messages.TaiPanCreationWizard_DiagramModelFilePageDescription);
 		addPage(diagramModelFilePage);
 
-		domainModelFilePage = new PortCreationWizardPage("DomainModelFile", getSelection(), "taipan"); //$NON-NLS-1$ //$NON-NLS-2$
-		domainModelFilePage.setTitle(Messages.PortCreationWizard_DomainModelFilePageTitle);
-		domainModelFilePage.setDescription(Messages.PortCreationWizard_DomainModelFilePageDescription);
+		domainModelFilePage = new TaiPanCreationWizardPage("DomainModelFile", getSelection(), "taipan"); //$NON-NLS-1$ //$NON-NLS-2$
+		domainModelFilePage.setTitle(Messages.TaiPanCreationWizard_DomainModelFilePageTitle);
+		domainModelFilePage.setDescription(Messages.TaiPanCreationWizard_DomainModelFilePageDescription);
 		addPage(domainModelFilePage);
 	}
 
@@ -128,12 +128,12 @@ public class PortCreationWizard extends Wizard implements INewWizard {
 		IRunnableWithProgress op = new WorkspaceModifyOperation(null) {
 
 			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
-				diagram = PortDiagramEditorUtil.createDiagram(diagramModelFilePage.getURI(), domainModelFilePage.getURI(), monitor);
+				diagram = TaiPanDiagramEditorUtil.createDiagram(diagramModelFilePage.getURI(), domainModelFilePage.getURI(), monitor);
 				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
 					try {
-						PortDiagramEditorUtil.openDiagram(diagram);
+						TaiPanDiagramEditorUtil.openDiagram(diagram);
 					} catch (PartInitException e) {
-						ErrorDialog.openError(getContainer().getShell(), Messages.PortCreationWizardOpenEditorError, null, e.getStatus());
+						ErrorDialog.openError(getContainer().getShell(), Messages.TaiPanCreationWizardOpenEditorError, null, e.getStatus());
 					}
 				}
 			}
@@ -144,7 +144,7 @@ public class PortCreationWizard extends Wizard implements INewWizard {
 			return false;
 		} catch (InvocationTargetException e) {
 			if (e.getTargetException() instanceof CoreException) {
-				ErrorDialog.openError(getContainer().getShell(), Messages.PortCreationWizardCreationError, null, ((CoreException) e.getTargetException()).getStatus());
+				ErrorDialog.openError(getContainer().getShell(), Messages.TaiPanCreationWizardCreationError, null, ((CoreException) e.getTargetException()).getStatus());
 			} else {
 				PortDiagramEditorPlugin.getInstance().logError("Error creating diagram", e.getTargetException()); //$NON-NLS-1$
 			}

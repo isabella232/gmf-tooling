@@ -16,8 +16,8 @@ import java.lang.ref.WeakReference;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart;
-import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPartFactory;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry;
+import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.TaiPanEditPartFactory;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.services.editpart.AbstractEditPartProvider;
@@ -28,7 +28,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class PortEditPartProvider extends AbstractEditPartProvider {
+public class TaiPanEditPartProvider extends AbstractEditPartProvider {
 
 	/**
 	 * @generated
@@ -53,8 +53,8 @@ public class PortEditPartProvider extends AbstractEditPartProvider {
 	/**
 	 * @generated
 	 */
-	public PortEditPartProvider() {
-		setFactory(new PortEditPartFactory());
+	public TaiPanEditPartProvider() {
+		setFactory(new TaiPanEditPartFactory());
 		setAllowCaching(true);
 	}
 
@@ -132,7 +132,7 @@ public class PortEditPartProvider extends AbstractEditPartProvider {
 	public synchronized boolean provides(IOperation operation) {
 		if (operation instanceof CreateGraphicEditPartOperation) {
 			View view = ((IEditPartOperation) operation).getView();
-			if (!PortEditPart.MODEL_ID.equals(PortVisualIDRegistry.getModelID(view))) {
+			if (!PortEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(view))) {
 				return false;
 			}
 			if (isAllowCaching() && getCachedPart(view) != null) {

@@ -60,7 +60,7 @@ public class PortDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	private PortDocumentProvider documentProvider;
+	private TaiPanDocumentProvider documentProvider;
 
 	/**
 	 * @generated
@@ -190,9 +190,9 @@ public class PortDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	public PortDocumentProvider getDocumentProvider() {
+	public TaiPanDocumentProvider getDocumentProvider() {
 		if (documentProvider == null) {
-			documentProvider = new PortDocumentProvider();
+			documentProvider = new TaiPanDocumentProvider();
 		}
 		return documentProvider;
 	}

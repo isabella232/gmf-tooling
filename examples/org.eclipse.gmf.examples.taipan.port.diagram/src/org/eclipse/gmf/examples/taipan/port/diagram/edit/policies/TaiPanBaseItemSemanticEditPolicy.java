@@ -22,8 +22,8 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.requests.ReconnectRequest;
-import org.eclipse.gmf.examples.taipan.port.diagram.edit.helpers.PortBaseEditHelper;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry;
+import org.eclipse.gmf.examples.taipan.port.diagram.edit.helpers.TaiPanBaseEditHelper;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -55,7 +55,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class PortBaseItemSemanticEditPolicy extends SemanticEditPolicy {
+public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 
 	/**
 	 * Extended request data key to hold editpart visual id.
@@ -77,7 +77,7 @@ public class PortBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		if (request instanceof ReconnectRequest) {
 			Object view = ((ReconnectRequest) request).getConnectionEditPart().getModel();
 			if (view instanceof View) {
-				Integer id = new Integer(PortVisualIDRegistry.getVisualID((View) view));
+				Integer id = new Integer(TaiPanVisualIDRegistry.getVisualID((View) view));
 				request.getExtendedData().put(VISUAL_ID_KEY, id);
 			}
 		}
@@ -114,7 +114,7 @@ public class PortBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		Command semanticCommand = getSemanticCommandSwitch(completedRequest);
 		if (semanticCommand != null) {
 			ICommand command = semanticCommand instanceof ICommandProxy ? ((ICommandProxy) semanticCommand).getICommand() : new CommandProxy(semanticCommand);
-			completedRequest.setParameter(PortBaseEditHelper.EDIT_POLICY_COMMAND, command);
+			completedRequest.setParameter(TaiPanBaseEditHelper.EDIT_POLICY_COMMAND, command);
 		}
 		if (elementType != null) {
 			ICommand command = elementType.getEditCommand(completedRequest);

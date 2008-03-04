@@ -22,9 +22,9 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingEditPart;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramUpdater;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.PortNodeDescriptor;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramUpdater;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanNodeDescriptor;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.commands.DeferredLayoutCommand;
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
@@ -48,8 +48,8 @@ public class PortCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	protected List getSemanticChildrenList() {
 		View viewObject = (View) getHost().getModel();
 		List result = new LinkedList();
-		for (Iterator it = PortDiagramUpdater.getPort_1000SemanticChildren(viewObject).iterator(); it.hasNext();) {
-			result.add(((PortNodeDescriptor) it.next()).getModelElement());
+		for (Iterator it = TaiPanDiagramUpdater.getPort_1000SemanticChildren(viewObject).iterator(); it.hasNext();) {
+			result.add(((TaiPanNodeDescriptor) it.next()).getModelElement());
 		}
 		return result;
 	}
@@ -65,10 +65,10 @@ public class PortCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected boolean isOrphaned(Collection semanticChildren, final View view) {
-		int visualID = PortVisualIDRegistry.getVisualID(view);
+		int visualID = TaiPanVisualIDRegistry.getVisualID(view);
 		switch (visualID) {
 		case BuildingEditPart.VISUAL_ID:
-			return !semanticChildren.contains(view.getElement()) || visualID != PortVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
+			return !semanticChildren.contains(view.getElement()) || visualID != TaiPanVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
 		}
 		return false;
 	}

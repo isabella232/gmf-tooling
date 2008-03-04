@@ -20,7 +20,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class BuildingItemSemanticEditPolicy extends PortBaseItemSemanticEditPolicy {
+public class BuildingItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated

@@ -24,7 +24,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class PortReorientConnectionViewCommand extends AbstractTransactionalCommand {
+public class TaiPanReorientConnectionViewCommand extends AbstractTransactionalCommand {
 
 	/**
 	 * @generated
@@ -34,7 +34,7 @@ public class PortReorientConnectionViewCommand extends AbstractTransactionalComm
 	/**
 	 * @generated
 	 */
-	public PortReorientConnectionViewCommand(TransactionalEditingDomain editingDomain, String label) {
+	public TaiPanReorientConnectionViewCommand(TransactionalEditingDomain editingDomain, String label) {
 		super(editingDomain, label, null);
 	}
 
@@ -67,9 +67,9 @@ public class PortReorientConnectionViewCommand extends AbstractTransactionalComm
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor progressMonitor, IAdaptable info) {
-		assert null != edgeAdaptor : "Null child in PortReorientConnectionViewCommand"; //$NON-NLS-1$
+		assert null != edgeAdaptor : "Null child in TaiPanReorientConnectionViewCommand"; //$NON-NLS-1$
 		Edge edge = (Edge) getEdgeAdaptor().getAdapter(Edge.class);
-		assert null != edge : "Null edge in PortReorientConnectionViewCommand"; //$NON-NLS-1$
+		assert null != edge : "Null edge in TaiPanReorientConnectionViewCommand"; //$NON-NLS-1$
 		View tempView = edge.getSource();
 		edge.setSource(edge.getTarget());
 		edge.setTarget(tempView);

@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingEditPart;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingInfoEditPart;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.port.diagram.view.factories.BuildingInfoViewFactory;
 import org.eclipse.gmf.examples.taipan.port.diagram.view.factories.BuildingViewFactory;
 import org.eclipse.gmf.examples.taipan.port.diagram.view.factories.PortViewFactory;
@@ -28,14 +28,14 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class PortViewProvider extends AbstractViewProvider {
+public class TaiPanViewProvider extends AbstractViewProvider {
 
 	/**
 	 * @generated
 	 */
 	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		if (PortEditPart.MODEL_ID.equals(diagramKind) && PortVisualIDRegistry.getDiagramVisualID(semanticElement) != -1) {
+		if (PortEditPart.MODEL_ID.equals(diagramKind) && TaiPanVisualIDRegistry.getDiagramVisualID(semanticElement) != -1) {
 			return PortViewFactory.class;
 		}
 		return null;
@@ -58,22 +58,22 @@ public class PortViewProvider extends AbstractViewProvider {
 			if (elementType != null || domainElement == null) {
 				return null;
 			}
-			visualID = PortVisualIDRegistry.getNodeVisualID(containerView, domainElement);
+			visualID = TaiPanVisualIDRegistry.getNodeVisualID(containerView, domainElement);
 		} else {
-			visualID = PortVisualIDRegistry.getVisualID(semanticHint);
+			visualID = TaiPanVisualIDRegistry.getVisualID(semanticHint);
 			if (elementType != null) {
 				// Semantic hint is specified together with element type.
 				// Both parameters should describe exactly the same diagram element.
 				// In addition we check that visualID returned by VisualIDRegistry.getNodeVisualID() for
 				// domainElement (if specified) is the same as in element type.
-				if (!PortElementTypes.isKnownElementType(elementType) || (!(elementType instanceof IHintedType))) {
+				if (!TaiPanElementTypes.isKnownElementType(elementType) || (!(elementType instanceof IHintedType))) {
 					return null; // foreign element type
 				}
 				String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
 				if (!semanticHint.equals(elementTypeHint)) {
 					return null; // if semantic hint is specified it should be the same as in element type
 				}
-				if (domainElement != null && visualID != PortVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
+				if (domainElement != null && visualID != TaiPanVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
 					return null; // visual id for node EClass should match visual id from element type
 				}
 			} else {
@@ -81,17 +81,17 @@ public class PortViewProvider extends AbstractViewProvider {
 				// This method is called with EObjectAdapter as parameter from:
 				//   - ViewService.createNode(View container, EObject eObject, String type, PreferencesHint preferencesHint) 
 				//   - generated ViewFactory.decorateView() for parent element
-				if (!PortEditPart.MODEL_ID.equals(PortVisualIDRegistry.getModelID(containerView))) {
+				if (!PortEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(containerView))) {
 					return null; // foreign diagram
 				}
 				switch (visualID) {
 				case BuildingEditPart.VISUAL_ID:
-					if (domainElement == null || visualID != PortVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
+					if (domainElement == null || visualID != TaiPanVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
 						return null; // visual id in semantic hint should match visual id for domain element
 					}
 					break;
 				case BuildingInfoEditPart.VISUAL_ID:
-					if (BuildingEditPart.VISUAL_ID != PortVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
+					if (BuildingEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
 						return null; // wrong container
 					}
 					break;
@@ -107,7 +107,7 @@ public class PortViewProvider extends AbstractViewProvider {
 	 * @generated
 	 */
 	protected Class getNodeViewClass(View containerView, int visualID) {
-		if (containerView == null || !PortVisualIDRegistry.canCreateNode(containerView, visualID)) {
+		if (containerView == null || !TaiPanVisualIDRegistry.canCreateNode(containerView, visualID)) {
 			return null;
 		}
 		switch (visualID) {
@@ -124,7 +124,7 @@ public class PortViewProvider extends AbstractViewProvider {
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (!PortElementTypes.isKnownElementType(elementType) || (!(elementType instanceof IHintedType))) {
+		if (!TaiPanElementTypes.isKnownElementType(elementType) || (!(elementType instanceof IHintedType))) {
 			return null; // foreign element type
 		}
 		String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
@@ -134,9 +134,9 @@ public class PortViewProvider extends AbstractViewProvider {
 		if (semanticHint != null && !semanticHint.equals(elementTypeHint)) {
 			return null; // if semantic hint is specified it should be the same as in element type
 		}
-		int visualID = PortVisualIDRegistry.getVisualID(elementTypeHint);
+		int visualID = TaiPanVisualIDRegistry.getVisualID(elementTypeHint);
 		EObject domainElement = getSemanticElement(semanticAdapter);
-		if (domainElement != null && visualID != PortVisualIDRegistry.getLinkWithClassVisualID(domainElement)) {
+		if (domainElement != null && visualID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(domainElement)) {
 			return null; // visual id for link EClass should match visual id from element type
 		}
 		return getEdgeViewClass(visualID);

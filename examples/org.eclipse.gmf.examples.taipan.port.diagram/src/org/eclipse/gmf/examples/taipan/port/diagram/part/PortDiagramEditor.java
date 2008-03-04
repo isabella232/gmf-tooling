@@ -79,7 +79,7 @@ public class PortDiagramEditor extends DiagramDocumentEditor implements IGotoMar
 	 */
 	protected PaletteRoot createPaletteRoot(PaletteRoot existingPaletteRoot) {
 		PaletteRoot root = super.createPaletteRoot(existingPaletteRoot);
-		new PortPaletteFactory().fillPalette(root);
+		new TaiPanPaletteFactory().fillPalette(root);
 		return root;
 	}
 

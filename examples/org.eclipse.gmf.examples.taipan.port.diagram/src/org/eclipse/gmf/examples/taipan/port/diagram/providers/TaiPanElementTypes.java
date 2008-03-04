@@ -32,12 +32,12 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class PortElementTypes extends ElementInitializers {
+public class TaiPanElementTypes extends ElementInitializers {
 
 	/**
 	 * @generated
 	 */
-	private PortElementTypes() {
+	private TaiPanElementTypes() {
 	}
 
 	/**
@@ -59,7 +59,6 @@ public class PortElementTypes extends ElementInitializers {
 	 * @generated
 	 */
 	public static final IElementType Port_1000 = getElementType("org.eclipse.gmf.examples.taipan.port.diagram.Port_1000"); //$NON-NLS-1$
-
 	/**
 	 * @generated
 	 */

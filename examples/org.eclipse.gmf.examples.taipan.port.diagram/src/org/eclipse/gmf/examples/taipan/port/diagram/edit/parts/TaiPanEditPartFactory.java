@@ -18,7 +18,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.tools.CellEditorLocator;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
 import org.eclipse.gmf.runtime.notation.View;
@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Text;
 /**
  * @generated
  */
-public class PortEditPartFactory implements EditPartFactory {
+public class TaiPanEditPartFactory implements EditPartFactory {
 
 	/**
 	 * @generated
@@ -37,7 +37,7 @@ public class PortEditPartFactory implements EditPartFactory {
 	public EditPart createEditPart(EditPart context, Object model) {
 		if (model instanceof View) {
 			View view = (View) model;
-			switch (PortVisualIDRegistry.getVisualID(view)) {
+			switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 
 			case PortEditPart.VISUAL_ID:
 				return new PortEditPart(view);
@@ -112,7 +112,6 @@ public class PortEditPartFactory implements EditPartFactory {
 				text.setBounds(rect.x, rect.y, rect.width, rect.height);
 			}
 		}
-
 	}
 
 	/**

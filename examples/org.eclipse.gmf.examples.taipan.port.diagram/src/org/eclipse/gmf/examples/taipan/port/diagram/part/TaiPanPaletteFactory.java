@@ -19,13 +19,13 @@ import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.ToolEntry;
-import org.eclipse.gmf.examples.taipan.port.diagram.providers.PortElementTypes;
+import org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool;
 
 /**
  * @generated
  */
-public class PortPaletteFactory {
+public class TaiPanPaletteFactory {
 
 	/**
 	 * @generated
@@ -49,9 +49,9 @@ public class PortPaletteFactory {
 	 */
 	private ToolEntry createBuildingCreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(PortElementTypes.Building_2001);
+		types.add(TaiPanElementTypes.Building_2001);
 		NodeToolEntry entry = new NodeToolEntry(Messages.BuildingCreationTool_title, Messages.BuildingCreationTool_desc, types);
-		entry.setSmallIcon(PortElementTypes.getImageDescriptor(PortElementTypes.Building_2001));
+		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Building_2001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}

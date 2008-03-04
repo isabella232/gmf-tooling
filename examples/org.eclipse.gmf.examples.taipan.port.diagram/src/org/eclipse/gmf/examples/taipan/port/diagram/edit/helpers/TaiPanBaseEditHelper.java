@@ -23,7 +23,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
 /**
  * @generated
  */
-public class PortBaseEditHelper extends AbstractEditHelper {
+public class TaiPanBaseEditHelper extends AbstractEditHelper {
 
 	/**
 	 * @generated

@@ -21,13 +21,13 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class PortIconProvider extends AbstractProvider implements IIconProvider {
+public class TaiPanIconProvider extends AbstractProvider implements IIconProvider {
 
 	/**
 	 * @generated
 	 */
 	public Image getIcon(IAdaptable hint, int flags) {
-		return PortElementTypes.getImage(hint);
+		return TaiPanElementTypes.getImage(hint);
 	}
 
 	/**

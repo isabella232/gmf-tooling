@@ -33,7 +33,7 @@ import org.eclipse.ui.IWorkbenchPart;
 /**
  * @generated
  */
-public class PortInitDiagramFileAction implements IObjectActionDelegate {
+public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 
 	/**
 	 * @generated
@@ -87,12 +87,12 @@ public class PortInitDiagramFileAction implements IObjectActionDelegate {
 			PortDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + domainModelURI, ex); //$NON-NLS-1$
 		}
 		if (diagramRoot == null) {
-			MessageDialog.openError(getShell(), Messages.PortInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle,
-					Messages.PortInitDiagramFileAction_InitDiagramFileResourceErrorDialogMessage);
+			MessageDialog.openError(getShell(), Messages.TaiPanInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle,
+					Messages.TaiPanInitDiagramFileAction_InitDiagramFileResourceErrorDialogMessage);
 			return;
 		}
-		Wizard wizard = new PortNewDiagramFileWizard(domainModelURI, diagramRoot, editingDomain);
-		wizard.setWindowTitle(NLS.bind(Messages.PortInitDiagramFileAction_InitDiagramFileWizardTitle, PortEditPart.MODEL_ID));
-		PortDiagramEditorUtil.runWizard(getShell(), wizard, "InitDiagramFile"); //$NON-NLS-1$
+		Wizard wizard = new TaiPanNewDiagramFileWizard(domainModelURI, diagramRoot, editingDomain);
+		wizard.setWindowTitle(NLS.bind(Messages.TaiPanInitDiagramFileAction_InitDiagramFileWizardTitle, PortEditPart.MODEL_ID));
+		TaiPanDiagramEditorUtil.runWizard(getShell(), wizard, "InitDiagramFile"); //$NON-NLS-1$
 	}
 }
