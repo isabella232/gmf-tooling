@@ -143,6 +143,19 @@
           name="PortLocationFigure"
           text="&lt;...>"/>
     </descriptors>
+    <descriptors
+        name="BuildingFigure">
+      <actualFigure
+          xsi:type="gmfgraph:CustomFigure"
+          name="BuildingShape"
+          qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.BuildingShape">
+        <children
+            xsi:type="gmfgraph:Label"
+            name="BuildingInfoLabel"/>
+      </actualFigure>
+      <accessors
+          figure="//@figures.0/@descriptors.7/@actualFigure/@children.0"/>
+    </descriptors>
   </figures>
   <figures
       name="images"
@@ -254,6 +267,9 @@
   <nodes
       name="EmptyBox"
       figure="EmptyBoxFigure"/>
+  <nodes
+      name="Building"
+      figure="BuildingFigure"/>
   <connections
       name="ShipDestination"
       figure="ShipDestinationFigure"/>
@@ -324,4 +340,8 @@
       figure="UnreliableRouteFigure"
       elementIcon="false"
       accessor="//@figures.2/@descriptors.1/@accessors.1"/>
+  <labels
+      name="BuildingInfo"
+      figure="BuildingFigure"
+      accessor="//@figures.0/@descriptors.7/@accessors.0"/>
 </gmfgraph:Canvas>
