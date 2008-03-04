@@ -79,9 +79,7 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 				«EXPAND addValue("getSource()", getSourceType(), "newElement") FOR childMetaFeature-»
 			«ENDIF-»
 		«ENDIF-»
-		«IF modelElementInitializer != null-»
-			«link.diagram.getElementTypesQualifiedClassName()».Initializers.«link.getUniqueIdentifier()».init(«EXPAND MetaModel::DowncastToEObject("newElement") FOR metaClass»);
-		«ENDIF-»
+		«EXPAND initialize(link)»
 		return «EXPAND MetaModel::DowncastToEObject("newElement") FOR metaClass»;
 	}
 
@@ -98,3 +96,7 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 		«EXPAND MetaModel::setFeatureValue(containerVar, containerClass, valueVar)»;
 	«ENDIF-»
 «ENDDEFINE»
+
+«DEFINE initialize(GenLink link) FOR TypeModelFacet»«IF modelElementInitializer != null-»
+«link.diagram.getElementTypesQualifiedClassName()».Initializers.init_«link.getUniqueIdentifier()»(newElement);
+«ENDIF»«ENDDEFINE»

@@ -155,15 +155,13 @@ protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
 			«ENDIF-»
 		}
 		«ENDIF-»
-		«EXPAND initialize(node)-»
+		«EXPAND initialize(node)»
 	}
 	return «EXPAND MetaModel::DowncastToEObject("newElement") FOR metaClass»;
 }
 	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE initialize(gmfgen::GenNode node) FOR gmfgen::TypeModelFacet-»
-	«IF modelElementInitializer != null-»
-		«node.getDiagram().getElementTypesQualifiedClassName()».Initializers.«node.getUniqueIdentifier()».init(«EXPAND MetaModel::DowncastToEObject("newElement") FOR metaClass»);
-	«ENDIF-»
-«ENDDEFINE»
+«DEFINE initialize(gmfgen::GenNode node) FOR gmfgen::TypeModelFacet»«IF modelElementInitializer != null-»
+«node.getDiagram().getElementTypesQualifiedClassName()».Initializers.init_«node.getUniqueIdentifier()»(newElement);
+«ENDIF»«ENDDEFINE»

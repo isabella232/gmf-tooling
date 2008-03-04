@@ -69,6 +69,7 @@ false == «EXPAND IsInstance(accessor)»«ENDDEFINE»
 «ENDIF-»
 «ENDDEFINE»
 
+// FIXME support list features as well, i.e. do .add() instead of eSet
 «DEFINE setFeatureValue(String containerVar, genmodel::GenClass containerGenClass, String valueVar) FOR genmodel::GenFeature-»
 	«IF isExternalInterface(containerGenClass)-»
 ((org.eclipse.emf.ecore.EObject) «containerVar»).eSet(«EXPAND MetaFeature», «valueVar»)«-»
