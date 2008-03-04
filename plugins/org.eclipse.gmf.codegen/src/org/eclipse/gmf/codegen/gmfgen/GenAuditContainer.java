@@ -48,7 +48,7 @@ public interface GenAuditContainer extends EObject {
 	 * @return the value of the '<em>Root</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditContainer_Root()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRoot#getCategories
-	 * @model opposite="categories" required="true" transient="false" changeable="false"
+	 * @model opposite="categories" resolveProxies="false" required="true" transient="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	GenAuditRoot getRoot();

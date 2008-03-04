@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -586,6 +587,37 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	public GenEditorGenerator getEditorGen() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN) return null;
 		return (GenEditorGenerator)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetEditorGen(GenEditorGenerator newEditorGen, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newEditorGen, GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditorGen(GenEditorGenerator newEditorGen) {
+		if (newEditorGen != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN && newEditorGen != null)) {
+			if (EcoreUtil.isAncestor(this, newEditorGen))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newEditorGen != null)
+				msgs = ((InternalEObject)newEditorGen).eInverseAdd(this, GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR, GenEditorGenerator.class, msgs);
+			msgs = basicSetEditorGen(newEditorGen, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN, newEditorGen, newEditorGen));
 	}
 
 	/**
@@ -1419,7 +1451,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 			case GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN, msgs);
+				return basicSetEditorGen((GenEditorGenerator)otherEnd, msgs);
 			case GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildReferences()).basicAdd(otherEnd, msgs);
 		}
@@ -1435,7 +1467,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN, msgs);
+				return basicSetEditorGen(null, msgs);
 			case GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES:
 				return ((InternalEList<?>)getChildReferences()).basicRemove(otherEnd, msgs);
 		}
@@ -1553,6 +1585,9 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_NAVIGATOR_ITEM_CLASS_NAME:
 				setDomainNavigatorItemClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN:
+				setEditorGen((GenEditorGenerator)newValue);
+				return;
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_ID:
 				setContentExtensionID((String)newValue);
 				return;
@@ -1640,6 +1675,9 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 				return;
 			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_NAVIGATOR_ITEM_CLASS_NAME:
 				setDomainNavigatorItemClassName(DOMAIN_NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN:
+				setEditorGen((GenEditorGenerator)null);
 				return;
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_ID:
 				setContentExtensionID(CONTENT_EXTENSION_ID_EDEFAULT);

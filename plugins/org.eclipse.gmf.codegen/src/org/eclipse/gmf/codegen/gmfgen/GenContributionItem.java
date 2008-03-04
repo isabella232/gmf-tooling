@@ -42,7 +42,7 @@ public interface GenContributionItem extends EObject {
 	 * @return the value of the '<em>Owner</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenContributionItem_Owner()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenContributionManager#getItems
-	 * @model opposite="items" transient="false" changeable="false"
+	 * @model opposite="items" resolveProxies="false" transient="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	GenContributionManager getOwner();

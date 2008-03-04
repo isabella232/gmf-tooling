@@ -54,7 +54,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @return the value of the '<em>Editor Gen</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_EditorGen()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDiagram
-	 * @model opposite="diagram" transient="false" changeable="false"
+	 * @model opposite="diagram" resolveProxies="false" transient="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();

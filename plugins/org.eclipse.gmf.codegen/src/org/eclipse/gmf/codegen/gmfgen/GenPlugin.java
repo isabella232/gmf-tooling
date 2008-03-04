@@ -46,7 +46,7 @@ public interface GenPlugin extends EObject {
 	 * @return the value of the '<em>Editor Gen</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPlugin_EditorGen()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPlugin
-	 * @model opposite="plugin" transient="false" changeable="false"
+	 * @model opposite="plugin" resolveProxies="false" transient="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();

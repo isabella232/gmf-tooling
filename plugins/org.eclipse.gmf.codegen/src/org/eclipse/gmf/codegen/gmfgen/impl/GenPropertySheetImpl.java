@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -170,6 +171,37 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetEditorGen(GenEditorGenerator newEditorGen, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newEditorGen, GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditorGen(GenEditorGenerator newEditorGen) {
+		if (newEditorGen != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN && newEditorGen != null)) {
+			if (EcoreUtil.isAncestor(this, newEditorGen))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newEditorGen != null)
+				msgs = ((InternalEObject)newEditorGen).eInverseAdd(this, GMFGenPackage.GEN_EDITOR_GENERATOR__PROPERTY_SHEET, GenEditorGenerator.class, msgs);
+			msgs = basicSetEditorGen(newEditorGen, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN, newEditorGen, newEditorGen));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<GenPropertyTab> getTabs() {
 		if (tabs == null) {
 			tabs = new EObjectContainmentWithInverseEList<GenPropertyTab>(GenPropertyTab.class, this, GMFGenPackage.GEN_PROPERTY_SHEET__TABS, GMFGenPackage.GEN_PROPERTY_TAB__SHEET);
@@ -298,7 +330,7 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 			case GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN, msgs);
+				return basicSetEditorGen((GenEditorGenerator)otherEnd, msgs);
 			case GMFGenPackage.GEN_PROPERTY_SHEET__TABS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTabs()).basicAdd(otherEnd, msgs);
 		}
@@ -314,7 +346,7 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN, msgs);
+				return basicSetEditorGen(null, msgs);
 			case GMFGenPackage.GEN_PROPERTY_SHEET__TABS:
 				return ((InternalEList<?>)getTabs()).basicRemove(otherEnd, msgs);
 		}
@@ -368,6 +400,9 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN:
+				setEditorGen((GenEditorGenerator)newValue);
+				return;
 			case GMFGenPackage.GEN_PROPERTY_SHEET__TABS:
 				getTabs().clear();
 				getTabs().addAll((Collection<? extends GenPropertyTab>)newValue);
@@ -396,6 +431,9 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN:
+				setEditorGen((GenEditorGenerator)null);
+				return;
 			case GMFGenPackage.GEN_PROPERTY_SHEET__TABS:
 				getTabs().clear();
 				return;

@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
@@ -268,6 +269,37 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	public GenEditorGenerator getEditorGen() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_APPLICATION__EDITOR_GEN) return null;
 		return (GenEditorGenerator)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetEditorGen(GenEditorGenerator newEditorGen, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newEditorGen, GMFGenPackage.GEN_APPLICATION__EDITOR_GEN, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditorGen(GenEditorGenerator newEditorGen) {
+		if (newEditorGen != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_APPLICATION__EDITOR_GEN && newEditorGen != null)) {
+			if (EcoreUtil.isAncestor(this, newEditorGen))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newEditorGen != null)
+				msgs = ((InternalEObject)newEditorGen).eInverseAdd(this, GMFGenPackage.GEN_EDITOR_GENERATOR__APPLICATION, GenEditorGenerator.class, msgs);
+			msgs = basicSetEditorGen(newEditorGen, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__EDITOR_GEN, newEditorGen, newEditorGen));
 	}
 
 	/**
@@ -626,7 +658,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 			case GMFGenPackage.GEN_APPLICATION__EDITOR_GEN:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_APPLICATION__EDITOR_GEN, msgs);
+				return basicSetEditorGen((GenEditorGenerator)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -640,7 +672,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_APPLICATION__EDITOR_GEN:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_APPLICATION__EDITOR_GEN, msgs);
+				return basicSetEditorGen(null, msgs);
 			case GMFGenPackage.GEN_APPLICATION__SHARED_CONTRIBUTION_ITEMS:
 				return ((InternalEList<?>)getSharedContributionItems()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_APPLICATION__MAIN_MENU:
@@ -714,6 +746,9 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_APPLICATION__EDITOR_GEN:
+				setEditorGen((GenEditorGenerator)newValue);
+				return;
 			case GMFGenPackage.GEN_APPLICATION__ID:
 				setID((String)newValue);
 				return;
@@ -754,6 +789,9 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_APPLICATION__EDITOR_GEN:
+				setEditorGen((GenEditorGenerator)null);
+				return;
 			case GMFGenPackage.GEN_APPLICATION__ID:
 				setID(ID_EDEFAULT);
 				return;

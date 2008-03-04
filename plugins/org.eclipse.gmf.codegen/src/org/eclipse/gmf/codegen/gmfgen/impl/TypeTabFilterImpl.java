@@ -9,6 +9,7 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -18,10 +19,12 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
@@ -98,6 +101,37 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetTab(GenCustomPropertyTab newTab, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newTab, GMFGenPackage.TYPE_TAB_FILTER__TAB, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTab(GenCustomPropertyTab newTab) {
+		if (newTab != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.TYPE_TAB_FILTER__TAB && newTab != null)) {
+			if (EcoreUtil.isAncestor(this, newTab))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newTab != null)
+				msgs = ((InternalEObject)newTab).eInverseAdd(this, GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB__FILTER, GenCustomPropertyTab.class, msgs);
+			msgs = basicSetTab(newTab, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.TYPE_TAB_FILTER__TAB, newTab, newTab));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<String> getTypes() {
 		if (types == null) {
 			types = new EDataTypeUniqueEList<String>(String.class, this, GMFGenPackage.TYPE_TAB_FILTER__TYPES);
@@ -149,7 +183,7 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 			case GMFGenPackage.TYPE_TAB_FILTER__TAB:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.TYPE_TAB_FILTER__TAB, msgs);
+				return basicSetTab((GenCustomPropertyTab)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -163,7 +197,7 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.TYPE_TAB_FILTER__TAB:
-				return eBasicSetContainer(null, GMFGenPackage.TYPE_TAB_FILTER__TAB, msgs);
+				return basicSetTab(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -209,6 +243,9 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.TYPE_TAB_FILTER__TAB:
+				setTab((GenCustomPropertyTab)newValue);
+				return;
 			case GMFGenPackage.TYPE_TAB_FILTER__TYPES:
 				getTypes().clear();
 				getTypes().addAll((Collection<? extends String>)newValue);
@@ -229,6 +266,9 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.TYPE_TAB_FILTER__TAB:
+				setTab((GenCustomPropertyTab)null);
+				return;
 			case GMFGenPackage.TYPE_TAB_FILTER__TYPES:
 				getTypes().clear();
 				return;

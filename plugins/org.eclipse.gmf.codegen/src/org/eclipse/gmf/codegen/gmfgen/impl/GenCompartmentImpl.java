@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -266,6 +267,37 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetDiagram(GenDiagram newDiagram, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newDiagram, GMFGenPackage.GEN_COMPARTMENT__DIAGRAM, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDiagram(GenDiagram newDiagram) {
+		if (newDiagram != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_COMPARTMENT__DIAGRAM && newDiagram != null)) {
+			if (EcoreUtil.isAncestor(this, newDiagram))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newDiagram != null)
+				msgs = ((InternalEObject)newDiagram).eInverseAdd(this, GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS, GenDiagram.class, msgs);
+			msgs = basicSetDiagram(newDiagram, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_COMPARTMENT__DIAGRAM, newDiagram, newDiagram));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GenNode getNode() {
 		if (node != null && node.eIsProxy()) {
 			InternalEObject oldNode = (InternalEObject)node;
@@ -353,7 +385,7 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 			case GMFGenPackage.GEN_COMPARTMENT__DIAGRAM:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_COMPARTMENT__DIAGRAM, msgs);
+				return basicSetDiagram((GenDiagram)otherEnd, msgs);
 			case GMFGenPackage.GEN_COMPARTMENT__NODE:
 				if (node != null)
 					msgs = ((InternalEObject)node).eInverseRemove(this, GMFGenPackage.GEN_NODE__COMPARTMENTS, GenNode.class, msgs);
@@ -371,7 +403,7 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_COMPARTMENT__DIAGRAM:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_COMPARTMENT__DIAGRAM, msgs);
+				return basicSetDiagram(null, msgs);
 			case GMFGenPackage.GEN_COMPARTMENT__NODE:
 				return basicSetNode(null, msgs);
 		}
@@ -439,6 +471,9 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 			case GMFGenPackage.GEN_COMPARTMENT__NEEDS_TITLE:
 				setNeedsTitle(((Boolean)newValue).booleanValue());
 				return;
+			case GMFGenPackage.GEN_COMPARTMENT__DIAGRAM:
+				setDiagram((GenDiagram)newValue);
+				return;
 			case GMFGenPackage.GEN_COMPARTMENT__NODE:
 				setNode((GenNode)newValue);
 				return;
@@ -468,6 +503,9 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 				return;
 			case GMFGenPackage.GEN_COMPARTMENT__NEEDS_TITLE:
 				setNeedsTitle(NEEDS_TITLE_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_COMPARTMENT__DIAGRAM:
+				setDiagram((GenDiagram)null);
 				return;
 			case GMFGenPackage.GEN_COMPARTMENT__NODE:
 				setNode((GenNode)null);

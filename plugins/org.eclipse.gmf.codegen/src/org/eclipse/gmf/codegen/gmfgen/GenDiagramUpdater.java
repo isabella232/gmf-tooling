@@ -42,7 +42,7 @@ public interface GenDiagramUpdater extends EObject {
 	 * @return the value of the '<em>Editor Gen</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagramUpdater_EditorGen()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDiagramUpdater
-	 * @model opposite="diagramUpdater" transient="false" changeable="false"
+	 * @model opposite="diagramUpdater" resolveProxies="false" transient="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();

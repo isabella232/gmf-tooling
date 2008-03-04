@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EStringToStringMapEntryImpl;
 
 import org.eclipse.emf.ecore.util.EcoreEMap;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gmf.codegen.gmfgen.AbstractToolEntry;
@@ -129,6 +130,37 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetGroup(ToolGroup newGroup, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newGroup, GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setGroup(ToolGroup newGroup) {
+		if (newGroup != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP && newGroup != null)) {
+			if (EcoreUtil.isAncestor(this, newGroup))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newGroup != null)
+				msgs = ((InternalEObject)newGroup).eInverseAdd(this, GMFGenPackage.TOOL_GROUP__ENTRIES, ToolGroup.class, msgs);
+			msgs = basicSetGroup(newGroup, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP, newGroup, newGroup));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean isDefault() {
 		return default_;
 	}
@@ -189,7 +221,7 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP, msgs);
+				return basicSetGroup((ToolGroup)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -203,7 +235,7 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP:
-				return eBasicSetContainer(null, GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP, msgs);
+				return basicSetGroup(null, msgs);
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__PROPERTIES:
 				return ((InternalEList<?>)getProperties()).basicRemove(otherEnd, msgs);
 		}
@@ -253,6 +285,9 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP:
+				setGroup((ToolGroup)newValue);
+				return;
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__DEFAULT:
 				setDefault(((Boolean)newValue).booleanValue());
 				return;
@@ -274,6 +309,9 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP:
+				setGroup((ToolGroup)null);
+				return;
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__DEFAULT:
 				setDefault(DEFAULT_EDEFAULT);
 				return;

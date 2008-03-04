@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
@@ -189,7 +190,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER, msgs);
+				return basicSetCreatingInitializer((GenReferenceNewElementSpec)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -205,7 +206,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS:
 				return ((InternalEList<?>)getInitializers()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER, msgs);
+				return basicSetCreatingInitializer(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -262,6 +263,9 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__ELEMENT_CLASS:
 				setElementClass((GenClass)newValue);
 				return;
+			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER:
+				setCreatingInitializer((GenReferenceNewElementSpec)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -279,6 +283,9 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 				return;
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__ELEMENT_CLASS:
 				setElementClass((GenClass)null);
+				return;
+			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER:
+				setCreatingInitializer((GenReferenceNewElementSpec)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -345,5 +352,36 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	public GenReferenceNewElementSpec getCreatingInitializer() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER) return null;
 		return (GenReferenceNewElementSpec)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetCreatingInitializer(GenReferenceNewElementSpec newCreatingInitializer, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newCreatingInitializer, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCreatingInitializer(GenReferenceNewElementSpec newCreatingInitializer) {
+		if (newCreatingInitializer != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER && newCreatingInitializer != null)) {
+			if (EcoreUtil.isAncestor(this, newCreatingInitializer))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newCreatingInitializer != null)
+				msgs = ((InternalEObject)newCreatingInitializer).eInverseAdd(this, GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS, GenReferenceNewElementSpec.class, msgs);
+			msgs = basicSetCreatingInitializer(newCreatingInitializer, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER, newCreatingInitializer, newCreatingInitializer));
 	}
 } //GenFeatureSeqInitializerImpl

@@ -52,7 +52,7 @@ public interface GenApplication extends EObject {
 	 * @return the value of the '<em>Editor Gen</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_EditorGen()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getApplication
-	 * @model opposite="application" required="true" transient="false" changeable="false"
+	 * @model opposite="application" resolveProxies="false" required="true" transient="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();

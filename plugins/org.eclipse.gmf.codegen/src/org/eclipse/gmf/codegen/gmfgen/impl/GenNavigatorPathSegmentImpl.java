@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath;
@@ -83,6 +84,37 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 	public GenNavigatorPath getPath() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH) return null;
 		return (GenNavigatorPath)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetPath(GenNavigatorPath newPath, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newPath, GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPath(GenNavigatorPath newPath) {
+		if (newPath != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH && newPath != null)) {
+			if (EcoreUtil.isAncestor(this, newPath))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newPath != null)
+				msgs = ((InternalEObject)newPath).eInverseAdd(this, GMFGenPackage.GEN_NAVIGATOR_PATH__SEGMENTS, GenNavigatorPath.class, msgs);
+			msgs = basicSetPath(newPath, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH, newPath, newPath));
 	}
 
 	/**
@@ -172,7 +204,7 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 			case GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH, msgs);
+				return basicSetPath((GenNavigatorPath)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -186,7 +218,7 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH, msgs);
+				return basicSetPath(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -233,6 +265,9 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH:
+				setPath((GenNavigatorPath)newValue);
+				return;
 			case GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__FROM:
 				setFrom((GenCommonBase)newValue);
 				return;
@@ -251,6 +286,9 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH:
+				setPath((GenNavigatorPath)null);
+				return;
 			case GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__FROM:
 				setFrom((GenCommonBase)null);
 				return;

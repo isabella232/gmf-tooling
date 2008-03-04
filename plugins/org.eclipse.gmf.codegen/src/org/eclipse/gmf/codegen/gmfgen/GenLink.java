@@ -50,7 +50,7 @@ public interface GenLink extends GenCommonBase {
 	 * @return the value of the '<em>Diagram</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_Diagram()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getLinks
-	 * @model opposite="links" required="true" transient="false" changeable="false"
+	 * @model opposite="links" resolveProxies="false" required="true" transient="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	GenDiagram getDiagram();

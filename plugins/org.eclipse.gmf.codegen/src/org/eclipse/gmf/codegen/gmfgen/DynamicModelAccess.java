@@ -39,7 +39,7 @@ public interface DynamicModelAccess extends EObject {
 	 * @return the value of the '<em>Editor Gen</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getDynamicModelAccess_EditorGen()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getModelAccess
-	 * @model opposite="modelAccess" transient="false" suppressedSetVisibility="true"
+	 * @model opposite="modelAccess" resolveProxies="false" transient="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();

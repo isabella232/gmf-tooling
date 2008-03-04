@@ -48,7 +48,7 @@ public interface GenPropertySheet extends EObject {
 	 * @return the value of the '<em>Editor Gen</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPropertySheet_EditorGen()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPropertySheet
-	 * @model opposite="propertySheet" required="true" transient="false" changeable="false"
+	 * @model opposite="propertySheet" resolveProxies="false" required="true" transient="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();

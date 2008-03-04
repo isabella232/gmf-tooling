@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
@@ -180,6 +181,37 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	public GenNavigator getNavigator() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR) return null;
 		return (GenNavigator)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetNavigator(GenNavigator newNavigator, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newNavigator, GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNavigator(GenNavigator newNavigator) {
+		if (newNavigator != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR && newNavigator != null)) {
+			if (EcoreUtil.isAncestor(this, newNavigator))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newNavigator != null)
+				msgs = ((InternalEObject)newNavigator).eInverseAdd(this, GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES, GenNavigator.class, msgs);
+			msgs = basicSetNavigator(newNavigator, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR, newNavigator, newNavigator));
 	}
 
 	/**
@@ -396,7 +428,7 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR, msgs);
+				return basicSetNavigator((GenNavigator)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -410,7 +442,7 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR, msgs);
+				return basicSetNavigator(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -465,6 +497,9 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR:
+				setNavigator((GenNavigator)newValue);
+				return;
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__PARENT:
 				setParent((GenCommonBase)newValue);
 				return;
@@ -495,6 +530,9 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR:
+				setNavigator((GenNavigator)null);
+				return;
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__PARENT:
 				setParent((GenCommonBase)null);
 				return;

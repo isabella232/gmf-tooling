@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
@@ -2466,6 +2467,37 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetEditorGen(GenEditorGenerator newEditorGen, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newEditorGen, GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditorGen(GenEditorGenerator newEditorGen) {
+		if (newEditorGen != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN && newEditorGen != null)) {
+			if (EcoreUtil.isAncestor(this, newEditorGen))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newEditorGen != null)
+				msgs = ((InternalEObject)newEditorGen).eInverseAdd(this, GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM, GenEditorGenerator.class, msgs);
+			msgs = basicSetEditorGen(newEditorGen, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN, newEditorGen, newEditorGen));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getProvidersPackageNameGen() {
 		return providersPackageName;
 	}
@@ -3641,7 +3673,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN, msgs);
+				return basicSetEditorGen((GenEditorGenerator)otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildNodes()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
@@ -3667,7 +3699,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN, msgs);
+				return basicSetEditorGen(null, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:
 				return ((InternalEList<?>)getChildNodes()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
@@ -4058,6 +4090,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				setUnits((String)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
+				setEditorGen((GenEditorGenerator)newValue);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				setDomainDiagramElement((GenClass)newValue);
 				return;
@@ -4287,6 +4322,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				setUnits(UNITS_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
+				setEditorGen((GenEditorGenerator)null);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				setDomainDiagramElement((GenClass)null);

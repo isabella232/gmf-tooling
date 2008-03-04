@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
@@ -216,6 +217,37 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	public GenEditorGenerator getEditorGen() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN) return null;
 		return (GenEditorGenerator)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetEditorGen(GenEditorGenerator newEditorGen, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newEditorGen, GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditorGen(GenEditorGenerator newEditorGen) {
+		if (newEditorGen != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN && newEditorGen != null)) {
+			if (EcoreUtil.isAncestor(this, newEditorGen))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newEditorGen != null)
+				msgs = ((InternalEObject)newEditorGen).eInverseAdd(this, GMFGenPackage.GEN_EDITOR_GENERATOR__EDITOR, GenEditorGenerator.class, msgs);
+			msgs = basicSetEditorGen(newEditorGen, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN, newEditorGen, newEditorGen));
 	}
 
 	/**
@@ -465,7 +497,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 			case GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN, msgs);
+				return basicSetEditorGen((GenEditorGenerator)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -479,7 +511,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN, msgs);
+				return basicSetEditorGen(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -536,6 +568,9 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN:
+				setEditorGen((GenEditorGenerator)newValue);
+				return;
 			case GMFGenPackage.GEN_EDITOR_VIEW__PACKAGE_NAME:
 				setPackageName((String)newValue);
 				return;
@@ -569,6 +604,9 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN:
+				setEditorGen((GenEditorGenerator)null);
+				return;
 			case GMFGenPackage.GEN_EDITOR_VIEW__PACKAGE_NAME:
 				setPackageName(PACKAGE_NAME_EDEFAULT);
 				return;

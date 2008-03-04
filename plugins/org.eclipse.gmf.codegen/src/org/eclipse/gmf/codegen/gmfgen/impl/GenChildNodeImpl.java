@@ -6,11 +6,14 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
@@ -76,6 +79,37 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetDiagram(GenDiagram newDiagram, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newDiagram, GMFGenPackage.GEN_CHILD_NODE__DIAGRAM, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDiagram(GenDiagram newDiagram) {
+		if (newDiagram != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_CHILD_NODE__DIAGRAM && newDiagram != null)) {
+			if (EcoreUtil.isAncestor(this, newDiagram))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newDiagram != null)
+				msgs = ((InternalEObject)newDiagram).eInverseAdd(this, GMFGenPackage.GEN_DIAGRAM__CHILD_NODES, GenDiagram.class, msgs);
+			msgs = basicSetDiagram(newDiagram, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_CHILD_NODE__DIAGRAM, newDiagram, newDiagram));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<GenChildContainer> getContainers() {
 		if (containers == null) {
 			containers = new EObjectWithInverseResolvingEList.ManyInverse<GenChildContainer>(GenChildContainer.class, this, GMFGenPackage.GEN_CHILD_NODE__CONTAINERS, GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES);
@@ -95,7 +129,7 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_CHILD_NODE__DIAGRAM, msgs);
+				return basicSetDiagram((GenDiagram)otherEnd, msgs);
 			case GMFGenPackage.GEN_CHILD_NODE__CONTAINERS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getContainers()).basicAdd(otherEnd, msgs);
 		}
@@ -111,7 +145,7 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_CHILD_NODE__DIAGRAM, msgs);
+				return basicSetDiagram(null, msgs);
 			case GMFGenPackage.GEN_CHILD_NODE__CONTAINERS:
 				return ((InternalEList<?>)getContainers()).basicRemove(otherEnd, msgs);
 		}
@@ -146,6 +180,36 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return getContainers();
 		}
 		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
+				setDiagram((GenDiagram)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
+				setDiagram((GenDiagram)null);
+				return;
+		}
+		super.eUnset(featureID);
 	}
 
 	/**

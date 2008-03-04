@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.Behaviour;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
@@ -79,6 +80,37 @@ public class SharedBehaviourImpl extends EObjectImpl implements SharedBehaviour 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetSubject(GenCommonBase newSubject, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newSubject, GMFGenPackage.SHARED_BEHAVIOUR__SUBJECT, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSubject(GenCommonBase newSubject) {
+		if (newSubject != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.SHARED_BEHAVIOUR__SUBJECT && newSubject != null)) {
+			if (EcoreUtil.isAncestor(this, newSubject))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newSubject != null)
+				msgs = ((InternalEObject)newSubject).eInverseAdd(this, GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR, GenCommonBase.class, msgs);
+			msgs = basicSetSubject(newSubject, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.SHARED_BEHAVIOUR__SUBJECT, newSubject, newSubject));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Behaviour getDelegate() {
 		if (delegate != null && delegate.eIsProxy()) {
 			InternalEObject oldDelegate = (InternalEObject)delegate;
@@ -132,7 +164,7 @@ public class SharedBehaviourImpl extends EObjectImpl implements SharedBehaviour 
 			case GMFGenPackage.SHARED_BEHAVIOUR__SUBJECT:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.SHARED_BEHAVIOUR__SUBJECT, msgs);
+				return basicSetSubject((GenCommonBase)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -146,7 +178,7 @@ public class SharedBehaviourImpl extends EObjectImpl implements SharedBehaviour 
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.SHARED_BEHAVIOUR__SUBJECT:
-				return eBasicSetContainer(null, GMFGenPackage.SHARED_BEHAVIOUR__SUBJECT, msgs);
+				return basicSetSubject(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -190,6 +222,9 @@ public class SharedBehaviourImpl extends EObjectImpl implements SharedBehaviour 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.SHARED_BEHAVIOUR__SUBJECT:
+				setSubject((GenCommonBase)newValue);
+				return;
 			case GMFGenPackage.SHARED_BEHAVIOUR__DELEGATE:
 				setDelegate((Behaviour)newValue);
 				return;
@@ -205,6 +240,9 @@ public class SharedBehaviourImpl extends EObjectImpl implements SharedBehaviour 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.SHARED_BEHAVIOUR__SUBJECT:
+				setSubject((GenCommonBase)null);
+				return;
 			case GMFGenPackage.SHARED_BEHAVIOUR__DELEGATE:
 				setDelegate((Behaviour)null);
 				return;

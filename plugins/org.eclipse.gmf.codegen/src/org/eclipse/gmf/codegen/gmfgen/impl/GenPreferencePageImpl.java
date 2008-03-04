@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -179,6 +180,37 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetParent(GenPreferencePage newParent, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newParent, GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setParent(GenPreferencePage newParent) {
+		if (newParent != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT && newParent != null)) {
+			if (EcoreUtil.isAncestor(this, newParent))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newParent != null)
+				msgs = ((InternalEObject)newParent).eInverseAdd(this, GMFGenPackage.GEN_PREFERENCE_PAGE__CHILDREN, GenPreferencePage.class, msgs);
+			msgs = basicSetParent(newParent, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT, newParent, newParent));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public GenDiagram getDiagram() {
@@ -205,7 +237,7 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT, msgs);
+				return basicSetParent((GenPreferencePage)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -221,7 +253,7 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__CHILDREN:
 				return ((InternalEList<?>)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT, msgs);
+				return basicSetParent(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -279,6 +311,9 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 				getChildren().clear();
 				getChildren().addAll((Collection<? extends GenPreferencePage>)newValue);
 				return;
+			case GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT:
+				setParent((GenPreferencePage)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -299,6 +334,9 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 				return;
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__CHILDREN:
 				getChildren().clear();
+				return;
+			case GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT:
+				setParent((GenPreferencePage)null);
 				return;
 		}
 		super.eUnset(featureID);

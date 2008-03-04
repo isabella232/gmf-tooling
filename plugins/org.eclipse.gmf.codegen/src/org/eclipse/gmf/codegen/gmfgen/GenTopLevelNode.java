@@ -36,7 +36,7 @@ public interface GenTopLevelNode extends GenNode {
 	 * @return the value of the '<em>Diagram</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenTopLevelNode_Diagram()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getTopLevelNodes
-	 * @model opposite="topLevelNodes" required="true" transient="false" changeable="false"
+	 * @model opposite="topLevelNodes" resolveProxies="false" required="true" transient="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	GenDiagram getDiagram();

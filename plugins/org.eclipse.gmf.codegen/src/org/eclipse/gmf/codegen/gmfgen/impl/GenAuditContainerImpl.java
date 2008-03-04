@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -159,6 +160,37 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetRoot(GenAuditRoot newRoot, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newRoot, GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRoot(GenAuditRoot newRoot) {
+		if (newRoot != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT && newRoot != null)) {
+			if (EcoreUtil.isAncestor(this, newRoot))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newRoot != null)
+				msgs = ((InternalEObject)newRoot).eInverseAdd(this, GMFGenPackage.GEN_AUDIT_ROOT__CATEGORIES, GenAuditRoot.class, msgs);
+			msgs = basicSetRoot(newRoot, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT, newRoot, newRoot));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getId() {
 		return id;
 	}
@@ -253,7 +285,7 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT, msgs);
+				return basicSetRoot((GenAuditRoot)otherEnd, msgs);
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__AUDITS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getAudits()).basicAdd(otherEnd, msgs);
 		}
@@ -269,7 +301,7 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT, msgs);
+				return basicSetRoot(null, msgs);
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__AUDITS:
 				return ((InternalEList<?>)getAudits()).basicRemove(otherEnd, msgs);
 		}
@@ -323,6 +355,9 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT:
+				setRoot((GenAuditRoot)newValue);
+				return;
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__ID:
 				setId((String)newValue);
 				return;
@@ -352,6 +387,9 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT:
+				setRoot((GenAuditRoot)null);
+				return;
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__ID:
 				setId(ID_EDEFAULT);
 				return;

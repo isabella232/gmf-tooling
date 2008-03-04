@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.CustomTabFilter;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 
@@ -91,6 +92,37 @@ public class CustomTabFilterImpl extends EObjectImpl implements CustomTabFilter 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetTab(GenCustomPropertyTab newTab, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newTab, GMFGenPackage.CUSTOM_TAB_FILTER__TAB, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTab(GenCustomPropertyTab newTab) {
+		if (newTab != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.CUSTOM_TAB_FILTER__TAB && newTab != null)) {
+			if (EcoreUtil.isAncestor(this, newTab))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newTab != null)
+				msgs = ((InternalEObject)newTab).eInverseAdd(this, GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB__FILTER, GenCustomPropertyTab.class, msgs);
+			msgs = basicSetTab(newTab, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.CUSTOM_TAB_FILTER__TAB, newTab, newTab));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getClassName() {
 		return className;
 	}
@@ -127,7 +159,7 @@ public class CustomTabFilterImpl extends EObjectImpl implements CustomTabFilter 
 			case GMFGenPackage.CUSTOM_TAB_FILTER__TAB:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.CUSTOM_TAB_FILTER__TAB, msgs);
+				return basicSetTab((GenCustomPropertyTab)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -141,7 +173,7 @@ public class CustomTabFilterImpl extends EObjectImpl implements CustomTabFilter 
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.CUSTOM_TAB_FILTER__TAB:
-				return eBasicSetContainer(null, GMFGenPackage.CUSTOM_TAB_FILTER__TAB, msgs);
+				return basicSetTab(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -184,6 +216,9 @@ public class CustomTabFilterImpl extends EObjectImpl implements CustomTabFilter 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.CUSTOM_TAB_FILTER__TAB:
+				setTab((GenCustomPropertyTab)newValue);
+				return;
 			case GMFGenPackage.CUSTOM_TAB_FILTER__CLASS_NAME:
 				setClassName((String)newValue);
 				return;
@@ -199,6 +234,9 @@ public class CustomTabFilterImpl extends EObjectImpl implements CustomTabFilter 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.CUSTOM_TAB_FILTER__TAB:
+				setTab((GenCustomPropertyTab)null);
+				return;
 			case GMFGenPackage.CUSTOM_TAB_FILTER__CLASS_NAME:
 				setClassName(CLASS_NAME_EDEFAULT);
 				return;

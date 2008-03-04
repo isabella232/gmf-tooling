@@ -89,7 +89,7 @@ public interface GenFeatureSeqInitializer extends GenElementInitializer {
 	 * @return the value of the '<em>Creating Initializer</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenFeatureSeqInitializer_CreatingInitializer()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec#getNewElementInitializers
-	 * @model opposite="newElementInitializers" transient="false" changeable="false"
+	 * @model opposite="newElementInitializers" resolveProxies="false" transient="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	GenReferenceNewElementSpec getCreatingInitializer();

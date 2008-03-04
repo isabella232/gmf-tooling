@@ -43,7 +43,7 @@ public interface GenMetricContainer extends EObject {
 	 * @return the value of the '<em>Editor Gen</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenMetricContainer_EditorGen()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getMetrics
-	 * @model opposite="metrics" required="true" transient="false" changeable="false"
+	 * @model opposite="metrics" resolveProxies="false" required="true" transient="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();
