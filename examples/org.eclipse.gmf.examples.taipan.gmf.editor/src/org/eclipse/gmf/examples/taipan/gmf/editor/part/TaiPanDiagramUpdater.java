@@ -600,7 +600,7 @@ public class TaiPanDiagramUpdater {
 	private static Collection getContainedTypeModelFacetLinks_Route_4002(Aquatory container) {
 		Collection result = new LinkedList();
 		for (Iterator links = container.getRoutes().iterator(); links.hasNext();) {
-			Object linkObject = links.next();
+			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof Route) {
 				continue;
 			}
@@ -621,7 +621,7 @@ public class TaiPanDiagramUpdater {
 	private static Collection getContainedTypeModelFacetLinks_Route_4003(Aquatory container) {
 		Collection result = new LinkedList();
 		for (Iterator links = container.getRoutes().iterator(); links.hasNext();) {
-			Object linkObject = links.next();
+			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof Route) {
 				continue;
 			}
@@ -642,7 +642,7 @@ public class TaiPanDiagramUpdater {
 	private static Collection getContainedTypeModelFacetLinks_BesiegePortOrder_4005(Warship container) {
 		Collection result = new LinkedList();
 		for (Iterator links = container.getAttackOrders().iterator(); links.hasNext();) {
-			Object linkObject = links.next();
+			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof BesiegePortOrder) {
 				continue;
 			}
@@ -843,7 +843,7 @@ public class TaiPanDiagramUpdater {
 		}
 		Collection result = new LinkedList();
 		for (Iterator links = container.getRoutes().iterator(); links.hasNext();) {
-			Object linkObject = links.next();
+			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof Route) {
 				continue;
 			}
@@ -879,7 +879,7 @@ public class TaiPanDiagramUpdater {
 		}
 		Collection result = new LinkedList();
 		for (Iterator links = container.getRoutes().iterator(); links.hasNext();) {
-			Object linkObject = links.next();
+			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof Route) {
 				continue;
 			}
