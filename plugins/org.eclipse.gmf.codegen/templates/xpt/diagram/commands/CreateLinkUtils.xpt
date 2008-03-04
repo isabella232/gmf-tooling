@@ -151,5 +151,13 @@
 «ENDDEFINE»
 
 «DEFINE setElementToEdit(String elementVar) FOR genmodel::GenFeature-»
-	setElementToEdit(«IF isExternalInterface(genClass)»(org.eclipse.emf.ecore.EObject) «ENDIF»«elementVar»);
+	setElementToEdit(«EXPAND MetaModel::DowncastToEObject(elementVar) FOR genClass»);
+«ENDDEFINE»
+
+«DEFINE addValue(String containerVar, genmodel::GenClass containerClass, String valueVar) FOR genmodel::GenFeature-»
+«IF isListType()-»
+	«EXPAND MetaModel::getFeatureValue(containerVar, containerClass)».add(«valueVar»);
+«ELSE-»
+	«EXPAND MetaModel::setFeatureValue(containerVar, containerClass, valueVar)»;
+«ENDIF-»
 «ENDDEFINE»

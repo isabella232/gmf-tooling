@@ -15,6 +15,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 
 «EXTENSION xpt::GenModelUtils»
+«EXTENSION xpt::diagram::Utils»
 
 «DEFINE CreateLinkCommand FOR gmfgen::GenLink-»
 «EXPAND xpt::Common::copyright FOR diagram.editorGen-»
@@ -67,16 +68,16 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
 		«EXPAND MetaModel::NewInstance("newElement") FOR metaClass-»
-		«EXPAND addValue(sourceMetaFeature != null ? "getContainer()" : "getSource()", containmentMetaFeature.genClass, "newElement") FOR containmentMetaFeature-»
+		«EXPAND CreateLinkUtils::addValue(sourceMetaFeature != null ? "getContainer()" : "getSource()", containmentMetaFeature.genClass, "newElement") FOR containmentMetaFeature-»
 		«IF sourceMetaFeature != null-»
-			«EXPAND addValue("newElement", metaClass, "getSource()") FOR sourceMetaFeature-»
+			«EXPAND CreateLinkUtils::addValue("newElement", metaClass, "getSource()") FOR sourceMetaFeature-»
 		«ENDIF-»
-		«EXPAND addValue("newElement", metaClass, "getTarget()") FOR targetMetaFeature-»
-		«IF !childMetaFeature.ecoreFeature.derived && childMetaFeature != containmentMetaFeature-»
+		«EXPAND CreateLinkUtils::addValue("newElement", metaClass, "getTarget()") FOR targetMetaFeature-»
+		«IF hasExplicitChildFeature()-»
 			«IF sourceMetaFeature != null-»
-				«EXPAND addValue("getContainer()", containmentMetaFeature.genClass, "newElement") FOR childMetaFeature-»
+				«EXPAND CreateLinkUtils::addValue("getContainer()", containmentMetaFeature.genClass, "newElement") FOR childMetaFeature-»
 			«ELSE-»
-				«EXPAND addValue("getSource()", getSourceType(), "newElement") FOR childMetaFeature-»
+				«EXPAND CreateLinkUtils::addValue("getSource()", getSourceType(), "newElement") FOR childMetaFeature-»
 			«ENDIF-»
 		«ENDIF-»
 		«EXPAND initialize(link)»
@@ -87,14 +88,6 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 	protected org.eclipse.emf.ecore.EClass getEClassToEdit() {
 		return «EXPAND MetaModel::MetaClass FOR containmentMetaFeature.genClass»;
 	}
-«ENDDEFINE»
-
-«DEFINE addValue(String containerVar, genmodel::GenClass containerClass, String valueVar) FOR genmodel::GenFeature-»
-	«IF isListType()-»
-		«EXPAND MetaModel::getFeatureValue(containerVar, containerClass)».add(«valueVar»);
-	«ELSE-»
-		«EXPAND MetaModel::setFeatureValue(containerVar, containerClass, valueVar)»;
-	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE initialize(GenLink link) FOR TypeModelFacet»«IF modelElementInitializer != null-»

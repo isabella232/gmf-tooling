@@ -33,7 +33,7 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 			
 			«EXPAND getContainmentFeature-»
 			
-			«EXPAND doDefaultElementCreation_Phantom-»
+			«EXPAND doDefaultElementCreation_Phantom(this) FOR modelFacet-»
 		«ELSE-»
 			«EXPAND canExecute_Normal FOR modelFacet-»
 			
@@ -119,7 +119,7 @@ protected org.eclipse.emf.ecore.EClass getEClassToEdit() {
 }
 «ENDDEFINE»
 
-«DEFINE doDefaultElementCreation_Phantom FOR gmfgen::GenNode-»
+«DEFINE doDefaultElementCreation_Phantom(gmfgen::GenNode node) FOR TypeModelFacet-»
 	«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
 	// Uncomment to put "phantom" objects into the diagram file.		
@@ -129,11 +129,10 @@ protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
 	// 	return null;
 	// }
 	org.eclipse.emf.ecore.resource.Resource resource = getElementToEdit().eResource();
-	org.eclipse.emf.ecore.EClass eClass = getElementType().getEClass();
-	org.eclipse.emf.ecore.EObject newElement = eClass.getEPackage().getEFactoryInstance().create(eClass);
-	resource.getContents().add(newElement);
-	«EXPAND initialize(this) FOR modelFacet-»
-	return newElement;
+	«EXPAND MetaModel::NewInstance("newElement") FOR metaClass»
+	resource.getContents().add(«EXPAND MetaModel::DowncastToEObject("newElement") FOR metaClass»);
+	«EXPAND initialize(node)-»
+	return «EXPAND MetaModel::DowncastToEObject("newElement") FOR metaClass»;
 }
 «ENDDEFINE»
 
@@ -142,21 +141,16 @@ protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
-	// FIXME replace with «EXPAND MetaModel::NewInstance("newElement") FOR metaClass»
-	«EXPAND MetaModel::DeclareAndAssign("newElement", "super.doDefaultElementCreation()") FOR metaClass»
-	if (newElement != null) {
-		«IF hasExplicitChildFeature(this)-»
-		«EXPAND MetaModel::DeclareAndAssign("container", "getElementToEdit()") FOR childMetaFeature.genClass»
-		if (container != null) {
-			«IF isListType(childMetaFeature)-»
-				«EXPAND MetaModel::getFeatureValue("container", childMetaFeature.genClass) FOR childMetaFeature».add(newElement);
-			«ELSE-»
-				«EXPAND MetaModel::setFeatureValue("container", childMetaFeature.genClass, "newElement") FOR childMetaFeature»;
-			«ENDIF-»
-		}
-		«ENDIF-»
-		«EXPAND initialize(node)»
-	}
+	«EXPAND MetaModel::NewInstance("newElement") FOR metaClass»
+«IF containmentMetaFeature != null-»
+	«EXPAND MetaModel::DeclareAndAssign("owner", "getElementToEdit()") FOR containmentMetaFeature.genClass»
+	«EXPAND CreateLinkUtils::addValue("owner", containmentMetaFeature.genClass, "newElement") FOR containmentMetaFeature-»
+«ENDIF»
+«IF hasExplicitChildFeature(this)-»
+	«EXPAND MetaModel::DeclareAndAssign("childHolder", "getElementToEdit()") FOR childMetaFeature.genClass»
+	«EXPAND CreateLinkUtils::addValue("childHolder", childMetaFeature.genClass, "newElement") FOR childMetaFeature»
+«ENDIF-»
+	«EXPAND initialize(node)-»
 	return «EXPAND MetaModel::DowncastToEObject("newElement") FOR metaClass»;
 }
 	«ENDIF-»
