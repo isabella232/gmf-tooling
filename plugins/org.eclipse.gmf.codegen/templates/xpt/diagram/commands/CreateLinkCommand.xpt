@@ -80,8 +80,7 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 			«ENDIF-»
 		«ENDIF-»
 		«IF modelElementInitializer != null-»
-			«link.diagram.getElementTypesQualifiedClassName()».Initializers.«link.getUniqueIdentifier()».init(
-					«IF isExternalInterface(metaClass)»(org.eclipse.emf.ecore.EObject) «ENDIF»newElement);
+			«link.diagram.getElementTypesQualifiedClassName()».Initializers.«link.getUniqueIdentifier()».init(«EXPAND MetaModel::DowncastToEObject("newElement") FOR metaClass»);
 		«ENDIF-»
 		return «EXPAND MetaModel::DowncastToEObject("newElement") FOR metaClass»;
 	}
