@@ -57,7 +57,7 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (!(getElementToEdit() instanceof BesiegePortOrder)) {
+		if (false == getElementToEdit() instanceof BesiegePortOrder) {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {

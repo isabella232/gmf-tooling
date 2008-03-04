@@ -63,7 +63,7 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (!(referenceOwner instanceof Ship)) {
+		if (false == referenceOwner instanceof Ship) {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {

@@ -78,10 +78,10 @@ public class UnreliableRouteCreateCommand extends CreateElementCommand {
 		if (source == null && target == null) {
 			return false;
 		}
-		if (source != null && !(source instanceof Destination)) {
+		if (source != null && false == source instanceof Destination) {
 			return false;
 		}
-		if (target != null && !(target instanceof Destination)) {
+		if (target != null && false == target instanceof Destination) {
 			return false;
 		}
 		if (getSource() == null) {
@@ -98,7 +98,6 @@ public class UnreliableRouteCreateCommand extends CreateElementCommand {
 	 * @generated
 	 */
 	protected EObject doDefaultElementCreation() {
-		// org.eclipse.gmf.examples.taipan.Route newElement = (org.eclipse.gmf.examples.taipan.Route) super.doDefaultElementCreation();
 		Route newElement = TaiPanFactory.eINSTANCE.createRoute();
 		getContainer().getRoutes().add(newElement);
 		newElement.setSource(getSource());

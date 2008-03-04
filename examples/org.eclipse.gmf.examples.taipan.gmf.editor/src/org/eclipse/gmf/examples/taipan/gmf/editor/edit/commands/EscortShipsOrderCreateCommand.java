@@ -63,10 +63,10 @@ public class EscortShipsOrderCreateCommand extends CreateElementCommand {
 		if (source == null && target == null) {
 			return false;
 		}
-		if (source != null && !(source instanceof Warship)) {
+		if (source != null && false == source instanceof Warship) {
 			return false;
 		}
-		if (target != null && !(target instanceof Ship)) {
+		if (target != null && false == target instanceof Ship) {
 			return false;
 		}
 		if (getSource() == null) {
@@ -80,7 +80,6 @@ public class EscortShipsOrderCreateCommand extends CreateElementCommand {
 	 * @generated
 	 */
 	protected EObject doDefaultElementCreation() {
-		// org.eclipse.gmf.examples.taipan.EscortShipsOrder newElement = (org.eclipse.gmf.examples.taipan.EscortShipsOrder) super.doDefaultElementCreation();
 		EscortShipsOrder newElement = TaiPanFactory.eINSTANCE.createEscortShipsOrder();
 		getSource().setEscortOrder(newElement);
 		newElement.getShips().add(getTarget());
