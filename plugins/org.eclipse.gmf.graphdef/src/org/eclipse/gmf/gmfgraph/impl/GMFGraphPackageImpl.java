@@ -2740,7 +2740,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEReference(getFigureDescriptor_Accessors(), this.getChildAccess(), this.getChildAccess_Owner(), "accessors", null, 0, -1, FigureDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(childAccessEClass, ChildAccess.class, "ChildAccess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getChildAccess_Owner(), this.getFigureDescriptor(), this.getFigureDescriptor_Accessors(), "owner", null, 1, 1, ChildAccess.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getChildAccess_Owner(), this.getFigureDescriptor(), this.getFigureDescriptor_Accessors(), "owner", null, 1, 1, ChildAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getChildAccess_Accessor(), ecorePackage.getEString(), "accessor", null, 0, 1, ChildAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getChildAccess_Figure(), this.getFigure(), null, "figure", null, 1, 1, ChildAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

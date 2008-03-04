@@ -39,7 +39,7 @@ public interface ChildAccess extends EObject {
 	 * @return the value of the '<em>Owner</em>' container reference.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getChildAccess_Owner()
 	 * @see org.eclipse.gmf.gmfgraph.FigureDescriptor#getAccessors
-	 * @model opposite="accessors" required="true" transient="false" changeable="false"
+	 * @model opposite="accessors" resolveProxies="false" required="true" transient="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	FigureDescriptor getOwner();
