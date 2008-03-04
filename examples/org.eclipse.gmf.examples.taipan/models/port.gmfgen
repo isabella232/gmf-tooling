@@ -46,7 +46,9 @@
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           layoutType="TOOLBAR_LAYOUT"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.BuildingShape"/>
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.BuildingShape">
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/Building"/>
@@ -61,7 +63,9 @@
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+        </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewMethod="NATIVE"
@@ -73,13 +77,11 @@
     </topLevelNodes>
     <palette>
       <groups
-          title="Port"
-          createMethodName="createPortGroup">
+          title="Port">
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Building"
-            description="Create new Building"
-            createMethodName="createBuildingCreationTool"
+            description="Create new building"
             genNodes="//@diagram/@topLevelNodes.0"/>
       </groups>
     </palette>
@@ -150,11 +152,12 @@
     <tabs
         xsi:type="gmfgen:GenCustomPropertyTab"
         iD="domain"
-        label="Domain Model">
+        label="Core">
       <filter
           xsi:type="gmfgen:TypeTabFilter">
         <types>org.eclipse.gmf.runtime.notation.View</types>
         <types>org.eclipse.gef.EditPart</types>
+        <generatedTypes>abstractNavigatorItem</generatedTypes>
       </filter>
     </tabs>
   </propertySheet>
