@@ -151,9 +151,8 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 	}	
 
 	protected Class<?> loadJavaContainerClass() {
-		String javaContainerName = "Initializers$Java"; //$NON-NLS-1$
 		try {
-			return loadGeneratedClass(getGenModel().getGenDiagram().getProvidersPackageName() + ".ElementInitializers$" + javaContainerName); //$NON-NLS-1$
+			return loadGeneratedClass(getGenModel().getGenDiagram().getProvidersPackageName() + ".ElementInitializers$Java"); //$NON-NLS-1$
 		} catch (ClassNotFoundException e) {
 			return null;
 		}
