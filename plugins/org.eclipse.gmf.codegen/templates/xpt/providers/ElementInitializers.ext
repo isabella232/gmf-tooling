@@ -14,24 +14,11 @@ import "http://www.eclipse.org/gmf/2006/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
 
 
-//
-// FIXME this odd code cries for meta-model refactoring/cleanup to simplify feature initialization
-//
-
-
 List[GenFeatureValueSpec] getFeatureInitializers(GenFeatureSeqInitializer si, GenJavaExpressionProvider jp) :
-	si.initializers.typeSelect(GenFeatureValueSpec).select(x | jp.expressions.contains(x)).union(
-	si.initializers.typeSelect(GenReferenceNewElementSpec).collect(x | getFeatureInitializers(x, jp)).flatten())
+	recurseCollectValueExpr(si).intersect(jp.expressions)
 ;
 
-private List[GenFeatureValueSpec] getFeatureInitializers(GenReferenceNewElementSpec x, GenJavaExpressionProvider jp) :
-	getNestedFeatureSeqInitializers(x).collect(y | getFeatureInitializers(y, jp)).flatten()
-; 
-
-private List[GenFeatureSeqInitializer] getAllFeatureSeqInitializers(GenFeatureSeqInitializer si) :
-	{si}.union(si.initializers.typeSelect(GenReferenceNewElementSpec).getNestedFeatureSeqInitializers().flatten())
-;
-
-private List[GenFeatureSeqInitializer] getNestedFeatureSeqInitializers(GenReferenceNewElementSpec s) :
-	s.newElementInitializers.getAllFeatureSeqInitializers().flatten()
+private List[ValueExpression] recurseCollectValueExpr(GenFeatureSeqInitializer si) :
+	si.initializers.typeSelect(GenFeatureValueSpec).union(
+	si.initializers.typeSelect(GenReferenceNewElementSpec).newElementInitializers.recurseCollectValueExpr().flatten())
 ;

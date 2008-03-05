@@ -126,7 +126,6 @@ public class ElementInitializers {
 «ENDREM»
 
 «DEFINE javaInitializer FOR GenNode»«EXPAND javaInitializer(this) FOR modelFacet»«ENDDEFINE»
-
 «DEFINE javaInitializer FOR GenLink»«EXPAND javaInitializer(this) FOR modelFacet»«ENDDEFINE»
 
 «DEFINE javaInitializer(GenCommonBase diagramElement) FOR ModelFacet»«ENDDEFINE»
