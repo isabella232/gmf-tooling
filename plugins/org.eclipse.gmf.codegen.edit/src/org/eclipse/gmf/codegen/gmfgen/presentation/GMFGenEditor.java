@@ -49,6 +49,7 @@ import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EValidator;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -633,53 +634,11 @@ public class GMFGenEditor
 	 * This creates a model editor.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
 	 */
 	public GMFGenEditor() {
 		super();
-
-		// Create an adapter factory that yields item providers.
-		//
-		// XXX revisit - why don't we get this automatically generated?
-		ArrayList<AdapterFactory> factories = new ArrayList<AdapterFactory>();
-		factories.add(new ResourceItemProviderAdapterFactory());
-		factories.add(new GMFGenItemProviderAdapterFactory());
-		factories.add(new EcoreItemProviderAdapterFactory());
-		factories.add(new GenModelItemProviderAdapterFactory());
-		factories.add(new ReflectiveItemProviderAdapterFactory());
-
-		adapterFactory = new ComposedAdapterFactory(factories);
-
-		// Create the command stack that will notify this editor as commands are executed.
-		//
-		BasicCommandStack commandStack = new BasicCommandStack();
-
-		// Add a listener to set the most recent command's affected objects to be the selection of the viewer with focus.
-		//
-		commandStack.addCommandStackListener
-			(new CommandStackListener() {
-				 public void commandStackChanged(final EventObject event) {
-					 getContainer().getDisplay().asyncExec
-						 (new Runnable() {
-							  public void run() {
-								  firePropertyChange(IEditorPart.PROP_DIRTY);
-
-								  // Try to select the affected objects.
-								  //
-								  Command mostRecentCommand = ((CommandStack)event.getSource()).getMostRecentCommand();
-								  if (mostRecentCommand != null) {
-									  setSelectionToViewer(mostRecentCommand.getAffectedObjects());
-								  }
-								  if (propertySheetPage != null) {
-									  propertySheetPage.refresh();
-								  }
-							  }
-						  });
-				 }
-			 });
-
-		// Create the editing domain with a special command stack.
-		//
-		editingDomain = new AdapterFactoryEditingDomain(adapterFactory, commandStack, new HashMap<Resource, Boolean>());
+		initializeEditingDomain();
 	}
 
 	/**
@@ -688,7 +647,7 @@ public class GMFGenEditor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void initializeEditingDomain() {
+	protected void initializeEditingDomainGen() {
 		// Create an adapter factory that yields item providers.
 		//
 		adapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
@@ -730,6 +689,11 @@ public class GMFGenEditor
 		// Create the editing domain with a special command stack.
 		//
 		editingDomain = new AdapterFactoryEditingDomain(adapterFactory, commandStack, new HashMap<Resource, Boolean>());
+	}
+
+	protected void initializeEditingDomain() {
+		initializeEditingDomainGen();
+		editingDomain.getResourceSet().getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
 	}
 
 	/**
