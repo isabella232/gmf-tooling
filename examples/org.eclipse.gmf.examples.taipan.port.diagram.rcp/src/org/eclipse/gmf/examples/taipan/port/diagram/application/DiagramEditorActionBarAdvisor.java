@@ -19,7 +19,7 @@ import org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.edit.ui.action.LoadResourceAction;
 import org.eclipse.gmf.examples.taipan.port.diagram.part.Messages;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.PortCreationWizard;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanCreationWizard;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IAction;
@@ -300,7 +300,7 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 		 * @generated
 		 */
 		public void run(IAction action) {
-			PortCreationWizard wizard = new PortCreationWizard();
+			TaiPanCreationWizard wizard = new TaiPanCreationWizard();
 			wizard.init(getWindow().getWorkbench(), StructuredSelection.EMPTY);
 			WizardDialog wizardDialog = new WizardDialog(getWindow().getShell(), wizard);
 			wizardDialog.open();

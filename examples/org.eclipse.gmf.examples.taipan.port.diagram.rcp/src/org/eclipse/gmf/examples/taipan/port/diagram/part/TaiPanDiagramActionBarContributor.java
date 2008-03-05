@@ -16,7 +16,7 @@ import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramActionBarContributor;
 /**
  * @generated
  */
-public class PortDiagramActionBarContributor extends DiagramActionBarContributor {
+public class TaiPanDiagramActionBarContributor extends DiagramActionBarContributor {
 
 	/**
 	 * @generated

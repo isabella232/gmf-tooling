@@ -20,7 +20,7 @@ import org.eclipse.ui.PartInitException;
 /**
  * @generated
  */
-public class PortMatchingStrategy implements IEditorMatchingStrategy {
+public class TaiPanMatchingStrategy implements IEditorMatchingStrategy {
 
 	/**
 	 * @generated

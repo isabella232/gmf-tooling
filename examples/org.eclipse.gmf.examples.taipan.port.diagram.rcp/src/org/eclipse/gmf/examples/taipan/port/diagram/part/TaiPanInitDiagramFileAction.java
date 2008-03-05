@@ -27,7 +27,7 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 /**
  * @generated
  */
-public class PortInitDiagramFileAction implements IWorkbenchWindowActionDelegate {
+public class TaiPanInitDiagramFileAction implements IWorkbenchWindowActionDelegate {
 
 	/**
 	 * @generated
@@ -66,13 +66,13 @@ public class PortInitDiagramFileAction implements IWorkbenchWindowActionDelegate
 	 */
 	public void run(IAction action) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
-		Resource resource = PortDiagramEditorUtil.openModel(getShell(), Messages.PortInitDiagramFileAction_OpenModelFileDialogTitle, editingDomain);
+		Resource resource = TaiPanDiagramEditorUtil.openModel(getShell(), Messages.TaiPanInitDiagramFileAction_OpenModelFileDialogTitle, editingDomain);
 		if (resource == null || resource.getContents().isEmpty()) {
 			return;
 		}
 		EObject diagramRoot = (EObject) resource.getContents().get(0);
-		Wizard wizard = new PortNewDiagramFileWizard(resource.getURI(), diagramRoot, editingDomain);
-		wizard.setWindowTitle(NLS.bind(Messages.PortInitDiagramFileAction_InitDiagramFileWizardTitle, PortEditPart.MODEL_ID));
-		PortDiagramEditorUtil.runWizard(getShell(), wizard, "InitDiagramFile"); //$NON-NLS-1$
+		Wizard wizard = new TaiPanNewDiagramFileWizard(resource.getURI(), diagramRoot, editingDomain);
+		wizard.setWindowTitle(NLS.bind(Messages.TaiPanInitDiagramFileAction_InitDiagramFileWizardTitle, PortEditPart.MODEL_ID));
+		TaiPanDiagramEditorUtil.runWizard(getShell(), wizard, "InitDiagramFile"); //$NON-NLS-1$
 	}
 }

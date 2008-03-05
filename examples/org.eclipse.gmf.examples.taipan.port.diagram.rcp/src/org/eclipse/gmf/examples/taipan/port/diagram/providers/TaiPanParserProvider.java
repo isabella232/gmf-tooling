@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingInfoEditPart;
 import org.eclipse.gmf.examples.taipan.port.diagram.parsers.NativeParser;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
@@ -30,7 +30,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class PortParserProvider extends AbstractProvider implements IParserProvider {
+public class TaiPanParserProvider extends AbstractProvider implements IParserProvider {
 
 	/**
 	 * @generated
@@ -73,11 +73,11 @@ public class PortParserProvider extends AbstractProvider implements IParserProvi
 	public IParser getParser(IAdaptable hint) {
 		String vid = (String) hint.getAdapter(String.class);
 		if (vid != null) {
-			return getParser(PortVisualIDRegistry.getVisualID(vid));
+			return getParser(TaiPanVisualIDRegistry.getVisualID(vid));
 		}
 		View view = (View) hint.getAdapter(View.class);
 		if (view != null) {
-			return getParser(PortVisualIDRegistry.getVisualID(view));
+			return getParser(TaiPanVisualIDRegistry.getVisualID(view));
 		}
 		return null;
 	}
@@ -88,7 +88,7 @@ public class PortParserProvider extends AbstractProvider implements IParserProvi
 	public boolean provides(IOperation operation) {
 		if (operation instanceof GetParserOperation) {
 			IAdaptable hint = ((GetParserOperation) operation).getHint();
-			if (PortElementTypes.getElement(hint) == null) {
+			if (TaiPanElementTypes.getElement(hint) == null) {
 				return false;
 			}
 			return getParser(hint) != null;

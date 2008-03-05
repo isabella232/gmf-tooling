@@ -29,7 +29,7 @@ import org.eclipse.gmf.runtime.notation.View;
  * 
  * @generated
  */
-public class PortVisualIDRegistry {
+public class TaiPanVisualIDRegistry {
 
 	/**
 	 * @generated
@@ -47,7 +47,7 @@ public class PortVisualIDRegistry {
 				return -1;
 			}
 		}
-		return org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry.getVisualID(view.getType());
+		return org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry.getVisualID(view.getType());
 	}
 
 	/**
@@ -103,10 +103,24 @@ public class PortVisualIDRegistry {
 	 * @generated
 	 */
 	public static int getNodeVisualID(View containerView, EObject domainElement) {
-		if (domainElement == null || !PortEditPart.MODEL_ID.equals(org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry.getModelID(containerView))) {
+		if (domainElement == null) {
 			return -1;
 		}
-		switch (org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry.getVisualID(containerView)) {
+		String containerModelID = org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry.getModelID(containerView);
+		if (!PortEditPart.MODEL_ID.equals(containerModelID)) {
+			return -1;
+		}
+		int containerVisualID;
+		if (PortEditPart.MODEL_ID.equals(containerModelID)) {
+			containerVisualID = org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry.getVisualID(containerView);
+		} else {
+			if (containerView instanceof Diagram) {
+				containerVisualID = PortEditPart.VISUAL_ID;
+			} else {
+				return -1;
+			}
+		}
+		switch (containerVisualID) {
 		case PortEditPart.VISUAL_ID:
 			if (TaiPanPackage.eINSTANCE.getBuilding().isSuperTypeOf(domainElement.eClass())) {
 				return BuildingEditPart.VISUAL_ID;
@@ -120,13 +134,13 @@ public class PortVisualIDRegistry {
 	 * @generated
 	 */
 	public static boolean canCreateNode(View containerView, int nodeVisualID) {
-		String containerModelID = org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry.getModelID(containerView);
+		String containerModelID = org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry.getModelID(containerView);
 		if (!PortEditPart.MODEL_ID.equals(containerModelID)) {
 			return false;
 		}
 		int containerVisualID;
 		if (PortEditPart.MODEL_ID.equals(containerModelID)) {
-			containerVisualID = org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry.getVisualID(containerView);
+			containerVisualID = org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry.getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
 				containerVisualID = PortEditPart.VISUAL_ID;

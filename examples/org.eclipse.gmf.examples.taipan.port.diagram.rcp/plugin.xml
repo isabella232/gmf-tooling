@@ -38,8 +38,8 @@ Contributors:
          extensions="port_diagram"
          default="true"
          class="org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditor"
-         matchingStrategy="org.eclipse.gmf.examples.taipan.port.diagram.part.PortMatchingStrategy"
-         contributorClass="org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramActionBarContributor">
+         matchingStrategy="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanMatchingStrategy"
+         contributorClass="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramActionBarContributor">
       </editor>
    </extension>
    
@@ -59,8 +59,8 @@ Contributors:
   	     name="%newWizardName"
   	     icon="icons/PortDiagramFile.gif"
   	     category="org.eclipse.ui.Examples"
-  	     class="org.eclipse.gmf.examples.taipan.port.diagram.part.PortCreationWizard"
-  	     id="org.eclipse.gmf.examples.taipan.port.diagram.part.PortCreationWizardID">
+  	     class="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanCreationWizard"
+  	     id="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanCreationWizardID">
   	  	 <description>%newWizardDesc</description>  
       </wizard>
    </extension>
@@ -72,7 +72,7 @@ Contributors:
             id="org.eclipse.gmf.examples.taipan.port.diagram.rcp.LoadResource"
             objectClass="org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart">
          <action
-               class="org.eclipse.gmf.examples.taipan.port.diagram.part.PortLoadResourceAction"
+               class="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanLoadResourceAction"
                enablesFor="1"
                id="org.eclipse.gmf.examples.taipan.port.diagram.rcp.LoadResourceAction"
                label="%loadResourceActionLabel"
@@ -89,7 +89,7 @@ Contributors:
             id="org.eclipse.gmf.examples.taipan.port.diagram.rcp.InitDiagram">
          <action
                label="%initDiagramActionLabel"
-               class="org.eclipse.gmf.examples.taipan.port.diagram.part.PortInitDiagramFileAction"
+               class="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanInitDiagramFileAction"
                menubarPath="file/additions"
                id="org.eclipse.gmf.examples.taipan.port.diagram.rcp.InitDiagramAction">
          </action>
@@ -242,7 +242,7 @@ Contributors:
 
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
       <?gmfgen generated="true"?>
-      <viewProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.PortViewProvider">
+      <viewProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanViewProvider">
          <Priority name="Lowest"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Port"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
@@ -252,28 +252,28 @@ Contributors:
 
    <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
       <?gmfgen generated="true"?>
-      <editpartProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.PortEditPartProvider">
+      <editpartProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanEditPartProvider">
          <Priority name="Lowest"/>
       </editpartProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
       <?gmfgen generated="true"?>
-      <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.PortModelingAssistantProvider">
+      <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanModelingAssistantProvider">
          <Priority name="Lowest"/>
       </modelingAssistantProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
       <?gmfgen generated="true"?>
-      <IconProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.PortIconProvider">
+      <IconProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanIconProvider">
          <Priority name="Low"/>
       </IconProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
       <?gmfgen generated="true"?>
-      <ParserProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.PortParserProvider">
+      <ParserProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanParserProvider">
          <Priority name="Lowest"/>
       </ParserProvider>
    </extension>

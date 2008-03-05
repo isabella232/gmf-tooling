@@ -18,9 +18,9 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.tools.CellEditorLocator;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.SWT;
@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Text;
 /**
  * @generated
  */
-public class PortEditPartFactory implements EditPartFactory {
+public class TaiPanEditPartFactory implements EditPartFactory {
 
 	/**
 	 * @generated
@@ -37,7 +37,7 @@ public class PortEditPartFactory implements EditPartFactory {
 	public EditPart createEditPart(EditPart context, Object model) {
 		if (model instanceof View) {
 			View view = (View) model;
-			switch (PortVisualIDRegistry.getVisualID(view)) {
+			switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 
 			case PortEditPart.VISUAL_ID:
 				return new PortEditPart(view);
@@ -64,8 +64,8 @@ public class PortEditPartFactory implements EditPartFactory {
 	 * @generated
 	 */
 	public static CellEditorLocator getTextCellEditorLocator(ITextAwareEditPart source) {
-		if (source.getFigure() instanceof WrapLabel)
-			return new TextCellEditorLocator((WrapLabel) source.getFigure());
+		if (source.getFigure() instanceof WrappingLabel)
+			return new TextCellEditorLocator((WrappingLabel) source.getFigure());
 		else {
 			return new LabelCellEditorLocator((Label) source.getFigure());
 		}
@@ -79,19 +79,19 @@ public class PortEditPartFactory implements EditPartFactory {
 		/**
 		 * @generated
 		 */
-		private WrapLabel wrapLabel;
+		private WrappingLabel wrapLabel;
 
 		/**
 		 * @generated
 		 */
-		public TextCellEditorLocator(WrapLabel wrapLabel) {
+		public TextCellEditorLocator(WrappingLabel wrapLabel) {
 			this.wrapLabel = wrapLabel;
 		}
 
 		/**
 		 * @generated
 		 */
-		public WrapLabel getWrapLabel() {
+		public WrappingLabel getWrapLabel() {
 			return wrapLabel;
 		}
 
@@ -102,7 +102,7 @@ public class PortEditPartFactory implements EditPartFactory {
 			Text text = (Text) celleditor.getControl();
 			Rectangle rect = getWrapLabel().getTextBounds().getCopy();
 			getWrapLabel().translateToAbsolute(rect);
-			if (getWrapLabel().isTextWrapped() && getWrapLabel().getText().length() > 0) {
+			if (getWrapLabel().isTextWrapOn() && getWrapLabel().getText().length() > 0) {
 				rect.setSize(new Dimension(text.computeSize(rect.width, SWT.DEFAULT)));
 			} else {
 				int avr = FigureUtilities.getFontMetrics(text.getFont()).getAverageCharWidth();
@@ -112,7 +112,6 @@ public class PortEditPartFactory implements EditPartFactory {
 				text.setBounds(rect.x, rect.y, rect.width, rect.height);
 			}
 		}
-
 	}
 
 	/**

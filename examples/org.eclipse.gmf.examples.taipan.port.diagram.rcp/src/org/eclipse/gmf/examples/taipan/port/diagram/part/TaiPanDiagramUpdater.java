@@ -25,13 +25,13 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class PortDiagramUpdater {
+public class TaiPanDiagramUpdater {
 
 	/**
 	 * @generated
 	 */
 	public static List getSemanticChildren(View view) {
-		switch (PortVisualIDRegistry.getVisualID(view)) {
+		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case PortEditPart.VISUAL_ID:
 			return getPort_1000SemanticChildren(view);
 		}
@@ -49,9 +49,9 @@ public class PortDiagramUpdater {
 		List result = new LinkedList();
 		for (Iterator it = modelElement.getBuildings().iterator(); it.hasNext();) {
 			Building childElement = (Building) it.next();
-			int visualID = PortVisualIDRegistry.getNodeVisualID(view, childElement);
+			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == BuildingEditPart.VISUAL_ID) {
-				result.add(new PortNodeDescriptor(childElement, visualID));
+				result.add(new TaiPanNodeDescriptor(childElement, visualID));
 				continue;
 			}
 		}
@@ -62,7 +62,7 @@ public class PortDiagramUpdater {
 	 * @generated
 	 */
 	public static List getContainedLinks(View view) {
-		switch (PortVisualIDRegistry.getVisualID(view)) {
+		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case PortEditPart.VISUAL_ID:
 			return getPort_1000ContainedLinks(view);
 		case BuildingEditPart.VISUAL_ID:
@@ -75,7 +75,7 @@ public class PortDiagramUpdater {
 	 * @generated
 	 */
 	public static List getIncomingLinks(View view) {
-		switch (PortVisualIDRegistry.getVisualID(view)) {
+		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case BuildingEditPart.VISUAL_ID:
 			return getBuilding_2001IncomingLinks(view);
 		}
@@ -86,7 +86,7 @@ public class PortDiagramUpdater {
 	 * @generated
 	 */
 	public static List getOutgoingLinks(View view) {
-		switch (PortVisualIDRegistry.getVisualID(view)) {
+		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case BuildingEditPart.VISUAL_ID:
 			return getBuilding_2001OutgoingLinks(view);
 		}

@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * @generated
  */
-public class PortNodeDescriptor {
+public class TaiPanNodeDescriptor {
 
 	/**
 	 * @generated
@@ -36,7 +36,7 @@ public class PortNodeDescriptor {
 	/**
 	 * @generated
 	 */
-	public PortNodeDescriptor(EObject modelElement, int visualID) {
+	public TaiPanNodeDescriptor(EObject modelElement, int visualID) {
 		myModelElement = modelElement;
 		myVisualID = visualID;
 	}
@@ -60,7 +60,7 @@ public class PortNodeDescriptor {
 	 */
 	public String getType() {
 		if (myType == null) {
-			myType = PortVisualIDRegistry.getType(getVisualID());
+			myType = TaiPanVisualIDRegistry.getType(getVisualID());
 		}
 		return myType;
 	}

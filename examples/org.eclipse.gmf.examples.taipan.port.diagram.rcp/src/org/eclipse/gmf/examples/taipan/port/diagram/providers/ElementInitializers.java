@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.examples.taipan.port.diagram.providers;
 
-import org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorPlugin;
-
 /**
  * @generated
  */

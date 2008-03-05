@@ -19,39 +19,39 @@ import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.ToolEntry;
-import org.eclipse.gmf.examples.taipan.port.diagram.providers.PortElementTypes;
+import org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool;
 
 /**
  * @generated
  */
-public class PortPaletteFactory {
+public class TaiPanPaletteFactory {
 
 	/**
 	 * @generated
 	 */
 	public void fillPalette(PaletteRoot paletteRoot) {
-		paletteRoot.add(createPortGroup());
+		paletteRoot.add(createPort1Group());
 	}
 
 	/**
 	 * Creates "Port" palette tool group
 	 * @generated
 	 */
-	private PaletteContainer createPortGroup() {
-		PaletteGroup paletteContainer = new PaletteGroup(Messages.PortGroup_title);
-		paletteContainer.add(createBuildingCreationTool());
+	private PaletteContainer createPort1Group() {
+		PaletteGroup paletteContainer = new PaletteGroup(Messages.Port1Group_title);
+		paletteContainer.add(createBuilding1CreationTool());
 		return paletteContainer;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createBuildingCreationTool() {
+	private ToolEntry createBuilding1CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(PortElementTypes.Building_2001);
-		NodeToolEntry entry = new NodeToolEntry(Messages.BuildingCreationTool_title, Messages.BuildingCreationTool_desc, types);
-		entry.setSmallIcon(PortElementTypes.getImageDescriptor(PortElementTypes.Building_2001));
+		types.add(TaiPanElementTypes.Building_2001);
+		NodeToolEntry entry = new NodeToolEntry(Messages.Building1CreationTool_title, Messages.Building1CreationTool_desc, types);
+		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Building_2001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}

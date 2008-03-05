@@ -43,7 +43,7 @@ import org.eclipse.ui.PartInitException;
 /**
  * @generated
  */
-public class PortNewDiagramFileWizard extends Wizard {
+public class TaiPanNewDiagramFileWizard extends Wizard {
 
 	/**
 	 * @generated
@@ -63,14 +63,14 @@ public class PortNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	public PortNewDiagramFileWizard(URI domainModelURI, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
+	public TaiPanNewDiagramFileWizard(URI domainModelURI, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
 		assert domainModelURI != null : "Domain model uri must be specified"; //$NON-NLS-1$
 		assert diagramRoot != null : "Doagram root element must be specified"; //$NON-NLS-1$
 		assert editingDomain != null : "Editing domain must be specified"; //$NON-NLS-1$
 
-		myFileCreationPage = new WizardNewFileCreationPage(Messages.PortNewDiagramFileWizard_CreationPageName, StructuredSelection.EMPTY);
-		myFileCreationPage.setTitle(Messages.PortNewDiagramFileWizard_CreationPageTitle);
-		myFileCreationPage.setDescription(NLS.bind(Messages.PortNewDiagramFileWizard_CreationPageDescription, PortEditPart.MODEL_ID));
+		myFileCreationPage = new WizardNewFileCreationPage(Messages.TaiPanNewDiagramFileWizard_CreationPageName, StructuredSelection.EMPTY);
+		myFileCreationPage.setTitle(Messages.TaiPanNewDiagramFileWizard_CreationPageTitle);
+		myFileCreationPage.setDescription(NLS.bind(Messages.TaiPanNewDiagramFileWizard_CreationPageDescription, PortEditPart.MODEL_ID));
 		IPath filePath;
 		String fileName = domainModelURI.trimFileExtension().lastSegment();
 		if (domainModelURI.isPlatformResource()) {
@@ -82,11 +82,11 @@ public class PortNewDiagramFileWizard extends Wizard {
 			throw new IllegalArgumentException("Unsupported URI: " + domainModelURI); //$NON-NLS-1$
 		}
 		myFileCreationPage.setContainerFullPath(filePath);
-		myFileCreationPage.setFileName(PortDiagramEditorUtil.getUniqueFileName(filePath, fileName, "port_diagram")); //$NON-NLS-1$
+		myFileCreationPage.setFileName(TaiPanDiagramEditorUtil.getUniqueFileName(filePath, fileName, "port_diagram")); //$NON-NLS-1$
 
-		diagramRootElementSelectionPage = new DiagramRootElementSelectionPage(Messages.PortNewDiagramFileWizard_RootSelectionPageName);
-		diagramRootElementSelectionPage.setTitle(Messages.PortNewDiagramFileWizard_RootSelectionPageTitle);
-		diagramRootElementSelectionPage.setDescription(Messages.PortNewDiagramFileWizard_RootSelectionPageDescription);
+		diagramRootElementSelectionPage = new DiagramRootElementSelectionPage(Messages.TaiPanNewDiagramFileWizard_RootSelectionPageName);
+		diagramRootElementSelectionPage.setTitle(Messages.TaiPanNewDiagramFileWizard_RootSelectionPageTitle);
+		diagramRootElementSelectionPage.setDescription(Messages.TaiPanNewDiagramFileWizard_RootSelectionPageDescription);
 		diagramRootElementSelectionPage.setModelElement(diagramRoot);
 
 		myEditingDomain = editingDomain;
@@ -109,12 +109,12 @@ public class PortNewDiagramFileWizard extends Wizard {
 		URI diagramModelURI = URI.createFileURI(diagramModelPath.toString());
 		ResourceSet resourceSet = myEditingDomain.getResourceSet();
 		final Resource diagramResource = resourceSet.createResource(diagramModelURI);
-		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, Messages.PortNewDiagramFileWizard_InitDiagramCommand, affectedFiles) {
+		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, Messages.TaiPanNewDiagramFileWizard_InitDiagramCommand, affectedFiles) {
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				int diagramVID = PortVisualIDRegistry.getDiagramVisualID(diagramRootElementSelectionPage.getModelElement());
+				int diagramVID = TaiPanVisualIDRegistry.getDiagramVisualID(diagramRootElementSelectionPage.getModelElement());
 				if (diagramVID != PortEditPart.VISUAL_ID) {
-					return CommandResult.newErrorCommandResult(Messages.PortNewDiagramFileWizard_IncorrectRootError);
+					return CommandResult.newErrorCommandResult(Messages.TaiPanNewDiagramFileWizard_IncorrectRootError);
 				}
 				Diagram diagram = ViewService.createDiagram(diagramRootElementSelectionPage.getModelElement(), PortEditPart.MODEL_ID, PortDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				diagramResource.getContents().add(diagram);
@@ -123,8 +123,8 @@ public class PortNewDiagramFileWizard extends Wizard {
 		};
 		try {
 			OperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);
-			diagramResource.save(PortDiagramEditorUtil.getSaveOptions());
-			PortDiagramEditorUtil.openDiagram(diagramResource);
+			diagramResource.save(TaiPanDiagramEditorUtil.getSaveOptions());
+			TaiPanDiagramEditorUtil.openDiagram(diagramResource);
 		} catch (ExecutionException e) {
 			PortDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
 		} catch (IOException ex) {
@@ -151,7 +151,7 @@ public class PortNewDiagramFileWizard extends Wizard {
 		 * @generated
 		 */
 		protected String getSelectionTitle() {
-			return Messages.PortNewDiagramFileWizard_RootSelectionPageSelectionTitle;
+			return Messages.TaiPanNewDiagramFileWizard_RootSelectionPageSelectionTitle;
 		}
 
 		/**
@@ -159,12 +159,12 @@ public class PortNewDiagramFileWizard extends Wizard {
 		 */
 		protected boolean validatePage() {
 			if (selectedModelElement == null) {
-				setErrorMessage(Messages.PortNewDiagramFileWizard_RootSelectionPageNoSelectionMessage);
+				setErrorMessage(Messages.TaiPanNewDiagramFileWizard_RootSelectionPageNoSelectionMessage);
 				return false;
 			}
 			boolean result = ViewService.getInstance().provides(
 					new CreateDiagramViewOperation(new EObjectAdapter(selectedModelElement), PortEditPart.MODEL_ID, PortDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
-			setErrorMessage(result ? null : Messages.PortNewDiagramFileWizard_RootSelectionPageInvalidSelectionMessage);
+			setErrorMessage(result ? null : Messages.TaiPanNewDiagramFileWizard_RootSelectionPageInvalidSelectionMessage);
 			return result;
 		}
 	}

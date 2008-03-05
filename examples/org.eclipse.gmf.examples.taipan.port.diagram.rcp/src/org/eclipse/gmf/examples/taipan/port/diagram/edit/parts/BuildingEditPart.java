@@ -25,8 +25,8 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gmf.examples.taipan.figures.BuildingShape;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.BuildingItemSemanticEditPolicy;
-import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.PortTextSelectionEditPolicy;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.PortVisualIDRegistry;
+import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.TaiPanTextSelectionEditPolicy;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
@@ -70,7 +70,6 @@ public class BuildingEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
-
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new BuildingItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
@@ -88,7 +87,7 @@ public class BuildingEditPart extends ShapeNodeEditPart {
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				if (child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE) == null) {
 					if (child instanceof ITextAwareEditPart) {
-						return new PortTextSelectionEditPolicy();
+						return new TaiPanTextSelectionEditPolicy();
 					}
 				}
 				return super.createChildEditPolicy(child);
@@ -208,7 +207,7 @@ public class BuildingEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(PortVisualIDRegistry.getType(BuildingInfoEditPart.VISUAL_ID));
+		return getChildBySemanticHint(TaiPanVisualIDRegistry.getType(BuildingInfoEditPart.VISUAL_ID));
 	}
 
 }

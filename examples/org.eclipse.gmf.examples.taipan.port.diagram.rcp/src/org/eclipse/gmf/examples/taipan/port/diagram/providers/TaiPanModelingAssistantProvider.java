@@ -38,7 +38,7 @@ import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 /**
  * @generated
  */
-public class PortModelingAssistantProvider extends ModelingAssistantProvider {
+public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 
 	/**
 	 * @generated
@@ -47,7 +47,7 @@ public class PortModelingAssistantProvider extends ModelingAssistantProvider {
 		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
 		if (editPart instanceof PortEditPart) {
 			List types = new ArrayList();
-			types.add(PortElementTypes.Building_2001);
+			types.add(TaiPanElementTypes.Building_2001);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -148,8 +148,8 @@ public class PortModelingAssistantProvider extends ModelingAssistantProvider {
 		Shell shell = Display.getCurrent().getActiveShell();
 		ILabelProvider labelProvider = new AdapterFactoryLabelProvider(PortDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
 		ElementListSelectionDialog dialog = new ElementListSelectionDialog(shell, labelProvider);
-		dialog.setMessage(Messages.PortModelingAssistantProviderMessage);
-		dialog.setTitle(Messages.PortModelingAssistantProviderTitle);
+		dialog.setMessage(Messages.TaiPanModelingAssistantProviderMessage);
+		dialog.setTitle(Messages.TaiPanModelingAssistantProviderTitle);
 		dialog.setMultipleSelection(false);
 		dialog.setElements(elements);
 		EObject selected = null;

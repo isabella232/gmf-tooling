@@ -55,7 +55,7 @@ public class PortDiagramEditor extends DiagramDocumentEditor {
 	 */
 	protected PaletteRoot createPaletteRoot(PaletteRoot existingPaletteRoot) {
 		PaletteRoot root = super.createPaletteRoot(existingPaletteRoot);
-		new PortPaletteFactory().fillPalette(root);
+		new TaiPanPaletteFactory().fillPalette(root);
 		return root;
 	}
 

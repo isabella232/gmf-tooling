@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Composite;
 /**
  * @generated
  */
-public class PortCreationWizardPage extends WizardNewFileCreationPage {
+public class TaiPanCreationWizardPage extends WizardNewFileCreationPage {
 
 	/**
 	 * @generated
@@ -30,7 +30,7 @@ public class PortCreationWizardPage extends WizardNewFileCreationPage {
 	/**
 	 * @generated
 	 */
-	public PortCreationWizardPage(String pageName, IStructuredSelection selection, String fileExtension) {
+	public TaiPanCreationWizardPage(String pageName, IStructuredSelection selection, String fileExtension) {
 		super(pageName, selection);
 		this.fileExtension = fileExtension;
 	}
@@ -56,7 +56,7 @@ public class PortCreationWizardPage extends WizardNewFileCreationPage {
 	 */
 	public void createControl(Composite parent) {
 		super.createControl(parent);
-		setFileName(PortDiagramEditorUtil.getUniqueFileName(getContainerFullPath(), getFileName(), getExtension()));
+		setFileName(TaiPanDiagramEditorUtil.getUniqueFileName(getContainerFullPath(), getFileName(), getExtension()));
 		setPageComplete(validatePage());
 	}
 
@@ -69,7 +69,7 @@ public class PortCreationWizardPage extends WizardNewFileCreationPage {
 		}
 		String extension = getExtension();
 		if (extension != null && !getFilePath().toString().endsWith("." + extension)) {
-			setErrorMessage(NLS.bind(Messages.PortCreationWizardPageExtensionError, extension));
+			setErrorMessage(NLS.bind(Messages.TaiPanCreationWizardPageExtensionError, extension));
 			return false;
 		}
 		return true;

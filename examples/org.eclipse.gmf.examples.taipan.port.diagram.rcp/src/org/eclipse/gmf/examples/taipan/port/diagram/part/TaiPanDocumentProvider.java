@@ -54,14 +54,14 @@ import org.eclipse.ui.IEditorInput;
 /**
  * @generated
  */
-public class PortDocumentProvider extends AbstractDocumentProvider implements IDiagramDocumentProvider {
+public class TaiPanDocumentProvider extends AbstractDocumentProvider implements IDiagramDocumentProvider {
 
 	/**
 	 * @generated
 	 */
 	protected ElementInfo createElementInfo(Object element) throws CoreException {
 		if (false == element instanceof URIEditorInput) {
-			throw new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, 0, NLS.bind(Messages.PortDocumentProvider_IncorrectInputError, new Object[] { element,
+			throw new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, 0, NLS.bind(Messages.TaiPanDocumentProvider_IncorrectInputError, new Object[] { element,
 					"org.eclipse.emf.common.ui.URIEditorInput" }), //$NON-NLS-1$ 
 					null));
 		}
@@ -79,7 +79,7 @@ public class PortDocumentProvider extends AbstractDocumentProvider implements ID
 	 */
 	protected IDocument createDocument(Object element) throws CoreException {
 		if (false == element instanceof URIEditorInput) {
-			throw new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, 0, NLS.bind(Messages.PortDocumentProvider_IncorrectInputError, new Object[] { element,
+			throw new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, 0, NLS.bind(Messages.TaiPanDocumentProvider_IncorrectInputError, new Object[] { element,
 					"org.eclipse.emf.common.ui.URIEditorInput" }), //$NON-NLS-1$ 
 					null));
 		}
@@ -204,19 +204,19 @@ public class PortDocumentProvider extends AbstractDocumentProvider implements ID
 						}
 					}
 				}
-				throw new RuntimeException(Messages.PortDocumentProvider_NoDiagramInResourceError);
+				throw new RuntimeException(Messages.TaiPanDocumentProvider_NoDiagramInResourceError);
 			} catch (Exception e) {
 				CoreException thrownExcp = null;
 				if (e instanceof CoreException) {
 					thrownExcp = (CoreException) e;
 				} else {
 					String msg = e.getLocalizedMessage();
-					thrownExcp = new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, 0, msg != null ? msg : Messages.PortDocumentProvider_DiagramLoadingError, e));
+					thrownExcp = new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, 0, msg != null ? msg : Messages.TaiPanDocumentProvider_DiagramLoadingError, e));
 				}
 				throw thrownExcp;
 			}
 		} else {
-			throw new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, 0, NLS.bind(Messages.PortDocumentProvider_IncorrectInputError, new Object[] { element,
+			throw new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, 0, NLS.bind(Messages.TaiPanDocumentProvider_IncorrectInputError, new Object[] { element,
 					"org.eclipse.emf.common.ui.URIEditorInput" }), //$NON-NLS-1$ 
 					null));
 		}
@@ -276,7 +276,7 @@ public class PortDocumentProvider extends AbstractDocumentProvider implements ID
 				try {
 					updateCache(element);
 				} catch (CoreException ex) {
-					PortDiagramEditorPlugin.getInstance().logError(Messages.PortDocumentProvider_isModifiable, ex);
+					PortDiagramEditorPlugin.getInstance().logError(Messages.TaiPanDocumentProvider_isModifiable, ex);
 					// Error message to log was initially taken from org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.internal.l10n.EditorMessages.StorageDocumentProvider_isModifiable
 				}
 			}
@@ -300,7 +300,7 @@ public class PortDocumentProvider extends AbstractDocumentProvider implements ID
 				try {
 					updateCache(element);
 				} catch (CoreException ex) {
-					PortDiagramEditorPlugin.getInstance().logError(Messages.PortDocumentProvider_isModifiable, ex);
+					PortDiagramEditorPlugin.getInstance().logError(Messages.TaiPanDocumentProvider_isModifiable, ex);
 					// Error message to log was initially taken from org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.internal.l10n.EditorMessages.StorageDocumentProvider_isModifiable
 				}
 			}
@@ -374,18 +374,18 @@ public class PortDocumentProvider extends AbstractDocumentProvider implements ID
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			if (!overwrite && !info.isSynchronized()) {
-				throw new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, IStatus.ERROR, Messages.PortDocumentProvider_UnsynchronizedFileSaveError, null));
+				throw new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, IStatus.ERROR, Messages.TaiPanDocumentProvider_UnsynchronizedFileSaveError, null));
 			}
 			fireElementStateChanging(element);
 			List resources = info.getResourceSet().getResources();
 			try {
-				monitor.beginTask(Messages.PortDocumentProvider_SaveDiagramTask, resources.size() + 1); //"Saving diagram"
+				monitor.beginTask(Messages.TaiPanDocumentProvider_SaveDiagramTask, resources.size() + 1); //"Saving diagram"
 				for (Iterator it = resources.iterator(); it.hasNext();) {
 					Resource nextResource = (Resource) it.next();
-					monitor.setTaskName(NLS.bind(Messages.PortDocumentProvider_SaveNextResourceTask, nextResource.getURI()));
+					monitor.setTaskName(NLS.bind(Messages.TaiPanDocumentProvider_SaveNextResourceTask, nextResource.getURI()));
 					if (nextResource.isLoaded() && !info.getEditingDomain().isReadOnly(nextResource)) {
 						try {
-							nextResource.save(PortDiagramEditorUtil.getSaveOptions());
+							nextResource.save(TaiPanDiagramEditorUtil.getSaveOptions());
 						} catch (IOException e) {
 							fireElementStateChangeFailed(element);
 							throw new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, EditorStatusCodes.RESOURCE_FAILURE, e.getLocalizedMessage(), null));
@@ -406,7 +406,7 @@ public class PortDocumentProvider extends AbstractDocumentProvider implements ID
 				newResoruceURI = ((URIEditorInput) element).getURI();
 			} else {
 				fireElementStateChangeFailed(element);
-				throw new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, 0, NLS.bind(Messages.PortDocumentProvider_IncorrectInputError, new Object[] { element,
+				throw new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, 0, NLS.bind(Messages.TaiPanDocumentProvider_IncorrectInputError, new Object[] { element,
 						"org.eclipse.emf.common.ui.URIEditorInput" }), //$NON-NLS-1$ 
 						null));
 			}
@@ -419,14 +419,14 @@ public class PortDocumentProvider extends AbstractDocumentProvider implements ID
 			final Resource newResource = diagramDocument.getEditingDomain().getResourceSet().createResource(newResoruceURI);
 			final Diagram diagramCopy = (Diagram) EcoreUtil.copy(diagramDocument.getDiagram());
 			try {
-				new AbstractTransactionalCommand(diagramDocument.getEditingDomain(), NLS.bind(Messages.PortDocumentProvider_SaveAsOperation, diagramCopy.getName()), affectedFiles) {
+				new AbstractTransactionalCommand(diagramDocument.getEditingDomain(), NLS.bind(Messages.TaiPanDocumentProvider_SaveAsOperation, diagramCopy.getName()), affectedFiles) {
 
 					protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 						newResource.getContents().add(diagramCopy);
 						return CommandResult.newOKCommandResult();
 					}
 				}.execute(monitor, null);
-				newResource.save(PortDiagramEditorUtil.getSaveOptions());
+				newResource.save(TaiPanDiagramEditorUtil.getSaveOptions());
 			} catch (ExecutionException e) {
 				fireElementStateChangeFailed(element);
 				throw new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, 0, e.getLocalizedMessage(), null));

@@ -23,7 +23,7 @@ import org.eclipse.ui.IWorkbenchPart;
 /**
  * @generated
  */
-public class PortLoadResourceAction implements IObjectActionDelegate {
+public class TaiPanLoadResourceAction implements IObjectActionDelegate {
 
 	/**
 	 * @generated

@@ -66,7 +66,7 @@ import org.eclipse.ui.PlatformUI;
 /**
  * @generated
  */
-public class PortDiagramEditorUtil {
+public class TaiPanDiagramEditorUtil {
 
 	/**
 	 * @generated
@@ -138,7 +138,8 @@ public class PortDiagramEditorUtil {
 			resource = editingDomain.getResourceSet().getResource(uri, true);
 		} catch (WrappedException we) {
 			PortDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + uri, we); //$NON-NLS-1$
-			MessageDialog.openError(shell, Messages.PortDiagramEditorUtil_OpenModelResourceErrorDialogTitle, NLS.bind(Messages.PortDiagramEditorUtil_OpenModelResourceErrorDialogMessage, fileName));
+			MessageDialog
+					.openError(shell, Messages.TaiPanDiagramEditorUtil_OpenModelResourceErrorDialogTitle, NLS.bind(Messages.TaiPanDiagramEditorUtil_OpenModelResourceErrorDialogMessage, fileName));
 		}
 		return resource;
 	}
@@ -166,11 +167,11 @@ public class PortDiagramEditorUtil {
 	 */
 	public static Resource createDiagram(URI diagramURI, URI modelURI, IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
-		progressMonitor.beginTask(Messages.PortDiagramEditorUtil_CreateDiagramProgressTask, 3);
+		progressMonitor.beginTask(Messages.TaiPanDiagramEditorUtil_CreateDiagramProgressTask, 3);
 		final Resource diagramResource = editingDomain.getResourceSet().createResource(diagramURI);
 		final Resource modelResource = editingDomain.getResourceSet().createResource(modelURI);
 		final String diagramName = diagramURI.lastSegment();
-		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, Messages.PortDiagramEditorUtil_CreateDiagramCommandLabel, Collections.EMPTY_LIST) {
+		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, Messages.TaiPanDiagramEditorUtil_CreateDiagramCommandLabel, Collections.EMPTY_LIST) {
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				Port model = createInitialModel();
@@ -184,8 +185,8 @@ public class PortDiagramEditorUtil {
 				}
 
 				try {
-					modelResource.save(org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorUtil.getSaveOptions());
-					diagramResource.save(org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorUtil.getSaveOptions());
+					modelResource.save(org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramEditorUtil.getSaveOptions());
+					diagramResource.save(org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramEditorUtil.getSaveOptions());
 				} catch (IOException e) {
 
 					PortDiagramEditorPlugin.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$

@@ -31,9 +31,9 @@ import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.handles.NonResizableHandleKit;
 import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.gef.tools.DirectEditManager;
-import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.PortTextSelectionEditPolicy;
-import org.eclipse.gmf.examples.taipan.port.diagram.providers.PortElementTypes;
-import org.eclipse.gmf.examples.taipan.port.diagram.providers.PortParserProvider;
+import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.TaiPanTextSelectionEditPolicy;
+import org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanElementTypes;
+import org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanParserProvider;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
@@ -47,7 +47,7 @@ import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.requests.ArrangeRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
 import org.eclipse.gmf.runtime.notation.FontStyle;
@@ -146,8 +146,8 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 	 * @generated
 	 */
 	protected String getLabelTextHelper(IFigure figure) {
-		if (figure instanceof WrapLabel) {
-			return ((WrapLabel) figure).getText();
+		if (figure instanceof WrappingLabel) {
+			return ((WrappingLabel) figure).getText();
 		} else {
 			return ((Label) figure).getText();
 		}
@@ -157,8 +157,8 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 	 * @generated
 	 */
 	protected void setLabelTextHelper(IFigure figure, String text) {
-		if (figure instanceof WrapLabel) {
-			((WrapLabel) figure).setText(text);
+		if (figure instanceof WrappingLabel) {
+			((WrappingLabel) figure).setText(text);
 		} else {
 			((Label) figure).setText(text);
 		}
@@ -168,8 +168,8 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 	 * @generated
 	 */
 	protected Image getLabelIconHelper(IFigure figure) {
-		if (figure instanceof WrapLabel) {
-			return ((WrapLabel) figure).getIcon();
+		if (figure instanceof WrappingLabel) {
+			return ((WrappingLabel) figure).getIcon();
 		} else {
 			return ((Label) figure).getIcon();
 		}
@@ -179,8 +179,8 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 	 * @generated
 	 */
 	protected void setLabelIconHelper(IFigure figure, Image icon) {
-		if (figure instanceof WrapLabel) {
-			((WrapLabel) figure).setIcon(icon);
+		if (figure instanceof WrappingLabel) {
+			((WrappingLabel) figure).setIcon(icon);
 		} else {
 			((Label) figure).setIcon(icon);
 		}
@@ -246,8 +246,8 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 	public void setLabelText(String text) {
 		setLabelTextHelper(getFigure(), text);
 		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
-		if (pdEditPolicy instanceof PortTextSelectionEditPolicy) {
-			((PortTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
 		}
 	}
 
@@ -320,7 +320,7 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 	public IParser getParser() {
 		if (parser == null) {
 			String parserHint = ((View) getModel()).getType();
-			IAdaptable hintAdapter = new PortParserProvider.HintAdapter(PortElementTypes.Building_2001, getParserElement(), parserHint);
+			IAdaptable hintAdapter = new TaiPanParserProvider.HintAdapter(TaiPanElementTypes.Building_2001, getParserElement(), parserHint);
 			parser = ParserService.getInstance().getParser(hintAdapter);
 		}
 		return parser;
@@ -331,7 +331,7 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 	 */
 	protected DirectEditManager getManager() {
 		if (manager == null) {
-			setManager(new TextDirectEditManager(this, TextDirectEditManager.getTextCellEditorClass(this), PortEditPartFactory.getTextCellEditorLocator(this)));
+			setManager(new TextDirectEditManager(this, TextDirectEditManager.getTextCellEditorClass(this), TaiPanEditPartFactory.getTextCellEditorLocator(this)));
 		}
 		return manager;
 	}
@@ -416,8 +416,8 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 		setLabelTextHelper(getFigure(), getLabelText());
 		setLabelIconHelper(getFigure(), getLabelIcon());
 		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
-		if (pdEditPolicy instanceof PortTextSelectionEditPolicy) {
-			((PortTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
 		}
 	}
 
@@ -426,8 +426,8 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 	 */
 	protected void refreshUnderline() {
 		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
-		if (style != null && getFigure() instanceof WrapLabel) {
-			((WrapLabel) getFigure()).setTextUnderline(style.isUnderline());
+		if (style != null && getFigure() instanceof WrappingLabel) {
+			((WrappingLabel) getFigure()).setTextUnderline(style.isUnderline());
 		}
 	}
 
@@ -436,8 +436,8 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 	 */
 	protected void refreshStrikeThrough() {
 		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
-		if (style != null && getFigure() instanceof WrapLabel) {
-			((WrapLabel) getFigure()).setTextStrikeThrough(style.isStrikeThrough());
+		if (style != null && getFigure() instanceof WrappingLabel) {
+			((WrappingLabel) getFigure()).setTextStrikeThrough(style.isStrikeThrough());
 		}
 	}
 
@@ -571,6 +571,6 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new Label();
+		return new WrappingLabel();
 	}
 }
