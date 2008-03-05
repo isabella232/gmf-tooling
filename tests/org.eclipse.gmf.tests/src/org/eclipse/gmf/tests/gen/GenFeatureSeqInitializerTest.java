@@ -80,17 +80,6 @@ public class GenFeatureSeqInitializerTest extends TestCase {
 		assertSame(initializedModelFacet, initializer_EClass_eReferences_eReferenceType.getTypeModelFacet());
 	}
 	
-	public void testObjectInitializerFieldName() throws Exception {
-		String elementID = "EClass_101"; //$NON-NLS-1$
-		assertEquals(elementID, rootInitializer.getInitializerFieldName(elementID));		
-		assertEquals(newElementSpec_EClass_eReferences.getFeature().getName(), 
-			initializer_EClass_eReferences.getInitializerFieldName(elementID));
-		assertEquals(newElementSpec_EClass_eReferences.getFeature().getName() + "_" + newElementSpec_EClass_eReferences_eReferenceType.getFeature().getName(), //$NON-NLS-1$
-			initializer_EClass_eReferences_eReferenceType.getInitializerFieldName(elementID));		
-
-		
-	}	
-	
 	public void testContext() throws Exception {
 		assertNotNull(rootInitializer.getElementClass());
 		assertSame(initializedModelFacet.getMetaClass(), rootInitializer.getElementClass());
@@ -108,16 +97,15 @@ public class GenFeatureSeqInitializerTest extends TestCase {
 		initializer_EClass_eReferences_eReferenceType.setElementClass(null);
 		assertSame(genModelMatcher.findGenClass(EcorePackage.eINSTANCE.getEClassifier()), initializer_EClass_eReferences_eReferenceType.getElementClass());		
 	}
-	
-	@SuppressWarnings("unchecked")	
+
 	private GenFeatureSeqInitializer createNewElementInitializer(GenReferenceNewElementSpec newElementSpec, EClass elementClass) {
 		GenFeatureSeqInitializer seqInitializer = GMFGenFactory.eINSTANCE.createGenFeatureSeqInitializer();
 		seqInitializer.setElementClass(genModelMatcher.findGenClass(elementClass));
 		newElementSpec.getNewElementInitializers().add(seqInitializer);
 		return seqInitializer;
 	}
+
 	
-	@SuppressWarnings("unchecked")	
 	private GenReferenceNewElementSpec addNewElementSpec(GenFeatureSeqInitializer owningInitializer, EStructuralFeature eFeature) {
 		GenReferenceNewElementSpec newElementSpec = GMFGenFactory.eINSTANCE.createGenReferenceNewElementSpec();
 		newElementSpec.setFeature(genModelMatcher.findGenFeature(eFeature));
@@ -137,6 +125,7 @@ public class GenFeatureSeqInitializerTest extends TestCase {
 	public void testElementClassFeauture() throws Exception {
 		// should be readonly for the top initializer
 		GenClass oldVal = rootInitializer.getElementClass();
+		System.out.println("GenFeatureSeqInitializerTest.testElementClassFeauture()" + oldVal.getEcoreClass().getInstanceClassName());
 		GenClass newVal = genModelMatcher.findGenClass(EcorePackage.eINSTANCE.getEAnnotation());
 		assertNotSame(oldVal, newVal);
 		rootInitializer.setElementClass(newVal);
@@ -151,8 +140,7 @@ public class GenFeatureSeqInitializerTest extends TestCase {
 		initializer_EClass_eReferences.setElementClass(null);
 		assertSame(oldVal, initializer_EClass_eReferences.getElementClass());
 	}
-	
-	@SuppressWarnings("unchecked")	
+
 	private GenFeatureValueSpec addFeatureValueSpec(GenFeatureSeqInitializer owningInitializer, EStructuralFeature eFeature, String oclBody) {
 		GenFeatureValueSpec valueSpec = GMFGenFactory.eINSTANCE.createGenFeatureValueSpec();
 		valueSpec.setFeature(genModelMatcher.findGenFeature(eFeature));
