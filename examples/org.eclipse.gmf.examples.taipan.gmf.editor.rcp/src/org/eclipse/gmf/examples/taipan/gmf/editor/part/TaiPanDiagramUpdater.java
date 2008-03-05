@@ -600,7 +600,7 @@ public class TaiPanDiagramUpdater {
 	private static Collection getContainedTypeModelFacetLinks_Route_4002(Aquatory container) {
 		Collection result = new LinkedList();
 		for (Iterator links = container.getRoutes().iterator(); links.hasNext();) {
-			Object linkObject = links.next();
+			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof Route) {
 				continue;
 			}
@@ -621,7 +621,7 @@ public class TaiPanDiagramUpdater {
 	private static Collection getContainedTypeModelFacetLinks_Route_4003(Aquatory container) {
 		Collection result = new LinkedList();
 		for (Iterator links = container.getRoutes().iterator(); links.hasNext();) {
-			Object linkObject = links.next();
+			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof Route) {
 				continue;
 			}
@@ -642,7 +642,7 @@ public class TaiPanDiagramUpdater {
 	private static Collection getContainedTypeModelFacetLinks_BesiegePortOrder_4005(Warship container) {
 		Collection result = new LinkedList();
 		for (Iterator links = container.getAttackOrders().iterator(); links.hasNext();) {
-			Object linkObject = links.next();
+			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof BesiegePortOrder) {
 				continue;
 			}
@@ -818,6 +818,9 @@ public class TaiPanDiagramUpdater {
 	private static Collection getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(Ship source) {
 		Collection result = new LinkedList();
 		Port destination = source.getDestination();
+		if (destination == null) {
+			return result;
+		}
 		result.add(new TaiPanLinkDescriptor(source, destination, TaiPanElementTypes.ShipDestination_4001, ShipDestinationEditPart.VISUAL_ID));
 		return result;
 	}
@@ -840,7 +843,7 @@ public class TaiPanDiagramUpdater {
 		}
 		Collection result = new LinkedList();
 		for (Iterator links = container.getRoutes().iterator(); links.hasNext();) {
-			Object linkObject = links.next();
+			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof Route) {
 				continue;
 			}
@@ -876,7 +879,7 @@ public class TaiPanDiagramUpdater {
 		}
 		Collection result = new LinkedList();
 		for (Iterator links = container.getRoutes().iterator(); links.hasNext();) {
-			Object linkObject = links.next();
+			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof Route) {
 				continue;
 			}
@@ -900,6 +903,9 @@ public class TaiPanDiagramUpdater {
 	private static Collection getOutgoingFeatureModelFacetLinks_Ship_Route_4004(Ship source) {
 		Collection result = new LinkedList();
 		Route destination = source.getRoute();
+		if (destination == null) {
+			return result;
+		}
 		result.add(new TaiPanLinkDescriptor(source, destination, TaiPanElementTypes.ShipRoute_4004, ShipRouteEditPart.VISUAL_ID));
 		return result;
 	}

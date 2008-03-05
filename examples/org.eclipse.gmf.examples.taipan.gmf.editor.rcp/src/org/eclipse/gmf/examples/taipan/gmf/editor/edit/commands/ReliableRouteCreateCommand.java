@@ -78,10 +78,10 @@ public class ReliableRouteCreateCommand extends CreateElementCommand {
 		if (source == null && target == null) {
 			return false;
 		}
-		if (source != null && !(source instanceof Destination)) {
+		if (source != null && false == source instanceof Destination) {
 			return false;
 		}
-		if (target != null && !(target instanceof Destination)) {
+		if (target != null && false == target instanceof Destination) {
 			return false;
 		}
 		if (getSource() == null) {
@@ -98,12 +98,12 @@ public class ReliableRouteCreateCommand extends CreateElementCommand {
 	 * @generated
 	 */
 	protected EObject doDefaultElementCreation() {
-		// org.eclipse.gmf.examples.taipan.Route newElement = (org.eclipse.gmf.examples.taipan.Route) super.doDefaultElementCreation();
 		Route newElement = TaiPanFactory.eINSTANCE.createRoute();
 		getContainer().getRoutes().add(newElement);
 		newElement.setSource(getSource());
 		newElement.setDestination(getTarget());
-		TaiPanElementTypes.Initializers.Route_4002.init(newElement);
+		TaiPanElementTypes.Initializers.init_Route_4002(newElement);
+
 		return newElement;
 	}
 

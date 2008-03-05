@@ -53,10 +53,10 @@ public class ShipRouteCreateCommand extends EditElementCommand {
 		if (source == null && target == null) {
 			return false;
 		}
-		if (source != null && !(source instanceof Ship)) {
+		if (source != null && false == source instanceof Ship) {
 			return false;
 		}
-		if (target != null && !(target instanceof Route)) {
+		if (target != null && false == target instanceof Route) {
 			return false;
 		}
 		if (getSource() == null) {

@@ -79,14 +79,14 @@ public class TaiPanOCLFactory {
 		/**
 		 * @generated 
 		 */
-		private final OCL oclInstance;
+		private final org.eclipse.ocl.ecore.OCL oclInstance;
 
 		/**
 		 * @generated 
 		 */
 		public Expression(String body, EClassifier context, Map environment) {
 			super(body, context);
-			oclInstance = OCL.newInstance();
+			oclInstance = org.eclipse.ocl.ecore.OCL.newInstance();
 			initCustomEnv(oclInstance.getEnvironment(), environment);
 		}
 
@@ -127,7 +127,6 @@ public class TaiPanOCLFactory {
 				Map.Entry nextEntry = (Map.Entry) it.next();
 				evalEnv.replace((String) nextEntry.getKey(), nextEntry.getValue());
 			}
-
 			try {
 				initExtentMap(context);
 				Object result = oclQuery.evaluate(context);
@@ -160,7 +159,6 @@ public class TaiPanOCLFactory {
 			}
 			final Query queryToInit = getQuery();
 			final Object extentContext = context;
-
 			queryToInit.getExtentMap().clear();
 			if (queryToInit.queryText() != null && queryToInit.queryText().indexOf(PredefinedType.ALL_INSTANCES_NAME) >= 0) {
 				AbstractVisitor visitior = new AbstractVisitor() {
@@ -196,7 +194,7 @@ public class TaiPanOCLFactory {
 		 * @generated 
 		 */
 		private static Variable createVar(Environment ecoreEnv, String name, EClassifier type) {
-			Variable var = EcoreFactory.eINSTANCE.createVariable(); // or ecoreEnv.getOCLFactory().createVariable()?
+			Variable var = EcoreFactory.eINSTANCE.createVariable();
 			var.setName(name);
 			var.setType(ecoreEnv.getUMLReflection().getOCLType(type));
 			return var;

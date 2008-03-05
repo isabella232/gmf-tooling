@@ -53,10 +53,10 @@ public class PortRegisterCreateCommand extends EditElementCommand {
 		if (source == null && target == null) {
 			return false;
 		}
-		if (source != null && !(source instanceof Port)) {
+		if (source != null && false == source instanceof Port) {
 			return false;
 		}
-		if (target != null && !(target instanceof Ship)) {
+		if (target != null && false == target instanceof Ship) {
 			return false;
 		}
 		if (getSource() == null) {

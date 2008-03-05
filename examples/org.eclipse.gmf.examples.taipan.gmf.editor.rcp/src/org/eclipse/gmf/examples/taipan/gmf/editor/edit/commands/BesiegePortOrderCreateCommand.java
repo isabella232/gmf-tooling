@@ -63,10 +63,10 @@ public class BesiegePortOrderCreateCommand extends CreateElementCommand {
 		if (source == null && target == null) {
 			return false;
 		}
-		if (source != null && !(source instanceof Warship)) {
+		if (source != null && false == source instanceof Warship) {
 			return false;
 		}
-		if (target != null && !(target instanceof Port)) {
+		if (target != null && false == target instanceof Port) {
 			return false;
 		}
 		if (getSource() == null) {
@@ -80,10 +80,10 @@ public class BesiegePortOrderCreateCommand extends CreateElementCommand {
 	 * @generated
 	 */
 	protected EObject doDefaultElementCreation() {
-		// org.eclipse.gmf.examples.taipan.BesiegePortOrder newElement = (org.eclipse.gmf.examples.taipan.BesiegePortOrder) super.doDefaultElementCreation();
 		BesiegePortOrder newElement = TaiPanFactory.eINSTANCE.createBesiegePortOrder();
 		getSource().getAttackOrders().add(newElement);
 		newElement.setPort(getTarget());
+
 		return newElement;
 	}
 
