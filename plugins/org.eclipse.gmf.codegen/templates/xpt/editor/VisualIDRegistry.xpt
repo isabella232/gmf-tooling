@@ -316,7 +316,7 @@ private static boolean evaluate(«editorGen.expressionProviders.getAbstractExpres
 «ENDDEFINE»
 
 «DEFINE javaConstraints FOR gmfgen::GenDiagram-»
-	«IF null != editorGen.expressionProviders && !editorGen.expressionProviders.providers.typeSelect(gmfgen::GenJavaExpressionProvider).isEmpty()-»
+«IF null != editorGen.expressionProviders && !editorGen.expressionProviders.providers.typeSelect(gmfgen::GenJavaExpressionProvider).isEmpty()-»
 	
 		«EXPAND xpt::Common::generatedClassComment»
 private static class «EXPAND javaConstraintContainerClassName» {
@@ -324,36 +324,26 @@ private static class «EXPAND javaConstraintContainerClassName» {
 	«EXPAND defineJavaConstraintOperation FOREACH links-»
 	
 }
-	«ENDIF-»
+«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE defineJavaConstraintOperation FOR gmfgen::GenNode-»
-	«EXPAND defineJavaConstraintOperation(this) FOR modelFacet-»
-«ENDDEFINE»
+«DEFINE defineJavaConstraintOperation FOR gmfgen::GenNode»«EXPAND defineJavaConstraintOperation(this) FOR modelFacet»«ENDDEFINE»
+«DEFINE defineJavaConstraintOperation FOR gmfgen::GenLink»«EXPAND defineJavaConstraintOperation(this) FOR modelFacet»«ENDDEFINE»
 
-«DEFINE defineJavaConstraintOperation FOR gmfgen::GenLink-»
-	«EXPAND defineJavaConstraintOperation(modelFacet)-»
-«ENDDEFINE»
-
-«DEFINE defineJavaConstraintOperation(gmfgen::LinkModelFacet modelFacet) FOR gmfgen::GenLink»«ENDDEFINE»
-
-«DEFINE defineJavaConstraintOperation(gmfgen::TypeLinkModelFacet typeModelFacet) FOR gmfgen::GenLink-»
-	«EXPAND defineJavaConstraintOperation(this) FOR typeModelFacet-»
-«ENDDEFINE»
+«DEFINE defineJavaConstraintOperation(gmfgen::GenCommonBase commonBase) FOR gmfgen::ModelFacet»«ENDDEFINE»
 
 «DEFINE defineJavaConstraintOperation(gmfgen::GenCommonBase commonBase) FOR gmfgen::TypeModelFacet-»
-	«IF null != modelElementSelector-»
-		«EXPAND defineJavaConstraintOperation(modelElementSelector, metaClass) FOR commonBase.getDiagram().editorGen.expressionProviders.getProvider(modelElementSelector)-»
-	«ENDIF-»
+«IF null != modelElementSelector-»
+	«EXPAND defineJavaConstraintOperation(modelElementSelector, metaClass) FOR commonBase.getDiagram().editorGen.expressionProviders.getProvider(modelElementSelector)-»
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE defineJavaConstraintOperation(gmfgen::ValueExpression valueExpression, genmodel::GenClass genClass) FOR gmfgen::GenExpressionProviderBase»«ENDDEFINE»
 
 «DEFINE defineJavaConstraintOperation(gmfgen::ValueExpression valueExpression, genmodel::GenClass genClass) FOR gmfgen::GenJavaExpressionProvider-»
-	«IF !container.isCopy(valueExpression)-»
-
-		«EXPAND xpt::expressions::javaExpressionOperation::javaExpressionOperation(valueExpression, genClass, null)-»
-	«ENDIF-»
+«IF !container.isCopy(valueExpression)-»
+	«EXPAND xpt::expressions::javaExpressionOperation::javaExpressionOperation(valueExpression, genClass, null)-»
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE unrecognizedVID FOR gmfgen::GenDiagram-»
