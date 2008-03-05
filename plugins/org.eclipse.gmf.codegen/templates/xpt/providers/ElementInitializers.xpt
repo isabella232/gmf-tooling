@@ -8,7 +8,9 @@
  *
  * Contributors:
  *    Dmitry Stadnik (Borland) - initial API and implementation
- *    Artem Tikhomirov (Borland) - refactored javaInitilizers not to use methods from GMFGen model 
+ *    Artem Tikhomirov (Borland) - refactored javaInitilizers not to use methods from GMFGen model
+ *                               [221347] Got rid of generated interfaces 
+ *                               (IObjectInitializer, IFeatureInitializer) and implementation thereof
  */
 
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
@@ -24,29 +26,25 @@ package «providersPackageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
 public class ElementInitializers {
-	«EXPAND Initializers(this) FOR editorGen.expressionProviders-»
+	«EXPAND Initializers»
+	«EXPAND JavaSupport»
 	«EXPAND additions-»
 }
 «ENDDEFINE»
 
-«DEFINE Initializers(GenDiagram diagram) FOR GenExpressionProviderContainer-»
+«DEFINE Initializers FOR GenDiagram-»
+	«EXPAND initializer FOREACH getAllNodes()-»
+	«EXPAND initializer FOREACH links-»
+«ENDDEFINE»
 
-// TODO move init methods out from nested Initializers class
-«EXPAND xpt::Common::generatedClassComment»
-public static class Initializers {
-	«EXPAND initializer FOREACH diagram.getAllNodes()-»
-	«EXPAND initializer FOREACH diagram.links-»
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	private Initializers() {}
-
-
+«DEFINE JavaSupport FOR GenDiagram-»
+«IF editorGen.expressionProviders != null && !editorGen.expressionProviders.providers.typeSelect(GenJavaExpressionProvider).isEmpty()-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	static class Java {
-		«EXPAND javaInitializer FOREACH diagram.getAllNodes()-»
-		«EXPAND javaInitializer FOREACH diagram.links-»
+		«EXPAND javaInitializer FOREACH getAllNodes()-»
+		«EXPAND javaInitializer FOREACH links-»
 	}
-}
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
@@ -57,7 +55,6 @@ public static class Initializers {
 «ENDREM»
 
 «DEFINE initializer FOR GenNode»«EXPAND initializer(this) FOR modelFacet»«ENDDEFINE»
-
 «DEFINE initializer FOR GenLink»«EXPAND initializer(this) FOR modelFacet»«ENDDEFINE»
 
 «DEFINE initializer(GenCommonBase diagramElement) FOR ModelFacet»«ENDDEFINE»

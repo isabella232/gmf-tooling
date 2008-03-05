@@ -157,5 +157,5 @@ protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
 «ENDDEFINE»
 
 «DEFINE initialize(gmfgen::GenNode node) FOR gmfgen::TypeModelFacet»«IF modelElementInitializer != null-»
-«node.getDiagram().getElementTypesQualifiedClassName()».Initializers.init_«node.getUniqueIdentifier()»(newElement);
+«node.getDiagram().getElementTypesQualifiedClassName()».init_«node.getUniqueIdentifier()»(newElement);
 «ENDIF»«ENDDEFINE»

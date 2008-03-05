@@ -24,7 +24,7 @@ List[GenFeatureValueSpec] getFeatureInitializers(GenFeatureSeqInitializer si, Ge
 	si.initializers.typeSelect(GenReferenceNewElementSpec).collect(x | getFeatureInitializers(x, jp)).flatten())
 ;
 
-List[GenFeatureValueSpec] getFeatureInitializers(GenReferenceNewElementSpec x, GenJavaExpressionProvider jp) :
+private List[GenFeatureValueSpec] getFeatureInitializers(GenReferenceNewElementSpec x, GenJavaExpressionProvider jp) :
 	getNestedFeatureSeqInitializers(x).collect(y | getFeatureInitializers(y, jp)).flatten()
 ; 
 

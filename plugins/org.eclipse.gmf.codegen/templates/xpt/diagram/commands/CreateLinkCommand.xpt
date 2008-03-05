@@ -91,5 +91,5 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 «ENDDEFINE»
 
 «DEFINE initialize(GenLink link) FOR TypeModelFacet»«IF modelElementInitializer != null-»
-«link.diagram.getElementTypesQualifiedClassName()».Initializers.init_«link.getUniqueIdentifier()»(newElement);
+«link.diagram.getElementTypesQualifiedClassName()».init_«link.getUniqueIdentifier()»(newElement);
 «ENDIF»«ENDDEFINE»
