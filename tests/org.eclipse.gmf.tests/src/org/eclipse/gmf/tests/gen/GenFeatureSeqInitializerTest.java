@@ -125,7 +125,6 @@ public class GenFeatureSeqInitializerTest extends TestCase {
 	public void testElementClassFeauture() throws Exception {
 		// should be readonly for the top initializer
 		GenClass oldVal = rootInitializer.getElementClass();
-		System.out.println("GenFeatureSeqInitializerTest.testElementClassFeauture()" + oldVal.getEcoreClass().getInstanceClassName());
 		GenClass newVal = genModelMatcher.findGenClass(EcorePackage.eINSTANCE.getEAnnotation());
 		assertNotSame(oldVal, newVal);
 		rootInitializer.setElementClass(newVal);
