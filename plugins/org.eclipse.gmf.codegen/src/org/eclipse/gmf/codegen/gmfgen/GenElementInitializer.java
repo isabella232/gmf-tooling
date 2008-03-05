@@ -42,7 +42,4 @@ public interface GenElementInitializer extends EObject {
 	 * @generated
 	 */
 	TypeModelFacet getTypeModelFacet();
-
-	String getInitializerFieldName(String elementID);
-
 } // GenElementInitializer
