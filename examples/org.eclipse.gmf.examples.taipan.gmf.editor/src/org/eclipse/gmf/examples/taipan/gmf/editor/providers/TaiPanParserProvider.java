@@ -165,7 +165,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	protected IParser createLargeItemArticle_5002Parser() {
 		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getItem_Article(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
+		NativeParser parser = new NativeParser(features);
 		return parser;
 	}
 
@@ -189,7 +189,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	protected IParser createLargeItemWeight_5003Parser() {
 		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getLargeItem_Weight(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
+		NativeParser parser = new NativeParser(features);
 		return parser;
 	}
 
