@@ -106,6 +106,10 @@
   </metrics>
   <diagram
       visualID="1000"
+      editPartClassName="AquatoryEditPart"
+      itemSemanticEditPolicyClassName="AquatoryItemSemanticEditPolicy"
+      notationViewFactoryClassName="AquatoryViewFactory"
+      canonicalEditPolicyClassName="AquatoryCanonicalEditPolicy"
       iconProviderPriority="Low"
       creationWizardIconPath="{reuseEMFIcon}"
       validationProviderPriority="Low"
@@ -115,7 +119,8 @@
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
         xsi:type="gmfgen:MetamodelType"
-        displayName="Aquatory"/>
+        displayName="Aquatory"
+        editHelperClassName="AquatoryEditHelper"/>
     <viewmap
         xsi:type="gmfgen:FigureViewmap"
         figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
@@ -178,7 +183,9 @@
           editHelperClassName="LargeItemEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape"/>
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape">
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/LargeItem"/>
@@ -195,9 +202,13 @@
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+        </viewmap>
         <modelFacet
-            xsi:type="gmfgen:FeatureLabelModelFacet">
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            viewMethod="NATIVE"
+            editMethod="NATIVE">
           <metaFeatures
               href="taipan.genmodel#//taipan/Item/article"/>
         </modelFacet>
@@ -211,9 +222,13 @@
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+        </viewmap>
         <modelFacet
-            xsi:type="gmfgen:FeatureLabelModelFacet">
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            viewMethod="NATIVE"
+            editMethod="NATIVE">
           <metaFeatures
               href="taipan.genmodel#//taipan/LargeItem/weight"/>
         </modelFacet>
@@ -236,7 +251,9 @@
           editHelperClassName="EmptyBoxEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.BoxShape"/>
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.BoxShape">
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/EmptyBox"/>
@@ -245,11 +262,18 @@
       </modelFacet>
     </childNodes>
     <topLevelNodes
-        visualID="2001">
+        visualID="2001"
+        editPartClassName="PortEditPart"
+        itemSemanticEditPolicyClassName="PortItemSemanticEditPolicy"
+        notationViewFactoryClassName="PortViewFactory"
+        canonicalEditPolicyClassName="PortCanonicalEditPolicy"
+        graphicalNodeEditPolicyClassName="PortGraphicalNodeEditPolicy"
+        createCommandClassName="PortCreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:MetamodelType"/>
+          xsi:type="gmfgen:MetamodelType"
+          editHelperClassName="PortEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PortShape">
@@ -259,6 +283,7 @@
             xsi:type="gmfgen:DefaultSizeAttributes"
             width="60"
             height="50"/>
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <behaviour
           xsi:type="gmfgen:OpenDiagramBehaviour"
@@ -292,14 +317,23 @@
     </topLevelNodes>
     <topLevelNodes
         visualID="2002"
-        compartments="//@diagram/@compartments.0 //@diagram/@compartments.1">
+        editPartClassName="ShipEditPart"
+        itemSemanticEditPolicyClassName="ShipItemSemanticEditPolicy"
+        notationViewFactoryClassName="ShipViewFactory"
+        canonicalEditPolicyClassName="ShipCanonicalEditPolicy"
+        compartments="//@diagram/@compartments.0 //@diagram/@compartments.1"
+        graphicalNodeEditPolicyClassName="ShipGraphicalNodeEditPolicy"
+        createCommandClassName="ShipCreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:MetamodelType"/>
+          xsi:type="gmfgen:MetamodelType"
+          editHelperClassName="ShipEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ShipShape"/>
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ShipShape">
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/Ship"/>
@@ -317,7 +351,9 @@
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+        </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewMethod="NATIVE"
@@ -329,14 +365,23 @@
     </topLevelNodes>
     <topLevelNodes
         visualID="2003"
-        compartments="//@diagram/@compartments.2 //@diagram/@compartments.3">
+        editPartClassName="WarshipEditPart"
+        itemSemanticEditPolicyClassName="WarshipItemSemanticEditPolicy"
+        notationViewFactoryClassName="WarshipViewFactory"
+        canonicalEditPolicyClassName="WarshipCanonicalEditPolicy"
+        compartments="//@diagram/@compartments.2 //@diagram/@compartments.3"
+        graphicalNodeEditPolicyClassName="WarshipGraphicalNodeEditPolicy"
+        createCommandClassName="WarshipCreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:MetamodelType"/>
+          xsi:type="gmfgen:MetamodelType"
+          editHelperClassName="WarshipEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.WarshipShape"/>
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.WarshipShape">
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/Warship"/>
@@ -352,7 +397,9 @@
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+        </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewMethod="NATIVE"
@@ -377,7 +424,9 @@
           editHelperAdviceClassName="ShipDestinationEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DirectedConnection"/>
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DirectedConnection">
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
       <modelFacet
           xsi:type="gmfgen:FeatureLinkModelFacet">
         <metaFeature
@@ -396,6 +445,7 @@
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:DesignLabelModelFacet"/>
@@ -416,7 +466,9 @@
           editHelperClassName="ReliableRouteEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"/>
+          figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx">
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
@@ -453,6 +505,7 @@
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
@@ -476,6 +529,7 @@
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="60"/>
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
@@ -540,6 +594,7 @@
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
@@ -563,6 +618,7 @@
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="60"/>
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
@@ -612,7 +668,9 @@
           editHelperClassName="BesiegePortOrderEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ArrowConnection"/>
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ArrowConnection">
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
@@ -668,8 +726,7 @@
         incomingCreationAllowed="true"
         viewDirectionAlignedWithModel="false"
         createCommandClassName="PortRegisterCreateCommand"
-        reorientCommandClassName="PortRegisterReorientCommand"
-        treeBranch="true">
+        reorientCommandClassName="PortRegisterReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
@@ -678,7 +735,9 @@
           editHelperAdviceClassName="PortRegisterEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DashedConnection"/>
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DashedConnection">
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
       <modelFacet
           xsi:type="gmfgen:FeatureLinkModelFacet">
         <metaFeature
@@ -700,7 +759,9 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
+          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure">
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
     </compartments>
     <compartments
         visualID="7002"
@@ -719,7 +780,9 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
+          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure">
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
     </compartments>
     <compartments
         visualID="7003"
@@ -736,7 +799,9 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
+          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure">
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
     </compartments>
     <compartments
         visualID="7004"
@@ -755,7 +820,9 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
+          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure">
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
     </compartments>
     <palette>
       <groups
@@ -921,11 +988,12 @@
     <tabs
         xsi:type="gmfgen:GenCustomPropertyTab"
         iD="domain"
-        label="Domain Model">
+        label="Core">
       <filter
           xsi:type="gmfgen:TypeTabFilter">
         <types>org.eclipse.gmf.runtime.notation.View</types>
         <types>org.eclipse.gef.EditPart</types>
+        <generatedTypes>abstractNavigatorItem</generatedTypes>
       </filter>
     </tabs>
   </propertySheet>
