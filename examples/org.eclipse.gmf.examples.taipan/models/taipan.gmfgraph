@@ -8,140 +8,49 @@
     <descriptors
         name="ShipFigure">
       <actualFigure
-          xsi:type="gmfgraph:Rectangle"
-          name="ShipFigure">
-        <children
-            xsi:type="gmfgraph:Label"
-            name="ShipNameFigure"
-            text="&lt;...>"/>
-      </actualFigure>
-      <accessors
-          figure="//@figures.0/@descriptors.0/@actualFigure/@children.0"/>
+          xsi:type="gmfgraph:CustomFigure"
+          name="ShipShape"
+          qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ShipShape"/>
     </descriptors>
     <descriptors
         name="LargeItemFigure">
       <actualFigure
-          xsi:type="gmfgraph:Rectangle"
-          name="LargeItemFigure">
-        <layout
-            xsi:type="gmfgraph:CustomLayout"
-            qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout"/>
-        <children
-            xsi:type="gmfgraph:Label"
-            name="LargeItemArticleFigure"
-            text="&lt;...>"/>
-        <children
-            xsi:type="gmfgraph:Label"
-            name="LargeItemWeightFigure"
-            text="&lt;...>"/>
-      </actualFigure>
-      <accessors
-          figure="//@figures.0/@descriptors.1/@actualFigure/@children.0"/>
-      <accessors
-          figure="//@figures.0/@descriptors.1/@actualFigure/@children.1"/>
+          xsi:type="gmfgraph:CustomFigure"
+          name="LargeItemShape"
+          qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape"/>
     </descriptors>
     <descriptors
         name="SmallCargoFigure">
       <actualFigure
           xsi:type="gmfgraph:Rectangle"
-          name="SmallCargoFigure"/>
+          name="SmallCargoShape"/>
     </descriptors>
     <descriptors
         name="LargeCargoFigure">
       <actualFigure
           xsi:type="gmfgraph:Rectangle"
-          name="LargeCargoFigure"/>
+          name="LargeCargoShape"/>
     </descriptors>
     <descriptors
         name="SmallItemsFigure">
       <actualFigure
           xsi:type="gmfgraph:Label"
-          name="SmallItemsFigure"
-          text="&lt;...>"/>
+          name="SmallItemsLabel"
+          text=""/>
     </descriptors>
     <descriptors
         name="PortFigure">
       <actualFigure
           xsi:type="gmfgraph:CustomFigure"
-          name="PortFigure"
-          qualifiedClassName="org.eclipse.draw2d.Layer">
-        <layout
-            xsi:type="gmfgraph:XYLayout"/>
-        <maximumSize
-            dx="60"
-            dy="50"/>
-        <minimumSize
-            dx="60"
-            dy="50"/>
-        <preferredSize
-            dx="60"
-            dy="50"/>
-        <size
-            x="60"
-            y="50"/>
-        <children
-            xsi:type="gmfgraph:Rectangle"
-            name="Walls">
-          <layoutData
-              xsi:type="gmfgraph:XYLayoutData">
-            <topLeft
-                x="10"
-                y="40"/>
-            <size
-                dx="40"
-                dy="10"/>
-          </layoutData>
-          <foregroundColor
-              xsi:type="gmfgraph:ConstantColor"
-              value="black"/>
-          <backgroundColor
-              xsi:type="gmfgraph:ConstantColor"
-              value="darkGray"/>
-        </children>
-        <children
-            xsi:type="gmfgraph:Polygon"
-            name="MainRoof">
-          <foregroundColor
-              xsi:type="gmfgraph:ConstantColor"
-              value="orange"/>
-          <backgroundColor
-              xsi:type="gmfgraph:ConstantColor"
-              value="orange"/>
-          <template
-              x="30"
-              y="10"/>
-          <template
-              x="60"
-              y="40"/>
-          <template
-              y="40"/>
-        </children>
-        <children
-            xsi:type="gmfgraph:Polygon"
-            name="TopRoof">
-          <foregroundColor
-              xsi:type="gmfgraph:ConstantColor"
-              value="orange"/>
-          <backgroundColor
-              xsi:type="gmfgraph:ConstantColor"
-              value="orange"/>
-          <template
-              x="30"/>
-          <template
-              x="50"
-              y="20"/>
-          <template
-              x="10"
-              y="20"/>
-        </children>
-      </actualFigure>
+          name="PortShape"
+          qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PortShape"/>
     </descriptors>
     <descriptors
         name="PortLocationFigure">
       <actualFigure
           xsi:type="gmfgraph:Label"
-          name="PortLocationFigure"
-          text="&lt;...>"/>
+          name="PortLocationLabel"
+          text=""/>
     </descriptors>
     <descriptors
         name="BuildingFigure">
@@ -156,16 +65,30 @@
       <accessors
           figure="//@figures.0/@descriptors.7/@actualFigure/@children.0"/>
     </descriptors>
-  </figures>
-  <figures
-      name="images"
-      implementationBundle="org.eclipse.gmf.runtime.draw2d.ui.render">
     <descriptors
         name="EmptyBoxFigure">
       <actualFigure
           xsi:type="gmfgraph:CustomFigure"
           name="EmptyBoxFigure"
           qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure"/>
+    </descriptors>
+    <descriptors
+        name="ShipNameFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Label"
+          name="ShipNameLabel"/>
+    </descriptors>
+    <descriptors
+        name="LargeItemArticleFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Label"
+          name="LargeItemArticleLabel"/>
+    </descriptors>
+    <descriptors
+        name="LargeItemWeightFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Label"
+          name="LargeItemWeightLabel"/>
     </descriptors>
   </figures>
   <figures
@@ -174,90 +97,80 @@
         name="ReliableRouteFigure">
       <actualFigure
           xsi:type="gmfgraph:PolylineConnection"
-          name="ReliableRouteFigure">
-        <children
-            xsi:type="gmfgraph:Label"
-            name="ReliableRouteDescriptionFigure"
-            text="&lt;...>"/>
-        <children
-            xsi:type="gmfgraph:Label"
-            name="ReliableRouteReliabilityFigure"
-            text="&lt;...>"/>
-      </actualFigure>
-      <accessors
-          figure="//@figures.2/@descriptors.0/@actualFigure/@children.0"/>
-      <accessors
-          figure="//@figures.2/@descriptors.0/@actualFigure/@children.1"/>
+          name="ReliableRouteConnection"/>
     </descriptors>
     <descriptors
         name="UnreliableRouteFigure">
       <actualFigure
           xsi:type="gmfgraph:PolylineConnection"
-          name="UnreliableRouteFigure"
-          lineKind="LINE_DASH">
-        <children
-            xsi:type="gmfgraph:Label"
-            name="UnreliableRouteDescriptionFigure"
-            text="&lt;...>"/>
-        <children
-            xsi:type="gmfgraph:Label"
-            name="UnreliableRouteReliabilityFigure"
-            text="&lt;...>"/>
-      </actualFigure>
-      <accessors
-          figure="//@figures.2/@descriptors.1/@actualFigure/@children.0"/>
-      <accessors
-          figure="//@figures.2/@descriptors.1/@actualFigure/@children.1"/>
-    </descriptors>
-    <descriptors
-        name="ShipDestinationFigure">
-      <actualFigure
-          xsi:type="gmfgraph:PolylineConnection"
-          name="ShipDestinationFigure"
-          targetDecoration="//@figures.2/@descriptors.2/@actualFigure/@children.0">
-        <children
-            xsi:type="gmfgraph:PolylineDecoration"
-            name="ShipDestinationTargetFigure"/>
-        <children
-            xsi:type="gmfgraph:Label"
-            name="ShipDestinationMarkerFigure"
-            text="destination"/>
-      </actualFigure>
-      <accessors
-          figure="//@figures.2/@descriptors.2/@actualFigure/@children.1"/>
+          name="UnreliableRouteConnection"
+          lineKind="LINE_DASH"/>
     </descriptors>
     <descriptors
         name="EscortShipsOrderFigure">
       <actualFigure
-          xsi:type="gmfgraph:PolylineConnection"
-          name="EscortShipsOrderFigure"
-          lineWidth="3"
-          targetDecoration="//@figures.2/@descriptors.3/@actualFigure/@children.0">
-        <children
-            xsi:type="gmfgraph:PolylineDecoration"
-            name="EscortShipsOrderDecoration"
-            lineWidth="3"/>
-      </actualFigure>
+          xsi:type="gmfgraph:CustomConnection"
+          name="EscortShipsOrderConnection"
+          qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ThickDirectedConnection"/>
     </descriptors>
     <descriptors
         name="BesiegePortOrderFigure">
       <actualFigure
           xsi:type="gmfgraph:CustomFigure"
-          name="BesiegePortOrderFigure"
+          name="BesiegePortOrderConnection"
           qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ArrowConnection"/>
     </descriptors>
     <descriptors
         name="RegistrationFigure">
       <actualFigure
-          xsi:type="gmfgraph:PolylineConnection"
-          name="RegistrationFigure"
-          lineKind="LINE_DASH"/>
+          xsi:type="gmfgraph:CustomConnection"
+          name="RegistrationConnection"
+          qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DashedConnection"/>
+    </descriptors>
+    <descriptors
+        name="ShipDestinationFigure">
+      <actualFigure
+          xsi:type="gmfgraph:CustomConnection"
+          name="ShipDestinationConnection"
+          qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DirectedConnection"/>
+    </descriptors>
+    <descriptors
+        name="ShipDestinationMarkerFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Label"
+          name="ShipDestinationMarkerLabel"/>
+    </descriptors>
+    <descriptors
+        name="RouteDescriptionFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Label"
+          name="RouteDescriptionLabel"/>
+    </descriptors>
+    <descriptors
+        name="RouteReliabilityFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Label"
+          name="RouteReliabilityLabel"/>
+    </descriptors>
+    <descriptors
+        name="ShipRouteFigure">
+      <actualFigure
+          xsi:type="gmfgraph:CustomConnection"
+          name="ShipRouteConnection"
+          qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DirectedConnection"/>
     </descriptors>
   </figures>
   <nodes
       name="Port"
       figure="PortFigure"
-      resizeConstraint="NONE"/>
+      resizeConstraint="NONE">
+    <facets
+        xsi:type="gmfgraph:DefaultSizeFacet">
+      <defaultSize
+          dx="60"
+          dy="50"/>
+    </facets>
+  </nodes>
   <nodes
       name="Ship"
       figure="ShipFigure"/>
@@ -270,9 +183,6 @@
   <nodes
       name="Building"
       figure="BuildingFigure"/>
-  <connections
-      name="ShipDestination"
-      figure="ShipDestinationFigure"/>
   <connections
       name="ReliableRoute"
       figure="ReliableRouteFigure"/>
@@ -288,6 +198,12 @@
   <connections
       name="Registration"
       figure="RegistrationFigure"/>
+  <connections
+      name="ShipDestination"
+      figure="ShipDestinationFigure"/>
+  <connections
+      name="ShipRoute"
+      figure="ShipRouteFigure"/>
   <compartments
       name="SmallCargo"
       figure="SmallCargoFigure"
@@ -302,44 +218,29 @@
       elementIcon="false"/>
   <labels
       name="ShipName"
-      figure="ShipFigure"
-      accessor="//@figures.0/@descriptors.0/@accessors.0"/>
+      figure="ShipNameFigure"/>
   <labels
       name="SmallItems"
       figure="SmallItemsFigure"
       elementIcon="false"/>
   <labels
       name="LargeItemArticle"
-      figure="LargeItemFigure"
-      accessor="//@figures.0/@descriptors.1/@accessors.0"/>
+      figure="LargeItemArticleFigure"/>
   <labels
       name="LargeItemWeight"
-      figure="LargeItemFigure"
-      elementIcon="false"
-      accessor="//@figures.0/@descriptors.1/@accessors.1"/>
+      figure="LargeItemWeightFigure"
+      elementIcon="false"/>
   <labels
-      name="ReliableRouteDescription"
-      figure="ReliableRouteFigure"
-      accessor="//@figures.2/@descriptors.0/@accessors.0"/>
+      name="RouteDescription"
+      figure="RouteDescriptionFigure"/>
   <labels
-      name="ReliableRouteReliability"
-      figure="ReliableRouteFigure"
-      elementIcon="false"
-      accessor="//@figures.2/@descriptors.0/@accessors.1"/>
+      name="RouteReliability"
+      figure="RouteReliabilityFigure"
+      elementIcon="false"/>
   <labels
       name="ShipDestinationMarker"
-      figure="ShipDestinationFigure"
-      elementIcon="false"
-      accessor="//@figures.2/@descriptors.2/@accessors.0"/>
-  <labels
-      name="UnreliableRouteDescription"
-      figure="UnreliableRouteFigure"
-      accessor="//@figures.2/@descriptors.1/@accessors.0"/>
-  <labels
-      name="UnreliableRouteReliability"
-      figure="UnreliableRouteFigure"
-      elementIcon="false"
-      accessor="//@figures.2/@descriptors.1/@accessors.1"/>
+      figure="ShipDestinationMarkerFigure"
+      elementIcon="false"/>
   <labels
       name="BuildingInfo"
       figure="BuildingFigure"

@@ -34,7 +34,9 @@
       <domainMetaElement
           href="taipan.ecore#//Ship"/>
       <labelMappings
-          xsi:type="gmfmap:FeatureLabelMapping">
+          xsi:type="gmfmap:FeatureLabelMapping"
+          viewMethod="NATIVE"
+          editMethod="NATIVE">
         <diagramLabel
             href="taipan.gmfgraph#ShipName"/>
         <features
@@ -68,7 +70,7 @@
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="taipan.gmftool#//@palette/@tools.0/@tools.2"/>
+              href="taipan.gmftool#//@palette/@tools.0/@tools.3"/>
           <diagramNode
               href="taipan.gmfgraph#SmallItems"/>
         </ownedChild>
@@ -81,14 +83,18 @@
           <domainMetaElement
               href="taipan.ecore#//LargeItem"/>
           <labelMappings
-              xsi:type="gmfmap:FeatureLabelMapping">
+              xsi:type="gmfmap:FeatureLabelMapping"
+              viewMethod="NATIVE"
+              editMethod="NATIVE">
             <diagramLabel
                 href="taipan.gmfgraph#LargeItemArticle"/>
             <features
                 href="taipan.ecore#//Item/article"/>
           </labelMappings>
           <labelMappings
-              xsi:type="gmfmap:FeatureLabelMapping">
+              xsi:type="gmfmap:FeatureLabelMapping"
+              viewMethod="NATIVE"
+              editMethod="NATIVE">
             <diagramLabel
                 href="taipan.gmfgraph#LargeItemWeight"/>
             <features
@@ -96,7 +102,7 @@
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="taipan.gmftool#//@palette/@tools.0/@tools.3"/>
+              href="taipan.gmftool#//@palette/@tools.0/@tools.4"/>
           <diagramNode
               href="taipan.gmfgraph#LargeItem"/>
         </ownedChild>
@@ -110,7 +116,7 @@
               href="taipan.ecore#//EmptyBox"/>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="taipan.gmftool#//@palette/@tools.0/@tools.4"/>
+              href="taipan.gmftool#//@palette/@tools.0/@tools.5"/>
           <diagramNode
               href="taipan.gmfgraph#EmptyBox"/>
         </ownedChild>
@@ -134,7 +140,9 @@
       <domainMetaElement
           href="taipan.ecore#//Warship"/>
       <labelMappings
-          xsi:type="gmfmap:FeatureLabelMapping">
+          xsi:type="gmfmap:FeatureLabelMapping"
+          viewMethod="NATIVE"
+          editMethod="NATIVE">
         <diagramLabel
             href="taipan.gmfgraph#ShipName"/>
         <features
@@ -142,17 +150,34 @@
       </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
-          href="taipan.gmftool#//@palette/@tools.0/@tools.8"/>
+          href="taipan.gmftool#//@palette/@tools.0/@tools.2"/>
       <diagramNode
           href="taipan.gmfgraph#Ship"/>
       <children
           compartment="//@nodes.2/@ownedChild/@compartments.0"
+          referencedChild="//@nodes.1/@ownedChild/@children.0/@ownedChild">
+        <containmentFeature
+            href="taipan.ecore#//Ship/cargo"/>
+      </children>
+      <children
+          compartment="//@nodes.2/@ownedChild/@compartments.1"
           referencedChild="//@nodes.1/@ownedChild/@children.1/@ownedChild">
+        <containmentFeature
+            href="taipan.ecore#//Ship/cargo"/>
+      </children>
+      <children
+          compartment="//@nodes.2/@ownedChild/@compartments.1"
+          referencedChild="//@nodes.1/@ownedChild/@children.2/@ownedChild">
         <containmentFeature
             href="taipan.ecore#//Ship/cargo"/>
       </children>
       <compartments
           children="//@nodes.2/@ownedChild/@children.0">
+        <compartment
+            href="taipan.gmfgraph#SmallCargo"/>
+      </compartments>
+      <compartments
+          children="//@nodes.2/@ownedChild/@children.1 //@nodes.2/@ownedChild/@children.2">
         <compartment
             href="taipan.gmfgraph#LargeCargo"/>
       </compartments>
@@ -166,7 +191,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="taipan.gmftool#//@palette/@tools.0/@tools.7"/>
+        href="taipan.gmftool#//@palette/@tools.0/@tools.9"/>
     <diagramLink
         href="taipan.gmfgraph#ShipDestination"/>
     <linkMetaFeature
@@ -194,7 +219,7 @@
         editorPattern="{0}"
         editPattern="{0}">
       <diagramLabel
-          href="taipan.gmfgraph#ReliableRouteDescription"/>
+          href="taipan.gmfgraph#RouteDescription"/>
       <features
           href="taipan.ecore#//Route/description"/>
     </labelMappings>
@@ -204,7 +229,7 @@
         editorPattern="{0,number,percent}"
         editPattern="{0,number,percent}">
       <diagramLabel
-          href="taipan.gmfgraph#ReliableRouteReliability"/>
+          href="taipan.gmfgraph#RouteReliability"/>
       <features
           href="taipan.ecore#//Route/reliability"/>
     </labelMappings>
@@ -212,7 +237,7 @@
         href="taipan.ecore#//Aquatory/routes"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="taipan.gmftool#//@palette/@tools.0/@tools.5"/>
+        href="taipan.gmftool#//@palette/@tools.0/@tools.6"/>
     <diagramLink
         href="taipan.gmfgraph#ReliableRoute"/>
     <sourceMetaFeature
@@ -243,7 +268,7 @@
         editorPattern="{0}"
         editPattern="{0}">
       <diagramLabel
-          href="taipan.gmfgraph#UnreliableRouteDescription"/>
+          href="taipan.gmfgraph#RouteDescription"/>
       <features
           href="taipan.ecore#//Route/description"/>
     </labelMappings>
@@ -253,7 +278,7 @@
         editorPattern="{0,number,percent}"
         editPattern="{0,number,percent}">
       <diagramLabel
-          href="taipan.gmfgraph#UnreliableRouteReliability"/>
+          href="taipan.gmfgraph#RouteReliability"/>
       <features
           href="taipan.ecore#//Route/reliability"/>
     </labelMappings>
@@ -261,7 +286,7 @@
         href="taipan.ecore#//Aquatory/routes"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="taipan.gmftool#//@palette/@tools.0/@tools.6"/>
+        href="taipan.gmftool#//@palette/@tools.0/@tools.7"/>
     <diagramLink
         href="taipan.gmfgraph#UnreliableRoute"/>
     <sourceMetaFeature
@@ -278,7 +303,7 @@
         href="taipan.ecore#//Warship/escortOrder"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="taipan.gmftool#//@palette/@tools.0/@tools.10"/>
+        href="taipan.gmftool#//@palette/@tools.0/@tools.12"/>
     <diagramLink
         href="taipan.gmfgraph#EscortShipsOrder"/>
     <linkMetaFeature
@@ -298,7 +323,7 @@
         href="taipan.ecore#//Warship/attackOrders"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="taipan.gmftool#//@palette/@tools.0/@tools.9"/>
+        href="taipan.gmftool#//@palette/@tools.0/@tools.11"/>
     <diagramLink
         href="taipan.gmfgraph#BesiegePortOrder"/>
     <linkMetaFeature
@@ -312,12 +337,22 @@
   <links>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="taipan.gmftool#//@palette/@tools.0/@tools.11"/>
+        href="taipan.gmftool#//@palette/@tools.0/@tools.8"/>
     <diagramLink
         href="taipan.gmfgraph#Registration"/>
     <linkMetaFeature
         xsi:type="ecore:EReference"
         href="taipan.ecore#//Port/register"/>
+  </links>
+  <links>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="taipan.gmftool#//@palette/@tools.0/@tools.10"/>
+    <diagramLink
+        href="taipan.gmfgraph#ShipRoute"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="taipan.ecore#//Ship/route"/>
   </links>
   <diagram>
     <diagramCanvas
