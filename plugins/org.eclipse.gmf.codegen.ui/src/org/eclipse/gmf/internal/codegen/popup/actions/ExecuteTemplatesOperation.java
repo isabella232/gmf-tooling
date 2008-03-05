@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -196,6 +197,7 @@ public class ExecuteTemplatesOperation implements IRunnableWithProgress {
 
 	private Diagnostic loadGenModel() {
 		ResourceSet srcResSet = new ResourceSetImpl();
+		srcResSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());		
 		ModelLoadHelper loadHelper = new ModelLoadHelper(srcResSet, getGenModelURI());
 		Object root = loadHelper.getContentsRoot();
 		if (root instanceof GenDiagram) {
