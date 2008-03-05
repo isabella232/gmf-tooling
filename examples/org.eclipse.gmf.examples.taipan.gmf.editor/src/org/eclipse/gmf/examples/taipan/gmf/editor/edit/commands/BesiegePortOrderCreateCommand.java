@@ -83,6 +83,7 @@ public class BesiegePortOrderCreateCommand extends CreateElementCommand {
 		BesiegePortOrder newElement = TaiPanFactory.eINSTANCE.createBesiegePortOrder();
 		getSource().getAttackOrders().add(newElement);
 		newElement.setPort(getTarget());
+
 		return newElement;
 	}
 
