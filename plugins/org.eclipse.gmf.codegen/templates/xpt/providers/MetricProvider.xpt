@@ -636,8 +636,7 @@ public class «metricProviderClassName»
 «ENDDEFINE»
 
 «DEFINE initializerExpr(ValueExpression valueExpr, GenClassifier exprContext) FOR GenExpressionInterpreter-»
-	«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», //$NON-NLS-1$
-		«EXPAND MetaModel::MetaClass FOR exprContext»)
+	«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», «EXPAND MetaModel::MetaClass FOR exprContext»)
 «ENDDEFINE»
 
 «DEFINE initializerExpr(ValueExpression valueExpr, GenClassifier exprContext) FOR GenJavaExpressionProvider-»
