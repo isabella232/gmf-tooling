@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -66,6 +67,7 @@ public class ExternModelImport {
 		if(targetModel != null) {
 			this.importedModels.setURIConverter(targetModel.getResourceSet().getURIConverter());
 		}
+		this.importedModels.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
 		this.processedPackages = new HashSet<EPackage>();
 	}
 	
