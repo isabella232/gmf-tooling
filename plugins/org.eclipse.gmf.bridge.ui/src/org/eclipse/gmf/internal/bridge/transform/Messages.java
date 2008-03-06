@@ -53,8 +53,6 @@ public class Messages extends NLS {
 
 	public static String TransformToGenModelOperation_e_null_mapping;
 
-	public static String TransformToGenModelOperation_e_null_resource_set;
-
 	public static String TransformToGenModelOperation_e_wrong_root_element;
 
 	public static String TransformToGenModelOperation_task_detect;

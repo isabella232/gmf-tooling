@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -50,8 +50,6 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 	private WizardPage myErrorContainer;
 	
 	private TransformToGenModelOperation myOperation;
-
-	private ResourceSet resourceSet;
 	
 	@Override
 	public void addPages() {
@@ -67,7 +65,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		}
 		addPage(newFileCreationPage);
 		
-		resourceSet = createResourceSet();
+		final ResourceSet resourceSet = getTransformOperation().getResourceSet();
 		ResourceLocationProvider rlp = new ResourceLocationProvider(mySelection);
 		mapModelPage = new MapModelConfigurationPage(MapModelConfigurationPage.class.getSimpleName(), rlp, resourceSet);
 		mapModelPage.setPageComplete(false);
@@ -129,7 +127,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 
 	private IWizardPage findNextPageAfterMapping() {
 		try {
-			GenModel genmmodel = getTransformOperation().findGenmodel(resourceSet);
+			GenModel genmmodel = getTransformOperation().findGenmodel();
 			if (genmmodel == null) {
 				genModelPage.setPageComplete(true);
 				return transformOptionPage;
@@ -144,7 +142,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		this.mySelection = selection;
 		setWindowTitle(Messages.TransformToGenModelWizard_title_wizard);
 		setNeedsProgressMonitor(true);
-		myOperation = new TransformToGenModelOperation();
+		myOperation = new TransformToGenModelOperation(createResourceSet());
 	}
 	
 	@Override
@@ -161,7 +159,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 					TransformToGenModelOperation op = getTransformOperation();
 					IFile target = getTargetFile();
 					op.setGenURI(URI.createPlatformResourceURI(target.getFullPath().toString(), true));
-					s[0] = op.executeTransformation(resourceSet, monitor);
+					s[0] = op.executeTransformation(monitor);
 				}
 			};
 			getContainer().run(false, false, iwr);

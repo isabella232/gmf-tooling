@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006, 2007 Borland Software Corporation
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -115,7 +115,7 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 	
 	void findGenmodel() {
 		try {
-			GenModel genModel = getOperation().findGenmodel(getResourceSet());
+			GenModel genModel = getOperation().findGenmodel();
 			if (genModel != null) {
 				Resource r = genModel.eResource();
 				URI genURI = r.getURI();
@@ -157,7 +157,7 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 
 	@Override
 	protected Resource doLoadResource(IProgressMonitor monitor) throws CoreException {
-		GenModel genModel = getOperation().loadGenModel(getResourceSet(), getURI(), monitor);
+		GenModel genModel = getOperation().loadGenModel(getURI(), monitor);
 		if (genModel == null) {
 			return null;
 		}

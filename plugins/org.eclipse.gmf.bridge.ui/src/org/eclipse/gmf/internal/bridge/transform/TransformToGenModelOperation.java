@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -67,8 +67,11 @@ public class TransformToGenModelOperation {
 	private Diagnostic myGMFGenValidationResult = Diagnostic.CANCEL_INSTANCE;
 
 	private IStatus myStaleGenmodelStatus = Status.CANCEL_STATUS;
+	private final ResourceSet myResourceSet;
 	
-	public TransformToGenModelOperation() {
+	public TransformToGenModelOperation(ResourceSet rs) {
+		assert rs != null;
+		myResourceSet = rs;
 		this.myOptions = new TransformOptions();
 	}
 
@@ -86,6 +89,10 @@ public class TransformToGenModelOperation {
 
 	public GenModel getGenModel() {
 		return this.myGenModel;
+	}
+
+	public final ResourceSet getResourceSet() {
+		return myResourceSet;
 	}
 
 	Mapping getMapping() {
@@ -119,13 +126,12 @@ public class TransformToGenModelOperation {
 		return this.myStaleGenmodelStatus;
 	}
 
-	public Mapping loadMappingModel(ResourceSet rs, URI uri, IProgressMonitor pm) throws CoreException {
+	public Mapping loadMappingModel(URI uri, IProgressMonitor pm) throws CoreException {
 		Mapping content = null;
 		IStatus status = Status.CANCEL_STATUS;
 		Diagnostic validation = Diagnostic.CANCEL_INSTANCE;
 		IProgressMonitor monitor = null;
 		try {
-			checkResourceSet(rs);
 			if (uri == null) {
 				throw new IllegalArgumentException(Messages.TransformToGenModelOperation_e_null_map_uri);
 			}
@@ -133,7 +139,7 @@ public class TransformToGenModelOperation {
 			String cancelMessage = Messages.TransformToGenModelOperation_e_map_load_cancelled;
 			monitor.beginTask("", 100); //$NON-NLS-1$
 			subTask(monitor, 0, Messages.TransformToGenModelOperation_task_load, cancelMessage);
-			ModelLoadHelper loadHelper = new ModelLoadHelper(rs, uri);
+			ModelLoadHelper loadHelper = new ModelLoadHelper(getResourceSet(), uri);
 			if (!loadHelper.isOK()) {
 				throw new CoreException(loadHelper.getStatus());
 			}
@@ -164,14 +170,13 @@ public class TransformToGenModelOperation {
 		}
 	}
 	
-	public GenModel findGenmodel(ResourceSet rs) throws CoreException {
+	public GenModel findGenmodel() throws CoreException {
 		try {
-			checkResourceSet(rs);
 			checkMapping();
 			GenModelDetector gmd = getGenModelDetector();
 			IStatus detect = gmd.detect();
 			if (detect.isOK()) {
-				GenModel genModel = gmd.get(rs);
+				GenModel genModel = gmd.get(getResourceSet());
 				this.myGenModel = genModel;
 				return genModel;
 			}
@@ -182,10 +187,9 @@ public class TransformToGenModelOperation {
 		}
 	}
 
-	public GenModel loadGenModel(ResourceSet rs, URI uri, IProgressMonitor pm) throws CoreException {
+	public GenModel loadGenModel(URI uri, IProgressMonitor pm) throws CoreException {
 		IProgressMonitor monitor = null;
 		try {
-			checkResourceSet(rs);
 			checkMapping();
 			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor(); 
 			String cancelMessage = Messages.TransformToGenModelOperation_e_genmodel_load_cancelled;
@@ -202,7 +206,7 @@ public class TransformToGenModelOperation {
 				throw new CoreException(status);
 			}
 			subTask(monitor, 30, Messages.TransformToGenModelOperation_task_load, cancelMessage);
-			GenModel genModel = gmd.get(rs);
+			GenModel genModel = gmd.get(getResourceSet());
 			if (genModel == null) {
 				if (uri == null) {
 					this.myStaleGenmodelStatus = Status.CANCEL_STATUS;
@@ -231,11 +235,10 @@ public class TransformToGenModelOperation {
 		}
 	}
 	
-	public IStatus executeTransformation(ResourceSet rs, IProgressMonitor pm) {
+	public IStatus executeTransformation(IProgressMonitor pm) {
 		IProgressMonitor monitor = null;
 		Diagnostic validation = Diagnostic.CANCEL_INSTANCE;
 		try {
-			checkResourceSet(rs);
 			if (getGenURI() == null) {
 				throw new IllegalStateException(Messages.TransformToGenModelOperation_e_null_gmfgen_uri);
 			}
@@ -259,7 +262,7 @@ public class TransformToGenModelOperation {
 			}
 			monitor.subTask(Messages.TransformToGenModelOperation_task_reconcile);
 			if (Plugin.needsReconcile()) {
-				reconcile(rs, genEditor);
+				reconcile(genEditor);
 			}
 			GenNamingMediatorImpl namer = new GenNamingMediatorImpl();
 			namer.setMode(GenNamingMediatorImpl.Mode.COLLECT_NAMES);
@@ -271,7 +274,7 @@ public class TransformToGenModelOperation {
 				return Status.CANCEL_STATUS;
 			}
 			monitor.subTask(Messages.TransformToGenModelOperation_task_save);
-			save(rs, genEditor);
+			save(genEditor);
 			monitor.worked(20);
 			if (monitor.isCanceled()) {
 				return Status.CANCEL_STATUS;
@@ -298,12 +301,6 @@ public class TransformToGenModelOperation {
 			if (monitor != null) {
 				monitor.done();
 			}
-		}
-	}
-
-	private void checkResourceSet(ResourceSet rs) {
-		if (rs == null) {
-			throw new IllegalArgumentException(Messages.TransformToGenModelOperation_e_null_resource_set);
 		}
 	}
 
@@ -359,11 +356,11 @@ public class TransformToGenModelOperation {
 		};
 	}
 
-	private void reconcile(ResourceSet rs, GenEditorGenerator genBurdern) {
+	private void reconcile(GenEditorGenerator genBurdern) {
 		GenEditorGenerator old = null;
 		Resource resource = null;
 		try {
-			resource = rs.getResource(getGenURI(), true);
+			resource = getResourceSet().getResource(getGenURI(), true);
 			List<EObject> contents = resource.getContents();
 			if (!contents.isEmpty() && contents.get(0) instanceof GenEditorGenerator) {
 				old = (GenEditorGenerator) contents.get(0);
@@ -380,9 +377,9 @@ public class TransformToGenModelOperation {
 		}
 	}
 
-	private void save(ResourceSet rs, GenEditorGenerator genBurdern) throws IOException {
+	private void save(GenEditorGenerator genBurdern) throws IOException {
 		try {
-			Resource gmfgenRes = rs.getResource(getGenURI(), true);
+			Resource gmfgenRes = getResourceSet().getResource(getGenURI(), true);
 			updateExistingResource(gmfgenRes, genBurdern);
 			// one might want to ignore dangling href on save when there are more than one
 			// content object - there are chances we don't match them during reconcile and 
@@ -393,7 +390,7 @@ public class TransformToGenModelOperation {
 			}
 			gmfgenRes.save(saveOptions);
 		} catch (RuntimeException ex) {
-			Resource dgmmRes = rs.createResource(getGenURI());
+			Resource dgmmRes = getResourceSet().createResource(getGenURI());
 			dgmmRes.getContents().add(genBurdern);
 			dgmmRes.save(getSaveOptions());
 		}
