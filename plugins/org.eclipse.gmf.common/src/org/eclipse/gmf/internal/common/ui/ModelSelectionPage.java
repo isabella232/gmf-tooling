@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ * Copyright (c) 2006, 2008 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -82,7 +82,7 @@ public class ModelSelectionPage extends WizardPage {
 		setModelFileExtension(modelFileExtension);
 	}
 
-	protected ResourceSet getResourceSet() {
+	protected final ResourceSet getResourceSet() {
 		if (resourceSet == null) {
 			resourceSet = new ResourceSetImpl();
 		}
