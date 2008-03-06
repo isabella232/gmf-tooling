@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Eclipse.org
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -53,13 +53,13 @@ public class TransformMap2GenModelAction implements DashboardAction {
 			state.setGM(gm);
 		}
 		try {
-			TransformToGenModelOperation op = new TransformToGenModelOperation();
-			configureOptions(op.getOptions());
 			final ResourceSet rs = new ResourceSetImpl();
-			op.loadMappingModel(rs, mm, new NullProgressMonitor());
-			op.loadGenModel(rs, state.getDGM(), new NullProgressMonitor());
+			TransformToGenModelOperation op = new TransformToGenModelOperation(rs);
+			configureOptions(op.getOptions());
+			op.loadMappingModel(mm, new NullProgressMonitor());
+			op.loadGenModel(state.getDGM(), new NullProgressMonitor());
 			op.setGenURI(gm);
-			op.executeTransformation(rs, new NullProgressMonitor());
+			op.executeTransformation(new NullProgressMonitor());
 		} catch (CoreException ce) {
 			ErrorDialog.openError(context.getShell(), null, ce.getMessage(), ce.getStatus());
 		} finally {
