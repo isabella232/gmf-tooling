@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2007 Borland Software Corporation
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -65,13 +65,11 @@ public class TransformToGenModelOperationTest extends ConfiguredTestCase {
 
 	private IProject myProject;
 	private TransformToGenModelOperation myOperation;
-	private ResourceSet myRS;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		myOperation = new TransformToGenModelOperation();
-		myRS = new ResourceSetImpl();
+		myOperation = new TransformToGenModelOperation(new ResourceSetImpl());
 		myProject = createProject();
 		IFolder models = myProject.getFolder(FOLDER_MODELS);
 		models.create(true, false, new NullProgressMonitor());
@@ -86,10 +84,11 @@ public class TransformToGenModelOperationTest extends ConfiguredTestCase {
 	}
 	
 	public void testErrorArguments() {
-		URI toolURI = prepareResource(myRS, FILE_EXT_GMFTOOL, getSetup().getToolDefModel().getRegistry());
-		URI mapURI = prepareResource(myRS, FILE_EXT_GMFMAP, getSetup().getMapModel().getMapping());
+		ResourceSetImpl rs = new ResourceSetImpl();
+		URI toolURI = prepareResource(rs, FILE_EXT_GMFTOOL, getSetup().getToolDefModel().getRegistry());
+		prepareResource(rs, FILE_EXT_GMFMAP, getSetup().getMapModel().getMapping());
 		try {
-			myOperation.loadMappingModel(myRS, toolURI, null);
+			myOperation.loadMappingModel(toolURI, null);
 			fail("Invalid MappingModel should not be accepted");
 		} catch (CoreException e) {
 			Diagnostic validationResult = myOperation.getMapmodelValidationResult();
@@ -99,49 +98,28 @@ public class TransformToGenModelOperationTest extends ConfiguredTestCase {
 			assertNull("GenModel should be reset", myOperation.getGenModel());
 		}
 		try {
-			myOperation.loadMappingModel(myRS, null, null);
+			myOperation.loadMappingModel(null, null);
 			fail("null gmfmap URI should not be accepted");
 		} catch (CoreException e) {
 			assertIllegalArgument(e);
 		}
-		try {
-			myOperation.loadMappingModel(null, mapURI, null);
-			fail("null ResorceSet should not be accepted");
-		} catch (CoreException e) {
-			assertIllegalArgument(e);
-		}
-		try {
-			myOperation.findGenmodel(null);
-			fail("null ResorceSet should not be accepted");
-		} catch (CoreException e) {
-			assertIllegalArgument(e);
-		}
-		try {
-			myOperation.loadGenModel(null, null, null);
-			fail("null ResorceSet should not be accepted");
-		} catch (CoreException e) {
-			assertIllegalArgument(e);
-		}
-		IStatus s = myOperation.executeTransformation(null, null);
-		assertFalse("null ResorceSet should not be accepted", s.isOK());
 	}
 	
 	public void testErrorState() {
-		ResourceSetImpl rs = new ResourceSetImpl();
-		IStatus s = myOperation.executeTransformation(rs, null);
+		IStatus s = myOperation.executeTransformation(null);
 		assertFalse("Target gmfgen URI should be specified", s.isOK());
 		myOperation.setGenURI(createURI(FILE_EXT_GMFGEN));
-		s = myOperation.executeTransformation(rs, null);
+		s = myOperation.executeTransformation(null);
 		assertFalse("Mapping model should be loaded before calling executeTransformation()", s.isOK());
 
 		try {
-			myOperation.loadGenModel(rs, null, null);
+			myOperation.loadGenModel(null, null);
 			fail("MappingModel should be loaded before calling loadGenModel()");
 		} catch (CoreException e) {
 			assertIllegalState(e);
 		}
 		try {
-			myOperation.findGenmodel(rs);
+			myOperation.findGenmodel();
 			fail("MappingModel should be loaded before calling findGenmodel()");
 		} catch (CoreException e) {
 			assertIllegalState(e);
@@ -155,13 +133,13 @@ public class TransformToGenModelOperationTest extends ConfiguredTestCase {
 		URI genmodelURI = createDefaultGenModel(mapURI);
 		GenModel genModel = null;
 		try {
-			genModel = myOperation.loadGenModel(myRS, genmodelURI, null);
+			genModel = myOperation.loadGenModel(genmodelURI, null);
 			assertNotNull("Failed to load GenModel", genModel);
 		} catch (CoreException e) {
 			assertNotNull("Failed to load GenModel", genModel);
 		}
 		myOperation.setGenURI(createURI(FILE_EXT_GMFGEN));
-		IStatus status = myOperation.executeTransformation(myRS, null);
+		IStatus status = myOperation.executeTransformation(null);
 		assertTrue(status.isOK());
 	}
 	
@@ -169,14 +147,14 @@ public class TransformToGenModelOperationTest extends ConfiguredTestCase {
 		URI mapURI = prepareDesignResources();
 		loadMappingModel(mapURI);
 		myOperation.setGenURI(createURI(FILE_EXT_GMFGEN));
-		IStatus status = myOperation.executeTransformation(myRS, null);
+		IStatus status = myOperation.executeTransformation(null);
 		assertTrue(status.isOK());
 	}
 
 	private void loadMappingModel(URI mapURI) {
 		Mapping mapping = null;
 		try {
-			mapping = myOperation.loadMappingModel(myRS, mapURI, null);
+			mapping = myOperation.loadMappingModel(mapURI, null);
 			assertNotNull("Mapping should be resolved", mapping);
 			Diagnostic validationResult = myOperation.getMapmodelValidationResult();
 			assertNotNull("MappingModel validation result should be set", validationResult);
@@ -191,7 +169,7 @@ public class TransformToGenModelOperationTest extends ConfiguredTestCase {
 
 	private void findAbsentGenmodel() {
 		try {
-			myOperation.findGenmodel(myRS);
+			myOperation.findGenmodel();
 			fail("GenModel should not be found");
 		} catch (CoreException e) {
 			assertNull("GenModel should not be found", myOperation.getGenModel());
