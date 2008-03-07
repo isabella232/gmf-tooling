@@ -64,9 +64,8 @@ public class NodeVisualFacetsEditPart extends ListCompartmentEditPart {
 	 * @generated
 	 */
 	protected void setRatio(Double ratio) {
-		if (getFigure().getParent().getLayoutManager() instanceof ConstrainedToolbarLayout) {
-			super.setRatio(ratio);
-		}
+		// nothing to do -- parent layout does not accept Double constraints as ratio
+		// super.setRatio(ratio); 
 	}
 
 }
