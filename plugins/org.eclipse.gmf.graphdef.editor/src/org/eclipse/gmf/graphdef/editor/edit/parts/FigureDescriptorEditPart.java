@@ -86,15 +86,22 @@ public class FigureDescriptorEditPart extends ShapeNodeEditPart {
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
 
-		ConstrainedToolbarLayoutEditPolicy lep = new ConstrainedToolbarLayoutEditPolicy() {
+		LayoutEditPolicy lep = new LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
-				if (child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE) == null) {
-					if (child instanceof ITextAwareEditPart) {
-						return new GMFGraphTextSelectionEditPolicy();
-					}
+				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+				if (result == null) {
+					result = new NonResizableEditPolicy();
 				}
-				return super.createChildEditPolicy(child);
+				return result;
+			}
+
+			protected Command getMoveChildrenCommand(Request request) {
+				return null;
+			}
+
+			protected Command getCreateCommand(CreateRequest request) {
+				return null;
 			}
 		};
 		return lep;
@@ -234,16 +241,6 @@ public class FigureDescriptorEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		public FigureDescriptorFigure() {
-
-			ToolbarLayout layoutThis = new ToolbarLayout();
-			layoutThis.setStretchMinorAxis(true);
-			layoutThis.setMinorAlignment(ToolbarLayout.ALIGN_CENTER);
-
-			layoutThis.setSpacing(0);
-			layoutThis.setVertical(true);
-
-			this.setLayoutManager(layoutThis);
-
 			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(8), getMapMode().DPtoLP(8)));
 			this.setLineStyle(Graphics.LINE_DOT);
 			createContents();

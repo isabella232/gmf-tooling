@@ -43,15 +43,6 @@
           xsi:type="gmfgraph:RoundedRectangle"
           name="FigureDescriptorFigure"
           lineKind="LINE_DOT">
-        <layout
-            xsi:type="gmfgraph:FlowLayout"
-            vertical="true"
-            matchMinorSize="true"
-            forceSingleLine="true"
-            majorAlignment="CENTER"
-            minorAlignment="CENTER"
-            majorSpacing="0"
-            minorSpacing="0"/>
         <children
             xsi:type="gmfgraph:Label"
             name="FigureDescriptorFigure_NameLabel"/>
