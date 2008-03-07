@@ -38,18 +38,18 @@ genNode.getDomainMetaClass()
 ;
 
 cached boolean skip(genmodel::GenFeature genFeature) :
-skip(getTypeGenClassifier(genFeature), getName(genFeature))
+skip(genFeature.ecoreFeature.eType, getName(genFeature))
 ;
 
 private String getName(genmodel::GenFeature genFeature) :
 genFeature.ecoreFeature.name
 ;
 
-private boolean skip(genmodel::GenClassifier type, String genFeatureName) :
+private boolean skip(ecore::EClassifier type, String genFeatureName) :
 !genFeatureName.matches("layoutData|layout|template")
 ;
 
-private boolean skip(genmodel::GenDataType type, String genFeatureName) :
+private boolean skip(ecore::EDataType type, String genFeatureName) :
 genFeatureName.matches("name")
 ;
 
