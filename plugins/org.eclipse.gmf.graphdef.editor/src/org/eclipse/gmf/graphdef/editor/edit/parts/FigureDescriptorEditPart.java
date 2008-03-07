@@ -10,11 +10,12 @@
  */
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
+import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.StackLayout;
-import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
@@ -25,12 +26,9 @@ import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gmf.graphdef.editor.edit.policies.FigureDescriptorCanonicalEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.FigureDescriptorItemSemanticEditPolicy;
-import org.eclipse.gmf.graphdef.editor.edit.policies.GMFGraphTextSelectionEditPolicy;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
@@ -199,15 +197,17 @@ public class FigureDescriptorEditPart extends ShapeNodeEditPart {
 	 * Default implementation treats passed figure as content pane.
 	 * Respects layout one may have set for generated figure.
 	 * @param nodeShape instance of generated figure class
-	 * @generated
+	 * @generated NOT
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
-		if (nodeShape.getLayoutManager() == null) {
+		FigureDescriptorFigure fdFigure = (FigureDescriptorFigure) nodeShape;
+		IFigure contentPane = fdFigure.getFigureFigureDescriptorFigure_ChildContainer();
+		if (contentPane.getLayoutManager() == null) {
 			ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
 			layout.setSpacing(getMapMode().DPtoLP(5));
-			nodeShape.setLayoutManager(layout);
+			contentPane.setLayoutManager(layout);
 		}
-		return nodeShape; // use nodeShape itself as contentPane
+		return contentPane; // use nodeShape itself as contentPane
 	}
 
 	/**
@@ -240,7 +240,16 @@ public class FigureDescriptorEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
+		private RectangleFigure fFigureFigureDescriptorFigure_ChildContainer;
+
+		/**
+		 * @generated
+		 */
 		public FigureDescriptorFigure() {
+
+			BorderLayout layoutThis = new BorderLayout();
+			this.setLayoutManager(layoutThis);
+
 			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(8), getMapMode().DPtoLP(8)));
 			this.setLineStyle(Graphics.LINE_DOT);
 			createContents();
@@ -254,7 +263,15 @@ public class FigureDescriptorEditPart extends ShapeNodeEditPart {
 			fFigureFigureDescriptorFigure_NameLabel = new WrappingLabel();
 			fFigureFigureDescriptorFigure_NameLabel.setText("");
 
-			this.add(fFigureFigureDescriptorFigure_NameLabel);
+			this.add(fFigureFigureDescriptorFigure_NameLabel, BorderLayout.TOP);
+
+			fFigureFigureDescriptorFigure_ChildContainer = new RectangleFigure();
+			fFigureFigureDescriptorFigure_ChildContainer.setFill(false);
+			fFigureFigureDescriptorFigure_ChildContainer.setOutline(false);
+
+			this.add(fFigureFigureDescriptorFigure_ChildContainer, BorderLayout.CENTER);
+
+			fFigureFigureDescriptorFigure_ChildContainer.setLayoutManager(new StackLayout());
 
 		}
 
@@ -282,6 +299,13 @@ public class FigureDescriptorEditPart extends ShapeNodeEditPart {
 		 */
 		public WrappingLabel getFigureFigureDescriptorFigure_NameLabel() {
 			return fFigureFigureDescriptorFigure_NameLabel;
+		}
+
+		/**
+		 * @generated
+		 */
+		public RectangleFigure getFigureFigureDescriptorFigure_ChildContainer() {
+			return fFigureFigureDescriptorFigure_ChildContainer;
 		}
 
 	}

@@ -20,7 +20,7 @@
       </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
-          href="graphdef.gmftool#//@palette/@tools.0/@tools.2"/>
+          href="graphdef.gmftool#//@palette/@tools.0/@tools.1"/>
       <diagramNode
           href="graphdef.gmfgraph#DiagramElementNode"/>
       <compartments>
@@ -68,7 +68,7 @@
       </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
-          href="graphdef.gmftool#//@palette/@tools.0/@tools.3"/>
+          href="graphdef.gmftool#//@palette/@tools.0/@tools.2"/>
       <diagramNode
           href="graphdef.gmfgraph#DiagramElementNode"/>
       <compartments>
@@ -361,7 +361,7 @@
         href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//FigureDescriptor/accessors"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="graphdef.gmftool#//@palette/@tools.0/@tools.5"/>
+        href="graphdef.gmftool#//@palette/@tools.0/@tools.4"/>
     <diagramLink
         href="graphdef.gmfgraph#NestedFigureAccessorLink"/>
     <linkMetaFeature
@@ -371,7 +371,7 @@
   <links>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="graphdef.gmftool#//@palette/@tools.0/@tools.6"/>
+        href="graphdef.gmftool#//@palette/@tools.0/@tools.5"/>
     <diagramLink
         href="graphdef.gmfgraph#ChildAccessLink"/>
     <linkMetaFeature
@@ -381,7 +381,7 @@
   <links>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="graphdef.gmftool#//@palette/@tools.0/@tools.6"/>
+        href="graphdef.gmftool#//@palette/@tools.0/@tools.5"/>
     <diagramLink
         href="graphdef.gmfgraph#ChildAccessLink"/>
     <linkMetaFeature
@@ -391,7 +391,7 @@
   <links>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="graphdef.gmftool#//@palette/@tools.0/@tools.4"/>
+        href="graphdef.gmftool#//@palette/@tools.0/@tools.3"/>
     <diagramLink
         href="graphdef.gmfgraph#FigureLink"/>
     <linkMetaFeature

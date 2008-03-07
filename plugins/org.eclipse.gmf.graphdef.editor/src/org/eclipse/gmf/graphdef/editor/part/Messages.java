@@ -283,62 +283,52 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String ChildNode2CreationTool_title;
+	public static String Compartment2CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String ChildNode2CreationTool_desc;
+	public static String Compartment2CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String Compartment3CreationTool_title;
+	public static String Connection3CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Compartment3CreationTool_desc;
+	public static String Connection3CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String Connection4CreationTool_title;
+	public static String FigureLink4CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Connection4CreationTool_desc;
+	public static String FigureLink4CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String FigureLink5CreationTool_title;
+	public static String NestedFigureLink5CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String FigureLink5CreationTool_desc;
+	public static String NestedFigureLink5CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String NestedFigureLink6CreationTool_title;
+	public static String ChildAccessLink6CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String NestedFigureLink6CreationTool_desc;
-
-	/**
-	 * @generated
-	 */
-	public static String ChildAccessLink7CreationTool_title;
-
-	/**
-	 * @generated
-	 */
-	public static String ChildAccessLink7CreationTool_desc;
+	public static String ChildAccessLink6CreationTool_desc;
 
 	/**
 	 * @generated

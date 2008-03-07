@@ -22,20 +22,31 @@
           xsi:type="gmfgraph:Rectangle"
           name="FigureGalleryFigure">
         <layout
-            xsi:type="gmfgraph:FlowLayout"
-            vertical="true"
-            matchMinorSize="true"
-            forceSingleLine="true"
-            majorAlignment="CENTER"
-            minorAlignment="CENTER"
-            majorSpacing="0"
-            minorSpacing="0"/>
+            xsi:type="gmfgraph:BorderLayout"/>
         <children
             xsi:type="gmfgraph:Label"
-            name="FigureGalleryFigure_NameLabel"/>
+            name="FigureGalleryFigure_NameLabel">
+          <layoutData
+              xsi:type="gmfgraph:BorderLayoutData"
+              alignment="BEGINNING"
+              vertical="true"/>
+        </children>
+        <children
+            xsi:type="gmfgraph:Rectangle"
+            name="FigureGalleryFigure_ChildContainer"
+            outline="false"
+            fill="false">
+          <layoutData
+              xsi:type="gmfgraph:BorderLayoutData"
+              vertical="true"/>
+          <layout
+              xsi:type="gmfgraph:StackLayout"/>
+        </children>
       </actualFigure>
       <accessors
           figure="//@figures.0/@descriptors.0/@actualFigure/@children.0"/>
+      <accessors
+          figure="//@figures.0/@descriptors.0/@actualFigure/@children.1"/>
     </descriptors>
     <descriptors
         name="FigureDescriptorFigure">
@@ -43,12 +54,32 @@
           xsi:type="gmfgraph:RoundedRectangle"
           name="FigureDescriptorFigure"
           lineKind="LINE_DOT">
+        <layout
+            xsi:type="gmfgraph:BorderLayout"/>
         <children
             xsi:type="gmfgraph:Label"
-            name="FigureDescriptorFigure_NameLabel"/>
+            name="FigureDescriptorFigure_NameLabel">
+          <layoutData
+              xsi:type="gmfgraph:BorderLayoutData"
+              alignment="BEGINNING"
+              vertical="true"/>
+        </children>
+        <children
+            xsi:type="gmfgraph:Rectangle"
+            name="FigureDescriptorFigure_ChildContainer"
+            outline="false"
+            fill="false">
+          <layoutData
+              xsi:type="gmfgraph:BorderLayoutData"
+              vertical="true"/>
+          <layout
+              xsi:type="gmfgraph:StackLayout"/>
+        </children>
       </actualFigure>
       <accessors
           figure="//@figures.0/@descriptors.1/@actualFigure/@children.0"/>
+      <accessors
+          figure="//@figures.0/@descriptors.1/@actualFigure/@children.1"/>
     </descriptors>
     <descriptors
         name="DiagramElementFigure">
@@ -146,7 +177,8 @@
       figure="DiagramElementFigure"/>
   <nodes
       name="FigureGalleryNode"
-      figure="FigureGalleryFigure"/>
+      figure="FigureGalleryFigure"
+      contentPane="//@figures.0/@descriptors.0/@accessors.1"/>
   <nodes
       name="RectangleNode"
       figure="RectangleFigure"/>
@@ -161,7 +193,8 @@
       figure="PolylineFigure"/>
   <nodes
       name="FigureDescriptorNode"
-      figure="FigureDescriptorFigure"/>
+      figure="FigureDescriptorFigure"
+      contentPane="//@figures.0/@descriptors.1/@accessors.1"/>
   <connections
       name="FigureLink"
       figure="FigureConnectionFigure"/>

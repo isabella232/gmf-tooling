@@ -43,12 +43,11 @@ public class GMFGraphPaletteFactory {
 		PaletteDrawer paletteContainer = new PaletteDrawer(Messages.DiagramElements1Group_title);
 		paletteContainer.setDescription(Messages.DiagramElements1Group_desc);
 		paletteContainer.add(createNode1CreationTool());
-		paletteContainer.add(createChildNode2CreationTool());
-		paletteContainer.add(createCompartment3CreationTool());
-		paletteContainer.add(createConnection4CreationTool());
-		paletteContainer.add(createFigureLink5CreationTool());
-		paletteContainer.add(createNestedFigureLink6CreationTool());
-		paletteContainer.add(createChildAccessLink7CreationTool());
+		paletteContainer.add(createCompartment2CreationTool());
+		paletteContainer.add(createConnection3CreationTool());
+		paletteContainer.add(createFigureLink4CreationTool());
+		paletteContainer.add(createNestedFigureLink5CreationTool());
+		paletteContainer.add(createChildAccessLink6CreationTool());
 		return paletteContainer;
 	}
 
@@ -83,19 +82,10 @@ public class GMFGraphPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createChildNode2CreationTool() {
-		ToolEntry entry = new ToolEntry(Messages.ChildNode2CreationTool_title, Messages.ChildNode2CreationTool_desc, null, null) {
-		};
-		return entry;
-	}
-
-	/**
-	 * @generated
-	 */
-	private ToolEntry createCompartment3CreationTool() {
+	private ToolEntry createCompartment2CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(GMFGraphElementTypes.Compartment_2005);
-		NodeToolEntry entry = new NodeToolEntry(Messages.Compartment3CreationTool_title, Messages.Compartment3CreationTool_desc, types);
+		NodeToolEntry entry = new NodeToolEntry(Messages.Compartment2CreationTool_title, Messages.Compartment2CreationTool_desc, types);
 		entry.setSmallIcon(GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Compartment_2005));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
@@ -104,10 +94,10 @@ public class GMFGraphPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createConnection4CreationTool() {
+	private ToolEntry createConnection3CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(GMFGraphElementTypes.Connection_2007);
-		NodeToolEntry entry = new NodeToolEntry(Messages.Connection4CreationTool_title, Messages.Connection4CreationTool_desc, types);
+		NodeToolEntry entry = new NodeToolEntry(Messages.Connection3CreationTool_title, Messages.Connection3CreationTool_desc, types);
 		entry.setSmallIcon(GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Connection_2007));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
@@ -116,10 +106,10 @@ public class GMFGraphPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createFigureLink5CreationTool() {
+	private ToolEntry createFigureLink4CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(GMFGraphElementTypes.DiagramElementFigure_4005);
-		LinkToolEntry entry = new LinkToolEntry(Messages.FigureLink5CreationTool_title, Messages.FigureLink5CreationTool_desc, types);
+		LinkToolEntry entry = new LinkToolEntry(Messages.FigureLink4CreationTool_title, Messages.FigureLink4CreationTool_desc, types);
 		entry.setSmallIcon(GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.DiagramElementFigure_4005));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
@@ -128,10 +118,10 @@ public class GMFGraphPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createNestedFigureLink6CreationTool() {
+	private ToolEntry createNestedFigureLink5CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(GMFGraphElementTypes.ChildAccess_4002);
-		LinkToolEntry entry = new LinkToolEntry(Messages.NestedFigureLink6CreationTool_title, Messages.NestedFigureLink6CreationTool_desc, types);
+		LinkToolEntry entry = new LinkToolEntry(Messages.NestedFigureLink5CreationTool_title, Messages.NestedFigureLink5CreationTool_desc, types);
 		entry.setSmallIcon(GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.ChildAccess_4002));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
@@ -140,11 +130,11 @@ public class GMFGraphPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createChildAccessLink7CreationTool() {
+	private ToolEntry createChildAccessLink6CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(2);
 		types.add(GMFGraphElementTypes.CompartmentAccessor_4003);
 		types.add(GMFGraphElementTypes.DiagramLabelAccessor_4004);
-		LinkToolEntry entry = new LinkToolEntry(Messages.ChildAccessLink7CreationTool_title, Messages.ChildAccessLink7CreationTool_desc, types);
+		LinkToolEntry entry = new LinkToolEntry(Messages.ChildAccessLink6CreationTool_title, Messages.ChildAccessLink6CreationTool_desc, types);
 		entry.setSmallIcon(GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.CompartmentAccessor_4003));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;

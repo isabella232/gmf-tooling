@@ -10,10 +10,10 @@
  */
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
+import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
-import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gef.EditPart;
@@ -24,12 +24,9 @@ import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gmf.graphdef.editor.edit.policies.FigureGalleryItemSemanticEditPolicy;
-import org.eclipse.gmf.graphdef.editor.edit.policies.GMFGraphTextSelectionEditPolicy;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
@@ -80,15 +77,22 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
 
-		ConstrainedToolbarLayoutEditPolicy lep = new ConstrainedToolbarLayoutEditPolicy() {
+		LayoutEditPolicy lep = new LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
-				if (child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE) == null) {
-					if (child instanceof ITextAwareEditPart) {
-						return new GMFGraphTextSelectionEditPolicy();
-					}
+				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+				if (result == null) {
+					result = new NonResizableEditPolicy();
 				}
-				return super.createChildEditPolicy(child);
+				return result;
+			}
+
+			protected Command getMoveChildrenCommand(Request request) {
+				return null;
+			}
+
+			protected Command getCreateCommand(CreateRequest request) {
+				return null;
 			}
 		};
 		return lep;
@@ -186,15 +190,17 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 	 * Default implementation treats passed figure as content pane.
 	 * Respects layout one may have set for generated figure.
 	 * @param nodeShape instance of generated figure class
-	 * @generated
+	 * @generated NOT
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
-		if (nodeShape.getLayoutManager() == null) {
+		FigureGalleryFigure fgFigure = (FigureGalleryFigure) nodeShape;
+		IFigure contentPane = fgFigure.getFigureFigureGalleryFigure_ChildContainer();
+		if (contentPane.getLayoutManager() == null) {
 			ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
 			layout.setSpacing(getMapMode().DPtoLP(5));
-			nodeShape.setLayoutManager(layout);
+			contentPane.setLayoutManager(layout);
 		}
-		return nodeShape; // use nodeShape itself as contentPane
+		return contentPane; // use nodeShape itself as contentPane
 	}
 
 	/**
@@ -238,15 +244,14 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
+		private RectangleFigure fFigureFigureGalleryFigure_ChildContainer;
+
+		/**
+		 * @generated
+		 */
 		public FigureGalleryFigure() {
 
-			ToolbarLayout layoutThis = new ToolbarLayout();
-			layoutThis.setStretchMinorAxis(true);
-			layoutThis.setMinorAlignment(ToolbarLayout.ALIGN_CENTER);
-
-			layoutThis.setSpacing(0);
-			layoutThis.setVertical(true);
-
+			BorderLayout layoutThis = new BorderLayout();
 			this.setLayoutManager(layoutThis);
 
 			createContents();
@@ -260,7 +265,15 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 			fFigureFigureGalleryFigure_NameLabel = new WrappingLabel();
 			fFigureFigureGalleryFigure_NameLabel.setText("");
 
-			this.add(fFigureFigureGalleryFigure_NameLabel);
+			this.add(fFigureFigureGalleryFigure_NameLabel, BorderLayout.TOP);
+
+			fFigureFigureGalleryFigure_ChildContainer = new RectangleFigure();
+			fFigureFigureGalleryFigure_ChildContainer.setFill(false);
+			fFigureFigureGalleryFigure_ChildContainer.setOutline(false);
+
+			this.add(fFigureFigureGalleryFigure_ChildContainer, BorderLayout.CENTER);
+
+			fFigureFigureGalleryFigure_ChildContainer.setLayoutManager(new StackLayout());
 
 		}
 
@@ -288,6 +301,13 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 		 */
 		public WrappingLabel getFigureFigureGalleryFigure_NameLabel() {
 			return fFigureFigureGalleryFigure_NameLabel;
+		}
+
+		/**
+		 * @generated
+		 */
+		public RectangleFigure getFigureFigureGalleryFigure_ChildContainer() {
+			return fFigureFigureGalleryFigure_ChildContainer;
 		}
 
 	}
