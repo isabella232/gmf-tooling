@@ -62,7 +62,7 @@ public class DiagramLabelAccessorReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (!(referenceOwner instanceof DiagramLabel)) {
+		if (false == referenceOwner instanceof DiagramLabel) {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {

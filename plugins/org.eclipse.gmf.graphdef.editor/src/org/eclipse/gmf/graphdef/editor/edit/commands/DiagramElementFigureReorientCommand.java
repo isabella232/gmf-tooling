@@ -62,7 +62,7 @@ public class DiagramElementFigureReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (!(referenceOwner instanceof DiagramElement)) {
+		if (false == referenceOwner instanceof DiagramElement) {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {

@@ -56,7 +56,7 @@ public class ChildAccessReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (!(getElementToEdit() instanceof ChildAccess)) {
+		if (false == getElementToEdit() instanceof ChildAccess) {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {

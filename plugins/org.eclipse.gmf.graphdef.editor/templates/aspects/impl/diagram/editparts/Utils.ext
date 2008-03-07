@@ -65,54 +65,6 @@ boolean isInnerClassViewmap(gmfgen::InnerClassViewmap viewmap) :
 true
 ;
 
-cached String getProcessChangesCall(genmodel::GenFeature genFeature, String modelElementVariable) :
-setValue(genFeature, transform(genFeature, getValue(genFeature, modelElementVariable)))
-;
-
-private String getValue(genmodel::GenFeature genFeature, String modelElementVariable) :
-isCornerWidthOrHeight(genFeature) ? 
-DPtoLPcall(modelElementVariable+".getCornerWidth()")+", "+DPtoLPcall(modelElementVariable+".getCornerHeight()") :
-modelElementVariable+"."+getGetAccessor(genFeature)+"()"
-;
-
-private String DPtoLPcall(String variable) :
-"getMapMode().DPtoLP("+variable+")"
-;
-
-private String transform(genmodel::GenFeature genFeature, String getValueString) :
-switch (getName(genFeature)) {
-case "cornerWidth": "new org.eclipse.draw2d.geometry.Dimension("+getValueString+")"
-case "cornerHeight": "new org.eclipse.draw2d.geometry.Dimension("+getValueString+")"
-case "lineKind": "getLineStyle("+getValueString+")"
-case "template": "getPointList("+getValueString+")"
-default : getValueString
-}
-;
-
 boolean isCornerWidthOrHeight(genmodel::GenFeature genFeature) :
 getName(genFeature).matches("cornerWidth|cornerHeight")
-;
-
-private String getAccessorCall(genmodel::GenFeature genFeature) :
-switch (getAccessorName(genFeature)) {
-case "XorFill": "myFigure.setFillXOR"
-case "XorOutline": "myFigure.setOutlineXOR"
-case "LineKind": "myFigure.setLineStyle"
-case "CornerWidth": "myFigure.setCornerDimensions"
-case "CornerHeight": "myFigure.setCornerDimensions"
-case "Template": "myFigure.setPoints"
-default : getTypedAccessorCall(genFeature, getTypeGenClassifier(genFeature))
-}
-;
-
-private String getTypedAccessorCall(genmodel::GenFeature genFeature, genmodel::GenDataType type) :
-"myFigure.set"+getAccessorName(genFeature)
-;
-
-private String getTypedAccessorCall(genmodel::GenFeature genFeature, genmodel::GenClassifier type) :
-getName(genFeature)+"Changed"
-;
-
-private String setValue(genmodel::GenFeature genFeature, String transformedValueString) :
-getAccessorCall(genFeature)+"("+transformedValueString+")"
 ;

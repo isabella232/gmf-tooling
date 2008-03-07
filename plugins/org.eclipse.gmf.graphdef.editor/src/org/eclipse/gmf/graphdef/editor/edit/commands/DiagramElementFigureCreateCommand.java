@@ -52,10 +52,10 @@ public class DiagramElementFigureCreateCommand extends EditElementCommand {
 		if (source == null && target == null) {
 			return false;
 		}
-		if (source != null && !(source instanceof DiagramElement)) {
+		if (source != null && false == source instanceof DiagramElement) {
 			return false;
 		}
-		if (target != null && !(target instanceof FigureDescriptor)) {
+		if (target != null && false == target instanceof FigureDescriptor) {
 			return false;
 		}
 		if (getSource() == null) {

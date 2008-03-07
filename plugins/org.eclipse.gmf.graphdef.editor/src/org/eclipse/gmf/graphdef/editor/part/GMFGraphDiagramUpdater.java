@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.gmfgraph.Canvas;
@@ -1120,7 +1121,7 @@ public class GMFGraphDiagramUpdater {
 	private static Collection getContainedTypeModelFacetLinks_ChildAccess_4002(FigureDescriptor container) {
 		Collection result = new LinkedList();
 		for (Iterator links = container.getAccessors().iterator(); links.hasNext();) {
-			Object linkObject = links.next();
+			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof ChildAccess) {
 				continue;
 			}

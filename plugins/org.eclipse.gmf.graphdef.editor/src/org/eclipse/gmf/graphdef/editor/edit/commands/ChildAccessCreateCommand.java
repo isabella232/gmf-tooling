@@ -62,10 +62,10 @@ public class ChildAccessCreateCommand extends CreateElementCommand {
 		if (source == null && target == null) {
 			return false;
 		}
-		if (source != null && !(source instanceof FigureDescriptor)) {
+		if (source != null && false == source instanceof FigureDescriptor) {
 			return false;
 		}
-		if (target != null && !(target instanceof Figure)) {
+		if (target != null && false == target instanceof Figure) {
 			return false;
 		}
 		if (getSource() == null) {
@@ -79,10 +79,10 @@ public class ChildAccessCreateCommand extends CreateElementCommand {
 	 * @generated
 	 */
 	protected EObject doDefaultElementCreation() {
-		// org.eclipse.gmf.gmfgraph.ChildAccess newElement = (org.eclipse.gmf.gmfgraph.ChildAccess) super.doDefaultElementCreation();
 		ChildAccess newElement = GMFGraphFactory.eINSTANCE.createChildAccess();
 		getSource().getAccessors().add(newElement);
 		newElement.setFigure(getTarget());
+
 		return newElement;
 	}
 

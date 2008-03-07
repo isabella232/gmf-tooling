@@ -52,10 +52,10 @@ public class DiagramLabelAccessorCreateCommand extends EditElementCommand {
 		if (source == null && target == null) {
 			return false;
 		}
-		if (source != null && !(source instanceof DiagramLabel)) {
+		if (source != null && false == source instanceof DiagramLabel) {
 			return false;
 		}
-		if (target != null && !(target instanceof ChildAccess)) {
+		if (target != null && false == target instanceof ChildAccess) {
 			return false;
 		}
 		if (getSource() == null) {

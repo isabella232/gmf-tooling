@@ -12,6 +12,8 @@
  */
 
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION aspects::impl::diagram::editparts::Utils»
@@ -115,12 +117,12 @@ protected org.eclipse.draw2d.geometry.Rectangle getCurrentConstraintFor(org.ecli
 
 «DEFINE processChanges(gmfgen::GenNode node) FOR gmfgen::InnerClassViewmap-»
 	myFigure = figure;
-	«node.metaclass().getQualifiedInterfaceName()» modelElement = («node.metaclass().getQualifiedInterfaceName()») ((org.eclipse.gmf.runtime.notation.View) getModel()).getElement();
+	«EXPAND MetaModel::DeclareAndAssign("modelElement", "((org.eclipse.gmf.runtime.notation.View) getModel()).getElement()") FOR node.metaclass()»
 	if (modelElement != null) {
 	«FOREACH node.metaclass().getAllGenFeatures() AS nextGenFeature-»
 		«IF !skip(nextGenFeature)-»
 		{
-		    «getProcessChangesCall(nextGenFeature, "modelElement")»;
+			«EXPAND processChangesCall(node.metaclass()) FOR nextGenFeature-»
 		}
 		«ENDIF-»
 	«ENDFOREACH-»
@@ -143,3 +145,44 @@ org.eclipse.draw2d.LineBorder contourBorder = new org.eclipse.draw2d.LineBorder(
 org.eclipse.draw2d.MarginBorder marginBorder = new org.eclipse.draw2d.MarginBorder(5);
 org.eclipse.draw2d.CompoundBorder compoundBorder = new org.eclipse.draw2d.CompoundBorder(contourBorder, marginBorder);
 result.setBorder(compoundBorder);«ENDIF»«ENDDEFINE»
+
+«DEFINE processChangesCall(genmodel::GenClass modelElementEClass) FOR genmodel::GenFeature-»
+«EXPAND accessorCall»(«EXPAND transform(modelElementEClass)»);
+«ENDDEFINE»
+
+«DEFINE accessorCall FOR genmodel::GenFeature-»
+«LET ecoreFeature.name AS featureName-»
+«IF "xorFill" == featureName-»
+myFigure.setFillXOR«ELSEIF "xorOutline" == featureName-»
+myFigure.setOutlineXOR«ELSEIF "lineKind" == featureName-»
+myFigure.setLineStyle«ELSEIF "cornerWidth" == featureName || "cornerHeight" == featureName-»
+myFigure.setCornerDimensions«ELSEIF "template" == featureName-»
+myFigure.setPoints«ELSE-»
+«EXPAND typedAccessorCall(this) FOR ecoreFeature.eType-»
+«ENDIF-»
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE transform(genmodel::GenClass modelElementEClass) FOR genmodel::GenFeature-»
+«LET ecoreFeature.name AS featureName-»
+«IF "cornerWidth" == featureName || "cornerHeight" == featureName-»
+new org.eclipse.draw2d.geometry.Dimension(«ELSEIF "lineKind" == featureName-»
+getLineStyle(«ELSEIF "template" == featureName-»
+getPointList(«ENDIF-»
+«EXPAND getValue(modelElementEClass)-»
+«IF "cornerWidth" == featureName || "cornerHeight" == featureName || "lineKind" == featureName || "template" == featureName»)«ENDIF-»
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE typedAccessorCall(genmodel::GenFeature genFeature) FOR ecore::EDataType-»
+myFigure.set«genFeature.ecoreFeature.name.toFirstUpper()»«ENDDEFINE»
+
+«DEFINE typedAccessorCall(genmodel::GenFeature genFeature) FOR ecore::EClassifier-»
+«genFeature.ecoreFeature.name»Changed«ENDDEFINE»
+
+«DEFINE getValue(genmodel::GenClass modelElementEClass) FOR genmodel::GenFeature-»
+«IF isCornerWidthOrHeight(this)-»
+getMapMode().DPtoLP(modelElement.getCornerWidth()), getMapMode().DPtoLP(modelElement.getCornerHeight())«ELSE-»
+«EXPAND MetaModel::getFeatureValue("modelElement", modelElementEClass)-»
+«ENDIF-»
+«ENDDEFINE»

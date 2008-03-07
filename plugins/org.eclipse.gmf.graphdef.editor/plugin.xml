@@ -231,6 +231,12 @@
              category="domain"
              id="property.tab.domain"
              label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+   
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <!-- These tabs should be removed at the end of migration to new property sheet generation way -->
+      <propertyTabs contributorId="org.eclipse.gmf.graphdef.editor">
           <propertyTab
              category="extra"
              id="property.tab.points"
@@ -244,6 +250,30 @@
              id="property.tab.genLayout"
              label="%tab.genLayout"/>
       </propertyTabs>
+   </extension>
+   
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <!-- These tabs sections be removed at the end of migration to new property sheet generation way -->
+      <propertySections contributorId="org.eclipse.gmf.graphdef.editor">
+         <propertySection
+            id="property.section.points" 
+            tab="property.tab.points"
+            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$PolylineFilter"
+            class="org.eclipse.gmf.graphdef.editor.sheet.PointsPropertySection">
+         </propertySection>
+         <propertySection
+            id="property.section.genStyles" 
+            tab="property.tab.genStyles"
+            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$ShapeFilter"
+            class="org.eclipse.gmf.graphdef.editor.sheet.GeneratedStylesPropertySection">
+         </propertySection>
+         <propertySection
+            id="property.section.genLayout" 
+            tab="property.tab.genLayout"
+            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$LayoutableFilter"
+            class="org.eclipse.gmf.graphdef.editor.sheet.GeneratedLayoutPropertySection">
+         </propertySection>
+      </propertySections>
    </extension>
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
@@ -312,24 +342,6 @@
             <input type="org.eclipse.gmf.runtime.notation.View"/>
             <input type="org.eclipse.gef.EditPart"/>
             <input type="org.eclipse.gmf.graphdef.editor.navigator.GMFGraphAbstractNavigatorItem"/>
-         </propertySection>
-         <propertySection
-            id="property.section.points" 
-            tab="property.tab.points"
-            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$PolylineFilter"
-            class="org.eclipse.gmf.graphdef.editor.sheet.PointsPropertySection">
-         </propertySection>
-         <propertySection
-            id="property.section.genStyles" 
-            tab="property.tab.genStyles"
-            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$ShapeFilter"
-            class="org.eclipse.gmf.graphdef.editor.sheet.GeneratedStylesPropertySection">
-         </propertySection>
-         <propertySection
-            id="property.section.genLayout" 
-            tab="property.tab.genLayout"
-            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$LayoutableFilter"
-            class="org.eclipse.gmf.graphdef.editor.sheet.GeneratedLayoutPropertySection">
          </propertySection>
       </propertySections>
    </extension>

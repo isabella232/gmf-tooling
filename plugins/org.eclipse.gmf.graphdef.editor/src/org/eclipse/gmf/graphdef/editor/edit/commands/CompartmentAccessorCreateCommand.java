@@ -52,10 +52,10 @@ public class CompartmentAccessorCreateCommand extends EditElementCommand {
 		if (source == null && target == null) {
 			return false;
 		}
-		if (source != null && !(source instanceof Compartment)) {
+		if (source != null && false == source instanceof Compartment) {
 			return false;
 		}
-		if (target != null && !(target instanceof ChildAccess)) {
+		if (target != null && false == target instanceof ChildAccess) {
 			return false;
 		}
 		if (getSource() == null) {

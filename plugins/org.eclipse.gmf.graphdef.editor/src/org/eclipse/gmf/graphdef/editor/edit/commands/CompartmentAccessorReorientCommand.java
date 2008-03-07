@@ -62,7 +62,7 @@ public class CompartmentAccessorReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (!(referenceOwner instanceof Compartment)) {
+		if (false == referenceOwner instanceof Compartment) {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
