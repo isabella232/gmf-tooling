@@ -288,6 +288,12 @@
       <propertyTabs contributorId="org.eclipse.gmf.graphdef.editor">
           <propertyTab
              category="extra"
+             id="tab.layoutdata-gen2"
+             label="LayoutData - gen2"/>
+      </propertyTabs>
+      <propertyTabs contributorId="org.eclipse.gmf.graphdef.editor">
+          <propertyTab
+             category="extra"
              id="tab.styles-gen2"
              label="Styles - gen2"/>
       </propertyTabs>
@@ -302,6 +308,12 @@
             tab="tab.layout-gen2"
             filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$LayoutableFilter"
             class="org.eclipse.gmf.graphdef.editor.sheet.LayoutSection">
+         </propertySection>
+         <propertySection
+            id="property.section.layoutdata-gen2" 
+            tab="tab.layoutdata-gen2"
+            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$LayoutableFilter"
+            class="org.eclipse.gmf.graphdef.editor.sheet.LayoutDataSection">
          </propertySection>
          <propertySection
             id="property.section.styles-gen2" 

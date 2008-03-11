@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.StackLayout;
@@ -32,6 +33,7 @@ import org.eclipse.gmf.gmfgraph.BorderLayoutData;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.GridLayout;
+import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.LayoutData;
 import org.eclipse.gmf.gmfgraph.Layoutable;
@@ -84,8 +86,24 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 			break;
 		}
 		case GMFGraphPackage.GRID_LAYOUT_DATA: {
-			// not implemented yet in .gmfgraph
-			break;
+			GridLayoutData gridLayoutData = (GridLayoutData) layoutData;
+			GridData result = new GridData();
+			result.grabExcessHorizontalSpace = gridLayoutData.isGrabExcessHorizontalSpace();
+			result.grabExcessVerticalSpace = gridLayoutData.isGrabExcessVerticalSpace();
+			Integer alignment = getGridDataAlignment(gridLayoutData.getHorizontalAlignment());
+			if (alignment != null) {
+				result.horizontalAlignment = alignment;
+			}
+			alignment = getGridDataAlignment(gridLayoutData.getVerticalAlignment());
+			if (alignment != null) {
+				result.verticalAlignment = alignment;
+			}
+			result.verticalSpan = gridLayoutData.getVerticalSpan();
+			result.horizontalSpan = gridLayoutData.getHorizontalSpan();
+			result.horizontalIndent = getMapMode().DPtoLP(gridLayoutData.getHorizontalIndent());
+			result.widthHint = getMapMode().DPtoLP(gridLayoutData.getSizeHint().getDx());
+			result.heightHint = getMapMode().DPtoLP(gridLayoutData.getSizeHint().getDy());
+			return result;
 		}
 		case GMFGraphPackage.XY_LAYOUT_DATA: {
 			final XYLayoutData xyLayoutData = (XYLayoutData) layoutData;
@@ -117,7 +135,9 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 				layoutConstraint = null;
 			}
 		} else if (layoutManager instanceof GridLayout) {
-			// not implemented yet in .gmfgraph
+			if (false == layoutConstraint instanceof GridData) {
+				layoutConstraint = null;
+			}
 		} else if (layoutManager instanceof XYLayout) {
 			if (false == layoutConstraint instanceof Rectangle) {
 				// TODO: put figure into special pain with unconstrained
@@ -208,17 +228,20 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 			break;
 		}
 		case GMFGraphPackage.GRID_LAYOUT: {
-			// not implemented yet in .gmfgraph
-			// GridLayout gridLayout = (GridLayout) layout;
-			/*
-			org.eclipse.gmf.internal.codegen.draw2d.GridLayout layoutManager;
-			if (getFigureLayoutManager() instanceof org.eclipse.gmf.internal.codegen.draw2d.GridLayout) {
-				layoutManager = (org.eclipse.gmf.internal.codegen.draw2d.GridLayout)getFigureLayoutManager();
+			GridLayout gridLayout = (GridLayout) layout;
+			org.eclipse.draw2d.GridLayout layoutManager;
+			if (getFigureLayoutManager() instanceof org.eclipse.draw2d.GridLayout) {
+				layoutManager = (org.eclipse.draw2d.GridLayout) getFigureLayoutManager();
 			} else {
-				layoutManager = new org.eclipse.gmf.internal.codegen.draw2d.GridLayout();
+				layoutManager = new org.eclipse.draw2d.GridLayout();
+				setFigureLayoutManager(layoutManager);
 			}
-			setFigureLayoutManager(layoutManager); }
-			 */
+			layoutManager.numColumns = gridLayout.getNumColumns();
+			layoutManager.makeColumnsEqualWidth = gridLayout.isEqualWidth();
+			layoutManager.marginWidth = getMapMode().DPtoLP(gridLayout.getMargins().getDx());
+			layoutManager.marginHeight = getMapMode().DPtoLP(gridLayout.getMargins().getDy());
+			layoutManager.horizontalSpacing = getMapMode().DPtoLP(gridLayout.getSpacing().getDx());
+			layoutManager.verticalSpacing = getMapMode().DPtoLP(gridLayout.getSpacing().getDy());
 			break;
 		}
 		case GMFGraphPackage.STACK_LAYOUT: {
@@ -259,6 +282,20 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 			return isToolbar ? ToolbarLayout.ALIGN_BOTTOMRIGHT : org.eclipse.draw2d.FlowLayout.ALIGN_RIGHTBOTTOM;
 		}
 		return isToolbar ? ToolbarLayout.ALIGN_CENTER : org.eclipse.draw2d.FlowLayout.ALIGN_CENTER;
+	}
+	
+	private Integer getGridDataAlignment(Alignment alignment) {
+		switch (alignment.getValue()) {
+		case Alignment.BEGINNING:
+			return GridData.BEGINNING;
+		case Alignment.END:
+			return GridData.END;
+		case Alignment.CENTER:
+			return GridData.CENTER;
+		case Alignment.FILL:
+			return GridData.FILL;
+		}
+		return null;
 	}
 
 	protected int getLineStyle(LineKind lineKind) {
