@@ -80,7 +80,7 @@
 			
 		<pathconvert property="javadoc.classpath" targetos="unix">
 			<path>				
-				<fileset dir="${baseLocation}">
+				<fileset dir="${buildDirectory}">
 					<patternset refid="platform.classpath.pattern"/>
 		    	</fileset>
 			</path>
@@ -99,70 +99,70 @@
 		<!-- We only need the package-list files out of these -->
 		<unzip dest="${javadoc.link.location}/draw2d/">
 			<patternset refid="package.list"/>
-			<fileset dir="${baseLocation}/plugins">
+			<fileset dir="${buildDirectory}/plugins">
 				<include name="org.eclipse.draw2d.doc.isv*.jar"/>
 			</fileset>
 		</unzip>
 		
 		<unzip dest="${javadoc.link.location}/gef/">
 			<patternset refid="package.list"/>
-			<fileset dir="${baseLocation}/plugins">
+			<fileset dir="${buildDirectory}/plugins">
 				<include name="org.eclipse.gef.doc.isv*.jar"/>
 			</fileset>
 		</unzip>
 		
 		<unzip dest="${javadoc.link.location}/emf/">
 			<patternset refid="package.list"/>
-			<fileset dir="${baseLocation}/plugins">
+			<fileset dir="${buildDirectory}/plugins">
 				<include name="org.eclipse.emf.doc_*.jar"/>
 			</fileset>
 		</unzip>
 		
 		<unzip dest="${javadoc.link.location}/emf.query/">
 			<patternset refid="package.list"/>
-			<fileset dir="${baseLocation}/plugins">
+			<fileset dir="${buildDirectory}/plugins">
 				<include name="org.eclipse.emf.query.doc_*.jar"/>
 			</fileset>
 		</unzip>
 
 		<unzip dest="${javadoc.link.location}/emf.transaction/">
 			<patternset refid="package.list"/>
-			<fileset dir="${baseLocation}/plugins">
+			<fileset dir="${buildDirectory}/plugins">
 				<include name="org.eclipse.emf.transaction.doc_*.jar"/>
 			</fileset>
 		</unzip>
 		
 		<unzip dest="${javadoc.link.location}/emf.validation/">
 			<patternset refid="package.list"/>
-			<fileset dir="${baseLocation}/plugins">
+			<fileset dir="${buildDirectory}/plugins">
 				<include name="org.eclipse.emf.validation.doc_*.jar"/>
 			</fileset>
 		</unzip>
 		
 		<unzip dest="${javadoc.link.location}/emf.workspace/">
 			<patternset refid="package.list"/>
-			<fileset dir="${baseLocation}/plugins">
+			<fileset dir="${buildDirectory}/plugins">
 				<include name="org.eclipse.emf.workspace.doc_*.jar"/>
 			</fileset>
 		</unzip>
 
 		<unzip dest="${javadoc.link.location}/emf.ocl/">
 			<patternset refid="package.list"/>
-			<fileset dir="${baseLocation}/plugins">
+			<fileset dir="${buildDirectory}/plugins">
 				<include name="org.eclipse.emf.ocl.doc_*.jar"/>
 			</fileset>
 		</unzip>
 
 		<unzip dest="${javadoc.link.location}/ocl/">
 			<patternset refid="package.list"/>
-			<fileset dir="${baseLocation}/plugins">
+			<fileset dir="${buildDirectory}/plugins">
 				<include name="org.eclipse.ocl.doc_*.jar"/>
 			</fileset>
 		</unzip>
 		
 		<unzip dest="${javadoc.link.location}/platform/">
 			<patternset refid="package.list"/>
-			<fileset dir="${baseLocation}/plugins">
+			<fileset dir="${buildDirectory}/plugins">
 				<include name="org.eclipse.platform.doc.isv*.jar"/>
 			</fileset>
 		</unzip>
