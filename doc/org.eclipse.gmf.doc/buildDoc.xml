@@ -4,16 +4,8 @@
 		resource="net/sf/antcontrib/antlib.xml"
 	    classpath="${lib}/ant-contrib.jar"/>	
 
-<!-- Note that this script is called from the automated build system and expects
-     the following properties to be passed in:
-     	javadoc.exe
-     	buildRoot
-     	buildDirectory
-     	fullEmfVersion (needed until EMF packages their documentation in single jar)
-     
-     Also note that it is expected that this script is called as part of the 
-     automated build, and particularly that the SDK component has been built
-     and installed into the target eclipse, along with GMF's dependencies.
+<!-- This script assumes that it's called from the automated build procedure
+	 during SDK component build.
 -->
 
 	<property name="doc.plugin.dir" value="${buildDirectory}/plugins/org.eclipse.gmf.doc" />
