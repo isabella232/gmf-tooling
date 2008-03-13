@@ -12,6 +12,8 @@ package org.eclipse.gmf.graphdef.editor.preferences;
 
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.diagram.ui.preferences.DiagramsPreferencePage;
+import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
+import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * @generated
@@ -23,5 +25,14 @@ public class DiagramGeneralPreferencePage extends DiagramsPreferencePage {
 	 */
 	public DiagramGeneralPreferencePage() {
 		setPreferenceStore(GMFGraphDiagramEditorPlugin.getInstance().getPreferenceStore());
+	}
+
+	/**
+	 * @generated
+	 */
+	public static void initDefaults(IPreferenceStore preferenceStore) {
+		DiagramsPreferencePage.initDefaults(preferenceStore);
+		preferenceStore.setDefault(IPreferenceConstants.PREF_SHOW_CONNECTION_HANDLES, false);
+		preferenceStore.setDefault(IPreferenceConstants.PREF_SHOW_POPUP_BARS, false);
 	}
 }
