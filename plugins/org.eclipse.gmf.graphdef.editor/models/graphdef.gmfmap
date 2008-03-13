@@ -111,7 +111,7 @@
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="graphdef.gmftool#//@palette/@tools.1/@tools.5"/>
+              href="graphdef.gmftool#//@palette/@tools.1/@tools.1"/>
           <diagramNode
               href="graphdef.gmfgraph#FigureDescriptorNode"/>
           <children
@@ -145,7 +145,7 @@
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Rectangle"/>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="graphdef.gmftool#//@palette/@tools.1/@tools.1"/>
+              href="graphdef.gmftool#//@palette/@tools.1/@tools.2"/>
           <diagramNode
               href="graphdef.gmfgraph#RectangleNode"/>
           <children>
@@ -156,7 +156,7 @@
                   href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Rectangle"/>
               <tool
                   xsi:type="gmftool:CreationTool"
-                  href="graphdef.gmftool#//@palette/@tools.1/@tools.1"/>
+                  href="graphdef.gmftool#//@palette/@tools.1/@tools.2"/>
               <diagramNode
                   href="graphdef.gmfgraph#RectangleNode"/>
               <children
@@ -190,7 +190,7 @@
                   href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Ellipse"/>
               <tool
                   xsi:type="gmftool:CreationTool"
-                  href="graphdef.gmftool#//@palette/@tools.1/@tools.2"/>
+                  href="graphdef.gmftool#//@palette/@tools.1/@tools.3"/>
               <diagramNode
                   href="graphdef.gmfgraph#EllipseNode"/>
               <children
@@ -224,7 +224,7 @@
                   href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RoundedRectangle"/>
               <tool
                   xsi:type="gmftool:CreationTool"
-                  href="graphdef.gmftool#//@palette/@tools.1/@tools.3"/>
+                  href="graphdef.gmftool#//@palette/@tools.1/@tools.4"/>
               <diagramNode
                   href="graphdef.gmfgraph#RoundedRectangleNode"/>
               <children
@@ -258,7 +258,7 @@
                   href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Polyline"/>
               <tool
                   xsi:type="gmftool:CreationTool"
-                  href="graphdef.gmftool#//@palette/@tools.1/@tools.4"/>
+                  href="graphdef.gmftool#//@palette/@tools.1/@tools.5"/>
               <diagramNode
                   href="graphdef.gmfgraph#PolylineNode"/>
             </ownedChild>
@@ -274,7 +274,7 @@
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Ellipse"/>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="graphdef.gmftool#//@palette/@tools.1/@tools.2"/>
+              href="graphdef.gmftool#//@palette/@tools.1/@tools.3"/>
           <diagramNode
               href="graphdef.gmfgraph#EllipseNode"/>
           <children
@@ -308,7 +308,7 @@
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RoundedRectangle"/>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="graphdef.gmftool#//@palette/@tools.1/@tools.3"/>
+              href="graphdef.gmftool#//@palette/@tools.1/@tools.4"/>
           <diagramNode
               href="graphdef.gmfgraph#RoundedRectangleNode"/>
           <children
@@ -342,7 +342,7 @@
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Polyline"/>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="graphdef.gmftool#//@palette/@tools.1/@tools.4"/>
+              href="graphdef.gmftool#//@palette/@tools.1/@tools.5"/>
           <diagramNode
               href="graphdef.gmfgraph#PolylineNode"/>
         </ownedChild>
@@ -387,6 +387,16 @@
     <linkMetaFeature
         xsi:type="ecore:EReference"
         href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//DiagramLabel/accessor"/>
+  </links>
+  <links>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="graphdef.gmftool#//@palette/@tools.0/@tools.5"/>
+    <diagramLink
+        href="graphdef.gmfgraph#ChildAccessLink"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Node/contentPane"/>
   </links>
   <links>
     <tool

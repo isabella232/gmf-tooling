@@ -31,6 +31,7 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryNameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.NodeContentPaneEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeVisualFacetsEditPart;
@@ -63,6 +64,7 @@ import org.eclipse.gmf.graphdef.editor.view.factories.FigureDescriptorViewFactor
 import org.eclipse.gmf.graphdef.editor.view.factories.FigureGalleryFiguresViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.FigureGalleryNameViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.FigureGalleryViewFactory;
+import org.eclipse.gmf.graphdef.editor.view.factories.NodeContentPaneViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.NodeNameViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.NodeViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.NodeVisualFacetsViewFactory;
@@ -296,6 +298,8 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 			return CompartmentAccessorViewFactory.class;
 		case DiagramLabelAccessorEditPart.VISUAL_ID:
 			return DiagramLabelAccessorViewFactory.class;
+		case NodeContentPaneEditPart.VISUAL_ID:
+			return NodeContentPaneViewFactory.class;
 		case DiagramElementFigureEditPart.VISUAL_ID:
 			return DiagramElementFigureViewFactory.class;
 		}

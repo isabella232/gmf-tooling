@@ -162,6 +162,11 @@ public class GMFGraphElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
+	public static final IElementType NodeContentPane_4006 = getElementType("org.eclipse.gmf.graphdef.editor.NodeContentPane_4006"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public static final IElementType DiagramElementFigure_4005 = getElementType("org.eclipse.gmf.graphdef.editor.DiagramElementFigure_4005"); //$NON-NLS-1$
 
 	/**
@@ -312,6 +317,8 @@ public class GMFGraphElementTypes extends ElementInitializers {
 
 			elements.put(DiagramLabelAccessor_4004, GMFGraphPackage.eINSTANCE.getDiagramLabel_Accessor());
 
+			elements.put(NodeContentPane_4006, GMFGraphPackage.eINSTANCE.getNode_ContentPane());
+
 			elements.put(DiagramElementFigure_4005, GMFGraphPackage.eINSTANCE.getDiagramElement_Figure());
 		}
 		return (ENamedElement) elements.get(type);
@@ -351,6 +358,7 @@ public class GMFGraphElementTypes extends ElementInitializers {
 			KNOWN_ELEMENT_TYPES.add(ChildAccess_4002);
 			KNOWN_ELEMENT_TYPES.add(CompartmentAccessor_4003);
 			KNOWN_ELEMENT_TYPES.add(DiagramLabelAccessor_4004);
+			KNOWN_ELEMENT_TYPES.add(NodeContentPane_4006);
 			KNOWN_ELEMENT_TYPES.add(DiagramElementFigure_4005);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);

@@ -48,6 +48,7 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.NodeContentPaneEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
@@ -671,6 +672,7 @@ public class GMFGraphDiagramUpdater {
 	public static List getNode_2006ContainedLinks(View view) {
 		Node modelElement = (Node) view.getElement();
 		List result = new LinkedList();
+		result.addAll(getOutgoingFeatureModelFacetLinks_Node_ContentPane_4006(modelElement));
 		result.addAll(getOutgoingFeatureModelFacetLinks_DiagramElement_Figure_4005(modelElement));
 		return result;
 	}
@@ -973,6 +975,7 @@ public class GMFGraphDiagramUpdater {
 		List result = new LinkedList();
 		result.addAll(getIncomingFeatureModelFacetLinks_Compartment_Accessor_4003(modelElement, crossReferences));
 		result.addAll(getIncomingFeatureModelFacetLinks_DiagramLabel_Accessor_4004(modelElement, crossReferences));
+		result.addAll(getIncomingFeatureModelFacetLinks_Node_ContentPane_4006(modelElement, crossReferences));
 		return result;
 	}
 
@@ -993,6 +996,7 @@ public class GMFGraphDiagramUpdater {
 	public static List getNode_2006OutgoingLinks(View view) {
 		Node modelElement = (Node) view.getElement();
 		List result = new LinkedList();
+		result.addAll(getOutgoingFeatureModelFacetLinks_Node_ContentPane_4006(modelElement));
 		result.addAll(getOutgoingFeatureModelFacetLinks_DiagramElement_Figure_4005(modelElement));
 		return result;
 	}
@@ -1193,6 +1197,21 @@ public class GMFGraphDiagramUpdater {
 	/**
 	 * @generated
 	 */
+	private static Collection getIncomingFeatureModelFacetLinks_Node_ContentPane_4006(ChildAccess target, Map crossReferences) {
+		Collection result = new LinkedList();
+		Collection settings = (Collection) crossReferences.get(target);
+		for (Iterator it = settings.iterator(); it.hasNext();) {
+			EStructuralFeature.Setting setting = (EStructuralFeature.Setting) it.next();
+			if (setting.getEStructuralFeature() == GMFGraphPackage.eINSTANCE.getNode_ContentPane()) {
+				result.add(new GMFGraphLinkDescriptor(setting.getEObject(), target, GMFGraphElementTypes.NodeContentPane_4006, NodeContentPaneEditPart.VISUAL_ID));
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
 	private static Collection getIncomingFeatureModelFacetLinks_DiagramElement_Figure_4005(FigureDescriptor target, Map crossReferences) {
 		Collection result = new LinkedList();
 		Collection settings = (Collection) crossReferences.get(target);
@@ -1215,6 +1234,19 @@ public class GMFGraphDiagramUpdater {
 			return result;
 		}
 		result.add(new GMFGraphLinkDescriptor(source, destination, GMFGraphElementTypes.CompartmentAccessor_4003, CompartmentAccessorEditPart.VISUAL_ID));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection getOutgoingFeatureModelFacetLinks_Node_ContentPane_4006(Node source) {
+		Collection result = new LinkedList();
+		ChildAccess destination = source.getContentPane();
+		if (destination == null) {
+			return result;
+		}
+		result.add(new GMFGraphLinkDescriptor(source, destination, GMFGraphElementTypes.NodeContentPane_4006, NodeContentPaneEditPart.VISUAL_ID));
 		return result;
 	}
 

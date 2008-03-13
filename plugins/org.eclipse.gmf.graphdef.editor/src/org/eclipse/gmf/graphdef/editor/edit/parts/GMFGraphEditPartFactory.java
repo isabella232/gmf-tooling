@@ -128,6 +128,9 @@ public class GMFGraphEditPartFactory implements EditPartFactory {
 			case DiagramLabelAccessorEditPart.VISUAL_ID:
 				return new DiagramLabelAccessorEditPart(view);
 
+			case NodeContentPaneEditPart.VISUAL_ID:
+				return new NodeContentPaneEditPart(view);
+
 			case DiagramElementFigureEditPart.VISUAL_ID:
 				return new DiagramElementFigureEditPart(view);
 			}

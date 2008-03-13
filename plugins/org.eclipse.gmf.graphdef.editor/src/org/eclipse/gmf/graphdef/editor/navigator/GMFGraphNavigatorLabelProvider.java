@@ -33,6 +33,7 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryNameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.NodeContentPaneEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
@@ -164,6 +165,8 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Compartment?accessor", GMFGraphElementTypes.CompartmentAccessor_4003); //$NON-NLS-1$
 		case DiagramLabelAccessorEditPart.VISUAL_ID:
 			return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/GraphicalDefinition?DiagramLabel?accessor", GMFGraphElementTypes.DiagramLabelAccessor_4004); //$NON-NLS-1$
+		case NodeContentPaneEditPart.VISUAL_ID:
+			return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Node?contentPane", GMFGraphElementTypes.NodeContentPane_4006); //$NON-NLS-1$
 		case DiagramElementFigureEditPart.VISUAL_ID:
 			return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/GraphicalDefinition?DiagramElement?figure", GMFGraphElementTypes.DiagramElementFigure_4005); //$NON-NLS-1$
 		}
@@ -266,6 +269,8 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getCompartmentAccessor_4003Text(view);
 		case DiagramLabelAccessorEditPart.VISUAL_ID:
 			return getDiagramLabelAccessor_4004Text(view);
+		case NodeContentPaneEditPart.VISUAL_ID:
+			return getNodeContentPane_4006Text(view);
 		case DiagramElementFigureEditPart.VISUAL_ID:
 			return getDiagramElementFigure_4005Text(view);
 		}
@@ -550,6 +555,13 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getDiagramLabelAccessor_4004Text(View view) {
+		return ""; //$NON-NLS-1$
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getNodeContentPane_4006Text(View view) {
 		return ""; //$NON-NLS-1$
 	}
 

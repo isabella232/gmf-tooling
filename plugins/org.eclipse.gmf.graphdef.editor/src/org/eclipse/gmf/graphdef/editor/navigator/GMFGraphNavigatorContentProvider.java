@@ -36,6 +36,7 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.NodeContentPaneEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
@@ -261,6 +262,8 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			links.addChildren(createNavigatorItems(connectedViews, links, false));
 			connectedViews = getDiagramLinksByType(Collections.singleton(view), DiagramLabelAccessorEditPart.VISUAL_ID);
 			links.addChildren(createNavigatorItems(connectedViews, links, false));
+			connectedViews = getDiagramLinksByType(Collections.singleton(view), NodeContentPaneEditPart.VISUAL_ID);
+			links.addChildren(createNavigatorItems(connectedViews, links, false));
 			connectedViews = getDiagramLinksByType(Collections.singleton(view), DiagramElementFigureEditPart.VISUAL_ID);
 			links.addChildren(createNavigatorItems(connectedViews, links, false));
 			if (!links.isEmpty()) {
@@ -285,7 +288,9 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 		case NodeEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			GMFGraphNavigatorGroup outgoinglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Node_2006_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), DiagramElementFigureEditPart.VISUAL_ID);
+			Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), NodeContentPaneEditPart.VISUAL_ID);
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(view), DiagramElementFigureEditPart.VISUAL_ID);
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
 			if (!outgoinglinks.isEmpty()) {
 				result.add(outgoinglinks);
@@ -596,6 +601,17 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			Collection result = new ArrayList();
 			GMFGraphNavigatorGroup source = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_CompartmentAccessor_4003_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getLinksSourceByType(Collections.singleton(view), CompartmentEditPart.VISUAL_ID);
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			if (!source.isEmpty()) {
+				result.add(source);
+			}
+			return result.toArray();
+		}
+
+		case NodeContentPaneEditPart.VISUAL_ID: {
+			Collection result = new ArrayList();
+			GMFGraphNavigatorGroup source = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_NodeContentPane_4006_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection connectedViews = getLinksSourceByType(Collections.singleton(view), NodeEditPart.VISUAL_ID);
 			source.addChildren(createNavigatorItems(connectedViews, source, true));
 			if (!source.isEmpty()) {
 				result.add(source);

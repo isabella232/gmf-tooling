@@ -343,52 +343,52 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String Rectangle2CreationTool_title;
+	public static String FigureDescriptor2CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Rectangle2CreationTool_desc;
+	public static String FigureDescriptor2CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String Ellipse3CreationTool_title;
+	public static String Rectangle3CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Ellipse3CreationTool_desc;
+	public static String Rectangle3CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String RoundedRectangle4CreationTool_title;
+	public static String Ellipse4CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String RoundedRectangle4CreationTool_desc;
+	public static String Ellipse4CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String Polyline5CreationTool_title;
+	public static String RoundedRectangle5CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Polyline5CreationTool_desc;
+	public static String RoundedRectangle5CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String FigureDescriptor6CreationTool_title;
+	public static String Polyline6CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String FigureDescriptor6CreationTool_desc;
+	public static String Polyline6CreationTool_desc;
 
 	/**
 	 * @generated
@@ -519,6 +519,11 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String NavigatorGroupName_CompartmentAccessor_4003_source;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_NodeContentPane_4006_source;
 
 	/**
 	 * @generated

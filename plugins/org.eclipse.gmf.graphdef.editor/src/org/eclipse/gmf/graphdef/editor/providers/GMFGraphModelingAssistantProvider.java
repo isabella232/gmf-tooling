@@ -37,6 +37,7 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RectangleEditPart;
@@ -167,6 +168,11 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.CompartmentAccessor_4003);
 			return types;
 		}
+		if (sourceEditPart instanceof NodeEditPart) {
+			List types = new ArrayList();
+			types.add(GMFGraphElementTypes.NodeContentPane_4006);
+			return types;
+		}
 		if (sourceEditPart instanceof FigureDescriptorEditPart) {
 			List types = new ArrayList();
 			types.add(GMFGraphElementTypes.ChildAccess_4002);
@@ -198,6 +204,10 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			List types = new ArrayList();
 			return types;
 		}
+		if (sourceEditPart instanceof NodeEditPart) {
+			List types = new ArrayList();
+			return types;
+		}
 		if (sourceEditPart instanceof FigureDescriptorEditPart) {
 			List types = new ArrayList();
 			return types;
@@ -223,6 +233,10 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 	public List getTypesForTarget(IAdaptable source, IElementType relationshipType) {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
 		if (sourceEditPart instanceof CompartmentEditPart) {
+			List types = new ArrayList();
+			return types;
+		}
+		if (sourceEditPart instanceof NodeEditPart) {
 			List types = new ArrayList();
 			return types;
 		}

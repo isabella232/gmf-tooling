@@ -27,6 +27,7 @@ import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureDescriptor;
+import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.graphdef.editor.edit.helpers.GMFGraphBaseEditHelper;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
@@ -369,6 +370,18 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
+		public static boolean canCreateNodeContentPane_4006(Node source, ChildAccess target) {
+			if (source != null) {
+				if (source.getContentPane() != null) {
+					return false;
+				}
+			}
+			return canExistNodeContentPane_4006(source, target);
+		}
+
+		/**
+		 * @generated
+		 */
 		public static boolean canCreateDiagramElementFigure_4005(DiagramElement source, FigureDescriptor target) {
 			if (source != null) {
 				if (source.getFigure() != null) {
@@ -396,6 +409,13 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistDiagramLabelAccessor_4004(DiagramLabel source, ChildAccess target) {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canExistNodeContentPane_4006(Node source, ChildAccess target) {
 			return true;
 		}
 

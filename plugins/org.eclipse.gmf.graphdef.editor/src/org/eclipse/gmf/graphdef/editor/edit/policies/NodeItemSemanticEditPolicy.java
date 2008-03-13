@@ -17,7 +17,10 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.DiagramElementFigureCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.DiagramElementFigureReorientCommand;
+import org.eclipse.gmf.graphdef.editor.edit.commands.NodeContentPaneCreateCommand;
+import org.eclipse.gmf.graphdef.editor.edit.commands.NodeContentPaneReorientCommand;
 import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramElementFigureEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.NodeContentPaneEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeVisualFacetsEditPart;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
@@ -83,6 +86,9 @@ public class NodeItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEditPoli
 	 * @generated
 	 */
 	protected Command getStartCreateRelationshipCommand(CreateRelationshipRequest req) {
+		if (GMFGraphElementTypes.NodeContentPane_4006 == req.getElementType()) {
+			return getGEFWrapper(new NodeContentPaneCreateCommand(req, req.getSource(), req.getTarget()));
+		}
 		if (GMFGraphElementTypes.DiagramElementFigure_4005 == req.getElementType()) {
 			return getGEFWrapper(new DiagramElementFigureCreateCommand(req, req.getSource(), req.getTarget()));
 		}
@@ -93,6 +99,9 @@ public class NodeItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEditPoli
 	 * @generated
 	 */
 	protected Command getCompleteCreateRelationshipCommand(CreateRelationshipRequest req) {
+		if (GMFGraphElementTypes.NodeContentPane_4006 == req.getElementType()) {
+			return null;
+		}
 		if (GMFGraphElementTypes.DiagramElementFigure_4005 == req.getElementType()) {
 			return null;
 		}
@@ -107,6 +116,8 @@ public class NodeItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEditPoli
 	 */
 	protected Command getReorientReferenceRelationshipCommand(ReorientReferenceRelationshipRequest req) {
 		switch (getVisualID(req)) {
+		case NodeContentPaneEditPart.VISUAL_ID:
+			return getGEFWrapper(new NodeContentPaneReorientCommand(req));
 		case DiagramElementFigureEditPart.VISUAL_ID:
 			return getGEFWrapper(new DiagramElementFigureReorientCommand(req));
 		}

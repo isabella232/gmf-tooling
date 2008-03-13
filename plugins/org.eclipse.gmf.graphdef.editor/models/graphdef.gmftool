@@ -67,6 +67,15 @@
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
+          title="Figure Descriptor"
+          description="Create FigureDescriptor - figure structure to be referenced outside">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
           title="Rectangle"
           description="Create Rectangle">
         <smallIcon
@@ -96,15 +105,6 @@
           xsi:type="gmftool:CreationTool"
           title="Polyline"
           description="Create new PolylineConnection">
-        <smallIcon
-            xsi:type="gmftool:DefaultImage"/>
-        <largeIcon
-            xsi:type="gmftool:DefaultImage"/>
-      </tools>
-      <tools
-          xsi:type="gmftool:CreationTool"
-          title="Figure Descriptor"
-          description="Create FigureDescriptor - figure structure to be referenced outside">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>
         <largeIcon

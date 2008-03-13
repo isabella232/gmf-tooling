@@ -775,6 +775,30 @@
       </modelFacet>
     </links>
     <links
+        visualID="4006"
+        editPartClassName="NodeContentPaneEditPart"
+        itemSemanticEditPolicyClassName="NodeContentPaneItemSemanticEditPolicy"
+        notationViewFactoryClassName="NodeContentPaneViewFactory"
+        createCommandClassName="NodeContentPaneCreateCommand"
+        reorientCommandClassName="NodeContentPaneReorientCommand">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <elementType
+          xsi:type="gmfgen:SpecializationType"/>
+      <viewmap
+          xsi:type="gmfgen:InnerClassViewmap"
+          className="ChildAccessConnectionFigure"
+          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ChildAccessConnectionFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ChildAccessConnectionFigure() {&#xD;&#xA;&#x9;&#x9;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DOT);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;setTargetDecoration(createTargetDecoration());&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.RotatableDecoration createTargetDecoration() {&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();&#xD;&#xA;org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(-1)&#xD;&#xA;, getMapMode().DPtoLP(1)&#xD;&#xA;);&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(0)&#xD;&#xA;, getMapMode().DPtoLP(0)&#xD;&#xA;);&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(-1)&#xD;&#xA;, getMapMode().DPtoLP(-1)&#xD;&#xA;);&#xD;&#xA;df.setTemplate(pl);&#xD;&#xA;df.setScale(getMapMode().DPtoLP(7)&#xD;&#xA;, getMapMode().DPtoLP(3)&#xD;&#xA;);&#xD;&#xA;&#x9;&#x9;return df;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
+      <modelFacet
+          xsi:type="gmfgen:FeatureLinkModelFacet">
+        <metaFeature
+            href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Node/contentPane"/>
+      </modelFacet>
+    </links>
+    <links
         visualID="4005"
         editPartClassName="DiagramElementFigureEditPart"
         itemSemanticEditPolicyClassName="DiagramElementFigureItemSemanticEditPolicy"
@@ -892,7 +916,7 @@
             xsi:type="gmfgen:ToolEntry"
             title="Figure Link"
             description="Link from the Diagram Element to the figure's descriptor"
-            genLinks="//@diagram/@links.3"/>
+            genLinks="//@diagram/@links.4"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Nested Figure Link"
@@ -902,7 +926,7 @@
             xsi:type="gmfgen:ToolEntry"
             title="Child Access Link"
             description="Link from the Diagram Element to the structure subelement of its descriptor"
-            genLinks="//@diagram/@links.1 //@diagram/@links.2"/>
+            genLinks="//@diagram/@links.1 //@diagram/@links.2 //@diagram/@links.3"/>
       </groups>
       <groups
           title="Figures"
@@ -913,6 +937,11 @@
             title="FigureGallery"
             description="Create FigureGallery - physical container for figures and descriptors"
             genNodes="//@diagram/@topLevelNodes.3"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="Figure Descriptor"
+            description="Create FigureDescriptor - figure structure to be referenced outside"
+            genNodes="//@diagram/@childNodes.0"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Rectangle"
@@ -933,11 +962,6 @@
             title="Polyline"
             description="Create new PolylineConnection"
             genNodes="//@diagram/@childNodes.5 //@diagram/@childNodes.8 //@diagram/@childNodes.12"/>
-        <entries
-            xsi:type="gmfgen:ToolEntry"
-            title="Figure Descriptor"
-            description="Create FigureDescriptor - figure structure to be referenced outside"
-            genNodes="//@diagram/@childNodes.0"/>
       </groups>
     </palette>
     <preferencePages
@@ -1316,30 +1340,6 @@
         groupIcon="icons/linksNavigatorGroup.gif"/>
     <childReferences
         parent="//@diagram/@links.3"
-        child="//@diagram/@childNodes.0"
-        referenceType="out_target"
-        groupName="target"
-        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
-    <childReferences
-        parent="//@diagram/@childNodes.0"
-        child="//@diagram/@links.3"
-        referenceType="in_source"
-        groupName="incoming links"
-        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
-    <childReferences
-        parent="//@diagram/@links.3"
-        child="//@diagram/@topLevelNodes.0"
-        referenceType="in_source"
-        groupName="source"
-        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
-    <childReferences
-        parent="//@diagram/@topLevelNodes.0"
-        child="//@diagram/@links.3"
-        referenceType="out_target"
-        groupName="outgoing links"
-        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
-    <childReferences
-        parent="//@diagram/@links.3"
         child="//@diagram/@topLevelNodes.1"
         referenceType="in_source"
         groupName="source"
@@ -1351,14 +1351,55 @@
         groupName="outgoing links"
         groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
     <childReferences
-        parent="//@diagram/@links.3"
+        parent="//@diagram"
+        child="//@diagram/@links.4"
+        groupName="links"
+        groupIcon="icons/linksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.4"
+        child="//@diagram/@childNodes.0"
+        referenceType="out_target"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@childNodes.0"
+        child="//@diagram/@links.4"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.4"
+        child="//@diagram/@topLevelNodes.0"
+        referenceType="in_source"
+        groupName="source"
+        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.0"
+        child="//@diagram/@links.4"
+        referenceType="out_target"
+        groupName="outgoing links"
+        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.4"
+        child="//@diagram/@topLevelNodes.1"
+        referenceType="in_source"
+        groupName="source"
+        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.1"
+        child="//@diagram/@links.4"
+        referenceType="out_target"
+        groupName="outgoing links"
+        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.4"
         child="//@diagram/@topLevelNodes.2"
         referenceType="in_source"
         groupName="source"
         groupIcon="icons/linkSourceNavigatorGroup.gif"/>
     <childReferences
         parent="//@diagram/@topLevelNodes.2"
-        child="//@diagram/@links.3"
+        child="//@diagram/@links.4"
         referenceType="out_target"
         groupName="outgoing links"
         groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>

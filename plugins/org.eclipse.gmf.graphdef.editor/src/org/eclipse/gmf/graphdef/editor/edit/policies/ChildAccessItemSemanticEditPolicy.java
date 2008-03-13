@@ -15,8 +15,11 @@ import org.eclipse.gmf.graphdef.editor.edit.commands.CompartmentAccessorCreateCo
 import org.eclipse.gmf.graphdef.editor.edit.commands.CompartmentAccessorReorientCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.DiagramLabelAccessorCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.DiagramLabelAccessorReorientCommand;
+import org.eclipse.gmf.graphdef.editor.edit.commands.NodeContentPaneCreateCommand;
+import org.eclipse.gmf.graphdef.editor.edit.commands.NodeContentPaneReorientCommand;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentAccessorEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelAccessorEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.NodeContentPaneEditPart;
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
@@ -53,6 +56,9 @@ public class ChildAccessItemSemanticEditPolicy extends GMFGraphBaseItemSemanticE
 		if (GMFGraphElementTypes.DiagramLabelAccessor_4004 == req.getElementType()) {
 			return null;
 		}
+		if (GMFGraphElementTypes.NodeContentPane_4006 == req.getElementType()) {
+			return null;
+		}
 		return null;
 	}
 
@@ -65,6 +71,9 @@ public class ChildAccessItemSemanticEditPolicy extends GMFGraphBaseItemSemanticE
 		}
 		if (GMFGraphElementTypes.DiagramLabelAccessor_4004 == req.getElementType()) {
 			return getGEFWrapper(new DiagramLabelAccessorCreateCommand(req, req.getSource(), req.getTarget()));
+		}
+		if (GMFGraphElementTypes.NodeContentPane_4006 == req.getElementType()) {
+			return getGEFWrapper(new NodeContentPaneCreateCommand(req, req.getSource(), req.getTarget()));
 		}
 		return null;
 	}
@@ -81,6 +90,8 @@ public class ChildAccessItemSemanticEditPolicy extends GMFGraphBaseItemSemanticE
 			return getGEFWrapper(new CompartmentAccessorReorientCommand(req));
 		case DiagramLabelAccessorEditPart.VISUAL_ID:
 			return getGEFWrapper(new DiagramLabelAccessorReorientCommand(req));
+		case NodeContentPaneEditPart.VISUAL_ID:
+			return getGEFWrapper(new NodeContentPaneReorientCommand(req));
 		}
 		return super.getReorientReferenceRelationshipCommand(req);
 	}

@@ -154,6 +154,11 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.NodeContentPaneEditPart"/>
+            <popupAction path="/editGroup" id="deleteFromModelAction"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.DiagramElementFigureEditPart"/>
             <popupAction path="/editGroup" id="deleteFromModelAction"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
@@ -607,6 +612,15 @@
       </metamodel>
       <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <specializationType
+               id="org.eclipse.gmf.graphdef.editor.NodeContentPane_4006"
+               name="%metatype.name.NodeContentPane_4006"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="4006"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
+         <specializationType
                id="org.eclipse.gmf.graphdef.editor.DiagramElementFigure_4005"
                name="%metatype.name.DiagramElementFigure_4005"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
@@ -647,6 +661,7 @@
          <elementType ref="org.eclipse.gmf.graphdef.editor.ChildAccess_4002"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.CompartmentAccessor_4003"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.DiagramLabelAccessor_4004"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.NodeContentPane_4006"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.DiagramElementFigure_4005"/>
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
