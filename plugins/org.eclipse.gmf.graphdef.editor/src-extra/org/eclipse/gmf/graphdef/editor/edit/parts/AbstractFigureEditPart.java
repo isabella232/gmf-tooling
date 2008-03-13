@@ -48,6 +48,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConnectionHandleEditPolic
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.handles.ConnectionHandle;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.swt.SWT;
 
 public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 	public static final String EMPTY_STRING = ""; //$NON-NLS-1$
@@ -101,8 +102,13 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 			result.verticalSpan = gridLayoutData.getVerticalSpan();
 			result.horizontalSpan = gridLayoutData.getHorizontalSpan();
 			result.horizontalIndent = getMapMode().DPtoLP(gridLayoutData.getHorizontalIndent());
-			result.widthHint = getMapMode().DPtoLP(gridLayoutData.getSizeHint().getDx());
-			result.heightHint = getMapMode().DPtoLP(gridLayoutData.getSizeHint().getDy());
+			if (gridLayoutData.getSizeHint() != null) {
+				result.widthHint = getMapMode().DPtoLP(gridLayoutData.getSizeHint().getDx());
+				result.heightHint = getMapMode().DPtoLP(gridLayoutData.getSizeHint().getDy());
+			} else {
+				result.widthHint = SWT.DEFAULT;
+				result.heightHint = SWT.DEFAULT;
+			}
 			return result;
 		}
 		case GMFGraphPackage.XY_LAYOUT_DATA: {
@@ -238,10 +244,22 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 			}
 			layoutManager.numColumns = gridLayout.getNumColumns();
 			layoutManager.makeColumnsEqualWidth = gridLayout.isEqualWidth();
-			layoutManager.marginWidth = getMapMode().DPtoLP(gridLayout.getMargins().getDx());
-			layoutManager.marginHeight = getMapMode().DPtoLP(gridLayout.getMargins().getDy());
-			layoutManager.horizontalSpacing = getMapMode().DPtoLP(gridLayout.getSpacing().getDx());
-			layoutManager.verticalSpacing = getMapMode().DPtoLP(gridLayout.getSpacing().getDy());
+			if (gridLayout.getMargins() != null) {
+				layoutManager.marginWidth = getMapMode().DPtoLP(gridLayout.getMargins().getDx());
+				layoutManager.marginHeight = getMapMode().DPtoLP(gridLayout.getMargins().getDy());
+			} else {
+				int defaultMargin = 5;
+				layoutManager.marginWidth = getMapMode().DPtoLP(defaultMargin);
+				layoutManager.marginHeight = getMapMode().DPtoLP(defaultMargin);
+			}
+			if (gridLayout.getSpacing() != null) {
+				layoutManager.horizontalSpacing = getMapMode().DPtoLP(gridLayout.getSpacing().getDx());
+				layoutManager.verticalSpacing = getMapMode().DPtoLP(gridLayout.getSpacing().getDy());
+			} else {
+				int defaultSpacing = 5;
+				layoutManager.horizontalSpacing = getMapMode().DPtoLP(defaultSpacing);
+				layoutManager.verticalSpacing = getMapMode().DPtoLP(defaultSpacing);
+			}
 			break;
 		}
 		case GMFGraphPackage.STACK_LAYOUT: {
