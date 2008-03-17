@@ -102,7 +102,7 @@ public class UnreliableRouteCreateCommand extends CreateElementCommand {
 		getContainer().getRoutes().add(newElement);
 		newElement.setSource(getSource());
 		newElement.setDestination(getTarget());
-		TaiPanElementTypes.Initializers.init_Route_4003(newElement);
+		TaiPanElementTypes.init_Route_4003(newElement);
 
 		return newElement;
 	}
