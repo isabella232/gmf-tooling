@@ -724,8 +724,8 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 		if (context2MetricsMap != null) {
 			return;
 		}
-		register(new MetricDef("RouteRelb", TaiPanOCLFactory.getExpression("reliability", //$NON-NLS-1$
-				TaiPanPackage.eINSTANCE.getRoute()), null, new Double(0.1), new Double(0.9), "Route Reliability", "Safety of the route."));
+		register(new MetricDef("RouteRelb", TaiPanOCLFactory.getExpression("reliability", TaiPanPackage.eINSTANCE.getRoute()), null, new Double(0.1), new Double(0.9), "Route Reliability",
+				"Safety of the route."));
 		register(new MetricDef("ShipLoad", new TaiPanAbstractExpression(TaiPanPackage.eINSTANCE.getShip()) {
 
 			protected Object doEvaluate(Object context, Map env) {

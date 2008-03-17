@@ -33,42 +33,30 @@ public class ElementInitializers {
 	/**
 	 * @generated
 	 */
-	public static class Initializers {
+	public static void init_Route_4002(Route instance) {
+		try {
+			TaiPanOCLFactory.getExpression("0.8", TaiPanPackage.eINSTANCE.getRoute()).assignTo(TaiPanPackage.eINSTANCE.getRoute_Reliability(), instance);
 
-		/**
-		 * @generated
-		 */
-		public static void init_Route_4002(Route instance) {
-			try {
-				TaiPanOCLFactory.getExpression("0.8", TaiPanPackage.eINSTANCE.getRoute()).assignTo(TaiPanPackage.eINSTANCE.getRoute_Reliability(), instance);
-
-			} catch (RuntimeException e) {
-				TaiPanDiagramEditorPlugin.getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
-			}
+		} catch (RuntimeException e) {
+			TaiPanDiagramEditorPlugin.getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
 		}
+	}
 
-		/**
-		 * @generated
-		 */
-		public static void init_Route_4003(Route instance) {
-			try {
-				TaiPanOCLFactory.getExpression("0.2", TaiPanPackage.eINSTANCE.getRoute()).assignTo(TaiPanPackage.eINSTANCE.getRoute_Reliability(), instance);
+	/**
+	 * @generated
+	 */
+	public static void init_Route_4003(Route instance) {
+		try {
+			TaiPanOCLFactory.getExpression("0.2", TaiPanPackage.eINSTANCE.getRoute()).assignTo(TaiPanPackage.eINSTANCE.getRoute_Reliability(), instance);
 
-			} catch (RuntimeException e) {
-				TaiPanDiagramEditorPlugin.getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
-			}
+		} catch (RuntimeException e) {
+			TaiPanDiagramEditorPlugin.getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
 		}
+	}
 
-		/**
-		 * @generated
-		 */
-		private Initializers() {
-		}
-
-		/**
-		 * @generated
-		 */
-		static class Java {
-		}
+	/**
+	 * @generated
+	 */
+	static class Java {
 	}
 }
