@@ -19,17 +19,17 @@
 «EXTENSION Context»
 
 «DEFINE Main FOR Section-»
-package com.borland.dsl.internal.project.ui.editor.pages.deploy;
+package org.eclipse.gmf.dsl.internal.project.ui.editor.pages.deploy;
 «EXPAND imports»
 «EXPAND class("public ")»
 «ENDDEFINE»
 
 «DEFINE imports FOR Section-»
-import com.borland.dsl.internal.ui.emf.AttachAdapter;
-import com.borland.dsl.internal.ui.emf.ChangeTracker;
-import com.borland.dsl.internal.ui.emf.FeatureTracker;
-import com.borland.dsl.internal.project.ui.editor.CommitOperation;
-import com.borland.dsl.internal.project.ui.editor.sections.GridToolkit;
+import org.eclipse.gmf.dsl.internal.ui.emf.AttachAdapter;
+import org.eclipse.gmf.dsl.internal.ui.emf.ChangeTracker;
+import org.eclipse.gmf.dsl.internal.ui.emf.FeatureTracker;
+import org.eclipse.gmf.dsl.internal.project.ui.editor.CommitOperation;
+import org.eclipse.gmf.dsl.internal.project.ui.editor.sections.GridToolkit;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;

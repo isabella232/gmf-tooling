@@ -24,9 +24,9 @@ package «packageName»;
 «ENDDEFINE»
 
 «DEFINE imports FOR Section»
-import com.borland.dsl.internal.ui.emf.AttachAdapter;
-import com.borland.dsl.internal.ui.emf.ChangeTracker;
-import com.borland.dsl.internal.ui.emf.FeatureTracker;
+import org.eclipse.gmf.dsl.internal.ui.emf.AttachAdapter;
+import org.eclipse.gmf.dsl.internal.ui.emf.ChangeTracker;
+import org.eclipse.gmf.dsl.internal.ui.emf.FeatureTracker;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -40,7 +40,7 @@ import org.eclipse.ui.views.properties.tabbed.*;
 
 // Temp solution for hand-moved generated artifacts
 «DEFINE Main FOR Section-»
-package com.borland.forms.example.figure;
+package org.eclipse.gmf.forms.example.figure;
 «EXPAND imports»
 import org.eclipse.gmf.gmfgraph.*;
 
@@ -123,7 +123,7 @@ import org.eclipse.gmf.gmfgraph.*;
 	}
 
 	protected void applyChanges() {
-		new com.borland.dsl.internal.project.ui.editor.AbstractCommand(getInput()) {
+		new org.eclipse.gmf.dsl.internal.project.ui.editor.AbstractCommand(getInput()) {
 			@Override
 			protected IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				try {
