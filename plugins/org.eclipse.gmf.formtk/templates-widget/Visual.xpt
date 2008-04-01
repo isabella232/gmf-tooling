@@ -12,7 +12,7 @@
 «IMPORT "http://www.eclipse.org/gmf/2008/Widget"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
-«EXTENSION widgets::Widgets»
+«EXTENSION Widgets»
 
 // TODO pass only those widgets that would be accessed from outside
 // (i.e. listeners/enablement code) to minimize number of class fields
@@ -66,19 +66,14 @@
 	createLabel(«compositeVar», "«label»");
 «ENDIF-»
 	«fieldName()» = «formToolkit».createText(«compositeVar», null);
-«IF layoutData == null && label != null && !{ parent.layout }.typeSelect(GridLayout).isEmpty()-»
-	org.eclipse.jface.layout.GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).apply(«fieldName()»); // temp hack to emulate GridToolkit behaviour
-«ELSE»«EXPAND Layout::Data»«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE Visuals(String compositeVar, String formToolkit) FOR RadioButton-»
 	«fieldName()» = «formToolkit».createButton(«compositeVar», «EXPAND nullOrString(label)», SWT.RADIO);
-«EXPAND Layout::Data-»
 «ENDDEFINE»
 
 «DEFINE Visuals(String compositeVar, String formToolkit) FOR CheckBox-»
 	«fieldName()» = «formToolkit».createButton(«compositeVar», «EXPAND nullOrString(label)», SWT.CHECK);
-«EXPAND Layout::Data-»
 «ENDDEFINE»
 
 «DEFINE Visuals(String compositeVar, String formToolkit) FOR Spin-»
@@ -87,22 +82,19 @@
 «ENDIF-»
 	«fieldName()» = new Spinner(«compositeVar», SWT.FLAT);
 	«fieldName()».setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
-«EXPAND Layout::Data-»
 «ENDDEFINE»
 
 «DEFINE Visuals(String compositeVar, String formToolkit) FOR Composite-»
 	«fieldName()» = «formToolkit».createComposite(«compositeVar»);
 	«formToolkit».paintBordersFor(«fieldName()»);
 	«EXPAND Visuals(fieldName(), formToolkit) FOREACH children-»
-	«IF layout != null»«EXPAND Main(fieldName()) FOR layout»«ENDIF-»
-«EXPAND Layout::Data-»
+	«IF layout != null»«EXPAND Layout::Main(fieldName()) FOR layout»«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE Visuals(String compositeVar, String formToolkit) FOR Group-»
 	«fieldName()» = createGroup(«compositeVar», «EXPAND nullOrString(label)»);
 	«EXPAND Visuals(fieldName(), formToolkit) FOREACH children-»
-	«IF layout != null»«EXPAND Main(fieldName()) FOR layout»«ENDIF-»
-«EXPAND Layout::Data-»
+	«IF layout != null»«EXPAND Layout::Main(fieldName()) FOR layout»«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE Visuals(String compositeVar, String formToolkit) FOR Combo-»
@@ -112,40 +104,6 @@
 	«fieldName()» = new Combo(«compositeVar», SWT.FLAT | SWT.READ_ONLY);
 	«fieldName()».setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER);
     «formToolkit».adapt(«fieldName()», false, false); 
-«EXPAND Layout::Data-»
-«ENDDEFINE»
-
-«REM»
-		TODO extract into separate Layout.xpt
-«ENDREM»
-«DEFINE Main(String compositeVar) FOR Layout»«ERROR "abstract Main FOR Layout"»«ENDDEFINE»
-
-«DEFINE Main(String compositeVar) FOR FormLayout-»
-«compositeVar».setLayout(new org.eclipse.swt.layout.FormLayout());
-org.eclipse.swt.layout.FormData fd;
-«FOREACH data AS fd-»
-fd = new org.eclipse.swt.layout.FormData();
-«IF fd.left != null»fd.left = «EXPAND x FOR fd.left»;
-«ENDIF-»
-«IF fd.right != null»fd.right = «EXPAND x FOR fd.right»;
-«ENDIF-»
-«IF fd.top != null»fd.top = «EXPAND x FOR fd.top»;
-«ENDIF-»
-«IF fd.bottom != null»fd.bottom = «EXPAND x FOR fd.bottom»;
-«ENDIF-»
-«fd.widget.fieldName()».setLayoutData(fd);
-«ENDFOREACH-»
-«ENDDEFINE»
-
-«DEFINE x FOR Attachment-»
-«IF control == null»new org.eclipse.swt.layout.FormAttachment(0, «offset»)«ELSE»new org.eclipse.swt.layout.FormAttachment(«control.fieldName()», «offset», SWT.«align.name»)«ENDIF»«ENDDEFINE»
-
-«DEFINE Main(String compositeVar) FOR GridLayout-»
-«compositeVar».setLayout(new org.eclipse.swt.layout.GridLayout(«columns», «equalColumns»));
-«ENDDEFINE»
-
-«DEFINE Main(String compositeVar) FOR FillLayout-»
-«compositeVar».setLayout(new org.eclipse.swt.layout.FillLayout(«IF vertical»SWT.VERTICAL«ENDIF»));
 «ENDDEFINE»
 
 «DEFINE nullOrString(String label) FOR Object»«IF label != null»"«label»"«ELSE»null«ENDIF»«ENDDEFINE»

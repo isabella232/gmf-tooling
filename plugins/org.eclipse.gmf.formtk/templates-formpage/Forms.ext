@@ -14,7 +14,7 @@ import "http://www.eclipse.org/gmf/2008/Context";
 import "http://www.eclipse.org/gmf/2008/Binding";
 import "http://www.eclipse.org/emf/2002/Ecore";
 
-extension forms::Context;
+extension Context;
 
 List[FeatureContext] getConditionAccessors(Section e) :
 	e.bindings.select(b | b.refreshCondition != null /*&& b.refreshCondition.accessor != null*/).refreshCondition.accessor.purgeDups()

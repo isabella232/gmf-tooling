@@ -68,5 +68,5 @@ public class FormPage extends org.eclipse.ui.forms.editor.FormPage {
 	}
 
 }
-«EXPAND Update::class("") FOREACH sections»
+«EXPAND Section::class("") FOREACH sections»
 «ENDDEFINE»

@@ -14,8 +14,8 @@
 «IMPORT "http://www.eclipse.org/gmf/2008/Binding"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
-«EXTENSION forms::Forms»
-«EXTENSION widgets::Widgets»
+«EXTENSION Forms»
+«EXTENSION Widgets»
 
 «DEFINE Main FOR Editor-»
 package «packageName»;
@@ -50,22 +50,22 @@ import org.eclipse.gmf.gmfgraph.*;
 «DEFINE class(String classModifiers) FOR Section»
 «classModifiers»class «className» extends AbstractPropertySection implements ChangeTracker, Listener {
 
-	«EXPAND forms::Update::AdaptersField-»
+	«EXPAND Update::AdaptersField-»
 
 	private boolean myIsCommit;
 	private boolean myIsRefresh;
 	private Object myInput;
 
-«EXPAND widgets::Visual::Fields FOR widgets»
+«EXPAND Visual::Fields FOR widgets»
 
 	@Override
 	public void createControls(Composite parent, TabbedPropertySheetPage page) {
 		super.createControls(parent, page);
 		getWidgetFactory().paintBordersFor(parent);
-«EXPAND widgets::Visual::Main("parent", "getWidgetFactory()") FOR widgets»
-«IF layout != null»«EXPAND widgets::Visual::Main("parent") FOR layout»«ENDIF-»
-«EXPAND forms::Update::PopulateWidgets-»
-«EXPAND forms::Update::registerListeners-»
+«EXPAND Visual::Main("parent", "getWidgetFactory()") FOR widgets»
+«IF layout != null»«EXPAND Layout::Main("parent") FOR layout»«ENDIF-»
+«EXPAND Update::PopulateWidgets-»
+«EXPAND Update::registerListeners-»
 	}
 
 	@Override
@@ -87,13 +87,13 @@ import org.eclipse.gmf.gmfgraph.*;
 	}
 
 	protected void commit() {
-		«EXPAND forms::Update::Commit»
+		«EXPAND Update::Commit»
 	}
 
 	@Override
 	public void refresh() {
 		myIsRefresh = true;
-		«EXPAND forms::Update::Refresh»
+		«EXPAND Update::Refresh»
 		myIsRefresh = false;
 	}
 
@@ -108,7 +108,7 @@ import org.eclipse.gmf.gmfgraph.*;
 		if (myIsRefresh) {
 			return;
 		}
-		«EXPAND forms::Update::handleEventMethodBody-»
+		«EXPAND Update::handleEventMethodBody-»
 	}
 
 	public void modelChanged(Notification msg) {
@@ -148,17 +148,17 @@ import org.eclipse.gmf.gmfgraph.*;
 	}
 
 	private void attach() {
-	«EXPAND forms::Update::AttachAdapters»
+	«EXPAND Update::AttachAdapters»
 	}
 
 	private void detach() {
-	«EXPAND forms::Update::DetachAdapters»
+	«EXPAND Update::DetachAdapters»
 	}
 
 	private «deduceInputType().name» getInput() {
 		// TODO implement;
 		return («deduceInputType().name») myInput;
 	}
-«EXPAND widgets::Visual::ExtraMethods(true, "getWidgetFactory()") FOR widgets»
+«EXPAND Visual::ExtraMethods(true, "getWidgetFactory()") FOR widgets»
 }
 «ENDDEFINE»
