@@ -81,6 +81,8 @@
 	createLabel(«compositeVar», "«label»");
 «ENDIF-»
 	«fieldName()» = new Spinner(«compositeVar», SWT.FLAT);
+	«fieldName()».setMinimum(«minimum»);
+	«fieldName()».setMaximum(«maximum»);
 	«fieldName()».setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 «ENDDEFINE»
 
