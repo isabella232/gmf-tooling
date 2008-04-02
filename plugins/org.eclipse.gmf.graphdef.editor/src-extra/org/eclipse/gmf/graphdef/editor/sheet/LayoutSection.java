@@ -125,9 +125,13 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 		GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myFlowLayoutForceSingle);
 		createLabel(myFlowLayoutDetails, "Major Spacing");
 		myFlowLayoutMajSpacing = new Spinner(myFlowLayoutDetails, SWT.FLAT);
+		myFlowLayoutMajSpacing.setMinimum(0);
+		myFlowLayoutMajSpacing.setMaximum(2147483647);
 		myFlowLayoutMajSpacing.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		createLabel(myFlowLayoutDetails, "Minor Spacing");
 		myFlowLayoutMinSpacing = new Spinner(myFlowLayoutDetails, SWT.FLAT);
+		myFlowLayoutMinSpacing.setMinimum(0);
+		myFlowLayoutMinSpacing.setMaximum(2147483647);
 		myFlowLayoutMinSpacing.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myFlowLayoutAlign = createGroup(myFlowLayoutDetails, "Alignment");
 		createLabel(myFlowLayoutAlign, "Major");
@@ -143,31 +147,45 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 		myBorderLayoutDetails = createGroup(parent, "Spacing");
 		createLabel(myBorderLayoutDetails, "Horizontal");
 		myBorderLayoutSpacingX = new Spinner(myBorderLayoutDetails, SWT.FLAT);
+		myBorderLayoutSpacingX.setMinimum(0);
+		myBorderLayoutSpacingX.setMaximum(2147483647);
 		myBorderLayoutSpacingX.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		createLabel(myBorderLayoutDetails, "Vertical");
 		myBorderLayoutSpacingY = new Spinner(myBorderLayoutDetails, SWT.FLAT);
+		myBorderLayoutSpacingY.setMinimum(0);
+		myBorderLayoutSpacingY.setMaximum(2147483647);
 		myBorderLayoutSpacingY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myBorderLayoutDetails.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
 		myGridLayoutDetails = createGroup(parent, "Details");
 		createLabel(myGridLayoutDetails, "Columns #");
 		myGridLayoutColumns = new Spinner(myGridLayoutDetails, SWT.FLAT);
+		myGridLayoutColumns.setMinimum(1);
+		myGridLayoutColumns.setMaximum(2147483647);
 		myGridLayoutColumns.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myGridLayoutSameWidth = getWidgetFactory().createButton(myGridLayoutDetails, "Equal", SWT.CHECK);
 		GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myGridLayoutSameWidth);
 		myGridLayoutMargins = createGroup(myGridLayoutDetails, "Margins");
 		createLabel(myGridLayoutMargins, "dx");
 		myGridLayoutMarginX = new Spinner(myGridLayoutMargins, SWT.FLAT);
+		myGridLayoutMarginX.setMinimum(0);
+		myGridLayoutMarginX.setMaximum(2147483647);
 		myGridLayoutMarginX.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		createLabel(myGridLayoutMargins, "dy");
 		myGridLayoutMarginY = new Spinner(myGridLayoutMargins, SWT.FLAT);
+		myGridLayoutMarginY.setMinimum(0);
+		myGridLayoutMarginY.setMaximum(2147483647);
 		myGridLayoutMarginY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myGridLayoutMargins.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
 		myGridLayoutSpacing = createGroup(myGridLayoutDetails, "Spacing");
 		createLabel(myGridLayoutSpacing, "dx");
 		myGridLayoutSpacingX = new Spinner(myGridLayoutSpacing, SWT.FLAT);
+		myGridLayoutSpacingX.setMinimum(0);
+		myGridLayoutSpacingX.setMaximum(2147483647);
 		myGridLayoutSpacingX.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		createLabel(myGridLayoutSpacing, "dy");
 		myGridLayoutSpacingY = new Spinner(myGridLayoutSpacing, SWT.FLAT);
+		myGridLayoutSpacingY.setMinimum(0);
+		myGridLayoutSpacingY.setMaximum(2147483647);
 		myGridLayoutSpacingY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myGridLayoutSpacing.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
 		myGridLayoutDetails.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));

@@ -133,15 +133,21 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myGridLayoutDataGrabExcessVerticalSpace);
 		createLabel(myGridLayoutDataDetails, "Horizontal Indent");
 		myGridLayoutDataHorizontalIndent = new Spinner(myGridLayoutDataDetails, SWT.FLAT);
+		myGridLayoutDataHorizontalIndent.setMinimum(0);
+		myGridLayoutDataHorizontalIndent.setMaximum(2147483647);
 		myGridLayoutDataHorizontalIndent.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
 																										// #145837
 		myGridLayoutDataSpan = createGroup(myGridLayoutDataDetails, "Span");
 		createLabel(myGridLayoutDataSpan, "Vertical");
 		myGridLayoutDataVerticalSpan = new Spinner(myGridLayoutDataSpan, SWT.FLAT);
+		myGridLayoutDataVerticalSpan.setMinimum(1);
+		myGridLayoutDataVerticalSpan.setMaximum(2147483647);
 		myGridLayoutDataVerticalSpan.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
 																									// #145837
 		createLabel(myGridLayoutDataSpan, "Horizontal");
 		myGridLayoutDataHorizontalSpan = new Spinner(myGridLayoutDataSpan, SWT.FLAT);
+		myGridLayoutDataHorizontalSpan.setMinimum(1);
+		myGridLayoutDataHorizontalSpan.setMaximum(2147483647);
 		myGridLayoutDataHorizontalSpan.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
 																										// #145837
 		myGridLayoutDataSpan.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
@@ -149,10 +155,14 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		myGridLayoutDataSizeHint = createGroup(myGridLayoutDataDetails, "SizeHint");
 		createLabel(myGridLayoutDataSizeHint, "Horizontal");
 		myGridLayoutDataSizeHintHorizontal = new Spinner(myGridLayoutDataSizeHint, SWT.FLAT);
+		myGridLayoutDataSizeHintHorizontal.setMinimum(-1);
+		myGridLayoutDataSizeHintHorizontal.setMaximum(2147483647);
 		myGridLayoutDataSizeHintHorizontal.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
 																											// #145837
 		createLabel(myGridLayoutDataSizeHint, "Vertical");
 		myGridLayoutDataSizeHintVertical = new Spinner(myGridLayoutDataSizeHint, SWT.FLAT);
+		myGridLayoutDataSizeHintVertical.setMinimum(-1);
+		myGridLayoutDataSizeHintVertical.setMaximum(2147483647);
 		myGridLayoutDataSizeHintVertical.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
 																										// #145837
 		myGridLayoutDataSizeHint.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
@@ -161,18 +171,26 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		myXyLayoutDataDetails = createGroup(parent, "Details");
 		createLabel(myXyLayoutDataDetails, "X");
 		myXyLayoutDataX = new Spinner(myXyLayoutDataDetails, SWT.FLAT);
+		myXyLayoutDataX.setMinimum(0);
+		myXyLayoutDataX.setMaximum(2147483647);
 		myXyLayoutDataX.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
 																						// #145837
 		createLabel(myXyLayoutDataDetails, "Width");
 		myXyLayoutDataWidth = new Spinner(myXyLayoutDataDetails, SWT.FLAT);
+		myXyLayoutDataWidth.setMinimum(0);
+		myXyLayoutDataWidth.setMaximum(2147483647);
 		myXyLayoutDataWidth.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
 																							// #145837
 		createLabel(myXyLayoutDataDetails, "Y");
 		myXyLayoutDataY = new Spinner(myXyLayoutDataDetails, SWT.FLAT);
+		myXyLayoutDataY.setMinimum(0);
+		myXyLayoutDataY.setMaximum(2147483647);
 		myXyLayoutDataY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
 																						// #145837
 		createLabel(myXyLayoutDataDetails, "Height");
 		myXyLayoutDataHeight = new Spinner(myXyLayoutDataDetails, SWT.FLAT);
+		myXyLayoutDataHeight.setMinimum(0);
+		myXyLayoutDataHeight.setMaximum(2147483647);
 		myXyLayoutDataHeight.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
 																							// #145837
 		myXyLayoutDataDetails.setLayout(new org.eclipse.swt.layout.GridLayout(4, false));
