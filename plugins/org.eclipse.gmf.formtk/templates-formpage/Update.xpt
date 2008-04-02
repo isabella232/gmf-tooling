@@ -22,21 +22,21 @@
 //
 //
 «DEFINE registerListeners FOR Section»
-«IF hasTextWidgets(widgets)-»
-		for (Text t : new Text[] {«FOREACH textWidgets(widgets) AS te SEPARATOR ", "»«te.fieldName()»«ENDFOREACH»}) {
+«IF hasTextWidgets()-»
+		for (Text t : new Text[] {«FOREACH textWidgets() AS te SEPARATOR ", "»«te.fieldName()»«ENDFOREACH»}) {
 			t.addListener(SWT.Modify, this);
 			t.addListener(SWT.FocusOut, this);
 			t.addListener(SWT.KeyDown, this);
 		}
 «ENDIF-»
-«IF hasSpins(widgets)-»
-		for (Spinner s : new Spinner[] {«FOREACH spinWidgets(widgets) AS s SEPARATOR ", "»«s.fieldName()»«ENDFOREACH»}) {
+«IF hasSpins()-»
+		for (Spinner s : new Spinner[] {«FOREACH spinWidgets() AS s SEPARATOR ", "»«s.fieldName()»«ENDFOREACH»}) {
 			s.addListener(SWT.Modify, this);
 			s.addListener(SWT.FocusOut, this);
 		}
 «ENDIF-»
-«IF hasRadioButtons(widgets) || hasCheckBoxes(widgets) || hasCombos(widgets)-»
-		for (Widget w : new Widget[] {«FOREACH (List[Widget])radioWidgets(widgets).union(checkboxWidgets(widgets)).union(comboWidgets(widgets)) AS r SEPARATOR ", "»«r.fieldName()»«ENDFOREACH»}) {
+«IF hasRadioButtons() || hasCheckBoxes() || hasCombos()-»
+		for (Widget w : new Widget[] {«FOREACH (List[Widget])radioWidgets().union(checkboxWidgets()).union(comboWidgets()) AS r SEPARATOR ", "»«r.fieldName()»«ENDFOREACH»}) {
 			w.addListener(SWT.Selection, this);
 		}
 «ENDIF-»
@@ -46,7 +46,7 @@
 //
 //
 «DEFINE handleEventMethodBody FOR Section»
-«IF hasTextWidgets(widgets) || hasSpins(widgets) /*though, spinners may require more attention*/ -»
+«IF hasTextWidgets() || hasSpins() /*though, spinners may require more attention*/ -»
 		if (event.type == SWT.Modify) {
 			// XXX also override isDirty to compare values if they
 			// match model's and to clear dirty state in case like aaa^H^H^H 
@@ -61,10 +61,10 @@
 			}
 		}
 «ENDIF-»
-«IF hasRadioButtons(widgets) || hasCheckBoxes(widgets)-»
+«IF hasRadioButtons() || hasCheckBoxes()-»
 		if (event.type == SWT.Selection) {
-«IF hasCheckBoxes(widgets)-»
-			if «FOREACH checkboxWidgets(widgets) AS r SEPARATOR " else if "»(«r.fieldName()» == event.widget) {
+«IF hasCheckBoxes()-»
+			if «FOREACH checkboxWidgets() AS r SEPARATOR " else if "»(«r.fieldName()» == event.widget) {
 «IF !dependantActions(r).isEmpty()-»
 				if («r.fieldName()».getSelection()) {
 					«EXPAND ApplyAction FOREACH dependantActions(r)-»
@@ -77,8 +77,8 @@
 				«EXPAND RefreshAssociated(r)-»
 			}«ENDFOREACH»
 «ENDIF-»
-«IF hasRadioButtons(widgets)-»
-			if «FOREACH radioWidgets(widgets) AS r SEPARATOR " else if "»(«r.fieldName()» == event.widget) {
+«IF hasRadioButtons()-»
+			if «FOREACH radioWidgets() AS r SEPARATOR " else if "»(«r.fieldName()» == event.widget) {
 	«LET associatedBinding(r) AS activeBinding-»
 				if («r.fieldName()».getSelection()) {
 					«EXPAND ApplyAction FOREACH xxx1(activeBinding)-»
@@ -91,8 +91,8 @@
 	«ENDLET-»
 			}«ENDFOREACH»
 «ENDIF-»
-«IF hasCombos(widgets)-»
-			if («FOREACH comboWidgets(widgets) AS cb SEPARATOR " || "»«cb.fieldName()» == event.widget«ENDFOREACH») {
+«IF hasCombos()-»
+			if («FOREACH comboWidgets() AS cb SEPARATOR " || "»«cb.fieldName()» == event.widget«ENDFOREACH») {
 				applyChanges();«REM»TODO need to process possible enablements here as well (actions for conditions with accessor equal to the activated)«ENDREM»
 			}
 «ENDIF»
@@ -121,7 +121,7 @@
 «FOREACH bindings.select(b | b.commitCondition == null) AS b»«EXPAND ViewToModel(b) FOR b.widget»«ENDFOREACH»
 
 «FOREACH conditions.select(c | bindings.exists(b | c == b.commitCondition)) AS c-»
-«IF c.actions.isEmpty()-»
+«IF triggeredActions(c).isEmpty()-»
 «FOREACH bindings.select(b | b.commitCondition == c) AS b-»
 if («EXPAND uiConditionGet FOR b.widget») {
 	«EXPAND createMissing(1, this) FOR needsCreation({b})-»
@@ -129,7 +129,7 @@ if («EXPAND uiConditionGet FOR b.widget») {
 }
 «ENDFOREACH-»
 «ELSE-»
-if («EXPAND uiConditionGet FOREACH c.actions SEPARATOR " || "») {
+if («EXPAND uiConditionGet FOREACH triggeredActions(c) SEPARATOR " || "») {
 «LET bindings.select(b | b.commitCondition == c) AS bc-»
 «LET needsCreation(bc) AS toCreate-»
 «FOREACH bc.select(b | b.selector.wholeChain().intersect(toCreate).isEmpty()) AS b-»
@@ -167,18 +167,18 @@ if («EXPAND modelAccessGet(x) FOR s» == null) {
 «REM»grouping bindings by condition - to generate only one check and to set dependant bindings/widgets inside the same if()«ENDREM»
 if («EXPAND modelConditionClause(c)») {
 	«EXPAND doRefresh(bindingsToRefresh(c), c.accessor)-»
-	«EXPAND ApplyAction FOREACH c.actions-»
-}«IF !c.actions.isEmpty() || needsRadioButtonWorkaround(c)» else {
+	«EXPAND ApplyAction FOREACH triggeredActions(c)-»
+}«IF !triggeredActions(c).isEmpty() || needsRadioButtonWorkaround(c)» else {
 	«EXPAND radioButtonDeselect FOREACH radioButtonToWorkaround(c)-»
-	«EXPAND RevertAction FOREACH c.actions-»
+	«EXPAND RevertAction FOREACH triggeredActions(c)-»
 }«ENDIF-»
 «ENDFOREACH-»
 
-«FOREACH conditions.select(c | !c.actions.isEmpty() && bindings.exists(b | b.commitCondition == c && b.refreshCondition != c)) AS c-»
+«FOREACH conditions.select(c | bindings.exists(b | b.commitCondition == c && b.refreshCondition != c) && !triggeredActions(c).isEmpty()) AS c-»
 if («IF c.accessor.chain != null && needsNullCheck(c.accessor.chain)»«EXPAND nullModelConditionClause(this) FOR c.accessor.chain» && «ENDIF»«EXPAND modelConditionClause(c)») {
-	«EXPAND ApplyAction FOREACH c.actions-»
+	«EXPAND ApplyAction FOREACH triggeredActions(c)-»
 } else {«REM»Shouldn't I add radiobutton workaround here as well?«ENDREM»
-	«EXPAND RevertAction FOREACH c.actions-»
+	«EXPAND RevertAction FOREACH triggeredActions(c)-»
 }
 «ENDFOREACH-»
 «ENDDEFINE»
@@ -358,7 +358,7 @@ if (myModelListeners != null) {
 
 
 «DEFINE PopulateWidgets FOR Section-»
-«FOREACH widgets.allWidgets().typeSelect(Combo) AS wc-»
+«FOREACH comboWidgets() AS wc-»
 //TODO «wc.fieldName()».setItems(VALUES.toString().toArray());
 for (org.eclipse.emf.common.util.Enumerator e : «EXPAND enumComboModelClass FOR associatedBinding(wc)».VALUES) {
 	«wc.fieldName()».add(e.getName());

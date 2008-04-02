@@ -6,8 +6,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="Condition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="accessor" lowerBound="1"
         eType="#//Context"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="actions" upperBound="-1"
-        eType="#//ActionBase"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EqualsCondition" eSuperTypes="#//Condition">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -28,5 +26,4 @@
   <eClassifiers xsi:type="ecore:EClass" name="FeatureContext" eSuperTypes="#//Context">
     <eStructuralFeatures xsi:type="ecore:EReference" name="selector" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStructuralFeature"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ActionBase" abstract="true" interface="true"/>
 </ecore:EPackage>

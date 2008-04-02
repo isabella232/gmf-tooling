@@ -29,11 +29,16 @@ boolean needsCast(EClass inputType, FeatureContext x) :
 // look for conditions that share model accessor with the binding of the widget
 // - assume when binding's widget got changed, there's a need to trigger UI enablement actions
 List[Action] dependantActions(Section s, Widget w) :
-	triggeredConditions(s, associatedBinding(s,w)).actions
+	triggeredConditions(s, associatedBinding(s,w)).collect(c | triggeredActions(s,c)).flatten()
+	// FIXME replace with smth like: s.actions.select(a | !a.trigger.intersect(triggeredConditions).isEmpty())
 ;
 
 Binding associatedBinding(Section s, Widget w) :
 	s.bindings.select(b | b.widget == w).first()
+;
+
+List[Action] triggeredActions(Section s, Condition c) :
+	s.actions.select(a | a.trigger.contains(c))
 ;
 
 //
@@ -51,11 +56,13 @@ private List[Condition] triggeredConditions(Section s, Binding b) :
 // condition is associated with the activated binding, perhaps, need to check 
 // refreshCondition also/besides. 
 List[Action] xxx1(Section s, Binding b) :
-	s.conditions.select(c | c.accessor == b.selector && b.commitCondition == c).actions
+	//s.conditions.select(c | c.accessor == b.selector && b.commitCondition == c).actions
+	s.actions.select(a | a.trigger.exists(c | c.accessor == b.selector && b.commitCondition == c))
 ;
 
 List[Action] xxx2(Section s, Binding b) :
-	s.conditions.select(c | c.accessor == b.selector && b.commitCondition != c).actions
+	//s.conditions.select(c | c.accessor == b.selector && b.commitCondition != c).actions
+	s.actions.select(a | a.trigger.exists(c | c.accessor == b.selector && b.commitCondition != c))
 ;
 
 List[Binding] xxx3(Section s, Binding b) :

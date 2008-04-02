@@ -48,7 +48,7 @@ import org.eclipse.ui.forms.widgets.*;
 	private boolean myIsRefresh;
 	private Object myInput;
 
-«EXPAND Visual::Fields FOR widgets»
+«EXPAND Visual::Fields FOR children»
 
 	public «className»(Composite parent, IManagedForm form) {
 		super(parent, form.getToolkit(), Section.TITLE_BAR | Section.TWISTIE | Section.DESCRIPTION);
@@ -68,10 +68,10 @@ import org.eclipse.ui.forms.widgets.*;
 	protected void createContents(Composite parent) {
 		getSection().setText("Generated Section");
 		final FormToolkit ftk = getManagedForm().getToolkit();
-«EXPAND Visual::Main("parent", "ftk") FOR widgets»
+«EXPAND Visual::Main("parent", "ftk") FOR children»
 «IF layout != null»«EXPAND Layout::Main("parent") FOR layout»«ENDIF-»
 «EXPAND Update::PopulateWidgets-»
-		// getEditor().getGlobalActionSupport().register(«FOREACH widgets.typeSelect(TextEntry) AS te SEPARATOR ", "»«te.fieldName()»«ENDFOREACH»);
+		// getEditor().getGlobalActionSupport().register(«FOREACH textWidgets() AS te SEPARATOR ", "»«te.fieldName()»«ENDFOREACH»);
 «EXPAND Update::registerListeners-»
 	}
 
@@ -147,6 +147,6 @@ import org.eclipse.ui.forms.widgets.*;
 		// XXX or move cast to setInput?
 		return («deduceInputType().name») myInput;
 	}
-«EXPAND Visual::ExtraMethods(false, "getManagedForm().getToolkit()") FOR widgets-»
+«EXPAND Visual::ExtraMethods(false, "getManagedForm().getToolkit()") FOR children-»
 }
 «ENDDEFINE»

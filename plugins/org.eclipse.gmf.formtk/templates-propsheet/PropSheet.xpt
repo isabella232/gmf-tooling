@@ -56,13 +56,13 @@ import org.eclipse.gmf.gmfgraph.*;
 	private boolean myIsRefresh;
 	private Object myInput;
 
-«EXPAND Visual::Fields FOR widgets»
+«EXPAND Visual::Fields FOR children»
 
 	@Override
 	public void createControls(Composite parent, TabbedPropertySheetPage page) {
 		super.createControls(parent, page);
 		getWidgetFactory().paintBordersFor(parent);
-«EXPAND Visual::Main("parent", "getWidgetFactory()") FOR widgets»
+«EXPAND Visual::Main("parent", "getWidgetFactory()") FOR children»
 «IF layout != null»«EXPAND Layout::Main("parent") FOR layout»«ENDIF-»
 «EXPAND Update::PopulateWidgets-»
 «EXPAND Update::registerListeners-»
@@ -159,6 +159,6 @@ import org.eclipse.gmf.gmfgraph.*;
 		// TODO implement;
 		return («deduceInputType().name») myInput;
 	}
-«EXPAND Visual::ExtraMethods(true, "getWidgetFactory()") FOR widgets»
+«EXPAND Visual::ExtraMethods(true, "getWidgetFactory()") FOR children»
 }
 «ENDDEFINE»

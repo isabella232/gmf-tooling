@@ -13,30 +13,28 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="section" eType="#//Section"
         eOpposite="#//Section/bindings"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Section">
+  <eClassifiers xsi:type="ecore:EClass" name="Section" eSuperTypes="widget.ecore#//Composite">
     <eStructuralFeatures xsi:type="ecore:EReference" name="bindings" upperBound="-1"
         eType="#//Binding" containment="true" eOpposite="#//Binding/section"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="input" lowerBound="1" upperBound="-1"
         eType="ecore:EClass context.ecore#//Context" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="conditions" upperBound="-1"
         eType="ecore:EClass context.ecore#//Condition" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="widgets" upperBound="-1"
-        eType="ecore:EClass widget.ecore#//Widget" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="actions" upperBound="-1"
         eType="#//Action" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="layout" eType="ecore:EClass widget.ecore#//Layout"
-        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Editor">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="packageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sections" lowerBound="1"
         upperBound="-1" eType="#//Section" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Action" eSuperTypes="context.ecore#//ActionBase">
+  <eClassifiers xsi:type="ecore:EClass" name="Action">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//ActionKind"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="widgets" lowerBound="1"
         upperBound="-1" eType="ecore:EClass widget.ecore#//Widget"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trigger" lowerBound="1"
+        upperBound="-1" eType="ecore:EClass context.ecore#//Condition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ActionKind">
     <eLiterals name="SHOW"/>
