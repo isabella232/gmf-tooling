@@ -150,7 +150,7 @@ public class «creationWizardClassName»
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForCreationWizardDiagramPage().titleKey(), "Create "+editorGen.modelID+" Diagram")-»
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForCreationWizardDiagramPage().descriptionKey(), (isStandaloneDomainModel() ? "Select file that will contain diagram model." : "Select file that will contain diagram and domain models."))-»
 «IF isStandaloneDomainModel()-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForCreationWizardDomainPage().titleKey(), "Create "+editorGen.modelID+" Diagram")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForCreationWizardDomainPage().titleKey(), "Create "+editorGen.modelID+" Domain Model")-»
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForCreationWizardDomainPage().descriptionKey(), "Select file that will contain domain model.")-»
 «ENDIF-»
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForCreationWizardOpenEditorError(), "Error opening diagram editor")-»
