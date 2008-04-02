@@ -1025,7 +1025,7 @@ public class EcoreDiagramUpdater {
 	private static Collection getContainedTypeModelFacetLinks_EReference_4002(EClass container) {
 		Collection result = new LinkedList();
 		for (Iterator links = container.getEStructuralFeatures().iterator(); links.hasNext();) {
-			Object linkObject = links.next();
+			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof EReference) {
 				continue;
 			}
@@ -1045,7 +1045,7 @@ public class EcoreDiagramUpdater {
 	private static Collection getContainedTypeModelFacetLinks_EReference_4003(EClass container) {
 		Collection result = new LinkedList();
 		for (Iterator links = container.getEStructuralFeatures().iterator(); links.hasNext();) {
-			Object linkObject = links.next();
+			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof EReference) {
 				continue;
 			}

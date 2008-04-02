@@ -63,10 +63,10 @@ public class EReferenceCreateCommand extends CreateElementCommand {
 		if (source == null && target == null) {
 			return false;
 		}
-		if (source != null && !(source instanceof EClass)) {
+		if (source != null && false == source instanceof EClass) {
 			return false;
 		}
-		if (target != null && !(target instanceof EClassifier)) {
+		if (target != null && false == target instanceof EClassifier) {
 			return false;
 		}
 		if (getSource() == null) {
@@ -80,11 +80,11 @@ public class EReferenceCreateCommand extends CreateElementCommand {
 	 * @generated
 	 */
 	protected EObject doDefaultElementCreation() {
-		// org.eclipse.emf.ecore.EReference newElement = (org.eclipse.emf.ecore.EReference) super.doDefaultElementCreation();
 		EReference newElement = EcoreFactory.eINSTANCE.createEReference();
 		getSource().getEStructuralFeatures().add(newElement);
 		newElement.setEType(getTarget());
-		EcoreElementTypes.Initializers.EReference_4002.init(newElement);
+		EcoreElementTypes.init_EReference_4002(newElement);
+
 		return newElement;
 	}
 

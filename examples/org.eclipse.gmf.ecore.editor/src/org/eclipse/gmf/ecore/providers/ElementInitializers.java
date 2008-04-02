@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.ecore.expressions.EcoreAbstractExpression;
@@ -32,149 +33,24 @@ public class ElementInitializers {
 	/**
 	 * @generated
 	 */
-	public static class Initializers {
+	public static void init_EReference_4002(EReference instance) {
+		try {
+			EcoreOCLFactory.getExpression("false", EcorePackage.eINSTANCE.getEReference()).assignTo(EcorePackage.eINSTANCE.getEReference_Containment(), instance);
 
-		/**
-		 * @generated
-		 */
-		public static final IObjectInitializer EReference_4002 = new ObjectInitializer(EcorePackage.eINSTANCE.getEReference()) {
-
-			protected void init() {
-				add(createExpressionFeatureInitializer(EcorePackage.eINSTANCE.getEReference_Containment(), EcoreOCLFactory.getExpression("false", //$NON-NLS-1$
-						EcorePackage.eINSTANCE.getEReference())));
-			}
-		};
-
-		/**
-		 * @generated
-		 */
-		public static final IObjectInitializer EReference_4003 = new ObjectInitializer(EcorePackage.eINSTANCE.getEReference()) {
-
-			protected void init() {
-				add(createExpressionFeatureInitializer(EcorePackage.eINSTANCE.getEReference_Containment(), EcoreOCLFactory.getExpression("true", //$NON-NLS-1$
-						EcorePackage.eINSTANCE.getEReference())));
-			}
-		};
-
-		/**
-		 * @generated
-		 */
-		private Initializers() {
+		} catch (RuntimeException e) {
+			EcoreDiagramEditorPlugin.getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
 		}
+	}
 
-		/**
-		 * @generated
-		 */
-		public static interface IObjectInitializer {
+	/**
+	 * @generated
+	 */
+	public static void init_EReference_4003(EReference instance) {
+		try {
+			EcoreOCLFactory.getExpression("true", EcorePackage.eINSTANCE.getEReference()).assignTo(EcorePackage.eINSTANCE.getEReference_Containment(), instance);
 
-			/**
-			 * @generated
-			 */
-			public void init(EObject instance);
-		}
-
-		/**
-		 * @generated
-		 */
-		public static abstract class ObjectInitializer implements IObjectInitializer {
-
-			/**
-			 * @generated
-			 */
-			final EClass element;
-
-			/**
-			 * @generated
-			 */
-			private List featureInitializers = new ArrayList();
-
-			/**
-			 * @generated
-			 */
-			ObjectInitializer(EClass element) {
-				this.element = element;
-				init();
-			}
-
-			/**
-			 * @generated
-			 */
-			protected abstract void init();
-
-			/**
-			 * @generated
-			 */
-			protected final IFeatureInitializer add(IFeatureInitializer initializer) {
-				featureInitializers.add(initializer);
-				return initializer;
-			}
-
-			/**
-			 * @generated
-			 */
-			public void init(EObject instance) {
-				for (Iterator it = featureInitializers.iterator(); it.hasNext();) {
-					IFeatureInitializer nextExpr = (IFeatureInitializer) it.next();
-					try {
-						nextExpr.init(instance);
-					} catch (RuntimeException e) {
-						EcoreDiagramEditorPlugin.getInstance().logError("Feature initialization failed", e); //$NON-NLS-1$						
-					}
-				}
-			}
-		}
-
-		/**
-		 * @generated
-		 */
-		interface IFeatureInitializer {
-
-			/**
-			 * @generated
-			 */
-			void init(EObject contextInstance);
-		}
-
-		/**
-		 * @generated
-		 */
-		static IFeatureInitializer createNewElementFeatureInitializer(EStructuralFeature initFeature, ObjectInitializer[] newObjectInitializers) {
-			final EStructuralFeature feature = initFeature;
-			final ObjectInitializer[] initializers = newObjectInitializers;
-			return new IFeatureInitializer() {
-
-				public void init(EObject contextInstance) {
-					for (int i = 0; i < initializers.length; i++) {
-						EObject newInstance = initializers[i].element.getEPackage().getEFactoryInstance().create(initializers[i].element);
-						if (feature.isMany()) {
-							((Collection) contextInstance.eGet(feature)).add(newInstance);
-						} else {
-							contextInstance.eSet(feature, newInstance);
-						}
-						initializers[i].init(newInstance);
-					}
-				}
-			};
-		}
-
-		/**
-		 * @generated
-		 */
-		static IFeatureInitializer createExpressionFeatureInitializer(EStructuralFeature initFeature, EcoreAbstractExpression valueExpression) {
-			final EStructuralFeature feature = initFeature;
-			final EcoreAbstractExpression expression = valueExpression;
-			return new IFeatureInitializer() {
-
-				public void init(EObject contextInstance) {
-					expression.assignTo(feature, contextInstance);
-				}
-			};
-		}
-
-		/**
-		 * @generated
-		 */
-		static class Java {
+		} catch (RuntimeException e) {
+			EcoreDiagramEditorPlugin.getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
 		}
 	}
 }

@@ -52,10 +52,10 @@ public class EAnnotationReferencesCreateCommand extends EditElementCommand {
 		if (source == null && target == null) {
 			return false;
 		}
-		if (source != null && !(source instanceof EAnnotation)) {
+		if (source != null && false == source instanceof EAnnotation) {
 			return false;
 		}
-		if (target != null && !(target instanceof EObject)) {
+		if (target != null && false == target instanceof EObject) {
 			return false;
 		}
 		if (getSource() == null) {

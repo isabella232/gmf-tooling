@@ -62,7 +62,7 @@ public class EClassESuperTypesReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (!(referenceOwner instanceof EClass)) {
+		if (false == referenceOwner instanceof EClass) {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {

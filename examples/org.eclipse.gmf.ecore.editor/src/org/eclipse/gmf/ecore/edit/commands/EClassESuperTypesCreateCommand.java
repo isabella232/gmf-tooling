@@ -52,10 +52,10 @@ public class EClassESuperTypesCreateCommand extends EditElementCommand {
 		if (source == null && target == null) {
 			return false;
 		}
-		if (source != null && !(source instanceof EClass)) {
+		if (source != null && false == source instanceof EClass) {
 			return false;
 		}
-		if (target != null && !(target instanceof EClass)) {
+		if (target != null && false == target instanceof EClass) {
 			return false;
 		}
 		if (getSource() == null) {

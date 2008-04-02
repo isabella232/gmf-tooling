@@ -62,7 +62,7 @@ public class EAnnotationReferencesReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (!(referenceOwner instanceof EAnnotation)) {
+		if (false == referenceOwner instanceof EAnnotation) {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {

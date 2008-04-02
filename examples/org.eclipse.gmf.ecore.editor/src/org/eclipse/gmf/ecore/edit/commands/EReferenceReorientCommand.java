@@ -57,7 +57,7 @@ public class EReferenceReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (!(getElementToEdit() instanceof EReference)) {
+		if (false == getElementToEdit() instanceof EReference) {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
