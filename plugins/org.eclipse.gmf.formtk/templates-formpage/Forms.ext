@@ -16,6 +16,22 @@ import "http://www.eclipse.org/emf/2002/Ecore";
 
 extension Context;
 
+boolean isBoolean(Context context) :
+	false
+;
+
+boolean isBoolean(FeatureContext context) :
+	context.selector.eType.name == 'EBoolean'
+;
+
+boolean hasReferenceBasedCheckBoxes(Section s, Condition c) :
+	bindingsToRefresh(s,c).exists(b | !{b.widget}.typeSelect(CheckBox).isEmpty() && !isBoolean(b.selector))
+;
+
+List[Binding] referenceBasedCheckBoxBindings(Section s, Condition c) :
+	bindingsToRefresh(s,c).select(b | !{b.widget}.typeSelect(CheckBox).isEmpty() && !isBoolean(b.selector))
+;
+
 List[FeatureContext] getConditionAccessors(Section e) :
 	e.bindings.select(b | b.refreshCondition != null /*&& b.refreshCondition.accessor != null*/).refreshCondition.accessor.purgeDups()
 ;

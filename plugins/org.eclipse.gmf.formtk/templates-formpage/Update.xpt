@@ -63,8 +63,9 @@
 «ENDIF-»
 «IF hasRadioButtons() || hasCheckBoxes()-»
 		if (event.type == SWT.Selection) {
-«IF hasCheckBoxes()-»
-			if «FOREACH checkboxWidgets() AS r SEPARATOR " else if "»(«r.fieldName()» == event.widget) {
+«LET checkboxWidgets().select(w | isBoolean(associatedBinding(w).selector)) AS booleanCheckBoxes-»
+«IF !booleanCheckBoxes.isEmpty()-»
+			if «FOREACH booleanCheckBoxes AS r SEPARATOR " else if "»(«r.fieldName()» == event.widget) {
 «IF !dependantActions(r).isEmpty()-»
 				if («r.fieldName()».getSelection()) {
 					«EXPAND ApplyAction FOREACH dependantActions(r)-»
@@ -77,8 +78,10 @@
 				«EXPAND RefreshAssociated(r)-»
 			}«ENDFOREACH»
 «ENDIF-»
-«IF hasRadioButtons()-»
-			if «FOREACH radioWidgets() AS r SEPARATOR " else if "»(«r.fieldName()» == event.widget) {
+«ENDLET-»
+«LET checkboxWidgets().select(w | !isBoolean(associatedBinding(w).selector)) AS referenceBasedCheckBoxes-»
+«IF hasRadioButtons() || !referenceBasedCheckBoxes.isEmpty()-»
+			if «FOREACH (List[Widget])radioWidgets().union(referenceBasedCheckBoxes) AS r SEPARATOR " else if "»(«r.fieldName()» == event.widget) {
 	«LET associatedBinding(r) AS activeBinding-»
 				if («r.fieldName()».getSelection()) {
 					«EXPAND ApplyAction FOREACH triggeredActions_activated(activeBinding)-»
@@ -87,10 +90,14 @@
 					«EXPAND doRefresh(triggeredBindingToRefreshBesidesTheOne(activeBinding), activeBinding.refreshCondition.accessor)-»
 				}«IF !triggeredActions_activated(activeBinding).isEmpty()» else {
 					«EXPAND RevertAction FOREACH triggeredActions_activated(activeBinding)-»
+«IF !{activeBinding.widget}.typeSelect(CheckBox).isEmpty()-»
+					applyChanges(); // Commit; View to Model
+«ENDIF-»
 				}«ENDIF»
 	«ENDLET-»
 			}«ENDFOREACH»
 «ENDIF-»
+«ENDLET-»
 «IF hasCombos()-»
 			if («FOREACH comboWidgets() AS cb SEPARATOR " || "»«cb.fieldName()» == event.widget«ENDFOREACH») {
 				applyChanges();«REM»TODO need to process possible enablements here as well (actions for conditions with accessor equal to the activated)«ENDREM»
@@ -129,8 +136,8 @@ if («EXPAND uiConditionGet FOR b.widget») {
 }
 «ENDFOREACH-»
 «ELSE-»
-if («EXPAND uiConditionGet FOREACH triggeredActions(c) SEPARATOR " || "») {
 «LET bindings.select(b | b.commitCondition == c) AS bc-»
+if («EXPAND uiConditionGet FOREACH triggeredActions(c) SEPARATOR " || "») {
 «LET needsCreation(bc) AS toCreate-»
 «FOREACH bc.select(b | b.selector.wholeChain().intersect(toCreate).isEmpty()) AS b-»
 	«EXPAND ViewToModel(b) FOR b.widget-»
@@ -140,8 +147,15 @@ if («EXPAND uiConditionGet FOREACH triggeredActions(c) SEPARATOR " || "») {
 	«EXPAND ViewToModel(b) FOR b.widget-»
 «ENDFOREACH-»
 «ENDLET-»
-«ENDLET-»
+}«LET bc.select(b | !{b.widget}.typeSelect(CheckBox).isEmpty() && !isBoolean(b.selector)) AS referenceBasedCheckBoxBindings-»
+«IF !referenceBasedCheckBoxBindings.isEmpty()» else {
+«FOREACH referenceBasedCheckBoxBindings AS cb-»
+	«EXPAND modelAccessSet(cb.selector)»(null);
+«ENDFOREACH-»
 }
+«ENDIF-»
+«ENDLET-»
+«ENDLET-»
 «ENDIF-»
 «ENDFOREACH-»
 «ENDDEFINE»
@@ -168,8 +182,9 @@ if («EXPAND modelAccessGet(x) FOR s» == null) {
 if («EXPAND modelConditionClause(c)») {
 	«EXPAND doRefresh(bindingsToRefresh(c), c.accessor)-»
 	«EXPAND ApplyAction FOREACH triggeredActions(c)-»
-}«IF !triggeredActions(c).isEmpty() || needsRadioButtonWorkaround(c)» else {
-	«EXPAND radioButtonDeselect FOREACH radioButtonToWorkaround(c)-»
+}«IF !triggeredActions(c).isEmpty() || needsRadioButtonWorkaround(c) || hasReferenceBasedCheckBoxes(c)» else {
+	«EXPAND deselectWidget FOREACH radioButtonToWorkaround(c)-»
+	«EXPAND deselectWidget FOREACH referenceBasedCheckBoxBindings(c)-»
 	«EXPAND RevertAction FOREACH triggeredActions(c)-»
 }«ENDIF-»
 «ENDFOREACH-»
@@ -222,7 +237,7 @@ if («IF c.accessor.chain != null && needsNullCheck(c.accessor.chain)»«EXPAND nul
 «ENDDEFINE»
 
 «DEFINE ModelToView(Binding b) FOR CheckBox-»
-	«fieldName()».setSelection(«EXPAND modelAccessGet(b.selector) FOR b.section»);
+	«fieldName()».setSelection(«IF isBoolean(b.selector)»«EXPAND modelAccessGet(b.selector) FOR b.section»«ELSE»true«ENDIF»);
 «ENDDEFINE»
 
 «DEFINE ModelToView(Binding b) FOR Spin-»
@@ -241,7 +256,7 @@ if («IF c.accessor.chain != null && needsNullCheck(c.accessor.chain)»«EXPAND nul
 	(as it happens with user action/event). Hence, need to deselect
 	radiobuttons manually (leftover selection from previous input)
 «ENDREM»
-«DEFINE radioButtonDeselect FOR Binding-»
+«DEFINE deselectWidget FOR Binding-»
 	«fieldName(widget)».setSelection(false);
 «ENDDEFINE»
 
@@ -260,7 +275,7 @@ if («IF c.accessor.chain != null && needsNullCheck(c.accessor.chain)»«EXPAND nul
 «ENDDEFINE»
 
 «DEFINE ViewToModel(Binding b) FOR CheckBox-»
-	«EXPAND modelAccessSet(b.selector) FOR b.section»(«fieldName()».getSelection());
+	«EXPAND modelAccessSet(b.selector) FOR b.section»(«IF isBoolean(b.selector)»«fieldName()».getSelection()«ELSE»«EXPAND NewValue FOR b.commitCondition»«ENDIF»);
 «ENDDEFINE»
 
 «DEFINE ViewToModel(Binding b) FOR Spin-»
