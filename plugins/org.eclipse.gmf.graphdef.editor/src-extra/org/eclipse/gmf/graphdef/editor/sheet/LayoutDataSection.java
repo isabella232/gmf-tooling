@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2008 Borland Software Corporation.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Alexander Shatalin (Borland) - initial API and implementation
+ */
 package org.eclipse.gmf.graphdef.editor.sheet;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -106,18 +116,17 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		myR3 = getWidgetFactory().createButton(myLayoutDataKindRadios, "XY Layout Data", SWT.RADIO);
 		myR4 = getWidgetFactory().createButton(myLayoutDataKindRadios, "Custom Layout Data", SWT.RADIO);
 		myR5 = getWidgetFactory().createButton(myLayoutDataKindRadios, "None", SWT.RADIO);
-		myLayoutDataKindRadios.setLayout(new org.eclipse.swt.layout.FillLayout(SWT.VERTICAL));
+		myLayoutDataKindRadios.setLayout(new org.eclipse.swt.layout.FillLayout(org.eclipse.swt.SWT.VERTICAL));
 		myBorderLayoutDataDetails = createGroup(parent, "Details");
 		myBorderLayoutDataIsVertical = getWidgetFactory().createButton(myBorderLayoutDataDetails, "Is Vertical", SWT.CHECK);
-		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myBorderLayoutDataIsVertical);
 		createLabel(myBorderLayoutDataDetails, "Alignment");
 		myBorderLayoutDataAlignment = new Combo(myBorderLayoutDataDetails, SWT.FLAT | SWT.READ_ONLY);
 		myBorderLayoutDataAlignment.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER);
 		getWidgetFactory().adapt(myBorderLayoutDataAlignment, false, false);
 		myBorderLayoutDataDetails.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myBorderLayoutDataIsVertical);
 		myGridLayoutDataDetails = createGroup(parent, "Details");
 		myGridLayoutDataGrabExcessHorizontalSpace = getWidgetFactory().createButton(myGridLayoutDataDetails, "Grab Excess Horizontal Space", SWT.CHECK);
-		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myGridLayoutDataGrabExcessHorizontalSpace);
 		myGridLayoutDataAlignment = createGroup(myGridLayoutDataDetails, "Alignment");
 		createLabel(myGridLayoutDataAlignment, "Vertical");
 		myGridLayoutDataVerticalAlignment = new Combo(myGridLayoutDataAlignment, SWT.FLAT | SWT.READ_ONLY);
@@ -128,9 +137,7 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		myGridLayoutDataHorizontalAlignment.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER);
 		getWidgetFactory().adapt(myGridLayoutDataHorizontalAlignment, false, false);
 		myGridLayoutDataAlignment.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
-		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(1, 3).applyTo(myGridLayoutDataAlignment);
 		myGridLayoutDataGrabExcessVerticalSpace = getWidgetFactory().createButton(myGridLayoutDataDetails, "Grab Excess Vertical Space", SWT.CHECK);
-		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myGridLayoutDataGrabExcessVerticalSpace);
 		createLabel(myGridLayoutDataDetails, "Horizontal Indent");
 		myGridLayoutDataHorizontalIndent = new Spinner(myGridLayoutDataDetails, SWT.FLAT);
 		myGridLayoutDataHorizontalIndent.setMinimum(0);
@@ -151,7 +158,6 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		myGridLayoutDataHorizontalSpan.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
 																										// #145837
 		myGridLayoutDataSpan.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
-		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myGridLayoutDataSpan);
 		myGridLayoutDataSizeHint = createGroup(myGridLayoutDataDetails, "SizeHint");
 		createLabel(myGridLayoutDataSizeHint, "Horizontal");
 		myGridLayoutDataSizeHintHorizontal = new Spinner(myGridLayoutDataSizeHint, SWT.FLAT);
@@ -166,8 +172,12 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		myGridLayoutDataSizeHintVertical.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
 																										// #145837
 		myGridLayoutDataSizeHint.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
-		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).applyTo(myGridLayoutDataSizeHint);
 		myGridLayoutDataDetails.setLayout(new org.eclipse.swt.layout.GridLayout(3, false));
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myGridLayoutDataGrabExcessHorizontalSpace);
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(1, 3).applyTo(myGridLayoutDataAlignment);
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myGridLayoutDataGrabExcessVerticalSpace);
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myGridLayoutDataSpan);
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).applyTo(myGridLayoutDataSizeHint);
 		myXyLayoutDataDetails = createGroup(parent, "Details");
 		createLabel(myXyLayoutDataDetails, "X");
 		myXyLayoutDataX = new Spinner(myXyLayoutDataDetails, SWT.FLAT);
@@ -197,7 +207,7 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		myCustomLayoutDataDetails = createGroup(parent, "Details");
 		createLabel(myCustomLayoutDataDetails, "Qualified Class Name");
 		myCustomLayoutQualifiedClassName = getWidgetFactory().createText(myCustomLayoutDataDetails, null);
-		myCustomLayoutDataDetails.setLayout(new org.eclipse.swt.layout.FillLayout(SWT.VERTICAL));
+		myCustomLayoutDataDetails.setLayout(new org.eclipse.swt.layout.FillLayout(org.eclipse.swt.SWT.VERTICAL));
 
 		parent.setLayout(new org.eclipse.swt.layout.FormLayout());
 		org.eclipse.swt.layout.FormData fd;
@@ -205,16 +215,16 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		fd.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
 		myLayoutDataKindRadios.setLayoutData(fd);
 		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutDataKindRadios, 20, SWT.RIGHT);
+		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutDataKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
 		myBorderLayoutDataDetails.setLayoutData(fd);
 		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutDataKindRadios, 20, SWT.RIGHT);
+		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutDataKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
 		myGridLayoutDataDetails.setLayoutData(fd);
 		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutDataKindRadios, 20, SWT.RIGHT);
+		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutDataKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
 		myXyLayoutDataDetails.setLayoutData(fd);
 		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutDataKindRadios, 20, SWT.RIGHT);
+		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutDataKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
 		myCustomLayoutDataDetails.setLayoutData(fd);
 		// TODO
 		// myBorderLayoutDataAlignment.setItems(VALUES.toString().toArray());

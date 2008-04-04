@@ -10,31 +10,15 @@
  */
 package org.eclipse.gmf.graphdef.editor.sheet;
 
-import java.util.Collections;
-import java.util.List;
-
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.commands.operations.OperationHistoryFactory;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.transaction.util.TransactionUtil;
-import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.LineKind;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters;
-import org.eclipse.gmf.runtime.common.core.command.CommandResult;
-import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -88,10 +72,12 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 		myR4 = getWidgetFactory().createButton(myStyleRadios, "- . - .", SWT.RADIO);
 		myR5 = getWidgetFactory().createButton(myStyleRadios, "- . . - . .", SWT.RADIO);
 		myR6 = getWidgetFactory().createButton(myStyleRadios, "Custom", SWT.RADIO);
-		myStyleRadios.setLayout(new org.eclipse.swt.layout.FillLayout(SWT.VERTICAL));
+		myStyleRadios.setLayout(new org.eclipse.swt.layout.FillLayout(org.eclipse.swt.SWT.VERTICAL));
 		myCommonStyle = createGroup(parent, "Draw");
 		createLabel(myCommonStyle, "Line width");
 		myLineWidth = new Spinner(myCommonStyle, SWT.FLAT);
+		myLineWidth.setMinimum(0);
+		myLineWidth.setMaximum(100);
 		myLineWidth.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myFill = getWidgetFactory().createButton(myCommonStyle, "Fill", SWT.CHECK);
 		myOutline = getWidgetFactory().createButton(myCommonStyle, "Outline", SWT.CHECK);
@@ -101,23 +87,27 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 		myRoundedRectStyle = createGroup(parent, "Corners");
 		createLabel(myRoundedRectStyle, "Width:");
 		myCornerWidth = new Spinner(myRoundedRectStyle, SWT.FLAT);
+		myCornerWidth.setMinimum(0);
+		myCornerWidth.setMaximum(100);
 		myCornerWidth.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		createLabel(myRoundedRectStyle, "Height:");
 		myCornerHeight = new Spinner(myRoundedRectStyle, SWT.FLAT);
+		myCornerHeight.setMinimum(0);
+		myCornerHeight.setMaximum(100);
 		myCornerHeight.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myRoundedRectStyle.setLayout(new org.eclipse.swt.layout.GridLayout(2, true));
 
-		parent.setLayout(new FormLayout());
-		FormData fd;
-		fd = new FormData();
-		fd.left = new FormAttachment(0, 10);
+		parent.setLayout(new org.eclipse.swt.layout.FormLayout());
+		org.eclipse.swt.layout.FormData fd;
+		fd = new org.eclipse.swt.layout.FormData();
+		fd.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
 		myStyleRadios.setLayoutData(fd);
-		fd = new FormData();
-		fd.left = new FormAttachment(myStyleRadios, 10, SWT.RIGHT);
+		fd = new org.eclipse.swt.layout.FormData();
+		fd.left = new org.eclipse.swt.layout.FormAttachment(myStyleRadios, 10, org.eclipse.swt.SWT.RIGHT);
 		myCommonStyle.setLayoutData(fd);
-		fd = new FormData();
-		fd.left = new FormAttachment(myStyleRadios, 10, SWT.RIGHT);
-		fd.top = new FormAttachment(myCommonStyle, 5, SWT.BOTTOM);
+		fd = new org.eclipse.swt.layout.FormData();
+		fd.left = new org.eclipse.swt.layout.FormAttachment(myStyleRadios, 10, org.eclipse.swt.SWT.RIGHT);
+		fd.top = new org.eclipse.swt.layout.FormAttachment(myCommonStyle, 5, org.eclipse.swt.SWT.BOTTOM);
 		myRoundedRectStyle.setLayoutData(fd);
 
 		for (Spinner s : new Spinner[] { myLineWidth, myCornerWidth, myCornerHeight }) {
@@ -314,18 +304,21 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 	 * @generated NOT
 	 */
 	protected void applyChanges() {
-		final List<IFile> files = Collections.singletonList(WorkspaceSynchronizer.getFile(getInput().eResource()));
-		AbstractTransactionalCommand cmd = new AbstractTransactionalCommand(TransactionUtil.getEditingDomain(getInput()), "", files) {
+		final java.util.List<org.eclipse.core.resources.IFile> files = java.util.Collections.singletonList(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(getInput().eResource()));
+		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand cmd = new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(
+				org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(getInput()), "", files) {
+
 			@Override
-			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+			protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
+					throws org.eclipse.core.commands.ExecutionException {
 				commit();
-				return CommandResult.newOKCommandResult();
+				return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
 			}
 		};
 		try {
 			myIsCommit = true;
-			OperationHistoryFactory.getOperationHistory().execute(cmd, new NullProgressMonitor(), null);
-		} catch (ExecutionException ex) {
+			org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(cmd, new org.eclipse.core.runtime.NullProgressMonitor(), null);
+		} catch (org.eclipse.core.commands.ExecutionException ex) {
 			ex.printStackTrace();
 		} finally {
 			myIsCommit = false;
@@ -348,9 +341,9 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 	}
 
 	private void attach() {
-		final GMFGraphPackage ePack = GMFGraphPackage.eINSTANCE;
-		myModelListeners = new org.eclipse.emf.common.notify.Adapter[] { new FeatureTracker(this, ePack.getShape_LineKind(), ePack.getShape_LineWidth(), ePack.getShape_Fill(), ePack
-				.getShape_Outline(), ePack.getShape_XorFill(), ePack.getShape_XorOutline(), ePack.getRoundedRectangle_CornerWidth(), ePack.getRoundedRectangle_CornerHeight()) };
+		myModelListeners = new org.eclipse.emf.common.notify.Adapter[] { new FeatureTracker(this, GMFGraphPackage.eINSTANCE.getShape_LineKind(), GMFGraphPackage.eINSTANCE.getShape_LineWidth(),
+				GMFGraphPackage.eINSTANCE.getShape_Fill(), GMFGraphPackage.eINSTANCE.getShape_Outline(), GMFGraphPackage.eINSTANCE.getShape_XorFill(), GMFGraphPackage.eINSTANCE.getShape_XorOutline(),
+				GMFGraphPackage.eINSTANCE.getRoundedRectangle_CornerWidth(), GMFGraphPackage.eINSTANCE.getRoundedRectangle_CornerHeight()) };
 		getInput().eAdapters().addAll(java.util.Arrays.asList(myModelListeners));
 
 	}

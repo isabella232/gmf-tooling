@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2008 Borland Software Corporation.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Alexander Shatalin (Borland) - initial API and implementation
+ */
 package org.eclipse.gmf.graphdef.editor.sheet;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -71,7 +81,6 @@ public class SizeSection extends AbstractPropertySection implements ChangeTracke
 		getWidgetFactory().paintBordersFor(parent);
 		myLocationGroup = createGroup(parent, "Location");
 		mySetLocation = getWidgetFactory().createButton(myLocationGroup, "Define", SWT.CHECK);
-		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(mySetLocation);
 		createLabel(myLocationGroup, "X");
 		myLocationX = new Spinner(myLocationGroup, SWT.FLAT);
 		myLocationX.setMinimum(0);
@@ -85,9 +94,9 @@ public class SizeSection extends AbstractPropertySection implements ChangeTracke
 		myLocationY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
 																					// #145837
 		myLocationGroup.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(mySetLocation);
 		myPreferredSizeGroup = createGroup(parent, "Preferred Size");
 		mySetPreferredSize = getWidgetFactory().createButton(myPreferredSizeGroup, "Define", SWT.CHECK);
-		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(mySetPreferredSize);
 		createLabel(myPreferredSizeGroup, "Width");
 		myPreferredSizeX = new Spinner(myPreferredSizeGroup, SWT.FLAT);
 		myPreferredSizeX.setMinimum(0);
@@ -101,9 +110,9 @@ public class SizeSection extends AbstractPropertySection implements ChangeTracke
 		myPreferredSizeY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
 																						// #145837
 		myPreferredSizeGroup.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(mySetPreferredSize);
 		myMaximumSizeGroup = createGroup(parent, "Maximum Size");
 		mySetMaximumSize = getWidgetFactory().createButton(myMaximumSizeGroup, "Define", SWT.CHECK);
-		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(mySetMaximumSize);
 		createLabel(myMaximumSizeGroup, "Width");
 		myMaximumSizeX = new Spinner(myMaximumSizeGroup, SWT.FLAT);
 		myMaximumSizeX.setMinimum(0);
@@ -117,9 +126,9 @@ public class SizeSection extends AbstractPropertySection implements ChangeTracke
 		myMaximumSizeY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
 																						// #145837
 		myMaximumSizeGroup.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(mySetMaximumSize);
 		myMinimumSizeGroup = createGroup(parent, "Minimum Size");
 		mySetMinimumSize = getWidgetFactory().createButton(myMinimumSizeGroup, "Define", SWT.CHECK);
-		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(mySetMinimumSize);
 		createLabel(myMinimumSizeGroup, "Width");
 		myMinimumSizeX = new Spinner(myMinimumSizeGroup, SWT.FLAT);
 		myMinimumSizeX.setMinimum(0);
@@ -133,6 +142,7 @@ public class SizeSection extends AbstractPropertySection implements ChangeTracke
 		myMinimumSizeY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
 																						// #145837
 		myMinimumSizeGroup.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(mySetMinimumSize);
 
 		parent.setLayout(new org.eclipse.swt.layout.FormLayout());
 		org.eclipse.swt.layout.FormData fd;
@@ -140,13 +150,13 @@ public class SizeSection extends AbstractPropertySection implements ChangeTracke
 		fd.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
 		myLocationGroup.setLayoutData(fd);
 		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myLocationGroup, 20, SWT.RIGHT);
+		fd.left = new org.eclipse.swt.layout.FormAttachment(myLocationGroup, 20, org.eclipse.swt.SWT.RIGHT);
 		myPreferredSizeGroup.setLayoutData(fd);
 		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myPreferredSizeGroup, 20, SWT.RIGHT);
+		fd.left = new org.eclipse.swt.layout.FormAttachment(myPreferredSizeGroup, 20, org.eclipse.swt.SWT.RIGHT);
 		myMaximumSizeGroup.setLayoutData(fd);
 		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myMaximumSizeGroup, 20, SWT.RIGHT);
+		fd.left = new org.eclipse.swt.layout.FormAttachment(myMaximumSizeGroup, 20, org.eclipse.swt.SWT.RIGHT);
 		myMinimumSizeGroup.setLayoutData(fd);
 
 		for (Spinner s : new Spinner[] { myLocationX, myLocationY, myPreferredSizeX, myPreferredSizeY, myMaximumSizeX, myMaximumSizeY, myMinimumSizeX, myMinimumSizeY }) {

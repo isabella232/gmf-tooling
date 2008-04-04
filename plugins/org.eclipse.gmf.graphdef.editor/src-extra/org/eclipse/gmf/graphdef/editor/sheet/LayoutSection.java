@@ -10,19 +10,7 @@
  */
 package org.eclipse.gmf.graphdef.editor.sheet;
 
-import java.util.Collections;
-import java.util.List;
-
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.commands.operations.OperationHistoryFactory;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.transaction.util.TransactionUtil;
-import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.CustomClass;
@@ -34,16 +22,9 @@ import org.eclipse.gmf.gmfgraph.GridLayout;
 import org.eclipse.gmf.gmfgraph.Layoutable;
 import org.eclipse.gmf.gmfgraph.StackLayout;
 import org.eclipse.gmf.gmfgraph.XYLayout;
-import org.eclipse.gmf.runtime.common.core.command.CommandResult;
-import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
-import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
@@ -115,14 +96,11 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 		myR5 = getWidgetFactory().createButton(myLayoutKindRadios, "XY Layout", SWT.RADIO);
 		myR6 = getWidgetFactory().createButton(myLayoutKindRadios, "Custom Layout", SWT.RADIO);
 		myR7 = getWidgetFactory().createButton(myLayoutKindRadios, "None", SWT.RADIO);
-		myLayoutKindRadios.setLayout(new org.eclipse.swt.layout.FillLayout(SWT.VERTICAL));
+		myLayoutKindRadios.setLayout(new org.eclipse.swt.layout.FillLayout(org.eclipse.swt.SWT.VERTICAL));
 		myFlowLayoutDetails = createGroup(parent, "Details");
 		myFlowLayoutIsVertical = getWidgetFactory().createButton(myFlowLayoutDetails, "Is Vertical", SWT.CHECK);
-		GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myFlowLayoutIsVertical);
 		myFlowLayoutMatchMinor = getWidgetFactory().createButton(myFlowLayoutDetails, "Match minor size", SWT.CHECK);
-		GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myFlowLayoutMatchMinor);
 		myFlowLayoutForceSingle = getWidgetFactory().createButton(myFlowLayoutDetails, "Force single line", SWT.CHECK);
-		GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myFlowLayoutForceSingle);
 		createLabel(myFlowLayoutDetails, "Major Spacing");
 		myFlowLayoutMajSpacing = new Spinner(myFlowLayoutDetails, SWT.FLAT);
 		myFlowLayoutMajSpacing.setMinimum(0);
@@ -142,8 +120,11 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 		myFlowLayoutMinAlign = new Combo(myFlowLayoutAlign, SWT.FLAT | SWT.READ_ONLY);
 		myFlowLayoutMinAlign.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER);
 		getWidgetFactory().adapt(myFlowLayoutMinAlign, false, false);
-		myFlowLayoutAlign.setLayout(new org.eclipse.swt.layout.FillLayout(SWT.VERTICAL));
+		myFlowLayoutAlign.setLayout(new org.eclipse.swt.layout.FillLayout(org.eclipse.swt.SWT.VERTICAL));
 		myFlowLayoutDetails.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myFlowLayoutIsVertical);
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myFlowLayoutMatchMinor);
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myFlowLayoutForceSingle);
 		myBorderLayoutDetails = createGroup(parent, "Spacing");
 		createLabel(myBorderLayoutDetails, "Horizontal");
 		myBorderLayoutSpacingX = new Spinner(myBorderLayoutDetails, SWT.FLAT);
@@ -163,7 +144,6 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 		myGridLayoutColumns.setMaximum(2147483647);
 		myGridLayoutColumns.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myGridLayoutSameWidth = getWidgetFactory().createButton(myGridLayoutDetails, "Equal", SWT.CHECK);
-		GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myGridLayoutSameWidth);
 		myGridLayoutMargins = createGroup(myGridLayoutDetails, "Margins");
 		createLabel(myGridLayoutMargins, "dx");
 		myGridLayoutMarginX = new Spinner(myGridLayoutMargins, SWT.FLAT);
@@ -189,24 +169,25 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 		myGridLayoutSpacingY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myGridLayoutSpacing.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
 		myGridLayoutDetails.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myGridLayoutSameWidth);
 		myCustomLayoutDetails = getWidgetFactory().createComposite(parent);
 		getWidgetFactory().paintBordersFor(myCustomLayoutDetails);
 		createLabel(myCustomLayoutDetails, "Qualified class name:");
 		myCustomLayoutClass = getWidgetFactory().createText(myCustomLayoutDetails, null);
 
-		parent.setLayout(new FormLayout());
-		FormData fd;
-		fd = new FormData();
-		fd.left = new FormAttachment(0, 20);
+		parent.setLayout(new org.eclipse.swt.layout.FormLayout());
+		org.eclipse.swt.layout.FormData fd;
+		fd = new org.eclipse.swt.layout.FormData();
+		fd.left = new org.eclipse.swt.layout.FormAttachment(0, 20);
 		myLayoutKindRadios.setLayoutData(fd);
-		fd = new FormData();
-		fd.left = new FormAttachment(myLayoutKindRadios, 20, SWT.RIGHT);
+		fd = new org.eclipse.swt.layout.FormData();
+		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
 		myFlowLayoutDetails.setLayoutData(fd);
-		fd = new FormData();
-		fd.left = new FormAttachment(myLayoutKindRadios, 20, SWT.RIGHT);
+		fd = new org.eclipse.swt.layout.FormData();
+		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
 		myBorderLayoutDetails.setLayoutData(fd);
-		fd = new FormData();
-		fd.left = new FormAttachment(myLayoutKindRadios, 20, SWT.RIGHT);
+		fd = new org.eclipse.swt.layout.FormData();
+		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
 		myGridLayoutDetails.setLayoutData(fd);
 		// TODO myFlowLayoutMajAlign.setItems(VALUES.toString().toArray());
 		for (org.eclipse.emf.common.util.Enumerator e : Alignment.VALUES) {
@@ -541,18 +522,21 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 	 * @generated NOT
 	 */
 	protected void applyChanges() {
-		final List<IFile> files = Collections.singletonList(WorkspaceSynchronizer.getFile(getInput().eResource()));
-		AbstractTransactionalCommand cmd = new AbstractTransactionalCommand(TransactionUtil.getEditingDomain(getInput()), "", files) {
+		final java.util.List<org.eclipse.core.resources.IFile> files = java.util.Collections.singletonList(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(getInput().eResource()));
+		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand cmd = new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(
+				org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(getInput()), "", files) {
+
 			@Override
-			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+			protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
+					throws org.eclipse.core.commands.ExecutionException {
 				commit();
-				return CommandResult.newOKCommandResult();
+				return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
 			}
 		};
 		try {
 			myIsCommit = true;
-			OperationHistoryFactory.getOperationHistory().execute(cmd, new NullProgressMonitor(), null);
-		} catch (ExecutionException ex) {
+			org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(cmd, new org.eclipse.core.runtime.NullProgressMonitor(), null);
+		} catch (org.eclipse.core.commands.ExecutionException ex) {
 			ex.printStackTrace();
 		} finally {
 			myIsCommit = false;
@@ -568,13 +552,14 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 	 */
 	private Object unwrap(Object element) {
 		Object rv = null;
-		if (element instanceof EditPart) {
-			Object model = ((EditPart) element).getModel();
-			rv = model instanceof View ? ((View) model).getElement() : null;
-		} else if (element instanceof View) {
-			rv = ((View) element).getElement();
-		} else if (element instanceof IAdaptable) {
-			View view = (View) ((IAdaptable) element).getAdapter(View.class);
+		if (element instanceof org.eclipse.gef.EditPart) {
+			Object model = ((org.eclipse.gef.EditPart) element).getModel();
+			rv = model instanceof org.eclipse.gmf.runtime.notation.View ? ((org.eclipse.gmf.runtime.notation.View) model).getElement() : null;
+		} else if (element instanceof org.eclipse.gmf.runtime.notation.View) {
+			rv = ((org.eclipse.gmf.runtime.notation.View) element).getElement();
+		} else if (element instanceof org.eclipse.core.runtime.IAdaptable) {
+			org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) ((org.eclipse.core.runtime.IAdaptable) element)
+					.getAdapter(org.eclipse.gmf.runtime.notation.View.class);
 			if (view != null) {
 				rv = view.getElement();
 			}
@@ -586,16 +571,20 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 	}
 
 	private void attach() {
-		final GMFGraphPackage ePack = GMFGraphPackage.eINSTANCE;
-		myModelListeners = new org.eclipse.emf.common.notify.Adapter[] { new AttachAdapter(ePack.getLayoutable_Layout(), new ChangeTracker() {
+		myModelListeners = new org.eclipse.emf.common.notify.Adapter[] { new AttachAdapter(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(), new ChangeTracker() {
+
 			public void modelChanged(org.eclipse.emf.common.notify.Notification n) {
-				// FIXME enable/disable widget(s) -- HOWEVER, need access to Binding/Widget here, so can't share the template with e.g. Alex's ItemProviders
+				// FIXME enable/disable widget(s) -- HOWEVER, need access to
+				// Binding/Widget here, so can't share the template with e.g.
+				// Alex's ItemProviders
 			}
-		}, new FeatureTracker(this, ePack.getFlowLayout_Vertical(), ePack.getFlowLayout_MatchMinorSize(), ePack.getFlowLayout_ForceSingleLine(), ePack.getFlowLayout_MajorSpacing(), ePack
-				.getFlowLayout_MinorSpacing(), ePack.getGridLayout_NumColumns(), ePack.getGridLayout_EqualWidth(), ePack.getCustomClass_QualifiedClassName(), ePack.getFlowLayout_MinorAlignment(),
-				ePack.getFlowLayout_MajorAlignment()), new AttachAdapter(ePack.getBorderLayout_Spacing(), new FeatureTracker(this, ePack.getDimension_Dx(), ePack.getDimension_Dy())),
-				new AttachAdapter(ePack.getGridLayout_Margins(), new FeatureTracker(this, ePack.getDimension_Dx(), ePack.getDimension_Dy())), new AttachAdapter(ePack.getGridLayout_Spacing(),
-						new FeatureTracker(this, ePack.getDimension_Dx(), ePack.getDimension_Dy()))) };
+		}, new FeatureTracker(this, GMFGraphPackage.eINSTANCE.getFlowLayout_Vertical(), GMFGraphPackage.eINSTANCE.getFlowLayout_MatchMinorSize(), GMFGraphPackage.eINSTANCE
+				.getFlowLayout_ForceSingleLine(), GMFGraphPackage.eINSTANCE.getFlowLayout_MajorSpacing(), GMFGraphPackage.eINSTANCE.getFlowLayout_MinorSpacing(), GMFGraphPackage.eINSTANCE
+				.getGridLayout_NumColumns(), GMFGraphPackage.eINSTANCE.getGridLayout_EqualWidth(), GMFGraphPackage.eINSTANCE.getCustomClass_QualifiedClassName(), GMFGraphPackage.eINSTANCE
+				.getFlowLayout_MinorAlignment(), GMFGraphPackage.eINSTANCE.getFlowLayout_MajorAlignment()), new AttachAdapter(GMFGraphPackage.eINSTANCE.getBorderLayout_Spacing(), new FeatureTracker(
+				this, GMFGraphPackage.eINSTANCE.getDimension_Dx(), GMFGraphPackage.eINSTANCE.getDimension_Dy())), new AttachAdapter(GMFGraphPackage.eINSTANCE.getGridLayout_Margins(),
+				new FeatureTracker(this, GMFGraphPackage.eINSTANCE.getDimension_Dx(), GMFGraphPackage.eINSTANCE.getDimension_Dy())), new AttachAdapter(GMFGraphPackage.eINSTANCE
+				.getGridLayout_Spacing(), new FeatureTracker(this, GMFGraphPackage.eINSTANCE.getDimension_Dx(), GMFGraphPackage.eINSTANCE.getDimension_Dy()))) };
 		getInput().eAdapters().addAll(java.util.Arrays.asList(myModelListeners));
 
 	}
@@ -613,7 +602,7 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 		return (Layoutable) myInput;
 	}
 
-	private org.eclipse.swt.widgets.Label createLabel(Composite parent, String label) {
+	private org.eclipse.swt.widgets.Label createLabel(org.eclipse.swt.widgets.Composite parent, String label) {
 		org.eclipse.swt.widgets.Label l = new org.eclipse.swt.widgets.Label(parent, SWT.NONE);
 		if (label != null)
 			l.setText(label);
@@ -621,8 +610,8 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 		return l;
 	}
 
-	private Group createGroup(Composite parent, String label) {
-		Group g = new Group(parent, SWT.SHADOW_NONE);
+	private org.eclipse.swt.widgets.Group createGroup(org.eclipse.swt.widgets.Composite parent, String label) {
+		org.eclipse.swt.widgets.Group g = new org.eclipse.swt.widgets.Group(parent, SWT.SHADOW_NONE);
 		if (label != null)
 			g.setText(label);
 		getWidgetFactory().adapt(g, false, false);
