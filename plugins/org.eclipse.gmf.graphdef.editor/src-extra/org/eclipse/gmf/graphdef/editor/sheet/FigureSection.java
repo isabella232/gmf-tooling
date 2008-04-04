@@ -15,7 +15,6 @@ import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.LineKind;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.Shape;
-import org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
@@ -167,7 +166,6 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 			((RoundedRectangle) getInput()).setCornerWidth(myCornerWidth.getSelection());
 			((RoundedRectangle) getInput()).setCornerHeight(myCornerHeight.getSelection());
 		}
-
 	}
 
 	@Override
@@ -333,8 +331,8 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 	 * @generated NOT
 	 */
 	private Object unwrap(Object element) {
-		Object rv = PropertySectionFilters.transformSelection(element);
-		if (rv instanceof Shape) {
+		Object rv = org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters.transformSelection(element);
+		if (rv instanceof org.eclipse.gmf.gmfgraph.Shape) {
 			return rv;
 		}
 		return null;
@@ -377,4 +375,5 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 		getWidgetFactory().paintBordersFor(g);
 		return g;
 	}
+
 }

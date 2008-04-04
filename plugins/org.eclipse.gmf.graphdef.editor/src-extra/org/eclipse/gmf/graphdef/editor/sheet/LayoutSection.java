@@ -574,9 +574,7 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 		myModelListeners = new org.eclipse.emf.common.notify.Adapter[] { new AttachAdapter(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(), new ChangeTracker() {
 
 			public void modelChanged(org.eclipse.emf.common.notify.Notification n) {
-				// FIXME enable/disable widget(s) -- HOWEVER, need access to
-				// Binding/Widget here, so can't share the template with e.g.
-				// Alex's ItemProviders
+				// FIXME enable/disable widget(s) -- HOWEVER, need access to Binding/Widget here, so can't share the template with e.g. Alex's ItemProviders
 			}
 		}, new FeatureTracker(this, GMFGraphPackage.eINSTANCE.getFlowLayout_Vertical(), GMFGraphPackage.eINSTANCE.getFlowLayout_MatchMinorSize(), GMFGraphPackage.eINSTANCE
 				.getFlowLayout_ForceSingleLine(), GMFGraphPackage.eINSTANCE.getFlowLayout_MajorSpacing(), GMFGraphPackage.eINSTANCE.getFlowLayout_MinorSpacing(), GMFGraphPackage.eINSTANCE

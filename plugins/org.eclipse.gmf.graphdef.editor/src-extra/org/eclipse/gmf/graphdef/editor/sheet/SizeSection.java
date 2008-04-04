@@ -33,46 +33,33 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
+/**
+ * This class is fully generated except for the methods marked as <code>generated NOT</code>
+ * @generated
+ */
 public class SizeSection extends AbstractPropertySection implements ChangeTracker, Listener {
 
 	private org.eclipse.emf.common.notify.Adapter[] myModelListeners;
 
 	private boolean myIsCommit;
-
 	private boolean myIsRefresh;
-
 	private Object myInput;
 
 	private Group myLocationGroup;
-
 	private Group myPreferredSizeGroup;
-
 	private Group myMaximumSizeGroup;
-
 	private Group myMinimumSizeGroup;
-
 	private Button mySetLocation;
-
 	private Spinner myLocationX;
-
 	private Spinner myLocationY;
-
 	private Button mySetPreferredSize;
-
 	private Spinner myPreferredSizeX;
-
 	private Spinner myPreferredSizeY;
-
 	private Button mySetMaximumSize;
-
 	private Spinner myMaximumSizeX;
-
 	private Spinner myMaximumSizeY;
-
 	private Button mySetMinimumSize;
-
 	private Spinner myMinimumSizeX;
-
 	private Spinner myMinimumSizeY;
 
 	@Override
@@ -85,14 +72,12 @@ public class SizeSection extends AbstractPropertySection implements ChangeTracke
 		myLocationX = new Spinner(myLocationGroup, SWT.FLAT);
 		myLocationX.setMinimum(0);
 		myLocationX.setMaximum(2147483647);
-		myLocationX.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
-																					// #145837
+		myLocationX.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		createLabel(myLocationGroup, "Y");
 		myLocationY = new Spinner(myLocationGroup, SWT.FLAT);
 		myLocationY.setMinimum(0);
 		myLocationY.setMaximum(2147483647);
-		myLocationY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
-																					// #145837
+		myLocationY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myLocationGroup.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
 		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(mySetLocation);
 		myPreferredSizeGroup = createGroup(parent, "Preferred Size");
@@ -101,14 +86,12 @@ public class SizeSection extends AbstractPropertySection implements ChangeTracke
 		myPreferredSizeX = new Spinner(myPreferredSizeGroup, SWT.FLAT);
 		myPreferredSizeX.setMinimum(0);
 		myPreferredSizeX.setMaximum(2147483647);
-		myPreferredSizeX.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
-																						// #145837
+		myPreferredSizeX.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		createLabel(myPreferredSizeGroup, "Height");
 		myPreferredSizeY = new Spinner(myPreferredSizeGroup, SWT.FLAT);
 		myPreferredSizeY.setMinimum(0);
 		myPreferredSizeY.setMaximum(2147483647);
-		myPreferredSizeY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
-																						// #145837
+		myPreferredSizeY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myPreferredSizeGroup.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
 		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(mySetPreferredSize);
 		myMaximumSizeGroup = createGroup(parent, "Maximum Size");
@@ -117,14 +100,12 @@ public class SizeSection extends AbstractPropertySection implements ChangeTracke
 		myMaximumSizeX = new Spinner(myMaximumSizeGroup, SWT.FLAT);
 		myMaximumSizeX.setMinimum(0);
 		myMaximumSizeX.setMaximum(2147483647);
-		myMaximumSizeX.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
-																						// #145837
+		myMaximumSizeX.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		createLabel(myMaximumSizeGroup, "Height");
 		myMaximumSizeY = new Spinner(myMaximumSizeGroup, SWT.FLAT);
 		myMaximumSizeY.setMinimum(0);
 		myMaximumSizeY.setMaximum(2147483647);
-		myMaximumSizeY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
-																						// #145837
+		myMaximumSizeY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myMaximumSizeGroup.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
 		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(mySetMaximumSize);
 		myMinimumSizeGroup = createGroup(parent, "Minimum Size");
@@ -133,14 +114,12 @@ public class SizeSection extends AbstractPropertySection implements ChangeTracke
 		myMinimumSizeX = new Spinner(myMinimumSizeGroup, SWT.FLAT);
 		myMinimumSizeX.setMinimum(0);
 		myMinimumSizeX.setMaximum(2147483647);
-		myMinimumSizeX.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
-																						// #145837
+		myMinimumSizeX.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		createLabel(myMinimumSizeGroup, "Height");
 		myMinimumSizeY = new Spinner(myMinimumSizeGroup, SWT.FLAT);
 		myMinimumSizeY.setMinimum(0);
 		myMinimumSizeY.setMaximum(2147483647);
-		myMinimumSizeY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
-																						// #145837
+		myMinimumSizeY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myMinimumSizeGroup.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
 		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(mySetMinimumSize);
 
@@ -381,11 +360,13 @@ public class SizeSection extends AbstractPropertySection implements ChangeTracke
 	}
 
 	private void markDirty() {
-		// NO-OP, need that to share Update::handleEvent template with IFormPart
-		// which has same method
+		// NO-OP, need that to share Update::handleEvent template with IFormPart which has same method
 		// Perhaps, clients may find this method useful for some purpose?
 	}
 
+	/**
+	 * @generated NOT
+	 */
 	protected void applyChanges() {
 		final java.util.List<org.eclipse.core.resources.IFile> files = java.util.Collections.singletonList(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(getInput().eResource()));
 		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand cmd = new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(
@@ -412,6 +393,9 @@ public class SizeSection extends AbstractPropertySection implements ChangeTracke
 		refresh();
 	}
 
+	/**
+	 * @generated NOT
+	 */
 	private Object unwrap(Object element) {
 		Object rv = null;
 		if (element instanceof org.eclipse.gef.EditPart) {
@@ -436,33 +420,25 @@ public class SizeSection extends AbstractPropertySection implements ChangeTracke
 		myModelListeners = new org.eclipse.emf.common.notify.Adapter[] { new AttachAdapter(GMFGraphPackage.eINSTANCE.getFigure_Location(), new ChangeTracker() {
 
 			public void modelChanged(org.eclipse.emf.common.notify.Notification n) {
-				// FIXME enable/disable widget(s) -- HOWEVER, need access to
-				// Binding/Widget here, so can't share the template with e.g.
-				// Alex's ItemProviders
+				// FIXME enable/disable widget(s) -- HOWEVER, need access to Binding/Widget here, so can't share the template with e.g. Alex's ItemProviders
 			}
 		}, new FeatureTracker(this, GMFGraphPackage.eINSTANCE.getPoint_X(), GMFGraphPackage.eINSTANCE.getPoint_Y())),
 				new AttachAdapter(GMFGraphPackage.eINSTANCE.getFigure_PreferredSize(), new ChangeTracker() {
 
 					public void modelChanged(org.eclipse.emf.common.notify.Notification n) {
-						// FIXME enable/disable widget(s) -- HOWEVER, need
-						// access to Binding/Widget here, so can't share the
-						// template with e.g. Alex's ItemProviders
+						// FIXME enable/disable widget(s) -- HOWEVER, need access to Binding/Widget here, so can't share the template with e.g. Alex's ItemProviders
 					}
 				}, new FeatureTracker(this, GMFGraphPackage.eINSTANCE.getDimension_Dx(), GMFGraphPackage.eINSTANCE.getDimension_Dy())),
 				new AttachAdapter(GMFGraphPackage.eINSTANCE.getFigure_MaximumSize(), new ChangeTracker() {
 
 					public void modelChanged(org.eclipse.emf.common.notify.Notification n) {
-						// FIXME enable/disable widget(s) -- HOWEVER, need
-						// access to Binding/Widget here, so can't share the
-						// template with e.g. Alex's ItemProviders
+						// FIXME enable/disable widget(s) -- HOWEVER, need access to Binding/Widget here, so can't share the template with e.g. Alex's ItemProviders
 					}
 				}, new FeatureTracker(this, GMFGraphPackage.eINSTANCE.getDimension_Dx(), GMFGraphPackage.eINSTANCE.getDimension_Dy())),
 				new AttachAdapter(GMFGraphPackage.eINSTANCE.getFigure_MinimumSize(), new ChangeTracker() {
 
 					public void modelChanged(org.eclipse.emf.common.notify.Notification n) {
-						// FIXME enable/disable widget(s) -- HOWEVER, need
-						// access to Binding/Widget here, so can't share the
-						// template with e.g. Alex's ItemProviders
+						// FIXME enable/disable widget(s) -- HOWEVER, need access to Binding/Widget here, so can't share the template with e.g. Alex's ItemProviders
 					}
 				}, new FeatureTracker(this, GMFGraphPackage.eINSTANCE.getDimension_Dx(), GMFGraphPackage.eINSTANCE.getDimension_Dy())) };
 		getInput().eAdapters().addAll(java.util.Arrays.asList(myModelListeners));

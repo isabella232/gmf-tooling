@@ -38,72 +38,46 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
+/**
+ * This class is fully generated except for the methods marked as <code>generated NOT</code>
+ * @generated
+ */
 public class LayoutDataSection extends AbstractPropertySection implements ChangeTracker, Listener {
 
 	private org.eclipse.emf.common.notify.Adapter[] myModelListeners;
 
 	private boolean myIsCommit;
-
 	private boolean myIsRefresh;
-
 	private Object myInput;
 
 	private Group myLayoutDataKindRadios;
-
 	private Group myBorderLayoutDataDetails;
-
 	private Group myGridLayoutDataDetails;
-
 	private Group myXyLayoutDataDetails;
-
 	private Group myCustomLayoutDataDetails;
-
 	private Button myR1;
-
 	private Button myR2;
-
 	private Button myR3;
-
 	private Button myR4;
-
 	private Button myR5;
-
 	private Button myBorderLayoutDataIsVertical;
-
 	private Combo myBorderLayoutDataAlignment;
-
 	private Button myGridLayoutDataGrabExcessHorizontalSpace;
-
 	private Group myGridLayoutDataAlignment;
-
 	private Button myGridLayoutDataGrabExcessVerticalSpace;
-
 	private Spinner myGridLayoutDataHorizontalIndent;
-
 	private Group myGridLayoutDataSpan;
-
 	private Group myGridLayoutDataSizeHint;
-
 	private Spinner myXyLayoutDataX;
-
 	private Spinner myXyLayoutDataWidth;
-
 	private Spinner myXyLayoutDataY;
-
 	private Spinner myXyLayoutDataHeight;
-
 	private Text myCustomLayoutQualifiedClassName;
-
 	private Combo myGridLayoutDataVerticalAlignment;
-
 	private Combo myGridLayoutDataHorizontalAlignment;
-
 	private Spinner myGridLayoutDataVerticalSpan;
-
 	private Spinner myGridLayoutDataHorizontalSpan;
-
 	private Spinner myGridLayoutDataSizeHintHorizontal;
-
 	private Spinner myGridLayoutDataSizeHintVertical;
 
 	@Override
@@ -142,35 +116,30 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		myGridLayoutDataHorizontalIndent = new Spinner(myGridLayoutDataDetails, SWT.FLAT);
 		myGridLayoutDataHorizontalIndent.setMinimum(0);
 		myGridLayoutDataHorizontalIndent.setMaximum(2147483647);
-		myGridLayoutDataHorizontalIndent.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
-																										// #145837
+		myGridLayoutDataHorizontalIndent.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myGridLayoutDataSpan = createGroup(myGridLayoutDataDetails, "Span");
 		createLabel(myGridLayoutDataSpan, "Vertical");
 		myGridLayoutDataVerticalSpan = new Spinner(myGridLayoutDataSpan, SWT.FLAT);
 		myGridLayoutDataVerticalSpan.setMinimum(1);
 		myGridLayoutDataVerticalSpan.setMaximum(2147483647);
-		myGridLayoutDataVerticalSpan.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
-																									// #145837
+		myGridLayoutDataVerticalSpan.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		createLabel(myGridLayoutDataSpan, "Horizontal");
 		myGridLayoutDataHorizontalSpan = new Spinner(myGridLayoutDataSpan, SWT.FLAT);
 		myGridLayoutDataHorizontalSpan.setMinimum(1);
 		myGridLayoutDataHorizontalSpan.setMaximum(2147483647);
-		myGridLayoutDataHorizontalSpan.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
-																										// #145837
+		myGridLayoutDataHorizontalSpan.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myGridLayoutDataSpan.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
 		myGridLayoutDataSizeHint = createGroup(myGridLayoutDataDetails, "SizeHint");
 		createLabel(myGridLayoutDataSizeHint, "Horizontal");
 		myGridLayoutDataSizeHintHorizontal = new Spinner(myGridLayoutDataSizeHint, SWT.FLAT);
 		myGridLayoutDataSizeHintHorizontal.setMinimum(-1);
 		myGridLayoutDataSizeHintHorizontal.setMaximum(2147483647);
-		myGridLayoutDataSizeHintHorizontal.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
-																											// #145837
+		myGridLayoutDataSizeHintHorizontal.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		createLabel(myGridLayoutDataSizeHint, "Vertical");
 		myGridLayoutDataSizeHintVertical = new Spinner(myGridLayoutDataSizeHint, SWT.FLAT);
 		myGridLayoutDataSizeHintVertical.setMinimum(-1);
 		myGridLayoutDataSizeHintVertical.setMaximum(2147483647);
-		myGridLayoutDataSizeHintVertical.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
-																										// #145837
+		myGridLayoutDataSizeHintVertical.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myGridLayoutDataSizeHint.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
 		myGridLayoutDataDetails.setLayout(new org.eclipse.swt.layout.GridLayout(3, false));
 		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myGridLayoutDataGrabExcessHorizontalSpace);
@@ -183,26 +152,22 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		myXyLayoutDataX = new Spinner(myXyLayoutDataDetails, SWT.FLAT);
 		myXyLayoutDataX.setMinimum(0);
 		myXyLayoutDataX.setMaximum(2147483647);
-		myXyLayoutDataX.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
-																						// #145837
+		myXyLayoutDataX.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		createLabel(myXyLayoutDataDetails, "Width");
 		myXyLayoutDataWidth = new Spinner(myXyLayoutDataDetails, SWT.FLAT);
 		myXyLayoutDataWidth.setMinimum(0);
 		myXyLayoutDataWidth.setMaximum(2147483647);
-		myXyLayoutDataWidth.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
-																							// #145837
+		myXyLayoutDataWidth.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		createLabel(myXyLayoutDataDetails, "Y");
 		myXyLayoutDataY = new Spinner(myXyLayoutDataDetails, SWT.FLAT);
 		myXyLayoutDataY.setMinimum(0);
 		myXyLayoutDataY.setMaximum(2147483647);
-		myXyLayoutDataY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
-																						// #145837
+		myXyLayoutDataY.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		createLabel(myXyLayoutDataDetails, "Height");
 		myXyLayoutDataHeight = new Spinner(myXyLayoutDataDetails, SWT.FLAT);
 		myXyLayoutDataHeight.setMinimum(0);
 		myXyLayoutDataHeight.setMaximum(2147483647);
-		myXyLayoutDataHeight.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see
-																							// #145837
+		myXyLayoutDataHeight.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myXyLayoutDataDetails.setLayout(new org.eclipse.swt.layout.GridLayout(4, false));
 		myCustomLayoutDataDetails = createGroup(parent, "Details");
 		createLabel(myCustomLayoutDataDetails, "Qualified Class Name");
@@ -226,18 +191,15 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		fd = new org.eclipse.swt.layout.FormData();
 		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutDataKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
 		myCustomLayoutDataDetails.setLayoutData(fd);
-		// TODO
-		// myBorderLayoutDataAlignment.setItems(VALUES.toString().toArray());
+		// TODO myBorderLayoutDataAlignment.setItems(VALUES.toString().toArray());
 		for (org.eclipse.emf.common.util.Enumerator e : Alignment.VALUES) {
 			myBorderLayoutDataAlignment.add(e.getName());
 		}
-		// TODO
-		// myGridLayoutDataVerticalAlignment.setItems(VALUES.toString().toArray());
+		// TODO myGridLayoutDataVerticalAlignment.setItems(VALUES.toString().toArray());
 		for (org.eclipse.emf.common.util.Enumerator e : Alignment.VALUES) {
 			myGridLayoutDataVerticalAlignment.add(e.getName());
 		}
-		// TODO
-		// myGridLayoutDataHorizontalAlignment.setItems(VALUES.toString().toArray());
+		// TODO myGridLayoutDataHorizontalAlignment.setItems(VALUES.toString().toArray());
 		for (org.eclipse.emf.common.util.Enumerator e : Alignment.VALUES) {
 			myGridLayoutDataHorizontalAlignment.add(e.getName());
 		}
@@ -374,8 +336,7 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		if (getInput().getLayoutData() instanceof CustomLayoutData) {
 			if (getInput().getLayoutData() != null) {
 				myCustomLayoutQualifiedClassName.setText(((CustomClass) getInput().getLayoutData()).getQualifiedClassName());/*
-																																 * Bridge.fieldSet(myCustomLayoutQualifiedClassName,
-																																 * ((CustomClass)
+																																 * Bridge.fieldSet(myCustomLayoutQualifiedClassName, ((CustomClass)
 																																 * getInput().getLayoutData()).getQualifiedClassName());
 																																 */
 			}
@@ -422,16 +383,13 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		if (event.type == SWT.Selection) {
 			if (myBorderLayoutDataIsVertical == event.widget) {
 				applyChanges(); // Commit; View to Model
-				// Optimization? Instead of full refresh, just dependant widgets
-				// should get updated
+				// Optimization? Instead of full refresh, just dependant widgets should get updated
 			} else if (myGridLayoutDataGrabExcessHorizontalSpace == event.widget) {
 				applyChanges(); // Commit; View to Model
-				// Optimization? Instead of full refresh, just dependant widgets
-				// should get updated
+				// Optimization? Instead of full refresh, just dependant widgets should get updated
 			} else if (myGridLayoutDataGrabExcessVerticalSpace == event.widget) {
 				applyChanges(); // Commit; View to Model
-				// Optimization? Instead of full refresh, just dependant widgets
-				// should get updated
+				// Optimization? Instead of full refresh, just dependant widgets should get updated
 			}
 			if (myR1 == event.widget) {
 				if (myR1.getSelection()) {
@@ -528,11 +486,13 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 	}
 
 	private void markDirty() {
-		// NO-OP, need that to share Update::handleEvent template with IFormPart
-		// which has same method
+		// NO-OP, need that to share Update::handleEvent template with IFormPart which has same method
 		// Perhaps, clients may find this method useful for some purpose?
 	}
 
+	/**
+	 * @generated NOT
+	 */
 	protected void applyChanges() {
 		final java.util.List<org.eclipse.core.resources.IFile> files = java.util.Collections.singletonList(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(getInput().eResource()));
 		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand cmd = new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(
@@ -559,6 +519,9 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		refresh();
 	}
 
+	/**
+	 * @generated NOT
+	 */
 	private Object unwrap(Object element) {
 		Object rv = null;
 		if (element instanceof org.eclipse.gef.EditPart) {
@@ -583,9 +546,7 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		myModelListeners = new org.eclipse.emf.common.notify.Adapter[] { new AttachAdapter(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(), new ChangeTracker() {
 
 			public void modelChanged(org.eclipse.emf.common.notify.Notification n) {
-				// FIXME enable/disable widget(s) -- HOWEVER, need access to
-				// Binding/Widget here, so can't share the template with e.g.
-				// Alex's ItemProviders
+				// FIXME enable/disable widget(s) -- HOWEVER, need access to Binding/Widget here, so can't share the template with e.g. Alex's ItemProviders
 			}
 		}, new FeatureTracker(this, GMFGraphPackage.eINSTANCE.getBorderLayoutData_Vertical(), GMFGraphPackage.eINSTANCE.getBorderLayoutData_Alignment(), GMFGraphPackage.eINSTANCE
 				.getGridLayoutData_GrabExcessHorizontalSpace(), GMFGraphPackage.eINSTANCE.getGridLayoutData_GrabExcessVerticalSpace(), GMFGraphPackage.eINSTANCE.getGridLayoutData_VerticalAlignment(),
