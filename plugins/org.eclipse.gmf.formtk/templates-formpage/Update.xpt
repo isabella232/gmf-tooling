@@ -81,12 +81,12 @@
 			if «FOREACH radioWidgets() AS r SEPARATOR " else if "»(«r.fieldName()» == event.widget) {
 	«LET associatedBinding(r) AS activeBinding-»
 				if («r.fieldName()».getSelection()) {
-					«EXPAND ApplyAction FOREACH xxx1(activeBinding)-»
-					«EXPAND RevertAction FOREACH xxx2(activeBinding)-»
+					«EXPAND ApplyAction FOREACH triggeredActions_activated(activeBinding)-»
+					«EXPAND RevertAction FOREACH triggeredActions_deactivated(activeBinding)-»
 					applyChanges(); // Commit; View to Model
-					«EXPAND doRefresh(xxx3(activeBinding), activeBinding.refreshCondition.accessor)-»
-				}«IF !xxx1(activeBinding).isEmpty()» else {
-					«EXPAND RevertAction FOREACH xxx1(activeBinding)-»
+					«EXPAND doRefresh(triggeredBindingToRefreshBesidesTheOne(activeBinding), activeBinding.refreshCondition.accessor)-»
+				}«IF !triggeredActions_activated(activeBinding).isEmpty()» else {
+					«EXPAND RevertAction FOREACH triggeredActions_activated(activeBinding)-»
 				}«ENDIF»
 	«ENDLET-»
 			}«ENDFOREACH»

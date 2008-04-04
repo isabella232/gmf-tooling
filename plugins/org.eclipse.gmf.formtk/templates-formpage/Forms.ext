@@ -55,17 +55,17 @@ private List[Condition] triggeredConditions(Section s, Binding b) :
 // NOTE, use of commitCondition is nothing but an attempt to figure out which
 // condition is associated with the activated binding, perhaps, need to check 
 // refreshCondition also/besides. 
-List[Action] xxx1(Section s, Binding b) :
+List[Action] triggeredActions_activated(Section s, Binding b) :
 	//s.conditions.select(c | c.accessor == b.selector && b.commitCondition == c).actions
 	s.actions.select(a | a.trigger.exists(c | c.accessor == b.selector && b.commitCondition == c))
 ;
 
-List[Action] xxx2(Section s, Binding b) :
+List[Action] triggeredActions_deactivated(Section s, Binding b) :
 	//s.conditions.select(c | c.accessor == b.selector && b.commitCondition != c).actions
 	s.actions.select(a | a.trigger.exists(c | c.accessor == b.selector && b.commitCondition != c))
 ;
 
-List[Binding] xxx3(Section s, Binding b) :
+List[Binding] triggeredBindingToRefreshBesidesTheOne(Section s, Binding b) :
 	let triggeredAndActivatedConditions = s.conditions.select(c | c.accessor == b.selector && b.commitCondition == c)
 		: s.bindings.select(v | v != b && triggeredAndActivatedConditions.contains(v.refreshCondition))
 ;
