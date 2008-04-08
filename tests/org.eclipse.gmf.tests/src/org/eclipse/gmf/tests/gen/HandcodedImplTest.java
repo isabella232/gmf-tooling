@@ -486,10 +486,20 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 	}
 
 	public void testGenCommonBase_ClassNamePrefix() {
+		GenModel genModel = GenModelFactory.eINSTANCE.createGenModel();
+		genModel.safeName("genModel");
+		GenPackage genPackage = GenModelFactory.eINSTANCE.createGenPackage();
+		EPackage ePackage = EcoreFactory.eINSTANCE.createEPackage();
+		ePackage.setName("container");
+		genPackage.setEcorePackage(ePackage);
+		genModel.getGenPackages().add(genPackage);
+		
 		GenClass domainElement = GenModelFactory.eINSTANCE.createGenClass();
 		EClass eClass = EcoreFactory.eINSTANCE.createEClass();
 		eClass.setName("DomainModelClassName" + INVALID_JAVA_CHARS);
+		ePackage.getEClassifiers().add(eClass);
 		domainElement.setEcoreClass(eClass);
+		genPackage.getGenClasses().add(domainElement);
 		TypeModelFacet typeModelFacet = GMFGenFactory.eINSTANCE.createTypeModelFacet();
 		typeModelFacet.setMetaClass(domainElement);
 		TypeLinkModelFacet typeLinkModelFacet = GMFGenFactory.eINSTANCE.createTypeLinkModelFacet();
