@@ -162,6 +162,7 @@
 	<!-- ===================================================================== -->
 	<target name="preAssemble">
 		<!-- iterating through the examples features to pack them all into zips -->
+<!-- Temporarily disabled  - not compatible with new sources format
 		<property file="${buildDirectory}/plugins/org.eclipse.gmf.examples.ui.pde/plugin.properties"/>
 		<antcontrib:propertyselector property="zip.list"
 		                         delimiter=","
@@ -174,6 +175,7 @@
 		                target="zipExamplePlugin"
 		                param="example.plugin.id" 
 						inheritall="true"/>
+				-->		
 	</target>
 	
 	<target name="zipExamplePlugin">
