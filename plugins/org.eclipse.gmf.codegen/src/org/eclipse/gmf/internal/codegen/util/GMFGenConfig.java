@@ -16,9 +16,11 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
 import org.eclipse.gmf.internal.common.reconcile.Copier;
 import org.eclipse.gmf.internal.common.reconcile.Decision;
 import org.eclipse.gmf.internal.common.reconcile.DefaultDecision;
+import org.eclipse.gmf.internal.common.reconcile.Matcher;
 import org.eclipse.gmf.internal.common.reconcile.ReconcilerConfigBase;
 import org.eclipse.gmf.internal.common.reconcile.ReflectiveMatcher;
 import org.eclipse.gmf.internal.common.reconcile.StringPatternDecision;
@@ -215,6 +217,28 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenApplication(), GMFGEN.getGenApplication_ClassName());
 		preserveIfSet(GMFGEN.getGenApplication(), GMFGEN.getGenApplication_PerspectiveId());
 		preserveIfSet(GMFGEN.getGenApplication(), GMFGEN.getGenApplication_SupportFiles());
+
+		setMatcher(GMFGEN.getGenStandardPreferencePage(), new Matcher() {
+
+			public boolean match(EObject current, EObject old) {
+				if (false == current instanceof GenStandardPreferencePage) {
+					return false;
+				}
+				if (false == old instanceof GenStandardPreferencePage) {
+					return false;
+				}
+				GenStandardPreferencePage curPage = (GenStandardPreferencePage) current;
+				GenStandardPreferencePage oldPage = (GenStandardPreferencePage) old;
+				if (curPage.getParent() == null) {
+					//single root page, just match it with other root
+					return oldPage.getParent() == null;
+				}
+				return curPage.getKind() == oldPage.getKind();
+			}
+		});
+		addDecision(GMFGEN.getGenStandardPreferencePage(), new Decision.ALWAYS_OLD(GMFGEN.getGenPreferencePage_ID()));
+		addDecision(GMFGEN.getGenStandardPreferencePage(), new Decision.ALWAYS_OLD(GMFGEN.getGenPreferencePage_Name()));
+		setCopier(GMFGEN.getGenCustomPreferencePage(), Copier.COMPLETE_COPY);
 	}
 
 	private void restore(EClass eClass, EAttribute feature) {
