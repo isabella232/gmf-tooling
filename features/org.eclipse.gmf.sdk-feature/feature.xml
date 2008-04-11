@@ -37,17 +37,7 @@ http://www.eclipse.org/legal/epl-v10.html
          name="%docFeatureName"/>
 
    <includes
-         id="org.eclipse.gmf.examples"
-         version="0.0.0"
-         name="%examplesFeatureName"/>
-
-   <includes
          id="org.eclipse.gmf.examples.pde"
-         version="0.0.0"
-         name="%examplesFeatureName"/>
-
-   <includes
-         id="org.eclipse.gmf.examples.source"
          version="0.0.0"
          name="%examplesFeatureName"/>
 
@@ -65,7 +55,7 @@ http://www.eclipse.org/legal/epl-v10.html
          id="org.eclipse.gmf.tooling"
          version="0.0.0"
          name="%toolingFeatureName"/>
-         
+
    <includes
          id="org.eclipse.gmf.runtime.notation.source"
          version="0.0.0"
