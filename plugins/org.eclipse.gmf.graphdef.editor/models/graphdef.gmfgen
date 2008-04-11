@@ -1424,6 +1424,42 @@
         <generatedTypes>abstractNavigatorItem</generatedTypes>
       </filter>
     </tabs>
+    <tabs
+        xsi:type="gmfgen:GenCustomPropertyTab"
+        iD="layout-gen2"
+        label="Layout - gen2"
+        className="LayoutSectionProxy">
+      <filter
+          xsi:type="gmfgen:CustomTabFilter"
+          className="PropertySectionFilters$LayoutableFilter"/>
+    </tabs>
+    <tabs
+        xsi:type="gmfgen:GenCustomPropertyTab"
+        iD="layoutdata-gen2"
+        label="LayoutData - gen2"
+        className="LayoutDataSectionProxy">
+      <filter
+          xsi:type="gmfgen:CustomTabFilter"
+          className="PropertySectionFilters$LayoutableFilter"/>
+    </tabs>
+    <tabs
+        xsi:type="gmfgen:GenCustomPropertyTab"
+        iD="size-gen2"
+        label="Size - gen2"
+        className="SizeSectionProxy">
+      <filter
+          xsi:type="gmfgen:CustomTabFilter"
+          className="PropertySectionFilters$ShapeFilter"/>
+    </tabs>
+    <tabs
+        xsi:type="gmfgen:GenCustomPropertyTab"
+        iD="styles-gen2"
+        label="Styles - gen2"
+        className="FigureSectionProxy">
+      <filter
+          xsi:type="gmfgen:CustomTabFilter"
+          className="PropertySectionFilters$ShapeFilter"/>
+    </tabs>
   </propertySheet>
   <domainGenModel
       href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#/"/>

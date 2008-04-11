@@ -236,6 +236,22 @@
              category="domain"
              id="property.tab.domain"
              label="%tab.domain"/>
+          <propertyTab
+             category="extra"
+             id="property.tab.layout-gen2"
+             label="%tab.layout-gen2"/>
+          <propertyTab
+             category="extra"
+             id="property.tab.layoutdata-gen2"
+             label="%tab.layoutdata-gen2"/>
+          <propertyTab
+             category="extra"
+             id="property.tab.size-gen2"
+             label="%tab.size-gen2"/>
+          <propertyTab
+             category="extra"
+             id="property.tab.styles-gen2"
+             label="%tab.styles-gen2"/>
       </propertyTabs>
    </extension>
    
@@ -281,66 +297,6 @@
       </propertySections>
    </extension>
 
-   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-      <?gmfgen generated="false"?>
-      <!-- Temp solution, while I investigate another UI codegen model: register tabs manually -->
-      <propertyTabs contributorId="org.eclipse.gmf.graphdef.editor">
-          <propertyTab
-             category="extra"
-             id="tab.layout-gen2"
-             label="Layout - gen2"/>
-      </propertyTabs>
-      <propertyTabs contributorId="org.eclipse.gmf.graphdef.editor">
-          <propertyTab
-             category="extra"
-             id="tab.layoutdata-gen2"
-             label="LayoutData - gen2"/>
-      </propertyTabs>
-      <propertyTabs contributorId="org.eclipse.gmf.graphdef.editor">
-          <propertyTab
-             category="extra"
-             id="tab.size-gen2"
-             label="Size - gen2"/>
-      </propertyTabs>
-      <propertyTabs contributorId="org.eclipse.gmf.graphdef.editor">
-          <propertyTab
-             category="extra"
-             id="tab.styles-gen2"
-             label="Styles - gen2"/>
-      </propertyTabs>
-   </extension>
-
-   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
-      <?gmfgen generated="false"?>
-      <!-- Temp solution, while I investigate another UI codegen model: register tabs manually -->
-      <propertySections contributorId="org.eclipse.gmf.graphdef.editor">
-         <propertySection
-            id="property.section.layout-gen2" 
-            tab="tab.layout-gen2"
-            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$LayoutableFilter"
-            class="org.eclipse.gmf.graphdef.editor.sheet.LayoutSection">
-         </propertySection>
-         <propertySection
-            id="property.section.layoutdata-gen2" 
-            tab="tab.layoutdata-gen2"
-            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$LayoutableFilter"
-            class="org.eclipse.gmf.graphdef.editor.sheet.LayoutDataSection">
-         </propertySection>
-         <propertySection
-            id="property.section.size-gen2" 
-            tab="tab.size-gen2"
-            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$ShapeFilter"
-            class="org.eclipse.gmf.graphdef.editor.sheet.SizeSection">
-         </propertySection>
-         <propertySection
-            id="property.section.styles-gen2" 
-            tab="tab.styles-gen2"
-            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$ShapeFilter"
-            class="org.eclipse.gmf.graphdef.editor.sheet.FigureSection">
-         </propertySection>
-      </propertySections>
-   </extension>
-
    <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
       <?gmfgen generated="true"?>   
       <propertySections contributorId="org.eclipse.gmf.graphdef.editor">
@@ -371,6 +327,30 @@
             <input type="org.eclipse.gmf.runtime.notation.View"/>
             <input type="org.eclipse.gef.EditPart"/>
             <input type="org.eclipse.gmf.graphdef.editor.navigator.GMFGraphAbstractNavigatorItem"/>
+         </propertySection>
+         <propertySection
+            id="property.section.layout-gen2" 
+            tab="property.tab.layout-gen2"
+            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$LayoutableFilter"
+            class="org.eclipse.gmf.graphdef.editor.sheet.LayoutSectionProxy">
+         </propertySection>
+         <propertySection
+            id="property.section.layoutdata-gen2" 
+            tab="property.tab.layoutdata-gen2"
+            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$LayoutableFilter"
+            class="org.eclipse.gmf.graphdef.editor.sheet.LayoutDataSectionProxy">
+         </propertySection>
+         <propertySection
+            id="property.section.size-gen2" 
+            tab="property.tab.size-gen2"
+            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$ShapeFilter"
+            class="org.eclipse.gmf.graphdef.editor.sheet.SizeSectionProxy">
+         </propertySection>
+         <propertySection
+            id="property.section.styles-gen2" 
+            tab="property.tab.styles-gen2"
+            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$ShapeFilter"
+            class="org.eclipse.gmf.graphdef.editor.sheet.FigureSectionProxy">
          </propertySection>
       </propertySections>
    </extension>
