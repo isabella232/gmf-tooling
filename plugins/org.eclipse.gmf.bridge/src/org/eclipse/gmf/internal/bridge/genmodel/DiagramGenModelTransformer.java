@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -34,75 +34,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.ElementType;
-import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
-import org.eclipse.gmf.codegen.gmfgen.GenActionFactoryContributionItem;
-import org.eclipse.gmf.codegen.gmfgen.GenApplication;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
-import org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode;
-import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
-import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
-import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
-import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
-import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
-import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
-import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
-import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
-import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
-import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
-import org.eclipse.gmf.codegen.gmfgen.GenGroupMarker;
-import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
-import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenMeasurable;
-import org.eclipse.gmf.codegen.gmfgen.GenMenuManager;
-import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
-import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
-import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage;
-import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
-import org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec;
-import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenSeparator;
-import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
-import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
-import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
-import org.eclipse.gmf.codegen.gmfgen.GenToolBarManager;
-import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
-import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes;
-import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
-import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
-import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
-import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
-import org.eclipse.gmf.codegen.gmfgen.Palette;
-import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
-import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
-import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
-import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
+import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.AlignmentFacet;
 import org.eclipse.gmf.gmfgraph.Compartment;
@@ -171,6 +103,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private final NavigatorHandler myNavigatorProcessor;
 	private final PropertySheetHandler myPropertySheetProcessor;
 	private final EcoreGenModelMatcher myEcoreGenModelMatch;	
+
+	private GenAuditContext myDefaultAuditContext;
 
 	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy) {
 		this(drtHelper, namingStrategy, new InnerClassViewmapProducer(), new NaiveIdentifierDispenser(), false);
@@ -929,11 +863,52 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				final GenAuditRule auditRule = createGenAudit(next);
 				auditRule.setCategory(gac);
 				root.getRules().add(auditRule);
+				// Here's the logic used to be in GMFGen. Basically, all rules with targets != null
+				// get a context (emf.validation), which is a scope or set of elements audit is evaluated against.
+				// For certain cases, e.g. diagram elements as audit targets, special logic to select these
+				// elements should get generated - to filter diagram views by visualID, and hence
+				// there's another implementation of IClientSelector and dedicated context.
+				if (auditRule.getTarget() instanceof GenDiagramElementTarget) {
+					GenDiagramElementTarget gdet = (GenDiagramElementTarget) auditRule.getTarget();
+					// Next used to live in GenDiagramElementTargetImpl#getClientContextID()
+					//
+					// Present approach relies on id matching not to create duplicating contexts,
+					// however, smarter way is to match context's target and its elements.
+					StringBuilder buf = new StringBuilder("Ctx"); //$NON-NLS-1$
+					for (GenCommonBase nextElement : gdet.getElement()) {
+						buf.append('_');
+						int id = nextElement.getVisualID();
+						if(id < 0) {
+							buf.append('n');
+						}
+						buf.append(id);			
+					}
+					String clientContextID = buf.toString();
+					GenAuditContext ctx = null;
+					for (GenAuditContext x : root.getClientContexts()) {
+						if (clientContextID.equals(x.getId())) {
+							ctx = x;
+							break;
+						}
+					}
+					if (ctx == null) {
+						ctx = GMFGenFactory.eINSTANCE.createGenAuditContext();
+						ctx.setId(clientContextID);
+						root.getClientContexts().add(ctx);
+					}
+					gdet.setContextSelector(ctx);
+				} else if (auditRule.getTarget() != null) {
+					if (myDefaultAuditContext == null) {
+						myDefaultAuditContext = GMFGenFactory.eINSTANCE.createGenAuditContext();
+						root.getClientContexts().add(myDefaultAuditContext);
+					}
+					auditRule.getTarget().setContextSelector(myDefaultAuditContext);
+				}
 			}
 		} while (!containers.isEmpty());
 		return root;
 	}
-	
+
 	private GenAuditRule createGenAudit(AuditRule audit) {
 		GenAuditRule genAudit = GMFGenFactory.eINSTANCE.createGenAuditRule();
 		genAudit.setId(audit.getId());
