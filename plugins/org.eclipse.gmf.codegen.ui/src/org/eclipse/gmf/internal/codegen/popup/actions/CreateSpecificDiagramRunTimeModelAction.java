@@ -88,7 +88,6 @@ public class CreateSpecificDiagramRunTimeModelAction implements IObjectActionDel
 		return myPart.getSite().getShell();
 	}
 
-	@SuppressWarnings("unchecked")
 	private GenModel createGenModel(EPackage model) {
 		GenModel genModel = new DummyGenModel(model, null).create();
 		genModel.getForeignModel().add(model.eResource().getURI().toString());
