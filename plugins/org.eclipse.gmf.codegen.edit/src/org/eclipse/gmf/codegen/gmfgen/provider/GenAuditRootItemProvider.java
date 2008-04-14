@@ -80,6 +80,7 @@ public class GenAuditRootItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenAuditRoot_Categories());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenAuditRoot_Rules());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenAuditRoot_ClientContexts());
 		}
 		return childrenFeatures;
 	}
@@ -133,6 +134,7 @@ public class GenAuditRootItemProvider
 		switch (notification.getFeatureID(GenAuditRoot.class)) {
 			case GMFGenPackage.GEN_AUDIT_ROOT__CATEGORIES:
 			case GMFGenPackage.GEN_AUDIT_ROOT__RULES:
+			case GMFGenPackage.GEN_AUDIT_ROOT__CLIENT_CONTEXTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -159,6 +161,11 @@ public class GenAuditRootItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenAuditRoot_Rules(),
 				 GMFGenFactory.eINSTANCE.createGenAuditRule()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenAuditRoot_ClientContexts(),
+				 GMFGenFactory.eINSTANCE.createGenAuditContext()));
 	}
 
 	/**

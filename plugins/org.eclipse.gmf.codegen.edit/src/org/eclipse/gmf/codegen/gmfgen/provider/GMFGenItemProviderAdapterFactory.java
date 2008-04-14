@@ -1492,6 +1492,29 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenAuditContext} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenAuditContextItemProvider genAuditContextItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenAuditContext}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGenAuditContextAdapter() {
+		if (genAuditContextItemProvider == null) {
+			genAuditContextItemProvider = new GenAuditContextItemProvider(this);
+		}
+
+		return genAuditContextItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2163,6 +2186,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genMetricContainerItemProvider != null) genMetricContainerItemProvider.dispose();
 		if (genMetricRuleItemProvider != null) genMetricRuleItemProvider.dispose();
 		if (genAuditedMetricTargetItemProvider != null) genAuditedMetricTargetItemProvider.dispose();
+		if (genAuditContextItemProvider != null) genAuditContextItemProvider.dispose();
 		if (genExpressionProviderContainerItemProvider != null) genExpressionProviderContainerItemProvider.dispose();
 		if (genJavaExpressionProviderItemProvider != null) genJavaExpressionProviderItemProvider.dispose();
 		if (genExpressionInterpreterItemProvider != null) genExpressionInterpreterItemProvider.dispose();

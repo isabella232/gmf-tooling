@@ -61,7 +61,6 @@ public class GenAuditRuleItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addContextSelectorLocalClassNamePropertyDescriptor(object);
 			addIdPropertyDescriptor(object);
 			addMessagePropertyDescriptor(object);
 			addSeverityPropertyDescriptor(object);
@@ -69,28 +68,6 @@ public class GenAuditRuleItemProvider
 			addCategoryPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Context Selector Local Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addContextSelectorLocalClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenAuditRule_contextSelectorLocalClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditRule_contextSelectorLocalClassName_feature", "_UI_GenAuditRule_type"),
-				 GMFGenPackage.eINSTANCE.getGenAuditRule_ContextSelectorLocalClassName(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -271,7 +248,6 @@ public class GenAuditRuleItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenAuditRule.class)) {
-			case GMFGenPackage.GEN_AUDIT_RULE__CONTEXT_SELECTOR_LOCAL_CLASS_NAME:
 			case GMFGenPackage.GEN_AUDIT_RULE__ID:
 			case GMFGenPackage.GEN_AUDIT_RULE__MESSAGE:
 			case GMFGenPackage.GEN_AUDIT_RULE__SEVERITY:
