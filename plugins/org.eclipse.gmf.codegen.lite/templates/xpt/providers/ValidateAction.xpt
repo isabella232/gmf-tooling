@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -143,8 +143,10 @@ private static void validate(org.eclipse.gmf.runtime.notation.View target, org.e
 				update(updater, status, viewService);
 			}
 
-«IF hasNotationModelAudit()-»
+«IF shouldRunValidateOnDiagram(editorGen.audits)-»
+«IF hasDiagramElementTargetRule(editorGen.audits)-»
 			validator.setTraversalStrategy(«getValidationProviderQualifiedClassName()».getNotationTraversalStrategy(validator));
+«ENDIF-»
 			org.eclipse.core.runtime.IStatus status = validator.validate(target);
 			update(updater, status, viewService);
 «ENDIF-»

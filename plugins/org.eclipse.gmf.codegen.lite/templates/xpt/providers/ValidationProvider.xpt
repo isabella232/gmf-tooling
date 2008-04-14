@@ -22,23 +22,17 @@ package «providersPackageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
 public class «validationProviderClassName» «EXPAND supertypes» {
-	«EXPAND shouldConstraintsBePrivate-»
-
 	«EXPAND constraintsActive-»
+
+	«EXPAND shouldConstraintsBePrivate-»
 
 	«EXPAND runWithActiveConstraints-»
 
 	«EXPAND isInDefaultEditorContext-»
 
-	«EXPAND Selectors FOR editorGen.audits-»
+	«EXPAND selectors FOR editorGen.audits-»
 
-«IF hasNotationModelAudit()-»
-	«EXPAND getNotationTraversalStrategy-»
-«ENDIF-»
-
-«IF editorGen.audits.usesNotationContextSwitch()-»
-	«EXPAND CtxSwitchStrategy-»
-«ENDIF-»
+	«EXPAND strategy_support»
 
 	«EXPAND AuditClass FOREACH editorGen.audits.rules.select(e| e.requiresConstraintAdapter && e.rule != null && e.target != null && e.target.getContext() != null)-»
 
@@ -49,192 +43,6 @@ public class «validationProviderClassName» «EXPAND supertypes» {
 «ENDDEFINE»
 
 «DEFINE supertypes FOR gmfgen::GenDiagram»«ENDDEFINE»
-
-«DEFINE shouldConstraintsBePrivate FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-public static boolean shouldConstraintsBePrivate() {
-	return false;
-}
-«ENDDEFINE»
-
-«DEFINE constraintsActive FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-private static boolean constraintsActive = false;	
-«ENDDEFINE»
-
-«DEFINE runWithActiveConstraints FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-public static void runWithConstraints(org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain, Runnable operation) {
-	final Runnable op = operation;
-	Runnable task = new Runnable() {
-		public void run() {
-			try {
-				constraintsActive = true;
-				op.run();
-			} finally {
-				constraintsActive = false;
-			}
-		}
-	};
-	if(editingDomain != null) {
-		try {
-			editingDomain.runExclusive(task);
-		} catch (Exception e) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Validation failed", e); «EXPAND xpt::Common::nonNLS»
-		}
-	} else {
-		task.run();
-	}
-}
-«ENDDEFINE»
-
-«DEFINE isInDefaultEditorContext FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-static boolean isInDefaultEditorContext(Object object) {
-	if(shouldConstraintsBePrivate() && !constraintsActive) {
-		return false;
-	}
-	if (object instanceof org.eclipse.gmf.runtime.notation.View) {
-		return constraintsActive && «EXPAND xpt::editor::VisualIDRegistry::modelID».equals(«EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall»((org.eclipse.gmf.runtime.notation.View) object));
-	}
-	return true;
-}
-«ENDDEFINE»
-
-«DEFINE Selectors FOR gmfgen::GenAuditRoot-»
-«EXPAND SelectorClass(this) FOREACH getClientContextIDs()-»
-«ENDDEFINE»
-
-«DEFINE SelectorClass(gmfgen::GenAuditRoot root) FOR String-»
-«LET (gmfgen::GenAuditRule) root.getAuditsForClientContextID(this).first() AS auditForClientContext-»
-«EXPAND xpt::Common::generatedClassComment»
-public static class «auditForClientContext.contextSelectorLocalClassName» implements org.eclipse.emf.validation.model.IClientSelector {
-	«EXPAND selects FOR auditForClientContext.target-»
-}
-«ENDLET-»
-«ENDDEFINE»
-
-«DEFINE selects FOR gmfgen::GenDiagramElementTarget-»
-«EXPAND xpt::Common::generatedMemberComment»
-public boolean selects(Object object) {
-«IF !element.isEmpty()-»
-	if(isInDefaultEditorContext(object) && object instanceof org.eclipse.gmf.runtime.notation.View) {
-		int visualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR ((gmfgen::GenCommonBase)element.first()).getDiagram()»((org.eclipse.gmf.runtime.notation.View) object);
-		switch (visualID) {
-			«EXPAND caseVisualID FOREACH element-»
-		}
-	}
-«ENDIF-»
-	return false;
-}
-«ENDDEFINE»
-
-«DEFINE caseVisualID FOR gmfgen::GenCommonBase-»
-case «EXPAND xpt::editor::VisualIDRegistry::visualID»:
-	return true;
-«ENDDEFINE»
-
-«DEFINE selects FOR gmfgen::GenAuditable-»
-«EXPAND xpt::Common::generatedMemberComment»
-public boolean selects(Object object) {
-	return isInDefaultEditorContext(object);	
-}	
-«ENDDEFINE»
-
-«DEFINE getNotationTraversalStrategy FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-static org.eclipse.emf.validation.service.ITraversalStrategy getNotationTraversalStrategy(org.eclipse.emf.validation.service.IBatchValidator validator) {
-«IF editorGen.audits.usesNotationContextSwitch()-»	
-	return new CtxSwitchStrategy(validator);
-«ELSE-»
-	return validator.getDefaultTraversalStrategy();
-«ENDIF-»
-}
-«ENDDEFINE»
-
-«DEFINE CtxSwitchStrategy FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedClassComment»
-private static class CtxSwitchStrategy implements org.eclipse.emf.validation.service.ITraversalStrategy {
-	«EXPAND xpt::Common::generatedMemberComment»
-	private org.eclipse.emf.validation.service.ITraversalStrategy defaultStrategy;
-	«EXPAND xpt::Common::generatedMemberComment»
-	private String currentSemanticCtxId;
-	«EXPAND xpt::Common::generatedMemberComment»
-	private boolean ctxChanged = true;
-	«EXPAND xpt::Common::generatedMemberComment»
-	private org.eclipse.emf.ecore.EObject currentTarget;
-	«EXPAND xpt::Common::generatedMemberComment»
-	private org.eclipse.emf.ecore.EObject preFetchedNextTarget;
-	«EXPAND xpt::Common::generatedMemberComment»
-	CtxSwitchStrategy(org.eclipse.emf.validation.service.IBatchValidator validator) {
-		this.defaultStrategy = validator.getDefaultTraversalStrategy();
-	}
-	«EXPAND xpt::Common::generatedMemberComment»
-	public void elementValidated(org.eclipse.emf.ecore.EObject element, org.eclipse.core.runtime.IStatus status) {
-		defaultStrategy.elementValidated(element, status);
-	}
-	«EXPAND xpt::Common::generatedMemberComment»
-	public boolean hasNext() {
-		return defaultStrategy.hasNext();
-	}
-	«EXPAND xpt::Common::generatedMemberComment»
-	public boolean isClientContextChanged() {
-		if(preFetchedNextTarget == null) {
-			preFetchedNextTarget = next();
-			prepareNextClientContext(preFetchedNextTarget);
-		}
-		return ctxChanged;
-	}
-	«EXPAND xpt::Common::generatedMemberComment»
-	public org.eclipse.emf.ecore.EObject next() {
-		org.eclipse.emf.ecore.EObject nextTarget = preFetchedNextTarget;
-		if(nextTarget == null) {
-			nextTarget = defaultStrategy.next();
-		}
-		this.preFetchedNextTarget = null;
-		return this.currentTarget = nextTarget;
-	}
-	«EXPAND xpt::Common::generatedMemberComment»
-	public void startTraversal(java.util.Collection traversalRoots, org.eclipse.core.runtime.IProgressMonitor monitor) {
-		defaultStrategy.startTraversal(traversalRoots, monitor);
-	}
-	«EXPAND xpt::Common::generatedMemberComment»
-	private void prepareNextClientContext(org.eclipse.emf.ecore.EObject nextTarget) {
-		if (nextTarget != null && currentTarget != null) {
-			if (nextTarget instanceof org.eclipse.gmf.runtime.notation.View) {
-				org.eclipse.gmf.runtime.notation.View targetView = (org.eclipse.gmf.runtime.notation.View) nextTarget;
-				int id = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(targetView);
-				String nextSemanticId = null;
-«LET editorGen.audits.getViewsThatNeedSelectorClass() AS viewsWithSelector-»
-	«IF viewsWithSelector.size() > 1-»
-				switch (id) {
-				«FOREACH viewsWithSelector AS nextView-»
-				case «EXPAND xpt::editor::VisualIDRegistry::visualID FOR nextView»:
-				«ENDFOREACH-»
-					nextSemanticId = targetView.getType();
-				}
-	«ELSEIF viewsWithSelector.size() == 1-»
-				if (id == «EXPAND xpt::editor::VisualIDRegistry::visualID FOR (gmfgen::GenCommonBase) viewsWithSelector.first()») {
-					nextSemanticId = targetView.getType();
-				}
-	«ENDIF-»
-«ENDLET-»
-				if ((currentSemanticCtxId != null && !currentSemanticCtxId.equals(nextSemanticId))
-						|| (nextSemanticId != null && !nextSemanticId.equals(currentSemanticCtxId))) {
-					this.ctxChanged = true;
-				}
-				currentSemanticCtxId = nextSemanticId;
-			} else {
-				// context of domain model
-				this.ctxChanged = currentSemanticCtxId != null;
-				currentSemanticCtxId = null;
-			}
-		} else {
-			this.ctxChanged = false;
-		}
-	}
-}// CtxSwitchStrategy
-«ENDDEFINE»
 
 «DEFINE AuditClass FOR gmfgen::GenAuditRule-»
 «EXPAND xpt::Common::generatedClassComment»
