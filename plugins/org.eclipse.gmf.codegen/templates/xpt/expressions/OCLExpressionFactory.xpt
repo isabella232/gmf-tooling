@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -92,17 +92,6 @@ public class «className» {
 				evalEnv.clear();
 				oclQuery.getExtentMap().clear();
 			}
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		protected Object performCast(Object value, org.eclipse.emf.ecore.ETypedElement targetType) {
-			if (targetType.getEType() instanceof org.eclipse.emf.ecore.EEnum) {
-				if (value instanceof org.eclipse.emf.ecore.EEnumLiteral) {
-					org.eclipse.emf.ecore.EEnumLiteral literal = (org.eclipse.emf.ecore.EEnumLiteral) value;
-					return (literal.getInstance() != null) ? literal.getInstance() : literal;
-				}
-			}
-			return super.performCast(value, targetType);
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»

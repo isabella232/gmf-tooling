@@ -12,7 +12,14 @@
 
 import "http://www.eclipse.org/gmf/2006/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
+import "http://www.eclipse.org/emf/2002/GenModel";
 
+extension xpt::GenModelUtils reexport;
+
+boolean expressionResultNeedsCast(GenClassifier c) : false ;
+boolean expressionResultNeedsCast(GenClass c) : false ;
+boolean expressionResultNeedsCast(GenDataType c) : isNumberObject(c) || isPrimitiveNumberType(c) ;
+boolean expressionResultNeedsCast(GenEnum c) : true ;
 
 List[GenFeatureValueSpec] getFeatureInitializers(GenFeatureSeqInitializer si, GenJavaExpressionProvider jp) :
 	recurseCollectValueExpr(si).intersect(jp.expressions)
@@ -22,3 +29,13 @@ private List[ValueExpression] recurseCollectValueExpr(GenFeatureSeqInitializer s
 	si.initializers.typeSelect(GenFeatureValueSpec).union(
 	si.initializers.typeSelect(GenReferenceNewElementSpec).newElementInitializers.recurseCollectValueExpr().flatten())
 ;
+
+private boolean isNumberObject(genmodel::GenClassifier c) : false ;
+private boolean isNumberObject(genmodel::GenClass c) : false ;
+private boolean isNumberObject(genmodel::GenDataType c) : {"java.math.BigDecimal", "java.math.BigInteger", "java.lang.Byte", "java.lang.Double", "java.lang.Float", "java.lang.Integer", "java.lang.Long", "java.lang.Short"}.contains(c.ecoreDataType.instanceClassName) ;
+private boolean isNumberObject(genmodel::GenEnum c) : false ;
+
+private boolean isPrimitiveNumberType(genmodel::GenClassifier c) : false ;
+private boolean isPrimitiveNumberType(genmodel::GenClass c) : false ;
+private boolean isPrimitiveNumberType(genmodel::GenDataType c) : {"byte", "double", "float", "int", "long", "short"}.contains(c.ecoreDataType.instanceClassName) ;
+private boolean isPrimitiveNumberType(genmodel::GenEnum c) : false ;

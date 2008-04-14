@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -95,52 +95,36 @@ public abstract class «editorGen.expressionProviders.abstractExpressionClassName
 		return context;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public void assignTo(org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.ecore.EObject target) {
-		Object value = evaluate(target);
-		value = (value != null) ? performCast(value, feature) : null;
-		if (feature.isMany()) {
-			java.util.Collection destCollection = (java.util.Collection) target.eGet(feature);
-			destCollection.clear();
-			if (value instanceof java.util.Collection) {
-				java.util.Collection valueCollection = (java.util.Collection) value;
-				for (java.util.Iterator it = valueCollection.iterator(); it.hasNext();) {
-					destCollection.add(performCast(it.next(), feature));
-				}
-			} else {
-				destCollection.add(value);
+	«EXPAND xpt::Common::generatedMemberComment("Expression may return number value which is not directly compatible with feature type (e.g. Double when Integer is expected), or EEnumLiteral meta-object when literal instance is expected")»
+	public static Object performCast(Object value, org.eclipse.emf.ecore.EDataType targetType) {
+		if (targetType instanceof org.eclipse.emf.ecore.EEnum) {
+			if (value instanceof org.eclipse.emf.ecore.EEnumLiteral) {
+				org.eclipse.emf.ecore.EEnumLiteral literal = (org.eclipse.emf.ecore.EEnumLiteral) value;
+				return (literal.getInstance() != null) ? literal.getInstance() : literal;
 			}
-			return;
 		}
-		target.eSet(feature, value);
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected Object performCast(Object value, org.eclipse.emf.ecore.ETypedElement targetType) {
-		if (targetType.getEType() == null || targetType.getEType().getInstanceClass() == null) {
+		if (false == value instanceof Number || targetType == null || targetType.getInstanceClass() == null) {
 			return value;
 		}
-		Class targetClass = targetType.getEType().getInstanceClass();
-		if (value != null && value instanceof Number) {
-			Number num = (Number) value;
-			Class valClass = value.getClass();
-			Class targetWrapperClass = targetClass;
-			if (targetClass.isPrimitive()) {
-				targetWrapperClass = org.eclipse.emf.ecore.util.EcoreUtil.wrapperClassFor(targetClass);
-			}
-			if (valClass.equals(targetWrapperClass)) {
-				return value;
-			}
-			if (Number.class.isAssignableFrom(targetWrapperClass)) {
-				if (targetWrapperClass.equals(Byte.class)) return new Byte(num.byteValue());
-				if (targetWrapperClass.equals(Integer.class)) return new Integer(num.intValue());
-				if (targetWrapperClass.equals(Short.class)) return new Short(num.shortValue());
-				if (targetWrapperClass.equals(Long.class)) return new Long(num.longValue());
-				if (targetWrapperClass.equals(java.math.BigInteger.class)) return java.math.BigInteger.valueOf(num.longValue());
-				if (targetWrapperClass.equals(Float.class)) return new Float(num.floatValue());
-				if (targetWrapperClass.equals(Double.class)) return new Double(num.doubleValue());
-				if (targetWrapperClass.equals(java.math.BigDecimal.class)) return new java.math.BigDecimal(num.doubleValue());
-			}
+		Class targetClass = targetType.getInstanceClass();
+		Number num = (Number) value;
+		Class valClass = value.getClass();
+		Class targetWrapperClass = targetClass;
+		if (targetClass.isPrimitive()) {
+			targetWrapperClass = org.eclipse.emf.ecore.util.EcoreUtil.wrapperClassFor(targetClass);
+		}
+		if (valClass.equals(targetWrapperClass)) {
+			return value;
+		}
+		if (Number.class.isAssignableFrom(targetWrapperClass)) {
+			if (targetWrapperClass.equals(Byte.class)) return new Byte(num.byteValue());
+			if (targetWrapperClass.equals(Integer.class)) return new Integer(num.intValue());
+			if (targetWrapperClass.equals(Short.class)) return new Short(num.shortValue());
+			if (targetWrapperClass.equals(Long.class)) return new Long(num.longValue());
+			if (targetWrapperClass.equals(java.math.BigInteger.class)) return java.math.BigInteger.valueOf(num.longValue());
+			if (targetWrapperClass.equals(Float.class)) return new Float(num.floatValue());
+			if (targetWrapperClass.equals(Double.class)) return new Double(num.doubleValue());
+			if (targetWrapperClass.equals(java.math.BigDecimal.class)) return new java.math.BigDecimal(num.doubleValue());
 		}
 		return value;
 	}	

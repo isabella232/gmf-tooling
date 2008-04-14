@@ -18,7 +18,6 @@
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 
 «EXTENSION xpt::providers::ElementInitializers»
-«EXTENSION xpt::GenModelUtils»
 
 «DEFINE ElementInitializers FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
@@ -79,13 +78,30 @@ public class ElementInitializers {
 «DEFINE performInit(GenCommonBase diagramElement, String instanceVar, GenClass instanceClass, int count) FOR GenFeatureInitializer»«ENDDEFINE»
 
 «DEFINE performInit(GenCommonBase diagramElement, String instanceVar, GenClass instanceClass, int count) FOR GenFeatureValueSpec-»
-«EXPAND initializerExpr(this) FOR diagramElement.getDiagram().editorGen.expressionProviders.getProvider(this)».assignTo(«EXPAND MetaModel::MetaFeature FOR feature», «instanceVar»);
-«REM»
- 	XXX rewriting initializerExpr (unwrapping right here) would help to get rid of extra DeclareAndAssign
- 	though need to consider performCast from assignTo
-«EXPAND MetaModel::DeclareAndAssign("valueX", "expr.evaluate("+instanceVar+")", true) FOR findGenClassifier(feature.genClass.genPackage.genModel, feature.ecoreFeature.eType)»
-«EXPAND MetaModel::setFeatureValue(instanceVar, instanceClass, "valueX") FOR feature»;
-«ENDREM»
+	Object value«count» = «EXPAND initializerExpr(this) FOR diagramElement.getDiagram().editorGen.expressionProviders.getProvider(this)».evaluate(«instanceVar»);
+«IF isListType(feature)-»
+	if (value«count» instanceof java.util.Collection) {
+		«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».clear();
+«IF expressionResultNeedsCast(getTypeGenClassifier(feature))-»
+		for (java.util.Iterator it = ((java.util.Collection) value«count»).iterator(); it.hasNext(); ) {
+			Object next = «diagramElement.getDiagram().editorGen.expressionProviders.abstractExpressionClassName».performCast(it.next(), «EXPAND MetaModel::MetaClass FOR getTypeGenClassifier(feature)»);
+			«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».add(next);
+		}
+«ELSE-»
+		«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».addAll(((java.util.Collection) value«count»));
+«ENDIF-»
+	} else {
+«IF expressionResultNeedsCast(getTypeGenClassifier(feature))-»
+		value«count» = «diagramElement.getDiagram().editorGen.expressionProviders.abstractExpressionClassName».performCast(value«count», «EXPAND MetaModel::MetaClass FOR getTypeGenClassifier(feature)»);
+«ENDIF-»
+		«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».add(value«count»);
+	}
+«ELSE-»
+«IF expressionResultNeedsCast(getTypeGenClassifier(feature))»
+	value«count» = «diagramElement.getDiagram().editorGen.expressionProviders.abstractExpressionClassName».performCast(value«count», «EXPAND MetaModel::MetaClass FOR getTypeGenClassifier(feature)»);
+«ENDIF-»
+	«EXPAND MetaModel::setFeatureValue(instanceVar, instanceClass, "value" + count, true) FOR feature»;
+«ENDIF /*isListType*/-»
 «ENDDEFINE»
 
 «DEFINE performInit(GenCommonBase diagramElement, String instanceVar, GenClass instanceClass, int count) FOR GenReferenceNewElementSpec-»
@@ -96,7 +112,7 @@ public class ElementInitializers {
 «ELSE-»
 «EXPAND MetaModel::setFeatureValue(instanceVar, instanceClass, "newInstance" + count) FOR feature»;
 «ENDIF-»
-«FOREACH newElemInit.initializers AS i»«EXPAND performInit(diagramElement, "newInstance" + count, newElemInit.elementClass, count+100 + newElemInit.initializers.indexOf(i)) FOR i»«ENDFOREACH-»
+«FOREACH newElemInit.initializers AS i»«EXPAND performInit(diagramElement, "newInstance" + count, newElemInit.elementClass, (count+1)*100 + newElemInit.initializers.indexOf(i)) FOR i»«ENDFOREACH-»
 «ENDFOREACH-»
 «ENDDEFINE»
 
@@ -105,9 +121,9 @@ public class ElementInitializers {
 
 «DEFINE initializerExpr(GenFeatureValueSpec valueExpr) FOR GenExpressionProviderBase»«ENDDEFINE»
 
+// XXX perhaps, using instance.eClass() is better option than MetaModel::MetaClass (though, need to rely on instance variable name/type) 
 «DEFINE initializerExpr(GenFeatureValueSpec valueExpr) FOR GenExpressionInterpreter-»
-	«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», «EXPAND MetaModel::MetaClass FOR valueExpr.featureSeqInitializer.elementClass»)
-«ENDDEFINE»
+«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», «EXPAND MetaModel::MetaClass FOR valueExpr.featureSeqInitializer.elementClass»)«ENDDEFINE»
 
 «DEFINE initializerExpr(GenFeatureValueSpec valueExpr) FOR GenJavaExpressionProvider-»
 «LET valueExpr.featureSeqInitializer.elementClass AS exprContext-»
