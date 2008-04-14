@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -250,7 +250,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		return !p.isAbsolute() && !p.segment(0).equals(".."); //$NON-NLS-1$
 	}
 
-	@SuppressWarnings("unchecked")
 	private void generateExpressionProviders() throws UnexpectedBehaviourException, InterruptedException {
 		GenExpressionProviderContainer providerContainer = myEditorGen.getExpressionProviders();
 		internalGenerateJavaClass(
@@ -478,7 +477,6 @@ public class Generator extends GeneratorBase implements Runnable {
 			);
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void generateNavigatorGroupIcons() throws InterruptedException, UnexpectedBehaviourException {
 		Set<String> groupIcons = new HashSet<String>();
 		for (GenNavigatorChildReference nextReference : (List<? extends GenNavigatorChildReference>) myEditorGen.getNavigator().getChildReferences()) {
@@ -495,7 +493,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateBinaryFile(myEmitters.getGroupIconEmitter(), groupIconPath, null);	
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void generatePropertySheetSections() throws UnexpectedBehaviourException, InterruptedException {
 		if (myEditorGen.getPropertySheet().isNeedsCaption()) {
 			doGenerateJavaClass(
