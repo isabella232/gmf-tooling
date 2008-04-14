@@ -123,6 +123,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_METRIC_CONTAINER: return createGenMetricContainer();
 			case GMFGenPackage.GEN_METRIC_RULE: return createGenMetricRule();
 			case GMFGenPackage.GEN_AUDITED_METRIC_TARGET: return createGenAuditedMetricTarget();
+			case GMFGenPackage.GEN_AUDIT_CONTEXT: return createGenAuditContext();
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER: return createGenExpressionProviderContainer();
 			case GMFGenPackage.GEN_JAVA_EXPRESSION_PROVIDER: return createGenJavaExpressionProvider();
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER: return createGenExpressionInterpreter();
@@ -861,6 +862,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenAuditedMetricTarget createGenAuditedMetricTarget() {
 		GenAuditedMetricTargetImpl genAuditedMetricTarget = new GenAuditedMetricTargetImpl();
 		return genAuditedMetricTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenAuditContext createGenAuditContext() {
+		GenAuditContextImpl genAuditContext = new GenAuditContextImpl();
+		return genAuditContext;
 	}
 
 	/**

@@ -761,6 +761,12 @@ public class GMFGenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.GEN_AUDIT_CONTEXT: {
+				GenAuditContext genAuditContext = (GenAuditContext)theEObject;
+				T result = caseGenAuditContext(genAuditContext);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.GEN_MEASURABLE: {
 				GenMeasurable genMeasurable = (GenMeasurable)theEObject;
 				T result = caseGenMeasurable(genMeasurable);
@@ -2300,6 +2306,21 @@ public class GMFGenSwitch<T> {
 	 * @generated
 	 */
 	public T caseGenAuditable(GenAuditable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Audit Context</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Audit Context</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGenAuditContext(GenAuditContext object) {
 		return null;
 	}
 

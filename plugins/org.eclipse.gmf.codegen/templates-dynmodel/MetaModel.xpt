@@ -46,6 +46,7 @@ MetaModelFacility.get«getNameToken(genPackage)»().isInstance(«IF isExternalInter
 «ENDDEFINE»
 
 «DEFINE getFeatureValue(String containerVar, genmodel::GenClass container, boolean needsCastToResultType) FOR genmodel::GenFeature-»
+// ??? FIXME
 «ENDDEFINE»
 
 «DEFINE setFeatureValue(String containerVar, genmodel::GenClass containerClass, String valueVar) FOR genmodel::GenFeature-»
@@ -53,6 +54,9 @@ MetaModelFacility.get«getNameToken(genPackage)»().isInstance(«IF isExternalInter
 ((org.eclipse.emf.ecore.EObject) «containerVar»)«ELSE-»
 «containerVar»«ENDIF-»
 .eSet(«EXPAND MetaFeature», «valueVar»)«ENDDEFINE»
+
+«DEFINE setFeatureValue(String containerVar, genmodel::GenClass containerClass, String valueVar, boolean isPlainObjectValue) FOR genmodel::GenFeature-»
+«EXPAND setFeatureValue(containerVar, containerClass, valueVar)»«ENDDEFINE»
 
 «DEFINE MetaClass FOR genmodel::GenDataType»MetaModelFacility.get«getNameToken(genPackage)»().getEDataType("«ecoreDataType.name»")«ENDDEFINE»
 «DEFINE MetaClass FOR genmodel::GenEnum»MetaModelFacility.get«getNameToken(genPackage)»().getEEnum("«ecoreEnum.name»")«ENDDEFINE»
@@ -78,8 +82,11 @@ org.eclipse.emf.ecore.EObject «assignee» = «value»;«ENDDEFINE»
 «DEFINE DeclareAndAssign(String assignee, String value, boolean isPlainObjectValue) FOR GenClass-»
 org.eclipse.emf.ecore.EObject «assignee» = «IF isPlainObjectValue»(org.eclipse.emf.ecore.EObject)«ENDIF»«value»;«ENDDEFINE»
 
-«DEFINE DeclareAndAssign(String assignee, String value, boolean isPlainObjectValue) FOR GenClassifier-»
-«ENDDEFINE»
+«DEFINE DeclareAndAssign(String assignee, String value, boolean isPlainObjectValue) FOR GenClassifier»NO-OP«ENDDEFINE»
+
+«DEFINE DeclareAndAssign(String assignee, String value, boolean isPlainObjectValue) FOR GenDataType-»
+«EXPAND QualifiedClassName» «assignee» = («EXPAND QualifiedClassName») «value»;«ENDDEFINE»
+
 
 «DEFINE DeclareAndAssignContainer(String assignee, String object, GenClass metaClass) FOR GenClass-»
 org.eclipse.emf.ecore.EObject «assignee» = «IF isExternalInterface(metaClass)»((org.eclipse.emf.ecore.EObject) «object»)«ELSE»«object»«ENDIF».eContainer();«ENDDEFINE»

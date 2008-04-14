@@ -688,6 +688,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass genAuditContextEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass genMeasurableEClass = null;
 
 	/**
@@ -4417,6 +4424,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getGenAuditRoot_ClientContexts() {
+		return (EReference)genAuditRootEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenAuditContainer() {
 		return genAuditContainerEClass;
 	}
@@ -4525,7 +4541,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenAuditRule_ContextSelectorLocalClassName() {
+	public EAttribute getGenAuditRule_Id() {
 		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -4534,17 +4550,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenAuditRule_Id() {
-		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getGenAuditRule_Rule() {
-		return (EReference)genAuditRuleEClass.getEStructuralFeatures().get(3);
+		return (EReference)genAuditRuleEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4553,7 +4560,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditRule_Target() {
-		return (EReference)genAuditRuleEClass.getEStructuralFeatures().get(4);
+		return (EReference)genAuditRuleEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -4562,7 +4569,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenAuditRule_Message() {
-		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -4571,7 +4578,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenAuditRule_Severity() {
-		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(6);
+		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -4580,7 +4587,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenAuditRule_UseInLiveMode() {
-		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(7);
+		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -4589,7 +4596,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenAuditRule_RequiresConstraintAdapter() {
-		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(8);
+		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -4598,7 +4605,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditRule_Category() {
-		return (EReference)genAuditRuleEClass.getEStructuralFeatures().get(9);
+		return (EReference)genAuditRuleEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -4815,6 +4822,60 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenAuditable() {
 		return genAuditableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenAuditable_ContextSelector() {
+		return (EReference)genAuditableEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenAuditContext() {
+		return genAuditContextEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenAuditContext_Root() {
+		return (EReference)genAuditContextEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenAuditContext_Id() {
+		return (EAttribute)genAuditContextEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenAuditContext_ClassName() {
+		return (EAttribute)genAuditContextEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenAuditContext_RuleTargets() {
+		return (EReference)genAuditContextEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -6416,6 +6477,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genAuditRootEClass, GEN_AUDIT_ROOT__EDITOR_GEN);
 		createEReference(genAuditRootEClass, GEN_AUDIT_ROOT__CATEGORIES);
 		createEReference(genAuditRootEClass, GEN_AUDIT_ROOT__RULES);
+		createEReference(genAuditRootEClass, GEN_AUDIT_ROOT__CLIENT_CONTEXTS);
 
 		genAuditContainerEClass = createEClass(GEN_AUDIT_CONTAINER);
 		createEReference(genAuditContainerEClass, GEN_AUDIT_CONTAINER__ROOT);
@@ -6431,7 +6493,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		genAuditRuleEClass = createEClass(GEN_AUDIT_RULE);
 		createEReference(genAuditRuleEClass, GEN_AUDIT_RULE__ROOT);
-		createEAttribute(genAuditRuleEClass, GEN_AUDIT_RULE__CONTEXT_SELECTOR_LOCAL_CLASS_NAME);
 		createEAttribute(genAuditRuleEClass, GEN_AUDIT_RULE__ID);
 		createEReference(genAuditRuleEClass, GEN_AUDIT_RULE__RULE);
 		createEReference(genAuditRuleEClass, GEN_AUDIT_RULE__TARGET);
@@ -6473,6 +6534,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genAuditedMetricTargetEClass, GEN_AUDITED_METRIC_TARGET__METRIC_VALUE_CONTEXT);
 
 		genAuditableEClass = createEClass(GEN_AUDITABLE);
+		createEReference(genAuditableEClass, GEN_AUDITABLE__CONTEXT_SELECTOR);
+
+		genAuditContextEClass = createEClass(GEN_AUDIT_CONTEXT);
+		createEReference(genAuditContextEClass, GEN_AUDIT_CONTEXT__ROOT);
+		createEAttribute(genAuditContextEClass, GEN_AUDIT_CONTEXT__ID);
+		createEAttribute(genAuditContextEClass, GEN_AUDIT_CONTEXT__CLASS_NAME);
+		createEReference(genAuditContextEClass, GEN_AUDIT_CONTEXT__RULE_TARGETS);
 
 		genMeasurableEClass = createEClass(GEN_MEASURABLE);
 
@@ -7403,6 +7471,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenAuditRoot_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Audits(), "editorGen", null, 1, 1, GenAuditRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenAuditRoot_Categories(), this.getGenAuditContainer(), this.getGenAuditContainer_Root(), "categories", null, 0, -1, GenAuditRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenAuditRoot_Rules(), this.getGenAuditRule(), this.getGenAuditRule_Root(), "rules", null, 0, -1, GenAuditRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenAuditRoot_ClientContexts(), this.getGenAuditContext(), this.getGenAuditContext_Root(), "clientContexts", null, 0, -1, GenAuditRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genAuditContainerEClass, GenAuditContainer.class, "GenAuditContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenAuditContainer_Root(), this.getGenAuditRoot(), this.getGenAuditRoot_Categories(), "root", null, 1, 1, GenAuditContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7418,7 +7487,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(genAuditRuleEClass, GenAuditRule.class, "GenAuditRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenAuditRule_Root(), this.getGenAuditRoot(), this.getGenAuditRoot_Rules(), "root", null, 1, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenAuditRule_ContextSelectorLocalClassName(), ecorePackage.getEString(), "contextSelectorLocalClassName", null, 0, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenAuditRule_Id(), ecorePackage.getEString(), "id", null, 1, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenAuditRule_Rule(), this.getGenConstraint(), null, "rule", null, 1, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenAuditRule_Target(), this.getGenAuditable(), null, "target", null, 1, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7427,10 +7495,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenAuditRule_UseInLiveMode(), ecorePackage.getEBoolean(), "useInLiveMode", "false", 0, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenAuditRule_RequiresConstraintAdapter(), ecorePackage.getEBoolean(), "requiresConstraintAdapter", null, 0, 1, GenAuditRule.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getGenAuditRule_Category(), this.getGenAuditContainer(), this.getGenAuditContainer_Audits(), "category", null, 1, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genAuditRuleEClass, ecorePackage.getEString(), "getContextSelectorClassName", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genAuditRuleEClass, ecorePackage.getEString(), "getContextSelectorQualifiedClassName", 1, 1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(genAuditRuleEClass, ecorePackage.getEString(), "getConstraintAdapterQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -7470,12 +7534,19 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenAuditedMetricTarget_MetricValueContext(), theGenModelPackage.getGenDataType(), null, "metricValueContext", null, 1, 1, GenAuditedMetricTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genAuditableEClass, GenAuditable.class, "GenAuditable", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		addEOperation(genAuditableEClass, ecorePackage.getEString(), "getClientContextID", 1, 1, IS_UNIQUE, IS_ORDERED);
+		initEReference(getGenAuditable_ContextSelector(), this.getGenAuditContext(), this.getGenAuditContext_RuleTargets(), "contextSelector", null, 0, 1, GenAuditable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genAuditableEClass, theGenModelPackage.getGenClass(), "getTargetClass", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(genAuditableEClass, ecorePackage.getEString(), "getTargetClassModelQualifiedName", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(genAuditContextEClass, GenAuditContext.class, "GenAuditContext", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenAuditContext_Root(), this.getGenAuditRoot(), this.getGenAuditRoot_ClientContexts(), "root", null, 1, 1, GenAuditContext.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenAuditContext_Id(), ecorePackage.getEString(), "id", "DefaultCtx", 1, 1, GenAuditContext.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenAuditContext_ClassName(), ecorePackage.getEString(), "className", null, 1, 1, GenAuditContext.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenAuditContext_RuleTargets(), this.getGenAuditable(), this.getGenAuditable_ContextSelector(), "ruleTargets", null, 0, -1, GenAuditContext.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(genAuditContextEClass, ecorePackage.getEString(), "getQualifiedClassName", 1, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(genMeasurableEClass, GenMeasurable.class, "GenMeasurable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -7833,7 +7904,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																																																				
+		   });																																																																																																																																																																																																																																							
 	}
 
 	/**
@@ -8059,7 +8130,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not key.oclIsUndefined() implies container.metrics->one(i | i.key = self.key)",
 			 "description", "Metric rule with the same \'key\' already exists"
-		   });																												
+		   });																															
 		addAnnotation
 		  (getGenSharedContributionItem_ActualItem(), 
 		   source, 
@@ -8082,7 +8153,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "documentation", "LinkCreationConstants should be generated if diagram has any links"
-		   });																																																																																																																																																																																																														
+		   });																																																																																																																																																																																																																	
 	}
 
 	/**
@@ -8194,7 +8265,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "type",
 			 "ocl", "\'ecore::EDoubleObject\'"
-		   });																														
+		   });																																	
 	}
 
 } //GMFGenPackageImpl

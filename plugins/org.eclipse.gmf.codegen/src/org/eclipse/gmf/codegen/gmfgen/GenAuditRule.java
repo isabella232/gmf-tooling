@@ -21,7 +21,6 @@ package org.eclipse.gmf.codegen.gmfgen;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getRoot <em>Root</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getContextSelectorLocalClassName <em>Context Selector Local Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getRule <em>Rule</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getTarget <em>Target</em>}</li>
@@ -270,44 +269,6 @@ public interface GenAuditRule extends GenRuleBase {
 	 * @generated
 	 */
 	void setCategory(GenAuditContainer value);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation" required="true"
-	 * @generated
-	 */
-	String getContextSelectorClassName();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation" required="true"
-	 * @generated
-	 */
-	String getContextSelectorQualifiedClassName();
-
-	/**
-	 * Returns the value of the '<em><b>Context Selector Local Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Context Selector Local Class Name</em>' attribute.
-	 * @see #setContextSelectorLocalClassName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRule_ContextSelectorLocalClassName()
-	 * @model
-	 * @generated
-	 */
-	String getContextSelectorLocalClassName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getContextSelectorLocalClassName <em>Context Selector Local Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Context Selector Local Class Name</em>' attribute.
-	 * @see #getContextSelectorLocalClassName()
-	 * @generated
-	 */
-	void setContextSelectorLocalClassName(String value);
 
 	/**
 	 * <!-- begin-user-doc -->

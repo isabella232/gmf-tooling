@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRoot#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRoot#getCategories <em>Categories</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRoot#getRules <em>Rules</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRoot#getClientContexts <em>Client Contexts</em>}</li>
  * </ul>
  * </p>
  *
@@ -84,6 +85,24 @@ public interface GenAuditRoot extends EObject {
 	 * @generated
 	 */
 	EList<GenAuditRule> getRules();
+
+	/**
+	 * Returns the value of the '<em><b>Client Contexts</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenAuditContext}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContext#getRoot <em>Root</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Client Contexts</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Client Contexts</em>' containment reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRoot_ClientContexts()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditContext#getRoot
+	 * @model opposite="root" containment="true"
+	 * @generated
+	 */
+	EList<GenAuditContext> getClientContexts();
 
 	List<GenPackage> getTargetedModelPackages();
 } // GenAuditRoot

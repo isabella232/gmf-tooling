@@ -73,6 +73,11 @@ genmodel::GenClass getTypeGenClassX(genmodel::GenFeature feature) :
 JAVA org.eclipse.gmf.internal.codegen.util.GenModelUtils.getTypeGenClass(org.eclipse.emf.codegen.ecore.genmodel.GenFeature)
 ;
 
+// GenFeature#getTypeGenClassifier()
+genmodel::GenClassifier getTypeGenClassifier(genmodel::GenFeature feature) :
+	findGenClassifier(feature.genClass.genPackage.genModel, feature.ecoreFeature.eType)
+;
+
 // FIXME: for models loaded from generated package (e.g. gmf tests often
 // refer to EClass/EOperation directly from EcorePackage) instanceClassName
 // is always set and thus all metamodel types are treated as external interfaces,
@@ -87,6 +92,10 @@ boolean isExternalInterface(genmodel::GenClass genClass) :
 // GenFeatureImpl#isContains
 boolean isContains(genmodel::GenFeature gf) :
 	isReferenceType(gf) && ((ecore::EReference) gf.ecoreFeature).containment
+;
+
+boolean isPrimitiveType(genmodel::GenFeature gf) :
+	{"boolean", "byte", "char", "double", "float", "int", "long", "short"}.contains(gf.ecoreFeature.eType.instanceClassName)
 ;
 
 private boolean isReferenceType(genmodel::GenFeature gf) :

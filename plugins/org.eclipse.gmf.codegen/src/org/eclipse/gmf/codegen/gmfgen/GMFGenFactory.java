@@ -575,6 +575,15 @@ public interface GMFGenFactory extends EFactory {
 	GenAuditedMetricTarget createGenAuditedMetricTarget();
 
 	/**
+	 * Returns a new object of class '<em>Gen Audit Context</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Audit Context</em>'.
+	 * @generated
+	 */
+	GenAuditContext createGenAuditContext();
+
+	/**
 	 * Returns a new object of class '<em>Gen Expression Provider Container</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContext;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -37,6 +38,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRootImpl#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRootImpl#getCategories <em>Categories</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRootImpl#getRules <em>Rules</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRootImpl#getClientContexts <em>Client Contexts</em>}</li>
  * </ul>
  * </p>
  *
@@ -62,6 +64,16 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * @ordered
 	 */
 	protected EList<GenAuditRule> rules;
+
+	/**
+	 * The cached value of the '{@link #getClientContexts() <em>Client Contexts</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getClientContexts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<GenAuditContext> clientContexts;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -152,6 +164,18 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<GenAuditContext> getClientContexts() {
+		if (clientContexts == null) {
+			clientContexts = new EObjectContainmentWithInverseEList<GenAuditContext>(GenAuditContext.class, this, GMFGenPackage.GEN_AUDIT_ROOT__CLIENT_CONTEXTS, GMFGenPackage.GEN_AUDIT_CONTEXT__ROOT);
+		}
+		return clientContexts;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -164,6 +188,8 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getCategories()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_AUDIT_ROOT__RULES:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getRules()).basicAdd(otherEnd, msgs);
+			case GMFGenPackage.GEN_AUDIT_ROOT__CLIENT_CONTEXTS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getClientContexts()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -182,6 +208,8 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 				return ((InternalEList<?>)getCategories()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_AUDIT_ROOT__RULES:
 				return ((InternalEList<?>)getRules()).basicRemove(otherEnd, msgs);
+			case GMFGenPackage.GEN_AUDIT_ROOT__CLIENT_CONTEXTS:
+				return ((InternalEList<?>)getClientContexts()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -214,6 +242,8 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 				return getCategories();
 			case GMFGenPackage.GEN_AUDIT_ROOT__RULES:
 				return getRules();
+			case GMFGenPackage.GEN_AUDIT_ROOT__CLIENT_CONTEXTS:
+				return getClientContexts();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -238,6 +268,10 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 				getRules().clear();
 				getRules().addAll((Collection<? extends GenAuditRule>)newValue);
 				return;
+			case GMFGenPackage.GEN_AUDIT_ROOT__CLIENT_CONTEXTS:
+				getClientContexts().clear();
+				getClientContexts().addAll((Collection<? extends GenAuditContext>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -259,6 +293,9 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 			case GMFGenPackage.GEN_AUDIT_ROOT__RULES:
 				getRules().clear();
 				return;
+			case GMFGenPackage.GEN_AUDIT_ROOT__CLIENT_CONTEXTS:
+				getClientContexts().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -277,6 +314,8 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 				return categories != null && !categories.isEmpty();
 			case GMFGenPackage.GEN_AUDIT_ROOT__RULES:
 				return rules != null && !rules.isEmpty();
+			case GMFGenPackage.GEN_AUDIT_ROOT__CLIENT_CONTEXTS:
+				return clientContexts != null && !clientContexts.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

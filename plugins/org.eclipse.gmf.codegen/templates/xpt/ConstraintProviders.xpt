@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,6 +18,15 @@
 «ENDDEFINE»
 
 «DEFINE extensions FOR gmfgen::GenAuditRoot-»
+«EXPAND extensions_emfv_constraintProviders»
+«EXPAND extensions_emfv_constraintBindings»
+«EXPAND extensions_emfv_uiContexts»
+«ENDDEFINE»
+
+//
+// Extension point: org.eclipse.emf.validation.constraintProviders
+//
+«DEFINE extensions_emfv_constraintProviders FOR GenAuditRoot-»
    <extension point="org.eclipse.emf.validation.constraintProviders">
       «EXPAND xpt::Common::xmlGeneratedTag»
       «EXPAND declareCategory FOREACH categories-»
@@ -28,28 +37,38 @@
       «EXPAND defineCategory FOREACH categories-»
       </constraintProvider>
    </extension>
+«ENDDEFINE»
 
+//
+// Extension point: org.eclipse.emf.validation.constraintBindings
+//
+«DEFINE extensions_emfv_constraintBindings FOR GenAuditRoot-»
    <extension point="org.eclipse.emf.validation.constraintBindings">
       «EXPAND xpt::Common::xmlGeneratedTag»
-      «LET getAllRulesWithTargetAndContextID() AS rules-»
-      «FOREACH rules.collect(r | r.target.getClientContextID()).toSet() AS ctxId-»
-      <clientContext default="false" id="«editorGen.plugin.iD».«ctxId»">
-         <selector class="«rules.select(r | r.target.getClientContextID() == ctxId).getContextSelectorQualifiedClassName().first()»"/>
+«FOREACH clientContexts AS ctx-»
+      <clientContext default="false" id="«getQualifiedIdentity(ctx)»">
+         <selector class="«ctx.getQualifiedClassName()»"/>
       </clientContext>
-      <binding context="«editorGen.plugin.iD».«ctxId»">
-         «FOREACH rules.select(r | r.target.getClientContextID() == ctxId) AS rule-»
+      <binding context="«getQualifiedIdentity(ctx)»">
+         «FOREACH rules.select(r | r.target != null && r.target.contextSelector == ctx) /*alternative: ctx.ruleTargets.contains(r.target)*/ AS rule-»
          <constraint ref="«editorGen.plugin.iD».«escapeXML(rule.id)»"/>
          «ENDFOREACH-»
       </binding>
-      «ENDFOREACH-»
-      «ENDLET-»
+
+«ENDFOREACH-»
    </extension>
+«ENDDEFINE»
+
+//
+// Extension point: org.eclipse.emf.validation.ui.UIRegisteredClientContext
+//
+«DEFINE extensions_emfv_uiContexts FOR GenAuditRoot-»
 «IF editorGen.diagram.liveValidationUIFeedback»
    <extension point="org.eclipse.emf.validation.ui.UIRegisteredClientContext">
       «EXPAND xpt::Common::xmlGeneratedTag»
-      «FOREACH getAllRulesWithTargetAndContextID().collect(r | r.target.getClientContextID()).toSet() AS ctxId»
-      <clientContext id="«editorGen.plugin.iD».«ctxId»"/>
-      «ENDFOREACH-»
+«FOREACH clientContexts AS ctx-»
+      <clientContext id="«getQualifiedIdentity(ctx)»"/>
+«ENDFOREACH-»
    </extension>
 «ENDIF-»
 «ENDDEFINE»

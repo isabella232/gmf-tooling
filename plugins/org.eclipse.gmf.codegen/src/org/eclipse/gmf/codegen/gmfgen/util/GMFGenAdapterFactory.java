@@ -445,6 +445,10 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 				return createGenAuditableAdapter();
 			}
 			@Override
+			public Adapter caseGenAuditContext(GenAuditContext object) {
+				return createGenAuditContextAdapter();
+			}
+			@Override
 			public Adapter caseGenMeasurable(GenMeasurable object) {
 				return createGenMeasurableAdapter();
 			}
@@ -1839,6 +1843,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenAuditableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContext <em>Gen Audit Context</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditContext
+	 * @generated
+	 */
+	public Adapter createGenAuditContextAdapter() {
 		return null;
 	}
 

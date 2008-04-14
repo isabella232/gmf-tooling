@@ -8,12 +8,16 @@
  *
  * Contributors:
  *    Dmitry Stadnik (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) - introduced GenAuditContext entity
  */
 
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION xpt::EMFUtils»
+«EXTENSION xpt::GenAuditRoot»
+
 
 «DEFINE ValidationProvider FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
@@ -23,13 +27,11 @@ package «providersPackageName»;
 public class «validationProviderClassName»
 		extends org.eclipse.gmf.runtime.common.ui.services.action.contributionitem.AbstractContributionItemProvider {
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	private static boolean constraintsActive = false;
+	«EXPAND constraintsActive-»
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static boolean shouldConstraintsBePrivate() {
-		return false;
-	}
+	«EXPAND shouldConstraintsBePrivate-»
+
+	«EXPAND runWithActiveConstraints-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.jface.action.IAction createAction(String actionId,
@@ -40,50 +42,120 @@ public class «validationProviderClassName»
 		return super.createAction(actionId, partDescriptor);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static void runWithConstraints(org.eclipse.gmf.runtime.notation.View view, Runnable op) {
-		final Runnable fop = op;
-		Runnable task = new Runnable() {
 
-			public void run() {
-				try {
-					constraintsActive = true;
-					fop.run();
-				} finally {
-					constraintsActive = false;
-				}
-			}
-		};
-		org.eclipse.emf.transaction.TransactionalEditingDomain txDomain =
-				org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(view);
-		if (txDomain != null) {
+	«EXPAND isInDefaultEditorContext-»
+
+«EXPAND selectors FOR editorGen.audits-»
+
+«EXPAND strategy_support»
+
+«IF editorGen.expressionProviders != null-»
+		«EXPAND constraintAdapters(this) FOR editorGen.audits-»
+«ENDIF-»
+«IF editorGen.audits != null && editorGen.expressionProviders != null-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+static class JavaAudits {
+	«FOREACH editorGen.audits.rules AS rule-»
+		«IF rule.rule != null && rule.target != null && rule.target.getContext() != null-»
+			«EXPAND javaInitializer(rule.rule, rule.target.getContext(), null) FOR editorGen.expressionProviders.getProvider(rule.rule)-»
+		«ENDIF-»
+	«ENDFOREACH-»
+}
+«ENDIF-»
+«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE constraintsActive FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment»
+private static boolean constraintsActive = false;	
+«ENDDEFINE»
+
+«DEFINE shouldConstraintsBePrivate FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment»
+public static boolean shouldConstraintsBePrivate() {
+	return false;
+}
+«ENDDEFINE»
+
+«DEFINE runWithActiveConstraints FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment»
+public static void runWithConstraints(org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain, Runnable operation) {
+	final Runnable op = operation;
+	Runnable task = new Runnable() {
+		public void run() {
 			try {
-				txDomain.runExclusive(task);
-			} catch (Exception e) {
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-						"Validation action failed", e); //$NON-NLS-1$
+				constraintsActive = true;
+				op.run();
+			} finally {
+				constraintsActive = false;
 			}
-		} else {
-			task.run();
 		}
+	};
+	if(editingDomain != null) {
+		try {
+			editingDomain.runExclusive(task);
+		} catch (Exception e) {
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Validation failed", e); «EXPAND xpt::Common::nonNLS»
+		}
+	} else {
+		task.run();
 	}
+}
+«ENDDEFINE»
 
+
+«DEFINE javaInitializer(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context, genmodel::GenClassifier oppositeEndContext) FOR GenExpressionProviderBase-»
+«ENDDEFINE»
+
+«DEFINE javaInitializer(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context, genmodel::GenClassifier oppositeEndContext) FOR GenJavaExpressionProvider-»
+	«EXPAND xpt::expressions::javaExpressionOperation::javaExpressionOperation(valueExpr, context, oppositeEndContext)-»
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+
+«DEFINE selectors FOR GenAuditRoot-»
+«FOREACH clientContexts AS ctx»
 	«EXPAND xpt::Common::generatedMemberComment»
-	static boolean isInDefaultEditorContext(Object object) {
-		if (shouldConstraintsBePrivate() && !constraintsActive) {
+	public static class «ctx.className» implements org.eclipse.emf.validation.model.IClientSelector {
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public boolean selects(Object object) {
+«IF ctx.ruleTargets.typeSelect(GenDiagramElementTarget).size() > 0 -»
+			if (isInDefaultEditorContext(object) && object instanceof org.eclipse.gmf.runtime.notation.View) {
+				final int id = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR editorGen.diagram»((org.eclipse.gmf.runtime.notation.View) object);
+				boolean result = false;
+«FOREACH getTargetDiagramElements(ctx) AS e-»
+				result = result || id == «EXPAND xpt::editor::VisualIDRegistry::visualID FOR e»;
+«ENDFOREACH-»
+				return result;
+			}
 			return false;
+«ELSE-»
+			return isInDefaultEditorContext(object);
+«ENDIF-»
 		}
-		if (object instanceof org.eclipse.gmf.runtime.notation.View) {
-			return constraintsActive && «getEditPartQualifiedClassName()».MODEL_ID.equals(
-					«getVisualIDRegistryQualifiedClassName()».getModelID((org.eclipse.gmf.runtime.notation.View) object));
-		}
-		return true;
 	}
+«ENDFOREACH-»
+«ENDDEFINE»
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	static final java.util.Map semanticCtxIdMap = new java.util.HashMap();
-	«EXPAND selectors FOR editorGen.audits-»
+«DEFINE isInDefaultEditorContext FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment»
+static boolean isInDefaultEditorContext(Object object) {
+	if(shouldConstraintsBePrivate() && !constraintsActive) {
+		return false;
+	}
+	if (object instanceof org.eclipse.gmf.runtime.notation.View) {
+		return constraintsActive && «EXPAND xpt::editor::VisualIDRegistry::modelID».equals(«EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall»((org.eclipse.gmf.runtime.notation.View) object));
+	}
+	return true;
+}
+«ENDDEFINE»
 
+
+«DEFINE strategy_support FOR GenDiagram-»
+«IF hasDiagramElementTargetRule(editorGen.audits)-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static org.eclipse.emf.validation.service.ITraversalStrategy getNotationTraversalStrategy(
 			org.eclipse.emf.validation.service.IBatchValidator validator) {
@@ -97,7 +169,7 @@ public class «validationProviderClassName»
 		private org.eclipse.emf.validation.service.ITraversalStrategy defaultStrategy;
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private String currentSemanticCtxId;
+		private int currentSemanticCtxId = -1;
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		private boolean ctxChanged = true;
@@ -109,8 +181,15 @@ public class «validationProviderClassName»
 		private org.eclipse.emf.ecore.EObject preFetchedNextTarget;
 
 		«EXPAND xpt::Common::generatedMemberComment»
+		private final int[] contextSwitchingIdentifiers;
+
+		«EXPAND xpt::Common::generatedMemberComment»
 		CtxSwitchStrategy(org.eclipse.emf.validation.service.IBatchValidator validator) {
 			this.defaultStrategy = validator.getDefaultTraversalStrategy();
+			this.contextSwitchingIdentifiers = new int[] {
+				«EXPAND xpt::editor::VisualIDRegistry::visualID FOREACH getAllTargetDiagramElements(editorGen.audits) SEPARATOR ","»
+			};
+			java.util.Arrays.sort(this.contextSwitchingIdentifiers);
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
@@ -144,8 +223,7 @@ public class «validationProviderClassName»
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		public void startTraversal(java.util.Collection traversalRoots,
-				org.eclipse.core.runtime.IProgressMonitor monitor) {
+		public void startTraversal(java.util.Collection traversalRoots,	org.eclipse.core.runtime.IProgressMonitor monitor) {
 			defaultStrategy.startTraversal(traversalRoots, monitor);
 		}
 
@@ -153,92 +231,26 @@ public class «validationProviderClassName»
 		private void prepareNextClientContext(org.eclipse.emf.ecore.EObject nextTarget) { 
 			if (nextTarget != null && currentTarget != null) {
 				if (nextTarget instanceof org.eclipse.gmf.runtime.notation.View) {
-					String id = ((org.eclipse.gmf.runtime.notation.View) nextTarget).getType();
-					String nextSemanticId = id != null && semanticCtxIdMap.containsKey(id) ? id : null;
-					if ((currentSemanticCtxId != null && !currentSemanticCtxId.equals(nextSemanticId))
-							|| (nextSemanticId != null && !nextSemanticId.equals(currentSemanticCtxId))) {
+					final int id = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR editorGen.diagram»((org.eclipse.gmf.runtime.notation.View) nextTarget);
+					int nextSemanticId = (id != -1 && java.util.Arrays.binarySearch(contextSwitchingIdentifiers, id) >= 0) ? id : -1;
+					if ((currentSemanticCtxId != -1 && currentSemanticCtxId != nextSemanticId)
+							|| (nextSemanticId != -1 && nextSemanticId != currentSemanticCtxId)) {
 						this.ctxChanged = true;
-					}
+					}«/*[artem] not sure why not ctxChanged = <expr>, is it intentional not to reset ctxChanged if condition did not match? I doubt. FIXME?*/»
 					currentSemanticCtxId = nextSemanticId;
 				} else {
 					// context of domain model
-					this.ctxChanged = currentSemanticCtxId != null;
-					currentSemanticCtxId = null;
+					this.ctxChanged = currentSemanticCtxId != -1;
+					currentSemanticCtxId = -1;
 				}
 			} else {
 				this.ctxChanged = false;
 			}
 		}
 	}
-	«IF editorGen.expressionProviders != null-»
-		«EXPAND constraintAdapters(this) FOR editorGen.audits-»
-	«ENDIF-»
-	«IF editorGen.audits != null && editorGen.expressionProviders != null-»
-
-	«EXPAND xpt::Common::generatedMemberComment»
-static class JavaAudits {
-	«FOREACH editorGen.audits.rules AS rule-»
-		«IF rule.rule != null && rule.target != null && rule.target.getContext() != null-»
-			«EXPAND javaInitializer(rule.rule, rule.target.getContext(), null) FOR editorGen.expressionProviders.getProvider(rule.rule)-»
-		«ENDIF-»
-	«ENDFOREACH-»
-}
-	«ENDIF-»
-	«EXPAND additions-»
-}
+«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE javaInitializer(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context, genmodel::GenClassifier oppositeEndContext) FOR GenExpressionProviderBase-»
-«ENDDEFINE»
-
-«DEFINE javaInitializer(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context, genmodel::GenClassifier oppositeEndContext) FOR GenJavaExpressionProvider-»
-	«EXPAND xpt::expressions::javaExpressionOperation::javaExpressionOperation(valueExpr, context, oppositeEndContext)-»
-«ENDDEFINE»
-
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
-
-«DEFINE selectors FOR GenAuditRoot-»
-	«FOREACH rules AS rule-»
-		«IF null != rule.target && null != rule.target.getClientContextID()-»
-			«EXPAND selector FOR rule-»
-		«ENDIF-»
-	«ENDFOREACH-»
-«ENDDEFINE»
-
-«DEFINE selector FOR GenAuditRule-»
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static class «contextSelectorLocalClassName» implements org.eclipse.emf.validation.model.IClientSelector {
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		public boolean selects(Object object) {
-		«IF { target }.typeSelect(GenDiagramElementTarget).size() > 0 -»
-			if (isInDefaultEditorContext(object) && object instanceof org.eclipse.gmf.runtime.notation.View) {
-				String id = ((org.eclipse.gmf.runtime.notation.View) object).getType();
-				return id != null && semanticCtxIdMap.get(id) == «contextSelectorLocalClassName».class;
-			}
-			return false;
-		«ELSE-»
-			return isInDefaultEditorContext(object);
-		«ENDIF-»
-		}
-	}
-	«EXPAND contexts(this) FOR target-»
-«ENDDEFINE»
-
-«DEFINE contexts(GenAuditRule rule) FOR GenAuditable-»
-«ENDDEFINE»
-
-«DEFINE contexts(GenAuditRule rule) FOR GenDiagramElementTarget-»
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	static {
-	«FOREACH element AS element-»
-		semanticCtxIdMap.put(String.valueOf(«element.getEditPartQualifiedClassName()».VISUAL_ID),
-				«rule.contextSelectorLocalClassName».class); //$NON-NLS-1$
-	«ENDFOREACH-»
-	}
-«ENDDEFINE»
 
 «DEFINE constraintAdapters(GenDiagram diagram) FOR GenAuditRoot-»
 	«FOREACH rules AS rule-»

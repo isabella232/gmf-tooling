@@ -30,7 +30,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getRoot <em>Root</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getContextSelectorLocalClassName <em>Context Selector Local Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getRule <em>Rule</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getTarget <em>Target</em>}</li>
@@ -45,26 +44,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
  * @generated
  */
 public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
-	/**
-	 * The default value of the '{@link #getContextSelectorLocalClassName() <em>Context Selector Local Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContextSelectorLocalClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String CONTEXT_SELECTOR_LOCAL_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getContextSelectorLocalClassName() <em>Context Selector Local Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContextSelectorLocalClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String contextSelectorLocalClassName = CONTEXT_SELECTOR_LOCAL_CLASS_NAME_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -420,65 +399,6 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String getContextSelectorClassName() {
-		if(getTarget() == null || getDiagram() == null) {
-			return null;
-		}
-		return getDiagram().getValidationProviderClassName() + "$" + getContextSelectorLocalClassName(); //$NON-NLS-1$  
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public String getContextSelectorQualifiedClassName() {
-		if(getTarget() == null || getDiagram() == null) {
-			return null;
-		}
-		return getDiagram().getValidationProviderQualifiedClassName() + "$" + getContextSelectorLocalClassName(); //$NON-NLS-1$ 
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getContextSelectorLocalClassNameGen() {
-		return contextSelectorLocalClassName;
-	}
-
-	/**
-	 * @generated NOT
-	 */
-	public String getContextSelectorLocalClassName() {
-		if (getContextSelectorLocalClassNameGen() != null) {
-			return getContextSelectorLocalClassNameGen();
-		}
-		String name = "NoCtx"; //$NON-NLS-1$
-		if (getTarget() != null) {
-			name = getTarget().getClientContextID(); 
-		}
-		return name + (getRoot().getRules().indexOf(this) + 1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setContextSelectorLocalClassName(String newContextSelectorLocalClassName) {
-		String oldContextSelectorLocalClassName = contextSelectorLocalClassName;
-		contextSelectorLocalClassName = newContextSelectorLocalClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_AUDIT_RULE__CONTEXT_SELECTOR_LOCAL_CLASS_NAME, oldContextSelectorLocalClassName, contextSelectorLocalClassName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
 	public String getConstraintAdapterClassName() {
 		if(getDiagram() == null || getConstraintAdapterLocalClassName() == null) {
 			return null;
@@ -654,8 +574,6 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_RULE__ROOT:
 				return getRoot();
-			case GMFGenPackage.GEN_AUDIT_RULE__CONTEXT_SELECTOR_LOCAL_CLASS_NAME:
-				return getContextSelectorLocalClassName();
 			case GMFGenPackage.GEN_AUDIT_RULE__ID:
 				return getId();
 			case GMFGenPackage.GEN_AUDIT_RULE__RULE:
@@ -687,9 +605,6 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_RULE__ROOT:
 				setRoot((GenAuditRoot)newValue);
-				return;
-			case GMFGenPackage.GEN_AUDIT_RULE__CONTEXT_SELECTOR_LOCAL_CLASS_NAME:
-				setContextSelectorLocalClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_AUDIT_RULE__ID:
 				setId((String)newValue);
@@ -727,9 +642,6 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 			case GMFGenPackage.GEN_AUDIT_RULE__ROOT:
 				setRoot((GenAuditRoot)null);
 				return;
-			case GMFGenPackage.GEN_AUDIT_RULE__CONTEXT_SELECTOR_LOCAL_CLASS_NAME:
-				setContextSelectorLocalClassName(CONTEXT_SELECTOR_LOCAL_CLASS_NAME_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_AUDIT_RULE__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -765,8 +677,6 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_RULE__ROOT:
 				return getRoot() != null;
-			case GMFGenPackage.GEN_AUDIT_RULE__CONTEXT_SELECTOR_LOCAL_CLASS_NAME:
-				return CONTEXT_SELECTOR_LOCAL_CLASS_NAME_EDEFAULT == null ? contextSelectorLocalClassName != null : !CONTEXT_SELECTOR_LOCAL_CLASS_NAME_EDEFAULT.equals(contextSelectorLocalClassName);
 			case GMFGenPackage.GEN_AUDIT_RULE__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case GMFGenPackage.GEN_AUDIT_RULE__RULE:
@@ -797,9 +707,7 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (contextSelectorLocalClassName: ");
-		result.append(contextSelectorLocalClassName);
-		result.append(", id: ");
+		result.append(" (id: ");
 		result.append(id);
 		result.append(", message: ");
 		result.append(message);

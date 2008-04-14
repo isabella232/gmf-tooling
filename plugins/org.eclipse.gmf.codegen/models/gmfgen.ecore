@@ -1499,6 +1499,8 @@
         eType="#//GenAuditContainer" containment="true" eOpposite="#//GenAuditContainer/root"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
         eType="#//GenAuditRule" containment="true" eOpposite="#//GenAuditRule/root"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="clientContexts" upperBound="-1"
+        eType="#//GenAuditContext" containment="true" eOpposite="#//GenAuditContext/root"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenAuditContainer">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1553,8 +1555,6 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Auditing rule in the form of a constraint evaluated against its target"/>
     </eAnnotations>
-    <eOperations name="getContextSelectorClassName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getContextSelectorQualifiedClassName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getConstraintAdapterQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getConstraintAdapterLocalClassName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="root" lowerBound="1" eType="#//GenAuditRoot"
@@ -1563,8 +1563,6 @@
         <details key="suppressedSetVisibility" value="true"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="contextSelectorLocalClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Unique identifier of this audit rule"/>
@@ -1756,11 +1754,6 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Target suitable for auditing"/>
     </eAnnotations>
-    <eOperations name="getClientContextID" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Gets identifier of the validation client context for this target. It's guaranteed as a valid java identifier."/>
-      </eAnnotations>
-    </eOperations>
     <eOperations name="getTargetClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Gets the validation target class in terms of EMFT validation framework."/>
@@ -1771,6 +1764,34 @@
         <details key="documentation" value="Consists of ecore meta-model only package names and target class simple name"/>
       </eAnnotations>
     </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contextSelector" eType="#//GenAuditContext"
+        eOpposite="#//GenAuditContext/ruleTargets">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="To apply audit to this target, we need to select appropriate input, and here's selector that helps with that"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenAuditContext">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value=""/>
+    </eAnnotations>
+    <eOperations name="getQualifiedClassName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="root" lowerBound="1" eType="#//GenAuditRoot"
+        resolveProxies="false" eOpposite="#//GenAuditRoot/clientContexts"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="DefaultCtx">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Identifier of the validation client context for this target. Should be a valid java identifier. Identifier will be qualified automatically (i.e. should be unique within this editor only)."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Unless explicitly set, equals to 'id'. Note, this class may get generated as inner class."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ruleTargets" upperBound="-1"
+        eType="#//GenAuditable" eOpposite="#//GenAuditable/contextSelector"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenMeasurable" abstract="true" interface="true"
       eSuperTypes="#//GenRuleTarget">
