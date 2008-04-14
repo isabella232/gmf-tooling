@@ -51,6 +51,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContext;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
@@ -1040,12 +1041,13 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		GenAuditRoot audits = genDiagram.getEditorGen().getAudits();
 		assertTrue("Need AuditRoot instance with rules to check handcoded methods", audits != null && audits.getRules().size() > 0);
 		Set<String> checkedContexts = new HashSet<String>();
-		for (GenAuditRule nextAudit : audits.getRules()) {
-			if (!checkedContexts.contains(nextAudit.getContextSelectorQualifiedClassName())) {
-				checkClassName(state, "GenAuditRule:ContextSelector", nextAudit.getContextSelectorClassName(), nextAudit.getContextSelectorQualifiedClassName());
-				checkedContexts.add(nextAudit.getContextSelectorQualifiedClassName());
-				checkClassName(state, "GenAuditRule:ContextSelectorLocal", nextAudit.getContextSelectorLocalClassName(), nextAudit.getContextSelectorClassName());
+		for (GenAuditContext nextCtx : audits.getClientContexts()) {
+			if (!checkedContexts.contains(nextCtx.getQualifiedClassName())) {
+				checkClassName(state, "GenAuditContext:className", nextCtx.getClassName(), nextCtx.getQualifiedClassName());
+				checkedContexts.add(nextCtx.getQualifiedClassName());
 			}
+		}
+		for (GenAuditRule nextAudit : audits.getRules()) {
 			checkClassName(state, "GenAuditRule:ConstraintAdapter", nextAudit.getConstraintAdapterClassName(), nextAudit.getConstraintAdapterQualifiedClassName());
 		}
 
