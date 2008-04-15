@@ -29,10 +29,6 @@ private genmodel::GenClass findGenClassifier(ecore::EClass eClass, genmodel::Gen
 findGenClassifier(genModel, eClass)
 ;
 
-cached genmodel::GenClassifier getTypeGenClassifier(genmodel::GenFeature genFeature) :
-null != genFeature.ecoreFeature.eType ? findGenClassifier(genFeature.genClass.genPackage.genModel, genFeature.ecoreFeature.eType) : null
-;
-
 cached genmodel::GenClass metaclass(gmfgen::GenNode genNode) :
 genNode.getDomainMetaClass()
 ;

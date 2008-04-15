@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.graphdef.propsheet/src"
+    modelPluginID="org.eclipse.gmf.graphdef.propsheet" modelName="Propsheet" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="5.0" copyrightFields="false" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel ../../org.eclipse.gmf.codegen/models/gmfgen.genmodel#//gmfgen">
+  <foreignModel>propsheet.ecore</foreignModel>
+  <genPackages prefix="Propsheet" disposableProviderFactory="true" ecorePackage="propsheet.ecore#/">
+    <genClasses ecoreClass="propsheet.ecore#//PropertySectionContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//PropertySectionContainer/customSections"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//CustomPropertySection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference propsheet.ecore#//CustomPropertySection/section"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference propsheet.ecore#//CustomPropertySection/tab"/>
+    </genClasses>
+  </genPackages>
+  <genPackages prefix="Binding" disposableProviderFactory="true" ecorePackage="../../org.eclipse.gmf.formtk/model/binding.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="../../org.eclipse.gmf.formtk/model/binding.ecore#//ActionKind">
+      <genEnumLiterals ecoreEnumLiteral="../../org.eclipse.gmf.formtk/model/binding.ecore#//ActionKind/SHOW"/>
+      <genEnumLiterals ecoreEnumLiteral="../../org.eclipse.gmf.formtk/model/binding.ecore#//ActionKind/HIDE"/>
+      <genEnumLiterals ecoreEnumLiteral="../../org.eclipse.gmf.formtk/model/binding.ecore#//ActionKind/ENABLE"/>
+      <genEnumLiterals ecoreEnumLiteral="../../org.eclipse.gmf.formtk/model/binding.ecore#//ActionKind/DISABLE"/>
+    </genEnums>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/binding.ecore#//Binding">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/binding.ecore#//Binding/selector"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/binding.ecore#//Binding/commitCondition"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/binding.ecore#//Binding/widget"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/binding.ecore#//Binding/refreshCondition"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/binding.ecore#//Binding/section"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/binding.ecore#//Section">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/binding.ecore#//Section/bindings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/binding.ecore#//Section/input"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/binding.ecore#//Section/conditions"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/binding.ecore#//Section/className"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/binding.ecore#//Section/actions"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/binding.ecore#//Editor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/binding.ecore#//Editor/packageName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/binding.ecore#//Editor/sections"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/binding.ecore#//Action">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/binding.ecore#//Action/kind"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/binding.ecore#//Action/widgets"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/binding.ecore#//Action/trigger"/>
+    </genClasses>
+  </genPackages>
+  <genPackages prefix="Context" disposableProviderFactory="true" ecorePackage="../../org.eclipse.gmf.formtk/model/context.ecore#/">
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/context.ecore#//Condition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/context.ecore#//Condition/accessor"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/context.ecore#//EqualsCondition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/context.ecore#//EqualsCondition/value"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/context.ecore#//InstanceCondition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/context.ecore#//InstanceCondition/type"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/context.ecore#//AndCondition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/context.ecore#//AndCondition/conjuncts"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="../../org.eclipse.gmf.formtk/model/context.ecore#//Context">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/context.ecore#//Context/chain"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/context.ecore#//Context/children"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/context.ecore#//FeatureContext">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/context.ecore#//FeatureContext/selector"/>
+    </genClasses>
+  </genPackages>
+  <genPackages prefix="Widget" disposableProviderFactory="true" ecorePackage="../../org.eclipse.gmf.formtk/model/widget.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="../../org.eclipse.gmf.formtk/model/widget.ecore#//Alignment">
+      <genEnumLiterals ecoreEnumLiteral="../../org.eclipse.gmf.formtk/model/widget.ecore#//Alignment/LEFT"/>
+      <genEnumLiterals ecoreEnumLiteral="../../org.eclipse.gmf.formtk/model/widget.ecore#//Alignment/CENTER"/>
+      <genEnumLiterals ecoreEnumLiteral="../../org.eclipse.gmf.formtk/model/widget.ecore#//Alignment/RIGHT"/>
+      <genEnumLiterals ecoreEnumLiteral="../../org.eclipse.gmf.formtk/model/widget.ecore#//Alignment/FILL"/>
+      <genEnumLiterals ecoreEnumLiteral="../../org.eclipse.gmf.formtk/model/widget.ecore#//Alignment/TOP"/>
+      <genEnumLiterals ecoreEnumLiteral="../../org.eclipse.gmf.formtk/model/widget.ecore#//Alignment/BOTTOM"/>
+    </genEnums>
+    <genClasses image="false" ecoreClass="../../org.eclipse.gmf.formtk/model/widget.ecore#//Widget">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//Widget/name"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/widget.ecore#//Widget/parent"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/widget.ecore#//Widget/layoutData"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/widget.ecore#//TextEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//TextEntry/label"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/widget.ecore#//RadioButton">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//RadioButton/group"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//RadioButton/label"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/widget.ecore#//Composite">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/widget.ecore#//Composite/children"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/widget.ecore#//Composite/layout"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/widget.ecore#//Spin">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//Spin/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//Spin/maximum"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//Spin/minimum"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/widget.ecore#//CheckBox">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//CheckBox/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//CheckBox/initialState"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="../../org.eclipse.gmf.formtk/model/widget.ecore#//Layout"/>
+    <genClasses image="false" ecoreClass="../../org.eclipse.gmf.formtk/model/widget.ecore#//LayoutData">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/widget.ecore#//LayoutData/widget"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/widget.ecore#//GridLayout">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//GridLayout/columns"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//GridLayout/equalColumns"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/widget.ecore#//GridLayout/data"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/widget.ecore#//GridData">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//GridData/hSpan"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//GridData/vSpan"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//GridData/hGrab"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//GridData/vGrab"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//GridData/hAlign"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//GridData/vAlign"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/widget.ecore#//FormLayout">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/widget.ecore#//FormLayout/data"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/widget.ecore#//FormData">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/widget.ecore#//FormData/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/widget.ecore#//FormData/right"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/widget.ecore#//FormData/top"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/widget.ecore#//FormData/bottom"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/widget.ecore#//Attachment">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../org.eclipse.gmf.formtk/model/widget.ecore#//Attachment/control"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//Attachment/offset"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//Attachment/align"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/widget.ecore#//Group">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//Group/label"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/widget.ecore#//Combo">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//Combo/label"/>
+    </genClasses>
+    <genClasses ecoreClass="../../org.eclipse.gmf.formtk/model/widget.ecore#//FillLayout">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../org.eclipse.gmf.formtk/model/widget.ecore#//FillLayout/vertical"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

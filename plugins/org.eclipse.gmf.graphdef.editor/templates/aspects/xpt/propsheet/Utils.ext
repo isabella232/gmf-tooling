@@ -13,11 +13,14 @@
  
 import "http://www.eclipse.org/gmf/2006/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
+import "http://www.eclipse.org/gmf/2007/GmfGraph/PropSheet";
+
+extension xpt::EMFUtils;
 
 boolean isProxyTab(gmfgen::GenCustomPropertyTab tab) :
-tab.className.endsWith("Proxy")
+!getReferencingObjects(tab).typeSelect(propsheet::CustomPropertySection).isEmpty()
 ;
 
 String getProxyTabSuperClassName(gmfgen::GenCustomPropertyTab tab) :
-tab.className.replaceFirst("Proxy", "")
+getReferencingObjects(tab).typeSelect(propsheet::CustomPropertySection).section.className.first()
 ;
