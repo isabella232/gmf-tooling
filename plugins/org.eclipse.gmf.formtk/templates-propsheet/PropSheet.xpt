@@ -38,9 +38,11 @@ import org.eclipse.ui.forms.widgets.*;
 import org.eclipse.ui.views.properties.tabbed.*;
 «ENDDEFINE»
 
+«DEFINE packageStatement FOR Section»package org.eclipse.gmf.graphdef.editor.sheet;«ENDDEFINE»
+
 // Temp solution for hand-moved generated artifacts
 «DEFINE Main FOR Section-»
-package org.eclipse.gmf.forms.example.figure;
+«EXPAND packageStatement»
 «EXPAND imports»
 import org.eclipse.gmf.gmfgraph.*;
 
@@ -123,25 +125,19 @@ import org.eclipse.gmf.gmfgraph.*;
 	}
 
 	protected void applyChanges() {
-		new org.eclipse.gmf.dsl.internal.project.ui.editor.AbstractCommand(getInput()) {
-			@Override
-			protected IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				try {
-					myIsCommit = true;
-					commit();
-				} finally {
-					myIsCommit = false;
-				}
-				return Status.OK_STATUS;
-			}
-		}.go();
+		try {
+			myIsCommit = true;
+			commit();
+		} finally {
+			myIsCommit = false;
+		}
 	}
 
 	protected void discardChanges() {
 		refresh();
 	}
 
-	private Object unwrap(Object element) {
+	protected Object unwrap(Object element) {
 		// TODO may need to adapt selected element to smth else,
 		// do it here
 		return element;
@@ -155,7 +151,7 @@ import org.eclipse.gmf.gmfgraph.*;
 	«EXPAND Update::DetachAdapters»
 	}
 
-	private «deduceInputType().name» getInput() {
+	protected «deduceInputType().name» getInput() {
 		// TODO implement;
 		return («deduceInputType().name») myInput;
 	}
