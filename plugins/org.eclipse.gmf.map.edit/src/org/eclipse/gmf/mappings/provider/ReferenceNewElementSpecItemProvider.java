@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ReferenceNewElementSpecItemProvider.java,v 1.6 2007/05/10 17:12:28 atikhomirov Exp $
+ * $Id: ReferenceNewElementSpecItemProvider.java,v 1.7 2008/04/17 11:58:45 atikhomirov Exp $
  */
 package org.eclipse.gmf.mappings.provider;
 
@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -22,7 +21,6 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.mappings.FeatureInitializer;
 import org.eclipse.gmf.mappings.GMFMapFactory;
@@ -37,7 +35,7 @@ import org.eclipse.gmf.mappings.presentation.FilterUtil;
  * @generated
  */
 public class ReferenceNewElementSpecItemProvider
-	extends ItemProviderAdapter
+	extends FeatureInitializerItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -65,7 +63,6 @@ public class ReferenceNewElementSpecItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addFeaturePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -182,9 +179,6 @@ public class ReferenceNewElementSpecItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ReferenceNewElementSpec.class)) {
-			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
 			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -207,17 +201,6 @@ public class ReferenceNewElementSpecItemProvider
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getReferenceNewElementSpec_NewElementInitializers(),
 				 GMFMapFactory.eINSTANCE.createFeatureSeqInitializer()));
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return GMFMapEditPlugin.INSTANCE;
 	}
 
 }

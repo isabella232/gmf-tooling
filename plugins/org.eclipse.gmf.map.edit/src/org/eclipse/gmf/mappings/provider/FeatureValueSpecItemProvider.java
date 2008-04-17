@@ -24,6 +24,7 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.mappings.FeatureInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
+import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.presentation.FilterUtil;
 
@@ -34,7 +35,7 @@ import org.eclipse.gmf.mappings.presentation.FilterUtil;
  * @generated
  */
 public class FeatureValueSpecItemProvider
-	extends ValueExpressionItemProvider
+	extends FeatureInitializerItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -62,9 +63,38 @@ public class FeatureValueSpecItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addFeaturePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getFeatureValueSpec_Value());
+		}
+		return childrenFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -111,14 +141,19 @@ public class FeatureValueSpecItemProvider
 	}
 
 	/**
+	 * @generated
+	 */
+	public String getTextGen(Object object) {
+		return getString("_UI_FeatureValueSpec_type");
+	}
+
+	/**
 	 * This returns the label text for the adapted class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String getText(Object object) {
-		StringBuffer buf = new StringBuffer();
-		buf.append(getString("_UI_FeatureValueSpec_type"));
+		StringBuilder buf = new StringBuilder();
+		buf.append(getTextGen(object));
 		if(object instanceof FeatureValueSpec) { 
 			FeatureValueSpec featureValueSpec = (FeatureValueSpec)object; 
 			buf.append('<');
@@ -128,7 +163,7 @@ public class FeatureValueSpecItemProvider
 				buf.append(feature).append(":=");
 			}
 			
-			String body = crop(featureValueSpec.getBody());			
+			String body = crop(featureValueSpec.getValue().getBody());			
 			if(body != null && body.length() > 0) {
 				buf.append(' ').append(body);
 			}
@@ -149,8 +184,8 @@ public class FeatureValueSpecItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(FeatureValueSpec.class)) {
-			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			case GMFMapPackage.FEATURE_VALUE_SPEC__VALUE:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -166,6 +201,16 @@ public class FeatureValueSpecItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getFeatureValueSpec_Value(),
+				 GMFMapFactory.eINSTANCE.createValueExpression()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getFeatureValueSpec_Value(),
+				 GMFMapFactory.eINSTANCE.createConstraint()));
 	}
 
 }
