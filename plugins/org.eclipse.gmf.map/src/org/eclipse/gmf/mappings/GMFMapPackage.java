@@ -1199,10 +1199,10 @@ public interface GMFMapPackage extends EPackage {
 	int FEATURE_SEQ_INITIALIZER_FEATURE_COUNT = ELEMENT_INITIALIZER_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.mappings.FeatureInitializer <em>Feature Initializer</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.FeatureInitializerImpl <em>Feature Initializer</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.mappings.FeatureInitializer
+	 * @see org.eclipse.gmf.mappings.impl.FeatureInitializerImpl
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getFeatureInitializer()
 	 * @generated
 	 */
@@ -1246,40 +1246,13 @@ public interface GMFMapPackage extends EPackage {
 	int FEATURE_VALUE_SPEC = 19;
 
 	/**
-	 * The feature id for the '<em><b>Body</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_VALUE_SPEC__BODY = VALUE_EXPRESSION__BODY;
-
-	/**
-	 * The feature id for the '<em><b>Language</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_VALUE_SPEC__LANGUAGE = VALUE_EXPRESSION__LANGUAGE;
-
-	/**
-	 * The feature id for the '<em><b>Lang Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_VALUE_SPEC__LANG_NAME = VALUE_EXPRESSION__LANG_NAME;
-
-	/**
 	 * The feature id for the '<em><b>Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_VALUE_SPEC__FEATURE = VALUE_EXPRESSION_FEATURE_COUNT + 0;
+	int FEATURE_VALUE_SPEC__FEATURE = FEATURE_INITIALIZER__FEATURE;
 
 	/**
 	 * The feature id for the '<em><b>Feature Seq Initializer</b></em>' container reference.
@@ -1288,7 +1261,16 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER = VALUE_EXPRESSION_FEATURE_COUNT + 1;
+	int FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER = FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_VALUE_SPEC__VALUE = FEATURE_INITIALIZER_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Feature Value Spec</em>' class.
@@ -1297,7 +1279,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_VALUE_SPEC_FEATURE_COUNT = VALUE_EXPRESSION_FEATURE_COUNT + 2;
+	int FEATURE_VALUE_SPEC_FEATURE_COUNT = FEATURE_INITIALIZER_FEATURE_COUNT + 1;
 
 
 	/**
@@ -2793,6 +2775,17 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getFeatureValueSpec();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.FeatureValueSpec#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @see org.eclipse.gmf.mappings.FeatureValueSpec#getValue()
+	 * @see #getFeatureValueSpec()
+	 * @generated
+	 */
+	EReference getFeatureValueSpec_Value();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.ReferenceNewElementSpec <em>Reference New Element Spec</em>}'.

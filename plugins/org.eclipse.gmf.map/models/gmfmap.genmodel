@@ -131,7 +131,9 @@
       <genFeatures createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureInitializer/feature"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureInitializer/featureSeqInitializer"/>
     </genClasses>
-    <genClasses ecoreClass="gmfmap.ecore#//FeatureValueSpec" labelFeature="#//mappings/ValueExpression/body"/>
+    <genClasses ecoreClass="gmfmap.ecore#//FeatureValueSpec">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureValueSpec/value"/>
+    </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//ReferenceNewElementSpec">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//ReferenceNewElementSpec/newElementInitializers"/>
     </genClasses>

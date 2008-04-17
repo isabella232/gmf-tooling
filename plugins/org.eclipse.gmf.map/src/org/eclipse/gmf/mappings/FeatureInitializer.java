@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: FeatureInitializer.java,v 1.4 2008/03/04 16:50:29 atikhomirov Exp $
+ * $Id: FeatureInitializer.java,v 1.5 2008/04/17 11:58:49 atikhomirov Exp $
  */
 package org.eclipse.gmf.mappings;
 
@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * </p>
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getFeatureInitializer()
- * @model interface="true" abstract="true"
+ * @model abstract="true"
  * @generated
  */
 public interface FeatureInitializer extends EObject {

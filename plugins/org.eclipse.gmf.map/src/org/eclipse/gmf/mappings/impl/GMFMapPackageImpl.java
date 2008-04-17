@@ -11,8 +11,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.EValidator;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.mappings.*;
@@ -1067,6 +1067,15 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getFeatureValueSpec_Value() {
+		return (EReference)featureValueSpecEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getReferenceNewElementSpec() {
 		return referenceNewElementSpecEClass;
 	}
@@ -1644,6 +1653,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		createEReference(featureInitializerEClass, FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER);
 
 		featureValueSpecEClass = createEClass(FEATURE_VALUE_SPEC);
+		createEReference(featureValueSpecEClass, FEATURE_VALUE_SPEC__VALUE);
 
 		referenceNewElementSpecEClass = createEClass(REFERENCE_NEW_ELEMENT_SPEC);
 		createEReference(referenceNewElementSpecEClass, REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS);
@@ -1763,7 +1773,6 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		designLabelMappingEClass.getESuperTypes().add(this.getLabelMapping());
 		constraintEClass.getESuperTypes().add(this.getValueExpression());
 		featureSeqInitializerEClass.getESuperTypes().add(this.getElementInitializer());
-		featureValueSpecEClass.getESuperTypes().add(this.getValueExpression());
 		featureValueSpecEClass.getESuperTypes().add(this.getFeatureInitializer());
 		referenceNewElementSpecEClass.getESuperTypes().add(this.getFeatureInitializer());
 		auditRuleEClass.getESuperTypes().add(this.getRuleBase());
@@ -1870,11 +1879,12 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEReference(getFeatureSeqInitializer_ElementClass(), ecorePackage.getEClass(), null, "elementClass", null, 0, 1, FeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeatureSeqInitializer_CreatingInitializer(), this.getReferenceNewElementSpec(), this.getReferenceNewElementSpec_NewElementInitializers(), "creatingInitializer", null, 0, 1, FeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(featureInitializerEClass, FeatureInitializer.class, "FeatureInitializer", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(featureInitializerEClass, FeatureInitializer.class, "FeatureInitializer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeatureInitializer_Feature(), ecorePackage.getEStructuralFeature(), null, "feature", null, 1, 1, FeatureInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeatureInitializer_FeatureSeqInitializer(), this.getFeatureSeqInitializer(), this.getFeatureSeqInitializer_Initializers(), "featureSeqInitializer", null, 1, 1, FeatureInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureValueSpecEClass, FeatureValueSpec.class, "FeatureValueSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getFeatureValueSpec_Value(), this.getValueExpression(), null, "value", null, 1, 1, FeatureValueSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(referenceNewElementSpecEClass, ReferenceNewElementSpec.class, "ReferenceNewElementSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getReferenceNewElementSpec_NewElementInitializers(), this.getFeatureSeqInitializer(), this.getFeatureSeqInitializer_CreatingInitializer(), "newElementInitializers", null, 1, -1, ReferenceNewElementSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1984,7 +1994,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																																																																																							
+		   });																																																																																																																						
 	}
 
 	/**
@@ -2063,12 +2073,6 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 			 "def", "context",
 			 "ocl", "self.elementClass"
 		   });											
-		addAnnotation
-		  (featureValueSpecEClass, 
-		   source, 
-		   new String[] {
-			 "def", "ValueSpec"
-		   });		
 		addAnnotation
 		  (featureValueSpecEClass, 
 		   source, 
@@ -2315,7 +2319,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "feature <> null implies feature.changeable",
 			 "description", "The \'feature\' of \'FeatureInitializer\' must be changeable"
-		   });						
+		   });					
 		addAnnotation
 		  (referenceNewElementSpecEClass, 
 		   source, 

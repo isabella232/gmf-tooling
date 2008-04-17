@@ -245,7 +245,6 @@ public class GMFMapSwitch<T> {
 			case GMFMapPackage.FEATURE_VALUE_SPEC: {
 				FeatureValueSpec featureValueSpec = (FeatureValueSpec)theEObject;
 				T result = caseFeatureValueSpec(featureValueSpec);
-				if (result == null) result = caseValueExpression(featureValueSpec);
 				if (result == null) result = caseFeatureInitializer(featureValueSpec);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
