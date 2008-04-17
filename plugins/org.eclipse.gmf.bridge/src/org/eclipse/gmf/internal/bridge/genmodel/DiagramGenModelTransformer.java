@@ -789,11 +789,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if (featureInitializer instanceof FeatureValueSpec) {
 			FeatureValueSpec featureValSpec = (FeatureValueSpec) featureInitializer;				
 			GenFeatureValueSpec genFeatureValSpec = GMFGenFactory.eINSTANCE.createGenFeatureValueSpec();				
-			genFeatureValSpec.setBody(featureValSpec.getBody());
-			genFeatureValSpec.setLanguage(createGenLanguage(featureValSpec.getLanguage()));
+			genFeatureValSpec.setBody(featureValSpec.getValue().getBody());
+			genFeatureValSpec.setLanguage(createGenLanguage(featureValSpec.getValue().getLanguage()));
 			genFeatureValSpec.setFeature(findGenFeature(featureValSpec.getFeature()));
 			
-			bindToProvider(featureValSpec, genFeatureValSpec);
+			bindToProvider(featureValSpec.getValue(), genFeatureValSpec);
 			return genFeatureValSpec;
 		} else if (featureInitializer instanceof ReferenceNewElementSpec) {
 			ReferenceNewElementSpec newElementSpec = (ReferenceNewElementSpec) featureInitializer;
