@@ -53,6 +53,7 @@ import org.eclipse.gmf.mappings.MetricRule;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.ReferenceNewElementSpec;
 import org.eclipse.gmf.mappings.Severity;
+import org.eclipse.gmf.mappings.ValueExpression;
 import org.eclipse.gmf.tests.EPath;
 import org.eclipse.gmf.tests.Plugin;
 import org.osgi.framework.BundleException;
@@ -322,8 +323,10 @@ public class LinksSessionSetup extends SessionSetup {
 				FeatureInitializer createInitializer() {
 					FeatureValueSpec featureValueSpec = GMFMapFactory.eINSTANCE.createFeatureValueSpec();				
 					featureValueSpec.setFeature(feature);
-					featureValueSpec.setBody(expressionBody);
-					featureValueSpec.setLanguage(expressionLang);
+					ValueExpression value = GMFMapFactory.eINSTANCE.createValueExpression();
+					value.setBody(expressionBody);
+					value.setLanguage(expressionLang);
+					featureValueSpec.setValue(value);
 					return featureValueSpec;
 				}					
 			};
