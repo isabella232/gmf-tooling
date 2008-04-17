@@ -331,25 +331,25 @@
          <propertySection
             id="property.section.layout-gen2" 
             tab="property.tab.layout-gen2"
-            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$LayoutableFilter"
+            filter="org.eclipse.gmf.graphdef.editor.sheet.LayoutSectionProxy$Filter"
             class="org.eclipse.gmf.graphdef.editor.sheet.LayoutSectionProxy">
          </propertySection>
          <propertySection
             id="property.section.layoutdata-gen2" 
             tab="property.tab.layoutdata-gen2"
-            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$LayoutableFilter"
+            filter="org.eclipse.gmf.graphdef.editor.sheet.LayoutDataSectionProxy$Filter"
             class="org.eclipse.gmf.graphdef.editor.sheet.LayoutDataSectionProxy">
          </propertySection>
          <propertySection
             id="property.section.size-gen2" 
             tab="property.tab.size-gen2"
-            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$ShapeFilter"
+            filter="org.eclipse.gmf.graphdef.editor.sheet.SizeSectionProxy$Filter"
             class="org.eclipse.gmf.graphdef.editor.sheet.SizeSectionProxy">
          </propertySection>
          <propertySection
             id="property.section.styles-gen2" 
             tab="property.tab.styles-gen2"
-            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$ShapeFilter"
+            filter="org.eclipse.gmf.graphdef.editor.sheet.FigureSectionProxy$Filter"
             class="org.eclipse.gmf.graphdef.editor.sheet.FigureSectionProxy">
          </propertySection>
       </propertySections>

@@ -13,6 +13,7 @@
     <genClasses ecoreClass="propsheet.ecore#//CustomPropertySection">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference propsheet.ecore#//CustomPropertySection/section"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference propsheet.ecore#//CustomPropertySection/tab"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference propsheet.ecore#//CustomPropertySection/nodes"/>
     </genClasses>
   </genPackages>
   <genPackages prefix="Binding" basePackage="org.eclipse.gmf.graphdef" disposableProviderFactory="true"

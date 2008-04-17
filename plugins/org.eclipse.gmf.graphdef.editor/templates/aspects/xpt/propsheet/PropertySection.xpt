@@ -30,3 +30,66 @@
 «AROUND transfromSelectionMethod FOR gmfgen::GenCustomPropertyTab»«IF !isProxyTab()»«targetDef.proceed()»«ENDIF»«ENDAROUND»
 «AROUND setInputMethod FOR gmfgen::GenCustomPropertyTab»«IF !isProxyTab()»«targetDef.proceed()»«ENDIF»«ENDAROUND»
 «AROUND getAdapterFactoryMethod FOR gmfgen::GenCustomPropertyTab»«IF !isProxyTab()»«targetDef.proceed()»«ENDIF»«ENDAROUND»
+
+«AROUND additions FOR gmfgen::GenCustomPropertyTab-»
+«IF isProxyTab()-»
+
+	«EXPAND commit-»
+
+	«EXPAND unwrap-»
+	
+	«EXPAND filterClass-»
+«ENDIF-»
+«ENDAROUND»
+
+«DEFINE commit FOR gmfgen::GenCustomPropertyTab-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void commit() {
+		final java.util.List<org.eclipse.core.resources.IFile> files = java.util.Collections.singletonList(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(getInput().eResource()));
+		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand cmd = new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(getInput()), "", files) {
+			@Override
+			protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
+				«className».super.commit();
+				return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
+			}
+		};
+		try {
+			org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(cmd, new org.eclipse.core.runtime.NullProgressMonitor(), null);
+		} catch (org.eclipse.core.commands.ExecutionException ex) {
+			ex.printStackTrace();
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE unwrap FOR gmfgen::GenCustomPropertyTab-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected Object unwrap(Object element) {
+		Object rv = org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters.transformSelection(element);
+		if («EXPAND checkInstanceOfDomainElement("rv")») {
+			return rv;
+		}
+		return null;
+	}
+«ENDDEFINE»
+
+«DEFINE filterClass FOR gmfgen::GenCustomPropertyTab-»
+	«EXPAND xpt::Common::generatedClassComment»
+	public static class «EXPAND filterClassName» implements org.eclipse.jface.viewers.IFilter {
+
+		«EXPAND FC_select-»
+	
+	}
+«ENDDEFINE»
+
+«DEFINE filterClassName FOR gmfgen::GenCustomPropertyTab»Filter«ENDDEFINE»
+
+«DEFINE FC_select FOR gmfgen::GenCustomPropertyTab-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public boolean select(Object toTest) {
+		Object transformed = org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters.transformSelection(toTest);
+		return «EXPAND checkInstanceOfDomainElement("transformed")»;
+	}
+«ENDDEFINE»
+
+«DEFINE checkInstanceOfDomainElement(String varName) FOR gmfgen::GenCustomPropertyTab-»
+«EXPAND MetaModel::IsInstance(varName) FOREACH getCustomPropertySection(this).nodes.collect(n|n.modelFacet.metaClass).toSet().typeSelect(genmodel::GenClass) SEPARATOR " || "»«ENDDEFINE»

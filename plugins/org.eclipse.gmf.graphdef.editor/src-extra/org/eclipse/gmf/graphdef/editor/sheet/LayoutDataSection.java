@@ -38,10 +38,6 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
-/**
- * This class is fully generated except for the methods marked as <code>generated NOT</code>
- * @generated
- */
 public class LayoutDataSection extends AbstractPropertySection implements ChangeTracker, Listener {
 
 	private org.eclipse.emf.common.notify.Adapter[] myModelListeners;
@@ -490,26 +486,10 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		// Perhaps, clients may find this method useful for some purpose?
 	}
 
-	/**
-	 * @generated NOT
-	 */
 	protected void applyChanges() {
-		final java.util.List<org.eclipse.core.resources.IFile> files = java.util.Collections.singletonList(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(getInput().eResource()));
-		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand cmd = new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(
-				org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(getInput()), "", files) {
-
-			@Override
-			protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
-					throws org.eclipse.core.commands.ExecutionException {
-				commit();
-				return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
-			}
-		};
 		try {
 			myIsCommit = true;
-			org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(cmd, new org.eclipse.core.runtime.NullProgressMonitor(), null);
-		} catch (org.eclipse.core.commands.ExecutionException ex) {
-			ex.printStackTrace();
+			commit();
 		} finally {
 			myIsCommit = false;
 		}
@@ -519,27 +499,10 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		refresh();
 	}
 
-	/**
-	 * @generated NOT
-	 */
-	private Object unwrap(Object element) {
-		Object rv = null;
-		if (element instanceof org.eclipse.gef.EditPart) {
-			Object model = ((org.eclipse.gef.EditPart) element).getModel();
-			rv = model instanceof org.eclipse.gmf.runtime.notation.View ? ((org.eclipse.gmf.runtime.notation.View) model).getElement() : null;
-		} else if (element instanceof org.eclipse.gmf.runtime.notation.View) {
-			rv = ((org.eclipse.gmf.runtime.notation.View) element).getElement();
-		} else if (element instanceof org.eclipse.core.runtime.IAdaptable) {
-			org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) ((org.eclipse.core.runtime.IAdaptable) element)
-					.getAdapter(org.eclipse.gmf.runtime.notation.View.class);
-			if (view != null) {
-				rv = view.getElement();
-			}
-		}
-		if (rv instanceof Layoutable) {
-			return rv;
-		}
-		return null;
+	protected Object unwrap(Object element) {
+		// TODO may need to adapt selected element to smth else,
+		// do it here
+		return element;
 	}
 
 	private void attach() {
@@ -568,7 +531,7 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 
 	}
 
-	private Layoutable getInput() {
+	protected Layoutable getInput() {
 		// TODO implement;
 		return (Layoutable) myInput;
 	}

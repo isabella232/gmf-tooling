@@ -1469,22 +1469,26 @@
   </gmfgen:GenEditorGenerator>
   <propsheet:PropertySectionContainer>
     <customSections
-        tab="/0/@propertySheet/@tabs.6">
+        tab="/0/@propertySheet/@tabs.6"
+        nodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12">
       <section
           href="FigureSection.xmi#/"/>
     </customSections>
     <customSections
-        tab="/0/@propertySheet/@tabs.4">
+        tab="/0/@propertySheet/@tabs.4"
+        nodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12">
       <section
           href="LayoutDataSection.xmi#/"/>
     </customSections>
     <customSections
-        tab="/0/@propertySheet/@tabs.3">
+        tab="/0/@propertySheet/@tabs.3"
+        nodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12">
       <section
           href="LayoutSection.xmi#/"/>
     </customSections>
     <customSections
-        tab="/0/@propertySheet/@tabs.5">
+        tab="/0/@propertySheet/@tabs.5"
+        nodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12">
       <section
           href="SizeSection.xmi#/"/>
     </customSections>

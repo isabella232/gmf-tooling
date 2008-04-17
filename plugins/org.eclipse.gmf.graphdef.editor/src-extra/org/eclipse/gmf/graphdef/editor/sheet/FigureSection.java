@@ -31,10 +31,6 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
-/**
- * This class is fully generated except for the methods marked as <code>generated NOT</code>
- * @generated
- */
 public class FigureSection extends AbstractPropertySection implements ChangeTracker, Listener {
 
 	private org.eclipse.emf.common.notify.Adapter[] myModelListeners;
@@ -298,26 +294,10 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 		// Perhaps, clients may find this method useful for some purpose?
 	}
 
-	/**
-	 * @generated NOT
-	 */
 	protected void applyChanges() {
-		final java.util.List<org.eclipse.core.resources.IFile> files = java.util.Collections.singletonList(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(getInput().eResource()));
-		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand cmd = new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(
-				org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(getInput()), "", files) {
-
-			@Override
-			protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
-					throws org.eclipse.core.commands.ExecutionException {
-				commit();
-				return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
-			}
-		};
 		try {
 			myIsCommit = true;
-			org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(cmd, new org.eclipse.core.runtime.NullProgressMonitor(), null);
-		} catch (org.eclipse.core.commands.ExecutionException ex) {
-			ex.printStackTrace();
+			commit();
 		} finally {
 			myIsCommit = false;
 		}
@@ -327,15 +307,10 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 		refresh();
 	}
 
-	/**
-	 * @generated NOT
-	 */
-	private Object unwrap(Object element) {
-		Object rv = org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters.transformSelection(element);
-		if (rv instanceof org.eclipse.gmf.gmfgraph.Shape) {
-			return rv;
-		}
-		return null;
+	protected Object unwrap(Object element) {
+		// TODO may need to adapt selected element to smth else,
+		// do it here
+		return element;
 	}
 
 	private void attach() {
@@ -354,7 +329,7 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 
 	}
 
-	private Shape getInput() {
+	protected Shape getInput() {
 		// TODO implement;
 		return (Shape) myInput;
 	}
