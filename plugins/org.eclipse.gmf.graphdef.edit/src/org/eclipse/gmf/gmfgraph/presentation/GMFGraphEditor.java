@@ -963,8 +963,7 @@ public class GMFGraphEditor
 
 		// Only creates the other pages if there is something that can be edited
 		//
-		if (!getEditingDomain().getResourceSet().getResources().isEmpty() &&
-		    !(getEditingDomain().getResourceSet().getResources().get(0)).getContents().isEmpty()) {
+		if (!getEditingDomain().getResourceSet().getResources().isEmpty()) {
 			// Create a page for the selection tree view.
 			//
 			{
