@@ -157,7 +157,7 @@ public interface GenCompartment extends GenChildContainer {
 	 * @return the value of the '<em>Diagram</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCompartment_Diagram()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCompartments
-	 * @model opposite="compartments" resolveProxies="false" required="true" transient="false" suppressedSetVisibility="true"
+	 * @model opposite="compartments" resolveProxies="false" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenDiagram getDiagram();

@@ -8,14 +8,10 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
@@ -153,37 +149,6 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetSubject(GenCommonBase newSubject, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newSubject, GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__SUBJECT, msgs);
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSubject(GenCommonBase newSubject) {
-		if (newSubject != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__SUBJECT && newSubject != null)) {
-			if (EcoreUtil.isAncestor(this, newSubject))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newSubject != null)
-				msgs = ((InternalEObject)newSubject).eInverseAdd(this, GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR, GenCommonBase.class, msgs);
-			msgs = basicSetSubject(newSubject, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__SUBJECT, newSubject, newSubject));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getEditPolicyClassNameGen() {
 		return editPolicyClassName;
 	}
@@ -290,7 +255,7 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__SUBJECT:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetSubject((GenCommonBase)otherEnd, msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__SUBJECT, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -304,7 +269,7 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__SUBJECT:
-				return basicSetSubject(null, msgs);
+				return eBasicSetContainer(null, GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__SUBJECT, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -353,9 +318,6 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__SUBJECT:
-				setSubject((GenCommonBase)newValue);
-				return;
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDIT_POLICY_CLASS_NAME:
 				setEditPolicyClassName((String)newValue);
 				return;
@@ -380,9 +342,6 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__SUBJECT:
-				setSubject((GenCommonBase)null);
-				return;
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDIT_POLICY_CLASS_NAME:
 				setEditPolicyClassName(EDIT_POLICY_CLASS_NAME_EDEFAULT);
 				return;

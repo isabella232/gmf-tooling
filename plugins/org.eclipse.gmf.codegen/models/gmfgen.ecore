@@ -106,11 +106,7 @@
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" eType="#//GenEditorGenerator"
-        resolveProxies="false" eOpposite="#//GenEditorGenerator/diagram">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//GenEditorGenerator/diagram"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainDiagramElement" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="childNodes" upperBound="-1"
         eType="#//GenChildNode" containment="true" eOpposite="#//GenChildNode/diagram"/>
@@ -133,11 +129,7 @@
     <eOperations name="getActionBarContributorQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" eType="#//GenEditorGenerator"
-        resolveProxies="false" eOpposite="#//GenEditorGenerator/editor">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//GenEditorGenerator/editor"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="packageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="actionBarContributorClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -159,11 +151,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
         eType="#//GenPreferencePage" containment="true" eOpposite="#//GenPreferencePage/parent"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//GenPreferencePage"
-        resolveProxies="false" eOpposite="#//GenPreferencePage/children">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//GenPreferencePage/children"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenCustomPreferencePage" eSuperTypes="#//GenPreferencePage">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedClassName" lowerBound="1"
@@ -525,11 +513,7 @@
     <eOperations name="getLinkDescriptorQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getUpdateCommandQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" eType="#//GenEditorGenerator"
-        resolveProxies="false" eOpposite="#//GenEditorGenerator/diagramUpdater">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//GenEditorGenerator/diagramUpdater"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="diagramUpdaterClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nodeDescriptorClassName"
@@ -548,11 +532,7 @@
     </eOperations>
     <eOperations name="getActivatorQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" eType="#//GenEditorGenerator"
-        resolveProxies="false" eOpposite="#//GenEditorGenerator/plugin">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//GenEditorGenerator/plugin"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iD" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="provider" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
@@ -567,11 +547,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="DynamicModelAccess">
     <eOperations name="getQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" eType="#//GenEditorGenerator"
-        resolveProxies="false" eOpposite="#//GenEditorGenerator/modelAccess">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//GenEditorGenerator/modelAccess"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="packageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="MetaModelFacility"/>
@@ -631,11 +607,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Behaviour" abstract="true" interface="true">
     <eOperations name="getEditPolicyQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subject" eType="#//GenCommonBase"
-        resolveProxies="false" eOpposite="#//GenCommonBase/behaviour">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//GenCommonBase/behaviour"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomBehaviour" eSuperTypes="#//Behaviour">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -727,11 +699,7 @@
       <details key="description" value="Top level node 'Containment Feature' must be available in the diagram 'Domain Element' or its super-class"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
-        eType="#//GenDiagram" resolveProxies="false" eOpposite="#//GenDiagram/topLevelNodes">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//GenDiagram" changeable="false" resolveProxies="false" eOpposite="#//GenDiagram/topLevelNodes"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenChildNode" eSuperTypes="#//GenNode">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
@@ -739,11 +707,7 @@
       <details key="description" value="Child node must specify 'Containment Meta Feature'"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
-        eType="#//GenDiagram" resolveProxies="false" eOpposite="#//GenDiagram/childNodes">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//GenDiagram" changeable="false" resolveProxies="false" eOpposite="#//GenDiagram/childNodes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="containers" upperBound="-1"
         eType="#//GenChildContainer" changeable="false" eOpposite="#//GenChildContainer/childNodes">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
@@ -786,11 +750,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="needsTitle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
-        eType="#//GenDiagram" resolveProxies="false" eOpposite="#//GenDiagram/compartments">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//GenDiagram" changeable="false" resolveProxies="false" eOpposite="#//GenDiagram/compartments"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="node" lowerBound="1" eType="#//GenNode"
         eOpposite="#//GenNode/compartments"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="listLayout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
@@ -818,11 +778,7 @@
     <eOperations name="getCreateCommandQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getReorientCommandQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
-        eType="#//GenDiagram" resolveProxies="false" eOpposite="#//GenDiagram/links">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//GenDiagram" changeable="false" resolveProxies="false" eOpposite="#//GenDiagram/links"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelFacet" eType="#//LinkModelFacet"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="labels" upperBound="-1"
@@ -885,11 +841,7 @@
       <details key="description" value="Node label meta features must be owned by the node 'Meta Class' or its super-classes"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="node" lowerBound="1" eType="#//GenNode"
-        resolveProxies="false" eOpposite="#//GenNode/labels">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//GenNode/labels"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenExternalNodeLabel" eSuperTypes="#//GenNodeLabel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1255,11 +1207,7 @@
     <eOperations name="getFactoryQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="definesStandardTools" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
-        eType="#//GenDiagram" resolveProxies="false" eOpposite="#//GenDiagram/palette">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//GenDiagram" changeable="false" resolveProxies="false" eOpposite="#//GenDiagram/palette"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="flyout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="groups" lowerBound="1"
@@ -1313,20 +1261,12 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ToolGroupItem" abstract="true" interface="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="group" eType="#//ToolGroup"
-        resolveProxies="false" eOpposite="#//ToolGroup/entries">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//ToolGroup/entries"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Separator" eSuperTypes="#//ToolGroupItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="ToolGroup" eSuperTypes="#//EntryBase #//ToolGroupItem">
     <eStructuralFeatures xsi:type="ecore:EReference" name="palette" lowerBound="1"
-        eType="#//Palette" eOpposite="#//Palette/groups">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//Palette" eOpposite="#//Palette/groups"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="stack" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="collapse" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="entries" lowerBound="1"
@@ -1371,11 +1311,7 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="creatingInitializer" eType="#//GenReferenceNewElementSpec"
-        resolveProxies="false" eOpposite="#//GenReferenceNewElementSpec/newElementInitializers">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//GenReferenceNewElementSpec/newElementInitializers"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenFeatureValueSpec" eSuperTypes="#//ValueExpression #//GenFeatureInitializer">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1415,12 +1351,8 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureSeqInitializer"
-        lowerBound="1" eType="#//GenFeatureSeqInitializer" resolveProxies="false"
-        eOpposite="#//GenFeatureSeqInitializer/initializers">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        lowerBound="1" eType="#//GenFeatureSeqInitializer" changeable="false" resolveProxies="false"
+        eOpposite="#//GenFeatureSeqInitializer/initializers"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenLinkConstraints">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1490,11 +1422,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenAuditRoot">
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" lowerBound="1"
-        eType="#//GenEditorGenerator" resolveProxies="false" eOpposite="#//GenEditorGenerator/audits">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//GenEditorGenerator" changeable="false" resolveProxies="false" eOpposite="#//GenEditorGenerator/audits"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="categories" upperBound="-1"
         eType="#//GenAuditContainer" containment="true" eOpposite="#//GenAuditContainer/root"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
@@ -1507,11 +1435,7 @@
       <details key="documentation" value="Represents constraint category of emft.validation framework"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="root" lowerBound="1" eType="#//GenAuditRoot"
-        resolveProxies="false" eOpposite="#//GenAuditRoot/categories">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//GenAuditRoot/categories"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Identifier which is unique within the scope of its parent container."/>
@@ -1558,11 +1482,7 @@
     <eOperations name="getConstraintAdapterQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getConstraintAdapterLocalClassName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="root" lowerBound="1" eType="#//GenAuditRoot"
-        resolveProxies="false" eOpposite="#//GenAuditRoot/rules">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//GenAuditRoot/rules"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Unique identifier of this audit rule"/>
@@ -1686,11 +1606,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenMetricContainer">
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" lowerBound="1"
-        eType="#//GenEditorGenerator" resolveProxies="false" eOpposite="#//GenEditorGenerator/metrics">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//GenEditorGenerator" changeable="false" resolveProxies="false" eOpposite="#//GenEditorGenerator/metrics"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metrics" lowerBound="1"
         upperBound="-1" eType="#//GenMetricRule" containment="true" eOpposite="#//GenMetricRule/container"/>
   </eClassifiers>
@@ -1814,22 +1730,15 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="providers" upperBound="-1"
         eType="#//GenExpressionProviderBase" containment="true" eOpposite="#//GenExpressionProviderBase/container"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" lowerBound="1"
-        eType="#//GenEditorGenerator" resolveProxies="false" eOpposite="#//GenEditorGenerator/expressionProviders">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//GenEditorGenerator" changeable="false" resolveProxies="false" eOpposite="#//GenEditorGenerator/expressionProviders"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenExpressionProviderBase" abstract="true">
     <eOperations name="getLanguage" lowerBound="1" eType="#//GenLanguage"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
         eType="#//ValueExpression"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="container" lowerBound="1"
-        eType="#//GenExpressionProviderContainer" resolveProxies="false" eOpposite="#//GenExpressionProviderContainer/providers">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//GenExpressionProviderContainer" changeable="false" resolveProxies="false"
+        eOpposite="#//GenExpressionProviderContainer/providers"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenJavaExpressionProvider" eSuperTypes="#//GenExpressionProviderBase">
     <eOperations name="getOperationName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
@@ -1885,11 +1794,7 @@
     <eOperations name="getNavigatorItemQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getUriInputTesterQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" eType="#//GenEditorGenerator"
-        resolveProxies="false" eOpposite="#//GenEditorGenerator/navigator">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//GenEditorGenerator/navigator"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="contentExtensionID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="contentExtensionName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="contentExtensionPriority"
@@ -1927,11 +1832,7 @@
     <eOperations name="isInsideGroup" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eOperations name="findConnectionPaths" upperBound="-1" eType="#//GenNavigatorPath"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="navigator" eType="#//GenNavigator"
-        resolveProxies="false" eOpposite="#//GenNavigator/childReferences">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//GenNavigator/childReferences"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//GenCommonBase"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="child" lowerBound="1" eType="#//GenCommonBase"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="referenceType" lowerBound="1"
@@ -1947,11 +1848,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenNavigatorPathSegment">
     <eStructuralFeatures xsi:type="ecore:EReference" name="path" eType="#//GenNavigatorPath"
-        resolveProxies="false" eOpposite="#//GenNavigatorPath/segments">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//GenNavigatorPath/segments"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="from" lowerBound="1" eType="#//GenCommonBase"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="to" lowerBound="1" eType="#//GenCommonBase"/>
   </eClassifiers>
@@ -1961,11 +1858,7 @@
     </eAnnotations>
     <eOperations name="getLabelProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" lowerBound="1"
-        eType="#//GenEditorGenerator" resolveProxies="false" eOpposite="#//GenEditorGenerator/propertySheet">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//GenEditorGenerator" changeable="false" resolveProxies="false" eOpposite="#//GenEditorGenerator/propertySheet"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tabs" lowerBound="1" upperBound="-1"
         eType="#//GenPropertyTab" containment="true" eOpposite="#//GenPropertyTab/sheet"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="packageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -1978,11 +1871,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenPropertyTab" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="sheet" lowerBound="1" eType="#//GenPropertySheet"
-        resolveProxies="false" eOpposite="#//GenPropertySheet/tabs">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//GenPropertySheet/tabs"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iD" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -2001,11 +1890,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="GenPropertyTabFilter" abstract="true"
       interface="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="tab" lowerBound="1" eType="#//GenCustomPropertyTab"
-        resolveProxies="false" eOpposite="#//GenCustomPropertyTab/filter">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//GenCustomPropertyTab/filter"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeTabFilter" eSuperTypes="#//GenPropertyTabFilter">
     <eOperations name="getAllTypes" lowerBound="1" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -2031,11 +1916,7 @@
       <details key="documentation" value="Element of UI contribution"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//GenContributionManager"
-        resolveProxies="false" eOpposite="#//GenContributionManager/items">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        changeable="false" resolveProxies="false" eOpposite="#//GenContributionManager/items"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="application" eType="#//GenApplication"
         changeable="false" volatile="true" transient="true" derived="true" resolveProxies="false"/>
   </eClassifiers>
@@ -2088,11 +1969,7 @@
     <eOperations name="getActionBarAdvisorQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getPerspectiveQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" lowerBound="1"
-        eType="#//GenEditorGenerator" resolveProxies="false" eOpposite="#//GenEditorGenerator/application">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//GenEditorGenerator" changeable="false" resolveProxies="false" eOpposite="#//GenEditorGenerator/application"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iD" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="RCP Application ID for plugin.xml"/>

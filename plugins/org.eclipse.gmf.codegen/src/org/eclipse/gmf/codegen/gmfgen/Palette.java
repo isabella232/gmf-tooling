@@ -44,7 +44,7 @@ public interface Palette extends EObject {
 	 * @return the value of the '<em>Diagram</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getPalette_Diagram()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPalette
-	 * @model opposite="palette" resolveProxies="false" required="true" transient="false" suppressedSetVisibility="true"
+	 * @model opposite="palette" resolveProxies="false" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenDiagram getDiagram();

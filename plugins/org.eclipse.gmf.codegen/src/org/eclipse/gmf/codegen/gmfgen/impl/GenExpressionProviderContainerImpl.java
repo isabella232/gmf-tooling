@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderContainerImpl.java,v 1.6 2007/04/11 08:10:23 dstadnik Exp $
+ * $Id: GenExpressionProviderContainerImpl.java,v 1.7 2008/04/18 14:43:22 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -205,37 +204,6 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetEditorGen(GenEditorGenerator newEditorGen, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newEditorGen, GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN, msgs);
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEditorGen(GenEditorGenerator newEditorGen) {
-		if (newEditorGen != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN && newEditorGen != null)) {
-			if (EcoreUtil.isAncestor(this, newEditorGen))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newEditorGen != null)
-				msgs = ((InternalEObject)newEditorGen).eInverseAdd(this, GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS, GenEditorGenerator.class, msgs);
-			msgs = basicSetEditorGen(newEditorGen, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN, newEditorGen, newEditorGen));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */	
 	public boolean isCopy(ValueExpression expression) {
@@ -292,7 +260,7 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetEditorGen((GenEditorGenerator)otherEnd, msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -308,7 +276,7 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__PROVIDERS:
 				return ((InternalEList<?>)getProviders()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN:
-				return basicSetEditorGen(null, msgs);
+				return eBasicSetContainer(null, GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -366,9 +334,6 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 				getProviders().clear();
 				getProviders().addAll((Collection<? extends GenExpressionProviderBase>)newValue);
 				return;
-			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN:
-				setEditorGen((GenEditorGenerator)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -389,9 +354,6 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 				return;
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__PROVIDERS:
 				getProviders().clear();
-				return;
-			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN:
-				setEditorGen((GenEditorGenerator)null);
 				return;
 		}
 		super.eUnset(featureID);

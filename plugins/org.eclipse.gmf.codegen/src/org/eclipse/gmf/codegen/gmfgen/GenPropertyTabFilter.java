@@ -37,7 +37,7 @@ public interface GenPropertyTabFilter extends EObject {
 	 * @return the value of the '<em>Tab</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPropertyTabFilter_Tab()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab#getFilter
-	 * @model opposite="filter" resolveProxies="false" required="true" transient="false" suppressedSetVisibility="true"
+	 * @model opposite="filter" resolveProxies="false" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenCustomPropertyTab getTab();

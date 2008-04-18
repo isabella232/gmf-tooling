@@ -37,7 +37,7 @@ public interface ToolGroupItem extends EObject {
 	 * @return the value of the '<em>Group</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getToolGroupItem_Group()
 	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroup#getEntries
-	 * @model opposite="entries" resolveProxies="false" transient="false" suppressedSetVisibility="true"
+	 * @model opposite="entries" resolveProxies="false" transient="false" changeable="false"
 	 * @generated
 	 */
 	ToolGroup getGroup();

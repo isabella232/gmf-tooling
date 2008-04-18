@@ -136,37 +136,6 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetGroup(ToolGroup newGroup, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newGroup, GMFGenPackage.TOOL_GROUP__GROUP, msgs);
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setGroup(ToolGroup newGroup) {
-		if (newGroup != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.TOOL_GROUP__GROUP && newGroup != null)) {
-			if (EcoreUtil.isAncestor(this, newGroup))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newGroup != null)
-				msgs = ((InternalEObject)newGroup).eInverseAdd(this, GMFGenPackage.TOOL_GROUP__ENTRIES, ToolGroup.class, msgs);
-			msgs = basicSetGroup(newGroup, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.TOOL_GROUP__GROUP, newGroup, newGroup));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Palette getPaletteGen() {
 		if (eContainerFeatureID != GMFGenPackage.TOOL_GROUP__PALETTE) return null;
 		return (Palette)eContainer();
@@ -249,7 +218,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 			case GMFGenPackage.TOOL_GROUP__GROUP:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetGroup((ToolGroup)otherEnd, msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.TOOL_GROUP__GROUP, msgs);
 			case GMFGenPackage.TOOL_GROUP__PALETTE:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
@@ -311,7 +280,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.TOOL_GROUP__GROUP:
-				return basicSetGroup(null, msgs);
+				return eBasicSetContainer(null, GMFGenPackage.TOOL_GROUP__GROUP, msgs);
 			case GMFGenPackage.TOOL_GROUP__PALETTE:
 				return basicSetPalette(null, msgs);
 			case GMFGenPackage.TOOL_GROUP__ENTRIES:
@@ -369,9 +338,6 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGenPackage.TOOL_GROUP__GROUP:
-				setGroup((ToolGroup)newValue);
-				return;
 			case GMFGenPackage.TOOL_GROUP__PALETTE:
 				setPalette((Palette)newValue);
 				return;
@@ -397,9 +363,6 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.TOOL_GROUP__GROUP:
-				setGroup((ToolGroup)null);
-				return;
 			case GMFGenPackage.TOOL_GROUP__PALETTE:
 				setPalette((Palette)null);
 				return;

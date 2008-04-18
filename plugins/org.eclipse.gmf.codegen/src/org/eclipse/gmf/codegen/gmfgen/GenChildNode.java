@@ -39,7 +39,7 @@ public interface GenChildNode extends GenNode {
 	 * @return the value of the '<em>Diagram</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenChildNode_Diagram()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getChildNodes
-	 * @model opposite="childNodes" resolveProxies="false" required="true" transient="false" suppressedSetVisibility="true"
+	 * @model opposite="childNodes" resolveProxies="false" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenDiagram getDiagram();

@@ -112,7 +112,7 @@ public interface GenPreferencePage extends EObject {
 	 * @return the value of the '<em>Parent</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPreferencePage_Parent()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getChildren
-	 * @model opposite="children" resolveProxies="false" transient="false" suppressedSetVisibility="true"
+	 * @model opposite="children" resolveProxies="false" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenPreferencePage getParent();

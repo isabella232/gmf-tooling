@@ -39,7 +39,7 @@ public interface GenPropertyTab extends EObject {
 	 * @return the value of the '<em>Sheet</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPropertyTab_Sheet()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#getTabs
-	 * @model opposite="tabs" resolveProxies="false" required="true" transient="false" suppressedSetVisibility="true"
+	 * @model opposite="tabs" resolveProxies="false" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenPropertySheet getSheet();

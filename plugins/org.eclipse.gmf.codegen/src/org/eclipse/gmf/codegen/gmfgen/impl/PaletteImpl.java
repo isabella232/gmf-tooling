@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -147,37 +146,6 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetDiagram(GenDiagram newDiagram, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newDiagram, GMFGenPackage.PALETTE__DIAGRAM, msgs);
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDiagram(GenDiagram newDiagram) {
-		if (newDiagram != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.PALETTE__DIAGRAM && newDiagram != null)) {
-			if (EcoreUtil.isAncestor(this, newDiagram))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newDiagram != null)
-				msgs = ((InternalEObject)newDiagram).eInverseAdd(this, GMFGenPackage.GEN_DIAGRAM__PALETTE, GenDiagram.class, msgs);
-			msgs = basicSetDiagram(newDiagram, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.PALETTE__DIAGRAM, newDiagram, newDiagram));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean isFlyout() {
 		return flyout;
 	}
@@ -294,7 +262,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 			case GMFGenPackage.PALETTE__DIAGRAM:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetDiagram((GenDiagram)otherEnd, msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.PALETTE__DIAGRAM, msgs);
 			case GMFGenPackage.PALETTE__GROUPS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getGroups()).basicAdd(otherEnd, msgs);
 		}
@@ -310,7 +278,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.PALETTE__DIAGRAM:
-				return basicSetDiagram(null, msgs);
+				return eBasicSetContainer(null, GMFGenPackage.PALETTE__DIAGRAM, msgs);
 			case GMFGenPackage.PALETTE__GROUPS:
 				return ((InternalEList<?>)getGroups()).basicRemove(otherEnd, msgs);
 		}
@@ -362,9 +330,6 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGenPackage.PALETTE__DIAGRAM:
-				setDiagram((GenDiagram)newValue);
-				return;
 			case GMFGenPackage.PALETTE__FLYOUT:
 				setFlyout(((Boolean)newValue).booleanValue());
 				return;
@@ -390,9 +355,6 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.PALETTE__DIAGRAM:
-				setDiagram((GenDiagram)null);
-				return;
 			case GMFGenPackage.PALETTE__FLYOUT:
 				setFlyout(FLYOUT_EDEFAULT);
 				return;

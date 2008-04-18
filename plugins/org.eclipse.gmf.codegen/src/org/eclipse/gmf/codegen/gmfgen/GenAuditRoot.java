@@ -45,7 +45,7 @@ public interface GenAuditRoot extends EObject {
 	 * @return the value of the '<em>Editor Gen</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRoot_EditorGen()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getAudits
-	 * @model opposite="audits" resolveProxies="false" required="true" transient="false" suppressedSetVisibility="true"
+	 * @model opposite="audits" resolveProxies="false" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();

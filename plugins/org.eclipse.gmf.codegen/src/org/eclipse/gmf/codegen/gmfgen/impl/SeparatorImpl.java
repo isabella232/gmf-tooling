@@ -6,20 +6,12 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.Separator;
-
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 
 /**
@@ -70,44 +62,13 @@ public class SeparatorImpl extends EObjectImpl implements Separator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetGroup(ToolGroup newGroup, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newGroup, GMFGenPackage.SEPARATOR__GROUP, msgs);
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setGroup(ToolGroup newGroup) {
-		if (newGroup != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.SEPARATOR__GROUP && newGroup != null)) {
-			if (EcoreUtil.isAncestor(this, newGroup))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newGroup != null)
-				msgs = ((InternalEObject)newGroup).eInverseAdd(this, GMFGenPackage.TOOL_GROUP__ENTRIES, ToolGroup.class, msgs);
-			msgs = basicSetGroup(newGroup, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.SEPARATOR__GROUP, newGroup, newGroup));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.SEPARATOR__GROUP:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetGroup((ToolGroup)otherEnd, msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.SEPARATOR__GROUP, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -121,7 +82,7 @@ public class SeparatorImpl extends EObjectImpl implements Separator {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.SEPARATOR__GROUP:
-				return basicSetGroup(null, msgs);
+				return eBasicSetContainer(null, GMFGenPackage.SEPARATOR__GROUP, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -152,36 +113,6 @@ public class SeparatorImpl extends EObjectImpl implements Separator {
 				return getGroup();
 		}
 		return super.eGet(featureID, resolve, coreType);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case GMFGenPackage.SEPARATOR__GROUP:
-				setGroup((ToolGroup)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
-			case GMFGenPackage.SEPARATOR__GROUP:
-				setGroup((ToolGroup)null);
-				return;
-		}
-		super.eUnset(featureID);
 	}
 
 	/**

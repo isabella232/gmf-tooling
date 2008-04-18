@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -233,37 +232,6 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	public GenDiagram getDiagram() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_LINK__DIAGRAM) return null;
 		return (GenDiagram)eContainer();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetDiagram(GenDiagram newDiagram, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newDiagram, GMFGenPackage.GEN_LINK__DIAGRAM, msgs);
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDiagram(GenDiagram newDiagram) {
-		if (newDiagram != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_LINK__DIAGRAM && newDiagram != null)) {
-			if (EcoreUtil.isAncestor(this, newDiagram))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newDiagram != null)
-				msgs = ((InternalEObject)newDiagram).eInverseAdd(this, GMFGenPackage.GEN_DIAGRAM__LINKS, GenDiagram.class, msgs);
-			msgs = basicSetDiagram(newDiagram, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__DIAGRAM, newDiagram, newDiagram));
 	}
 
 	/**
@@ -565,7 +533,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetDiagram((GenDiagram)otherEnd, msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_LINK__DIAGRAM, msgs);
 			case GMFGenPackage.GEN_LINK__LABELS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getLabels()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
@@ -585,7 +553,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
-				return basicSetDiagram(null, msgs);
+				return eBasicSetContainer(null, GMFGenPackage.GEN_LINK__DIAGRAM, msgs);
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
 				return basicSetModelFacet(null, msgs);
 			case GMFGenPackage.GEN_LINK__LABELS:
@@ -651,9 +619,6 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_LINK__DIAGRAM:
-				setDiagram((GenDiagram)newValue);
-				return;
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
 				setModelFacet((LinkModelFacet)newValue);
 				return;
@@ -694,9 +659,6 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_LINK__DIAGRAM:
-				setDiagram((GenDiagram)null);
-				return;
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
 				setModelFacet((LinkModelFacet)null);
 				return;

@@ -54,7 +54,7 @@ public interface GenNavigator extends GenDomainModelNavigator {
 	 * @return the value of the '<em>Editor Gen</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNavigator_EditorGen()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getNavigator
-	 * @model opposite="navigator" resolveProxies="false" transient="false" suppressedSetVisibility="true"
+	 * @model opposite="navigator" resolveProxies="false" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();

@@ -8,14 +8,10 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.DynamicModelAccess;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -110,37 +106,6 @@ public class DynamicModelAccessImpl extends EObjectImpl implements DynamicModelA
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetEditorGen(GenEditorGenerator newEditorGen, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newEditorGen, GMFGenPackage.DYNAMIC_MODEL_ACCESS__EDITOR_GEN, msgs);
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEditorGen(GenEditorGenerator newEditorGen) {
-		if (newEditorGen != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.DYNAMIC_MODEL_ACCESS__EDITOR_GEN && newEditorGen != null)) {
-			if (EcoreUtil.isAncestor(this, newEditorGen))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newEditorGen != null)
-				msgs = ((InternalEObject)newEditorGen).eInverseAdd(this, GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ACCESS, GenEditorGenerator.class, msgs);
-			msgs = basicSetEditorGen(newEditorGen, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.DYNAMIC_MODEL_ACCESS__EDITOR_GEN, newEditorGen, newEditorGen));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getPackageNameGen() {
 		return packageName;
 	}
@@ -206,7 +171,7 @@ public class DynamicModelAccessImpl extends EObjectImpl implements DynamicModelA
 			case GMFGenPackage.DYNAMIC_MODEL_ACCESS__EDITOR_GEN:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetEditorGen((GenEditorGenerator)otherEnd, msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.DYNAMIC_MODEL_ACCESS__EDITOR_GEN, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -220,7 +185,7 @@ public class DynamicModelAccessImpl extends EObjectImpl implements DynamicModelA
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.DYNAMIC_MODEL_ACCESS__EDITOR_GEN:
-				return basicSetEditorGen(null, msgs);
+				return eBasicSetContainer(null, GMFGenPackage.DYNAMIC_MODEL_ACCESS__EDITOR_GEN, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -265,9 +230,6 @@ public class DynamicModelAccessImpl extends EObjectImpl implements DynamicModelA
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGenPackage.DYNAMIC_MODEL_ACCESS__EDITOR_GEN:
-				setEditorGen((GenEditorGenerator)newValue);
-				return;
 			case GMFGenPackage.DYNAMIC_MODEL_ACCESS__PACKAGE_NAME:
 				setPackageName((String)newValue);
 				return;
@@ -286,9 +248,6 @@ public class DynamicModelAccessImpl extends EObjectImpl implements DynamicModelA
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.DYNAMIC_MODEL_ACCESS__EDITOR_GEN:
-				setEditorGen((GenEditorGenerator)null);
-				return;
 			case GMFGenPackage.DYNAMIC_MODEL_ACCESS__PACKAGE_NAME:
 				setPackageName(PACKAGE_NAME_EDEFAULT);
 				return;

@@ -7,7 +7,6 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
-import org.eclipse.emf.common.notify.Notification;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,10 +15,8 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -85,37 +82,6 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetEditorGen(GenEditorGenerator newEditorGen, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newEditorGen, GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN, msgs);
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEditorGen(GenEditorGenerator newEditorGen) {
-		if (newEditorGen != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN && newEditorGen != null)) {
-			if (EcoreUtil.isAncestor(this, newEditorGen))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newEditorGen != null)
-				msgs = ((InternalEObject)newEditorGen).eInverseAdd(this, GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS, GenEditorGenerator.class, msgs);
-			msgs = basicSetEditorGen(newEditorGen, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN, newEditorGen, newEditorGen));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<GenMetricRule> getMetrics() {
 		if (metrics == null) {
 			metrics = new EObjectContainmentWithInverseEList<GenMetricRule>(GenMetricRule.class, this, GMFGenPackage.GEN_METRIC_CONTAINER__METRICS, GMFGenPackage.GEN_METRIC_RULE__CONTAINER);
@@ -150,7 +116,7 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 			case GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetEditorGen((GenEditorGenerator)otherEnd, msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_METRIC_CONTAINER__METRICS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getMetrics()).basicAdd(otherEnd, msgs);
 		}
@@ -166,7 +132,7 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN:
-				return basicSetEditorGen(null, msgs);
+				return eBasicSetContainer(null, GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_METRIC_CONTAINER__METRICS:
 				return ((InternalEList<?>)getMetrics()).basicRemove(otherEnd, msgs);
 		}
@@ -212,9 +178,6 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN:
-				setEditorGen((GenEditorGenerator)newValue);
-				return;
 			case GMFGenPackage.GEN_METRIC_CONTAINER__METRICS:
 				getMetrics().clear();
 				getMetrics().addAll((Collection<? extends GenMetricRule>)newValue);
@@ -231,9 +194,6 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN:
-				setEditorGen((GenEditorGenerator)null);
-				return;
 			case GMFGenPackage.GEN_METRIC_CONTAINER__METRICS:
 				getMetrics().clear();
 				return;

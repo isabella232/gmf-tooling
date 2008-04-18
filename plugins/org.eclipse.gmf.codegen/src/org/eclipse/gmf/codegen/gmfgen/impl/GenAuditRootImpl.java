@@ -8,7 +8,6 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import org.eclipse.emf.common.notify.Notification;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -16,10 +15,8 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
@@ -109,37 +106,6 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetEditorGen(GenEditorGenerator newEditorGen, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newEditorGen, GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN, msgs);
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEditorGen(GenEditorGenerator newEditorGen) {
-		if (newEditorGen != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN && newEditorGen != null)) {
-			if (EcoreUtil.isAncestor(this, newEditorGen))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newEditorGen != null)
-				msgs = ((InternalEObject)newEditorGen).eInverseAdd(this, GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS, GenEditorGenerator.class, msgs);
-			msgs = basicSetEditorGen(newEditorGen, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN, newEditorGen, newEditorGen));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<GenAuditContainer> getCategories() {
 		if (categories == null) {
 			categories = new EObjectContainmentWithInverseEList<GenAuditContainer>(GenAuditContainer.class, this, GMFGenPackage.GEN_AUDIT_ROOT__CATEGORIES, GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT);
@@ -183,7 +149,7 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 			case GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetEditorGen((GenEditorGenerator)otherEnd, msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_AUDIT_ROOT__CATEGORIES:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getCategories()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_AUDIT_ROOT__RULES:
@@ -203,7 +169,7 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN:
-				return basicSetEditorGen(null, msgs);
+				return eBasicSetContainer(null, GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_AUDIT_ROOT__CATEGORIES:
 				return ((InternalEList<?>)getCategories()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_AUDIT_ROOT__RULES:
@@ -257,9 +223,6 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN:
-				setEditorGen((GenEditorGenerator)newValue);
-				return;
 			case GMFGenPackage.GEN_AUDIT_ROOT__CATEGORIES:
 				getCategories().clear();
 				getCategories().addAll((Collection<? extends GenAuditContainer>)newValue);
@@ -284,9 +247,6 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN:
-				setEditorGen((GenEditorGenerator)null);
-				return;
 			case GMFGenPackage.GEN_AUDIT_ROOT__CATEGORIES:
 				getCategories().clear();
 				return;

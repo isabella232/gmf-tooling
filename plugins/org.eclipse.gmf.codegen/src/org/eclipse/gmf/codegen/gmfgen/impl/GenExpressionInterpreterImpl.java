@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionInterpreterImpl.java,v 1.6 2007/05/22 17:27:35 atikhomirov Exp $
+ * $Id: GenExpressionInterpreterImpl.java,v 1.7 2008/04/18 14:43:22 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -184,8 +184,7 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
-		@Override
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__LANGUAGE:
