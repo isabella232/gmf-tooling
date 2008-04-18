@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -20,12 +20,15 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContext;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
@@ -41,6 +44,8 @@ class MigrationDelegate extends MigrationDelegateImpl {
 	private GenAuditContainer myRootContainer;
 	private Map<GenExpressionInterpreter, Collection<String>> myRequiredPlugins;
 	private GenExpressionProviderContainer myProvidersContainer;
+	private EAttribute myGenAuditRule_ContextSelectorLocalClassName;
+	private Map<GenAuditRule, String> myAuditContexts;
 	
 	MigrationDelegate() {
 	}
@@ -95,13 +100,15 @@ class MigrationDelegate extends MigrationDelegateImpl {
 			registerRenamedAttributes(GMFGenPackage.eINSTANCE.getGenAuditRoot(), renamings);
 		}
 
-		//registerNarrowReferenceType(GMFGenPackage.eINSTANCE.getGenFeatureSeqInitializer_Initializers(), GMFGenPackage.eINSTANCE.getGenFeatureValueSpec());
+		myGenAuditRule_ContextSelectorLocalClassName = createNewAttribute("contextSelectorLocalClassName", EcorePackage.eINSTANCE.getEString(), false);
+		registerRenamedAttribute(GMFGenPackage.eINSTANCE.getGenAuditRule(), myGenAuditRule_ContextSelectorLocalClassName.getName(), myGenAuditRule_ContextSelectorLocalClassName);
 		// --->
 		registerNarrowedAbstractType("GenFeatureInitializer", GMFGenPackage.eINSTANCE.getGenFeatureValueSpec()); //$NON-NLS-1$
 
 		myRootContainer = null;
 		myProvidersContainer = null;
 		myRequiredPlugins = null;
+		myAuditContexts = null;
 	}
 	
 	@Override
@@ -110,7 +117,7 @@ class MigrationDelegate extends MigrationDelegateImpl {
 			GenExpressionInterpreter expressionInterpreter = (GenExpressionInterpreter) object;
 			String requiredPlugin = (String) value;
 			saveRequiredPlugin(expressionInterpreter, requiredPlugin);
-	    } else if (myGenAuditRoot_Id.equals(feature)) {
+		} else if (myGenAuditRoot_Id.equals(feature)) {
 			GenAuditRoot root = (GenAuditRoot) object;
 			String id = (String) value;
 			GenAuditContainer rootContainer = getOrCreateRootContainerOnce(root);
@@ -156,11 +163,26 @@ class MigrationDelegate extends MigrationDelegateImpl {
 			GenAuditRule rule = (GenAuditRule)value;
 			rule.setCategory(container);
 			getOrCreateRoot(container).getRules().add(rule);
-	    } else {
+		} else if (myGenAuditRule_ContextSelectorLocalClassName.equals(feature)) {
+			GenAuditRule rule = (GenAuditRule) object;
+			String className = (String) value;
+			saveAuditContext(rule, className);
+		} else {
 			// other cases are would be processed as defaults
 			return super.setValue(object, feature, value, position);
 		}
 		return true;
+	}
+
+	private void saveAuditContext(GenAuditRule rule, String className) {
+		if (myAuditContexts == null) {
+			myAuditContexts = new LinkedHashMap<GenAuditRule, String>();
+		}
+		myAuditContexts.put(rule, className);
+	}
+	
+	private Map<GenAuditRule, String> getSavedAuditContexts() {
+		return myAuditContexts;
 	}
 
 	private void saveRequiredPlugin(GenExpressionInterpreter expressionProvider, String requiredPlugin) {
@@ -181,30 +203,80 @@ class MigrationDelegate extends MigrationDelegateImpl {
 
 	@Override
 	public void preResolve() {
-		if (getSavedRequiredPlugins() == null) {
-			return;
+		if (getSavedRequiredPlugins() != null) {
+			for (GenExpressionInterpreter expressionProvider : getSavedRequiredPlugins().keySet()) {
+				GenExpressionProviderContainer container = expressionProvider.getContainer();
+				if (container == null) {
+					container = getOrCreateParenlessProvidersContainerOnce(expressionProvider);
+					container.getProviders().add(expressionProvider);
+				}
+				GenEditorGenerator editor = container.getEditorGen();
+				if (editor == null) {
+					editor = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
+					container.eResource().getContents().add(editor);
+					editor.setExpressionProviders(container);
+				}
+				GenPlugin plugin = editor.getPlugin();
+				if (plugin == null) {
+					plugin = GMFGenFactory.eINSTANCE.createGenPlugin();
+					editor.setPlugin(plugin);
+				}
+				plugin.getRequiredPlugins().addAll(getSavedRequiredPlugins().get(expressionProvider));
+				fireMigrationApplied(true);
+			}
+			getSavedRequiredPlugins().clear();
 		}
-		for (GenExpressionInterpreter expressionProvider : getSavedRequiredPlugins().keySet()) {
-			GenExpressionProviderContainer container = expressionProvider.getContainer();
-			if (container == null) {
-				container = getOrCreateParenlessProvidersContainerOnce(expressionProvider);
-				container.getProviders().add(expressionProvider);
+		if (getSavedAuditContexts() != null) {
+			for (GenAuditRule rule : getSavedAuditContexts().keySet()) {
+				GenAuditRoot root = getOrCreateRoot(rule);
+				String className = getSavedAuditContexts().get(rule);
+				GenAuditContext context = getOrCreateContext(root, className);
+				GenAuditable target = rule.getTarget();
+				if (target != null) {
+					target.setContextSelector(context);
+					fireMigrationApplied(true);
+				}
 			}
-			GenEditorGenerator editor = container.getEditorGen();
-			if (editor == null) {
-				editor = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
-				container.eResource().getContents().add(editor);
-				editor.setExpressionProviders(container);
-			}
-			GenPlugin plugin = editor.getPlugin();
-			if (plugin == null) {
-				plugin = GMFGenFactory.eINSTANCE.createGenPlugin();
-				editor.setPlugin(plugin);
-			}
-			plugin.getRequiredPlugins().addAll(getSavedRequiredPlugins().get(expressionProvider));
-			fireMigrationApplied(true);
+			getSavedAuditContexts().clear();
 		}
-		getSavedRequiredPlugins().clear();
+	}
+	
+	private GenAuditContext getOrCreateContext(GenAuditRoot root, String className) {
+		GenAuditContext context = null;
+		for (GenAuditContext next : root.getClientContexts()) {
+			String explicit = next.getClassName();
+			if (className.equals(explicit) || (explicit == null && className.equals(next.getId()))) {
+				context = next;
+				break;
+			}
+		}
+		if (context == null) {
+			context = GMFGenFactory.eINSTANCE.createGenAuditContext();
+			String id = generateUnique(root, className);
+			context.setId(id);
+			if (!id.equals(className)) {
+				context.setClassName(className);
+			}
+			root.getClientContexts().add(context);
+		}
+		return context;
+	}
+
+	private String generateUnique(GenAuditRoot root, String defaultId) {
+		String id = defaultId;
+		int i = 0;
+		boolean haveSuchId = false;
+		do {
+			haveSuchId = false;
+			for (GenAuditContext next : root.getClientContexts()) {
+				if (id.equals(next.getId())) {
+					haveSuchId = true;
+					id = defaultId + (++i);
+					break;
+				}
+			}
+		} while (haveSuchId);
+		return id;
 	}
 
 	private GenExpressionProviderContainer getOrCreateParenlessProvidersContainerOnce(GenExpressionInterpreter expressionProvider) {
@@ -226,12 +298,26 @@ class MigrationDelegate extends MigrationDelegateImpl {
 	private GenAuditRoot getOrCreateRoot(GenAuditContainer auditContainer) {
 		GenAuditRoot result = auditContainer.getRoot();
 		if (result == null) {
-			result = GMFGenFactory.eINSTANCE.createGenAuditRoot();
-			if (auditContainer.eContainer() == null) {
-				auditContainer.eResource().getContents().add(result);
-				fireMigrationApplied(true);
-			}
+			result = createRoot(auditContainer);
 			result.getCategories().add(auditContainer);
+		}
+		return result;
+	}
+
+	private GenAuditRoot getOrCreateRoot(GenAuditRule auditRule) {
+		GenAuditRoot result = auditRule.getRoot();
+		if (result == null) {
+			result = createRoot(auditRule);
+			result.getRules().add(auditRule);
+		}
+		return result;
+	}
+
+	private GenAuditRoot createRoot(EObject child) {
+		GenAuditRoot result = GMFGenFactory.eINSTANCE.createGenAuditRoot();
+		if (child.eContainer() == null) {
+			child.eResource().getContents().add(result);
+			fireMigrationApplied(true);
 		}
 		return result;
 	}
