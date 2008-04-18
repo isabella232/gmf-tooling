@@ -4,7 +4,7 @@
 
   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
     <factory 
-       uri = "http://www.eclipse.org/gmf/2006/mappings" 
+       uri = "http://www.eclipse.org/gmf/2008/mappings" 
        class = "org.eclipse.gmf.mappings.provider.GMFMapItemProviderAdapterFactory"
        supportedTypes = 
          "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
