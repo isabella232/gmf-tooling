@@ -12,8 +12,8 @@
           href="../../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
       <domainInitializer
           xsi:type="gmfmap:FeatureSeqInitializer">
-        <initializers>
-          <value body="'a String'"/>
+        <initializers
+            body="'a String'">
           <feature
               xsi:type="ecore:EAttribute"
               href="../../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>

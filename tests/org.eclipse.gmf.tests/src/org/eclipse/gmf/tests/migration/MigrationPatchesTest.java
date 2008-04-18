@@ -26,12 +26,15 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContext;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -57,9 +60,20 @@ import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
 import org.eclipse.gmf.internal.common.migrate.MigrationResource;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
+import org.eclipse.gmf.mappings.CanvasMapping;
+import org.eclipse.gmf.mappings.ElementInitializer;
+import org.eclipse.gmf.mappings.FeatureInitializer;
 import org.eclipse.gmf.mappings.FeatureLabelMapping;
+import org.eclipse.gmf.mappings.FeatureSeqInitializer;
+import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.LabelMapping;
+import org.eclipse.gmf.mappings.Language;
+import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
+import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.ReferenceNewElementSpec;
+import org.eclipse.gmf.mappings.TopNodeReference;
+import org.eclipse.gmf.mappings.ValueExpression;
 import org.eclipse.gmf.tests.Plugin;
 
 public class MigrationPatchesTest extends TestCase {
@@ -856,4 +870,134 @@ public class MigrationPatchesTest extends TestCase {
 		assertNotNull(canvas.getLabels().get(0).getFigure());
 		
 	}
+
+	public void testAuditContexts() throws Exception {
+		URI gmfgenFileName = createURI("test226149.gmfgen"); //$NON-NLS-1$
+		
+		Exception caughtGenException = assertOrdinaryLoadModelProblems(gmfgenFileName);
+		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
+
+		assertOnLoadModelMigrationSuccess(gmfgenFileName);
+		checkAuditContexts(gmfgenFileName);
+
+		URI newUri = temporarySaveMigratedModel(gmfgenFileName, "test226149", "gmfgen");
+		
+		assertOnLoadModelMigrationDidNothing(newUri);
+		checkAuditContexts(newUri);
+	}
+
+	private void checkAuditContexts(URI modelUri) {
+		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), modelUri);
+		Resource resource = loadHelper.getLoadedResource();
+		
+		assertEquals(1, resource.getContents().size());
+		Object first = resource.getContents().get(0);
+		assertTrue(first instanceof GenEditorGenerator);
+		GenEditorGenerator editor = (GenEditorGenerator) first;
+		assertEquals(1, editor.eContents().size());
+		first = editor.eContents().get(0);
+		assertTrue(first instanceof GenAuditRoot);
+		GenAuditRoot root = (GenAuditRoot) first;
+		assertEquals(6, root.eContents().size());
+		
+		assertNotNull(root.getClientContexts());
+		assertFalse(root.getClientContexts().isEmpty());
+		assertEquals(2, root.getClientContexts().size());
+		
+		GenAuditContext saveMe1 = root.getClientContexts().get(0);
+		assertEquals("SaveMe1", saveMe1.getId());
+		assertFalse(saveMe1.getRuleTargets().isEmpty());
+		assertEquals(2, saveMe1.getRuleTargets().size());
+
+		GenAuditContext saveMe2 = root.getClientContexts().get(1);
+		assertEquals("SaveMe2", saveMe2.getId());
+		assertFalse(saveMe2.getRuleTargets().isEmpty());
+		assertEquals(1, saveMe2.getRuleTargets().size());
+	}
+
+	public void testFeatureValueSpecRefactor227505() throws Exception {
+		URI gmfmapFileName = createURI("test227505.gmfmap"); //$NON-NLS-1$
+		
+		Exception caughtGenException = assertOrdinaryLoadModelProblems(gmfmapFileName);
+		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
+
+		assertOnLoadModelMigrationSuccess(gmfmapFileName);
+		checkValueExpressions(gmfmapFileName);
+
+		URI newUri = temporarySaveMigratedModel(gmfmapFileName, "test227505", "gmfmap");
+		
+		assertOnLoadModelMigrationDidNothing(newUri);
+		checkValueExpressions(newUri);
+	}
+
+	private void checkValueExpressions(URI modelUri) {
+		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), modelUri);
+		Resource resource = loadHelper.getLoadedResource();
+		//EcoreUtil.resolveAll(resource);
+		
+		assertEquals(1, resource.getContents().size());
+		Object first = resource.getContents().get(0);
+		assertTrue(first instanceof Mapping);
+		Mapping mapping = (Mapping) first;
+		assertEquals(2, mapping.eContents().size());
+		first = mapping.eContents().get(0);
+		assertTrue(first instanceof TopNodeReference);
+		Object second = mapping.eContents().get(1);
+		assertTrue(second instanceof CanvasMapping);
+		TopNodeReference topNode = (TopNodeReference) first;
+		assertEquals(1, topNode.eContents().size());
+		first = topNode.eContents().get(0);
+		assertTrue(first instanceof NodeMapping);
+		NodeMapping node = (NodeMapping) first;
+		
+		ElementInitializer initer = node.getDomainInitializer();
+		assertNotNull(initer);
+		assertTrue(initer instanceof FeatureSeqInitializer);
+		FeatureSeqInitializer featureRef = (FeatureSeqInitializer) initer;
+		assertNotNull(featureRef.getInitializers());
+		assertFalse(featureRef.getInitializers().isEmpty());
+		assertEquals(3, featureRef.getInitializers().size());
+		
+		FeatureInitializer init1 = featureRef.getInitializers().get(0);
+		assertTrue(init1 instanceof FeatureValueSpec);
+		FeatureValueSpec feature1 = (FeatureValueSpec) init1;
+		assertEquals(EcoreUtil.getURI(EcorePackage.eINSTANCE.getEModelElement_EAnnotations()).fragment(), EcoreUtil.getURI(feature1.getFeature()).fragment());
+		ValueExpression value1 = feature1.getValue();
+		assertNotNull(value1);
+		assertEquals(Language.JAVA_LITERAL, value1.getLanguage());
+		assertEquals("some.Checker", value1.getBody());
+
+		FeatureInitializer init2 = featureRef.getInitializers().get(1);
+		assertTrue(init2 instanceof FeatureValueSpec);
+		FeatureValueSpec feature2 = (FeatureValueSpec) init2;
+		assertEquals(EcoreUtil.getURI(EcorePackage.eINSTANCE.getENamedElement_Name()).fragment(), EcoreUtil.getURI(feature2.getFeature()).fragment());
+		ValueExpression value2 = feature2.getValue();
+		assertNotNull(value2);
+		assertEquals(Language.OCL_LITERAL, value2.getLanguage());
+		assertEquals("self.name", value2.getBody());
+
+		FeatureInitializer init3 = featureRef.getInitializers().get(2);
+		assertTrue(init3 instanceof ReferenceNewElementSpec);
+		ReferenceNewElementSpec ref3 = (ReferenceNewElementSpec) init3;
+		assertEquals(EcoreUtil.getURI(EcorePackage.eINSTANCE.getETypeParameter_EBounds()).fragment(), EcoreUtil.getURI(ref3.getFeature()).fragment());
+		assertNotNull(ref3.getNewElementInitializers());
+		assertFalse(ref3.getNewElementInitializers().isEmpty());
+		assertEquals(1, ref3.getNewElementInitializers().size());
+		
+		FeatureSeqInitializer featureRef3 = ref3.getNewElementInitializers().get(0);
+		assertNotNull(featureRef3);
+		assertNotNull(featureRef3.getInitializers());
+		assertFalse(featureRef3.getInitializers().isEmpty());
+		assertEquals(1, featureRef3.getInitializers().size());
+		
+		FeatureInitializer init31 = featureRef3.getInitializers().get(0);
+		assertTrue(init31 instanceof FeatureValueSpec);
+		FeatureValueSpec feature31 = (FeatureValueSpec) init31;
+		assertEquals(EcoreUtil.getURI(EcorePackage.eINSTANCE.getEGenericType_ELowerBound()).fragment(), EcoreUtil.getURI(feature31.getFeature()).fragment());
+		ValueExpression value31 = feature31.getValue();
+		assertNotNull(value31);
+		assertEquals(Language.JAVA_LITERAL, value31.getLanguage());
+		assertEquals("some.Checker2", value31.getBody());
+	}
+
 }
