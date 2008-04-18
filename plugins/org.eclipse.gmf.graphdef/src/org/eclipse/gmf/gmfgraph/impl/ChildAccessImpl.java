@@ -13,7 +13,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureAccessor;
@@ -95,37 +94,6 @@ public class ChildAccessImpl extends EObjectImpl implements ChildAccess {
 	public FigureDescriptor getOwner() {
 		if (eContainerFeatureID != GMFGraphPackage.CHILD_ACCESS__OWNER) return null;
 		return (FigureDescriptor)eContainer();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetOwner(FigureDescriptor newOwner, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newOwner, GMFGraphPackage.CHILD_ACCESS__OWNER, msgs);
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setOwner(FigureDescriptor newOwner) {
-		if (newOwner != eInternalContainer() || (eContainerFeatureID != GMFGraphPackage.CHILD_ACCESS__OWNER && newOwner != null)) {
-			if (EcoreUtil.isAncestor(this, newOwner))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newOwner != null)
-				msgs = ((InternalEObject)newOwner).eInverseAdd(this, GMFGraphPackage.FIGURE_DESCRIPTOR__ACCESSORS, FigureDescriptor.class, msgs);
-			msgs = basicSetOwner(newOwner, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.CHILD_ACCESS__OWNER, newOwner, newOwner));
 	}
 
 	/**
@@ -216,7 +184,7 @@ public class ChildAccessImpl extends EObjectImpl implements ChildAccess {
 			case GMFGraphPackage.CHILD_ACCESS__OWNER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetOwner((FigureDescriptor)otherEnd, msgs);
+				return eBasicSetContainer(otherEnd, GMFGraphPackage.CHILD_ACCESS__OWNER, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -230,7 +198,7 @@ public class ChildAccessImpl extends EObjectImpl implements ChildAccess {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.CHILD_ACCESS__OWNER:
-				return basicSetOwner(null, msgs);
+				return eBasicSetContainer(null, GMFGraphPackage.CHILD_ACCESS__OWNER, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -276,9 +244,6 @@ public class ChildAccessImpl extends EObjectImpl implements ChildAccess {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGraphPackage.CHILD_ACCESS__OWNER:
-				setOwner((FigureDescriptor)newValue);
-				return;
 			case GMFGraphPackage.CHILD_ACCESS__ACCESSOR:
 				setAccessor((String)newValue);
 				return;
@@ -297,9 +262,6 @@ public class ChildAccessImpl extends EObjectImpl implements ChildAccess {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGraphPackage.CHILD_ACCESS__OWNER:
-				setOwner((FigureDescriptor)null);
-				return;
 			case GMFGraphPackage.CHILD_ACCESS__ACCESSOR:
 				setAccessor(ACCESSOR_EDEFAULT);
 				return;

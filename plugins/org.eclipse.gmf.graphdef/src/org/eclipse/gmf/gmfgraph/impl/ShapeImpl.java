@@ -226,8 +226,7 @@ public abstract class ShapeImpl extends RealFigureImpl implements Shape {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
-		@Override
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.SHAPE__OUTLINE:

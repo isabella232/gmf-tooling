@@ -105,8 +105,7 @@ public class LabelImpl extends RealFigureImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
-		@Override
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.LABEL__TEXT:

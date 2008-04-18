@@ -179,8 +179,7 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
-		@Override
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_ACCESSOR__ACCESSOR:
