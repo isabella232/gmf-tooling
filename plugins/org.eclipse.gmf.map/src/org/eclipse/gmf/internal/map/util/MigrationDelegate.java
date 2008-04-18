@@ -21,16 +21,21 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.internal.common.migrate.MigrationDelegateImpl;
 import org.eclipse.gmf.mappings.FeatureLabelMapping;
+import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LabelMapping;
+import org.eclipse.gmf.mappings.Language;
 import org.eclipse.gmf.mappings.MappingEntry;
+import org.eclipse.gmf.mappings.ValueExpression;
 
 class MigrationDelegate extends MigrationDelegateImpl {
 	private Map<LabelMapping, FeatureLabelMapping> myLabelMappingMigrations;
 	private EAttribute myLabelMapping_ViewPattern;
 	private EAttribute myLabelMapping_EditPattern;
 	private EReference myLabelMapping_Features;
+	private EAttribute myFeatureValueSpec_Body;
+	private EAttribute myFeatureValueSpec_Language;
 	
 	MigrationDelegate() {
 	}
@@ -51,6 +56,15 @@ class MigrationDelegate extends MigrationDelegateImpl {
 			renamings.put(myLabelMapping_EditPattern.getName(), myLabelMapping_EditPattern);
 			renamings.put(myLabelMapping_Features.getName(), myLabelMapping_Features);
 			registerRenamedAttributes(GMFMapPackage.eINSTANCE.getLabelMapping(), renamings);
+		}
+		
+		myFeatureValueSpec_Body = (EAttribute) EcoreUtil.copy(GMFMapPackage.eINSTANCE.getValueExpression_Body());
+		myFeatureValueSpec_Language = (EAttribute) EcoreUtil.copy(GMFMapPackage.eINSTANCE.getValueExpression_Language());
+		{
+			Map<String, EStructuralFeature> renamings = new HashMap<String, EStructuralFeature>();
+			renamings.put(myFeatureValueSpec_Body.getName(), myFeatureValueSpec_Body);
+			renamings.put(myFeatureValueSpec_Language.getName(), myFeatureValueSpec_Language);
+			registerRenamedAttributes(GMFMapPackage.eINSTANCE.getFeatureValueSpec(), renamings);
 		}
 		
 		myLabelMappingMigrations = null;
@@ -76,11 +90,32 @@ class MigrationDelegate extends MigrationDelegateImpl {
 			FeatureLabelMapping migratedMapping = saveFeatureLabelMappingFor(mapping);
 			migratedMapping.getFeatures().add(attribute);
 			fireMigrationApplied(true);
+		} else if (myFeatureValueSpec_Body.equals(feature)) {
+			FeatureValueSpec featureRef = (FeatureValueSpec) object;
+			String body = (String) value;
+			ValueExpression constraint = getOrCreateValueExpression(featureRef);
+			constraint.setBody(body);
+			fireMigrationApplied(true);
+		} else if (myFeatureValueSpec_Language.equals(feature)) {
+			FeatureValueSpec featureRef = (FeatureValueSpec) object;
+			ValueExpression constraint = getOrCreateValueExpression(featureRef);
+			Language lang = Language.get((String) value);
+			constraint.setLanguage(lang);
+			fireMigrationApplied(true);
 		} else {
 			// other cases are would be processed as defaults
 			return super.setValue(object, feature, value, position);
 		}
 		return true;
+	}
+
+	private ValueExpression getOrCreateValueExpression(FeatureValueSpec featureRef) {
+		ValueExpression constraint = featureRef.getValue();
+		if (constraint == null) {
+			constraint = GMFMapFactory.eINSTANCE.createValueExpression();
+			featureRef.setValue(constraint);
+		}
+		return constraint;
 	}
 
 	private FeatureLabelMapping saveFeatureLabelMappingFor(LabelMapping labelMapping) {
