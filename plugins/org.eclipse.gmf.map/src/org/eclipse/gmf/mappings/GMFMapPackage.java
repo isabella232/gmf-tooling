@@ -44,7 +44,7 @@ public interface GMFMapPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://www.eclipse.org/gmf/2006/mappings";
+	String eNS_URI = "http://www.eclipse.org/gmf/2008/mappings";
 
 	/**
 	 * The package namespace name.

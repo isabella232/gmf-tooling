@@ -48,7 +48,7 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	 */
 	public static GMFMapFactory init() {
 		try {
-			GMFMapFactory theGMFMapFactory = (GMFMapFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/gmf/2006/mappings"); 
+			GMFMapFactory theGMFMapFactory = (GMFMapFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/gmf/2008/mappings"); 
 			if (theGMFMapFactory != null) {
 				return theGMFMapFactory;
 			}

@@ -12,9 +12,17 @@
        class = "org.eclipse.gmf.mappings.GMFMapPackage"
        genModel = "models/gmfmap.genmodel" /> 
     <package 
-       uri = "http://www.eclipse.org/gmf/2006/mappings"
+       uri = "http://www.eclipse.org/gmf/2008/mappings"
        class = "org.eclipse.gmf.mappings.GMFMapPackage"
        genModel = "models/gmfmap.genmodel" />
+  </extension>
+
+  <extension
+        point="org.eclipse.emf.ecore.dynamic_package">
+     <resource
+           location="models/gmfmap_2007.ecore"
+           uri="http://www.eclipse.org/gmf/2006/mappings">
+     </resource>
   </extension>
 
   <extension point="org.eclipse.emf.ecore.extension_parser">
