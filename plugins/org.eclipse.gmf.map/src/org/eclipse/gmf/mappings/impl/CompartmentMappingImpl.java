@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.mappings.ChildReference;
@@ -132,37 +131,6 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetParentNode(NodeMapping newParentNode, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newParentNode, GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE, msgs);
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setParentNode(NodeMapping newParentNode) {
-		if (newParentNode != eInternalContainer() || (eContainerFeatureID != GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE && newParentNode != null)) {
-			if (EcoreUtil.isAncestor(this, newParentNode))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newParentNode != null)
-				msgs = ((InternalEObject)newParentNode).eInverseAdd(this, GMFMapPackage.NODE_MAPPING__COMPARTMENTS, NodeMapping.class, msgs);
-			msgs = basicSetParentNode(newParentNode, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE, newParentNode, newParentNode));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<ChildReference> getChildren() {
 		if (children == null) {
 			children = new EObjectWithInverseResolvingEList<ChildReference>(ChildReference.class, this, GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN, GMFMapPackage.CHILD_REFERENCE__COMPARTMENT);
@@ -182,7 +150,7 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetParentNode((NodeMapping)otherEnd, msgs);
+				return eBasicSetContainer(otherEnd, GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE, msgs);
 			case GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildren()).basicAdd(otherEnd, msgs);
 		}
@@ -198,7 +166,7 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE:
-				return basicSetParentNode(null, msgs);
+				return eBasicSetContainer(null, GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE, msgs);
 			case GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN:
 				return ((InternalEList<?>)getChildren()).basicRemove(otherEnd, msgs);
 		}
@@ -250,9 +218,6 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 			case GMFMapPackage.COMPARTMENT_MAPPING__COMPARTMENT:
 				setCompartment((Compartment)newValue);
 				return;
-			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE:
-				setParentNode((NodeMapping)newValue);
-				return;
 			case GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN:
 				getChildren().clear();
 				getChildren().addAll((Collection<? extends ChildReference>)newValue);
@@ -271,9 +236,6 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 		switch (featureID) {
 			case GMFMapPackage.COMPARTMENT_MAPPING__COMPARTMENT:
 				setCompartment((Compartment)null);
-				return;
-			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE:
-				setParentNode((NodeMapping)null);
 				return;
 			case GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN:
 				getChildren().clear();

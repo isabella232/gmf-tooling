@@ -8,16 +8,11 @@ package org.eclipse.gmf.mappings.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
-import org.eclipse.emf.ecore.util.EcoreUtil;
-
 import org.eclipse.gmf.mappings.FeatureInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.GMFMapPackage;
@@ -119,44 +114,13 @@ public abstract class FeatureInitializerImpl extends EObjectImpl implements Feat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetFeatureSeqInitializer(FeatureSeqInitializer newFeatureSeqInitializer, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newFeatureSeqInitializer, GMFMapPackage.FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER, msgs);
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setFeatureSeqInitializer(FeatureSeqInitializer newFeatureSeqInitializer) {
-		if (newFeatureSeqInitializer != eInternalContainer() || (eContainerFeatureID != GMFMapPackage.FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER && newFeatureSeqInitializer != null)) {
-			if (EcoreUtil.isAncestor(this, newFeatureSeqInitializer))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newFeatureSeqInitializer != null)
-				msgs = ((InternalEObject)newFeatureSeqInitializer).eInverseAdd(this, GMFMapPackage.FEATURE_SEQ_INITIALIZER__INITIALIZERS, FeatureSeqInitializer.class, msgs);
-			msgs = basicSetFeatureSeqInitializer(newFeatureSeqInitializer, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER, newFeatureSeqInitializer, newFeatureSeqInitializer));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetFeatureSeqInitializer((FeatureSeqInitializer)otherEnd, msgs);
+				return eBasicSetContainer(otherEnd, GMFMapPackage.FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -170,7 +134,7 @@ public abstract class FeatureInitializerImpl extends EObjectImpl implements Feat
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER:
-				return basicSetFeatureSeqInitializer(null, msgs);
+				return eBasicSetContainer(null, GMFMapPackage.FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -217,9 +181,6 @@ public abstract class FeatureInitializerImpl extends EObjectImpl implements Feat
 			case GMFMapPackage.FEATURE_INITIALIZER__FEATURE:
 				setFeature((EStructuralFeature)newValue);
 				return;
-			case GMFMapPackage.FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER:
-				setFeatureSeqInitializer((FeatureSeqInitializer)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -234,9 +195,6 @@ public abstract class FeatureInitializerImpl extends EObjectImpl implements Feat
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_INITIALIZER__FEATURE:
 				setFeature((EStructuralFeature)null);
-				return;
-			case GMFMapPackage.FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER:
-				setFeatureSeqInitializer((FeatureSeqInitializer)null);
 				return;
 		}
 		super.eUnset(featureID);

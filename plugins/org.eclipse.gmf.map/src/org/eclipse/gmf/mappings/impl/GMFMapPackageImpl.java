@@ -1827,7 +1827,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 
 		initEClass(compartmentMappingEClass, CompartmentMapping.class, "CompartmentMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCompartmentMapping_Compartment(), theGMFGraphPackage.getCompartment(), null, "compartment", null, 1, 1, CompartmentMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getCompartmentMapping_ParentNode(), this.getNodeMapping(), this.getNodeMapping_Compartments(), "parentNode", null, 1, 1, CompartmentMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCompartmentMapping_ParentNode(), this.getNodeMapping(), this.getNodeMapping_Compartments(), "parentNode", null, 1, 1, CompartmentMapping.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCompartmentMapping_Children(), this.getChildReference(), this.getChildReference_Compartment(), "children", null, 0, -1, CompartmentMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(linkMappingEClass, LinkMapping.class, "LinkMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1847,7 +1847,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEClass(labelMappingEClass, LabelMapping.class, "LabelMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLabelMapping_DiagramLabel(), theGMFGraphPackage.getDiagramLabel(), null, "diagramLabel", null, 1, 1, LabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLabelMapping_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", null, 0, 1, LabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getLabelMapping_MapEntry(), this.getMappingEntry(), this.getMappingEntry_LabelMappings(), "mapEntry", null, 1, 1, LabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLabelMapping_MapEntry(), this.getMappingEntry(), this.getMappingEntry_LabelMappings(), "mapEntry", null, 1, 1, LabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureLabelMappingEClass, FeatureLabelMapping.class, "FeatureLabelMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeatureLabelMapping_Features(), ecorePackage.getEAttribute(), null, "features", null, 1, -1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1862,7 +1862,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEClass(constraintEClass, Constraint.class, "Constraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(linkConstraintsEClass, LinkConstraints.class, "LinkConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getLinkConstraints_LinkMapping(), this.getLinkMapping(), this.getLinkMapping_CreationConstraints(), "linkMapping", null, 1, 1, LinkConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLinkConstraints_LinkMapping(), this.getLinkMapping(), this.getLinkMapping_CreationConstraints(), "linkMapping", null, 1, 1, LinkConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLinkConstraints_SourceEnd(), this.getConstraint(), null, "sourceEnd", null, 0, 1, LinkConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLinkConstraints_TargetEnd(), this.getConstraint(), null, "targetEnd", null, 0, 1, LinkConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1877,11 +1877,11 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEClass(featureSeqInitializerEClass, FeatureSeqInitializer.class, "FeatureSeqInitializer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeatureSeqInitializer_Initializers(), this.getFeatureInitializer(), this.getFeatureInitializer_FeatureSeqInitializer(), "initializers", null, 1, -1, FeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeatureSeqInitializer_ElementClass(), ecorePackage.getEClass(), null, "elementClass", null, 0, 1, FeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFeatureSeqInitializer_CreatingInitializer(), this.getReferenceNewElementSpec(), this.getReferenceNewElementSpec_NewElementInitializers(), "creatingInitializer", null, 0, 1, FeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureSeqInitializer_CreatingInitializer(), this.getReferenceNewElementSpec(), this.getReferenceNewElementSpec_NewElementInitializers(), "creatingInitializer", null, 0, 1, FeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureInitializerEClass, FeatureInitializer.class, "FeatureInitializer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeatureInitializer_Feature(), ecorePackage.getEStructuralFeature(), null, "feature", null, 1, 1, FeatureInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFeatureInitializer_FeatureSeqInitializer(), this.getFeatureSeqInitializer(), this.getFeatureSeqInitializer_Initializers(), "featureSeqInitializer", null, 1, 1, FeatureInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureInitializer_FeatureSeqInitializer(), this.getFeatureSeqInitializer(), this.getFeatureSeqInitializer_Initializers(), "featureSeqInitializer", null, 1, 1, FeatureInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureValueSpecEClass, FeatureValueSpec.class, "FeatureValueSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeatureValueSpec_Value(), this.getValueExpression(), null, "value", null, 1, 1, FeatureValueSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1994,7 +1994,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																																																																																						
+		   });																																																																																																																	
 	}
 
 	/**
@@ -2011,13 +2011,13 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "self.getDomainContext()"
-		   });																																	
+		   });																															
 		addAnnotation
 		  (constraintEClass, 
 		   source, 
 		   new String[] {
 			 "def", "Constraint"
-		   });							
+		   });						
 		addAnnotation
 		  (getLinkConstraints_SourceEnd(), 
 		   source, 
@@ -2072,7 +2072,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "self.elementClass"
-		   });											
+		   });									
 		addAnnotation
 		  (featureValueSpecEClass, 
 		   source, 
@@ -2235,7 +2235,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "let child:NodeMapping=(if ownedChild.oclIsUndefined() then referencedChild else ownedChild endif) in ((not compartment.oclIsUndefined()) implies (child.diagramNode.affixedParentSide = gmfgraph::Direction::NONE))",
 			 "description", "Side-affixed children can not be placed in compartments"
-		   });					
+		   });				
 		addAnnotation
 		  (linkMappingEClass, 
 		   source, 
@@ -2270,7 +2270,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "not domainMetaElement.oclIsUndefined() implies not(domainMetaElement.abstract or domainMetaElement.interface)",
 			 "description", "Top-level diagram container must be concrete"
-		   });					
+		   });				
 		addAnnotation
 		  (getFeatureLabelMapping_Features(), 
 		   source, 
@@ -2284,7 +2284,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "not (sourceEnd.oclIsUndefined() and targetEnd.oclIsUndefined())",
 			 "description", "Either \'sourceEnd\' or \'targetEnd\' constraint must be specified"
-		   });																					
+		   });																				
 		addAnnotation
 		  (getFeatureSeqInitializer_ElementClass(), 
 		   source, 
@@ -2298,7 +2298,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "not creatingInitializer.feature.oclIsUndefined() implies not (elementClass.interface or elementClass.abstract)",
 			 "description", "\'elementClass\' must be a concrete EClass which is the same or sub-type of the containing \'GenReferenceNewElementSpec\' reference type"
-		   });				
+		   });			
 		addAnnotation
 		  (getFeatureInitializer_Feature(), 
 		   source, 
@@ -2319,7 +2319,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "feature <> null implies feature.changeable",
 			 "description", "The \'feature\' of \'FeatureInitializer\' must be changeable"
-		   });					
+		   });				
 		addAnnotation
 		  (referenceNewElementSpecEClass, 
 		   source, 

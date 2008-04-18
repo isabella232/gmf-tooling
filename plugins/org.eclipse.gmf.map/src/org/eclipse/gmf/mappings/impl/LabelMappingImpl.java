@@ -12,7 +12,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LabelMapping;
@@ -157,44 +156,13 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetMapEntry(MappingEntry newMapEntry, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newMapEntry, GMFMapPackage.LABEL_MAPPING__MAP_ENTRY, msgs);
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setMapEntry(MappingEntry newMapEntry) {
-		if (newMapEntry != eInternalContainer() || (eContainerFeatureID != GMFMapPackage.LABEL_MAPPING__MAP_ENTRY && newMapEntry != null)) {
-			if (EcoreUtil.isAncestor(this, newMapEntry))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newMapEntry != null)
-				msgs = ((InternalEObject)newMapEntry).eInverseAdd(this, GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS, MappingEntry.class, msgs);
-			msgs = basicSetMapEntry(newMapEntry, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LABEL_MAPPING__MAP_ENTRY, newMapEntry, newMapEntry));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.LABEL_MAPPING__MAP_ENTRY:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetMapEntry((MappingEntry)otherEnd, msgs);
+				return eBasicSetContainer(otherEnd, GMFMapPackage.LABEL_MAPPING__MAP_ENTRY, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -208,7 +176,7 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.LABEL_MAPPING__MAP_ENTRY:
-				return basicSetMapEntry(null, msgs);
+				return eBasicSetContainer(null, GMFMapPackage.LABEL_MAPPING__MAP_ENTRY, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -260,9 +228,6 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 			case GMFMapPackage.LABEL_MAPPING__READ_ONLY:
 				setReadOnly(((Boolean)newValue).booleanValue());
 				return;
-			case GMFMapPackage.LABEL_MAPPING__MAP_ENTRY:
-				setMapEntry((MappingEntry)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -280,9 +245,6 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 				return;
 			case GMFMapPackage.LABEL_MAPPING__READ_ONLY:
 				setReadOnly(READ_ONLY_EDEFAULT);
-				return;
-			case GMFMapPackage.LABEL_MAPPING__MAP_ENTRY:
-				setMapEntry((MappingEntry)null);
 				return;
 		}
 		super.eUnset(featureID);
