@@ -2,7 +2,8 @@
 <bind:Section xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:bind="http://www.eclipse.org/gmf/2008/Binding" xmlns:ctx="http://www.eclipse.org/gmf/2008/Context"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:widget="http://www.eclipse.org/gmf/2008/Widget" className="FigureSection">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:widget="http://www.eclipse.org/gmf/2008/Widget" className="FigureSection"
+    xsi:schemaLocation="http://www.eclipse.org/gmf/2008/Binding ../../org.eclipse.gmf.formtk/model/binding.ecore http://www.eclipse.org/gmf/2008/Context ../../org.eclipse.gmf.formtk/model/context.ecore http://www.eclipse.org/gmf/2008/Widget ../../org.eclipse.gmf.formtk/model/widget.ecore">
   <children xsi:type="widget:Group" name="styleRadios" layoutData="#//@layout/@data.0"
       label="Line Style">
     <children xsi:type="widget:RadioButton" name="r1" label="Solid"/>

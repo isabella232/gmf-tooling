@@ -3,7 +3,8 @@
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:gmfgen="http://www.eclipse.org/gmf/2006/GenModel"
-    xmlns:propsheet="http://www.eclipse.org/gmf/2007/GmfGraph/PropSheet">
+    xmlns:propsheet="http://www.eclipse.org/gmf/2008/GmfGraph/PropSheet"
+    xsi:schemaLocation="http://www.eclipse.org/gmf/2008/GmfGraph/PropSheet propsheet.ecore">
   <gmfgen:GenEditorGenerator
       packageNamePrefix="org.eclipse.gmf.graphdef.editor"
       modelID="GMFGraph"
