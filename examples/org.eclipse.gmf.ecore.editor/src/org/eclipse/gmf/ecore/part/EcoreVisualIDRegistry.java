@@ -13,8 +13,10 @@ package org.eclipse.gmf.ecore.part;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationDetailsEditPart;
@@ -76,22 +78,22 @@ public class EcoreVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	private static final EcoreAbstractExpression EDataType_2004_Constraint = EcoreOCLFactory.getExpression("not oclIsKindOf(ecore::EEnum)", EcorePackage.eINSTANCE.getEDataType());
+	private static EcoreAbstractExpression EDataType_2004_Constraint;
 
 	/**
 	 * @generated
 	 */
-	private static final EcoreAbstractExpression EDataType_3006_Constraint = EcoreOCLFactory.getExpression("not oclIsKindOf(ecore::EEnum)", EcorePackage.eINSTANCE.getEDataType());
+	private static EcoreAbstractExpression EDataType_3006_Constraint;
 
 	/**
 	 * @generated
 	 */
-	private static final EcoreAbstractExpression EReference_4002_Constraint = EcoreOCLFactory.getExpression("not containment and not container", EcorePackage.eINSTANCE.getEReference());
+	private static EcoreAbstractExpression EReference_4002_Constraint;
 
 	/**
 	 * @generated
 	 */
-	private static final EcoreAbstractExpression EReference_4003_Constraint = EcoreOCLFactory.getExpression("containment", EcorePackage.eINSTANCE.getEReference());
+	private static EcoreAbstractExpression EReference_4003_Constraint;
 
 	/**
 	 * @generated
@@ -204,7 +206,7 @@ public class EcoreVisualIDRegistry {
 			}
 			break;
 		case EPackageDataTypesEditPart.VISUAL_ID:
-			if (EcorePackage.eINSTANCE.getEDataType().isSuperTypeOf(domainElement.eClass()) && evaluate(EDataType_3006_Constraint, domainElement)) {
+			if (EcorePackage.eINSTANCE.getEDataType().isSuperTypeOf(domainElement.eClass()) && isEDataType_3006((EDataType) domainElement)) {
 				return EDataType2EditPart.VISUAL_ID;
 			}
 			break;
@@ -248,7 +250,7 @@ public class EcoreVisualIDRegistry {
 			if (EcorePackage.eINSTANCE.getEAnnotation().isSuperTypeOf(domainElement.eClass())) {
 				return EAnnotationEditPart.VISUAL_ID;
 			}
-			if (EcorePackage.eINSTANCE.getEDataType().isSuperTypeOf(domainElement.eClass()) && evaluate(EDataType_2004_Constraint, domainElement)) {
+			if (EcorePackage.eINSTANCE.getEDataType().isSuperTypeOf(domainElement.eClass()) && isEDataType_2004((EDataType) domainElement)) {
 				return EDataTypeEditPart.VISUAL_ID;
 			}
 			if (EcorePackage.eINSTANCE.getEEnum().isSuperTypeOf(domainElement.eClass())) {
@@ -443,10 +445,10 @@ public class EcoreVisualIDRegistry {
 		if (domainElement == null) {
 			return -1;
 		}
-		if (EcorePackage.eINSTANCE.getEReference().isSuperTypeOf(domainElement.eClass()) && evaluate(EReference_4002_Constraint, domainElement)) {
+		if (EcorePackage.eINSTANCE.getEReference().isSuperTypeOf(domainElement.eClass()) && isEReference_4002((EReference) domainElement)) {
 			return EReferenceEditPart.VISUAL_ID;
 		}
-		if (EcorePackage.eINSTANCE.getEReference().isSuperTypeOf(domainElement.eClass()) && evaluate(EReference_4003_Constraint, domainElement)) {
+		if (EcorePackage.eINSTANCE.getEReference().isSuperTypeOf(domainElement.eClass()) && isEReference_4003((EReference) domainElement)) {
 			return EReference2EditPart.VISUAL_ID;
 		}
 		return -1;
@@ -465,8 +467,44 @@ public class EcoreVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	private static boolean evaluate(EcoreAbstractExpression expression, Object element) {
-		Object result = expression.evaluate(element);
+	private static boolean isEDataType_2004(EDataType domainElement) {
+		if (EDataType_2004_Constraint == null) { // lazy initialization
+			EDataType_2004_Constraint = EcoreOCLFactory.getExpression("not oclIsKindOf(ecore::EEnum)", EcorePackage.eINSTANCE.getEDataType());
+		}
+		Object result = EDataType_2004_Constraint.evaluate(domainElement);
+		return result instanceof Boolean && ((Boolean) result).booleanValue();
+	}
+
+	/**
+	 * @generated
+	 */
+	private static boolean isEDataType_3006(EDataType domainElement) {
+		if (EDataType_3006_Constraint == null) { // lazy initialization
+			EDataType_3006_Constraint = EcoreOCLFactory.getExpression("not oclIsKindOf(ecore::EEnum)", EcorePackage.eINSTANCE.getEDataType());
+		}
+		Object result = EDataType_3006_Constraint.evaluate(domainElement);
+		return result instanceof Boolean && ((Boolean) result).booleanValue();
+	}
+
+	/**
+	 * @generated
+	 */
+	private static boolean isEReference_4002(EReference domainElement) {
+		if (EReference_4002_Constraint == null) { // lazy initialization
+			EReference_4002_Constraint = EcoreOCLFactory.getExpression("not containment and not container", EcorePackage.eINSTANCE.getEReference());
+		}
+		Object result = EReference_4002_Constraint.evaluate(domainElement);
+		return result instanceof Boolean && ((Boolean) result).booleanValue();
+	}
+
+	/**
+	 * @generated
+	 */
+	private static boolean isEReference_4003(EReference domainElement) {
+		if (EReference_4003_Constraint == null) { // lazy initialization
+			EReference_4003_Constraint = EcoreOCLFactory.getExpression("containment", EcorePackage.eINSTANCE.getEReference());
+		}
+		Object result = EReference_4003_Constraint.evaluate(domainElement);
 		return result instanceof Boolean && ((Boolean) result).booleanValue();
 	}
 
