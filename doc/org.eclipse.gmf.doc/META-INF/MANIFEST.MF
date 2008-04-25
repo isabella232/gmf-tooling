@@ -5,4 +5,4 @@ Bundle-SymbolicName: org.eclipse.gmf.doc;singleton:=true
 Bundle-Version: 1.1.100.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Eclipse-LazyStart: true
+Bundle-ActivationPolicy: lazy
