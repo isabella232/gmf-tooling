@@ -38,3 +38,4 @@ Export-Package: org.eclipse.gmf.runtime.lite.commands,
  org.eclipse.gmf.runtime.lite.ui.actions,
  org.eclipse.gmf.runtime.lite.validation
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+
