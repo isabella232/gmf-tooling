@@ -42,4 +42,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.tooldef.edit;visibility:=reexport,
  org.eclipse.gmf.runtime.draw2d.ui;visibility:=reexport,
  org.eclipse.draw2d;visibility:=reexport
-Eclipse-LazyStart: true
+Bundle-ActivationPolicy: lazy
