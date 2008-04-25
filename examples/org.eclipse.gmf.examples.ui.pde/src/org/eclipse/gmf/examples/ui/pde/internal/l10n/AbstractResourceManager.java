@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2002, 2005 IBM Corporation and others.
+ * Copyright (c) 2002, 2008 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ import org.eclipse.gmf.examples.ui.pde.util.Trace;
  * </p>
  * <p>
  * Each cluster-oriented resource management package will have a single 
- * <code>org.eclipse.gmf.examples.runtime.ui.pde.internal.l10n.AbstractResourceManager</code> subclass. The subclass should
+ * <code>org.eclipse.gmf.examples.ui.pde.internal.l10n.AbstractResourceManager</code> subclass. The subclass should
  * have a singleton instance and override, if necessary, the resource initialization method
  * <code>
  * 	initializeMessageResources()

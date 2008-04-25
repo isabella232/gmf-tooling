@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
-<!-- Copyright (c) 2005  Borland Software Corporation and others.                       -->
+<!-- Copyright (c) 2005, 2008  Borland Software Corporation and others.    -->
 <!-- All rights reserved. This program and the accompanying materials      -->
 <!-- are made available under the terms of the Eclipse Public License v1.0 -->
 <!-- which accompanies this distribution, and is available at              -->
 <!-- http://www.eclipse.org/legal/epl-v10.html                             -->
 <!--                                                                       -->
 <!-- Contributors:                                                         -->
-<!--    Borland Software Corporation - initial API and implementation                   -->
+<!--    Borland Software Corporation - initial API and implementation      -->
 <plugin>
    <extension
          point="org.eclipse.ui.newWizards">
@@ -25,7 +25,7 @@
             class="org.eclipse.gmf.examples.ui.pde.internal.wizards.ProjectUnzipperNewWizard"
             project="true"
             finalPerspective="org.eclipse.pde.ui.PDEPerspective"
-            id="org.eclipse.gmf.examples.runtime.ui.pde.wizards.logic"
+            id="org.eclipse.gmf.examples.ui.pde.wizards.logic"
             projectPageTitle="%newWizards.examples.logic.projectPage.title"
             projectPageDescription="%newWizards.examples.logic.projectPage.desc"
             projectName="%newWizards.examples.logic.projectName">
@@ -78,7 +78,7 @@
             class="org.eclipse.gmf.examples.ui.pde.internal.wizards.ProjectUnzipperNewWizard"
             project="true"
             finalPerspective="org.eclipse.pde.ui.PDEPerspective"
-            id="org.eclipse.gmf.examples.runtime.ui.pde.wizards.layoutService"
+            id="org.eclipse.gmf.examples.ui.pde.wizards.layoutService"
             projectPageTitle="%newWizards.examples.layoutservice.projectPage.title"
             projectPageDescription="%newWizards.examples.layoutservice.projectPage.desc"
             projectName="%newWizards.examples.layoutservice.projectName">
@@ -98,7 +98,7 @@
             class="org.eclipse.gmf.examples.ui.pde.internal.wizards.ProjectUnzipperNewWizard"
             project="true"
             finalPerspective="org.eclipse.pde.ui.PDEPerspective"
-            id="org.eclipse.gmf.examples.runtime.ui.pde.wizards.decoratorService"
+            id="org.eclipse.gmf.examples.ui.pde.wizards.decoratorService"
             projectPageTitle="%newWizards.examples.decorationservice.projectPage.title"
             projectPageDescription="%newWizards.examples.decorationservice.projectPage.desc"
             projectName="%newWizards.examples.decorationservice.projectName">
