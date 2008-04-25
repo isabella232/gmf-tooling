@@ -1,8 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Graphical Modeling Framework Examples
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.examples
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: Eclipse.org
+Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Eclipse-LazyStart: false
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
