@@ -19,3 +19,4 @@ Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.gmf.internal.xpand.codeassist;x-friends:="org.eclipse.gmf.tests.xpand",
  org.eclipse.gmf.internal.xpand.expression.codeassist;x-friends:="org.eclipse.gmf.tests.xpand"
 Bundle-Vendor: Eclipse.org
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
