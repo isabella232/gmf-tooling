@@ -48,8 +48,8 @@ public class «visualIDRegistryClassName» {
 	«EXPAND getLinkWithClassVisualID-»
 	
 	«EXPAND isDiagram-»
-	«EXPAND evaluateInterpreterExpression-»
-	«EXPAND javaConstraints-»
+
+	«EXPAND _constraintMethods-»
 
 	«EXPAND additions-»	
 }
@@ -83,11 +83,12 @@ public class «visualIDRegistryClassName» {
 
 «DEFINE attributes FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
-private static final String DEBUG_KEY = «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getBundle().getSymbolicName() + "/debug/visualID"; «EXPAND xpt::Common::nonNLS»
-	«IF null != editorGen.expressionProviders-»
-		«EXPAND xpt::expressions::getExpression::defineInterptererExpressionConstant FOREACH getAllNodes()-»
-		«EXPAND xpt::expressions::getExpression::defineInterptererExpressionConstant FOREACH links-»
-	«ENDIF-»
+	private static final String DEBUG_KEY = "«editorGen.plugin.iD»/debug/visualID"; «EXPAND xpt::Common::nonNLS»
+«IF null != editorGen.expressionProviders-»
+	«EXPAND _constraintField FOREACH topLevelNodes-»
+	«EXPAND _constraintField FOREACH childNodes-»
+	«EXPAND _constraintField FOREACH links-»
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE getViewVisualID FOR gmfgen::GenDiagram-»
@@ -172,8 +173,18 @@ if («EXPAND checkSemanticElement») {
 «ENDDEFINE»
 
 «DEFINE checkSemanticElement FOR gmfgen::GenDiagram»«EXPAND checkDomainElementMetaclass FOR domainDiagramElement» && isDiagram(«EXPAND MetaModel::CastEObject("domainElement") FOR domainDiagramElement»)«ENDDEFINE»
+«DEFINE checkSemanticElement FOR gmfgen::GenNode»«EXPAND checkDomainElementMetaclass FOR modelFacet.metaClass»«EXPAND checkDomainElementConstraints(this) FOR modelFacet»«ENDDEFINE»
+«DEFINE checkSemanticElement FOR gmfgen::GenLink»«EXPAND checkSemanticElement(this) FOR modelFacet»«ENDDEFINE»
 
 «DEFINE checkDomainElementMetaclass FOR genmodel::GenClass»«EXPAND MetaModel::MetaClass».isSuperTypeOf(domainElement.eClass())«ENDDEFINE»
+
+«DEFINE checkDomainElementConstraints(gmfgen::GenCommonBase commonBase) FOR gmfgen::TypeModelFacet-»
+«IF null != modelElementSelector» && «EXPAND _domainElementConstraintMethodName FOR commonBase»(«EXPAND MetaModel::CastEObject("domainElement") FOR metaClass»)«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkSemanticElement(gmfgen::GenLink genLink) FOR gmfgen::LinkModelFacet»«ERROR "checkSemanticElement is supported only for TypeLinkModelFacet: " + this»«ENDDEFINE»
+«DEFINE checkSemanticElement(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet»«EXPAND checkDomainElementMetaclass FOR metaClass»«EXPAND checkDomainElementConstraints(genLink)»«ENDDEFINE»
+
 
 «DEFINE getNodeVisualID FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -212,19 +223,6 @@ public static int «EXPAND getNodeVisualIDMethodName»(org.eclipse.gmf.runtime.not
 	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE checkSemanticElement FOR gmfgen::GenNode»«EXPAND checkDomainElementMetaclass FOR modelFacet.metaClass»«EXPAND checkDomainElementConstraints(this, getDiagram().editorGen.expressionProviders) FOR modelFacet»«ENDDEFINE»
-
-«DEFINE checkDomainElementConstraints(gmfgen::GenCommonBase commonBase, gmfgen::GenExpressionProviderContainer providersContainer) FOR gmfgen::TypeModelFacet-»
-«IF null != modelElementSelector && null != providersContainer» && «EXPAND checkDomainElementConstraints(commonBase, modelElementSelector, metaClass) FOR providersContainer.getProvider(modelElementSelector)»«ENDIF-»
-«ENDDEFINE»
-
-«DEFINE checkDomainElementConstraints(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass contextMetaclass) FOR gmfgen::GenExpressionProviderBase-»
-	«ERROR "Unsupported expression provider: " + this-»
-«ENDDEFINE»
-
-«DEFINE checkDomainElementConstraints(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass contextMetaclass) FOR gmfgen::GenExpressionInterpreter»evaluate( «EXPAND xpt::expressions::getExpression::interptererExpressionConstantName FOR commonBase», domainElement)«ENDDEFINE»
-
-«DEFINE checkDomainElementConstraints(gmfgen::GenCommonBase commonBase, gmfgen::ValueExpression valueExpression, genmodel::GenClass contextMetaclass) FOR gmfgen::GenJavaExpressionProvider»«EXPAND javaConstraintContainerClassName FOR commonBase».«getOperationName(valueExpression)»(«EXPAND MetaModel::CastEObject("domainElement") FOR contextMetaclass»).booleanValue()«ENDDEFINE»
 
 «DEFINE canCreateNode FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -280,15 +278,6 @@ public static int «EXPAND getLinkWithClassVisualIDMethodName»(org.eclipse.emf.ec
 
 «DEFINE getLinkWithClassVisualIDMethodName FOR gmfgen::GenDiagram»getLinkWithClassVisualID«ENDDEFINE»
 
-«DEFINE checkSemanticElement FOR gmfgen::GenLink-»
-	«EXPAND checkSemanticElement(this) FOR modelFacet-»
-«ENDDEFINE»
-
-«DEFINE checkSemanticElement(gmfgen::GenLink genLink) FOR gmfgen::LinkModelFacet-»
-	«ERROR "checkSemanticElement not supported only for TypeLinkModelFacet: " + this-»
-«ENDDEFINE»
-
-«DEFINE checkSemanticElement(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet»«EXPAND checkDomainElementMetaclass FOR metaClass»«EXPAND checkDomainElementConstraints(genLink, genLink.getDiagram().editorGen.expressionProviders)»«ENDDEFINE»
 
 «DEFINE isDiagram FOR gmfgen::GenDiagram-»
 	«IF null != domainDiagramElement-»
@@ -303,58 +292,84 @@ private static boolean isDiagram(«EXPAND MetaModel::QualifiedClassName FOR domai
 «ENDDEFINE»
 
 
-«REM»Can be moved to xpt::expressions::getExpression.xpt«ENDREM»
-«DEFINE evaluateInterpreterExpression FOR gmfgen::GenDiagram-»
-	«IF null != editorGen.expressionProviders && !editorGen.expressionProviders.providers.typeSelect(gmfgen::GenExpressionInterpreter).isEmpty()-»
-	
+«REM»
+
+		Support for extra contstraints to check about model element.
+		Includes expression fields for interpreted constrains (like ocl or regexp).
+		For each model element that has an associated constraint, there's a method is<DomainElement>_<UID>()
+		that performs extra specification as defined by value expression 
+
+		FIXME don't use static fields, replace with instance/separate cache (e.g. accessible from Activator)
+«ENDREM»
+
+«DEFINE _constraintMethods FOR GenDiagram-»
+«IF null != editorGen.expressionProviders-»
+	«EXPAND _constraintMethod(editorGen.expressionProviders) FOREACH topLevelNodes.select(n | n.modelFacet.modelElementSelector != null)-»
+	«EXPAND _constraintMethod(editorGen.expressionProviders) FOREACH childNodes.select(n | n.modelFacet.modelElementSelector != null)-»
+	«FOREACH links AS l»«EXPAND _constraintMethod(l) FOR l.modelFacet»«ENDFOREACH»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE _constraintMethod(GenExpressionProviderContainer c) FOR GenNode-»
+«EXPAND _domainElementConstraintMethod(this, modelFacet.modelElementSelector, modelFacet.metaClass) FOR c.getProvider(modelFacet.modelElementSelector)»
+«ENDDEFINE»
+
+«DEFINE _constraintMethod(GenLink l) FOR LinkModelFacet»«ENDDEFINE» // no-op
+«DEFINE _constraintMethod(GenLink l) FOR TypeLinkModelFacet-»
+«IF modelElementSelector != null»«EXPAND _domainElementConstraintMethod(l, modelElementSelector, metaClass) FOR l.getDiagram().editorGen.expressionProviders.getProvider(modelElementSelector)»«ENDIF-»
+«ENDDEFINE»
+
+
+«DEFINE _domainElementConstraintMethodName FOR GenCommonBase»is«getUniqueIdentifier()»«ENDDEFINE»
+
+«DEFINE _domainElementConstraintMethod(GenCommonBase diagramElement, ValueExpression expression, GenClass context) FOR GenExpressionProviderBase»«ERROR "Constraint method is not supported for " + this»«ENDDEFINE»
+
+«DEFINE _domainElementConstraintMethod(GenCommonBase diagramElement, ValueExpression expression, GenClass context) FOR GenJavaExpressionProvider-»
 	«EXPAND xpt::Common::generatedMemberComment»
-private static boolean evaluate(«editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» expression, Object element) {
-	Object result = expression.evaluate(element);
-	return result instanceof Boolean && ((Boolean)result).booleanValue();			
-}
-	«ENDIF-»
+	private static boolean «EXPAND _domainElementConstraintMethodName FOR diagramElement»(«EXPAND MetaModel::QualifiedClassName FOR context» domainElement) {
+		// FIXME: implement this method 
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException("No java implementation provided in '«EXPAND _domainElementConstraintMethodName FOR diagramElement»' operation"); «EXPAND xpt::Common::nonNLS»
+	}
 «ENDDEFINE»
 
-«DEFINE javaConstraints FOR gmfgen::GenDiagram-»
-«IF null != editorGen.expressionProviders && !editorGen.expressionProviders.providers.typeSelect(gmfgen::GenJavaExpressionProvider).isEmpty()-»
-	
-		«EXPAND xpt::Common::generatedClassComment»
-private static class «EXPAND javaConstraintContainerClassName» {
-	«EXPAND defineJavaConstraintOperation FOREACH getAllNodes()-»
-	«EXPAND defineJavaConstraintOperation FOREACH links-»
-	
-}
-«ENDIF-»
+«DEFINE _domainElementConstraintMethod(GenCommonBase diagramElement, ValueExpression expression, GenClass context) FOR GenExpressionInterpreter-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static boolean «EXPAND _domainElementConstraintMethodName FOR diagramElement»(«EXPAND MetaModel::QualifiedClassName FOR context» domainElement) {
+		if («EXPAND _constraintFieldName FOR diagramElement» == null) { // lazy initialization
+			«EXPAND _constraintFieldName FOR diagramElement» = «getQualifiedClassName()».«getExpressionAccessor(expression)»(«expression.getBodyString()», «EXPAND MetaModel::MetaClass FOR context»);
+		}
+		Object result = «EXPAND _constraintFieldName FOR diagramElement».evaluate(domainElement);
+		return result instanceof Boolean && ((Boolean)result).booleanValue();
+	}			
 «ENDDEFINE»
 
-«DEFINE defineJavaConstraintOperation FOR gmfgen::GenNode»«EXPAND defineJavaConstraintOperation(this) FOR modelFacet»«ENDDEFINE»
-«DEFINE defineJavaConstraintOperation FOR gmfgen::GenLink»«EXPAND defineJavaConstraintOperation(this) FOR modelFacet»«ENDDEFINE»
 
-«DEFINE defineJavaConstraintOperation(gmfgen::GenCommonBase commonBase) FOR gmfgen::ModelFacet»«ENDDEFINE»
+«DEFINE _constraintFieldName FOR GenCommonBase»«getUniqueIdentifier()»_Constraint«ENDDEFINE»
 
-«DEFINE defineJavaConstraintOperation(gmfgen::GenCommonBase commonBase) FOR gmfgen::TypeModelFacet-»
-«IF null != modelElementSelector-»
-	«EXPAND defineJavaConstraintOperation(modelElementSelector, metaClass) FOR commonBase.getDiagram().editorGen.expressionProviders.getProvider(modelElementSelector)-»
-«ENDIF-»
+«DEFINE _constraintField FOR GenNode»«EXPAND _constraintField(this) FOR modelFacet»«ENDDEFINE»
+«DEFINE _constraintField FOR GenLink»«EXPAND _constraintField(this) FOR modelFacet»«ENDDEFINE»
+
+«DEFINE _constraintField(GenCommonBase diagramElement) FOR ModelFacet»«ENDDEFINE»
+«DEFINE _constraintField(GenCommonBase diagramElement) FOR TypeModelFacet-»
+«IF modelElementSelector != null»«EXPAND _constraintField(diagramElement) FOR diagramElement.getDiagram().editorGen.expressionProviders.getProvider(modelElementSelector)»«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE defineJavaConstraintOperation(gmfgen::ValueExpression valueExpression, genmodel::GenClass genClass) FOR gmfgen::GenExpressionProviderBase»«ENDDEFINE»
-
-«DEFINE defineJavaConstraintOperation(gmfgen::ValueExpression valueExpression, genmodel::GenClass genClass) FOR gmfgen::GenJavaExpressionProvider-»
-«IF !container.isCopy(valueExpression)-»
-	«EXPAND xpt::expressions::javaExpressionOperation::javaExpressionOperation(valueExpression, genClass, null)-»
-«ENDIF-»
+«DEFINE _constraintField(GenCommonBase diagramElement) FOR GenExpressionInterpreter»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static «container.getAbstractExpressionQualifiedClassName()» «EXPAND _constraintFieldName FOR diagramElement»;
 «ENDDEFINE»
+
+«DEFINE _constraintField(GenCommonBase diagramElement) FOR GenExpressionProviderBase»«ERROR "Need to define approach to constraint fields for " + this»«ENDDEFINE»
+«DEFINE _constraintField(GenCommonBase diagramElement) FOR GenJavaExpressionProvider»«ENDDEFINE»// IOW, no fields for Java
+
+«REM»
+		Constraints support end.
+«ENDREM»
+
 
 «DEFINE unrecognizedVID FOR gmfgen::GenDiagram-»
 return -1;
-«ENDDEFINE»
-
-«REM»Can be moved to xpt::expressions::getExpression.xpt«ENDREM»
-«DEFINE javaConstraintContainerClassName FOR gmfgen::GenCommonBase»JavaConstraints«ENDDEFINE»
-
-«DEFINE constraintsNotSupported FOR gmfgen::GenCommonBase-»
-	«ERROR "CheckConstraints method not supported for: " + this-»
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
