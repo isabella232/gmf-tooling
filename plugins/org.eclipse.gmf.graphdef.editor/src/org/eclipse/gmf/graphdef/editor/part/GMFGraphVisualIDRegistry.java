@@ -58,7 +58,7 @@ public class GMFGraphVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	private static final String DEBUG_KEY = GMFGraphDiagramEditorPlugin.getInstance().getBundle().getSymbolicName() + "/debug/visualID"; //$NON-NLS-1$
+	private static final String DEBUG_KEY = "org.eclipse.gmf.graphdef.editor/debug/visualID"; //$NON-NLS-1$
 
 	/**
 	 * @generated
