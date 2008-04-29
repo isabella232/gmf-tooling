@@ -1,0 +1,140 @@
+<html><head/><img src="../../logo.gif" border="0" />
+<h1>GMF Tooling Tutorial: Step 4</h1>
+<p>
+In this fourth part of the GMF Tutorial, we will begin to explore alternative generation options; namely, the lite runtime option and targeting RCP.  For this, you will need the experimental SDK installed, in addition to the normal SDK.
+</p>
+
+<h2 id="id1E4DAE5F62BF5F158E2AC67D46FF61BB62501"> Lite Runtime Generation to RCP </h2>
+<p>
+Let's begin with a new workspace to keep things isolated from the main tutorial a bit.  This also eases maintenance of the tutorial content.
+</p>
+
+<h3 id="id150616B53CCD2595D63104B820B8411C980463"> GMF Dashboard View </h3>
+<p>
+First, let's create a new org.eclipse.gmf.examples.mindmap.lite GMF Project and select the option to use the dashboard view this time.  Below is an image of the dashboard view we will use to work through the flow of producing a GMF-based editor.  As you can see, it invokes actions for many of the steps we routinely use in GMF-based development, but all from a single location.
+</p>
+
+<p>
+<span class="imgcenter">
+<img src="gmf_dashboard.png"  alt="gmf_dashboard.png" /><br />
+
+</span>
+
+</p>
+<br style="clear:both;"/>
+
+<h3 id="id4A7D5F394663462A3E161E1601D1883747BC17"> Generating EMF for RCP </h3>
+<p>
+First, let's obtain our  <a href="http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.gmf/examples/org.eclipse.gmf.examples.mindmap.lite/model/mindmap.ecore?view=log&root=Modeling_Project&pathrev=HEAD" class="external">mindmap.ecore</a> model from the CVS as the input.  Copy this file to your project's model folder.  Note that this is not the modeling.ecore that is derived from the XSD.  A bug in the lite generator requires us to use this &quot;pure&quot; Ecore model at the moment.
+</p>
+
+<p>
+Using the dashboard view's 'Select' link in the Domain Model section, locate your mindmap.ecore file.  To produce an .ecore and a .genmodel from the xsd, select the 'Derive' link between Domain Model and Domain Gen Model.  This will launch the New EMF Model wizard.  Work your way through the dialogs and accept the defaults to Finish. 
+</p>
+
+<p>
+In the opened editor, view the properties of the root 'Mindmap' element.  Within the Editor category, select 'true' for the Rich Client Platform property.  This will be picked up by our GMF generator later.  Expand the root in the editor and change the 'Base Package Name' property of the 'Mindmap' package to 'org.eclipse.gmf.examples' and save the model.  Right-click the root and generate your Model, Edit, and Editor (if desired) code.  If you generated the editor, you can run it now by creating a new Eclipse Application runtime configuration and selecting 'Run an application' with your org.eclipse.gmf.examples.mindmap.editor.MindmapEditorAdvisorApplication class as the Program to Run.
+</p>
+
+<h3 id="id27BF51D3B27BFE1387B55D435E65ACA48229B"> Creating the GMF Generator Model </h3>
+<p>
+Now that our domain is set, we'll need to copy our <a href="http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.gmf/examples/org.eclipse.gmf.examples.mindmap/model/mindmap.gmfgraph?root=Modeling_Project&view=co" class="external">graphical</a>, <a href="http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.gmf/examples/org.eclipse.gmf.examples.mindmap/model/mindmap.gmftool?root=Modeling_Project&view=co" class="external">tooling</a>, and <a href="http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.gmf/examples/org.eclipse.gmf.examples.mindmap/model/mindmap.gmfmap?root=Modeling_Project&view=co" class="external">mapping</a> models from the main tutorial.  Save them to your model folder (where your domain models are) and update the state of the dashboard for each using its respective 'Select' link.
+</p>
+
+<p>
+With our models in place and 83% complete (according to the dashboard ;-), we can create our generator model by first checking the 'RCP' option on the dashboard between Mapping Model and Diagram Editor Gen Model, and then selecting the &quot;'Lite' transform&quot; link.
+</p>
+
+<p>
+When done, you can select 'Edit' from the dashboard's Diagram Gen Model section to open the model in the editor.  Change the Diagram File Extension property in the Gen Editor to 'mmd' to match the main tutorial.  A goal of the lite runtime is to allow for interoperability with diagrams used by the full runtime, which means they use the same notation model.  
+</p>
+
+<p>
+You may also wish to select the option 'Same File for Diagram And Model' in order to keep it simple for small applications where there may not be a need for multiple views into a single domain model instance (as is the case in our lightweight mindmap application).  
+</p>
+
+<p>
+Change the Gen Editor Generator Package Name Prefix property to org.eclipse.gmf.examples.mindmap.rcp and the Gen Plugin ID to match.
+</p>
+
+<h3 id="idE625271C1956151174B9B20523484BDAD143"> Generate and Run </h3>
+<p>
+We're now ready to generate our diagram code and run as an RCP application.  To generate, us the 'Generate lite diagram editor' on the dashboard.
+</p>
+
+<p>
+To run our RCP-based diagram, create a new Eclipse Application configuration named mindmap-rcp (or something) and select org.eclipse.gmf.examples.mindmap.lite.rcp.MindmapApplication from the Run an Application section of Program to Run.  On the Plug-ins tab, opt to 'plug-ins selected below only' and 'Deselect All'.  Locate your org.eclipse.gmf.examples.mindmap.lite.diagram plug-in from the list, then 'Add Required Plug-ins' to create a minimal launch configuration.  Run the diagram, and use the File menu to create a new diagram, similar to what you see below.
+</p>
+
+<p>
+<span class="imgcenter">
+<img src="mindmap_rcp.png"  alt="mindmap_rcp.png" /><br />
+
+</span>
+
+</p>
+<br style="clear:both;"/>
+
+<h3 id="id6321FB60317537477B566DCE1AA418114174C6F"> Exploring the Lite Runtime </h3>
+<p>
+What you will immediately notice are some differences with the full runtime:
+</p>
+<ul>
+ <li>No toolbar</li>
+ <li>No action bars or handles </li>
+</ul>
+
+<p>
+These may become available in future versions of the lite runtime, but will be individually selectable by the toolsmith.  The goal of the lite runtime is to provide minimal dependencies and small download size for running these kinds of RCP-based diagram editors.
+</p>
+
+<h2 id="id54186F73C52971161D1A9361EF54778732C24D"> Enhanced Generator Model Features </h2>
+<p>
+Some new enhancements have arrived in the generator model for the 2.0 release.  Here, we will explore the project navigator and property sheet features in the context of our Mindmap application.
+</p>
+
+<p>
+At this point, you can either return to your mapping model from above and create a new generator model for creating a full runtime diagram, or return to the workspace containing the solution to part 3 of the tutorial and open its generator model (assuming you've done it with GMF 2.0).
+</p>
+
+<h3 id="id3474B14EE25F1191337E4C32341180F752B1"> Project Navigator </h3>
+<p>
+As described in the <a href="http://wiki.eclipse.org/index.php/GMF_New_and_Noteworthy">New and Noteworthy</a> for the 2.0 stream, an extension to the generator model was added to allow for displaying diagram elements within the Project Explorer.
+</p>
+
+<p>
+If you look at the generator model, you will find a Gen Navigator element, which includes properties related to the mindmap navigator, and a number of child elements that represent child references.  You can alter these as you see fit.  When you run your diagram and open the Project Explorer view, you will now have visibility of the diagram contents as seen below.  
+</p>
+
+<p>
+<span class="imgcenter">
+<img src="gmf_navigator.png"  alt="gmf_navigator.png" /><br />
+
+</span>
+
+</p>
+<br style="clear:both;"/>
+
+<h3 id="id4636144CF3DF261015C1225722E1371777513"> Property Sheet </h3>
+<p>
+Another extension made to the generator model involves support for customizing the Properties view for your diagram.  In the generator model, you'll find a Property Sheet element (child of the root Gen Editor Generator element), which includes a number of properties, such as for including a caption, read only, etc.  It also contains a number of standard and custom property tab child elements that will describe the content of each at runtime, as seen below:
+</p>
+
+<p>
+<span class="imgcenter">
+<img src="gmf_properties.png"  alt="gmf_properties.png" /><br />
+
+</span>
+
+</p>
+<br style="clear:both;"/>
+
+<h2 id="id117E43CAF87C6214A3F0A8D1A313A7665"> References </h2>
+<ul>
+ <li><a href="http://www.eclipse.org/gmf" class="external">Graphical Modeling Framework Website</a></li>
+ <li><a href="http://wiki.eclipse.org/index.php/GMF_Documentation "> GMF Documentation</a></li>
+ <li><a href="step1.html "> GMF Tutorial Part 1</a></li>
+ <li><a href="step2.html "> GMF Tutorial Part 2</a></li>
+ <li><a href="step3.html "> GMF Tutorial Part 3</a> </li>
+</ul>
+</html>

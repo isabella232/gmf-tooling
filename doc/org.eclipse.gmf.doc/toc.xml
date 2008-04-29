@@ -45,9 +45,13 @@
 	
 	<anchor id="tutorial-before" />
 	<topic label="Tutorials" href="tutorials/index.html">	
-			
+	    <anchor id="tutorial-tooling-before" />
+	      <topic label="Tooling" href="tutorials/tooling/index.html">
+	      	<topic label="Mindmap" href="tutorials/tooling/mindmap-index.html" />
+	      </topic>
+	    <anchor id="tutorial-tooling-after" />
 		<anchor id="tutorial-runtime-before" />
-		<topic label="Runtime" href="tutorials/index.html">
+		<topic label="Runtime" href="tutorials/runtime-index.html">
 			<topic label="Extensible Type Registry" href="tutorials/common/Extensible Type Registry/extensibleTypeRegistryTutorial.html" />
 			<topic label="Service Providers" href="tutorials/Service and Provider Tutorial.html" />		
 			<topic label="Clipboard Tutorial" href="tutorials/msl/clipboardTutorial.html" />

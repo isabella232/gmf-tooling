@@ -1,0 +1,443 @@
+<html><head/><img src="../../logo.gif" border="0" />
+<h1>GMF Tooling Tutorial: Step 3</h1>
+<p>
+In this third part of the GMF Tutorial, we will explore some more advanced capabilities related to the tooling components, while also extending what's generated with customizations to the runtime. Specifically we will add a composite figure using the graphical definition, show how to leverage external figures, and how to use an extension plug-in to add a custom action to our diagram.  The complete solution to this tutorial is maintained in CVS <a href="http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.gmf/examples/?root=Modeling_Project" class="external">here</a>. Viewlets will be available after appropriate sections below to focus their content and keep them short.
+</p>
+
+<h2 id="id1E4DAE5F62BF5F158E2AC67D46FF61BB62501"> New Icons </h2>
+<p>
+A quick way to get a polished look for our mindmap diagram is by replacing the generated EMF icons we've seen so far with some that are more, well... distinctive ;-)  The easiest way to do this is to replace the GIF images found in our org.eclipse.gmf.examples.mindmap.edit/icons/ folder.  
+</p>
+
+<p>
+In case you'd like to map another image file to a palette item, say in the case of our three Relationship tools, or for our Subtopic link which has no default icon, you can modify the children of your Creation Tool elements in the mindmap.gmftool model.  For example, delete the 'Default Image' entry below the 'Creation Tool Subtopic' element that represents the small icon and replace it with a 'Small Icon Bundle Image' and set its Bundle to org.eclipse.gmf.examples.mindmap.edit and its Path property to /icons/full/obj16/Subtopic.gif.  Regenerate and the palette will display the new icon.  Of course, you'll need to provide this file or use the one found in the solution to this tutorial section.
+</p>
+
+<p>
+Finally, take a look in the mindmap.gmfgen for properties to set for the default wizard and diagram file icons.  While you're there, you might want to change the diagram file extension from 'mindmap_diagram' to 'mmd' or something similar. Browsing the properties available in the gmfgen model is a useful exercise.
+</p>
+
+<p>
+Below is an image of our diagram and palette using some new images.
+</p>
+
+<p>
+<img src="new_icons.png"  alt="new_icons.png" />
+
+</p>
+<br style="clear:both;"/>
+
+<h2 id="id150616B53CCD2595D63104B820B8411C980463"> Composite Figures </h2>
+<p>
+<span class="imgright">
+<img src="resource.png"  alt="resource.png" /><br />
+
+</span>
+
+What we'd like to do is have an actor-style representation for our resources added to our diagram.  These will be linked to their respective Topic elements, much like our relationship links between Topic elements.  Also, we'd like to have the labels for our Resource figures external and display both the name and email address attribute values of the corresponding domain element.
+</p>
+<br style="clear:both;"/>
+
+<h3 id="id4A7D5F394663462A3E161E1601D1883747BC17"> Graphical Definition </h3>
+<p>
+<span class="imgright">
+<img src="resource_figure.png"  alt="resource_figure.png" /><br />
+
+</span>
+
+Open up your graphical definition again and add a new Figure Descriptor and Rectangle named 'ResourceFigure' to your Figure Gallery.  Set its Outline property to false, along with its Fill.  As you can see from the image to the right, we will be adding a series of children to the rectangle, which will act as a container for the elements that comprise our Resource figure.  Specifically, right-click and add an XY Layout, and Ellipse for the head, a Polygon for the Body, and sizing elements.  Rather than go through all of the gory details of these, the figure code is found below.  Either paste it into your mindmap.gmfgraph in the appropriate location using a text editor, or utilize the default editor and properties view.
+</p>
+
+<p>
+To our Canvas, add a new Node named Resource and assign our ResourceFigure as its Figure.  Also, notice the new 'BasicLabelFigure' label that is added to the Figure Gallery in the image. Create this and add a new Diagram Label 'ResourceLabel' to the Figure Gallery and Canvas respectively.  Note that the Label for our Resource is not a child element of its figure.  We want the label to be external, and therefore be allowed to float and be positioned wherever the user would like it.
+</p>
+
+<pre>
+  &lt;descriptors
+        name=&quot;ResourceFigure&quot;&gt;
+      &lt;actualFigure
+          xsi:type=&quot;gmfgraph:Rectangle&quot;
+          name=&quot;ResourceFigure&quot;
+          outline=&quot;false&quot;
+          fill=&quot;false&quot;&gt;
+        &lt;layout
+            xsi:type=&quot;gmfgraph:StackLayout&quot;/&gt;
+        &lt;children
+            xsi:type=&quot;gmfgraph:Rectangle&quot;
+            name=&quot;Resource&quot;
+            outline=&quot;false&quot;
+            fill=&quot;false&quot;&gt;
+          &lt;layout
+              xsi:type=&quot;gmfgraph:FlowLayout&quot;
+              vertical=&quot;true&quot;
+              forceSingleLine=&quot;true&quot;
+              minorAlignment=&quot;CENTER&quot;
+              majorSpacing=&quot;0&quot;
+              minorSpacing=&quot;0&quot;/&gt;
+          &lt;children
+              xsi:type=&quot;gmfgraph:Ellipse&quot;
+              name=&quot;Head&quot;&gt;
+            &lt;foregroundColor
+                xsi:type=&quot;gmfgraph:RGBColor&quot;
+                red=&quot;220&quot;
+                green=&quot;220&quot;
+                blue=&quot;250&quot;/&gt;
+            &lt;backgroundColor
+                xsi:type=&quot;gmfgraph:RGBColor&quot;
+                red=&quot;230&quot;
+                green=&quot;230&quot;
+                blue=&quot;255&quot;/&gt;
+            &lt;size
+                x=&quot;40&quot;
+                y=&quot;20&quot;/&gt;
+          &lt;/children&gt;
+          &lt;children
+              xsi:type=&quot;gmfgraph:Polygon&quot;
+              name=&quot;Body&quot;&gt;
+            &lt;foregroundColor
+                xsi:type=&quot;gmfgraph:RGBColor&quot;
+                red=&quot;220&quot;
+                green=&quot;220&quot;
+                blue=&quot;250&quot;/&gt;
+            &lt;backgroundColor
+                xsi:type=&quot;gmfgraph:RGBColor&quot;
+                red=&quot;230&quot;
+                green=&quot;230&quot;
+                blue=&quot;255&quot;/&gt;
+            &lt;template
+                x=&quot;23&quot;
+                y=&quot;19&quot;/&gt;
+            &lt;template
+                x=&quot;23&quot;
+                y=&quot;24&quot;/&gt;
+            &lt;template
+                x=&quot;39&quot;
+                y=&quot;24&quot;/&gt;
+            &lt;template
+                x=&quot;39&quot;
+                y=&quot;29&quot;/&gt;
+            &lt;template
+                x=&quot;23&quot;
+                y=&quot;29&quot;/&gt;
+            &lt;template
+                x=&quot;23&quot;
+                y=&quot;36&quot;/&gt;
+            &lt;template
+                x=&quot;39&quot;
+                y=&quot;48&quot;/&gt;
+            &lt;template
+                x=&quot;39&quot;
+                y=&quot;53&quot;/&gt;
+            &lt;template
+                x=&quot;20&quot;
+                y=&quot;42&quot;/&gt;
+            &lt;template
+                x=&quot;1&quot;
+                y=&quot;53&quot;/&gt;
+            &lt;template
+                x=&quot;1&quot;
+                y=&quot;48&quot;/&gt;
+            &lt;template
+                x=&quot;17&quot;
+                y=&quot;36&quot;/&gt;
+            &lt;template
+                x=&quot;17&quot;
+                y=&quot;29&quot;/&gt;
+            &lt;template
+                x=&quot;1&quot;
+                y=&quot;29&quot;/&gt;
+            &lt;template
+                x=&quot;1&quot;
+                y=&quot;24&quot;/&gt;
+            &lt;template
+                x=&quot;17&quot;
+                y=&quot;24&quot;/&gt;
+            &lt;template
+                x=&quot;17&quot;
+                y=&quot;19&quot;/&gt;
+            &lt;template
+                x=&quot;23&quot;
+                y=&quot;19&quot;/&gt;
+          &lt;/children&gt;
+        &lt;/children&gt;
+      &lt;/actualFigure&gt;
+    &lt;/descriptors&gt;
+</pre>
+<blockquote>
+<font color="darkblue"><strong>Tip</strong> :</font> It's a bit tedious to add multiple template points in the manner above, so feel free to open the gmfgraph file in a text editor to make life easier. To get it looking right more quickly, open the generated figure class and simply modify the GEF code directly and run the editor to see how it looks.  Then, move this information back into your gmfgraph model.  Of course, when the WYSIWYG features of GMF become more mature, none of this should be necessary.
+</blockquote>
+<br style="clear:both;"/>
+
+<h3 id="id27BF51D3B27BFE1387B55D435E65ACA48229B"> Tooling Definition </h3>
+<p>
+<span class="imgright">
+<img src="resource_tool.png"  alt="resource_tool.png" /><br />
+
+</span>
+
+We'll need a tool to add Resource nodes, so as you've done many times before, open the mindmap.gmftool model and add a new node creation tool for the Resource. Next, we'll need to add our mappings, so reopen your mindmap.gmfmap file.
+</p>
+<br style="clear:both;"/>
+
+<h3 id="idE625271C1956151174B9B20523484BDAD143"> Mapping Definition </h3>
+<p>
+<span class="imgright">
+<img src="resource_map.png"  alt="resource_map.png" /><br />
+
+</span>
+
+First, we'll need to add a new Top Node Reference to our Mapping definition.  Set the Containment Feature to our 'resources : Resource' attribute of our Map class.  Add a child Node Mapping element to this Top Node Reference and select our 'Resource' for the Domain meta information Element property.  Of course, we'll select our Resource node for the Diagram Node and our Resource creation tool for the palette.
+</p>
+
+<p>
+Now, to add our Feature Label Mapping as a child of the Node Mapping and set the Edit and View Pattern and corresponding features from our Resource class in the domain model.  Here, we'll utilize the edit and view pattern properties of the mapping model to allow a Resource label to be displayed as 'name [email@some.com]'.  To allow for the proper parsing of what's entered into the direct edit field, we will define an edit and editor pattern for the label as '{0} : {1}' where a colon is used to separate the name and email attributes.  The view pattern will be '{0} [{1}]' and allow our label to be displayed as shown in the image.  Note that the generated plug-in code will contribute to the parserProvider extension-point, which will in turn leverages the Java MessageFormat class.
+</p>
+
+<h3 id="id6321FB60317537477B566DCE1AA418114174C6F"> Generation </h3>
+<p>
+After generation, a slight tweak will need to be made to the generated figure until <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=142010" class="external">bug 142010</a> is resolved.  In the generated org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ResourceEditPart$ResourceFigure class, set the attribute private boolean myUseLocalCoordinates = true;  You might want to set the comment above it to @generated NOT in order to preserve this change.  Without doing this the polygon used for the figure's body will not be visible.  With that, set the fill(true) method on the body in the generated figure code, as it seems otherwise to not be filled.
+</p>
+
+<p>
+Run the diagram and check the operation of the label, as well as the look of the figure.  It should look similar to the one above.  Resources added to the diagram are now available in the properties view for topic assignments, thread authoring, etc.  To add the ability to create links from other elements to a Resource, follow steps similar to how links are used to represent subtopics. This exercise is left to the reader ;-)
+</p>
+
+<h2 id="id54186F73C52971161D1A9361EF54778732C24D"> Creating a Customization Plug-in </h2>
+<p>
+Although making modifications to the generated code and specifying '@generated NOT' to allow JMerge to preserve our changes works well for some customizations, it's also possible to separate other customizations (extensions) to our generated plug-in using a new plug-in.  For this purpose, create a new plug-in project named org.eclipse.gmf.examples.mindmap.diagram.custom to your workspace.  Use the default settings, although no Activator class is needed, nor is the use of any of the templates provided in the wizard.
+</p>
+
+<h2 id="id3474B14EE25F1191337E4C32341180F752B1"> Custom Actions </h2>
+<p>
+<span class="imgright">
+<img src="insert_subtopic.png"  alt="insert_subtopic.png" /><br />
+
+</span>
+
+The standard means to create a new subtopic is a bit painful at the moment: click on Topic creation tool, then diagram, name with in-place editor, click Subtopic link creation tool, draw link from parent to subtopic.  Ideally, we'd like to simply use a right-click menu option on a selected Topic and choose &quot;Create Subtopic&quot; or better yet, press the Insert key (or some combination) and have the new Topic created, including the link, and with the in-place editor active on the new Topic.  In this section, we will explore how to accomplish just this.
+</p>
+
+<p>
+To begin, we know that the org.eclipse.ui.bindings can be used to assign a Ctrl+I key combination to our action (as seen on the image, though for OS X).  This is easily accomplished by contributing to the extension-point in our new *.diagram.custom plugin.xml file.  Note that this is a simplistic example that does not declare a context, as you would probably expect to create for your diagram and potentially extend a default GMF diagram context (if one existed ;-).
+</p>
+<pre>
+&lt;extension point=&quot;org.eclipse.ui.bindings&quot;&gt;
+	&lt;key commandId=&quot;org.eclipse.gmf.examples.mindmap.insertSubtopic&quot; sequence=&quot;M1+I&quot; schemeId=&quot;org.eclipse.ui.defaultAcceleratorConfiguration&quot;/&gt;
+&lt;/extension&gt;
+</pre>
+<p>Now, for the command, we'll contribute to the org.eclipse.ui.commands extension-point, as seen below.  When you run your diagram, you will see this command category and the shortcut listed in the General | Keys preference page.
+</p>
+<pre>
+&lt;extension point=&quot;org.eclipse.ui.commands&quot;&gt;
+	&lt;category name=&quot;Mindmap&quot; description=&quot;Commands related to Mindmap diagrams.&quot; id=&quot;org.eclipse.gmf.category.mindmap&quot;/&gt;
+	&lt;command categoryId=&quot;org.eclipse.gmf.category.mindmap&quot; description=&quot;Inserts a new subtopic&quot; id=&quot;org.eclipse.gmf.examples.mindmap.insertSubtopic&quot; name=&quot;Insert Subtopic&quot;&gt;
+	&lt;/command&gt;
+&lt;/extension&gt;
+</pre>
+Now, for the popup menu.  We'd like to have a series of potential menu items to insert elements on our diagram (i.e. subtopics, threads, etc.), so our contribution to org.eclipse.ui.popupMenus will define an 'Insert | Subtopic' menu and link it to our binding above through the defintionId:
+</p>
+<pre>
+&lt;extension point=&quot;org.eclipse.ui.bindings&quot;&gt;
+	&lt;key commandId=&quot;org.eclipse.gmf.examples.mindmap.insertSubtopic&quot; sequence=&quot;M1+I&quot; schemeId=&quot;org.eclipse.ui.defaultAcceleratorConfiguration&quot;/&gt;
+&lt;/extension&gt;
+</pre>
+<p>Now, for the command, we'll contribute to the org.eclipse.ui.commands extension-point, as seen below.  When you run your diagram, you will see this command category and the shortcut listed in the General | Keys preference page.
+</p>
+<pre>
+&lt;extension point=&quot;org.eclipse.ui.commands&quot;&gt;
+	&lt;category name=&quot;Mindmap&quot; description=&quot;Commands related to Mindmap diagrams.&quot; id=&quot;org.eclipse.gmf.category.mindmap&quot;/&gt;
+	&lt;command categoryId=&quot;org.eclipse.gmf.category.mindmap&quot; description=&quot;Inserts a new subtopic&quot; id=&quot;org.eclipse.gmf.examples.mindmap.insertSubtopic&quot; name=&quot;Insert Subtopic&quot;&gt;
+	&lt;/command&gt;
+&lt;/extension&gt;
+</pre>
+<p>Now, for the popup menu.  We'd like to have a series of potential menu items to insert elements on our diagram (i.e. subtopics, threads, etc.), so our contribution to org.eclipse.ui.popupMenus will define an 'Insert | Subtopic' menu and link it to our binding above through the defintionId:
+</p>
+<pre>
+&lt;extension point=&quot;org.eclipse.ui.popupMenus&quot;&gt;
+      &lt;objectContribution
+            adaptable=&quot;false&quot;
+            id=&quot;org.eclipse.gmf.examples.mindmap.diagram.ui.objectContribution.TopicEditPart1&quot;
+            objectClass=&quot;org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicEditPart&quot;&gt;
+         &lt;menu 
+            id=&quot;MindmapInsert&quot; 
+            label=&quot;&amp;Insert&quot; 
+            path=&quot;additions&quot;&gt; 
+            &lt;separator name=&quot;group1&quot;/&gt;
+         &lt;/menu&gt;
+         &lt;action
+               class=&quot;org.eclipse.gmf.examples.mindmap.diagram.part.MindmapCreateSubtopicAction&quot;
+               definitionId=&quot;org.eclipse.gmf.examples.mindmap.insertSubtopic&quot;
+               enablesFor=&quot;1&quot;
+               id=&quot;org.eclipse.gmf.examples.mindmap.popup.MindmapCreateSubtopicActionID&quot;
+               label=&quot;&amp;Subtopic&quot;
+               menubarPath=&quot;MindmapInsert/group1&quot;&gt;
+         &lt;/action&gt;
+      &lt;/objectContribution&gt;                    
+&lt;/extension&gt;
+</pre>
+<p>Now, for the fun part... to define the declared MindmapCreateSubtopicAction class.  To begin, we know that similar functionality exists in the connection handles feature provided by the runtime (see image below).
+</p>
+<img src="Connection_handle.png"/>
+<p><br style="clear:both;" />
+</p><p>After some investigation, it seems the CreateViewAndOptionallyElementCommand class gives us a hint at how to implement what we want (thanks to Cherie for providing a simplied version of the original tutorial code below, which leverages the DeferredCreateConnectionViewAndElementCommand).  
+</p>
+<pre>
+public void run(IAction action) {
+	CompoundCommand cc = new CompoundCommand("Create Subtopic and Link");
+
+	// Create the new topic for the other end.
+	CreateViewRequest topicRequest = CreateViewRequestFactory.getCreateShapeRequest(MindmapElementTypes.Topic_2001, selectedElement.getDiagramPreferencesHint());
+
+	Point p = selectedElement.getFigure().getBounds().getTopRight().getCopy();
+	selectedElement.getFigure().translateToAbsolute(p);
+	int edgeCount = selectedElement.getNotationView().getSourceEdges().size();
+	// A quick hack to get subtopics to layout to the right, from top to bottom
+	int offset = (edgeCount * 50) &ndash; 100;
+	topicRequest.setLocation(p.translate(100, offset));
+
+	MapEditPart mapEditPart = (MapEditPart) selectedElement.getParent();
+	Command createTopicCmd = mapEditPart.getCommand(topicRequest);
+	IAdaptable topicViewAdapter = (IAdaptable) ((List) topicRequest.getNewObject()).get(0);
+
+	cc.add(createTopicCmd);
+
+	// create the subtopics link command
+	ICommand createSubTopicsCmd = new DeferredCreateConnectionViewAndElementCommand(new CreateConnectionViewAndElementRequest(MindmapElementTypes.TopicSubtopics_4001,
+				((IHintedType) MindmapElementTypes.TopicSubtopics_4001).getSemanticHint(), selectedElement.getDiagramPreferencesHint()), new EObjectAdapter((EObject) selectedElement.getModel()),
+				topicViewAdapter, selectedElement.getViewer());
+
+	cc.add(new ICommandProxy(createSubTopicsCmd));
+
+	selectedElement.getDiagramEditDomain().getDiagramCommandStack().execute(cc);
+
+	// put the new topic in edit mode
+	final EditPartViewer viewer = selectedElement.getViewer();
+	final EditPart elementPart = (EditPart) viewer.getEditPartRegistry().get(topicViewAdapter.getAdapter(View.class));
+	if (elementPart != null) {
+		Display.getCurrent().asyncExec(new Runnable() {
+
+			public void run() {
+					viewer.setSelection(new StructuredSelection(elementPart));
+					Request der = new Request(RequestConstants.REQ_DIRECT_EDIT);
+					elementPart.performRequest(der);
+				}
+		});
+	}
+}
+</pre>
+
+<p>
+Rather than type in the code, simply copy the MindmapCreateSubtopicAction class into your project from the solution in CVS.  If you observe any Access Restriction errors, add the required packages to the Exported Packages list on the Runtime of the *.diagram plugin.  The basic concepts are outlined next.
+</p>
+
+<p>
+Our action will implement IObjectActionDelegate, with its run method performing the following:
+</p>
+<ul>
+ <li>create and initialize a CreateConnectionRequest</li>
+ <li>create and execute a CompoundCommand, containing a DeferredCreateConnectionViewAndElementCommand</li>
+ <li>create and perform a direct edit request on the new subtopic </li>
+</ul>
+
+<p>
+<span class="imgright">
+<img src="inserted_subtopic.png"  alt="inserted_subtopic.png" /><br />
+
+</span>
+
+Run the diagram and test the functionality using the keyboard combination (Ctrl+I) or right-click menu.  Note that the subtopic is created above and to the right of the parent with direct editing enabled for you to give it a name.  As you can see, the code to determine the position is a temporary hack (layout will be covered in another installment of the tutorial).
+</p>
+<br style="clear:both;"/>
+
+<h2 id="id4636144CF3DF261015C1225722E1371777513"> Custom Layout </h2>
+<p>
+Clearly, the default layout provided is not appropriate for a mindmap.  What we are about to add is also less than optimal, but will indicate what is necessary to add a custom layout to your diagram.  As described in the <a href="http://help.eclipse.org/help33/topic/org.eclipse.gmf.doc/examples-guide/diagram/layoutServiceExample.html" class="external">Layout Service Example</a>, we will contribute an extension to the runtime's layoutProviders extension-point.
+</p>
+
+<p>
+We'll try two layouts: one that extends org.eclipse.gmf.runtime.diagram.ui.providers.LeftRightProvider; the other, extending org.eclipse.gmf.runtime.diagram.ui.providers.internal.RadialProvider <em>(To access these class you need to include org.eclipse.gmf.runtime.diagram.ui.providers in your project dependancies)</em>. For each, add the appropriate extension in your plugin.xml file, setting the Priority higher for the one you'd like to take precedence.  For example:
+</p>
+<pre>
+&lt;extension point=&quot;org.eclipse.gmf.runtime.diagram.ui.layoutProviders&quot;&gt;
+   &lt;layoutProvider class=&quot;org.eclipse.gmf.examples.mindmap.diagram.layout.MindmapDefaultLayoutProvider&quot;&gt;
+       &lt;Priority name=&quot;Medium&quot;/&gt;
+   &lt;/layoutProvider&gt;
+&lt;/extension&gt;
+</pre>
+
+<p>
+The code for the LeftRightProvider is below:
+</p>
+<pre>
+public class MindmapDefaultLayoutProvider
+    extends LeftRightProvider {
+	
+    public static String DEFAULT_LAYOUT = &quot;Default&quot;;
+
+    public boolean provides(IOperation operation) {
+        // enable this provider only on mindmap diagrams
+        if (operation instanceof ILayoutNodeOperation) {
+            Iterator nodes = ((ILayoutNodeOperation) operation)
+                .getLayoutNodes().listIterator();
+            if (nodes.hasNext()) {
+                View node = ((ILayoutNode) nodes.next()).getNode();
+                Diagram container = node.getDiagram();
+                if (container == null
+                    ||&nbsp;!(container.getType().equals(&quot;Mindmap&quot;))) //$NON-NLS-1$
+                    return false;
+            }
+        } else {
+            return false;
+        }
+        IAdaptable layoutHint = ((ILayoutNodeOperation) operation)
+            .getLayoutHint();
+        String layoutType = (String) layoutHint.getAdapter(String.class);
+        return LayoutType.DEFAULT.equals(layoutType);
+    }
+
+}
+</pre>
+
+<p>
+If you run the diagram using both providers, it's clear that the left-right layout is more well-suited for a mindmap, although some adjustments would be necessary to make it more usable.
+</p>
+
+<h2 id="id117E43CAF87C6214A3F0A8D1A313A7665"> Removing Tools from the Palette </h2>
+<p>
+Let's say you don't want to see the Notes stack and Zoom tool on your palette.  To remove them, you need to contribute to the paletteProvider extension-point using the predefinedEntry IDs and remove="true" attribute.  For these contributions to not impact all editors, add an editor element with your diagram's ID to the paletteProvider, as seen below:
+</p>
+<pre>
+&lt;extension point=&quot;org.eclipse.gmf.runtime.diagram.ui.paletteProviders&quot;&gt; 
+  &lt;paletteProvider class=&quot;org.eclipse.gmf.runtime.diagram.ui.providers.DefaultPaletteProvider&quot;&gt;
+    &lt;Priority name=&quot;High&quot;/&gt;
+      &lt;contribution&gt;
+     	&lt;predefinedEntry id=&quot;standardGroup/zoomTool&quot; remove=&quot;true&quot;/&gt;
+     	&lt;predefinedEntry id=&quot;standardGroup/noteStack/noteTool&quot; remove=&quot;true&quot;/&gt; 
+	&lt;predefinedEntry id=&quot;standardGroup/noteStack/textTool&quot; remove=&quot;true&quot;/&gt; 
+	&lt;predefinedEntry id=&quot;standardGroup/noteStack/noteattachmentTool&quot; remove=&quot;true&quot;/&gt;
+      &lt;/contribution&gt;
+      &lt;editor
+            id=&quot;org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorID&quot;&gt;
+      &lt;/editor&gt;
+  &lt;/paletteProvider&gt;
+&lt;/extension&gt;
+</pre>
+
+<p>
+This contribution is added to the org.eclipse.gmf.examples.mindmap.custom plugin.xml file in <a href="http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.gmf/examples/org.eclipse.gmf.examples.mindmap.diagram.custom/plugin.xml?view=log&root=Modeling_Project&pathrev=HEAD" class="external">CVS</a>.
+</p>
+
+<h2 id="id236F4008C1D23CEBA3D560547FE45CBA4FD"> Summary </h2>
+<p>
+In this section of the tutorial, we saw how to add a composite figure, create a custom action and layout provider contained within a new extension plug-in.  In the next section, we will look at using the dashboard, and generating an RCP-based mindmap with the &quot;lite&quot; runtime: <a href="step4.html">GMF Tutorial Part 4</a>
+</p>
+
+<h2 id="id34751410151582D571A93F452FDF9D98CF7C"> References </h2>
+<ul>
+ <li><a href="http://www.eclipse.org/gmf" class="external">Graphical Modeling Framework Website</a></li>
+ <li><a href="http://wiki.eclipse.org/index.php/GMF_Documentation "> GMF Documentation</a></li>
+ <li><a href="step1.html"> GMF Tutorial Part 1</a></li>
+ <li><a href="step2.html "> GMF Tutorial Part 2</a></li>
+ <li><a href="step4.html "> GMF Tutorial Part 4</a> </li>
+</ul>
+</html>
