@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    bblajer (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) - refactored to reuse code from FullRT version.
  */
 
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
@@ -34,9 +35,7 @@ public class «validationProviderClassName» «EXPAND supertypes» {
 
 	«EXPAND strategy_support»
 
-	«EXPAND AuditClass FOREACH editorGen.audits.rules.select(e| e.requiresConstraintAdapter && e.rule != null && e.target != null && e.target.getContext() != null)-»
-
-	«EXPAND javaConstraints-»
+	«EXPAND constraintAdapters(this) FOR editorGen.audits-»
 
 	«EXPAND additions-»
 } //«validationProviderClassName»
@@ -44,91 +43,20 @@ public class «validationProviderClassName» «EXPAND supertypes» {
 
 «DEFINE supertypes FOR gmfgen::GenDiagram»«ENDDEFINE»
 
-«DEFINE AuditClass FOR gmfgen::GenAuditRule-»
-«EXPAND xpt::Common::generatedClassComment»
-public static class «getConstraintAdapterLocalClassName()» extends org.eclipse.emf.validation.AbstractModelConstraint {
+// override the one from FullRT
+«DEFINE constraintAdapters_formatMethod FOR GenAuditRoot-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private «root.editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» expression;
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «this.getConstraintAdapterLocalClassName()»() {
-		expression = «EXPAND getExpression(root.editorGen.diagram, rule, target.getContext()) FOR root.editorGen.expressionProviders.getProvider(rule)»;
-	}
-	«EXPAND xpt::Common::generatedMemberComment»
-	public org.eclipse.core.runtime.IStatus validate(org.eclipse.emf.validation.IValidationContext ctx) {
-		Object evalCtx = ctx.getTarget();
-		«EXPAND adjustEvalCtx(root.editorGen.diagram) FOR target-»
-		Object result = expression.evaluate(evalCtx);
-		if(result instanceof Boolean && ((Boolean)result).booleanValue()) {
-			return org.eclipse.core.runtime.Status.OK_STATUS;
+	static String formatElement(org.eclipse.emf.ecore.EObject object) {
+		if (object == null) {
+			return String.valueOf(object);
 		}
-		return ctx.createFailureStatus(new Object[] { formatElement(ctx.getTarget()) }); 
+		org.eclipse.emf.common.notify.AdapterFactory adapterFactory = «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory();
+		org.eclipse.emf.edit.provider.IItemLabelProvider labelProvider = (org.eclipse.emf.edit.provider.IItemLabelProvider) adapterFactory.adapt(object, org.eclipse.emf.edit.provider.IItemLabelProvider.class);
+		if (labelProvider != null) {
+			return object.eClass() + " " + labelProvider.getText(object);
+		}
+		return object.toString();
 	}
-	«EXPAND AuditClass_formatElement-»
-}
 «ENDDEFINE»
 
-«DEFINE adjustEvalCtx(gmfgen::GenDiagram diagram) FOR gmfgen::GenAuditable»«ENDDEFINE»
-
-«DEFINE adjustEvalCtx(gmfgen::GenDiagram diagram) FOR gmfgen::GenDomainAttributeTarget-»
-if(evalCtx instanceof org.eclipse.emf.ecore.EObject) {
-	evalCtx = ((org.eclipse.emf.ecore.EObject) evalCtx).eGet(«EXPAND MetaModel::MetaFeature FOR attribute»);
-}
-«ENDDEFINE»
-
-«DEFINE adjustEvalCtx(gmfgen::GenDiagram diagram) FOR gmfgen::GenAuditedMetricTarget-»
-evalCtx = «diagram.getMetricProviderQualifiedClassName()».calculateMetric(«toStringLiteral(metric.key)», evalCtx);	«EXPAND xpt::Common::nonNLS»
-«ENDDEFINE»
-
-«DEFINE getExpression(gmfgen::GenDiagram diagram, gmfgen::ValueExpression valueSpec, genmodel::GenClassifier genClassifier) FOR gmfgen::GenExpressionProviderBase»null«ENDDEFINE»
-
-«DEFINE getExpression(gmfgen::GenDiagram diagram, gmfgen::ValueExpression valueSpec, genmodel::GenClassifier genClassifier) FOR gmfgen::GenExpressionInterpreter»«EXPAND xpt::expressions::getExpression::getExpression(valueSpec, genClassifier, false)»«ENDDEFINE»
-
-«DEFINE getExpression(gmfgen::GenDiagram diagram, gmfgen::ValueExpression valueSpec, genmodel::GenClassifier genClassifier) FOR gmfgen::GenJavaExpressionProvider-»
-new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND MetaModel::MetaClass FOR genClassifier») {
-	protected Object doEvaluate(Object context, java.util.Map env) {
-		«EXPAND MetaModel::DeclareAndAssign("self", "context", true) FOR genClassifier»
-		return «EXPAND javaConstraintsClassName FOR diagram».«this.getOperationName(valueSpec)»(self);
-	}
-}«-»
-«ENDDEFINE»
-
-«DEFINE AuditClass_formatElement FOR gmfgen::GenAuditRule-»
-«EXPAND xpt::Common::generatedMemberComment»
-protected String formatElement(org.eclipse.emf.ecore.EObject object) {
-	if (object == null) {
-		return String.valueOf(object);
-	}
-	org.eclipse.emf.common.notify.AdapterFactory adapterFactory = «root.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory();
-	org.eclipse.emf.edit.provider.IItemLabelProvider labelProvider = (org.eclipse.emf.edit.provider.IItemLabelProvider) adapterFactory.adapt(object, org.eclipse.emf.edit.provider.IItemLabelProvider.class);
-	if (labelProvider != null) {
-		return object.eClass() + " " + labelProvider.getText(object);
-	}
-	return object.toString();
-}
-«ENDDEFINE»
-
-«DEFINE javaConstraints FOR gmfgen::GenDiagram-»
-«LET getJavaAuditRules() AS javaAuditRules-»
-«IF javaAuditRules.size() > 0-»
-«EXPAND xpt::Common::generatedClassComment»
-static class «EXPAND javaConstraintsClassName» {
-	«EXPAND defineJavaConstraintOperation(editorGen.expressionProviders) FOREACH javaAuditRules-»
-}	//«EXPAND javaConstraintsClassName»
-«ENDIF-»
-«ENDLET-»
-«ENDDEFINE»
-
-«DEFINE defineJavaConstraintOperation(gmfgen::GenExpressionProviderContainer expressionProviders) FOR gmfgen::GenAuditRule-»
-«EXPAND defineJavaConstraintOperation(this) FOR expressionProviders.getProvider(rule)-»
-«ENDDEFINE»
-
-«DEFINE defineJavaConstraintOperation(gmfgen::GenAuditRule rule) FOR gmfgen::GenExpressionProviderBase»«ENDDEFINE»
-
-«DEFINE defineJavaConstraintOperation(gmfgen::GenAuditRule rule) FOR gmfgen::GenJavaExpressionProvider-»
-«EXPAND xpt::expressions::javaExpressionOperation::javaExpressionOperation(rule.rule, rule.target.getContext(), null)-»
-«ENDDEFINE»
-
-«DEFINE javaConstraintsClassName FOR gmfgen::GenDiagram»JavaAudits«ENDDEFINE»
-
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
 
