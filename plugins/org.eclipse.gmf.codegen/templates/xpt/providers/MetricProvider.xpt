@@ -632,11 +632,10 @@ public class «metricProviderClassName»
 	}
 «ENDDEFINE»
 
-«DEFINE initializerExpr(ValueExpression valueExpr, GenClassifier exprContext) FOR GenExpressionProviderBase-»
-«ENDDEFINE»
+«DEFINE initializerExpr(ValueExpression valueExpr, GenClassifier exprContext) FOR GenExpressionProviderBase»«ENDDEFINE»
 
 «DEFINE initializerExpr(ValueExpression valueExpr, GenClassifier exprContext) FOR GenExpressionInterpreter-»
-	«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», «EXPAND MetaModel::MetaClass FOR exprContext»)
+«EXPAND xpt::expressions::getExpression::getExpression(valueExpr, exprContext)-»
 «ENDDEFINE»
 
 «DEFINE initializerExpr(ValueExpression valueExpr, GenClassifier exprContext) FOR GenJavaExpressionProvider-»
