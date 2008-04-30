@@ -225,13 +225,13 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 					boolean isTargetMatch = false;
 					for (Iterator<?> it = event.getValidationTargets().iterator(); it.hasNext();) {
 						if(it.next() == target) {
-							isTargetMatch = true; //
+							isTargetMatch = true;
 							break;
 						}						
 					}
 					if(!isTargetMatch) return;
 
-					for (@SuppressWarnings("unchecked") Iterator<IConstraintStatus> it = event.getValidationResults().iterator(); it.hasNext();) {
+					for (Iterator<IConstraintStatus> it = event.getValidationResults().iterator(); it.hasNext();) {
 						IConstraintStatus status = it.next();
 						if (constraintGlobalId(audit).equals(status.getConstraint().getDescriptor().getId())) {
 							constraintFound[0] = status.getConstraint();
@@ -260,7 +260,7 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 				ModelValidationService.getInstance().removeValidationListener(listener);					
 			}
 
-			assertNotNull("Constraint must be involved in validation", constraintFound[0]); //$NON-NLS-1$			
+			assertNotNull("Constraint must be involved in validation:" + constraintGlobalId(audit), constraintFound[0]); //$NON-NLS-1$			
 		}
 
 		void assertAuditContainer(AuditContainer auditContainer) {
