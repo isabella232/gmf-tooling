@@ -84,7 +84,7 @@ public class ElementInitializers {
 		«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».clear();
 «IF expressionResultNeedsCast(getTypeGenClassifier(feature))-»
 		for (java.util.Iterator it = ((java.util.Collection) value«count»).iterator(); it.hasNext(); ) {
-			Object next = «diagramElement.getDiagram().editorGen.expressionProviders.abstractExpressionClassName».performCast(it.next(), «EXPAND MetaModel::MetaClass FOR getTypeGenClassifier(feature)»);
+			Object next = «diagramElement.getDiagram().editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()».performCast(it.next(), «EXPAND MetaModel::MetaClass FOR getTypeGenClassifier(feature)»);
 			«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».add(next);
 		}
 «ELSE-»
@@ -92,13 +92,13 @@ public class ElementInitializers {
 «ENDIF-»
 	} else {
 «IF expressionResultNeedsCast(getTypeGenClassifier(feature))-»
-		value«count» = «diagramElement.getDiagram().editorGen.expressionProviders.abstractExpressionClassName».performCast(value«count», «EXPAND MetaModel::MetaClass FOR getTypeGenClassifier(feature)»);
+		value«count» = «diagramElement.getDiagram().editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()».performCast(value«count», «EXPAND MetaModel::MetaClass FOR getTypeGenClassifier(feature)»);
 «ENDIF-»
 		«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».add(value«count»);
 	}
 «ELSE-»
 «IF expressionResultNeedsCast(getTypeGenClassifier(feature))»
-	value«count» = «diagramElement.getDiagram().editorGen.expressionProviders.abstractExpressionClassName».performCast(value«count», «EXPAND MetaModel::MetaClass FOR getTypeGenClassifier(feature)»);
+	value«count» = «diagramElement.getDiagram().editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()».performCast(value«count», «EXPAND MetaModel::MetaClass FOR getTypeGenClassifier(feature)»);
 «ENDIF-»
 	«EXPAND MetaModel::setFeatureValue(instanceVar, instanceClass, "value" + count, true) FOR feature»;
 «ENDIF /*isListType*/-»
