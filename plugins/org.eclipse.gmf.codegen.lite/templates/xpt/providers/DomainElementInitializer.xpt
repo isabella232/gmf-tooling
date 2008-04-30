@@ -115,7 +115,7 @@ add(createExpressionFeatureInitializer(«EXPAND MetaModel::MetaFeature FOR featur
 
 «DEFINE getExpression(gmfgen::GenCommonBase element, gmfgen::GenFeatureSeqInitializer initializer, gmfgen::GenFeatureValueSpec valueSpec) FOR gmfgen::GenExpressionProviderBase»null«ENDDEFINE»
 
-«DEFINE getExpression(gmfgen::GenCommonBase element, gmfgen::GenFeatureSeqInitializer initializer, gmfgen::GenFeatureValueSpec valueSpec) FOR gmfgen::GenExpressionInterpreter»«EXPAND xpt::expressions::getExpression::getExpression(valueSpec, initializer.elementClass, false)»«ENDDEFINE»
+«DEFINE getExpression(gmfgen::GenCommonBase element, gmfgen::GenFeatureSeqInitializer initializer, gmfgen::GenFeatureValueSpec valueSpec) FOR gmfgen::GenExpressionInterpreter»«EXPAND xpt::expressions::getExpression::getExpression(valueSpec, initializer.elementClass)»«ENDDEFINE»
 
 «DEFINE getExpression(gmfgen::GenCommonBase element, gmfgen::GenFeatureSeqInitializer initializer, gmfgen::GenFeatureValueSpec valueSpec) FOR gmfgen::GenJavaExpressionProvider-»
 new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND MetaModel::MetaClass FOR initializer.elementClass») {

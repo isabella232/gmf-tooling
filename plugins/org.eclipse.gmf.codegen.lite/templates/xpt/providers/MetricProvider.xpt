@@ -760,7 +760,7 @@ register(new MetricDef(«toStringLiteral(key)», «EXPAND xpt::Common::nonNLS»
 
 «DEFINE getExpression(gmfgen::GenDiagram diagram, gmfgen::ValueExpression valueSpec, genmodel::GenClassifier genClassifier) FOR gmfgen::GenExpressionProviderBase»null«ENDDEFINE»
 
-«DEFINE getExpression(gmfgen::GenDiagram diagram, gmfgen::ValueExpression valueSpec, genmodel::GenClassifier genClassifier) FOR gmfgen::GenExpressionInterpreter»«EXPAND xpt::expressions::getExpression::getExpression(valueSpec, genClassifier, false)»«ENDDEFINE»
+«DEFINE getExpression(gmfgen::GenDiagram diagram, gmfgen::ValueExpression valueSpec, genmodel::GenClassifier genClassifier) FOR gmfgen::GenExpressionInterpreter»«EXPAND xpt::expressions::getExpression::getExpression(valueSpec, genClassifier)»«ENDDEFINE»
 
 «DEFINE getExpression(gmfgen::GenDiagram diagram, gmfgen::ValueExpression valueSpec, genmodel::GenClassifier genClassifier) FOR gmfgen::GenJavaExpressionProvider-»
 new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND MetaModel::MetaClass FOR genClassifier») {
