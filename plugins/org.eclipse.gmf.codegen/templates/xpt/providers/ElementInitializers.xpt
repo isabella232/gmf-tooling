@@ -123,7 +123,8 @@ public class ElementInitializers {
 
 // XXX perhaps, using instance.eClass() is better option than MetaModel::MetaClass (though, need to rely on instance variable name/type) 
 «DEFINE initializerExpr(GenFeatureValueSpec valueExpr) FOR GenExpressionInterpreter-»
-«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», «EXPAND MetaModel::MetaClass FOR valueExpr.featureSeqInitializer.elementClass»)«ENDDEFINE»
+«EXPAND xpt::expressions::getExpression::getExpression(valueExpr, valueExpr.featureSeqInitializer.elementClass)-»
+«ENDDEFINE»
 
 «DEFINE initializerExpr(GenFeatureValueSpec valueExpr) FOR GenJavaExpressionProvider-»
 «LET valueExpr.featureSeqInitializer.elementClass AS exprContext-»
