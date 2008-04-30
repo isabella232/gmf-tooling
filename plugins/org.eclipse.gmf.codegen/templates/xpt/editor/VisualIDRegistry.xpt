@@ -17,6 +17,7 @@
 «EXTENSION xpt::editor::Utils»
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION xpt::diagram::editpolicies::LinkUtils»
+«EXTENSION xpt::expressions::ValueExpression»
 
 «DEFINE VisualIDRegistry FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
@@ -336,16 +337,14 @@ private static boolean isDiagram(«EXPAND MetaModel::QualifiedClassName FOR domai
 «DEFINE _domainElementConstraintMethod(GenCommonBase diagramElement, ValueExpression expression, GenClass context) FOR GenExpressionInterpreter-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static boolean «EXPAND _domainElementConstraintMethodName FOR diagramElement»(«EXPAND MetaModel::QualifiedClassName FOR context» domainElement) {
-		if («EXPAND _constraintFieldName FOR diagramElement» == null) { // lazy initialization
-			«EXPAND _constraintFieldName FOR diagramElement» = «getQualifiedClassName()».«getExpressionAccessor(expression)»(«expression.getBodyString()», «EXPAND MetaModel::MetaClass FOR context»);
+		if («constraintFieldName(diagramElement)» == null) { // lazy initialization
+			«constraintFieldName(diagramElement)» = «getQualifiedClassName()».«getExpressionAccessor(expression)»(«expression.getBodyString()», «EXPAND MetaModel::MetaClass FOR context»); «EXPAND xpt::Common::nonNLS»
 		}
-		Object result = «EXPAND _constraintFieldName FOR diagramElement».evaluate(domainElement);
+		Object result = «constraintFieldName(diagramElement)».evaluate(domainElement);
 		return result instanceof Boolean && ((Boolean)result).booleanValue();
 	}			
 «ENDDEFINE»
 
-
-«DEFINE _constraintFieldName FOR GenCommonBase»«getUniqueIdentifier()»_Constraint«ENDDEFINE»
 
 «DEFINE _constraintField FOR GenNode»«EXPAND _constraintField(this) FOR modelFacet»«ENDDEFINE»
 «DEFINE _constraintField FOR GenLink»«EXPAND _constraintField(this) FOR modelFacet»«ENDDEFINE»
@@ -357,7 +356,7 @@ private static boolean isDiagram(«EXPAND MetaModel::QualifiedClassName FOR domai
 
 «DEFINE _constraintField(GenCommonBase diagramElement) FOR GenExpressionInterpreter»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private static «container.getAbstractExpressionQualifiedClassName()» «EXPAND _constraintFieldName FOR diagramElement»;
+	private static «container.getAbstractExpressionQualifiedClassName()» «constraintFieldName(diagramElement)»;
 «ENDDEFINE»
 
 «DEFINE _constraintField(GenCommonBase diagramElement) FOR GenExpressionProviderBase»«ERROR "Need to define approach to constraint fields for " + this»«ENDDEFINE»
