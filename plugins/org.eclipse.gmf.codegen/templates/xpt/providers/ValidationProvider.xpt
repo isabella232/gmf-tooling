@@ -321,5 +321,5 @@ static boolean isInDefaultEditorContext(Object object) {
 «ENDDEFINE»
 
 «DEFINE constraintAdapter_initContext(GenAuditRule audit) FOR GenAuditedMetricTarget-»
-final Number context = «audit.root.editorGen.diagram.getMetricProviderQualifiedClassName()».calculateMetric(«toStringLiteral(metric == null ? "" : metric.key)», ctx.getTarget());
+final Number context = «IF metric == null /*though metamodel constraint should not allow this*/»null /*FIXME: metric target was not correctly specified in the model*/«ELSE»«EXPAND MetricProvider::invokeCalcMethod("ctx.getTarget()", false) FOR metric»«ENDIF»;
 «ENDDEFINE»
