@@ -24,22 +24,6 @@ String getConstraintAdapterLocalClassName(gmfgen::GenAuditRule rule) :
 	"Adapter" + (rule.root.rules.indexOf(rule) + 1)
 ;
 
-List[gmfgen::GenAuditRule] getJavaAuditRules(gmfgen::GenDiagram diagram) :
-	diagram.editorGen.audits.rules.select(e| e.rule != null && diagram.editorGen.expressionProviders.getProvider(e.rule).isJavaExpressionProvider())
-;
-
-List[gmfgen::GenMetricRule] getJavaMetricRules(gmfgen::GenDiagram diagram) :
-	diagram.editorGen.metrics.metrics.select(e| e.rule != null && e.target != null && e.target.getContext() != null && diagram.editorGen.expressionProviders.getProvider(e.rule).isJavaExpressionProvider())
-;
-
-private boolean isJavaExpressionProvider(gmfgen::GenExpressionProviderBase gepb) :
-	false
-;
-
-private boolean isJavaExpressionProvider(gmfgen::GenJavaExpressionProvider gepb) :
-	true
-;
-
 String toStringLiteral(String strValue) :
 JAVA org.eclipse.gmf.internal.common.codegen.Conversions.toStringLiteral(java.lang.String)
 ;
@@ -47,4 +31,3 @@ JAVA org.eclipse.gmf.internal.common.codegen.Conversions.toStringLiteral(java.la
 List[gmfgen::GenMetricRule] getMetricRules(gmfgen::GenDiagram diagram) :
 	diagram.editorGen.metrics.metrics.select(e| e.rule != null && e.target != null && e.target.getContext() != null)
 ;
-
