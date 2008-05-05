@@ -32,8 +32,6 @@ public abstract class «editorGen.expressionProviders.abstractExpressionClassName
 
 «EXPAND performCast-»
 
-«EXPAND nullExpression-»
-
 «EXPAND NoImplException-»
 
 «EXPAND additions-»
@@ -88,10 +86,6 @@ public abstract class «editorGen.expressionProviders.abstractExpressionClassName
 «ENDDEFINE»
 
 «DEFINE ctors FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected «editorGen.expressionProviders.abstractExpressionClassName»(org.eclipse.emf.ecore.EClassifier context) {
-		this(null, context);«REM»XXX null body??? what for? just for nullExpression?«ENDREM»
-	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected «editorGen.expressionProviders.abstractExpressionClassName»(String body, org.eclipse.emf.ecore.EClassifier context) {
@@ -158,21 +152,6 @@ public abstract class «editorGen.expressionProviders.abstractExpressionClassName
 			if (targetWrapperClass.equals(java.math.BigDecimal.class)) return new java.math.BigDecimal(num.doubleValue());
 		}
 		return value;
-	}
-«ENDDEFINE»
-
-/*
-	XXX what's the purpose?
- */
-«DEFINE nullExpression FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static final «editorGen.expressionProviders.abstractExpressionClassName» createNullExpression(org.eclipse.emf.ecore.EClassifier context) {
-		return new «editorGen.expressionProviders.abstractExpressionClassName»(context) {
-			protected Object doEvaluate(Object context, java.util.Map env) {
-				// TODO - log entry about not provider available for this expression
-				return null;
-			}
-		};
 	}
 «ENDDEFINE»
 
