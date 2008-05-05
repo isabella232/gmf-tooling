@@ -364,7 +364,7 @@ public class LinksSessionSetup extends SessionSetup {
 			DomainElementTarget classB = GMFMapFactory.eINSTANCE.createDomainElementTarget();
 			classB.setElement(modelAccess.findClass("//nestedPckg/ClassA")); //$NON-NLS-1$ 			
 			
-			// Note; constraints must allways be false in order to be collected in the asserted validation result
+			// Note; constraints must always be false in order to be collected in the asserted validation result
 			// create ID with xml markup chars to test xml escaping in plugin.xml
 			String constraintId1 = "<constraint.id1>"; //$NON-NLS-1$ 
 			auditContainer.getAudits().add(createAudit(constraintId1, "false", classA, Severity.WARNING_LITERAL, false)); //$NON-NLS-1$
