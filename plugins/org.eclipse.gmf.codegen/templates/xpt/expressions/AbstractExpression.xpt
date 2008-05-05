@@ -17,45 +17,90 @@
 package «editorGen.expressionProviders.expressionsPackageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
-public abstract class «editorGen.expressionProviders.abstractExpressionClassName» {
+public abstract class «editorGen.expressionProviders.abstractExpressionClassName» «EXPAND supertypes»{
+
+«EXPAND debugOptions-»
+«EXPAND status-»
+
+«EXPAND body-»
+
+«EXPAND context-»
+
+«EXPAND ctors-»
+
+«EXPAND evaluate-»
+
+«EXPAND performCast-»
+
+«EXPAND nullExpression-»
+
+«EXPAND NoImplException-»
+
+«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE supertypes FOR gmfgen::GenDiagram»«ENDDEFINE»
+«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+
+«DEFINE debugOptions FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static final boolean DISABLED_NO_IMPL_EXCEPTION_LOG = Boolean.valueOf(org.eclipse.core.runtime.Platform.getDebugOption(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getBundle().getSymbolicName() + "/debug/disableNoExprImplExceptionLog")).booleanValue();«EXPAND xpt::Common::nonNLS»
+«ENDDEFINE»
+
+«DEFINE status FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.core.runtime.IStatus status = org.eclipse.core.runtime.Status.OK_STATUS;	
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private static final boolean DISABLED_NO_IMPL_EXCEPTION_LOG =
-			Boolean.valueOf(org.eclipse.core.runtime.Platform.getDebugOption(
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getBundle().getSymbolicName()
-					+ "/debug/disableNoExprImplExceptionLog")).booleanValue();
+	protected void setStatus(int severity, String message, Throwable throwable) {		
+		String pluginID = «editorGen.plugin.getActivatorQualifiedClassName()».ID;
+		this.status = new org.eclipse.core.runtime.Status(severity, pluginID, -1, (message != null) ? message : "", throwable); «EXPAND xpt::Common::nonNLS»
+		if(!this.status.isOK()) {
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Expression problem:" + message + "body:"+ body(), throwable); «EXPAND xpt::Common::nonNLS» «EXPAND xpt::Common::nonNLS(2)»
+		}
+	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private final String body;
+	public org.eclipse.core.runtime.IStatus getStatus() {
+		return status;
+	}
+«ENDDEFINE»
+
+«DEFINE body FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private final String myBody;
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private final org.eclipse.emf.ecore.EClassifier context;
+	public String body() {
+		return myBody;
+	}
+«ENDDEFINE»
+
+«DEFINE context FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private final org.eclipse.emf.ecore.EClassifier myContext;
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private org.eclipse.core.runtime.IStatus status = org.eclipse.core.runtime.Status.OK_STATUS;
+	public org.eclipse.emf.ecore.EClassifier context() {
+		return myContext;
+	}
+«ENDDEFINE»
 
+«DEFINE ctors FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected «editorGen.expressionProviders.abstractExpressionClassName»(org.eclipse.emf.ecore.EClassifier context) {
-		this(null, context);
+		this(null, context);«REM»XXX null body??? what for? just for nullExpression?«ENDREM»
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected «editorGen.expressionProviders.abstractExpressionClassName»(String body, org.eclipse.emf.ecore.EClassifier context) {
-		this.body = body;
-		this.context = context;
+		myBody = body;
+		myContext = context;
 	}
+«ENDDEFINE»
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected void setStatus(int severity, String message, Throwable throwable) {
-		String pluginID = «editorGen.plugin.getActivatorQualifiedClassName()».ID;
-		this.status = new org.eclipse.core.runtime.Status(
-				severity, pluginID, -1, (message != null) ? message : "", throwable); //$NON-NLS-1$
-		if (!this.status.isOK()) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-					"Expression problem: " + message + " body: " + body, throwable); //$NON-NLS-1$ //$NON-NLS-2$
-		}
-	}
-
+«DEFINE evaluate FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected abstract Object doEvaluate(Object context, java.util.Map env);
 
@@ -64,37 +109,23 @@ public abstract class «editorGen.expressionProviders.abstractExpressionClassName
 		return evaluate(context, java.util.Collections.EMPTY_MAP);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+«EXPAND xpt::Common::generatedMemberComment»
 	public Object evaluate(Object context, java.util.Map env) {
-		if (context().isInstance(context)) {
+		if(context().isInstance(context)) {
 			try {
 				return doEvaluate(context, env);
 			} catch(Exception e) {
-				if (DISABLED_NO_IMPL_EXCEPTION_LOG && e instanceof NoImplException) {
+				if(DISABLED_NO_IMPL_EXCEPTION_LOG && e instanceof NoImplException) {
 					return null;
 				}
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-						"Expression evaluation failure: " + body, e);
+				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Expression evaluation failure: " + body(), e);	«EXPAND xpt::Common::nonNLS»
 			}
 		}
 		return null;
 	}
+«ENDDEFINE»
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public org.eclipse.core.runtime.IStatus getStatus() {
-		return status;
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	public String body() {
-		return body;
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	public org.eclipse.emf.ecore.EClassifier context() {
-		return context;
-	}
-
+«DEFINE performCast FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment("Expression may return number value which is not directly compatible with feature type (e.g. Double when Integer is expected), or EEnumLiteral meta-object when literal instance is expected")»
 	public static Object performCast(Object value, org.eclipse.emf.ecore.EDataType targetType) {
 		if (targetType instanceof org.eclipse.emf.ecore.EEnum) {
@@ -127,29 +158,30 @@ public abstract class «editorGen.expressionProviders.abstractExpressionClassName
 			if (targetWrapperClass.equals(java.math.BigDecimal.class)) return new java.math.BigDecimal(num.doubleValue());
 		}
 		return value;
-	}	
+	}
+«ENDDEFINE»
 
+/*
+	XXX what's the purpose?
+ */
+«DEFINE nullExpression FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static final «editorGen.expressionProviders.abstractExpressionClassName» createNullExpression(org.eclipse.emf.ecore.EClassifier context) {
 		return new «editorGen.expressionProviders.abstractExpressionClassName»(context) {
-
 			protected Object doEvaluate(Object context, java.util.Map env) {
 				// TODO - log entry about not provider available for this expression
 				return null;
 			}
 		};
 	}
+«ENDDEFINE»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+«DEFINE NoImplException FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedClassComment»
 	public static class NoImplException extends RuntimeException {
-
 		«EXPAND xpt::Common::generatedMemberComment»
 		public NoImplException(String message) {
 			super(message);
 		}
 	}
-	«EXPAND additions-»
-}
 «ENDDEFINE»
-
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
