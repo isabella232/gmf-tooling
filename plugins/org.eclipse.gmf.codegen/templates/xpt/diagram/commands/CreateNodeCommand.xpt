@@ -131,7 +131,7 @@ protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
 	org.eclipse.emf.ecore.resource.Resource resource = getElementToEdit().eResource();
 	«EXPAND MetaModel::NewInstance("newElement") FOR metaClass»
 	resource.getContents().add(«EXPAND MetaModel::DowncastToEObject("newElement") FOR metaClass»);
-	«EXPAND initialize(node)-»
+	«EXPAND initialize(node, "newElement")-»
 	return «EXPAND MetaModel::DowncastToEObject("newElement") FOR metaClass»;
 }
 «ENDDEFINE»
@@ -150,12 +150,12 @@ protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
 	«EXPAND MetaModel::DeclareAndAssign("childHolder", "getElementToEdit()") FOR childMetaFeature.genClass»
 	«EXPAND CreateLinkUtils::addValue("childHolder", childMetaFeature.genClass, "newElement") FOR childMetaFeature»
 «ENDIF-»
-	«EXPAND initialize(node)-»
+	«EXPAND initialize(node, "newElement")-»
 	return «EXPAND MetaModel::DowncastToEObject("newElement") FOR metaClass»;
 }
 	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE initialize(gmfgen::GenNode node) FOR gmfgen::TypeModelFacet»«IF modelElementInitializer != null-»
-«node.getDiagram().getElementTypesQualifiedClassName()».init_«node.getUniqueIdentifier()»(newElement);
+«DEFINE initialize(gmfgen::GenNode node, String newElementVar) FOR gmfgen::TypeModelFacet»«IF modelElementInitializer != null-»
+«node.getDiagram().getElementTypesQualifiedClassName()».init_«node.getUniqueIdentifier()»(«newElementVar»);
 «ENDIF»«ENDDEFINE»

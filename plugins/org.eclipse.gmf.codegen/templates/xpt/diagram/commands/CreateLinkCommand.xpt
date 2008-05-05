@@ -80,7 +80,7 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 				«EXPAND CreateLinkUtils::addValue("getSource()", getSourceType(), "newElement") FOR childMetaFeature-»
 			«ENDIF-»
 		«ENDIF-»
-		«EXPAND initialize(link)»
+		«EXPAND initialize(link, "newElement")-»
 		return «EXPAND MetaModel::DowncastToEObject("newElement") FOR metaClass»;
 	}
 
@@ -90,6 +90,6 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 	}
 «ENDDEFINE»
 
-«DEFINE initialize(GenLink link) FOR TypeModelFacet»«IF modelElementInitializer != null-»
-«link.diagram.getElementTypesQualifiedClassName()».init_«link.getUniqueIdentifier()»(newElement);
+«DEFINE initialize(GenLink link, String newElementvVar) FOR TypeModelFacet»«IF modelElementInitializer != null-»
+«link.diagram.getElementTypesQualifiedClassName()».init_«link.getUniqueIdentifier()»(«newElementvVar»);
 «ENDIF»«ENDDEFINE»
