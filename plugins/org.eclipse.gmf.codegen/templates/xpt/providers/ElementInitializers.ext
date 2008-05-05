@@ -21,6 +21,10 @@ boolean expressionResultNeedsCast(GenClass c) : false ;
 boolean expressionResultNeedsCast(GenDataType c) : isNumberObject(c) || isPrimitiveNumberType(c) ;
 boolean expressionResultNeedsCast(GenEnum c) : true ;
 
+String javaMethodName(GenCommonBase diagramElement, GenFeatureValueSpec valueSpec) :
+	"value_" + diagramElement.getClassNamePrefix() + "_" + valueSpec.featureSeqInitializer.elementClass.ecoreClass.name + "_" + valueSpec.feature.ecoreFeature.name
+;
+
 /*
 	XXX instead of all these recursion may write javaInitializers template the same way performInit
 	is written, i.e. re-dispatch from GenReferenceNewElementSpec
@@ -33,6 +37,7 @@ private List[ValueExpression] recurseCollectValueExpr(GenFeatureSeqInitializer s
 	si.initializers.typeSelect(GenFeatureValueSpec).union(
 	si.initializers.typeSelect(GenReferenceNewElementSpec).newElementInitializers.recurseCollectValueExpr().flatten())
 ;
+
 
 private boolean isNumberObject(genmodel::GenClassifier c) : false ;
 private boolean isNumberObject(genmodel::GenClass c) : false ;

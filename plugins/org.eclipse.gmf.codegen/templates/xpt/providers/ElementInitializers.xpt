@@ -38,11 +38,8 @@ public class ElementInitializers {
 
 «DEFINE JavaSupport FOR GenDiagram-»
 «IF editorGen.expressionProviders != null && !editorGen.expressionProviders.providers.typeSelect(GenJavaExpressionProvider).isEmpty()-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	static class Java {
-		«EXPAND javaInitializer FOREACH getAllNodes()-»
-		«EXPAND javaInitializer FOREACH links-»
-	}
+	«EXPAND javaInitializer FOREACH getAllNodes()-»
+	«EXPAND javaInitializer FOREACH links-»
 «ENDIF-»
 «ENDDEFINE»
 
@@ -78,7 +75,7 @@ public class ElementInitializers {
 «DEFINE performInit(GenCommonBase diagramElement, String instanceVar, GenClass instanceClass, int count) FOR GenFeatureInitializer»«ENDDEFINE»
 
 «DEFINE performInit(GenCommonBase diagramElement, String instanceVar, GenClass instanceClass, int count) FOR GenFeatureValueSpec-»
-	Object value«count» = «EXPAND evaluateExpr(this, instanceVar) FOR diagramElement.getDiagram().editorGen.expressionProviders.getProvider(this)»;
+	Object value«count» = «EXPAND evaluateExpr(diagramElement, this, instanceVar) FOR diagramElement.getDiagram().editorGen.expressionProviders.getProvider(this)»;
 «IF isListType(feature)-»
 	if (value«count» instanceof java.util.Collection) {
 		«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».clear();
@@ -119,15 +116,15 @@ public class ElementInitializers {
 
 /////////////////////////////////
 
-«DEFINE evaluateExpr(GenFeatureValueSpec valueExpr, String instanceVar) FOR GenExpressionProviderBase»«ENDDEFINE»
+«DEFINE evaluateExpr(GenCommonBase diagramElement, GenFeatureValueSpec valueExpr, String instanceVar) FOR GenExpressionProviderBase»«ENDDEFINE»
 
 // XXX perhaps, using instance.eClass() is better option than MetaModel::MetaClass (though, need to rely on instance variable name/type) 
-«DEFINE evaluateExpr(GenFeatureValueSpec valueExpr, String instanceVar) FOR GenExpressionInterpreter-»
+«DEFINE evaluateExpr(GenCommonBase diagramElement, GenFeatureValueSpec valueExpr, String instanceVar) FOR GenExpressionInterpreter-»
 «EXPAND xpt::expressions::getExpression::getExpression(valueExpr, valueExpr.featureSeqInitializer.elementClass)».evaluate(«instanceVar»)«-»
 «ENDDEFINE»
 
-«DEFINE evaluateExpr(GenFeatureValueSpec valueExpr, String instanceVar) FOR GenJavaExpressionProvider-»
-Java.«getOperationName(valueExpr)»(«instanceVar»)«-»
+«DEFINE evaluateExpr(GenCommonBase diagramElement, GenFeatureValueSpec valueExpr, String instanceVar) FOR GenJavaExpressionProvider-»
+«javaMethodName(diagramElement, valueExpr)»(«instanceVar»)«-»
 «ENDDEFINE»
 
 
@@ -150,7 +147,7 @@ Java.«getOperationName(valueExpr)»(«instanceVar»)«-»
 «FOREACH diagramElement.getDiagram().editorGen.expressionProviders.providers.typeSelect(GenJavaExpressionProvider) AS jp-»
 «FOREACH getFeatureInitializers(this, jp) AS valueExpression-»
 «EXPAND xpt::Common::generatedMemberComment»
-private static «EXPAND MetaModel::featureTargetType FOR valueExpression.feature» «jp.getOperationName(valueExpression)»(«EXPAND MetaModel::QualifiedClassName FOR valueExpression.featureSeqInitializer.elementClass» self) {
+private static «EXPAND MetaModel::featureTargetType FOR valueExpression.feature» «javaMethodName(diagramElement, valueExpression)»(«EXPAND MetaModel::QualifiedClassName FOR valueExpression.featureSeqInitializer.elementClass» self) {
 	// TODO: implement this method to return value  
 	// for «EXPAND MetaModel::MetaFeature FOR valueExpression.feature»
 	// Ensure that you remove @generated or mark it @generated NOT
@@ -158,7 +155,7 @@ private static «EXPAND MetaModel::featureTargetType FOR valueExpression.feature»
 	   «valueExpression.body»
 	 */
 	
-	throw new «jp.container.getAbstractExpressionQualifiedClassName()».NoImplException("No user java implementation provided in '«jp.getOperationName(valueExpression)»' operation"); «EXPAND xpt::Common::nonNLS»
+	throw new «jp.container.getAbstractExpressionQualifiedClassName()».NoImplException("No user java implementation provided in '«javaMethodName(diagramElement, valueExpression)»' operation");«EXPAND xpt::Common::nonNLS»
 }
 «ENDFOREACH-»
 «ENDFOREACH-»
