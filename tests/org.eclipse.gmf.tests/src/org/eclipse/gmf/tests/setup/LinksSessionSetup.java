@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.AuditedMetricTarget;
@@ -146,7 +147,15 @@ public class LinksSessionSetup extends SessionSetup {
 				nextGenPackage.setPrefix(buf.toString());
 			}
 		}
-		
+		for (Object o : diaGenSetup.getGenDiagram().getEditorGen().getExpressionProviders().getProviders()) {
+			if (o instanceof GenJavaExpressionProvider) {
+				((GenJavaExpressionProvider) o).setThrowException(false);
+				// otherwise, validation listener won't report audit which failed with exception
+				// as completed, and AuditRulesTest would fail.
+				break; // expect no more than a single java provider - there should be at most 1
+			}
+		}
+	
 		ResourceSet rset = getMapModel().getMapping().eResource().getResourceSet();
 		bindGMFGenModelToResourceSet(diaGenSetup, rset);
 		

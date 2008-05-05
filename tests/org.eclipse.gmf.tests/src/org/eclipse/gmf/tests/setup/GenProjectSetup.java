@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -34,11 +34,9 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.Utils;
-import org.eclipse.osgi.service.debug.DebugOptions;
 import org.eclipse.swt.widgets.Display;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
-import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * Installs generated GMF plugins to allow invocation of generated code
@@ -81,8 +79,6 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 			registerEMFEditExtensions();
 			// there should be hit, any .diagram plugin is supposed to register extensions we monitor with the listener above.
 			monitorExtensionLoad(extensionChangeNotification, 60);
-			
-			disabledNoExprImplDebugOption();
 		} catch (BundleException ex) {
 			throw ex;
 		} catch (Exception ex) {
@@ -195,18 +191,5 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 		for (Bundle next : myAllInstalledBundes) {
 			next.uninstall();
 		}
-	}
-	
-	private void disabledNoExprImplDebugOption() {
-		String disabledNoExprImplDebugOpt = Platform.getDebugOption(Plugin.getInstance().getBundle().getSymbolicName() + "/disableNoExprImplExceptionLog");
-		if(disabledNoExprImplDebugOpt != null) {
-			ServiceTracker debugTracker = new ServiceTracker(Plugin.getBundleContext(), DebugOptions.class.getName(), null);
-			debugTracker.open();
-			DebugOptions debugOptions = (DebugOptions)debugTracker.getService();			
-			if(debugOptions != null) {
-				debugOptions.setOption(getBundle().getSymbolicName() + "/debug/disableNoExprImplExceptionLog", disabledNoExprImplDebugOpt);
-			}
-			debugTracker.close();				
-		}		
 	}
 }

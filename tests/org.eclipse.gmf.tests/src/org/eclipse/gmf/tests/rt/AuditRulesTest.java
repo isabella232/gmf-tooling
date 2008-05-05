@@ -94,7 +94,6 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 		auditAssert = new AuditAssert(genDiagram.getEditorGen().getPlugin().getID());
 	}
 
-	
 	public void testNestedPackageAuditTarget() throws Exception {
 		GenModel domainGenModel = getSetup().getGenModel().getGenDiagram().getDomainDiagramElement().getGenPackage().getGenModel();
 		GenClass genClass = null;
