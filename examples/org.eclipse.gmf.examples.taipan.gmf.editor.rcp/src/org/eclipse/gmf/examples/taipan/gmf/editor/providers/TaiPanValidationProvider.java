@@ -299,7 +299,7 @@ public class TaiPanValidationProvider extends AbstractContributionItemProvider {
 		/**
 		 * @generated NOT
 		 */
-		private static Boolean selflength0(String self) {
+		private static java.lang.Boolean selflength0(java.lang.String self) {
 			return Boolean.valueOf(self.length() > 0);
 		}
 	} //JavaAudits
