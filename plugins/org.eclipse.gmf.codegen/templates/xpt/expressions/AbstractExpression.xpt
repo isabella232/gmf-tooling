@@ -19,7 +19,6 @@ package «editorGen.expressionProviders.expressionsPackageName»;
 «EXPAND xpt::Common::generatedClassComment»
 public abstract class «editorGen.expressionProviders.abstractExpressionClassName» «EXPAND supertypes»{
 
-«EXPAND debugOptions-»
 «EXPAND status-»
 
 «EXPAND body-»
@@ -32,19 +31,12 @@ public abstract class «editorGen.expressionProviders.abstractExpressionClassName
 
 «EXPAND performCast-»
 
-«EXPAND NoImplException-»
-
 «EXPAND additions-»
 }
 «ENDDEFINE»
 
 «DEFINE supertypes FOR gmfgen::GenDiagram»«ENDDEFINE»
 «DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
-
-«DEFINE debugOptions FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private static final boolean DISABLED_NO_IMPL_EXCEPTION_LOG = Boolean.valueOf(org.eclipse.core.runtime.Platform.getDebugOption(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getBundle().getSymbolicName() + "/debug/disableNoExprImplExceptionLog")).booleanValue();«EXPAND xpt::Common::nonNLS»
-«ENDDEFINE»
 
 «DEFINE status FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -109,10 +101,7 @@ public abstract class «editorGen.expressionProviders.abstractExpressionClassName
 			try {
 				return doEvaluate(context, env);
 			} catch(Exception e) {
-				if(DISABLED_NO_IMPL_EXCEPTION_LOG && e instanceof NoImplException) {
-					return null;
-				}
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Expression evaluation failure: " + body(), e);	«EXPAND xpt::Common::nonNLS»
+				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Expression evaluation failure: " + body(), e);«EXPAND xpt::Common::nonNLS»
 			}
 		}
 		return null;
@@ -152,15 +141,5 @@ public abstract class «editorGen.expressionProviders.abstractExpressionClassName
 			if (targetWrapperClass.equals(java.math.BigDecimal.class)) return new java.math.BigDecimal(num.doubleValue());
 		}
 		return value;
-	}
-«ENDDEFINE»
-
-«DEFINE NoImplException FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedClassComment»
-	public static class NoImplException extends RuntimeException {
-		«EXPAND xpt::Common::generatedMemberComment»
-		public NoImplException(String message) {
-			super(message);
-		}
 	}
 «ENDDEFINE»

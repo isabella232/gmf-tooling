@@ -1720,9 +1720,6 @@
       <eParameters name="expression" lowerBound="1" eType="#//ValueExpression"/>
     </eOperations>
     <eOperations name="getAbstractExpressionQualifiedClassName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="isCopy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eParameters name="expression" lowerBound="1" eType="#//ValueExpression"/>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="expressionsPackageName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="abstractExpressionClassName"
@@ -1741,9 +1738,18 @@
         eOpposite="#//GenExpressionProviderContainer/providers"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenJavaExpressionProvider" eSuperTypes="#//GenExpressionProviderBase">
-    <eOperations name="getOperationName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eParameters name="expression" lowerBound="1" eType="#//ValueExpression"/>
-    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="throwException" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentaion" value="Whether to generate default implementation that rises RuntimeException to signal unimplemented method"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="injectExpressionBody" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="When 'true', body of associated ValueExpression would get injected into Java code as-is, thus allowing to provide method implementations right within the model. Note, if body is empty, default implementation would be generated instead."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenExpressionInterpreter" eSuperTypes="#//GenExpressionProviderBase">
     <eOperations name="getQualifiedClassName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

@@ -288,12 +288,18 @@ static boolean isInDefaultEditorContext(Object object) {
 «ENDDEFINE»
 
 «DEFINE constraintAdapter_validateMethod(GenAuditRule audit) FOR GenJavaExpressionProvider-»
+«IF injectExpressionBody && audit.rule.body != null && audit.rule.body.length() != 0-»
+			«audit.rule.body»
+«ELSEIF throwException || audit.rule.body == null || audit.rule.body.length() == 0-»
 			// TODO: put validation code here
 			// Ensure that you remove @generated tag or use @generated NOT
 			//
 			// To construct approprate return value, use ctx.createSuccessStatus()
 			// or ctx.createFailureStatus(...)
-			return ctx.createFailureStatus(new Object[] { "No user java implementation provided for #validate(IValidationContext) operation" }); «EXPAND xpt::Common::nonNLS»
+			throw new java.lang.UnsupportedOperationException("No user java implementation provided for #validate(IValidationContext) operation");«EXPAND xpt::Common::nonNLS»
+«ELSE-»
+			return ctx.createFailureStatus(new Object[] { "No user java implementation provided for #validate(IValidationContext) operation" });«EXPAND xpt::Common::nonNLS»
+«ENDIF-»
 «ENDDEFINE»
 
 /*

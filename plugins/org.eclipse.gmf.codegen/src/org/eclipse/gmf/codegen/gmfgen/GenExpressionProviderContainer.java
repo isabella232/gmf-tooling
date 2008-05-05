@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderContainer.java,v 1.8 2008/04/18 14:43:21 atikhomirov Exp $
+ * $Id: GenExpressionProviderContainer.java,v 1.9 2008/05/05 21:06:41 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
@@ -131,13 +131,5 @@ public interface GenExpressionProviderContainer extends EObject {
 	 * @generated
 	 */
 	String getAbstractExpressionQualifiedClassName();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model expressionRequired="true"
-	 * @generated
-	 */
-	boolean isCopy(ValueExpression expression);
 
 } // GenExpressionProviderContainer

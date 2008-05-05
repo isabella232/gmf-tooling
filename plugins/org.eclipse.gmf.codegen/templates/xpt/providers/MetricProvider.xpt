@@ -390,12 +390,15 @@ public class «metricProviderClassName»
 «ENDDEFINE»
 
 «DEFINE calcMethodBody(GenMetricRule metric) FOR GenJavaExpressionProvider-»
+«IF injectExpressionBody && metric.rule.body != null && metric.rule.body.length() != 0-»
+	«metric.rule.body»
+«ELSEIF throwException || metric.rule.body == null || metric.rule.body.length() == 0-»
 	// TODO: implement this method
 	// Ensure that you remove @generated or mark it @generated NOT
-	/* Body of value expression:
-	 * «metric.rule.body»
-	 */«REM»XXX Why not UnsupportedOperationException???«ENDREM»
-	throw new «container.getAbstractExpressionQualifiedClassName()».NoImplException("No user java implementation provided"); «EXPAND xpt::Common::nonNLS»
+	throw new java.lang.UnsupportedOperationException("No user java implementation provided");«EXPAND xpt::Common::nonNLS»
+«ELSE-»
+	return new Double(Double.NaN);
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE metricCalcField FOR GenMetricRule-»

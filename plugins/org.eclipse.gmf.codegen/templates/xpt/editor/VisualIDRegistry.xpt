@@ -328,9 +328,15 @@ private static boolean isDiagram(«EXPAND MetaModel::QualifiedClassName FOR domai
 «DEFINE _domainElementConstraintMethod(GenCommonBase diagramElement, ValueExpression expression, GenClass context) FOR GenJavaExpressionProvider-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static boolean «EXPAND _domainElementConstraintMethodName FOR diagramElement»(«EXPAND MetaModel::QualifiedClassName FOR context» domainElement) {
+«IF injectExpressionBody && expression.body != null && expression.body.length() != 0-»
+		«expression.body»
+«ELSEIF throwException || expression.body == null || expression.body.length() == 0-»
 		// FIXME: implement this method 
 		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException("No java implementation provided in '«EXPAND _domainElementConstraintMethodName FOR diagramElement»' operation"); «EXPAND xpt::Common::nonNLS»
+		throw new java.lang.UnsupportedOperationException("No java implementation provided in '«EXPAND _domainElementConstraintMethodName FOR diagramElement»' operation");«EXPAND xpt::Common::nonNLS»
+«ELSE-»
+		return false;
+«ENDIF-»
 	}
 «ENDDEFINE»
 

@@ -8190,13 +8190,31 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_JAVA_EXPRESSION_PROVIDER__CONTAINER = GEN_EXPRESSION_PROVIDER_BASE__CONTAINER;
 
 	/**
+	 * The feature id for the '<em><b>Throw Exception</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_JAVA_EXPRESSION_PROVIDER__THROW_EXCEPTION = GEN_EXPRESSION_PROVIDER_BASE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Inject Expression Body</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_JAVA_EXPRESSION_PROVIDER__INJECT_EXPRESSION_BODY = GEN_EXPRESSION_PROVIDER_BASE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Gen Java Expression Provider</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_JAVA_EXPRESSION_PROVIDER_FEATURE_COUNT = GEN_EXPRESSION_PROVIDER_BASE_FEATURE_COUNT + 0;
+	int GEN_JAVA_EXPRESSION_PROVIDER_FEATURE_COUNT = GEN_EXPRESSION_PROVIDER_BASE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenExpressionInterpreterImpl <em>Gen Expression Interpreter</em>}' class.
@@ -14471,6 +14489,28 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getGenJavaExpressionProvider();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider#isThrowException <em>Throw Exception</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Throw Exception</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider#isThrowException()
+	 * @see #getGenJavaExpressionProvider()
+	 * @generated
+	 */
+	EAttribute getGenJavaExpressionProvider_ThrowException();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider#isInjectExpressionBody <em>Inject Expression Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Inject Expression Body</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider#isInjectExpressionBody()
+	 * @see #getGenJavaExpressionProvider()
+	 * @generated
+	 */
+	EAttribute getGenJavaExpressionProvider_InjectExpressionBody();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter <em>Gen Expression Interpreter</em>}'.

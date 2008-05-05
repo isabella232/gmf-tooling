@@ -462,10 +462,20 @@ if («sourceVar» != null) {
 «ENDDEFINE»
 
 «DEFINE checkAdditionalConstraint(gmfgen::ValueExpression valueExpr, String constraintFieldName, String sourceEndVar, String targetEndVar, GenClass context, GenClass oppositeEndContext) FOR gmfgen::GenJavaExpressionProvider-»
+«IF injectExpressionBody && valueExpr.body != null && valueExpr.body.length() != 0-»
+	«valueExpr.body»
+«ELSEIF throwException || valueExpr.body == null || valueExpr.body.length() == 0-»
 	// TODO: implement this method, using «sourceEndVar» and «targetEndVar» 
 	// to access link source and target, respectively
 	// Ensure that you remove @generated or mark it @generated NOT
-	throw new «container.getAbstractExpressionQualifiedClassName()».NoImplException("No java implementation provided");«EXPAND xpt::Common::nonNLS»
+	if (Boolean.TRUE.booleanValue()) {
+		throw new java.lang.UnsupportedOperationException("No java implementation provided");«EXPAND xpt::Common::nonNLS»
+	}
+«ELSE-»
+	if (Boolean.TRUE.booleanValue()) {«REM»just in case there are two consecutive java expression with neither throw nor inject - avoid unreachable code.«ENDREM»
+		return false;
+	}
+«ENDIF-»
 «ENDDEFINE»
 
 

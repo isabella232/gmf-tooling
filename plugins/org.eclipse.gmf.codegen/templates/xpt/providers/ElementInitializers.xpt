@@ -148,14 +148,16 @@ public class ElementInitializers {
 «FOREACH getFeatureInitializers(this, jp) AS valueExpression-»
 «EXPAND xpt::Common::generatedMemberComment»
 private static «EXPAND MetaModel::featureTargetType FOR valueExpression.feature» «javaMethodName(diagramElement, valueExpression)»(«EXPAND MetaModel::QualifiedClassName FOR valueExpression.featureSeqInitializer.elementClass» self) {
+«IF jp.injectExpressionBody && valueExpression.body != null && valueExpression.body.length() != 0-»
+	«valueExpression.body»
+«ELSEIF jp.throwException || valueExpression.body == null || valueExpression.body.length() == 0-»
 	// TODO: implement this method to return value  
 	// for «EXPAND MetaModel::MetaFeature FOR valueExpression.feature»
 	// Ensure that you remove @generated or mark it @generated NOT
-	/* Expression body:
-	   «valueExpression.body»
-	 */
-	
-	throw new «jp.container.getAbstractExpressionQualifiedClassName()».NoImplException("No user java implementation provided in '«javaMethodName(diagramElement, valueExpression)»' operation");«EXPAND xpt::Common::nonNLS»
+	throw new java.lang.UnsupportedOperationException("No user java implementation provided in '«javaMethodName(diagramElement, valueExpression)»' operation");«EXPAND xpt::Common::nonNLS»
+«ELSE-»
+	return null;
+«ENDIF-»	
 }
 «ENDFOREACH-»
 «ENDFOREACH-»
