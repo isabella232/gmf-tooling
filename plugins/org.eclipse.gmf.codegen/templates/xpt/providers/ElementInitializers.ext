@@ -21,6 +21,10 @@ boolean expressionResultNeedsCast(GenClass c) : false ;
 boolean expressionResultNeedsCast(GenDataType c) : isNumberObject(c) || isPrimitiveNumberType(c) ;
 boolean expressionResultNeedsCast(GenEnum c) : true ;
 
+/*
+	XXX instead of all these recursion may write javaInitializers template the same way performInit
+	is written, i.e. re-dispatch from GenReferenceNewElementSpec
+ */
 List[GenFeatureValueSpec] getFeatureInitializers(GenFeatureSeqInitializer si, GenJavaExpressionProvider jp) :
 	recurseCollectValueExpr(si).intersect(jp.expressions)
 ;
