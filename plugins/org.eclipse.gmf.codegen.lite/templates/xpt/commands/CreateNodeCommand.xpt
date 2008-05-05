@@ -49,7 +49,7 @@ public class «EXPAND className» «EXPAND supertypes» {
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «EXPAND className»(org.eclipse.gmf.runtime.notation.View parent, org.eclipse.gmf.runtime.lite.requests.CreateRequestEx request, org.eclipse.draw2d.geometry.Rectangle constraint) {
 		«EXPAND MetaModel::NewInstance("createdDomainElement") FOR modelFacet.metaClass-»
-		«EXPAND xpt::providers::DomainElementInitializer::qualifiedClassName FOR getDiagram()».«getUniqueIdentifier()».initializeElement(«EXPAND MetaModel::DowncastToEObject("createdDomainElement") FOR modelFacet.metaClass»);
+		«EXPAND initialize("createdDomainElement")-»
 		«EXPAND initializeDomainModelCommand FOR modelFacet-»
 		«EXPAND xpt::commands::Common::adjustConstraint-»
 		this.notationAddCommand = new org.eclipse.gmf.runtime.lite.commands.CreateNotationalNodeCommand(parent, «EXPAND MetaModel::DowncastToEObject("createdDomainElement") FOR modelFacet.metaClass», 
@@ -137,3 +137,7 @@ if («EXPAND xpt::commands::Common::featureMultiplicityComparator(containerVar, c
 }
 «ENDIF-»
 «ENDDEFINE»
+
+«DEFINE initialize(String newElementVar) FOR gmfgen::GenNode»«IF modelFacet.modelElementInitializer != null-»
+«EXPAND xpt::providers::DomainElementInitializer::qualifiedClassName FOR getDiagram()».init_«getUniqueIdentifier()»(«newElementVar»);
+«ENDIF»«ENDDEFINE»

@@ -82,7 +82,7 @@ public class «EXPAND className» «EXPAND supertypes» {
 «DEFINE setEdgeElement(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
 	«EXPAND MetaModel::NewInstance("createdDomainElement") FOR metaClass-»
 	createdEdge.setElement(«EXPAND MetaModel::DowncastToEObject("createdDomainElement") FOR metaClass»);
-	«EXPAND xpt::providers::DomainElementInitializer::qualifiedClassName FOR genLink.getDiagram()».«genLink.getUniqueIdentifier()».initializeElement(«EXPAND MetaModel::DowncastToEObject("createdDomainElement") FOR metaClass»);
+	«EXPAND initialize(genLink, "createdDomainElement")-»
 «ENDDEFINE»
 
 «DEFINE prepare FOR gmfgen::GenLink-»
@@ -219,3 +219,7 @@ if («EXPAND xpt::commands::Common::featureMultiplicityComparator(containerVar, c
 }
 «ENDIF-»
 «ENDDEFINE»
+
+«DEFINE initialize(GenLink link, String newElementVar) FOR TypeModelFacet»«IF modelElementInitializer != null-»
+«EXPAND xpt::providers::DomainElementInitializer::qualifiedClassName FOR link.getDiagram()».init_«link.getUniqueIdentifier()»(«newElementVar»);
+«ENDIF»«ENDDEFINE»
