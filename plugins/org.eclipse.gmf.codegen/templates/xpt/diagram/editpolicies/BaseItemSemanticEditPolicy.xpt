@@ -465,7 +465,7 @@ if («sourceVar» != null) {
 	// TODO: implement this method, using «sourceEndVar» and «targetEndVar» 
 	// to access link source and target, respectively
 	// Ensure that you remove @generated or mark it @generated NOT
-	throw new «container.getAbstractExpressionQualifiedClassName()».NoImplException("No java implementation provided in '«getOperationName(valueExpr)»' operation"); «EXPAND xpt::Common::nonNLS»
+	throw new «container.getAbstractExpressionQualifiedClassName()».NoImplException("No java implementation provided");«EXPAND xpt::Common::nonNLS»
 «ENDDEFINE»
 
 
