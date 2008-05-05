@@ -17,10 +17,9 @@ public class ElementInitializerTest extends org.eclipse.gmf.tests.rt.ElementInit
 		super(name);
 	}
 
-	protected Class loadJavaContainerClass() {
-		String javaContainerName = "Java"; //$NON-NLS-1$
+	protected Class<?> loadJavaContainerClass() {
 		try {
-			return loadGeneratedClass(getGenModel().getGenDiagram().getNotationViewFactoriesPackageName() + ".DomainElementInitializer$" + javaContainerName); //$NON-NLS-1$
+			return loadGeneratedClass(getGenModel().getGenDiagram().getNotationViewFactoriesPackageName() + ".DomainElementInitializer"); //$NON-NLS-1$
 		} catch (ClassNotFoundException e) {
 			return null;
 		}
