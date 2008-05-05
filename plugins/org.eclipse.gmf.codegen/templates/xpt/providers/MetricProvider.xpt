@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Dmitry Stadnik (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) - refactoring (https://bugs.eclipse.org/230014)
  */
 
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
@@ -25,9 +26,6 @@ package «providersPackageName»;
 «EXPAND xpt::Common::generatedClassComment»
 public class «metricProviderClassName»
 		extends org.eclipse.gmf.runtime.common.ui.services.action.contributionitem.AbstractContributionItemProvider {
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	private static int MAX_VISIBLE_KEY_CHAR_COUNT = 8;
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.jface.action.IAction createAction(String actionId,
@@ -59,13 +57,12 @@ public class «metricProviderClassName»
 			org.eclipse.ui.IWorkbenchPart workbenchPart = workbenchPartDescriptor.getPartPage().getActivePart();
 			org.eclipse.ui.IViewPart metricsView = null;
 			try {
-				metricsView = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(ResultView.VIEW_ID);
+				metricsView = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(«EXPAND resultViewID»);
 				if (metricsView == null) {
-					metricsView = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(ResultView.VIEW_ID);
+					metricsView = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(«EXPAND resultViewID»);
 				} else {
 					if (metricsView != null && workbenchPart instanceof org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart) {
-						final org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart part =
-								(org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart) workbenchPart;
+						final org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart part = (org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart) workbenchPart;
 						((ResultView) metricsView).setInput(part);
 					}
 					workbenchPart.getSite().getPage().activate(metricsView);
@@ -76,6 +73,31 @@ public class «metricProviderClassName»
 		}
 	}
 
+«EXPAND calculateMetricsMethods-»
+
+«EXPAND formatNotationElementNameMethod-»
+«EXPAND formatSemanticElementNameMethod-»
+
+«EXPAND metricsClasses»
+
+«EXPAND keysAndToolTipsMethods FOR editorGen.metrics»
+
+«EXPAND metricCalcField FOREACH editorGen.metrics.metrics.select(m | m.rule != null && m.target != null && m.target.getContext() != null)»
+«EXPAND metricCalcMethod FOREACH editorGen.metrics.metrics.select(m | m.rule != null && m.target != null && m.target.getContext() != null)»
+
+«EXPAND MetricsResultView::Class»
+
+«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE resultViewQualifiedClassName FOR gmfgen::GenDiagram»«providersPackageName».«metricProviderClassName».«EXPAND MetricsResultView::className»«ENDDEFINE» 
+«DEFINE resultViewID FOR gmfgen::GenDiagram»«EXPAND resultViewQualifiedClassName».VIEW_ID«ENDDEFINE» 
+
+
+//////////////////////////////////////////////////////////////////////////
+
+«DEFINE calculateMetricsMethods FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	static java.util.List calculateMetrics(org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart diagramPart) {
 		final org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramEditPart = diagramPart.getDiagramEditPart();
@@ -106,9 +128,10 @@ public class «metricProviderClassName»
 «IF !getNotationMetrics(editorGen.metrics).isEmpty()»«EXPAND calcNotationMetricsMethod FOR editorGen»«ENDIF»
 «IF !getDiagramMetrics(editorGen.metrics).isEmpty()»«EXPAND calcDiagramMetricsMethod FOR editorGen»«ENDIF»
 «IF !getDomainMetrics(editorGen.metrics).isEmpty()»«EXPAND calcDomainMetricsMethod FOR editorGen»«ENDIF»
+«ENDDEFINE»
 
-«EXPAND resultsViewClass»
 
+«DEFINE metricsClasses FOR GenDiagram»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static class ElementMetrics {
 
@@ -125,28 +148,19 @@ public class «metricProviderClassName»
 		String diagramElementID; «REM»FIXME add specific constructor for View elements, set diagramElementID from there«ENDREM»
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		ElementMetrics(org.eclipse.emf.ecore.EObject target, Metric[] metrics) {
+		ElementMetrics(org.eclipse.emf.ecore.EObject target, String name, Metric[] metrics) {
 			assert metrics.length > 0;
+			assert name != null;
 			this.metrics = metrics;	
+			this.targetElementQName = name;
 			org.eclipse.emf.ecore.EClass imageTarget = target.eClass();
 			if (target instanceof org.eclipse.gmf.runtime.notation.View) {
 				org.eclipse.gmf.runtime.notation.View viewTarget = (org.eclipse.gmf.runtime.notation.View) target;
-				StringBuffer notationQNameBuf = new StringBuffer();
-				notationQNameBuf.append(org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil.getQualifiedName(viewTarget, true));
-				if ("".equals(viewTarget.getType()) && viewTarget.getElement() != null) { //$NON-NLS-1$
-					notationQNameBuf.append('-').append('>').append(
-							org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil.getQualifiedName(viewTarget.getElement(), true));
+				if ("".equals(viewTarget.getType()) && viewTarget.getElement() != null) {«EXPAND xpt::Common::nonNLS»
 					imageTarget = viewTarget.getElement().eClass();
 				}
-				int visualID = «getVisualIDRegistryQualifiedClassName()».getVisualID(viewTarget);
-				notationQNameBuf.append('[').append(visualID < 0
-					? Integer.toString(System.identityHashCode(viewTarget))
-					: Integer.toString(visualID)).append(']');
-				this.targetElementQName = notationQNameBuf.toString();
-			} else {
-				this.targetElementQName = org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil.getQualifiedName(target, true);
 			}
-			this.elementImage = «getElementTypesQualifiedClassName()».getImage(imageTarget);
+			this.elementImage = «EXPAND getImageAccessor("imageTarget")»;
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
@@ -204,19 +218,9 @@ public class «metricProviderClassName»
 					: (value == null) ? -1 : 1;
 		}
 	}
-
-«EXPAND keysAndToolTipsMethods FOR editorGen.metrics»
-
-«EXPAND metricCalcField FOREACH editorGen.metrics.metrics.select(m | m.rule != null && m.target != null && m.target.getContext() != null)»
-«EXPAND metricCalcMethod FOREACH editorGen.metrics.metrics.select(m | m.rule != null && m.target != null && m.target.getContext() != null)»
-
-«EXPAND additions-»
-}
 «ENDDEFINE»
 
-
-//////////////////////////////////////////////////////////////////////////
-
+«DEFINE getImageAccessor(String imageClassVar) FOR gmfgen::GenDiagram»«getElementTypesQualifiedClassName()».getImage(«imageClassVar»)«ENDDEFINE»
 
 «DEFINE calcNotationMetricsMethod FOR GenEditorGenerator-»
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -224,7 +228,7 @@ public class «metricProviderClassName»
 		ElementMetrics row = null;
 «LET getNotationMetrics(metrics).select(m | ((GenNotationElementTarget) m.target).element.ecoreClass.name == "Diagram") AS diagramMetrics-»
 «IF !diagramMetrics.isEmpty()-»
-		row = new ElementMetrics(diagram, new Metric[] {
+		row = new ElementMetrics(diagram, formatViewName(diagram), new Metric[] {
 «EXPAND metricResult("diagram", false) FOREACH diagramMetrics SEPARATOR ",\n"»
 		});
 		row.diagramElementID = diagram.eResource().getURIFragment(diagram);
@@ -237,7 +241,7 @@ public class «metricProviderClassName»
 «FOREACH notationTargets.typeSelect(GenClass) AS nt-»
 			if («EXPAND MetaModel::IsInstance("next") FOR nt») {
 				«EXPAND MetaModel::DeclareAndAssign("_" + nt.ecoreClass.name.toLowerCase(), "next", true) FOR nt»
-				row = new ElementMetrics(«"_" + nt.ecoreClass.name.toLowerCase()», new Metric[] {«-»
+				row = new ElementMetrics(«"_" + nt.ecoreClass.name.toLowerCase()», formatViewName(«"_" + nt.ecoreClass.name.toLowerCase()»), new Metric[] {«-»
 				«FOREACH getNotationMetrics(metrics).select(m | ((GenNotationElementTarget) m.target).element == nt) AS m SEPARATOR ","»
 					«EXPAND metricResult("_" + nt.ecoreClass.name.toLowerCase(), false) FOR m-»
 				«ENDFOREACH»
@@ -272,7 +276,7 @@ public class «metricProviderClassName»
 «ENDFOREACH-»
 				}
 				if (!res.isEmpty()) {
-					ElementMetrics row = new ElementMetrics(view, (Metric[]) res.toArray(new Metric[res.size()]));
+					ElementMetrics row = new ElementMetrics(view, formatViewName(view), (Metric[]) res.toArray(new Metric[res.size()]));
 					row.diagramElementID = view.eResource().getURIFragment(view);
 					metricsList.add(row);
 				}
@@ -306,7 +310,7 @@ public class «metricProviderClassName»
 			}
 «ENDFOREACH-»
 			if (!res.isEmpty()) {
-				ElementMetrics row = new ElementMetrics(next, (Metric[]) res.toArray(new Metric[res.size()]));
+				ElementMetrics row = new ElementMetrics(next, formatElementName(next), (Metric[]) res.toArray(new Metric[res.size()]));
 				metricsList.add(row);
 				target2row.put(next, row);
 			}
@@ -326,6 +330,26 @@ public class «metricProviderClassName»
 	}
 «ENDDEFINE»
 
+«DEFINE formatNotationElementNameMethod FOR GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static String formatViewName(org.eclipse.gmf.runtime.notation.View viewTarget) {
+		StringBuffer notationQNameBuf = new StringBuffer();
+		notationQNameBuf.append(formatElementName(viewTarget));
+		if (viewTarget.getElement() != null) {
+			notationQNameBuf.append("->").append(formatElementName(viewTarget.getElement()));	«EXPAND xpt::Common::nonNLS»
+		}
+		int visualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(viewTarget);
+		notationQNameBuf.append('[').append(visualID < 0 ? Integer.toString(System.identityHashCode(viewTarget)) : Integer.toString(visualID)).append(']');
+		return notationQNameBuf.toString();
+	}
+«ENDDEFINE»
+
+«DEFINE formatSemanticElementNameMethod FOR GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static String formatElementName(org.eclipse.emf.ecore.EObject object) {
+		return org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil.getQualifiedName(object, true);
+	}
+«ENDDEFINE»
 
 «DEFINE metricCalcMethod FOR GenMetricRule»
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -414,218 +438,5 @@ new Metric(«toStringLiteral(key)», «calcMethodName()»(«IF isJustEObject && /*saf
 «ENDDEFINE»
 
 
-
-////////////////////////////////
-//					 ResultView
-//
-«DEFINE resultsViewClass FOR GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static class ResultView extends org.eclipse.ui.part.ViewPart {
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		public static final String VIEW_ID = "«getMetricViewID()»"; //$NON-NLS-1$
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		private org.eclipse.jface.viewers.TableViewer viewer;
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		private org.eclipse.emf.ecore.resource.Resource diagramResource;
-
-		«EXPAND xpt::Common::generatedMemberComment»
-	    void setInput(org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart diagramPart) {
-			diagramResource = diagramPart.getDiagram().eResource();
-			setTitleToolTip(diagramResource.getURI().path());
-			java.util.List metrics = calculateMetrics(diagramPart);
-	    	adjustLayout(metrics);
-	    	viewer.setInput(metrics); 
-	    }
-
-		«EXPAND xpt::Common::generatedMemberComment»
-	    private void adjustLayout(java.util.List metricResultList) {
-	    	java.util.Map maxValStrMap = calcMetricMaxValueStrLenMap(metricResultList);
-			org.eclipse.swt.widgets.Table table = viewer.getTable();
-			org.eclipse.jface.viewers.TableLayout layout = new org.eclipse.jface.viewers.TableLayout();
-			org.eclipse.swt.graphics.GC gc = new org.eclipse.swt.graphics.GC(table);
-			gc.setFont(org.eclipse.jface.resource.JFaceResources.getDialogFont());
-			int padding = gc.stringExtent("X").x * 2; //$NON-NLS-1$
-			for (int i = 0; i < getMetricKeys().length; i++) {
-				final String nextKey = getMetricKeys()[i];
-				String valueStr = (String) maxValStrMap.get(nextKey);
-				int minWidth = valueStr != null ? gc.stringExtent(valueStr).x + padding : 20;
-				layout.addColumnData(new org.eclipse.jface.viewers.ColumnPixelData(minWidth, true));
-			}
-			gc.dispose();
-			layout.addColumnData(new org.eclipse.jface.viewers.ColumnWeightData(1, 50, true));
-			viewer.getTable().setLayout(layout);
-			viewer.getTable().layout(true, true);
-	    }
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		public void createPartControl(org.eclipse.swt.widgets.Composite parent) {
-			this.viewer = new org.eclipse.jface.viewers.TableViewer(parent, org.eclipse.swt.SWT.FULL_SELECTION);
-			final org.eclipse.swt.widgets.Table table = viewer.getTable();
-			table.setHeaderVisible(true);
-			table.setLinesVisible(true);
-			for (int i = 0; i < getMetricKeys().length; i++) {
-				org.eclipse.swt.widgets.TableColumn column = new org.eclipse.swt.widgets.TableColumn(table, org.eclipse.swt.SWT.NONE);
-				column.setAlignment(org.eclipse.swt.SWT.RIGHT);
-				column.setMoveable(true);
-				column.setText(getMetricKeys()[i]);
-				column.setToolTipText(getMetricToolTips()[i]);
-			}
-			org.eclipse.swt.widgets.TableColumn objectColumn = new org.eclipse.swt.widgets.TableColumn(table, org.eclipse.swt.SWT.NONE);
-			objectColumn.setText("Element");
-			objectColumn.setToolTipText("Measurement element");
-			viewer.setLabelProvider(new Labels());
-			viewer.setContentProvider(new org.eclipse.jface.viewers.ArrayContentProvider());
-			viewer.addOpenListener(new org.eclipse.jface.viewers.IOpenListener() {
-
-				public void open(org.eclipse.jface.viewers.OpenEvent event) {
-					handleOpen(event);
-				}
-			});
-			org.eclipse.swt.events.SelectionListener headerSelListener = new org.eclipse.swt.events.SelectionListener() {
-
-				public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
-					table.setSortColumn((org.eclipse.swt.widgets.TableColumn) e.getSource());  
-					table.setSortDirection((table.getSortDirection() != org.eclipse.swt.SWT.DOWN) ? org.eclipse.swt.SWT.DOWN : org.eclipse.swt.SWT.UP);
-					viewer.refresh();
-				}
-
-				public void widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent e) {
-				}
-			};
-			org.eclipse.swt.widgets.TableColumn[] columns = viewer.getTable().getColumns();
-			for (int i = 0; i < columns.length; i++) {
-				columns[i].addSelectionListener(headerSelListener);
-			}
-			viewer.setSorter(new org.eclipse.jface.viewers.ViewerSorter() {
-
-				public int compare(org.eclipse.jface.viewers.Viewer viewer, Object e1, Object e2) {
-					org.eclipse.swt.widgets.TableColumn c = table.getSortColumn();
-					int result = 0;
-					if (c != null) {
-						Metric mc1 = ((ElementMetrics) e1).getMetricByKey(c.getText());
-						Metric mc2 = ((ElementMetrics) e2).getMetricByKey(c.getText());
-						result = (mc1 != null && mc2 != null) ?
-							mc1.compareTo(mc2) : (mc1 == null ? -1 : 1);
-					} else {
-						result = ((ElementMetrics) e1).targetElementQName.compareTo(((ElementMetrics) e2).targetElementQName);
-					}
-					return table.getSortDirection() == org.eclipse.swt.SWT.DOWN ? result : -result;
-				}
-			});
-	        org.eclipse.ui.IEditorPart editor = getSite().getPage().getActiveEditor();
-	        if (editor != null && editor.getClass().equals(«editorGen.editor.getQualifiedClassName()».class)) {
-				setInput((«editorGen.editor.getQualifiedClassName()») editor);
-	        }
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		private void handleOpen(org.eclipse.jface.viewers.OpenEvent event) {
-			try {
-				org.eclipse.ui.IEditorPart editorPart = getSite().getPage().openEditor(
-						new org.eclipse.ui.part.FileEditorInput(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(diagramResource)),
-						«editorGen.editor.getQualifiedClassName()».ID);
-				if (editorPart == null) {
-					return;
-				}
-				org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart diagramPart =
-						(org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart) editorPart.getAdapter(
-								org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart.class);
-				ElementMetrics selection = (ElementMetrics) ((org.eclipse.jface.viewers.IStructuredSelection) event.getSelection()).getFirstElement();
-				String viewID = selection.diagramElementID;
-				if (viewID != null) {
-					org.eclipse.gmf.runtime.notation.View targetView =
-							(org.eclipse.gmf.runtime.notation.View) diagramPart.getDiagram().eResource().getEObject(viewID);
-					if (targetView != null) {
-						org.eclipse.gef.EditPart targetEditPart =
-								(org.eclipse.gef.EditPart) diagramPart.getDiagramGraphicalViewer().getEditPartRegistry().get(targetView);
-						if (targetEditPart != null) {
-							«getDiagramEditorUtilQualifiedClassName()».selectElementsInDiagram(
-									diagramPart, java.util.Collections.singletonList(targetEditPart));
-						}
-					}
-				}
-			} catch (org.eclipse.ui.PartInitException e) {
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Can't open diagram editor", e); //$NON-NLS-1$
-			}
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		private static java.util.Map calcMetricMaxValueStrLenMap(java.util.List allMetrics) {
-			java.util.Map metric2MaxStrLen = new java.util.HashMap();
-			for (int i = 0; i < getMetricKeys().length; i++) {
-				String nextKey = getMetricKeys()[i]; 
-				int trimPos = Math.min(nextKey.length(), MAX_VISIBLE_KEY_CHAR_COUNT);
-				metric2MaxStrLen.put(nextKey, nextKey.substring(0, trimPos));
-			}
-			for (java.util.Iterator it = allMetrics.iterator(); it.hasNext();) {
-				ElementMetrics elementMetrics = (ElementMetrics) it.next();
-				for (int i = 0; i < elementMetrics.metrics.length; i++) {
-					Metric metric = elementMetrics.metrics[i];
-					String valueStr = (String) metric2MaxStrLen.get(metric.key);
-					if (valueStr == null || metric.displayValue.length() > valueStr.length()) {
-						metric2MaxStrLen.put(metric.key, metric.displayValue);	
-					}
-				}
-			}
-			return metric2MaxStrLen;
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		public void setFocus() {
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		private class Labels extends org.eclipse.jface.viewers.LabelProvider
-				implements org.eclipse.jface.viewers.ITableLabelProvider, org.eclipse.jface.viewers.ITableColorProvider {
-
-			«EXPAND xpt::Common::generatedMemberComment»
-			private boolean isElementColumn(int columnIndex) {
-				return columnIndex >= getMetricKeys().length;
-			}
-
-			«EXPAND xpt::Common::generatedMemberComment»
-			public org.eclipse.swt.graphics.Image getColumnImage(Object element, int columnIndex) {
-				return isElementColumn(columnIndex) ? ((ElementMetrics) element).elementImage : null;
-			}
-
-			«EXPAND xpt::Common::generatedMemberComment»
-			public String getColumnText(Object element, int columnIndex) {
-				ElementMetrics elementMetrics = (ElementMetrics) element;
-				if (columnIndex == getMetricKeys().length) {
-					return elementMetrics.targetElementQName;
-				}
-				final String key = getMetricKeys()[columnIndex];
-				Metric metric = elementMetrics.getMetricByKey(key);
-				return (metric != null) ? metric.displayValue : "-"; //$NON-NLS-1$
-			}
-
-			«EXPAND xpt::Common::generatedMemberComment»
-			public org.eclipse.swt.graphics.Color getBackground(Object element, int columnIndex) {
-				return null; 
-			}
-
-			«EXPAND xpt::Common::generatedMemberComment»
-			public org.eclipse.swt.graphics.Color getForeground(Object element, int columnIndex) {
-				if (isElementColumn(columnIndex)) {
-					return null;
-				}
-				ElementMetrics columnElement = (ElementMetrics) element;
-				final String key = getMetricKeys()[columnIndex];
-				Metric metric = columnElement.getMetricByKey(key);
-				if (metric != null && metric.value != null) {
-					if (metric.highLimit != null && metric.highLimit.longValue() < metric.value.longValue()) {
-						return org.eclipse.draw2d.ColorConstants.red;
-					} else if (metric.lowLimit != null && metric.lowLimit.longValue() > metric.value.longValue()) {
-						return org.eclipse.draw2d.ColorConstants.blue;
-					}
-				}
-				return null;
-			}
-		}		
-	}
-«ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
