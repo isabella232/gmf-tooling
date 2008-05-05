@@ -32,8 +32,8 @@ public class ElementInitializers {
 «ENDDEFINE»
 
 «DEFINE Initializers FOR GenDiagram-»
-	«EXPAND initializer FOREACH getAllNodes()-»
-	«EXPAND initializer FOREACH links-»
+	«EXPAND initMethod FOREACH getAllNodes()-»
+	«EXPAND initMethod FOREACH links-»
 «ENDDEFINE»
 
 «DEFINE JavaSupport FOR GenDiagram-»
@@ -53,18 +53,18 @@ public class ElementInitializers {
 	Definitions of initializer objects.
 «ENDREM»
 
-«DEFINE initializer FOR GenNode»«EXPAND initializer(this) FOR modelFacet»«ENDDEFINE»
-«DEFINE initializer FOR GenLink»«EXPAND initializer(this) FOR modelFacet»«ENDDEFINE»
+«DEFINE initMethod FOR GenNode»«EXPAND initMethod(this) FOR modelFacet»«ENDDEFINE»
+«DEFINE initMethod FOR GenLink»«EXPAND initMethod(this) FOR modelFacet»«ENDDEFINE»
 
-«DEFINE initializer(GenCommonBase diagramElement) FOR ModelFacet»«ENDDEFINE»
+«DEFINE initMethod(GenCommonBase diagramElement) FOR ModelFacet»«ENDDEFINE»
 
-«DEFINE initializer(GenCommonBase diagramElement) FOR TypeModelFacet-»
-«EXPAND initializer(diagramElement) FOR modelElementInitializer-»
+«DEFINE initMethod(GenCommonBase diagramElement) FOR TypeModelFacet-»
+«EXPAND initMethod(diagramElement) FOR modelElementInitializer-»
 «ENDDEFINE»
 
-«DEFINE initializer(GenCommonBase diagramElement) FOR GenElementInitializer»«ENDDEFINE»
+«DEFINE initMethod(GenCommonBase diagramElement) FOR GenElementInitializer»«ERROR "No idea how to init using " + this»«ENDDEFINE»
 
-«DEFINE initializer(GenCommonBase diagramElement) FOR GenFeatureSeqInitializer-»
+«DEFINE initMethod(GenCommonBase diagramElement) FOR GenFeatureSeqInitializer-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static void init_«diagramElement.getUniqueIdentifier()»(«EXPAND MetaModel::QualifiedClassName FOR elementClass» instance) {
 		try {
@@ -78,7 +78,7 @@ public class ElementInitializers {
 «DEFINE performInit(GenCommonBase diagramElement, String instanceVar, GenClass instanceClass, int count) FOR GenFeatureInitializer»«ENDDEFINE»
 
 «DEFINE performInit(GenCommonBase diagramElement, String instanceVar, GenClass instanceClass, int count) FOR GenFeatureValueSpec-»
-	Object value«count» = «EXPAND initializerExpr(this) FOR diagramElement.getDiagram().editorGen.expressionProviders.getProvider(this)».evaluate(«instanceVar»);
+	Object value«count» = «EXPAND evaluateExpr(this, instanceVar) FOR diagramElement.getDiagram().editorGen.expressionProviders.getProvider(this)»;
 «IF isListType(feature)-»
 	if (value«count» instanceof java.util.Collection) {
 		«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».clear();
@@ -119,22 +119,15 @@ public class ElementInitializers {
 
 /////////////////////////////////
 
-«DEFINE initializerExpr(GenFeatureValueSpec valueExpr) FOR GenExpressionProviderBase»«ENDDEFINE»
+«DEFINE evaluateExpr(GenFeatureValueSpec valueExpr, String instanceVar) FOR GenExpressionProviderBase»«ENDDEFINE»
 
 // XXX perhaps, using instance.eClass() is better option than MetaModel::MetaClass (though, need to rely on instance variable name/type) 
-«DEFINE initializerExpr(GenFeatureValueSpec valueExpr) FOR GenExpressionInterpreter-»
-«EXPAND xpt::expressions::getExpression::getExpression(valueExpr, valueExpr.featureSeqInitializer.elementClass)-»
+«DEFINE evaluateExpr(GenFeatureValueSpec valueExpr, String instanceVar) FOR GenExpressionInterpreter-»
+«EXPAND xpt::expressions::getExpression::getExpression(valueExpr, valueExpr.featureSeqInitializer.elementClass)».evaluate(«instanceVar»)«-»
 «ENDDEFINE»
 
-«DEFINE initializerExpr(GenFeatureValueSpec valueExpr) FOR GenJavaExpressionProvider-»
-«LET valueExpr.featureSeqInitializer.elementClass AS exprContext-»
-	new «container.getAbstractExpressionQualifiedClassName()»(«EXPAND MetaModel::MetaClass FOR exprContext») {
-
-		protected Object doEvaluate(Object context, java.util.Map env) {
-			«EXPAND MetaModel::DeclareAndAssign("self", "context", true) FOR exprContext»
-			return Java.«getOperationName(valueExpr)»(self);
-		}
-	}«ENDLET-»
+«DEFINE evaluateExpr(GenFeatureValueSpec valueExpr, String instanceVar) FOR GenJavaExpressionProvider-»
+Java.«getOperationName(valueExpr)»(«instanceVar»)«-»
 «ENDDEFINE»
 
 
@@ -156,7 +149,17 @@ public class ElementInitializers {
 «DEFINE javaInitializer(GenCommonBase diagramElement) FOR GenFeatureSeqInitializer-»
 «FOREACH diagramElement.getDiagram().editorGen.expressionProviders.providers.typeSelect(GenJavaExpressionProvider) AS jp-»
 «FOREACH getFeatureInitializers(this, jp) AS valueExpression-»
-«EXPAND xpt::expressions::javaExpressionOperation::javaExpressionOperation(valueExpression, valueExpression.featureSeqInitializer.elementClass, null) FOR jp-»
+«EXPAND xpt::Common::generatedMemberComment»
+private static «EXPAND MetaModel::featureTargetType FOR valueExpression.feature» «jp.getOperationName(valueExpression)»(«EXPAND MetaModel::QualifiedClassName FOR valueExpression.featureSeqInitializer.elementClass» self) {
+	// TODO: implement this method to return value  
+	// for «EXPAND MetaModel::MetaFeature FOR valueExpression.feature»
+	// Ensure that you remove @generated or mark it @generated NOT
+	/* Expression body:
+	   «valueExpression.body»
+	 */
+	
+	throw new «jp.container.getAbstractExpressionQualifiedClassName()».NoImplException("No user java implementation provided in '«jp.getOperationName(valueExpression)»' operation"); «EXPAND xpt::Common::nonNLS»
+}
 «ENDFOREACH-»
 «ENDFOREACH-»
 «ENDDEFINE»
