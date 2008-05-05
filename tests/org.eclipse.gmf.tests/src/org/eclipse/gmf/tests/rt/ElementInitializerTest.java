@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
@@ -96,7 +97,7 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		boolean multiValPrimitiveTypeAttrTested = false;
 		boolean multiObjValTypeAttrTested = false;			
 		boolean multiRefTested = false;			
-					
+
 		Iterator<EObject> it = getGenModel().getGenDiagram().eAllContents();
 		while (it.hasNext()) {
 			Object element = it.next();
@@ -106,8 +107,18 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 					if(!(featureInitializer instanceof GenFeatureValueSpec)) continue;
 					GenFeatureValueSpec nextFtValSpec = (GenFeatureValueSpec)featureInitializer;						
 					if(container.getProvider(nextFtValSpec) != javaProvider) continue;
-					
-					String operationName = javaProvider.getOperationName(nextFtValSpec);					
+					GenCommonBase diagramElement = null;
+					if (fsInitializer.getTypeModelFacet().eContainer() instanceof GenCommonBase) {
+						// hack to get required element to construct java operation name - 
+						// assume model facets are contained in GenNode/GenLink
+						diagramElement = (GenCommonBase ) fsInitializer.getTypeModelFacet().eContainer();
+					}
+					if (diagramElement == null) {
+						continue; // just in case
+					}
+
+					// ElementInitializers.ext#
+					String operationName = "value_" + diagramElement.getClassNamePrefix() + "_"+ fsInitializer.getElementClass().getEcoreClass().getName() + "_" + nextFtValSpec.getFeature().getEcoreFeature().getName();					
 					Method method = findMethod(javaContainerClass, operationName, fsInitializer.getElementClass());
 					 
 					GenFeature genFeature = nextFtValSpec.getFeature();
@@ -152,7 +163,7 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 
 	protected Class<?> loadJavaContainerClass() {
 		try {
-			return loadGeneratedClass(getGenModel().getGenDiagram().getProvidersPackageName() + ".ElementInitializers$Java"); //$NON-NLS-1$
+			return loadGeneratedClass(getGenModel().getGenDiagram().getProvidersPackageName() + ".ElementInitializers"); //$NON-NLS-1$
 		} catch (ClassNotFoundException e) {
 			return null;
 		}
