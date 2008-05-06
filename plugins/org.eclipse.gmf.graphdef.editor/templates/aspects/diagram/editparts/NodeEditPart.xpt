@@ -43,6 +43,20 @@
 	protected org.eclipse.draw2d.Figure myNodeFigure;
 	
 	«EXPAND xpt::Common::generatedMemberComment»
+	private java.util.Collection<org.eclipse.emf.common.notify.Adapter> myDomainElementAdapters = new java.util.ArrayList<org.eclipse.emf.common.notify.Adapter>();
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void removeSemanticListeners() {
+		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getModel();
+		if (view.getElement() != null) {
+			«EXPAND MetaModel::DeclareAndAssign("modelElement", "view.getElement()") FOR metaclass()»
+			modelElement.eAdapters().removeAll(myDomainElementAdapters);
+			myDomainElementAdapters.clear();
+		}
+		super.removeSemanticListeners();
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
 	public void activate() {
 		if (isActive()){
 			return;
@@ -54,21 +68,12 @@
 		}
 
 		final «EXPAND MetaModel::DeclareAndAssign("modelElement", "view.getElement()") FOR metaclass()»
-
-        «FOREACH metaclass().getAllGenFeatures() AS nextGenFeature»
+        «FOREACH metaclass().getAllGenFeatures() AS nextGenFeature-»
             «IF !skip(nextGenFeature)-»
-                «EXPAND listenerForDatatype(metaclass()) FOR nextGenFeature-»
-		addListenerFilter("«EXPAND uniqueFeatureKey FOR nextGenFeature»_Listener", new org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener() {
-			public void notifyChanged(org.eclipse.emf.common.notify.Notification notification) {
-			    «EXPAND notifyBodyForDatatype(metaclass()) FOR nextGenFeature-»
-			    «EXPAND aspects::impl::diagram::editparts::NodeEditPart::processChangesCall(metaclass()) FOR nextGenFeature-»
-			    «IF isCornerWidthOrHeight(nextGenFeature)-»
-			    myFigure.repaint();
-			    «ENDIF-»
-			}
-		}, modelElement, «EXPAND MetaModel::MetaFeature FOR nextGenFeature»);
+            	«EXPAND addListener(metaclass(), nextGenFeature.ecoreFeature) FOR nextGenFeature-»
             «ENDIF-»
-        «ENDFOREACH»
+        «ENDFOREACH-»
+		modelElement.eAdapters().addAll(myDomainElementAdapters);
         
 		final org.eclipse.gmf.runtime.notation.Bounds bounds = (org.eclipse.gmf.runtime.notation.Bounds) ((org.eclipse.gmf.runtime.notation.Node) view).getLayoutConstraint();
 		final int sizeX;
@@ -286,56 +291,27 @@
     }	
 «ENDDEFINE»
 
-«DEFINE listenerForDatatype(genmodel::GenClass modelElementEClass) FOR genmodel::GenFeature-»
-«EXPAND listenerForDatatype(modelElementEClass, getTypeGenClassifier())-»
-«ENDDEFINE»
-
-«DEFINE listenerForDatatype(genmodel::GenClass modelElementEClass, genmodel::GenClassifier type) FOR genmodel::GenFeature-»
-	final org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener «EXPAND uniqueFeatureKey»_PropertiesListener = new org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener() {
-		public void notifyChanged(org.eclipse.emf.common.notify.Notification notification) {
+«DEFINE addListener(genmodel::GenClass modelElementEClass, ecore::EReference ecoreFeature) FOR genmodel::GenFeature-»
+	myDomainElementAdapters.add(new org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter(«EXPAND MetaModel::MetaFeature», new org.eclipse.emf.common.notify.impl.AdapterImpl() {
+		public void notifyChanged(org.eclipse.emf.common.notify.Notification msg) {
 			«EXPAND aspects::impl::diagram::editparts::NodeEditPart::processChangesCall(modelElementEClass)-»
 		}
-	};
-	«EXPAND addFeaturePropertyChangeListeners(modelElementEClass)-»
+	}));
 «ENDDEFINE»
 
-«DEFINE listenerForDatatype(genmodel::GenClass modelElementEClass, genmodel::GenDataType type) FOR genmodel::GenFeature-»
+«DEFINE addListener(genmodel::GenClass modelElementEClass, ecore::EAttribute ecoreFeature) FOR genmodel::GenFeature-»
+	myDomainElementAdapters.add(new org.eclipse.gmf.graphdef.editor.sheet.FeatureTracker(new org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker() {
+		public void modelChanged(org.eclipse.emf.common.notify.Notification msg) {
+			«EXPAND aspects::impl::diagram::editparts::NodeEditPart::processChangesCall(modelElementEClass)-»
+		    «IF isCornerWidthOrHeight(this)-»
+			    myFigure.repaint();
+		    «ENDIF-»
+		}
+	}, «EXPAND MetaModel::MetaFeature»));
 «ENDDEFINE»
 
-«DEFINE addFeaturePropertyChangeListeners(genmodel::GenClass modelElementEClass) FOR genmodel::GenFeature-»
-«IF this.isListType()-»
-for (int i = 0; i < «EXPAND MetaModel::getFeatureValue("modelElement", modelElementEClass)».size(); i++) {
-	addListenerFilter("«EXPAND uniqueFeatureKey»_PropertiesListener#" + i, «EXPAND uniqueFeatureKey»_PropertiesListener, (org.eclipse.emf.ecore.EObject) «EXPAND MetaModel::getFeatureValue("modelElement", modelElementEClass)».get(i));
-}
-«ELSE-»
-if («EXPAND MetaModel::getFeatureValue("modelElement", modelElementEClass)» != null) {
-	addListenerFilter("«EXPAND uniqueFeatureKey»_PropertiesListener", «EXPAND uniqueFeatureKey»_PropertiesListener, «EXPAND MetaModel::getFeatureValue("modelElement", modelElementEClass)»);
-}
-«ENDIF-»
-«ENDDEFINE»
-
-«DEFINE notifyBodyForDatatype(genmodel::GenClass modelElementEClass) FOR genmodel::GenFeature-»
-«EXPAND notifyBodyForDatatype(modelElementEClass, getTypeGenClassifier())-»
-«ENDDEFINE»
-
-«DEFINE notifyBodyForDatatype(genmodel::GenClass modelElementEClass, genmodel::GenClassifier type) FOR genmodel::GenFeature-»
-    «IF this.isListType()-»
-	int listSize = «EXPAND MetaModel::getFeatureValue("modelElement", modelElementEClass)».size();
-	if (notification.getOldValue() instanceof java.util.Collection) {
-		listSize += ((java.util.Collection) notification.getOldValue()).size();
-	} else {
-		listSize++;
-	}
-	for (int i = 0; i < listSize; i++) {
-		removeListenerFilter("«EXPAND uniqueFeatureKey»_PropertiesListener#" + i);
-	}
-    «ELSE-»
-	removeListenerFilter("«EXPAND uniqueFeatureKey»_PropertiesListener");
-    «ENDIF-»
-    «EXPAND addFeaturePropertyChangeListeners(modelElementEClass)-»
-«ENDDEFINE»
-
-«DEFINE notifyBodyForDatatype(genmodel::GenClass modelElementEClass, genmodel::GenDataType type) FOR genmodel::GenFeature-»
+«DEFINE addListener(genmodel::GenClass modelElementEClass, ecore::EStructuralFeature ecoreFeature) FOR genmodel::GenFeature-»
+	«ERROR "Should not be called"-»
 «ENDDEFINE»
 
 «DEFINE setViewColor(String modelColorProperty, String viewColorProperty) FOR gmfgen::GenNode-»
@@ -398,5 +374,3 @@ addListenerFilter("«viewColorProperty»StyleListener", new org.eclipse.gmf.runtim
 	}
 }, the«viewColorProperty»Style1);
 «ENDDEFINE»
-
-«DEFINE uniqueFeatureKey FOR genmodel::GenFeature»«genClass.ecoreClass.name»_«ecoreFeature.name.toFirstUpper()»«ENDDEFINE»

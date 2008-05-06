@@ -10,6 +10,8 @@
  */
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -26,10 +28,13 @@ import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.transaction.Transaction;
 import org.eclipse.emf.workspace.AbstractEMFOperation;
 import org.eclipse.gef.EditPart;
@@ -43,11 +48,13 @@ import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Layoutable;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
-import org.eclipse.gmf.gmfgraph.XYLayout;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
 import org.eclipse.gmf.graphdef.editor.edit.policies.RoundedRectangle3CanonicalEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.RoundedRectangle3ItemSemanticEditPolicy;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
+import org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter;
+import org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker;
+import org.eclipse.gmf.graphdef.editor.sheet.FeatureTracker;
 import org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
@@ -260,7 +267,7 @@ public class RoundedRectangle3EditPart extends AbstractFigureEditPart {
 		 */
 		public RoundedRectangleFigure() {
 
-			this.setLayoutManager(new org.eclipse.draw2d.XYLayout());
+			this.setLayoutManager(new XYLayout());
 			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(8), getMapMode().DPtoLP(8)));
 		}
 
@@ -290,10 +297,29 @@ public class RoundedRectangle3EditPart extends AbstractFigureEditPart {
 	 */
 	private RoundedRectangleFigure myFigure;
 
+	// TODO: use myFigure?
 	/**
 	 * @generated
 	 */
 	protected Figure myNodeFigure;
+
+	/**
+	 * @generated
+	 */
+	private Collection<Adapter> myDomainElementAdapters = new ArrayList<Adapter>();
+
+	/**
+	 * @generated
+	 */
+	protected void removeSemanticListeners() {
+		View view = (View) getModel();
+		if (view.getElement() != null) {
+			RoundedRectangle modelElement = (RoundedRectangle) view.getElement();
+			modelElement.eAdapters().removeAll(myDomainElementAdapters);
+			myDomainElementAdapters.clear();
+		}
+		super.removeSemanticListeners();
+	}
 
 	/**
 	 * @generated
@@ -309,104 +335,69 @@ public class RoundedRectangle3EditPart extends AbstractFigureEditPart {
 		}
 
 		final RoundedRectangle modelElement = (RoundedRectangle) view.getElement();
+		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(), new AdapterImpl() {
 
-		final NotificationListener Layoutable_LayoutData_PropertiesListener = new NotificationListener() {
-
-			public void notifyChanged(Notification notification) {
+			public void notifyChanged(Notification msg) {
 				layoutDataChanged(modelElement.getLayoutData());
 			}
-		};
-		if (modelElement.getLayoutData() != null) {
-			addListenerFilter("Layoutable_LayoutData_PropertiesListener", Layoutable_LayoutData_PropertiesListener, modelElement.getLayoutData());
-		}
-		addListenerFilter("Layoutable_LayoutData_Listener", new NotificationListener() {
+		}));
+		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(), new AdapterImpl() {
 
-			public void notifyChanged(Notification notification) {
-				removeListenerFilter("Layoutable_LayoutData_PropertiesListener");
-				if (modelElement.getLayoutData() != null) {
-					addListenerFilter("Layoutable_LayoutData_PropertiesListener", Layoutable_LayoutData_PropertiesListener, modelElement.getLayoutData());
-				}
-				layoutDataChanged(modelElement.getLayoutData());
-			}
-		}, modelElement, GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData());
-
-		final NotificationListener Layoutable_Layout_PropertiesListener = new NotificationListener() {
-
-			public void notifyChanged(Notification notification) {
+			public void notifyChanged(Notification msg) {
 				layoutChanged(modelElement.getLayout());
 			}
-		};
-		if (modelElement.getLayout() != null) {
-			addListenerFilter("Layoutable_Layout_PropertiesListener", Layoutable_Layout_PropertiesListener, modelElement.getLayout());
-		}
-		addListenerFilter("Layoutable_Layout_Listener", new NotificationListener() {
+		}));
+		myDomainElementAdapters.add(new FeatureTracker(new ChangeTracker() {
 
-			public void notifyChanged(Notification notification) {
-				removeListenerFilter("Layoutable_Layout_PropertiesListener");
-				if (modelElement.getLayout() != null) {
-					addListenerFilter("Layoutable_Layout_PropertiesListener", Layoutable_Layout_PropertiesListener, modelElement.getLayout());
-				}
-				layoutChanged(modelElement.getLayout());
-			}
-		}, modelElement, GMFGraphPackage.eINSTANCE.getLayoutable_Layout());
-
-		addListenerFilter("Shape_Outline_Listener", new NotificationListener() {
-
-			public void notifyChanged(Notification notification) {
+			public void modelChanged(Notification msg) {
 				myFigure.setOutline(modelElement.isOutline());
 			}
-		}, modelElement, GMFGraphPackage.eINSTANCE.getShape_Outline());
+		}, GMFGraphPackage.eINSTANCE.getShape_Outline()));
+		myDomainElementAdapters.add(new FeatureTracker(new ChangeTracker() {
 
-		addListenerFilter("Shape_Fill_Listener", new NotificationListener() {
-
-			public void notifyChanged(Notification notification) {
+			public void modelChanged(Notification msg) {
 				myFigure.setFill(modelElement.isFill());
 			}
-		}, modelElement, GMFGraphPackage.eINSTANCE.getShape_Fill());
+		}, GMFGraphPackage.eINSTANCE.getShape_Fill()));
+		myDomainElementAdapters.add(new FeatureTracker(new ChangeTracker() {
 
-		addListenerFilter("Shape_LineWidth_Listener", new NotificationListener() {
-
-			public void notifyChanged(Notification notification) {
+			public void modelChanged(Notification msg) {
 				myFigure.setLineWidth(modelElement.getLineWidth());
 			}
-		}, modelElement, GMFGraphPackage.eINSTANCE.getShape_LineWidth());
+		}, GMFGraphPackage.eINSTANCE.getShape_LineWidth()));
+		myDomainElementAdapters.add(new FeatureTracker(new ChangeTracker() {
 
-		addListenerFilter("Shape_LineKind_Listener", new NotificationListener() {
-
-			public void notifyChanged(Notification notification) {
+			public void modelChanged(Notification msg) {
 				myFigure.setLineStyle(getLineStyle(modelElement.getLineKind()));
 			}
-		}, modelElement, GMFGraphPackage.eINSTANCE.getShape_LineKind());
+		}, GMFGraphPackage.eINSTANCE.getShape_LineKind()));
+		myDomainElementAdapters.add(new FeatureTracker(new ChangeTracker() {
 
-		addListenerFilter("Shape_XorFill_Listener", new NotificationListener() {
-
-			public void notifyChanged(Notification notification) {
+			public void modelChanged(Notification msg) {
 				myFigure.setFillXOR(modelElement.isXorFill());
 			}
-		}, modelElement, GMFGraphPackage.eINSTANCE.getShape_XorFill());
+		}, GMFGraphPackage.eINSTANCE.getShape_XorFill()));
+		myDomainElementAdapters.add(new FeatureTracker(new ChangeTracker() {
 
-		addListenerFilter("Shape_XorOutline_Listener", new NotificationListener() {
-
-			public void notifyChanged(Notification notification) {
+			public void modelChanged(Notification msg) {
 				myFigure.setOutlineXOR(modelElement.isXorOutline());
 			}
-		}, modelElement, GMFGraphPackage.eINSTANCE.getShape_XorOutline());
+		}, GMFGraphPackage.eINSTANCE.getShape_XorOutline()));
+		myDomainElementAdapters.add(new FeatureTracker(new ChangeTracker() {
 
-		addListenerFilter("RoundedRectangle_CornerWidth_Listener", new NotificationListener() {
-
-			public void notifyChanged(Notification notification) {
+			public void modelChanged(Notification msg) {
 				myFigure.setCornerDimensions(new Dimension(getMapMode().DPtoLP(modelElement.getCornerWidth()), getMapMode().DPtoLP(modelElement.getCornerHeight())));
 				myFigure.repaint();
 			}
-		}, modelElement, GMFGraphPackage.eINSTANCE.getRoundedRectangle_CornerWidth());
+		}, GMFGraphPackage.eINSTANCE.getRoundedRectangle_CornerWidth()));
+		myDomainElementAdapters.add(new FeatureTracker(new ChangeTracker() {
 
-		addListenerFilter("RoundedRectangle_CornerHeight_Listener", new NotificationListener() {
-
-			public void notifyChanged(Notification notification) {
+			public void modelChanged(Notification msg) {
 				myFigure.setCornerDimensions(new Dimension(getMapMode().DPtoLP(modelElement.getCornerWidth()), getMapMode().DPtoLP(modelElement.getCornerHeight())));
 				myFigure.repaint();
 			}
-		}, modelElement, GMFGraphPackage.eINSTANCE.getRoundedRectangle_CornerHeight());
+		}, GMFGraphPackage.eINSTANCE.getRoundedRectangle_CornerHeight()));
+		modelElement.eAdapters().addAll(myDomainElementAdapters);
 
 		final Bounds bounds = (Bounds) ((Node) view).getLayoutConstraint();
 		final int sizeX;
@@ -479,7 +470,7 @@ public class RoundedRectangle3EditPart extends AbstractFigureEditPart {
 							myNodeFigure.setLocation(new Point(bounds.getX(), bounds.getY()));
 
 							if (modelElement.getLayoutData() instanceof XYLayoutData
-									|| (modelElement.eContainer() instanceof Layoutable && ((Layoutable) modelElement.eContainer()).getLayout() instanceof XYLayout)) {
+									|| (modelElement.eContainer() instanceof Layoutable && ((Layoutable) modelElement.eContainer()).getLayout() instanceof org.eclipse.gmf.gmfgraph.XYLayout)) {
 								XYLayoutData xyLayoutData = (XYLayoutData) modelElement.getLayoutData();
 								if (xyLayoutData == null) {
 									xyLayoutData = GMFGraphFactory.eINSTANCE.createXYLayoutData();
@@ -746,5 +737,4 @@ public class RoundedRectangle3EditPart extends AbstractFigureEditPart {
 		}
 		return rgbColor;
 	}
-
 }
