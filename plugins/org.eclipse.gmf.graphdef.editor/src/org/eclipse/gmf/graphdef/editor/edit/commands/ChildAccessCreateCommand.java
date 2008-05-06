@@ -82,7 +82,6 @@ public class ChildAccessCreateCommand extends CreateElementCommand {
 		ChildAccess newElement = GMFGraphFactory.eINSTANCE.createChildAccess();
 		getSource().getAccessors().add(newElement);
 		newElement.setFigure(getTarget());
-
 		return newElement;
 	}
 

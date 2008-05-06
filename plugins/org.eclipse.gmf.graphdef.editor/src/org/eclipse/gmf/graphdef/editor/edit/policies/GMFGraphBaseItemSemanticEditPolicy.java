@@ -395,6 +395,7 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistChildAccess_4002(FigureDescriptor source, Figure target) {
+
 			return true;
 		}
 
@@ -402,6 +403,7 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistCompartmentAccessor_4003(Compartment source, ChildAccess target) {
+
 			return true;
 		}
 
@@ -409,6 +411,7 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistDiagramLabelAccessor_4004(DiagramLabel source, ChildAccess target) {
+
 			return true;
 		}
 
@@ -416,6 +419,7 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistNodeContentPane_4006(Node source, ChildAccess target) {
+
 			return true;
 		}
 
@@ -423,6 +427,7 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistDiagramElementFigure_4005(DiagramElement source, FigureDescriptor target) {
+
 			return true;
 		}
 

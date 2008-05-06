@@ -294,6 +294,9 @@
 «DEFINE addListener(genmodel::GenClass modelElementEClass, ecore::EReference ecoreFeature) FOR genmodel::GenFeature-»
 	myDomainElementAdapters.add(new org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter(«EXPAND MetaModel::MetaFeature», new org.eclipse.emf.common.notify.impl.AdapterImpl() {
 		public void notifyChanged(org.eclipse.emf.common.notify.Notification msg) {
+			if (msg.isTouch()) {
+				return;
+			}
 			«EXPAND aspects::impl::diagram::editparts::NodeEditPart::processChangesCall(modelElementEClass)-»
 		}
 	}));

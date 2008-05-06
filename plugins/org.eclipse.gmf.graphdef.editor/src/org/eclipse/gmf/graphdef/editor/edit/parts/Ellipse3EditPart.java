@@ -331,12 +331,18 @@ public class Ellipse3EditPart extends AbstractFigureEditPart {
 		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(), new AdapterImpl() {
 
 			public void notifyChanged(Notification msg) {
+				if (msg.isTouch()) {
+					return;
+				}
 				layoutDataChanged(modelElement.getLayoutData());
 			}
 		}));
 		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(), new AdapterImpl() {
 
 			public void notifyChanged(Notification msg) {
+				if (msg.isTouch()) {
+					return;
+				}
 				layoutChanged(modelElement.getLayout());
 			}
 		}));
