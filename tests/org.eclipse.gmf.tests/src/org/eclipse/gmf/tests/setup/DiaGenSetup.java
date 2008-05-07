@@ -29,6 +29,9 @@ import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
@@ -121,8 +124,10 @@ public class DiaGenSetup implements DiaGenSource {
 		// TODO add linkRefOnly
 		myGenDiagram.getTopLevelNodes().add(myNodeA);
 		myGenDiagram.getLinks().add(myLinkC);
-		
-		myGenDiagram.getEditorGen().setAudits(createAudits());
+
+		GenExpressionProviderContainer providerContainer = GMFGenFactory.eINSTANCE.createGenExpressionProviderContainer();
+		myGenDiagram.getEditorGen().setExpressionProviders(providerContainer);
+		myGenDiagram.getEditorGen().setAudits(createAudits(providerContainer));
 		confineInResource();
 		return this;
 	}
@@ -274,8 +279,7 @@ public class DiaGenSetup implements DiaGenSource {
 		return myLinkD;
 	}
 
-	@SuppressWarnings("unchecked")
-	private GenAuditRoot createAudits() {
+	private GenAuditRoot createAudits(GenExpressionProviderContainer providerContainer) {
 		GenClass classA = getNodeA().getDomainMetaClass();
 		assert getLinkC().getModelFacet() instanceof TypeLinkModelFacet : "Expecting link with class"; //$NON-NLS-1$
 		GenClass classC = ((TypeLinkModelFacet)getLinkC().getModelFacet()).getMetaClass();
@@ -294,6 +298,13 @@ public class DiaGenSetup implements DiaGenSource {
 		subCat.getPath().add(subCat);
 		subCat.getAudits().add(createAudit("constraint.id3", "''<>'Foo'", classA, GenSeverity.INFO_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
 		root.getRules().addAll(subCat.getAudits());
+
+		GenExpressionInterpreter provider = GMFGenFactory.eINSTANCE.createGenExpressionInterpreter();
+		provider.setLanguage(GenLanguage.OCL_LITERAL);
+		providerContainer.getProviders().add(provider);
+		for (GenAuditRule a : root.getRules()) {
+			provider.getExpressions().add(a.getRule());
+		}
 		
 		return root;
 	}
