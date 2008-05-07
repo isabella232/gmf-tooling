@@ -11,7 +11,7 @@
  */
 
 import "http://www.eclipse.org/emf/2002/Ecore";
-import "http://www.eclipse.org/gmf/2006/GenModel";
+import "http://www.eclipse.org/gmf/2008/GenModel";
 extension xpt::commands::CommandUtils;
 
 boolean isXYLayout(gmfgen::GenNode node) :

@@ -10,7 +10,7 @@
  *    Boris Blajer (Borland) - initial API and implementation
  */
  
-«IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
+«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
 
 «AROUND createEditingDomain FOR gmfgen::GenNavigator»«EXPAND xpt::editor::Common::createEditingDomain FOR editorGen»«ENDAROUND»
 
