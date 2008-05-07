@@ -12,15 +12,17 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+import org.eclipse.emf.edit.provider.IChildCreationExtender;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec} object.
@@ -29,7 +31,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
  * @generated
  */
 public class GenFeatureValueSpecItemProvider
-	extends ValueExpressionItemProvider
+	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -58,6 +60,7 @@ public class GenFeatureValueSpecItemProvider
 			super.getPropertyDescriptors(object);
 
 			addFeaturePropertyDescriptor(object);
+			addValuePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -85,6 +88,28 @@ public class GenFeatureValueSpecItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Value feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addValuePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenFeatureValueSpec_value_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenFeatureValueSpec_value_feature", "_UI_GenFeatureValueSpec_type"),
+				 GMFGenPackage.eINSTANCE.getGenFeatureValueSpec_Value(),
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns GenFeatureValueSpec.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -103,10 +128,7 @@ public class GenFeatureValueSpecItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = crop(((GenFeatureValueSpec)object).getBody());
-		return label == null || label.length() == 0 ?
-			getString("_UI_GenFeatureValueSpec_type") :
-			getString("_UI_GenFeatureValueSpec_type") + " " + label;
+		return getString("_UI_GenFeatureValueSpec_type");
 	}
 
 	/**
@@ -132,6 +154,17 @@ public class GenFeatureValueSpecItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+	}
+
+	/**
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return ((IChildCreationExtender)adapterFactory).getResourceLocator();
 	}
 
 }

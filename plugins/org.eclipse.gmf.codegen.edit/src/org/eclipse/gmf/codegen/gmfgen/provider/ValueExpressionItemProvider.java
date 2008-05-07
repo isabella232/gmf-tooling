@@ -63,7 +63,6 @@ public class ValueExpressionItemProvider
 			super.getPropertyDescriptors(object);
 
 			addBodyPropertyDescriptor(object);
-			addLanguagePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -84,28 +83,6 @@ public class ValueExpressionItemProvider
 				 GMFGenPackage.eINSTANCE.getValueExpression_Body(),
 				 true,
 				 true,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Language feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addLanguagePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ValueExpression_language_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ValueExpression_language_feature", "_UI_ValueExpression_type"),
-				 GMFGenPackage.eINSTANCE.getValueExpression_Language(),
-				 true,
-				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -150,7 +127,6 @@ public class ValueExpressionItemProvider
 
 		switch (notification.getFeatureID(ValueExpression.class)) {
 			case GMFGenPackage.VALUE_EXPRESSION__BODY:
-			case GMFGenPackage.VALUE_EXPRESSION__LANGUAGE:
 			case GMFGenPackage.VALUE_EXPRESSION__LANG_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
