@@ -14,12 +14,10 @@ package org.eclipse.gmf.internal.bridge.genmodel;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
@@ -96,7 +94,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private final boolean rcp;
 	private final History myHistory;
 	private final Map<GenClass, ElementType> myProcessedTypes = new IdentityHashMap<GenClass, ElementType>(); // GenClass -> MetamodelType
-	private final Set<org.eclipse.gmf.mappings.ValueExpression> myProcessedExpressions = new HashSet<org.eclipse.gmf.mappings.ValueExpression>();
+	private final Map<org.eclipse.gmf.mappings.ValueExpression, ValueExpression> myProcessedExpressions;
 
 	private final GenModelNamingMediator myNamingStrategy;
 	private final PaletteHandler myPaletteProcessor;
@@ -122,6 +120,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		myNavigatorProcessor = new NavigatorHandler();
 		myPropertySheetProcessor = new PropertySheetHandler();
 		myEcoreGenModelMatch = new EcoreGenModelMatcher();
+		myProcessedExpressions = new HashMap<org.eclipse.gmf.mappings.ValueExpression, ValueExpression>();
 	}
 
 	/**
@@ -788,12 +787,12 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private GenFeatureInitializer createGenFeatureInitializer(FeatureInitializer featureInitializer) {
 		if (featureInitializer instanceof FeatureValueSpec) {
 			FeatureValueSpec featureValSpec = (FeatureValueSpec) featureInitializer;				
-			GenFeatureValueSpec genFeatureValSpec = GMFGenFactory.eINSTANCE.createGenFeatureValueSpec();				
-			genFeatureValSpec.setBody(featureValSpec.getValue().getBody());
-			genFeatureValSpec.setLanguage(createGenLanguage(featureValSpec.getValue().getLanguage()));
+			GenFeatureValueSpec genFeatureValSpec = GMFGenFactory.eINSTANCE.createGenFeatureValueSpec();
 			genFeatureValSpec.setFeature(findGenFeature(featureValSpec.getFeature()));
-			
-			bindToProvider(featureValSpec.getValue(), genFeatureValSpec);
+			ValueExpression value = GMFGenFactory.eINSTANCE.createValueExpression();
+			value.setBody(featureValSpec.getValue().getBody());
+			genFeatureValSpec.setValue(bindToProvider(featureValSpec.getValue(), value));
+
 			return genFeatureValSpec;
 		} else if (featureInitializer instanceof ReferenceNewElementSpec) {
 			ReferenceNewElementSpec newElementSpec = (ReferenceNewElementSpec) featureInitializer;
@@ -809,7 +808,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return null;
 	}
 
-	private static GenLanguage createGenLanguage(Language mapLang) {
+	private static GenLanguage detectGenLanguage(Language mapLang) {
 		switch (mapLang.getValue()) {
 		case Language.OCL:
 			return GenLanguage.OCL_LITERAL;
@@ -829,11 +828,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if(constraint.getBody() == null) {
 			return null;
 		}
-		GenConstraint modelElementSelector = GMFGenFactory.eINSTANCE.createGenConstraint();
-		modelElementSelector.setBody(constraint.getBody());
-		modelElementSelector.setLanguage(createGenLanguage(constraint.getLanguage()));
-		bindToProvider(constraint, modelElementSelector);
-		return modelElementSelector;
+		GenConstraint genConstraint = GMFGenFactory.eINSTANCE.createGenConstraint();
+		genConstraint.setBody(constraint.getBody());
+		return bindToProvider(constraint, genConstraint);
 	}
 	
 	private GenAuditRoot createGenAuditRoot(AuditContainer ac) {
@@ -1017,9 +1014,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if(metric.getRule() != null) {
 			ValueExpression valueExpression = GMFGenFactory.eINSTANCE.createValueExpression();
 			valueExpression.setBody(metric.getRule().getBody());
-			valueExpression.setLanguage(createGenLanguage(metric.getRule().getLanguage()));
-			bindToProvider(metric.getRule(), valueExpression);
-			genMetric.setRule(valueExpression);
+			genMetric.setRule(bindToProvider(metric.getRule(), valueExpression));
 		}
 		
 		if(metric.getTarget() != null) {		
@@ -1032,16 +1027,21 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		myHistory.log(metric, genMetric);
 		return genMetric;
 	}
-	
-	private void bindToProvider(org.eclipse.gmf.mappings.ValueExpression expression, ValueExpression genExpression) {
-		if(!myProcessedExpressions.add(expression)) {
+
+	/**
+	 * ValueExpressions may be reused, as such clients should treat second argument as template and record return value
+	 * as actual expression.
+	 * @return actual gmfgen::ValueExpression to reference
+	 */
+	private <T extends ValueExpression> T bindToProvider(org.eclipse.gmf.mappings.ValueExpression expression, T genExpression) {
+		if(myProcessedExpressions.containsKey(expression)) {
 			// Note: may have already been bound during transformation of reused node mapping
-			return;
+			@SuppressWarnings("unchecked") T reuse = (T) myProcessedExpressions.get(expression);
+			return reuse;
 		}
-		
-		GenLanguage language = genExpression.getLanguage();
+		GenLanguage language = detectGenLanguage(expression.getLanguage());
 		if(language == null) {
-			return;
+			return genExpression;
 		}
 		GenExpressionProviderContainer providerContainer = getGenEssence().getExpressionProviders();
 		if(providerContainer == null) {
@@ -1057,12 +1057,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		if(provider == null) {
 			provider = createExpressionProvider(language);
-			if(provider == null) {
-				return;
-			}
 			providerContainer.getProviders().add(provider);			
 		}
 		provider.getExpressions().add(genExpression);
+		myProcessedExpressions.put(expression, genExpression);
+		return genExpression;
 	}
 	
 	private GenExpressionProviderBase createExpressionProvider(GenLanguage language) {
@@ -1077,7 +1076,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			GenExpressionInterpreter regexpProvider = GMFGenFactory.eINSTANCE.createGenExpressionInterpreter();
 			regexpProvider.setLanguage(language);
 			newProvider = regexpProvider;
+		} else {
+			newProvider = GMFGenFactory.eINSTANCE.createGenExpressionInterpreter();
+			// fake provider with no language set to fail validation (XXX perhaps, makes sense to add 'unrecognized' language?)
 		}
+		assert newProvider != null;
 		return newProvider;
 	}
 
