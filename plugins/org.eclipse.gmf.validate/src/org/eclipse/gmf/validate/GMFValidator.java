@@ -33,7 +33,7 @@ public class GMFValidator extends ValidatorChain {
 	private static EValidator[] GMF_VALIDATORS = new EValidator[] { 
 		ExternModelImport.getImportValidator(),				
 		new AnnotatedOclValidator(),
-		new AnnotatedDefinitionValidator() 
+// bug #230418		new AnnotatedDefinitionValidator() 
 	};
 	
 	private static final EValidator NO_ECORE_INSTANCE = new ValidatorChain(GMF_VALIDATORS);	
