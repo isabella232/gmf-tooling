@@ -106,7 +106,7 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 				for (GenFeatureInitializer featureInitializer : fsInitializer.getInitializers()) {					
 					if(!(featureInitializer instanceof GenFeatureValueSpec)) continue;
 					GenFeatureValueSpec nextFtValSpec = (GenFeatureValueSpec)featureInitializer;						
-					if(container.getProvider(nextFtValSpec) != javaProvider) continue;
+					if (nextFtValSpec.getValue().getProvider() != javaProvider) continue;
 					GenCommonBase diagramElement = null;
 					if (fsInitializer.getTypeModelFacet().eContainer() instanceof GenCommonBase) {
 						// hack to get required element to construct java operation name - 
@@ -117,9 +117,10 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 						continue; // just in case
 					}
 
-					// ElementInitializers.ext#
-					String operationName = "value_" + diagramElement.getClassNamePrefix() + "_"+ fsInitializer.getElementClass().getEcoreClass().getName() + "_" + nextFtValSpec.getFeature().getEcoreFeature().getName();					
+					// ElementInitializers.ext#javaMethodName
+					String operationName = "value_" + nextFtValSpec.getFeature().getEcoreFeature().getName();					
 					Method method = findMethod(javaContainerClass, operationName, fsInitializer.getElementClass());
+					assertNotNull("Can't find Java method:" + operationName, method);
 					 
 					GenFeature genFeature = nextFtValSpec.getFeature();
 					if(genFeature.isPrimitiveType() && !genFeature.isListType()) {

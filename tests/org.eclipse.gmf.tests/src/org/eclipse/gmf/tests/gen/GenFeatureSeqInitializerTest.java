@@ -21,6 +21,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.internal.bridge.genmodel.GenModelMatcher;
 
 
@@ -142,8 +143,10 @@ public class GenFeatureSeqInitializerTest extends TestCase {
 
 	private GenFeatureValueSpec addFeatureValueSpec(GenFeatureSeqInitializer owningInitializer, EStructuralFeature eFeature, String oclBody) {
 		GenFeatureValueSpec valueSpec = GMFGenFactory.eINSTANCE.createGenFeatureValueSpec();
+		ValueExpression expr = GMFGenFactory.eINSTANCE.createValueExpression();
 		valueSpec.setFeature(genModelMatcher.findGenFeature(eFeature));
-		valueSpec.setBody(oclBody);
+		valueSpec.setValue(expr);
+		expr.setBody(oclBody);
 
 		owningInitializer.getInitializers().add(valueSpec);
 		return valueSpec;

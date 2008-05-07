@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -14,7 +14,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
-import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
@@ -65,8 +64,7 @@ public class LinkCreationConstraintsTest extends RuntimeDiagramTestBase {
 	
 	private static GenConstraint createDummyConstraint() {
 		GenConstraint constraint = GMFGenFactory.eINSTANCE.createGenConstraint();
-		constraint.setLanguage(GenLanguage.OCL_LITERAL);
-		constraint.setBody("true"); //$NON-NLS-1$
+		constraint.setBody("dummy"); //$NON-NLS-1$
 		return constraint;
 	}
 	
