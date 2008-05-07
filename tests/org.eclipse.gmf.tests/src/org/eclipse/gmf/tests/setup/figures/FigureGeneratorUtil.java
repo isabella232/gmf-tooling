@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -120,7 +120,6 @@ public class FigureGeneratorUtil {
 		if (RuntimeWorkspaceSetup.INSTANCE == null) {
 			RuntimeWorkspaceSetup.INSTANCE = new RuntimeWorkspaceSetup().initFull();
 		}
-		RuntimeWorkspaceSetup.INSTANCE.updateClassPath(project);
 		IStatus compileStatus = new CompileUtil().build(project);
 		Assert.assertTrue(compileStatus.getMessage(), compileStatus.getSeverity() < IStatus.ERROR);
 		RuntimeWorkspaceSetup.INSTANCE.getReadyToStartAsBundle(project);

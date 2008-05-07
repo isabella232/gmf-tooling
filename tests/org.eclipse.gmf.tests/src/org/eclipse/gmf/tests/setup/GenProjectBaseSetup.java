@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -93,7 +93,6 @@ public class GenProjectBaseSetup {
 		hookGeneratorStatus(generator.getRunStatus());
 		final String gmfEditorId = d.getEditorGen().getPlugin().getID();
 		final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(gmfEditorId);
-		RuntimeWorkspaceSetup.INSTANCE.updateClassPath(project);
 		RuntimeWorkspaceSetup.INSTANCE.getReadyToStartAsBundle(project);
 
 		projectsToInit.add(gmfEditorId);
