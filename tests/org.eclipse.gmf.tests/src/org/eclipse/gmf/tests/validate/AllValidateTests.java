@@ -21,9 +21,10 @@ public class AllValidateTests {
 		TestSuite suite = new TestSuite("Test for org.eclipse.gmf.tests.validate"); //$NON-NLS-1$
 		//$JUnit-BEGIN$
 		suite.addTestSuite(ConstraintSeverityTest.class);
-		suite.addTestSuite(OCLExpressionAdapterTest.class);		
-		suite.addTestSuite(ConstraintDefTest.class);		
-		suite.addTestSuite(ValueSpecDefTest.class);		
+		suite.addTestSuite(OCLExpressionAdapterTest.class);
+// FIXME next two tests were commented out due to bug #230418
+//		suite.addTestSuite(ConstraintDefTest.class);		
+//		suite.addTestSuite(ValueSpecDefTest.class);		
 		//$JUnit-END$
 		return suite;
 	}
