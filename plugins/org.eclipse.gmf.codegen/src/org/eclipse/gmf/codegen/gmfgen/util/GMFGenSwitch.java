@@ -643,7 +643,6 @@ public class GMFGenSwitch<T> {
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC: {
 				GenFeatureValueSpec genFeatureValueSpec = (GenFeatureValueSpec)theEObject;
 				T result = caseGenFeatureValueSpec(genFeatureValueSpec);
-				if (result == null) result = caseValueExpression(genFeatureValueSpec);
 				if (result == null) result = caseGenFeatureInitializer(genFeatureValueSpec);
 				if (result == null) result = defaultCase(theEObject);
 				return result;

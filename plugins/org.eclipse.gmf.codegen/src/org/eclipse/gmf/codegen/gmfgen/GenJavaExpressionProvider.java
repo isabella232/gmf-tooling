@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenJavaExpressionProvider.java,v 1.2 2008/05/05 21:06:41 atikhomirov Exp $
+ * $Id: GenJavaExpressionProvider.java,v 1.3 2008/05/07 13:56:01 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
@@ -62,13 +62,11 @@ public interface GenJavaExpressionProvider extends GenExpressionProviderBase {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * When 'true', body of associated ValueExpression would get injected into Java code as-is, thus allowing to provide method implementations right within the model. Note, if body is empty, default implementation would be generated instead.
-	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Inject Expression Body</em>' attribute.
 	 * @see #setInjectExpressionBody(boolean)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenJavaExpressionProvider_InjectExpressionBody()
 	 * @model default="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel documentaion='When \'true\', body of associated ValueExpression would get injected into Java code as-is, thus allowing to provide method implementations right within the model. Note, if body is empty, default implementation would be generated instead.'"
 	 * @generated
 	 */
 	boolean isInjectExpressionBody();

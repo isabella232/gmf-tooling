@@ -10,7 +10,7 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
+«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 
@@ -305,19 +305,19 @@ private static boolean isDiagram(«EXPAND MetaModel::QualifiedClassName FOR domai
 
 «DEFINE _constraintMethods FOR GenDiagram-»
 «IF null != editorGen.expressionProviders-»
-	«EXPAND _constraintMethod(editorGen.expressionProviders) FOREACH topLevelNodes.select(n | n.modelFacet.modelElementSelector != null)-»
-	«EXPAND _constraintMethod(editorGen.expressionProviders) FOREACH childNodes.select(n | n.modelFacet.modelElementSelector != null)-»
+	«EXPAND _constraintMethod FOREACH topLevelNodes.select(n | n.modelFacet.modelElementSelector != null)-»
+	«EXPAND _constraintMethod FOREACH childNodes.select(n | n.modelFacet.modelElementSelector != null)-»
 	«FOREACH links AS l»«EXPAND _constraintMethod(l) FOR l.modelFacet»«ENDFOREACH»
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE _constraintMethod(GenExpressionProviderContainer c) FOR GenNode-»
-«EXPAND _domainElementConstraintMethod(this, modelFacet.modelElementSelector, modelFacet.metaClass) FOR c.getProvider(modelFacet.modelElementSelector)»
+«DEFINE _constraintMethod FOR GenNode-»
+«EXPAND _domainElementConstraintMethod(this, modelFacet.modelElementSelector, modelFacet.metaClass) FOR modelFacet.modelElementSelector.provider»
 «ENDDEFINE»
 
 «DEFINE _constraintMethod(GenLink l) FOR LinkModelFacet»«ENDDEFINE» // no-op
 «DEFINE _constraintMethod(GenLink l) FOR TypeLinkModelFacet-»
-«IF modelElementSelector != null»«EXPAND _domainElementConstraintMethod(l, modelElementSelector, metaClass) FOR l.getDiagram().editorGen.expressionProviders.getProvider(modelElementSelector)»«ENDIF-»
+«IF modelElementSelector != null»«EXPAND _domainElementConstraintMethod(l, modelElementSelector, metaClass) FOR modelElementSelector.provider»«ENDIF-»
 «ENDDEFINE»
 
 
@@ -344,7 +344,7 @@ private static boolean isDiagram(«EXPAND MetaModel::QualifiedClassName FOR domai
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static boolean «EXPAND _domainElementConstraintMethodName FOR diagramElement»(«EXPAND MetaModel::QualifiedClassName FOR context» domainElement) {
 		if («constraintFieldName(diagramElement)» == null) { // lazy initialization
-			«constraintFieldName(diagramElement)» = «getQualifiedClassName()».«getExpressionAccessor(expression)»(«expression.getBodyString()», «EXPAND MetaModel::MetaClass FOR context»); «EXPAND xpt::Common::nonNLS»
+			«constraintFieldName(diagramElement)» = «EXPAND xpt::expressions::getExpression::getExpression(expression, context)»; «EXPAND xpt::Common::nonNLS»
 		}
 		Object result = «constraintFieldName(diagramElement)».evaluate(domainElement);
 		return result instanceof Boolean && ((Boolean)result).booleanValue();
@@ -357,7 +357,7 @@ private static boolean isDiagram(«EXPAND MetaModel::QualifiedClassName FOR domai
 
 «DEFINE _constraintField(GenCommonBase diagramElement) FOR ModelFacet»«ENDDEFINE»
 «DEFINE _constraintField(GenCommonBase diagramElement) FOR TypeModelFacet-»
-«IF modelElementSelector != null»«EXPAND _constraintField(diagramElement) FOR diagramElement.getDiagram().editorGen.expressionProviders.getProvider(modelElementSelector)»«ENDIF-»
+«IF modelElementSelector != null»«EXPAND _constraintField(diagramElement) FOR modelElementSelector.provider»«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE _constraintField(GenCommonBase diagramElement) FOR GenExpressionInterpreter»

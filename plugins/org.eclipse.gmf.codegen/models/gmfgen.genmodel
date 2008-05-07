@@ -618,8 +618,8 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//ValueExpression" labelFeature="#//gmfgen/ValueExpression/body">
       <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/body"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/language"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/langName"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//ValueExpression/provider"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ValueExpression/getBodyString"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenConstraint" labelFeature="#//gmfgen/ValueExpression/body"/>
@@ -672,7 +672,9 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureSeqInitializer/elementClass"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureSeqInitializer/creatingInitializer"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//GenFeatureValueSpec" labelFeature="#//gmfgen/ValueExpression/body"/>
+    <genClasses ecoreClass="gmfgen.ecore#//GenFeatureValueSpec">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureValueSpec/value"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenReferenceNewElementSpec">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenReferenceNewElementSpec/newElementInitializers"/>
     </genClasses>
@@ -772,9 +774,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenExpressionProviderContainer/abstractExpressionClassName"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenExpressionProviderContainer/providers"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenExpressionProviderContainer/editorGen"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenExpressionProviderContainer/getProvider">
-        <genParameters ecoreParameter="gmfgen.ecore#//GenExpressionProviderContainer/getProvider/expression"/>
-      </genOperations>
       <genOperations ecoreOperation="gmfgen.ecore#//GenExpressionProviderContainer/getAbstractExpressionQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenExpressionProviderBase">

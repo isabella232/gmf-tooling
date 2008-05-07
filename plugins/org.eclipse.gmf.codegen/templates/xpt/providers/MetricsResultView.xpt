@@ -11,7 +11,7 @@
  *    Artem Tikhomirov (Borland) - refactoring (https://bugs.eclipse.org/230014)
  */
 
-«IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
+«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
 «DEFINE className FOR gmfgen::GenDiagram»ResultView«ENDDEFINE»

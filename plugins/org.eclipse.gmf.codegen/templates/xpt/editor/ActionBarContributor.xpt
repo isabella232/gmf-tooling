@@ -9,7 +9,7 @@
  * Contributors:
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
-«IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
+«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
 
 «DEFINE ActionBarContributor FOR gmfgen::GenEditorView-»
 «EXPAND xpt::Common::copyright FOR editorGen-»

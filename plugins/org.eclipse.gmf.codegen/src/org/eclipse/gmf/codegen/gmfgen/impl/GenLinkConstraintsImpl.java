@@ -40,7 +40,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
  */
 public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstraints {
 	/**
-	 * The cached value of the '{@link #getSourceEnd() <em>Source End</em>}' containment reference.
+	 * The cached value of the '{@link #getSourceEnd() <em>Source End</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getSourceEnd()
@@ -50,7 +50,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	protected GenConstraint sourceEnd;
 
 	/**
-	 * The cached value of the '{@link #getTargetEnd() <em>Target End</em>}' containment reference.
+	 * The cached value of the '{@link #getTargetEnd() <em>Target End</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getTargetEnd()
@@ -125,6 +125,14 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * @generated
 	 */
 	public GenConstraint getSourceEnd() {
+		if (sourceEnd != null && sourceEnd.eIsProxy()) {
+			InternalEObject oldSourceEnd = (InternalEObject)sourceEnd;
+			sourceEnd = (GenConstraint)eResolveProxy(oldSourceEnd);
+			if (sourceEnd != oldSourceEnd) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_LINK_CONSTRAINTS__SOURCE_END, oldSourceEnd, sourceEnd));
+			}
+		}
 		return sourceEnd;
 	}
 
@@ -133,14 +141,8 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetSourceEnd(GenConstraint newSourceEnd, NotificationChain msgs) {
-		GenConstraint oldSourceEnd = sourceEnd;
-		sourceEnd = newSourceEnd;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK_CONSTRAINTS__SOURCE_END, oldSourceEnd, newSourceEnd);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public GenConstraint basicGetSourceEnd() {
+		return sourceEnd;
 	}
 
 	/**
@@ -149,17 +151,10 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * @generated
 	 */
 	public void setSourceEnd(GenConstraint newSourceEnd) {
-		if (newSourceEnd != sourceEnd) {
-			NotificationChain msgs = null;
-			if (sourceEnd != null)
-				msgs = ((InternalEObject)sourceEnd).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_LINK_CONSTRAINTS__SOURCE_END, null, msgs);
-			if (newSourceEnd != null)
-				msgs = ((InternalEObject)newSourceEnd).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_LINK_CONSTRAINTS__SOURCE_END, null, msgs);
-			msgs = basicSetSourceEnd(newSourceEnd, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK_CONSTRAINTS__SOURCE_END, newSourceEnd, newSourceEnd));
+		GenConstraint oldSourceEnd = sourceEnd;
+		sourceEnd = newSourceEnd;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK_CONSTRAINTS__SOURCE_END, oldSourceEnd, sourceEnd));
 	}
 
 	/**
@@ -168,6 +163,14 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * @generated
 	 */
 	public GenConstraint getTargetEnd() {
+		if (targetEnd != null && targetEnd.eIsProxy()) {
+			InternalEObject oldTargetEnd = (InternalEObject)targetEnd;
+			targetEnd = (GenConstraint)eResolveProxy(oldTargetEnd);
+			if (targetEnd != oldTargetEnd) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_LINK_CONSTRAINTS__TARGET_END, oldTargetEnd, targetEnd));
+			}
+		}
 		return targetEnd;
 	}
 
@@ -176,14 +179,8 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetTargetEnd(GenConstraint newTargetEnd, NotificationChain msgs) {
-		GenConstraint oldTargetEnd = targetEnd;
-		targetEnd = newTargetEnd;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK_CONSTRAINTS__TARGET_END, oldTargetEnd, newTargetEnd);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public GenConstraint basicGetTargetEnd() {
+		return targetEnd;
 	}
 
 	/**
@@ -192,17 +189,10 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * @generated
 	 */
 	public void setTargetEnd(GenConstraint newTargetEnd) {
-		if (newTargetEnd != targetEnd) {
-			NotificationChain msgs = null;
-			if (targetEnd != null)
-				msgs = ((InternalEObject)targetEnd).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_LINK_CONSTRAINTS__TARGET_END, null, msgs);
-			if (newTargetEnd != null)
-				msgs = ((InternalEObject)newTargetEnd).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_LINK_CONSTRAINTS__TARGET_END, null, msgs);
-			msgs = basicSetTargetEnd(newTargetEnd, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK_CONSTRAINTS__TARGET_END, newTargetEnd, newTargetEnd));
+		GenConstraint oldTargetEnd = targetEnd;
+		targetEnd = newTargetEnd;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK_CONSTRAINTS__TARGET_END, oldTargetEnd, targetEnd));
 	}
 
 	/**
@@ -309,10 +299,6 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 		switch (featureID) {
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK:
 				return basicSetLink(null, msgs);
-			case GMFGenPackage.GEN_LINK_CONSTRAINTS__SOURCE_END:
-				return basicSetSourceEnd(null, msgs);
-			case GMFGenPackage.GEN_LINK_CONSTRAINTS__TARGET_END:
-				return basicSetTargetEnd(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -342,9 +328,11 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK:
 				return getLink();
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS__SOURCE_END:
-				return getSourceEnd();
+				if (resolve) return getSourceEnd();
+				return basicGetSourceEnd();
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS__TARGET_END:
-				return getTargetEnd();
+				if (resolve) return getTargetEnd();
+				return basicGetTargetEnd();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

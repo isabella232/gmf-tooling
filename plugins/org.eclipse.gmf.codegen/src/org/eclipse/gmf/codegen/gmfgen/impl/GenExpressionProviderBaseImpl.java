@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderBaseImpl.java,v 1.12 2008/04/18 14:43:22 atikhomirov Exp $
+ * $Id: GenExpressionProviderBaseImpl.java,v 1.13 2008/05/07 13:56:01 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -13,7 +13,8 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
@@ -36,7 +37,7 @@ import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
  */
 public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implements GenExpressionProviderBase {
 	/**
-	 * The cached value of the '{@link #getExpressions() <em>Expressions</em>}' reference list.
+	 * The cached value of the '{@link #getExpressions() <em>Expressions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getExpressions()
@@ -78,7 +79,7 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 */
 	public EList<ValueExpression> getExpressions() {
 		if (expressions == null) {
-			expressions = new EObjectResolvingEList<ValueExpression>(ValueExpression.class, this, GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__EXPRESSIONS);
+			expressions = new EObjectContainmentWithInverseEList<ValueExpression>(ValueExpression.class, this, GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__EXPRESSIONS, GMFGenPackage.VALUE_EXPRESSION__PROVIDER);
 		}
 		return expressions;
 	}
@@ -98,9 +99,12 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__EXPRESSIONS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getExpressions()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__CONTAINER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
@@ -117,6 +121,8 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__EXPRESSIONS:
+				return ((InternalEList<?>)getExpressions()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__CONTAINER:
 				return eBasicSetContainer(null, GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__CONTAINER, msgs);
 		}

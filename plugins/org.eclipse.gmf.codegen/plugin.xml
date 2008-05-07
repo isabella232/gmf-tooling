@@ -12,9 +12,17 @@
        class = "org.eclipse.gmf.codegen.gmfgen.GMFGenPackage"
        genModel = "models/gmfgen.genmodel" /> 
     <package 
-       uri = "http://www.eclipse.org/gmf/2006/GenModel"
+       uri = "http://www.eclipse.org/gmf/2008/GenModel"
        class = "org.eclipse.gmf.codegen.gmfgen.GMFGenPackage"
        genModel = "models/gmfgen.genmodel" />       
+  </extension>
+
+  <extension
+        point="org.eclipse.emf.ecore.dynamic_package">
+     <resource
+           location="models/gmfgen_2007.ecore"
+           uri="http://www.eclipse.org/gmf/2006/GenModel">
+     </resource>
   </extension>
 
   <extension point="org.eclipse.emf.ecore.extension_parser">

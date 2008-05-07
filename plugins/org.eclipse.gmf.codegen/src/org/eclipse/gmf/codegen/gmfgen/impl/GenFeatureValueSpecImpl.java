@@ -12,10 +12,11 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
+import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,12 +27,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenFeatureValueSpecImpl#getFeature <em>Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenFeatureValueSpecImpl#getFeatureSeqInitializer <em>Feature Seq Initializer</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenFeatureValueSpecImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenFeatureValueSpec {
+public class GenFeatureValueSpecImpl extends EObjectImpl implements GenFeatureValueSpec {
 	/**
 	 * The cached value of the '{@link #getFeature() <em>Feature</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -41,6 +43,16 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 * @ordered
 	 */
 	protected GenFeature feature;
+
+	/**
+	 * The cached value of the '{@link #getValue() <em>Value</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValue()
+	 * @generated
+	 * @ordered
+	 */
+	protected ValueExpression value;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -114,6 +126,44 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ValueExpression getValue() {
+		if (value != null && value.eIsProxy()) {
+			InternalEObject oldValue = (InternalEObject)value;
+			value = (ValueExpression)eResolveProxy(oldValue);
+			if (value != oldValue) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_FEATURE_VALUE_SPEC__VALUE, oldValue, value));
+			}
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ValueExpression basicGetValue() {
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setValue(ValueExpression newValue) {
+		ValueExpression oldValue = value;
+		value = newValue;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_FEATURE_VALUE_SPEC__VALUE, oldValue, value));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -166,6 +216,9 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 				return basicGetFeature();
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
 				return getFeatureSeqInitializer();
+			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__VALUE:
+				if (resolve) return getValue();
+				return basicGetValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -181,6 +234,9 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE:
 				setFeature((GenFeature)newValue);
 				return;
+			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__VALUE:
+				setValue((ValueExpression)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -195,6 +251,9 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE:
 				setFeature((GenFeature)null);
+				return;
+			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__VALUE:
+				setValue((ValueExpression)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -212,42 +271,10 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 				return feature != null;
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
 				return getFeatureSeqInitializer() != null;
+			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__VALUE:
+				return value != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == GenFeatureInitializer.class) {
-			switch (derivedFeatureID) {
-				case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE: return GMFGenPackage.GEN_FEATURE_INITIALIZER__FEATURE;
-				case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER: return GMFGenPackage.GEN_FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER;
-				default: return -1;
-			}
-		}
-		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == GenFeatureInitializer.class) {
-			switch (baseFeatureID) {
-				case GMFGenPackage.GEN_FEATURE_INITIALIZER__FEATURE: return GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE;
-				case GMFGenPackage.GEN_FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER: return GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER;
-				default: return -1;
-			}
-		}
-		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 } //GenFeatureValueSpecImpl

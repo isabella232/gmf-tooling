@@ -65,7 +65,7 @@ public interface GenLinkConstraints extends EObject {
 	void setLink(GenLink value);
 
 	/**
-	 * Returns the value of the '<em><b>Source End</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Source End</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Source End</em>' reference isn't clear,
@@ -75,28 +75,27 @@ public interface GenLinkConstraints extends EObject {
 	 * <!-- begin-model-doc -->
 	 * Restriction enforced by the the source end, may reference variables 'oppositeEnd' pointing to targetEnd and 'link' denoting the link domainmetaElement instance if available.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Source End</em>' containment reference.
+	 * @return the value of the '<em>Source End</em>' reference.
 	 * @see #setSourceEnd(GenConstraint)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLinkConstraints_SourceEnd()
-	 * @model containment="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='getSourceEndContextClass().ecoreClass'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='getSourceEndContextClass().ecoreClass'"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='variable' name='oppositeEnd' type.ocl='getTargetEndContextClass().ecoreClass'"
 	 * @generated
 	 */
 	GenConstraint getSourceEnd();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getSourceEnd <em>Source End</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getSourceEnd <em>Source End</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Source End</em>' containment reference.
+	 * @param value the new value of the '<em>Source End</em>' reference.
 	 * @see #getSourceEnd()
 	 * @generated
 	 */
 	void setSourceEnd(GenConstraint value);
 
 	/**
-	 * Returns the value of the '<em><b>Target End</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Target End</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Target End</em>' reference isn't clear,
@@ -106,21 +105,20 @@ public interface GenLinkConstraints extends EObject {
 	 * <!-- begin-model-doc -->
 	 * Restriction enforced by the the target end, may reference variables 'oppositeEnd' pointing to sourceEnd and 'link' denoting the link domainmetaElement instance if available.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Target End</em>' containment reference.
+	 * @return the value of the '<em>Target End</em>' reference.
 	 * @see #setTargetEnd(GenConstraint)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLinkConstraints_TargetEnd()
-	 * @model containment="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='getTargetEndContextClass().ecoreClass'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='getTargetEndContextClass().ecoreClass'"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='variable' name='oppositeEnd' type.ocl='getSourceEndContextClass().ecoreClass'"
 	 * @generated
 	 */
 	GenConstraint getTargetEnd();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getTargetEnd <em>Target End</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getTargetEnd <em>Target End</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target End</em>' containment reference.
+	 * @param value the new value of the '<em>Target End</em>' reference.
 	 * @see #getTargetEnd()
 	 * @generated
 	 */

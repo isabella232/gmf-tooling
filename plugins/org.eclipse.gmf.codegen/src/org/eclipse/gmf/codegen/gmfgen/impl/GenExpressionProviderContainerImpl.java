@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderContainerImpl.java,v 1.8 2008/05/05 21:06:41 atikhomirov Exp $
+ * $Id: GenExpressionProviderContainerImpl.java,v 1.9 2008/05/07 13:56:01 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -21,7 +21,6 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
-import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -199,29 +198,6 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	public GenEditorGenerator getEditorGen() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN) return null;
 		return (GenEditorGenerator)eContainer();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public GenExpressionProviderBase getProvider(ValueExpression expression) {
-		for (GenExpressionProviderBase nextProvider : getProviders()) {
-			if(nextProvider.getExpressions().contains(expression)) {
-				return nextProvider;
-			}
-		}
-		// Note: lookup by expression language is performed in order to handle multiple
-		// copies of expression coming from single node mapping reuse as only a single instance 
-		// of ValueExpression is included in the 'expressions' feature.
-		for (GenExpressionProviderBase nextProvider : getProviders()) {
-			if(expression != null && expression.getLanguage() != null && 
-				expression.getLanguage().equals(nextProvider.getLanguage())) {
-				return nextProvider;
-			}
-		}		
-		return null;
 	}
 
 	/**

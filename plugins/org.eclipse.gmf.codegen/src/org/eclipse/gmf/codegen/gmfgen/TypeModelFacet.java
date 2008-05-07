@@ -112,26 +112,25 @@ public interface TypeModelFacet extends ModelFacet {
 	void setChildMetaFeature(GenFeature value);
 
 	/**
-	 * Returns the value of the '<em><b>Model Element Selector</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Model Element Selector</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Selection criterion for domain model elements associated with this type model facet
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Model Element Selector</em>' containment reference.
+	 * @return the value of the '<em>Model Element Selector</em>' reference.
 	 * @see #setModelElementSelector(GenConstraint)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeModelFacet_ModelElementSelector()
-	 * @model containment="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='metaClass.ecoreClass'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='metaClass.ecoreClass'"
 	 * @generated
 	 */
 	GenConstraint getModelElementSelector();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getModelElementSelector <em>Model Element Selector</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getModelElementSelector <em>Model Element Selector</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Model Element Selector</em>' containment reference.
+	 * @param value the new value of the '<em>Model Element Selector</em>' reference.
 	 * @see #getModelElementSelector()
 	 * @generated
 	 */

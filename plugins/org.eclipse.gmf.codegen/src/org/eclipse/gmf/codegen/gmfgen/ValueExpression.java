@@ -21,8 +21,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ValueExpression#getBody <em>Body</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ValueExpression#getLanguage <em>Language</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ValueExpression#getLangName <em>Lang Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ValueExpression#getProvider <em>Provider</em>}</li>
  * </ul>
  * </p>
  *
@@ -62,39 +62,6 @@ public interface ValueExpression extends EObject {
 	void setBody(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Language</b></em>' attribute.
-	 * The default value is <code>"ocl"</code>.
-	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.GenLanguage}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Language</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Specifies the language in which the expression is stated
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Language</em>' attribute.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenLanguage
-	 * @see #setLanguage(GenLanguage)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getValueExpression_Language()
-	 * @model default="ocl" required="true"
-	 * @generated
-	 */
-	GenLanguage getLanguage();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ValueExpression#getLanguage <em>Language</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Language</em>' attribute.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenLanguage
-	 * @see #getLanguage()
-	 * @generated
-	 */
-	void setLanguage(GenLanguage value);
-
-	/**
 	 * Returns the value of the '<em><b>Lang Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -111,6 +78,23 @@ public interface ValueExpression extends EObject {
 	String getLangName();
 
 	/**
+	 * Returns the value of the '<em><b>Provider</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase#getExpressions <em>Expressions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Provider</em>' container reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Provider</em>' container reference.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getValueExpression_Provider()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase#getExpressions
+	 * @model opposite="expressions" resolveProxies="false" required="true" transient="false" changeable="false"
+	 * @generated
+	 */
+	GenExpressionProviderBase getProvider();
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -120,7 +104,4 @@ public interface ValueExpression extends EObject {
 	 * @generated
 	 */
 	String getBodyString();
-
-	boolean isOCLExpression();
-		
 } // ValueExpression

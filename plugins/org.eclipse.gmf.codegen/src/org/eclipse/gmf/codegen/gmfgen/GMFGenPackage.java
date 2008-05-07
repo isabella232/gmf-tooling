@@ -44,7 +44,7 @@ public interface GMFGenPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://www.eclipse.org/gmf/2006/GenModel";
+	String eNS_URI = "http://www.eclipse.org/gmf/2008/GenModel";
 
 	/**
 	 * The package namespace name.
@@ -5576,7 +5576,7 @@ public interface GMFGenPackage extends EPackage {
 	int TYPE_MODEL_FACET__CHILD_META_FEATURE = MODEL_FACET_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Model Element Selector</b></em>' containment reference.
+	 * The feature id for the '<em><b>Model Element Selector</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5650,7 +5650,7 @@ public interface GMFGenPackage extends EPackage {
 	int TYPE_LINK_MODEL_FACET__CHILD_META_FEATURE = TYPE_MODEL_FACET__CHILD_META_FEATURE;
 
 	/**
-	 * The feature id for the '<em><b>Model Element Selector</b></em>' containment reference.
+	 * The feature id for the '<em><b>Model Element Selector</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6388,22 +6388,22 @@ public interface GMFGenPackage extends EPackage {
 	int VALUE_EXPRESSION__BODY = 0;
 
 	/**
-	 * The feature id for the '<em><b>Language</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VALUE_EXPRESSION__LANGUAGE = 1;
-
-	/**
 	 * The feature id for the '<em><b>Lang Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VALUE_EXPRESSION__LANG_NAME = 2;
+	int VALUE_EXPRESSION__LANG_NAME = 1;
+
+	/**
+	 * The feature id for the '<em><b>Provider</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VALUE_EXPRESSION__PROVIDER = 2;
 
 	/**
 	 * The number of structural features of the '<em>Value Expression</em>' class.
@@ -6434,15 +6434,6 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_CONSTRAINT__BODY = VALUE_EXPRESSION__BODY;
 
 	/**
-	 * The feature id for the '<em><b>Language</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CONSTRAINT__LANGUAGE = VALUE_EXPRESSION__LANGUAGE;
-
-	/**
 	 * The feature id for the '<em><b>Lang Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6450,6 +6441,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_CONSTRAINT__LANG_NAME = VALUE_EXPRESSION__LANG_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Provider</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONSTRAINT__PROVIDER = VALUE_EXPRESSION__PROVIDER;
 
 	/**
 	 * The number of structural features of the '<em>Gen Constraint</em>' class.
@@ -7152,60 +7152,6 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_FEATURE_VALUE_SPEC = 77;
 
 	/**
-	 * The feature id for the '<em><b>Body</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_FEATURE_VALUE_SPEC__BODY = VALUE_EXPRESSION__BODY;
-
-	/**
-	 * The feature id for the '<em><b>Language</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_FEATURE_VALUE_SPEC__LANGUAGE = VALUE_EXPRESSION__LANGUAGE;
-
-	/**
-	 * The feature id for the '<em><b>Lang Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_FEATURE_VALUE_SPEC__LANG_NAME = VALUE_EXPRESSION__LANG_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Feature</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_FEATURE_VALUE_SPEC__FEATURE = VALUE_EXPRESSION_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Feature Seq Initializer</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER = VALUE_EXPRESSION_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Gen Feature Value Spec</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_FEATURE_VALUE_SPEC_FEATURE_COUNT = VALUE_EXPRESSION_FEATURE_COUNT + 2;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer <em>Gen Feature Initializer</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7241,6 +7187,42 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_FEATURE_INITIALIZER_FEATURE_COUNT = 2;
+
+	/**
+	 * The feature id for the '<em><b>Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_FEATURE_VALUE_SPEC__FEATURE = GEN_FEATURE_INITIALIZER__FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Feature Seq Initializer</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER = GEN_FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_FEATURE_VALUE_SPEC__VALUE = GEN_FEATURE_INITIALIZER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Gen Feature Value Spec</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_FEATURE_VALUE_SPEC_FEATURE_COUNT = GEN_FEATURE_INITIALIZER_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenReferenceNewElementSpecImpl <em>Gen Reference New Element Spec</em>}' class.
@@ -7308,7 +7290,7 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_LINK_CONSTRAINTS__LINK = 0;
 
 	/**
-	 * The feature id for the '<em><b>Source End</b></em>' containment reference.
+	 * The feature id for the '<em><b>Source End</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7317,7 +7299,7 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_LINK_CONSTRAINTS__SOURCE_END = 1;
 
 	/**
-	 * The feature id for the '<em><b>Target End</b></em>' containment reference.
+	 * The feature id for the '<em><b>Target End</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7546,7 +7528,7 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_AUDIT_RULE__ID = GEN_RULE_BASE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Rule</b></em>' containment reference.
+	 * The feature id for the '<em><b>Rule</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7896,7 +7878,7 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_METRIC_RULE__KEY = GEN_RULE_BASE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Rule</b></em>' containment reference.
+	 * The feature id for the '<em><b>Rule</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8135,7 +8117,7 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EXPRESSION_PROVIDER_BASE = 97;
 
 	/**
-	 * The feature id for the '<em><b>Expressions</b></em>' reference list.
+	 * The feature id for the '<em><b>Expressions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8172,7 +8154,7 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_JAVA_EXPRESSION_PROVIDER = 98;
 
 	/**
-	 * The feature id for the '<em><b>Expressions</b></em>' reference list.
+	 * The feature id for the '<em><b>Expressions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8227,7 +8209,7 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EXPRESSION_INTERPRETER = 99;
 
 	/**
-	 * The feature id for the '<em><b>Expressions</b></em>' reference list.
+	 * The feature id for the '<em><b>Expressions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12714,10 +12696,10 @@ public interface GMFGenPackage extends EPackage {
 	EReference getTypeModelFacet_ChildMetaFeature();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getModelElementSelector <em>Model Element Selector</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getModelElementSelector <em>Model Element Selector</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Model Element Selector</em>'.
+	 * @return the meta object for the reference '<em>Model Element Selector</em>'.
 	 * @see org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getModelElementSelector()
 	 * @see #getTypeModelFacet()
 	 * @generated
@@ -13259,17 +13241,6 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getValueExpression_Body();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ValueExpression#getLanguage <em>Language</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Language</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.ValueExpression#getLanguage()
-	 * @see #getValueExpression()
-	 * @generated
-	 */
-	EAttribute getValueExpression_Language();
-
-	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ValueExpression#getLangName <em>Lang Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -13279,6 +13250,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getValueExpression_LangName();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.ValueExpression#getProvider <em>Provider</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Provider</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ValueExpression#getProvider()
+	 * @see #getValueExpression()
+	 * @generated
+	 */
+	EReference getValueExpression_Provider();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenConstraint <em>Gen Constraint</em>}'.
@@ -13698,6 +13680,17 @@ public interface GMFGenPackage extends EPackage {
 	EClass getGenFeatureValueSpec();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Value</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec#getValue()
+	 * @see #getGenFeatureValueSpec()
+	 * @generated
+	 */
+	EReference getGenFeatureValueSpec_Value();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec <em>Gen Reference New Element Spec</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -13772,10 +13765,10 @@ public interface GMFGenPackage extends EPackage {
 	EReference getGenLinkConstraints_Link();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getSourceEnd <em>Source End</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getSourceEnd <em>Source End</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Source End</em>'.
+	 * @return the meta object for the reference '<em>Source End</em>'.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getSourceEnd()
 	 * @see #getGenLinkConstraints()
 	 * @generated
@@ -13783,10 +13776,10 @@ public interface GMFGenPackage extends EPackage {
 	EReference getGenLinkConstraints_SourceEnd();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getTargetEnd <em>Target End</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getTargetEnd <em>Target End</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Target End</em>'.
+	 * @return the meta object for the reference '<em>Target End</em>'.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getTargetEnd()
 	 * @see #getGenLinkConstraints()
 	 * @generated
@@ -13988,10 +13981,10 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getGenAuditRule_Id();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getRule <em>Rule</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getRule <em>Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Rule</em>'.
+	 * @return the meta object for the reference '<em>Rule</em>'.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getRule()
 	 * @see #getGenAuditRule()
 	 * @generated
@@ -14223,10 +14216,10 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getGenMetricRule_Key();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getRule <em>Rule</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getRule <em>Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Rule</em>'.
+	 * @return the meta object for the reference '<em>Rule</em>'.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getRule()
 	 * @see #getGenMetricRule()
 	 * @generated
@@ -14459,10 +14452,10 @@ public interface GMFGenPackage extends EPackage {
 	EClass getGenExpressionProviderBase();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase#getExpressions <em>Expressions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase#getExpressions <em>Expressions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Expressions</em>'.
+	 * @return the meta object for the containment reference list '<em>Expressions</em>'.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase#getExpressions()
 	 * @see #getGenExpressionProviderBase()
 	 * @generated

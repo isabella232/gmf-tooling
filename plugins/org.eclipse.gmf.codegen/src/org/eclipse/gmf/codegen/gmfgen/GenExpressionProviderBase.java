@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderBase.java,v 1.12 2008/04/18 14:43:20 atikhomirov Exp $
+ * $Id: GenExpressionProviderBase.java,v 1.13 2008/05/07 13:56:01 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
@@ -40,17 +40,19 @@ public interface GenExpressionProviderBase extends EObject {
 	GenLanguage getLanguage();
 
 	/**
-	 * Returns the value of the '<em><b>Expressions</b></em>' reference list.
+	 * Returns the value of the '<em><b>Expressions</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.ValueExpression}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.ValueExpression#getProvider <em>Provider</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Expressions</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Expressions</em>' reference list.
+	 * @return the value of the '<em>Expressions</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenExpressionProviderBase_Expressions()
-	 * @model
+	 * @see org.eclipse.gmf.codegen.gmfgen.ValueExpression#getProvider
+	 * @model opposite="provider" containment="true" required="true"
 	 * @generated
 	 */
 	EList<ValueExpression> getExpressions();

@@ -10,7 +10,7 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-import "http://www.eclipse.org/gmf/2006/GenModel";
+import "http://www.eclipse.org/gmf/2008/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
 import "http://www.eclipse.org/emf/2002/GenModel";
 
@@ -21,21 +21,31 @@ boolean expressionResultNeedsCast(GenClass c) : false ;
 boolean expressionResultNeedsCast(GenDataType c) : isNumberObject(c) || isPrimitiveNumberType(c) ;
 boolean expressionResultNeedsCast(GenEnum c) : true ;
 
-String javaMethodName(GenCommonBase diagramElement, GenFeatureValueSpec valueSpec) :
-	"value_" + diagramElement.getClassNamePrefix() + "_" + valueSpec.featureSeqInitializer.elementClass.ecoreClass.name + "_" + valueSpec.feature.ecoreFeature.name
+String javaMethodName(GenFeatureValueSpec valueSpec) :
+	"value_" + valueSpec.feature.ecoreFeature.name
 ;
 
-/*
-	XXX instead of all these recursion may write javaInitializers template the same way performInit
-	is written, i.e. re-dispatch from GenReferenceNewElementSpec
- */
-List[GenFeatureValueSpec] getFeatureInitializers(GenFeatureSeqInitializer si, GenJavaExpressionProvider jp) :
-	recurseCollectValueExpr(si).intersect(jp.expressions)
+List[GenFeatureValueSpec] getJavaValueSpecs(GenDiagram gd) :
+	getJavaValueSpecs(allTypeModelFacets(gd), gd.editorGen.expressionProviders)
 ;
 
-private List[ValueExpression] recurseCollectValueExpr(GenFeatureSeqInitializer si) :
+// privates
+
+private List[TypeModelFacet] allTypeModelFacets(GenDiagram gd) :
+	gd.topLevelNodes.modelFacet.union(gd.childNodes.modelFacet).union(gd.links.modelFacet).typeSelect(TypeModelFacet)
+;
+
+private List[GenFeatureValueSpec] getJavaValueSpecs(List[TypeModelFacet] modelFacets, GenExpressionProviderContainer c) :
+	getJavaValueSpecs(modelFacets.modelElementInitializer.typeSelect(GenFeatureSeqInitializer), c.providers.typeSelect(GenJavaExpressionProvider).expressions)
+;
+
+private List[GenFeatureValueSpec] getJavaValueSpecs(List[GenFeatureSeqInitializer] elementInitializers, List[ValueExpression] allJavaExpressions) :
+	elementInitializers.recurseCollectValueSpec().select(vs | allJavaExpressions.contains(vs.value))
+;
+
+private List[GenFeatureValueSpec] recurseCollectValueSpec(GenFeatureSeqInitializer si) :
 	si.initializers.typeSelect(GenFeatureValueSpec).union(
-	si.initializers.typeSelect(GenReferenceNewElementSpec).newElementInitializers.recurseCollectValueExpr().flatten())
+	si.initializers.typeSelect(GenReferenceNewElementSpec).newElementInitializers.recurseCollectValueSpec().flatten())
 ;
 
 

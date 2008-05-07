@@ -7,10 +7,13 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
 import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.internal.common.codegen.Conversions;
@@ -23,8 +26,8 @@ import org.eclipse.gmf.internal.common.codegen.Conversions;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ValueExpressionImpl#getBody <em>Body</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ValueExpressionImpl#getLanguage <em>Language</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ValueExpressionImpl#getLangName <em>Lang Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ValueExpressionImpl#getProvider <em>Provider</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,26 +53,6 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 * @ordered
 	 */
 	protected String body = BODY_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getLanguage() <em>Language</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLanguage()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final GenLanguage LANGUAGE_EDEFAULT = GenLanguage.OCL_LITERAL;
-
-	/**
-	 * The cached value of the '{@link #getLanguage() <em>Language</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLanguage()
-	 * @generated
-	 * @ordered
-	 */
-	protected GenLanguage language = LANGUAGE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getLangName() <em>Lang Name</em>}' attribute.
@@ -99,15 +82,6 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getValueExpression();
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public boolean isOCLExpression() {
-		return GenLanguage.OCL_LITERAL.equals(getLanguage());
-	}
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -133,32 +107,21 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenLanguage getLanguage() {
-		return language;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setLanguage(GenLanguage newLanguage) {
-		GenLanguage oldLanguage = language;
-		language = newLanguage == null ? LANGUAGE_EDEFAULT : newLanguage;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.VALUE_EXPRESSION__LANGUAGE, oldLanguage, language));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String getLangName() {
-		GenLanguage langEnum = getLanguage();
+		GenLanguage langEnum = getProvider() == null ? null : getProvider().getLanguage();
 		return (langEnum != null) ? langEnum.getName() : ""; //$NON-NLS-1$
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenExpressionProviderBase getProvider() {
+		if (eContainerFeatureID != GMFGenPackage.VALUE_EXPRESSION__PROVIDER) return null;
+		return (GenExpressionProviderBase)eContainer();
 	}
 
 	/**
@@ -176,14 +139,58 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.VALUE_EXPRESSION__PROVIDER:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.VALUE_EXPRESSION__PROVIDER, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.VALUE_EXPRESSION__PROVIDER:
+				return eBasicSetContainer(null, GMFGenPackage.VALUE_EXPRESSION__PROVIDER, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFGenPackage.VALUE_EXPRESSION__PROVIDER:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__EXPRESSIONS, GenExpressionProviderBase.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.VALUE_EXPRESSION__BODY:
 				return getBody();
-			case GMFGenPackage.VALUE_EXPRESSION__LANGUAGE:
-				return getLanguage();
 			case GMFGenPackage.VALUE_EXPRESSION__LANG_NAME:
 				return getLangName();
+			case GMFGenPackage.VALUE_EXPRESSION__PROVIDER:
+				return getProvider();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -198,9 +205,6 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 		switch (featureID) {
 			case GMFGenPackage.VALUE_EXPRESSION__BODY:
 				setBody((String)newValue);
-				return;
-			case GMFGenPackage.VALUE_EXPRESSION__LANGUAGE:
-				setLanguage((GenLanguage)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -217,9 +221,6 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 			case GMFGenPackage.VALUE_EXPRESSION__BODY:
 				setBody(BODY_EDEFAULT);
 				return;
-			case GMFGenPackage.VALUE_EXPRESSION__LANGUAGE:
-				setLanguage(LANGUAGE_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -234,10 +235,10 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 		switch (featureID) {
 			case GMFGenPackage.VALUE_EXPRESSION__BODY:
 				return BODY_EDEFAULT == null ? body != null : !BODY_EDEFAULT.equals(body);
-			case GMFGenPackage.VALUE_EXPRESSION__LANGUAGE:
-				return language != LANGUAGE_EDEFAULT;
 			case GMFGenPackage.VALUE_EXPRESSION__LANG_NAME:
 				return LANG_NAME_EDEFAULT == null ? getLangName() != null : !LANG_NAME_EDEFAULT.equals(getLangName());
+			case GMFGenPackage.VALUE_EXPRESSION__PROVIDER:
+				return getProvider() != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -254,8 +255,6 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (body: ");
 		result.append(body);
-		result.append(", language: ");
-		result.append(language);
 		result.append(')');
 		return result.toString();
 	}

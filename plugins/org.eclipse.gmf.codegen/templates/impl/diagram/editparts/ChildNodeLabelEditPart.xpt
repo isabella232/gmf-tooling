@@ -11,7 +11,7 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
+«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
 
 «DEFINE contsructor FOR gmfgen::GenChildLabelNode-»
 	«EXPAND xpt::Common::generatedMemberComment»

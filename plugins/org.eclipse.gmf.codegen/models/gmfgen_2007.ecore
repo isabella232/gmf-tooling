@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="gmfgen"
-    nsURI="http://www.eclipse.org/gmf/2008/GenModel" nsPrefix="gmfgen">
+    nsURI="http://www.eclipse.org/gmf/2006/GenModel" nsPrefix="gmfgen">
   <eAnnotations source="http://www.eclipse.org/emf/2004/EmfaticAnnotationMap">
     <details key="constraints" value="http://www.eclipse.org/gmf/2005/constraints"/>
     <details key="meta" value="http://www.eclipse.org/gmf/2005/constraints/meta"/>
@@ -955,7 +955,8 @@
         <details key="description" value="'Child Meta Feature' must reference 'Meta Class' or its sub-classes"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElementSelector" eType="#//GenConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElementSelector" eType="#//GenConstraint"
+        containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Selection criterion for domain model elements associated with this type model facet"/>
       </eAnnotations>
@@ -1181,15 +1182,18 @@
         <details key="def" value="body"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="language" lowerBound="1"
+        eType="#//GenLanguage" defaultValueLiteral="ocl">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Specifies the language in which the expression is stated"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="langName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
         <details key="def" value="lang"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="provider" lowerBound="1"
-        eType="#//GenExpressionProviderBase" changeable="false" resolveProxies="false"
-        eOpposite="#//GenExpressionProviderBase/expressions"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenConstraint" eSuperTypes="#//ValueExpression">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1309,16 +1313,17 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="creatingInitializer" eType="#//GenReferenceNewElementSpec"
         changeable="false" resolveProxies="false" eOpposite="#//GenReferenceNewElementSpec/newElementInitializers"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenFeatureValueSpec" eSuperTypes="#//GenFeatureInitializer">
+  <eClassifiers xsi:type="ecore:EClass" name="GenFeatureValueSpec" eSuperTypes="#//ValueExpression #//GenFeatureInitializer">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Value specification associated with a specific feature"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="#//ValueExpression">
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
-        <details key="def" value="context"/>
-        <details key="ocl" value="featureSeqInitializer.elementClass"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+      <details key="def" value="ValueSpec"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+      <details key="def" value="type"/>
+      <details key="ocl" value="feature.ecoreFeature"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenReferenceNewElementSpec" eSuperTypes="#//GenFeatureInitializer">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
@@ -1384,7 +1389,8 @@
         <details key="documentation" value="References the owning link of this constraints"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceEnd" eType="#//GenConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceEnd" eType="#//GenConstraint"
+        containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Restriction enforced by the the source end, may reference variables 'oppositeEnd' pointing to targetEnd and 'link' denoting the link domainmetaElement instance if available."/>
       </eAnnotations>
@@ -1398,7 +1404,8 @@
         <details key="type.ocl" value="getTargetEndContextClass().ecoreClass"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="targetEnd" eType="#//GenConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetEnd" eType="#//GenConstraint"
+        containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Restriction enforced by the the target end, may reference variables 'oppositeEnd' pointing to sourceEnd and 'link' denoting the link domainmetaElement instance if available."/>
       </eAnnotations>
@@ -1485,7 +1492,8 @@
         <details key="description" value="Audit rule with the same ID already exists"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//GenConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//GenConstraint"
+        containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="A boolean type condition which if not satisfied indicates this audit rule violation. It is evaluated in the context of the target"/>
       </eAnnotations>
@@ -1616,7 +1624,8 @@
         <details key="description" value="Metric rule with the same 'key' already exists"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//ValueExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//ValueExpression"
+        containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Expression that calculates the value of this metric which is of EDataType that encapsulates java.lang.Number subclasses or their primitives"/>
       </eAnnotations>
@@ -1707,6 +1716,9 @@
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenExpressionProviderContainer">
+    <eOperations name="getProvider" eType="#//GenExpressionProviderBase">
+      <eParameters name="expression" lowerBound="1" eType="#//ValueExpression"/>
+    </eOperations>
     <eOperations name="getAbstractExpressionQualifiedClassName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="expressionsPackageName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -1719,8 +1731,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenExpressionProviderBase" abstract="true">
     <eOperations name="getLanguage" lowerBound="1" eType="#//GenLanguage"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" lowerBound="1"
-        upperBound="-1" eType="#//ValueExpression" containment="true" eOpposite="#//ValueExpression/provider"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
+        eType="#//ValueExpression"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="container" lowerBound="1"
         eType="#//GenExpressionProviderContainer" changeable="false" resolveProxies="false"
         eOpposite="#//GenExpressionProviderContainer/providers"/>
@@ -1735,7 +1747,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="injectExpressionBody" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentaion" value="When 'true', body of associated ValueExpression would get injected into Java code as-is, thus allowing to provide method implementations right within the model. Note, if body is empty, default implementation would be generated instead."/>
+        <details key="documentation" value="When 'true', body of associated ValueExpression would get injected into Java code as-is, thus allowing to provide method implementations right within the model. Note, if body is empty, default implementation would be generated instead."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

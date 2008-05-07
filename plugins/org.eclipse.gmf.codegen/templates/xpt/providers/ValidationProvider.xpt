@@ -12,7 +12,7 @@
  *                                 straightforward and simple #validate() implementation
  */
 
-«IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
+«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 
 «EXTENSION xpt::GenModelUtils»
@@ -249,7 +249,7 @@ static boolean isInDefaultEditorContext(Object object) {
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static class «getConstraintAdapterLocalClassName()» extends org.eclipse.emf.validation.AbstractModelConstraint {
 
-«IF container.getProvider(rule).getLanguage().value != GenLanguage::java.value-»
+«IF rule.provider.getLanguage().value != GenLanguage::java.value-»
 		«EXPAND xpt::Common::generatedMemberComment»
 		private «container.getAbstractExpressionQualifiedClassName()» expression;
 
@@ -257,7 +257,7 @@ static boolean isInDefaultEditorContext(Object object) {
 		«EXPAND xpt::Common::generatedMemberComment»
 		public org.eclipse.core.runtime.IStatus validate(org.eclipse.emf.validation.IValidationContext ctx) {
 			«EXPAND constraintAdapter_initContext(this) FOR target-»
-			«EXPAND constraintAdapter_validateMethod(this) FOR container.getProvider(rule)»
+			«EXPAND constraintAdapter_validateMethod(this) FOR rule.provider-»
 		}
 	}
 «ENDIF-»

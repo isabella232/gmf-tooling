@@ -69,7 +69,7 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	protected GenFeature childMetaFeature;
 
 	/**
-	 * The cached value of the '{@link #getModelElementSelector() <em>Model Element Selector</em>}' containment reference.
+	 * The cached value of the '{@link #getModelElementSelector() <em>Model Element Selector</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getModelElementSelector()
@@ -235,6 +235,14 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	 * @generated
 	 */
 	public GenConstraint getModelElementSelector() {
+		if (modelElementSelector != null && modelElementSelector.eIsProxy()) {
+			InternalEObject oldModelElementSelector = (InternalEObject)modelElementSelector;
+			modelElementSelector = (GenConstraint)eResolveProxy(oldModelElementSelector);
+			if (modelElementSelector != oldModelElementSelector) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_SELECTOR, oldModelElementSelector, modelElementSelector));
+			}
+		}
 		return modelElementSelector;
 	}
 
@@ -243,14 +251,8 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetModelElementSelector(GenConstraint newModelElementSelector, NotificationChain msgs) {
-		GenConstraint oldModelElementSelector = modelElementSelector;
-		modelElementSelector = newModelElementSelector;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_SELECTOR, oldModelElementSelector, newModelElementSelector);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public GenConstraint basicGetModelElementSelector() {
+		return modelElementSelector;
 	}
 
 	/**
@@ -259,17 +261,10 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	 * @generated
 	 */
 	public void setModelElementSelector(GenConstraint newModelElementSelector) {
-		if (newModelElementSelector != modelElementSelector) {
-			NotificationChain msgs = null;
-			if (modelElementSelector != null)
-				msgs = ((InternalEObject)modelElementSelector).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_SELECTOR, null, msgs);
-			if (newModelElementSelector != null)
-				msgs = ((InternalEObject)newModelElementSelector).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_SELECTOR, null, msgs);
-			msgs = basicSetModelElementSelector(newModelElementSelector, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_SELECTOR, newModelElementSelector, newModelElementSelector));
+		GenConstraint oldModelElementSelector = modelElementSelector;
+		modelElementSelector = newModelElementSelector;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_SELECTOR, oldModelElementSelector, modelElementSelector));
 	}
 
 	/**
@@ -332,8 +327,6 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_SELECTOR:
-				return basicSetModelElementSelector(null, msgs);
 			case GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER:
 				return basicSetModelElementInitializer(null, msgs);
 		}
@@ -358,7 +351,8 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 				if (resolve) return getChildMetaFeature();
 				return basicGetChildMetaFeature();
 			case GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_SELECTOR:
-				return getModelElementSelector();
+				if (resolve) return getModelElementSelector();
+				return basicGetModelElementSelector();
 			case GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER:
 				return getModelElementInitializer();
 		}

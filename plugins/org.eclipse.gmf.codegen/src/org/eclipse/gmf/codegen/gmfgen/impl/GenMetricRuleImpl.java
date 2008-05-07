@@ -62,7 +62,7 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 	protected String key = KEY_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getRule() <em>Rule</em>}' containment reference.
+	 * The cached value of the '{@link #getRule() <em>Rule</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getRule()
@@ -167,6 +167,14 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 	 * @generated
 	 */
 	public ValueExpression getRule() {
+		if (rule != null && rule.eIsProxy()) {
+			InternalEObject oldRule = (InternalEObject)rule;
+			rule = (ValueExpression)eResolveProxy(oldRule);
+			if (rule != oldRule) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_METRIC_RULE__RULE, oldRule, rule));
+			}
+		}
 		return rule;
 	}
 
@@ -175,14 +183,8 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetRule(ValueExpression newRule, NotificationChain msgs) {
-		ValueExpression oldRule = rule;
-		rule = newRule;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_METRIC_RULE__RULE, oldRule, newRule);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public ValueExpression basicGetRule() {
+		return rule;
 	}
 
 	/**
@@ -191,17 +193,10 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 	 * @generated
 	 */
 	public void setRule(ValueExpression newRule) {
-		if (newRule != rule) {
-			NotificationChain msgs = null;
-			if (rule != null)
-				msgs = ((InternalEObject)rule).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_METRIC_RULE__RULE, null, msgs);
-			if (newRule != null)
-				msgs = ((InternalEObject)newRule).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_METRIC_RULE__RULE, null, msgs);
-			msgs = basicSetRule(newRule, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_METRIC_RULE__RULE, newRule, newRule));
+		ValueExpression oldRule = rule;
+		rule = newRule;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_METRIC_RULE__RULE, oldRule, rule));
 	}
 
 	/**
@@ -354,8 +349,6 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_METRIC_RULE__RULE:
-				return basicSetRule(null, msgs);
 			case GMFGenPackage.GEN_METRIC_RULE__TARGET:
 				return basicSetTarget(null, msgs);
 			case GMFGenPackage.GEN_METRIC_RULE__CONTAINER:
@@ -389,7 +382,8 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 			case GMFGenPackage.GEN_METRIC_RULE__KEY:
 				return getKey();
 			case GMFGenPackage.GEN_METRIC_RULE__RULE:
-				return getRule();
+				if (resolve) return getRule();
+				return basicGetRule();
 			case GMFGenPackage.GEN_METRIC_RULE__TARGET:
 				return getTarget();
 			case GMFGenPackage.GEN_METRIC_RULE__LOW_LIMIT:

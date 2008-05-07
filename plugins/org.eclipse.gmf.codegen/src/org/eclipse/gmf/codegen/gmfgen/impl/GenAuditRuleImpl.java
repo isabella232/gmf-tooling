@@ -19,6 +19,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 
 /**
@@ -64,7 +65,7 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	protected String id = ID_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getRule() <em>Rule</em>}' containment reference.
+	 * The cached value of the '{@link #getRule() <em>Rule</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getRule()
@@ -283,6 +284,14 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	 * @generated
 	 */
 	public GenConstraint getRule() {
+		if (rule != null && rule.eIsProxy()) {
+			InternalEObject oldRule = (InternalEObject)rule;
+			rule = (GenConstraint)eResolveProxy(oldRule);
+			if (rule != oldRule) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_AUDIT_RULE__RULE, oldRule, rule));
+			}
+		}
 		return rule;
 	}
 
@@ -291,14 +300,8 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetRule(GenConstraint newRule, NotificationChain msgs) {
-		GenConstraint oldRule = rule;
-		rule = newRule;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_AUDIT_RULE__RULE, oldRule, newRule);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public GenConstraint basicGetRule() {
+		return rule;
 	}
 
 	/**
@@ -307,17 +310,10 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	 * @generated
 	 */
 	public void setRule(GenConstraint newRule) {
-		if (newRule != rule) {
-			NotificationChain msgs = null;
-			if (rule != null)
-				msgs = ((InternalEObject)rule).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_AUDIT_RULE__RULE, null, msgs);
-			if (newRule != null)
-				msgs = ((InternalEObject)newRule).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_AUDIT_RULE__RULE, null, msgs);
-			msgs = basicSetRule(newRule, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_AUDIT_RULE__RULE, newRule, newRule));
+		GenConstraint oldRule = rule;
+		rule = newRule;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_AUDIT_RULE__RULE, oldRule, rule));
 	}
 
 	/**
@@ -409,7 +405,7 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	 */	
 	public boolean isRequiresConstraintAdapter() {
 		if(getRule() != null) {
-			if(!getRule().isOCLExpression() || getTarget() instanceof GenDomainAttributeTarget) {
+			if(getRule().getProvider().getLanguage() != GenLanguage.OCL_LITERAL || getTarget() instanceof GenDomainAttributeTarget) {
 				return true;
 			} else if(getTarget() != null && getTarget().getContext() != null) {
 				return getTarget().getContext() != getTarget().getTargetClass();
@@ -508,8 +504,6 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_RULE__ROOT:
 				return eBasicSetContainer(null, GMFGenPackage.GEN_AUDIT_RULE__ROOT, msgs);
-			case GMFGenPackage.GEN_AUDIT_RULE__RULE:
-				return basicSetRule(null, msgs);
 			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
 				return basicSetTarget(null, msgs);
 			case GMFGenPackage.GEN_AUDIT_RULE__CATEGORY:
@@ -545,7 +539,8 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 			case GMFGenPackage.GEN_AUDIT_RULE__ID:
 				return getId();
 			case GMFGenPackage.GEN_AUDIT_RULE__RULE:
-				return getRule();
+				if (resolve) return getRule();
+				return basicGetRule();
 			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
 				return getTarget();
 			case GMFGenPackage.GEN_AUDIT_RULE__MESSAGE:

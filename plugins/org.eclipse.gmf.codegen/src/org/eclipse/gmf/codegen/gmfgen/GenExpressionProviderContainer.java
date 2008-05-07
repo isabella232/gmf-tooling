@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderContainer.java,v 1.9 2008/05/05 21:06:41 atikhomirov Exp $
+ * $Id: GenExpressionProviderContainer.java,v 1.10 2008/05/07 13:56:01 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
@@ -115,14 +115,6 @@ public interface GenExpressionProviderContainer extends EObject {
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model expressionRequired="true"
-	 * @generated
-	 */
-	GenExpressionProviderBase getProvider(ValueExpression expression);
 
 	/**
 	 * <!-- begin-user-doc -->

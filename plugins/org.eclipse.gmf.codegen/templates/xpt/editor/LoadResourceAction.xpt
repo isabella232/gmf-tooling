@@ -10,7 +10,7 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
+«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
 
 «DEFINE LoadResourceAction FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::copyright FOR editorGen-»
