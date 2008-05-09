@@ -212,13 +212,17 @@ public class CustomCopier extends EcoreUtil.Copier {
 			containment2AssociationCase(cc, lcTargetEnd, oldValueExpr2New, allNewProviders);
 			containment2AssociationCase(cc, auditRule, oldValueExpr2New, allNewProviders);
 			containment2AssociationCase(cc, metricRule, oldValueExpr2New, allNewProviders);
-		}
-		for (EObject vs : cc.myIgnoredFeatures.get(gfvsBody)) {
-			assert vs.eClass().getName().equals("GenFeatureValueSpec");
-			EObject newVS = cc.get(vs);
-			EObject newVE = oldValueExpr2New.get(vs);
-			if (newVE != null) {
-				newVS.eSet(newVS.eClass().getEStructuralFeature("value"), newVE);
+			for (EObject vs : cc.myIgnoredFeatures.get(gfvsBody)) {
+				assert vs.eClass().getName().equals("GenFeatureValueSpec");
+				EObject newVS = cc.get(vs);
+				EObject newVE = oldValueExpr2New.get(vs);
+				if (newVE == null) {
+					// isCopy == true, need to match by lang/body
+					newVE = matchCopyVE(vs, allNewProviders);
+				}
+				if (newVE != null) {
+					newVS.eSet(newVS.eClass().getEStructuralFeature("value"), newVE);
+				}
 			}
 		}
 		return result;
