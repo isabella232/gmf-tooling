@@ -61,6 +61,7 @@ public class GenMetricRuleItemProvider
 			super.getPropertyDescriptors(object);
 
 			addKeyPropertyDescriptor(object);
+			addRulePropertyDescriptor(object);
 			addLowLimitPropertyDescriptor(object);
 			addHighLimitPropertyDescriptor(object);
 		}
@@ -85,6 +86,28 @@ public class GenMetricRuleItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Rule feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRulePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenMetricRule_rule_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenMetricRule_rule_feature", "_UI_GenMetricRule_type"),
+				 GMFGenPackage.eINSTANCE.getGenMetricRule_Rule(),
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}
@@ -145,7 +168,6 @@ public class GenMetricRuleItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenMetricRule_Rule());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenMetricRule_Target());
 		}
 		return childrenFeatures;
@@ -206,7 +228,6 @@ public class GenMetricRuleItemProvider
 			case GMFGenPackage.GEN_METRIC_RULE__HIGH_LIMIT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case GMFGenPackage.GEN_METRIC_RULE__RULE:
 			case GMFGenPackage.GEN_METRIC_RULE__TARGET:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;

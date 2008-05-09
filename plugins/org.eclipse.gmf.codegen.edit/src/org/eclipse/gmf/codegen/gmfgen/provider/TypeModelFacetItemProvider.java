@@ -66,6 +66,7 @@ public class TypeModelFacetItemProvider
 			addMetaClassPropertyDescriptor(object);
 			addContainmentMetaFeaturePropertyDescriptor(object);
 			addChildMetaFeaturePropertyDescriptor(object);
+			addModelElementSelectorPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -137,6 +138,28 @@ public class TypeModelFacetItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Model Element Selector feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addModelElementSelectorPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_TypeModelFacet_modelElementSelector_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TypeModelFacet_modelElementSelector_feature", "_UI_TypeModelFacet_type"),
+				 GMFGenPackage.eINSTANCE.getTypeModelFacet_ModelElementSelector(),
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -148,7 +171,6 @@ public class TypeModelFacetItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getTypeModelFacet_ModelElementSelector());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getTypeModelFacet_ModelElementInitializer());
 		}
 		return childrenFeatures;
@@ -201,7 +223,6 @@ public class TypeModelFacetItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(TypeModelFacet.class)) {
-			case GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_SELECTOR:
 			case GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -219,11 +240,6 @@ public class TypeModelFacetItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getTypeModelFacet_ModelElementSelector(),
-				 GMFGenFactory.eINSTANCE.createGenConstraint()));
 
 		newChildDescriptors.add
 			(createChildParameter

@@ -62,6 +62,7 @@ public class GenAuditRuleItemProvider
 			super.getPropertyDescriptors(object);
 
 			addIdPropertyDescriptor(object);
+			addRulePropertyDescriptor(object);
 			addMessagePropertyDescriptor(object);
 			addSeverityPropertyDescriptor(object);
 			addUseInLiveModePropertyDescriptor(object);
@@ -88,6 +89,28 @@ public class GenAuditRuleItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Rule feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRulePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenAuditRule_rule_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditRule_rule_feature", "_UI_GenAuditRule_type"),
+				 GMFGenPackage.eINSTANCE.getGenAuditRule_Rule(),
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}
@@ -192,7 +215,6 @@ public class GenAuditRuleItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenAuditRule_Rule());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenAuditRule_Target());
 		}
 		return childrenFeatures;
@@ -254,7 +276,6 @@ public class GenAuditRuleItemProvider
 			case GMFGenPackage.GEN_AUDIT_RULE__USE_IN_LIVE_MODE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case GMFGenPackage.GEN_AUDIT_RULE__RULE:
 			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -272,11 +293,6 @@ public class GenAuditRuleItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenAuditRule_Rule(),
-				 GMFGenFactory.eINSTANCE.createGenConstraint()));
 
 		newChildDescriptors.add
 			(createChildParameter
