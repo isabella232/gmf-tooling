@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Eclipse.org
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -136,7 +136,7 @@ public class MigrationPatchesTest extends TestCase {
 		assertOnLoadModelMigrationDidNothing(newUri);
 	}
 
-	private static URI createURI(String testModelFileName) {
+	static URI createURI(String testModelFileName) {
 		try {
 			return Plugin.createURI("/models/migration/" + testModelFileName); //$NON-NLS-1$
 		} catch (IOException e) {
