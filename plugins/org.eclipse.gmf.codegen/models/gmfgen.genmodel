@@ -549,7 +549,7 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/metaClass"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/containmentMetaFeature"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/childMetaFeature"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/modelElementSelector"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/modelElementSelector"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/modelElementInitializer"/>
       <genOperations ecoreOperation="gmfgen.ecore#//TypeModelFacet/isPhantomElement"/>
     </genClasses>
@@ -685,8 +685,8 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenLinkConstraints">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkConstraints/link"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkConstraints/sourceEnd"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkConstraints/targetEnd"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkConstraints/sourceEnd"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkConstraints/targetEnd"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLinkConstraints/getLinkClass"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLinkConstraints/getSourceEndContextClass"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLinkConstraints/getTargetEndContextClass"/>
@@ -714,7 +714,7 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenAuditRule">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRule/root"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/id"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRule/rule"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRule/rule"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRule/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/message"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/severity"/>
@@ -746,7 +746,7 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenMetricRule">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenMetricRule/key"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMetricRule/rule"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMetricRule/rule"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMetricRule/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenMetricRule/lowLimit"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenMetricRule/highLimit"/>
