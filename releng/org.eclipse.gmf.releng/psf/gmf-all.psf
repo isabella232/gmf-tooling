@@ -14,7 +14,6 @@
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/doc/org.eclipse.gmf.doc.ui,org.eclipse.gmf.doc.ui"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.eclipse.gmf.doc-feature,org.eclipse.gmf.doc-feature"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.eclipse.gmf.tooling-feature,org.eclipse.gmf.tooling-feature"/>
-		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.eclipse.gmf.europa-feature,org.eclipse.gmf.europa-feature"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/examples/org.eclipse.gmf.examples,org.eclipse.gmf.examples"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.eclipse.gmf.examples-feature,org.eclipse.gmf.examples-feature"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.common.service,org.eclipse.gmf.examples.runtime.common.service"/>
