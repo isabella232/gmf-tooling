@@ -111,7 +111,7 @@ public class ElementInitializers {
 «IF expressionResultNeedsCast(getTypeGenClassifier(feature))-»
 		value«count» = «diagramElement.getDiagram().editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()».performCast(value«count», «EXPAND MetaModel::MetaClass FOR getTypeGenClassifier(feature)»);
 «ENDIF-»
-		«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».add(value«count»);
+		«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».add((«EXPAND MetaModel::QualifiedClassName /*XXX sorta hack, better would be MM::setFeatureValue that supports lists*/FOR getTypeGenClassifier(feature)») value«count»);
 	}
 «ELSE-»
 «IF expressionResultNeedsCast(getTypeGenClassifier(feature))»
@@ -143,6 +143,12 @@ public class ElementInitializers {
 «EXPAND xpt::expressions::getExpression::getExpression(valueExpr.value, valueExpr.featureSeqInitializer.elementClass)».evaluate(«instanceVar»)«-»
 «ENDDEFINE»
 
+«REM»
+	XXX revisit: if emf java merge doesn't support genereated NOT methods with modified
+	return type, there's no much sense to keep Object value = invokeJavaMethodWithSpecificReturnType,
+	as client won't benefit from such code (he can't modify return type and thus would get duplicated methods on regeneration)
+	However, if merge does ignore method return type when merging, allowing Object as return type may help. 
+«ENDREM»
 «DEFINE evaluateExpr(GenCommonBase diagramElement, GenFeatureValueSpec valueExpr, String instanceVar) FOR GenJavaExpressionProvider-»
 «javaMethodName(valueExpr)»(«instanceVar»)«-»
 «ENDDEFINE»
