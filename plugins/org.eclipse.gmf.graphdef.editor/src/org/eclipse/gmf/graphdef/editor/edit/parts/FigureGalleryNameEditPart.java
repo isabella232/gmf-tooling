@@ -547,4 +547,5 @@ public class FigureGalleryNameEditPart extends CompartmentEditPart implements IT
 		// Parent should assign one using setLabel() method
 		return null;
 	}
+
 }

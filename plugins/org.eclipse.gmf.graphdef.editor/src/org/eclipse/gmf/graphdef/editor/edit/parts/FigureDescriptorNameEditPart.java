@@ -547,4 +547,5 @@ public class FigureDescriptorNameEditPart extends CompartmentEditPart implements
 		// Parent should assign one using setLabel() method
 		return null;
 	}
+
 }

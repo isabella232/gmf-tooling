@@ -14,21 +14,20 @@
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/gmf/2008/Context"»
+«IMPORT "http://www.eclipse.org/gmf/2008/GmfGraph/wysiwyg"»
 
 «EXTENSION aspects::impl::diagram::editparts::Utils»
 «EXTENSION xpt::GenModelUtils»
 
-«AROUND extendsList FOR gmfgen::GenNode-»
-«IF generateSyncronizationCode(metaclass()) && isInnerClassViewmap(viewmap)»extends «getDiagram().editPartsPackageName».AbstractFigureEditPart«ELSE-»
-«targetDef.proceed()»«ENDIF-»
-«ENDAROUND»
+«AROUND extendsList FOR gmfgen::GenNode»«IF hasSynchronizers(this)»extends «getDiagram().editPartsPackageName».AbstractFigureEditPart«ELSE»«targetDef.proceed()»«ENDIF»«ENDAROUND»
 
 «AROUND additions FOR gmfgen::GenNode-»
-«IF generateSyncronizationCode(metaclass())-»
-«EXPAND additions(viewmap)-»
-«ELSE-»
-«targetDef.proceed()»
-«ENDIF-»
+	«IF hasSynchronizers(this)-»
+		«EXPAND additions(viewmap)-»
+	«ELSE-»
+		«targetDef.proceed()»
+	«ENDIF-»
 «ENDAROUND»
 
 «DEFINE additions(gmfgen::Viewmap innerViewmap) FOR gmfgen::GenNode-»
@@ -38,158 +37,29 @@
 	«EXPAND xpt::Common::generatedMemberComment»
 	private «innerViewmap.className» myFigure;
 	
-// TODO: use myFigure?
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected org.eclipse.draw2d.Figure myNodeFigure;
-	
 	«EXPAND xpt::Common::generatedMemberComment»
 	private java.util.Collection<org.eclipse.emf.common.notify.Adapter> myDomainElementAdapters = new java.util.ArrayList<org.eclipse.emf.common.notify.Adapter>();
 	
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected void removeSemanticListeners() {
-		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getModel();
-		if (view.getElement() != null) {
-			«EXPAND MetaModel::DeclareAndAssign("modelElement", "view.getElement()") FOR metaclass()»
-			modelElement.eAdapters().removeAll(myDomainElementAdapters);
-			myDomainElementAdapters.clear();
-		}
-		super.removeSemanticListeners();
-	}
+	«EXPAND getModelFigureElement-»
+	
+	«EXPAND removeSemanticListeners-»
+	
+	«EXPAND setFigure-»
 	
 	«EXPAND xpt::Common::generatedMemberComment»
 	public void activate() {
 		if (isActive()){
 			return;
 		}
-		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getModel();
-		if (view.getElement() == null) {
+		final «EXPAND MetaModel::DeclareAndAssign("modelElement", "getModelFigureElement()") FOR metaclass()»
+		if (modelElement == null) {
 			super.activate();
 			return;
 		}
-
-		final «EXPAND MetaModel::DeclareAndAssign("modelElement", "view.getElement()") FOR metaclass()»
-        «FOREACH metaclass().getAllGenFeatures() AS nextGenFeature-»
-            «IF !skip(nextGenFeature)-»
-            	«EXPAND addListener(metaclass(), nextGenFeature.ecoreFeature) FOR nextGenFeature-»
-            «ENDIF-»
-        «ENDFOREACH-»
+        «EXPAND addDomainElementAdapters FOREACH getSynchronizers(this)-»
 		modelElement.eAdapters().addAll(myDomainElementAdapters);
-        
-		final org.eclipse.gmf.runtime.notation.Bounds bounds = (org.eclipse.gmf.runtime.notation.Bounds) ((org.eclipse.gmf.runtime.notation.Node) view).getLayoutConstraint();
-		final int sizeX;
-		final int sizeY;
-		if (modelElement.getPreferredSize() != null) {
-			sizeX = getMapMode().DPtoLP(modelElement.getPreferredSize().getDx());
-			sizeY = getMapMode().DPtoLP(modelElement.getPreferredSize().getDy());
-		} else {
-			sizeX = getMapMode().DPtoLP(20);
-			sizeY = getMapMode().DPtoLP(20);
-		}
-		final int locationX;
-		final int locationY;
-		if (modelElement.getLocation() != null) {
-			locationX = getMapMode().DPtoLP(modelElement.getLocation().getX());
-			locationY = getMapMode().DPtoLP(modelElement.getLocation().getY());
-		} else {
-			locationX = bounds.getX();
-			locationY = bounds.getY();
-		}
-		if (sizeX != bounds.getWidth() || sizeY != bounds.getHeight() || locationX != bounds.getX() || locationY != bounds.getY()) {
-			try {
-				new org.eclipse.emf.workspace.AbstractEMFOperation(getEditingDomain(), "Synchronizing view size with the model", java.util.Collections.singletonMap(org.eclipse.emf.transaction.Transaction.OPTION_UNPROTECTED, Boolean.TRUE)) { //$NON-NLS-1$
-					protected org.eclipse.core.runtime.IStatus doExecute(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
-						bounds.setX(locationX);
-						bounds.setY(locationY);
-						bounds.setWidth(sizeX);
-						bounds.setHeight(sizeY);
-						return org.eclipse.core.runtime.Status.OK_STATUS;
-					}
-				}.execute(new org.eclipse.core.runtime.NullProgressMonitor(), null);
-			} catch (org.eclipse.core.commands.ExecutionException e) {
-				«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to synchronize view size with the model", e); //$NON-NLS-1$			
-			}
-		}
-		addListenerFilter("BoundsListener", new org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener() {
-			public void notifyChanged(final org.eclipse.emf.common.notify.Notification notification) {
-				try {
-					new org.eclipse.emf.workspace.AbstractEMFOperation(getEditingDomain(), "Synchronizing model size with the view", java.util.Collections.singletonMap(org.eclipse.emf.transaction.Transaction.OPTION_UNPROTECTED, Boolean.TRUE)) { //$NON-NLS-1$
-						protected org.eclipse.core.runtime.IStatus doExecute(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
-							org.eclipse.gmf.runtime.notation.Bounds bounds = (org.eclipse.gmf.runtime.notation.Bounds) notification.getNotifier();
-							org.eclipse.gmf.gmfgraph.Dimension dim = modelElement.getPreferredSize();
-							if (dim == null) {
-								dim = org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createDimension();
-								modelElement.setPreferredSize(dim);
-							}
-							org.eclipse.gmf.gmfgraph.Point location = modelElement.getLocation();
-							if (location == null) {
-								location = org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createPoint();
-								modelElement.setLocation(location);
-							}
-				
-							int x = getMapMode().LPtoDP(bounds.getX());
-							int y = getMapMode().LPtoDP(bounds.getY());
-							int width = getMapMode().LPtoDP(bounds.getWidth());
-							int height = getMapMode().LPtoDP(bounds.getHeight());
-							if (location.getX() != x || location.getY() != y) {
-								location.setX(x);
-								location.setY(y);
-							}
-							if (dim.getDx() != width || dim.getDy() != height) {
-								dim.setDx(width);
-								dim.setDy(height);
-							}
-
-							myNodeFigure.setPreferredSize(bounds.getWidth(), bounds.getHeight());
-							myNodeFigure.setLocation(new org.eclipse.draw2d.geometry.Point(bounds.getX(), bounds.getY()));
-				
-							if (modelElement.getLayoutData() instanceof org.eclipse.gmf.gmfgraph.XYLayoutData || (modelElement.eContainer() instanceof org.eclipse.gmf.gmfgraph.Layoutable && ((org.eclipse.gmf.gmfgraph.Layoutable)modelElement.eContainer()).getLayout() instanceof org.eclipse.gmf.gmfgraph.XYLayout)) {
-								org.eclipse.gmf.gmfgraph.XYLayoutData xyLayoutData = (org.eclipse.gmf.gmfgraph.XYLayoutData) modelElement.getLayoutData();
-								if (xyLayoutData == null) {
-									xyLayoutData = org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createXYLayoutData();
-									modelElement.setLayoutData(xyLayoutData);
-									xyLayoutData.setTopLeft(org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createPoint());
-									xyLayoutData.getTopLeft().setX(0);
-									xyLayoutData.getTopLeft().setY(0);
-									xyLayoutData.setSize(org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createDimension());
-									xyLayoutData.getSize().setDx(40);
-									xyLayoutData.getSize().setDy(40);
-								}
-								org.eclipse.gmf.gmfgraph.Point topLeft;
-								if (xyLayoutData.getTopLeft() != null) {
-									topLeft = xyLayoutData.getTopLeft();
-								} else {
-									topLeft = org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createPoint();
-									xyLayoutData.setTopLeft(topLeft);
-								}
-								if (topLeft.getX() != location.getX() || topLeft.getY() != location.getY()) {
-									topLeft.setX(location.getX());
-									topLeft.setY(location.getY());
-								}
-
-								org.eclipse.gmf.gmfgraph.Dimension size;
-								if (xyLayoutData.getSize() != null) {
-									size = xyLayoutData.getSize();
-								} else {
-									size = org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createDimension();
-									xyLayoutData.setSize(size);
-								}
-								if (size.getDx() != dim.getDx() || size.getDy() != dim.getDy()) {
-									size.setDx(dim.getDx());
-									size.setDy(dim.getDy());
-								}
-							}
-							return org.eclipse.core.runtime.Status.OK_STATUS;
-						}
-					}.execute(new org.eclipse.core.runtime.NullProgressMonitor(), null);
-				} catch (org.eclipse.core.commands.ExecutionException e) {
-					«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to synchronize model size with the view", e); //$NON-NLS-1$			
-				}
-				if (getRoot() != null) {
-					handleMajorSemanticChange();	
-				}
-			}
-		}, bounds);
 		
+		org.eclipse.gmf.runtime.notation.View view = getNotationView();
 		«EXPAND setViewColor("Background", "Fill")-»
 		«EXPAND setViewColor("Foreground", "Line")-»
 
@@ -198,27 +68,10 @@
 		
 		super.activate();
 	}
+	«IF hasBoundsSynchronizer(this)-»
 	
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected org.eclipse.draw2d.LayoutManager getFigureLayoutManager() {
-		return myFigure.getLayoutManager();
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected void setFigureLayoutManager(org.eclipse.draw2d.LayoutManager layoutManager) {
-		myFigure.setLayoutManager(layoutManager);
-	}
-	
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected void refreshBounds() {
-		if (((org.eclipse.gmf.runtime.notation.View) getParent().getModel()).getElement() instanceof org.eclipse.gmf.gmfgraph.AbstractFigure) {
-			int width = ((Integer) getStructuralFeatureValue(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width())).intValue();
-			int height = ((Integer) getStructuralFeatureValue(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height())).intValue();
-			myNodeFigure.setPreferredSize(new org.eclipse.draw2d.geometry.Dimension(width, height));
-		} else {
-			super.refreshBounds();
-		}
-	}
+		«EXPAND refreshBounds-»
+	«ENDIF-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
     public static int getRgbColor(org.eclipse.gmf.gmfgraph.ConstantColor modelColor) {
@@ -291,30 +144,130 @@
     }	
 «ENDDEFINE»
 
-«DEFINE addListener(genmodel::GenClass modelElementEClass, ecore::EReference ecoreFeature) FOR genmodel::GenFeature-»
-	myDomainElementAdapters.add(new org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter(«EXPAND MetaModel::MetaFeature», new org.eclipse.emf.common.notify.impl.AdapterImpl() {
-		public void notifyChanged(org.eclipse.emf.common.notify.Notification msg) {
-			if (msg.isTouch()) {
+«DEFINE getModelFigureElement FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private «EXPAND MetaModel::QualifiedClassName FOR metaclass()» getModelFigureElement() {
+		org.eclipse.gmf.gmfgraph.Shape shape = getShape();
+		if («EXPAND MetaModel::IsInstance("shape") FOR metaclass()») {
+			«EXPAND MetaModel::DeclareAndAssign("modelFigureElement", "shape") FOR metaclass()»
+			return modelFigureElement;
+		}
+		return null;
+	}
+«ENDDEFINE»
+
+«DEFINE removeSemanticListeners FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void removeSemanticListeners() {
+		«EXPAND MetaModel::DeclareAndAssign("modelElement", "getModelFigureElement()") FOR metaclass()»
+		if (modelElement != null) {
+			modelElement.eAdapters().removeAll(myDomainElementAdapters);
+			myDomainElementAdapters.clear();
+		}
+		super.removeSemanticListeners();
+	}
+«ENDDEFINE»
+
+«DEFINE setFigure FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void setFigure(org.eclipse.draw2d.IFigure figure) {
+		super.setFigure(figure);
+		«EXPAND processChanges-»
+	}
+«ENDDEFINE»
+
+«DEFINE processChanges FOR gmfgen::GenNode-»
+	«EXPAND MetaModel::DeclareAndAssign("modelElement", "getModelFigureElement()") FOR metaclass()»
+	if (modelElement != null) {
+		«EXPAND processChanges FOREACH getSynchronizers(this)-»
+	}
+«ENDDEFINE»
+
+«DEFINE processChanges FOR wysiwyg::AbstractDomainSynchronizer-»
+	«ERROR "Should never be called"»
+«ENDDEFINE»
+
+«DEFINE processChanges FOR wysiwyg::MethodCallSynchronizer-»
+	«methodName»();
+«ENDDEFINE»
+
+«DEFINE processChanges FOR wysiwyg::FigurePropertySynchronizer-»
+	myFigure.«EXPAND setterName»(«IF domainValueTransformerName != null»«domainValueTransformerName»(«ENDIF»«EXPAND getModelElementProperty FOREACH contexts SEPARATOR ", "»«IF domainValueTransformerName != null»)«ENDIF»);
+«ENDDEFINE»
+
+«DEFINE getModelElementProperty FOR context::Context-»
+	«ERROR "Should never be called"»
+«ENDDEFINE»
+
+«DEFINE getModelElementProperty FOR context::FeatureContext»modelElement.«EXPAND getterName FOR selector»()«ENDDEFINE»
+
+«DEFINE setterName FOR wysiwyg::FigurePropertySynchronizer»set«figureAttribute»«ENDDEFINE»
+
+«DEFINE getterName FOR ecore::EStructuralFeature»«IF eType.name == "EBoolean"»is«ELSE»get«ENDIF»«name.toFirstUpper()»«ENDDEFINE»
+
+«REM»
+	Pull up this method to AbstractFigureEditPart?..
+«ENDREM»
+«DEFINE refreshBounds FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void refreshBounds() {
+		«EXPAND MetaModel::DeclareAndAssign("modelElement", "getModelFigureElement()") FOR metaclass()»
+		if (modelElement == null) {
+			return;
+		}
+		if (modelElement.getPreferredSize() != null) {
+			getFigure().setPreferredSize(getDraw2dDimension(modelElement.getPreferredSize()));
+		}
+		if (modelElement.getLocation() != null) {
+			getFigure().setLocation(getDraw2DPoint(modelElement.getLocation()));
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE handleNotificationEvent FOR gmfgen::GenNode-»
+	«IF hasBoundsSynchronizer(this)-»
+		«EXPAND xpt::Common::generatedMemberComment»
+		protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification notification) {
+			Object feature = notification.getFeature();
+			if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width().equals(feature)
+				|| org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height().equals(feature)
+				|| org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X().equals(feature)
+				|| org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y().equals(feature)) {
 				return;
 			}
-			«EXPAND aspects::impl::diagram::editparts::NodeEditPart::processChangesCall(modelElementEClass)-»
+			super.handleNotificationEvent(notification);
 		}
-	}));
+	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE addListener(genmodel::GenClass modelElementEClass, ecore::EAttribute ecoreFeature) FOR genmodel::GenFeature-»
-	myDomainElementAdapters.add(new org.eclipse.gmf.graphdef.editor.sheet.FeatureTracker(new org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker() {
+«DEFINE addDomainElementAdapters FOR wysiwyg::AbstractDomainSynchronizer-»
+
+	org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker «EXPAND changeTrackerVarName» = new org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker() {
 		public void modelChanged(org.eclipse.emf.common.notify.Notification msg) {
-			«EXPAND aspects::impl::diagram::editparts::NodeEditPart::processChangesCall(modelElementEClass)-»
-		    «IF isCornerWidthOrHeight(this)-»
-			    myFigure.repaint();
-		    «ENDIF-»
+			«EXPAND processChanges-»
 		}
-	}, «EXPAND MetaModel::MetaFeature»));
+	};
+	myDomainElementAdapters.add(«EXPAND attachContextListener(this) FOREACH contexts SEPARATOR "); \nmyDomainElementAdapters.add("»);
 «ENDDEFINE»
 
-«DEFINE addListener(genmodel::GenClass modelElementEClass, ecore::EStructuralFeature ecoreFeature) FOR genmodel::GenFeature-»
-	«ERROR "Should not be called"-»
+«DEFINE changeTrackerVarName FOR wysiwyg::AbstractDomainSynchronizer»
+	«ERROR "Should never be called"»
+«ENDDEFINE»
+
+«DEFINE changeTrackerVarName FOR wysiwyg::MethodCallSynchronizer»«methodName»Tracker«ENDDEFINE»
+
+«DEFINE changeTrackerVarName FOR wysiwyg::FigurePropertySynchronizer»«figureAttribute.toFirstLower()»Tracker«ENDDEFINE»
+
+«DEFINE attachContextListener(wysiwyg::AbstractDomainSynchronizer synchronizer) FOR context::Context-»
+	«ERROR "Should never be called"»
+«ENDDEFINE»
+
+«DEFINE attachContextListener(wysiwyg::AbstractDomainSynchronizer synchronizer) FOR context::FeatureContext-»
+	«IF children.size() == 0-»
+		new org.eclipse.gmf.graphdef.editor.sheet.FeatureTracker(«EXPAND changeTrackerVarName FOR synchronizer», «EXPAND accessor FOR selector»)
+	«ELSE-»
+		new org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter(«EXPAND accessor FOR selector», «EXPAND changeTrackerVarName FOR synchronizer», «EXPAND attachContextListener(synchronizer) FOREACH children SEPARATOR ", "»)
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE setViewColor(String modelColorProperty, String viewColorProperty) FOR gmfgen::GenNode-»
@@ -377,3 +330,6 @@ addListenerFilter("«viewColorProperty»StyleListener", new org.eclipse.gmf.runtim
 	}
 }, the«viewColorProperty»Style1);
 «ENDDEFINE»
+
+«REM»Temporary solution. Use MetaModel.xpt from formtk here.«ENDREM»
+«DEFINE accessor FOR ecore::EStructuralFeature»org.eclipse.gmf.gmfgraph.GMFGraphPackage.eINSTANCE.get«eContainingClass.name.toFirstUpper()»_«name.toFirstUpper()»()«ENDDEFINE»

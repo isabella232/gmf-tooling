@@ -54,6 +54,7 @@ public class ChildAccessEditPart extends ConnectionNodeEditPart {
 	 * 
 	 * @generated
 	 */
+
 	protected Connection createConnectionFigure() {
 		return new NestedFigureAccessorConnectionFigure();
 	}

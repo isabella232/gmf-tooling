@@ -54,6 +54,7 @@ public class CompartmentAccessorEditPart extends ConnectionNodeEditPart {
 	 * 
 	 * @generated
 	 */
+
 	protected Connection createConnectionFigure() {
 		return new ChildAccessConnectionFigure();
 	}

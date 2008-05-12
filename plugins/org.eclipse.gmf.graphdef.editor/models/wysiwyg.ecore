@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="wysiwyg"
+    nsURI="http://www.eclipse.org/gmf/2008/GmfGraph/wysiwyg" nsPrefix="wysiwyg">
+  <eClassifiers xsi:type="ecore:EClass" name="SynchronizerContainer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="synchronizers" upperBound="-1"
+        eType="#//AbstractDomainSynchronizer" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractDomainSynchronizer" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contexts" lowerBound="1"
+        upperBound="-1" eType="ecore:EClass ../../org.eclipse.gmf.formtk/model/context.ecore#//Context"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="genNodes" upperBound="-1"
+        eType="ecore:EClass http://www.eclipse.org/gmf/2006/GenModel#//GenNode"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MethodCallSynchronizer" eSuperTypes="#//AbstractDomainSynchronizer">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="methodName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FigurePropertySynchronizer" eSuperTypes="#//AbstractDomainSynchronizer">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="figureAttribute" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="domainValueTransformerName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

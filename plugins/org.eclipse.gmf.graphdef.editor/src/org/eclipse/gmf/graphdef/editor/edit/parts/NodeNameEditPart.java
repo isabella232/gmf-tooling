@@ -547,4 +547,5 @@ public class NodeNameEditPart extends CompartmentEditPart implements ITextAwareE
 		// Parent should assign one using setLabel() method
 		return null;
 	}
+
 }

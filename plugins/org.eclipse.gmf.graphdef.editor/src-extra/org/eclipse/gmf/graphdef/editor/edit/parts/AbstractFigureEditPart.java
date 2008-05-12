@@ -19,9 +19,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
-import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.ToolbarLayout;
-import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.DragTracker;
@@ -30,16 +28,19 @@ import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
+import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.GridLayout;
 import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.LayoutData;
-import org.eclipse.gmf.gmfgraph.Layoutable;
 import org.eclipse.gmf.gmfgraph.LineKind;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.RealFigure;
+import org.eclipse.gmf.gmfgraph.Shape;
+import org.eclipse.gmf.gmfgraph.StackLayout;
+import org.eclipse.gmf.gmfgraph.XYLayout;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
@@ -51,18 +52,19 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.swt.SWT;
 
 public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
+
 	public static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
 	public AbstractFigureEditPart(View view) {
 		super(view);
 	}
 
-	public Object getLayoutConstraint() {
-		Layoutable layoutable = (Layoutable) ((View) getModel()).getElement();
-		if (layoutable == null || layoutable.getLayoutData() == null) {
+	private Object getLayoutConstraint() {
+		Shape shape = getShape();
+		if (shape == null || shape.getLayoutData() == null) {
 			return null;
 		}
-		LayoutData layoutData = layoutable.getLayoutData();
+		LayoutData layoutData = shape.getLayoutData();
 		switch (layoutData.eClass().getClassifierID()) {
 		case GMFGraphPackage.BORDER_LAYOUT_DATA: {
 			BorderLayoutData borderLayoutData = (BorderLayoutData) layoutData;
@@ -114,10 +116,8 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 		case GMFGraphPackage.XY_LAYOUT_DATA: {
 			final XYLayoutData xyLayoutData = (XYLayoutData) layoutData;
 			Rectangle result = new Rectangle();
-			if (xyLayoutData.getTopLeft() != null) {
+			if (xyLayoutData.getTopLeft() != null && xyLayoutData.getSize() != null) {
 				result.setLocation(getMapMode().DPtoLP(xyLayoutData.getTopLeft().getX()), getMapMode().DPtoLP(xyLayoutData.getTopLeft().getY()));
-			}
-			if (xyLayoutData.getSize() != null) {
 				result.setSize(getMapMode().DPtoLP(xyLayoutData.getSize().getDx()), getMapMode().DPtoLP(xyLayoutData.getSize().getDy()));
 			}
 			return result;
@@ -144,7 +144,7 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 			if (false == layoutConstraint instanceof GridData) {
 				layoutConstraint = null;
 			}
-		} else if (layoutManager instanceof XYLayout) {
+		} else if (layoutManager instanceof org.eclipse.draw2d.XYLayout) {
 			if (false == layoutConstraint instanceof Rectangle) {
 				// TODO: put figure into special pain with unconstrained
 				// elements instead
@@ -155,93 +155,72 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	 * This method will be called then new LayoutData object was associated with
-	 * this model element.
-	 * 
-	 * All the layout constraints (LayoutData objects) are actually stored in
-	 * model, so just calling <code>handleMajorSemanticChange()</code> to
-	 * re-create this EditPart and reload all the LayoutDatas from model
-	 * 
+	 * Blocking refresh of figure if it was not finally created.
 	 */
-	protected void layoutDataChanged(LayoutData layoutData) {
-		if (isFigureRefreshAllowed()) {
-			handleMajorSemanticChange();
-		}
+	private boolean isFigureRefreshAllowed() {
+		return figure != null && figure.getParent() != null;
 	}
 
-	/**
-	 * This method will be called then layout was changed in model. The same
-	 * method will be called to initialize layout on creating figure.
-	 * 
-	 * The only one way to change layout is to change corresponding model
-	 * element now.
-	 */
-	protected void layoutChanged(Layout layout) {
-		if (layout == null) {
-			setFigureLayoutManager(null);
-			return;
+	// ModelData transformers
+	private int getDraw2dAllignment(Alignment alignment, boolean isToolbar) {
+		switch (alignment.getValue()) {
+		case Alignment.BEGINNING:
+			return isToolbar ? ToolbarLayout.ALIGN_TOPLEFT : org.eclipse.draw2d.FlowLayout.ALIGN_LEFTTOP;
+		case Alignment.END:
+			return isToolbar ? ToolbarLayout.ALIGN_BOTTOMRIGHT : org.eclipse.draw2d.FlowLayout.ALIGN_RIGHTBOTTOM;
 		}
+		return isToolbar ? ToolbarLayout.ALIGN_CENTER : org.eclipse.draw2d.FlowLayout.ALIGN_CENTER;
+	}
 
-		switch (layout.eClass().getClassifierID()) {
-		case GMFGraphPackage.BORDER_LAYOUT: {
+	private Integer getGridDataAlignment(Alignment alignment) {
+		switch (alignment.getValue()) {
+		case Alignment.BEGINNING:
+			return GridData.BEGINNING;
+		case Alignment.END:
+			return GridData.END;
+		case Alignment.CENTER:
+			return GridData.CENTER;
+		case Alignment.FILL:
+			return GridData.FILL;
+		}
+		return null;
+	}
+
+	protected LayoutManager getLayoutManager(Layout layout) {
+		if (layout instanceof BorderLayout) {
 			BorderLayout borderLayout = (BorderLayout) layout;
-			org.eclipse.draw2d.BorderLayout layoutManager;
-			if (getFigureLayoutManager() instanceof org.eclipse.draw2d.BorderLayout) {
-				layoutManager = (org.eclipse.draw2d.BorderLayout) getFigureLayoutManager();
-			} else {
-				layoutManager = new org.eclipse.draw2d.BorderLayout();
-				setFigureLayoutManager(layoutManager);
-			}
+			org.eclipse.draw2d.BorderLayout layoutManager = new org.eclipse.draw2d.BorderLayout();
 			if (borderLayout.getSpacing() != null) {
 				layoutManager.setHorizontalSpacing(getMapMode().DPtoLP(borderLayout.getSpacing().getDx()));
 				layoutManager.setVerticalSpacing(getMapMode().DPtoLP(borderLayout.getSpacing().getDy()));
 			}
-			break;
+			return layoutManager;
 		}
-		case GMFGraphPackage.CUSTOM_LAYOUT: {
-			// TODO: implement custom layout
-			break;
-		}
-		case GMFGraphPackage.FLOW_LAYOUT: {
+		
+		if (layout instanceof FlowLayout) {
 			FlowLayout flowLayout = (FlowLayout) layout;
 			if (flowLayout.isForceSingleLine()) {
-				ToolbarLayout layoutManager;
-				if (getFigureLayoutManager() instanceof ToolbarLayout) {
-					layoutManager = (ToolbarLayout) getFigureLayoutManager();
-				} else {
-					layoutManager = new ToolbarLayout();
-					setFigureLayoutManager(layoutManager);
-				}
+				ToolbarLayout layoutManager = new ToolbarLayout();
 				layoutManager.setStretchMinorAxis(flowLayout.isMatchMinorSize());
 				layoutManager.setMinorAlignment(getDraw2dAllignment(flowLayout.getMinorAlignment(), flowLayout.isForceSingleLine()));
 				layoutManager.setSpacing(flowLayout.getMajorSpacing());
 				layoutManager.setVertical(flowLayout.isVertical());
+				return layoutManager;
 			} else {
-				org.eclipse.draw2d.FlowLayout layoutManager;
-				if (getFigureLayoutManager() instanceof org.eclipse.draw2d.FlowLayout) {
-					layoutManager = (org.eclipse.draw2d.FlowLayout) getFigureLayoutManager();
-				} else {
-					layoutManager = new org.eclipse.draw2d.FlowLayout();
-					setFigureLayoutManager(layoutManager);
-				}
+				org.eclipse.draw2d.FlowLayout layoutManager = new org.eclipse.draw2d.FlowLayout();
 				layoutManager.setStretchMinorAxis(flowLayout.isMatchMinorSize());
 				layoutManager.setMinorAlignment(getDraw2dAllignment(flowLayout.getMinorAlignment(), flowLayout.isForceSingleLine()));
 				layoutManager.setMajorAlignment(getDraw2dAllignment(flowLayout.getMajorAlignment(), flowLayout.isForceSingleLine()));
 				layoutManager.setMajorSpacing(flowLayout.getMajorSpacing());
 				layoutManager.setMinorSpacing(flowLayout.getMinorSpacing());
 				layoutManager.setHorizontal(!flowLayout.isVertical());
+				return layoutManager;
 			}
-			break;
 		}
-		case GMFGraphPackage.GRID_LAYOUT: {
+		
+		if (layout instanceof GridLayout) {
 			GridLayout gridLayout = (GridLayout) layout;
-			org.eclipse.draw2d.GridLayout layoutManager;
-			if (getFigureLayoutManager() instanceof org.eclipse.draw2d.GridLayout) {
-				layoutManager = (org.eclipse.draw2d.GridLayout) getFigureLayoutManager();
-			} else {
-				layoutManager = new org.eclipse.draw2d.GridLayout();
-				setFigureLayoutManager(layoutManager);
-			}
+			org.eclipse.draw2d.GridLayout layoutManager = new org.eclipse.draw2d.GridLayout();
 			layoutManager.numColumns = gridLayout.getNumColumns();
 			layoutManager.makeColumnsEqualWidth = gridLayout.isEqualWidth();
 			if (gridLayout.getMargins() != null) {
@@ -260,63 +239,21 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 				layoutManager.horizontalSpacing = getMapMode().DPtoLP(defaultSpacing);
 				layoutManager.verticalSpacing = getMapMode().DPtoLP(defaultSpacing);
 			}
-			break;
+			return layoutManager;
 		}
-		case GMFGraphPackage.STACK_LAYOUT: {
-			if (false == getFigureLayoutManager() instanceof StackLayout) {
-				setFigureLayoutManager(new StackLayout());
-			}
-			break;
+		
+		if (layout instanceof StackLayout) {
+			return new org.eclipse.draw2d.StackLayout();
 		}
-		case GMFGraphPackage.XY_LAYOUT: {
-			if (false == getFigureLayoutManager() instanceof XYLayout) {
-				setFigureLayoutManager(new XYLayout());
-			}
-			break;
+		
+		if (layout instanceof XYLayout) {
+			return new org.eclipse.draw2d.XYLayout();
 		}
-		}
-		if (isFigureRefreshAllowed()) {
-			handleMajorSemanticChange();
-		}
-	}
-
-	/**
-	 * Blocking refresh of figure if it was not finally created.
-	 */
-	private boolean isFigureRefreshAllowed() {
-		return figure != null;
-	}
-
-	protected abstract LayoutManager getFigureLayoutManager();
-
-	protected abstract void setFigureLayoutManager(LayoutManager layoutManager);
-
-	// ModelData transformers
-	private int getDraw2dAllignment(Alignment alignment, boolean isToolbar) {
-		switch (alignment.getValue()) {
-		case Alignment.BEGINNING:
-			return isToolbar ? ToolbarLayout.ALIGN_TOPLEFT : org.eclipse.draw2d.FlowLayout.ALIGN_LEFTTOP;
-		case Alignment.END:
-			return isToolbar ? ToolbarLayout.ALIGN_BOTTOMRIGHT : org.eclipse.draw2d.FlowLayout.ALIGN_RIGHTBOTTOM;
-		}
-		return isToolbar ? ToolbarLayout.ALIGN_CENTER : org.eclipse.draw2d.FlowLayout.ALIGN_CENTER;
-	}
-	
-	private Integer getGridDataAlignment(Alignment alignment) {
-		switch (alignment.getValue()) {
-		case Alignment.BEGINNING:
-			return GridData.BEGINNING;
-		case Alignment.END:
-			return GridData.END;
-		case Alignment.CENTER:
-			return GridData.CENTER;
-		case Alignment.FILL:
-			return GridData.FILL;
-		}
+		
 		return null;
 	}
 
-	protected int getLineStyle(LineKind lineKind) {
+	protected static int getLineStyle(LineKind lineKind) {
 		switch (lineKind.getValue()) {
 		case LineKind.LINE_DASH: {
 			return Graphics.LINE_DASH;
@@ -339,6 +276,10 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 		}
 	}
 
+	protected org.eclipse.draw2d.geometry.Dimension getCornerDimensions(int width, int height) {
+		return new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(width), getMapMode().DPtoLP(height));
+	}
+
 	protected PointList getPointList(Collection template) {
 		PointList result = new PointList();
 		for (Iterator it = template.iterator(); it.hasNext();) {
@@ -347,11 +288,12 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 		}
 		return result;
 	}
-	
+
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		
-		// override default connection handles behavior, that could be installed by parent
+
+		// override default connection handles behavior, that could be installed
+		// by parent
 		installEditPolicy(EditPolicyRoles.CONNECTION_HANDLES_ROLE, new MyConnectionHandleEditPolicy());
 	}
 
@@ -360,7 +302,7 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 		protected List getHandleFigures() {
 			IGraphicalEditPart selectedPart = (IGraphicalEditPart) getHost();
 			List result = new ArrayList(selectedPart.getChildren().size());
-			for (int i=0; i<selectedPart.getChildren().size(); i++) {
+			for (int i = 0; i < selectedPart.getChildren().size(); i++) {
 				final EditPart next = (EditPart) selectedPart.getChildren().get(i);
 				String tooltip = EMPTY_STRING;
 				if (next instanceof AbstractFigureEditPart) {
@@ -368,15 +310,16 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 					View model = (View) nextAF.getModel();
 					RealFigure modelElement = (RealFigure) model.getElement();
 					String name = modelElement.getName();
-					tooltip = modelElement.eClass().getName()+":"+(name != null && name.length() != 0? name : String.valueOf(i+1));
+					tooltip = modelElement.eClass().getName() + ":" + (name != null && name.length() != 0 ? name : String.valueOf(i + 1));
 				}
 				result.add(new MyConnectionHandle(selectedPart, next, tooltip));
 			}
 			return result;
 		}
 	}
-	
+
 	private static class MyConnectionHandle extends ConnectionHandle {
+
 		private final MyHandleTool myTool;
 
 		public MyConnectionHandle(IGraphicalEditPart ownerEditPart, EditPart nextChild, String tooltip) {
@@ -390,7 +333,9 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 	}
 
 	private static class MyHandleTool extends AbstractTool implements DragTracker {
+
 		private final EditPart myTarget;
+
 		private final String myCommandName;
 
 		public MyHandleTool(EditPart target, String commandName) {
@@ -398,7 +343,7 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 			myTarget = target;
 			myCommandName = commandName;
 		}
-		
+
 		protected boolean handleButtonUp(int button) {
 			myTarget.getViewer().select(myTarget);
 			return true;
@@ -407,5 +352,31 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 		protected String getCommandName() {
 			return myCommandName;
 		}
+	}
+
+	protected org.eclipse.draw2d.geometry.Dimension getDraw2dDimension(Dimension dimension) {
+		return new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(dimension.getDx()), getMapMode().DPtoLP(dimension.getDy()));
+	}
+
+	protected org.eclipse.draw2d.geometry.Point getDraw2DPoint(Point point) {
+		return new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(point.getX()), getMapMode().DPtoLP(point.getY()));
+	}
+
+	protected void refreshLayoutData() {
+		if (!isFigureRefreshAllowed()) {
+			return;
+		}
+		Object layoutConstraint = getLayoutConstraint();
+		if (layoutConstraint != null) {
+			getFigure().getParent().setConstraint(getFigure(), layoutConstraint);
+		}
+	}
+
+	protected Shape getShape() {
+		View view = getNotationView();
+		if (view != null && view.getElement() instanceof Shape) {
+			return (Shape) view.getElement();
+		}
+		return null;
 	}
 }

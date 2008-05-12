@@ -547,4 +547,5 @@ public class ConnectionNameEditPart extends CompartmentEditPart implements IText
 		// Parent should assign one using setLabel() method
 		return null;
 	}
+
 }

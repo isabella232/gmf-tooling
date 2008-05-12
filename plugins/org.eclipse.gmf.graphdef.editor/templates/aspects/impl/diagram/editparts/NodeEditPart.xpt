@@ -14,126 +14,45 @@
 «IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/gmf/2008/GmfGraph/wysiwyg"»
 
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION aspects::impl::diagram::editparts::Utils»
 «EXTENSION xpt::diagram::editparts::Utils»
 
 «AROUND createLayoutEditPolicyBody FOR gmfgen::GenNode-»
-«IF generateSyncronizationCode(metaclass())-»
-	«IF gmfgen::ViewmapLayoutType::XY_LAYOUT.value == getLayoutType().value-»
-	org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy lep =
-			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy() {
-
-		protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-			«IF hasBorderItems()-»
-			if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
-				return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
-			}
-			«ENDIF-»
-			org.eclipse.gef.EditPolicy result = super.createChildEditPolicy(child);
-			if (result == null) {
-				return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy();
-			}
-			return result;
-		}
-        «EXPAND overrideGetLayoutOrigin(viewmap)-»
-        «EXPAND overrideGetCurrentConstraintFor(viewmap)-»
-        
-	};
-	return lep;
-	«ELSEIF gmfgen::ViewmapLayoutType::TOOLBAR_LAYOUT.value == getLayoutType().value»
-	org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy lep =
-			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy() {
-
-		protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-			«IF hasBorderItems()-»
-			if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
-				return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
-			}
-			«ENDIF-»
-			if (child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE) == null) {
-				if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart) {
-					return new «getDiagram().getTextSelectionEditPolicyQualifiedClassName()»();
-				}
-			}
-			return super.createChildEditPolicy(child);
-		}
-        «EXPAND overrideGetLayoutOrigin(this.viewmap)-»
-        
-	};
-	return lep;
+	«IF hasSynchronizers(this)-»
+		return new org.eclipse.gmf.graphdef.editor.edit.polocies.DomainBasedXYLayoutEditPolicy(getMapMode());
 	«ELSE-»
-    «targetDef.proceed()»
+		«targetDef.proceed()»
 	«ENDIF-»
-«ELSE»
-«targetDef.proceed()»
-«ENDIF-»
 «ENDAROUND»
-
-«DEFINE overrideGetLayoutOrigin(gmfgen::Viewmap innerViewmap) FOR gmfgen::GenNode-»«ENDDEFINE»
-
-«DEFINE overrideGetLayoutOrigin(gmfgen::InnerClassViewmap innerViewmap) FOR gmfgen::GenNode-»
-
-protected org.eclipse.draw2d.geometry.Point getLayoutOrigin() {
-	return ((org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart)getHost()).getContentPane().getClientArea().getLocation();
-}
-«ENDDEFINE»
-
-«DEFINE overrideGetCurrentConstraintFor(gmfgen::Viewmap innerViewmap) FOR gmfgen::GenNode-»«ENDDEFINE»
-
-«DEFINE overrideGetCurrentConstraintFor(gmfgen::InnerClassViewmap innerViewmap) FOR gmfgen::GenNode-»
-
-protected org.eclipse.draw2d.geometry.Rectangle getCurrentConstraintFor(org.eclipse.gef.GraphicalEditPart child) {
-	org.eclipse.draw2d.geometry.Rectangle result = super.getCurrentConstraintFor(child);
-	if (result == null) {
-		org.eclipse.draw2d.IFigure fig = child.getFigure();
-		result = fig.getBounds().getCopy();
-	}
-	return result;
-}
-«ENDDEFINE»
 
 «AROUND createNodeShape(gmfgen::GenNode node) FOR gmfgen::InnerClassViewmap-»
-«IF generateSyncronizationCode(node.metaclass()) && isInnerClassViewmap(node.viewmap)»
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected org.eclipse.draw2d.IFigure createNodeShape() {
-		«className» figure = new «className»();
-		«IF node.childNodes.size() > 0 && node.getLayoutType().value == gmfgen::ViewmapLayoutType::XY_LAYOUT.value-»
- 		figure.setUseLocalCoordinates(true);
-		«ENDIF-»
-		«EXPAND processChanges(node)-»
- 		return primaryShape = figure;
-	}
+	«IF hasSynchronizers(node)»
+		«EXPAND xpt::Common::generatedMemberComment»
+		protected org.eclipse.draw2d.IFigure createNodeShape() {
+			«className» figure = new «className»();
+	 		figure.setUseLocalCoordinates(true);
+	 		myFigure = figure;
+ 			return primaryShape = figure;
+		}
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «className» getPrimaryShape() {
-		return («className») primaryShape;
-	}
-«ELSE»
-«targetDef.proceed()»
-«ENDIF»
+		«EXPAND xpt::Common::generatedMemberComment»
+		public «className» getPrimaryShape() {
+			return («className») primaryShape;
+		}
+	«ELSE»
+		«targetDef.proceed()»
+	«ENDIF»
 «ENDAROUND»
 
-«DEFINE processChanges(gmfgen::GenNode node) FOR gmfgen::InnerClassViewmap-»
-	myFigure = figure;
-	«EXPAND MetaModel::DeclareAndAssign("modelElement", "((org.eclipse.gmf.runtime.notation.View) getModel()).getElement()") FOR node.metaclass()»
-	if (modelElement != null) {
-	«FOREACH node.metaclass().getAllGenFeatures() AS nextGenFeature-»
-		«IF !skip(nextGenFeature)-»
-		{
-			«EXPAND processChangesCall(node.metaclass()) FOR nextGenFeature-»
-		}
-		«ENDIF-»
-	«ENDFOREACH-»
-	}
-«ENDDEFINE»
-
 «AROUND setupNodePlate FOR gmfgen::GenNode-»
-«IF generateSyncronizationCode(metaclass()) && isInnerClassViewmap(viewmap)-»
-«EXPAND setInsets-»
-myNodeFigure = result;
-«ELSE»«targetDef.proceed()-»«ENDIF-»
+	«IF hasSynchronizers(this)-»
+		«EXPAND setInsets-»
+	«ELSE»
+		«targetDef.proceed()-»
+	«ENDIF-»
 «ENDAROUND»
 
 «DEFINE setInsets FOR gmfgen::GenNode-»
@@ -145,44 +64,3 @@ org.eclipse.draw2d.LineBorder contourBorder = new org.eclipse.draw2d.LineBorder(
 org.eclipse.draw2d.MarginBorder marginBorder = new org.eclipse.draw2d.MarginBorder(5);
 org.eclipse.draw2d.CompoundBorder compoundBorder = new org.eclipse.draw2d.CompoundBorder(contourBorder, marginBorder);
 result.setBorder(compoundBorder);«ENDIF»«ENDDEFINE»
-
-«DEFINE processChangesCall(genmodel::GenClass modelElementEClass) FOR genmodel::GenFeature-»
-«EXPAND accessorCall»(«EXPAND transform(modelElementEClass)»);
-«ENDDEFINE»
-
-«DEFINE accessorCall FOR genmodel::GenFeature-»
-«LET ecoreFeature.name AS featureName-»
-«IF "xorFill" == featureName-»
-myFigure.setFillXOR«ELSEIF "xorOutline" == featureName-»
-myFigure.setOutlineXOR«ELSEIF "lineKind" == featureName-»
-myFigure.setLineStyle«ELSEIF "cornerWidth" == featureName || "cornerHeight" == featureName-»
-myFigure.setCornerDimensions«ELSEIF "template" == featureName-»
-myFigure.setPoints«ELSE-»
-«EXPAND typedAccessorCall(this) FOR ecoreFeature.eType-»
-«ENDIF-»
-«ENDLET-»
-«ENDDEFINE»
-
-«DEFINE transform(genmodel::GenClass modelElementEClass) FOR genmodel::GenFeature-»
-«LET ecoreFeature.name AS featureName-»
-«IF "cornerWidth" == featureName || "cornerHeight" == featureName-»
-new org.eclipse.draw2d.geometry.Dimension(«ELSEIF "lineKind" == featureName-»
-getLineStyle(«ELSEIF "template" == featureName-»
-getPointList(«ENDIF-»
-«EXPAND getValue(modelElementEClass)-»
-«IF "cornerWidth" == featureName || "cornerHeight" == featureName || "lineKind" == featureName || "template" == featureName»)«ENDIF-»
-«ENDLET-»
-«ENDDEFINE»
-
-«DEFINE typedAccessorCall(genmodel::GenFeature genFeature) FOR ecore::EDataType-»
-myFigure.set«genFeature.ecoreFeature.name.toFirstUpper()»«ENDDEFINE»
-
-«DEFINE typedAccessorCall(genmodel::GenFeature genFeature) FOR ecore::EClassifier-»
-«genFeature.ecoreFeature.name»Changed«ENDDEFINE»
-
-«DEFINE getValue(genmodel::GenClass modelElementEClass) FOR genmodel::GenFeature-»
-«IF isCornerWidthOrHeight(this)-»
-getMapMode().DPtoLP(modelElement.getCornerWidth()), getMapMode().DPtoLP(modelElement.getCornerHeight())«ELSE-»
-«EXPAND MetaModel::getFeatureValue("modelElement", modelElementEClass)-»
-«ENDIF-»
-«ENDDEFINE»

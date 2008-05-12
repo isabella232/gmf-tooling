@@ -855,6 +855,10 @@
             location="models/propsheet.ecore"
             uri="http://www.eclipse.org/gmf/2008/GmfGraph/PropSheet">
       </resource>
+      <resource
+            location="models/wysiwyg.ecore"
+            uri="http://www.eclipse.org/gmf/2008/GmfGraph/wysiwyg">
+      </resource>
    </extension>
 
 </plugin>

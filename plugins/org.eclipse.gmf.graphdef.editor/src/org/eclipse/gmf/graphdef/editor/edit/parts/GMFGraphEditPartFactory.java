@@ -198,7 +198,6 @@ public class GMFGraphEditPartFactory implements EditPartFactory {
 				text.setBounds(rect.x, rect.y, rect.width, rect.height);
 			}
 		}
-
 	}
 
 	/**

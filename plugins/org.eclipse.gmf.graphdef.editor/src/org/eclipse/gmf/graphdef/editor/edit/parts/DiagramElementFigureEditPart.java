@@ -54,6 +54,7 @@ public class DiagramElementFigureEditPart extends ConnectionNodeEditPart {
 	 * 
 	 * @generated
 	 */
+
 	protected Connection createConnectionFigure() {
 		return new FigureConnectionFigure();
 	}

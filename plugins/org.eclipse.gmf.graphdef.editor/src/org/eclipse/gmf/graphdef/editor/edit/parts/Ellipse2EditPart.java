@@ -20,51 +20,39 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.XYLayout;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.transaction.Transaction;
 import org.eclipse.emf.workspace.AbstractEMFOperation;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
-import org.eclipse.gmf.gmfgraph.AbstractFigure;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
-import org.eclipse.gmf.gmfgraph.Dimension;
-import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.gmfgraph.Layoutable;
 import org.eclipse.gmf.gmfgraph.RGBColor;
-import org.eclipse.gmf.gmfgraph.XYLayoutData;
+import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.graphdef.editor.edit.policies.Ellipse2CanonicalEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.Ellipse2ItemSemanticEditPolicy;
+import org.eclipse.gmf.graphdef.editor.edit.polocies.DomainBasedXYLayoutEditPolicy;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 import org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter;
 import org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker;
 import org.eclipse.gmf.graphdef.editor.sheet.FeatureTracker;
 import org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-import org.eclipse.gmf.runtime.notation.Bounds;
 import org.eclipse.gmf.runtime.notation.FillStyle;
 import org.eclipse.gmf.runtime.notation.LineStyle;
-import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -113,31 +101,7 @@ public class Ellipse2EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		XYLayoutEditPolicy lep = new XYLayoutEditPolicy() {
-
-			protected EditPolicy createChildEditPolicy(EditPart child) {
-				EditPolicy result = super.createChildEditPolicy(child);
-				if (result == null) {
-					return new ResizableShapeEditPolicy();
-				}
-				return result;
-			}
-
-			protected Point getLayoutOrigin() {
-				return ((GraphicalEditPart) getHost()).getContentPane().getClientArea().getLocation();
-			}
-
-			protected Rectangle getCurrentConstraintFor(org.eclipse.gef.GraphicalEditPart child) {
-				Rectangle result = super.getCurrentConstraintFor(child);
-				if (result == null) {
-					IFigure fig = child.getFigure();
-					result = fig.getBounds().getCopy();
-				}
-				return result;
-			}
-
-		};
-		return lep;
+		return new DomainBasedXYLayoutEditPolicy(getMapMode());
 	}
 
 	/**
@@ -147,33 +111,6 @@ public class Ellipse2EditPart extends AbstractFigureEditPart {
 		EllipseFigure figure = new EllipseFigure();
 		figure.setUseLocalCoordinates(true);
 		myFigure = figure;
-		Ellipse modelElement = (Ellipse) ((View) getModel()).getElement();
-		if (modelElement != null) {
-			{
-				layoutDataChanged(modelElement.getLayoutData());
-			}
-			{
-				layoutChanged(modelElement.getLayout());
-			}
-			{
-				myFigure.setOutline(modelElement.isOutline());
-			}
-			{
-				myFigure.setFill(modelElement.isFill());
-			}
-			{
-				myFigure.setLineWidth(modelElement.getLineWidth());
-			}
-			{
-				myFigure.setLineStyle(getLineStyle(modelElement.getLineKind()));
-			}
-			{
-				myFigure.setFillXOR(modelElement.isXorFill());
-			}
-			{
-				myFigure.setOutlineXOR(modelElement.isXorOutline());
-			}
-		}
 		return primaryShape = figure;
 	}
 
@@ -189,7 +126,6 @@ public class Ellipse2EditPart extends AbstractFigureEditPart {
 	 */
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
-		myNodeFigure = result;
 		return result;
 	}
 
@@ -245,7 +181,7 @@ public class Ellipse2EditPart extends AbstractFigureEditPart {
 	/**
 	 * @generated
 	 */
-	public class EllipseFigure extends org.eclipse.draw2d.Ellipse {
+	public class EllipseFigure extends Ellipse {
 
 		/**
 		 * @generated
@@ -281,12 +217,6 @@ public class Ellipse2EditPart extends AbstractFigureEditPart {
 	 */
 	private EllipseFigure myFigure;
 
-	// TODO: use myFigure?
-	/**
-	 * @generated
-	 */
-	protected Figure myNodeFigure;
-
 	/**
 	 * @generated
 	 */
@@ -295,10 +225,21 @@ public class Ellipse2EditPart extends AbstractFigureEditPart {
 	/**
 	 * @generated
 	 */
+	private org.eclipse.gmf.gmfgraph.Ellipse getModelFigureElement() {
+		Shape shape = getShape();
+		if (shape instanceof org.eclipse.gmf.gmfgraph.Ellipse) {
+			org.eclipse.gmf.gmfgraph.Ellipse modelFigureElement = (org.eclipse.gmf.gmfgraph.Ellipse) shape;
+			return modelFigureElement;
+		}
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void removeSemanticListeners() {
-		View view = (View) getModel();
-		if (view.getElement() != null) {
-			Ellipse modelElement = (Ellipse) view.getElement();
+		org.eclipse.gmf.gmfgraph.Ellipse modelElement = (org.eclipse.gmf.gmfgraph.Ellipse) getModelFigureElement();
+		if (modelElement != null) {
 			modelElement.eAdapters().removeAll(myDomainElementAdapters);
 			myDomainElementAdapters.clear();
 		}
@@ -308,192 +249,101 @@ public class Ellipse2EditPart extends AbstractFigureEditPart {
 	/**
 	 * @generated
 	 */
+	protected void setFigure(IFigure figure) {
+		super.setFigure(figure);
+		org.eclipse.gmf.gmfgraph.Ellipse modelElement = (org.eclipse.gmf.gmfgraph.Ellipse) getModelFigureElement();
+		if (modelElement != null) {
+			myFigure.setOutline(modelElement.isOutline());
+			myFigure.setFill(modelElement.isFill());
+			myFigure.setLineWidth(modelElement.getLineWidth());
+			myFigure.setLineStyle(getLineStyle(modelElement.getLineKind()));
+			myFigure.setFillXOR(modelElement.isXorFill());
+			myFigure.setOutlineXOR(modelElement.isXorOutline());
+			myFigure.setLayoutManager(getLayoutManager(modelElement.getLayout()));
+		}
+	}
+
+	/**
+	 * @generated
+	 */
 	public void activate() {
 		if (isActive()) {
 			return;
 		}
-		View view = (View) getModel();
-		if (view.getElement() == null) {
+		final org.eclipse.gmf.gmfgraph.Ellipse modelElement = (org.eclipse.gmf.gmfgraph.Ellipse) getModelFigureElement();
+		if (modelElement == null) {
 			super.activate();
 			return;
 		}
 
-		final Ellipse modelElement = (Ellipse) view.getElement();
-		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(), new AdapterImpl() {
-
-			public void notifyChanged(Notification msg) {
-				if (msg.isTouch()) {
-					return;
-				}
-				layoutDataChanged(modelElement.getLayoutData());
-			}
-		}));
-		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(), new AdapterImpl() {
-
-			public void notifyChanged(Notification msg) {
-				if (msg.isTouch()) {
-					return;
-				}
-				layoutChanged(modelElement.getLayout());
-			}
-		}));
-		myDomainElementAdapters.add(new FeatureTracker(new ChangeTracker() {
+		ChangeTracker outlineTracker = new ChangeTracker() {
 
 			public void modelChanged(Notification msg) {
 				myFigure.setOutline(modelElement.isOutline());
 			}
-		}, GMFGraphPackage.eINSTANCE.getShape_Outline()));
-		myDomainElementAdapters.add(new FeatureTracker(new ChangeTracker() {
+		};
+		myDomainElementAdapters.add(new FeatureTracker(outlineTracker, GMFGraphPackage.eINSTANCE.getShape_Outline()));
+
+		ChangeTracker fillTracker = new ChangeTracker() {
 
 			public void modelChanged(Notification msg) {
 				myFigure.setFill(modelElement.isFill());
 			}
-		}, GMFGraphPackage.eINSTANCE.getShape_Fill()));
-		myDomainElementAdapters.add(new FeatureTracker(new ChangeTracker() {
+		};
+		myDomainElementAdapters.add(new FeatureTracker(fillTracker, GMFGraphPackage.eINSTANCE.getShape_Fill()));
+
+		ChangeTracker lineWidthTracker = new ChangeTracker() {
 
 			public void modelChanged(Notification msg) {
 				myFigure.setLineWidth(modelElement.getLineWidth());
 			}
-		}, GMFGraphPackage.eINSTANCE.getShape_LineWidth()));
-		myDomainElementAdapters.add(new FeatureTracker(new ChangeTracker() {
+		};
+		myDomainElementAdapters.add(new FeatureTracker(lineWidthTracker, GMFGraphPackage.eINSTANCE.getShape_LineWidth()));
+
+		ChangeTracker lineStyleTracker = new ChangeTracker() {
 
 			public void modelChanged(Notification msg) {
 				myFigure.setLineStyle(getLineStyle(modelElement.getLineKind()));
 			}
-		}, GMFGraphPackage.eINSTANCE.getShape_LineKind()));
-		myDomainElementAdapters.add(new FeatureTracker(new ChangeTracker() {
+		};
+		myDomainElementAdapters.add(new FeatureTracker(lineStyleTracker, GMFGraphPackage.eINSTANCE.getShape_LineKind()));
+
+		ChangeTracker fillXORTracker = new ChangeTracker() {
 
 			public void modelChanged(Notification msg) {
 				myFigure.setFillXOR(modelElement.isXorFill());
 			}
-		}, GMFGraphPackage.eINSTANCE.getShape_XorFill()));
-		myDomainElementAdapters.add(new FeatureTracker(new ChangeTracker() {
+		};
+		myDomainElementAdapters.add(new FeatureTracker(fillXORTracker, GMFGraphPackage.eINSTANCE.getShape_XorFill()));
+
+		ChangeTracker outlineXORTracker = new ChangeTracker() {
 
 			public void modelChanged(Notification msg) {
 				myFigure.setOutlineXOR(modelElement.isXorOutline());
 			}
-		}, GMFGraphPackage.eINSTANCE.getShape_XorOutline()));
+		};
+		myDomainElementAdapters.add(new FeatureTracker(outlineXORTracker, GMFGraphPackage.eINSTANCE.getShape_XorOutline()));
+
+		ChangeTracker layoutManagerTracker = new ChangeTracker() {
+
+			public void modelChanged(Notification msg) {
+				myFigure.setLayoutManager(getLayoutManager(modelElement.getLayout()));
+			}
+		};
+		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(), layoutManagerTracker, new AttachAdapter(GMFGraphPackage.eINSTANCE.getBorderLayout_Spacing(),
+				layoutManagerTracker, new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getDimension_Dx()), new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE
+						.getDimension_Dy())), new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getFlowLayout_Vertical()), new FeatureTracker(layoutManagerTracker,
+				GMFGraphPackage.eINSTANCE.getFlowLayout_MatchMinorSize()), new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getFlowLayout_ForceSingleLine()), new FeatureTracker(
+				layoutManagerTracker, GMFGraphPackage.eINSTANCE.getFlowLayout_MajorAlignment()), new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getFlowLayout_MinorAlignment()),
+				new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getFlowLayout_MajorSpacing()), new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE
+						.getFlowLayout_MinorSpacing()), new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getGridLayout_NumColumns()), new FeatureTracker(layoutManagerTracker,
+						GMFGraphPackage.eINSTANCE.getGridLayout_EqualWidth()), new AttachAdapter(GMFGraphPackage.eINSTANCE.getGridLayout_Margins(), layoutManagerTracker, new FeatureTracker(
+						layoutManagerTracker, GMFGraphPackage.eINSTANCE.getDimension_Dx()), new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getDimension_Dy())), new AttachAdapter(
+						GMFGraphPackage.eINSTANCE.getGridLayout_Spacing(), layoutManagerTracker, new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getDimension_Dx()),
+						new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getDimension_Dy()))));
 		modelElement.eAdapters().addAll(myDomainElementAdapters);
 
-		final Bounds bounds = (Bounds) ((Node) view).getLayoutConstraint();
-		final int sizeX;
-		final int sizeY;
-		if (modelElement.getPreferredSize() != null) {
-			sizeX = getMapMode().DPtoLP(modelElement.getPreferredSize().getDx());
-			sizeY = getMapMode().DPtoLP(modelElement.getPreferredSize().getDy());
-		} else {
-			sizeX = getMapMode().DPtoLP(20);
-			sizeY = getMapMode().DPtoLP(20);
-		}
-		final int locationX;
-		final int locationY;
-		if (modelElement.getLocation() != null) {
-			locationX = getMapMode().DPtoLP(modelElement.getLocation().getX());
-			locationY = getMapMode().DPtoLP(modelElement.getLocation().getY());
-		} else {
-			locationX = bounds.getX();
-			locationY = bounds.getY();
-		}
-		if (sizeX != bounds.getWidth() || sizeY != bounds.getHeight() || locationX != bounds.getX() || locationY != bounds.getY()) {
-			try {
-				new AbstractEMFOperation(getEditingDomain(), "Synchronizing view size with the model", Collections.singletonMap(Transaction.OPTION_UNPROTECTED, Boolean.TRUE)) { //$NON-NLS-1$
-
-					protected IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-						bounds.setX(locationX);
-						bounds.setY(locationY);
-						bounds.setWidth(sizeX);
-						bounds.setHeight(sizeY);
-						return Status.OK_STATUS;
-					}
-				}.execute(new NullProgressMonitor(), null);
-			} catch (ExecutionException e) {
-				GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to synchronize view size with the model", e); //$NON-NLS-1$			
-			}
-		}
-		addListenerFilter("BoundsListener", new NotificationListener() {
-
-			public void notifyChanged(final Notification notification) {
-				try {
-					new AbstractEMFOperation(getEditingDomain(), "Synchronizing model size with the view", Collections.singletonMap(Transaction.OPTION_UNPROTECTED, Boolean.TRUE)) { //$NON-NLS-1$
-
-						protected IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-							Bounds bounds = (Bounds) notification.getNotifier();
-							Dimension dim = modelElement.getPreferredSize();
-							if (dim == null) {
-								dim = GMFGraphFactory.eINSTANCE.createDimension();
-								modelElement.setPreferredSize(dim);
-							}
-							org.eclipse.gmf.gmfgraph.Point location = modelElement.getLocation();
-							if (location == null) {
-								location = GMFGraphFactory.eINSTANCE.createPoint();
-								modelElement.setLocation(location);
-							}
-
-							int x = getMapMode().LPtoDP(bounds.getX());
-							int y = getMapMode().LPtoDP(bounds.getY());
-							int width = getMapMode().LPtoDP(bounds.getWidth());
-							int height = getMapMode().LPtoDP(bounds.getHeight());
-							if (location.getX() != x || location.getY() != y) {
-								location.setX(x);
-								location.setY(y);
-							}
-							if (dim.getDx() != width || dim.getDy() != height) {
-								dim.setDx(width);
-								dim.setDy(height);
-							}
-
-							myNodeFigure.setPreferredSize(bounds.getWidth(), bounds.getHeight());
-							myNodeFigure.setLocation(new Point(bounds.getX(), bounds.getY()));
-
-							if (modelElement.getLayoutData() instanceof XYLayoutData
-									|| (modelElement.eContainer() instanceof Layoutable && ((Layoutable) modelElement.eContainer()).getLayout() instanceof org.eclipse.gmf.gmfgraph.XYLayout)) {
-								XYLayoutData xyLayoutData = (XYLayoutData) modelElement.getLayoutData();
-								if (xyLayoutData == null) {
-									xyLayoutData = GMFGraphFactory.eINSTANCE.createXYLayoutData();
-									modelElement.setLayoutData(xyLayoutData);
-									xyLayoutData.setTopLeft(GMFGraphFactory.eINSTANCE.createPoint());
-									xyLayoutData.getTopLeft().setX(0);
-									xyLayoutData.getTopLeft().setY(0);
-									xyLayoutData.setSize(GMFGraphFactory.eINSTANCE.createDimension());
-									xyLayoutData.getSize().setDx(40);
-									xyLayoutData.getSize().setDy(40);
-								}
-								org.eclipse.gmf.gmfgraph.Point topLeft;
-								if (xyLayoutData.getTopLeft() != null) {
-									topLeft = xyLayoutData.getTopLeft();
-								} else {
-									topLeft = GMFGraphFactory.eINSTANCE.createPoint();
-									xyLayoutData.setTopLeft(topLeft);
-								}
-								if (topLeft.getX() != location.getX() || topLeft.getY() != location.getY()) {
-									topLeft.setX(location.getX());
-									topLeft.setY(location.getY());
-								}
-
-								Dimension size;
-								if (xyLayoutData.getSize() != null) {
-									size = xyLayoutData.getSize();
-								} else {
-									size = GMFGraphFactory.eINSTANCE.createDimension();
-									xyLayoutData.setSize(size);
-								}
-								if (size.getDx() != dim.getDx() || size.getDy() != dim.getDy()) {
-									size.setDx(dim.getDx());
-									size.setDy(dim.getDy());
-								}
-							}
-							return Status.OK_STATUS;
-						}
-					}.execute(new NullProgressMonitor(), null);
-				} catch (ExecutionException e) {
-					GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to synchronize model size with the view", e); //$NON-NLS-1$			
-				}
-				if (getRoot() != null) {
-					handleMajorSemanticChange();
-				}
-			}
-		}, bounds);
-
+		View view = getNotationView();
 		final FillStyle theFillStyle = (FillStyle) view.getStyle(NotationPackage.eINSTANCE.getFillStyle());
 		if (modelElement.getBackgroundColor() != null) {
 			final int rgbColor;
@@ -613,33 +463,6 @@ public class Ellipse2EditPart extends AbstractFigureEditPart {
 		}, theLineStyle1);
 
 		super.activate();
-	}
-
-	/**
-	 * @generated
-	 */
-	protected LayoutManager getFigureLayoutManager() {
-		return myFigure.getLayoutManager();
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void setFigureLayoutManager(LayoutManager layoutManager) {
-		myFigure.setLayoutManager(layoutManager);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void refreshBounds() {
-		if (((View) getParent().getModel()).getElement() instanceof AbstractFigure) {
-			int width = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE.getSize_Width())).intValue();
-			int height = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE.getSize_Height())).intValue();
-			myNodeFigure.setPreferredSize(new org.eclipse.draw2d.geometry.Dimension(width, height));
-		} else {
-			super.refreshBounds();
-		}
 	}
 
 	/**
