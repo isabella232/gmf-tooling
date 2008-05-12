@@ -138,13 +138,6 @@
 			</fileset>
 		</unzip>
 
-		<unzip dest="${javadoc.link.location}/emf.ocl/">
-			<patternset refid="package.list"/>
-			<fileset dir="${buildDirectory}/plugins">
-				<include name="org.eclipse.emf.ocl.doc_*.jar"/>
-			</fileset>
-		</unzip>
-
 		<unzip dest="${javadoc.link.location}/ocl/">
 			<patternset refid="package.list"/>
 			<fileset dir="${buildDirectory}/plugins">
@@ -386,7 +379,6 @@
 					<link offline="true" href="/help/topic/org.eclipse.emf.transaction.doc/references/javadoc/" packagelistLoc="${javadoc.link.location}/emf.transaction/references/javadoc/"/>
 					<link offline="true" href="/help/topic/org.eclipse.emf.validation.doc/references/javadoc/" packagelistLoc="${javadoc.link.location}/emf.validation/references/javadoc/"/>
 					<link offline="true" href="/help/topic/org.eclipse.emf.workspace.doc/references/javadoc/" packagelistLoc="${javadoc.link.location}/emf.workspace/references/javadoc/"/>
-					<link offline="true" href="/help/topic/org.eclipse.emf.ocl.doc/references/javadoc/" packagelistLoc="${javadoc.link.location}/emf.ocl/references/javadoc/"/>
 					<link offline="true" href="/help/topic/org.eclipse.ocl.doc/references/javadoc/" packagelistLoc="${javadoc.link.location}/ocl/references/javadoc/"/>
 					<link offline="true" href="/help/topic/org.eclipse.platform.doc.isv/reference/api/" packagelistLoc="${javadoc.link.location}/platform/reference/api/"/>
 					<link offline="true" href="/help/topic/org.eclipse.platform.doc.isv/reference/osgi/" packagelistLoc="${javadoc.link.location}/platform/reference/osgi/"/>
