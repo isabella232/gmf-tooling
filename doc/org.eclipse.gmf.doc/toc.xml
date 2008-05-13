@@ -47,7 +47,16 @@
 	<topic label="Tutorials" href="tutorials/index.html">	
 	    <anchor id="tutorial-tooling-before" />
 	      <topic label="Tooling" href="tutorials/tooling/index.html">
-	      	<topic label="Mindmap" href="tutorials/tooling/mindmap-index.html" />
+	      	<topic href="tutorials/tooling/mindmap-index.html" label="Mindmap">
+           <topic href="tutorials/tooling/step1.html" label="Step 1">
+           </topic>
+           <topic href="tutorials/tooling/step2.html" label="Step 2">
+           </topic>
+           <topic href="tutorials/tooling/step3.html" label="Step 3">
+           </topic>
+           <topic href="tutorials/tooling/step4.html" label="Step 4">
+           </topic>
+        </topic>
 	      </topic>
 	    <anchor id="tutorial-tooling-after" />
 		<anchor id="tutorial-runtime-before" />
