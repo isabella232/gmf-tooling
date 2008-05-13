@@ -76,12 +76,12 @@ public class DomainBasedXYLayoutEditPolicy extends XYLayoutEditPolicy {
 
 	@Override
 	protected Rectangle getCurrentConstraintFor(org.eclipse.gef.GraphicalEditPart child) {
-		Rectangle result = super.getCurrentConstraintFor(child);
-		if (result == null) {
-			IFigure fig = child.getFigure();
-			result = fig.getBounds().getCopy();
+		IFigure fig = child.getFigure();
+		Object constraint = fig.getParent().getLayoutManager().getConstraint(fig);
+		if (constraint instanceof Rectangle) {
+			return (Rectangle) constraint;
 		}
-		return result;
+		return fig.getBounds().getCopy();
 	}
 
 	@Override
