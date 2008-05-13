@@ -1004,7 +1004,8 @@
     </diagram>
     <plugin
         iD="org.eclipse.gmf.graphdef.editor"
-        name="gmfgraph Plugin"
+        name="GMFGraph Editor Plugin"
+        provider="Eclipse.org"
         version="1.0.1.qualifier"/>
     <editor/>
     <navigator>
