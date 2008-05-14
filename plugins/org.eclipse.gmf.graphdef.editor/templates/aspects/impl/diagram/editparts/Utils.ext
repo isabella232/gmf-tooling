@@ -20,15 +20,15 @@ extension xpt::GenModelUtils;
 extension xpt::EMFUtils;
 
 boolean hasBoundsSynchronizer(gmfgen::GenNode genNode) :
-!getSynchronizers(genNode).typeSelect(wysiwyg::MethodCallSynchronizer).select(mcs | "refreshBounds" == mcs.methodName).isEmpty()
+!getSynchronizers(genNode).actions.typeSelect(wysiwyg::MethodCallAction).select(mc | "refreshBounds" == mc.methodName).isEmpty()
 ;
 
 boolean hasSynchronizers(gmfgen::GenNode genNode) :
 !getSynchronizers(genNode).isEmpty()
 ;
 
-List[wysiwyg::AbstractDomainSynchronizer] getSynchronizers(gmfgen::GenNode genNode) :
-getReferencingObjects(genNode).typeSelect(wysiwyg::AbstractDomainSynchronizer)
+List[wysiwyg::DomainPropertiesSynchronizer] getSynchronizers(gmfgen::GenNode genNode) :
+getReferencingObjects(genNode).typeSelect(wysiwyg::DomainPropertiesSynchronizer)
 ;
 
 cached genmodel::GenClass metaclass(gmfgen::GenNode genNode) :

@@ -189,7 +189,7 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 			}
 			return layoutManager;
 		}
-		
+
 		if (layout instanceof FlowLayout) {
 			FlowLayout flowLayout = (FlowLayout) layout;
 			if (flowLayout.isForceSingleLine()) {
@@ -210,7 +210,7 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 				return layoutManager;
 			}
 		}
-		
+
 		if (layout instanceof GridLayout) {
 			GridLayout gridLayout = (GridLayout) layout;
 			org.eclipse.draw2d.GridLayout layoutManager = new org.eclipse.draw2d.GridLayout();
@@ -234,15 +234,15 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 			}
 			return layoutManager;
 		}
-		
+
 		if (layout instanceof StackLayout) {
 			return new org.eclipse.draw2d.StackLayout();
 		}
-		
+
 		if (layout instanceof XYLayout) {
 			return new org.eclipse.draw2d.XYLayout();
 		}
-		
+
 		return null;
 	}
 
@@ -356,10 +356,27 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 	}
 
 	protected void refreshLayoutData() {
+		if (!hasParentFigure()) {
+			return;
+		}
 		Object layoutConstraint = getLayoutConstraint();
-		if (layoutConstraint != null && getFigure().getParent() != null) {
+		if (layoutConstraint != null) {
 			getFigure().getParent().setConstraint(getFigure(), layoutConstraint);
 		}
+	}
+
+	/**
+	 * Parent figure == null if this method was called from setFigure() one.
+	 */
+	private boolean hasParentFigure() {
+		return getFigure().getParent() != null;
+	}
+
+	protected void refreshLayoutManager() {
+		if (!hasParentFigure()) {
+			return;
+		}
+		handleMajorSemanticChange();
 	}
 
 	protected Shape getShape() {

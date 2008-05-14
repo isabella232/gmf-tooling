@@ -269,6 +269,7 @@ public class Rectangle2EditPart extends AbstractFigureEditPart {
 			getPrimaryShape().setFillXOR(modelElement.isXorFill());
 			getPrimaryShape().setOutlineXOR(modelElement.isXorOutline());
 			getPrimaryShape().setLayoutManager(getLayoutManager(modelElement.getLayout()));
+			refreshLayoutManager();
 		}
 	}
 
@@ -367,6 +368,7 @@ public class Rectangle2EditPart extends AbstractFigureEditPart {
 
 			public void modelChanged(Notification msg) {
 				getPrimaryShape().setLayoutManager(getLayoutManager(modelElement.getLayout()));
+				refreshLayoutManager();
 			}
 		};
 		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(), layoutManagerTracker, new AttachAdapter(GMFGraphPackage.eINSTANCE.getBorderLayout_Spacing(),

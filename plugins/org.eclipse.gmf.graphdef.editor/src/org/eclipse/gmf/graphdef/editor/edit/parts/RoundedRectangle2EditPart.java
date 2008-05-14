@@ -258,6 +258,7 @@ public class RoundedRectangle2EditPart extends AbstractFigureEditPart {
 			getPrimaryShape().setOutlineXOR(modelElement.isXorOutline());
 			getPrimaryShape().setCornerDimensions(getCornerDimensions(modelElement.getCornerWidth(), modelElement.getCornerHeight()));
 			getPrimaryShape().setLayoutManager(getLayoutManager(modelElement.getLayout()));
+			refreshLayoutManager();
 		}
 	}
 
@@ -335,6 +336,7 @@ public class RoundedRectangle2EditPart extends AbstractFigureEditPart {
 
 			public void modelChanged(Notification msg) {
 				getPrimaryShape().setLayoutManager(getLayoutManager(modelElement.getLayout()));
+				refreshLayoutManager();
 			}
 		};
 		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(), layoutManagerTracker, new AttachAdapter(GMFGraphPackage.eINSTANCE.getBorderLayout_Spacing(),

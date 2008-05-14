@@ -1500,9 +1500,7 @@
   </propsheet:PropertySectionContainer>
   <wysiwyg:SynchronizerContainer>
     <synchronizers
-        xsi:type="wysiwyg:MethodCallSynchronizer"
-        genNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4"
-        methodName="refreshBounds">
+        genNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4">
       <contexts
           xsi:type="ctx:FeatureContext">
         <children
@@ -1539,11 +1537,12 @@
             xsi:type="ecore:EReference"
             href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/preferredSize"/>
       </contexts>
+      <actions
+          xsi:type="wysiwyg:MethodCallAction"
+          methodName="refreshBounds"/>
     </synchronizers>
     <synchronizers
-        xsi:type="wysiwyg:MethodCallSynchronizer"
-        genNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4"
-        methodName="refreshLayoutData">
+        genNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4">
       <contexts
           xsi:type="ctx:FeatureContext">
         <children
@@ -1658,79 +1657,85 @@
             xsi:type="ecore:EReference"
             href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Layoutable/layoutData"/>
       </contexts>
+      <actions
+          xsi:type="wysiwyg:MethodCallAction"
+          methodName="refreshLayoutData"/>
     </synchronizers>
     <synchronizers
-        xsi:type="wysiwyg:FigurePropertySynchronizer"
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11"
-        figureAttribute="Outline">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
             xsi:type="ecore:EAttribute"
             href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Shape/outline"/>
       </contexts>
+      <actions
+          xsi:type="wysiwyg:FigurePropertySynchAction"
+          figureAttribute="Outline"/>
     </synchronizers>
     <synchronizers
-        xsi:type="wysiwyg:FigurePropertySynchronizer"
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11"
-        figureAttribute="Fill">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
             xsi:type="ecore:EAttribute"
             href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Shape/fill"/>
       </contexts>
+      <actions
+          xsi:type="wysiwyg:FigurePropertySynchAction"
+          figureAttribute="Fill"/>
     </synchronizers>
     <synchronizers
-        xsi:type="wysiwyg:FigurePropertySynchronizer"
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11"
-        figureAttribute="LineWidth">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
             xsi:type="ecore:EAttribute"
             href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Shape/lineWidth"/>
       </contexts>
+      <actions
+          xsi:type="wysiwyg:FigurePropertySynchAction"
+          figureAttribute="LineWidth"/>
     </synchronizers>
     <synchronizers
-        xsi:type="wysiwyg:FigurePropertySynchronizer"
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11"
-        figureAttribute="LineStyle"
-        domainValueTransformerName="getLineStyle">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
             xsi:type="ecore:EAttribute"
             href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Shape/lineKind"/>
       </contexts>
+      <actions
+          xsi:type="wysiwyg:FigurePropertySynchAction"
+          figureAttribute="LineStyle"
+          domainValueTransformerName="getLineStyle"/>
     </synchronizers>
     <synchronizers
-        xsi:type="wysiwyg:FigurePropertySynchronizer"
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11"
-        figureAttribute="FillXOR">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
             xsi:type="ecore:EAttribute"
             href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Shape/xorFill"/>
       </contexts>
+      <actions
+          xsi:type="wysiwyg:FigurePropertySynchAction"
+          figureAttribute="FillXOR"/>
     </synchronizers>
     <synchronizers
-        xsi:type="wysiwyg:FigurePropertySynchronizer"
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11"
-        figureAttribute="OutlineXOR">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
             xsi:type="ecore:EAttribute"
             href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Shape/xorOutline"/>
       </contexts>
+      <actions
+          xsi:type="wysiwyg:FigurePropertySynchAction"
+          figureAttribute="OutlineXOR"/>
     </synchronizers>
     <synchronizers
-        xsi:type="wysiwyg:FigurePropertySynchronizer"
-        genNodes="/0/@diagram/@childNodes.4 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.11"
-        figureAttribute="CornerDimensions"
-        domainValueTransformerName="getCornerDimensions">
+        genNodes="/0/@diagram/@childNodes.4 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.11">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
@@ -1743,12 +1748,13 @@
             xsi:type="ecore:EAttribute"
             href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RoundedRectangle/cornerHeight"/>
       </contexts>
+      <actions
+          xsi:type="wysiwyg:FigurePropertySynchAction"
+          figureAttribute="CornerDimensions"
+          domainValueTransformerName="getCornerDimensions"/>
     </synchronizers>
     <synchronizers
-        xsi:type="wysiwyg:FigurePropertySynchronizer"
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12"
-        figureAttribute="LayoutManager"
-        domainValueTransformerName="getLayoutManager">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12">
       <contexts
           xsi:type="ctx:FeatureContext">
         <children
@@ -1863,6 +1869,13 @@
             xsi:type="ecore:EReference"
             href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Layoutable/layout"/>
       </contexts>
+      <actions
+          xsi:type="wysiwyg:FigurePropertySynchAction"
+          figureAttribute="LayoutManager"
+          domainValueTransformerName="getLayoutManager"/>
+      <actions
+          xsi:type="wysiwyg:MethodCallAction"
+          methodName="refreshLayoutManager"/>
     </synchronizers>
   </wysiwyg:SynchronizerContainer>
 </xmi:XMI>

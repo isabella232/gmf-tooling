@@ -198,15 +198,19 @@
 	}
 «ENDDEFINE»
 
-«DEFINE processChanges FOR wysiwyg::AbstractDomainSynchronizer-»
+«DEFINE processChanges FOR wysiwyg::DomainPropertiesSynchronizer-»
+	«EXPAND processChanges(contexts) FOREACH actions-»
+«ENDDEFINE»
+
+«DEFINE processChanges(List[context::Context] contexts) FOR wysiwyg::AbstractAction-»
 	«ERROR "Should never be called"»
 «ENDDEFINE»
 
-«DEFINE processChanges FOR wysiwyg::MethodCallSynchronizer-»
+«DEFINE processChanges(List[context::Context] contexts) FOR wysiwyg::MethodCallAction-»
 	«methodName»();
 «ENDDEFINE»
 
-«DEFINE processChanges FOR wysiwyg::FigurePropertySynchronizer-»
+«DEFINE processChanges(List[context::Context] contexts) FOR wysiwyg::FigurePropertySynchAction-»
 	getPrimaryShape().«EXPAND setterName»(«IF domainValueTransformerName != null»«domainValueTransformerName»(«ENDIF»«EXPAND getModelElementProperty FOREACH contexts SEPARATOR ", "»«IF domainValueTransformerName != null»)«ENDIF»);
 «ENDDEFINE»
 
@@ -235,7 +239,7 @@
 	}
 «ENDDEFINE»
 
-«DEFINE addDomainElementAdapters FOR wysiwyg::AbstractDomainSynchronizer-»
+«DEFINE addDomainElementAdapters FOR wysiwyg::DomainPropertiesSynchronizer-»
 
 	org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker «EXPAND changeTrackerVarName» = new org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker() {
 		public void modelChanged(org.eclipse.emf.common.notify.Notification msg) {
@@ -245,19 +249,21 @@
 	myDomainElementAdapters.add(«EXPAND attachContextListener(this) FOREACH contexts SEPARATOR "); \nmyDomainElementAdapters.add("»);
 «ENDDEFINE»
 
-«DEFINE changeTrackerVarName FOR wysiwyg::AbstractDomainSynchronizer»
+«DEFINE changeTrackerVarName FOR wysiwyg::DomainPropertiesSynchronizer»«EXPAND changeTrackerVarName FOR (wysiwyg::AbstractAction) actions.first()»«ENDDEFINE»
+
+«DEFINE changeTrackerVarName FOR wysiwyg::AbstractAction»
 	«ERROR "Should never be called"»
 «ENDDEFINE»
 
-«DEFINE changeTrackerVarName FOR wysiwyg::MethodCallSynchronizer»«methodName»Tracker«ENDDEFINE»
+«DEFINE changeTrackerVarName FOR wysiwyg::MethodCallAction»«methodName»Tracker«ENDDEFINE»
 
-«DEFINE changeTrackerVarName FOR wysiwyg::FigurePropertySynchronizer»«figureAttribute.toFirstLower()»Tracker«ENDDEFINE»
+«DEFINE changeTrackerVarName FOR wysiwyg::FigurePropertySynchAction»«figureAttribute.toFirstLower()»Tracker«ENDDEFINE»
 
-«DEFINE attachContextListener(wysiwyg::AbstractDomainSynchronizer synchronizer) FOR context::Context-»
+«DEFINE attachContextListener(wysiwyg::DomainPropertiesSynchronizer synchronizer) FOR context::Context-»
 	«ERROR "Should never be called"»
 «ENDDEFINE»
 
-«DEFINE attachContextListener(wysiwyg::AbstractDomainSynchronizer synchronizer) FOR context::FeatureContext-»
+«DEFINE attachContextListener(wysiwyg::DomainPropertiesSynchronizer synchronizer) FOR context::FeatureContext-»
 	«IF children.size() == 0-»
 		new org.eclipse.gmf.graphdef.editor.sheet.FeatureTracker(«EXPAND changeTrackerVarName FOR synchronizer», «EXPAND accessor FOR selector»)
 	«ELSE-»
@@ -329,6 +335,6 @@ addListenerFilter("«viewColorProperty»StyleListener", new org.eclipse.gmf.runtim
 «REM»Temporary solution. Use MetaModel.xpt from formtk here.«ENDREM»
 «DEFINE accessor FOR ecore::EStructuralFeature»org.eclipse.gmf.gmfgraph.GMFGraphPackage.eINSTANCE.get«eContainingClass.name.toFirstUpper()»_«name.toFirstUpper()»()«ENDDEFINE»
 
-«DEFINE setterName FOR wysiwyg::FigurePropertySynchronizer»set«figureAttribute»«ENDDEFINE»
+«DEFINE setterName FOR wysiwyg::FigurePropertySynchAction»set«figureAttribute»«ENDDEFINE»
 
 «DEFINE getterName FOR ecore::EStructuralFeature»«IF eType.name == "EBoolean"»is«ELSE»get«ENDIF»«name.toFirstUpper()»«ENDDEFINE»
