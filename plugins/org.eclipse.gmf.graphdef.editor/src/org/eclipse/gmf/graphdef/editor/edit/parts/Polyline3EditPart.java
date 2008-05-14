@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2008 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -10,10 +10,7 @@
  */
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
-import org.eclipse.draw2d.CompoundBorder;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.LineBorder;
-import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.Polyline;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -25,8 +22,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
 
 /**
  * @generated
@@ -93,10 +88,6 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
 		result.setMinimumSize(new Dimension(0, 0));
-		LineBorder contourBorder = new LineBorder(Display.getDefault().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
-		MarginBorder marginBorder = new MarginBorder(5);
-		CompoundBorder compoundBorder = new CompoundBorder(contourBorder, marginBorder);
-		result.setBorder(compoundBorder);
 		return result;
 	}
 
