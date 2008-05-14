@@ -10,12 +10,12 @@
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter">
-      <requiredPluginIDs>org.eclipse.emf.ocl</requiredPluginIDs>
-      <requiredPluginIDs>org.eclipse.emf.query.ocl</requiredPluginIDs>
+      <requiredPluginIDs>org.eclipse.fake.x1</requiredPluginIDs>
+      <requiredPluginIDs>org.eclipse.fake.x2</requiredPluginIDs>
     </providers>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter">
-      <requiredPluginIDs>org.eclipse.emf.ecore</requiredPluginIDs>
+      <requiredPluginIDs>org.eclipse.x3</requiredPluginIDs>
     </providers>
   </expressionProviders>
   <diagram/>

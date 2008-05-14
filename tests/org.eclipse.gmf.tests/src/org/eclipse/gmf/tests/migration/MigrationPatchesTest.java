@@ -435,9 +435,9 @@ public class MigrationPatchesTest extends TestCase {
 		assertNotNull(plugin);
 		EList<String> requiredPlugins = plugin.getRequiredPlugins();
 		assertEquals(3, requiredPlugins.size());
-		assertEquals("org.eclipse.emf.ocl", requiredPlugins.get(0));
-		assertEquals("org.eclipse.emf.query.ocl", requiredPlugins.get(1));
-		assertEquals("org.eclipse.emf.ecore", requiredPlugins.get(2));
+		assertEquals("org.eclipse.fake.x1", requiredPlugins.get(0));
+		assertEquals("org.eclipse.fake.x2", requiredPlugins.get(1));
+		assertEquals("org.eclipse.x3", requiredPlugins.get(2));
 	}
 
 	private void checkOrderOfLabelMappings(URI modelURI) {
