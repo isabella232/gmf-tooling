@@ -116,7 +116,6 @@ public class Ellipse3EditPart extends AbstractFigureEditPart {
 	protected IFigure createNodeShape() {
 		EllipseFigure figure = new EllipseFigure();
 		figure.setUseLocalCoordinates(true);
-		myFigure = figure;
 		return primaryShape = figure;
 	}
 
@@ -226,11 +225,6 @@ public class Ellipse3EditPart extends AbstractFigureEditPart {
 	/**
 	 * @generated
 	 */
-	private EllipseFigure myFigure;
-
-	/**
-	 * @generated
-	 */
 	private Collection<Adapter> myDomainElementAdapters = new ArrayList<Adapter>();
 
 	/**
@@ -264,13 +258,13 @@ public class Ellipse3EditPart extends AbstractFigureEditPart {
 		super.setFigure(figure);
 		org.eclipse.gmf.gmfgraph.Ellipse modelElement = (org.eclipse.gmf.gmfgraph.Ellipse) getModelFigureElement();
 		if (modelElement != null) {
-			myFigure.setOutline(modelElement.isOutline());
-			myFigure.setFill(modelElement.isFill());
-			myFigure.setLineWidth(modelElement.getLineWidth());
-			myFigure.setLineStyle(getLineStyle(modelElement.getLineKind()));
-			myFigure.setFillXOR(modelElement.isXorFill());
-			myFigure.setOutlineXOR(modelElement.isXorOutline());
-			myFigure.setLayoutManager(getLayoutManager(modelElement.getLayout()));
+			getPrimaryShape().setOutline(modelElement.isOutline());
+			getPrimaryShape().setFill(modelElement.isFill());
+			getPrimaryShape().setLineWidth(modelElement.getLineWidth());
+			getPrimaryShape().setLineStyle(getLineStyle(modelElement.getLineKind()));
+			getPrimaryShape().setFillXOR(modelElement.isXorFill());
+			getPrimaryShape().setOutlineXOR(modelElement.isXorOutline());
+			getPrimaryShape().setLayoutManager(getLayoutManager(modelElement.getLayout()));
 		}
 	}
 
@@ -290,7 +284,7 @@ public class Ellipse3EditPart extends AbstractFigureEditPart {
 		ChangeTracker outlineTracker = new ChangeTracker() {
 
 			public void modelChanged(Notification msg) {
-				myFigure.setOutline(modelElement.isOutline());
+				getPrimaryShape().setOutline(modelElement.isOutline());
 			}
 		};
 		myDomainElementAdapters.add(new FeatureTracker(outlineTracker, GMFGraphPackage.eINSTANCE.getShape_Outline()));
@@ -298,7 +292,7 @@ public class Ellipse3EditPart extends AbstractFigureEditPart {
 		ChangeTracker fillTracker = new ChangeTracker() {
 
 			public void modelChanged(Notification msg) {
-				myFigure.setFill(modelElement.isFill());
+				getPrimaryShape().setFill(modelElement.isFill());
 			}
 		};
 		myDomainElementAdapters.add(new FeatureTracker(fillTracker, GMFGraphPackage.eINSTANCE.getShape_Fill()));
@@ -306,7 +300,7 @@ public class Ellipse3EditPart extends AbstractFigureEditPart {
 		ChangeTracker lineWidthTracker = new ChangeTracker() {
 
 			public void modelChanged(Notification msg) {
-				myFigure.setLineWidth(modelElement.getLineWidth());
+				getPrimaryShape().setLineWidth(modelElement.getLineWidth());
 			}
 		};
 		myDomainElementAdapters.add(new FeatureTracker(lineWidthTracker, GMFGraphPackage.eINSTANCE.getShape_LineWidth()));
@@ -314,7 +308,7 @@ public class Ellipse3EditPart extends AbstractFigureEditPart {
 		ChangeTracker lineStyleTracker = new ChangeTracker() {
 
 			public void modelChanged(Notification msg) {
-				myFigure.setLineStyle(getLineStyle(modelElement.getLineKind()));
+				getPrimaryShape().setLineStyle(getLineStyle(modelElement.getLineKind()));
 			}
 		};
 		myDomainElementAdapters.add(new FeatureTracker(lineStyleTracker, GMFGraphPackage.eINSTANCE.getShape_LineKind()));
@@ -322,7 +316,7 @@ public class Ellipse3EditPart extends AbstractFigureEditPart {
 		ChangeTracker fillXORTracker = new ChangeTracker() {
 
 			public void modelChanged(Notification msg) {
-				myFigure.setFillXOR(modelElement.isXorFill());
+				getPrimaryShape().setFillXOR(modelElement.isXorFill());
 			}
 		};
 		myDomainElementAdapters.add(new FeatureTracker(fillXORTracker, GMFGraphPackage.eINSTANCE.getShape_XorFill()));
@@ -330,7 +324,7 @@ public class Ellipse3EditPart extends AbstractFigureEditPart {
 		ChangeTracker outlineXORTracker = new ChangeTracker() {
 
 			public void modelChanged(Notification msg) {
-				myFigure.setOutlineXOR(modelElement.isXorOutline());
+				getPrimaryShape().setOutlineXOR(modelElement.isXorOutline());
 			}
 		};
 		myDomainElementAdapters.add(new FeatureTracker(outlineXORTracker, GMFGraphPackage.eINSTANCE.getShape_XorOutline()));
@@ -338,7 +332,7 @@ public class Ellipse3EditPart extends AbstractFigureEditPart {
 		ChangeTracker layoutManagerTracker = new ChangeTracker() {
 
 			public void modelChanged(Notification msg) {
-				myFigure.setLayoutManager(getLayoutManager(modelElement.getLayout()));
+				getPrimaryShape().setLayoutManager(getLayoutManager(modelElement.getLayout()));
 			}
 		};
 		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(), layoutManagerTracker, new AttachAdapter(GMFGraphPackage.eINSTANCE.getBorderLayout_Spacing(),

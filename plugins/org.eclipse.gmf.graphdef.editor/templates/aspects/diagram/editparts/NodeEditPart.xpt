@@ -53,9 +53,6 @@
 
 «DEFINE additions(gmfgen::InnerClassViewmap innerViewmap) FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private «innerViewmap.className» myFigure;
-	
-	«EXPAND xpt::Common::generatedMemberComment»
 	private java.util.Collection<org.eclipse.emf.common.notify.Adapter> myDomainElementAdapters = new java.util.ArrayList<org.eclipse.emf.common.notify.Adapter>();
 	
 	«EXPAND getModelFigureElement-»
@@ -210,7 +207,7 @@
 «ENDDEFINE»
 
 «DEFINE processChanges FOR wysiwyg::FigurePropertySynchronizer-»
-	myFigure.«EXPAND setterName»(«IF domainValueTransformerName != null»«domainValueTransformerName»(«ENDIF»«EXPAND getModelElementProperty FOREACH contexts SEPARATOR ", "»«IF domainValueTransformerName != null»)«ENDIF»);
+	getPrimaryShape().«EXPAND setterName»(«IF domainValueTransformerName != null»«domainValueTransformerName»(«ENDIF»«EXPAND getModelElementProperty FOREACH contexts SEPARATOR ", "»«IF domainValueTransformerName != null»)«ENDIF»);
 «ENDDEFINE»
 
 «DEFINE getModelElementProperty FOR context::Context-»

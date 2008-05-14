@@ -36,33 +36,6 @@
 	«ENDIF-»
 «ENDAROUND»
 
-«AROUND createNodeShape(gmfgen::GenNode node) FOR gmfgen::InnerClassViewmap-»
-	«IF hasSynchronizers(node)-»
-		«EXPAND createNodeShape-»
-		
-		«EXPAND getPrimaryShape-»
-	«ELSE-»
-		«targetDef.proceed()-»
-	«ENDIF-»
-«ENDAROUND»
-
-«DEFINE createNodeShape FOR gmfgen::InnerClassViewmap-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected org.eclipse.draw2d.IFigure createNodeShape() {
-		«className» figure = new «className»();
- 		figure.setUseLocalCoordinates(true);
- 		myFigure = figure;
-		return primaryShape = figure;
-	}
-«ENDDEFINE»
-
-«DEFINE getPrimaryShape FOR gmfgen::InnerClassViewmap-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «className» getPrimaryShape() {
-		return («className») primaryShape;
-	}
-«ENDDEFINE»
-
 «DEFINE setInsets FOR gmfgen::GenNode-»
 «ENDDEFINE»
 
@@ -74,4 +47,3 @@
 		result.setBorder(compoundBorder);
 	«ENDIF-»
 «ENDDEFINE»
-
