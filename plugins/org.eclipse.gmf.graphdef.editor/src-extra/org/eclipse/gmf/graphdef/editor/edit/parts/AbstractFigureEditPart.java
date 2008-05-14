@@ -154,13 +154,6 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 		getContentPane().add(child, layoutConstraint, index);
 	}
 
-	/**
-	 * Blocking refresh of figure if it was not finally created.
-	 */
-	private boolean isFigureRefreshAllowed() {
-		return figure != null && figure.getParent() != null;
-	}
-
 	// ModelData transformers
 	private int getDraw2dAllignment(Alignment alignment, boolean isToolbar) {
 		switch (alignment.getValue()) {
@@ -363,11 +356,8 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 	}
 
 	protected void refreshLayoutData() {
-		if (!isFigureRefreshAllowed()) {
-			return;
-		}
 		Object layoutConstraint = getLayoutConstraint();
-		if (layoutConstraint != null) {
+		if (layoutConstraint != null && getFigure().getParent() != null) {
 			getFigure().getParent().setConstraint(getFigure(), layoutConstraint);
 		}
 	}
