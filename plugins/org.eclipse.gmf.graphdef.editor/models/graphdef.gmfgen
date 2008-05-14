@@ -4,7 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ctx="http://www.eclipse.org/gmf/2008/Context"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:gmfgen="http://www.eclipse.org/gmf/2006/GenModel"
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2008/GenModel"
     xmlns:propsheet="http://www.eclipse.org/gmf/2008/GmfGraph/PropSheet"
     xmlns:wysiwyg="http://www.eclipse.org/gmf/2008/GmfGraph/wysiwyg"
     xsi:schemaLocation="http://www.eclipse.org/gmf/2008/Context ../../../plugin/org.eclipse.gmf.formtk/model/context.ecore http://www.eclipse.org/gmf/2008/GmfGraph/PropSheet ../../../plugin/org.eclipse.gmf.graphdef.editor/models/propsheet.ecore http://www.eclipse.org/gmf/2008/GmfGraph/wysiwyg ../../../plugin/org.eclipse.gmf.graphdef.editor/models/wysiwyg.ecore">

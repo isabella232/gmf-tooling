@@ -127,6 +127,7 @@ public class RoundedRectangle2EditPart extends AbstractFigureEditPart {
 	 */
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
+		result.setMinimumSize(new Dimension(0, 0));
 		return result;
 	}
 

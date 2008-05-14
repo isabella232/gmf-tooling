@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,7 +11,7 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT "http://www.eclipse.org/gmf/2006/GenModel"»
+«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «IMPORT "http://www.eclipse.org/gmf/2008/Context"»
@@ -21,6 +21,24 @@
 «EXTENSION xpt::GenModelUtils»
 
 «AROUND extendsList FOR gmfgen::GenNode»«IF hasSynchronizers(this)»extends «getDiagram().editPartsPackageName».AbstractFigureEditPart«ELSE»«targetDef.proceed()»«ENDIF»«ENDAROUND»
+
+«AROUND handleNotificationEvent FOR gmfgen::GenNode-»
+	«IF hasBoundsSynchronizer(this)-»
+		«EXPAND xpt::Common::generatedMemberComment»
+		protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification notification) {
+			Object feature = notification.getFeature();
+			if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width().equals(feature)
+				|| org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height().equals(feature)
+				|| org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X().equals(feature)
+				|| org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y().equals(feature)) {
+				return;
+			}
+			super.handleNotificationEvent(notification);
+		}
+	«ELSE-»
+		«targetDef.proceed()-»
+	«ENDIF-»
+«ENDAROUND»
 
 «AROUND additions FOR gmfgen::GenNode-»
 	«IF hasSynchronizers(this)-»
@@ -201,10 +219,6 @@
 
 «DEFINE getModelElementProperty FOR context::FeatureContext»modelElement.«EXPAND getterName FOR selector»()«ENDDEFINE»
 
-«DEFINE setterName FOR wysiwyg::FigurePropertySynchronizer»set«figureAttribute»«ENDDEFINE»
-
-«DEFINE getterName FOR ecore::EStructuralFeature»«IF eType.name == "EBoolean"»is«ELSE»get«ENDIF»«name.toFirstUpper()»«ENDDEFINE»
-
 «REM»
 	Pull up this method to AbstractFigureEditPart?..
 «ENDREM»
@@ -222,22 +236,6 @@
 			getFigure().setLocation(getDraw2DPoint(modelElement.getLocation()));
 		}
 	}
-«ENDDEFINE»
-
-«DEFINE handleNotificationEvent FOR gmfgen::GenNode-»
-	«IF hasBoundsSynchronizer(this)-»
-		«EXPAND xpt::Common::generatedMemberComment»
-		protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification notification) {
-			Object feature = notification.getFeature();
-			if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width().equals(feature)
-				|| org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height().equals(feature)
-				|| org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X().equals(feature)
-				|| org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y().equals(feature)) {
-				return;
-			}
-			super.handleNotificationEvent(notification);
-		}
-	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE addDomainElementAdapters FOR wysiwyg::AbstractDomainSynchronizer-»
@@ -333,3 +331,7 @@ addListenerFilter("«viewColorProperty»StyleListener", new org.eclipse.gmf.runtim
 
 «REM»Temporary solution. Use MetaModel.xpt from formtk here.«ENDREM»
 «DEFINE accessor FOR ecore::EStructuralFeature»org.eclipse.gmf.gmfgraph.GMFGraphPackage.eINSTANCE.get«eContainingClass.name.toFirstUpper()»_«name.toFirstUpper()»()«ENDDEFINE»
+
+«DEFINE setterName FOR wysiwyg::FigurePropertySynchronizer»set«figureAttribute»«ENDDEFINE»
+
+«DEFINE getterName FOR ecore::EStructuralFeature»«IF eType.name == "EBoolean"»is«ELSE»get«ENDIF»«name.toFirstUpper()»«ENDDEFINE»

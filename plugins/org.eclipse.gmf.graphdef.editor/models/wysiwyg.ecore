@@ -12,7 +12,7 @@
         upperBound="-1" eType="ecore:EClass ../../org.eclipse.gmf.formtk/model/context.ecore#//Context"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="genNodes" upperBound="-1"
-        eType="ecore:EClass http://www.eclipse.org/gmf/2006/GenModel#//GenNode"/>
+        eType="ecore:EClass http://www.eclipse.org/gmf/2008/GenModel#//GenNode"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MethodCallSynchronizer" eSuperTypes="#//AbstractDomainSynchronizer">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="methodName" lowerBound="1"

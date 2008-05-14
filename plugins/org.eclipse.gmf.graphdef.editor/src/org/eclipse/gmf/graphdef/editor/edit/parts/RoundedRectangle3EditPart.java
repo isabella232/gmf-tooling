@@ -132,6 +132,7 @@ public class RoundedRectangle3EditPart extends AbstractFigureEditPart {
 	 */
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
+		result.setMinimumSize(new Dimension(0, 0));
 		LineBorder contourBorder = new LineBorder(Display.getDefault().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
 		MarginBorder marginBorder = new MarginBorder(5);
 		CompoundBorder compoundBorder = new CompoundBorder(contourBorder, marginBorder);

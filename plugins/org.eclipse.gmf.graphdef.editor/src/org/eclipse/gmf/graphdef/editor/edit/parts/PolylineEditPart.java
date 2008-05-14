@@ -13,6 +13,7 @@ package org.eclipse.gmf.graphdef.editor.edit.parts;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Polyline;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.PolylineItemSemanticEditPolicy;
@@ -86,6 +87,7 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 	 */
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
+		result.setMinimumSize(new Dimension(0, 0));
 		return result;
 	}
 

@@ -16,6 +16,7 @@ import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.Polyline;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.Polyline3ItemSemanticEditPolicy;
@@ -91,6 +92,7 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 	 */
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
+		result.setMinimumSize(new Dimension(0, 0));
 		LineBorder contourBorder = new LineBorder(Display.getDefault().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
 		MarginBorder marginBorder = new MarginBorder(5);
 		CompoundBorder compoundBorder = new CompoundBorder(contourBorder, marginBorder);

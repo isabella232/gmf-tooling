@@ -28,6 +28,7 @@ import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
@@ -131,6 +132,7 @@ public class Ellipse3EditPart extends AbstractFigureEditPart {
 	 */
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
+		result.setMinimumSize(new Dimension(0, 0));
 		LineBorder contourBorder = new LineBorder(Display.getDefault().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
 		MarginBorder marginBorder = new MarginBorder(5);
 		CompoundBorder compoundBorder = new CompoundBorder(contourBorder, marginBorder);
