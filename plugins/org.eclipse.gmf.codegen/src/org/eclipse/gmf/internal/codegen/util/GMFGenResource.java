@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.BasicResourceHandler;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
 import org.eclipse.gmf.internal.common.migrate.Messages;
 import org.eclipse.gmf.internal.common.migrate.MigrationResource;
@@ -57,11 +56,14 @@ public class GMFGenResource extends MigrationResource {
 			LinkedList<EObject> migrated = new LinkedList<EObject>();
 			for (EObject o : resource.getContents()) {
 				if (o != null && "GenEditorGenerator".equals(o.eClass().getName()) && MigrationDelegate.get2006GenModelURI().equals(o.eClass().getEPackage().getNsURI())) {
-					EObject m = CustomCopier.go(o, GMFGenPackage.eINSTANCE);
-					if (m != null && CustomCopier.wasMigrationApplied()) {
+					final Migrate2008 migrate = new Migrate2008();
+					EObject m = migrate.go(o);
+					if (m != null && migrate.wasMigrationApplied()) { // XXX multiple warnings if there are few GenEditorGenerators in the resource
 						resource.getWarnings().add(0, MigrationResource.createMessageDiagnostic(resource, Messages.oldModelVersionLoadedMigrationRequired));
 					}
 					migrated.add(m != null ? m : o);
+				} else {
+					migrated.add(o);
 				}
 			}
 			resource.getContents().clear();

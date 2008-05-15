@@ -25,10 +25,6 @@
      </resource>
   </extension>
 
-  <!-- extension point="org.eclipse.emf.ecore.extension_parser">
-    <parser type="gmfgen" class="org.eclipse.gmf.internal.codegen.util.GMFGenResource$Factory" />
-  </extension -->
-
   <extension point="org.eclipse.team.core.fileTypes">
     <fileTypes extension="gmfgen" type="text" />
   </extension>
