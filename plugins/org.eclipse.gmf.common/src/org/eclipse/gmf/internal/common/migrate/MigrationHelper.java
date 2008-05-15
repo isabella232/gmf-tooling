@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -88,4 +88,12 @@ public class MigrationHelper extends XMIHelperImpl {
 	public void postLoad() {
 		myDelegate.postLoad();
 	}
+
+	@Override
+	public String getURI(String prefix) {
+		String uri = super.getURI(prefix);
+		String newUri = myDelegate.getURI(prefix, uri);
+		return newUri == null ? uri : newUri;
+	}
+
 }

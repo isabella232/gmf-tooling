@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -61,11 +61,11 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 	 * Traced feature is a feature you use through the hierarchy as a marker, catching it in setValue and notifying of
 	 * whether migration has happened or not
 	 */
-	public void registerTracedElementForHierarchy(EClass eClass, Map<String, EStructuralFeature> tracedFeature) {
+	private void registerTracedElementForHierarchy(EClass eClass, Map<String, EStructuralFeature> tracedFeature) {
 		myTracedHierarchyFeatures.put(eClass, tracedFeature);
 	}
 	
-	public void registerTracedAttributeForHierarchy(EClass eClass, Map<String, EStructuralFeature> tracedFeature) {
+	private void registerTracedAttributeForHierarchy(EClass eClass, Map<String, EStructuralFeature> tracedFeature) {
 		myTracedHierarchyAttributes.put(eClass, tracedFeature);
 	}
 	
@@ -104,7 +104,7 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 		registerTracedAttributeForHierarchy(eClass, tracedFeatures);
 	}
 	
-	public void registerTracedElementForHierarchy(EClass eClass, String xmlName, EStructuralFeature tracerFeature) {
+	private void registerTracedElementForHierarchy(EClass eClass, String xmlName, EStructuralFeature tracerFeature) {
 		Map<String, EStructuralFeature> tracedFeatures = myTracedHierarchyFeatures.get(eClass);
 		if (tracedFeatures == null) {
 			tracedFeatures = new HashMap<String, EStructuralFeature>();
@@ -253,5 +253,9 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 	}
 
 	public void postLoad(){
+	}
+
+	public String getURI(String prefix, String uri) {
+		return null;
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -81,7 +81,7 @@ public abstract class MigrationResource extends ToolResource {
 	 * 
 	 * @return diagnostic object
 	 */
-	private static Diagnostic createMessageDiagnostic(Resource resource, final String message) {
+	public static Diagnostic createMessageDiagnostic(Resource resource, final String message) {
 		final String location = resource.getURI() == null ? null : resource.getURI().toString();
 		return new Diagnostic(message, location);
 	}
