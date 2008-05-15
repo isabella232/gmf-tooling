@@ -74,12 +74,14 @@ public class PortEditPart extends DiagramEditPart {
 				return super.getArrangeCommand(request);
 			}
 
+			@SuppressWarnings("unchecked")
 			public Runnable layoutNodes(List nodes, boolean offsetFromBoundingBox, IAdaptable layoutHint) {
 				return layoutProvider.layoutLayoutNodes(nodes, offsetFromBoundingBox, layoutHint);
 			}
 		});
 	}
 
+	@SuppressWarnings("unchecked")
 	public Command getCommand(Request request) {
 		Command command = super.getCommand(request);
 		if (request.getType().equals(REQ_CREATE) || request.getType().equals(REQ_MOVE_CHILDREN) || request.getType().equals(REQ_RESIZE_CHILDREN)) {
