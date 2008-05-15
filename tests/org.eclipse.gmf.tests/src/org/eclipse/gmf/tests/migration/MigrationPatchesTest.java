@@ -37,8 +37,11 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContext;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
@@ -93,9 +96,13 @@ public class MigrationPatchesTest extends TestCase {
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
 
 		URI newGenUri = temporarySaveMigratedModel(genmodelFileName, "patch_138440", "gmfgen");
-		changeNsUriToOldOne(newGenUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
+		// since we now migrate old (2005) models to build dynamic 2006 model, and saved migrated model
+		// is newest, 2008 one, this approach of reading it with older nsURI becomes confusing
+		// changeNsUriToOldOne(newGenUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
 		
-		assertOnLoadModelMigrationDidNothing(newGenUri);
+		// this model should be loaded only with latest-model-aware resource, not the one that is
+		// registered for 2005 nsURI, because 2006 and 2008 models are not compatible
+		assertNoOrdinaryLoadModelProblems(newGenUri);
 		
 		URI gmfmapmodelFileName = createURI("patch_138440.gmfmap"); //$NON-NLS-1$
 		Exception caughtMapException = assertOrdinaryLoadModelProblems(gmfmapmodelFileName);
@@ -194,6 +201,22 @@ public class MigrationPatchesTest extends TestCase {
 		assertTrue("Expected model loading problems", //$NON-NLS-1$
 				caughtException != null || !resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty());
 		return caughtException;
+	}
+
+	Resource assertNoOrdinaryLoadModelProblems(URI uri) throws Exception {
+		Resource resource = new ToolingResourceFactory().createResource(uri);
+		ResourceSet rset = new ResourceSetImpl();
+		rset.getResources().add(resource);
+
+		RuntimeException caughtException = null;
+		try {
+			rset.getResource(uri, true);
+		} catch (RuntimeException e) {
+			caughtException = e;
+		}
+		assertFalse("Unexpected model loading problems", //$NON-NLS-1$
+				caughtException != null || !resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty());
+		return resource;
 	}
 
 	/*
@@ -470,12 +493,22 @@ public class MigrationPatchesTest extends TestCase {
 	private void checkFeatureLabelModelFacetsMigrated(URI uri) {
 		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
 		Resource resource = loadHelper.getLoadedResource();
-		assertEquals(2, resource.getContents().size());
-		Object first = resource.getContents().get(0);
+		assertEquals(1, resource.getContents().size());
+		EObject editorGen = resource.getContents().get(0);
+		assertTrue(editorGen instanceof GenEditorGenerator);
+		assertEquals(1, editorGen.eContents().size());
+		EObject diagram = editorGen.eContents().get(0);
+		assertTrue(diagram instanceof GenDiagram);
+		assertEquals(1, diagram.eContents().size());
+		GenTopLevelNode root = (GenTopLevelNode) diagram.eContents().get(0);
+		assertEquals(2, root.eContents().size());
+		assertEquals(2, root.getLabels().size());
+		//
+		LabelModelFacet first = root.getLabels().get(0).getModelFacet();
 		assertTrue(first instanceof FeatureLabelModelFacet);
 		FeatureLabelModelFacet firstFeatureLabelModelFacet = (FeatureLabelModelFacet) first;
 		assertEquals(1, firstFeatureLabelModelFacet.getMetaFeatures().size());
-		Object second = resource.getContents().get(1);
+		LabelModelFacet second = root.getLabels().get(1).getModelFacet();
 		assertTrue(second instanceof FeatureLabelModelFacet);
 		FeatureLabelModelFacet secondFeatureLabelModelFacet = (FeatureLabelModelFacet) second;
 		assertEquals(2, secondFeatureLabelModelFacet.getMetaFeatures().size());
@@ -874,8 +907,8 @@ public class MigrationPatchesTest extends TestCase {
 	public void testAuditContexts() throws Exception {
 		URI gmfgenFileName = createURI("test226149.gmfgen"); //$NON-NLS-1$
 		
-		Exception caughtGenException = assertOrdinaryLoadModelProblems(gmfgenFileName);
-		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
+		Resource resource = assertNoOrdinaryLoadModelProblems(gmfgenFileName);
+		assertEquals("http://www.eclipse.org/gmf/2006/GenModel", resource.getContents().get(0).eClass().getEPackage().getNsURI());
 
 		assertOnLoadModelMigrationSuccess(gmfgenFileName);
 		checkAuditContexts(gmfgenFileName);
