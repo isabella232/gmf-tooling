@@ -84,7 +84,6 @@ public class EReferenceCreateCommand extends CreateElementCommand {
 		getSource().getEStructuralFeatures().add(newElement);
 		newElement.setEType(getTarget());
 		EcoreElementTypes.init_EReference_4002(newElement);
-
 		return newElement;
 	}
 

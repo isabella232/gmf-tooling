@@ -73,7 +73,7 @@ public class EcoreVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	private static final String DEBUG_KEY = EcoreDiagramEditorPlugin.getInstance().getBundle().getSymbolicName() + "/debug/visualID"; //$NON-NLS-1$
+	private static final String DEBUG_KEY = "org.eclipse.gmf.ecore.editor/debug/visualID"; //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -469,7 +469,7 @@ public class EcoreVisualIDRegistry {
 	 */
 	private static boolean isEDataType_2004(EDataType domainElement) {
 		if (EDataType_2004_Constraint == null) { // lazy initialization
-			EDataType_2004_Constraint = EcoreOCLFactory.getExpression("not oclIsKindOf(ecore::EEnum)", EcorePackage.eINSTANCE.getEDataType());
+			EDataType_2004_Constraint = EcoreOCLFactory.getExpression("not oclIsKindOf(ecore::EEnum)", EcorePackage.eINSTANCE.getEDataType()); //$NON-NLS-1$
 		}
 		Object result = EDataType_2004_Constraint.evaluate(domainElement);
 		return result instanceof Boolean && ((Boolean) result).booleanValue();
@@ -480,7 +480,7 @@ public class EcoreVisualIDRegistry {
 	 */
 	private static boolean isEDataType_3006(EDataType domainElement) {
 		if (EDataType_3006_Constraint == null) { // lazy initialization
-			EDataType_3006_Constraint = EcoreOCLFactory.getExpression("not oclIsKindOf(ecore::EEnum)", EcorePackage.eINSTANCE.getEDataType());
+			EDataType_3006_Constraint = EcoreOCLFactory.getExpression("not oclIsKindOf(ecore::EEnum)", EcorePackage.eINSTANCE.getEDataType()); //$NON-NLS-1$
 		}
 		Object result = EDataType_3006_Constraint.evaluate(domainElement);
 		return result instanceof Boolean && ((Boolean) result).booleanValue();
@@ -491,7 +491,7 @@ public class EcoreVisualIDRegistry {
 	 */
 	private static boolean isEReference_4002(EReference domainElement) {
 		if (EReference_4002_Constraint == null) { // lazy initialization
-			EReference_4002_Constraint = EcoreOCLFactory.getExpression("not containment and not container", EcorePackage.eINSTANCE.getEReference());
+			EReference_4002_Constraint = EcoreOCLFactory.getExpression("not containment and not container", EcorePackage.eINSTANCE.getEReference()); //$NON-NLS-1$
 		}
 		Object result = EReference_4002_Constraint.evaluate(domainElement);
 		return result instanceof Boolean && ((Boolean) result).booleanValue();
@@ -502,7 +502,7 @@ public class EcoreVisualIDRegistry {
 	 */
 	private static boolean isEReference_4003(EReference domainElement) {
 		if (EReference_4003_Constraint == null) { // lazy initialization
-			EReference_4003_Constraint = EcoreOCLFactory.getExpression("containment", EcorePackage.eINSTANCE.getEReference());
+			EReference_4003_Constraint = EcoreOCLFactory.getExpression("containment", EcorePackage.eINSTANCE.getEReference()); //$NON-NLS-1$
 		}
 		Object result = EReference_4003_Constraint.evaluate(domainElement);
 		return result instanceof Boolean && ((Boolean) result).booleanValue();
