@@ -57,18 +57,6 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 		myRenamedAttributes.put(eClass, renamedAttributes);
 	}
 	
-	/**
-	 * Traced feature is a feature you use through the hierarchy as a marker, catching it in setValue and notifying of
-	 * whether migration has happened or not
-	 */
-	private void registerTracedElementForHierarchy(EClass eClass, Map<String, EStructuralFeature> tracedFeature) {
-		myTracedHierarchyFeatures.put(eClass, tracedFeature);
-	}
-	
-	private void registerTracedAttributeForHierarchy(EClass eClass, Map<String, EStructuralFeature> tracedFeature) {
-		myTracedHierarchyAttributes.put(eClass, tracedFeature);
-	}
-	
 	public void registerNarrowedAbstractType(String abstractTypeName, EClass narrowedType) {
 		myNarrowedTypes.put(abstractTypeName, narrowedType);
 	}
@@ -77,7 +65,7 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 		myRenamedTypes.put(oldTypeName, newType);
 	}
 	
-	public void registerRenamedAttribute(EClass eClass, String oldName, EStructuralFeature newStructuralFeature) {
+	private void registerRenamedAttribute(EClass eClass, String oldName, EStructuralFeature newStructuralFeature) {
 		Map<String, EStructuralFeature> renamedAttributes = myRenamedAttributes.get(eClass);
 		if (renamedAttributes == null) {
 			renamedAttributes = new HashMap<String, EStructuralFeature>();
@@ -98,19 +86,17 @@ public class MigrationDelegateImpl implements MigrationDelegate {
 	public void registerTracedAttributeForHierarchy(EClass eClass, String xmlName, EStructuralFeature tracerFeature) {
 		Map<String, EStructuralFeature> tracedFeatures = myTracedHierarchyAttributes.get(eClass);
 		if (tracedFeatures == null) {
-			tracedFeatures = new HashMap<String, EStructuralFeature>();
+			myTracedHierarchyAttributes.put(eClass, tracedFeatures = new HashMap<String, EStructuralFeature>());
 		}
 		tracedFeatures.put(xmlName, tracerFeature);
-		registerTracedAttributeForHierarchy(eClass, tracedFeatures);
 	}
 	
 	private void registerTracedElementForHierarchy(EClass eClass, String xmlName, EStructuralFeature tracerFeature) {
 		Map<String, EStructuralFeature> tracedFeatures = myTracedHierarchyFeatures.get(eClass);
 		if (tracedFeatures == null) {
-			tracedFeatures = new HashMap<String, EStructuralFeature>();
+			myTracedHierarchyFeatures.put(eClass, tracedFeatures = new HashMap<String, EStructuralFeature>());
 		}
 		tracedFeatures.put(xmlName, tracerFeature);
-		registerTracedElementForHierarchy(eClass, tracedFeatures);
 	}
 	
 	public boolean isAttributeDeleted(EClass clazz, String name) {
