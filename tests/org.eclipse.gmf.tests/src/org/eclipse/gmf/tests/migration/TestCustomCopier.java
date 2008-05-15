@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
@@ -42,7 +41,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
-import org.eclipse.gmf.internal.codegen.util.CustomCopier;
+import org.eclipse.gmf.internal.codegen.util.Migrate2008;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
 
 public class TestCustomCopier extends TestCase {
@@ -51,14 +50,16 @@ public class TestCustomCopier extends TestCase {
 		super(name);
 	}
 
-	public void testCustomModelTransform() throws Exception {
+	public void test06to08ModelTransform() throws Exception {
 		//EObject testRoot = createTestModel();
 		final URI uri = MigrationPatchesTest.createURI("228913-copier.gmfgen#/");
 		Resource r = new ToolingResourceFactory().createResource(uri.trimFragment());
 		ResourceSet rset = new ResourceSetImpl();
 		rset.getResources().add(r);
 		EObject testRoot = rset.getEObject(uri, true);
-		EObject newGenModel = CustomCopier.go(testRoot, GMFGenPackage.eINSTANCE);
+		final Migrate2008 m = new Migrate2008();
+		EObject newGenModel = m.go(testRoot);
+		assertTrue(m.wasMigrationApplied());
 		checkTestModel(newGenModel);
 	}
 	
