@@ -34,7 +34,7 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	private static final String DEBUG_KEY = PortDiagramEditorPlugin.getInstance().getBundle().getSymbolicName() + "/debug/visualID"; //$NON-NLS-1$
+	private static final String DEBUG_KEY = "org.eclipse.gmf.examples.taipan.port.diagram.rcp/debug/visualID"; //$NON-NLS-1$
 
 	/**
 	 * @generated
