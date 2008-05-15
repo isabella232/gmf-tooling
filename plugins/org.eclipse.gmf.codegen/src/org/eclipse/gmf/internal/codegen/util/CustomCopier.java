@@ -33,6 +33,8 @@ import org.eclipse.emf.ecore.util.FeatureMapUtil;
  * @author artem
  */
 public class CustomCopier extends EcoreUtil.Copier {
+	private static boolean isMigrationApplied = false;
+
 	private final HashMap<EStructuralFeature, List<EObject>> myIgnoredFeatures;
 
 	private final EPackage ePack;
@@ -153,6 +155,8 @@ public class CustomCopier extends EcoreUtil.Copier {
 
 	@SuppressWarnings("unchecked")
 	public static EObject go(EObject o, EPackage metaPackage) {
+		isMigrationApplied = false;
+		
 		EPackage oldGenModel = o.eClass().getEPackage();
 		final EStructuralFeature modelElementSelector = ((EClass) oldGenModel.getEClassifier("TypeModelFacet")).getEStructuralFeature("modelElementSelector");
 		final EStructuralFeature valueExprLanguage = ((EClass) oldGenModel.getEClassifier("ValueExpression")).getEStructuralFeature("language");
@@ -162,6 +166,7 @@ public class CustomCopier extends EcoreUtil.Copier {
 		final EStructuralFeature auditRule = ((EClass) oldGenModel.getEClassifier("GenAuditRule")).getEStructuralFeature("rule");
 		final EStructuralFeature metricRule = ((EClass) oldGenModel.getEClassifier("GenMetricRule")).getEStructuralFeature("rule");
 		final EStructuralFeature providers = ((EClass) oldGenModel.getEClassifier("GenExpressionProviderContainer")).getEStructuralFeature("providers");
+		final EStructuralFeature ctxSelectorClassName = ((EClass) oldGenModel.getEClassifier("GenAuditRule")).getEStructuralFeature("contextSelectorLocalClassName");
 		//
 		CustomCopier cc = new CustomCopier(metaPackage);
 		cc.ignore(modelElementSelector);
@@ -172,6 +177,7 @@ public class CustomCopier extends EcoreUtil.Copier {
 		cc.ignore(auditRule);
 		cc.ignore(metricRule);
 		cc.ignore(providers);
+		cc.ignore(ctxSelectorClassName);
 		EObject result = cc.copy(o);
 		cc.copyReferences();
 		//
@@ -214,6 +220,7 @@ public class CustomCopier extends EcoreUtil.Copier {
 			containment2AssociationCase(cc, metricRule, oldValueExpr2New, allNewProviders);
 			for (EObject vs : cc.myIgnoredFeatures.get(gfvsBody)) {
 				assert vs.eClass().getName().equals("GenFeatureValueSpec");
+				isMigrationApplied = true;
 				EObject newVS = cc.get(vs);
 				EObject newVE = oldValueExpr2New.get(vs);
 				if (newVE == null) {
@@ -223,6 +230,21 @@ public class CustomCopier extends EcoreUtil.Copier {
 				if (newVE != null) {
 					newVS.eSet(newVS.eClass().getEStructuralFeature("value"), newVE);
 				}
+			}
+		}
+		for (EObject oldRule : cc.myIgnoredFeatures.get(ctxSelectorClassName)) {
+			assert "GenAuditRule".equals(oldRule.eClass().getName());
+			if (!oldRule.eIsSet(ctxSelectorClassName)) {
+				continue;
+			}
+			EObject root = cc.get(oldRule.eGet(oldRule.eClass().getEStructuralFeature("root")));
+			assert root != null;
+			isMigrationApplied = true;
+			String className = (String) oldRule.eGet(ctxSelectorClassName);
+			EObject context = getOrCreateContext(root, className);
+			EObject target = cc.get(oldRule.eGet(oldRule.eClass().getEStructuralFeature("target")));
+			if (target != null) {
+				target.eSet(((EClass) metaPackage.getEClassifier("GenAuditable")).getEStructuralFeature("contextSelector"), context);
 			}
 		}
 		return result;
@@ -261,6 +283,7 @@ public class CustomCopier extends EcoreUtil.Copier {
 			if (oldVE == null) {
 				continue; //nothing to do.
 			}
+			isMigrationApplied = true;
 			EObject newVE = old2newVE.get(oldVE);
 			if (newVE == null) {
 				// isCopy == true, need to match by lang/body
@@ -272,5 +295,58 @@ public class CustomCopier extends EcoreUtil.Copier {
 				n.eSet(n.eClass().getEStructuralFeature(oldFeature.getName()), newVE);
 			}
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static EObject getOrCreateContext(EObject root, String className) {
+		assert root != null && "GenAuditRoot".equals(root.eClass().getName());
+		EPackage metaPackage = root.eClass().getEPackage();
+		EClass class_genAuditContext = (EClass) metaPackage.getEClassifier("GenAuditContext");
+		EStructuralFeature feature_genAuditContext_className = class_genAuditContext.getEStructuralFeature("className");
+		EStructuralFeature feature_genAuditContext_id = class_genAuditContext.getEStructuralFeature("id");
+		EStructuralFeature feature_genAuditRoot_clientContexts = root.eClass().getEStructuralFeature("clientContexts");
+		EObject context = null;
+		for (EObject next : (List<EObject>) root.eGet(feature_genAuditRoot_clientContexts)) {
+			String explicit = (String) next.eGet(feature_genAuditContext_className);
+			if (className == explicit || (className != null && className.equals(explicit)) || (explicit == null && className.equals(next.eGet(feature_genAuditContext_id)))) {
+				context = next;
+				break;
+			}
+		}
+		if (context == null) {
+			context = metaPackage.getEFactoryInstance().create(class_genAuditContext);
+			String id = generateUnique(root, className == null ? "" : className);
+			context.eSet(feature_genAuditContext_id, id);
+			if (!id.equals(className)) {
+				context.eSet(feature_genAuditContext_className, className);
+			}
+			((List<EObject>) root.eGet(feature_genAuditRoot_clientContexts)).add(context);
+		}
+		return context;
+	}
+
+	@SuppressWarnings("unchecked")
+	private static String generateUnique(EObject root, String defaultId) {
+		assert root != null && "GenAuditRoot".equals(root.eClass().getName());
+		String id = defaultId;
+		int i = 0;
+		boolean haveSuchId = false;
+		EStructuralFeature feature_genAuditRoot_clientContexts = root.eClass().getEStructuralFeature("clientContexts");
+		do {
+			haveSuchId = false;
+			for (EObject next : (List<EObject>) root.eGet(feature_genAuditRoot_clientContexts)) {
+				EStructuralFeature feature_genAuditContext_id = next.eClass().getEStructuralFeature("id");
+				if (id.equals(next.eGet(feature_genAuditContext_id))) {
+					haveSuchId = true;
+					id = defaultId + (++i);
+					break;
+				}
+			}
+		} while (haveSuchId);
+		return id;
+	}
+
+	public static boolean wasMigrationApplied() {
+		return isMigrationApplied;
 	}
 }

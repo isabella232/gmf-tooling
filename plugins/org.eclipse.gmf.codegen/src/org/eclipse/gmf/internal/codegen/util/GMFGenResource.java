@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -21,10 +21,14 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.BasicResourceHandler;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
+import org.eclipse.gmf.internal.common.migrate.Messages;
 import org.eclipse.gmf.internal.common.migrate.MigrationResource;
 
 public class GMFGenResource extends MigrationResource {
 
+	/**
+	 * Migration from 2005 model to 2006 dynamic model and then once again to 2008 normal model during XML reading 
+	 */
 	public static class Factory extends ToolingResourceFactory {
 		@Override
 		public Resource createResource(URI uri) {
@@ -34,6 +38,10 @@ public class GMFGenResource extends MigrationResource {
 		}
 	}
 
+
+	/**
+	 * Migration from 2006 dynamic model to 2008 normal model
+	 */
 	public static class Factory2 extends ToolingResourceFactory {
 		@Override
 		public Resource createResource(URI uri) {
@@ -48,11 +56,12 @@ public class GMFGenResource extends MigrationResource {
 		public void postLoad(XMLResource resource, InputStream inputStream, Map<?, ?> options) {
 			LinkedList<EObject> migrated = new LinkedList<EObject>();
 			for (EObject o : resource.getContents()) {
-				if (o != null && "GenEditorGenerator".equals(o.eClass().getName())) {
+				if (o != null && "GenEditorGenerator".equals(o.eClass().getName()) && MigrationDelegate.get2006GenModelURI().equals(o.eClass().getEPackage().getNsURI())) {
 					EObject m = CustomCopier.go(o, GMFGenPackage.eINSTANCE);
+					if (m != null && CustomCopier.wasMigrationApplied()) {
+						resource.getWarnings().add(0, MigrationResource.createMessageDiagnostic(resource, Messages.oldModelVersionLoadedMigrationRequired));
+					}
 					migrated.add(m != null ? m : o);
-				} else {
-					migrated.add(o);
 				}
 			}
 			resource.getContents().clear();
