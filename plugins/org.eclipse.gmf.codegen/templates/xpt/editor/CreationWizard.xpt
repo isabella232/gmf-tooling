@@ -86,7 +86,18 @@ public class «creationWizardClassName»
 	«IF isStandaloneDomainModel()-»
 
 		domainModelFilePage = new «getCreationWizardPageQualifiedClassName()»(
-				"DomainModelFile", getSelection(), "«editorGen.domainFileExtension»"); //$NON-NLS-1$ //$NON-NLS-2$
+				"DomainModelFile", getSelection(), "«editorGen.domainFileExtension»") { //$NON-NLS-1$ //$NON-NLS-2$
+
+			public void setVisible(boolean visible) {
+				if (visible) {
+					String fileName = diagramModelFilePage.getFileName();
+					fileName = fileName.substring(0, fileName.length() - ".«editorGen.diagramFileExtension»".length()); //$NON-NLS-1$
+					setFileName(TaiPanDiagramEditorUtil.getUniqueFileName(
+							getContainerFullPath(), fileName, "«editorGen.domainFileExtension»")); //$NON-NLS-1$
+				}
+				super.setVisible(visible);
+			}
+		};
 		domainModelFilePage.setTitle(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForCreationWizardDomainPage().titleKey()) FOR editorGen»);
 		domainModelFilePage.setDescription(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForCreationWizardDomainPage().descriptionKey()) FOR editorGen»);
 		addPage(domainModelFilePage);
