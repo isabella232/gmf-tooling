@@ -18,18 +18,18 @@
 
 «DEFINE Main(String compositeVar) FOR FormLayout-»
 «compositeVar».setLayout(new org.eclipse.swt.layout.FormLayout());
-org.eclipse.swt.layout.FormData fd;
+org.eclipse.swt.layout.FormData «compositeVar»FD;
 «FOREACH data AS fd-»
-fd = new org.eclipse.swt.layout.FormData();
-«IF fd.left != null»fd.left = «EXPAND x FOR fd.left»;
+«compositeVar»FD = new org.eclipse.swt.layout.FormData();
+«IF fd.left != null»«compositeVar»FD.left = «EXPAND x FOR fd.left»;
 «ENDIF-»
-«IF fd.right != null»fd.right = «EXPAND x FOR fd.right»;
+«IF fd.right != null»«compositeVar»FD.right = «EXPAND x FOR fd.right»;
 «ENDIF-»
-«IF fd.top != null»fd.top = «EXPAND x FOR fd.top»;
+«IF fd.top != null»«compositeVar»FD.top = «EXPAND x FOR fd.top»;
 «ENDIF-»
-«IF fd.bottom != null»fd.bottom = «EXPAND x FOR fd.bottom»;
+«IF fd.bottom != null»«compositeVar»FD.bottom = «EXPAND x FOR fd.bottom»;
 «ENDIF-»
-«fd.widget.fieldName()».setLayoutData(fd);
+«fd.widget.fieldName()».setLayoutData(«compositeVar»FD);
 «ENDFOREACH-»
 «ENDDEFINE»
 
