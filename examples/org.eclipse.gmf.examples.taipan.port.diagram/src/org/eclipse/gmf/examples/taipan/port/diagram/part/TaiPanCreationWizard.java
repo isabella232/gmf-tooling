@@ -115,7 +115,17 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 		diagramModelFilePage.setDescription(Messages.TaiPanCreationWizard_DiagramModelFilePageDescription);
 		addPage(diagramModelFilePage);
 
-		domainModelFilePage = new TaiPanCreationWizardPage("DomainModelFile", getSelection(), "taipan"); //$NON-NLS-1$ //$NON-NLS-2$
+		domainModelFilePage = new TaiPanCreationWizardPage("DomainModelFile", getSelection(), "taipan") { //$NON-NLS-1$ //$NON-NLS-2$
+
+			public void setVisible(boolean visible) {
+				if (visible) {
+					String fileName = diagramModelFilePage.getFileName();
+					fileName = fileName.substring(0, fileName.length() - ".port_diagram".length()); //$NON-NLS-1$
+					setFileName(TaiPanDiagramEditorUtil.getUniqueFileName(getContainerFullPath(), fileName, "taipan")); //$NON-NLS-1$
+				}
+				super.setVisible(visible);
+			}
+		};
 		domainModelFilePage.setTitle(Messages.TaiPanCreationWizard_DomainModelFilePageTitle);
 		domainModelFilePage.setDescription(Messages.TaiPanCreationWizard_DomainModelFilePageDescription);
 		addPage(domainModelFilePage);
