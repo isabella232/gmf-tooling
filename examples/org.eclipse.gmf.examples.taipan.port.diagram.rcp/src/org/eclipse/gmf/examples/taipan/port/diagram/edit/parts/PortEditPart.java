@@ -13,20 +13,37 @@ package org.eclipse.gmf.examples.taipan.port.diagram.edit.parts;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gmf.examples.taipan.layouts.PortLayoutProvider;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.PortCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.PortItemSemanticEditPolicy;
+import org.eclipse.gmf.runtime.common.core.command.CommandResult;
+import org.eclipse.gmf.runtime.common.core.util.ObjectAdapter;
+import org.eclipse.gmf.runtime.diagram.ui.actions.ActionIds;
+import org.eclipse.gmf.runtime.diagram.ui.commands.DeferredLayoutCommand;
+import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ContainerEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.diagram.ui.internal.services.layout.IInternalLayoutRunnable;
+import org.eclipse.gmf.runtime.diagram.ui.internal.services.layout.LayoutNode;
 import org.eclipse.gmf.runtime.diagram.ui.requests.ArrangeRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
+import org.eclipse.gmf.runtime.diagram.ui.services.layout.LayoutType;
+import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -71,7 +88,65 @@ public class PortEditPart extends DiagramEditPart {
 				if (layoutProvider.isWorking()) {
 					return null;
 				}
-				return super.getArrangeCommand(request);
+				// DeferredCommand is patched to arrange all children when no viewAdapters is specified
+				if (RequestConstants.REQ_ARRANGE_DEFERRED.equals(request.getType())) {
+					String layoutType = request.getLayoutType();
+					TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
+					return new ICommandProxy(new DeferredLayoutCommand(editingDomain, request.getViewAdaptersToArrange(), (IGraphicalEditPart) getHost(), layoutType) {
+
+						@Override
+						protected CommandResult doExecuteWithResult(IProgressMonitor progressMonitor, IAdaptable info) throws ExecutionException {
+							if (viewAdapters == null || viewAdapters.isEmpty()) {
+								viewAdapters = new ArrayList(PortEditPart.this.getChildren());
+							}
+							return super.doExecuteWithResult(progressMonitor, info);
+						}
+					});
+				}
+				// Snap to grid command is stripped off to prevent loops
+				String layoutDesc = request.getLayoutType() != null ? request.getLayoutType() : LayoutType.DEFAULT;
+				boolean offsetFromBoundingBox = false;
+				List editparts = new ArrayList();
+
+				if ((ActionIds.ACTION_ARRANGE_ALL.equals(request.getType())) || (ActionIds.ACTION_TOOLBAR_ARRANGE_ALL.equals(request.getType()))) {
+					editparts = ((IGraphicalEditPart) getHost()).getChildren();
+					request.setPartsToArrange(editparts);
+				}
+				if ((ActionIds.ACTION_ARRANGE_SELECTION.equals(request.getType())) || (ActionIds.ACTION_TOOLBAR_ARRANGE_SELECTION.equals(request.getType()))) {
+					editparts = request.getPartsToArrange();
+					if (!(((GraphicalEditPart) ((EditPart) editparts.get(0)).getParent()).getContentPane().getLayoutManager() instanceof XYLayout)) {
+						return null;
+					}
+					offsetFromBoundingBox = true;
+				}
+				if (RequestConstants.REQ_ARRANGE_RADIAL.equals(request.getType())) {
+					editparts = request.getPartsToArrange();
+					offsetFromBoundingBox = true;
+					layoutDesc = LayoutType.RADIAL;
+				}
+				if (editparts.isEmpty()) {
+					return null;
+				}
+				List nodes = new ArrayList(editparts.size());
+				ListIterator li = editparts.listIterator();
+				while (li.hasNext()) {
+					IGraphicalEditPart ep = (IGraphicalEditPart) li.next();
+					View view = ep.getNotationView();
+					if (ep.isActive() && view != null && view instanceof Node) {
+						Rectangle bounds = ep.getFigure().getBounds();
+						nodes.add(new LayoutNode((Node) view, bounds.width, bounds.height));
+					}
+				}
+				if (nodes.isEmpty()) {
+					return null;
+				}
+
+				List hints = new ArrayList(2);
+				hints.add(layoutDesc);
+				hints.add(getHost());
+				IAdaptable layoutHint = new ObjectAdapter(hints);
+				Runnable layoutRun = layoutNodes(nodes, offsetFromBoundingBox, layoutHint);
+				return ((IInternalLayoutRunnable) layoutRun).getCommand();
 			}
 
 			public Runnable layoutNodes(List nodes, boolean offsetFromBoundingBox, IAdaptable layoutHint) {
@@ -84,8 +159,6 @@ public class PortEditPart extends DiagramEditPart {
 		Command command = super.getCommand(request);
 		if (request.getType().equals(REQ_CREATE) || request.getType().equals(REQ_MOVE_CHILDREN) || request.getType().equals(REQ_RESIZE_CHILDREN)) {
 			ArrangeRequest layoutRequest = new ArrangeRequest(RequestConstants.REQ_ARRANGE_DEFERRED);
-			List editParts = request instanceof GroupRequest ? ((GroupRequest) request).getEditParts() : getChildren();
-			layoutRequest.setViewAdaptersToArrange(new ArrayList(editParts));
 			Command layoutCommand = super.getCommand(layoutRequest);
 			if (layoutCommand != null) {
 				command = command.chain(layoutCommand);

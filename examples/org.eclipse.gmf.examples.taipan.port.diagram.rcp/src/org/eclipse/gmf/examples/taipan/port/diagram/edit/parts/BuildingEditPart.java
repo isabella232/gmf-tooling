@@ -18,11 +18,13 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.ToolbarLayout;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
+import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.figures.BuildingShape;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.BuildingItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.TaiPanTextSelectionEditPolicy;
@@ -126,6 +128,18 @@ public class BuildingEditPart extends ShapeNodeEditPart {
 			}
 		}
 		return command;
+	}
+
+	@Override
+	protected void handleNotificationEvent(Notification notification) {
+		if (notification.getFeature() == TaiPanPackage.eINSTANCE.getBuilding_Street() || notification.getFeature() == TaiPanPackage.eINSTANCE.getBuilding_Info()) {
+			ArrangeRequest layoutRequest = new ArrangeRequest(RequestConstants.REQ_ARRANGE_DEFERRED);
+			Command layoutCommand = getParent().getCommand(layoutRequest);
+			if (layoutCommand != null && layoutCommand.canExecute()) {
+				getDiagramEditDomain().getDiagramCommandStack().execute(layoutCommand);
+			}
+		}
+		super.handleNotificationEvent(notification);
 	}
 
 	/**
