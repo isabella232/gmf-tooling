@@ -119,19 +119,19 @@ public class SizeSection extends AbstractPropertySection implements ChangeTracke
 		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(mySetMinimumSize);
 
 		parent.setLayout(new org.eclipse.swt.layout.FormLayout());
-		org.eclipse.swt.layout.FormData fd;
-		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
-		myLocationGroup.setLayoutData(fd);
-		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myLocationGroup, 20, org.eclipse.swt.SWT.RIGHT);
-		myPreferredSizeGroup.setLayoutData(fd);
-		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myPreferredSizeGroup, 20, org.eclipse.swt.SWT.RIGHT);
-		myMaximumSizeGroup.setLayoutData(fd);
-		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myMaximumSizeGroup, 20, org.eclipse.swt.SWT.RIGHT);
-		myMinimumSizeGroup.setLayoutData(fd);
+		org.eclipse.swt.layout.FormData parentFD;
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
+		myLocationGroup.setLayoutData(parentFD);
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(myLocationGroup, 20, org.eclipse.swt.SWT.RIGHT);
+		myPreferredSizeGroup.setLayoutData(parentFD);
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(myPreferredSizeGroup, 20, org.eclipse.swt.SWT.RIGHT);
+		myMaximumSizeGroup.setLayoutData(parentFD);
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(myMaximumSizeGroup, 20, org.eclipse.swt.SWT.RIGHT);
+		myMinimumSizeGroup.setLayoutData(parentFD);
 
 		for (Spinner s : new Spinner[] { myLocationX, myLocationY, myPreferredSizeX, myPreferredSizeY, myMaximumSizeX, myMaximumSizeY, myMinimumSizeX, myMinimumSizeY }) {
 			s.addListener(SWT.Modify, this);

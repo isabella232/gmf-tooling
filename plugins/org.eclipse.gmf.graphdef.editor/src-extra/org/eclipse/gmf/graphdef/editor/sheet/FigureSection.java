@@ -11,14 +11,20 @@
 package org.eclipse.gmf.graphdef.editor.sheet;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.gmf.gmfgraph.ColorConstants;
+import org.eclipse.gmf.gmfgraph.ConstantColor;
+import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.LineKind;
+import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
@@ -42,6 +48,8 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 	private Group myStyleRadios;
 	private Group myCommonStyle;
 	private Group myRoundedRectStyle;
+	private Group myForegroundColor;
+	private Group myBackgroundColor;
 	private Button myR1;
 	private Button myR2;
 	private Button myR3;
@@ -55,6 +63,24 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 	private Button myOutlineXor;
 	private Spinner myCornerWidth;
 	private Spinner myCornerHeight;
+	private Button myForegroundRgbRadio;
+	private Button myForegroundPredeinedRadio;
+	private Button myForegroundNoValueRadio;
+	private Group myForegroundRGBValues;
+	private Group myForegroundPredefinedValue;
+	private Button myBackgroundRgbRadio;
+	private Button myBackgroundPredeinedRadio;
+	private Button myBackgroundNoRadio;
+	private Group myBackgroundRGBValues;
+	private Group myBackgroundPredefinedValue;
+	private Spinner myForegroundRed;
+	private Spinner myForegroundGreen;
+	private Spinner myForegroundBlue;
+	private Combo myForegroundPredefinedColor;
+	private Spinner myBackgroundRed;
+	private Spinner myBackgroundGreen;
+	private Spinner myBackgroundBlue;
+	private Combo myBackgroundPredefinedColor;
 
 	@Override
 	public void createControls(Composite parent, TabbedPropertySheetPage page) {
@@ -91,25 +117,131 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 		myCornerHeight.setMaximum(100);
 		myCornerHeight.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
 		myRoundedRectStyle.setLayout(new org.eclipse.swt.layout.GridLayout(2, true));
+		myForegroundColor = createGroup(parent, "Foreground Color");
+		myForegroundRgbRadio = getWidgetFactory().createButton(myForegroundColor, "RGB", SWT.RADIO);
+		myForegroundPredeinedRadio = getWidgetFactory().createButton(myForegroundColor, "Predefined", SWT.RADIO);
+		myForegroundNoValueRadio = getWidgetFactory().createButton(myForegroundColor, "None", SWT.RADIO);
+		myForegroundRGBValues = createGroup(myForegroundColor, "RGB Values");
+		createLabel(myForegroundRGBValues, "Red");
+		myForegroundRed = new Spinner(myForegroundRGBValues, SWT.FLAT);
+		myForegroundRed.setMinimum(0);
+		myForegroundRed.setMaximum(255);
+		myForegroundRed.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
+		createLabel(myForegroundRGBValues, "Green");
+		myForegroundGreen = new Spinner(myForegroundRGBValues, SWT.FLAT);
+		myForegroundGreen.setMinimum(0);
+		myForegroundGreen.setMaximum(255);
+		myForegroundGreen.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
+		createLabel(myForegroundRGBValues, "Blue");
+		myForegroundBlue = new Spinner(myForegroundRGBValues, SWT.FLAT);
+		myForegroundBlue.setMinimum(0);
+		myForegroundBlue.setMaximum(255);
+		myForegroundBlue.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
+		myForegroundRGBValues.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
+		myForegroundPredefinedValue = createGroup(myForegroundColor, "Predefined Colors");
+		myForegroundPredefinedColor = new Combo(myForegroundPredefinedValue, SWT.FLAT | SWT.READ_ONLY);
+		myForegroundPredefinedColor.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER);
+		getWidgetFactory().adapt(myForegroundPredefinedColor, false, false);
+		myForegroundPredefinedValue.setLayout(new org.eclipse.swt.layout.GridLayout(1, false));
+		myForegroundColor.setLayout(new org.eclipse.swt.layout.FormLayout());
+		org.eclipse.swt.layout.FormData myForegroundColorFD;
+		myForegroundColorFD = new org.eclipse.swt.layout.FormData();
+		myForegroundColorFD.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
+		myForegroundRgbRadio.setLayoutData(myForegroundColorFD);
+		myForegroundColorFD = new org.eclipse.swt.layout.FormData();
+		myForegroundColorFD.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
+		myForegroundColorFD.top = new org.eclipse.swt.layout.FormAttachment(myForegroundRgbRadio, 5, org.eclipse.swt.SWT.BOTTOM);
+		myForegroundPredeinedRadio.setLayoutData(myForegroundColorFD);
+		myForegroundColorFD = new org.eclipse.swt.layout.FormData();
+		myForegroundColorFD.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
+		myForegroundColorFD.top = new org.eclipse.swt.layout.FormAttachment(myForegroundPredeinedRadio, 5, org.eclipse.swt.SWT.BOTTOM);
+		myForegroundNoValueRadio.setLayoutData(myForegroundColorFD);
+		myForegroundColorFD = new org.eclipse.swt.layout.FormData();
+		myForegroundColorFD.left = new org.eclipse.swt.layout.FormAttachment(myForegroundPredeinedRadio, 10, org.eclipse.swt.SWT.RIGHT);
+		myForegroundRGBValues.setLayoutData(myForegroundColorFD);
+		myForegroundColorFD = new org.eclipse.swt.layout.FormData();
+		myForegroundColorFD.left = new org.eclipse.swt.layout.FormAttachment(myForegroundPredeinedRadio, 10, org.eclipse.swt.SWT.RIGHT);
+		myForegroundPredefinedValue.setLayoutData(myForegroundColorFD);
+		myBackgroundColor = createGroup(parent, "Background Color");
+		myBackgroundRgbRadio = getWidgetFactory().createButton(myBackgroundColor, "RGB", SWT.RADIO);
+		myBackgroundPredeinedRadio = getWidgetFactory().createButton(myBackgroundColor, "Predefined", SWT.RADIO);
+		myBackgroundNoRadio = getWidgetFactory().createButton(myBackgroundColor, "None", SWT.RADIO);
+		myBackgroundRGBValues = createGroup(myBackgroundColor, "RGB Values");
+		createLabel(myBackgroundRGBValues, "Red");
+		myBackgroundRed = new Spinner(myBackgroundRGBValues, SWT.FLAT);
+		myBackgroundRed.setMinimum(0);
+		myBackgroundRed.setMaximum(255);
+		myBackgroundRed.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
+		createLabel(myBackgroundRGBValues, "Green");
+		myBackgroundGreen = new Spinner(myBackgroundRGBValues, SWT.FLAT);
+		myBackgroundGreen.setMinimum(0);
+		myBackgroundGreen.setMaximum(255);
+		myBackgroundGreen.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
+		createLabel(myBackgroundRGBValues, "Blue");
+		myBackgroundBlue = new Spinner(myBackgroundRGBValues, SWT.FLAT);
+		myBackgroundBlue.setMinimum(0);
+		myBackgroundBlue.setMaximum(255);
+		myBackgroundBlue.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
+		myBackgroundRGBValues.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
+		myBackgroundPredefinedValue = createGroup(myBackgroundColor, "Predefined Colors");
+		myBackgroundPredefinedColor = new Combo(myBackgroundPredefinedValue, SWT.FLAT | SWT.READ_ONLY);
+		myBackgroundPredefinedColor.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER);
+		getWidgetFactory().adapt(myBackgroundPredefinedColor, false, false);
+		myBackgroundPredefinedValue.setLayout(new org.eclipse.swt.layout.GridLayout(1, false));
+		myBackgroundColor.setLayout(new org.eclipse.swt.layout.FormLayout());
+		org.eclipse.swt.layout.FormData myBackgroundColorFD;
+		myBackgroundColorFD = new org.eclipse.swt.layout.FormData();
+		myBackgroundColorFD.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
+		myBackgroundRgbRadio.setLayoutData(myBackgroundColorFD);
+		myBackgroundColorFD = new org.eclipse.swt.layout.FormData();
+		myBackgroundColorFD.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
+		myBackgroundColorFD.top = new org.eclipse.swt.layout.FormAttachment(myBackgroundRgbRadio, 5, org.eclipse.swt.SWT.BOTTOM);
+		myBackgroundPredeinedRadio.setLayoutData(myBackgroundColorFD);
+		myBackgroundColorFD = new org.eclipse.swt.layout.FormData();
+		myBackgroundColorFD.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
+		myBackgroundColorFD.top = new org.eclipse.swt.layout.FormAttachment(myBackgroundPredeinedRadio, 5, org.eclipse.swt.SWT.BOTTOM);
+		myBackgroundNoRadio.setLayoutData(myBackgroundColorFD);
+		myBackgroundColorFD = new org.eclipse.swt.layout.FormData();
+		myBackgroundColorFD.left = new org.eclipse.swt.layout.FormAttachment(myBackgroundPredeinedRadio, 10, org.eclipse.swt.SWT.RIGHT);
+		myBackgroundRGBValues.setLayoutData(myBackgroundColorFD);
+		myBackgroundColorFD = new org.eclipse.swt.layout.FormData();
+		myBackgroundColorFD.left = new org.eclipse.swt.layout.FormAttachment(myBackgroundPredeinedRadio, 10, org.eclipse.swt.SWT.RIGHT);
+		myBackgroundPredefinedValue.setLayoutData(myBackgroundColorFD);
 
 		parent.setLayout(new org.eclipse.swt.layout.FormLayout());
-		org.eclipse.swt.layout.FormData fd;
-		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
-		myStyleRadios.setLayoutData(fd);
-		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myStyleRadios, 10, org.eclipse.swt.SWT.RIGHT);
-		myCommonStyle.setLayoutData(fd);
-		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myStyleRadios, 10, org.eclipse.swt.SWT.RIGHT);
-		fd.top = new org.eclipse.swt.layout.FormAttachment(myCommonStyle, 5, org.eclipse.swt.SWT.BOTTOM);
-		myRoundedRectStyle.setLayoutData(fd);
+		org.eclipse.swt.layout.FormData parentFD;
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
+		myStyleRadios.setLayoutData(parentFD);
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(myStyleRadios, 10, org.eclipse.swt.SWT.RIGHT);
+		myCommonStyle.setLayoutData(parentFD);
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(myStyleRadios, 10, org.eclipse.swt.SWT.RIGHT);
+		parentFD.top = new org.eclipse.swt.layout.FormAttachment(myCommonStyle, 5, org.eclipse.swt.SWT.BOTTOM);
+		myRoundedRectStyle.setLayoutData(parentFD);
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(myCommonStyle, 10, org.eclipse.swt.SWT.RIGHT);
+		myForegroundColor.setLayoutData(parentFD);
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(myCommonStyle, 10, org.eclipse.swt.SWT.RIGHT);
+		parentFD.top = new org.eclipse.swt.layout.FormAttachment(myForegroundColor, 5, org.eclipse.swt.SWT.BOTTOM);
+		myBackgroundColor.setLayoutData(parentFD);
+		// TODO myForegroundPredefinedColor.setItems(VALUES.toString().toArray());
+		for (org.eclipse.emf.common.util.Enumerator e : ColorConstants.VALUES) {
+			myForegroundPredefinedColor.add(e.getName());
+		}
+		// TODO myBackgroundPredefinedColor.setItems(VALUES.toString().toArray());
+		for (org.eclipse.emf.common.util.Enumerator e : ColorConstants.VALUES) {
+			myBackgroundPredefinedColor.add(e.getName());
+		}
 
-		for (Spinner s : new Spinner[] { myLineWidth, myCornerWidth, myCornerHeight }) {
+		for (Spinner s : new Spinner[] { myLineWidth, myCornerWidth, myCornerHeight, myForegroundRed, myForegroundGreen, myForegroundBlue, myBackgroundRed, myBackgroundGreen, myBackgroundBlue }) {
 			s.addListener(SWT.Modify, this);
 			s.addListener(SWT.FocusOut, this);
 		}
-		for (Widget w : new Widget[] { myR1, myR2, myR3, myR4, myR5, myR6, myFill, myOutline, myFillXor, myOutlineXor }) {
+		for (Widget w : new Widget[] { myR1, myR2, myR3, myR4, myR5, myR6, myForegroundRgbRadio, myForegroundPredeinedRadio, myForegroundNoValueRadio, myBackgroundRgbRadio,
+				myBackgroundPredeinedRadio, myBackgroundNoRadio, myFill, myOutline, myFillXor, myOutlineXor, myForegroundPredefinedColor, myBackgroundPredefinedColor }) {
 			w.addListener(SWT.Selection, this);
 		}
 	}
@@ -134,72 +266,99 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 
 	protected void commit() {
 
-		getInput().setLineWidth(myLineWidth.getSelection());
-		getInput().setFill(myFill.getSelection());
-		getInput().setOutline(myOutline.getSelection());
-		getInput().setXorFill(myFillXor.getSelection());
-		getInput().setXorOutline(myOutlineXor.getSelection());
+		((Shape) getInput()).setLineWidth(myLineWidth.getSelection());
+		((Shape) getInput()).setFill(myFill.getSelection());
+		((Shape) getInput()).setOutline(myOutline.getSelection());
+		((Shape) getInput()).setXorFill(myFillXor.getSelection());
+		((Shape) getInput()).setXorOutline(myOutlineXor.getSelection());
 
 		if (myR1.getSelection()) {
-			getInput().setLineKind(LineKind.LINE_SOLID_LITERAL);
+			((Shape) getInput()).setLineKind(LineKind.LINE_SOLID_LITERAL);
 		}
 		if (myR2.getSelection()) {
-			getInput().setLineKind(LineKind.LINE_DASH_LITERAL);
+			((Shape) getInput()).setLineKind(LineKind.LINE_DASH_LITERAL);
 		}
 		if (myR3.getSelection()) {
-			getInput().setLineKind(LineKind.LINE_DOT_LITERAL);
+			((Shape) getInput()).setLineKind(LineKind.LINE_DOT_LITERAL);
 		}
 		if (myR4.getSelection()) {
-			getInput().setLineKind(LineKind.LINE_DASHDOT_LITERAL);
+			((Shape) getInput()).setLineKind(LineKind.LINE_DASHDOT_LITERAL);
 		}
 		if (myR5.getSelection()) {
-			getInput().setLineKind(LineKind.LINE_DASHDOTDOT_LITERAL);
+			((Shape) getInput()).setLineKind(LineKind.LINE_DASHDOTDOT_LITERAL);
 		}
 		if (myR6.getSelection()) {
-			getInput().setLineKind(LineKind.LINE_CUSTOM_LITERAL);
+			((Shape) getInput()).setLineKind(LineKind.LINE_CUSTOM_LITERAL);
 		}
 		if (myRoundedRectStyle.isVisible()) {
 			((RoundedRectangle) getInput()).setCornerWidth(myCornerWidth.getSelection());
 			((RoundedRectangle) getInput()).setCornerHeight(myCornerHeight.getSelection());
 		}
+		if (myForegroundRGBValues.isVisible()) {
+			getInput().setForegroundColor(GMFGraphFactory.eINSTANCE.createRGBColor());
+			((RGBColor) getInput().getForegroundColor()).setRed(myForegroundRed.getSelection());
+			((RGBColor) getInput().getForegroundColor()).setGreen(myForegroundGreen.getSelection());
+			((RGBColor) getInput().getForegroundColor()).setBlue(myForegroundBlue.getSelection());
+		}
+		if (myForegroundPredefinedValue.isVisible()) {
+			getInput().setForegroundColor(GMFGraphFactory.eINSTANCE.createConstantColor());
+			((ConstantColor) getInput().getForegroundColor()).setValue(ColorConstants.get(myForegroundPredefinedColor.getSelectionIndex()));
+		}
+		if (myForegroundNoValueRadio.getSelection()) {
+			getInput().setForegroundColor(null);
+		}
+		if (myBackgroundRGBValues.isVisible()) {
+			getInput().setBackgroundColor(GMFGraphFactory.eINSTANCE.createRGBColor());
+			((RGBColor) getInput().getBackgroundColor()).setRed(myBackgroundRed.getSelection());
+			((RGBColor) getInput().getBackgroundColor()).setGreen(myBackgroundGreen.getSelection());
+			((RGBColor) getInput().getBackgroundColor()).setBlue(myBackgroundBlue.getSelection());
+		}
+		if (myBackgroundPredefinedValue.isVisible()) {
+			getInput().setBackgroundColor(GMFGraphFactory.eINSTANCE.createConstantColor());
+			((ConstantColor) getInput().getBackgroundColor()).setValue(ColorConstants.get(myBackgroundPredefinedColor.getSelectionIndex()));
+		}
+		if (myBackgroundNoRadio.getSelection()) {
+			getInput().setBackgroundColor(null);
+		}
+
 	}
 
 	@Override
 	public void refresh() {
 		myIsRefresh = true;
 
-		myLineWidth.setSelection(getInput().getLineWidth());
-		myFill.setSelection(getInput().isFill());
-		myOutline.setSelection(getInput().isOutline());
-		myFillXor.setSelection(getInput().isXorFill());
-		myOutlineXor.setSelection(getInput().isXorOutline());
+		myLineWidth.setSelection(((Shape) getInput()).getLineWidth());
+		myFill.setSelection(((Shape) getInput()).isFill());
+		myOutline.setSelection(((Shape) getInput()).isOutline());
+		myFillXor.setSelection(((Shape) getInput()).isXorFill());
+		myOutlineXor.setSelection(((Shape) getInput()).isXorOutline());
 
-		if (getInput().getLineKind() == LineKind.LINE_SOLID_LITERAL) {
+		if (((Shape) getInput()).getLineKind() == LineKind.LINE_SOLID_LITERAL) {
 			myR1.setSelection(true);
 		} else {
 			myR1.setSelection(false);
 		}
-		if (getInput().getLineKind() == LineKind.LINE_DASH_LITERAL) {
+		if (((Shape) getInput()).getLineKind() == LineKind.LINE_DASH_LITERAL) {
 			myR2.setSelection(true);
 		} else {
 			myR2.setSelection(false);
 		}
-		if (getInput().getLineKind() == LineKind.LINE_DOT_LITERAL) {
+		if (((Shape) getInput()).getLineKind() == LineKind.LINE_DOT_LITERAL) {
 			myR3.setSelection(true);
 		} else {
 			myR3.setSelection(false);
 		}
-		if (getInput().getLineKind() == LineKind.LINE_DASHDOT_LITERAL) {
+		if (((Shape) getInput()).getLineKind() == LineKind.LINE_DASHDOT_LITERAL) {
 			myR4.setSelection(true);
 		} else {
 			myR4.setSelection(false);
 		}
-		if (getInput().getLineKind() == LineKind.LINE_DASHDOTDOT_LITERAL) {
+		if (((Shape) getInput()).getLineKind() == LineKind.LINE_DASHDOTDOT_LITERAL) {
 			myR5.setSelection(true);
 		} else {
 			myR5.setSelection(false);
 		}
-		if (getInput().getLineKind() == LineKind.LINE_CUSTOM_LITERAL) {
+		if (((Shape) getInput()).getLineKind() == LineKind.LINE_CUSTOM_LITERAL) {
 			myR6.setSelection(true);
 		} else {
 			myR6.setSelection(false);
@@ -210,6 +369,60 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 			myRoundedRectStyle.setVisible(true);
 		} else {
 			myRoundedRectStyle.setVisible(false);
+		}
+		if (getInput().getForegroundColor() instanceof RGBColor) {
+			if (getInput().getForegroundColor() != null) {
+				myForegroundRed.setSelection(((RGBColor) getInput().getForegroundColor()).getRed());
+				myForegroundGreen.setSelection(((RGBColor) getInput().getForegroundColor()).getGreen());
+				myForegroundBlue.setSelection(((RGBColor) getInput().getForegroundColor()).getBlue());
+			}
+			myForegroundRgbRadio.setSelection(true);
+			myForegroundRGBValues.setVisible(true);
+		} else {
+			myForegroundRgbRadio.setSelection(false);
+			myForegroundRGBValues.setVisible(false);
+		}
+		if (getInput().getForegroundColor() instanceof ConstantColor) {
+			if (getInput().getForegroundColor() != null) {
+				myForegroundPredefinedColor.select(((ConstantColor) getInput().getForegroundColor()).getValue().getValue());
+			}
+			myForegroundPredeinedRadio.setSelection(true);
+			myForegroundPredefinedValue.setVisible(true);
+		} else {
+			myForegroundPredeinedRadio.setSelection(false);
+			myForegroundPredefinedValue.setVisible(false);
+		}
+		if (getInput().getForegroundColor() == null) {
+			myForegroundNoValueRadio.setSelection(true);
+		} else {
+			myForegroundNoValueRadio.setSelection(false);
+		}
+		if (getInput().getBackgroundColor() instanceof RGBColor) {
+			if (getInput().getBackgroundColor() != null) {
+				myBackgroundRed.setSelection(((RGBColor) getInput().getBackgroundColor()).getRed());
+				myBackgroundGreen.setSelection(((RGBColor) getInput().getBackgroundColor()).getGreen());
+				myBackgroundBlue.setSelection(((RGBColor) getInput().getBackgroundColor()).getBlue());
+			}
+			myBackgroundRgbRadio.setSelection(true);
+			myBackgroundRGBValues.setVisible(true);
+		} else {
+			myBackgroundRgbRadio.setSelection(false);
+			myBackgroundRGBValues.setVisible(false);
+		}
+		if (getInput().getBackgroundColor() instanceof ConstantColor) {
+			if (getInput().getBackgroundColor() != null) {
+				myBackgroundPredefinedColor.select(((ConstantColor) getInput().getBackgroundColor()).getValue().getValue());
+			}
+			myBackgroundPredeinedRadio.setSelection(true);
+			myBackgroundPredefinedValue.setVisible(true);
+		} else {
+			myBackgroundPredeinedRadio.setSelection(false);
+			myBackgroundPredefinedValue.setVisible(false);
+		}
+		if (getInput().getBackgroundColor() == null) {
+			myBackgroundNoRadio.setSelection(true);
+		} else {
+			myBackgroundNoRadio.setSelection(false);
 		}
 
 		myIsRefresh = false;
@@ -278,6 +491,69 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 				if (myR6.getSelection()) {
 					applyChanges(); // Commit; View to Model
 				}
+			} else if (myForegroundRgbRadio == event.widget) {
+				if (myForegroundRgbRadio.getSelection()) {
+					myForegroundRGBValues.setVisible(true);
+					myForegroundPredefinedValue.setVisible(false);
+					applyChanges(); // Commit; View to Model
+					if (getInput().getForegroundColor() != null) {
+						myForegroundRed.setSelection(((RGBColor) getInput().getForegroundColor()).getRed());
+						myForegroundGreen.setSelection(((RGBColor) getInput().getForegroundColor()).getGreen());
+						myForegroundBlue.setSelection(((RGBColor) getInput().getForegroundColor()).getBlue());
+					}
+				} else {
+					myForegroundRGBValues.setVisible(false);
+				}
+			} else if (myForegroundPredeinedRadio == event.widget) {
+				if (myForegroundPredeinedRadio.getSelection()) {
+					myForegroundPredefinedValue.setVisible(true);
+					myForegroundRGBValues.setVisible(false);
+					applyChanges(); // Commit; View to Model
+					if (getInput().getForegroundColor() != null) {
+						myForegroundPredefinedColor.select(((ConstantColor) getInput().getForegroundColor()).getValue().getValue());
+					}
+				} else {
+					myForegroundPredefinedValue.setVisible(false);
+				}
+			} else if (myForegroundNoValueRadio == event.widget) {
+				if (myForegroundNoValueRadio.getSelection()) {
+					myForegroundRGBValues.setVisible(false);
+					myForegroundPredefinedValue.setVisible(false);
+					applyChanges(); // Commit; View to Model
+				}
+			} else if (myBackgroundRgbRadio == event.widget) {
+				if (myBackgroundRgbRadio.getSelection()) {
+					myBackgroundRGBValues.setVisible(true);
+					myBackgroundPredefinedValue.setVisible(false);
+					applyChanges(); // Commit; View to Model
+					if (getInput().getBackgroundColor() != null) {
+						myBackgroundRed.setSelection(((RGBColor) getInput().getBackgroundColor()).getRed());
+						myBackgroundGreen.setSelection(((RGBColor) getInput().getBackgroundColor()).getGreen());
+						myBackgroundBlue.setSelection(((RGBColor) getInput().getBackgroundColor()).getBlue());
+					}
+				} else {
+					myBackgroundRGBValues.setVisible(false);
+				}
+			} else if (myBackgroundPredeinedRadio == event.widget) {
+				if (myBackgroundPredeinedRadio.getSelection()) {
+					myBackgroundPredefinedValue.setVisible(true);
+					myBackgroundRGBValues.setVisible(false);
+					applyChanges(); // Commit; View to Model
+					if (getInput().getBackgroundColor() != null) {
+						myBackgroundPredefinedColor.select(((ConstantColor) getInput().getBackgroundColor()).getValue().getValue());
+					}
+				} else {
+					myBackgroundPredefinedValue.setVisible(false);
+				}
+			} else if (myBackgroundNoRadio == event.widget) {
+				if (myBackgroundNoRadio.getSelection()) {
+					myBackgroundRGBValues.setVisible(false);
+					myBackgroundPredefinedValue.setVisible(false);
+					applyChanges(); // Commit; View to Model
+				}
+			}
+			if (myForegroundPredefinedColor == event.widget || myBackgroundPredefinedColor == event.widget) {
+				applyChanges();
 			}
 
 		}
@@ -314,9 +590,24 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 	}
 
 	private void attach() {
-		myModelListeners = new org.eclipse.emf.common.notify.Adapter[] { new FeatureTracker(this, GMFGraphPackage.eINSTANCE.getShape_LineKind(), GMFGraphPackage.eINSTANCE.getShape_LineWidth(),
-				GMFGraphPackage.eINSTANCE.getShape_Fill(), GMFGraphPackage.eINSTANCE.getShape_Outline(), GMFGraphPackage.eINSTANCE.getShape_XorFill(), GMFGraphPackage.eINSTANCE.getShape_XorOutline(),
-				GMFGraphPackage.eINSTANCE.getRoundedRectangle_CornerWidth(), GMFGraphPackage.eINSTANCE.getRoundedRectangle_CornerHeight()) };
+		myModelListeners = new org.eclipse.emf.common.notify.Adapter[] {
+				new FeatureTracker(this, GMFGraphPackage.eINSTANCE.getShape_LineKind(), GMFGraphPackage.eINSTANCE.getShape_LineWidth(), GMFGraphPackage.eINSTANCE.getShape_Fill(),
+						GMFGraphPackage.eINSTANCE.getShape_Outline(), GMFGraphPackage.eINSTANCE.getShape_XorFill(), GMFGraphPackage.eINSTANCE.getShape_XorOutline(), GMFGraphPackage.eINSTANCE
+								.getRoundedRectangle_CornerWidth(), GMFGraphPackage.eINSTANCE.getRoundedRectangle_CornerHeight()),
+				new AttachAdapter(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor(), new ChangeTracker() {
+
+					public void modelChanged(org.eclipse.emf.common.notify.Notification n) {
+						// FIXME enable/disable widget(s) -- HOWEVER, need access to Binding/Widget here, so can't share the template with e.g. Alex's ItemProviders
+					}
+				}, new FeatureTracker(this, GMFGraphPackage.eINSTANCE.getRGBColor_Red(), GMFGraphPackage.eINSTANCE.getRGBColor_Green(), GMFGraphPackage.eINSTANCE.getRGBColor_Blue(),
+						GMFGraphPackage.eINSTANCE.getConstantColor_Value())),
+				new AttachAdapter(GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor(), new ChangeTracker() {
+
+					public void modelChanged(org.eclipse.emf.common.notify.Notification n) {
+						// FIXME enable/disable widget(s) -- HOWEVER, need access to Binding/Widget here, so can't share the template with e.g. Alex's ItemProviders
+					}
+				}, new FeatureTracker(this, GMFGraphPackage.eINSTANCE.getRGBColor_Red(), GMFGraphPackage.eINSTANCE.getRGBColor_Green(), GMFGraphPackage.eINSTANCE.getRGBColor_Blue(),
+						GMFGraphPackage.eINSTANCE.getConstantColor_Value())) };
 		getInput().eAdapters().addAll(java.util.Arrays.asList(myModelListeners));
 
 	}
@@ -329,9 +620,9 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 
 	}
 
-	protected Shape getInput() {
+	protected Figure getInput() {
 		// TODO implement;
-		return (Shape) myInput;
+		return (Figure) myInput;
 	}
 
 	private org.eclipse.swt.widgets.Label createLabel(org.eclipse.swt.widgets.Composite parent, String label) {

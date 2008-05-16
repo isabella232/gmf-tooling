@@ -172,19 +172,19 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 		myCustomLayoutClass = getWidgetFactory().createText(myCustomLayoutDetails, null);
 
 		parent.setLayout(new org.eclipse.swt.layout.FormLayout());
-		org.eclipse.swt.layout.FormData fd;
-		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(0, 20);
-		myLayoutKindRadios.setLayoutData(fd);
-		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
-		myFlowLayoutDetails.setLayoutData(fd);
-		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
-		myBorderLayoutDetails.setLayoutData(fd);
-		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
-		myGridLayoutDetails.setLayoutData(fd);
+		org.eclipse.swt.layout.FormData parentFD;
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(0, 20);
+		myLayoutKindRadios.setLayoutData(parentFD);
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(myLayoutKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
+		myFlowLayoutDetails.setLayoutData(parentFD);
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(myLayoutKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
+		myBorderLayoutDetails.setLayoutData(parentFD);
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(myLayoutKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
+		myGridLayoutDetails.setLayoutData(parentFD);
 		// TODO myFlowLayoutMajAlign.setItems(VALUES.toString().toArray());
 		for (org.eclipse.emf.common.util.Enumerator e : Alignment.VALUES) {
 			myFlowLayoutMajAlign.add(e.getName());

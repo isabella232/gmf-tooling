@@ -171,22 +171,22 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		myCustomLayoutDataDetails.setLayout(new org.eclipse.swt.layout.FillLayout(org.eclipse.swt.SWT.VERTICAL));
 
 		parent.setLayout(new org.eclipse.swt.layout.FormLayout());
-		org.eclipse.swt.layout.FormData fd;
-		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
-		myLayoutDataKindRadios.setLayoutData(fd);
-		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutDataKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
-		myBorderLayoutDataDetails.setLayoutData(fd);
-		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutDataKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
-		myGridLayoutDataDetails.setLayoutData(fd);
-		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutDataKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
-		myXyLayoutDataDetails.setLayoutData(fd);
-		fd = new org.eclipse.swt.layout.FormData();
-		fd.left = new org.eclipse.swt.layout.FormAttachment(myLayoutDataKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
-		myCustomLayoutDataDetails.setLayoutData(fd);
+		org.eclipse.swt.layout.FormData parentFD;
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
+		myLayoutDataKindRadios.setLayoutData(parentFD);
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(myLayoutDataKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
+		myBorderLayoutDataDetails.setLayoutData(parentFD);
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(myLayoutDataKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
+		myGridLayoutDataDetails.setLayoutData(parentFD);
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(myLayoutDataKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
+		myXyLayoutDataDetails.setLayoutData(parentFD);
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(myLayoutDataKindRadios, 20, org.eclipse.swt.SWT.RIGHT);
+		myCustomLayoutDataDetails.setLayoutData(parentFD);
 		// TODO myBorderLayoutDataAlignment.setItems(VALUES.toString().toArray());
 		for (org.eclipse.emf.common.util.Enumerator e : Alignment.VALUES) {
 			myBorderLayoutDataAlignment.add(e.getName());
@@ -332,9 +332,9 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		if (getInput().getLayoutData() instanceof CustomLayoutData) {
 			if (getInput().getLayoutData() != null) {
 				myCustomLayoutQualifiedClassName.setText(((CustomClass) getInput().getLayoutData()).getQualifiedClassName());/*
-																																 * Bridge.fieldSet(myCustomLayoutQualifiedClassName, ((CustomClass)
-																																 * getInput().getLayoutData()).getQualifiedClassName());
-																																 */
+																															 * Bridge.fieldSet(myCustomLayoutQualifiedClassName, ((CustomClass)
+																															 * getInput().getLayoutData()).getQualifiedClassName());
+																															 */
 			}
 			myR4.setSelection(true);
 			myCustomLayoutDataDetails.setVisible(true);
@@ -451,10 +451,9 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 					applyChanges(); // Commit; View to Model
 					if (getInput().getLayoutData() != null) {
 						myCustomLayoutQualifiedClassName.setText(((CustomClass) getInput().getLayoutData()).getQualifiedClassName());/*
-																																		 * Bridge.fieldSet(myCustomLayoutQualifiedClassName,
-																																		 * ((CustomClass)
-																																		 * getInput().getLayoutData()).getQualifiedClassName());
-																																		 */
+																																	 * Bridge.fieldSet(myCustomLayoutQualifiedClassName, ((CustomClass)
+																																	 * getInput().getLayoutData()).getQualifiedClassName());
+																																	 */
 					}
 				} else {
 					myCustomLayoutDataDetails.setVisible(false);
