@@ -1,7 +1,7 @@
 /*
  * <copyright>
  *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005-2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@
  */
 package org.eclipse.gmf.internal.xpand.ast;
 
+import java.text.MessageFormat;
 import java.util.Set;
 
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
@@ -44,7 +45,7 @@ public class ErrorStatement extends Statement {
     public void evaluateInternal(final XpandExecutionContext ctx) {
     	String result = String.valueOf(message.evaluate(ctx));
         System.err.println("ERROR:" + result); // FIXME syserr is not an error reporting!!!
-        throw new RuntimeException(result);
+        throw new RuntimeException(MessageFormat.format("Error in {0}:{1}: ", getFileName(), getLine(), result));
     }
 
 }
