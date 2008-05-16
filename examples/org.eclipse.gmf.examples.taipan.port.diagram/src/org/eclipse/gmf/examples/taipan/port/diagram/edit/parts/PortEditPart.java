@@ -89,7 +89,7 @@ public class PortEditPart extends DiagramEditPart {
 					return null;
 				}
 				// DeferredCommand is patched to arrange all children when no viewAdapters is specified
-		        if (RequestConstants.REQ_ARRANGE_DEFERRED.equals(request.getType())) {
+				if (RequestConstants.REQ_ARRANGE_DEFERRED.equals(request.getType())) {
 					String layoutType = request.getLayoutType();
 					TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
 					return new ICommandProxy(new DeferredLayoutCommand(editingDomain, request.getViewAdaptersToArrange(), (IGraphicalEditPart) getHost(), layoutType) {
@@ -103,8 +103,8 @@ public class PortEditPart extends DiagramEditPart {
 						}
 					});
 				}
-		        // Snap to grid command is stripped off to prevent loops
-		        String layoutDesc = request.getLayoutType() != null ? request.getLayoutType() : LayoutType.DEFAULT;
+				// Snap to grid command is stripped off to prevent loops
+				String layoutDesc = request.getLayoutType() != null ? request.getLayoutType() : LayoutType.DEFAULT;
 				boolean offsetFromBoundingBox = false;
 				List editparts = new ArrayList();
 
