@@ -262,14 +262,6 @@
              category="extra"
              id="property.tab.points"
              label="%tab.points"/>
-          <propertyTab
-             category="extra"
-             id="property.tab.genStyles"
-             label="%tab.genStyles"/>
-          <propertyTab
-             category="extra"
-             id="property.tab.genLayout"
-             label="%tab.genLayout"/>
       </propertyTabs>
    </extension>
    
@@ -281,18 +273,6 @@
             tab="property.tab.points"
             filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$PolylineFilter"
             class="org.eclipse.gmf.graphdef.editor.sheet.PointsPropertySection">
-         </propertySection>
-         <propertySection
-            id="property.section.genStyles" 
-            tab="property.tab.genStyles"
-            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$ShapeFilter"
-            class="org.eclipse.gmf.graphdef.editor.sheet.GeneratedStylesPropertySection">
-         </propertySection>
-         <propertySection
-            id="property.section.genLayout" 
-            tab="property.tab.genLayout"
-            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$LayoutableFilter"
-            class="org.eclipse.gmf.graphdef.editor.sheet.GeneratedLayoutPropertySection">
          </propertySection>
       </propertySections>
    </extension>
@@ -306,7 +286,7 @@
             tab="property.tab.AppearancePropertySection">
          </propertySection>
          <propertySection id="property.section.ShapeColorAndFontPropertySection" 
-            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            filter="org.eclipse.gmf.graphdef.editor.sheet.ShapeEditPartPropertySectionFilter" 
             class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
             tab="property.tab.AppearancePropertySection">
          </propertySection> 
