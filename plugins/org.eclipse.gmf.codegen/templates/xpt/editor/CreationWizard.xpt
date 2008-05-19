@@ -92,7 +92,7 @@ public class «creationWizardClassName»
 				if (visible) {
 					String fileName = diagramModelFilePage.getFileName();
 					fileName = fileName.substring(0, fileName.length() - ".«editorGen.diagramFileExtension»".length()); //$NON-NLS-1$
-					setFileName(TaiPanDiagramEditorUtil.getUniqueFileName(
+					setFileName(«getDiagramEditorUtilQualifiedClassName()».getUniqueFileName(
 							getContainerFullPath(), fileName, "«editorGen.domainFileExtension»")); //$NON-NLS-1$
 				}
 				super.setVisible(visible);
