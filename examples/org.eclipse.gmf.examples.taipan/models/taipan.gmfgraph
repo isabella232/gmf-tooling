@@ -4,7 +4,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" name="taipan">
   <figures
-      name="nodes">
+      name="nodes"
+      implementationBundle="org.eclipse.gmf.examples.taipan">
     <descriptors
         name="ShipFigure">
       <actualFigure
@@ -92,7 +93,8 @@
     </descriptors>
   </figures>
   <figures
-      name="links">
+      name="links"
+      implementationBundle="org.eclipse.gmf.examples.taipan">
     <descriptors
         name="ReliableRouteFigure">
       <actualFigure
