@@ -162,6 +162,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 				return createRulerUnitsFromString(eDataType, initialValue);
 			case GMFGenPackage.ROUTING:
 				return createRoutingFromString(eDataType, initialValue);
+			case GMFGenPackage.LINE_STYLE:
+				return createLineStyleFromString(eDataType, initialValue);
 			case GMFGenPackage.JFACE_FONT:
 				return createJFaceFontFromString(eDataType, initialValue);
 			case GMFGenPackage.FONT_STYLE:
@@ -205,6 +207,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 				return convertRulerUnitsToString(eDataType, instanceValue);
 			case GMFGenPackage.ROUTING:
 				return convertRoutingToString(eDataType, instanceValue);
+			case GMFGenPackage.LINE_STYLE:
+				return convertLineStyleToString(eDataType, instanceValue);
 			case GMFGenPackage.JFACE_FONT:
 				return convertJFaceFontToString(eDataType, instanceValue);
 			case GMFGenPackage.FONT_STYLE:
@@ -1121,6 +1125,26 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * @generated
 	 */
 	public String convertRoutingToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LineStyle createLineStyleFromString(EDataType eDataType, String initialValue) {
+		LineStyle result = LineStyle.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertLineStyleToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

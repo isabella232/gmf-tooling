@@ -33,8 +33,12 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#isShowGrid <em>Show Grid</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#isShowRulers <em>Show Rulers</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#isSnapToGrid <em>Snap To Grid</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#isSnapToGeometry <em>Snap To Geometry</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#isGridInFront <em>Grid In Front</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#getRulerUnits <em>Ruler Units</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#getGridSpacing <em>Grid Spacing</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#getGridLineColor <em>Grid Line Color</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#getGridLineStyle <em>Grid Line Style</em>}</li>
  * </ul>
  * </p>
  *
@@ -497,6 +501,60 @@ public interface GenDiagramPreferences extends EObject {
 	void setSnapToGrid(boolean value);
 
 	/**
+	 * Returns the value of the '<em><b>Snap To Geometry</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Snap To Geometry</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Snap To Geometry</em>' attribute.
+	 * @see #setSnapToGeometry(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagramPreferences_SnapToGeometry()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isSnapToGeometry();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#isSnapToGeometry <em>Snap To Geometry</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Snap To Geometry</em>' attribute.
+	 * @see #isSnapToGeometry()
+	 * @generated
+	 */
+	void setSnapToGeometry(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Grid In Front</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Grid In Front</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Grid In Front</em>' attribute.
+	 * @see #setGridInFront(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagramPreferences_GridInFront()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isGridInFront();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#isGridInFront <em>Grid In Front</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Grid In Front</em>' attribute.
+	 * @see #isGridInFront()
+	 * @generated
+	 */
+	void setGridInFront(boolean value);
+
+	/**
 	 * Returns the value of the '<em><b>Ruler Units</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.RulerUnits}.
 	 * <!-- begin-user-doc -->
@@ -550,5 +608,60 @@ public interface GenDiagramPreferences extends EObject {
 	 * @generated
 	 */
 	void setGridSpacing(double value);
+
+	/**
+	 * Returns the value of the '<em><b>Grid Line Color</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Grid Line Color</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Grid Line Color</em>' containment reference.
+	 * @see #setGridLineColor(GenColor)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagramPreferences_GridLineColor()
+	 * @model containment="true"
+	 * @generated
+	 */
+	GenColor getGridLineColor();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#getGridLineColor <em>Grid Line Color</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Grid Line Color</em>' containment reference.
+	 * @see #getGridLineColor()
+	 * @generated
+	 */
+	void setGridLineColor(GenColor value);
+
+	/**
+	 * Returns the value of the '<em><b>Grid Line Style</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.LineStyle}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Grid Line Style</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Grid Line Style</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LineStyle
+	 * @see #setGridLineStyle(LineStyle)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagramPreferences_GridLineStyle()
+	 * @model
+	 * @generated
+	 */
+	LineStyle getGridLineStyle();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#getGridLineStyle <em>Grid Line Style</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Grid Line Style</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LineStyle
+	 * @see #getGridLineStyle()
+	 * @generated
+	 */
+	void setGridLineStyle(LineStyle value);
 
 } // GenDiagramPreferences

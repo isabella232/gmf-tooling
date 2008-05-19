@@ -15,6 +15,145 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.gmf.codegen.gmfgen.AbstractToolEntry;
+import org.eclipse.gmf.codegen.gmfgen.Attributes;
+import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
+import org.eclipse.gmf.codegen.gmfgen.Behaviour;
+import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
+import org.eclipse.gmf.codegen.gmfgen.CustomBehaviour;
+import org.eclipse.gmf.codegen.gmfgen.CustomTabFilter;
+import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
+import org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.DiagramColors;
+import org.eclipse.gmf.codegen.gmfgen.DynamicModelAccess;
+import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
+import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
+import org.eclipse.gmf.codegen.gmfgen.ElementType;
+import org.eclipse.gmf.codegen.gmfgen.EntryBase;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
+import org.eclipse.gmf.codegen.gmfgen.FontStyle;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenActionFactoryContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenApplication;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContext;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode;
+import org.eclipse.gmf.codegen.gmfgen.GenColor;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenConstantColor;
+import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
+import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
+import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenContributionManager;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomFont;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater;
+import org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenDomainModelNavigator;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
+import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
+import org.eclipse.gmf.codegen.gmfgen.GenFont;
+import org.eclipse.gmf.codegen.gmfgen.GenGroupMarker;
+import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
+import org.eclipse.gmf.codegen.gmfgen.GenLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenMeasurable;
+import org.eclipse.gmf.codegen.gmfgen.GenMenuManager;
+import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigatorReferenceType;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage;
+import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
+import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
+import org.eclipse.gmf.codegen.gmfgen.GenPropertyTabFilter;
+import org.eclipse.gmf.codegen.gmfgen.GenRGBColor;
+import org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec;
+import org.eclipse.gmf.codegen.gmfgen.GenRuleBase;
+import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenSeparator;
+import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
+import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenStandardFont;
+import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
+import org.eclipse.gmf.codegen.gmfgen.GenStandardPropertyTab;
+import org.eclipse.gmf.codegen.gmfgen.GenToolBarManager;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.GeneratedType;
+import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
+import org.eclipse.gmf.codegen.gmfgen.JFaceFont;
+import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes;
+import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
+import org.eclipse.gmf.codegen.gmfgen.LineStyle;
+import org.eclipse.gmf.codegen.gmfgen.LinkConstraints;
+import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
+import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.MeasurementUnit;
+import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
+import org.eclipse.gmf.codegen.gmfgen.ModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.NotationType;
+import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
+import org.eclipse.gmf.codegen.gmfgen.PackageNames;
+import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.ParentAssignedViewmap;
+import org.eclipse.gmf.codegen.gmfgen.ProviderClassNames;
+import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
+import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
+import org.eclipse.gmf.codegen.gmfgen.Routing;
+import org.eclipse.gmf.codegen.gmfgen.RulerUnits;
+import org.eclipse.gmf.codegen.gmfgen.Separator;
+import org.eclipse.gmf.codegen.gmfgen.SharedBehaviour;
+import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
+import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
+import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
+import org.eclipse.gmf.codegen.gmfgen.StandardEntry;
+import org.eclipse.gmf.codegen.gmfgen.StandardEntryKind;
+import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
+import org.eclipse.gmf.codegen.gmfgen.StyleAttributes;
+import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
+import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
+import org.eclipse.gmf.codegen.gmfgen.ToolGroupItem;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.TypeTabFilter;
+import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
+import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.validate.GMFValidator;
 
@@ -898,6 +1037,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EEnum lineStyleEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum jFaceFontEEnum = null;
 
 	/**
@@ -1679,7 +1825,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagramPreferences_RulerUnits() {
+	public EAttribute getGenDiagramPreferences_SnapToGeometry() {
 		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(17);
 	}
 
@@ -1688,8 +1834,44 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagramPreferences_GridSpacing() {
+	public EAttribute getGenDiagramPreferences_GridInFront() {
 		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(18);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramPreferences_RulerUnits() {
+		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(19);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramPreferences_GridSpacing() {
+		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(20);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenDiagramPreferences_GridLineColor() {
+		return (EReference)genDiagramPreferencesEClass.getEStructuralFeatures().get(21);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramPreferences_GridLineStyle() {
+		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(22);
 	}
 
 	/**
@@ -5918,6 +6100,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getLineStyle() {
+		return lineStyleEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getJFaceFont() {
 		return jFaceFontEEnum;
 	}
@@ -6124,8 +6315,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__SHOW_GRID);
 		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__SHOW_RULERS);
 		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__SNAP_TO_GRID);
+		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__SNAP_TO_GEOMETRY);
+		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__GRID_IN_FRONT);
 		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__RULER_UNITS);
 		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__GRID_SPACING);
+		createEReference(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__GRID_LINE_COLOR);
+		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__GRID_LINE_STYLE);
 
 		genFontEClass = createEClass(GEN_FONT);
 
@@ -6711,6 +6906,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		standardPreferencePagesEEnum = createEEnum(STANDARD_PREFERENCE_PAGES);
 		rulerUnitsEEnum = createEEnum(RULER_UNITS);
 		routingEEnum = createEEnum(ROUTING);
+		lineStyleEEnum = createEEnum(LINE_STYLE);
 		jFaceFontEEnum = createEEnum(JFACE_FONT);
 		fontStyleEEnum = createEEnum(FONT_STYLE);
 		diagramColorsEEnum = createEEnum(DIAGRAM_COLORS);
@@ -6943,8 +7139,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenDiagramPreferences_ShowGrid(), ecorePackage.getEBoolean(), "showGrid", "false", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagramPreferences_ShowRulers(), ecorePackage.getEBoolean(), "showRulers", "false", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagramPreferences_SnapToGrid(), ecorePackage.getEBoolean(), "snapToGrid", "true", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramPreferences_SnapToGeometry(), ecorePackage.getEBoolean(), "snapToGeometry", "false", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramPreferences_GridInFront(), ecorePackage.getEBoolean(), "gridInFront", "true", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagramPreferences_RulerUnits(), this.getRulerUnits(), "rulerUnits", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagramPreferences_GridSpacing(), ecorePackage.getEDouble(), "gridSpacing", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenDiagramPreferences_GridLineColor(), this.getGenColor(), null, "gridLineColor", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramPreferences_GridLineStyle(), this.getLineStyle(), "gridLineStyle", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genFontEClass, GenFont.class, "GenFont", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -7790,6 +7990,14 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEEnumLiteral(routingEEnum, Routing.MANUAL_LITERAL);
 		addEEnumLiteral(routingEEnum, Routing.RECTILINEAR_LITERAL);
 		addEEnumLiteral(routingEEnum, Routing.TREE_LITERAL);
+
+		initEEnum(lineStyleEEnum, LineStyle.class, "LineStyle");
+		addEEnumLiteral(lineStyleEEnum, LineStyle.SOLID);
+		addEEnumLiteral(lineStyleEEnum, LineStyle.DASH);
+		addEEnumLiteral(lineStyleEEnum, LineStyle.DOT);
+		addEEnumLiteral(lineStyleEEnum, LineStyle.DASHDOT);
+		addEEnumLiteral(lineStyleEEnum, LineStyle.DASHDOTDOT);
+		addEEnumLiteral(lineStyleEEnum, LineStyle.CUSTOM);
 
 		initEEnum(jFaceFontEEnum, JFaceFont.class, "JFaceFont");
 		addEEnumLiteral(jFaceFontEEnum, JFaceFont.DEFAULT_LITERAL);

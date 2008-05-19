@@ -201,8 +201,15 @@
         defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="snapToGrid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="snapToGeometry" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="gridInFront" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rulerUnits" eType="#//RulerUnits"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="gridSpacing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="gridLineColor" eType="#//GenColor"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="gridLineStyle" eType="#//LineStyle"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="RulerUnits">
     <eLiterals name="INCHES"/>
@@ -213,6 +220,14 @@
     <eLiterals name="MANUAL"/>
     <eLiterals name="RECTILINEAR" value="1"/>
     <eLiterals name="TREE" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="LineStyle">
+    <eLiterals name="SOLID"/>
+    <eLiterals name="DASH" value="1"/>
+    <eLiterals name="DOT" value="2"/>
+    <eLiterals name="DASHDOT" value="3"/>
+    <eLiterals name="DASHDOTDOT" value="4"/>
+    <eLiterals name="CUSTOM" value="5"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenFont" abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="GenStandardFont" eSuperTypes="#//GenFont">

@@ -19,6 +19,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenColor;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences;
 import org.eclipse.gmf.codegen.gmfgen.GenFont;
+import org.eclipse.gmf.codegen.gmfgen.LineStyle;
 import org.eclipse.gmf.codegen.gmfgen.Routing;
 import org.eclipse.gmf.codegen.gmfgen.RulerUnits;
 
@@ -46,8 +47,12 @@ import org.eclipse.gmf.codegen.gmfgen.RulerUnits;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramPreferencesImpl#isShowGrid <em>Show Grid</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramPreferencesImpl#isShowRulers <em>Show Rulers</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramPreferencesImpl#isSnapToGrid <em>Snap To Grid</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramPreferencesImpl#isSnapToGeometry <em>Snap To Geometry</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramPreferencesImpl#isGridInFront <em>Grid In Front</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramPreferencesImpl#getRulerUnits <em>Ruler Units</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramPreferencesImpl#getGridSpacing <em>Grid Spacing</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramPreferencesImpl#getGridLineColor <em>Grid Line Color</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramPreferencesImpl#getGridLineStyle <em>Grid Line Style</em>}</li>
  * </ul>
  * </p>
  *
@@ -335,6 +340,46 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 	protected boolean snapToGrid = SNAP_TO_GRID_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #isSnapToGeometry() <em>Snap To Geometry</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSnapToGeometry()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean SNAP_TO_GEOMETRY_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isSnapToGeometry() <em>Snap To Geometry</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSnapToGeometry()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean snapToGeometry = SNAP_TO_GEOMETRY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isGridInFront() <em>Grid In Front</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isGridInFront()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean GRID_IN_FRONT_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isGridInFront() <em>Grid In Front</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isGridInFront()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean gridInFront = GRID_IN_FRONT_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getRulerUnits() <em>Ruler Units</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -373,6 +418,36 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 	 * @ordered
 	 */
 	protected double gridSpacing = GRID_SPACING_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getGridLineColor() <em>Grid Line Color</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getGridLineColor()
+	 * @generated
+	 * @ordered
+	 */
+	protected GenColor gridLineColor;
+
+	/**
+	 * The default value of the '{@link #getGridLineStyle() <em>Grid Line Style</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getGridLineStyle()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final LineStyle GRID_LINE_STYLE_EDEFAULT = LineStyle.SOLID;
+
+	/**
+	 * The cached value of the '{@link #getGridLineStyle() <em>Grid Line Style</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getGridLineStyle()
+	 * @generated
+	 * @ordered
+	 */
+	protected LineStyle gridLineStyle = GRID_LINE_STYLE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -887,6 +962,48 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isSnapToGeometry() {
+		return snapToGeometry;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSnapToGeometry(boolean newSnapToGeometry) {
+		boolean oldSnapToGeometry = snapToGeometry;
+		snapToGeometry = newSnapToGeometry;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SNAP_TO_GEOMETRY, oldSnapToGeometry, snapToGeometry));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isGridInFront() {
+		return gridInFront;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setGridInFront(boolean newGridInFront) {
+		boolean oldGridInFront = gridInFront;
+		gridInFront = newGridInFront;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_IN_FRONT, oldGridInFront, gridInFront));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public RulerUnits getRulerUnits() {
 		return rulerUnits;
 	}
@@ -929,6 +1046,70 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenColor getGridLineColor() {
+		return gridLineColor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetGridLineColor(GenColor newGridLineColor, NotificationChain msgs) {
+		GenColor oldGridLineColor = gridLineColor;
+		gridLineColor = newGridLineColor;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_COLOR, oldGridLineColor, newGridLineColor);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setGridLineColor(GenColor newGridLineColor) {
+		if (newGridLineColor != gridLineColor) {
+			NotificationChain msgs = null;
+			if (gridLineColor != null)
+				msgs = ((InternalEObject)gridLineColor).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_COLOR, null, msgs);
+			if (newGridLineColor != null)
+				msgs = ((InternalEObject)newGridLineColor).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_COLOR, null, msgs);
+			msgs = basicSetGridLineColor(newGridLineColor, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_COLOR, newGridLineColor, newGridLineColor));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LineStyle getGridLineStyle() {
+		return gridLineStyle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setGridLineStyle(LineStyle newGridLineStyle) {
+		LineStyle oldGridLineStyle = gridLineStyle;
+		gridLineStyle = newGridLineStyle == null ? GRID_LINE_STYLE_EDEFAULT : newGridLineStyle;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_STYLE, oldGridLineStyle, gridLineStyle));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -944,6 +1125,8 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 				return basicSetNoteFillColor(null, msgs);
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__NOTE_LINE_COLOR:
 				return basicSetNoteLineColor(null, msgs);
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_COLOR:
+				return basicSetGridLineColor(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -990,10 +1173,18 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 				return isShowRulers() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SNAP_TO_GRID:
 				return isSnapToGrid() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SNAP_TO_GEOMETRY:
+				return isSnapToGeometry() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_IN_FRONT:
+				return isGridInFront() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__RULER_UNITS:
 				return getRulerUnits();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_SPACING:
 				return new Double(getGridSpacing());
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_COLOR:
+				return getGridLineColor();
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_STYLE:
+				return getGridLineStyle();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1057,11 +1248,23 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SNAP_TO_GRID:
 				setSnapToGrid(((Boolean)newValue).booleanValue());
 				return;
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SNAP_TO_GEOMETRY:
+				setSnapToGeometry(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_IN_FRONT:
+				setGridInFront(((Boolean)newValue).booleanValue());
+				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__RULER_UNITS:
 				setRulerUnits((RulerUnits)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_SPACING:
 				setGridSpacing(((Double)newValue).doubleValue());
+				return;
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_COLOR:
+				setGridLineColor((GenColor)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_STYLE:
+				setGridLineStyle((LineStyle)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -1126,11 +1329,23 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SNAP_TO_GRID:
 				setSnapToGrid(SNAP_TO_GRID_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SNAP_TO_GEOMETRY:
+				setSnapToGeometry(SNAP_TO_GEOMETRY_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_IN_FRONT:
+				setGridInFront(GRID_IN_FRONT_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__RULER_UNITS:
 				setRulerUnits(RULER_UNITS_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_SPACING:
 				setGridSpacing(GRID_SPACING_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_COLOR:
+				setGridLineColor((GenColor)null);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_STYLE:
+				setGridLineStyle(GRID_LINE_STYLE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -1178,10 +1393,18 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 				return showRulers != SHOW_RULERS_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SNAP_TO_GRID:
 				return snapToGrid != SNAP_TO_GRID_EDEFAULT;
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SNAP_TO_GEOMETRY:
+				return snapToGeometry != SNAP_TO_GEOMETRY_EDEFAULT;
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_IN_FRONT:
+				return gridInFront != GRID_IN_FRONT_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__RULER_UNITS:
 				return rulerUnits != RULER_UNITS_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_SPACING:
 				return gridSpacing != GRID_SPACING_EDEFAULT;
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_COLOR:
+				return gridLineColor != null;
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_STYLE:
+				return gridLineStyle != GRID_LINE_STYLE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1218,10 +1441,16 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 		result.append(showRulers);
 		result.append(", snapToGrid: ");
 		result.append(snapToGrid);
+		result.append(", snapToGeometry: ");
+		result.append(snapToGeometry);
+		result.append(", gridInFront: ");
+		result.append(gridInFront);
 		result.append(", rulerUnits: ");
 		result.append(rulerUnits);
 		result.append(", gridSpacing: ");
 		result.append(gridSpacing);
+		result.append(", gridLineStyle: ");
+		result.append(gridLineStyle);
 		result.append(')');
 		return result.toString();
 	}

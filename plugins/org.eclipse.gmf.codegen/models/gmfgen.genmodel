@@ -28,6 +28,14 @@
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//Routing/RECTILINEAR"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//Routing/TREE"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gmfgen.ecore#//LineStyle">
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LineStyle/SOLID"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LineStyle/DASH"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LineStyle/DOT"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LineStyle/DASHDOT"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LineStyle/DASHDOTDOT"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LineStyle/CUSTOM"/>
+    </genEnums>
     <genEnums ecoreEnum="gmfgen.ecore#//JFaceFont">
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//JFaceFont/Default"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//JFaceFont/Text"/>
@@ -225,8 +233,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/showGrid"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/showRulers"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/snapToGrid"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/snapToGeometry"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/gridInFront"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/rulerUnits"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/gridSpacing"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagramPreferences/gridLineColor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/gridLineStyle"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenFont"/>
     <genClasses ecoreClass="gmfgen.ecore#//GenStandardFont">

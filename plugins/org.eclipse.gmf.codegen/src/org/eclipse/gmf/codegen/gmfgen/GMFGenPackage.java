@@ -1719,13 +1719,31 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_DIAGRAM_PREFERENCES__SNAP_TO_GRID = 16;
 
 	/**
+	 * The feature id for the '<em><b>Snap To Geometry</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM_PREFERENCES__SNAP_TO_GEOMETRY = 17;
+
+	/**
+	 * The feature id for the '<em><b>Grid In Front</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM_PREFERENCES__GRID_IN_FRONT = 18;
+
+	/**
 	 * The feature id for the '<em><b>Ruler Units</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM_PREFERENCES__RULER_UNITS = 17;
+	int GEN_DIAGRAM_PREFERENCES__RULER_UNITS = 19;
 
 	/**
 	 * The feature id for the '<em><b>Grid Spacing</b></em>' attribute.
@@ -1734,7 +1752,25 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM_PREFERENCES__GRID_SPACING = 18;
+	int GEN_DIAGRAM_PREFERENCES__GRID_SPACING = 20;
+
+	/**
+	 * The feature id for the '<em><b>Grid Line Color</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM_PREFERENCES__GRID_LINE_COLOR = 21;
+
+	/**
+	 * The feature id for the '<em><b>Grid Line Style</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM_PREFERENCES__GRID_LINE_STYLE = 22;
 
 	/**
 	 * The number of structural features of the '<em>Gen Diagram Preferences</em>' class.
@@ -1743,7 +1779,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM_PREFERENCES_FEATURE_COUNT = 19;
+	int GEN_DIAGRAM_PREFERENCES_FEATURE_COUNT = 23;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenFont <em>Gen Font</em>}' class.
@@ -9664,6 +9700,16 @@ public interface GMFGenPackage extends EPackage {
 	int ROUTING = 123;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LineStyle <em>Line Style</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.LineStyle
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLineStyle()
+	 * @generated
+	 */
+	int LINE_STYLE = 124;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.JFaceFont <em>JFace Font</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9671,7 +9717,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getJFaceFont()
 	 * @generated
 	 */
-	int JFACE_FONT = 124;
+	int JFACE_FONT = 125;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.FontStyle <em>Font Style</em>}' enum.
@@ -9681,7 +9727,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 125;
+	int FONT_STYLE = 126;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.DiagramColors <em>Diagram Colors</em>}' enum.
@@ -9691,7 +9737,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getDiagramColors()
 	 * @generated
 	 */
-	int DIAGRAM_COLORS = 126;
+	int DIAGRAM_COLORS = 127;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}' enum.
@@ -9701,7 +9747,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getProviderPriority()
 	 * @generated
 	 */
-	int PROVIDER_PRIORITY = 127;
+	int PROVIDER_PRIORITY = 128;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment <em>Link Label Alignment</em>}' enum.
@@ -9711,7 +9757,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkLabelAlignment()
 	 * @generated
 	 */
-	int LINK_LABEL_ALIGNMENT = 128;
+	int LINK_LABEL_ALIGNMENT = 129;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod <em>Label Text Access Method</em>}' enum.
@@ -9721,7 +9767,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLabelTextAccessMethod()
 	 * @generated
 	 */
-	int LABEL_TEXT_ACCESS_METHOD = 129;
+	int LABEL_TEXT_ACCESS_METHOD = 130;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType <em>Viewmap Layout Type</em>}' enum.
@@ -9731,7 +9777,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getViewmapLayoutType()
 	 * @generated
 	 */
-	int VIEWMAP_LAYOUT_TYPE = 130;
+	int VIEWMAP_LAYOUT_TYPE = 131;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.StandardEntryKind <em>Standard Entry Kind</em>}' enum.
@@ -9741,7 +9787,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getStandardEntryKind()
 	 * @generated
 	 */
-	int STANDARD_ENTRY_KIND = 131;
+	int STANDARD_ENTRY_KIND = 132;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenSeverity <em>Gen Severity</em>}' enum.
@@ -9751,7 +9797,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenSeverity()
 	 * @generated
 	 */
-	int GEN_SEVERITY = 132;
+	int GEN_SEVERITY = 133;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenLanguage <em>Gen Language</em>}' enum.
@@ -9761,7 +9807,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenLanguage()
 	 * @generated
 	 */
-	int GEN_LANGUAGE = 133;
+	int GEN_LANGUAGE = 134;
 
 
 	/**
@@ -9772,7 +9818,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenNavigatorReferenceType()
 	 * @generated
 	 */
-	int GEN_NAVIGATOR_REFERENCE_TYPE = 134;
+	int GEN_NAVIGATOR_REFERENCE_TYPE = 135;
 
 
 	/**
@@ -9783,7 +9829,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGeneratedType()
 	 * @generated
 	 */
-	int GENERATED_TYPE = 135;
+	int GENERATED_TYPE = 136;
 
 
 	/**
@@ -10539,6 +10585,28 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getGenDiagramPreferences_SnapToGrid();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#isSnapToGeometry <em>Snap To Geometry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Snap To Geometry</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#isSnapToGeometry()
+	 * @see #getGenDiagramPreferences()
+	 * @generated
+	 */
+	EAttribute getGenDiagramPreferences_SnapToGeometry();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#isGridInFront <em>Grid In Front</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Grid In Front</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#isGridInFront()
+	 * @see #getGenDiagramPreferences()
+	 * @generated
+	 */
+	EAttribute getGenDiagramPreferences_GridInFront();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#getRulerUnits <em>Ruler Units</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10559,6 +10627,28 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenDiagramPreferences_GridSpacing();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#getGridLineColor <em>Grid Line Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Grid Line Color</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#getGridLineColor()
+	 * @see #getGenDiagramPreferences()
+	 * @generated
+	 */
+	EReference getGenDiagramPreferences_GridLineColor();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#getGridLineStyle <em>Grid Line Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Grid Line Style</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences#getGridLineStyle()
+	 * @see #getGenDiagramPreferences()
+	 * @generated
+	 */
+	EAttribute getGenDiagramPreferences_GridLineStyle();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenFont <em>Gen Font</em>}'.
@@ -15601,6 +15691,16 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getRouting();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.LineStyle <em>Line Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Line Style</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LineStyle
+	 * @generated
+	 */
+	EEnum getLineStyle();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.JFaceFont <em>JFace Font</em>}'.
