@@ -10,14 +10,11 @@
  */
 package org.eclipse.gmf.internal.common.migrate;
 
-import java.util.List;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.xmi.XMIException;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIHelperImpl;
 
@@ -28,32 +25,12 @@ public class MigrationHelper extends XMIHelperImpl {
 		super(resource);
 		assert delegate != null;
 		myDelegate = delegate;
-		myDelegate.setResource(resource);
 	}
 
 	boolean isMigrationApplied() {
 		return myDelegate.isMigrationApplied();
 	}
 	
-	@Override
-	public EObject createObject(EFactory factory, EClassifier type) {
-		EObject result = myDelegate.createObject(factory, type);
-		if (result == null) {
-			result = super.createObject(factory, type);
-		}
-		myDelegate.processObject(result);
-		return result;
-	}
-
-	@Override
-	public List<XMIException> setManyReference(ManyReference reference, String location) {
-		List<XMIException> result = null;
-		if (!myDelegate.setManyReference(reference.getObject(), reference.getFeature(), reference.getValues())) {
-			result = super.setManyReference(reference, location);
-		}
-		return result;
-	}
-
 	@Override
 	public void setValue(EObject object, EStructuralFeature feature, Object value, int position) {
 		if (!myDelegate.setValue(object, feature, value, position)) {
@@ -83,10 +60,6 @@ public class MigrationHelper extends XMIHelperImpl {
 	public void popContext() {
 		super.popContext();
 		myDelegate.preResolve();
-	}
-
-	public void postLoad() {
-		myDelegate.postLoad();
 	}
 
 	@Override

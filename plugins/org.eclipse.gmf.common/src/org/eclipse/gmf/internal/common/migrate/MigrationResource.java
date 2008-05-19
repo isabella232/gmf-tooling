@@ -46,7 +46,6 @@ public abstract class MigrationResource extends ToolResource {
 		if (myMigrationHelper == null) {
 			return;
 		}
-		myMigrationHelper.postLoad();
 		if (myMigrationHelper.isMigrationApplied()) {
 			Diagnostic diagnostic = MigrationResource.createMessageDiagnostic(this, Messages.oldModelVersionLoadedMigrationRequired);
 			getWarnings().add(0, diagnostic);
@@ -57,7 +56,6 @@ public abstract class MigrationResource extends ToolResource {
 		if (myMigrationHelper == null) {
 			return;
 		}
-		myMigrationHelper.postLoad();
 		if (myMigrationHelper.isMigrationApplied()) {
 			Diagnostic diagnostic = MigrationResource.createMessageDiagnostic(this, Messages.oldModelVersionLoadErrorMigrationMayBeRequired);
 			getErrors().add(0, diagnostic);
