@@ -238,20 +238,20 @@
              label="%tab.domain"/>
           <propertyTab
              category="extra"
-             id="property.tab.layout-gen2"
-             label="%tab.layout-gen2"/>
+             id="property.tab.layout"
+             label="%tab.layout"/>
           <propertyTab
              category="extra"
-             id="property.tab.layoutdata-gen2"
-             label="%tab.layoutdata-gen2"/>
+             id="property.tab.layoutdata"
+             label="%tab.layoutdata"/>
           <propertyTab
              category="extra"
-             id="property.tab.size-gen2"
-             label="%tab.size-gen2"/>
+             id="property.tab.size"
+             label="%tab.size"/>
           <propertyTab
              category="extra"
-             id="property.tab.styles-gen2"
-             label="%tab.styles-gen2"/>
+             id="property.tab.styles"
+             label="%tab.styles"/>
       </propertyTabs>
    </extension>
    
@@ -309,26 +309,26 @@
             <input type="org.eclipse.gmf.graphdef.editor.navigator.GMFGraphAbstractNavigatorItem"/>
          </propertySection>
          <propertySection
-            id="property.section.layout-gen2" 
-            tab="property.tab.layout-gen2"
+            id="property.section.layout" 
+            tab="property.tab.layout"
             filter="org.eclipse.gmf.graphdef.editor.sheet.LayoutSectionProxy$Filter"
             class="org.eclipse.gmf.graphdef.editor.sheet.LayoutSectionProxy">
          </propertySection>
          <propertySection
-            id="property.section.layoutdata-gen2" 
-            tab="property.tab.layoutdata-gen2"
+            id="property.section.layoutdata" 
+            tab="property.tab.layoutdata"
             filter="org.eclipse.gmf.graphdef.editor.sheet.LayoutDataSectionProxy$Filter"
             class="org.eclipse.gmf.graphdef.editor.sheet.LayoutDataSectionProxy">
          </propertySection>
          <propertySection
-            id="property.section.size-gen2" 
-            tab="property.tab.size-gen2"
+            id="property.section.size" 
+            tab="property.tab.size"
             filter="org.eclipse.gmf.graphdef.editor.sheet.SizeSectionProxy$Filter"
             class="org.eclipse.gmf.graphdef.editor.sheet.SizeSectionProxy">
          </propertySection>
          <propertySection
-            id="property.section.styles-gen2" 
-            tab="property.tab.styles-gen2"
+            id="property.section.styles" 
+            tab="property.tab.styles"
             filter="org.eclipse.gmf.graphdef.editor.sheet.FigureSectionProxy$Filter"
             class="org.eclipse.gmf.graphdef.editor.sheet.FigureSectionProxy">
          </propertySection>

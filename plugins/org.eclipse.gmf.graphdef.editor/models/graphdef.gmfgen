@@ -1434,8 +1434,8 @@
       </tabs>
       <tabs
           xsi:type="gmfgen:GenCustomPropertyTab"
-          iD="layout-gen2"
-          label="Layout - gen2"
+          iD="layout"
+          label="Layout"
           className="LayoutSectionProxy">
         <filter
             xsi:type="gmfgen:CustomTabFilter"
@@ -1443,8 +1443,8 @@
       </tabs>
       <tabs
           xsi:type="gmfgen:GenCustomPropertyTab"
-          iD="layoutdata-gen2"
-          label="LayoutData - gen2"
+          iD="layoutdata"
+          label="LayoutData"
           className="LayoutDataSectionProxy">
         <filter
             xsi:type="gmfgen:CustomTabFilter"
@@ -1452,8 +1452,8 @@
       </tabs>
       <tabs
           xsi:type="gmfgen:GenCustomPropertyTab"
-          iD="size-gen2"
-          label="Size - gen2"
+          iD="size"
+          label="Size"
           className="SizeSectionProxy">
         <filter
             xsi:type="gmfgen:CustomTabFilter"
@@ -1461,8 +1461,8 @@
       </tabs>
       <tabs
           xsi:type="gmfgen:GenCustomPropertyTab"
-          iD="styles-gen2"
-          label="Styles - gen2"
+          iD="styles"
+          label="Styles"
           className="FigureSectionProxy">
         <filter
             xsi:type="gmfgen:CustomTabFilter"
