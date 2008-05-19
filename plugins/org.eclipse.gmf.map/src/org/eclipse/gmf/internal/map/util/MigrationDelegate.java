@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -30,7 +30,7 @@ import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.ValueExpression;
 
 class MigrationDelegate extends MigrationDelegateImpl {
-	private Map<LabelMapping, FeatureLabelMapping> myLabelMappingMigrations;
+	private final Map<LabelMapping, FeatureLabelMapping> myLabelMappingMigrations;
 	private EAttribute myLabelMapping_ViewPattern;
 	private EAttribute myLabelMapping_EditPattern;
 	private EReference myLabelMapping_Features;
@@ -38,6 +38,7 @@ class MigrationDelegate extends MigrationDelegateImpl {
 	private EAttribute myFeatureValueSpec_Language;
 	
 	MigrationDelegate() {
+		myLabelMappingMigrations = new HashMap<LabelMapping, FeatureLabelMapping>();
 	}
 
 	void init() {
@@ -66,8 +67,6 @@ class MigrationDelegate extends MigrationDelegateImpl {
 			renamings.put(myFeatureValueSpec_Language.getName(), myFeatureValueSpec_Language);
 			registerRenamedAttributes(GMFMapPackage.eINSTANCE.getFeatureValueSpec(), renamings);
 		}
-		
-		myLabelMappingMigrations = null;
 	}
 
 	@Override
@@ -119,9 +118,6 @@ class MigrationDelegate extends MigrationDelegateImpl {
 	}
 
 	private FeatureLabelMapping saveFeatureLabelMappingFor(LabelMapping labelMapping) {
-		if (myLabelMappingMigrations == null) {
-			myLabelMappingMigrations = new HashMap<LabelMapping, FeatureLabelMapping>();
-		}
 		FeatureLabelMapping migrated = myLabelMappingMigrations.get(labelMapping);
 		if (migrated == null) {
 			migrated = GMFMapFactory.eINSTANCE.createFeatureLabelMapping();
@@ -130,17 +126,10 @@ class MigrationDelegate extends MigrationDelegateImpl {
 		return migrated;
 	}
 	
-	private Map<LabelMapping, FeatureLabelMapping> getSavedLabelMappingMigrations() {
-		return myLabelMappingMigrations;
-	}
-
 	@Override
 	public void preResolve() {
-		if (getSavedLabelMappingMigrations() == null) {
-			return;
-		}
-		for (LabelMapping mapping : getSavedLabelMappingMigrations().keySet()) {
-			FeatureLabelMapping migrated = getSavedLabelMappingMigrations().get(mapping);
+		for (LabelMapping mapping : myLabelMappingMigrations.keySet()) {
+			FeatureLabelMapping migrated = myLabelMappingMigrations.get(mapping);
 			if (!migrated.getFeatures().isEmpty()) {
 				MappingEntry entry = mapping.getMapEntry();
 				EList<LabelMapping> labelMappings = entry.getLabelMappings();
