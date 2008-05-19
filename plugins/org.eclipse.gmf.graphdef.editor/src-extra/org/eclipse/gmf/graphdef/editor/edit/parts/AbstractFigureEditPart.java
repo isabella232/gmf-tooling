@@ -26,10 +26,14 @@ import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.gmf.gmfgraph.Alignment;
+import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
+import org.eclipse.gmf.gmfgraph.Color;
+import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
+import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.GridLayout;
 import org.eclipse.gmf.gmfgraph.GridLayoutData;
@@ -37,6 +41,7 @@ import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.LayoutData;
 import org.eclipse.gmf.gmfgraph.LineKind;
 import org.eclipse.gmf.gmfgraph.Point;
+import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.gmfgraph.StackLayout;
@@ -48,12 +53,107 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConnectionHandleEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.handles.ConnectionHandle;
+import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.RGB;
 
 public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 
 	public static final String EMPTY_STRING = ""; //$NON-NLS-1$
+
+	private static Integer getGridDataAlignment(Alignment alignment) {
+		switch (alignment.getValue()) {
+		case Alignment.BEGINNING:
+			return GridData.BEGINNING;
+		case Alignment.END:
+			return GridData.END;
+		case Alignment.CENTER:
+			return GridData.CENTER;
+		case Alignment.FILL:
+			return GridData.FILL;
+		}
+		return null;
+	}
+
+	private static int getFlowLayoutAllignment(Alignment alignment, boolean isToolbar) {
+		switch (alignment.getValue()) {
+		case Alignment.BEGINNING:
+			return isToolbar ? ToolbarLayout.ALIGN_TOPLEFT : org.eclipse.draw2d.FlowLayout.ALIGN_LEFTTOP;
+		case Alignment.END:
+			return isToolbar ? ToolbarLayout.ALIGN_BOTTOMRIGHT : org.eclipse.draw2d.FlowLayout.ALIGN_RIGHTBOTTOM;
+		}
+		return isToolbar ? ToolbarLayout.ALIGN_CENTER : org.eclipse.draw2d.FlowLayout.ALIGN_CENTER;
+	}
+
+	protected static int getLineStyle(LineKind lineKind) {
+		switch (lineKind.getValue()) {
+		case LineKind.LINE_DASH: {
+			return Graphics.LINE_DASH;
+		}
+		case LineKind.LINE_DOT: {
+			return Graphics.LINE_DOT;
+		}
+		case LineKind.LINE_DASHDOT: {
+			return Graphics.LINE_DASHDOT;
+		}
+		case LineKind.LINE_DASHDOTDOT: {
+			return Graphics.LINE_DASHDOTDOT;
+		}
+		case LineKind.LINE_CUSTOM: {
+			return Graphics.LINE_CUSTOM;
+		}
+		default: {
+			return Graphics.LINE_SOLID;
+		}
+		}
+	}
+
+	protected static org.eclipse.swt.graphics.Color getColor(Color modelColor) {
+		if (modelColor instanceof ConstantColor) {
+			ConstantColor constantColor = (ConstantColor) modelColor;
+			switch (constantColor.getValue()) {
+			case BLACK_LITERAL:
+				return org.eclipse.draw2d.ColorConstants.black;
+			case BLUE_LITERAL:
+				return org.eclipse.draw2d.ColorConstants.blue;
+			case CYAN_LITERAL:
+				return org.eclipse.draw2d.ColorConstants.cyan;
+			case DARK_BLUE_LITERAL:
+				return org.eclipse.draw2d.ColorConstants.darkBlue;
+			case DARK_GRAY_LITERAL:
+				return org.eclipse.draw2d.ColorConstants.darkGray;
+			case DARK_GREEN_LITERAL:
+				return org.eclipse.draw2d.ColorConstants.darkGreen;
+			case GRAY_LITERAL:
+				return org.eclipse.draw2d.ColorConstants.gray;
+			case GREEN_LITERAL:
+				return org.eclipse.draw2d.ColorConstants.green;
+			case LIGHT_BLUE_LITERAL:
+				return org.eclipse.draw2d.ColorConstants.lightBlue;
+			case LIGHT_GRAY_LITERAL:
+				return org.eclipse.draw2d.ColorConstants.lightGray;
+			case LIGHT_GREEN_LITERAL:
+				return org.eclipse.draw2d.ColorConstants.lightGreen;
+			case ORANGE_LITERAL:
+				return org.eclipse.draw2d.ColorConstants.orange;
+			case RED_LITERAL:
+				return org.eclipse.draw2d.ColorConstants.red;
+			case WHITE_LITERAL:
+				return org.eclipse.draw2d.ColorConstants.white;
+			case YELLOW_LITERAL:
+				return org.eclipse.draw2d.ColorConstants.yellow;
+			}
+		} else if (modelColor instanceof RGBColor) {
+			RGBColor rgbColor = (RGBColor) modelColor;
+			return DiagramColorRegistry.getInstance().getColor(new RGB(rgbColor.getRed(), rgbColor.getGreen(), rgbColor.getBlue()));
+		}
+		return null;
+	}
+
+	private FontData myCachedFontData;
 
 	public AbstractFigureEditPart(View view) {
 		super(view);
@@ -154,31 +254,6 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 		getContentPane().add(child, layoutConstraint, index);
 	}
 
-	// ModelData transformers
-	private int getDraw2dAllignment(Alignment alignment, boolean isToolbar) {
-		switch (alignment.getValue()) {
-		case Alignment.BEGINNING:
-			return isToolbar ? ToolbarLayout.ALIGN_TOPLEFT : org.eclipse.draw2d.FlowLayout.ALIGN_LEFTTOP;
-		case Alignment.END:
-			return isToolbar ? ToolbarLayout.ALIGN_BOTTOMRIGHT : org.eclipse.draw2d.FlowLayout.ALIGN_RIGHTBOTTOM;
-		}
-		return isToolbar ? ToolbarLayout.ALIGN_CENTER : org.eclipse.draw2d.FlowLayout.ALIGN_CENTER;
-	}
-
-	private Integer getGridDataAlignment(Alignment alignment) {
-		switch (alignment.getValue()) {
-		case Alignment.BEGINNING:
-			return GridData.BEGINNING;
-		case Alignment.END:
-			return GridData.END;
-		case Alignment.CENTER:
-			return GridData.CENTER;
-		case Alignment.FILL:
-			return GridData.FILL;
-		}
-		return null;
-	}
-
 	protected LayoutManager getLayoutManager(Layout layout) {
 		if (layout instanceof BorderLayout) {
 			BorderLayout borderLayout = (BorderLayout) layout;
@@ -195,15 +270,15 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 			if (flowLayout.isForceSingleLine()) {
 				ToolbarLayout layoutManager = new ToolbarLayout();
 				layoutManager.setStretchMinorAxis(flowLayout.isMatchMinorSize());
-				layoutManager.setMinorAlignment(getDraw2dAllignment(flowLayout.getMinorAlignment(), flowLayout.isForceSingleLine()));
+				layoutManager.setMinorAlignment(getFlowLayoutAllignment(flowLayout.getMinorAlignment(), flowLayout.isForceSingleLine()));
 				layoutManager.setSpacing(flowLayout.getMajorSpacing());
 				layoutManager.setVertical(flowLayout.isVertical());
 				return layoutManager;
 			} else {
 				org.eclipse.draw2d.FlowLayout layoutManager = new org.eclipse.draw2d.FlowLayout();
 				layoutManager.setStretchMinorAxis(flowLayout.isMatchMinorSize());
-				layoutManager.setMinorAlignment(getDraw2dAllignment(flowLayout.getMinorAlignment(), flowLayout.isForceSingleLine()));
-				layoutManager.setMajorAlignment(getDraw2dAllignment(flowLayout.getMajorAlignment(), flowLayout.isForceSingleLine()));
+				layoutManager.setMinorAlignment(getFlowLayoutAllignment(flowLayout.getMinorAlignment(), flowLayout.isForceSingleLine()));
+				layoutManager.setMajorAlignment(getFlowLayoutAllignment(flowLayout.getMajorAlignment(), flowLayout.isForceSingleLine()));
 				layoutManager.setMajorSpacing(flowLayout.getMajorSpacing());
 				layoutManager.setMinorSpacing(flowLayout.getMinorSpacing());
 				layoutManager.setHorizontal(!flowLayout.isVertical());
@@ -246,33 +321,11 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 		return null;
 	}
 
-	protected static int getLineStyle(LineKind lineKind) {
-		switch (lineKind.getValue()) {
-		case LineKind.LINE_DASH: {
-			return Graphics.LINE_DASH;
-		}
-		case LineKind.LINE_DOT: {
-			return Graphics.LINE_DOT;
-		}
-		case LineKind.LINE_DASHDOT: {
-			return Graphics.LINE_DASHDOT;
-		}
-		case LineKind.LINE_DASHDOTDOT: {
-			return Graphics.LINE_DASHDOTDOT;
-		}
-		case LineKind.LINE_CUSTOM: {
-			return Graphics.LINE_CUSTOM;
-		}
-		default: {
-			return Graphics.LINE_SOLID;
-		}
-		}
-	}
-
 	protected org.eclipse.draw2d.geometry.Dimension getCornerDimensions(int width, int height) {
 		return new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(width), getMapMode().DPtoLP(height));
 	}
 
+	// TODO: Either use this method or remove it.
 	protected PointList getPointList(Collection template) {
 		PointList result = new PointList();
 		for (Iterator it = template.iterator(); it.hasNext();) {
@@ -280,6 +333,85 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 			result.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(nextPoint.getX()), getMapMode().DPtoLP(nextPoint.getY())));
 		}
 		return result;
+	}
+
+	protected org.eclipse.draw2d.geometry.Dimension getDraw2dDimension(Dimension dimension) {
+		return new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(dimension.getDx()), getMapMode().DPtoLP(dimension.getDy()));
+	}
+
+	protected org.eclipse.draw2d.geometry.Point getDraw2DPoint(Point point) {
+		return new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(point.getX()), getMapMode().DPtoLP(point.getY()));
+	}
+
+	protected void refreshLayoutData() {
+		if (!hasParentFigure()) {
+			return;
+		}
+		Object layoutConstraint = getLayoutConstraint();
+		if (layoutConstraint != null) {
+			getFigure().getParent().setConstraint(getFigure(), layoutConstraint);
+		}
+	}
+
+	/**
+	 * Parent figure == null if this method was called from setFigure() one.
+	 */
+	private boolean hasParentFigure() {
+		return getFigure().getParent() != null;
+	}
+
+	protected void refreshLayoutManager() {
+		if (!hasParentFigure()) {
+			return;
+		}
+		handleMajorSemanticChange();
+	}
+
+	protected Shape getShape() {
+		View view = getNotationView();
+		if (view != null && view.getElement() instanceof Shape) {
+			return (Shape) view.getElement();
+		}
+		return null;
+	}
+
+	/**
+	 * Using this custom implementation instead of calling super.setFont()
+	 * because we have to support unsetting font operation (setFont(null)).
+	 * 
+	 * TODO: getNodeFigure used here instead of getPrimaryShape() - better 
+	 * use getPrimaryShape().
+	 */
+	protected void refreshFont() {
+		Font modelFont = getShape().getFont();
+		if (modelFont instanceof BasicFont) {
+			BasicFont basicFont = (BasicFont) modelFont;
+			int fontStyle = SWT.NONE;
+			switch (basicFont.getStyle()) {
+			case BOLD_LITERAL:
+				fontStyle = SWT.BOLD;
+				break;
+			case ITALIC_LITERAL:
+				fontStyle = SWT.ITALIC;
+				break;
+			}
+			if (basicFont.getFaceName() == null) {
+				return;
+			}
+			FontData fontData = new FontData(basicFont.getFaceName(), basicFont.getHeight(), fontStyle);
+			if (myCachedFontData != null && myCachedFontData.equals(fontData)) {
+				return;
+			}
+			org.eclipse.swt.graphics.Font font = getResourceManager().createFont(FontDescriptor.createFrom(fontData));
+			getNodeFigure().setFont(font);
+			getNodeFigure().repaint();
+			if (myCachedFontData != null) {
+				getResourceManager().destroyFont(FontDescriptor.createFrom(myCachedFontData));
+			}
+		} else {
+			getNodeFigure().setFont(null);
+			getNodeFigure().repaint();
+		}
 	}
 
 	protected void createDefaultEditPolicies() {
@@ -347,43 +479,4 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 		}
 	}
 
-	protected org.eclipse.draw2d.geometry.Dimension getDraw2dDimension(Dimension dimension) {
-		return new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(dimension.getDx()), getMapMode().DPtoLP(dimension.getDy()));
-	}
-
-	protected org.eclipse.draw2d.geometry.Point getDraw2DPoint(Point point) {
-		return new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(point.getX()), getMapMode().DPtoLP(point.getY()));
-	}
-
-	protected void refreshLayoutData() {
-		if (!hasParentFigure()) {
-			return;
-		}
-		Object layoutConstraint = getLayoutConstraint();
-		if (layoutConstraint != null) {
-			getFigure().getParent().setConstraint(getFigure(), layoutConstraint);
-		}
-	}
-
-	/**
-	 * Parent figure == null if this method was called from setFigure() one.
-	 */
-	private boolean hasParentFigure() {
-		return getFigure().getParent() != null;
-	}
-
-	protected void refreshLayoutManager() {
-		if (!hasParentFigure()) {
-			return;
-		}
-		handleMajorSemanticChange();
-	}
-
-	protected Shape getShape() {
-		View view = getNotationView();
-		if (view != null && view.getElement() instanceof Shape) {
-			return (Shape) view.getElement();
-		}
-		return null;
-	}
 }

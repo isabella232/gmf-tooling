@@ -19,10 +19,6 @@ import "http://www.eclipse.org/gmf/2008/GmfGraph/wysiwyg";
 extension xpt::GenModelUtils;
 extension xpt::EMFUtils;
 
-boolean hasBoundsSynchronizer(gmfgen::GenNode genNode) :
-!getSynchronizers(genNode).actions.typeSelect(wysiwyg::MethodCallAction).select(mc | "refreshBounds" == mc.methodName).isEmpty()
-;
-
 boolean hasSynchronizers(gmfgen::GenNode genNode) :
 !getSynchronizers(genNode).isEmpty()
 ;

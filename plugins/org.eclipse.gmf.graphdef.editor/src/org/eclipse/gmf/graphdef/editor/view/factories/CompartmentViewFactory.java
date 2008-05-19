@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2008 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -14,24 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
-
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcoreFactory;
-
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentVisualFacetsEditPart;
-
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
-
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
-
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
-
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -41,7 +34,7 @@ import org.eclipse.gmf.runtime.notation.View;
 public class CompartmentViewFactory extends AbstractShapeViewFactory {
 
 	/**
-	 * @generated 
+	 * @generated
 	 */
 	protected List createStyles(View view) {
 		List styles = new ArrayList();

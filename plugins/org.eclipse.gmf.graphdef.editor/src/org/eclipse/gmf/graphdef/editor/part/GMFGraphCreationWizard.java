@@ -114,7 +114,17 @@ public class GMFGraphCreationWizard extends Wizard implements INewWizard {
 		diagramModelFilePage.setDescription(Messages.GMFGraphCreationWizard_DiagramModelFilePageDescription);
 		addPage(diagramModelFilePage);
 
-		domainModelFilePage = new GMFGraphCreationWizardPage("DomainModelFile", getSelection(), "gmfgraph"); //$NON-NLS-1$ //$NON-NLS-2$
+		domainModelFilePage = new GMFGraphCreationWizardPage("DomainModelFile", getSelection(), "gmfgraph") { //$NON-NLS-1$ //$NON-NLS-2$
+
+			public void setVisible(boolean visible) {
+				if (visible) {
+					String fileName = diagramModelFilePage.getFileName();
+					fileName = fileName.substring(0, fileName.length() - ".gmfgraph_diagram".length()); //$NON-NLS-1$
+					setFileName(GMFGraphDiagramEditorUtil.getUniqueFileName(getContainerFullPath(), fileName, "gmfgraph")); //$NON-NLS-1$
+				}
+				super.setVisible(visible);
+			}
+		};
 		domainModelFilePage.setTitle(Messages.GMFGraphCreationWizard_DomainModelFilePageTitle);
 		domainModelFilePage.setDescription(Messages.GMFGraphCreationWizard_DomainModelFilePageDescription);
 		addPage(domainModelFilePage);
