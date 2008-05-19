@@ -51,7 +51,7 @@
     </figures>
     <figures
         xsi:type="gmfgraph:PolylineConnection"
-        referencingElements="Link"
+        referencingElements="LinkWithDec"
         name="FigureConnectionFigure"
         lineKind="LINE_DASHDOT"
         targetDecoration="ArrowDecoration"/>
@@ -91,4 +91,7 @@
       name="LabelWOIcon"
       figure="LabelFigure"
       elementIcon="false"/>
+  <connections
+      name="LinkWithDec"
+      figure="FigureConnectionFigure"/>
 </gmfgraph:Canvas>
