@@ -28,6 +28,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences;
+import org.eclipse.gmf.codegen.gmfgen.Routing;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences} object.
@@ -75,8 +76,11 @@ public class GenDiagramPreferencesItemProvider
 			addShowGridPropertyDescriptor(object);
 			addShowRulersPropertyDescriptor(object);
 			addSnapToGridPropertyDescriptor(object);
+			addSnapToGeometryPropertyDescriptor(object);
+			addGridInFrontPropertyDescriptor(object);
 			addRulerUnitsPropertyDescriptor(object);
 			addGridSpacingPropertyDescriptor(object);
+			addGridLineStylePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -324,6 +328,50 @@ public class GenDiagramPreferencesItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Snap To Geometry feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSnapToGeometryPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagramPreferences_snapToGeometry_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagramPreferences_snapToGeometry_feature", "_UI_GenDiagramPreferences_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagramPreferences_SnapToGeometry(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Grid In Front feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addGridInFrontPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagramPreferences_gridInFront_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagramPreferences_gridInFront_feature", "_UI_GenDiagramPreferences_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagramPreferences_GridInFront(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Ruler Units feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -368,6 +416,28 @@ public class GenDiagramPreferencesItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Grid Line Style feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addGridLineStylePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagramPreferences_gridLineStyle_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagramPreferences_gridLineStyle_feature", "_UI_GenDiagramPreferences_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagramPreferences_GridLineStyle(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -385,6 +455,7 @@ public class GenDiagramPreferencesItemProvider
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagramPreferences_LineColor());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagramPreferences_NoteFillColor());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagramPreferences_NoteLineColor());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagramPreferences_GridLineColor());
 		}
 		return childrenFeatures;
 	}
@@ -447,8 +518,11 @@ public class GenDiagramPreferencesItemProvider
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SHOW_GRID:
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SHOW_RULERS:
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SNAP_TO_GRID:
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SNAP_TO_GEOMETRY:
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_IN_FRONT:
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__RULER_UNITS:
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_SPACING:
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_STYLE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__DEFAULT_FONT:
@@ -457,6 +531,7 @@ public class GenDiagramPreferencesItemProvider
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__LINE_COLOR:
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__NOTE_FILL_COLOR:
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__NOTE_LINE_COLOR:
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_COLOR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -533,6 +608,16 @@ public class GenDiagramPreferencesItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenDiagramPreferences_NoteLineColor(),
 				 GMFGenFactory.eINSTANCE.createGenConstantColor()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenDiagramPreferences_GridLineColor(),
+				 GMFGenFactory.eINSTANCE.createGenRGBColor()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenDiagramPreferences_GridLineColor(),
+				 GMFGenFactory.eINSTANCE.createGenConstantColor()));
 	}
 
 	/**
@@ -551,7 +636,8 @@ public class GenDiagramPreferencesItemProvider
 			childFeature == GMFGenPackage.eINSTANCE.getGenDiagramPreferences_FillColor() ||
 			childFeature == GMFGenPackage.eINSTANCE.getGenDiagramPreferences_LineColor() ||
 			childFeature == GMFGenPackage.eINSTANCE.getGenDiagramPreferences_NoteFillColor() ||
-			childFeature == GMFGenPackage.eINSTANCE.getGenDiagramPreferences_NoteLineColor();
+			childFeature == GMFGenPackage.eINSTANCE.getGenDiagramPreferences_NoteLineColor() ||
+			childFeature == GMFGenPackage.eINSTANCE.getGenDiagramPreferences_GridLineColor();
 
 		if (qualify) {
 			return getString
