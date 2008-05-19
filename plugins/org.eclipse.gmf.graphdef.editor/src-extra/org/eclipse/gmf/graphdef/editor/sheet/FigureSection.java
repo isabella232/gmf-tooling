@@ -11,9 +11,11 @@
 package org.eclipse.gmf.graphdef.editor.sheet;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.LineKind;
@@ -31,6 +33,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Spinner;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.forms.widgets.FormToolkit;
@@ -50,6 +53,7 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 	private Group myRoundedRectStyle;
 	private Group myForegroundColor;
 	private Group myBackgroundColor;
+	private Group myFont;
 	private Button myR1;
 	private Button myR2;
 	private Button myR3;
@@ -73,6 +77,10 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 	private Button myBackgroundNoRadio;
 	private Group myBackgroundRGBValues;
 	private Group myBackgroundPredefinedValue;
+	private Button myFontSetFont;
+	private Text myFontFaceName;
+	private Spinner myFontHeight;
+	private Combo myFontStyle;
 	private Spinner myForegroundRed;
 	private Spinner myForegroundGreen;
 	private Spinner myForegroundBlue;
@@ -146,14 +154,11 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 		myForegroundColor.setLayout(new org.eclipse.swt.layout.FormLayout());
 		org.eclipse.swt.layout.FormData myForegroundColorFD;
 		myForegroundColorFD = new org.eclipse.swt.layout.FormData();
-		myForegroundColorFD.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
 		myForegroundRgbRadio.setLayoutData(myForegroundColorFD);
 		myForegroundColorFD = new org.eclipse.swt.layout.FormData();
-		myForegroundColorFD.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
 		myForegroundColorFD.top = new org.eclipse.swt.layout.FormAttachment(myForegroundRgbRadio, 5, org.eclipse.swt.SWT.BOTTOM);
 		myForegroundPredeinedRadio.setLayoutData(myForegroundColorFD);
 		myForegroundColorFD = new org.eclipse.swt.layout.FormData();
-		myForegroundColorFD.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
 		myForegroundColorFD.top = new org.eclipse.swt.layout.FormAttachment(myForegroundPredeinedRadio, 5, org.eclipse.swt.SWT.BOTTOM);
 		myForegroundNoValueRadio.setLayoutData(myForegroundColorFD);
 		myForegroundColorFD = new org.eclipse.swt.layout.FormData();
@@ -191,14 +196,11 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 		myBackgroundColor.setLayout(new org.eclipse.swt.layout.FormLayout());
 		org.eclipse.swt.layout.FormData myBackgroundColorFD;
 		myBackgroundColorFD = new org.eclipse.swt.layout.FormData();
-		myBackgroundColorFD.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
 		myBackgroundRgbRadio.setLayoutData(myBackgroundColorFD);
 		myBackgroundColorFD = new org.eclipse.swt.layout.FormData();
-		myBackgroundColorFD.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
 		myBackgroundColorFD.top = new org.eclipse.swt.layout.FormAttachment(myBackgroundRgbRadio, 5, org.eclipse.swt.SWT.BOTTOM);
 		myBackgroundPredeinedRadio.setLayoutData(myBackgroundColorFD);
 		myBackgroundColorFD = new org.eclipse.swt.layout.FormData();
-		myBackgroundColorFD.left = new org.eclipse.swt.layout.FormAttachment(0, 10);
 		myBackgroundColorFD.top = new org.eclipse.swt.layout.FormAttachment(myBackgroundPredeinedRadio, 5, org.eclipse.swt.SWT.BOTTOM);
 		myBackgroundNoRadio.setLayoutData(myBackgroundColorFD);
 		myBackgroundColorFD = new org.eclipse.swt.layout.FormData();
@@ -207,6 +209,24 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 		myBackgroundColorFD = new org.eclipse.swt.layout.FormData();
 		myBackgroundColorFD.left = new org.eclipse.swt.layout.FormAttachment(myBackgroundPredeinedRadio, 10, org.eclipse.swt.SWT.RIGHT);
 		myBackgroundPredefinedValue.setLayoutData(myBackgroundColorFD);
+		myFont = createGroup(parent, "Font");
+		myFontSetFont = getWidgetFactory().createButton(myFont, "Set Font", SWT.CHECK);
+		createLabel(myFont, "Face Name");
+		myFontFaceName = getWidgetFactory().createText(myFont, null);
+		createLabel(myFont, "Height");
+		myFontHeight = new Spinner(myFont, SWT.FLAT);
+		myFontHeight.setMinimum(0);
+		myFontHeight.setMaximum(2147483647);
+		myFontHeight.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER); // @see #145837
+		createLabel(myFont, "Style");
+		myFontStyle = new Combo(myFont, SWT.FLAT | SWT.READ_ONLY);
+		myFontStyle.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER);
+		getWidgetFactory().adapt(myFontStyle, false, false);
+		myFont.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.BEGINNING).span(2, 1).applyTo(myFontSetFont);
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.FILL, SWT.BEGINNING).grab(true, false).applyTo(myFontFaceName);
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.FILL, SWT.BEGINNING).grab(true, false).applyTo(myFontHeight);
+		org.eclipse.jface.layout.GridDataFactory.swtDefaults().align(SWT.FILL, SWT.BEGINNING).grab(true, false).applyTo(myFontStyle);
 
 		parent.setLayout(new org.eclipse.swt.layout.FormLayout());
 		org.eclipse.swt.layout.FormData parentFD;
@@ -227,6 +247,13 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 		parentFD.left = new org.eclipse.swt.layout.FormAttachment(myCommonStyle, 10, org.eclipse.swt.SWT.RIGHT);
 		parentFD.top = new org.eclipse.swt.layout.FormAttachment(myForegroundColor, 5, org.eclipse.swt.SWT.BOTTOM);
 		myBackgroundColor.setLayoutData(parentFD);
+		parentFD = new org.eclipse.swt.layout.FormData();
+		parentFD.left = new org.eclipse.swt.layout.FormAttachment(myForegroundColor, 10, org.eclipse.swt.SWT.RIGHT);
+		myFont.setLayoutData(parentFD);
+		// TODO myFontStyle.setItems(VALUES.toString().toArray());
+		for (org.eclipse.emf.common.util.Enumerator e : FontStyle.VALUES) {
+			myFontStyle.add(e.getName());
+		}
 		// TODO myForegroundPredefinedColor.setItems(VALUES.toString().toArray());
 		for (org.eclipse.emf.common.util.Enumerator e : ColorConstants.VALUES) {
 			myForegroundPredefinedColor.add(e.getName());
@@ -236,12 +263,18 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 			myBackgroundPredefinedColor.add(e.getName());
 		}
 
-		for (Spinner s : new Spinner[] { myLineWidth, myCornerWidth, myCornerHeight, myForegroundRed, myForegroundGreen, myForegroundBlue, myBackgroundRed, myBackgroundGreen, myBackgroundBlue }) {
+		for (Text t : new Text[] { myFontFaceName }) {
+			t.addListener(SWT.Modify, this);
+			t.addListener(SWT.FocusOut, this);
+			t.addListener(SWT.KeyDown, this);
+		}
+		for (Spinner s : new Spinner[] { myLineWidth, myCornerWidth, myCornerHeight, myFontHeight, myForegroundRed, myForegroundGreen, myForegroundBlue, myBackgroundRed, myBackgroundGreen,
+				myBackgroundBlue }) {
 			s.addListener(SWT.Modify, this);
 			s.addListener(SWT.FocusOut, this);
 		}
 		for (Widget w : new Widget[] { myR1, myR2, myR3, myR4, myR5, myR6, myForegroundRgbRadio, myForegroundPredeinedRadio, myForegroundNoValueRadio, myBackgroundRgbRadio,
-				myBackgroundPredeinedRadio, myBackgroundNoRadio, myFill, myOutline, myFillXor, myOutlineXor, myForegroundPredefinedColor, myBackgroundPredefinedColor }) {
+				myBackgroundPredeinedRadio, myBackgroundNoRadio, myFill, myOutline, myFillXor, myOutlineXor, myFontSetFont, myFontStyle, myForegroundPredefinedColor, myBackgroundPredefinedColor }) {
 			w.addListener(SWT.Selection, this);
 		}
 	}
@@ -319,6 +352,14 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 		}
 		if (myBackgroundNoRadio.getSelection()) {
 			getInput().setBackgroundColor(null);
+		}
+		if (myFontFaceName.isEnabled() && myFontHeight.isEnabled() && myFontStyle.isEnabled()) {
+			getInput().setFont(GMFGraphFactory.eINSTANCE.createBasicFont());
+			((BasicFont) getInput().getFont()).setFaceName(/* Bridge.fieldGet(myFontFaceName) */myFontFaceName.getText());
+			((BasicFont) getInput().getFont()).setHeight(myFontHeight.getSelection());
+			((BasicFont) getInput().getFont()).setStyle(FontStyle.get(myFontStyle.getSelectionIndex()));
+		} else {
+			getInput().setFont(null);
 		}
 
 	}
@@ -423,6 +464,22 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 			myBackgroundNoRadio.setSelection(true);
 		} else {
 			myBackgroundNoRadio.setSelection(false);
+		}
+		if (getInput().getFont() instanceof BasicFont) {
+			if (getInput().getFont() != null) {
+				myFontFaceName.setText(((BasicFont) getInput().getFont()).getFaceName());/* Bridge.fieldSet(myFontFaceName, ((BasicFont) getInput().getFont()).getFaceName()); */
+				myFontHeight.setSelection(((BasicFont) getInput().getFont()).getHeight());
+				myFontStyle.select(((BasicFont) getInput().getFont()).getStyle().getValue());
+			}
+			myFontSetFont.setSelection(true);
+			myFontFaceName.setEnabled(true);
+			myFontHeight.setEnabled(true);
+			myFontStyle.setEnabled(true);
+		} else {
+			myFontSetFont.setSelection(false);
+			myFontFaceName.setEnabled(false);
+			myFontHeight.setEnabled(false);
+			myFontStyle.setEnabled(false);
 		}
 
 		myIsRefresh = false;
@@ -551,8 +608,28 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 					myBackgroundPredefinedValue.setVisible(false);
 					applyChanges(); // Commit; View to Model
 				}
+			} else if (myFontSetFont == event.widget) {
+				if (myFontSetFont.getSelection()) {
+					myFontFaceName.setEnabled(true);
+					myFontHeight.setEnabled(true);
+					myFontStyle.setEnabled(true);
+					myFontFaceName.setEnabled(true);
+					myFontHeight.setEnabled(true);
+					myFontStyle.setEnabled(true);
+					applyChanges(); // Commit; View to Model
+					if (getInput().getFont() != null) {
+						myFontFaceName.setText(((BasicFont) getInput().getFont()).getFaceName());/* Bridge.fieldSet(myFontFaceName, ((BasicFont) getInput().getFont()).getFaceName()); */
+						myFontHeight.setSelection(((BasicFont) getInput().getFont()).getHeight());
+						myFontStyle.select(((BasicFont) getInput().getFont()).getStyle().getValue());
+					}
+				} else {
+					myFontFaceName.setEnabled(false);
+					myFontHeight.setEnabled(false);
+					myFontStyle.setEnabled(false);
+					applyChanges(); // Commit; View to Model
+				}
 			}
-			if (myForegroundPredefinedColor == event.widget || myBackgroundPredefinedColor == event.widget) {
+			if (myFontStyle == event.widget || myForegroundPredefinedColor == event.widget || myBackgroundPredefinedColor == event.widget) {
 				applyChanges();
 			}
 
@@ -607,7 +684,12 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 						// FIXME enable/disable widget(s) -- HOWEVER, need access to Binding/Widget here, so can't share the template with e.g. Alex's ItemProviders
 					}
 				}, new FeatureTracker(this, GMFGraphPackage.eINSTANCE.getRGBColor_Red(), GMFGraphPackage.eINSTANCE.getRGBColor_Green(), GMFGraphPackage.eINSTANCE.getRGBColor_Blue(),
-						GMFGraphPackage.eINSTANCE.getConstantColor_Value())) };
+						GMFGraphPackage.eINSTANCE.getConstantColor_Value())), new AttachAdapter(GMFGraphPackage.eINSTANCE.getFigure_Font(), new ChangeTracker() {
+
+					public void modelChanged(org.eclipse.emf.common.notify.Notification n) {
+						// FIXME enable/disable widget(s) -- HOWEVER, need access to Binding/Widget here, so can't share the template with e.g. Alex's ItemProviders
+					}
+				}, new FeatureTracker(this, GMFGraphPackage.eINSTANCE.getBasicFont_FaceName(), GMFGraphPackage.eINSTANCE.getBasicFont_Height(), GMFGraphPackage.eINSTANCE.getBasicFont_Style())) };
 		getInput().eAdapters().addAll(java.util.Arrays.asList(myModelListeners));
 
 	}

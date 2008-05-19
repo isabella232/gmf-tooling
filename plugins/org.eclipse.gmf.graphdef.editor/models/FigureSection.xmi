@@ -41,15 +41,11 @@
       <layout xsi:type="widget:GridLayout"/>
     </children>
     <layout xsi:type="widget:FormLayout">
-      <data widget="//@children.3/@children.0">
-        <left offset="10"/>
-      </data>
+      <data widget="//@children.3/@children.0"/>
       <data widget="//@children.3/@children.1">
-        <left offset="10"/>
         <top control="//@children.3/@children.0" offset="5" align="BOTTOM"/>
       </data>
       <data widget="//@children.3/@children.2">
-        <left offset="10"/>
         <top control="//@children.3/@children.1" offset="5" align="BOTTOM"/>
       </data>
       <data widget="//@children.3/@children.3">
@@ -75,15 +71,11 @@
       <layout xsi:type="widget:GridLayout"/>
     </children>
     <layout xsi:type="widget:FormLayout">
-      <data widget="//@children.4/@children.0">
-        <left offset="10"/>
-      </data>
+      <data widget="//@children.4/@children.0"/>
       <data widget="//@children.4/@children.1">
-        <left offset="10"/>
         <top control="//@children.4/@children.0" offset="5" align="BOTTOM"/>
       </data>
       <data widget="//@children.4/@children.2">
-        <left offset="10"/>
         <top control="//@children.4/@children.1" offset="5" align="BOTTOM"/>
       </data>
       <data widget="//@children.4/@children.3">
@@ -92,6 +84,18 @@
       <data widget="//@children.4/@children.4">
         <left control="//@children.4/@children.1" offset="10" align="RIGHT"/>
       </data>
+    </layout>
+  </children>
+  <children xsi:type="widget:Group" name="font" layoutData="//@layout/@data.5" label="Font">
+    <children xsi:type="widget:CheckBox" name="fontSetFont" layoutData="//@children.5/@layout/@data.0" label="Set Font"/>
+    <children xsi:type="widget:TextEntry" name="fontFaceName" layoutData="//@children.5/@layout/@data.1" label="Face Name"/>
+    <children xsi:type="widget:Spin" name="fontHeight" layoutData="//@children.5/@layout/@data.2" label="Height" maximum="2147483647"/>
+    <children xsi:type="widget:Combo" name="fontStyle" layoutData="//@children.5/@layout/@data.3" label="Style"/>
+    <layout xsi:type="widget:GridLayout" columns="2">
+      <data widget="//@children.5/@children.0" hSpan="2"/>
+      <data widget="//@children.5/@children.1" hGrab="true" hAlign="FILL"/>
+      <data widget="//@children.5/@children.2" hGrab="true" hAlign="FILL"/>
+      <data widget="//@children.5/@children.3" hGrab="true" hAlign="FILL"/>
     </layout>
   </children>
   <layout xsi:type="widget:FormLayout">
@@ -111,6 +115,9 @@
     <data widget="//@children.4">
       <left control="//@children.1" offset="10" align="RIGHT"/>
       <top control="//@children.3" offset="5" align="BOTTOM"/>
+    </data>
+    <data widget="//@children.5">
+      <left control="//@children.3" offset="10" align="RIGHT"/>
     </data>
   </layout>
   <bindings selector="//@input.0" commitCondition="//@conditions.0" widget="//@children.0/@children.0" refreshCondition="//@conditions.0"/>
@@ -140,6 +147,10 @@
   <bindings selector="//@input.9/@children.1" commitCondition="//@conditions.10" widget="//@children.4/@children.3/@children.1" refreshCondition="//@conditions.10"/>
   <bindings selector="//@input.9/@children.2" commitCondition="//@conditions.10" widget="//@children.4/@children.3/@children.2" refreshCondition="//@conditions.10"/>
   <bindings selector="//@input.9/@children.3" commitCondition="//@conditions.11" widget="//@children.4/@children.4/@children.0" refreshCondition="//@conditions.11"/>
+  <bindings selector="//@input.10" commitCondition="//@conditions.13" widget="//@children.5/@children.0" refreshCondition="//@conditions.13"/>
+  <bindings selector="//@input.10/@children.0" commitCondition="//@conditions.13" widget="//@children.5/@children.1" refreshCondition="//@conditions.13"/>
+  <bindings selector="//@input.10/@children.1" commitCondition="//@conditions.13" widget="//@children.5/@children.2" refreshCondition="//@conditions.13"/>
+  <bindings selector="//@input.10/@children.2" commitCondition="//@conditions.13" widget="//@children.5/@children.3" refreshCondition="//@conditions.13"/>
   <input xsi:type="ctx:FeatureContext">
     <selector xsi:type="ecore:EAttribute" href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Shape/lineKind"/>
   </input>
@@ -194,6 +205,18 @@
     </children>
     <selector xsi:type="ecore:EReference" href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/backgroundColor"/>
   </input>
+  <input xsi:type="ctx:FeatureContext">
+    <children xsi:type="ctx:FeatureContext">
+      <selector xsi:type="ecore:EAttribute" href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//BasicFont/faceName"/>
+    </children>
+    <children xsi:type="ctx:FeatureContext">
+      <selector xsi:type="ecore:EAttribute" href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//BasicFont/height"/>
+    </children>
+    <children xsi:type="ctx:FeatureContext">
+      <selector xsi:type="ecore:EAttribute" href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//BasicFont/style"/>
+    </children>
+    <selector xsi:type="ecore:EReference" href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Figure/font"/>
+  </input>
   <conditions xsi:type="ctx:EqualsCondition" accessor="//@input.0" value="LineKind.LINE_SOLID_LITERAL"/>
   <conditions xsi:type="ctx:EqualsCondition" accessor="//@input.0" value="LineKind.LINE_DASH_LITERAL"/>
   <conditions xsi:type="ctx:EqualsCondition" accessor="//@input.0" value="LineKind.LINE_DOT_LITERAL"/>
@@ -217,9 +240,15 @@
     <type href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//ConstantColor"/>
   </conditions>
   <conditions xsi:type="ctx:EqualsCondition" accessor="//@input.9" value="null"/>
+  <conditions xsi:type="ctx:InstanceCondition" accessor="//@input.10">
+    <type href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//BasicFont"/>
+  </conditions>
+  <conditions xsi:type="ctx:EqualsCondition" accessor="//@input.10" value="null"/>
   <actions widgets="//@children.2" trigger="//@conditions.6"/>
   <actions widgets="//@children.3/@children.3" trigger="//@conditions.7"/>
   <actions widgets="//@children.3/@children.4" trigger="//@conditions.8"/>
   <actions widgets="//@children.4/@children.3" trigger="//@conditions.10"/>
   <actions widgets="//@children.4/@children.4" trigger="//@conditions.11"/>
+  <actions kind="ENABLE" widgets="//@children.5/@children.1 //@children.5/@children.2 //@children.5/@children.3" trigger="//@conditions.13"/>
+  <actions kind="DISABLE" widgets="//@children.5/@children.1 //@children.5/@children.2 //@children.5/@children.3" trigger="//@conditions.14"/>
 </bind:Section>
