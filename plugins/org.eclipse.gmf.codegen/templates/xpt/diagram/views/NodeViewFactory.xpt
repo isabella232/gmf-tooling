@@ -21,6 +21,14 @@ package «getDiagram().notationViewFactoriesPackageName»;
 «EXPAND xpt::Common::generatedClassComment»
 public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory {
 
+	«EXPAND createStyles-»
+	
+	«EXPAND decorateView-»
+	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE createStyles FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected java.util.List createStyles(org.eclipse.gmf.runtime.notation.View view) {
 		java.util.List styles = new java.util.ArrayList();
@@ -29,7 +37,9 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 		«EXPAND xpt::diagram::views::Utils::addCustomStyles("styles")-»
 		return styles;
 	}
+«ENDDEFINE»
 
+«DEFINE decorateView FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void decorateView(org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.gmf.runtime.notation.View view,
 			org.eclipse.core.runtime.IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
@@ -45,8 +55,6 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 			«EXPAND xpt::diagram::views::Utils::createChildNode FOREACH compartments-»
 		«ENDIF-»
 	}
-	«EXPAND additions-»
-}
 «ENDDEFINE»
 
 «DEFINE addShortcut FOR gmfgen::GenNode-»
