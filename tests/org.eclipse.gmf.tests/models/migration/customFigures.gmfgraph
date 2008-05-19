@@ -30,7 +30,7 @@
           referencingElements="postcondition"
           accessor="getContentPane">
         <typedFigure
-            href="PostconditionContentPane"/>
+            href="#PostconditionContentPane"/>
       </customChildren>
     </figures>
     <figures
@@ -54,20 +54,18 @@
       <customChildren
           accessor="getContentPane">
         <typedFigure
-            href="AnotherPostconditionContentPane"/>
+            href="#AnotherPostconditionContentPane"/>
       </customChildren>
     </figures>
     <figures
-        xsi:type="gmfgraph:Rectangle"
+        xsi:type="gmfgraph:CustomFigure"
         name="PostconditionContentPane"
-        outline="false"
-        fill="false"/>
+		qualifiedClassName="org.eclipse.draw2d.Rectangle"/>
     <figures
-        xsi:type="gmfgraph:Rectangle"
+        xsi:type="gmfgraph:CustomFigure"
         name="AnotherPostconditionContentPane"
-        outline="false"
-        referencingElements="anotherPostcondition"
-        fill="false"/>
+        qualifiedClassName="org.eclipse.draw2d.Rectangle"
+        referencingElements="anotherPostcondition"/>
   </figures>
   <nodes
       name="LocalPreconditionNode"
