@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RunnableWithResult;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
@@ -82,26 +83,6 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 	/**
 	 * @generated
 	 */
-	private static HashMap context2MetricsMap;
-
-	/**
-	 * @generated
-	 */
-	private static List metricsRegistry;
-
-	/**
-	 * @generated
-	 */
-	private static HashMap key2MetricMap;
-
-	/**
-	 * @generated
-	 */
-	private static int MAX_VISIBLE_KEY_CHAR_COUNT = 8;
-
-	/**
-	 * @generated
-	 */
 	protected IAction createAction(String actionId, IWorkbenchPartDescriptor partDescriptor) {
 		if (MetricsAction.ACTION_KEY.equals(actionId)) {
 			return new MetricsAction(partDescriptor);
@@ -140,9 +121,11 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 			IWorkbenchPart workbenchPart = workbenchPartDescriptor.getPartPage().getActivePart();
 			IViewPart metricsView = null;
 			try {
-				metricsView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(ResultView.VIEW_ID);
+				metricsView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(
+						org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMetricProvider.ResultView.VIEW_ID);
 				if (metricsView == null) {
-					metricsView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(ResultView.VIEW_ID);
+					metricsView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(
+							org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMetricProvider.ResultView.VIEW_ID);
 				} else {
 					if (metricsView != null && workbenchPart instanceof IDiagramWorkbenchPart) {
 						final IDiagramWorkbenchPart part = (IDiagramWorkbenchPart) workbenchPart;
@@ -166,23 +149,8 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 
 				public void run() {
 					Diagram diagram = diagramEditPart.getDiagramView();
-					List metrics = calculateMetrics(diagram, new ArrayList(50));
-					if (diagram.getElement() != null) {
-						calculateMetrics(diagram.getElement(), metrics);
-					}
-					// detach from EObject and bind to viewID
-					HashSet elements = new HashSet();
-					for (Iterator it = metrics.iterator(); it.hasNext();) {
-						ElementMetrics elementMetrics = (ElementMetrics) it.next();
-						elements.add(elementMetrics.target);
-					}
-					TaiPanDiagramEditorUtil.LazyElement2ViewMap element2ViewMap = new TaiPanDiagramEditorUtil.LazyElement2ViewMap(diagram, elements);
-					for (Iterator it = metrics.iterator(); it.hasNext();) {
-						ElementMetrics elementMetrics = (ElementMetrics) it.next();
-						View targetView = TaiPanDiagramEditorUtil.findView(diagramEditPart, elementMetrics.target, element2ViewMap);
-						elementMetrics.target = null; // detach EObject
-						elementMetrics.diagramElementID = targetView.eResource().getURIFragment(targetView);
-					}
+					ArrayList/*<ElementMetrics>*/metrics = new ArrayList/*<ElementMetrics>*/(50);
+					calculateSemanticElementMetrics(diagramEditPart, metrics);
 					setResult(metrics);
 				}
 			});
@@ -192,69 +160,77 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 	}
 
 	/**
+	 * NOTE: metrics are being collected for domain elements contained in the semantic element associated with diagram view, actual diagram content (elements present there) is not taken into account.
 	 * @generated
 	 */
-	static List calculateMetrics(EObject target, List metricsList) {
-		final EObject root = target;
-		Iterator it = new Iterator() {
-
-			Iterator contentsIt = root.eAllContents();
-			boolean isInRoot = true;
-
-			public boolean hasNext() {
-				return isInRoot || contentsIt.hasNext();
+	static void calculateSemanticElementMetrics(DiagramEditPart diagramEditPart, List/*<ElementMetrics>*/metricsList) {
+		Diagram diagram = diagramEditPart.getDiagramView();
+		EObject next = diagram.getElement();
+		Iterator/*<EObject>*/it = next != null ? next.eAllContents() : Collections.EMPTY_LIST.iterator();
+		HashMap/*<EObject, ElementMetrics>*/target2row = new HashMap/*<EObject, ElementMetrics>*/();
+		while (next != null) {
+			ArrayList/*<Metric>*/res = new ArrayList/*<Metric>*/(5);
+			if (TaiPanPackage.eINSTANCE.getRoute().isInstance(next)) {
+				res.add(new Metric("RouteRelb", calcRouteRelb((Route) next), new Double(0.1), new Double(0.9)));
 			}
-
-			public Object next() {
-				if (isInRoot) {
-					isInRoot = false;
-					return root;
-				}
-				return contentsIt.next();
+			if (TaiPanPackage.eINSTANCE.getShip().isInstance(next)) {
+				res.add(new Metric("ShipLoad", calcShipLoad((Ship) next), new Double(1.0), new Double(5.0)));
 			}
-
-			public void remove() {
-				throw new UnsupportedOperationException();
+			if (!res.isEmpty()) {
+				ElementMetrics row = new ElementMetrics(next, formatElementName(next), (Metric[]) res.toArray(new Metric[res.size()]));
+				metricsList.add(row);
+				target2row.put(next, row);
 			}
-		};
-		ArrayList metricsPerContext = new ArrayList();
-		while (it.hasNext()) {
-			Object nextElement = it.next();
-			if (nextElement instanceof EObject) {
-				EObject nextEObj = (EObject) nextElement;
-				EClass nextTarget = nextEObj.eClass();
-				Iterator superTypeIt = nextTarget.getEAllSuperTypes().iterator();
-				while (nextTarget != null) {
-					List metricList = getMetricsForTarget(nextTarget);
-					if (metricList != null) {
-						for (Iterator metricIt = metricList.iterator(); metricIt.hasNext();) {
-							MetricDef nextMetric = (MetricDef) metricIt.next();
-							if (nextMetric.appliesTo(nextEObj)) {
-								Metric metric = new Metric(nextMetric, nextEObj);
-								metricsPerContext.add(metric);
-							}
-						}
-					}
-					nextTarget = superTypeIt.hasNext() ? (EClass) superTypeIt.next() : null;
-				}
-				if (!metricsPerContext.isEmpty()) {
-					metricsList.add(new ElementMetrics(nextEObj, (Metric[]) metricsPerContext.toArray(new Metric[metricsPerContext.size()])));
-					metricsPerContext.clear();
-				}
+			next = it.hasNext() ? (EObject) it.next() : null;
+		}
+		if (!target2row.isEmpty()) { // list was modified, need to process only semantic metrics
+			// bind semantic elements to notation
+			TaiPanDiagramEditorUtil.LazyElement2ViewMap element2ViewMap = new TaiPanDiagramEditorUtil.LazyElement2ViewMap(diagram, target2row.keySet());
+			for (Iterator it2 = target2row.entrySet().iterator(); it2.hasNext();) {
+				Map.Entry entry = (Map.Entry) it2.next();
+				EObject semanticElement = (EObject) entry.getKey();
+				View targetView = TaiPanDiagramEditorUtil.findView(diagramEditPart, semanticElement, element2ViewMap);
+				ElementMetrics elementMetrics = (ElementMetrics) entry.getValue();
+				elementMetrics.diagramElementID = targetView.eResource().getURIFragment(targetView);
 			}
 		}
-		return metricsList;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static class ResultView extends ViewPart {
+	private static String formatViewName(View viewTarget) {
+		StringBuffer notationQNameBuf = new StringBuffer();
+		notationQNameBuf.append(formatElementName(viewTarget));
+		if (viewTarget.getElement() != null) {
+			notationQNameBuf.append("->").append(formatElementName(viewTarget.getElement())); //$NON-NLS-1$
+		}
+		int visualID = TaiPanVisualIDRegistry.getVisualID(viewTarget);
+		notationQNameBuf.append('[').append(visualID < 0 ? Integer.toString(System.identityHashCode(viewTarget)) : Integer.toString(visualID)).append(']');
+		return notationQNameBuf.toString();
+	}
+
+	/**
+	 * @generated
+	 */
+	private static String formatElementName(EObject object) {
+		return EMFCoreUtil.getQualifiedName(object, true);
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class ResultView extends ViewPart implements IOpenListener {
 
 		/**
 		 * @generated
 		 */
 		public static final String VIEW_ID = "org.eclipse.gmf.examples.taipan.gmf.editor.metricView"; //$NON-NLS-1$
+
+		/**
+		 * @generated
+		 */
+		private static int MAX_VISIBLE_KEY_CHAR_COUNT = 8;
 
 		/**
 		 * @generated
@@ -285,15 +261,17 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 			Table table = viewer.getTable();
 			TableLayout layout = new TableLayout();
 			org.eclipse.swt.graphics.GC gc = new org.eclipse.swt.graphics.GC(table);
+
 			gc.setFont(JFaceResources.getDialogFont());
-			int padding = gc.stringExtent("X").x * 2; //$NON-NLS-1$
-			for (int i = 0; i < getMetrics().size(); i++) {
-				MetricDef nextMetric = (MetricDef) getMetrics().get(i);
-				String valueStr = (String) maxValStrMap.get(nextMetric.key);
+			int padding = gc.stringExtent("X").x * 2;//$NON-NLS-1$
+			for (int i = 0; i < getMetricKeys().length; i++) {
+				final String nextKey = getMetricKeys()[i];
+				String valueStr = (String) maxValStrMap.get(nextKey);
 				int minWidth = valueStr != null ? gc.stringExtent(valueStr).x + padding : 20;
 				layout.addColumnData(new ColumnPixelData(minWidth, true));
 			}
 			gc.dispose();
+
 			layout.addColumnData(new ColumnWeightData(1, 50, true));
 			viewer.getTable().setLayout(layout);
 			viewer.getTable().layout(true, true);
@@ -307,25 +285,23 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 			final Table table = viewer.getTable();
 			table.setHeaderVisible(true);
 			table.setLinesVisible(true);
-			for (int i = 0; i < getMetrics().size(); i++) {
-				MetricDef nextMetric = ((MetricDef) getMetrics().get(i));
+
+			for (int i = 0; i < getMetricKeys().length; i++) {
 				TableColumn column = new TableColumn(table, SWT.NONE);
 				column.setAlignment(SWT.RIGHT);
 				column.setMoveable(true);
-				column.setText(nextMetric.key);
-				column.setToolTipText(nextMetric.getToolTipText());
+				column.setText(getMetricKeys()[i]);
+				column.setToolTipText(getMetricToolTips()[i]);
 			}
+
 			TableColumn objectColumn = new TableColumn(table, SWT.NONE);
 			objectColumn.setText("Element");
 			objectColumn.setToolTipText("Measurement element");
+
 			viewer.setLabelProvider(new Labels());
 			viewer.setContentProvider(new ArrayContentProvider());
-			viewer.addOpenListener(new IOpenListener() {
+			viewer.addOpenListener(this);
 
-				public void open(OpenEvent event) {
-					handleOpen(event);
-				}
-			});
 			SelectionListener headerSelListener = new SelectionListener() {
 
 				public void widgetSelected(SelectionEvent e) {
@@ -341,6 +317,7 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 			for (int i = 0; i < columns.length; i++) {
 				columns[i].addSelectionListener(headerSelListener);
 			}
+
 			viewer.setSorter(new ViewerSorter() {
 
 				public int compare(Viewer viewer, Object e1, Object e2) {
@@ -365,7 +342,7 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 		/**
 		 * @generated
 		 */
-		private void handleOpen(OpenEvent event) {
+		public void open(OpenEvent event) {
 			try {
 				IEditorPart editorPart = getSite().getPage().openEditor(new FileEditorInput(WorkspaceSynchronizer.getFile(diagramResource)), TaiPanDiagramEditor.ID);
 				if (editorPart == null) {
@@ -393,8 +370,8 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 		 */
 		private static Map calcMetricMaxValueStrLenMap(List allMetrics) {
 			Map metric2MaxStrLen = new HashMap();
-			for (int i = 0; i < getMetrics().size(); i++) {
-				String nextKey = ((MetricDef) getMetrics().get(i)).key;
+			for (int i = 0; i < getMetricKeys().length; i++) {
+				String nextKey = getMetricKeys()[i];
 				int trimPos = Math.min(nextKey.length(), MAX_VISIBLE_KEY_CHAR_COUNT);
 				metric2MaxStrLen.put(nextKey, nextKey.substring(0, trimPos));
 			}
@@ -402,9 +379,9 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 				ElementMetrics elementMetrics = (ElementMetrics) it.next();
 				for (int i = 0; i < elementMetrics.metrics.length; i++) {
 					Metric metric = elementMetrics.metrics[i];
-					String valueStr = (String) metric2MaxStrLen.get(metric.def.key);
+					String valueStr = (String) metric2MaxStrLen.get(metric.key);
 					if (valueStr == null || metric.displayValue.length() > valueStr.length()) {
-						metric2MaxStrLen.put(metric.def.key, metric.displayValue);
+						metric2MaxStrLen.put(metric.key, metric.displayValue);
 					}
 				}
 			}
@@ -426,7 +403,7 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 			 * @generated
 			 */
 			private boolean isElementColumn(int columnIndex) {
-				return columnIndex >= getMetrics().size();
+				return columnIndex >= getMetricKeys().length;
 			}
 
 			/**
@@ -441,10 +418,10 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 			 */
 			public String getColumnText(Object element, int columnIndex) {
 				ElementMetrics elementMetrics = (ElementMetrics) element;
-				if (columnIndex == getMetrics().size()) {
+				if (columnIndex == getMetricKeys().length) {
 					return elementMetrics.targetElementQName;
 				}
-				String key = ((MetricDef) getMetrics().get(columnIndex)).key;
+				final String key = getMetricKeys()[columnIndex];
 				Metric metric = elementMetrics.getMetricByKey(key);
 				return (metric != null) ? metric.displayValue : "-"; //$NON-NLS-1$
 			}
@@ -464,12 +441,12 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 					return null;
 				}
 				ElementMetrics columnElement = (ElementMetrics) element;
-				String key = ((MetricDef) getMetrics().get(columnIndex)).key;
+				final String key = getMetricKeys()[columnIndex];
 				Metric metric = columnElement.getMetricByKey(key);
 				if (metric != null && metric.value != null) {
-					if (metric.def.highLimit != null && metric.def.highLimit.longValue() < metric.value.longValue()) {
+					if (metric.highLimit != null && metric.highLimit.longValue() < metric.value.longValue()) {
 						return ColorConstants.red;
-					} else if (metric.def.lowLimit != null && metric.def.lowLimit.longValue() > metric.value.longValue()) {
+					} else if (metric.lowLimit != null && metric.lowLimit.longValue() > metric.value.longValue()) {
 						return ColorConstants.blue;
 					}
 				}
@@ -506,29 +483,17 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 		/**
 		 * @generated
 		 */
-		EObject target;
-
-		/**
-		 * @generated
-		 */
-		ElementMetrics(EObject target, Metric[] metrics) {
-			this.metrics = metrics;
+		ElementMetrics(EObject target, String name, Metric[] metrics) {
 			assert metrics.length > 0;
-			this.target = target;
+			assert name != null;
+			this.metrics = metrics;
+			this.targetElementQName = name;
 			EClass imageTarget = target.eClass();
 			if (target instanceof View) {
 				View viewTarget = (View) target;
-				StringBuffer notationQNameBuf = new StringBuffer();
-				notationQNameBuf.append(EMFCoreUtil.getQualifiedName(viewTarget, true));
-				if ("".equals(viewTarget.getType()) && viewTarget.getElement() != null) { //$NON-NLS-1$
-					notationQNameBuf.append('-').append('>').append(EMFCoreUtil.getQualifiedName(viewTarget.getElement(), true));
+				if ("".equals(viewTarget.getType()) && viewTarget.getElement() != null) {//$NON-NLS-1$
 					imageTarget = viewTarget.getElement().eClass();
 				}
-				int visualID = TaiPanVisualIDRegistry.getVisualID(viewTarget);
-				notationQNameBuf.append('[').append(visualID < 0 ? Integer.toString(System.identityHashCode(viewTarget)) : Integer.toString(visualID)).append(']');
-				this.targetElementQName = notationQNameBuf.toString();
-			} else {
-				this.targetElementQName = EMFCoreUtil.getQualifiedName(target, true);
 			}
 			this.elementImage = TaiPanElementTypes.getImage(imageTarget);
 		}
@@ -538,7 +503,7 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 		 */
 		Metric getMetricByKey(String key) {
 			for (int i = 0; i < metrics.length; i++) {
-				if (metrics[i].def.key.equals(key)) {
+				if (metrics[i].key.equals(key)) {
 					return metrics[i];
 				}
 			}
@@ -554,12 +519,22 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 		/**
 		 * @generated
 		 */
-		final MetricDef def;
+		final String key;
 
 		/**
 		 * @generated
 		 */
-		final Number value;
+		final Double value;
+
+		/**
+		 * @generated
+		 */
+		final Double lowLimit;
+
+		/**
+		 * @generated
+		 */
+		final Double highLimit;
 
 		/**
 		 * @generated
@@ -569,9 +544,19 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 		/**
 		 * @generated
 		 */
-		Metric(MetricDef def, EObject target) {
-			this.def = def;
-			value = def.calcMetric(target);
+		Metric(String key, Double value) {
+			this(key, value, null, null);
+		}
+
+		/**
+		 * @generated
+		 */
+		Metric(String key, Double value, Double low, Double high) {
+			assert key != null;
+			this.key = key;
+			this.value = value;
+			this.lowLimit = low;
+			this.highLimit = high;
 			this.displayValue = (value != null) ? NumberFormat.getInstance().format(value) : "null"; //$NON-NLS-1$
 		}
 
@@ -590,180 +575,43 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 	/**
 	 * @generated
 	 */
-	private static class MetricDef {
-
-		/**
-		 * @generated
-		 */
-		final Double lowLimit;
-
-		/**
-		 * @generated
-		 */
-		final Double highLimit;
-
-		/**
-		 * @generated
-		 */
-		final String key;
-
-		/**
-		 * @generated
-		 */
-		final TaiPanAbstractExpression expression;
-
-		/**
-		 * @generated
-		 */
-		final int[] semanticIDs;
-
-		/**
-		 * @generated
-		 */
-		final String name;
-
-		/**
-		 * @generated
-		 */
-		final String description;
-
-		/**
-		 * @generated
-		 */
-		MetricDef(String key, TaiPanAbstractExpression expression, int[] semanticIDs, Double low, Double high, String name, String description) {
-			this.key = key;
-			this.expression = expression;
-			this.semanticIDs = semanticIDs;
-			this.lowLimit = low;
-			this.highLimit = high;
-			this.name = name;
-			this.description = description;
-		}
-
-		/**
-		 * @generated
-		 */
-		Number calcMetric(Object contextInstance) {
-			Object val = expression.evaluate(contextInstance);
-			return (val instanceof Number) ? (Number) val : null;
-		}
-
-		/**
-		 * @generated
-		 */
-		boolean appliesTo(EObject eObject) {
-			if (eObject instanceof View && semanticIDs != null) {
-				int eObjectID = TaiPanVisualIDRegistry.getVisualID((View) eObject);
-				for (int i = 0; i < semanticIDs.length; i++) {
-					if (semanticIDs[i] == eObjectID) {
-						return true;
-					}
-				}
-				return false;
-			}
-			return eObject != null && (expression.context() instanceof EClass) && ((EClass) expression.context()).isSuperTypeOf(eObject.eClass());
-		}
-
-		/**
-		 * @generated
-		 */
-		String getToolTipText() {
-			StringBuffer buf = new StringBuffer();
-			if (name != null) {
-				buf.append(name);
-			}
-			if (description != null) {
-				buf.append('\n').append(description).append('\n');
-			}
-			if (lowLimit != null) {
-				buf.append("low:").append(lowLimit);
-			}
-			if (highLimit != null) {
-				buf.append(" high:").append(highLimit);
-			}
-			return buf.toString();
-		}
+	private static String[] getMetricKeys() {
+		return new String[] { "RouteRelb", "ShipLoad" };
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List/*MetricDef*/getMetricsForTarget(EClass target) {
-		if (context2MetricsMap == null) {
-			initializeRegistry();
-		}
-		return (List) context2MetricsMap.get(target);
+	private static String[] getMetricToolTips() {
+		return new String[] { "Route Reliability" + '\n' + "Safety of the route." + '\n' + "low: 0.1" + "high: 0.9",
+				"Ship Load" + '\n' + "Quantity of items loaded on ship." + '\n' + "low: 1.0" + "high: 5.0" };
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getMetrics() {
-		if (metricsRegistry == null) {
-			initializeRegistry();
+	private static TaiPanAbstractExpression expressionRouteRelb;
+
+	/**
+	 * @generated
+	 */
+	public static Double calcRouteRelb(Route target) {
+		if (expressionRouteRelb == null) {
+			expressionRouteRelb = TaiPanOCLFactory.getExpression("reliability", TaiPanPackage.eINSTANCE.getRoute());
 		}
-		return metricsRegistry;
+		Object val = expressionRouteRelb.evaluate(target);
+		if (val instanceof Number) {
+			return val.getClass() == Double.class ? (Double) val : new Double(((Number) val).doubleValue());
+		}
+		return null;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static Number calculateMetric(String metricKey, Object contextInstance) {
-		if (key2MetricMap == null) {
-			initializeRegistry();
-		}
-		MetricDef metric = (MetricDef) key2MetricMap.get(metricKey);
-		Number value = (metric != null) ? metric.calcMetric(contextInstance) : null;
-		return (value != null && !(value instanceof Double)) ? new Double(value.doubleValue()) : value;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static void initializeRegistry() {
-		if (context2MetricsMap != null) {
-			return;
-		}
-		register(new MetricDef("RouteRelb", TaiPanOCLFactory.getExpression("reliability", TaiPanPackage.eINSTANCE.getRoute()), null, new Double(0.1), new Double(0.9), "Route Reliability",
-				"Safety of the route."));
-		register(new MetricDef("ShipLoad", new TaiPanAbstractExpression(TaiPanPackage.eINSTANCE.getShip()) {
-
-			protected Object doEvaluate(Object context, Map env) {
-				Ship self = (Ship) context;
-				return JavaRules.cargosize(self);
-			}
-		}, null, new Double(1.0), new Double(5.0), "Ship Load", "Quantity of items loaded on ship."));
-	}
-
-	/**
-	 * @generated
-	 */
-	private static void register(MetricDef metric) {
-		if (context2MetricsMap == null) {
-			context2MetricsMap = new HashMap();
-			metricsRegistry = new ArrayList();
-			key2MetricMap = new HashMap();
-		}
-		List metrics = (List) context2MetricsMap.get(metric.expression.context());
-		if (metrics == null) {
-			metrics = new ArrayList();
-			context2MetricsMap.put(metric.expression.context(), metrics);
-		}
-		metricsRegistry.add(metric);
-		metrics.add(metric);
-		key2MetricMap.put(metric.key, metric);
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class JavaRules {
-
-		/**
-		 * @generated NOT
-		 */
-		private static Double cargosize(Ship self) {
-			return new Double(self.getCargo().size());
-		}
+	public static Double calcShipLoad(Ship target) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException("No user java implementation provided");//$NON-NLS-1$
 	}
 }

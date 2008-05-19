@@ -350,46 +350,17 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		private static final TaiPanAbstractExpression BesiegePortOrder_4005_SourceExpression;
+		private static TaiPanAbstractExpression BesiegePortOrder_4005_SourceExpression;
 
 		/**
 		 * @generated
 		 */
-		static {
-			Map env = new HashMap(3);
-			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getPort());
-			BesiegePortOrder_4005_SourceExpression = TaiPanOCLFactory
-					.getExpression("self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
-		}
+		private static TaiPanAbstractExpression EscortShipsOrder_4006_SourceExpression;
 
 		/**
 		 * @generated
 		 */
-		private static final TaiPanAbstractExpression EscortShipsOrder_4006_SourceExpression;
-
-		/**
-		 * @generated
-		 */
-		static {
-			Map env = new HashMap(3);
-			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getShip());
-			EscortShipsOrder_4006_SourceExpression = TaiPanOCLFactory.getExpression(
-					"self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
-		}
-
-		/**
-		 * @generated
-		 */
-		private static final TaiPanAbstractExpression EscortShipsOrder_4006_TargetExpression;
-
-		/**
-		 * @generated
-		 */
-		static {
-			Map env = new HashMap(3);
-			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getWarship());
-			EscortShipsOrder_4006_TargetExpression = TaiPanOCLFactory.getExpression("not self.oclIsKindOf(Warship)", TaiPanPackage.eINSTANCE.getShip(), env); //$NON-NLS-1$
-		}
+		private static TaiPanAbstractExpression EscortShipsOrder_4006_TargetExpression;
 
 		/**
 		 * @generated
@@ -464,6 +435,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistShipDestination_4001(Ship source, Port target) {
+
 			return true;
 		}
 
@@ -471,6 +443,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistRoute_4002(Aquatory container, Destination source, Destination target) {
+
 			return true;
 		}
 
@@ -478,6 +451,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistRoute_4003(Aquatory container, Destination source, Destination target) {
+
 			return true;
 		}
 
@@ -485,6 +459,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistShipRoute_4004(Ship source, Route target) {
+
 			return true;
 		}
 
@@ -492,43 +467,20 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistBesiegePortOrder_4005(Warship source, Port target) {
-			if (!evaluate(BesiegePortOrder_4005_SourceExpression, source, target, false)) {
-				return false;
-			}
-			return true;
-		}
-
-		/**
-		 * @generated
-		 */
-		public static boolean canExistEscortShipsOrder_4006(Warship source, Ship target) {
-			if (!evaluate(EscortShipsOrder_4006_SourceExpression, source, target, false)) {
-				return false;
-			}
-			if (!evaluate(EscortShipsOrder_4006_TargetExpression, target, source, true)) {
-				return false;
-			}
-			return true;
-		}
-
-		/**
-		 * @generated
-		 */
-		public static boolean canExistPortRegister_4007(Port source, Ship target) {
-			return true;
-		}
-
-		/**
-		 * @generated
-		 */
-		private static boolean evaluate(TaiPanAbstractExpression constraint, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
-			if (sourceEnd == null) {
-				return true;
-			}
-			Map evalEnv = Collections.singletonMap(OPPOSITE_END_VAR, oppositeEnd);
 			try {
-				Object val = constraint.evaluate(sourceEnd, evalEnv);
-				return (val instanceof Boolean) ? ((Boolean) val).booleanValue() : false;
+				if (source == null) {
+					return true;
+				}
+				if (BesiegePortOrder_4005_SourceExpression == null) {
+					Map env = Collections.singletonMap(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getPort());
+					BesiegePortOrder_4005_SourceExpression = TaiPanOCLFactory.getExpression(
+							"self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
+				}
+				Object sourceVal = BesiegePortOrder_4005_SourceExpression.evaluate(source, Collections.singletonMap(OPPOSITE_END_VAR, target));
+				if (false == sourceVal instanceof Boolean || !((Boolean) sourceVal).booleanValue()) {
+					return false;
+				} // else fall-through
+				return true;
 			} catch (Exception e) {
 				TaiPanDiagramEditorPlugin.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
 				return false;
@@ -538,8 +490,44 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		private static class JavaConstraints {
+		public static boolean canExistEscortShipsOrder_4006(Warship source, Ship target) {
+			try {
+				if (source == null) {
+					return true;
+				}
+				if (EscortShipsOrder_4006_SourceExpression == null) {
+					Map env = Collections.singletonMap(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getShip());
+					EscortShipsOrder_4006_SourceExpression = TaiPanOCLFactory.getExpression(
+							"self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
+				}
+				Object sourceVal = EscortShipsOrder_4006_SourceExpression.evaluate(source, Collections.singletonMap(OPPOSITE_END_VAR, target));
+				if (false == sourceVal instanceof Boolean || !((Boolean) sourceVal).booleanValue()) {
+					return false;
+				} // else fall-through
+				if (target == null) {
+					return true;
+				}
+				if (EscortShipsOrder_4006_TargetExpression == null) {
+					Map env = Collections.singletonMap(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getWarship());
+					EscortShipsOrder_4006_TargetExpression = TaiPanOCLFactory.getExpression("not self.oclIsKindOf(Warship)", TaiPanPackage.eINSTANCE.getShip(), env); //$NON-NLS-1$
+				}
+				Object targetVal = EscortShipsOrder_4006_TargetExpression.evaluate(target, Collections.singletonMap(OPPOSITE_END_VAR, source));
+				if (false == targetVal instanceof Boolean || !((Boolean) targetVal).booleanValue()) {
+					return false;
+				} // else fall-through
+				return true;
+			} catch (Exception e) {
+				TaiPanDiagramEditorPlugin.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
+				return false;
+			}
+		}
 
+		/**
+		 * @generated
+		 */
+		public static boolean canExistPortRegister_4007(Port source, Ship target) {
+
+			return true;
 		}
 
 	}

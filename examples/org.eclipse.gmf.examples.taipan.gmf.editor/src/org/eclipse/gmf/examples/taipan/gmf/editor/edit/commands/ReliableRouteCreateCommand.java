@@ -103,7 +103,6 @@ public class ReliableRouteCreateCommand extends CreateElementCommand {
 		newElement.setSource(getSource());
 		newElement.setDestination(getTarget());
 		TaiPanElementTypes.init_Route_4002(newElement);
-
 		return newElement;
 	}
 

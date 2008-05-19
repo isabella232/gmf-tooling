@@ -83,7 +83,6 @@ public class EscortShipsOrderCreateCommand extends CreateElementCommand {
 		EscortShipsOrder newElement = TaiPanFactory.eINSTANCE.createEscortShipsOrder();
 		getSource().setEscortOrder(newElement);
 		newElement.getShips().add(getTarget());
-
 		return newElement;
 	}
 

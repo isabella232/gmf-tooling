@@ -15,6 +15,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.Aquatory;
+import org.eclipse.gmf.examples.taipan.Route;
+import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
@@ -59,22 +61,22 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	private static final String DEBUG_KEY = TaiPanDiagramEditorPlugin.getInstance().getBundle().getSymbolicName() + "/debug/visualID"; //$NON-NLS-1$
+	private static final String DEBUG_KEY = "org.eclipse.gmf.examples.taipan.gmf.editor/debug/visualID"; //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	private static final TaiPanAbstractExpression Ship_2002_Constraint = TaiPanOCLFactory.getExpression("not oclIsKindOf(taipan::Warship)", TaiPanPackage.eINSTANCE.getShip());
+	private static TaiPanAbstractExpression Ship_2002_Constraint;
 
 	/**
 	 * @generated
 	 */
-	private static final TaiPanAbstractExpression Route_4002_Constraint = TaiPanOCLFactory.getExpression("reliability >= 0.5", TaiPanPackage.eINSTANCE.getRoute());
+	private static TaiPanAbstractExpression Route_4002_Constraint;
 
 	/**
 	 * @generated
 	 */
-	private static final TaiPanAbstractExpression Route_4003_Constraint = TaiPanOCLFactory.getExpression("reliability < 0.5", TaiPanPackage.eINSTANCE.getRoute());
+	private static TaiPanAbstractExpression Route_4003_Constraint;
 
 	/**
 	 * @generated
@@ -191,7 +193,7 @@ public class TaiPanVisualIDRegistry {
 			if (TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElement.eClass())) {
 				return PortEditPart.VISUAL_ID;
 			}
-			if (TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElement.eClass()) && evaluate(Ship_2002_Constraint, domainElement)) {
+			if (TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElement.eClass()) && isShip_2002((Ship) domainElement)) {
 				return ShipEditPart.VISUAL_ID;
 			}
 			if (TaiPanPackage.eINSTANCE.getWarship().isSuperTypeOf(domainElement.eClass())) {
@@ -325,10 +327,10 @@ public class TaiPanVisualIDRegistry {
 		if (domainElement == null) {
 			return -1;
 		}
-		if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElement.eClass()) && evaluate(Route_4002_Constraint, domainElement)) {
+		if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElement.eClass()) && isRoute_4002((Route) domainElement)) {
 			return ReliableRouteEditPart.VISUAL_ID;
 		}
-		if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElement.eClass()) && evaluate(Route_4003_Constraint, domainElement)) {
+		if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElement.eClass()) && isRoute_4003((Route) domainElement)) {
 			return UnreliableRouteEditPart.VISUAL_ID;
 		}
 		if (TaiPanPackage.eINSTANCE.getBesiegePortOrder().isSuperTypeOf(domainElement.eClass())) {
@@ -353,16 +355,34 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	private static boolean evaluate(TaiPanAbstractExpression expression, Object element) {
-		Object result = expression.evaluate(element);
+	private static boolean isShip_2002(Ship domainElement) {
+		if (Ship_2002_Constraint == null) { // lazy initialization
+			Ship_2002_Constraint = TaiPanOCLFactory.getExpression("not self.oclIsKindOf(Warship)", TaiPanPackage.eINSTANCE.getShip()); //$NON-NLS-1$
+		}
+		Object result = Ship_2002_Constraint.evaluate(domainElement);
 		return result instanceof Boolean && ((Boolean) result).booleanValue();
 	}
 
 	/**
 	 * @generated
 	 */
-	private static class JavaConstraints {
+	private static boolean isRoute_4002(Route domainElement) {
+		if (Route_4002_Constraint == null) { // lazy initialization
+			Route_4002_Constraint = TaiPanOCLFactory.getExpression("reliability >= 0.5", TaiPanPackage.eINSTANCE.getRoute()); //$NON-NLS-1$
+		}
+		Object result = Route_4002_Constraint.evaluate(domainElement);
+		return result instanceof Boolean && ((Boolean) result).booleanValue();
+	}
 
+	/**
+	 * @generated
+	 */
+	private static boolean isRoute_4003(Route domainElement) {
+		if (Route_4003_Constraint == null) { // lazy initialization
+			Route_4003_Constraint = TaiPanOCLFactory.getExpression("reliability < 0.5", TaiPanPackage.eINSTANCE.getRoute()); //$NON-NLS-1$
+		}
+		Object result = Route_4003_Constraint.evaluate(domainElement);
+		return result instanceof Boolean && ((Boolean) result).booleanValue();
 	}
 
 }
