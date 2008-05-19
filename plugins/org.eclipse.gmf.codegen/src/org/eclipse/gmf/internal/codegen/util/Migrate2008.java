@@ -145,7 +145,8 @@ public /*package-local, but need to be visible from tests*/ class Migrate2008 {
 		if (bodyValue != null) {
 			for (EObject p : allProviders) {
 				EStructuralFeature provLangFeat = p.eClass().getEStructuralFeature("language");
-				Object providerLang = p.eClass().getEPackage().getEFactoryInstance().convertToString((EDataType) provLangFeat.getEType(), p.eGet(provLangFeat));
+				// java provider has no language feature, hence hardcoded "java" value
+				Object providerLang = provLangFeat == null ? "java" : p.eClass().getEPackage().getEFactoryInstance().convertToString((EDataType) provLangFeat.getEType(), p.eGet(provLangFeat));
 				if (providerLang != null && providerLang.equals(langValue)) {
 					for (EObject ve : (List<EObject>) p.eGet(p.eClass().getEStructuralFeature("expressions"))) {
 						EStructuralFeature veBodyFeature = ve.eClass().getEStructuralFeature("body");
