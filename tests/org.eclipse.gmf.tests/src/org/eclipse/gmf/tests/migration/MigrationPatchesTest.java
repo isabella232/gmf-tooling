@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -157,6 +158,11 @@ public class MigrationPatchesTest extends TestCase {
 		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
 		
 		EList<Resource.Diagnostic> errors = loadHelper.getLoadedResource().getErrors();
+		for (Resource.Diagnostic d : errors) {
+			if (d instanceof WrappedException) {
+				((WrappedException) d).exception().printStackTrace();
+			}
+		}
 		assertTrue("Errors found after migration: "+errors, errors.isEmpty()); //$NON-NLS-1$
 		
 		assertTrue("Migration warning load status expected", loadHelper.getStatus().matches(IStatus.WARNING)); //$NON-NLS-1$
@@ -518,14 +524,10 @@ public class MigrationPatchesTest extends TestCase {
 	public void testGraphReferencingElements() throws Exception {
 		URI gmfgraphFileName = createURI("basic.gmfgraph"); //$NON-NLS-1$
 		
-		Exception caughtGenException = assertOrdinaryLoadModelProblems(gmfgraphFileName);
-		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
-
 		assertOnLoadModelMigrationSuccess(gmfgraphFileName);
 		checkAllFigureReferences(gmfgraphFileName);
 
 		URI newUri = temporarySaveMigratedModel(gmfgraphFileName, "basic", "gmfgraph");
-		changeNsUriToOldOne(newUri, "gmfgraph", "http://www.eclipse.org/gmf/2005/GraphicalDefinition");
 		
 		assertOnLoadModelMigrationDidNothing(newUri);
 		checkAllFigureReferences(newUri);
@@ -539,15 +541,12 @@ public class MigrationPatchesTest extends TestCase {
 		Object first = resource.getContents().get(0);
 		assertTrue(first instanceof Canvas);
 		Canvas canvas = (Canvas) first;
-		assertEquals(8, canvas.eContents().size());
+		assertEquals(9, canvas.eContents().size());
 		
-		assertNotNull(canvas.getFigures());
-		assertFalse(canvas.getFigures().isEmpty());
 		assertEquals(1, canvas.getFigures().size());
 		
 		FigureGallery fg = canvas.getFigures().get(0);
 		assertEquals("GenericDiagramFigures", fg.getName());
-		assertFalse(fg.getFigures().isEmpty());
 		assertEquals(1, fg.getFigures().size());
 
 		Figure figure0 = fg.getFigures().get(0);
@@ -555,14 +554,12 @@ public class MigrationPatchesTest extends TestCase {
 		PolylineDecoration linked = (PolylineDecoration) figure0;
 		assertEquals("ArrowDecoration", linked.getName());
 		
-		assertFalse(fg.getDescriptors().isEmpty());
 		assertEquals(6, fg.getDescriptors().size());
 		
 		FigureDescriptor fg1 = fg.getDescriptors().get(0);
 		assertTrue(fg1.getAccessors().isEmpty());
 		
 		FigureDescriptor fg5 = fg.getDescriptors().get(4);
-		assertFalse(fg5.getAccessors().isEmpty());
 		assertEquals(1, fg5.getAccessors().size());
 		
 		Figure figure1 = fg.getDescriptors().get(0).getActualFigure();
@@ -640,13 +637,13 @@ public class MigrationPatchesTest extends TestCase {
 		Node node2 = canvas.getNodes().get(1);
 		assertEquals("NamedNode", node2.getName());
 		
-		assertNotNull(canvas.getConnections());
-		assertFalse(canvas.getConnections().isEmpty());
-		assertEquals(1, canvas.getConnections().size());
+		assertEquals(2, canvas.getConnections().size());
 		
-		Connection connection = canvas.getConnections().get(0);
-		assertEquals("Link", connection.getName());
-		
+		Connection connection1 = canvas.getConnections().get(0);
+		assertEquals("Link", connection1.getName());
+		Connection connection2 = canvas.getConnections().get(1);
+		assertEquals("LinkWithDec", connection2.getName());
+
 		assertNotNull(canvas.getCompartments());
 		assertFalse(canvas.getCompartments().isEmpty());
 		assertEquals(1, canvas.getCompartments().size());
@@ -673,14 +670,10 @@ public class MigrationPatchesTest extends TestCase {
 		
 		URI gmfgraphFileName = createURI("customFigures.gmfgraph"); //$NON-NLS-1$
 		
-		Exception caughtGenException = assertOrdinaryLoadModelProblems(gmfgraphFileName);
-		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
-
 		assertOnLoadModelMigrationSuccess(gmfgraphFileName);
 		checkCustomFiguresContent(gmfgraphFileName);
 
 		URI newUri = temporarySaveMigratedModel(gmfgraphFileName, "customFigures", "gmfgraph");
-		changeNsUriToOldOne(newUri, "gmfgraph", "http://www.eclipse.org/gmf/2005/GraphicalDefinition");
 		
 		assertOnLoadModelMigrationDidNothing(newUri);
 		checkCustomFiguresContent(newUri);
@@ -696,18 +689,15 @@ public class MigrationPatchesTest extends TestCase {
 		Canvas canvas = (Canvas) first;
 		assertEquals(7, canvas.eContents().size());
 		
-		assertNotNull(canvas.getFigures());
 		assertEquals(1, canvas.getFigures().size());
 		FigureGallery fg = canvas.getFigures().get(0);
 		
-		assertNotNull(fg.getFigures());
 		assertEquals(3, fg.getFigures().size());
 		
 		Figure figure1 = fg.getFigures().get(0);
 		assertTrue(figure1 instanceof CustomFigure);
 		assertEquals("org.eclipse.draw2d.ScalableFigure", ((CustomFigure)figure1).getQualifiedClassName());
 		
-		assertNotNull(fg.getDescriptors());
 		assertEquals(4, fg.getDescriptors().size());
 		
 		Figure node1figure = fg.getDescriptors().get(0).getActualFigure();
@@ -782,50 +772,38 @@ public class MigrationPatchesTest extends TestCase {
 	public void testMultifiles() throws Exception {
 		URI gmfgraphFileName = createURI("multifile_main.gmfgraph"); //$NON-NLS-1$
 		
-		Exception caughtGenException = assertOrdinaryLoadModelProblems(gmfgraphFileName);
-		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
-
 		assertOnLoadModelMigrationSuccess(gmfgraphFileName);
 
 		URI newUri = temporarySaveMigratedModel(gmfgraphFileName, "multifile_main", "gmfgraph");
-		changeNsUriToOldOne(newUri, "gmfgraph", "http://www.eclipse.org/gmf/2005/GraphicalDefinition");
 		
 		assertOnLoadModelMigrationDidNothing(newUri);
 	}
 
-	public void testMultifilesLoadOrder() throws Exception {
+	public void testMultifilesLoadOrder_FiguresFirst() throws Exception {
 		// load figure gallery with referencing elements from another file
 		URI figureGalleryFileName = createURI("test_main.gmfgraph"); //$NON-NLS-1$
 		
-		Exception caughtFGException = assertOrdinaryLoadModelProblems(figureGalleryFileName);
-		assertTrue("expected diagnostic exception", caughtFGException != null); //$NON-NLS-1$				
-
 		assertOnLoadModelMigrationSuccess(figureGalleryFileName);
 		checkMultifilesStructure(figureGalleryFileName, false);
 		
 		URI newFigureGalleryUri = temporarySaveMigratedModel(figureGalleryFileName, "test_main", "gmfgraph");
-		changeNsUriToOldOne(newFigureGalleryUri, "gmfgraph", "http://www.eclipse.org/gmf/2005/GraphicalDefinition");
 		
 		assertOnLoadModelMigrationDidNothing(newFigureGalleryUri);
 		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), newFigureGalleryUri);
 		Resource mainResource = loadHelper.getLoadedResource();
 		assertEquals(1, mainResource.getResourceSet().getResources().size());
 		checkMultifilesGalleryStructure(mainResource);
+	}
 
-		// and opposite load order - nodes first
+	// and opposite load order - nodes first
+	public void testMultifilesLoadOrder_NodesFirst() throws Exception {
 		URI diagramElementsFileName = createURI("test_linked.gmfgraph"); //$NON-NLS-1$
 		
-		Exception caughtDEException = assertOrdinaryLoadModelProblems(diagramElementsFileName);
-		assertTrue("expected diagnostic exception", caughtDEException != null); //$NON-NLS-1$				
-
 		assertOnLoadModelMigrationSuccess(diagramElementsFileName);
 		checkMultifilesStructure(diagramElementsFileName, true);
 
 		URI newDiagramElementsUri = temporarySaveMigratedModel(diagramElementsFileName, "test_linked", "gmfgraph");
-		changeNsUriToOldOne(newDiagramElementsUri, "gmfgraph", "http://www.eclipse.org/gmf/2005/GraphicalDefinition");
-		
 		assertOnLoadModelMigrationDidNothing(newDiagramElementsUri);
-		checkMultifilesStructure(newDiagramElementsUri, true);
 	}
 
 	private void checkMultifilesStructure(URI modelUri, boolean revertOrder) {
@@ -876,29 +854,22 @@ public class MigrationPatchesTest extends TestCase {
 		Canvas canvas = (Canvas) first;
 		assertEquals(6, canvas.eContents().size());
 		
-		assertNotNull(canvas.getFigures());
 		assertEquals(1, canvas.getFigures().size());
 		FigureGallery fg = canvas.getFigures().get(0);
 		
-		assertNotNull(fg.getFigures());
 		assertEquals(1, fg.getFigures().size());
-		assertNotNull(fg.getDescriptors());
 		assertEquals(1, fg.getDescriptors().size());
 
-		assertNotNull(canvas.getNodes());
 		assertEquals(1, canvas.getNodes().size());
 		assertNotNull(canvas.getNodes().get(0).getFigure());
 		
-		assertNotNull(canvas.getConnections());
 		assertEquals(1, canvas.getConnections().size());
 		assertNotNull(canvas.getConnections().get(0).getFigure());
 		
-		assertNotNull(canvas.getCompartments());
 		assertEquals(2, canvas.getCompartments().size());
 		assertNotNull(canvas.getCompartments().get(0).getFigure());
 		assertNotNull(canvas.getCompartments().get(1).getFigure());
 		
-		assertNotNull(canvas.getLabels());
 		assertEquals(1, canvas.getLabels().size());
 		assertNotNull(canvas.getLabels().get(0).getFigure());
 		

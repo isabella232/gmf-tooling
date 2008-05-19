@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -469,6 +469,7 @@ public class GenericMigrationTest extends TestCase {
 		boolean validateBad = checkResourceHasNoProblems(badMigrated);
 		assertFalse("Should fail with obligatory metamodel attribute not set", validateBad);
 
+		/*
 		MigrationDelegateImpl delegate = new MigrationDelegateImpl() {
 			{
 				registerNarrowedAbstractType(myWidenedRef1.getEType().getName(), myAttrNarrowChild.getEContainingClass());
@@ -526,6 +527,7 @@ public class GenericMigrationTest extends TestCase {
 		EObject narrowInstance2 = narrowed.get(1);
 		checkInstanceClassChanged(narrowInstance2, myWidenedRef1);
 		checkNarrowedInstanceAttribute(narrowInstance2, myAttrNarrowChild, attrChildValue);
+		*/
 	}
 	
 	private Resource loadMigrationResource(EPackage metamodel, MigrationDelegate delegate, URI modelResourceURI) {
