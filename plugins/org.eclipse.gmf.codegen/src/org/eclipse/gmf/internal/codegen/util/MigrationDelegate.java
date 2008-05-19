@@ -285,6 +285,7 @@ class MigrationDelegate extends MigrationDelegateImpl {
 	 * Allows us to use dynamic 2006 factory to create all instances,
 	 * i.e. factory of {@link #get2006GenModelPackage()} package.
 	 */
+	@Override
 	public String getURI(String prefix, String uri) {
 		if (is2005GenModel(prefix, uri)) {
 			return get2006GenModelURI();
