@@ -21,7 +21,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -129,39 +128,13 @@ public class MigrateFactory2005 extends ToolingResourceFactory {
 		final EStructuralFeature figureChildren = oldFigureClass.getEStructuralFeature("children");
 		final EStructuralFeature faTypedFigure = oldFigureAccessorClass.getEStructuralFeature("typedFigure");
 
-		FilteringCopier cc = new FilteringCopier(GMFGraphPackage.eINSTANCE) {
-			{
-				resolveProxies = false;
-				useOriginalReferences = false;
-			}
-			@Override
-			protected EStructuralFeature getTarget(EStructuralFeature structuralFeature) {
-				if (figureChildren == structuralFeature) {
-					return GMFGraphPackage.eINSTANCE.getRealFigure_Children();
-				}
-				return super.getTarget(structuralFeature);
-			}
-
-			@Override
-			protected void copyReference(EReference reference, EObject object, EObject copyEObject) {
-				if (!isIgnored(reference, object)) {
-					super.copyReference(reference, object, copyEObject);
-				}
-			}
-			@Override
-			protected boolean isIgnored(EStructuralFeature feature, EObject original) {
-				if (feature == identityName) {
-					return get(original) instanceof RealFigure;
-				}
-				return super.isIgnored(feature, original);
-			}
-		};
-
+		FilteringCopier cc = new FilteringCopier(false, false, GMFGraphPackage.eINSTANCE);
 		cc.ignore(((EClass) oldModel.getEClassifier("CustomClass")).getEStructuralFeature("bundleName"));
 		cc.ignore(deFigure);
 		cc.ignore(fhReferencingElements);
-		cc.ignore(identityName);
+		cc.ignoreIn(identityName, oldFigureClass);
 		cc.ignore(faTypedFigure);
+		cc.substitute(figureChildren, GMFGraphPackage.eINSTANCE.getRealFigure_Children());
 
 		cc.copyAll(original2migrated.keySet());
 		cc.copyReferences();
