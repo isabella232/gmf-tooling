@@ -39,19 +39,32 @@ import org.eclipse.emf.ecore.util.FeatureMapUtil;
  */
 public class FilteringCopier extends EcoreUtil.Copier {
 	private final HashMap<EStructuralFeature, List<EObject>> myIgnoredFeatures;
+	private final HashMap<EStructuralFeature, EStructuralFeature> mySubstitutedFeatures;
+	private final HashMap<EStructuralFeature, EClass> myIgnoreData;
 
 	private final EPackage ePack;
 
 	private final EFactory eFact;
 
 	/**
-	 * @param metaPackage target metamodel, the one copies would get created with. 
+	 * Same as <code>FilteringCopier(false, true, metaPackage)</code>  
 	 */
 	public FilteringCopier(EPackage metaPackage) {
-		super(false);
+		this(false, true, metaPackage);
+	}
+
+	/**
+	 * @param resolveProxies - see superclass for documentation
+	 * @param useOriginalReferences - see superclass for documentation
+	 * @param metaPackage target metamodel, the one copies would get created with. 
+	 */
+	public FilteringCopier(boolean resolveProxies, boolean useOriginalReferences, EPackage metaPackage) {
+		super(resolveProxies, useOriginalReferences);
 		ePack = metaPackage;
 		eFact = ePack.getEFactoryInstance();
 		myIgnoredFeatures = new HashMap<EStructuralFeature, List<EObject>>();
+		mySubstitutedFeatures = new HashMap<EStructuralFeature, EStructuralFeature>();
+		myIgnoreData = new HashMap<EStructuralFeature, EClass>();
 	}
 
 	/**
@@ -61,6 +74,31 @@ public class FilteringCopier extends EcoreUtil.Copier {
 		assert eFeature != null;
 		assert !myIgnoredFeatures.containsKey(eFeature);
 		myIgnoredFeatures.put(eFeature, new LinkedList<EObject>());
+	}
+
+	/**
+	 *  Marks feature to be ignored although only in subclasses of specific type.
+	 *  This may be handy when feature was declared in some generic supertype,
+	 *  shared in few different hierarchies. When feature ceases to be useful
+	 *  in any of the hierarchies, it's reasonable to exclude only that hierarchy 
+	 *  during the copy.
+	 *  XXX perhaps, multiple classes may be specified here, though for now suffice to have one
+	 */
+	public void ignoreIn(EStructuralFeature eFeature, EClass original) {
+		ignore(eFeature);
+		myIgnoreData.put(eFeature, original);
+	}
+
+	/**
+	 * Features that have different containing class in a new model won't be found
+	 * using default logic (which relies on {@link EStructuralFeature#getEContainingClass()})
+	 * and hence need proper substitute to be specified.
+	 * XXX Perhaps, this would also work for renamed features? 
+	 */
+	public void substitute(EStructuralFeature oldFeature, EStructuralFeature newFeature) {
+		assert oldFeature != null && newFeature != null;
+		assert !mySubstitutedFeatures.containsKey(oldFeature);
+		mySubstitutedFeatures.put(oldFeature, newFeature);
 	}
 
 	/**
@@ -179,12 +217,23 @@ public class FilteringCopier extends EcoreUtil.Copier {
 	}
 
 	@Override
-	protected EStructuralFeature getTarget(EStructuralFeature structuralFeature) {
-		EStructuralFeature sf = getTarget(structuralFeature.getEContainingClass()).getEStructuralFeature(structuralFeature.getName());
-		if (sf != null) {
-			return sf;
+	protected EStructuralFeature getTarget(EStructuralFeature sf) {
+		if (mySubstitutedFeatures.containsKey(sf)) {
+			return mySubstitutedFeatures.get(sf);
 		}
-		return super.getTarget(structuralFeature);
+		EStructuralFeature rv = getTarget(sf.getEContainingClass()).getEStructuralFeature(sf.getName());
+		if (rv != null) {
+			return rv;
+		}
+		return super.getTarget(sf);
+	}
+
+	@Override
+	protected void copyReference(EReference reference, EObject object, EObject copyEObject) {
+		// do not navigate excluded reference during Copier#copyReferences()
+		if (!isIgnored(reference, object)) {
+			super.copyReference(reference, object, copyEObject);
+		}
 	}
 
 	//
@@ -201,7 +250,14 @@ public class FilteringCopier extends EcoreUtil.Copier {
 	 * @return true to indicate feature should not be processed for copy. 
 	 */
 	protected boolean isIgnored(EStructuralFeature eFeature, EObject original) {
-		return myIgnoredFeatures.containsKey(eFeature);
+		if (myIgnoredFeatures.containsKey(eFeature)) {
+			if (myIgnoreData.containsKey(eFeature)) {
+				EClass filter = myIgnoreData.get(eFeature);
+				return filter.isSuperTypeOf(original.eClass());
+			}
+			return true;
+		}
+		return false;
 	}
 
 	protected void handleIgnored(EStructuralFeature eFeature, EObject original) {
