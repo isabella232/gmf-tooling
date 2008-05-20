@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,6 +15,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.gmf.tests.CleanupTest;
+import org.eclipse.gmf.tests.TestConfiguration;
 import org.eclipse.gmf.tests.lite.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramEditorMatchingStrategyTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramEditorOutlineTest;
@@ -33,14 +34,11 @@ import org.eclipse.gmf.tests.lite.setup.LiteSessionSetup;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.MultiSetup;
-import org.eclipse.gmf.tests.setup.RuntimeWorkspaceSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 
-public class AllTests extends org.eclipse.gmf.tests.AllTests {
+public class AllTests {
 	public static Test suite() throws Exception {
 		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf, tooling side, lite mode");
-		switchAutobuildOff();
-		RuntimeWorkspaceSetup.INSTANCE = new RuntimeWorkspaceSetup().initLite();
 
 		suite.addTestSuite(LiteCompilationTestWithImportConflicts.class);
 
@@ -73,5 +71,9 @@ public class AllTests extends org.eclipse.gmf.tests.AllTests {
 			}
 		});
 		return suite;
+	}
+
+	private static Test feed(Class<?> theClass, TestConfiguration config) {
+		return org.eclipse.gmf.tests.AllTests.feed(theClass, config);
 	}
 }
