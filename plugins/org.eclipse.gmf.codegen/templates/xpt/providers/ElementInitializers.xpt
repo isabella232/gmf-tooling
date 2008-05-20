@@ -37,28 +37,9 @@ public class ElementInitializers {
 «ENDDEFINE»
 
 «DEFINE JavaSupport FOR GenDiagram-»
-«IF editorGen.expressionProviders != null-»
-«LET getJavaValueSpecs(this) AS javaValueSpecs-»
-«FOREACH javaValueSpecs.value.purgeDups() AS valueExpr-»
-«FOREACH javaValueSpecs.select(vs | vs.value == valueExpr).feature.purgeDups() AS genFeature-»
-«LET (GenFeatureValueSpec) javaValueSpecs.select(vs | vs.value == valueExpr && vs.feature == genFeature).first() AS vs»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private static «EXPAND MetaModel::featureTargetType FOR vs.feature» «javaMethodName(vs)»(«EXPAND MetaModel::QualifiedClassName FOR vs.featureSeqInitializer.elementClass» self) {
-«IF ((GenJavaExpressionProvider) vs.value.provider).injectExpressionBody && vs.value.body != null && vs.value.body.length() != 0-»
-		«vs.value.body»
-«ELSEIF ((GenJavaExpressionProvider) vs.value.provider).throwException || (((GenJavaExpressionProvider) vs.value.provider).injectExpressionBody && (vs.value.body == null || vs.value.body.length() == 0))-»
-		// TODO: implement this method to return value  
-		// for «EXPAND MetaModel::MetaFeature FOR vs.feature»
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new java.lang.UnsupportedOperationException("No user java implementation provided in '«javaMethodName(vs)»' operation");«EXPAND xpt::Common::nonNLS»
-«ELSE-»
-		return null;
-«ENDIF-»	
-	}
-«ENDLET-»
-«ENDFOREACH-»
-«ENDFOREACH-»
-«ENDLET-»
+«IF editorGen.expressionProviders != null && !editorGen.expressionProviders.providers.typeSelect(GenJavaExpressionProvider).isEmpty()-»
+	«EXPAND javaMethod FOREACH getAllNodes()-»
+	«EXPAND javaMethod FOREACH links-»
 «ENDIF-»
 «ENDDEFINE»
 
@@ -150,5 +131,36 @@ public class ElementInitializers {
 	However, if merge does ignore method return type when merging, allowing Object as return type may help. 
 «ENDREM»
 «DEFINE evaluateExpr(GenCommonBase diagramElement, GenFeatureValueSpec valueExpr, String instanceVar) FOR GenJavaExpressionProvider-»
-«javaMethodName(valueExpr)»(«instanceVar»)«-»
+«javaMethodName(diagramElement, valueExpr)»(«instanceVar»)«-»
+«ENDDEFINE»
+
+/////////////////////////////////
+
+«DEFINE javaMethod FOR GenNode»«EXPAND javaMethod(this) FOR modelFacet»«ENDDEFINE»
+«DEFINE javaMethod FOR GenLink»«EXPAND javaMethod(this) FOR modelFacet»«ENDDEFINE»
+«DEFINE javaMethod(GenCommonBase diagramElement) FOR ModelFacet»«ENDDEFINE»
+«DEFINE javaMethod(GenCommonBase diagramElement) FOR TypeModelFacet-»
+«EXPAND javaMethod(diagramElement) FOR modelElementInitializer-»
+«ENDDEFINE»
+
+«DEFINE javaMethod(GenCommonBase diagramElement) FOR GenElementInitializer»«ERROR "No idea how to handle " + this»«ENDDEFINE»
+«DEFINE javaMethod(GenCommonBase diagramElement) FOR GenFeatureSeqInitializer-»
+«FOREACH recurseCollectValueSpec(this) AS vs»«EXPAND javaMethod(diagramElement, vs) FOR vs.value.provider»«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE javaMethod(GenCommonBase diagramElement, GenFeatureValueSpec vs) FOR GenExpressionProviderBase-»«ENDDEFINE»
+«DEFINE javaMethod(GenCommonBase diagramElement, GenFeatureValueSpec vs) FOR GenJavaExpressionProvider-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static «EXPAND MetaModel::featureTargetType FOR vs.feature» «javaMethodName(diagramElement, vs)»(«EXPAND MetaModel::QualifiedClassName FOR vs.featureSeqInitializer.elementClass» self) {
+«IF injectExpressionBody && vs.value.body != null && vs.value.body.length() != 0-»
+		«vs.value.body»
+«ELSEIF throwException || (injectExpressionBody && (vs.value.body == null || vs.value.body.length() == 0))-»
+		// TODO: implement this method to return value  
+		// for «EXPAND MetaModel::MetaFeature FOR vs.feature»
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new java.lang.UnsupportedOperationException("No user java implementation provided in '«javaMethodName(diagramElement, vs)»' operation");«EXPAND xpt::Common::nonNLS»
+«ELSE-»
+		return null;
+«ENDIF-»	
+	}
 «ENDDEFINE»

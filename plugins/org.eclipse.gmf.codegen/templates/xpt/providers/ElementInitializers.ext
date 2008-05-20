@@ -21,33 +21,20 @@ boolean expressionResultNeedsCast(GenClass c) : false ;
 boolean expressionResultNeedsCast(GenDataType c) : isNumberObject(c) || isPrimitiveNumberType(c) ;
 boolean expressionResultNeedsCast(GenEnum c) : true ;
 
-String javaMethodName(GenFeatureValueSpec valueSpec) :
-	"value_" + valueSpec.feature.ecoreFeature.name
+/*
+ * Present approach may result in duplicated methods when same feature gets
+ * initialized using java language inside single ElementInitializer hierarchy
+ */
+String javaMethodName(GenCommonBase de, GenFeatureValueSpec valueSpec) :
+	valueSpec.feature.ecoreFeature.name + "_" + de.getUniqueIdentifier() 
 ;
 
-List[GenFeatureValueSpec] getJavaValueSpecs(GenDiagram gd) :
-	getJavaValueSpecs(allTypeModelFacets(gd), gd.editorGen.expressionProviders)
-;
-
-// privates
-
-private List[TypeModelFacet] allTypeModelFacets(GenDiagram gd) :
-	gd.topLevelNodes.modelFacet.union(gd.childNodes.modelFacet).union(gd.links.modelFacet).typeSelect(TypeModelFacet)
-;
-
-private List[GenFeatureValueSpec] getJavaValueSpecs(List[TypeModelFacet] modelFacets, GenExpressionProviderContainer c) :
-	getJavaValueSpecs(modelFacets.modelElementInitializer.typeSelect(GenFeatureSeqInitializer), c.providers.typeSelect(GenJavaExpressionProvider).expressions)
-;
-
-private List[GenFeatureValueSpec] getJavaValueSpecs(List[GenFeatureSeqInitializer] elementInitializers, List[ValueExpression] allJavaExpressions) :
-	elementInitializers.recurseCollectValueSpec().select(vs | allJavaExpressions.contains(vs.value))
-;
-
-private List[GenFeatureValueSpec] recurseCollectValueSpec(GenFeatureSeqInitializer si) :
+List[GenFeatureValueSpec] recurseCollectValueSpec(GenFeatureSeqInitializer si) :
 	si.initializers.typeSelect(GenFeatureValueSpec).union(
 	si.initializers.typeSelect(GenReferenceNewElementSpec).newElementInitializers.recurseCollectValueSpec().flatten())
 ;
 
+// privates
 
 private boolean isNumberObject(genmodel::GenClassifier c) : false ;
 private boolean isNumberObject(genmodel::GenClass c) : false ;
