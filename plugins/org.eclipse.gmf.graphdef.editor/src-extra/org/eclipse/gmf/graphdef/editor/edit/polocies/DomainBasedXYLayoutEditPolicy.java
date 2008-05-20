@@ -45,6 +45,7 @@ import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.figures.LayoutHelper;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramUIMessages;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest;
 import org.eclipse.gmf.runtime.draw2d.ui.mapmode.IMapMode;
@@ -123,9 +124,14 @@ public class DomainBasedXYLayoutEditPolicy extends XYLayoutEditPolicy {
 		};
 	}
 
+	/**
+	 * This method will be called as a part of CanonicalUpdate, so we should not
+	 * reset size/location for such elements. Skipping LayoutHelper.UNDEFINED
+	 * location passed inside CreateRequest to handle this situation correctly.
+	 */
 	@Override
 	protected Command getCreateCommand(CreateRequest request) {
-		if (request instanceof CreateViewRequest && getHost() instanceof IGraphicalEditPart) {
+		if (request instanceof CreateViewRequest && getHost() instanceof IGraphicalEditPart && !LayoutHelper.UNDEFINED.getLocation().equals(request.getLocation())) {
 			CreateViewRequest req = (CreateViewRequest) request;
 			IGraphicalEditPart host = (IGraphicalEditPart) getHost();
 
@@ -257,7 +263,8 @@ public class DomainBasedXYLayoutEditPolicy extends XYLayoutEditPolicy {
 		}
 
 		private void setXYLayoutBounds(int x, int y, int width, int height, Figure figure) {
-			// TODO: add -1 as a possible value to XYLayoutData property sheet -> then preferred size should be used.
+			// TODO: add -1 as a possible value to XYLayoutData property sheet -
+			// > then preferred size should be used.
 			// setPreferredSize(width, height, figure);
 			XYLayoutData xyLayoutData = figure.getLayoutData() instanceof XYLayoutData ? (XYLayoutData) figure.getLayoutData() : createXYLayoutData();
 			xyLayoutData.getTopLeft().setX(x);
