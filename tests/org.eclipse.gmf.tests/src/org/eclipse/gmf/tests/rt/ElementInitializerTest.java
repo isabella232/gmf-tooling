@@ -118,7 +118,7 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 					}
 
 					// ElementInitializers.ext#javaMethodName
-					String operationName = "value_" + nextFtValSpec.getFeature().getEcoreFeature().getName();					
+					String operationName = nextFtValSpec.getFeature().getEcoreFeature().getName() + "_" + diagramElement.getUniqueIdentifier();					
 					Method method = findMethod(javaContainerClass, operationName, fsInitializer.getElementClass());
 					assertNotNull("Can't find Java method:" + operationName, method);
 					 
