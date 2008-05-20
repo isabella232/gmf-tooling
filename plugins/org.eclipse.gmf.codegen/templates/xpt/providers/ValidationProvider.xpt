@@ -290,7 +290,7 @@ static boolean isInDefaultEditorContext(Object object) {
 «DEFINE constraintAdapter_validateMethod(GenAuditRule audit) FOR GenJavaExpressionProvider-»
 «IF injectExpressionBody && audit.rule.body != null && audit.rule.body.length() != 0-»
 			«audit.rule.body»
-«ELSEIF throwException || audit.rule.body == null || audit.rule.body.length() == 0-»
+«ELSEIF throwException || (injectExpressionBody && (audit.rule.body == null || audit.rule.body.length() == 0))-»
 			// TODO: put validation code here
 			// Ensure that you remove @generated tag or use @generated NOT
 			//

@@ -46,7 +46,7 @@ public class ElementInitializers {
 	private static «EXPAND MetaModel::featureTargetType FOR vs.feature» «javaMethodName(vs)»(«EXPAND MetaModel::QualifiedClassName FOR vs.featureSeqInitializer.elementClass» self) {
 «IF ((GenJavaExpressionProvider) vs.value.provider).injectExpressionBody && vs.value.body != null && vs.value.body.length() != 0-»
 		«vs.value.body»
-«ELSEIF ((GenJavaExpressionProvider) vs.value.provider).throwException || vs.value.body == null || vs.value.body.length() == 0-»
+«ELSEIF ((GenJavaExpressionProvider) vs.value.provider).throwException || (((GenJavaExpressionProvider) vs.value.provider).injectExpressionBody && (vs.value.body == null || vs.value.body.length() == 0))-»
 		// TODO: implement this method to return value  
 		// for «EXPAND MetaModel::MetaFeature FOR vs.feature»
 		// Ensure that you remove @generated or mark it @generated NOT
