@@ -65,7 +65,15 @@ public class RuntimeWorkspaceSetup {
 
 	private final boolean isDevBinPresent;
 
-	public static RuntimeWorkspaceSetup INSTANCE;
+	private static RuntimeWorkspaceSetup instance;
+
+	public static RuntimeWorkspaceSetup get() {
+		if (instance == null) {
+			instance = new RuntimeWorkspaceSetup();
+			instance.init();
+		}
+		return instance;
+	}
 
 	public RuntimeWorkspaceSetup() {
 		List<String> l = Arrays.asList(Platform.getCommandLineArgs());
@@ -78,20 +86,17 @@ public class RuntimeWorkspaceSetup {
 		}
 	}
 
-	public RuntimeWorkspaceSetup initFull() throws Exception {
-		init();
-		return this;
-	}
-
-	public RuntimeWorkspaceSetup initLite() throws Exception {
-		init();
-		return this;
-	}
-	
 	// TODO Refactor to clear away similar code (CodeCompilationTest, RuntimeWorkspaceSetup, GenProjectSetup)
-	private void init() throws Exception {
+	private void init() {
 		ensureJava14();
-		turnWorkspaceHistoryOff();
+		try {
+			IWorkspaceDescription wd = ResourcesPlugin.getWorkspace().getDescription();
+			turnWorkspaceHistoryOff(wd);
+			switchAutobuildOff(wd);
+			ResourcesPlugin.getWorkspace().setDescription(wd);
+		} catch (CoreException ex) {
+			Assert.fail(ex.getMessage());
+		}
 	}
 
 	/**
@@ -141,7 +146,7 @@ public class RuntimeWorkspaceSetup {
 	 * at least 1.4
 	 */
 	@SuppressWarnings("unchecked")
-	private void ensureJava14() {
+	private static void ensureJava14() {
 		if (!JavaCore.VERSION_1_4.equals(JavaCore.getOption(JavaCore.COMPILER_SOURCE))) {
 			Hashtable<String,String> options = JavaCore.getOptions();
 			options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_4);
@@ -154,13 +159,14 @@ public class RuntimeWorkspaceSetup {
 	/**
 	 * No need to track history for workspace resources
 	 */
-	private void turnWorkspaceHistoryOff() throws CoreException {
-		IWorkspaceDescription wd = ResourcesPlugin.getWorkspace().getDescription();
+	private static void turnWorkspaceHistoryOff(IWorkspaceDescription wd) {
 		wd.setFileStateLongevity(0);
 		wd.setMaxFileStates(0);
 		wd.setMaxFileStateSize(0);
 		wd.setSnapshotInterval(60*60*1000);
+	}
+
+	private static void switchAutobuildOff(IWorkspaceDescription wd) {
 		wd.setAutoBuilding(false);
-		ResourcesPlugin.getWorkspace().setDescription(wd);
 	}
 }

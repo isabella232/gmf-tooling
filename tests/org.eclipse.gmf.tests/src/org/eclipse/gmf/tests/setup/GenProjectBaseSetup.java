@@ -93,7 +93,7 @@ public class GenProjectBaseSetup {
 		hookGeneratorStatus(generator.getRunStatus());
 		final String gmfEditorId = d.getEditorGen().getPlugin().getID();
 		final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(gmfEditorId);
-		RuntimeWorkspaceSetup.INSTANCE.getReadyToStartAsBundle(project);
+		RuntimeWorkspaceSetup.get().getReadyToStartAsBundle(project);
 
 		projectsToInit.add(gmfEditorId);
 		hookJDTStatus(ResourcesPlugin.getWorkspace().getRoot().getProject(gmfEditorId));
@@ -107,9 +107,9 @@ public class GenProjectBaseSetup {
         gen.generate(domainGenModel, GenBaseGeneratorAdapter.EDIT_PROJECT_TYPE, new BasicMonitor());
         
 		fixInstanceClasses(domainGenModel);
-		RuntimeWorkspaceSetup.INSTANCE.getReadyToStartAsBundle(ResourcesPlugin.getWorkspace().getRoot().getProject(domainGenModel.getModelPluginID()));
+		RuntimeWorkspaceSetup.get().getReadyToStartAsBundle(ResourcesPlugin.getWorkspace().getRoot().getProject(domainGenModel.getModelPluginID()));
 		if (!domainGenModel.getModelPluginID().equals(domainGenModel.getEditPluginID())) {
-			RuntimeWorkspaceSetup.INSTANCE.getReadyToStartAsBundle(ResourcesPlugin.getWorkspace().getRoot().getProject(domainGenModel.getEditPluginID()));
+			RuntimeWorkspaceSetup.get().getReadyToStartAsBundle(ResourcesPlugin.getWorkspace().getRoot().getProject(domainGenModel.getEditPluginID()));
 		}
 	}
 

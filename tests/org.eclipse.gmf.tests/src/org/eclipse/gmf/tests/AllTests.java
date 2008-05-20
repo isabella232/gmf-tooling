@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -19,10 +19,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceDescription;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.gmf.runtime.emf.type.core.internal.EMFTypePlugin;
 import org.eclipse.gmf.tests.gef.CompartmentPropertiesTest;
 import org.eclipse.gmf.tests.gef.DiagramEditorTest;
@@ -55,7 +51,6 @@ import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.rt.LinkCreationTest;
 import org.eclipse.gmf.tests.rt.MetricRulesTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
-import org.eclipse.gmf.tests.setup.RuntimeWorkspaceSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.TestSetupTest;
 import org.eclipse.gmf.tests.setup.figures.FigureCodegenSetup;
@@ -83,12 +78,9 @@ public class AllTests {
 	public static Test suite() throws Exception {
 		EMFTypePlugin.startDynamicAwareMode();
 		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf, tooling side");
-		switchAutobuildOff();
-		//$JUnit-BEGIN$
 		final SessionSetup sessionSetup = SessionSetup.newInstance();
 		final LinksSessionSetup sessionSetup2 = (LinksSessionSetup) LinksSessionSetup.newInstance();
 		SessionSetup.disallowSingleTestCaseUse();
-		RuntimeWorkspaceSetup.INSTANCE = new RuntimeWorkspaceSetup().initFull();
 
 		/*
 		 * [AS++] Temporary workaround: loading all the projects in the
@@ -108,7 +100,8 @@ public class AllTests {
 			return suite;
 		}
 		/* [AS--] */
-		
+
+		//$JUnit-BEGIN$
 		suite.addTestSuite(TestSetupTest.class); // first, check sources/setups we use for rest of the tests
 		suite.addTest(feed(HandcodedImplTest.class, sessionSetup)); // then, check handcoded implementations are in place
 		suite.addTestSuite(HandcodedGraphDefTest.class);
@@ -178,7 +171,8 @@ public class AllTests {
 		return suite;
 	}
 
-	protected static Test feed(Class<?> theClass, TestConfiguration config) {
+	// should be in a better namespace than AllTests suite, though
+	public static Test feed(Class<?> theClass, TestConfiguration config) {
 		TestSuite suite = new TestSuite(theClass);
 		if (!NeedsSetup.class.isAssignableFrom(theClass)) {
 			return suite;
@@ -222,16 +216,4 @@ public class AllTests {
 			fail(cause);
 		}
 	}
-	
-	protected static void switchAutobuildOff() {
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IWorkspaceDescription description = workspace.getDescription();
-		description.setAutoBuilding(false);
-		try {
-			workspace.setDescription(description);
-		} catch (CoreException e) {
-			Plugin.logError("Unable to switch off autobuild due to exception: " + e.getMessage());
-		}		
-	}
-
 }

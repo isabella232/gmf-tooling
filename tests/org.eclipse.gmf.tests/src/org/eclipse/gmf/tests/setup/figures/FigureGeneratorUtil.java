@@ -117,12 +117,9 @@ public class FigureGeneratorUtil {
 	
 	public static Bundle installPlugin(String pluginId) throws CoreException, Exception {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginId);
-		if (RuntimeWorkspaceSetup.INSTANCE == null) {
-			RuntimeWorkspaceSetup.INSTANCE = new RuntimeWorkspaceSetup().initFull();
-		}
 		IStatus compileStatus = new CompileUtil().build(project);
 		Assert.assertTrue(compileStatus.getMessage(), compileStatus.getSeverity() < IStatus.ERROR);
-		RuntimeWorkspaceSetup.INSTANCE.getReadyToStartAsBundle(project);
+		RuntimeWorkspaceSetup.get().getReadyToStartAsBundle(project);
 		String url = project.getLocation().toFile().toURL().toExternalForm();
 		return Plugin.getBundleContext().installBundle(url);
 	}
