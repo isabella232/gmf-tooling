@@ -141,6 +141,12 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		return v;
 	}
 
+	// XXX shouldn't that reside in superclass - 
+	// use of fqnSwitch is questionable anyway, for all but first gallery
+	// we don't need to delegate to switch, and should rather use 
+	// implementationBundle field directly (though that's true only
+	// if borders and layouts are from another FG, if there are FigureRefs,
+	// delegating to fqnSwitch to find out dependencies may be reasonable)
 	private void setupPluginDependencies(Viewmap viewmap, Figure figure){
 		LinkedHashSet<String> allRequired = new LinkedHashSet<String>();
 		for (FigureGallery gallery : findAllGalleriesForImport(figure)) {
