@@ -2,7 +2,7 @@
 <gmfgen:GenEditorGenerator xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgen="http://www.eclipse.org/gmf/2006/GenModel" diagramFileExtension="mmd"
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2008/GenModel" diagramFileExtension="mmd"
     copyrightText="Copyright (c) 2006, 2007 Borland Software Corporation.&#xA; All rights reserved. This program and the accompanying materials&#xA; are made available under the terms of the Eclipse Public License v1.0&#xA; which accompanies this distribution, and is available at&#xA; http://www.eclipse.org/legal/epl-v10.html&#xA; &#xA;  Contributors:&#xA;     Richard Gronback (Borland) - initial API and implementation">
   <audits>
     <categories
@@ -15,12 +15,12 @@
         name="Cyclic relationship check"
         description="This audit detects (simple) cycles between Topic relationships"
         id="cycle"
+        rule="//@expressionProviders/@providers.0/@expressions.10"
         message="A cycle was found in relationships between two Topic elements."
         category="//@audits/@categories.0">
-      <rule
-          body="self.relations->forAll(r1, r2 |  r1.target = r2.source and r1.type = r2.type implies r2.target &lt;> r1.source)"/>
       <target
-          xsi:type="gmfgen:GenDomainElementTarget">
+          xsi:type="gmfgen:GenDomainElementTarget"
+          contextSelector="//@audits/@clientContexts.0">
         <element
             href="mindmap.genmodel#//mindmap/Map"/>
       </target>
@@ -29,19 +29,21 @@
         name="Topic name audit"
         description="A Topic must have a name provided."
         id="topic.name"
+        rule="//@expressionProviders/@providers.0/@expressions.11"
         message="Topics must have a name"
         category="//@audits/@categories.0">
-      <rule
-          body="name.size() > 0"/>
       <target
-          xsi:type="gmfgen:GenDomainElementTarget">
+          xsi:type="gmfgen:GenDomainElementTarget"
+          contextSelector="//@audits/@clientContexts.0">
         <element
             href="mindmap.genmodel#//mindmap/Topic"/>
       </target>
     </rules>
+    <clientContexts
+        ruleTargets="//@audits/@rules.0/@target //@audits/@rules.1/@target"/>
   </audits>
   <diagram
-      visualID="1000"
+      visualID="79"
       editPartClassName="MapEditPart"
       itemSemanticEditPolicyClassName="MapItemSemanticEditPolicy"
       notationViewFactoryClassName="MapViewFactory"
@@ -64,7 +66,7 @@
     <domainDiagramElement
         href="mindmap.genmodel#//mindmap/Map"/>
     <childNodes
-        visualID="3001"
+        visualID="2001"
         editPartClassName="ThreadEditPart"
         itemSemanticEditPolicyClassName="ThreadItemSemanticEditPolicy"
         notationViewFactoryClassName="ThreadViewFactory"
@@ -82,7 +84,7 @@
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="TOOLBAR_LAYOUT"
           className="StickyNoteFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class StickyNoteFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.RectangleFigure fFigureThreadItems; &#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fFigureStickyNoteNameFigure; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public StickyNoteFigure() {&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutThis = new org.eclipse.draw2d.ToolbarLayout();&#xA;&#x9;layoutThis.setStretchMinorAxis(true);&#xA;&#x9;layoutThis.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xA;);&#xA;&#xA;&#x9;layoutThis.setSpacing(0);&#xA;&#x9;layoutThis.setVertical(true);&#xA;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;&#x9;this.setBackgroundColor(THIS_BACK&#xA;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureStickyNoteNameFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xA;fFigureStickyNoteNameFigure.setText(&quot;&lt;...>&quot;);&#xA;&#xA;this.add(fFigureStickyNoteNameFigure);&#xA;&#xA;&#xA;&#xA;fFigureThreadItems = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;this.add(fFigureThreadItems);&#xA;&#xA;fFigureThreadItems.setLayoutManager(new org.eclipse.draw2d.StackLayout());&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.draw2d.RectangleFigure getFigureThreadItems() {&#xA;&#x9;&#x9;return fFigureThreadItems;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureStickyNoteNameFigure() {&#xA;&#x9;&#x9;return fFigureStickyNoteNameFigure;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;static final org.eclipse.swt.graphics.Color THIS_BACK = new org.eclipse.swt.graphics.Color(null, 250, 250, 190);&#xA;&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class StickyNoteFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.RectangleFigure fFigureThreadItems; &#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureStickyNoteNameFigure; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public StickyNoteFigure() {&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutThis = new org.eclipse.draw2d.ToolbarLayout();&#xA;&#x9;layoutThis.setStretchMinorAxis(true);&#xA;&#x9;layoutThis.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xA;);&#xA;&#xA;&#x9;layoutThis.setSpacing(0);&#xA;&#x9;layoutThis.setVertical(true);&#xA;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;&#x9;this.setBackgroundColor(THIS_BACK&#xA;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureStickyNoteNameFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;fFigureStickyNoteNameFigure.setText(&quot;&lt;...>&quot;);&#xA;&#xA;this.add(fFigureStickyNoteNameFigure);&#xA;&#xA;&#xA;&#xA;fFigureThreadItems = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;this.add(fFigureThreadItems);&#xA;&#xA;fFigureThreadItems.setLayoutManager(new org.eclipse.draw2d.StackLayout());&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.draw2d.RectangleFigure getFigureThreadItems() {&#xA;&#x9;&#x9;return fFigureThreadItems;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureStickyNoteNameFigure() {&#xA;&#x9;&#x9;return fFigureStickyNoteNameFigure;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;static final org.eclipse.swt.graphics.Color THIS_BACK = new org.eclipse.swt.graphics.Color(null, 250, 250, 190);&#xA;&#xA;">
         <attributes
             xsi:type="gmfgen:StyleAttributes"
             fixedBackground="true"/>
@@ -97,7 +99,7 @@
             href="mindmap.genmodel#//mindmap/Topic/comments"/>
       </modelFacet>
       <labels
-          visualID="5001"
+          visualID="4001"
           editPartClassName="ThreadSubjectEditPart"
           itemSemanticEditPolicyClassName="ThreadSubjectItemSemanticEditPolicy"
           notationViewFactoryClassName="ThreadSubjectViewFactory"
@@ -107,7 +109,7 @@
         <viewmap
             xsi:type="gmfgen:ParentAssignedViewmap"
             getterName="getFigureStickyNoteNameFigure"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeatures
@@ -117,7 +119,7 @@
     </childNodes>
     <childNodes
         xsi:type="gmfgen:GenChildLabelNode"
-        visualID="3002"
+        visualID="2002"
         editPartClassName="ThreadItemEditPart"
         itemSemanticEditPolicyClassName="ThreadItemItemSemanticEditPolicy"
         notationViewFactoryClassName="ThreadItemViewFactory"
@@ -132,7 +134,7 @@
           editHelperClassName="ThreadItemEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
+          figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet>
@@ -150,7 +152,7 @@
       </labelModelFacet>
     </childNodes>
     <topLevelNodes
-        visualID="2001"
+        visualID="1001"
         editPartClassName="TopicEditPart"
         itemSemanticEditPolicyClassName="TopicItemSemanticEditPolicy"
         notationViewFactoryClassName="TopicViewFactory"
@@ -166,7 +168,7 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="RoundedTopicFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class RoundedTopicFigure extends org.eclipse.draw2d.RoundedRectangle {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fFigureTopicNameFigure; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public RoundedTopicFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(12)&#xA;, getMapMode().DPtoLP(12)&#xA;));&#xA;&#x9;this.setForegroundColor(THIS_FORE&#xA;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureTopicNameFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xA;fFigureTopicNameFigure.setText(&quot;&quot;);&#xA;&#xA;this.add(fFigureTopicNameFigure);&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureTopicNameFigure() {&#xA;&#x9;&#x9;return fFigureTopicNameFigure;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;static final org.eclipse.swt.graphics.Color THIS_FORE = new org.eclipse.swt.graphics.Color(null, 220, 220, 250);&#xA;&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class RoundedTopicFigure extends org.eclipse.draw2d.RoundedRectangle {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureTopicNameFigure; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public RoundedTopicFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(12)&#xA;, getMapMode().DPtoLP(12)&#xA;));&#xA;&#x9;this.setForegroundColor(THIS_FORE&#xA;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureTopicNameFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;fFigureTopicNameFigure.setText(&quot;&quot;);&#xA;&#xA;this.add(fFigureTopicNameFigure);&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureTopicNameFigure() {&#xA;&#x9;&#x9;return fFigureTopicNameFigure;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;static final org.eclipse.swt.graphics.Color THIS_FORE = new org.eclipse.swt.graphics.Color(null, 220, 220, 250);&#xA;&#xA;">
         <attributes
             xsi:type="gmfgen:StyleAttributes"
             fixedForeground="true"/>
@@ -181,7 +183,7 @@
             href="mindmap.genmodel#//mindmap/Map/rootTopics"/>
       </modelFacet>
       <labels
-          visualID="5002"
+          visualID="4002"
           editPartClassName="TopicNameEditPart"
           itemSemanticEditPolicyClassName="TopicNameItemSemanticEditPolicy"
           notationViewFactoryClassName="TopicNameViewFactory"
@@ -191,7 +193,7 @@
         <viewmap
             xsi:type="gmfgen:ParentAssignedViewmap"
             getterName="getFigureTopicNameFigure"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeatures
@@ -200,7 +202,7 @@
       </labels>
     </topLevelNodes>
     <topLevelNodes
-        visualID="2002"
+        visualID="1002"
         editPartClassName="ResourceEditPart"
         itemSemanticEditPolicyClassName="ResourceItemSemanticEditPolicy"
         notationViewFactoryClassName="ResourceViewFactory"
@@ -231,7 +233,7 @@
       </modelFacet>
       <labels
           xsi:type="gmfgen:GenExternalNodeLabel"
-          visualID="5003"
+          visualID="4003"
           editPartClassName="ResourceNameEmailEditPart"
           itemSemanticEditPolicyClassName="ResourceNameEmailItemSemanticEditPolicy"
           notationViewFactoryClassName="ResourceNameEmailViewFactory"
@@ -254,7 +256,7 @@
       </labels>
     </topLevelNodes>
     <links
-        visualID="4001"
+        visualID="3001"
         editPartClassName="TopicSubtopicsEditPart"
         itemSemanticEditPolicyClassName="TopicSubtopicsItemSemanticEditPolicy"
         notationViewFactoryClassName="TopicSubtopicsViewFactory"
@@ -274,13 +276,11 @@
         <metaFeature
             href="mindmap.genmodel#//mindmap/Topic/subtopics"/>
       </modelFacet>
-      <creationConstraints>
-        <sourceEnd
-            body="self &lt;> oppositeEnd"/>
-      </creationConstraints>
+      <creationConstraints
+          sourceEnd="//@expressionProviders/@providers.0/@expressions.0"/>
     </links>
     <links
-        visualID="4002"
+        visualID="3002"
         editPartClassName="RelationshipEditPart"
         itemSemanticEditPolicyClassName="RelationshipItemSemanticEditPolicy"
         notationViewFactoryClassName="RelationshipViewFactory"
@@ -298,26 +298,25 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet">
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.1">
         <metaClass
             href="mindmap.genmodel#//mindmap/Relationship"/>
         <containmentMetaFeature
             href="mindmap.genmodel#//mindmap/Map/relations"/>
         <childMetaFeature
             href="mindmap.genmodel#//mindmap/Map/relations"/>
-        <modelElementSelector
-            body="self.type = RelationshipType::EXTENDS"/>
         <modelElementInitializer
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="RelationshipType::EXTENDS">
+              value="//@expressionProviders/@providers.0/@expressions.2">
             <feature
                 href="mindmap.genmodel#//mindmap/Relationship/type"/>
           </initializers>
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="'extends'">
+              value="//@expressionProviders/@providers.0/@expressions.3">
             <feature
                 href="mindmap.genmodel#//mindmap/Relationship/label"/>
           </initializers>
@@ -328,7 +327,7 @@
             href="mindmap.genmodel#//mindmap/Relationship/target"/>
       </modelFacet>
       <labels
-          visualID="6001"
+          visualID="4004"
           editPartClassName="RelationshipLabelEditPart"
           itemSemanticEditPolicyClassName="RelationshipLabelItemSemanticEditPolicy"
           notationViewFactoryClassName="RelationshipLabelViewFactory">
@@ -336,7 +335,7 @@
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
@@ -351,7 +350,7 @@
       </labels>
     </links>
     <links
-        visualID="4003"
+        visualID="3003"
         editPartClassName="Relationship2EditPart"
         itemSemanticEditPolicyClassName="Relationship2ItemSemanticEditPolicy"
         notationViewFactoryClassName="Relationship2ViewFactory"
@@ -369,26 +368,25 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet">
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.4">
         <metaClass
             href="mindmap.genmodel#//mindmap/Relationship"/>
         <containmentMetaFeature
             href="mindmap.genmodel#//mindmap/Map/relations"/>
         <childMetaFeature
             href="mindmap.genmodel#//mindmap/Map/relations"/>
-        <modelElementSelector
-            body="self.type = RelationshipType::INCLUDES"/>
         <modelElementInitializer
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="RelationshipType::INCLUDES">
+              value="//@expressionProviders/@providers.0/@expressions.5">
             <feature
                 href="mindmap.genmodel#//mindmap/Relationship/type"/>
           </initializers>
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="'includes'">
+              value="//@expressionProviders/@providers.0/@expressions.6">
             <feature
                 href="mindmap.genmodel#//mindmap/Relationship/label"/>
           </initializers>
@@ -399,7 +397,7 @@
             href="mindmap.genmodel#//mindmap/Relationship/target"/>
       </modelFacet>
       <labels
-          visualID="6002"
+          visualID="4005"
           editPartClassName="RelationshipLabel2EditPart"
           itemSemanticEditPolicyClassName="RelationshipLabel2ItemSemanticEditPolicy"
           notationViewFactoryClassName="RelationshipLabel2ViewFactory">
@@ -407,7 +405,7 @@
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
@@ -422,7 +420,7 @@
       </labels>
     </links>
     <links
-        visualID="4004"
+        visualID="3004"
         editPartClassName="Relationship3EditPart"
         itemSemanticEditPolicyClassName="Relationship3ItemSemanticEditPolicy"
         notationViewFactoryClassName="Relationship3ViewFactory"
@@ -440,26 +438,25 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet">
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.7">
         <metaClass
             href="mindmap.genmodel#//mindmap/Relationship"/>
         <containmentMetaFeature
             href="mindmap.genmodel#//mindmap/Map/relations"/>
         <childMetaFeature
             href="mindmap.genmodel#//mindmap/Map/relations"/>
-        <modelElementSelector
-            body="self.type = RelationshipType::DEPENDENCY"/>
         <modelElementInitializer
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="RelationshipType::DEPENDENCY">
+              value="//@expressionProviders/@providers.0/@expressions.8">
             <feature
                 href="mindmap.genmodel#//mindmap/Relationship/type"/>
           </initializers>
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="'depends'">
+              value="//@expressionProviders/@providers.0/@expressions.9">
             <feature
                 href="mindmap.genmodel#//mindmap/Relationship/label"/>
           </initializers>
@@ -470,7 +467,7 @@
             href="mindmap.genmodel#//mindmap/Relationship/target"/>
       </modelFacet>
       <labels
-          visualID="6003"
+          visualID="4006"
           editPartClassName="RelationshipLabel3EditPart"
           itemSemanticEditPolicyClassName="RelationshipLabel3ItemSemanticEditPolicy"
           notationViewFactoryClassName="RelationshipLabel3ViewFactory">
@@ -478,7 +475,7 @@
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
@@ -493,7 +490,7 @@
       </labels>
     </links>
     <compartments
-        visualID="7001"
+        visualID="5001"
         editPartClassName="TopicThreadCompartmentEditPart"
         itemSemanticEditPolicyClassName="TopicThreadCompartmentItemSemanticEditPolicy"
         notationViewFactoryClassName="TopicThreadCompartmentViewFactory"
@@ -508,7 +505,7 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="RoundedTopicFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class RoundedTopicFigure extends org.eclipse.draw2d.RoundedRectangle {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fFigureTopicNameFigure; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public RoundedTopicFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(12)&#xA;, getMapMode().DPtoLP(12)&#xA;));&#xA;&#x9;this.setForegroundColor(THIS_FORE&#xA;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureTopicNameFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xA;fFigureTopicNameFigure.setText(&quot;&quot;);&#xA;&#xA;this.add(fFigureTopicNameFigure);&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureTopicNameFigure() {&#xA;&#x9;&#x9;return fFigureTopicNameFigure;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;static final org.eclipse.swt.graphics.Color THIS_FORE = new org.eclipse.swt.graphics.Color(null, 220, 220, 250);&#xA;&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class RoundedTopicFigure extends org.eclipse.draw2d.RoundedRectangle {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureTopicNameFigure; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public RoundedTopicFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(12)&#xA;, getMapMode().DPtoLP(12)&#xA;));&#xA;&#x9;this.setForegroundColor(THIS_FORE&#xA;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureTopicNameFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;fFigureTopicNameFigure.setText(&quot;&quot;);&#xA;&#xA;this.add(fFigureTopicNameFigure);&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureTopicNameFigure() {&#xA;&#x9;&#x9;return fFigureTopicNameFigure;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;static final org.eclipse.swt.graphics.Color THIS_FORE = new org.eclipse.swt.graphics.Color(null, 220, 220, 250);&#xA;&#xA;">
         <attributes
             xsi:type="gmfgen:StyleAttributes"
             fixedForeground="true"/>
@@ -516,7 +513,7 @@
       </viewmap>
     </compartments>
     <compartments
-        visualID="7002"
+        visualID="5002"
         editPartClassName="ThreadThreadItemCompartmentEditPart"
         itemSemanticEditPolicyClassName="ThreadThreadItemCompartmentItemSemanticEditPolicy"
         notationViewFactoryClassName="ThreadThreadItemCompartmentViewFactory"
@@ -772,7 +769,37 @@
       href="mindmap.genmodel#/"/>
   <expressionProviders>
     <providers
-        xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@links.0/@creationConstraints/@sourceEnd //@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.1 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.1 //@diagram/@links.3/@modelFacet/@modelElementSelector //@diagram/@links.3/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@modelFacet/@modelElementInitializer/@initializers.1 //@audits/@rules.0/@rule //@audits/@rules.1/@rule"/>
+        xsi:type="gmfgen:GenExpressionInterpreter">
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self &lt;> oppositeEnd"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self.type = RelationshipType::EXTENDS"/>
+      <expressions
+          body="RelationshipType::EXTENDS"/>
+      <expressions
+          body="'extends'"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self.type = RelationshipType::INCLUDES"/>
+      <expressions
+          body="RelationshipType::INCLUDES"/>
+      <expressions
+          body="'includes'"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self.type = RelationshipType::DEPENDENCY"/>
+      <expressions
+          body="RelationshipType::DEPENDENCY"/>
+      <expressions
+          body="'depends'"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self.relations->forAll(r1, r2 |  r1.target = r2.source and r1.type = r2.type implies r2.target &lt;> r1.source)"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="name.size() > 0"/>
+    </providers>
   </expressionProviders>
 </gmfgen:GenEditorGenerator>
