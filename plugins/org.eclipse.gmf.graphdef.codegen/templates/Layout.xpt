@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,11 +15,15 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «EXTENSION Util»
 
-«DEFINE Init(EString owningFigureVariable) FOR gmfgraph::Layout»
+«DEFINE Init(EString owningFigureVariable) FOR gmfgraph::Layout-»
 «owningFigureVariable».setLayoutManager(«EXPAND Runtime::newInstance»);
 «ENDDEFINE»
 
-«DEFINE Init(EString owningFigureVariable) FOR gmfgraph::BorderLayout»
+«DEFINE Init(EString owningFigureVariable) FOR gmfgraph::LayoutRef-»
+«EXPAND Init(owningFigureVariable) FOR actual-»
+«ENDDEFINE»
+
+«DEFINE Init(EString owningFigureVariable) FOR gmfgraph::BorderLayout-»
 «LET "layout" + owningFigureVariable.toFirstUpper() AS layoutVarName»
 	«EXPAND Runtime::newInstance(layoutVarName)»
 «IF null != spacing-»
@@ -30,7 +34,7 @@
 «ENDLET»
 «ENDDEFINE»
 
-«DEFINE Init(EString owningFigureVariable) FOR gmfgraph::GridLayout»
+«DEFINE Init(EString owningFigureVariable) FOR gmfgraph::GridLayout-»
 «LET "layout" + owningFigureVariable.toFirstUpper() AS layoutVarName»
 	«EXPAND Runtime::newInstance(layoutVarName)»
 	«layoutVarName».numColumns = «numColumns»;
@@ -47,7 +51,7 @@
 «ENDLET»
 «ENDDEFINE»
 
-«DEFINE Init(EString owningFigureVariable) FOR gmfgraph::FlowLayout»
+«DEFINE Init(EString owningFigureVariable) FOR gmfgraph::FlowLayout-»
 «LET "layout" + owningFigureVariable.toFirstUpper() AS layoutVarName»
 	«EXPAND Runtime::newInstance(layoutVarName)»
 	«layoutVarName».setStretchMinorAxis(«matchMinorSize»);
@@ -65,7 +69,7 @@
 «ENDLET»
 «ENDDEFINE»
 
-«DEFINE Init(EString owningFigureVariable) FOR gmfgraph::CustomLayout»
+«DEFINE Init(EString owningFigureVariable) FOR gmfgraph::CustomLayout-»
 «LET "layout" + owningFigureVariable.toFirstUpper() AS layoutVarName»
 	«EXPAND Runtime::newInstance(layoutVarName)»
 «EXPAND attr::CustomClass::Init(layoutVarName)-»
