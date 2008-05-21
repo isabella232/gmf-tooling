@@ -153,6 +153,11 @@ public class CompoundBorderItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getCompoundBorder_Outer(),
+				 GMFGraphFactory.eINSTANCE.createBorderRef()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getCompoundBorder_Outer(),
 				 GMFGraphFactory.eINSTANCE.createLineBorder()));
 
 		newChildDescriptors.add
@@ -169,6 +174,11 @@ public class CompoundBorderItemProvider
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getCompoundBorder_Outer(),
 				 GMFGraphFactory.eINSTANCE.createCustomBorder()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getCompoundBorder_Inner(),
+				 GMFGraphFactory.eINSTANCE.createBorderRef()));
 
 		newChildDescriptors.add
 			(createChildParameter

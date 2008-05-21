@@ -870,6 +870,29 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.BorderRef} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BorderRefItemProvider borderRefItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.BorderRef}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createBorderRefAdapter() {
+		if (borderRefItemProvider == null) {
+			borderRefItemProvider = new BorderRefItemProvider(this);
+		}
+
+		return borderRefItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.LineBorder} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1028,6 +1051,29 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		}
 
 		return borderLayoutDataItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.LayoutRef} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LayoutRefItemProvider layoutRefItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.LayoutRef}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLayoutRefAdapter() {
+		if (layoutRefItemProvider == null) {
+			layoutRefItemProvider = new LayoutRefItemProvider(this);
+		}
+
+		return layoutRefItemProvider;
 	}
 
 	/**
@@ -1399,6 +1445,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		if (pointItemProvider != null) pointItemProvider.dispose();
 		if (dimensionItemProvider != null) dimensionItemProvider.dispose();
 		if (insetsItemProvider != null) insetsItemProvider.dispose();
+		if (borderRefItemProvider != null) borderRefItemProvider.dispose();
 		if (lineBorderItemProvider != null) lineBorderItemProvider.dispose();
 		if (marginBorderItemProvider != null) marginBorderItemProvider.dispose();
 		if (compoundBorderItemProvider != null) compoundBorderItemProvider.dispose();
@@ -1406,6 +1453,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		if (customLayoutDataItemProvider != null) customLayoutDataItemProvider.dispose();
 		if (gridLayoutDataItemProvider != null) gridLayoutDataItemProvider.dispose();
 		if (borderLayoutDataItemProvider != null) borderLayoutDataItemProvider.dispose();
+		if (layoutRefItemProvider != null) layoutRefItemProvider.dispose();
 		if (customLayoutItemProvider != null) customLayoutItemProvider.dispose();
 		if (gridLayoutItemProvider != null) gridLayoutItemProvider.dispose();
 		if (borderLayoutItemProvider != null) borderLayoutItemProvider.dispose();

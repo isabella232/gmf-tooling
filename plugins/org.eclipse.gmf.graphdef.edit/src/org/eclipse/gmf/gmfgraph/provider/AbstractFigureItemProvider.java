@@ -206,6 +206,11 @@ public class AbstractFigureItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 GMFGraphFactory.eINSTANCE.createLayoutRef()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
 				 GMFGraphFactory.eINSTANCE.createCustomLayout()));
 
 		newChildDescriptors.add
@@ -277,6 +282,11 @@ public class AbstractFigureItemProvider
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getFigure_Insets(),
 				 GMFGraphFactory.eINSTANCE.createInsets()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigure_Border(),
+				 GMFGraphFactory.eINSTANCE.createBorderRef()));
 
 		newChildDescriptors.add
 			(createChildParameter

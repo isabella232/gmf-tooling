@@ -128,6 +128,8 @@ public class FigureGalleryItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigureGallery_Figures());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigureGallery_Descriptors());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigureGallery_Borders());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigureGallery_Layouts());
 		}
 		return childrenFeatures;
 	}
@@ -188,6 +190,8 @@ public class FigureGalleryItemProvider
 				return;
 			case GMFGraphPackage.FIGURE_GALLERY__FIGURES:
 			case GMFGraphPackage.FIGURE_GALLERY__DESCRIPTORS:
+			case GMFGraphPackage.FIGURE_GALLERY__BORDERS:
+			case GMFGraphPackage.FIGURE_GALLERY__LAYOUTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -279,6 +283,66 @@ public class FigureGalleryItemProvider
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getFigureGallery_Descriptors(),
 				 GMFGraphFactory.eINSTANCE.createFigureDescriptor()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Borders(),
+				 GMFGraphFactory.eINSTANCE.createBorderRef()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Borders(),
+				 GMFGraphFactory.eINSTANCE.createLineBorder()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Borders(),
+				 GMFGraphFactory.eINSTANCE.createMarginBorder()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Borders(),
+				 GMFGraphFactory.eINSTANCE.createCompoundBorder()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Borders(),
+				 GMFGraphFactory.eINSTANCE.createCustomBorder()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Layouts(),
+				 GMFGraphFactory.eINSTANCE.createLayoutRef()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Layouts(),
+				 GMFGraphFactory.eINSTANCE.createCustomLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Layouts(),
+				 GMFGraphFactory.eINSTANCE.createGridLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Layouts(),
+				 GMFGraphFactory.eINSTANCE.createBorderLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Layouts(),
+				 GMFGraphFactory.eINSTANCE.createFlowLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Layouts(),
+				 GMFGraphFactory.eINSTANCE.createXYLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Layouts(),
+				 GMFGraphFactory.eINSTANCE.createStackLayout()));
 	}
 
 	/**
