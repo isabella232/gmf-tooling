@@ -25,6 +25,7 @@ import org.eclipse.gmf.gmfgraph.PolylineConnection;
  * FQNSwitch to use with figures utilizing power of GMF Runtime
  * @author artem
  */
+@Deprecated
 public class RuntimeFQNSwitch extends PureGEFFigureQualifiedNameSwitch {
 
 	protected void collectDependencies(FigureGallery gallery, UniqueEList<String> result) {

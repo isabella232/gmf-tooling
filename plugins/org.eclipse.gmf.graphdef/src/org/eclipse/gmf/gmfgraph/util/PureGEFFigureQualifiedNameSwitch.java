@@ -38,6 +38,7 @@ import org.eclipse.gmf.gmfgraph.XYLayoutData;
 /**
  * @author artem
  */
+@Deprecated
 class PureGEFFigureQualifiedNameSwitch extends GMFGraphSwitch<String> implements FigureQualifiedNameSwitch  {
 
 	public String get(EObject gmfgraphObject) {

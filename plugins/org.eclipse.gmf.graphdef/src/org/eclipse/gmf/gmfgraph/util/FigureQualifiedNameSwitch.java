@@ -20,7 +20,10 @@ import org.eclipse.gmf.gmfgraph.FigureGallery;
  * figures defined in GMFGraph. Namely, we use this switch to provide different
  * implementation for some classes available in gmf-runtime (e.g. {@link RuntimeFQNSwitch})
  * @author artem
+ * @deprecated this switch is no longer necessary, the only method being used now, 
+ * 	           {@link #getDependencies(FigureGallery)}, should move elsewhere 
  */
+@Deprecated
 public interface FigureQualifiedNameSwitch {
 
 

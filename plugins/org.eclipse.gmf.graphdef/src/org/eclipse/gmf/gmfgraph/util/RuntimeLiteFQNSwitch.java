@@ -15,6 +15,7 @@ package org.eclipse.gmf.gmfgraph.util;
  * FQNSwitch to use with figures that use <code>oeg.codegen.lite</code> 
  * @author artem
  */
+@Deprecated
 public class RuntimeLiteFQNSwitch extends PureGEFFigureQualifiedNameSwitch {
 
 	// nothing except pure GEF so far
