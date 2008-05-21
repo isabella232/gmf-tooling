@@ -312,24 +312,28 @@
             id="property.section.layout" 
             tab="property.tab.layout"
             filter="org.eclipse.gmf.graphdef.editor.sheet.LayoutSectionProxy$Filter"
+            enablesFor="1"
             class="org.eclipse.gmf.graphdef.editor.sheet.LayoutSectionProxy">
          </propertySection>
          <propertySection
             id="property.section.layoutdata" 
             tab="property.tab.layoutdata"
             filter="org.eclipse.gmf.graphdef.editor.sheet.LayoutDataSectionProxy$Filter"
+            enablesFor="1"
             class="org.eclipse.gmf.graphdef.editor.sheet.LayoutDataSectionProxy">
          </propertySection>
          <propertySection
             id="property.section.size" 
             tab="property.tab.size"
             filter="org.eclipse.gmf.graphdef.editor.sheet.SizeSectionProxy$Filter"
+            enablesFor="1"
             class="org.eclipse.gmf.graphdef.editor.sheet.SizeSectionProxy">
          </propertySection>
          <propertySection
             id="property.section.styles" 
             tab="property.tab.styles"
             filter="org.eclipse.gmf.graphdef.editor.sheet.FigureSectionProxy$Filter"
+            enablesFor="1"
             class="org.eclipse.gmf.graphdef.editor.sheet.FigureSectionProxy">
          </propertySection>
       </propertySections>

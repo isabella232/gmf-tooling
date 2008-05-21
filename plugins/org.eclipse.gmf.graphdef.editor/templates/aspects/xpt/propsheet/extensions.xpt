@@ -17,6 +17,7 @@
 «AROUND filter FOR gmfgen::CustomTabFilter-»
 «IF isProxyTab(tab)-»
             filter="«tab.getQualifiedClassName()»$«EXPAND aspects::xpt::propsheet::PropertySection::filterClassName FOR tab»"
+            enablesFor="1"
 «ELSE-»
 «targetDef.proceed()-»
 «ENDIF-»
