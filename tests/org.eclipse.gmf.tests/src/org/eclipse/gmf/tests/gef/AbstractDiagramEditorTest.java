@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Borland Software Corporation
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -99,8 +99,14 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 //		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(myEditor, true);
 	}
 	
-	protected void redispatchEvents() {
+	protected final void redispatchEvents() {
+		final int timeoutSeconds = 3;
+		final long start = System.currentTimeMillis();
+		final long deltaMillis = timeoutSeconds  * 1000; 
 		while (Display.getCurrent().readAndDispatch()) {
+			if ((System.currentTimeMillis() - start) > deltaMillis) {
+				fail("Display message redispatch was not expected to end by timeout");
+			}
 		}
 	}
 	
