@@ -32,9 +32,9 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.tests.Utils;
 import org.eclipse.gmf.tests.rt.AbstractCanvasTest;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
@@ -100,14 +100,8 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 	}
 	
 	protected final void redispatchEvents() {
-		final int timeoutSeconds = 3;
-		final long start = System.currentTimeMillis();
-		final long deltaMillis = timeoutSeconds  * 1000; 
-		while (Display.getCurrent().readAndDispatch()) {
-			if ((System.currentTimeMillis() - start) > deltaMillis) {
-				fail("Display message redispatch was not expected to end by timeout");
-			}
-		}
+		final boolean t = Utils.dispatchDisplayMessages(3);
+		assertTrue("Display message redispatch was not expected to end by timeout", t);
 	}
 	
 	protected IProject createProject() {

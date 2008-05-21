@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -93,5 +93,19 @@ public class Utils {
 			}
 		} while (condition[0] && (System.currentTimeMillis() - start) < deltaMillis);
 		return !condition[0];
+	}
+
+	/**
+	 * @return false if message re-dispatch was broken by timeout
+	 */
+	public static boolean dispatchDisplayMessages(int timeoutSeconds) {
+		final long start = System.currentTimeMillis();
+		final long deltaMillis = timeoutSeconds  * 1000; 
+		while (Display.getCurrent().readAndDispatch()) {
+			if ((System.currentTimeMillis() - start) > deltaMillis) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
