@@ -351,6 +351,15 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 		if (layoutConstraint != null) {
 			getFigure().getParent().setConstraint(getFigure(), layoutConstraint);
 		}
+		/*
+		 *  It is important to call handleMajorSemanticChange() here because
+		 *  in case of any changes in LayoutConstraints current EditPart can 
+		 *  visually replace any other existing (sibling) EditParts, so we 
+		 *  have to re-layout parent Figure.
+		 */
+		if (getParent() instanceof AbstractFigureEditPart) {
+			((AbstractFigureEditPart) getParent()).handleMajorSemanticChange();	
+		}
 	}
 
 	/**
