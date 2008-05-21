@@ -29,6 +29,7 @@ import org.eclipse.gmf.gmfgraph.Direction;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.Layout;
+import org.eclipse.gmf.gmfgraph.LayoutRef;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.VisualFacet;
 import org.eclipse.gmf.gmfgraph.XYLayout;
@@ -148,17 +149,23 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 	private static class LayoutTypeSwitch extends GMFGraphSwitch<ViewmapLayoutType> {
 		
 		public ViewmapLayoutType getLayoutType(Layout layout){
-			return layout == null ? ViewmapLayoutType.UNKNOWN_LITERAL : doSwitch(layout);
+			if (layout == null) {
+				return ViewmapLayoutType.UNKNOWN_LITERAL;
+			}
+			return doSwitch(layout instanceof LayoutRef ? ((LayoutRef) layout).getActual() : layout);
 		}
 		
+		@Override
 		public ViewmapLayoutType caseLayout(Layout object) {
 			return ViewmapLayoutType.UNKNOWN_LITERAL;
 		}
 		
+		@Override
 		public ViewmapLayoutType caseFlowLayout(FlowLayout layout) {
 			return layout.isForceSingleLine() ? ViewmapLayoutType.TOOLBAR_LAYOUT_LITERAL : ViewmapLayoutType.FLOW_LAYOUT_LITERAL;
 		}
 		
+		@Override
 		public ViewmapLayoutType caseXYLayout(XYLayout object) {
 			return ViewmapLayoutType.XY_LAYOUT_LITERAL;
 		}
