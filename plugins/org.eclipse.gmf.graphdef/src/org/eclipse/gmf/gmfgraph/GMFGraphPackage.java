@@ -199,13 +199,31 @@ public interface GMFGraphPackage extends EPackage {
 	int FIGURE_GALLERY__DESCRIPTORS = IDENTITY_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Borders</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE_GALLERY__BORDERS = IDENTITY_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Layouts</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE_GALLERY__LAYOUTS = IDENTITY_FEATURE_COUNT + 3;
+
+	/**
 	 * The feature id for the '<em><b>Implementation Bundle</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE_GALLERY__IMPLEMENTATION_BUNDLE = IDENTITY_FEATURE_COUNT + 2;
+	int FIGURE_GALLERY__IMPLEMENTATION_BUNDLE = IDENTITY_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Figure Gallery</em>' class.
@@ -214,7 +232,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE_GALLERY_FEATURE_COUNT = IDENTITY_FEATURE_COUNT + 3;
+	int FIGURE_GALLERY_FEATURE_COUNT = IDENTITY_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.DiagramElementImpl <em>Diagram Element</em>}' class.
@@ -804,7 +822,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLayoutable()
 	 * @generated
 	 */
-	int LAYOUTABLE = 58;
+	int LAYOUTABLE = 59;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -4496,7 +4514,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 68;
+	int FONT_STYLE = 70;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.PointImpl <em>Point</em>}' class.
@@ -4546,7 +4564,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLineBorder()
 	 * @generated
 	 */
-	int LINE_BORDER = 50;
+	int LINE_BORDER = 51;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.MarginBorderImpl <em>Margin Border</em>}' class.
@@ -4556,7 +4574,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getMarginBorder()
 	 * @generated
 	 */
-	int MARGIN_BORDER = 51;
+	int MARGIN_BORDER = 52;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.CompoundBorderImpl <em>Compound Border</em>}' class.
@@ -4566,7 +4584,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCompoundBorder()
 	 * @generated
 	 */
-	int COMPOUND_BORDER = 52;
+	int COMPOUND_BORDER = 53;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.CustomBorderImpl <em>Custom Border</em>}' class.
@@ -4576,7 +4594,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomBorder()
 	 * @generated
 	 */
-	int CUSTOM_BORDER = 53;
+	int CUSTOM_BORDER = 54;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.LayoutData <em>Layout Data</em>}' class.
@@ -4586,7 +4604,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLayoutData()
 	 * @generated
 	 */
-	int LAYOUT_DATA = 54;
+	int LAYOUT_DATA = 55;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.GridLayoutDataImpl <em>Grid Layout Data</em>}' class.
@@ -4596,7 +4614,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getGridLayoutData()
 	 * @generated
 	 */
-	int GRID_LAYOUT_DATA = 56;
+	int GRID_LAYOUT_DATA = 57;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.BorderLayoutDataImpl <em>Border Layout Data</em>}' class.
@@ -4606,7 +4624,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getBorderLayoutData()
 	 * @generated
 	 */
-	int BORDER_LAYOUT_DATA = 57;
+	int BORDER_LAYOUT_DATA = 58;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.CustomLayoutImpl <em>Custom Layout</em>}' class.
@@ -4616,7 +4634,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomLayout()
 	 * @generated
 	 */
-	int CUSTOM_LAYOUT = 60;
+	int CUSTOM_LAYOUT = 62;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Layout <em>Layout</em>}' class.
@@ -4626,7 +4644,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLayout()
 	 * @generated
 	 */
-	int LAYOUT = 59;
+	int LAYOUT = 60;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.CustomLayoutDataImpl <em>Custom Layout Data</em>}' class.
@@ -4636,7 +4654,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomLayoutData()
 	 * @generated
 	 */
-	int CUSTOM_LAYOUT_DATA = 55;
+	int CUSTOM_LAYOUT_DATA = 56;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.GridLayoutImpl <em>Grid Layout</em>}' class.
@@ -4646,7 +4664,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getGridLayout()
 	 * @generated
 	 */
-	int GRID_LAYOUT = 61;
+	int GRID_LAYOUT = 63;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.BorderLayoutImpl <em>Border Layout</em>}' class.
@@ -4656,7 +4674,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getBorderLayout()
 	 * @generated
 	 */
-	int BORDER_LAYOUT = 62;
+	int BORDER_LAYOUT = 64;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.CustomAttributeImpl <em>Custom Attribute</em>}' class.
@@ -5480,6 +5498,34 @@ public interface GMFGraphPackage extends EPackage {
 	int BORDER_FEATURE_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.BorderRefImpl <em>Border Ref</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.BorderRefImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getBorderRef()
+	 * @generated
+	 */
+	int BORDER_REF = 50;
+
+	/**
+	 * The feature id for the '<em><b>Actual</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BORDER_REF__ACTUAL = BORDER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Border Ref</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BORDER_REF_FEATURE_COUNT = BORDER_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5768,6 +5814,34 @@ public interface GMFGraphPackage extends EPackage {
 	int LAYOUT_FEATURE_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.LayoutRefImpl <em>Layout Ref</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.LayoutRefImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLayoutRef()
+	 * @generated
+	 */
+	int LAYOUT_REF = 61;
+
+	/**
+	 * The feature id for the '<em><b>Actual</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LAYOUT_REF__ACTUAL = LAYOUT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Layout Ref</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LAYOUT_REF_FEATURE_COUNT = LAYOUT_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5865,7 +5939,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getFlowLayout()
 	 * @generated
 	 */
-	int FLOW_LAYOUT = 63;
+	int FLOW_LAYOUT = 65;
 
 	/**
 	 * The feature id for the '<em><b>Vertical</b></em>' attribute.
@@ -5947,7 +6021,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getXYLayout()
 	 * @generated
 	 */
-	int XY_LAYOUT = 64;
+	int XY_LAYOUT = 66;
 
 	/**
 	 * The number of structural features of the '<em>XY Layout</em>' class.
@@ -5966,7 +6040,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getXYLayoutData()
 	 * @generated
 	 */
-	int XY_LAYOUT_DATA = 65;
+	int XY_LAYOUT_DATA = 67;
 
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference.
@@ -6012,7 +6086,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getStackLayout()
 	 * @generated
 	 */
-	int STACK_LAYOUT = 66;
+	int STACK_LAYOUT = 68;
 
 	/**
 	 * The number of structural features of the '<em>Stack Layout</em>' class.
@@ -6031,7 +6105,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getColorConstants()
 	 * @generated
 	 */
-	int COLOR_CONSTANTS = 67;
+	int COLOR_CONSTANTS = 69;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Direction <em>Direction</em>}' enum.
@@ -6041,7 +6115,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getDirection()
 	 * @generated
 	 */
-	int DIRECTION = 69;
+	int DIRECTION = 71;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.LineKind <em>Line Kind</em>}' enum.
@@ -6051,7 +6125,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLineKind()
 	 * @generated
 	 */
-	int LINE_KIND = 70;
+	int LINE_KIND = 72;
 
 
 	/**
@@ -6062,7 +6136,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getAlignment()
 	 * @generated
 	 */
-	int ALIGNMENT = 71;
+	int ALIGNMENT = 73;
 
 
 	/**
@@ -6161,6 +6235,28 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFigureGallery_Descriptors();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.gmfgraph.FigureGallery#getBorders <em>Borders</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Borders</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.FigureGallery#getBorders()
+	 * @see #getFigureGallery()
+	 * @generated
+	 */
+	EReference getFigureGallery_Borders();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.gmfgraph.FigureGallery#getLayouts <em>Layouts</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Layouts</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.FigureGallery#getLayouts()
+	 * @see #getFigureGallery()
+	 * @generated
+	 */
+	EReference getFigureGallery_Layouts();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.FigureGallery#getImplementationBundle <em>Implementation Bundle</em>}'.
@@ -7414,6 +7510,27 @@ public interface GMFGraphPackage extends EPackage {
 	EClass getBorder();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.BorderRef <em>Border Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Border Ref</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.BorderRef
+	 * @generated
+	 */
+	EClass getBorderRef();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.gmfgraph.BorderRef#getActual <em>Actual</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Actual</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.BorderRef#getActual()
+	 * @see #getBorderRef()
+	 * @generated
+	 */
+	EReference getBorderRef_Actual();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.LineBorder <em>Line Border</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7710,6 +7827,27 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getLayout();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.LayoutRef <em>Layout Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Layout Ref</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.LayoutRef
+	 * @generated
+	 */
+	EClass getLayoutRef();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.gmfgraph.LayoutRef#getActual <em>Actual</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Actual</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.LayoutRef#getActual()
+	 * @see #getLayoutRef()
+	 * @generated
+	 */
+	EReference getLayoutRef_Actual();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.CustomLayout <em>Custom Layout</em>}'.

@@ -269,6 +269,10 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 				return createBorderAdapter();
 			}
 			@Override
+			public Adapter caseBorderRef(BorderRef object) {
+				return createBorderRefAdapter();
+			}
+			@Override
 			public Adapter caseLineBorder(LineBorder object) {
 				return createLineBorderAdapter();
 			}
@@ -307,6 +311,10 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseLayout(Layout object) {
 				return createLayoutAdapter();
+			}
+			@Override
+			public Adapter caseLayoutRef(LayoutRef object) {
+				return createLayoutRefAdapter();
 			}
 			@Override
 			public Adapter caseCustomLayout(CustomLayout object) {
@@ -1029,6 +1037,20 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.BorderRef <em>Border Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.BorderRef
+	 * @generated
+	 */
+	public Adapter createBorderRefAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.LineBorder <em>Line Border</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1165,6 +1187,20 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createLayoutAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.LayoutRef <em>Layout Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.LayoutRef
+	 * @generated
+	 */
+	public Adapter createLayoutRefAdapter() {
 		return null;
 	}
 

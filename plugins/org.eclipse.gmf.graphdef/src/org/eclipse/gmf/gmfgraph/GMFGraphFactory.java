@@ -332,6 +332,15 @@ public interface GMFGraphFactory extends EFactory {
 	Insets createInsets();
 
 	/**
+	 * Returns a new object of class '<em>Border Ref</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Border Ref</em>'.
+	 * @generated
+	 */
+	BorderRef createBorderRef();
+
+	/**
 	 * Returns a new object of class '<em>Line Border</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -393,6 +402,15 @@ public interface GMFGraphFactory extends EFactory {
 	 * @generated
 	 */
 	BorderLayoutData createBorderLayoutData();
+
+	/**
+	 * Returns a new object of class '<em>Layout Ref</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Layout Ref</em>'.
+	 * @generated
+	 */
+	LayoutRef createLayoutRef();
 
 	/**
 	 * Returns a new object of class '<em>Custom Layout</em>'.

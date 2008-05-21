@@ -17,9 +17,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.gmf.gmfgraph.Border;
 import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.RealFigure;
 
 /**
@@ -32,6 +34,8 @@ import org.eclipse.gmf.gmfgraph.RealFigure;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.FigureGalleryImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.FigureGalleryImpl#getFigures <em>Figures</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.FigureGalleryImpl#getDescriptors <em>Descriptors</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.FigureGalleryImpl#getBorders <em>Borders</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.FigureGalleryImpl#getLayouts <em>Layouts</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.FigureGalleryImpl#getImplementationBundle <em>Implementation Bundle</em>}</li>
  * </ul>
  * </p>
@@ -78,6 +82,26 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 	 * @ordered
 	 */
 	protected EList<FigureDescriptor> descriptors;
+
+	/**
+	 * The cached value of the '{@link #getBorders() <em>Borders</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBorders()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Border> borders;
+
+	/**
+	 * The cached value of the '{@link #getLayouts() <em>Layouts</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLayouts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Layout> layouts;
 
 	/**
 	 * The default value of the '{@link #getImplementationBundle() <em>Implementation Bundle</em>}' attribute.
@@ -168,6 +192,30 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Border> getBorders() {
+		if (borders == null) {
+			borders = new EObjectContainmentEList<Border>(Border.class, this, GMFGraphPackage.FIGURE_GALLERY__BORDERS);
+		}
+		return borders;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Layout> getLayouts() {
+		if (layouts == null) {
+			layouts = new EObjectContainmentEList<Layout>(Layout.class, this, GMFGraphPackage.FIGURE_GALLERY__LAYOUTS);
+		}
+		return layouts;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getImplementationBundleGen() {
 		return implementationBundle;
 	}
@@ -204,6 +252,10 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 				return ((InternalEList<?>)getFigures()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.FIGURE_GALLERY__DESCRIPTORS:
 				return ((InternalEList<?>)getDescriptors()).basicRemove(otherEnd, msgs);
+			case GMFGraphPackage.FIGURE_GALLERY__BORDERS:
+				return ((InternalEList<?>)getBorders()).basicRemove(otherEnd, msgs);
+			case GMFGraphPackage.FIGURE_GALLERY__LAYOUTS:
+				return ((InternalEList<?>)getLayouts()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -222,6 +274,10 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 				return getFigures();
 			case GMFGraphPackage.FIGURE_GALLERY__DESCRIPTORS:
 				return getDescriptors();
+			case GMFGraphPackage.FIGURE_GALLERY__BORDERS:
+				return getBorders();
+			case GMFGraphPackage.FIGURE_GALLERY__LAYOUTS:
+				return getLayouts();
 			case GMFGraphPackage.FIGURE_GALLERY__IMPLEMENTATION_BUNDLE:
 				return getImplementationBundle();
 		}
@@ -248,6 +304,14 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 				getDescriptors().clear();
 				getDescriptors().addAll((Collection<? extends FigureDescriptor>)newValue);
 				return;
+			case GMFGraphPackage.FIGURE_GALLERY__BORDERS:
+				getBorders().clear();
+				getBorders().addAll((Collection<? extends Border>)newValue);
+				return;
+			case GMFGraphPackage.FIGURE_GALLERY__LAYOUTS:
+				getLayouts().clear();
+				getLayouts().addAll((Collection<? extends Layout>)newValue);
+				return;
 			case GMFGraphPackage.FIGURE_GALLERY__IMPLEMENTATION_BUNDLE:
 				setImplementationBundle((String)newValue);
 				return;
@@ -272,6 +336,12 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 			case GMFGraphPackage.FIGURE_GALLERY__DESCRIPTORS:
 				getDescriptors().clear();
 				return;
+			case GMFGraphPackage.FIGURE_GALLERY__BORDERS:
+				getBorders().clear();
+				return;
+			case GMFGraphPackage.FIGURE_GALLERY__LAYOUTS:
+				getLayouts().clear();
+				return;
 			case GMFGraphPackage.FIGURE_GALLERY__IMPLEMENTATION_BUNDLE:
 				setImplementationBundle(IMPLEMENTATION_BUNDLE_EDEFAULT);
 				return;
@@ -293,6 +363,10 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 				return figures != null && !figures.isEmpty();
 			case GMFGraphPackage.FIGURE_GALLERY__DESCRIPTORS:
 				return descriptors != null && !descriptors.isEmpty();
+			case GMFGraphPackage.FIGURE_GALLERY__BORDERS:
+				return borders != null && !borders.isEmpty();
+			case GMFGraphPackage.FIGURE_GALLERY__LAYOUTS:
+				return layouts != null && !layouts.isEmpty();
 			case GMFGraphPackage.FIGURE_GALLERY__IMPLEMENTATION_BUNDLE:
 				return IMPLEMENTATION_BUNDLE_EDEFAULT == null ? implementationBundle != null : !IMPLEMENTATION_BUNDLE_EDEFAULT.equals(implementationBundle);
 		}

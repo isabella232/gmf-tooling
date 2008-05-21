@@ -22,6 +22,8 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.eclipse.gmf.gmfgraph.FigureGallery#getFigures <em>Figures</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.FigureGallery#getDescriptors <em>Descriptors</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.FigureGallery#getBorders <em>Borders</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.FigureGallery#getLayouts <em>Layouts</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.FigureGallery#getImplementationBundle <em>Implementation Bundle</em>}</li>
  * </ul>
  * </p>
@@ -62,6 +64,36 @@ public interface FigureGallery extends Identity {
 	 * @generated
 	 */
 	EList<FigureDescriptor> getDescriptors();
+
+	/**
+	 * Returns the value of the '<em><b>Borders</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.gmfgraph.Border}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Borders for reuse
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Borders</em>' containment reference list.
+	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFigureGallery_Borders()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Border> getBorders();
+
+	/**
+	 * Returns the value of the '<em><b>Layouts</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.gmfgraph.Layout}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Layouts for reuse
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Layouts</em>' containment reference list.
+	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFigureGallery_Layouts()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Layout> getLayouts();
 
 	/**
 	 * Returns the value of the '<em><b>Implementation Bundle</b></em>' attribute.

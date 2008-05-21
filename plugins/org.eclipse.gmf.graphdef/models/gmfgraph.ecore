@@ -27,6 +27,18 @@
         eType="#//RealFigure" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="descriptors" upperBound="-1"
         eType="#//FigureDescriptor" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="borders" upperBound="-1"
+        eType="#//Border" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Borders for reuse"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="layouts" upperBound="-1"
+        eType="#//Layout" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Layouts for reuse"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="implementationBundle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Identity" abstract="true" interface="true">
@@ -348,6 +360,17 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="right" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Border" abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BorderRef" eSuperTypes="#//Border">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Border reuse mechanism"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actual" lowerBound="1"
+        eType="#//Border">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="constraint: actual should not be another BorderRef"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LineBorder" eSuperTypes="#//Border">
     <eStructuralFeatures xsi:type="ecore:EReference" name="color" eType="#//Color"
         containment="true"/>
@@ -437,6 +460,17 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Layout" abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LayoutRef" eSuperTypes="#//Layout">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Layout reuse mechanism"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actual" lowerBound="1"
+        eType="#//Layout">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="constraint: actual should not be another LayoutRef"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomLayout" eSuperTypes="#//Layout #//CustomClass"/>
   <eClassifiers xsi:type="ecore:EClass" name="GridLayout" eSuperTypes="#//Layout">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numColumns" lowerBound="1"

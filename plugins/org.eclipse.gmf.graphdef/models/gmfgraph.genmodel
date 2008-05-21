@@ -68,6 +68,8 @@
     <genClasses ecoreClass="gmfgraph.ecore#//FigureGallery">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureGallery/figures"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureGallery/descriptors"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureGallery/borders"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureGallery/layouts"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//FigureGallery/implementationBundle"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//Identity">
@@ -224,6 +226,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Insets/right"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//Border"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//BorderRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//BorderRef/actual"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//LineBorder">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//LineBorder/color"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//LineBorder/width"/>
@@ -259,6 +264,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Layoutable/layout"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//Layout"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//LayoutRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//LayoutRef/actual"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//CustomLayout"/>
     <genClasses ecoreClass="gmfgraph.ecore#//GridLayout">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//GridLayout/numColumns"/>

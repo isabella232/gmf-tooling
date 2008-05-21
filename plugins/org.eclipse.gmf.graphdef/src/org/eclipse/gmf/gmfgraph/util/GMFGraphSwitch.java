@@ -514,6 +514,13 @@ public class GMFGraphSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGraphPackage.BORDER_REF: {
+				BorderRef borderRef = (BorderRef)theEObject;
+				T result = caseBorderRef(borderRef);
+				if (result == null) result = caseBorder(borderRef);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGraphPackage.LINE_BORDER: {
 				LineBorder lineBorder = (LineBorder)theEObject;
 				T result = caseLineBorder(lineBorder);
@@ -580,6 +587,13 @@ public class GMFGraphSwitch<T> {
 			case GMFGraphPackage.LAYOUT: {
 				Layout layout = (Layout)theEObject;
 				T result = caseLayout(layout);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.LAYOUT_REF: {
+				LayoutRef layoutRef = (LayoutRef)theEObject;
+				T result = caseLayoutRef(layoutRef);
+				if (result == null) result = caseLayout(layoutRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1358,6 +1372,21 @@ public class GMFGraphSwitch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Border Ref</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Border Ref</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBorderRef(BorderRef object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Line Border</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1504,6 +1533,21 @@ public class GMFGraphSwitch<T> {
 	 * @generated
 	 */
 	public T caseLayout(Layout object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Layout Ref</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Layout Ref</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLayoutRef(LayoutRef object) {
 		return null;
 	}
 

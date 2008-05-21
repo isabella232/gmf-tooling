@@ -94,6 +94,7 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.POINT: return createPoint();
 			case GMFGraphPackage.DIMENSION: return createDimension();
 			case GMFGraphPackage.INSETS: return createInsets();
+			case GMFGraphPackage.BORDER_REF: return createBorderRef();
 			case GMFGraphPackage.LINE_BORDER: return createLineBorder();
 			case GMFGraphPackage.MARGIN_BORDER: return createMarginBorder();
 			case GMFGraphPackage.COMPOUND_BORDER: return createCompoundBorder();
@@ -101,6 +102,7 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.CUSTOM_LAYOUT_DATA: return createCustomLayoutData();
 			case GMFGraphPackage.GRID_LAYOUT_DATA: return createGridLayoutData();
 			case GMFGraphPackage.BORDER_LAYOUT_DATA: return createBorderLayoutData();
+			case GMFGraphPackage.LAYOUT_REF: return createLayoutRef();
 			case GMFGraphPackage.CUSTOM_LAYOUT: return createCustomLayout();
 			case GMFGraphPackage.GRID_LAYOUT: return createGridLayout();
 			case GMFGraphPackage.BORDER_LAYOUT: return createBorderLayout();
@@ -504,6 +506,16 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public BorderRef createBorderRef() {
+		BorderRefImpl borderRef = new BorderRefImpl();
+		return borderRef;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public LineBorder createLineBorder() {
 		LineBorderImpl lineBorder = new LineBorderImpl();
 		return lineBorder;
@@ -567,6 +579,16 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	public BorderLayoutData createBorderLayoutData() {
 		BorderLayoutDataImpl borderLayoutData = new BorderLayoutDataImpl();
 		return borderLayoutData;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LayoutRef createLayoutRef() {
+		LayoutRefImpl layoutRef = new LayoutRefImpl();
+		return layoutRef;
 	}
 
 	/**

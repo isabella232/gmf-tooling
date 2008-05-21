@@ -362,6 +362,13 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass borderRefEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass lineBorderEClass = null;
 
 	/**
@@ -426,6 +433,13 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * @generated
 	 */
 	private EClass layoutEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass layoutRefEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -679,8 +693,26 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getFigureGallery_Borders() {
+		return (EReference)figureGalleryEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFigureGallery_Layouts() {
+		return (EReference)figureGalleryEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getFigureGallery_ImplementationBundle() {
-		return (EAttribute)figureGalleryEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)figureGalleryEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1741,6 +1773,24 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getBorderRef() {
+		return borderRefEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBorderRef_Actual() {
+		return (EReference)borderRefEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getLineBorder() {
 		return lineBorderEClass;
 	}
@@ -1986,6 +2036,24 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 */
 	public EClass getLayout() {
 		return layoutEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLayoutRef() {
+		return layoutRefEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLayoutRef_Actual() {
+		return (EReference)layoutRefEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2323,6 +2391,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		figureGalleryEClass = createEClass(FIGURE_GALLERY);
 		createEReference(figureGalleryEClass, FIGURE_GALLERY__FIGURES);
 		createEReference(figureGalleryEClass, FIGURE_GALLERY__DESCRIPTORS);
+		createEReference(figureGalleryEClass, FIGURE_GALLERY__BORDERS);
+		createEReference(figureGalleryEClass, FIGURE_GALLERY__LAYOUTS);
 		createEAttribute(figureGalleryEClass, FIGURE_GALLERY__IMPLEMENTATION_BUNDLE);
 
 		identityEClass = createEClass(IDENTITY);
@@ -2497,6 +2567,9 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		borderEClass = createEClass(BORDER);
 
+		borderRefEClass = createEClass(BORDER_REF);
+		createEReference(borderRefEClass, BORDER_REF__ACTUAL);
+
 		lineBorderEClass = createEClass(LINE_BORDER);
 		createEReference(lineBorderEClass, LINE_BORDER__COLOR);
 		createEAttribute(lineBorderEClass, LINE_BORDER__WIDTH);
@@ -2534,6 +2607,9 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		createEReference(layoutableEClass, LAYOUTABLE__LAYOUT);
 
 		layoutEClass = createEClass(LAYOUT);
+
+		layoutRefEClass = createEClass(LAYOUT_REF);
+		createEReference(layoutRefEClass, LAYOUT_REF__ACTUAL);
 
 		customLayoutEClass = createEClass(CUSTOM_LAYOUT);
 
@@ -2643,6 +2719,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		rgbColorEClass.getESuperTypes().add(this.getColor());
 		constantColorEClass.getESuperTypes().add(this.getColor());
 		basicFontEClass.getESuperTypes().add(this.getFont());
+		borderRefEClass.getESuperTypes().add(this.getBorder());
 		lineBorderEClass.getESuperTypes().add(this.getBorder());
 		marginBorderEClass.getESuperTypes().add(this.getBorder());
 		compoundBorderEClass.getESuperTypes().add(this.getBorder());
@@ -2652,6 +2729,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		customLayoutDataEClass.getESuperTypes().add(this.getCustomClass());
 		gridLayoutDataEClass.getESuperTypes().add(this.getLayoutData());
 		borderLayoutDataEClass.getESuperTypes().add(this.getLayoutData());
+		layoutRefEClass.getESuperTypes().add(this.getLayout());
 		customLayoutEClass.getESuperTypes().add(this.getLayout());
 		customLayoutEClass.getESuperTypes().add(this.getCustomClass());
 		gridLayoutEClass.getESuperTypes().add(this.getLayout());
@@ -2672,6 +2750,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEClass(figureGalleryEClass, FigureGallery.class, "FigureGallery", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFigureGallery_Figures(), this.getRealFigure(), null, "figures", null, 0, -1, FigureGallery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFigureGallery_Descriptors(), this.getFigureDescriptor(), null, "descriptors", null, 0, -1, FigureGallery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFigureGallery_Borders(), this.getBorder(), null, "borders", null, 0, -1, FigureGallery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFigureGallery_Layouts(), this.getLayout(), null, "layouts", null, 0, -1, FigureGallery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFigureGallery_ImplementationBundle(), ecorePackage.getEString(), "implementationBundle", null, 0, 1, FigureGallery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(identityEClass, Identity.class, "Identity", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2846,6 +2926,9 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		initEClass(borderEClass, Border.class, "Border", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(borderRefEClass, BorderRef.class, "BorderRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBorderRef_Actual(), this.getBorder(), null, "actual", null, 1, 1, BorderRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(lineBorderEClass, LineBorder.class, "LineBorder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLineBorder_Color(), this.getColor(), null, "color", null, 0, 1, LineBorder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLineBorder_Width(), ecorePackage.getEInt(), "width", "1", 0, 1, LineBorder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2883,6 +2966,9 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEReference(getLayoutable_Layout(), this.getLayout(), null, "layout", null, 0, 1, Layoutable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(layoutEClass, Layout.class, "Layout", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(layoutRefEClass, LayoutRef.class, "LayoutRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLayoutRef_Actual(), this.getLayout(), null, "actual", null, 1, 1, LayoutRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(customLayoutEClass, CustomLayout.class, "CustomLayout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
