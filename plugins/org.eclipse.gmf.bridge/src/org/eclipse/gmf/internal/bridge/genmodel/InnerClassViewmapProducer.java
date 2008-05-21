@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,6 +14,7 @@ package org.eclipse.gmf.internal.bridge.genmodel;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 
 import org.eclipse.emf.codegen.util.CodeGenUtil;
@@ -24,15 +25,22 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.ParentAssignedViewmap;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+import org.eclipse.gmf.gmfgraph.Border;
+import org.eclipse.gmf.gmfgraph.BorderRef;
 import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.gmfgraph.CompoundBorder;
 import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.CustomBorder;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
+import org.eclipse.gmf.gmfgraph.CustomLayout;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.FigureRef;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.LayoutRef;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
@@ -134,13 +142,57 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 	}
 
 	private void setupPluginDependencies(Viewmap viewmap, Figure figure){
-		FigureGallery gallery = findAncestorFigureGallery(figure);
-		if (gallery != null){
-			viewmap.getRequiredPluginIDs().addAll(Arrays.asList(fqnSwitch.getDependencies(gallery)));
+		LinkedHashSet<String> allRequired = new LinkedHashSet<String>();
+		for (FigureGallery gallery : findAllGalleriesForImport(figure)) {
+			allRequired.addAll(Arrays.asList(fqnSwitch.getDependencies(gallery)));
 		}
+		viewmap.getRequiredPluginIDs().addAll(allRequired);
 	}
 
-	public static FigureGallery findAncestorFigureGallery(Figure figure){
+	// public to have access from tests. FIXME may need extra check for endless
+	// recursion (like CompoundBorder.outer = BorderRef which points to same CompoundBorder)
+	public static Collection<FigureGallery> findAllGalleriesForImport(Figure figure) {
+		LinkedHashSet<FigureGallery> rv = new LinkedHashSet<FigureGallery>();
+		rv.add(findAncestorFigureGallery(figure));
+		LinkedList<Figure> queue = new LinkedList<Figure>();
+		queue.add(figure);
+		do {
+			final RealFigure fig;
+			if (queue.peek() instanceof RealFigure) {
+				fig = (RealFigure) queue.removeFirst();
+			} else if (queue.peek() instanceof FigureRef) {
+				fig = ((FigureRef) queue.removeFirst()).getFigure();
+			} else {
+				assert false; // no more known subclasses of Figure at the time.
+				queue.removeFirst();
+				continue;
+			}
+			if (fig.getLayout() instanceof LayoutRef && ((LayoutRef) fig.getLayout()).getActual() instanceof CustomLayout) {
+				rv.add(findAncestorFigureGallery(((LayoutRef) fig.getLayout()).getActual()));
+			}
+			if (fig.getBorder() != null) {
+				LinkedList<Border> borderQueue = new LinkedList<Border>();
+				borderQueue.add(fig.getBorder());
+				do {
+					if (borderQueue.peek() instanceof BorderRef) {
+						borderQueue.add(((BorderRef) borderQueue.peek()).getActual());
+					} else if (borderQueue.peek() instanceof CompoundBorder) {
+						CompoundBorder b = (CompoundBorder) borderQueue.peek();
+						borderQueue.addLast(b.getInner());
+						borderQueue.addLast(b.getOuter());
+					} else if (borderQueue.peek() instanceof CustomBorder) {
+						rv.add(findAncestorFigureGallery(borderQueue.peek()));
+					}
+					borderQueue.removeFirst(); // effectively removes any null value as well
+				} while (!borderQueue.isEmpty());
+			}
+			queue.addAll(fig.getChildren());
+		} while (!queue.isEmpty());
+		rv.remove(null);
+		return rv;
+	}
+
+	public static FigureGallery findAncestorFigureGallery(EObject figure){
 		EObject current = figure;
 		while (true){
 			EObject next = current.eContainer();
