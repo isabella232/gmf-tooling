@@ -1500,7 +1500,7 @@
   </propsheet:PropertySectionContainer>
   <wysiwyg:SynchronizerContainer>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4">
+        genNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5">
       <contexts
           xsi:type="ctx:FeatureContext">
         <children
@@ -1542,7 +1542,7 @@
           methodName="refreshBounds"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4">
+        genNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5">
       <contexts
           xsi:type="ctx:FeatureContext">
         <children
@@ -1662,7 +1662,7 @@
           methodName="refreshLayoutData"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.12">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
@@ -1674,7 +1674,7 @@
           figureAttribute="Outline"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.12">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
@@ -1686,7 +1686,7 @@
           figureAttribute="Fill"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.12">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
@@ -1698,7 +1698,7 @@
           figureAttribute="LineWidth"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.12">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
@@ -1711,7 +1711,7 @@
           domainValueTransformerName="getLineStyle"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.12">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
@@ -1723,7 +1723,7 @@
           figureAttribute="FillXOR"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.6 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.12">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
@@ -1980,6 +1980,31 @@
       <actions
           xsi:type="wysiwyg:MethodCallAction"
           methodName="refreshFont"/>
+    </synchronizers>
+    <synchronizers
+        genNodes="/0/@diagram/@childNodes.5 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.12">
+      <contexts
+          xsi:type="ctx:FeatureContext">
+        <children
+            xsi:type="ctx:FeatureContext">
+          <selector
+              xsi:type="ecore:EAttribute"
+              href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Point/x"/>
+        </children>
+        <children
+            xsi:type="ctx:FeatureContext">
+          <selector
+              xsi:type="ecore:EAttribute"
+              href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Point/y"/>
+        </children>
+        <selector
+            xsi:type="ecore:EReference"
+            href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Polyline/template"/>
+      </contexts>
+      <actions
+          xsi:type="wysiwyg:FigurePropertySynchAction"
+          figureAttribute="Points"
+          domainValueTransformerName="getPointList"/>
     </synchronizers>
   </wysiwyg:SynchronizerContainer>
 </xmi:XMI>

@@ -97,7 +97,12 @@ public class Polyline2EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0)) {
+
+			protected boolean useLocalCoordinates() {
+				return true;
+			}
+		};
 		result.setMinimumSize(new Dimension(0, 0));
 		return result;
 	}
@@ -144,10 +149,7 @@ public class Polyline2EditPart extends AbstractFigureEditPart {
 	 */
 	protected void handleNotificationEvent(Notification notification) {
 		Object feature = notification.getFeature();
-		if (NotationPackage.eINSTANCE.getSize_Width().equals(feature) || NotationPackage.eINSTANCE.getSize_Height().equals(feature) || NotationPackage.eINSTANCE.getLocation_X().equals(feature)
-				|| NotationPackage.eINSTANCE.getLocation_Y().equals(feature)) {
-			return;
-		} else if (NotationPackage.eINSTANCE.getFillStyle_FillColor().equals(feature)) {
+		if (NotationPackage.eINSTANCE.getFillStyle_FillColor().equals(feature)) {
 			return;
 		} else if (NotationPackage.eINSTANCE.getLineStyle_LineColor().equals(feature)) {
 			return;
@@ -191,11 +193,18 @@ public class Polyline2EditPart extends AbstractFigureEditPart {
 		super.setFigure(figure);
 		org.eclipse.gmf.gmfgraph.Polyline modelElement = (org.eclipse.gmf.gmfgraph.Polyline) getModelFigureElement();
 		if (modelElement != null) {
+			getPrimaryShape().setOutline(modelElement.isOutline());
+			getPrimaryShape().setFill(modelElement.isFill());
+			getPrimaryShape().setLineWidth(modelElement.getLineWidth());
+			getPrimaryShape().setLineStyle(getLineStyle(modelElement.getLineKind()));
+			getPrimaryShape().setFillXOR(modelElement.isXorFill());
+			getPrimaryShape().setOutlineXOR(modelElement.isXorOutline());
 			getPrimaryShape().setLayoutManager(getLayoutManager(modelElement.getLayout()));
 			refreshLayoutManager();
 			getPrimaryShape().setBackgroundColor(getColor(modelElement.getBackgroundColor()));
 			getPrimaryShape().setForegroundColor(getColor(modelElement.getForegroundColor()));
 			refreshFont();
+			getPrimaryShape().setPoints(getPointList(modelElement.getTemplate()));
 		}
 	}
 
@@ -211,6 +220,54 @@ public class Polyline2EditPart extends AbstractFigureEditPart {
 			super.activate();
 			return;
 		}
+
+		ChangeTracker outlineTracker = new ChangeTracker() {
+
+			public void modelChanged(Notification msg) {
+				getPrimaryShape().setOutline(modelElement.isOutline());
+			}
+		};
+		myDomainElementAdapters.add(new FeatureTracker(outlineTracker, GMFGraphPackage.eINSTANCE.getShape_Outline()));
+
+		ChangeTracker fillTracker = new ChangeTracker() {
+
+			public void modelChanged(Notification msg) {
+				getPrimaryShape().setFill(modelElement.isFill());
+			}
+		};
+		myDomainElementAdapters.add(new FeatureTracker(fillTracker, GMFGraphPackage.eINSTANCE.getShape_Fill()));
+
+		ChangeTracker lineWidthTracker = new ChangeTracker() {
+
+			public void modelChanged(Notification msg) {
+				getPrimaryShape().setLineWidth(modelElement.getLineWidth());
+			}
+		};
+		myDomainElementAdapters.add(new FeatureTracker(lineWidthTracker, GMFGraphPackage.eINSTANCE.getShape_LineWidth()));
+
+		ChangeTracker lineStyleTracker = new ChangeTracker() {
+
+			public void modelChanged(Notification msg) {
+				getPrimaryShape().setLineStyle(getLineStyle(modelElement.getLineKind()));
+			}
+		};
+		myDomainElementAdapters.add(new FeatureTracker(lineStyleTracker, GMFGraphPackage.eINSTANCE.getShape_LineKind()));
+
+		ChangeTracker fillXORTracker = new ChangeTracker() {
+
+			public void modelChanged(Notification msg) {
+				getPrimaryShape().setFillXOR(modelElement.isXorFill());
+			}
+		};
+		myDomainElementAdapters.add(new FeatureTracker(fillXORTracker, GMFGraphPackage.eINSTANCE.getShape_XorFill()));
+
+		ChangeTracker outlineXORTracker = new ChangeTracker() {
+
+			public void modelChanged(Notification msg) {
+				getPrimaryShape().setOutlineXOR(modelElement.isXorOutline());
+			}
+		};
+		myDomainElementAdapters.add(new FeatureTracker(outlineXORTracker, GMFGraphPackage.eINSTANCE.getShape_XorOutline()));
 
 		ChangeTracker layoutManagerTracker = new ChangeTracker() {
 
@@ -260,24 +317,17 @@ public class Polyline2EditPart extends AbstractFigureEditPart {
 		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getFigure_Font(), refreshFontTracker, new FeatureTracker(refreshFontTracker, GMFGraphPackage.eINSTANCE
 				.getBasicFont_FaceName()), new FeatureTracker(refreshFontTracker, GMFGraphPackage.eINSTANCE.getBasicFont_Height()), new FeatureTracker(refreshFontTracker, GMFGraphPackage.eINSTANCE
 				.getBasicFont_Style())));
+
+		ChangeTracker pointsTracker = new ChangeTracker() {
+
+			public void modelChanged(Notification msg) {
+				getPrimaryShape().setPoints(getPointList(modelElement.getTemplate()));
+			}
+		};
+		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getPolyline_Template(), pointsTracker, new FeatureTracker(pointsTracker, GMFGraphPackage.eINSTANCE.getPoint_X()),
+				new FeatureTracker(pointsTracker, GMFGraphPackage.eINSTANCE.getPoint_Y())));
 		modelElement.eAdapters().addAll(myDomainElementAdapters);
 		super.activate();
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void refreshBounds() {
-		org.eclipse.gmf.gmfgraph.Polyline modelElement = (org.eclipse.gmf.gmfgraph.Polyline) getModelFigureElement();
-		if (modelElement == null) {
-			return;
-		}
-		if (modelElement.getPreferredSize() != null) {
-			getFigure().setPreferredSize(getDraw2dDimension(modelElement.getPreferredSize()));
-		}
-		if (modelElement.getLocation() != null) {
-			getFigure().setLocation(getDraw2DPoint(modelElement.getLocation()));
-		}
 	}
 
 }

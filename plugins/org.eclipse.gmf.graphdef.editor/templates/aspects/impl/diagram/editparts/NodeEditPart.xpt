@@ -19,6 +19,7 @@
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION aspects::impl::diagram::editparts::Utils»
 «EXTENSION xpt::diagram::editparts::Utils»
+«EXTENSION xpt::diagram::ViewmapAttributesUtils»
 
 «AROUND setupNodePlate FOR gmfgen::GenNode-»
 	«targetDef.proceed()-»
@@ -34,3 +35,26 @@
 		«targetDef.proceed()»
 	«ENDIF-»
 «ENDAROUND»
+
+«AROUND createNodePlate FOR gmfgen::GenNode-»
+	«IF isPolyline(this)-»
+		«EXPAND xpt::Common::generatedMemberComment»
+		protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure createNodePlate() {
+			«EXPAND newPolylineDefaultSizeNodeFigure-»
+			«EXPAND impl::diagram::editparts::NodeEditPart::setupNodePlate-»
+			return result;
+		}
+	«ELSE-»
+		«targetDef.proceed()-»
+	«ENDIF-»
+«ENDAROUND»
+
+«DEFINE newPolylineDefaultSizeNodeFigure FOR gmfgen::GenNode-»
+	org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure result =
+		new org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure(getMapMode().DPtoLP(«defaultSizeWidth(viewmap, 40)»), getMapMode().DPtoLP(«defaultSizeHeight(viewmap, 40)»)) {
+
+			protected boolean useLocalCoordinates() {
+				return true;
+			}
+		};
+«ENDDEFINE»

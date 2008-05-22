@@ -166,10 +166,7 @@ public class RectangleEditPart extends AbstractFigureEditPart {
 	 */
 	protected void handleNotificationEvent(Notification notification) {
 		Object feature = notification.getFeature();
-		if (NotationPackage.eINSTANCE.getSize_Width().equals(feature) || NotationPackage.eINSTANCE.getSize_Height().equals(feature) || NotationPackage.eINSTANCE.getLocation_X().equals(feature)
-				|| NotationPackage.eINSTANCE.getLocation_Y().equals(feature)) {
-			return;
-		} else if (NotationPackage.eINSTANCE.getFillStyle_FillColor().equals(feature)) {
+		if (NotationPackage.eINSTANCE.getFillStyle_FillColor().equals(feature)) {
 			return;
 		} else if (NotationPackage.eINSTANCE.getLineStyle_LineColor().equals(feature)) {
 			return;
@@ -372,22 +369,6 @@ public class RectangleEditPart extends AbstractFigureEditPart {
 				.getBasicFont_Style())));
 		modelElement.eAdapters().addAll(myDomainElementAdapters);
 		super.activate();
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void refreshBounds() {
-		org.eclipse.gmf.gmfgraph.Rectangle modelElement = (org.eclipse.gmf.gmfgraph.Rectangle) getModelFigureElement();
-		if (modelElement == null) {
-			return;
-		}
-		if (modelElement.getPreferredSize() != null) {
-			getFigure().setPreferredSize(getDraw2dDimension(modelElement.getPreferredSize()));
-		}
-		if (modelElement.getLocation() != null) {
-			getFigure().setLocation(getDraw2DPoint(modelElement.getLocation()));
-		}
 	}
 
 }

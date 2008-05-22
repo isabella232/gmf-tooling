@@ -17,7 +17,6 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
-import org.eclipse.gmf.runtime.notation.LayoutConstraint;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -42,12 +41,5 @@ public class Polyline3ViewFactory extends AbstractShapeViewFactory {
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected LayoutConstraint createLayoutConstraint() {
-		return null;
 	}
 }

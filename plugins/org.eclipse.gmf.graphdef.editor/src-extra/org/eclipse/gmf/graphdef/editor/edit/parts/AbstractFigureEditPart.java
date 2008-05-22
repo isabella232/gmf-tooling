@@ -11,8 +11,6 @@
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.draw2d.Graphics;
@@ -325,12 +323,10 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 		return new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(width), getMapMode().DPtoLP(height));
 	}
 
-	// TODO: Either use this method or remove it.
-	protected PointList getPointList(Collection template) {
+	protected PointList getPointList(List<Point> template) {
 		PointList result = new PointList();
-		for (Iterator it = template.iterator(); it.hasNext();) {
-			Point nextPoint = (Point) it.next();
-			result.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(nextPoint.getX()), getMapMode().DPtoLP(nextPoint.getY())));
+		for (Point point : template) {
+			result.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(point.getX()), getMapMode().DPtoLP(point.getY())));	
 		}
 		return result;
 	}

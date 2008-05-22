@@ -16,7 +16,7 @@
 
 «REM»Removing LayoutConstraints«ENDREM»
 «AROUND additions FOR gmfgen::GenNode-»
-	«IF hasSynchronizers(this)-»
+	«IF hasLayoutDataSynchronizers(this)-»
 		«EXPAND xpt::Common::generatedMemberComment»
 			protected org.eclipse.gmf.runtime.notation.LayoutConstraint createLayoutConstraint() {
 				return null;
