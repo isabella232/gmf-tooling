@@ -59,6 +59,16 @@
 		
 			«EXPAND refreshBounds-»
 		«ENDIF-»
+		«IF isPolyline(this)-»
+			«IF hasLayoutDataSynchronizers(this)-»
+		
+				«EXPAND refreshMainFigureBounds-»
+				
+				«EXPAND getPrimaryDragEditPolicy-»
+			«ENDIF-»
+		
+			«EXPAND DefaultSizeNodeFigureExt-»
+		«ENDIF-»
 	«ENDIF-»
 	«targetDef.proceed()»
 «ENDAROUND»
@@ -192,6 +202,55 @@
 	«ELSE-»
 		new org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter(«EXPAND accessor FOR selector», «EXPAND changeTrackerVarName FOR synchronizer», «EXPAND attachContextListener(synchronizer) FOREACH children SEPARATOR ", "»)
 	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE refreshMainFigureBounds FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void refreshMainFigureBounds() {
+		DefaultSizeNodeFigureExt nodeFigure = (DefaultSizeNodeFigureExt) getFigure();
+		nodeFigure.fireFigureMoved();
+		nodeFigure.revalidate();
+	}
+«ENDDEFINE»
+
+«DEFINE getPrimaryDragEditPolicy FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.gef.EditPolicy getPrimaryDragEditPolicy() {
+		return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx();
+	}
+«ENDDEFINE»
+
+«DEFINE DefaultSizeNodeFigureExt FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedClassComment»
+	class DefaultSizeNodeFigureExt extends org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure {
+	
+		«EXPAND xpt::Common::generatedMemberComment»
+		DefaultSizeNodeFigureExt(int width, int height) {
+			super(width, height);
+		}
+
+		«IF hasLayoutDataSynchronizers(this)-»
+			«EXPAND xpt::Common::generatedMemberComment»
+			public void setBounds(org.eclipse.draw2d.geometry.Rectangle rect) {
+				getPrimaryShape().setBounds(rect);
+			}
+			
+			«EXPAND xpt::Common::generatedMemberComment»
+			public org.eclipse.draw2d.geometry.Rectangle getBounds() {
+				return getPrimaryShape().getBounds();
+			}
+			
+			public void fireFigureMoved() {
+				super.fireFigureMoved();
+			}
+		«ELSE-»
+			«EXPAND xpt::Common::generatedMemberComment»
+			protected boolean useLocalCoordinates() {
+				return true;
+			}
+		«ENDIF-»
+		
+	}
 «ENDDEFINE»
 
 «REM»Temporary solution. Use MetaModel.xpt from formtk here.«ENDREM»

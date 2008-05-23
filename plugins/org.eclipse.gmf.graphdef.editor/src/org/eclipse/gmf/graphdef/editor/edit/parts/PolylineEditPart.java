@@ -17,6 +17,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Polyline;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.gef.EditPolicy;
@@ -29,6 +30,7 @@ import org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter;
 import org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker;
 import org.eclipse.gmf.graphdef.editor.sheet.FeatureTracker;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
@@ -97,12 +99,7 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0)) {
-
-			protected boolean useLocalCoordinates() {
-				return true;
-			}
-		};
+		DefaultSizeNodeFigureExt result = new DefaultSizeNodeFigureExt(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
 		result.setMinimumSize(new Dimension(0, 0));
 		return result;
 	}
@@ -200,7 +197,6 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 			refreshLayoutData();
 			getPrimaryShape().setOutline(modelElement.isOutline());
 			getPrimaryShape().setFill(modelElement.isFill());
-			getPrimaryShape().setLineWidth(modelElement.getLineWidth());
 			getPrimaryShape().setLineStyle(getLineStyle(modelElement.getLineKind()));
 			getPrimaryShape().setFillXOR(modelElement.isXorFill());
 			getPrimaryShape().setOutlineXOR(modelElement.isXorOutline());
@@ -210,6 +206,9 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 			getPrimaryShape().setForegroundColor(getColor(modelElement.getForegroundColor()));
 			refreshFont();
 			getPrimaryShape().setPoints(getPointList(modelElement.getTemplate()));
+			refreshMainFigureBounds();
+			getPrimaryShape().setLineWidth(modelElement.getLineWidth());
+			refreshMainFigureBounds();
 		}
 	}
 
@@ -271,14 +270,6 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 			}
 		};
 		myDomainElementAdapters.add(new FeatureTracker(fillTracker, GMFGraphPackage.eINSTANCE.getShape_Fill()));
-
-		ChangeTracker lineWidthTracker = new ChangeTracker() {
-
-			public void modelChanged(Notification msg) {
-				getPrimaryShape().setLineWidth(modelElement.getLineWidth());
-			}
-		};
-		myDomainElementAdapters.add(new FeatureTracker(lineWidthTracker, GMFGraphPackage.eINSTANCE.getShape_LineWidth()));
 
 		ChangeTracker lineStyleTracker = new ChangeTracker() {
 
@@ -357,10 +348,20 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 
 			public void modelChanged(Notification msg) {
 				getPrimaryShape().setPoints(getPointList(modelElement.getTemplate()));
+				refreshMainFigureBounds();
 			}
 		};
 		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getPolyline_Template(), pointsTracker, new FeatureTracker(pointsTracker, GMFGraphPackage.eINSTANCE.getPoint_X()),
 				new FeatureTracker(pointsTracker, GMFGraphPackage.eINSTANCE.getPoint_Y())));
+
+		ChangeTracker lineWidthTracker = new ChangeTracker() {
+
+			public void modelChanged(Notification msg) {
+				getPrimaryShape().setLineWidth(modelElement.getLineWidth());
+				refreshMainFigureBounds();
+			}
+		};
+		myDomainElementAdapters.add(new FeatureTracker(lineWidthTracker, GMFGraphPackage.eINSTANCE.getShape_LineWidth()));
 		modelElement.eAdapters().addAll(myDomainElementAdapters);
 		super.activate();
 	}
@@ -379,6 +380,54 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 		if (modelElement.getLocation() != null) {
 			getFigure().setLocation(getDraw2DPoint(modelElement.getLocation()));
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public void refreshMainFigureBounds() {
+		DefaultSizeNodeFigureExt nodeFigure = (DefaultSizeNodeFigureExt) getFigure();
+		nodeFigure.fireFigureMoved();
+		nodeFigure.revalidate();
+	}
+
+	/**
+	 * @generated
+	 */
+	public EditPolicy getPrimaryDragEditPolicy() {
+		return new NonResizableEditPolicyEx();
+	}
+
+	/**
+	 * @generated
+	 */
+	class DefaultSizeNodeFigureExt extends DefaultSizeNodeFigure {
+
+		/**
+		 * @generated
+		 */
+		DefaultSizeNodeFigureExt(int width, int height) {
+			super(width, height);
+		}
+
+		/**
+		 * @generated
+		 */
+		public void setBounds(Rectangle rect) {
+			getPrimaryShape().setBounds(rect);
+		}
+
+		/**
+		 * @generated
+		 */
+		public Rectangle getBounds() {
+			return getPrimaryShape().getBounds();
+		}
+
+		public void fireFigureMoved() {
+			super.fireFigureMoved();
+		}
+
 	}
 
 }

@@ -179,6 +179,9 @@ public class GMFGraphDomainModelElementTester extends PropertyTester {
 		if (eClass == GMFGraphPackage.eINSTANCE.getBorder()) {
 			return true;
 		}
+		if (eClass == GMFGraphPackage.eINSTANCE.getBorderRef()) {
+			return true;
+		}
 		if (eClass == GMFGraphPackage.eINSTANCE.getLineBorder()) {
 			return true;
 		}
@@ -207,6 +210,9 @@ public class GMFGraphDomainModelElementTester extends PropertyTester {
 			return true;
 		}
 		if (eClass == GMFGraphPackage.eINSTANCE.getLayout()) {
+			return true;
+		}
+		if (eClass == GMFGraphPackage.eINSTANCE.getLayoutRef()) {
 			return true;
 		}
 		if (eClass == GMFGraphPackage.eINSTANCE.getCustomLayout()) {

@@ -97,12 +97,7 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0)) {
-
-			protected boolean useLocalCoordinates() {
-				return true;
-			}
-		};
+		DefaultSizeNodeFigureExt result = new DefaultSizeNodeFigureExt(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
 		result.setMinimumSize(new Dimension(0, 0));
 		return result;
 	}
@@ -328,6 +323,27 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 				new FeatureTracker(pointsTracker, GMFGraphPackage.eINSTANCE.getPoint_Y())));
 		modelElement.eAdapters().addAll(myDomainElementAdapters);
 		super.activate();
+	}
+
+	/**
+	 * @generated
+	 */
+	class DefaultSizeNodeFigureExt extends DefaultSizeNodeFigure {
+
+		/**
+		 * @generated
+		 */
+		DefaultSizeNodeFigureExt(int width, int height) {
+			super(width, height);
+		}
+
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return true;
+		}
+
 	}
 
 }
