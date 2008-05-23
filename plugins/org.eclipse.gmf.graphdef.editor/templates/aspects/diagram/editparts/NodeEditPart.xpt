@@ -216,7 +216,9 @@
 «DEFINE getPrimaryDragEditPolicy FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.gef.EditPolicy getPrimaryDragEditPolicy() {
-		return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx();
+		org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx editPolicy = new org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx();
+		editPolicy.setDragAllowed(false);
+		return editPolicy;
 	}
 «ENDDEFINE»
 

@@ -395,7 +395,9 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	public EditPolicy getPrimaryDragEditPolicy() {
-		return new NonResizableEditPolicyEx();
+		NonResizableEditPolicyEx editPolicy = new NonResizableEditPolicyEx();
+		editPolicy.setDragAllowed(false);
+		return editPolicy;
 	}
 
 	/**

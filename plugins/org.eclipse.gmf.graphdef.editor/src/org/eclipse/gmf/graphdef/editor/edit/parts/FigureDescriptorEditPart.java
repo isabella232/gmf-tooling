@@ -269,7 +269,6 @@ public class FigureDescriptorEditPart extends ShapeNodeEditPart {
 			fFigureFigureDescriptorFigure_ChildContainer.setOutline(false);
 
 			this.add(fFigureFigureDescriptorFigure_ChildContainer, BorderLayout.CENTER);
-
 			fFigureFigureDescriptorFigure_ChildContainer.setLayoutManager(new StackLayout());
 
 		}

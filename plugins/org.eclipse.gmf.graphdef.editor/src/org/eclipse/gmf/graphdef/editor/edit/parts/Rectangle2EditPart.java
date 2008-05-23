@@ -186,7 +186,6 @@ public class Rectangle2EditPart extends AbstractFigureEditPart {
 		 * @generated
 		 */
 		public RectangleFigure() {
-
 			this.setLayoutManager(new XYLayout());
 		}
 

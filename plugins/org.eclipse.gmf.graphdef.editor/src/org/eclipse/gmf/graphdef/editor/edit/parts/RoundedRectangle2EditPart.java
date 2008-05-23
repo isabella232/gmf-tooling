@@ -184,7 +184,6 @@ public class RoundedRectangle2EditPart extends AbstractFigureEditPart {
 		 * @generated
 		 */
 		public RoundedRectangleFigure() {
-
 			this.setLayoutManager(new XYLayout());
 			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(8), getMapMode().DPtoLP(8)));
 		}

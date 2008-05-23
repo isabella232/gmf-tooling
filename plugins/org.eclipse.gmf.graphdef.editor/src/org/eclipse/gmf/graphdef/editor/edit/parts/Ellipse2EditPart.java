@@ -184,7 +184,6 @@ public class Ellipse2EditPart extends AbstractFigureEditPart {
 		 * @generated
 		 */
 		public EllipseFigure() {
-
 			this.setLayoutManager(new XYLayout());
 		}
 

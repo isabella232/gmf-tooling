@@ -271,7 +271,6 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 			fFigureFigureGalleryFigure_ChildContainer.setOutline(false);
 
 			this.add(fFigureFigureGalleryFigure_ChildContainer, BorderLayout.CENTER);
-
 			fFigureFigureGalleryFigure_ChildContainer.setLayoutManager(new StackLayout());
 
 		}
