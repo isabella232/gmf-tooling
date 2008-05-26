@@ -148,60 +148,6 @@ Contributors:
       </GlobalActionHandlerProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
-      <?gmfgen generated="true"?>
-      <contributionItemProvider
-            class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContributionItemProvider"
-            checkPluginLoaded="false">
-         <Priority name="Low"/>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortLocationEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart"/>
-            <popupAction path="/editGroup" id="deleteFromModelAction"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationMarkerEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteDescEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteRelbEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteDescEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteRelbEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipRouteEditPart"/>
-            <popupAction path="/editGroup" id="deleteFromModelAction"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortRegisterEditPart"/>
-            <popupAction path="/editGroup" id="deleteFromModelAction"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-      </contributionItemProvider>
-   </extension>
-
    <extension id="ValidationContributionItemProvider" name="Validation"
       point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
       <?gmfgen generated="true"?>
@@ -214,6 +160,18 @@ Contributors:
          </partContribution>
       </contributionItemProvider>
    </extension>
+
+   <extension id="MetricContributionItemProvider" name="Metrics"
+		point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+        <?gmfgen generated="true"?>
+		<contributionItemProvider checkPluginLoaded="true" class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMetricProvider">
+			<Priority name="Lowest"/>		
+			<partContribution id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
+				<partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
+				<partAction id="metricsAction" menubarPath="/diagramMenu/validationGroup"/>
+			</partContribution>		
+		</contributionItemProvider>
+	</extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
       <?gmfgen generated="true"?>
@@ -239,17 +197,7 @@ Contributors:
       </decoratorProvider>
    </extension>
 
-	<extension id="MetricContributionItemProvider" name="Metrics"
-		point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
-        <?gmfgen generated="true"?>
-		<contributionItemProvider checkPluginLoaded="true" class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMetricProvider">
-			<Priority name="Lowest"/>		
-			<partContribution id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
-				<partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
-				<partAction id="metricsAction" menubarPath="/diagramMenu/validationGroup"/>
-			</partContribution>		
-		</contributionItemProvider>
-	</extension>
+	
 
    <extension point="org.eclipse.ui.views">
       <?gmfgen generated="true"?>
