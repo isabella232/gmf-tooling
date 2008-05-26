@@ -478,6 +478,22 @@ public class CodegenEmitters {
 		return getPrimaryEmitter("xpt::editor::CreationWizardPage"); //$NON-NLS-1$
 	}
 
+	public TextEmitter getDeleteElementActionEmitter() {
+		return getPrimaryEmitter("xpt::editor::DeleteElementAction"); //$NON-NLS-1$
+	}
+
+	public String getDeleteElementActionName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::DeleteElementAction", input); //$NON-NLS-1$
+	}
+
+	public TextEmitter getDiagramEditorContextMenuProviderEmitter() {
+		return getPrimaryEmitter("xpt::editor::DiagramEditorContextMenuProvider"); //$NON-NLS-1$
+	}
+
+	public String getDiagramEditorContextMenuProviderName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::DiagramEditorContextMenuProvider", input); //$NON-NLS-1$
+	}
+
 	public TextEmitter getEditorEmitter() {
 		return getPrimaryEmitter("xpt::editor::Editor"); //$NON-NLS-1$
 	}

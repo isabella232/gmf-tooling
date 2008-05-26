@@ -202,6 +202,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateVisualIDRegistry();
 		generateCreationWizard();
 		generateCreationWizardPage();
+		generateDeleteElementAction();
+		generateDiagramEditorContextMenuProvider();
 		generateEditor();
 		generateDocumentProvider();
 		generateLoadResourceAction();
@@ -703,6 +705,14 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateCreationWizardPage() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getCreationWizardPageEmitter(), myDiagram.getCreationWizardPageQualifiedClassName(), myDiagram);
+	}
+
+	private void generateDeleteElementAction() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getDeleteElementActionEmitter(), myEmitters.getDeleteElementActionName(myDiagram), myDiagram);
+	}
+
+	private void generateDiagramEditorContextMenuProvider() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getDiagramEditorContextMenuProviderEmitter(), myEmitters.getDiagramEditorContextMenuProviderName(myDiagram), myDiagram);
 	}
 
 	private void generateEditor() throws InterruptedException {

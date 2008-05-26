@@ -107,95 +107,16 @@
       </GlobalActionHandlerProvider>
    </extension>
 
+«IF printingEnabled-»
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
       «EXPAND xpt::Common::xmlGeneratedTag»
-«IF printingEnabled-»
       <contributionItemProvider class="«editorGen.diagram.getContributionItemProviderQualifiedClassName()»">
-         <Priority name="Low">
-         </Priority>
+         <Priority name="Low"/>
          <partContribution id="«editorGen.editor.iD»">
-            <partAction menubarPath="/file/print" id="printPreviewAction">
-            </partAction>
+            <partAction menubarPath="/file/print" id="printPreviewAction"/>
          </partContribution>
       </contributionItemProvider>
-«ENDIF-»
-      <contributionItemProvider
-            class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContributionItemProvider"
-            checkPluginLoaded="false">
-         <Priority name="Low"/>
-«FOREACH getElements(editorGen.diagram) AS e-»
-«EXPAND removeContributions FOR e-»
-«EXPAND removeLabelContributions FOR e-»
-«ENDFOREACH-»
-      </contributionItemProvider>
    </extension>
-«ENDDEFINE»
-
-«DEFINE removeLabelContributions FOR gmfgen::GenCommonBase»«ENDDEFINE»
-
-«DEFINE removeLabelContributions FOR gmfgen::GenNode-»
-«FOREACH labels AS label-»
-«EXPAND removeContributions FOR label-»
-«ENDFOREACH-»
-«ENDDEFINE»
-
-«DEFINE removeLabelContributions FOR gmfgen::GenLink-»
-«FOREACH labels AS label-»
-«EXPAND removeContributions FOR label-»
-«ENDFOREACH-»
-«ENDDEFINE»
-
-«DEFINE removeContributions FOR gmfgen::GenCommonBase»«ENDDEFINE»
-
-«DEFINE removeContributions FOR gmfgen::GenNode-»
-«EXPAND removeDeleteFromDiagramContribution(this) FOR modelFacet-»
-«ENDDEFINE»
-
-«DEFINE removeContributions FOR gmfgen::GenLink-»
-«EXPAND removeAllDeleteContributions(this) FOR modelFacet-»
-«EXPAND removeDeleteFromDiagramContribution(this) FOR modelFacet-»
-«ENDDEFINE»
-
-«DEFINE removeContributions FOR gmfgen::GenNodeLabel-»
-«EXPAND removeDeleteFromDiagramContribution(this) FOR node.modelFacet-»
-«ENDDEFINE»
-
-«DEFINE removeContributions FOR gmfgen::GenExternalNodeLabel-»
-«EXPAND removeAllDeleteContributions-»
-«ENDDEFINE»
-
-«DEFINE removeContributions FOR gmfgen::GenLinkLabel-»
-«EXPAND removeAllDeleteContributions-»
-«ENDDEFINE»
-
-«DEFINE removeAllDeleteContributions FOR gmfgen::GenCommonBase-»
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="«getEditPartQualifiedClassName()»"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
-         </popupContribution>
-«ENDDEFINE»
-
-«DEFINE removeAllDeleteContributions(gmfgen::GenCommonBase element) FOR gmfgen::ModelFacet»«ENDDEFINE»
-
-«DEFINE removeAllDeleteContributions(gmfgen::GenCommonBase element) FOR gmfgen::FeatureLinkModelFacet-»
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="«element.getEditPartQualifiedClassName()»"/>
-            <popupAction path="/editGroup" id="deleteFromModelAction"/>
-«IF element.getDiagram().synchronized-»
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-«ENDIF-»
-         </popupContribution>
-«ENDDEFINE»
-
-«DEFINE removeDeleteFromDiagramContribution(gmfgen::GenCommonBase element) FOR gmfgen::ModelFacet»«ENDDEFINE»
-
-«DEFINE removeDeleteFromDiagramContribution(gmfgen::GenCommonBase element) FOR gmfgen::TypeModelFacet-»
-«IF !element.getDiagram().synchronized-»
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="«element.getEditPartQualifiedClassName()»"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
 «ENDIF-»
 «ENDDEFINE»
 
