@@ -607,11 +607,9 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 	}
 
 	/**
-	 * @generated
+	 * @generated NOT
 	 */
 	public static Double calcShipLoad(Ship target) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException("No user java implementation provided");//$NON-NLS-1$
+		return new Double(target.getCargo().size());
 	}
 }
