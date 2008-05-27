@@ -496,6 +496,16 @@
          </metamodelType>
       </metamodel>
       <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
+         <metamodelType
+               id="org.eclipse.gmf.graphdef.editor.Point_3022"
+               name="%metatype.name.Point_3022"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Point"
+               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.PointEditHelper">
+            <param name="semanticHint" value="3022"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <specializationType
                id="org.eclipse.gmf.graphdef.editor.Ellipse_3015"
                name="%metatype.name.Ellipse_3015"
@@ -627,6 +637,7 @@
          <elementType ref="org.eclipse.gmf.graphdef.editor.Ellipse_3012"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3013"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.Polyline_3014"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Point_3022"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.Ellipse_3015"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3016"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.Polyline_3017"/>

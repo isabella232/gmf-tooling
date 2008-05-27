@@ -21,13 +21,13 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.graphdef.editor.edit.policies.Rectangle3CanonicalEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.Rectangle3ItemSemanticEditPolicy;
-import org.eclipse.gmf.graphdef.editor.edit.polocies.DomainBasedXYLayoutEditPolicy;
+import org.eclipse.gmf.graphdef.editor.edit.polocies.FigureContainerXYLayoutEditPolicy;
 import org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter;
 import org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker;
 import org.eclipse.gmf.graphdef.editor.sheet.FeatureTracker;
@@ -84,7 +84,7 @@ public class Rectangle3EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		return new DomainBasedXYLayoutEditPolicy(getMapMode());
+		return new FigureContainerXYLayoutEditPolicy(getMapMode());
 	}
 
 	/**
@@ -215,10 +215,14 @@ public class Rectangle3EditPart extends AbstractFigureEditPart {
 	/**
 	 * @generated
 	 */
-	private org.eclipse.gmf.gmfgraph.Rectangle getModelFigureElement() {
-		Shape shape = getShape();
-		if (shape instanceof org.eclipse.gmf.gmfgraph.Rectangle) {
-			org.eclipse.gmf.gmfgraph.Rectangle modelFigureElement = (org.eclipse.gmf.gmfgraph.Rectangle) shape;
+	private org.eclipse.gmf.gmfgraph.Rectangle getGmfgraphElement() {
+		View view = getNotationView();
+		if (view == null) {
+			return null;
+		}
+		EObject element = view.getElement();
+		if (element instanceof org.eclipse.gmf.gmfgraph.Rectangle) {
+			org.eclipse.gmf.gmfgraph.Rectangle modelFigureElement = (org.eclipse.gmf.gmfgraph.Rectangle) element;
 			return modelFigureElement;
 		}
 		return null;
@@ -228,7 +232,7 @@ public class Rectangle3EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected void removeSemanticListeners() {
-		org.eclipse.gmf.gmfgraph.Rectangle modelElement = (org.eclipse.gmf.gmfgraph.Rectangle) getModelFigureElement();
+		org.eclipse.gmf.gmfgraph.Rectangle modelElement = getGmfgraphElement();
 		if (modelElement != null) {
 			modelElement.eAdapters().removeAll(myDomainElementAdapters);
 			myDomainElementAdapters.clear();
@@ -241,7 +245,7 @@ public class Rectangle3EditPart extends AbstractFigureEditPart {
 	 */
 	protected void setFigure(IFigure figure) {
 		super.setFigure(figure);
-		org.eclipse.gmf.gmfgraph.Rectangle modelElement = (org.eclipse.gmf.gmfgraph.Rectangle) getModelFigureElement();
+		org.eclipse.gmf.gmfgraph.Rectangle modelElement = getGmfgraphElement();
 		if (modelElement != null) {
 			getPrimaryShape().setOutline(modelElement.isOutline());
 			getPrimaryShape().setFill(modelElement.isFill());
@@ -264,7 +268,7 @@ public class Rectangle3EditPart extends AbstractFigureEditPart {
 		if (isActive()) {
 			return;
 		}
-		final org.eclipse.gmf.gmfgraph.Rectangle modelElement = (org.eclipse.gmf.gmfgraph.Rectangle) getModelFigureElement();
+		final org.eclipse.gmf.gmfgraph.Rectangle modelElement = getGmfgraphElement();
 		if (modelElement == null) {
 			super.activate();
 			return;

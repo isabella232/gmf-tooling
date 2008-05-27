@@ -86,6 +86,9 @@ public class GMFGraphEditPartFactory implements EditPartFactory {
 			case PolylineEditPart.VISUAL_ID:
 				return new PolylineEditPart(view);
 
+			case PointEditPart.VISUAL_ID:
+				return new PointEditPart(view);
+
 			case Ellipse2EditPart.VISUAL_ID:
 				return new Ellipse2EditPart(view);
 

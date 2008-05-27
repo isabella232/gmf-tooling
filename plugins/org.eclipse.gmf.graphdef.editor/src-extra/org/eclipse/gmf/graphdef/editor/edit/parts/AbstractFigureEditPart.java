@@ -229,6 +229,8 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 		Object layoutConstraint = null;
 		if (childEditPart instanceof AbstractFigureEditPart) {
 			layoutConstraint = ((AbstractFigureEditPart) childEditPart).getLayoutConstraint();
+		} else if (childEditPart instanceof AbstractPointEditPart) {
+			layoutConstraint = ((AbstractPointEditPart) childEditPart).getLayoutConstraint();
 		}
 		LayoutManager layoutManager = getContentPane().getLayoutManager();
 		if (layoutManager instanceof org.eclipse.draw2d.BorderLayout) {

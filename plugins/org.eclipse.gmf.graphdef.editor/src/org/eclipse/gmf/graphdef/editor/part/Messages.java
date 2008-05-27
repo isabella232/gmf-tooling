@@ -393,6 +393,16 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String PolylinePoint7CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String PolylinePoint7CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
 	public static String CompartmentVisualFacetsEditPart_title;
 
 	/**

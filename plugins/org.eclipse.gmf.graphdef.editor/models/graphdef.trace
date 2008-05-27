@@ -85,6 +85,9 @@
   <childNodeTraces
       visualID="3021"
       queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Polyline') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'FigureGallery') and _containmentMF_.name = 'figures')"/>
+  <childNodeTraces
+      visualID="3022"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Point') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'Polyline') and _containmentMF_.name = 'template')"/>
   <linkTraces
       visualID="4002"
       queryText="modelFacet.oclIsKindOf(gmfgen::TypeLinkModelFacet) and (let _eClass_:ecore::EClass = modelFacet.oclAsType(gmfgen::TypeLinkModelFacet).metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/gmf/2006/GraphicalDefinition' and _eClass_.name = 'ChildAccess')"/>

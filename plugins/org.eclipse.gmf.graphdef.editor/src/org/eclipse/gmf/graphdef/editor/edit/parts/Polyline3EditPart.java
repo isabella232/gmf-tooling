@@ -15,20 +15,26 @@ import java.util.Collection;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Polyline;
+import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.gmfgraph.Shape;
+import org.eclipse.gmf.graphdef.editor.edit.policies.Polyline3CanonicalEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.Polyline3ItemSemanticEditPolicy;
-import org.eclipse.gmf.graphdef.editor.edit.polocies.DomainBasedXYLayoutEditPolicy;
+import org.eclipse.gmf.graphdef.editor.edit.polocies.PointContainerXYLayoutEditPolicy;
 import org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter;
 import org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker;
 import org.eclipse.gmf.graphdef.editor.sheet.FeatureTracker;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
@@ -65,8 +71,11 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new Polyline3ItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new Polyline3CanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
@@ -76,7 +85,7 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		return new DomainBasedXYLayoutEditPolicy(getMapMode());
+		return new PointContainerXYLayoutEditPolicy(getMapMode());
 	}
 
 	/**
@@ -115,7 +124,12 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
 		figure.add(shape);
-		contentPane = setupContentPane(shape);
+		RectangleFigure childContainer = new RectangleFigure();
+		childContainer.setFill(false);
+		childContainer.setOutline(false);
+		figure.add(childContainer);
+		childContainer.setLayoutManager(new XYLayout());
+		contentPane = childContainer;
 		return figure;
 	}
 
@@ -126,6 +140,11 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
+		if (nodeShape.getLayoutManager() == null) {
+			ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
+			layout.setSpacing(getMapMode().DPtoLP(5));
+			nodeShape.setLayoutManager(layout);
+		}
 		return nodeShape; // use nodeShape itself as contentPane
 	}
 
@@ -160,10 +179,14 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 	/**
 	 * @generated
 	 */
-	private org.eclipse.gmf.gmfgraph.Polyline getModelFigureElement() {
-		Shape shape = getShape();
-		if (shape instanceof org.eclipse.gmf.gmfgraph.Polyline) {
-			org.eclipse.gmf.gmfgraph.Polyline modelFigureElement = (org.eclipse.gmf.gmfgraph.Polyline) shape;
+	private org.eclipse.gmf.gmfgraph.Polyline getGmfgraphElement() {
+		View view = getNotationView();
+		if (view == null) {
+			return null;
+		}
+		EObject element = view.getElement();
+		if (element instanceof org.eclipse.gmf.gmfgraph.Polyline) {
+			org.eclipse.gmf.gmfgraph.Polyline modelFigureElement = (org.eclipse.gmf.gmfgraph.Polyline) element;
 			return modelFigureElement;
 		}
 		return null;
@@ -173,7 +196,7 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected void removeSemanticListeners() {
-		org.eclipse.gmf.gmfgraph.Polyline modelElement = (org.eclipse.gmf.gmfgraph.Polyline) getModelFigureElement();
+		org.eclipse.gmf.gmfgraph.Polyline modelElement = getGmfgraphElement();
 		if (modelElement != null) {
 			modelElement.eAdapters().removeAll(myDomainElementAdapters);
 			myDomainElementAdapters.clear();
@@ -186,7 +209,7 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 	 */
 	protected void setFigure(IFigure figure) {
 		super.setFigure(figure);
-		org.eclipse.gmf.gmfgraph.Polyline modelElement = (org.eclipse.gmf.gmfgraph.Polyline) getModelFigureElement();
+		org.eclipse.gmf.gmfgraph.Polyline modelElement = getGmfgraphElement();
 		if (modelElement != null) {
 			getPrimaryShape().setOutline(modelElement.isOutline());
 			getPrimaryShape().setFill(modelElement.isFill());
@@ -210,7 +233,7 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 		if (isActive()) {
 			return;
 		}
-		final org.eclipse.gmf.gmfgraph.Polyline modelElement = (org.eclipse.gmf.gmfgraph.Polyline) getModelFigureElement();
+		final org.eclipse.gmf.gmfgraph.Polyline modelElement = getGmfgraphElement();
 		if (modelElement == null) {
 			super.activate();
 			return;

@@ -14,6 +14,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Ellipse;
+import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
@@ -36,6 +37,7 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeContentPaneEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeNameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PointEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
@@ -145,6 +147,8 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?RoundedRectangle", GMFGraphElementTypes.RoundedRectangle_3013); //$NON-NLS-1$
 		case PolylineEditPart.VISUAL_ID:
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polyline", GMFGraphElementTypes.Polyline_3014); //$NON-NLS-1$
+		case PointEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Point", GMFGraphElementTypes.Point_3022); //$NON-NLS-1$
 		case Ellipse2EditPart.VISUAL_ID:
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Ellipse", GMFGraphElementTypes.Ellipse_3015); //$NON-NLS-1$
 		case RoundedRectangle2EditPart.VISUAL_ID:
@@ -249,6 +253,8 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getRoundedRectangle_3013Text(view);
 		case PolylineEditPart.VISUAL_ID:
 			return getPolyline_3014Text(view);
+		case PointEditPart.VISUAL_ID:
+			return getPoint_3022Text(view);
 		case Ellipse2EditPart.VISUAL_ID:
 			return getEllipse_3015Text(view);
 		case RoundedRectangle2EditPart.VISUAL_ID:
@@ -423,6 +429,19 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return domainModelElement.getName();
 		} else {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3014); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getPoint_3022Text(View view) {
+		Point domainModelElement = (Point) view.getElement();
+		if (domainModelElement != null) {
+			return String.valueOf(domainModelElement.getX());
+		} else {
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3022); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
 	}

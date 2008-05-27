@@ -30,11 +30,15 @@
 
 «AROUND createLayoutEditPolicyBody FOR gmfgen::GenNode-»
 	«IF hasSynchronizers(this)-»
-		return new org.eclipse.gmf.graphdef.editor.edit.polocies.DomainBasedXYLayoutEditPolicy(getMapMode());
+		return new org.eclipse.gmf.graphdef.editor.edit.polocies.«EXPAND layoutEditPolicyClassName»(getMapMode());
 	«ELSE-»
 		«targetDef.proceed()»
 	«ENDIF-»
 «ENDAROUND»
+
+«DEFINE layoutEditPolicyClassName FOR gmfgen::GenNode-»
+«IF isPolyline(this)»PointContainerXYLayoutEditPolicy«ELSE»FigureContainerXYLayoutEditPolicy«ENDIF-»
+«ENDDEFINE»
 
 «AROUND createNodePlate FOR gmfgen::GenNode-»
 	«IF isPolyline(this)-»
@@ -44,6 +48,51 @@
 			«EXPAND impl::diagram::editparts::NodeEditPart::setupNodePlate-»
 			return result;
 		}
+	«ELSE-»
+		«targetDef.proceed()-»
+	«ENDIF-»
+«ENDAROUND»
+
+«AROUND createFigure FOR gmfgen::GenNode-»
+	«IF isPolyline(this)-»
+		«EXPAND customCreateFigure-»
+	«ELSE-»
+		«targetDef.proceed()-»
+	«ENDIF»
+«ENDAROUND»
+
+«DEFINE customCreateFigure FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment(
+		"Creates figure for this edit part.\n" +
+		"\n" +
+		"Body of this method does not depend on settings in generation model\n" +
+		"so you may safely remove <i>generated</i> tag and modify it.\n"
+	)»
+	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure create«IF hasBorderItems()»Main«ELSE»Node«ENDIF»Figure() {
+		org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure figure = createNodePlate();
+		figure.setLayoutManager(new org.eclipse.draw2d.StackLayout());
+		org.eclipse.draw2d.IFigure shape = createNodeShape();
+		figure.add(shape);
+		org.eclipse.draw2d.RectangleFigure childContainer = new org.eclipse.draw2d.RectangleFigure();
+		childContainer.setFill(false);
+		childContainer.setOutline(false);
+		figure.add(childContainer);
+		childContainer.setLayoutManager(new org.eclipse.draw2d.XYLayout());
+		contentPane = childContainer;
+		return figure;
+	}
+«ENDDEFINE»
+
+«AROUND getPrimaryDragEditPolicy FOR gmfgen::GenNode-»
+	«IF (isPolyline(this) && hasLayoutDataSynchronizers(this)) || isPolylinePoint(this)-»
+		«EXPAND xpt::Common::generatedMemberComment»
+		public org.eclipse.gef.EditPolicy getPrimaryDragEditPolicy() {
+			org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx editPolicy = new org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx();
+			«IF isPolyline(this)-»
+				editPolicy.setDragAllowed(false);
+			«ENDIF-»
+			return editPolicy;
+		}	
 	«ELSE-»
 		«targetDef.proceed()-»
 	«ENDIF-»

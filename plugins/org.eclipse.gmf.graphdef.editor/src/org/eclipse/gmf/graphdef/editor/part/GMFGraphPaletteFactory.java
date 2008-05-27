@@ -64,6 +64,7 @@ public class GMFGraphPaletteFactory {
 		paletteContainer.add(createEllipse4CreationTool());
 		paletteContainer.add(createRoundedRectangle5CreationTool());
 		paletteContainer.add(createPolyline6CreationTool());
+		paletteContainer.add(createPolylinePoint7CreationTool());
 		return paletteContainer;
 	}
 
@@ -217,6 +218,18 @@ public class GMFGraphPaletteFactory {
 		types.add(GMFGraphElementTypes.Polyline_3021);
 		NodeToolEntry entry = new NodeToolEntry(Messages.Polyline6CreationTool_title, Messages.Polyline6CreationTool_desc, types);
 		entry.setSmallIcon(GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Polyline_3014));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createPolylinePoint7CreationTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(GMFGraphElementTypes.Point_3022);
+		NodeToolEntry entry = new NodeToolEntry(Messages.PolylinePoint7CreationTool_title, Messages.PolylinePoint7CreationTool_desc, types);
+		entry.setSmallIcon(GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Point_3022));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}

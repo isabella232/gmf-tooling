@@ -24,6 +24,10 @@ boolean isPolyline(gmfgen::GenNode genNode) :
 	"Polyline" == genNode.getDomainMetaClass().ecoreClass.name
 ;
 
+boolean isPolylinePoint(gmfgen::GenNode genNode) :
+	"Point" == genNode.getDomainMetaClass().ecoreClass.name
+;
+
 boolean hasLayoutDataSynchronizers(gmfgen::GenNode genNode) :
 !getSynchronizers(genNode).contexts.typeSelect(context::FeatureContext).select(fc | "layoutData" == fc.selector.name).isEmpty()
 ;

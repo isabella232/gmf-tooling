@@ -34,6 +34,7 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeVisualFacetsEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PointEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
@@ -215,6 +216,11 @@ public class GMFGraphVisualIDRegistry {
 				return PolylineEditPart.VISUAL_ID;
 			}
 			break;
+		case PolylineEditPart.VISUAL_ID:
+			if (GMFGraphPackage.eINSTANCE.getPoint().isSuperTypeOf(domainElement.eClass())) {
+				return PointEditPart.VISUAL_ID;
+			}
+			break;
 		case Ellipse2EditPart.VISUAL_ID:
 			if (GMFGraphPackage.eINSTANCE.getRectangle().isSuperTypeOf(domainElement.eClass())) {
 				return Rectangle2EditPart.VISUAL_ID;
@@ -241,6 +247,11 @@ public class GMFGraphVisualIDRegistry {
 			}
 			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass())) {
 				return PolylineEditPart.VISUAL_ID;
+			}
+			break;
+		case Polyline2EditPart.VISUAL_ID:
+			if (GMFGraphPackage.eINSTANCE.getPoint().isSuperTypeOf(domainElement.eClass())) {
+				return PointEditPart.VISUAL_ID;
 			}
 			break;
 		case Rectangle3EditPart.VISUAL_ID:
@@ -283,6 +294,11 @@ public class GMFGraphVisualIDRegistry {
 			}
 			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass())) {
 				return PolylineEditPart.VISUAL_ID;
+			}
+			break;
+		case Polyline3EditPart.VISUAL_ID:
+			if (GMFGraphPackage.eINSTANCE.getPoint().isSuperTypeOf(domainElement.eClass())) {
+				return PointEditPart.VISUAL_ID;
 			}
 			break;
 		case FigureGalleryFiguresEditPart.VISUAL_ID:
@@ -444,6 +460,11 @@ public class GMFGraphVisualIDRegistry {
 				return true;
 			}
 			break;
+		case PolylineEditPart.VISUAL_ID:
+			if (PointEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
 		case Ellipse2EditPart.VISUAL_ID:
 			if (Rectangle2EditPart.VISUAL_ID == nodeVisualID) {
 				return true;
@@ -469,6 +490,11 @@ public class GMFGraphVisualIDRegistry {
 				return true;
 			}
 			if (PolylineEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
+		case Polyline2EditPart.VISUAL_ID:
+			if (PointEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
@@ -511,6 +537,11 @@ public class GMFGraphVisualIDRegistry {
 				return true;
 			}
 			if (PolylineEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
+		case Polyline3EditPart.VISUAL_ID:
+			if (PointEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;

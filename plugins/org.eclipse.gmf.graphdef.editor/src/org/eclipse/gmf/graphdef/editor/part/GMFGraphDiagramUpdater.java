@@ -31,6 +31,7 @@ import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.Rectangle;
@@ -50,6 +51,7 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeContentPaneEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PointEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
@@ -89,16 +91,22 @@ public class GMFGraphDiagramUpdater {
 			return getEllipse_3012SemanticChildren(view);
 		case RoundedRectangleEditPart.VISUAL_ID:
 			return getRoundedRectangle_3013SemanticChildren(view);
+		case PolylineEditPart.VISUAL_ID:
+			return getPolyline_3014SemanticChildren(view);
 		case Ellipse2EditPart.VISUAL_ID:
 			return getEllipse_3015SemanticChildren(view);
 		case RoundedRectangle2EditPart.VISUAL_ID:
 			return getRoundedRectangle_3016SemanticChildren(view);
+		case Polyline2EditPart.VISUAL_ID:
+			return getPolyline_3017SemanticChildren(view);
 		case Rectangle3EditPart.VISUAL_ID:
 			return getRectangle_3018SemanticChildren(view);
 		case Ellipse3EditPart.VISUAL_ID:
 			return getEllipse_3019SemanticChildren(view);
 		case RoundedRectangle3EditPart.VISUAL_ID:
 			return getRoundedRectangle_3020SemanticChildren(view);
+		case Polyline3EditPart.VISUAL_ID:
+			return getPolyline_3021SemanticChildren(view);
 		case FigureGalleryFiguresEditPart.VISUAL_ID:
 			return getFigureGalleryFigures_7008SemanticChildren(view);
 		case CanvasEditPart.VISUAL_ID:
@@ -266,6 +274,26 @@ public class GMFGraphDiagramUpdater {
 	/**
 	 * @generated
 	 */
+	public static List getPolyline_3014SemanticChildren(View view) {
+		if (!view.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		Polyline modelElement = (Polyline) view.getElement();
+		List result = new LinkedList();
+		for (Iterator it = modelElement.getTemplate().iterator(); it.hasNext();) {
+			Point childElement = (Point) it.next();
+			int visualID = GMFGraphVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == PointEditPart.VISUAL_ID) {
+				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
+				continue;
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
 	public static List getEllipse_3015SemanticChildren(View view) {
 		if (!view.isSetElement()) {
 			return Collections.EMPTY_LIST;
@@ -320,6 +348,26 @@ public class GMFGraphDiagramUpdater {
 				continue;
 			}
 			if (visualID == PolylineEditPart.VISUAL_ID) {
+				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
+				continue;
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getPolyline_3017SemanticChildren(View view) {
+		if (!view.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		Polyline modelElement = (Polyline) view.getElement();
+		List result = new LinkedList();
+		for (Iterator it = modelElement.getTemplate().iterator(); it.hasNext();) {
+			Point childElement = (Point) it.next();
+			int visualID = GMFGraphVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == PointEditPart.VISUAL_ID) {
 				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
 				continue;
 			}
@@ -416,6 +464,26 @@ public class GMFGraphDiagramUpdater {
 				continue;
 			}
 			if (visualID == PolylineEditPart.VISUAL_ID) {
+				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
+				continue;
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getPolyline_3021SemanticChildren(View view) {
+		if (!view.isSetElement()) {
+			return Collections.EMPTY_LIST;
+		}
+		Polyline modelElement = (Polyline) view.getElement();
+		List result = new LinkedList();
+		for (Iterator it = modelElement.getTemplate().iterator(); it.hasNext();) {
+			Point childElement = (Point) it.next();
+			int visualID = GMFGraphVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == PointEditPart.VISUAL_ID) {
 				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
 				continue;
 			}
@@ -538,6 +606,8 @@ public class GMFGraphDiagramUpdater {
 			return getRoundedRectangle_3013ContainedLinks(view);
 		case PolylineEditPart.VISUAL_ID:
 			return getPolyline_3014ContainedLinks(view);
+		case PointEditPart.VISUAL_ID:
+			return getPoint_3022ContainedLinks(view);
 		case Ellipse2EditPart.VISUAL_ID:
 			return getEllipse_3015ContainedLinks(view);
 		case RoundedRectangle2EditPart.VISUAL_ID:
@@ -583,6 +653,8 @@ public class GMFGraphDiagramUpdater {
 			return getRoundedRectangle_3013IncomingLinks(view);
 		case PolylineEditPart.VISUAL_ID:
 			return getPolyline_3014IncomingLinks(view);
+		case PointEditPart.VISUAL_ID:
+			return getPoint_3022IncomingLinks(view);
 		case Ellipse2EditPart.VISUAL_ID:
 			return getEllipse_3015IncomingLinks(view);
 		case RoundedRectangle2EditPart.VISUAL_ID:
@@ -628,6 +700,8 @@ public class GMFGraphDiagramUpdater {
 			return getRoundedRectangle_3013OutgoingLinks(view);
 		case PolylineEditPart.VISUAL_ID:
 			return getPolyline_3014OutgoingLinks(view);
+		case PointEditPart.VISUAL_ID:
+			return getPoint_3022OutgoingLinks(view);
 		case Ellipse2EditPart.VISUAL_ID:
 			return getEllipse_3015OutgoingLinks(view);
 		case RoundedRectangle2EditPart.VISUAL_ID:
@@ -736,6 +810,13 @@ public class GMFGraphDiagramUpdater {
 	 * @generated
 	 */
 	public static List getPolyline_3014ContainedLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getPoint_3022ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
@@ -887,6 +968,13 @@ public class GMFGraphDiagramUpdater {
 		List result = new LinkedList();
 		result.addAll(getIncomingTypeModelFacetLinks_ChildAccess_4002(modelElement, crossReferences));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getPoint_3022IncomingLinks(View view) {
+		return Collections.EMPTY_LIST;
 	}
 
 	/**
@@ -1060,6 +1148,13 @@ public class GMFGraphDiagramUpdater {
 	 * @generated
 	 */
 	public static List getPolyline_3014OutgoingLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getPoint_3022OutgoingLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 

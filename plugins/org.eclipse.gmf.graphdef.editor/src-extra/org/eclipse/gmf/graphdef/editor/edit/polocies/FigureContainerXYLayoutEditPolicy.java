@@ -12,21 +12,15 @@
 package org.eclipse.gmf.graphdef.editor.edit.polocies;
 
 import java.util.Collections;
-import java.util.Iterator;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
-import org.eclipse.gef.EditPart;
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
@@ -41,68 +35,30 @@ import org.eclipse.gmf.gmfgraph.StackLayout;
 import org.eclipse.gmf.gmfgraph.XYLayout;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
-import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.figures.LayoutHelper;
-import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramUIMessages;
-import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest;
+import org.eclipse.gmf.runtime.common.core.command.ICommand;
+import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor;
 import org.eclipse.gmf.runtime.draw2d.ui.mapmode.IMapMode;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
-import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
 import org.eclipse.gmf.runtime.notation.View;
 
-public class DomainBasedXYLayoutEditPolicy extends XYLayoutEditPolicy {
+public class FigureContainerXYLayoutEditPolicy extends AbstractDomainBasedXYLayoutEditPolicy {
 
-	// @Override
-	// protected EditPolicy createChildEditPolicy(EditPart child) {
-	// EditPolicy result = super.createChildEditPolicy(child);
-	// if (result == null) {
-	// return new ResizableShapeEditPolicy();
-	// }
-	// return result;
-	// }
-
-	private IMapMode myMapMode;
-
-	public DomainBasedXYLayoutEditPolicy(IMapMode mapMode) {
-		myMapMode = mapMode;
+	public FigureContainerXYLayoutEditPolicy(IMapMode mapMode) {
+		super(mapMode);
 	}
 
 	@Override
-	protected Point getLayoutOrigin() {
-		return ((GraphicalEditPart) getHost()).getContentPane().getClientArea().getLocation();
-	}
-
-	@Override
-	protected Rectangle getCurrentConstraintFor(org.eclipse.gef.GraphicalEditPart child) {
-		IFigure fig = child.getFigure();
-		Object constraint = fig.getParent().getLayoutManager().getConstraint(fig);
-		if (constraint instanceof Rectangle) {
-			return (Rectangle) constraint;
-		}
-		return fig.getBounds().getCopy();
-	}
-
-	@Override
-	protected Command createAddCommand(EditPart child, Object constraint) {
-		if (child instanceof IGraphicalEditPart && constraint instanceof Rectangle) {
-			return createSetBoundsCommand((Rectangle) constraint, (IGraphicalEditPart) child);
-		}
-		return null;
-	}
-
-	private Command createSetBoundsCommand(final Rectangle bounds, IGraphicalEditPart editPart) {
-		View view = editPart.getNotationView();
-		EObject element = view.getElement();
+	protected ICommand createSetBoundsCommand(TransactionalEditingDomain editingDomain, String label, Resource resource, Rectangle bounds, EObject element) {
 		if (element instanceof Figure) {
-			final Figure figure = (Figure) element;
-			AbstractTransactionalCommand command = new SetBoundsCommand(editPart.getEditingDomain(), DiagramUIMessages.SetLocationCommand_Label_Resize, view.eResource(), bounds, figure,
-					getMainFigureLayout());
-			return new ICommandProxy(command);
+			Figure figure = (Figure) element;
+			return new SetBoundsCommand(editingDomain, label, resource, bounds, figure, getMainFigureLayout());
 		}
 		return null;
+	}
+
+	@Override
+	protected ICommand createSetBoundsCommand(TransactionalEditingDomain editingDomain, String label, Resource resource, ViewDescriptor viewDescriptor, Rectangle rect) {
+		return new SetBoundsCommand(editingDomain, label, resource, viewDescriptor, rect, getMainFigureLayout());
 	}
 
 	private Layout getMainFigureLayout() {
@@ -111,46 +67,6 @@ public class DomainBasedXYLayoutEditPolicy extends XYLayoutEditPolicy {
 			if (domainModelElement instanceof Layoutable) {
 				return ((Layoutable) domainModelElement).getLayout();
 			}
-		}
-		return null;
-	}
-
-	@Override
-	protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
-		if (child instanceof IGraphicalEditPart && constraint instanceof Rectangle) {
-			return createSetBoundsCommand((Rectangle) constraint, (IGraphicalEditPart) child);
-		}
-		return new Command() {
-		};
-	}
-
-	/**
-	 * This method will be called as a part of CanonicalUpdate, so we should not
-	 * reset size/location for such elements. Skipping LayoutHelper.UNDEFINED
-	 * location passed inside CreateRequest to handle this situation correctly.
-	 */
-	@Override
-	protected Command getCreateCommand(CreateRequest request) {
-		if (request instanceof CreateViewRequest && getHost() instanceof IGraphicalEditPart && !LayoutHelper.UNDEFINED.getLocation().equals(request.getLocation())) {
-			CreateViewRequest req = (CreateViewRequest) request;
-			IGraphicalEditPart host = (IGraphicalEditPart) getHost();
-
-			TransactionalEditingDomain editingDomain = host.getEditingDomain();
-			CompositeTransactionalCommand cc = new CompositeTransactionalCommand(editingDomain, DiagramUIMessages.AddCommand_Label);
-
-			Iterator iter = req.getViewDescriptors().iterator();
-			final Rectangle BOUNDS = (Rectangle) getConstraintFor(request);
-			while (iter.hasNext()) {
-				CreateViewRequest.ViewDescriptor viewDescriptor = (CreateViewRequest.ViewDescriptor) iter.next();
-				Rectangle rect = getBoundsOffest(req, BOUNDS, viewDescriptor);
-				cc.compose(new SetBoundsCommand(editingDomain, DiagramUIMessages.SetLocationCommand_Label_Resize, host.getNotationView().eResource(), viewDescriptor, rect, getMainFigureLayout()));
-			}
-
-			if (cc.reduce() == null)
-				return null;
-
-			return chainGuideAttachmentCommands(request, new ICommandProxy(cc.reduce()));
-
 		}
 		return null;
 	}
@@ -189,10 +105,10 @@ public class DomainBasedXYLayoutEditPolicy extends XYLayoutEditPolicy {
 
 		@Override
 		protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-			int x = myMapMode.LPtoDP(myBounds.x);
-			int y = myMapMode.LPtoDP(myBounds.y);
-			int width = myMapMode.LPtoDP(myBounds.width);
-			int height = myMapMode.LPtoDP(myBounds.height);
+			int x = getMapMode().LPtoDP(myBounds.x);
+			int y = getMapMode().LPtoDP(myBounds.y);
+			int width = getMapMode().LPtoDP(myBounds.width);
+			int height = getMapMode().LPtoDP(myBounds.height);
 
 			if (myParentFigureLayout instanceof XYLayout) {
 				setXYLayoutBounds(x, y, width, height, getFigure());

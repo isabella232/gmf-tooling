@@ -22,13 +22,13 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.graphdef.editor.edit.policies.RoundedRectangleCanonicalEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.RoundedRectangleItemSemanticEditPolicy;
-import org.eclipse.gmf.graphdef.editor.edit.polocies.DomainBasedXYLayoutEditPolicy;
+import org.eclipse.gmf.graphdef.editor.edit.polocies.FigureContainerXYLayoutEditPolicy;
 import org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter;
 import org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker;
 import org.eclipse.gmf.graphdef.editor.sheet.FeatureTracker;
@@ -85,7 +85,7 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		return new DomainBasedXYLayoutEditPolicy(getMapMode());
+		return new FigureContainerXYLayoutEditPolicy(getMapMode());
 	}
 
 	/**
@@ -220,10 +220,14 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 	/**
 	 * @generated
 	 */
-	private org.eclipse.gmf.gmfgraph.RoundedRectangle getModelFigureElement() {
-		Shape shape = getShape();
-		if (shape instanceof org.eclipse.gmf.gmfgraph.RoundedRectangle) {
-			org.eclipse.gmf.gmfgraph.RoundedRectangle modelFigureElement = (org.eclipse.gmf.gmfgraph.RoundedRectangle) shape;
+	private org.eclipse.gmf.gmfgraph.RoundedRectangle getGmfgraphElement() {
+		View view = getNotationView();
+		if (view == null) {
+			return null;
+		}
+		EObject element = view.getElement();
+		if (element instanceof org.eclipse.gmf.gmfgraph.RoundedRectangle) {
+			org.eclipse.gmf.gmfgraph.RoundedRectangle modelFigureElement = (org.eclipse.gmf.gmfgraph.RoundedRectangle) element;
 			return modelFigureElement;
 		}
 		return null;
@@ -233,7 +237,7 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected void removeSemanticListeners() {
-		org.eclipse.gmf.gmfgraph.RoundedRectangle modelElement = (org.eclipse.gmf.gmfgraph.RoundedRectangle) getModelFigureElement();
+		org.eclipse.gmf.gmfgraph.RoundedRectangle modelElement = getGmfgraphElement();
 		if (modelElement != null) {
 			modelElement.eAdapters().removeAll(myDomainElementAdapters);
 			myDomainElementAdapters.clear();
@@ -246,7 +250,7 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 	 */
 	protected void setFigure(IFigure figure) {
 		super.setFigure(figure);
-		org.eclipse.gmf.gmfgraph.RoundedRectangle modelElement = (org.eclipse.gmf.gmfgraph.RoundedRectangle) getModelFigureElement();
+		org.eclipse.gmf.gmfgraph.RoundedRectangle modelElement = getGmfgraphElement();
 		if (modelElement != null) {
 			refreshBounds();
 			refreshLayoutData();
@@ -272,7 +276,7 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 		if (isActive()) {
 			return;
 		}
-		final org.eclipse.gmf.gmfgraph.RoundedRectangle modelElement = (org.eclipse.gmf.gmfgraph.RoundedRectangle) getModelFigureElement();
+		final org.eclipse.gmf.gmfgraph.RoundedRectangle modelElement = getGmfgraphElement();
 		if (modelElement == null) {
 			super.activate();
 			return;
@@ -421,7 +425,7 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected void refreshBounds() {
-		org.eclipse.gmf.gmfgraph.RoundedRectangle modelElement = (org.eclipse.gmf.gmfgraph.RoundedRectangle) getModelFigureElement();
+		org.eclipse.gmf.gmfgraph.RoundedRectangle modelElement = getGmfgraphElement();
 		if (modelElement == null) {
 			return;
 		}

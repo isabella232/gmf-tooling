@@ -20,7 +20,9 @@
 «EXTENSION aspects::impl::diagram::editparts::Utils»
 «EXTENSION xpt::GenModelUtils»
 
-«AROUND extendsList FOR gmfgen::GenNode»«IF hasSynchronizers(this)»extends «getDiagram().editPartsPackageName».AbstractFigureEditPart«ELSE»«targetDef.proceed()»«ENDIF»«ENDAROUND»
+«AROUND extendsList FOR gmfgen::GenNode»«IF hasSynchronizers(this)»extends «getDiagram().editPartsPackageName».«EXPAND superclassName»«ELSE»«targetDef.proceed()»«ENDIF»«ENDAROUND»
+
+«DEFINE superclassName FOR gmfgen::GenNode»«IF isPolylinePoint(this)»AbstractPointEditPart«ELSE»AbstractFigureEditPart«ENDIF»«ENDDEFINE»
 
 «AROUND handleNotificationEvent FOR gmfgen::GenNode-»
 	«IF hasSynchronizers(this)-»
@@ -48,7 +50,7 @@
 	
 		«EXPAND myDomainElementAdapters-»
 	
-		«EXPAND getModelFigureElement-»
+		«EXPAND getGmfgraphElement-»
 	
 		«EXPAND removeSemanticListeners-»
 	
@@ -63,8 +65,6 @@
 			«IF hasLayoutDataSynchronizers(this)-»
 		
 				«EXPAND refreshMainFigureBounds-»
-				
-				«EXPAND getPrimaryDragEditPolicy-»
 			«ENDIF-»
 		
 			«EXPAND DefaultSizeNodeFigureExt-»
@@ -84,7 +84,7 @@
 		if (isActive()){
 			return;
 		}
-		final «EXPAND MetaModel::DeclareAndAssign("modelElement", "getModelFigureElement()") FOR metaclass()»
+		final «EXPAND MetaModel::QualifiedClassName FOR metaclass()» modelElement = getGmfgraphElement();
 		if (modelElement == null) {
 			super.activate();
 			return;
@@ -95,12 +95,16 @@
 	}
 «ENDDEFINE»
 
-«DEFINE getModelFigureElement FOR gmfgen::GenNode-»
+«DEFINE getGmfgraphElement FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private «EXPAND MetaModel::QualifiedClassName FOR metaclass()» getModelFigureElement() {
-		org.eclipse.gmf.gmfgraph.Shape shape = getShape();
-		if («EXPAND MetaModel::IsInstance("shape") FOR metaclass()») {
-			«EXPAND MetaModel::DeclareAndAssign("modelFigureElement", "shape") FOR metaclass()»
+	private «EXPAND MetaModel::QualifiedClassName FOR metaclass()» getGmfgraphElement() {
+		org.eclipse.gmf.runtime.notation.View view = getNotationView();
+		if (view == null) {
+			return null;
+		}
+		org.eclipse.emf.ecore.EObject element = view.getElement();
+		if («EXPAND MetaModel::IsInstance("element") FOR metaclass()») {
+			«EXPAND MetaModel::DeclareAndAssign("modelFigureElement", "element") FOR metaclass()»
 			return modelFigureElement;
 		}
 		return null;
@@ -110,7 +114,7 @@
 «DEFINE removeSemanticListeners FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void removeSemanticListeners() {
-		«EXPAND MetaModel::DeclareAndAssign("modelElement", "getModelFigureElement()") FOR metaclass()»
+		«EXPAND MetaModel::QualifiedClassName FOR metaclass()» modelElement = getGmfgraphElement();
 		if (modelElement != null) {
 			modelElement.eAdapters().removeAll(myDomainElementAdapters);
 			myDomainElementAdapters.clear();
@@ -128,7 +132,7 @@
 «ENDDEFINE»
 
 «DEFINE processChanges FOR gmfgen::GenNode-»
-	«EXPAND MetaModel::DeclareAndAssign("modelElement", "getModelFigureElement()") FOR metaclass()»
+	«EXPAND MetaModel::QualifiedClassName FOR metaclass()» modelElement = getGmfgraphElement();
 	if (modelElement != null) {
 		«EXPAND processChanges FOREACH getSynchronizers(this)-»
 	}
@@ -159,7 +163,7 @@
 «DEFINE refreshBounds FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void refreshBounds() {
-		«EXPAND MetaModel::DeclareAndAssign("modelElement", "getModelFigureElement()") FOR metaclass()»
+		«EXPAND MetaModel::QualifiedClassName FOR metaclass()» modelElement = getGmfgraphElement();
 		if (modelElement == null) {
 			return;
 		}
@@ -213,15 +217,6 @@
 	}
 «ENDDEFINE»
 
-«DEFINE getPrimaryDragEditPolicy FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public org.eclipse.gef.EditPolicy getPrimaryDragEditPolicy() {
-		org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx editPolicy = new org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx();
-		editPolicy.setDragAllowed(false);
-		return editPolicy;
-	}
-«ENDDEFINE»
-
 «DEFINE DefaultSizeNodeFigureExt FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedClassComment»
 	class DefaultSizeNodeFigureExt extends org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure {
@@ -239,7 +234,10 @@
 			
 			«EXPAND xpt::Common::generatedMemberComment»
 			public org.eclipse.draw2d.geometry.Rectangle getBounds() {
-				return getPrimaryShape().getBounds();
+				org.eclipse.draw2d.geometry.Rectangle polylineBounds = getPrimaryShape().getBounds().getCopy();
+				org.eclipse.draw2d.geometry.Rectangle contentPaneBounds = getContentPane().getBounds().getCopy();
+				contentPaneBounds.setSize(getContentPane().getPreferredSize());
+				return polylineBounds.getUnion(contentPaneBounds);
 			}
 			
 			public void fireFigureMoved() {

@@ -38,6 +38,9 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RectangleEditPart;
@@ -98,6 +101,11 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.Polyline_3014);
 			return types;
 		}
+		if (editPart instanceof PolylineEditPart) {
+			List types = new ArrayList();
+			types.add(GMFGraphElementTypes.Point_3022);
+			return types;
+		}
 		if (editPart instanceof Ellipse2EditPart) {
 			List types = new ArrayList();
 			types.add(GMFGraphElementTypes.Rectangle_3011);
@@ -112,6 +120,11 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
+			return types;
+		}
+		if (editPart instanceof Polyline2EditPart) {
+			List types = new ArrayList();
+			types.add(GMFGraphElementTypes.Point_3022);
 			return types;
 		}
 		if (editPart instanceof Rectangle3EditPart) {
@@ -136,6 +149,11 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
+			return types;
+		}
+		if (editPart instanceof Polyline3EditPart) {
+			List types = new ArrayList();
+			types.add(GMFGraphElementTypes.Point_3022);
 			return types;
 		}
 		if (editPart instanceof FigureGalleryFiguresEditPart) {

@@ -35,6 +35,7 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.NodeContentPaneEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeVisualFacetsEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PointEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
@@ -68,6 +69,7 @@ import org.eclipse.gmf.graphdef.editor.view.factories.NodeContentPaneViewFactory
 import org.eclipse.gmf.graphdef.editor.view.factories.NodeNameViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.NodeViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.NodeVisualFacetsViewFactory;
+import org.eclipse.gmf.graphdef.editor.view.factories.PointViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.Polyline2ViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.Polyline3ViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.PolylineViewFactory;
@@ -151,6 +153,7 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 				case EllipseEditPart.VISUAL_ID:
 				case RoundedRectangleEditPart.VISUAL_ID:
 				case PolylineEditPart.VISUAL_ID:
+				case PointEditPart.VISUAL_ID:
 				case Rectangle2EditPart.VISUAL_ID:
 				case Ellipse2EditPart.VISUAL_ID:
 				case RoundedRectangle2EditPart.VISUAL_ID:
@@ -238,6 +241,8 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 			return RoundedRectangleViewFactory.class;
 		case PolylineEditPart.VISUAL_ID:
 			return PolylineViewFactory.class;
+		case PointEditPart.VISUAL_ID:
+			return PointViewFactory.class;
 		case Ellipse2EditPart.VISUAL_ID:
 			return Ellipse2ViewFactory.class;
 		case RoundedRectangle2EditPart.VISUAL_ID:

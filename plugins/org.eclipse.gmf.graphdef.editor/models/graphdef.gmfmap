@@ -250,6 +250,19 @@
               href="graphdef.gmftool#//@palette/@tools.1/@tools.5"/>
           <diagramNode
               href="graphdef.gmfgraph#PolylineNode"/>
+          <children>
+            <containmentFeature
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Polyline/template"/>
+            <ownedChild>
+              <domainMetaElement
+                  href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Point"/>
+              <tool
+                  xsi:type="gmftool:CreationTool"
+                  href="graphdef.gmftool#//@palette/@tools.1/@tools.6"/>
+              <diagramNode
+                  href="graphdef.gmfgraph#PolylinePointNode"/>
+            </ownedChild>
+          </children>
         </ownedChild>
       </children>
       <compartments

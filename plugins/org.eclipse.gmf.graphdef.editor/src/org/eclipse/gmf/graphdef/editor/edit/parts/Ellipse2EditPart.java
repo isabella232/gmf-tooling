@@ -22,13 +22,13 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.graphdef.editor.edit.policies.Ellipse2CanonicalEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.Ellipse2ItemSemanticEditPolicy;
-import org.eclipse.gmf.graphdef.editor.edit.polocies.DomainBasedXYLayoutEditPolicy;
+import org.eclipse.gmf.graphdef.editor.edit.polocies.FigureContainerXYLayoutEditPolicy;
 import org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter;
 import org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker;
 import org.eclipse.gmf.graphdef.editor.sheet.FeatureTracker;
@@ -85,7 +85,7 @@ public class Ellipse2EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		return new DomainBasedXYLayoutEditPolicy(getMapMode());
+		return new FigureContainerXYLayoutEditPolicy(getMapMode());
 	}
 
 	/**
@@ -216,10 +216,14 @@ public class Ellipse2EditPart extends AbstractFigureEditPart {
 	/**
 	 * @generated
 	 */
-	private org.eclipse.gmf.gmfgraph.Ellipse getModelFigureElement() {
-		Shape shape = getShape();
-		if (shape instanceof org.eclipse.gmf.gmfgraph.Ellipse) {
-			org.eclipse.gmf.gmfgraph.Ellipse modelFigureElement = (org.eclipse.gmf.gmfgraph.Ellipse) shape;
+	private org.eclipse.gmf.gmfgraph.Ellipse getGmfgraphElement() {
+		View view = getNotationView();
+		if (view == null) {
+			return null;
+		}
+		EObject element = view.getElement();
+		if (element instanceof org.eclipse.gmf.gmfgraph.Ellipse) {
+			org.eclipse.gmf.gmfgraph.Ellipse modelFigureElement = (org.eclipse.gmf.gmfgraph.Ellipse) element;
 			return modelFigureElement;
 		}
 		return null;
@@ -229,7 +233,7 @@ public class Ellipse2EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected void removeSemanticListeners() {
-		org.eclipse.gmf.gmfgraph.Ellipse modelElement = (org.eclipse.gmf.gmfgraph.Ellipse) getModelFigureElement();
+		org.eclipse.gmf.gmfgraph.Ellipse modelElement = getGmfgraphElement();
 		if (modelElement != null) {
 			modelElement.eAdapters().removeAll(myDomainElementAdapters);
 			myDomainElementAdapters.clear();
@@ -242,7 +246,7 @@ public class Ellipse2EditPart extends AbstractFigureEditPart {
 	 */
 	protected void setFigure(IFigure figure) {
 		super.setFigure(figure);
-		org.eclipse.gmf.gmfgraph.Ellipse modelElement = (org.eclipse.gmf.gmfgraph.Ellipse) getModelFigureElement();
+		org.eclipse.gmf.gmfgraph.Ellipse modelElement = getGmfgraphElement();
 		if (modelElement != null) {
 			getPrimaryShape().setOutline(modelElement.isOutline());
 			getPrimaryShape().setFill(modelElement.isFill());
@@ -265,7 +269,7 @@ public class Ellipse2EditPart extends AbstractFigureEditPart {
 		if (isActive()) {
 			return;
 		}
-		final org.eclipse.gmf.gmfgraph.Ellipse modelElement = (org.eclipse.gmf.gmfgraph.Ellipse) getModelFigureElement();
+		final org.eclipse.gmf.gmfgraph.Ellipse modelElement = getGmfgraphElement();
 		if (modelElement == null) {
 			super.activate();
 			return;

@@ -38,6 +38,7 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeContentPaneEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PointEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
@@ -433,7 +434,9 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 		case PolylineEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Polyline_3014_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
+			Collection connectedViews = getChildrenByType(Collections.singleton(view), PointEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
@@ -482,7 +485,9 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 		case Polyline2EditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Polyline_3017_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
+			Collection connectedViews = getChildrenByType(Collections.singleton(view), PointEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
@@ -550,7 +555,9 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 		case Polyline3EditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Polyline_3021_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
+			Collection connectedViews = getChildrenByType(Collections.singleton(view), PointEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);

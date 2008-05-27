@@ -112,6 +112,11 @@ public class GMFGraphElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
+	public static final IElementType Point_3022 = getElementType("org.eclipse.gmf.graphdef.editor.Point_3022"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public static final IElementType Ellipse_3015 = getElementType("org.eclipse.gmf.graphdef.editor.Ellipse_3015"); //$NON-NLS-1$
 
 	/**
@@ -297,6 +302,8 @@ public class GMFGraphElementTypes extends ElementInitializers {
 
 			elements.put(Polyline_3014, GMFGraphPackage.eINSTANCE.getPolyline());
 
+			elements.put(Point_3022, GMFGraphPackage.eINSTANCE.getPoint());
+
 			elements.put(Ellipse_3015, GMFGraphPackage.eINSTANCE.getEllipse());
 
 			elements.put(RoundedRectangle_3016, GMFGraphPackage.eINSTANCE.getRoundedRectangle());
@@ -348,6 +355,7 @@ public class GMFGraphElementTypes extends ElementInitializers {
 			KNOWN_ELEMENT_TYPES.add(Ellipse_3012);
 			KNOWN_ELEMENT_TYPES.add(RoundedRectangle_3013);
 			KNOWN_ELEMENT_TYPES.add(Polyline_3014);
+			KNOWN_ELEMENT_TYPES.add(Point_3022);
 			KNOWN_ELEMENT_TYPES.add(Ellipse_3015);
 			KNOWN_ELEMENT_TYPES.add(RoundedRectangle_3016);
 			KNOWN_ELEMENT_TYPES.add(Polyline_3017);
