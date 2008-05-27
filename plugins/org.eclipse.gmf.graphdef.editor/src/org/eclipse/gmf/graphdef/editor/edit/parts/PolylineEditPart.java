@@ -458,6 +458,9 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 			return polylineBounds.getUnion(contentPaneBounds);
 		}
 
+		/**
+		 * @generated
+		 */
 		public void fireFigureMoved() {
 			super.fireFigureMoved();
 		}

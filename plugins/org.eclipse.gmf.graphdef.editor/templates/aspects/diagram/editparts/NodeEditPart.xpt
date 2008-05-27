@@ -239,7 +239,8 @@
 				contentPaneBounds.setSize(getContentPane().getPreferredSize());
 				return polylineBounds.getUnion(contentPaneBounds);
 			}
-			
+
+			«EXPAND xpt::Common::generatedMemberComment»			
 			public void fireFigureMoved() {
 				super.fireFigureMoved();
 			}
@@ -247,6 +248,17 @@
 			«EXPAND xpt::Common::generatedMemberComment»
 			protected boolean useLocalCoordinates() {
 				return true;
+			}
+			
+			«EXPAND xpt::Common::generatedMemberComment»
+			protected void paintFigure(org.eclipse.draw2d.Graphics graphics) {
+				graphics.pushState();
+				graphics.setLineWidth(1);
+				graphics.setLineStyle(org.eclipse.swt.SWT.LINE_DOT);
+				org.eclipse.draw2d.geometry.Rectangle fb = getBounds();
+				graphics.drawRectangle(fb.x, fb.y, fb.width - 1, fb.height - 1);
+				graphics.popState();
+				super.paintFigure(graphics);
 			}
 		«ENDIF-»
 		

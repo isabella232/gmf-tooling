@@ -13,12 +13,14 @@ package org.eclipse.gmf.graphdef.editor.edit.parts;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Polyline;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
@@ -39,6 +41,7 @@ import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.swt.SWT;
 
 /**
  * @generated
@@ -369,6 +372,19 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 		 */
 		protected boolean useLocalCoordinates() {
 			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void paintFigure(Graphics graphics) {
+			graphics.pushState();
+			graphics.setLineWidth(1);
+			graphics.setLineStyle(SWT.LINE_DOT);
+			Rectangle fb = getBounds();
+			graphics.drawRectangle(fb.x, fb.y, fb.width - 1, fb.height - 1);
+			graphics.popState();
+			super.paintFigure(graphics);
 		}
 
 	}
