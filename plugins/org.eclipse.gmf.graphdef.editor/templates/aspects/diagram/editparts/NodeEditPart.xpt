@@ -202,7 +202,7 @@
 
 «DEFINE attachContextListener(wysiwyg::DomainPropertiesSynchronizer synchronizer) FOR context::FeatureContext-»
 	«IF children.size() == 0-»
-		new org.eclipse.gmf.graphdef.editor.sheet.FeatureTracker(«EXPAND changeTrackerVarName FOR synchronizer», «EXPAND accessor FOR selector»)
+		new org.eclipse.gmf.graphdef.editor.sheet.MultipleTargetsFeatureTracker(«EXPAND changeTrackerVarName FOR synchronizer», «EXPAND accessor FOR selector»)
 	«ELSE-»
 		new org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter(«EXPAND accessor FOR selector», «EXPAND changeTrackerVarName FOR synchronizer», «EXPAND attachContextListener(synchronizer) FOREACH children SEPARATOR ", "»)
 	«ENDIF-»
