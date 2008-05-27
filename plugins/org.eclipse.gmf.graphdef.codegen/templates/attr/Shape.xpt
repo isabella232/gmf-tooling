@@ -17,7 +17,7 @@ org.eclipse.draw2d.Shape
 	private boolean fill = true, outline = true, xorFill, xorOutline;
 «ENDREM»
 «DEFINE shapeAttrs(EString figureVarName) FOR Shape-»
-«IF !fill»«EXPAND fill(figureVarName)»«ENDIF-»
+«EXPAND fill(figureVarName)-»
 «IF xorFill»«EXPAND xorFill(figureVarName)»«ENDIF-»
 «IF !outline»«EXPAND outline(figureVarName)»«ENDIF-»
 «IF xorOutline»«EXPAND xorOutline(figureVarName)»«ENDIF-»
@@ -26,7 +26,13 @@ org.eclipse.draw2d.Shape
 «ENDDEFINE»
 
 «DEFINE fill(EString figureVarName) FOR Shape-»
-«figureVarName».setFill(«fill»);
+«IF !fill»«figureVarName».setFill(«fill»);
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE fill(EString figureVarName) FOR Polygon-»
+«IF fill»«figureVarName».setFill(«fill»);
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE xorFill(EString figureVarName) FOR Shape-»
