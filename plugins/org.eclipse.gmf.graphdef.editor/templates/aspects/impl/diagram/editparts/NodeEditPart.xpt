@@ -70,15 +70,14 @@
 	)»
 	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure create«IF hasBorderItems()»Main«ELSE»Node«ENDIF»Figure() {
 		org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure figure = createNodePlate();
-		figure.setLayoutManager(new org.eclipse.draw2d.StackLayout());
+		figure.setLayoutManager(new org.eclipse.draw2d.XYLayout() {
+			public org.eclipse.draw2d.geometry.Point getOrigin(org.eclipse.draw2d.IFigure parent) {
+				return new org.eclipse.draw2d.geometry.Point();
+			}
+		});
 		org.eclipse.draw2d.IFigure shape = createNodeShape();
 		figure.add(shape);
-		org.eclipse.draw2d.RectangleFigure childContainer = new org.eclipse.draw2d.RectangleFigure();
-		childContainer.setFill(false);
-		childContainer.setOutline(false);
-		figure.add(childContainer);
-		childContainer.setLayoutManager(new org.eclipse.draw2d.XYLayout());
-		contentPane = childContainer;
+		contentPane = figure;
 		return figure;
 	}
 «ENDDEFINE»

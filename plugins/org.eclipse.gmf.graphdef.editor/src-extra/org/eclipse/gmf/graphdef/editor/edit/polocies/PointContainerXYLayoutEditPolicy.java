@@ -24,6 +24,7 @@ import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor;
 import org.eclipse.gmf.runtime.draw2d.ui.mapmode.IMapMode;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
@@ -79,8 +80,9 @@ public class PointContainerXYLayoutEditPolicy extends AbstractDomainBasedXYLayou
 
 		@Override
 		protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-			int x = getMapMode().LPtoDP(myBounds.x);
-			int y = getMapMode().LPtoDP(myBounds.y);
+			Rectangle editPartBounds = ((GraphicalEditPart) getHost()).getFigure().getBounds();
+			int x = getMapMode().LPtoDP(myBounds.x + editPartBounds.x);
+			int y = getMapMode().LPtoDP(myBounds.y + editPartBounds.y);
 			Point point = getPoint();
 			point.setX(x);
 			point.setY(y);

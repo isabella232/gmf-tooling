@@ -15,10 +15,9 @@ import java.util.Collection;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Polyline;
-import org.eclipse.draw2d.RectangleFigure;
-import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
@@ -132,15 +131,15 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 	 */
 	protected NodeFigure createNodeFigure() {
 		NodeFigure figure = createNodePlate();
-		figure.setLayoutManager(new StackLayout());
+		figure.setLayoutManager(new XYLayout() {
+
+			public Point getOrigin(IFigure parent) {
+				return new Point();
+			}
+		});
 		IFigure shape = createNodeShape();
 		figure.add(shape);
-		RectangleFigure childContainer = new RectangleFigure();
-		childContainer.setFill(false);
-		childContainer.setOutline(false);
-		figure.add(childContainer);
-		childContainer.setLayoutManager(new XYLayout());
-		contentPane = childContainer;
+		contentPane = figure;
 		return figure;
 	}
 
@@ -453,9 +452,9 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 		 */
 		public Rectangle getBounds() {
 			Rectangle polylineBounds = getPrimaryShape().getBounds().getCopy();
-			Rectangle contentPaneBounds = getContentPane().getBounds().getCopy();
-			contentPaneBounds.setSize(getContentPane().getPreferredSize());
-			return polylineBounds.getUnion(contentPaneBounds);
+			polylineBounds.width += 8;
+			polylineBounds.height += 8;
+			return polylineBounds;
 		}
 
 		/**
