@@ -163,7 +163,7 @@ public class FeatureValueSpecItemProvider
 				buf.append(feature).append(":=");
 			}
 			
-			String body = crop(featureValueSpec.getValue().getBody());			
+			String body = crop(featureValueSpec.getValue() != null ? featureValueSpec.getValue().getBody() : null);			
 			if(body != null && body.length() > 0) {
 				buf.append(' ').append(body);
 			}
