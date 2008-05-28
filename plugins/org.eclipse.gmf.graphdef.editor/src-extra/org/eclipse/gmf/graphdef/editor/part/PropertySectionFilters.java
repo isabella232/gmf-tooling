@@ -12,11 +12,7 @@ package org.eclipse.gmf.graphdef.editor.part;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gmf.gmfgraph.Layoutable;
-import org.eclipse.gmf.gmfgraph.Polyline;
-import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.jface.viewers.IFilter;
 
 public class PropertySectionFilters {
 
@@ -37,24 +33,4 @@ public class PropertySectionFilters {
 		return selection;
 	}
 
-	public static class LayoutableFilter implements IFilter {
-		public boolean select(Object toTest) {
-			Object transformed = PropertySectionFilters.transformSelection(toTest);
-			return transformed instanceof Layoutable;
-		}
-	}
-
-	public static class ShapeFilter implements IFilter {
-		public boolean select(Object toTest) {
-			Object transformed = PropertySectionFilters.transformSelection(toTest);
-			return transformed instanceof Shape;
-		}
-	}
-
-	public static class PolylineFilter implements IFilter {
-		public boolean select(Object toTest) {
-			Object transformed = PropertySectionFilters.transformSelection(toTest);
-			return transformed instanceof Polyline;
-		}
-	}
 }

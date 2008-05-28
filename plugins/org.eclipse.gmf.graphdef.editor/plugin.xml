@@ -227,28 +227,6 @@
              label="%tab.styles"/>
       </propertyTabs>
    </extension>
-   
-   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-      <!-- These tabs should be removed at the end of migration to new property sheet generation way -->
-      <propertyTabs contributorId="org.eclipse.gmf.graphdef.editor">
-          <propertyTab
-             category="extra"
-             id="property.tab.points"
-             label="%tab.points"/>
-      </propertyTabs>
-   </extension>
-   
-   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
-      <!-- These tabs sections be removed at the end of migration to new property sheet generation way -->
-      <propertySections contributorId="org.eclipse.gmf.graphdef.editor">
-         <propertySection
-            id="property.section.points" 
-            tab="property.tab.points"
-            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$PolylineFilter"
-            class="org.eclipse.gmf.graphdef.editor.sheet.PointsPropertySection">
-         </propertySection>
-      </propertySections>
-   </extension>
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
       <?gmfgen generated="true"?>   
