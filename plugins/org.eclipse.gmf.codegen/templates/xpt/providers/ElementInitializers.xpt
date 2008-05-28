@@ -104,13 +104,17 @@ public class ElementInitializers {
 
 «DEFINE performInit(GenCommonBase diagramElement, String instanceVar, GenClass instanceClass, int count) FOR GenReferenceNewElementSpec-»
 «FOREACH newElementInitializers AS newElemInit»
-«EXPAND MetaModel::NewInstance("newInstance" + count) FOR newElemInit.elementClass»
+«LET (count+1)*100+newElementInitializers.indexOf(newElemInit) AS initializerCount-»
+«LET "newInstance" + initializerCount AS newInstanceVar-»
+«EXPAND MetaModel::NewInstance(newInstanceVar) FOR newElemInit.elementClass»
 «IF isListType(feature)-»
-«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass) FOR feature».add(newInstance«count»);
+«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass) FOR feature».add(«newInstanceVar»);
 «ELSE-»
-«EXPAND MetaModel::setFeatureValue(instanceVar, instanceClass, "newInstance" + count) FOR feature»;
+«EXPAND MetaModel::setFeatureValue(instanceVar, instanceClass, newInstanceVar) FOR feature»;
 «ENDIF-»
-«FOREACH newElemInit.initializers AS i»«EXPAND performInit(diagramElement, "newInstance" + count, newElemInit.elementClass, (count+1)*100 + newElemInit.initializers.indexOf(i)) FOR i»«ENDFOREACH-»
+«FOREACH newElemInit.initializers AS i»«EXPAND performInit(diagramElement, newInstanceVar, newElemInit.elementClass, (initializerCount+1)*100 + newElemInit.initializers.indexOf(i)) FOR i»«ENDFOREACH-»
+«ENDLET-»
+«ENDLET-»
 «ENDFOREACH-»
 «ENDDEFINE»
 
