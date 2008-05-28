@@ -53,7 +53,7 @@ public final class FeatureTracker extends AdapterImpl {
 
 	@Override
 	public void notifyChanged(Notification msg) {
-		if (getTarget() == null || msg.isTouch()) {
+		if (msg.isTouch()) {
 			return;
 		}
 		for (EStructuralFeature sf : myFeatures) {

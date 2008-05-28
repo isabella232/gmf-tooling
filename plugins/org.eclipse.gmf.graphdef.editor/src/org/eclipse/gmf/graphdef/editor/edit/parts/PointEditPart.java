@@ -29,7 +29,7 @@ import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.graphdef.editor.edit.policies.PointItemSemanticEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.polocies.FigureContainerXYLayoutEditPolicy;
 import org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker;
-import org.eclipse.gmf.graphdef.editor.sheet.MultipleTargetsFeatureTracker;
+import org.eclipse.gmf.graphdef.editor.sheet.FeatureTracker;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
@@ -279,8 +279,8 @@ public class PointEditPart extends AbstractPointEditPart {
 				refreshBounds();
 			}
 		};
-		myDomainElementAdapters.add(new MultipleTargetsFeatureTracker(refreshBoundsTracker, GMFGraphPackage.eINSTANCE.getPoint_X()));
-		myDomainElementAdapters.add(new MultipleTargetsFeatureTracker(refreshBoundsTracker, GMFGraphPackage.eINSTANCE.getPoint_Y()));
+		myDomainElementAdapters.add(new FeatureTracker(refreshBoundsTracker, GMFGraphPackage.eINSTANCE.getPoint_X()));
+		myDomainElementAdapters.add(new FeatureTracker(refreshBoundsTracker, GMFGraphPackage.eINSTANCE.getPoint_Y()));
 		modelElement.eAdapters().addAll(myDomainElementAdapters);
 		super.activate();
 	}

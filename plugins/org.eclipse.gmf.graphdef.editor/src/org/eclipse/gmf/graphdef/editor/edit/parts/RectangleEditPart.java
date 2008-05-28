@@ -30,7 +30,7 @@ import org.eclipse.gmf.graphdef.editor.edit.policies.RectangleItemSemanticEditPo
 import org.eclipse.gmf.graphdef.editor.edit.polocies.FigureContainerXYLayoutEditPolicy;
 import org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter;
 import org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker;
-import org.eclipse.gmf.graphdef.editor.sheet.MultipleTargetsFeatureTracker;
+import org.eclipse.gmf.graphdef.editor.sheet.FeatureTracker;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
@@ -280,7 +280,7 @@ public class RectangleEditPart extends AbstractFigureEditPart {
 				getPrimaryShape().setOutline(modelElement.isOutline());
 			}
 		};
-		myDomainElementAdapters.add(new MultipleTargetsFeatureTracker(outlineTracker, GMFGraphPackage.eINSTANCE.getShape_Outline()));
+		myDomainElementAdapters.add(new FeatureTracker(outlineTracker, GMFGraphPackage.eINSTANCE.getShape_Outline()));
 
 		ChangeTracker fillTracker = new ChangeTracker() {
 
@@ -288,7 +288,7 @@ public class RectangleEditPart extends AbstractFigureEditPart {
 				getPrimaryShape().setFill(modelElement.isFill());
 			}
 		};
-		myDomainElementAdapters.add(new MultipleTargetsFeatureTracker(fillTracker, GMFGraphPackage.eINSTANCE.getShape_Fill()));
+		myDomainElementAdapters.add(new FeatureTracker(fillTracker, GMFGraphPackage.eINSTANCE.getShape_Fill()));
 
 		ChangeTracker lineWidthTracker = new ChangeTracker() {
 
@@ -296,7 +296,7 @@ public class RectangleEditPart extends AbstractFigureEditPart {
 				getPrimaryShape().setLineWidth(modelElement.getLineWidth());
 			}
 		};
-		myDomainElementAdapters.add(new MultipleTargetsFeatureTracker(lineWidthTracker, GMFGraphPackage.eINSTANCE.getShape_LineWidth()));
+		myDomainElementAdapters.add(new FeatureTracker(lineWidthTracker, GMFGraphPackage.eINSTANCE.getShape_LineWidth()));
 
 		ChangeTracker lineStyleTracker = new ChangeTracker() {
 
@@ -304,7 +304,7 @@ public class RectangleEditPart extends AbstractFigureEditPart {
 				getPrimaryShape().setLineStyle(getLineStyle(modelElement.getLineKind()));
 			}
 		};
-		myDomainElementAdapters.add(new MultipleTargetsFeatureTracker(lineStyleTracker, GMFGraphPackage.eINSTANCE.getShape_LineKind()));
+		myDomainElementAdapters.add(new FeatureTracker(lineStyleTracker, GMFGraphPackage.eINSTANCE.getShape_LineKind()));
 
 		ChangeTracker fillXORTracker = new ChangeTracker() {
 
@@ -312,7 +312,7 @@ public class RectangleEditPart extends AbstractFigureEditPart {
 				getPrimaryShape().setFillXOR(modelElement.isXorFill());
 			}
 		};
-		myDomainElementAdapters.add(new MultipleTargetsFeatureTracker(fillXORTracker, GMFGraphPackage.eINSTANCE.getShape_XorFill()));
+		myDomainElementAdapters.add(new FeatureTracker(fillXORTracker, GMFGraphPackage.eINSTANCE.getShape_XorFill()));
 
 		ChangeTracker outlineXORTracker = new ChangeTracker() {
 
@@ -320,7 +320,7 @@ public class RectangleEditPart extends AbstractFigureEditPart {
 				getPrimaryShape().setOutlineXOR(modelElement.isXorOutline());
 			}
 		};
-		myDomainElementAdapters.add(new MultipleTargetsFeatureTracker(outlineXORTracker, GMFGraphPackage.eINSTANCE.getShape_XorOutline()));
+		myDomainElementAdapters.add(new FeatureTracker(outlineXORTracker, GMFGraphPackage.eINSTANCE.getShape_XorOutline()));
 
 		ChangeTracker layoutManagerTracker = new ChangeTracker() {
 
@@ -330,18 +330,16 @@ public class RectangleEditPart extends AbstractFigureEditPart {
 			}
 		};
 		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(), layoutManagerTracker, new AttachAdapter(GMFGraphPackage.eINSTANCE.getBorderLayout_Spacing(),
-				layoutManagerTracker, new MultipleTargetsFeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getDimension_Dx()), new MultipleTargetsFeatureTracker(layoutManagerTracker,
-						GMFGraphPackage.eINSTANCE.getDimension_Dy())), new MultipleTargetsFeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getFlowLayout_Vertical()),
-				new MultipleTargetsFeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getFlowLayout_MatchMinorSize()), new MultipleTargetsFeatureTracker(layoutManagerTracker,
-						GMFGraphPackage.eINSTANCE.getFlowLayout_ForceSingleLine()), new MultipleTargetsFeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getFlowLayout_MajorAlignment()),
-				new MultipleTargetsFeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getFlowLayout_MinorAlignment()), new MultipleTargetsFeatureTracker(layoutManagerTracker,
-						GMFGraphPackage.eINSTANCE.getFlowLayout_MajorSpacing()), new MultipleTargetsFeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getFlowLayout_MinorSpacing()),
-				new MultipleTargetsFeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getGridLayout_NumColumns()), new MultipleTargetsFeatureTracker(layoutManagerTracker,
-						GMFGraphPackage.eINSTANCE.getGridLayout_EqualWidth()), new AttachAdapter(GMFGraphPackage.eINSTANCE.getGridLayout_Margins(), layoutManagerTracker,
-						new MultipleTargetsFeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getDimension_Dx()), new MultipleTargetsFeatureTracker(layoutManagerTracker,
-								GMFGraphPackage.eINSTANCE.getDimension_Dy())), new AttachAdapter(GMFGraphPackage.eINSTANCE.getGridLayout_Spacing(), layoutManagerTracker,
-						new MultipleTargetsFeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getDimension_Dx()), new MultipleTargetsFeatureTracker(layoutManagerTracker,
-								GMFGraphPackage.eINSTANCE.getDimension_Dy()))));
+				layoutManagerTracker, new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getDimension_Dx()), new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE
+						.getDimension_Dy())), new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getFlowLayout_Vertical()), new FeatureTracker(layoutManagerTracker,
+				GMFGraphPackage.eINSTANCE.getFlowLayout_MatchMinorSize()), new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getFlowLayout_ForceSingleLine()), new FeatureTracker(
+				layoutManagerTracker, GMFGraphPackage.eINSTANCE.getFlowLayout_MajorAlignment()), new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getFlowLayout_MinorAlignment()),
+				new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getFlowLayout_MajorSpacing()), new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE
+						.getFlowLayout_MinorSpacing()), new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getGridLayout_NumColumns()), new FeatureTracker(layoutManagerTracker,
+						GMFGraphPackage.eINSTANCE.getGridLayout_EqualWidth()), new AttachAdapter(GMFGraphPackage.eINSTANCE.getGridLayout_Margins(), layoutManagerTracker, new FeatureTracker(
+						layoutManagerTracker, GMFGraphPackage.eINSTANCE.getDimension_Dx()), new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getDimension_Dy())), new AttachAdapter(
+						GMFGraphPackage.eINSTANCE.getGridLayout_Spacing(), layoutManagerTracker, new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getDimension_Dx()),
+						new FeatureTracker(layoutManagerTracker, GMFGraphPackage.eINSTANCE.getDimension_Dy()))));
 
 		ChangeTracker backgroundColorTracker = new ChangeTracker() {
 
@@ -349,10 +347,9 @@ public class RectangleEditPart extends AbstractFigureEditPart {
 				getPrimaryShape().setBackgroundColor(getColor(modelElement.getBackgroundColor()));
 			}
 		};
-		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor(), backgroundColorTracker, new MultipleTargetsFeatureTracker(backgroundColorTracker,
-				GMFGraphPackage.eINSTANCE.getConstantColor_Value()), new MultipleTargetsFeatureTracker(backgroundColorTracker, GMFGraphPackage.eINSTANCE.getRGBColor_Red()),
-				new MultipleTargetsFeatureTracker(backgroundColorTracker, GMFGraphPackage.eINSTANCE.getRGBColor_Green()), new MultipleTargetsFeatureTracker(backgroundColorTracker,
-						GMFGraphPackage.eINSTANCE.getRGBColor_Blue())));
+		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor(), backgroundColorTracker, new FeatureTracker(backgroundColorTracker,
+				GMFGraphPackage.eINSTANCE.getConstantColor_Value()), new FeatureTracker(backgroundColorTracker, GMFGraphPackage.eINSTANCE.getRGBColor_Red()), new FeatureTracker(
+				backgroundColorTracker, GMFGraphPackage.eINSTANCE.getRGBColor_Green()), new FeatureTracker(backgroundColorTracker, GMFGraphPackage.eINSTANCE.getRGBColor_Blue())));
 
 		ChangeTracker foregroundColorTracker = new ChangeTracker() {
 
@@ -360,10 +357,9 @@ public class RectangleEditPart extends AbstractFigureEditPart {
 				getPrimaryShape().setForegroundColor(getColor(modelElement.getForegroundColor()));
 			}
 		};
-		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor(), foregroundColorTracker, new MultipleTargetsFeatureTracker(foregroundColorTracker,
-				GMFGraphPackage.eINSTANCE.getConstantColor_Value()), new MultipleTargetsFeatureTracker(foregroundColorTracker, GMFGraphPackage.eINSTANCE.getRGBColor_Red()),
-				new MultipleTargetsFeatureTracker(foregroundColorTracker, GMFGraphPackage.eINSTANCE.getRGBColor_Green()), new MultipleTargetsFeatureTracker(foregroundColorTracker,
-						GMFGraphPackage.eINSTANCE.getRGBColor_Blue())));
+		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor(), foregroundColorTracker, new FeatureTracker(foregroundColorTracker,
+				GMFGraphPackage.eINSTANCE.getConstantColor_Value()), new FeatureTracker(foregroundColorTracker, GMFGraphPackage.eINSTANCE.getRGBColor_Red()), new FeatureTracker(
+				foregroundColorTracker, GMFGraphPackage.eINSTANCE.getRGBColor_Green()), new FeatureTracker(foregroundColorTracker, GMFGraphPackage.eINSTANCE.getRGBColor_Blue())));
 
 		ChangeTracker refreshFontTracker = new ChangeTracker() {
 
@@ -371,9 +367,9 @@ public class RectangleEditPart extends AbstractFigureEditPart {
 				refreshFont();
 			}
 		};
-		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getFigure_Font(), refreshFontTracker, new MultipleTargetsFeatureTracker(refreshFontTracker, GMFGraphPackage.eINSTANCE
-				.getBasicFont_FaceName()), new MultipleTargetsFeatureTracker(refreshFontTracker, GMFGraphPackage.eINSTANCE.getBasicFont_Height()), new MultipleTargetsFeatureTracker(
-				refreshFontTracker, GMFGraphPackage.eINSTANCE.getBasicFont_Style())));
+		myDomainElementAdapters.add(new AttachAdapter(GMFGraphPackage.eINSTANCE.getFigure_Font(), refreshFontTracker, new FeatureTracker(refreshFontTracker, GMFGraphPackage.eINSTANCE
+				.getBasicFont_FaceName()), new FeatureTracker(refreshFontTracker, GMFGraphPackage.eINSTANCE.getBasicFont_Height()), new FeatureTracker(refreshFontTracker, GMFGraphPackage.eINSTANCE
+				.getBasicFont_Style())));
 		modelElement.eAdapters().addAll(myDomainElementAdapters);
 		super.activate();
 	}
