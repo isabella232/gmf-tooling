@@ -339,6 +339,11 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
+		private static final String OPPOSITE_END_VAR = "oppositeEnd"; //$NON-NLS-1$
+
+		/**
+		 * @generated
+		 */
 		public static boolean canCreateChildAccess_4002(FigureDescriptor source, Figure target) {
 			return canExistChildAccess_4002(source, target);
 		}

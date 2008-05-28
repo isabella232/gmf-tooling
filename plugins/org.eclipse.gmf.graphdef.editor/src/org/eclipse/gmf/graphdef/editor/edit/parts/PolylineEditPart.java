@@ -86,7 +86,7 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		return new PointContainerXYLayoutEditPolicy(getMapMode());
+		return new PointContainerXYLayoutEditPolicy(getMapMode(), true);
 	}
 
 	/**

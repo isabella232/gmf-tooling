@@ -308,6 +308,14 @@ public class GMFGraphDiagramEditor extends DiagramDocumentEditor implements IGot
 	/**
 	 * @generated
 	 */
+	protected void configureGraphicalViewer() {
+		super.configureGraphicalViewer();
+		getDiagramGraphicalViewer().setContextMenu(new DiagramEditorContextMenuProvider(this, getDiagramGraphicalViewer()));
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
 		getDiagramGraphicalViewer().addDropTargetListener(new DropTargetListener(getDiagramGraphicalViewer(), LocalSelectionTransfer.getTransfer()) {

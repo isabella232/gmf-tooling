@@ -18,7 +18,6 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Polyline;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
@@ -87,7 +86,7 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		return new PointContainerXYLayoutEditPolicy(getMapMode());
+		return new PointContainerXYLayoutEditPolicy(getMapMode(), false);
 	}
 
 	/**
@@ -123,12 +122,7 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 	 */
 	protected NodeFigure createNodeFigure() {
 		NodeFigure figure = createNodePlate();
-		figure.setLayoutManager(new XYLayout() {
-
-			public Point getOrigin(IFigure parent) {
-				return new Point();
-			}
-		});
+		figure.setLayoutManager(new XYLayout());
 		IFigure shape = createNodeShape();
 		figure.add(shape);
 		contentPane = figure;

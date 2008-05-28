@@ -13,8 +13,12 @@ package org.eclipse.gmf.graphdef.editor.edit.commands;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 
+import org.eclipse.gmf.gmfgraph.Polyline;
+import org.eclipse.gmf.gmfgraph.RealFigure;
+import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
 
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
@@ -38,6 +42,19 @@ public class PolylineCreateCommand extends CreateElementCommand {
 	 */
 	protected EClass getEClassToEdit() {
 		return GMFGraphPackage.eINSTANCE.getRealFigure();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EObject doDefaultElementCreation() {
+		Polyline newElement = GMFGraphFactory.eINSTANCE.createPolyline();
+
+		RealFigure owner = (RealFigure) getElementToEdit();
+		owner.getChildren().add(newElement);
+
+		GMFGraphElementTypes.init_Polyline_3014(newElement);
+		return newElement;
 	}
 
 	/**

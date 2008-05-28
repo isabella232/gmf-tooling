@@ -260,6 +260,42 @@
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/RealFigure/children"/>
           <childMetaFeature
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/RealFigure/children"/>
+          <modelElementInitializer
+              xsi:type="gmfgen:GenFeatureSeqInitializer">
+            <initializers
+                xsi:type="gmfgen:GenReferenceNewElementSpec">
+              <feature
+                  href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Polyline/template"/>
+              <newElementInitializers>
+                <initializers
+                    xsi:type="gmfgen:GenFeatureValueSpec"
+                    value="/0/@expressionProviders/@providers.0/@expressions.0">
+                  <feature
+                      href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Point/x"/>
+                </initializers>
+                <initializers
+                    xsi:type="gmfgen:GenFeatureValueSpec"
+                    value="/0/@expressionProviders/@providers.0/@expressions.1">
+                  <feature
+                      href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Point/y"/>
+                </initializers>
+              </newElementInitializers>
+              <newElementInitializers>
+                <initializers
+                    xsi:type="gmfgen:GenFeatureValueSpec"
+                    value="/0/@expressionProviders/@providers.0/@expressions.2">
+                  <feature
+                      href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Point/x"/>
+                </initializers>
+                <initializers
+                    xsi:type="gmfgen:GenFeatureValueSpec"
+                    value="/0/@expressionProviders/@providers.0/@expressions.3">
+                  <feature
+                      href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Point/y"/>
+                </initializers>
+              </newElementInitializers>
+            </initializers>
+          </modelElementInitializer>
         </modelFacet>
       </childNodes>
       <childNodes
@@ -1524,6 +1560,19 @@
     </propertySheet>
     <domainGenModel
         href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#/"/>
+    <expressionProviders>
+      <providers
+          xsi:type="gmfgen:GenExpressionInterpreter">
+        <expressions
+            body="10"/>
+        <expressions
+            body="10"/>
+        <expressions
+            body="30"/>
+        <expressions
+            body="30"/>
+      </providers>
+    </expressionProviders>
   </gmfgen:GenEditorGenerator>
   <propsheet:PropertySectionContainer>
     <customSections

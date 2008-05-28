@@ -32,8 +32,11 @@ import org.eclipse.gmf.runtime.notation.View;
 
 public class PointContainerXYLayoutEditPolicy extends AbstractDomainBasedXYLayoutEditPolicy {
 
-	public PointContainerXYLayoutEditPolicy(IMapMode mapMode) {
+	private boolean myIsInsideFigure;
+
+	public PointContainerXYLayoutEditPolicy(IMapMode mapMode, boolean isInsideFigure) {
 		super(mapMode);
+		myIsInsideFigure = isInsideFigure;
 	}
 
 	@Override
@@ -80,9 +83,13 @@ public class PointContainerXYLayoutEditPolicy extends AbstractDomainBasedXYLayou
 
 		@Override
 		protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-			Rectangle editPartBounds = ((GraphicalEditPart) getHost()).getFigure().getBounds();
-			int x = getMapMode().LPtoDP(myBounds.x + editPartBounds.x);
-			int y = getMapMode().LPtoDP(myBounds.y + editPartBounds.y);
+			int x = getMapMode().LPtoDP(myBounds.x);
+			int y = getMapMode().LPtoDP(myBounds.y);
+			if (myIsInsideFigure) {
+				Rectangle editPartBounds = ((GraphicalEditPart) getHost()).getFigure().getBounds();
+				x += getMapMode().LPtoDP(editPartBounds.x);
+				y += getMapMode().LPtoDP(editPartBounds.y);
+			}
 			Point point = getPoint();
 			point.setX(x);
 			point.setY(y);

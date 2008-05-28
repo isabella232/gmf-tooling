@@ -30,14 +30,14 @@
 
 «AROUND createLayoutEditPolicyBody FOR gmfgen::GenNode-»
 	«IF hasSynchronizers(this)-»
-		return new org.eclipse.gmf.graphdef.editor.edit.polocies.«EXPAND layoutEditPolicyClassName»(getMapMode());
+		return new org.eclipse.gmf.graphdef.editor.edit.polocies.«EXPAND layoutEditPolicyConstructor»;
 	«ELSE-»
 		«targetDef.proceed()»
 	«ENDIF-»
 «ENDAROUND»
 
-«DEFINE layoutEditPolicyClassName FOR gmfgen::GenNode-»
-«IF isPolyline(this)»PointContainerXYLayoutEditPolicy«ELSE»FigureContainerXYLayoutEditPolicy«ENDIF-»
+«DEFINE layoutEditPolicyConstructor FOR gmfgen::GenNode-»
+«IF isPolyline(this)»PointContainerXYLayoutEditPolicy«ELSE»FigureContainerXYLayoutEditPolicy«ENDIF»(getMapMode()«IF isPolyline(this)», «hasLayoutDataSynchronizers(this)»«ENDIF»)«-»
 «ENDDEFINE»
 
 «AROUND createNodePlate FOR gmfgen::GenNode-»
@@ -70,11 +70,11 @@
 	)»
 	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure create«IF hasBorderItems()»Main«ELSE»Node«ENDIF»Figure() {
 		org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure figure = createNodePlate();
-		figure.setLayoutManager(new org.eclipse.draw2d.XYLayout() {
+		figure.setLayoutManager(new org.eclipse.draw2d.XYLayout()«IF hasLayoutDataSynchronizers(this)» {
 			public org.eclipse.draw2d.geometry.Point getOrigin(org.eclipse.draw2d.IFigure parent) {
 				return new org.eclipse.draw2d.geometry.Point();
 			}
-		});
+		}«ENDIF»);
 		org.eclipse.draw2d.IFigure shape = createNodeShape();
 		figure.add(shape);
 		contentPane = figure;
