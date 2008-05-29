@@ -39,8 +39,10 @@ public class «EXPAND className» extends org.eclipse.gmf.runtime.diagram.ui.provi
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public void dispose() {
-		deleteAction.dispose();
-		deleteAction = null;
+		if (deleteAction != null) {
+			deleteAction.dispose();
+			deleteAction = null;
+		}
 		super.dispose();
 	}
 

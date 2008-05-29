@@ -281,8 +281,10 @@ private org.eclipse.jface.viewers.ISelection getNavigatorSelection() {
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
-		getDiagramGraphicalViewer().setContextMenu(
-				new DiagramEditorContextMenuProvider(this, getDiagramGraphicalViewer()));
+		«EXPAND xpt::editor::DiagramEditorContextMenuProvider::qualifiedClassName FOR editorGen.diagram» provider =
+				new «EXPAND xpt::editor::DiagramEditorContextMenuProvider::qualifiedClassName FOR editorGen.diagram»(this, getDiagramGraphicalViewer());
+		getDiagramGraphicalViewer().setContextMenu(provider);
+		getSite().registerContextMenu(org.eclipse.gmf.runtime.diagram.ui.actions.ActionIds.DIAGRAM_EDITOR_CONTEXT_MENU, provider, getDiagramGraphicalViewer());
 	}
 «ENDDEFINE»
 
