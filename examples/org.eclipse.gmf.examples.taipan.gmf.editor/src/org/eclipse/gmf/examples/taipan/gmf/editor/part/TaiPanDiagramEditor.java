@@ -37,6 +37,7 @@ import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
+import org.eclipse.gmf.runtime.diagram.ui.actions.ActionIds;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramDropTargetListener;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
@@ -247,7 +248,9 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor implements IGotoM
 	 */
 	protected void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
-		getDiagramGraphicalViewer().setContextMenu(new DiagramEditorContextMenuProvider(this, getDiagramGraphicalViewer()));
+		DiagramEditorContextMenuProvider provider = new DiagramEditorContextMenuProvider(this, getDiagramGraphicalViewer());
+		getDiagramGraphicalViewer().setContextMenu(provider);
+		getSite().registerContextMenu(ActionIds.DIAGRAM_EDITOR_CONTEXT_MENU, provider, getDiagramGraphicalViewer());
 	}
 
 	/**

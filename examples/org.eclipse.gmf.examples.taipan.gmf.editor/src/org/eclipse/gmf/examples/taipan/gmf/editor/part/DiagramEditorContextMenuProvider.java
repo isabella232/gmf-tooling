@@ -49,8 +49,10 @@ public class DiagramEditorContextMenuProvider extends DiagramContextMenuProvider
 	 * @generated
 	 */
 	public void dispose() {
-		deleteAction.dispose();
-		deleteAction = null;
+		if (deleteAction != null) {
+			deleteAction.dispose();
+			deleteAction = null;
+		}
 		super.dispose();
 	}
 
