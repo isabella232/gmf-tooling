@@ -457,6 +457,16 @@
          </metamodelType>
       </metamodel>
       <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
+         <metamodelType
+               id="org.eclipse.gmf.graphdef.editor.Polygon_3023"
+               name="%metatype.name.Polygon_3023"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Polygon"
+               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.PolygonEditHelper">
+            <param name="semanticHint" value="3023"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <specializationType
                id="org.eclipse.gmf.graphdef.editor.Ellipse_3015"
                name="%metatype.name.Ellipse_3015"
@@ -481,6 +491,15 @@
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
             <specializes id="org.eclipse.gmf.graphdef.editor.Polyline_3014"/>
             <param name="semanticHint" value="3017"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
+         <specializationType
+               id="org.eclipse.gmf.graphdef.editor.Polygon_3024"
+               name="%metatype.name.Polygon_3024"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.graphdef.editor.Polygon_3023"/>
+            <param name="semanticHint" value="3024"/>
          </specializationType>
       </metamodel>
       <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
@@ -517,6 +536,15 @@
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
             <specializes id="org.eclipse.gmf.graphdef.editor.Polyline_3014"/>
             <param name="semanticHint" value="3021"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
+         <specializationType
+               id="org.eclipse.gmf.graphdef.editor.Polygon_3025"
+               name="%metatype.name.Polygon_3025"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.graphdef.editor.Polygon_3023"/>
+            <param name="semanticHint" value="3025"/>
          </specializationType>
       </metamodel>
       <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
@@ -589,13 +617,16 @@
          <elementType ref="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3013"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.Polyline_3014"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.Point_3022"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Polygon_3023"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.Ellipse_3015"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3016"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.Polyline_3017"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Polygon_3024"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.Rectangle_3018"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.Ellipse_3019"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3020"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.Polyline_3021"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Polygon_3025"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.ChildAccess_4002"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.CompartmentAccessor_4003"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.DiagramLabelAccessor_4004"/>

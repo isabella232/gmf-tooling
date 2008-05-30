@@ -16,6 +16,7 @@ import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 
 import org.eclipse.gmf.graphdef.editor.edit.commands.Ellipse3CreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.FigureDescriptorCreateCommand;
+import org.eclipse.gmf.graphdef.editor.edit.commands.Polygon3CreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.Polyline3CreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.Rectangle3CreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.RoundedRectangle3CreateCommand;
@@ -62,6 +63,12 @@ public class FigureGalleryFiguresItemSemanticEditPolicy extends GMFGraphBaseItem
 				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigureGallery_Figures());
 			}
 			return getGEFWrapper(new Polyline3CreateCommand(req));
+		}
+		if (GMFGraphElementTypes.Polygon_3025 == req.getElementType()) {
+			if (req.getContainmentFeature() == null) {
+				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigureGallery_Figures());
+			}
+			return getGEFWrapper(new Polygon3CreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

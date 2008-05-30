@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2008 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -18,17 +18,9 @@ import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.graphdef.editor.edit.commands.ChildAccessCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.ChildAccessReorientCommand;
-import org.eclipse.gmf.graphdef.editor.edit.commands.EllipseCreateCommand;
-import org.eclipse.gmf.graphdef.editor.edit.commands.PolygonCreateCommand;
-import org.eclipse.gmf.graphdef.editor.edit.commands.PolylineCreateCommand;
-import org.eclipse.gmf.graphdef.editor.edit.commands.Rectangle2CreateCommand;
-import org.eclipse.gmf.graphdef.editor.edit.commands.RoundedRectangleCreateCommand;
+import org.eclipse.gmf.graphdef.editor.edit.commands.PointCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.parts.ChildAccessEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.PolygonEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle2EditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangleEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PointEditPart;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
@@ -42,41 +34,17 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class RoundedRectangleItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEditPolicy {
+public class Polygon3ItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (GMFGraphElementTypes.Rectangle_3011 == req.getElementType()) {
+		if (GMFGraphElementTypes.Point_3022 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getRealFigure_Children());
+				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getPolyline_Template());
 			}
-			return getGEFWrapper(new Rectangle2CreateCommand(req));
-		}
-		if (GMFGraphElementTypes.Ellipse_3012 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getRealFigure_Children());
-			}
-			return getGEFWrapper(new EllipseCreateCommand(req));
-		}
-		if (GMFGraphElementTypes.RoundedRectangle_3013 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getRealFigure_Children());
-			}
-			return getGEFWrapper(new RoundedRectangleCreateCommand(req));
-		}
-		if (GMFGraphElementTypes.Polyline_3014 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getRealFigure_Children());
-			}
-			return getGEFWrapper(new PolylineCreateCommand(req));
-		}
-		if (GMFGraphElementTypes.Polygon_3023 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getRealFigure_Children());
-			}
-			return getGEFWrapper(new PolygonCreateCommand(req));
+			return getGEFWrapper(new PointCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -104,19 +72,7 @@ public class RoundedRectangleItemSemanticEditPolicy extends GMFGraphBaseItemSema
 		for (Iterator it = view.getChildren().iterator(); it.hasNext();) {
 			Node node = (Node) it.next();
 			switch (GMFGraphVisualIDRegistry.getVisualID(node)) {
-			case Rectangle2EditPart.VISUAL_ID:
-				cmd.add(getDestroyElementCommand(node));
-				break;
-			case EllipseEditPart.VISUAL_ID:
-				cmd.add(getDestroyElementCommand(node));
-				break;
-			case RoundedRectangleEditPart.VISUAL_ID:
-				cmd.add(getDestroyElementCommand(node));
-				break;
-			case PolylineEditPart.VISUAL_ID:
-				cmd.add(getDestroyElementCommand(node));
-				break;
-			case PolygonEditPart.VISUAL_ID:
+			case PointEditPart.VISUAL_ID:
 				cmd.add(getDestroyElementCommand(node));
 				break;
 			}

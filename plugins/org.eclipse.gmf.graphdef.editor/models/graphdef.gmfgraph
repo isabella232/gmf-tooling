@@ -194,6 +194,11 @@
         </children>
       </actualFigure>
     </descriptors>
+    <descriptors
+        name="PolygonFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Polygon"/>
+    </descriptors>
   </figures>
   <nodes
       name="DiagramElementNode"
@@ -249,6 +254,9 @@
           dy="7"/>
     </facets>
   </nodes>
+  <nodes
+      name="PolygonNode"
+      figure="PolygonFigure"/>
   <connections
       name="FigureLink"
       figure="FigureConnectionFigure"/>

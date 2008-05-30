@@ -36,6 +36,9 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PointEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PolygonEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
@@ -332,6 +335,15 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			}
 			break;
 		}
+		case PolygonEditPart.VISUAL_ID: {
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getPolygon_3023ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
+			break;
+		}
 		case Ellipse2EditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(GMFGraphDiagramUpdater.getEllipse_3015ContainedLinks(view));
@@ -353,6 +365,15 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		case Polyline2EditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(GMFGraphDiagramUpdater.getPolyline_3017ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
+			break;
+		}
+		case Polygon2EditPart.VISUAL_ID: {
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getPolygon_3024ContainedLinks(view));
 			}
 			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
 				domain2NotationMap.put(view.getElement(), view);
@@ -389,6 +410,15 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		case Polyline3EditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(GMFGraphDiagramUpdater.getPolyline_3021ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
+			break;
+		}
+		case Polygon3EditPart.VISUAL_ID: {
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getPolygon_3025ContainedLinks(view));
 			}
 			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
 				domain2NotationMap.put(view.getElement(), view);

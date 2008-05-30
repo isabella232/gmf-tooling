@@ -134,6 +134,11 @@
             <containmentFeature
                 href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//FigureDescriptor/actualFigure"/>
           </children>
+          <children
+              referencedChild="//@nodes.3/@ownedChild/@children.5/@ownedChild">
+            <containmentFeature
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//FigureDescriptor/actualFigure"/>
+          </children>
         </ownedChild>
       </children>
       <children
@@ -169,6 +174,8 @@
             <ownedChild>
               <domainMetaElement
                   href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Polyline"/>
+              <domainSpecialization
+                  body="not oclIsKindOf(gmfgraph::Polygon)"/>
               <domainInitializer
                   xsi:type="gmfmap:FeatureSeqInitializer">
                 <initializers
@@ -226,6 +233,87 @@
               </children>
             </ownedChild>
           </children>
+          <children>
+            <containmentFeature
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
+            <ownedChild>
+              <domainMetaElement
+                  href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Polygon"/>
+              <domainInitializer
+                  xsi:type="gmfmap:FeatureSeqInitializer">
+                <initializers
+                    xsi:type="gmfmap:ReferenceNewElementSpec">
+                  <feature
+                      xsi:type="ecore:EReference"
+                      href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Polyline/template"/>
+                  <newElementInitializers>
+                    <initializers
+                        xsi:type="gmfmap:FeatureValueSpec">
+                      <feature
+                          xsi:type="ecore:EAttribute"
+                          href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Point/x"/>
+                      <value
+                          body="10"/>
+                    </initializers>
+                    <initializers
+                        xsi:type="gmfmap:FeatureValueSpec">
+                      <feature
+                          xsi:type="ecore:EAttribute"
+                          href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Point/y"/>
+                      <value
+                          body="10"/>
+                    </initializers>
+                  </newElementInitializers>
+                  <newElementInitializers>
+                    <initializers
+                        xsi:type="gmfmap:FeatureValueSpec">
+                      <feature
+                          xsi:type="ecore:EAttribute"
+                          href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Point/x"/>
+                      <value
+                          body="30"/>
+                    </initializers>
+                    <initializers
+                        xsi:type="gmfmap:FeatureValueSpec">
+                      <feature
+                          xsi:type="ecore:EAttribute"
+                          href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Point/y"/>
+                      <value
+                          body="30"/>
+                    </initializers>
+                  </newElementInitializers>
+                  <newElementInitializers>
+                    <initializers
+                        xsi:type="gmfmap:FeatureValueSpec">
+                      <feature
+                          xsi:type="ecore:EAttribute"
+                          href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Point/x"/>
+                      <value
+                          body="10"/>
+                    </initializers>
+                    <initializers
+                        xsi:type="gmfmap:FeatureValueSpec">
+                      <feature
+                          xsi:type="ecore:EAttribute"
+                          href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Point/y"/>
+                      <value
+                          body="60"/>
+                    </initializers>
+                  </newElementInitializers>
+                </initializers>
+              </domainInitializer>
+              <tool
+                  xsi:type="gmftool:CreationTool"
+                  href="graphdef.gmftool#//@palette/@tools.1/@tools.7"/>
+              <diagramNode
+                  href="graphdef.gmfgraph#PolygonNode"/>
+              <children
+                  referencedChild="//@nodes.3/@ownedChild/@children.4/@ownedChild/@children.0/@ownedChild">
+                <containmentFeature
+                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Polyline/template"/>
+              </children>
+            </ownedChild>
+          </children>
         </ownedChild>
       </children>
       <children
@@ -257,6 +345,11 @@
           </children>
           <children
               referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.3/@ownedChild">
+            <containmentFeature
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
+          </children>
+          <children
+              referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.4/@ownedChild">
             <containmentFeature
                 href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
           </children>
@@ -294,6 +387,11 @@
             <containmentFeature
                 href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
           </children>
+          <children
+              referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.4/@ownedChild">
+            <containmentFeature
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
+          </children>
         </ownedChild>
       </children>
       <children
@@ -303,6 +401,8 @@
         <ownedChild>
           <domainMetaElement
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Polyline"/>
+          <domainSpecialization
+              body="not oclIsKindOf(gmfgraph::Polygon)"/>
           <tool
               xsi:type="gmftool:CreationTool"
               href="graphdef.gmftool#//@palette/@tools.1/@tools.5"/>
@@ -323,8 +423,27 @@
           </children>
         </ownedChild>
       </children>
+      <children
+          compartment="//@nodes.3/@ownedChild/@compartments.0">
+        <containmentFeature
+            href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//FigureGallery/figures"/>
+        <ownedChild>
+          <domainMetaElement
+              href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Polygon"/>
+          <tool
+              xsi:type="gmftool:CreationTool"
+              href="graphdef.gmftool#//@palette/@tools.1/@tools.7"/>
+          <diagramNode
+              href="graphdef.gmfgraph#PolygonNode"/>
+          <children
+              referencedChild="//@nodes.3/@ownedChild/@children.4/@ownedChild/@children.0/@ownedChild">
+            <containmentFeature
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Polyline/template"/>
+          </children>
+        </ownedChild>
+      </children>
       <compartments
-          children="//@nodes.3/@ownedChild/@children.1 //@nodes.3/@ownedChild/@children.2 //@nodes.3/@ownedChild/@children.3 //@nodes.3/@ownedChild/@children.4 //@nodes.3/@ownedChild/@children.0">
+          children="//@nodes.3/@ownedChild/@children.1 //@nodes.3/@ownedChild/@children.2 //@nodes.3/@ownedChild/@children.3 //@nodes.3/@ownedChild/@children.4 //@nodes.3/@ownedChild/@children.0 //@nodes.3/@ownedChild/@children.5">
         <compartment
             href="graphdef.gmfgraph#Figures"/>
       </compartments>

@@ -39,6 +39,9 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeContentPaneEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PointEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PolygonEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
@@ -327,6 +330,9 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			connectedViews = getChildrenByType(Collections.singleton(view), FigureGalleryFiguresEditPart.VISUAL_ID);
 			connectedViews = getChildrenByType(connectedViews, Polyline3EditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), FigureGalleryFiguresEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, Polygon3EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			return result.toArray();
 		}
 
@@ -341,6 +347,8 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangle2EditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), Polyline2EditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), Polygon2EditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getOutgoingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
@@ -366,6 +374,8 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), PolygonEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			if (!incominglinks.isEmpty()) {
@@ -384,6 +394,8 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), PolygonEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
@@ -404,6 +416,8 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), PolygonEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			if (!incominglinks.isEmpty()) {
@@ -422,6 +436,8 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), PolygonEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
@@ -444,6 +460,19 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			return result.toArray();
 		}
 
+		case PolygonEditPart.VISUAL_ID: {
+			Collection result = new ArrayList();
+			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Polygon_3023_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection connectedViews = getChildrenByType(Collections.singleton(view), PointEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
+			}
+			return result.toArray();
+		}
+
 		case Ellipse2EditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Ellipse_3015_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
@@ -454,6 +483,8 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), PolygonEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
@@ -473,6 +504,8 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), PolygonEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
@@ -495,6 +528,19 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			return result.toArray();
 		}
 
+		case Polygon2EditPart.VISUAL_ID: {
+			Collection result = new ArrayList();
+			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Polygon_3024_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection connectedViews = getChildrenByType(Collections.singleton(view), PointEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
+			}
+			return result.toArray();
+		}
+
 		case Rectangle3EditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Rectangle_3018_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
@@ -505,6 +551,8 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			connectedViews = getChildrenByType(Collections.singleton(view), RoundedRectangleEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), PolygonEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
@@ -525,6 +573,8 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), PolygonEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			if (!incominglinks.isEmpty()) {
@@ -544,6 +594,8 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(view), PolygonEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			if (!incominglinks.isEmpty()) {
@@ -555,6 +607,19 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 		case Polyline3EditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Polyline_3021_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection connectedViews = getChildrenByType(Collections.singleton(view), PointEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
+			}
+			return result.toArray();
+		}
+
+		case Polygon3EditPart.VISUAL_ID: {
+			Collection result = new ArrayList();
+			GMFGraphNavigatorGroup incominglinks = new GMFGraphNavigatorGroup(Messages.NavigatorGroupName_Polygon_3025_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getChildrenByType(Collections.singleton(view), PointEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getIncomingLinksByType(Collections.singleton(view), ChildAccessEditPart.VISUAL_ID);
@@ -579,11 +644,15 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksTargetByType(Collections.singleton(view), PolylineEditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksTargetByType(Collections.singleton(view), PolygonEditPart.VISUAL_ID);
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksTargetByType(Collections.singleton(view), Ellipse2EditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksTargetByType(Collections.singleton(view), RoundedRectangle2EditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksTargetByType(Collections.singleton(view), Polyline2EditPart.VISUAL_ID);
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksTargetByType(Collections.singleton(view), Polygon2EditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksTargetByType(Collections.singleton(view), Rectangle3EditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
@@ -592,6 +661,8 @@ public class GMFGraphNavigatorContentProvider implements ICommonContentProvider 
 			connectedViews = getLinksTargetByType(Collections.singleton(view), RoundedRectangle3EditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksTargetByType(Collections.singleton(view), Polyline3EditPart.VISUAL_ID);
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksTargetByType(Collections.singleton(view), Polygon3EditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksSourceByType(Collections.singleton(view), FigureDescriptorEditPart.VISUAL_ID);
 			source.addChildren(createNavigatorItems(connectedViews, source, true));

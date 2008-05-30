@@ -89,6 +89,9 @@ public class GMFGraphEditPartFactory implements EditPartFactory {
 			case PointEditPart.VISUAL_ID:
 				return new PointEditPart(view);
 
+			case PolygonEditPart.VISUAL_ID:
+				return new PolygonEditPart(view);
+
 			case Ellipse2EditPart.VISUAL_ID:
 				return new Ellipse2EditPart(view);
 
@@ -97,6 +100,9 @@ public class GMFGraphEditPartFactory implements EditPartFactory {
 
 			case Polyline2EditPart.VISUAL_ID:
 				return new Polyline2EditPart(view);
+
+			case Polygon2EditPart.VISUAL_ID:
+				return new Polygon2EditPart(view);
 
 			case Rectangle3EditPart.VISUAL_ID:
 				return new Rectangle3EditPart(view);
@@ -109,6 +115,9 @@ public class GMFGraphEditPartFactory implements EditPartFactory {
 
 			case Polyline3EditPart.VISUAL_ID:
 				return new Polyline3EditPart(view);
+
+			case Polygon3EditPart.VISUAL_ID:
+				return new Polygon3EditPart(view);
 
 			case CompartmentVisualFacetsEditPart.VISUAL_ID:
 				return new CompartmentVisualFacetsEditPart(view);

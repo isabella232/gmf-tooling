@@ -36,6 +36,9 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeVisualFacetsEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PointEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PolygonEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
@@ -70,6 +73,9 @@ import org.eclipse.gmf.graphdef.editor.view.factories.NodeNameViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.NodeViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.NodeVisualFacetsViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.PointViewFactory;
+import org.eclipse.gmf.graphdef.editor.view.factories.Polygon2ViewFactory;
+import org.eclipse.gmf.graphdef.editor.view.factories.Polygon3ViewFactory;
+import org.eclipse.gmf.graphdef.editor.view.factories.PolygonViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.Polyline2ViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.Polyline3ViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.PolylineViewFactory;
@@ -154,14 +160,17 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 				case RoundedRectangleEditPart.VISUAL_ID:
 				case PolylineEditPart.VISUAL_ID:
 				case PointEditPart.VISUAL_ID:
+				case PolygonEditPart.VISUAL_ID:
 				case Rectangle2EditPart.VISUAL_ID:
 				case Ellipse2EditPart.VISUAL_ID:
 				case RoundedRectangle2EditPart.VISUAL_ID:
 				case Polyline2EditPart.VISUAL_ID:
+				case Polygon2EditPart.VISUAL_ID:
 				case Rectangle3EditPart.VISUAL_ID:
 				case Ellipse3EditPart.VISUAL_ID:
 				case RoundedRectangle3EditPart.VISUAL_ID:
 				case Polyline3EditPart.VISUAL_ID:
+				case Polygon3EditPart.VISUAL_ID:
 					if (domainElement == null || visualID != GMFGraphVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
 						return null; // visual id in semantic hint should match visual id for domain element
 					}
@@ -243,12 +252,16 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 			return PolylineViewFactory.class;
 		case PointEditPart.VISUAL_ID:
 			return PointViewFactory.class;
+		case PolygonEditPart.VISUAL_ID:
+			return PolygonViewFactory.class;
 		case Ellipse2EditPart.VISUAL_ID:
 			return Ellipse2ViewFactory.class;
 		case RoundedRectangle2EditPart.VISUAL_ID:
 			return RoundedRectangle2ViewFactory.class;
 		case Polyline2EditPart.VISUAL_ID:
 			return Polyline2ViewFactory.class;
+		case Polygon2EditPart.VISUAL_ID:
+			return Polygon2ViewFactory.class;
 		case Rectangle3EditPart.VISUAL_ID:
 			return Rectangle3ViewFactory.class;
 		case Ellipse3EditPart.VISUAL_ID:
@@ -257,6 +270,8 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 			return RoundedRectangle3ViewFactory.class;
 		case Polyline3EditPart.VISUAL_ID:
 			return Polyline3ViewFactory.class;
+		case Polygon3EditPart.VISUAL_ID:
+			return Polygon3ViewFactory.class;
 		case CompartmentVisualFacetsEditPart.VISUAL_ID:
 			return CompartmentVisualFacetsViewFactory.class;
 		case NodeVisualFacetsEditPart.VISUAL_ID:

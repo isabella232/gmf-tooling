@@ -15,6 +15,7 @@ import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.Point;
+import org.eclipse.gmf.gmfgraph.Polygon;
 import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
@@ -38,6 +39,9 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.NodeContentPaneEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PointEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PolygonEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
@@ -149,12 +153,16 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polyline", GMFGraphElementTypes.Polyline_3014); //$NON-NLS-1$
 		case PointEditPart.VISUAL_ID:
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Point", GMFGraphElementTypes.Point_3022); //$NON-NLS-1$
+		case PolygonEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polygon", GMFGraphElementTypes.Polygon_3023); //$NON-NLS-1$
 		case Ellipse2EditPart.VISUAL_ID:
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Ellipse", GMFGraphElementTypes.Ellipse_3015); //$NON-NLS-1$
 		case RoundedRectangle2EditPart.VISUAL_ID:
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?RoundedRectangle", GMFGraphElementTypes.RoundedRectangle_3016); //$NON-NLS-1$
 		case Polyline2EditPart.VISUAL_ID:
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polyline", GMFGraphElementTypes.Polyline_3017); //$NON-NLS-1$
+		case Polygon2EditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polygon", GMFGraphElementTypes.Polygon_3024); //$NON-NLS-1$
 		case Rectangle3EditPart.VISUAL_ID:
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Rectangle", GMFGraphElementTypes.Rectangle_3018); //$NON-NLS-1$
 		case Ellipse3EditPart.VISUAL_ID:
@@ -163,6 +171,8 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?RoundedRectangle", GMFGraphElementTypes.RoundedRectangle_3020); //$NON-NLS-1$
 		case Polyline3EditPart.VISUAL_ID:
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polyline", GMFGraphElementTypes.Polyline_3021); //$NON-NLS-1$
+		case Polygon3EditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polygon", GMFGraphElementTypes.Polygon_3025); //$NON-NLS-1$
 		case ChildAccessEditPart.VISUAL_ID:
 			return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/GraphicalDefinition?ChildAccess", GMFGraphElementTypes.ChildAccess_4002); //$NON-NLS-1$
 		case CompartmentAccessorEditPart.VISUAL_ID:
@@ -255,12 +265,16 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getPolyline_3014Text(view);
 		case PointEditPart.VISUAL_ID:
 			return getPoint_3022Text(view);
+		case PolygonEditPart.VISUAL_ID:
+			return getPolygon_3023Text(view);
 		case Ellipse2EditPart.VISUAL_ID:
 			return getEllipse_3015Text(view);
 		case RoundedRectangle2EditPart.VISUAL_ID:
 			return getRoundedRectangle_3016Text(view);
 		case Polyline2EditPart.VISUAL_ID:
 			return getPolyline_3017Text(view);
+		case Polygon2EditPart.VISUAL_ID:
+			return getPolygon_3024Text(view);
 		case Rectangle3EditPart.VISUAL_ID:
 			return getRectangle_3018Text(view);
 		case Ellipse3EditPart.VISUAL_ID:
@@ -269,6 +283,8 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getRoundedRectangle_3020Text(view);
 		case Polyline3EditPart.VISUAL_ID:
 			return getPolyline_3021Text(view);
+		case Polygon3EditPart.VISUAL_ID:
+			return getPolygon_3025Text(view);
 		case ChildAccessEditPart.VISUAL_ID:
 			return getChildAccess_4002Text(view);
 		case CompartmentAccessorEditPart.VISUAL_ID:
@@ -449,6 +465,19 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	/**
 	 * @generated
 	 */
+	private String getPolygon_3023Text(View view) {
+		Polygon domainModelElement = (Polygon) view.getElement();
+		if (domainModelElement != null) {
+			return domainModelElement.getName();
+		} else {
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3023); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * @generated
+	 */
 	private String getEllipse_3015Text(View view) {
 		Ellipse domainModelElement = (Ellipse) view.getElement();
 		if (domainModelElement != null) {
@@ -481,6 +510,19 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return domainModelElement.getName();
 		} else {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3017); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getPolygon_3024Text(View view) {
+		Polygon domainModelElement = (Polygon) view.getElement();
+		if (domainModelElement != null) {
+			return domainModelElement.getName();
+		} else {
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3024); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
 	}
@@ -533,6 +575,19 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return domainModelElement.getName();
 		} else {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3021); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getPolygon_3025Text(View view) {
+		Polygon domainModelElement = (Polygon) view.getElement();
+		if (domainModelElement != null) {
+			return domainModelElement.getName();
+		} else {
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3025); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
 	}

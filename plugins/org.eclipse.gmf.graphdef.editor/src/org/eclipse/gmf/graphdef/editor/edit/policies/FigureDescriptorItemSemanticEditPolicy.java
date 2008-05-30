@@ -21,12 +21,14 @@ import org.eclipse.gmf.graphdef.editor.edit.commands.ChildAccessReorientCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.DiagramElementFigureCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.DiagramElementFigureReorientCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.Ellipse2CreateCommand;
+import org.eclipse.gmf.graphdef.editor.edit.commands.Polygon2CreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.Polyline2CreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.RectangleCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.RoundedRectangle2CreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.parts.ChildAccessEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramElementFigureEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RectangleEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle2EditPart;
@@ -74,6 +76,12 @@ public class FigureDescriptorItemSemanticEditPolicy extends GMFGraphBaseItemSema
 			}
 			return getGEFWrapper(new Polyline2CreateCommand(req));
 		}
+		if (GMFGraphElementTypes.Polygon_3024 == req.getElementType()) {
+			if (req.getContainmentFeature() == null) {
+				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigureDescriptor_ActualFigure());
+			}
+			return getGEFWrapper(new Polygon2CreateCommand(req));
+		}
 		return super.getCreateCommand(req);
 	}
 
@@ -110,6 +118,9 @@ public class FigureDescriptorItemSemanticEditPolicy extends GMFGraphBaseItemSema
 				cmd.add(getDestroyElementCommand(node));
 				break;
 			case Polyline2EditPart.VISUAL_ID:
+				cmd.add(getDestroyElementCommand(node));
+				break;
+			case Polygon2EditPart.VISUAL_ID:
 				cmd.add(getDestroyElementCommand(node));
 				break;
 			}

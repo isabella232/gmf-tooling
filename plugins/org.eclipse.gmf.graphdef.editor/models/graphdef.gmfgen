@@ -41,7 +41,7 @@
           itemSemanticEditPolicyClassName="FigureDescriptorItemSemanticEditPolicy"
           notationViewFactoryClassName="FigureDescriptorViewFactory"
           canonicalEditPolicyClassName="FigureDescriptorCanonicalEditPolicy"
-          childNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9"
+          childNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11"
           graphicalNodeEditPolicyClassName="FigureDescriptorGraphicalNodeEditPolicy"
           createCommandClassName="FigureDescriptorCreateCommand"
           containers="/0/@diagram/@compartments.3">
@@ -90,7 +90,7 @@
           itemSemanticEditPolicyClassName="RectangleItemSemanticEditPolicy"
           notationViewFactoryClassName="RectangleViewFactory"
           canonicalEditPolicyClassName="RectangleCanonicalEditPolicy"
-          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5"
+          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7"
           graphicalNodeEditPolicyClassName="RectangleGraphicalNodeEditPolicy"
           createCommandClassName="RectangleCreateCommand"
           containers="/0/@diagram/@childNodes.0">
@@ -126,10 +126,10 @@
           itemSemanticEditPolicyClassName="Rectangle2ItemSemanticEditPolicy"
           notationViewFactoryClassName="Rectangle2ViewFactory"
           canonicalEditPolicyClassName="Rectangle2CanonicalEditPolicy"
-          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5"
+          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7"
           graphicalNodeEditPolicyClassName="Rectangle2GraphicalNodeEditPolicy"
           createCommandClassName="Rectangle2CreateCommand"
-          containers="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.1 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12">
+          containers="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.1 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <elementType
@@ -162,10 +162,10 @@
           itemSemanticEditPolicyClassName="EllipseItemSemanticEditPolicy"
           notationViewFactoryClassName="EllipseViewFactory"
           canonicalEditPolicyClassName="EllipseCanonicalEditPolicy"
-          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5"
+          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7"
           graphicalNodeEditPolicyClassName="EllipseGraphicalNodeEditPolicy"
           createCommandClassName="EllipseCreateCommand"
-          containers="/0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.1 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12">
+          containers="/0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.1 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <elementType
@@ -198,10 +198,10 @@
           itemSemanticEditPolicyClassName="RoundedRectangleItemSemanticEditPolicy"
           notationViewFactoryClassName="RoundedRectangleViewFactory"
           canonicalEditPolicyClassName="RoundedRectangleCanonicalEditPolicy"
-          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5"
+          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7"
           graphicalNodeEditPolicyClassName="RoundedRectangleGraphicalNodeEditPolicy"
           createCommandClassName="RoundedRectangleCreateCommand"
-          containers="/0/@diagram/@childNodes.4 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.1 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12">
+          containers="/0/@diagram/@childNodes.4 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.1 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <elementType
@@ -237,7 +237,7 @@
           childNodes="/0/@diagram/@childNodes.6"
           graphicalNodeEditPolicyClassName="PolylineGraphicalNodeEditPolicy"
           createCommandClassName="PolylineCreateCommand"
-          containers="/0/@diagram/@childNodes.4 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.1 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12">
+          containers="/0/@diagram/@childNodes.4 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.1 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <elementType
@@ -253,7 +253,8 @@
           <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
-        <modelFacet>
+        <modelFacet
+            modelElementSelector="/0/@expressionProviders/@providers.0/@expressions.0">
           <metaClass
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Polyline"/>
           <containmentMetaFeature
@@ -269,13 +270,13 @@
               <newElementInitializers>
                 <initializers
                     xsi:type="gmfgen:GenFeatureValueSpec"
-                    value="/0/@expressionProviders/@providers.0/@expressions.0">
+                    value="/0/@expressionProviders/@providers.0/@expressions.1">
                   <feature
                       href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Point/x"/>
                 </initializers>
                 <initializers
                     xsi:type="gmfgen:GenFeatureValueSpec"
-                    value="/0/@expressionProviders/@providers.0/@expressions.1">
+                    value="/0/@expressionProviders/@providers.0/@expressions.2">
                   <feature
                       href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Point/y"/>
                 </initializers>
@@ -283,13 +284,13 @@
               <newElementInitializers>
                 <initializers
                     xsi:type="gmfgen:GenFeatureValueSpec"
-                    value="/0/@expressionProviders/@providers.0/@expressions.2">
+                    value="/0/@expressionProviders/@providers.0/@expressions.3">
                   <feature
                       href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Point/x"/>
                 </initializers>
                 <initializers
                     xsi:type="gmfgen:GenFeatureValueSpec"
-                    value="/0/@expressionProviders/@providers.0/@expressions.3">
+                    value="/0/@expressionProviders/@providers.0/@expressions.4">
                   <feature
                       href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Point/y"/>
                 </initializers>
@@ -306,7 +307,7 @@
           canonicalEditPolicyClassName="PointCanonicalEditPolicy"
           graphicalNodeEditPolicyClassName="PointGraphicalNodeEditPolicy"
           createCommandClassName="PointCreateCommand"
-          containers="/0/@diagram/@childNodes.5 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.13">
+          containers="/0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.15 /0/@diagram/@childNodes.16">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <elementType
@@ -335,12 +336,92 @@
         </modelFacet>
       </childNodes>
       <childNodes
+          visualID="3023"
+          editPartClassName="PolygonEditPart"
+          itemSemanticEditPolicyClassName="PolygonItemSemanticEditPolicy"
+          notationViewFactoryClassName="PolygonViewFactory"
+          canonicalEditPolicyClassName="PolygonCanonicalEditPolicy"
+          childNodes="/0/@diagram/@childNodes.6"
+          graphicalNodeEditPolicyClassName="PolygonGraphicalNodeEditPolicy"
+          createCommandClassName="PolygonCreateCommand"
+          containers="/0/@diagram/@childNodes.4 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.1 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14">
+        <diagramRunTimeClass
+            href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <elementType
+            xsi:type="gmfgen:MetamodelType"
+            editHelperClassName="PolygonEditHelper"/>
+        <viewmap
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.draw2d.Polygon">
+          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+        </viewmap>
+        <modelFacet>
+          <metaClass
+              href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Polygon"/>
+          <containmentMetaFeature
+              href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/RealFigure/children"/>
+          <childMetaFeature
+              href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/RealFigure/children"/>
+          <modelElementInitializer
+              xsi:type="gmfgen:GenFeatureSeqInitializer">
+            <initializers
+                xsi:type="gmfgen:GenReferenceNewElementSpec">
+              <feature
+                  href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Polyline/template"/>
+              <newElementInitializers>
+                <initializers
+                    xsi:type="gmfgen:GenFeatureValueSpec"
+                    value="/0/@expressionProviders/@providers.0/@expressions.5">
+                  <feature
+                      href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Point/x"/>
+                </initializers>
+                <initializers
+                    xsi:type="gmfgen:GenFeatureValueSpec"
+                    value="/0/@expressionProviders/@providers.0/@expressions.6">
+                  <feature
+                      href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Point/y"/>
+                </initializers>
+              </newElementInitializers>
+              <newElementInitializers>
+                <initializers
+                    xsi:type="gmfgen:GenFeatureValueSpec"
+                    value="/0/@expressionProviders/@providers.0/@expressions.7">
+                  <feature
+                      href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Point/x"/>
+                </initializers>
+                <initializers
+                    xsi:type="gmfgen:GenFeatureValueSpec"
+                    value="/0/@expressionProviders/@providers.0/@expressions.8">
+                  <feature
+                      href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Point/y"/>
+                </initializers>
+              </newElementInitializers>
+              <newElementInitializers>
+                <initializers
+                    xsi:type="gmfgen:GenFeatureValueSpec"
+                    value="/0/@expressionProviders/@providers.0/@expressions.9">
+                  <feature
+                      href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Point/x"/>
+                </initializers>
+                <initializers
+                    xsi:type="gmfgen:GenFeatureValueSpec"
+                    value="/0/@expressionProviders/@providers.0/@expressions.10">
+                  <feature
+                      href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Point/y"/>
+                </initializers>
+              </newElementInitializers>
+            </initializers>
+          </modelElementInitializer>
+        </modelFacet>
+      </childNodes>
+      <childNodes
           visualID="3015"
           editPartClassName="Ellipse2EditPart"
           itemSemanticEditPolicyClassName="Ellipse2ItemSemanticEditPolicy"
           notationViewFactoryClassName="Ellipse2ViewFactory"
           canonicalEditPolicyClassName="Ellipse2CanonicalEditPolicy"
-          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5"
+          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7"
           graphicalNodeEditPolicyClassName="Ellipse2GraphicalNodeEditPolicy"
           createCommandClassName="Ellipse2CreateCommand"
           containers="/0/@diagram/@childNodes.0">
@@ -376,7 +457,7 @@
           itemSemanticEditPolicyClassName="RoundedRectangle2ItemSemanticEditPolicy"
           notationViewFactoryClassName="RoundedRectangle2ViewFactory"
           canonicalEditPolicyClassName="RoundedRectangle2CanonicalEditPolicy"
-          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5"
+          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7"
           graphicalNodeEditPolicyClassName="RoundedRectangle2GraphicalNodeEditPolicy"
           createCommandClassName="RoundedRectangle2CreateCommand"
           containers="/0/@diagram/@childNodes.0">
@@ -431,9 +512,40 @@
           <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
-        <modelFacet>
+        <modelFacet
+            modelElementSelector="/0/@expressionProviders/@providers.0/@expressions.11">
           <metaClass
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Polyline"/>
+          <containmentMetaFeature
+              href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/FigureDescriptor/actualFigure"/>
+          <childMetaFeature
+              href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/FigureDescriptor/actualFigure"/>
+        </modelFacet>
+      </childNodes>
+      <childNodes
+          visualID="3024"
+          editPartClassName="Polygon2EditPart"
+          itemSemanticEditPolicyClassName="Polygon2ItemSemanticEditPolicy"
+          notationViewFactoryClassName="Polygon2ViewFactory"
+          canonicalEditPolicyClassName="Polygon2CanonicalEditPolicy"
+          childNodes="/0/@diagram/@childNodes.6"
+          graphicalNodeEditPolicyClassName="Polygon2GraphicalNodeEditPolicy"
+          createCommandClassName="Polygon2CreateCommand"
+          containers="/0/@diagram/@childNodes.0">
+        <diagramRunTimeClass
+            href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <elementType
+            xsi:type="gmfgen:SpecializationType"
+            metamodelType="/0/@diagram/@childNodes.7/@elementType"/>
+        <viewmap
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.draw2d.Polygon">
+          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+        </viewmap>
+        <modelFacet>
+          <metaClass
+              href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Polygon"/>
           <containmentMetaFeature
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/FigureDescriptor/actualFigure"/>
           <childMetaFeature
@@ -446,7 +558,7 @@
           itemSemanticEditPolicyClassName="Rectangle3ItemSemanticEditPolicy"
           notationViewFactoryClassName="Rectangle3ViewFactory"
           canonicalEditPolicyClassName="Rectangle3CanonicalEditPolicy"
-          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5"
+          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7"
           graphicalNodeEditPolicyClassName="Rectangle3GraphicalNodeEditPolicy"
           createCommandClassName="Rectangle3CreateCommand"
           containers="/0/@diagram/@compartments.3">
@@ -482,7 +594,7 @@
           itemSemanticEditPolicyClassName="Ellipse3ItemSemanticEditPolicy"
           notationViewFactoryClassName="Ellipse3ViewFactory"
           canonicalEditPolicyClassName="Ellipse3CanonicalEditPolicy"
-          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5"
+          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7"
           graphicalNodeEditPolicyClassName="Ellipse3GraphicalNodeEditPolicy"
           createCommandClassName="Ellipse3CreateCommand"
           containers="/0/@diagram/@compartments.3">
@@ -518,7 +630,7 @@
           itemSemanticEditPolicyClassName="RoundedRectangle3ItemSemanticEditPolicy"
           notationViewFactoryClassName="RoundedRectangle3ViewFactory"
           canonicalEditPolicyClassName="RoundedRectangle3CanonicalEditPolicy"
-          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5"
+          childNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7"
           graphicalNodeEditPolicyClassName="RoundedRectangle3GraphicalNodeEditPolicy"
           createCommandClassName="RoundedRectangle3CreateCommand"
           containers="/0/@diagram/@compartments.3">
@@ -573,9 +685,40 @@
           <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
-        <modelFacet>
+        <modelFacet
+            modelElementSelector="/0/@expressionProviders/@providers.0/@expressions.11">
           <metaClass
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Polyline"/>
+          <containmentMetaFeature
+              href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/FigureGallery/figures"/>
+          <childMetaFeature
+              href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/FigureGallery/figures"/>
+        </modelFacet>
+      </childNodes>
+      <childNodes
+          visualID="3025"
+          editPartClassName="Polygon3EditPart"
+          itemSemanticEditPolicyClassName="Polygon3ItemSemanticEditPolicy"
+          notationViewFactoryClassName="Polygon3ViewFactory"
+          canonicalEditPolicyClassName="Polygon3CanonicalEditPolicy"
+          childNodes="/0/@diagram/@childNodes.6"
+          graphicalNodeEditPolicyClassName="Polygon3GraphicalNodeEditPolicy"
+          createCommandClassName="Polygon3CreateCommand"
+          containers="/0/@diagram/@compartments.3">
+        <diagramRunTimeClass
+            href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <elementType
+            xsi:type="gmfgen:SpecializationType"
+            metamodelType="/0/@diagram/@childNodes.7/@elementType"/>
+        <viewmap
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.draw2d.Polygon">
+          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+        </viewmap>
+        <modelFacet>
+          <metaClass
+              href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Polygon"/>
           <containmentMetaFeature
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/FigureGallery/figures"/>
           <childMetaFeature
@@ -961,7 +1104,7 @@
           itemSemanticEditPolicyClassName="FigureGalleryFiguresItemSemanticEditPolicy"
           notationViewFactoryClassName="FigureGalleryFiguresViewFactory"
           canonicalEditPolicyClassName="FigureGalleryFiguresCanonicalEditPolicy"
-          childNodes="/0/@diagram/@childNodes.0 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13"
+          childNodes="/0/@diagram/@childNodes.0 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14 /0/@diagram/@childNodes.15 /0/@diagram/@childNodes.16"
           title="Figures"
           node="/0/@diagram/@topLevelNodes.3"
           listLayout="false">
@@ -1028,27 +1171,32 @@
               xsi:type="gmfgen:ToolEntry"
               title="Rectangle"
               description="Create Rectangle"
-              genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.10"/>
+              genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.12"/>
           <entries
               xsi:type="gmfgen:ToolEntry"
               title="Ellipse"
               description="Create Ellipse"
-              genNodes="/0/@diagram/@childNodes.3 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.11"/>
+              genNodes="/0/@diagram/@childNodes.3 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.13"/>
           <entries
               xsi:type="gmfgen:ToolEntry"
               title="Rounded Rectangle"
               description="Create Rounded Rectangle"
-              genNodes="/0/@diagram/@childNodes.4 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.12"/>
+              genNodes="/0/@diagram/@childNodes.4 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.14"/>
           <entries
               xsi:type="gmfgen:ToolEntry"
               title="Polyline"
-              description="Create new PolylineConnection"
-              genNodes="/0/@diagram/@childNodes.5 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.13"/>
+              description="Create new Polyline"
+              genNodes="/0/@diagram/@childNodes.5 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.15"/>
           <entries
               xsi:type="gmfgen:ToolEntry"
               title="PolylinePoint"
               description="Create new PolylinePoint"
               genNodes="/0/@diagram/@childNodes.6"/>
+          <entries
+              xsi:type="gmfgen:ToolEntry"
+              title="Polygon"
+              description="Create new Polygon"
+              genNodes="/0/@diagram/@childNodes.7 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.16"/>
         </groups>
       </palette>
       <preferencePages
@@ -1125,11 +1273,20 @@
           parent="/0/@diagram/@childNodes.4"
           child="/0/@diagram/@childNodes.5"/>
       <childReferences
+          parent="/0/@diagram/@childNodes.7"
+          child="/0/@diagram/@childNodes.6"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.4"
+          child="/0/@diagram/@childNodes.7"/>
+      <childReferences
           parent="/0/@diagram/@childNodes.3"
           child="/0/@diagram/@childNodes.4"/>
       <childReferences
           parent="/0/@diagram/@childNodes.3"
           child="/0/@diagram/@childNodes.5"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.3"
+          child="/0/@diagram/@childNodes.7"/>
       <childReferences
           parent="/0/@diagram/@childNodes.2"
           child="/0/@diagram/@childNodes.3"/>
@@ -1139,6 +1296,9 @@
       <childReferences
           parent="/0/@diagram/@childNodes.2"
           child="/0/@diagram/@childNodes.5"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.2"
+          child="/0/@diagram/@childNodes.7"/>
       <childReferences
           parent="/0/@diagram/@childNodes.1"
           child="/0/@diagram/@childNodes.2"/>
@@ -1151,79 +1311,64 @@
       <childReferences
           parent="/0/@diagram/@childNodes.1"
           child="/0/@diagram/@childNodes.5"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.1"
+          child="/0/@diagram/@childNodes.7"/>
       <childReferences
           parent="/0/@diagram/@childNodes.0"
           child="/0/@diagram/@childNodes.1"/>
       <childReferences
-          parent="/0/@diagram/@childNodes.7"
+          parent="/0/@diagram/@childNodes.8"
           child="/0/@diagram/@childNodes.2"/>
       <childReferences
-          parent="/0/@diagram/@childNodes.7"
+          parent="/0/@diagram/@childNodes.8"
           child="/0/@diagram/@childNodes.3"/>
       <childReferences
-          parent="/0/@diagram/@childNodes.7"
+          parent="/0/@diagram/@childNodes.8"
           child="/0/@diagram/@childNodes.4"/>
       <childReferences
-          parent="/0/@diagram/@childNodes.7"
+          parent="/0/@diagram/@childNodes.8"
           child="/0/@diagram/@childNodes.5"/>
       <childReferences
-          parent="/0/@diagram/@childNodes.0"
+          parent="/0/@diagram/@childNodes.8"
           child="/0/@diagram/@childNodes.7"/>
-      <childReferences
-          parent="/0/@diagram/@childNodes.8"
-          child="/0/@diagram/@childNodes.2"/>
-      <childReferences
-          parent="/0/@diagram/@childNodes.8"
-          child="/0/@diagram/@childNodes.3"/>
-      <childReferences
-          parent="/0/@diagram/@childNodes.8"
-          child="/0/@diagram/@childNodes.4"/>
-      <childReferences
-          parent="/0/@diagram/@childNodes.8"
-          child="/0/@diagram/@childNodes.5"/>
       <childReferences
           parent="/0/@diagram/@childNodes.0"
           child="/0/@diagram/@childNodes.8"/>
       <childReferences
           parent="/0/@diagram/@childNodes.9"
-          child="/0/@diagram/@childNodes.6"/>
+          child="/0/@diagram/@childNodes.2"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.9"
+          child="/0/@diagram/@childNodes.3"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.9"
+          child="/0/@diagram/@childNodes.4"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.9"
+          child="/0/@diagram/@childNodes.5"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.9"
+          child="/0/@diagram/@childNodes.7"/>
       <childReferences
           parent="/0/@diagram/@childNodes.0"
           child="/0/@diagram/@childNodes.9"/>
       <childReferences
-          parent="/0/@diagram/@topLevelNodes.3"
-          child="/0/@diagram/@childNodes.0"/>
-      <childReferences
           parent="/0/@diagram/@childNodes.10"
-          child="/0/@diagram/@childNodes.2"/>
+          child="/0/@diagram/@childNodes.6"/>
       <childReferences
-          parent="/0/@diagram/@childNodes.10"
-          child="/0/@diagram/@childNodes.3"/>
-      <childReferences
-          parent="/0/@diagram/@childNodes.10"
-          child="/0/@diagram/@childNodes.4"/>
-      <childReferences
-          parent="/0/@diagram/@childNodes.10"
-          child="/0/@diagram/@childNodes.5"/>
-      <childReferences
-          parent="/0/@diagram/@topLevelNodes.3"
+          parent="/0/@diagram/@childNodes.0"
           child="/0/@diagram/@childNodes.10"/>
       <childReferences
           parent="/0/@diagram/@childNodes.11"
-          child="/0/@diagram/@childNodes.2"/>
+          child="/0/@diagram/@childNodes.6"/>
       <childReferences
-          parent="/0/@diagram/@childNodes.11"
-          child="/0/@diagram/@childNodes.3"/>
-      <childReferences
-          parent="/0/@diagram/@childNodes.11"
-          child="/0/@diagram/@childNodes.4"/>
-      <childReferences
-          parent="/0/@diagram/@childNodes.11"
-          child="/0/@diagram/@childNodes.5"/>
-      <childReferences
-          parent="/0/@diagram/@topLevelNodes.3"
+          parent="/0/@diagram/@childNodes.0"
           child="/0/@diagram/@childNodes.11"/>
       <childReferences
+          parent="/0/@diagram/@topLevelNodes.3"
+          child="/0/@diagram/@childNodes.0"/>
+      <childReferences
           parent="/0/@diagram/@childNodes.12"
           child="/0/@diagram/@childNodes.2"/>
       <childReferences
@@ -1235,15 +1380,60 @@
       <childReferences
           parent="/0/@diagram/@childNodes.12"
           child="/0/@diagram/@childNodes.5"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.12"
+          child="/0/@diagram/@childNodes.7"/>
       <childReferences
           parent="/0/@diagram/@topLevelNodes.3"
           child="/0/@diagram/@childNodes.12"/>
       <childReferences
           parent="/0/@diagram/@childNodes.13"
-          child="/0/@diagram/@childNodes.6"/>
+          child="/0/@diagram/@childNodes.2"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.13"
+          child="/0/@diagram/@childNodes.3"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.13"
+          child="/0/@diagram/@childNodes.4"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.13"
+          child="/0/@diagram/@childNodes.5"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.13"
+          child="/0/@diagram/@childNodes.7"/>
       <childReferences
           parent="/0/@diagram/@topLevelNodes.3"
           child="/0/@diagram/@childNodes.13"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.14"
+          child="/0/@diagram/@childNodes.2"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.14"
+          child="/0/@diagram/@childNodes.3"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.14"
+          child="/0/@diagram/@childNodes.4"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.14"
+          child="/0/@diagram/@childNodes.5"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.14"
+          child="/0/@diagram/@childNodes.7"/>
+      <childReferences
+          parent="/0/@diagram/@topLevelNodes.3"
+          child="/0/@diagram/@childNodes.14"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.15"
+          child="/0/@diagram/@childNodes.6"/>
+      <childReferences
+          parent="/0/@diagram/@topLevelNodes.3"
+          child="/0/@diagram/@childNodes.15"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.16"
+          child="/0/@diagram/@childNodes.6"/>
+      <childReferences
+          parent="/0/@diagram/@topLevelNodes.3"
+          child="/0/@diagram/@childNodes.16"/>
       <childReferences
           parent="/0/@diagram"
           child="/0/@diagram/@topLevelNodes.3"/>
@@ -1392,6 +1582,42 @@
           groupIcon="icons/linkTargetNavigatorGroup.gif"/>
       <childReferences
           parent="/0/@diagram/@childNodes.13"
+          child="/0/@diagram/@links.0"
+          referenceType="in_source"
+          groupName="incoming links"
+          groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+      <childReferences
+          parent="/0/@diagram/@links.0"
+          child="/0/@diagram/@childNodes.14"
+          referenceType="out_target"
+          groupName="target"
+          groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.14"
+          child="/0/@diagram/@links.0"
+          referenceType="in_source"
+          groupName="incoming links"
+          groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+      <childReferences
+          parent="/0/@diagram/@links.0"
+          child="/0/@diagram/@childNodes.15"
+          referenceType="out_target"
+          groupName="target"
+          groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.15"
+          child="/0/@diagram/@links.0"
+          referenceType="in_source"
+          groupName="incoming links"
+          groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+      <childReferences
+          parent="/0/@diagram/@links.0"
+          child="/0/@diagram/@childNodes.16"
+          referenceType="out_target"
+          groupName="target"
+          groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+      <childReferences
+          parent="/0/@diagram/@childNodes.16"
           child="/0/@diagram/@links.0"
           referenceType="in_source"
           groupName="incoming links"
@@ -1564,6 +1790,9 @@
       <providers
           xsi:type="gmfgen:GenExpressionInterpreter">
         <expressions
+            xsi:type="gmfgen:GenConstraint"
+            body="not oclIsKindOf(gmfgraph::Polygon)"/>
+        <expressions
             body="10"/>
         <expressions
             body="10"/>
@@ -1571,31 +1800,46 @@
             body="30"/>
         <expressions
             body="30"/>
+        <expressions
+            body="10"/>
+        <expressions
+            body="10"/>
+        <expressions
+            body="30"/>
+        <expressions
+            body="30"/>
+        <expressions
+            body="10"/>
+        <expressions
+            body="60"/>
+        <expressions
+            xsi:type="gmfgen:GenConstraint"
+            body="not oclIsKindOf(gmfgraph::Polygon)"/>
       </providers>
     </expressionProviders>
   </gmfgen:GenEditorGenerator>
   <propsheet:PropertySectionContainer>
     <customSections
         tab="/0/@propertySheet/@tabs.6"
-        nodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13">
+        nodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14 /0/@diagram/@childNodes.15">
       <section
           href="FigureSection.xmi#/"/>
     </customSections>
     <customSections
         tab="/0/@propertySheet/@tabs.4"
-        nodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13">
+        nodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14 /0/@diagram/@childNodes.15">
       <section
           href="LayoutDataSection.xmi#/"/>
     </customSections>
     <customSections
         tab="/0/@propertySheet/@tabs.3"
-        nodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13">
+        nodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14 /0/@diagram/@childNodes.15">
       <section
           href="LayoutSection.xmi#/"/>
     </customSections>
     <customSections
         tab="/0/@propertySheet/@tabs.5"
-        nodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13">
+        nodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14 /0/@diagram/@childNodes.15">
       <section
           href="SizeSection.xmi#/"/>
     </customSections>
@@ -1644,7 +1888,7 @@
           methodName="refreshBounds"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5">
+        genNodes="/0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7">
       <contexts
           xsi:type="ctx:FeatureContext">
         <children
@@ -1764,7 +2008,7 @@
           methodName="refreshLayoutData"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.13">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.15 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.16">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
@@ -1776,7 +2020,7 @@
           figureAttribute="Outline"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.13">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.15 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.16">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
@@ -1788,7 +2032,7 @@
           figureAttribute="Fill"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.13">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.15 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.16">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
@@ -1800,7 +2044,7 @@
           figureAttribute="LineWidth"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.13">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.15 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.16">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
@@ -1813,7 +2057,7 @@
           domainValueTransformerName="getLineStyle"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.13">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.15 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.16">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
@@ -1825,7 +2069,7 @@
           figureAttribute="FillXOR"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.13">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.15 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.16">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
@@ -1837,7 +2081,7 @@
           figureAttribute="OutlineXOR"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.4 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.12">
+        genNodes="/0/@diagram/@childNodes.4 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.14">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector
@@ -1856,7 +2100,7 @@
           domainValueTransformerName="getCornerDimensions"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14 /0/@diagram/@childNodes.15 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.16">
       <contexts
           xsi:type="ctx:FeatureContext">
         <children
@@ -1980,7 +2224,7 @@
           methodName="refreshLayoutManager"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14 /0/@diagram/@childNodes.15 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.16">
       <contexts
           xsi:type="ctx:FeatureContext">
         <children
@@ -2017,7 +2261,7 @@
           domainValueTransformerName="getColor"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14 /0/@diagram/@childNodes.15 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.16">
       <contexts
           xsi:type="ctx:FeatureContext">
         <children
@@ -2054,7 +2298,7 @@
           domainValueTransformerName="getColor"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13">
+        genNodes="/0/@diagram/@childNodes.1 /0/@diagram/@childNodes.2 /0/@diagram/@childNodes.3 /0/@diagram/@childNodes.4 /0/@diagram/@childNodes.5 /0/@diagram/@childNodes.8 /0/@diagram/@childNodes.9 /0/@diagram/@childNodes.10 /0/@diagram/@childNodes.12 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.14 /0/@diagram/@childNodes.15 /0/@diagram/@childNodes.7 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.16">
       <contexts
           xsi:type="ctx:FeatureContext">
         <children
@@ -2084,7 +2328,7 @@
           methodName="refreshFont"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.9 /0/@diagram/@childNodes.13">
+        genNodes="/0/@diagram/@childNodes.10 /0/@diagram/@childNodes.15 /0/@diagram/@childNodes.11 /0/@diagram/@childNodes.16">
       <contexts
           xsi:type="ctx:FeatureContext">
         <children
@@ -2109,7 +2353,7 @@
           domainValueTransformerName="getPointList"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.5">
+        genNodes="/0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7">
       <contexts
           xsi:type="ctx:FeatureContext">
         <children
@@ -2137,7 +2381,7 @@
           methodName="refreshMainFigureBounds"/>
     </synchronizers>
     <synchronizers
-        genNodes="/0/@diagram/@childNodes.5">
+        genNodes="/0/@diagram/@childNodes.5 /0/@diagram/@childNodes.7">
       <contexts
           xsi:type="ctx:FeatureContext">
         <selector

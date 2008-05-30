@@ -19,11 +19,13 @@ import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.graphdef.editor.edit.commands.ChildAccessCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.ChildAccessReorientCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.EllipseCreateCommand;
+import org.eclipse.gmf.graphdef.editor.edit.commands.PolygonCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.PolylineCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.Rectangle2CreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.RoundedRectangleCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.parts.ChildAccessEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PolygonEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangleEditPart;
@@ -70,6 +72,12 @@ public class Rectangle2ItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEd
 			}
 			return getGEFWrapper(new PolylineCreateCommand(req));
 		}
+		if (GMFGraphElementTypes.Polygon_3023 == req.getElementType()) {
+			if (req.getContainmentFeature() == null) {
+				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getRealFigure_Children());
+			}
+			return getGEFWrapper(new PolygonCreateCommand(req));
+		}
 		return super.getCreateCommand(req);
 	}
 
@@ -106,6 +114,9 @@ public class Rectangle2ItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEd
 				cmd.add(getDestroyElementCommand(node));
 				break;
 			case PolylineEditPart.VISUAL_ID:
+				cmd.add(getDestroyElementCommand(node));
+				break;
+			case PolygonEditPart.VISUAL_ID:
 				cmd.add(getDestroyElementCommand(node));
 				break;
 			}

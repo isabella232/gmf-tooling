@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.ChildAccessEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart;
@@ -35,6 +36,9 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeVisualFacetsEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PointEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PolygonEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
@@ -44,6 +48,8 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.RectangleEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangleEditPart;
+import org.eclipse.gmf.graphdef.editor.expressions.GMFGraphAbstractExpression;
+import org.eclipse.gmf.graphdef.editor.expressions.GMFGraphOCLFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -60,6 +66,21 @@ public class GMFGraphVisualIDRegistry {
 	 * @generated
 	 */
 	private static final String DEBUG_KEY = "org.eclipse.gmf.graphdef.editor/debug/visualID"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	private static GMFGraphAbstractExpression Polyline_3014_Constraint;
+
+	/**
+	 * @generated
+	 */
+	private static GMFGraphAbstractExpression Polyline_3017_Constraint;
+
+	/**
+	 * @generated
+	 */
+	private static GMFGraphAbstractExpression Polyline_3021_Constraint;
 
 	/**
 	 * @generated
@@ -156,8 +177,11 @@ public class GMFGraphVisualIDRegistry {
 			if (GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElement.eClass())) {
 				return RoundedRectangle2EditPart.VISUAL_ID;
 			}
-			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass())) {
+			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass()) && isPolyline_3017((Polyline) domainElement)) {
 				return Polyline2EditPart.VISUAL_ID;
+			}
+			if (GMFGraphPackage.eINSTANCE.getPolygon().isSuperTypeOf(domainElement.eClass())) {
+				return Polygon2EditPart.VISUAL_ID;
 			}
 			break;
 		case RectangleEditPart.VISUAL_ID:
@@ -170,8 +194,11 @@ public class GMFGraphVisualIDRegistry {
 			if (GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElement.eClass())) {
 				return RoundedRectangleEditPart.VISUAL_ID;
 			}
-			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass())) {
+			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass()) && isPolyline_3014((Polyline) domainElement)) {
 				return PolylineEditPart.VISUAL_ID;
+			}
+			if (GMFGraphPackage.eINSTANCE.getPolygon().isSuperTypeOf(domainElement.eClass())) {
+				return PolygonEditPart.VISUAL_ID;
 			}
 			break;
 		case Rectangle2EditPart.VISUAL_ID:
@@ -184,8 +211,11 @@ public class GMFGraphVisualIDRegistry {
 			if (GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElement.eClass())) {
 				return RoundedRectangleEditPart.VISUAL_ID;
 			}
-			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass())) {
+			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass()) && isPolyline_3014((Polyline) domainElement)) {
 				return PolylineEditPart.VISUAL_ID;
+			}
+			if (GMFGraphPackage.eINSTANCE.getPolygon().isSuperTypeOf(domainElement.eClass())) {
+				return PolygonEditPart.VISUAL_ID;
 			}
 			break;
 		case EllipseEditPart.VISUAL_ID:
@@ -198,8 +228,11 @@ public class GMFGraphVisualIDRegistry {
 			if (GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElement.eClass())) {
 				return RoundedRectangleEditPart.VISUAL_ID;
 			}
-			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass())) {
+			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass()) && isPolyline_3014((Polyline) domainElement)) {
 				return PolylineEditPart.VISUAL_ID;
+			}
+			if (GMFGraphPackage.eINSTANCE.getPolygon().isSuperTypeOf(domainElement.eClass())) {
+				return PolygonEditPart.VISUAL_ID;
 			}
 			break;
 		case RoundedRectangleEditPart.VISUAL_ID:
@@ -212,11 +245,19 @@ public class GMFGraphVisualIDRegistry {
 			if (GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElement.eClass())) {
 				return RoundedRectangleEditPart.VISUAL_ID;
 			}
-			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass())) {
+			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass()) && isPolyline_3014((Polyline) domainElement)) {
 				return PolylineEditPart.VISUAL_ID;
+			}
+			if (GMFGraphPackage.eINSTANCE.getPolygon().isSuperTypeOf(domainElement.eClass())) {
+				return PolygonEditPart.VISUAL_ID;
 			}
 			break;
 		case PolylineEditPart.VISUAL_ID:
+			if (GMFGraphPackage.eINSTANCE.getPoint().isSuperTypeOf(domainElement.eClass())) {
+				return PointEditPart.VISUAL_ID;
+			}
+			break;
+		case PolygonEditPart.VISUAL_ID:
 			if (GMFGraphPackage.eINSTANCE.getPoint().isSuperTypeOf(domainElement.eClass())) {
 				return PointEditPart.VISUAL_ID;
 			}
@@ -231,8 +272,11 @@ public class GMFGraphVisualIDRegistry {
 			if (GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElement.eClass())) {
 				return RoundedRectangleEditPart.VISUAL_ID;
 			}
-			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass())) {
+			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass()) && isPolyline_3014((Polyline) domainElement)) {
 				return PolylineEditPart.VISUAL_ID;
+			}
+			if (GMFGraphPackage.eINSTANCE.getPolygon().isSuperTypeOf(domainElement.eClass())) {
+				return PolygonEditPart.VISUAL_ID;
 			}
 			break;
 		case RoundedRectangle2EditPart.VISUAL_ID:
@@ -245,11 +289,19 @@ public class GMFGraphVisualIDRegistry {
 			if (GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElement.eClass())) {
 				return RoundedRectangleEditPart.VISUAL_ID;
 			}
-			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass())) {
+			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass()) && isPolyline_3014((Polyline) domainElement)) {
 				return PolylineEditPart.VISUAL_ID;
+			}
+			if (GMFGraphPackage.eINSTANCE.getPolygon().isSuperTypeOf(domainElement.eClass())) {
+				return PolygonEditPart.VISUAL_ID;
 			}
 			break;
 		case Polyline2EditPart.VISUAL_ID:
+			if (GMFGraphPackage.eINSTANCE.getPoint().isSuperTypeOf(domainElement.eClass())) {
+				return PointEditPart.VISUAL_ID;
+			}
+			break;
+		case Polygon2EditPart.VISUAL_ID:
 			if (GMFGraphPackage.eINSTANCE.getPoint().isSuperTypeOf(domainElement.eClass())) {
 				return PointEditPart.VISUAL_ID;
 			}
@@ -264,8 +316,11 @@ public class GMFGraphVisualIDRegistry {
 			if (GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElement.eClass())) {
 				return RoundedRectangleEditPart.VISUAL_ID;
 			}
-			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass())) {
+			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass()) && isPolyline_3014((Polyline) domainElement)) {
 				return PolylineEditPart.VISUAL_ID;
+			}
+			if (GMFGraphPackage.eINSTANCE.getPolygon().isSuperTypeOf(domainElement.eClass())) {
+				return PolygonEditPart.VISUAL_ID;
 			}
 			break;
 		case Ellipse3EditPart.VISUAL_ID:
@@ -278,8 +333,11 @@ public class GMFGraphVisualIDRegistry {
 			if (GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElement.eClass())) {
 				return RoundedRectangleEditPart.VISUAL_ID;
 			}
-			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass())) {
+			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass()) && isPolyline_3014((Polyline) domainElement)) {
 				return PolylineEditPart.VISUAL_ID;
+			}
+			if (GMFGraphPackage.eINSTANCE.getPolygon().isSuperTypeOf(domainElement.eClass())) {
+				return PolygonEditPart.VISUAL_ID;
 			}
 			break;
 		case RoundedRectangle3EditPart.VISUAL_ID:
@@ -292,11 +350,19 @@ public class GMFGraphVisualIDRegistry {
 			if (GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElement.eClass())) {
 				return RoundedRectangleEditPart.VISUAL_ID;
 			}
-			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass())) {
+			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass()) && isPolyline_3014((Polyline) domainElement)) {
 				return PolylineEditPart.VISUAL_ID;
+			}
+			if (GMFGraphPackage.eINSTANCE.getPolygon().isSuperTypeOf(domainElement.eClass())) {
+				return PolygonEditPart.VISUAL_ID;
 			}
 			break;
 		case Polyline3EditPart.VISUAL_ID:
+			if (GMFGraphPackage.eINSTANCE.getPoint().isSuperTypeOf(domainElement.eClass())) {
+				return PointEditPart.VISUAL_ID;
+			}
+			break;
+		case Polygon3EditPart.VISUAL_ID:
 			if (GMFGraphPackage.eINSTANCE.getPoint().isSuperTypeOf(domainElement.eClass())) {
 				return PointEditPart.VISUAL_ID;
 			}
@@ -314,8 +380,11 @@ public class GMFGraphVisualIDRegistry {
 			if (GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElement.eClass())) {
 				return RoundedRectangle3EditPart.VISUAL_ID;
 			}
-			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass())) {
+			if (GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElement.eClass()) && isPolyline_3021((Polyline) domainElement)) {
 				return Polyline3EditPart.VISUAL_ID;
+			}
+			if (GMFGraphPackage.eINSTANCE.getPolygon().isSuperTypeOf(domainElement.eClass())) {
+				return Polygon3EditPart.VISUAL_ID;
 			}
 			break;
 		case CanvasEditPart.VISUAL_ID:
@@ -403,6 +472,9 @@ public class GMFGraphVisualIDRegistry {
 			if (Polyline2EditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
+			if (Polygon2EditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
 			break;
 		case RectangleEditPart.VISUAL_ID:
 			if (Rectangle2EditPart.VISUAL_ID == nodeVisualID) {
@@ -415,6 +487,9 @@ public class GMFGraphVisualIDRegistry {
 				return true;
 			}
 			if (PolylineEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			if (PolygonEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
@@ -431,6 +506,9 @@ public class GMFGraphVisualIDRegistry {
 			if (PolylineEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
+			if (PolygonEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
 			break;
 		case EllipseEditPart.VISUAL_ID:
 			if (Rectangle2EditPart.VISUAL_ID == nodeVisualID) {
@@ -443,6 +521,9 @@ public class GMFGraphVisualIDRegistry {
 				return true;
 			}
 			if (PolylineEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			if (PolygonEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
@@ -459,8 +540,16 @@ public class GMFGraphVisualIDRegistry {
 			if (PolylineEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
+			if (PolygonEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
 			break;
 		case PolylineEditPart.VISUAL_ID:
+			if (PointEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
+		case PolygonEditPart.VISUAL_ID:
 			if (PointEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
@@ -478,6 +567,9 @@ public class GMFGraphVisualIDRegistry {
 			if (PolylineEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
+			if (PolygonEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
 			break;
 		case RoundedRectangle2EditPart.VISUAL_ID:
 			if (Rectangle2EditPart.VISUAL_ID == nodeVisualID) {
@@ -492,8 +584,16 @@ public class GMFGraphVisualIDRegistry {
 			if (PolylineEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
+			if (PolygonEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
 			break;
 		case Polyline2EditPart.VISUAL_ID:
+			if (PointEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
+		case Polygon2EditPart.VISUAL_ID:
 			if (PointEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
@@ -511,6 +611,9 @@ public class GMFGraphVisualIDRegistry {
 			if (PolylineEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
+			if (PolygonEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
 			break;
 		case Ellipse3EditPart.VISUAL_ID:
 			if (Rectangle2EditPart.VISUAL_ID == nodeVisualID) {
@@ -523,6 +626,9 @@ public class GMFGraphVisualIDRegistry {
 				return true;
 			}
 			if (PolylineEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			if (PolygonEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
@@ -539,8 +645,16 @@ public class GMFGraphVisualIDRegistry {
 			if (PolylineEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
+			if (PolygonEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
 			break;
 		case Polyline3EditPart.VISUAL_ID:
+			if (PointEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
+		case Polygon3EditPart.VISUAL_ID:
 			if (PointEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
@@ -559,6 +673,9 @@ public class GMFGraphVisualIDRegistry {
 				return true;
 			}
 			if (Polyline3EditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			if (Polygon3EditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
@@ -601,6 +718,39 @@ public class GMFGraphVisualIDRegistry {
 	 */
 	private static boolean isDiagram(Canvas element) {
 		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static boolean isPolyline_3014(Polyline domainElement) {
+		if (Polyline_3014_Constraint == null) { // lazy initialization
+			Polyline_3014_Constraint = GMFGraphOCLFactory.getExpression("not oclIsKindOf(gmfgraph::Polygon)", GMFGraphPackage.eINSTANCE.getPolyline()); //$NON-NLS-1$
+		}
+		Object result = Polyline_3014_Constraint.evaluate(domainElement);
+		return result instanceof Boolean && ((Boolean) result).booleanValue();
+	}
+
+	/**
+	 * @generated
+	 */
+	private static boolean isPolyline_3017(Polyline domainElement) {
+		if (Polyline_3017_Constraint == null) { // lazy initialization
+			Polyline_3017_Constraint = GMFGraphOCLFactory.getExpression("not oclIsKindOf(gmfgraph::Polygon)", GMFGraphPackage.eINSTANCE.getPolyline()); //$NON-NLS-1$
+		}
+		Object result = Polyline_3017_Constraint.evaluate(domainElement);
+		return result instanceof Boolean && ((Boolean) result).booleanValue();
+	}
+
+	/**
+	 * @generated
+	 */
+	private static boolean isPolyline_3021(Polyline domainElement) {
+		if (Polyline_3021_Constraint == null) { // lazy initialization
+			Polyline_3021_Constraint = GMFGraphOCLFactory.getExpression("not oclIsKindOf(gmfgraph::Polygon)", GMFGraphPackage.eINSTANCE.getPolyline()); //$NON-NLS-1$
+		}
+		Object result = Polyline_3021_Constraint.evaluate(domainElement);
+		return result instanceof Boolean && ((Boolean) result).booleanValue();
 	}
 
 }

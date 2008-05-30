@@ -117,6 +117,11 @@ public class GMFGraphElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
+	public static final IElementType Polygon_3023 = getElementType("org.eclipse.gmf.graphdef.editor.Polygon_3023"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public static final IElementType Ellipse_3015 = getElementType("org.eclipse.gmf.graphdef.editor.Ellipse_3015"); //$NON-NLS-1$
 
 	/**
@@ -128,6 +133,11 @@ public class GMFGraphElementTypes extends ElementInitializers {
 	 * @generated
 	 */
 	public static final IElementType Polyline_3017 = getElementType("org.eclipse.gmf.graphdef.editor.Polyline_3017"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Polygon_3024 = getElementType("org.eclipse.gmf.graphdef.editor.Polygon_3024"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -148,6 +158,11 @@ public class GMFGraphElementTypes extends ElementInitializers {
 	 * @generated
 	 */
 	public static final IElementType Polyline_3021 = getElementType("org.eclipse.gmf.graphdef.editor.Polyline_3021"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Polygon_3025 = getElementType("org.eclipse.gmf.graphdef.editor.Polygon_3025"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -304,11 +319,15 @@ public class GMFGraphElementTypes extends ElementInitializers {
 
 			elements.put(Point_3022, GMFGraphPackage.eINSTANCE.getPoint());
 
+			elements.put(Polygon_3023, GMFGraphPackage.eINSTANCE.getPolygon());
+
 			elements.put(Ellipse_3015, GMFGraphPackage.eINSTANCE.getEllipse());
 
 			elements.put(RoundedRectangle_3016, GMFGraphPackage.eINSTANCE.getRoundedRectangle());
 
 			elements.put(Polyline_3017, GMFGraphPackage.eINSTANCE.getPolyline());
+
+			elements.put(Polygon_3024, GMFGraphPackage.eINSTANCE.getPolygon());
 
 			elements.put(Rectangle_3018, GMFGraphPackage.eINSTANCE.getRectangle());
 
@@ -317,6 +336,8 @@ public class GMFGraphElementTypes extends ElementInitializers {
 			elements.put(RoundedRectangle_3020, GMFGraphPackage.eINSTANCE.getRoundedRectangle());
 
 			elements.put(Polyline_3021, GMFGraphPackage.eINSTANCE.getPolyline());
+
+			elements.put(Polygon_3025, GMFGraphPackage.eINSTANCE.getPolygon());
 
 			elements.put(ChildAccess_4002, GMFGraphPackage.eINSTANCE.getChildAccess());
 
@@ -356,13 +377,16 @@ public class GMFGraphElementTypes extends ElementInitializers {
 			KNOWN_ELEMENT_TYPES.add(RoundedRectangle_3013);
 			KNOWN_ELEMENT_TYPES.add(Polyline_3014);
 			KNOWN_ELEMENT_TYPES.add(Point_3022);
+			KNOWN_ELEMENT_TYPES.add(Polygon_3023);
 			KNOWN_ELEMENT_TYPES.add(Ellipse_3015);
 			KNOWN_ELEMENT_TYPES.add(RoundedRectangle_3016);
 			KNOWN_ELEMENT_TYPES.add(Polyline_3017);
+			KNOWN_ELEMENT_TYPES.add(Polygon_3024);
 			KNOWN_ELEMENT_TYPES.add(Rectangle_3018);
 			KNOWN_ELEMENT_TYPES.add(Ellipse_3019);
 			KNOWN_ELEMENT_TYPES.add(RoundedRectangle_3020);
 			KNOWN_ELEMENT_TYPES.add(Polyline_3021);
+			KNOWN_ELEMENT_TYPES.add(Polygon_3025);
 			KNOWN_ELEMENT_TYPES.add(ChildAccess_4002);
 			KNOWN_ELEMENT_TYPES.add(CompartmentAccessor_4003);
 			KNOWN_ELEMENT_TYPES.add(DiagramLabelAccessor_4004);

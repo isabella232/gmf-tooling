@@ -18,6 +18,7 @@ import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle3EditPart;
@@ -76,6 +77,9 @@ public class FigureGalleryItemSemanticEditPolicy extends GMFGraphBaseItemSemanti
 						cmd.add(getDestroyElementCommand(cnode));
 						break;
 					case Polyline3EditPart.VISUAL_ID:
+						cmd.add(getDestroyElementCommand(cnode));
+						break;
+					case Polygon3EditPart.VISUAL_ID:
 						cmd.add(getDestroyElementCommand(cnode));
 						break;
 					}

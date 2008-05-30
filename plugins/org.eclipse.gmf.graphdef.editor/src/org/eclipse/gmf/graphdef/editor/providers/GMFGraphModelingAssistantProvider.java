@@ -38,6 +38,9 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PolygonEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
@@ -67,6 +70,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.Ellipse_3015);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3016);
 			types.add(GMFGraphElementTypes.Polyline_3017);
+			types.add(GMFGraphElementTypes.Polygon_3024);
 			return types;
 		}
 		if (editPart instanceof RectangleEditPart) {
@@ -75,6 +79,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
+			types.add(GMFGraphElementTypes.Polygon_3023);
 			return types;
 		}
 		if (editPart instanceof Rectangle2EditPart) {
@@ -83,6 +88,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
+			types.add(GMFGraphElementTypes.Polygon_3023);
 			return types;
 		}
 		if (editPart instanceof EllipseEditPart) {
@@ -91,6 +97,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
+			types.add(GMFGraphElementTypes.Polygon_3023);
 			return types;
 		}
 		if (editPart instanceof RoundedRectangleEditPart) {
@@ -99,9 +106,15 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
+			types.add(GMFGraphElementTypes.Polygon_3023);
 			return types;
 		}
 		if (editPart instanceof PolylineEditPart) {
+			List types = new ArrayList();
+			types.add(GMFGraphElementTypes.Point_3022);
+			return types;
+		}
+		if (editPart instanceof PolygonEditPart) {
 			List types = new ArrayList();
 			types.add(GMFGraphElementTypes.Point_3022);
 			return types;
@@ -112,6 +125,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
+			types.add(GMFGraphElementTypes.Polygon_3023);
 			return types;
 		}
 		if (editPart instanceof RoundedRectangle2EditPart) {
@@ -120,9 +134,15 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
+			types.add(GMFGraphElementTypes.Polygon_3023);
 			return types;
 		}
 		if (editPart instanceof Polyline2EditPart) {
+			List types = new ArrayList();
+			types.add(GMFGraphElementTypes.Point_3022);
+			return types;
+		}
+		if (editPart instanceof Polygon2EditPart) {
 			List types = new ArrayList();
 			types.add(GMFGraphElementTypes.Point_3022);
 			return types;
@@ -133,6 +153,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
+			types.add(GMFGraphElementTypes.Polygon_3023);
 			return types;
 		}
 		if (editPart instanceof Ellipse3EditPart) {
@@ -141,6 +162,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
+			types.add(GMFGraphElementTypes.Polygon_3023);
 			return types;
 		}
 		if (editPart instanceof RoundedRectangle3EditPart) {
@@ -149,9 +171,15 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
+			types.add(GMFGraphElementTypes.Polygon_3023);
 			return types;
 		}
 		if (editPart instanceof Polyline3EditPart) {
+			List types = new ArrayList();
+			types.add(GMFGraphElementTypes.Point_3022);
+			return types;
+		}
+		if (editPart instanceof Polygon3EditPart) {
 			List types = new ArrayList();
 			types.add(GMFGraphElementTypes.Point_3022);
 			return types;
@@ -163,6 +191,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.Ellipse_3019);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3020);
 			types.add(GMFGraphElementTypes.Polyline_3021);
+			types.add(GMFGraphElementTypes.Polygon_3025);
 			return types;
 		}
 		if (editPart instanceof CanvasEditPart) {

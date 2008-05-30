@@ -21,7 +21,7 @@ extension xpt::GenModelUtils;
 extension xpt::EMFUtils;
 
 boolean isPolyline(gmfgen::GenNode genNode) :
-	"Polyline" == genNode.getDomainMetaClass().ecoreClass.name
+	"Polyline" == genNode.getDomainMetaClass().ecoreClass.name || "Polygon" == genNode.getDomainMetaClass().ecoreClass.name
 ;
 
 boolean isPolylinePoint(gmfgen::GenNode genNode) :

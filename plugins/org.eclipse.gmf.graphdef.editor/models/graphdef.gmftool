@@ -104,7 +104,7 @@
       <tools
           xsi:type="gmftool:CreationTool"
           title="Polyline"
-          description="Create new PolylineConnection">
+          description="Create new Polyline">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>
         <largeIcon
@@ -114,6 +114,15 @@
           xsi:type="gmftool:CreationTool"
           title="PolylinePoint"
           description="Create new PolylinePoint">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Polygon"
+          description="Create new Polygon">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>
         <largeIcon

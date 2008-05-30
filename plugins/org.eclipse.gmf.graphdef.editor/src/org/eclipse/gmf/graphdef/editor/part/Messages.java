@@ -403,6 +403,16 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String Polygon8CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String Polygon8CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
 	public static String CompartmentVisualFacetsEditPart_title;
 
 	/**
@@ -483,6 +493,11 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String NavigatorGroupName_Polygon_3023_incominglinks;
+
+	/**
+	 * @generated
+	 */
 	public static String NavigatorGroupName_Ellipse_3015_incominglinks;
 
 	/**
@@ -494,6 +509,11 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String NavigatorGroupName_Polyline_3017_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Polygon_3024_incominglinks;
 
 	/**
 	 * @generated
@@ -514,6 +534,11 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String NavigatorGroupName_Polyline_3021_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Polygon_3025_incominglinks;
 
 	/**
 	 * @generated
