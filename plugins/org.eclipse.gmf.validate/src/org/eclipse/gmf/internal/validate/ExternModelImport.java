@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.validate;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EValidator;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -57,7 +59,8 @@ public class ExternModelImport {
 	};
 	
 	private ResourceSet importedModels;
-	private EPackage.Registry registry;
+	private EPackage.Registry registry = new EPackageRegistryImpl(EPackage.Registry.INSTANCE);
+	private HashSet<URI> myProcessedMetaModels = new HashSet<URI>();
 	private HashSet<EPackage> processedPackages;
 	
 
@@ -94,9 +97,12 @@ public class ExternModelImport {
 	 * @return The import package registry associated with the context or <code>null</code> if there is no such registry 
 	 */
 	public static EPackage.Registry getPackageRegistry(Map<Object, Object> context) {
-		Object registry = context.get(EPackageRegistryImpl.class);
-		assert registry == null || registry instanceof EPackage.Registry : "registry must be EPackage.Registry"; //$NON-NLS-1$
-		return (EPackage.Registry)registry;
+		Object value = context.get(ExternModelImport.class);
+		assert value == null || value instanceof ExternModelImport : "incorrect object registered as ExternModelImport: " + value.getClass(); //$NON-NLS-1$
+		if (value instanceof ExternModelImport) {
+			return ((ExternModelImport) value).registry;
+		}
+		return null;
 	}
 	
 	boolean hasPackageImportsProcessed(EPackage importingPackage) {
@@ -120,8 +126,21 @@ public class ExternModelImport {
 	}
 	
 	public void intializeExternPackages(EObject root) {
-		EPackage.Registry registryToInit = registry != null ? registry : EPackage.Registry.INSTANCE;
-		for (EObject next : EcoreUtil.ExternalCrossReferencer.find(root).keySet()) {
+		Resource metaModelResource = root.eClass().getEPackage().eResource();
+		if (!myProcessedMetaModels.contains(metaModelResource.getURI())) {
+			for (EObject nextResourceElement : metaModelResource.getContents()) {
+				if (nextResourceElement instanceof EPackage) {
+					registerLocally((EPackage) nextResourceElement);
+				}
+			}
+			registerReferencedMetaModels(EcoreUtil.ExternalCrossReferencer.find(metaModelResource));
+			myProcessedMetaModels.add(metaModelResource.getURI());
+		}
+		registerReferencedMetaModels(EcoreUtil.ExternalCrossReferencer.find(root));
+	}
+	
+	private void registerReferencedMetaModels(Map<EObject, Collection<Setting>> externalCrossReferences) {
+		for (EObject next : externalCrossReferences.keySet()) {
 			EPackage nextPackage = null;
 			if (next instanceof EClassifier) {
 				nextPackage = ((EClassifier) next).getEPackage();
@@ -138,15 +157,17 @@ public class ExternModelImport {
 					nextPackage = genClassifier.getGenPackage().getEcorePackage();
 				}
 			}
-			
 			if(nextPackage != null) {
-				// force the package to be initialized in registry, in case a package descriptor is registered
-				// Note: this is required for successfull ocl environment lookup of EClassifiers from external meta-models
-				registryToInit.getEPackage(nextPackage.getNsURI()); 
+				registerLocally(nextPackage);
 			}
 		}		
 	}
-		
+
+	private void registerLocally(EPackage nextPackage) {
+		// force the package to be initialized in registry, in case a package descriptor is registered
+		// Note: this is required for successfull ocl environment lookup of EClassifiers from external meta-models
+		registry.put(nextPackage.getNsURI(), registry.getEPackage(nextPackage.getNsURI()));
+	}
 	
 	private boolean processImportEAnnotation(EAnnotation annotation, DiagnosticChain diagnostics) {
 		boolean result = true;
@@ -157,8 +178,9 @@ public class ExternModelImport {
 			String importVal = nextEntry.getValue();
 			if(importVal != null) {
 				importVal = importVal.trim();
-				EPackage p = EPackage.Registry.INSTANCE.getEPackage(importVal);
+				EPackage p = registry.getEPackage(importVal);
 				if (p != null) {
+					registerLocally(p);
 					return true;
 				} 
 
@@ -222,13 +244,13 @@ public class ExternModelImport {
 		for (EObject nextObj : contents) {
 			if(nextObj instanceof EPackage) {
 				EPackage ePackage = (EPackage)nextObj;
-				if(ePackage.getNsURI() != null) {					
-					// force package initialization
-					EPackage.Registry.INSTANCE.getEPackage(ePackage.getNsURI());
+				if(ePackage.getNsURI() != null) {				
+					registerLocally(ePackage);
 				}
 				return true;
 			}
 		}
 		return false;
-	}	
+	}
+	
 }
