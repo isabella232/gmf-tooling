@@ -525,7 +525,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * @generated NOT
 	 */
 	public EList<GenLink> getReorientedIncomingLinks() {
-		if (getModelFacet() == null) {
+		if (getModelFacet() == null || getModelFacet().getMetaClass() == null || getModelFacet().getMetaClass().getEcoreClass() == null) {
 			return ECollections.emptyEList();
 		}
 		// [artem] XXX not sure there might be two equal links in the genDiagram.links
@@ -548,6 +548,9 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 				outgoingClass = metaFeature.getGenClass();
 				incomingClass = metaFeature.getTypeGenClass();
 			} else {
+				continue;
+			}
+			if (incomingClass == null || incomingClass.getEcoreClass() == null || outgoingClass == null || outgoingClass.getEcoreClass() == null) {
 				continue;
 			}
 			GenClass nodeMetaClass = getModelFacet().getMetaClass();
