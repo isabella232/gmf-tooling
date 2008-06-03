@@ -146,6 +146,10 @@ cached List[gmfgen::GenNode] getSemanticChildren(gmfgen::GenContainerBase contai
 	containerBase.containedNodes.select(node | null != node.modelFacet)
 ;
 
+cached boolean hasConformableSemanticChildren(gmfgen::GenContainerBase containerBase) :
+	let childMetaClasses = getSemanticChildren(containerBase).collect(node | node.modelFacet.metaClass) :
+		!childMetaClasses.forAll(mc | childMetaClasses.collect(mc2 | mc == mc2).size() == 1)
+;
 
 GenClass getLinkEndType(gmfgen::LinkModelFacet f, String methodNameSuffix) :
 	null

@@ -23,6 +23,10 @@
 	«EXPAND shouldDeleteView-»
 	
 	«EXPAND isOrphaned-»
+	«IF hasConformableSemanticChildren(this)-»
+	
+		«EXPAND populateViewProperties-»
+	«ENDIF-»
 	
 	«EXPAND getDefaultFactoryHint-»
 	«EXPAND getFeaturesToSynchronize-»
@@ -87,10 +91,59 @@ protected boolean isOrphaned(java.util.Collection semanticChildren, final org.ec
 	int visualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(view);
 	switch (visualID) {
 		«EXPAND xpt::Common::caseVisualID FOREACH getSemanticChildren(this)»
-		return !semanticChildren.contains(view.getElement()) || visualID != «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall FOR getDiagram()»((org.eclipse.gmf.runtime.notation.View) getHost().getModel(), view.getElement());
+		if (!semanticChildren.contains(view.getElement())) {
+			return true;
+		}
+		«IF hasConformableSemanticChildren(this)-»
+			«EXPAND updateNotationModelElement-»
+		«ENDIF-»
 	}
 	«ENDIF-»
 	return false;	
+}
+«ENDDEFINE»
+
+«DEFINE updateNotationModelElement FOR gmfgen::GenCommonBase-»
+	org.eclipse.emf.ecore.EObject domainModelElement = view.getElement();
+	if (visualID != «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall FOR getDiagram()»((org.eclipse.gmf.runtime.notation.View) getHost().getModel(), domainModelElement)) {
+		java.util.List createdViews = createViews(java.util.Collections.singletonList(domainModelElement));
+		assert createdViews.size() == 1;
+		final org.eclipse.gmf.runtime.notation.View createdView = (org.eclipse.gmf.runtime.notation.View) ((org.eclipse.core.runtime.IAdaptable) createdViews.get(0)).getAdapter(org.eclipse.gmf.runtime.notation.View.class);
+		if (createdView != null) {
+			try {
+				new org.eclipse.emf.workspace.AbstractEMFOperation(host().getEditingDomain(), org.eclipse.gmf.runtime.common.core.util.StringStatics.BLANK, Collections.singletonMap(org.eclipse.emf.transaction.Transaction.OPTION_UNPROTECTED, Boolean.TRUE)) {
+					protected org.eclipse.core.runtime.IStatus doExecute(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
+						populateViewProperties(view, createdView);
+						return org.eclipse.core.runtime.Status.OK_STATUS;
+					}
+				}.execute(new org.eclipse.core.runtime.NullProgressMonitor(), null);
+			} catch (org.eclipse.core.commands.ExecutionException e) {
+				«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Error while copyign view information to newly created view", e); //$NON-NLS-1$
+			}
+		}
+		deleteViews(java.util.Collections.singletonList(view).iterator());	
+	}
+«ENDDEFINE»
+
+«DEFINE populateViewProperties FOR gmfgen::GenCommonBase-»
+	«EXPAND xpt::Common::generatedMemberComment»
+private void populateViewProperties(org.eclipse.gmf.runtime.notation.View oldView, org.eclipse.gmf.runtime.notation.View newView) {
+	if (oldView instanceof org.eclipse.gmf.runtime.notation.Node && newView instanceof org.eclipse.gmf.runtime.notation.Node) {
+		org.eclipse.gmf.runtime.notation.Node oldNode = (org.eclipse.gmf.runtime.notation.Node) oldView; 
+		org.eclipse.gmf.runtime.notation.Node newNode = (org.eclipse.gmf.runtime.notation.Node) newView;
+		if (oldNode.getLayoutConstraint() instanceof org.eclipse.gmf.runtime.notation.Location && newNode.getLayoutConstraint() instanceof org.eclipse.gmf.runtime.notation.Location) {
+			((org.eclipse.gmf.runtime.notation.Location) newNode.getLayoutConstraint()).setX(((org.eclipse.gmf.runtime.notation.Location) oldNode.getLayoutConstraint()).getX());
+			((org.eclipse.gmf.runtime.notation.Location) newNode.getLayoutConstraint()).setY(((org.eclipse.gmf.runtime.notation.Location) oldNode.getLayoutConstraint()).getY());
+		}
+		if (oldNode.getLayoutConstraint() instanceof org.eclipse.gmf.runtime.notation.Size && newNode.getLayoutConstraint() instanceof org.eclipse.gmf.runtime.notation.Size) {
+			((org.eclipse.gmf.runtime.notation.Size) newNode.getLayoutConstraint()).setWidth(((org.eclipse.gmf.runtime.notation.Size) oldNode.getLayoutConstraint()).getWidth());
+			((org.eclipse.gmf.runtime.notation.Size) newNode.getLayoutConstraint()).setHeight(((org.eclipse.gmf.runtime.notation.Size) oldNode.getLayoutConstraint()).getHeight());
+		}
+		if (oldNode.getLayoutConstraint() instanceof org.eclipse.gmf.runtime.notation.Ratio && newNode.getLayoutConstraint() instanceof org.eclipse.gmf.runtime.notation.Ratio) {
+			((org.eclipse.gmf.runtime.notation.Ratio) newNode.getLayoutConstraint()).setValue(((org.eclipse.gmf.runtime.notation.Ratio) oldNode.getLayoutConstraint()).getValue());
+		}
+		newNode.persist();
+	}
 }
 «ENDDEFINE»
 
