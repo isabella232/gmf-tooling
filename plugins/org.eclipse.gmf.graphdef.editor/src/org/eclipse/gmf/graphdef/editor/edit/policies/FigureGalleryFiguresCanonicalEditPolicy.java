@@ -64,7 +64,9 @@ public class FigureGalleryFiguresCanonicalEditPolicy extends CanonicalEditPolicy
 		case RoundedRectangle3EditPart.VISUAL_ID:
 		case Polyline3EditPart.VISUAL_ID:
 		case Polygon3EditPart.VISUAL_ID:
-			return !semanticChildren.contains(view.getElement()) || visualID != GMFGraphVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
+			if (!semanticChildren.contains(view.getElement())) {
+				return true;
+			}
 		}
 		return false;
 	}

@@ -54,7 +54,9 @@ public class Polyline3CanonicalEditPolicy extends CanonicalEditPolicy {
 		int visualID = GMFGraphVisualIDRegistry.getVisualID(view);
 		switch (visualID) {
 		case PointEditPart.VISUAL_ID:
-			return !semanticChildren.contains(view.getElement()) || visualID != GMFGraphVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
+			if (!semanticChildren.contains(view.getElement())) {
+				return true;
+			}
 		}
 		return false;
 	}

@@ -105,7 +105,9 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		case NodeEditPart.VISUAL_ID:
 		case ConnectionEditPart.VISUAL_ID:
 		case FigureGalleryEditPart.VISUAL_ID:
-			return !semanticChildren.contains(view.getElement()) || visualID != GMFGraphVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
+			if (!semanticChildren.contains(view.getElement())) {
+				return true;
+			}
 		}
 		return false;
 	}

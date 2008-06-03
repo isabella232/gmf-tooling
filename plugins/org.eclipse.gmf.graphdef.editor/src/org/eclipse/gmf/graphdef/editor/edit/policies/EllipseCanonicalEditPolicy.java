@@ -62,7 +62,9 @@ public class EllipseCanonicalEditPolicy extends CanonicalEditPolicy {
 		case RoundedRectangleEditPart.VISUAL_ID:
 		case PolylineEditPart.VISUAL_ID:
 		case PolygonEditPart.VISUAL_ID:
-			return !semanticChildren.contains(view.getElement()) || visualID != GMFGraphVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
+			if (!semanticChildren.contains(view.getElement())) {
+				return true;
+			}
 		}
 		return false;
 	}

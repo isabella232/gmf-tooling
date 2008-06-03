@@ -62,7 +62,9 @@ public class FigureDescriptorCanonicalEditPolicy extends CanonicalEditPolicy {
 		case RoundedRectangle2EditPart.VISUAL_ID:
 		case Polyline2EditPart.VISUAL_ID:
 		case Polygon2EditPart.VISUAL_ID:
-			return !semanticChildren.contains(view.getElement()) || visualID != GMFGraphVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
+			if (!semanticChildren.contains(view.getElement())) {
+				return true;
+			}
 		}
 		return false;
 	}
