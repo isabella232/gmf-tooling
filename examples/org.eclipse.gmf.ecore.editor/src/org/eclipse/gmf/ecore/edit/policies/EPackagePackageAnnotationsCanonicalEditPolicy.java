@@ -55,7 +55,9 @@ public class EPackagePackageAnnotationsCanonicalEditPolicy extends CanonicalEdit
 		int visualID = EcoreVisualIDRegistry.getVisualID(view);
 		switch (visualID) {
 		case EAnnotation2EditPart.VISUAL_ID:
-			return !semanticChildren.contains(view.getElement()) || visualID != EcoreVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
+			if (!semanticChildren.contains(view.getElement())) {
+				return true;
+			}
 		}
 		return false;
 	}

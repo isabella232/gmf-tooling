@@ -2,7 +2,7 @@
 <gmfgen:GenEditorGenerator xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgen="http://www.eclipse.org/gmf/2006/GenModel" packageNamePrefix="org.eclipse.gmf.ecore"
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2008/GenModel" packageNamePrefix="org.eclipse.gmf.ecore"
     copyrightText="Copyright (c) 2006, 2008 Borland Software Corp.&#xD;&#xA;&#xD;&#xA;All rights reserved. This program and the accompanying materials&#xD;&#xA;are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA;which accompanies this distribution, and is available at&#xD;&#xA;http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA;Contributors:&#xD;&#xA;   Alexander Shatalin (Borland) - initial API and implementation">
   <diagram
       visualID="1000"
@@ -224,15 +224,14 @@
           figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
-      <modelFacet>
+      <modelFacet
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.0">
         <metaClass
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EDataType"/>
         <containmentMetaFeature
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
         <childMetaFeature
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
-        <modelElementSelector
-            body="not oclIsKindOf(ecore::EEnum)"/>
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:FeatureLabelModelFacet">
@@ -367,7 +366,7 @@
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="TOOLBAR_LAYOUT"
           className="NamedNodeRectangle"
-          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fName; &#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutThis = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;layoutThis.setStretchMinorAxis(true);&#xD;&#xA;&#x9;layoutThis.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xD;&#xA;);&#xD;&#xA;&#xD;&#xA;&#x9;layoutThis.setSpacing(0);&#xD;&#xA;&#x9;layoutThis.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;fName = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xD;&#xA;fName.setText(&quot;&quot;);&#xD;&#xA;&#xD;&#xA;this.add(fName);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel Name() {&#xD;&#xA;&#x9;&#x9;return fName;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fName; &#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutThis = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;layoutThis.setStretchMinorAxis(true);&#xD;&#xA;&#x9;layoutThis.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xD;&#xA;);&#xD;&#xA;&#xD;&#xA;&#x9;layoutThis.setSpacing(0);&#xD;&#xA;&#x9;layoutThis.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;fName = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xD;&#xA;fName.setText(&quot;&quot;);&#xD;&#xA;&#xD;&#xA;this.add(fName);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel Name() {&#xD;&#xA;&#x9;&#x9;return fName;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet>
@@ -415,7 +414,7 @@
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="TOOLBAR_LAYOUT"
           className="NamedNodeRectangle"
-          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fName; &#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutThis = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;layoutThis.setStretchMinorAxis(true);&#xD;&#xA;&#x9;layoutThis.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xD;&#xA;);&#xD;&#xA;&#xD;&#xA;&#x9;layoutThis.setSpacing(0);&#xD;&#xA;&#x9;layoutThis.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;fName = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xD;&#xA;fName.setText(&quot;&quot;);&#xD;&#xA;&#xD;&#xA;this.add(fName);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel Name() {&#xD;&#xA;&#x9;&#x9;return fName;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fName; &#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutThis = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;layoutThis.setStretchMinorAxis(true);&#xD;&#xA;&#x9;layoutThis.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xD;&#xA;);&#xD;&#xA;&#xD;&#xA;&#x9;layoutThis.setSpacing(0);&#xD;&#xA;&#x9;layoutThis.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;fName = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xD;&#xA;fName.setText(&quot;&quot;);&#xD;&#xA;&#xD;&#xA;this.add(fName);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel Name() {&#xD;&#xA;&#x9;&#x9;return fName;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <behaviour
@@ -465,7 +464,7 @@
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="TOOLBAR_LAYOUT"
           className="NamedNodeRectangle"
-          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fName; &#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutThis = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;layoutThis.setStretchMinorAxis(true);&#xD;&#xA;&#x9;layoutThis.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xD;&#xA;);&#xD;&#xA;&#xD;&#xA;&#x9;layoutThis.setSpacing(0);&#xD;&#xA;&#x9;layoutThis.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;fName = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xD;&#xA;fName.setText(&quot;&quot;);&#xD;&#xA;&#xD;&#xA;this.add(fName);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel Name() {&#xD;&#xA;&#x9;&#x9;return fName;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fName; &#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutThis = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;layoutThis.setStretchMinorAxis(true);&#xD;&#xA;&#x9;layoutThis.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xD;&#xA;);&#xD;&#xA;&#xD;&#xA;&#x9;layoutThis.setSpacing(0);&#xD;&#xA;&#x9;layoutThis.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;fName = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xD;&#xA;fName.setText(&quot;&quot;);&#xD;&#xA;&#xD;&#xA;this.add(fName);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel Name() {&#xD;&#xA;&#x9;&#x9;return fName;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet>
@@ -513,18 +512,17 @@
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="TOOLBAR_LAYOUT"
           className="NamedNodeRectangle"
-          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fName; &#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutThis = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;layoutThis.setStretchMinorAxis(true);&#xD;&#xA;&#x9;layoutThis.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xD;&#xA;);&#xD;&#xA;&#xD;&#xA;&#x9;layoutThis.setSpacing(0);&#xD;&#xA;&#x9;layoutThis.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;fName = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xD;&#xA;fName.setText(&quot;&quot;);&#xD;&#xA;&#xD;&#xA;this.add(fName);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel Name() {&#xD;&#xA;&#x9;&#x9;return fName;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fName; &#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutThis = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;layoutThis.setStretchMinorAxis(true);&#xD;&#xA;&#x9;layoutThis.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xD;&#xA;);&#xD;&#xA;&#xD;&#xA;&#x9;layoutThis.setSpacing(0);&#xD;&#xA;&#x9;layoutThis.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;fName = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xD;&#xA;fName.setText(&quot;&quot;);&#xD;&#xA;&#xD;&#xA;this.add(fName);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel Name() {&#xD;&#xA;&#x9;&#x9;return fName;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
-      <modelFacet>
+      <modelFacet
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.1">
         <metaClass
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EDataType"/>
         <containmentMetaFeature
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
         <childMetaFeature
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
-        <modelElementSelector
-            body="not oclIsKindOf(ecore::EEnum)"/>
       </modelFacet>
       <labels
           visualID="5004"
@@ -563,7 +561,7 @@
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="TOOLBAR_LAYOUT"
           className="NamedNodeRectangle"
-          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fName; &#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutThis = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;layoutThis.setStretchMinorAxis(true);&#xD;&#xA;&#x9;layoutThis.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xD;&#xA;);&#xD;&#xA;&#xD;&#xA;&#x9;layoutThis.setSpacing(0);&#xD;&#xA;&#x9;layoutThis.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;fName = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xD;&#xA;fName.setText(&quot;&quot;);&#xD;&#xA;&#xD;&#xA;this.add(fName);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel Name() {&#xD;&#xA;&#x9;&#x9;return fName;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fName; &#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutThis = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;layoutThis.setStretchMinorAxis(true);&#xD;&#xA;&#x9;layoutThis.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xD;&#xA;);&#xD;&#xA;&#xD;&#xA;&#x9;layoutThis.setSpacing(0);&#xD;&#xA;&#x9;layoutThis.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;fName = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xD;&#xA;fName.setText(&quot;&quot;);&#xD;&#xA;&#xD;&#xA;this.add(fName);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel Name() {&#xD;&#xA;&#x9;&#x9;return fName;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet>
@@ -637,20 +635,19 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet">
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.2">
         <metaClass
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EReference"/>
         <containmentMetaFeature
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eStructuralFeatures"/>
         <childMetaFeature
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eStructuralFeatures"/>
-        <modelElementSelector
-            body="not containment and not container"/>
         <modelElementInitializer
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="false">
+              value="//@expressionProviders/@providers.0/@expressions.3">
             <feature
                 href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EReference/containment"/>
           </initializers>
@@ -705,10 +702,8 @@
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ETypedElement/upperBound"/>
         </modelFacet>
       </labels>
-      <creationConstraints>
-        <targetEnd
-            body="self.oclIsKindOf(ecore::EClass)"/>
-      </creationConstraints>
+      <creationConstraints
+          targetEnd="//@expressionProviders/@providers.0/@expressions.4"/>
     </links>
     <links
         visualID="4003"
@@ -725,25 +720,24 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="SolidLineWSrcDiamond"
-          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class SolidLineWSrcDiamond extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public SolidLineWSrcDiamond() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;setSourceDecoration(createSourceDecoration());&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.RotatableDecoration createSourceDecoration() {&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.PolygonDecoration df = new org.eclipse.draw2d.PolygonDecoration();&#xD;&#xA;org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(-1)&#xD;&#xA;, getMapMode().DPtoLP(1)&#xD;&#xA;);&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(0)&#xD;&#xA;, getMapMode().DPtoLP(0)&#xD;&#xA;);&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(-1)&#xD;&#xA;, getMapMode().DPtoLP(-1)&#xD;&#xA;);&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(-2)&#xD;&#xA;, getMapMode().DPtoLP(0)&#xD;&#xA;);&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(-1)&#xD;&#xA;, getMapMode().DPtoLP(1)&#xD;&#xA;);&#xD;&#xA;df.setTemplate(pl);&#xD;&#xA;df.setScale(getMapMode().DPtoLP(7)&#xD;&#xA;, getMapMode().DPtoLP(3)&#xD;&#xA;);&#xD;&#xA;&#x9;&#x9;return df;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class SolidLineWSrcDiamond extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public SolidLineWSrcDiamond() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;setSourceDecoration(createSourceDecoration());&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.RotatableDecoration createSourceDecoration() {&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.PolygonDecoration df = new org.eclipse.draw2d.PolygonDecoration();&#xD;&#xA;df.setFill(true);&#xD;&#xA;org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(-1)&#xD;&#xA;, getMapMode().DPtoLP(1)&#xD;&#xA;);&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(0)&#xD;&#xA;, getMapMode().DPtoLP(0)&#xD;&#xA;);&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(-1)&#xD;&#xA;, getMapMode().DPtoLP(-1)&#xD;&#xA;);&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(-2)&#xD;&#xA;, getMapMode().DPtoLP(0)&#xD;&#xA;);&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(-1)&#xD;&#xA;, getMapMode().DPtoLP(1)&#xD;&#xA;);&#xD;&#xA;df.setTemplate(pl);&#xD;&#xA;df.setScale(getMapMode().DPtoLP(7)&#xD;&#xA;, getMapMode().DPtoLP(3)&#xD;&#xA;);&#xD;&#xA;&#x9;&#x9;return df;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet">
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.5">
         <metaClass
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EReference"/>
         <containmentMetaFeature
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eStructuralFeatures"/>
         <childMetaFeature
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eStructuralFeatures"/>
-        <modelElementSelector
-            body="containment"/>
         <modelElementInitializer
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="true">
+              value="//@expressionProviders/@providers.0/@expressions.6">
             <feature
                 href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EReference/containment"/>
           </initializers>
@@ -798,10 +792,8 @@
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ETypedElement/upperBound"/>
         </modelFacet>
       </labels>
-      <creationConstraints>
-        <targetEnd
-            body="self.oclIsKindOf(ecore::EClass)"/>
-      </creationConstraints>
+      <creationConstraints
+          targetEnd="//@expressionProviders/@providers.0/@expressions.7"/>
     </links>
     <links
         visualID="4004"
@@ -817,7 +809,7 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="SolidLineWDstClosedArrow"
-          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class SolidLineWDstClosedArrow extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public SolidLineWDstClosedArrow() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;setTargetDecoration(createTargetDecoration());&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.RotatableDecoration createTargetDecoration() {&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.PolygonDecoration df = new org.eclipse.draw2d.PolygonDecoration();&#xD;&#xA;&#x9;df.setBackgroundColor(org.eclipse.draw2d.ColorConstants.white);&#xD;&#xA;org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(0)&#xD;&#xA;, getMapMode().DPtoLP(0)&#xD;&#xA;);&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(-2)&#xD;&#xA;, getMapMode().DPtoLP(2)&#xD;&#xA;);&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(-2)&#xD;&#xA;, getMapMode().DPtoLP(-2)&#xD;&#xA;);&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(0)&#xD;&#xA;, getMapMode().DPtoLP(0)&#xD;&#xA;);&#xD;&#xA;df.setTemplate(pl);&#xD;&#xA;df.setScale(getMapMode().DPtoLP(7)&#xD;&#xA;, getMapMode().DPtoLP(3)&#xD;&#xA;);&#xD;&#xA;&#x9;&#x9;return df;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class SolidLineWDstClosedArrow extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public SolidLineWDstClosedArrow() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;setTargetDecoration(createTargetDecoration());&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.RotatableDecoration createTargetDecoration() {&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.PolygonDecoration df = new org.eclipse.draw2d.PolygonDecoration();&#xD;&#xA;df.setFill(true);&#xD;&#xA;&#x9;df.setBackgroundColor(org.eclipse.draw2d.ColorConstants.white);&#xD;&#xA;org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(0)&#xD;&#xA;, getMapMode().DPtoLP(0)&#xD;&#xA;);&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(-2)&#xD;&#xA;, getMapMode().DPtoLP(2)&#xD;&#xA;);&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(-2)&#xD;&#xA;, getMapMode().DPtoLP(-2)&#xD;&#xA;);&#xD;&#xA;pl.addPoint(getMapMode().DPtoLP(0)&#xD;&#xA;, getMapMode().DPtoLP(0)&#xD;&#xA;);&#xD;&#xA;df.setTemplate(pl);&#xD;&#xA;df.setScale(getMapMode().DPtoLP(7)&#xD;&#xA;, getMapMode().DPtoLP(3)&#xD;&#xA;);&#xD;&#xA;&#x9;&#x9;return df;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
@@ -826,10 +818,8 @@
         <metaFeature
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eSuperTypes"/>
       </modelFacet>
-      <creationConstraints>
-        <targetEnd
-            body="self &lt;> oppositeEnd and not oppositeEnd.eSuperTypes->includes(self) and not self.eAllSuperTypes->includes(oppositeEnd)"/>
-      </creationConstraints>
+      <creationConstraints
+          targetEnd="//@expressionProviders/@providers.0/@expressions.8"/>
     </links>
     <compartments
         visualID="7001"
@@ -1683,7 +1673,32 @@
       href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#/"/>
   <expressionProviders>
     <providers
-        xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@childNodes.5/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.3/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.1/@creationConstraints/@targetEnd //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@creationConstraints/@targetEnd //@diagram/@links.3/@creationConstraints/@targetEnd"/>
+        xsi:type="gmfgen:GenExpressionInterpreter">
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="not oclIsKindOf(ecore::EEnum)"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="not oclIsKindOf(ecore::EEnum)"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="not containment and not container"/>
+      <expressions
+          body="false"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self.oclIsKindOf(ecore::EClass)"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="containment"/>
+      <expressions
+          body="true"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self.oclIsKindOf(ecore::EClass)"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self &lt;> oppositeEnd and not oppositeEnd.eSuperTypes->includes(self) and not self.eAllSuperTypes->includes(oppositeEnd)"/>
+    </providers>
   </expressionProviders>
 </gmfgen:GenEditorGenerator>

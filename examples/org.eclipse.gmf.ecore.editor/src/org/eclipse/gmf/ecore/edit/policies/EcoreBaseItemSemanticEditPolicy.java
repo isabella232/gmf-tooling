@@ -473,7 +473,6 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 				return false;
 			}
 		}
-
 	}
 
 }

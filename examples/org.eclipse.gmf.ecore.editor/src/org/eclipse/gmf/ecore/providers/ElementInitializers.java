@@ -44,4 +44,5 @@ public class ElementInitializers {
 			EcoreDiagramEditorPlugin.getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
 		}
 	}
+
 }

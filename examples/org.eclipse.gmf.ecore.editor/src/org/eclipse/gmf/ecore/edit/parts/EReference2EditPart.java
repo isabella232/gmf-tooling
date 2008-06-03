@@ -102,6 +102,7 @@ public class EReference2EditPart extends ConnectionNodeEditPart {
 		 */
 		private RotatableDecoration createSourceDecoration() {
 			PolygonDecoration df = new PolygonDecoration();
+			df.setFill(true);
 			PointList pl = new PointList();
 			pl.addPoint(getMapMode().DPtoLP(-1), getMapMode().DPtoLP(1));
 			pl.addPoint(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));

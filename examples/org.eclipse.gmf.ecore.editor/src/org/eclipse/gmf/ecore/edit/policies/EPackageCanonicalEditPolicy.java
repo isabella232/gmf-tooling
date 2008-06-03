@@ -92,7 +92,9 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		case EAnnotationEditPart.VISUAL_ID:
 		case EDataTypeEditPart.VISUAL_ID:
 		case EEnumEditPart.VISUAL_ID:
-			return !semanticChildren.contains(view.getElement()) || visualID != EcoreVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
+			if (!semanticChildren.contains(view.getElement())) {
+				return true;
+			}
 		}
 		return false;
 	}

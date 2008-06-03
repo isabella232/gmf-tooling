@@ -115,7 +115,17 @@ public class EcoreCreationWizard extends Wizard implements INewWizard {
 		diagramModelFilePage.setDescription(Messages.EcoreCreationWizard_DiagramModelFilePageDescription);
 		addPage(diagramModelFilePage);
 
-		domainModelFilePage = new EcoreCreationWizardPage("DomainModelFile", getSelection(), "ecore"); //$NON-NLS-1$ //$NON-NLS-2$
+		domainModelFilePage = new EcoreCreationWizardPage("DomainModelFile", getSelection(), "ecore") { //$NON-NLS-1$ //$NON-NLS-2$
+
+			public void setVisible(boolean visible) {
+				if (visible) {
+					String fileName = diagramModelFilePage.getFileName();
+					fileName = fileName.substring(0, fileName.length() - ".ecore_diagram".length()); //$NON-NLS-1$
+					setFileName(EcoreDiagramEditorUtil.getUniqueFileName(getContainerFullPath(), fileName, "ecore")); //$NON-NLS-1$
+				}
+				super.setVisible(visible);
+			}
+		};
 		domainModelFilePage.setTitle(Messages.EcoreCreationWizard_DomainModelFilePageTitle);
 		domainModelFilePage.setDescription(Messages.EcoreCreationWizard_DomainModelFilePageDescription);
 		addPage(domainModelFilePage);
