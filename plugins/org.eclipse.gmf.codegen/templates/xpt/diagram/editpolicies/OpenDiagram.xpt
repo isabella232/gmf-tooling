@@ -93,9 +93,9 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 			diagramFacet.setDiagramLink(d);
 			assert diagramFacet.eResource() != null;
 			diagramFacet.eResource().getContents().add(d);
-			EObject container = diagramFacet.eContainer();
-			while (container instanceof View) {
-				((View) container).persist();
+			org.eclipse.emf.ecore.EObject container = diagramFacet.eContainer();
+			while (container instanceof org.eclipse.gmf.runtime.notation.View) {
+				((org.eclipse.gmf.runtime.notation.View) container).persist();
 				container = container.eContainer();
 			}
 			try {
