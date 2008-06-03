@@ -253,7 +253,10 @@ public class LinksSessionSetup extends SessionSetup {
 									}, null) 
 							})							
 						}, null),
-					})
+					}),
+					refNewElement(modelAccess.findFeature("//Node/nestedNodes1"), new FeatureSeqInitializer[] {
+						newElementFSeqInit(new FeatureInitDataHelper[] { featureValOCL("//Node/name", "'Node_0'") }, modelAccess.findClass("//Node")),
+						newElementFSeqInit(new FeatureInitDataHelper[] { featureValOCL("//Node/name", "'Node_1'") }, modelAccess.findClass("//Node")) })
 				}));
 	
 				// test domain element seletor

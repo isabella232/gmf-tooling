@@ -78,6 +78,27 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		EClassifier expectedType = nodeAElement.eClass();
 		assertEquals("operation should return type of its containing class", expectedType, operation.getEType()); //$NON-NLS-1$
 	}
+
+	public void testSeveralNewElementInitializers() throws Exception {
+		EStructuralFeature feature = nodeAElement.eClass().getEStructuralFeature("nestedNodes1"); //$NON-NLS-1$		
+		assertNotNull("feature not found in the intializer class", feature); //$NON-NLS-1$
+		
+		Object val = nodeAElement.eGet(feature);
+		assertTrue(val instanceof Collection);
+		Collection children = (Collection) val;
+		assertEquals("2 child nodes expected", 2, children.size());
+		int index = 0;
+		for (Iterator it = children.iterator(); it.hasNext(); index++) {
+			Object nextChild = it.next();
+			assertTrue("Incorrect child present", nextChild instanceof EObject);
+			EObject nextEObject = (EObject) nextChild;
+			EStructuralFeature nameFeature = nextEObject.eClass().getEStructuralFeature("name");
+			assertNotNull("feature 'name' was not found in child node", nameFeature);
+			Object name = nextEObject.eGet(nameFeature);
+			assertTrue("Incorrect name value returned", name instanceof String);
+			assertEquals("Name feature was not correctly initialized", nextEObject.eClass().getName() + "_" + index, (String) name);
+		}
+	}
 	
 	public void testJavaInitializers() throws Exception {
 		Class<?> javaContainerClass = loadJavaContainerClass();
