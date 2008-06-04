@@ -465,6 +465,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		getGenDiagram().getLinks().add(gl);
 		gl.setModelFacet(createModelFacet(lme));
 		gl.setVisualID(myVisualIDs.get(gl));
+		gl.setTreeBranch(true);
 		myPaletteProcessor.process(lme, gl);
 		for (LabelMapping labelMapping : lme.getLabelMappings()) {
 			GenLinkLabel label = createLinkLabel(gl, labelMapping);
