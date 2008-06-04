@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
 import org.eclipse.gmf.internal.common.reconcile.Copier;
 import org.eclipse.gmf.internal.common.reconcile.Decision;
@@ -105,6 +106,15 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenLink(), GMFGEN.getGenLink_IncomingCreationAllowed());
 		preserveIfSet(GMFGEN.getGenLink(), GMFGEN.getGenLink_OutgoingCreationAllowed());
 		preserveIfSet(GMFGEN.getGenLink(), GMFGEN.getGenLink_ViewDirectionAlignedWithModel());
+		addDecision(GMFGEN.getGenLink(), new Decision(GMFGEN.getGenLink_TreeBranch()) {
+
+			@Override
+			public void apply(EObject current, EObject old) {
+				if (!((GenLink) old).isTreeBranch()) {
+					((GenLink) current).setTreeBranch(false);
+				}
+			}
+		});
 
 		for (EClass label : new EClass[] { GMFGEN.getGenLinkLabel(), GMFGEN.getGenNodeLabel(), GMFGEN.getGenExternalNodeLabel() }) {
 			setMatcher(label, new VisualIDMatcher());
