@@ -11,6 +11,12 @@
  */
 package org.eclipse.gmf.tests.gen;
 
+import java.util.LinkedList;
+
+import org.eclipse.gmf.codegen.gmfgen.DynamicModelAccess;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
@@ -39,6 +45,33 @@ public class RuntimeCompilationTest extends CompilationTest {
 		generateAndCompile(gmfGenSource, NO_MUTATORS);
 	}
 
+	public void testCompileDynamicDomainModel() throws Exception {
+		DiaGenSource s = getLibraryGen(false);
+		final GenEditorGenerator editorGen = s.getGenDiagram().getEditorGen();
+		assertNull("prereq", editorGen.getModelAccess());
+		DynamicModelAccess dma = GMFGenFactory.eINSTANCE.createDynamicModelAccess();
+		editorGen.setModelAccess(dma);
+		LinkedList<IGenDiagramMutator> m = new LinkedList<IGenDiagramMutator>();
+		// no-op mutator, just to verify defaults
+		m.add(new IGenDiagramMutator() {
+			public void doMutation(GenDiagram d) {
+			}
+			public void undoMutation(GenDiagram d) {
+			}
+		});
+		m.add(new IGenDiagramMutator() {
+			public void doMutation(GenDiagram d) {
+				final DynamicModelAccess modelAccess = d.getEditorGen().getModelAccess();
+				modelAccess.setClassName("NonDefaultDynamicAccessorName");
+			}
+			public void undoMutation(GenDiagram d) {
+				final DynamicModelAccess modelAccess = d.getEditorGen().getModelAccess();
+				modelAccess.setClassName(null);
+			}
+		});
+		generateAndCompile(s, m);
+	}
+
 	protected GeneratorConfiguration getGeneratorConfiguration() {
 		return new RuntimeBasedGeneratorConfiguration();
 	}
@@ -46,4 +79,5 @@ public class RuntimeCompilationTest extends CompilationTest {
 	protected ViewmapProducer getViewmapProducer() {
 		return new InnerClassViewmapProducer();
 	}
+
 }
