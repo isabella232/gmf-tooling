@@ -20,12 +20,12 @@
 // XXX is isExternalInterface use valid here, won't all objects be just EObject?
 
 «DEFINE IsInstance(String accessor) FOR GenClass-»
-MetaModelFacility.get«getNameToken(genPackage)»().isInstance(«accessor», "«ecoreClass.name»")«ENDDEFINE»
+«getDMA().getQualifiedClassName()».get«getNameToken(genPackage)»().isInstance(«accessor», "«ecoreClass.name»")«ENDDEFINE»
 
 «DEFINE NotInstance(String accessor) FOR GenClass»!«EXPAND IsInstance(accessor)»«ENDDEFINE»
 
 «DEFINE IsContainerInstance(String object, GenClass metaClass) FOR GenClass-»
-MetaModelFacility.get«getNameToken(genPackage)»().isInstance(«IF isExternalInterface()»((org.eclipse.emf.ecore.EObject) «object»)«ELSE»«object»«ENDIF».eContainer(), "«ecoreClass.name»")«ENDDEFINE»
+«getDMA().getQualifiedClassName()».get«getNameToken(genPackage)»().isInstance(«IF isExternalInterface()»((org.eclipse.emf.ecore.EObject) «object»)«ELSE»«object»«ENDIF».eContainer(), "«ecoreClass.name»")«ENDDEFINE»
 
 «DEFINE getFeatureValue(String containerVar, genmodel::GenClass containerClass) FOR genmodel::GenFeature-»
 ((«EXPAND featureTargetType») «IF isExternalInterface(containerClass)-»
@@ -58,18 +58,18 @@ MetaModelFacility.get«getNameToken(genPackage)»().isInstance(«IF isExternalInter
 «DEFINE setFeatureValue(String containerVar, genmodel::GenClass containerClass, String valueVar, boolean isPlainObjectValue) FOR genmodel::GenFeature-»
 «EXPAND setFeatureValue(containerVar, containerClass, valueVar)»«ENDDEFINE»
 
-«DEFINE MetaClass FOR genmodel::GenDataType»MetaModelFacility.get«getNameToken(genPackage)»().getEDataType("«ecoreDataType.name»")«ENDDEFINE»
-«DEFINE MetaClass FOR genmodel::GenEnum»MetaModelFacility.get«getNameToken(genPackage)»().getEEnum("«ecoreEnum.name»")«ENDDEFINE»
-«DEFINE MetaClass FOR genmodel::GenClass»MetaModelFacility.get«getNameToken(genPackage)»().getEClass("«ecoreClass.name»")«ENDDEFINE»
+«DEFINE MetaClass FOR genmodel::GenDataType»«getDMA().getQualifiedClassName()».get«getNameToken(genPackage)»().getEDataType("«ecoreDataType.name»")«ENDDEFINE»
+«DEFINE MetaClass FOR genmodel::GenEnum»«getDMA().getQualifiedClassName()».get«getNameToken(genPackage)»().getEEnum("«ecoreEnum.name»")«ENDDEFINE»
+«DEFINE MetaClass FOR genmodel::GenClass»«getDMA().getQualifiedClassName()».get«getNameToken(genPackage)»().getEClass("«ecoreClass.name»")«ENDDEFINE»
 
 «DEFINE MetaFeature FOR genmodel::GenFeature»«EXPAND _metaFeature(ecoreFeature)»«ENDDEFINE»
 
 «DEFINE _metaFeature(EStructuralFeature f) FOR GenFeature»no-op«ENDDEFINE»
-«DEFINE _metaFeature(EReference eRef) FOR GenFeature»MetaModelFacility.get«getNameToken(genClass.genPackage)»().getEReference("«genClass.ecoreClass.name»", "«ecoreFeature.name»")«ENDDEFINE»
-«DEFINE _metaFeature(EAttribute eAttr) FOR GenFeature»MetaModelFacility.get«getNameToken(genClass.genPackage)»().getEAttribute("«genClass.ecoreClass.name»", "«ecoreFeature.name»")«ENDDEFINE»
+«DEFINE _metaFeature(EReference eRef) FOR GenFeature»«getDMA().getQualifiedClassName()».get«getNameToken(genClass.genPackage)»().getEReference("«genClass.ecoreClass.name»", "«ecoreFeature.name»")«ENDDEFINE»
+«DEFINE _metaFeature(EAttribute eAttr) FOR GenFeature»«getDMA().getQualifiedClassName()».get«getNameToken(genClass.genPackage)»().getEAttribute("«genClass.ecoreClass.name»", "«ecoreFeature.name»")«ENDDEFINE»
 
 «DEFINE NewInstance FOR genmodel::GenClass-»
-MetaModelFacility.get«getNameToken(genPackage)»().newInstance("«ecoreClass.name»")«ENDDEFINE»
+«getDMA().getQualifiedClassName()».get«getNameToken(genPackage)»().newInstance("«ecoreClass.name»")«ENDDEFINE»
 
 «DEFINE NewInstance(String varName) FOR genmodel::GenClass-»
 org.eclipse.emf.ecore.EObject «varName» = «EXPAND NewInstance»;«ENDDEFINE»

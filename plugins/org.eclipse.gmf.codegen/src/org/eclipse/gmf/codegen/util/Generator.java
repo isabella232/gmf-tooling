@@ -13,6 +13,7 @@ package org.eclipse.gmf.codegen.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -88,6 +89,10 @@ public class Generator extends GeneratorBase implements Runnable {
 	protected void customRun() throws InterruptedException, UnexpectedBehaviourException {
 		final String pluginID = myEditorGen.getPlugin().getID();
 		initializeEditorProject(pluginID, guessProjectLocation(pluginID));
+
+		if (myEditorGen.getModelAccess() != null) {
+			myEmitters.setGlobals(Collections.<String, Object>singletonMap("DynamicModelAccess", myEditorGen.getModelAccess()));
+		}
         
         // draft for messages
         generateExternalizationSupport();
@@ -106,6 +111,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		generatePrintfParser();
 		generateRegexpParser();
 
+		if (myEditorGen.getModelAccess() != null) {
+			generateMetaModelFacility();
+		}
 		// edit parts, edit policies and providers
 		generateBaseItemSemanticEditPolicy();
 		generateBehaviours(myDiagram);
@@ -982,6 +990,10 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateWizardNewFileCreationPage(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getWizardNewFileCreationPageEmitter(), application.getPackageName(), "WizardNewFileCreationPage", application); //$NON-NLS-1$
+	}
+
+	private void generateMetaModelFacility() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getMetaModelFacilityEmitter(), myEditorGen.getModelAccess().getQualifiedClassName(), myEditorGen.getModelAccess());
 	}
 
 	// util

@@ -21,17 +21,17 @@ package «packageName»;
 
 public class «className» {
 
-	«EXPAND field FOREACH editorGen.getAllDomainGenPackages(false)-»
+	«EXPAND field(this) FOREACH editorGen.getAllDomainGenPackages(false)-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private final org.eclipse.emf.ecore.EPackage ePackage;
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private MetaModelFacility(org.eclipse.emf.ecore.EPackage ePackage) {
+	private «className»(org.eclipse.emf.ecore.EPackage ePackage) {
 		this.ePackage = ePackage;
 	}
 
-	«EXPAND getMethod FOREACH editorGen.getAllDomainGenPackages(false)-»
+	«EXPAND getMethod(this) FOREACH editorGen.getAllDomainGenPackages(false)-»
 
 	«EXPAND getRegistryMethod»
 
@@ -123,20 +123,20 @@ public class «className» {
 
 «DEFINE additions FOR DynamicModelAccess»«ENDDEFINE»
 
-«DEFINE field FOR GenPackage-»
+«DEFINE field(DynamicModelAccess dma) FOR GenPackage-»
 «EXPAND xpt::Common::generatedMemberComment»
-private static MetaModelFacility «fieldName()»;
+private static «dma.className» «fieldName()»;
 «ENDDEFINE»
 
-«DEFINE getMethod FOR GenPackage-»
+«DEFINE getMethod(DynamicModelAccess dma) FOR GenPackage-»
 	«EXPAND xpt::Common::generatedMemberComment("@throws IllegalStateException if no EPackage with given URI is registered.")»
-	public static MetaModelFacility get«getNameToken()»() {
+	public static «dma.className» get«getNameToken()»() {
 		if («fieldName()» == null) {
 			org.eclipse.emf.ecore.EPackage pkg = getRegistry().getEPackage("«ecorePackage.nsURI»");
 			if (pkg == null) {
 				throw new IllegalStateException("Package «ecorePackage.name»(«ecorePackage.nsURI») not found");
 			}
-			«fieldName()» = new MetaModelFacility(pkg);
+			«fieldName()» = new «dma.className»(pkg);
 			«fieldName()».init«getNameToken()»();
 		}
 		return «fieldName()»;

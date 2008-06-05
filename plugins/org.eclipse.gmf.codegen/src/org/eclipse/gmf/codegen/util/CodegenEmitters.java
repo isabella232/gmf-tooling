@@ -15,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -48,6 +49,8 @@ public class CodegenEmitters {
 	private final ResourceManager myResourceManager;
 	private final URL[] myLocations;
 
+	private Map<String, Object> myGlobals;
+
 	public CodegenEmitters(boolean useBaseTemplatesOnly, String templateDirectory, boolean includeDynamicModelTemplates) {
 		ArrayList<URL> urls = new ArrayList<URL>(5);
 		if (!useBaseTemplatesOnly) {
@@ -60,6 +63,10 @@ public class CodegenEmitters {
 	
 		myLocations = urls.toArray(new URL[urls.size()]);
 		myResourceManager = new BundleResourceManager(myLocations);
+	}
+	
+	/*package*/ void setGlobals(Map<String, Object> globals) {
+		myGlobals = globals;
 	}
 
 	/**
@@ -706,6 +713,10 @@ public class CodegenEmitters {
 		return getPrimaryEmitter("xpt::application::WizardNewFileCreationPage"); //$NON-NLS-1$
 	}
 
+	public TextEmitter getMetaModelFacilityEmitter() {
+		return newXpandEmitter("Facility::Main"); //$NON-NLS-1$
+	}
+
 	// util
 
     /**
@@ -777,6 +788,6 @@ public class CodegenEmitters {
 	}
 
 	protected TextEmitter newXpandEmitter(String definition) {
-		return new XpandTextEmitter(myResourceManager, definition, getClass().getClassLoader());
+		return new XpandTextEmitter(myResourceManager, definition, getClass().getClassLoader(), myGlobals);
 	}
 }
