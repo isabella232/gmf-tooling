@@ -468,7 +468,6 @@ public class GMFGenEditor
 								(new Runnable() {
 									 public void run() {
 										 getSite().getPage().closeEditor(GMFGenEditor.this, false);
-										 GMFGenEditor.this.dispose();
 									 }
 								 });
 						}
@@ -510,7 +509,6 @@ public class GMFGenEditor
 		if (!removedResources.isEmpty()) {
 			if (handleDirtyConflict()) {
 				getSite().getPage().closeEditor(GMFGenEditor.this, false);
-				GMFGenEditor.this.dispose();
 			}
 			else {
 				removedResources.clear();
