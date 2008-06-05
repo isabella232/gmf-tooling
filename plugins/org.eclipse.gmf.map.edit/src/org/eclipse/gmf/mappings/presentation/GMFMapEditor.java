@@ -469,7 +469,6 @@ public class GMFMapEditor
 								(new Runnable() {
 									 public void run() {
 										 getSite().getPage().closeEditor(GMFMapEditor.this, false);
-										 GMFMapEditor.this.dispose();
 									 }
 								 });
 						}
@@ -511,7 +510,6 @@ public class GMFMapEditor
 		if (!removedResources.isEmpty()) {
 			if (handleDirtyConflict()) {
 				getSite().getPage().closeEditor(GMFMapEditor.this, false);
-				GMFMapEditor.this.dispose();
 			}
 			else {
 				removedResources.clear();
