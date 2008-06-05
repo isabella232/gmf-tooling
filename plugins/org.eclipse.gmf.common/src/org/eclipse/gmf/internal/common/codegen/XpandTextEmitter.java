@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,6 +14,8 @@ package org.eclipse.gmf.internal.common.codegen;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
@@ -32,12 +34,25 @@ public class XpandTextEmitter implements TextEmitter {
 	private final ResourceManager myResourceManager;
 	private final String myTemplateFQN;
 	private final ClassLoader myContext;
+	private final List<Variable> myGlobals;
 
 	public XpandTextEmitter(ResourceManager manager, String templateFQN, ClassLoader context) {
+		this(manager, templateFQN, context, null);
+	}
+
+	public XpandTextEmitter(ResourceManager manager, String templateFQN, ClassLoader context, Map<String, Object> globals) {
 		assert manager != null && templateFQN != null;
 		myResourceManager = manager;
 		myTemplateFQN = templateFQN;
 		myContext = context;
+		if (globals != null && globals.size() > 0) {
+			myGlobals = new ArrayList<Variable>(globals.size());
+			for (Map.Entry<String, Object> e : globals.entrySet()) {
+				myGlobals.add(new Variable(e.getKey(), e.getValue()));
+			}
+		} else {
+			myGlobals = Collections.<Variable>emptyList();
+		}
 	}
 
 	public String generate(IProgressMonitor monitor, Object[] arguments) throws InterruptedException, InvocationTargetException {
@@ -73,6 +88,6 @@ public class XpandTextEmitter implements TextEmitter {
 
 	private XpandExecutionContext createContext(StringBuilder result) {
 		final BufferOutput output = new BufferOutput(result);
-		return ContextFactory.createXpandContext(myResourceManager, output, Collections.<Variable>emptyList(), myContext);
+		return ContextFactory.createXpandContext(myResourceManager, output, myGlobals, myContext);
 	}
 }
