@@ -457,7 +457,6 @@ public class GMFToolEditor extends MultiPageEditorPart implements IEditingDomain
 							getSite().getShell().getDisplay().asyncExec(new Runnable() {
 								public void run() {
 									getSite().getPage().closeEditor(GMFToolEditor.this, false);
-									GMFToolEditor.this.dispose();
 								}
 							});
 						}
@@ -498,7 +497,6 @@ public class GMFToolEditor extends MultiPageEditorPart implements IEditingDomain
 		if (!removedResources.isEmpty()) {
 			if (handleDirtyConflict()) {
 				getSite().getPage().closeEditor(GMFToolEditor.this, false);
-				GMFToolEditor.this.dispose();
 			} else {
 				removedResources.clear();
 				changedResources.clear();
