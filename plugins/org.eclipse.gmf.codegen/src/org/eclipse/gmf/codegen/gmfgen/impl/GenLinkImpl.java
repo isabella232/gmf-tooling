@@ -193,7 +193,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean TREE_BRANCH_EDEFAULT = false;
+	protected static final boolean TREE_BRANCH_EDEFAULT = true;
 
 	/**
 	 * The cached value of the '{@link #isTreeBranch() <em>Tree Branch</em>}' attribute.

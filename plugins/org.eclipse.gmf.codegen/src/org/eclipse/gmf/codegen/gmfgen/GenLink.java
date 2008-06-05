@@ -262,7 +262,7 @@ public interface GenLink extends GenCommonBase {
 
 	/**
 	 * Returns the value of the '<em><b>Tree Branch</b></em>' attribute.
-	 * The default value is <code>"false"</code>.
+	 * The default value is <code>"true"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Tree Branch</em>' attribute isn't clear,
@@ -272,7 +272,7 @@ public interface GenLink extends GenCommonBase {
 	 * @return the value of the '<em>Tree Branch</em>' attribute.
 	 * @see #setTreeBranch(boolean)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_TreeBranch()
-	 * @model default="false"
+	 * @model default="true"
 	 * @generated
 	 */
 	boolean isTreeBranch();

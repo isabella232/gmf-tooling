@@ -827,7 +827,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="reorientCommandClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="treeBranch" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-        defaultValueLiteral="false"/>
+        defaultValueLiteral="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenLabel" abstract="true" eSuperTypes="#//GenCommonBase">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
