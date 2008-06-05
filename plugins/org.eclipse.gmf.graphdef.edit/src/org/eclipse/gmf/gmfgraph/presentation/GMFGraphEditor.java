@@ -465,7 +465,6 @@ public class GMFGraphEditor
 								(new Runnable() {
 									 public void run() {
 										 getSite().getPage().closeEditor(GMFGraphEditor.this, false);
-										 GMFGraphEditor.this.dispose();
 									 }
 								 });
 						}
@@ -507,7 +506,6 @@ public class GMFGraphEditor
 		if (!removedResources.isEmpty()) {
 			if (handleDirtyConflict()) {
 				getSite().getPage().closeEditor(GMFGraphEditor.this, false);
-				GMFGraphEditor.this.dispose();
 			}
 			else {
 				removedResources.clear();
