@@ -155,7 +155,7 @@ protected void setupDocument(Object element, org.eclipse.gmf.runtime.diagram.ui.
 	«EXPAND xpt::Common::generatedMemberComment»
 private long computeModificationStamp(ResourceSetInfo info) {
 	int result = 0;
-	for (java.util.Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+	for (java.util.Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/ it = info.getLoadedResourcesIterator(); it.hasNext();) {
 		org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 	«IF null == editorGen.application-»
 		org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
@@ -338,8 +338,8 @@ protected void disposeElementInfo(Object element, ElementInfo info) {
 protected void doValidateState(Object element, Object computationContext) throws org.eclipse.core.runtime.CoreException {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
-		java.util.Collection files2Validate = new java.util.ArrayList();
-		for (java.util.Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+		java.util.Collection/*<org.eclipse.core.resources.IFile>*/ files2Validate = new java.util.ArrayList/*<org.eclipse.core.resources.IFile>*/();
+		for (java.util.Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/ it = info.getLoadedResourcesIterator(); it.hasNext();) {
 			org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null && file.isReadOnly()) {
@@ -398,7 +398,7 @@ if (info.isUpdateCache()) {
 protected void updateCache(Object element) throws org.eclipse.core.runtime.CoreException {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
-		for (java.util.Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+		for (java.util.Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/ it = info.getLoadedResourcesIterator(); it.hasNext();) {
 			org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 	«IF null == editorGen.application-»
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
@@ -446,8 +446,8 @@ public boolean isSynchronized(Object element) {
 protected org.eclipse.core.runtime.jobs.ISchedulingRule getResetRule(Object element) {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
-		java.util.Collection rules = new java.util.ArrayList();
-		for (java.util.Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+		java.util.Collection/*<org.eclipse.core.runtime.jobs.ISchedulingRule>*/ rules = new java.util.ArrayList/*<org.eclipse.core.runtime.jobs.ISchedulingRule>*/();
+		for (java.util.Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/ it = info.getLoadedResourcesIterator(); it.hasNext();) {
 			org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null) {
@@ -465,8 +465,8 @@ protected org.eclipse.core.runtime.jobs.ISchedulingRule getResetRule(Object elem
 protected org.eclipse.core.runtime.jobs.ISchedulingRule getSaveRule(Object element) {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
-		java.util.Collection rules = new java.util.ArrayList();
-		for (java.util.Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+		java.util.Collection/*<org.eclipse.core.runtime.jobs.ISchedulingRule>*/ rules = new java.util.ArrayList/*<org.eclipse.core.runtime.jobs.ISchedulingRule>*/();
+		for (java.util.Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/ it = info.getLoadedResourcesIterator(); it.hasNext();) {
 			org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null) {
@@ -484,8 +484,8 @@ protected org.eclipse.core.runtime.jobs.ISchedulingRule getSaveRule(Object eleme
 protected org.eclipse.core.runtime.jobs.ISchedulingRule getSynchronizeRule(Object element) {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
-		java.util.Collection rules = new java.util.ArrayList();
-		for (java.util.Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+		java.util.Collection/*<org.eclipse.core.runtime.jobs.ISchedulingRule>*/ rules = new java.util.ArrayList/*<org.eclipse.core.runtime.jobs.ISchedulingRule>*/();
+		for (java.util.Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/ it = info.getLoadedResourcesIterator(); it.hasNext();) {
 			org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null) {
@@ -503,8 +503,8 @@ protected org.eclipse.core.runtime.jobs.ISchedulingRule getSynchronizeRule(Objec
 protected org.eclipse.core.runtime.jobs.ISchedulingRule getValidateStateRule(Object element) {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
-		java.util.Collection files = new java.util.ArrayList();
-		for (java.util.Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+		java.util.Collection/*<org.eclipse.core.runtime.jobs.ISchedulingRule>*/ files = new java.util.ArrayList/*<org.eclipse.core.runtime.jobs.ISchedulingRule>*/();
+		for (java.util.Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/ it = info.getLoadedResourcesIterator(); it.hasNext();) {
 			org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null) {
@@ -544,7 +544,7 @@ private org.eclipse.core.runtime.jobs.ISchedulingRule computeSchedulingRule(org.
 protected void doSynchronize(Object element, org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
-		for (java.util.Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+		for (java.util.Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/ it = info.getLoadedResourcesIterator(); it.hasNext();) {
 			org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 			handleElementChanged(info, nextResource, monitor);	
 		}
@@ -602,10 +602,9 @@ protected void doSaveDocument(org.eclipse.core.runtime.IProgressMonitor monitor,
 		info.stopResourceListening();
 	«ENDIF-»
 		fireElementStateChanging(element);
-		java.util.List resources = info.getResourceSet().getResources();
 		try {
-			monitor.beginTask(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentSaveDiagramTask()) FOR editorGen», resources.size() + 1); //"Saving diagram"
-			for (java.util.Iterator it = resources.iterator(); it.hasNext();) {
+			monitor.beginTask(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentSaveDiagramTask()) FOR editorGen», info.getResourceSet().getResources().size() + 1); //"Saving diagram"
+			for (java.util.Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/ it = info.getLoadedResourcesIterator(); it.hasNext();) {
 				org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 				monitor.setTaskName(org.eclipse.osgi.util.NLS.bind(
 						«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentSaveNextResourceTask()) FOR editorGen», 

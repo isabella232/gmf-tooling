@@ -28,6 +28,8 @@ protected class ResourceSetInfo extends ElementInfo {
 	«EXPAND getEditingDomain-»
 
 	«EXPAND getResourceSet-»
+	
+	«EXPAND getLoadedResourcesIterator-»
 
 	«EXPAND getEditorInput-»
 
@@ -138,6 +140,13 @@ public org.eclipse.emf.ecore.resource.ResourceSet getResourceSet() {
 }
 «ENDDEFINE»
 
+«DEFINE getLoadedResourcesIterator FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public java.util.Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/ getLoadedResourcesIterator() {
+	return new java.util.ArrayList/*<org.eclipse.emf.ecore.resource.Resource>*/(getResourceSet().getResources()).iterator();
+}
+«ENDDEFINE»
+
 «DEFINE getEditorInput FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public org.eclipse.ui.IEditorInput getEditorInput() {
@@ -152,7 +161,7 @@ public void dispose() {
 	stopResourceListening();
 	«ENDIF-»
 	getResourceSet().eAdapters().remove(myResourceSetListener);
-	for (java.util.Iterator it = getResourceSet().getResources().iterator(); it.hasNext();) {
+	for (java.util.Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/ it = getLoadedResourcesIterator(); it.hasNext();) {
 		org.eclipse.emf.ecore.resource.Resource resource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 		resource.unload();
 	}

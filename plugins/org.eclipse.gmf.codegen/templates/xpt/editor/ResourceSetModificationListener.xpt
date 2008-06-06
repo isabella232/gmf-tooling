@@ -54,7 +54,7 @@ public void notifyChanged(org.eclipse.emf.common.notify.Notification notificatio
 			org.eclipse.emf.ecore.resource.Resource resource = (org.eclipse.emf.ecore.resource.Resource) notification.getNotifier();
 			if (resource.isLoaded()) {
 				boolean modified = false;
-				for (java.util.Iterator it = myInfo.getResourceSet().getResources().iterator(); it.hasNext() && !modified;) {
+				for (java.util.Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/ it = myInfo.getLoadedResourcesIterator(); it.hasNext() && !modified;) {
 					org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 					if (nextResource.isLoaded()) {
 						modified = nextResource.isModified();
