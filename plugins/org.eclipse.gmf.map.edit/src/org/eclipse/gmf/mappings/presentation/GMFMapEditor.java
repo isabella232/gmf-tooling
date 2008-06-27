@@ -6,7 +6,6 @@
  */
 package org.eclipse.gmf.mappings.presentation;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -48,7 +47,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EContentAdapter;
@@ -72,6 +70,7 @@ import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 import org.eclipse.gmf.gmfgraph.provider.GMFGraphItemProviderAdapterFactory;
+import org.eclipse.gmf.mappings.provider.EcoreItemProviderAdapterFactoryEx;
 import org.eclipse.gmf.mappings.provider.GMFMapEditPlugin;
 import org.eclipse.gmf.mappings.provider.GMFMapItemProviderAdapterFactory;
 import org.eclipse.gmf.tooldef.provider.GMFToolItemProviderAdapterFactory;
@@ -643,6 +642,8 @@ public class GMFMapEditor
 	/**
 	 * This sets up the editing domain for the model editor.
 	 * <!-- begin-user-doc -->
+	 * Do not forget to use EcoreItemProviderAdapterFactoryEx
+	 * instead of default
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -655,7 +656,7 @@ public class GMFMapEditor
 		adapterFactory.addAdapterFactory(new GMFMapItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new GMFGraphItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new GMFToolItemProviderAdapterFactory());
-		adapterFactory.addAdapterFactory(new EcoreItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new EcoreItemProviderAdapterFactoryEx());
 		adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 
 		// Create the command stack that will notify this editor as commands are executed.
