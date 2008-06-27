@@ -108,6 +108,8 @@ public class GMFMapActionBarContributor
 			}
 		};
 
+	protected final ToggleQualifiedLabels toggleLabelsAction = new ToggleQualifiedLabels();
+		
 	/**
 	 * This will contain one {@link org.eclipse.emf.edit.ui.action.CreateChildAction} corresponding to each descriptor
 	 * generated for the current selection by the item provider.
@@ -396,7 +398,7 @@ public class GMFMapActionBarContributor
 	 * This inserts global actions before the "additions-end" separator.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	protected void addGlobalActions(IMenuManager menuManager) {
@@ -407,6 +409,10 @@ public class GMFMapActionBarContributor
 		menuManager.insertAfter("ui-actions", refreshViewerAction);
 
 		super.addGlobalActions(menuManager);
+		// handwritten code starts
+		toggleLabelsAction.update();
+		menuManager.insertBefore("ui-actions", toggleLabelsAction);
+		// handwritten code ends
 	}
 
 	/**
@@ -420,4 +426,18 @@ public class GMFMapActionBarContributor
 		return true;
 	}
 
+	private static class ToggleQualifiedLabels extends Action {
+		public ToggleQualifiedLabels() {
+			super(GMFMapEditPlugin.INSTANCE.getString("_UI_ToggleQualifiedLabels_menu_item"), Action.AS_CHECK_BOX);
+		}
+		@Override
+		public void run() {
+			GMFMapEditPlugin.toggleQualifiedFeatureLabelPresentation();
+			update();
+		}
+
+		void update() {
+			setChecked(GMFMapEditPlugin.isQualifiedFeatureLabels());
+		}
+	}
 }

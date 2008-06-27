@@ -76,6 +76,16 @@ public final class GMFMapEditPlugin extends EMFPlugin {
 		return plugin;
 	}
 
+	private boolean myShowQualifiedFeatureLabels = true;
+
+	public static void toggleQualifiedFeatureLabelPresentation() {
+		INSTANCE.myShowQualifiedFeatureLabels = !INSTANCE.myShowQualifiedFeatureLabels;
+	}
+
+	public static boolean isQualifiedFeatureLabels() {
+		return INSTANCE.myShowQualifiedFeatureLabels;
+	}
+
 	static String getFeatureLabel(EStructuralFeature feature) {
 		StringBuffer sb = new StringBuffer();
 		if (feature.getEContainingClass() != null) {
