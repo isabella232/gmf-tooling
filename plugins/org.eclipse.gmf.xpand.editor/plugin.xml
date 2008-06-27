@@ -9,28 +9,31 @@
             extensions="xpt"
             icon="icons/templatefile.gif"
             id="org.eclipse.gmf.xpand.XpandEditor"
-            name="Xpand Editor">
+            name="%editor.name">
+         <contentTypeBinding
+               contentTypeId="org.eclipse.gmf.xpt">
+         </contentTypeBinding>
       </editor>
    </extension>
 
    <extension
          point="org.eclipse.ui.commands">
       <category
-            name="Xpand Editor"
+            name="%cmd.cat"
             description="Xpand Editor Commands"
             id="org.eclipse.gmf.xpand.editor">
       </category>
       <command
-            name="Insert LT"
+            name="%cmd.lt.name"
             categoryId="org.eclipse.gmf.xpand.editor"
-            description="Insert Xpand start terminal"
+            description="%cmd.lt.desc"
             id="org.eclipse.gmf.xpand.editor.insertLT"
             >
       </command>
       <command
-            name="Insert RT"
+            name="%cmd.rt.name"
             categoryId="org.eclipse.gmf.xpand.editor"
-            description="Insert Xpand end terminal"
+            description="%cmd.rt.desc"
             id="org.eclipse.gmf.xpand.editor.insertRT"
             >
       </command>
@@ -55,15 +58,15 @@
 	      point = "org.eclipse.ui.newWizards">
 		<category 
 		   id = "org.eclipse.gmf.xpand.newWizards"
-		   name="GMF-Xpand">
+		   name="%wizard.cat">
 		</category>
 		 <wizard
 		   id = "org.eclipse.gmf.xpand.wizard.NewTemplateFileWizard"
-		   name = "xPand Template"
+		   name = "%wizard.name"
 		   class="org.eclipse.gmf.internal.xpand.editor.ui.NewTemplateFileWizard"
 		   category="org.eclipse.gmf.xpand.newWizards"
 		   icon="icons/templatefile.gif">
-	       <description>Create a new Xpand Template File</description>
+	       <description>%wizard.desc</description>
 		   <selection class="org.eclipse.core.resources.IResource"/>
 		</wizard>
 	</extension>      
