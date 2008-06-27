@@ -44,6 +44,9 @@
         extensions = "gmfgen"
         class = "org.eclipse.gmf.codegen.gmfgen.presentation.GMFGenEditor" 
         contributorClass="org.eclipse.gmf.codegen.gmfgen.presentation.GMFGenActionBarContributor" >
+       <contentTypeBinding contentTypeId="org.eclipse.gmf.gen"/>
+       <contentTypeBinding contentTypeId="org.eclipse.gmf.gen_2_0"/>
+       <contentTypeBinding contentTypeId="org.eclipse.gmf.gen_1_0"/>
     </editor>
   </extension>    
 </plugin>
