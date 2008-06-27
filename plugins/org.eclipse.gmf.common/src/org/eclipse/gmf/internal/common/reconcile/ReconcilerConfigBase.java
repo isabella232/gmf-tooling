@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -62,14 +62,23 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 	}
 	
 	protected final void setMatcherForAllSubclasses(EClass eClass, Matcher matcher){
+		checkAbstract(eClass);
+		getTemplateRecord(eClass, true).setMatcher(matcher);
+	}
+	
+	protected final void setCopierForAllSubclasses(EClass eClass, Copier copier){
+		checkAbstract(eClass);
+		getTemplateRecord(eClass, true).setCopier(copier);
+	}
+	
+	private static void checkAbstract(EClass eClass){
 		if (!eClass.isAbstract()){
 			throw new IllegalArgumentException(
 					"This is not safe method that may lead to strange behaviour in case of multiple inheritance. " +
 					"We tried to limit its usage as much as possible");
 		}
-		getTemplateRecord(eClass, true).setMatcher(matcher);
 	}
-	
+
 	protected final void addDecision(EClass eClass, Decision decision){
 		getRecord(eClass, true).addDecision(decision);
 	}
