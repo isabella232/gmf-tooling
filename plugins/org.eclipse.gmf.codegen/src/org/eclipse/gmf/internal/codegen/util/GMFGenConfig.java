@@ -28,9 +28,9 @@ import org.eclipse.gmf.internal.common.reconcile.StringPatternDecision;
 
 public class GMFGenConfig extends ReconcilerConfigBase {
 
-	private final GMFGenPackage GMFGEN = GMFGenPackage.eINSTANCE;
-
 	public GMFGenConfig() {
+		final GMFGenPackage GMFGEN = GMFGenPackage.eINSTANCE;
+		
 		setMatcher(GMFGEN.getGenEditorGenerator(), ALWAYS_MATCH);
 		preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_CopyrightText());
 		preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_PackageNamePrefix());
@@ -92,7 +92,7 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		restore(GMFGEN.getGenCompartment(), GMFGEN.getGenCommonBase_EditPartClassName());
 		restore(GMFGEN.getGenCompartment(), GMFGEN.getGenCommonBase_ItemSemanticEditPolicyClassName());
 		restore(GMFGEN.getGenCompartment(), GMFGEN.getGenContainerBase_CanonicalEditPolicyClassName());
-		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_ListLayout());
+		restore(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_ListLayout());
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_CanCollapse());
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_HideIfEmpty());
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_NeedsTitle());
@@ -106,15 +106,7 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenLink(), GMFGEN.getGenLink_IncomingCreationAllowed());
 		preserveIfSet(GMFGEN.getGenLink(), GMFGEN.getGenLink_OutgoingCreationAllowed());
 		preserveIfSet(GMFGEN.getGenLink(), GMFGEN.getGenLink_ViewDirectionAlignedWithModel());
-		addDecision(GMFGEN.getGenLink(), new Decision(GMFGEN.getGenLink_TreeBranch()) {
-
-			@Override
-			public void apply(EObject current, EObject old) {
-				if (!((GenLink) old).isTreeBranch()) {
-					((GenLink) current).setTreeBranch(false);
-				}
-			}
-		});
+		preserveIfSet(GMFGEN.getGenLink(), GMFGEN.getGenLink_TreeBranch());
 
 		for (EClass label : new EClass[] { GMFGEN.getGenLinkLabel(), GMFGEN.getGenNodeLabel(), GMFGEN.getGenExternalNodeLabel() }) {
 			setMatcher(label, new VisualIDMatcher());
@@ -186,7 +178,7 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		setMatcherForAllSubclasses(GMFGEN.getGenPropertyTab(), new ReflectiveMatcher(GMFGEN.getGenPropertyTab_ID()));
 		preserveIfSet(GMFGEN.getGenStandardPropertyTab(), GMFGEN.getGenPropertyTab_Label());
 
-		preserveIfSet(GMFGEN.getGenCustomPropertyTab(), GMFGEN.getGenPropertyTab_Label());
+		addDecision(GMFGEN.getGenCustomPropertyTab(), new KeepOldIfNewIsByPatternOrNotSet(GMFGEN.getGenPropertyTab_Label(), "^Core$")); //$NON-NLS-1$
 		preserveIfSet(GMFGEN.getGenCustomPropertyTab(), GMFGEN.getGenCustomPropertyTab_ClassName());
 		setCopier(GMFGEN.getGenCustomPropertyTab(), Copier.COMPLETE_COPY);
 
@@ -228,15 +220,12 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenApplication(), GMFGEN.getGenApplication_PerspectiveId());
 		preserveIfSet(GMFGEN.getGenApplication(), GMFGEN.getGenApplication_SupportFiles());
 
+		// XXX ReflectiveMatcher(Kind) instead?
 		setMatcher(GMFGEN.getGenStandardPreferencePage(), new Matcher() {
 
 			public boolean match(EObject current, EObject old) {
-				if (false == current instanceof GenStandardPreferencePage) {
-					return false;
-				}
-				if (false == old instanceof GenStandardPreferencePage) {
-					return false;
-				}
+				assert current instanceof GenStandardPreferencePage;
+				assert old instanceof GenStandardPreferencePage;
 				GenStandardPreferencePage curPage = (GenStandardPreferencePage) current;
 				GenStandardPreferencePage oldPage = (GenStandardPreferencePage) old;
 				if (curPage.getParent() == null) {
@@ -249,8 +238,15 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		addDecision(GMFGEN.getGenStandardPreferencePage(), new Decision.ALWAYS_OLD(GMFGEN.getGenPreferencePage_ID()));
 		addDecision(GMFGEN.getGenStandardPreferencePage(), new Decision.ALWAYS_OLD(GMFGEN.getGenPreferencePage_Name()));
 		setCopier(GMFGEN.getGenCustomPreferencePage(), Copier.COMPLETE_COPY);
+		//
+		// preserve model access attributes, or completely copy old if none in the new model found.
+		setMatcher(GMFGEN.getDynamicModelAccess(), ALWAYS_MATCH);
+		preserveIfSet(GMFGEN.getDynamicModelAccess(), GMFGEN.getDynamicModelAccess_ClassName());
+		preserveIfSet(GMFGEN.getDynamicModelAccess(), GMFGEN.getDynamicModelAccess_PackageName());
+		setCopier(GMFGEN.getDynamicModelAccess(), Copier.COMPLETE_COPY);
 	}
 
+	// XXX rename?: preserveOld
 	private void restore(EClass eClass, EAttribute feature) {
 		addDecision(eClass, new Decision.ALWAYS_OLD(feature));
 	}
