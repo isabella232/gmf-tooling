@@ -124,6 +124,9 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		setCopier(GMFGEN.getDefaultSizeAttributes(), Copier.COMPLETE_COPY);
 		preserveIfSet(GMFGEN.getDefaultSizeAttributes(), GMFGEN.getDefaultSizeAttributes_Height());
 		preserveIfSet(GMFGEN.getDefaultSizeAttributes(), GMFGEN.getDefaultSizeAttributes_Width());
+		
+		setMatcherForAllSubclasses(GMFGEN.getAttributes(), ALWAYS_MATCH);
+		setCopierForAllSubclasses(GMFGEN.getAttributes(), Copier.COMPLETE_COPY);
 
 		// provided GenCommonBase matched, custom behaviour should be kept as is
 		setMatcher(GMFGEN.getCustomBehaviour(), ALWAYS_MATCH);
