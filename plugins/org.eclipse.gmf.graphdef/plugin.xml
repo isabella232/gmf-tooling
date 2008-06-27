@@ -39,7 +39,7 @@
            base-type="org.eclipse.emf.ecore.xmi"
            file-extensions="gmfgraph"
            id="org.eclipse.gmf.graph"
-           name="GMFGraph file"
+           name="%contenttype.graph"
            priority="normal">
         <describer
               class="org.eclipse.emf.ecore.xmi.impl.RootXMLContentHandlerImpl$Describer">
@@ -57,7 +57,7 @@
            base-type="org.eclipse.emf.ecore.xmi"
            file-extensions="gmfgraph"
            id="org.eclipse.gmf.graph_1_0"
-           name="GMFGraph file (GMF 1.0)"
+           name="%contenttype.graph10"
            priority="normal">
         <describer
               class="org.eclipse.emf.ecore.xmi.impl.RootXMLContentHandlerImpl$Describer">
