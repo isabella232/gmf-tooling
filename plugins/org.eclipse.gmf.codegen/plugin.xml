@@ -51,7 +51,7 @@
            base-type="org.eclipse.emf.ecore.xmi"
            file-extensions="gmfgen"
            id="org.eclipse.gmf.gen"
-           name="GMFGen file"
+           name="%contenttype.gmf"
            priority="normal">
         <describer
               class="org.eclipse.emf.ecore.xmi.impl.RootXMLContentHandlerImpl$Describer">
@@ -69,7 +69,7 @@
            base-type="org.eclipse.emf.ecore.xmi"
            file-extensions="gmfgen"
            id="org.eclipse.gmf.gen_2_0"
-           name="GMFGen file (GMF 2.0)"
+           name="%contenttype.gmf20"
            priority="normal">
         <describer
               class="org.eclipse.emf.ecore.xmi.impl.RootXMLContentHandlerImpl$Describer">
@@ -87,7 +87,7 @@
            base-type="org.eclipse.emf.ecore.xmi"
            file-extensions="gmfgen"
            id="org.eclipse.gmf.gen_1_0"
-           name="GMFGen file (GMF 1.0)"
+           name="%contenttype.gmf10"
            priority="normal">
         <describer
               class="org.eclipse.emf.ecore.xmi.impl.RootXMLContentHandlerImpl$Describer">
