@@ -255,11 +255,34 @@ public class LinksSessionSetup extends SessionSetup {
 						}, null),
 					}),
 					refNewElement(modelAccess.findFeature("//Node/nestedNodes1"), new FeatureSeqInitializer[] {
-						newElementFSeqInit(new FeatureInitDataHelper[] { featureValOCL("//Node/name", "'Node_0'") }, modelAccess.findClass("//Node")),
-						newElementFSeqInit(new FeatureInitDataHelper[] { featureValOCL("//Node/name", "'Node_1'") }, modelAccess.findClass("//Node")) })
+						newElementFSeqInit(new FeatureInitDataHelper[] {
+							featureValOCL("//Node/name", "'Node_0'"),
+							refNewElement(modelAccess.findFeature("//Node/nestedNodes1"), new FeatureSeqInitializer[] {
+								newElementFSeqInit(new FeatureInitDataHelper[] {
+									featureValOCL("//Node/name", "'Node_0_0'"),
+									refNewElement(modelAccess.findFeature("//Node/nestedNodes1"), new FeatureSeqInitializer[] {
+										newElementFSeqInit(new FeatureInitDataHelper[] {
+											featureValOCL("//Node/name", "'Node_0_0_0'"),
+											refNewElement(modelAccess.findFeature("//Node/nestedNodes1"), new FeatureSeqInitializer[] {
+												newElementFSeqInit(new FeatureInitDataHelper[] {
+														featureValOCL("//Node/name", "'Node_0_0_0_0'"),
+														refNewElement(modelAccess.findFeature("//Node/nestedNodes1"), new FeatureSeqInitializer[] {
+															newElementFSeqInit(new FeatureInitDataHelper[] {
+																	featureValOCL("//Node/name", "'Node_0_0_0_0_0'"),
+															}, modelAccess.findClass("//Node"))
+														})
+												}, modelAccess.findClass("//Node"))
+											})
+										}, modelAccess.findClass("//Node"))
+									})
+								}, modelAccess.findClass("//Node"))
+							})
+						}, modelAccess.findClass("//Node")),
+						newElementFSeqInit(new FeatureInitDataHelper[] { featureValOCL("//Node/name", "'Node_1'") }, modelAccess.findClass("//Node"))
+					})
 				}));
 	
-				// test domain element seletor
+				// test domain element selector
 				Constraint selector = GMFMapFactory.eINSTANCE.createConstraint();
 				selector.setBody("true"); //$NON-NLS-1$
 				nme.setDomainSpecialization(selector);

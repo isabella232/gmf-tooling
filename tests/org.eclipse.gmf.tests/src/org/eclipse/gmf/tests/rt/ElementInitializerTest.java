@@ -79,7 +79,7 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		assertEquals("operation should return type of its containing class", expectedType, operation.getEType()); //$NON-NLS-1$
 	}
 
-	public void testSeveralNewElementInitializers() throws Exception {
+	public void testSeveralNewElementInitializers() {
 		EStructuralFeature feature = nodeAElement.eClass().getEStructuralFeature("nestedNodes1"); //$NON-NLS-1$		
 		assertNotNull("feature not found in the intializer class", feature); //$NON-NLS-1$
 		
@@ -98,6 +98,31 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 			assertTrue("Incorrect name value returned", name instanceof String);
 			assertEquals("Name feature was not correctly initialized", nextEObject.eClass().getName() + "_" + index, (String) name);
 		}
+	}
+	
+	public void testDeepNewElementInitializers() {
+		// Node_0
+		EObject child = getFirstChildNode1(nodeAElement);
+		// Node_0_0
+		child = getFirstChildNode1(child);
+		// Node_0_0_0
+		child = getFirstChildNode1(child);
+		// Node_0_0_0_0
+		child = getFirstChildNode1(child);
+		// Node_0_0_0_0_0
+		child = getFirstChildNode1(child);
+	}
+	
+	private EObject getFirstChildNode1(EObject parent) {
+		EStructuralFeature feature = parent.eClass().getEStructuralFeature("nestedNodes1"); //$NON-NLS-1$		
+		assertNotNull("feature not found in the intializer class", feature); //$NON-NLS-1$
+		Object val = parent.eGet(feature);
+		assertTrue(val instanceof Collection);
+		Collection children = (Collection) val;
+		assertTrue("At least one child node expected", children.size() > 0);
+		Object child = children.iterator().next();
+		assertTrue("Child element dhould be EObject", child instanceof EObject);
+		return (EObject) child;
 	}
 	
 	public void testJavaInitializers() throws Exception {
