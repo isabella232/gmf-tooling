@@ -66,58 +66,59 @@ public class ElementInitializers {
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static void init_«diagramElement.getUniqueIdentifier()»(«EXPAND MetaModel::QualifiedClassName FOR elementClass» instance) {
 		try {
-			«FOREACH initializers AS i»«EXPAND performInit(diagramElement, "instance", elementClass, initializers.indexOf(i)) FOR i»«ENDFOREACH-»
+			«FOREACH initializers AS i»«EXPAND performInit(diagramElement, "instance", elementClass, getSuffixes(initializers.indexOf(i))) FOR i»«ENDFOREACH-»
 		} catch(RuntimeException e) {
 			«diagramElement.getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
 		}
 	}
 «ENDDEFINE»
 
-«DEFINE performInit(GenCommonBase diagramElement, String instanceVar, GenClass instanceClass, int count) FOR GenFeatureInitializer»«ENDDEFINE»
+«DEFINE performInit(GenCommonBase diagramElement, String instanceVar, GenClass instanceClass, List[int] counters) FOR GenFeatureInitializer»«ENDDEFINE»
 
-«DEFINE performInit(GenCommonBase diagramElement, String instanceVar, GenClass instanceClass, int count) FOR GenFeatureValueSpec-»
-	Object value«count» = «EXPAND evaluateExpr(diagramElement, this, instanceVar) FOR value.provider»;
+«DEFINE performInit(GenCommonBase diagramElement, String instanceVar, GenClass instanceClass, List[int] counters) FOR GenFeatureValueSpec-»
+«LET getVariableName("value", counters) AS expressionVarName-»
+	Object «expressionVarName» = «EXPAND evaluateExpr(diagramElement, this, instanceVar) FOR value.provider»;
 «IF isListType(feature)-»
-	if (value«count» instanceof java.util.Collection) {
+	if («expressionVarName» instanceof java.util.Collection) {
 		«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».clear();
 «IF expressionResultNeedsCast(getTypeGenClassifier(feature))-»
-		for (java.util.Iterator it = ((java.util.Collection) value«count»).iterator(); it.hasNext(); ) {
+		for (java.util.Iterator it = ((java.util.Collection) «expressionVarName»).iterator(); it.hasNext(); ) {
 			Object next = «diagramElement.getDiagram().editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()».performCast(it.next(), «EXPAND MetaModel::MetaClass FOR getTypeGenClassifier(feature)»);
 			«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».add(next);
 		}
 «ELSE-»
-		«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».addAll(((java.util.Collection) value«count»));
+		«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».addAll(((java.util.Collection) «expressionVarName»));
 «ENDIF-»
 	} else {
 «IF expressionResultNeedsCast(getTypeGenClassifier(feature))-»
-		value«count» = «diagramElement.getDiagram().editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()».performCast(value«count», «EXPAND MetaModel::MetaClass FOR getTypeGenClassifier(feature)»);
+		«expressionVarName» = «diagramElement.getDiagram().editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()».performCast(«expressionVarName», «EXPAND MetaModel::MetaClass FOR getTypeGenClassifier(feature)»);
 «ENDIF-»
-		«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».add((«EXPAND MetaModel::QualifiedClassName /*XXX sorta hack, better would be MM::setFeatureValue that supports lists*/FOR getTypeGenClassifier(feature)») value«count»);
+		«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».add((«EXPAND MetaModel::QualifiedClassName /*XXX sorta hack, better would be MM::setFeatureValue that supports lists*/FOR getTypeGenClassifier(feature)») «expressionVarName»);
 	}
 «ELSE-»
 «IF expressionResultNeedsCast(getTypeGenClassifier(feature))»
-	value«count» = «diagramElement.getDiagram().editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()».performCast(value«count», «EXPAND MetaModel::MetaClass FOR getTypeGenClassifier(feature)»);
+	«expressionVarName» = «diagramElement.getDiagram().editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()».performCast(«expressionVarName», «EXPAND MetaModel::MetaClass FOR getTypeGenClassifier(feature)»);
 «ENDIF-»
-	«EXPAND MetaModel::setFeatureValue(instanceVar, instanceClass, "value" + count, true) FOR feature»;
+	«EXPAND MetaModel::setFeatureValue(instanceVar, instanceClass, expressionVarName, true) FOR feature»;
 «ENDIF /*isListType*/-»
+«ENDLET-»
 «ENDDEFINE»
 
-«DEFINE performInit(GenCommonBase diagramElement, String instanceVar, GenClass instanceClass, int count) FOR GenReferenceNewElementSpec-»
-«FOREACH newElementInitializers AS newElemInit»
-«LET (count+1)*100+newElementInitializers.indexOf(newElemInit) AS initializerCount-»
-«LET "newInstance" + initializerCount AS newInstanceVar-»
+«DEFINE performInit(GenCommonBase diagramElement, String instanceVar, GenClass instanceClass, List[int] counters) FOR GenReferenceNewElementSpec-»
+«FOREACH newElementInitializers AS newElemInit-»
+«LET getSuffixes(counters, newElementInitializers.indexOf(newElemInit)) AS initializerCounters-»
+«LET getVariableName("newInstance", initializerCounters) AS newInstanceVar-»
 «EXPAND MetaModel::NewInstance(newInstanceVar) FOR newElemInit.elementClass»
 «IF isListType(feature)-»
 «EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass) FOR feature».add(«newInstanceVar»);
 «ELSE-»
 «EXPAND MetaModel::setFeatureValue(instanceVar, instanceClass, newInstanceVar) FOR feature»;
 «ENDIF-»
-«FOREACH newElemInit.initializers AS i»«EXPAND performInit(diagramElement, newInstanceVar, newElemInit.elementClass, (initializerCount+1)*100 + newElemInit.initializers.indexOf(i)) FOR i»«ENDFOREACH-»
+«FOREACH newElemInit.initializers AS i»«EXPAND performInit(diagramElement, newInstanceVar, newElemInit.elementClass, getSuffixes(initializerCounters, newElemInit.initializers.indexOf(i))) FOR i»«ENDFOREACH»
 «ENDLET-»
 «ENDLET-»
 «ENDFOREACH-»
 «ENDDEFINE»
-
 
 /////////////////////////////////
 
