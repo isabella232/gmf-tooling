@@ -34,6 +34,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
+import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
@@ -659,13 +661,37 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		checkUserChange(new NavigatorChange(gmfGenPackage.getGenNavigator_PackageName(), "customPackage"));
 	}
 	
+	public void testGenJavaExpressionPovider() {
+		GenEditorGenerator editorGen = createCopy();
+		editorGen.setExpressionProviders(GMFGenFactory.eINSTANCE.createGenExpressionProviderContainer());
+		editorGen.getExpressionProviders().getProviders().add(GMFGenFactory.eINSTANCE.createGenJavaExpressionProvider());
+
+		class GenJavaExpressionProviderChange extends SingleChange {
+			public GenJavaExpressionProviderChange(EAttribute attribute, boolean valueToSet) {
+				super(attribute, valueToSet);
+			}
+			protected EObject findChangeSubject(GenEditorGenerator root) {
+				assertNotNull(root.getExpressionProviders());
+				for (GenExpressionProviderBase expressionProvider : root.getExpressionProviders().getProviders()) {
+					if (expressionProvider instanceof GenJavaExpressionProvider) {
+						return expressionProvider;
+					}
+				}
+				fail("No GenJavaExpression provider found.");
+				return null;
+			}
+		}
+		checkUserChange(new GenJavaExpressionProviderChange(GMFGenPackage.eINSTANCE.getGenJavaExpressionProvider_InjectExpressionBody(), true), editorGen, (GenEditorGenerator) EcoreUtil.copy(editorGen));
+	}
+	
 	private void checkUserChange(UserChange userChange){
-		GenEditorGenerator old = createCopy();
-		GenEditorGenerator current = createCopy();
-		
+		checkUserChange(userChange, createCopy(), createCopy());
+	}
+	
+	private void checkUserChange(UserChange userChange, GenEditorGenerator old, GenEditorGenerator current) {
 		userChange.applyChanges(old);
 		new Reconciler(userChange.getReconcilerConfig()).reconcileTree(current, old);
-		userChange.assertChangesPreserved(current);
+		userChange.assertChangesPreserved(current);		
 	}
 	
 	private static interface UserChange {
