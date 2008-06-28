@@ -148,36 +148,36 @@
       <?gmfgen generated="true"?>
       <page
             id="org.eclipse.gmf.graphdef.diagram.general"
-            name="%preference.page.title.org.eclipse.gmf.graphdef.diagram.general"
+            name="%prefpage.org.eclipse.gmf.graphdef.diagram.general"
             class="org.eclipse.gmf.graphdef.editor.preferences.DiagramGeneralPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.graphdef.diagram.appearance"
-            name="%preference.page.title.org.eclipse.gmf.graphdef.diagram.appearance"
+            name="%prefpage.org.eclipse.gmf.graphdef.diagram.appearance"
             category="org.eclipse.gmf.graphdef.diagram.general"
             class="org.eclipse.gmf.graphdef.editor.preferences.DiagramAppearancePreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.graphdef.diagram.connections"
-            name="%preference.page.title.org.eclipse.gmf.graphdef.diagram.connections"
+            name="%prefpage.org.eclipse.gmf.graphdef.diagram.connections"
             category="org.eclipse.gmf.graphdef.diagram.general"
             class="org.eclipse.gmf.graphdef.editor.preferences.DiagramConnectionsPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.graphdef.diagram.printing"
-            name="%preference.page.title.org.eclipse.gmf.graphdef.diagram.printing"
+            name="%prefpage.org.eclipse.gmf.graphdef.diagram.printing"
             category="org.eclipse.gmf.graphdef.diagram.general"
             class="org.eclipse.gmf.graphdef.editor.preferences.DiagramPrintingPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.graphdef.diagram.rulersAndGrid"
-            name="%preference.page.title.org.eclipse.gmf.graphdef.diagram.rulersAndGrid"
+            name="%prefpage.org.eclipse.gmf.graphdef.diagram.rulersAndGrid"
             category="org.eclipse.gmf.graphdef.diagram.general"
             class="org.eclipse.gmf.graphdef.editor.preferences.DiagramRulersAndGridPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.graphdef.diagram.pathmaps"
-            name="%preference.page.title.org.eclipse.gmf.graphdef.diagram.pathmaps"
+            name="%prefpage.org.eclipse.gmf.graphdef.diagram.pathmaps"
             category="org.eclipse.gmf.graphdef.diagram.general"
             class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage">
       </page>
