@@ -249,6 +249,10 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		addDecision(GMFGEN.getGenStandardPreferencePage(), new Decision.ALWAYS_OLD(GMFGEN.getGenPreferencePage_ID()));
 		addDecision(GMFGEN.getGenStandardPreferencePage(), new Decision.ALWAYS_OLD(GMFGEN.getGenPreferencePage_Name()));
 		setCopier(GMFGEN.getGenCustomPreferencePage(), Copier.COMPLETE_COPY);
+		
+		setMatcher(GMFGEN.getGenExpressionProviderContainer(), ALWAYS_MATCH);
+		setMatcher(GMFGEN.getGenJavaExpressionProvider(), ALWAYS_MATCH);
+		preserveIfSet(GMFGEN.getGenJavaExpressionProvider(), GMFGEN.getGenJavaExpressionProvider_InjectExpressionBody());
 	}
 
 	private void restore(EClass eClass, EAttribute feature) {
