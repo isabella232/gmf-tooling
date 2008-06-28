@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
 import org.eclipse.gmf.internal.common.reconcile.Copier;
 import org.eclipse.gmf.internal.common.reconcile.Decision;
@@ -247,6 +246,10 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getDynamicModelAccess(), GMFGEN.getDynamicModelAccess_ClassName());
 		preserveIfSet(GMFGEN.getDynamicModelAccess(), GMFGEN.getDynamicModelAccess_PackageName());
 		setCopier(GMFGEN.getDynamicModelAccess(), Copier.COMPLETE_COPY);
+		
+		setMatcher(GMFGEN.getGenExpressionProviderContainer(), ALWAYS_MATCH);
+		setMatcher(GMFGEN.getGenJavaExpressionProvider(), ALWAYS_MATCH);
+		preserveIfSet(GMFGEN.getGenJavaExpressionProvider(), GMFGEN.getGenJavaExpressionProvider_InjectExpressionBody());
 	}
 
 	// XXX rename?: preserveOld
