@@ -177,36 +177,36 @@ Contributors:
       <?gmfgen generated="true"?>
       <page
             id="org.eclipse.emf.ecore.diagram.general"
-            name="%preference.page.title.org.eclipse.emf.ecore.diagram.general"
+            name="%prefpage.org.eclipse.emf.ecore.diagram.general"
             class="org.eclipse.gmf.ecore.preferences.DiagramGeneralPreferencePage">
       </page>
       <page
             id="org.eclipse.emf.ecore.diagram.appearance"
-            name="%preference.page.title.org.eclipse.emf.ecore.diagram.appearance"
+            name="%prefpage.org.eclipse.emf.ecore.diagram.appearance"
             category="org.eclipse.emf.ecore.diagram.general"
             class="org.eclipse.gmf.ecore.preferences.DiagramAppearancePreferencePage">
       </page>
       <page
             id="org.eclipse.emf.ecore.diagram.connections"
-            name="%preference.page.title.org.eclipse.emf.ecore.diagram.connections"
+            name="%prefpage.org.eclipse.emf.ecore.diagram.connections"
             category="org.eclipse.emf.ecore.diagram.general"
             class="org.eclipse.gmf.ecore.preferences.DiagramConnectionsPreferencePage">
       </page>
       <page
             id="org.eclipse.emf.ecore.diagram.printing"
-            name="%preference.page.title.org.eclipse.emf.ecore.diagram.printing"
+            name="%prefpage.org.eclipse.emf.ecore.diagram.printing"
             category="org.eclipse.emf.ecore.diagram.general"
             class="org.eclipse.gmf.ecore.preferences.DiagramPrintingPreferencePage">
       </page>
       <page
             id="org.eclipse.emf.ecore.diagram.rulersAndGrid"
-            name="%preference.page.title.org.eclipse.emf.ecore.diagram.rulersAndGrid"
+            name="%prefpage.org.eclipse.emf.ecore.diagram.rulersAndGrid"
             category="org.eclipse.emf.ecore.diagram.general"
             class="org.eclipse.gmf.ecore.preferences.DiagramRulersAndGridPreferencePage">
       </page>
       <page
             id="org.eclipse.emf.ecore.diagram.pathmaps"
-            name="%preference.page.title.org.eclipse.emf.ecore.diagram.pathmaps"
+            name="%prefpage.org.eclipse.emf.ecore.diagram.pathmaps"
             category="org.eclipse.emf.ecore.diagram.general"
             class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage">
       </page>

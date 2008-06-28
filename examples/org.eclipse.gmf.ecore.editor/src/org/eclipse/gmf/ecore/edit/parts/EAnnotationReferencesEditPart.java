@@ -15,6 +15,7 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.gmf.ecore.edit.policies.EAnnotationReferencesItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ITreeBranchEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
 import org.eclipse.gmf.runtime.notation.View;
@@ -22,7 +23,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class EAnnotationReferencesEditPart extends ConnectionNodeEditPart {
+public class EAnnotationReferencesEditPart extends ConnectionNodeEditPart implements ITreeBranchEditPart {
 
 	/**
 	 * @generated
