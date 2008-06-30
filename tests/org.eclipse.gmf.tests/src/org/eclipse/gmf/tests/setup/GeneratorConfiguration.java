@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -24,6 +24,7 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
+import org.osgi.framework.Bundle;
 
 public interface GeneratorConfiguration {
 	public GeneratorBase createGenerator(GenDiagram diagram);
@@ -47,7 +48,7 @@ public interface GeneratorConfiguration {
 
 	public ViewerConfiguration createViewerConfiguration(Composite parent, SessionSetup setup, Diagram canvas) throws Exception;
 	
-	public ViewerConfiguration createViewerConfiguration(SessionSetup sessionSetup, EditPartViewer viewer) throws Exception;
+	public ViewerConfiguration createViewerConfiguration(EditPartViewer viewer, GenDiagram model, Bundle genProject) throws Exception;
 	
 	public Diagram createDiagram(EObject domainElement, SessionSetup setup) throws Exception;
 }

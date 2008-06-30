@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Borland Software Corporation
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,7 +15,6 @@ import java.util.Iterator;
 
 import junit.framework.Assert;
 
-import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EClass;
@@ -33,22 +32,15 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration.ViewerConfiguration;
-import org.osgi.framework.Bundle;
 
 /**
  * Provides default operations like creating nodes and links. The responsibility of creation of ViewerConfiguration is left to subclasses.
  */
 public abstract class AbstractCanvasTest extends ConfiguredTestCase {
 	private GeneratorConfiguration.ViewerConfiguration myViewerConfiguration;
-	private Bundle myGenProject;
 
 	public AbstractCanvasTest(String name) {
 		super(name);
-	}
-
-	protected void setUp() throws Exception {
-		super.setUp();
-		myGenProject = getSetup().getGenProject().getBundle();
 	}
 
 	protected void tearDown() throws Exception {
@@ -133,10 +125,6 @@ public abstract class AbstractCanvasTest extends ConfiguredTestCase {
 			}
 		}
 		return null;
-	}
-
-	protected final Class<?> loadGeneratedClass(String qualifiedClassName) throws ClassNotFoundException {
-		return myGenProject.loadClass(qualifiedClassName);
 	}
 
 	/**

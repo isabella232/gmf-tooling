@@ -49,8 +49,8 @@ public class MetricRulesTest extends RuntimeDiagramTestBase {
 		Class<?> providerClass = null;
 //		Class<?> viewClass = null;		
 		try {
-			providerClass = loadGeneratedClass(getGenModel().getGenDiagram().getMetricProviderQualifiedClassName());		
-			loadGeneratedClass(getGenModel().getGenDiagram().getMetricProviderQualifiedClassName() + "$ResultView"); //$NON-NLS-1$
+			providerClass = getSetup().loadGeneratedClass(getGenModel().getGenDiagram().getMetricProviderQualifiedClassName());		
+			getSetup().loadGeneratedClass(getGenModel().getGenDiagram().getMetricProviderQualifiedClassName() + "$ResultView"); //$NON-NLS-1$
 		} catch (ClassNotFoundException e) {
 			fail("Could not find generated metric provider or view"); //$NON-NLS-1$
 		}

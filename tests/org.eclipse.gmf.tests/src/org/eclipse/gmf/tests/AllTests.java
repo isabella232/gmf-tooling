@@ -46,6 +46,7 @@ import org.eclipse.gmf.tests.gen.ToolDefHandocodedImplTest;
 import org.eclipse.gmf.tests.gen.ViewmapProducersTest;
 import org.eclipse.gmf.tests.migration.AllMigrationTests;
 import org.eclipse.gmf.tests.rt.AuditRulesTest;
+import org.eclipse.gmf.tests.rt.CreateLinkTest;
 import org.eclipse.gmf.tests.rt.ElementInitializerTest;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.rt.LinkCreationTest;
@@ -88,8 +89,8 @@ public class AllTests {
 		 * reloading. In particular - ViewService.
 		 */
 		try {
-			sessionSetup.getGenProject();
-			sessionSetup2.getGenProject();
+			sessionSetup.getGeneratedPlugin();
+			sessionSetup2.getGeneratedPlugin();
 		} catch (final Exception e) {
 			suite.addTest(new TestCase("Session setup initialization problem") {
 				protected void runTest() throws Throwable {
@@ -148,6 +149,7 @@ public class AllTests {
 		suite.addTest(feed(NamingStrategyTest.class, sessionSetup));
 		suite.addTest(feed(GenModelTransformerBasicRTTest.class, sessionSetup));
 		suite.addTest(feed(DiagramEditorTest.class, sessionSetup));
+		suite.addTestSuite(CreateLinkTest.class);
 
 //		suite.addTestSuite(RunTimeModelTransformerTest.class); #113966
 //		suite.addTestSuite(PropertiesTest.class); #113965 

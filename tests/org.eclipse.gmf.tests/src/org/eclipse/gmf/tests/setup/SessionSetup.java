@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,6 +12,7 @@
 package org.eclipse.gmf.tests.setup;
 
 import org.eclipse.gmf.tests.TestConfiguration;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
 
 /**
@@ -74,7 +75,7 @@ public class SessionSetup implements TestConfiguration {
 		return new DiaGenSetup().init(getMapModel());
 	}
 
-	public GenProjectSetup getGenProject() throws Exception {
+	protected GenProjectSetup getGenProject() throws Exception {
 		if (myProject == null) {
 			myProject = createGenProject();
 		}
@@ -134,6 +135,15 @@ public class SessionSetup implements TestConfiguration {
 		if (myProject != null) {
 			myProject.uninstall();
 		}
+	}
+
+	public final Class<?> loadGeneratedClass(String qualifiedClassName) throws Exception {
+		// move to GenProjectSetup?
+		return getGeneratedPlugin().loadClass(qualifiedClassName);
+	}
+
+	public final Bundle getGeneratedPlugin() throws Exception {
+		return getGenProject().getBundle();
 	}
 
 	// FUTURE: automatically unload/cleanup when myUses goes to zero.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -55,7 +55,7 @@ public abstract class GeneratedCanvasTest extends AbstractCanvasTest {
 	}
 
 	protected RTSource createCanvasInstance() throws Exception {
-		return new RTSetup().init(getSetup().getGenProject().getBundle(), getSetup().getGenModel());
+		return new RTSetup().init(getSetup().getGeneratedPlugin(), getSetup().getGenModel());
 	}
 
 	protected void tearDown() throws Exception {

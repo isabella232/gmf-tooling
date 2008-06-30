@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -24,6 +24,7 @@ import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.editparts.ScalableRootEditPart;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.gmfgraph.FontStyle;
@@ -47,7 +48,7 @@ public abstract class AbstractGeneratorConfiguration implements GeneratorConfigu
 	
 	public ViewerConfiguration createViewerConfiguration(Composite parent, SessionSetup sessionSetup, Diagram canvas) throws Exception {
 		EditPartViewer viewer = createViewer(parent, sessionSetup, canvas);
-		return createViewerConfiguration(sessionSetup, viewer);
+		return createViewerConfiguration(viewer, sessionSetup.getGenModel().getGenDiagram(), sessionSetup.getGenProject().getBundle());
 	}
 
 	public EditPartViewer createViewer(Composite parent, SessionSetup sessionSetup, Diagram canvas) throws Exception {
@@ -71,19 +72,17 @@ public abstract class AbstractGeneratorConfiguration implements GeneratorConfigu
 
 	protected abstract EditPartViewer createViewerInstance();
 	
-	public abstract ViewerConfiguration createViewerConfiguration(SessionSetup sessionSetup, EditPartViewer viewer) throws Exception;
-	
 	protected static abstract class AbstractViewerConfiguration implements ViewerConfiguration {
 		
-		private EditPartViewer myViewer;
-		private SessionSetup mySessionSetup;
-		private Bundle myGenProject;
+		private final EditPartViewer myViewer;
+		private final GenDiagram myDiagramModel;
+		private final Bundle myGenProject;
 		private PreferencesHint myDefaultPreferences;
 
-		public AbstractViewerConfiguration(SessionSetup sessionSetup, EditPartViewer viewer) throws Exception {
+		public AbstractViewerConfiguration(EditPartViewer viewer, GenDiagram model, Bundle genPlugin) {
 			myViewer = viewer;
-			mySessionSetup = sessionSetup;
-			myGenProject = sessionSetup.getGenProject().getBundle();
+			myDiagramModel = model;
+			myGenProject = genPlugin;
 		}
 		
 		public EditPartViewer getViewer() {
@@ -107,14 +106,14 @@ public abstract class AbstractGeneratorConfiguration implements GeneratorConfigu
 			return myGenProject.loadClass(qualifiedClassName);
 		}
 		
-		protected DiaGenSource getGenModel() {
-			return mySessionSetup.getGenModel();
+		protected GenDiagram getGenModel() {
+			return myDiagramModel;
 		}
 		
 		protected IPreferenceStore getDefaultPreferences() {
 			if (myDefaultPreferences == null){
 				try {
-					Class<?> activatorClazz = loadGeneratedClass(mySessionSetup.getGenModel().getGenDiagram().getEditorGen().getPlugin().getActivatorQualifiedClassName());
+					Class<?> activatorClazz = loadGeneratedClass(myDiagramModel.getEditorGen().getPlugin().getActivatorQualifiedClassName());
 					Field field = activatorClazz.getField("DIAGRAM_PREFERENCES_HINT");
 					myDefaultPreferences = (PreferencesHint)field.get(null);
 				} catch (ClassNotFoundException e) {

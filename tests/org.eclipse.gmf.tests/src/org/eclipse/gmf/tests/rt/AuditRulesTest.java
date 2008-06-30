@@ -242,8 +242,9 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 
 			Method validationMethod = null;
 			try {
-				Class<?> validationProviderClass = loadGeneratedClass(
-						getGenModel().getGenDiagram().getEditorGen().getEditor().getPackageName() + ".ValidateAction"); //$NON-NLS-1$
+				String vaClassName = getGenModel().getGenDiagram().getEditorGen().getEditor().getPackageName() + ".ValidateAction"; //$NON-NLS-1$
+				Class<?> validationProviderClass = getSetup().loadGeneratedClass(vaClassName);
+						
 				validationMethod = validationProviderClass.getMethod("runNonUIValidation", new Class[] { View.class } ); //$NON-NLS-1$
 			} catch (Exception e) {
 				fail("Could not find runNonUIValidation operation in ValidateAction"); //$NON-NLS-1$ 
@@ -309,7 +310,7 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 		}
 		assertNotNull("GenPackage for EClass target not found", genPackage); //$NON-NLS-1$		
 		try {
-			Class<?> packageInterfaceClass = getSetup().getGenProject().getBundle().loadClass(genPackage.getQualifiedPackageInterfaceName());
+			Class<?> packageInterfaceClass = getSetup().loadGeneratedClass(genPackage.getQualifiedPackageInterfaceName());
 			Field instanceField = packageInterfaceClass.getField("eINSTANCE"); //$NON-NLS-1$
 			Object packageInstance = instanceField.get(packageInterfaceClass);
 			assertTrue("Expected EPackage instance", packageInstance instanceof EPackage); //$NON-NLS-1$

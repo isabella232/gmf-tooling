@@ -61,6 +61,7 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.swt.graphics.RGB;
+import org.osgi.framework.Bundle;
 
 public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfiguration {
 
@@ -72,8 +73,8 @@ public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfigu
 		return new Generator(editorGen, new CodegenEmitters(!editorGen.isDynamicTemplates(), editorGen.getTemplateDirectory(), editorGen.getModelAccess() != null));
 	}
 
-	public ViewerConfiguration createViewerConfiguration(SessionSetup sessionSetup, EditPartViewer viewer) throws Exception {
-		return new DefaultViewerConfiguration(sessionSetup, viewer);
+	public ViewerConfiguration createViewerConfiguration(EditPartViewer viewer, GenDiagram model, Bundle genPlugin) throws Exception {
+		return new DefaultViewerConfiguration(viewer, model, genPlugin);
 	}
 
 	protected EditPartViewer createViewerInstance() {
@@ -93,8 +94,8 @@ public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfigu
 
 	protected static class DefaultViewerConfiguration extends AbstractViewerConfiguration {
 
-		public DefaultViewerConfiguration(SessionSetup sessionSetup, EditPartViewer viewer) throws Exception {
-			super(sessionSetup, viewer);
+		public DefaultViewerConfiguration(EditPartViewer viewer, GenDiagram model, Bundle genPlugin) throws Exception {
+			super(viewer, model, genPlugin);
 		}
 
 		public Command getSetBusinessElementStructuralFeatureCommand(View view, String featureName, Object value) {
@@ -185,7 +186,7 @@ public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfigu
 		private IElementType getElementType(GenCommonBase genElement) {
 			Class<?> clazz = null;
 			try {
-				clazz = loadGeneratedClass(getGenModel().getGenDiagram().getElementTypesQualifiedClassName());
+				clazz = loadGeneratedClass(getGenModel().getElementTypesQualifiedClassName());
 			} catch (Exception e) {
 				e.printStackTrace();
 				Assert.fail("ElementTypes class not loaded. " + e.getLocalizedMessage()); //$NON-NLS-1$
@@ -193,7 +194,7 @@ public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfigu
 			String identifier = genElement.getUniqueIdentifier();
 			try {
 				Object type = clazz.getField(identifier).get(null);
-				assert type != null : "Metatype field in the ElementTypes class should be initialized: " + identifier + " in " + getGenModel().getGenDiagram().getEditorGen().getPlugin().getID(); //$NON-NLS-1$ //$NON-NLS-2$
+				assert type != null : "Metatype field in the ElementTypes class should be initialized: " + identifier + " in " + getGenModel().getEditorGen().getPlugin().getID(); //$NON-NLS-1$ //$NON-NLS-2$
 				assert type instanceof IElementType : IElementType.class.getName() + ": metamodel type class required"; //$NON-NLS-1$ 
 				return (IElementType) type;
 			} catch (NoSuchFieldException e) {

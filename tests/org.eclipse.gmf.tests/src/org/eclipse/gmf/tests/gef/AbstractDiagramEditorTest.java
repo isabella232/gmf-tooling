@@ -77,7 +77,7 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 	
 	protected GeneratorConfiguration.ViewerConfiguration createViewerConfiguration(IEditorPart editorPart) throws Exception {
 		GraphicalViewer viewer = (GraphicalViewer) editorPart.getAdapter(GraphicalViewer.class);
-		return getSetup().getGeneratorConfiguration().createViewerConfiguration(getSetup(), viewer);
+		return getSetup().getGeneratorConfiguration().createViewerConfiguration(viewer, getSetup().getGenModel().getGenDiagram(), getSetup().getGeneratedPlugin());
 	}
 
 	@Override
@@ -180,7 +180,7 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 	protected EObject createDiagramDomainObject() throws Exception {
 		GenClass diagramElementGenClass = getSetup().getGenModel().getGenDiagram().getDomainDiagramElement();
 		GenPackage domainGenPackage = diagramElementGenClass.getGenPackage();
-		Class<?> factoryInterface = getSetup().getGenProject().getBundle().loadClass(domainGenPackage.getQualifiedFactoryInterfaceName());
+		Class<?> factoryInterface = getSetup().loadGeneratedClass(domainGenPackage.getQualifiedFactoryInterfaceName());
 		assertNotNull("Factory interface not found", factoryInterface);
 		Field accessor = null;
 		accessor = factoryInterface.getField(domainGenPackage.getFactoryInstanceName());

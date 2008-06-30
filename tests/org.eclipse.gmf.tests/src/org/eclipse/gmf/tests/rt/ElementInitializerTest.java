@@ -44,7 +44,8 @@ import org.eclipse.gmf.runtime.notation.Node;
  */
 public class ElementInitializerTest extends RuntimeDiagramTestBase {
 	private EObject nodeAElement;
-	private EObject nodeBElement;	
+	private EObject nodeBElement;
+	protected String myElementInitializersClassName;	
 	
 	public ElementInitializerTest(String name) {
 		super(name);
@@ -57,7 +58,8 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		Node nodeB = createNode(getGenModel().getNodeB(), getDiagram());
 		this.nodeBElement = nodeB.getElement();
 		assertNotNull("Tested node A element not available", nodeAElement); //$NON-NLS-1$
-		assertNotNull("Tested node B element not available", nodeBElement); //$NON-NLS-1$		
+		assertNotNull("Tested node B element not available", nodeBElement); //$NON-NLS-1$
+		myElementInitializersClassName = getGenModel().getGenDiagram().getProvidersPackageName() + ".ElementInitializers"; //$NON-NLS-1$
 	}
 	
 	public void testNewElementInitializer() throws Exception {
@@ -126,7 +128,7 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 	}
 	
 	public void testJavaInitializers() throws Exception {
-		Class<?> javaContainerClass = loadJavaContainerClass();
+		Class<?> javaContainerClass = getSetup().loadGeneratedClass(myElementInitializersClassName);
 		assertNotNull("Could not find generated java initializer class", javaContainerClass); //$NON-NLS-1$
 
 		GenJavaExpressionProvider javaProvider = null;
@@ -208,14 +210,6 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		assertTrue(multiRefTested);		
 	}	
 
-	protected Class<?> loadJavaContainerClass() {
-		try {
-			return loadGeneratedClass(getGenModel().getGenDiagram().getProvidersPackageName() + ".ElementInitializers"); //$NON-NLS-1$
-		} catch (ClassNotFoundException e) {
-			return null;
-		}
-	}
-
 	public void testAttrMany() throws Exception {
 		EStructuralFeature attrManyFeature = nodeBElement.eClass().getEStructuralFeature("integers_Init"); //$NON-NLS-1$		
 		assertNotNull("field not found in tested class", attrManyFeature); //$NON-NLS-1$
@@ -283,9 +277,9 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		return literal.getInstance();
 	}
 	
-	private Method findMethod(Class<?> clazz, String methodName, GenClass contextClass) {
+	private Method findMethod(Class<?> clazz, String methodName, GenClass contextClass) throws Exception {
 		try {
-			Class<?>[] params = new Class[] { loadGeneratedClass(contextClass.getQualifiedInterfaceName()) };
+			Class<?>[] params = new Class[] { getSetup().loadGeneratedClass(contextClass.getQualifiedInterfaceName()) };
 			for (int i = 0; i < clazz.getDeclaredMethods().length; i++) {
 				Method method = clazz.getDeclaredMethods()[i];
 				if(method.getName().equals(methodName)) {
