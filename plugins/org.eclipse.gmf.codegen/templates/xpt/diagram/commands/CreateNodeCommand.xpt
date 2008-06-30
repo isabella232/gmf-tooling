@@ -41,7 +41,6 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 			«EXPAND doDefaultElementCreation_Normal(this) FOR modelFacet-»
 		«ENDIF-»
 	«ENDIF-»
-	
 }
 «ENDDEFINE»
 
