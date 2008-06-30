@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -17,11 +17,9 @@ public class ElementInitializerTest extends org.eclipse.gmf.tests.rt.ElementInit
 		super(name);
 	}
 
-	protected Class<?> loadJavaContainerClass() {
-		try {
-			return loadGeneratedClass(getGenModel().getGenDiagram().getNotationViewFactoriesPackageName() + ".DomainElementInitializer"); //$NON-NLS-1$
-		} catch (ClassNotFoundException e) {
-			return null;
-		}
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		myElementInitializersClassName = getGenModel().getGenDiagram().getNotationViewFactoriesPackageName() + ".DomainElementInitializer"; //$NON-NLS-1$
 	}
 }

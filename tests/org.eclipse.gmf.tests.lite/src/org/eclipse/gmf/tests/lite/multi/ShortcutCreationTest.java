@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2007 Borland Software Corporation
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -63,7 +63,7 @@ public class ShortcutCreationTest extends AbstractMultiSetupTest {
 		SessionSetup shortcutSetup = getMultiSetup().getAllSetups()[1];
 		GenDiagram shortcutSource = shortcutSetup.getGenModel().getGenDiagram();
 		String modelID = shortcutSource.getEditorGen().getModelID();
-		RTSetup secondDiagramSetup = new RTSetup().init(shortcutSetup.getGenProject().getBundle(), shortcutSetup.getGenModel(), TransactionUtil.getEditingDomain(diagram));
+		RTSetup secondDiagramSetup = new RTSetup().init(shortcutSetup.getGeneratedPlugin(), shortcutSetup.getGenModel(), TransactionUtil.getEditingDomain(diagram));
 		EObject shortcutObject = secondDiagramSetup.getNodeA().getElement();
 		Node createdShortcut = createShortcutNode(modelID, diagram, shortcutObject);
 		EditPart shortcutEP = findEditPart(createdShortcut);
@@ -94,7 +94,7 @@ public class ShortcutCreationTest extends AbstractMultiSetupTest {
 		TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(diagram);
 		GenDiagram shortcutSource = shortcutSetup.getGenModel().getGenDiagram();
 		String modelID = shortcutSource.getEditorGen().getModelID();
-		RTSetup secondDiagramSetup = new RTSetup().init(shortcutSetup.getGenProject().getBundle(), shortcutSetup.getGenModel(), TransactionUtil.getEditingDomain(diagram));
+		RTSetup secondDiagramSetup = new RTSetup().init(shortcutSetup.getGeneratedPlugin(), shortcutSetup.getGenModel(), TransactionUtil.getEditingDomain(diagram));
 		EObject shortcutObject = secondDiagramSetup.getNodeA().getElement();
 		Node createdShortcut = createShortcutNode(modelID, diagram, shortcutObject);
 		EditPart shortcutEP = findEditPart(createdShortcut);
@@ -148,7 +148,7 @@ public class ShortcutCreationTest extends AbstractMultiSetupTest {
 		TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(diagram);
 		GenDiagram shortcutSource = shortcutSetup.getGenModel().getGenDiagram();
 		String modelID = shortcutSource.getEditorGen().getModelID();
-		RTSetup secondDiagramSetup = new RTSetup().init(shortcutSetup.getGenProject().getBundle(), shortcutSetup.getGenModel(), TransactionUtil.getEditingDomain(diagram));
+		RTSetup secondDiagramSetup = new RTSetup().init(shortcutSetup.getGeneratedPlugin(), shortcutSetup.getGenModel(), TransactionUtil.getEditingDomain(diagram));
 		EObject shortcutA = secondDiagramSetup.getNodeA().getElement();
 		EObject shortcutB = secondDiagramSetup.getNodeB().getElement();
 		if (shouldSwapRef) {

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006, 2007 Borland Software Corporation
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -146,7 +146,7 @@ public class ExternalNodeLabelsTest extends AbstractDiagramEditorTest {
 		assertNull("Command failed to execute", style.getFontName());
 		IPreferenceStore preferenceStore;
 		try {
-			Class<?> activatorClazz = loadGeneratedClass(getSetup().getGenModel().getGenDiagram().getEditorGen().getPlugin().getActivatorQualifiedClassName());
+			Class<?> activatorClazz = getSetup().loadGeneratedClass(getSetup().getGenModel().getGenDiagram().getEditorGen().getPlugin().getActivatorQualifiedClassName());
 			AbstractUIPlugin pluginInstance = (AbstractUIPlugin) activatorClazz.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
 			preferenceStore = pluginInstance.getPreferenceStore();
 		} catch (Throwable e) {
