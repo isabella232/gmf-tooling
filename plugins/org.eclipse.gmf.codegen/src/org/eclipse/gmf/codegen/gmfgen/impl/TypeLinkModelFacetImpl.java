@@ -155,9 +155,9 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 	public GenClass getSourceType() {
 		if (getSourceMetaFeature() != null) {
 			return getSourceMetaFeature().getTypeGenClass();
-		} else if (getContainmentMetaFeature() != null) {
-			return getContainmentMetaFeature().getGenClass();
-		}
+		} else if (getChildMetaFeature() != null) {
+			return getChildMetaFeature().getGenClass();
+		} // child feature defaults to be equal to containment, so if child == null, no reason to check containment
 		return null;
 	}
 
