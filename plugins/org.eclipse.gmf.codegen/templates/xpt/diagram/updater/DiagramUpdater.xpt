@@ -283,7 +283,7 @@ public static java.util.List «EXPAND linkGetterName(methodNameSuffix)»(org.eclip
 «DEFINE getContainedLinksByTypeMethod(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-private static java.util.Collection «EXPAND getConnectedLinksByTypeMethodName(getContainedLinksMethodNameSuffix()) FOR genLink»(«EXPAND MetaModel::QualifiedClassName FOR containmentMetaFeature.genClass» container) {
+private static java.util.Collection «EXPAND getConnectedLinksByTypeMethodName(getContainedLinksMethodNameSuffix()) FOR genLink»(«EXPAND MetaModel::QualifiedClassName FOR getSourceType()» container) {
 	«EXPAND getContainedLinksByTypeMethodBody(genLink, false)-»
 }
 «ENDDEFINE»
@@ -292,7 +292,7 @@ private static java.util.Collection «EXPAND getConnectedLinksByTypeMethodName(ge
 java.util.Collection result = new java.util.LinkedList();
 	«LET childMetaFeature.isListType() AS inLoop-»
 «IF inLoop-»
-for (java.util.Iterator links = «EXPAND MetaModel::getFeatureValue("container", containmentMetaFeature.genClass) FOR childMetaFeature».iterator(); links.hasNext();) {
+for (java.util.Iterator links = «EXPAND MetaModel::getFeatureValue("container", childMetaFeature.genClass) FOR childMetaFeature».iterator(); links.hasNext();) {
 	org.eclipse.emf.ecore.EObject linkObject = (org.eclipse.emf.ecore.EObject ) links.next();
 	if («EXPAND MetaModel::NotInstance("linkObject") FOR metaClass») {
 		continue;

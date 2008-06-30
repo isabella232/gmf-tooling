@@ -184,7 +184,7 @@
 «ENDDEFINE»
 
 «DEFINE checkLinkConstraint(gmfgen::GenLink link, String sourceVar, String targetVar) FOR gmfgen::TypeLinkModelFacet-»
-	«IF sourceMetaFeature != null-»
+	«IF hasContainerOtherThanSource()-»
 		if (!(«EXPAND MetaModel::IsContainerInstance("getLink()", metaClass) FOR containmentMetaFeature.genClass»)) {
 			return false;
 		}
@@ -237,13 +237,16 @@
 
 «REM»
 	Shouldn't we change link container here?
+	[artem] especially when there's explicit childMetaFeature and 
+	we changed source to another, but didn't change the container. Perhaps,
+	makes sense to deduceContainer() using new source?
 «ENDREM»
 «DEFINE reorientSource FOR gmfgen::TypeLinkModelFacet-»
-	«IF sourceMetaFeature != null-»
-		«EXPAND changeTarget("getLink()", metaClass, "getOldSource()", "getNewSource()") FOR sourceMetaFeature-»
-	«ELSE-»
-		«EXPAND changeSource("getLink()", "getOldSource()", "getNewSource()", getSourceType()) FOR containmentMetaFeature-»
-	«ENDIF-»
+«IF sourceMetaFeature != null-»
+	«EXPAND changeTarget("getLink()", metaClass, "getOldSource()", "getNewSource()") FOR sourceMetaFeature-»
+«ELSE-»
+	«EXPAND changeSource("getLink()", "getOldSource()", "getNewSource()", getSourceType()) FOR hasExplicitChildFeature() /*sic! - childMetaFeature may be derived, no need to change it then*/ ? childMetaFeature : containmentMetaFeature-»
+«ENDIF-»
 	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(getLink());
 «ENDDEFINE»
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -42,18 +42,14 @@ boolean canBeContainer(gmfgen::GenLink link, genmodel::GenClass metaClass) :
 	null != link.modelFacet && canBeLinkEnd(getContainerClass(link.modelFacet), metaClass)
 ;
 
-private genmodel::GenClass getContainerClass(gmfgen::LinkModelFacet modelFacet) :
-// Should not be called
-	null
-;
+private genmodel::GenClass getContainerClass(gmfgen::LinkModelFacet modelFacet) : null  /* Should not be called */ ;
 
 private genmodel::GenClass getContainerClass(gmfgen::TypeLinkModelFacet modelFacet) :
-	modelFacet.containmentMetaFeature.genClass
+	// can't use getSourceType() here as it respects sourceMetaFeature, which is irrelevant for containment
+	modelFacet.childMetaFeature != modelFacet.containmentMetaFeature ? modelFacet.childMetaFeature.genClass : modelFacet.containmentMetaFeature.genClass
 ;
 
-private genmodel::GenClass getContainerClass(gmfgen::FeatureLinkModelFacet modelFacet) :
-	modelFacet.getSourceType()
-;
+private genmodel::GenClass getContainerClass(gmfgen::FeatureLinkModelFacet modelFacet) : modelFacet.getSourceType() ;
 
 private boolean canBeLinkEnd(genmodel::GenClass endType, genmodel::GenClass metaClass) :
 	null != endType && endType.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)

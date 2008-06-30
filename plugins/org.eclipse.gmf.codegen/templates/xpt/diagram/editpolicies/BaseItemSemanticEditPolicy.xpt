@@ -15,6 +15,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 
 «EXTENSION xpt::diagram::editpolicies::Utils»
+«EXTENSION xpt::diagram::Utils»
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION xpt::expressions::ValueExpression»
 
@@ -377,20 +378,20 @@ public static boolean canCreate«getUniqueIdentifier()»(«EXPAND canCreateParamete
 			«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Link constraint evaluation error", e); «EXPAND xpt::Common::nonNLS»
 			return false;
 		}
-«ELSE»
+«ELSE-»
 		return true;
 «ENDIF-»
 	}
 «ENDDEFINE»
 
 «DEFINE canCreateParameters FOR gmfgen::LinkModelFacet»«EXPAND incorrectLinkModelFacet»«ENDDEFINE»
-«DEFINE canCreateParameters FOR gmfgen::TypeLinkModelFacet»«IF null != sourceMetaFeature»«EXPAND MetaModel::QualifiedClassName FOR containmentMetaFeature.genClass» container, «ENDIF»«EXPAND sourceTargetParameters»«ENDDEFINE»
+«DEFINE canCreateParameters FOR gmfgen::TypeLinkModelFacet»«IF hasContainerOtherThanSource()»«EXPAND MetaModel::QualifiedClassName FOR containmentMetaFeature.genClass» container, «ENDIF»«EXPAND sourceTargetParameters»«ENDDEFINE»
 «DEFINE canCreateParameters FOR gmfgen::FeatureLinkModelFacet»«EXPAND sourceTargetParameters»«ENDDEFINE»
 
 «DEFINE sourceTargetParameters FOR gmfgen::LinkModelFacet»«EXPAND MetaModel::QualifiedClassName FOR getSourceType()» source, «EXPAND MetaModel::QualifiedClassName FOR getTargetType()» target«ENDDEFINE»
 
 «DEFINE canCreateValues FOR gmfgen::LinkModelFacet»«EXPAND incorrectLinkModelFacet»«ENDDEFINE»
-«DEFINE canCreateValues FOR gmfgen::TypeLinkModelFacet»«IF null != sourceMetaFeature»container, «ENDIF»source, target«ENDDEFINE»
+«DEFINE canCreateValues FOR gmfgen::TypeLinkModelFacet»«IF hasContainerOtherThanSource()»container, «ENDIF»source, target«ENDDEFINE»
 «DEFINE canCreateValues FOR gmfgen::FeatureLinkModelFacet»source, target«ENDDEFINE»
 
 

@@ -68,7 +68,7 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
 		«EXPAND MetaModel::NewInstance("newElement") FOR metaClass-»
-		«EXPAND CreateLinkUtils::addValue(sourceMetaFeature != null ? "getContainer()" : "getSource()", containmentMetaFeature.genClass, "newElement") FOR containmentMetaFeature-»
+		«EXPAND CreateLinkUtils::addValue(hasContainerOtherThanSource() ? "getContainer()" : "getSource()", containmentMetaFeature.genClass, "newElement") FOR containmentMetaFeature-»
 		«IF sourceMetaFeature != null-»
 			«EXPAND CreateLinkUtils::addValue("newElement", metaClass, "getSource()") FOR sourceMetaFeature-»
 		«ENDIF-»
