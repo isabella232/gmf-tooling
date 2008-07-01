@@ -143,11 +143,11 @@ protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
 	«EXPAND MetaModel::NewInstance("newElement") FOR metaClass»
 «IF containmentMetaFeature != null-»
 	«EXPAND MetaModel::DeclareAndAssign("owner", "getElementToEdit()") FOR containmentMetaFeature.genClass»
-	«EXPAND CreateLinkUtils::addValue("owner", containmentMetaFeature.genClass, "newElement") FOR containmentMetaFeature-»
+	«EXPAND MetaModel::modifyFeature("owner", containmentMetaFeature.genClass, "newElement") FOR containmentMetaFeature-»
 «ENDIF»
 «IF hasExplicitChildFeature(this)-»
 	«EXPAND MetaModel::DeclareAndAssign("childHolder", "getElementToEdit()") FOR childMetaFeature.genClass»
-	«EXPAND CreateLinkUtils::addValue("childHolder", childMetaFeature.genClass, "newElement") FOR childMetaFeature»
+	«EXPAND MetaModel::modifyFeature("childHolder", childMetaFeature.genClass, "newElement") FOR childMetaFeature»
 «ENDIF-»
 	«EXPAND initialize(node, "newElement")-»
 	return «EXPAND MetaModel::DowncastToEObject("newElement") FOR metaClass»;

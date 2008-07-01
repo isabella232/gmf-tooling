@@ -109,11 +109,7 @@ public class ElementInitializers {
 «LET getSuffixes(counters, newElementInitializers.indexOf(newElemInit)) AS initializerCounters-»
 «LET getVariableName("newInstance", initializerCounters) AS newInstanceVar-»
 «EXPAND MetaModel::NewInstance(newInstanceVar) FOR newElemInit.elementClass»
-«IF isListType(feature)-»
-«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass) FOR feature».add(«newInstanceVar»);
-«ELSE-»
-«EXPAND MetaModel::setFeatureValue(instanceVar, instanceClass, newInstanceVar) FOR feature»;
-«ENDIF-»
+«EXPAND MetaModel::modifyFeature(instanceVar, instanceClass, newInstanceVar) FOR feature»;
 «FOREACH newElemInit.initializers AS i»«EXPAND performInit(diagramElement, newInstanceVar, newElemInit.elementClass, getSuffixes(initializerCounters, newElemInit.initializers.indexOf(i))) FOR i»«ENDFOREACH»
 «ENDLET-»
 «ENDLET-»

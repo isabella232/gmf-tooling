@@ -154,11 +154,3 @@
 	super.setElementToEdit(«EXPAND MetaModel::DowncastToEObject("source") FOR containmentMetaFeature.genClass»);
 	«ENDIF-»
 «ENDDEFINE»
-
-«DEFINE addValue(String containerVar, genmodel::GenClass containerClass, String valueVar) FOR genmodel::GenFeature-»
-«IF isListType()-»
-	«EXPAND MetaModel::getFeatureValue(containerVar, containerClass)».add(«valueVar»);
-«ELSE-»
-	«EXPAND MetaModel::setFeatureValue(containerVar, containerClass, valueVar)»;
-«ENDIF-»
-«ENDDEFINE»

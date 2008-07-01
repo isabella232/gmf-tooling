@@ -55,9 +55,5 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 	Code to update reference.
 «ENDREM»
 «DEFINE setValue FOR gmfgen::FeatureLinkModelFacet-»
-	«IF metaFeature.ecoreFeature.many-»
-		«EXPAND MetaModel::getFeatureValue("getSource()", getSourceType()) FOR metaFeature».add(getTarget());
-	«ELSE-»
-		«EXPAND MetaModel::setFeatureValue("getSource()", getSourceType(), "getTarget()") FOR metaFeature»;
-	«ENDIF-»
+«EXPAND MetaModel::modifyFeature("getSource()", getSourceType(), "getTarget()") FOR metaFeature»
 «ENDDEFINE»

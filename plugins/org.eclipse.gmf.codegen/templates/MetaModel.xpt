@@ -69,15 +69,39 @@ false == «EXPAND IsInstance(accessor)»«ENDDEFINE»
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE setFeatureValue(String containerVar, genmodel::GenClass containerGenClass, String valueVar) FOR genmodel::GenFeature-»
-«EXPAND setFeatureValue(containerVar, containerGenClass, valueVar, false)»«ENDDEFINE»
+«DEFINE modifyFeature(String targetVar, GenClass targetType, String value) FOR GenFeature-»
+«IF isListType()-»
+«EXPAND getFeatureValue(targetVar, targetType)».add(«value»);«-»
+«ELSE-»
+«EXPAND setFeatureValue(targetVar, targetType, value)»;«-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE replaceFeatureValue(String targetVar, GenClass targetType, String oldValue, String newValue) FOR GenFeature-»
+«IF isListType()-»
+	«EXPAND getFeatureValue(targetVar, targetType)».remove(«oldValue»);
+«ENDIF-»
+	«EXPAND modifyFeature(targetVar, targetType, newValue)-»
+«ENDDEFINE»
+
+«DEFINE moveFeatureValue(String oldTarget, String newTarget, GenClass targetType, String value) FOR GenFeature-»
+«IF isListType()-»
+	«EXPAND getFeatureValue(oldTarget, targetType)».remove(«value»);
+«ELSE-»
+	«EXPAND setFeatureValue(oldTarget, targetType, "null")»;
+«ENDIF-»
+	«EXPAND modifyFeature(newTarget, targetType, value)-»
+«ENDDEFINE»
+
+«DEFINE setFeatureValue(String targetVar, genmodel::GenClass targetType, String valueVar) FOR genmodel::GenFeature-»
+«EXPAND setFeatureValue(targetVar, targetType, valueVar, false)»«ENDDEFINE»
 
 // FIXME support list features as well, i.e. do .add() instead of eSet
-«DEFINE setFeatureValue(String containerVar, genmodel::GenClass containerGenClass, String valueVar, boolean isPlainObjectValue) FOR genmodel::GenFeature-»
-«IF isExternalInterface(containerGenClass)-»
-((org.eclipse.emf.ecore.EObject) «containerVar»).eSet(«EXPAND MetaFeature», «valueVar»)«-»
+«DEFINE setFeatureValue(String targetVar, genmodel::GenClass targetType, String valueVar, boolean isPlainObjectValue) FOR genmodel::GenFeature-»
+«IF isExternalInterface(targetType)-»
+((org.eclipse.emf.ecore.EObject) «targetVar»).eSet(«EXPAND MetaFeature», «valueVar»)«-»
 «ELSE-»
-«containerVar».set«getAccessorName(this)»(«IF !isPlainObjectValue»«valueVar»«ELSE»«IF isPrimitiveType()»«EXPAND _unwrapObjectToPrimitiveValue(valueVar)»«ELSE»(«EXPAND featureTargetType») «valueVar»«ENDIF»«ENDIF»)«-»
+«targetVar».set«getAccessorName(this)»(«IF !isPlainObjectValue»«valueVar»«ELSE»«IF isPrimitiveType()»«EXPAND _unwrapObjectToPrimitiveValue(valueVar)»«ELSE»(«EXPAND featureTargetType») «valueVar»«ENDIF»«ENDIF»)«-»
 «ENDIF-»
 «ENDDEFINE»
 

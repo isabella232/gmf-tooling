@@ -275,23 +275,12 @@
 	Replace old target with the new one in the source.
 «ENDREM»
 «DEFINE changeTarget(String sourceVar, genmodel::GenClass sourceVarGenClass, String oldTargetVar, String newTargetVar) FOR genmodel::GenFeature-»
-	«IF isListType()-»
-		«EXPAND MetaModel::getFeatureValue(sourceVar, sourceVarGenClass)».remove(«oldTargetVar»);
-		«EXPAND MetaModel::getFeatureValue(sourceVar, sourceVarGenClass)».add(«newTargetVar»);
-	«ELSE-»
-		«EXPAND MetaModel::setFeatureValue(sourceVar, sourceVarGenClass, newTargetVar)»;
-	«ENDIF-»
+«EXPAND MetaModel::replaceFeatureValue(sourceVar, sourceVarGenClass, oldTargetVar, newTargetVar)»
 «ENDDEFINE»
 
 «REM»
 	Move target from old source to the new one.
 «ENDREM»
 «DEFINE changeSource(String targetVar, String oldSourceVar, String newSourceVar, genmodel::GenClass sourceVarGenClass) FOR genmodel::GenFeature-»
-	«IF isListType()-»
-		«EXPAND MetaModel::getFeatureValue(oldSourceVar, sourceVarGenClass)».remove(«targetVar»);
-		«EXPAND MetaModel::getFeatureValue(newSourceVar, sourceVarGenClass)».add(«targetVar»);
-	«ELSE-»
-		«EXPAND MetaModel::setFeatureValue(oldSourceVar, sourceVarGenClass, "null")»;
-		«EXPAND MetaModel::setFeatureValue(newSourceVar, sourceVarGenClass, targetVar)»;
-	«ENDIF-»
+«EXPAND MetaModel::moveFeatureValue(oldSourceVar, newSourceVar, sourceVarGenClass, targetVar)»
 «ENDDEFINE»
