@@ -75,7 +75,13 @@ public class ElementInitializers {
 
 «DEFINE performInit(GenCommonBase diagramElement, String instanceVar, GenClass instanceClass, List[int] counters) FOR GenFeatureInitializer»«ENDDEFINE»
 
+«REM»
+		FIXME: need cleaner appoach to provider's language switch (not to mix if == literal and polymorphism)
+«ENDREM»
 «DEFINE performInit(GenCommonBase diagramElement, String instanceVar, GenClass instanceClass, List[int] counters) FOR GenFeatureValueSpec-»
+«IF value.provider.getLanguage() == GenLanguage::literal-»
+	«EXPAND MetaModel::modifyFeature(instanceVar, instanceClass, value.body) FOR feature»
+«ELSE-»
 «LET getVariableName("value", counters) AS expressionVarName-»
 	Object «expressionVarName» = «EXPAND evaluateExpr(diagramElement, this, instanceVar) FOR value.provider»;
 «IF isListType(feature)-»
@@ -102,6 +108,7 @@ public class ElementInitializers {
 	«EXPAND MetaModel::setFeatureValue(instanceVar, instanceClass, expressionVarName, true) FOR feature»;
 «ENDIF /*isListType*/-»
 «ENDLET-»
+«ENDIF /*is literal expression*/-»
 «ENDDEFINE»
 
 «DEFINE performInit(GenCommonBase diagramElement, String instanceVar, GenClass instanceClass, List[int] counters) FOR GenReferenceNewElementSpec-»
