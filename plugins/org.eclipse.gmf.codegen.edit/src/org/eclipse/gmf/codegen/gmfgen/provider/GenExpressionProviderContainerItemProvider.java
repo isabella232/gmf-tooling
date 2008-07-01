@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderContainerItemProvider.java,v 1.5 2008/03/03 18:38:20 atikhomirov Exp $
+ * $Id: GenExpressionProviderContainerItemProvider.java,v 1.6 2008/07/01 11:40:19 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.provider;
 
@@ -212,6 +212,11 @@ public class GenExpressionProviderContainerItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenExpressionProviderContainer_Providers(),
 				 GMFGenFactory.eINSTANCE.createGenExpressionInterpreter()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenExpressionProviderContainer_Providers(),
+				 GMFGenFactory.eINSTANCE.createGenLiteralExpressionProvider()));
 	}
 
 	/**

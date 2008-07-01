@@ -1584,6 +1584,29 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenLiteralExpressionProvider} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenLiteralExpressionProviderItemProvider genLiteralExpressionProviderItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenLiteralExpressionProvider}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGenLiteralExpressionProviderAdapter() {
+		if (genLiteralExpressionProviderItemProvider == null) {
+			genLiteralExpressionProviderItemProvider = new GenLiteralExpressionProviderItemProvider(this);
+		}
+
+		return genLiteralExpressionProviderItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenNavigator} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2190,6 +2213,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genExpressionProviderContainerItemProvider != null) genExpressionProviderContainerItemProvider.dispose();
 		if (genJavaExpressionProviderItemProvider != null) genJavaExpressionProviderItemProvider.dispose();
 		if (genExpressionInterpreterItemProvider != null) genExpressionInterpreterItemProvider.dispose();
+		if (genLiteralExpressionProviderItemProvider != null) genLiteralExpressionProviderItemProvider.dispose();
 		if (genNavigatorItemProvider != null) genNavigatorItemProvider.dispose();
 		if (genNavigatorChildReferenceItemProvider != null) genNavigatorChildReferenceItemProvider.dispose();
 		if (genNavigatorPathItemProvider != null) genNavigatorPathItemProvider.dispose();
