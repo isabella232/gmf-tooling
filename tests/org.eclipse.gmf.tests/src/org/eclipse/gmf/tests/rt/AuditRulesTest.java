@@ -113,7 +113,8 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 		assertEquals(qualifiedClassName, domainElementTarget.getTargetClassModelQualifiedName());		
 	}	
 	
-	public void testAuditConstraints() throws Exception {		
+	public void testAuditConstraints() throws Exception {
+		getSetup().getGeneratedPlugin(); // make sure generated plug-in is loaded 
 		auditAssert.assertAuditContainer(audits);
 		assertTrue("Tests requires at least one audit with LIVE constraint", auditAssert.liveConstraintTested);		
 	}
@@ -265,7 +266,7 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 
 		void assertAuditContainer(AuditContainer auditContainer) {
 			final String categoryPath = getCategoryPath(auditContainer);
-			assertNotNull("Category should be registered", CategoryManager.getInstance().findCategory(categoryPath));
+			assertNotNull("Category should be registered:" + categoryPath, CategoryManager.getInstance().findCategory(categoryPath));
 			org.eclipse.emf.validation.model.Category category = org.eclipse.emf.validation.model.CategoryManager.getInstance().getCategory(categoryPath);
 			assertEquals("Category id must match", //$NON-NLS-1$ 
 					auditContainer.getId(), category.getId());
