@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006, 2007 Eclipse.org
+ * Copyright (c) 2006, 2008 Eclipse.org
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -1061,6 +1061,13 @@ public class BuiltinMetaModel {
 					return dt2Class.equals(f.get(null));
 				}
 				return dt1Class.isAssignableFrom(dt2Class);
+			}
+			if (dt1Class != null && dt2Class == null) {
+				// special case for dt2 datatype from dynamic model instance
+				// (e.g. model file in same workspace as template)
+				// hence no instance classes yet, but anything is assignable to Object
+				// Fixed while resolving #analyze of enum literals compare (==)
+				return dt1Class == Object.class;
 			}
 		} catch (NoSuchFieldException ex) {
 			// IGNORE
