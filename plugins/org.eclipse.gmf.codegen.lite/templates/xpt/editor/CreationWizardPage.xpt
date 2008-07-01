@@ -416,7 +416,7 @@ private static «EXPAND MetaModel::QualifiedClassName FOR getDocumentRoot()» crea
 	«EXPAND MetaModel::NewInstance("docRoot") FOR getDocumentRoot()»
 «LET getDocumentRootSetFeature() AS f»«IF f == null-»
 	docRoot.set«domainDiagramElement.ecoreClass.name»(model); // FIXME name of the set method is pure guess«ELSE-»
-	«EXPAND MetaModel::setFeatureValue("docRoot", getDocumentRoot(), "model") FOR f»;«ENDIF»
+	«EXPAND MetaModel::modifyFeature("docRoot", getDocumentRoot(), "model") FOR f»;«ENDIF»
 «ENDLET-»
 	return docRoot;
 }
