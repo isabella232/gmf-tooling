@@ -685,5 +685,6 @@
     <eLiterals name="java" value="1"/>
     <eLiterals name="regexp" value="2"/>
     <eLiterals name="nregexp" value="3"/>
+    <eLiterals name="literal" value="4"/>
   </eClassifiers>
 </ecore:EPackage>

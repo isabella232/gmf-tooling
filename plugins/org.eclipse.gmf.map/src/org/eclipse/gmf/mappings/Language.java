@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Language.java,v 1.2 2007/03/14 13:00:05 atikhomirov Exp $
+ * $Id: Language.java,v 1.3 2008/07/01 11:40:21 atikhomirov Exp $
  */
 package org.eclipse.gmf.mappings;
 
@@ -58,7 +58,15 @@ public enum Language implements Enumerator
 	 * @generated
 	 * @ordered
 	 */
-	NREGEXP_LITERAL(3, "nregexp", "nregexp");
+	NREGEXP_LITERAL(3, "nregexp", "nregexp"), /**
+	 * The '<em><b>Literal</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LITERAL
+	 * @generated
+	 * @ordered
+	 */
+	LITERAL_LITERAL(4, "literal", "literal");
 	/**
 	 * The '<em><b>Ocl</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -120,6 +128,21 @@ public enum Language implements Enumerator
 	public static final int NREGEXP = 3;
 
 	/**
+	 * The '<em><b>Literal</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Literal</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #LITERAL_LITERAL
+	 * @model name="literal"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int LITERAL = 4;
+
+	/**
 	 * An array of all the '<em><b>Language</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -131,6 +154,7 @@ public enum Language implements Enumerator
 			JAVA_LITERAL,
 			REGEXP_LITERAL,
 			NREGEXP_LITERAL,
+			LITERAL_LITERAL,
 		};
 
 	/**
@@ -185,6 +209,7 @@ public enum Language implements Enumerator
 			case JAVA: return JAVA_LITERAL;
 			case REGEXP: return REGEXP_LITERAL;
 			case NREGEXP: return NREGEXP_LITERAL;
+			case LITERAL: return LITERAL_LITERAL;
 		}
 		return null;
 	}

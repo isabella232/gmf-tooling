@@ -25,6 +25,7 @@
       <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Language/java"/>
       <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Language/regexp"/>
       <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Language/nregexp"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Language/literal"/>
     </genEnums>
     <genClasses ecoreClass="gmfmap.ecore#//Mapping">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//Mapping/nodes"/>
