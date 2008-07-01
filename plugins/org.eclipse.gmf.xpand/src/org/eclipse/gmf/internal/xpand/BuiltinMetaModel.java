@@ -410,7 +410,10 @@ public class BuiltinMetaModel {
 		});
 		List<InternalOperation> unmodifiableObjectOps = Collections.unmodifiableList(objectOps);
 		internalOperationsMap.put(ecorePkg.getEJavaObject(), unmodifiableObjectOps);
+		// EEnumerator are enum literal instances at runtime (#evaluate),
+		// while EEnum are their types during #analyze phase
 		internalOperationsMap.put(ecorePkg.getEEnumerator(), unmodifiableObjectOps);
+		internalOperationsMap.put(ecorePkg.getEEnum(), unmodifiableObjectOps);
 
 		final List<InternalOperation> stringOps = new LinkedList<InternalOperation>();
 
