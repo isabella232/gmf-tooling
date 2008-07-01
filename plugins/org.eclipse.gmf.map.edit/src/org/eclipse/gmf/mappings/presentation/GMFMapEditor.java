@@ -1452,8 +1452,11 @@ public class GMFMapEditor
 					for (Resource resource : editingDomain.getResourceSet().getResources()) {
 						if ((first || !resource.getContents().isEmpty() || isPersisted(resource)) && !editingDomain.isReadOnly(resource)) {
 							try {
-								savedResources.add(resource);
+								long timeStamp = resource.getTimeStamp();
 								resource.save(saveOptions);
+								if (resource.getTimeStamp() != timeStamp) {
+									savedResources.add(resource);
+								}
 							}
 							catch (Exception exception) {
 								resourceToDiagnosticMap.put(resource, analyzeResourceProblems(resource, exception));
