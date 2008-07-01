@@ -134,6 +134,7 @@
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenLanguage/java"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenLanguage/regexp"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenLanguage/nregexp"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenLanguage/literal"/>
     </genEnums>
     <genEnums ecoreEnum="gmfgen.ecore#//GenNavigatorReferenceType">
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenNavigatorReferenceType/children"/>
@@ -805,6 +806,7 @@
         <genParameters ecoreParameter="gmfgen.ecore#//GenExpressionInterpreter/getExpressionAccessor/expression"/>
       </genOperations>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenLiteralExpressionProvider"/>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenDomainModelNavigator">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDomainModelNavigator/generateDomainModelNavigator"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDomainModelNavigator/domainContentExtensionID"/>

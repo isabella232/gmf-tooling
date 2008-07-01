@@ -1763,11 +1763,17 @@
         eType="#//GenLanguage"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenLiteralExpressionProvider" eSuperTypes="#//GenExpressionProviderBase">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="GenLiteralExpressionProvider#getLanguage() == GenLanguage.LITERAL"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="GenLanguage">
     <eLiterals name="ocl"/>
     <eLiterals name="java" value="1"/>
     <eLiterals name="regexp" value="2"/>
     <eLiterals name="nregexp" value="3"/>
+    <eLiterals name="literal" value="4"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenDomainModelNavigator" abstract="true"
       interface="true">

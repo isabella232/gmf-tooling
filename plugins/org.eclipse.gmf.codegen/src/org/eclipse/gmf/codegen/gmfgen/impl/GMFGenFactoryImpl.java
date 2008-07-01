@@ -127,6 +127,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER: return createGenExpressionProviderContainer();
 			case GMFGenPackage.GEN_JAVA_EXPRESSION_PROVIDER: return createGenJavaExpressionProvider();
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER: return createGenExpressionInterpreter();
+			case GMFGenPackage.GEN_LITERAL_EXPRESSION_PROVIDER: return createGenLiteralExpressionProvider();
 			case GMFGenPackage.GEN_NAVIGATOR: return createGenNavigator();
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE: return createGenNavigatorChildReference();
 			case GMFGenPackage.GEN_NAVIGATOR_PATH: return createGenNavigatorPath();
@@ -906,6 +907,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenExpressionInterpreter createGenExpressionInterpreter() {
 		GenExpressionInterpreterImpl genExpressionInterpreter = new GenExpressionInterpreterImpl();
 		return genExpressionInterpreter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenLiteralExpressionProvider createGenLiteralExpressionProvider() {
+		GenLiteralExpressionProviderImpl genLiteralExpressionProvider = new GenLiteralExpressionProviderImpl();
+		return genLiteralExpressionProvider;
 	}
 
 	/**

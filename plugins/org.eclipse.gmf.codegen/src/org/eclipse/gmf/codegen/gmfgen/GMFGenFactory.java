@@ -611,6 +611,15 @@ public interface GMFGenFactory extends EFactory {
 	GenExpressionInterpreter createGenExpressionInterpreter();
 
 	/**
+	 * Returns a new object of class '<em>Gen Literal Expression Provider</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Literal Expression Provider</em>'.
+	 * @generated
+	 */
+	GenLiteralExpressionProvider createGenLiteralExpressionProvider();
+
+	/**
 	 * Returns a new object of class '<em>Gen Navigator</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
