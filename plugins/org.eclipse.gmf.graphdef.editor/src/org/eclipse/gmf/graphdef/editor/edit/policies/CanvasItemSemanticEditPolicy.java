@@ -19,6 +19,7 @@ import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 
 import org.eclipse.gmf.graphdef.editor.edit.commands.CompartmentCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.ConnectionCreateCommand;
+import org.eclipse.gmf.graphdef.editor.edit.commands.DiagramLabelCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.FigureGalleryCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.NodeCreateCommand;
 
@@ -58,6 +59,12 @@ public class CanvasItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEditPo
 				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getCanvas_Figures());
 			}
 			return getGEFWrapper(new FigureGalleryCreateCommand(req));
+		}
+		if (GMFGraphElementTypes.DiagramLabel_2009 == req.getElementType()) {
+			if (req.getContainmentFeature() == null) {
+				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getCanvas_Labels());
+			}
+			return getGEFWrapper(new DiagramLabelCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

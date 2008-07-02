@@ -50,6 +50,15 @@
           xsi:type="gmftool:CreationTool"
           title="Child Access Link"
           description="Link from the Diagram Element to the structure subelement of its descriptor"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Label"
+          description="Create Diagram Element representing Label">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
     </tools>
     <tools
         xsi:type="gmftool:ToolGroup"
@@ -123,6 +132,15 @@
           xsi:type="gmftool:CreationTool"
           title="Polygon"
           description="Create new Polygon">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Label Figure"
+          description="Create new Label">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>
         <largeIcon

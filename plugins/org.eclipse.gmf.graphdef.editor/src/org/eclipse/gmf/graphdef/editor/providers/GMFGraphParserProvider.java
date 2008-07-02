@@ -16,10 +16,16 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionNameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryNameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.LabelText2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.LabelText3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.LabelTextEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeNameEditPart;
+import org.eclipse.gmf.graphdef.editor.parsers.CompositeParser;
 import org.eclipse.gmf.graphdef.editor.parsers.MessageFormatParser;
+import org.eclipse.gmf.graphdef.editor.parsers.RegexpParser;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
@@ -134,6 +140,30 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	/**
 	 * @generated
 	 */
+	private IParser diagramLabelName_5013Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getDiagramLabelName_5013Parser() {
+		if (diagramLabelName_5013Parser == null) {
+			diagramLabelName_5013Parser = createDiagramLabelName_5013Parser();
+		}
+		return diagramLabelName_5013Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createDiagramLabelName_5013Parser() {
+		EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getIdentity_Name(), };
+		MessageFormatParser parser = new MessageFormatParser(features);
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
 	private IParser figureDescriptorName_5008Parser;
 
 	/**
@@ -158,6 +188,78 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	/**
 	 * @generated
 	 */
+	private IParser labelText_5010Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getLabelText_5010Parser() {
+		if (labelText_5010Parser == null) {
+			labelText_5010Parser = createLabelText_5010Parser();
+		}
+		return labelText_5010Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createLabelText_5010Parser() {
+		EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getLabel_Text(), };
+		MessageFormatParser parser = new MessageFormatParser(features);
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser labelText_5011Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getLabelText_5011Parser() {
+		if (labelText_5011Parser == null) {
+			labelText_5011Parser = createLabelText_5011Parser();
+		}
+		return labelText_5011Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createLabelText_5011Parser() {
+		EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getLabel_Text(), };
+		MessageFormatParser parser = new MessageFormatParser(features);
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser labelText_5012Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getLabelText_5012Parser() {
+		if (labelText_5012Parser == null) {
+			labelText_5012Parser = createLabelText_5012Parser();
+		}
+		return labelText_5012Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createLabelText_5012Parser() {
+		EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getLabel_Text(), };
+		MessageFormatParser parser = new MessageFormatParser(features);
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
 	protected IParser getParser(int visualID) {
 		switch (visualID) {
 		case CompartmentNameEditPart.VISUAL_ID:
@@ -168,8 +270,16 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 			return getConnectionName_5007Parser();
 		case FigureGalleryNameEditPart.VISUAL_ID:
 			return getFigureGalleryName_5009Parser();
+		case DiagramLabelNameEditPart.VISUAL_ID:
+			return getDiagramLabelName_5013Parser();
 		case FigureDescriptorNameEditPart.VISUAL_ID:
 			return getFigureDescriptorName_5008Parser();
+		case LabelTextEditPart.VISUAL_ID:
+			return getLabelText_5010Parser();
+		case LabelText2EditPart.VISUAL_ID:
+			return getLabelText_5011Parser();
+		case LabelText3EditPart.VISUAL_ID:
+			return getLabelText_5012Parser();
 		}
 		return null;
 	}

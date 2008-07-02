@@ -14,6 +14,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Ellipse;
+import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.Polygon;
 import org.eclipse.gmf.gmfgraph.Polyline;
@@ -28,6 +29,8 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramElementFigureEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelAccessorEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
@@ -35,6 +38,12 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryNameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Label2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Label3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.LabelEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.LabelText2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.LabelText3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.LabelTextEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeContentPaneEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeNameEditPart;
@@ -139,6 +148,8 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Connection", GMFGraphElementTypes.Connection_2007); //$NON-NLS-1$
 		case FigureGalleryEditPart.VISUAL_ID:
 			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/gmf/2006/GraphicalDefinition?FigureGallery", GMFGraphElementTypes.FigureGallery_2008); //$NON-NLS-1$
+		case DiagramLabelEditPart.VISUAL_ID:
+			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/gmf/2006/GraphicalDefinition?DiagramLabel", GMFGraphElementTypes.DiagramLabel_2009); //$NON-NLS-1$
 		case FigureDescriptorEditPart.VISUAL_ID:
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?FigureDescriptor", GMFGraphElementTypes.FigureDescriptor_3009); //$NON-NLS-1$
 		case RectangleEditPart.VISUAL_ID:
@@ -155,6 +166,8 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Point", GMFGraphElementTypes.Point_3022); //$NON-NLS-1$
 		case PolygonEditPart.VISUAL_ID:
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polygon", GMFGraphElementTypes.Polygon_3023); //$NON-NLS-1$
+		case LabelEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Label", GMFGraphElementTypes.Label_3026); //$NON-NLS-1$
 		case Ellipse2EditPart.VISUAL_ID:
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Ellipse", GMFGraphElementTypes.Ellipse_3015); //$NON-NLS-1$
 		case RoundedRectangle2EditPart.VISUAL_ID:
@@ -163,6 +176,8 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polyline", GMFGraphElementTypes.Polyline_3017); //$NON-NLS-1$
 		case Polygon2EditPart.VISUAL_ID:
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polygon", GMFGraphElementTypes.Polygon_3024); //$NON-NLS-1$
+		case Label2EditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Label", GMFGraphElementTypes.Label_3027); //$NON-NLS-1$
 		case Rectangle3EditPart.VISUAL_ID:
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Rectangle", GMFGraphElementTypes.Rectangle_3018); //$NON-NLS-1$
 		case Ellipse3EditPart.VISUAL_ID:
@@ -173,6 +188,8 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polyline", GMFGraphElementTypes.Polyline_3021); //$NON-NLS-1$
 		case Polygon3EditPart.VISUAL_ID:
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Polygon", GMFGraphElementTypes.Polygon_3025); //$NON-NLS-1$
+		case Label3EditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/gmf/2006/GraphicalDefinition?Label", GMFGraphElementTypes.Label_3028); //$NON-NLS-1$
 		case ChildAccessEditPart.VISUAL_ID:
 			return getImage("Navigator?Link?http://www.eclipse.org/gmf/2006/GraphicalDefinition?ChildAccess", GMFGraphElementTypes.ChildAccess_4002); //$NON-NLS-1$
 		case CompartmentAccessorEditPart.VISUAL_ID:
@@ -251,6 +268,8 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getConnection_2007Text(view);
 		case FigureGalleryEditPart.VISUAL_ID:
 			return getFigureGallery_2008Text(view);
+		case DiagramLabelEditPart.VISUAL_ID:
+			return getDiagramLabel_2009Text(view);
 		case FigureDescriptorEditPart.VISUAL_ID:
 			return getFigureDescriptor_3009Text(view);
 		case RectangleEditPart.VISUAL_ID:
@@ -267,6 +286,8 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getPoint_3022Text(view);
 		case PolygonEditPart.VISUAL_ID:
 			return getPolygon_3023Text(view);
+		case LabelEditPart.VISUAL_ID:
+			return getLabel_3026Text(view);
 		case Ellipse2EditPart.VISUAL_ID:
 			return getEllipse_3015Text(view);
 		case RoundedRectangle2EditPart.VISUAL_ID:
@@ -275,6 +296,8 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getPolyline_3017Text(view);
 		case Polygon2EditPart.VISUAL_ID:
 			return getPolygon_3024Text(view);
+		case Label2EditPart.VISUAL_ID:
+			return getLabel_3027Text(view);
 		case Rectangle3EditPart.VISUAL_ID:
 			return getRectangle_3018Text(view);
 		case Ellipse3EditPart.VISUAL_ID:
@@ -285,6 +308,8 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return getPolyline_3021Text(view);
 		case Polygon3EditPart.VISUAL_ID:
 			return getPolygon_3025Text(view);
+		case Label3EditPart.VISUAL_ID:
+			return getLabel_3028Text(view);
 		case ChildAccessEditPart.VISUAL_ID:
 			return getChildAccess_4002Text(view);
 		case CompartmentAccessorEditPart.VISUAL_ID:
@@ -362,6 +387,23 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5009); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
+		}
+
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getDiagramLabel_2009Text(View view) {
+		IAdaptable hintAdapter = new GMFGraphParserProvider.HintAdapter(GMFGraphElementTypes.DiagramLabel_2009, (view.getElement() != null ? view.getElement() : view), GMFGraphVisualIDRegistry
+				.getType(DiagramLabelNameEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
+
+		if (parser != null) {
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
+		} else {
+			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5013); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
 
@@ -478,6 +520,23 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	/**
 	 * @generated
 	 */
+	private String getLabel_3026Text(View view) {
+		IAdaptable hintAdapter = new GMFGraphParserProvider.HintAdapter(GMFGraphElementTypes.Label_3026, (view.getElement() != null ? view.getElement() : view), GMFGraphVisualIDRegistry
+				.getType(LabelTextEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
+
+		if (parser != null) {
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
+		} else {
+			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5010); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
+		}
+
+	}
+
+	/**
+	 * @generated
+	 */
 	private String getEllipse_3015Text(View view) {
 		Ellipse domainModelElement = (Ellipse) view.getElement();
 		if (domainModelElement != null) {
@@ -525,6 +584,23 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3024); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getLabel_3027Text(View view) {
+		IAdaptable hintAdapter = new GMFGraphParserProvider.HintAdapter(GMFGraphElementTypes.Label_3027, (view.getElement() != null ? view.getElement() : view), GMFGraphVisualIDRegistry
+				.getType(LabelText2EditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
+
+		if (parser != null) {
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
+		} else {
+			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5011); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
+		}
+
 	}
 
 	/**
@@ -590,6 +666,23 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3025); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getLabel_3028Text(View view) {
+		IAdaptable hintAdapter = new GMFGraphParserProvider.HintAdapter(GMFGraphElementTypes.Label_3028, (view.getElement() != null ? view.getElement() : view), GMFGraphVisualIDRegistry
+				.getType(LabelText3EditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
+
+		if (parser != null) {
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
+		} else {
+			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5012); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
+		}
+
 	}
 
 	/**

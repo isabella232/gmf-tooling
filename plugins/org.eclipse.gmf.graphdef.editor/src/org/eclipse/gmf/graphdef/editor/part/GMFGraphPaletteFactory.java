@@ -48,6 +48,7 @@ public class GMFGraphPaletteFactory {
 		paletteContainer.add(createFigureLink4CreationTool());
 		paletteContainer.add(createNestedFigureLink5CreationTool());
 		paletteContainer.add(createChildAccessLink6CreationTool());
+		paletteContainer.add(createLabel7CreationTool());
 		return paletteContainer;
 	}
 
@@ -66,6 +67,7 @@ public class GMFGraphPaletteFactory {
 		paletteContainer.add(createPolyline6CreationTool());
 		paletteContainer.add(createPolylinePoint7CreationTool());
 		paletteContainer.add(createPolygon8CreationTool());
+		paletteContainer.add(createLabelFigure9CreationTool());
 		return paletteContainer;
 	}
 
@@ -139,6 +141,18 @@ public class GMFGraphPaletteFactory {
 		types.add(GMFGraphElementTypes.NodeContentPane_4006);
 		LinkToolEntry entry = new LinkToolEntry(Messages.ChildAccessLink6CreationTool_title, Messages.ChildAccessLink6CreationTool_desc, types);
 		entry.setSmallIcon(GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.CompartmentAccessor_4003));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createLabel7CreationTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(GMFGraphElementTypes.DiagramLabel_2009);
+		NodeToolEntry entry = new NodeToolEntry(Messages.Label7CreationTool_title, Messages.Label7CreationTool_desc, types);
+		entry.setSmallIcon(GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.DiagramLabel_2009));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -245,6 +259,20 @@ public class GMFGraphPaletteFactory {
 		types.add(GMFGraphElementTypes.Polygon_3025);
 		NodeToolEntry entry = new NodeToolEntry(Messages.Polygon8CreationTool_title, Messages.Polygon8CreationTool_desc, types);
 		entry.setSmallIcon(GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Polygon_3023));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createLabelFigure9CreationTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(3);
+		types.add(GMFGraphElementTypes.Label_3026);
+		types.add(GMFGraphElementTypes.Label_3027);
+		types.add(GMFGraphElementTypes.Label_3028);
+		NodeToolEntry entry = new NodeToolEntry(Messages.LabelFigure9CreationTool_title, Messages.LabelFigure9CreationTool_desc, types);
+		entry.setSmallIcon(GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Label_3026));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}

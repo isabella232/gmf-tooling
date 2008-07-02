@@ -65,6 +65,12 @@ public class GMFGraphEditPartFactory implements EditPartFactory {
 			case FigureGalleryNameEditPart.VISUAL_ID:
 				return new FigureGalleryNameEditPart(view);
 
+			case DiagramLabelEditPart.VISUAL_ID:
+				return new DiagramLabelEditPart(view);
+
+			case DiagramLabelNameEditPart.VISUAL_ID:
+				return new DiagramLabelNameEditPart(view);
+
 			case FigureDescriptorEditPart.VISUAL_ID:
 				return new FigureDescriptorEditPart(view);
 
@@ -92,6 +98,12 @@ public class GMFGraphEditPartFactory implements EditPartFactory {
 			case PolygonEditPart.VISUAL_ID:
 				return new PolygonEditPart(view);
 
+			case LabelEditPart.VISUAL_ID:
+				return new LabelEditPart(view);
+
+			case LabelTextEditPart.VISUAL_ID:
+				return new LabelTextEditPart(view);
+
 			case Ellipse2EditPart.VISUAL_ID:
 				return new Ellipse2EditPart(view);
 
@@ -103,6 +115,12 @@ public class GMFGraphEditPartFactory implements EditPartFactory {
 
 			case Polygon2EditPart.VISUAL_ID:
 				return new Polygon2EditPart(view);
+
+			case Label2EditPart.VISUAL_ID:
+				return new Label2EditPart(view);
+
+			case LabelText2EditPart.VISUAL_ID:
+				return new LabelText2EditPart(view);
 
 			case Rectangle3EditPart.VISUAL_ID:
 				return new Rectangle3EditPart(view);
@@ -119,6 +137,12 @@ public class GMFGraphEditPartFactory implements EditPartFactory {
 			case Polygon3EditPart.VISUAL_ID:
 				return new Polygon3EditPart(view);
 
+			case Label3EditPart.VISUAL_ID:
+				return new Label3EditPart(view);
+
+			case LabelText3EditPart.VISUAL_ID:
+				return new LabelText3EditPart(view);
+
 			case CompartmentVisualFacetsEditPart.VISUAL_ID:
 				return new CompartmentVisualFacetsEditPart(view);
 
@@ -130,6 +154,9 @@ public class GMFGraphEditPartFactory implements EditPartFactory {
 
 			case FigureGalleryFiguresEditPart.VISUAL_ID:
 				return new FigureGalleryFiguresEditPart(view);
+
+			case DiagramLabelVisualFacetsEditPart.VISUAL_ID:
+				return new DiagramLabelVisualFacetsEditPart(view);
 
 			case ChildAccessEditPart.VISUAL_ID:
 				return new ChildAccessEditPart(view);

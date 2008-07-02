@@ -82,6 +82,11 @@ public class GMFGraphElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
+	public static final IElementType DiagramLabel_2009 = getElementType("org.eclipse.gmf.graphdef.editor.DiagramLabel_2009"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public static final IElementType FigureDescriptor_3009 = getElementType("org.eclipse.gmf.graphdef.editor.FigureDescriptor_3009"); //$NON-NLS-1$
 
 	/**
@@ -122,6 +127,11 @@ public class GMFGraphElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
+	public static final IElementType Label_3026 = getElementType("org.eclipse.gmf.graphdef.editor.Label_3026"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public static final IElementType Ellipse_3015 = getElementType("org.eclipse.gmf.graphdef.editor.Ellipse_3015"); //$NON-NLS-1$
 
 	/**
@@ -138,6 +148,11 @@ public class GMFGraphElementTypes extends ElementInitializers {
 	 * @generated
 	 */
 	public static final IElementType Polygon_3024 = getElementType("org.eclipse.gmf.graphdef.editor.Polygon_3024"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Label_3027 = getElementType("org.eclipse.gmf.graphdef.editor.Label_3027"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -163,6 +178,11 @@ public class GMFGraphElementTypes extends ElementInitializers {
 	 * @generated
 	 */
 	public static final IElementType Polygon_3025 = getElementType("org.eclipse.gmf.graphdef.editor.Polygon_3025"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Label_3028 = getElementType("org.eclipse.gmf.graphdef.editor.Label_3028"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -305,6 +325,8 @@ public class GMFGraphElementTypes extends ElementInitializers {
 
 			elements.put(FigureGallery_2008, GMFGraphPackage.eINSTANCE.getFigureGallery());
 
+			elements.put(DiagramLabel_2009, GMFGraphPackage.eINSTANCE.getDiagramLabel());
+
 			elements.put(FigureDescriptor_3009, GMFGraphPackage.eINSTANCE.getFigureDescriptor());
 
 			elements.put(Rectangle_3010, GMFGraphPackage.eINSTANCE.getRectangle());
@@ -321,6 +343,8 @@ public class GMFGraphElementTypes extends ElementInitializers {
 
 			elements.put(Polygon_3023, GMFGraphPackage.eINSTANCE.getPolygon());
 
+			elements.put(Label_3026, GMFGraphPackage.eINSTANCE.getLabel());
+
 			elements.put(Ellipse_3015, GMFGraphPackage.eINSTANCE.getEllipse());
 
 			elements.put(RoundedRectangle_3016, GMFGraphPackage.eINSTANCE.getRoundedRectangle());
@@ -328,6 +352,8 @@ public class GMFGraphElementTypes extends ElementInitializers {
 			elements.put(Polyline_3017, GMFGraphPackage.eINSTANCE.getPolyline());
 
 			elements.put(Polygon_3024, GMFGraphPackage.eINSTANCE.getPolygon());
+
+			elements.put(Label_3027, GMFGraphPackage.eINSTANCE.getLabel());
 
 			elements.put(Rectangle_3018, GMFGraphPackage.eINSTANCE.getRectangle());
 
@@ -338,6 +364,8 @@ public class GMFGraphElementTypes extends ElementInitializers {
 			elements.put(Polyline_3021, GMFGraphPackage.eINSTANCE.getPolyline());
 
 			elements.put(Polygon_3025, GMFGraphPackage.eINSTANCE.getPolygon());
+
+			elements.put(Label_3028, GMFGraphPackage.eINSTANCE.getLabel());
 
 			elements.put(ChildAccess_4002, GMFGraphPackage.eINSTANCE.getChildAccess());
 
@@ -370,6 +398,7 @@ public class GMFGraphElementTypes extends ElementInitializers {
 			KNOWN_ELEMENT_TYPES.add(Node_2006);
 			KNOWN_ELEMENT_TYPES.add(Connection_2007);
 			KNOWN_ELEMENT_TYPES.add(FigureGallery_2008);
+			KNOWN_ELEMENT_TYPES.add(DiagramLabel_2009);
 			KNOWN_ELEMENT_TYPES.add(FigureDescriptor_3009);
 			KNOWN_ELEMENT_TYPES.add(Rectangle_3010);
 			KNOWN_ELEMENT_TYPES.add(Rectangle_3011);
@@ -378,15 +407,18 @@ public class GMFGraphElementTypes extends ElementInitializers {
 			KNOWN_ELEMENT_TYPES.add(Polyline_3014);
 			KNOWN_ELEMENT_TYPES.add(Point_3022);
 			KNOWN_ELEMENT_TYPES.add(Polygon_3023);
+			KNOWN_ELEMENT_TYPES.add(Label_3026);
 			KNOWN_ELEMENT_TYPES.add(Ellipse_3015);
 			KNOWN_ELEMENT_TYPES.add(RoundedRectangle_3016);
 			KNOWN_ELEMENT_TYPES.add(Polyline_3017);
 			KNOWN_ELEMENT_TYPES.add(Polygon_3024);
+			KNOWN_ELEMENT_TYPES.add(Label_3027);
 			KNOWN_ELEMENT_TYPES.add(Rectangle_3018);
 			KNOWN_ELEMENT_TYPES.add(Ellipse_3019);
 			KNOWN_ELEMENT_TYPES.add(RoundedRectangle_3020);
 			KNOWN_ELEMENT_TYPES.add(Polyline_3021);
 			KNOWN_ELEMENT_TYPES.add(Polygon_3025);
+			KNOWN_ELEMENT_TYPES.add(Label_3028);
 			KNOWN_ELEMENT_TYPES.add(ChildAccess_4002);
 			KNOWN_ELEMENT_TYPES.add(CompartmentAccessor_4003);
 			KNOWN_ELEMENT_TYPES.add(DiagramLabelAccessor_4004);

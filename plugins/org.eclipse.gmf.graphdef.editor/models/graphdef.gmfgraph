@@ -199,6 +199,39 @@
       <actualFigure
           xsi:type="gmfgraph:Polygon"/>
     </descriptors>
+    <descriptors
+        name="LabelFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Rectangle"
+          name="LabelFigure"
+          outline="false"
+          fill="false">
+        <layout
+            xsi:type="gmfgraph:StackLayout"/>
+        <children
+            xsi:type="gmfgraph:Label"
+            name="LabelFigure_TextLabel"
+            text="&lt;&lt;Label>>"/>
+      </actualFigure>
+      <accessors
+          figure="//@figures.0/@descriptors.14/@actualFigure/@children.0"/>
+    </descriptors>
+    <descriptors
+        name="BorderedLabelFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Rectangle"
+          name="LabelFigure"
+          fill="false">
+        <layout
+            xsi:type="gmfgraph:StackLayout"/>
+        <children
+            xsi:type="gmfgraph:Label"
+            name="BorderedLabelFigure_TextLabel"
+            text="&lt;&lt;Label>>"/>
+      </actualFigure>
+      <accessors
+          figure="//@figures.0/@descriptors.15/@actualFigure/@children.0"/>
+    </descriptors>
   </figures>
   <nodes
       name="DiagramElementNode"
@@ -257,6 +290,24 @@
   <nodes
       name="PolygonNode"
       figure="PolygonFigure"/>
+  <nodes
+      name="LabelNode"
+      figure="LabelFigure"
+      resizeConstraint="NONE">
+    <facets
+        xsi:type="gmfgraph:DefaultSizeFacet">
+      <defaultSize/>
+    </facets>
+  </nodes>
+  <nodes
+      name="BorderedLabelNode"
+      figure="BorderedLabelFigure"
+      resizeConstraint="NONE">
+    <facets
+        xsi:type="gmfgraph:DefaultSizeFacet">
+      <defaultSize/>
+    </facets>
+  </nodes>
   <connections
       name="FigureLink"
       figure="FigureConnectionFigure"/>
@@ -293,4 +344,14 @@
       name="FigureDescriptorNode_Name"
       figure="FigureDescriptorFigure"
       accessor="//@figures.0/@descriptors.1/@accessors.0"/>
+  <labels
+      name="LabelNode_Text"
+      figure="LabelFigure"
+      elementIcon="false"
+      accessor="//@figures.0/@descriptors.14/@accessors.0"/>
+  <labels
+      name="BorderedLabelNode_Text"
+      figure="BorderedLabelFigure"
+      elementIcon="false"
+      accessor="//@figures.0/@descriptors.15/@accessors.0"/>
 </gmfgraph:Canvas>

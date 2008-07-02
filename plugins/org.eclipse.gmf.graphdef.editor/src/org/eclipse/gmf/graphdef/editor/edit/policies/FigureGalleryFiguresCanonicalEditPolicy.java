@@ -20,6 +20,7 @@ import java.util.Set;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Label3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle3EditPart;
@@ -64,6 +65,7 @@ public class FigureGalleryFiguresCanonicalEditPolicy extends CanonicalEditPolicy
 		case RoundedRectangle3EditPart.VISUAL_ID:
 		case Polyline3EditPart.VISUAL_ID:
 		case Polygon3EditPart.VISUAL_ID:
+		case Label3EditPart.VISUAL_ID:
 			if (!semanticChildren.contains(view.getElement())) {
 				return true;
 			}

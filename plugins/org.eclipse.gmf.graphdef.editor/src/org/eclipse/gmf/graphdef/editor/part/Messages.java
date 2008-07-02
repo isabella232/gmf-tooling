@@ -333,6 +333,16 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String Label7CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String Label7CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
 	public static String FigureGallery1CreationTool_title;
 
 	/**
@@ -413,6 +423,16 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String LabelFigure9CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String LabelFigure9CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
 	public static String CompartmentVisualFacetsEditPart_title;
 
 	/**
@@ -429,6 +449,11 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String FigureGalleryFiguresEditPart_title;
+
+	/**
+	 * @generated
+	 */
+	public static String DiagramLabelVisualFacetsEditPart_title;
 
 	/**
 	 * @generated
@@ -454,6 +479,11 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String NavigatorGroupName_Connection_2007_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_DiagramLabel_2009_outgoinglinks;
 
 	/**
 	 * @generated
@@ -498,6 +528,11 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String NavigatorGroupName_Label_3026_incominglinks;
+
+	/**
+	 * @generated
+	 */
 	public static String NavigatorGroupName_Ellipse_3015_incominglinks;
 
 	/**
@@ -514,6 +549,11 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String NavigatorGroupName_Polygon_3024_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Label_3027_incominglinks;
 
 	/**
 	 * @generated
@@ -543,6 +583,11 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String NavigatorGroupName_Label_3028_incominglinks;
+
+	/**
+	 * @generated
+	 */
 	public static String NavigatorGroupName_ChildAccess_4002_target;
 
 	/**
@@ -554,6 +599,11 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String NavigatorGroupName_CompartmentAccessor_4003_source;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_DiagramLabelAccessor_4004_source;
 
 	/**
 	 * @generated

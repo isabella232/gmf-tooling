@@ -23,6 +23,9 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionVisualFacetsEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramElementFigureEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelAccessorEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelNameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelVisualFacetsEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
@@ -31,6 +34,12 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryNameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Label2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Label3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.LabelEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.LabelText2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.LabelText3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.LabelTextEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeContentPaneEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeNameEditPart;
@@ -60,6 +69,9 @@ import org.eclipse.gmf.graphdef.editor.view.factories.ConnectionViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.ConnectionVisualFacetsViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.DiagramElementFigureViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.DiagramLabelAccessorViewFactory;
+import org.eclipse.gmf.graphdef.editor.view.factories.DiagramLabelNameViewFactory;
+import org.eclipse.gmf.graphdef.editor.view.factories.DiagramLabelViewFactory;
+import org.eclipse.gmf.graphdef.editor.view.factories.DiagramLabelVisualFacetsViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.Ellipse2ViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.Ellipse3ViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.EllipseViewFactory;
@@ -68,6 +80,12 @@ import org.eclipse.gmf.graphdef.editor.view.factories.FigureDescriptorViewFactor
 import org.eclipse.gmf.graphdef.editor.view.factories.FigureGalleryFiguresViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.FigureGalleryNameViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.FigureGalleryViewFactory;
+import org.eclipse.gmf.graphdef.editor.view.factories.Label2ViewFactory;
+import org.eclipse.gmf.graphdef.editor.view.factories.Label3ViewFactory;
+import org.eclipse.gmf.graphdef.editor.view.factories.LabelText2ViewFactory;
+import org.eclipse.gmf.graphdef.editor.view.factories.LabelText3ViewFactory;
+import org.eclipse.gmf.graphdef.editor.view.factories.LabelTextViewFactory;
+import org.eclipse.gmf.graphdef.editor.view.factories.LabelViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.NodeContentPaneViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.NodeNameViewFactory;
 import org.eclipse.gmf.graphdef.editor.view.factories.NodeViewFactory;
@@ -154,6 +172,7 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 				case NodeEditPart.VISUAL_ID:
 				case ConnectionEditPart.VISUAL_ID:
 				case FigureGalleryEditPart.VISUAL_ID:
+				case DiagramLabelEditPart.VISUAL_ID:
 				case FigureDescriptorEditPart.VISUAL_ID:
 				case RectangleEditPart.VISUAL_ID:
 				case EllipseEditPart.VISUAL_ID:
@@ -161,16 +180,19 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 				case PolylineEditPart.VISUAL_ID:
 				case PointEditPart.VISUAL_ID:
 				case PolygonEditPart.VISUAL_ID:
+				case LabelEditPart.VISUAL_ID:
 				case Rectangle2EditPart.VISUAL_ID:
 				case Ellipse2EditPart.VISUAL_ID:
 				case RoundedRectangle2EditPart.VISUAL_ID:
 				case Polyline2EditPart.VISUAL_ID:
 				case Polygon2EditPart.VISUAL_ID:
+				case Label2EditPart.VISUAL_ID:
 				case Rectangle3EditPart.VISUAL_ID:
 				case Ellipse3EditPart.VISUAL_ID:
 				case RoundedRectangle3EditPart.VISUAL_ID:
 				case Polyline3EditPart.VISUAL_ID:
 				case Polygon3EditPart.VISUAL_ID:
+				case Label3EditPart.VISUAL_ID:
 					if (domainElement == null || visualID != GMFGraphVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
 						return null; // visual id in semantic hint should match visual id for domain element
 					}
@@ -199,8 +221,29 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 						return null; // wrong container
 					}
 					break;
+				case DiagramLabelNameEditPart.VISUAL_ID:
+				case DiagramLabelVisualFacetsEditPart.VISUAL_ID:
+					if (DiagramLabelEditPart.VISUAL_ID != GMFGraphVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
+						return null; // wrong container
+					}
+					break;
 				case FigureDescriptorNameEditPart.VISUAL_ID:
 					if (FigureDescriptorEditPart.VISUAL_ID != GMFGraphVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
+						return null; // wrong container
+					}
+					break;
+				case LabelTextEditPart.VISUAL_ID:
+					if (LabelEditPart.VISUAL_ID != GMFGraphVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
+						return null; // wrong container
+					}
+					break;
+				case LabelText2EditPart.VISUAL_ID:
+					if (Label2EditPart.VISUAL_ID != GMFGraphVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
+						return null; // wrong container
+					}
+					break;
+				case LabelText3EditPart.VISUAL_ID:
+					if (Label3EditPart.VISUAL_ID != GMFGraphVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
 						return null; // wrong container
 					}
 					break;
@@ -236,6 +279,10 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 			return FigureGalleryViewFactory.class;
 		case FigureGalleryNameEditPart.VISUAL_ID:
 			return FigureGalleryNameViewFactory.class;
+		case DiagramLabelEditPart.VISUAL_ID:
+			return DiagramLabelViewFactory.class;
+		case DiagramLabelNameEditPart.VISUAL_ID:
+			return DiagramLabelNameViewFactory.class;
 		case FigureDescriptorEditPart.VISUAL_ID:
 			return FigureDescriptorViewFactory.class;
 		case FigureDescriptorNameEditPart.VISUAL_ID:
@@ -254,6 +301,10 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 			return PointViewFactory.class;
 		case PolygonEditPart.VISUAL_ID:
 			return PolygonViewFactory.class;
+		case LabelEditPart.VISUAL_ID:
+			return LabelViewFactory.class;
+		case LabelTextEditPart.VISUAL_ID:
+			return LabelTextViewFactory.class;
 		case Ellipse2EditPart.VISUAL_ID:
 			return Ellipse2ViewFactory.class;
 		case RoundedRectangle2EditPart.VISUAL_ID:
@@ -262,6 +313,10 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 			return Polyline2ViewFactory.class;
 		case Polygon2EditPart.VISUAL_ID:
 			return Polygon2ViewFactory.class;
+		case Label2EditPart.VISUAL_ID:
+			return Label2ViewFactory.class;
+		case LabelText2EditPart.VISUAL_ID:
+			return LabelText2ViewFactory.class;
 		case Rectangle3EditPart.VISUAL_ID:
 			return Rectangle3ViewFactory.class;
 		case Ellipse3EditPart.VISUAL_ID:
@@ -272,6 +327,10 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 			return Polyline3ViewFactory.class;
 		case Polygon3EditPart.VISUAL_ID:
 			return Polygon3ViewFactory.class;
+		case Label3EditPart.VISUAL_ID:
+			return Label3ViewFactory.class;
+		case LabelText3EditPart.VISUAL_ID:
+			return LabelText3ViewFactory.class;
 		case CompartmentVisualFacetsEditPart.VISUAL_ID:
 			return CompartmentVisualFacetsViewFactory.class;
 		case NodeVisualFacetsEditPart.VISUAL_ID:
@@ -280,6 +339,8 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 			return ConnectionVisualFacetsViewFactory.class;
 		case FigureGalleryFiguresEditPart.VISUAL_ID:
 			return FigureGalleryFiguresViewFactory.class;
+		case DiagramLabelVisualFacetsEditPart.VISUAL_ID:
+			return DiagramLabelVisualFacetsViewFactory.class;
 		}
 		return null;
 	}

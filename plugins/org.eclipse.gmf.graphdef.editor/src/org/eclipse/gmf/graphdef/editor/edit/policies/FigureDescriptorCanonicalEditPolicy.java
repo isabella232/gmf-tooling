@@ -19,6 +19,7 @@ import java.util.Set;
 
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Label2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RectangleEditPart;
@@ -62,6 +63,7 @@ public class FigureDescriptorCanonicalEditPolicy extends CanonicalEditPolicy {
 		case RoundedRectangle2EditPart.VISUAL_ID:
 		case Polyline2EditPart.VISUAL_ID:
 		case Polygon2EditPart.VISUAL_ID:
+		case Label2EditPart.VISUAL_ID:
 			if (!semanticChildren.contains(view.getElement())) {
 				return true;
 			}

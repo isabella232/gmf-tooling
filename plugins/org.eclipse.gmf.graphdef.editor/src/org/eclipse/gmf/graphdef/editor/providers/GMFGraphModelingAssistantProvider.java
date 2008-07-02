@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
@@ -71,6 +72,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.RoundedRectangle_3016);
 			types.add(GMFGraphElementTypes.Polyline_3017);
 			types.add(GMFGraphElementTypes.Polygon_3024);
+			types.add(GMFGraphElementTypes.Label_3027);
 			return types;
 		}
 		if (editPart instanceof RectangleEditPart) {
@@ -80,6 +82,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
 			types.add(GMFGraphElementTypes.Polygon_3023);
+			types.add(GMFGraphElementTypes.Label_3026);
 			return types;
 		}
 		if (editPart instanceof Rectangle2EditPart) {
@@ -89,6 +92,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
 			types.add(GMFGraphElementTypes.Polygon_3023);
+			types.add(GMFGraphElementTypes.Label_3026);
 			return types;
 		}
 		if (editPart instanceof EllipseEditPart) {
@@ -98,6 +102,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
 			types.add(GMFGraphElementTypes.Polygon_3023);
+			types.add(GMFGraphElementTypes.Label_3026);
 			return types;
 		}
 		if (editPart instanceof RoundedRectangleEditPart) {
@@ -107,6 +112,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
 			types.add(GMFGraphElementTypes.Polygon_3023);
+			types.add(GMFGraphElementTypes.Label_3026);
 			return types;
 		}
 		if (editPart instanceof PolylineEditPart) {
@@ -126,6 +132,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
 			types.add(GMFGraphElementTypes.Polygon_3023);
+			types.add(GMFGraphElementTypes.Label_3026);
 			return types;
 		}
 		if (editPart instanceof RoundedRectangle2EditPart) {
@@ -135,6 +142,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
 			types.add(GMFGraphElementTypes.Polygon_3023);
+			types.add(GMFGraphElementTypes.Label_3026);
 			return types;
 		}
 		if (editPart instanceof Polyline2EditPart) {
@@ -154,6 +162,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
 			types.add(GMFGraphElementTypes.Polygon_3023);
+			types.add(GMFGraphElementTypes.Label_3026);
 			return types;
 		}
 		if (editPart instanceof Ellipse3EditPart) {
@@ -163,6 +172,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
 			types.add(GMFGraphElementTypes.Polygon_3023);
+			types.add(GMFGraphElementTypes.Label_3026);
 			return types;
 		}
 		if (editPart instanceof RoundedRectangle3EditPart) {
@@ -172,6 +182,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
 			types.add(GMFGraphElementTypes.Polyline_3014);
 			types.add(GMFGraphElementTypes.Polygon_3023);
+			types.add(GMFGraphElementTypes.Label_3026);
 			return types;
 		}
 		if (editPart instanceof Polyline3EditPart) {
@@ -192,6 +203,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.RoundedRectangle_3020);
 			types.add(GMFGraphElementTypes.Polyline_3021);
 			types.add(GMFGraphElementTypes.Polygon_3025);
+			types.add(GMFGraphElementTypes.Label_3028);
 			return types;
 		}
 		if (editPart instanceof CanvasEditPart) {
@@ -200,6 +212,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.Node_2006);
 			types.add(GMFGraphElementTypes.Connection_2007);
 			types.add(GMFGraphElementTypes.FigureGallery_2008);
+			types.add(GMFGraphElementTypes.DiagramLabel_2009);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -218,6 +231,11 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 		if (sourceEditPart instanceof NodeEditPart) {
 			List types = new ArrayList();
 			types.add(GMFGraphElementTypes.NodeContentPane_4006);
+			return types;
+		}
+		if (sourceEditPart instanceof DiagramLabelEditPart) {
+			List types = new ArrayList();
+			types.add(GMFGraphElementTypes.DiagramLabelAccessor_4004);
 			return types;
 		}
 		if (sourceEditPart instanceof FigureDescriptorEditPart) {
@@ -255,6 +273,10 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			List types = new ArrayList();
 			return types;
 		}
+		if (sourceEditPart instanceof DiagramLabelEditPart) {
+			List types = new ArrayList();
+			return types;
+		}
 		if (sourceEditPart instanceof FigureDescriptorEditPart) {
 			List types = new ArrayList();
 			return types;
@@ -284,6 +306,10 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			return types;
 		}
 		if (sourceEditPart instanceof NodeEditPart) {
+			List types = new ArrayList();
+			return types;
+		}
+		if (sourceEditPart instanceof DiagramLabelEditPart) {
 			List types = new ArrayList();
 			return types;
 		}

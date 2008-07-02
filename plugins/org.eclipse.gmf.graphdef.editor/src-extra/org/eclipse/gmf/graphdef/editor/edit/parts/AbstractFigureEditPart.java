@@ -41,7 +41,6 @@ import org.eclipse.gmf.gmfgraph.LineKind;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.RealFigure;
-import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.gmfgraph.StackLayout;
 import org.eclipse.gmf.gmfgraph.XYLayout;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
@@ -158,11 +157,11 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 	}
 
 	private Object getLayoutConstraint() {
-		Shape shape = getShape();
-		if (shape == null || shape.getLayoutData() == null) {
+		RealFigure realFigure = getRealFigure();
+		if (realFigure == null || realFigure.getLayoutData() == null) {
 			return null;
 		}
-		LayoutData layoutData = shape.getLayoutData();
+		LayoutData layoutData = realFigure.getLayoutData();
 		switch (layoutData.eClass().getClassifierID()) {
 		case GMFGraphPackage.BORDER_LAYOUT_DATA: {
 			BorderLayoutData borderLayoutData = (BorderLayoutData) layoutData;
@@ -374,10 +373,10 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 		handleMajorSemanticChange();
 	}
 
-	protected Shape getShape() {
+	protected RealFigure getRealFigure() {
 		View view = getNotationView();
-		if (view != null && view.getElement() instanceof Shape) {
-			return (Shape) view.getElement();
+		if (view != null && view.getElement() instanceof RealFigure) {
+			return (RealFigure) view.getElement();
 		}
 		return null;
 	}
@@ -390,7 +389,7 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 	 * use getPrimaryShape().
 	 */
 	protected void refreshFont() {
-		Font modelFont = getShape().getFont();
+		Font modelFont = getRealFigure().getFont();
 		if (modelFont instanceof BasicFont) {
 			BasicFont basicFont = (BasicFont) modelFont;
 			int fontStyle = SWT.NONE;

@@ -25,11 +25,13 @@ import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.Polygon;
@@ -44,12 +46,16 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramElementFigureEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelAccessorEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Label2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Label3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.LabelEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeContentPaneEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PointEditPart;
@@ -152,6 +158,9 @@ public class GMFGraphDiagramUpdater {
 			if (visualID == Polygon2EditPart.VISUAL_ID) {
 				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
 			}
+			if (visualID == Label2EditPart.VISUAL_ID) {
+				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
+			}
 		}
 		return result;
 	}
@@ -185,6 +194,10 @@ public class GMFGraphDiagramUpdater {
 				continue;
 			}
 			if (visualID == PolygonEditPart.VISUAL_ID) {
+				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
+				continue;
+			}
+			if (visualID == LabelEditPart.VISUAL_ID) {
 				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
 				continue;
 			}
@@ -224,6 +237,10 @@ public class GMFGraphDiagramUpdater {
 				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
 				continue;
 			}
+			if (visualID == LabelEditPart.VISUAL_ID) {
+				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
+				continue;
+			}
 		}
 		return result;
 	}
@@ -260,6 +277,10 @@ public class GMFGraphDiagramUpdater {
 				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
 				continue;
 			}
+			if (visualID == LabelEditPart.VISUAL_ID) {
+				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
+				continue;
+			}
 		}
 		return result;
 	}
@@ -293,6 +314,10 @@ public class GMFGraphDiagramUpdater {
 				continue;
 			}
 			if (visualID == PolygonEditPart.VISUAL_ID) {
+				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
+				continue;
+			}
+			if (visualID == LabelEditPart.VISUAL_ID) {
 				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
 				continue;
 			}
@@ -372,6 +397,10 @@ public class GMFGraphDiagramUpdater {
 				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
 				continue;
 			}
+			if (visualID == LabelEditPart.VISUAL_ID) {
+				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
+				continue;
+			}
 		}
 		return result;
 	}
@@ -405,6 +434,10 @@ public class GMFGraphDiagramUpdater {
 				continue;
 			}
 			if (visualID == PolygonEditPart.VISUAL_ID) {
+				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
+				continue;
+			}
+			if (visualID == LabelEditPart.VISUAL_ID) {
 				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
 				continue;
 			}
@@ -484,6 +517,10 @@ public class GMFGraphDiagramUpdater {
 				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
 				continue;
 			}
+			if (visualID == LabelEditPart.VISUAL_ID) {
+				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
+				continue;
+			}
 		}
 		return result;
 	}
@@ -520,6 +557,10 @@ public class GMFGraphDiagramUpdater {
 				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
 				continue;
 			}
+			if (visualID == LabelEditPart.VISUAL_ID) {
+				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
+				continue;
+			}
 		}
 		return result;
 	}
@@ -553,6 +594,10 @@ public class GMFGraphDiagramUpdater {
 				continue;
 			}
 			if (visualID == PolygonEditPart.VISUAL_ID) {
+				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
+				continue;
+			}
+			if (visualID == LabelEditPart.VISUAL_ID) {
 				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
 				continue;
 			}
@@ -644,6 +689,10 @@ public class GMFGraphDiagramUpdater {
 				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
 				continue;
 			}
+			if (visualID == Label3EditPart.VISUAL_ID) {
+				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
+				continue;
+			}
 		}
 		return result;
 	}
@@ -689,6 +738,14 @@ public class GMFGraphDiagramUpdater {
 				continue;
 			}
 		}
+		for (Iterator it = modelElement.getLabels().iterator(); it.hasNext();) {
+			DiagramLabel childElement = (DiagramLabel) it.next();
+			int visualID = GMFGraphVisualIDRegistry.getNodeVisualID(view, childElement);
+			if (visualID == DiagramLabelEditPart.VISUAL_ID) {
+				result.add(new GMFGraphNodeDescriptor(childElement, visualID));
+				continue;
+			}
+		}
 		return result;
 	}
 
@@ -707,6 +764,8 @@ public class GMFGraphDiagramUpdater {
 			return getConnection_2007ContainedLinks(view);
 		case FigureGalleryEditPart.VISUAL_ID:
 			return getFigureGallery_2008ContainedLinks(view);
+		case DiagramLabelEditPart.VISUAL_ID:
+			return getDiagramLabel_2009ContainedLinks(view);
 		case FigureDescriptorEditPart.VISUAL_ID:
 			return getFigureDescriptor_3009ContainedLinks(view);
 		case RectangleEditPart.VISUAL_ID:
@@ -723,6 +782,8 @@ public class GMFGraphDiagramUpdater {
 			return getPoint_3022ContainedLinks(view);
 		case PolygonEditPart.VISUAL_ID:
 			return getPolygon_3023ContainedLinks(view);
+		case LabelEditPart.VISUAL_ID:
+			return getLabel_3026ContainedLinks(view);
 		case Ellipse2EditPart.VISUAL_ID:
 			return getEllipse_3015ContainedLinks(view);
 		case RoundedRectangle2EditPart.VISUAL_ID:
@@ -731,6 +792,8 @@ public class GMFGraphDiagramUpdater {
 			return getPolyline_3017ContainedLinks(view);
 		case Polygon2EditPart.VISUAL_ID:
 			return getPolygon_3024ContainedLinks(view);
+		case Label2EditPart.VISUAL_ID:
+			return getLabel_3027ContainedLinks(view);
 		case Rectangle3EditPart.VISUAL_ID:
 			return getRectangle_3018ContainedLinks(view);
 		case Ellipse3EditPart.VISUAL_ID:
@@ -741,6 +804,8 @@ public class GMFGraphDiagramUpdater {
 			return getPolyline_3021ContainedLinks(view);
 		case Polygon3EditPart.VISUAL_ID:
 			return getPolygon_3025ContainedLinks(view);
+		case Label3EditPart.VISUAL_ID:
+			return getLabel_3028ContainedLinks(view);
 		case ChildAccessEditPart.VISUAL_ID:
 			return getChildAccess_4002ContainedLinks(view);
 		}
@@ -760,6 +825,8 @@ public class GMFGraphDiagramUpdater {
 			return getConnection_2007IncomingLinks(view);
 		case FigureGalleryEditPart.VISUAL_ID:
 			return getFigureGallery_2008IncomingLinks(view);
+		case DiagramLabelEditPart.VISUAL_ID:
+			return getDiagramLabel_2009IncomingLinks(view);
 		case FigureDescriptorEditPart.VISUAL_ID:
 			return getFigureDescriptor_3009IncomingLinks(view);
 		case RectangleEditPart.VISUAL_ID:
@@ -776,6 +843,8 @@ public class GMFGraphDiagramUpdater {
 			return getPoint_3022IncomingLinks(view);
 		case PolygonEditPart.VISUAL_ID:
 			return getPolygon_3023IncomingLinks(view);
+		case LabelEditPart.VISUAL_ID:
+			return getLabel_3026IncomingLinks(view);
 		case Ellipse2EditPart.VISUAL_ID:
 			return getEllipse_3015IncomingLinks(view);
 		case RoundedRectangle2EditPart.VISUAL_ID:
@@ -784,6 +853,8 @@ public class GMFGraphDiagramUpdater {
 			return getPolyline_3017IncomingLinks(view);
 		case Polygon2EditPart.VISUAL_ID:
 			return getPolygon_3024IncomingLinks(view);
+		case Label2EditPart.VISUAL_ID:
+			return getLabel_3027IncomingLinks(view);
 		case Rectangle3EditPart.VISUAL_ID:
 			return getRectangle_3018IncomingLinks(view);
 		case Ellipse3EditPart.VISUAL_ID:
@@ -794,6 +865,8 @@ public class GMFGraphDiagramUpdater {
 			return getPolyline_3021IncomingLinks(view);
 		case Polygon3EditPart.VISUAL_ID:
 			return getPolygon_3025IncomingLinks(view);
+		case Label3EditPart.VISUAL_ID:
+			return getLabel_3028IncomingLinks(view);
 		case ChildAccessEditPart.VISUAL_ID:
 			return getChildAccess_4002IncomingLinks(view);
 		}
@@ -813,6 +886,8 @@ public class GMFGraphDiagramUpdater {
 			return getConnection_2007OutgoingLinks(view);
 		case FigureGalleryEditPart.VISUAL_ID:
 			return getFigureGallery_2008OutgoingLinks(view);
+		case DiagramLabelEditPart.VISUAL_ID:
+			return getDiagramLabel_2009OutgoingLinks(view);
 		case FigureDescriptorEditPart.VISUAL_ID:
 			return getFigureDescriptor_3009OutgoingLinks(view);
 		case RectangleEditPart.VISUAL_ID:
@@ -829,6 +904,8 @@ public class GMFGraphDiagramUpdater {
 			return getPoint_3022OutgoingLinks(view);
 		case PolygonEditPart.VISUAL_ID:
 			return getPolygon_3023OutgoingLinks(view);
+		case LabelEditPart.VISUAL_ID:
+			return getLabel_3026OutgoingLinks(view);
 		case Ellipse2EditPart.VISUAL_ID:
 			return getEllipse_3015OutgoingLinks(view);
 		case RoundedRectangle2EditPart.VISUAL_ID:
@@ -837,6 +914,8 @@ public class GMFGraphDiagramUpdater {
 			return getPolyline_3017OutgoingLinks(view);
 		case Polygon2EditPart.VISUAL_ID:
 			return getPolygon_3024OutgoingLinks(view);
+		case Label2EditPart.VISUAL_ID:
+			return getLabel_3027OutgoingLinks(view);
 		case Rectangle3EditPart.VISUAL_ID:
 			return getRectangle_3018OutgoingLinks(view);
 		case Ellipse3EditPart.VISUAL_ID:
@@ -847,6 +926,8 @@ public class GMFGraphDiagramUpdater {
 			return getPolyline_3021OutgoingLinks(view);
 		case Polygon3EditPart.VISUAL_ID:
 			return getPolygon_3025OutgoingLinks(view);
+		case Label3EditPart.VISUAL_ID:
+			return getLabel_3028OutgoingLinks(view);
 		case ChildAccessEditPart.VISUAL_ID:
 			return getChildAccess_4002OutgoingLinks(view);
 		}
@@ -897,6 +978,18 @@ public class GMFGraphDiagramUpdater {
 	 */
 	public static List getFigureGallery_2008ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getDiagramLabel_2009ContainedLinks(View view) {
+		DiagramLabel modelElement = (DiagramLabel) view.getElement();
+		List result = new LinkedList();
+		result.addAll(getOutgoingFeatureModelFacetLinks_DiagramLabel_Accessor_4004(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_Node_ContentPane_4006(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_DiagramElement_Figure_4005(modelElement));
+		return result;
 	}
 
 	/**
@@ -961,6 +1054,13 @@ public class GMFGraphDiagramUpdater {
 	/**
 	 * @generated
 	 */
+	public static List getLabel_3026ContainedLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
 	public static List getEllipse_3015ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
@@ -983,6 +1083,13 @@ public class GMFGraphDiagramUpdater {
 	 * @generated
 	 */
 	public static List getPolygon_3024ContainedLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getLabel_3027ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
@@ -1024,6 +1131,13 @@ public class GMFGraphDiagramUpdater {
 	/**
 	 * @generated
 	 */
+	public static List getLabel_3028ContainedLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
 	public static List getChildAccess_4002ContainedLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
@@ -1053,6 +1167,13 @@ public class GMFGraphDiagramUpdater {
 	 * @generated
 	 */
 	public static List getFigureGallery_2008IncomingLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getDiagramLabel_2009IncomingLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
@@ -1143,6 +1264,17 @@ public class GMFGraphDiagramUpdater {
 	/**
 	 * @generated
 	 */
+	public static List getLabel_3026IncomingLinks(View view) {
+		Label modelElement = (Label) view.getElement();
+		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		List result = new LinkedList();
+		result.addAll(getIncomingTypeModelFacetLinks_ChildAccess_4002(modelElement, crossReferences));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
 	public static List getEllipse_3015IncomingLinks(View view) {
 		Ellipse modelElement = (Ellipse) view.getElement();
 		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
@@ -1178,6 +1310,17 @@ public class GMFGraphDiagramUpdater {
 	 */
 	public static List getPolygon_3024IncomingLinks(View view) {
 		Polygon modelElement = (Polygon) view.getElement();
+		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		List result = new LinkedList();
+		result.addAll(getIncomingTypeModelFacetLinks_ChildAccess_4002(modelElement, crossReferences));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getLabel_3027IncomingLinks(View view) {
+		Label modelElement = (Label) view.getElement();
 		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
 		List result = new LinkedList();
 		result.addAll(getIncomingTypeModelFacetLinks_ChildAccess_4002(modelElement, crossReferences));
@@ -1242,6 +1385,17 @@ public class GMFGraphDiagramUpdater {
 	/**
 	 * @generated
 	 */
+	public static List getLabel_3028IncomingLinks(View view) {
+		Label modelElement = (Label) view.getElement();
+		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		List result = new LinkedList();
+		result.addAll(getIncomingTypeModelFacetLinks_ChildAccess_4002(modelElement, crossReferences));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
 	public static List getChildAccess_4002IncomingLinks(View view) {
 		ChildAccess modelElement = (ChildAccess) view.getElement();
 		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
@@ -1289,6 +1443,18 @@ public class GMFGraphDiagramUpdater {
 	 */
 	public static List getFigureGallery_2008OutgoingLinks(View view) {
 		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getDiagramLabel_2009OutgoingLinks(View view) {
+		DiagramLabel modelElement = (DiagramLabel) view.getElement();
+		List result = new LinkedList();
+		result.addAll(getOutgoingFeatureModelFacetLinks_DiagramLabel_Accessor_4004(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_Node_ContentPane_4006(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_DiagramElement_Figure_4005(modelElement));
+		return result;
 	}
 
 	/**
@@ -1353,6 +1519,13 @@ public class GMFGraphDiagramUpdater {
 	/**
 	 * @generated
 	 */
+	public static List getLabel_3026OutgoingLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
 	public static List getEllipse_3015OutgoingLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
@@ -1375,6 +1548,13 @@ public class GMFGraphDiagramUpdater {
 	 * @generated
 	 */
 	public static List getPolygon_3024OutgoingLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getLabel_3027OutgoingLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
@@ -1410,6 +1590,13 @@ public class GMFGraphDiagramUpdater {
 	 * @generated
 	 */
 	public static List getPolygon_3025OutgoingLinks(View view) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List getLabel_3028OutgoingLinks(View view) {
 		return Collections.EMPTY_LIST;
 	}
 
@@ -1535,6 +1722,19 @@ public class GMFGraphDiagramUpdater {
 			return result;
 		}
 		result.add(new GMFGraphLinkDescriptor(source, destination, GMFGraphElementTypes.CompartmentAccessor_4003, CompartmentAccessorEditPart.VISUAL_ID));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection getOutgoingFeatureModelFacetLinks_DiagramLabel_Accessor_4004(DiagramLabel source) {
+		Collection result = new LinkedList();
+		ChildAccess destination = source.getAccessor();
+		if (destination == null) {
+			return result;
+		}
+		result.add(new GMFGraphLinkDescriptor(source, destination, GMFGraphElementTypes.DiagramLabelAccessor_4004, DiagramLabelAccessorEditPart.VISUAL_ID));
 		return result;
 	}
 

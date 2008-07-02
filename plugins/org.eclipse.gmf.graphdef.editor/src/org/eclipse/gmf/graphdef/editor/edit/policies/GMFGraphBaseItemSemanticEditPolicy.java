@@ -13,6 +13,7 @@ package org.eclipse.gmf.graphdef.editor.edit.policies;
 import java.util.Collections;
 import java.util.Iterator;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPart;
@@ -27,8 +28,12 @@ import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureDescriptor;
+import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.graphdef.editor.edit.helpers.GMFGraphBaseEditHelper;
+import org.eclipse.gmf.graphdef.editor.expressions.GMFGraphAbstractExpression;
+import org.eclipse.gmf.graphdef.editor.expressions.GMFGraphOCLFactory;
+import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
@@ -344,6 +349,11 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
+		private static GMFGraphAbstractExpression NodeContentPane_4006_SourceExpression;
+
+		/**
+		 * @generated
+		 */
 		public static boolean canCreateChildAccess_4002(FigureDescriptor source, Figure target) {
 			return canExistChildAccess_4002(source, target);
 		}
@@ -400,7 +410,6 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistChildAccess_4002(FigureDescriptor source, Figure target) {
-
 			return true;
 		}
 
@@ -408,7 +417,6 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistCompartmentAccessor_4003(Compartment source, ChildAccess target) {
-
 			return true;
 		}
 
@@ -416,7 +424,6 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistDiagramLabelAccessor_4004(DiagramLabel source, ChildAccess target) {
-
 			return true;
 		}
 
@@ -424,15 +431,29 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistNodeContentPane_4006(Node source, ChildAccess target) {
-
-			return true;
+			try {
+				if (source == null) {
+					return true;
+				}
+				if (NodeContentPane_4006_SourceExpression == null) {
+					Map env = Collections.singletonMap(OPPOSITE_END_VAR, GMFGraphPackage.eINSTANCE.getChildAccess());
+					NodeContentPane_4006_SourceExpression = GMFGraphOCLFactory.getExpression("not self.oclIsKindOf(gmfgraph::DiagramLabel)", GMFGraphPackage.eINSTANCE.getNode(), env); //$NON-NLS-1$
+				}
+				Object sourceVal = NodeContentPane_4006_SourceExpression.evaluate(source, Collections.singletonMap(OPPOSITE_END_VAR, target));
+				if (false == sourceVal instanceof Boolean || !((Boolean) sourceVal).booleanValue()) {
+					return false;
+				} // else fall-through
+				return true;
+			} catch (Exception e) {
+				GMFGraphDiagramEditorPlugin.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
+				return false;
+			}
 		}
 
 		/**
 		 * @generated
 		 */
 		public static boolean canExistDiagramElementFigure_4005(DiagramElement source, FigureDescriptor target) {
-
 			return true;
 		}
 

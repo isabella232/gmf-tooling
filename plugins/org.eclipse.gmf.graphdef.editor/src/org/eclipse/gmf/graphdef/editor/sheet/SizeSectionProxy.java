@@ -22,6 +22,8 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gmf.gmfgraph.Ellipse;
+import org.eclipse.gmf.gmfgraph.Label;
+import org.eclipse.gmf.gmfgraph.Polygon;
 import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
@@ -60,7 +62,7 @@ public class SizeSectionProxy extends SizeSection {
 	 */
 	protected Object unwrap(Object element) {
 		Object rv = PropertySectionFilters.transformSelection(element);
-		if (rv instanceof Rectangle || rv instanceof Ellipse || rv instanceof RoundedRectangle || rv instanceof Polyline) {
+		if (rv instanceof Rectangle || rv instanceof Ellipse || rv instanceof RoundedRectangle || rv instanceof Polyline || rv instanceof Polygon || rv instanceof Label) {
 			return rv;
 		}
 		return null;
@@ -76,7 +78,8 @@ public class SizeSectionProxy extends SizeSection {
 		 */
 		public boolean select(Object toTest) {
 			Object transformed = PropertySectionFilters.transformSelection(toTest);
-			return transformed instanceof Rectangle || transformed instanceof Ellipse || transformed instanceof RoundedRectangle || transformed instanceof Polyline;
+			return transformed instanceof Rectangle || transformed instanceof Ellipse || transformed instanceof RoundedRectangle || transformed instanceof Polyline || transformed instanceof Polygon
+					|| transformed instanceof Label;
 		}
 
 	}

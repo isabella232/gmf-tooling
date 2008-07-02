@@ -35,6 +35,8 @@
     <ownedChild>
       <domainMetaElement
           href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Node"/>
+      <domainSpecialization
+          body="not self.oclIsKindOf(gmfgraph::DiagramLabel)"/>
       <labelMappings
           xsi:type="gmfmap:FeatureLabelMapping">
         <diagramLabel
@@ -136,6 +138,11 @@
           </children>
           <children
               referencedChild="//@nodes.3/@ownedChild/@children.5/@ownedChild">
+            <containmentFeature
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//FigureDescriptor/actualFigure"/>
+          </children>
+          <children
+              referencedChild="//@nodes.3/@ownedChild/@children.6/@ownedChild">
             <containmentFeature
                 href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//FigureDescriptor/actualFigure"/>
           </children>
@@ -314,6 +321,29 @@
               </children>
             </ownedChild>
           </children>
+          <children>
+            <containmentFeature
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
+            <ownedChild>
+              <domainMetaElement
+                  href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Label"/>
+              <labelMappings
+                  xsi:type="gmfmap:FeatureLabelMapping"
+                  viewPattern=""
+                  editorPattern=""
+                  editPattern="">
+                <diagramLabel
+                    href="graphdef.gmfgraph#LabelNode_Text"/>
+                <features
+                    href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Label/text"/>
+              </labelMappings>
+              <tool
+                  xsi:type="gmftool:CreationTool"
+                  href="graphdef.gmftool#//@palette/@tools.1/@tools.8"/>
+              <diagramNode
+                  href="graphdef.gmfgraph#LabelNode"/>
+            </ownedChild>
+          </children>
         </ownedChild>
       </children>
       <children
@@ -353,6 +383,11 @@
             <containmentFeature
                 href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
           </children>
+          <children
+              referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.5/@ownedChild">
+            <containmentFeature
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
+          </children>
         </ownedChild>
       </children>
       <children
@@ -389,6 +424,11 @@
           </children>
           <children
               referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.4/@ownedChild">
+            <containmentFeature
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
+          </children>
+          <children
+              referencedChild="//@nodes.3/@ownedChild/@children.1/@ownedChild/@children.5/@ownedChild">
             <containmentFeature
                 href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//RealFigure/children"/>
           </children>
@@ -442,10 +482,58 @@
           </children>
         </ownedChild>
       </children>
+      <children
+          compartment="//@nodes.3/@ownedChild/@compartments.0">
+        <containmentFeature
+            href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//FigureGallery/figures"/>
+        <ownedChild>
+          <domainMetaElement
+              href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Label"/>
+          <labelMappings
+              xsi:type="gmfmap:FeatureLabelMapping"
+              viewPattern=""
+              editorPattern=""
+              editPattern="">
+            <diagramLabel
+                href="graphdef.gmfgraph#BorderedLabelNode_Text"/>
+            <features
+                href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Label/text"/>
+          </labelMappings>
+          <tool
+              xsi:type="gmftool:CreationTool"
+              href="graphdef.gmftool#//@palette/@tools.1/@tools.8"/>
+          <diagramNode
+              href="graphdef.gmfgraph#BorderedLabelNode"/>
+        </ownedChild>
+      </children>
       <compartments
-          children="//@nodes.3/@ownedChild/@children.1 //@nodes.3/@ownedChild/@children.2 //@nodes.3/@ownedChild/@children.3 //@nodes.3/@ownedChild/@children.4 //@nodes.3/@ownedChild/@children.0 //@nodes.3/@ownedChild/@children.5">
+          children="//@nodes.3/@ownedChild/@children.1 //@nodes.3/@ownedChild/@children.2 //@nodes.3/@ownedChild/@children.3 //@nodes.3/@ownedChild/@children.4 //@nodes.3/@ownedChild/@children.0 //@nodes.3/@ownedChild/@children.5 //@nodes.3/@ownedChild/@children.6">
         <compartment
             href="graphdef.gmfgraph#Figures"/>
+      </compartments>
+    </ownedChild>
+  </nodes>
+  <nodes>
+    <containmentFeature
+        href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Canvas/labels"/>
+    <ownedChild>
+      <domainMetaElement
+          href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//DiagramLabel"/>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping">
+        <diagramLabel
+            href="graphdef.gmfgraph#DiagramElementNode_Name"/>
+        <features
+            href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Identity/name"/>
+      </labelMappings>
+      <tool
+          xsi:type="gmftool:CreationTool"
+          href="graphdef.gmftool#//@palette/@tools.0/@tools.6"/>
+      <diagramNode
+          href="graphdef.gmfgraph#DiagramElementNode"/>
+      <compartments>
+        <compartment
+            href="graphdef.gmfgraph#VisualFacets"/>
       </compartments>
     </ownedChild>
   </nodes>
@@ -492,6 +580,10 @@
     <linkMetaFeature
         xsi:type="ecore:EReference"
         href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Node/contentPane"/>
+    <creationConstraints>
+      <sourceEnd
+          body="not self.oclIsKindOf(gmfgraph::DiagramLabel)"/>
+    </creationConstraints>
   </links>
   <links>
     <tool

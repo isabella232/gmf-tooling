@@ -29,11 +29,15 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.ChildAccessEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Label2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Label3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.LabelEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PointEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon2EditPart;
@@ -105,6 +109,7 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		case NodeEditPart.VISUAL_ID:
 		case ConnectionEditPart.VISUAL_ID:
 		case FigureGalleryEditPart.VISUAL_ID:
+		case DiagramLabelEditPart.VISUAL_ID:
 			if (!semanticChildren.contains(view.getElement())) {
 				return true;
 			}
@@ -129,6 +134,7 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			myFeaturesToSynchronize.add(GMFGraphPackage.eINSTANCE.getCanvas_Nodes());
 			myFeaturesToSynchronize.add(GMFGraphPackage.eINSTANCE.getCanvas_Connections());
 			myFeaturesToSynchronize.add(GMFGraphPackage.eINSTANCE.getCanvas_Figures());
+			myFeaturesToSynchronize.add(GMFGraphPackage.eINSTANCE.getCanvas_Labels());
 		}
 		return myFeaturesToSynchronize;
 	}
@@ -274,6 +280,15 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			}
 			break;
 		}
+		case DiagramLabelEditPart.VISUAL_ID: {
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getDiagramLabel_2009ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
+			break;
+		}
 		case FigureDescriptorEditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(GMFGraphDiagramUpdater.getFigureDescriptor_3009ContainedLinks(view));
@@ -346,6 +361,15 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			}
 			break;
 		}
+		case LabelEditPart.VISUAL_ID: {
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getLabel_3026ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
+			break;
+		}
 		case Ellipse2EditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(GMFGraphDiagramUpdater.getEllipse_3015ContainedLinks(view));
@@ -376,6 +400,15 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		case Polygon2EditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(GMFGraphDiagramUpdater.getPolygon_3024ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
+			break;
+		}
+		case Label2EditPart.VISUAL_ID: {
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getLabel_3027ContainedLinks(view));
 			}
 			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
 				domain2NotationMap.put(view.getElement(), view);
@@ -421,6 +454,15 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		case Polygon3EditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(GMFGraphDiagramUpdater.getPolygon_3025ContainedLinks(view));
+			}
+			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				domain2NotationMap.put(view.getElement(), view);
+			}
+			break;
+		}
+		case Label3EditPart.VISUAL_ID: {
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(GMFGraphDiagramUpdater.getLabel_3028ContainedLinks(view));
 			}
 			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
 				domain2NotationMap.put(view.getElement(), view);
