@@ -37,6 +37,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
+import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 
 /**
@@ -45,7 +46,9 @@ import org.eclipse.gmf.runtime.notation.Node;
 public class ElementInitializerTest extends RuntimeDiagramTestBase {
 	private EObject nodeAElement;
 	private EObject nodeBElement;
-	protected String myElementInitializersClassName;	
+	protected String myElementInitializersClassName;
+	private Node myNodeB;
+	private Node myNodeA;	
 	
 	public ElementInitializerTest(String name) {
 		super(name);
@@ -53,10 +56,10 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		Node nodeA = createNode(getGenModel().getNodeA(), getDiagram());
-		this.nodeAElement = nodeA.getElement();
-		Node nodeB = createNode(getGenModel().getNodeB(), getDiagram());
-		this.nodeBElement = nodeB.getElement();
+		myNodeA = createNode(getGenModel().getNodeA(), getDiagram());
+		this.nodeAElement = myNodeA.getElement();
+		myNodeB = createNode(getGenModel().getNodeB(), getDiagram());
+		this.nodeBElement = myNodeB.getElement();
 		assertNotNull("Tested node A element not available", nodeAElement); //$NON-NLS-1$
 		assertNotNull("Tested node B element not available", nodeBElement); //$NON-NLS-1$
 		myElementInitializersClassName = getGenModel().getGenDiagram().getProvidersPackageName() + ".ElementInitializers"; //$NON-NLS-1$
@@ -87,10 +90,10 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		
 		Object val = nodeAElement.eGet(feature);
 		assertTrue(val instanceof Collection);
-		Collection children = (Collection) val;
+		Collection<?> children = (Collection<?>) val;
 		assertEquals("2 child nodes expected", 2, children.size());
 		int index = 0;
-		for (Iterator it = children.iterator(); it.hasNext(); index++) {
+		for (Iterator<?> it = children.iterator(); it.hasNext(); index++) {
 			Object nextChild = it.next();
 			assertTrue("Incorrect child present", nextChild instanceof EObject);
 			EObject nextEObject = (EObject) nextChild;
@@ -100,6 +103,22 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 			assertTrue("Incorrect name value returned", name instanceof String);
 			assertEquals("Name feature was not correctly initialized", nextEObject.eClass().getName() + "_" + index, (String) name);
 		}
+	}
+
+	/*
+	 * [227127] Literal element initializers
+	 */
+	public void testLiteralElementInitializers() {
+		Edge a2b = createLink(getGenModel().getLinkC(), myNodeA, myNodeB);
+		assertNotNull("There were no link kind restrictions, should be no problem to create a link", a2b);
+		EObject linkObject = a2b.getElement();
+		assertNotNull(linkObject);
+		EStructuralFeature boolAttr = linkObject.eClass().getEStructuralFeature("boolToInit");
+		assertNotNull(boolAttr);
+		EStructuralFeature stringAttr = linkObject.eClass().getEStructuralFeature("stringToInit");
+		assertNotNull(stringAttr);
+		assertEquals("Value of boolean attribute after element creation should match one set in LinkSessionSetup", Boolean.TRUE, linkObject.eGet(boolAttr));
+		assertEquals("Value of string attribute after element creation should match one set in LinkSessionSetup", "init-string", linkObject.eGet(stringAttr));
 	}
 	
 	public void testDeepNewElementInitializers() {
@@ -120,7 +139,7 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		assertNotNull("feature not found in the intializer class", feature); //$NON-NLS-1$
 		Object val = parent.eGet(feature);
 		assertTrue(val instanceof Collection);
-		Collection children = (Collection) val;
+		Collection<?> children = (Collection<?>) val;
 		assertTrue("At least one child node expected", children.size() > 0);
 		Object child = children.iterator().next();
 		assertTrue("Child element dhould be EObject", child instanceof EObject);

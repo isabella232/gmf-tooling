@@ -43,6 +43,7 @@ import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.DiagramElementTarget;
 import org.eclipse.gmf.mappings.DomainAttributeTarget;
 import org.eclipse.gmf.mappings.DomainElementTarget;
+import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.FeatureInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
@@ -315,6 +316,7 @@ public class LinksSessionSetup extends SessionSetup {
 			}
 		}
 		
+		
 		static FeatureSeqInitializer createFSeqInit(FeatureInitDataHelper[] featureInits) {
 			FeatureSeqInitializer elementInitializer = GMFMapFactory.eINSTANCE.createFeatureSeqInitializer();
 			for (int i = 0; i < featureInits.length; i++) {
@@ -351,6 +353,10 @@ public class LinksSessionSetup extends SessionSetup {
 
 		FeatureInitDataHelper featureValJava(String featureQName, final String expressionBody) {
 			return featureVal(modelAccess.findFeature(featureQName), expressionBody, Language.JAVA_LITERAL);
+		}
+
+		FeatureInitDataHelper featureValLiteral(String featureQName, String expression) {
+			return featureVal(modelAccess.findFeature(featureQName), expression, Language.LITERAL_LITERAL);
 		}
 
 		private static FeatureInitDataHelper featureVal(EStructuralFeature sf, final String expressionBody, final Language expressionLang) {
@@ -455,6 +461,14 @@ public class LinksSessionSetup extends SessionSetup {
 
 		protected void setupClassLinkMapping(LinkMapping lme) {
 			addCreationConstraints(lme, null, "self.acceptLinkKind = oppositeEnd.acceptLinkKind"); //$NON-NLS-1$
+			assert lme.getDomainInitializer() == null; // sanity, don't want to break anything
+			// we use element initializers of the link with class just
+			// to check LITERAL kind of value expressions
+			ElementInitializer ei = createFSeqInit(new FeatureInitDataHelper[] {
+				featureValLiteral("//Link/boolToInit", "true"),
+				featureValLiteral("//Link/stringToInit", "\"init-string\""),
+			});
+			lme.setDomainInitializer(ei);
 		}
 
 		protected void setupReferenceLinkMapping(LinkMapping lme) {
