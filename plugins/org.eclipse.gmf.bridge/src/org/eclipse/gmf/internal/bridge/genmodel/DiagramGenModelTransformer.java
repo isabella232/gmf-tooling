@@ -818,6 +818,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			return GenLanguage.REGEXP_LITERAL;
 		case Language.NREGEXP:
 			return GenLanguage.NREGEXP_LITERAL;
+		case Language.LITERAL :
+			return GenLanguage.LITERAL_LITERAL;
 		default:
 			assert false : mapLang;
 		}
@@ -1065,23 +1067,24 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 	
 	private GenExpressionProviderBase createExpressionProvider(GenLanguage language) {
-		GenExpressionProviderBase newProvider = null;
-		if(GenLanguage.JAVA_LITERAL.equals(language)) {
-			newProvider = GMFGenFactory.eINSTANCE.createGenJavaExpressionProvider();			
-		} else if(GenLanguage.OCL_LITERAL.equals(language)) {
-			GenExpressionInterpreter oclProvider = GMFGenFactory.eINSTANCE.createGenExpressionInterpreter();
-			oclProvider.setLanguage(language);
-			newProvider = oclProvider;
-		} else if(GenLanguage.REGEXP_LITERAL.equals(language) || GenLanguage.NREGEXP_LITERAL.equals(language)) {
+		switch (language.getValue()) {
+		case GenLanguage.JAVA :
+			return  GMFGenFactory.eINSTANCE.createGenJavaExpressionProvider();
+		case GenLanguage.OCL : 
+		case GenLanguage.REGEXP :
+		case GenLanguage.NREGEXP : {
 			GenExpressionInterpreter regexpProvider = GMFGenFactory.eINSTANCE.createGenExpressionInterpreter();
 			regexpProvider.setLanguage(language);
-			newProvider = regexpProvider;
-		} else {
-			newProvider = GMFGenFactory.eINSTANCE.createGenExpressionInterpreter();
+			return regexpProvider;
+		}
+		case GenLanguage.LITERAL :
+			return GMFGenFactory.eINSTANCE.createGenLiteralExpressionProvider();
+		default : {
+			assert false : language;
+			return GMFGenFactory.eINSTANCE.createGenExpressionInterpreter();
 			// fake provider with no language set to fail validation (XXX perhaps, makes sense to add 'unrecognized' language?)
 		}
-		assert newProvider != null;
-		return newProvider;
+		}
 	}
 
 	private void addPreferencePages(GenDiagram diagram) {
