@@ -866,21 +866,27 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateExpressionProviders() throws UnexpectedBehaviourException, InterruptedException {
 		GenExpressionProviderContainer providerContainer = myEditorGen.getExpressionProviders();
-		doGenerateJavaClass(myEmitters.getAbstractExpressionEmitter(), providerContainer.getAbstractExpressionQualifiedClassName(), myDiagram);
+		boolean needAbstractExpression = false;
 		for (GenExpressionProviderBase nextProvider : providerContainer.getProviders()) {
 			if (nextProvider instanceof GenExpressionInterpreter) {
 				TextEmitter providerEmitter = null;
 				if (GenLanguage.OCL_LITERAL.equals(nextProvider.getLanguage())) {
 					providerEmitter = myEmitters.getOCLExpressionFactoryEmitter();
+					needAbstractExpression = true;
 				} else if (GenLanguage.REGEXP_LITERAL.equals(nextProvider.getLanguage())
 						|| GenLanguage.NREGEXP_LITERAL.equals(nextProvider.getLanguage())) {
 					providerEmitter = myEmitters.getRegexpExpressionFactoryEmitter();
+					needAbstractExpression = true;
 				}
 				GenExpressionInterpreter interpreter = (GenExpressionInterpreter) nextProvider;
 				if (providerEmitter != null) {
 					doGenerateJavaClass(providerEmitter, interpreter.getQualifiedClassName(), interpreter);
 				}
 			}
+		}
+		if (needAbstractExpression) {
+			// so that if there are only literal initializers, do not generate any extra class
+			doGenerateJavaClass(myEmitters.getAbstractExpressionEmitter(), providerContainer.getAbstractExpressionQualifiedClassName(), myDiagram);
 		}
 	}
 
