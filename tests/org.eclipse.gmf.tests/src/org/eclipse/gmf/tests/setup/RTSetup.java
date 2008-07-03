@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -59,7 +59,7 @@ import org.osgi.framework.Bundle;
 public class RTSetup implements RTSource {
 	private static int ourURISuffix = 1;
 
-	private Diagram myCanvas;
+	protected Diagram myCanvas;
 	private Node myNodeA;
 	private Node myNodeB;
 	private Edge myLinkByClass;
@@ -67,7 +67,7 @@ public class RTSetup implements RTSource {
 	private Node myNodeACompartment;
 	private Node myNodeBCompartment;
 	
-	private EObject myDiagramElement;
+	protected EObject myDiagramElement;
 
 
 	public RTSetup() {
@@ -149,8 +149,6 @@ public class RTSetup implements RTSource {
 		myLinkByRef.setElement(null);
 		setBendpoints(myLinkByRef);
 		
-		myCanvas.setType(genSource.getGenDiagram().getEditorGen().getDomainGenModel().getModelName());
-
 		/*
 		Object nc = diagramElement.eGet(genSource.getGenNode().getContainmentMetaFeature().getEcoreFeature());
 		assert nc instanceof EList;
