@@ -24,7 +24,11 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="books" upperBound="-1"
-        eType="#//Book" eOpposite="#//Book/author"/>
+        eType="#//Book" eOpposite="#//Book/author">
+      <eAnnotations source="gmf">
+        <details key="link" value="wrote"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="opinions" upperBound="-1"
         eType="#//Opinion" containment="true" eOpposite="#//Opinion/writer"/>
   </eClassifiers>
@@ -43,11 +47,7 @@
         defaultValueLiteral="100"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" eType="#//BookCategory"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="author" lowerBound="1"
-        eType="#//Writer" eOpposite="#//Writer/books">
-      <eAnnotations source="gmf">
-        <details key="link" value="BookAuthor"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//Writer" eOpposite="#//Writer/books"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="reviews" upperBound="-1"
         eType="#//Review" containment="true" eOpposite="#//Review/book"/>
   </eClassifiers>
