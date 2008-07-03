@@ -69,7 +69,7 @@ public abstract class AbstractCanvasTest extends ConfiguredTestCase {
 			try {
 				myViewerConfiguration = createViewerConfiguration();
 			} catch (Exception e) {
-				fail(e.getMessage());
+				fail(e.getClass().getName() + ": " + e.getMessage());
 			}
 			assertNotNull("No viewer configuration", myViewerConfiguration);
 		}

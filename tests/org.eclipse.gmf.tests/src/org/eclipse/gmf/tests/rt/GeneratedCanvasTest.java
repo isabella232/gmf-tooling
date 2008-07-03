@@ -48,7 +48,7 @@ public abstract class GeneratedCanvasTest extends AbstractCanvasTest {
 			try {
 				myRTSource = createCanvasInstance();
 			} catch (Exception e) {
-				fail(e.getMessage());
+				fail(e.getClass().getName() + ": " + e.getMessage());
 			}
 		}
 		return myRTSource;
