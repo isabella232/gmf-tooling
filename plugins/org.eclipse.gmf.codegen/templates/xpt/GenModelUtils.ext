@@ -31,13 +31,17 @@ JAVA org.eclipse.gmf.internal.codegen.util.GenModelUtils.findGenClassifier(org.e
 
 //GenFeature#getReverse
 genmodel::GenFeature getReverse(genmodel::GenFeature feature) :
-	let eReverseFeature = ((ecore::EReference) feature.ecoreFeature).eOpposite :
-		eReverseFeature != null ? 
-			(let genClass = (genmodel::GenClass) findGenClassifier(feature.genClass.genPackage.genModel, eReverseFeature.eContainingClass) :
-				genClass != null ? 
-					genClass.genFeatures.select(e|e.ecoreFeature == eReverseFeature).first()
-					: null)
+	isReferenceType(feature) ?
+		(let eReverseFeature = ((ecore::EReference) feature.ecoreFeature).eOpposite : 
+			eReverseFeature != null ? 
+				(let genClass = (genmodel::GenClass) findGenClassifier(feature.genClass.genPackage.genModel, eReverseFeature.eContainingClass) :
+					genClass != null ? 
+						genClass.genFeatures.select(e|e.ecoreFeature == eReverseFeature).first()
+						: null
+				)
 			: null
+		)
+		: null
 ;
 
 // For primitive types, return their java.lang wrappers, for non-primitive

@@ -318,7 +318,10 @@ protected org.eclipse.emf.ecore.EObject getSemanticElement() {
 «ENDDEFINE»
 
 
-
+«REM»
+		FIXME need to check constraint's provider to ensure we don't generate a field
+		for e.g. Java (or Literal, which is unlikely, though) expressions
+«ENDREM»
 «DEFINE linkConstraints FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::generatedClassComment»
 public static class «getLinkCreationConstraintsClassName()» {
@@ -420,24 +423,30 @@ if («EXPAND featureBoundComparator(getContainerVariable(modelFacet), modelFacet.
 «ENDDEFINE»
 
 «DEFINE checkEMFConstraints FOR gmfgen::FeatureLinkModelFacet-»
-	«LET "source" AS sourceVar-»
-if («sourceVar» != null) {
-	if (
-		«REM»Checking uper bounds if was specified in MM«ENDREM»«-»
-		«IF metaFeature.ecoreFeature.upperBound > 0»«EXPAND featureBoundComparator(sourceVar, getSourceType()) FOR metaFeature»«ENDIF-»
-		«REM»Checking uniqueness in addition if uper bounds > 1«ENDREM»«-»
-		«IF metaFeature.ecoreFeature.upperBound > 1» || «ENDIF-»
-		«REM»Checking uniqueness in if uper bounds > 1 or < 0«ENDREM»«-»
-		«IF metaFeature.ecoreFeature.upperBound != 1»«EXPAND featureUniquenessComparator(sourceVar, getSourceType()) FOR metaFeature»«ENDIF») {
+if (source != null) {
+	if («EXPAND featureBoundsConditionClause("source", getSourceType()) FOR metaFeature») {
 		return false;
 	}
-		«IF metaFeature.isContains()-»
+	«IF metaFeature.isContains()-»
 	if (source == target) {
 		return false;
 	}
-		«ENDIF-»	
+	«ENDIF-»	
 }
-	«ENDLET-»
+«IF getReverse(metaFeature) != null-»
+if (target != null && («EXPAND featureBoundsConditionClause("target", getTargetType()) FOR getReverse(metaFeature)»)) {
+	return false;
+}
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE featureBoundsConditionClause(String targetVar, GenClass targetType) FOR GenFeature-»
+«REM»Checking upper bounds if was specified in MM«ENDREM»«-»
+«IF ecoreFeature.upperBound > 0»«EXPAND featureBoundComparator(targetVar, targetType)»«ENDIF-»
+«REM»Checking uniqueness in addition if upper bounds > 1«ENDREM»«-»
+«IF ecoreFeature.upperBound > 1» || «ENDIF-»
+«REM»Checking uniqueness in if upper bounds > 1 or < 0«ENDREM»«-»
+«IF ecoreFeature.upperBound != 1»«EXPAND featureUniquenessComparator(targetVar, targetType)»«ENDIF»
 «ENDDEFINE»
 
 «DEFINE featureBoundComparator(String featureVar, genmodel::GenClass featureVarGenClass) FOR genmodel::GenFeature»«EXPAND MetaModel::getFeatureValue(featureVar, featureVarGenClass)»«IF ecoreFeature.upperBound == 1» != null«ELSE».size() >= «ecoreFeature.upperBound»«ENDIF»«ENDDEFINE»
