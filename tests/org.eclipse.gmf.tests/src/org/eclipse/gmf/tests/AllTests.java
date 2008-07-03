@@ -50,6 +50,7 @@ import org.eclipse.gmf.tests.rt.LinkChildMetaFeatureNotFromContainerTest;
 import org.eclipse.gmf.tests.rt.ElementInitializerTest;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.rt.LinkCreationTest;
+import org.eclipse.gmf.tests.rt.LinkEcoreConstraintsTest;
 import org.eclipse.gmf.tests.rt.MetricRulesTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
@@ -88,6 +89,7 @@ public class AllTests {
 		 * beginning to get rid of the problems with runtime registries
 		 * reloading. In particular - ViewService.
 		 */
+/*
 		try {
 			sessionSetup.getGeneratedPlugin();
 			sessionSetup2.getGeneratedPlugin();
@@ -100,6 +102,7 @@ public class AllTests {
 			});
 			return suite;
 		}
+*/
 		/* [AS--] */
 
 		//$JUnit-BEGIN$
@@ -150,6 +153,7 @@ public class AllTests {
 		suite.addTest(feed(GenModelTransformerBasicRTTest.class, sessionSetup));
 		suite.addTest(feed(DiagramEditorTest.class, sessionSetup));
 		suite.addTestSuite(LinkChildMetaFeatureNotFromContainerTest.class);
+		suite.addTestSuite(LinkEcoreConstraintsTest.class);
 
 //		suite.addTestSuite(RunTimeModelTransformerTest.class); #113966
 //		suite.addTestSuite(PropertiesTest.class); #113965 
