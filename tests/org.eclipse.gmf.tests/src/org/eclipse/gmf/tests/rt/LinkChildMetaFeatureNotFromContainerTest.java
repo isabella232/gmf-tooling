@@ -38,6 +38,7 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.Utils;
 import org.eclipse.gmf.tests.gef.AbstractDiagramEditorTest;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
+import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 
 /**
@@ -45,7 +46,7 @@ import org.eclipse.gmf.tests.setup.SessionSetup;
  * @author artem
  */
 public class LinkChildMetaFeatureNotFromContainerTest extends AbstractDiagramEditorTest {
-	private static final SessionSetup setup = new SessionSetup() {
+	private static final SessionSetup setup = new SessionSetup(new RuntimeBasedGeneratorConfiguration()) {
 		@Override
 		protected DiaGenSource createGenModel() {
 			return new DiaGenSource() {

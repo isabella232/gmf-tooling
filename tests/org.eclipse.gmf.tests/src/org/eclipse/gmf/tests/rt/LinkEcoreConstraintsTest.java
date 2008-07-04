@@ -27,6 +27,7 @@ import org.eclipse.gmf.tests.setup.DomainModelSource;
 import org.eclipse.gmf.tests.setup.MapDefSource;
 import org.eclipse.gmf.tests.setup.RTSetup;
 import org.eclipse.gmf.tests.setup.RTSource;
+import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.ToolDefSource;
 import org.eclipse.gmf.tests.setup.annotated.GenASetup;
@@ -64,7 +65,7 @@ public class LinkEcoreConstraintsTest extends GeneratedCanvasTest {
 				return getGenDiagram().getLinks().get(0);
 			}
 		};
-		configure(new SessionSetup() {
+		configure(new SessionSetup(new RuntimeBasedGeneratorConfiguration()) {
 			@Override
 			public DomainModelSource getDomainModel() {
 				return dmSource;

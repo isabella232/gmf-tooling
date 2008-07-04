@@ -28,12 +28,15 @@ public class SessionSetup implements TestConfiguration {
 	private ToolDefSource myToolDefModel;
 	private int myUses;
 	protected static boolean factoryClosed = false;
-	private GeneratorConfiguration myGeneratorConfiguration;
+	private final GeneratorConfiguration myGeneratorConfig;
 
 	/**
 	 * Use factory method {@link #newInstance()} instead
+	 * @param generatorConfig 
 	 */
-	protected SessionSetup() {
+	protected SessionSetup(GeneratorConfiguration generatorConfig) {
+		assert generatorConfig != null;
+		myGeneratorConfig = generatorConfig;
 	}
 
 	/**
@@ -50,7 +53,7 @@ public class SessionSetup implements TestConfiguration {
 		if (factoryClosed) {
 			return null;
 		}
-		return new SessionSetup();
+		return new SessionSetup(new RuntimeBasedGeneratorConfiguration());
 	}
 
 	public DomainModelSource getDomainModel() {
@@ -87,14 +90,7 @@ public class SessionSetup implements TestConfiguration {
 	}
 
 	public GeneratorConfiguration getGeneratorConfiguration() {
-		if (myGeneratorConfiguration == null) {
-			myGeneratorConfiguration = createGeneratorConfiguration();
-		}
-		return myGeneratorConfiguration;
-	}
-
-	protected GeneratorConfiguration createGeneratorConfiguration() {
-		return new RuntimeBasedGeneratorConfiguration();
+		return myGeneratorConfig;
 	}
 
 	public MapDefSource getMapModel() {

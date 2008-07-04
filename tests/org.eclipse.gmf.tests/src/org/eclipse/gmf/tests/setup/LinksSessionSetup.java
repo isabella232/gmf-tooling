@@ -64,14 +64,16 @@ public class LinksSessionSetup extends SessionSetup {
 
 	public static String modelURI = "/models/links/links.ecore"; //$NON-NLS-1$
 	
-	protected LinksSessionSetup() {
+	protected LinksSessionSetup(GeneratorConfiguration genConfig) {
+		super(genConfig);
+		
 	}
 
 	public static SessionSetup newInstance() {
 		if (factoryClosed) {
 			return null;
 		}
-		return new LinksSessionSetup();
+		return new LinksSessionSetup(new RuntimeBasedGeneratorConfiguration());
 	}
 
 	@Override
