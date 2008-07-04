@@ -12,6 +12,7 @@ package org.eclipse.gmf.tests.rt;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -22,8 +23,11 @@ import org.eclipse.gmf.internal.bridge.genmodel.GenModelMatcher;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tests.setup.LinksSessionSetup;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 
-public class LinkCreationConstraintsTest extends RuntimeDiagramTestBase {
+public class LinkCreationConstraintsTest extends GeneratedCanvasTest {
 
 	public LinkCreationConstraintsTest(String name) {
 		super(name);
@@ -75,7 +79,10 @@ public class LinkCreationConstraintsTest extends RuntimeDiagramTestBase {
 		
 		Node targetNode = createNode(getTargetGenNode(), diagram);		
 		assertNotNull(findEditPart(targetNode));
-		setBusinessElementStructuralFeature(sourceContainerNode, "acceptLinkKind", null); //$NON-NLS-1$				
+		setBusinessElementStructuralFeature(sourceContainerNode, "acceptLinkKind", null); //$NON-NLS-1$
+		// XXX canStartLinkFrom returns false if command == null or not executable
+		// hence, assertFalse is slightly incorrect here - command SHOULD NOT be null
+		// but only its canExecute() should be false?
 		assertFalse("Can start link without acceptedLinkKind", //$NON-NLS-1$
 				canStartLinkFrom(getRefGenLink(), sourceContainerNode));
 		
@@ -129,4 +136,31 @@ public class LinkCreationConstraintsTest extends RuntimeDiagramTestBase {
 		return getGenModel().getNodeB();
 	}
 
+	private boolean canStartLinkFrom(GenLink linkType, View source) {
+		Command cmd = getViewerConfiguration().getStartLinkCommand(source, linkType);
+		return cmd != null && cmd.canExecute();
+	}
+	/**
+	 * Sets structural feature value of the business element associated with the
+	 * given notation element.
+	 * 
+	 * @param view
+	 *            the notation element encapsulating the bussiness object
+	 *            containing the feature to be modified
+	 * @param featureName
+	 *            the name of the structural feature to set.
+	 * @param value
+	 *            the value to set
+	 * @throws IllegalArgumentException
+	 *             if the given name does not refer existing feature
+	 */
+	private void setBusinessElementStructuralFeature(View view, String featureName, Object value) {
+		Command command = getViewerConfiguration().getSetBusinessElementStructuralFeatureCommand(view, featureName, value);
+		assertNotNull("Command is null", command);
+		command.execute();
+	}
+
+	protected SessionSetup createDefaultSetup() {
+		return LinksSessionSetup.newInstance();
+	}
 }

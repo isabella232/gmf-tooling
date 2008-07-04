@@ -20,12 +20,14 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
 import org.eclipse.gmf.mappings.MetricContainer;
+import org.eclipse.gmf.tests.setup.LinksSessionSetup;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 
 /**
  * TODO: need to validate that not only calcXXX methods are present and work,
  * but also rest of the calculate[Domain|Diagram|Notation]ElementMetrics. 
  */
-public class MetricRulesTest extends RuntimeDiagramTestBase {
+public class MetricRulesTest extends GeneratedCanvasTest {
 	private MetricContainer metricContainer;
 	private GenMetricContainer genMetricContainer;
 	
@@ -93,5 +95,9 @@ public class MetricRulesTest extends RuntimeDiagramTestBase {
 				fail("Metric rule evaluation failed. " + e.toString()); //$NON-NLS-1$
 			}
 		}		
+	}
+
+	protected SessionSetup createDefaultSetup() {
+		return LinksSessionSetup.newInstance();
 	}
 }

@@ -56,7 +56,9 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.MapDefSource;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 
 /**
  * Tests valid registration of audit rule definitions in emft validation framework
@@ -72,7 +74,7 @@ import org.eclipse.gmf.tests.setup.MapDefSource;
  * providers descriptor only once during its bundle activation and newly installed extensions
  *  would not be added  
  */
-public class AuditRulesTest extends RuntimeDiagramTestBase {
+public class AuditRulesTest extends GeneratedCanvasTest {
 	private AuditContainer audits;
 	private AuditAssert auditAssert;
 	private List<GenPackage> targetedPackages;
@@ -326,6 +328,10 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 		return null; // make compiler happy
 	}
 	
+	protected SessionSetup createDefaultSetup() {
+		return LinksSessionSetup.newInstance();
+	}
+
 	static EClass getTargetEClass(AuditRule rule) {
 		assertNotNull("Audit target must be set", rule.getTarget()); //$NON-NLS-1$
 		return getTargetEClass(rule.getTarget());

@@ -39,11 +39,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.tests.setup.LinksSessionSetup;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 
 /**
  * Tests domain meta-model element initialization   
  */
-public class ElementInitializerTest extends RuntimeDiagramTestBase {
+public class ElementInitializerTest extends GeneratedCanvasTest {
 	private EObject nodeAElement;
 	private EObject nodeBElement;
 	protected String myElementInitializersClassName;
@@ -311,5 +313,9 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 			fail("Expected class not generated. " + e.toString()); //$NON-NLS-1$
 		}
 		return null;
+	}
+
+	protected SessionSetup createDefaultSetup() {
+		return LinksSessionSetup.newInstance();
 	}
 }

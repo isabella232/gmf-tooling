@@ -15,6 +15,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.RTSetup;
 import org.eclipse.gmf.tests.setup.RTSource;
@@ -97,7 +98,11 @@ public abstract class GeneratedCanvasTest extends AbstractCanvasTest {
 	protected final Node getNotation(EditPart editPart) {
 		return (Node) editPart.getModel();
 	}
-	
+
+	protected final DiaGenSource getGenModel() {
+		return getSetup().getGenModel();
+	}
+
 	protected ViewerConfiguration createViewerConfiguration(Diagram canvas) throws Exception {
 		myParentShell = new Shell(SWT.NONE);
 		return getSetup().getGeneratorConfiguration().createViewerConfiguration(myParentShell, getSetup(), canvas);

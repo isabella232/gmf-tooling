@@ -34,7 +34,11 @@ import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration.ViewerConfiguration;
 
 /**
- * Provides default operations like creating nodes and links. The responsibility of creation of ViewerConfiguration is left to subclasses.
+ * Provides default operations like creating nodes and links. 
+ * The responsibility of creation of ViewerConfiguration is left to subclasses.
+ * 
+ * Despite the fact it extends ConfiguredTestCase, it doesn't utilize session configs,
+ * instead, its subclasses do ({@link GeneratedCanvasTest}).
  */
 public abstract class AbstractCanvasTest extends ConfiguredTestCase {
 	private GeneratorConfiguration.ViewerConfiguration myViewerConfiguration;
