@@ -79,8 +79,12 @@ public abstract class AbstractCanvasTest extends ConfiguredTestCase {
 		}
 		return myViewerConfiguration;
 	}
-	
- 	protected Node createNode(GenCommonBase nodeType, View notationContainer) {
+
+	protected Node createTopNode(GenCommonBase nodeType) {
+		return createNode(nodeType, getDiagram());
+	}
+
+	protected Node createNode(GenCommonBase nodeType, View notationContainer) {
  		CreateListener createListener = new CreateListener(NotationPackage.eINSTANCE.getView());
 		Command cmd = getViewerConfiguration().getCreateNodeCommand(notationContainer, nodeType);
 		Assert.assertNotNull("No command is available for request", cmd); //$NON-NLS-1$		
