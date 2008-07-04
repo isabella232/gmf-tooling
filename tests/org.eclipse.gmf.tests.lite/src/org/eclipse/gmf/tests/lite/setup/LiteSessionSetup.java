@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -28,14 +28,15 @@ import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Display;
 
 public class LiteSessionSetup extends SessionSetup {
-	protected LiteSessionSetup() {
+	protected LiteSessionSetup(GeneratorConfiguration genConfig) {
+		super(genConfig);
 	}
 
 	public static SessionSetup getInstance() {
 		if (factoryClosed) {
 			return null;
 		}
-		return new LiteSessionSetup();
+		return new LiteSessionSetup(new LiteGeneratorConfiguration());
 	}
 
 	protected DiaGenSource createGenModel() {
@@ -65,9 +66,5 @@ public class LiteSessionSetup extends SessionSetup {
 		result.setRed((int)(Math.random()*255));
 		result.setGreen((int)(Math.random()*255));
 		return result;
-	}
-
-	protected GeneratorConfiguration createGeneratorConfiguration() {
-		return new LiteGeneratorConfiguration();
 	}
 }

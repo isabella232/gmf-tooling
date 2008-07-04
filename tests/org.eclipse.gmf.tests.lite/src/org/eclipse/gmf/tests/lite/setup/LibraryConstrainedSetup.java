@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -35,14 +35,15 @@ public class LibraryConstrainedSetup extends SessionSetup {
 	private static String mapURI = "/models/library/library_constrained.gmfmap"; //$NON-NLS-1$
 	private static String genURI = "/models/library/library_constrained.gmfgen"; //$NON-NLS-1$
 
-	protected LibraryConstrainedSetup() {
+	protected LibraryConstrainedSetup(GeneratorConfiguration genConfig) {
+		super(genConfig);
 	}
 
 	public static LibraryConstrainedSetup getInstance() {
 		if (factoryClosed) {
 			return null;
 		}
-		return new LibraryConstrainedSetup();
+		return new LibraryConstrainedSetup(new LiteGeneratorConfiguration());
 	}
 
 	protected DomainModelSource createDomainModel() {
@@ -108,9 +109,5 @@ public class LibraryConstrainedSetup extends SessionSetup {
 			Assert.fail("Failed to setup the gmfmap. " + e.getLocalizedMessage()); //$NON-NLS-1$
 		}
 		return genSetup;
-	}
-
-	protected GeneratorConfiguration createGeneratorConfiguration() {
-		return new LiteGeneratorConfiguration();
 	}
 }

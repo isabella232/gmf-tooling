@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,15 +18,16 @@ import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 
 
 public class LiteLinksSessionSetup extends LinksSessionSetup {
+
+	protected LiteLinksSessionSetup(GeneratorConfiguration genConfig) {
+		super(genConfig);
+	}
+
 	public static LinksSessionSetup getInstance() {
 		if (factoryClosed) {
 			return null;
 		}
-		return new LiteLinksSessionSetup();
-	}
-
-	protected GeneratorConfiguration createGeneratorConfiguration() {
-		return new LiteGeneratorConfiguration();
+		return new LiteLinksSessionSetup(new LiteGeneratorConfiguration());
 	}
 
 	@Override

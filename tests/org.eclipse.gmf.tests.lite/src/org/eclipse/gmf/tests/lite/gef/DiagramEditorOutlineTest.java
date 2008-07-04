@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2007 Borland Software Corporation
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -20,6 +20,8 @@ import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.tests.gef.AbstractDiagramEditorTest;
+import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
@@ -28,6 +30,10 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 public class DiagramEditorOutlineTest extends AbstractDiagramEditorTest {
 	public DiagramEditorOutlineTest(String name) {
 		super(name);
+	}
+	@Override
+	protected SessionSetup createDefaultSetup() {
+		return LibraryConstrainedSetup.getInstance();
 	}
 
 	@Override
