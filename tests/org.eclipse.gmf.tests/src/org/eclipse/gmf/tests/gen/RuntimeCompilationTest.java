@@ -18,12 +18,8 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
-import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
-import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
-import org.eclipse.gmf.tests.setup.annotated.GenASetup;
-import org.eclipse.gmf.tests.setup.annotated.MapDefASetup;
 
 /**
  * @author dstadnik
@@ -31,22 +27,21 @@ import org.eclipse.gmf.tests.setup.annotated.MapDefASetup;
 public class RuntimeCompilationTest extends CompilationTest {
 
 	public RuntimeCompilationTest(String name) {
-		super(name);
+		super(name, new RuntimeBasedGeneratorConfiguration(), new InnerClassViewmapProducer());
 	}
 
 	/**
 	 * Pure design diagrams are not supported in lite version.
 	 */
 	public void testCompilePureDesignDiagram() throws Exception {
-		MapDefASetup mmSource = getLibraryMap();
-		mmSource.detachFromDomainModel();
-		DiaGenSource gmfGenSource = new GenASetup(mmSource.getMapping(), getViewmapProducer(), false);
+		myMapSource.detachFromDomainModel();
+		DiaGenSource gmfGenSource = createLibraryGen(false);
 		gmfGenSource.getGenDiagram().getEditorGen().setPackageNamePrefix("org.eclipse.gmf.examples.library.diagram"); //$NON-NLS-1$
 		generateAndCompile(gmfGenSource, NO_MUTATORS);
 	}
 
 	public void testCompileDynamicDomainModel() throws Exception {
-		DiaGenSource s = getLibraryGen(false);
+		DiaGenSource s = createLibraryGen(false);
 		final GenEditorGenerator editorGen = s.getGenDiagram().getEditorGen();
 		assertNull("prereq", editorGen.getModelAccess());
 		DynamicModelAccess dma = GMFGenFactory.eINSTANCE.createDynamicModelAccess();
@@ -71,13 +66,4 @@ public class RuntimeCompilationTest extends CompilationTest {
 		});
 		generateAndCompile(s, m);
 	}
-
-	protected GeneratorConfiguration getGeneratorConfiguration() {
-		return new RuntimeBasedGeneratorConfiguration();
-	}
-
-	protected ViewmapProducer getViewmapProducer() {
-		return new InnerClassViewmapProducer();
-	}
-
 }

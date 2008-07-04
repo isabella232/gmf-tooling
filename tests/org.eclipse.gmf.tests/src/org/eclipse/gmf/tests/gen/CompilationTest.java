@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -53,27 +53,32 @@ import org.eclipse.jdt.core.JavaCore;
  */
 public abstract class CompilationTest extends TestCase {
 	
-	public CompilationTest(String name) {
+	protected final GeneratorConfiguration myGenConfig;
+	protected final ViewmapProducer myViewmapProducer;
+	protected MapDefASetup myMapSource;
+
+	protected CompilationTest(String name, GeneratorConfiguration genConfig, ViewmapProducer viewmapProducer) {
 		super(name);
+		assert genConfig != null;
+		assert viewmapProducer != null;
+		myGenConfig = genConfig;
+		myViewmapProducer = viewmapProducer;
 	}
 
-	protected abstract GeneratorConfiguration getGeneratorConfiguration();
-
-	protected abstract ViewmapProducer getViewmapProducer();
-
-	// TODO EditPartViewer[Source|Setup]
-
-	protected MapDefASetup getLibraryMap() throws Exception {
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
 		URI selected = Plugin.createURI("/models/library/library.ecore"); //$NON-NLS-1$
 		DomainModelSource dmSource =  new DomainModelFileSetup().init(selected);
 		ToolDefSource tdmSource = new ToolDefASetup(dmSource.getModel());
 		DiaDefSource gdmSource = new GraphDefASetup(dmSource.getModel());
-		return new MapDefASetup(dmSource.getModel(), tdmSource.getRegistry(), gdmSource.getCanvasDef());
+		myMapSource = new MapDefASetup(dmSource.getModel(), tdmSource.getRegistry(), gdmSource.getCanvasDef()); 
 	}
 
-	protected DiaGenSource getLibraryGen(boolean rcp) throws Exception {
-		MapDefSource mmSource = getLibraryMap(); 
-		return new GenASetup(mmSource.getMapping(), getViewmapProducer(), rcp);
+	// TODO EditPartViewer[Source|Setup]
+
+	protected DiaGenSource createLibraryGen(boolean rcp) throws Exception {
+		return new GenASetup(myMapSource.getMapping(), myViewmapProducer, rcp);
 	}
 
 	// avoid requests like #174171
@@ -105,13 +110,13 @@ public abstract class CompilationTest extends TestCase {
 	}
 
 	public void testRCPCompile() throws Exception {
-		DiaGenSource gmfGenSource = getLibraryGen(true);
+		DiaGenSource gmfGenSource = createLibraryGen(true);
 		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(false);
 		generateAndCompile(gmfGenSource, getMutatorsForRCP());
 	}
 
 	public void testCompileDiagram() throws Exception {
-		DiaGenSource gmfGenSource = getLibraryGen(false);
+		DiaGenSource gmfGenSource = createLibraryGen(false);
 		generateAndCompile(gmfGenSource, getMutators());
 	}
 
@@ -124,14 +129,14 @@ public abstract class CompilationTest extends TestCase {
 		domainModel.getNodeB().getNameAttr().setName("class");
 		domainModel.getDiagramElement().setName("Diagram");
 		MapDefSource mapSource = new MapSetup().init(new DiaDefSetup().init(), domainModel, new ToolDefSetup());
-		DiaGenSource gmfGenSource = new DiaGenSetup(getViewmapProducer()).init(mapSource);
+		DiaGenSource gmfGenSource = new DiaGenSetup(myViewmapProducer).init(mapSource);
 		generateAndCompile(gmfGenSource, NO_MUTATORS);
 	}
 
 	public void testCompileInstanceClassNames() throws Exception {
 		DomainModelSetup domainModelSetup = new DomainModelSetupInstanceClassName().init();
 		MapDefSource mapSource = new MapSetup().init(new DiaDefSetup().init(), domainModelSetup, new ToolDefSetup());
-		DiaGenSource gmfGenSource = new DiaGenSetup(getViewmapProducer()).init(mapSource);
+		DiaGenSource gmfGenSource = new DiaGenSetup(myViewmapProducer).init(mapSource);
 		generateAndCompile(gmfGenSource, getMutatorsForInstanceClassNames());
 	}
 	
@@ -150,7 +155,7 @@ public abstract class CompilationTest extends TestCase {
 	}
 
 	protected void generateAndCompile(DiaGenSource genSource, final Collection<IGenDiagramMutator> mutators) throws Exception {
-		new GenProjectBaseSetup(getGeneratorConfiguration()) {
+		new GenProjectBaseSetup(myGenConfig) {
 			@Override
 			protected void generateDiagramPlugin(GenDiagram d) throws Exception {
 				super.generateDiagramPlugin(d);
