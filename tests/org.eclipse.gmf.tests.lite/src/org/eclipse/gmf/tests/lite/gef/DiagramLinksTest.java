@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -36,9 +36,9 @@ public class DiagramLinksTest extends GeneratedCanvasTest {
 	}
 
 	public void testBendpoints() throws Exception {
-		Node createdNode1 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNode1 = createTopNode(getSetup().getGenModel().getNodeA());
 		assertNotNull("Node not created", createdNode1);
-		Node createdNode2 = createNode(getSetup().getGenModel().getNodeB(), getCanvasInstance().getCanvas());
+		Node createdNode2 = createTopNode(getSetup().getGenModel().getNodeB());
 		assertNotNull("Node not created", createdNode2);
 		Edge link = createLink(getSetup().getGenModel().getLinkC(), createdNode1, createdNode2);
 		assertNotNull("Link not created", link);
@@ -83,9 +83,9 @@ public class DiagramLinksTest extends GeneratedCanvasTest {
 	}
 
 	public void testRerouteLinkWithClass() throws Exception {
-		Node createdNodeA = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNodeA = createTopNode(getSetup().getGenModel().getNodeA());
 		assertNotNull("Node not created", createdNodeA);
-		Node createdNodeB = createNode(getSetup().getGenModel().getNodeB(), getCanvasInstance().getCanvas());
+		Node createdNodeB = createTopNode(getSetup().getGenModel().getNodeB());
 		assertNotNull("Node not created", createdNodeB);
 		Edge link = createLink(getSetup().getGenModel().getLinkC(), createdNodeA, createdNodeB);
 		assertNotNull("Link not created", link);
@@ -98,27 +98,27 @@ public class DiagramLinksTest extends GeneratedCanvasTest {
 		assertNotNull("Could not find target feature", targetFeature);
 		assertSame("Target feature incorrect before reconnecting source", createdNodeB.getElement(), link.getElement().eGet(targetFeature));
 
-		Node createdNodeA1 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNodeA1 = createTopNode(getSetup().getGenModel().getNodeA());
 		assertNotNull("Node not created", createdNodeA1);
 		EditPart a1Ep = findEditPart(createdNodeA1);
 		assertNotNull("Could not find editpart for the new source", a1Ep);
 		reconnectLink(linkEp, a1Ep, true);
 		assertSame("Notation model not updated", createdNodeA1, link.getSource());
-		Collection containedObjectsA = (Collection) createdNodeA.getElement().eGet(containmentFeature);
+		Collection<?> containedObjectsA = (Collection<?>) createdNodeA.getElement().eGet(containmentFeature);
 		assertFalse("Old source still contains the link", containedObjectsA.contains(link.getElement()));
-		Collection containedObjectsA1 = (Collection) createdNodeA1.getElement().eGet(containmentFeature);
+		Collection<?> containedObjectsA1 = (Collection<?>) createdNodeA1.getElement().eGet(containmentFeature);
 		assertTrue("New source does not contain the link", containedObjectsA1.contains(link.getElement()));
 		assertSame("Target feature changed after reconnecting source", createdNodeB.getElement(), link.getElement().eGet(targetFeature));
 
 		getCommandStack().undo();
 		assertSame("Notation model inconsistent after undo", createdNodeA, link.getSource());
-		containedObjectsA = (Collection) createdNodeA.getElement().eGet(containmentFeature);
+		containedObjectsA = (Collection<?>) createdNodeA.getElement().eGet(containmentFeature);
 		assertTrue("Old source does not contain the link after undo", containedObjectsA.contains(link.getElement()));
-		containedObjectsA1 = (Collection) createdNodeA1.getElement().eGet(containmentFeature);
+		containedObjectsA1 = (Collection<?>) createdNodeA1.getElement().eGet(containmentFeature);
 		assertFalse("New source contains the link after undo", containedObjectsA1.contains(link.getElement()));
 		assertSame("Target feature incorrect after undoing source reconnection", createdNodeB.getElement(), link.getElement().eGet(targetFeature));
 
-		Node createdNodeB1 = createNode(getSetup().getGenModel().getNodeB(), getCanvasInstance().getCanvas());
+		Node createdNodeB1 = createTopNode(getSetup().getGenModel().getNodeB());
 		assertNotNull("Node not created", createdNodeB1);
 		EditPart b1Ep = findEditPart(createdNodeB1);
 		assertNotNull("Could not find editpart for the new target", b1Ep);
@@ -132,9 +132,9 @@ public class DiagramLinksTest extends GeneratedCanvasTest {
 	}
 
 	public void testRerouteLinkWithFeature() throws Exception {
-		Node createdNodeA = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNodeA = createTopNode(getSetup().getGenModel().getNodeA());
 		assertNotNull("Node not created", createdNodeA);
-		Node createdNodeB = createNode(getSetup().getGenModel().getNodeB(), getCanvasInstance().getCanvas());
+		Node createdNodeB = createTopNode(getSetup().getGenModel().getNodeB());
 		assertNotNull("Node not created", createdNodeB);
 		Edge link = createLink(getSetup().getGenModel().getLinkD(), createdNodeA, createdNodeB);
 		assertNotNull("Link not created", link);
@@ -145,7 +145,7 @@ public class DiagramLinksTest extends GeneratedCanvasTest {
 		assertSame("Domain source of the link does not point at the element its notation points at", createdNodeB.getElement(), createdNodeA.getElement().eGet(metaFeature));
 		assertNull("Link's element is incorrect", link.getElement());
 
-		Node createdNodeA1 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNodeA1 = createTopNode(getSetup().getGenModel().getNodeA());
 		assertNotNull("Node not created", createdNodeA1);
 		EditPart a1Ep = findEditPart(createdNodeA1);
 		assertNotNull("Could not find editpart for the new source", a1Ep);
@@ -161,7 +161,7 @@ public class DiagramLinksTest extends GeneratedCanvasTest {
 		assertNull("New source references target after undo", createdNodeA1.getElement().eGet(metaFeature));
 		assertNull("Link's element is incorrect", link.getElement());
 
-		Node createdNodeB1 = createNode(getSetup().getGenModel().getNodeB(), getCanvasInstance().getCanvas());
+		Node createdNodeB1 = createTopNode(getSetup().getGenModel().getNodeB());
 		assertNotNull("Node not created", createdNodeB1);
 		EditPart b1Ep = findEditPart(createdNodeB1);
 		assertNotNull("Could not find editpart for the new target", b1Ep);

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -50,15 +50,15 @@ public class DiagramElementTest extends GeneratedCanvasTest {
 	private static final Rectangle NODE_3_BOUNDS = new Rectangle(400, 570, 70, 70);
 
 	public void testAlignNodes() {
-		Node createdNode1 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNode1 = createTopNode(getSetup().getGenModel().getNodeA());
 		assertNotNull("Node not created", createdNode1);
 		moveNode(createdNode1, NODE_1_BOUNDS);
 		EditPart ep1 = findEditPart(createdNode1);
-		Node createdNode2 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNode2 = createTopNode(getSetup().getGenModel().getNodeA());
 		assertNotNull("Node not created", createdNode2);
 		moveNode(createdNode2, NODE_2_BOUNDS);
 		EditPart ep2 = findEditPart(createdNode2);
-		Node createdNode3 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNode3 = createTopNode(getSetup().getGenModel().getNodeA());
 		assertNotNull("Node not created", createdNode3);
 		moveNode(createdNode3, NODE_3_BOUNDS);
 		EditPart ep3 = findEditPart(createdNode3);
@@ -101,9 +101,10 @@ public class DiagramElementTest extends GeneratedCanvasTest {
 		checkBounds(node, bounds);
 	}
 
-	private void align(List nodes, int alignment) {
+	private void align(List<EditPart> nodes, int alignment) {
 		layout(((GraphicalEditPart)nodes.get(0)).getFigure().getParent());	//since the action operates with figure bounds, we must invoke layout explicitly to update them from layout constraints.
 		AlignmentAction action = new AlignmentAction(new ViewPart() {
+			@SuppressWarnings("unchecked")
 			public Object getAdapter(Class adapter) {
 				if (CommandStack.class == adapter) {
 					return getCommandStack();
@@ -145,15 +146,15 @@ public class DiagramElementTest extends GeneratedCanvasTest {
 	}
 
 	public void testLayouter() throws Exception {
-		Node createdNode1 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNode1 = createTopNode(getSetup().getGenModel().getNodeA());
 		assertNotNull("Node not created", createdNode1);
 		moveNode(createdNode1, NODE_1_BOUNDS);
 		GraphicalEditPart ep1 = (GraphicalEditPart) findEditPart(createdNode1);
-		Node createdNode2 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNode2 = createTopNode(getSetup().getGenModel().getNodeA());
 		assertNotNull("Node not created", createdNode2);
 		moveNode(createdNode2, NODE_1_BOUNDS);
 		GraphicalEditPart ep2 = (GraphicalEditPart) findEditPart(createdNode2);
-		Node createdNode3 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNode3 = createTopNode(getSetup().getGenModel().getNodeA());
 		assertNotNull("Node not created", createdNode3);
 		moveNode(createdNode3, NODE_1_BOUNDS);
 		GraphicalEditPart ep3 = (GraphicalEditPart) findEditPart(createdNode3);

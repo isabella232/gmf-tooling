@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2007 Borland Software Corporation
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -41,7 +41,7 @@ public class DiagramNodeTest extends org.eclipse.gmf.tests.gef.DiagramNodeTest {
 		GenNode genNode = getSetup().getGenModel().getNodeA();
 		assertTrue("Incorrect Setup: passed node has no labels", genNode.getLabels().size() > 0);
 
-		Node nodeA = createNode(genNode, getCanvasInstance().getCanvas());
+		Node nodeA = createTopNode(genNode);
 		assertNotNull("Notation model Node was not created", nodeA);
 		checkStyle(nodeA, NotationPackage.eINSTANCE.getFillStyle_FillColor(), preferences.getFillColor());
 		checkStyle(nodeA, NotationPackage.eINSTANCE.getLineStyle_LineColor(), preferences.getLineColor());
