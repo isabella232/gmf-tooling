@@ -21,7 +21,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.tests.gef.AbstractDiagramEditorTest;
 import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
@@ -30,10 +29,7 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 public class DiagramEditorOutlineTest extends AbstractDiagramEditorTest {
 	public DiagramEditorOutlineTest(String name) {
 		super(name);
-	}
-	@Override
-	protected SessionSetup createDefaultSetup() {
-		return LibraryConstrainedSetup.getInstance();
+		myDefaultSetup = LibraryConstrainedSetup.getInstance();
 	}
 
 	@Override

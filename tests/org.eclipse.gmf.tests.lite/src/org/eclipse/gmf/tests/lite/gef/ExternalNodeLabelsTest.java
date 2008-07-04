@@ -37,7 +37,6 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.gef.AbstractDiagramEditorTest;
 import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.swt.graphics.FontData;
@@ -49,11 +48,7 @@ public class ExternalNodeLabelsTest extends AbstractDiagramEditorTest {
 	public ExternalNodeLabelsTest(String name) {
 		super(name);
 		PlatformUI.getWorkbench().getEditorRegistry();
-	}
-
-	@Override
-	protected SessionSetup createDefaultSetup() {
-		return LibraryConstrainedSetup.getInstance();
+		myDefaultSetup = LibraryConstrainedSetup.getInstance();
 	}
 
 	public void testExternalNodeLabelsPosition() throws Exception {

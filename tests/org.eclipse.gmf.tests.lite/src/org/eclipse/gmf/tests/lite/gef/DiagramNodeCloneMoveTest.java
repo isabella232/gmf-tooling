@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006, 2007 Borland Software Corporation
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -47,25 +47,20 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
 import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 
 public class DiagramNodeCloneMoveTest extends GeneratedCanvasTest {
 	public DiagramNodeCloneMoveTest(String name) {
 		super(name);
-	}
-
-	@Override
-	protected SessionSetup createDefaultSetup() {
-		return LibraryConstrainedSetup.getInstance();
+		myDefaultSetup = LibraryConstrainedSetup.getInstance();
 	}
 
 	public void testClone() throws Exception {
 		GenNode nodeB = getSetup().getGenModel().getNodeB();
 		assertTrue("Incorrect Setup: passed node has no compartments", nodeB.getCompartments().size() > 0);
-		GenCompartment genCompartment = (GenCompartment) nodeB.getCompartments().get(0);
+		GenCompartment genCompartment = nodeB.getCompartments().get(0);
 		assertTrue("Incorrect Setup: passed node has no children", genCompartment.getChildNodes().size() > 0);
 
-		GenNode childNode = (GenNode) genCompartment.getChildNodes().get(0);
+		GenNode childNode = genCompartment.getChildNodes().get(0);
 		
 		Node nodeBInstance = getCanvasInstance().getNodeB();
 		Diagram diagram = nodeBInstance.getDiagram();
@@ -84,10 +79,10 @@ public class DiagramNodeCloneMoveTest extends GeneratedCanvasTest {
 	public void testMove() throws Exception {
 		GenNode nodeB = getSetup().getGenModel().getNodeB();
 		assertTrue("Incorrect Setup: passed node has no compartments", nodeB.getCompartments().size() > 0);
-		GenCompartment genCompartment = (GenCompartment) nodeB.getCompartments().get(0);
+		GenCompartment genCompartment = nodeB.getCompartments().get(0);
 		assertTrue("Incorrect Setup: passed node has no children", genCompartment.getChildNodes().size() > 0);
 
-		GenNode childNode = (GenNode) genCompartment.getChildNodes().get(0);
+		GenNode childNode = genCompartment.getChildNodes().get(0);
 		
 		Node nodeBInstance = getCanvasInstance().getNodeB();
 		Diagram diagram = nodeBInstance.getDiagram();
@@ -103,9 +98,9 @@ public class DiagramNodeCloneMoveTest extends GeneratedCanvasTest {
 	public void testCloneWithVisualIDChange() throws Exception {
 		GenNode nodeA = getSetup().getGenModel().getNodeA();
 		GenNode nodeB = getSetup().getGenModel().getNodeB();
-		GenCompartment genCompartment = (GenCompartment) nodeA.getCompartments().get(0);
+		GenCompartment genCompartment = nodeA.getCompartments().get(0);
 		assertNotNull("Node A has no compartments", genCompartment);
-		GenNode nodeBAsChildOfA = (GenNode) genCompartment.getChildNodes().get(0);
+		GenNode nodeBAsChildOfA = genCompartment.getChildNodes().get(0);
 		assertNotNull("Node A compartment has no children", nodeBAsChildOfA);
 		assertEquals("Incorrect child", nodeB.getModelFacet().getMetaClass().getEcoreClass().getName(), nodeBAsChildOfA.getModelFacet().getMetaClass().getEcoreClass().getName());
 		Node nodeAInstance = getCanvasInstance().getNodeA();
@@ -119,9 +114,9 @@ public class DiagramNodeCloneMoveTest extends GeneratedCanvasTest {
 	public void testMoveWithVisualIDChange() throws Exception {
 		GenNode nodeA = getSetup().getGenModel().getNodeA();
 		GenNode nodeB = getSetup().getGenModel().getNodeB();
-		GenCompartment genCompartment = (GenCompartment) nodeA.getCompartments().get(0);
+		GenCompartment genCompartment = nodeA.getCompartments().get(0);
 		assertNotNull("Node A has no compartments", genCompartment);
-		GenNode nodeBAsChildOfA = (GenNode) genCompartment.getChildNodes().get(0);
+		GenNode nodeBAsChildOfA = genCompartment.getChildNodes().get(0);
 		assertNotNull("Node A compartment has no children", nodeBAsChildOfA);
 		assertSame("Incorrect child", nodeB.getModelFacet().getMetaClass(), nodeBAsChildOfA.getModelFacet().getMetaClass());
 		Node nodeAInstance = getCanvasInstance().getNodeA();
@@ -187,11 +182,10 @@ public class DiagramNodeCloneMoveTest extends GeneratedCanvasTest {
 		if (childMetaFeature != null) {
 			EStructuralFeature childFeature = parentEObject.eClass().getEStructuralFeature(childMetaFeature.getEcoreFeature().getName());
 			assertNotNull("Failed to find child feature", childFeature);
-			assertTrue("Child feature not set", ((Collection)parentEObject.eGet(childFeature)).contains(childEObject));
+			assertTrue("Child feature not set", ((Collection<?>)parentEObject.eGet(childFeature)).contains(childEObject));
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private Node cloneOrMoveNode(Node node, View container, boolean isCloneNotMove) {
 		final Object[] resultHolder = new Object[1];
 		EditPart containerEP = findEditPart(container);
@@ -239,7 +233,6 @@ public class DiagramNodeCloneMoveTest extends GeneratedCanvasTest {
 	 * Workaround by creating the node in the domain model.
 	 * Works only if the created domain node is in the same EPackage as the container node.
 	 */
-	@SuppressWarnings("unchecked")
 	protected Node createNodeIndirect(GenNode nodeType, View notationContainer) {
 		final Object[] resultHolder = new Object[1];
 		Adapter adapter = new AdapterImpl() {
@@ -295,8 +288,8 @@ public class DiagramNodeCloneMoveTest extends GeneratedCanvasTest {
 		Node writer = getCanvasInstance().getNodeA();
 		final Node book = getCanvasInstance().getNodeB();
 		GenNode writerGenNode = getSetup().getGenModel().getNodeA();
-		GenCompartment brochuresCompartment = (GenCompartment) writerGenNode.getCompartments().get(0);
-		final GenNode brochuresGenNode = (GenNode) brochuresCompartment.getChildNodes().get(0);
+		GenCompartment brochuresCompartment = writerGenNode.getCompartments().get(0);
+		final GenNode brochuresGenNode = brochuresCompartment.getChildNodes().get(0);
 		final View writerCompartment = findChildView(writer, brochuresCompartment);
 		cloneOrMoveNode(book, writerCompartment, true);
 		final Node secondBrochure = createNode(brochuresGenNode, writerCompartment);
@@ -363,10 +356,10 @@ public class DiagramNodeCloneMoveTest extends GeneratedCanvasTest {
 	public void testCompartmentCollapsibility() throws Exception {
 		GenNode nodeB = getSetup().getGenModel().getNodeB();
 		assertTrue("Incorrect Setup: passed node has no compartments", nodeB.getCompartments().size() > 0);
-		GenCompartment genCompartment = (GenCompartment) nodeB.getCompartments().get(0);
+		GenCompartment genCompartment = nodeB.getCompartments().get(0);
 		assertTrue("Incorrect Setup: passed node has no children", genCompartment.getChildNodes().size() > 0);
 
-		GenNode childNode = (GenNode) genCompartment.getChildNodes().get(0);
+		GenNode childNode = genCompartment.getChildNodes().get(0);
 
 		Node nodeBInstance = createNode(nodeB, getDiagram());
 		
@@ -409,10 +402,10 @@ public class DiagramNodeCloneMoveTest extends GeneratedCanvasTest {
 	public void testCompartmentExpandsOnAddingToIt() throws Exception {
 		GenNode nodeB = getSetup().getGenModel().getNodeB();
 		assertTrue("Incorrect Setup: passed node has no compartments", nodeB.getCompartments().size() > 0);
-		GenCompartment genCompartment = (GenCompartment) nodeB.getCompartments().get(0);
+		GenCompartment genCompartment = nodeB.getCompartments().get(0);
 		assertTrue("Incorrect Setup: passed node has no children", genCompartment.getChildNodes().size() > 0);
 
-		GenNode childNode = (GenNode) genCompartment.getChildNodes().get(0);
+		GenNode childNode = genCompartment.getChildNodes().get(0);
 
 		Node nodeBInstance = createNode(nodeB, getDiagram());
 		

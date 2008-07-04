@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,7 +18,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.common.command.Command;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -39,16 +38,11 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
 import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 
 public class NotationRefreshTest extends GeneratedCanvasTest {
 	public NotationRefreshTest(String name) {
 		super(name);
-	}
-
-	@Override
-	protected SessionSetup createDefaultSetup() {
-		return LibraryConstrainedSetup.getInstance();
+		myDefaultSetup = LibraryConstrainedSetup.getInstance();
 	}
 
 	public void testNotationRefreshOnDeleteNode() throws Exception {
@@ -259,7 +253,7 @@ public class NotationRefreshTest extends GeneratedCanvasTest {
 		checkLinkEnd(author, nodeB);
 		//2. Check reroute source of a link-by-class.
 		EStructuralFeature sourceFeature = nodeA.getElement().eClass().getEStructuralFeature("books");
-		final Command rerouteSourceCommand = SetCommand.create(editingDomain, newWriter, sourceFeature, new BasicEList(Collections.singleton(newBook)));
+		final Command rerouteSourceCommand = SetCommand.create(editingDomain, newWriter, sourceFeature, Collections.singleton(newBook));
 		//workaround: command.canExecute() fails with an exception, because it actually attempts to modify elements without a write transaction.
 		new EMFCommandOperation(editingDomain, new AbstractCommand() {
 			public boolean canExecute() {
@@ -422,7 +416,7 @@ public class NotationRefreshTest extends GeneratedCanvasTest {
 	}
 
 	private View findView(View container, EObject child) {
-		for(Iterator it = container.getChildren().iterator(); it.hasNext(); ) {
+		for(Iterator<?> it = container.getChildren().iterator(); it.hasNext(); ) {
 			View next = (View) it.next();
 			if (child.equals(next.getElement())) {
 				return next;
@@ -432,7 +426,7 @@ public class NotationRefreshTest extends GeneratedCanvasTest {
 	}
 
 	private Edge findEdgeWithElement(Diagram diagram, EObject element) {
-		for(Iterator it = diagram.getEdges().iterator(); it.hasNext(); ) {
+		for(Iterator<?> it = diagram.getEdges().iterator(); it.hasNext(); ) {
 			Edge next = (Edge) it.next();
 			if (next.isSetElement() && next.getElement() == element) {
 				return next;
@@ -443,7 +437,7 @@ public class NotationRefreshTest extends GeneratedCanvasTest {
 
 	private Edge findEdgeWithoutElement(Diagram diagram, View source, View target, int index) {
 		int count = 0;
-		for(Iterator it = diagram.getEdges().iterator(); it.hasNext(); ) {
+		for(Iterator<?> it = diagram.getEdges().iterator(); it.hasNext(); ) {
 			Edge next = (Edge) it.next();
 			if (next.isSetElement() && next.getElement() == null) {
 				if (next.getSource() == source && next.getTarget() == target) {
