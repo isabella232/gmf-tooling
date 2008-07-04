@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -17,22 +17,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
-import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.tests.gen.CompilationTest;
-import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 
 
 public class LiteCompilationTest extends CompilationTest {
 	public LiteCompilationTest(String name) {
-		super(name);
-	}
-
-	protected GeneratorConfiguration getGeneratorConfiguration() {
-		return new LiteGeneratorConfiguration();
-	}
-
-	protected ViewmapProducer getViewmapProducer() {
-		return new InnerClassViewmapProducer("lite", MapModeCodeGenStrategy.STATIC, null);
+		super(name, new LiteGeneratorConfiguration(),
+			new InnerClassViewmapProducer("lite", MapModeCodeGenStrategy.STATIC, null));
 	}
 
 	@Override
