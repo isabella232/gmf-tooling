@@ -40,7 +40,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 
 /**
  * Tests domain meta-model element initialization   
@@ -54,6 +53,7 @@ public class ElementInitializerTest extends GeneratedCanvasTest {
 	
 	public ElementInitializerTest(String name) {
 		super(name);
+		myDefaultSetup = LinksSessionSetup.newInstance();
 	}
 
 	protected void setUp() throws Exception {
@@ -313,9 +313,5 @@ public class ElementInitializerTest extends GeneratedCanvasTest {
 			fail("Expected class not generated. " + e.toString()); //$NON-NLS-1$
 		}
 		return null;
-	}
-
-	protected SessionSetup createDefaultSetup() {
-		return LinksSessionSetup.newInstance();
 	}
 }

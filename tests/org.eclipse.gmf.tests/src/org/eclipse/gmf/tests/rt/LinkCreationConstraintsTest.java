@@ -25,12 +25,12 @@ import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 
 public class LinkCreationConstraintsTest extends GeneratedCanvasTest {
 
 	public LinkCreationConstraintsTest(String name) {
 		super(name);
+		myDefaultSetup = LinksSessionSetup.newInstance();
 	}
 	
 	/*
@@ -158,9 +158,5 @@ public class LinkCreationConstraintsTest extends GeneratedCanvasTest {
 		Command command = getViewerConfiguration().getSetBusinessElementStructuralFeatureCommand(view, featureName, value);
 		assertNotNull("Command is null", command);
 		command.execute();
-	}
-
-	protected SessionSetup createDefaultSetup() {
-		return LinksSessionSetup.newInstance();
 	}
 }

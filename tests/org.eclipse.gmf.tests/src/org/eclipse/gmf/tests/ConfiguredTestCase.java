@@ -22,7 +22,14 @@ import junit.framework.TestCase;
 public abstract class ConfiguredTestCase extends TestCase implements NeedsSetup {
 
 	private SessionSetup mySessionSetup;
-	
+
+	/**
+	 * subclasses may initialize this field prior to calling super.setUp()
+	 * so that if no SessionSetup was configured explicitly, this default 
+	 * would be used.
+	 */
+	protected SessionSetup myDefaultSetup;
+
 	protected ConfiguredTestCase(String name) {
 		super(name);
 	}
@@ -39,18 +46,11 @@ public abstract class ConfiguredTestCase extends TestCase implements NeedsSetup 
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		if (mySessionSetup == null) {
+		if (mySessionSetup == null && myDefaultSetup != null) {
 			// subject to enabled/disabled state dictated from AllTests 
-			configure(createDefaultSetup());
+			configure(myDefaultSetup);
 		}
 		assertNotNull("Test " + getName() + " needs session setup", mySessionSetup);
-	}
-
-	/**
-	 * Will be invoked when no setup set, usually in single test execution scenario.
-	 */
-	protected SessionSetup createDefaultSetup() {
-		return SessionSetup.newInstance();
 	}
 
 	protected void tearDown() throws Exception {

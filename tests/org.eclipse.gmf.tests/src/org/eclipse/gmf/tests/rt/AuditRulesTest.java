@@ -58,7 +58,6 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.MapDefSource;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 
 /**
  * Tests valid registration of audit rule definitions in emft validation framework
@@ -81,6 +80,7 @@ public class AuditRulesTest extends GeneratedCanvasTest {
 
 	public AuditRulesTest(String name) {
 		super(name);
+		myDefaultSetup = LinksSessionSetup.newInstance();
 	}
 
 	protected void setUp() throws Exception {
@@ -328,10 +328,6 @@ public class AuditRulesTest extends GeneratedCanvasTest {
 		return null; // make compiler happy
 	}
 	
-	protected SessionSetup createDefaultSetup() {
-		return LinksSessionSetup.newInstance();
-	}
-
 	static EClass getTargetEClass(AuditRule rule) {
 		assertNotNull("Audit target must be set", rule.getTarget()); //$NON-NLS-1$
 		return getTargetEClass(rule.getTarget());

@@ -21,7 +21,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
 import org.eclipse.gmf.mappings.MetricContainer;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 
 /**
  * TODO: need to validate that not only calcXXX methods are present and work,
@@ -33,6 +32,7 @@ public class MetricRulesTest extends GeneratedCanvasTest {
 	
 	public MetricRulesTest(String name) {
 		super(name);
+		myDefaultSetup = LinksSessionSetup.newInstance();
 	}
 
 	protected void setUp() throws Exception {
@@ -95,9 +95,5 @@ public class MetricRulesTest extends GeneratedCanvasTest {
 				fail("Metric rule evaluation failed. " + e.toString()); //$NON-NLS-1$
 			}
 		}		
-	}
-
-	protected SessionSetup createDefaultSetup() {
-		return LinksSessionSetup.newInstance();
 	}
 }
