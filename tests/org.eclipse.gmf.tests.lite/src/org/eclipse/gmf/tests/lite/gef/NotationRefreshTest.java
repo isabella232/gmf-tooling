@@ -253,7 +253,7 @@ public class NotationRefreshTest extends GeneratedCanvasTest {
 		checkLinkEnd(author, nodeB);
 		//2. Check reroute source of a link-by-class.
 		EStructuralFeature sourceFeature = nodeA.getElement().eClass().getEStructuralFeature("books");
-		final Command rerouteSourceCommand = SetCommand.create(editingDomain, newWriter, sourceFeature, Collections.singleton(newBook));
+		final Command rerouteSourceCommand = SetCommand.create(editingDomain, newWriter, sourceFeature, Collections.singletonList(newBook));
 		//workaround: command.canExecute() fails with an exception, because it actually attempts to modify elements without a write transaction.
 		new EMFCommandOperation(editingDomain, new AbstractCommand() {
 			public boolean canExecute() {
