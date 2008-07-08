@@ -22,11 +22,14 @@ import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.tests.gef.AbstractDiagramEditorTest;
 import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 
 public class DiagramEditorOutlineTest extends AbstractDiagramEditorTest {
+
 	public DiagramEditorOutlineTest(String name) {
 		super(name);
 		myDefaultSetup = LibraryConstrainedSetup.getInstance();
@@ -36,8 +39,16 @@ public class DiagramEditorOutlineTest extends AbstractDiagramEditorTest {
 	protected IEditorPart openEditor(IFile diagramFile) {
 		IEditorPart result = super.openEditor(diagramFile);
 		try {
-			result.getSite().getPage().showView("org.eclipse.ui.views.ContentOutline");	//$NON-NLS-1$
-			result.getAdapter(IContentOutlinePage.class);
+			assertNotNull(result.getAdapter(IContentOutlinePage.class));
+			final IWorkbenchPage wp = result.getSite().getPage();
+			IViewPart introPart = wp.findView("org.eclipse.ui.internal.introview");
+			if (introPart != null) {
+				// with the fix of [168524] PartService no longer sends partActivated
+				// for invisible editors (or, rather delays event till the control becomes visible)
+				// so we need to make sure editor area is visible by hiding intro view
+				wp.hideView(introPart);
+			}
+			wp.showView("org.eclipse.ui.views.ContentOutline");
 		} catch (PartInitException e) {
 			fail("Exception occurred while opening outline view: " + e.getMessage());
 		}
