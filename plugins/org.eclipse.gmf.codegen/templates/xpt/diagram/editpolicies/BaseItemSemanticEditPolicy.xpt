@@ -158,11 +158,11 @@ protected org.eclipse.gef.commands.Command getSemanticCommand(org.eclipse.gmf.ru
 		elementType = null;
 	}
 	org.eclipse.gef.commands.Command semanticCommand = getSemanticCommandSwitch(completedRequest);
-	if (semanticCommand != null) {
-		org.eclipse.gmf.runtime.common.core.command.ICommand command = semanticCommand instanceof org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy ? ((org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy) semanticCommand).getICommand() : new org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy(semanticCommand);
-		completedRequest.setParameter(«getBaseEditHelperQualifiedClassName()».EDIT_POLICY_COMMAND, command);
-	}
 	if (elementType != null) {
+		if (semanticCommand != null) {
+			org.eclipse.gmf.runtime.common.core.command.ICommand command = semanticCommand instanceof org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy ? ((org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy) semanticCommand).getICommand() : new org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy(semanticCommand);
+			completedRequest.setParameter(«getBaseEditHelperQualifiedClassName()».EDIT_POLICY_COMMAND, command);
+		}
 		org.eclipse.gmf.runtime.common.core.command.ICommand command = elementType.getEditCommand(completedRequest);
 		if (command != null) {
 			if (!(command instanceof org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand)) {
