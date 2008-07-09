@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -73,14 +73,14 @@
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
       «EXPAND xpt::Common::xmlGeneratedTag»
-      <clientContext id="«editorGen.modelID»ClientContext">
+      <clientContext id="«editorGen.plugin.iD».TypeContext">
          <enablement>
             <test
                property="org.eclipse.gmf.runtime.emf.core.editingDomain"
                value="«editingDomainID»"/>
          </enablement>
       </clientContext> 
-      <binding context="«editorGen.modelID»ClientContext">
+      <binding context="«editorGen.plugin.iD».TypeContext">
 «FOREACH getElements() AS e-»
          <elementType ref="«e.elementType.uniqueIdentifier»"/>
 «ENDFOREACH-»
