@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -48,7 +49,7 @@ public abstract class AbstractASetup {
 		ResourceSet rs = new ResourceSetImpl();
 		String fileFolder = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString();
 		String fileName = "gen" + System.currentTimeMillis() + '.' + fileExtension; //$NON-NLS-1$
-		Resource r = rs.createResource(URI.createFileURI(fileFolder + '/' + fileName));
+		Resource r = rs.createResource(URI.createFileURI(fileFolder + '/' + fileName), ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 		r.getContents().add(root);
 		try {
 			r.save(null);

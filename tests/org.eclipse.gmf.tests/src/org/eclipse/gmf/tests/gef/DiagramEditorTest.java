@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -235,7 +236,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 
 	private void createAdditionalModelResource(URI anotherResourceURI) {
 		ResourceSet resourceSet = new ResourceSetImpl();
-		Resource resource = resourceSet.createResource(anotherResourceURI);
+		Resource resource = resourceSet.createResource(anotherResourceURI, ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 		try {
 			EObject domainDiagramElement = createDiagramDomainObject();
 			resource.getContents().add(domainDiagramElement);

@@ -26,6 +26,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -149,8 +150,8 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 		}
 
 		ResourceSet resourceSet = new ResourceSetImpl();
-		Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toOSString(), true));
-		Resource modelResource = modelFile != null ? resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toOSString(), true)) : null;		
+		Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toOSString(), true), ContentHandler.UNSPECIFIED_CONTENT_TYPE);
+		Resource modelResource = modelFile != null ? resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toOSString(), true), ContentHandler.UNSPECIFIED_CONTENT_TYPE) : null;		
 		
 		EObject domainDiagramElement = createDiagramDomainObject();
 

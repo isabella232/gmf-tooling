@@ -26,6 +26,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -242,7 +243,7 @@ public class TransformToGenModelOperationTest extends ConfiguredTestCase {
 
 	private URI prepareResource(ResourceSet rs, String extension, EObject root) {
 		URI uri = createURI(extension);
-		Resource resource = rs.createResource(uri);
+		Resource resource = rs.createResource(uri, ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 		resource.getContents().add(root);
 		try {
 			resource.save(Collections.EMPTY_MAP);

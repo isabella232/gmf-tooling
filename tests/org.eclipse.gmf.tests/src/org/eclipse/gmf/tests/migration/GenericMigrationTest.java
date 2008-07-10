@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreValidator;
@@ -147,7 +148,7 @@ public class GenericMigrationTest extends TestCase {
 		try {
 			ResourceSetImpl rset = new ResourceSetImpl();
 			rset.getPackageRegistry().put(metamodel.getNsURI(), metamodel);
-			Resource resource = rset.createResource(modelResource);
+			Resource resource = rset.createResource(modelResource, ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 			resource.load(null);
 			fail("Load should fail because of metamodel changes");
 		} catch (RuntimeException ex) {
@@ -170,7 +171,7 @@ public class GenericMigrationTest extends TestCase {
 			uri = URI.createFileURI(File.createTempFile(filenameStart, fileextension.startsWith(".") ? fileextension : "."+fileextension).getAbsolutePath());
 			ResourceSetImpl resourceSetImpl = new ResourceSetImpl();
 			resourceSetImpl.getPackageRegistry().put(metamodel.getNsURI(), metamodel);
-			Resource res = resourceSetImpl.createResource(uri);
+			Resource res = resourceSetImpl.createResource(uri, ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 			res.getContents().addAll(roots);
 			res.save(null);
 			resourceSetImpl.getResources().removeAll(roots);
@@ -450,7 +451,7 @@ public class GenericMigrationTest extends TestCase {
 		try {
 			ResourceSetImpl resourceSetImpl = new ResourceSetImpl();
 			resourceSetImpl.getPackageRegistry().put(metamodel.getNsURI(), metamodel);
-			Resource ordinaryResource = resourceSetImpl.createResource(uri);
+			Resource ordinaryResource = resourceSetImpl.createResource(uri, ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 			ordinaryResource.load(null);
 			boolean validate = checkResourceHasNoProblems(ordinaryResource);
 			assertTrue("Should not fail with obligatory metamodel attribute not set", validate);
