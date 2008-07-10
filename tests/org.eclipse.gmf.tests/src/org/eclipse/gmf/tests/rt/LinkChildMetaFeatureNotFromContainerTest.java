@@ -46,7 +46,7 @@ import org.eclipse.gmf.tests.setup.SessionSetup;
  * @author artem
  */
 public class LinkChildMetaFeatureNotFromContainerTest extends AbstractDiagramEditorTest {
-	private static final SessionSetup setup = new SessionSetup(new RuntimeBasedGeneratorConfiguration()) {
+	public static final SessionSetup setup = new SessionSetup(new RuntimeBasedGeneratorConfiguration()) {
 		@Override
 		protected DiaGenSource createGenModel() {
 			return new DiaGenSource() {
@@ -192,6 +192,15 @@ public class LinkChildMetaFeatureNotFromContainerTest extends AbstractDiagramEdi
 	public LinkChildMetaFeatureNotFromContainerTest(String name) {
 		super(name);
 		configure(setup);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.gmf.tests.gef.AbstractDiagramEditorTest#setUp()
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		// TODO Auto-generated method stub
+		super.setUp();
 	}
 
 	public void testCreateLink() {

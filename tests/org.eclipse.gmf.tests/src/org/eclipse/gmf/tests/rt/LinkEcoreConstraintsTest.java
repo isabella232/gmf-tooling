@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.tests.rt;
 
+import java.io.IOException;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -39,6 +41,54 @@ import org.eclipse.gmf.tests.setup.annotated.ToolDefASetup;
  * @author artem
  */
 public class LinkEcoreConstraintsTest extends GeneratedCanvasTest {
+	
+	public final static SessionSetup setup = new SessionSetup(new RuntimeBasedGeneratorConfiguration()) {
+
+		private DiaGenSource myGenModel;
+
+		private DomainModelSource myDmSource;
+
+		@Override
+		public DomainModelSource getDomainModel() {
+			if (myDmSource == null) {
+				URI selected;
+				try {
+					selected = Plugin.createURI("/models/library/library.ecore");
+					myDmSource = new DomainModelFileSetup().init(selected);
+				} catch (IOException e) {
+					fail("exception: " + e.getMessage());
+				}
+			}
+			return myDmSource;
+		}
+
+		@Override
+		public DiaGenSource getGenModel() {
+			if (myGenModel == null) {
+				ToolDefSource tdmSource = new ToolDefASetup(getDomainModel().getModel());
+				DiaDefSource gdmSource = new GraphDefASetup(getDomainModel().getModel());
+				MapDefSource mmSource = new MapDefASetup(getDomainModel().getModel(), tdmSource.getRegistry(), gdmSource.getCanvasDef());
+				myGenModel = new GenASetup(mmSource.getMapping(), new InnerClassViewmapProducer(), false) {
+
+					@Override
+					public GenNode getNodeA() {
+						return getGenDiagram().getTopLevelNodes().get(0);
+					}
+
+					@Override
+					public GenNode getNodeB() {
+						return getGenDiagram().getTopLevelNodes().get(1);
+					}
+
+					@Override
+					public GenLink getLinkD() {
+						return getGenDiagram().getLinks().get(0);
+					}
+				};
+			}
+			return myGenModel;
+		}
+	};
 
 	public LinkEcoreConstraintsTest(String name) {
 		super(name);
@@ -46,35 +96,7 @@ public class LinkEcoreConstraintsTest extends GeneratedCanvasTest {
 
 	@Override
 	protected void setUp() throws Exception {
-		URI selected = Plugin.createURI("/models/library/library.ecore"); //$NON-NLS-1$
-		final DomainModelSource dmSource =  new DomainModelFileSetup().init(selected);
-		final ToolDefSource tdmSource = new ToolDefASetup(dmSource.getModel());
-		final DiaDefSource gdmSource = new GraphDefASetup(dmSource.getModel());
-		final MapDefSource mmSource = new MapDefASetup(dmSource.getModel(), tdmSource.getRegistry(), gdmSource.getCanvasDef()); 
-		final GenASetup genModel = new GenASetup(mmSource.getMapping(), new InnerClassViewmapProducer(), false) {
-			@Override
-			public GenNode getNodeA() {
-				return getGenDiagram().getTopLevelNodes().get(0);
-			}
-			@Override
-			public GenNode getNodeB() {
-				return getGenDiagram().getTopLevelNodes().get(1);
-			}
-			@Override
-			public GenLink getLinkD() {
-				return getGenDiagram().getLinks().get(0);
-			}
-		};
-		configure(new SessionSetup(new RuntimeBasedGeneratorConfiguration()) {
-			@Override
-			public DomainModelSource getDomainModel() {
-				return dmSource;
-			}
-			@Override
-			public DiaGenSource getGenModel() {
-				return genModel;
-			}
-		});
+		configure(setup);
 		super.setUp();
 	}
 

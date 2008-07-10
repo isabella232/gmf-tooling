@@ -89,10 +89,11 @@ public class AllTests {
 		 * beginning to get rid of the problems with runtime registries
 		 * reloading. In particular - ViewService.
 		 */
-/*
 		try {
 			sessionSetup.getGeneratedPlugin();
 			sessionSetup2.getGeneratedPlugin();
+			LinkChildMetaFeatureNotFromContainerTest.setup.getGeneratedPlugin();
+			LinkEcoreConstraintsTest.setup.getGeneratedPlugin();
 		} catch (final Exception e) {
 			suite.addTest(new TestCase("Session setup initialization problem") {
 				protected void runTest() throws Throwable {
@@ -102,7 +103,6 @@ public class AllTests {
 			});
 			return suite;
 		}
-*/
 		/* [AS--] */
 
 		//$JUnit-BEGIN$
