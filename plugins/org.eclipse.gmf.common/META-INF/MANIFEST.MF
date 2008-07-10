@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: GMF Tooling Commons Plug-in
 Bundle-Vendor: Eclipse.org
 Bundle-SymbolicName: org.eclipse.gmf.common
-Bundle-Version: 1.1.1.qualifier
+Bundle-Version: 1.1.100.qualifier
 Export-Package: org.eclipse.gmf.common,
  org.eclipse.gmf.common.codegen,
  org.eclipse.gmf.internal.codegen.dispatch;x-friends:="org.eclipse.gmf.codegen,org.eclipse.gmf.graphdef.codegen,org.eclipse.gmf.codegen.lite",

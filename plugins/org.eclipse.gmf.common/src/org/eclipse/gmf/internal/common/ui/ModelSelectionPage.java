@@ -18,6 +18,7 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.ui.dialogs.WorkspaceResourceDialog;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -347,7 +348,7 @@ public class ModelSelectionPage extends WizardPage {
 	protected Resource loadResource() {
 		unloadResource();
 		assert uri != null;
-		Resource resource = getResourceSet().createResource(uri);
+		Resource resource = getResourceSet().createResource(uri, ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 		if (resource == null) {
 			setErrorMessage(Messages.ModelSelectionPageModelNA);
 			return null;
