@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -128,7 +129,7 @@ public class GMFToolModelWizard extends Wizard implements INewWizard {
 
 					// Create a resource for this file.
 					//
-					Resource resource = resourceSet.createResource(fileURI);
+					Resource resource = resourceSet.createResource(fileURI, ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 
 					// Add the initial model object to the contents.
 					//
