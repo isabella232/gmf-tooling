@@ -20,6 +20,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -164,7 +165,7 @@ public class GMFGenExtensionModelWizard extends Wizard implements IWorkbenchWiza
 	}
 
 	protected void addExtensionMetamodelRootToGmfgen(URI nextGmfgenURI, EObject instantiated) throws IOException {
-		Resource gmfgenModel = getResourceSet().createResource(nextGmfgenURI);
+		Resource gmfgenModel = getResourceSet().createResource(nextGmfgenURI, ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 		gmfgenModel.load(getResourceSet().getLoadOptions());
 		gmfgenModel.getContents().add(instantiated);
 		gmfgenModel.save(null);

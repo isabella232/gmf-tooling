@@ -19,6 +19,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelTransformer;
@@ -49,9 +50,9 @@ public class CreateSpecificDiagramRunTimeModelAction implements IObjectActionDel
 		DiagramRunTimeModelTransformer t = new DiagramRunTimeModelTransformer(packName, getMapModelURI().appendSegment("diagramrt").toString());
 		t.transform(m);
 		EPackage drtModel = t.getResult();
-		Resource drtEcoreModelRes = resSet.createResource(getDestEcoreURI());
+		Resource drtEcoreModelRes = resSet.createResource(getDestEcoreURI(), ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 		URI genModelURI = getDestGenModelURI();
-		Resource drtGenModelRes = Resource.Factory.Registry.INSTANCE.getFactory(genModelURI).createResource(genModelURI);
+		Resource drtGenModelRes = Resource.Factory.Registry.INSTANCE.getFactory(genModelURI, ContentHandler.UNSPECIFIED_CONTENT_TYPE).createResource(genModelURI);
 		resSet.getResources().add(drtGenModelRes);
 		// Resource drtGenModelRes =
 		// resSet.createResource(getDestGenModelURI());
