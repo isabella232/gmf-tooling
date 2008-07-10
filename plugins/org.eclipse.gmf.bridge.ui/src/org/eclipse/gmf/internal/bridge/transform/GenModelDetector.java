@@ -27,6 +27,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -131,7 +132,7 @@ public class GenModelDetector {
 		GenModel model = gma.create();
 		IPath path = patternResource.getFullPath().removeFileExtension().addFileExtension("genmodel"); //$NON-NLS-1$
 		URI uri = URI.createPlatformResourceURI(path.toString(), true);
-		Resource res = new ResourceSetImpl().createResource(uri);
+		Resource res = new ResourceSetImpl().createResource(uri, ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 		res.getContents().add(model);
 		try {
 			res.save(null);

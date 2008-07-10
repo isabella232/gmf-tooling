@@ -33,6 +33,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -390,7 +391,7 @@ public class TransformToGenModelOperation {
 			}
 			gmfgenRes.save(saveOptions);
 		} catch (RuntimeException ex) {
-			Resource dgmmRes = getResourceSet().createResource(getGenURI());
+			Resource dgmmRes = getResourceSet().createResource(getGenURI(), ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 			dgmmRes.getContents().add(genBurdern);
 			dgmmRes.save(getSaveOptions());
 		}

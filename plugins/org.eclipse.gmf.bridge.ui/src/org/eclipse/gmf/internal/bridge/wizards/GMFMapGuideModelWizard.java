@@ -25,6 +25,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
@@ -160,7 +161,7 @@ public class GMFMapGuideModelWizard extends Wizard implements INewWizard {
 		URI toolDefURI = URI.createPlatformResourceURI(toolDefFile.toString(), true);
 		myRegistry = GMFToolFactory.eINSTANCE.createToolRegistry();
 		myRegistry.setPalette(GMFToolFactory.eINSTANCE.createPalette());
-		myHolder.getResourceSet().createResource(toolDefURI).getContents().add(myRegistry);
+		myHolder.getResourceSet().createResource(toolDefURI, ContentHandler.UNSPECIFIED_CONTENT_TYPE).getContents().add(myRegistry);
 		return toolDefURI;
 	}
 

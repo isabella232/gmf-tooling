@@ -20,6 +20,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -101,7 +102,7 @@ public abstract class WizardInput {
 		if (mapInstance == null) {
 			mapInstance = GMFMapFactory.eINSTANCE.createMapping();
 			URI res = URI.createPlatformResourceURI(getMappingFile().getFullPath().toString(), true);
-			getResourceSet().createResource(res).getContents().add(mapInstance);
+			getResourceSet().createResource(res, ContentHandler.UNSPECIFIED_CONTENT_TYPE).getContents().add(mapInstance);
 			CanvasMapping cm = GMFMapFactory.eINSTANCE.createCanvasMapping();
 			mapInstance.setDiagram(cm);
 		}
