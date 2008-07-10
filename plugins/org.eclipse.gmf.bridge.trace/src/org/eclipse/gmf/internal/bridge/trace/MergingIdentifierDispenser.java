@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -88,7 +89,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		try {
 			traceRes = resSet.getResource(traceModelURI, true);
 		} catch (RuntimeException e) {
-			traceRes = resSet.createResource(traceModelURI);
+			traceRes = resSet.createResource(traceModelURI, ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 		}
 
 		if (traceRes.getContents().size() > 0 && traceRes.getContents().get(0) instanceof TraceModel) {
