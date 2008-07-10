@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.gmfgraph.Canvas;
@@ -95,18 +96,18 @@ class ConverterOutcome {
 			// the only difference with galleries in this case is where to put them - either 
 			// separate resource or not. 
 			Canvas mirror = ((CanvasProcessor) getProcessor()).getOutcome();
-			canvasResource = rs.createResource(mirroredCanvasURI);
+			canvasResource = rs.createResource(mirroredCanvasURI, ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 			canvasResource.getContents().add(mirror);
 			if (myOptions.needMirroredGalleries && myOptions.separateMirrorFiles) {
 				// sic! - respect separate mirror files only if explicitly asked to mirror galleries
 				// because separateMirrorFiles could be true when value for galleryOutputPath not set
-				galleryResource = rs.createResource(galleryResourceURI);
+				galleryResource = rs.createResource(galleryResourceURI, ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 				// XXX make sure we support containments in different resources
 				galleryResource.getContents().addAll(mirror.getFigures());
 			}
 			
 		} else if (myOptions.needMirroredGalleries) {
-			galleryResource = rs.createResource(galleryResourceURI);
+			galleryResource = rs.createResource(galleryResourceURI, ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 			GalleryMirrorProcessor processor = (GalleryMirrorProcessor) getProcessor();
 			galleryResource.getContents().add(processor.convertFigureGallery());
 		}

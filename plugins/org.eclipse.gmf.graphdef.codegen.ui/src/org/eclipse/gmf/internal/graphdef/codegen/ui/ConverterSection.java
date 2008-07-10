@@ -32,6 +32,7 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
@@ -349,7 +350,7 @@ public class ConverterSection extends OptionTemplateSection {
 	}
 	
 	private static Resource loadResource(String path){
-		Resource resource = new ResourceSetImpl().createResource(URI.createFileURI(path));
+		Resource resource = new ResourceSetImpl().createResource(URI.createFileURI(path), ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 		try {
 			resource.load(Collections.EMPTY_MAP);
 			return resource;
