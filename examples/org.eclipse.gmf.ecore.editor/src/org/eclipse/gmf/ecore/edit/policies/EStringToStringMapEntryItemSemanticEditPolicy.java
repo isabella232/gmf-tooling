@@ -13,6 +13,7 @@ package org.eclipse.gmf.ecore.edit.policies;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 
@@ -20,6 +21,13 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
  * @generated
  */
 public class EStringToStringMapEntryItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolicy {
+
+	/**
+	 * @generated
+	 */
+	public EStringToStringMapEntryItemSemanticEditPolicy() {
+		super(EcoreElementTypes.EStringToStringMapEntry_3008);
+	}
 
 	/**
 	 * @generated

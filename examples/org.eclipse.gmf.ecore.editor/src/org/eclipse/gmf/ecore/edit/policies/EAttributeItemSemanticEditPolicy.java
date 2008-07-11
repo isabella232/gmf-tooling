@@ -30,6 +30,13 @@ public class EAttributeItemSemanticEditPolicy extends EcoreBaseItemSemanticEditP
 	/**
 	 * @generated
 	 */
+	public EAttributeItemSemanticEditPolicy() {
+		super(EcoreElementTypes.EAttribute_3001);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		CompoundCommand cc = getDestroyEdgesCommand();
 		addDestroyShortcutsCommand(cc);

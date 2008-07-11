@@ -30,6 +30,13 @@ public class EEnumLiteralItemSemanticEditPolicy extends EcoreBaseItemSemanticEdi
 	/**
 	 * @generated
 	 */
+	public EEnumLiteralItemSemanticEditPolicy() {
+		super(EcoreElementTypes.EEnumLiteral_3009);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		CompoundCommand cc = getDestroyEdgesCommand();
 		addDestroyShortcutsCommand(cc);

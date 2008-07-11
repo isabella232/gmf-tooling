@@ -45,6 +45,13 @@ public class EDataTypeItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPo
 	/**
 	 * @generated
 	 */
+	public EDataTypeItemSemanticEditPolicy() {
+		super(EcoreElementTypes.EDataType_2004);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		CompoundCommand cc = getDestroyEdgesCommand();
 		addDestroyChildNodesCommand(cc);

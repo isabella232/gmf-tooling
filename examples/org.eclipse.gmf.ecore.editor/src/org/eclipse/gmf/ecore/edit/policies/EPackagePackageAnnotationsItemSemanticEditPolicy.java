@@ -25,6 +25,13 @@ public class EPackagePackageAnnotationsItemSemanticEditPolicy extends EcoreBaseI
 	/**
 	 * @generated
 	 */
+	public EPackagePackageAnnotationsItemSemanticEditPolicy() {
+		super(EcoreElementTypes.EPackage_2002);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (EcoreElementTypes.EAnnotation_3003 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {

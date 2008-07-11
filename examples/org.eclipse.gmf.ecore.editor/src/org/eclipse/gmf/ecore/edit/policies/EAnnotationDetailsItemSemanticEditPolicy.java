@@ -25,6 +25,13 @@ public class EAnnotationDetailsItemSemanticEditPolicy extends EcoreBaseItemSeman
 	/**
 	 * @generated
 	 */
+	public EAnnotationDetailsItemSemanticEditPolicy() {
+		super(EcoreElementTypes.EAnnotation_2003);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (EcoreElementTypes.EStringToStringMapEntry_3008 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {

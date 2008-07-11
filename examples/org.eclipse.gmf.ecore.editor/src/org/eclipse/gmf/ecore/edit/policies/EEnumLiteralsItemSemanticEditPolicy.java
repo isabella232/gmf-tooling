@@ -25,6 +25,13 @@ public class EEnumLiteralsItemSemanticEditPolicy extends EcoreBaseItemSemanticEd
 	/**
 	 * @generated
 	 */
+	public EEnumLiteralsItemSemanticEditPolicy() {
+		super(EcoreElementTypes.EEnum_2005);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (EcoreElementTypes.EEnumLiteral_3009 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {

@@ -12,6 +12,7 @@
 package org.eclipse.gmf.ecore.edit.policies;
 
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest;
 
@@ -19,6 +20,13 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest;
  * @generated
  */
 public class EClassESuperTypesItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolicy {
+
+	/**
+	 * @generated
+	 */
+	public EClassESuperTypesItemSemanticEditPolicy() {
+		super(EcoreElementTypes.EClassESuperTypes_4004);
+	}
 
 	/**
 	 * @generated

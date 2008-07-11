@@ -41,8 +41,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
-import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
-import org.eclipse.gmf.runtime.emf.type.core.IEditHelperContext;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
@@ -71,6 +69,18 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * @generated
 	 */
 	public static final String VISUAL_ID_KEY = "visual_id"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	private final IElementType myElementType;
+
+	/**
+	 * @generated
+	 */
+	protected EcoreBaseItemSemanticEditPolicy(IElementType elementType) {
+		myElementType = elementType;
+	}
 
 	/**
 	 * Extended request data key to hold editpart visual id.
@@ -107,32 +117,19 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 */
 	protected Command getSemanticCommand(IEditCommandRequest request) {
 		IEditCommandRequest completedRequest = completeRequest(request);
-		Object editHelperContext = completedRequest.getEditHelperContext();
-		if (editHelperContext instanceof View || (editHelperContext instanceof IEditHelperContext && ((IEditHelperContext) editHelperContext).getEObject() instanceof View)) {
-			// no semantic commands are provided for pure design elements
-			return null;
-		}
-		if (editHelperContext == null) {
-			editHelperContext = ViewUtil.resolveSemanticElement((View) getHost().getModel());
-		}
-		IElementType elementType = ElementTypeRegistry.getInstance().getElementType(editHelperContext);
-		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) { //$NON-NLS-1$ 
-			elementType = null;
-		}
 		Command semanticCommand = getSemanticCommandSwitch(completedRequest);
 		if (semanticCommand != null) {
 			ICommand command = semanticCommand instanceof ICommandProxy ? ((ICommandProxy) semanticCommand).getICommand() : new CommandProxy(semanticCommand);
 			completedRequest.setParameter(EcoreBaseEditHelper.EDIT_POLICY_COMMAND, command);
 		}
-		if (elementType != null) {
-			ICommand command = elementType.getEditCommand(completedRequest);
-			if (command != null) {
-				if (!(command instanceof CompositeTransactionalCommand)) {
-					TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
-					command = new CompositeTransactionalCommand(editingDomain, command.getLabel()).compose(command);
-				}
-				semanticCommand = new ICommandProxy(command);
+		ICommand command = myElementType.getEditCommand(completedRequest);
+		completedRequest.setParameter(EcoreBaseEditHelper.EDIT_POLICY_COMMAND, null);
+		if (command != null) {
+			if (!(command instanceof CompositeTransactionalCommand)) {
+				TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
+				command = new CompositeTransactionalCommand(editingDomain, command.getLabel()).compose(command);
 			}
+			semanticCommand = new ICommandProxy(command);
 		}
 		boolean shouldProceed = true;
 		if (completedRequest instanceof DestroyRequest) {
@@ -367,6 +364,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 					return false;
 				}
 			}
+
 			return canExistEAnnotationReferences_4001(source, target);
 		}
 
@@ -393,6 +391,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 					return false;
 				}
 			}
+
 			return canExistEClassESuperTypes_4004(source, target);
 		}
 
@@ -400,7 +399,6 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistEAnnotationReferences_4001(EAnnotation source, EObject target) {
-
 			return true;
 		}
 

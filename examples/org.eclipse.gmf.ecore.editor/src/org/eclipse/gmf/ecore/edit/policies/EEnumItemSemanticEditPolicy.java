@@ -47,6 +47,13 @@ public class EEnumItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolicy
 	/**
 	 * @generated
 	 */
+	public EEnumItemSemanticEditPolicy() {
+		super(EcoreElementTypes.EEnum_2005);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		CompoundCommand cc = getDestroyEdgesCommand();
 		addDestroyChildNodesCommand(cc);

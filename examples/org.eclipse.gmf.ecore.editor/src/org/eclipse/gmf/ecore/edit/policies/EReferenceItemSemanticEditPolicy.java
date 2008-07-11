@@ -29,6 +29,13 @@ public class EReferenceItemSemanticEditPolicy extends EcoreBaseItemSemanticEditP
 	/**
 	 * @generated
 	 */
+	public EReferenceItemSemanticEditPolicy() {
+		super(EcoreElementTypes.EReference_4002);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		return getGEFWrapper(new DestroyElementCommand(req));
 	}

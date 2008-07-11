@@ -46,6 +46,13 @@ public class EPackage2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPo
 	/**
 	 * @generated
 	 */
+	public EPackage2ItemSemanticEditPolicy() {
+		super(EcoreElementTypes.EPackage_2002);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		CompoundCommand cc = getDestroyEdgesCommand();
 		addDestroyChildNodesCommand(cc);

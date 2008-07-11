@@ -25,6 +25,13 @@ public class EPackageEnumsItemSemanticEditPolicy extends EcoreBaseItemSemanticEd
 	/**
 	 * @generated
 	 */
+	public EPackageEnumsItemSemanticEditPolicy() {
+		super(EcoreElementTypes.EPackage_2002);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (EcoreElementTypes.EEnum_3007 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {

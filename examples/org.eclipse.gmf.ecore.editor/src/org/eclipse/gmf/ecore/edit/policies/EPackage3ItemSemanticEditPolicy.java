@@ -30,6 +30,13 @@ public class EPackage3ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPo
 	/**
 	 * @generated
 	 */
+	public EPackage3ItemSemanticEditPolicy() {
+		super(EcoreElementTypes.EPackage_3005);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		CompoundCommand cc = getDestroyEdgesCommand();
 		addDestroyShortcutsCommand(cc);

@@ -30,6 +30,13 @@ public class EAnnotation2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEdi
 	/**
 	 * @generated
 	 */
+	public EAnnotation2ItemSemanticEditPolicy() {
+		super(EcoreElementTypes.EAnnotation_3003);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		CompoundCommand cc = getDestroyEdgesCommand();
 		addDestroyShortcutsCommand(cc);

@@ -33,6 +33,13 @@ public class EPackageItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPol
 	/**
 	 * @generated
 	 */
+	public EPackageItemSemanticEditPolicy() {
+		super(EcoreElementTypes.EPackage_1000);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (EcoreElementTypes.EClass_2001 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {

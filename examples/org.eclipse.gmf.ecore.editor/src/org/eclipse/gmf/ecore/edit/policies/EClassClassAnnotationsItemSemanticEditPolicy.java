@@ -25,6 +25,13 @@ public class EClassClassAnnotationsItemSemanticEditPolicy extends EcoreBaseItemS
 	/**
 	 * @generated
 	 */
+	public EClassClassAnnotationsItemSemanticEditPolicy() {
+		super(EcoreElementTypes.EClass_2001);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (EcoreElementTypes.EAnnotation_3003 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {

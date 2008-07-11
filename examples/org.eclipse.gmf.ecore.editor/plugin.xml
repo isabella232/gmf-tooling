@@ -507,14 +507,14 @@ Contributors:
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
       <?gmfgen generated="true"?>
-      <clientContext id="EcoreClientContext">
+      <clientContext id="org.eclipse.gmf.ecore.editor.TypeContext">
          <enablement>
             <test
                property="org.eclipse.gmf.runtime.emf.core.editingDomain"
                value="org.eclipse.gmf.ecore.editor.EditingDomain"/>
          </enablement>
       </clientContext> 
-      <binding context="EcoreClientContext">
+      <binding context="org.eclipse.gmf.ecore.editor.TypeContext">
          <elementType ref="org.eclipse.gmf.ecore.editor.EPackage_1000"/>
          <elementType ref="org.eclipse.gmf.ecore.editor.EClass_2001"/>
          <elementType ref="org.eclipse.gmf.ecore.editor.EPackage_2002"/>
