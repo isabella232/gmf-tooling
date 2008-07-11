@@ -20,8 +20,10 @@ package «getDiagram().editPoliciesPackageName»;
 «EXPAND xpt::Common::generatedClassComment»
 public class «itemSemanticEditPolicyClassName» extends «diagram.getBaseItemSemanticEditPolicyQualifiedClassName()» {
 
-	«EXPAND classBody(getDiagram()) FOR modelFacet-»
+	«EXPAND xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::defaultConstructor-»
 
+	«EXPAND classBody(getDiagram()) FOR modelFacet-»
+	
 	«EXPAND additions-»
 }
 «ENDDEFINE» 

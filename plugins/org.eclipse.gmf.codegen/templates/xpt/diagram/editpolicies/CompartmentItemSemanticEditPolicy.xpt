@@ -18,10 +18,20 @@ package «getDiagram().editPoliciesPackageName»;
 
 	«EXPAND xpt::Common::generatedClassComment»
 public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItemSemanticEditPolicyQualifiedClassName()» {
-	«EXPAND xpt::diagram::editpolicies::childContainerCreateCommand::childContainerCreateCommand FOR childNodes-»
 
+	«EXPAND constructor-»
+
+	«EXPAND xpt::diagram::editpolicies::childContainerCreateCommand::childContainerCreateCommand FOR childNodes-»
+	
 	«EXPAND additions-»
 }
+«ENDDEFINE»
+
+«DEFINE constructor FOR gmfgen::GenCompartment-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public «itemSemanticEditPolicyClassName»() {
+		«EXPAND xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::defaultConstructorBody FOR node-»		
+	}
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenCompartment-»

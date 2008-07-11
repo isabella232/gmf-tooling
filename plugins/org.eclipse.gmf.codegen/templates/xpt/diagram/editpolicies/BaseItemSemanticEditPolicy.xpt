@@ -26,8 +26,9 @@ package «getDiagram().editPoliciesPackageName»;
 «EXPAND xpt::Common::generatedClassComment»
 public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy {
 
-	«EXPAND xpt::Common::generatedMemberComment("Extended request data key to hold editpart visual id.\n")»
-	public static final String VISUAL_ID_KEY = "visual_id"; «EXPAND xpt::Common::nonNLS»
+	«EXPAND attributes-»
+	
+	«EXPAND constructor-»
 
 	«EXPAND xpt::Common::generatedMemberComment(
 		"Extended request data key to hold editpart visual id.\n" +
@@ -90,6 +91,21 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runti
 }
 «ENDDEFINE»
 
+«DEFINE attributes FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment("Extended request data key to hold editpart visual id.\n")»
+	public static final String VISUAL_ID_KEY = "visual_id"; «EXPAND xpt::Common::nonNLS»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private final org.eclipse.gmf.runtime.emf.type.core.IElementType myElementType;
+«ENDDEFINE»
+
+«DEFINE constructor FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected «baseItemSemanticEditPolicyClassName»(org.eclipse.gmf.runtime.emf.type.core.IElementType elementType) {
+		myElementType = elementType;
+	}
+«ENDDEFINE»
+
 «DEFINE addDestroyShortcutsCommand FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 protected void addDestroyShortcutsCommand(org.eclipse.gef.commands.CompoundCommand command) {
@@ -144,33 +160,19 @@ protected void addDestroyShortcutsCommand(org.eclipse.gef.commands.CompoundComma
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getSemanticCommand(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
 	org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest completedRequest = completeRequest(request);
-	Object editHelperContext = completedRequest.getEditHelperContext();
-	if (editHelperContext instanceof org.eclipse.gmf.runtime.notation.View || (editHelperContext instanceof org.eclipse.gmf.runtime.emf.type.core.IEditHelperContext && ((org.eclipse.gmf.runtime.emf.type.core.IEditHelperContext) editHelperContext).getEObject() instanceof org.eclipse.gmf.runtime.notation.View)) {
-		// no semantic commands are provided for pure design elements
-		return null;
-	}
-	if (editHelperContext == null) {
-		editHelperContext = org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.resolveSemanticElement((org.eclipse.gmf.runtime.notation.View) getHost().getModel());
-	}
-	org.eclipse.gmf.runtime.emf.type.core.IElementType elementType = org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry.getInstance().getElementType(editHelperContext);
-	if (elementType == org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) { «EXPAND xpt::Common::nonNLS» 
-	«REM»< % = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()) % >.getInstance().logInfo("Failed to get element type for " + editHelperContext); / / $NON-NLS-1$«ENDREM»«-»
-		elementType = null;
-	}
 	org.eclipse.gef.commands.Command semanticCommand = getSemanticCommandSwitch(completedRequest);
-	if (elementType != null) {
-		if (semanticCommand != null) {
-			org.eclipse.gmf.runtime.common.core.command.ICommand command = semanticCommand instanceof org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy ? ((org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy) semanticCommand).getICommand() : new org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy(semanticCommand);
-			completedRequest.setParameter(«getBaseEditHelperQualifiedClassName()».EDIT_POLICY_COMMAND, command);
+	if (semanticCommand != null) {
+		org.eclipse.gmf.runtime.common.core.command.ICommand command = semanticCommand instanceof org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy ? ((org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy) semanticCommand).getICommand() : new org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy(semanticCommand);
+		completedRequest.setParameter(«getBaseEditHelperQualifiedClassName()».EDIT_POLICY_COMMAND, command);
+	}
+	org.eclipse.gmf.runtime.common.core.command.ICommand command = myElementType.getEditCommand(completedRequest);
+	completedRequest.setParameter(«getBaseEditHelperQualifiedClassName()».EDIT_POLICY_COMMAND, null);
+	if (command != null) {
+		if (!(command instanceof org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand)) {
+			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
+			command = new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(editingDomain, command.getLabel()).compose(command);
 		}
-		org.eclipse.gmf.runtime.common.core.command.ICommand command = elementType.getEditCommand(completedRequest);
-		if (command != null) {
-			if (!(command instanceof org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand)) {
-				org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
-				command = new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(editingDomain, command.getLabel()).compose(command);
-			}
-			semanticCommand = new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(command);
-		}
+		semanticCommand = new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(command);
 	}
 	boolean shouldProceed = true;
 	if (completedRequest instanceof org.eclipse.gmf.runtime.emf.type.core.requests.DestroyRequest) {
@@ -492,3 +494,21 @@ if (target != null && («EXPAND featureBoundsConditionClause("target", getTargetT
 «DEFINE incorrectLinkModelFacet FOR gmfgen::LinkModelFacet»«ERROR "Unrecognized link model facet: " + this»«ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+
+«DEFINE defaultConstructor FOR gmfgen::GenCommonBase-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public «itemSemanticEditPolicyClassName»() {
+		«EXPAND defaultConstructorBody-»
+	}
+«ENDDEFINE»
+
+«REM»
+	This method should be called only with diagram, node or link used as a parameter 
+	(then elementType != null)
+«ENDREM»
+«DEFINE defaultConstructorBody FOR gmfgen::GenCommonBase-»
+	«IF elementType == null-»
+		«ERROR "No element type in the passed node. Only diagram, node or link are supported in this template: " + this-»
+	«ENDIF-»
+	super(«getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()»);
+«ENDDEFINE»

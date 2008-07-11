@@ -18,12 +18,15 @@ package «editPoliciesPackageName»;
 
 	«EXPAND xpt::Common::generatedClassComment»
 public class «itemSemanticEditPolicyClassName» extends «getBaseItemSemanticEditPolicyQualifiedClassName()» {
+
+	«EXPAND xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::defaultConstructor-»
+
 	«EXPAND xpt::diagram::editpolicies::childContainerCreateCommand::childContainerCreateCommand FOR topLevelNodes-»
 	
 	«EXPAND getDuplicateCommand-»
 	
 	«EXPAND DuplicateAnythingCommand-»
-
+	
 	«EXPAND additions-»
 }
 «ENDDEFINE»
