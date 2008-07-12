@@ -1151,7 +1151,7 @@
       iD="org.eclipse.gmf.ecore.editor"
       name="ECore Sample Diagram Plugin"
       provider="Eclipse.org"
-      version="2.0.100.qualifier"
+      version="2.1.0.qualifier"
       printingEnabled="true"/>
   <editor/>
   <navigator>
