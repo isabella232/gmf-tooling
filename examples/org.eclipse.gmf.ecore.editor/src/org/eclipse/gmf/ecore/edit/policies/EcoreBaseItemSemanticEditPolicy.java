@@ -32,6 +32,7 @@ import org.eclipse.gmf.ecore.expressions.EcoreAbstractExpression;
 import org.eclipse.gmf.ecore.expressions.EcoreOCLFactory;
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
+import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -118,19 +119,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	protected Command getSemanticCommand(IEditCommandRequest request) {
 		IEditCommandRequest completedRequest = completeRequest(request);
 		Command semanticCommand = getSemanticCommandSwitch(completedRequest);
-		if (semanticCommand != null) {
-			ICommand command = semanticCommand instanceof ICommandProxy ? ((ICommandProxy) semanticCommand).getICommand() : new CommandProxy(semanticCommand);
-			completedRequest.setParameter(EcoreBaseEditHelper.EDIT_POLICY_COMMAND, command);
-		}
-		ICommand command = myElementType.getEditCommand(completedRequest);
-		completedRequest.setParameter(EcoreBaseEditHelper.EDIT_POLICY_COMMAND, null);
-		if (command != null) {
-			if (!(command instanceof CompositeTransactionalCommand)) {
-				TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
-				command = new CompositeTransactionalCommand(editingDomain, command.getLabel()).compose(command);
-			}
-			semanticCommand = new ICommandProxy(command);
-		}
+		semanticCommand = getEditHelperCommand(completedRequest, semanticCommand);
 		boolean shouldProceed = true;
 		if (completedRequest instanceof DestroyRequest) {
 			shouldProceed = shouldProceed((DestroyRequest) completedRequest);
@@ -144,6 +133,32 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			return semanticCommand;
 		}
 		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Command getEditHelperCommand(IEditCommandRequest request, Command editPolicyCommand) {
+		if (editPolicyCommand != null) {
+			ICommand command = editPolicyCommand instanceof ICommandProxy ? ((ICommandProxy) editPolicyCommand).getICommand() : new CommandProxy(editPolicyCommand);
+			request.setParameter(EcoreBaseEditHelper.EDIT_POLICY_COMMAND, command);
+		}
+		IElementType requestContextElementType = EcoreElementTypes.getElementType(getVisualID(request));
+		if (requestContextElementType == null) {
+			requestContextElementType = myElementType;
+		}
+		request.setParameter(EcoreBaseEditHelper.CONTEXT_ELEMENT_TYPE, requestContextElementType);
+		ICommand command = requestContextElementType.getEditCommand(request);
+		request.setParameter(EcoreBaseEditHelper.EDIT_POLICY_COMMAND, null);
+		request.setParameter(EcoreBaseEditHelper.CONTEXT_ELEMENT_TYPE, null);
+		if (command != null) {
+			if (!(command instanceof CompositeTransactionalCommand)) {
+				TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
+				command = new CompositeTransactionalCommand(editingDomain, command.getLabel()).compose(command);
+			}
+			return new ICommandProxy(command);
+		}
+		return editPolicyCommand;
 	}
 
 	/**

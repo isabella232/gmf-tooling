@@ -22,6 +22,25 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotationReferencesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAttributeEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClass2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClassESuperTypesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClassEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EDataType2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EDataTypeEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnum2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnumEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnumLiteralEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EOperationEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -331,6 +350,53 @@ public class EcoreElementTypes extends ElementInitializers {
 			KNOWN_ELEMENT_TYPES.add(EClassESuperTypes_4004);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
+	}
+
+	/**
+	 * @generated
+	 */
+	public static IElementType getElementType(int visualID) {
+		switch (visualID) {
+		case EPackageEditPart.VISUAL_ID:
+			return EPackage_1000;
+		case EClassEditPart.VISUAL_ID:
+			return EClass_2001;
+		case EPackage2EditPart.VISUAL_ID:
+			return EPackage_2002;
+		case EAnnotationEditPart.VISUAL_ID:
+			return EAnnotation_2003;
+		case EDataTypeEditPart.VISUAL_ID:
+			return EDataType_2004;
+		case EEnumEditPart.VISUAL_ID:
+			return EEnum_2005;
+		case EAttributeEditPart.VISUAL_ID:
+			return EAttribute_3001;
+		case EOperationEditPart.VISUAL_ID:
+			return EOperation_3002;
+		case EAnnotation2EditPart.VISUAL_ID:
+			return EAnnotation_3003;
+		case EClass2EditPart.VISUAL_ID:
+			return EClass_3004;
+		case EPackage3EditPart.VISUAL_ID:
+			return EPackage_3005;
+		case EDataType2EditPart.VISUAL_ID:
+			return EDataType_3006;
+		case EEnum2EditPart.VISUAL_ID:
+			return EEnum_3007;
+		case EStringToStringMapEntryEditPart.VISUAL_ID:
+			return EStringToStringMapEntry_3008;
+		case EEnumLiteralEditPart.VISUAL_ID:
+			return EEnumLiteral_3009;
+		case EAnnotationReferencesEditPart.VISUAL_ID:
+			return EAnnotationReferences_4001;
+		case EReferenceEditPart.VISUAL_ID:
+			return EReference_4002;
+		case EReference2EditPart.VISUAL_ID:
+			return EReference_4003;
+		case EClassESuperTypesEditPart.VISUAL_ID:
+			return EClassESuperTypes_4004;
+		}
+		return null;
 	}
 
 }
