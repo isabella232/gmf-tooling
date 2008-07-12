@@ -48,6 +48,8 @@ public class «elementTypesClassName» extends ElementInitializers {
 	«EXPAND getElementType-»
 
 	«EXPAND isKnownElementType-»
+	
+	«EXPAND getElementTypeByVisualID-»
 
 	«EXPAND additions-»
 }
@@ -232,6 +234,21 @@ public static boolean isKnownElementType(org.eclipse.gmf.runtime.emf.type.core.I
 	«IF null != elementType-»
 KNOWN_ELEMENT_TYPES.add(«getUniqueIdentifier()»);
 	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getElementTypeByVisualID FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static org.eclipse.gmf.runtime.emf.type.core.IElementType getElementType(int visualID) {
+		switch (visualID) {
+			«EXPAND caseElementType FOREACH getElements().select(el | el.elementType != null)-»
+		}
+		return null;
+	}
+«ENDDEFINE»
+
+«DEFINE caseElementType FOR gmfgen::GenCommonBase-»
+	«EXPAND xpt::Common::caseVisualID-»
+		return «getUniqueIdentifier()»;
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram-»

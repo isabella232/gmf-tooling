@@ -126,6 +126,8 @@ protected void addDestroyShortcutsCommand(org.eclipse.gef.commands.CompoundComma
 «DEFINE semanticPart FOR gmfgen::GenDiagram-»
 	«EXPAND getSemanticCommand-»
 	
+	«EXPAND getEditHelperCommand-»
+	
 	«EXPAND getSemanticCommandSwitch-»
 	
 	«EXPAND getConfigureCommand-»
@@ -156,24 +158,38 @@ protected void addDestroyShortcutsCommand(org.eclipse.gef.commands.CompoundComma
 	«EXPAND getSemanticElement-»
 «ENDDEFINE»
 
+«DEFINE getEditHelperCommand FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gef.commands.Command getEditHelperCommand(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request, org.eclipse.gef.commands.Command editPolicyCommand) {
+		if (editPolicyCommand != null) {
+			org.eclipse.gmf.runtime.common.core.command.ICommand command = editPolicyCommand instanceof org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy ? ((org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy) editPolicyCommand).getICommand() : new org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy(editPolicyCommand);
+			request.setParameter(«EXPAND xpt::diagram::edithelpers::BaseEditHelper::editPolicyCommandConstant», command);
+		}
+		org.eclipse.gmf.runtime.emf.type.core.IElementType requestContextElementType = «getElementTypesQualifiedClassName()».getElementType(getVisualID(request));
+		if (requestContextElementType == null) {
+			requestContextElementType = myElementType;
+		}
+		request.setParameter(«EXPAND xpt::diagram::edithelpers::BaseEditHelper::contextElementTypeConstant», requestContextElementType);
+		org.eclipse.gmf.runtime.common.core.command.ICommand command = requestContextElementType.getEditCommand(request);
+		request.setParameter(«EXPAND xpt::diagram::edithelpers::BaseEditHelper::editPolicyCommandConstant», null);
+		request.setParameter(«EXPAND xpt::diagram::edithelpers::BaseEditHelper::contextElementTypeConstant», null);
+		if (command != null) {
+			if (!(command instanceof org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand)) {
+				org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
+				command = new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(editingDomain, command.getLabel()).compose(command);
+			}
+			return new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(command);
+		}
+		return editPolicyCommand;
+	}
+«ENDDEFINE»
+
 «DEFINE getSemanticCommand FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getSemanticCommand(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
 	org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest completedRequest = completeRequest(request);
 	org.eclipse.gef.commands.Command semanticCommand = getSemanticCommandSwitch(completedRequest);
-	if (semanticCommand != null) {
-		org.eclipse.gmf.runtime.common.core.command.ICommand command = semanticCommand instanceof org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy ? ((org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy) semanticCommand).getICommand() : new org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy(semanticCommand);
-		completedRequest.setParameter(«getBaseEditHelperQualifiedClassName()».EDIT_POLICY_COMMAND, command);
-	}
-	org.eclipse.gmf.runtime.common.core.command.ICommand command = myElementType.getEditCommand(completedRequest);
-	completedRequest.setParameter(«getBaseEditHelperQualifiedClassName()».EDIT_POLICY_COMMAND, null);
-	if (command != null) {
-		if (!(command instanceof org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand)) {
-			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
-			command = new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(editingDomain, command.getLabel()).compose(command);
-		}
-		semanticCommand = new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(command);
-	}
+	semanticCommand = getEditHelperCommand(completedRequest, semanticCommand);
 	boolean shouldProceed = true;
 	if (completedRequest instanceof org.eclipse.gmf.runtime.emf.type.core.requests.DestroyRequest) {
 		shouldProceed = shouldProceed((org.eclipse.gmf.runtime.emf.type.core.requests.DestroyRequest) completedRequest);
