@@ -73,7 +73,7 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 				RegistryFactory.getRegistry().addRegistryChangeListener(listener, "org.eclipse.ui");
 			}
 			myBundle = null;
-			super.generateAndCompile(diaGenSource);
+			generateAndCompile(diaGenSource);
 			myBundle.start();
 			registerExtensions(myBundle);
 			registerEMFEditExtensions();

@@ -55,7 +55,7 @@ import org.osgi.framework.Constants;
  * @author artem
  */
 public class GenProjectBaseSetup {
-	private final Set<String> projectsToInit = new LinkedHashSet<String>(); 
+	protected final Set<String> projectsToInit = new LinkedHashSet<String>(); 
 	private CompileUtil compileUtil;
 	private GeneratorConfiguration myGeneratorFactory;
 	

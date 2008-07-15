@@ -46,6 +46,7 @@ import org.eclipse.gmf.tests.gen.ToolDefHandocodedImplTest;
 import org.eclipse.gmf.tests.gen.ViewmapProducersTest;
 import org.eclipse.gmf.tests.migration.AllMigrationTests;
 import org.eclipse.gmf.tests.rt.AuditRulesTest;
+import org.eclipse.gmf.tests.rt.EditHelpersTest;
 import org.eclipse.gmf.tests.rt.LinkChildMetaFeatureNotFromContainerTest;
 import org.eclipse.gmf.tests.rt.ElementInitializerTest;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
@@ -94,6 +95,7 @@ public class AllTests {
 			sessionSetup2.getGeneratedPlugin();
 			LinkChildMetaFeatureNotFromContainerTest.setup.getGeneratedPlugin();
 			LinkEcoreConstraintsTest.setup.getGeneratedPlugin();
+			EditHelpersTest.setup.getGeneratedPlugin();
 		} catch (final Exception e) {
 			suite.addTest(new TestCase("Session setup initialization problem") {
 				protected void runTest() throws Throwable {
@@ -165,12 +167,16 @@ public class AllTests {
 		suite.addTest(feed(MetricRulesTest.class, sessionSetup2));		
 		suite.addTestSuite(GenFeatureSeqInitializerTest.class);
 		suite.addTestSuite(GenModelGraphAnalyzerTest.class);
+		suite.addTestSuite(EditHelpersTest.class);
 
 		//$JUnit-END$
 		suite.addTest(new CleanupTest("testCleanup") {
 			protected void performCleanup() throws Exception {
 				sessionSetup.cleanup();
 				sessionSetup2.cleanup();
+				LinkChildMetaFeatureNotFromContainerTest.setup.cleanup();
+				LinkEcoreConstraintsTest.setup.cleanup();
+				EditHelpersTest.setup.cleanup();
 			}
 		});
 		

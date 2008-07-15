@@ -1,0 +1,44 @@
+/*
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Alexander Shatalin (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
+
+«DEFINE main FOR gmfgen::GenDiagram-»
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+	<extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
+«EXPAND registerHelperAdvice FOREACH topLevelNodes.select(n|n.elementType != null)-»
+	</extension>
+	<extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
+		<binding context="«editorGen.plugin.iD».TypeContext">
+«EXPAND registerHelperAdviceBinding FOREACH topLevelNodes.select(n|n.elementType != null)-»
+		</binding>
+	</extension>
+</plugin>
+«ENDDEFINE»
+
+«DEFINE registerHelperAdvice FOR gmfgen::GenTopLevelNode-»
+		<metamodel nsURI="«modelFacet.metaClass.genPackage.ecorePackage.nsURI»">
+			<adviceBinding
+				class="«EXPAND edithelper::className FOR elementType»"
+				id="«EXPAND id FOR elementType»"
+				inheritance="none"
+				typeId="«elementType.uniqueIdentifier»"/>
+		</metamodel>
+«ENDDEFINE»
+
+«DEFINE id FOR gmfgen::ElementType»«uniqueIdentifier»_ExternalAdvice«ENDDEFINE»
+
+«DEFINE registerHelperAdviceBinding FOR gmfgen::GenTopLevelNode-»
+			<advice ref="«EXPAND id FOR elementType»"/>
+«ENDDEFINE»
