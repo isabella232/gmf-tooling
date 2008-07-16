@@ -96,6 +96,7 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 	}
 
 	public void testSingleEditHelperAdviceNode() {
+		assertTrue(getSetup().getGenModel().getNodeA().getElementType() instanceof MetamodelType);
 		Command command = getSetNewTopLeveNodeNameCommand(getSetup().getGenModel().getNodeA(), getSetup().getDomainModel().getNodeA().getNameAttr().getName());
 		Collection<IUndoableOperation> allMarkerCommands = getAllMarkerCommands(command);
 		Collection<IUndoableOperation> beforeCommands = getBeforeCommands(allMarkerCommands);
@@ -109,6 +110,7 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 	}
 
 	public void testTwoEditHelperAdvicesNode() {
+		assertTrue(getSetup().getGenModel().getNodeB().getElementType() instanceof SpecializationType);
 		Command command = getSetNewTopLeveNodeNameCommand(getSetup().getGenModel().getNodeB(), getSetup().getDomainModel().getNodeB().getNameAttr().getName());
 		Collection<IUndoableOperation> allMarkerCommands = getAllMarkerCommands(command);
 		Collection<IUndoableOperation> beforeCommands = getBeforeCommands(allMarkerCommands);
