@@ -17,9 +17,8 @@
 package «packageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
-public class «labelProviderClassName» extends «EXPAND extendsList» {
+public class «labelProviderClassName» extends «EXPAND extendsList» implements «EXPAND implementsList» {
 
-«EXPAND cons»
 «EXPAND getTextMethod»
 «EXPAND getImageMethod»
 «EXPAND unwrapMethods»
@@ -28,32 +27,29 @@ public class «labelProviderClassName» extends «EXPAND extendsList» {
 }
 «ENDDEFINE»
 
-«DEFINE extendsList FOR gmfgen::GenPropertySheet»org.eclipse.jface.viewers.DecoratingLabelProvider«ENDDEFINE»
+«DEFINE extendsList FOR gmfgen::GenPropertySheet»org.eclipse.jface.viewers.BaseLabelProvider«ENDDEFINE»
 
-«DEFINE cons FOR gmfgen::GenPropertySheet»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «labelProviderClassName»() {
-		super(new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory()), null);
-	}
-«ENDDEFINE»
+«DEFINE implementsList FOR gmfgen::GenPropertySheet»org.eclipse.jface.viewers.ILabelProvider«ENDDEFINE»
 
 «DEFINE getTextMethod FOR gmfgen::GenPropertySheet»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public String getText(Object element) {
-		Object selected = unwrap(element); 
+		element = unwrap(element);
 «IF editorGen.navigator != null-»
-		if (selected instanceof «editorGen.navigator.getNavigatorGroupQualifiedClassName()») {
-			return ((«editorGen.navigator.getNavigatorGroupQualifiedClassName()») selected).getGroupName();
+		if (element instanceof «editorGen.navigator.getNavigatorGroupQualifiedClassName()») {
+			return ((«editorGen.navigator.getNavigatorGroupQualifiedClassName()») element).getGroupName();
 		}
 «ENDIF-»
-		return super.getText(selected);
+		org.eclipse.gmf.runtime.emf.type.core.IElementType etype = getElementType(getView(element));
+		return etype == null ? "" : etype.getDisplayName();
 	}
 «ENDDEFINE»
 
 «DEFINE getImageMethod FOR gmfgen::GenPropertySheet»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.swt.graphics.Image getImage(Object element) {
-		return super.getImage(unwrap(element));
+		org.eclipse.gmf.runtime.emf.type.core.IElementType etype = getElementType(getView(unwrap(element)));
+		return etype == null ? null : «editorGen.diagram.getElementTypesQualifiedClassName()».getImage(etype);
 	}
 «ENDDEFINE»
 
@@ -61,37 +57,37 @@ public class «labelProviderClassName» extends «EXPAND extendsList» {
 	«EXPAND xpt::Common::generatedMemberComment»
 	private Object unwrap(Object element) {
 		if (element instanceof org.eclipse.jface.viewers.IStructuredSelection) {
-			return unwrap(((org.eclipse.jface.viewers.IStructuredSelection) element).getFirstElement());
-		}
-		if (element instanceof org.eclipse.gef.EditPart) {
-			return unwrapEditPart((org.eclipse.gef.EditPart) element);
-		}
-		if (element instanceof org.eclipse.core.runtime.IAdaptable) {
-			org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) ((org.eclipse.core.runtime.IAdaptable) element).getAdapter(org.eclipse.gmf.runtime.notation.View.class);
-			if (view != null) {
-				return unwrapView(view);
-			}
+			return ((org.eclipse.jface.viewers.IStructuredSelection) element).getFirstElement();
 		}
 		return element;
 	}
-	«EXPAND unwrapEditPartMethod»
-	«EXPAND unwrapViewMethod»
-«ENDDEFINE»
 
-«DEFINE unwrapEditPartMethod FOR gmfgen::GenPropertySheet»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private Object unwrapEditPart(org.eclipse.gef.EditPart p) {
-		if (p.getModel() instanceof org.eclipse.gmf.runtime.notation.View) {
-			return unwrapView((org.eclipse.gmf.runtime.notation.View) p.getModel());
+	private org.eclipse.gmf.runtime.notation.View getView(Object element) {
+		if (element instanceof org.eclipse.gmf.runtime.notation.View) {
+			return (org.eclipse.gmf.runtime.notation.View) element;
 		}
-		return p.getModel();
+		if (element instanceof org.eclipse.core.runtime.IAdaptable) {
+			return (org.eclipse.gmf.runtime.notation.View)
+					((org.eclipse.core.runtime.IAdaptable) element).getAdapter(org.eclipse.gmf.runtime.notation.View.class);
+		}
+		return null;
 	}
-«ENDDEFINE»
 
-«DEFINE unwrapViewMethod FOR gmfgen::GenPropertySheet»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private Object unwrapView(org.eclipse.gmf.runtime.notation.View view) {
-		return view.getElement() == null ? view : view.getElement();
+	private org.eclipse.gmf.runtime.emf.type.core.IElementType getElementType(org.eclipse.gmf.runtime.notation.View view) {
+		// For intermediate views climb up the containment hierarchy to find the one associated with an element type.
+		while (view != null) {
+			int vid = «editorGen.diagram.getVisualIDRegistryQualifiedClassName()».getVisualID(view);
+			org.eclipse.gmf.runtime.emf.type.core.IElementType etype =
+					«editorGen.diagram.getElementTypesQualifiedClassName()».getElementType(vid);
+			if (etype != null) {
+				return etype;
+			}
+			view = view.eContainer() instanceof org.eclipse.gmf.runtime.notation.View ?
+					(org.eclipse.gmf.runtime.notation.View) view.eContainer() : null;
+		}
+		return null;
 	}
 «ENDDEFINE»
 
