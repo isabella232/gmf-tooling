@@ -128,6 +128,8 @@ protected void addDestroyShortcutsCommand(org.eclipse.gef.commands.CompoundComma
 	
 	«EXPAND getEditHelperCommand-»
 	
+	«EXPAND getContextElementType-»
+	
 	«EXPAND getSemanticCommandSwitch-»
 	
 	«EXPAND getConfigureCommand-»
@@ -165,10 +167,7 @@ protected void addDestroyShortcutsCommand(org.eclipse.gef.commands.CompoundComma
 			org.eclipse.gmf.runtime.common.core.command.ICommand command = editPolicyCommand instanceof org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy ? ((org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy) editPolicyCommand).getICommand() : new org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy(editPolicyCommand);
 			request.setParameter(«EXPAND xpt::diagram::edithelpers::BaseEditHelper::editPolicyCommandConstant», command);
 		}
-		org.eclipse.gmf.runtime.emf.type.core.IElementType requestContextElementType = «getElementTypesQualifiedClassName()».getElementType(getVisualID(request));
-		if (requestContextElementType == null) {
-			requestContextElementType = myElementType;
-		}
+		org.eclipse.gmf.runtime.emf.type.core.IElementType requestContextElementType = getContextElementType(request);
 		request.setParameter(«EXPAND xpt::diagram::edithelpers::BaseEditHelper::contextElementTypeConstant», requestContextElementType);
 		org.eclipse.gmf.runtime.common.core.command.ICommand command = requestContextElementType.getEditCommand(request);
 		request.setParameter(«EXPAND xpt::diagram::edithelpers::BaseEditHelper::editPolicyCommandConstant», null);
@@ -181,6 +180,14 @@ protected void addDestroyShortcutsCommand(org.eclipse.gef.commands.CompoundComma
 			return new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(command);
 		}
 		return editPolicyCommand;
+	}
+«ENDDEFINE»
+
+«DEFINE getContextElementType FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gmf.runtime.emf.type.core.IElementType getContextElementType(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
+		org.eclipse.gmf.runtime.emf.type.core.IElementType requestContextElementType = «getElementTypesQualifiedClassName()».getElementType(getVisualID(request));
+		return requestContextElementType != null ? requestContextElementType : myElementType;
 	}
 «ENDDEFINE»
 
