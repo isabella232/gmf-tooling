@@ -143,10 +143,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			ICommand command = editPolicyCommand instanceof ICommandProxy ? ((ICommandProxy) editPolicyCommand).getICommand() : new CommandProxy(editPolicyCommand);
 			request.setParameter(EcoreBaseEditHelper.EDIT_POLICY_COMMAND, command);
 		}
-		IElementType requestContextElementType = EcoreElementTypes.getElementType(getVisualID(request));
-		if (requestContextElementType == null) {
-			requestContextElementType = myElementType;
-		}
+		IElementType requestContextElementType = getContextElementType(request);
 		request.setParameter(EcoreBaseEditHelper.CONTEXT_ELEMENT_TYPE, requestContextElementType);
 		ICommand command = requestContextElementType.getEditCommand(request);
 		request.setParameter(EcoreBaseEditHelper.EDIT_POLICY_COMMAND, null);
@@ -159,6 +156,14 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			return new ICommandProxy(command);
 		}
 		return editPolicyCommand;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IElementType getContextElementType(IEditCommandRequest request) {
+		IElementType requestContextElementType = EcoreElementTypes.getElementType(getVisualID(request));
+		return requestContextElementType != null ? requestContextElementType : myElementType;
 	}
 
 	/**
