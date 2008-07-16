@@ -46,7 +46,7 @@ private genmodel::GenClass getContainerClass(gmfgen::LinkModelFacet modelFacet) 
 
 private genmodel::GenClass getContainerClass(gmfgen::TypeLinkModelFacet modelFacet) :
 	// can't use getSourceType() here as it respects sourceMetaFeature, which is irrelevant for containment
-	modelFacet.childMetaFeature != modelFacet.containmentMetaFeature ? modelFacet.childMetaFeature.genClass : modelFacet.containmentMetaFeature.genClass
+	modelFacet.childMetaFeature.genClass
 ;
 
 private genmodel::GenClass getContainerClass(gmfgen::FeatureLinkModelFacet modelFacet) : modelFacet.getSourceType() ;

@@ -283,7 +283,7 @@ public static java.util.List «EXPAND linkGetterName(methodNameSuffix)»(org.eclip
 «DEFINE getContainedLinksByTypeMethod(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-private static java.util.Collection «EXPAND getConnectedLinksByTypeMethodName(getContainedLinksMethodNameSuffix()) FOR genLink»(«EXPAND MetaModel::QualifiedClassName FOR getSourceType()» container) {
+private static java.util.Collection «EXPAND getConnectedLinksByTypeMethodName(getContainedLinksMethodNameSuffix()) FOR genLink»(«EXPAND MetaModel::QualifiedClassName FOR childMetaFeature.genClass» container) {
 	«EXPAND getContainedLinksByTypeMethodBody(genLink, false)-»
 }
 «ENDDEFINE»
