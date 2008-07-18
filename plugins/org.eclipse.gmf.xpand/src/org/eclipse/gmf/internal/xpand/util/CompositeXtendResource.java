@@ -68,7 +68,7 @@ class CompositeXtendResource implements XtendResource {
 	public String[] getImportedExtensions() {
 		final List<String> result= new ArrayList<String>();
         for (XtendResource nextResource : myResources) {
-        	result.addAll(Arrays.asList(nextResource.getImportedNamespaces()));
+        	result.addAll(Arrays.asList(nextResource.getImportedExtensions()));
         }
 		return result.toArray(new String[result.size()]);
 	}
@@ -76,7 +76,7 @@ class CompositeXtendResource implements XtendResource {
 	public String[] getImportedNamespaces() {
 		final List<String> result= new ArrayList<String>();
         for (XtendResource nextResource : myResources) {
-        	result.addAll(Arrays.asList(nextResource.getImportedExtensions()));
+        	result.addAll(Arrays.asList(nextResource.getImportedNamespaces()));
         }
 		return result.toArray(new String[result.size()]);
 	}
