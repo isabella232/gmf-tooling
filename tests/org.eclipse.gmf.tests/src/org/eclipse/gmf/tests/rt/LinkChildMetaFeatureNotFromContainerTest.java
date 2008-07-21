@@ -46,146 +46,155 @@ import org.eclipse.gmf.tests.setup.SessionSetup;
  * @author artem
  */
 public class LinkChildMetaFeatureNotFromContainerTest extends AbstractDiagramEditorTest {
+	private static final class DiaGenSourceImpl implements DiaGenSource {
+
+		private final GenDiagram myDiagram;
+
+		private final GenTopLevelNode myNodeA;
+
+		private final GenTopLevelNode myNodeB;
+
+		private final GenLink myLinkL;
+		/*
+		 * C holds A, B and L, where L is a link between A and B, 
+		 * such as A has outgoing EReference to L, B knows nothing
+		 * about L, while L does (it got an EReference to B)  
+		 */
+		DiaGenSourceImpl() {
+			EcoreFactory f = EcoreFactory.eINSTANCE;
+			EClass a = f.createEClass();
+			EClass b = f.createEClass();
+			EClass c = f.createEClass();
+			EClass l = f.createEClass();
+			a.setName("ElemA");
+			b.setName("ElemB");
+			l.setName("BindAtoB");
+			c.setName("Cont");
+			l.getESuperTypes().add(a);
+
+			EReference rc1 = f.createEReference();
+			rc1.setName("containmA");
+			rc1.setUpperBound(-1);
+			rc1.setEType(a);
+			rc1.setContainment(true);
+			EReference rc2 = f.createEReference();
+			rc2.setName("containmB");
+			rc2.setUpperBound(-1);
+			rc2.setEType(b);
+			rc2.setContainment(true);
+			c.getEStructuralFeatures().add(rc1);
+			c.getEStructuralFeatures().add(rc2);
+
+			EReference rl = f.createEReference();
+			rl.setName("ls"); // link source
+			rl.setEType(l);
+			a.getEStructuralFeatures().add(rl);
+
+			EReference rb = f.createEReference();
+			rb.setName("lt"); // link target
+			rb.setEType(b);
+			l.getEStructuralFeatures().add(rb);
+			
+			EPackage p = f.createEPackage();
+			p.setName("xxx");
+			p.setNsPrefix("xxx");
+			p.setNsURI("uri:/CreateLinkTest/");
+			p.getEClassifiers().add(a);
+			p.getEClassifiers().add(b);
+			p.getEClassifiers().add(c);
+			p.getEClassifiers().add(l);
+
+			final GenModelMatcher gmm = new GenModelMatcher(Utils.createGenModel(p));
+			RuntimeGenModelAccess runtimeAccess = new RuntimeGenModelAccess();
+			runtimeAccess.ensure();
+			final GenModel runtimeModel = runtimeAccess.model();
+			GMFGenFactory gf = GMFGenFactory.eINSTANCE;
+			myDiagram = gf.createGenDiagram();
+			myDiagram.setDomainDiagramElement(gmm.findGenClass(c));
+			myDiagram.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getDiagram()));
+			myDiagram.setViewmap(gf.createFigureViewmap());
+			myDiagram.setVisualID(99);
+			MetamodelType dgmmType = GMFGenFactory.eINSTANCE.createMetamodelType();
+			myDiagram.setElementType(dgmmType);
+
+			myNodeA = gf.createGenTopLevelNode();
+			myNodeA.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getNode()));
+			myNodeA.setElementType(GMFGenFactory.eINSTANCE.createMetamodelType());
+			TypeModelFacet mf = gf.createTypeModelFacet();
+			mf.setMetaClass(gmm.findGenClass(a));
+			mf.setContainmentMetaFeature(gmm.findGenFeature(rc1));
+			myNodeA.setModelFacet(mf);
+			FigureViewmap fv = gf.createFigureViewmap();
+			fv.setFigureQualifiedClassName("org.eclipse.draw2d.RoundedRectangle");
+			myNodeA.setViewmap(fv);
+			myNodeA.setVisualID(1001);
+
+			myNodeB = gf.createGenTopLevelNode();
+			myNodeB.setDiagramRunTimeClass(myNodeA.getDiagramRunTimeClass());
+			myNodeB.setElementType(gf.createMetamodelType());
+			mf = gf.createTypeModelFacet();
+			mf.setMetaClass(gmm.findGenClass(b));
+			mf.setContainmentMetaFeature(gmm.findGenFeature(rc2));
+			myNodeB.setModelFacet(mf);
+			fv = gf.createFigureViewmap();
+			fv.setFigureQualifiedClassName("org.eclipse.draw2d.RoundedRectangle");
+			myNodeB.setViewmap(fv);
+			myNodeB.setVisualID(1002);
+
+			myLinkL = gf.createGenLink();
+			myLinkL.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getEdge()));
+			TypeLinkModelFacet lmf = gf.createTypeLinkModelFacet();
+			lmf.setMetaClass(gmm.findGenClass(l));
+			lmf.setContainmentMetaFeature(gmm.findGenFeature(rc1));
+			// >>>
+			lmf.setChildMetaFeature(gmm.findGenFeature(rl)); // HERE COMES INTERESTING PART
+			// <<<
+			lmf.setTargetMetaFeature(gmm.findGenFeature(rb));
+			myLinkL.setModelFacet(lmf);
+			fv = gf.createFigureViewmap();
+			fv.setFigureQualifiedClassName("org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx");
+			myLinkL.setViewmap(fv);
+			myLinkL.setVisualID(2001);
+			myLinkL.setElementType(gf.createMetamodelType());
+			
+			myDiagram.getTopLevelNodes().add(myNodeA);
+			myDiagram.getTopLevelNodes().add(myNodeB);
+			myDiagram.getLinks().add(myLinkL);
+			GenEditorGenerator geg = gf.createGenEditorGenerator();
+			geg.setDiagram(myDiagram);
+			geg.setDomainGenModel(myDiagram.getDomainDiagramElement().getGenModel());
+			geg.setEditor(gf.createGenEditorView());
+			geg.setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
+			geg.setDiagramUpdater(gf.createGenDiagramUpdater());
+
+			new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/CreateLinkTest")).getContents().add(geg);
+		}
+
+		public GenDiagram getGenDiagram() {
+			return myDiagram;
+		}
+
+		public GenNode getNodeA() {
+			return myNodeA;
+		}
+
+		public GenNode getNodeB() {
+			return myNodeB;
+		}
+
+		public GenLink getLinkC() {
+			return myLinkL;
+		}
+
+		public GenLink getLinkD() {
+			return null;
+		}
+	}
+
 	public static final SessionSetup setup = new SessionSetup(new RuntimeBasedGeneratorConfiguration()) {
 		@Override
 		protected DiaGenSource createGenModel() {
-			return new DiaGenSource() {
-				private final GenDiagram myDiagram;
-				private final GenTopLevelNode myNodeA;
-				private final GenTopLevelNode myNodeB;
-				private final GenLink myLinkL;
-
-				/*
-				 * C holds A, B and L, where L is a link between A and B, 
-				 * such as A has outgoing EReference to L, B knows nothing
-				 * about L, while L does (it got an EReference to B)  
-				 */
-				{
-					EcoreFactory f = EcoreFactory.eINSTANCE;
-					EClass a = f.createEClass();
-					EClass b = f.createEClass();
-					EClass c = f.createEClass();
-					EClass l = f.createEClass();
-					a.setName("ElemA");
-					b.setName("ElemB");
-					l.setName("BindAtoB");
-					c.setName("Cont");
-					l.getESuperTypes().add(a);
-
-					EReference rc1 = f.createEReference();
-					rc1.setName("containmA");
-					rc1.setUpperBound(-1);
-					rc1.setEType(a);
-					rc1.setContainment(true);
-					EReference rc2 = f.createEReference();
-					rc2.setName("containmB");
-					rc2.setUpperBound(-1);
-					rc2.setEType(b);
-					rc2.setContainment(true);
-					c.getEStructuralFeatures().add(rc1);
-					c.getEStructuralFeatures().add(rc2);
-
-					EReference rl = f.createEReference();
-					rl.setName("ls"); // link source
-					rl.setEType(l);
-					a.getEStructuralFeatures().add(rl);
-
-					EReference rb = f.createEReference();
-					rb.setName("lt"); // link target
-					rb.setEType(b);
-					l.getEStructuralFeatures().add(rb);
-					
-					EPackage p = f.createEPackage();
-					p.setName("xxx");
-					p.setNsPrefix("xxx");
-					p.setNsURI("uri:/CreateLinkTest/");
-					p.getEClassifiers().add(a);
-					p.getEClassifiers().add(b);
-					p.getEClassifiers().add(c);
-					p.getEClassifiers().add(l);
-
-					final GenModelMatcher gmm = new GenModelMatcher(Utils.createGenModel(p));
-					RuntimeGenModelAccess runtimeAccess = new RuntimeGenModelAccess();
-					runtimeAccess.ensure();
-					final GenModel runtimeModel = runtimeAccess.model();
-					GMFGenFactory gf = GMFGenFactory.eINSTANCE;
-					myDiagram = gf.createGenDiagram();
-					myDiagram.setDomainDiagramElement(gmm.findGenClass(c));
-					myDiagram.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getDiagram()));
-					myDiagram.setViewmap(gf.createFigureViewmap());
-					myDiagram.setVisualID(99);
-					MetamodelType dgmmType = GMFGenFactory.eINSTANCE.createMetamodelType();
-					myDiagram.setElementType(dgmmType);
-
-					myNodeA = gf.createGenTopLevelNode();
-					myNodeA.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getNode()));
-					myNodeA.setElementType(GMFGenFactory.eINSTANCE.createMetamodelType());
-					TypeModelFacet mf = gf.createTypeModelFacet();
-					mf.setMetaClass(gmm.findGenClass(a));
-					mf.setContainmentMetaFeature(gmm.findGenFeature(rc1));
-					myNodeA.setModelFacet(mf);
-					FigureViewmap fv = gf.createFigureViewmap();
-					fv.setFigureQualifiedClassName("org.eclipse.draw2d.RoundedRectangle");
-					myNodeA.setViewmap(fv);
-					myNodeA.setVisualID(1001);
-
-					myNodeB = gf.createGenTopLevelNode();
-					myNodeB.setDiagramRunTimeClass(myNodeA.getDiagramRunTimeClass());
-					myNodeB.setElementType(gf.createMetamodelType());
-					mf = gf.createTypeModelFacet();
-					mf.setMetaClass(gmm.findGenClass(b));
-					mf.setContainmentMetaFeature(gmm.findGenFeature(rc2));
-					myNodeB.setModelFacet(mf);
-					fv = gf.createFigureViewmap();
-					fv.setFigureQualifiedClassName("org.eclipse.draw2d.RoundedRectangle");
-					myNodeB.setViewmap(fv);
-					myNodeB.setVisualID(1002);
-
-					myLinkL = gf.createGenLink();
-					myLinkL.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getEdge()));
-					TypeLinkModelFacet lmf = gf.createTypeLinkModelFacet();
-					lmf.setMetaClass(gmm.findGenClass(l));
-					lmf.setContainmentMetaFeature(gmm.findGenFeature(rc1));
-					// >>>
-					lmf.setChildMetaFeature(gmm.findGenFeature(rl)); // HERE COMES INTERESTING PART
-					// <<<
-					lmf.setTargetMetaFeature(gmm.findGenFeature(rb));
-					myLinkL.setModelFacet(lmf);
-					fv = gf.createFigureViewmap();
-					fv.setFigureQualifiedClassName("org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx");
-					myLinkL.setViewmap(fv);
-					myLinkL.setVisualID(2001);
-					myLinkL.setElementType(gf.createMetamodelType());
-					
-					myDiagram.getTopLevelNodes().add(myNodeA);
-					myDiagram.getTopLevelNodes().add(myNodeB);
-					myDiagram.getLinks().add(myLinkL);
-					GenEditorGenerator geg = gf.createGenEditorGenerator();
-					geg.setDiagram(myDiagram);
-					geg.setDomainGenModel(myDiagram.getDomainDiagramElement().getGenModel());
-					geg.setEditor(gf.createGenEditorView());
-					geg.setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
-					geg.setDiagramUpdater(gf.createGenDiagramUpdater());
-
-					new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/CreateLinkTest")).getContents().add(geg);
-				}
-				
-				public GenDiagram getGenDiagram() {
-					return myDiagram;
-				}
-				public GenNode getNodeA() {
-					return myNodeA;
-				}
-				public GenNode getNodeB() {
-					return myNodeB;
-				}
-				public GenLink getLinkC() {
-					return myLinkL;
-				}
-				public GenLink getLinkD() {
-					return null;
-				}
-			};
+			return new DiaGenSourceImpl();
 		}
 	};
 
