@@ -27,6 +27,7 @@ import org.eclipse.gmf.internal.xpand.expression.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.xtend.ast.ExpressionExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 import org.eclipse.gmf.internal.xpand.xtend.ast.ExtensionFile;
+import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
 import org.eclipse.gmf.tests.expression.ast.ATypeModel;
 
 public class ExtensionAnalyzationTest extends AbstractXtendTest {
@@ -121,7 +122,7 @@ public class ExtensionAnalyzationTest extends AbstractXtendTest {
 		final ExtensionFile file = parse("ext1(String txt) : 'test'+txt ;" + "ext2(String txt) : txt.ext1() ;");
 		ec = (ExecutionContextImpl) ec.cloneWithResource(file);
 
-		final Extension ext = ec.getExtension("ext2", new EClassifier[] { EcorePackage.eINSTANCE.getEString() });
+		final GenericExtension ext = ec.getExtension("ext2", new EClassifier[] { EcorePackage.eINSTANCE.getEString() });
 		final EClassifier evalResult = ext.getReturnType(new EClassifier[] { EcorePackage.eINSTANCE.getEString() }, ec, new HashSet<AnalysationIssue>());
 		assertEquals(EcorePackage.eINSTANCE.getEString(), evalResult);
 	}
@@ -153,7 +154,7 @@ public class ExtensionAnalyzationTest extends AbstractXtendTest {
 		ec = (ExecutionContextImpl) ec.cloneWithResource(file);
 		file.analyze(ec, issues);
 		assertEquals(0, issues.size());
-		final Extension ext = (Extension) file.getExtensions().get(0);
+		final Extension ext = file.getExtensions().get(0);
 		assertEquals("List", ext.getReturnType(null, ec, null).eClass().getName());
 	}
 
@@ -162,7 +163,7 @@ public class ExtensionAnalyzationTest extends AbstractXtendTest {
 		ec = (ExecutionContextImpl) ec.cloneWithResource(file);
 		file.analyze(ec, issues);
 		assertEquals(0, issues.size());
-		final Extension ext = (Extension) file.getExtensions().get(0);
+		final Extension ext = file.getExtensions().get(0);
 		assertEquals("List", ext.getReturnType(null, ec, null).eClass().getName());
 	}
 

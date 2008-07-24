@@ -8,69 +8,21 @@
  *******************************************************************************/
 package org.eclipse.gmf.tests.xpand;
 
-import java.io.CharArrayWriter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
 import org.eclipse.gmf.internal.xpand.ResourceManager;
-import org.eclipse.gmf.internal.xpand.ast.Template;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
-import org.eclipse.gmf.internal.xpand.model.XpandResource;
-import org.eclipse.gmf.internal.xpand.parser.XpandLexer;
-import org.eclipse.gmf.internal.xpand.parser.XpandParser;
-import org.eclipse.gmf.internal.xpand.xtend.ast.ExtensionFile;
-import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
-import org.eclipse.gmf.internal.xpand.xtend.parser.XtendLexer;
-import org.eclipse.gmf.internal.xpand.xtend.parser.XtendParser;
+import org.eclipse.gmf.internal.xpand.util.ParserException;
+import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
 
 /**
  * @author artem
  */
-public class TestsResourceManager implements ResourceManager {
-
-	public XpandResource loadXpandResource(String fullyQualifiedName) {
-		InputStream is = null;
-		try {
-			is = loadFile(fullyQualifiedName, XpandResource.TEMPLATE_EXTENSION);
-			if (is == null) {
-				return null;
-			}
-			return parseXpand(new InputStreamReader(is), fullyQualifiedName);
-		} finally {
-			try {
-				if (is != null) {
-					is.close();
-				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-	}
-
-	public XtendResource loadXtendResource(String fullyQualifiedName) {
-		InputStream is = null;
-		try {
-			is = loadFile(fullyQualifiedName, XtendResource.FILE_EXTENSION);
-			if (is == null) {
-				return null;
-			}
-			return parseXtend(new InputStreamReader(is), fullyQualifiedName);
-		} catch (RuntimeException ex) {
-			throw ex;
-		} catch (Exception ex) {
-			throw new IllegalStateException(ex);
-		} finally {
-			try {
-				if (is != null) {
-					is.close();
-				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-	}
+public class TestsResourceManager extends ResourceManagerImpl implements ResourceManager {
 
 	/**
 	 * We use classLoader#getResourceAsStream here and mandate '/resources/' folder to be in classpath
@@ -81,39 +33,20 @@ public class TestsResourceManager implements ResourceManager {
 		return getClass().getClassLoader().getResourceAsStream(resName);
 	}
 
-	private static Template parseXpand(Reader in, String fileName) {
-		try {
-			final XpandLexer scanner = new XpandLexer(toCharArray(in), fileName);
-			final XpandParser parser = new XpandParser(scanner);
-			scanner.lexer(parser);
-			return parser.parser();
-		} catch (RuntimeException e) {
-			throw e;
-		} catch (final Exception e) {
-			throw new RuntimeException(e);
-		}
+	protected void handleParserException(ParserException ex) {
+		ex.printStackTrace();
 	}
 
-	private static ExtensionFile parseXtend(final Reader in, final String fileName) {
-		try {
-			final XtendLexer scanner = new XtendLexer(toCharArray(in), fileName);
-			final XtendParser parser = new XtendParser(scanner);
-			scanner.lexer(parser);
-			return parser.parser();
-		} catch (RuntimeException e) {
-			throw e;
-		} catch (final Exception e) {
-			throw new RuntimeException(e);
+	protected Reader[] resolveMultiple(String fullyQualifiedName, String extension) throws IOException {
+		InputStream inputStream = loadFile(fullyQualifiedName, extension);
+		if (inputStream == null) {
+			throw new FileNotFoundException(fullyQualifiedName);
 		}
+		return new Reader[] { new InputStreamReader(inputStream) };
 	}
 
-	private static char[] toCharArray(Reader in) throws IOException {
-		CharArrayWriter res = new CharArrayWriter(4096);
-		char[] bb = new char[1024];
-		int read;
-		while ((read = in.read(bb)) != -1) {
-			res.write(bb, 0, read);
-		}
-		return res.toCharArray();
+	@Override
+	protected boolean shouldCache() {
+		return false;
 	}
 }

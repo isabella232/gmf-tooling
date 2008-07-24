@@ -1,0 +1,42 @@
+
+/*modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";*/
+
+library QvtLibrary;
+
+query String::getDummyStringContextual() : String {
+	return self
+}
+
+query getDummyIntStatic(parameter : Integer) : Integer {
+	return parameter
+}
+
+query Boolean::getDummyBoolean() : Boolean {
+	return self
+}
+
+/*
+query ecore::EAttribute::getDummyUserType() : ecore::EAttribute {
+	return self
+}
+*/
+
+query Collection(String)::getDummyCollection() : Collection(String) {
+	return self
+}
+
+query Set(Boolean)::getDummySet() : Set(Boolean) {
+	return self
+}
+
+query Sequence(Boolean)::getDummySequence() : Sequence(Boolean) {
+	return self
+}
+
+query Sequence(Boolean)::getDummyBag() : Bag(Boolean) {
+	return self->asBag()
+}
+
+query Set(Integer)::getDummyOrderedSet() : OrderedSet(Integer) {
+	return self->asOrderedSet()
+}

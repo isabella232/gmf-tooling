@@ -18,7 +18,7 @@ import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContextImpl;
-import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
+import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
 
 /**
  * Might migrate into core plug-in if needed.
@@ -37,7 +37,7 @@ public class XtendFacade {
     }
 
     public Object call(final String ext, final Object[] params) {
-        final Extension extension = ctx.getExtension(ext, detectTypes(params));
+        final GenericExtension extension = ctx.getExtension(ext, detectTypes(params));
         if (extension == null) {
 			throw new IllegalArgumentException("Couldn't find extension " + ext);
 		}
@@ -73,7 +73,7 @@ public class XtendFacade {
             objects = new Object[0];
         }
         final EClassifier[] params = detectTypes(objects);
-		final Extension extension = ctx.getExtension(string, params);
+		final GenericExtension extension = ctx.getExtension(string, params);
         return extension.getReturnType(params, ctx, issues);
     }
 }

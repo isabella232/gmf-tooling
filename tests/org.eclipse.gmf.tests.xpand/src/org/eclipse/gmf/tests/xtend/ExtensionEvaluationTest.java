@@ -24,8 +24,8 @@ import org.eclipse.gmf.tests.expression.ast.ATypeModel;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContextImpl;
-import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 import org.eclipse.gmf.internal.xpand.xtend.ast.ExtensionFile;
+import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
 
 /**
  * FIXME ExtensionAnalyzationTest uses same extensions - reuse
@@ -49,7 +49,7 @@ public class ExtensionEvaluationTest extends AbstractXtendTest {
 
         ec = (ExecutionContextImpl) ec.cloneWithResource(file);
         final Object[] params = new Object[] { "test" };
-        Extension ext = ec.getExtension("toUpperCase", detectTypes(params));
+        GenericExtension ext = ec.getExtension("toUpperCase", detectTypes(params));
         assertEquals("TEST", ext.evaluate(params, ec));
 
         ext = ec.getExtension("myExtension", detectTypes(params));
@@ -62,7 +62,7 @@ public class ExtensionEvaluationTest extends AbstractXtendTest {
 
         ec = (ExecutionContextImpl) ec.cloneWithResource(file);
         final Object[] params = new Object[] { Collections.singleton("1"), Collections.singleton("2") };
-        final Extension ext = ec.getExtension("union", detectTypes(params));
+        final GenericExtension ext = ec.getExtension("union", detectTypes(params));
         final Collection result = (Collection) ext.evaluate(params, ec);
         assertTrue(result.size() == 2);
         assertTrue(result.contains("1"));
@@ -74,7 +74,7 @@ public class ExtensionEvaluationTest extends AbstractXtendTest {
                 + "ext(Collection[Object] val) : 'Collection' ; \n" + "ext(Integer val) : 'Integer' ; \n");
 
         ec = (ExecutionContextImpl) ec.cloneWithResource(file);
-        Extension ext = ec.getExtension("ext", detectTypes(new Object[] { "test" }));
+        GenericExtension ext = ec.getExtension("ext", detectTypes(new Object[] { "test" }));
         assertEquals("Object", ext.evaluate(new Object[] { "test" }, ec));
 
         ext = ec.getExtension("ext", detectTypes(new Object[] { Collections.EMPTY_SET }));
@@ -93,7 +93,7 @@ public class ExtensionEvaluationTest extends AbstractXtendTest {
 
         ec = (ExecutionContextImpl) ec.cloneWithResource(file);
 
-        final Extension ext = ec.getExtension("recExtension", detectTypes(new Object[] { new Long(5), new Long(10) }));
+        final GenericExtension ext = ec.getExtension("recExtension", detectTypes(new Object[] { new Long(5), new Long(10) }));
         final List<Integer> expected = new ArrayList<Integer>();
         for (int i = 5; i <= 10; i++) {
             expected.add(new Integer(i));
@@ -107,7 +107,7 @@ public class ExtensionEvaluationTest extends AbstractXtendTest {
         final ExtensionFile file = parse("ext1(String txt) : 'test'+txt ;" + "ext2(String txt) : txt.ext1() ;");
         ec = (ExecutionContextImpl) ec.cloneWithResource(file);
 
-        final Extension ext = ec.getExtension("ext2", detectTypes(new Object[] { "fall" }));
+        final GenericExtension ext = ec.getExtension("ext2", detectTypes(new Object[] { "fall" }));
         final Object evalResult = ext.evaluate(new Object[] { "fall" }, ec);
         assertEquals("testfall", evalResult);
 
@@ -117,7 +117,7 @@ public class ExtensionEvaluationTest extends AbstractXtendTest {
         final ExtensionFile file = parse("cached String ext(String txt) : JAVA " + ExtensionEvaluationTest.class.getName() + ".testMethod(java.lang.String);");
         ec = (ExecutionContextImpl) ec.cloneWithResource(file);
 
-        final Extension ext = ec.getExtension("ext", detectTypes(new Object[] { "test" }));
+        final GenericExtension ext = ec.getExtension("ext", detectTypes(new Object[] { "test" }));
         assertEquals("test0", ext.evaluate(new Object[] { "test" }, ec));
         assertEquals("test0", ext.evaluate(new Object[] { "test" }, ec));
         assertEquals("test0", ext.evaluate(new Object[] { "test" }, ec));
@@ -149,7 +149,7 @@ public class ExtensionEvaluationTest extends AbstractXtendTest {
     public final void testCreateExtension1() {
         final ExtensionFile file = parse("create List[String] test(String s) : add(s) ;");
         ec = (ExecutionContextImpl) ec.cloneWithResource(file);
-        final List l = (List) ((Extension) file.getExtensions().get(0)).evaluate(new String[] { "test" }, ec);
+        final List l = (List) (file.getExtensions().get(0)).evaluate(new String[] { "test" }, ec);
         
         assertEquals(Collections.singletonList("test"), l);
     }
