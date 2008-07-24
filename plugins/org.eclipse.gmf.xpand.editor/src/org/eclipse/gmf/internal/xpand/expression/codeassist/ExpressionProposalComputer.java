@@ -38,7 +38,7 @@ import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.ExpressionFacade;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.expression.parser.ExpressionParsersym;
-import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
+import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 
 public class ExpressionProposalComputer implements ProposalComputer {
@@ -156,8 +156,8 @@ public class ExpressionProposalComputer implements ProposalComputer {
 					proposals.addAll(getAllMemberProposals(targetType, prefix));
 				}
 
-				final Set<? extends Extension> exts = executionContext.getAllExtensions();
-				for (Extension extension : exts) {
+				final Set<? extends GenericExtension> exts = executionContext.getAllExtensions();
+				for (GenericExtension extension : exts) {
 					if (extension.getName().toLowerCase().startsWith(prefix.toLowerCase())) {
 						proposals.add(factory.createExtensionProposal(extension, prefix));
 					}
@@ -272,7 +272,7 @@ public class ExpressionProposalComputer implements ProposalComputer {
 				result.add(proposalFactory.createOperationProposal(op, prefix, onCollection));
 			}
 		}
-		for (Extension e : executionContext.getAllExtensions()) {
+		for (GenericExtension e : executionContext.getAllExtensions()) {
 			if (e.getName().toLowerCase().startsWith(prefixLowerCase) && (e.getParameterTypes().size() >= 1) && BuiltinMetaModel.isAssignableFrom(e.getParameterTypes().get(0), targetType)) {
 				result.add(proposalFactory.createExtensionOnMemberPositionProposal(e, prefix, onCollection));
 			}

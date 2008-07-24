@@ -17,7 +17,7 @@ package org.eclipse.gmf.internal.xpand.expression.codeassist;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
+import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 
 public interface ProposalFactory {
@@ -27,9 +27,9 @@ public interface ProposalFactory {
 
     public ICompletionProposal createCollectionSpecificOperationProposal(String insertString, String displayString, String prefix, int cursor, int marked);
 
-    public ICompletionProposal createExtensionProposal(Extension p, String prefix);
+    public ICompletionProposal createExtensionProposal(GenericExtension p, String prefix);
 
-    public ICompletionProposal createExtensionOnMemberPositionProposal(Extension p, String prefix, boolean onCollection);
+    public ICompletionProposal createExtensionOnMemberPositionProposal(GenericExtension p, String prefix, boolean onCollection);
 
     public ICompletionProposal createVariableProposal(String name, EClassifier t, String prefix);
 

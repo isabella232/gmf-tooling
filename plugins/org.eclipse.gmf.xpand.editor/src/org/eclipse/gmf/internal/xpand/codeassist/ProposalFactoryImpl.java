@@ -10,17 +10,19 @@
  *******************************************************************************/
 package org.eclipse.gmf.internal.xpand.codeassist;
 
+import java.util.List;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.editor.EditorImages;
 import org.eclipse.gmf.internal.xpand.expression.TypeNameUtil;
-import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
 import org.eclipse.gmf.internal.xpand.expression.codeassist.ProposalFactory;
-import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
+import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
 import org.eclipse.jface.text.contentassist.CompletionProposal;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.swt.graphics.Image;
@@ -77,21 +79,21 @@ public class ProposalFactoryImpl implements ProposalFactory {
         return new CompletionProposal(insertStr, offset - prefix.length(), prefix.length(), x, img, displayStr.toString(), null, null);
     }
 
-    public ICompletionProposal createExtensionProposal(final Extension p, final String prefix) {
+    public ICompletionProposal createExtensionProposal(final GenericExtension p, final String prefix) {
         final String displayStr = p.getName() + toParamString(p, false) + " - " + p.getFileName();
         final String insertStr = p.getName() + "()";
         int x = insertStr.length();
-        if (p.getFormalParameters().size() > 0) {
+        if (p.getParameterNames().size() > 0) {
             x--;
         }
         return new CompletionProposal(insertStr, offset - prefix.length(), prefix.length(), x, getExtensionImage(), displayStr, null, null);
     }
 
-    public ICompletionProposal createExtensionOnMemberPositionProposal(Extension p, String prefix, boolean onOperation) {
-        final String displayStr = p.getName() + toParamString(p, true) + " - " + ((DeclaredParameter) p.getFormalParameters().get(0)).getType();
+    public ICompletionProposal createExtensionOnMemberPositionProposal(GenericExtension p, String prefix, boolean onOperation) {
+        final String displayStr = p.getName() + toParamString(p, true) + " - " + getTypeName(p.getParameterTypes().get(0));
         final String insertStr = p.getName() + "()";
         int x = insertStr.length();
-        if (p.getFormalParameters().size() > 1) {
+        if (p.getParameterNames().size() > 1) {
             x--;
         }
         final Image img = getExtensionImage();
@@ -112,11 +114,16 @@ public class ProposalFactoryImpl implements ProposalFactory {
         return b.toString();
     }
 
-    private static String toParamString(final Extension p, final boolean member) {
+    private static String toParamString(final GenericExtension p, final boolean member) {
         final StringBuilder b = new StringBuilder("(");
         int i = member ? 1 : 0;
-        for (final int x = p.getFormalParameters().size(); i < x; i++) {
-            b.append(((DeclaredParameter) p.getFormalParameters().get(i)).toString());
+        List<String> parameterNames = p.getParameterNames();
+        // TODO: check if getParameterTypes() return proper collection in all situations
+        List<EClassifier> parameterTypes = p.getParameterTypes();
+        for (final int x = parameterNames.size(); i < x; i++) {
+        	b.append(parameterTypes.size() < x ? getTypeName(parameterTypes.get(x)) : "?");
+        	b.append(" ");
+            b.append(parameterNames.get(x));
             if (i + 1 < x) {
                 b.append(",");
             }
@@ -125,7 +132,30 @@ public class ProposalFactoryImpl implements ProposalFactory {
         return b.toString();
     }
 
-    public ICompletionProposal createVariableProposal(final String name, final EClassifier t, final String prefix) {
+    // TODO: revisit this method and check correct type name processing for QVT types
+    private static String getTypeName(EClassifier classifier) {
+    	StringBuilder b = new StringBuilder();
+    	getPackageFQName(classifier.getEPackage(), b);
+    	b.append(classifier.getName());
+    	if (BuiltinMetaModel.isParameterizedType(classifier)) {
+    		b.append("[");
+    		BuiltinMetaModel.getInnerType(classifier);
+    		b.append("]");
+    	}
+		return b.toString();
+	}
+    
+    private static void getPackageFQName(EPackage ePackage, StringBuilder b) {
+    	if (ePackage != null) {
+	    	if (ePackage.getESuperPackage() != null) {
+	    		getPackageFQName(ePackage.getESuperPackage(), b);
+	    	}
+    		b.append(ePackage.getName());
+    		b.append("::");
+    	}
+    }
+
+	public ICompletionProposal createVariableProposal(final String name, final EClassifier t, final String prefix) {
         final String displayStr = name + " " + computeReturnType(t, false);
         final String insertStr = name;
         return new CompletionProposal(insertStr, offset - prefix.length(), prefix.length(), insertStr.length(), getVariableImage(), displayStr, null, null);
