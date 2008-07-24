@@ -34,7 +34,7 @@ import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 
-public abstract class Extension extends SyntaxElement /*implements ParameterizedCallable*/ {
+public abstract class Extension extends SyntaxElement implements GenericExtension /*implements ParameterizedCallable*/ {
 
     private final Identifier name;
 

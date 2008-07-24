@@ -36,7 +36,8 @@ import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
 import org.eclipse.gmf.internal.xpand.util.ClassLoadContext;
-import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
+import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
+import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 
 /**
@@ -308,29 +309,41 @@ public class ExecutionContextImpl implements ExecutionContext {
         return currentResource;
     }
 
-    private Set<Extension> allExtensions = null;
+    private Set<GenericExtension> allExtensions = null;
 
-	public Set<Extension> getAllExtensions() {
+	public Set<? extends GenericExtension> getAllExtensions() {
         if (allExtensions == null) {
-            allExtensions = new HashSet<Extension>();
+            allExtensions = new HashSet<GenericExtension>();
             final ResourceMarker res = currentResource();
             if (res != null) {
                 final String[] extensions = getImportedExtensions();
                 for (String extension : extensions) {
+                	// trying to load qvt extensions first
+                	final QvtResource qvtResource = resourceManager.loadQvtResource(extension);
+                	if (qvtResource != null) {
+                		final ExecutionContext ctx = cloneWithResource(qvtResource);
+                        final List<? extends GenericExtension> extensionList = qvtResource.getExtensions();
+                        for (GenericExtension element : extensionList) {
+                            element.init(ctx);
+                            allExtensions.add(element);
+                        }
+                        continue;
+                	}
+                	// then xtend
                     final XtendResource extFile = resourceManager.loadXtendResource(extension);
                     if (extFile == null) {
 						throw new RuntimeException("Unable to load extension file : " + extension);
 					}
                     final ExecutionContext ctx = cloneWithResource(extFile);
-                    final List<Extension> extensionList = extFile.getPublicExtensions(resourceManager);
-                    for (Extension element : extensionList) {
+                    final List<? extends GenericExtension> extensionList = extFile.getPublicExtensions(resourceManager);
+                    for (GenericExtension element : extensionList) {
                         element.init(ctx);
                         allExtensions.add(element);
                     }
                 }
                 if (res instanceof XtendResource) {
-                    final List<Extension> extensionList = ((XtendResource) res).getExtensions();
-                    for (Extension element : extensionList) {
+                    final List<? extends GenericExtension> extensionList = ((XtendResource) res).getExtensions();
+                    for (GenericExtension element : extensionList) {
                         element.init(this);
                         allExtensions.add(element);
                     }
@@ -340,7 +353,7 @@ public class ExecutionContextImpl implements ExecutionContext {
         return allExtensions;
     }
 
-    public Extension getExtension(final String functionName, final EClassifier[] parameterTypes) {
+    public GenericExtension getExtension(final String functionName, final EClassifier[] parameterTypes) {
         return PolymorphicResolver.getExtension(getAllExtensions(), functionName, Arrays.asList(parameterTypes));
     }
 

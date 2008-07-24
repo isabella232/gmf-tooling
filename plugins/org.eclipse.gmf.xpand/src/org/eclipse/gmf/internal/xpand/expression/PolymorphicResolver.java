@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
-import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
+import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
 
 /**
  * @author Sven Efftinge
@@ -61,9 +61,9 @@ public class PolymorphicResolver {
 	    }
 	}
 
-    public final static Extension getExtension(final Set<Extension> extensions, final String name, final List<EClassifier> paramTypes) {
-        final List<Extension> candidateExtensions = new ArrayList<Extension>();
-        for (Extension ext : extensions) {
+    public final static GenericExtension getExtension(final Set<? extends GenericExtension> extensions, final String name, final List<EClassifier> paramTypes) {
+        final List<GenericExtension> candidateExtensions = new ArrayList<GenericExtension>();
+        for (GenericExtension ext : extensions) {
             if (ext.getName().equals(name)) {
                 final List<? extends EClassifier> featureParamTypes = ext.getParameterTypes();
                 if ((featureParamTypes.size() == paramTypes.size())
@@ -72,8 +72,8 @@ public class PolymorphicResolver {
                 }
             }
         }
-		final Comparator<Extension> extensionComparator = new Comparator<Extension>() {
-	        public int compare(Extension e1, Extension e2) {
+		final Comparator<GenericExtension> extensionComparator = new Comparator<GenericExtension>() {
+	        public int compare(GenericExtension e1, GenericExtension e2) {
 	            return typesComparator.compare(e1.getParameterTypes(), e2.getParameterTypes());
 	        }
 	    };

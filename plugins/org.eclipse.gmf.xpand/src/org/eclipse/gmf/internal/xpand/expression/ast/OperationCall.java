@@ -29,7 +29,7 @@ import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
-import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
+import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
 
 /**
  * @author Sven Efftinge
@@ -62,7 +62,7 @@ public class OperationCall extends FeatureCall {
         Object targetObj = null;
         if (getTarget() == null) {
             // extension
-            final Extension f = ctx.getExtension(getName().getValue(), paramTypes);
+            final GenericExtension f = ctx.getExtension(getName().getValue(), paramTypes);
             if (f != null) {
 				return f.evaluate(params, ctx);
 			}
@@ -88,7 +88,7 @@ public class OperationCall extends FeatureCall {
         EClassifier[] ps = new EClassifier[paramTypes.length + 1];
         ps[0] = BuiltinMetaModel.getType(targetObj);
         System.arraycopy(paramTypes, 0, ps, 1, paramTypes.length);
-        Extension f = ctx.getExtension(getName().getValue(), ps);
+        GenericExtension f = ctx.getExtension(getName().getValue(), ps);
         if (f != null) {
             try {
             	Object[] paramsAll = new Object[params.length + 1];
@@ -161,7 +161,7 @@ public class OperationCall extends FeatureCall {
         // extension
         EClassifier targetType = null;
         if (getTarget() == null) {
-            Extension f = null;
+        	GenericExtension f = null;
             try {
                 f = ctx.getExtension(getName().getValue(), paramTypes);
             } catch (final Exception e) {
@@ -228,7 +228,7 @@ public class OperationCall extends FeatureCall {
         final EClassifier[] pts = new EClassifier[paramEClassifiers.length + 1];
         pts[0] = targetEClassifier;
         System.arraycopy(paramEClassifiers, 0, pts, 1, paramEClassifiers.length);
-        Extension f = null;
+        GenericExtension f = null;
         try {
             f = ctx.getExtension(getName().getValue(), pts);
         } catch (final Exception e) {
@@ -252,6 +252,7 @@ public class OperationCall extends FeatureCall {
             }
             if (f != null) {
                 final Set<AnalysationIssue> temp = new HashSet<AnalysationIssue>();
+                // TODO: Use paramEClassifiers instead of pts here?
                 final EClassifier rt = f.getReturnType(pts, ctx, temp);
                 if (rt == null) {
                     issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR,

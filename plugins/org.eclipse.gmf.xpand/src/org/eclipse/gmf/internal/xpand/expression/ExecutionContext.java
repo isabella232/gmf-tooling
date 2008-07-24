@@ -20,7 +20,7 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
-import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
+import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
 
 /**
  * @author Sven Efftinge
@@ -59,9 +59,9 @@ public interface ExecutionContext {
 
 	ResourceMarker currentResource();
 
-	Extension getExtension(String functionName, EClassifier[] parameterTypes);
+	GenericExtension getExtension(String functionName, EClassifier[] parameterTypes);
 
-	Set<? extends Extension> getAllExtensions();
+	Set<? extends GenericExtension> getAllExtensions();
 
 	EClassifier getTypeForName(String name);//		!!!getImportedNamespaces()
 

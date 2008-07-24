@@ -12,22 +12,154 @@
  */
 package org.eclipse.gmf.internal.xpand.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
+import java.io.StringWriter;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
+import org.eclipse.gmf.internal.xpand.xtend.ast.QvtFile;
+import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
+import org.eclipse.m2m.internal.qvt.oml.common.MdaException;
+import org.eclipse.m2m.internal.qvt.oml.common.io.CFile;
+import org.eclipse.m2m.internal.qvt.oml.common.io.CFolder;
+import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledModule;
+import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompiler;
+import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompilerOptions;
+import org.eclipse.m2m.internal.qvt.oml.runtime.project.DeployedImportResolver;
 
 // FIXME it's not a good idea to parse file on every proposal computation
 public abstract class ResourceManagerImpl implements ResourceManager {
+
+	public final class InputStreadCFile implements CFile {
+
+		private byte[] bytes;
+
+		private String name;
+
+		public InputStreadCFile(Reader reader, String name) throws IOException {
+			StringWriter sw = new StringWriter();
+			for (int ch = reader.read(); ch != -1; ch = reader.read()) {
+				sw.write(ch);
+			}
+			bytes = sw.toString().getBytes(getCharset());
+			this.name = name;
+		}
+
+		public void create(InputStream contents) throws IOException {
+			throw new UnsupportedOperationException("TODO");
+		}
+
+		public String getCharset() throws IOException {
+			return "UTF-8";
+		}
+
+		public InputStream getContents() throws IOException {
+			return new ByteArrayInputStream(bytes);
+		}
+
+		public CFolder getParent() {
+			return null;
+		}
+
+		public long getTimeStamp() {
+			return -1;
+		}
+
+		public String getUnitName() {
+			return name;
+		}
+
+		public void setContents(InputStream contents) throws IOException {
+			throw new UnsupportedOperationException("TODO");
+		}
+
+		public void delete() throws IOException {
+			throw new UnsupportedOperationException("TODO");
+		}
+
+		public boolean exists() {
+			return true;
+		}
+
+		public String getExtension() {
+			return QvtResource.FILE_EXTENSION;
+		}
+
+		public IFileStore getFileStore() throws IOException {
+			throw new UnsupportedOperationException("TODO");
+		}
+
+		public String getFullPath() {
+			return name;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void refresh() throws IOException {
+		}
+	}
+
 	private final Map<String, XtendResource> cachedXtend = new TreeMap<String, XtendResource>();
 	private final Map<String, XpandResource> cachedXpand = new TreeMap<String, XpandResource>();
+	private final Map<String, QvtResource> cachedQvt = new TreeMap<String, QvtResource>();
+
+	public QvtResource loadQvtResource(String fullyQualifiedName) {
+		try {
+			return loadQvtResourceThroughCache(fullyQualifiedName);
+		} catch (FileNotFoundException ex) {
+			return null; // Missing resource is an anticipated situation, not a
+			// error that should be handled
+		} catch (IOException e) {
+			Activator.logError(e);
+		} catch (ParserException e) {
+			// TODO: check if any exceptions present here at all..
+			handleParserException(e);
+		}
+		return null;
+	}
+
+	protected QvtResource loadQvtResourceThroughCache(String qualifiedName) throws IOException, ParserException {
+		if (hasCachedQvt(qualifiedName)) {
+			return cachedQvt.get(qualifiedName);
+		}
+		final QvtResource loaded = doLoadQvtResource(qualifiedName);
+		assert loaded != null; // this is the contract of loadXtendResource
+		if (shouldCache()) {
+			cachedQvt.put(qualifiedName, loaded);
+		}
+		return loaded;
+	}
+
+	private QvtResource doLoadQvtResource(String fullyQualifiedName) throws IOException, ParserException {
+		Reader[] readers = resolveMultiple(fullyQualifiedName, QvtResource.FILE_EXTENSION);
+		assert readers.length == 1;
+		CFile cFile = new InputStreadCFile(readers[0], fullyQualifiedName);
+		// TODO: use different kind of ImportResolver being able to construct
+		// referenced CFiles using ResourceManagerImpl
+		QvtCompiler qvtCompiler = new QvtCompiler(new DeployedImportResolver());
+		QvtCompilerOptions options = new QvtCompilerOptions();
+		options.setGenerateCompletionData(false);
+		options.setShowAnnotations(false);
+		try {
+			CompiledModule module = qvtCompiler.compile(cFile, options, null).getModule();
+//			assert module.getModule() instanceof Library;
+			return new QvtFile(module, fullyQualifiedName);	
+		} catch (MdaException e) {
+			throw new ParserException(fullyQualifiedName, new ParserException.ErrorLocationInfo(e.toString()));
+		}
+	}
 
 	public XtendResource loadXtendResource(String fullyQualifiedName) {
 		try {
@@ -190,15 +322,25 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	protected final boolean hasCachedXtend(String fullyQualifiedName) {
 		return shouldCache() && cachedXtend.containsKey(fullyQualifiedName);
 	}
+	protected final boolean hasCachedQvt(String fullyQualifiedName) {
+		return shouldCache() && cachedQvt.containsKey(fullyQualifiedName);
+	}
+
 	protected final void forgetCachedXpand(String fullyQualifiedName) {
 		cachedXpand.remove(fullyQualifiedName);
 	}
 	protected final void forgetCachedXtend(String fullyQualifiedName) {
 		cachedXtend.remove(fullyQualifiedName);
 	}
+
+	protected final void forgetCachedQvt(String fullyQualifiedName) {
+		cachedQvt.remove(fullyQualifiedName);
+	}
+
 	protected final void forgetAll() {
 		cachedXpand.clear();
 		cachedXtend.clear();
+		cachedQvt.clear();
 	}
 
 	private static final String ASPECT_PREFIX = "aspects" + SyntaxConstants.NS_DELIM;	//$NON-NLS-1$
