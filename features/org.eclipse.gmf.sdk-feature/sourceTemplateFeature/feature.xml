@@ -27,43 +27,110 @@ http://www.eclipse.org/legal/epl-v10.html
    </url>
 
    <includes
-         id="org.eclipse.gmf"
-         version="0.0.0"
-         name="%runtimeFeatureName"/>
-
-   <includes
          id="org.eclipse.gmf.source"
          version="0.0.0"
          name="%runtimeSourceFeatureName"/>
-
-   <includes
-         id="org.eclipse.gmf.tooling"
-         version="0.0.0"
-         name="%toolingFeatureName"/>
          
    <includes
          id="org.eclipse.gmf.tooling.source"
          version="0.0.0"
          name="%toolingSourceFeatureName"/>
 
-   <includes
-         id="org.eclipse.gmf.runtime.notation"
-         version="0.0.0"
-         name="%notationFeatureName"/>
-         
+<!--         
    <includes
          id="org.eclipse.gmf.runtime.notation.source"
          version="0.0.0"
          name="%notationSourceFeatureName"/>
-         
-   <includes
-         id="org.eclipse.gmf.runtime.thirdparty"
-         version="0.0.0"
-         name="%thirdpartyFeatureName"/>
 
    <includes
          id="org.eclipse.gmf.runtime.thirdparty.source"
          version="0.0.0"
          name="%thirdpartySourceFeatureName"/>
+-->
+
+	<plugin
+         id="org.apache.batik.dom.svg.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.apache.batik.bridge.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.apache.batik.dom.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.apache.batik.ext.awt.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.apache.batik.transcoder.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.apache.batik.svggen.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.apache.batik.util.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.w3c.dom.svg.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.apache.batik.css.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.apache.batik.util.gui.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.apache.batik.parser.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.apache.batik.xml.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.w3c.css.sac.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.w3c.dom.smil.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
 
 </feature>
