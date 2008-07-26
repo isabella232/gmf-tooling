@@ -35,13 +35,12 @@ http://www.eclipse.org/legal/epl-v10.html
          id="org.eclipse.gmf.tooling.source"
          version="0.0.0"
          name="%toolingSourceFeatureName"/>
-
-<!--         
+        
    <includes
          id="org.eclipse.gmf.runtime.notation.source"
          version="0.0.0"
          name="%notationSourceFeatureName"/>
-
+<!--
    <includes
          id="org.eclipse.gmf.runtime.thirdparty.source"
          version="0.0.0"
