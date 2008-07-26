@@ -57,10 +57,20 @@ http://www.eclipse.org/legal/epl-v10.html
          name="%docFeatureName"/>
 
    <includes
+         id="org.eclipse.gmf.runtime.notation"
+         version="0.0.0"
+         name="%notationFeatureName"/>
+         
+   <includes
          id="org.eclipse.gmf.runtime.notation.source"
          version="0.0.0"
          name="%notationSourceFeatureName"/>
          
+   <includes
+         id="org.eclipse.gmf.runtime.thirdparty"
+         version="0.0.0"
+         name="%thirdpartyFeatureName"/>
+
    <includes
          id="org.eclipse.gmf.runtime.thirdparty.source"
          version="0.0.0"
