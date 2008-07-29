@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: GMF Xpand Migration Tests Plug-in
+Bundle-SymbolicName: org.eclipse.gmf.tests.xpand.migration
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.gmf.xpand.migration;bundle-version="1.0.0",
+ org.junit,
+ org.eclipse.emf.ecore;bundle-version="2.4.0"
