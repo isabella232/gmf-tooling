@@ -35,14 +35,12 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.RootManager;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 import org.eclipse.gmf.internal.xpand.util.OawMarkerManager;
 import org.eclipse.gmf.internal.xpand.util.ParserException;
 import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
-import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 
 public class OawBuilder extends IncrementalProjectBuilder implements RootManager.IRootChangeListener {
 	private RootManager myRootManager;
@@ -52,7 +50,6 @@ public class OawBuilder extends IncrementalProjectBuilder implements RootManager
 	private boolean myRootsChanged = true;
 
 	// XXX again, using map as mere pairs
-	private final Map<XtendResource, IFile> xtendResourcesToAnalyze = new HashMap<XtendResource, IFile>();
 	private final Map<XpandResource, IFile> xpandResourcesToAnalyze = new HashMap<XpandResource, IFile>();
 
 	public static final String getBUILDER_ID() {
@@ -76,19 +73,12 @@ public class OawBuilder extends IncrementalProjectBuilder implements RootManager
 			e.printStackTrace();
 		}
 		// TODO to separate thread
-		for (XtendResource r : xtendResourcesToAnalyze.keySet()) {
-	        final ExecutionContext ctx = ContextFactory.createXtendContext(getResourceManager(xtendResourcesToAnalyze.get(r)));
-	        final Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
-	        r.analyze(ctx, issues);
-	        updateMarkers(xtendResourcesToAnalyze.get(r), issues);
-		}
 		for (XpandResource r : xpandResourcesToAnalyze.keySet()) {
 	        final XpandExecutionContext ctx = ContextFactory.createXpandContext(getResourceManager(xpandResourcesToAnalyze.get(r)));
 	        final Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
 	        r.analyze(ctx, issues);
 	        updateMarkers(xpandResourcesToAnalyze.get(r), issues);
 		}
-		xtendResourcesToAnalyze.clear();
 		xpandResourcesToAnalyze.clear();
 
 		myRootsChanged = false;
@@ -139,11 +129,6 @@ public class OawBuilder extends IncrementalProjectBuilder implements RootManager
 				XpandResource r = getResourceManager(resource).loadXpandResource(resource);
 				if (r != null) {
 					xpandResourcesToAnalyze.put(r, resource);
-				}
-			} else if (isXtend(resource)) {
-				XtendResource r = getResourceManager(resource).loadXtendResource(resource);
-				if (r != null) {
-					xtendResourcesToAnalyze.put(r, resource);
 				}
 			}
 		} catch (ParserException ex) {
@@ -216,16 +201,12 @@ public class OawBuilder extends IncrementalProjectBuilder implements RootManager
         OawMarkerManager.addMarkers(resource, parsingErrors);
 	}
 
-	private static boolean isXtend(final IFile resource) {
-		return XtendResource.FILE_EXTENSION.equals(resource.getFileExtension());
-	}
-
 	private static boolean isXpand(final IFile resource) {
 		return XpandResource.TEMPLATE_EXTENSION.equals(resource.getFileExtension());
 	}
 
 	private boolean isFileOfInterest(IFile file) {
-		if (!isXpand(file) && !isXtend(file)) {
+		if (!isXpand(file)) {
 			return false;
 		}
 		if (getResourceManager(file) == null) {

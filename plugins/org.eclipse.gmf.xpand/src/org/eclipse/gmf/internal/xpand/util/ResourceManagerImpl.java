@@ -28,7 +28,6 @@ import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtFile;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
-import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 import org.eclipse.m2m.internal.qvt.oml.common.MdaException;
 import org.eclipse.m2m.internal.qvt.oml.common.io.CFile;
 import org.eclipse.m2m.internal.qvt.oml.common.io.CFolder;
@@ -111,7 +110,6 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		}
 	}
 
-	private final Map<String, XtendResource> cachedXtend = new TreeMap<String, XtendResource>();
 	private final Map<String, XpandResource> cachedXpand = new TreeMap<String, XpandResource>();
 	private final Map<String, QvtResource> cachedQvt = new TreeMap<String, QvtResource>();
 
@@ -159,41 +157,6 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		} catch (MdaException e) {
 			throw new ParserException(fullyQualifiedName, new ParserException.ErrorLocationInfo(e.toString()));
 		}
-	}
-
-	public XtendResource loadXtendResource(String fullyQualifiedName) {
-		try {
-			return loadXtendThroughCache(fullyQualifiedName);
-		} catch (FileNotFoundException ex) {
-			return null;	//Missing resource is an anticipated situation, not a error that should be handled
-		} catch (IOException ex) {
-			Activator.logError(ex);
-		} catch (ParserException ex) {
-			handleParserException(ex);
-		}
-		return null;
-	}
-
-	protected XtendResource loadXtendThroughCache(String qualifiedName) throws IOException, ParserException {
-		if (hasCachedXtend(qualifiedName)) {
-			return cachedXtend.get(qualifiedName);
-		}
-		final XtendResource loaded = doLoadXtendResource(qualifiedName);
-		assert loaded != null; // this is the contract of loadXtendResource
-		if (shouldCache()) {
-			cachedXtend.put(qualifiedName, loaded);
-		}
-		return loaded;
-	}
-	
-	private XtendResource doLoadXtendResource(String fullyQualifiedName) throws IOException, ParserException {
-		Reader[] rs = resolveMultiple(fullyQualifiedName, XtendResource.FILE_EXTENSION);
-		assert rs != null && rs.length > 0;
-		XtendResource[] result = loadXtendResources(rs, fullyQualifiedName);
-		if (result.length == 1) {
-			return result[0];
-		}
-		return new CompositeXtendResource(this, result);
 	}
 
 	public XpandResource loadXpandResource(String fullyQualifiedName) {
@@ -277,25 +240,6 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	protected abstract Reader[] resolveMultiple(String fullyQualifiedName, String extension) throws IOException;
 
 	/**
-	 * Readers get closed after parse attempt. 
-	 */
-	protected XtendResource[] loadXtendResources(Reader[] readers, String fullyQualifiedName) throws IOException, ParserException {
-		XtendResource[] result = new XtendResource[readers.length];
-		for (int i = 0; i < readers.length; i++) {
-			assert readers[i] != null;
-			try {
-				result[i] = new XtendResourceParser().parse(readers[i], fullyQualifiedName);
-				assert result[i] != null; // this is the contract of loadXpandResource
-			} finally {
-				try {
-					readers[i].close();
-				} catch (Exception ex) {/*IGNORE*/}
-			}
-		}
-		return result;
-	}
-
-	/**
 	 * Readers get closed after parse attempt.
 	 */
 	protected XpandResource[] loadXpandResources(Reader[] readers, String fullyQualifiedName) throws IOException, ParserException {
@@ -319,18 +263,12 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	protected final boolean hasCachedXpand(String fullyQualifiedName) {
 		return shouldCache() && cachedXpand.containsKey(fullyQualifiedName);
 	}
-	protected final boolean hasCachedXtend(String fullyQualifiedName) {
-		return shouldCache() && cachedXtend.containsKey(fullyQualifiedName);
-	}
 	protected final boolean hasCachedQvt(String fullyQualifiedName) {
 		return shouldCache() && cachedQvt.containsKey(fullyQualifiedName);
 	}
 
 	protected final void forgetCachedXpand(String fullyQualifiedName) {
 		cachedXpand.remove(fullyQualifiedName);
-	}
-	protected final void forgetCachedXtend(String fullyQualifiedName) {
-		cachedXtend.remove(fullyQualifiedName);
 	}
 
 	protected final void forgetCachedQvt(String fullyQualifiedName) {
@@ -339,7 +277,6 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 
 	protected final void forgetAll() {
 		cachedXpand.clear();
-		cachedXtend.clear();
 		cachedQvt.clear();
 	}
 

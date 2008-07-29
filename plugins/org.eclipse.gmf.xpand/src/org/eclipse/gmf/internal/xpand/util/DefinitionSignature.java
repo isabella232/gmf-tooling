@@ -16,7 +16,6 @@ import java.util.Arrays;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
-import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 
 final class DefinitionSignature {
 	private final String myName;
@@ -40,14 +39,6 @@ final class DefinitionSignature {
 			args[i] = nextArg;
 		}
 		return new DefinitionSignature(def.getName(), type, args);
-	}
-
-	public static DefinitionSignature create(ExecutionContext ctx, Extension extension) {
-		if (extension == null || ctx == null) {
-			return null;
-		}
-		extension.init(ctx);
-		return new DefinitionSignature(extension.getName(), null, extension.getParameterTypes().toArray(new EClassifier[extension.getParameterTypes().size()]));
 	}
 
 	private DefinitionSignature(String name, EClassifier type, EClassifier[] args) {

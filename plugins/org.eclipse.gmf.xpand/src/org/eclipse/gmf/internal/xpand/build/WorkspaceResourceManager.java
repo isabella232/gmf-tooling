@@ -34,7 +34,6 @@ import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.util.ParserException;
 import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
 import org.eclipse.gmf.internal.xpand.util.StreamConverter;
-import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 import org.osgi.framework.Bundle;
 
 // FIXME package-local?, refactor Activator.getResourceManager uses
@@ -45,22 +44,6 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 	public WorkspaceResourceManager(IProject context, IPath[] configuredRoots) {
 		this.contextProject = context;
 		myConfiguredRoots = configuredRoots;
-	}
-
-	public XtendResource loadXtendResource(IFile file) throws CoreException, IOException, ParserException {
-		String fullyQualifiedName;
-		if (file == null || (fullyQualifiedName = toFullyQualifiedName(file)) == null) {
-			return null;
-		}
-		// try file directly, to get IO/Parse exceptions, if any.
-		Reader r = new StreamConverter().toContentsReader(file);
-		loadXtendResources(new Reader[] { r }, fullyQualifiedName);
-		//
-		try {
-			return loadXtendThroughCache(fullyQualifiedName);
-		} catch (FileNotFoundException ex) {
-			return null;	//Missing resource is an anticipated situation, not a error that should be handled
-		}
 	}
 
 	public XpandResource loadXpandResource(IFile file) throws CoreException, IOException, ParserException {

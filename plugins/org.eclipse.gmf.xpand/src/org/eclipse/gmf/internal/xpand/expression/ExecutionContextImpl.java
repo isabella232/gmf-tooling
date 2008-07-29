@@ -38,7 +38,6 @@ import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
 import org.eclipse.gmf.internal.xpand.util.ClassLoadContext;
 import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
-import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 
 /**
  * @author Sven Efftinge
@@ -240,16 +239,10 @@ public class ExecutionContextImpl implements ExecutionContext {
     }
 
     protected String[] getImportedNamespaces() {
-    	if (currentResource() instanceof XtendResource) {
-    		return ((XtendResource) currentResource()).getImportedNamespaces();
-    	}
     	return new String[0];
     }
 
     protected String[] getImportedExtensions() {
-    	if (currentResource() instanceof XtendResource) {
-    		return ((XtendResource) currentResource()).getImportedExtensions();
-    	}
     	return new String[0];
     }
 
@@ -318,7 +311,6 @@ public class ExecutionContextImpl implements ExecutionContext {
             if (res != null) {
                 final String[] extensions = getImportedExtensions();
                 for (String extension : extensions) {
-                	// trying to load qvt extensions first
                 	final QvtResource qvtResource = resourceManager.loadQvtResource(extension);
                 	if (qvtResource != null) {
                 		final ExecutionContext ctx = cloneWithResource(qvtResource);
@@ -329,24 +321,6 @@ public class ExecutionContextImpl implements ExecutionContext {
                         }
                         continue;
                 	}
-                	// then xtend
-                    final XtendResource extFile = resourceManager.loadXtendResource(extension);
-                    if (extFile == null) {
-						throw new RuntimeException("Unable to load extension file : " + extension);
-					}
-                    final ExecutionContext ctx = cloneWithResource(extFile);
-                    final List<? extends GenericExtension> extensionList = extFile.getPublicExtensions(resourceManager);
-                    for (GenericExtension element : extensionList) {
-                        element.init(ctx);
-                        allExtensions.add(element);
-                    }
-                }
-                if (res instanceof XtendResource) {
-                    final List<? extends GenericExtension> extensionList = ((XtendResource) res).getExtensions();
-                    for (GenericExtension element : extensionList) {
-                        element.init(this);
-                        allExtensions.add(element);
-                    }
                 }
             }
         }
