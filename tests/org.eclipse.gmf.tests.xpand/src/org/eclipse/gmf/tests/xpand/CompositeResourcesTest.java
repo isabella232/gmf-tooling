@@ -47,30 +47,6 @@ public class CompositeResourcesTest extends TestCase {
 		myContext = myContext.cloneWithVariable(new Variable("this", ""));
 	}
 
-	public void testOverrideXtend() {
-		myResourceManager.setPrefixes((String) null);
-		XpandDefinition definition = myContext.findDefinition(qualify("Overridable::test1"), EcorePackage.eINSTANCE.getEString(), new EClassifier[0]);
-		definition.evaluate(myContext);
-		assertEquals("1", myBuffer.toString());
-		myBuffer.delete(0, myBuffer.length());
-		myResourceManager.setPrefixes("override1", null);
-		definition = myContext.findDefinition(qualify("Overridable::test1"), EcorePackage.eINSTANCE.getEString(), new EClassifier[0]);
-		definition.evaluate(myContext);
-		assertEquals("2", myBuffer.toString());
-	}
-
-	public void testAutomaticAdviceLoad() {
-		myResourceManager.setPrefixes("override2", null);
-		XpandDefinition definition = myContext.findDefinition(qualify("Overridable::test1"), EcorePackage.eINSTANCE.getEString(), new EClassifier[0]);
-		definition.evaluate(myContext);
-		assertEquals("1added", myBuffer.toString());
-		myBuffer.delete(0, myBuffer.length());
-		myResourceManager.setPrefixes("override2", "override1", null);
-		definition = myContext.findDefinition(qualify("Overridable::test1"), EcorePackage.eINSTANCE.getEString(), new EClassifier[0]);
-		definition.evaluate(myContext);
-		assertEquals("2added", myBuffer.toString());
-	}
-
 	/**
 	 * Tests that DEFINE statements are effectively the same as AROUND without targetDef.proceed()
 	 */

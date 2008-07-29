@@ -12,7 +12,6 @@ import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
-import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 
 class DumpEvaluationListener extends EvaluationListener {
 	private final StringBuilder sb = new StringBuilder(100);
@@ -21,7 +20,7 @@ class DumpEvaluationListener extends EvaluationListener {
 
 	private int stmtCount = 0;
 
-	private int extCount = 0;
+//	private int extCount = 0;
 
 	@Override
 	public void enter(Expression expr, ExecutionContext context) {
@@ -29,11 +28,11 @@ class DumpEvaluationListener extends EvaluationListener {
 		sb.append(' ');
 	}
 
-	@Override
-	public void enter(Extension ext, ExecutionContext context) {
-		print(ext.getClass().getSimpleName(), extCount++, ext.getLine());
-		sb.append(' ');
-	}
+//	@Override
+//	public void enter(Extension ext, ExecutionContext context) {
+//		print(ext.getClass().getSimpleName(), extCount++, ext.getLine());
+//		sb.append(' ');
+//	}
 
 	@Override
 	public void enter(Statement stmt, XpandExecutionContext context) {
@@ -47,11 +46,11 @@ class DumpEvaluationListener extends EvaluationListener {
 		print(expr.getClass().getSimpleName(), --exprCount, expr.getLine());
 	}
 
-	@Override
-	public void leave(Extension ext, ExecutionContext context) {
-		sb.setLength(sb.length() - 1);
-		print(ext.getClass().getSimpleName(), --extCount, ext.getLine());
-	}
+//	@Override
+//	public void leave(Extension ext, ExecutionContext context) {
+//		sb.setLength(sb.length() - 1);
+//		print(ext.getClass().getSimpleName(), --extCount, ext.getLine());
+//	}
 
 	@Override
 	public void leave(Statement stmt, XpandExecutionContext context) {

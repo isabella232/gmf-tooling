@@ -1,0 +1,11 @@
+
+library Extension;
+
+-- was: Object here
+query trueFunc(param : String) : Boolean {
+	return true
+}
+
+query String::anotherFunc(s2 : String) : String {
+	return self + s2;
+}

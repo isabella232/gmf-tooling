@@ -1,2 +1,0 @@
-appendStuff(String s) :
-	s+"Stuff";

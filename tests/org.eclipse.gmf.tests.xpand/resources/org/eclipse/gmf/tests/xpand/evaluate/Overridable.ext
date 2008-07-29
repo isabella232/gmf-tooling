@@ -1,7 +1,0 @@
-trueFunc(Object any) :
-	true
-;
-
-String method() :
-"original"
-;
