@@ -12,7 +12,6 @@
 package org.eclipse.gmf.tests.xpand;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -27,6 +26,7 @@ import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
+import org.eclipse.ocl.util.CollectionUtil;
 
 public class QvtExtensions extends TestCase {
 
@@ -98,11 +98,13 @@ public class QvtExtensions extends TestCase {
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkDeployedMetaType", EcoreFactory.eINSTANCE.createEAttribute());
 	}
 	
-	public void testCollectionOfStrings() {
-		ArrayList<String> collection = new ArrayList<String>();
-		collection.add("SampleString1");
-		collection.add("SampleString2");
-		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkCollection", Collections.unmodifiableCollection(collection));
+	// TODO: not sure this is a valid situation from the side of OCL. See
+	// https://bugs.eclipse.org/bugs/show_bug.cgi?id=242545
+	public void _testCollectionOfStrings() {
+		List<String> sequence = CollectionUtil.<String>createNewSequence();
+		sequence.add("SampleString1");
+		sequence.add("SampleString2");
+		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkCollection", sequence);
 	}
 	
 	public void testSetOfBooleans() {

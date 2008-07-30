@@ -6,4 +6,5 @@ Bundle-Version: 2.0.0.qualifier
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.gmf.xpand,
  org.eclipse.gmf.xpand.editor,
- org.junit
+ org.junit,
+ org.eclipse.ocl
