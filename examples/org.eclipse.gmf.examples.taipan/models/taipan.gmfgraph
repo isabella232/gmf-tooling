@@ -246,5 +246,6 @@
   <labels
       name="BuildingInfo"
       figure="BuildingFigure"
+      elementIcon="false"
       accessor="//@figures.0/@descriptors.7/@accessors.0"/>
 </gmfgraph:Canvas>
