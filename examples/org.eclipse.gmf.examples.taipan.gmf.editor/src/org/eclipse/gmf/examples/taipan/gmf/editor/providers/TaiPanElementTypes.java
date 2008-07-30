@@ -22,6 +22,20 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipsOrderEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortRegisterEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipRouteEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -291,6 +305,43 @@ public class TaiPanElementTypes extends ElementInitializers {
 			KNOWN_ELEMENT_TYPES.add(PortRegister_4007);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
+	}
+
+	/**
+	 * @generated
+	 */
+	public static IElementType getElementType(int visualID) {
+		switch (visualID) {
+		case AquatoryEditPart.VISUAL_ID:
+			return Aquatory_1000;
+		case PortEditPart.VISUAL_ID:
+			return Port_2001;
+		case ShipEditPart.VISUAL_ID:
+			return Ship_2002;
+		case WarshipEditPart.VISUAL_ID:
+			return Warship_2003;
+		case SmallItemsEditPart.VISUAL_ID:
+			return SmallItems_3001;
+		case LargeItemEditPart.VISUAL_ID:
+			return LargeItem_3002;
+		case EmptyBoxEditPart.VISUAL_ID:
+			return EmptyBox_3003;
+		case ShipDestinationEditPart.VISUAL_ID:
+			return ShipDestination_4001;
+		case ReliableRouteEditPart.VISUAL_ID:
+			return Route_4002;
+		case UnreliableRouteEditPart.VISUAL_ID:
+			return Route_4003;
+		case ShipRouteEditPart.VISUAL_ID:
+			return ShipRoute_4004;
+		case BesiegePortOrderEditPart.VISUAL_ID:
+			return BesiegePortOrder_4005;
+		case EscortShipsOrderEditPart.VISUAL_ID:
+			return EscortShipsOrder_4006;
+		case PortRegisterEditPart.VISUAL_ID:
+			return PortRegister_4007;
+		}
+		return null;
 	}
 
 }

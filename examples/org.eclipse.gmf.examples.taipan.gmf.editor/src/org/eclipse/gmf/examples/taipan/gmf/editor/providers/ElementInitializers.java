@@ -36,10 +36,10 @@ public class ElementInitializers {
 	 */
 	public static void init_Route_4002(Route instance) {
 		try {
-			Object value0 = TaiPanOCLFactory.getExpression("0.8", TaiPanPackage.eINSTANCE.getRoute()).evaluate(instance);
+			Object value_0 = TaiPanOCLFactory.getExpression("0.8", TaiPanPackage.eINSTANCE.getRoute()).evaluate(instance);
 
-			value0 = TaiPanAbstractExpression.performCast(value0, EcorePackage.eINSTANCE.getEDouble());
-			instance.setReliability(((Double) value0).doubleValue());
+			value_0 = TaiPanAbstractExpression.performCast(value_0, EcorePackage.eINSTANCE.getEDouble());
+			instance.setReliability(((Double) value_0).doubleValue());
 		} catch (RuntimeException e) {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
 		}
@@ -50,10 +50,10 @@ public class ElementInitializers {
 	 */
 	public static void init_Route_4003(Route instance) {
 		try {
-			Object value0 = TaiPanOCLFactory.getExpression("0.2", TaiPanPackage.eINSTANCE.getRoute()).evaluate(instance);
+			Object value_0 = TaiPanOCLFactory.getExpression("0.2", TaiPanPackage.eINSTANCE.getRoute()).evaluate(instance);
 
-			value0 = TaiPanAbstractExpression.performCast(value0, EcorePackage.eINSTANCE.getEDouble());
-			instance.setReliability(((Double) value0).doubleValue());
+			value_0 = TaiPanAbstractExpression.performCast(value_0, EcorePackage.eINSTANCE.getEDouble());
+			instance.setReliability(((Double) value_0).doubleValue());
 		} catch (RuntimeException e) {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
 		}

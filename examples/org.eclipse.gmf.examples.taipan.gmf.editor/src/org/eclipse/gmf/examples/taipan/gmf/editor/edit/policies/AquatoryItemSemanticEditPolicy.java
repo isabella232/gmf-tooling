@@ -31,6 +31,13 @@ public class AquatoryItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPo
 	/**
 	 * @generated
 	 */
+	public AquatoryItemSemanticEditPolicy() {
+		super(TaiPanElementTypes.Aquatory_1000);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (TaiPanElementTypes.Port_2001 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {

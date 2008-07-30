@@ -36,6 +36,13 @@ public class ReliableRouteItemSemanticEditPolicy extends TaiPanBaseItemSemanticE
 	/**
 	 * @generated
 	 */
+	public ReliableRouteItemSemanticEditPolicy() {
+		super(TaiPanElementTypes.Route_4002);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		return getGEFWrapper(new DestroyElementCommand(req));
 	}

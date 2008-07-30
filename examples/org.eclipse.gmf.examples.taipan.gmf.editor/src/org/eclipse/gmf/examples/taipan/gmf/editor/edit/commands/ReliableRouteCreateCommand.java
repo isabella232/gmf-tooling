@@ -46,7 +46,7 @@ public class ReliableRouteCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	private Aquatory container;
+	private final Aquatory container;
 
 	/**
 	 * @generated
@@ -59,15 +59,9 @@ public class ReliableRouteCreateCommand extends CreateElementCommand {
 			setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
 		}
 
-		// Find container element for the new link.
-		// Climb up by containment hierarchy starting from the source
-		// and return the first element that is instance of the container class.
-		for (EObject element = source; element != null; element = element.eContainer()) {
-			if (element instanceof Aquatory) {
-				container = (Aquatory) element;
-				super.setElementToEdit(container);
-				break;
-			}
+		container = deduceContainer(source, target);
+		if (container != null) {
+			super.setElementToEdit(container);
 		}
 	}
 
@@ -159,5 +153,22 @@ public class ReliableRouteCreateCommand extends CreateElementCommand {
 	 */
 	public Aquatory getContainer() {
 		return container;
+	}
+
+	/**
+	 * Default approach is to traverse ancestors of the source to find instance of container.
+	 * Modify with appropriate logic.
+	 * @generated
+	 */
+	private static Aquatory deduceContainer(EObject source, EObject target) {
+		// Find container element for the new link.
+		// Climb up by containment hierarchy starting from the source
+		// and return the first element that is instance of the container class.
+		for (EObject element = source; element != null; element = element.eContainer()) {
+			if (element instanceof Aquatory) {
+				return (Aquatory) element;
+			}
+		}
+		return null;
 	}
 }

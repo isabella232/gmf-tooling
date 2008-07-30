@@ -26,6 +26,13 @@ public class ShipLargeCargoItemSemanticEditPolicy extends TaiPanBaseItemSemantic
 	/**
 	 * @generated
 	 */
+	public ShipLargeCargoItemSemanticEditPolicy() {
+		super(TaiPanElementTypes.Ship_2002);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (TaiPanElementTypes.LargeItem_3002 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {

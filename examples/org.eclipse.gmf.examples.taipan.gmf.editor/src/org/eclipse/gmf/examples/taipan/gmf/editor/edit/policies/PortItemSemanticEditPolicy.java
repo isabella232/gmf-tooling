@@ -44,6 +44,13 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	/**
 	 * @generated
 	 */
+	public PortItemSemanticEditPolicy() {
+		super(TaiPanElementTypes.Port_2001);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		CompoundCommand cc = getDestroyEdgesCommand();
 		addDestroyShortcutsCommand(cc);
