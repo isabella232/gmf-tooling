@@ -32,14 +32,14 @@ import org.eclipse.m2m.internal.qvt.oml.common.MdaException;
 import org.eclipse.m2m.internal.qvt.oml.common.io.CFile;
 import org.eclipse.m2m.internal.qvt.oml.common.io.CFolder;
 import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledModule;
+import org.eclipse.m2m.internal.qvt.oml.compiler.IImportResolver;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompiler;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompilerOptions;
-import org.eclipse.m2m.internal.qvt.oml.runtime.project.DeployedImportResolver;
 
 // FIXME it's not a good idea to parse file on every proposal computation
 public abstract class ResourceManagerImpl implements ResourceManager {
 
-	public final class InputStreadCFile implements CFile {
+	private final class InputStreadCFile implements CFile {
 
 		private byte[] bytes;
 
@@ -109,6 +109,26 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		public void refresh() throws IOException {
 		}
 	}
+	
+	// TODO: implement this import resolved to use resolveMultiple() method
+	private final class ImportResolverImpl implements IImportResolver {
+
+		public String getPackageName(CFolder folder) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public CFile resolveImport(String importedUnitName) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public CFile resolveImport(CFile parentFile, String importedUnitName) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+	}
 
 	private final Map<String, XpandResource> cachedXpand = new TreeMap<String, XpandResource>();
 	private final Map<String, QvtResource> cachedQvt = new TreeMap<String, QvtResource>();
@@ -146,7 +166,7 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		CFile cFile = new InputStreadCFile(readers[0], fullyQualifiedName);
 		// TODO: use different kind of ImportResolver being able to construct
 		// referenced CFiles using ResourceManagerImpl
-		QvtCompiler qvtCompiler = new QvtCompiler(DeployedImportResolver.INSTANCE);
+		QvtCompiler qvtCompiler = new QvtCompiler(new ImportResolverImpl());
 		QvtCompilerOptions options = new QvtCompilerOptions();
 		options.setGenerateCompletionData(false);
 		options.setShowAnnotations(false);
