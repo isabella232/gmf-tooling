@@ -126,14 +126,7 @@ Contributors:
       </GlobalActionHandlerProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
-      <?gmfgen generated="true"?>
-      <contributionItemProvider
-            class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContributionItemProvider"
-            checkPluginLoaded="false">
-         <Priority name="Low"/>
-      </contributionItemProvider>
-   </extension>
+   
 
    <extension point="org.eclipse.core.runtime.preferences">
       <?gmfgen generated="true"?>
@@ -144,36 +137,36 @@ Contributors:
       <?gmfgen generated="true"?>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.general"
-            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.general"
+            name="%prefpage.org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.examples.taipan.port.diagram.preferences.DiagramGeneralPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.appearance"
-            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.appearance"
+            name="%prefpage.org.eclipse.gmf.examples.taipan.diagram.appearance"
             category="org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.examples.taipan.port.diagram.preferences.DiagramAppearancePreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.connections"
-            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.connections"
+            name="%prefpage.org.eclipse.gmf.examples.taipan.diagram.connections"
             category="org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.examples.taipan.port.diagram.preferences.DiagramConnectionsPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.printing"
-            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.printing"
+            name="%prefpage.org.eclipse.gmf.examples.taipan.diagram.printing"
             category="org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.examples.taipan.port.diagram.preferences.DiagramPrintingPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.rulersAndGrid"
-            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.rulersAndGrid"
+            name="%prefpage.org.eclipse.gmf.examples.taipan.diagram.rulersAndGrid"
             category="org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.examples.taipan.port.diagram.preferences.DiagramRulersAndGridPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.pathmaps"
-            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.pathmaps"
+            name="%prefpage.org.eclipse.gmf.examples.taipan.diagram.pathmaps"
             category="org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage">
       </page>
@@ -305,14 +298,14 @@ Contributors:
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
       <?gmfgen generated="true"?>
-      <clientContext id="PortClientContext">
+      <clientContext id="org.eclipse.gmf.examples.taipan.port.diagram.TypeContext">
          <enablement>
             <test
                property="org.eclipse.gmf.runtime.emf.core.editingDomain"
                value="org.eclipse.gmf.examples.taipan.port.diagram.EditingDomain"/>
          </enablement>
       </clientContext> 
-      <binding context="PortClientContext">
+      <binding context="org.eclipse.gmf.examples.taipan.port.diagram.TypeContext">
          <elementType ref="org.eclipse.gmf.examples.taipan.port.diagram.Port_1000"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.port.diagram.Building_2001"/>
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>

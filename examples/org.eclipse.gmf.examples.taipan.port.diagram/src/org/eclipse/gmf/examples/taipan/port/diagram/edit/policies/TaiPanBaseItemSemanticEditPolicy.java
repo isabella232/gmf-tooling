@@ -24,6 +24,7 @@ import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.requests.ReconnectRequest;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.helpers.TaiPanBaseEditHelper;
 import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
+import org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -65,6 +66,18 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	public static final String VISUAL_ID_KEY = "visual_id"; //$NON-NLS-1$
 
 	/**
+	 * @generated
+	 */
+	private final IElementType myElementType;
+
+	/**
+	 * @generated
+	 */
+	protected TaiPanBaseItemSemanticEditPolicy(IElementType elementType) {
+		myElementType = elementType;
+	}
+
+	/**
 	 * Extended request data key to hold editpart visual id.
 	 * Add visual id of edited editpart to extended data of the request
 	 * so command switch can decide what kind of diagram element is being edited.
@@ -99,33 +112,8 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 */
 	protected Command getSemanticCommand(IEditCommandRequest request) {
 		IEditCommandRequest completedRequest = completeRequest(request);
-		Object editHelperContext = completedRequest.getEditHelperContext();
-		if (editHelperContext instanceof View || (editHelperContext instanceof IEditHelperContext && ((IEditHelperContext) editHelperContext).getEObject() instanceof View)) {
-			// no semantic commands are provided for pure design elements
-			return null;
-		}
-		if (editHelperContext == null) {
-			editHelperContext = ViewUtil.resolveSemanticElement((View) getHost().getModel());
-		}
-		IElementType elementType = ElementTypeRegistry.getInstance().getElementType(editHelperContext);
-		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) { //$NON-NLS-1$ 
-			elementType = null;
-		}
 		Command semanticCommand = getSemanticCommandSwitch(completedRequest);
-		if (semanticCommand != null) {
-			ICommand command = semanticCommand instanceof ICommandProxy ? ((ICommandProxy) semanticCommand).getICommand() : new CommandProxy(semanticCommand);
-			completedRequest.setParameter(TaiPanBaseEditHelper.EDIT_POLICY_COMMAND, command);
-		}
-		if (elementType != null) {
-			ICommand command = elementType.getEditCommand(completedRequest);
-			if (command != null) {
-				if (!(command instanceof CompositeTransactionalCommand)) {
-					TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
-					command = new CompositeTransactionalCommand(editingDomain, command.getLabel()).compose(command);
-				}
-				semanticCommand = new ICommandProxy(command);
-			}
-		}
+		semanticCommand = getEditHelperCommand(completedRequest, semanticCommand);
 		boolean shouldProceed = true;
 		if (completedRequest instanceof DestroyRequest) {
 			shouldProceed = shouldProceed((DestroyRequest) completedRequest);
@@ -139,6 +127,37 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			return semanticCommand;
 		}
 		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Command getEditHelperCommand(IEditCommandRequest request, Command editPolicyCommand) {
+		if (editPolicyCommand != null) {
+			ICommand command = editPolicyCommand instanceof ICommandProxy ? ((ICommandProxy) editPolicyCommand).getICommand() : new CommandProxy(editPolicyCommand);
+			request.setParameter(TaiPanBaseEditHelper.EDIT_POLICY_COMMAND, command);
+		}
+		IElementType requestContextElementType = getContextElementType(request);
+		request.setParameter(TaiPanBaseEditHelper.CONTEXT_ELEMENT_TYPE, requestContextElementType);
+		ICommand command = requestContextElementType.getEditCommand(request);
+		request.setParameter(TaiPanBaseEditHelper.EDIT_POLICY_COMMAND, null);
+		request.setParameter(TaiPanBaseEditHelper.CONTEXT_ELEMENT_TYPE, null);
+		if (command != null) {
+			if (!(command instanceof CompositeTransactionalCommand)) {
+				TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
+				command = new CompositeTransactionalCommand(editingDomain, command.getLabel()).compose(command);
+			}
+			return new ICommandProxy(command);
+		}
+		return editPolicyCommand;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IElementType getContextElementType(IEditCommandRequest request) {
+		IElementType requestContextElementType = TaiPanElementTypes.getElementType(getVisualID(request));
+		return requestContextElementType != null ? requestContextElementType : myElementType;
 	}
 
 	/**

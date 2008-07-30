@@ -52,6 +52,7 @@ public class DiagramPreferenceInitializer extends AbstractPreferenceInitializer 
 		store.setDefault(IPreferenceConstants.PREF_RULER_UNITS, false);
 		store.setDefault(IPreferenceConstants.PREF_SHOW_GRID, RulerProvider.UNIT_INCHES);
 		store.setDefault(IPreferenceConstants.PREF_SNAP_TO_GRID, true);
+		store.setDefault(IPreferenceConstants.PREF_SNAP_TO_GEOMETRY, false);
 		store.setDefault(IPreferenceConstants.PREF_GRID_SPACING, 0.125);
 		store.setDefault(IPreferenceConstants.PREF_PROMPT_ON_DEL_FROM_MODEL, false);
 		store.setDefault(IPreferenceConstants.PREF_PROMPT_ON_DEL_FROM_DIAGRAM, false);

@@ -13,6 +13,7 @@ package org.eclipse.gmf.examples.taipan.port.diagram.edit.policies;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.gmf.runtime.notation.View;
@@ -21,6 +22,13 @@ import org.eclipse.gmf.runtime.notation.View;
  * @generated
  */
 public class BuildingItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
+
+	/**
+	 * @generated
+	 */
+	public BuildingItemSemanticEditPolicy() {
+		super(TaiPanElementTypes.Building_2001);
+	}
 
 	/**
 	 * @generated
