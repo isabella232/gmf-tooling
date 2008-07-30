@@ -12,6 +12,7 @@
 package org.eclipse.gmf.internal.xpand.xtend.ast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -20,8 +21,9 @@ import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.m2m.internal.qvt.oml.QvtMessage;
 import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledModule;
-import org.eclipse.m2m.internal.qvt.oml.expressions.ImperativeOperation;
+import org.eclipse.m2m.internal.qvt.oml.expressions.Helper;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
+import org.eclipse.m2m.qvt.oml.runtime.util.NonTransformationExecutionContext;
 
 public class QvtFile implements QvtResource {
 
@@ -39,9 +41,10 @@ public class QvtFile implements QvtResource {
 			extensions = new ArrayList<GenericExtension>();
 			Module module = compiledModule.getModule();
 			if (module != null) {
+				NonTransformationExecutionContext context = new NonTransformationExecutionContext(Collections.singleton(module));
 				for (EOperation operation : module.getEOperations()) {
-					if (operation instanceof ImperativeOperation) {
-						extensions.add(new QvtExtension((ImperativeOperation) operation, this, fileName));	
+					if (operation instanceof Helper) {
+						extensions.add(new QvtExtension(context.createHelperCall((Helper) operation), this, fileName));
 					}
 				}
 			}

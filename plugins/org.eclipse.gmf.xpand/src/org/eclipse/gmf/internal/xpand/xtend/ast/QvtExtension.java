@@ -11,8 +11,8 @@
  */
 package org.eclipse.gmf.internal.xpand.xtend.ast;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -23,14 +23,10 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnv;
 import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnvFactory;
-import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEvaluationEnv;
-import org.eclipse.m2m.internal.qvt.oml.evaluator.QvtOperationalEvaluationVisitorImpl;
-import org.eclipse.m2m.internal.qvt.oml.evaluator.QvtOperationalEvaluationVisitorImpl.OperationCallResult;
-import org.eclipse.m2m.internal.qvt.oml.expressions.ImperativeOperation;
-import org.eclipse.m2m.internal.qvt.oml.library.Context;
+import org.eclipse.m2m.internal.qvt.oml.expressions.Helper;
+import org.eclipse.m2m.qvt.oml.runtime.util.HelperOperationCall;
 import org.eclipse.ocl.ecore.BagType;
 import org.eclipse.ocl.ecore.CollectionType;
 import org.eclipse.ocl.ecore.OrderedSetType;
@@ -43,9 +39,9 @@ import org.eclipse.ocl.types.OCLStandardLibrary;
 public class QvtExtension implements GenericExtension {
 
 	private static final QvtOperationalEnv qvtEnvironment = QvtOperationalEnvFactory.INSTANCE.createEnvironment(null);
-	
+
 	private static final EcoreSwitch<EClassifier> ecoreSwitch = new EcoreSwitch<EClassifier>() {
-		
+
 		@Override
 		public EClassifier casePrimitiveType(PrimitiveType object) {
 			OCLStandardLibrary<EClassifier> standardLibrary = qvtEnvironment.getOCLStandardLibrary();
@@ -60,32 +56,32 @@ public class QvtExtension implements GenericExtension {
 			}
 			return null;
 		}
-		
+
 		@Override
 		public EClassifier caseCollectionType(CollectionType object) {
 			return BuiltinMetaModel.getCollectionType(getXpandElementType(object));
 		}
-		
+
 		@Override
 		public EClassifier caseBagType(BagType object) {
 			return BuiltinMetaModel.getCollectionType(getXpandElementType(object));
 		}
-		
+
 		@Override
 		public EClassifier caseSetType(SetType object) {
 			return BuiltinMetaModel.getSetType(getXpandElementType(object));
 		}
-		
+
 		@Override
 		public EClassifier caseSequenceType(SequenceType object) {
 			return BuiltinMetaModel.getListType(getXpandElementType(object));
 		}
-		
+
 		@Override
 		public EClassifier caseOrderedSetType(OrderedSetType object) {
 			return BuiltinMetaModel.getSetType(getXpandElementType(object));
 		}
-		
+
 		private EClassifier getXpandElementType(CollectionType collectionType) {
 			EClassifier elementType = this.doSwitch(collectionType.getElementType());
 			return elementType == null ? collectionType.getElementType() : elementType;
@@ -94,17 +90,17 @@ public class QvtExtension implements GenericExtension {
 
 	private QvtResource qvtResource;
 
-	private ImperativeOperation operation;
-
 	private List<String> parameterNames;
 
 	private List<EClassifier> parameterTypes;
 
 	private String fileName;
 
-	public QvtExtension(ImperativeOperation operation, QvtFile qvtFile, String fileName) {
+	private HelperOperationCall helperCall;
+
+	public QvtExtension(HelperOperationCall helperOperationCall, QvtFile qvtFile, String fileName) {
+		this.helperCall = helperOperationCall;
 		qvtResource = qvtFile;
-		this.operation = operation;
 		this.fileName = fileName;
 	}
 
@@ -117,31 +113,53 @@ public class QvtExtension implements GenericExtension {
 	}
 
 	public Object evaluate(Object[] parameters, ExecutionContext ctx) {
-		Context context = new Context();
-		QvtOperationalEvaluationEnv evaluationEnv = QvtOperationalEnvFactory.INSTANCE.createEvaluationEnvironment(context, null);
-		// evaluationEnv.setOperationSelf("Hahaha");
-		// evaluationEnv.getOperationArgs().addAll();
+		try {
+			if (helperCall.isContextual()) {
+				// TODO: this is a proper way to get context variable (self) for
+				// now
+				// getting this variable from the parameters array in accordance
+				// with OperationCall.evaluateInternal() implementation
+				// Variable selfVariable =
+				// ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE);
+				assert parameters.length > 0;
+				Object self = parameters[0];
+				Object[] actualParameters = new Object[parameters.length - 1];
+				System.arraycopy(parameters, 1, actualParameters, 0, parameters.length - 1);
+				return helperCall.invoke(self, actualParameters);
+			} else {
+				return helperCall.invoke(parameters);
+			}
+		} catch (IllegalArgumentException e) {
+			throw new RuntimeException("Illigal arguments in QVT helper (" + getSignature(helperCall.getOperation()) + ") call: " + e.getMessage());
+		} catch (InvocationTargetException e) {
+			throw new RuntimeException("Invocation target exception in QVT helper (" + getSignature(helperCall.getOperation()) + ") call: " + e.getMessage());
+		}
+	}
 
-		// EvaluationVisitor<EPackage, EClassifier, EOperation,
-		// EStructuralFeature, EEnumLiteral, EParameter, EObject,
-		// CallOperationAction, SendSignalAction, Constraint, EClass, EObject>
-		// evaluator = factory.createEvaluationVisitor(rootEnv, evaluationEnv,
-		// null);
-		QvtOperationalEvaluationVisitorImpl evaluator = new QvtOperationalEvaluationVisitorImpl(qvtEnvironment, evaluationEnv);
-
-		// assert library.getEntry() == null;
-		// library.setEntry(library.getEOperations().get(0));
-		Variable selfVariable = ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE);
-		// TODO: remove first parameter if necessary..
-		List<Object> parametersVariable = Arrays.asList(parameters);
-		// TODO: (?) surround with try-catch block to catch *RuntimeExceptions from QVT execution.
-		// TODO: check if parametersVariable are passed correctly (values used)
-		OperationCallResult result = evaluator.executeImperativeOperation(operation, selfVariable.getValue(), parametersVariable, false);
-		return result == null ? null : result.myResult;
+	private String getSignature(Helper operation) {
+		StringBuilder sb = new StringBuilder();
+		if (operation.getContext() != null) {
+			sb.append(operation.getContext().getEType().getName());
+			sb.append("::");
+		}
+		sb.append(operation.getName());
+		sb.append("(");
+		for (EParameter parameter : operation.getEParameters()) {
+			if (sb.lastIndexOf("(") != sb.length() - 1) {
+				sb.append(",");
+			}
+			sb.append(parameter.getName());
+			sb.append(":");
+			sb.append(parameter.getEType().getName());
+		}
+		sb.append(")");
+		sb.append(":");
+		sb.append(operation.getEType().getName());
+		return sb.toString();
 	}
 
 	public String getName() {
-		return operation.getName();
+		return getHelper().getName();
 	}
 
 	public List<EClassifier> getParameterTypes() {
@@ -149,10 +167,10 @@ public class QvtExtension implements GenericExtension {
 			parameterTypes = new ArrayList<EClassifier>();
 			// TODO: we should be able to distinguish between static and
 			// context-specific queries
-			if (operation.getContext() != null) {
-				parameterTypes.add(getXpandType(operation.getContext().getEType()));
+			if (getHelper().getContext() != null) {
+				parameterTypes.add(getXpandType(getHelper().getContext().getEType()));
 			}
-			for (EParameter parameter : operation.getEParameters()) {
+			for (EParameter parameter : getHelper().getEParameters()) {
 				parameterTypes.add(getXpandType(parameter.getEType()));
 			}
 			parameterTypes = Collections.unmodifiableList(parameterTypes);
@@ -163,7 +181,7 @@ public class QvtExtension implements GenericExtension {
 	public List<String> getParameterNames() {
 		if (parameterNames == null) {
 			parameterNames = new ArrayList<String>();
-			for (EParameter parameter : operation.getEParameters()) {
+			for (EParameter parameter : getHelper().getEParameters()) {
 				parameterNames.add(parameter.getName());
 			}
 			parameterNames = Collections.unmodifiableList(parameterNames);
@@ -173,7 +191,7 @@ public class QvtExtension implements GenericExtension {
 
 	public EClassifier getReturnType(EClassifier[] parameters, ExecutionContext ctx, Set<AnalysationIssue> issues) {
 		// TODO: deduce return type here? (need another visitor?)
-		return getXpandType(operation.getEType());
+		return getXpandType(getHelper().getEType());
 	}
 
 	private EClassifier getXpandType(EClassifier type) {
@@ -187,6 +205,10 @@ public class QvtExtension implements GenericExtension {
 
 	public String getFileName() {
 		return fileName;
+	}
+
+	private Helper getHelper() {
+		return helperCall.getOperation();
 	}
 
 }

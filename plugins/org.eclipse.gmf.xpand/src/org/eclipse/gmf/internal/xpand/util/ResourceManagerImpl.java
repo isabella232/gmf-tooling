@@ -146,7 +146,7 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		CFile cFile = new InputStreadCFile(readers[0], fullyQualifiedName);
 		// TODO: use different kind of ImportResolver being able to construct
 		// referenced CFiles using ResourceManagerImpl
-		QvtCompiler qvtCompiler = new QvtCompiler(new DeployedImportResolver());
+		QvtCompiler qvtCompiler = new QvtCompiler(DeployedImportResolver.INSTANCE);
 		QvtCompilerOptions options = new QvtCompilerOptions();
 		options.setGenerateCompletionData(false);
 		options.setShowAnnotations(false);
