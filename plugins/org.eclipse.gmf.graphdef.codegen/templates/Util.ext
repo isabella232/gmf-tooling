@@ -107,3 +107,10 @@ private List[CustomFigure] filterCustom(List[Figure] figures) :
 EString messageFormat(EString pattern, List[Object] argument) :
 	JAVA java.text.MessageFormat.format(java.lang.String, java.lang.Object.List)
 ;
+
+String svgPropertyType(gmfgraph::SVGProperty p) :
+	switch (p.type) {
+		case SVGPropertyType::COLOR : "org.eclipse.swt.graphics.Color"
+		default : "String"
+	}
+;

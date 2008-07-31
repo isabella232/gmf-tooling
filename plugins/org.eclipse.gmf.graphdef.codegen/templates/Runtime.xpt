@@ -62,6 +62,7 @@
 «DEFINE fqn FOR Polyline»org.eclipse.draw2d.Polyline«ENDDEFINE»
 «DEFINE fqn FOR PolylineDecoration»org.eclipse.draw2d.PolylineDecoration«ENDDEFINE»
 «DEFINE fqn FOR PolylineConnection»«IF isFullRuntime()»org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx«ELSE»org.eclipse.draw2d.PolylineConnection«ENDIF»«ENDDEFINE»
+«DEFINE fqn FOR SVGFigure»org.eclipse.gmf.runtime.lite.svg.SVGFigure«ENDDEFINE»
 
 «REM»
 to utilize around, need to fix XpandExecutionContextImpl to get aspects not only from relative aspects/ path, but from

@@ -48,3 +48,8 @@
 «EXPAND attr::Shape::shapeAttrs(figureVarName)-»
 «EXPAND attr::Figure::figureAttrs(figureVarName)-»
 «ENDDEFINE»
+
+«DEFINE Init(EString figureVarName) FOR gmfgraph::SVGFigure-»
+«figureVarName».setURI("«documentURI»", true);
+«EXPAND attr::Figure::figureAttrs(figureVarName)-»
+«ENDDEFINE»
