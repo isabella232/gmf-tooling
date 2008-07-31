@@ -494,6 +494,24 @@ public interface GMFGraphFactory extends EFactory {
 	StackLayout createStackLayout();
 
 	/**
+	 * Returns a new object of class '<em>SVG Figure</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>SVG Figure</em>'.
+	 * @generated
+	 */
+	SVGFigure createSVGFigure();
+
+	/**
+	 * Returns a new object of class '<em>SVG Property</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>SVG Property</em>'.
+	 * @generated
+	 */
+	SVGProperty createSVGProperty();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

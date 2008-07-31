@@ -58,6 +58,10 @@
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Alignment/END"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Alignment/FILL"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gmfgraph.ecore#//SVGPropertyType">
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//SVGPropertyType/STRING"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//SVGPropertyType/COLOR"/>
+    </genEnums>
     <genClasses ecoreClass="gmfgraph.ecore#//Canvas">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Canvas/figures"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Canvas/nodes"/>
@@ -292,5 +296,17 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//XYLayoutData/size"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//StackLayout"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//SVGFigure">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGFigure/documentURI"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//SVGFigure/properties"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//SVGProperty">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGProperty/query"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGProperty/attribute"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGProperty/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGProperty/getter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGProperty/setter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGProperty/callSuper"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -110,6 +110,8 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.XY_LAYOUT: return createXYLayout();
 			case GMFGraphPackage.XY_LAYOUT_DATA: return createXYLayoutData();
 			case GMFGraphPackage.STACK_LAYOUT: return createStackLayout();
+			case GMFGraphPackage.SVG_FIGURE: return createSVGFigure();
+			case GMFGraphPackage.SVG_PROPERTY: return createSVGProperty();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -133,6 +135,8 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 				return createLineKindFromString(eDataType, initialValue);
 			case GMFGraphPackage.ALIGNMENT:
 				return createAlignmentFromString(eDataType, initialValue);
+			case GMFGraphPackage.SVG_PROPERTY_TYPE:
+				return createSVGPropertyTypeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -156,6 +160,8 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 				return convertLineKindToString(eDataType, instanceValue);
 			case GMFGraphPackage.ALIGNMENT:
 				return convertAlignmentToString(eDataType, instanceValue);
+			case GMFGraphPackage.SVG_PROPERTY_TYPE:
+				return convertSVGPropertyTypeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -686,6 +692,26 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public SVGFigure createSVGFigure() {
+		SVGFigureImpl svgFigure = new SVGFigureImpl();
+		return svgFigure;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SVGProperty createSVGProperty() {
+		SVGPropertyImpl svgProperty = new SVGPropertyImpl();
+		return svgProperty;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ColorConstants createColorConstantsFromString(EDataType eDataType, String initialValue) {
 		ColorConstants result = ColorConstants.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -778,6 +804,26 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	 * @generated
 	 */
 	public String convertAlignmentToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SVGPropertyType createSVGPropertyTypeFromString(EDataType eDataType, String initialValue) {
+		SVGPropertyType result = SVGPropertyType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertSVGPropertyTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

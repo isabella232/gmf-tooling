@@ -4514,7 +4514,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 70;
+	int FONT_STYLE = 72;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.PointImpl <em>Point</em>}' class.
@@ -6098,6 +6098,251 @@ public interface GMFGraphPackage extends EPackage {
 	int STACK_LAYOUT_FEATURE_COUNT = LAYOUT_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl <em>SVG Figure</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getSVGFigure()
+	 * @generated
+	 */
+	int SVG_FIGURE = 69;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__LAYOUT_DATA = REAL_FIGURE__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__LAYOUT = REAL_FIGURE__LAYOUT;
+
+	/**
+	 * The feature id for the '<em><b>Descriptor</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__DESCRIPTOR = REAL_FIGURE__DESCRIPTOR;
+
+	/**
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__FOREGROUND_COLOR = REAL_FIGURE__FOREGROUND_COLOR;
+
+	/**
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__BACKGROUND_COLOR = REAL_FIGURE__BACKGROUND_COLOR;
+
+	/**
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__MAXIMUM_SIZE = REAL_FIGURE__MAXIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__MINIMUM_SIZE = REAL_FIGURE__MINIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__PREFERRED_SIZE = REAL_FIGURE__PREFERRED_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__FONT = REAL_FIGURE__FONT;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__INSETS = REAL_FIGURE__INSETS;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__BORDER = REAL_FIGURE__BORDER;
+
+	/**
+	 * The feature id for the '<em><b>Location</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__LOCATION = REAL_FIGURE__LOCATION;
+
+	/**
+	 * The feature id for the '<em><b>Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__SIZE = REAL_FIGURE__SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__NAME = REAL_FIGURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__CHILDREN = REAL_FIGURE__CHILDREN;
+
+	/**
+	 * The feature id for the '<em><b>Document URI</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__DOCUMENT_URI = REAL_FIGURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__PROPERTIES = REAL_FIGURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>SVG Figure</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE_FEATURE_COUNT = REAL_FIGURE_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.SVGPropertyImpl <em>SVG Property</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.SVGPropertyImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getSVGProperty()
+	 * @generated
+	 */
+	int SVG_PROPERTY = 70;
+
+	/**
+	 * The feature id for the '<em><b>Query</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_PROPERTY__QUERY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Attribute</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_PROPERTY__ATTRIBUTE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_PROPERTY__TYPE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Getter</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_PROPERTY__GETTER = 3;
+
+	/**
+	 * The feature id for the '<em><b>Setter</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_PROPERTY__SETTER = 4;
+
+	/**
+	 * The feature id for the '<em><b>Call Super</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_PROPERTY__CALL_SUPER = 5;
+
+	/**
+	 * The number of structural features of the '<em>SVG Property</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_PROPERTY_FEATURE_COUNT = 6;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.ColorConstants <em>Color Constants</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6105,7 +6350,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getColorConstants()
 	 * @generated
 	 */
-	int COLOR_CONSTANTS = 69;
+	int COLOR_CONSTANTS = 71;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Direction <em>Direction</em>}' enum.
@@ -6115,7 +6360,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getDirection()
 	 * @generated
 	 */
-	int DIRECTION = 71;
+	int DIRECTION = 73;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.LineKind <em>Line Kind</em>}' enum.
@@ -6125,7 +6370,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLineKind()
 	 * @generated
 	 */
-	int LINE_KIND = 72;
+	int LINE_KIND = 74;
 
 
 	/**
@@ -6136,7 +6381,18 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getAlignment()
 	 * @generated
 	 */
-	int ALIGNMENT = 73;
+	int ALIGNMENT = 75;
+
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.SVGPropertyType <em>SVG Property Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.SVGPropertyType
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getSVGPropertyType()
+	 * @generated
+	 */
+	int SVG_PROPERTY_TYPE = 76;
 
 
 	/**
@@ -8160,6 +8416,114 @@ public interface GMFGraphPackage extends EPackage {
 	EClass getStackLayout();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.SVGFigure <em>SVG Figure</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>SVG Figure</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.SVGFigure
+	 * @generated
+	 */
+	EClass getSVGFigure();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.SVGFigure#getDocumentURI <em>Document URI</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Document URI</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.SVGFigure#getDocumentURI()
+	 * @see #getSVGFigure()
+	 * @generated
+	 */
+	EAttribute getSVGFigure_DocumentURI();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.gmfgraph.SVGFigure#getProperties <em>Properties</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Properties</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.SVGFigure#getProperties()
+	 * @see #getSVGFigure()
+	 * @generated
+	 */
+	EReference getSVGFigure_Properties();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.SVGProperty <em>SVG Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>SVG Property</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.SVGProperty
+	 * @generated
+	 */
+	EClass getSVGProperty();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.SVGProperty#getQuery <em>Query</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Query</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.SVGProperty#getQuery()
+	 * @see #getSVGProperty()
+	 * @generated
+	 */
+	EAttribute getSVGProperty_Query();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.SVGProperty#getAttribute <em>Attribute</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Attribute</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.SVGProperty#getAttribute()
+	 * @see #getSVGProperty()
+	 * @generated
+	 */
+	EAttribute getSVGProperty_Attribute();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.SVGProperty#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.SVGProperty#getType()
+	 * @see #getSVGProperty()
+	 * @generated
+	 */
+	EAttribute getSVGProperty_Type();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.SVGProperty#getGetter <em>Getter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Getter</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.SVGProperty#getGetter()
+	 * @see #getSVGProperty()
+	 * @generated
+	 */
+	EAttribute getSVGProperty_Getter();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.SVGProperty#getSetter <em>Setter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Setter</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.SVGProperty#getSetter()
+	 * @see #getSVGProperty()
+	 * @generated
+	 */
+	EAttribute getSVGProperty_Setter();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.SVGProperty#isCallSuper <em>Call Super</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Call Super</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.SVGProperty#isCallSuper()
+	 * @see #getSVGProperty()
+	 * @generated
+	 */
+	EAttribute getSVGProperty_CallSuper();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.gmfgraph.ColorConstants <em>Color Constants</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8198,6 +8562,16 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getAlignment();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.gmf.gmfgraph.SVGPropertyType <em>SVG Property Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>SVG Property Type</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.SVGPropertyType
+	 * @generated
+	 */
+	EEnum getSVGPropertyType();
 
 	/**
 	 * Returns the factory that creates the instances of the model.

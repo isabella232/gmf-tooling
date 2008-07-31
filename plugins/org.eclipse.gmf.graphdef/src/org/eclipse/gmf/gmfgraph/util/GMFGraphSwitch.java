@@ -647,6 +647,22 @@ public class GMFGraphSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGraphPackage.SVG_FIGURE: {
+				SVGFigure svgFigure = (SVGFigure)theEObject;
+				T result = caseSVGFigure(svgFigure);
+				if (result == null) result = caseRealFigure(svgFigure);
+				if (result == null) result = caseAbstractFigure(svgFigure);
+				if (result == null) result = caseFigure(svgFigure);
+				if (result == null) result = caseLayoutable(svgFigure);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.SVG_PROPERTY: {
+				SVGProperty svgProperty = (SVGProperty)theEObject;
+				T result = caseSVGProperty(svgProperty);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -1683,6 +1699,36 @@ public class GMFGraphSwitch<T> {
 	 * @generated
 	 */
 	public T caseStackLayout(StackLayout object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>SVG Figure</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>SVG Figure</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSVGFigure(SVGFigure object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>SVG Property</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>SVG Property</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSVGProperty(SVGProperty object) {
 		return null;
 	}
 

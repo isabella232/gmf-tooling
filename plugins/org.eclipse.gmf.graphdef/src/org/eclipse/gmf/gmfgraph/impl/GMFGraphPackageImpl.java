@@ -12,6 +12,85 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.gmf.gmfgraph.AbstractFigure;
+import org.eclipse.gmf.gmfgraph.AbstractNode;
+import org.eclipse.gmf.gmfgraph.Alignment;
+import org.eclipse.gmf.gmfgraph.AlignmentFacet;
+import org.eclipse.gmf.gmfgraph.BasicFont;
+import org.eclipse.gmf.gmfgraph.Border;
+import org.eclipse.gmf.gmfgraph.BorderLayout;
+import org.eclipse.gmf.gmfgraph.BorderLayoutData;
+import org.eclipse.gmf.gmfgraph.BorderRef;
+import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.ChildAccess;
+import org.eclipse.gmf.gmfgraph.Color;
+import org.eclipse.gmf.gmfgraph.ColorConstants;
+import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.gmfgraph.CompoundBorder;
+import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.ConnectionFigure;
+import org.eclipse.gmf.gmfgraph.ConstantColor;
+import org.eclipse.gmf.gmfgraph.CustomAttribute;
+import org.eclipse.gmf.gmfgraph.CustomBorder;
+import org.eclipse.gmf.gmfgraph.CustomClass;
+import org.eclipse.gmf.gmfgraph.CustomConnection;
+import org.eclipse.gmf.gmfgraph.CustomDecoration;
+import org.eclipse.gmf.gmfgraph.CustomFigure;
+import org.eclipse.gmf.gmfgraph.CustomLayout;
+import org.eclipse.gmf.gmfgraph.CustomLayoutData;
+import org.eclipse.gmf.gmfgraph.DecorationFigure;
+import org.eclipse.gmf.gmfgraph.DefaultSizeFacet;
+import org.eclipse.gmf.gmfgraph.DiagramElement;
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
+import org.eclipse.gmf.gmfgraph.Dimension;
+import org.eclipse.gmf.gmfgraph.Direction;
+import org.eclipse.gmf.gmfgraph.Ellipse;
+import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureAccessor;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
+import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.FigureRef;
+import org.eclipse.gmf.gmfgraph.FlowLayout;
+import org.eclipse.gmf.gmfgraph.Font;
+import org.eclipse.gmf.gmfgraph.FontStyle;
+import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
+import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.GeneralFacet;
+import org.eclipse.gmf.gmfgraph.GradientFacet;
+import org.eclipse.gmf.gmfgraph.GridLayout;
+import org.eclipse.gmf.gmfgraph.GridLayoutData;
+import org.eclipse.gmf.gmfgraph.Identity;
+import org.eclipse.gmf.gmfgraph.Insets;
+import org.eclipse.gmf.gmfgraph.Label;
+import org.eclipse.gmf.gmfgraph.LabelOffsetFacet;
+import org.eclipse.gmf.gmfgraph.LabeledContainer;
+import org.eclipse.gmf.gmfgraph.Layout;
+import org.eclipse.gmf.gmfgraph.LayoutData;
+import org.eclipse.gmf.gmfgraph.LayoutRef;
+import org.eclipse.gmf.gmfgraph.Layoutable;
+import org.eclipse.gmf.gmfgraph.LineBorder;
+import org.eclipse.gmf.gmfgraph.LineKind;
+import org.eclipse.gmf.gmfgraph.MarginBorder;
+import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.Point;
+import org.eclipse.gmf.gmfgraph.Polygon;
+import org.eclipse.gmf.gmfgraph.PolygonDecoration;
+import org.eclipse.gmf.gmfgraph.Polyline;
+import org.eclipse.gmf.gmfgraph.PolylineConnection;
+import org.eclipse.gmf.gmfgraph.PolylineDecoration;
+import org.eclipse.gmf.gmfgraph.RGBColor;
+import org.eclipse.gmf.gmfgraph.RealFigure;
+import org.eclipse.gmf.gmfgraph.Rectangle;
+import org.eclipse.gmf.gmfgraph.RoundedRectangle;
+import org.eclipse.gmf.gmfgraph.SVGFigure;
+import org.eclipse.gmf.gmfgraph.SVGProperty;
+import org.eclipse.gmf.gmfgraph.SVGPropertyType;
+import org.eclipse.gmf.gmfgraph.ScalablePolygon;
+import org.eclipse.gmf.gmfgraph.Shape;
+import org.eclipse.gmf.gmfgraph.StackLayout;
+import org.eclipse.gmf.gmfgraph.VisualFacet;
+import org.eclipse.gmf.gmfgraph.XYLayout;
+import org.eclipse.gmf.gmfgraph.XYLayoutData;
 import org.eclipse.gmf.gmfgraph.*;
 
 /**
@@ -509,6 +588,20 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass svgFigureEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass svgPropertyEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum colorConstantsEEnum = null;
 
 	/**
@@ -538,6 +631,13 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * @generated
 	 */
 	private EEnum alignmentEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum svgPropertyTypeEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -2322,6 +2422,96 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getSVGFigure() {
+		return svgFigureEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSVGFigure_DocumentURI() {
+		return (EAttribute)svgFigureEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSVGFigure_Properties() {
+		return (EReference)svgFigureEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSVGProperty() {
+		return svgPropertyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSVGProperty_Query() {
+		return (EAttribute)svgPropertyEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSVGProperty_Attribute() {
+		return (EAttribute)svgPropertyEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSVGProperty_Type() {
+		return (EAttribute)svgPropertyEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSVGProperty_Getter() {
+		return (EAttribute)svgPropertyEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSVGProperty_Setter() {
+		return (EAttribute)svgPropertyEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSVGProperty_CallSuper() {
+		return (EAttribute)svgPropertyEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getColorConstants() {
 		return colorConstantsEEnum;
 	}
@@ -2351,6 +2541,15 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 */
 	public EEnum getAlignment() {
 		return alignmentEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getSVGPropertyType() {
+		return svgPropertyTypeEEnum;
 	}
 
 	/**
@@ -2639,12 +2838,25 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		stackLayoutEClass = createEClass(STACK_LAYOUT);
 
+		svgFigureEClass = createEClass(SVG_FIGURE);
+		createEAttribute(svgFigureEClass, SVG_FIGURE__DOCUMENT_URI);
+		createEReference(svgFigureEClass, SVG_FIGURE__PROPERTIES);
+
+		svgPropertyEClass = createEClass(SVG_PROPERTY);
+		createEAttribute(svgPropertyEClass, SVG_PROPERTY__QUERY);
+		createEAttribute(svgPropertyEClass, SVG_PROPERTY__ATTRIBUTE);
+		createEAttribute(svgPropertyEClass, SVG_PROPERTY__TYPE);
+		createEAttribute(svgPropertyEClass, SVG_PROPERTY__GETTER);
+		createEAttribute(svgPropertyEClass, SVG_PROPERTY__SETTER);
+		createEAttribute(svgPropertyEClass, SVG_PROPERTY__CALL_SUPER);
+
 		// Create enums
 		colorConstantsEEnum = createEEnum(COLOR_CONSTANTS);
 		fontStyleEEnum = createEEnum(FONT_STYLE);
 		directionEEnum = createEEnum(DIRECTION);
 		lineKindEEnum = createEEnum(LINE_KIND);
 		alignmentEEnum = createEEnum(ALIGNMENT);
+		svgPropertyTypeEEnum = createEEnum(SVG_PROPERTY_TYPE);
 	}
 
 	/**
@@ -2738,6 +2950,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		xyLayoutEClass.getESuperTypes().add(this.getLayout());
 		xyLayoutDataEClass.getESuperTypes().add(this.getLayoutData());
 		stackLayoutEClass.getESuperTypes().add(this.getLayout());
+		svgFigureEClass.getESuperTypes().add(this.getRealFigure());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(canvasEClass, Canvas.class, "Canvas", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2998,6 +3211,18 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		initEClass(stackLayoutEClass, StackLayout.class, "StackLayout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(svgFigureEClass, SVGFigure.class, "SVGFigure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSVGFigure_DocumentURI(), ecorePackage.getEString(), "documentURI", null, 0, 1, SVGFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSVGFigure_Properties(), this.getSVGProperty(), null, "properties", null, 0, -1, SVGFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(svgPropertyEClass, SVGProperty.class, "SVGProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSVGProperty_Query(), ecorePackage.getEString(), "query", null, 0, 1, SVGProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSVGProperty_Attribute(), ecorePackage.getEString(), "attribute", null, 0, 1, SVGProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSVGProperty_Type(), this.getSVGPropertyType(), "type", null, 0, 1, SVGProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSVGProperty_Getter(), ecorePackage.getEString(), "getter", null, 0, 1, SVGProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSVGProperty_Setter(), ecorePackage.getEString(), "setter", null, 0, 1, SVGProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSVGProperty_CallSuper(), ecorePackage.getEBoolean(), "callSuper", null, 0, 1, SVGProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(colorConstantsEEnum, ColorConstants.class, "ColorConstants");
 		addEEnumLiteral(colorConstantsEEnum, ColorConstants.WHITE_LITERAL);
@@ -3048,6 +3273,10 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		addEEnumLiteral(alignmentEEnum, Alignment.CENTER_LITERAL);
 		addEEnumLiteral(alignmentEEnum, Alignment.END_LITERAL);
 		addEEnumLiteral(alignmentEEnum, Alignment.FILL_LITERAL);
+
+		initEEnum(svgPropertyTypeEEnum, SVGPropertyType.class, "SVGPropertyType");
+		addEEnumLiteral(svgPropertyTypeEEnum, SVGPropertyType.STRING);
+		addEEnumLiteral(svgPropertyTypeEEnum, SVGPropertyType.COLOR);
 
 		// Create resource
 		createResource(eNS_URI);

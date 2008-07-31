@@ -345,6 +345,14 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 				return createStackLayoutAdapter();
 			}
 			@Override
+			public Adapter caseSVGFigure(SVGFigure object) {
+				return createSVGFigureAdapter();
+			}
+			@Override
+			public Adapter caseSVGProperty(SVGProperty object) {
+				return createSVGPropertyAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1327,6 +1335,34 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createStackLayoutAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.SVGFigure <em>SVG Figure</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.SVGFigure
+	 * @generated
+	 */
+	public Adapter createSVGFigureAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.SVGProperty <em>SVG Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.SVGProperty
+	 * @generated
+	 */
+	public Adapter createSVGPropertyAdapter() {
 		return null;
 	}
 
