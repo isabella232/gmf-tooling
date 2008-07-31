@@ -10,5 +10,6 @@ plugin@org.eclipse.gmf.graphdef.editor=v20080722-1827,:pserver:anonymous@dev.ecl
 plugin@org.eclipse.gmf.bridge.trace=v20080722-1827,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.trace
 plugin@org.eclipse.gmf.runtime.lite=v20080722-1827,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.lite
 plugin@org.eclipse.gmf.xpand.editor=v20080722-1827,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.xpand.editor
+plugin@org.eclipse.gmf.runtime.lite.svg=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.lite.svg
 
 !*** ECore sample plugin is in the gmf-examples.map
