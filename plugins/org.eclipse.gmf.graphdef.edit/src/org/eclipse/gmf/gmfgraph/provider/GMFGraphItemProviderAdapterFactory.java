@@ -1284,6 +1284,52 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.SVGFigure} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SVGFigureItemProvider svgFigureItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.SVGFigure}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSVGFigureAdapter() {
+		if (svgFigureItemProvider == null) {
+			svgFigureItemProvider = new SVGFigureItemProvider(this);
+		}
+
+		return svgFigureItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.SVGProperty} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SVGPropertyItemProvider svgPropertyItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.SVGProperty}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSVGPropertyAdapter() {
+		if (svgPropertyItemProvider == null) {
+			svgPropertyItemProvider = new SVGPropertyItemProvider(this);
+		}
+
+		return svgPropertyItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1461,6 +1507,8 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		if (xyLayoutItemProvider != null) xyLayoutItemProvider.dispose();
 		if (xyLayoutDataItemProvider != null) xyLayoutDataItemProvider.dispose();
 		if (stackLayoutItemProvider != null) stackLayoutItemProvider.dispose();
+		if (svgFigureItemProvider != null) svgFigureItemProvider.dispose();
+		if (svgPropertyItemProvider != null) svgPropertyItemProvider.dispose();
 	}
 
 }

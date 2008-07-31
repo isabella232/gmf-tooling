@@ -262,6 +262,11 @@ public class FigureDescriptorItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureDescriptor_ActualFigure(),
+				 GMFGraphFactory.eINSTANCE.createSVGFigure()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getFigureDescriptor_Accessors(),
 				 GMFGraphFactory.eINSTANCE.createChildAccess()));
 	}

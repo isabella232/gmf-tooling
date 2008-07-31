@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: SVGFigureItemProvider.java,v 1.1 2008/07/31 12:14:54 dstadnik Exp $
  */
 package org.eclipse.gmf.gmfgraph.provider;
 
@@ -12,10 +12,10 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IChildCreationExtender;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -23,25 +23,25 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.gmfgraph.FigureAccessor;
+
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.SVGFigure;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.gmfgraph.FigureAccessor} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.gmfgraph.SVGFigure} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class FigureAccessorItemProvider
-	extends ItemProviderAdapter
-	implements	
-		IEditingDomainItemProvider,	
-		IStructuredItemContentProvider,	
-		ITreeItemContentProvider,	
-		IItemLabelProvider,	
+public class SVGFigureItemProvider
+	extends RealFigureItemProvider
+	implements
+		IEditingDomainItemProvider,
+		IStructuredItemContentProvider,
+		ITreeItemContentProvider,
+		IItemLabelProvider,
 		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -49,7 +49,7 @@ public class FigureAccessorItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FigureAccessorItemProvider(AdapterFactory adapterFactory) {
+	public SVGFigureItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -64,25 +64,25 @@ public class FigureAccessorItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addAccessorPropertyDescriptor(object);
+			addDocumentURIPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Accessor feature.
+	 * This adds a property descriptor for the Document URI feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addAccessorPropertyDescriptor(Object object) {
+	protected void addDocumentURIPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FigureAccessor_accessor_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FigureAccessor_accessor_feature", "_UI_FigureAccessor_type"),
-				 GMFGraphPackage.eINSTANCE.getFigureAccessor_Accessor(),
+				 getString("_UI_SVGFigure_documentURI_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SVGFigure_documentURI_feature", "_UI_SVGFigure_type"),
+				 GMFGraphPackage.eINSTANCE.getSVGFigure_DocumentURI(),
 				 true,
 				 false,
 				 false,
@@ -103,7 +103,7 @@ public class FigureAccessorItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getSVGFigure_Properties());
 		}
 		return childrenFeatures;
 	}
@@ -122,14 +122,14 @@ public class FigureAccessorItemProvider
 	}
 
 	/**
-	 * This returns FigureAccessor.gif.
+	 * This returns SVGFigure.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FigureAccessor"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SVGFigure"));
 	}
 
 	/**
@@ -140,10 +140,10 @@ public class FigureAccessorItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((FigureAccessor)object).getAccessor();
+		String label = ((SVGFigure)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_FigureAccessor_type") :
-			getString("_UI_FigureAccessor_type") + " " + label;
+			getString("_UI_SVGFigure_type") :
+			getString("_UI_SVGFigure_type") + " " + label;
 	}
 
 	/**
@@ -157,11 +157,11 @@ public class FigureAccessorItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(FigureAccessor.class)) {
-			case GMFGraphPackage.FIGURE_ACCESSOR__ACCESSOR:
+		switch (notification.getFeatureID(SVGFigure.class)) {
+			case GMFGraphPackage.SVG_FIGURE__DOCUMENT_URI:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case GMFGraphPackage.FIGURE_ACCESSOR__TYPED_FIGURE:
+			case GMFGraphPackage.SVG_FIGURE__PROPERTIES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -181,89 +181,36 @@ public class FigureAccessorItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
-				 GMFGraphFactory.eINSTANCE.createLabel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
-				 GMFGraphFactory.eINSTANCE.createLabeledContainer()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
-				 GMFGraphFactory.eINSTANCE.createRectangle()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
-				 GMFGraphFactory.eINSTANCE.createRoundedRectangle()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
-				 GMFGraphFactory.eINSTANCE.createEllipse()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
-				 GMFGraphFactory.eINSTANCE.createPolyline()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
-				 GMFGraphFactory.eINSTANCE.createPolygon()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
-				 GMFGraphFactory.eINSTANCE.createScalablePolygon()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
-				 GMFGraphFactory.eINSTANCE.createPolylineConnection()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
-				 GMFGraphFactory.eINSTANCE.createPolylineDecoration()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
-				 GMFGraphFactory.eINSTANCE.createPolygonDecoration()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
-				 GMFGraphFactory.eINSTANCE.createCustomFigure()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
-				 GMFGraphFactory.eINSTANCE.createCustomDecoration()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
-				 GMFGraphFactory.eINSTANCE.createCustomConnection()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
-				 GMFGraphFactory.eINSTANCE.createSVGFigure()));
+				(GMFGraphPackage.eINSTANCE.getSVGFigure_Properties(),
+				 GMFGraphFactory.eINSTANCE.createSVGProperty()));
 	}
 
 	/**
-	 * Return the resource locator for this item provider's resources.
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public ResourceLocator getResourceLocator() {
-		return ((IChildCreationExtender)adapterFactory).getResourceLocator();
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_MaximumSize() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_MinimumSize() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_PreferredSize() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_Location() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_Size();
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

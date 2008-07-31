@@ -239,6 +239,11 @@ public class RealFigureItemProvider
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
 				 GMFGraphFactory.eINSTANCE.createCustomConnection()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createSVGFigure()));
 	}
 
 	/**
