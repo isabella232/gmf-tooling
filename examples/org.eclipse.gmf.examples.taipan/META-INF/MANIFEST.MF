@@ -16,6 +16,5 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.draw2d,
  org.eclipse.gef,
  org.eclipse.gmf.runtime.draw2d.ui,
- org.eclipse.gmf.runtime.draw2d.ui.render;visibility:=reexport,
  org.eclipse.gmf.runtime.diagram.ui
 Eclipse-LazyStart: true

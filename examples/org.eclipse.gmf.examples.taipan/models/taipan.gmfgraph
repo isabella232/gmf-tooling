@@ -67,13 +67,6 @@
           figure="//@figures.0/@descriptors.7/@actualFigure/@children.0"/>
     </descriptors>
     <descriptors
-        name="EmptyBoxFigure">
-      <actualFigure
-          xsi:type="gmfgraph:CustomFigure"
-          name="EmptyBoxFigure"
-          qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure"/>
-    </descriptors>
-    <descriptors
         name="ShipNameFigure">
       <actualFigure
           xsi:type="gmfgraph:Label"
@@ -160,6 +153,30 @@
           xsi:type="gmfgraph:CustomConnection"
           name="ShipRouteConnection"
           qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DirectedConnection"/>
+    </descriptors>
+  </figures>
+  <figures
+      name="svg"
+      implementationBundle="org.eclipse.gmf.runtime.lite.svg">
+    <descriptors
+        name="EmptyBoxFigure">
+      <actualFigure
+          xsi:type="gmfgraph:SVGFigure"
+          name="EmptyBoxShape"
+          documentURI="platform:/plugin/org.eclipse.gmf.examples.taipan/images/box.svg">
+        <properties
+            query="//:rect"
+            attribute="fill"
+            type="COLOR"
+            setter="setBackgroundColor"
+            callSuper="true"/>
+        <properties
+            query="//:line|//:rect"
+            attribute="stroke"
+            type="COLOR"
+            setter="setForegroundColor"
+            callSuper="true"/>
+      </actualFigure>
     </descriptors>
   </figures>
   <nodes
