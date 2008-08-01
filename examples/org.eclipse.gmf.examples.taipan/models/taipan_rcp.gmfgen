@@ -2,7 +2,7 @@
 <gmfgen:GenEditorGenerator xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgen="http://www.eclipse.org/gmf/2006/GenModel" packageNamePrefix="org.eclipse.gmf.examples.taipan.gmf.editor"
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2008/GenModel" packageNamePrefix="org.eclipse.gmf.examples.taipan.gmf.editor"
     modelID="TaiPan"
     copyrightText="Copyright (c) 2006, 2007 Borland Software Corporation&#xA;&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html&#xA;&#xA;Contributors:&#xA;   Dmitry Stadnik (Borland) - initial API and implementation">
   <audits>
@@ -16,10 +16,9 @@
         name="Port Location"
         description="Empty port location check"
         id="port_location"
+        rule="//@expressionProviders/@providers.0/@expressions.7"
         message="Port location should not be empty"
         category="//@audits/@categories.0">
-      <rule
-          body="location.size() > 0"/>
       <target
           xsi:type="gmfgen:GenDomainElementTarget">
         <element
@@ -30,11 +29,9 @@
         name="Ship Name"
         description="Empty ship name check"
         id="ship_name"
+        rule="//@expressionProviders/@providers.1/@expressions.0"
         message="Ship name should not be empty"
         category="//@audits/@categories.0">
-      <rule
-          body="self.length() > 0"
-          language="java"/>
       <target
           xsi:type="gmfgen:GenDomainAttributeTarget"
           nullAsError="true">
@@ -108,7 +105,7 @@
         canonicalEditPolicyClassName="LargeItemCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="LargeItemGraphicalNodeEditPolicy"
         createCommandClassName="LargeItemCreateCommand"
-        containers="//@diagram/@compartments.1 //@diagram/@compartments.3">
+        containers="//@diagram/@compartments.3 //@diagram/@compartments.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -166,7 +163,7 @@
         canonicalEditPolicyClassName="EmptyBoxCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EmptyBoxGraphicalNodeEditPolicy"
         createCommandClassName="EmptyBoxCreateCommand"
-        containers="//@diagram/@compartments.1 //@diagram/@compartments.3">
+        containers="//@diagram/@compartments.3 //@diagram/@compartments.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -244,8 +241,6 @@
             href="taipan.genmodel#//taipan/Ship"/>
         <containmentMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/ships"/>
-        <modelElementSelector
-            body="not oclIsKindOf(taipan::Warship)"/>
       </modelFacet>
       <labels
           visualID="5004"
@@ -357,18 +352,17 @@
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"/>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet">
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.0">
         <metaClass
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/routes"/>
-        <modelElementSelector
-            body="reliability >= 0.5"/>
         <modelElementInitializer
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="0.8">
+              value="//@expressionProviders/@providers.0/@expressions.1">
             <feature
                 href="taipan.genmodel#//taipan/Route/reliability"/>
           </initializers>
@@ -444,18 +438,17 @@
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DashedConnection"/>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet">
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.2">
         <metaClass
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/routes"/>
-        <modelElementSelector
-            body="reliability &lt; 0.5"/>
         <modelElementInitializer
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="0.2">
+              value="//@expressionProviders/@providers.0/@expressions.3">
             <feature
                 href="taipan.genmodel#//taipan/Route/reliability"/>
           </initializers>
@@ -561,10 +554,8 @@
         <targetMetaFeature
             href="taipan.genmodel#//taipan/BesiegePortOrder/port"/>
       </modelFacet>
-      <creationConstraints>
-        <sourceEnd
-            body="self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()"/>
-      </creationConstraints>
+      <creationConstraints
+          sourceEnd="//@expressionProviders/@providers.0/@expressions.6"/>
     </links>
     <links
         visualID="4006"
@@ -592,12 +583,9 @@
         <targetMetaFeature
             href="taipan.genmodel#//taipan/EscortShipsOrder/ships"/>
       </modelFacet>
-      <creationConstraints>
-        <sourceEnd
-            body="self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()"/>
-        <targetEnd
-            body="not self.oclIsKindOf(Warship)"/>
-      </creationConstraints>
+      <creationConstraints
+          sourceEnd="//@expressionProviders/@providers.0/@expressions.4"
+          targetEnd="//@expressionProviders/@providers.0/@expressions.5"/>
     </links>
     <links
         visualID="4007"
@@ -1101,10 +1089,35 @@
       href="taipan.genmodel#/"/>
   <expressionProviders>
     <providers
-        xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.5/@creationConstraints/@sourceEnd //@diagram/@links.5/@creationConstraints/@targetEnd //@diagram/@links.4/@creationConstraints/@sourceEnd //@audits/@rules.0/@rule"/>
+        xsi:type="gmfgen:GenExpressionInterpreter">
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="reliability >= 0.5"/>
+      <expressions
+          body="0.8"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="reliability &lt; 0.5"/>
+      <expressions
+          body="0.2"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="not self.oclIsKindOf(Warship)"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="location.size() > 0"/>
+    </providers>
     <providers
-        xsi:type="gmfgen:GenJavaExpressionProvider"
-        expressions="//@audits/@rules.1/@rule"/>
+        xsi:type="gmfgen:GenJavaExpressionProvider">
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self.length() > 0"/>
+    </providers>
   </expressionProviders>
 </gmfgen:GenEditorGenerator>
