@@ -55,7 +55,9 @@ public class ShipSmallCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 		int visualID = TaiPanVisualIDRegistry.getVisualID(view);
 		switch (visualID) {
 		case SmallItemsEditPart.VISUAL_ID:
-			return !semanticChildren.contains(view.getElement()) || visualID != TaiPanVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
+			if (!semanticChildren.contains(view.getElement())) {
+				return true;
+			}
 		}
 		return false;
 	}

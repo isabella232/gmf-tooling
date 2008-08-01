@@ -13,6 +13,7 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -107,7 +108,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 	 */
 	private long computeModificationStamp(ResourceSetInfo info) {
 		int result = 0;
-		for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+		for (Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/it = info.getLoadedResourcesIterator(); it.hasNext();) {
 			Resource nextResource = (Resource) it.next();
 			File file = getFile(nextResource);
 			if (file != null && file.exists()) {
@@ -315,7 +316,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 	protected void updateCache(Object element) throws CoreException {
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
-			for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+			for (Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/it = info.getLoadedResourcesIterator(); it.hasNext();) {
 				Resource nextResource = (Resource) it.next();
 				File file = getFile(nextResource);
 				if (file != null && file.exists() && !file.canWrite()) {
@@ -358,7 +359,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 	protected void doSynchronize(Object element, IProgressMonitor monitor) throws CoreException {
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
-			for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+			for (Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/it = info.getLoadedResourcesIterator(); it.hasNext();) {
 				Resource nextResource = (Resource) it.next();
 				handleElementChanged(info, nextResource, monitor);
 			}
@@ -377,10 +378,9 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 				throw new CoreException(new Status(IStatus.ERROR, TaiPanDiagramEditorPlugin.ID, IStatus.ERROR, Messages.TaiPanDocumentProvider_UnsynchronizedFileSaveError, null));
 			}
 			fireElementStateChanging(element);
-			List resources = info.getResourceSet().getResources();
 			try {
-				monitor.beginTask(Messages.TaiPanDocumentProvider_SaveDiagramTask, resources.size() + 1); //"Saving diagram"
-				for (Iterator it = resources.iterator(); it.hasNext();) {
+				monitor.beginTask(Messages.TaiPanDocumentProvider_SaveDiagramTask, info.getResourceSet().getResources().size() + 1); //"Saving diagram"
+				for (Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/it = info.getLoadedResourcesIterator(); it.hasNext();) {
 					Resource nextResource = (Resource) it.next();
 					monitor.setTaskName(NLS.bind(Messages.TaiPanDocumentProvider_SaveNextResourceTask, nextResource.getURI()));
 					if (nextResource.isLoaded() && !info.getEditingDomain().isReadOnly(nextResource)) {
@@ -589,6 +589,13 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 		/**
 		 * @generated
 		 */
+		public Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/getLoadedResourcesIterator() {
+			return new ArrayList/*<org.eclipse.emf.ecore.resource.Resource>*/(getResourceSet().getResources()).iterator();
+		}
+
+		/**
+		 * @generated
+		 */
 		public IEditorInput getEditorInput() {
 			return myEditorInput;
 		}
@@ -598,7 +605,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 		 */
 		public void dispose() {
 			getResourceSet().eAdapters().remove(myResourceSetListener);
-			for (Iterator it = getResourceSet().getResources().iterator(); it.hasNext();) {
+			for (Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/it = getLoadedResourcesIterator(); it.hasNext();) {
 				Resource resource = (Resource) it.next();
 				resource.unload();
 			}
@@ -691,7 +698,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 					Resource resource = (Resource) notification.getNotifier();
 					if (resource.isLoaded()) {
 						boolean modified = false;
-						for (Iterator it = myInfo.getResourceSet().getResources().iterator(); it.hasNext() && !modified;) {
+						for (Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/it = myInfo.getLoadedResourcesIterator(); it.hasNext() && !modified;) {
 							Resource nextResource = (Resource) it.next();
 							if (nextResource.isLoaded()) {
 								modified = nextResource.isModified();

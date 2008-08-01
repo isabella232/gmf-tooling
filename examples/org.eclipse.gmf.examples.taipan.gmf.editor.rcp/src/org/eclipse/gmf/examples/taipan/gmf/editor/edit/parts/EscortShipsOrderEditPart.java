@@ -15,13 +15,14 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.gmf.examples.taipan.figures.ThickDirectedConnection;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.EscortShipsOrderItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ITreeBranchEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
  */
-public class EscortShipsOrderEditPart extends ConnectionNodeEditPart {
+public class EscortShipsOrderEditPart extends ConnectionNodeEditPart implements ITreeBranchEditPart {
 
 	/**
 	 * @generated

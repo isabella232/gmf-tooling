@@ -36,6 +36,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpr
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
+import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -77,6 +78,18 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	public static final String VISUAL_ID_KEY = "visual_id"; //$NON-NLS-1$
 
 	/**
+	 * @generated
+	 */
+	private final IElementType myElementType;
+
+	/**
+	 * @generated
+	 */
+	protected TaiPanBaseItemSemanticEditPolicy(IElementType elementType) {
+		myElementType = elementType;
+	}
+
+	/**
 	 * Extended request data key to hold editpart visual id.
 	 * Add visual id of edited editpart to extended data of the request
 	 * so command switch can decide what kind of diagram element is being edited.
@@ -111,33 +124,8 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 */
 	protected Command getSemanticCommand(IEditCommandRequest request) {
 		IEditCommandRequest completedRequest = completeRequest(request);
-		Object editHelperContext = completedRequest.getEditHelperContext();
-		if (editHelperContext instanceof View || (editHelperContext instanceof IEditHelperContext && ((IEditHelperContext) editHelperContext).getEObject() instanceof View)) {
-			// no semantic commands are provided for pure design elements
-			return null;
-		}
-		if (editHelperContext == null) {
-			editHelperContext = ViewUtil.resolveSemanticElement((View) getHost().getModel());
-		}
-		IElementType elementType = ElementTypeRegistry.getInstance().getElementType(editHelperContext);
-		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) { //$NON-NLS-1$ 
-			elementType = null;
-		}
 		Command semanticCommand = getSemanticCommandSwitch(completedRequest);
-		if (semanticCommand != null) {
-			ICommand command = semanticCommand instanceof ICommandProxy ? ((ICommandProxy) semanticCommand).getICommand() : new CommandProxy(semanticCommand);
-			completedRequest.setParameter(TaiPanBaseEditHelper.EDIT_POLICY_COMMAND, command);
-		}
-		if (elementType != null) {
-			ICommand command = elementType.getEditCommand(completedRequest);
-			if (command != null) {
-				if (!(command instanceof CompositeTransactionalCommand)) {
-					TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
-					command = new CompositeTransactionalCommand(editingDomain, command.getLabel()).compose(command);
-				}
-				semanticCommand = new ICommandProxy(command);
-			}
-		}
+		semanticCommand = getEditHelperCommand(completedRequest, semanticCommand);
 		boolean shouldProceed = true;
 		if (completedRequest instanceof DestroyRequest) {
 			shouldProceed = shouldProceed((DestroyRequest) completedRequest);
@@ -151,6 +139,37 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			return semanticCommand;
 		}
 		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Command getEditHelperCommand(IEditCommandRequest request, Command editPolicyCommand) {
+		if (editPolicyCommand != null) {
+			ICommand command = editPolicyCommand instanceof ICommandProxy ? ((ICommandProxy) editPolicyCommand).getICommand() : new CommandProxy(editPolicyCommand);
+			request.setParameter(TaiPanBaseEditHelper.EDIT_POLICY_COMMAND, command);
+		}
+		IElementType requestContextElementType = getContextElementType(request);
+		request.setParameter(TaiPanBaseEditHelper.CONTEXT_ELEMENT_TYPE, requestContextElementType);
+		ICommand command = requestContextElementType.getEditCommand(request);
+		request.setParameter(TaiPanBaseEditHelper.EDIT_POLICY_COMMAND, null);
+		request.setParameter(TaiPanBaseEditHelper.CONTEXT_ELEMENT_TYPE, null);
+		if (command != null) {
+			if (!(command instanceof CompositeTransactionalCommand)) {
+				TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
+				command = new CompositeTransactionalCommand(editingDomain, command.getLabel()).compose(command);
+			}
+			return new ICommandProxy(command);
+		}
+		return editPolicyCommand;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IElementType getContextElementType(IEditCommandRequest request) {
+		IElementType requestContextElementType = TaiPanElementTypes.getElementType(getVisualID(request));
+		return requestContextElementType != null ? requestContextElementType : myElementType;
 	}
 
 	/**
@@ -350,46 +369,17 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		private static final TaiPanAbstractExpression BesiegePortOrder_4005_SourceExpression;
+		private static TaiPanAbstractExpression BesiegePortOrder_4005_SourceExpression;
 
 		/**
 		 * @generated
 		 */
-		static {
-			Map env = new HashMap(3);
-			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getPort());
-			BesiegePortOrder_4005_SourceExpression = TaiPanOCLFactory
-					.getExpression("self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
-		}
+		private static TaiPanAbstractExpression EscortShipsOrder_4006_SourceExpression;
 
 		/**
 		 * @generated
 		 */
-		private static final TaiPanAbstractExpression EscortShipsOrder_4006_SourceExpression;
-
-		/**
-		 * @generated
-		 */
-		static {
-			Map env = new HashMap(3);
-			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getShip());
-			EscortShipsOrder_4006_SourceExpression = TaiPanOCLFactory.getExpression(
-					"self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
-		}
-
-		/**
-		 * @generated
-		 */
-		private static final TaiPanAbstractExpression EscortShipsOrder_4006_TargetExpression;
-
-		/**
-		 * @generated
-		 */
-		static {
-			Map env = new HashMap(3);
-			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getWarship());
-			EscortShipsOrder_4006_TargetExpression = TaiPanOCLFactory.getExpression("not self.oclIsKindOf(Warship)", TaiPanPackage.eINSTANCE.getShip(), env); //$NON-NLS-1$
-		}
+		private static TaiPanAbstractExpression EscortShipsOrder_4006_TargetExpression;
 
 		/**
 		 * @generated
@@ -400,6 +390,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 					return false;
 				}
 			}
+
 			return canExistShipDestination_4001(source, target);
 		}
 
@@ -426,6 +417,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 					return false;
 				}
 			}
+
 			return canExistShipRoute_4004(source, target);
 		}
 
@@ -457,6 +449,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 					return false;
 				}
 			}
+
 			return canExistPortRegister_4007(source, target);
 		}
 
@@ -492,43 +485,20 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canExistBesiegePortOrder_4005(Warship source, Port target) {
-			if (!evaluate(BesiegePortOrder_4005_SourceExpression, source, target, false)) {
-				return false;
-			}
-			return true;
-		}
-
-		/**
-		 * @generated
-		 */
-		public static boolean canExistEscortShipsOrder_4006(Warship source, Ship target) {
-			if (!evaluate(EscortShipsOrder_4006_SourceExpression, source, target, false)) {
-				return false;
-			}
-			if (!evaluate(EscortShipsOrder_4006_TargetExpression, target, source, true)) {
-				return false;
-			}
-			return true;
-		}
-
-		/**
-		 * @generated
-		 */
-		public static boolean canExistPortRegister_4007(Port source, Ship target) {
-			return true;
-		}
-
-		/**
-		 * @generated
-		 */
-		private static boolean evaluate(TaiPanAbstractExpression constraint, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
-			if (sourceEnd == null) {
-				return true;
-			}
-			Map evalEnv = Collections.singletonMap(OPPOSITE_END_VAR, oppositeEnd);
 			try {
-				Object val = constraint.evaluate(sourceEnd, evalEnv);
-				return (val instanceof Boolean) ? ((Boolean) val).booleanValue() : false;
+				if (source == null) {
+					return true;
+				}
+				if (BesiegePortOrder_4005_SourceExpression == null) {
+					Map env = Collections.singletonMap(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getPort());
+					BesiegePortOrder_4005_SourceExpression = TaiPanOCLFactory.getExpression(
+							"self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
+				}
+				Object sourceVal = BesiegePortOrder_4005_SourceExpression.evaluate(source, Collections.singletonMap(OPPOSITE_END_VAR, target));
+				if (false == sourceVal instanceof Boolean || !((Boolean) sourceVal).booleanValue()) {
+					return false;
+				} // else fall-through
+				return true;
 			} catch (Exception e) {
 				TaiPanDiagramEditorPlugin.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
 				return false;
@@ -538,8 +508,43 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		private static class JavaConstraints {
+		public static boolean canExistEscortShipsOrder_4006(Warship source, Ship target) {
+			try {
+				if (source == null) {
+					return true;
+				}
+				if (EscortShipsOrder_4006_SourceExpression == null) {
+					Map env = Collections.singletonMap(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getShip());
+					EscortShipsOrder_4006_SourceExpression = TaiPanOCLFactory.getExpression(
+							"self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
+				}
+				Object sourceVal = EscortShipsOrder_4006_SourceExpression.evaluate(source, Collections.singletonMap(OPPOSITE_END_VAR, target));
+				if (false == sourceVal instanceof Boolean || !((Boolean) sourceVal).booleanValue()) {
+					return false;
+				} // else fall-through
+				if (target == null) {
+					return true;
+				}
+				if (EscortShipsOrder_4006_TargetExpression == null) {
+					Map env = Collections.singletonMap(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getWarship());
+					EscortShipsOrder_4006_TargetExpression = TaiPanOCLFactory.getExpression("not self.oclIsKindOf(Warship)", TaiPanPackage.eINSTANCE.getShip(), env); //$NON-NLS-1$
+				}
+				Object targetVal = EscortShipsOrder_4006_TargetExpression.evaluate(target, Collections.singletonMap(OPPOSITE_END_VAR, source));
+				if (false == targetVal instanceof Boolean || !((Boolean) targetVal).booleanValue()) {
+					return false;
+				} // else fall-through
+				return true;
+			} catch (Exception e) {
+				TaiPanDiagramEditorPlugin.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
+				return false;
+			}
+		}
 
+		/**
+		 * @generated
+		 */
+		public static boolean canExistPortRegister_4007(Port source, Ship target) {
+			return true;
 		}
 
 	}

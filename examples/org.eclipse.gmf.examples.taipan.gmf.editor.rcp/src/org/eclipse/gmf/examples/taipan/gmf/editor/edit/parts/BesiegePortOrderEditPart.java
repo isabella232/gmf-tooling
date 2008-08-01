@@ -15,13 +15,14 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.gmf.examples.taipan.figures.ArrowConnection;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.BesiegePortOrderItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ITreeBranchEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
  */
-public class BesiegePortOrderEditPart extends ConnectionNodeEditPart {
+public class BesiegePortOrderEditPart extends ConnectionNodeEditPart implements ITreeBranchEditPart {
 
 	/**
 	 * @generated

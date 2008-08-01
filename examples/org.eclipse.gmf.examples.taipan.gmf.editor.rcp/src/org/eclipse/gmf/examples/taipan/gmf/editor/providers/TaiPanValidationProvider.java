@@ -59,39 +59,38 @@ public class TaiPanValidationProvider extends AbstractContributionItemProvider {
 	/**
 	 * @generated
 	 */
-	protected IAction createAction(String actionId, IWorkbenchPartDescriptor partDescriptor) {
-		if (ValidateAction.VALIDATE_ACTION_KEY.equals(actionId)) {
-			return new ValidateAction(partDescriptor);
-		}
-		return super.createAction(actionId, partDescriptor);
-	}
-
-	/**
-	 * @generated
-	 */
-	public static void runWithConstraints(View view, Runnable op) {
-		final Runnable fop = op;
+	public static void runWithConstraints(TransactionalEditingDomain editingDomain, Runnable operation) {
+		final Runnable op = operation;
 		Runnable task = new Runnable() {
 
 			public void run() {
 				try {
 					constraintsActive = true;
-					fop.run();
+					op.run();
 				} finally {
 					constraintsActive = false;
 				}
 			}
 		};
-		TransactionalEditingDomain txDomain = TransactionUtil.getEditingDomain(view);
-		if (txDomain != null) {
+		if (editingDomain != null) {
 			try {
-				txDomain.runExclusive(task);
+				editingDomain.runExclusive(task);
 			} catch (Exception e) {
-				TaiPanDiagramEditorPlugin.getInstance().logError("Validation action failed", e); //$NON-NLS-1$
+				TaiPanDiagramEditorPlugin.getInstance().logError("Validation failed", e); //$NON-NLS-1$
 			}
 		} else {
 			task.run();
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IAction createAction(String actionId, IWorkbenchPartDescriptor partDescriptor) {
+		if (ValidateAction.VALIDATE_ACTION_KEY.equals(actionId)) {
+			return new ValidateAction(partDescriptor);
+		}
+		return super.createAction(actionId, partDescriptor);
 	}
 
 	/**
@@ -110,197 +109,29 @@ public class TaiPanValidationProvider extends AbstractContributionItemProvider {
 	/**
 	 * @generated
 	 */
-	static final Map semanticCtxIdMap = new HashMap();
-
-	/**
-	 * @generated
-	 */
-	public static class DefaultCtx1 implements IClientSelector {
-
-		/**
-		 * @generated
-		 */
-		public boolean selects(Object object) {
-			return isInDefaultEditorContext(object);
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class DefaultCtx2 implements IClientSelector {
-
-		/**
-		 * @generated
-		 */
-		public boolean selects(Object object) {
-			return isInDefaultEditorContext(object);
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public static ITraversalStrategy getNotationTraversalStrategy(IBatchValidator validator) {
-		return new CtxSwitchStrategy(validator);
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class CtxSwitchStrategy implements ITraversalStrategy {
-
-		/**
-		 * @generated
-		 */
-		private ITraversalStrategy defaultStrategy;
-
-		/**
-		 * @generated
-		 */
-		private String currentSemanticCtxId;
-
-		/**
-		 * @generated
-		 */
-		private boolean ctxChanged = true;
-
-		/**
-		 * @generated
-		 */
-		private EObject currentTarget;
-
-		/**
-		 * @generated
-		 */
-		private EObject preFetchedNextTarget;
-
-		/**
-		 * @generated
-		 */
-		CtxSwitchStrategy(IBatchValidator validator) {
-			this.defaultStrategy = validator.getDefaultTraversalStrategy();
-		}
-
-		/**
-		 * @generated
-		 */
-		public void elementValidated(EObject element, IStatus status) {
-			defaultStrategy.elementValidated(element, status);
-		}
-
-		/**
-		 * @generated
-		 */
-		public boolean hasNext() {
-			return defaultStrategy.hasNext();
-		}
-
-		/**
-		 * @generated
-		 */
-		public boolean isClientContextChanged() {
-			if (preFetchedNextTarget == null) {
-				preFetchedNextTarget = next();
-				prepareNextClientContext(preFetchedNextTarget);
-			}
-			return ctxChanged;
-		}
-
-		/**
-		 * @generated
-		 */
-		public EObject next() {
-			EObject nextTarget = preFetchedNextTarget;
-			if (nextTarget == null) {
-				nextTarget = defaultStrategy.next();
-			}
-			this.preFetchedNextTarget = null;
-			return this.currentTarget = nextTarget;
-		}
-
-		/**
-		 * @generated
-		 */
-		public void startTraversal(Collection traversalRoots, IProgressMonitor monitor) {
-			defaultStrategy.startTraversal(traversalRoots, monitor);
-		}
-
-		/**
-		 * @generated
-		 */
-		private void prepareNextClientContext(EObject nextTarget) {
-			if (nextTarget != null && currentTarget != null) {
-				if (nextTarget instanceof View) {
-					String id = ((View) nextTarget).getType();
-					String nextSemanticId = id != null && semanticCtxIdMap.containsKey(id) ? id : null;
-					if ((currentSemanticCtxId != null && !currentSemanticCtxId.equals(nextSemanticId)) || (nextSemanticId != null && !nextSemanticId.equals(currentSemanticCtxId))) {
-						this.ctxChanged = true;
-					}
-					currentSemanticCtxId = nextSemanticId;
-				} else {
-					// context of domain model
-					this.ctxChanged = currentSemanticCtxId != null;
-					currentSemanticCtxId = null;
-				}
-			} else {
-				this.ctxChanged = false;
-			}
-		}
-	}
-
-	/**
-	 * @generated
-	 */
 	public static class Adapter2 extends AbstractModelConstraint {
 
 		/**
 		 * @generated
 		 */
-		private TaiPanAbstractExpression expression;
-
-		/**
-		 * @generated
-		 */
-		public Adapter2() {
-			expression = new TaiPanAbstractExpression(EcorePackage.eINSTANCE.getEString()) {
-
-				protected Object doEvaluate(Object context, Map env) {
-					java.lang.String self = (java.lang.String) context;
-					return JavaAudits.selflength0(self);
-				}
-			};
-		}
-
-		/**
-		 * @generated
-		 */
 		public IStatus validate(IValidationContext ctx) {
-			Object evalCtx = ctx.getTarget();
-			if (evalCtx instanceof EObject) {
-				evalCtx = ((EObject) evalCtx).eGet(TaiPanPackage.eINSTANCE.getShip_Name());
+			final Object context = ctx.getTarget().eGet(TaiPanPackage.eINSTANCE.getShip_Name());
+			if (context == null) {
+				return ctx.createFailureStatus(new Object[] { formatElement(ctx.getTarget()) });
 			}
-			if (evalCtx == null) {
-				return ctx.createFailureStatus(new Object[] { EMFCoreUtil.getQualifiedName(ctx.getTarget(), true) });
-			}
-			Object result = expression.evaluate(evalCtx);
-			if (result instanceof Boolean && ((Boolean) result).booleanValue()) {
-				return Status.OK_STATUS;
-			}
-			return ctx.createFailureStatus(new Object[] { EMFCoreUtil.getQualifiedName(ctx.getTarget(), true) });
+			// TODO: put validation code here
+			// Ensure that you remove @generated tag or use @generated NOT
+			//
+			// To construct approprate return value, use ctx.createSuccessStatus()
+			// or ctx.createFailureStatus(...)
+			throw new UnsupportedOperationException("No user java implementation provided for #validate(IValidationContext) operation");//$NON-NLS-1$
 		}
 	}
 
 	/**
 	 * @generated
 	 */
-	static class JavaAudits {
-
-		/**
-		 * @generated NOT
-		 */
-		private static java.lang.Boolean selflength0(java.lang.String self) {
-			return Boolean.valueOf(self.length() > 0);
-		}
-	} //JavaAudits
+	static String formatElement(EObject object) {
+		return EMFCoreUtil.getQualifiedName(object, true);
+	}
 } //TaiPanValidationProvider

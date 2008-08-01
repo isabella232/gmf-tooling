@@ -36,6 +36,13 @@ public class UnreliableRouteItemSemanticEditPolicy extends TaiPanBaseItemSemanti
 	/**
 	 * @generated
 	 */
+	public UnreliableRouteItemSemanticEditPolicy() {
+		super(TaiPanElementTypes.Route_4003);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		return getGEFWrapper(new DestroyElementCommand(req));
 	}

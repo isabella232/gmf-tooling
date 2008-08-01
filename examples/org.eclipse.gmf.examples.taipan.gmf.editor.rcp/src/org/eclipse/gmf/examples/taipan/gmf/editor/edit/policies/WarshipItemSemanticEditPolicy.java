@@ -54,6 +54,13 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 	/**
 	 * @generated
 	 */
+	public WarshipItemSemanticEditPolicy() {
+		super(TaiPanElementTypes.Warship_2003);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		CompoundCommand cc = getDestroyEdgesCommand();
 		addDestroyChildNodesCommand(cc);

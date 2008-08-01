@@ -26,6 +26,13 @@ public class WarshipLargeCargoItemSemanticEditPolicy extends TaiPanBaseItemSeman
 	/**
 	 * @generated
 	 */
+	public WarshipLargeCargoItemSemanticEditPolicy() {
+		super(TaiPanElementTypes.Warship_2003);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (TaiPanElementTypes.LargeItem_3002 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {

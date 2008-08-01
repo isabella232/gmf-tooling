@@ -93,7 +93,9 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		case PortEditPart.VISUAL_ID:
 		case ShipEditPart.VISUAL_ID:
 		case WarshipEditPart.VISUAL_ID:
-			return !semanticChildren.contains(view.getElement()) || visualID != TaiPanVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement());
+			if (!semanticChildren.contains(view.getElement())) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -191,12 +193,13 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			EObject diagramLinkObject = nextDiagramLink.getElement();
 			EObject diagramLinkSrc = nextDiagramLink.getSource().getElement();
 			EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
-			for (Iterator LinkDescriptorsIterator = linkDescriptors.iterator(); LinkDescriptorsIterator.hasNext();) {
-				TaiPanLinkDescriptor nextLinkDescriptor = (TaiPanLinkDescriptor) LinkDescriptorsIterator.next();
+			for (Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
+				TaiPanLinkDescriptor nextLinkDescriptor = (TaiPanLinkDescriptor) linkDescriptorsIterator.next();
 				if (diagramLinkObject == nextLinkDescriptor.getModelElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination()
 						&& diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
 					linksIterator.remove();
-					LinkDescriptorsIterator.remove();
+					linkDescriptorsIterator.remove();
+					break;
 				}
 			}
 		}
