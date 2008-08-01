@@ -451,6 +451,42 @@
 	}
 «ENDDEFINE»
 
+«DEFINE setForegroundColor FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void setForegroundColor(org.eclipse.swt.graphics.Color color) {
+		if (primaryShape != null) {
+			primaryShape.setForegroundColor(color);
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE setBackgroundColor FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void setBackgroundColor(org.eclipse.swt.graphics.Color color) {
+		if (primaryShape != null) {
+			primaryShape.setBackgroundColor(color);
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE setLineWidth FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void setLineWidth(int width) {
+		if (primaryShape instanceof org.eclipse.draw2d.Shape) {
+			((org.eclipse.draw2d.Shape) primaryShape).setLineWidth(getMapMode().DPtoLP(width));
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE setLineStyle FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void setLineType(int style) {
+		if (primaryShape instanceof org.eclipse.draw2d.Shape) {
+			((org.eclipse.draw2d.Shape) primaryShape).setLineStyle(style);
+		}
+	}
+«ENDDEFINE»
+
 «DEFINE getPrimaryChildEditPart FOR gmfgen::GenNode-»
 	«IF !labels.isEmpty()-»
 		«EXPAND xpt::Common::generatedMemberComment»

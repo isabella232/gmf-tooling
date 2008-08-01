@@ -51,7 +51,15 @@ public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsList» {
 	«EXPAND impl::diagram::editparts::NodeEditPart::setupContentPane-»
 	
 	«EXPAND impl::diagram::editparts::NodeEditPart::getContentPane-»
-	
+
+	«EXPAND impl::diagram::editparts::NodeEditPart::setForegroundColor-»
+
+	«EXPAND impl::diagram::editparts::NodeEditPart::setBackgroundColor-»
+
+	«EXPAND impl::diagram::editparts::NodeEditPart::setLineWidth-»
+
+	«EXPAND impl::diagram::editparts::NodeEditPart::setLineStyle-»
+
 	«EXPAND impl::diagram::editparts::NodeEditPart::getPrimaryChildEditPart-»
 	
 	«EXPAND handleNotificationEvent-»
