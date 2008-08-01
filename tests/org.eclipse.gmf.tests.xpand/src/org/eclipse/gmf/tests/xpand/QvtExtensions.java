@@ -98,9 +98,7 @@ public class QvtExtensions extends TestCase {
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkDeployedMetaType", EcoreFactory.eINSTANCE.createEAttribute());
 	}
 	
-	// TODO: not sure this is a valid situation from the side of OCL. See
-	// https://bugs.eclipse.org/bugs/show_bug.cgi?id=242545
-	public void _testCollectionOfStrings() {
+	public void testCollectionOfStrings() {
 		List<String> sequence = CollectionUtil.<String>createNewSequence();
 		sequence.add("SampleString1");
 		sequence.add("SampleString2");
