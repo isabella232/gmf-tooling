@@ -1,0 +1,9 @@
+import org.eclipse.gmf.tests.xpand.migration.ImportedExtensionsWReexportImport1;
+import org.eclipse.gmf.tests.xpand.migration.ImportedExtensionsImport2;
+import org.eclipse.gmf.tests.xpand.migration.ImportedExtensionsImport3;
+
+library ImportedExtensionsWReexport;
+
+helper getImportedString(param : String) : String {
+	return getImportedString1(param)
+}

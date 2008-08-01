@@ -1,0 +1,41 @@
+library PrimitiveTypeParameters;
+
+helper getDummyString_1(param : String) : String {
+	return param
+}
+
+helper getDummyString_2(param : String) : String {
+	return param
+}
+
+helper getDummyString_3(param : String) : String {
+	return param
+}
+
+helper getDummyBoolean_1(param : Boolean) : Boolean {
+	return param
+}
+
+helper getDummyBoolean_2(param : Boolean) : Boolean {
+	return param
+}
+
+helper getDummyBoolean_3(param : Boolean) : Boolean {
+	return param
+}
+
+helper getDummyInteger_1(param : Integer) : Integer {
+	return param
+}
+
+helper getDummyInteger_2(param : Integer) : Integer {
+	return param
+}
+
+helper getDummyInteger_3(param : Integer) : Integer {
+	return param
+}
+
+helper getDummyString(param1 : String, param2 : Boolean, param3 : Integer) : String {
+	return param1
+}

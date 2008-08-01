@@ -1,0 +1,42 @@
+
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+String getDummyString_1(String param) :
+	param
+;
+
+EString getDummyString_2(EString param) :
+	param
+;
+
+string getDummyString_3(string param) :
+	param
+;
+
+Boolean getDummyBoolean_1(Boolean param) :
+	param
+;
+
+EBoolean getDummyBoolean_2(EBoolean param) :
+	param
+;
+
+boolean getDummyBoolean_3(boolean param) :
+	param
+;
+
+Integer getDummyInteger_1(Integer param) :
+	param
+;
+
+int getDummyInteger_2(int param) :
+	param
+;
+
+EInt getDummyInteger_3(EInt param) :
+	param
+;
+
+String getDummyString(String param1, boolean param2, int param3) :
+	param1
+;

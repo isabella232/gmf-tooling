@@ -28,7 +28,7 @@ public class TestsResourceManager extends ResourceManagerImpl implements Resourc
 	 * We use classLoader#getResourceAsStream here and mandate '/resources/' folder to be in classpath
 	 * to ease test running and not to require them to be run as 'plug-in' tests. 
 	 */
-	private InputStream loadFile(String fullyQualifiedName, String fileExt) {
+	public InputStream loadFile(String fullyQualifiedName, String fileExt) {
 		String resName = fullyQualifiedName.replaceAll(SyntaxConstants.NS_DELIM, "/") + "." + fileExt;
 		return getClass().getClassLoader().getResourceAsStream(resName);
 	}
