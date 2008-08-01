@@ -106,4 +106,13 @@ public class ExtensionFile extends SyntaxElement implements XtendResource {
         }
         return result;
     }
+
+	public boolean isReexported(String importedExtensionName) {
+		for (ImportStatement extensionImport : getExtImports()) {
+			if (extensionImport.getValue().equals(importedExtensionName)) {
+				return extensionImport.isExported();
+			}
+		}
+		return false;
+	}
 }

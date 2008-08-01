@@ -29,12 +29,12 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
+import org.eclipse.gmf.internal.xpand.migration.Activator;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.util.ParserException;
 import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
 import org.eclipse.gmf.internal.xpand.util.StreamConverter;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
-import org.eclipse.gmf.xpand.migration.Activator;
 import org.osgi.framework.Bundle;
 
 // FIXME package-local?, refactor Activator.getResourceManager uses

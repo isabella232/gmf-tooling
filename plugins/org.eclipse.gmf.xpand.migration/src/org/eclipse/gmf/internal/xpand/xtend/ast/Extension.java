@@ -38,7 +38,7 @@ public abstract class Extension extends SyntaxElement /*implements Parameterized
 
     private final Identifier name;
 
-    private final List formalParameters;
+    private final List<DeclaredParameter> formalParameters;
 
     protected ExtensionFile file;
 
@@ -51,7 +51,7 @@ public abstract class Extension extends SyntaxElement /*implements Parameterized
     private List<EClassifier> resolvedParameterTypes = null;
 
     public Extension(final int start, final int end, final int line, final Identifier name,
-            final Identifier returnType, final List formalParameters, final boolean cached, final boolean isPrivate) {
+            final Identifier returnType, final List<DeclaredParameter> formalParameters, final boolean cached, final boolean isPrivate) {
         super(start, end, line);
         this.name = name;
         this.formalParameters = formalParameters;
@@ -60,7 +60,7 @@ public abstract class Extension extends SyntaxElement /*implements Parameterized
         this.isPrivate = isPrivate;
     }
 
-    public List getFormalParameters() {
+    public List<DeclaredParameter> getFormalParameters() {
         return formalParameters;
     }
 
@@ -76,10 +76,10 @@ public abstract class Extension extends SyntaxElement /*implements Parameterized
     protected abstract EClassifier internalGetReturnType(EClassifier[] parameters, ExecutionContext ctx, Set<AnalysationIssue> issues);
 
     public final void analyze(ExecutionContext ctx, final Set<AnalysationIssue> issues) {
-        final List params = getFormalParameters();
+        final List<DeclaredParameter> params = getFormalParameters();
         final Set<String> usedNames = new HashSet<String>();
-        for (final Iterator iter = params.iterator(); iter.hasNext();) {
-            final DeclaredParameter p = (DeclaredParameter) iter.next();
+        for (final Iterator<DeclaredParameter> iter = params.iterator(); iter.hasNext();) {
+            final DeclaredParameter p = iter.next();
             final EClassifier pt = ctx.getTypeForName(p.getType().getValue());
             if (pt == null) {
                 issues.add(new AnalysationIssue(AnalysationIssue.Type.TYPE_NOT_FOUND, "Type not found: "
@@ -141,8 +141,8 @@ public abstract class Extension extends SyntaxElement /*implements Parameterized
 
     public List<String> getParameterNames() {
         final List<String> names = new ArrayList<String>();
-        for (final Iterator iter = getFormalParameters().iterator(); iter.hasNext();) {
-            names.add(((DeclaredParameter) iter.next()).getName().getValue());
+        for (final Iterator<DeclaredParameter> iter = getFormalParameters().iterator(); iter.hasNext();) {
+            names.add((iter.next()).getName().getValue());
         }
         return names;
     }
@@ -151,8 +151,8 @@ public abstract class Extension extends SyntaxElement /*implements Parameterized
         if (resolvedParameterTypes == null) {
             try {
                 resolvedParameterTypes = new ArrayList<EClassifier>();
-                for (final Iterator iter = getFormalParameters().iterator(); iter.hasNext();) {
-                    final String name = ((DeclaredParameter) iter.next()).getType().getValue();
+                for (final Iterator<DeclaredParameter> iter = getFormalParameters().iterator(); iter.hasNext();) {
+                    final String name = (iter.next()).getType().getValue();
                     final EClassifier t = ctx.getTypeForName(name);
                     if (t == null) {
 						throw new EvaluationException("Couldn't resolve type for '" + name
@@ -183,8 +183,8 @@ public abstract class Extension extends SyntaxElement /*implements Parameterized
 
     private String paramsToString() {
         final StringBuffer buff = new StringBuffer();
-        for (final Iterator iter = getFormalParameters().iterator(); iter.hasNext();) {
-            final DeclaredParameter element = (DeclaredParameter) iter.next();
+        for (final Iterator<DeclaredParameter> iter = getFormalParameters().iterator(); iter.hasNext();) {
+            final DeclaredParameter element = iter.next();
             buff.append(element.getType() + " " + element.getName());
             if (iter.hasNext()) {
                 buff.append(",");

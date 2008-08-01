@@ -33,6 +33,8 @@ public interface XtendResource extends ResourceMarker {
     public String[] getImportedNamespaces();
 
     public String[] getImportedExtensions();
+    
+    public boolean isReexported(String importedExtensionName);
 
     void analyze(ExecutionContext ctx, Set<AnalysationIssue> issues);
 }

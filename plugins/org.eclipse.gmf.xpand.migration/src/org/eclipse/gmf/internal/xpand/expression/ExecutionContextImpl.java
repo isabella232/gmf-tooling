@@ -34,10 +34,10 @@ import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
+import org.eclipse.gmf.internal.xpand.migration.Activator;
 import org.eclipse.gmf.internal.xpand.util.ClassLoadContext;
 import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
-import org.eclipse.gmf.xpand.migration.Activator;
 
 /**
  * @author Sven Efftinge

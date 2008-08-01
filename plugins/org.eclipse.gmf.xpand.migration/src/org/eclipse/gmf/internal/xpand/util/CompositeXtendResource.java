@@ -91,4 +91,13 @@ class CompositeXtendResource implements XtendResource {
 		return publicExtensions;
 	}
 
+	public boolean isReexported(String importedExtensionName) {
+		for (XtendResource resource : myResources) {
+			if (resource.isReexported(importedExtensionName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

@@ -29,7 +29,7 @@ import org.eclipse.gmf.internal.xpand.expression.PolymorphicResolver;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.expression.TypeNameUtil;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
-import org.eclipse.gmf.xpand.migration.Activator;
+import org.eclipse.gmf.internal.xpand.migration.Activator;
 
 /**
  * *

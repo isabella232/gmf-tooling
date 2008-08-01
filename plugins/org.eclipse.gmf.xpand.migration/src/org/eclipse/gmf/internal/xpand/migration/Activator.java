@@ -1,4 +1,4 @@
-package org.eclipse.gmf.xpand.migration;
+package org.eclipse.gmf.internal.xpand.migration;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

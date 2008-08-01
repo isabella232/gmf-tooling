@@ -20,9 +20,9 @@ import java.util.TreeMap;
 
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
+import org.eclipse.gmf.internal.xpand.migration.Activator;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
-import org.eclipse.gmf.xpand.migration.Activator;
 
 // FIXME it's not a good idea to parse file on every proposal computation
 public abstract class ResourceManagerImpl implements ResourceManager {

@@ -18,7 +18,7 @@ import java.nio.charset.Charset;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.gmf.xpand.migration.Activator;
+import org.eclipse.gmf.internal.xpand.migration.Activator;
 
 /**
  * @author artem

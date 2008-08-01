@@ -41,9 +41,9 @@ import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.expression.PolymorphicResolver;
+import org.eclipse.gmf.internal.xpand.migration.Activator;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinitionWrap;
 import org.eclipse.gmf.internal.xpand.model.XpandIterator;
-import org.eclipse.gmf.xpand.migration.Activator;
 
 /**
  * XXX Guess, will need special support to recognize the fact

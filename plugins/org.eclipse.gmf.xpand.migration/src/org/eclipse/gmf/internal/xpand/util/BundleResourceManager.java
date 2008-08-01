@@ -18,8 +18,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
+import org.eclipse.gmf.internal.xpand.migration.Activator;
 import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
-import org.eclipse.gmf.xpand.migration.Activator;
 
 /**
  * Node: no support for relative paths (i.e. '..::templates::SomeTemplate.xpt')
