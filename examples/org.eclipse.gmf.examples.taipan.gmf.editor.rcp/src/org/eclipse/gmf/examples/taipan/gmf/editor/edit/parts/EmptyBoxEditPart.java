@@ -21,14 +21,17 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
-import org.eclipse.gmf.examples.taipan.figures.BoxShape;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.EmptyBoxItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
+import org.eclipse.gmf.runtime.lite.svg.SVGFigure;
+import org.eclipse.gmf.runtime.lite.svg.SVGUtils;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.swt.graphics.Color;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  * @generated
@@ -97,14 +100,15 @@ public class EmptyBoxEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		return primaryShape = new BoxShape();
+		EmptyBoxFigure figure = new EmptyBoxFigure();
+		return primaryShape = figure;
 	}
 
 	/**
 	 * @generated
 	 */
-	public BoxShape getPrimaryShape() {
-		return (BoxShape) primaryShape;
+	public EmptyBoxFigure getPrimaryShape() {
+		return (EmptyBoxFigure) primaryShape;
 	}
 
 	/**
@@ -186,6 +190,65 @@ public class EmptyBoxEditPart extends ShapeNodeEditPart {
 		if (primaryShape instanceof Shape) {
 			((Shape) primaryShape).setLineStyle(style);
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public class EmptyBoxFigure extends SVGFigure {
+
+		/**
+		 * @generated
+		 */
+		public EmptyBoxFigure() {
+			this.setURI("platform:/plugin/org.eclipse.gmf.examples.taipan/images/box.svg", true);
+		}
+
+		/**
+		 * @generated
+		 */
+		public void setBackgroundColor(Color value) {
+			String svalue = SVGUtils.toSVGColor(getDocument(), value);
+			NodeList nodes = getNodes("//:rect"); //$NON-NLS-1$
+			for (int i = 0; i < nodes.getLength(); i++) {
+				((Element) nodes.item(i)).setAttributeNS(null, "fill", //$NON-NLS-1$
+						svalue);
+			}
+			super.setBackgroundColor(value);
+		}
+
+		/**
+		 * @generated
+		 */
+		public void setForegroundColor(Color value) {
+			String svalue = SVGUtils.toSVGColor(getDocument(), value);
+			NodeList nodes = getNodes("//:line|//:rect"); //$NON-NLS-1$
+			for (int i = 0; i < nodes.getLength(); i++) {
+				((Element) nodes.item(i)).setAttributeNS(null, "stroke", //$NON-NLS-1$
+						svalue);
+			}
+			super.setForegroundColor(value);
+		}
+
+		/**
+		 * @generated
+		 */
+		private boolean myUseLocalCoordinates = false;
+
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
 	}
 
 }
