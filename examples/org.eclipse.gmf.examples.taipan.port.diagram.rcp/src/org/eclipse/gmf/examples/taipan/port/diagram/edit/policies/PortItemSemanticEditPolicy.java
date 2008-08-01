@@ -29,6 +29,13 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	/**
 	 * @generated
 	 */
+	public PortItemSemanticEditPolicy() {
+		super(TaiPanElementTypes.Port_1000);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (TaiPanElementTypes.Building_2001 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {

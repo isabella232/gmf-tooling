@@ -22,6 +22,8 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingEditPart;
+import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart;
 import org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -194,6 +196,19 @@ public class TaiPanElementTypes extends ElementInitializers {
 			KNOWN_ELEMENT_TYPES.add(Building_2001);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
+	}
+
+	/**
+	 * @generated
+	 */
+	public static IElementType getElementType(int visualID) {
+		switch (visualID) {
+		case PortEditPart.VISUAL_ID:
+			return Port_1000;
+		case BuildingEditPart.VISUAL_ID:
+			return Building_2001;
+		}
+		return null;
 	}
 
 }
