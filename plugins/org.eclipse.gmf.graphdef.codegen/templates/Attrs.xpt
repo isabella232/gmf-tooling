@@ -50,6 +50,9 @@
 «ENDDEFINE»
 
 «DEFINE Init(EString figureVarName) FOR gmfgraph::SVGFigure-»
-«figureVarName».setURI("«documentURI»", true);
+«figureVarName».setURI("«documentURI»");
+«IF safeRendering-»
+«figureVarName».setSafeRendering(true);
+«ENDIF-»
 «EXPAND attr::Figure::figureAttrs(figureVarName)-»
 «ENDDEFINE»
