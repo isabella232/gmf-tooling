@@ -44,9 +44,15 @@ public class SVGFigure extends Figure {
 	private String uri;
 	private Document document;
 	private boolean failedToLoadDocument;
+	private boolean safeRendering;
+	private boolean directRenderingSucceeded;
 
 	public final String getURI() {
 		return uri;
+	}
+
+	public final void setURI(String uri) {
+		setURI(uri, true);
 	}
 
 	public void setURI(String uri, boolean loadOnDemand) {
@@ -81,6 +87,13 @@ public class SVGFigure extends Figure {
 			loadDocument();
 		}
 		return document;
+	}
+
+	/**
+	 * Returns true if document was loaded without errors; tries to load document if needed.
+	 */
+	public final boolean checkContentAvailable() {
+		return getDocument() != null;
 	}
 
 	private XPath getXPath() {
@@ -118,10 +131,19 @@ public class SVGFigure extends Figure {
 	protected void paintFigure(Graphics graphics) {
 		super.paintFigure(graphics);
 		Document document = getDocument();
-		if (document != null) {
+		if (document == null) {
+			return;
+		}
+		directRenderingSucceeded = false;
+		if (safeRendering) {
+			paintUsingAWT(graphics, document);
+		} else {
+			// Try to paint directly on provided graphics with fallback to
+			// safe routine.
 			try {
 				graphics.pushState();
 				paintDirectly(graphics, document);
+				directRenderingSucceeded = true;
 			} catch (RuntimeException e) {
 				Activator.log(IStatus.INFO, "Failed to paint SVG image directly", e);
 				graphics.restoreState();
@@ -159,5 +181,18 @@ public class SVGFigure extends Figure {
 				image.dispose();
 			}
 		}
+	}
+
+	public final boolean isDirectRenderingSucceeded() {
+		return directRenderingSucceeded;
+	}
+
+	public final boolean isSafeRendering() {
+		return safeRendering;
+	}
+
+	public void setSafeRendering(boolean safeRendering) {
+		this.safeRendering = safeRendering;
+		repaint();
 	}
 }
