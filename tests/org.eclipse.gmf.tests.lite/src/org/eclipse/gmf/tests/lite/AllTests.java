@@ -28,6 +28,7 @@ import org.eclipse.gmf.tests.lite.gef.NotationRefreshTest;
 import org.eclipse.gmf.tests.lite.gen.LiteCompilationTestWithImportConflicts;
 import org.eclipse.gmf.tests.lite.multi.ShortcutCreationTest;
 import org.eclipse.gmf.tests.lite.rt.ElementInitializerTest;
+import org.eclipse.gmf.tests.lite.rt.svg.SVGFigureTest;
 import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
 import org.eclipse.gmf.tests.lite.setup.LiteLinksSessionSetup;
 import org.eclipse.gmf.tests.lite.setup.LiteSessionSetup;
@@ -60,9 +61,8 @@ public class AllTests {
 		suite.addTest(feed(ElementInitializerTest.class, sessionSetup2));
 		suite.addTest(feed(LinkCreationConstraintsTest.class, sessionSetup2));
 		suite.addTest(feed(NotationRefreshTest.class, sessionSetup3));
-
 		suite.addTest(feed(ShortcutCreationTest.class, multiSetup));
-
+		suite.addTestSuite(SVGFigureTest.class);
 		suite.addTest(new CleanupTest("testCleanup") {
 			protected void performCleanup() throws Exception {
 				sessionSetup.cleanup();
