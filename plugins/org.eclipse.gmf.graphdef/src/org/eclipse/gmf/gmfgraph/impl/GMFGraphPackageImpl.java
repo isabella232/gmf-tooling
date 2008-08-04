@@ -2449,6 +2449,15 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getSVGFigure_SafeRendering() {
+		return (EAttribute)svgFigureEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getSVGProperty() {
 		return svgPropertyEClass;
 	}
@@ -2841,6 +2850,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		svgFigureEClass = createEClass(SVG_FIGURE);
 		createEAttribute(svgFigureEClass, SVG_FIGURE__DOCUMENT_URI);
 		createEReference(svgFigureEClass, SVG_FIGURE__PROPERTIES);
+		createEAttribute(svgFigureEClass, SVG_FIGURE__SAFE_RENDERING);
 
 		svgPropertyEClass = createEClass(SVG_PROPERTY);
 		createEAttribute(svgPropertyEClass, SVG_PROPERTY__QUERY);
@@ -3214,6 +3224,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEClass(svgFigureEClass, SVGFigure.class, "SVGFigure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSVGFigure_DocumentURI(), ecorePackage.getEString(), "documentURI", null, 0, 1, SVGFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSVGFigure_Properties(), this.getSVGProperty(), null, "properties", null, 0, -1, SVGFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSVGFigure_SafeRendering(), ecorePackage.getEBoolean(), "safeRendering", null, 0, 1, SVGFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(svgPropertyEClass, SVGProperty.class, "SVGProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSVGProperty_Query(), ecorePackage.getEString(), "query", null, 0, 1, SVGProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

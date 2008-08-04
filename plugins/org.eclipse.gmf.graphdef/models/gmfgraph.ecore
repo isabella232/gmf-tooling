@@ -514,6 +514,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="documentURI" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
         eType="#//SVGProperty" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="safeRendering" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SVGProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="query" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

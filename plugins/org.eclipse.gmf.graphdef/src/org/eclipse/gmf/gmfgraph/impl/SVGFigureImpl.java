@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: SVGFigureImpl.java,v 1.1 2008/07/31 12:17:13 dstadnik Exp $
+ * $Id: SVGFigureImpl.java,v 1.2 2008/08/04 12:45:55 dstadnik Exp $
  */
 package org.eclipse.gmf.gmfgraph.impl;
 
@@ -34,6 +34,7 @@ import org.eclipse.gmf.gmfgraph.SVGProperty;
  * <ul>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl#getDocumentURI <em>Document URI</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl#getProperties <em>Properties</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl#isSafeRendering <em>Safe Rendering</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,6 +70,26 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 	 * @ordered
 	 */
 	protected EList<SVGProperty> properties;
+
+	/**
+	 * The default value of the '{@link #isSafeRendering() <em>Safe Rendering</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSafeRendering()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean SAFE_RENDERING_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isSafeRendering() <em>Safe Rendering</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSafeRendering()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean safeRendering = SAFE_RENDERING_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -127,6 +148,27 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isSafeRendering() {
+		return safeRendering;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSafeRendering(boolean newSafeRendering) {
+		boolean oldSafeRendering = safeRendering;
+		safeRendering = newSafeRendering;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.SVG_FIGURE__SAFE_RENDERING, oldSafeRendering, safeRendering));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -148,6 +190,8 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 				return getDocumentURI();
 			case GMFGraphPackage.SVG_FIGURE__PROPERTIES:
 				return getProperties();
+			case GMFGraphPackage.SVG_FIGURE__SAFE_RENDERING:
+				return isSafeRendering() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -168,6 +212,9 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 				getProperties().clear();
 				getProperties().addAll((Collection<? extends SVGProperty>)newValue);
 				return;
+			case GMFGraphPackage.SVG_FIGURE__SAFE_RENDERING:
+				setSafeRendering(((Boolean)newValue).booleanValue());
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -186,6 +233,9 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 			case GMFGraphPackage.SVG_FIGURE__PROPERTIES:
 				getProperties().clear();
 				return;
+			case GMFGraphPackage.SVG_FIGURE__SAFE_RENDERING:
+				setSafeRendering(SAFE_RENDERING_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -202,6 +252,8 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 				return DOCUMENT_URI_EDEFAULT == null ? documentURI != null : !DOCUMENT_URI_EDEFAULT.equals(documentURI);
 			case GMFGraphPackage.SVG_FIGURE__PROPERTIES:
 				return properties != null && !properties.isEmpty();
+			case GMFGraphPackage.SVG_FIGURE__SAFE_RENDERING:
+				return safeRendering != SAFE_RENDERING_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -218,6 +270,8 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (documentURI: ");
 		result.append(documentURI);
+		result.append(", safeRendering: ");
+		result.append(safeRendering);
 		result.append(')');
 		return result.toString();
 	}
