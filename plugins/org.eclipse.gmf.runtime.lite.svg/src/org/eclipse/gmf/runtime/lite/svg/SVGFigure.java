@@ -31,6 +31,7 @@ import org.apache.batik.util.XMLResourceDescriptor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gmf.internal.runtime.lite.svg.Activator;
 import org.eclipse.gmf.internal.runtime.lite.svg.ImageTranscoderEx;
 import org.eclipse.gmf.internal.runtime.lite.svg.InferringNamespaceContext;
@@ -121,8 +122,9 @@ public class SVGFigure extends Figure {
 
 	private void renderDocument(Transcoder transcoder, Document document) {
 		try {
-			transcoder.addTranscodingHint(ImageTranscoder.KEY_WIDTH, new Float(getBounds().width));
-			transcoder.addTranscodingHint(ImageTranscoder.KEY_HEIGHT, new Float(getBounds().height));
+			Rectangle r = getClientArea();
+			transcoder.addTranscodingHint(ImageTranscoder.KEY_WIDTH, new Float(r.width));
+			transcoder.addTranscodingHint(ImageTranscoder.KEY_HEIGHT, new Float(r.height));
 			if (aoi != null) {
 				transcoder.addTranscodingHint(ImageTranscoder.KEY_AOI, aoi);
 			}
@@ -179,7 +181,8 @@ public class SVGFigure extends Figure {
 			BufferedImage awtImage = transcoder.getBufferedImage();
 			if (awtImage != null) {
 				image = SVGGraphics2D.toSWT(Display.getCurrent(), awtImage);
-				graphics.drawImage(image, getBounds().x, getBounds().y);
+				Rectangle r = getClientArea();
+				graphics.drawImage(image, r.x, r.y);
 			}
 		} finally {
 			if (image != null) {
