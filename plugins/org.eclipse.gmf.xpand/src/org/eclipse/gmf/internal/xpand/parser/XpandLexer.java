@@ -1,18 +1,29 @@
-/*******************************************************************************
-* Copyright (c) 2006 Eclipse.org
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*******************************************************************************/
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation and others.
+ * All rights reserved.   This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     committers of openArchitectureWare - Xpand language syntax
+ *     Artem Tikhomirov (Borland) - LALR grammar
+ *                                - Migration to OCL expressions
+ */
 package org.eclipse.gmf.internal.xpand.parser;
 
-import lpg.lpgjavaruntime.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import lpg.lpgjavaruntime.LexParser;
+import lpg.lpgjavaruntime.LexStream;
+import lpg.lpgjavaruntime.LpgLexStream;
+import lpg.lpgjavaruntime.Monitor;
+import lpg.lpgjavaruntime.ParseTable;
+import lpg.lpgjavaruntime.PrsStream;
+import lpg.lpgjavaruntime.RuleAction;
 
 import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
 
@@ -20,6 +31,8 @@ public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLex
     private static ParseTable prs = new XpandLexerprs();
     private PrsStream prsStream;
     private final LexParser lexParser = new LexParser(this, prs, this);
+
+    private XpandKWLexer kwLexer;
 
     public PrsStream getPrsStream() { return prsStream; }
     public int getToken(int i) { return lexParser.getToken(i); }
@@ -29,22 +42,18 @@ public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLex
     public int getLeftSpan() { return lexParser.getFirstToken(); }
     public int getRightSpan() { return lexParser.getLastToken(); }
 
-    public XpandLexer(String filename, int tab) throws java.io.IOException {
-        super(filename, tab);
-    }
-
     public XpandLexer(char[] input_chars, String filename, int tab) {
         super(input_chars, filename, tab);
     }
 
     public XpandLexer(char[] input_chars, String filename) {
-        this(input_chars, filename, 1);
+        this(input_chars, filename, 4);
     }
-
-    public XpandLexer() {}
 
     public String[] orderedExportedSymbols() { return XpandParsersym.orderedTerminalSymbols; }
     public LexStream getLexStream() { return (LexStream) this; }
+
+    public int [] getKeywordKinds() { return kwLexer.getKeywordKinds(); }
 
     public void lexer(PrsStream prsStream) {
         lexer(null, prsStream);
@@ -69,81 +78,11 @@ public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLex
         return;
     }
 
-	public ErrorLocationInfo[] getErrors() {
-		return errors.toArray(new ErrorLocationInfo[errors.size()]);
-	}
-
-	private void resetErrors() {
-		errors.clear();
-	}
-
-	private final List<ErrorLocationInfo> errors = new LinkedList<ErrorLocationInfo>();
-
 	@Override
-	public void reportError(int errorCode, String locationInfo, int leftToken, int rightToken, String tokenText) {
-		final int leftTokenLine = getLine(leftToken);
-		final int leftTokenColumn = getColumn(leftToken);
-		final int rightTokenLine = getEndLine(rightToken);
-		final int rightTokenColumn = getEndColumn(rightToken);
-		final String msg = tokenText + errorMsgText[errorCode];
-		errors.add(new ErrorLocationInfo(msg, leftTokenLine, leftTokenColumn, rightTokenLine, rightTokenColumn));
-	}
-/*
-	@Override
-	public void reportError(int leftToken, int rightToken) {
-		int errorCode = (rightToken >= getStreamLength() ? EOF_CODE : leftToken == rightToken ? LEX_ERROR_CODE : INVALID_TOKEN_CODE);
-		int endToken = (leftToken == rightToken ? rightToken : rightToken - 1);
-		String msg = (errorCode == EOF_CODE ? "End-of-file " : errorCode == INVALID_TOKEN_CODE
-					? "\"" + new String(getInputChars(), leftToken, rightToken - leftToken) + "\" "
-					: "\"" + getCharValue(leftToken) + "\" ");
-
-		final int leftTokenLine = getLine(leftToken);
-		final int leftTokenColumn = getColumn(leftToken);
-		final int rightTokenLine = getEndLine(endToken);
-		final int rightTokenColumn = getEndColumn(endToken);
-		errors.add(new ErrorLocationInfo(msg, leftTokenLine, leftTokenColumn, rightTokenLine, rightTokenColumn));
-	}
-*/
-	@Override
-	public void reportError(int errorCode, String locationInfo, String tokenText) {
-		try {
-			Matcher m = Pattern.compile("(?:[^:]+::)*[^:]+:(\\d+):(\\d+):(\\d+):(\\d+):.*").matcher(locationInfo);
-			boolean t = m.matches(); // ignore return value, rely on exception if anything wrong
-			assert t;
-			final int leftTokenLine = getLine(Integer.parseInt(m.group(1)));
-			final int leftTokenColumn = getColumn(Integer.parseInt(m.group(2)));
-			final int rightTokenLine = getEndLine(Integer.parseInt(m.group(3)));
-			final int rightTokenColumn = getEndColumn(Integer.parseInt(m.group(4)));
-			final String msg = tokenText + errorMsgText[errorCode];
-			errors.add(new ErrorLocationInfo(msg, leftTokenLine, leftTokenColumn, rightTokenLine, rightTokenColumn));
-		} catch (Throwable ex) {
-			// ignore
-			errors.add(new ErrorLocationInfo(tokenText + errorMsgText[errorCode]));
-		}
-	}
-
-    //
-    // The Lexer contains an array of characters as the input stream to be parsed.
-    // There are methods to retrieve and classify characters.
-    // The lexparser "token" is implemented simply as the index of the next character in the array.
-    // The Lexer extends the abstract class LpgLexStream with an implementation of the abstract
-    // method getKind.  The template defines the Lexer class and the lexer() method.
-    // A driver creates the action class, "Lexer", passing an Option object to the constructor.
-    //
-    private XpandKWLexer kwLexer;
-    private final static int ECLIPSE_TAB_VALUE = 4;
-
-    public int [] getKeywordKinds() { return kwLexer.getKeywordKinds(); }
-
-    public XpandLexer(String filename) throws java.io.IOException {
-        this(filename, ECLIPSE_TAB_VALUE);
-        this.kwLexer = new XpandKWLexer(getInputChars(), TK_IDENT);
-    }
-
     public void initialize(char [] content, String filename) {
         super.initialize(content, filename);
         if (this.kwLexer == null) {
-             this.kwLexer = new XpandKWLexer(getInputChars(), TK_IDENT);
+             this.kwLexer = new XpandKWLexer(getInputChars(), TK_IDENTIFIER);
         } else {
         	this.kwLexer.setInputChars(getInputChars());
         }
@@ -170,11 +109,9 @@ public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLex
         kwKind = kwLexer.lexer(startOffset, endOffset);
         makeToken(startOffset, endOffset, kwKind);
     }
-    
-    //
-    //
-    //
-    public final static int tokenKind[] = {
+
+    // aux data for getKind method        
+    private final int tokenKind[] = {
         Char_CtlCharNotWS,    // 000    0x00
         Char_CtlCharNotWS,    // 001    0x01
         Char_CtlCharNotWS,    // 002    0x02
@@ -302,28 +239,91 @@ public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLex
         Char_VerticalBar,     // 124    0x7C
         Char_RightBrace,      // 125    0x7D
         Char_Tilde,           // 126    0x7E
-
+                              // [artem] As I understand, there's no need to specify characters other than those
+                              //  we'll try to access by index from getKind method (iow, this array is auxilary
+                              // as I indicated in its comment). Thus, there seems to be no reason to specify
+                              // Char_Acute here as it's done in OCL's LexerBasicMap.g
         Char_AfterASCII,      // for all chars in range 128..65534
         Char_EOF              // for '\uffff' or 65535 
     };
-            
-    public final int getKind(int i) { // Classify character at ith location
+
+    // Classify character at ith location
+    @Override
+    public final int getKind(int i) {
         char c = (i >= getStreamLength() ? '\uffff' : getCharValue(i));
         return (c < 128 // ASCII Character
-                  ? tokenKind[c]
-                  : c == '\uffff'
-                       ? Char_EOF
-                       : getNonAsciiKind(c));
+            ? tokenKind[c]
+            : c == '\uffff'
+                ? Char_EOF
+                : getNonAsciiKind(c));
+                
     }
 
-	private final static int getNonAsciiKind(char c) {
-		if (c == '\u00AB') {
-			return Char_LG;
+    private final static int getNonAsciiKind(char c) {
+        if (c == '\u00AB') {
+          return Char_LG;
+      }
+      if (c == '\u00BB') {
+          return Char_RG;
+      }
+      if (c == '\u00b4') {
+          return Char_Acute; // For OCLLexer
+      }
+      return Char_AfterASCII;
+    
+    }
+
+	public ErrorLocationInfo[] getErrors() {
+		return errors.toArray(new ErrorLocationInfo[errors.size()]);
+	}
+
+	private void resetErrors() {
+		errors.clear();
+	}
+
+	private final List<ErrorLocationInfo> errors = new LinkedList<ErrorLocationInfo>();
+
+	@Override
+	public void reportError(int errorCode, String locationInfo, int leftToken, int rightToken, String tokenText) {
+		final int leftTokenLine = getLine(leftToken);
+		final int leftTokenColumn = getColumn(leftToken);
+		final int rightTokenLine = getEndLine(rightToken);
+		final int rightTokenColumn = getEndColumn(rightToken);
+		final String msg = tokenText + errorMsgText[errorCode];
+		errors.add(new ErrorLocationInfo(msg, leftTokenLine, leftTokenColumn, rightTokenLine, rightTokenColumn));
+	}
+/*
+	@Override
+	public void reportError(int leftToken, int rightToken) {
+		int errorCode = (rightToken >= getStreamLength() ? EOF_CODE : leftToken == rightToken ? LEX_ERROR_CODE : INVALID_TOKEN_CODE);
+		int endToken = (leftToken == rightToken ? rightToken : rightToken - 1);
+		String msg = (errorCode == EOF_CODE ? "End-of-file " : errorCode == INVALID_TOKEN_CODE
+					? "\"" + new String(getInputChars(), leftToken, rightToken - leftToken) + "\" "
+					: "\"" + getCharValue(leftToken) + "\" ");
+
+		final int leftTokenLine = getLine(leftToken);
+		final int leftTokenColumn = getColumn(leftToken);
+		final int rightTokenLine = getEndLine(endToken);
+		final int rightTokenColumn = getEndColumn(endToken);
+		errors.add(new ErrorLocationInfo(msg, leftTokenLine, leftTokenColumn, rightTokenLine, rightTokenColumn));
+	}
+*/
+	@Override
+	public void reportError(int errorCode, String locationInfo, String tokenText) {
+		try {
+			Matcher m = Pattern.compile("(?:[^:]+::)*[^:]+:(\\d+):(\\d+):(\\d+):(\\d+):.*").matcher(locationInfo);
+			boolean t = m.matches(); // ignore return value, rely on exception if anything wrong
+			assert t;
+			final int leftTokenLine = getLine(Integer.parseInt(m.group(1)));
+			final int leftTokenColumn = getColumn(Integer.parseInt(m.group(2)));
+			final int rightTokenLine = getEndLine(Integer.parseInt(m.group(3)));
+			final int rightTokenColumn = getEndColumn(Integer.parseInt(m.group(4)));
+			final String msg = tokenText + errorMsgText[errorCode];
+			errors.add(new ErrorLocationInfo(msg, leftTokenLine, leftTokenColumn, rightTokenLine, rightTokenColumn));
+		} catch (Throwable ex) {
+			// ignore
+			errors.add(new ErrorLocationInfo(tokenText + errorMsgText[errorCode]));
 		}
-		if (c == '\u00BB') {
-			return Char_RG;
-		}
-		return Char_AfterASCII;
 	}
 
     public void ruleAction( int ruleNumber) {
@@ -333,274 +333,340 @@ public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLex
             // Rule 1:  Token ::= Identifier
             //
             case 1: { 
-			checkForKeyWord();
-	          break;
-            } 
+				checkForKeyWord();
+	            break;
+            }
+	 
             //
-            // Rule 2:  Token ::= SingleQuote SLNotSQOpt SingleQuote
+            // Rule 2:  Token ::= EscapedSQ
             //
             case 2: { 
-			makeToken(TK_STRING);
-	          break;
-            } 
+				makeToken(TK_STRING_LITERAL);
+	            break;
+            }
+	 
             //
-            // Rule 3:  Token ::= DoubleQuote SLNotSQOpt DoubleQuote
+            // Rule 3:  Token ::= SingleQuote SLNotSQ SingleQuote
             //
             case 3: { 
-			makeToken(TK_STRING);
-	          break;
-            } 
+				makeToken(TK_STRING_LITERAL);
+	            break;
+            }
+	 
             //
-            // Rule 4:  Token ::= Integer
+            // Rule 4:  Token ::= Acute SLNotSQOpt Acute
             //
             case 4: { 
-			makeToken(TK_INT_CONST);
-	          break;
-            } 
+				makeToken(TK_STRING_LITERAL);
+	            break;
+            }
+	 
             //
-            // Rule 5:  Token ::= Integer . Identifier
+            // Rule 5:  Token ::= BackQuote SLNotSQOpt Acute
             //
             case 5: { 
-			makeToken(getRhsFirstTokenIndex(1), getRhsLastTokenIndex(1), TK_INT_CONST);
-			makeToken(getRhsFirstTokenIndex(2), getRhsLastTokenIndex(2), TK_DOT);
-			makeToken(getRhsFirstTokenIndex(3), getRhsLastTokenIndex(3), TK_IDENT);
-	          break;
-            } 
+				makeToken(TK_STRING_LITERAL);
+	            break;
+            }
+	 
             //
-            // Rule 6:  Token ::= Decimal
+            // Rule 6:  Token ::= IntegerLiteral
             //
             case 6: { 
-			makeToken(TK_REAL_CONST);
-	          break;
-            } 
+				makeToken(TK_INTEGER_LITERAL);
+	            break;
+            }
+	 
             //
-            // Rule 7:  Token ::= +
+            // Rule 7:  Token ::= RealLiteral
             //
             case 7: { 
-			makeToken(TK_PLUS);
-	          break;
-            } 
+				makeToken(TK_REAL_LITERAL);
+	            break;
+            }
+	 
             //
-            // Rule 8:  Token ::= -
+            // Rule 8:  Token ::= NumericOperation
             //
             case 8: { 
-			makeToken(TK_MINUS);
-	          break;
-            } 
+				makeToken(TK_NUMERIC_OPERATION);
+	            break;
+            }
+	 
             //
-            // Rule 9:  Token ::= *
+            // Rule 9:  Token ::= IntegerRangeStart
             //
             case 9: { 
-			makeToken(TK_MULTI);
-	          break;
-            } 
+				makeToken(TK_INTEGER_RANGE_START);
+	            break;
+            }
+	 
             //
-            // Rule 10:  Token ::= /
+            // Rule 10:  Token ::= SLC
             //
             case 10: { 
-			makeToken(TK_DIV);
-	          break;
-            } 
+				skipToken();
+	            break;
+            }
+	 
             //
-            // Rule 11:  Token ::= & &
+            // Rule 11:  Token ::= / * Inside Stars /
             //
             case 11: { 
-			makeToken(TK_AND);
-	          break;
-            } 
+                skipToken();
+                break;
+            }
+     
             //
-            // Rule 12:  Token ::= | |
+            // Rule 12:  Token ::= WS
             //
             case 12: { 
-			makeToken(TK_OR);
-	          break;
-            } 
+				skipToken();
+	            break;
+            }
+	 
             //
-            // Rule 13:  Token ::= !
+            // Rule 13:  Token ::= +
             //
             case 13: { 
-			makeToken(TK_NOT);
-	          break;
-            } 
+				makeToken(TK_PLUS);
+	            break;
+            }
+	 
             //
-            // Rule 14:  Token ::= (
+            // Rule 14:  Token ::= -
             //
             case 14: { 
-			makeToken(TK_LPAREN);
-	          break;
-            } 
+				makeToken(TK_MINUS);
+	            break;
+            }
+	 
             //
-            // Rule 15:  Token ::= )
+            // Rule 15:  Token ::= *
             //
             case 15: { 
-			makeToken(TK_RPAREN);
-	          break;
-            } 
+				makeToken(TK_MULTIPLY);
+	            break;
+            }
+	 
             //
-            // Rule 16:  Token ::= >
+            // Rule 16:  Token ::= /
             //
             case 16: { 
-			makeToken(TK_GT);
-	          break;
-            } 
+				makeToken(TK_DIVIDE);
+	            break;
+            }
+	 
             //
-            // Rule 17:  Token ::= <
+            // Rule 17:  Token ::= (
             //
             case 17: { 
-			makeToken(TK_LT);
-	          break;
-            } 
+				makeToken(TK_LPAREN);
+	            break;
+            }
+	 
             //
-            // Rule 18:  Token ::= = =
+            // Rule 18:  Token ::= )
             //
             case 18: { 
-			makeToken(TK_EQ);
-	          break;
-            } 
+				makeToken(TK_RPAREN);
+	            break;
+            }
+	 
             //
-            // Rule 19:  Token ::= > =
+            // Rule 19:  Token ::= >
             //
             case 19: { 
-			makeToken(TK_GE);
-	          break;
-            } 
+				makeToken(TK_GREATER);
+	            break;
+            }
+	 
             //
-            // Rule 20:  Token ::= < =
+            // Rule 20:  Token ::= <
             //
             case 20: { 
-			makeToken(TK_LE);
-	          break;
-            } 
+				makeToken(TK_LESS);
+	            break;
+            }
+	 
             //
-            // Rule 21:  Token ::= ! =
+            // Rule 21:  Token ::= =
             //
             case 21: { 
-			makeToken(TK_NE);
-	          break;
-            } 
+				makeToken(TK_EQUAL);
+	            break;
+            }
+	 
             //
-            // Rule 22:  Token ::= [
+            // Rule 22:  Token ::= > =
             //
             case 22: { 
-			makeToken(TK_LSQUARE);
-	          break;
-            } 
+				makeToken(TK_GREATER_EQUAL);
+	            break;
+            }
+	 
             //
-            // Rule 23:  Token ::= ]
+            // Rule 23:  Token ::= < =
             //
             case 23: { 
-			makeToken(TK_RSQUARE);
-	          break;
-            } 
+				makeToken(TK_LESS_EQUAL);
+	            break;
+            }
+	 
             //
-            // Rule 24:  Token ::= {
+            // Rule 24:  Token ::= < >
             //
             case 24: { 
-			makeToken(TK_LCURLY);
-	          break;
-            } 
+				makeToken(TK_NOT_EQUAL);
+	            break;
+            }
+	 
             //
-            // Rule 25:  Token ::= }
+            // Rule 25:  Token ::= [
             //
             case 25: { 
-			makeToken(TK_RCURLY);
-	          break;
-            } 
+				makeToken(TK_LBRACKET);
+	            break;
+            }
+	 
             //
-            // Rule 26:  Token ::= - >
+            // Rule 26:  Token ::= ]
             //
             case 26: { 
-			makeToken(TK_ARROW);
-	          break;
-            } 
+				makeToken(TK_RBRACKET);
+	            break;
+            }
+	 
             //
-            // Rule 27:  Token ::= |
+            // Rule 27:  Token ::= {
             //
             case 27: { 
-			makeToken(TK_BAR);
-	          break;
-            } 
+				makeToken(TK_LBRACE);
+	            break;
+            }
+	 
             //
-            // Rule 28:  Token ::= ,
+            // Rule 28:  Token ::= }
             //
             case 28: { 
-			makeToken(TK_COMMA);
-	          break;
-            } 
+				makeToken(TK_RBRACE);
+	            break;
+            }
+	 
             //
-            // Rule 29:  Token ::= :
+            // Rule 29:  Token ::= - >
             //
             case 29: { 
-			makeToken(TK_COLON);
-	          break;
-            } 
+				makeToken(TK_ARROW);
+	            break;
+            }
+	 
             //
-            // Rule 30:  Token ::= : :
+            // Rule 30:  Token ::= |
             //
             case 30: { 
-			makeToken(TK_DCOLON);
-	          break;
-            } 
+				makeToken(TK_BAR);
+	            break;
+            }
+	 
             //
-            // Rule 31:  Token ::= .
+            // Rule 31:  Token ::= ,
             //
             case 31: { 
-			makeToken(TK_DOT);
-	          break;
-            } 
+				makeToken(TK_COMMA);
+	            break;
+            }
+	 
             //
-            // Rule 32:  Token ::= =
+            // Rule 32:  Token ::= :
             //
             case 32: { 
-			makeToken(TK_ASSIGN);
-	          break;
-            } 
+				makeToken(TK_COLON);
+	            break;
+            }
+	 
             //
-            // Rule 33:  Token ::= ?
+            // Rule 33:  Token ::= : :
             //
             case 33: { 
-			makeToken(TK_QUESTION_MARK);
-	          break;
-            } 
+				makeToken(TK_COLONCOLON);
+	            break;
+            }
+	 
             //
-            // Rule 34:  Token ::= WS
+            // Rule 34:  Token ::= ;
             //
             case 34: { 
-			skipToken();
-	          break;
-            } 
+				makeToken(TK_SEMICOLON);
+	            break;
+            }
+	 
             //
-            // Rule 35:  Token ::= / * Inside Stars /
+            // Rule 35:  Token ::= .
             //
             case 35: { 
-			skipToken();
-	          break;
-            } 
+				makeToken(TK_DOT);
+	            break;
+            }
+	 
             //
-            // Rule 36:  Token ::= SLC
+            // Rule 36:  Token ::= . .
             //
             case 36: { 
-			skipToken();
-	          break;
-            } 
+				makeToken(TK_DOTDOT);
+	            break;
+            }
+	 
             //
-            // Rule 225:  Token ::= LG
+            // Rule 37:  Token ::= @ p r e
             //
-            case 225: { 
+            case 37: { 
+				makeToken(TK_ATPRE);
+	            break;
+            }
+	 
+            //
+            // Rule 38:  Token ::= ^
+            //
+            case 38: { 
+				makeToken(TK_CARET);
+	            break;
+            }
+	 
+            //
+            // Rule 39:  Token ::= ^ ^
+            //
+            case 39: { 
+				makeToken(TK_CARETCARET);
+	            break;
+            }
+	 
+            //
+            // Rule 40:  Token ::= ?
+            //
+            case 40: { 
+				makeToken(TK_QUESTIONMARK);
+	            break;
+            }
+	 
+            //
+            // Rule 327:  Token ::= LG
+            //
+            case 327: { 
 		makeToken(TK_LG);
 	          break;
             } 
             //
-            // Rule 226:  Token ::= RG textAny lgOpt
+            // Rule 328:  Token ::= RG textAny lgOpt
             //
-            case 226: { 
+            case 328: { 
 		makeToken(TK_TEXT);
 	          break;
             } 
             //
-            // Rule 236:  Token ::= R E M RG commentAny lgPlus E N D R E M
+            // Rule 338:  Token ::= R E M RG commentAny lgPlus E N D R E M
             //
-            case 236: { 
+            case 338: { 
 		skipToken();
 	          break;
             }
