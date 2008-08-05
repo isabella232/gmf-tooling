@@ -54,5 +54,12 @@
 «IF safeRendering-»
 «figureVarName».setSafeRendering(true);
 «ENDIF-»
+«IF areaOfInterest != null-»
+«figureVarName».setAreaOfInterest(«EXPAND Instance FOR areaOfInterest»);
+«ENDIF-»
 «EXPAND attr::Figure::figureAttrs(figureVarName)-»
+«ENDDEFINE»
+
+«DEFINE Instance FOR gmfgraph::Rectangle2D-»
+new java.awt.geom.Rectangle2D.Double(«x», «y», «width», «height»)
 «ENDDEFINE»
