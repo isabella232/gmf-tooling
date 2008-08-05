@@ -1,5 +1,7 @@
 package org.eclipse.gmf.tests.lite.rt.svg;
 
+import java.awt.geom.Rectangle2D;
+
 import junit.framework.TestCase;
 
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -147,5 +149,27 @@ public class SVGFigureTest extends TestCase {
 		canvas.getContents().add(f);
 		flushCanvas();
 		assertColor(0, 0, new RGB(0, 0, 0));
+		assertColor(1, 1, new RGB(0x66, 0x33, 0));
+		assertColor(48, 48, new RGB(0x66, 0x33, 0));
+		assertColor(49, 49, new RGB(0, 0, 0));
+		assertColor(25, 50, ColorConstants.yellow.getRGB());
+		assertColor(50, 25, ColorConstants.yellow.getRGB());
+	}
+
+	/**
+	 * Check that SVGFigure respects AOI.
+	 */
+	public void testAreaOfInterest() {
+		SVGFigure f = new SVGFigure();
+		f.setURI("platform:/plugin/org.eclipse.gmf.tests.lite/images/box.svg");
+		f.setAreaOfInterest(new Rectangle2D.Double(15, 15, 25, 25));
+		f.setPreferredSize(25, 25);
+		canvas.getContents().add(f);
+		flushCanvas();
+		assertColor(0, 0, new RGB(0x66, 0x33, 0));
+		assertColor(5, 5, new RGB(0, 0, 0));
+		assertColor(24, 24, new RGB(0x66, 0x33, 0));
+		assertColor(25, 25, ColorConstants.yellow.getRGB());
+		assertColor(25, 25, ColorConstants.yellow.getRGB());
 	}
 }
