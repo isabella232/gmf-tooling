@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2006 Borland Software Corp.
+-- Copyright (c) 2006, 2008 Borland Software Corp.
 -- 
 -- All rights reserved. This program and the accompanying materials
 -- are made available under the terms of the Eclipse Public License v1.0
@@ -17,35 +17,27 @@
 %options filter=XpandKWLexer.g
 -- stupid endrem needs 6
 %options lalr=6
+%options include_directory="../expression/parser/;../../../../../../../../org.eclipse.ocl/src/org/eclipse/ocl/lpg"
 
 $Import
-	../expression/parser/ExpressionLexer.g
+--	../expression/parser/ExpressionLexer.g
+	../../../../../../../../org.eclipse.ocl/src/org/eclipse/ocl/parser/OCLLexer.g
 $End
 
 $Define
 	$kw_lexer_class /.XpandKWLexer./
-	$getKindMethodImpl /.public final int getKind(int i) { // Classify character at ith location
-            char c = (i >= getStreamLength() ? '\uffff' : getCharValue(i));
-            return (c < 128 // ASCII Character
-                      ? tokenKind[c]
-                      : c == '\uffff'
-                           ? Char_EOF
-                           : getNonAsciiKind(c));
-        }./
-$End
-
-$Headers
-	/.
-		private final static int getNonAsciiKind(char c) {
-			if (c == '\u00AB') {
-				return Char_LG;
-			}
-			if (c == '\u00BB') {
-				return Char_RG;
-			}
-			return Char_AfterASCII;
-		}
-./
+	$getNonASCIICharKindMethodImpl 
+	    /.if (c == '\u00AB') {
+              return Char_LG;
+          }
+          if (c == '\u00BB') {
+              return Char_RG;
+          }
+          if (c == '\u00b4') {
+              return Char_Acute; // For OCLLexer
+          }
+          return Char_AfterASCII;
+        ./
 $End
 
 $Export

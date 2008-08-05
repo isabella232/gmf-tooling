@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2006 Borland Software Corp.
+-- Copyright (c) 2006, 2008 Borland Software Corp.
 -- 
 -- All rights reserved. This program and the accompanying materials
 -- are made available under the terms of the Eclipse Public License v1.0
@@ -14,9 +14,11 @@
 %options package=org.eclipse.gmf.internal.xpand.parser
 %options template=../expression/parser/KeywordTemplateD.g
 %options export_terminals=("XpandParsersym.java", "TK_")
+%options include_directory="../../../../../../../../org.eclipse.ocl/src/org/eclipse/ocl/lpg"
 
 $Import
-	../expression/parser/ExpressionKWLexer.g
+--	../expression/parser/ExpressionKWLexer.g
+	../../../../../../../../org.eclipse.ocl/src/org/eclipse/ocl/parser/OCLKWLexer.g
 $End
 
 $Export
