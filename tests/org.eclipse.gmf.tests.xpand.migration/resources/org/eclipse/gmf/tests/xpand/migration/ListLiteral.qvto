@@ -1,0 +1,14 @@
+
+library ListLiteral;
+
+helper emptyList() : Sequence(String) {
+	return Sequence { }
+}
+
+helper singleElementList(string1 : String) :  Sequence(String) {
+	return Sequence { string1 }
+}
+
+helper twoElementsList(string1 : String, string2 : String) :  Sequence(String) {
+	return Sequence { string1, string2 }
+}

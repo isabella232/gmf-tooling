@@ -1,0 +1,10 @@
+
+library StringLiteral;
+
+helper stringLiteralDoubleQuoted() : String {
+	return "literal with space"
+}
+
+helper stringLiteralSingleQuoted() : String {
+	return "literal with space 2"
+}

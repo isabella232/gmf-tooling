@@ -70,13 +70,61 @@ public class XtendMigrationTest extends TestCase {
 	public void testOperationCall() throws IOException, MigrationException {
 		checkMigration("OperationCall");
 	}
-	
+
 	public void testCollectionExpression() throws IOException, MigrationException {
 		checkMigration("CollectionExpression");
 	}
-	
+
 	public void testTypeSelect() throws IOException, MigrationException {
 		checkMigration("TypeSelect");
+	}
+
+	public void testCast() throws IOException, MigrationException {
+		checkMigration("Cast");
+	}
+
+	public void testBooleanOperation() throws IOException, MigrationException {
+		checkMigration("BooleanOperation");
+	}
+
+	public void testChainExpression() throws IOException, MigrationException {
+		checkMigration("ChainExpression");
+	}
+
+	public void testConstructorCallExpression() throws IOException, MigrationException {
+		checkMigration("ConstructorCallExpression");
+	}
+
+	public void testIfExpression() throws IOException, MigrationException {
+		checkMigration("IfExpression");
+	}
+	
+	public void testLetExpression() throws IOException, MigrationException {
+		checkMigration("LetExpression");
+	}
+	
+	public void testListLiteral() throws IOException, MigrationException {
+		checkMigration("ListLiteral");
+	}
+	
+	public void testBooleanLiteral() throws IOException, MigrationException {
+		checkMigration("BooleanLiteral");
+	}
+	
+	public void testIntegerLiteral() throws IOException, MigrationException {
+		checkMigration("IntegerLiteral");
+	}
+	
+	public void testNullLiteral() throws IOException, MigrationException {
+		checkMigration("NullLiteral");
+	}
+	
+	public void testRealLiteral() throws IOException, MigrationException {
+		checkMigration("RealLiteral");
+	}
+	
+	public void testStringLiteral() throws IOException, MigrationException {
+		checkMigration("StringLiteral");
 	}
 
 	private String checkMigration(String xtendResourceName) throws IOException, MigrationException {

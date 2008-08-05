@@ -1,0 +1,9 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+String chainExpression(ecore::EClass eClass, ecore::EStructuralFeature eFeature) :
+	eClass.eUnset(eFeature)->eClass.name
+;
+
+String nestedChainExpressions(ecore::EClass eClass, ecore::EStructuralFeature eFeature1, ecore::EStructuralFeature eFeature2) :
+	eClass.eUnset(eFeature1)->eClass.eUnset(eFeature2)->eClass.name
+;

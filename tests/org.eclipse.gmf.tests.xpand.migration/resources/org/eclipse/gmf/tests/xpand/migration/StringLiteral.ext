@@ -1,0 +1,9 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+String stringLiteralDoubleQuoted() :
+	"literal with space"
+;
+
+String stringLiteralSingleQuoted() :
+	'literal with space 2'
+;

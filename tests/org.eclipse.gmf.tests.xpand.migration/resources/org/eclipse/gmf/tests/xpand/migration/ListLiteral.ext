@@ -1,0 +1,13 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+List[String] emptyList() :
+	{}
+;
+
+List[String] singleElementList(String string1) :
+	{ string1 }
+;
+
+List[String] twoElementsList(String string1, String string2) :
+	{ string1, string2}
+;

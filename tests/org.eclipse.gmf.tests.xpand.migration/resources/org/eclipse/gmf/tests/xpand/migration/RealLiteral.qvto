@@ -1,0 +1,10 @@
+
+library RealLiteral;
+
+helper positiveLiteral() : Real {
+	return 15.855
+}
+
+helper negativeLiteral() : Real {
+	return -45.399
+}

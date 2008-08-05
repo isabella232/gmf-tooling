@@ -1,0 +1,13 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+Boolean andOperation(Boolean left, Boolean right) :
+	left && right
+;
+
+Boolean orOperation(Boolean left, Boolean right) :
+	left || right
+;
+
+Boolean impliesOperation(Boolean left, Boolean right) :
+	left implies right
+;

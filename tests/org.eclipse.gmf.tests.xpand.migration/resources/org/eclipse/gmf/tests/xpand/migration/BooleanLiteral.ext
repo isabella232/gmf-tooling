@@ -1,0 +1,9 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+Boolean trueLiteral() :
+	true
+;
+
+Boolean falseLiteral() :
+	false
+;
