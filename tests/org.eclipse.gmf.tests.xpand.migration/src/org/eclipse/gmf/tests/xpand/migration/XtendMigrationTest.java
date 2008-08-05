@@ -18,6 +18,8 @@ import java.io.UnsupportedEncodingException;
 
 import junit.framework.TestCase;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
+import org.eclipse.gmf.internal.xpand.expression.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException;
 import org.eclipse.gmf.internal.xpand.migration.MigrationFacade;
 import org.eclipse.gmf.tests.xpand.TestsResourceManager;
@@ -36,29 +38,47 @@ public class XtendMigrationTest extends TestCase {
 		testResourceManager = new TestsResourceManager();
 	}
 
+	// Test for primitive type translation + several parameters in query
 	public void testPrimitiveTypeParameters() throws IOException, MigrationException, MdaException {
 		String resourceName = "PrimitiveTypeParameters";
 		String resourceContent = checkMigration(resourceName);
 		checkQVTCompilation(resourceName, resourceContent);
 	}
-	
+
 	// Test for user-definet type parameters and import migration
 	public void testImportedModels() throws IOException, MigrationException {
 		checkMigration("ImportedModels");
 	}
-	
+
 	public void testImportedModelsWithUnusedImports() throws IOException, MigrationException {
 		checkMigration(new MigrationFacade(testResourceManager, getResourceName("ImportedModels"), true), "ImportedModelsWithUnusedImports");
 	}
-	
+
 	public void testImportedExtensions() throws IOException, MigrationException {
 		checkMigration("ImportedExtensions");
 	}
-	
+
 	public void testImportedExtensionsWReexport() throws IOException, MigrationException {
 		checkMigration("ImportedExtensionsWReexport");
 	}
+
+	public void testFeatureCall() throws IOException, MigrationException {
+		String resourceName = "FeatureCall";
+		checkMigration(new MigrationFacade(testResourceManager, getResourceName(resourceName), new ExecutionContextImpl(testResourceManager, GenModelPackage.eINSTANCE)), resourceName);
+	}
+
+	public void testOperationCall() throws IOException, MigrationException {
+		checkMigration("OperationCall");
+	}
 	
+	public void testCollectionExpression() throws IOException, MigrationException {
+		checkMigration("CollectionExpression");
+	}
+	
+	public void testTypeSelect() throws IOException, MigrationException {
+		checkMigration("TypeSelect");
+	}
+
 	private String checkMigration(String xtendResourceName) throws IOException, MigrationException {
 		return checkMigration(new MigrationFacade(testResourceManager, getResourceName(xtendResourceName)), xtendResourceName);
 	}

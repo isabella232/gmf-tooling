@@ -1,0 +1,51 @@
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+
+library CollectionExpression;
+
+helper collectCall(ePackage : ecore::EPackage) : Sequence(String) {
+	return ePackage.eClassifiers->collect(cl | cl.name)
+}
+
+helper collectCallImplicitIterator(ePackage : ecore::EPackage) : Sequence(String) {
+	return ePackage.eClassifiers->collect(element | element.name)
+}
+
+helper selectCall(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Sequence(ecore::EClassifier) {
+	return ePackage.eClassifiers->select(cl | cl.isInstance(javaObject))
+}
+
+helper selectCallImplicitIterator(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Sequence(ecore::EClassifier) {
+	return ePackage.eClassifiers->select(element | element.isInstance(javaObject))
+}
+
+helper rejectCall(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Sequence(ecore::EClassifier) {
+	return ePackage.eClassifiers->reject(cl | cl.isInstance(javaObject))
+}
+
+helper rejectCallImplicitIterator(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Sequence(ecore::EClassifier) {
+	return ePackage.eClassifiers->reject(element | element.isInstance(javaObject))
+}
+
+helper existsCall(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Boolean {
+	return ePackage.eClassifiers->exists(cl | cl.isInstance(javaObject))
+}
+
+helper existsCallImplicitIterator(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Boolean {
+	return ePackage.eClassifiers->exists(element | element.isInstance(javaObject))
+}
+
+helper notExistsCall(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Boolean {
+	return not ePackage.eClassifiers->exists(cl | cl.isInstance(javaObject))
+}
+
+helper notExistsCallImplicitIterator(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Boolean {
+	return not (not ePackage.eClassifiers->exists(element | element.isInstance(javaObject)))
+}
+
+helper forAllCall(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Boolean {
+	return ePackage.eClassifiers->forAll(cl | cl.isInstance(javaObject))
+}
+
+helper forAllCallImplicitIterator(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Boolean {
+	return ePackage.eClassifiers->forAll(element | element.isInstance(javaObject))
+}

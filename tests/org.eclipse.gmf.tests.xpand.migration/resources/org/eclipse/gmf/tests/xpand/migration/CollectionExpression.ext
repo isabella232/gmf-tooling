@@ -1,0 +1,49 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+List[String] collectCall(ecore::EPackage ePackage) :
+	ePackage.eClassifiers.collect(cl | cl.name)
+;
+
+List[String] collectCallImplicitIterator(ecore::EPackage ePackage) :
+	ePackage.eClassifiers.collect(element.name)
+;
+
+List[ecore::EClassifier] selectCall(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
+	ePackage.eClassifiers.select(cl | cl.isInstance(javaObject))
+;
+
+List[ecore::EClassifier] selectCallImplicitIterator(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
+	ePackage.eClassifiers.select(element.isInstance(javaObject))
+;
+
+List[ecore::EClassifier] rejectCall(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
+	ePackage.eClassifiers.reject(cl | cl.isInstance(javaObject))
+;
+
+List[ecore::EClassifier] rejectCallImplicitIterator(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
+	ePackage.eClassifiers.reject(element.isInstance(javaObject))
+;
+
+Boolean existsCall(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
+	ePackage.eClassifiers.exists(cl | cl.isInstance(javaObject))
+;
+
+Boolean existsCallImplicitIterator(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
+	ePackage.eClassifiers.exists(element.isInstance(javaObject))
+;
+
+Boolean notExistsCall(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
+	ePackage.eClassifiers.notExists(cl | cl.isInstance(javaObject))
+;
+
+Boolean notExistsCallImplicitIterator(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
+	!ePackage.eClassifiers.notExists(element.isInstance(javaObject))
+;
+
+Boolean forAllCall(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
+	ePackage.eClassifiers.forAll(cl | cl.isInstance(javaObject))
+;
+
+Boolean forAllCallImplicitIterator(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
+	ePackage.eClassifiers.forAll(element.isInstance(javaObject))
+;

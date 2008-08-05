@@ -1,0 +1,15 @@
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+
+library OperationCall;
+
+helper operationCall(eClass : ecore::EClass, subType : ecore::EClass) : Boolean {
+	return eClass.isSuperTypeOf(subType)
+}
+
+helper operationWithSeveralParameters(factory : ecore::EFactory, dataType : ecore::EDataType, stringValue : String) : ecore::EJavaObject { 
+	return factory.createFromString(dataType, stringValue) 
+}
+
+helper operationWithExpressionAsAParameter(ePackage : ecore::EPackage, param : String) : ecore::EClassifier {
+	return ePackage.getEClassifier(param.firstToUpper())
+}

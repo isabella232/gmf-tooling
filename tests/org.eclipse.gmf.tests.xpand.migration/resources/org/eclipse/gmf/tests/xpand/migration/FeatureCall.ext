@@ -1,0 +1,20 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+import "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration.fakeURI/GenModel";
+import "http://www.eclipse.org/emf/2002/GenModel";
+
+String featureCall(ecore::EClass eClass) :
+	eClass.name
+;
+
+genmodel::GenProviderKind enumLiteralCall() :
+	genmodel::GenProviderKind::Singleton
+;
+
+/*
+ * Not supported by OCL/QVT
+ * TODO: check it once more
+ *
+ecore::EClass typeCall() :
+	ecore::EObject
+;
+ */

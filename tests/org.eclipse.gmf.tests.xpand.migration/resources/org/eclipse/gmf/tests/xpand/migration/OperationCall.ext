@@ -1,0 +1,13 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+Boolean operationCall(ecore::EClass eClass, ecore::EClass subType) :
+	eClass.isSuperTypeOf(subType)
+;
+
+ecore::EJavaObject operationWithSeveralParameters(ecore::EFactory factory, ecore::EDataType dataType, String stringValue) :
+	factory.createFromString(dataType, stringValue)
+;
+
+ecore::EClassifier operationWithExpressionAsAParameter(ecore::EPackage ePackage, String param) :
+	ePackage.getEClassifier(param.toFirstUpper())
+;
