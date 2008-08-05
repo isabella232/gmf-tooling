@@ -48,7 +48,7 @@ public class BooleanOperation extends Expression {
 		if (l == null) {
 			return null;
 		}
-		if (operator.equals(AND)) {
+		if (isAndOperation()) {
 			if (!l.booleanValue()) {
 				return Boolean.FALSE;
 			}
@@ -57,7 +57,7 @@ public class BooleanOperation extends Expression {
 				return null;
 			}
 			return Boolean.valueOf(l.booleanValue() && r.booleanValue());
-		} else if (operator.equals(OR)) {
+		} else if (isOrOperation()) {
 			if (l.booleanValue()) {
 				return Boolean.TRUE;
 			}
@@ -67,7 +67,7 @@ public class BooleanOperation extends Expression {
 				return null;
 			}
 			return Boolean.valueOf(l.booleanValue() || r.booleanValue());
-		} else if (operator.equals(IMPLIES)) {
+		} else if (isImpliesOperation()) {
 			if (!l.booleanValue()) {
 				return Boolean.TRUE;
 			}
@@ -105,6 +105,30 @@ public class BooleanOperation extends Expression {
 		}
 
 		return dt;
+	}
+	
+	public Expression getLeft() {
+		return left;
+	}
+	
+	public Expression getRight() {
+		return right;
+	}
+	
+	public boolean isImpliesOperation() {
+		return operator.equals(IMPLIES);
+	}
+	
+	public boolean isOrOperation() {
+		return operator.equals(OR);
+	}
+	
+	public boolean isAndOperation() {
+		return operator.equals(AND);
+	}
+	
+	public String getOperator() {
+		return operator;
 	}
 
 }

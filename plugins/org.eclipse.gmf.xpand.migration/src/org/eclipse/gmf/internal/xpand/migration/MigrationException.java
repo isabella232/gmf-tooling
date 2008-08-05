@@ -28,7 +28,9 @@ public class MigrationException extends Exception {
 		UNSUPPORTED_EXTENSION("Incorrect extension"),
 		METAMODEL_ALIAS_NOT_FOUND("Metamodel alias was not found"),
 		TYPE_NOT_FOUND("Extension return type was not found"),
-		UNSUPPORTED_EXPRESSION("Unsupported expression");
+		UNSUPPORTED_EXPRESSION("Unsupported expression"), 
+		UNSUPPORTED_BOOLEAN_OPERATION("Unsupported boolean operation"), 
+		UNSUPPORTED_INFIX_OPERATION_PARAMETER("Unsupported infix operation parameter");
 
 		private String name;
 

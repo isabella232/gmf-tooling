@@ -61,4 +61,16 @@ public class LetExpression extends Expression {
     public String toString() {
         return "let " + varName + "=" + varExpression + " : " + targetExpression;
     }
+    
+    public Identifier getVarName() {
+    	return varName;
+    }
+    
+    public Expression getVarExpression() {
+    	return varExpression;
+    }
+    
+    public Expression getTargetExpression() {
+    	return targetExpression;
+    }
 }

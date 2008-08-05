@@ -55,5 +55,9 @@ public class ConstructorCallExpression extends Expression {
         }
         return t;
     }
+    
+    public Identifier getType() {
+    	return type;
+    }
 
 }

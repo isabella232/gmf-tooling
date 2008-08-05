@@ -75,6 +75,8 @@ public class MigrationFacade {
 
 	private Stack<Expression> expressionsStack = new Stack<Expression>();
 
+	private int returnPosition;
+
 	public MigrationFacade(ResourceManager resourceManager, String xtendResourceName, boolean injectUnusedImports) {
 		this(resourceManager, xtendResourceName);
 		this.injectUnusedImports = injectUnusedImports;
@@ -202,6 +204,8 @@ public class MigrationFacade {
 				return PrimitiveType.BOOLEAN_NAME;
 			} else if (EcorePackage.eINSTANCE.getEInt() == classifier) {
 				return PrimitiveType.INTEGER_NAME;
+			} else if (EcorePackage.eINSTANCE.getEDouble() == classifier) {
+				return PrimitiveType.REAL_NAME;
 			}
 		}
 		if (BuiltinMetaModel.isCollectionType(classifier)) {
@@ -223,9 +227,18 @@ public class MigrationFacade {
 	}
 
 	private void migrateExpressionExtension(ExpressionExtensionStatement extension, ExecutionContext ctx) throws MigrationException {
-		write("return ");
+		markReturnPosition();
 		migrateExpression(extension.getExpression(), ctx);
-		write(" ");
+		injectReturn();
+		writeln("");
+	}
+
+	private void injectReturn() {
+		write("return ", returnPosition);
+	}
+
+	private void markReturnPosition() {
+		returnPosition = getCurrentPosition();
 	}
 
 	// TODO: java should be migrated separately from library - java class should
@@ -246,13 +259,13 @@ public class MigrationFacade {
 		expressionsStack.push(expression);
 		try {
 			if (expression instanceof BooleanOperation) {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, expression.getClass().getName());
+				migrateBooleanOperation((BooleanOperation) expression, ctx);
 			} else if (expression instanceof Cast) {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, expression.getClass().getName());
+				migrateCast((Cast) expression, ctx);
 			} else if (expression instanceof ChainExpression) {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, expression.getClass().getName());
+				migrateChainExpression((ChainExpression) expression, ctx);
 			} else if (expression instanceof ConstructorCallExpression) {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, expression.getClass().getName());
+				migrateConstructorCallExpression((ConstructorCallExpression) expression, ctx);
 			} else if (expression instanceof CollectionExpression) {
 				migrateCollectionExpression((CollectionExpression) expression, ctx);
 			} else if (expression instanceof OperationCall) {
@@ -262,21 +275,21 @@ public class MigrationFacade {
 			} else if (expression instanceof FeatureCall) {
 				migrateFeatureCall((FeatureCall) expression, ctx);
 			} else if (expression instanceof IfExpression) {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, expression.getClass().getName());
+				migrateIfExpression((IfExpression) expression, ctx);
 			} else if (expression instanceof LetExpression) {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, expression.getClass().getName());
+				migrateLetExpression((LetExpression) expression, ctx);
 			} else if (expression instanceof ListLiteral) {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, expression.getClass().getName());
+				migrateListLiteral((ListLiteral) expression, ctx);
 			} else if (expression instanceof BooleanLiteral) {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, expression.getClass().getName());
+				migrateBooleanLiteral((BooleanLiteral) expression, ctx);
 			} else if (expression instanceof IntegerLiteral) {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, expression.getClass().getName());
+				migrateIntegerLiteral((IntegerLiteral) expression, ctx);
 			} else if (expression instanceof NullLiteral) {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, expression.getClass().getName());
+				migrateNullLiteral((NullLiteral) expression, ctx);
 			} else if (expression instanceof RealLiteral) {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, expression.getClass().getName());
+				migrateRealLiteral((RealLiteral) expression, ctx);
 			} else if (expression instanceof StringLiteral) {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, expression.getClass().getName());
+				migrateStringLiteral((StringLiteral) expression, ctx);
 			} else if (expression instanceof SwitchExpression) {
 				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, expression.getClass().getName());
 			} else {
@@ -285,6 +298,111 @@ public class MigrationFacade {
 		} finally {
 			expressionsStack.pop();
 		}
+	}
+
+	private void migrateStringLiteral(StringLiteral expression, ExecutionContext ctx) {
+		write("\"");
+		write(expression.getValue());
+		write("\"");
+	}
+
+	private void migrateRealLiteral(RealLiteral realLiteral, ExecutionContext ctx) {
+		write(new Double(realLiteral.getLiteralValue()).toString());
+	}
+
+	private void migrateNullLiteral(NullLiteral expression, ExecutionContext ctx) {
+		write("null");
+	}
+
+	private void migrateIntegerLiteral(IntegerLiteral integerLiteral, ExecutionContext ctx) {
+		write(new Integer(integerLiteral.getLiteralValue()).toString());
+	}
+
+	private void migrateBooleanLiteral(BooleanLiteral booleanLiteral, ExecutionContext ctx) {
+		write(Boolean.valueOf(booleanLiteral.getLiteralValue()) ? Boolean.TRUE.toString() : Boolean.FALSE.toString());
+	}
+
+	private void migrateListLiteral(ListLiteral listLiteral, ExecutionContext ctx) throws MigrationException {
+		write("Sequence { ");
+		for (int i = 0; i < listLiteral.getElements().length; i++) {
+			if (i > 0) {
+				write(", ");
+			}
+			migrateExpression(listLiteral.getElements()[i], ctx);
+		}
+		write(" }");
+	}
+
+	private void migrateLetExpression(LetExpression letExpression, ExecutionContext ctx) throws MigrationException {
+		write("let ");
+		write(letExpression.getVarName().getValue());
+		write(" = ");
+		migrateExpression(letExpression.getVarExpression(), ctx);
+		write(" in ");
+		migrateExpression(letExpression.getTargetExpression(), ctx);
+	}
+
+	private void migrateIfExpression(IfExpression ifExpression, ExecutionContext ctx) throws MigrationException {
+		write("if ");
+		migrateExpression(ifExpression.getCondition(), ctx);
+		write(" then ");
+		migrateExpression(ifExpression.getThenPart(), ctx);
+		write(" else ");
+		migrateExpression(ifExpression.getElsePart(), ctx);
+		write(" endif");
+	}
+
+	private void migrateConstructorCallExpression(ConstructorCallExpression constructorCall, ExecutionContext ctx) throws MigrationException {
+		write("object ");
+		EClassifier type = ctx.getTypeForName(constructorCall.getType().getValue());
+		if (type == null) {
+			throw new MigrationException(Type.TYPE_NOT_FOUND, constructorCall.getType().getValue());
+		}
+
+		write(getQvtFQName(type));
+		write(" {}");
+	}
+
+	private void migrateChainExpression(ChainExpression chainExpression, ExecutionContext ctx) throws MigrationException {
+		// TODO: currently only top-level chain expressions are supported. We
+		// have to develop a way to support inner chain expressions like:
+		// if(a.b()->c.d()->e.f) then {...} else {...}
+		// for now solution is to use separate helpers for each nested chain
+		// expression
+		if (expressionsStack.size() > 1 && false == expressionsStack.peek() instanceof ChainExpression) {
+			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Inner " + chainExpression.getClass().getName());
+		}
+		migrateExpression(chainExpression.getFirst(), ctx);
+		writeln(";");
+		if (expressionsStack.size() == 1) {
+			markReturnPosition();
+		}
+		migrateExpression(chainExpression.getNext(), ctx);
+	}
+
+	private void migrateBooleanOperation(BooleanOperation booleanOperation, ExecutionContext ctx) throws MigrationException {
+		migrateExpression(booleanOperation.getLeft(), ctx);
+		if (booleanOperation.isAndOperation()) {
+			write(" and ");
+		} else if (booleanOperation.isOrOperation()) {
+			write(" or ");
+		} else if (booleanOperation.isImpliesOperation()) {
+			write(" implies ");
+		} else {
+			throw new MigrationException(Type.UNSUPPORTED_BOOLEAN_OPERATION, booleanOperation.getOperator());
+		}
+		migrateExpression(booleanOperation.getRight(), ctx);
+	}
+
+	private void migrateCast(Cast cast, ExecutionContext ctx) throws MigrationException {
+		migrateExpression(cast.getTarget(), ctx);
+		EClassifier type = ctx.getTypeForName(cast.getType().getValue());
+		if (type == null) {
+			throw new MigrationException(Type.TYPE_NOT_FOUND, cast.getType().getValue());
+		}
+		write(".oclAsType(");
+		write(getQvtFQName(type));
+		write(")");
 	}
 
 	private void migrateTypeSelectExpression(TypeSelectExpression typeSelectExpression, ExecutionContext ctx) throws MigrationException {
@@ -304,7 +422,7 @@ public class MigrationFacade {
 		if (collectionExpression.getTarget() == null) {
 			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Collection expression without target specified: " + collectionExpression.toString());
 		}
-		int placeHolder = getCurrentPosition();
+		int placeholder = getCurrentPosition();
 		boolean hasNegation = false;
 		migrateExpression(collectionExpression.getTarget(), ctx);
 		write("->");
@@ -320,7 +438,7 @@ public class MigrationFacade {
 			write("exists");
 		} else if (collectionExpression.getName().getValue().equals(SyntaxConstants.NOT_EXISTS)) {
 			hasNegation = true;
-			write("not ", placeHolder);
+			write("not ", placeholder);
 			write("exists");
 		} else if (collectionExpression.getName().getValue().equals(SyntaxConstants.FOR_ALL)) {
 			write("forAll");
@@ -333,11 +451,11 @@ public class MigrationFacade {
 		migrateExpression(collectionExpression.getClosure(), ctx);
 		write(")");
 		if (hasNegation) {
-			addBraces(placeHolder);
+			addBraces(placeholder);
 		}
 	}
 
-	private void addBraces(int placeHolder) {
+	private void addBraces(int placeholder) {
 		if (expressionsStack.size() == 1) {
 			return;
 		}
@@ -346,7 +464,7 @@ public class MigrationFacade {
 		// Expression parentExpression =
 		// expressionsStack.get(expressionsStack.size() - 2);
 		// check for the type of parent expression;
-		write("(", placeHolder);
+		write("(", placeholder);
 		write(")");
 	}
 
@@ -402,16 +520,26 @@ public class MigrationFacade {
 
 	private void insertInfixOperationCall(OperationCall operationCall, int placeholder) throws MigrationException {
 		// TODO: add other infix operations to this list
-		if ("!".equals(operationCall.getName().getValue())) {
+		String opName = operationCall.getName().getValue();
+		if ("!".equals(opName)) {
 			write("not ", placeholder);
+		} else if ("-".equals(opName)) {
+			if (operationCall.getParams().length == 0) {
+				write("-", placeholder);
+			} else if (operationCall.getParams().length == 1) {
+				write(" - ");
+			} else {
+				throw new MigrationException(Type.UNSUPPORTED_INFIX_OPERATION_PARAMETER, "\"" + opName + "\" only 0 or 1 parameters supported, passed: " + operationCall.getParams().length);
+			}
 		} else {
-			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Incorrect infix operation: " + operationCall.getName().getValue());
+			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Incorrect infix operation: " + opName);
 		}
 	}
 
 	private boolean isInfixOperation(OperationCall operationCall) {
 		// TODO: add other infix operations to this list
-		return "!".equals(operationCall.getName().getValue());
+		String opName = operationCall.getName().getValue();
+		return "!".equals(opName) || "-".equals(opName);
 	}
 
 	private void migrateFeatureCall(FeatureCall featureCall, ExecutionContext ctx) throws MigrationException {
