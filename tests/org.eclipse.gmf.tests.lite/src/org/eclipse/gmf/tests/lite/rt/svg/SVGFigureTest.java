@@ -10,6 +10,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.LightweightSystem;
+import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.gmf.runtime.lite.svg.SVGFigure;
 import org.eclipse.swt.SWT;
@@ -145,7 +146,7 @@ public class SVGFigureTest extends TestCase {
 	public void testRendering() {
 		SVGFigure f = new SVGFigure();
 		f.setURI("platform:/plugin/org.eclipse.gmf.tests.lite/images/box.svg");
-		f.setPreferredSize(50, 50); // TODO : infer from doc; see #243051
+		f.setPreferredSize(50, 50);
 		canvas.getContents().add(f);
 		flushCanvas();
 		assertColor(0, 0, new RGB(0, 0, 0));
@@ -154,6 +155,21 @@ public class SVGFigureTest extends TestCase {
 		assertColor(49, 49, new RGB(0, 0, 0));
 		assertColor(25, 50, ColorConstants.yellow.getRGB());
 		assertColor(50, 25, ColorConstants.yellow.getRGB());
+	}
+
+	/**
+	 * Check that SVGFigure respects client area.
+	 */
+	public void testClientArea() {
+		SVGFigure f = new SVGFigure();
+		f.setURI("platform:/plugin/org.eclipse.gmf.tests.lite/images/box.svg");
+		f.setPreferredSize(90, 90);
+		f.setBorder(new MarginBorder(20));
+		canvas.getContents().add(f);
+		flushCanvas();
+		assertColor(19, 19, ColorConstants.yellow.getRGB());
+		assertColor(20, 20, new RGB(0, 0, 0));
+		assertColor(21, 21, new RGB(0x66, 0x33, 0));
 	}
 
 	/**
