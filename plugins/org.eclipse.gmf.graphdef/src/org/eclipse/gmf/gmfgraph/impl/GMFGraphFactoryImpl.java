@@ -112,6 +112,7 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.STACK_LAYOUT: return createStackLayout();
 			case GMFGraphPackage.SVG_FIGURE: return createSVGFigure();
 			case GMFGraphPackage.SVG_PROPERTY: return createSVGProperty();
+			case GMFGraphPackage.RECTANGLE2_D: return createRectangle2D();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -705,6 +706,16 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	public SVGProperty createSVGProperty() {
 		SVGPropertyImpl svgProperty = new SVGPropertyImpl();
 		return svgProperty;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Rectangle2D createRectangle2D() {
+		Rectangle2DImpl rectangle2D = new Rectangle2DImpl();
+		return rectangle2D;
 	}
 
 	/**

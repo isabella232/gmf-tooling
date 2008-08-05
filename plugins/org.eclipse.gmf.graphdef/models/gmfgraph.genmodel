@@ -300,6 +300,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGFigure/documentURI"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//SVGFigure/properties"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGFigure/safeRendering"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//SVGFigure/areaOfInterest"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//SVGProperty">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGProperty/query"/>
@@ -308,6 +309,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGProperty/getter"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGProperty/setter"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGProperty/callSuper"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//Rectangle2D">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Rectangle2D/x"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Rectangle2D/y"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Rectangle2D/width"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Rectangle2D/height"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

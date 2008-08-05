@@ -353,6 +353,10 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 				return createSVGPropertyAdapter();
 			}
 			@Override
+			public Adapter caseRectangle2D(Rectangle2D object) {
+				return createRectangle2DAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1363,6 +1367,20 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSVGPropertyAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.Rectangle2D <em>Rectangle2 D</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.Rectangle2D
+	 * @generated
+	 */
+	public Adapter createRectangle2DAdapter() {
 		return null;
 	}
 

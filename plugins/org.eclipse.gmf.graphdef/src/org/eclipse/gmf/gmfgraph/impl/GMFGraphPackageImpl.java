@@ -81,6 +81,7 @@ import org.eclipse.gmf.gmfgraph.PolylineDecoration;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.Rectangle;
+import org.eclipse.gmf.gmfgraph.Rectangle2D;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.SVGFigure;
 import org.eclipse.gmf.gmfgraph.SVGProperty;
@@ -596,6 +597,13 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * @generated
 	 */
 	private EClass svgPropertyEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass rectangle2DEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2458,6 +2466,15 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getSVGFigure_AreaOfInterest() {
+		return (EReference)svgFigureEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getSVGProperty() {
 		return svgPropertyEClass;
 	}
@@ -2514,6 +2531,51 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 */
 	public EAttribute getSVGProperty_CallSuper() {
 		return (EAttribute)svgPropertyEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRectangle2D() {
+		return rectangle2DEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRectangle2D_X() {
+		return (EAttribute)rectangle2DEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRectangle2D_Y() {
+		return (EAttribute)rectangle2DEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRectangle2D_Width() {
+		return (EAttribute)rectangle2DEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRectangle2D_Height() {
+		return (EAttribute)rectangle2DEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2851,6 +2913,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		createEAttribute(svgFigureEClass, SVG_FIGURE__DOCUMENT_URI);
 		createEReference(svgFigureEClass, SVG_FIGURE__PROPERTIES);
 		createEAttribute(svgFigureEClass, SVG_FIGURE__SAFE_RENDERING);
+		createEReference(svgFigureEClass, SVG_FIGURE__AREA_OF_INTEREST);
 
 		svgPropertyEClass = createEClass(SVG_PROPERTY);
 		createEAttribute(svgPropertyEClass, SVG_PROPERTY__QUERY);
@@ -2859,6 +2922,12 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		createEAttribute(svgPropertyEClass, SVG_PROPERTY__GETTER);
 		createEAttribute(svgPropertyEClass, SVG_PROPERTY__SETTER);
 		createEAttribute(svgPropertyEClass, SVG_PROPERTY__CALL_SUPER);
+
+		rectangle2DEClass = createEClass(RECTANGLE2_D);
+		createEAttribute(rectangle2DEClass, RECTANGLE2_D__X);
+		createEAttribute(rectangle2DEClass, RECTANGLE2_D__Y);
+		createEAttribute(rectangle2DEClass, RECTANGLE2_D__WIDTH);
+		createEAttribute(rectangle2DEClass, RECTANGLE2_D__HEIGHT);
 
 		// Create enums
 		colorConstantsEEnum = createEEnum(COLOR_CONSTANTS);
@@ -3225,6 +3294,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEAttribute(getSVGFigure_DocumentURI(), ecorePackage.getEString(), "documentURI", null, 0, 1, SVGFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSVGFigure_Properties(), this.getSVGProperty(), null, "properties", null, 0, -1, SVGFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSVGFigure_SafeRendering(), ecorePackage.getEBoolean(), "safeRendering", null, 0, 1, SVGFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSVGFigure_AreaOfInterest(), this.getRectangle2D(), null, "areaOfInterest", null, 0, 1, SVGFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(svgPropertyEClass, SVGProperty.class, "SVGProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSVGProperty_Query(), ecorePackage.getEString(), "query", null, 0, 1, SVGProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3233,6 +3303,12 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEAttribute(getSVGProperty_Getter(), ecorePackage.getEString(), "getter", null, 0, 1, SVGProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSVGProperty_Setter(), ecorePackage.getEString(), "setter", null, 0, 1, SVGProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSVGProperty_CallSuper(), ecorePackage.getEBoolean(), "callSuper", null, 0, 1, SVGProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(rectangle2DEClass, Rectangle2D.class, "Rectangle2D", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRectangle2D_X(), ecorePackage.getEDouble(), "x", null, 0, 1, Rectangle2D.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRectangle2D_Y(), ecorePackage.getEDouble(), "y", null, 0, 1, Rectangle2D.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRectangle2D_Width(), ecorePackage.getEDouble(), "width", null, 0, 1, Rectangle2D.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRectangle2D_Height(), ecorePackage.getEDouble(), "height", null, 0, 1, Rectangle2D.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(colorConstantsEEnum, ColorConstants.class, "ColorConstants");

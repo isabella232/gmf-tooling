@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: SVGFigureImpl.java,v 1.2 2008/08/04 12:45:55 dstadnik Exp $
+ * $Id: SVGFigureImpl.java,v 1.3 2008/08/05 12:42:37 dstadnik Exp $
  */
 package org.eclipse.gmf.gmfgraph.impl;
 
@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.Rectangle2D;
 import org.eclipse.gmf.gmfgraph.SVGFigure;
 import org.eclipse.gmf.gmfgraph.SVGProperty;
 
@@ -35,6 +36,7 @@ import org.eclipse.gmf.gmfgraph.SVGProperty;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl#getDocumentURI <em>Document URI</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl#getProperties <em>Properties</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl#isSafeRendering <em>Safe Rendering</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl#getAreaOfInterest <em>Area Of Interest</em>}</li>
  * </ul>
  * </p>
  *
@@ -90,6 +92,16 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 	 * @ordered
 	 */
 	protected boolean safeRendering = SAFE_RENDERING_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getAreaOfInterest() <em>Area Of Interest</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAreaOfInterest()
+	 * @generated
+	 * @ordered
+	 */
+	protected Rectangle2D areaOfInterest;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -169,11 +181,56 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Rectangle2D getAreaOfInterest() {
+		return areaOfInterest;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetAreaOfInterest(Rectangle2D newAreaOfInterest, NotificationChain msgs) {
+		Rectangle2D oldAreaOfInterest = areaOfInterest;
+		areaOfInterest = newAreaOfInterest;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST, oldAreaOfInterest, newAreaOfInterest);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAreaOfInterest(Rectangle2D newAreaOfInterest) {
+		if (newAreaOfInterest != areaOfInterest) {
+			NotificationChain msgs = null;
+			if (areaOfInterest != null)
+				msgs = ((InternalEObject)areaOfInterest).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST, null, msgs);
+			if (newAreaOfInterest != null)
+				msgs = ((InternalEObject)newAreaOfInterest).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST, null, msgs);
+			msgs = basicSetAreaOfInterest(newAreaOfInterest, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST, newAreaOfInterest, newAreaOfInterest));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.SVG_FIGURE__PROPERTIES:
 				return ((InternalEList<?>)getProperties()).basicRemove(otherEnd, msgs);
+			case GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST:
+				return basicSetAreaOfInterest(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -192,6 +249,8 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 				return getProperties();
 			case GMFGraphPackage.SVG_FIGURE__SAFE_RENDERING:
 				return isSafeRendering() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST:
+				return getAreaOfInterest();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -215,6 +274,9 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 			case GMFGraphPackage.SVG_FIGURE__SAFE_RENDERING:
 				setSafeRendering(((Boolean)newValue).booleanValue());
 				return;
+			case GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST:
+				setAreaOfInterest((Rectangle2D)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -236,6 +298,9 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 			case GMFGraphPackage.SVG_FIGURE__SAFE_RENDERING:
 				setSafeRendering(SAFE_RENDERING_EDEFAULT);
 				return;
+			case GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST:
+				setAreaOfInterest((Rectangle2D)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -254,6 +319,8 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 				return properties != null && !properties.isEmpty();
 			case GMFGraphPackage.SVG_FIGURE__SAFE_RENDERING:
 				return safeRendering != SAFE_RENDERING_EDEFAULT;
+			case GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST:
+				return areaOfInterest != null;
 		}
 		return super.eIsSet(featureID);
 	}

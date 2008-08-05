@@ -663,6 +663,12 @@ public class GMFGraphSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGraphPackage.RECTANGLE2_D: {
+				Rectangle2D rectangle2D = (Rectangle2D)theEObject;
+				T result = caseRectangle2D(rectangle2D);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -1729,6 +1735,21 @@ public class GMFGraphSwitch<T> {
 	 * @generated
 	 */
 	public T caseSVGProperty(SVGProperty object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Rectangle2 D</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Rectangle2 D</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRectangle2D(Rectangle2D object) {
 		return null;
 	}
 

@@ -4514,7 +4514,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 72;
+	int FONT_STYLE = 73;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.PointImpl <em>Point</em>}' class.
@@ -6270,13 +6270,22 @@ public interface GMFGraphPackage extends EPackage {
 	int SVG_FIGURE__SAFE_RENDERING = REAL_FIGURE_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Area Of Interest</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__AREA_OF_INTEREST = REAL_FIGURE_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>SVG Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SVG_FIGURE_FEATURE_COUNT = REAL_FIGURE_FEATURE_COUNT + 3;
+	int SVG_FIGURE_FEATURE_COUNT = REAL_FIGURE_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.SVGPropertyImpl <em>SVG Property</em>}' class.
@@ -6352,6 +6361,61 @@ public interface GMFGraphPackage extends EPackage {
 	int SVG_PROPERTY_FEATURE_COUNT = 6;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.Rectangle2DImpl <em>Rectangle2 D</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.Rectangle2DImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getRectangle2D()
+	 * @generated
+	 */
+	int RECTANGLE2_D = 71;
+
+	/**
+	 * The feature id for the '<em><b>X</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE2_D__X = 0;
+
+	/**
+	 * The feature id for the '<em><b>Y</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE2_D__Y = 1;
+
+	/**
+	 * The feature id for the '<em><b>Width</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE2_D__WIDTH = 2;
+
+	/**
+	 * The feature id for the '<em><b>Height</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE2_D__HEIGHT = 3;
+
+	/**
+	 * The number of structural features of the '<em>Rectangle2 D</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE2_D_FEATURE_COUNT = 4;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.ColorConstants <em>Color Constants</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6359,7 +6423,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getColorConstants()
 	 * @generated
 	 */
-	int COLOR_CONSTANTS = 71;
+	int COLOR_CONSTANTS = 72;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Direction <em>Direction</em>}' enum.
@@ -6369,7 +6433,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getDirection()
 	 * @generated
 	 */
-	int DIRECTION = 73;
+	int DIRECTION = 74;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.LineKind <em>Line Kind</em>}' enum.
@@ -6379,7 +6443,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLineKind()
 	 * @generated
 	 */
-	int LINE_KIND = 74;
+	int LINE_KIND = 75;
 
 
 	/**
@@ -6390,7 +6454,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getAlignment()
 	 * @generated
 	 */
-	int ALIGNMENT = 75;
+	int ALIGNMENT = 76;
 
 
 	/**
@@ -6401,7 +6465,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getSVGPropertyType()
 	 * @generated
 	 */
-	int SVG_PROPERTY_TYPE = 76;
+	int SVG_PROPERTY_TYPE = 77;
 
 
 	/**
@@ -8468,6 +8532,17 @@ public interface GMFGraphPackage extends EPackage {
 	EAttribute getSVGFigure_SafeRendering();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.SVGFigure#getAreaOfInterest <em>Area Of Interest</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Area Of Interest</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.SVGFigure#getAreaOfInterest()
+	 * @see #getSVGFigure()
+	 * @generated
+	 */
+	EReference getSVGFigure_AreaOfInterest();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.SVGProperty <em>SVG Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8542,6 +8617,60 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getSVGProperty_CallSuper();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.Rectangle2D <em>Rectangle2 D</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Rectangle2 D</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Rectangle2D
+	 * @generated
+	 */
+	EClass getRectangle2D();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.Rectangle2D#getX <em>X</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>X</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Rectangle2D#getX()
+	 * @see #getRectangle2D()
+	 * @generated
+	 */
+	EAttribute getRectangle2D_X();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.Rectangle2D#getY <em>Y</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Y</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Rectangle2D#getY()
+	 * @see #getRectangle2D()
+	 * @generated
+	 */
+	EAttribute getRectangle2D_Y();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.Rectangle2D#getWidth <em>Width</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Width</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Rectangle2D#getWidth()
+	 * @see #getRectangle2D()
+	 * @generated
+	 */
+	EAttribute getRectangle2D_Width();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.Rectangle2D#getHeight <em>Height</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Height</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Rectangle2D#getHeight()
+	 * @see #getRectangle2D()
+	 * @generated
+	 */
+	EAttribute getRectangle2D_Height();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.gmfgraph.ColorConstants <em>Color Constants</em>}'.

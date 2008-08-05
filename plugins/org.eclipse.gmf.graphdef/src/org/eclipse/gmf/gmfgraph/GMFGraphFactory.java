@@ -512,6 +512,15 @@ public interface GMFGraphFactory extends EFactory {
 	SVGProperty createSVGProperty();
 
 	/**
+	 * Returns a new object of class '<em>Rectangle2 D</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Rectangle2 D</em>'.
+	 * @generated
+	 */
+	Rectangle2D createRectangle2D();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
