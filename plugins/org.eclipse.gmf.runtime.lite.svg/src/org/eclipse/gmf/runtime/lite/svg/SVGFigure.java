@@ -12,6 +12,7 @@
 package org.eclipse.gmf.runtime.lite.svg;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -46,6 +47,7 @@ public class SVGFigure extends Figure {
 	private boolean failedToLoadDocument;
 	private boolean safeRendering;
 	private boolean directRenderingSucceeded;
+	private Rectangle2D aoi;
 
 	public final String getURI() {
 		return uri;
@@ -121,6 +123,9 @@ public class SVGFigure extends Figure {
 		try {
 			transcoder.addTranscodingHint(ImageTranscoder.KEY_WIDTH, new Float(getBounds().width));
 			transcoder.addTranscodingHint(ImageTranscoder.KEY_HEIGHT, new Float(getBounds().height));
+			if (aoi != null) {
+				transcoder.addTranscodingHint(ImageTranscoder.KEY_AOI, aoi);
+			}
 			transcoder.transcode(new TranscoderInput(document), new TranscoderOutput());
 		} catch (TranscoderException e) {
 			Activator.logError("Error rendering SVG image", e);
@@ -193,6 +198,25 @@ public class SVGFigure extends Figure {
 
 	public void setSafeRendering(boolean safeRendering) {
 		this.safeRendering = safeRendering;
+		repaint();
+	}
+
+	public final Rectangle2D getAreaOfInterest() {
+		if (aoi == null) {
+			return null;
+		}
+		Rectangle2D result = new Rectangle2D.Double();
+		result.setRect(aoi);
+		return result;
+	}
+
+	public void setAreaOfInterest(Rectangle2D value) {
+		if (value == null) {
+			aoi = null;
+			return;
+		}
+		aoi = new Rectangle2D.Double();
+		aoi.setRect(value);
 		repaint();
 	}
 }
