@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -62,8 +63,13 @@ public class ExecutionContextImpl implements ExecutionContext {
 
 	private final ResourceManager resourceManager;
 
-    public ExecutionContextImpl(ResourceManager resourceManager) {
+	private Collection<EPackage> fallbackVisibleModels = new LinkedHashSet<EPackage>();
+
+    public ExecutionContextImpl(ResourceManager resourceManager, EPackage... fallbackVisibleModels) {
         this (resourceManager, (Collection<Variable>) null);
+        for (EPackage ePackage : fallbackVisibleModels) {
+			this.fallbackVisibleModels.add(ePackage);
+		}
     }
     
     public ExecutionContextImpl(ResourceManager resourceManager, Collection<Variable> globalVars) {
@@ -83,6 +89,7 @@ public class ExecutionContextImpl implements ExecutionContext {
         		this.globalVars.put(v.getName(), v);
         	}
 		}
+        fallbackVisibleModels.add(EcorePackage.eINSTANCE);
     }
 
     // copy constuctor
@@ -93,6 +100,7 @@ public class ExecutionContextImpl implements ExecutionContext {
     	this.globalVars.putAll(original.globalVars);
     	this.contextClassLoader = original.contextClassLoader;
     	this.evaluationListener = original.evaluationListener;
+    	this.fallbackVisibleModels = original.fallbackVisibleModels;
     }
 
     /*
@@ -212,7 +220,7 @@ public class ExecutionContextImpl implements ExecutionContext {
 		}
 		if (result.isEmpty()) {
 			// hack for tests
-			result.add(EcorePackage.eINSTANCE);
+			result.addAll(fallbackVisibleModels);
 		}
 //		result.add(BuiltinMetaModel.VOID.getEPackage());
 		return result.toArray(new EPackage[result.size()]);

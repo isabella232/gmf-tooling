@@ -111,5 +111,9 @@ public class TypeSelectExpression extends FeatureCall {
 
         return BuiltinMetaModel.getListType(closureEClassifier);
     }
+    
+    public Identifier getTypeLiteral() {
+    	return typeLiteral;
+    }
 
 }

@@ -178,6 +178,7 @@ public class CollectionExpression extends FeatureCall {
 		ctx = ctx.cloneWithVariable(new Variable(getElementName(), innerEClassifier));
 		final EClassifier closureEClassifier = closure.analyze(ctx, issues);
 		if (getName().getValue().equals(SyntaxConstants.COLLECT)) {
+			// TODO: incorrect code - .endsWith() should be used instead.
 			if (targetType.getName().startsWith(BuiltinMetaModel.SET)) {
 				return BuiltinMetaModel.getSetType(closureEClassifier);
 			} else if (targetType.getName().startsWith(BuiltinMetaModel.LIST)) {
@@ -203,8 +204,12 @@ public class CollectionExpression extends FeatureCall {
 		return result;
 	}
 
-	private String getElementName() {
+	public String getElementName() {
 		return eleName != null ? eleName : SyntaxConstants.DEFAULT_ELE_NAME;
+	}
+	
+	public Expression getClosure() {
+		return closure;
 	}
 
 }

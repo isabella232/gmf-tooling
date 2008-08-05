@@ -27,7 +27,7 @@ public class MigrationException extends Exception {
 		INCORRECT_RESOURCE_NAME("Incorrect resource name"),
 		UNSUPPORTED_EXTENSION("Incorrect extension"),
 		METAMODEL_ALIAS_NOT_FOUND("Metamodel alias was not found"),
-		EXTENSION_RETURN_TYPE_NOT_FOUND("Extension return type was not found"),
+		TYPE_NOT_FOUND("Extension return type was not found"),
 		UNSUPPORTED_EXPRESSION("Unsupported expression");
 
 		private String name;
