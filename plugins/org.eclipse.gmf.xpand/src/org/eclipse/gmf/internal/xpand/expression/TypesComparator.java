@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +7,7 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand.expression;
 
@@ -18,10 +15,19 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
+import org.eclipse.ocl.ecore.EcoreEnvironment;
+import org.eclipse.ocl.util.TypeUtil;
+import org.eclipse.ocl.utilities.UMLReflection;
 
 public final class TypesComparator implements Comparator<List<? extends EClassifier>> {
-    /**
+
+	private final EcoreEnvironment env;
+
+	public TypesComparator(EcoreEnvironment env) {
+		this.env = env;
+	}
+	
+	/**
      * 
      * returns -1 if the second list of types is not assignable to the first
      * list of types returns 0 if the second list of types exactly matches the
@@ -37,12 +43,14 @@ public final class TypesComparator implements Comparator<List<? extends EClassif
 		}
         boolean directMatch = true;
         for (int i = 0, x = types1.size(); i < x; i++) {
-            final EClassifier type1 = types1.get(i);
-            final EClassifier type2 = types2.get(i);
-            if (BuiltinMetaModel.isAssignableFrom(type1, type2)) {
-                if (!type1.equals(type2)) {
-                    directMatch = false;
-                }
+            final EClassifier type1 = TypeUtil.resolveType(env, types1.get(i));
+            final EClassifier type2 = TypeUtil.resolveType(env, types2.get(i));
+            int rel = TypeUtil.getRelationship(env, type2, type1);
+            if ((rel & UMLReflection.SUBTYPE) != 0) {
+            	if (rel != UMLReflection.SAME_TYPE) {
+            		 // sic! Update directMatch *conditionally*
+            		directMatch = false;
+            	}
             } else {
 				return -1;
 			}

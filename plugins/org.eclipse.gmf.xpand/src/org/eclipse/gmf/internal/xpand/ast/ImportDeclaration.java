@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,27 +7,27 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand.ast;
 
-import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
+import org.eclipse.gmf.internal.xpand.ocl.TypeHelper;
+import org.eclipse.ocl.cst.PathNameCS;
 
 /**
  * @author Sven Efftinge
  */
 public class ImportDeclaration extends SyntaxElement {
 
-    private final Identifier importString;
+    private final String importString;
 
-    public ImportDeclaration(final int start, final int end, final int line, final Identifier importString) {
+    public ImportDeclaration(final int start, final int end, final int line, final PathNameCS importString) {
         super(start, end, line);
-        this.importString = importString;
+        this.importString = TypeHelper.toString(importString);
     }
 
-    public Identifier getImportString() {
+    public String getImportString() {
         return importString;
     }
 }

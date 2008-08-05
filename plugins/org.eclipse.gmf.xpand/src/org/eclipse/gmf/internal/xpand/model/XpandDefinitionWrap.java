@@ -1,11 +1,11 @@
-/*******************************************************************************
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006, 2008 committers of openArchitectureWare and others.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
+ */
 package org.eclipse.gmf.internal.xpand.model;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
-import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
+import org.eclipse.gmf.internal.xpand.ocl.DeclaredParameter;
 
 public class XpandDefinitionWrap {
 
@@ -31,15 +31,11 @@ public class XpandDefinitionWrap {
         return def.getName();
     }
 
-    public EClassifier getTargetType() {
-        return ctx.getTypeForName(def.getTargetType());
-    }
-
     public List<EClassifier> getParamTypes() {
         final DeclaredParameter[] p = def.getParams();
         final List<EClassifier> result = new ArrayList<EClassifier>();
         for (DeclaredParameter element : p) {
-            result.add(ctx.getTypeForName(element.getType().getValue()));
+            result.add(element.getTypeForName(ctx));
         }
         return result;
     }
@@ -48,7 +44,7 @@ public class XpandDefinitionWrap {
         final DeclaredParameter[] p = def.getParams();
         final List<String> result = new ArrayList<String>();
         for (DeclaredParameter element : p) {
-            result.add(element.getName().getValue());
+            result.add(element.getVarName());
         }
         return result;
     }

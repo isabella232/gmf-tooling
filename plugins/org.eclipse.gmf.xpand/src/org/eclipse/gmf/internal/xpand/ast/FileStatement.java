@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +7,7 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand.ast;
 
@@ -21,46 +18,33 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
-import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
+import org.eclipse.ocl.cst.OCLExpressionCS;
 
 /**
  * @author Sven Efftinge
  */
 public class FileStatement extends Statement {
 
-    private final Expression fileName;
+    private final ExpressionHelper fileName;
 
     private final Statement[] body;
 
     private final Identifier mode;
 
-    public FileStatement(final int start, final int end, final int line, final Expression fileName,
-            final Statement[] body, final Identifier mode) {
+    public FileStatement(final int start, final int end, final int line, final OCLExpressionCS fileNameCS, final Statement[] body, final Identifier mode) {
         super(start, end, line);
-        this.fileName = fileName;
+        this.fileName = new ExpressionHelper(fileNameCS);
         this.body = body;
         this.mode = mode;
     }
 
-    public Statement[] getBody() {
-        return body;
-    }
-
-    public Expression getTargetFileName() {
-        return fileName;
-    }
-
-    public Identifier getMode() {
-        return mode;
-    }
-
     public void analyze(final XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
-        final EClassifier result = getTargetFileName().analyze(ctx, issues);
+        final EClassifier result = fileName.analyze(ctx, issues);
         if (!BuiltinMetaModel.isAssignableFrom(EcorePackage.eINSTANCE.getEString(), result)) {
-            issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "String expected!",
-                    getTargetFileName()));
+            issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "String expected!", fileName));
         }
         for (Statement element : body) {
             element.analyze(ctx, issues);
@@ -69,9 +53,9 @@ public class FileStatement extends Statement {
 
     @Override
     public void evaluateInternal(final XpandExecutionContext ctx) {
-        final Object result = getTargetFileName().evaluate(ctx);
+        final Object result = fileName.evaluate(ctx);
         if (result == null) {
-			throw new EvaluationException("Nullevaluation", getTargetFileName());
+			throw new EvaluationException("Nullevaluation", this, fileName.getCST());
 		}
         final String fileName = result.toString();
         String modeVal = null;

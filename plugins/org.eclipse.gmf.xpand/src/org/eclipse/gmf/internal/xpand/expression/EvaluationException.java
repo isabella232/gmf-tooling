@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,12 +7,12 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand.expression;
 
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
+import org.eclipse.ocl.cst.CSTNode;
 
 /**
  * @author Sven Efftinge
@@ -22,35 +20,33 @@ import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
  */
 public class EvaluationException extends RuntimeException {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 3781834199930386623L;
-
-    private final SyntaxElement element;
-
-    private final String message;
+	private static final long serialVersionUID = 542684666287282979L;
+	private final String location;
 
     public EvaluationException(final String msg, final SyntaxElement element) {
         super(msg);
-        message = msg;
-        this.element = element;
+        location = location(element);
     }
 
     public EvaluationException(final Throwable ex, final SyntaxElement element) {
         super(ex);
-        message = ex == null ? null : ex.getMessage();
-        this.element = element;
+        location = location(element);
     }
 
-    public SyntaxElement getElement() {
-        return element;
+    public EvaluationException(final String msg, final SyntaxElement element, final CSTNode node) {
+        super(msg);
+        location = location(element) + " [" + node.getStartOffset() + ".." + node.getEndOffset() + "]";
+    }
+
+    private static String location(SyntaxElement element) {
+    	if (element == null) {
+    		return "";
+    	}
+    	return ":in " + element.getFileName() + ", line " + element.getLine();
     }
 
     @Override
     public String getMessage() {
-        return message
-                + (element != null ? ":in " + element.getFileName() + " on line " + element.getLine() + " '" + element
-                        + "'" : "");
+        return super.getMessage() + location;
     }
 }

@@ -24,7 +24,7 @@ import java.util.TreeMap;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
-import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
+import org.eclipse.gmf.internal.xpand.expression.TypeNameUtil;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtFile;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
@@ -300,5 +300,5 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		cachedQvt.clear();
 	}
 
-	private static final String ASPECT_PREFIX = "aspects" + SyntaxConstants.NS_DELIM;	//$NON-NLS-1$
+	private static final String ASPECT_PREFIX = "aspects" + TypeNameUtil.NS_DELIM;	//$NON-NLS-1$
 }

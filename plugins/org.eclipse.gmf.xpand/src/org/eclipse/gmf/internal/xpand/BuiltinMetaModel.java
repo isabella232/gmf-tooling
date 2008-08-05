@@ -1,11 +1,14 @@
-/*******************************************************************************
- * Copyright (c) 2006, 2008 Eclipse.org
- * 
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
 package org.eclipse.gmf.internal.xpand;
 
 import java.lang.reflect.Field;
@@ -42,7 +45,12 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.expression.PolymorphicResolver;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinitionWrap;
+import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandIterator;
+import org.eclipse.gmf.internal.xpand.ocl.TypeHelper;
+import org.eclipse.ocl.EvaluationEnvironment;
+import org.eclipse.ocl.ecore.EcoreEvaluationEnvironment;
+import org.eclipse.ocl.util.TypeUtil;
 
 /**
  * XXX Guess, will need special support to recognize the fact
@@ -198,8 +206,13 @@ public class BuiltinMetaModel {
 		return sp.getEEnum();
 	}
 
+	public static EClassifier getType(XpandExecutionContext ctx, Object obj) {
+		EcoreEvaluationEnvironment ee = (EcoreEvaluationEnvironment) ctx.getOCLEnvironment().getFactory().createEvaluationEnvironment();
+		return TypeUtil.resolveType(ctx.getOCLEnvironment(), ee.getType(obj));
+	}
+	
 	// TODO obj.getClass lookup tree?
-	public static EClassifier getType(Object obj) {
+	private static EClassifier getType(Object obj) {
 		if (obj == null) {
 			return VOID;
 		}
@@ -313,7 +326,7 @@ public class BuiltinMetaModel {
 				allOp.addAll(findInternalOp(EcorePackage.eINSTANCE.getEJavaObject()));
 			}
 		}
-		return PolymorphicResolver.filterOperation(allOp, name, targetType, Arrays.asList(args));
+		return PolymorphicResolver.filterOperation(allOp, name, targetType, Arrays.asList(args), null/*FIXME*/);
 	}
 
 	private static Map<String, String> attrNameSubsts = new TreeMap<String, String>();

@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2007 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +7,7 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand.expression;
 
@@ -28,6 +25,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
+import org.eclipse.ocl.ecore.EcoreEnvironment;
 
 /**
  * @author Sven Efftinge
@@ -35,16 +33,18 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
  */
 public class PolymorphicResolver {
 
-	public static XpandDefinition filterDefinition(final HashMap<XpandDefinition, List<EClassifier>> resolvedDefs, EClassifier targetType, List<EClassifier> paramTypes) {
+	public static XpandDefinition filterDefinition(final HashMap<XpandDefinition, List<EClassifier>> resolvedDefs, EClassifier targetType, List<EClassifier> paramTypes, EcoreEnvironment env) {
         final List<EClassifier> allParams = new ArrayList<EClassifier>();
         allParams.add(targetType);
         allParams.addAll(paramTypes);
 
+        final TypesComparator typesComparator = new TypesComparator(env);
+        
         final List<XpandDefinition> candidateDefinition = new ArrayList<XpandDefinition>();
-        for (XpandDefinition def : resolvedDefs.keySet()) {
+		for (XpandDefinition def : resolvedDefs.keySet()) {
             final List<? extends EClassifier> featureParamTypes = resolvedDefs.get(def);
             if ((featureParamTypes.size() == allParams.size())
-                    && (typesComparator.compare(featureParamTypes, allParams) >= 0)) {
+                    && (typesComparator .compare(featureParamTypes, allParams) >= 0)) {
             	candidateDefinition.add(def);
             }
         }
@@ -61,8 +61,9 @@ public class PolymorphicResolver {
 	    }
 	}
 
-    public final static GenericExtension getExtension(final Set<? extends GenericExtension> extensions, final String name, final List<EClassifier> paramTypes) {
+    public final static GenericExtension getExtension(final Set<? extends GenericExtension> extensions, final String name, final List<EClassifier> paramTypes, EcoreEnvironment env) {
         final List<GenericExtension> candidateExtensions = new ArrayList<GenericExtension>();
+        final TypesComparator typesComparator = new TypesComparator(env);
         for (GenericExtension ext : extensions) {
             if (ext.getName().equals(name)) {
                 final List<? extends EClassifier> featureParamTypes = ext.getParameterTypes();
@@ -87,11 +88,12 @@ public class PolymorphicResolver {
     }
     
     @SuppressWarnings("unchecked")
-	public static EOperation filterOperation(List<EOperation> allOperations, String name, EClassifier targetType, List<EClassifier> paramTypes) {
+	public static EOperation filterOperation(List<EOperation> allOperations, String name, EClassifier targetType, List<EClassifier> paramTypes, EcoreEnvironment env) {
 		final Map<EOperation, List<EClassifier>> candidates = new HashMap<EOperation, List<EClassifier>>();
 		ArrayList<EClassifier> expectedParamsWithTarget = new ArrayList(paramTypes.size() + 1);
 		expectedParamsWithTarget.add(targetType);
 		expectedParamsWithTarget.addAll(paramTypes);
+        final TypesComparator typesComparator = new TypesComparator(env);
 		for (EOperation op : allOperations) {
 			if (op.getName().equals(name) && (op.getEParameters().size() == paramTypes.size())) {
 				List<EClassifier> candidateOperationParams = new ArrayList<EClassifier>(paramTypes.size() + 1);
@@ -139,6 +141,4 @@ public class PolymorphicResolver {
 			}
         }
     }
-
-    private final static TypesComparator typesComparator = new TypesComparator();
 }

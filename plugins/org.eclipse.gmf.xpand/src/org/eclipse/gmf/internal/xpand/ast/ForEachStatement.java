@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +7,7 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand.ast;
 
@@ -24,10 +21,11 @@ import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
-import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandIterator;
+import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
+import org.eclipse.ocl.cst.OCLExpressionCS;
 
 /**
  * @author Sven Efftinge
@@ -38,44 +36,28 @@ public class ForEachStatement extends Statement {
 
     private final Statement[] body;
 
-    private final Expression target;
+    private final ExpressionHelper target;
 
-    private final Expression separator;
+    private final ExpressionHelper separator;
 
     private final Identifier variable;
 
     private final Identifier iteratorName;
 
     public ForEachStatement(final int start, final int end, final int line, final Identifier variable,
-            final Expression target, final Statement[] body, final Expression separator, final Identifier iterator) {
+            final OCLExpressionCS target, final Statement[] body, final OCLExpressionCS separator, final Identifier iterator) {
         super(start, end, line);
         this.variable = variable;
-        this.target = target;
+        this.target = new ExpressionHelper(target);
         this.body = body;
-        this.separator = separator;
+        this.separator = new ExpressionHelper(separator);
         iteratorName = iterator;
     }
 
-    public Statement[] getBody() {
-        return body;
-    }
-
-    public Expression getSeparator() {
-        return separator;
-    }
-
-    public Expression getTarget() {
-        return target;
-    }
-
-    public Identifier getVariable() {
-        return variable;
-    }
-
     public void analyze(XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
-    	EClassifier t = getTarget().analyze(ctx, issues);
-        if (getSeparator() != null) {
-            final EClassifier sepT = getSeparator().analyze(ctx, issues);
+    	EClassifier t = target.analyze(ctx, issues);
+        if (separator != null) {
+            final EClassifier sepT = separator.analyze(ctx, issues);
             if (!BuiltinMetaModel.isAssignableFrom(EcorePackage.eINSTANCE.getEString(), sepT)) {
                 issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "String expected!", target));
             }
@@ -88,29 +70,28 @@ public class ForEachStatement extends Statement {
                     t = EcorePackage.eINSTANCE.getEJavaObject();
                 }
             } else {
-                issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Collection type expected!",
-                        target));
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Collection type expected!", target));
                 return;
             }
         }
-        ctx = ctx.cloneWithVariable(new Variable(getVariable().getValue(), t));
+        ctx = ctx.cloneWithVariable(new Variable(variable.getValue(), t));
         if (iteratorName != null) {
             ctx = ctx.cloneWithVariable(new Variable(iteratorName.getValue(), BuiltinMetaModel.ITERATOR_TYPE));
         }
-        for (Statement statement : getBody()) {
+        for (Statement statement : body) {
             statement.analyze(ctx, issues);
         }
     }
 
     @Override
     public void evaluateInternal(XpandExecutionContext ctx) {
-        final Object o = getTarget().evaluate(ctx);
+        final Object o = target.evaluate(ctx);
 
         if (!(o instanceof Collection)) {
-			throw new EvaluationException("Collection expected!", getTarget());
+			throw new EvaluationException("Collection expected!", this, target.getCST());
 		}
         final Collection<?> col = (Collection<?>) o;
-        final String sep = (String) (getSeparator() != null ? getSeparator().evaluate(ctx) : null);
+        final String sep = (String) (separator != null ? separator.evaluate(ctx) : null);
         final XpandIterator iterator = new XpandIterator(col.size());
 
         if (iteratorName != null) {
@@ -118,9 +99,9 @@ public class ForEachStatement extends Statement {
         }
         for (final Iterator<?> iter = col.iterator(); iter.hasNext();) {
             final Object element = iter.next();
-            ctx = ctx.cloneWithVariable(new Variable(getVariable().getValue(), element));
-            for (int i = 0; i < getBody().length; i++) {
-                getBody()[i].evaluate(ctx);
+            ctx = ctx.cloneWithVariable(new Variable(variable.getValue(), element));
+            for (int i = 0; i < body.length; i++) {
+                body[i].evaluate(ctx);
             }
             if ((sep != null) && iter.hasNext()) {
                 ctx.getOutput().write(sep);

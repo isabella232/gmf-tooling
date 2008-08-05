@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,18 +7,17 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand.expression;
 
-import java.util.Collection;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
 import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
+import org.eclipse.ocl.ecore.EcoreEnvironment;
 
 /**
  * @author Sven Efftinge
@@ -40,20 +37,12 @@ public interface ExecutionContext {
 	public final static String IMPLICIT_VARIABLE = "this";
 
 	<T extends ExecutionContext> T cloneWithVariable(Variable... v);
-	<T extends ExecutionContext> T cloneWithVariable(Collection<Variable> v);
 
 	<T extends ExecutionContext> T cloneWithoutVariables();
 
 	<T extends ExecutionContext> T cloneWithResource(ResourceMarker ns);
 
 	Variable getVariable(String name);
-
-	Collection<Variable> getVisibleVariables();
-
-	/**
-	 * accessible only through special extension methods
-	 */
-	Collection<Variable> getGlobalVariables();
 
 	Variable getGlobalVariable(String name);
 
@@ -63,12 +52,10 @@ public interface ExecutionContext {
 
 	Set<? extends GenericExtension> getAllExtensions();
 
-	EClassifier getTypeForName(String name);//		!!!getImportedNamespaces()
-
-	public EClassifier[] findTypesForPrefix(final String prefix);
-	
 	// instead of ResourceLoaderFactory.createResourceLoader()
 	Class<?> loadClass(String value);
+
+	EcoreEnvironment getOCLEnvironment();
 
 	// [artem] if not null, should be notified about entering/leaving xpand ast elements
 	EvaluationListener getEvaluationListener();

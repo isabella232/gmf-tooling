@@ -29,7 +29,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.gmf.internal.xpand.Activator;
-import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
+import org.eclipse.gmf.internal.xpand.expression.TypeNameUtil;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.util.ParserException;
 import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
@@ -85,7 +85,7 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 
 	@Override
 	protected Reader[] resolveMultiple(String fqn, String ext) throws IOException {
-		IPath fp = new Path(fqn.replaceAll(SyntaxConstants.NS_DELIM, "/")).addFileExtension(ext);
+		IPath fp = new Path(fqn.replaceAll(TypeNameUtil.NS_DELIM, "/")).addFileExtension(ext);
 		IPath[] resolutions = getResolutions(fp);
 		ArrayList<Reader> result = new ArrayList<Reader>(resolutions.length);
 		for (IPath p : getResolutions(fp)) {
@@ -160,6 +160,6 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 	}
 
 	private static String toFullyQualifiedName(IPath filePath) {
-		return filePath.removeFileExtension().toString().replace("/", SyntaxConstants.NS_DELIM);
+		return filePath.removeFileExtension().toString().replace("/", TypeNameUtil.NS_DELIM);
 	}
 }

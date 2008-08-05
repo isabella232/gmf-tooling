@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2007 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +7,7 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand.model;
 
@@ -27,7 +24,6 @@ import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.expression.PolymorphicResolver;
-import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.expression.TypeNameUtil;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
 
@@ -78,9 +74,11 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
 
     public XpandDefinition findDefinition(final String name, final EClassifier target, final EClassifier[] paramTypes) {
         String templateName;
-        boolean localCall = name.indexOf(SyntaxConstants.NS_DELIM) < 0;
+        boolean localCall = !TypeNameUtil.isQualifiedName(name);
         if (localCall) {
-        	templateName = ((XpandResource) currentResource()).getFullyQualifiedName();	//need an enclosing resource in case of composite
+        	// [artem] the reason can't just use currentResource() as it might be part of composite?
+        	// otherwise, see no reason to load it once again in findTemplate()
+        	templateName = ((XpandResource) currentResource()).getFullyQualifiedName(); // need an enclosing resource in case of composite	
         } else {
         	templateName = TypeNameUtil.withoutLastSegment(name);
         }
@@ -152,12 +150,32 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
     	return super.getImportedExtensions();
     }
 
+    // XXX completely rewritten, NEEDS TESTS!
+    // getPossibleNames(getImportedNamespaces()), along with FQN added in #getImportedNamespaces(), was stupid hack anyway.
     public XpandResource findTemplate(final String templateName) {
     	if (getResourceManager() == null) {
     		return null;
     	}
-    	// XXX findTemplate needs kinda file uri, while metamodel import needs nsURI
-    	final List<String> possibleNames = getPossibleNames(templateName, getImportedNamespaces());
+    	String[] possibleNames;
+    	if (currentResource() instanceof XpandResource) {
+    		String contextTemplate = ((XpandResource) currentResource()).getFullyQualifiedName();
+    		if (!TypeNameUtil.isQualifiedName(contextTemplate)) {
+        		possibleNames = new String[] { templateName };
+    		} else {
+    			String contextNS = TypeNameUtil.withoutLastSegment(contextTemplate);
+	    		possibleNames = new String[] {
+		    		templateName,
+		    		contextNS + TypeNameUtil.NS_DELIM + templateName
+		    	};
+	    		if (!TypeNameUtil.isQualifiedName(templateName)) {
+	    			// unqualified name, try relative to current template first
+	    			possibleNames[0] = possibleNames[1];
+	    			possibleNames[1] = templateName;
+	    		}
+    		}
+    	} else {
+    		possibleNames = new String[] { templateName };
+    	}
         for (String name : possibleNames) {
             final XpandResource tpl = getResourceManager().loadXpandResource(name);
             if (tpl != null) {
@@ -175,31 +193,6 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
 //    		registeredAdvices.addAll(Arrays.asList(aspects.getAdvices()));
 //    	}
 //	}
-
-	private List<String> getPossibleNames(final String name, final String[] importedNs) {
-        final String typeName = TypeNameUtil.getTypeName(name);
-        final String typesMetamodelName = TypeNameUtil.getMetaModelName(name);
-        final String collectionTypeName = TypeNameUtil.getCollectionTypeName(name);
-
-        final List<String> result = new ArrayList<String>();
-        result.add(name);
-        
-        for (final String string : importedNs) {
-            final StringBuffer s = new StringBuffer();
-            if (collectionTypeName != null) {
-                s.append(collectionTypeName).append("[");
-            }
-            if (typesMetamodelName != null) {
-                s.append(typesMetamodelName).append("!");
-            }
-            s.append(string).append(SyntaxConstants.NS_DELIM).append(typeName);
-            if (collectionTypeName != null) {
-                s.append("]");
-            }
-            result.add(s.toString());
-        }
-        return result;
-    }
 
     /**
      * resolves the correct definition (using parametric polymorphism)
@@ -227,13 +220,13 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
                 EClassifier t = null;
                 boolean complete = true;
                 for (int j = 0; (j < paramTypes.length) && complete; j++) {
-                    t = ctx.getTypeForName(def.getParams()[j].getType().getValue());
+                    t = def.getParams()[j].getTypeForName(ctx);
                     if (t == null) {
                         complete = false;
                     }
                     defsParamTypes.add(t);
                 }
-                t = ctx.getTypeForName(def.getTargetType());
+                t = def.getTargetType().getTypeForName(ctx);
                 if (t == null) {
                     complete = false;
                 } else {
@@ -244,6 +237,6 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
                 }
             }
         }
-		return PolymorphicResolver.filterDefinition(resolvedDefs, target, Arrays.asList(paramTypes));
+		return PolymorphicResolver.filterDefinition(resolvedDefs, target, Arrays.asList(paramTypes), ctx.getOCLEnvironment());
     }
 }

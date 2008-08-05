@@ -1,16 +1,21 @@
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
 package org.eclipse.gmf.internal.xpand.eval;
 
 import org.eclipse.gmf.internal.xpand.ast.Statement;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
-import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 
 public class EvaluationListener {
 
-	public void enter(Expression expresssion, ExecutionContext context) {
-	}
-	public void leave(Expression expression, ExecutionContext context) {
-	}
 	public void enter(Statement stmt, XpandExecutionContext context) {
 	}
 	public void leave(Statement stmt, XpandExecutionContext context) {

@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +7,7 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand.ast;
 
@@ -26,64 +23,53 @@ import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
-import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
-import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
+import org.eclipse.gmf.internal.xpand.ocl.TypeHelper;
+import org.eclipse.ocl.cst.OCLExpressionCS;
+import org.eclipse.ocl.cst.PathNameCS;
 
 /**
  * @author Sven Efftinge
  */
 public class ExpandStatement extends Statement {
 
-    private final boolean foreach;
+    private final boolean isForeach;
 
-    private final Expression[] parameters;
+    private final ExpressionHelper[] parameters;
 
-    private final Expression separator;
+    private final ExpressionHelper separator;
 
-    private final Expression target;
+    private final ExpressionHelper target;
 
-    private final Identifier definition;
+    private final String definition;
 
-    public ExpandStatement(final int start, final int end, final int line, final Identifier definition,
-            final Expression target, final Expression separator, final Expression[] parameters, final boolean foreach) {
+    public ExpandStatement(final int start, final int end, final int line, final PathNameCS definition,
+            final OCLExpressionCS target, final OCLExpressionCS separator, final OCLExpressionCS[] parameters, final boolean foreach) {
         super(start, end, line);
-        this.definition = definition;
-        this.target = target;
-        this.separator = separator;
-        this.parameters = parameters != null ? parameters : new Expression[0];
-        this.foreach = foreach;
-    }
-
-    public Identifier getDefinition() {
-        return definition;
-    }
-
-    public boolean isForeach() {
-        return foreach;
-    }
-
-    public Expression[] getParameters() {
-        return parameters;
-    }
-
-    public Expression getSeparator() {
-        return separator;
-    }
-
-    public Expression getTarget() {
-        return target;
+        this.definition = TypeHelper.toString(definition);
+        this.target = new ExpressionHelper(target);
+        this.separator = new ExpressionHelper(separator);
+        if (parameters == null) {
+        	this.parameters = new ExpressionHelper[0];
+        } else {
+        	this.parameters = new ExpressionHelper[parameters.length];
+        	for (int i = 0; i < parameters.length; i++) {
+        		this.parameters[i] = new ExpressionHelper(parameters[i]);
+        	}
+        }
+        this.isForeach = foreach;
     }
 
     public void analyze(final XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
-        final EClassifier[] paramTypes = new EClassifier[getParameters().length];
-        for (int i = 0; i < getParameters().length; i++) {
-            paramTypes[i] = getParameters()[i].analyze(ctx, issues);
+        final EClassifier[] paramTypes = new EClassifier[parameters.length];
+        for (int i = 0; i < parameters.length; i++) {
+            paramTypes[i] = parameters[i].analyze(ctx, issues);
 
         }
         EClassifier targetType = null;
-        if (isForeach()) {
+        if (isForeach) {
             targetType = target.analyze(ctx, issues);
             if (BuiltinMetaModel.isCollectionType(targetType)) {
             	// XXX [artem] though COLLECTION TYPE *is* ParameterizedType, perhaps
@@ -102,8 +88,7 @@ public class ExpandStatement extends Statement {
         } else {
             final Variable var = ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE);
             if (var == null) {
-                issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR,
-                        "No implicite variable 'this' could be found!", target));
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR, "No implicite variable 'this' could be found!", target));
                 return;
             }
             targetType = (EClassifier) var.getValue();
@@ -114,37 +99,36 @@ public class ExpandStatement extends Statement {
         if ((targetType == null) || Arrays.asList(paramTypes).contains(null)) {
 			return;
 		}
-        final XpandDefinition def = ctx.findDefinition(getDefinition().getValue(), targetType, paramTypes);
+        final XpandDefinition def = ctx.findDefinition(definition, targetType, paramTypes);
         if (def == null) {
             issues.add(new AnalysationIssue(AnalysationIssue.Type.DEFINITION_NOT_FOUND,
-                    "Couldn't find definition " + getDefinition().getValue() + getParamTypeString(paramTypes)
+                    "Couldn't find definition " + definition + getParamTypeString(paramTypes)
                             + " for type " + targetType.getName(), this));
         }
     }
 
     @Override
     public void evaluateInternal(final XpandExecutionContext ctx) {
-        final Object[] params = new Object[getParameters().length];
-        for (int i = 0; i < getParameters().length; i++) {
-            params[i] = getParameters()[i].evaluate(ctx);
+        final Object[] params = new Object[parameters.length];
+        for (int i = 0; i < parameters.length; i++) {
+            params[i] = parameters[i].evaluate(ctx);
         }
         final EClassifier[] paramTypes = new EClassifier[params.length];
         for (int i = 0; i < params.length; i++) {
-            paramTypes[i] = BuiltinMetaModel.getType(params[i]);
+            paramTypes[i] = BuiltinMetaModel.getType(ctx, params[i]);
         }
-        final String defName = getDefinition().getValue();
         final String sep = (String) (separator != null ? separator.evaluate(ctx) : null);
         Object targetObject = null;
-        if (isForeach()) {
+        if (isForeach) {
             targetObject = target.evaluate(ctx);
             if (!(targetObject instanceof Collection)) {
-				throw new EvaluationException("Collection expected!", target);
+				throw new EvaluationException("Collection expected!", this, target.getCST());
 			}
 
             final Collection<?> col = (Collection<?>) targetObject;
             for (final Iterator<?> iter = col.iterator(); iter.hasNext();) {
                 final Object targetObj = iter.next();
-                invokeDefinition(defName, targetObj, params, paramTypes, ctx);
+                invokeDefinition(definition, targetObj, params, paramTypes, ctx);
                 if ((sep != null) && iter.hasNext()) {
                     ctx.getOutput().write(sep);
                 }
@@ -158,7 +142,7 @@ public class ExpandStatement extends Statement {
                 targetObject = var.getValue();
             }
             if (targetObject != null) {
-            	invokeDefinition(defName, targetObject, params, paramTypes, ctx);
+            	invokeDefinition(definition, targetObject, params, paramTypes, ctx);
             } else {
             	// XXX logInfo that feature value is null or conditionally fail?
             	// perhaps, could check if target is feature and multiplicity of the feature is at least 1 and fail then?
@@ -169,21 +153,26 @@ public class ExpandStatement extends Statement {
 
     private void invokeDefinition(final String defName, final Object targetObj, final Object[] params,
             final EClassifier[] paramTypes, XpandExecutionContext ctx) {
-        final EClassifier t = BuiltinMetaModel.getType(targetObj);
+        final EClassifier t = BuiltinMetaModel.getType(ctx, targetObj);
         final XpandDefinition def = ctx.findDefinition(defName, t, paramTypes);
         if (def == null) {
 			throw new EvaluationException("No Definition '" + defName + getParamTypeString(paramTypes) + " for "
                     + t.getName() + "' found!", this);
 		}
+        assert def.getParams().length == params.length;
 
         // register variables
         ctx = ctx.cloneWithoutVariables();
+        // guess, it's important to keet implicit variable in a separate context
+        // to allow arguments with the same name.
         ctx = ctx.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, targetObj));
+        Variable[] vars = new Variable[params.length];
         for (int i = 0; i < def.getParams().length; i++) {
-            final String name = def.getParams()[i].getName().getValue();
+            final String name = def.getParams()[i].getVarName();
             final Object val = params[i];
-            ctx = ctx.cloneWithVariable(new Variable(name, val));
+            vars[i] = new Variable(name, val);
         }
+        ctx = ctx.cloneWithVariable(vars);
         if (def.getOwner() != null) {
             ctx = ctx.cloneWithResource(def.getOwner());
         }
@@ -206,15 +195,14 @@ public class ExpandStatement extends Statement {
         return buff.append(")").toString();
     }
 
-    private String getParamString(final Expression[] paramTypes) {
-        if (paramTypes.length == 0) {
+    private String getParamString() {
+        if (parameters.length == 0) {
 			return "";
 		}
         final StringBuffer buff = new StringBuffer("(");
-        for (int i = 0; i < paramTypes.length; i++) {
-            final Expression type = paramTypes[i];
-            buff.append(type);
-            if (i + 1 < paramTypes.length) {
+        for (int i = 0; i < parameters.length; i++) {
+            buff.append(parameters[i]);
+            if (i + 1 < parameters.length) {
                 buff.append(", ");
             }
         }
@@ -223,8 +211,8 @@ public class ExpandStatement extends Statement {
 
     @Override
     public String toString() {
-        return "EXPAND " + definition + getParamString(getParameters())
-                + (target != null ? (isForeach() ? " FOREACH " : " FOR ") + target : "")
+        return "EXPAND " + definition + getParamString()
+                + (target != null ? (isForeach ? " FOREACH " : " FOR ") + target : "")
                 + (separator != null ? " SEPARATOR " + separator : "");
     }
 

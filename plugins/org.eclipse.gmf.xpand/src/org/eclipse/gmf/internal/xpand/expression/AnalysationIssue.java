@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,14 +7,15 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand.expression;
 
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
+import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
 
 /**
+ * FIXME: refactor - hide enum type into factory method, check all types are still in use, get rid of isWarningNotError
  * @author Sven Efftinge
  * @author Arno Haase
  */
@@ -54,6 +53,11 @@ public class AnalysationIssue {
 
     public AnalysationIssue(final Type type, final String message, final SyntaxElement element) {
     	this(type, message, element, false);
+    }
+
+    // FIXME Hack to get over compilation issues. need to deal with absence of line information in the CST anyway.
+    public AnalysationIssue(final Type type, final String message, final ExpressionHelper exprHelper) {
+    	this(type, message, null, false);
     }
 
     public AnalysationIssue(final Type type, final String message, final SyntaxElement element, boolean isWarningNotError) {

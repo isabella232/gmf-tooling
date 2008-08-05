@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,12 +7,10 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,24 +35,25 @@ public class XpandFacade {
 
     public void evaluate(final String definitionName, final Object targetObject, Object[] params) {
         params = params == null ? new Object[0] : params;
-        final EClassifier targetType = BuiltinMetaModel.getType(targetObject);
+        final EClassifier targetType = BuiltinMetaModel.getType(ctx, targetObject);
         final EClassifier[] paramTypes = new EClassifier[params.length];
         for (int i = 0; i < paramTypes.length; i++) {
-            paramTypes[i] = BuiltinMetaModel.getType(params[i]);
+            paramTypes[i] = BuiltinMetaModel.getType(ctx, params[i]);
         }
 
         final XpandDefinition def = ctx.findDefinition(definitionName, targetType, paramTypes);
-        if (def == null)
+        if (def == null) {
             throw new EvaluationException("No Definition " + definitionName + getParamString(paramTypes) + " for "
                     + targetType.getName() + " could be found!", null);
+        }
 
-        ArrayList<Variable> vars = new ArrayList<Variable>(params.length + 1);
-        vars.add(new Variable(ExecutionContext.IMPLICIT_VARIABLE, targetObject));
+        ctx = ctx.cloneWithResource(def.getOwner());
+        Variable[] vars = new Variable[params.length + 1];
+        vars[0] = new Variable(ExecutionContext.IMPLICIT_VARIABLE, targetObject);
         for (int i = 0; i < params.length; i++) {
-            vars.add(new Variable(def.getParams()[i].getName().getValue(), params[i]));
+            vars[1+i] = new Variable(def.getParams()[i].getVarName(), params[i]);
         }
         ctx = ctx.cloneWithVariable(vars);
-        ctx = ctx.cloneWithResource(def.getOwner());
         def.evaluate(ctx);
     }
 

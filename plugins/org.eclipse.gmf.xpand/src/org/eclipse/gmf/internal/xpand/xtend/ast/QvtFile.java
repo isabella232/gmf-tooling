@@ -19,6 +19,7 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 import org.eclipse.m2m.internal.qvt.oml.QvtMessage;
 import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledModule;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Helper;
@@ -57,7 +58,7 @@ public class QvtFile implements QvtResource {
 			for (int i = 0; i < compiledModule.getErrors().length; i++) {
 				QvtMessage qvtMessage = compiledModule.getErrors()[i];
 				if (qvtMessage.getSeverity() == QvtMessage.SEVERITY_ERROR) {
-					issues.add(new AnalysationIssue(AnalysationIssue.Type.SYNTAX_ERROR, qvtMessage.toString(), null));
+					issues.add(new AnalysationIssue(AnalysationIssue.Type.SYNTAX_ERROR, qvtMessage.toString(), (SyntaxElement) null));
 				}
 			}
 		}
