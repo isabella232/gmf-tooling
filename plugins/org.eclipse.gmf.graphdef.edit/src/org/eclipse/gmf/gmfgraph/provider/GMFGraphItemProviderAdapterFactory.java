@@ -1330,6 +1330,29 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.Rectangle2D} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected Rectangle2DItemProvider rectangle2DItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.Rectangle2D}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRectangle2DAdapter() {
+		if (rectangle2DItemProvider == null) {
+			rectangle2DItemProvider = new Rectangle2DItemProvider(this);
+		}
+
+		return rectangle2DItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1509,6 +1532,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		if (stackLayoutItemProvider != null) stackLayoutItemProvider.dispose();
 		if (svgFigureItemProvider != null) svgFigureItemProvider.dispose();
 		if (svgPropertyItemProvider != null) svgPropertyItemProvider.dispose();
+		if (rectangle2DItemProvider != null) rectangle2DItemProvider.dispose();
 	}
 
 }

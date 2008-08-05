@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: SVGFigureItemProvider.java,v 1.2 2008/08/04 12:45:23 dstadnik Exp $
+ * $Id: SVGFigureItemProvider.java,v 1.3 2008/08/05 12:41:53 dstadnik Exp $
  */
 package org.eclipse.gmf.gmfgraph.provider;
 
@@ -127,6 +127,7 @@ public class SVGFigureItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getSVGFigure_Properties());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getSVGFigure_AreaOfInterest());
 		}
 		return childrenFeatures;
 	}
@@ -186,6 +187,7 @@ public class SVGFigureItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGraphPackage.SVG_FIGURE__PROPERTIES:
+			case GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -207,6 +209,11 @@ public class SVGFigureItemProvider
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getSVGFigure_Properties(),
 				 GMFGraphFactory.eINSTANCE.createSVGProperty()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getSVGFigure_AreaOfInterest(),
+				 GMFGraphFactory.eINSTANCE.createRectangle2D()));
 	}
 
 	/**
