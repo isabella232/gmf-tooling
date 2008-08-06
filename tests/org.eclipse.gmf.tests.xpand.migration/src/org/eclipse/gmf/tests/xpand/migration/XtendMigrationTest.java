@@ -126,6 +126,10 @@ public class XtendMigrationTest extends TestCase {
 	public void testStringLiteral() throws IOException, MigrationException {
 		checkMigration("StringLiteral");
 	}
+	
+	public void testSwitchExpression() throws IOException, MigrationException {
+		checkMigration("SwitchExpression");
+	}
 
 	private String checkMigration(String xtendResourceName) throws IOException, MigrationException {
 		return checkMigration(new MigrationFacade(testResourceManager, getResourceName(xtendResourceName)), xtendResourceName);

@@ -1,0 +1,31 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+String integerSwitch(Integer value, String value1, String value2, String defaultValue) :
+	switch (value) { 
+		case 10 : value1 
+		case 20 : value2 
+		default: defaultValue
+	}
+;
+
+String onlyDefaultSwitch(Integer value, String defaultValue) :
+	switch (value) { 
+		default: defaultValue
+	}
+;
+
+ecore::EObject userObjectsSwitch(ecore::EObject value, ecore::EObject cond1, ecore::EObject value1, ecore::EObject cond2, ecore::EObject value2, ecore::EObject defaultValue) :
+	switch (value) {
+		case cond1: value1
+		case cond2: value2
+		default: defaultValue
+	}
+;
+
+String switchWithExpressions(Integer value, String value1, String value2, String defaultValue) :
+	switch (value) { 
+		case 10 + 1 : value1.toFirstUpper() 
+		case 20 + 5 : value2.toFirstUpper() 
+		default: defaultValue
+	} 
+;
