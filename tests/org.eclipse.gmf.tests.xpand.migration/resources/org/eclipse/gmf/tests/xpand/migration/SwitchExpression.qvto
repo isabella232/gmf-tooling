@@ -4,30 +4,28 @@ library SwitchExpression;
 
 helper integerSwitch(value : Integer, value1 : String, value2 : String, defaultValue : String) : String {
 	return switch { 
-		(value = 10) ? value1;
-		(value = 20) ? value2; 
-		else ? defaultValue 
+		case (value = 10) value1;
+		case (value = 20) value2; 
+		else defaultValue; 
 	}
 }
 
 helper onlyDefaultSwitch(value : Integer, defaultValue : String) : String {
-	return switch { 
-		else ? defaultValue 
-	}
+	return defaultValue
 }
 
 helper userObjectsSwitch(value : ecore::EObject, cond1 : ecore::EObject, value1 : ecore::EObject, cond2 : ecore::EObject, value2 : ecore::EObject, defaultValue : ecore::EObject) : ecore::EObject {
 	return switch {
-		(value = cond1) ? value1;
-		(value = cond2) ? value2;
-		else ? defaultValue
+		case (value = cond1) value1;
+		case (value = cond2) value2;
+		else defaultValue;
 	}
 }
 
 helper switchWithExpressions(value : Integer, value1 : String, value2 : String, defaultValue : String) : String {
 	return switch { 
-		(value = 10 + 1) ? value1.firstToUpper(); 
-		(value = 20 + 5) ? value2.firstToUpper(); 
-		else ? defaultValue
+		case (value = 10 + 1) value1.firstToUpper(); 
+		case (value = 20 + 5) value2.firstToUpper(); 
+		else defaultValue;
 	} 
 }

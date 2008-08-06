@@ -1,6 +1,6 @@
 
 library LetExpression;
 
-helper letExpression(result : String) : String {
-	return let tmpVar = result in tmpVar
+helper letExpression(param : String) : String {
+	return let tmpVar = param in tmpVar
 }
