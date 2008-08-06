@@ -302,26 +302,30 @@ public class MigrationFacade {
 	}
 
 	private void migrateSwitchExpression(SwitchExpression switchExpression, ExecutionContext ctx) throws MigrationException {
-		writeln("switch { ");
-		for (Case caseExpression : switchExpression.getCases()) {
-			write("(");
-			migrateExpression(switchExpression.getSwitchExpr(), ctx);
-			write(" = ");
-			migrateExpression(caseExpression.getCondition(), ctx);
-			write(") ? ");
-			migrateExpression(caseExpression.getThenPart(), ctx);
+		if (switchExpression.getCases().size() == 0) {
+			migrateExpression(switchExpression.getDefaultExpr(), ctx);
+		} else {
+			writeln("switch { ");
+			for (Case caseExpression : switchExpression.getCases()) {
+				write("case (");
+				migrateExpression(switchExpression.getSwitchExpr(), ctx);
+				write(" = ");
+				migrateExpression(caseExpression.getCondition(), ctx);
+				write(") ");
+				migrateExpression(caseExpression.getThenPart(), ctx);
+				writeln(";");
+			}
+			write("else ");
+			migrateExpression(switchExpression.getDefaultExpr(), ctx);
 			writeln(";");
+			writeln(" }");
 		}
-		write("else ? ");
-		migrateExpression(switchExpression.getDefaultExpr(), ctx);
-		writeln("");
-		writeln(" }");
 	}
 
 	private void migrateStringLiteral(StringLiteral expression, ExecutionContext ctx) {
-		write("\"");
+		write("'");
 		write(expression.getValue());
-		write("\"");
+		write("'");
 	}
 
 	private void migrateRealLiteral(RealLiteral realLiteral, ExecutionContext ctx) {
