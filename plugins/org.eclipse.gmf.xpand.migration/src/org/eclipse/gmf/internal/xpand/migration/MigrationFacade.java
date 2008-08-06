@@ -30,6 +30,7 @@ import org.eclipse.gmf.internal.xpand.expression.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.expression.ast.BooleanLiteral;
 import org.eclipse.gmf.internal.xpand.expression.ast.BooleanOperation;
+import org.eclipse.gmf.internal.xpand.expression.ast.Case;
 import org.eclipse.gmf.internal.xpand.expression.ast.Cast;
 import org.eclipse.gmf.internal.xpand.expression.ast.ChainExpression;
 import org.eclipse.gmf.internal.xpand.expression.ast.CollectionExpression;
@@ -291,13 +292,30 @@ public class MigrationFacade {
 			} else if (expression instanceof StringLiteral) {
 				migrateStringLiteral((StringLiteral) expression, ctx);
 			} else if (expression instanceof SwitchExpression) {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, expression.getClass().getName());
+				migrateSwitchExpression((SwitchExpression) expression, ctx);
 			} else {
 				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, expression.getClass().getName());
 			}
 		} finally {
 			expressionsStack.pop();
 		}
+	}
+
+	private void migrateSwitchExpression(SwitchExpression switchExpression, ExecutionContext ctx) throws MigrationException {
+		writeln("switch { ");
+		for (Case caseExpression : switchExpression.getCases()) {
+			write("(");
+			migrateExpression(switchExpression.getSwitchExpr(), ctx);
+			write(" = ");
+			migrateExpression(caseExpression.getCondition(), ctx);
+			write(") ? ");
+			migrateExpression(caseExpression.getThenPart(), ctx);
+			writeln(";");
+		}
+		write("else ? ");
+		migrateExpression(switchExpression.getDefaultExpr(), ctx);
+		writeln("");
+		writeln(" }");
 	}
 
 	private void migrateStringLiteral(StringLiteral expression, ExecutionContext ctx) {
@@ -523,11 +541,13 @@ public class MigrationFacade {
 		String opName = operationCall.getName().getValue();
 		if ("!".equals(opName)) {
 			write("not ", placeholder);
-		} else if ("-".equals(opName)) {
+		} else if ("-".equals(opName) || "+".equals(opName)) {
 			if (operationCall.getParams().length == 0) {
-				write("-", placeholder);
+				write(opName, placeholder);
 			} else if (operationCall.getParams().length == 1) {
-				write(" - ");
+				write(" ");
+				write(opName);
+				write(" ");
 			} else {
 				throw new MigrationException(Type.UNSUPPORTED_INFIX_OPERATION_PARAMETER, "\"" + opName + "\" only 0 or 1 parameters supported, passed: " + operationCall.getParams().length);
 			}
@@ -539,7 +559,7 @@ public class MigrationFacade {
 	private boolean isInfixOperation(OperationCall operationCall) {
 		// TODO: add other infix operations to this list
 		String opName = operationCall.getName().getValue();
-		return "!".equals(opName) || "-".equals(opName);
+		return "!".equals(opName) || "-".equals(opName) || "+".equals(opName);
 	}
 
 	private void migrateFeatureCall(FeatureCall featureCall, ExecutionContext ctx) throws MigrationException {
