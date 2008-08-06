@@ -11,71 +11,88 @@
  */
 package org.eclipse.gmf.internal.xpand;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.EvaluationException;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
+import org.eclipse.gmf.internal.xpand.model.Scope;
+import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 
 /**
  * @author Sven Efftinge
  */
 public class XpandFacade {
-    private XpandExecutionContext ctx = null;
+	private final Scope scope;
+	private ExecutionContext ctx;
 
-    public XpandFacade(final XpandExecutionContext ctx) {
-        this.ctx = ctx;
-    }
+	public XpandFacade(Scope scope) {
+		this(scope, null);
+	}
 
-    public void evaluate(final String definitionName, final Object targetObject, Object[] params) {
-        params = params == null ? new Object[0] : params;
-        final EClassifier targetType = BuiltinMetaModel.getType(ctx, targetObject);
-        final EClassifier[] paramTypes = new EClassifier[params.length];
-        for (int i = 0; i < paramTypes.length; i++) {
-            paramTypes[i] = BuiltinMetaModel.getType(ctx, params[i]);
-        }
+	public XpandFacade(Scope scope, ExecutionContext ctx) {
+		assert scope != null;
+		this.scope = scope;
+		this.ctx = ctx;
+	}
 
-        final XpandDefinition def = ctx.findDefinition(definitionName, targetType, paramTypes);
-        if (def == null) {
-            throw new EvaluationException("No Definition " + definitionName + getParamString(paramTypes) + " for "
-                    + targetType.getName() + " could be found!", null);
-        }
+	public void evaluate(final String definitionName, final Object targetObject, Object[] params) {
+		params = params == null ? new Object[0] : params;
+		final EClassifier targetType = BuiltinMetaModel.getType(targetObject);
+		final EClassifier[] paramTypes = new EClassifier[params.length];
+		for (int i = 0; i < paramTypes.length; i++) {
+			paramTypes[i] = BuiltinMetaModel.getType(params[i]);
+		}
 
-        ctx = ctx.cloneWithResource(def.getOwner());
-        Variable[] vars = new Variable[params.length + 1];
-        vars[0] = new Variable(ExecutionContext.IMPLICIT_VARIABLE, targetObject);
-        for (int i = 0; i < params.length; i++) {
-            vars[1+i] = new Variable(def.getParams()[i].getVarName(), params[i]);
-        }
-        ctx = ctx.cloneWithVariable(vars);
-        def.evaluate(ctx);
-    }
+		final XpandDefinition def = getContext().findDefinition(definitionName, targetType, paramTypes);
+		if (def == null) {
+			throw new EvaluationException("No Definition " + definitionName + getParamString(paramTypes) + " for " + targetType.getName() + " could be found!", null);
+		}
 
-    private String getParamString(final EClassifier[] paramTypes) {
-        if (paramTypes.length == 0)
-            return "";
-        final StringBuffer buff = new StringBuffer("(");
-        for (int i = 0; i < paramTypes.length; i++) {
-            final EClassifier t = paramTypes[i];
-            buff.append(t.getName());
-            if (i + 1 < paramTypes.length) {
-                buff.append(",");
-            }
-        }
-        buff.append(")");
-        return buff.toString();
-    }
+		ArrayList<Variable> vars = new ArrayList<Variable>(params.length + 1);
+		vars.add(new Variable(ExecutionContext.IMPLICIT_VARIABLE, targetObject));
+		for (int i = 0; i < params.length; i++) {
+			vars.add(new Variable(def.getParams()[i].getVarName(), params[i]));
+		}
+		ExecutionContextImpl ctx = new ExecutionContextImpl(scope, def.getOwner(), vars);
+		def.evaluate(ctx);
+	}
 
-    public AnalysationIssue[] analyze(final String templateName) {
-        final Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
-        final XpandResource tpl = ctx.findTemplate(templateName);
-        tpl.analyze(ctx, issues);
-        return issues.toArray(new AnalysationIssue[issues.size()]);
-    }
+	// FIXME Actually, we don't need the whole context, just currentResource(),
+	// but that would be another story to fix.
+	private ExecutionContext getContext() {
+		if (ctx == null) {
+			ctx = new ExecutionContextImpl(scope);
+		}
+		return ctx;
+	}
+
+	private String getParamString(final EClassifier[] paramTypes) {
+		if (paramTypes.length == 0) {
+			return "";
+		}
+		final StringBuilder buff = new StringBuilder("(");
+		for (int i = 0; i < paramTypes.length; i++) {
+			final EClassifier t = paramTypes[i];
+			buff.append(t.getName());
+			if (i + 1 < paramTypes.length) {
+				buff.append(",");
+			}
+		}
+		buff.append(")");
+		return buff.toString();
+	}
+
+	public AnalysationIssue[] analyze(final String templateName) {
+		final Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
+		final XpandResource tpl = scope.findTemplate(templateName);
+		tpl.analyze(new ExecutionContextImpl(scope, tpl, null), issues);
+		return issues.toArray(new AnalysationIssue[issues.size()]);
+	}
 }

@@ -11,11 +11,11 @@
  */
 package org.eclipse.gmf.internal.xpand.ast;
 
-import org.eclipse.gmf.internal.xpand.expression.TypeNameUtil;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.ocl.DeclaredParameter;
 import org.eclipse.gmf.internal.xpand.ocl.TypeHelper;
+import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
 import org.eclipse.ocl.cst.TypeCS;
 
 /**

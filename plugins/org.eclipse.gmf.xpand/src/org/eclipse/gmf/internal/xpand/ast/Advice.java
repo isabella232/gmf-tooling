@@ -17,14 +17,14 @@ import java.util.regex.Pattern;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.expression.TypeNameUtil;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.model.XpandAdvice;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.ocl.DeclaredParameter;
+import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
 import org.eclipse.ocl.cst.TypeCS;
 
 /**
@@ -55,7 +55,7 @@ public class Advice extends AbstractDefinition implements XpandAdvice {
     }
 
     @Override
-    public void analyze(XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
+    public void analyze(ExecutionContext ctx, final Set<AnalysationIssue> issues) {
         ctx = ctx.cloneWithVariable(new Variable(DEF_VAR_NAME, BuiltinMetaModel.DEFINITION_TYPE));
         super.analyze(ctx, issues);
     }
@@ -80,7 +80,7 @@ public class Advice extends AbstractDefinition implements XpandAdvice {
 
     private Pattern p = null;
 
-    public boolean matches(final XpandDefinition def, XpandExecutionContext ctx) {
+    public boolean matches(final XpandDefinition def, ExecutionContext ctx) {
         if (p == null) {
             p = Pattern.compile(pointCut.getValue().replaceAll("\\*", ".*"));
         }
@@ -97,7 +97,7 @@ public class Advice extends AbstractDefinition implements XpandAdvice {
             }
             if ((params.length == paramTypes.length) || (wildParams && (params.length <= paramTypes.length))) {
 
-                ctx = (XpandExecutionContext) ctx.cloneWithResource(this.owner);	//need to resolve in the context of the aspect
+                ctx = (ExecutionContext) ctx.cloneWithResource(this.owner);	//need to resolve in the context of the aspect
                 final EClassifier at = type.getTypeForName(ctx);
                 if (BuiltinMetaModel.isAssignableFrom(at, t)) {
                     for (int i = 0; i < params.length; i++) {

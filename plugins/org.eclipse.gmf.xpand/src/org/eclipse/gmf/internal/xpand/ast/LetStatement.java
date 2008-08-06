@@ -15,10 +15,10 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
 import org.eclipse.ocl.cst.OCLExpressionCS;
 
@@ -40,7 +40,7 @@ public class LetStatement extends Statement {
 		this.body = body;
 	}
 
-	public void analyze(XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
+	public void analyze(ExecutionContext ctx, final Set<AnalysationIssue> issues) {
 		EClassifier t = varValue.analyze(ctx, issues);
 		if (t == null) {
 			t = EcorePackage.eINSTANCE.getEObject();
@@ -52,7 +52,7 @@ public class LetStatement extends Statement {
 	}
 
 	@Override
-	public void evaluateInternal(XpandExecutionContext ctx) {
+	public void evaluateInternal(ExecutionContext ctx) {
 		ctx = ctx.cloneWithVariable(new Variable(varName.getValue(), varValue.evaluate(ctx)));
 		for (Statement statement : body) {
 			statement.evaluate(ctx);

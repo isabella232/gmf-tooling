@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,15 +7,14 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand.ast;
 
 import java.util.Set;
 
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 
 /**
  * @author Sven Efftinge
@@ -41,13 +38,13 @@ public class TextStatement extends Statement {
         return deleteLine;
     }
 
-    public void analyze(final XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
+    public void analyze(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
         // Nothing to check here
     }
 
     @Override
-    public void evaluateInternal(final XpandExecutionContext ctx) {
-        ctx.getOutput().write(getValue());
+    public void evaluateInternal(final ExecutionContext ctx) {
+        ctx.getScope().getOutput().write(getValue());
     }
 
 }

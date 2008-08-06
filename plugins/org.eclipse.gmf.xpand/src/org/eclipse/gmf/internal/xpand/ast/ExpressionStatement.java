@@ -13,8 +13,8 @@ package org.eclipse.gmf.internal.xpand.ast;
 
 import java.util.Set;
 
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
 import org.eclipse.ocl.cst.OCLExpressionCS;
 
@@ -30,15 +30,15 @@ public class ExpressionStatement extends org.eclipse.gmf.internal.xpand.ast.Stat
         this.expression = new ExpressionHelper(exprCS);
     }
 
-    public void analyze(final XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
+    public void analyze(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
     	expression.analyze(ctx, issues);
     }
 
     @Override
-    public void evaluateInternal(final XpandExecutionContext ctx) {
+    public void evaluateInternal(final ExecutionContext ctx) {
     	Object val = expression.evaluate(ctx);
         if (val != null) {
-            ctx.getOutput().write(val.toString());
+            ctx.getScope().getOutput().write(val.toString());
         }
     }
 }

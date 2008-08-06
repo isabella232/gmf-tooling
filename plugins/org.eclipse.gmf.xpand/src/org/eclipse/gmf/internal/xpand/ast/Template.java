@@ -13,11 +13,11 @@ package org.eclipse.gmf.internal.xpand.ast;
 
 import java.util.Set;
 
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.XpandAdvice;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 
 /**
@@ -67,8 +67,8 @@ public class Template extends SyntaxElement implements XpandResource {
 		return definitions;
 	}
 
-	public void analyze(XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
-		ctx = (XpandExecutionContext) ctx.cloneWithResource(this);
+	public void analyze(ExecutionContext ctx, final Set<AnalysationIssue> issues) {
+		ctx = (ExecutionContext) ctx.cloneWithResource(this);
 		for (Definition element : definitions) {
 			element.analyze(ctx, issues);
 		}

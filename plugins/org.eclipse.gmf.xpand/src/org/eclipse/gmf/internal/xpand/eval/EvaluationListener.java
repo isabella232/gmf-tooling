@@ -12,12 +12,12 @@
 package org.eclipse.gmf.internal.xpand.eval;
 
 import org.eclipse.gmf.internal.xpand.ast.Statement;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 
 public class EvaluationListener {
 
-	public void enter(Statement stmt, XpandExecutionContext context) {
+	public void enter(Statement stmt, ExecutionContext context) {
 	}
-	public void leave(Statement stmt, XpandExecutionContext context) {
+	public void leave(Statement stmt, ExecutionContext context) {
 	}
 }

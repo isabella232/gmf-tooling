@@ -9,7 +9,7 @@
  *     Sven Efftinge - Initial API and implementation
  *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
-package org.eclipse.gmf.internal.xpand.expression;
+package org.eclipse.gmf.internal.xpand.model;
 
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;

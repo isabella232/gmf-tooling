@@ -16,10 +16,10 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.EvaluationException;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
 import org.eclipse.ocl.cst.OCLExpressionCS;
 
@@ -41,7 +41,7 @@ public class FileStatement extends Statement {
         this.mode = mode;
     }
 
-    public void analyze(final XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
+    public void analyze(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
         final EClassifier result = fileName.analyze(ctx, issues);
         if (!BuiltinMetaModel.isAssignableFrom(EcorePackage.eINSTANCE.getEString(), result)) {
             issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "String expected!", fileName));
@@ -52,7 +52,7 @@ public class FileStatement extends Statement {
     }
 
     @Override
-    public void evaluateInternal(final XpandExecutionContext ctx) {
+    public void evaluateInternal(final ExecutionContext ctx) {
         final Object result = fileName.evaluate(ctx);
         if (result == null) {
 			throw new EvaluationException("Nullevaluation", this, fileName.getCST());
@@ -62,10 +62,10 @@ public class FileStatement extends Statement {
         if (mode != null) {
             modeVal = mode.getValue();
         }
-        ctx.getOutput().openFile(fileName, modeVal);
+        ctx.getScope().getOutput().openFile(fileName, modeVal);
         for (Statement element : body) {
             element.evaluate(ctx);
         }
-        ctx.getOutput().closeFile();
+        ctx.getScope().getOutput().closeFile();
     }
 }

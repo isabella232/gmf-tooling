@@ -15,14 +15,14 @@ import java.util.Arrays;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 
 final class DefinitionSignature {
 	private final String myName;
 	private final EClassifier myType;
 	private final EClassifier[] myArgs;
 
-	public static DefinitionSignature create(XpandExecutionContext ctx, XpandDefinition def) {
+	public static DefinitionSignature create(ExecutionContext ctx, XpandDefinition def) {
 		if (def == null || ctx == null) {
 			return null;
 		}

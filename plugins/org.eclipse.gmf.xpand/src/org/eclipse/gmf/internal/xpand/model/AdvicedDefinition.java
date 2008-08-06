@@ -12,7 +12,6 @@
 package org.eclipse.gmf.internal.xpand.model;
 
 import org.eclipse.gmf.internal.xpand.ast.Advice;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.ocl.DeclaredParameter;
 import org.eclipse.gmf.internal.xpand.ocl.TypeHelper;
 
@@ -31,8 +30,8 @@ public class AdvicedDefinition implements XpandDefinition {
         return definition.getOwner();
     }
 
-    public void evaluate(final XpandExecutionContext ctx) {
-        final XpandExecutionContext ctx1 = (XpandExecutionContext) ctx.cloneWithVariable(new Variable(
+    public void evaluate(final ExecutionContext ctx) {
+        final ExecutionContext ctx1 = (ExecutionContext) ctx.cloneWithVariable(new Variable(
                 Advice.DEF_VAR_NAME, new XpandDefinitionWrap(definition, ctx)));
         advice.evaluate(ctx1);
     }

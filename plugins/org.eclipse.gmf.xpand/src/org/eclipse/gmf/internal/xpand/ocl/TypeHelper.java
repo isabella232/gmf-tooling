@@ -12,7 +12,7 @@
 package org.eclipse.gmf.internal.xpand.ocl;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.ocl.cst.CollectionTypeCS;
 import org.eclipse.ocl.cst.PathNameCS;
 import org.eclipse.ocl.cst.PrimitiveTypeCS;
@@ -30,7 +30,7 @@ public class TypeHelper {
 		this.typeCS = typeCS;
 	}
 
-	public EClassifier getTypeForName(XpandExecutionContext ctx) {
+	public EClassifier getTypeForName(ExecutionContext ctx) {
 		return new EmbeddedOCLAnalyzer(ctx.getOCLEnvironment()).typeForName(typeCS);
 	}
 

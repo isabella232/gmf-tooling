@@ -9,13 +9,12 @@
  *     Sven Efftinge - Initial API and implementation
  *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
-package org.eclipse.gmf.internal.xpand.expression;
+package org.eclipse.gmf.internal.xpand.model;
 
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
-import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
 import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
 
@@ -36,27 +35,19 @@ public interface ExecutionContext {
 	 */
 	public final static String IMPLICIT_VARIABLE = "this";
 
-	<T extends ExecutionContext> T cloneWithVariable(Variable... v);
+	ExecutionContext cloneWithVariable(Variable... v);
 
-	<T extends ExecutionContext> T cloneWithoutVariables();
-
-	<T extends ExecutionContext> T cloneWithResource(ResourceMarker ns);
+	ExecutionContext cloneWithResource(ResourceMarker ns);
 
 	Variable getVariable(String name);
-
-	Variable getGlobalVariable(String name);
-
-	ResourceMarker currentResource();
 
 	GenericExtension getExtension(String functionName, EClassifier[] parameterTypes);
 
 	Set<? extends GenericExtension> getAllExtensions();
 
-	// instead of ResourceLoaderFactory.createResourceLoader()
-	Class<?> loadClass(String value);
-
+	XpandDefinition findDefinition(String name, EClassifier target, EClassifier[] paramTypes);
+	
 	EcoreEnvironment getOCLEnvironment();
 
-	// [artem] if not null, should be notified about entering/leaving xpand ast elements
-	EvaluationListener getEvaluationListener();
+	Scope getScope();
 }

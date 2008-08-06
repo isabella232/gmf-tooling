@@ -18,11 +18,11 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.EvaluationException;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.model.XpandIterator;
 import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
 import org.eclipse.ocl.cst.OCLExpressionCS;
@@ -54,7 +54,7 @@ public class ForEachStatement extends Statement {
         iteratorName = iterator;
     }
 
-    public void analyze(XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
+    public void analyze(ExecutionContext ctx, final Set<AnalysationIssue> issues) {
     	EClassifier t = target.analyze(ctx, issues);
         if (separator != null) {
             final EClassifier sepT = separator.analyze(ctx, issues);
@@ -84,7 +84,7 @@ public class ForEachStatement extends Statement {
     }
 
     @Override
-    public void evaluateInternal(XpandExecutionContext ctx) {
+    public void evaluateInternal(ExecutionContext ctx) {
         final Object o = target.evaluate(ctx);
 
         if (!(o instanceof Collection)) {
@@ -104,7 +104,7 @@ public class ForEachStatement extends Statement {
                 body[i].evaluate(ctx);
             }
             if ((sep != null) && iter.hasNext()) {
-                ctx.getOutput().write(sep);
+                ctx.getScope().getOutput().write(sep);
             }
             iterator.increment();
         }

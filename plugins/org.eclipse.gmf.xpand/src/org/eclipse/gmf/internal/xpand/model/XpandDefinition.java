@@ -18,7 +18,7 @@ public interface XpandDefinition {
 
     XpandResource getOwner();
 
-    void evaluate(XpandExecutionContext ctx);
+    void evaluate(ExecutionContext ctx);
 
     DeclaredParameter[] getParams();
 

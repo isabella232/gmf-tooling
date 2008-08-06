@@ -24,7 +24,6 @@ import java.util.TreeMap;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
-import org.eclipse.gmf.internal.xpand.expression.TypeNameUtil;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtFile;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;

@@ -22,7 +22,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import org.eclipse.gmf.internal.xpand.Activator;
-import org.eclipse.gmf.internal.xpand.expression.TypeNameUtil;
 import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
 
 /**

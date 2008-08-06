@@ -13,11 +13,9 @@ package org.eclipse.gmf.internal.xpand.ast;
 
 import java.util.Set;
 
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
-import org.eclipse.gmf.internal.xpand.model.ProtectedRegion;
-import org.eclipse.gmf.internal.xpand.model.ProtectedRegionSyntaxException;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.EvaluationException;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
 import org.eclipse.ocl.cst.OCLExpressionCS;
 
@@ -46,7 +44,7 @@ public class ProtectStatement extends Statement {
         this.disable = disable;
     }
 
-    public void analyze(final XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
+    public void analyze(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
         commentStart.analyze(ctx, issues);
         commentEnd.analyze(ctx, issues);
         id.analyze(ctx, issues);
@@ -57,7 +55,7 @@ public class ProtectStatement extends Statement {
     }
 
     @Override
-    public void evaluateInternal(final XpandExecutionContext ctx) {
+    public void evaluateInternal(final ExecutionContext ctx) {
     	// FIXME REVISIT!!!
         final String cStart = nullSave(commentStart.evaluate(ctx));
         if (cStart == null) {
@@ -72,29 +70,29 @@ public class ProtectStatement extends Statement {
 			throw new EvaluationException("NullEvaluation!", this, id.getCST());
 		}
 
-        ProtectedRegion region = null;
-        if (ctx.getProtectedRegionResolver() != null) {
-            region = ctx.getProtectedRegionResolver().getProtectedRegion(idv);
-        } else {
-            throw new RuntimeException("No protected region resolver configured!");
-        }
-
-        if (region == null) {
-            region = ctx.getProtectedRegionResolver().createProtectedRegion(idv, disable);
-            ctx.getOutput().write(region.getStartString(cStart, cEnd));
-            for (int i = 0; i < body.length; i++) {
-                body[i].evaluate(ctx);
-            }
-            ctx.getOutput().write(region.getEndString(cStart, cEnd));
-        } else {
-            ctx.getOutput().write(region.getStartString(cStart, cEnd));
-            try {
-                ctx.getOutput().write(region.getBody(cStart, cEnd));
-            } catch (final ProtectedRegionSyntaxException e) {
-                throw new EvaluationException(e.getMessage(), this, id.getCST());
-            }
-            ctx.getOutput().write(region.getEndString(cStart, cEnd));
-        }
+//        ProtectedRegion region = null;
+//        if (ctx.getProtectedRegionResolver() != null) {
+//            region = ctx.getProtectedRegionResolver().getProtectedRegion(idv);
+//        } else {
+//            throw new RuntimeException("No protected region resolver configured!");
+//        }
+//
+//        if (region == null) {
+//            region = ctx.getProtectedRegionResolver().createProtectedRegion(idv, disable);
+//            ctx.getOutput().write(region.getStartString(cStart, cEnd));
+//            for (int i = 0; i < body.length; i++) {
+//                body[i].evaluate(ctx);
+//            }
+//            ctx.getOutput().write(region.getEndString(cStart, cEnd));
+//        } else {
+//            ctx.getOutput().write(region.getStartString(cStart, cEnd));
+//            try {
+//                ctx.getOutput().write(region.getBody(cStart, cEnd));
+//            } catch (final ProtectedRegionSyntaxException e) {
+//                throw new EvaluationException(e.getMessage(), this, id.getCST());
+//            }
+//            ctx.getOutput().write(region.getEndString(cStart, cEnd));
+//        }
 
     }
 

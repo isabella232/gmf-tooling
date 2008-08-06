@@ -9,7 +9,7 @@
  *     Sven Efftinge - Initial API and implementation
  *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
-package org.eclipse.gmf.internal.xpand.expression;
+package org.eclipse.gmf.internal.xpand.util;
 
 import java.util.Comparator;
 import java.util.List;

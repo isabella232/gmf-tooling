@@ -14,8 +14,8 @@ package org.eclipse.gmf.internal.xpand.ast;
 import java.text.MessageFormat;
 import java.util.Set;
 
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
 import org.eclipse.ocl.cst.OCLExpressionCS;
 
@@ -31,12 +31,12 @@ public class ErrorStatement extends Statement {
         message = new ExpressionHelper(msg);
     }
 
-    public void analyze(final XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
+    public void analyze(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
     	message.analyze(ctx, issues);
     }
 
     @Override
-    public void evaluateInternal(final XpandExecutionContext ctx) {
+    public void evaluateInternal(final ExecutionContext ctx) {
 		String result = String.valueOf(message.evaluate(ctx));
         throw new RuntimeException(MessageFormat.format("Error in {0}:{1}: ", getFileName(), getLine(), result));
     }

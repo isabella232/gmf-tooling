@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EOperation;
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.m2m.internal.qvt.oml.QvtMessage;
 import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledModule;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Helper;
@@ -64,4 +64,13 @@ public class QvtFile implements QvtResource {
 		}
 	}
 
+	public String[] getImportedExtensions() {
+		// no-op now, not sure it's possible to use this data
+		return new String[0];
+	}
+
+	public String[] getImportedNamespaces() {
+		// no-op now, not sure it's possible to use this data
+		return new String[0];
+	}
 }

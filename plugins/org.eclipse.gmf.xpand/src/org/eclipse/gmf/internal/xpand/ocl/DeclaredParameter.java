@@ -14,7 +14,7 @@ package org.eclipse.gmf.internal.xpand.ocl;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.ocl.cst.VariableCS;
 
 /**
@@ -31,7 +31,7 @@ public class DeclaredParameter {
 		type = new TypeHelper(variableCS.getTypeCS());
     }
 
-	public EClassifier getTypeForName(XpandExecutionContext ctx) {
+	public EClassifier getTypeForName(ExecutionContext ctx) {
 		return type.getTypeForName(ctx);
 	}
 

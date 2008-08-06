@@ -15,11 +15,12 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.Variable;
+import org.eclipse.gmf.internal.xpand.model.XpandAnalyzable;
+import org.eclipse.gmf.internal.xpand.model.XpandEvaluatable;
 import org.eclipse.gmf.internal.xpand.ocl.DeclaredParameter;
 import org.eclipse.gmf.internal.xpand.ocl.TypeHelper;
 import org.eclipse.ocl.cst.TypeCS;
@@ -45,7 +46,7 @@ public abstract class AbstractDefinition extends SyntaxElement implements XpandA
         this.owner = owner;
     }
 
-    public void analyze(XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
+    public void analyze(ExecutionContext ctx, final Set<AnalysationIssue> issues) {
         final EClassifier thisType = type.getTypeForName(ctx);
         if (thisType == null) {
             issues.add(new AnalysationIssue(AnalysationIssue.Type.TYPE_NOT_FOUND, "Couldn't find " + type.getName(), this));
@@ -68,8 +69,8 @@ public abstract class AbstractDefinition extends SyntaxElement implements XpandA
         }
     }
 
-    public void evaluate(XpandExecutionContext ctx) {
-        ctx = (XpandExecutionContext) ctx.cloneWithResource(owner);
+    public void evaluate(ExecutionContext ctx) {
+        ctx = (ExecutionContext) ctx.cloneWithResource(owner);
         for (int i = 0; i < body.length; i++) {
             body[i].evaluate(ctx);
         }

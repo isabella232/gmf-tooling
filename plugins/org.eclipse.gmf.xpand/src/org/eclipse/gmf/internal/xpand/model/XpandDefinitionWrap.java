@@ -12,17 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.ocl.DeclaredParameter;
 
 public class XpandDefinitionWrap {
 
     private final XpandDefinition def;
 
-    private final XpandExecutionContext ctx;
+    private final ExecutionContext ctx;
 
-    public XpandDefinitionWrap(final XpandDefinition def, final XpandExecutionContext ctx) {
+    public XpandDefinitionWrap(final XpandDefinition def, final ExecutionContext ctx) {
         this.def = def;
         this.ctx = ctx;
     }
@@ -54,9 +52,9 @@ public class XpandDefinitionWrap {
     }
 
     public void proceed(final Object target, final List<?> list) {
-        XpandExecutionContext context = ctx;
+        ExecutionContext context = ctx;
         if (target != null) {
-            context = (XpandExecutionContext) context.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, target));
+            context = (ExecutionContext) context.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, target));
         }
         if (list != null) {
             final List<String> n = getParamNames();

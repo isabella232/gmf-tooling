@@ -19,12 +19,12 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
+import org.eclipse.gmf.internal.xpand.XpandFacade;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.EvaluationException;
+import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
 import org.eclipse.gmf.internal.xpand.ocl.TypeHelper;
 import org.eclipse.ocl.cst.OCLExpressionCS;
@@ -62,7 +62,7 @@ public class ExpandStatement extends Statement {
         this.isForeach = foreach;
     }
 
-    public void analyze(final XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
+    public void analyze(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
         final EClassifier[] paramTypes = new EClassifier[parameters.length];
         for (int i = 0; i < parameters.length; i++) {
             paramTypes[i] = parameters[i].analyze(ctx, issues);
@@ -108,17 +108,14 @@ public class ExpandStatement extends Statement {
     }
 
     @Override
-    public void evaluateInternal(final XpandExecutionContext ctx) {
+    public void evaluateInternal(final ExecutionContext ctx) {
         final Object[] params = new Object[parameters.length];
         for (int i = 0; i < parameters.length; i++) {
             params[i] = parameters[i].evaluate(ctx);
         }
-        final EClassifier[] paramTypes = new EClassifier[params.length];
-        for (int i = 0; i < params.length; i++) {
-            paramTypes[i] = BuiltinMetaModel.getType(ctx, params[i]);
-        }
         final String sep = (String) (separator != null ? separator.evaluate(ctx) : null);
         Object targetObject = null;
+        XpandFacade xpandFacade = new XpandFacade(ctx.getScope(), ctx);
         if (isForeach) {
             targetObject = target.evaluate(ctx);
             if (!(targetObject instanceof Collection)) {
@@ -127,10 +124,9 @@ public class ExpandStatement extends Statement {
 
             final Collection<?> col = (Collection<?>) targetObject;
             for (final Iterator<?> iter = col.iterator(); iter.hasNext();) {
-                final Object targetObj = iter.next();
-                invokeDefinition(definition, targetObj, params, paramTypes, ctx);
+                xpandFacade.evaluate(definition, iter.next(), params);
                 if ((sep != null) && iter.hasNext()) {
-                    ctx.getOutput().write(sep);
+                    ctx.getScope().getOutput().write(sep);
                 }
             }
 
@@ -142,42 +138,13 @@ public class ExpandStatement extends Statement {
                 targetObject = var.getValue();
             }
             if (targetObject != null) {
-            	invokeDefinition(definition, targetObject, params, paramTypes, ctx);
+                xpandFacade.evaluate(definition, targetObject, params);
             } else {
             	// XXX logInfo that feature value is null or conditionally fail?
             	// perhaps, could check if target is feature and multiplicity of the feature is at least 1 and fail then?
             	// though all these checks are not template's tasks
             }
         }
-    }
-
-    private void invokeDefinition(final String defName, final Object targetObj, final Object[] params,
-            final EClassifier[] paramTypes, XpandExecutionContext ctx) {
-        final EClassifier t = BuiltinMetaModel.getType(ctx, targetObj);
-        final XpandDefinition def = ctx.findDefinition(defName, t, paramTypes);
-        if (def == null) {
-			throw new EvaluationException("No Definition '" + defName + getParamTypeString(paramTypes) + " for "
-                    + t.getName() + "' found!", this);
-		}
-        assert def.getParams().length == params.length;
-
-        // register variables
-        ctx = ctx.cloneWithoutVariables();
-        // guess, it's important to keet implicit variable in a separate context
-        // to allow arguments with the same name.
-        ctx = ctx.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, targetObj));
-        Variable[] vars = new Variable[params.length];
-        for (int i = 0; i < def.getParams().length; i++) {
-            final String name = def.getParams()[i].getVarName();
-            final Object val = params[i];
-            vars[i] = new Variable(name, val);
-        }
-        ctx = ctx.cloneWithVariable(vars);
-        if (def.getOwner() != null) {
-            ctx = ctx.cloneWithResource(def.getOwner());
-        }
-        def.evaluate(ctx);
-
     }
 
     private String getParamTypeString(final EClassifier[] paramTypes) {
