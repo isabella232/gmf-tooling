@@ -26,13 +26,13 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
-import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.util.PolymorphicResolver;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
 import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
 import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
+import org.eclipse.ocl.ecore.EcoreEvaluationEnvironment;
 
 /**
  * @author Sven Efftinge
@@ -125,7 +125,7 @@ public final class ExecutionContextImpl implements ExecutionContext {
     }
 
     public GenericExtension getExtension(final String functionName, final EClassifier[] parameterTypes) {
-        return PolymorphicResolver.getExtension(getAllExtensions(), functionName, Arrays.asList(parameterTypes), null/*FIXME*/);
+        return PolymorphicResolver.getExtension(getAllExtensions(), functionName, Arrays.asList(parameterTypes), getOCLEnvironment());
     }
 
     public XpandDefinition findDefinition(String name, EClassifier target, EClassifier[] paramTypes) {
@@ -234,9 +234,20 @@ public final class ExecutionContextImpl implements ExecutionContext {
     	if (envFactory == null) {
     		envFactory = new EcoreEnvironmentFactory(getAllVisibleModels());
     	}
+//		org.eclipse.ocl.ecore.Variable oclVar = EcoreFactory.eINSTANCE.createVariable();
+//		oclVar.setName(v.getName());
+//		oclVar.setType((EClassifier) v.getValue());
     	environment = (EcoreEnvironment) envFactory.createEnvironment();
     	return environment;
     }
+    
+    public void populate(EcoreEvaluationEnvironment ee) {
+    	for (Variable v : variables.values()) {
+    		if (!IMPLICIT_VARIABLE.equals(v.getName())) {
+    			ee.add(v.getName(), v.getValue());
+    		}
+    	}
+	}
 
     private String[] getImportedNamespaces() {
     	return currentResource == null ? new String[0] : currentResource.getImportedNamespaces();

@@ -15,14 +15,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EOperation;
-import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
@@ -87,41 +83,6 @@ public class PolymorphicResolver {
 	    }
     }
     
-    @SuppressWarnings("unchecked")
-	public static EOperation filterOperation(List<EOperation> allOperations, String name, EClassifier targetType, List<EClassifier> paramTypes, EcoreEnvironment env) {
-		final Map<EOperation, List<EClassifier>> candidates = new HashMap<EOperation, List<EClassifier>>();
-		ArrayList<EClassifier> expectedParamsWithTarget = new ArrayList(paramTypes.size() + 1);
-		expectedParamsWithTarget.add(targetType);
-		expectedParamsWithTarget.addAll(paramTypes);
-        final TypesComparator typesComparator = new TypesComparator(env);
-		for (EOperation op : allOperations) {
-			if (op.getName().equals(name) && (op.getEParameters().size() == paramTypes.size())) {
-				List<EClassifier> candidateOperationParams = new ArrayList<EClassifier>(paramTypes.size() + 1);
-				if (op.getEContainingClass() != null) {
-					candidateOperationParams.add(op.getEContainingClass());
-				}
-				List<EParameter> allParams = op.getEParameters();
-				for (EParameter p : allParams ) {
-					candidateOperationParams.add(p.getEType());
-				}
-				if (typesComparator.compare(candidateOperationParams, op.getEContainingClass() != null ? expectedParamsWithTarget : paramTypes) >= 0) {
-					candidates.put(op, candidateOperationParams);
-				}
-			}
-		}
-		final Comparator<EOperation> comparator = new Comparator<EOperation>() {
-	        public int compare(EOperation o1, EOperation o2) {
-	            return typesComparator.compare(candidates.get(o1), candidates.get(o2));
-	        }
-	    };
-    	final List<EOperation> candidates2 = new LinkedList<EOperation>();
-	    try {
-	    	candidates2.addAll(candidates.keySet());
-	    	return filterWithComparator(candidates2, comparator);
-	    } catch (IllegalStateException ex) {
-			throw new RuntimeException("Ambiguous definitions " + candidates2.get(0).toString() + " and "
-                    + candidates2.get(1).toString() + " for param types " + paramTypes, ex);
-	    }    }
     /**
      * @throws IllegalStateException when there are more than one candidates with same priority
      */

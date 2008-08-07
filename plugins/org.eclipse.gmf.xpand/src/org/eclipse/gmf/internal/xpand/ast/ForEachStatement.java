@@ -50,7 +50,7 @@ public class ForEachStatement extends Statement {
         this.variable = variable;
         this.target = new ExpressionHelper(target);
         this.body = body;
-        this.separator = new ExpressionHelper(separator);
+        this.separator = separator == null ? null : new ExpressionHelper(separator);
         iteratorName = iterator;
     }
 

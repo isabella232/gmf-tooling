@@ -41,6 +41,19 @@ public class FileStatement extends Statement {
         this.mode = mode;
     }
 
+    /**
+	 * FIXME next 3 methods are for tests only, shouldn't I refactor tests to avoid exposing internals?
+	 */
+    public ExpressionHelper getTargetFileName() {
+    	return fileName;
+    }
+	public Statement[] getBody() {
+		return body;
+	}
+	public Identifier getMode() {
+		return mode;
+	}
+
     public void analyze(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
         final EClassifier result = fileName.analyze(ctx, issues);
         if (!BuiltinMetaModel.isAssignableFrom(EcorePackage.eINSTANCE.getEString(), result)) {

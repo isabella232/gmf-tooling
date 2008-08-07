@@ -42,6 +42,13 @@ public abstract class AbstractDefinition extends SyntaxElement implements XpandA
         this.body = body;
     }
 
+    /**
+	 * FIXME used only in tests, should I keep it?
+	 */
+	public Statement[] getBody() {
+		return body;
+	}
+
 	public void setOwner(final Template owner) {
         this.owner = owner;
     }

@@ -17,15 +17,12 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
+import org.eclipse.ocl.ecore.EcoreEvaluationEnvironment;
 
 /**
  * @author Sven Efftinge
  * @author Arno Haase
- * XXX [artem] I'd better split this into two parts, "Scope" (no subtypes) with Variables and Resource - the part that 
- * is actually being changed/cloned, and "Context" itself, with methods to access types/definition/templates/output/whatever
- * XXX leave this as "Context" and add "Environment"?
- * Plus, would be great to have some cancellation behavior avialable from environment (i.e. for debuger to be able to stop execution)
- * XXX move to xpand.model out from xpand.expression package 
+ * XXX would be great to have some cancellation behavior avialable from environment (i.e. for debuger to be able to stop execution)
  */
 public interface ExecutionContext {
 
@@ -48,6 +45,7 @@ public interface ExecutionContext {
 	XpandDefinition findDefinition(String name, EClassifier target, EClassifier[] paramTypes);
 	
 	EcoreEnvironment getOCLEnvironment();
+	void populate(EcoreEvaluationEnvironment ee);
 
 	Scope getScope();
 }

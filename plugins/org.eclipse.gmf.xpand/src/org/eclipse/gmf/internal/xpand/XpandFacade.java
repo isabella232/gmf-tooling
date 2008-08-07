@@ -33,12 +33,12 @@ public class XpandFacade {
 	private ExecutionContext ctx;
 
 	public XpandFacade(Scope scope) {
-		this(scope, null);
-	}
-
-	public XpandFacade(Scope scope, ExecutionContext ctx) {
 		assert scope != null;
 		this.scope = scope;
+	}
+
+	public XpandFacade(ExecutionContext ctx) {
+		this(ctx.getScope());
 		this.ctx = ctx;
 	}
 

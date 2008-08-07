@@ -49,8 +49,8 @@ public class ExpandStatement extends Statement {
             final OCLExpressionCS target, final OCLExpressionCS separator, final OCLExpressionCS[] parameters, final boolean foreach) {
         super(start, end, line);
         this.definition = TypeHelper.toString(definition);
-        this.target = new ExpressionHelper(target);
-        this.separator = new ExpressionHelper(separator);
+        this.target = target == null ? null : new ExpressionHelper(target);
+        this.separator = separator == null ? null : new ExpressionHelper(separator);
         if (parameters == null) {
         	this.parameters = new ExpressionHelper[0];
         } else {
@@ -115,7 +115,7 @@ public class ExpandStatement extends Statement {
         }
         final String sep = (String) (separator != null ? separator.evaluate(ctx) : null);
         Object targetObject = null;
-        XpandFacade xpandFacade = new XpandFacade(ctx.getScope(), ctx);
+        XpandFacade xpandFacade = new XpandFacade(ctx);
         if (isForeach) {
             targetObject = target.evaluate(ctx);
             if (!(targetObject instanceof Collection)) {

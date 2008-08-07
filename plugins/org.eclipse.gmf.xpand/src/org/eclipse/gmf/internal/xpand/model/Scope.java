@@ -53,6 +53,11 @@ public class Scope {
 		}
     }
 
+    protected Scope() {
+    	resourceManager = null;
+    	output = null;
+    }
+
 	// [artem] if not null, should be notified about entering/leaving xpand ast elements
     public EvaluationListener getEvaluationListener() {
     	return evaluationListener;

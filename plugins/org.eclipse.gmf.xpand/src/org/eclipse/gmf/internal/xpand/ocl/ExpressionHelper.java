@@ -20,6 +20,7 @@ import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.ocl.cst.OCLExpressionCS;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
+import org.eclipse.ocl.ecore.EcoreEvaluationEnvironment;
 import org.eclipse.ocl.ecore.OCL;
 import org.eclipse.ocl.ecore.OCLExpression;
 
@@ -55,6 +56,7 @@ public class ExpressionHelper {
 		}
 		OCLExpression expression = new EmbeddedOCLAnalyzer(env).analyzeExpression(expressionCS);
 		OCL ocl = OCL.newInstance();
+		ctx.populate((EcoreEvaluationEnvironment) ocl.getEvaluationEnvironment());
 		Object val = ocl.evaluate(self == null ? null : self.getValue(), expression);
 		if (ocl.isInvalid(val)) {
 			// TODO serialize CST to show actual string that's wrong

@@ -36,10 +36,17 @@ public class IfStatement extends Statement {
     public IfStatement(final int start, final int end, final int line, final OCLExpressionCS condition,
             final Statement[] thenPart, final IfStatement elseIf) {
         super(start, end, line);
-        this.condition = new ExpressionHelper(condition);
+        this.condition = condition == null ? null : new ExpressionHelper(condition);
         this.thenPart = thenPart;
         this.elseIf = elseIf;
     }
+
+    /**
+	 * FIXME used in tests only, should I keep it?
+	 */
+	public ExpressionHelper getCondition() {
+		return condition;
+	}
 
 	public IfStatement getElseIf() {
 		return elseIf;

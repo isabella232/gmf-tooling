@@ -15,9 +15,15 @@ import org.eclipse.ocl.cst.StringLiteralExpCS;
 public class NamespaceImport extends SyntaxElement {
 	private final String importString;
 
-	public NamespaceImport(int start, int end, int line, StringLiteralExpCS importString) {
+	public NamespaceImport(int start, int end, int line, StringLiteralExpCS importCS) {
 		super(start, end, line);
-		this.importString = importString.getStringSymbol();
+		// FIXME for complete care, look at AbstractOCLAnalyzer#processStringEscapes
+		String quotedImport = importCS.getStringSymbol();
+		if (quotedImport.length() <= 2) {
+			importString = "";
+		} else {
+			importString = quotedImport.substring(1, quotedImport.length() -1);
+		}
 	}
 
 	public String getImportString() {
