@@ -120,8 +120,12 @@ public class MigrationFacade {
 
 		writeln("library " + shortResourceName + ";" + LF);
 
-		for (Extension extension : xtendResource.getExtensions()) {
+		for (Iterator<Extension> it = xtendResource.getExtensions().iterator(); it.hasNext();) {
+			Extension extension = it.next();
 			migrateExtension(extension, ctx);
+			if (it.hasNext()) {
+				writeln("");
+			}
 		}
 		modeltypeImports.injectImports();
 		return output;
@@ -228,6 +232,7 @@ public class MigrationFacade {
 	}
 
 	private void migrateExpressionExtension(ExpressionExtensionStatement extension, ExecutionContext ctx) throws MigrationException {
+		write("\t");
 		markReturnPosition();
 		migrateExpression(extension.getExpression(), ctx);
 		injectReturn();
@@ -324,8 +329,21 @@ public class MigrationFacade {
 
 	private void migrateStringLiteral(StringLiteral expression, ExecutionContext ctx) {
 		write("'");
-		write(expression.getValue());
+		write(excape(expression.getValue()));
 		write("'");
+	}
+
+	private String excape(String value) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < value.length(); i++) {
+			char nextChar = value.charAt(i);
+			if (nextChar == '\'') {
+				// escaping single quote mark with one more single quote mark.
+				sb.append(nextChar);
+			}
+			sb.append(nextChar);
+		}
+		return sb.toString();
 	}
 
 	private void migrateRealLiteral(RealLiteral realLiteral, ExecutionContext ctx) {
