@@ -61,5 +61,5 @@
 «ENDDEFINE»
 
 «DEFINE Instance FOR gmfgraph::Rectangle2D-»
-new java.awt.geom.Rectangle2D.Double(«x», «y», «width», «height»)
+new java.awt.geom.Rectangle2D.Float(«x»f, «y»f, «width»f, «height»f)
 «ENDDEFINE»

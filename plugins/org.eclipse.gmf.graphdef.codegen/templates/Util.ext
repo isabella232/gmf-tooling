@@ -111,6 +111,7 @@ EString messageFormat(EString pattern, List[Object] argument) :
 String svgPropertyType(gmfgraph::SVGProperty p) :
 	switch (p.type) {
 		case SVGPropertyType::COLOR : "org.eclipse.swt.graphics.Color"
+		case SVGPropertyType::FLOAT : "float"
 		default : "String"
 	}
 ;
