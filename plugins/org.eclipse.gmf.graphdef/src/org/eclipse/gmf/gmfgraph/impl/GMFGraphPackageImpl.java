@@ -3305,10 +3305,10 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEAttribute(getSVGProperty_CallSuper(), ecorePackage.getEBoolean(), "callSuper", null, 0, 1, SVGProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(rectangle2DEClass, Rectangle2D.class, "Rectangle2D", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getRectangle2D_X(), ecorePackage.getEDouble(), "x", null, 0, 1, Rectangle2D.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRectangle2D_Y(), ecorePackage.getEDouble(), "y", null, 0, 1, Rectangle2D.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRectangle2D_Width(), ecorePackage.getEDouble(), "width", null, 0, 1, Rectangle2D.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRectangle2D_Height(), ecorePackage.getEDouble(), "height", null, 0, 1, Rectangle2D.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRectangle2D_X(), ecorePackage.getEFloat(), "x", null, 0, 1, Rectangle2D.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRectangle2D_Y(), ecorePackage.getEFloat(), "y", null, 0, 1, Rectangle2D.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRectangle2D_Width(), ecorePackage.getEFloat(), "width", null, 0, 1, Rectangle2D.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRectangle2D_Height(), ecorePackage.getEFloat(), "height", null, 0, 1, Rectangle2D.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(colorConstantsEEnum, ColorConstants.class, "ColorConstants");
@@ -3364,6 +3364,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEEnum(svgPropertyTypeEEnum, SVGPropertyType.class, "SVGPropertyType");
 		addEEnumLiteral(svgPropertyTypeEEnum, SVGPropertyType.STRING);
 		addEEnumLiteral(svgPropertyTypeEEnum, SVGPropertyType.COLOR);
+		addEEnumLiteral(svgPropertyTypeEEnum, SVGPropertyType.FLOAT);
 
 		// Create resource
 		createResource(eNS_URI);

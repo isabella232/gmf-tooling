@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Rectangle2D.java,v 1.1 2008/08/05 12:42:37 dstadnik Exp $
+ * $Id: Rectangle2D.java,v 1.2 2008/08/07 13:30:05 dstadnik Exp $
  */
 package org.eclipse.gmf.gmfgraph;
 
@@ -37,12 +37,12 @@ public interface Rectangle2D extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>X</em>' attribute.
-	 * @see #setX(double)
+	 * @see #setX(float)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getRectangle2D_X()
 	 * @model
 	 * @generated
 	 */
-	double getX();
+	float getX();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.Rectangle2D#getX <em>X</em>}' attribute.
@@ -52,7 +52,7 @@ public interface Rectangle2D extends EObject {
 	 * @see #getX()
 	 * @generated
 	 */
-	void setX(double value);
+	void setX(float value);
 
 	/**
 	 * Returns the value of the '<em><b>Y</b></em>' attribute.
@@ -63,12 +63,12 @@ public interface Rectangle2D extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Y</em>' attribute.
-	 * @see #setY(double)
+	 * @see #setY(float)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getRectangle2D_Y()
 	 * @model
 	 * @generated
 	 */
-	double getY();
+	float getY();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.Rectangle2D#getY <em>Y</em>}' attribute.
@@ -78,7 +78,7 @@ public interface Rectangle2D extends EObject {
 	 * @see #getY()
 	 * @generated
 	 */
-	void setY(double value);
+	void setY(float value);
 
 	/**
 	 * Returns the value of the '<em><b>Width</b></em>' attribute.
@@ -89,12 +89,12 @@ public interface Rectangle2D extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Width</em>' attribute.
-	 * @see #setWidth(double)
+	 * @see #setWidth(float)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getRectangle2D_Width()
 	 * @model
 	 * @generated
 	 */
-	double getWidth();
+	float getWidth();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.Rectangle2D#getWidth <em>Width</em>}' attribute.
@@ -104,7 +104,7 @@ public interface Rectangle2D extends EObject {
 	 * @see #getWidth()
 	 * @generated
 	 */
-	void setWidth(double value);
+	void setWidth(float value);
 
 	/**
 	 * Returns the value of the '<em><b>Height</b></em>' attribute.
@@ -115,12 +115,12 @@ public interface Rectangle2D extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Height</em>' attribute.
-	 * @see #setHeight(double)
+	 * @see #setHeight(float)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getRectangle2D_Height()
 	 * @model
 	 * @generated
 	 */
-	double getHeight();
+	float getHeight();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.Rectangle2D#getHeight <em>Height</em>}' attribute.
@@ -130,6 +130,6 @@ public interface Rectangle2D extends EObject {
 	 * @see #getHeight()
 	 * @generated
 	 */
-	void setHeight(double value);
+	void setHeight(float value);
 
 } // Rectangle2D

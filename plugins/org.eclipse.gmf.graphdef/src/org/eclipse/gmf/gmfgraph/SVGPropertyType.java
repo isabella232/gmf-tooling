@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: SVGPropertyType.java,v 1.1 2008/07/31 12:17:13 dstadnik Exp $
+ * $Id: SVGPropertyType.java,v 1.2 2008/08/07 13:30:05 dstadnik Exp $
  */
 package org.eclipse.gmf.gmfgraph;
 
@@ -40,7 +40,15 @@ public enum SVGPropertyType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	COLOR(1, "COLOR", "COLOR");
+	COLOR(1, "COLOR", "COLOR"), /**
+	 * The '<em><b>FLOAT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #FLOAT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	FLOAT(2, "FLOAT", "FLOAT");
 
 	/**
 	 * The '<em><b>STRING</b></em>' literal value.
@@ -73,6 +81,21 @@ public enum SVGPropertyType implements Enumerator {
 	public static final int COLOR_VALUE = 1;
 
 	/**
+	 * The '<em><b>FLOAT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>FLOAT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #FLOAT
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int FLOAT_VALUE = 2;
+
+	/**
 	 * An array of all the '<em><b>SVG Property Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -82,6 +105,7 @@ public enum SVGPropertyType implements Enumerator {
 		new SVGPropertyType[] {
 			STRING,
 			COLOR,
+			FLOAT,
 		};
 
 	/**
@@ -134,6 +158,7 @@ public enum SVGPropertyType implements Enumerator {
 		switch (value) {
 			case STRING_VALUE: return STRING;
 			case COLOR_VALUE: return COLOR;
+			case FLOAT_VALUE: return FLOAT;
 		}
 		return null;
 	}

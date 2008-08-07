@@ -61,6 +61,7 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="gmfgraph.ecore#//SVGPropertyType">
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//SVGPropertyType/STRING"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//SVGPropertyType/COLOR"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//SVGPropertyType/FLOAT"/>
     </genEnums>
     <genClasses ecoreClass="gmfgraph.ecore#//Canvas">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Canvas/figures"/>

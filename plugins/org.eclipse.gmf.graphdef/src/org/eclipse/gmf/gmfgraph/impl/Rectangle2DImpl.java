@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Rectangle2DImpl.java,v 1.1 2008/08/05 12:42:37 dstadnik Exp $
+ * $Id: Rectangle2DImpl.java,v 1.2 2008/08/07 13:30:05 dstadnik Exp $
  */
 package org.eclipse.gmf.gmfgraph.impl;
 
@@ -41,7 +41,7 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double X_EDEFAULT = 0.0;
+	protected static final float X_EDEFAULT = 0.0F;
 
 	/**
 	 * The cached value of the '{@link #getX() <em>X</em>}' attribute.
@@ -51,7 +51,7 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	 * @generated
 	 * @ordered
 	 */
-	protected double x = X_EDEFAULT;
+	protected float x = X_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getY() <em>Y</em>}' attribute.
@@ -61,7 +61,7 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double Y_EDEFAULT = 0.0;
+	protected static final float Y_EDEFAULT = 0.0F;
 
 	/**
 	 * The cached value of the '{@link #getY() <em>Y</em>}' attribute.
@@ -71,7 +71,7 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	 * @generated
 	 * @ordered
 	 */
-	protected double y = Y_EDEFAULT;
+	protected float y = Y_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getWidth() <em>Width</em>}' attribute.
@@ -81,7 +81,7 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double WIDTH_EDEFAULT = 0.0;
+	protected static final float WIDTH_EDEFAULT = 0.0F;
 
 	/**
 	 * The cached value of the '{@link #getWidth() <em>Width</em>}' attribute.
@@ -91,7 +91,7 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	 * @generated
 	 * @ordered
 	 */
-	protected double width = WIDTH_EDEFAULT;
+	protected float width = WIDTH_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getHeight() <em>Height</em>}' attribute.
@@ -101,7 +101,7 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double HEIGHT_EDEFAULT = 0.0;
+	protected static final float HEIGHT_EDEFAULT = 0.0F;
 
 	/**
 	 * The cached value of the '{@link #getHeight() <em>Height</em>}' attribute.
@@ -111,7 +111,7 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	 * @generated
 	 * @ordered
 	 */
-	protected double height = HEIGHT_EDEFAULT;
+	protected float height = HEIGHT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -137,7 +137,7 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getX() {
+	public float getX() {
 		return x;
 	}
 
@@ -146,8 +146,8 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setX(double newX) {
-		double oldX = x;
+	public void setX(float newX) {
+		float oldX = x;
 		x = newX;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.RECTANGLE2_D__X, oldX, x));
@@ -158,7 +158,7 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getY() {
+	public float getY() {
 		return y;
 	}
 
@@ -167,8 +167,8 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setY(double newY) {
-		double oldY = y;
+	public void setY(float newY) {
+		float oldY = y;
 		y = newY;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.RECTANGLE2_D__Y, oldY, y));
@@ -179,7 +179,7 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getWidth() {
+	public float getWidth() {
 		return width;
 	}
 
@@ -188,8 +188,8 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setWidth(double newWidth) {
-		double oldWidth = width;
+	public void setWidth(float newWidth) {
+		float oldWidth = width;
 		width = newWidth;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.RECTANGLE2_D__WIDTH, oldWidth, width));
@@ -200,7 +200,7 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getHeight() {
+	public float getHeight() {
 		return height;
 	}
 
@@ -209,8 +209,8 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setHeight(double newHeight) {
-		double oldHeight = height;
+	public void setHeight(float newHeight) {
+		float oldHeight = height;
 		height = newHeight;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.RECTANGLE2_D__HEIGHT, oldHeight, height));
@@ -225,13 +225,13 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.RECTANGLE2_D__X:
-				return new Double(getX());
+				return new Float(getX());
 			case GMFGraphPackage.RECTANGLE2_D__Y:
-				return new Double(getY());
+				return new Float(getY());
 			case GMFGraphPackage.RECTANGLE2_D__WIDTH:
-				return new Double(getWidth());
+				return new Float(getWidth());
 			case GMFGraphPackage.RECTANGLE2_D__HEIGHT:
-				return new Double(getHeight());
+				return new Float(getHeight());
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -245,16 +245,16 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.RECTANGLE2_D__X:
-				setX(((Double)newValue).doubleValue());
+				setX(((Float)newValue).floatValue());
 				return;
 			case GMFGraphPackage.RECTANGLE2_D__Y:
-				setY(((Double)newValue).doubleValue());
+				setY(((Float)newValue).floatValue());
 				return;
 			case GMFGraphPackage.RECTANGLE2_D__WIDTH:
-				setWidth(((Double)newValue).doubleValue());
+				setWidth(((Float)newValue).floatValue());
 				return;
 			case GMFGraphPackage.RECTANGLE2_D__HEIGHT:
-				setHeight(((Double)newValue).doubleValue());
+				setHeight(((Float)newValue).floatValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
