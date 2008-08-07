@@ -18,9 +18,12 @@ import java.lang.reflect.Method;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.SVGProperty;
+import org.eclipse.gmf.gmfgraph.SVGPropertyType;
 import org.eclipse.gmf.runtime.lite.svg.SVGFigure;
 import org.eclipse.gmf.tests.setup.figures.AbstractFigureGeneratorSetup;
 import org.eclipse.gmf.tests.setup.figures.FigureGeneratorUtil;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
 
 public class GeneratedSVGFigureTest extends AbstractSVGFigureTest {
 
@@ -65,13 +68,14 @@ public class GeneratedSVGFigureTest extends AbstractSVGFigureTest {
 		f.setName("Crate");
 		f.setDocumentURI(BOX_URI);
 		SVGFigure f2d = createDraw2DFigure(f);
-		assertEquals(f2d.getURI(), BOX_URI);
+		assertEquals(BOX_URI, f2d.getURI());
+		// Check default values
 		assertFalse(f2d.isSafeRendering());
 		assertNull(f2d.getAreaOfInterest());
 	}
 
 	/**
-	 * Check that SVGFigure generates.
+	 * Check advanced properties of SVGFigure (AOI, safe rendering).
 	 */
 	public void testAdvancedProperties() {
 		org.eclipse.gmf.gmfgraph.SVGFigure f = GMFGraphFactory.eINSTANCE.createSVGFigure();
@@ -84,14 +88,14 @@ public class GeneratedSVGFigureTest extends AbstractSVGFigureTest {
 		f.getAreaOfInterest().setWidth(555);
 		f.getAreaOfInterest().setHeight(44.4);
 		SVGFigure f2d = createDraw2DFigure(f);
-		assertEquals(f2d.getURI(), BOX_URI);
+		assertEquals(BOX_URI, f2d.getURI());
 		assertTrue(f2d.isSafeRendering());
 		Rectangle2D aoi = f2d.getAreaOfInterest();
 		assertNotNull(aoi);
-		assertEquals(aoi.getX(), (double) 10);
-		assertEquals(aoi.getY(), (double) 0.5);
-		assertEquals(aoi.getWidth(), (double) 555);
-		assertEquals(aoi.getHeight(), (double) 44.4);
+		assertEquals((double) 10, aoi.getX());
+		assertEquals((double) 0.5, aoi.getY());
+		assertEquals((double) 555, aoi.getWidth());
+		assertEquals((double) 44.4, aoi.getHeight());
 	}
 
 	/**
@@ -106,14 +110,44 @@ public class GeneratedSVGFigureTest extends AbstractSVGFigureTest {
 		p.setAttribute("width");
 		p.setGetter("getA");
 		p.setSetter("setA");
+		// String type is the default
 		f.getProperties().add(p);
 		SVGFigure f2d = createDraw2DFigure(f);
 		Method getter = f2d.getClass().getMethod("getA");
 		Method setter = f2d.getClass().getMethod("setA", String.class);
+		// Check initial value 49
 		String v = (String) getter.invoke(f2d);
-		assertEquals(v, "49");
+		assertEquals("49", v);
+		// Check that modification works
 		setter.invoke(f2d, "23");
 		v = (String) getter.invoke(f2d);
-		assertEquals(v, "23");
+		assertEquals("23", v);
+	}
+
+	/**
+	 * Check that color property generates and actually works.
+	 */
+	public void testColorProperty() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+		org.eclipse.gmf.gmfgraph.SVGFigure f = GMFGraphFactory.eINSTANCE.createSVGFigure();
+		f.setName("Crate");
+		f.setDocumentURI(BOX_URI);
+		SVGProperty p = GMFGraphFactory.eINSTANCE.createSVGProperty();
+		p.setQuery("//:rect");
+		p.setAttribute("fill");
+		p.setGetter("getBackgroundColorX"); // Preserve original getter to check that 'callSuper' works
+		p.setSetter("setBackgroundColor");
+		p.setCallSuper(true);
+		p.setType(SVGPropertyType.COLOR);
+		f.getProperties().add(p);
+		SVGFigure f2d = createDraw2DFigure(f);
+		Method getter = f2d.getClass().getMethod("getBackgroundColorX");
+		// Check initial value
+		Color v = (Color) getter.invoke(f2d);
+		assertEquals(new RGB(0x66, 0x33, 0), v.getRGB());
+		// Check that modification works
+		f2d.setBackgroundColor(new Color(null, 0xFF, 0x55, 0));
+		assertEquals(new RGB(0xFF, 0x55, 0), f2d.getBackgroundColor().getRGB()); // Check Draw2d
+		v = (Color) getter.invoke(f2d);
+		assertEquals(new RGB(0xFF, 0x55, 0), v.getRGB()); // Check SVG DOM
 	}
 }
