@@ -227,7 +227,7 @@ public class SVGFigure extends Figure {
 		if (aoi == null) {
 			return null;
 		}
-		Rectangle2D result = new Rectangle2D.Double();
+		Rectangle2D result = new Rectangle2D.Float();
 		result.setRect(aoi);
 		return result;
 	}
@@ -237,7 +237,7 @@ public class SVGFigure extends Figure {
 			aoi = null;
 			return;
 		}
-		aoi = new Rectangle2D.Double();
+		aoi = new Rectangle2D.Float();
 		aoi.setRect(value);
 		repaint();
 	}
