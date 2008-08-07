@@ -83,19 +83,19 @@ public class GeneratedSVGFigureTest extends AbstractSVGFigureTest {
 		f.setDocumentURI(BOX_URI);
 		f.setSafeRendering(true);
 		f.setAreaOfInterest(GMFGraphFactory.eINSTANCE.createRectangle2D());
-		f.getAreaOfInterest().setX(10);
-		f.getAreaOfInterest().setY(0.5);
-		f.getAreaOfInterest().setWidth(555);
-		f.getAreaOfInterest().setHeight(44.4);
+		f.getAreaOfInterest().setX(10f);
+		f.getAreaOfInterest().setY(0.5f);
+		f.getAreaOfInterest().setWidth(555f);
+		f.getAreaOfInterest().setHeight(44.4f);
 		SVGFigure f2d = createDraw2DFigure(f);
 		assertEquals(BOX_URI, f2d.getURI());
 		assertTrue(f2d.isSafeRendering());
 		Rectangle2D aoi = f2d.getAreaOfInterest();
 		assertNotNull(aoi);
-		assertEquals((double) 10, aoi.getX());
-		assertEquals((double) 0.5, aoi.getY());
-		assertEquals((double) 555, aoi.getWidth());
-		assertEquals((double) 44.4, aoi.getHeight());
+		assertEquals(10f, (float) aoi.getX());
+		assertEquals(0.5f, (float) aoi.getY());
+		assertEquals(555f, (float) aoi.getWidth());
+		assertEquals(44.4f, (float) aoi.getHeight());
 	}
 
 	/**
@@ -149,5 +149,31 @@ public class GeneratedSVGFigureTest extends AbstractSVGFigureTest {
 		assertEquals(new RGB(0xFF, 0x55, 0), f2d.getBackgroundColor().getRGB()); // Check Draw2d
 		v = (Color) getter.invoke(f2d);
 		assertEquals(new RGB(0xFF, 0x55, 0), v.getRGB()); // Check SVG DOM
+	}
+
+	/**
+	 * Check that float property generates and actually works.
+	 */
+	public void testFloatProperty() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+		org.eclipse.gmf.gmfgraph.SVGFigure f = GMFGraphFactory.eINSTANCE.createSVGFigure();
+		f.setName("Crate");
+		f.setDocumentURI(BOX_URI);
+		SVGProperty p = GMFGraphFactory.eINSTANCE.createSVGProperty();
+		p.setQuery("//:line[5]");
+		p.setAttribute("x1");
+		p.setGetter("getX");
+		p.setSetter("setX");
+		p.setType(SVGPropertyType.FLOAT);
+		f.getProperties().add(p);
+		SVGFigure f2d = createDraw2DFigure(f);
+		Method getter = f2d.getClass().getMethod("getX");
+		Method setter = f2d.getClass().getMethod("setX", Float.TYPE);
+		// Check initial value 30
+		float v = (Float) getter.invoke(f2d);
+		assertEquals(30f, v);
+		// Check that modification works
+		setter.invoke(f2d, 23f);
+		v = (Float) getter.invoke(f2d);
+		assertEquals(23f, v);
 	}
 }

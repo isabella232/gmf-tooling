@@ -87,7 +87,7 @@ public class SVGFigureTest extends AbstractSVGFigureTest {
 	public void testAreaOfInterest() {
 		SVGFigure f = new SVGFigure();
 		f.setURI(BOX_URI);
-		f.setAreaOfInterest(new Rectangle2D.Double(15, 15, 25, 25));
+		f.setAreaOfInterest(new Rectangle2D.Float(15, 15, 25, 25));
 		f.setPreferredSize(25, 25);
 		canvas.getContents().add(f);
 		flushCanvas();
