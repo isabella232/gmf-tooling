@@ -18,6 +18,7 @@ Export-Package: org.eclipse.gmf.internal.xpand;x-friends:="org.eclipse.gmf.xpand
  org.eclipse.gmf.internal.xpand.expression.ast;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.xpand.debug",
  org.eclipse.gmf.internal.xpand.expression.parser;x-friends:="org.eclipse.gmf.tests.xpand,org.eclipse.gmf.xpand.editor",
  org.eclipse.gmf.internal.xpand.model;x-friends:="org.eclipse.gmf.graphdef.codegen,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.xpand.editor,org.eclipse.gmf.common,org.eclipse.gmf.xpand.debug",
+ org.eclipse.gmf.internal.xpand.ocl;x-friends:="org.eclipse.gmf.tests.xpand",
  org.eclipse.gmf.internal.xpand.parser;x-friends:="org.eclipse.gmf.tests.xpand",
  org.eclipse.gmf.internal.xpand.util;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.graphdef.codegen,org.eclipse.gmf.codegen,org.eclipse.gmf.codegen.lite,org.eclipse.gmf.common,org.eclipse.gmf.xpand.debug,org.eclipse.gmf.tests",
  org.eclipse.gmf.internal.xpand.xtend.ast;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.xpand.debug"
