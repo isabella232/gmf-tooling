@@ -7,3 +7,7 @@ String stringLiteralDoubleQuoted() :
 String stringLiteralSingleQuoted() :
 	'literal with space 2'
 ;
+
+String stringLiteralEscaped() :
+	"\r\n\t\\\'\""
+;

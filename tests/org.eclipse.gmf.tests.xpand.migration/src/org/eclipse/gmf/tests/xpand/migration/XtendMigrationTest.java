@@ -98,35 +98,72 @@ public class XtendMigrationTest extends TestCase {
 	public void testIfExpression() throws IOException, MigrationException {
 		checkMigration("IfExpression");
 	}
-	
+
 	public void testLetExpression() throws IOException, MigrationException {
 		checkMigration("LetExpression");
 	}
-	
+
 	public void testListLiteral() throws IOException, MigrationException {
 		checkMigration("ListLiteral");
 	}
-	
+
 	public void testBooleanLiteral() throws IOException, MigrationException {
 		checkMigration("BooleanLiteral");
 	}
-	
+
 	public void testIntegerLiteral() throws IOException, MigrationException {
 		checkMigration("IntegerLiteral");
 	}
-	
+
 	public void testNullLiteral() throws IOException, MigrationException {
 		checkMigration("NullLiteral");
 	}
-	
+
 	public void testRealLiteral() throws IOException, MigrationException {
 		checkMigration("RealLiteral");
 	}
-	
+
 	public void testStringLiteral() throws IOException, MigrationException {
-		checkMigration("StringLiteral");
+		String resourceName = "StringLiteral";
+		MigrationFacade migrationFacade = new MigrationFacade(testResourceManager, getResourceName(resourceName));
+		String content = migrationFacade.migrateXtendResource().toString();
+		assertTrue(content.length() > 0);
+		String etalon = readStringContent(new InputStreamReader(testResourceManager.loadFile(getResourceName(resourceName), "qvto")));
+		assertEquals(etalon, content);
 	}
-	
+
+	private String readStringContent(InputStreamReader reader) throws IOException {
+		String LF = System.getProperty("line.separator");
+		StringBuilder sb = new StringBuilder();
+		boolean isInString = false;
+		boolean lastSymbolCR = false;
+		for (char nextChar = (char) reader.read(); nextChar != (char) -1; nextChar = (char) reader.read()) {
+			switch (nextChar) {
+			case '\r':
+				if (!isInString) {
+					lastSymbolCR = true;
+					sb.append(LF);
+					break;
+				}
+			case '\n':
+				if (!isInString && lastSymbolCR) {
+					// replacing all \r\n pairs with single LF only outside
+					// of OCL strings
+					lastSymbolCR = false;
+					break;
+				}
+			case '\'':
+				isInString = !isInString;
+			default:
+				if (lastSymbolCR) {
+					lastSymbolCR = false;
+				}
+				sb.append(nextChar);
+			}
+		}
+		return sb.toString();
+	}
+
 	public void testSwitchExpression() throws IOException, MigrationException {
 		checkMigration("SwitchExpression");
 	}
@@ -141,7 +178,7 @@ public class XtendMigrationTest extends TestCase {
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(testResourceManager.loadFile(getResourceName(xtendResourceName), "qvto")));
 		String etalon = "";
-		for (String nextLine = ""; nextLine != null; nextLine = reader.readLine()) {
+		for (String nextLine = reader.readLine(); nextLine != null; nextLine = reader.readLine()) {
 			etalon += nextLine + " ";
 		}
 		etalon = normalize(etalon);
