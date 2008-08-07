@@ -32,13 +32,42 @@ import org.apache.batik.gvt.GraphicsNode;
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.ImageTranscoder;
+import org.eclipse.draw2d.Graphics;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.svg.SVGSVGElement;
 
 public class ImageTranscoderEx extends ImageTranscoder {
 
+	private Graphics draw2dGraphics;
 	private BufferedImage bufferedImage;
+
+	/**
+	 * Set Draw2D graphics to use for transcoding. If it is null then result is in bufferedImage.
+	 */
+	public void setDraw2DGraphics(Graphics g) {
+		this.draw2dGraphics = g;
+	}
+
+	/**
+	 * Call before querying for CSS properties. If document has CSS engine installed returns null. Client is responsible to
+	 * dispose bridge context if it was returned by this method.
+	 */
+	public BridgeContext initCSSEngine(final Document d) {
+		SVGOMDocument sd = (SVGOMDocument) d;
+		if (sd.getCSSEngine() != null) {
+			return null;
+		}
+		class BridgeContextEx extends BridgeContext {
+
+			public BridgeContextEx() {
+				super(ImageTranscoderEx.this.userAgent);
+				BridgeContextEx.this.setDocument(d);
+				BridgeContextEx.this.initializeDocument(d);
+			}
+		}
+		return new BridgeContextEx();
+	}
 
 	/**
 	 * buildGVTTree This method builds the GVT tree that is used to render the SVG data.
@@ -183,6 +212,9 @@ public class ImageTranscoderEx extends ImageTranscoder {
 	}
 
 	protected Graphics2D createGraphics(int w, int h) {
+		if (draw2dGraphics != null) {
+			return new SVGGraphics2D(draw2dGraphics);
+		}
 		bufferedImage = createImage(w, h);
 		Graphics2D g2d = GraphicsUtil.createGraphics(bufferedImage);
 		return g2d;

@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.runtime.lite.svg;
 
-import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -21,6 +20,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.batik.bridge.BridgeContext;
 import org.apache.batik.dom.svg.SAXSVGDocumentFactory;
 import org.apache.batik.transcoder.Transcoder;
 import org.apache.batik.transcoder.TranscoderException;
@@ -36,9 +36,11 @@ import org.eclipse.gmf.internal.runtime.lite.svg.Activator;
 import org.eclipse.gmf.internal.runtime.lite.svg.ImageTranscoderEx;
 import org.eclipse.gmf.internal.runtime.lite.svg.InferringNamespaceContext;
 import org.eclipse.gmf.internal.runtime.lite.svg.SVGGraphics2D;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class SVGFigure extends Figure {
@@ -46,6 +48,7 @@ public class SVGFigure extends Figure {
 	private String uri;
 	private Document document;
 	private boolean failedToLoadDocument;
+	private ImageTranscoderEx transcoder;
 	private boolean safeRendering;
 	private boolean directRenderingSucceeded;
 	private Rectangle2D aoi;
@@ -68,6 +71,7 @@ public class SVGFigure extends Figure {
 	}
 
 	private void loadDocument() {
+		transcoder = null;
 		failedToLoadDocument = true;
 		if (uri == null) {
 			return;
@@ -77,6 +81,7 @@ public class SVGFigure extends Figure {
 		try {
 			document = factory.createDocument(uri);
 			failedToLoadDocument = false;
+			transcoder = new ImageTranscoderEx();
 		} catch (IOException e) {
 			Activator.logError("Error loading SVG file", e);
 		}
@@ -118,6 +123,27 @@ public class SVGFigure extends Figure {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Reads color value from the document.
+	 */
+	protected Color getColor(Element element, String attributeName) {
+		Document document = getDocument();
+		if (document == null || transcoder == null) {
+			return null;
+		}
+		Color color = null;
+		// Make sure that CSSEngine is available.
+		BridgeContext ctx = transcoder.initCSSEngine(document);
+		try {
+			color = SVGUtils.toSWTColor(element, attributeName);
+		} finally {
+			if (ctx != null) {
+				ctx.dispose();
+			}
+		}
+		return color;
 	}
 
 	private void renderDocument(Transcoder transcoder, Document document) {
@@ -162,21 +188,14 @@ public class SVGFigure extends Figure {
 	}
 
 	private void paintDirectly(final Graphics graphics, Document document) {
-		ImageTranscoderEx transcoder = new ImageTranscoderEx() {
-
-			@Override
-			protected Graphics2D createGraphics(int w, int h) {
-				return new SVGGraphics2D(graphics);
-			}
-		};
+		transcoder.setDraw2DGraphics(graphics);
 		renderDocument(transcoder, document);
 	}
 
 	private void paintUsingAWT(Graphics graphics, Document document) {
 		Image image = null;
 		try {
-			// SimpleImageTranscoder transcoder = new SimpleImageTranscoder();
-			ImageTranscoderEx transcoder = new ImageTranscoderEx();
+			transcoder.setDraw2DGraphics(null);
 			renderDocument(transcoder, document);
 			BufferedImage awtImage = transcoder.getBufferedImage();
 			if (awtImage != null) {
