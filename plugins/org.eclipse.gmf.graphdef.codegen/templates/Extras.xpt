@@ -72,7 +72,7 @@
 		if (nodes.getLength() > 0) {
 			org.w3c.dom.Element element = (org.w3c.dom.Element) nodes.item(0);
 			«IF type == gmfgraph::SVGPropertyType::COLOR-»
-			return org.eclipse.gmf.runtime.lite.svg.SVGUtils.toSWTColor(element, "«attribute»"); //$NON-NLS-1$
+			return getColor(element, "«attribute»"); //$NON-NLS-1$
 			«ELSE-»
 			return element.getAttributeNS(null, "«attribute»"); //$NON-NLS-1$
 			«ENDIF-»
