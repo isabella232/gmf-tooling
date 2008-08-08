@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: SVGFigureImpl.java,v 1.3 2008/08/05 12:42:37 dstadnik Exp $
+ * $Id: SVGFigureImpl.java,v 1.4 2008/08/08 13:10:05 dstadnik Exp $
  */
 package org.eclipse.gmf.gmfgraph.impl;
 
@@ -35,7 +35,6 @@ import org.eclipse.gmf.gmfgraph.SVGProperty;
  * <ul>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl#getDocumentURI <em>Document URI</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl#getProperties <em>Properties</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl#isSafeRendering <em>Safe Rendering</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl#getAreaOfInterest <em>Area Of Interest</em>}</li>
  * </ul>
  * </p>
@@ -72,26 +71,6 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 	 * @ordered
 	 */
 	protected EList<SVGProperty> properties;
-
-	/**
-	 * The default value of the '{@link #isSafeRendering() <em>Safe Rendering</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSafeRendering()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean SAFE_RENDERING_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isSafeRendering() <em>Safe Rendering</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSafeRendering()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean safeRendering = SAFE_RENDERING_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getAreaOfInterest() <em>Area Of Interest</em>}' containment reference.
@@ -153,27 +132,6 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 			properties = new EObjectContainmentEList<SVGProperty>(SVGProperty.class, this, GMFGraphPackage.SVG_FIGURE__PROPERTIES);
 		}
 		return properties;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isSafeRendering() {
-		return safeRendering;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSafeRendering(boolean newSafeRendering) {
-		boolean oldSafeRendering = safeRendering;
-		safeRendering = newSafeRendering;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.SVG_FIGURE__SAFE_RENDERING, oldSafeRendering, safeRendering));
 	}
 
 	/**
@@ -247,8 +205,6 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 				return getDocumentURI();
 			case GMFGraphPackage.SVG_FIGURE__PROPERTIES:
 				return getProperties();
-			case GMFGraphPackage.SVG_FIGURE__SAFE_RENDERING:
-				return isSafeRendering() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST:
 				return getAreaOfInterest();
 		}
@@ -271,9 +227,6 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 				getProperties().clear();
 				getProperties().addAll((Collection<? extends SVGProperty>)newValue);
 				return;
-			case GMFGraphPackage.SVG_FIGURE__SAFE_RENDERING:
-				setSafeRendering(((Boolean)newValue).booleanValue());
-				return;
 			case GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST:
 				setAreaOfInterest((Rectangle2D)newValue);
 				return;
@@ -295,9 +248,6 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 			case GMFGraphPackage.SVG_FIGURE__PROPERTIES:
 				getProperties().clear();
 				return;
-			case GMFGraphPackage.SVG_FIGURE__SAFE_RENDERING:
-				setSafeRendering(SAFE_RENDERING_EDEFAULT);
-				return;
 			case GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST:
 				setAreaOfInterest((Rectangle2D)null);
 				return;
@@ -317,8 +267,6 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 				return DOCUMENT_URI_EDEFAULT == null ? documentURI != null : !DOCUMENT_URI_EDEFAULT.equals(documentURI);
 			case GMFGraphPackage.SVG_FIGURE__PROPERTIES:
 				return properties != null && !properties.isEmpty();
-			case GMFGraphPackage.SVG_FIGURE__SAFE_RENDERING:
-				return safeRendering != SAFE_RENDERING_EDEFAULT;
 			case GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST:
 				return areaOfInterest != null;
 		}
@@ -337,8 +285,6 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (documentURI: ");
 		result.append(documentURI);
-		result.append(", safeRendering: ");
-		result.append(safeRendering);
 		result.append(')');
 		return result.toString();
 	}

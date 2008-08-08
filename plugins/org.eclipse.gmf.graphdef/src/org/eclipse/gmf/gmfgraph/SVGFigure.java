@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: SVGFigure.java,v 1.3 2008/08/05 12:42:37 dstadnik Exp $
+ * $Id: SVGFigure.java,v 1.4 2008/08/08 13:10:05 dstadnik Exp $
  */
 package org.eclipse.gmf.gmfgraph;
 
@@ -18,7 +18,6 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.eclipse.gmf.gmfgraph.SVGFigure#getDocumentURI <em>Document URI</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.SVGFigure#getProperties <em>Properties</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.SVGFigure#isSafeRendering <em>Safe Rendering</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.SVGFigure#getAreaOfInterest <em>Area Of Interest</em>}</li>
  * </ul>
  * </p>
@@ -69,32 +68,6 @@ public interface SVGFigure extends RealFigure {
 	 * @generated
 	 */
 	EList<SVGProperty> getProperties();
-
-	/**
-	 * Returns the value of the '<em><b>Safe Rendering</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Safe Rendering</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Safe Rendering</em>' attribute.
-	 * @see #setSafeRendering(boolean)
-	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getSVGFigure_SafeRendering()
-	 * @model
-	 * @generated
-	 */
-	boolean isSafeRendering();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.SVGFigure#isSafeRendering <em>Safe Rendering</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Safe Rendering</em>' attribute.
-	 * @see #isSafeRendering()
-	 * @generated
-	 */
-	void setSafeRendering(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Area Of Interest</b></em>' containment reference.

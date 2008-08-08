@@ -300,7 +300,6 @@
     <genClasses ecoreClass="gmfgraph.ecore#//SVGFigure">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGFigure/documentURI"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//SVGFigure/properties"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGFigure/safeRendering"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//SVGFigure/areaOfInterest"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//SVGProperty">

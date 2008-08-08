@@ -6261,22 +6261,13 @@ public interface GMFGraphPackage extends EPackage {
 	int SVG_FIGURE__PROPERTIES = REAL_FIGURE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Safe Rendering</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SVG_FIGURE__SAFE_RENDERING = REAL_FIGURE_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Area Of Interest</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SVG_FIGURE__AREA_OF_INTEREST = REAL_FIGURE_FEATURE_COUNT + 3;
+	int SVG_FIGURE__AREA_OF_INTEREST = REAL_FIGURE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>SVG Figure</em>' class.
@@ -6285,7 +6276,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SVG_FIGURE_FEATURE_COUNT = REAL_FIGURE_FEATURE_COUNT + 4;
+	int SVG_FIGURE_FEATURE_COUNT = REAL_FIGURE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.SVGPropertyImpl <em>SVG Property</em>}' class.
@@ -8519,17 +8510,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getSVGFigure_Properties();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.SVGFigure#isSafeRendering <em>Safe Rendering</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Safe Rendering</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.SVGFigure#isSafeRendering()
-	 * @see #getSVGFigure()
-	 * @generated
-	 */
-	EAttribute getSVGFigure_SafeRendering();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.SVGFigure#getAreaOfInterest <em>Area Of Interest</em>}'.
