@@ -43,7 +43,8 @@ public class Scope {
     
     public Scope(ResourceManager resourceManager, Collection<Variable> globalVars, Output output) {
     	assert resourceManager != null;
-    	assert output != null;
+    	// FIXME output != null is only important for evaluation cases, for analyze, null is perfectly ok
+    	// assert output != null;
         this.resourceManager = resourceManager;
 		this.output = output;
         if (globalVars != null) {

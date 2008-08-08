@@ -21,6 +21,8 @@ import java.util.Set;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.ast.Advice;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
+import org.eclipse.gmf.internal.xpand.model.Scope;
 import org.eclipse.gmf.internal.xpand.model.XpandAdvice;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
@@ -51,7 +53,7 @@ class CompositeXpandResource implements XpandResource {
 		myAdvices = advices == null ? NO_RESOURCES : advices;
 		ArrayList<XpandDefinition> allDefinitions = new ArrayList<XpandDefinition>();
 		HashSet<DefinitionSignature> signatures = new HashSet<DefinitionSignature>();
-		ExecutionContext context = ContextFactory.createXpandContext(manager);
+		ExecutionContext context = new ExecutionContextImpl(new Scope(manager, null, null));
 		//Definitions are merged in the following order: first, all advice resources from newest to oldest, then all 
 		//non-advice resources, from newest to oldest.
 		mergeDefinitions(context, myAdvices, allDefinitions, signatures);
