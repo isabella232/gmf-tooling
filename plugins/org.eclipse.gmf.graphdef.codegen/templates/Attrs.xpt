@@ -51,9 +51,6 @@
 
 «DEFINE Init(EString figureVarName) FOR gmfgraph::SVGFigure-»
 «figureVarName».setURI("«documentURI»");
-«IF safeRendering-»
-«figureVarName».setSafeRendering(true);
-«ENDIF-»
 «IF areaOfInterest != null-»
 «figureVarName».setAreaOfInterest(«EXPAND Instance FOR areaOfInterest»);
 «ENDIF-»
