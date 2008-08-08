@@ -45,7 +45,7 @@ public class LetStatement extends Statement {
 		if (t == null) {
 			t = EcorePackage.eINSTANCE.getEObject();
 		}
-		ctx = ctx.cloneWithVariable(new Variable(varName.getValue(), t));
+		ctx = ctx.cloneWithVariable(new Variable(varName.getValue(), t, null));
 		for (Statement statement : body) {
 			statement.analyze(ctx, issues);
 		}
@@ -53,7 +53,7 @@ public class LetStatement extends Statement {
 
 	@Override
 	public void evaluateInternal(ExecutionContext ctx) {
-		ctx = ctx.cloneWithVariable(new Variable(varName.getValue(), varValue.evaluate(ctx)));
+		ctx = ctx.cloneWithVariable(new Variable(varName.getValue(), null, varValue.evaluate(ctx)));
 		for (Statement statement : body) {
 			statement.evaluate(ctx);
 		}

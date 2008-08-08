@@ -56,7 +56,7 @@ public class Advice extends AbstractDefinition implements XpandAdvice {
 
     @Override
     public void analyze(ExecutionContext ctx, final Set<AnalysationIssue> issues) {
-        ctx = ctx.cloneWithVariable(new Variable(DEF_VAR_NAME, BuiltinMetaModel.DEFINITION_TYPE));
+        ctx = ctx.cloneWithVariable(new Variable(DEF_VAR_NAME, BuiltinMetaModel.DEFINITION_TYPE, null));
         super.analyze(ctx, issues);
     }
 
@@ -97,7 +97,7 @@ public class Advice extends AbstractDefinition implements XpandAdvice {
             }
             if ((params.length == paramTypes.length) || (wildParams && (params.length <= paramTypes.length))) {
 
-                ctx = (ExecutionContext) ctx.cloneWithResource(this.owner);	//need to resolve in the context of the aspect
+                ctx = ctx.cloneWithResource(this.owner);	//need to resolve in the context of the aspect
                 final EClassifier at = type.getTypeForName(ctx);
                 if (BuiltinMetaModel.isAssignableFrom(at, t)) {
                     for (int i = 0; i < params.length; i++) {

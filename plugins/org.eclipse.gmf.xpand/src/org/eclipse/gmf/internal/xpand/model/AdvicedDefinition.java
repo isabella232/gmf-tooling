@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.xpand.model;
 
+import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.ast.Advice;
 import org.eclipse.gmf.internal.xpand.ocl.DeclaredParameter;
 import org.eclipse.gmf.internal.xpand.ocl.TypeHelper;
@@ -32,7 +33,7 @@ public class AdvicedDefinition implements XpandDefinition {
 
     public void evaluate(final ExecutionContext ctx) {
         final ExecutionContext ctx1 = (ExecutionContext) ctx.cloneWithVariable(new Variable(
-                Advice.DEF_VAR_NAME, new XpandDefinitionWrap(definition, ctx)));
+                Advice.DEF_VAR_NAME, BuiltinMetaModel.DEFINITION_TYPE, new XpandDefinitionWrap(definition, ctx)));
         advice.evaluate(ctx1);
     }
 

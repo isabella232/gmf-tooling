@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.gmf.internal.xpand.Activator;
+import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.util.PolymorphicResolver;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
@@ -33,6 +34,7 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
 import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
 import org.eclipse.ocl.ecore.EcoreEvaluationEnvironment;
+import org.eclipse.ocl.ecore.EcoreFactory;
 
 /**
  * @author Sven Efftinge
@@ -234,10 +236,25 @@ public final class ExecutionContextImpl implements ExecutionContext {
     	if (envFactory == null) {
     		envFactory = new EcoreEnvironmentFactory(getAllVisibleModels());
     	}
-//		org.eclipse.ocl.ecore.Variable oclVar = EcoreFactory.eINSTANCE.createVariable();
-//		oclVar.setName(v.getName());
-//		oclVar.setType((EClassifier) v.getValue());
     	environment = (EcoreEnvironment) envFactory.createEnvironment();
+    	for (Variable v : variables.values()) {
+    		if (!IMPLICIT_VARIABLE.equals(v.getName())) {
+    			// XXX alternative: environment.getOCLFactory().createVariable()
+    			org.eclipse.ocl.ecore.Variable oclVar = EcoreFactory.eINSTANCE.createVariable();
+    			oclVar.setName(v.getName());
+    			if (v.getType() == null) {
+    				oclVar.setType(BuiltinMetaModel.getType(v.getValue()));
+    			} else {
+    				oclVar.setType(v.getType());
+    			}
+    			environment.addElement(oclVar.getName(), oclVar, true);
+    		}
+    	}
+		Variable v = variables.get(ExecutionContext.IMPLICIT_VARIABLE);
+		if (v != null) {
+			EClassifier type = v.getType() == null ? BuiltinMetaModel.getType(v.getValue()) : v.getType();
+			environment = (EcoreEnvironment) envFactory.createClassifierContext(environment, type);
+		}
     	return environment;
     }
     

@@ -38,10 +38,6 @@ public class ExpressionHelper {
 
 	public EClassifier analyze(ExecutionContext ctx, Set<AnalysationIssue> issues) {
 		EcoreEnvironment env = ctx.getOCLEnvironment();
-		Variable v = ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE);
-		if (v != null) {
-			env = (EcoreEnvironment) env.getFactory().createClassifierContext(env, (EClassifier) v.getValue());
-		}
 		OCLExpression expression = new EmbeddedOCLAnalyzer(env).analyzeExpression(expressionCS);
 		return expression.getType();
 	}
@@ -51,9 +47,6 @@ public class ExpressionHelper {
 		// FIXME move context handling with this->self inside ExecutionContextImpl? Or, it's better to have explicit,
 		// separate environment for each execution?
 		Variable self = ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE);  
-		if (self != null) {
-			env = (EcoreEnvironment) env.getFactory().createInstanceContext(env, self.getValue());
-		}
 		OCLExpression expression = new EmbeddedOCLAnalyzer(env).analyzeExpression(expressionCS);
 		OCL ocl = OCL.newInstance();
 		ctx.populate((EcoreEvaluationEnvironment) ocl.getEvaluationEnvironment());

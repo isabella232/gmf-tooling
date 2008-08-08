@@ -56,9 +56,9 @@ public class XpandFacade {
 		}
 
 		ArrayList<Variable> vars = new ArrayList<Variable>(params.length + 1);
-		vars.add(new Variable(ExecutionContext.IMPLICIT_VARIABLE, targetObject));
+		vars.add(new Variable(ExecutionContext.IMPLICIT_VARIABLE, targetType, targetObject));
 		for (int i = 0; i < params.length; i++) {
-			vars.add(new Variable(def.getParams()[i].getVarName(), params[i]));
+			vars.add(new Variable(def.getParams()[i].getVarName(), paramTypes[i], params[i]));
 		}
 		ExecutionContextImpl ctx = new ExecutionContextImpl(scope, def.getOwner(), vars);
 		def.evaluate(ctx);

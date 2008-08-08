@@ -54,14 +54,14 @@ public class XpandDefinitionWrap {
     public void proceed(final Object target, final List<?> list) {
         ExecutionContext context = ctx;
         if (target != null) {
-            context = (ExecutionContext) context.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, target));
+            context = context.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, null, target));
         }
         if (list != null) {
             final List<String> n = getParamNames();
             for (int i = 0, x = list.size(); i < x;) {
                 final Object o = list.get(i);
                 if ((o != null) && (n.size() >= i)) {
-                    context = context.cloneWithVariable(new Variable(n.get(i), o));
+                    context = context.cloneWithVariable(new Variable(n.get(i), null, o));
                 }
             }
         }

@@ -22,14 +22,10 @@ import org.eclipse.ocl.ecore.EcoreEvaluationEnvironment;
 /**
  * @author Sven Efftinge
  * @author Arno Haase
- * XXX would be great to have some cancellation behavior avialable from environment (i.e. for debuger to be able to stop execution)
+ * XXX would be great to have some cancellation behavior available from environment (i.e. for debuger to be able to stop execution)
  */
 public interface ExecutionContext {
 
-	/**
-	 * XXX during analyze, we treat value of this variable as EClassifier,
-	 * and during evaluate - as Object (i.e. rather instance than meta-type)
-	 */
 	public final static String IMPLICIT_VARIABLE = "this";
 
 	ExecutionContext cloneWithVariable(Variable... v);
@@ -42,6 +38,7 @@ public interface ExecutionContext {
 
 	Set<? extends GenericExtension> getAllExtensions();
 
+	// may return null if no definition found
 	XpandDefinition findDefinition(String name, EClassifier target, EClassifier[] paramTypes);
 	
 	EcoreEnvironment getOCLEnvironment();

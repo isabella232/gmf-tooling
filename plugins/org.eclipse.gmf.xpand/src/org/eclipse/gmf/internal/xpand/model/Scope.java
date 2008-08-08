@@ -53,9 +53,15 @@ public class Scope {
 		}
     }
 
+    // FIXME next two are for tests 
     protected Scope() {
     	resourceManager = null;
     	output = null;
+    }
+
+    protected Scope(Output out) {
+    	resourceManager = null;
+    	output = out;
     }
 
 	// [artem] if not null, should be notified about entering/leaving xpand ast elements
@@ -128,6 +134,11 @@ public class Scope {
     public XpandResource findTemplate(String templateName, String contextTemplate) {
     	assert templateName != null;
     	assert contextTemplate != null;
+    	if (getResourceManager() == null) {
+    		// HACK for tests
+    		// FIXME once dealt with Scope with null rm, should remove this. (fix tests to use RM)
+    		return null;
+    	}
     	String[] possibleNames;
 		if (!TypeNameUtil.isQualifiedName(contextTemplate)) {
 			possibleNames = new String[] { templateName };

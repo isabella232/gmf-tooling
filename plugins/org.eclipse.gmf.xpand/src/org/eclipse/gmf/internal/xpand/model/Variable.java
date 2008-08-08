@@ -10,22 +10,30 @@
  */
 package org.eclipse.gmf.internal.xpand.model;
 
+import org.eclipse.emf.ecore.EClassifier;
+
 /**
- * FIXME !!! either make value final or do not use it to calculate hash code!!!
+ * FIXME Do we need Variables now, with explicit OCLEnvironment available? 
  * @author Sven Efftinge
  * @author Arno Haase
  */
 public class Variable {
 
-    private String name;
+    private final String name;
 
-    private Object value;
+    private final Object value;
 
-    public Variable(final String name, final Object value) {
-        if (name == null) {
-			throw new IllegalArgumentException("name must not be null!");
+	private final EClassifier type;
+
+	/**
+	 * type and value may be null 
+	 */
+    public Variable(final String name, final EClassifier type, final Object value) {
+		if (name == null) {
+			throw new NullPointerException("name must not be null!");
 		}
         this.name = name;
+        this.type = type;
         this.value = value;
     }
 
@@ -33,13 +41,13 @@ public class Variable {
         return value;
     }
 
-    public void setValue(final Object value) {
-        this.value = value;
-    }
-
     public String getName() {
         return name;
     }
+
+    public EClassifier getType() {
+		return type;
+	}
 
     @Override
     public int hashCode() {
