@@ -11,18 +11,16 @@
  */
 package org.eclipse.gmf.internal.runtime.lite.svg;
 
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import org.apache.batik.bridge.BridgeContext;
 import org.apache.batik.dom.svg.SVGOMDocument;
-import org.apache.batik.ext.awt.image.GraphicsUtil;
-import org.apache.batik.transcoder.SVGAbstractTranscoder;
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderOutput;
+import org.apache.batik.transcoder.image.ImageTranscoder;
 import org.w3c.dom.Document;
 
-public class ImageTranscoderEx extends SVGAbstractTranscoder {
+public class SimpleImageTranscoder extends ImageTranscoder {
 
 	private BufferedImage bufferedImage;
 
@@ -38,7 +36,7 @@ public class ImageTranscoderEx extends SVGAbstractTranscoder {
 		class BridgeContextEx extends BridgeContext {
 
 			public BridgeContextEx() {
-				super(ImageTranscoderEx.this.userAgent);
+				super(SimpleImageTranscoder.this.userAgent);
 				BridgeContextEx.this.setDocument(d);
 				BridgeContextEx.this.initializeDocument(d);
 			}
@@ -46,23 +44,17 @@ public class ImageTranscoderEx extends SVGAbstractTranscoder {
 		return new BridgeContextEx();
 	}
 
-	protected void transcode(Document document, String uri, TranscoderOutput output) throws TranscoderException {
-		super.transcode(document, uri, output);
-		Graphics2D g2d = createGraphics();
-		g2d.transform(curTxf);
-		root.paint(g2d);
-		g2d.dispose();
-	}
-
-	protected Graphics2D createGraphics() {
-		int w = (int) (width + 0.5);
-		int h = (int) (height + 0.5);
-		bufferedImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g2d = GraphicsUtil.createGraphics(bufferedImage);
-		return g2d;
-	}
-
 	public BufferedImage getBufferedImage() {
 		return bufferedImage;
+	}
+
+	@Override
+	public BufferedImage createImage(int width, int height) {
+		return new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+	}
+
+	@Override
+	public void writeImage(BufferedImage img, TranscoderOutput output) throws TranscoderException {
+		bufferedImage = img;
 	}
 }

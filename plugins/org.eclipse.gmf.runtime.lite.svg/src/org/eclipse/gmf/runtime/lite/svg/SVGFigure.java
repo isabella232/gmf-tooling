@@ -33,7 +33,7 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gmf.internal.runtime.lite.svg.Activator;
-import org.eclipse.gmf.internal.runtime.lite.svg.ImageTranscoderEx;
+import org.eclipse.gmf.internal.runtime.lite.svg.SimpleImageTranscoder;
 import org.eclipse.gmf.internal.runtime.lite.svg.InferringNamespaceContext;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
@@ -50,7 +50,7 @@ public class SVGFigure extends Figure {
 	private String uri;
 	private Document document;
 	private boolean failedToLoadDocument;
-	private ImageTranscoderEx transcoder;
+	private SimpleImageTranscoder transcoder;
 	private Rectangle2D aoi;
 
 	public final String getURI() {
@@ -81,7 +81,7 @@ public class SVGFigure extends Figure {
 		try {
 			document = factory.createDocument(uri);
 			failedToLoadDocument = false;
-			transcoder = new ImageTranscoderEx();
+			transcoder = new SimpleImageTranscoder();
 		} catch (IOException e) {
 			Activator.logError("Error loading SVG file", e);
 		}
