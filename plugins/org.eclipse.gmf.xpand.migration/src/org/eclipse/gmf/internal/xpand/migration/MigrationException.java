@@ -30,7 +30,9 @@ public class MigrationException extends Exception {
 		TYPE_NOT_FOUND("Extension return type was not found"),
 		UNSUPPORTED_EXPRESSION("Unsupported expression"), 
 		UNSUPPORTED_BOOLEAN_OPERATION("Unsupported boolean operation"), 
-		UNSUPPORTED_INFIX_OPERATION_PARAMETER("Unsupported infix operation parameter");
+		UNSUPPORTED_INFIX_OPERATION_PARAMETER("Unsupported infix operation parameter"),
+		UNSUPPORTED_FEATURE_CALL_TRACE("Unsupported feature call trace"),
+		UNSUPPORTED_FEATURE_CALL("Unsupported feature call");
 
 		private String name;
 

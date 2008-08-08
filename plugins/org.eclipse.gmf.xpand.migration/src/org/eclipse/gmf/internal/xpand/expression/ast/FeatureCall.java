@@ -1,7 +1,7 @@
 /*
  * <copyright>
  *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005-2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
+ *     Alexander Shatalin (Borland)
  *
  * </copyright>
  */
@@ -20,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
@@ -31,6 +33,10 @@ import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
+import org.eclipse.gmf.internal.xpand.migration.ExpressionAnalyzeTrace;
+import org.eclipse.gmf.internal.xpand.migration.FeatureCallTrace;
+import org.eclipse.gmf.internal.xpand.migration.MigrationExecutionContext;
+import org.eclipse.gmf.internal.xpand.migration.FeatureCallTrace.Type;
 
 /**
  * @author Sven Efftinge
@@ -175,14 +181,18 @@ public class FeatureCall extends Expression {
             // enum literal
             final EEnumLiteral staticProp = getEnumLiteral(ctx);
             if (staticProp != null) {
-				return BuiltinMetaModel.getReturnType(staticProp);
+				EClassifier result = BuiltinMetaModel.getReturnType(staticProp);
+				createAnalyzeTrace(ctx, new FeatureCallTrace(result, staticProp));
+				return result;
 			}
 
             // variable
             Variable var = ctx.getVariable(getName().getValue());
-            if (var != null) {
+			if (var != null) {
             	assert var.getValue() == null || var.getValue() instanceof EClassifier : "variable should hold EClassifier";
-				return (EClassifier) var.getValue();
+            	EClassifier result = (EClassifier) var.getValue();
+            	createAnalyzeTrace(ctx, new FeatureCallTrace(result, Type.ENV_VAR_REF));
+				return result;
 			}
 
             // implicite variable 'this'
@@ -194,6 +204,7 @@ public class FeatureCall extends Expression {
         } else {
             targetType = analyzeTarget(ctx, issues);
             if (targetType == null) {
+            	createAnalyzeTrace(ctx, new FeatureCallTrace(null, Type.UNDESOLVED_TARGET_TYPE));
 				return null;
 			}
         }
@@ -203,18 +214,22 @@ public class FeatureCall extends Expression {
         if (targetType != null) {
             EStructuralFeature p = BuiltinMetaModel.getAttribute(targetType, getName().getValue());
             if (p != null) {
-				return BuiltinMetaModel.getTypedElementType(p);
+				EClassifier result = BuiltinMetaModel.getTypedElementType(p);
+				createAnalyzeTrace(ctx, new FeatureCallTrace(result, p, targetType));
+				return result;
 			}
 
             if ((p == null) && BuiltinMetaModel.isParameterizedType(targetType)) {
                 final EClassifier innerEClassifier = BuiltinMetaModel.getInnerType(targetType);
                 p = BuiltinMetaModel.getAttribute(innerEClassifier, getName().getValue());
                 if (p != null) {
-                    EClassifier rt = p.getEType();
+                    EClassifier rt = BuiltinMetaModel.getTypedElementType(p);
                     if (BuiltinMetaModel.isParameterizedType(rt)) {
                         rt = BuiltinMetaModel.getInnerType(rt);
                     }
-                    return BuiltinMetaModel.getListType(rt);
+                    EClass result = BuiltinMetaModel.getListType(rt);
+                    createAnalyzeTrace(ctx, new FeatureCallTrace(result, targetType));
+					return result;
                 }
                 additionalMsg = " or inner type '" + innerEClassifier + "'";
             }
@@ -222,6 +237,7 @@ public class FeatureCall extends Expression {
         if (target == null) {
             final EClassifier type = ctx.getTypeForName(getName().getValue());
             if (type != null) {
+            	createAnalyzeTrace(ctx, new FeatureCallTrace(null, Type.UNSUPPORTED_CLASSIFIER_REF));
                 return EcorePackage.eINSTANCE.getEClass();
             }
         }
@@ -240,6 +256,13 @@ public class FeatureCall extends Expression {
                 + getName().getValue() + "' for type '" + targetType.getName() + "'" + additionalMsg, this));
         return null;
 
+    }
+    
+    protected void createAnalyzeTrace(ExecutionContext ctx, ExpressionAnalyzeTrace trace) {
+    	if (false == ctx instanceof MigrationExecutionContext) {
+    		return;
+    	}
+    	((MigrationExecutionContext) ctx).getTraces().put(this, trace);
     }
 
     protected EClassifier analyzeTarget(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {

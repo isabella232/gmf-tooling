@@ -20,13 +20,12 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.expression.ast.BooleanLiteral;
 import org.eclipse.gmf.internal.xpand.expression.ast.BooleanOperation;
@@ -72,18 +71,26 @@ public class MigrationFacade {
 
 	private boolean injectUnusedImports;
 
-	private ExecutionContext rootExecutionContext;
+	private MigrationExecutionContext rootExecutionContext;
 
 	private Stack<Expression> expressionsStack = new Stack<Expression>();
 
 	private int returnPosition;
+
+	private static final boolean isListType(EClassifier classifier) {
+		return classifier.getName().endsWith(BuiltinMetaModel.LIST);
+	}
+
+	private static final boolean isSetType(EClassifier classifier) {
+		return classifier.getName().endsWith(BuiltinMetaModel.SET);
+	}
 
 	public MigrationFacade(ResourceManager resourceManager, String xtendResourceName, boolean injectUnusedImports) {
 		this(resourceManager, xtendResourceName);
 		this.injectUnusedImports = injectUnusedImports;
 	}
 
-	public MigrationFacade(ResourceManager resourceManager, String xtendResourceName, ExecutionContext executionContext) {
+	public MigrationFacade(ResourceManager resourceManager, String xtendResourceName, MigrationExecutionContext executionContext) {
 		this(resourceManager, xtendResourceName);
 		rootExecutionContext = executionContext;
 	}
@@ -98,7 +105,7 @@ public class MigrationFacade {
 		if (xtendResource == null) {
 			throw new MigrationException(Type.RESOURCE_NOT_FOUND, "Unable to load resource: " + resourceName);
 		}
-		ExecutionContext ctx = (rootExecutionContext != null ? rootExecutionContext : new ExecutionContextImpl(resourceManager)).cloneWithResource(xtendResource);
+		MigrationExecutionContext ctx = (rootExecutionContext != null ? rootExecutionContext : new MigrationExecutionContextImpl(resourceManager)).cloneWithResource(xtendResource);
 		Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
 		xtendResource.analyze(ctx, issues);
 		if (issues.size() > 0) {
@@ -144,7 +151,7 @@ public class MigrationFacade {
 		}
 	}
 
-	private void migrateExtension(Extension extension, ExecutionContext ctx) throws MigrationException {
+	private void migrateExtension(Extension extension, MigrationExecutionContext ctx) throws MigrationException {
 		try {
 			extension.init(ctx);
 		} catch (EvaluationException e) {
@@ -186,7 +193,7 @@ public class MigrationFacade {
 		writeln("}");
 	}
 
-	private EClassifier getReturnType(Extension extension, ExecutionContext ctx) throws MigrationException {
+	private EClassifier getReturnType(Extension extension, MigrationExecutionContext ctx) throws MigrationException {
 		Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
 		EClassifier returnType = extension.getReturnType(extension.getParameterTypes().toArray(new EClassifier[extension.getParameterNames().size()]), ctx, issues);
 		if (issues.size() > 0) {
@@ -215,9 +222,9 @@ public class MigrationFacade {
 		}
 		if (BuiltinMetaModel.isCollectionType(classifier)) {
 			StringBuilder sb = new StringBuilder();
-			if (classifier.getName().endsWith(BuiltinMetaModel.SET)) {
+			if (isSetType(classifier)) {
 				sb.append("Set(");
-			} else if (classifier.getName().endsWith(BuiltinMetaModel.LIST)) {
+			} else if (isListType(classifier)) {
 				sb.append("Sequence(");
 			} else {
 				sb.append("Collection(");
@@ -231,7 +238,7 @@ public class MigrationFacade {
 		return alias + OCL_PATH_SEPARATOR + classifier.getName();
 	}
 
-	private void migrateExpressionExtension(ExpressionExtensionStatement extension, ExecutionContext ctx) throws MigrationException {
+	private void migrateExpressionExtension(ExpressionExtensionStatement extension, MigrationExecutionContext ctx) throws MigrationException {
 		write("\t");
 		markReturnPosition();
 		migrateExpression(extension.getExpression(), ctx);
@@ -261,7 +268,7 @@ public class MigrationFacade {
 		throw new MigrationException(Type.UNSUPPORTED_EXTENSION, extension.getClass().getName());
 	}
 
-	private void migrateExpression(Expression expression, ExecutionContext ctx) throws MigrationException {
+	private void migrateExpression(Expression expression, MigrationExecutionContext ctx) throws MigrationException {
 		expressionsStack.push(expression);
 		try {
 			if (expression instanceof BooleanOperation) {
@@ -306,7 +313,7 @@ public class MigrationFacade {
 		}
 	}
 
-	private void migrateSwitchExpression(SwitchExpression switchExpression, ExecutionContext ctx) throws MigrationException {
+	private void migrateSwitchExpression(SwitchExpression switchExpression, MigrationExecutionContext ctx) throws MigrationException {
 		if (switchExpression.getCases().size() == 0) {
 			migrateExpression(switchExpression.getDefaultExpr(), ctx);
 		} else {
@@ -327,7 +334,7 @@ public class MigrationFacade {
 		}
 	}
 
-	private void migrateStringLiteral(StringLiteral expression, ExecutionContext ctx) {
+	private void migrateStringLiteral(StringLiteral expression, MigrationExecutionContext ctx) {
 		write("'");
 		write(excape(expression.getValue()));
 		write("'");
@@ -346,23 +353,23 @@ public class MigrationFacade {
 		return sb.toString();
 	}
 
-	private void migrateRealLiteral(RealLiteral realLiteral, ExecutionContext ctx) {
+	private void migrateRealLiteral(RealLiteral realLiteral, MigrationExecutionContext ctx) {
 		write(new Double(realLiteral.getLiteralValue()).toString());
 	}
 
-	private void migrateNullLiteral(NullLiteral expression, ExecutionContext ctx) {
+	private void migrateNullLiteral(NullLiteral expression, MigrationExecutionContext ctx) {
 		write("null");
 	}
 
-	private void migrateIntegerLiteral(IntegerLiteral integerLiteral, ExecutionContext ctx) {
+	private void migrateIntegerLiteral(IntegerLiteral integerLiteral, MigrationExecutionContext ctx) {
 		write(new Integer(integerLiteral.getLiteralValue()).toString());
 	}
 
-	private void migrateBooleanLiteral(BooleanLiteral booleanLiteral, ExecutionContext ctx) {
+	private void migrateBooleanLiteral(BooleanLiteral booleanLiteral, MigrationExecutionContext ctx) {
 		write(Boolean.valueOf(booleanLiteral.getLiteralValue()) ? Boolean.TRUE.toString() : Boolean.FALSE.toString());
 	}
 
-	private void migrateListLiteral(ListLiteral listLiteral, ExecutionContext ctx) throws MigrationException {
+	private void migrateListLiteral(ListLiteral listLiteral, MigrationExecutionContext ctx) throws MigrationException {
 		write("Sequence { ");
 		for (int i = 0; i < listLiteral.getElements().length; i++) {
 			if (i > 0) {
@@ -373,7 +380,7 @@ public class MigrationFacade {
 		write(" }");
 	}
 
-	private void migrateLetExpression(LetExpression letExpression, ExecutionContext ctx) throws MigrationException {
+	private void migrateLetExpression(LetExpression letExpression, MigrationExecutionContext ctx) throws MigrationException {
 		write("let ");
 		write(letExpression.getVarName().getValue());
 		write(" = ");
@@ -382,7 +389,7 @@ public class MigrationFacade {
 		migrateExpression(letExpression.getTargetExpression(), ctx);
 	}
 
-	private void migrateIfExpression(IfExpression ifExpression, ExecutionContext ctx) throws MigrationException {
+	private void migrateIfExpression(IfExpression ifExpression, MigrationExecutionContext ctx) throws MigrationException {
 		write("if ");
 		migrateExpression(ifExpression.getCondition(), ctx);
 		write(" then ");
@@ -392,7 +399,7 @@ public class MigrationFacade {
 		write(" endif");
 	}
 
-	private void migrateConstructorCallExpression(ConstructorCallExpression constructorCall, ExecutionContext ctx) throws MigrationException {
+	private void migrateConstructorCallExpression(ConstructorCallExpression constructorCall, MigrationExecutionContext ctx) throws MigrationException {
 		write("object ");
 		EClassifier type = ctx.getTypeForName(constructorCall.getType().getValue());
 		if (type == null) {
@@ -403,7 +410,7 @@ public class MigrationFacade {
 		write(" {}");
 	}
 
-	private void migrateChainExpression(ChainExpression chainExpression, ExecutionContext ctx) throws MigrationException {
+	private void migrateChainExpression(ChainExpression chainExpression, MigrationExecutionContext ctx) throws MigrationException {
 		// TODO: currently only top-level chain expressions are supported. We
 		// have to develop a way to support inner chain expressions like:
 		// if(a.b()->c.d()->e.f) then {...} else {...}
@@ -420,7 +427,7 @@ public class MigrationFacade {
 		migrateExpression(chainExpression.getNext(), ctx);
 	}
 
-	private void migrateBooleanOperation(BooleanOperation booleanOperation, ExecutionContext ctx) throws MigrationException {
+	private void migrateBooleanOperation(BooleanOperation booleanOperation, MigrationExecutionContext ctx) throws MigrationException {
 		migrateExpression(booleanOperation.getLeft(), ctx);
 		if (booleanOperation.isAndOperation()) {
 			write(" and ");
@@ -434,7 +441,7 @@ public class MigrationFacade {
 		migrateExpression(booleanOperation.getRight(), ctx);
 	}
 
-	private void migrateCast(Cast cast, ExecutionContext ctx) throws MigrationException {
+	private void migrateCast(Cast cast, MigrationExecutionContext ctx) throws MigrationException {
 		migrateExpression(cast.getTarget(), ctx);
 		EClassifier type = ctx.getTypeForName(cast.getType().getValue());
 		if (type == null) {
@@ -445,7 +452,7 @@ public class MigrationFacade {
 		write(")");
 	}
 
-	private void migrateTypeSelectExpression(TypeSelectExpression typeSelectExpression, ExecutionContext ctx) throws MigrationException {
+	private void migrateTypeSelectExpression(TypeSelectExpression typeSelectExpression, MigrationExecutionContext ctx) throws MigrationException {
 		migrateExpression(typeSelectExpression.getTarget(), ctx);
 		EClassifier type = ctx.getTypeForName(typeSelectExpression.getTypeLiteral().getValue());
 		if (type == null) {
@@ -458,7 +465,7 @@ public class MigrationFacade {
 		write("))");
 	}
 
-	private void migrateCollectionExpression(CollectionExpression collectionExpression, ExecutionContext ctx) throws MigrationException {
+	private void migrateCollectionExpression(CollectionExpression collectionExpression, MigrationExecutionContext ctx) throws MigrationException {
 		if (collectionExpression.getTarget() == null) {
 			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Collection expression without target specified: " + collectionExpression.toString());
 		}
@@ -508,7 +515,7 @@ public class MigrationFacade {
 		write(")");
 	}
 
-	private void migrateOperationCall(OperationCall operationCall, ExecutionContext ctx) throws MigrationException {
+	private void migrateOperationCall(OperationCall operationCall, MigrationExecutionContext ctx) throws MigrationException {
 		// TODO: if (target == null) then it can be a call to self.<operation>
 		// in this case operation call call should be processed
 		// specially (respecting self multiplicity).
@@ -584,29 +591,61 @@ public class MigrationFacade {
 		return "!".equals(opName) || "-".equals(opName) || "+".equals(opName);
 	}
 
-	private void migrateFeatureCall(FeatureCall featureCall, ExecutionContext ctx) throws MigrationException {
-		if (featureCall.getTarget() == null) {
-			EEnumLiteral enumLiteral = featureCall.getEnumLiteral(ctx);
-			if (enumLiteral != null) {
-				String modelType = modeltypeImports.getModeltypeAlias(enumLiteral.getEEnum().getEPackage());
-				write(modelType);
-				write("::");
-				write(enumLiteral.getEEnum().getName());
-				write("::");
-				write(enumLiteral.getName());
-				return;
-			}
-			// TODO: It could be a call to environment variable or
-			// self.<feature> in case of "self" this call should be processed
-			// specially (respecting self multiplicity).
+	private void migrateFeatureCall(FeatureCall featureCall, MigrationExecutionContext ctx) throws MigrationException {
+		ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(featureCall);
+		if (false == expressionTrace instanceof FeatureCallTrace) {
+			throw new MigrationException(Type.UNSUPPORTED_FEATURE_CALL_TRACE, String.valueOf(expressionTrace));
 		}
+		FeatureCallTrace trace = (FeatureCallTrace) expressionTrace;
+		switch (trace.getType()) {
+		case ENUM_LITERAL_REF:
+			EEnumLiteral enumLiteral = trace.getEnumLiteral();
+			assert enumLiteral != null;
+			String modelType = modeltypeImports.getModeltypeAlias(enumLiteral.getEEnum().getEPackage());
+			write(modelType);
+			write("::");
+			write(enumLiteral.getEEnum().getName());
+			write("::");
+			write(enumLiteral.getName());
+			return;
+		case ENV_VAR_REF:
+			write(featureCall.getName().getValue());
+			return;
+		case UNDESOLVED_TARGET_TYPE:
+		case UNSUPPORTED_CLASSIFIER_REF:
+			throw new MigrationException(Type.UNSUPPORTED_FEATURE_CALL, trace.toString());
+		}
+		// featureCall.getTarget() == null for FeatureCall of implicit variable feature
 		if (featureCall.getTarget() != null) {
-			// TODO: support different multiplicity of target - different
-			// collections have to be created here. (->asList()..)
 			migrateExpression(featureCall.getTarget(), ctx);
 			write(".");
 		}
 		write(featureCall.getName().getValue());
+		switch (trace.getType()) {
+		case FEATURE_REF:
+			EStructuralFeature feature = trace.getFeature();
+			assert feature != null;
+			EClassifier targetType = trace.getTargetType();
+			assert targetType != null;
+			if (BuiltinMetaModel.isParameterizedType(targetType)) {
+				// TODO: check once more..
+				// TODO: new type of exception - NotSupportedXPandConstruction exception.
+				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Attribute call is not supported for the collection types: " + targetType.toString() + "." + featureCall.getName().getValue());
+			}
+			if (feature.isMany() && feature.isOrdered() && feature.isUnique()) {
+				write("->asSequence()");
+			}
+			return;
+		case IMPLICIT_COLLECT_FEATURE_REF:
+			EClassifier targetCollectionType = trace.getTargetType();
+			assert targetCollectionType != null;
+			if (!isListType(targetCollectionType)) {
+				write("->asSequence()");
+			}
+			return;
+		default:
+			throw new MigrationException(Type.UNSUPPORTED_FEATURE_CALL_TRACE, "Incorrect type: " + trace.getType());
+		}
 	}
 
 	private static String getLastSegment(String string, String separator) {
