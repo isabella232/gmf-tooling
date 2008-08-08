@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: SVGFigureItemProvider.java,v 1.3 2008/08/05 12:41:53 dstadnik Exp $
+ * $Id: SVGFigureItemProvider.java,v 1.4 2008/08/08 13:06:21 dstadnik Exp $
  */
 package org.eclipse.gmf.gmfgraph.provider;
 
@@ -65,7 +65,6 @@ public class SVGFigureItemProvider
 			super.getPropertyDescriptors(object);
 
 			addDocumentURIPropertyDescriptor(object);
-			addSafeRenderingPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -88,28 +87,6 @@ public class SVGFigureItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Safe Rendering feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addSafeRenderingPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_SVGFigure_safeRendering_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_SVGFigure_safeRendering_feature", "_UI_SVGFigure_type"),
-				 GMFGraphPackage.eINSTANCE.getSVGFigure_SafeRendering(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -183,7 +160,6 @@ public class SVGFigureItemProvider
 
 		switch (notification.getFeatureID(SVGFigure.class)) {
 			case GMFGraphPackage.SVG_FIGURE__DOCUMENT_URI:
-			case GMFGraphPackage.SVG_FIGURE__SAFE_RENDERING:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGraphPackage.SVG_FIGURE__PROPERTIES:
