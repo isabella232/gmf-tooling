@@ -17,18 +17,17 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.XpandFacade;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.EvaluationException;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
-import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
 import org.eclipse.gmf.internal.xpand.ocl.TypeHelper;
 import org.eclipse.ocl.cst.OCLExpressionCS;
 import org.eclipse.ocl.cst.PathNameCS;
+import org.eclipse.ocl.ecore.CollectionType;
 
 /**
  * @author Sven Efftinge
@@ -71,16 +70,8 @@ public class ExpandStatement extends Statement {
         EClassifier targetType = null;
         if (isForeach) {
             targetType = target.analyze(ctx, issues);
-            if (BuiltinMetaModel.isCollectionType(targetType)) {
-            	// XXX [artem] though COLLECTION TYPE *is* ParameterizedType, perhaps
-            	// reason to check for instanceof ParameterizedType here
-            	// is to avoid cases when targetType is VOID
-            	assert BuiltinMetaModel.isParameterizedType(targetType) : "Just curious (is it ever == false): ";
-                if (BuiltinMetaModel.isParameterizedType(targetType)) {
-                    targetType = BuiltinMetaModel.getInnerType(targetType);
-                } else {
-                    targetType = EcorePackage.eINSTANCE.getEJavaObject();
-                }
+            if (targetType instanceof CollectionType) {
+                targetType = ((CollectionType) targetType).getElementType();
             } else {
                 issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Collection type expected!", target));
                 return;
