@@ -13,6 +13,7 @@ package org.eclipse.gmf.runtime.lite.svg;
 
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
 import java.io.IOException;
 
 import javax.xml.xpath.XPath;
@@ -28,16 +29,17 @@ import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.ImageTranscoder;
 import org.apache.batik.util.XMLResourceDescriptor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gmf.internal.runtime.lite.svg.Activator;
 import org.eclipse.gmf.internal.runtime.lite.svg.ImageTranscoderEx;
 import org.eclipse.gmf.internal.runtime.lite.svg.InferringNamespaceContext;
-import org.eclipse.gmf.internal.runtime.lite.svg.SVGGraphics2D;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.graphics.PaletteData;
 import org.eclipse.swt.widgets.Display;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -49,8 +51,6 @@ public class SVGFigure extends Figure {
 	private Document document;
 	private boolean failedToLoadDocument;
 	private ImageTranscoderEx transcoder;
-	private boolean safeRendering;
-	private boolean directRenderingSucceeded;
 	private Rectangle2D aoi;
 
 	public final String getURI() {
@@ -167,39 +167,12 @@ public class SVGFigure extends Figure {
 		if (document == null) {
 			return;
 		}
-		directRenderingSucceeded = false;
-		if (safeRendering) {
-			paintUsingAWT(graphics, document);
-		} else {
-			// Try to paint directly on provided graphics with fallback to
-			// safe routine.
-			try {
-				graphics.pushState();
-				paintDirectly(graphics, document);
-				directRenderingSucceeded = true;
-			} catch (RuntimeException e) {
-				Activator.log(IStatus.INFO, "Failed to paint SVG image directly", e);
-				graphics.restoreState();
-				paintUsingAWT(graphics, document);
-			} finally {
-				graphics.popState();
-			}
-		}
-	}
-
-	private void paintDirectly(final Graphics graphics, Document document) {
-		transcoder.setDraw2DGraphics(graphics);
-		renderDocument(transcoder, document);
-	}
-
-	private void paintUsingAWT(Graphics graphics, Document document) {
 		Image image = null;
 		try {
-			transcoder.setDraw2DGraphics(null);
 			renderDocument(transcoder, document);
 			BufferedImage awtImage = transcoder.getBufferedImage();
 			if (awtImage != null) {
-				image = SVGGraphics2D.toSWT(Display.getCurrent(), awtImage);
+				image = toSWT(Display.getCurrent(), awtImage);
 				Rectangle r = getClientArea();
 				graphics.drawImage(image, r.x, r.y);
 			}
@@ -210,17 +183,34 @@ public class SVGFigure extends Figure {
 		}
 	}
 
-	public final boolean isDirectRenderingSucceeded() {
-		return directRenderingSucceeded;
-	}
-
-	public final boolean isSafeRendering() {
-		return safeRendering;
-	}
-
-	public void setSafeRendering(boolean safeRendering) {
-		this.safeRendering = safeRendering;
-		repaint();
+	/**
+	 * Converts an AWT based buffered image into an SWT <code>Image</code>. This will always return an <code>Image</code> that
+	 * has 24 bit depth regardless of the type of AWT buffered image that is passed into the method.
+	 * 
+	 * @param awtImage the {@link java.awt.image.BufferedImage} to be converted to an <code>Image</code>
+	 * @return an <code>Image</code> that represents the same image data as the AWT <code>BufferedImage</code> type.
+	 */
+	private static org.eclipse.swt.graphics.Image toSWT(Device device, BufferedImage awtImage) {
+		// We can force bitdepth to be 24 bit because BufferedImage getRGB
+		// allows us to always retrieve 24 bit data regardless of source color depth.
+		PaletteData palette = new PaletteData(0xFF0000, 0xFF00, 0xFF);
+		ImageData swtImageData = new ImageData(awtImage.getWidth(), awtImage.getHeight(), 24, palette);
+		// Ensure scansize is aligned on 32 bit.
+		int scansize = (((awtImage.getWidth() * 3) + 3) * 4) / 4;
+		WritableRaster alphaRaster = awtImage.getAlphaRaster();
+		byte[] alphaBytes = new byte[awtImage.getWidth()];
+		for (int y = 0; y < awtImage.getHeight(); y++) {
+			int[] buff = awtImage.getRGB(0, y, awtImage.getWidth(), 1, null, 0, scansize);
+			swtImageData.setPixels(0, y, awtImage.getWidth(), buff, 0);
+			if (alphaRaster != null) {
+				int[] alpha = alphaRaster.getPixels(0, y, awtImage.getWidth(), 1, (int[]) null);
+				for (int i = 0; i < awtImage.getWidth(); i++) {
+					alphaBytes[i] = (byte) alpha[i];
+				}
+				swtImageData.setAlphas(0, y, awtImage.getWidth(), alphaBytes, 0);
+			}
+		}
+		return new org.eclipse.swt.graphics.Image(device, swtImageData);
 	}
 
 	public final Rectangle2D getAreaOfInterest() {
