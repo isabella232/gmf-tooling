@@ -14,8 +14,6 @@ package org.eclipse.gmf.internal.xpand.ast;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.EvaluationException;
@@ -56,7 +54,7 @@ public class FileStatement extends Statement {
 
     public void analyze(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
         final EClassifier result = fileName.analyze(ctx, issues);
-        if (!BuiltinMetaModel.isAssignableFrom(EcorePackage.eINSTANCE.getEString(), result)) {
+        if (ctx.getOCLEnvironment().getOCLStandardLibrary().getString() != result) {
             issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "String expected!", fileName));
         }
         for (Statement element : body) {

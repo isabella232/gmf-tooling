@@ -95,14 +95,15 @@ public class Advice extends AbstractDefinition implements XpandAdvice {
             for (int i = 0; i < paramTypes.length; i++) {
                 paramTypes[i] = def.getParams()[i].getTypeForName(ctx);
             }
+            // FIXME next check can be done earlier
             if ((params.length == paramTypes.length) || (wildParams && (params.length <= paramTypes.length))) {
 
                 ctx = ctx.cloneWithResource(this.owner);	//need to resolve in the context of the aspect
                 final EClassifier at = type.getTypeForName(ctx);
-                if (BuiltinMetaModel.isAssignableFrom(at, t)) {
+                if (BuiltinMetaModel.isAssignableFrom(ctx, at, t)) {
                     for (int i = 0; i < params.length; i++) {
                         final EClassifier pt = params[i].getTypeForName(ctx);
-                        if (!BuiltinMetaModel.isAssignableFrom(pt, paramTypes[i])) {
+                        if (!BuiltinMetaModel.isAssignableFrom(ctx, pt, paramTypes[i])) {
 							return false;
 						}
                     }

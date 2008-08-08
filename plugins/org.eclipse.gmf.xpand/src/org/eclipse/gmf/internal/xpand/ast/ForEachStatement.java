@@ -16,7 +16,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
@@ -58,7 +57,7 @@ public class ForEachStatement extends Statement {
 		EClassifier t = target.analyze(ctx, issues);
 		if (separator != null) {
 			final EClassifier sepT = separator.analyze(ctx, issues);
-			if (!BuiltinMetaModel.isAssignableFrom(EcorePackage.eINSTANCE.getEString(), sepT)) {
+			if (ctx.getOCLEnvironment().getOCLStandardLibrary().getString() != sepT) {
 				issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "String expected!", target));
 			}
 		}

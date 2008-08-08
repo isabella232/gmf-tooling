@@ -14,8 +14,6 @@ package org.eclipse.gmf.internal.xpand.ast;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.EvaluationException;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
@@ -60,7 +58,7 @@ public class IfStatement extends Statement {
     public void analyze(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
         if (condition != null) {
             final EClassifier conType = condition.analyze(ctx, issues);
-            if ((conType != null) && !BuiltinMetaModel.isAssignableFrom(EcorePackage.eINSTANCE.getEBoolean(), conType)) {
+            if (conType != ctx.getOCLEnvironment().getOCLStandardLibrary().getBoolean()) {
                 issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Boolean expected!", condition));
             }
         }
