@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
