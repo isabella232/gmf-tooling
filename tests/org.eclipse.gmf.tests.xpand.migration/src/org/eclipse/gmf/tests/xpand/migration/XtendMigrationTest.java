@@ -19,10 +19,11 @@ import java.io.UnsupportedEncodingException;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException;
+import org.eclipse.gmf.internal.xpand.migration.MigrationExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.migration.MigrationFacade;
 import org.eclipse.gmf.tests.xpand.TestsResourceManager;
+import org.eclipse.gmf.tests.xpand.migration.testModel.MigrationTestsPackage;
 import org.eclipse.m2m.internal.qvt.oml.common.MdaException;
 import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledModule;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompiler;
@@ -64,7 +65,7 @@ public class XtendMigrationTest extends TestCase {
 
 	public void testFeatureCall() throws IOException, MigrationException {
 		String resourceName = "FeatureCall";
-		checkMigration(new MigrationFacade(testResourceManager, getResourceName(resourceName), new ExecutionContextImpl(testResourceManager, GenModelPackage.eINSTANCE)), resourceName);
+		checkMigration(new MigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, GenModelPackage.eINSTANCE, MigrationTestsPackage.eINSTANCE)), resourceName);
 	}
 
 	public void testOperationCall() throws IOException, MigrationException {
