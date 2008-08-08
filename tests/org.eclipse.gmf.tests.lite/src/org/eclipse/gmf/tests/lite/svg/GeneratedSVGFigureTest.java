@@ -70,18 +70,16 @@ public class GeneratedSVGFigureTest extends AbstractSVGFigureTest {
 		SVGFigure f2d = createDraw2DFigure(f);
 		assertEquals(BOX_URI, f2d.getURI());
 		// Check default values
-		assertFalse(f2d.isSafeRendering());
 		assertNull(f2d.getAreaOfInterest());
 	}
 
 	/**
-	 * Check advanced properties of SVGFigure (AOI, safe rendering).
+	 * Check advanced properties of SVGFigure (AOI).
 	 */
 	public void testAdvancedProperties() {
 		org.eclipse.gmf.gmfgraph.SVGFigure f = GMFGraphFactory.eINSTANCE.createSVGFigure();
 		f.setName("Crate");
 		f.setDocumentURI(BOX_URI);
-		f.setSafeRendering(true);
 		f.setAreaOfInterest(GMFGraphFactory.eINSTANCE.createRectangle2D());
 		f.getAreaOfInterest().setX(10f);
 		f.getAreaOfInterest().setY(0.5f);
@@ -89,7 +87,6 @@ public class GeneratedSVGFigureTest extends AbstractSVGFigureTest {
 		f.getAreaOfInterest().setHeight(44.4f);
 		SVGFigure f2d = createDraw2DFigure(f);
 		assertEquals(BOX_URI, f2d.getURI());
-		assertTrue(f2d.isSafeRendering());
 		Rectangle2D aoi = f2d.getAreaOfInterest();
 		assertNotNull(aoi);
 		assertEquals(10f, (float) aoi.getX());

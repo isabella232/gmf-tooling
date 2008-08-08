@@ -86,15 +86,16 @@ public class SVGFigureTest extends AbstractSVGFigureTest {
 	 */
 	public void testAreaOfInterest() {
 		SVGFigure f = new SVGFigure();
-		f.setURI(BOX_URI);
-		f.setAreaOfInterest(new Rectangle2D.Float(15, 15, 25, 25));
-		f.setPreferredSize(25, 25);
+		f.setURI(GROUP_URI);
+		f.setAreaOfInterest(new Rectangle2D.Float(20f, 20f, 20f, 20f));
+		f.setPreferredSize(20, 20);
 		canvas.getContents().add(f);
 		flushCanvas();
-		assertColor(0, 0, new RGB(0x66, 0x33, 0));
-		assertColor(5, 5, new RGB(0, 0, 0));
-		assertColor(24, 24, new RGB(0x66, 0x33, 0));
-		assertColor(25, 25, ColorConstants.yellow.getRGB());
-		assertColor(25, 25, ColorConstants.yellow.getRGB());
+		assertColor(0, 0, new RGB(0, 0, 0xFF));
+		assertColor(1, 1, new RGB(0xFF, 0, 0));
+		assertColor(18, 18, new RGB(0xFF, 0, 0));
+		assertColor(19, 19, new RGB(0, 0, 0xFF));
+		assertColor(19, 20, ColorConstants.yellow.getRGB());
+		assertColor(20, 19, ColorConstants.yellow.getRGB());
 	}
 }

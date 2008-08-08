@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FlowLayout;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.swt.SWT;
@@ -34,6 +35,7 @@ import org.eclipse.ui.PlatformUI;
 public class AbstractSVGFigureTest extends TestCase {
 
 	public static final String BOX_URI = "platform:/plugin/org.eclipse.gmf.tests.lite/images/box.svg";
+	public static final String GROUP_URI = "platform:/plugin/org.eclipse.gmf.tests.lite/images/group.svg";
 
 	protected FigureCanvas canvas;
 
@@ -55,7 +57,14 @@ public class AbstractSVGFigureTest extends TestCase {
 				super.paint(gc);
 			}
 		});
-		canvas.setContents(new RectangleFigure());
+		canvas.setContents(new RectangleFigure() {
+
+			@Override
+			public void paint(Graphics graphics) {
+				graphics.setAntialias(SWT.OFF);
+				super.paint(graphics);
+			}
+		});
 		canvas.getContents().setLayoutManager(new FlowLayout());
 		canvas.getContents().setBackgroundColor(ColorConstants.yellow);
 		canvas.getContents().setForegroundColor(ColorConstants.green);
@@ -73,6 +82,10 @@ public class AbstractSVGFigureTest extends TestCase {
 	 */
 	protected void flushCanvas() {
 		canvas.getLightweightSystem().getUpdateManager().performUpdate();
+	}
+
+	protected final void dumpCanvas() {
+		dumpCanvas("canvas" + System.currentTimeMillis());
 	}
 
 	/**
