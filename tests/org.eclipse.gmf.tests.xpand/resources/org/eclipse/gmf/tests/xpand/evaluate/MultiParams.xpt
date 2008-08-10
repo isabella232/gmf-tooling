@@ -1,4 +1,4 @@
-«DEFINE test(String s, String s2) FOR String»«this»«s»«s2»1«ENDDEFINE»
-«DEFINE test(String s, Object s2) FOR String»«this»«s»«s2»2«ENDDEFINE»
+«DEFINE test(s: String, s2 : String) FOR String»«self»«s»«s2»1«ENDDEFINE»
+«DEFINE test(s : String, s2:OclAny) FOR String»«self»«s»«s2»2«ENDDEFINE»
 
-«DEFINE test FOR String»«EXPAND test("A","B") FOR this»«ENDDEFINE»
+«DEFINE test FOR String»«EXPAND test('A','B') FOR self»«ENDDEFINE»

@@ -16,8 +16,6 @@ package org.eclipse.gmf.internal.xpand.expression.codeassist;
 
 import junit.framework.TestCase;
 
-import org.eclipse.gmf.internal.xpand.expression.parser.ExpressionParsersym;
-
 public class ReverseScannerTest extends TestCase {
     public final void testPreviousToken() {
         final ReverseScanner s = new ReverseScanner("test");

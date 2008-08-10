@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,38 +7,33 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
  */
 package org.eclipse.gmf.tests.xpand;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.XpandFacade;
 import org.eclipse.gmf.internal.xpand.ast.Definition;
-import org.eclipse.gmf.internal.xpand.ast.ForEachStatement;
-import org.eclipse.gmf.internal.xpand.ast.IfStatement;
 import org.eclipse.gmf.internal.xpand.ast.Template;
 import org.eclipse.gmf.internal.xpand.ast.TextStatement;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.model.Output;
+import org.eclipse.gmf.internal.xpand.model.Scope;
+import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
-import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 
 /**
- * *
- * 
- * @author Sven Efftinge *
+ * FIXME move tests with parse() only to StatementParserTest 
+ * @author Sven Efftinge
  */
 public class StatementEvaluatorTest extends AbstractXpandTest {
 
-	private XpandExecutionContextImpl execCtx;
+	private ExecutionContextImpl execCtx;
 
 	private BufferOutput out;
 
@@ -54,14 +47,15 @@ public class StatementEvaluatorTest extends AbstractXpandTest {
 		execCtx = createCtx(out);
 	}
 
-	private XpandExecutionContextImpl createCtx(Output out) {
+	private ExecutionContextImpl createCtx(Output out) {
 		buffer.setLength(0);
-		final XpandExecutionContextImpl result = new XpandExecutionContextImpl(new TestsResourceManager(), out, null);
+		final ExecutionContextImpl result = new ExecutionContextImpl(new Scope(new TestsResourceManager(), null, out));
 		// result.setFileEncoding("iso-8859-1");
-		result.setEvaluationListener(new DumpEvaluationListener());
+		result.getScope().setEvaluationListener(new DumpEvaluationListener());
 		return result;
 	}
 
+	// FIXME get started with simple test - no params, no extensions, no operations
 	public final void testEvaluation() throws Exception {
 		final String id = "org::eclipse::gmf::tests::xpand::evaluate::EvaluateStart::start";
 
@@ -70,44 +64,48 @@ public class StatementEvaluatorTest extends AbstractXpandTest {
 	}
 
 	public final void testIf() throws Exception {
-		final XpandResource t = parse(tag("DEFINE test FOR ecore::EClass") + tag("IF test==1") + "if" + tag("ELSEIF test==2") + "elseif" + tag("ELSE") + "else" + tag("ENDIF") + tag("ENDDEFINE"));
+		final XpandResource t = parse(tag("DEFINE test FOR ecore::EClass") + tag("IF test=1") + "if" + tag("ELSEIF test=2") + "elseif" + tag("ELSE") + "else" + tag("ENDIF") + tag("ENDDEFINE"));
 		assertEquals(1, t.getDefinitions().length);
 
-		final IfStatement ifSt = ((IfStatement) ((Definition) t.getDefinitions()[0]).getBody()[1]);
+		final XpandDefinition temlateWithIf = t.getDefinitions()[0];
+		// any EClass instance for 'this'
+		final Variable self = new Variable(ExecutionContext.IMPLICIT_VARIABLE, EcorePackage.eINSTANCE.getEClass(), EcorePackage.eINSTANCE.getEAnnotation());
 
-		final XpandExecutionContext ctx = (XpandExecutionContext) createCtx(out).cloneWithVariable(new Variable("test", new Integer(1)));
-		ifSt.evaluate(ctx);
-		assertEquals("if", buffer.toString());
+		final ExecutionContext ctx = createCtx(out).cloneWithVariable(self, new Variable("test", null, new Integer(1)));
+		temlateWithIf.evaluate(ctx);
+		assertEquals("if", buffer.toString().trim());
 
-		ifSt.evaluate((XpandExecutionContextImpl) createCtx(out).cloneWithVariable(new Variable("test", new Integer(2))));
-		assertEquals("elseif", buffer.toString());
+		temlateWithIf.evaluate(createCtx(out).cloneWithVariable(self, new Variable("test", null, new Integer(2))));
+		assertEquals("elseif", buffer.toString().trim());
 
-		ifSt.evaluate((XpandExecutionContextImpl) createCtx(out).cloneWithVariable(new Variable("test", new Integer(3))));
-		assertEquals("else", buffer.toString());
+		temlateWithIf.evaluate(createCtx(out).cloneWithVariable(self, new Variable("test", null, new Integer(3))));
+		assertEquals("else", buffer.toString().trim());
 	}
 
 	public final void testForeach() throws Exception {
 		final XpandResource t = parse(tag("DEFINE test FOR ecore::EClass") + tag("FOREACH tests AS test SEPARATOR ','") + tag("test") + tag("ENDFOREACH") + tag("ENDDEFINE"));
 		assertEquals(1, t.getDefinitions().length);
 
-		final ForEachStatement foreachSt = (ForEachStatement) ((Definition) t.getDefinitions()[0]).getBody()[1];
+		final XpandDefinition defineWithForeach = t.getDefinitions()[0];
+		// any EClass instance for 'this'
+		final Variable self = new Variable(ExecutionContext.IMPLICIT_VARIABLE, EcorePackage.eINSTANCE.getEClass(), EcorePackage.eINSTANCE.getEAnnotation());
 
 		final List<String> tests = new ArrayList<String>();
 
-		foreachSt.evaluate((XpandExecutionContextImpl) createCtx(out).cloneWithVariable(new Variable("tests", tests)));
-		assertEquals("", buffer.toString());
+		defineWithForeach.evaluate(createCtx(out).cloneWithVariable(self, new Variable("tests", null, tests)));
+		assertEquals("", buffer.toString().trim());
 
 		tests.add("hallo");
-		foreachSt.evaluate((XpandExecutionContextImpl) createCtx(out).cloneWithVariable(new Variable("tests", tests)));
-		assertEquals("hallo", buffer.toString());
+		defineWithForeach.evaluate(createCtx(out).cloneWithVariable(self, new Variable("tests", null, tests)));
+		assertEquals("hallo", buffer.toString().trim());
 
 		tests.add("Du");
-		foreachSt.evaluate((XpandExecutionContextImpl) createCtx(out).cloneWithVariable(new Variable("tests", tests)));
-		assertEquals("hallo,Du", buffer.toString());
+		defineWithForeach.evaluate(createCtx(out).cloneWithVariable(self, new Variable("tests", null, tests)));
+		assertEquals("hallo,Du", buffer.toString().trim());
 
 		tests.add("da");
-		foreachSt.evaluate((XpandExecutionContextImpl) createCtx(out).cloneWithVariable(new Variable("tests", tests)));
-		assertEquals("hallo,Du,da", buffer.toString());
+		defineWithForeach.evaluate(createCtx(out).cloneWithVariable(self, new Variable("tests", null, tests)));
+		assertEquals("hallo,Du,da", buffer.toString().trim());
 	}
 
 	public final void testMultilineText() throws Exception {
@@ -187,8 +185,8 @@ public class StatementEvaluatorTest extends AbstractXpandTest {
 		String test2 = tag("DEFINE test2 FOR String") + "2" + tag("ENDDEFINE");
 		final XpandResource t = parse(test + "\n" + test2);
 		XpandDefinition xpandDefinition = t.getDefinitions()[0];
-		XpandExecutionContext ctx = ContextFactory.createXpandContext(null, out, Collections.<Variable>emptyList());
-		ctx = ctx.cloneWithVariable(new Variable("this", ""));
+		ExecutionContext ctx = new ExecutionContextImpl(new Scope(out) {});
+		ctx = ctx.cloneWithVariable(new Variable("this", null, ""));
 		xpandDefinition.evaluate(ctx);
 		assertEquals("TEST2", buffer.toString());
 	}

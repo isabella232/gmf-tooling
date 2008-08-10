@@ -1,4 +1,4 @@
-«EXTENSION org::eclipse::gmf::tests::xpand::evaluate::Overridable»
+«EXTENSION org::eclipse::gmf::tests::xpand::evaluate::Extensions»
 
 «DEFINE test1 FOR String-»
 «IF trueFunc(this)»1«ELSE»2«ENDIF-»

@@ -1,22 +1,21 @@
-/*******************************************************************************
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006 committers of openArchitectureWare and others.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
+ */
 package org.eclipse.gmf.tests.xpand;
 
 import java.util.Formatter;
 
+import junit.framework.TestCase;
+
+import org.eclipse.gmf.internal.xpand.ast.Template;
 import org.eclipse.gmf.internal.xpand.parser.XpandLexer;
 import org.eclipse.gmf.internal.xpand.parser.XpandParser;
 import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
-import org.eclipse.gmf.internal.xpand.ast.Template;
-import org.eclipse.gmf.tests.expression.ast.AbstractExpressionTest;
-
-import junit.framework.TestCase;
 
 public abstract class AbstractXpandTest extends TestCase {
 

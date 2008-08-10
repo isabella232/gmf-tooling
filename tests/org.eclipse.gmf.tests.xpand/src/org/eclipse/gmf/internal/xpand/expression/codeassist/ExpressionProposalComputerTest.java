@@ -18,10 +18,10 @@ import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContextImpl;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
-import org.eclipse.gmf.internal.xpand.expression.codeassist.ExpressionProposalComputer;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
+import org.eclipse.gmf.internal.xpand.model.Scope;
+import org.eclipse.gmf.internal.xpand.model.Variable;
 
 public class ExpressionProposalComputerTest extends TestCase {
 
@@ -92,7 +92,7 @@ public class ExpressionProposalComputerTest extends TestCase {
     }
 
     public final void testSetInState() {
-        ExecutionContextImpl ctx = new ExecutionContextImpl(null);
+        ExecutionContextImpl ctx = new ExecutionContextImpl(new Scope() {});
         ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString())));
         final String s = "v.select(e| true";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
@@ -102,7 +102,7 @@ public class ExpressionProposalComputerTest extends TestCase {
     }
 
     public final void testSetInState1() {
-        ExecutionContextImpl ctx = new ExecutionContextImpl(null);
+        ExecutionContextImpl ctx = new ExecutionContextImpl(new Scope() {});
         ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString())));
         final String s = "v.select(e| true)";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
@@ -111,7 +111,7 @@ public class ExpressionProposalComputerTest extends TestCase {
     }
 
     public final void testSetInState2() {
-        ExecutionContextImpl ctx = new ExecutionContextImpl(null);
+        ExecutionContextImpl ctx = new ExecutionContextImpl(new Scope() {});
         ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString())));
         final String s = "v.select(e| ((List[Boolean]){true}).collect(e|";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
@@ -121,7 +121,7 @@ public class ExpressionProposalComputerTest extends TestCase {
     }
 
     public final void testSetInState3() {
-        ExecutionContextImpl ctx = new ExecutionContextImpl(null);
+        ExecutionContextImpl ctx = new ExecutionContextImpl(new Scope() {});
         ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString())));
         final String s = "v.select(e| ((List[Boolean]){true}).collect(b|";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
@@ -132,7 +132,7 @@ public class ExpressionProposalComputerTest extends TestCase {
     }
 
     public final void testSetInState4() {
-        ExecutionContextImpl ctx = new ExecutionContextImpl(null);
+        ExecutionContextImpl ctx = new ExecutionContextImpl(new Scope() {});
         ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString())));
         final String s = "select(e| ((List[Boolean]){true}).collect(b|";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
@@ -144,7 +144,7 @@ public class ExpressionProposalComputerTest extends TestCase {
     }
 
     public final void testSetInState5() {
-        ExecutionContextImpl ctx = new ExecutionContextImpl(null);
+        ExecutionContextImpl ctx = new ExecutionContextImpl(new Scope() {});
         ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString())));
         final String s = "let x = 'test' : select(e| ((List[Boolean]){true}).collect(b|";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);

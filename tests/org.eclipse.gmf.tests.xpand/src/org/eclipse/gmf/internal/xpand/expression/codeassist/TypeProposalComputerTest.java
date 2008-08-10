@@ -14,8 +14,6 @@
  */
 package org.eclipse.gmf.internal.xpand.expression.codeassist;
 
-import org.eclipse.gmf.internal.xpand.expression.codeassist.TypeProposalComputer;
-
 import junit.framework.TestCase;
 
 public class TypeProposalComputerTest extends TestCase {
