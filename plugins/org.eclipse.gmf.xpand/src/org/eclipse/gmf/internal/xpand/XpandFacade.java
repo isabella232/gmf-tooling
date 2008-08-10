@@ -44,10 +44,10 @@ public class XpandFacade {
 
 	public void evaluate(final String definitionName, final Object targetObject, Object[] params) {
 		params = params == null ? new Object[0] : params;
-		final EClassifier targetType = BuiltinMetaModel.getType(targetObject);
+		final EClassifier targetType = BuiltinMetaModel.getType(getContext(), targetObject);
 		final EClassifier[] paramTypes = new EClassifier[params.length];
 		for (int i = 0; i < paramTypes.length; i++) {
-			paramTypes[i] = BuiltinMetaModel.getType(params[i]);
+			paramTypes[i] = BuiltinMetaModel.getType(getContext(), params[i]);
 		}
 
 		final XpandDefinition def = getContext().findDefinition(definitionName, targetType, paramTypes);

@@ -21,6 +21,7 @@ import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.m2m.internal.qvt.oml.QvtMessage;
+import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnv;
 import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledModule;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Helper;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
@@ -29,7 +30,7 @@ import org.eclipse.m2m.qvt.oml.runtime.util.NonTransformationExecutionContext;
 public class QvtFile implements QvtResource {
 
 	private CompiledModule compiledModule;
-	private List<GenericExtension> extensions;
+	private List<QvtExtension> extensions;
 	private String fileName;
 
 	public QvtFile(CompiledModule module, String fullyQualifiedName) {
@@ -37,9 +38,12 @@ public class QvtFile implements QvtResource {
 		fileName = fullyQualifiedName;
 	}
 
-	public List<GenericExtension> getExtensions() {
+	public QvtOperationalEnv getEnvironment() {
+		return compiledModule.getSyntaxElement().getEnvironment();
+	}
+	public List<QvtExtension> getExtensions() {
 		if (extensions == null && compiledModule.getErrors().length == 0) {
-			extensions = new ArrayList<GenericExtension>();
+			extensions = new ArrayList<QvtExtension>();
 			Module module = compiledModule.getModule();
 			if (module != null) {
 				NonTransformationExecutionContext context = new NonTransformationExecutionContext(Collections.singleton(module));

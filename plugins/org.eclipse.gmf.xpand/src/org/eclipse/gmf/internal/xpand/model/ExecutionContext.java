@@ -15,7 +15,7 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
-import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
+import org.eclipse.gmf.internal.xpand.xtend.ast.QvtExtension;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
 import org.eclipse.ocl.ecore.EcoreEvaluationEnvironment;
 
@@ -34,9 +34,7 @@ public interface ExecutionContext {
 
 	Variable getVariable(String name);
 
-	GenericExtension getExtension(String functionName, EClassifier[] parameterTypes);
-
-	Set<? extends GenericExtension> getAllExtensions();
+	Set<QvtExtension> getAllExtensions();
 
 	// may return null if no definition found
 	XpandDefinition findDefinition(String name, EClassifier target, EClassifier[] paramTypes);
@@ -45,4 +43,5 @@ public interface ExecutionContext {
 	void populate(EcoreEvaluationEnvironment ee);
 
 	Scope getScope();
+
 }

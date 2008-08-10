@@ -15,11 +15,13 @@ import java.util.List;
 
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.model.XpandAnalyzable;
+import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnv;
 import org.eclipse.m2m.internal.qvt.oml.common.MDAConstants;
 
 public interface QvtResource extends XpandAnalyzable, ResourceMarker {
 
 	public static final String FILE_EXTENSION = MDAConstants.QVTO_FILE_EXTENSION;
 
-	List<GenericExtension> getExtensions();
+	List<QvtExtension> getExtensions();
+	QvtOperationalEnv getEnvironment();
 }

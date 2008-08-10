@@ -11,15 +11,23 @@
  */
 package org.eclipse.gmf.internal.xpand;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinitionWrap;
+import org.eclipse.ocl.TypeResolver;
 import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
+import org.eclipse.ocl.expressions.CollectionKind;
+import org.eclipse.ocl.types.OCLStandardLibrary;
 import org.eclipse.ocl.util.TypeUtil;
 import org.eclipse.ocl.utilities.UMLReflection;
 
@@ -63,7 +71,7 @@ public class BuiltinMetaModel {
 		XECORE.getEClassifiers().add(ITERATOR_TYPE);
 	}
 
-	public static EClassifier getType(Object obj) {
+	public static EClassifier getType(ExecutionContext ctx, Object obj) {
 		// XXX (1) not sure how Collections are handled
 		// FIXME (2) need to support own types (IteratorType and DefinitionType)
 //		if (obj instanceof Collection) {
@@ -86,6 +94,19 @@ public class BuiltinMetaModel {
 //	if (obj instanceof XpandIterator) {
 //		return ITERATOR_TYPE;
 //	}
+		if (obj instanceof Collection) {
+			EClassifier firstElementType = ((Collection<?>) obj).isEmpty() ? null : getType(ctx, ((Collection<?>) obj).iterator().next());
+			TypeResolver<EClassifier, EOperation, EStructuralFeature> tr = ctx.getOCLEnvironment().getTypeResolver();
+			OCLStandardLibrary<EClassifier> stdLib = ctx.getOCLEnvironment().getOCLStandardLibrary();
+			if (obj instanceof Set) {
+				// XXX odd TypeResolver - CollectionType returned is EDataType for Ecore, need to cast nevertheless
+				return firstElementType == null ? stdLib.getSet() : (EClassifier) tr.resolveCollectionType(CollectionKind.SET_LITERAL, firstElementType);
+			}
+			if (obj instanceof List) {
+				return firstElementType == null ? stdLib.getSequence() : (EClassifier) tr.resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, firstElementType);
+			}
+			return firstElementType == null ? stdLib.getCollection() : (EClassifier) tr.resolveCollectionType(CollectionKind.COLLECTION_LITERAL, firstElementType);
+		}
 		return EcoreEnvironmentFactory.INSTANCE.createEvaluationEnvironment().getType(obj);
 //		return TypeUtil.resolveType(ctx.getOCLEnvironment(), ee.getType(obj));
 	}

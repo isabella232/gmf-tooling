@@ -16,11 +16,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
-import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
 
 /**
@@ -57,32 +55,6 @@ public class PolymorphicResolver {
 	    }
 	}
 
-    public final static GenericExtension getExtension(final Set<? extends GenericExtension> extensions, final String name, final List<EClassifier> paramTypes, EcoreEnvironment env) {
-        final List<GenericExtension> candidateExtensions = new ArrayList<GenericExtension>();
-        final TypesComparator typesComparator = new TypesComparator(env);
-        for (GenericExtension ext : extensions) {
-            if (ext.getName().equals(name)) {
-                final List<? extends EClassifier> featureParamTypes = ext.getParameterTypes();
-                if ((featureParamTypes.size() == paramTypes.size())
-                        && (typesComparator.compare(featureParamTypes, paramTypes) >= 0)) {
-                    candidateExtensions.add(ext);
-                }
-            }
-        }
-		final Comparator<GenericExtension> extensionComparator = new Comparator<GenericExtension>() {
-	        public int compare(GenericExtension e1, GenericExtension e2) {
-	            return typesComparator.compare(e1.getParameterTypes(), e2.getParameterTypes());
-	        }
-	    };
-	    try {
-	    	return filterWithComparator(candidateExtensions, extensionComparator);
-	    } catch (IllegalStateException ex) {
-            // candidateExtensions was passed by reference, hence, it's already sort
-			throw new RuntimeException("Ambiguous extensions " + candidateExtensions.get(0).toString() + " and "
-                    + candidateExtensions.get(1).toString() + " for param types " + paramTypes);
-	    }
-    }
-    
     /**
      * @throws IllegalStateException when there are more than one candidates with same priority
      */

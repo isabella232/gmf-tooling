@@ -21,20 +21,34 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EParameter;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.util.PolymorphicResolver;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
-import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
+import org.eclipse.gmf.internal.xpand.xtend.ast.QvtExtension;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
+import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnv;
+import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnvFactory;
+import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalFileEnv;
+import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
+import org.eclipse.ocl.Environment;
+import org.eclipse.ocl.ecore.CallOperationAction;
+import org.eclipse.ocl.ecore.Constraint;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
-import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
 import org.eclipse.ocl.ecore.EcoreEvaluationEnvironment;
 import org.eclipse.ocl.ecore.EcoreFactory;
+import org.eclipse.ocl.ecore.SendSignalAction;
+import org.eclipse.ocl.utilities.UMLReflection;
 
 /**
  * @author Sven Efftinge
@@ -98,36 +112,30 @@ public final class ExecutionContextImpl implements ExecutionContext {
         return currentResource;
     }
 
-    private Set<GenericExtension> allExtensions = null;
+    private Set<QvtExtension> allExtensions = null;
 
     private String[] getImportedExtensions() {
     	return currentResource == null ? new String[0] : currentResource.getImportedExtensions();
     }
 
-	public Set<? extends GenericExtension> getAllExtensions() {
+	public Set<QvtExtension> getAllExtensions() {
         if (allExtensions == null) {
-            allExtensions = new HashSet<GenericExtension>();
+            allExtensions = new HashSet<QvtExtension>();
             final String[] extensions = getImportedExtensions();
             for (String extension : extensions) {
             	final QvtResource qvtResource = getScope().findExtension(extension);
-            	if (qvtResource != null) {
-            		final ExecutionContext ctx = cloneWithResource(qvtResource);
-                    final List<? extends GenericExtension> extensionList = qvtResource.getExtensions();
-                    for (GenericExtension element : extensionList) {
-                        element.init(ctx);
-                        allExtensions.add(element);
-                    }
-            	} else {
-            		// XXX ask Vano - used to be exception
-            		//throw new RuntimeException("Unable to load extension file : " + extension);
+            	if (qvtResource == null) {
+            		throw new RuntimeException("Unable to load extension file : " + extension);
             	}
+        		final ExecutionContext ctx = cloneWithResource(qvtResource);
+                final List<QvtExtension> extensionList = qvtResource.getExtensions();
+                for (QvtExtension element : extensionList) {
+                    element.init(ctx);
+                    allExtensions.add(element);
+                }
             }
         }
         return allExtensions;
-    }
-
-    public GenericExtension getExtension(final String functionName, final EClassifier[] parameterTypes) {
-        return PolymorphicResolver.getExtension(getAllExtensions(), functionName, Arrays.asList(parameterTypes), getOCLEnvironment());
     }
 
     public XpandDefinition findDefinition(String name, EClassifier target, EClassifier[] paramTypes) {
@@ -226,24 +234,28 @@ public final class ExecutionContextImpl implements ExecutionContext {
 		return PolymorphicResolver.filterDefinition(resolvedDefs, target, Arrays.asList(paramTypes), ctx.getOCLEnvironment());
     }
 
-    private EcoreEnvironmentFactory envFactory; // null-ified when context's resource is changed
-    private EcoreEnvironment environment;
+    private QvtOperationalEnvFactory envFactory; // null-ified when context's resource is changed
+    private QvtOperationalEnv environment;
 
     public EcoreEnvironment getOCLEnvironment() {
     	if (environment != null) {
     		return environment;
     	}
     	if (envFactory == null) {
-    		envFactory = new EcoreEnvironmentFactory(getAllVisibleModels());
+    		//envFactory = new EcoreEnvironmentFactory(getAllVisibleModels());
+    		envFactory = QvtOperationalEnvFactory.INSTANCE;
+    		// XXX shouldn't I keep instance of QvtOperationalEnv with the visible models instead?
     	}
-    	environment = (EcoreEnvironment) envFactory.createEnvironment();
+    	QvtOperationalEnv rootEnv = new QvtOperationalEnv(null, getAllVisibleModels()) {};
+		environment = envFactory.createEnvironment(rootEnv );
+		//handleImportedExtensions(rootEnv);
     	for (Variable v : variables.values()) {
     		if (!IMPLICIT_VARIABLE.equals(v.getName())) {
     			// XXX alternative: environment.getOCLFactory().createVariable()
     			org.eclipse.ocl.ecore.Variable oclVar = EcoreFactory.eINSTANCE.createVariable();
     			oclVar.setName(v.getName());
     			if (v.getType() == null) {
-    				oclVar.setType(BuiltinMetaModel.getType(v.getValue()));
+    				oclVar.setType(BuiltinMetaModel.getType(this, v.getValue()));
     			} else {
     				oclVar.setType(v.getType());
     			}
@@ -252,19 +264,89 @@ public final class ExecutionContextImpl implements ExecutionContext {
     	}
 		Variable v = variables.get(ExecutionContext.IMPLICIT_VARIABLE);
 		if (v != null) {
-			EClassifier type = v.getType() == null ? BuiltinMetaModel.getType(v.getValue()) : v.getType();
-			environment = (EcoreEnvironment) envFactory.createClassifierContext(environment, type);
+			EClassifier type = v.getType() == null ? BuiltinMetaModel.getType(this, v.getValue()) : v.getType();
+			//environment = (EcoreEnvironment) envFactory.createClassifierContext(environment, type);
+			// make sure environment can be casted to QvtOperationalEnv, though it should be fixed in the factory
+			QvtOperationalEnv parent = (QvtOperationalEnv) environment;
+			//
+			// copy from createClassifierContext
+			//
+			environment = envFactory.createEnvironment(parent);
+	        UMLReflection<EPackage, EClassifier, EOperation, EStructuralFeature, EEnumLiteral, EParameter, EObject, CallOperationAction, SendSignalAction, Constraint> uml = parent.getUMLReflection();
+	        type = uml.asOCLType(type);
+	        org.eclipse.ocl.expressions.Variable<EClassifier, EParameter> self = parent.getOCLFactory().createVariable();
+	        uml.setName(self, Environment.SELF_VARIABLE_NAME);
+	        uml.setType(self, type);
+	        
+	        environment.addElement(self.getName(), self, true);
+	        environment.setSelfVariable(self);
 		}
+		handleImportedExtensions(rootEnv, environment);
     	return environment;
     }
-    
+
+    /*
+     * Behavior differs when rootEnv or leaf is populated, because
+     * QVTTypeResolver looks for additional operations in siblings of root environment,
+     * while QvtEnvironmentBase#lookupImplicitSourceForOperation
+     * respects siblings of actual environment being queried.  
+     */
+    private void handleImportedExtensions(QvtOperationalEnv... envToPopulate) {
+		if (getImportedExtensions().length == 0) {
+			return;
+		}
+		HashSet<QvtOperationalEnv> siblings = new HashSet<QvtOperationalEnv>();
+        final String[] extensions = getImportedExtensions();
+        for (String extension : extensions) {
+        	final QvtResource qvtResource = getScope().findExtension(extension);
+        	if (qvtResource == null) {
+        		throw new RuntimeException("Unable to load extension file : " + extension);
+        	}
+        	siblings.add(qvtResource.getEnvironment());
+        }
+        for (QvtOperationalEnv s : siblings) {
+    		// XXX alternative is to respect siblings on any level of the environment hierarchy
+        	// either in QVTTypeResolverImpl#getAdditionalOperations
+        	// or QvtEnvironmentBase#getAdditionalOperations
+        	for (QvtOperationalEnv toPopulate: envToPopulate) {
+        		toPopulate.addSibling(s);
+        	}
+        }
+/*
+		TypeResolver<EClassifier, EOperation, EStructuralFeature> typeResolver = environment.getTypeResolver();
+		for (QvtExtension e : getAllExtensions()) {
+			if (e.getContext() == null || e.getOperation() == null) {
+				// perhaps, static helper. Skip?
+				// FIXME not sure how to handle static operations,
+				// TypeUtil#getOperations (look for uml.isStatic() call ) and 
+				// implementation of ecore.UMLReflection#isStatic (always false) make me believe 
+				// (for now), that it's not feasible with Ecore models
+				System.out.println("resolveAdditionalOperation:" + e.getContext());
+				System.out.println("resolveAdditionalOperation:" + e.getOperation());
+			} else {
+				typeResolver.resolveAdditionalOperation(e.getContext(), e.getOperation());
+			}
+		}
+*/
+    }
+
     public void populate(EcoreEvaluationEnvironment ee) {
     	for (Variable v : variables.values()) {
     		if (!IMPLICIT_VARIABLE.equals(v.getName())) {
     			ee.add(v.getName(), v.getValue());
     		}
     	}
+    	for (Object s : environment.getSiblings()) {
+    		Module moduleClass = ((QvtOperationalEnv) s).getModuleContextType();
+    		if (moduleClass == null) {
+    			continue;
+    		}
+			EObject instance = fakeModuleInstanceFactory.create(moduleClass);
+	    	ee.replace(moduleClass.getName() + QvtOperationalFileEnv.THIS_VAR_QNAME_SUFFIX, instance);
+
+    	}
 	}
+    private static EFactoryImpl fakeModuleInstanceFactory = new EFactoryImpl() {};
 
     private String[] getImportedNamespaces() {
     	return currentResource == null ? new String[0] : currentResource.getImportedNamespaces();
@@ -287,5 +369,4 @@ public final class ExecutionContextImpl implements ExecutionContext {
 		}
 		return result;
 	}
-
 }

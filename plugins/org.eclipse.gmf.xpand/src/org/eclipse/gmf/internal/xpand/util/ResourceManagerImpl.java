@@ -38,13 +38,13 @@ import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompilerOptions;
 // FIXME it's not a good idea to parse file on every proposal computation
 public abstract class ResourceManagerImpl implements ResourceManager {
 
-	private final class InputStreadCFile implements CFile {
+	private final static class InputStreamCFile implements CFile {
 
 		private byte[] bytes;
 
 		private String name;
 
-		public InputStreadCFile(Reader reader, String name) throws IOException {
+		public InputStreamCFile(Reader reader, String name) throws IOException {
 			StringWriter sw = new StringWriter();
 			for (int ch = reader.read(); ch != -1; ch = reader.read()) {
 				sw.write(ch);
@@ -108,7 +108,7 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		public void refresh() throws IOException {
 		}
 	}
-	
+
 	// TODO: implement this import resolved to use resolveMultiple() method
 	private final class ImportResolverImpl implements IImportResolver {
 
@@ -123,13 +123,23 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		}
 
 		public CFile resolveImport(CFile parentFile, String importedUnitName) {
-			// TODO Auto-generated method stub
-			return null;
+			try {
+				String unitName = parentFile.getUnitName();
+				unitName = unitName.substring(0, unitName.lastIndexOf(':') + 1) + importedUnitName;
+				Reader[] readers = resolveMultiple(unitName, QvtResource.FILE_EXTENSION);
+				assert readers.length == 1;
+				CFile cFile = new InputStreamCFile(readers[0], unitName);
+				return cFile;
+			} catch (IOException ex) {
+				ex.printStackTrace();
+				return null;
+			}
 		}
 
 	}
 
 	private final Map<String, XpandResource> cachedXpand = new TreeMap<String, XpandResource>();
+
 	private final Map<String, QvtResource> cachedQvt = new TreeMap<String, QvtResource>();
 
 	public QvtResource loadQvtResource(String fullyQualifiedName) {
@@ -162,7 +172,7 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	private QvtResource doLoadQvtResource(String fullyQualifiedName) throws IOException, ParserException {
 		Reader[] readers = resolveMultiple(fullyQualifiedName, QvtResource.FILE_EXTENSION);
 		assert readers.length == 1;
-		CFile cFile = new InputStreadCFile(readers[0], fullyQualifiedName);
+		CFile cFile = new InputStreamCFile(readers[0], fullyQualifiedName);
 		// TODO: use different kind of ImportResolver being able to construct
 		// referenced CFiles using ResourceManagerImpl
 		QvtCompiler qvtCompiler = new QvtCompiler(new ImportResolverImpl());
@@ -171,8 +181,8 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		options.setShowAnnotations(false);
 		try {
 			CompiledModule module = qvtCompiler.compile(cFile, options, null).getModule();
-//			assert module.getModule() instanceof Library;
-			return new QvtFile(module, fullyQualifiedName);	
+			// assert module.getModule() instanceof Library;
+			return new QvtFile(module, fullyQualifiedName);
 		} catch (MdaException e) {
 			throw new ParserException(fullyQualifiedName, new ParserException.ErrorLocationInfo(e.toString()));
 		}
@@ -182,7 +192,8 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		try {
 			return loadXpandThroughCache(fullyQualifiedName);
 		} catch (FileNotFoundException ex) {
-			return null;	//Missing resource is an anticipated situation, not a error that should be handled
+			// Missing resource is an anticipated situation, not a error that should be handled
+			return null; 
 		} catch (IOException ex) {
 			// XXX come up with better handling
 			Activator.logWarn(ex.getMessage());
@@ -205,14 +216,16 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 
 	private XpandResource doLoadXpandResource(String fullyQualifiedName) throws IOException, ParserException {
 		Reader[] rs1 = resolveMultiple(fullyQualifiedName, XpandResource.TEMPLATE_EXTENSION);
-		assert rs1 != null && rs1.length > 0; // exception should be thrown to indicate issues with resolve
+		assert rs1 != null && rs1.length > 0; // exception should be thrown to
+												// indicate issues with resolve
 		XpandResource[] unadvised = loadXpandResources(rs1, fullyQualifiedName);
 		XpandResource[] advices = null;
 		try {
-	    	String aspectsTemplateName = getAspectsTemplateName(fullyQualifiedName);
-	    	Reader[] rs2 = resolveMultiple(aspectsTemplateName, XpandResource.TEMPLATE_EXTENSION);
-	    	// XXX relax resolveMultiple to return empty array and use length==0 here instead of exception
-	    	advices = loadXpandResources(rs2, aspectsTemplateName);
+			String aspectsTemplateName = getAspectsTemplateName(fullyQualifiedName);
+			Reader[] rs2 = resolveMultiple(aspectsTemplateName, XpandResource.TEMPLATE_EXTENSION);
+			// XXX relax resolveMultiple to return empty array and use length==0
+			// here instead of exception
+			advices = loadXpandResources(rs2, aspectsTemplateName);
 		} catch (FileNotFoundException e) {
 		} catch (IOException ex) {
 			// XXX come up with better handling
@@ -234,8 +247,9 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	}
 
 	/**
-	 * If the given fully-qualified name is an aspect, transforms it to its "host" fully-qualified name. Otherwise,
-	 * returns the given fully-qualified name.
+	 * If the given fully-qualified name is an aspect, transforms it to its
+	 * "host" fully-qualified name. Otherwise, returns the given fully-qualified
+	 * name.
 	 */
 	protected String getNonAspectsTemplateName(String possiblyAspectedFullyQualifiedName) {
 		if (possiblyAspectedFullyQualifiedName == null) {
@@ -250,11 +264,16 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	protected abstract void handleParserException(ParserException ex);
 
 	/**
-	 * Returns an array of resolutions, in the order from newest to oldest. 
-	 * This is to enable one template to partially override only a subset of parent templates.
-	 *  
-	 * @return never return <code>null</code> or an empty array, throw exception instead
-	 * @throws IOException in case resource can't be read. Throw {@link java.io.FileNotFoundException} to indicate resource was not found. 
+	 * Returns an array of resolutions, in the order from newest to oldest. This
+	 * is to enable one template to partially override only a subset of parent
+	 * templates.
+	 * 
+	 * @return never return <code>null</code> or an empty array, throw exception
+	 *         instead
+	 * @throws IOException
+	 *             in case resource can't be read. Throw
+	 *             {@link java.io.FileNotFoundException} to indicate resource
+	 *             was not found.
 	 */
 	protected abstract Reader[] resolveMultiple(String fullyQualifiedName, String extension) throws IOException;
 
@@ -271,7 +290,8 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 			} finally {
 				try {
 					readers[i].close();
-				} catch (Exception ex) {/*IGNORE*/}
+				} catch (Exception ex) {/* IGNORE */
+				}
 			}
 		}
 		return result;
@@ -282,6 +302,7 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	protected final boolean hasCachedXpand(String fullyQualifiedName) {
 		return shouldCache() && cachedXpand.containsKey(fullyQualifiedName);
 	}
+
 	protected final boolean hasCachedQvt(String fullyQualifiedName) {
 		return shouldCache() && cachedQvt.containsKey(fullyQualifiedName);
 	}
@@ -299,5 +320,5 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		cachedQvt.clear();
 	}
 
-	private static final String ASPECT_PREFIX = "aspects" + TypeNameUtil.NS_DELIM;	//$NON-NLS-1$
+	private static final String ASPECT_PREFIX = "aspects" + TypeNameUtil.NS_DELIM; //$NON-NLS-1$
 }

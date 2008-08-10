@@ -18,75 +18,14 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
-import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnv;
-import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnvFactory;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Helper;
 import org.eclipse.m2m.qvt.oml.runtime.util.HelperOperationCall;
-import org.eclipse.ocl.ecore.BagType;
-import org.eclipse.ocl.ecore.CollectionType;
-import org.eclipse.ocl.ecore.OrderedSetType;
-import org.eclipse.ocl.ecore.PrimitiveType;
-import org.eclipse.ocl.ecore.SequenceType;
-import org.eclipse.ocl.ecore.SetType;
-import org.eclipse.ocl.ecore.util.EcoreSwitch;
-import org.eclipse.ocl.types.OCLStandardLibrary;
 
 public class QvtExtension implements GenericExtension {
-
-	private static final QvtOperationalEnv qvtEnvironment = QvtOperationalEnvFactory.INSTANCE.createEnvironment(null);
-
-	private static final EcoreSwitch<EClassifier> ecoreSwitch = new EcoreSwitch<EClassifier>() {
-
-		@Override
-		public EClassifier casePrimitiveType(PrimitiveType object) {
-			OCLStandardLibrary<EClassifier> standardLibrary = qvtEnvironment.getOCLStandardLibrary();
-			if (standardLibrary.getString() == object) {
-				return EcorePackage.eINSTANCE.getEString();
-			}
-			if (standardLibrary.getBoolean() == object) {
-				return EcorePackage.eINSTANCE.getEBoolean();
-			}
-			if (standardLibrary.getInteger() == object) {
-				return EcorePackage.eINSTANCE.getEInt();
-			}
-			return null;
-		}
-
-		@Override
-		public EClassifier caseCollectionType(CollectionType object) {
-			return BuiltinMetaModel.getCollectionType(getXpandElementType(object));
-		}
-
-		@Override
-		public EClassifier caseBagType(BagType object) {
-			return BuiltinMetaModel.getCollectionType(getXpandElementType(object));
-		}
-
-		@Override
-		public EClassifier caseSetType(SetType object) {
-			return BuiltinMetaModel.getSetType(getXpandElementType(object));
-		}
-
-		@Override
-		public EClassifier caseSequenceType(SequenceType object) {
-			return BuiltinMetaModel.getListType(getXpandElementType(object));
-		}
-
-		@Override
-		public EClassifier caseOrderedSetType(OrderedSetType object) {
-			return BuiltinMetaModel.getSetType(getXpandElementType(object));
-		}
-
-		private EClassifier getXpandElementType(CollectionType collectionType) {
-			EClassifier elementType = this.doSwitch(collectionType.getElementType());
-			return elementType == null ? collectionType.getElementType() : elementType;
-		}
-	};
 
 	private QvtResource qvtResource;
 
@@ -168,10 +107,10 @@ public class QvtExtension implements GenericExtension {
 			// TODO: we should be able to distinguish between static and
 			// context-specific queries
 			if (getHelper().getContext() != null) {
-				parameterTypes.add(getXpandType(getHelper().getContext().getEType()));
+				parameterTypes.add(getHelper().getContext().getEType());
 			}
 			for (EParameter parameter : getHelper().getEParameters()) {
-				parameterTypes.add(getXpandType(parameter.getEType()));
+				parameterTypes.add(parameter.getEType());
 			}
 			parameterTypes = Collections.unmodifiableList(parameterTypes);
 		}
@@ -189,14 +128,10 @@ public class QvtExtension implements GenericExtension {
 		return parameterNames;
 	}
 
+	// FIXME what's this method for? can't find a use...
 	public EClassifier getReturnType(EClassifier[] parameters, ExecutionContext ctx, Set<AnalysationIssue> issues) {
 		// TODO: deduce return type here? (need another visitor?)
-		return getXpandType(getHelper().getEType());
-	}
-
-	private EClassifier getXpandType(EClassifier type) {
-		EClassifier result = ecoreSwitch.doSwitch(type);
-		return result == null ? type : result;
+		return getHelper().getEType();
 	}
 
 	public void init(ExecutionContext ctx) {
@@ -211,4 +146,11 @@ public class QvtExtension implements GenericExtension {
 		return helperCall.getOperation();
 	}
 
+	public EClassifier getContext() {
+		return helperCall.getContextType();
+	}
+
+	public EOperation getOperation() {
+		return helperCall.getOperation();
+	}
 }

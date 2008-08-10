@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 
@@ -24,6 +25,10 @@ public interface GenericExtension {
 	
 	String getFileName();
 	
+	EClassifier getContext();
+	EOperation getOperation();
+
+	// XXX odd parameters param, as if return type may depend from them?
 	EClassifier getReturnType(final EClassifier[] parameters, ExecutionContext ctx, final Set<AnalysationIssue> issues);
 
 	List<EClassifier> getParameterTypes();
