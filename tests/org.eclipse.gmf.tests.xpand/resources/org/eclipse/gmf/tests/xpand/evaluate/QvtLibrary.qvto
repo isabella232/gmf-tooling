@@ -1,3 +1,4 @@
+import ExtraLib;
 
 /*modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";*/
 
@@ -40,3 +41,8 @@ query Sequence(Boolean)::getDummyBag() : Bag(Boolean) {
 query Set(Integer)::getDummyOrderedSet() : OrderedSet(Integer) {
 	return self->asOrderedSet()
 }
+
+-- uncomment when QVTO is capable of Collection() context operations (Bug #243684)
+--query String::firstExt() : String {
+--	return Sequence{self, self}->secondExt()
+--}

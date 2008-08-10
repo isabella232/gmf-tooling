@@ -22,8 +22,9 @@ import junit.framework.TestCase;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.XpandFacade;
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContextImpl;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
+import org.eclipse.gmf.internal.xpand.model.Scope;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
 import org.eclipse.ocl.util.CollectionUtil;
@@ -38,14 +39,14 @@ public class QvtExtensions extends TestCase {
 
 	private XpandFacade xpandFacade;
 
-	private XpandExecutionContextImpl execCtx;
+	private ExecutionContextImpl execCtx;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		buffer = new StringBuilder();
 		resourceManager = new TestsResourceManager();
-		execCtx = new XpandExecutionContextImpl(resourceManager, new BufferOutput(buffer), null);
+		execCtx = new ExecutionContextImpl(new Scope(resourceManager, null, new BufferOutput(buffer)));
 		xpandFacade = new XpandFacade(execCtx);
 	}
 
@@ -54,7 +55,7 @@ public class QvtExtensions extends TestCase {
 		Set<AnalysationIssue> issues = new LinkedHashSet<AnalysationIssue>();
 		qvtResource.analyze(execCtx, issues);
 		checkIssues(issues);
-		XpandResource template = execCtx.findTemplate("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension");
+		XpandResource template = execCtx.getScope().findTemplate("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension");
 		template.analyze(execCtx, issues);
 		checkIssues(issues);
 	}
@@ -77,13 +78,26 @@ public class QvtExtensions extends TestCase {
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkStringContextInvocation", "ContextString1");
 	}
 
-	public void testStatisInvocationContextualQuery() {
+/*
+	 FIXME turned off as we don't know if we'd be able invoke
+	 contextual queries in a static-invocation syntax (i.e. name(self) instead of self.name) 
+	public void testStaticInvocationContextualQuery() {
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkStringStaticInvocation", "ContextString2");
 	}
 
 	public void testContextInvocationStaticQuery() {
-		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkIntConvextInvocation", 10);
+		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkIntContextInvocation", 10);
 	}
+ */
+
+	/* uncomment when QVTO is capable of Collection() context operations (Bug #243684)
+	public void testQvtoIsCapableToDefineContextOpsToCollections() {
+		String arg = "Str";
+		xpandFacade.evaluate("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::tttest", arg, null);
+		System.err.println(buffer.toString());
+		assertEquals(arg, buffer.toString().trim());
+	}
+	*/
 
 	public void testStaticInvocationStaticQuery() {
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkIntStaticInvocation", 20);

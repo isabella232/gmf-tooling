@@ -1,0 +1,9 @@
+library QvtLibrary;
+
+query String::one123() : String {
+	return self
+}
+
+query Sequence(String)::secondExt() : String {
+	return 'Second HIT!'
+}

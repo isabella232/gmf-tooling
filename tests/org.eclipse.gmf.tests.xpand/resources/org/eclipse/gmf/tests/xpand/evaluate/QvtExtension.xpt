@@ -1,73 +1,81 @@
 «EXTENSION org::eclipse::gmf::tests::xpand::evaluate::QvtLibrary»
 
-«DEFINE checkStringContextInvocation(String positiveAnswer, String negativeAnswer) FOR String-»
-«IF this.getDummyStringContextual() == this»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«REM»
+uncomment when QVTO is capable of Collection() context operations (Bug #243684)
+«DEFINE tttest FOR String»
+«self.firstExt()»
+«ENDDEFINE»
+«ENDREM»
+
+«DEFINE checkStringContextInvocation(positiveAnswer:String, negativeAnswer:String) FOR String-»
+«IF self.getDummyStringContextual() = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE checkStringStaticInvocation(String positiveAnswer, String negativeAnswer) FOR String-»
-«IF getDummyStringContextual(this) == this»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«REM»Next syntax doesn't work!«ENDREM»
+«DEFINE checkStringStaticInvocation(positiveAnswer:String, negativeAnswer:String) FOR String-»
+«IF getDummyStringContextual(self) = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE checkIntConvextInvocation(String positiveAnswer, String negativeAnswer) FOR Integer-»
-«IF this.getDummyIntStatic() == this»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«DEFINE checkIntContextInvocation(positiveAnswer:String, negativeAnswer:String) FOR Integer-»
+«IF self.getDummyIntStatic() = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE checkIntStaticInvocation(String positiveAnswer, String negativeAnswer) FOR Integer-»
-«IF getDummyIntStatic(this) == this»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«DEFINE checkIntStaticInvocation(positiveAnswer:String, negativeAnswer:String) FOR Integer-»
+«IF getDummyIntStatic(self) = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE checkBoolean(String positiveAnswer, String negativeAnswer) FOR Boolean-»
-«IF getDummyBoolean(this) == this»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«DEFINE checkBoolean(positiveAnswer:String, negativeAnswer:String) FOR Boolean-»
+«IF getDummyBoolean() = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
 
 «REM»
 «DEFINE checkDeployedMetaType(String positiveAnswer, String negativeAnswer) FOR EAttribute-»
-«IF getDummyUserType(this) == this»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«IF getDummyUserType(self) = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
 «ENDREM»
 
-«DEFINE checkCollection(String positiveAnswer, String negativeAnswer) FOR Collection[String]-»
-«EXPAND checkCollectionInternal(getDummyCollection(this), positiveAnswer, negativeAnswer)-»
+«DEFINE checkCollection(positiveAnswer:String, negativeAnswer:String) FOR Collection(String)-»
+«EXPAND checkCollectionInternal(self->getDummyCollection(), positiveAnswer, negativeAnswer)-»
 «ENDDEFINE»
 
-«DEFINE checkCollectionInternal(Collection[String] qvtCollection, String positiveAnswer, String negativeAnswer) FOR Collection[String]-»
-«IF qvtCollection.size() == this.size() && this.containsAll(qvtCollection)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«DEFINE checkCollectionInternal(qvtCollection:Collection(String), positiveAnswer:String, negativeAnswer:String) FOR Collection(String)-»
+«IF qvtCollection->size() = self->size() and self->includesAll(qvtCollection)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE checkSet(String positiveAnswer, String negativeAnswer) FOR Set[Boolean]-»
-«EXPAND checkSetInternal(getDummySet(this), positiveAnswer, negativeAnswer)-»
+«DEFINE checkSet(positiveAnswer:String, negativeAnswer:String) FOR Set(Boolean)-»
+«EXPAND checkSetInternal(self->getDummySet(), positiveAnswer, negativeAnswer)-»
 «ENDDEFINE»
 
-«DEFINE checkSetInternal(Set[Boolean] qvtSet, String positiveAnswer, String negativeAnswer) FOR Set[Boolean]-»
-«IF qvtSet.size() == this.size() && this.containsAll(qvtSet)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«DEFINE checkSetInternal(qvtSet:Set(Boolean), positiveAnswer:String, negativeAnswer:String) FOR Set(Boolean)-»
+«IF qvtSet->size() = self->size() and self->includesAll(qvtSet)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE checkSequence(String positiveAnswer, String negativeAnswer) FOR List[Boolean]-»
-«EXPAND checkSequenceInternal(getDummySequence(this), positiveAnswer, negativeAnswer)-»
+«DEFINE checkSequence(positiveAnswer:String, negativeAnswer:String) FOR Sequence(Boolean)-»
+«EXPAND checkSequenceInternal(getDummySequence(), positiveAnswer, negativeAnswer)-»
 «ENDDEFINE»
 
-«DEFINE checkSequenceInternal(List[Boolean] qvtList, String positiveAnswer, String negativeAnswer) FOR List[Boolean]-»
-«IF qvtList.size() == this.size() && this.containsAll(qvtList)»«EXPAND checkListInternal(qvtList, positiveAnswer, negativeAnswer)»«ELSE»«negativeAnswer»«ENDIF-»
+«DEFINE checkSequenceInternal(qvtList:Sequence(Boolean), positiveAnswer:String, negativeAnswer:String) FOR Sequence(Boolean)-»
+«IF qvtList->size() = self->size() and self->includesAll(qvtList)»«EXPAND checkListInternal(qvtList, positiveAnswer, negativeAnswer)»«ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE checkListInternal(List[Boolean] qvtList, String positiveAnswer, String negativeAnswer) FOR List[Boolean]-»
-«IF qvtList.size() == 0 && this.size() == 0»«positiveAnswer-»
-«ELSEIF qvtList.first() == this.first()»«EXPAND checkListInternal((List[Boolean]) qvtList.withoutFirst(), positiveAnswer, negativeAnswer) FOR (List[Boolean]) this.withoutFirst()-»
+«DEFINE checkListInternal(qvtList:Sequence(Boolean), positiveAnswer:String, negativeAnswer:String) FOR Sequence(Boolean)-»
+«IF qvtList->size() = 0 and self->size() = 0»«positiveAnswer-»
+«ELSEIF qvtList.first() = self.first()»«EXPAND checkListInternal(qvtList.withoutFirst().oclAsType(Sequence(Boolean)), positiveAnswer, negativeAnswer) FOR self.withoutFirst().oclAsType(Sequence(Boolean))-»
 «ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE checkBag(String positiveAnswer, String negativeAnswer) FOR List[Boolean]-»
-«EXPAND checkCollectionInternal(getDummyBag(this), positiveAnswer, negativeAnswer)-»
+«DEFINE checkBag(positiveAnswer:String, negativeAnswer:String) FOR Sequence(Boolean)-»
+«EXPAND checkCollectionInternal(getDummyBag(), positiveAnswer, negativeAnswer)-»
 «ENDDEFINE»
 
-«DEFINE checkCollectionInternal(Collection[Boolean] qvtCollection, String positiveAnswer, String negativeAnswer) FOR Collection[Boolean]-»
-«IF qvtCollection.size() == this.size() && this.containsAll(qvtCollection)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«DEFINE checkCollectionInternal(qvtCollection:Collection(Boolean), positiveAnswer:String, negativeAnswer:String) FOR Collection(Boolean)-»
+«IF qvtCollection->size() = self->size() and self->includesAll(qvtCollection)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE checkOrderedSet(String positiveAnswer, String negativeAnswer) FOR Set[Integer]-»
-«EXPAND checkSetInternal(getDummyOrderedSet(this), positiveAnswer, negativeAnswer)-»
+«DEFINE checkOrderedSet(positiveAnswer:String, negativeAnswer:String) FOR Set(Integer)-»
+«EXPAND checkSetInternal(getDummyOrderedSet(), positiveAnswer, negativeAnswer)-»
 «ENDDEFINE»
 
-«DEFINE checkSetInternal(Set[Integer] qvtSet, String positiveAnswer, String negativeAnswer) FOR Set[Integer]-»
-«IF qvtSet.size() == this.size() && this.containsAll(qvtSet)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«DEFINE checkSetInternal(qvtSet:Set(Integer), positiveAnswer:String, negativeAnswer:String) FOR Set(Integer)-»
+«IF qvtSet->size() = self->size() and self->includesAll(qvtSet)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
