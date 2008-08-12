@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: SVGFigureItemProvider.java,v 1.4 2008/08/08 13:06:21 dstadnik Exp $
+ * $Id: SVGFigureItemProvider.java,v 1.5 2008/08/12 13:56:46 dstadnik Exp $
  */
 package org.eclipse.gmf.gmfgraph.provider;
 
@@ -65,6 +65,8 @@ public class SVGFigureItemProvider
 			super.getPropertyDescriptors(object);
 
 			addDocumentURIPropertyDescriptor(object);
+			addNoCanvasWidthPropertyDescriptor(object);
+			addNoCanvasHeightPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -87,6 +89,50 @@ public class SVGFigureItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the No Canvas Width feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNoCanvasWidthPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_SVGFigure_noCanvasWidth_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SVGFigure_noCanvasWidth_feature", "_UI_SVGFigure_type"),
+				 GMFGraphPackage.eINSTANCE.getSVGFigure_NoCanvasWidth(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the No Canvas Height feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNoCanvasHeightPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_SVGFigure_noCanvasHeight_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SVGFigure_noCanvasHeight_feature", "_UI_SVGFigure_type"),
+				 GMFGraphPackage.eINSTANCE.getSVGFigure_NoCanvasHeight(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -160,6 +206,8 @@ public class SVGFigureItemProvider
 
 		switch (notification.getFeatureID(SVGFigure.class)) {
 			case GMFGraphPackage.SVG_FIGURE__DOCUMENT_URI:
+			case GMFGraphPackage.SVG_FIGURE__NO_CANVAS_WIDTH:
+			case GMFGraphPackage.SVG_FIGURE__NO_CANVAS_HEIGHT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGraphPackage.SVG_FIGURE__PROPERTIES:
