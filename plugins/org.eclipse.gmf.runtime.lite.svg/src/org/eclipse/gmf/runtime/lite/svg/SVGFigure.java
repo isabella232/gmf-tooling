@@ -23,18 +23,13 @@ import javax.xml.xpath.XPathFactory;
 
 import org.apache.batik.bridge.BridgeContext;
 import org.apache.batik.dom.svg.SAXSVGDocumentFactory;
-import org.apache.batik.transcoder.Transcoder;
-import org.apache.batik.transcoder.TranscoderException;
-import org.apache.batik.transcoder.TranscoderInput;
-import org.apache.batik.transcoder.TranscoderOutput;
-import org.apache.batik.transcoder.image.ImageTranscoder;
 import org.apache.batik.util.XMLResourceDescriptor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gmf.internal.runtime.lite.svg.Activator;
-import org.eclipse.gmf.internal.runtime.lite.svg.SimpleImageTranscoder;
 import org.eclipse.gmf.internal.runtime.lite.svg.InferringNamespaceContext;
+import org.eclipse.gmf.internal.runtime.lite.svg.SimpleImageTranscoder;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Image;
@@ -48,10 +43,8 @@ import org.w3c.dom.NodeList;
 public class SVGFigure extends Figure {
 
 	private String uri;
-	private Document document;
-	private boolean failedToLoadDocument;
+	private boolean failedToLoadDocument, specifyCanvasWidth = true, specifyCanvasHeight = true;
 	private SimpleImageTranscoder transcoder;
-	private Rectangle2D aoi;
 
 	public final String getURI() {
 		return uri;
@@ -63,7 +56,7 @@ public class SVGFigure extends Figure {
 
 	public void setURI(String uri, boolean loadOnDemand) {
 		this.uri = uri;
-		document = null;
+		transcoder = null;
 		failedToLoadDocument = false;
 		if (loadOnDemand) {
 			loadDocument();
@@ -79,9 +72,9 @@ public class SVGFigure extends Figure {
 		String parser = XMLResourceDescriptor.getXMLParserClassName();
 		SAXSVGDocumentFactory factory = new SAXSVGDocumentFactory(parser);
 		try {
-			document = factory.createDocument(uri);
+			Document document = factory.createDocument(uri);
+			transcoder = new SimpleImageTranscoder(document);
 			failedToLoadDocument = false;
-			transcoder = new SimpleImageTranscoder();
 		} catch (IOException e) {
 			Activator.logError("Error loading SVG file", e);
 		}
@@ -91,10 +84,10 @@ public class SVGFigure extends Figure {
 		if (failedToLoadDocument) {
 			return null;
 		}
-		if (document == null) {
+		if (transcoder == null) {
 			loadDocument();
 		}
-		return document;
+		return transcoder == null ? null : transcoder.getDocument();
 	}
 
 	/**
@@ -129,13 +122,12 @@ public class SVGFigure extends Figure {
 	 * Reads color value from the document.
 	 */
 	protected Color getColor(Element element, String attributeName) {
-		Document document = getDocument();
-		if (document == null || transcoder == null) {
+		if (getDocument() == null || getDocument() != element.getOwnerDocument()) {
 			return null;
 		}
 		Color color = null;
 		// Make sure that CSSEngine is available.
-		BridgeContext ctx = transcoder.initCSSEngine(document);
+		BridgeContext ctx = transcoder.initCSSEngine();
 		try {
 			color = SVGUtils.toSWTColor(element, attributeName);
 		} finally {
@@ -144,20 +136,6 @@ public class SVGFigure extends Figure {
 			}
 		}
 		return color;
-	}
-
-	private void renderDocument(Transcoder transcoder, Document document) {
-		try {
-			Rectangle r = getClientArea();
-			transcoder.addTranscodingHint(ImageTranscoder.KEY_WIDTH, new Float(r.width));
-			transcoder.addTranscodingHint(ImageTranscoder.KEY_HEIGHT, new Float(r.height));
-			if (aoi != null) {
-				transcoder.addTranscodingHint(ImageTranscoder.KEY_AOI, aoi);
-			}
-			transcoder.transcode(new TranscoderInput(document), new TranscoderOutput());
-		} catch (TranscoderException e) {
-			Activator.logError("Error rendering SVG image", e);
-		}
 	}
 
 	@Override
@@ -169,11 +147,11 @@ public class SVGFigure extends Figure {
 		}
 		Image image = null;
 		try {
-			renderDocument(transcoder, document);
+			Rectangle r = getClientArea();
+			transcoder.setCanvasSize(specifyCanvasWidth ? r.width : -1, specifyCanvasHeight ? r.height : -1);
 			BufferedImage awtImage = transcoder.getBufferedImage();
 			if (awtImage != null) {
 				image = toSWT(Display.getCurrent(), awtImage);
-				Rectangle r = getClientArea();
 				graphics.drawImage(image, r.x, r.y);
 			}
 		} finally {
@@ -214,21 +192,44 @@ public class SVGFigure extends Figure {
 	}
 
 	public final Rectangle2D getAreaOfInterest() {
-		if (aoi == null) {
-			return null;
-		}
-		Rectangle2D result = new Rectangle2D.Float();
-		result.setRect(aoi);
-		return result;
+		getDocument();
+		return transcoder == null ? null : transcoder.getCanvasAreaOfInterest();
 	}
 
 	public void setAreaOfInterest(Rectangle2D value) {
-		if (value == null) {
-			aoi = null;
-			return;
+		getDocument();
+		if (transcoder != null) {
+			transcoder.setCanvasAreaOfInterest(value);
 		}
-		aoi = new Rectangle2D.Float();
-		aoi.setRect(value);
+		repaint();
+	}
+
+	public final boolean isSpecifyCanvasWidth() {
+		return specifyCanvasWidth;
+	}
+
+	public void setSpecifyCanvasWidth(boolean specifyCanvasWidth) {
+		this.specifyCanvasWidth = specifyCanvasWidth;
+		contentChanged();
+	}
+
+	public final boolean isSpecifyCanvasHeight() {
+		return specifyCanvasHeight;
+	}
+
+	public void setSpecifyCanvasHeight(boolean specifyCanvasHeight) {
+		this.specifyCanvasHeight = specifyCanvasHeight;
+		contentChanged();
+	}
+
+	/**
+	 * Should be called when SVG document has been changed. It will be re-rendered and figure will be repainted.
+	 */
+	public void contentChanged() {
+		getDocument();
+		if (transcoder != null) {
+			transcoder.contentChanged();
+		}
 		repaint();
 	}
 }
