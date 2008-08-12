@@ -173,10 +173,10 @@ public class StatementEvaluatorTest extends AbstractXpandTest {
 
 	public final void testForeach2() throws Exception {
 		final String id = "org::eclipse::gmf::tests::xpand::evaluate::Foreach::test";
-		new XpandFacade(execCtx).evaluate(id, "ABC", new Object[0]);
+		new XpandFacade(execCtx).evaluate(id, "X", new Object[0]);
 		final String[] result = buffer.toString().trim().split(",");
-		assertEquals("ABC", result[0].trim());
-		assertEquals("AABCBABCC", result[1].trim());
+		assertEquals("XXX", result[0].trim());
+		assertEquals("XXXXX", result[1].trim());
 //		assertEquals("1A2B3C", result[2].trim()); XXX uncomment iterator in Foreach.xpt
 	}
 
