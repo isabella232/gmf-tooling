@@ -1,24 +1,25 @@
 /*
  * Copyright (c) 2006, 2008 Borland Software Corporation and others.
- * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
+* All rights reserved.   This program and the accompanying materials
+* are made available under the terms of the Eclipse Public License v1.0
+* which accompanies this distribution, and is available at
+* http://www.eclipse.org/legal/epl-v10.html
+*
+* Contributors:
  *     committers of openArchitectureWare - Xpand language syntax
  *     Artem Tikhomirov (Borland) - LALR grammar
  *                                - Migration to OCL expressions
- */
+*/
+
 package org.eclipse.gmf.internal.xpand.parser;
 
 public interface XpandParsersym {
     public final static int
       TK_NUMERIC_OPERATION = 60,
-      TK_STRING_LITERAL = 58,
+      TK_STRING_LITERAL = 59,
       TK_INTEGER_LITERAL = 61,
       TK_REAL_LITERAL = 62,
-      TK_PLUS = 25,
+      TK_PLUS = 31,
       TK_MINUS = 6,
       TK_MULTIPLY = 4,
       TK_DIVIDE = 8,
@@ -33,11 +34,11 @@ public interface XpandParsersym {
       TK_LBRACE = 70,
       TK_RBRACE = 77,
       TK_LBRACKET = 78,
-      TK_RBRACKET = 74,
+      TK_RBRACKET = 75,
       TK_ARROW = 81,
       TK_BAR = 72,
-      TK_COMMA = 26,
-      TK_COLON = 75,
+      TK_COMMA = 22,
+      TK_COLON = 74,
       TK_COLONCOLON = 68,
       TK_SEMICOLON = 82,
       TK_DOT = 83,
@@ -75,7 +76,7 @@ public interface XpandParsersym {
       TK_DISABLE = 95,
       TK_ENDPROTECT = 118,
       TK_LG = 119,
-      TK_self = 27,
+      TK_self = 32,
       TK_inv = 120,
       TK_pre = 121,
       TK_post = 122,
@@ -87,9 +88,9 @@ public interface XpandParsersym {
       TK_then = 96,
       TK_else = 97,
       TK_endif = 98,
-      TK_and = 13,
-      TK_or = 14,
-      TK_xor = 15,
+      TK_and = 23,
+      TK_or = 24,
+      TK_xor = 25,
       TK_not = 50,
       TK_implies = 99,
       TK_let = 67,
@@ -102,11 +103,11 @@ public interface XpandParsersym {
       TK_null = 36,
       TK_attr = 127,
       TK_oper = 128,
-      TK_Set = 28,
-      TK_Bag = 29,
-      TK_Sequence = 30,
-      TK_Collection = 31,
-      TK_OrderedSet = 32,
+      TK_Set = 26,
+      TK_Bag = 27,
+      TK_Sequence = 28,
+      TK_Collection = 29,
+      TK_OrderedSet = 30,
       TK_iterate = 37,
       TK_forAll = 38,
       TK_exists = 39,
@@ -127,16 +128,16 @@ public interface XpandParsersym {
       TK_oclIsInvalid = 56,
       TK_oclIsInState = 57,
       TK_allInstances = 49,
-      TK_String = 16,
-      TK_Integer = 17,
-      TK_UnlimitedNatural = 18,
-      TK_Real = 19,
-      TK_Boolean = 20,
-      TK_Tuple = 59,
-      TK_OclAny = 21,
-      TK_OclVoid = 22,
-      TK_Invalid = 23,
-      TK_OclMessage = 24,
+      TK_String = 13,
+      TK_Integer = 14,
+      TK_UnlimitedNatural = 15,
+      TK_Real = 16,
+      TK_Boolean = 17,
+      TK_Tuple = 58,
+      TK_OclAny = 18,
+      TK_OclVoid = 19,
+      TK_Invalid = 20,
+      TK_OclMessage = 21,
       TK_OclInvalid = 65,
       TK_EOF_TOKEN = 101,
       TK_IDENTIFIER = 3,
@@ -158,9 +159,6 @@ public interface XpandParsersym {
                  "LESS",
                  "GREATER_EQUAL",
                  "LESS_EQUAL",
-                 "and",
-                 "or",
-                 "xor",
                  "String",
                  "Integer",
                  "UnlimitedNatural",
@@ -170,14 +168,17 @@ public interface XpandParsersym {
                  "OclVoid",
                  "Invalid",
                  "OclMessage",
-                 "PLUS",
                  "COMMA",
-                 "self",
+                 "and",
+                 "or",
+                 "xor",
                  "Set",
                  "Bag",
                  "Sequence",
                  "Collection",
                  "OrderedSet",
+                 "PLUS",
+                 "self",
                  "body",
                  "derive",
                  "init",
@@ -203,8 +204,8 @@ public interface XpandParsersym {
                  "oclIsUndefined",
                  "oclIsInvalid",
                  "oclIsInState",
-                 "STRING_LITERAL",
                  "Tuple",
+                 "STRING_LITERAL",
                  "NUMERIC_OPERATION",
                  "INTEGER_LITERAL",
                  "REAL_LITERAL",
@@ -219,8 +220,8 @@ public interface XpandParsersym {
                  "FOR",
                  "BAR",
                  "ATPRE",
-                 "RBRACKET",
                  "COLON",
+                 "RBRACKET",
                  "ENDAROUND",
                  "RBRACE",
                  "LBRACKET",

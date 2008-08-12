@@ -223,9 +223,35 @@ $Rules
 		/.$BeginJava
 			setResult(xpandFactory.createDefinition(getLeftIToken(), getRightIToken(), getRhsIToken(2), Collections.<VariableCS>emptyList(), (TypeCS) getRhsSym(4), (List) getRhsSym(5)));
 		$EndJava./
-	define ::= "DEFINE" IDENTIFIER LPAREN parametersCS RPAREN "FOR" typeCS sequence "ENDDEFINE"
+	define ::= "DEFINE" IDENTIFIER LPAREN parametersList RPAREN "FOR" typeCS sequence "ENDDEFINE"
 		/.$BeginJava
 			setResult(xpandFactory.createDefinition(getLeftIToken(), getRightIToken(), getRhsIToken(2), (List<VariableCS>) getRhsSym(4), (TypeCS) getRhsSym(7), (List) getRhsSym(8)));
+		$EndJava./
+		
+	parametersList ::= parameter 
+		/.$BeginJava
+			VariableCS param = (VariableCS) getRhsSym(1);
+			LinkedList res = new LinkedList();
+			res.add(param);
+			setResult(res);
+		$EndJava./
+
+	parametersList ::= parametersList ',' parameter 
+		/.$BeginJava
+			VariableCS param = (VariableCS) getRhsSym(3);
+			LinkedList res = new LinkedList();
+			res.addAll((List) getRhsSym(1));
+			res.add(param);
+			setResult(res);
+		$EndJava./
+
+	parameter -> variableCS
+
+	parameter ::= typeCS IDENTIFIER
+		/.$BeginJava
+			VariableCS result = createVariableCS(getRhsIToken(2).toString(), (TypeCS) getRhsSym(1), null);
+			setOffsets(result, (TypeCS) getRhsSym(1), getRhsIToken(2));
+			setResult(result);
 		$EndJava./
 	
 	sequence ::= text sequenceSuffix

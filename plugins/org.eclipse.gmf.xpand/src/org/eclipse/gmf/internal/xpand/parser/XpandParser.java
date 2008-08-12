@@ -1,15 +1,16 @@
 /*
  * Copyright (c) 2006, 2008 Borland Software Corporation and others.
- * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
+* All rights reserved.   This program and the accompanying materials
+* are made available under the terms of the Eclipse Public License v1.0
+* which accompanies this distribution, and is available at
+* http://www.eclipse.org/legal/epl-v10.html
+*
+* Contributors:
  *     committers of openArchitectureWare - Xpand language syntax
  *     Artem Tikhomirov (Borland) - LALR grammar
  *                                - Migration to OCL expressions
- */
+*/
+
 package org.eclipse.gmf.internal.xpand.parser;
 
 import lpg.lpgjavaruntime.*;
@@ -2738,7 +2739,7 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 268:  define ::= DEFINE IDENTIFIER LPAREN parametersCS RPAREN FOR typeCS sequence ENDDEFINE
+			// Rule 268:  define ::= DEFINE IDENTIFIER LPAREN parametersList RPAREN FOR typeCS sequence ENDDEFINE
 			//
 			case 268: {
 				
@@ -2746,9 +2747,42 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 269:  sequence ::= text sequenceSuffix
+			// Rule 269:  parametersList ::= parameter
 			//
 			case 269: {
+				
+		VariableCS param = (VariableCS) getRhsSym(1);
+		LinkedList res = new LinkedList();
+		res.add(param);
+		setResult(res);
+			  break;
+			} 
+			//
+			// Rule 270:  parametersList ::= parametersList , parameter
+			//
+			case 270: {
+				
+		VariableCS param = (VariableCS) getRhsSym(3);
+		LinkedList res = new LinkedList();
+		res.addAll((List) getRhsSym(1));
+		res.add(param);
+		setResult(res);
+			  break;
+			} 
+			//
+			// Rule 272:  parameter ::= typeCS IDENTIFIER
+			//
+			case 272: {
+				
+		VariableCS result = createVariableCS(getRhsIToken(2).toString(), (TypeCS) getRhsSym(1), null);
+		setOffsets(result, (TypeCS) getRhsSym(1), getRhsIToken(2));
+		setResult(result);
+			  break;
+			} 
+			//
+			// Rule 273:  sequence ::= text sequenceSuffix
+			//
+			case 273: {
 				
 		List res = new LinkedList();
 		res.addAll((List) getRhsSym(1));
@@ -2757,17 +2791,17 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 270:  sequenceSuffix ::= $Empty
+			// Rule 274:  sequenceSuffix ::= $Empty
 			//
-			case 270: {
+			case 274: {
 				
 		setResult(Collections.EMPTY_LIST);
 			  break;
 			} 
 			//
-			// Rule 271:  sequenceSuffix ::= statement text sequenceSuffix
+			// Rule 275:  sequenceSuffix ::= statement text sequenceSuffix
 			//
-			case 271: {
+			case 275: {
 				
 		List res = new LinkedList();
 		res.add(getRhsSym(1));
@@ -2777,9 +2811,9 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 278:  text ::= minusOpt TEXT textSuffix
+			// Rule 282:  text ::= minusOpt TEXT textSuffix
 			//
-			case 278: {
+			case 282: {
 				
 		List res = new LinkedList();
 		res.add(xpandFactory.createTextStatement(getRhsIToken(2), (IToken) getRhsSym(1)));
@@ -2788,17 +2822,17 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 279:  textSuffix ::= $Empty
+			// Rule 283:  textSuffix ::= $Empty
 			//
-			case 279: {
+			case 283: {
 				
 		setResult(Collections.EMPTY_LIST);
 			  break;
 			} 
 			//
-			// Rule 280:  textSuffix ::= minusOpt TEXT textSuffix
+			// Rule 284:  textSuffix ::= minusOpt TEXT textSuffix
 			//
-			case 280: {
+			case 284: {
 				
 		List res = new LinkedList();
 		res.add(xpandFactory.createTextStatement(getRhsIToken(2), (IToken) getRhsSym(1)));
@@ -2807,73 +2841,73 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 281:  minusOpt ::= $Empty
+			// Rule 285:  minusOpt ::= $Empty
 			//
-			case 281: {
+			case 285: {
 				
 		setResult(null);
 			  break;
 			} 
 			//
-			// Rule 282:  minusOpt ::= MINUS
+			// Rule 286:  minusOpt ::= MINUS
 			//
-			case 282: {
+			case 286: {
 				
 		setResult(getLeftIToken());
 			  break;
 			} 
 			//
-			// Rule 286:  errorStatement ::= ERROR oclExpressionCS
+			// Rule 290:  errorStatement ::= ERROR oclExpressionCS
 			//
-			case 286: {
+			case 290: {
 				
 		setResult(xpandFactory.createErrorStatement(getLeftIToken(), (OCLExpressionCS) getRhsSym(2)));
 			  break;
 			} 
 			//
-			// Rule 287:  expandStatement ::= EXPAND definitionName parameterListOpt
+			// Rule 291:  expandStatement ::= EXPAND definitionName parameterListOpt
 			//
-			case 287: {
+			case 291: {
 				
 		setResult(xpandFactory.createExpandStatement(getLeftIToken(), (PathNameCS) getRhsSym(2), (List) getRhsSym(3), null, false, null));
 			  break;
 			} 
 			//
-			// Rule 288:  expandStatement ::= EXPAND definitionName parameterListOpt FOR oclExpressionCS
+			// Rule 292:  expandStatement ::= EXPAND definitionName parameterListOpt FOR oclExpressionCS
 			//
-			case 288: {
+			case 292: {
 				
 		setResult(xpandFactory.createExpandStatement(getLeftIToken(), (PathNameCS) getRhsSym(2), (List) getRhsSym(3), (OCLExpressionCS) getRhsSym(5), false, null));
 			  break;
 			} 
 			//
-			// Rule 289:  expandStatement ::= EXPAND definitionName parameterListOpt FOREACH oclExpressionCS separatorOpt
+			// Rule 293:  expandStatement ::= EXPAND definitionName parameterListOpt FOREACH oclExpressionCS separatorOpt
 			//
-			case 289: {
+			case 293: {
 				
 		setResult(xpandFactory.createExpandStatement(getLeftIToken(), (PathNameCS) getRhsSym(2), (List) getRhsSym(3), (OCLExpressionCS) getRhsSym(5), true, (OCLExpressionCS) getRhsSym(6)));
 			  break;
 			} 
 			//
-			// Rule 290:  parameterListOpt ::= $Empty
+			// Rule 294:  parameterListOpt ::= $Empty
 			//
-			case 290: {
+			case 294: {
 				
 		setResult(Collections.EMPTY_LIST);
 			  break;
 			} 
 			//
-			// Rule 291:  parameterListOpt ::= LPAREN argumentsCS RPAREN
+			// Rule 295:  parameterListOpt ::= LPAREN argumentsCS RPAREN
 			//
-			case 291: {
+			case 295: {
 				
 		setResult(getRhsSym(2));
 			  break;
 			} 
 			//
-			// Rule 293:  expressionStmt ::= oclExpressionCS
+			// Rule 297:  expressionStmt ::= oclExpressionCS
 			//
-			case 293: {
+			case 297: {
 				
 		// XXX OCL CST doesn't keep track of line numbers, but we use them (perhaps, might refactor to stop using?)
 		int lineNumber = getLeftIToken().getLine();
@@ -2881,73 +2915,73 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 294:  fileStatement ::= FILE oclExpressionCS identOpt sequence ENDFILE
+			// Rule 298:  fileStatement ::= FILE oclExpressionCS identOpt sequence ENDFILE
 			//
-			case 294: {
+			case 298: {
 				
 		setResult(xpandFactory.createFileStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(2), (Identifier) getRhsSym(3), (List) getRhsSym(4)));
 			  break;
 			} 
 			//
-			// Rule 295:  identOpt ::= $Empty
+			// Rule 299:  identOpt ::= $Empty
 			//
-			case 295: {
+			case 299: {
 				
 		setResult(null);
 			  break;
 			} 
 			//
-			// Rule 296:  identOpt ::= IDENTIFIER
+			// Rule 300:  identOpt ::= IDENTIFIER
 			//
-			case 296: {
+			case 300: {
 				
 		setResult(xpandFactory.createIdentifier(getLeftIToken()));
 			  break;
 			} 
 			//
-			// Rule 297:  foreachStatement ::= FOREACH oclExpressionCS AS IDENTIFIER iteratorOpt separatorOpt sequence ENDFOREACH
+			// Rule 301:  foreachStatement ::= FOREACH oclExpressionCS AS IDENTIFIER iteratorOpt separatorOpt sequence ENDFOREACH
 			//
-			case 297: {
+			case 301: {
 				
 		setResult(xpandFactory.createForEachStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(2), getRhsIToken(4), (OCLExpressionCS) getRhsSym(6), (IToken) getRhsSym(5), (List) getRhsSym(7)));
 			  break;
 			} 
 			//
-			// Rule 298:  iteratorOpt ::= $Empty
+			// Rule 302:  iteratorOpt ::= $Empty
 			//
-			case 298: {
+			case 302: {
 				
 		setResult(null);
 			  break;
 			} 
 			//
-			// Rule 299:  iteratorOpt ::= ITERATOR IDENTIFIER
+			// Rule 303:  iteratorOpt ::= ITERATOR IDENTIFIER
 			//
-			case 299: {
+			case 303: {
 				
 		setResult(getRightIToken());
 			  break;
 			} 
 			//
-			// Rule 300:  separatorOpt ::= $Empty
+			// Rule 304:  separatorOpt ::= $Empty
 			//
-			case 300: {
+			case 304: {
 				
 		setResult(null);
 			  break;
 			} 
 			//
-			// Rule 301:  separatorOpt ::= SEPARATOR oclExpressionCS
+			// Rule 305:  separatorOpt ::= SEPARATOR oclExpressionCS
 			//
-			case 301: {
+			case 305: {
 				
 		setResult(getRhsSym(2));
 			  break;
 			} 
 			//
-			// Rule 302:  ifStatement ::= IF oclExpressionCS sequence elseifAny elseOpt ENDIF
+			// Rule 306:  ifStatement ::= IF oclExpressionCS sequence elseifAny elseOpt ENDIF
 			//
-			case 302: {
+			case 306: {
 				
 		IfStatement i = xpandFactory.createIfStatement(getLeftIToken(), (OCLExpressionCS) getRhsSym(2), (List) getRhsSym(3), null);
 		IfStatement elseIf = (IfStatement) getRhsSym(4);
@@ -2967,17 +3001,17 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 303:  elseifAny ::= $Empty
+			// Rule 307:  elseifAny ::= $Empty
 			//
-			case 303: {
+			case 307: {
 				
 		setResult(null);
 			  break;
 			} 
 			//
-			// Rule 304:  elseifAny ::= ELSEIF oclExpressionCS sequence elseifAny
+			// Rule 308:  elseifAny ::= ELSEIF oclExpressionCS sequence elseifAny
 			//
-			case 304: {
+			case 308: {
 				
 		IfStatement elseIf = xpandFactory.createIfStatement(getLeftIToken(), (OCLExpressionCS) getRhsSym(2), (List) getRhsSym(3), null);
 		IfStatement restElseIf = (IfStatement) getRhsSym(4);
@@ -2986,39 +3020,7 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 305:  elseOpt ::= $Empty
-			//
-			case 305: {
-				
-		setResult(null);
-			  break;
-			} 
-			//
-			// Rule 306:  elseOpt ::= ELSE sequence
-			//
-			case 306: {
-				
-		setResult(xpandFactory.createIfStatement(getLeftIToken(), null, (List) getRhsSym(2), null));
-			  break;
-			} 
-			//
-			// Rule 307:  letStatement ::= LET oclExpressionCS AS IDENTIFIER sequence ENDLET
-			//
-			case 307: {
-				
-		setResult(xpandFactory.createLetStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(2), getRhsIToken(4), (List) getRhsSym(5)));
-			  break;
-			} 
-			//
-			// Rule 308:  protectStatement ::= PROTECT CSTART oclExpressionCS CEND oclExpressionCS ID oclExpressionCS disabledOpt sequence ENDPROTECT
-			//
-			case 308: {
-				
-		setResult(xpandFactory.createProtectStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(3), (OCLExpressionCS) getRhsSym(5), (OCLExpressionCS) getRhsSym(7), (IToken) getRhsSym(8), (List) getRhsSym(9)));
-			  break;
-			} 
-			//
-			// Rule 309:  disabledOpt ::= $Empty
+			// Rule 309:  elseOpt ::= $Empty
 			//
 			case 309: {
 				
@@ -3026,9 +3028,41 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 310:  disabledOpt ::= DISABLE
+			// Rule 310:  elseOpt ::= ELSE sequence
 			//
 			case 310: {
+				
+		setResult(xpandFactory.createIfStatement(getLeftIToken(), null, (List) getRhsSym(2), null));
+			  break;
+			} 
+			//
+			// Rule 311:  letStatement ::= LET oclExpressionCS AS IDENTIFIER sequence ENDLET
+			//
+			case 311: {
+				
+		setResult(xpandFactory.createLetStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(2), getRhsIToken(4), (List) getRhsSym(5)));
+			  break;
+			} 
+			//
+			// Rule 312:  protectStatement ::= PROTECT CSTART oclExpressionCS CEND oclExpressionCS ID oclExpressionCS disabledOpt sequence ENDPROTECT
+			//
+			case 312: {
+				
+		setResult(xpandFactory.createProtectStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(3), (OCLExpressionCS) getRhsSym(5), (OCLExpressionCS) getRhsSym(7), (IToken) getRhsSym(8), (List) getRhsSym(9)));
+			  break;
+			} 
+			//
+			// Rule 313:  disabledOpt ::= $Empty
+			//
+			case 313: {
+				
+		setResult(null);
+			  break;
+			} 
+			//
+			// Rule 314:  disabledOpt ::= DISABLE
+			//
+			case 314: {
 				
 		setResult(getLeftIToken());
 			  break;
