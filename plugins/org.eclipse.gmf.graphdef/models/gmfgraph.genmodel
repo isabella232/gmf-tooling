@@ -301,6 +301,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGFigure/documentURI"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//SVGFigure/properties"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//SVGFigure/areaOfInterest"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGFigure/noCanvasWidth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGFigure/noCanvasHeight"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//SVGProperty">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//SVGProperty/query"/>

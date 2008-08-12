@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: SVGFigureImpl.java,v 1.4 2008/08/08 13:10:05 dstadnik Exp $
+ * $Id: SVGFigureImpl.java,v 1.5 2008/08/12 13:56:28 dstadnik Exp $
  */
 package org.eclipse.gmf.gmfgraph.impl;
 
@@ -36,6 +36,8 @@ import org.eclipse.gmf.gmfgraph.SVGProperty;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl#getDocumentURI <em>Document URI</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl#getProperties <em>Properties</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl#getAreaOfInterest <em>Area Of Interest</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl#isNoCanvasWidth <em>No Canvas Width</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.SVGFigureImpl#isNoCanvasHeight <em>No Canvas Height</em>}</li>
  * </ul>
  * </p>
  *
@@ -81,6 +83,46 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 	 * @ordered
 	 */
 	protected Rectangle2D areaOfInterest;
+
+	/**
+	 * The default value of the '{@link #isNoCanvasWidth() <em>No Canvas Width</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isNoCanvasWidth()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean NO_CANVAS_WIDTH_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isNoCanvasWidth() <em>No Canvas Width</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isNoCanvasWidth()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean noCanvasWidth = NO_CANVAS_WIDTH_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isNoCanvasHeight() <em>No Canvas Height</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isNoCanvasHeight()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean NO_CANVAS_HEIGHT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isNoCanvasHeight() <em>No Canvas Height</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isNoCanvasHeight()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean noCanvasHeight = NO_CANVAS_HEIGHT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -182,6 +224,48 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isNoCanvasWidth() {
+		return noCanvasWidth;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNoCanvasWidth(boolean newNoCanvasWidth) {
+		boolean oldNoCanvasWidth = noCanvasWidth;
+		noCanvasWidth = newNoCanvasWidth;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.SVG_FIGURE__NO_CANVAS_WIDTH, oldNoCanvasWidth, noCanvasWidth));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isNoCanvasHeight() {
+		return noCanvasHeight;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNoCanvasHeight(boolean newNoCanvasHeight) {
+		boolean oldNoCanvasHeight = noCanvasHeight;
+		noCanvasHeight = newNoCanvasHeight;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.SVG_FIGURE__NO_CANVAS_HEIGHT, oldNoCanvasHeight, noCanvasHeight));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -207,6 +291,10 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 				return getProperties();
 			case GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST:
 				return getAreaOfInterest();
+			case GMFGraphPackage.SVG_FIGURE__NO_CANVAS_WIDTH:
+				return isNoCanvasWidth() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGraphPackage.SVG_FIGURE__NO_CANVAS_HEIGHT:
+				return isNoCanvasHeight() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -230,6 +318,12 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 			case GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST:
 				setAreaOfInterest((Rectangle2D)newValue);
 				return;
+			case GMFGraphPackage.SVG_FIGURE__NO_CANVAS_WIDTH:
+				setNoCanvasWidth(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGraphPackage.SVG_FIGURE__NO_CANVAS_HEIGHT:
+				setNoCanvasHeight(((Boolean)newValue).booleanValue());
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -251,6 +345,12 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 			case GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST:
 				setAreaOfInterest((Rectangle2D)null);
 				return;
+			case GMFGraphPackage.SVG_FIGURE__NO_CANVAS_WIDTH:
+				setNoCanvasWidth(NO_CANVAS_WIDTH_EDEFAULT);
+				return;
+			case GMFGraphPackage.SVG_FIGURE__NO_CANVAS_HEIGHT:
+				setNoCanvasHeight(NO_CANVAS_HEIGHT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -269,6 +369,10 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 				return properties != null && !properties.isEmpty();
 			case GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST:
 				return areaOfInterest != null;
+			case GMFGraphPackage.SVG_FIGURE__NO_CANVAS_WIDTH:
+				return noCanvasWidth != NO_CANVAS_WIDTH_EDEFAULT;
+			case GMFGraphPackage.SVG_FIGURE__NO_CANVAS_HEIGHT:
+				return noCanvasHeight != NO_CANVAS_HEIGHT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -285,6 +389,10 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (documentURI: ");
 		result.append(documentURI);
+		result.append(", noCanvasWidth: ");
+		result.append(noCanvasWidth);
+		result.append(", noCanvasHeight: ");
+		result.append(noCanvasHeight);
 		result.append(')');
 		return result.toString();
 	}

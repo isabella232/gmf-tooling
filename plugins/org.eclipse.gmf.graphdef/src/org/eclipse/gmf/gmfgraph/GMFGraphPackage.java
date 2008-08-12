@@ -6270,13 +6270,31 @@ public interface GMFGraphPackage extends EPackage {
 	int SVG_FIGURE__AREA_OF_INTEREST = REAL_FIGURE_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>No Canvas Width</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__NO_CANVAS_WIDTH = REAL_FIGURE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>No Canvas Height</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__NO_CANVAS_HEIGHT = REAL_FIGURE_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>SVG Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SVG_FIGURE_FEATURE_COUNT = REAL_FIGURE_FEATURE_COUNT + 3;
+	int SVG_FIGURE_FEATURE_COUNT = REAL_FIGURE_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.SVGPropertyImpl <em>SVG Property</em>}' class.
@@ -8521,6 +8539,28 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getSVGFigure_AreaOfInterest();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.SVGFigure#isNoCanvasWidth <em>No Canvas Width</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>No Canvas Width</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.SVGFigure#isNoCanvasWidth()
+	 * @see #getSVGFigure()
+	 * @generated
+	 */
+	EAttribute getSVGFigure_NoCanvasWidth();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.SVGFigure#isNoCanvasHeight <em>No Canvas Height</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>No Canvas Height</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.SVGFigure#isNoCanvasHeight()
+	 * @see #getSVGFigure()
+	 * @generated
+	 */
+	EAttribute getSVGFigure_NoCanvasHeight();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.SVGProperty <em>SVG Property</em>}'.

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: SVGFigure.java,v 1.4 2008/08/08 13:10:05 dstadnik Exp $
+ * $Id: SVGFigure.java,v 1.5 2008/08/12 13:56:28 dstadnik Exp $
  */
 package org.eclipse.gmf.gmfgraph;
 
@@ -19,6 +19,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.gmfgraph.SVGFigure#getDocumentURI <em>Document URI</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.SVGFigure#getProperties <em>Properties</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.SVGFigure#getAreaOfInterest <em>Area Of Interest</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.SVGFigure#isNoCanvasWidth <em>No Canvas Width</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.SVGFigure#isNoCanvasHeight <em>No Canvas Height</em>}</li>
  * </ul>
  * </p>
  *
@@ -94,5 +96,57 @@ public interface SVGFigure extends RealFigure {
 	 * @generated
 	 */
 	void setAreaOfInterest(Rectangle2D value);
+
+	/**
+	 * Returns the value of the '<em><b>No Canvas Width</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>No Canvas Width</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>No Canvas Width</em>' attribute.
+	 * @see #setNoCanvasWidth(boolean)
+	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getSVGFigure_NoCanvasWidth()
+	 * @model
+	 * @generated
+	 */
+	boolean isNoCanvasWidth();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.SVGFigure#isNoCanvasWidth <em>No Canvas Width</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>No Canvas Width</em>' attribute.
+	 * @see #isNoCanvasWidth()
+	 * @generated
+	 */
+	void setNoCanvasWidth(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>No Canvas Height</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>No Canvas Height</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>No Canvas Height</em>' attribute.
+	 * @see #setNoCanvasHeight(boolean)
+	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getSVGFigure_NoCanvasHeight()
+	 * @model
+	 * @generated
+	 */
+	boolean isNoCanvasHeight();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.SVGFigure#isNoCanvasHeight <em>No Canvas Height</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>No Canvas Height</em>' attribute.
+	 * @see #isNoCanvasHeight()
+	 * @generated
+	 */
+	void setNoCanvasHeight(boolean value);
 
 } // SVGFigure
