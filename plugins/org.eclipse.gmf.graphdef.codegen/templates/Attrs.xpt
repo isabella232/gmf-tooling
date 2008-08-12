@@ -51,6 +51,12 @@
 
 «DEFINE Init(EString figureVarName) FOR gmfgraph::SVGFigure-»
 «figureVarName».setURI("«documentURI»");
+«IF noCanvasWidth-»
+«figureVarName».setSpecifyCanvasWidth(false);
+«ENDIF-»
+«IF noCanvasHeight-»
+«figureVarName».setSpecifyCanvasHeight(false);
+«ENDIF-»
 «IF areaOfInterest != null-»
 «figureVarName».setAreaOfInterest(«EXPAND Instance FOR areaOfInterest»);
 «ENDIF-»
