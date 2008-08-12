@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.runtime.lite.svg;
 
+import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
@@ -30,6 +31,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gmf.internal.runtime.lite.svg.Activator;
 import org.eclipse.gmf.internal.runtime.lite.svg.InferringNamespaceContext;
 import org.eclipse.gmf.internal.runtime.lite.svg.SimpleImageTranscoder;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Image;
@@ -149,6 +151,7 @@ public class SVGFigure extends Figure {
 		try {
 			Rectangle r = getClientArea();
 			transcoder.setCanvasSize(specifyCanvasWidth ? r.width : -1, specifyCanvasHeight ? r.height : -1);
+			updateRenderingHints(graphics);
 			BufferedImage awtImage = transcoder.getBufferedImage();
 			if (awtImage != null) {
 				image = toSWT(Display.getCurrent(), awtImage);
@@ -157,6 +160,49 @@ public class SVGFigure extends Figure {
 		} finally {
 			if (image != null) {
 				image.dispose();
+			}
+		}
+	}
+
+	private void updateRenderingHints(Graphics graphics) {
+		{
+			int aa = SWT.DEFAULT;
+			try {
+				aa = graphics.getAntialias();
+			} catch (Exception e) {
+				// not supported
+			}
+			Object aaHint;
+			if (aa == SWT.ON) {
+				aaHint = RenderingHints.VALUE_ANTIALIAS_ON;
+			} else if (aa == SWT.OFF) {
+				aaHint = RenderingHints.VALUE_ANTIALIAS_OFF;
+			} else {
+				aaHint = RenderingHints.VALUE_ANTIALIAS_DEFAULT;
+			}
+			if (transcoder.getRenderingHints().get(RenderingHints.KEY_ANTIALIASING) != aaHint) {
+				transcoder.getRenderingHints().put(RenderingHints.KEY_ANTIALIASING, aaHint);
+				transcoder.contentChanged();
+			}
+		}
+		{
+			int aa = SWT.DEFAULT;
+			try {
+				aa = graphics.getTextAntialias();
+			} catch (Exception e) {
+				// not supported
+			}
+			Object aaHint;
+			if (aa == SWT.ON) {
+				aaHint = RenderingHints.VALUE_TEXT_ANTIALIAS_ON;
+			} else if (aa == SWT.OFF) {
+				aaHint = RenderingHints.VALUE_TEXT_ANTIALIAS_OFF;
+			} else {
+				aaHint = RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT;
+			}
+			if (transcoder.getRenderingHints().get(RenderingHints.KEY_TEXT_ANTIALIASING) != aaHint) {
+				transcoder.getRenderingHints().put(RenderingHints.KEY_TEXT_ANTIALIASING, aaHint);
+				transcoder.contentChanged();
 			}
 		}
 	}
