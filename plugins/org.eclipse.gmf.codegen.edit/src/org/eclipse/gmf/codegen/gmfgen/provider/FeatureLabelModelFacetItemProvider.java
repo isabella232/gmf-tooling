@@ -64,6 +64,7 @@ public class FeatureLabelModelFacetItemProvider
 			super.getPropertyDescriptors(object);
 
 			addMetaFeaturesPropertyDescriptor(object);
+			addEditableMetaFeaturesPropertyDescriptor(object);
 			addViewPatternPropertyDescriptor(object);
 			addEditorPatternPropertyDescriptor(object);
 			addEditPatternPropertyDescriptor(object);
@@ -87,6 +88,28 @@ public class FeatureLabelModelFacetItemProvider
 				 getString("_UI_FeatureLabelModelFacet_metaFeatures_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelModelFacet_metaFeatures_feature", "_UI_FeatureLabelModelFacet_type"),
 				 GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet_MetaFeatures(),
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Editable Meta Features feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditableMetaFeaturesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureLabelModelFacet_editableMetaFeatures_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelModelFacet_editableMetaFeatures_feature", "_UI_FeatureLabelModelFacet_type"),
+				 GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet_EditableMetaFeatures(),
 				 true,
 				 false,
 				 true,
