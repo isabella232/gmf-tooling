@@ -168,3 +168,16 @@ Set[testModel::Child] getUniqueChildrenExt(testModel::Container param) :
 Collection[testModel::Child] getChildrenExt(testModel::Container param, Boolean secondParam) :
 	param.childrenOp()
 ;
+
+/* Inner implicit collects for extension calls*/
+List[testModel::Child] innerImplicitCollect4Extensions(List[testModel::Container] param) :
+	param.outerExtension(param.innerExtension())
+;
+
+testModel::Container innerExtension(testModel::Container param) :
+	param
+;
+
+List[testModel::Child] outerExtension(testModel::Container param, List[testModel::Container] param2) :
+	param.orderedChildrenOp()
+;

@@ -166,3 +166,15 @@ helper getUniqueChildrenExt(param : testModel::Container) : Set(testModel::Child
 helper getChildrenExt(param : testModel::Container, secondParam : Boolean) : Collection(testModel::Child) {
 	return param.childrenOp()
 }
+
+helper innerImplicitCollect4Extensions(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param->collect(it_1 | outerExtension(it_1, param->collect(it | innerExtension(it))))
+}
+
+helper innerExtension(param : testModel::Container) : testModel::Container {
+	return param
+}
+
+helper outerExtension(param : testModel::Container, param2 : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedChildrenOp()
+}
