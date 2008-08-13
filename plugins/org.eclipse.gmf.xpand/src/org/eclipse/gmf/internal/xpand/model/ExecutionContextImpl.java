@@ -89,7 +89,7 @@ public final class ExecutionContextImpl implements ExecutionContext {
 
 	public ExecutionContext cloneWithVariable(final Variable... vars) {
         final ExecutionContextImpl result = new ExecutionContextImpl(scope, currentResource, variables.values());
-        result.envFactory = envFactory;
+        result.rootEnvironment = rootEnvironment;
     	result.environment = null; // XXX or create new, delegating?
         for (Variable v : vars) {
         	// adding to the set of original variables because of e.g. nested let statements
@@ -103,7 +103,7 @@ public final class ExecutionContextImpl implements ExecutionContext {
         	return this;
         }
         final ExecutionContextImpl result = new ExecutionContextImpl(scope, ns, variables.values());
-    	result.envFactory = null; // need to make sure resource's imports are read into registry.
+    	result.rootEnvironment = null; // need to make sure resource's imports are read into registry.
     	result.environment = null;
         return result;
     }
@@ -234,21 +234,20 @@ public final class ExecutionContextImpl implements ExecutionContext {
 		return PolymorphicResolver.filterDefinition(resolvedDefs, target, Arrays.asList(paramTypes), ctx.getOCLEnvironment());
     }
 
-    private QvtOperationalEnvFactory envFactory; // null-ified when context's resource is changed
+    private QvtOperationalEnv rootEnvironment; // null-ified when context's resource is changed
     private QvtOperationalEnv environment;
 
     public EcoreEnvironment getOCLEnvironment() {
     	if (environment != null) {
     		return environment;
     	}
-    	if (envFactory == null) {
+    	if (rootEnvironment == null) {
     		//envFactory = new EcoreEnvironmentFactory(getAllVisibleModels());
-    		envFactory = QvtOperationalEnvFactory.INSTANCE;
-    		// XXX shouldn't I keep instance of QvtOperationalEnv with the visible models instead?
+    		rootEnvironment = new QvtOperationalEnv(null, getAllVisibleModels()) {};
+    		handleImportedExtensions();
     	}
-    	QvtOperationalEnv rootEnv = new QvtOperationalEnv(null, getAllVisibleModels()) {};
-		environment = envFactory.createEnvironment(rootEnv );
-		//handleImportedExtensions(rootEnv);
+    	QvtOperationalEnvFactory envFactory = QvtOperationalEnvFactory.INSTANCE;
+		environment = envFactory.createEnvironment(rootEnvironment);
     	for (Variable v : variables.values()) {
     		if (!IMPLICIT_VARIABLE.equals(v.getName())) {
     			// XXX alternative: environment.getOCLFactory().createVariable()
@@ -281,20 +280,15 @@ public final class ExecutionContextImpl implements ExecutionContext {
 	        environment.addElement(self.getName(), self, true);
 	        environment.setSelfVariable(self);
 		}
-		handleImportedExtensions(rootEnv, environment);
     	return environment;
     }
 
-    /*
-     * Behavior differs when rootEnv or leaf is populated, because
-     * QVTTypeResolver looks for additional operations in siblings of root environment,
-     * while QvtEnvironmentBase#lookupImplicitSourceForOperation
-     * respects siblings of actual environment being queried.  
-     */
-    private void handleImportedExtensions(QvtOperationalEnv... envToPopulate) {
+    // rootEnvironment must be initialized at the moment
+    private void handleImportedExtensions() {
 		if (getImportedExtensions().length == 0) {
 			return;
 		}
+    	assert rootEnvironment != null;
 		HashSet<QvtOperationalEnv> siblings = new HashSet<QvtOperationalEnv>();
         final String[] extensions = getImportedExtensions();
         for (String extension : extensions) {
@@ -308,9 +302,7 @@ public final class ExecutionContextImpl implements ExecutionContext {
     		// XXX alternative is to respect siblings on any level of the environment hierarchy
         	// either in QVTTypeResolverImpl#getAdditionalOperations
         	// or QvtEnvironmentBase#getAdditionalOperations
-        	for (QvtOperationalEnv toPopulate: envToPopulate) {
-        		toPopulate.addSibling(s);
-        	}
+       		rootEnvironment.addSibling(s);
         }
 /*
 		TypeResolver<EClassifier, EOperation, EStructuralFeature> typeResolver = environment.getTypeResolver();
@@ -331,12 +323,15 @@ public final class ExecutionContextImpl implements ExecutionContext {
     }
 
     public void populate(EcoreEvaluationEnvironment ee) {
+    	assert rootEnvironment != null;
+    	getOCLEnvironment(); // just in case root environment is not yet initialized
     	for (Variable v : variables.values()) {
     		if (!IMPLICIT_VARIABLE.equals(v.getName())) {
     			ee.add(v.getName(), v.getValue());
     		}
     	}
-    	for (Object s : environment.getSiblings()) {
+    	// siblings make sense for root environment only
+    	for (Object s : rootEnvironment.getSiblings()) {
     		Module moduleClass = ((QvtOperationalEnv) s).getModuleContextType();
     		if (moduleClass == null) {
     			continue;
