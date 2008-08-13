@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
@@ -30,6 +31,8 @@ import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
+import org.eclipse.gmf.internal.xpand.migration.OperationCallTrace;
+import org.eclipse.gmf.internal.xpand.migration.OperationCallTrace.Type;
 import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 
 /**
@@ -155,6 +158,7 @@ public class OperationCall extends FeatureCall {
         for (int i = 0; i < getParams().length; i++) {
             paramTypes[i] = getParams()[i].analyze(ctx, issues);
             if (paramTypes[i] == null) {
+            	createAnalyzeTrace(ctx, new OperationCallTrace(null, Type.UNDESOLVED_PARAMETER_TYPE));
 				return null;
 			}
         }
@@ -170,7 +174,9 @@ public class OperationCall extends FeatureCall {
                         + e.getMessage(), this));
             }
             if (f != null) {
-				return f.getReturnType(paramTypes, ctx, issues);
+				EClassifier result = f.getReturnType(paramTypes, ctx, issues);
+				createAnalyzeTrace(ctx, new OperationCallTrace(result, Type.STATIC_EXTENSION_REF));
+				return result;
 			}
             final Variable var = ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE);
             if (var != null) {
@@ -184,17 +190,22 @@ public class OperationCall extends FeatureCall {
             targetType = getTarget().analyze(ctx, issues);
         }
         if (targetType == null) {
+        	createAnalyzeTrace(ctx, new OperationCallTrace(null, Type.UNDESOLVED_TARGET_TYPE));
 			return null;
 		}
         // operation
         EOperation op = BuiltinMetaModel.findOperation(targetType, getName().getValue(), paramTypes);
         if (op != null) {
-			return op.getEType() == null ? BuiltinMetaModel.VOID : BuiltinMetaModel.getTypedElementType(op);
+			EClassifier result = op.getEType() == null ? BuiltinMetaModel.VOID : BuiltinMetaModel.getTypedElementType(op);
+			createAnalyzeTrace(ctx, new OperationCallTrace(result, op));
+			return result;
 		}
         // extension as members
         final int issueSize = issues.size();
         EClassifier rt = getExtensionsReturnType(ctx, issues, paramTypes, targetType);
         if (rt != null) {
+        	// [AS] This can be only "contextual" extension call - see comment below. 
+        	createAnalyzeTrace(ctx, new OperationCallTrace(rt, Type.EXTENSION_REF));
 			return rt;
 		} else if (issueSize < issues.size()) {
 			return null;
@@ -208,11 +219,15 @@ public class OperationCall extends FeatureCall {
                 if (BuiltinMetaModel.isParameterizedType(rt)) {
                     rt = BuiltinMetaModel.getInnerType(rt);
                 }
-                return BuiltinMetaModel.getListType(rt);
+                EClass result = BuiltinMetaModel.getListType(rt);
+                createAnalyzeTrace(ctx, new OperationCallTrace(result, targetType, op));
+                return result;
             }
             rt = getExtensionsReturnType(ctx, issues, paramTypes, innerType);
             if (rt != null) {
-				return BuiltinMetaModel.getListType(rt);
+            	EClass result = BuiltinMetaModel.getListType(rt);
+            	createAnalyzeTrace(ctx, new OperationCallTrace(result, targetType));
+				return result;
 			}
             additionalMsg = " or type '" + innerType + "'";
         }
@@ -245,6 +260,8 @@ public class OperationCall extends FeatureCall {
             }
             return rt;
         } else if (getTarget() == null) { // try without implicite this
+			// [AS]: looks like this case was already covered while looking for
+			// static extension if target == null, so skipping it in a migration
             try {
                 f = ctx.getExtension(getName().getValue(), paramEClassifiers);
             } catch (final Exception e) {

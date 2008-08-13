@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.xpand.migration;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -20,7 +21,7 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
@@ -516,55 +517,216 @@ public class MigrationFacade {
 	}
 
 	private void migrateOperationCall(OperationCall operationCall, MigrationExecutionContext ctx) throws MigrationException {
-		// TODO: if (target == null) then it can be a call to self.<operation>
-		// in this case operation call call should be processed
-		// specially (respecting self multiplicity).
-		int placeholder = getCurrentPosition();
-		if (operationCall.getTarget() != null) {
-			// TODO: support different multiplicity of target - different
-			// collections have to be created here. (->asList()..)
-			migrateExpression(operationCall.getTarget(), ctx);
+		ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(operationCall);
+		if (false == expressionTrace instanceof OperationCallTrace) {
+			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, String.valueOf(expressionTrace));
 		}
-
-		if (isInfixOperation(operationCall)) {
-			insertInfixOperationCall(operationCall, placeholder);
-		} else {
+		OperationCallTrace trace = (OperationCallTrace) expressionTrace;
+		switch (trace.getType()) {
+		case UNDESOLVED_PARAMETER_TYPE:
+		case UNDESOLVED_TARGET_TYPE:
+			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL, trace.toString());
+		case STATIC_EXTENSION_REF:
+			write(operationCall.getName().getValue());
+			write("(");
+			migrateOperationCallParameters(operationCall, ctx);
+			write(")");
+			return;
+		case OPERATION_REF:
+			int placeholder = getCurrentPosition();
+			// getTarget() == null if it is an implicit self operation.
 			if (operationCall.getTarget() != null) {
+				migrateExpression(operationCall.getTarget(), ctx);
+			}
+			if (isInfixOperation(operationCall)) {
+				insertInfixOperationCall(operationCall, placeholder);
+			} else {
+				if (operationCall.getTarget() != null) {
+					write(isCollectionOperation(operationCall) ? "->" : ".");
+				}
+				write(getQVTOperationName(operationCall));
+				write("(");
+			}
+			migrateOperationCallParameters(operationCall, ctx);
+			if (!isInfixOperation(operationCall)) {
+				write(")");
+			} else if (needsSurroundingBraces(operationCall)) {
+				// Currently supported infix operations has 0 or 1 parameter
+				// Enclosing with braces for "not" expression here
+				addBraces(placeholder);
+			}
+			convertTypedElementCallProduct(trace.getEOperation());
+			return;
+		case IMPLICIT_COLLECT_OPERATION_REF:
+			// getTarget() == null if it is an implicit self operation.
+			if (operationCall.getTarget() != null) {
+				migrateExpression(operationCall.getTarget(), ctx);
 				write(".");
 			}
 			write(getQVTOperationName(operationCall));
 			write("(");
+			migrateOperationCallParameters(operationCall, ctx);
+			write(")");
+			convertImplicitCollectProduct(trace.getTargetType());
+			return;
+		case EXTENSION_REF:
+			assert operationCall.getTarget() != null;
+			write(operationCall.getName().getValue());
+			write("(");
+			migrateExpression(operationCall.getTarget(), ctx);
+			if (operationCall.getParams().length > 0) {
+				write(", ");
+				migrateOperationCallParameters(operationCall, ctx);
+			}
+			write(")");
+			return;
+		case IMPLICIT_COLLECT_EXTENSION_REF:
+			assert operationCall.getTarget() != null;
+			migrateExpression(operationCall.getTarget(), ctx);
+			String iteratorName = getIteratorVarName(operationCall);
+			write("->collect(");
+			write(iteratorName);
+			write(" | ");
+			write(operationCall.getName().getValue());
+			write("(");
+			write(iteratorName);
+			if (operationCall.getParams().length > 0) {
+				write(", ");
+				migrateOperationCallParameters(operationCall, ctx);
+			}
+			write(")");
+			write(")");
+			convertImplicitCollectProduct(trace.getTargetType());
+			return;
+		default:
 		}
+	}
+	
+	private boolean isCollectionOperation(OperationCall operationCall) {
+		String operationName = operationCall.getName().getValue();
+		return "toList".equals(operationName) || "first".equals(operationName);
+	}
 
+	private String getIteratorVarName(Expression expression) {
+		Set<String> definedVariables = getDefinedVariables(expression);
+		String prefix = "it";
+		String varName = prefix;
+		for (int i = 1; definedVariables.contains(varName); i++) {
+			varName = prefix + "_" + i;
+		}
+		return varName;
+	}
+
+	private Set<String> getDefinedVariables(Expression expression) {
+		Set<String> result = new HashSet<String>();
+		if (expression instanceof BooleanOperation) {
+			BooleanOperation booleanOperation = (BooleanOperation) expression;
+			result.addAll(getDefinedVariables(booleanOperation.getLeft()));
+			result.addAll(getDefinedVariables(booleanOperation.getRight()));
+		} else if (expression instanceof Cast) {
+			Cast cast = (Cast) expression;
+			result.addAll(getDefinedVariables(cast.getTarget()));
+		} else if (expression instanceof ChainExpression) {
+			ChainExpression chainExpression = (ChainExpression) expression;
+			result.addAll(getDefinedVariables(chainExpression.getFirst()));
+			result.addAll(getDefinedVariables(chainExpression.getNext()));
+		} else if (expression instanceof CollectionExpression) {
+			CollectionExpression collectionExpression = (CollectionExpression) expression;
+			result.addAll(getDefinedVariables(collectionExpression.getClosure()));
+			result.addAll(getDefinedVariablesOfTarget(collectionExpression));
+			result.add(collectionExpression.getElementName());
+		} else if (expression instanceof OperationCall) {
+			OperationCall operationCall = (OperationCall) expression;
+			result.addAll(getDefinedVariablesOfTarget(operationCall));
+			for (int i = 0; i < operationCall.getParams().length; i++) {
+				result.addAll(getDefinedVariables(operationCall.getParams()[i]));
+			}
+		} else if (expression instanceof TypeSelectExpression) {
+			TypeSelectExpression typeSelect = (TypeSelectExpression) expression;
+			result.addAll(getDefinedVariablesOfTarget(typeSelect));
+		} else if (expression instanceof FeatureCall) {
+			FeatureCall featureCall = (FeatureCall) expression;
+			result.addAll(getDefinedVariablesOfTarget(featureCall));
+			if (featureCall.getTarget() == null) {
+				result.add(featureCall.getName().getValue());
+			}
+		} else if (expression instanceof IfExpression) {
+			IfExpression ifExpression = (IfExpression) expression;
+			result.addAll(getDefinedVariables(ifExpression.getCondition()));
+			result.addAll(getDefinedVariables(ifExpression.getThenPart()));
+			result.addAll(getDefinedVariables(ifExpression.getElsePart()));
+		} else if (expression instanceof LetExpression) {
+			LetExpression letExpression = (LetExpression) expression;
+			result.addAll(getDefinedVariables(letExpression.getVarExpression()));
+			result.addAll(getDefinedVariables(letExpression.getTargetExpression()));
+			result.add(letExpression.getVarName().getValue());
+		} else if (expression instanceof ListLiteral) {
+			ListLiteral listLiteral = (ListLiteral) expression;
+			for (int i = 0; i < listLiteral.getElements().length; i++) {
+				result.addAll(getDefinedVariables(listLiteral.getElements()[i]));
+			}
+		} else if (expression instanceof SwitchExpression) {
+			SwitchExpression switchExpression = (SwitchExpression) expression;
+			result.addAll(getDefinedVariables(switchExpression.getSwitchExpr()));
+			result.addAll(getDefinedVariables(switchExpression.getDefaultExpr()));
+			for (Case caseExpresion : switchExpression.getCases()) {
+				result.addAll(getDefinedVariables(caseExpresion.getCondition()));
+				result.addAll(getDefinedVariables(caseExpresion.getThenPart()));
+			}
+		}
+		return result;
+	}
+
+	private Set<String> getDefinedVariablesOfTarget(FeatureCall featrueCall) {
+		if (featrueCall.getTarget() != null) {
+			return getDefinedVariables(featrueCall.getTarget());
+		}
+		return Collections.emptySet();
+	}
+
+	private void convertTypedElementCallProduct(ETypedElement typedElement) {
+		assert typedElement != null;
+		if (typedElement.isMany() && typedElement.isOrdered() && typedElement.isUnique()) {
+			write("->asSequence()");
+		}
+	}
+
+	private void convertImplicitCollectProduct(EClassifier targetType) {
+		assert targetType != null;
+		if (!isListType(targetType)) {
+			write("->asSequence()");
+		}
+	}
+
+	private void migrateOperationCallParameters(OperationCall operationCall, MigrationExecutionContext ctx) throws MigrationException {
 		for (int i = 0; i < operationCall.getParams().length; i++) {
 			if (i > 0) {
 				write(", ");
 			}
 			migrateExpression(operationCall.getParams()[i], ctx);
 		}
-		if (!isInfixOperation(operationCall)) {
-			write(")");
-		} else if (needsSurroundingBraces(operationCall)) {
-			// Currently supported infix operations has 0 or 1 parameter
-			// Enclosing with braces for "not" expression here
-			addBraces(placeholder);
-		}
 	}
 
+	// TODO: use OperationCallTrace as a parameter of this call + compare
+	// associated operation with one from BMM using "=="
 	private String getQVTOperationName(OperationCall operationCall) {
 		String operationName = operationCall.getName().getValue();
-		// TODO: In addition check target type (should be one of primitive
-		// types) here
 		if ("toFirstUpper".equals(operationName)) {
 			return "firstToUpper";
+		} else if ("toList".equals(operationName)) {
+			return "asSequence";
 		}
 		return operationName;
 	}
 
+	// TODO: use OperationCallTrace as a parameter of this call + compare
+	// associated operation with one from BMM using "=="
 	private boolean needsSurroundingBraces(OperationCall operationCall) {
 		return "!".equals(operationCall.getName().getValue());
 	}
 
+	// TODO: use OperationCallTrace as a parameter of this call + compare
+	// associated operation with one from BMM using "=="
 	private void insertInfixOperationCall(OperationCall operationCall, int placeholder) throws MigrationException {
 		// TODO: add other infix operations to this list
 		String opName = operationCall.getName().getValue();
@@ -615,7 +777,8 @@ public class MigrationFacade {
 		case UNSUPPORTED_CLASSIFIER_REF:
 			throw new MigrationException(Type.UNSUPPORTED_FEATURE_CALL, trace.toString());
 		}
-		// featureCall.getTarget() == null for FeatureCall of implicit variable feature
+		// featureCall.getTarget() == null for FeatureCall of implicit variable
+		// feature
 		if (featureCall.getTarget() != null) {
 			migrateExpression(featureCall.getTarget(), ctx);
 			write(".");
@@ -623,25 +786,15 @@ public class MigrationFacade {
 		write(featureCall.getName().getValue());
 		switch (trace.getType()) {
 		case FEATURE_REF:
-			EStructuralFeature feature = trace.getFeature();
-			assert feature != null;
 			EClassifier targetType = trace.getTargetType();
 			assert targetType != null;
 			if (BuiltinMetaModel.isParameterizedType(targetType)) {
-				// TODO: check once more..
-				// TODO: new type of exception - NotSupportedXPandConstruction exception.
 				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Attribute call is not supported for the collection types: " + targetType.toString() + "." + featureCall.getName().getValue());
 			}
-			if (feature.isMany() && feature.isOrdered() && feature.isUnique()) {
-				write("->asSequence()");
-			}
+			convertTypedElementCallProduct(trace.getFeature());
 			return;
 		case IMPLICIT_COLLECT_FEATURE_REF:
-			EClassifier targetCollectionType = trace.getTargetType();
-			assert targetCollectionType != null;
-			if (!isListType(targetCollectionType)) {
-				write("->asSequence()");
-			}
+			convertImplicitCollectProduct(trace.getTargetType());
 			return;
 		default:
 			throw new MigrationException(Type.UNSUPPORTED_FEATURE_CALL_TRACE, "Incorrect type: " + trace.getType());

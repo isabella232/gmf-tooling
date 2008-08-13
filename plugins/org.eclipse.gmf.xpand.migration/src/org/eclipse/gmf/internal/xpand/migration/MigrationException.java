@@ -32,7 +32,9 @@ public class MigrationException extends Exception {
 		UNSUPPORTED_BOOLEAN_OPERATION("Unsupported boolean operation"), 
 		UNSUPPORTED_INFIX_OPERATION_PARAMETER("Unsupported infix operation parameter"),
 		UNSUPPORTED_FEATURE_CALL_TRACE("Unsupported feature call trace"),
-		UNSUPPORTED_FEATURE_CALL("Unsupported feature call");
+		UNSUPPORTED_FEATURE_CALL("Unsupported feature call"), 
+		UNSUPPORTED_OPERATION_CALL_TRACE("Unsupported operation call trace"), 
+		UNSUPPORTED_OPERATION_CALL("Unsupported operation call");
 
 		private String name;
 
