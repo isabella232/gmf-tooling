@@ -175,6 +175,15 @@ public class MigrationTestsPackageImpl extends EPackageImpl implements Migration
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getContainer_It() {
+		return (EAttribute)containerEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getChild() {
 		return childEClass;
 	}
@@ -214,6 +223,7 @@ public class MigrationTestsPackageImpl extends EPackageImpl implements Migration
 		createEReference(containerEClass, CONTAINER__UNIQUE_CHILDREN);
 		createEReference(containerEClass, CONTAINER__ORDERED_UNIQUE_CHILDREN);
 		createEReference(containerEClass, CONTAINER__CHILDREN);
+		createEAttribute(containerEClass, CONTAINER__IT);
 
 		childEClass = createEClass(CHILD);
 	}
@@ -255,6 +265,19 @@ public class MigrationTestsPackageImpl extends EPackageImpl implements Migration
 		initEReference(getContainer_UniqueChildren(), this.getChild(), null, "uniqueChildren", null, 0, -1, Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getContainer_OrderedUniqueChildren(), this.getChild(), null, "orderedUniqueChildren", null, 0, -1, Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getContainer_Children(), this.getChild(), null, "children", null, 0, -1, Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getContainer_It(), ecorePackage.getEBoolean(), "it", null, 0, 1, Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(containerEClass, this.getChild(), "singletonChildOp", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(containerEClass, this.getChild(), "singletonChildConstrainedOp", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(containerEClass, this.getChild(), "orderedChildrenOp", 1, -1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(containerEClass, this.getChild(), "uniqueChildrenOp", 1, -1, IS_UNIQUE, !IS_ORDERED);
+
+		addEOperation(containerEClass, this.getChild(), "orderedUniqueChildrenOp", 1, -1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(containerEClass, this.getChild(), "childrenOp", 1, -1, !IS_UNIQUE, !IS_ORDERED);
 
 		initEClass(childEClass, Child.class, "Child", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

@@ -37,6 +37,7 @@ import org.eclipse.gmf.tests.xpand.migration.testModel.MigrationTestsPackage;
  *   <li>{@link org.eclipse.gmf.tests.xpand.migration.testModel.impl.ContainerImpl#getUniqueChildren <em>Unique Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.tests.xpand.migration.testModel.impl.ContainerImpl#getOrderedUniqueChildren <em>Ordered Unique Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.tests.xpand.migration.testModel.impl.ContainerImpl#getChildren <em>Children</em>}</li>
+ *   <li>{@link org.eclipse.gmf.tests.xpand.migration.testModel.impl.ContainerImpl#isIt <em>It</em>}</li>
  * </ul>
  * </p>
  *
@@ -102,6 +103,26 @@ public class ContainerImpl extends EObjectImpl implements Container {
 	 * @ordered
 	 */
 	protected EList<Child> children;
+
+	/**
+	 * The default value of the '{@link #isIt() <em>It</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIt()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean IT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isIt() <em>It</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIt()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean it = IT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -251,6 +272,93 @@ public class ContainerImpl extends EObjectImpl implements Container {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isIt() {
+		return it;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIt(boolean newIt) {
+		boolean oldIt = it;
+		it = newIt;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, MigrationTestsPackage.CONTAINER__IT, oldIt, it));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Child singletonChildOp() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Child singletonChildConstrainedOp() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Child> orderedChildrenOp() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Child> uniqueChildrenOp() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Child> orderedUniqueChildrenOp() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Child> childrenOp() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -268,6 +376,8 @@ public class ContainerImpl extends EObjectImpl implements Container {
 				return getOrderedUniqueChildren();
 			case MigrationTestsPackage.CONTAINER__CHILDREN:
 				return getChildren();
+			case MigrationTestsPackage.CONTAINER__IT:
+				return isIt() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -303,6 +413,9 @@ public class ContainerImpl extends EObjectImpl implements Container {
 				getChildren().clear();
 				getChildren().addAll((Collection<? extends Child>)newValue);
 				return;
+			case MigrationTestsPackage.CONTAINER__IT:
+				setIt(((Boolean)newValue).booleanValue());
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -333,6 +446,9 @@ public class ContainerImpl extends EObjectImpl implements Container {
 			case MigrationTestsPackage.CONTAINER__CHILDREN:
 				getChildren().clear();
 				return;
+			case MigrationTestsPackage.CONTAINER__IT:
+				setIt(IT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -357,8 +473,26 @@ public class ContainerImpl extends EObjectImpl implements Container {
 				return orderedUniqueChildren != null && !orderedUniqueChildren.isEmpty();
 			case MigrationTestsPackage.CONTAINER__CHILDREN:
 				return children != null && !children.isEmpty();
+			case MigrationTestsPackage.CONTAINER__IT:
+				return it != IT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (it: ");
+		result.append(it);
+		result.append(')');
+		return result.toString();
 	}
 
 } //ContainerImpl

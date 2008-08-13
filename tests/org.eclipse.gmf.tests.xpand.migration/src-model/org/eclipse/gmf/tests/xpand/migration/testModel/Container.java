@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.tests.xpand.migration.testModel.Container#getUniqueChildren <em>Unique Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.tests.xpand.migration.testModel.Container#getOrderedUniqueChildren <em>Ordered Unique Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.tests.xpand.migration.testModel.Container#getChildren <em>Children</em>}</li>
+ *   <li>{@link org.eclipse.gmf.tests.xpand.migration.testModel.Container#isIt <em>It</em>}</li>
  * </ul>
  * </p>
  *
@@ -147,5 +148,79 @@ public interface Container extends EObject {
 	 * @generated
 	 */
 	EList<Child> getChildren();
+
+	/**
+	 * Returns the value of the '<em><b>It</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>It</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>It</em>' attribute.
+	 * @see #setIt(boolean)
+	 * @see org.eclipse.gmf.tests.xpand.migration.testModel.MigrationTestsPackage#getContainer_It()
+	 * @model
+	 * @generated
+	 */
+	boolean isIt();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.tests.xpand.migration.testModel.Container#isIt <em>It</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>It</em>' attribute.
+	 * @see #isIt()
+	 * @generated
+	 */
+	void setIt(boolean value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	Child singletonChildOp();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model required="true"
+	 * @generated
+	 */
+	Child singletonChildConstrainedOp();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false" required="true"
+	 * @generated
+	 */
+	EList<Child> orderedChildrenOp();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model required="true" ordered="false"
+	 * @generated
+	 */
+	EList<Child> uniqueChildrenOp();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model required="true"
+	 * @generated
+	 */
+	EList<Child> orderedUniqueChildrenOp();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false" required="true" ordered="false"
+	 * @generated
+	 */
+	EList<Child> childrenOp();
 
 } // Container

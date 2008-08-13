@@ -124,13 +124,22 @@ public interface MigrationTestsPackage extends EPackage {
 	int CONTAINER__CHILDREN = 5;
 
 	/**
+	 * The feature id for the '<em><b>It</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINER__IT = 6;
+
+	/**
 	 * The number of structural features of the '<em>Container</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTAINER_FEATURE_COUNT = 6;
+	int CONTAINER_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.tests.xpand.migration.testModel.impl.ChildImpl <em>Child</em>}' class.
@@ -229,6 +238,17 @@ public interface MigrationTestsPackage extends EPackage {
 	EReference getContainer_Children();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.tests.xpand.migration.testModel.Container#isIt <em>It</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>It</em>'.
+	 * @see org.eclipse.gmf.tests.xpand.migration.testModel.Container#isIt()
+	 * @see #getContainer()
+	 * @generated
+	 */
+	EAttribute getContainer_It();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.tests.xpand.migration.testModel.Child <em>Child</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -317,6 +337,14 @@ public interface MigrationTestsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONTAINER__CHILDREN = eINSTANCE.getContainer_Children();
+
+		/**
+		 * The meta object literal for the '<em><b>It</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONTAINER__IT = eINSTANCE.getContainer_It();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.gmf.tests.xpand.migration.testModel.impl.ChildImpl <em>Child</em>}' class.

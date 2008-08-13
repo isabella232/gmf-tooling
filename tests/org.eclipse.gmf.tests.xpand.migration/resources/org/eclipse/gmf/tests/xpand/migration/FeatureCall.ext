@@ -74,7 +74,7 @@ List[testModel::Child] getSingletonChildConstrainedOfCollection(Collection[testM
 	param.singletonChildConstrained
 ;
 
-/* FeatureCall referencing different collection type parameter features having differen collection types */
+/* FeatureCall referencing different collection type parameter features having different collection types */
 List[testModel::Child] getOrderedChildrenOfList(List[testModel::Container] param) :
 	param.orderedChildren
 ;

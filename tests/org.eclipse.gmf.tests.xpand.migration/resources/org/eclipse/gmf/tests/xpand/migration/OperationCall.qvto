@@ -1,4 +1,5 @@
 modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+modeltype testModel uses "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration/testModel";
 
 library OperationCall;
 
@@ -12,4 +13,156 @@ helper operationWithSeveralParameters(factory : ecore::EFactory, dataType : ecor
 
 helper operationWithExpressionAsAParameter(ePackage : ecore::EPackage, param : String) : ecore::EClassifier {
 	return ePackage.getEClassifier(param.firstToUpper())
+}
+
+helper anotherExtensionCall(eClass : ecore::EClass, subType : ecore::EClass) : Boolean {
+	return operationCall(eClass, subType)
+}
+
+helper anotherExtensionContextCall(eClass : ecore::EClass, subType : ecore::EClass) : Boolean {
+	return operationCall(eClass, subType)
+}
+
+helper getSingletonChildOp(param : testModel::Container) : testModel::Child {
+	return param.singletonChildOp()
+}
+
+helper getSingletonChildConstrainedOp(param : testModel::Container) : testModel::Child {
+	return param.singletonChildConstrainedOp()
+}
+
+helper getOrderedChildrenOp(param : testModel::Container) : Sequence(testModel::Child) {
+	return param.orderedChildrenOp()
+}
+
+helper getUniqueChildrenOp(param : testModel::Container) : Set(testModel::Child) {
+	return param.uniqueChildrenOp()
+}
+
+helper getOrderedUniqueChildrenOp(param : testModel::Container) : Sequence(testModel::Child) {
+	return param.orderedUniqueChildrenOp()->asSequence()
+}
+
+helper getChildrenOp(param : testModel::Container) : Collection(testModel::Child) {
+	return param.childrenOp()
+}
+
+helper getSingletonChildOpOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChildOp()
+}
+
+helper getSingletonChildOpOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChildOp()->asSequence()
+}
+
+helper getSingletonChildOpOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChildOp()->asSequence()
+}
+
+helper getSingletonChildConstrainedOpOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChildConstrainedOp()
+}
+
+helper getSingletonChildConstrainedOpOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChildConstrainedOp()->asSequence()
+}
+
+helper getSingletonChildConstrainedOpOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChildConstrainedOp()->asSequence()
+}
+
+helper getOrderedChildrenOpOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) { 
+	return param.orderedChildrenOp()
+}
+
+helper getOrderedChildrenExtOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param->collect(it | getOrderedChildrenExt(it))
+}
+
+helper getOrderedChildrenOpOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedChildrenOp()->asSequence()
+}
+
+helper getOrderedChildrenExtOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param->collect(it | getOrderedChildrenExt(it))->asSequence()
+}
+
+helper getOrderedChildrenOpOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedChildrenOp()->asSequence()
+}
+
+helper getOrderedChildrenExtOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param->collect(it | getOrderedChildrenExt(it))->asSequence()
+}
+
+helper getUniqueChildrenOpOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.uniqueChildrenOp()
+}
+
+helper getUniqueChildrenExtOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param->collect(it | getUniqueChildrenExt(it))
+}
+
+helper getUniqueChildrenOpOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.uniqueChildrenOp()->asSequence()
+}
+
+helper getUniqueChildrenExtOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param->collect(it | getUniqueChildrenExt(it))->asSequence()
+}
+
+helper getUniqueChildrenOpOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.uniqueChildrenOp()->asSequence()
+}
+
+helper getUniqueChildrenExtOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param->collect(it | getUniqueChildrenExt(it))->asSequence()
+}
+
+helper getOrderedUniqueChildrenOpOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedUniqueChildrenOp()
+}
+
+helper getOrderedUniqueChildrenOpOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedUniqueChildrenOp()->asSequence()
+}
+
+helper getOrderedUniqueChildrenOpOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedUniqueChildrenOp()->asSequence()
+}
+
+helper getChildrenOpOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.childrenOp()
+}
+
+helper getChildrenExtOfList(param : Sequence(testModel::Container), param2 : Boolean) : Sequence(testModel::Child) {
+	return param->collect(it_1 | getChildrenExt(it_1, let it = param2 in it))
+}
+
+helper getChildrenOpOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.childrenOp()->asSequence()
+}
+
+helper getChildrenExtOfSet(param : Set(testModel::Container), it : testModel::Container) : Sequence(testModel::Child) {
+	return param->collect(it_1 | getChildrenExt(it_1, it.it))->asSequence()
+}
+
+helper getChildrenOpOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.childrenOp()->asSequence()
+}
+
+helper getChildrenExtOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param->collect(it_1 | getChildrenExt(it_1, param->collect(it | it)->asSequence()->first().oclAsType(testModel::Container).it))->asSequence()
+}
+
+helper getOrderedChildrenExt(param : testModel::Container) : Sequence(testModel::Child) { 
+	return param.orderedChildrenOp()
+}
+
+helper getUniqueChildrenExt(param : testModel::Container) : Set(testModel::Child) {
+	return param.uniqueChildrenOp()
+}
+
+helper getChildrenExt(param : testModel::Container, secondParam : Boolean) : Collection(testModel::Child) {
+	return param.childrenOp()
 }

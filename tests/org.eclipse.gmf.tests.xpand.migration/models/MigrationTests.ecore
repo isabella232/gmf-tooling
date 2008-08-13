@@ -5,6 +5,15 @@
     nsURI="http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration/testModel"
     nsPrefix="testModel">
   <eClassifiers xsi:type="ecore:EClass" name="Container">
+    <eOperations name="singletonChildOp" eType="#//Child"/>
+    <eOperations name="singletonChildConstrainedOp" lowerBound="1" eType="#//Child"/>
+    <eOperations name="orderedChildrenOp" unique="false" lowerBound="1" upperBound="-1"
+        eType="#//Child"/>
+    <eOperations name="uniqueChildrenOp" ordered="false" lowerBound="1" upperBound="-1"
+        eType="#//Child"/>
+    <eOperations name="orderedUniqueChildrenOp" lowerBound="1" upperBound="-1" eType="#//Child"/>
+    <eOperations name="childrenOp" ordered="false" unique="false" lowerBound="1" upperBound="-1"
+        eType="#//Child"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="singletonChild" ordered="false"
         unique="false" eType="#//Child"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="singletonChildConstrained"
@@ -17,6 +26,7 @@
         upperBound="-1" eType="#//Child"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="children" ordered="false"
         unique="false" upperBound="-1" eType="#//Child"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="it" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Child"/>
 </ecore:EPackage>

@@ -69,7 +69,8 @@ public class XtendMigrationTest extends TestCase {
 	}
 
 	public void testOperationCall() throws IOException, MigrationException {
-		checkMigration("OperationCall");
+		String resourceName = "OperationCall";
+		checkMigration(new MigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, MigrationTestsPackage.eINSTANCE)), resourceName);
 	}
 
 	public void testCollectionExpression() throws IOException, MigrationException {
