@@ -62,6 +62,7 @@ public class FeatureLabelMappingItemProvider
 			super.getPropertyDescriptors(object);
 
 			addFeaturesPropertyDescriptor(object);
+			addEditableFeaturesPropertyDescriptor(object);
 			addViewPatternPropertyDescriptor(object);
 			addEditorPatternPropertyDescriptor(object);
 			addEditPatternPropertyDescriptor(object);
@@ -97,6 +98,28 @@ public class FeatureLabelMappingItemProvider
 							return FilterUtil.filterByContainerMetaclass(original, ((FeatureLabelMapping) object).getMapEntry());
 						}
 			});
+	}
+
+	/**
+	 * This adds a property descriptor for the Editable Features feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditableFeaturesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureLabelMapping_editableFeatures_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelMapping_editableFeatures_feature", "_UI_FeatureLabelMapping_type"),
+				 GMFMapPackage.eINSTANCE.getFeatureLabelMapping_EditableFeatures(),
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
