@@ -102,6 +102,7 @@
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//FeatureLabelMapping">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureLabelMapping/features"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureLabelMapping/editableFeatures"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//FeatureLabelMapping/viewPattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//FeatureLabelMapping/editorPattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//FeatureLabelMapping/editPattern"/>

@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EAttribute;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.FeatureLabelMapping#getFeatures <em>Features</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.FeatureLabelMapping#getEditableFeatures <em>Editable Features</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.FeatureLabelMapping#getViewPattern <em>View Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.FeatureLabelMapping#getEditorPattern <em>Editor Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.FeatureLabelMapping#getEditPattern <em>Edit Pattern</em>}</li>
@@ -51,6 +52,22 @@ public interface FeatureLabelMapping extends LabelMapping {
 	 * @generated
 	 */
 	EList<EAttribute> getFeatures();
+
+	/**
+	 * Returns the value of the '<em><b>Editable Features</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.emf.ecore.EAttribute}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Editable Features</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Editable Features</em>' reference list.
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getFeatureLabelMapping_EditableFeatures()
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='editableFeatures->forAll(f | f.eContainingClass.isSuperTypeOf(mapEntry.domainMetaElement))' description='Label attributes must be available in \'Domain Element\' EClass of the labeled mapping entry'"
+	 * @generated
+	 */
+	EList<EAttribute> getEditableFeatures();
 
 	/**
 	 * Returns the value of the '<em><b>View Pattern</b></em>' attribute.

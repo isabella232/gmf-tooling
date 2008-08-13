@@ -31,6 +31,7 @@ import org.eclipse.gmf.mappings.LabelTextAccessMethod;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.impl.FeatureLabelMappingImpl#getFeatures <em>Features</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.FeatureLabelMappingImpl#getEditableFeatures <em>Editable Features</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.FeatureLabelMappingImpl#getViewPattern <em>View Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.FeatureLabelMappingImpl#getEditorPattern <em>Editor Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.FeatureLabelMappingImpl#getEditPattern <em>Edit Pattern</em>}</li>
@@ -51,6 +52,16 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 	 * @ordered
 	 */
 	protected EList<EAttribute> features;
+
+	/**
+	 * The cached value of the '{@link #getEditableFeatures() <em>Editable Features</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditableFeatures()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EAttribute> editableFeatures;
 
 	/**
 	 * The default value of the '{@link #getViewPattern() <em>View Pattern</em>}' attribute.
@@ -188,6 +199,18 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<EAttribute> getEditableFeatures() {
+		if (editableFeatures == null) {
+			editableFeatures = new EObjectResolvingEList<EAttribute>(EAttribute.class, this, GMFMapPackage.FEATURE_LABEL_MAPPING__EDITABLE_FEATURES);
+		}
+		return editableFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getViewPattern() {
 		return viewPattern;
 	}
@@ -298,6 +321,8 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__FEATURES:
 				return getFeatures();
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDITABLE_FEATURES:
+				return getEditableFeatures();
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_PATTERN:
 				return getViewPattern();
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDITOR_PATTERN:
@@ -324,6 +349,10 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__FEATURES:
 				getFeatures().clear();
 				getFeatures().addAll((Collection<? extends EAttribute>)newValue);
+				return;
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDITABLE_FEATURES:
+				getEditableFeatures().clear();
+				getEditableFeatures().addAll((Collection<? extends EAttribute>)newValue);
 				return;
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_PATTERN:
 				setViewPattern((String)newValue);
@@ -355,6 +384,9 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__FEATURES:
 				getFeatures().clear();
 				return;
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDITABLE_FEATURES:
+				getEditableFeatures().clear();
+				return;
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_PATTERN:
 				setViewPattern(VIEW_PATTERN_EDEFAULT);
 				return;
@@ -384,6 +416,8 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__FEATURES:
 				return features != null && !features.isEmpty();
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDITABLE_FEATURES:
+				return editableFeatures != null && !editableFeatures.isEmpty();
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_PATTERN:
 				return VIEW_PATTERN_EDEFAULT == null ? viewPattern != null : !VIEW_PATTERN_EDEFAULT.equals(viewPattern);
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDITOR_PATTERN:
