@@ -31,6 +31,9 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 	protected final org.eclipse.emf.ecore.EAttribute[] features;
 
 	«EXPAND xpt::Common::generatedMemberComment»
+	protected final org.eclipse.emf.ecore.EAttribute[] editableFeatures;
+
+	«EXPAND xpt::Common::generatedMemberComment»
 	private String viewPattern;
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -44,7 +47,20 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 		if (features == null || java.util.Arrays.asList(features).contains(null)) {
 			throw new IllegalArgumentException();
 		}
+		this.editableFeatures = this.features = features;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public «EXPAND className»(org.eclipse.emf.ecore.EAttribute[] features,
+			org.eclipse.emf.ecore.EAttribute[] editableFeatures) {
+		if (features == null || java.util.Arrays.asList(features).contains(null)) {
+			throw new IllegalArgumentException();
+		}
 		this.features = features;
+		if (editableFeatures == null || java.util.Arrays.asList(editableFeatures).contains(null)) {
+			throw new IllegalArgumentException();
+		}
+		this.editableFeatures = editableFeatures;
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -111,6 +127,15 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
+	protected Object[] getEditableValues(org.eclipse.emf.ecore.EObject element) {
+		Object[] values = new Object[editableFeatures.length];
+		for (int i = 0; i < editableFeatures.length; i++) {
+			values[i] = getValue(element, editableFeatures[i]);
+		}
+		return values;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected Object getValue(org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EAttribute feature) {
 		Object value = element.eGet(feature);
 		Class iClass = feature.getEAttributeType().getInstanceClass();
@@ -140,7 +165,7 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 				new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(
 						editingDomain, "Set Values"); «EXPAND xpt::Common::nonNLS»
 		for (int i = 0; i < values.length; i++) {
-			command.compose(getModificationCommand(element, features[i], values[i]));
+			command.compose(getModificationCommand(element, editableFeatures[i], values[i]));
 		}
 		return command;
 	}
@@ -159,11 +184,11 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus validateNewValues(Object[] values) {
-		if (values.length != features.length) {
+		if (values.length != editableFeatures.length) {
 			return org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus.UNEDITABLE_STATUS;
 		}
 		for (int i = 0; i < values.length; i++) {
-			Object value = getValidNewValue(features[i], values[i]);
+			Object value = getValidNewValue(editableFeatures[i], values[i]);
 			if (value instanceof InvalidValue) {
 				return new org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus(
 						«editorGen.plugin.getActivatorQualifiedClassName()».ID,

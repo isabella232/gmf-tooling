@@ -109,9 +109,17 @@ public class «parserProviderClassName» extends org.eclipse.gmf.runtime.common.co
 			«EXPAND MetaModel::MetaFeature FOR feature»,
 		«ENDFOREACH-»
 		};
+		«IF editableMetaFeatures.size() > 0-»
+		org.eclipse.emf.ecore.EAttribute[] editableFeatures = new org.eclipse.emf.ecore.EAttribute[] {
+		«FOREACH editableMetaFeatures AS feature-»
+			«EXPAND MetaModel::MetaFeature FOR feature»,
+		«ENDFOREACH-»
+		};
+		«ENDIF-»
 	«IF viewMethod.literal == editMethod.literal-»
 		«EXPAND parserQualifiedClassName(viewMethod) FOR element.getDiagram()» parser =
-				new «EXPAND parserQualifiedClassName(viewMethod) FOR element.getDiagram()»(features);
+				new «EXPAND parserQualifiedClassName(viewMethod) FOR element.getDiagram()»(features
+						«IF editableMetaFeatures.size() > 0», editableFeatures«ENDIF»);
 		«IF viewMethod.literal != gmfgen::LabelTextAccessMethod::NATIVE.literal-»
 			«EXPAND setReaderPatterns("parser")-»
 			«EXPAND setWriterPatterns("parser")-»
@@ -119,12 +127,14 @@ public class «parserProviderClassName» extends org.eclipse.gmf.runtime.common.co
 		return parser;
 	«ELSE-»
 		«EXPAND parserQualifiedClassName(viewMethod) FOR element.getDiagram()» reader =
-				new «EXPAND parserQualifiedClassName(viewMethod) FOR element.getDiagram()»(features);
+				new «EXPAND parserQualifiedClassName(viewMethod) FOR element.getDiagram()»(features
+						«IF editableMetaFeatures.size() > 0», editableFeatures«ENDIF»);
 		«IF viewMethod.literal != gmfgen::LabelTextAccessMethod::NATIVE.literal-»
 			«EXPAND setReaderPatterns("reader")-»
 		«ENDIF-»
 		«EXPAND parserQualifiedClassName(editMethod) FOR element.getDiagram()» writer =
-				new «EXPAND parserQualifiedClassName(editMethod) FOR element.getDiagram()»(features);
+				new «EXPAND parserQualifiedClassName(editMethod) FOR element.getDiagram()»(features
+						«IF editableMetaFeatures.size() > 0», editableFeatures«ENDIF»);
 		«IF editMethod.literal != gmfgen::LabelTextAccessMethod::NATIVE.literal-»
 			«EXPAND setWriterPatterns("writer")-»
 		«ENDIF-»

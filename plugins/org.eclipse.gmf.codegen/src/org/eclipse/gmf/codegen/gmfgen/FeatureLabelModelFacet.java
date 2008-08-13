@@ -23,6 +23,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getMetaFeatures <em>Meta Features</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getEditableMetaFeatures <em>Editable Meta Features</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getViewPattern <em>View Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getEditorPattern <em>Editor Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getEditPattern <em>Edit Pattern</em>}</li>
@@ -51,6 +52,22 @@ public interface FeatureLabelModelFacet extends LabelModelFacet {
 	 * @generated
 	 */
 	EList<GenFeature> getMetaFeatures();
+
+	/**
+	 * Returns the value of the '<em><b>Editable Meta Features</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.emf.codegen.ecore.genmodel.GenFeature}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Editable Meta Features</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Editable Meta Features</em>' reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getFeatureLabelModelFacet_EditableMetaFeatures()
+	 * @model
+	 * @generated
+	 */
+	EList<GenFeature> getEditableMetaFeatures();
 
 	/**
 	 * Returns the value of the '<em><b>View Pattern</b></em>' attribute.

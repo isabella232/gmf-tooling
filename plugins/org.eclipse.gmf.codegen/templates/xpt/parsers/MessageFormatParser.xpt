@@ -31,6 +31,9 @@ public class «EXPAND className» extends «EXPAND xpt::parsers::AbstractParser::qu
 	private String defaultPattern;
 
 	«EXPAND xpt::Common::generatedMemberComment»
+	private String defaultEditablePattern;
+
+	«EXPAND xpt::Common::generatedMemberComment»
 	private java.text.MessageFormat viewProcessor;
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -42,6 +45,12 @@ public class «EXPAND className» extends «EXPAND xpt::parsers::AbstractParser::qu
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «EXPAND className»(org.eclipse.emf.ecore.EAttribute[] features) {
 		super(features);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public «EXPAND className»(org.eclipse.emf.ecore.EAttribute[] features,
+			org.eclipse.emf.ecore.EAttribute[] editableFeatures) {
+		super(features, editableFeatures);
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -59,6 +68,23 @@ public class «EXPAND className» extends «EXPAND xpt::parsers::AbstractParser::qu
 			defaultPattern = sb.toString();
 		}
 		return defaultPattern;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected String getDefaultEditablePattern() {
+		if (defaultEditablePattern == null) {
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < editableFeatures.length; i++) {
+				if (i > 0) {
+					sb.append(' ');
+				}
+				sb.append('{');
+				sb.append(i);
+				sb.append('}');
+			}
+			defaultEditablePattern = sb.toString();
+		}
+		return defaultEditablePattern;
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -89,7 +115,7 @@ public class «EXPAND className» extends «EXPAND xpt::parsers::AbstractParser::qu
 	«EXPAND xpt::Common::generatedMemberComment»
 	public String getEditorPattern() {
 		String pattern = super.getEditorPattern();
-		return pattern != null ? pattern : getDefaultPattern();
+		return pattern != null ? pattern : getDefaultEditablePattern();
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -114,7 +140,7 @@ public class «EXPAND className» extends «EXPAND xpt::parsers::AbstractParser::qu
 	«EXPAND xpt::Common::generatedMemberComment»
 	public String getEditPattern() {
 		String pattern = super.getEditPattern();
-		return pattern != null ? pattern : getDefaultPattern();
+		return pattern != null ? pattern : getDefaultEditablePattern();
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -148,7 +174,7 @@ public class «EXPAND className» extends «EXPAND xpt::parsers::AbstractParser::qu
 	public String getEditString(org.eclipse.core.runtime.IAdaptable adapter, int flags) {
 		org.eclipse.emf.ecore.EObject element =
 				(org.eclipse.emf.ecore.EObject) adapter.getAdapter(org.eclipse.emf.ecore.EObject.class);
-		return getEditorProcessor().format(getValues(element), new StringBuffer(),
+		return getEditorProcessor().format(getEditableValues(element), new StringBuffer(),
 				new java.text.FieldPosition(0)).toString();
 	}
 
@@ -161,7 +187,9 @@ public class «EXPAND className» extends «EXPAND xpt::parsers::AbstractParser::qu
 			return new org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus(
 					«editorGen.plugin.getActivatorQualifiedClassName()».ID,
 					org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus.UNEDITABLE,
-					org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForMessageFormatParserInvalidInputError()) FOR editorGen», new Integer(pos.getErrorIndex())));
+					org.eclipse.osgi.util.NLS.bind(
+							«EXPAND xpt::Externalizer::accessorCall(i18nKeyForMessageFormatParserInvalidInputError()) FOR editorGen»,
+							new Integer(pos.getErrorIndex())));
 		}
 		return validateNewValues(values);
 	}

@@ -27,6 +27,7 @@ import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getMetaFeatures <em>Meta Features</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getEditableMetaFeatures <em>Editable Meta Features</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getViewPattern <em>View Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getEditorPattern <em>Editor Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getEditPattern <em>Edit Pattern</em>}</li>
@@ -47,6 +48,16 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 	 * @ordered
 	 */
 	protected EList<GenFeature> metaFeatures;
+
+	/**
+	 * The cached value of the '{@link #getEditableMetaFeatures() <em>Editable Meta Features</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditableMetaFeatures()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<GenFeature> editableMetaFeatures;
 
 	/**
 	 * The default value of the '{@link #getViewPattern() <em>View Pattern</em>}' attribute.
@@ -184,6 +195,18 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<GenFeature> getEditableMetaFeatures() {
+		if (editableMetaFeatures == null) {
+			editableMetaFeatures = new EObjectResolvingEList<GenFeature>(GenFeature.class, this, GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDITABLE_META_FEATURES);
+		}
+		return editableMetaFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getViewPattern() {
 		return viewPattern;
 	}
@@ -294,6 +317,8 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 		switch (featureID) {
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__META_FEATURES:
 				return getMetaFeatures();
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDITABLE_META_FEATURES:
+				return getEditableMetaFeatures();
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				return getViewPattern();
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDITOR_PATTERN:
@@ -320,6 +345,10 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__META_FEATURES:
 				getMetaFeatures().clear();
 				getMetaFeatures().addAll((Collection<? extends GenFeature>)newValue);
+				return;
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDITABLE_META_FEATURES:
+				getEditableMetaFeatures().clear();
+				getEditableMetaFeatures().addAll((Collection<? extends GenFeature>)newValue);
 				return;
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				setViewPattern((String)newValue);
@@ -351,6 +380,9 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__META_FEATURES:
 				getMetaFeatures().clear();
 				return;
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDITABLE_META_FEATURES:
+				getEditableMetaFeatures().clear();
+				return;
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				setViewPattern(VIEW_PATTERN_EDEFAULT);
 				return;
@@ -380,6 +412,8 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 		switch (featureID) {
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__META_FEATURES:
 				return metaFeatures != null && !metaFeatures.isEmpty();
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDITABLE_META_FEATURES:
+				return editableMetaFeatures != null && !editableMetaFeatures.isEmpty();
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				return VIEW_PATTERN_EDEFAULT == null ? viewPattern != null : !VIEW_PATTERN_EDEFAULT.equals(viewPattern);
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDITOR_PATTERN:

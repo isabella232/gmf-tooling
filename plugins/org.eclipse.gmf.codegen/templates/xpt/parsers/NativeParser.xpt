@@ -34,8 +34,25 @@ public class «EXPAND className» extends «EXPAND xpt::parsers::AbstractParser::qu
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
+	public «EXPAND className»(org.eclipse.emf.ecore.EAttribute[] features,
+			org.eclipse.emf.ecore.EAttribute[] editableFeatures) {
+		super(features, editableFeatures);
+		if (features.length != 1) {
+			throw new IllegalArgumentException(java.util.Arrays.toString(features));
+		}
+		if (editableFeatures.length != 1) {
+			throw new IllegalArgumentException(java.util.Arrays.toString(editableFeatures));
+		}
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.emf.ecore.EAttribute getAttribute() {
 		return features[0];
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.emf.ecore.EAttribute getEditableAttribute() {
+		return editableFeatures[0];
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -50,7 +67,12 @@ public class «EXPAND className» extends «EXPAND xpt::parsers::AbstractParser::qu
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public String getEditString(org.eclipse.core.runtime.IAdaptable adapter, int flags) {
-		return getPrintString(adapter, flags);
+		org.eclipse.emf.ecore.EObject element =
+				(org.eclipse.emf.ecore.EObject) adapter.getAdapter(org.eclipse.emf.ecore.EObject.class);
+		org.eclipse.emf.ecore.EAttribute feature = getEditableAttribute();
+		String s = org.eclipse.emf.ecore.util.EcoreUtil.convertToString(
+				feature.getEAttributeType(), element.eGet(feature));
+		return s != null ? s : ""; «EXPAND xpt::Common::nonNLS»
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -62,7 +84,7 @@ public class «EXPAND className» extends «EXPAND xpt::parsers::AbstractParser::qu
 	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.gmf.runtime.common.core.command.ICommand getParseCommand(
 			org.eclipse.core.runtime.IAdaptable adapter, String newString, int flags) {
-		org.eclipse.emf.ecore.EAttribute feature = getAttribute();
+		org.eclipse.emf.ecore.EAttribute feature = getEditableAttribute();
 		Object value = org.eclipse.emf.ecore.util.EcoreUtil.createFromString(feature.getEAttributeType(), newString);
 		return getParseCommand(adapter, new Object[] { value }, flags);
 	}

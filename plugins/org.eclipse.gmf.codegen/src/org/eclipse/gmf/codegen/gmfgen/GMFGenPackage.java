@@ -5768,13 +5768,22 @@ public interface GMFGenPackage extends EPackage {
 	int FEATURE_LABEL_MODEL_FACET__META_FEATURES = LABEL_MODEL_FACET_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Editable Meta Features</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_LABEL_MODEL_FACET__EDITABLE_META_FEATURES = LABEL_MODEL_FACET_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>View Pattern</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN = LABEL_MODEL_FACET_FEATURE_COUNT + 1;
+	int FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN = LABEL_MODEL_FACET_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Editor Pattern</b></em>' attribute.
@@ -5783,7 +5792,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_LABEL_MODEL_FACET__EDITOR_PATTERN = LABEL_MODEL_FACET_FEATURE_COUNT + 2;
+	int FEATURE_LABEL_MODEL_FACET__EDITOR_PATTERN = LABEL_MODEL_FACET_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Edit Pattern</b></em>' attribute.
@@ -5792,7 +5801,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN = LABEL_MODEL_FACET_FEATURE_COUNT + 3;
+	int FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN = LABEL_MODEL_FACET_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>View Method</b></em>' attribute.
@@ -5801,7 +5810,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_LABEL_MODEL_FACET__VIEW_METHOD = LABEL_MODEL_FACET_FEATURE_COUNT + 4;
+	int FEATURE_LABEL_MODEL_FACET__VIEW_METHOD = LABEL_MODEL_FACET_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Edit Method</b></em>' attribute.
@@ -5810,7 +5819,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_LABEL_MODEL_FACET__EDIT_METHOD = LABEL_MODEL_FACET_FEATURE_COUNT + 5;
+	int FEATURE_LABEL_MODEL_FACET__EDIT_METHOD = LABEL_MODEL_FACET_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of structural features of the '<em>Feature Label Model Facet</em>' class.
@@ -5819,7 +5828,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_LABEL_MODEL_FACET_FEATURE_COUNT = LABEL_MODEL_FACET_FEATURE_COUNT + 6;
+	int FEATURE_LABEL_MODEL_FACET_FEATURE_COUNT = LABEL_MODEL_FACET_FEATURE_COUNT + 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.DesignLabelModelFacetImpl <em>Design Label Model Facet</em>}' class.
@@ -12864,6 +12873,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFeatureLabelModelFacet_MetaFeatures();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getEditableMetaFeatures <em>Editable Meta Features</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Editable Meta Features</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getEditableMetaFeatures()
+	 * @see #getFeatureLabelModelFacet()
+	 * @generated
+	 */
+	EReference getFeatureLabelModelFacet_EditableMetaFeatures();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getViewPattern <em>View Pattern</em>}'.

@@ -31,6 +31,12 @@ public class «EXPAND className» extends «EXPAND xpt::parsers::AbstractParser::qu
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
+	public «EXPAND className»(org.eclipse.emf.ecore.EAttribute[] features,
+			org.eclipse.emf.ecore.EAttribute[] editableFeatures) {
+		super(features, editableFeatures);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
 	public String getEditPattern() {
 		String pattern = super.getEditPattern();
 		return pattern != null ? pattern : " "; «EXPAND xpt::Common::nonNLS»
