@@ -49,6 +49,11 @@ public abstract class AbstractParser implements IParser {
 	/**
 	 * @generated
 	 */
+	protected final EAttribute[] editableFeatures;
+
+	/**
+	 * @generated
+	 */
 	private String viewPattern;
 
 	/**
@@ -68,7 +73,21 @@ public abstract class AbstractParser implements IParser {
 		if (features == null || Arrays.asList(features).contains(null)) {
 			throw new IllegalArgumentException();
 		}
+		this.editableFeatures = this.features = features;
+	}
+
+	/**
+	 * @generated
+	 */
+	public AbstractParser(EAttribute[] features, EAttribute[] editableFeatures) {
+		if (features == null || Arrays.asList(features).contains(null)) {
+			throw new IllegalArgumentException();
+		}
 		this.features = features;
+		if (editableFeatures == null || Arrays.asList(editableFeatures).contains(null)) {
+			throw new IllegalArgumentException();
+		}
+		this.editableFeatures = editableFeatures;
 	}
 
 	/**
@@ -156,6 +175,17 @@ public abstract class AbstractParser implements IParser {
 	/**
 	 * @generated
 	 */
+	protected Object[] getEditableValues(EObject element) {
+		Object[] values = new Object[editableFeatures.length];
+		for (int i = 0; i < editableFeatures.length; i++) {
+			values[i] = getValue(element, editableFeatures[i]);
+		}
+		return values;
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Object getValue(EObject element, EAttribute feature) {
 		Object value = element.eGet(feature);
 		Class iClass = feature.getEAttributeType().getInstanceClass();
@@ -181,7 +211,7 @@ public abstract class AbstractParser implements IParser {
 		}
 		CompositeTransactionalCommand command = new CompositeTransactionalCommand(editingDomain, "Set Values"); //$NON-NLS-1$
 		for (int i = 0; i < values.length; i++) {
-			command.compose(getModificationCommand(element, features[i], values[i]));
+			command.compose(getModificationCommand(element, editableFeatures[i], values[i]));
 		}
 		return command;
 	}
@@ -202,11 +232,11 @@ public abstract class AbstractParser implements IParser {
 	 * @generated
 	 */
 	protected IParserEditStatus validateNewValues(Object[] values) {
-		if (values.length != features.length) {
+		if (values.length != editableFeatures.length) {
 			return ParserEditStatus.UNEDITABLE_STATUS;
 		}
 		for (int i = 0; i < values.length; i++) {
-			Object value = getValidNewValue(features[i], values[i]);
+			Object value = getValidNewValue(editableFeatures[i], values[i]);
 			if (value instanceof InvalidValue) {
 				return new ParserEditStatus(PortDiagramEditorPlugin.ID, IParserEditStatus.UNEDITABLE, value.toString());
 			}
