@@ -566,6 +566,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			for (EAttribute attr : (Collection<? extends EAttribute>) flMapping.getFeatures()) {
 				modelFacet.getMetaFeatures().add(findGenFeature(attr));
 			}
+			for (EAttribute attr : (Collection<? extends EAttribute>) flMapping.getEditableFeatures()) {
+				modelFacet.getEditableMetaFeatures().add(findGenFeature(attr));
+			}
 			modelFacet.setViewPattern(flMapping.getViewPattern());
 			modelFacet.setEditorPattern(flMapping.getEditorPattern());
 			modelFacet.setEditPattern(flMapping.getEditPattern());
