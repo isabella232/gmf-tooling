@@ -583,7 +583,7 @@ public class MigrationFacade {
 		case IMPLICIT_COLLECT_EXTENSION_REF:
 			assert operationCall.getTarget() != null;
 			migrateExpression(operationCall.getTarget(), ctx);
-			String iteratorName = getIteratorVarName(operationCall);
+			String iteratorName = getUniqueVarName(getDefinedVariables(operationCall, ctx));
 			write("->collect(");
 			write(iteratorName);
 			write(" | ");
@@ -601,14 +601,13 @@ public class MigrationFacade {
 		default:
 		}
 	}
-	
+
 	private boolean isCollectionOperation(OperationCall operationCall) {
 		String operationName = operationCall.getName().getValue();
 		return "toList".equals(operationName) || "first".equals(operationName);
 	}
 
-	private String getIteratorVarName(Expression expression) {
-		Set<String> definedVariables = getDefinedVariables(expression);
+	private String getUniqueVarName(Set<String> definedVariables) {
 		String prefix = "it";
 		String varName = prefix;
 		for (int i = 1; definedVariables.contains(varName); i++) {
@@ -617,69 +616,81 @@ public class MigrationFacade {
 		return varName;
 	}
 
-	private Set<String> getDefinedVariables(Expression expression) {
+	private Set<String> getDefinedVariablesForInnerExpression(Expression expression, MigrationExecutionContext ctx) {
+		Set<String> definedVariables = getDefinedVariables(expression, ctx);
+		ExpressionAnalyzeTrace expressionAnalyzeTrace = ctx.getTraces().get(expression);
+		if (expressionAnalyzeTrace instanceof OperationCallTrace) {
+			OperationCallTrace trace = (OperationCallTrace) expressionAnalyzeTrace;
+			if (trace.getType() == OperationCallTrace.Type.IMPLICIT_COLLECT_EXTENSION_REF) {
+				definedVariables.add(getUniqueVarName(definedVariables));
+			}
+		}
+		return definedVariables;
+	}
+
+	private Set<String> getDefinedVariables(Expression expression, MigrationExecutionContext ctx) {
 		Set<String> result = new HashSet<String>();
 		if (expression instanceof BooleanOperation) {
 			BooleanOperation booleanOperation = (BooleanOperation) expression;
-			result.addAll(getDefinedVariables(booleanOperation.getLeft()));
-			result.addAll(getDefinedVariables(booleanOperation.getRight()));
+			result.addAll(getDefinedVariablesForInnerExpression(booleanOperation.getLeft(), ctx));
+			result.addAll(getDefinedVariablesForInnerExpression(booleanOperation.getRight(), ctx));
 		} else if (expression instanceof Cast) {
 			Cast cast = (Cast) expression;
-			result.addAll(getDefinedVariables(cast.getTarget()));
+			result.addAll(getDefinedVariablesForInnerExpression(cast.getTarget(), ctx));
 		} else if (expression instanceof ChainExpression) {
 			ChainExpression chainExpression = (ChainExpression) expression;
-			result.addAll(getDefinedVariables(chainExpression.getFirst()));
-			result.addAll(getDefinedVariables(chainExpression.getNext()));
+			result.addAll(getDefinedVariablesForInnerExpression(chainExpression.getFirst(), ctx));
+			result.addAll(getDefinedVariablesForInnerExpression(chainExpression.getNext(), ctx));
 		} else if (expression instanceof CollectionExpression) {
 			CollectionExpression collectionExpression = (CollectionExpression) expression;
-			result.addAll(getDefinedVariables(collectionExpression.getClosure()));
-			result.addAll(getDefinedVariablesOfTarget(collectionExpression));
+			result.addAll(getDefinedVariablesForInnerExpression(collectionExpression.getClosure(), ctx));
+			result.addAll(getDefinedVariablesOfTarget(collectionExpression, ctx));
 			result.add(collectionExpression.getElementName());
 		} else if (expression instanceof OperationCall) {
 			OperationCall operationCall = (OperationCall) expression;
-			result.addAll(getDefinedVariablesOfTarget(operationCall));
+			result.addAll(getDefinedVariablesOfTarget(operationCall, ctx));
 			for (int i = 0; i < operationCall.getParams().length; i++) {
-				result.addAll(getDefinedVariables(operationCall.getParams()[i]));
+				result.addAll(getDefinedVariablesForInnerExpression(operationCall.getParams()[i], ctx));
 			}
 		} else if (expression instanceof TypeSelectExpression) {
 			TypeSelectExpression typeSelect = (TypeSelectExpression) expression;
-			result.addAll(getDefinedVariablesOfTarget(typeSelect));
+			result.addAll(getDefinedVariablesOfTarget(typeSelect, ctx));
 		} else if (expression instanceof FeatureCall) {
 			FeatureCall featureCall = (FeatureCall) expression;
-			result.addAll(getDefinedVariablesOfTarget(featureCall));
+			result.addAll(getDefinedVariablesOfTarget(featureCall, ctx));
 			if (featureCall.getTarget() == null) {
 				result.add(featureCall.getName().getValue());
 			}
 		} else if (expression instanceof IfExpression) {
 			IfExpression ifExpression = (IfExpression) expression;
-			result.addAll(getDefinedVariables(ifExpression.getCondition()));
-			result.addAll(getDefinedVariables(ifExpression.getThenPart()));
-			result.addAll(getDefinedVariables(ifExpression.getElsePart()));
+			result.addAll(getDefinedVariablesForInnerExpression(ifExpression.getCondition(), ctx));
+			result.addAll(getDefinedVariablesForInnerExpression(ifExpression.getThenPart(), ctx));
+			result.addAll(getDefinedVariablesForInnerExpression(ifExpression.getElsePart(), ctx));
 		} else if (expression instanceof LetExpression) {
 			LetExpression letExpression = (LetExpression) expression;
-			result.addAll(getDefinedVariables(letExpression.getVarExpression()));
-			result.addAll(getDefinedVariables(letExpression.getTargetExpression()));
+			result.addAll(getDefinedVariablesForInnerExpression(letExpression.getVarExpression(), ctx));
+			result.addAll(getDefinedVariablesForInnerExpression(letExpression.getTargetExpression(), ctx));
 			result.add(letExpression.getVarName().getValue());
 		} else if (expression instanceof ListLiteral) {
 			ListLiteral listLiteral = (ListLiteral) expression;
 			for (int i = 0; i < listLiteral.getElements().length; i++) {
-				result.addAll(getDefinedVariables(listLiteral.getElements()[i]));
+				result.addAll(getDefinedVariablesForInnerExpression(listLiteral.getElements()[i], ctx));
 			}
 		} else if (expression instanceof SwitchExpression) {
 			SwitchExpression switchExpression = (SwitchExpression) expression;
-			result.addAll(getDefinedVariables(switchExpression.getSwitchExpr()));
-			result.addAll(getDefinedVariables(switchExpression.getDefaultExpr()));
+			result.addAll(getDefinedVariablesForInnerExpression(switchExpression.getSwitchExpr(), ctx));
+			result.addAll(getDefinedVariablesForInnerExpression(switchExpression.getDefaultExpr(), ctx));
 			for (Case caseExpresion : switchExpression.getCases()) {
-				result.addAll(getDefinedVariables(caseExpresion.getCondition()));
-				result.addAll(getDefinedVariables(caseExpresion.getThenPart()));
+				result.addAll(getDefinedVariablesForInnerExpression(caseExpresion.getCondition(), ctx));
+				result.addAll(getDefinedVariablesForInnerExpression(caseExpresion.getThenPart(), ctx));
 			}
 		}
 		return result;
 	}
 
-	private Set<String> getDefinedVariablesOfTarget(FeatureCall featrueCall) {
+	private Set<String> getDefinedVariablesOfTarget(FeatureCall featrueCall, MigrationExecutionContext ctx) {
 		if (featrueCall.getTarget() != null) {
-			return getDefinedVariables(featrueCall.getTarget());
+			return getDefinedVariablesForInnerExpression(featrueCall.getTarget(), ctx);
 		}
 		return Collections.emptySet();
 	}
