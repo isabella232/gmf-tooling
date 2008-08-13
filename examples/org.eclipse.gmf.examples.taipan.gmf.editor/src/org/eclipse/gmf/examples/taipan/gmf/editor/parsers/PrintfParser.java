@@ -32,8 +32,20 @@ public class PrintfParser extends AbstractParser {
 	/**
 	 * @generated
 	 */
+	private String defaultEditablePattern;
+
+	/**
+	 * @generated
+	 */
 	public PrintfParser(EAttribute[] features) {
 		super(features);
+	}
+
+	/**
+	 * @generated
+	 */
+	public PrintfParser(EAttribute[] features, EAttribute[] editableFeatures) {
+		super(features, editableFeatures);
 	}
 
 	/**
@@ -59,6 +71,26 @@ public class PrintfParser extends AbstractParser {
 	/**
 	 * @generated
 	 */
+	protected String getDefaultEditablePattern() {
+		if (defaultEditablePattern == null) {
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < editableFeatures.length; i++) {
+				if (i > 0) {
+					sb.append(' ');
+				}
+				sb.append('%');
+				sb.append(i + 1);
+				sb.append('$');
+				sb.append('s');
+			}
+			defaultEditablePattern = sb.toString();
+		}
+		return defaultEditablePattern;
+	}
+
+	/**
+	 * @generated
+	 */
 	public String getViewPattern() {
 		String pattern = super.getViewPattern();
 		return pattern != null ? pattern : getDefaultPattern();
@@ -69,7 +101,7 @@ public class PrintfParser extends AbstractParser {
 	 */
 	public String getEditorPattern() {
 		String pattern = super.getEditorPattern();
-		return pattern != null ? pattern : getDefaultPattern();
+		return pattern != null ? pattern : getDefaultEditablePattern();
 	}
 
 	/**
@@ -85,7 +117,7 @@ public class PrintfParser extends AbstractParser {
 	 */
 	public String getEditString(IAdaptable adapter, int flags) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
-		return String.format(getEditorPattern(), getValues(element));
+		return String.format(getEditorPattern(), getEditableValues(element));
 	}
 
 	/**
