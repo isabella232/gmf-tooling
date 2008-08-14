@@ -740,12 +740,17 @@
           editHelperClassName="EscortShipsOrderEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ThickDirectedConnection"/>
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ThickDirectedConnection">
+        <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
             href="taipan.genmodel#//taipan/EscortShipsOrder"/>
         <containmentMetaFeature
+            href="taipan.genmodel#//taipan/Warship/escortOrder"/>
+        <childMetaFeature
             href="taipan.genmodel#//taipan/Warship/escortOrder"/>
         <targetMetaFeature
             href="taipan.genmodel#//taipan/EscortShipsOrder/ships"/>
