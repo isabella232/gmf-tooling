@@ -16,7 +16,7 @@
         name="Port Location"
         description="Empty port location check"
         id="port_location"
-        rule="//@expressionProviders/@providers.0/@expressions.7"
+        rule="//@expressionProviders/@providers.0/@expressions.9"
         message="Port location should not be empty"
         category="//@audits/@categories.0">
       <target
@@ -30,12 +30,12 @@
         name="Ship Name"
         description="Empty ship name check"
         id="ship_name"
-        rule="//@expressionProviders/@providers.1/@expressions.0"
+        rule="//@expressionProviders/@providers.1/@expressions.1"
         message="Ship name should not be empty"
         category="//@audits/@categories.0">
       <target
           xsi:type="gmfgen:GenDomainAttributeTarget"
-          contextSelector="//@audits/@clientContexts.1"
+          contextSelector="//@audits/@clientContexts.0"
           nullAsError="true">
         <attribute
             href="taipan.genmodel#//taipan/Ship/name"/>
@@ -45,12 +45,12 @@
         name="Large Item Weight"
         description="Large item weight check"
         id="litem_weight"
-        rule="//@expressionProviders/@providers.0/@expressions.9"
+        rule="//@expressionProviders/@providers.0/@expressions.10"
         message="Large item weight should be greater than zero."
         category="//@audits/@categories.0">
       <target
           xsi:type="gmfgen:GenDomainElementTarget"
-          contextSelector="//@audits/@clientContexts.2">
+          contextSelector="//@audits/@clientContexts.0">
         <element
             href="taipan.genmodel#//taipan/LargeItem"/>
       </target>
@@ -59,25 +59,18 @@
         name="Ship Type"
         description="Ship type check"
         id="ship_type"
-        rule="//@expressionProviders/@providers.0/@expressions.10"
+        rule="//@expressionProviders/@providers.0/@expressions.11"
         message="Invalid ship type."
         category="//@audits/@categories.0">
       <target
           xsi:type="gmfgen:GenDiagramElementTarget"
-          contextSelector="//@audits/@clientContexts.3"
+          contextSelector="//@audits/@clientContexts.1"
           element="//@diagram/@topLevelNodes.1"/>
     </rules>
     <clientContexts
-        id="PortLocation"
-        ruleTargets="//@audits/@rules.0/@target"/>
+        ruleTargets="//@audits/@rules.0/@target //@audits/@rules.1/@target //@audits/@rules.2/@target"/>
     <clientContexts
-        id="ShipName"
-        ruleTargets="//@audits/@rules.1/@target"/>
-    <clientContexts
-        id="LargeItemWeight"
-        ruleTargets="//@audits/@rules.2/@target"/>
-    <clientContexts
-        id="ShipType"
+        id="Ctx_2002"
         ruleTargets="//@audits/@rules.3/@target"/>
   </audits>
   <metrics>
@@ -98,7 +91,7 @@
         name="Ship Load"
         description="Quantity of items loaded on ship."
         key="ShipLoad"
-        rule="//@expressionProviders/@providers.1/@expressions.1"
+        rule="//@expressionProviders/@providers.1/@expressions.0"
         lowLimit="1.0"
         highLimit="5.0">
       <target
@@ -357,7 +350,7 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          modelElementSelector="//@expressionProviders/@providers.0/@expressions.5">
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.0">
         <metaClass
             href="taipan.genmodel#//taipan/Ship"/>
         <containmentMetaFeature
@@ -499,7 +492,7 @@
       </viewmap>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet"
-          modelElementSelector="//@expressionProviders/@providers.0/@expressions.0">
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.1">
         <metaClass
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
@@ -510,7 +503,7 @@
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              value="//@expressionProviders/@providers.0/@expressions.1">
+              value="//@expressionProviders/@providers.0/@expressions.2">
             <feature
                 href="taipan.genmodel#//taipan/Route/reliability"/>
           </initializers>
@@ -595,7 +588,7 @@
       </viewmap>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet"
-          modelElementSelector="//@expressionProviders/@providers.0/@expressions.2">
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.3">
         <metaClass
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
@@ -606,7 +599,7 @@
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              value="//@expressionProviders/@providers.0/@expressions.3">
+              value="//@expressionProviders/@providers.0/@expressions.4">
             <feature
                 href="taipan.genmodel#//taipan/Route/reliability"/>
           </initializers>
@@ -725,7 +718,7 @@
             href="taipan.genmodel#//taipan/BesiegePortOrder/port"/>
       </modelFacet>
       <creationConstraints
-          sourceEnd="//@expressionProviders/@providers.0/@expressions.6"/>
+          sourceEnd="//@expressionProviders/@providers.0/@expressions.5"/>
     </links>
     <links
         visualID="4006"
@@ -759,8 +752,8 @@
             href="taipan.genmodel#//taipan/EscortShipsOrder/ships"/>
       </modelFacet>
       <creationConstraints
-          sourceEnd="//@expressionProviders/@providers.0/@expressions.4"
-          targetEnd="//@expressionProviders/@providers.0/@expressions.5"/>
+          sourceEnd="//@expressionProviders/@providers.0/@expressions.6"
+          targetEnd="//@expressionProviders/@providers.0/@expressions.7"/>
     </links>
     <links
         visualID="4007"
@@ -1053,6 +1046,9 @@
         xsi:type="gmfgen:GenExpressionInterpreter">
       <expressions
           xsi:type="gmfgen:GenConstraint"
+          body="not self.oclIsKindOf(Warship)"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
           body="reliability >= 0.5"/>
       <expressions
           body="0.8"/>
@@ -1063,18 +1059,18 @@
           body="0.2"/>
       <expressions
           xsi:type="gmfgen:GenConstraint"
+          body="self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
           body="self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()"/>
       <expressions
           xsi:type="gmfgen:GenConstraint"
           body="not self.oclIsKindOf(Warship)"/>
       <expressions
-          xsi:type="gmfgen:GenConstraint"
-          body="self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()"/>
+          body="reliability"/>
       <expressions
           xsi:type="gmfgen:GenConstraint"
           body="location.size() > 0"/>
-      <expressions
-          body="reliability"/>
       <expressions
           xsi:type="gmfgen:GenConstraint"
           body="weight > 0"/>
@@ -1085,10 +1081,10 @@
     <providers
         xsi:type="gmfgen:GenJavaExpressionProvider">
       <expressions
+          body="cargo.size()"/>
+      <expressions
           xsi:type="gmfgen:GenConstraint"
           body="self.length() > 0"/>
-      <expressions
-          body="cargo.size()"/>
     </providers>
   </expressionProviders>
 </gmfgen:GenEditorGenerator>
