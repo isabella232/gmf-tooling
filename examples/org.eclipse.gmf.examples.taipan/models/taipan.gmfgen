@@ -868,43 +868,36 @@
     </compartments>
     <palette>
       <groups
-          title="Aquatory"
-          createMethodName="createAquatoryGroup">
+          title="Aquatory">
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Port"
             description="Place new port"
-            createMethodName="createPortTool"
             genNodes="//@diagram/@topLevelNodes.0"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Ship"
             description="Place new ship"
-            createMethodName="createShipTool"
             genNodes="//@diagram/@topLevelNodes.1"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Warship"
-            description="Create new warship"
-            createMethodName="createWarshipTool"
+            description="Place new warship"
             genNodes="//@diagram/@topLevelNodes.2"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Small Items"
             description="Add small items"
-            createMethodName="createSmallItemsTool"
             genNodes="//@diagram/@childNodes.0"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Large Item"
             description="Add large item"
-            createMethodName="createLargeItemTool"
             genNodes="//@diagram/@childNodes.1"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Empty Box"
             description="Add empty box"
-            createMethodName="createEmptyBoxTool"
             genNodes="//@diagram/@childNodes.2"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
@@ -912,7 +905,6 @@
             description="Mark reliable route"
             largeIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/Route.gif"
             smallIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/Route.gif"
-            createMethodName="createReliableRouteTool"
             genLinks="//@diagram/@links.1"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
@@ -920,7 +912,6 @@
             description="Mark unreliable route"
             largeIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/UnreliableRoute.gif"
             smallIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/UnreliableRoute.gif"
-            createMethodName="createUnreliableRouteTool"
             genLinks="//@diagram/@links.2"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
@@ -928,7 +919,6 @@
             description="Register ship in port"
             largeIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipRegistration.gif"
             smallIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipRegistration.gif"
-            createMethodName="createRegistrationTool"
             genLinks="//@diagram/@links.6"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
@@ -936,27 +926,23 @@
             description="Set ship destination"
             largeIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipDestination.gif"
             smallIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipDestination.gif"
-            createMethodName="createShipDestinationTool"
             genLinks="//@diagram/@links.0"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Ship Route"
-            description="Set ship route"
+            description="Assign ship to route"
             largeIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipRoute.gif"
             smallIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipRoute.gif"
-            createMethodName="createShipRouteTool"
             genLinks="//@diagram/@links.3"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Besiege Port Order"
             description="Place new besiege port order"
-            createMethodName="createBesiegePortOrderTool"
             genLinks="//@diagram/@links.4"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Escort Ships Order"
             description="Place new esort ships order"
-            createMethodName="createEscortShipsOrderTool"
             genLinks="//@diagram/@links.5"/>
       </groups>
     </palette>
