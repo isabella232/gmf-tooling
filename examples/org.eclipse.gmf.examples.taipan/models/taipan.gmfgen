@@ -150,11 +150,16 @@
           editHelperClassName="SmallItemsEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+          figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
+        <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/SmallItems"/>
         <containmentMetaFeature
+            href="taipan.genmodel#//taipan/Ship/cargo"/>
+        <childMetaFeature
             href="taipan.genmodel#//taipan/Ship/cargo"/>
       </modelFacet>
       <labelModelFacet
