@@ -18,7 +18,18 @@
       <actualFigure
           xsi:type="gmfgraph:CustomFigure"
           name="LargeItemShape"
-          qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape"/>
+          qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape">
+        <children
+            xsi:type="gmfgraph:Label"
+            name="LargeItemArticleLabel"/>
+        <children
+            xsi:type="gmfgraph:Label"
+            name="LargeItemWeightLabel"/>
+      </actualFigure>
+      <accessors
+          figure="//@figures.0/@descriptors.1/@actualFigure/@children.0"/>
+      <accessors
+          figure="//@figures.0/@descriptors.1/@actualFigure/@children.1"/>
     </descriptors>
     <descriptors
         name="SmallCargoFigure">
@@ -69,18 +80,6 @@
       <actualFigure
           xsi:type="gmfgraph:Label"
           name="ShipNameLabel"/>
-    </descriptors>
-    <descriptors
-        name="LargeItemArticleFigure">
-      <actualFigure
-          xsi:type="gmfgraph:Label"
-          name="LargeItemArticleLabel"/>
-    </descriptors>
-    <descriptors
-        name="LargeItemWeightFigure">
-      <actualFigure
-          xsi:type="gmfgraph:Label"
-          name="LargeItemWeightLabel"/>
     </descriptors>
   </figures>
   <figures
@@ -242,11 +241,13 @@
       elementIcon="false"/>
   <labels
       name="LargeItemArticle"
-      figure="LargeItemArticleFigure"/>
+      figure="LargeItemFigure"
+      accessor="//@figures.0/@descriptors.1/@accessors.0"/>
   <labels
       name="LargeItemWeight"
-      figure="LargeItemWeightFigure"
-      elementIcon="false"/>
+      figure="LargeItemFigure"
+      elementIcon="false"
+      accessor="//@figures.0/@descriptors.1/@accessors.1"/>
   <labels
       name="RouteDescription"
       figure="RouteDescriptionFigure"/>
