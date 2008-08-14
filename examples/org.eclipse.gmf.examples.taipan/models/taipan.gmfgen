@@ -297,6 +297,7 @@
             xsi:type="gmfgen:DefaultSizeAttributes"
             width="60"
             height="50"/>
+        <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <behaviour
@@ -307,6 +308,8 @@
         <metaClass
             href="taipan.genmodel#//taipan/Port"/>
         <containmentMetaFeature
+            href="taipan.genmodel#//taipan/Aquatory/ports"/>
+        <childMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/ports"/>
       </modelFacet>
       <labels
@@ -319,7 +322,10 @@
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
+          <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+        </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewMethod="NATIVE"
