@@ -400,14 +400,18 @@
           xsi:type="gmfgen:MetamodelType"
           editHelperClassName="WarshipEditHelper"/>
       <viewmap
-          xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.WarshipShape">
+          xsi:type="gmfgen:InnerClassViewmap"
+          className="WarshipFigure"
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class WarshipFigure extends org.eclipse.gmf.examples.taipan.figures.WarshipShape {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureWarshipNameLabel; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public WarshipFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureWarshipNameLabel = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;fFigureWarshipNameLabel.setText(&quot;&quot;);&#xA;&#xA;this.add(fFigureWarshipNameLabel);&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureWarshipNameLabel() {&#xA;&#x9;&#x9;return fFigureWarshipNameLabel;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;">
+        <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/Warship"/>
         <containmentMetaFeature
+            href="taipan.genmodel#//taipan/Aquatory/ships"/>
+        <childMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/ships"/>
       </modelFacet>
       <labels
@@ -418,10 +422,9 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
-          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-        </viewmap>
+            xsi:type="gmfgen:ParentAssignedViewmap"
+            getterName="getFigureWarshipNameLabel"
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewMethod="NATIVE"
@@ -447,6 +450,7 @@
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DirectedConnection">
+        <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
@@ -467,6 +471,7 @@
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
+          <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
@@ -489,6 +494,7 @@
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx">
+        <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
@@ -497,6 +503,8 @@
         <metaClass
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
+            href="taipan.genmodel#//taipan/Aquatory/routes"/>
+        <childMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/routes"/>
         <modelElementInitializer
             xsi:type="gmfgen:GenFeatureSeqInitializer">
@@ -526,6 +534,7 @@
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
+          <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
@@ -550,6 +559,7 @@
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="60"/>
+          <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet

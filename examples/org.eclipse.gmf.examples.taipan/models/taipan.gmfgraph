@@ -81,6 +81,19 @@
       <accessors
           figure="//@figures.0/@descriptors.7/@actualFigure/@children.0"/>
     </descriptors>
+    <descriptors
+        name="WarshipFigure">
+      <actualFigure
+          xsi:type="gmfgraph:CustomFigure"
+          name="WarshipShape"
+          qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.WarshipShape">
+        <children
+            xsi:type="gmfgraph:Label"
+            name="WarshipNameLabel"/>
+      </actualFigure>
+      <accessors
+          figure="//@figures.0/@descriptors.8/@actualFigure/@children.0"/>
+    </descriptors>
   </figures>
   <figures
       name="links"
@@ -199,6 +212,9 @@
   <nodes
       name="Building"
       figure="BuildingFigure"/>
+  <nodes
+      name="Warship"
+      figure="WarshipFigure"/>
   <connections
       name="ReliableRoute"
       figure="ReliableRouteFigure"/>
@@ -266,4 +282,9 @@
       figure="BuildingFigure"
       elementIcon="false"
       accessor="//@figures.0/@descriptors.7/@accessors.0"/>
+  <labels
+      name="WarshipName"
+      figure="WarshipFigure"
+      elementIcon="false"
+      accessor="//@figures.0/@descriptors.8/@accessors.0"/>
 </gmfgraph:Canvas>
