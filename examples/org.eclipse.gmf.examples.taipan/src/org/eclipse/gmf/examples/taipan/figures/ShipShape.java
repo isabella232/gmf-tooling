@@ -16,8 +16,9 @@ import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ImageFigure;
-import org.eclipse.draw2d.StackLayout;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
+import org.eclipse.draw2d.LayoutManager;
+import org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure;
+import org.eclipse.gmf.runtime.diagram.ui.figures.ShapeCompartmentFigure;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
@@ -29,21 +30,25 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  */
 public class ShipShape extends Figure {
 
-	private WrappingLabel label;
-
-	private IFigure smallCargo;
-
-	private IFigure largeCargo;
-
 	public ShipShape() {
 		GridLayout layout = new GridLayout(2, false);
-		setLayoutManager(layout);
+		super.setLayoutManager(layout);
 		add(new ImageFigure(getShipImage()), new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false, 1, 2));
-		add(label = new WrappingLabel(), new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false, 1, 1));
-		add(smallCargo = new Figure(), new GridData(SWT.FILL, SWT.BEGINNING, true, false, 1, 1));
-		smallCargo.setLayoutManager(new StackLayout());
-		add(largeCargo = new Figure(), new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
-		largeCargo.setLayoutManager(new StackLayout());
+	}
+
+	@Override
+	public void setLayoutManager(LayoutManager manager) {
+	}
+
+	@Override
+	public void add(IFigure figure, Object constraint, int index) {
+		if (figure instanceof ShapeCompartmentFigure) {
+			constraint = new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1);
+			figure.setBorder(new LargeCargoBorder());
+		} else if (figure instanceof ResizableCompartmentFigure) {
+			constraint = new GridData(SWT.FILL, SWT.BEGINNING, true, false, 1, 1);
+		}
+		super.add(figure, constraint, index);
 	}
 
 	protected Image getShipImage() {
@@ -60,17 +65,5 @@ public class ShipShape extends Figure {
 			JFaceResources.getImageRegistry().put(path, image = descriptor.createImage());
 		}
 		return image;
-	}
-
-	public WrappingLabel getLabel() {
-		return label;
-	}
-
-	public IFigure getSmallCargo() {
-		return smallCargo;
-	}
-
-	public IFigure getLargeCargo() {
-		return largeCargo;
 	}
 }

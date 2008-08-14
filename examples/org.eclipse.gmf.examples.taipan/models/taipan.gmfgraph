@@ -12,9 +12,18 @@
           xsi:type="gmfgraph:CustomFigure"
           name="ShipShape"
           qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ShipShape">
+        <layout
+            xsi:type="gmfgraph:GridLayout"
+            numColumns="2"
+            equalWidth="false"/>
         <children
             xsi:type="gmfgraph:Label"
-            name="ShipNameLabel"/>
+            name="ShipNameLabel">
+          <layoutData
+              xsi:type="gmfgraph:GridLayoutData"
+              verticalAlignment="BEGINNING"
+              horizontalAlignment="BEGINNING"/>
+        </children>
       </actualFigure>
       <accessors
           figure="//@figures.0/@descriptors.0/@actualFigure/@children.0"/>
@@ -87,9 +96,18 @@
           xsi:type="gmfgraph:CustomFigure"
           name="WarshipShape"
           qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.WarshipShape">
+        <layout
+            xsi:type="gmfgraph:GridLayout"
+            numColumns="2"
+            equalWidth="false"/>
         <children
             xsi:type="gmfgraph:Label"
-            name="WarshipNameLabel"/>
+            name="WarshipNameLabel">
+          <layoutData
+              xsi:type="gmfgraph:GridLayoutData"
+              verticalAlignment="BEGINNING"
+              horizontalAlignment="BEGINNING"/>
+        </children>
       </actualFigure>
       <accessors
           figure="//@figures.0/@descriptors.8/@actualFigure/@children.0"/>
