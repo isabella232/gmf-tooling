@@ -36,8 +36,7 @@
         name="SmallItemsFigure">
       <actualFigure
           xsi:type="gmfgraph:Label"
-          name="SmallItemsLabel"
-          text=""/>
+          name="SmallItemsLabel"/>
     </descriptors>
     <descriptors
         name="PortFigure">
@@ -50,8 +49,7 @@
         name="PortLocationFigure">
       <actualFigure
           xsi:type="gmfgraph:Label"
-          name="PortLocationLabel"
-          text=""/>
+          name="PortLocationLabel"/>
     </descriptors>
     <descriptors
         name="BuildingFigure">
