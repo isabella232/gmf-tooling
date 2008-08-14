@@ -111,7 +111,7 @@ public class TaiPanValidationProvider extends AbstractContributionItemProvider {
 	/**
 	 * @generated
 	 */
-	public static class PortLocation implements IClientSelector {
+	public static class DefaultCtx implements IClientSelector {
 
 		/**
 		 * @generated
@@ -124,33 +124,7 @@ public class TaiPanValidationProvider extends AbstractContributionItemProvider {
 	/**
 	 * @generated
 	 */
-	public static class ShipName implements IClientSelector {
-
-		/**
-		 * @generated
-		 */
-		public boolean selects(Object object) {
-			return isInDefaultEditorContext(object);
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class LargeItemWeight implements IClientSelector {
-
-		/**
-		 * @generated
-		 */
-		public boolean selects(Object object) {
-			return isInDefaultEditorContext(object);
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class ShipType implements IClientSelector {
+	public static class Ctx_2002 implements IClientSelector {
 
 		/**
 		 * @generated
