@@ -683,7 +683,10 @@
           editHelperAdviceClassName="ShipRouteEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DirectedConnection"/>
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DirectedConnection">
+        <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
       <modelFacet
           xsi:type="gmfgen:FeatureLinkModelFacet">
         <metaFeature
