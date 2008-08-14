@@ -33,6 +33,13 @@ public class RegexpParser extends AbstractParser {
 	/**
 	 * @generated
 	 */
+	public RegexpParser(EAttribute[] features, EAttribute[] editableFeatures) {
+		super(features, editableFeatures);
+	}
+
+	/**
+	 * @generated
+	 */
 	public String getEditPattern() {
 		String pattern = super.getEditPattern();
 		return pattern != null ? pattern : " "; //$NON-NLS-1$

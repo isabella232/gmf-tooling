@@ -30,5 +30,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ocl.ecore;visibility:=reexport,
  org.eclipse.emf.validation;visibility:=reexport,
  org.eclipse.gef;visibility:=reexport,
- org.eclipse.gmf.runtime.lite.svg;visibility:=reexport
+ org.eclipse.gmf.runtime.lite.svg;visibility:=reexport,
+ org.eclipse.gmf.runtime.notation;visibility:=reexport,
+ org.eclipse.gmf.runtime.draw2d.ui;visibility:=reexport
 Eclipse-LazyStart: true

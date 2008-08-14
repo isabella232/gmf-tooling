@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Route;
+import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
@@ -61,6 +62,11 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	private static final String DEBUG_KEY = "org.eclipse.gmf.examples.taipan.gmf.editor.rcp/debug/visualID"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	private static TaiPanAbstractExpression Ship_2002_Constraint;
 
 	/**
 	 * @generated
@@ -187,7 +193,7 @@ public class TaiPanVisualIDRegistry {
 			if (TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElement.eClass())) {
 				return PortEditPart.VISUAL_ID;
 			}
-			if (TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElement.eClass())) {
+			if (TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElement.eClass()) && isShip_2002((Ship) domainElement)) {
 				return ShipEditPart.VISUAL_ID;
 			}
 			if (TaiPanPackage.eINSTANCE.getWarship().isSuperTypeOf(domainElement.eClass())) {
@@ -344,6 +350,17 @@ public class TaiPanVisualIDRegistry {
 	 */
 	private static boolean isDiagram(Aquatory element) {
 		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static boolean isShip_2002(Ship domainElement) {
+		if (Ship_2002_Constraint == null) { // lazy initialization
+			Ship_2002_Constraint = TaiPanOCLFactory.getExpression("not self.oclIsKindOf(Warship)", TaiPanPackage.eINSTANCE.getShip()); //$NON-NLS-1$
+		}
+		Object result = Ship_2002_Constraint.evaluate(domainElement);
+		return result instanceof Boolean && ((Boolean) result).booleanValue();
 	}
 
 	/**

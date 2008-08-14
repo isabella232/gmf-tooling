@@ -24,9 +24,11 @@ import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gmf.examples.taipan.figures.PileShape;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.LargeItemItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
@@ -99,14 +101,66 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		return primaryShape = new PileShape();
+		LargeItemFigure figure = new LargeItemFigure();
+		return primaryShape = figure;
 	}
 
 	/**
 	 * @generated
 	 */
-	public PileShape getPrimaryShape() {
-		return (PileShape) primaryShape;
+	public LargeItemFigure getPrimaryShape() {
+		return (LargeItemFigure) primaryShape;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean addFixedChild(EditPart childEditPart) {
+		if (childEditPart instanceof LargeItemArticleEditPart) {
+			((LargeItemArticleEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemArticleLabel());
+			return true;
+		}
+		if (childEditPart instanceof LargeItemWeightEditPart) {
+			((LargeItemWeightEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemWeightLabel());
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean removeFixedChild(EditPart childEditPart) {
+
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (addFixedChild(childEditPart)) {
+			return;
+		}
+		super.addChildVisual(childEditPart, -1);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (removeFixedChild(childEditPart)) {
+			return;
+		}
+		super.removeChildVisual(childEditPart);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
+
+		return super.getContentPaneFor(editPart);
 	}
 
 	/**
@@ -200,6 +254,80 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 */
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(TaiPanVisualIDRegistry.getType(LargeItemArticleEditPart.VISUAL_ID));
+	}
+
+	/**
+	 * @generated
+	 */
+	public class LargeItemFigure extends PileShape {
+
+		/**
+		 * @generated
+		 */
+		private WrappingLabel fFigureLargeItemArticleLabel;
+		/**
+		 * @generated
+		 */
+		private WrappingLabel fFigureLargeItemWeightLabel;
+
+		/**
+		 * @generated
+		 */
+		public LargeItemFigure() {
+
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
+
+			fFigureLargeItemArticleLabel = new WrappingLabel();
+			fFigureLargeItemArticleLabel.setText("");
+
+			this.add(fFigureLargeItemArticleLabel);
+
+			fFigureLargeItemWeightLabel = new WrappingLabel();
+			fFigureLargeItemWeightLabel.setText("");
+
+			this.add(fFigureLargeItemWeightLabel);
+
+		}
+
+		/**
+		 * @generated
+		 */
+		private boolean myUseLocalCoordinates = false;
+
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		public WrappingLabel getFigureLargeItemArticleLabel() {
+			return fFigureLargeItemArticleLabel;
+		}
+
+		/**
+		 * @generated
+		 */
+		public WrappingLabel getFigureLargeItemWeightLabel() {
+			return fFigureLargeItemWeightLabel;
+		}
+
 	}
 
 }

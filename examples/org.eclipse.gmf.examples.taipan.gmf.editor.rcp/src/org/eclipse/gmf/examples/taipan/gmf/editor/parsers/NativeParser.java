@@ -39,8 +39,28 @@ public class NativeParser extends AbstractParser {
 	/**
 	 * @generated
 	 */
+	public NativeParser(EAttribute[] features, EAttribute[] editableFeatures) {
+		super(features, editableFeatures);
+		if (features.length != 1) {
+			throw new IllegalArgumentException(Arrays.toString(features));
+		}
+		if (editableFeatures.length != 1) {
+			throw new IllegalArgumentException(Arrays.toString(editableFeatures));
+		}
+	}
+
+	/**
+	 * @generated
+	 */
 	protected EAttribute getAttribute() {
 		return features[0];
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EAttribute getEditableAttribute() {
+		return editableFeatures[0];
 	}
 
 	/**
@@ -57,7 +77,10 @@ public class NativeParser extends AbstractParser {
 	 * @generated
 	 */
 	public String getEditString(IAdaptable adapter, int flags) {
-		return getPrintString(adapter, flags);
+		EObject element = (EObject) adapter.getAdapter(EObject.class);
+		EAttribute feature = getEditableAttribute();
+		String s = EcoreUtil.convertToString(feature.getEAttributeType(), element.eGet(feature));
+		return s != null ? s : ""; //$NON-NLS-1$
 	}
 
 	/**
@@ -71,7 +94,7 @@ public class NativeParser extends AbstractParser {
 	 * @generated
 	 */
 	public ICommand getParseCommand(IAdaptable adapter, String newString, int flags) {
-		EAttribute feature = getAttribute();
+		EAttribute feature = getEditableAttribute();
 		Object value = EcoreUtil.createFromString(feature.getEAttributeType(), newString);
 		return getParseCommand(adapter, new Object[] { value }, flags);
 	}

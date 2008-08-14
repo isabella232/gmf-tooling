@@ -201,7 +201,7 @@ public class EmptyBoxEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		public EmptyBoxFigure() {
-			this.setURI("platform:/plugin/org.eclipse.gmf.examples.taipan/images/box.svg", true);
+			this.setURI("platform:/plugin/org.eclipse.gmf.examples.taipan/images/box.svg");
 		}
 
 		/**

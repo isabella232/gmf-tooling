@@ -12,12 +12,14 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.draw2d.Connection;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.examples.taipan.figures.DashedConnection;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.UnreliableRouteItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITreeBranchEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -72,14 +74,29 @@ public class UnreliableRouteEditPart extends ConnectionNodeEditPart implements I
 	 */
 
 	protected Connection createConnectionFigure() {
-		return new DashedConnection();
+		return new UnreliableRouteFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public DashedConnection getPrimaryShape() {
-		return (DashedConnection) getFigure();
+	public UnreliableRouteFigure getPrimaryShape() {
+		return (UnreliableRouteFigure) getFigure();
+	}
+
+	/**
+	 * @generated
+	 */
+	public class UnreliableRouteFigure extends PolylineConnectionEx {
+
+		/**
+		 * @generated
+		 */
+		public UnreliableRouteFigure() {
+			this.setLineStyle(Graphics.LINE_DASH);
+
+		}
+
 	}
 
 }

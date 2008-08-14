@@ -294,137 +294,137 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String AquatoryGroup_title;
+	public static String Aquatory1Group_title;
 
 	/**
 	 * @generated
 	 */
-	public static String PortTool_title;
+	public static String Port1CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String PortTool_desc;
+	public static String Port1CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String ShipTool_title;
+	public static String Ship2CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String ShipTool_desc;
+	public static String Ship2CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String WarshipTool_title;
+	public static String Warship3CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String WarshipTool_desc;
+	public static String Warship3CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String SmallItemsTool_title;
+	public static String SmallItems4CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String SmallItemsTool_desc;
+	public static String SmallItems4CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String LargeItemTool_title;
+	public static String LargeItem5CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String LargeItemTool_desc;
+	public static String LargeItem5CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String EmptyBoxTool_title;
+	public static String EmptyBox6CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String EmptyBoxTool_desc;
+	public static String EmptyBox6CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String ReliableRouteTool_title;
+	public static String ReliableRoute7CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String ReliableRouteTool_desc;
+	public static String ReliableRoute7CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String UnreliableRouteTool_title;
+	public static String UnreliableRoute8CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String UnreliableRouteTool_desc;
+	public static String UnreliableRoute8CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String RegistrationTool_title;
+	public static String Registration9CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String RegistrationTool_desc;
+	public static String Registration9CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String ShipDestinationTool_title;
+	public static String ShipDestination10CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String ShipDestinationTool_desc;
+	public static String ShipDestination10CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String ShipRouteTool_title;
+	public static String ShipRoute11CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String ShipRouteTool_desc;
+	public static String ShipRoute11CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String BesiegePortOrderTool_title;
+	public static String BesiegePortOrder12CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String BesiegePortOrderTool_desc;
+	public static String BesiegePortOrder12CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String EscortShipsOrderTool_title;
+	public static String EscortShipsOrder13CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String EscortShipsOrderTool_desc;
+	public static String EscortShipsOrder13CreationTool_desc;
 
 	/**
 	 * @generated

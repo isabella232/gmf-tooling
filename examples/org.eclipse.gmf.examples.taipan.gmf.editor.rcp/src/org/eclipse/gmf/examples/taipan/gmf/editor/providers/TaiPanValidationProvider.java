@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +30,7 @@ import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ITraversalStrategy;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
@@ -104,6 +106,156 @@ public class TaiPanValidationProvider extends AbstractContributionItemProvider {
 			return constraintsActive && AquatoryEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID((View) object));
 		}
 		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class DefaultCtx implements IClientSelector {
+
+		/**
+		 * @generated
+		 */
+		public boolean selects(Object object) {
+			return isInDefaultEditorContext(object);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class Ctx_2002 implements IClientSelector {
+
+		/**
+		 * @generated
+		 */
+		public boolean selects(Object object) {
+			if (isInDefaultEditorContext(object) && object instanceof View) {
+				final int id = TaiPanVisualIDRegistry.getVisualID((View) object);
+				boolean result = false;
+				result = result || id == ShipEditPart.VISUAL_ID;
+				return result;
+			}
+			return false;
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public static ITraversalStrategy getNotationTraversalStrategy(IBatchValidator validator) {
+		return new CtxSwitchStrategy(validator);
+	}
+
+	/**
+	 * @generated
+	 */
+	private static class CtxSwitchStrategy implements ITraversalStrategy {
+
+		/**
+		 * @generated
+		 */
+		private ITraversalStrategy defaultStrategy;
+
+		/**
+		 * @generated
+		 */
+		private int currentSemanticCtxId = -1;
+
+		/**
+		 * @generated
+		 */
+		private boolean ctxChanged = true;
+
+		/**
+		 * @generated
+		 */
+		private EObject currentTarget;
+
+		/**
+		 * @generated
+		 */
+		private EObject preFetchedNextTarget;
+
+		/**
+		 * @generated
+		 */
+		private final int[] contextSwitchingIdentifiers;
+
+		/**
+		 * @generated
+		 */
+		CtxSwitchStrategy(IBatchValidator validator) {
+			this.defaultStrategy = validator.getDefaultTraversalStrategy();
+			this.contextSwitchingIdentifiers = new int[] { ShipEditPart.VISUAL_ID };
+			Arrays.sort(this.contextSwitchingIdentifiers);
+		}
+
+		/**
+		 * @generated
+		 */
+		public void elementValidated(EObject element, IStatus status) {
+			defaultStrategy.elementValidated(element, status);
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean hasNext() {
+			return defaultStrategy.hasNext();
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean isClientContextChanged() {
+			if (preFetchedNextTarget == null) {
+				preFetchedNextTarget = next();
+				prepareNextClientContext(preFetchedNextTarget);
+			}
+			return ctxChanged;
+		}
+
+		/**
+		 * @generated
+		 */
+		public EObject next() {
+			EObject nextTarget = preFetchedNextTarget;
+			if (nextTarget == null) {
+				nextTarget = defaultStrategy.next();
+			}
+			this.preFetchedNextTarget = null;
+			return this.currentTarget = nextTarget;
+		}
+
+		/**
+		 * @generated
+		 */
+		public void startTraversal(Collection traversalRoots, IProgressMonitor monitor) {
+			defaultStrategy.startTraversal(traversalRoots, monitor);
+		}
+
+		/**
+		 * @generated
+		 */
+		private void prepareNextClientContext(EObject nextTarget) {
+			if (nextTarget != null && currentTarget != null) {
+				if (nextTarget instanceof View) {
+					final int id = TaiPanVisualIDRegistry.getVisualID((View) nextTarget);
+					int nextSemanticId = (id != -1 && Arrays.binarySearch(contextSwitchingIdentifiers, id) >= 0) ? id : -1;
+					if ((currentSemanticCtxId != -1 && currentSemanticCtxId != nextSemanticId) || (nextSemanticId != -1 && nextSemanticId != currentSemanticCtxId)) {
+						this.ctxChanged = true;
+					}
+					currentSemanticCtxId = nextSemanticId;
+				} else {
+					// context of domain model
+					this.ctxChanged = currentSemanticCtxId != -1;
+					currentSemanticCtxId = -1;
+				}
+			} else {
+				this.ctxChanged = false;
+			}
+		}
 	}
 
 	/**

@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
+import org.eclipse.draw2d.GridData;
+import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.StackLayout;
@@ -23,19 +25,18 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
-import org.eclipse.gmf.examples.taipan.figures.LargeCargoBorder;
 import org.eclipse.gmf.examples.taipan.figures.ShipShape;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure;
-import org.eclipse.gmf.runtime.diagram.ui.figures.ShapeCompartmentFigure;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
@@ -126,14 +127,62 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		return primaryShape = new ShipShape();
+		ShipFigure figure = new ShipFigure();
+		return primaryShape = figure;
 	}
 
 	/**
 	 * @generated
 	 */
-	public ShipShape getPrimaryShape() {
-		return (ShipShape) primaryShape;
+	public ShipFigure getPrimaryShape() {
+		return (ShipFigure) primaryShape;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean addFixedChild(EditPart childEditPart) {
+		if (childEditPart instanceof ShipNameEditPart) {
+			((ShipNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureShipNameLabel());
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean removeFixedChild(EditPart childEditPart) {
+
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (addFixedChild(childEditPart)) {
+			return;
+		}
+		super.addChildVisual(childEditPart, -1);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (removeFixedChild(childEditPart)) {
+			return;
+		}
+		super.removeChildVisual(childEditPart);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
+
+		return super.getContentPaneFor(editPart);
 	}
 
 	/**
@@ -222,31 +271,6 @@ public class ShipEditPart extends ShapeNodeEditPart {
 		}
 	}
 
-	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (childEditPart instanceof ShipNameEditPart) {
-			((ShipNameEditPart) childEditPart).setLabel(getPrimaryShape().getLabel());
-		} else if (childEditPart instanceof ShipSmallCargoEditPart) {
-			ResizableCompartmentFigure childFigure = ((ShipSmallCargoEditPart) childEditPart).getCompartmentFigure();
-			getPrimaryShape().getSmallCargo().add(childFigure);
-		} else if (childEditPart instanceof ShipLargeCargoEditPart) {
-			ShapeCompartmentFigure childFigure = ((ShipLargeCargoEditPart) childEditPart).getShapeCompartmentFigure();
-			childFigure.setBorder(new LargeCargoBorder());
-			getPrimaryShape().getLargeCargo().add(childFigure);
-		} else {
-			super.addChildVisual(childEditPart, index);
-		}
-	}
-
-	protected void removeChildVisual(EditPart childEditPart) {
-		if (childEditPart instanceof ShipSmallCargoEditPart) {
-			getPrimaryShape().getSmallCargo().remove(((ShipSmallCargoEditPart) childEditPart).getFigure());
-		} else if (childEditPart instanceof ShipLargeCargoEditPart) {
-			getPrimaryShape().getLargeCargo().remove(((ShipLargeCargoEditPart) childEditPart).getFigure());
-		} else {
-			super.removeChildVisual(childEditPart);
-		}
-	}
-
 	/**
 	 * @generated
 	 */
@@ -263,6 +287,77 @@ public class ShipEditPart extends ShapeNodeEditPart {
 		} else {
 			super.handleNotificationEvent(event);
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public class ShipFigure extends ShipShape {
+
+		/**
+		 * @generated
+		 */
+		private WrappingLabel fFigureShipNameLabel;
+
+		/**
+		 * @generated
+		 */
+		public ShipFigure() {
+
+			GridLayout layoutThis = new GridLayout();
+			layoutThis.numColumns = 2;
+			layoutThis.makeColumnsEqualWidth = false;
+			this.setLayoutManager(layoutThis);
+
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
+
+			fFigureShipNameLabel = new WrappingLabel();
+			fFigureShipNameLabel.setText("");
+
+			GridData constraintFFigureShipNameLabel = new GridData();
+			constraintFFigureShipNameLabel.verticalAlignment = GridData.BEGINNING;
+			constraintFFigureShipNameLabel.horizontalAlignment = GridData.BEGINNING;
+			constraintFFigureShipNameLabel.horizontalIndent = 0;
+			constraintFFigureShipNameLabel.horizontalSpan = 1;
+			constraintFFigureShipNameLabel.verticalSpan = 1;
+			constraintFFigureShipNameLabel.grabExcessHorizontalSpace = false;
+			constraintFFigureShipNameLabel.grabExcessVerticalSpace = false;
+			this.add(fFigureShipNameLabel, constraintFFigureShipNameLabel);
+
+		}
+
+		/**
+		 * @generated
+		 */
+		private boolean myUseLocalCoordinates = false;
+
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		public WrappingLabel getFigureShipNameLabel() {
+			return fFigureShipNameLabel;
+		}
+
 	}
 
 }
