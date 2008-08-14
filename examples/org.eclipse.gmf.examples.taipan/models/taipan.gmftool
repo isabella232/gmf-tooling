@@ -67,27 +67,39 @@
           title="Reliable Route"
           description="Mark reliable route">
         <smallIcon
-            xsi:type="gmftool:DefaultImage"/>
+            xsi:type="gmftool:BundleImage"
+            path="icons/full/obj16/Route.gif"
+            bundle="org.eclipse.gmf.examples.taipan.edit"/>
         <largeIcon
-            xsi:type="gmftool:DefaultImage"/>
+            xsi:type="gmftool:BundleImage"
+            path="icons/full/obj16/Route.gif"
+            bundle="org.eclipse.gmf.examples.taipan.edit"/>
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
           title="Unreliable Route"
           description="Mark unreliable route">
         <smallIcon
-            xsi:type="gmftool:DefaultImage"/>
+            xsi:type="gmftool:BundleImage"
+            path="icons/full/obj16/UnreliableRoute.gif"
+            bundle="org.eclipse.gmf.examples.taipan.edit"/>
         <largeIcon
-            xsi:type="gmftool:DefaultImage"/>
+            xsi:type="gmftool:BundleImage"
+            path="icons/full/obj16/UnreliableRoute.gif"
+            bundle="org.eclipse.gmf.examples.taipan.edit"/>
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
           title="Registration"
           description="Register ship in port">
         <smallIcon
-            xsi:type="gmftool:DefaultImage"/>
+            xsi:type="gmftool:BundleImage"
+            path="icons/full/obj16/ShipRegistration.gif"
+            bundle="org.eclipse.gmf.examples.taipan.edit"/>
         <largeIcon
-            xsi:type="gmftool:DefaultImage"/>
+            xsi:type="gmftool:BundleImage"
+            path="icons/full/obj16/ShipRegistration.gif"
+            bundle="org.eclipse.gmf.examples.taipan.edit"/>
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
@@ -107,9 +119,13 @@
           title="Ship Route"
           description="Assign ship to route">
         <smallIcon
-            xsi:type="gmftool:DefaultImage"/>
+            xsi:type="gmftool:BundleImage"
+            path="icons/full/obj16/ShipRoute.gif"
+            bundle="org.eclipse.gmf.examples.taipan.edit"/>
         <largeIcon
-            xsi:type="gmftool:DefaultImage"/>
+            xsi:type="gmftool:BundleImage"
+            path="icons/full/obj16/ShipRoute.gif"
+            bundle="org.eclipse.gmf.examples.taipan.edit"/>
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
