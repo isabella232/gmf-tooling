@@ -587,14 +587,20 @@
           metamodelType="//@diagram/@links.1/@elementType"
           editHelperAdviceClassName="UnreliableRouteEditHelperAdvice"/>
       <viewmap
-          xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.DashedConnection"/>
+          xsi:type="gmfgen:InnerClassViewmap"
+          className="UnreliableRouteFigure"
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class UnreliableRouteFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public UnreliableRouteFigure() {&#xA;&#x9;&#x9;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
+        <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet"
           modelElementSelector="//@expressionProviders/@providers.0/@expressions.2">
         <metaClass
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
+            href="taipan.genmodel#//taipan/Aquatory/routes"/>
+        <childMetaFeature
             href="taipan.genmodel#//taipan/Aquatory/routes"/>
         <modelElementInitializer
             xsi:type="gmfgen:GenFeatureSeqInitializer">
@@ -624,6 +630,7 @@
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
+          <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
@@ -648,6 +655,7 @@
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="60"/>
+          <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
