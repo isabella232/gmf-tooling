@@ -33,6 +33,8 @@
     <ownedChild>
       <domainMetaElement
           href="taipan.ecore#//Ship"/>
+      <domainSpecialization
+          body="not self.oclIsKindOf(Warship)"/>
       <labelMappings
           xsi:type="gmfmap:FeatureLabelMapping"
           viewMethod="NATIVE"
