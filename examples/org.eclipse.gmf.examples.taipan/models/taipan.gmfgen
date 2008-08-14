@@ -707,6 +707,7 @@
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ArrowConnection">
+        <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
@@ -714,6 +715,8 @@
         <metaClass
             href="taipan.genmodel#//taipan/BesiegePortOrder"/>
         <containmentMetaFeature
+            href="taipan.genmodel#//taipan/Warship/attackOrders"/>
+        <childMetaFeature
             href="taipan.genmodel#//taipan/Warship/attackOrders"/>
         <targetMetaFeature
             href="taipan.genmodel#//taipan/BesiegePortOrder/port"/>
