@@ -11,7 +11,13 @@
       <actualFigure
           xsi:type="gmfgraph:CustomFigure"
           name="ShipShape"
-          qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ShipShape"/>
+          qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ShipShape">
+        <children
+            xsi:type="gmfgraph:Label"
+            name="ShipNameLabel"/>
+      </actualFigure>
+      <accessors
+          figure="//@figures.0/@descriptors.0/@actualFigure/@children.0"/>
     </descriptors>
     <descriptors
         name="LargeItemFigure">
@@ -74,12 +80,6 @@
       </actualFigure>
       <accessors
           figure="//@figures.0/@descriptors.7/@actualFigure/@children.0"/>
-    </descriptors>
-    <descriptors
-        name="ShipNameFigure">
-      <actualFigure
-          xsi:type="gmfgraph:Label"
-          name="ShipNameLabel"/>
     </descriptors>
   </figures>
   <figures
@@ -234,7 +234,9 @@
       elementIcon="false"/>
   <labels
       name="ShipName"
-      figure="ShipNameFigure"/>
+      figure="ShipFigure"
+      elementIcon="false"
+      accessor="//@figures.0/@descriptors.0/@accessors.0"/>
   <labels
       name="SmallItems"
       figure="SmallItemsFigure"
