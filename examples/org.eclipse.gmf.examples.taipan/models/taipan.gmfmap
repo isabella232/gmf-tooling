@@ -398,5 +398,60 @@
             href="taipan.ecore#//Ship/name"/>
       </target>
     </audits>
+    <audits
+        name="Large Item Weight"
+        description="Large item weight check"
+        id="litem_weight"
+        message="Large item weight should be greater than zero.">
+      <rule
+          body="weight > 0"/>
+      <target
+          xsi:type="gmfmap:DomainElementTarget">
+        <element
+            href="taipan.ecore#//LargeItem"/>
+      </target>
+    </audits>
+    <audits
+        name="Ship Type"
+        description="Ship type check"
+        id="ship_type"
+        message="Invalid ship type.">
+      <rule
+          body="element.eClass().name = 'Ship'"/>
+      <target
+          xsi:type="gmfmap:DiagramElementTarget"
+          element="//@nodes.1/@ownedChild"/>
+    </audits>
   </audits>
+  <metrics>
+    <metrics
+        name="Route Reliability"
+        description="Safety of the route."
+        key="RouteRelb"
+        lowLimit="0.1"
+        highLimit="0.9">
+      <rule
+          body="reliability"/>
+      <target
+          xsi:type="gmfmap:DomainElementTarget">
+        <element
+            href="taipan.ecore#//Route"/>
+      </target>
+    </metrics>
+    <metrics
+        name="Ship Load"
+        description="Quantity of items loaded on ship."
+        key="ShipLoad"
+        lowLimit="1.0"
+        highLimit="5.0">
+      <rule
+          body="cargo.size()"
+          language="java"/>
+      <target
+          xsi:type="gmfmap:DomainElementTarget">
+        <element
+            href="taipan.ecore#//Ship"/>
+      </target>
+    </metrics>
+  </metrics>
 </gmfmap:Mapping>
