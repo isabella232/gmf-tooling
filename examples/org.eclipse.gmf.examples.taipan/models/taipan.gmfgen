@@ -141,7 +141,7 @@
         canonicalEditPolicyClassName="SmallItemsCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="SmallItemsGraphicalNodeEditPolicy"
         createCommandClassName="SmallItemsCreateCommand"
-        containers="//@diagram/@compartments.2 //@diagram/@compartments.0">
+        containers="//@diagram/@compartments.0 //@diagram/@compartments.2">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -183,7 +183,7 @@
         canonicalEditPolicyClassName="LargeItemCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="LargeItemGraphicalNodeEditPolicy"
         createCommandClassName="LargeItemCreateCommand"
-        containers="//@diagram/@compartments.3 //@diagram/@compartments.1">
+        containers="//@diagram/@compartments.1 //@diagram/@compartments.3">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -193,12 +193,15 @@
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.PileShape">
+        <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/LargeItem"/>
         <containmentMetaFeature
+            href="taipan.genmodel#//taipan/Ship/cargo"/>
+        <childMetaFeature
             href="taipan.genmodel#//taipan/Ship/cargo"/>
       </modelFacet>
       <labels
@@ -212,6 +215,7 @@
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
+          <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
@@ -232,6 +236,7 @@
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
+          <requiredPluginIDs>org.eclipse.gmf.examples.taipan</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
@@ -251,7 +256,7 @@
         canonicalEditPolicyClassName="EmptyBoxCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EmptyBoxGraphicalNodeEditPolicy"
         createCommandClassName="EmptyBoxCreateCommand"
-        containers="//@diagram/@compartments.3 //@diagram/@compartments.1">
+        containers="//@diagram/@compartments.1 //@diagram/@compartments.3">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
