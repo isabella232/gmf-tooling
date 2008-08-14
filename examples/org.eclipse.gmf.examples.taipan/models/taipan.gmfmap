@@ -299,24 +299,14 @@
         href="taipan.ecore#//Route/destination"/>
   </links>
   <links>
-    <domainMetaElement
-        href="taipan.ecore#//EscortShipsOrder"/>
-    <containmentFeature
-        href="taipan.ecore#//Warship/escortOrder"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="taipan.gmftool#//@palette/@tools.0/@tools.12"/>
+        href="taipan.gmftool#//@palette/@tools.0/@tools.10"/>
     <diagramLink
-        href="taipan.gmfgraph#EscortShipsOrder"/>
+        href="taipan.gmfgraph#ShipRoute"/>
     <linkMetaFeature
         xsi:type="ecore:EReference"
-        href="taipan.ecore#//EscortShipsOrder/ships"/>
-    <creationConstraints>
-      <sourceEnd
-          body="self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()"/>
-      <targetEnd
-          body="not self.oclIsKindOf(Warship)"/>
-    </creationConstraints>
+        href="taipan.ecore#//Ship/route"/>
   </links>
   <links>
     <domainMetaElement
@@ -337,6 +327,26 @@
     </creationConstraints>
   </links>
   <links>
+    <domainMetaElement
+        href="taipan.ecore#//EscortShipsOrder"/>
+    <containmentFeature
+        href="taipan.ecore#//Warship/escortOrder"/>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="taipan.gmftool#//@palette/@tools.0/@tools.12"/>
+    <diagramLink
+        href="taipan.gmfgraph#EscortShipsOrder"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="taipan.ecore#//EscortShipsOrder/ships"/>
+    <creationConstraints>
+      <sourceEnd
+          body="self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()"/>
+      <targetEnd
+          body="not self.oclIsKindOf(Warship)"/>
+    </creationConstraints>
+  </links>
+  <links>
     <tool
         xsi:type="gmftool:CreationTool"
         href="taipan.gmftool#//@palette/@tools.0/@tools.8"/>
@@ -345,16 +355,6 @@
     <linkMetaFeature
         xsi:type="ecore:EReference"
         href="taipan.ecore#//Port/register"/>
-  </links>
-  <links>
-    <tool
-        xsi:type="gmftool:CreationTool"
-        href="taipan.gmftool#//@palette/@tools.0/@tools.10"/>
-    <diagramLink
-        href="taipan.gmfgraph#ShipRoute"/>
-    <linkMetaFeature
-        xsi:type="ecore:EReference"
-        href="taipan.ecore#//Ship/route"/>
   </links>
   <diagram>
     <diagramCanvas
