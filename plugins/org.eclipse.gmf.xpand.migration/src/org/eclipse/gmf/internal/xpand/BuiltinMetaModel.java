@@ -363,6 +363,7 @@ public class BuiltinMetaModel {
 	public static EOperation Double_Div_Double;
 	public static EOperation Double_Div_Int;
 	public static EOperation Double_Unary_Minus;
+	public static EOperation Object_EQ;
 	static {
 		attrNameSubsts.put("default_", "default");
 	}
@@ -442,7 +443,7 @@ public class BuiltinMetaModel {
 				return String.valueOf(target);
 			}
 		});
-		objectOps.add(new InternalOperation<Object>(opf.create("==", boolean.class, Object.class)) {
+		objectOps.add(new InternalOperation<Object>(Object_EQ = opf.create("==", boolean.class, Object.class)) {
 			@Override
 			public Object evaluate(Object target, Object[] params) {
 				return target == null ? params[0] == null : target.equals(params[0]);
