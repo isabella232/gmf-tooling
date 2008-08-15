@@ -1,0 +1,83 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+/* Auxiliary expressions */
+String getName(ecore::EClassifier eClassifier) :
+	eClassifier.name
+;
+
+String getName(ecore::EClassifier eClassifier, Collection[ecore::EJavaObject] parameter) :
+	eClassifier.name
+;
+
+Collection[ecore::EClassifier] getClassifierCollection(ecore::EPackage ePackage) :
+	ePackage.eClassifiers
+;
+
+/* Iterator variables produces by implicit collect call of extension */
+List[String] extension_ParameterDefinition(List[ecore::EClassifier] eClassifiers, Boolean it) :
+	eClassifiers.getName()
+;
+
+List[String] extension_OuterCollectionExpression(List[ecore::EPackage] ePackages) :
+	ePackages.collect(it | it.eClassifiers.getName())
+;
+
+List[String] extension_InnerCollectionExpression(List[ecore::EClassifier] eClassifiers, List[ecore::EClassifier] parameter) :
+	eClassifiers.getName(parameter.select(it | it.instanceClassName == 'Name'))
+;
+
+List[String] extension_OuterLetExpression(List[ecore::EClassifier] eClassifiers) :
+	let it = true : eClassifiers.getName()
+;
+
+List[String] extension_InnerLetExpression(List[ecore::EClassifier] eClassifiers, List[ecore::EClassifier] parameter) :
+	eClassifiers.getName(let it = parameter : it)
+;
+
+List[String] extension_InnerCollectionOperationCollectionTarget(List[ecore::EClassifier] eClassifiers, Collection[ecore::EClassifier] parameter1, ecore::EClassifier parameter2) :
+	eClassifiers.getName(parameter1.add(parameter2))
+;
+
+List[String] extension_InnerCollectionOperationCollectionParameter(List[ecore::EClassifier] eClassifiers, List[ecore::EClassifier] parameter1, Collection[ecore::EClassifier] parameter2) :
+	eClassifiers.getName(parameter1.addAll(parameter2))
+;
+
+/* Iterator variables produces by CollectionOperations on Collection */
+Collection[ecore::EJavaObject] collectionOperationTarget_ParameterDefinition(Collection[String] target, List[String] additions, Boolean it) :
+	target.addAll(additions)
+;
+
+Collection[ecore::EJavaObject] collectionOperationParameter_ParameterDefinition(List[String] target, Collection[String] additions, Boolean it) :
+	target.addAll(additions)
+;
+
+List[ecore::EJavaObject] collectionOperationTarget_OuterCollectionExpression(List[ecore::EPackage] ePackages, Set[ecore::EClassifier] additions) :
+	ePackages.collect(it | getClassifierCollection(it).addAll(additions))
+;
+
+List[ecore::EJavaObject] collectionOperationParameter_OuterCollectionExpression(List[ecore::EPackage] ePackages, Set[ecore::EClassifier] additions) :
+	ePackages.collect(it | additions.addAll(getClassifierCollection(it)))
+;
+
+Collection[ecore::EJavaObject] collectionOperationTarget_InnerCollectionExpression(List[ecore::EPackage] ePackages, Collection[ecore::EClassifier] eClassifiers) :
+	eClassifiers.union(ePackages.collect(it | it.eClassifiers))
+;
+
+Collection[ecore::EJavaObject] collectionOperationParameter_InnerCollectionExpression(List[ecore::EPackage] ePackages, Collection[ecore::EClassifier] eClassifiers) :
+	ePackages.collect(it | it.eClassifiers).union(eClassifiers)
+;
+
+Collection[ecore::EJavaObject] collectionOperationTargetParameter_OuterLetExpression(Collection[ecore::EClassifier] eClassifiers, Collection[ecore::EClassifier] additions) :
+	let it = true : eClassifiers.intersect(additions)
+;
+Collection[ecore::EJavaObject] collectionOperationTargetParameter_InnerLetExpression(Collection[ecore::EClassifier] eClassifiers, Collection[ecore::EClassifier] exceptions) :
+	eClassifiers.without(let it = exceptions : it)
+;
+
+Collection[ecore::EJavaObject] collectionOperationTarget_InnerImplicitExtensionCollect(Collection[ecore::EClassifier] eClassifiers, Collection[ecore::EPackage] ePackages) :
+	eClassifiers.addAll(ePackages.getClassifierCollection())
+;
+
+Collection[ecore::EJavaObject] collectionOperationParameter_InnerImplicitExtensionCollect(Collection[ecore::EClassifier] eClassifiers, Collection[ecore::EPackage] ePackages) :
+	ePackages.getClassifierCollection().addAll(eClassifiers)
+;

@@ -128,6 +128,10 @@ public class XtendMigrationTest extends TestCase {
 	public void testRealLiteral() throws IOException, MigrationException {
 		checkMigration("RealLiteral");
 	}
+	
+	public void testIteratorVariableUniqueness() throws IOException, MigrationException {
+		checkMigration("IteratorVariableUniqueness");
+	}
 
 	public void testStringLiteral() throws IOException, MigrationException {
 		String resourceName = "StringLiteral";

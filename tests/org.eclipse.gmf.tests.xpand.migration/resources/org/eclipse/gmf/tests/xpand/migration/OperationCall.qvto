@@ -152,7 +152,7 @@ helper getChildrenOpOfCollection(param : Collection(testModel::Container)) : Seq
 }
 
 helper getChildrenExtOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
-	return param->collect(it_1 | getChildrenExt(it_1, param->collect(it | it)->collect(it | it)->asSequence()->first().oclAsType(testModel::Container).it))->asSequence()
+	return param->collect(it_1 | getChildrenExt(it_1, param->collect(it | it)->collect(it_2 | it_2)->asSequence()->first().oclAsType(testModel::Container).it))->asSequence()
 }
 
 helper getOrderedChildrenExt(param : testModel::Container) : Sequence(testModel::Child) { 
@@ -168,7 +168,7 @@ helper getChildrenExt(param : testModel::Container, secondParam : Boolean) : Col
 }
 
 helper innerImplicitCollect4Extensions(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
-	return param->collect(it_1 | outerExtension(it_1, param->collect(it | innerExtension(it))))
+	return param->collect(it | outerExtension(it, param->collect(it_1 | innerExtension(it_1))))
 }
 
 helper innerExtension(param : testModel::Container) : testModel::Container {

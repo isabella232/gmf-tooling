@@ -1,0 +1,83 @@
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+
+library IteratorVariableUniqueness;
+
+helper getName(eClassifier : ecore::EClassifier) : String {
+	return eClassifier.name
+}
+
+helper getName(eClassifier : ecore::EClassifier, parameter : Collection(OclAny)) : String {
+	return eClassifier.name
+}
+
+helper getClassifierCollection(ePackage : ecore::EPackage) : Collection(ecore::EClassifier) {
+	return ePackage.eClassifiers->asSequence()
+}
+
+helper extension_ParameterDefinition(eClassifiers : Sequence(ecore::EClassifier), it : Boolean) : Sequence(String) { 
+	return eClassifiers->collect(it_1 | getName(it_1)) 
+}
+
+helper extension_OuterCollectionExpression(ePackages : Sequence(ecore::EPackage)) : Sequence(String) {
+	return ePackages->collect(it | it.eClassifiers->asSequence()->collect(it_1 | getName(it_1))) 
+} 
+
+helper extension_InnerCollectionExpression(eClassifiers : Sequence(ecore::EClassifier), parameter : Sequence(ecore::EClassifier)) : Sequence(String) {
+	return eClassifiers->collect(it_1 | getName(it_1, parameter->select(it | it.instanceClassName = 'Name')))
+}
+
+helper extension_OuterLetExpression(eClassifiers : Sequence(ecore::EClassifier)) : Sequence(String) {
+	return let it = true in eClassifiers->collect(it_1 | getName(it_1)) 
+}
+
+helper extension_InnerLetExpression(eClassifiers : Sequence(ecore::EClassifier), parameter : Sequence(ecore::EClassifier)) : Sequence(String) {
+	return eClassifiers->collect(it_1 | getName(it_1, let it = parameter in it))
+}
+
+helper extension_InnerCollectionOperationCollectionTarget(eClassifiers : Sequence(ecore::EClassifier), parameter1 : Collection(ecore::EClassifier), parameter2 : ecore::EClassifier) : Sequence(String) {
+	return eClassifiers->collect(it | getName(it, parameter1->collect(it_1 | it_1.oclAsType(OclAny))->including(parameter2)))
+}
+
+helper extension_InnerCollectionOperationCollectionParameter(eClassifiers : Sequence(ecore::EClassifier), parameter1 : Sequence(ecore::EClassifier), parameter2 : Collection(ecore::EClassifier)) : Sequence(String) {
+	return eClassifiers->collect(it | getName(it, parameter1[OclAny]->union(parameter2->collect(it_1 | it_1)->asSequence())))
+}
+
+helper collectionOperationTarget_ParameterDefinition(target : Collection(String), additions : Sequence(String), it : Boolean) : Collection(OclAny) {
+	return target->collect(it_1 | it_1.oclAsType(OclAny))->union(additions->asBag())
+}
+
+helper collectionOperationParameter_ParameterDefinition(target : Sequence(String), additions : Collection(String), it : Boolean) : Collection(OclAny) {
+	return target[OclAny]->union(additions->collect(it_1 | it_1)->asSequence())
+}
+
+helper collectionOperationTarget_OuterCollectionExpression(ePackages : Sequence(ecore::EPackage), additions : Set(ecore::EClassifier)) : Sequence(OclAny) {
+	return ePackages->collect(it | getClassifierCollection(it)->collect(it_1 | it_1.oclAsType(OclAny))->union(additions))
+}
+
+helper collectionOperationParameter_OuterCollectionExpression(ePackages : Sequence(ecore::EPackage), additions : Set(ecore::EClassifier)) : Sequence(OclAny) {
+	return ePackages->collect(it | additions[OclAny]->union(getClassifierCollection(it)->collect(it_1 | it_1)->asSet()))
+}
+
+helper collectionOperationTarget_InnerCollectionExpression(ePackages : Sequence(ecore::EPackage), eClassifiers : Collection(ecore::EClassifier)) : Collection(OclAny) {
+	return eClassifiers->collect(it_1 | it_1.oclAsType(OclAny))->asSet()->union(ePackages->collect(it | it.eClassifiers->asSequence())->collect(it_2 | it_2)->asSet())
+}
+
+helper collectionOperationParameter_InnerCollectionExpression(ePackages : Sequence(ecore::EPackage), eClassifiers : Collection(ecore::EClassifier)) : Collection(OclAny) {
+	return ePackages->collect(it | it.eClassifiers->asSequence())->collect(it_1 | it_1.oclAsType(OclAny))->asSet()->union(eClassifiers->collect(it_2 | it_2)->asSet())
+}
+
+helper collectionOperationTargetParameter_OuterLetExpression(eClassifiers : Collection(ecore::EClassifier), additions : Collection(ecore::EClassifier)) : Collection(OclAny) {
+	return let it = true in eClassifiers->collect(it_1 | it_1.oclAsType(OclAny))->asSet()->intersection(additions->collect(it_2 | it_2)->asSet())
+}
+
+helper collectionOperationTargetParameter_InnerLetExpression(eClassifiers : Collection(ecore::EClassifier), exceptions : Collection(ecore::EClassifier)) : Collection(OclAny) {
+	return eClassifiers->collect(it_1 | it_1.oclAsType(OclAny))->asSet()->-(let it = exceptions in it->collect(it_2 | it_2)->asSet())
+}
+
+helper collectionOperationTarget_InnerImplicitExtensionCollect(eClassifiers : Collection(ecore::EClassifier), ePackages : Collection(ecore::EPackage)) : Collection(OclAny) {
+	return eClassifiers->collect(it | it.oclAsType(OclAny))->union(ePackages->collect(it_1 | getClassifierCollection(it_1))->asSequence()->asBag())
+}
+
+helper collectionOperationParameter_InnerImplicitExtensionCollect(eClassifiers : Collection(ecore::EClassifier), ePackages : Collection(ecore::EPackage)) : Collection(OclAny) {
+	return ePackages->collect(it | getClassifierCollection(it))->asSequence()[OclAny]->union(eClassifiers->collect(it_1 | it_1)->asSequence())
+}
