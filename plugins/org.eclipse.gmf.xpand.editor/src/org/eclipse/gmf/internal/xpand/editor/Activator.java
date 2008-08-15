@@ -1,11 +1,11 @@
-/*******************************************************************************
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
+ */
 package org.eclipse.gmf.internal.xpand.editor;
 
 import org.eclipse.core.runtime.CoreException;
@@ -55,4 +55,29 @@ public class Activator extends AbstractUIPlugin {
 	public static void log(IStatus status) {
 		getDefault().getLog().log(status);
 	}
+
+	/*
+	private final HashMap<Class<?>, SoftReference<?>> myState = new HashMap<Class<?>, SoftReference<?>>();
+	private final ReferenceQueue<Object> myRefQueue = new ReferenceQueue<Object>();
+
+	// State management
+	public static <T> T findState(Class<T> kind) {
+		@SuppressWarnings("unchecked")
+		SoftReference<T> ref = (SoftReference<T>) getDefault().myState.get(kind);
+		if (ref == null) {
+			return null;
+		}
+		if (ref.get() == null) {
+			getDefault().myState.remove(kind);
+			return null;
+		}
+		return ref.get();
+	}
+
+	// for now, decided to allow replace old value (reason: why not)?
+	public static <T> void putState(Class<T> kind, T instance) {
+		assert instance != null; // XXX or allow any value?
+		getDefault().myState.put(kind, new SoftReference<Object>((Object) instance, getDefault().myRefQueue));
+	}
+*/
 }
