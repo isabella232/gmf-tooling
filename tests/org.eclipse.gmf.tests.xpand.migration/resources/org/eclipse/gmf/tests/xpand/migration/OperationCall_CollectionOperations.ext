@@ -1,0 +1,320 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+/* isEmpty() */
+Boolean isEmptyCollection(Collection[ecore::EClass] eClasses) :
+	eClasses.isEmpty()
+;
+
+Boolean isEmptyList(List[ecore::EClass] eClasses) :
+	eClasses.isEmpty()
+;
+
+Boolean isEmptySet(Set[ecore::EClass] eClasses) :
+	eClasses.isEmpty()
+;
+
+/* add() */
+Collection[ecore::EJavaObject] addToCollection(Collection[ecore::EClass] eClasses, ecore::EObject addition) :
+	eClasses.add(addition)
+;
+
+Collection[ecore::EJavaObject] addToList(List[ecore::EClass] eClasses, ecore::EObject addition) :
+	eClasses.add(addition)
+;
+
+Collection[ecore::EJavaObject] addToSet(Set[ecore::EClass] eClasses, ecore::EObject addition) :
+	eClasses.add(addition)
+;
+
+/* addAll() */
+
+Collection[ecore::EJavaObject] addAllCollectionToCollection(Collection[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
+	eClasses.addAll(addition)
+;
+
+Collection[ecore::EJavaObject] addAllCollectionToList(List[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
+	eClasses.addAll(addition)
+;
+
+Collection[ecore::EJavaObject] addAllCollectionToSet(Set[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
+	eClasses.addAll(addition)
+;
+
+Collection[ecore::EJavaObject] addAllListToCollection(Collection[ecore::EClass] eClasses, List[ecore::EObject] addition) :
+	eClasses.addAll(addition)
+;
+
+Collection[ecore::EJavaObject] addAllListToList(List[ecore::EClass] eClasses, List[ecore::EObject] addition) :
+	eClasses.addAll(addition)
+;
+
+Collection[ecore::EJavaObject] addAllListToSet(Set[ecore::EClass] eClasses, List[ecore::EObject] addition) :
+	eClasses.addAll(addition)
+;
+
+Collection[ecore::EJavaObject] addAllSetToCollection(Collection[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
+	eClasses.addAll(addition)
+;
+
+Collection[ecore::EJavaObject] addAllSetToList(List[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
+	eClasses.addAll(addition)
+;
+
+Collection[ecore::EJavaObject] addAllSetToSet(Set[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
+	eClasses.addAll(addition)
+;
+
+/* clear() */
+Collection[ecore::EJavaObject] clearCollection(Collection[ecore::EClass] eClasses) :
+	eClasses.clear()
+;
+
+Collection[ecore::EJavaObject] clearList(List[ecore::EClass] eClasses) :
+	eClasses.clear()
+;
+
+Collection[ecore::EJavaObject] clearSet(Set[ecore::EClass] eClasses) :
+	eClasses.clear()
+;
+
+/* flatten() */
+Collection[ecore::EJavaObject] flattenCollection(Collection[ecore::EClass] eClasses) :
+	eClasses.flatten()
+;
+
+Collection[ecore::EJavaObject] flattenList(List[ecore::EClass] eClasses) :
+	eClasses.flatten()
+;
+
+Collection[ecore::EJavaObject] flattenSet(Set[ecore::EClass] eClasses) :
+	eClasses.flatten()
+;
+
+/* size() */
+Integer sizeCollection(Collection[ecore::EClass] eClasses) :
+	eClasses.size()
+;
+
+Integer sizeList(List[ecore::EClass] eClasses) :
+	eClasses.size()
+;
+
+Integer sizeSet(Set[ecore::EClass] eClasses) :
+	eClasses.size()
+;
+
+/* union() */
+Collection[ecore::EJavaObject] unionCollectionWCollection(Collection[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
+	eClasses.union(addition)
+;
+
+Collection[ecore::EJavaObject] unionCollectionWList(Collection[ecore::EClass] eClasses, List[ecore::EObject] addition) :
+	eClasses.union(addition)
+;
+
+Collection[ecore::EJavaObject] unionCollectionWSet(Collection[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
+	eClasses.union(addition)
+;
+
+Collection[ecore::EJavaObject] unionListWCollection(List[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
+	eClasses.union(addition)
+;
+
+Collection[ecore::EJavaObject] unionListWList(List[ecore::EClass] eClasses, List[ecore::EObject] addition) :
+	eClasses.union(addition)
+;
+
+Collection[ecore::EJavaObject] unionListWSet(List[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
+	eClasses.union(addition)
+;
+
+Collection[ecore::EJavaObject] unionSetWCollection(Set[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
+	eClasses.union(addition)
+;
+
+Collection[ecore::EJavaObject] unionSetWList(Set[ecore::EClass] eClasses, List[ecore::EObject] addition) :
+	eClasses.union(addition)
+;
+
+Collection[ecore::EJavaObject] unionSetWSet(Set[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
+	eClasses.union(addition)
+;
+
+/* intersect() */
+Collection[ecore::EJavaObject] intersectCollectionWCollection(Collection[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
+	eClasses.intersect(addition)
+;
+
+Collection[ecore::EJavaObject] intersectCollectionWList(Collection[ecore::EClass] eClasses, List[ecore::EObject] addition) :
+	eClasses.intersect(addition)
+;
+
+Collection[ecore::EJavaObject] intersectCollectionWSet(Collection[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
+	eClasses.intersect(addition)
+;
+
+Collection[ecore::EJavaObject] intersectListWCollection(List[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
+	eClasses.intersect(addition)
+;
+
+Collection[ecore::EJavaObject] intersectListWList(List[ecore::EClass] eClasses, List[ecore::EObject] addition) :
+	eClasses.intersect(addition)
+;
+
+Collection[ecore::EJavaObject] intersectListWSet(List[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
+	eClasses.intersect(addition)
+;
+
+Collection[ecore::EJavaObject] intersectSetWCollection(Set[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
+	eClasses.intersect(addition)
+;
+
+Collection[ecore::EJavaObject] intersectSetWList(Set[ecore::EClass] eClasses, List[ecore::EObject] addition) :
+	eClasses.intersect(addition)
+;
+
+Collection[ecore::EJavaObject] intersectSetWSet(Set[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
+	eClasses.intersect(addition)
+;
+
+/* without() */
+Collection[ecore::EJavaObject] withoutCollectionWCollection(Collection[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
+	eClasses.without(addition)
+;
+
+Collection[ecore::EJavaObject] withoutCollectionWList(Collection[ecore::EClass] eClasses, List[ecore::EObject] addition) :
+	eClasses.without(addition)
+;
+
+Collection[ecore::EJavaObject] withoutCollectionWSet(Collection[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
+	eClasses.without(addition)
+;
+
+Collection[ecore::EJavaObject] withoutListWCollection(List[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
+	eClasses.without(addition)
+;
+
+Collection[ecore::EJavaObject] withoutListWList(List[ecore::EClass] eClasses, List[ecore::EObject] addition) :
+	eClasses.without(addition)
+;
+
+Collection[ecore::EJavaObject] withoutListWSet(List[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
+	eClasses.without(addition)
+;
+
+Collection[ecore::EJavaObject] withoutSetWCollection(Set[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
+	eClasses.without(addition)
+;
+
+Collection[ecore::EJavaObject] withoutSetWList(Set[ecore::EClass] eClasses, List[ecore::EObject] addition) :
+	eClasses.without(addition)
+;
+
+Collection[ecore::EJavaObject] withoutSetWSet(Set[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
+	eClasses.without(addition)
+;
+
+/* toSet() */
+Set[ecore::EJavaObject] toSetCollection(Collection[ecore::EClass] eClasses) :
+	eClasses.toSet()
+;
+
+Set[ecore::EJavaObject] toSetList(List[ecore::EClass] eClasses) :
+	eClasses.toSet()
+;
+
+Set[ecore::EJavaObject] toSetSet(Set[ecore::EClass] eClasses) :
+	eClasses.toSet()
+;
+
+/* toList() */
+List[ecore::EJavaObject] toListCollection(Collection[ecore::EClass] eClasses) :
+	eClasses.toList()
+;
+
+List[ecore::EJavaObject] toListList(List[ecore::EClass] eClasses) :
+	eClasses.toList()
+;
+
+List[ecore::EJavaObject] toListSet(Set[ecore::EClass] eClasses) :
+	eClasses.toList()
+;
+
+/* contains() */
+Boolean containsCollection(Collection[ecore::EClass] eClasses, ecore::EJavaObject param) :
+	eClasses.contains(param)
+;
+
+Boolean containsList(List[ecore::EClass] eClasses, ecore::EJavaObject param) :
+	eClasses.contains(param)
+;
+
+Boolean containsSet(Set[ecore::EClass] eClasses, ecore::EJavaObject param) :
+	eClasses.contains(param)
+;
+
+/* containsAll() */
+Boolean containsAllCollectionWCollection(Collection[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
+	eClasses.containsAll(addition)
+;
+
+Boolean containsAllCollectionWList(Collection[ecore::EClass] eClasses, List[ecore::EObject] addition) :
+	eClasses.containsAll(addition)
+;
+
+Boolean containsAllCollectionWSet(Collection[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
+	eClasses.containsAll(addition)
+;
+
+Boolean containsAllListWCollection(List[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
+	eClasses.containsAll(addition)
+;
+
+Boolean containsAllListWList(List[ecore::EClass] eClasses, List[ecore::EObject] addition) :
+	eClasses.containsAll(addition)
+;
+
+Boolean containsAllListWSet(List[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
+	eClasses.containsAll(addition)
+;
+
+Boolean containsAllSetWCollection(Set[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
+	eClasses.containsAll(addition)
+;
+
+Boolean containsAllSetWList(Set[ecore::EClass] eClasses, List[ecore::EObject] addition) :
+	eClasses.containsAll(addition)
+;
+
+Boolean containsAllSetWSet(Set[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
+	eClasses.containsAll(addition)
+;
+
+/* List operations */
+ecore::EJavaObject get(List[ecore::EClass] eClasses, Integer index) :
+	eClasses.get(index)
+;
+
+ecore::EJavaObject first(List[ecore::EClass] eClasses) :
+	eClasses.first()
+;
+
+ecore::EJavaObject last(List[ecore::EClass] eClasses) :
+	eClasses.last()
+;
+
+List[ecore::EJavaObject] withoutFirst(List[ecore::EClass] eClasses) :
+	eClasses.withoutFirst()
+;
+
+List[ecore::EJavaObject] withoutLast(List[ecore::EClass] eClasses) :
+	eClasses.withoutLast()
+;
+
+List[ecore::EJavaObject] purgeDups(List[ecore::EClass] eClasses) :
+	eClasses.purgeDups()
+;
+
+Integer indexOf(List[ecore::EClass] eClasses, ecore::EJavaObject param) :
+	eClasses.indexOf(param)
+;

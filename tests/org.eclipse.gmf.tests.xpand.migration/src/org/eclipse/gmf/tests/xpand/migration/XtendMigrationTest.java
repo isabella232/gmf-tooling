@@ -72,6 +72,10 @@ public class XtendMigrationTest extends TestCase {
 		String resourceName = "OperationCall";
 		checkMigration(new MigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, MigrationTestsPackage.eINSTANCE)), resourceName);
 	}
+	
+	public void testCollectionOperations() throws IOException, MigrationException {
+		checkMigration("OperationCall_CollectionOperations");
+	}
 
 	public void testCollectionExpression() throws IOException, MigrationException {
 		checkMigration("CollectionExpression");
@@ -133,7 +137,7 @@ public class XtendMigrationTest extends TestCase {
 		String etalon = readStringContent(new InputStreamReader(testResourceManager.loadFile(getResourceName(resourceName), "qvto")));
 		assertEquals(etalon, content);
 	}
-
+	
 	private String readStringContent(InputStreamReader reader) throws IOException {
 		String LF = System.getProperty("line.separator");
 		StringBuilder sb = new StringBuilder();

@@ -10,42 +10,42 @@ helper collectCallImplicitIterator(ePackage : ecore::EPackage) : Sequence(String
 	return ePackage.eClassifiers->asSequence()->collect(element | element.name)
 }
 
-helper selectCall(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Sequence(ecore::EClassifier) {
+helper selectCall(ePackage : ecore::EPackage, javaObject : OclAny) : Sequence(ecore::EClassifier) {
 	return ePackage.eClassifiers->asSequence()->select(cl | cl.isInstance(javaObject))
 }
 
-helper selectCallImplicitIterator(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Sequence(ecore::EClassifier) {
+helper selectCallImplicitIterator(ePackage : ecore::EPackage, javaObject : OclAny) : Sequence(ecore::EClassifier) {
 	return ePackage.eClassifiers->asSequence()->select(element | element.isInstance(javaObject))
 }
 
-helper rejectCall(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Sequence(ecore::EClassifier) {
+helper rejectCall(ePackage : ecore::EPackage, javaObject : OclAny) : Sequence(ecore::EClassifier) {
 	return ePackage.eClassifiers->asSequence()->reject(cl | cl.isInstance(javaObject))
 }
 
-helper rejectCallImplicitIterator(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Sequence(ecore::EClassifier) {
+helper rejectCallImplicitIterator(ePackage : ecore::EPackage, javaObject : OclAny) : Sequence(ecore::EClassifier) {
 	return ePackage.eClassifiers->asSequence()->reject(element | element.isInstance(javaObject))
 }
 
-helper existsCall(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Boolean {
+helper existsCall(ePackage : ecore::EPackage, javaObject : OclAny) : Boolean {
 	return ePackage.eClassifiers->asSequence()->exists(cl | cl.isInstance(javaObject))
 }
 
-helper existsCallImplicitIterator(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Boolean {
+helper existsCallImplicitIterator(ePackage : ecore::EPackage, javaObject : OclAny) : Boolean {
 	return ePackage.eClassifiers->asSequence()->exists(element | element.isInstance(javaObject))
 }
 
-helper notExistsCall(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Boolean {
+helper notExistsCall(ePackage : ecore::EPackage, javaObject : OclAny) : Boolean {
 	return not ePackage.eClassifiers->asSequence()->exists(cl | cl.isInstance(javaObject))
 }
 
-helper notExistsCallImplicitIterator(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Boolean {
+helper notExistsCallImplicitIterator(ePackage : ecore::EPackage, javaObject : OclAny) : Boolean {
 	return not (not ePackage.eClassifiers->asSequence()->exists(element | element.isInstance(javaObject)))
 }
 
-helper forAllCall(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Boolean {
+helper forAllCall(ePackage : ecore::EPackage, javaObject : OclAny) : Boolean {
 	return ePackage.eClassifiers->asSequence()->forAll(cl | cl.isInstance(javaObject))
 }
 
-helper forAllCallImplicitIterator(ePackage : ecore::EPackage, javaObject : ecore::EJavaObject) : Boolean {
+helper forAllCallImplicitIterator(ePackage : ecore::EPackage, javaObject : OclAny) : Boolean {
 	return ePackage.eClassifiers->asSequence()->forAll(element | element.isInstance(javaObject))
 }
