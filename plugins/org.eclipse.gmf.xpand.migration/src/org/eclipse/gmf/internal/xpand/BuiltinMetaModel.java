@@ -318,6 +318,51 @@ public class BuiltinMetaModel {
 	}
 
 	private static Map<String, String> attrNameSubsts = new TreeMap<String, String>();
+	public static EOperation EString_ToFirstUpper;
+	public static EOperation Collection_IsEmpty;
+	public static EOperation Collection_Add;
+	public static EOperation Collection_AddAll;
+	public static EOperation Collection_Clear;
+	public static EOperation Collection_Flatten;
+	public static EOperation Collection_Size;
+	public static EOperation Collection_Union;
+	public static EOperation Collection_Intersect;
+	public static EOperation Collection_Without;
+	public static EOperation Collection_ToSet;
+	public static EOperation Collection_ToList;
+	public static EOperation Collection_Contains;
+	public static EOperation Collection_ContainsAll;
+	public static EOperation List_Get;
+	public static EOperation List_First;
+	public static EOperation List_Last;
+	public static EOperation List_WithoutFirst;
+	public static EOperation List_WithoutLast;
+	public static EOperation List_PurgeDups;
+	public static EOperation List_IndexOf;
+	public static EOperation Boolean_NE;
+	public static EOperation Int_Plus_Int;
+	public static EOperation Int_Plus_Double;
+	public static EOperation Int_Minus_Int;
+	public static EOperation Int_Minus_Double;
+	public static EOperation Int_Mult_Int;
+	public static EOperation Int_Mult_Double;
+	public static EOperation Int_Div_Int;
+	public static EOperation Int_Div_Double;
+	public static EOperation Int_Unary_Minus;
+	public static EOperation Int_GreatOrEqual;
+	public static EOperation Int_LessOrEqual;
+	public static EOperation Int_Less;
+	public static EOperation Int_Greater;
+	public static EOperation Int_UpTo;
+	public static EOperation Double_Plus_Double;
+	public static EOperation Double_Plus_Int;
+	public static EOperation Double_Minus_Double;
+	public static EOperation Double_Minus_Int;
+	public static EOperation Double_Mult_Double;
+	public static EOperation Double_Mult_Int;
+	public static EOperation Double_Div_Double;
+	public static EOperation Double_Div_Int;
+	public static EOperation Double_Unary_Minus;
 	static {
 		attrNameSubsts.put("default_", "default");
 	}
@@ -424,7 +469,7 @@ public class BuiltinMetaModel {
 				return target + String.valueOf(params[0]);
 			}
 		});
-		stringOps.add(new InternalOperation<String>(opf.create("toFirstUpper",ecorePkg.getEString())) {
+		stringOps.add(new InternalOperation<String>(EString_ToFirstUpper = opf.create("toFirstUpper",ecorePkg.getEString())) {
 			@Override
 			public Object evaluate(String target, Object[] params) {
 				return StringHelper.firstUpper(target);
@@ -466,7 +511,7 @@ public class BuiltinMetaModel {
 		internalOperationsMap.put(ecorePkg.getEString(), Collections.unmodifiableList(stringOps));
 
 		final List<InternalOperation> booleanOps = new LinkedList<InternalOperation>();
-		booleanOps.add(new InternalOperation<Boolean>(opf.create("!", boolean.class)) {
+		booleanOps.add(new InternalOperation<Boolean>(Boolean_NE = opf.create("!", boolean.class)) {
 			@Override
 			public Object evaluate(Boolean target, Object[] params) {
 				return Boolean.valueOf(!target.booleanValue());
@@ -550,15 +595,15 @@ public class BuiltinMetaModel {
 		//---------------------------------------------------------------------------------
 
 		final List<InternalOperation> intOps = new LinkedList<InternalOperation>();
-		intOps.add(new InternalSumOp(opf.create("+", int.class, int.class)));
-		intOps.add(new InternalSumOp(opf.create("+", int.class, double.class)));
-		intOps.add(new InternalSubOp(opf.create("-", int.class, int.class)));
-		intOps.add(new InternalSubOp(opf.create("-", int.class, double.class)));
-		intOps.add(new InternalMulOp(opf.create("*", int.class, int.class)));
-		intOps.add(new InternalMulOp(opf.create("*", int.class, double.class)));
-		intOps.add(new InternalDivOp(opf.create("/", int.class, int.class)));
-		intOps.add(new InternalDivOp(opf.create("/", int.class, double.class)));
-		intOps.add(new InternalNegateOp(opf.create("-", int.class)));
+		intOps.add(new InternalSumOp(Int_Plus_Int = opf.create("+", int.class, int.class)));
+		intOps.add(new InternalSumOp(Int_Plus_Double = opf.create("+", int.class, double.class)));
+		intOps.add(new InternalSubOp(Int_Minus_Int = opf.create("-", int.class, int.class)));
+		intOps.add(new InternalSubOp(Int_Minus_Double = opf.create("-", int.class, double.class)));
+		intOps.add(new InternalMulOp(Int_Mult_Int = opf.create("*", int.class, int.class)));
+		intOps.add(new InternalMulOp(Int_Mult_Double = opf.create("*", int.class, double.class)));
+		intOps.add(new InternalDivOp(Int_Div_Int = opf.create("/", int.class, int.class)));
+		intOps.add(new InternalDivOp(Int_Div_Double = opf.create("/", int.class, double.class)));
+		intOps.add(new InternalNegateOp(Int_Unary_Minus = opf.create("-", int.class)));
 //		intOps.add(new InternalOperation<Number>(opf.create("==", boolean.class, int.class)) {
 //			@Override
 //			public Object evaluate(Number target, Object[] params) {
@@ -567,31 +612,31 @@ public class BuiltinMetaModel {
 //			}
 //			
 //		});
-		intOps.add(new InternalOperation<Number>(opf.create(">=", boolean.class, int.class)) {
+		intOps.add(new InternalOperation<Number>(Int_GreatOrEqual = opf.create(">=", boolean.class, int.class)) {
 			@Override
 			public Object evaluate(Number target, Object[] params) {
 				return Boolean.valueOf(target.intValue() >= ((Number) params[0]).intValue());
 			}
 		});
-		intOps.add(new InternalOperation<Number>(opf.create("<=", boolean.class, int.class)) {
+		intOps.add(new InternalOperation<Number>(Int_LessOrEqual = opf.create("<=", boolean.class, int.class)) {
 			@Override
 			public Object evaluate(Number target, Object[] params) {
 				return Boolean.valueOf(target.intValue() <= ((Number) params[0]).intValue());
 			}
 		});
-		intOps.add(new InternalOperation<Number>(opf.create("<", boolean.class, int.class)) {
+		intOps.add(new InternalOperation<Number>(Int_Less = opf.create("<", boolean.class, int.class)) {
 			@Override
 			public Object evaluate(Number target, Object[] params) {
 				return Boolean.valueOf(target.intValue() < ((Number) params[0]).intValue());
 			}
 		});
-		intOps.add(new InternalOperation<Number>(opf.create(">", boolean.class, int.class)) {
+		intOps.add(new InternalOperation<Number>(Int_Greater = opf.create(">", boolean.class, int.class)) {
 			@Override
 			public Object evaluate(Number target, Object[] params) {
 				return Boolean.valueOf(target.intValue() > ((Number) params[0]).intValue());
 			}
 		});
-		intOps.add(new InternalOperation<Number>(opf.create("upTo", collectionTypes.getListType(ecorePkg.getEInt()), ecorePkg.getEInt())) {
+		intOps.add(new InternalOperation<Number>(Int_UpTo = opf.create("upTo", collectionTypes.getListType(ecorePkg.getEInt()), ecorePkg.getEInt())) {
 			@Override
 			public Object evaluate(Number target, Object[] params) {
                 final ArrayList<Integer> result = new ArrayList<Integer>();
@@ -608,48 +653,48 @@ public class BuiltinMetaModel {
 		internalOperationsMap.put(ecorePkg.getEInt(), unmodifiableListIntOps);
 
 		final List<InternalOperation> doubleOps = new LinkedList<InternalOperation>();
-		doubleOps.add(new InternalSumOp(opf.create("+", double.class, double.class)));
-		doubleOps.add(new InternalSumOp(opf.create("+", double.class, int.class)));
-		doubleOps.add(new InternalSubOp(opf.create("-", double.class, double.class)));
-		doubleOps.add(new InternalSubOp(opf.create("-", double.class, int.class)));
-		doubleOps.add(new InternalMulOp(opf.create("*", double.class, double.class)));
-		doubleOps.add(new InternalMulOp(opf.create("*", double.class, int.class)));
-		doubleOps.add(new InternalDivOp(opf.create("/", double.class, double.class)));
-		doubleOps.add(new InternalDivOp(opf.create("/", double.class, int.class)));
-		doubleOps.add(new InternalNegateOp(opf.create("-", int.class)));
+		doubleOps.add(new InternalSumOp(Double_Plus_Double = opf.create("+", double.class, double.class)));
+		doubleOps.add(new InternalSumOp(Double_Plus_Int = opf.create("+", double.class, int.class)));
+		doubleOps.add(new InternalSubOp(Double_Minus_Double = opf.create("-", double.class, double.class)));
+		doubleOps.add(new InternalSubOp(Double_Minus_Int = opf.create("-", double.class, int.class)));
+		doubleOps.add(new InternalMulOp(Double_Mult_Double = opf.create("*", double.class, double.class)));
+		doubleOps.add(new InternalMulOp(Double_Mult_Int = opf.create("*", double.class, int.class)));
+		doubleOps.add(new InternalDivOp(Double_Div_Double = opf.create("/", double.class, double.class)));
+		doubleOps.add(new InternalDivOp(Double_Div_Int = opf.create("/", double.class, int.class)));
+		doubleOps.add(new InternalNegateOp(Double_Unary_Minus = opf.create("-", int.class)));
 		doubleOps.addAll(unmodifiableObjectOps);
 		internalOperationsMap.put(ecorePkg.getEDouble(), doubleOps);
 
 		final List<InternalOperation> collectionOps = new LinkedList<InternalOperation>();
-		collectionOps.add(new InternalOperation<Collection>(opf.create("isEmpty", ecorePkg.getEBoolean())) {
+		collectionOps.add(new InternalOperation<Collection>(Collection_IsEmpty = opf.create("isEmpty", ecorePkg.getEBoolean())) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				// TODO isEmpty is rather attribute
 				return target.isEmpty();
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("add", CollectionTypesSupport.COLLECTION_OF_OBJECT, ecorePkg.getEJavaObject())) {
+		collectionOps.add(new InternalOperation<Collection>(Collection_Add = opf.create("add", CollectionTypesSupport.COLLECTION_OF_OBJECT, ecorePkg.getEJavaObject())) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				target.add(params[0]);
 				return target;
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("addAll", CollectionTypesSupport.COLLECTION_OF_OBJECT, CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
+		collectionOps.add(new InternalOperation<Collection>(Collection_AddAll = opf.create("addAll", CollectionTypesSupport.COLLECTION_OF_OBJECT, CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				target.addAll((Collection) params[0]);
 				return target;
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("clear", CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
+		collectionOps.add(new InternalOperation<Collection>(Collection_Clear = opf.create("clear", CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				target.clear();
 				return target;
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("flatten", CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
+		collectionOps.add(new InternalOperation<Collection>(Collection_Flatten = opf.create("flatten", CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				LinkedList rv = new LinkedList();
@@ -664,13 +709,13 @@ public class BuiltinMetaModel {
 				return rv;
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("size", ecorePkg.getEInt())) {
+		collectionOps.add(new InternalOperation<Collection>(Collection_Size = opf.create("size", ecorePkg.getEInt())) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				return target.size();
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("union", CollectionTypesSupport.COLLECTION_OF_OBJECT, CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
+		collectionOps.add(new InternalOperation<Collection>(Collection_Union = opf.create("union", CollectionTypesSupport.COLLECTION_OF_OBJECT, CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				LinkedHashSet<Object> rv = new LinkedHashSet<Object>(target);
@@ -678,7 +723,7 @@ public class BuiltinMetaModel {
 				return rv;
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("intersect", CollectionTypesSupport.COLLECTION_OF_OBJECT, CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
+		collectionOps.add(new InternalOperation<Collection>(Collection_Intersect = opf.create("intersect", CollectionTypesSupport.COLLECTION_OF_OBJECT, CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				LinkedHashSet<Object> rv = new LinkedHashSet<Object>(target);
@@ -686,7 +731,7 @@ public class BuiltinMetaModel {
 				return rv;
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("without", CollectionTypesSupport.COLLECTION_OF_OBJECT, CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
+		collectionOps.add(new InternalOperation<Collection>(Collection_Without = opf.create("without", CollectionTypesSupport.COLLECTION_OF_OBJECT, CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				LinkedHashSet<Object> rv = new LinkedHashSet<Object>(target);
@@ -694,25 +739,25 @@ public class BuiltinMetaModel {
 				return rv;
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("toSet", CollectionTypesSupport.SET_OF_OBJECT)) {
+		collectionOps.add(new InternalOperation<Collection>(Collection_ToSet = opf.create("toSet", CollectionTypesSupport.SET_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				return new LinkedHashSet<Object>(target);
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("toList", CollectionTypesSupport.LIST_OF_OBJECT)) {
+		collectionOps.add(new InternalOperation<Collection>(Collection_ToList = opf.create("toList", CollectionTypesSupport.LIST_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				return new LinkedList<Object>(target);
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("contains", ecorePkg.getEBoolean(), ecorePkg.getEJavaObject())) {
+		collectionOps.add(new InternalOperation<Collection>(Collection_Contains = opf.create("contains", ecorePkg.getEBoolean(), ecorePkg.getEJavaObject())) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				return target.contains(params[0]);
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("containsAll", ecorePkg.getEBoolean(), CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
+		collectionOps.add(new InternalOperation<Collection>(Collection_ContainsAll = opf.create("containsAll", ecorePkg.getEBoolean(), CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				return target.containsAll((Collection) params[0]);
@@ -722,26 +767,26 @@ public class BuiltinMetaModel {
 		internalOperationsMap.put(CollectionTypesSupport.COLLECTION_TYPE, unmodifiableListCollectionOps);
 		internalOperationsMap.put(CollectionTypesSupport.SET_TYPE, unmodifiableListCollectionOps);
 		final List<InternalOperation> listOps = new LinkedList<InternalOperation>(unmodifiableListCollectionOps);
-		listOps.add(new InternalOperation<List>(opf.create("get", ecorePkg.getEJavaObject(), ecorePkg.getEInt())) {
+		listOps.add(new InternalOperation<List>(List_Get = opf.create("get", ecorePkg.getEJavaObject(), ecorePkg.getEInt())) {
 			@Override
 			public Object evaluate(List target, Object[] params) {
 				int index = ((Number) params[0]).intValue();
 				return index < target.size() ? target.get(index) : null;
 			}
 		});
-		listOps.add(new InternalOperation<List>(opf.create("first", ecorePkg.getEJavaObject())) {
+		listOps.add(new InternalOperation<List>(List_First = opf.create("first", ecorePkg.getEJavaObject())) {
 			@Override
 			public Object evaluate(List target, Object[] params) {
 				return target.isEmpty() ? null : target.get(0);
 			}
 		});
-		listOps.add(new InternalOperation<List>(opf.create("last", ecorePkg.getEJavaObject())) {
+		listOps.add(new InternalOperation<List>(List_Last = opf.create("last", ecorePkg.getEJavaObject())) {
 			@Override
 			public Object evaluate(List target, Object[] params) {
 				return target.isEmpty() ? null : target.get(target.size() - 1);
 			}
 		});
-		listOps.add(new InternalOperation<List>(opf.create("withoutFirst", CollectionTypesSupport.LIST_OF_OBJECT)) {
+		listOps.add(new InternalOperation<List>(List_WithoutFirst = opf.create("withoutFirst", CollectionTypesSupport.LIST_OF_OBJECT)) {
 			@Override
 			public Object evaluate(List target, Object[] params) {
 				if (!target.isEmpty()) {
@@ -752,7 +797,7 @@ public class BuiltinMetaModel {
 				return target;
 			}
 		});
-		listOps.add(new InternalOperation<List>(opf.create("withoutLast", CollectionTypesSupport.LIST_OF_OBJECT)) {
+		listOps.add(new InternalOperation<List>(List_WithoutLast = opf.create("withoutLast", CollectionTypesSupport.LIST_OF_OBJECT)) {
 			@Override
 			public Object evaluate(List target, Object[] params) {
 				if (!target.isEmpty()) {
@@ -763,7 +808,7 @@ public class BuiltinMetaModel {
 				return target;
 			}
 		});
-		listOps.add(new InternalOperation<List>(opf.create("purgeDups", CollectionTypesSupport.LIST_OF_OBJECT)) {
+		listOps.add(new InternalOperation<List>(List_PurgeDups = opf.create("purgeDups", CollectionTypesSupport.LIST_OF_OBJECT)) {
 			@Override
 			public Object evaluate(List target, Object[] params) {
 				if (target.isEmpty()) {
@@ -772,7 +817,7 @@ public class BuiltinMetaModel {
 				return new LinkedList<Object>(new LinkedHashSet<Object>(target));
 			}
 		});
-		listOps.add(new InternalOperation<List>(opf.create("indexOf", ecorePkg.getEInt(), ecorePkg.getEJavaObject())) {
+		listOps.add(new InternalOperation<List>(List_IndexOf = opf.create("indexOf", ecorePkg.getEInt(), ecorePkg.getEJavaObject())) {
 			@Override
 			public Object evaluate(List target, Object[] params) {
 				return target.indexOf(params[0]);

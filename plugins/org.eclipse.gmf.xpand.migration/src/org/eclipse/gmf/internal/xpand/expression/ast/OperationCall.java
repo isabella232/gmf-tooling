@@ -197,7 +197,7 @@ public class OperationCall extends FeatureCall {
         EOperation op = BuiltinMetaModel.findOperation(targetType, getName().getValue(), paramTypes);
         if (op != null) {
 			EClassifier result = op.getEType() == null ? BuiltinMetaModel.VOID : BuiltinMetaModel.getTypedElementType(op);
-			createAnalyzeTrace(ctx, new OperationCallTrace(result, op));
+			createAnalyzeTrace(ctx, new OperationCallTrace(result, targetType, op, paramTypes));
 			return result;
 		}
         // extension as members
@@ -220,7 +220,7 @@ public class OperationCall extends FeatureCall {
                     rt = BuiltinMetaModel.getInnerType(rt);
                 }
                 EClass result = BuiltinMetaModel.getListType(rt);
-                createAnalyzeTrace(ctx, new OperationCallTrace(result, targetType, op));
+                createAnalyzeTrace(ctx, new OperationCallTrace(result, targetType, op, OperationCallTrace.Type.IMPLICIT_COLLECT_OPERATION_REF));
                 return result;
             }
             rt = getExtensionsReturnType(ctx, issues, paramTypes, innerType);

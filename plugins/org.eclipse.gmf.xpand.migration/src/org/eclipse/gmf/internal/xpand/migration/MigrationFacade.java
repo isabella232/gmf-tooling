@@ -11,15 +11,18 @@
  */
 package org.eclipse.gmf.internal.xpand.migration;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Stack;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -55,10 +58,48 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.JavaExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.WorkflowSlotExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 import org.eclipse.ocl.ecore.PrimitiveType;
+import org.eclipse.ocl.types.AnyType;
 
 public class MigrationFacade {
 
 	static final String LF = System.getProperty("line.separator");
+	
+	private static final Set<EOperation> infixOperations = new HashSet<EOperation>(Arrays.asList(new EOperation[] {
+			BuiltinMetaModel.Boolean_NE,
+			BuiltinMetaModel.Int_Unary_Minus,
+			BuiltinMetaModel.Double_Unary_Minus,
+			BuiltinMetaModel.Int_Minus_Double, 
+			BuiltinMetaModel.Int_Minus_Int, 
+			BuiltinMetaModel.Double_Minus_Double, 
+			BuiltinMetaModel.Double_Minus_Int,
+			BuiltinMetaModel.Int_Plus_Double, 
+			BuiltinMetaModel.Int_Plus_Int, 
+			BuiltinMetaModel.Double_Plus_Double, 
+			BuiltinMetaModel.Double_Plus_Int
+		}));
+	
+	private static final Set<EOperation> collectionOperations = new HashSet<EOperation>(Arrays.asList(new EOperation[] {
+			BuiltinMetaModel.Collection_Add,
+			BuiltinMetaModel.Collection_AddAll,
+			BuiltinMetaModel.Collection_Clear,
+			BuiltinMetaModel.Collection_Contains,
+			BuiltinMetaModel.Collection_ContainsAll, 
+			BuiltinMetaModel.Collection_Flatten,
+			BuiltinMetaModel.Collection_Intersect,
+			BuiltinMetaModel.Collection_IsEmpty, 
+			BuiltinMetaModel.Collection_Size, 
+			BuiltinMetaModel.Collection_ToList,
+			BuiltinMetaModel.Collection_ToSet,
+			BuiltinMetaModel.Collection_Union,
+			BuiltinMetaModel.Collection_Without,
+			BuiltinMetaModel.List_First,
+			BuiltinMetaModel.List_Get,
+			BuiltinMetaModel.List_IndexOf,
+			BuiltinMetaModel.List_Last,
+			BuiltinMetaModel.List_PurgeDups,
+			BuiltinMetaModel.List_WithoutFirst,
+			BuiltinMetaModel.List_WithoutLast
+	}));
 
 	private static final String OCL_PATH_SEPARATOR = "::";
 
@@ -163,7 +204,7 @@ public class MigrationFacade {
 		write(extension.getName());
 		write("(");
 
-		assert extension.getParameterTypes().size() > 0;
+//		assert extension.getParameterTypes().size() > 0;
 		assert extension.getParameterNames().size() == extension.getParameterTypes().size();
 		Iterator<String> parameterNames = extension.getParameterNames().iterator();
 		Iterator<EClassifier> parameterTypes = extension.getParameterTypes().iterator();
@@ -219,6 +260,8 @@ public class MigrationFacade {
 				return PrimitiveType.INTEGER_NAME;
 			} else if (EcorePackage.eINSTANCE.getEDouble() == classifier) {
 				return PrimitiveType.REAL_NAME;
+			} else if (EcorePackage.eINSTANCE.getEJavaObject() == classifier) {
+				return AnyType.SINGLETON_NAME;
 			}
 		}
 		if (BuiltinMetaModel.isCollectionType(classifier)) {
@@ -230,6 +273,7 @@ public class MigrationFacade {
 			} else {
 				sb.append("Collection(");
 			}
+			//was: if (classifier == CollectionTypesSupport.COLLECTION_OF_OBJECT || classifier == CollectionTypesSupport.LIST_OF_OBJECT || classifier == CollectionTypesSupport.SET_OF_OBJECT) {
 			sb.append(getQvtFQName(BuiltinMetaModel.getInnerType(classifier)));
 			return sb.append(")").toString();
 		}
@@ -459,11 +503,9 @@ public class MigrationFacade {
 		if (type == null) {
 			throw new MigrationException(Type.TYPE_NOT_FOUND, typeSelectExpression.getTypeLiteral().getValue());
 		}
-		write("->select(element | element.oclIsKindOf(");
+		write("[");
 		write(getQvtFQName(type));
-		write("))->collect(element | element.oclAsType(");
-		write(getQvtFQName(type));
-		write("))");
+		write("]");
 	}
 
 	private void migrateCollectionExpression(CollectionExpression collectionExpression, MigrationExecutionContext ctx) throws MigrationException {
@@ -529,43 +571,32 @@ public class MigrationFacade {
 		case STATIC_EXTENSION_REF:
 			write(operationCall.getName().getValue());
 			write("(");
-			migrateOperationCallParameters(operationCall, ctx);
+			internalMigrateOperationCallParameters(operationCall, ctx);
 			write(")");
 			return;
 		case OPERATION_REF:
-			int placeholder = getCurrentPosition();
-			// getTarget() == null if it is an implicit self operation.
-			if (operationCall.getTarget() != null) {
-				migrateExpression(operationCall.getTarget(), ctx);
-			}
-			if (isInfixOperation(operationCall)) {
-				insertInfixOperationCall(operationCall, placeholder);
+			if (isInfixOperation(trace)) {
+				internalMigrateInfixOperation(trace, operationCall, ctx);
+			} else if (isCollectionOperation(trace)) {
+				internalMigrateCollectionOperationCall(trace, operationCall, ctx);
 			} else {
-				if (operationCall.getTarget() != null) {
-					write(isCollectionOperation(operationCall) ? "->" : ".");
-				}
-				write(getQVTOperationName(operationCall));
+				internalMigrateOperationCallTarget(operationCall, ctx);
+				write(".");
+				write(getQVTOperationName(trace));
 				write("(");
-			}
-			migrateOperationCallParameters(operationCall, ctx);
-			if (!isInfixOperation(operationCall)) {
+				internalMigrateOperationCallParameters(operationCall, ctx);
 				write(")");
-			} else if (needsSurroundingBraces(operationCall)) {
-				// Currently supported infix operations has 0 or 1 parameter
-				// Enclosing with braces for "not" expression here
-				addBraces(placeholder);
+				convertTypedElementCallProduct(trace.getEOperation());
 			}
-			convertTypedElementCallProduct(trace.getEOperation());
 			return;
 		case IMPLICIT_COLLECT_OPERATION_REF:
-			// getTarget() == null if it is an implicit self operation.
-			if (operationCall.getTarget() != null) {
-				migrateExpression(operationCall.getTarget(), ctx);
-				write(".");
-			}
-			write(getQVTOperationName(operationCall));
+			internalMigrateOperationCallTarget(operationCall, ctx);
+			write(".");
+			// TODO: Implicit collect of collection operation result is not
+			// supported now
+			write(getQVTOperationName(trace));
 			write("(");
-			migrateOperationCallParameters(operationCall, ctx);
+			internalMigrateOperationCallParameters(operationCall, ctx);
 			write(")");
 			convertImplicitCollectProduct(trace.getTargetType());
 			return;
@@ -576,7 +607,7 @@ public class MigrationFacade {
 			migrateExpression(operationCall.getTarget(), ctx);
 			if (operationCall.getParams().length > 0) {
 				write(", ");
-				migrateOperationCallParameters(operationCall, ctx);
+				internalMigrateOperationCallParameters(operationCall, ctx);
 			}
 			write(")");
 			return;
@@ -592,7 +623,7 @@ public class MigrationFacade {
 			write(iteratorName);
 			if (operationCall.getParams().length > 0) {
 				write(", ");
-				migrateOperationCallParameters(operationCall, ctx);
+				internalMigrateOperationCallParameters(operationCall, ctx);
 			}
 			write(")");
 			write(")");
@@ -601,10 +632,190 @@ public class MigrationFacade {
 		default:
 		}
 	}
+	
+	private void internalMigrateInfixOperation(OperationCallTrace trace, OperationCall operationCall, MigrationExecutionContext ctx) throws MigrationException {
+		EOperation eOperation = trace.getEOperation();
+		assert eOperation != null;
+		int placeholder = getCurrentPosition();
+		internalMigrateOperationCallTarget(operationCall, ctx);
+		// TODO: add other infix operations to this list
+		String opName = eOperation.getName();
+		if (BuiltinMetaModel.Boolean_NE == eOperation) {
+			write("not ", placeholder);
+		} else if (BuiltinMetaModel.Int_Unary_Minus == eOperation || BuiltinMetaModel.Double_Unary_Minus == eOperation) {
+			write(opName, placeholder);
+		} else if (BuiltinMetaModel.Int_Minus_Int == eOperation || BuiltinMetaModel.Int_Minus_Double == eOperation || BuiltinMetaModel.Double_Minus_Int == eOperation
+				|| BuiltinMetaModel.Double_Minus_Double == eOperation || BuiltinMetaModel.Int_Plus_Int == eOperation || BuiltinMetaModel.Int_Plus_Double == eOperation
+				|| BuiltinMetaModel.Double_Plus_Int == eOperation || BuiltinMetaModel.Double_Plus_Double == eOperation) {
+			write(" ");
+			write(opName);
+			write(" ");
+		} else {
+			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Incorrect infix operation: " + opName);
+		}
+		internalMigrateOperationCallParameters(operationCall, ctx);
+		if (BuiltinMetaModel.Boolean_NE == eOperation || BuiltinMetaModel.Int_Unary_Minus == eOperation || BuiltinMetaModel.Double_Unary_Minus == eOperation) {
+			// Enclosing with braces for "not" expression here
+			addBraces(placeholder);
+		}
+	}
 
-	private boolean isCollectionOperation(OperationCall operationCall) {
-		String operationName = operationCall.getName().getValue();
-		return "toList".equals(operationName) || "first".equals(operationName);
+	private void internalMigrateOperationCallTarget(OperationCall operationCall, MigrationExecutionContext ctx) throws MigrationException {
+		if (operationCall.getTarget() != null) {
+			migrateExpression(operationCall.getTarget(), ctx);
+		} else {
+			// getTarget() == null if it is an implicit self operation.
+			// TODO: check if it is working with XPand
+			write("self");
+		}
+	}
+
+	private void internalMigrateCollectionOperationCall(OperationCallTrace trace, OperationCall operationCall, MigrationExecutionContext ctx) throws MigrationException {
+		EOperation eOperation = trace.getEOperation();
+		assert eOperation != null;
+		EClassifier targetType = trace.getTargetType();
+		assert targetType != null;
+		
+		if (BuiltinMetaModel.Collection_Clear != eOperation && BuiltinMetaModel.List_WithoutFirst != eOperation && BuiltinMetaModel.List_WithoutLast != eOperation) {
+			internalMigrateOperationCallTarget(operationCall, ctx);
+		}
+		
+		if (BuiltinMetaModel.Collection_Add == eOperation) {
+			convertCollectionTypes(targetType, targetType, true);
+			write("->including(");
+			internalMigrateOperationCallParameters(operationCall, ctx);
+			write(")");
+		} else if (BuiltinMetaModel.Collection_AddAll == eOperation) {
+			convertCollectionTypes(targetType, targetType, true);
+			write("->union");
+			internalMigrateCollectionOperationCollectionParameter(trace, operationCall, targetType, ctx);
+		} else if (BuiltinMetaModel.Collection_Clear == eOperation) {
+			if (isSetType(targetType)) {
+				write("Set{}");
+			} else {
+				write("Sequence{}");
+			}
+		} else if (BuiltinMetaModel.Collection_Flatten == eOperation) {
+			convertCollectionTypes(targetType, targetType, true);
+			write("->flatten()");
+		} else if (BuiltinMetaModel.Collection_Union == eOperation) {
+			EClass setType = BuiltinMetaModel.getSetType(EcorePackage.eINSTANCE.getEJavaObject());
+			convertCollectionTypes(targetType, setType, true);
+			write("->union");
+			internalMigrateCollectionOperationCollectionParameter(trace, operationCall, setType, ctx);
+		} else if (BuiltinMetaModel.Collection_Intersect == eOperation) {
+			EClass setType = BuiltinMetaModel.getSetType(EcorePackage.eINSTANCE.getEJavaObject());
+			convertCollectionTypes(targetType, setType, true);
+			write("->intersection");
+			internalMigrateCollectionOperationCollectionParameter(trace, operationCall, setType, ctx);
+		} else if (BuiltinMetaModel.Collection_Without == eOperation) { 
+			EClass setType = BuiltinMetaModel.getSetType(EcorePackage.eINSTANCE.getEJavaObject());
+			convertCollectionTypes(targetType, setType, true);
+			write("->-");
+			internalMigrateCollectionOperationCollectionParameter(trace, operationCall, setType, ctx);
+		} else if (BuiltinMetaModel.Collection_ToSet == eOperation) { 
+			EClass setType = BuiltinMetaModel.getSetType(EcorePackage.eINSTANCE.getEJavaObject());
+			convertCollectionTypes(targetType, setType, false);
+		} else if (BuiltinMetaModel.Collection_ToList == eOperation) { 
+			EClass listType = BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEJavaObject());
+			convertCollectionTypes(targetType, listType, false);
+		} else if (BuiltinMetaModel.Collection_Contains == eOperation) { 
+			write("[OclAny]");
+			write("->includes(");
+			internalMigrateOperationCallParameters(operationCall, ctx);
+			write(")");
+		} else if (BuiltinMetaModel.Collection_ContainsAll == eOperation) { 
+			write("[OclAny]");
+			write("->includesAll(");
+			internalMigrateOperationCallParameters(operationCall, ctx);
+			write(")");
+		} else if (BuiltinMetaModel.List_Get == eOperation) { 
+			write("->at(");
+			internalMigrateOperationCallParameters(operationCall, ctx);
+			write(" + 1)");
+		} else if (BuiltinMetaModel.List_WithoutFirst == eOperation) { 
+			write("if ");
+			internalMigrateOperationCallTarget(operationCall, ctx);
+			write("->isEmpty() then Sequence{} else ");
+			internalMigrateOperationCallTarget(operationCall, ctx);
+			write("->subSequence(2, ");
+			internalMigrateOperationCallTarget(operationCall, ctx);
+			write("->size()) endif");
+		} else if (BuiltinMetaModel.List_WithoutLast == eOperation) { 
+			write("if ");
+			internalMigrateOperationCallTarget(operationCall, ctx);
+			write("->isEmpty() then Sequence{} else ");
+			internalMigrateOperationCallTarget(operationCall, ctx);
+			write("->subSequence(1, ");
+			internalMigrateOperationCallTarget(operationCall, ctx);
+			write("->size() - 1) endif");
+		} else if (BuiltinMetaModel.List_PurgeDups == eOperation) { 
+			write("->asOrderedSet()->asSequence()");
+		} else if (BuiltinMetaModel.List_IndexOf == eOperation) {
+			write("[OclAny]->indexOf(");
+			internalMigrateOperationCallParameters(operationCall, ctx);
+			write(") - 1");
+		} else {
+			// TODO: remove this branch?
+			write("->");
+			write(eOperation.getName());
+			write("(");
+			internalMigrateOperationCallParameters(operationCall, ctx);
+			write(")");
+		}
+	}
+
+	private void internalMigrateCollectionOperationCollectionParameter(OperationCallTrace trace, OperationCall operationCall, EClassifier targetType, MigrationExecutionContext ctx) throws MigrationException {
+		EClassifier[] paramTypes = trace.getParamTypes();
+		assert paramTypes != null && paramTypes.length == 1;
+		assert operationCall.getParams().length == 1;
+		write("(");
+		migrateExpression(operationCall.getParams()[0], ctx);
+		assert BuiltinMetaModel.isCollectionType(paramTypes[0]);
+		convertCollectionTypes(paramTypes[0], targetType, false);
+		write(")");
+	}
+
+	// TODO: make two separate methods from this one?
+	private void convertCollectionTypes(EClassifier originalCollectionType, EClassifier targetType, boolean convertToAnyType) {
+		if (isListType(originalCollectionType)) {
+			if (convertToAnyType) {
+				write("[OclAny]");
+			}
+			if (isSetType(targetType)) {
+				write("->asSet()");
+			} else if (!isListType(targetType)) {
+				write("->asBag()");
+			}
+		} else if (isSetType(originalCollectionType)) {
+			if (convertToAnyType) {
+				write("[OclAny]");
+			}
+			if (isListType(targetType)) {
+				write("->asSequence()");
+			}
+		} else {
+			String iteratorName = "it";
+			write("->collect(");
+			write(iteratorName);
+			write(" | ");
+			write(iteratorName);
+			if (convertToAnyType) {
+				write(".oclAsType(OclAny)");
+			}
+			write(")");
+			if (isListType(targetType)) {
+				write("->asSequence()");
+			} else if (isSetType(targetType)) {
+				write("->asSet()");
+			}
+		}
+	}
+
+	private boolean isCollectionOperation(OperationCallTrace trace) {
+		EOperation eOperation = trace.getEOperation();
+		assert eOperation != null;
+		return collectionOperations.contains(eOperation);
 	}
 
 	private String getUniqueVarName(Set<String> definedVariables) {
@@ -709,7 +920,7 @@ public class MigrationFacade {
 		}
 	}
 
-	private void migrateOperationCallParameters(OperationCall operationCall, MigrationExecutionContext ctx) throws MigrationException {
+	private void internalMigrateOperationCallParameters(OperationCall operationCall, MigrationExecutionContext ctx) throws MigrationException {
 		for (int i = 0; i < operationCall.getParams().length; i++) {
 			if (i > 0) {
 				write(", ");
@@ -718,50 +929,19 @@ public class MigrationFacade {
 		}
 	}
 
-	// TODO: use OperationCallTrace as a parameter of this call + compare
-	// associated operation with one from BMM using "=="
-	private String getQVTOperationName(OperationCall operationCall) {
-		String operationName = operationCall.getName().getValue();
-		if ("toFirstUpper".equals(operationName)) {
-			return "firstToUpper";
-		} else if ("toList".equals(operationName)) {
-			return "asSequence";
+	private String getQVTOperationName(OperationCallTrace trace) {
+		EOperation eOperation = trace.getEOperation();
+		assert eOperation != null;
+		if (BuiltinMetaModel.EString_ToFirstUpper == eOperation) {
+			return "firstToUpper";	
 		}
-		return operationName;
+		return eOperation.getName();
 	}
-
-	// TODO: use OperationCallTrace as a parameter of this call + compare
-	// associated operation with one from BMM using "=="
-	private boolean needsSurroundingBraces(OperationCall operationCall) {
-		return "!".equals(operationCall.getName().getValue());
-	}
-
-	// TODO: use OperationCallTrace as a parameter of this call + compare
-	// associated operation with one from BMM using "=="
-	private void insertInfixOperationCall(OperationCall operationCall, int placeholder) throws MigrationException {
-		// TODO: add other infix operations to this list
-		String opName = operationCall.getName().getValue();
-		if ("!".equals(opName)) {
-			write("not ", placeholder);
-		} else if ("-".equals(opName) || "+".equals(opName)) {
-			if (operationCall.getParams().length == 0) {
-				write(opName, placeholder);
-			} else if (operationCall.getParams().length == 1) {
-				write(" ");
-				write(opName);
-				write(" ");
-			} else {
-				throw new MigrationException(Type.UNSUPPORTED_INFIX_OPERATION_PARAMETER, "\"" + opName + "\" only 0 or 1 parameters supported, passed: " + operationCall.getParams().length);
-			}
-		} else {
-			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Incorrect infix operation: " + opName);
-		}
-	}
-
-	private boolean isInfixOperation(OperationCall operationCall) {
-		// TODO: add other infix operations to this list
-		String opName = operationCall.getName().getValue();
-		return "!".equals(opName) || "-".equals(opName) || "+".equals(opName);
+	
+	private boolean isInfixOperation(OperationCallTrace trace) {
+		EOperation eOperation = trace.getEOperation();
+		assert eOperation != null;
+		return infixOperations.contains(eOperation);
 	}
 
 	private void migrateFeatureCall(FeatureCall featureCall, MigrationExecutionContext ctx) throws MigrationException {

@@ -29,14 +29,11 @@ public class OperationCallTrace implements ExpressionAnalyzeTrace {
 
 	private EClassifier targetType;
 
+	private EClassifier[] paramTypes;
+
 	public OperationCallTrace(EClassifier result, Type type) {
 		resultType = result;
 		this.type = type;
-	}
-
-	public OperationCallTrace(EClassifier result, EOperation operation) {
-		this(result, Type.OPERATION_REF);
-		this.operation = operation;
 	}
 
 	public OperationCallTrace(EClass result, EClassifier targetType) {
@@ -44,10 +41,15 @@ public class OperationCallTrace implements ExpressionAnalyzeTrace {
 		this.targetType = targetType;
 	}
 
-	public OperationCallTrace(EClass result, EClassifier targetType, EOperation operation) {
-		this(result, Type.IMPLICIT_COLLECT_OPERATION_REF);
+	public OperationCallTrace(EClassifier result, EClassifier targetType, EOperation operation, Type type) {
+		this(result, type);
 		this.targetType = targetType;
 		this.operation = operation;
+	}
+
+	public OperationCallTrace(EClassifier result, EClassifier targetType, EOperation operation, EClassifier[] paramTypes) {
+		this(result, targetType, operation, OperationCallTrace.Type.OPERATION_REF);
+		this.paramTypes = paramTypes;
 	}
 
 	public EClassifier getResultType() {
@@ -60,7 +62,7 @@ public class OperationCallTrace implements ExpressionAnalyzeTrace {
 
 	/**
 	 * @return EOperation referenced by this OperationCall or null if getType()
-	 *         != OPERATION_REF
+	 *         != (OPERATION_REF || IMPLICIT_COLLECT_OPERATION_REF)
 	 */
 	public EOperation getEOperation() {
 		return operation;
@@ -68,11 +70,20 @@ public class OperationCallTrace implements ExpressionAnalyzeTrace {
 
 	/**
 	 * @return EClassifier representing the type of OperationCall target or null
-	 *         if getType() != (IMPLICIT_COLLECT_OPERATION_REF ||
-	 *         IMPLICIT_COLLECT_EXTENSION_REF)
+	 *         if getType() != (OPERATION_REF || IMPLICIT_COLLECT_OPERATION_REF
+	 *         || IMPLICIT_COLLECT_EXTENSION_REF)
 	 */
 	public EClassifier getTargetType() {
 		return targetType;
+	}
+
+	// TODO: return only collection parameter type?..
+	/**
+	 * @return EClassifier[] representing types of OperationCall parameters or
+	 *         null if getType() != OPERATION_REF
+	 */
+	public EClassifier[] getParamTypes() {
+		return paramTypes;
 	}
 
 }
