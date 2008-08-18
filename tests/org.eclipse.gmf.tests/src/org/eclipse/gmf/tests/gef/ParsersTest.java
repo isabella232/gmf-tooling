@@ -130,6 +130,39 @@ public class ParsersTest extends TestCase {
 		assertEquals(888, i.intValue());
 	}
 
+	/**
+	 * Test custom message format pattern.
+	 */
+	public void testCustomMessageFormatPatterns() throws Exception {
+		ResourceSet rs = new ResourceSetImpl();
+		Resource r = rs.createResource(URI.createURI("uri://org.eclipse.gmf/tests/parkins"));
+		EObject nodkin = createNodkin();
+		r.getContents().add(nodkin);
+		setAttribute(nodkin, "a1", "gold");
+		setAttribute(nodkin, "a2", "silver");
+		setAttribute(nodkin, "a3", new Integer(100));
+		TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(rs);
+
+		//		mf.setViewPattern("{2} x {1} ({0})");
+		//		mf.setEditPattern("[{1}] - {0}, {2}");
+		//		mf.setEditorPattern("{2}/{1}/{0}");
+
+		IParser p = getParser(setup.genModel.ac132);
+		String s = p.getPrintString(new EObjectAdapter(nodkin), 0);
+		assertEquals("silver x 100 (gold)", s);
+		s = p.getEditString(new EObjectAdapter(nodkin), 0);
+		assertEquals("silver/100/gold", s);
+		ICommand c = p.getParseCommand(new EObjectAdapter(nodkin), "[50] - ping, pong", 0);
+		assertTrue(c.canExecute());
+		c.execute(new NullProgressMonitor(), new EObjectAdapter(nodkin));
+		s = (String) getAttribute(nodkin, "a1");
+		assertEquals("ping", s);
+		s = (String) getAttribute(nodkin, "a2");
+		assertEquals("pong", s);
+		Integer i = (Integer) getAttribute(nodkin, "a3");
+		assertEquals(50, i.intValue());
+	}
+
 	protected IParser getParser(final GenNodeLabel label) throws Exception {
 		String ppfqn = setup.genModel.diagramkin.getParserProviderQualifiedClassName();
 		Class<?> ppc = setup.project.getBundle().loadClass(ppfqn);
@@ -281,8 +314,8 @@ public class ParsersTest extends TestCase {
 
 		private int vid = 100;
 		public GenDiagram diagramkin;
-		public GenTopLevelNode genNodkin;
-		public GenNodeLabel a1, a123;
+		public GenTopLevelNode nodkin;
+		public GenNodeLabel a1, a123, ac132;
 
 		public ParsersGenModel(ParsersDomainModel domainModel) {
 			GenModel runtimeModel = getRuntimeGenModel();
@@ -303,20 +336,29 @@ public class ParsersTest extends TestCase {
 			genBurden.setDiagramUpdater(GMFGenFactory.eINSTANCE.createGenDiagramUpdater());
 			new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/parking")).getContents().add(genBurden);
 
-			genNodkin = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
-			genNodkin.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getNode()));
-			TypeModelFacet mf = GMFGenFactory.eINSTANCE.createTypeModelFacet();
-			mf.setMetaClass(gmm.findGenClass(domainModel.nodkin));
-			mf.setContainmentMetaFeature(gmm.findGenFeature(domainModel.refkin));
-			mf.setChildMetaFeature(mf.getContainmentMetaFeature());
-			genNodkin.setModelFacet(mf);
-			genNodkin.setElementType(GMFGenFactory.eINSTANCE.createMetamodelType());
-			genNodkin.setViewmap(createNodeViewmap());
-			genNodkin.setVisualID(nextVID());
-			diagramkin.getTopLevelNodes().add(genNodkin);
+			nodkin = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
+			nodkin.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getNode()));
+			{
+				TypeModelFacet mf = GMFGenFactory.eINSTANCE.createTypeModelFacet();
+				mf.setMetaClass(gmm.findGenClass(domainModel.nodkin));
+				mf.setContainmentMetaFeature(gmm.findGenFeature(domainModel.refkin));
+				mf.setChildMetaFeature(mf.getContainmentMetaFeature());
+				nodkin.setModelFacet(mf);
+			}
+			nodkin.setElementType(GMFGenFactory.eINSTANCE.createMetamodelType());
+			nodkin.setViewmap(createNodeViewmap());
+			nodkin.setVisualID(nextVID());
+			diagramkin.getTopLevelNodes().add(nodkin);
 
 			a1 = addAttr(gmm, domainModel.a1);
 			a123 = addAttr(gmm, domainModel.a1, domainModel.a2, domainModel.a3);
+			ac132 = addAttr(gmm, domainModel.a1, domainModel.a3, domainModel.a2);
+			{
+				FeatureLabelModelFacet mf = (FeatureLabelModelFacet) ac132.getModelFacet();
+				mf.setViewPattern("{2} x {1} ({0})");
+				mf.setEditPattern("[{1}] - {0}, {2}");
+				mf.setEditorPattern("{2}/{1}/{0}");
+			}
 		}
 
 		private int nextVID() {
@@ -332,8 +374,8 @@ public class ParsersTest extends TestCase {
 			label.setModelFacet(modelFacet);
 			label.setVisualID(nextVID());
 			label.setViewmap(createLabelViewmap());
-			label.setDiagramRunTimeClass(genNodkin.getDiagramRunTimeClass());
-			genNodkin.getLabels().add(label);
+			label.setDiagramRunTimeClass(nodkin.getDiagramRunTimeClass());
+			nodkin.getLabels().add(label);
 			return label;
 		}
 
