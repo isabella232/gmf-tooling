@@ -79,7 +79,7 @@ public class ParsersTest extends TestCase {
 	}
 
 	/**
-	 * Test for the primary usecase: single attr of string type exposed as a label on diagram.
+	 * Test for the primary usecase: single attribute of string type is exposed as a label on diagram.
 	 */
 	public void testDefaultLabel() throws Exception {
 		ResourceSet rs = new ResourceSetImpl();
@@ -99,6 +99,35 @@ public class ParsersTest extends TestCase {
 		c.execute(new NullProgressMonitor(), new EObjectAdapter(nodkin));
 		s = (String) getAttribute(nodkin, "a1");
 		assertEquals("bbb", s);
+	}
+
+	/**
+	 * Test label that is based on more than one attribute.
+	 */
+	public void testMultipleAttributes() throws Exception {
+		ResourceSet rs = new ResourceSetImpl();
+		Resource r = rs.createResource(URI.createURI("uri://org.eclipse.gmf/tests/parkins"));
+		EObject nodkin = createNodkin();
+		r.getContents().add(nodkin);
+		setAttribute(nodkin, "a1", "aaa");
+		setAttribute(nodkin, "a2", "xxx");
+		setAttribute(nodkin, "a3", new Integer(555));
+		TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(rs);
+
+		IParser p = getParser(setup.genModel.a123);
+		String s = p.getPrintString(new EObjectAdapter(nodkin), 0);
+		assertEquals("aaa xxx 555", s);
+		s = p.getEditString(new EObjectAdapter(nodkin), 0);
+		assertEquals("aaa xxx 555", s);
+		ICommand c = p.getParseCommand(new EObjectAdapter(nodkin), "bbb yyy 888", 0);
+		assertTrue(c.canExecute());
+		c.execute(new NullProgressMonitor(), new EObjectAdapter(nodkin));
+		s = (String) getAttribute(nodkin, "a1");
+		assertEquals("bbb", s);
+		s = (String) getAttribute(nodkin, "a2");
+		assertEquals("yyy", s);
+		Integer i = (Integer) getAttribute(nodkin, "a3");
+		assertEquals(888, i.intValue());
 	}
 
 	protected IParser getParser(final GenNodeLabel label) throws Exception {
@@ -253,7 +282,7 @@ public class ParsersTest extends TestCase {
 		private int vid = 100;
 		public GenDiagram diagramkin;
 		public GenTopLevelNode genNodkin;
-		public GenNodeLabel a1;
+		public GenNodeLabel a1, a123;
 
 		public ParsersGenModel(ParsersDomainModel domainModel) {
 			GenModel runtimeModel = getRuntimeGenModel();
@@ -287,6 +316,7 @@ public class ParsersTest extends TestCase {
 			diagramkin.getTopLevelNodes().add(genNodkin);
 
 			a1 = addAttr(gmm, domainModel.a1);
+			a123 = addAttr(gmm, domainModel.a1, domainModel.a2, domainModel.a3);
 		}
 
 		private int nextVID() {
