@@ -40,6 +40,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
@@ -196,6 +197,29 @@ public class ParsersTest extends TestCase {
 		assertEquals(23, i.intValue());
 	}
 
+	/**
+	 * Native parsing method test.
+	 */
+	public void testNativeParsing() throws Exception {
+		ResourceSet rs = new ResourceSetImpl();
+		Resource r = rs.createResource(URI.createURI("uri://org.eclipse.gmf/tests/parkins"));
+		EObject nodkin = createNodkin();
+		r.getContents().add(nodkin);
+		setAttribute(nodkin, "a2", "aaa");
+		TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(rs);
+
+		IParser p = getParser(setup.genModel.an2);
+		String s = p.getPrintString(new EObjectAdapter(nodkin), 0);
+		assertEquals("aaa", s);
+		s = p.getEditString(new EObjectAdapter(nodkin), 0);
+		assertEquals("aaa", s);
+		ICommand c = p.getParseCommand(new EObjectAdapter(nodkin), "bbb", 0);
+		assertTrue(c.canExecute());
+		c.execute(new NullProgressMonitor(), new EObjectAdapter(nodkin));
+		s = (String) getAttribute(nodkin, "a2");
+		assertEquals("bbb", s);
+	}
+
 	protected IParser getParser(final GenNodeLabel label) throws Exception {
 		String ppfqn = setup.genModel.diagramkin.getParserProviderQualifiedClassName();
 		Class<?> ppc = setup.project.getBundle().loadClass(ppfqn);
@@ -348,7 +372,7 @@ public class ParsersTest extends TestCase {
 		private int vid = 100;
 		public GenDiagram diagramkin;
 		public GenTopLevelNode nodkin;
-		public GenNodeLabel a1, a123, ac132, a12e31;
+		public GenNodeLabel a1, a123, ac132, a12e31, an2;
 
 		public ParsersGenModel(ParsersDomainModel domainModel) {
 			GenModel runtimeModel = getRuntimeGenModel();
@@ -400,6 +424,12 @@ public class ParsersTest extends TestCase {
 				mf.getEditableMetaFeatures().add(gmm.findGenFeature(domainModel.a1));
 				mf.setEditPattern("{0}:{1}");
 				mf.setEditorPattern("<{1}>{0}");
+			}
+			an2 = addAttr(gmm, domainModel.a2);
+			{
+				FeatureLabelModelFacet mf = (FeatureLabelModelFacet) an2.getModelFacet();
+				mf.setViewMethod(LabelTextAccessMethod.NATIVE);
+				mf.setEditMethod(LabelTextAccessMethod.NATIVE);
 			}
 		}
 
