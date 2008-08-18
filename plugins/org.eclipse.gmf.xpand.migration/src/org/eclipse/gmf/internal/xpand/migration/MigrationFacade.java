@@ -501,7 +501,9 @@ public class MigrationFacade {
 	}
 
 	private void migrateTypeSelectExpression(TypeSelectExpression typeSelectExpression, MigrationExecutionContext ctx) throws MigrationException {
+		int placeholder = getCurrentPosition();
 		migrateExpression(typeSelectExpression.getTarget(), ctx);
+		addBraces(placeholder, false);
 		EClassifier type = ctx.getTypeForName(typeSelectExpression.getTypeLiteral().getValue());
 		if (type == null) {
 			throw new MigrationException(Type.TYPE_NOT_FOUND, typeSelectExpression.getTypeLiteral().getValue());
@@ -544,12 +546,12 @@ public class MigrationFacade {
 		migrateExpression(collectionExpression.getClosure(), ctx);
 		write(")");
 		if (hasNegation) {
-			addBraces(placeholder);
+			addBraces(placeholder, true);
 		}
 	}
 
-	private void addBraces(int placeholder) {
-		if (expressionsStack.size() == 1) {
+	private void addBraces(int placeholder, boolean skipTopLevelExpressions) {
+		if (skipTopLevelExpressions && expressionsStack.size() == 1) {
 			return;
 		}
 		// TODO: check for the type of parent expression here + add braces
@@ -661,7 +663,7 @@ public class MigrationFacade {
 		internalMigrateOperationCallParameters(operationCall, ctx);
 		if (BuiltinMetaModel.Boolean_NE == eOperation || BuiltinMetaModel.Int_Unary_Minus == eOperation || BuiltinMetaModel.Double_Unary_Minus == eOperation) {
 			// Enclosing with braces for "not" expression here
-			addBraces(placeholder);
+			addBraces(placeholder, true);
 		}
 	}
 
@@ -681,17 +683,18 @@ public class MigrationFacade {
 		EClassifier targetType = trace.getTargetType();
 		assert targetType != null;
 		
+		int placeholder = getCurrentPosition();
 		if (BuiltinMetaModel.Collection_Clear != eOperation && BuiltinMetaModel.List_WithoutFirst != eOperation && BuiltinMetaModel.List_WithoutLast != eOperation) {
 			internalMigrateOperationCallTarget(operationCall, ctx);
 		}
 		
 		if (BuiltinMetaModel.Collection_Add == eOperation) {
-			convertCollectionTypes(targetType, targetType, true);
+			convertCollectionTypes(targetType, targetType, true, placeholder);
 			write("->including(");
 			internalMigrateOperationCallParameters(operationCall, ctx);
 			write(")");
 		} else if (BuiltinMetaModel.Collection_AddAll == eOperation) {
-			convertCollectionTypes(targetType, targetType, true);
+			convertCollectionTypes(targetType, targetType, true, placeholder);
 			write("->union");
 			internalMigrateCollectionOperationCollectionParameter(trace, operationCall, targetType, ctx);
 		} else if (BuiltinMetaModel.Collection_Clear == eOperation) {
@@ -701,35 +704,37 @@ public class MigrationFacade {
 				write("Sequence{}");
 			}
 		} else if (BuiltinMetaModel.Collection_Flatten == eOperation) {
-			convertCollectionTypes(targetType, targetType, true);
+			convertCollectionTypes(targetType, targetType, true, placeholder);
 			write("->flatten()");
 		} else if (BuiltinMetaModel.Collection_Union == eOperation) {
 			EClass setType = BuiltinMetaModel.getSetType(EcorePackage.eINSTANCE.getEJavaObject());
-			convertCollectionTypes(targetType, setType, true);
+			convertCollectionTypes(targetType, setType, true, placeholder);
 			write("->union");
 			internalMigrateCollectionOperationCollectionParameter(trace, operationCall, setType, ctx);
 		} else if (BuiltinMetaModel.Collection_Intersect == eOperation) {
 			EClass setType = BuiltinMetaModel.getSetType(EcorePackage.eINSTANCE.getEJavaObject());
-			convertCollectionTypes(targetType, setType, true);
+			convertCollectionTypes(targetType, setType, true, placeholder);
 			write("->intersection");
 			internalMigrateCollectionOperationCollectionParameter(trace, operationCall, setType, ctx);
 		} else if (BuiltinMetaModel.Collection_Without == eOperation) { 
 			EClass setType = BuiltinMetaModel.getSetType(EcorePackage.eINSTANCE.getEJavaObject());
-			convertCollectionTypes(targetType, setType, true);
+			convertCollectionTypes(targetType, setType, true, placeholder);
 			write("->-");
 			internalMigrateCollectionOperationCollectionParameter(trace, operationCall, setType, ctx);
 		} else if (BuiltinMetaModel.Collection_ToSet == eOperation) { 
 			EClass setType = BuiltinMetaModel.getSetType(EcorePackage.eINSTANCE.getEJavaObject());
-			convertCollectionTypes(targetType, setType, false);
+			convertCollectionTypes(targetType, setType, false, placeholder);
 		} else if (BuiltinMetaModel.Collection_ToList == eOperation) { 
 			EClass listType = BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEJavaObject());
-			convertCollectionTypes(targetType, listType, false);
-		} else if (BuiltinMetaModel.Collection_Contains == eOperation) { 
+			convertCollectionTypes(targetType, listType, false, placeholder);
+		} else if (BuiltinMetaModel.Collection_Contains == eOperation) {
+			addBraces(placeholder, false);
 			write("[OclAny]");
 			write("->includes(");
 			internalMigrateOperationCallParameters(operationCall, ctx);
 			write(")");
-		} else if (BuiltinMetaModel.Collection_ContainsAll == eOperation) { 
+		} else if (BuiltinMetaModel.Collection_ContainsAll == eOperation) {
+			addBraces(placeholder, false);
 			write("[OclAny]");
 			write("->includesAll(");
 			internalMigrateOperationCallParameters(operationCall, ctx);
@@ -757,6 +762,7 @@ public class MigrationFacade {
 		} else if (BuiltinMetaModel.List_PurgeDups == eOperation) { 
 			write("->asOrderedSet()->asSequence()");
 		} else if (BuiltinMetaModel.List_IndexOf == eOperation) {
+			addBraces(placeholder, false);
 			write("[OclAny]->indexOf(");
 			internalMigrateOperationCallParameters(operationCall, ctx);
 			write(") - 1");
@@ -775,16 +781,18 @@ public class MigrationFacade {
 		assert paramTypes != null && paramTypes.length == 1;
 		assert operationCall.getParams().length == 1;
 		write("(");
+		int placeholder = getCurrentPosition();
 		migrateExpression(operationCall.getParams()[0], ctx);
 		assert BuiltinMetaModel.isCollectionType(paramTypes[0]);
-		convertCollectionTypes(paramTypes[0], targetType, false);
+		convertCollectionTypes(paramTypes[0], targetType, false, placeholder);
 		write(")");
 	}
 
 	// TODO: make two separate methods from this one?
-	private void convertCollectionTypes(EClassifier originalCollectionType, EClassifier targetType, boolean convertToAnyType) {
+	private void convertCollectionTypes(EClassifier originalCollectionType, EClassifier targetType, boolean convertToAnyType, int expressionStartPosition) {
 		if (isListType(originalCollectionType)) {
 			if (convertToAnyType) {
+				addBraces(expressionStartPosition, false);
 				write("[OclAny]");
 			}
 			if (isSetType(targetType)) {
@@ -794,6 +802,7 @@ public class MigrationFacade {
 			}
 		} else if (isSetType(originalCollectionType)) {
 			if (convertToAnyType) {
+				addBraces(expressionStartPosition, false);				
 				write("[OclAny]");
 			}
 			if (isListType(targetType)) {
