@@ -220,6 +220,32 @@ public class ParsersTest extends TestCase {
 		assertEquals("bbb", s);
 	}
 
+	/**
+	 * Test printf and regexp parsing methods.
+	 */
+	public void testPrintfAndRegexpParsing() throws Exception {
+		ResourceSet rs = new ResourceSetImpl();
+		Resource r = rs.createResource(URI.createURI("uri://org.eclipse.gmf/tests/parkins"));
+		EObject nodkin = createNodkin();
+		r.getContents().add(nodkin);
+		setAttribute(nodkin, "a2", "aaa");
+		setAttribute(nodkin, "a3", new Integer(6));
+		TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(rs);
+
+		IParser p = getParser(setup.genModel.apr23);
+		String s = p.getPrintString(new EObjectAdapter(nodkin), 0);
+		assertEquals("aaa 6", s);
+		s = p.getEditString(new EObjectAdapter(nodkin), 0);
+		assertEquals("aaa 6", s);
+		ICommand c = p.getParseCommand(new EObjectAdapter(nodkin), "bbb 7", 0);
+		assertTrue(c.canExecute());
+		c.execute(new NullProgressMonitor(), new EObjectAdapter(nodkin));
+		s = (String) getAttribute(nodkin, "a2");
+		assertEquals("bbb", s);
+		Integer i = (Integer) getAttribute(nodkin, "a3");
+		assertEquals(7, i.intValue());
+	}
+
 	protected IParser getParser(final GenNodeLabel label) throws Exception {
 		String ppfqn = setup.genModel.diagramkin.getParserProviderQualifiedClassName();
 		Class<?> ppc = setup.project.getBundle().loadClass(ppfqn);
@@ -372,7 +398,7 @@ public class ParsersTest extends TestCase {
 		private int vid = 100;
 		public GenDiagram diagramkin;
 		public GenTopLevelNode nodkin;
-		public GenNodeLabel a1, a123, ac132, a12e31, an2;
+		public GenNodeLabel a1, a123, ac132, a12e31, an2, apr23;
 
 		public ParsersGenModel(ParsersDomainModel domainModel) {
 			GenModel runtimeModel = getRuntimeGenModel();
@@ -430,6 +456,12 @@ public class ParsersTest extends TestCase {
 				FeatureLabelModelFacet mf = (FeatureLabelModelFacet) an2.getModelFacet();
 				mf.setViewMethod(LabelTextAccessMethod.NATIVE);
 				mf.setEditMethod(LabelTextAccessMethod.NATIVE);
+			}
+			apr23 = addAttr(gmm, domainModel.a2, domainModel.a3);
+			{
+				FeatureLabelModelFacet mf = (FeatureLabelModelFacet) apr23.getModelFacet();
+				mf.setViewMethod(LabelTextAccessMethod.PRINTF);
+				mf.setEditMethod(LabelTextAccessMethod.REGEXP);
 			}
 		}
 
