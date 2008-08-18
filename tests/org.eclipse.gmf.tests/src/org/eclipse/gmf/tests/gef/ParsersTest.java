@@ -14,6 +14,7 @@ package org.eclipse.gmf.tests.gef;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.URI;
@@ -25,7 +26,11 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
@@ -40,6 +45,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.internal.bridge.genmodel.GenModelMatcher;
 import org.eclipse.gmf.internal.bridge.genmodel.RuntimeGenModelAccess;
+import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
@@ -76,11 +82,23 @@ public class ParsersTest extends TestCase {
 	 * Test for the primary usecase: single attr of string type exposed as a label on diagram.
 	 */
 	public void testDefaultLabel() throws Exception {
-		final EObject nodkin = createNodkin();
+		ResourceSet rs = new ResourceSetImpl();
+		Resource r = rs.createResource(URI.createURI("uri://org.eclipse.gmf/tests/parkins"));
+		EObject nodkin = createNodkin();
+		r.getContents().add(nodkin);
 		setAttribute(nodkin, "a1", "aaa");
+		TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(rs);
+
 		IParser p = getParser(setup.genModel.a1);
 		String s = p.getPrintString(new EObjectAdapter(nodkin), 0);
 		assertEquals("aaa", s);
+		s = p.getEditString(new EObjectAdapter(nodkin), 0);
+		assertEquals("aaa", s);
+		ICommand c = p.getParseCommand(new EObjectAdapter(nodkin), "bbb", 0);
+		assertTrue(c.canExecute());
+		c.execute(new NullProgressMonitor(), new EObjectAdapter(nodkin));
+		s = (String) getAttribute(nodkin, "a1");
+		assertEquals("bbb", s);
 	}
 
 	protected IParser getParser(final GenNodeLabel label) throws Exception {
