@@ -163,6 +163,39 @@ public class ParsersTest extends TestCase {
 		assertEquals(50, i.intValue());
 	}
 
+	/**
+	 * Test different set of editable attributes.
+	 */
+	public void testDifferentEditableAttributes() throws Exception {
+		ResourceSet rs = new ResourceSetImpl();
+		Resource r = rs.createResource(URI.createURI("uri://org.eclipse.gmf/tests/parkins"));
+		EObject nodkin = createNodkin();
+		r.getContents().add(nodkin);
+		setAttribute(nodkin, "a1", "gold");
+		setAttribute(nodkin, "a2", "silver");
+		setAttribute(nodkin, "a3", new Integer(100));
+		TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(rs);
+
+		//		mf.setViewPattern("{0}*{1}");
+		//		mf.setEditPattern("{0}:{1}");
+		//		mf.setEditorPattern("<{1}>{0}");
+
+		IParser p = getParser(setup.genModel.a12e31);
+		String s = p.getPrintString(new EObjectAdapter(nodkin), 0);
+		assertEquals("gold*silver", s);
+		s = p.getEditString(new EObjectAdapter(nodkin), 0);
+		assertEquals("<gold>100", s);
+		ICommand c = p.getParseCommand(new EObjectAdapter(nodkin), "23:ping", 0);
+		assertTrue(c.canExecute());
+		c.execute(new NullProgressMonitor(), new EObjectAdapter(nodkin));
+		s = (String) getAttribute(nodkin, "a1");
+		assertEquals("ping", s);
+		s = (String) getAttribute(nodkin, "a2");
+		assertEquals("silver", s);
+		Integer i = (Integer) getAttribute(nodkin, "a3");
+		assertEquals(23, i.intValue());
+	}
+
 	protected IParser getParser(final GenNodeLabel label) throws Exception {
 		String ppfqn = setup.genModel.diagramkin.getParserProviderQualifiedClassName();
 		Class<?> ppc = setup.project.getBundle().loadClass(ppfqn);
@@ -315,7 +348,7 @@ public class ParsersTest extends TestCase {
 		private int vid = 100;
 		public GenDiagram diagramkin;
 		public GenTopLevelNode nodkin;
-		public GenNodeLabel a1, a123, ac132;
+		public GenNodeLabel a1, a123, ac132, a12e31;
 
 		public ParsersGenModel(ParsersDomainModel domainModel) {
 			GenModel runtimeModel = getRuntimeGenModel();
@@ -358,6 +391,15 @@ public class ParsersTest extends TestCase {
 				mf.setViewPattern("{2} x {1} ({0})");
 				mf.setEditPattern("[{1}] - {0}, {2}");
 				mf.setEditorPattern("{2}/{1}/{0}");
+			}
+			a12e31 = addAttr(gmm, domainModel.a1, domainModel.a2);
+			{
+				FeatureLabelModelFacet mf = (FeatureLabelModelFacet) a12e31.getModelFacet();
+				mf.setViewPattern("{0}*{1}");
+				mf.getEditableMetaFeatures().add(gmm.findGenFeature(domainModel.a3));
+				mf.getEditableMetaFeatures().add(gmm.findGenFeature(domainModel.a1));
+				mf.setEditPattern("{0}:{1}");
+				mf.setEditorPattern("<{1}>{0}");
 			}
 		}
 
