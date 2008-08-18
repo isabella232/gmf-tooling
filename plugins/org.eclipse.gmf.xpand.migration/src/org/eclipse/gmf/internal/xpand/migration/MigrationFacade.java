@@ -503,13 +503,21 @@ public class MigrationFacade {
 	private void migrateTypeSelectExpression(TypeSelectExpression typeSelectExpression, MigrationExecutionContext ctx) throws MigrationException {
 		int placeholder = getCurrentPosition();
 		migrateExpression(typeSelectExpression.getTarget(), ctx);
-		addBraces(placeholder, false);
 		EClassifier type = ctx.getTypeForName(typeSelectExpression.getTypeLiteral().getValue());
 		if (type == null) {
 			throw new MigrationException(Type.TYPE_NOT_FOUND, typeSelectExpression.getTypeLiteral().getValue());
 		}
+		internalMigrateTypeSelect(getQvtFQName(type), placeholder);
+	}
+
+	private void internalMigrateTypeSelect(String typeName, int placeholder) {
+		// TODO: This method should write braces around expression starting at
+		// placeholder position conditionally depending on the last char in output
+		// sequence.
+		write("(", placeholder);
+		write(")");
 		write("[");
-		write(getQvtFQName(type));
+		write(typeName);
 		write("]");
 	}
 
@@ -546,12 +554,12 @@ public class MigrationFacade {
 		migrateExpression(collectionExpression.getClosure(), ctx);
 		write(")");
 		if (hasNegation) {
-			addBraces(placeholder, true);
+			addNegationBraces(placeholder);
 		}
 	}
 
-	private void addBraces(int placeholder, boolean skipTopLevelExpressions) {
-		if (skipTopLevelExpressions && expressionsStack.size() == 1) {
+	private void addNegationBraces(int placeholder) {
+		if (expressionsStack.size() == 1) {
 			return;
 		}
 		// TODO: check for the type of parent expression here + add braces
@@ -663,7 +671,7 @@ public class MigrationFacade {
 		internalMigrateOperationCallParameters(operationCall, ctx);
 		if (BuiltinMetaModel.Boolean_NE == eOperation || BuiltinMetaModel.Int_Unary_Minus == eOperation || BuiltinMetaModel.Double_Unary_Minus == eOperation) {
 			// Enclosing with braces for "not" expression here
-			addBraces(placeholder, true);
+			addNegationBraces(placeholder);
 		}
 	}
 
@@ -728,14 +736,12 @@ public class MigrationFacade {
 			EClass listType = BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEJavaObject());
 			convertCollectionTypes(targetType, listType, false, placeholder);
 		} else if (BuiltinMetaModel.Collection_Contains == eOperation) {
-			addBraces(placeholder, false);
-			write("[OclAny]");
+			internalMigrateTypeSelect(AnyType.SINGLETON_NAME, placeholder);
 			write("->includes(");
 			internalMigrateOperationCallParameters(operationCall, ctx);
 			write(")");
 		} else if (BuiltinMetaModel.Collection_ContainsAll == eOperation) {
-			addBraces(placeholder, false);
-			write("[OclAny]");
+			internalMigrateTypeSelect(AnyType.SINGLETON_NAME, placeholder);
 			write("->includesAll(");
 			internalMigrateOperationCallParameters(operationCall, ctx);
 			write(")");
@@ -762,8 +768,8 @@ public class MigrationFacade {
 		} else if (BuiltinMetaModel.List_PurgeDups == eOperation) { 
 			write("->asOrderedSet()->asSequence()");
 		} else if (BuiltinMetaModel.List_IndexOf == eOperation) {
-			addBraces(placeholder, false);
-			write("[OclAny]->indexOf(");
+			internalMigrateTypeSelect(AnyType.SINGLETON_NAME, placeholder);
+			write("->indexOf(");
 			internalMigrateOperationCallParameters(operationCall, ctx);
 			write(") - 1");
 		} else {
@@ -792,8 +798,7 @@ public class MigrationFacade {
 	private void convertCollectionTypes(EClassifier originalCollectionType, EClassifier targetType, boolean convertToAnyType, int expressionStartPosition) {
 		if (isListType(originalCollectionType)) {
 			if (convertToAnyType) {
-				addBraces(expressionStartPosition, false);
-				write("[OclAny]");
+				internalMigrateTypeSelect(AnyType.SINGLETON_NAME, expressionStartPosition);
 			}
 			if (isSetType(targetType)) {
 				write("->asSet()");
@@ -802,8 +807,7 @@ public class MigrationFacade {
 			}
 		} else if (isSetType(originalCollectionType)) {
 			if (convertToAnyType) {
-				addBraces(expressionStartPosition, false);				
-				write("[OclAny]");
+				internalMigrateTypeSelect(AnyType.SINGLETON_NAME, expressionStartPosition);
 			}
 			if (isListType(targetType)) {
 				write("->asSequence()");
