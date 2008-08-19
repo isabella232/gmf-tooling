@@ -726,12 +726,14 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		TypeModelFacet typeModelFacet = GMFGenFactory.eINSTANCE.createTypeModelFacet();
 		topLevelNode.setModelFacet(typeModelFacet);
 		GenClass genClass1 = GenModelFactory.eINSTANCE.createGenClass();
+		genClass1.setEcoreClass(EcoreFactory.eINSTANCE.createEClass());
 		typeModelFacet.setMetaClass(genClass1);
 		GenChildNode childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
 		genDiagram.getChildNodes().add(childNode);
 		typeModelFacet = GMFGenFactory.eINSTANCE.createTypeModelFacet();
 		childNode.setModelFacet(typeModelFacet);
 		GenClass genClass2 = GenModelFactory.eINSTANCE.createGenClass();
+		genClass2.setEcoreClass(EcoreFactory.eINSTANCE.createEClass());
 		typeModelFacet.setMetaClass(genClass2);
 		
 		assertTrue(genLink.getAssistantSources().size() == 0);
