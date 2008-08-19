@@ -529,30 +529,40 @@ public class MigrationFacade {
 		boolean hasNegation = false;
 		migrateExpression(collectionExpression.getTarget(), ctx);
 		write("->");
-		// TODO: replace all these if() with single one +
-		// write(collectionExpression.getName().getValue())?
-		if (collectionExpression.getName().getValue().equals(SyntaxConstants.COLLECT)) {
-			write("collect");
-		} else if (collectionExpression.getName().getValue().equals(SyntaxConstants.SELECT)) {
-			write("select");
-		} else if (collectionExpression.getName().getValue().equals(SyntaxConstants.REJECT)) {
-			write("reject");
-		} else if (collectionExpression.getName().getValue().equals(SyntaxConstants.EXISTS)) {
-			write("exists");
-		} else if (collectionExpression.getName().getValue().equals(SyntaxConstants.NOT_EXISTS)) {
+		ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(collectionExpression);
+		if (false == expressionTrace instanceof CollectionExpressionTrace) {
+			throw new MigrationException(Type.UNSUPPORTED_COLLECTION_EXPRESSION_TRACE, String.valueOf(expressionTrace));
+		}
+		CollectionExpressionTrace trace = (CollectionExpressionTrace) expressionTrace;
+		switch (trace.getType()) {
+		case NOTEXISTS_REF:
 			hasNegation = true;
 			write("not ", placeholder);
 			write("exists");
-		} else if (collectionExpression.getName().getValue().equals(SyntaxConstants.FOR_ALL)) {
-			write("forAll");
-		} else {
-			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, collectionExpression.getName().getValue());
+			break;
+		case COLLECT_REF:
+		case SELECT_REF:
+		case REJECT_REF:
+		case EXISTS_REF:
+		case FORALL_REF:
+			write(collectionExpression.getName().getValue());
+			break;
+		case INCORRECT_EXPRESSION_TYPE:
+		case UNDESOLVED_TARGET_TYPE:
+			throw new MigrationException(Type.UNSUPPORTED_COLLECTION_EXPRESSION, trace.toString());
+		default:
+			throw new MigrationException(Type.UNSUPPORTED_COLLECTION_EXPRESSION_TRACE, "Incorrect type: " + trace.getType());
 		}
 		write("(");
 		write(collectionExpression.getElementName());
 		write(" | ");
 		migrateExpression(collectionExpression.getClosure(), ctx);
 		write(")");
+		if (trace.getType() == CollectionExpressionTrace.Type.COLLECT_REF && isSetType(trace.getResultType())) {
+			// Does not work now due to the bug in xpand implementation - see
+			// "TODO [AS]" comment in CollectionExpression
+			write("->asSet()");
+		}
 		if (hasNegation) {
 			addNegationBraces(placeholder);
 		}
@@ -643,6 +653,7 @@ public class MigrationFacade {
 			convertImplicitCollectProduct(trace.getTargetType());
 			return;
 		default:
+			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, "Incorrect type: " + trace.getType());
 		}
 	}
 	

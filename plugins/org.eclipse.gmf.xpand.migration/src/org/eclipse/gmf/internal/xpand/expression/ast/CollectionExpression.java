@@ -28,6 +28,7 @@ import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
+import org.eclipse.gmf.internal.xpand.migration.CollectionExpressionTrace;
 
 /**
  * @author Sven Efftinge
@@ -166,7 +167,7 @@ public class CollectionExpression extends FeatureCall {
 			targetType = getTarget().analyze(ctx, issues);
 		}
 		if (targetType == null) {
-			return null;
+			return createAnalyzeTrace(ctx, new CollectionExpressionTrace(null, CollectionExpressionTrace.Type.UNDESOLVED_TARGET_TYPE));
 		}
 
 		if (!(BuiltinMetaModel.isParameterizedType(targetType))) {
@@ -179,17 +180,18 @@ public class CollectionExpression extends FeatureCall {
 		ctx = ctx.cloneWithVariable(new Variable(getElementName(), innerEClassifier));
 		final EClassifier closureEClassifier = closure.analyze(ctx, issues);
 		if (getName().getValue().equals(SyntaxConstants.COLLECT)) {
-			// TODO: incorrect code - .endsWith() should be used instead.
+			// TODO [AS]: incorrect code - .endsWith() should be used instead.
 			if (targetType.getName().startsWith(BuiltinMetaModel.SET)) {
-				return BuiltinMetaModel.getSetType(closureEClassifier);
+				return createAnalyzeTrace(ctx, new CollectionExpressionTrace(BuiltinMetaModel.getSetType(closureEClassifier), CollectionExpressionTrace.Type.COLLECT_REF));
 			} else if (targetType.getName().startsWith(BuiltinMetaModel.LIST)) {
-				return BuiltinMetaModel.getListType(closureEClassifier);
+				return createAnalyzeTrace(ctx, new CollectionExpressionTrace(BuiltinMetaModel.getListType(closureEClassifier), CollectionExpressionTrace.Type.COLLECT_REF));
 			} else {
-				return BuiltinMetaModel.getCollectionType(closureEClassifier);
+				return createAnalyzeTrace(ctx, new CollectionExpressionTrace(BuiltinMetaModel.getCollectionType(closureEClassifier), CollectionExpressionTrace.Type.COLLECT_REF));
 			}
 		} else if (getName().getValue().equals(SyntaxConstants.SELECT) || getName().getValue().equals(SyntaxConstants.REJECT)) {
-			return targetType;
+			return createAnalyzeTrace(ctx, new CollectionExpressionTrace(targetType, CollectionExpressionTrace.getType(this)));
 		} else if (getName().getValue().equals(SyntaxConstants.TYPE_SELECT)) {
+			// [AS]: Should not be here - separate TypeSelectExpression present in AST.
 			if (closureEClassifier == null) {
 				return null;
 			}
@@ -198,7 +200,7 @@ public class CollectionExpression extends FeatureCall {
 			if (!BuiltinMetaModel.isAssignableFrom(EcorePackage.eINSTANCE.getEBoolean(), closureEClassifier)) {
 				issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Boolean type expected! was : " + closureEClassifier, closure));
 			}
-			result = EcorePackage.eINSTANCE.getEBoolean();
+			createAnalyzeTrace(ctx, new CollectionExpressionTrace(result = EcorePackage.eINSTANCE.getEBoolean(), CollectionExpressionTrace.getType(this)));
 		} else {
 			issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR, "Unknown operation : " + getName().getValue(), this));
 		}

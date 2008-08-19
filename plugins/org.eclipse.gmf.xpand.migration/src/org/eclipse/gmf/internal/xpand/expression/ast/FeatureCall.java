@@ -21,7 +21,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
@@ -181,18 +180,14 @@ public class FeatureCall extends Expression {
             // enum literal
             final EEnumLiteral staticProp = getEnumLiteral(ctx);
             if (staticProp != null) {
-				EClassifier result = BuiltinMetaModel.getReturnType(staticProp);
-				createAnalyzeTrace(ctx, new FeatureCallTrace(result, staticProp));
-				return result;
+				return createAnalyzeTrace(ctx, new FeatureCallTrace(BuiltinMetaModel.getReturnType(staticProp), staticProp));
 			}
 
             // variable
             Variable var = ctx.getVariable(getName().getValue());
 			if (var != null) {
             	assert var.getValue() == null || var.getValue() instanceof EClassifier : "variable should hold EClassifier";
-            	EClassifier result = (EClassifier) var.getValue();
-            	createAnalyzeTrace(ctx, new FeatureCallTrace(result, Type.ENV_VAR_REF));
-				return result;
+            	return createAnalyzeTrace(ctx, new FeatureCallTrace((EClassifier) var.getValue(), Type.ENV_VAR_REF));
 			}
 
             // implicite variable 'this'
@@ -204,8 +199,7 @@ public class FeatureCall extends Expression {
         } else {
             targetType = analyzeTarget(ctx, issues);
             if (targetType == null) {
-            	createAnalyzeTrace(ctx, new FeatureCallTrace(null, Type.UNDESOLVED_TARGET_TYPE));
-				return null;
+            	return createAnalyzeTrace(ctx, new FeatureCallTrace(null, Type.UNDESOLVED_TARGET_TYPE));
 			}
         }
 
@@ -214,9 +208,7 @@ public class FeatureCall extends Expression {
         if (targetType != null) {
             EStructuralFeature p = BuiltinMetaModel.getAttribute(targetType, getName().getValue());
             if (p != null) {
-				EClassifier result = BuiltinMetaModel.getTypedElementType(p);
-				createAnalyzeTrace(ctx, new FeatureCallTrace(result, p, targetType));
-				return result;
+				return createAnalyzeTrace(ctx, new FeatureCallTrace(BuiltinMetaModel.getTypedElementType(p), p, targetType));
 			}
 
             if ((p == null) && BuiltinMetaModel.isParameterizedType(targetType)) {
@@ -227,9 +219,7 @@ public class FeatureCall extends Expression {
                     if (BuiltinMetaModel.isParameterizedType(rt)) {
                         rt = BuiltinMetaModel.getInnerType(rt);
                     }
-                    EClass result = BuiltinMetaModel.getListType(rt);
-                    createAnalyzeTrace(ctx, new FeatureCallTrace(result, targetType));
-					return result;
+                    return createAnalyzeTrace(ctx, new FeatureCallTrace(BuiltinMetaModel.getListType(rt), targetType));
                 }
                 additionalMsg = " or inner type '" + innerEClassifier + "'";
             }
@@ -258,11 +248,11 @@ public class FeatureCall extends Expression {
 
     }
     
-    protected void createAnalyzeTrace(ExecutionContext ctx, ExpressionAnalyzeTrace trace) {
-    	if (false == ctx instanceof MigrationExecutionContext) {
-    		return;
+    protected EClassifier createAnalyzeTrace(ExecutionContext ctx, ExpressionAnalyzeTrace trace) {
+    	if (ctx instanceof MigrationExecutionContext) {
+    		((MigrationExecutionContext) ctx).getTraces().put(this, trace);
     	}
-    	((MigrationExecutionContext) ctx).getTraces().put(this, trace);
+    	return trace.getResultType();
     }
 
     protected EClassifier analyzeTarget(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {

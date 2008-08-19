@@ -33,7 +33,9 @@ public class MigrationException extends Exception {
 		UNSUPPORTED_FEATURE_CALL_TRACE("Unsupported feature call trace"),
 		UNSUPPORTED_FEATURE_CALL("Unsupported feature call"), 
 		UNSUPPORTED_OPERATION_CALL_TRACE("Unsupported operation call trace"), 
-		UNSUPPORTED_OPERATION_CALL("Unsupported operation call");
+		UNSUPPORTED_OPERATION_CALL("Unsupported operation call"), 
+		UNSUPPORTED_COLLECTION_EXPRESSION_TRACE("Unsupported collection expression trace"), 
+		UNSUPPORTED_COLLECTION_EXPRESSION("Unsupported collection expression");
 
 		private String name;
 

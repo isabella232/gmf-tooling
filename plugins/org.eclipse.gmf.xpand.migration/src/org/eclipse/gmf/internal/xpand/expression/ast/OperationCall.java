@@ -22,7 +22,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
@@ -158,8 +157,7 @@ public class OperationCall extends FeatureCall {
         for (int i = 0; i < getParams().length; i++) {
             paramTypes[i] = getParams()[i].analyze(ctx, issues);
             if (paramTypes[i] == null) {
-            	createAnalyzeTrace(ctx, new OperationCallTrace(null, Type.UNDESOLVED_PARAMETER_TYPE));
-				return null;
+            	return createAnalyzeTrace(ctx, new OperationCallTrace(null, Type.UNDESOLVED_PARAMETER_TYPE));
 			}
         }
 
@@ -174,9 +172,7 @@ public class OperationCall extends FeatureCall {
                         + e.getMessage(), this));
             }
             if (f != null) {
-				EClassifier result = f.getReturnType(paramTypes, ctx, issues);
-				createAnalyzeTrace(ctx, new OperationCallTrace(result, Type.STATIC_EXTENSION_REF));
-				return result;
+				return createAnalyzeTrace(ctx, new OperationCallTrace(f.getReturnType(paramTypes, ctx, issues), Type.STATIC_EXTENSION_REF));
 			}
             final Variable var = ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE);
             if (var != null) {
@@ -190,23 +186,19 @@ public class OperationCall extends FeatureCall {
             targetType = getTarget().analyze(ctx, issues);
         }
         if (targetType == null) {
-        	createAnalyzeTrace(ctx, new OperationCallTrace(null, Type.UNDESOLVED_TARGET_TYPE));
-			return null;
+        	return createAnalyzeTrace(ctx, new OperationCallTrace(null, Type.UNDESOLVED_TARGET_TYPE));
 		}
         // operation
         EOperation op = BuiltinMetaModel.findOperation(targetType, getName().getValue(), paramTypes);
         if (op != null) {
-			EClassifier result = op.getEType() == null ? BuiltinMetaModel.VOID : BuiltinMetaModel.getTypedElementType(op);
-			createAnalyzeTrace(ctx, new OperationCallTrace(result, targetType, op, paramTypes));
-			return result;
+			return createAnalyzeTrace(ctx, new OperationCallTrace(op.getEType() == null ? BuiltinMetaModel.VOID : BuiltinMetaModel.getTypedElementType(op), targetType, op, paramTypes));
 		}
         // extension as members
         final int issueSize = issues.size();
         EClassifier rt = getExtensionsReturnType(ctx, issues, paramTypes, targetType);
         if (rt != null) {
         	// [AS] This can be only "contextual" extension call - see comment below. 
-        	createAnalyzeTrace(ctx, new OperationCallTrace(rt, Type.EXTENSION_REF));
-			return rt;
+        	return createAnalyzeTrace(ctx, new OperationCallTrace(rt, Type.EXTENSION_REF));
 		} else if (issueSize < issues.size()) {
 			return null;
 		}
@@ -219,15 +211,11 @@ public class OperationCall extends FeatureCall {
                 if (BuiltinMetaModel.isParameterizedType(rt)) {
                     rt = BuiltinMetaModel.getInnerType(rt);
                 }
-                EClass result = BuiltinMetaModel.getListType(rt);
-                createAnalyzeTrace(ctx, new OperationCallTrace(result, targetType, op, OperationCallTrace.Type.IMPLICIT_COLLECT_OPERATION_REF));
-                return result;
+                return createAnalyzeTrace(ctx, new OperationCallTrace(BuiltinMetaModel.getListType(rt), targetType, op, OperationCallTrace.Type.IMPLICIT_COLLECT_OPERATION_REF));
             }
             rt = getExtensionsReturnType(ctx, issues, paramTypes, innerType);
             if (rt != null) {
-            	EClass result = BuiltinMetaModel.getListType(rt);
-            	createAnalyzeTrace(ctx, new OperationCallTrace(result, targetType));
-				return result;
+            	return createAnalyzeTrace(ctx, new OperationCallTrace(BuiltinMetaModel.getListType(rt), targetType));
 			}
             additionalMsg = " or type '" + innerType + "'";
         }
