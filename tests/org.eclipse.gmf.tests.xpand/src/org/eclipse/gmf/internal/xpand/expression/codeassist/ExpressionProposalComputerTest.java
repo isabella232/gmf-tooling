@@ -89,8 +89,8 @@ public class ExpressionProposalComputerTest extends TestCase {
         final String s = "v.select(e| true";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
         assertEquals(2, ctx.getOCLEnvironment().getVariables().size());
-        assertEquals(listOfStrings, ctx.getVariable("v").getType());
-        assertEquals(oclString, ctx.getVariable("e").getType());
+        assertEquals(listOfStrings, ctx.getOCLEnvironment().lookup("v").getType());
+        assertEquals(oclString, ctx.getOCLEnvironment().lookup("e").getType());
     }
 
     public final void testSetInState1() {
@@ -101,7 +101,7 @@ public class ExpressionProposalComputerTest extends TestCase {
         final String s = "v.select(e| true)";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
         assertEquals(1, ctx.getOCLEnvironment().getVariables().size());
-        assertEquals(listOfStrings, ctx.getVariable("v").getType());
+        assertEquals(listOfStrings, ctx.getOCLEnvironment().lookup("v").getType());
     }
 
     public final void testSetInState2() {
@@ -110,11 +110,11 @@ public class ExpressionProposalComputerTest extends TestCase {
         EClassifier oclBoolean = ctx.getOCLEnvironment().getOCLStandardLibrary().getBoolean();
         EClassifier listOfStrings = (EClassifier) ctx.getOCLEnvironment().getTypeResolver().resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, oclString);
         ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", listOfStrings, null));
-        final String s = "v.select(e| ((List[Boolean]){true}).collect(e|";
+        final String s = "v.select(e| Sequence{true}.collect(e|";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
         assertEquals(2, ctx.getOCLEnvironment().getVariables().size());
-        assertEquals(listOfStrings, ctx.getVariable("v").getType());
-        assertEquals(oclBoolean, ctx.getVariable("e").getType());
+        assertEquals(listOfStrings, ctx.getOCLEnvironment().lookup("v").getType());
+        assertEquals(oclBoolean, ctx.getOCLEnvironment().lookup("e").getType());
     }
 
     public final void testSetInState3() {
@@ -123,12 +123,12 @@ public class ExpressionProposalComputerTest extends TestCase {
         EClassifier oclBoolean = ctx.getOCLEnvironment().getOCLStandardLibrary().getBoolean();
         EClassifier listOfStrings = (EClassifier) ctx.getOCLEnvironment().getTypeResolver().resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, oclString);
         ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", listOfStrings, null));
-        final String s = "v.select(e| ((List[Boolean]){true}).collect(b|";
+        final String s = "v.select(e| Sequence{true}.collect(b|";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
         assertEquals(3, ctx.getOCLEnvironment().getVariables().size());
-        assertEquals(listOfStrings, ctx.getVariable("v").getType());
-        assertEquals(oclString, ctx.getVariable("e").getType());
-        assertEquals(oclBoolean, ctx.getVariable("b").getType());
+        assertEquals(listOfStrings, ctx.getOCLEnvironment().lookup("v").getType());
+        assertEquals(oclString, ctx.getOCLEnvironment().lookup("e").getType());
+        assertEquals(oclBoolean, ctx.getOCLEnvironment().lookup("b").getType());
     }
 
     public final void testSetInState4() {
@@ -137,12 +137,12 @@ public class ExpressionProposalComputerTest extends TestCase {
         EClassifier oclBoolean = ctx.getOCLEnvironment().getOCLStandardLibrary().getBoolean();
         EClassifier listOfStrings = (EClassifier) ctx.getOCLEnvironment().getTypeResolver().resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, oclString);
         ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, listOfStrings, null));
-        final String s = "select(e| ((List[Boolean]){true}).collect(b|";
+        final String s = "select(e| Sequence{true}.collect(b|";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
         assertEquals(3, ctx.getOCLEnvironment().getVariables().size());
-        assertEquals(listOfStrings, ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE).getType());
-        assertEquals(oclString, ctx.getVariable("e").getType());
-        assertEquals(oclBoolean, ctx.getVariable("b").getType());
+        assertEquals(listOfStrings, ctx.getImplicitVariable().getType());
+        assertEquals(oclString, ctx.getOCLEnvironment().lookup("e").getType());
+        assertEquals(oclBoolean, ctx.getOCLEnvironment().lookup("b").getType());
     }
 
     public final void testSetInState5() {
@@ -151,12 +151,12 @@ public class ExpressionProposalComputerTest extends TestCase {
         EClassifier oclBoolean = ctx.getOCLEnvironment().getOCLStandardLibrary().getBoolean();
         EClassifier listOfStrings = (EClassifier) ctx.getOCLEnvironment().getTypeResolver().resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, oclString);
         ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, listOfStrings, null));
-        final String s = "let x = 'test' : select(e| ((List[Boolean]){true}).collect(b|";
+        final String s = "let x = 'test' : select(e| Sequence{true}.collect(b|";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
         assertEquals(4, ctx.getOCLEnvironment().getVariables().size());
-        assertEquals(listOfStrings, ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE).getType());
-        assertEquals(oclString, ctx.getVariable("e").getType());
-        assertEquals(oclBoolean, ctx.getVariable("b").getType());
-        assertEquals(oclString, ctx.getVariable("x").getType());
+        assertEquals(listOfStrings, ctx.getImplicitVariable().getType());
+        assertEquals(oclString, ctx.getOCLEnvironment().lookup("e").getType());
+        assertEquals(oclBoolean, ctx.getOCLEnvironment().lookup("b").getType());
+        assertEquals(oclString, ctx.getOCLEnvironment().lookup("x").getType());
     }
 }
