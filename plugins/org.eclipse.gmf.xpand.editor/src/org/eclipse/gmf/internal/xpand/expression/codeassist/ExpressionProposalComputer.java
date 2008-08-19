@@ -157,13 +157,13 @@ public class ExpressionProposalComputer implements ProposalComputer {
 				for (org.eclipse.ocl.expressions.Variable<EClassifier, EParameter> v : executionContext.getOCLEnvironment().getVariables()) {
 					String varName = v.getName();
 					if (varName.toLowerCase().startsWith(prefix.toLowerCase())) {
-						EClassifier t = executionContext.getVariable(varName).getType();
+						EClassifier t = v.getType();
 						String typeName = AbstractFormattingHelper.INSTANCE.formatType(t);
 						proposals.add(proposalFactory.createVariableProposal(varName, typeName, prefix));
 					}
 				}
 				// members and extensions on this
-				final Variable v = executionContext.getVariable(ExecutionContext.IMPLICIT_VARIABLE);
+				final Variable v = executionContext.getImplicitVariable();
 				if (v != null) {
 					targetType = (EClassifier) v.getValue();
 					proposals.addAll(getAllMemberProposals(targetType, prefix));
