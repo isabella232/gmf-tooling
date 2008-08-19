@@ -51,7 +51,7 @@ uncomment when QVTO is capable of Collection() context operations (Bug #243684)
 «ENDDEFINE»
 
 «DEFINE checkSequence(positiveAnswer:String, negativeAnswer:String) FOR Sequence(Boolean)-»
-«EXPAND checkSequenceInternal(getDummySequence(), positiveAnswer, negativeAnswer)-»
+«EXPAND checkSequenceInternal(self->getDummySequence(), positiveAnswer, negativeAnswer)-»
 «ENDDEFINE»
 
 «DEFINE checkSequenceInternal(qvtList:Sequence(Boolean), positiveAnswer:String, negativeAnswer:String) FOR Sequence(Boolean)-»
@@ -59,8 +59,8 @@ uncomment when QVTO is capable of Collection() context operations (Bug #243684)
 «ENDDEFINE»
 
 «DEFINE checkListInternal(qvtList:Sequence(Boolean), positiveAnswer:String, negativeAnswer:String) FOR Sequence(Boolean)-»
-«IF qvtList->size() = 0 and self->size() = 0»«positiveAnswer-»
-«ELSEIF qvtList.first() = self.first()»«EXPAND checkListInternal(qvtList.withoutFirst().oclAsType(Sequence(Boolean)), positiveAnswer, negativeAnswer) FOR self.withoutFirst().oclAsType(Sequence(Boolean))-»
+«IF qvtList->size() = 1 and self->size() = 1»«IF qvtList = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ELSEIF qvtList->first() = self->first()»«EXPAND checkListInternal(qvtList->subSequence(2, qvtList->size()), positiveAnswer, negativeAnswer) FOR self->subSequence(2, self->size())-»
 «ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
 
