@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,26 +7,19 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
  */
 package org.eclipse.gmf.internal.xpand.expression.codeassist;
 
 import junit.framework.TestCase;
 
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.model.Scope;
 import org.eclipse.gmf.internal.xpand.model.Variable;
+import org.eclipse.ocl.expressions.CollectionKind;
 
 public class ExpressionProposalComputerTest extends TestCase {
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
 
     public final void testComputePrefixAndTargetExpression1() {
         final String[] s = ExpressionProposalComputer.computePrefixAndTargetExpression("test");
@@ -61,8 +52,7 @@ public class ExpressionProposalComputerTest extends TestCase {
     }
 
     public final void testComputePrefixAndTargetExpression6() {
-        final String[] s = ExpressionProposalComputer
-                .computePrefixAndTargetExpression("test(true, {false, 'hallo',stuff.");
+        final String[] s = ExpressionProposalComputer.computePrefixAndTargetExpression("test(true, {false, 'hallo',stuff.");
         assertEquals("", s[0]);
         assertEquals("stuff", s[1]);
     }
@@ -93,66 +83,80 @@ public class ExpressionProposalComputerTest extends TestCase {
 
     public final void testSetInState() {
         ExecutionContextImpl ctx = new ExecutionContextImpl(new Scope() {});
-        ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString())));
+        EClassifier oclString = ctx.getOCLEnvironment().getOCLStandardLibrary().getString();
+        EClassifier listOfStrings = (EClassifier) ctx.getOCLEnvironment().getTypeResolver().resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, oclString);
+        ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", listOfStrings, null));
         final String s = "v.select(e| true";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
-        assertEquals(2, ctx.getVisibleVariables().size());
-        assertEquals(BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString()), ctx.getVariable("v").getValue());
-        assertEquals(EcorePackage.eINSTANCE.getEString(), ctx.getVariable("e").getValue());
+        assertEquals(2, ctx.getOCLEnvironment().getVariables().size());
+        assertEquals(listOfStrings, ctx.getVariable("v").getType());
+        assertEquals(oclString, ctx.getVariable("e").getType());
     }
 
     public final void testSetInState1() {
         ExecutionContextImpl ctx = new ExecutionContextImpl(new Scope() {});
-        ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString())));
+        EClassifier oclString = ctx.getOCLEnvironment().getOCLStandardLibrary().getString();
+        EClassifier listOfStrings = (EClassifier) ctx.getOCLEnvironment().getTypeResolver().resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, oclString);
+        ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", listOfStrings, null));
         final String s = "v.select(e| true)";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
-        assertEquals(1, ctx.getVisibleVariables().size());
-        assertEquals(BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString()), ctx.getVariable("v").getValue());
+        assertEquals(1, ctx.getOCLEnvironment().getVariables().size());
+        assertEquals(listOfStrings, ctx.getVariable("v").getType());
     }
 
     public final void testSetInState2() {
         ExecutionContextImpl ctx = new ExecutionContextImpl(new Scope() {});
-        ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString())));
+        EClassifier oclString = ctx.getOCLEnvironment().getOCLStandardLibrary().getString();
+        EClassifier oclBoolean = ctx.getOCLEnvironment().getOCLStandardLibrary().getBoolean();
+        EClassifier listOfStrings = (EClassifier) ctx.getOCLEnvironment().getTypeResolver().resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, oclString);
+        ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", listOfStrings, null));
         final String s = "v.select(e| ((List[Boolean]){true}).collect(e|";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
-        assertEquals(2, ctx.getVisibleVariables().size());
-        assertEquals(BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString()), ctx.getVariable("v").getValue());
-        assertEquals(EcorePackage.eINSTANCE.getEBoolean(), ctx.getVariable("e").getValue());
+        assertEquals(2, ctx.getOCLEnvironment().getVariables().size());
+        assertEquals(listOfStrings, ctx.getVariable("v").getType());
+        assertEquals(oclBoolean, ctx.getVariable("e").getType());
     }
 
     public final void testSetInState3() {
         ExecutionContextImpl ctx = new ExecutionContextImpl(new Scope() {});
-        ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString())));
+        EClassifier oclString = ctx.getOCLEnvironment().getOCLStandardLibrary().getString();
+        EClassifier oclBoolean = ctx.getOCLEnvironment().getOCLStandardLibrary().getBoolean();
+        EClassifier listOfStrings = (EClassifier) ctx.getOCLEnvironment().getTypeResolver().resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, oclString);
+        ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", listOfStrings, null));
         final String s = "v.select(e| ((List[Boolean]){true}).collect(b|";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
-        assertEquals(3, ctx.getVisibleVariables().size());
-        assertEquals(BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString()), ctx.getVariable("v").getValue());
-        assertEquals(EcorePackage.eINSTANCE.getEString(), ctx.getVariable("e").getValue());
-        assertEquals(EcorePackage.eINSTANCE.getEBoolean(), ctx.getVariable("b").getValue());
+        assertEquals(3, ctx.getOCLEnvironment().getVariables().size());
+        assertEquals(listOfStrings, ctx.getVariable("v").getType());
+        assertEquals(oclString, ctx.getVariable("e").getType());
+        assertEquals(oclBoolean, ctx.getVariable("b").getType());
     }
 
     public final void testSetInState4() {
         ExecutionContextImpl ctx = new ExecutionContextImpl(new Scope() {});
-        ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString())));
+        EClassifier oclString = ctx.getOCLEnvironment().getOCLStandardLibrary().getString();
+        EClassifier oclBoolean = ctx.getOCLEnvironment().getOCLStandardLibrary().getBoolean();
+        EClassifier listOfStrings = (EClassifier) ctx.getOCLEnvironment().getTypeResolver().resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, oclString);
+        ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, listOfStrings, null));
         final String s = "select(e| ((List[Boolean]){true}).collect(b|";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
-        assertEquals(3, ctx.getVisibleVariables().size());
-        assertEquals(BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString()), ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE)
-                .getValue());
-        assertEquals(EcorePackage.eINSTANCE.getEString(), ctx.getVariable("e").getValue());
-        assertEquals(EcorePackage.eINSTANCE.getEBoolean(), ctx.getVariable("b").getValue());
+        assertEquals(3, ctx.getOCLEnvironment().getVariables().size());
+        assertEquals(listOfStrings, ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE).getType());
+        assertEquals(oclString, ctx.getVariable("e").getType());
+        assertEquals(oclBoolean, ctx.getVariable("b").getType());
     }
 
     public final void testSetInState5() {
         ExecutionContextImpl ctx = new ExecutionContextImpl(new Scope() {});
-        ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString())));
+        EClassifier oclString = ctx.getOCLEnvironment().getOCLStandardLibrary().getString();
+        EClassifier oclBoolean = ctx.getOCLEnvironment().getOCLStandardLibrary().getBoolean();
+        EClassifier listOfStrings = (EClassifier) ctx.getOCLEnvironment().getTypeResolver().resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, oclString);
+        ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, listOfStrings, null));
         final String s = "let x = 'test' : select(e| ((List[Boolean]){true}).collect(b|";
         ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
-        assertEquals(4, ctx.getVisibleVariables().size());
-        assertEquals(BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEString()), ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE)
-                .getValue());
-        assertEquals(EcorePackage.eINSTANCE.getEString(), ctx.getVariable("e").getValue());
-        assertEquals(EcorePackage.eINSTANCE.getEBoolean(), ctx.getVariable("b").getValue());
-        assertEquals(EcorePackage.eINSTANCE.getEString(), ctx.getVariable("x").getValue());
+        assertEquals(4, ctx.getOCLEnvironment().getVariables().size());
+        assertEquals(listOfStrings, ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE).getType());
+        assertEquals(oclString, ctx.getVariable("e").getType());
+        assertEquals(oclBoolean, ctx.getVariable("b").getType());
+        assertEquals(oclString, ctx.getVariable("x").getType());
     }
 }
