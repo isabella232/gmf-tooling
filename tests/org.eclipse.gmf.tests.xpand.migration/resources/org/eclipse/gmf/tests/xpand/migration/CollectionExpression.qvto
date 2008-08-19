@@ -49,3 +49,39 @@ helper forAllCall(ePackage : ecore::EPackage, javaObject : OclAny) : Boolean {
 helper forAllCallImplicitIterator(ePackage : ecore::EPackage, javaObject : OclAny) : Boolean {
 	return ePackage.eClassifiers->asSequence()->forAll(element | element.isInstance(javaObject))
 }
+
+helper collectOnSet(eClassifiers : Set(ecore::EClassifier)) : Collection(String) {
+	return eClassifiers->collect(cl | cl.name)
+}
+
+helper collectOnList(eClassifiers : Sequence(ecore::EClassifier)) : Collection(String) {
+	return eClassifiers->collect(cl | cl.name)
+}
+
+helper collectOnCollection(eClassifiers : Collection(ecore::EClassifier)) : Collection(String) {
+	return eClassifiers->collect(cl | cl.name)
+}
+
+helper selectOnSet(eClassifiers : Set(ecore::EClassifier), javaObject : OclAny) : Set(ecore::EClassifier) {
+	return eClassifiers->select(cl | cl.isInstance(javaObject))
+}
+
+helper selectOnList(eClassifiers : Sequence(ecore::EClassifier), javaObject : OclAny) : Sequence(ecore::EClassifier) {
+	return eClassifiers->select(cl | cl.isInstance(javaObject))
+}
+
+helper selectOnCollection(eClassifiers : Collection(ecore::EClassifier), javaObject : OclAny) : Collection(ecore::EClassifier) {
+	return eClassifiers->select(cl | cl.isInstance(javaObject))
+}
+
+helper rejectOnSet(eClassifiers : Set(ecore::EClassifier), javaObject : OclAny) : Set(ecore::EClassifier) {
+	return eClassifiers->reject(cl | cl.isInstance(javaObject))
+}
+
+helper rejectOnList(eClassifiers : Sequence(ecore::EClassifier), javaObject : OclAny) : Sequence(ecore::EClassifier) {
+	return eClassifiers->reject(cl | cl.isInstance(javaObject))
+}
+
+helper rejectOnCollection(eClassifiers : Collection(ecore::EClassifier), javaObject : OclAny) : Collection(ecore::EClassifier) {
+	return eClassifiers->reject(cl | cl.isInstance(javaObject))
+}

@@ -47,3 +47,40 @@ Boolean forAllCall(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
 Boolean forAllCallImplicitIterator(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
 	ePackage.eClassifiers.forAll(element.isInstance(javaObject))
 ;
+
+/* Different original collection types */
+Collection[String] collectOnSet(Set[ecore::EClassifier] eClassifiers) :
+	eClassifiers.collect(cl | cl.name)
+;
+
+Collection[String] collectOnList(List[ecore::EClassifier] eClassifiers) :
+	eClassifiers.collect(cl | cl.name)
+;
+
+Collection[String] collectOnCollection(Collection[ecore::EClassifier] eClassifiers) :
+	eClassifiers.collect(cl | cl.name)
+;
+
+Set[ecore::EClassifier] selectOnSet(Set[ecore::EClassifier] eClassifiers, ecore::EJavaObject javaObject) :
+	eClassifiers.select(cl | cl.isInstance(javaObject))
+;
+
+List[ecore::EClassifier] selectOnList(List[ecore::EClassifier] eClassifiers, ecore::EJavaObject javaObject) :
+	eClassifiers.select(cl | cl.isInstance(javaObject))
+;
+
+Collection[ecore::EClassifier] selectOnCollection(Collection[ecore::EClassifier] eClassifiers, ecore::EJavaObject javaObject) :
+	eClassifiers.select(cl | cl.isInstance(javaObject))
+;
+
+Set[ecore::EClassifier] rejectOnSet(Set[ecore::EClassifier] eClassifiers, ecore::EJavaObject javaObject) :
+	eClassifiers.reject(cl | cl.isInstance(javaObject))
+;
+
+List[ecore::EClassifier] rejectOnList(List[ecore::EClassifier] eClassifiers, ecore::EJavaObject javaObject) :
+	eClassifiers.reject(cl | cl.isInstance(javaObject))
+;
+
+Collection[ecore::EClassifier] rejectOnCollection(Collection[ecore::EClassifier] eClassifiers, ecore::EJavaObject javaObject) :
+	eClassifiers.reject(cl | cl.isInstance(javaObject))
+;
