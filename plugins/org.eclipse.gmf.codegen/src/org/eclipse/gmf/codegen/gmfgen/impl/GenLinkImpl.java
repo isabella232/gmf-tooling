@@ -508,13 +508,21 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 		return getDiagram().getEditCommandsPackageName() + '.' + getReorientCommandClassName();
 	}
 
+	/**
+	 * Finds nodes that are based on the specified types.
+	 */
 	protected EList<GenCommonBase> getParticipants(EList<GenClass> participantTypes) {
 		LinkedList<GenNode> participants = new LinkedList<GenNode>();
 		for (GenNode node : getDiagram().getAllNodes()) {
 			if (node.getModelFacet() != null) {
 				GenClass nodeType = node.getModelFacet().getMetaClass();
-				if (participantTypes.contains(nodeType)) {
-					participants.add(node);
+				if (nodeType != null && nodeType.getEcoreClass() != null) {
+					for (GenClass participantType : participantTypes) {
+						if (participantType.getEcoreClass() != null
+								&& participantType.getEcoreClass().isSuperTypeOf(nodeType.getEcoreClass())) {
+							participants.add(node);
+						}
+					}
 				}
 			}
 		}
