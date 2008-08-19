@@ -26,6 +26,7 @@ import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
+import org.eclipse.gmf.internal.xpand.migration.TypeSelectExpressionTrace;
 
 /**
  * @author Sven Efftinge
@@ -94,7 +95,7 @@ public class TypeSelectExpression extends FeatureCall {
             targetType = getTarget().analyze(ctx, issues);
         }
         if (targetType == null) {
-			return null;
+			return createAnalyzeTrace(ctx, new TypeSelectExpressionTrace(null, null));
 		}
 
         if (!BuiltinMetaModel.isParameterizedType(targetType)) {
@@ -110,7 +111,7 @@ public class TypeSelectExpression extends FeatureCall {
             return null;
         }
 
-        return BuiltinMetaModel.getListType(closureEClassifier);
+        return createAnalyzeTrace(ctx, new TypeSelectExpressionTrace(BuiltinMetaModel.getListType(closureEClassifier), targetType));
     }
     
     public Identifier getTypeLiteral() {

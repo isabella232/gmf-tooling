@@ -507,7 +507,19 @@ public class MigrationFacade {
 		if (type == null) {
 			throw new MigrationException(Type.TYPE_NOT_FOUND, typeSelectExpression.getTypeLiteral().getValue());
 		}
+		ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(typeSelectExpression);
+		if (false == expressionTrace instanceof TypeSelectExpressionTrace) {
+			throw new MigrationException(Type.UNSUPPORTED_TYPE_SELECT_EXPRESSION_TRACE, String.valueOf(expressionTrace));
+		}
+		TypeSelectExpressionTrace trace = (TypeSelectExpressionTrace) expressionTrace;
+		if (!trace.isValid()) {
+			throw new MigrationException(Type.UNSUPPORTED_TYPE_SELECT_EXPRESSION, trace.toString());
+		}
+		convertCollectionTypes(trace.getTargetType(), trace.getTargetType(), false, placeholder);
 		internalMigrateTypeSelect(getQvtFQName(type), placeholder);
+		if (!isListType(trace.getTargetType())) {
+			write("->asSequence()");
+		}
 	}
 
 	private void internalMigrateTypeSelect(String typeName, int placeholder) {
