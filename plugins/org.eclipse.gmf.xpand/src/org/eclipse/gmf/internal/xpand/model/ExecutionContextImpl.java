@@ -82,8 +82,8 @@ public final class ExecutionContextImpl implements ExecutionContext {
     	return scope;
     }
 
-    public Variable getVariable(final String name) {
-        return variables.get(name);
+    public Variable getImplicitVariable() {
+        return variables.get(IMPLICIT_VARIABLE);
     }
 
 

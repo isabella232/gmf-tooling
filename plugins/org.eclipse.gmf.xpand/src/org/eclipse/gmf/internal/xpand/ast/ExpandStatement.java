@@ -77,9 +77,9 @@ public class ExpandStatement extends Statement {
                 return;
             }
         } else {
-            final Variable var = ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE);
+            final Variable var = ctx.getImplicitVariable();
             if (var == null) {
-                issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR, "No implicite variable 'this' could be found!", target));
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR, "No implicite variable 'this/self' could be found!", target));
                 return;
             }
             targetType = (EClassifier) var.getValue();
@@ -125,7 +125,7 @@ public class ExpandStatement extends Statement {
             if (target != null) {
                 targetObject = target.evaluate(ctx);
             } else {
-                final Variable var = ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE);
+                final Variable var = ctx.getImplicitVariable();
                 targetObject = var.getValue();
             }
             if (targetObject != null) {

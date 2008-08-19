@@ -68,7 +68,7 @@ public class ExpressionHelper {
 		QvtOperationalEvaluationVisitorImpl visitor = new QvtOperationalEvaluationVisitorImpl((QvtOperationalEnv) env, evaluationEnv);
 		// FIXME move context handling with this->self inside ExecutionContextImpl? Or, it's better to have explicit,
 		// separate environment for each execution?
-		Variable self = ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE);  
+		Variable self = ctx.getImplicitVariable();  
 		if (self != null) {
 			evaluationEnv.add(Environment.SELF_VARIABLE_NAME, self.getValue());
 			evaluationEnv.setOperationSelf(self.getValue());

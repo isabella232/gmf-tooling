@@ -32,7 +32,7 @@ public interface ExecutionContext {
 
 	ExecutionContext cloneWithResource(ResourceMarker ns);
 
-	Variable getVariable(String name);
+	Variable getImplicitVariable();
 
 	Set<QvtExtension> getAllExtensions();
 
