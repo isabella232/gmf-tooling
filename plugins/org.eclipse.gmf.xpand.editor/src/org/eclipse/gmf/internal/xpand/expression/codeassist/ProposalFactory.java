@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +7,6 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
  */
 package org.eclipse.gmf.internal.xpand.expression.codeassist;
 
@@ -31,9 +27,9 @@ public interface ProposalFactory {
 
     public ICompletionProposal createExtensionOnMemberPositionProposal(GenericExtension p, String prefix, boolean onCollection);
 
-    public ICompletionProposal createVariableProposal(String name, EClassifier t, String prefix);
+    public ICompletionProposal createVariableProposal(String varName, String typeName, String prefix);
 
-    public ICompletionProposal createTypeProposal(String insertString, EClassifier type, String prefix);
+    public ICompletionProposal createTypeProposal(String insertString, String displayString, String prefix);
 
     public ICompletionProposal createStatementProposal(String insertString, String displayString, String prefix, int cursor, int marked);
 

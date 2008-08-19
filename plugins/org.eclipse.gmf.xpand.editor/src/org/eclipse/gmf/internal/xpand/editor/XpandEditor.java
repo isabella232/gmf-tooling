@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2007 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +7,6 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
  */
 package org.eclipse.gmf.internal.xpand.editor;
 
@@ -23,7 +19,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.codeassist.XpandTokens;
 import org.eclipse.gmf.internal.xpand.editor.ui.InsertTextAction;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -43,7 +39,7 @@ public class XpandEditor extends TextEditor {
 
     private final XpandContentOutlinePage ivOutlinePage = null;
 
-	private XpandExecutionContext context;
+	private ExecutionContext context;
 
     public XpandEditor() {
         super();
@@ -53,7 +49,7 @@ public class XpandEditor extends TextEditor {
         setDocumentProvider(new XpandDocumentProvider());
     }
 
-    /*package*/ XpandExecutionContext getContext() {
+    /*package*/ ExecutionContext getContext() {
     	if (context == null) {
     		assert getEditorInput().getAdapter(IFile.class) != null;
     		IFile aFile = (IFile) getEditorInput().getAdapter(IFile.class);

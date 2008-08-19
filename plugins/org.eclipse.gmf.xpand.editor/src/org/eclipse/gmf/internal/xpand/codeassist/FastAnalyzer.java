@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,14 +7,13 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand.codeassist;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
@@ -27,14 +24,15 @@ import java.util.regex.Pattern;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.ast.Advice;
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
-import org.eclipse.gmf.internal.xpand.expression.ExpressionFacade;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.model.XpandAdvice;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
+import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
+import org.eclipse.ocl.ecore.CollectionType;
+import org.eclipse.ocl.expressions.CollectionKind;
 
 public class FastAnalyzer {
 
@@ -300,7 +298,7 @@ public class FastAnalyzer {
 		return XpandPartition.EXPRESSION;
 	}
 
-	public final static XpandExecutionContext computeExecutionContext(final String str, XpandExecutionContext ctx) {
+	public final static ExecutionContext computeExecutionContext(final String str, ExecutionContext ctx) {
 		final XpandPartition p = computePartition(str);
 		if (p != XpandPartition.TYPE_DECLARATION && p != XpandPartition.EXPRESSION) {
 			return ctx;
@@ -334,7 +332,7 @@ public class FastAnalyzer {
 				return extensions.toArray(new String[extensions.size()]);
 			}
 
-			public void analyze(XpandExecutionContext ctx, Set<AnalysationIssue> issues) {
+			public void analyze(ExecutionContext ctx, Set<AnalysationIssue> issues) {
 				Exception ex = new Exception("ANALYZE!!!");
 				ex.fillInStackTrace();
 				ex.printStackTrace();
@@ -354,20 +352,18 @@ public class FastAnalyzer {
 			for (LazyVar v : vars) {
 				EClassifier vType = null;
 				if (v.typeName != null) {
-					vType = ctx.getTypeForName(v.typeName);
+					vType = typeCS(v.typeName, ctx);
 				} else {
-					vType = new ExpressionFacade(ctx).analyze(v.expression, new HashSet<AnalysationIssue>());
+					vType = oclExpressionCS(v.expression, ctx);
 					if (v.forEach) {
-						if (BuiltinMetaModel.isParameterizedType(vType)) {
-							vType = BuiltinMetaModel.getInnerType(vType);
+						if (vType instanceof CollectionType) {
+							vType = ((CollectionType) vType).getElementType();
 						} else {
-							vType = null; // EJavaObject, as it's in
-											// similar code snippets out
-											// there?
+							vType = ctx.getOCLEnvironment().getOCLStandardLibrary().getOclAny();
 						}
 					}
 				}
-				ctx = ctx.cloneWithVariable(new Variable(v.name, vType));
+				ctx = ctx.cloneWithVariable(new Variable(v.name, vType, null));
 			}
 		}
 		return ctx;
@@ -377,4 +373,32 @@ public class FastAnalyzer {
 		return IN_TAG_PATTERN.matcher(str).find();
 	}
 
+	// FIXME use parser and error tokens instead of this rudimentary support
+	private static EClassifier typeCS(String typeName, ExecutionContext ctx) {
+		EClassifier oclAny = ctx.getOCLEnvironment().getOCLStandardLibrary().getOclAny();
+		if (null != oclAny.getEPackage().getEClassifier(typeName)) {
+			return oclAny.getEPackage().getEClassifier(typeName);
+		}
+		for (CollectionKind ck : CollectionKind.VALUES) {
+			String literal = ck.getLiteral();
+			if (typeName.startsWith(literal)) {
+				String suffix = typeName.substring(literal.length()).trim();
+				if (suffix.length() > 1 && suffix.charAt(0) == '(' && suffix.charAt(suffix.length()-1) == ')') {
+					if (suffix.length() > 2) {
+						suffix.substring(1, suffix.length() - 2).trim();
+					} else {
+						suffix = "";
+					}
+					EClassifier nested = suffix.length() == 0 ? oclAny : typeCS(suffix, ctx);
+					return (EClassifier) ctx.getOCLEnvironment().getTypeResolver().resolveCollectionType(ck, nested);
+				}
+			}			
+		}
+		return ctx.getOCLEnvironment().lookupClassifier(Arrays.asList(typeName.split(TypeNameUtil.NS_DELIM)));
+	}
+
+	private static EClassifier oclExpressionCS(String expression, ExecutionContext ctx) {
+		// FIXME implement correctly, for now, just don't care about LET expressions 
+		return ctx.getOCLEnvironment().getOCLStandardLibrary().getOclAny();
+	}
 }

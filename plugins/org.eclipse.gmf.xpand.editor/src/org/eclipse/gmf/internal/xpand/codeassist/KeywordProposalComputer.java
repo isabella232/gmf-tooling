@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +7,6 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
  */
 package org.eclipse.gmf.internal.xpand.codeassist;
 
@@ -19,20 +15,23 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.codeassist.ProposalComputer;
 import org.eclipse.gmf.internal.xpand.expression.codeassist.ProposalFactory;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 
 public class KeywordProposalComputer implements ProposalComputer {
 
 	private final String textPastInsertionPoint;
+	private final ProposalFactory proposalFactory;
 
-	public KeywordProposalComputer(String textPastInsertionPoint) {
+	public KeywordProposalComputer(String textPastInsertionPoint, ProposalFactory factory) {
 		this.textPastInsertionPoint = textPastInsertionPoint;
+		assert factory != null;
+		proposalFactory = factory;
 	}
 
-    public List<ICompletionProposal> computeProposals(final String txt, final ExecutionContext ctx, final ProposalFactory factory) {
+    public List<ICompletionProposal> computeProposals(final String txt, final ExecutionContext ctx) {
         final String prefix = getPrefix(txt);
         final List<ICompletionProposal> result = new ArrayList<ICompletionProposal>();
         if (prefix.length() > 0 || txt.endsWith(XpandTokens.LT)) {
@@ -46,7 +45,7 @@ public class KeywordProposalComputer implements ProposalComputer {
 	            	} else if (needsRT) {
 	            		insertString += XpandTokens.RT;
 	            	}
-	                result.add(factory.createKeywordProposal(insertString, string, prefix));
+	                result.add(proposalFactory.createKeywordProposal(insertString, string, prefix));
 	            }
 	        }
         }

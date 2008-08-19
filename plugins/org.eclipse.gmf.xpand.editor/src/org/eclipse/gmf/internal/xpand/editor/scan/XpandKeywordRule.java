@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,10 +7,10 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
  */
 package org.eclipse.gmf.internal.xpand.editor.scan;
+
+import java.util.Arrays;
 
 import org.eclipse.jface.text.rules.ICharacterScanner;
 import org.eclipse.jface.text.rules.IRule;
@@ -28,22 +26,17 @@ public class XpandKeywordRule implements IRule {
 
     private final String[] keywords;
 
-    public XpandKeywordRule(final IToken token, final String[] keywords) {
+    public XpandKeywordRule(final IToken token, String[] keywords) {
         this.token = token;
-        this.keywords = keywords;
+        Arrays.sort(this.keywords = keywords.clone());
     }
 
     private boolean isKeyword(final String word) {
-    	// XXX linear search
-        for (final String w : keywords) {
-            if (w.equals(word)) {
-				return true;
-			}
-        }
-        return false;
+    	return Arrays.binarySearch(keywords, word) >= 0;
     }
 
     private boolean keywordExists(final String prefix) {
+    	// XXX may do a binarySearch, than negate result and look at neighbors (+1/-1) only
         for (final String w : keywords) {
             if (w.startsWith(prefix)) {
 				return true;
