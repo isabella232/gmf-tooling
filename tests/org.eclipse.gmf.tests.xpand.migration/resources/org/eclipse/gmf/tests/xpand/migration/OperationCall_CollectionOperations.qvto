@@ -291,11 +291,11 @@ helper last(eClasses : Sequence(ecore::EClass)) : OclAny {
 }
 
 helper withoutFirst(eClasses : Sequence(ecore::EClass)) : Sequence(OclAny) {
-	return if eClasses->isEmpty() then Sequence{} else eClasses->subSequence(2, eClasses->size()) endif
+	return if eClasses->size() < 2 then Sequence{} else eClasses->subSequence(2, eClasses->size()) endif
 }
 
 helper withoutLast(eClasses : Sequence(ecore::EClass)) : Sequence(OclAny) {
-	return if eClasses->isEmpty() then Sequence{} else eClasses->subSequence(1, eClasses->size() - 1) endif
+	return if eClasses->size() < 2 then Sequence{} else eClasses->subSequence(1, eClasses->size() - 1) endif
 }
 
 helper purgeDups(eClasses : Sequence(ecore::EClass)) : Sequence(OclAny) {
