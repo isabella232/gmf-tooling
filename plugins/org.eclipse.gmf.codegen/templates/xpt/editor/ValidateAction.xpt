@@ -27,12 +27,34 @@ package «editorGen.editor.packageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
 public class «EXPAND className» extends org.eclipse.jface.action.Action {
+	«EXPAND attributes-»
+	«EXPAND constructor-»
+	«EXPAND run-»
+	«EXPAND runValidation-»
+	«EXPAND runNonUIValidation-»
+	«EXPAND runValidationWithEP-»
+	«EXPAND runEMFValidator-»
+	«EXPAND validate-»
+	«EXPAND createMarkersForStatus-»
+	«EXPAND createMarkersForDiagnostic-»
+	«EXPAND addMarker-»
+	«EXPAND diagnosticToStatusSeverity-»
+	«EXPAND collectTargetElementsFromStatus-»
+	«EXPAND collectTargetElementsFromDiagnostic-»
+	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE attributes FOR gmfgen::GenDiagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static final String VALIDATE_ACTION_KEY = "validateAction"; «EXPAND xpt::Common::nonNLS»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor workbenchPartDescriptor;
+«ENDDEFINE»
+
+«DEFINE constructor FOR gmfgen::GenDiagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «EXPAND className»(org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor workbenchPartDescriptor) {
@@ -40,6 +62,9 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		setText(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForValidateAction().messageKey()) FOR editorGen»);
 		this.workbenchPartDescriptor = workbenchPartDescriptor;
 	}
+«ENDDEFINE»
+
+«DEFINE run FOR gmfgen::GenDiagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public void run() {
@@ -68,6 +93,9 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 			}
 		}
 	}
+«ENDDEFINE»
+
+«DEFINE runValidation FOR gmfgen::GenDiagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static void runValidation(org.eclipse.gmf.runtime.notation.View view) {
@@ -87,6 +115,9 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 					"Validation action failed", e); «EXPAND xpt::Common::nonNLS»
 		}
 	}
+«ENDDEFINE»
+
+«DEFINE runNonUIValidation FOR gmfgen::GenDiagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static void runNonUIValidation(org.eclipse.gmf.runtime.notation.View view) {
@@ -95,6 +126,9 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 						view.getDiagram());
 		runValidation(diagramEditPart, view);
 	}		
+«ENDDEFINE»
+
+«DEFINE runValidationWithEP FOR gmfgen::GenDiagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static void runValidation(org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramEditPart, org.eclipse.gmf.runtime.notation.View view) {
@@ -108,6 +142,9 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 			}
 		});
 	}
+«ENDDEFINE»
+
+«DEFINE runEMFValidator FOR gmfgen::GenDiagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static org.eclipse.emf.common.util.Diagnostic runEMFValidator(
@@ -122,6 +159,9 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		}
 		return org.eclipse.emf.common.util.Diagnostic.OK_INSTANCE;
 	}
+«ENDDEFINE»
+
+«DEFINE validate FOR gmfgen::GenDiagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static void validate(org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramEditPart,
@@ -165,6 +205,9 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		}
 		«ENDIF-»
 	}
+«ENDDEFINE»
+
+«DEFINE createMarkersForStatus FOR gmfgen::GenDiagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static void createMarkers(
@@ -191,6 +234,9 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 					nextStatus.getMessage(), nextStatus.getSeverity());
 		}
 	}
+«ENDDEFINE»
+
+«DEFINE createMarkersForDiagnostic FOR gmfgen::GenDiagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static void createMarkers(
@@ -220,6 +266,9 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 			}
 		}
 	}
+«ENDDEFINE»
+
+«DEFINE addMarker FOR gmfgen::GenDiagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static void addMarker(org.eclipse.gef.EditPartViewer viewer,
@@ -237,6 +286,9 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 				location, message, statusSeverity).add(viewer, elementId);
 		«ENDIF-»
 	}
+«ENDDEFINE»
+
+«DEFINE diagnosticToStatusSeverity FOR gmfgen::GenDiagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static int diagnosticToStatusSeverity(int diagnosticSeverity) {
@@ -252,6 +304,9 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		}
 		return org.eclipse.core.runtime.IStatus.INFO;
 	}
+«ENDDEFINE»
+
+«DEFINE collectTargetElementsFromStatus FOR gmfgen::GenDiagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static java.util.Set collectTargetElements(org.eclipse.core.runtime.IStatus status,
@@ -268,6 +323,9 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		}
 		return targetElementCollector;
 	}
+«ENDDEFINE»
+
+«DEFINE collectTargetElementsFromDiagnostic FOR gmfgen::GenDiagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static java.util.Set collectTargetElements(org.eclipse.emf.common.util.Diagnostic diagnostic,
@@ -287,8 +345,6 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		}
 		return targetElementCollector;
 	}
-	«EXPAND additions-»
-}
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
