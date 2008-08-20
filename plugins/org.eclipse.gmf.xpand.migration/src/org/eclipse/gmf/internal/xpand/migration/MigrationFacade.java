@@ -775,7 +775,7 @@ public class MigrationFacade {
 		} else if (BuiltinMetaModel.List_WithoutFirst == eOperation) { 
 			write("if ");
 			internalMigrateOperationCallTarget(operationCall, ctx);
-			write("->isEmpty() then Sequence{} else ");
+			write("->size() < 2 then Sequence{} else ");
 			internalMigrateOperationCallTarget(operationCall, ctx);
 			write("->subSequence(2, ");
 			internalMigrateOperationCallTarget(operationCall, ctx);
@@ -783,7 +783,7 @@ public class MigrationFacade {
 		} else if (BuiltinMetaModel.List_WithoutLast == eOperation) { 
 			write("if ");
 			internalMigrateOperationCallTarget(operationCall, ctx);
-			write("->isEmpty() then Sequence{} else ");
+			write("->size() < 2 then Sequence{} else ");
 			internalMigrateOperationCallTarget(operationCall, ctx);
 			write("->subSequence(1, ");
 			internalMigrateOperationCallTarget(operationCall, ctx);
