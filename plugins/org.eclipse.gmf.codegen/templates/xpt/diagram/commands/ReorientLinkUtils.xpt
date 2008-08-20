@@ -130,27 +130,36 @@
 «ENDDEFINE»
 
 «DEFINE checkSourceRequestValidity(gmfgen::GenLink link) FOR gmfgen::TypeLinkModelFacet-»
+«IF sourceMetaFeature == null ? containmentMetaFeature.ecoreFeature.changeable : sourceMetaFeature.ecoreFeature.changeable-»
 	if (!(«EXPAND MetaModel::IsInstance("oldEnd") FOR getSourceType()» && «EXPAND MetaModel::IsInstance("newEnd") FOR getSourceType()»)) {
 		return false;
 	}
 	«EXPAND extractFeatureWithCheck("getLink()", metaClass, "target", getTargetType()) FOR targetMetaFeature-»
 	«EXPAND checkLinkConstraint(link, "getNewSource()", "target")-»
+«ELSE-»
+	return false;
+«ENDIF-»
 «ENDDEFINE»
 
 «REM»
 	When feature source is being reoriented oldEnd is the link target.
 «ENDREM»
 «DEFINE checkSourceRequestValidity(gmfgen::GenLink link) FOR gmfgen::FeatureLinkModelFacet-»
+«IF metaFeature.ecoreFeature.changeable-»
 	if (!(«EXPAND MetaModel::IsInstance("oldEnd") FOR getTargetType()» && «EXPAND MetaModel::IsInstance("newEnd") FOR getSourceType()»)) {
 		return false;
 	}
 	return «EXPAND checkLinkConstraintInvocation FOR link»(getNewSource(), getOldTarget());
+«ELSE-»
+	return false;
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE checkTargetRequestValidity(gmfgen::GenLink link) FOR gmfgen::LinkModelFacet-»
 «ENDDEFINE»
 
 «DEFINE checkTargetRequestValidity(gmfgen::GenLink link) FOR gmfgen::TypeLinkModelFacet-»
+«IF targetMetaFeature.ecoreFeature.changeable-»
 	if (!(«EXPAND MetaModel::IsInstance("oldEnd") FOR getTargetType()» && «EXPAND MetaModel::IsInstance("newEnd") FOR getTargetType()»)) {
 		return false;
 	}
@@ -163,13 +172,20 @@
 		«EXPAND MetaModel::DeclareAndAssignContainer("source", "getLink()", metaClass) FOR getSourceType()»
 	«ENDIF-»
 	«EXPAND checkLinkConstraint(link, "source", "getNewTarget()")-»
+«ELSE-»
+	return false;
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE checkTargetRequestValidity(gmfgen::GenLink link) FOR gmfgen::FeatureLinkModelFacet-»
+«IF metaFeature.ecoreFeature.changeable-»
 	if (!(«EXPAND MetaModel::IsInstance("oldEnd") FOR getTargetType()» && «EXPAND MetaModel::IsInstance("newEnd") FOR getTargetType()»)) {
 		return false;
 	}
 	return «EXPAND checkLinkConstraintInvocation FOR link»(getOldSource(), getNewTarget());
+«ELSE-»
+	return false;
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE extractFeatureWithCheck(String containerVar, GenClass containerMetaClass, String var, GenClass varMetaClass) FOR genmodel::GenFeature-»
@@ -242,33 +258,49 @@
 	makes sense to deduceContainer() using new source?
 «ENDREM»
 «DEFINE reorientSource FOR gmfgen::TypeLinkModelFacet-»
+«IF sourceMetaFeature == null ? containmentMetaFeature.ecoreFeature.changeable : sourceMetaFeature.ecoreFeature.changeable-»
 «IF sourceMetaFeature != null-»
 	«EXPAND changeTarget("getLink()", metaClass, "getOldSource()", "getNewSource()") FOR sourceMetaFeature-»
 «ELSE-»
 	«EXPAND changeSource("getLink()", "getOldSource()", "getNewSource()", getSourceType()) FOR hasExplicitChildFeature() /*sic! - childMetaFeature may be derived, no need to change it then*/ ? childMetaFeature : containmentMetaFeature-»
 «ENDIF-»
 	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(getLink());
+«ELSE-»
+	throw new UnsupportedOperationException();
+«ENDIF-»
 «ENDDEFINE»
 
 «REM»
 	When feature source is being reoriented oldEnd is the link target.
 «ENDREM»
 «DEFINE reorientSource FOR gmfgen::FeatureLinkModelFacet-»
+«IF metaFeature.ecoreFeature.changeable-»
 	«EXPAND changeSource("getOldTarget()", "getOldSource()", "getNewSource()", getSourceType()) FOR metaFeature-»
 	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(referenceOwner);
+«ELSE-»
+	throw new UnsupportedOperationException();
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE reorientTarget FOR gmfgen::LinkModelFacet-»
 «ENDDEFINE»
 
 «DEFINE reorientTarget FOR gmfgen::TypeLinkModelFacet-»
+«IF targetMetaFeature.ecoreFeature.changeable-»
 	«EXPAND changeTarget("getLink()", metaClass, "getOldTarget()", "getNewTarget()") FOR targetMetaFeature-»
 	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(getLink());
+«ELSE-»
+	throw new UnsupportedOperationException();
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE reorientTarget FOR gmfgen::FeatureLinkModelFacet-»
+«IF metaFeature.ecoreFeature.changeable-»
 	«EXPAND changeTarget("getOldSource()", getSourceType(), "getOldTarget()", "getNewTarget()") FOR metaFeature-»
 	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(referenceOwner);
+«ELSE-»
+	throw new UnsupportedOperationException();
+«ENDIF-»
 «ENDDEFINE»
 
 «REM»

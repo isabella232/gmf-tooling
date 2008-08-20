@@ -39,21 +39,22 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 		if (!canExecute()) {
 			throw new org.eclipse.core.commands.ExecutionException("Invalid arguments in create link command"); «EXPAND xpt::Common::nonNLS»
 		}
-		if (getSource() != null && getTarget() != null) {
-			«EXPAND setValue FOR modelFacet-»
-		}
-		return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
+		«EXPAND execute FOR modelFacet-»
 	}
 	«EXPAND xpt::diagram::commands::CreateLinkUtils::accessors FOR modelFacet-»
 }
 «ENDDEFINE»
 
-«DEFINE setValue FOR gmfgen::LinkModelFacet-»
+«DEFINE execute FOR gmfgen::LinkModelFacet-»
 «ENDDEFINE»
 
-«REM»
-	Code to update reference.
-«ENDREM»
-«DEFINE setValue FOR gmfgen::FeatureLinkModelFacet-»
-«EXPAND MetaModel::modifyFeature("getSource()", getSourceType(), "getTarget()") FOR metaFeature»
+«DEFINE execute FOR gmfgen::FeatureLinkModelFacet-»
+«IF metaFeature.ecoreFeature.changeable-»
+	if (getSource() != null && getTarget() != null) {
+		«EXPAND MetaModel::modifyFeature("getSource()", getSourceType(), "getTarget()") FOR metaFeature-»
+	}
+	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
+«ELSE-»
+	throw new UnsupportedOperationException();
+«ENDIF-»
 «ENDDEFINE»

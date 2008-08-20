@@ -42,16 +42,27 @@
 «ENDDEFINE»
 
 «DEFINE canCreateElement(gmfgen::GenLink link) FOR gmfgen::LinkModelFacet-»
-	return «EXPAND validatorInvocation FOR link»(getSource(), getTarget());
 «ENDDEFINE»
 
 «DEFINE canCreateElement(gmfgen::GenLink link) FOR gmfgen::TypeLinkModelFacet-»
+«IF (sourceMetaFeature == null ? containmentMetaFeature.ecoreFeature.changeable : sourceMetaFeature.ecoreFeature.changeable) && (targetMetaFeature.ecoreFeature.changeable)-»
 	«IF hasContainerOtherThanSource()-»
 	if (getContainer() == null) {
 		return false;
 	}
 	«ENDIF-»
 	return «EXPAND validatorInvocation FOR link»(«IF hasContainerOtherThanSource()»getContainer(), «ENDIF»getSource(), getTarget());
+«ELSE-»
+	return false;
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE canCreateElement(gmfgen::GenLink link) FOR gmfgen::FeatureLinkModelFacet-»
+«IF metaFeature.ecoreFeature.changeable-»
+	return «EXPAND validatorInvocation FOR link»(getSource(), getTarget());
+«ELSE-»
+	return false;
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE validatorInvocation FOR gmfgen::GenLink-»
