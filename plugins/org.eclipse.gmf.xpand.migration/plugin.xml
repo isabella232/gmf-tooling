@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="org.eclipse.gmf.xpand.migration.actions"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="org.eclipse.gmf.internal.xpand.migration.ui.MigrateXtendResource"
+               enablesFor="1"
+               id="org.eclipse.gmf.xpand.migration.migratextend"
+               label="%migrate.xtend.action"
+               menubarPath="additions">
+         </action>
+         <visibility>
+            <objectState name="extension" value="ext"/>
+         </visibility>
+      </objectContribution>
+   </extension>
+
+</plugin>

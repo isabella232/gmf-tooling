@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +29,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.gmf.internal.xpand.build.WorkspaceResourceManager;
+import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 
 /**
  * Tracks template roots for a given project.
@@ -62,6 +64,31 @@ public class RootManager {
 
 	protected IProject getProject() {
 		return myConfig.getProject();
+	}
+	
+	public String getTemplateFullName(IFile file) {
+		IPath relativePath = null;
+		for (Iterator<RootDescription> it = getRoots().iterator(); it.hasNext() && relativePath == null;) {
+			RootDescription nextDescription = it.next();
+			if (nextDescription.contains(file)) {
+				relativePath = nextDescription.getRelativePath(file);
+			}
+		}
+		if (relativePath == null) {
+			relativePath = getFallbackRoot().getRelativePath(file);
+		}
+		if (relativePath == null) {
+			return null;
+		}
+		relativePath = relativePath.removeFileExtension();
+		String templateFullName = relativePath.toString();
+		if (templateFullName.startsWith("/")) {
+			templateFullName = templateFullName.substring(1);
+		}
+		if (templateFullName.endsWith("/")) {
+			templateFullName = templateFullName.substring(0, templateFullName.length() - 1);
+		}
+		return templateFullName.replace("/", SyntaxConstants.NS_DELIM);
 	}
 
 	public WorkspaceResourceManager getResourceManager(IFile file) {
@@ -198,6 +225,22 @@ public class RootManager {
 				}
 			}
 			return false;
+		}
+		public IPath getRelativePath(IResource resource) {
+			for (IPath nextRoot : myRoots) {
+				if (nextRoot.isAbsolute()) {
+					IPath fullPath = resource.getFullPath();
+					if (nextRoot.isPrefixOf(fullPath)) {
+						return fullPath.removeFirstSegments(nextRoot.segmentCount());
+					}
+				} else {
+					IPath projectRelativePath = resource.getProjectRelativePath();
+					if (resource.getProject().equals(getProject()) && nextRoot.isPrefixOf(projectRelativePath)) {
+						return projectRelativePath.removeFirstSegments(nextRoot.segmentCount());
+					}
+				}
+			}
+			return null;
 		}
 	}
 }
