@@ -18,24 +18,29 @@
 package «packageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
-public class «className» implements org.eclipse.core.runtime.IPlatformRunnable {
+public class «className» implements org.eclipse.equinox.app.IApplication {
 
 «EXPAND run-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void stop() {
+	}
 «EXPAND additions-»
 }
 «ENDDEFINE»
 
 «DEFINE run FOR gmfgen::GenApplication-»
+
 	«EXPAND xpt::Common::generatedMemberComment»
-	public Object run(Object args) throws Exception {
+	public Object start(org.eclipse.equinox.app.IApplicationContext context) throws Exception {
 		org.eclipse.swt.widgets.Display display = org.eclipse.ui.PlatformUI.createDisplay();
 		try {
 			int returnCode = org.eclipse.ui.PlatformUI.createAndRunWorkbench(display,
 				new «getWorkbenchAdvisorQualifiedClassName()»());
 			if (returnCode == org.eclipse.ui.PlatformUI.RETURN_RESTART) {
-				return org.eclipse.core.runtime.IPlatformRunnable.EXIT_RESTART;
+				return org.eclipse.equinox.app.IApplication.EXIT_RESTART;
 			}
-			return org.eclipse.core.runtime.IPlatformRunnable.EXIT_OK;
+			return org.eclipse.equinox.app.IApplication.EXIT_OK;
 		} finally {
 			display.dispose();
 		}
