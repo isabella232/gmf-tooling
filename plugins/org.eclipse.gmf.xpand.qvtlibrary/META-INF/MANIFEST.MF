@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.eclipse.gmf.xpand.qvtlibrary;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipse.gmf.internal.xpand.qvtlibraries.Activator
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ocl.ecore;bundle-version="1.3.0"
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: %providerName
