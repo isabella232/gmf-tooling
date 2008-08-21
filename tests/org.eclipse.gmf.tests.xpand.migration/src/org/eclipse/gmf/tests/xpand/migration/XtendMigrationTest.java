@@ -151,6 +151,10 @@ public class XtendMigrationTest extends TestCase {
 		checkMigration(new MigrationFacade(testResourceManager, getResourceName(resourceName), true), resourceName);
 	}
 	
+	public void testBooleanOperations() throws IOException, MigrationException {
+		checkMigration("OperationCall_BooleanOperations");
+	}
+	
 	private String readStringContent(InputStreamReader reader) throws IOException {
 		String LF = System.getProperty("line.separator");
 		StringBuilder sb = new StringBuilder();

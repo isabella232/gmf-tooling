@@ -1,0 +1,23 @@
+import library XpandOclAnyOperations;
+
+library OperationCall_BooleanOperations;
+
+helper booleanNegation(boolean : Boolean) : Boolean {
+	return not boolean
+}
+
+helper booleanCompareTo(boolean : Boolean, another : OclAny) : Boolean {
+	return boolean.xpandCompareTo(another)
+}
+
+helper booleanToString(boolean : Boolean) : String {
+	return boolean.repr()
+}
+
+helper booleanEQ(boolean : Boolean, another : OclAny) : Boolean {
+	return boolean = another
+}
+
+helper booleanNotEQ(boolean : Boolean, another : OclAny) : Boolean {
+	return boolean <> another
+}
