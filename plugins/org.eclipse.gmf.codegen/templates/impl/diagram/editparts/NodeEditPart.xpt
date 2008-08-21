@@ -15,6 +15,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «EXTENSION xpt::diagram::ViewmapAttributesUtils»
 «EXTENSION xpt::diagram::editparts::Utils»
+«EXTENSION xpt::diagram::Utils»
 
 «DEFINE extendsListContents FOR gmfgen::GenNode-»
 «IF hasBorderItems()»org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderedShapeEditPart«ELSE»org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart«ENDIF-»
@@ -494,6 +495,83 @@
 			return getChildBySemanticHint(«EXPAND xpt::editor::VisualIDRegistry::getTypeMethodCall FOR getDiagram()»(«EXPAND xpt::editor::VisualIDRegistry::visualID FOR (GenLabel) labels.toList().first()»));
 		}
 	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getMARelTypesOnSource FOR gmfgen::GenNode-»
+«IF getOutgoingLinks(this).size() > 0-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public java.util.List getMARelTypesOnSource() {
+		java.util.List types = new java.util.ArrayList();
+		«FOREACH getOutgoingLinks(this) AS link-»
+		types.add(«getDiagram().getElementTypesQualifiedClassName()».«link.getUniqueIdentifier()»);
+		«ENDFOREACH-»
+		return types;
+	}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getMARelTypesOnTarget FOR gmfgen::GenNode-»
+«IF getIncomingLinks(this).size() > 0-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public java.util.List getMARelTypesOnTarget() {
+		java.util.List types = new java.util.ArrayList();
+		«FOREACH getIncomingLinks(this) AS link-»
+		types.add(«getDiagram().getElementTypesQualifiedClassName()».«link.getUniqueIdentifier()»);
+		«ENDFOREACH-»
+		return types;
+	}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getMARelTypesOnSourceAndTarget FOR gmfgen::GenNode-»
+«IF getOutgoingLinks(this).size() > 0-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public java.util.List getMARelTypesOnSourceAndTarget(org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart targetEditPart) {
+		java.util.List types = new java.util.ArrayList();
+		«FOREACH getOutgoingLinks(this) AS link-»
+			«FOREACH link.getAssistantTargets() AS target-»
+		if (targetEditPart instanceof «target.getEditPartQualifiedClassName()») {
+			types.add(«getDiagram().getElementTypesQualifiedClassName()».«link.getUniqueIdentifier()»);
+		}
+			«ENDFOREACH-»
+		«ENDFOREACH-»
+		return types;
+	}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getMATypesForSource FOR gmfgen::GenNode-»
+«IF getIncomingLinks(this).size() > 0-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public java.util.List getMATypesForSource(org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
+		java.util.List types = new java.util.ArrayList();
+		«FOREACH getIncomingLinks(this) AS link-»
+			«FOREACH link.getAssistantSources() AS source-»
+		if (relationshipType == «getDiagram().getElementTypesQualifiedClassName()».«link.getUniqueIdentifier()») {
+			types.add(«getDiagram().getElementTypesQualifiedClassName()».«source.getUniqueIdentifier()»);
+		}
+			«ENDFOREACH-»
+		«ENDFOREACH-»
+		return types;
+	}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getMATypesForTarget FOR gmfgen::GenNode-»
+«IF getOutgoingLinks(this).size() > 0-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public java.util.List getMATypesForTarget(org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
+		java.util.List types = new java.util.ArrayList();
+		«FOREACH getOutgoingLinks(this) AS link-»
+			«FOREACH link.getAssistantTargets() AS target-»
+		if (relationshipType == «getDiagram().getElementTypesQualifiedClassName()».«link.getUniqueIdentifier()») {
+			types.add(«getDiagram().getElementTypesQualifiedClassName()».«target.getUniqueIdentifier()»);
+		}
+			«ENDFOREACH-»
+		«ENDFOREACH-»
+		return types;
+	}
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE handleNotificationEventBody FOR gmfgen::GenTopLevelNode-»

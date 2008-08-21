@@ -61,9 +61,19 @@ public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsList» {
 	«EXPAND impl::diagram::editparts::NodeEditPart::setLineStyle-»
 
 	«EXPAND impl::diagram::editparts::NodeEditPart::getPrimaryChildEditPart-»
-	
+
+	«EXPAND impl::diagram::editparts::NodeEditPart::getMARelTypesOnSource-»
+
+	«EXPAND impl::diagram::editparts::NodeEditPart::getMARelTypesOnTarget-»
+
+	«EXPAND impl::diagram::editparts::NodeEditPart::getMARelTypesOnSourceAndTarget-»
+
+	«EXPAND impl::diagram::editparts::NodeEditPart::getMATypesForSource-»
+
+	«EXPAND impl::diagram::editparts::NodeEditPart::getMATypesForTarget-»
+
 	«EXPAND handleNotificationEvent-»
-	
+
 	«EXPAND impl::diagram::editparts::NodeEditPart::innerClassDeclaration FOR viewmap-»
 
 	«EXPAND additions-»
