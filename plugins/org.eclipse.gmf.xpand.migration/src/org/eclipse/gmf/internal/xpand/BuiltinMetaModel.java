@@ -379,6 +379,9 @@ public class BuiltinMetaModel {
 	public static EOperation EString_Matches;
 	public static EOperation EString_Trim;
 	public static EOperation EString_Length;
+	public static EOperation Object_CompareTo;
+	public static EOperation Object_ToString;
+	public static EOperation Object_NotEQ;
 	static {
 		attrNameSubsts.put("default_", "default");
 	}
@@ -436,7 +439,7 @@ public class BuiltinMetaModel {
 		final OperationFactory opf = new OperationFactory();
 
 		final List<InternalOperation> objectOps = new LinkedList<InternalOperation>();
-		objectOps.add(new InternalOperation<Object>(opf.create("compareTo", ecorePkg.getEBoolean(), ecorePkg.getEJavaObject())) {
+		objectOps.add(new InternalOperation<Object>(Object_CompareTo = opf.create("compareTo", ecorePkg.getEBoolean(), ecorePkg.getEJavaObject())) {
 			@Override
 			public Object evaluate(Object target, Object[] params) {
 				if (target == null) {
@@ -452,7 +455,7 @@ public class BuiltinMetaModel {
 				return String.valueOf(target).compareTo(String.valueOf(params[0]));
 			}
 		});
-		objectOps.add(new InternalOperation<Object>(opf.create("toString", ecorePkg.getEString())) {
+		objectOps.add(new InternalOperation<Object>(Object_ToString = opf.create("toString", ecorePkg.getEString())) {
 			@Override
 			public Object evaluate(Object target, Object[] params) {
 				return String.valueOf(target);
@@ -464,7 +467,7 @@ public class BuiltinMetaModel {
 				return target == null ? params[0] == null : target.equals(params[0]);
 			}
 		});
-		objectOps.add(new InternalOperation<Object>(opf.create("!=", boolean.class, Object.class)) {
+		objectOps.add(new InternalOperation<Object>(Object_NotEQ = opf.create("!=", boolean.class, Object.class)) {
 			@Override
 			public Object evaluate(Object target, Object[] params) {
 				return target == null ? params[0] != null : !target.equals(params[0]);

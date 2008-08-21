@@ -24,6 +24,8 @@ public class StandardLibraryImports extends AbstractImportsManager {
 
 	private static final String STRING_LIBRARY_NAME = "XpandStringOperations";
 
+	private static final String OCLANY_LIBRARY_NAME = "XpandOclAnyOperations";
+
 	private static final Map<EOperation, String> operationNames;
 
 	static {
@@ -39,6 +41,8 @@ public class StandardLibraryImports extends AbstractImportsManager {
 		operationNames.put(BuiltinMetaModel.EString_ReplaceAll, "xpandReplaceAll");
 		operationNames.put(BuiltinMetaModel.EString_Split, "xpandSplit");
 		operationNames.put(BuiltinMetaModel.EString_Matches, "xpandMatches");
+		operationNames.put(BuiltinMetaModel.Object_CompareTo, "xpandCompareTo");
+		operationNames.put(BuiltinMetaModel.Object_ToString, "repr");
 	}
 
 	private static final Set<EOperation> stringLibOperations;
@@ -52,6 +56,13 @@ public class StandardLibraryImports extends AbstractImportsManager {
 		stringLibOperations.add(BuiltinMetaModel.EString_ReplaceAll);
 		stringLibOperations.add(BuiltinMetaModel.EString_Split);
 		stringLibOperations.add(BuiltinMetaModel.EString_Matches);
+	}
+
+	private static final Set<EOperation> oclAnyLibOperations;
+
+	static {
+		oclAnyLibOperations = new HashSet<EOperation>();
+		oclAnyLibOperations.add(BuiltinMetaModel.Object_CompareTo);
 	}
 
 	private Set<String> usedLibraries = new LinkedHashSet<String>();
@@ -69,6 +80,8 @@ public class StandardLibraryImports extends AbstractImportsManager {
 	public String getOperationName(EOperation eOperation) {
 		if (stringLibOperations.contains(eOperation)) {
 			usedLibraries.add(STRING_LIBRARY_NAME);
+		} else if (oclAnyLibOperations.contains(eOperation)) {
+			usedLibraries.add(OCLANY_LIBRARY_NAME);
 		}
 		return operationNames.containsKey(eOperation) ? operationNames.get(eOperation) : eOperation.getName();
 	}

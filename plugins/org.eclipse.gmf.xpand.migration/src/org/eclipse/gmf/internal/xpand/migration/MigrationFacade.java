@@ -76,7 +76,8 @@ public class MigrationFacade {
 			BuiltinMetaModel.Double_Plus_Double, 
 			BuiltinMetaModel.Double_Plus_Int,
 			BuiltinMetaModel.EString_Plus_EJavaObject,
-			BuiltinMetaModel.Object_EQ
+			BuiltinMetaModel.Object_EQ,
+			BuiltinMetaModel.Object_NotEQ
 		}));
 	
 	private static final Set<EOperation> collectionOperations = new HashSet<EOperation>(Arrays.asList(new EOperation[] {
@@ -165,15 +166,14 @@ public class MigrationFacade {
 		if (shortResourceName.length() == 0) {
 			throw new MigrationException(Type.INCORRECT_RESOURCE_NAME, resourceName);
 		}
+		
+		importsManagers.push(stdLibImportsManager = new StandardLibraryImports(output));
+		addLibraryImports(xtendResource, false);
 
 		importsManagers.push(modeltypeImportsManger = new ModeltypeImports(output, injectUnusedImports));
-
 		for (String namespace : xtendResource.getImportedNamespaces()) {
 			modeltypeImportsManger.registerModeltype(namespace);
 		}
-
-		importsManagers.push(stdLibImportsManager = new StandardLibraryImports(output));
-		addLibraryImports(xtendResource, false);
 
 		writeln("");
 		writeln("library " + shortResourceName + ";");
@@ -688,6 +688,8 @@ public class MigrationFacade {
 			write(" ");
 		} else if (BuiltinMetaModel.Object_EQ == eOperation) {
 			write(" = ");
+		} else if (BuiltinMetaModel.Object_NotEQ == eOperation) { 
+			write(" <> ");
 		} else {
 			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Incorrect infix operation: " + opName);
 		}
