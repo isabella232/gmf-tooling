@@ -67,3 +67,19 @@ String stringTrim(String string) :
 int stringLength(String string) :
 	string.length()
 ;
+
+Boolean stringCompareTo(String string, ecore::EJavaObject another) :
+	string.compareTo(another)
+;
+
+String stringToString(String string) :
+	string.toString()
+;
+
+Boolean stringEQ(String string, ecore::EJavaObject another) :
+	string == another
+;
+
+Boolean stringNotEQ(String string, ecore::EJavaObject another) :
+	string != another
+;

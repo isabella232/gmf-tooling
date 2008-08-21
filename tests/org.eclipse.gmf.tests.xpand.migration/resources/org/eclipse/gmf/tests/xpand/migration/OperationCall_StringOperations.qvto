@@ -1,5 +1,5 @@
-
 import library XpandStringOperations;	
+import library XpandOclAnyOperations;	
 	
 library OperationCall_StringOperations;
 
@@ -69,4 +69,20 @@ helper stringTrim(string : String) : String {
 
 helper stringLength(string : String) : Integer {
 	return string.length()
+}
+
+helper stringCompareTo(string : String, another : OclAny) : Boolean {
+	return string.xpandCompareTo(another)
+}
+
+helper stringToString(string : String) : String {
+	return string.repr()
+}
+
+helper stringEQ(string : String, another : OclAny) : Boolean {
+	return string = another
+}
+
+helper stringNotEQ(string : String, another : OclAny) : Boolean {
+	return string <> another
 }
