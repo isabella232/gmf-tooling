@@ -16,6 +16,38 @@ helper objectEQ(eJavaObject : OclAny, another : OclAny) : Boolean {
 	return eJavaObject = another
 }
 
-helper objectnotEQ(eJavaObject : OclAny, another : OclAny) : Boolean {
+helper objectNotEQ(eJavaObject : OclAny, another : OclAny) : Boolean {
 	return eJavaObject <> another
+}
+
+helper enumeratorCompareTo(enumerator : ecore::EEnumerator, another : OclAny) : Boolean {
+	return enumerator.xpandCompareTo(another)
+}
+
+helper enumeratorToString(enumerator : ecore::EEnumerator) : String {
+	return enumerator.repr()
+}
+
+helper enumeratorEQ(enumerator : ecore::EEnumerator, another : OclAny) : Boolean {
+	return enumerator = another
+}
+
+helper enumeratorNotEQ(enumerator : ecore::EEnumerator, another : OclAny) : Boolean {
+	return enumerator <> another
+}
+
+helper enumCompareTo(enum : ecore::EEnum, another : OclAny) : Boolean {
+	return enum.xpandCompareTo(another)
+}
+
+helper enumToString(enum : ecore::EEnum) : String {
+	return enum.repr()
+}
+
+helper enumEQ(enum : ecore::EEnum, another : OclAny) : Boolean {
+	return enum = another
+}
+
+helper enumNotEQ(enum : ecore::EEnum, another : OclAny) : Boolean {
+	return enum <> another
 }
