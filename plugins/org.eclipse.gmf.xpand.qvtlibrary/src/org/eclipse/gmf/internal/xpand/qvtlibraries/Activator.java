@@ -10,10 +10,12 @@ import org.osgi.framework.BundleContext;
 public class Activator extends Plugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.gmf.xpand.qvtlibrary";
+	public static final String PLUGIN_ID = "org.eclipse.gmf.xpand.qvtlibrary"; //$NON-NLS-1$
 
 	// TODO: substitute this constant with not-internal reference?
 	public static final String OCL_LIBRARY_PACKAGE = OCLStandardLibraryImpl.stdlibPackage.getName();
+
+	public static final String OCL_PATH_SEPARATOR = "::"; //$NON-NLS-1$
 
 	// The shared instance
 	private static Activator plugin;
