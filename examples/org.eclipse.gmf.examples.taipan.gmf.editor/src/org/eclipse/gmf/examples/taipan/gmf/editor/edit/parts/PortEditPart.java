@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.Shape;
@@ -30,11 +32,14 @@ import org.eclipse.gmf.examples.taipan.figures.PortShape;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.OpenDiagramEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
+import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderedShapeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
@@ -232,6 +237,92 @@ public class PortEditPart extends AbstractBorderedShapeEditPart {
 	 */
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(TaiPanVisualIDRegistry.getType(PortLocationEditPart.VISUAL_ID));
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getMARelTypesOnSource() {
+		List types = new ArrayList();
+		types.add(TaiPanElementTypes.Route_4002);
+		types.add(TaiPanElementTypes.Route_4003);
+		types.add(TaiPanElementTypes.PortRegister_4007);
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getMARelTypesOnTarget() {
+		List types = new ArrayList();
+		types.add(TaiPanElementTypes.ShipDestination_4001);
+		types.add(TaiPanElementTypes.Route_4002);
+		types.add(TaiPanElementTypes.Route_4003);
+		types.add(TaiPanElementTypes.BesiegePortOrder_4005);
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getMARelTypesOnSourceAndTarget(IGraphicalEditPart targetEditPart) {
+		List types = new ArrayList();
+		if (targetEditPart instanceof org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart) {
+			types.add(TaiPanElementTypes.Route_4002);
+		}
+		if (targetEditPart instanceof org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart) {
+			types.add(TaiPanElementTypes.Route_4003);
+		}
+		if (targetEditPart instanceof ShipEditPart) {
+			types.add(TaiPanElementTypes.PortRegister_4007);
+		}
+		if (targetEditPart instanceof WarshipEditPart) {
+			types.add(TaiPanElementTypes.PortRegister_4007);
+		}
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getMATypesForSource(IElementType relationshipType) {
+		List types = new ArrayList();
+		if (relationshipType == TaiPanElementTypes.ShipDestination_4001) {
+			types.add(TaiPanElementTypes.Ship_2002);
+		}
+		if (relationshipType == TaiPanElementTypes.ShipDestination_4001) {
+			types.add(TaiPanElementTypes.Warship_2003);
+		}
+		if (relationshipType == TaiPanElementTypes.Route_4002) {
+			types.add(TaiPanElementTypes.Port_2001);
+		}
+		if (relationshipType == TaiPanElementTypes.Route_4003) {
+			types.add(TaiPanElementTypes.Port_2001);
+		}
+		if (relationshipType == TaiPanElementTypes.BesiegePortOrder_4005) {
+			types.add(TaiPanElementTypes.Warship_2003);
+		}
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getMATypesForTarget(IElementType relationshipType) {
+		List types = new ArrayList();
+		if (relationshipType == TaiPanElementTypes.Route_4002) {
+			types.add(TaiPanElementTypes.Port_2001);
+		}
+		if (relationshipType == TaiPanElementTypes.Route_4003) {
+			types.add(TaiPanElementTypes.Port_2001);
+		}
+		if (relationshipType == TaiPanElementTypes.PortRegister_4007) {
+			types.add(TaiPanElementTypes.Ship_2002);
+		}
+		if (relationshipType == TaiPanElementTypes.PortRegister_4007) {
+			types.add(TaiPanElementTypes.Warship_2003);
+		}
+		return types;
 	}
 
 	/**

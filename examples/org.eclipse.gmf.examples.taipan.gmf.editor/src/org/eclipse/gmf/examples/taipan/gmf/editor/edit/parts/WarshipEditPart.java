@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
@@ -278,6 +280,82 @@ public class WarshipEditPart extends ShapeNodeEditPart {
 	 */
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(TaiPanVisualIDRegistry.getType(WarshipNameEditPart.VISUAL_ID));
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getMARelTypesOnSource() {
+		List types = new ArrayList();
+		types.add(TaiPanElementTypes.ShipDestination_4001);
+		types.add(TaiPanElementTypes.ShipRoute_4004);
+		types.add(TaiPanElementTypes.BesiegePortOrder_4005);
+		types.add(TaiPanElementTypes.EscortShipsOrder_4006);
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getMARelTypesOnTarget() {
+		List types = new ArrayList();
+		types.add(TaiPanElementTypes.EscortShipsOrder_4006);
+		types.add(TaiPanElementTypes.PortRegister_4007);
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getMARelTypesOnSourceAndTarget(IGraphicalEditPart targetEditPart) {
+		List types = new ArrayList();
+		if (targetEditPart instanceof PortEditPart) {
+			types.add(TaiPanElementTypes.ShipDestination_4001);
+		}
+		if (targetEditPart instanceof PortEditPart) {
+			types.add(TaiPanElementTypes.BesiegePortOrder_4005);
+		}
+		if (targetEditPart instanceof ShipEditPart) {
+			types.add(TaiPanElementTypes.EscortShipsOrder_4006);
+		}
+		if (targetEditPart instanceof org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart) {
+			types.add(TaiPanElementTypes.EscortShipsOrder_4006);
+		}
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getMATypesForSource(IElementType relationshipType) {
+		List types = new ArrayList();
+		if (relationshipType == TaiPanElementTypes.EscortShipsOrder_4006) {
+			types.add(TaiPanElementTypes.Warship_2003);
+		}
+		if (relationshipType == TaiPanElementTypes.PortRegister_4007) {
+			types.add(TaiPanElementTypes.Port_2001);
+		}
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getMATypesForTarget(IElementType relationshipType) {
+		List types = new ArrayList();
+		if (relationshipType == TaiPanElementTypes.ShipDestination_4001) {
+			types.add(TaiPanElementTypes.Port_2001);
+		}
+		if (relationshipType == TaiPanElementTypes.BesiegePortOrder_4005) {
+			types.add(TaiPanElementTypes.Port_2001);
+		}
+		if (relationshipType == TaiPanElementTypes.EscortShipsOrder_4006) {
+			types.add(TaiPanElementTypes.Ship_2002);
+		}
+		if (relationshipType == TaiPanElementTypes.EscortShipsOrder_4006) {
+			types.add(TaiPanElementTypes.Warship_2003);
+		}
+		return types;
 	}
 
 	/**
