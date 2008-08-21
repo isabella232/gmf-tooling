@@ -1,0 +1,21 @@
+import library XpandOclAnyOperations;
+
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+
+library OperationCall_OclAnyOperations;
+
+helper objectCompareTo(eJavaObject : OclAny, another : OclAny) : Boolean {
+	return eJavaObject.xpandCompareTo(another)
+}
+
+helper objectToString(eJavaObject : OclAny) : String {
+	return eJavaObject.repr()
+}
+
+helper objectEQ(eJavaObject : OclAny, another : OclAny) : Boolean {
+	return eJavaObject = another
+}
+
+helper objectnotEQ(eJavaObject : OclAny, another : OclAny) : Boolean {
+	return eJavaObject <> another
+}

@@ -1,0 +1,17 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+Boolean objectCompareTo(ecore::EJavaObject eJavaObject, ecore::EJavaObject another) :
+	eJavaObject.compareTo(another)
+;
+
+String objectToString(ecore::EJavaObject eJavaObject) :
+	eJavaObject.toString()
+;
+
+Boolean objectEQ(ecore::EJavaObject eJavaObject, ecore::EJavaObject another) :
+	eJavaObject == another
+;
+
+Boolean objectnotEQ(ecore::EJavaObject eJavaObject, ecore::EJavaObject another) :
+	eJavaObject != another
+;

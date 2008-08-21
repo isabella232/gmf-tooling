@@ -146,6 +146,11 @@ public class XtendMigrationTest extends TestCase {
 		checkMigration("OperationCall_StringOperations");
 	}
 	
+	public void testOclAnyOperations() throws IOException, MigrationException {
+		String resourceName = "OperationCall_OclAnyOperations";
+		checkMigration(new MigrationFacade(testResourceManager, getResourceName(resourceName), true), resourceName);
+	}
+	
 	private String readStringContent(InputStreamReader reader) throws IOException {
 		String LF = System.getProperty("line.separator");
 		StringBuilder sb = new StringBuilder();
