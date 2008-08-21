@@ -868,7 +868,10 @@
     </compartments>
     <palette>
       <groups
-          title="Aquatory">
+          title="Nodes"
+          largeIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/Port.gif"
+          smallIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/Port.gif"
+          collapse="true">
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Port"
@@ -899,6 +902,12 @@
             title="Empty Box"
             description="Add empty box"
             genNodes="//@diagram/@childNodes.2"/>
+      </groups>
+      <groups
+          title="Links"
+          largeIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/Route.gif"
+          smallIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/Route.gif"
+          collapse="true">
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Reliable Route"

@@ -7,7 +7,16 @@
       title="TaiPan">
     <tools
         xsi:type="gmftool:ToolGroup"
-        title="Aquatory">
+        title="Nodes"
+        collapsible="true">
+      <smallIcon
+          xsi:type="gmftool:BundleImage"
+          path="icons/full/obj16/Port.gif"
+          bundle="org.eclipse.gmf.examples.taipan.edit"/>
+      <largeIcon
+          xsi:type="gmftool:BundleImage"
+          path="icons/full/obj16/Port.gif"
+          bundle="org.eclipse.gmf.examples.taipan.edit"/>
       <tools
           xsi:type="gmftool:CreationTool"
           title="Port"
@@ -62,6 +71,19 @@
         <largeIcon
             xsi:type="gmftool:DefaultImage"/>
       </tools>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Links"
+        collapsible="true">
+      <smallIcon
+          xsi:type="gmftool:BundleImage"
+          path="icons/full/obj16/Route.gif"
+          bundle="org.eclipse.gmf.examples.taipan.edit"/>
+      <largeIcon
+          xsi:type="gmftool:BundleImage"
+          path="icons/full/obj16/Route.gif"
+          bundle="org.eclipse.gmf.examples.taipan.edit"/>
       <tools
           xsi:type="gmftool:CreationTool"
           title="Reliable Route"

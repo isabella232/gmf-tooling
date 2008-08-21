@@ -195,7 +195,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="taipan.gmftool#//@palette/@tools.0/@tools.9"/>
+        href="taipan.gmftool#//@palette/@tools.1/@tools.3"/>
     <diagramLink
         href="taipan.gmfgraph#ShipDestination"/>
     <linkMetaFeature
@@ -242,7 +242,7 @@
         href="taipan.ecore#//Aquatory/routes"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="taipan.gmftool#//@palette/@tools.0/@tools.6"/>
+        href="taipan.gmftool#//@palette/@tools.1/@tools.0"/>
     <diagramLink
         href="taipan.gmfgraph#ReliableRoute"/>
     <sourceMetaFeature
@@ -292,7 +292,7 @@
         href="taipan.ecore#//Aquatory/routes"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="taipan.gmftool#//@palette/@tools.0/@tools.7"/>
+        href="taipan.gmftool#//@palette/@tools.1/@tools.1"/>
     <diagramLink
         href="taipan.gmfgraph#UnreliableRoute"/>
     <sourceMetaFeature
@@ -305,7 +305,7 @@
   <links>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="taipan.gmftool#//@palette/@tools.0/@tools.10"/>
+        href="taipan.gmftool#//@palette/@tools.1/@tools.4"/>
     <diagramLink
         href="taipan.gmfgraph#ShipRoute"/>
     <linkMetaFeature
@@ -319,7 +319,7 @@
         href="taipan.ecore#//Warship/attackOrders"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="taipan.gmftool#//@palette/@tools.0/@tools.11"/>
+        href="taipan.gmftool#//@palette/@tools.1/@tools.5"/>
     <diagramLink
         href="taipan.gmfgraph#BesiegePortOrder"/>
     <linkMetaFeature
@@ -337,7 +337,7 @@
         href="taipan.ecore#//Warship/escortOrder"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="taipan.gmftool#//@palette/@tools.0/@tools.12"/>
+        href="taipan.gmftool#//@palette/@tools.1/@tools.6"/>
     <diagramLink
         href="taipan.gmfgraph#EscortShipsOrder"/>
     <linkMetaFeature
@@ -353,7 +353,7 @@
   <links>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="taipan.gmftool#//@palette/@tools.0/@tools.8"/>
+        href="taipan.gmftool#//@palette/@tools.1/@tools.2"/>
     <diagramLink
         href="taipan.gmfgraph#Registration"/>
     <linkMetaFeature
