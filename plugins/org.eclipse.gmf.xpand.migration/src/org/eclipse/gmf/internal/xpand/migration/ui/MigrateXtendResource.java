@@ -22,6 +22,8 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
 public class MigrateXtendResource implements IObjectActionDelegate {
+	
+	private static final String QVTO_EXTENSION = "qvto";
 
 	private Shell shell;
 
@@ -87,7 +89,7 @@ public class MigrateXtendResource implements IObjectActionDelegate {
 	}
 
 	private IFile getQvtoFile() {
-		IPath qvtoFilePath = selectedFile.getFullPath().removeFileExtension().addFileExtension("qvto");
+		IPath qvtoFilePath = selectedFile.getFullPath().removeFileExtension().addFileExtension(QVTO_EXTENSION);
 		IFile qvtoFile = ResourcesPlugin.getWorkspace().getRoot().getFile(qvtoFilePath);
 		return qvtoFile;
 	}

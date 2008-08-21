@@ -75,6 +75,7 @@ public class MigrationFacade {
 			BuiltinMetaModel.Int_Plus_Int, 
 			BuiltinMetaModel.Double_Plus_Double, 
 			BuiltinMetaModel.Double_Plus_Int,
+			BuiltinMetaModel.EString_Plus_EJavaObject,
 			BuiltinMetaModel.Object_EQ
 		}));
 	
@@ -109,7 +110,9 @@ public class MigrationFacade {
 
 	private String resourceName;
 
-	private ModeltypeImports modeltypeImports;
+	private ModeltypeImports modeltypeImportsManger;
+
+	private StandardLibraryImports stdLibImportsManager;
 
 	private boolean injectUnusedImports;
 
@@ -120,6 +123,8 @@ public class MigrationFacade {
 	private int returnPosition;
 
 	private IteratorVariableNameDispatcher iteratorVariableDispatcher;
+
+	private Stack<AbstractImportsManager> importsManagers = new Stack<AbstractImportsManager>();
 
 	private static final boolean isListType(EClassifier classifier) {
 		return classifier.getName().endsWith(BuiltinMetaModel.LIST);
@@ -161,15 +166,18 @@ public class MigrationFacade {
 			throw new MigrationException(Type.INCORRECT_RESOURCE_NAME, resourceName);
 		}
 
-		modeltypeImports = new ModeltypeImports(output, injectUnusedImports);
+		importsManagers.push(modeltypeImportsManger = new ModeltypeImports(output, injectUnusedImports));
 
 		for (String namespace : xtendResource.getImportedNamespaces()) {
-			modeltypeImports.registerModeltype(namespace);
+			modeltypeImportsManger.registerModeltype(namespace);
 		}
 
+		importsManagers.push(stdLibImportsManager = new StandardLibraryImports(output));
 		addLibraryImports(xtendResource, false);
 
-		writeln("library " + shortResourceName + ";" + LF);
+		writeln("");
+		writeln("library " + shortResourceName + ";");
+		writeln("");
 
 		for (Iterator<Extension> it = xtendResource.getExtensions().iterator(); it.hasNext();) {
 			Extension extension = it.next();
@@ -179,7 +187,9 @@ public class MigrationFacade {
 				writeln("");
 			}
 		}
-		modeltypeImports.injectImports();
+		while (!importsManagers.isEmpty()) {
+			importsManagers.pop().injectImports();
+		}
 		return output;
 	}
 
@@ -282,7 +292,7 @@ public class MigrationFacade {
 		}
 		EPackage ePackage = classifier.getEPackage();
 		assert ePackage != null;
-		String alias = modeltypeImports.getModeltypeAlias(ePackage);
+		String alias = modeltypeImportsManger.getModeltypeAlias(ePackage);
 		return alias + OCL_PATH_SEPARATOR + classifier.getName();
 	}
 
@@ -615,24 +625,14 @@ public class MigrationFacade {
 			} else if (isCollectionOperation(trace)) {
 				internalMigrateCollectionOperationCall(trace, operationCall, ctx);
 			} else {
-				internalMigrateOperationCallTarget(operationCall, ctx);
-				write(".");
-				write(getQVTOperationName(trace));
-				write("(");
-				internalMigrateOperationCallParameters(operationCall, ctx);
-				write(")");
+				internalMigrateOperationCall(trace, operationCall, ctx);
 				convertTypedElementCallProduct(trace.getEOperation());
 			}
 			return;
 		case IMPLICIT_COLLECT_OPERATION_REF:
-			internalMigrateOperationCallTarget(operationCall, ctx);
-			write(".");
 			// TODO: Implicit collect of collection operation result is not
 			// supported now
-			write(getQVTOperationName(trace));
-			write("(");
-			internalMigrateOperationCallParameters(operationCall, ctx);
-			write(")");
+			internalMigrateOperationCall(trace, operationCall, ctx);
 			convertImplicitCollectProduct(trace.getTargetType());
 			return;
 		case EXTENSION_REF:
@@ -682,17 +682,22 @@ public class MigrationFacade {
 			write(opName, placeholder);
 		} else if (BuiltinMetaModel.Int_Minus_Int == eOperation || BuiltinMetaModel.Int_Minus_Double == eOperation || BuiltinMetaModel.Double_Minus_Int == eOperation
 				|| BuiltinMetaModel.Double_Minus_Double == eOperation || BuiltinMetaModel.Int_Plus_Int == eOperation || BuiltinMetaModel.Int_Plus_Double == eOperation
-				|| BuiltinMetaModel.Double_Plus_Int == eOperation || BuiltinMetaModel.Double_Plus_Double == eOperation) {
+				|| BuiltinMetaModel.Double_Plus_Int == eOperation || BuiltinMetaModel.Double_Plus_Double == eOperation || BuiltinMetaModel.EString_Plus_EJavaObject == eOperation) {
 			write(" ");
 			write(opName);
 			write(" ");
-		} else if (BuiltinMetaModel.Object_EQ == eOperation) { 
+		} else if (BuiltinMetaModel.Object_EQ == eOperation) {
 			write(" = ");
 		} else {
 			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Incorrect infix operation: " + opName);
 		}
 		internalMigrateOperationCallParameters(operationCall, ctx);
-		if (BuiltinMetaModel.Boolean_NE == eOperation || BuiltinMetaModel.Int_Unary_Minus == eOperation || BuiltinMetaModel.Double_Unary_Minus == eOperation) {
+		if (BuiltinMetaModel.EString_Plus_EJavaObject == eOperation) { 
+			assert trace.getParamTypes().length == 1;
+			if (trace.getParamTypes()[0] != EcorePackage.eINSTANCE.getEString()) {
+				write(".repr()");
+			}
+		} else if (BuiltinMetaModel.Boolean_NE == eOperation || BuiltinMetaModel.Int_Unary_Minus == eOperation || BuiltinMetaModel.Double_Unary_Minus == eOperation) {
 			// Enclosing with braces for "not" expression here
 			addNegationBraces(placeholder);
 		}
@@ -882,13 +887,18 @@ public class MigrationFacade {
 		}
 	}
 
-	private String getQVTOperationName(OperationCallTrace trace) {
+	private void internalMigrateOperationCall(OperationCallTrace trace, OperationCall operationCall, MigrationExecutionContext ctx) throws MigrationException {
 		EOperation eOperation = trace.getEOperation();
 		assert eOperation != null;
-		if (BuiltinMetaModel.EString_ToFirstUpper == eOperation) {
-			return "firstToUpper";	
+		internalMigrateOperationCallTarget(operationCall, ctx);
+		write(".");
+		write(stdLibImportsManager.getOperationName(eOperation));
+		write("(");
+		if (BuiltinMetaModel.EString_SubString_StartEnd == eOperation) {
+			write("1 + ");
 		}
-		return eOperation.getName();
+		internalMigrateOperationCallParameters(operationCall, ctx);
+		write(")");
 	}
 	
 	private boolean isInfixOperation(OperationCallTrace trace) {
@@ -907,7 +917,7 @@ public class MigrationFacade {
 		case ENUM_LITERAL_REF:
 			EEnumLiteral enumLiteral = trace.getEnumLiteral();
 			assert enumLiteral != null;
-			String modelType = modeltypeImports.getModeltypeAlias(enumLiteral.getEEnum().getEPackage());
+			String modelType = modeltypeImportsManger.getModeltypeAlias(enumLiteral.getEEnum().getEPackage());
 			write(modelType);
 			write("::");
 			write(enumLiteral.getEEnum().getName());

@@ -19,15 +19,11 @@ import java.util.Map.Entry;
 
 import org.eclipse.emf.ecore.EPackage;
 
-class ModeltypeImports {
+class ModeltypeImports extends AbstractImportsManager {
 
 	private static final String DEFAULT_ALIAS = "metaModelRef";
 
-	private StringBuilder stringBuilder;
-
 	private boolean injectUnusedImports;
-
-	private int placeHolderIndex;
 
 	private Set<String> modeltypeAliases = new HashSet<String>();
 
@@ -36,8 +32,7 @@ class ModeltypeImports {
 	private Set<String> usedNsURIs = new HashSet<String>();
 
 	ModeltypeImports(StringBuilder stringBuilder, boolean injectUnusedImports) {
-		this.stringBuilder = stringBuilder;
-		placeHolderIndex = stringBuilder.length();
+		super(stringBuilder);
 		this.injectUnusedImports = injectUnusedImports;
 	}
 
@@ -69,13 +64,6 @@ class ModeltypeImports {
 		}
 		usedNsURIs.add(nsURI);
 		return nsURI2Aliases.get(nsURI);
-	}
-
-	private void writeln(String line) {
-		stringBuilder.insert(placeHolderIndex, line);
-		placeHolderIndex += line.length();
-		stringBuilder.insert(placeHolderIndex, MigrationFacade.LF);
-		placeHolderIndex += MigrationFacade.LF.length();
 	}
 
 	private String getUniqueModeltypeAlias(String nsURI) {

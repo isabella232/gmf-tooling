@@ -318,7 +318,6 @@ public class BuiltinMetaModel {
 	}
 
 	private static Map<String, String> attrNameSubsts = new TreeMap<String, String>();
-	public static EOperation EString_ToFirstUpper;
 	public static EOperation Collection_IsEmpty;
 	public static EOperation Collection_Add;
 	public static EOperation Collection_AddAll;
@@ -364,6 +363,22 @@ public class BuiltinMetaModel {
 	public static EOperation Double_Div_Int;
 	public static EOperation Double_Unary_Minus;
 	public static EOperation Object_EQ;
+	public static EOperation EString_ToFirstUpper;
+	public static EOperation EString_Plus_EJavaObject;
+	public static EOperation EString_ToFirstLower;
+	public static EOperation EString_ToCharList;
+	public static EOperation EString_StartsWith;
+	public static EOperation EString_EndsWith;
+	public static EOperation EString_SubString_StartEnd;
+	public static EOperation EString_SubString;
+	public static EOperation EString_ToUpperCase;
+	public static EOperation EString_ToLowerCase;
+	public static EOperation EString_ReplaceAll;
+	public static EOperation EString_ReplaceFirst;
+	public static EOperation EString_Split;
+	public static EOperation EString_Matches;
+	public static EOperation EString_Trim;
+	public static EOperation EString_Length;
 	static {
 		attrNameSubsts.put("default_", "default");
 	}
@@ -464,7 +479,7 @@ public class BuiltinMetaModel {
 
 		final List<InternalOperation> stringOps = new LinkedList<InternalOperation>();
 
-		stringOps.add(new InternalOperation<String>(opf.create("+",ecorePkg.getEString(),ecorePkg.getEJavaObject())) {
+		stringOps.add(new InternalOperation<String>(EString_Plus_EJavaObject = opf.create("+",ecorePkg.getEString(),ecorePkg.getEJavaObject())) {
 			@Override
 			public Object evaluate(String target, Object[] params) {
 				return target + String.valueOf(params[0]);
@@ -476,13 +491,13 @@ public class BuiltinMetaModel {
 				return StringHelper.firstUpper(target);
 			}
 		});
-		stringOps.add(new InternalOperation<String>(opf.create("toFirstLower",ecorePkg.getEString())) {
+		stringOps.add(new InternalOperation<String>(EString_ToFirstLower = opf.create("toFirstLower",ecorePkg.getEString())) {
 			@Override
 			public Object evaluate(String target, Object[] params) {
 				return StringHelper.firstLower(target);
 			}
 		});
-		stringOps.add(new InternalOperation<String>(opf.create("toCharList",collectionTypes.getListType(ecorePkg.getEString()))) {
+		stringOps.add(new InternalOperation<String>(EString_ToCharList = opf.create("toCharList",collectionTypes.getListType(ecorePkg.getEString()))) {
 			@Override
 			public Object evaluate(String target, Object[] params) {
 				ArrayList<String> rv = new ArrayList<String>(target.length());
@@ -492,22 +507,35 @@ public class BuiltinMetaModel {
 				return rv;
 			}
 		});
-		stringOps.add(opf.createReflective(String.class, "startsWith", String.class));
-		stringOps.add(opf.createReflective(String.class, "endsWith", String.class));
+		InternalOperation internalOp;
+		stringOps.add(internalOp = opf.createReflective(String.class, "startsWith", String.class));
+		EString_StartsWith = internalOp.metaOp;
+		stringOps.add(internalOp = opf.createReflective(String.class, "endsWith", String.class));
+		EString_EndsWith = internalOp.metaOp;
 		InternalOperation subStringOp = opf.createReflective(String.class, "substring", int.class, int.class);
 		subStringOp.metaOp.setName("subString");
+		EString_SubString_StartEnd = subStringOp.metaOp;
 		stringOps.add(subStringOp);
 		subStringOp = opf.createReflective(String.class, "substring", int.class);
 		subStringOp.metaOp.setName("subString");
+		EString_SubString = subStringOp.metaOp;
 		stringOps.add(subStringOp);
-		stringOps.add(opf.createReflective(String.class, "toUpperCase"));
-		stringOps.add(opf.createReflective(String.class, "toLowerCase"));
-		stringOps.add(opf.createReflective(String.class, "replaceAll", String.class, String.class));
-		stringOps.add(opf.createReflective(String.class, "replaceFirst", String.class, String.class));
-		stringOps.add(opf.createReflective(String.class, "split", String.class));
-		stringOps.add(opf.createReflective(String.class, "matches", String.class));
-		stringOps.add(opf.createReflective(String.class, "trim"));
-		stringOps.add(opf.createReflective(String.class, "length"));
+		stringOps.add(internalOp = opf.createReflective(String.class, "toUpperCase"));
+		EString_ToUpperCase = internalOp.metaOp;
+		stringOps.add(internalOp = opf.createReflective(String.class, "toLowerCase"));
+		EString_ToLowerCase = internalOp.metaOp;
+		stringOps.add(internalOp = opf.createReflective(String.class, "replaceAll", String.class, String.class));
+		EString_ReplaceAll = internalOp.metaOp;
+		stringOps.add(internalOp = opf.createReflective(String.class, "replaceFirst", String.class, String.class));
+		EString_ReplaceFirst = internalOp.metaOp;
+		stringOps.add(internalOp = opf.createReflective(String.class, "split", String.class));
+		EString_Split = internalOp.metaOp;
+		stringOps.add(internalOp = opf.createReflective(String.class, "matches", String.class));
+		EString_Matches = internalOp.metaOp;
+		stringOps.add(internalOp = opf.createReflective(String.class, "trim"));
+		EString_Trim = internalOp.metaOp;
+		stringOps.add(internalOp = opf.createReflective(String.class, "length"));
+		EString_Length = internalOp.metaOp;
 		stringOps.addAll(unmodifiableObjectOps);
 		internalOperationsMap.put(ecorePkg.getEString(), Collections.unmodifiableList(stringOps));
 
