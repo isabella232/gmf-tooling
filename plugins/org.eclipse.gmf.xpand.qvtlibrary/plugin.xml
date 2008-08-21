@@ -7,6 +7,10 @@
             class="org.eclipse.gmf.internal.xpand.qvtlibraries.XpandStringOperations"
             id="XpandStringOperations">
       </library>
+      <library
+            class="org.eclipse.gmf.internal.xpand.qvtlibraries.XpandOclAnyOperations"
+            id="XpandOclAnyOperations">
+      </library>
    </extension>
 
 </plugin>
