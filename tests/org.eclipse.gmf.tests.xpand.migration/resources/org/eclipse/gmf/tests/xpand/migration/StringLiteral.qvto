@@ -1,3 +1,4 @@
+
 library StringLiteral;
 
 helper stringLiteralDoubleQuoted() : String {

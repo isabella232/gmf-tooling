@@ -1,0 +1,69 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+String addStringToString(String string, String parameter) :
+	string + parameter
+;
+
+String addObjectToString(String string, ecore::EJavaObject parameter) :
+	string + parameter
+;
+
+String stringToFirstUpper(String string) :
+	string.toFirstUpper()
+;
+
+String stringToFirstLower(String string) :
+	string.toFirstLower()
+;
+
+List[String] stringToCharList(String string) :
+	string.toCharList()
+;
+
+Boolean stringStartsWith(String string, String parameter) :
+	string.startsWith(parameter)
+;
+
+Boolean stringEndsWith(String string, String parameter) :
+	string.endsWith(parameter)
+;
+
+String stringSubString(String string, int startIndex, int endIndex) :
+	string.subString(startIndex, endIndex)
+;
+
+String stringSubString(String string, int startIndex) :
+	string.subString(startIndex)
+;
+
+String stringToUpperCase(String string) :
+	string.toUpperCase()
+;
+
+String stringToLowerCase(String string) :
+	string.toLowerCase()
+;
+
+String stringReplaceAll(String string, String pattern, String replacement) :
+	string.replaceAll(pattern, replacement)
+;
+
+String stringReplaceFirst(String string, String pattern, String replacement) :
+	string.replaceFirst(pattern, replacement)
+;
+
+List[String] stringSplit(String string, String parameter) :
+	string.split(parameter)
+;
+
+Boolean stringMatches(String string, String parameter) :
+	string.matches(parameter)
+;
+
+String stringTrim(String string) :
+	string.trim()
+;
+
+int stringLength(String string) :
+	string.length()
+;

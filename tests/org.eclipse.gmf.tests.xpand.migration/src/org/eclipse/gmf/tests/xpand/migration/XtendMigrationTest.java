@@ -142,6 +142,10 @@ public class XtendMigrationTest extends TestCase {
 		assertEquals(etalon, content);
 	}
 	
+	public void testStringOperations() throws IOException, MigrationException {
+		checkMigration("OperationCall_StringOperations");
+	}
+	
 	private String readStringContent(InputStreamReader reader) throws IOException {
 		String LF = System.getProperty("line.separator");
 		StringBuilder sb = new StringBuilder();

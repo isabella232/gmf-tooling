@@ -1,0 +1,72 @@
+
+import library XpandStringOperations;	
+	
+library OperationCall_StringOperations;
+
+helper addStringToString(string : String, parameter : String) : String {
+	return string + parameter
+}
+
+helper addObjectToString(string : String, parameter : OclAny) : String {
+	return string + parameter.repr()
+}
+
+helper stringToFirstUpper(string : String) : String {
+	return string.firstToUpper()
+}
+
+helper stringToFirstLower(string : String) : String {
+	return string.xpandToFirstLower()
+}
+
+helper stringToCharList(string : String) : Sequence(String) {
+	return string.xpandToCharList()
+}
+
+helper stringStartsWith(string : String, parameter : String) : Boolean {
+	return string.startsWith(parameter)
+}
+
+helper stringEndsWith(string : String, parameter : String) : Boolean {
+	return string.endsWith(parameter)
+}
+
+helper stringSubString(string : String, startIndex : Integer, endIndex : Integer) : String {
+	return string.substring(1 + startIndex, endIndex)
+}
+
+helper stringSubString(string : String, startIndex : Integer) : String {
+	return string.xpandSubstring(startIndex)
+}
+
+helper stringToUpperCase(string : String) : String {
+	return string.toUpper()
+}
+
+helper stringToLowerCase(string : String) : String {
+	return string.toLower()
+}
+
+helper stringReplaceAll(string : String, pattern : String, replacement : String) : String {
+	return string.xpandReplaceAll(pattern, replacement)
+}
+
+helper stringReplaceFirst(string : String, pattern : String, replacement : String) : String {
+	return string.xpandReplaceFirst(pattern, replacement)
+}
+
+helper stringSplit(string : String, parameter : String) : Sequence(String) {
+	return string.xpandSplit(parameter)
+}
+
+helper stringMatches(string : String, parameter : String) : Boolean {
+	return string.xpandMatches(parameter)
+}
+
+helper stringTrim(string : String) : String {
+	return string.trim()
+}
+
+helper stringLength(string : String) : Integer {
+	return string.length()
+}
