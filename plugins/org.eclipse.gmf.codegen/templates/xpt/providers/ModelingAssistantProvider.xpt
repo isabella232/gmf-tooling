@@ -23,6 +23,32 @@ package «providersPackageName»;
 public class «modelingAssistantProviderClassName»
 		extends org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.ModelingAssistantProvider {
 
+	«EXPAND getTypesForPopupBar-»
+
+	«EXPAND getRelTypesOnSource-»
+
+	«EXPAND getRelTypesOnTarget-»
+
+	«EXPAND getRelTypesOnSourceAndTarget-»
+
+	«EXPAND getTypesForSource-»
+
+	«EXPAND getTypesForTarget-»
+
+	«EXPAND selectExistingElementForSource-»
+
+	«EXPAND selectExistingElementForTarget-»
+
+	«EXPAND selectExistingElement-»
+
+	«EXPAND isApplicableElement-»
+
+	«EXPAND selectElement-»
+	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE getTypesForPopupBar FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public java.util.List getTypesForPopupBar(org.eclipse.core.runtime.IAdaptable host) {
 		org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart editPart =
@@ -41,7 +67,9 @@ public class «modelingAssistantProviderClassName»
 		«ENDFOREACH-»
 		return java.util.Collections.EMPTY_LIST;
 	}
+«ENDDEFINE»
 
+«DEFINE getRelTypesOnSource FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public java.util.List getRelTypesOnSource(org.eclipse.core.runtime.IAdaptable source) {
 		org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart sourceEditPart =
@@ -56,7 +84,9 @@ public class «modelingAssistantProviderClassName»
 		«ENDFOREACH-»
 		return java.util.Collections.EMPTY_LIST;
 	}
+«ENDDEFINE»
 
+«DEFINE getRelTypesOnTarget FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public java.util.List getRelTypesOnTarget(org.eclipse.core.runtime.IAdaptable target) {
 		org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart targetEditPart =
@@ -71,7 +101,9 @@ public class «modelingAssistantProviderClassName»
 		«ENDFOREACH-»
 		return java.util.Collections.EMPTY_LIST;
 	}
+«ENDDEFINE»
 
+«DEFINE getRelTypesOnSourceAndTarget FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public java.util.List getRelTypesOnSourceAndTarget(
 			org.eclipse.core.runtime.IAdaptable source, org.eclipse.core.runtime.IAdaptable target) {
@@ -90,7 +122,9 @@ public class «modelingAssistantProviderClassName»
 		«ENDFOREACH-»
 		return java.util.Collections.EMPTY_LIST;
 	}
+«ENDDEFINE»
 
+«DEFINE getTypesForSource FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public java.util.List getTypesForSource(org.eclipse.core.runtime.IAdaptable target,
 			org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
@@ -106,7 +140,9 @@ public class «modelingAssistantProviderClassName»
 		«ENDFOREACH-»
 		return java.util.Collections.EMPTY_LIST;
 	}
+«ENDDEFINE»
 
+«DEFINE getTypesForTarget FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public java.util.List getTypesForTarget(org.eclipse.core.runtime.IAdaptable source,
 			org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
@@ -122,21 +158,27 @@ public class «modelingAssistantProviderClassName»
 		«ENDFOREACH-»
 		return java.util.Collections.EMPTY_LIST;
 	}
+«ENDDEFINE»
 
+«DEFINE selectExistingElementForSource FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.emf.ecore.EObject selectExistingElementForSource(
 			org.eclipse.core.runtime.IAdaptable target,
 			org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
 		return selectExistingElement(target, getTypesForSource(target, relationshipType));
 	}
+«ENDDEFINE»
 
+«DEFINE selectExistingElementForTarget FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.emf.ecore.EObject selectExistingElementForTarget(
 			org.eclipse.core.runtime.IAdaptable source,
 			org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
 		return selectExistingElement(source, getTypesForTarget(source, relationshipType));
 	}
+«ENDDEFINE»
 
+«DEFINE selectExistingElement FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.emf.ecore.EObject selectExistingElement(
 			org.eclipse.core.runtime.IAdaptable host, java.util.Collection types) {
@@ -164,14 +206,18 @@ public class «modelingAssistantProviderClassName»
 		return selectElement((org.eclipse.emf.ecore.EObject[]) elements.toArray(
 				new org.eclipse.emf.ecore.EObject[elements.size()]));
 	}
+«ENDDEFINE»
 
+«DEFINE isApplicableElement FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected boolean isApplicableElement(org.eclipse.emf.ecore.EObject element, java.util.Collection types) {
 		org.eclipse.gmf.runtime.emf.type.core.IElementType type =
 				org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry.getInstance().getElementType(element);
 		return types.contains(type);
 	}
+«ENDDEFINE»
 
+«DEFINE selectElement FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.emf.ecore.EObject selectElement(org.eclipse.emf.ecore.EObject[] elements) {
 		org.eclipse.swt.widgets.Shell shell = org.eclipse.swt.widgets.Display.getCurrent().getActiveShell();
@@ -190,8 +236,6 @@ public class «modelingAssistantProviderClassName»
 		}
 		return selected;
 	}
-	«EXPAND additions-»
-}
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram-»«ENDDEFINE»
