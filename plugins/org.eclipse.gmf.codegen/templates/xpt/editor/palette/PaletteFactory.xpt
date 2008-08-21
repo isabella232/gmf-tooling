@@ -45,6 +45,8 @@ public class «factoryClassName» {
 	private org.eclipse.gef.palette.PaletteContainer «createMethodName»() {
 		«EXPAND newContainer("paletteContainer")-»
 		«EXPAND setDescription("paletteContainer", this) FOR description-»
+		«EXPAND setSmallImage("paletteContainer", palette)-»
+		«EXPAND setLargeImage("paletteContainer", palette)-»
 		«EXPAND addEntry("paletteContainer") FOREACH entries-»
 		return paletteContainer;
 	}
@@ -87,8 +89,8 @@ public class «factoryClassName» {
 	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.gef.palette.ToolEntry «createMethodName»() {
 		«EXPAND newEntry("entry")-»
-		«EXPAND setSmallImage("entry")-»
-		«EXPAND setLargeImage("entry")-»
+		«EXPAND setSmallImage("entry", group.palette)-»
+		«EXPAND setLargeImage("entry", group.palette)-»
 		«EXPAND setToolClass("entry")-»
 		«EXPAND setToolProperty("entry") FOREACH properties-»
 		return entry;
@@ -141,9 +143,9 @@ FIXME
 «ERROR "override newStdOtherEntry(StandardEntry, String) for kind " + kind.literal»
 «ENDDEFINE»
 
-«DEFINE setSmallImage(String toolVarName) FOR gmfgen::AbstractToolEntry-»
+«DEFINE setSmallImage(String toolVarName, gmfgen::Palette palette) FOR gmfgen::EntryBase-»
 «IF null != smallIconPath-»
-«toolVarName».setSmallIcon(«activatorFQN()».findImageDescriptor("«smallIconPath»")); «EXPAND xpt::Common::nonNLS»
+«toolVarName».setSmallIcon(«activatorFQN(palette)».findImageDescriptor("«smallIconPath»")); «EXPAND xpt::Common::nonNLS»
 «ELSEIF !{this}.typeSelect(gmfgen::ToolEntry).elements.isEmpty()-»
 «LET ((gmfgen::ToolEntry) this) AS toolEntry-»
 «toolVarName».setSmallIcon(«elementTypesClass(toolEntry)».getImageDescriptor(«elementTypesClass(toolEntry)».«((GenCommonBase) toolEntry.elements.toList().first()).getUniqueIdentifier()»));
@@ -151,9 +153,9 @@ FIXME
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE setLargeImage(String toolVarName) FOR gmfgen::AbstractToolEntry-»
+«DEFINE setLargeImage(String toolVarName, gmfgen::Palette palette) FOR gmfgen::EntryBase-»
 «IF null != largeIconPath-»
-«toolVarName».setLargeIcon(«activatorFQN()».findImageDescriptor("«largeIconPath»")); «EXPAND xpt::Common::nonNLS»
+«toolVarName».setLargeIcon(«activatorFQN(palette)».findImageDescriptor("«largeIconPath»")); «EXPAND xpt::Common::nonNLS»
 «ELSEIF !{this}.typeSelect(gmfgen::ToolEntry).elements.isEmpty()-»
 «toolVarName».setLargeIcon(«toolVarName».getSmallIcon());
 «ENDIF-»

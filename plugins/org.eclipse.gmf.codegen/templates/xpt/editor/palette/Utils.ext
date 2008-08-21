@@ -15,7 +15,7 @@ import "http://www.eclipse.org/emf/2002/Ecore";
 
 // TODO instead, use smth like plugin::Utils::activatorFQN(palette.diagram.editorGen.plugin)
 // i.e. create a system of extensions 
-private String activatorFQN(gmfgen::Palette palette) :
+String activatorFQN(gmfgen::Palette palette) :
 	palette.diagram.editorGen.plugin.getActivatorQualifiedClassName()
 ;
 
