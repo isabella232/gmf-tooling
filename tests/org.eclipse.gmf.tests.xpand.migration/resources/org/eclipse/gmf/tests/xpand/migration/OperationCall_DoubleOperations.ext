@@ -1,0 +1,53 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+ecore::EDouble doublePlusDouble(ecore::EDouble double, ecore::EDouble parameter) :
+	double + parameter
+;
+
+ecore::EDouble doublePlusInteger(ecore::EDouble double, Integer parameter) :
+	double + parameter
+;
+
+ecore::EDouble doubleMinusDouble(ecore::EDouble double, ecore::EDouble parameter) :
+	double - parameter
+;
+
+ecore::EDouble doubleMinusInteger(ecore::EDouble double, Integer parameter) :
+	double - parameter
+;
+
+ecore::EDouble doubleMultDouble(ecore::EDouble double, ecore::EDouble parameter) :
+	double * parameter
+;
+
+ecore::EDouble doubleMultInteger(ecore::EDouble double, Integer parameter) :
+	double * parameter
+;
+
+ecore::EDouble doubleDivDouble(ecore::EDouble double, ecore::EDouble parameter) :
+	double / parameter
+;
+
+ecore::EDouble doubleDivInteger(ecore::EDouble double, Integer parameter) :
+	double / parameter
+;
+
+ecore::EDouble doubleUnaryMinus(ecore::EDouble double) :
+	-double
+;
+
+Boolean doubleCompareTo(ecore::EDouble double, ecore::EJavaObject another) :
+	double.compareTo(another)
+;
+
+String doubleToString(ecore::EDouble double) :
+	double.toString()
+;
+
+Boolean doubleEQ(ecore::EDouble double, ecore::EJavaObject another) :
+	double == another
+;
+
+Boolean doubleNotEQ(ecore::EDouble double, ecore::EJavaObject another) :
+	double != another
+;

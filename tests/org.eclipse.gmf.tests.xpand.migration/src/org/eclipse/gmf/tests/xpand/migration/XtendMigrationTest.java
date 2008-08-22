@@ -159,6 +159,10 @@ public class XtendMigrationTest extends TestCase {
 		checkMigration("OperationCall_IntegerOperations");
 	}
 	
+	public void testDoubleOperations() throws IOException, MigrationException {
+		checkMigration("OperationCall_DoubleOperations");
+	}
+	
 	private String readStringContent(InputStreamReader reader) throws IOException {
 		String LF = System.getProperty("line.separator");
 		StringBuilder sb = new StringBuilder();

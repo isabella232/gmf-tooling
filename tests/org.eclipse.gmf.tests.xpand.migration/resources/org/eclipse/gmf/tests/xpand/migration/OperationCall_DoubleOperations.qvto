@@ -1,0 +1,55 @@
+import library XpandOclAnyOperations;
+
+library OperationCall_DoubleOperations;
+
+helper doublePlusDouble(double : Real, parameter : Real) : Real  {
+	return double + parameter
+}
+
+helper doublePlusInteger(double : Real, parameter : Integer) : Real  {
+	return double + parameter
+}
+
+helper doubleMinusDouble(double : Real, parameter : Real) : Real  {
+	return double - parameter
+}
+
+helper doubleMinusInteger(double : Real, parameter : Integer) : Real  {
+	return double - parameter
+}
+
+helper doubleMultDouble(double : Real, parameter : Real) : Real  {
+	return double * parameter
+}
+
+helper doubleMultInteger(double : Real, parameter : Integer) : Real  {
+	return double * parameter
+}
+
+helper doubleDivDouble(double : Real, parameter : Real) : Real  {
+	return double / parameter
+}
+
+helper doubleDivInteger(double : Real, parameter : Integer) : Real  {
+	return double / parameter
+}
+
+helper doubleUnaryMinus(double : Real) : Real  {
+	return -double
+}
+
+helper doubleCompareTo(double : Real, another : OclAny) : Boolean {
+	return double.xpandCompareTo(another)
+}
+
+helper doubleToString(double : Real) : String {
+	return double.repr()
+}
+
+helper doubleEQ(double : Real, another : OclAny) : Boolean {
+	return double = another
+}
+
+helper doubleNotEQ(double : Real, another : OclAny) : Boolean {
+	return double <> another
+}
