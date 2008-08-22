@@ -36,6 +36,10 @@ helper getDummyInteger_3(param : Integer) : Integer {
 	return param
 }
 
+helper getDummyDouble(param : Real) : Real {
+	return param
+}
+
 helper getDummyString(param1 : String, param2 : Boolean, param3 : Integer) : String {
 	return param1
 }

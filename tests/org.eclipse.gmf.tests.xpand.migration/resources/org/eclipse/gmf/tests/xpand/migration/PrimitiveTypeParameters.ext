@@ -37,6 +37,10 @@ EInt getDummyInteger_3(EInt param) :
 	param
 ;
 
+ecore::EDouble getDummyDouble(ecore::EDouble param) :
+	param
+;
+
 String getDummyString(String param1, boolean param2, int param3) :
 	param1
 ;
