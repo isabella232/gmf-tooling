@@ -61,14 +61,62 @@ public class GenLinkItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addGenOutgoingLinksPropertyDescriptor(object);
+			addGenIncomingLinksPropertyDescriptor(object);
 			addOutgoingCreationAllowedPropertyDescriptor(object);
 			addIncomingCreationAllowedPropertyDescriptor(object);
 			addViewDirectionAlignedWithModelPropertyDescriptor(object);
 			addCreateCommandClassNamePropertyDescriptor(object);
 			addReorientCommandClassNamePropertyDescriptor(object);
 			addTreeBranchPropertyDescriptor(object);
+			addSourcesPropertyDescriptor(object);
+			addTargetsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Gen Outgoing Links feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addGenOutgoingLinksPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenLinkEnd_genOutgoingLinks_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenLinkEnd_genOutgoingLinks_feature", "_UI_GenLinkEnd_type"),
+				 GMFGenPackage.eINSTANCE.getGenLinkEnd_GenOutgoingLinks(),
+				 false,
+				 false,
+				 false,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Gen Incoming Links feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addGenIncomingLinksPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenLinkEnd_genIncomingLinks_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenLinkEnd_genIncomingLinks_feature", "_UI_GenLinkEnd_type"),
+				 GMFGenPackage.eINSTANCE.getGenLinkEnd_GenIncomingLinks(),
+				 false,
+				 false,
+				 false,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -200,6 +248,50 @@ public class GenLinkItemProvider
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 getString("_UI_DiagramElementPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Sources feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSourcesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenLink_sources_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenLink_sources_feature", "_UI_GenLink_type"),
+				 GMFGenPackage.eINSTANCE.getGenLink_Sources(),
+				 false,
+				 false,
+				 false,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Targets feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTargetsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenLink_targets_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenLink_targets_feature", "_UI_GenLink_type"),
+				 GMFGenPackage.eINSTANCE.getGenLink_Targets(),
+				 false,
+				 false,
+				 false,
+				 null,
+				 null,
 				 null));
 	}
 

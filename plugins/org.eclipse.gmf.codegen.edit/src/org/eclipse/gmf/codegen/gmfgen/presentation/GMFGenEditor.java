@@ -469,6 +469,7 @@ public class GMFGenEditor
 								(new Runnable() {
 									 public void run() {
 										 getSite().getPage().closeEditor(GMFGenEditor.this, false);
+										 GMFGenEditor.this.dispose();
 									 }
 								 });
 						}
@@ -510,6 +511,7 @@ public class GMFGenEditor
 		if (!removedResources.isEmpty()) {
 			if (handleDirtyConflict()) {
 				getSite().getPage().closeEditor(GMFGenEditor.this, false);
+				GMFGenEditor.this.dispose();
 			}
 			else {
 				removedResources.clear();
@@ -1462,11 +1464,8 @@ public class GMFGenEditor
 					for (Resource resource : editingDomain.getResourceSet().getResources()) {
 						if ((first || !resource.getContents().isEmpty() || isPersisted(resource)) && !editingDomain.isReadOnly(resource)) {
 							try {
-								long timeStamp = resource.getTimeStamp();
+								savedResources.add(resource);
 								resource.save(saveOptions);
-								if (resource.getTimeStamp() != timeStamp) {
-									savedResources.add(resource);
-								}
 							}
 							catch (Exception exception) {
 								resourceToDiagnosticMap.put(resource, analyzeResourceProblems(resource, exception));
