@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,10 +8,12 @@
  *
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
+ *    Michael Golubev (Borland) - [243151] explicit source/target for links
  */
 
 «IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
 «EXTENSION xpt::GenModelUtils»
+«EXTENSION xpt::diagram::editpolicies::LinkUtils»
 
 «DEFINE LinkItemSemanticEditPolicy FOR gmfgen::GenLink-»
 	«EXPAND xpt::Common::copyright FOR diagram.editorGen-»
@@ -22,26 +24,24 @@ public class «itemSemanticEditPolicyClassName» extends «diagram.getBaseItemSeman
 
 	«EXPAND xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::defaultConstructor-»
 
-	«EXPAND classBody(getDiagram()) FOR modelFacet-»
+	«EXPAND classBody-»
 	
 	«EXPAND additions-»
 }
 «ENDDEFINE» 
 
-«DEFINE classBody(gmfgen::GenDiagram diagram) FOR gmfgen::FeatureLinkModelFacet-»
-	«EXPAND getDestroyReferenceCommand-»
+«DEFINE classBody FOR gmfgen::GenLink-»
+	«EXPAND getDestroySemanticCommand FOR modelFacet -»
+	«IF isTypeLink(this)-»
+		«EXPAND xpt::diagram::editpolicies::linkCommands::linkCommands -»
+	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE classBody(gmfgen::GenDiagram diagram) FOR gmfgen::TypeLinkModelFacet-»
-	«EXPAND getDestroyElementCommand-»
-	«EXPAND xpt::diagram::editpolicies::linkCommands::linkCommands(diagram)-»
-«ENDDEFINE»
-
-«DEFINE classBody(gmfgen::GenDiagram diagram) FOR gmfgen::LinkModelFacet-»
+«DEFINE getDestroySemanticCommand FOR gmfgen::LinkModelFacet-»
 	«ERROR "Unsupported model facet: " + this-»
 «ENDDEFINE»
 
-«DEFINE getDestroyReferenceCommand FOR gmfgen::FeatureLinkModelFacet-»
+«DEFINE getDestroySemanticCommand FOR gmfgen::FeatureLinkModelFacet-»
 	«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getDestroyReferenceCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest req) {
 	return getGEFWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand(req)«IF isContains(metaFeature)» {
@@ -58,7 +58,7 @@ protected org.eclipse.gef.commands.Command getDestroyReferenceCommand(org.eclips
 }
 «ENDDEFINE»
 
-«DEFINE getDestroyElementCommand FOR gmfgen::TypeLinkModelFacet-»
+«DEFINE getDestroySemanticCommand FOR gmfgen::TypeLinkModelFacet-»
 	«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
 	return getGEFWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(req));

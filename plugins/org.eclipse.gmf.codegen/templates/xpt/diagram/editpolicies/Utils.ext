@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
+ *    Michael Golubev (Borland) - [243151] explicit source/target for links
  */
  
 import "http://www.eclipse.org/gmf/2008/GenModel";
@@ -29,45 +30,52 @@ List[gmfgen::GenLinkConstraints] getValidLinkConstraints(gmfgen::GenDiagram diag
 	diagram.links.select(l | null != l.creationConstraints && l.creationConstraints.isValid()).collect(l | l.creationConstraints)
 ;
 
-List[gmfgen::GenLink] getAllPotentialLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
-	selectValidLinks(diagram.links).select(l | isSelf(l, typeModelFacet) || isOutgoing(l, typeModelFacet) || isIncoming(l, typeModelFacet))
+List[gmfgen::GenLink] getAllPotentialLinks(gmfgen::GenLinkEnd linkEnd) :
+	getAllRelatedLinks(linkEnd).select(link | isCreationAllowed(link))
 ;
 
-List[gmfgen::GenLink] getReroutableTypeLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
-	diagram.links.select(link | isTypeLink(link) && (canBeSource(link, typeModelFacet) || canBeTarget(link, typeModelFacet)))
+List[gmfgen::GenLink] getReroutableTypeLinks(gmfgen::GenLinkEnd linkEnd) :
+	getAllRelatedLinks(linkEnd).select(link | isTypeLink(link))
 ;
 
-List[gmfgen::GenLink] getReroutableRefLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
-	diagram.links.select(link | isRefLink(link) && (canBeSource(link, typeModelFacet) || canBeTarget(link, typeModelFacet)))
+List[gmfgen::GenLink] getReroutableRefLinks(gmfgen::GenLinkEnd linkEnd) :
+	getAllRelatedLinks(linkEnd).select(link | isRefLink(link))
 ;
 
-private List[gmfgen::GenLink] selectValidLinks(List[gmfgen::GenLink] allLinks) :
-	allLinks.select(l | null != l.modelFacet)
-		.select(l | l.outgoingCreationAllowed || l.incomingCreationAllowed)
+//XXX[MG]: again, it would be better to use linkEnd.incomingLinks.union(linkEnd.outgoingLinks).toList() 
+//but it will change the ordering and produce meaningless diff in the generated code
+private cached List[gmfgen::GenLink] getAllRelatedLinks(gmfgen::GenLinkEnd linkEnd) :
+	linkEnd.getDiagram().links
+		.select(link | canBeSource(link, linkEnd) || canBeTarget(link, linkEnd))
 ;
 
-boolean createStartLinkCommand(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
-	createStartOutgoingLinkCommand(link, typeModelFacet) || createStartIncomingLinkCommand(link, typeModelFacet)
+private boolean isCreationAllowed(gmfgen::GenLink link) : 
+	null != link.modelFacet && 
+	(link.outgoingCreationAllowed || link.incomingCreationAllowed) 
+;	 
+
+boolean createStartLinkCommand(gmfgen::GenLink link, gmfgen::GenLinkEnd linkEnd) :
+	createStartOutgoingLinkCommand(link, linkEnd) || createStartIncomingLinkCommand(link, linkEnd)
 ;
 
-boolean createStartOutgoingLinkCommand(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
-	isSelf(link, typeModelFacet) || (isOutgoing(link, typeModelFacet) && link.outgoingCreationAllowed)
+boolean createStartOutgoingLinkCommand(gmfgen::GenLink link, gmfgen::GenLinkEnd linkEnd) :
+	isSelf(link, linkEnd) || (isOutgoing(link, linkEnd) && link.outgoingCreationAllowed)
 ;
 
-boolean createStartIncomingLinkCommand(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
-	isIncoming(link, typeModelFacet) && link.incomingCreationAllowed
+boolean createStartIncomingLinkCommand(gmfgen::GenLink link, gmfgen::GenLinkEnd linkEnd) :
+	isIncoming(link, linkEnd) && link.incomingCreationAllowed
 ;
 
-boolean createCompleteLinkCommand(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
-	createCompleteIncomingLinkCommand(link, typeModelFacet) || createCompleteOutgoingLinkCommand(link, typeModelFacet)
+boolean createCompleteLinkCommand(gmfgen::GenLink link, gmfgen::GenLinkEnd linkEnd) :
+	createCompleteIncomingLinkCommand(link, linkEnd) || createCompleteOutgoingLinkCommand(link, linkEnd)
 ;
 
-boolean createCompleteIncomingLinkCommand(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
-	isSelf(link, typeModelFacet) || (isIncoming(link, typeModelFacet) && link.outgoingCreationAllowed)
+boolean createCompleteIncomingLinkCommand(gmfgen::GenLink link, gmfgen::GenLinkEnd linkEnd) :
+	isSelf(link, linkEnd) || (isIncoming(link, linkEnd) && link.outgoingCreationAllowed)
 ;
 
-boolean createCompleteOutgoingLinkCommand(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
-	isOutgoing(link, typeModelFacet) && link.incomingCreationAllowed
+boolean createCompleteOutgoingLinkCommand(gmfgen::GenLink link, gmfgen::GenLinkEnd linkEnd) :
+	isOutgoing(link, linkEnd) && link.incomingCreationAllowed
 ;
 
 boolean checkSource(boolean reversedRequest, boolean isCompleteCommand) :
@@ -78,16 +86,16 @@ boolean checkTarget(boolean reversedRequest, boolean isCompleteCommand) :
 	reversedRequest || isCompleteCommand
 ;
 
-private boolean isSelf(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
-	canBeSource(link, typeModelFacet) && canBeTarget(link, typeModelFacet)
+private boolean isSelf(gmfgen::GenLink link, gmfgen::GenLinkEnd linkEnd) :
+	canBeSource(link, linkEnd) && canBeTarget(link, linkEnd)
 ;
 
-private boolean isOutgoing(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
-	canBeSource(link, typeModelFacet) && !isSelf(link, typeModelFacet)
+private boolean isOutgoing(gmfgen::GenLink link, gmfgen::GenLinkEnd linkEnd) :
+	canBeSource(link, linkEnd) && !canBeTarget(link, linkEnd)
 ;
 
-private boolean isIncoming(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
-	canBeTarget(link, typeModelFacet) && !isSelf(link, typeModelFacet)
+private boolean isIncoming(gmfgen::GenLink link, gmfgen::GenLinkEnd linkEnd) :
+	canBeTarget(link, linkEnd) && !canBeSource(link, linkEnd)
 ;
 
 String i18nKeyForOpenCommandName() :

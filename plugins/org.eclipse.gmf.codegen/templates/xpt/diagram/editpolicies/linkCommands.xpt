@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -9,6 +9,7 @@
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
  *    Dmitry Stadnik (Borland) - creation logic was moved in commands
+ *    Michael Golubev (Borland) - [243151] explicit source/target for links
  */
 
 «IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
@@ -31,24 +32,26 @@
  *
  * 	diagram 	GenDiagram used to collect all defined links
  *
- *	this		Instance of TypeModelFacet for the element link could be creates to/from.
- *				This could be TypeModelFacet or TypeLinkModelFacet in case of links to links.
+ *	this		Instance of GenLinkEnd for the element link could be creates to/from.
+ *				This could be GenNode or GenLink in case of links to links, 
+ *              in the latter case it is assumed that its a TypeLink (so its model facet is LinkTypeModelFacet), 
+ *              because RefLinks don't have underlying semantic identity   
  *
 «ENDREM»
 
-«DEFINE linkCommands(gmfgen::GenDiagram diagram) FOR gmfgen::TypeModelFacet-»
-	«IF getAllPotentialLinks(diagram).size() > 0-»
-		«EXPAND createLinkCommands(diagram)-»
+«DEFINE linkCommands FOR gmfgen::GenLinkEnd-»
+	«IF getAllPotentialLinks(this).size() > 0-»
+		«EXPAND createLinkCommands -»
 	«ENDIF-»
-	«IF getReroutableTypeLinks(diagram).size() > 0-»
-		«EXPAND reorientTypeLinkCommands(diagram)-»
+	«IF getReroutableTypeLinks(this).size() > 0-»
+		«EXPAND reorientTypeLinkCommands -»
 	«ENDIF-»
-	«IF getReroutableRefLinks(diagram).size() > 0-»
-		«EXPAND reorientRefLinkCommands(diagram)-»
+	«IF getReroutableRefLinks(this).size() > 0-»
+		«EXPAND reorientRefLinkCommands -»
 	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE createLinkCommands(gmfgen::GenDiagram diagram) FOR gmfgen::TypeModelFacet-»
+«DEFINE createLinkCommands FOR gmfgen::GenLinkEnd-»
 
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getCreateRelationshipCommand(
@@ -61,23 +64,23 @@ protected org.eclipse.gef.commands.Command getCreateRelationshipCommand(
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getStartCreateRelationshipCommand(
 		org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest req) {
-	«EXPAND startLinkCommands(this) FOREACH getAllPotentialLinks(diagram)-»
+	«EXPAND startLinkCommands(this) FOREACH getAllPotentialLinks(this)-»
 	return null;
 }
 
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getCompleteCreateRelationshipCommand(
 		org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest req) {
-	«EXPAND completeLinkCommands(this) FOREACH getAllPotentialLinks(diagram)-»
+	«EXPAND completeLinkCommands(this) FOREACH getAllPotentialLinks(this)-»
 	return null;
 }
 «ENDDEFINE»
 
-«DEFINE startLinkCommands(gmfgen::TypeModelFacet typeModelFacet) FOR gmfgen::GenLink-»
+«DEFINE startLinkCommands(gmfgen::GenLinkEnd linkEnd) FOR gmfgen::GenLink-»
 if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» == req.getElementType()) {
-	«IF createStartLinkCommand(typeModelFacet)-»
+	«IF createStartLinkCommand(this, linkEnd)-»
 	return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req,
-		«IF createStartIncomingLinkCommand(typeModelFacet)-»
+		«IF createStartIncomingLinkCommand(this, linkEnd)-»
 			req.getTarget(), req.getSource()
 		«ELSE-»
 			req.getSource(), req.getTarget()
@@ -89,11 +92,11 @@ if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» =
 }
 «ENDDEFINE»
 
-«DEFINE completeLinkCommands(gmfgen::TypeModelFacet typeModelFacet) FOR gmfgen::GenLink-»
+«DEFINE completeLinkCommands(gmfgen::GenLinkEnd linkEnd) FOR gmfgen::GenLink-»
 if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» == req.getElementType()) {
-	«IF createCompleteLinkCommand(typeModelFacet)-»
+	«IF createCompleteLinkCommand(this, linkEnd)-»
 	return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req,
-		«IF createCompleteOutgoingLinkCommand(typeModelFacet)-»
+		«IF createCompleteOutgoingLinkCommand(this, linkEnd)-»
 			req.getTarget(), req.getSource()
 		«ELSE-»
 			req.getSource(), req.getTarget()
@@ -105,7 +108,7 @@ if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» =
 }
 «ENDDEFINE»
 
-«DEFINE reorientTypeLinkCommands(gmfgen::GenDiagram diagram) FOR gmfgen::TypeModelFacet-»
+«DEFINE reorientTypeLinkCommands FOR gmfgen::GenLinkEnd-»
 
 «EXPAND xpt::Common::generatedMemberComment(
 	"Returns command to reorient EClass based link. New link target or source\n" +
@@ -114,13 +117,13 @@ if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» =
 protected org.eclipse.gef.commands.Command getReorientRelationshipCommand(
 		org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest req) {
 	switch (getVisualID(req)) {
-	«EXPAND reorientLinkCommand FOREACH getReroutableTypeLinks(diagram)-»
+	«EXPAND reorientLinkCommand FOREACH getReroutableTypeLinks(this)-»
 	}
 	return super.getReorientRelationshipCommand(req);
 }
 «ENDDEFINE»
 
-«DEFINE reorientRefLinkCommands(gmfgen::GenDiagram diagram) FOR gmfgen::TypeModelFacet-»
+«DEFINE reorientRefLinkCommands FOR gmfgen::GenLinkEnd-»
 
 «EXPAND xpt::Common::generatedMemberComment(
 	"Returns command to reorient EReference based link. New link target or source\n" +
@@ -129,7 +132,7 @@ protected org.eclipse.gef.commands.Command getReorientRelationshipCommand(
 protected org.eclipse.gef.commands.Command getReorientReferenceRelationshipCommand(
 		org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest req) {
 	switch (getVisualID(req)) {
-	«EXPAND reorientLinkCommand FOREACH getReroutableRefLinks(diagram)-»
+	«EXPAND reorientLinkCommand FOREACH getReroutableRefLinks(this)-»
 	}
 	return super.getReorientReferenceRelationshipCommand(req);
 }

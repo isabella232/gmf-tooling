@@ -27,10 +27,12 @@ import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkEnd;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,6 +41,8 @@ import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getGenOutgoingLinks <em>Gen Outgoing Links</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getGenIncomingLinks <em>Gen Incoming Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getModelFacet <em>Model Facet</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getLabels <em>Labels</em>}</li>
@@ -49,6 +53,8 @@ import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getReorientCommandClassName <em>Reorient Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isTreeBranch <em>Tree Branch</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getSources <em>Sources</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getTargets <em>Targets</em>}</li>
  * </ul>
  * </p>
  *
@@ -222,6 +228,24 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenLink();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<GenLink> getGenOutgoingLinks() {
+		return GenLinkEndOperations.getGenOutgoingLinks(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<GenLink> getGenIncomingLinks() {
+		return GenLinkEndOperations.getGenIncomingLinks(this);
 	}
 
 	/**
@@ -471,6 +495,57 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public EList<GenLinkEnd> getSources() {
+		if (getModelFacet() == null){
+			return ECollections.emptyEList();
+		}
+		return getCompatibleLinkEnds(getModelFacet().getSourceType());
+	}
+	
+	private EList<GenLinkEnd> getCompatibleLinkEnds(GenClass desiredType){
+		if (desiredType == null){
+			return ECollections.emptyEList();
+		}
+		BasicEList<GenLinkEnd> result = new BasicEList<GenLinkEnd>();
+		for (GenNode nextNode : getDiagram().getAllNodes()){
+			if (canBeLinkEnd(desiredType, nextNode.getModelFacet())){
+				result.add(nextNode);
+			}
+		}
+		for (GenLink nextLink : getDiagram().getLinks()){
+			if (nextLink.getModelFacet() instanceof TypeModelFacet && canBeLinkEnd(desiredType, (TypeModelFacet)nextLink.getModelFacet())){
+				result.add(nextLink);
+			}
+		}
+		return result;
+	}
+	
+	private static boolean canBeLinkEnd(GenClass desiredEndType, TypeModelFacet actualModelFacet){
+		if (desiredEndType == null || actualModelFacet == null){
+			return false;
+		}
+		
+		GenClass actualMetaclass = actualModelFacet.getMetaClass();
+		return actualMetaclass != null && desiredEndType.getEcoreClass().isSuperTypeOf(actualMetaclass.getEcoreClass());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<GenLinkEnd> getTargets() {
+		if (getModelFacet() == null){
+			return ECollections.emptyEList();
+		}
+		return getCompatibleLinkEnds(getModelFacet().getTargetType());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public EList<GenCommonBase> getAssistantSources() {
 		if (getModelFacet() == null) {
 			return ECollections.emptyEList();
@@ -594,6 +669,10 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_LINK__GEN_OUTGOING_LINKS:
+				return getGenOutgoingLinks();
+			case GMFGenPackage.GEN_LINK__GEN_INCOMING_LINKS:
+				return getGenIncomingLinks();
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
@@ -614,6 +693,10 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return getReorientCommandClassName();
 			case GMFGenPackage.GEN_LINK__TREE_BRANCH:
 				return isTreeBranch() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_LINK__SOURCES:
+				return getSources();
+			case GMFGenPackage.GEN_LINK__TARGETS:
+				return getTargets();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -706,6 +789,10 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_LINK__GEN_OUTGOING_LINKS:
+				return !getGenOutgoingLinks().isEmpty();
+			case GMFGenPackage.GEN_LINK__GEN_INCOMING_LINKS:
+				return !getGenIncomingLinks().isEmpty();
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
@@ -726,8 +813,46 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return REORIENT_COMMAND_CLASS_NAME_EDEFAULT == null ? reorientCommandClassName != null : !REORIENT_COMMAND_CLASS_NAME_EDEFAULT.equals(reorientCommandClassName);
 			case GMFGenPackage.GEN_LINK__TREE_BRANCH:
 				return treeBranch != TREE_BRANCH_EDEFAULT;
+			case GMFGenPackage.GEN_LINK__SOURCES:
+				return !getSources().isEmpty();
+			case GMFGenPackage.GEN_LINK__TARGETS:
+				return !getTargets().isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == GenLinkEnd.class) {
+			switch (derivedFeatureID) {
+				case GMFGenPackage.GEN_LINK__GEN_OUTGOING_LINKS: return GMFGenPackage.GEN_LINK_END__GEN_OUTGOING_LINKS;
+				case GMFGenPackage.GEN_LINK__GEN_INCOMING_LINKS: return GMFGenPackage.GEN_LINK_END__GEN_INCOMING_LINKS;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == GenLinkEnd.class) {
+			switch (baseFeatureID) {
+				case GMFGenPackage.GEN_LINK_END__GEN_OUTGOING_LINKS: return GMFGenPackage.GEN_LINK__GEN_OUTGOING_LINKS;
+				case GMFGenPackage.GEN_LINK_END__GEN_INCOMING_LINKS: return GMFGenPackage.GEN_LINK__GEN_INCOMING_LINKS;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**

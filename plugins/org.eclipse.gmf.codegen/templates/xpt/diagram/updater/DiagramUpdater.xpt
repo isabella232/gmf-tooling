@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
+ *    Michael Golubev (Borland) - [243151] explicit source/target for links
  */
 
 «IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
@@ -198,12 +199,12 @@ public static java.util.List get«methodNameSuffix»Links(org.eclipse.gmf.runtime.
 	«EXPAND getConnectedLinks(getContainedLinks(getMetaClass(this), getDiagram()), getContainedLinksMethodNameSuffix(), false)-»
 «ENDDEFINE»
 
-«DEFINE getIncomingLinks FOR gmfgen::GenCommonBase-»
-	«EXPAND getConnectedLinks(getIncomingLinks(getMetaClass(this), getDiagram()), getIncomingLinksMethodNameSuffix(), true)-»
+«DEFINE getIncomingLinks FOR gmfgen::GenLinkEnd-»
+	«EXPAND getConnectedLinks(getIncomingLinks(this), getIncomingLinksMethodNameSuffix(), true)-»
 «ENDDEFINE»
 
-«DEFINE getOutgoingLinks FOR gmfgen::GenCommonBase-»
-	«EXPAND getConnectedLinks(getOutgoingLinks(getMetaClass(this), getDiagram()), getOutgoingLinksMethodNameSuffix(), false)-»
+«DEFINE getOutgoingLinks FOR gmfgen::GenLinkEnd-»
+	«EXPAND getConnectedLinks(getOutgoingLinks(this), getOutgoingLinksMethodNameSuffix(), false)-»
 «ENDDEFINE»
 
 «DEFINE getConnectedLinks(List[gmfgen::GenLink] genLinks, String methodNameSuffix, boolean needCrossReferencer) FOR gmfgen::GenCommonBase-»

@@ -36,7 +36,7 @@ import org.eclipse.emf.common.util.EList;
  *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Node\')' description='Node \'Diagram Runtime Class\' must be a notation::Node or sub-class'"
  * @generated
  */
-public interface GenNode extends GenChildContainer {
+public interface GenNode extends GenChildContainer, GenLinkEnd {
 
 	public static final String CLASS_NAME_PREFIX = "Node"; //$NON-NLS-1$
 

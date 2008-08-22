@@ -298,6 +298,7 @@ public class GMFGenSwitch<T> {
 				GenNode genNode = (GenNode)theEObject;
 				T result = caseGenNode(genNode);
 				if (result == null) result = caseGenChildContainer(genNode);
+				if (result == null) result = caseGenLinkEnd(genNode);
 				if (result == null) result = caseGenContainerBase(genNode);
 				if (result == null) result = caseGenCommonBase(genNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -308,6 +309,7 @@ public class GMFGenSwitch<T> {
 				T result = caseGenTopLevelNode(genTopLevelNode);
 				if (result == null) result = caseGenNode(genTopLevelNode);
 				if (result == null) result = caseGenChildContainer(genTopLevelNode);
+				if (result == null) result = caseGenLinkEnd(genTopLevelNode);
 				if (result == null) result = caseGenContainerBase(genTopLevelNode);
 				if (result == null) result = caseGenCommonBase(genTopLevelNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -318,6 +320,7 @@ public class GMFGenSwitch<T> {
 				T result = caseGenChildNode(genChildNode);
 				if (result == null) result = caseGenNode(genChildNode);
 				if (result == null) result = caseGenChildContainer(genChildNode);
+				if (result == null) result = caseGenLinkEnd(genChildNode);
 				if (result == null) result = caseGenContainerBase(genChildNode);
 				if (result == null) result = caseGenCommonBase(genChildNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -329,6 +332,7 @@ public class GMFGenSwitch<T> {
 				if (result == null) result = caseGenChildNode(genChildSideAffixedNode);
 				if (result == null) result = caseGenNode(genChildSideAffixedNode);
 				if (result == null) result = caseGenChildContainer(genChildSideAffixedNode);
+				if (result == null) result = caseGenLinkEnd(genChildSideAffixedNode);
 				if (result == null) result = caseGenContainerBase(genChildSideAffixedNode);
 				if (result == null) result = caseGenCommonBase(genChildSideAffixedNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -340,6 +344,7 @@ public class GMFGenSwitch<T> {
 				if (result == null) result = caseGenChildNode(genChildLabelNode);
 				if (result == null) result = caseGenNode(genChildLabelNode);
 				if (result == null) result = caseGenChildContainer(genChildLabelNode);
+				if (result == null) result = caseGenLinkEnd(genChildLabelNode);
 				if (result == null) result = caseGenContainerBase(genChildLabelNode);
 				if (result == null) result = caseGenCommonBase(genChildLabelNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -358,6 +363,7 @@ public class GMFGenSwitch<T> {
 				GenLink genLink = (GenLink)theEObject;
 				T result = caseGenLink(genLink);
 				if (result == null) result = caseGenCommonBase(genLink);
+				if (result == null) result = caseGenLinkEnd(genLink);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -943,6 +949,13 @@ public class GMFGenSwitch<T> {
 			case GMFGenPackage.GEN_APPLICATION: {
 				GenApplication genApplication = (GenApplication)theEObject;
 				T result = caseGenApplication(genApplication);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_LINK_END: {
+				GenLinkEnd genLinkEnd = (GenLinkEnd)theEObject;
+				T result = caseGenLinkEnd(genLinkEnd);
+				if (result == null) result = caseGenCommonBase(genLinkEnd);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -2732,6 +2745,21 @@ public class GMFGenSwitch<T> {
 	 * @generated
 	 */
 	public T caseGenApplication(GenApplication object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Link End</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Link End</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGenLinkEnd(GenLinkEnd object) {
 		return null;
 	}
 

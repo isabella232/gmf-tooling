@@ -28,6 +28,7 @@ import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkEnd;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
@@ -40,6 +41,8 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getGenOutgoingLinks <em>Gen Outgoing Links</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getGenIncomingLinks <em>Gen Incoming Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getModelFacet <em>Model Facet</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getLabels <em>Labels</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getCompartments <em>Compartments</em>}</li>
@@ -167,6 +170,24 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public EList<GenLink> getGenOutgoingLinks() {
+		return GenLinkEndOperations.getGenOutgoingLinks(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<GenLink> getGenIncomingLinks() {
+		return GenLinkEndOperations.getGenIncomingLinks(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public GenClass getDomainMetaClass() {
 		return getModelFacet() == null ? null : getModelFacet().getMetaClass();
 	}
@@ -232,6 +253,10 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_NODE__GEN_OUTGOING_LINKS:
+				return getGenOutgoingLinks();
+			case GMFGenPackage.GEN_NODE__GEN_INCOMING_LINKS:
+				return getGenIncomingLinks();
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:
 				return getModelFacet();
 			case GMFGenPackage.GEN_NODE__LABELS:
@@ -321,6 +346,10 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_NODE__GEN_OUTGOING_LINKS:
+				return !getGenOutgoingLinks().isEmpty();
+			case GMFGenPackage.GEN_NODE__GEN_INCOMING_LINKS:
+				return !getGenIncomingLinks().isEmpty();
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:
 				return modelFacet != null;
 			case GMFGenPackage.GEN_NODE__LABELS:
@@ -337,6 +366,40 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 				return !getReorientedIncomingLinks().isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == GenLinkEnd.class) {
+			switch (derivedFeatureID) {
+				case GMFGenPackage.GEN_NODE__GEN_OUTGOING_LINKS: return GMFGenPackage.GEN_LINK_END__GEN_OUTGOING_LINKS;
+				case GMFGenPackage.GEN_NODE__GEN_INCOMING_LINKS: return GMFGenPackage.GEN_LINK_END__GEN_INCOMING_LINKS;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == GenLinkEnd.class) {
+			switch (baseFeatureID) {
+				case GMFGenPackage.GEN_LINK_END__GEN_OUTGOING_LINKS: return GMFGenPackage.GEN_NODE__GEN_OUTGOING_LINKS;
+				case GMFGenPackage.GEN_LINK_END__GEN_INCOMING_LINKS: return GMFGenPackage.GEN_NODE__GEN_INCOMING_LINKS;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**

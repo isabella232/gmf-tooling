@@ -513,6 +513,8 @@
       <genFeatures createChild="false" propertyCategory="Class Names" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/createCommandClassName"/>
       <genFeatures createChild="false" propertyCategory="Class Names" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/reorientCommandClassName"/>
       <genFeatures createChild="false" propertyCategory="Diagram Element" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/treeBranch"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/sources"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/targets"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getAssistantSources"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getAssistantTargets"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getCreateCommandQualifiedClassName"/>
@@ -946,6 +948,10 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenApplication/getWorkbenchWindowAdvisorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenApplication/getActionBarAdvisorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenApplication/getPerspectiveQualifiedClassName"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenLinkEnd">
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkEnd/genOutgoingLinks"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkEnd/genIncomingLinks"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

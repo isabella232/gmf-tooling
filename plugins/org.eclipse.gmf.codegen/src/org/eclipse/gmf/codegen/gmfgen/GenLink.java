@@ -26,6 +26,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getReorientCommandClassName <em>Reorient Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isTreeBranch <em>Tree Branch</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getSources <em>Sources</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getTargets <em>Targets</em>}</li>
  * </ul>
  * </p>
  *
@@ -34,7 +36,7 @@ import org.eclipse.emf.common.util.EList;
  *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='outgoingCreationAllowed or incomingCreationAllowed' description='Either outgoingCreationAllowed or incomingCreationAllowed property should be true'"
  * @generated
  */
-public interface GenLink extends GenCommonBase {
+public interface GenLink extends GenCommonBase, GenLinkEnd {
 
 	public static final String CLASS_NAME_PREFIX = "Link"; //$NON-NLS-1$
 
@@ -286,6 +288,38 @@ public interface GenLink extends GenCommonBase {
 	 * @generated
 	 */
 	void setTreeBranch(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Sources</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenLinkEnd}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Sources</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Sources</em>' reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_Sources()
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	EList<GenLinkEnd> getSources();
+
+	/**
+	 * Returns the value of the '<em><b>Targets</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenLinkEnd}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Targets</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Targets</em>' reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_Targets()
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	EList<GenLinkEnd> getTargets();
 
 	/**
 	 * <!-- begin-user-doc -->

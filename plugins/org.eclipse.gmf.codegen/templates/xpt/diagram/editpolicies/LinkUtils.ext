@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
+ *    Michael Golubev (Borland) - [243151] explicit source/target for links
  */
 
 import "http://www.eclipse.org/gmf/2008/GenModel";
@@ -22,24 +23,16 @@ boolean isRefLink(gmfgen::GenLink link) :
 	{link.modelFacet}.typeSelect(gmfgen::FeatureLinkModelFacet).size() > 0
 ;
 
-boolean canBeSource(gmfgen::GenLink link, gmfgen::TypeModelFacet modelFacet) :
-	canBeSource(link, modelFacet.metaClass)
+boolean canBeSource(gmfgen::GenLink link, gmfgen::GenLinkEnd linkEnd) :
+	link.sources.contains(linkEnd)
 ;
 
-boolean canBeSource(gmfgen::GenLink link, genmodel::GenClass metaClass) :
-	null != link.modelFacet && canBeLinkEnd(link.modelFacet.getSourceType(), metaClass)
-;
-
-boolean canBeTarget(gmfgen::GenLink link, gmfgen::TypeModelFacet modelFacet) :
-	canBeTarget(link, modelFacet.metaClass)
-;
-
-boolean canBeTarget(gmfgen::GenLink link, genmodel::GenClass metaClass) :
-	null != link.modelFacet && canBeLinkEnd(link.modelFacet.getTargetType(), metaClass)
+boolean canBeTarget(gmfgen::GenLink link, gmfgen::GenLinkEnd linkEnd) :
+	link.targets.contains(linkEnd)
 ;
 
 boolean canBeContainer(gmfgen::GenLink link, genmodel::GenClass metaClass) :
-	null != link.modelFacet && canBeLinkEnd(getContainerClass(link.modelFacet), metaClass)
+	null != link.modelFacet && isCompatible(getContainerClass(link.modelFacet), metaClass)
 ;
 
 private genmodel::GenClass getContainerClass(gmfgen::LinkModelFacet modelFacet) : null  /* Should not be called */ ;
@@ -51,6 +44,6 @@ private genmodel::GenClass getContainerClass(gmfgen::TypeLinkModelFacet modelFac
 
 private genmodel::GenClass getContainerClass(gmfgen::FeatureLinkModelFacet modelFacet) : modelFacet.getSourceType() ;
 
-private boolean canBeLinkEnd(genmodel::GenClass endType, genmodel::GenClass metaClass) :
-	null != endType && endType.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)
+private boolean isCompatible(genmodel::GenClass desiredType, genmodel::GenClass actualClass) :
+	null != desiredType && desiredType.ecoreClass.isSuperTypeOf(actualClass.ecoreClass)
 ;

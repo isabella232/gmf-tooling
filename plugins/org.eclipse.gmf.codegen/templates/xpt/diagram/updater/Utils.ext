@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
+ *    Michael Golubev (Borland) - [243151] explicit source/target for links
  */
 
 import "http://www.eclipse.org/gmf/2008/GenModel";
@@ -31,12 +32,15 @@ cached List[gmfgen::GenLink] getContainedLinks(genmodel::GenClass metaClass, gmf
 	diagram.links.select(link | canBeContainer(link, metaClass))
 ;
 
-cached List[gmfgen::GenLink] getOutgoingLinks(genmodel::GenClass metaClass, gmfgen::GenDiagram diagram) :
-	diagram.links.select(link | canBeSource(link, metaClass))
+//XXX[MG]: it would be better to use linkEnd.outgoingLinks here 
+//but it will change the ordering and produce meaningless diff in the generated code
+cached List[gmfgen::GenLink] getOutgoingLinks(gmfgen::GenLinkEnd linkEnd) :
+	linkEnd.getDiagram().links.select(link | linkEnd.genOutgoingLinks.contains(link))
 ;
 
-cached List[gmfgen::GenLink] getIncomingLinks(genmodel::GenClass metaClass, gmfgen::GenDiagram diagram) :
-	diagram.links.select(link | canBeTarget(link, metaClass))
+//XXX[MG]: see above
+cached List[gmfgen::GenLink] getIncomingLinks(gmfgen::GenLinkEnd linkEnd) :
+	linkEnd.getDiagram().links.select(link | linkEnd.genIncomingLinks.contains(link))
 ;
 
 List[gmfgen::GenLink] getAllContainedLinks(gmfgen::GenDiagram diagram) :
@@ -44,11 +48,14 @@ List[gmfgen::GenLink] getAllContainedLinks(gmfgen::GenDiagram diagram) :
 ;
 
 List[gmfgen::GenLink] getAllIncomingLinks(gmfgen::GenDiagram diagram) :
-	diagram.links.select(link | !getAllSemanticDiagramElements(diagram).select(commonBase | canBeTarget(link, getMetaClass(commonBase))).isEmpty())
+	diagram.links.select(link | !link.targets.isEmpty())
 ;
 
+//XXX[MG]: I don't see the reason to make the additional check (isOutgoingLink) below 
 List[gmfgen::GenLink] getAllOutgoingLinks(gmfgen::GenDiagram diagram) :
-	diagram.links.select(link | isOutgoingLink(link)).select(link | !getAllSemanticDiagramElements(diagram).select(commonBase | canBeSource(link, getMetaClass(commonBase))).isEmpty())
+	diagram.links
+		.select(link | isOutgoingLink(link))
+		.select(link | !link.sources.isEmpty())
 ;
 
 private boolean isOutgoingLink(gmfgen::GenLink link) :
@@ -63,10 +70,11 @@ private boolean isOutgoingLink(gmfgen::TypeLinkModelFacet modelFacet) :
 	null != modelFacet.sourceMetaFeature
 ;
 
-cached List[gmfgen::GenCommonBase] getAllSemanticDiagramElements(gmfgen::GenDiagram diagram) :
-	diagram.getAllNodes().toList().addAll(diagram.links).typeSelect(gmfgen::GenCommonBase).select(commonBase | null != getMetaClass(commonBase))
+cached List[gmfgen::GenLinkEnd] getAllSemanticDiagramElements(gmfgen::GenDiagram diagram) :
+	diagram.getAllNodes().toList().addAll(diagram.links).typeSelect(gmfgen::GenLinkEnd).select(linkEnd | null != getMetaClass(linkEnd))
 ;
 
+//(false == GenDiagram instanceof GenLinkEnd), so we have to downcast list type to gmfgen::GenCommonBase  
 cached List[gmfgen::GenCommonBase] getAllSemanticElements(gmfgen::GenDiagram diagram) :
 	null != diagram.domainDiagramElement 
 		? {diagram}.addAll(getAllSemanticDiagramElements(diagram)) 
