@@ -1,0 +1,73 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+Integer integerPlusInteger(Integer integer, Integer parameter) :
+	integer + parameter
+;
+
+ecore::EDouble integerPlusDouble(Integer integer, ecore::EDouble parameter) :
+	integer + parameter
+;
+
+Integer integerMinusInteger(Integer integer, Integer parameter) :
+	integer - parameter
+;
+
+ecore::EDouble integerMinusDouble(Integer integer, ecore::EDouble parameter) :
+	integer - parameter
+;
+
+Integer integerMultInteger(Integer integer, Integer parameter) :
+	integer * parameter
+;
+
+ecore::EDouble integerMultDouble(Integer integer, ecore::EDouble parameter) :
+	integer * parameter
+;
+
+Integer integerDivInteger(Integer integer, Integer parameter) :
+	integer / parameter
+;
+
+ecore::EDouble integerDivDouble(Integer integer, ecore::EDouble parameter) :
+	integer / parameter
+;
+
+Integer integerUnaryMinus(Integer integer) :
+	-integer
+;
+
+Boolean integerGOE(Integer integer, Integer parameter) :
+	integer >= parameter
+;
+
+Boolean integerLOE(Integer integer, Integer parameter) :
+	integer <= parameter
+;
+
+Boolean integerLess(Integer integer, Integer parameter) :
+	integer < parameter
+;
+
+Boolean integerGreater(Integer integer, Integer parameter) :
+	integer > parameter
+;
+
+List[Integer] integerUpTo(Integer integer, Integer parameter) :
+	integer.upTo(parameter)
+;
+
+Boolean integerCompareTo(Integer integer, ecore::EJavaObject another) :
+	integer.compareTo(another)
+;
+
+String integerToString(Integer integer) :
+	integer.toString()
+;
+
+Boolean integerEQ(Integer integer, ecore::EJavaObject another) :
+	integer == another
+;
+
+Boolean integerNotEQ(Integer integer, ecore::EJavaObject another) :
+	integer != another
+;
