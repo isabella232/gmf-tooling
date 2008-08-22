@@ -240,35 +240,26 @@ private String «EXPAND getTextMethodName»(org.eclipse.gmf.runtime.notation.View 
 «ENDDEFINE»
 
 «DEFINE getText FOR gmfgen::GenChildLabelNode-»
-«IF labelModelFacet == null-»
-	«EXPAND getDiagramLabelTextNoModelFacet(this)-»
+«EXPAND getDiagramLabelText(this, labelModelFacet)-»
+«ENDDEFINE»
+
+«DEFINE getText FOR gmfgen::GenLinkLabel»«EXPAND getDiagramLabelText(link, modelFacet)»«ENDDEFINE»
+«DEFINE getText FOR gmfgen::GenNodeLabel»«EXPAND getDiagramLabelText(node, modelFacet)»«ENDDEFINE»
+
+«DEFINE getText FOR gmfgen::GenNode-»
+«IF labels.isEmpty()-»
+	«EXPAND getLabelFeatureText(modelFacet.metaClass)-»
 «ELSE-»
-	«EXPAND getDiagramLabelText(this, this) FOR labelModelFacet-»
+	«EXPAND getDiagramLabelText(labels)-»
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE getText FOR gmfgen::GenLinkLabel-»
-	«EXPAND getDiagramLabelText(link, this) FOR modelFacet-»
-«ENDDEFINE»
-
-«DEFINE getText FOR gmfgen::GenNodeLabel-»
-	«EXPAND getDiagramLabelText(node, this) FOR modelFacet-»
-«ENDDEFINE»
-
-«DEFINE getText FOR gmfgen::GenNode-»
-	«IF labels.isEmpty()-»
-		«EXPAND getLabelFeatureText(modelFacet.metaClass)-»
-	«ELSE-»
-		«EXPAND getDiagramLabelText(labels)-»
-	«ENDIF-»
-«ENDDEFINE»
-
 «DEFINE getText FOR gmfgen::GenLink-»
-	«IF labels.isEmpty()-»
-		«EXPAND getText(modelFacet)-»
-	«ELSE-»
-		«EXPAND getDiagramLabelText(labels)-»
-	«ENDIF-»
+«IF labels.isEmpty()-»
+	«EXPAND getText(modelFacet)-»
+«ELSE-»
+	«EXPAND getDiagramLabelText(labels)-»
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE getDiagramLabelText(List[gmfgen::GenLabel] labels) FOR gmfgen::GenCommonBase-»
@@ -276,26 +267,8 @@ private String «EXPAND getTextMethodName»(org.eclipse.gmf.runtime.notation.View 
 		«ERROR "Empty list of labels passed"-»
 	«ENDIF-»
 	«LET (gmfgen::GenLabel) labels.first() AS label-»
-	«IF label.modelFacet == null-»
-		«EXPAND getDiagramLabelTextNoModelFacet(label)-»
-	«ELSE-»
-		«EXPAND getDiagramLabelText(this, label) FOR label.modelFacet-»
-	«ENDIF»
+	«EXPAND getDiagramLabelText(this, label.modelFacet) FOR label-»
 	«ENDLET-»
-«ENDDEFINE»
-
-«REM»FIXME: Refactor. This is a fast copy of getDiagramLabelText template (below) to fix #193178. Need to reuse parts of TextAware.xpt«ENDREM»
-«DEFINE getDiagramLabelTextNoModelFacet(gmfgen::GenCommonBase label) FOR gmfgen::GenCommonBase»
-		org.eclipse.core.runtime.IAdaptable hintAdapter = new «getDiagram().getParserProviderQualifiedClassName()».HintAdapter(
-			«getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()», 
-			(view.getElement() != null ? view.getElement() : view), 
-			«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR label»);
-		org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser = org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().getParser(hintAdapter);
-		if (parser != null) {
-			return parser.getPrintString(hintAdapter, org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions.NONE.intValue());
-		} else {
-			«EXPAND returnEmptyString-»
-		}
 «ENDDEFINE»
 
 «DEFINE getText(gmfgen::LinkModelFacet modelFacet) FOR gmfgen::GenLink-»
@@ -310,20 +283,25 @@ private String «EXPAND getTextMethodName»(org.eclipse.gmf.runtime.notation.View 
 return "«title»"; «EXPAND xpt::Common::nonNLS»
 «ENDDEFINE»
 
-«DEFINE getDiagramLabelText(gmfgen::GenCommonBase elementTypeHolder, gmfgen::GenCommonBase hintHolder) FOR gmfgen::LabelModelFacet-»
-org.eclipse.core.runtime.IAdaptable hintAdapter = new «elementTypeHolder.getDiagram().getParserProviderQualifiedClassName()».HintAdapter(«elementTypeHolder.getDiagram().getElementTypesQualifiedClassName()».«elementTypeHolder.getUniqueIdentifier()», (view.getElement() != null ? view.getElement() : view), «EXPAND hint(hintHolder)»);
+«REM»FIXME: Refactor. Need to reuse parts of TextAware.xpt«ENDREM»
+/*
+ * this/self - aka hintHolder, visual element to present a text
+ * elementTypeHolder - model element being displayed
+ * modelFacet - may be null 
+ */
+«DEFINE getDiagramLabelText(gmfgen::GenCommonBase elementTypeHolder, gmfgen::LabelModelFacet labelModelFacet) FOR gmfgen::GenCommonBase-»
+final String typeHint = «IF labelModelFacet == null»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall»«ELSE»«EXPAND hint(this) FOR labelModelFacet»;«ENDIF»
+org.eclipse.core.runtime.IAdaptable hintAdapter = new «getDiagram().getParserProviderQualifiedClassName()».HintAdapter(«getDiagram().getElementTypesQualifiedClassName()».«elementTypeHolder.getUniqueIdentifier()», (view.getElement() != null ? view.getElement() : view), typeHint);
 org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser = org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().getParser(hintAdapter);
-		
 if (parser != null) {
 	return parser.getPrintString(hintAdapter, org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions.NONE.intValue());
 } else {
-	«hintHolder.getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Parser was not found for label " + «hintHolder.visualID»); «EXPAND xpt::Common::nonNLS»
+	«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Parser was not found for label " + «visualID»); «EXPAND xpt::Common::nonNLS»
 	«EXPAND returnEmptyString-»
 }
 «ENDDEFINE»
 
 «DEFINE hint(gmfgen::GenCommonBase hintHolder) FOR gmfgen::LabelModelFacet»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR hintHolder»«ENDDEFINE»
-
 «DEFINE hint(gmfgen::GenCommonBase hintHolder) FOR gmfgen::DesignLabelModelFacet»org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint.DESCRIPTION«ENDDEFINE»
 
 «DEFINE getLabelFeatureText(genmodel::GenClass genClass) FOR gmfgen::GenCommonBase-»
