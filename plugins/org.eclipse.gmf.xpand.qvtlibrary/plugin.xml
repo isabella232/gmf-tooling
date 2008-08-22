@@ -11,6 +11,10 @@
             class="org.eclipse.gmf.internal.xpand.qvtlibraries.XpandOclAnyOperations"
             id="XpandOclAnyOperations">
       </library>
+      <library
+            class="org.eclipse.gmf.internal.xpand.qvtlibraries.XpandIntegerOperations"
+            id="XpandIntegerOperations">
+      </library>
    </extension>
 
 </plugin>
