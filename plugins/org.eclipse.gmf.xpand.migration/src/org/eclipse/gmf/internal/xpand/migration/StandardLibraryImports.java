@@ -12,7 +12,6 @@
 package org.eclipse.gmf.internal.xpand.migration;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -22,47 +21,26 @@ import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 
 public class StandardLibraryImports extends AbstractImportsManager {
 
-	private static final String STRING_LIBRARY_NAME = "XpandStringOperations";
-
-	private static final String OCLANY_LIBRARY_NAME = "XpandOclAnyOperations";
-
-	private static final Map<EOperation, String> operationNames;
+	private static final Map<EOperation, MapEntry> operationsMap;
 
 	static {
-		operationNames = new HashMap<EOperation, String>();
-		operationNames.put(BuiltinMetaModel.EString_ToFirstUpper, "firstToUpper");
-		operationNames.put(BuiltinMetaModel.EString_ToFirstLower, "xpandToFirstLower");
-		operationNames.put(BuiltinMetaModel.EString_SubString_StartEnd, "substring");
-		operationNames.put(BuiltinMetaModel.EString_SubString, "xpandSubstring");
-		operationNames.put(BuiltinMetaModel.EString_ToUpperCase, "toUpper");
-		operationNames.put(BuiltinMetaModel.EString_ToLowerCase, "toLower");
-		operationNames.put(BuiltinMetaModel.EString_ReplaceFirst, "xpandReplaceFirst");
-		operationNames.put(BuiltinMetaModel.EString_ToCharList, "xpandToCharList");
-		operationNames.put(BuiltinMetaModel.EString_ReplaceAll, "xpandReplaceAll");
-		operationNames.put(BuiltinMetaModel.EString_Split, "xpandSplit");
-		operationNames.put(BuiltinMetaModel.EString_Matches, "xpandMatches");
-		operationNames.put(BuiltinMetaModel.Object_CompareTo, "xpandCompareTo");
-		operationNames.put(BuiltinMetaModel.Object_ToString, "repr");
-	}
+		operationsMap = new HashMap<EOperation, MapEntry>();
 
-	private static final Set<EOperation> stringLibOperations;
-
-	static {
-		stringLibOperations = new HashSet<EOperation>();
-		stringLibOperations.add(BuiltinMetaModel.EString_ToFirstLower);
-		stringLibOperations.add(BuiltinMetaModel.EString_SubString);
-		stringLibOperations.add(BuiltinMetaModel.EString_ReplaceFirst);
-		stringLibOperations.add(BuiltinMetaModel.EString_ToCharList);
-		stringLibOperations.add(BuiltinMetaModel.EString_ReplaceAll);
-		stringLibOperations.add(BuiltinMetaModel.EString_Split);
-		stringLibOperations.add(BuiltinMetaModel.EString_Matches);
-	}
-
-	private static final Set<EOperation> oclAnyLibOperations;
-
-	static {
-		oclAnyLibOperations = new HashSet<EOperation>();
-		oclAnyLibOperations.add(BuiltinMetaModel.Object_CompareTo);
+		operationsMap.put(BuiltinMetaModel.EString_ToFirstUpper, MapEntry.newEntry("firstToUpper"));
+		operationsMap.put(BuiltinMetaModel.EString_ToFirstLower, MapEntry.newStringLibEntry("xpandToFirstLower"));
+		operationsMap.put(BuiltinMetaModel.EString_SubString_StartEnd, MapEntry.newEntry("substring"));
+		operationsMap.put(BuiltinMetaModel.EString_SubString, MapEntry.newStringLibEntry("xpandSubstring"));
+		operationsMap.put(BuiltinMetaModel.EString_ToUpperCase, MapEntry.newEntry("toUpper"));
+		operationsMap.put(BuiltinMetaModel.EString_ToLowerCase, MapEntry.newEntry("toLower"));
+		operationsMap.put(BuiltinMetaModel.EString_ReplaceFirst, MapEntry.newStringLibEntry("xpandReplaceFirst"));
+		operationsMap.put(BuiltinMetaModel.EString_ToCharList, MapEntry.newStringLibEntry("xpandToCharList"));
+		operationsMap.put(BuiltinMetaModel.EString_ReplaceAll, MapEntry.newStringLibEntry("xpandReplaceAll"));
+		operationsMap.put(BuiltinMetaModel.EString_Split, MapEntry.newStringLibEntry("xpandSplit"));
+		operationsMap.put(BuiltinMetaModel.EString_Matches, MapEntry.newStringLibEntry("xpandMatches"));
+		operationsMap.put(BuiltinMetaModel.Object_CompareTo, MapEntry.newOclAnyLibEntry("xpandCompareTo"));
+		operationsMap.put(BuiltinMetaModel.Object_ToString, MapEntry.newEntry("repr"));
+		operationsMap.put(BuiltinMetaModel.Int_Div_Int, MapEntry.newEntry("div"));
+		operationsMap.put(BuiltinMetaModel.Int_UpTo, MapEntry.newIntegerLibEntry("xpandUpTo"));
 	}
 
 	private Set<String> usedLibraries = new LinkedHashSet<String>();
@@ -78,11 +56,65 @@ public class StandardLibraryImports extends AbstractImportsManager {
 	}
 
 	public String getOperationName(EOperation eOperation) {
-		if (stringLibOperations.contains(eOperation)) {
-			usedLibraries.add(STRING_LIBRARY_NAME);
-		} else if (oclAnyLibOperations.contains(eOperation)) {
-			usedLibraries.add(OCLANY_LIBRARY_NAME);
+		if (operationsMap.containsKey(eOperation)) {
+			MapEntry entry = operationsMap.get(eOperation);
+			if (entry.isLibraryOperation()) {
+				usedLibraries.add(entry.getLibraryName());
+			}
+			return entry.getQvtOperationName();
 		}
-		return operationNames.containsKey(eOperation) ? operationNames.get(eOperation) : eOperation.getName();
+		return eOperation.getName();
 	}
+
+	private static class MapEntry {
+
+		private static final String STRING_LIBRARY_NAME = "XpandStringOperations";
+
+		private static final String OCLANY_LIBRARY_NAME = "XpandOclAnyOperations";
+
+		private static final String INTEGER_LIBRARY_NAME = "XpandIntegerOperations";
+
+		private String qvtOperationName;
+
+		private String libraryName;
+
+		public static MapEntry newEntry(String qvtOperationName) {
+			return new MapEntry(qvtOperationName);
+		}
+
+		public static MapEntry newStringLibEntry(String qvtOperationName) {
+			return new MapEntry(qvtOperationName, STRING_LIBRARY_NAME);
+		}
+
+		public static MapEntry newOclAnyLibEntry(String qvtOperationName) {
+			return new MapEntry(qvtOperationName, OCLANY_LIBRARY_NAME);
+		}
+
+		public static MapEntry newIntegerLibEntry(String qvtOperationName) {
+			return new MapEntry(qvtOperationName, INTEGER_LIBRARY_NAME);
+		}
+
+		private MapEntry(String qvtOperationName) {
+			this.qvtOperationName = qvtOperationName;
+		}
+
+		private MapEntry(String qvtOperationName, String libraryName) {
+			this(qvtOperationName);
+			this.libraryName = libraryName;
+		}
+
+		public String getQvtOperationName() {
+			return qvtOperationName;
+		}
+
+		public boolean isLibraryOperation() {
+			return libraryName != null;
+		}
+
+		public String getLibraryName() {
+			return libraryName;
+		}
+
+	}
+
 }

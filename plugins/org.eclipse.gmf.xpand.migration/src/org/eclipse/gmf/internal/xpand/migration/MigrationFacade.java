@@ -75,6 +75,17 @@ public class MigrationFacade {
 			BuiltinMetaModel.Int_Plus_Int, 
 			BuiltinMetaModel.Double_Plus_Double, 
 			BuiltinMetaModel.Double_Plus_Int,
+			BuiltinMetaModel.Int_Mult_Double, 
+			BuiltinMetaModel.Int_Mult_Int, 
+			BuiltinMetaModel.Double_Mult_Double, 
+			BuiltinMetaModel.Double_Mult_Int,
+			BuiltinMetaModel.Int_Div_Double,
+			BuiltinMetaModel.Double_Div_Double,
+			BuiltinMetaModel.Double_Div_Int,
+			BuiltinMetaModel.Int_Less,
+			BuiltinMetaModel.Int_LessOrEqual,
+			BuiltinMetaModel.Int_Greater,
+			BuiltinMetaModel.Int_GreatOrEqual,
 			BuiltinMetaModel.EString_Plus_EJavaObject,
 			BuiltinMetaModel.Object_EQ,
 			BuiltinMetaModel.Object_NotEQ
@@ -682,7 +693,11 @@ public class MigrationFacade {
 			write(opName, placeholder);
 		} else if (BuiltinMetaModel.Int_Minus_Int == eOperation || BuiltinMetaModel.Int_Minus_Double == eOperation || BuiltinMetaModel.Double_Minus_Int == eOperation
 				|| BuiltinMetaModel.Double_Minus_Double == eOperation || BuiltinMetaModel.Int_Plus_Int == eOperation || BuiltinMetaModel.Int_Plus_Double == eOperation
-				|| BuiltinMetaModel.Double_Plus_Int == eOperation || BuiltinMetaModel.Double_Plus_Double == eOperation || BuiltinMetaModel.EString_Plus_EJavaObject == eOperation) {
+				|| BuiltinMetaModel.Double_Plus_Int == eOperation || BuiltinMetaModel.Double_Plus_Double == eOperation || BuiltinMetaModel.Int_Mult_Int == eOperation
+				|| BuiltinMetaModel.Int_Mult_Double == eOperation || BuiltinMetaModel.Double_Mult_Int == eOperation || BuiltinMetaModel.Double_Mult_Double == eOperation
+				|| BuiltinMetaModel.Int_Div_Double == eOperation || BuiltinMetaModel.Double_Div_Double == eOperation || BuiltinMetaModel.Double_Div_Int == eOperation
+				|| BuiltinMetaModel.Int_Less == eOperation || BuiltinMetaModel.Int_LessOrEqual == eOperation || BuiltinMetaModel.Int_Greater == eOperation
+				|| BuiltinMetaModel.Int_GreatOrEqual == eOperation || BuiltinMetaModel.EString_Plus_EJavaObject == eOperation) {
 			write(" ");
 			write(opName);
 			write(" ");
