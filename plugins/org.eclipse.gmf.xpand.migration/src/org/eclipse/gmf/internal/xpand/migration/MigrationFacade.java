@@ -180,13 +180,15 @@ public class MigrationFacade {
 		
 		importsManagers.push(stdLibImportsManager = new StandardLibraryImports(output));
 		addLibraryImports(xtendResource, false);
+		if (xtendResource.getImportedExtensions().length > 0) {
+			writeln("");
+		}
 
 		importsManagers.push(modeltypeImportsManger = new ModeltypeImports(output, injectUnusedImports));
 		for (String namespace : xtendResource.getImportedNamespaces()) {
 			modeltypeImportsManger.registerModeltype(namespace);
 		}
 
-		writeln("");
 		writeln("library " + shortResourceName + ";");
 		writeln("");
 

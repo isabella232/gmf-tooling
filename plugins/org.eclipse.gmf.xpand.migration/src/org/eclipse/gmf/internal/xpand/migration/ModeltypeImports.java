@@ -41,12 +41,17 @@ class ModeltypeImports extends AbstractImportsManager {
 	}
 
 	void injectImports() {
+		boolean addEmptyLine = false;
 		for (Entry<String, String> entry : nsURI2Aliases.entrySet()) {
 			if (!injectUnusedImports && !usedNsURIs.contains(entry.getKey())) {
 				// Skipping the entry if it was not used
 				continue;
 			}
+			addEmptyLine = true;
 			writeln("modeltype " + entry.getValue() + " uses \"" + entry.getKey() + "\";");
+		}
+		if (addEmptyLine) {
+			writeln("");
 		}
 	}
 

@@ -53,6 +53,9 @@ public class StandardLibraryImports extends AbstractImportsManager {
 		for (String usedLibrary : usedLibraries) {
 			writeln("import library " + usedLibrary + ";");
 		}
+		if (usedLibraries.size() > 0) {
+			writeln("");
+		}
 	}
 
 	public String getOperationName(EOperation eOperation) {
