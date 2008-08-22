@@ -68,8 +68,7 @@
 								«FOREACH compartment.childNodes AS childNode-»
 						if (type == «getDiagram().getElementTypesQualifiedClassName()».«childNode.getUniqueIdentifier()») {
 							org.eclipse.gef.EditPart compartmentEditPart =
-								getChildBySemanticHint(«EXPAND xpt::editor::VisualIDRegistry::getTypeMethodCall FOR getDiagram()»(
-									«EXPAND xpt::editor::VisualIDRegistry::visualID FOR compartment»));
+								getChildBySemanticHint(«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR compartment»);
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 								«ENDFOREACH-»
@@ -492,7 +491,7 @@
 	«IF !labels.isEmpty()-»
 		«EXPAND xpt::Common::generatedMemberComment»
 		public org.eclipse.gef.EditPart getPrimaryChildEditPart() {
-			return getChildBySemanticHint(«EXPAND xpt::editor::VisualIDRegistry::getTypeMethodCall FOR getDiagram()»(«EXPAND xpt::editor::VisualIDRegistry::visualID FOR (GenLabel) labels.toList().first()»));
+			return getChildBySemanticHint(«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR (GenLabel) labels.first()»);
 		}
 	«ENDIF-»
 «ENDDEFINE»

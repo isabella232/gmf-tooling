@@ -26,8 +26,6 @@ public class «nodeDescriptorClassName» {
 	«EXPAND getModelElement-»
 	
 	«EXPAND getVisualID-»
-	
-	«EXPAND getType-»
 		
 	«EXPAND additions-»
 }
@@ -35,13 +33,10 @@ public class «nodeDescriptorClassName» {
 
 «DEFINE attributes FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::generatedMemberComment»
-private org.eclipse.emf.ecore.EObject myModelElement;
+	private final org.eclipse.emf.ecore.EObject myModelElement;
 	
 	«EXPAND xpt::Common::generatedMemberComment»
-private int myVisualID;
-
-	«EXPAND xpt::Common::generatedMemberComment»
-private String myType;
+	private final int myVisualID;
 «ENDDEFINE»
 
 «DEFINE constructor FOR gmfgen::GenDiagramUpdater-»
@@ -63,16 +58,6 @@ public org.eclipse.emf.ecore.EObject getModelElement() {
 	«EXPAND xpt::Common::generatedMemberComment»
 public int getVisualID() {
 	return myVisualID;
-}
-«ENDDEFINE»
-
-«DEFINE getType FOR gmfgen::GenDiagramUpdater-»
-	«EXPAND xpt::Common::generatedMemberComment»
-public String getType() {
-	if (myType == null) {
-		myType = «EXPAND xpt::editor::VisualIDRegistry::getTypeMethodCall FOR editorGen.diagram»(getVisualID());
-	}
-	return myType;
 }
 «ENDDEFINE»
 

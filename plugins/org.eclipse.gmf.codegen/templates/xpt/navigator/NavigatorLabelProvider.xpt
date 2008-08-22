@@ -289,7 +289,7 @@ private String «EXPAND getTextMethodName»(org.eclipse.gmf.runtime.notation.View 
 		org.eclipse.core.runtime.IAdaptable hintAdapter = new «getDiagram().getParserProviderQualifiedClassName()».HintAdapter(
 			«getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()», 
 			(view.getElement() != null ? view.getElement() : view), 
-			«EXPAND xpt::editor::VisualIDRegistry::getTypeMethodCall FOR label.getDiagram()»(«EXPAND xpt::editor::VisualIDRegistry::visualID FOR label»));
+			«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR label»);
 		org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser = org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().getParser(hintAdapter);
 		if (parser != null) {
 			return parser.getPrintString(hintAdapter, org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions.NONE.intValue());
@@ -322,7 +322,7 @@ if (parser != null) {
 }
 «ENDDEFINE»
 
-«DEFINE hint(gmfgen::GenCommonBase hintHolder) FOR gmfgen::LabelModelFacet»«EXPAND xpt::editor::VisualIDRegistry::getTypeMethodCall FOR hintHolder.getDiagram()»(«EXPAND xpt::editor::VisualIDRegistry::visualID FOR hintHolder»)«ENDDEFINE»
+«DEFINE hint(gmfgen::GenCommonBase hintHolder) FOR gmfgen::LabelModelFacet»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR hintHolder»«ENDDEFINE»
 
 «DEFINE hint(gmfgen::GenCommonBase hintHolder) FOR gmfgen::DesignLabelModelFacet»org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint.DESCRIPTION«ENDDEFINE»
 

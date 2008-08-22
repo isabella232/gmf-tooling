@@ -105,7 +105,8 @@ private void «EXPAND createChildrenMethodName»(org.eclipse.gmf.runtime.notation.
 «DEFINE createNode FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 private void createNode(org.eclipse.gmf.runtime.notation.View parentView, «editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName()» nodeDescriptor) {
-	org.eclipse.gmf.runtime.notation.Node node = org.eclipse.gmf.runtime.diagram.core.services.ViewService.createNode(parentView, nodeDescriptor.getModelElement(), nodeDescriptor.getType(), «editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
+	final String nodeType = «EXPAND xpt::editor::VisualIDRegistry::typeMethodCall("nodeDescriptor.getVisualID()")»;
+	org.eclipse.gmf.runtime.notation.Node node = org.eclipse.gmf.runtime.diagram.core.services.ViewService.createNode(parentView, nodeDescriptor.getModelElement(), nodeType, «editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
 	switch (nodeDescriptor.getVisualID()) {
 	«EXPAND createNodeCase FOREACH getAllNodes().select(node | !node.sansDomain)-»
 	}
@@ -130,7 +131,8 @@ private void createLinks(org.eclipse.gmf.runtime.notation.Diagram diagram) {
 			if (!myDomain2NotationMap.containsKey(nextLinkDescriptor.getSource()) || !myDomain2NotationMap.containsKey(nextLinkDescriptor.getDestination())) {
 				continue;
 			}
-			org.eclipse.gmf.runtime.notation.Edge edge = (org.eclipse.gmf.runtime.notation.Edge) org.eclipse.gmf.runtime.diagram.core.services.ViewService.getInstance().createEdge(nextLinkDescriptor.getSemanticAdapter(), diagram, nextLinkDescriptor.getType(), org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.APPEND, «editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
+			final String linkType = «EXPAND xpt::editor::VisualIDRegistry::typeMethodCall("nextLinkDescriptor.getVisualID()")»;
+			org.eclipse.gmf.runtime.notation.Edge edge = (org.eclipse.gmf.runtime.notation.Edge) org.eclipse.gmf.runtime.diagram.core.services.ViewService.getInstance().createEdge(nextLinkDescriptor.getSemanticAdapter(), diagram, linkType, org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.APPEND, «editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
 			if (edge != null) {
 				edge.setSource((org.eclipse.gmf.runtime.notation.View) myDomain2NotationMap.get(nextLinkDescriptor.getSource()));
 				edge.setTarget((org.eclipse.gmf.runtime.notation.View) myDomain2NotationMap.get(nextLinkDescriptor.getDestination()));
@@ -158,7 +160,7 @@ private void createLinks(org.eclipse.gmf.runtime.notation.Diagram diagram) {
 «DEFINE getCompartment FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 private org.eclipse.gmf.runtime.notation.Node getCompartment(org.eclipse.gmf.runtime.notation.View node, int visualID) {
-	String type = «EXPAND xpt::editor::VisualIDRegistry::getTypeMethodCall FOR getDiagram()»(visualID);
+	String type = «EXPAND xpt::editor::VisualIDRegistry::typeMethodCall("visualID")»;
 	for (java.util.Iterator it = node.getChildren().iterator(); it.hasNext();) {
 		org.eclipse.gmf.runtime.notation.View nextView = (org.eclipse.gmf.runtime.notation.View) it.next();
 		if (nextView instanceof org.eclipse.gmf.runtime.notation.Node && type.equals(nextView.getType())) {
