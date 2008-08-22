@@ -71,7 +71,6 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.emf.edit.ui.provider.UnwrappingSelectionProvider;
 import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
-import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.provider.GMFGenItemProviderAdapterFactory;
@@ -469,7 +468,6 @@ public class GMFGenEditor
 								(new Runnable() {
 									 public void run() {
 										 getSite().getPage().closeEditor(GMFGenEditor.this, false);
-										 GMFGenEditor.this.dispose();
 									 }
 								 });
 						}
@@ -511,7 +509,6 @@ public class GMFGenEditor
 		if (!removedResources.isEmpty()) {
 			if (handleDirtyConflict()) {
 				getSite().getPage().closeEditor(GMFGenEditor.this, false);
-				GMFGenEditor.this.dispose();
 			}
 			else {
 				removedResources.clear();
@@ -1464,8 +1461,11 @@ public class GMFGenEditor
 					for (Resource resource : editingDomain.getResourceSet().getResources()) {
 						if ((first || !resource.getContents().isEmpty() || isPersisted(resource)) && !editingDomain.isReadOnly(resource)) {
 							try {
-								savedResources.add(resource);
+								long timeStamp = resource.getTimeStamp();
 								resource.save(saveOptions);
+								if (resource.getTimeStamp() != timeStamp) {
+									savedResources.add(resource);
+								}
 							}
 							catch (Exception exception) {
 								resourceToDiagnosticMap.put(resource, analyzeResourceProblems(resource, exception));
