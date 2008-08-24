@@ -321,26 +321,10 @@
 	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.gmf.runtime.common.ui.services.parser.IParser getParser() {
 		if (parser == null) {
-            String parserHint = 
-                «IF null == modelFacet-»
-                    ((org.eclipse.gmf.runtime.notation.View) getModel()).getType();
-                «ELSE-»
-                    «EXPAND parserHint FOR modelFacet-»
-                «ENDIF-»
-			org.eclipse.core.runtime.IAdaptable hintAdapter = new «diagram.getParserProviderQualifiedClassName()».HintAdapter(
-				«diagram.getElementTypesQualifiedClassName()».«host.getUniqueIdentifier()», getParserElement(), parserHint);
-			parser = org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().getParser(hintAdapter);
+			parser = «EXPAND xpt::providers::ParserProvider::accessorCall(host, modelFacet, "getParserElement()")»;
 		}
 		return parser;
 	}
-«ENDDEFINE»
-
-«DEFINE parserHint FOR gmfgen::LabelModelFacet-»
-	((org.eclipse.gmf.runtime.notation.View) getModel()).getType();
-«ENDDEFINE»
-
-«DEFINE parserHint FOR gmfgen::DesignLabelModelFacet-»
-	org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint.DESCRIPTION;
 «ENDDEFINE»
 
 «DEFINE getManager(gmfgen::GenDiagram diagram) FOR gmfgen::GenCommonBase-»

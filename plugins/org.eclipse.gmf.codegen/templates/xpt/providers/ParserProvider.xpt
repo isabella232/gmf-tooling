@@ -24,6 +24,8 @@ public class «parserProviderClassName» extends org.eclipse.gmf.runtime.common.co
 		implements org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider {
 	«EXPAND parsers-»
 
+	«EXPAND accessorMethod_delegating2provider»
+
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gmf.runtime.common.ui.services.parser.IParser getParser(int visualID) {
 		switch (visualID) {
@@ -230,6 +232,35 @@ public class «parserProviderClassName» extends org.eclipse.gmf.runtime.common.co
 			}
 			return super.getAdapter(adapter);
 		}
+	}
+«ENDDEFINE»
+
+/*
+ * this/self - aka hintHolder, visual element to present a text (i.e. one of Node's labels)
+ * elementTypeHolder - model element being displayed
+ * modelFacet - may be null
+ * parsedElement - accessor to EObject being edited 
+ */
+«DEFINE accessorCall(gmfgen::GenCommonBase elementTypeHolder, gmfgen::LabelModelFacet labelModelFacet, String parsedElement) FOR gmfgen::GenCommonBase-»
+«getDiagram().getParserProviderQualifiedClassName()».getParser(«getDiagram().getElementTypesQualifiedClassName()».«elementTypeHolder.getUniqueIdentifier()», «parsedElement», «IF labelModelFacet == null»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall»«ELSE»«EXPAND parserHint(this) FOR labelModelFacet»«ENDIF»)«-»
+«ENDDEFINE»
+
+«DEFINE accessorCall_bug235113(gmfgen::GenCommonBase elementTypeHolder, gmfgen::LabelModelFacet labelModelFacet, String parsedElement) FOR gmfgen::GenCommonBase-»
+«IF labelModelFacet == null || { labelModelFacet }.typeSelect(DesignLabelModelFacet).size() == 1-»
+org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().getParser(new «getDiagram().getParserProviderQualifiedClassName()».HintAdapter(«getDiagram().getElementTypesQualifiedClassName()».«elementTypeHolder.getUniqueIdentifier()», «parsedElement», «IF labelModelFacet == null»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall»«ELSE»«EXPAND parserHint(this) FOR labelModelFacet»«ENDIF»))«-»
+«ELSE-»
+«getDiagram().getParserProviderQualifiedClassName()».«parserAccessorName(this)»()«-»
+«ENDIF-»
+«ENDDEFINE»
+
+
+«DEFINE parserHint(gmfgen::GenCommonBase hintHolder) FOR gmfgen::LabelModelFacet»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR hintHolder»«ENDDEFINE»
+«DEFINE parserHint(gmfgen::GenCommonBase hintHolder) FOR gmfgen::DesignLabelModelFacet»org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint.DESCRIPTION«ENDDEFINE»
+
+«DEFINE accessorMethod_delegating2provider FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment("Utility method that consults ParserService")»
+	public static org.eclipse.gmf.runtime.common.ui.services.parser.IParser getParser(org.eclipse.gmf.runtime.emf.type.core.IElementType type, org.eclipse.emf.ecore.EObject object, String parserHint) {
+		return org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().getParser(new HintAdapter(type, object, parserHint));
 	}
 «ENDDEFINE»
 

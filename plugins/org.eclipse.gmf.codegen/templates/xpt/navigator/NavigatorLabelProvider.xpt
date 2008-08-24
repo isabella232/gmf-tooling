@@ -290,19 +290,15 @@ return "«title»"; «EXPAND xpt::Common::nonNLS»
  * modelFacet - may be null 
  */
 «DEFINE getDiagramLabelText(gmfgen::GenCommonBase elementTypeHolder, gmfgen::LabelModelFacet labelModelFacet) FOR gmfgen::GenCommonBase-»
-final String typeHint = «IF labelModelFacet == null»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall»«ELSE»«EXPAND hint(this) FOR labelModelFacet»;«ENDIF»
-org.eclipse.core.runtime.IAdaptable hintAdapter = new «getDiagram().getParserProviderQualifiedClassName()».HintAdapter(«getDiagram().getElementTypesQualifiedClassName()».«elementTypeHolder.getUniqueIdentifier()», (view.getElement() != null ? view.getElement() : view), typeHint);
-org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser = org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().getParser(hintAdapter);
+org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser = «EXPAND xpt::providers::ParserProvider::accessorCall(elementTypeHolder, labelModelFacet, "view.getElement() != null ? view.getElement() : view")»;
 if (parser != null) {
-	return parser.getPrintString(hintAdapter, org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions.NONE.intValue());
+	return parser.getPrintString(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(view.getElement() != null ? view.getElement() : view), org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions.NONE.intValue());
 } else {
 	«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Parser was not found for label " + «visualID»); «EXPAND xpt::Common::nonNLS»
 	«EXPAND returnEmptyString-»
 }
 «ENDDEFINE»
 
-«DEFINE hint(gmfgen::GenCommonBase hintHolder) FOR gmfgen::LabelModelFacet»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR hintHolder»«ENDDEFINE»
-«DEFINE hint(gmfgen::GenCommonBase hintHolder) FOR gmfgen::DesignLabelModelFacet»org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint.DESCRIPTION«ENDDEFINE»
 
 «DEFINE getLabelFeatureText(genmodel::GenClass genClass) FOR gmfgen::GenCommonBase-»
 	«IF null != genClass && null != genClass.labelFeature-»
