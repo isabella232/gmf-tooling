@@ -155,7 +155,9 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean removeFixedChild(EditPart childEditPart) {
-
+		if (childEditPart instanceof ShipNameEditPart) {
+			return true;
+		}
 		return false;
 	}
 

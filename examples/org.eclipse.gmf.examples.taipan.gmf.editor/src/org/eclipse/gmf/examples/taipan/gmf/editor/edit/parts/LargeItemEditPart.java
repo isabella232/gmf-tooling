@@ -131,7 +131,12 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean removeFixedChild(EditPart childEditPart) {
-
+		if (childEditPart instanceof LargeItemArticleEditPart) {
+			return true;
+		}
+		if (childEditPart instanceof LargeItemWeightEditPart) {
+			return true;
+		}
 		return false;
 	}
 

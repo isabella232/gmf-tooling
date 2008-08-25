@@ -157,7 +157,9 @@ public class WarshipEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean removeFixedChild(EditPart childEditPart) {
-
+		if (childEditPart instanceof WarshipNameEditPart) {
+			return true;
+		}
 		return false;
 	}
 
