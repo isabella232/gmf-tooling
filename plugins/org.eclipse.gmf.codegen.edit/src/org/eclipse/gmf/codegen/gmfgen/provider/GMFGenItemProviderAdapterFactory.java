@@ -1975,6 +1975,98 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenParsers} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenParsersItemProvider genParsersItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenParsers}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGenParsersAdapter() {
+		if (genParsersItemProvider == null) {
+			genParsersItemProvider = new GenParsersItemProvider(this);
+		}
+
+		return genParsersItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.PredefinedParser} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PredefinedParserItemProvider predefinedParserItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.PredefinedParser}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPredefinedParserAdapter() {
+		if (predefinedParserItemProvider == null) {
+			predefinedParserItemProvider = new PredefinedParserItemProvider(this);
+		}
+
+		return predefinedParserItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.CustomParser} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CustomParserItemProvider customParserItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.CustomParser}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCustomParserAdapter() {
+		if (customParserItemProvider == null) {
+			customParserItemProvider = new CustomParserItemProvider(this);
+		}
+
+		return customParserItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ExternalParser} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ExternalParserItemProvider externalParserItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ExternalParser}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createExternalParserAdapter() {
+		if (externalParserItemProvider == null) {
+			externalParserItemProvider = new ExternalParserItemProvider(this);
+		}
+
+		return externalParserItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ValueExpression} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2230,6 +2322,10 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genMenuManagerItemProvider != null) genMenuManagerItemProvider.dispose();
 		if (genToolBarManagerItemProvider != null) genToolBarManagerItemProvider.dispose();
 		if (genApplicationItemProvider != null) genApplicationItemProvider.dispose();
+		if (genParsersItemProvider != null) genParsersItemProvider.dispose();
+		if (predefinedParserItemProvider != null) predefinedParserItemProvider.dispose();
+		if (customParserItemProvider != null) customParserItemProvider.dispose();
+		if (externalParserItemProvider != null) externalParserItemProvider.dispose();
 	}
 
 }

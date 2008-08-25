@@ -70,6 +70,7 @@ public class FeatureLabelModelFacetItemProvider
 			addEditPatternPropertyDescriptor(object);
 			addViewMethodPropertyDescriptor(object);
 			addEditMethodPropertyDescriptor(object);
+			addParserPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -224,6 +225,28 @@ public class FeatureLabelModelFacetItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Parser feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addParserPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureLabelModelFacet_parser_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelModelFacet_parser_feature", "_UI_FeatureLabelModelFacet_type"),
+				 GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet_Parser(),
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}
