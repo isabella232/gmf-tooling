@@ -293,9 +293,8 @@ public class UnreliableRouteRelbEditPart extends LabelEditPart implements ITextA
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			String parserHint = ((View) getModel()).getType();
-			IAdaptable hintAdapter = new TaiPanParserProvider.HintAdapter(TaiPanElementTypes.Route_4003, getParserElement(), parserHint);
-			parser = ParserService.getInstance().getParser(hintAdapter);
+			parser = TaiPanParserProvider.getParser(TaiPanElementTypes.Route_4003, getParserElement(), TaiPanVisualIDRegistry
+					.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteRelbEditPart.VISUAL_ID));
 		}
 		return parser;
 	}

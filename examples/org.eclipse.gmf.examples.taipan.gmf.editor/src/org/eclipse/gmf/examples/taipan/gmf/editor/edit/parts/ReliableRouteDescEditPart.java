@@ -297,9 +297,8 @@ public class ReliableRouteDescEditPart extends LabelEditPart implements ITextAwa
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			String parserHint = ((View) getModel()).getType();
-			IAdaptable hintAdapter = new TaiPanParserProvider.HintAdapter(TaiPanElementTypes.Route_4002, getParserElement(), parserHint);
-			parser = ParserService.getInstance().getParser(hintAdapter);
+			parser = TaiPanParserProvider.getParser(TaiPanElementTypes.Route_4002, getParserElement(), TaiPanVisualIDRegistry
+					.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteDescEditPart.VISUAL_ID));
 		}
 		return parser;
 	}

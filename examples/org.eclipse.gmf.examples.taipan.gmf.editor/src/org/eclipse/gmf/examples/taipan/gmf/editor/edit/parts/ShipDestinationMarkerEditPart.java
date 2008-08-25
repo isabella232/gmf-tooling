@@ -294,9 +294,7 @@ public class ShipDestinationMarkerEditPart extends LabelEditPart implements ITex
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			String parserHint = CommonParserHint.DESCRIPTION;
-			IAdaptable hintAdapter = new TaiPanParserProvider.HintAdapter(TaiPanElementTypes.ShipDestination_4001, getParserElement(), parserHint);
-			parser = ParserService.getInstance().getParser(hintAdapter);
+			parser = TaiPanParserProvider.getParser(TaiPanElementTypes.ShipDestination_4001, getParserElement(), CommonParserHint.DESCRIPTION);
 		}
 		return parser;
 	}
