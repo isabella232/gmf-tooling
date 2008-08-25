@@ -294,7 +294,12 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String Aquatory1Group_title;
+	public static String Nodes1Group_title;
+
+	/**
+	 * @generated
+	 */
+	public static String Links2Group_title;
 
 	/**
 	 * @generated
@@ -359,72 +364,72 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String ReliableRoute7CreationTool_title;
+	public static String ReliableRoute1CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String ReliableRoute7CreationTool_desc;
+	public static String ReliableRoute1CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String UnreliableRoute8CreationTool_title;
+	public static String UnreliableRoute2CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String UnreliableRoute8CreationTool_desc;
+	public static String UnreliableRoute2CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String Registration9CreationTool_title;
+	public static String Registration3CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Registration9CreationTool_desc;
+	public static String Registration3CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String ShipDestination10CreationTool_title;
+	public static String ShipDestination4CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String ShipDestination10CreationTool_desc;
+	public static String ShipDestination4CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String ShipRoute11CreationTool_title;
+	public static String ShipRoute5CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String ShipRoute11CreationTool_desc;
+	public static String ShipRoute5CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String BesiegePortOrder12CreationTool_title;
+	public static String BesiegePortOrder6CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String BesiegePortOrder12CreationTool_desc;
+	public static String BesiegePortOrder6CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String EscortShipsOrder13CreationTool_title;
+	public static String EscortShipsOrder7CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String EscortShipsOrder13CreationTool_desc;
+	public static String EscortShipsOrder7CreationTool_desc;
 
 	/**
 	 * @generated
