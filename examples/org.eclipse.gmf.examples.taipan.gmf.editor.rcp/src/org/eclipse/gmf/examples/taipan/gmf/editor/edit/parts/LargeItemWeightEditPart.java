@@ -32,6 +32,7 @@ import org.eclipse.gef.handles.NonResizableHandleKit;
 import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.gef.tools.DirectEditManager;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanParserProvider;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
@@ -299,9 +300,8 @@ public class LargeItemWeightEditPart extends CompartmentEditPart implements ITex
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			String parserHint = ((View) getModel()).getType();
-			IAdaptable hintAdapter = new TaiPanParserProvider.HintAdapter(TaiPanElementTypes.LargeItem_3002, getParserElement(), parserHint);
-			parser = ParserService.getInstance().getParser(hintAdapter);
+			parser = TaiPanParserProvider.getParser(TaiPanElementTypes.LargeItem_3002, getParserElement(), TaiPanVisualIDRegistry
+					.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemWeightEditPart.VISUAL_ID));
 		}
 		return parser;
 	}

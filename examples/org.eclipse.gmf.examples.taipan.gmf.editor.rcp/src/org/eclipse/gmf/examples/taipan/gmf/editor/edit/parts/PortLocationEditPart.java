@@ -312,9 +312,8 @@ public class PortLocationEditPart extends LabelEditPart implements ITextAwareEdi
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			String parserHint = ((View) getModel()).getType();
-			IAdaptable hintAdapter = new TaiPanParserProvider.HintAdapter(TaiPanElementTypes.Port_2001, getParserElement(), parserHint);
-			parser = ParserService.getInstance().getParser(hintAdapter);
+			parser = TaiPanParserProvider.getParser(TaiPanElementTypes.Port_2001, getParserElement(), TaiPanVisualIDRegistry
+					.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortLocationEditPart.VISUAL_ID));
 		}
 		return parser;
 	}
