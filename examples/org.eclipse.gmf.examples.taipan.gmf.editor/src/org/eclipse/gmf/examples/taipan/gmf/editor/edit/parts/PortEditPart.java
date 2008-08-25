@@ -12,6 +12,7 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
@@ -22,11 +23,13 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.editpolicies.ResizableEditPolicy;
+import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gmf.examples.taipan.figures.PortShape;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.OpenDiagramEditPolicy;
@@ -92,7 +95,14 @@ public class PortEditPart extends AbstractBorderedShapeEditPart {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				if (child instanceof IBorderItemEditPart) {
-					return new BorderItemSelectionEditPolicy();
+					return new BorderItemSelectionEditPolicy() {
+
+						protected List createSelectionHandles() {
+							MoveHandle mh = new MoveHandle((GraphicalEditPart) getHost());
+							mh.setBorder(null);
+							return Collections.singletonList(mh);
+						}
+					};
 				}
 				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 				if (result == null) {

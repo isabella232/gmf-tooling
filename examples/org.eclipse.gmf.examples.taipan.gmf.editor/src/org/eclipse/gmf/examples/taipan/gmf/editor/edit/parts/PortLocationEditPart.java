@@ -109,6 +109,7 @@ public class PortLocationEditPart extends LabelEditPart implements ITextAwareEdi
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new TaiPanTextSelectionEditPolicy());
 	}
 
 	/**
