@@ -228,6 +228,10 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
 			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
 		}
+		Object sfEditPolicy = getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
+		if (sfEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) sfEditPolicy).refreshFeedback();
+		}
 	}
 
 	/**
@@ -396,6 +400,10 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
 			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
+		Object sfEditPolicy = getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
+		if (sfEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) sfEditPolicy).refreshFeedback();
 		}
 	}
 

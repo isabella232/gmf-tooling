@@ -28,6 +28,7 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
+import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gef.handles.NonResizableHandleKit;
 import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.gef.tools.DirectEditManager;
@@ -103,12 +104,14 @@ public class LargeItemArticleEditPart extends CompartmentEditPart implements ITe
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new TaiPanTextSelectionEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new NonResizableEditPolicy() {
 
 			protected List createSelectionHandles() {
 				List handles = new ArrayList();
 				NonResizableHandleKit.addMoveHandle((GraphicalEditPart) getHost(), handles);
+				((MoveHandle) handles.get(0)).setBorder(null);
 				return handles;
 			}
 
@@ -232,6 +235,10 @@ public class LargeItemArticleEditPart extends CompartmentEditPart implements ITe
 		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
 			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
+		Object sfEditPolicy = getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
+		if (sfEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) sfEditPolicy).refreshFeedback();
 		}
 	}
 
@@ -401,6 +408,10 @@ public class LargeItemArticleEditPart extends CompartmentEditPart implements ITe
 		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
 			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
+		Object sfEditPolicy = getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
+		if (sfEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) sfEditPolicy).refreshFeedback();
 		}
 	}
 

@@ -241,6 +241,10 @@ public class PortLocationEditPart extends LabelEditPart implements ITextAwareEdi
 		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
 			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
 		}
+		Object sfEditPolicy = getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
+		if (sfEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) sfEditPolicy).refreshFeedback();
+		}
 	}
 
 	/**
@@ -409,6 +413,10 @@ public class PortLocationEditPart extends LabelEditPart implements ITextAwareEdi
 		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
 			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
+		Object sfEditPolicy = getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
+		if (sfEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) sfEditPolicy).refreshFeedback();
 		}
 	}
 

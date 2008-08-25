@@ -223,6 +223,10 @@ public class UnreliableRouteRelbEditPart extends LabelEditPart implements ITextA
 		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
 			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
 		}
+		Object sfEditPolicy = getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
+		if (sfEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) sfEditPolicy).refreshFeedback();
+		}
 	}
 
 	/**
@@ -391,6 +395,10 @@ public class UnreliableRouteRelbEditPart extends LabelEditPart implements ITextA
 		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
 			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
+		Object sfEditPolicy = getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
+		if (sfEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) sfEditPolicy).refreshFeedback();
 		}
 	}
 
