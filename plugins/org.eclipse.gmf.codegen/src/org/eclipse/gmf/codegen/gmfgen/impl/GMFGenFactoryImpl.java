@@ -144,6 +144,10 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_MENU_MANAGER: return createGenMenuManager();
 			case GMFGenPackage.GEN_TOOL_BAR_MANAGER: return createGenToolBarManager();
 			case GMFGenPackage.GEN_APPLICATION: return createGenApplication();
+			case GMFGenPackage.GEN_PARSERS: return createGenParsers();
+			case GMFGenPackage.PREDEFINED_PARSER: return createPredefinedParser();
+			case GMFGenPackage.CUSTOM_PARSER: return createCustomParser();
+			case GMFGenPackage.EXTERNAL_PARSER: return createExternalParser();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1077,6 +1081,46 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenApplication createGenApplication() {
 		GenApplicationImpl genApplication = new GenApplicationImpl();
 		return genApplication;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenParsers createGenParsers() {
+		GenParsersImpl genParsers = new GenParsersImpl();
+		return genParsers;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PredefinedParser createPredefinedParser() {
+		PredefinedParserImpl predefinedParser = new PredefinedParserImpl();
+		return predefinedParser;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CustomParser createCustomParser() {
+		CustomParserImpl customParser = new CustomParserImpl();
+		return customParser;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExternalParser createExternalParser() {
+		ExternalParserImpl externalParser = new ExternalParserImpl();
+		return externalParser;
 	}
 
 	/**

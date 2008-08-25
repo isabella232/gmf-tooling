@@ -764,6 +764,42 @@ public interface GMFGenFactory extends EFactory {
 	GenApplication createGenApplication();
 
 	/**
+	 * Returns a new object of class '<em>Gen Parsers</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Parsers</em>'.
+	 * @generated
+	 */
+	GenParsers createGenParsers();
+
+	/**
+	 * Returns a new object of class '<em>Predefined Parser</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Predefined Parser</em>'.
+	 * @generated
+	 */
+	PredefinedParser createPredefinedParser();
+
+	/**
+	 * Returns a new object of class '<em>Custom Parser</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Custom Parser</em>'.
+	 * @generated
+	 */
+	CustomParser createCustomParser();
+
+	/**
+	 * Returns a new object of class '<em>External Parser</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>External Parser</em>'.
+	 * @generated
+	 */
+	ExternalParser createExternalParser();
+
+	/**
 	 * Returns a new object of class '<em>Value Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

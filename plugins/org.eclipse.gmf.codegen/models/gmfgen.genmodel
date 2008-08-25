@@ -165,6 +165,7 @@
       <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/copyrightText"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/expressionProviders"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/modelAccess"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/labelParsers"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenEditorGenerator/getAllDomainGenPackages">
         <genParameters ecoreParameter="gmfgen.ecore#//GenEditorGenerator/getAllDomainGenPackages/withUsed"/>
       </genOperations>
@@ -583,6 +584,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/editPattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/viewMethod"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/editMethod"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//FeatureLabelModelFacet/parser"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//DesignLabelModelFacet"/>
     <genClasses ecoreClass="gmfgen.ecore#//Attributes"/>
@@ -952,6 +954,28 @@
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenLinkEnd">
       <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkEnd/genOutgoingLinks"/>
       <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkEnd/genIncomingLinks"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenParsers">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenParsers/editorGen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenParsers/packageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenParsers/className"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenParsers/extensibleViaService"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenParsers/providerPriority"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenParsers/implementations"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenParsers/getQualifiedClassName"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenParserImplementation">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenParserImplementation/holder"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//PredefinedParser">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PredefinedParser/viewMethod"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PredefinedParser/editMethod"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//CustomParser">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//CustomParser/qualifiedName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//ExternalParser">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ExternalParser/hint"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

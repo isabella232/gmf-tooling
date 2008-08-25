@@ -29,6 +29,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getEditPattern <em>Edit Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getViewMethod <em>View Method</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getEditMethod <em>Edit Method</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getParser <em>Parser</em>}</li>
  * </ul>
  * </p>
  *
@@ -132,7 +133,7 @@ public interface FeatureLabelModelFacet extends LabelModelFacet {
 	 * @see org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod
 	 * @see #setViewMethod(LabelTextAccessMethod)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getFeatureLabelModelFacet_ViewMethod()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Replaced with GenParsers and PredefinedParser'"
 	 * @generated
 	 */
 	LabelTextAccessMethod getViewMethod();
@@ -186,7 +187,7 @@ public interface FeatureLabelModelFacet extends LabelModelFacet {
 	 * @see org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod
 	 * @see #setEditMethod(LabelTextAccessMethod)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getFeatureLabelModelFacet_EditMethod()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Replaced with GenParsers and PredefinedParser'"
 	 * @generated
 	 */
 	LabelTextAccessMethod getEditMethod();
@@ -201,5 +202,31 @@ public interface FeatureLabelModelFacet extends LabelModelFacet {
 	 * @generated
 	 */
 	void setEditMethod(LabelTextAccessMethod value);
+
+	/**
+	 * Returns the value of the '<em><b>Parser</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Parser</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Parser</em>' reference.
+	 * @see #setParser(GenParserImplementation)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getFeatureLabelModelFacet_Parser()
+	 * @model required="true"
+	 * @generated
+	 */
+	GenParserImplementation getParser();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getParser <em>Parser</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Parser</em>' reference.
+	 * @see #getParser()
+	 * @generated
+	 */
+	void setParser(GenParserImplementation value);
 
 } // FeatureLabelModelFacet

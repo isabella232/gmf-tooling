@@ -22,6 +22,9 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Returns true if parser for the specified method is used by diagram editor"/>
       </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
+        <details key="documentation" value="Replaced with GenParsers"/>
+      </eAnnotations>
       <eParameters name="method" eType="#//LabelTextAccessMethod"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="audits" eType="#//GenAuditRoot"
@@ -86,6 +89,8 @@
         <details key="documentation" value="If present, specifies dynamic access to domain model(s), without using generated Java code"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="labelParsers" lowerBound="1"
+        eType="#//GenParsers" containment="true" eOpposite="#//GenParsers/editorGen"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenDiagram" eSuperTypes="#//GenContainerBase #//PackageNames #//ProviderClassNames #//LinkConstraints #//EditPartCandies #//EditorCandies #//Shortcuts #//BatchValidation #//MeasurementUnit">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
@@ -349,7 +354,11 @@
     <eOperations name="getEditPartProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getModelingAssistantProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getIconProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getParserProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getParserProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
+        <details key="documentation" value="Replaced with GenParsers"/>
+      </eAnnotations>
+    </eOperations>
     <eOperations name="getContributionItemProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="elementTypesClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -369,9 +378,17 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconProviderPriority" eType="#//ProviderPriority"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="parserProviderClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
+        <details key="documentation" value="Replaced with GenParsers"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="parserProviderPriority"
-        eType="#//ProviderPriority"/>
+        eType="#//ProviderPriority">
+      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
+        <details key="documentation" value="Replaced with GenParsers"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="contributionItemProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -423,7 +440,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="preferencesPackageName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="providersPackageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parsersPackageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parsersPackageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
+        <details key="documentation" value="Replaced with GenParsers"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="notationViewFactoriesPackageName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -1052,8 +1073,18 @@
         <details key="documentation" value="Pattern to extract values from input text, depends on edit method; if not specified then viewPattern should be used"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewMethod" eType="#//LabelTextAccessMethod"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editMethod" eType="#//LabelTextAccessMethod"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewMethod" eType="#//LabelTextAccessMethod">
+      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
+        <details key="documentation" value="Replaced with GenParsers and PredefinedParser"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editMethod" eType="#//LabelTextAccessMethod">
+      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
+        <details key="documentation" value="Replaced with GenParsers and PredefinedParser"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parser" lowerBound="1"
+        eType="#//GenParserImplementation"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="LabelTextAccessMethod">
     <eLiterals name="MESSAGE_FORMAT"/>
@@ -2031,5 +2062,53 @@
         eType="#//GenLink" changeable="false" volatile="true" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="genIncomingLinks" upperBound="-1"
         eType="#//GenLink" changeable="false" volatile="true" transient="true" derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenParsers">
+    <eOperations name="getQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Class with parser access methods. In case of using extensible ParserService, that would be provider implementation class."/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" lowerBound="1"
+        eType="#//GenEditorGenerator" changeable="false" resolveProxies="false" eOpposite="#//GenEditorGenerator/labelParsers"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="packageName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="extensibleViaService" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="providerPriority" eType="#//ProviderPriority"
+        defaultValueLiteral="Lowest"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="implementations" lowerBound="1"
+        upperBound="-1" eType="#//GenParserImplementation" containment="true" eOpposite="#//GenParserImplementation/holder"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenParserImplementation" abstract="true"
+      interface="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="holder" lowerBound="1"
+        eType="#//GenParsers" changeable="false" resolveProxies="false" eOpposite="#//GenParsers/implementations"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PredefinedParser" eSuperTypes="#//GenParserImplementation">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Use one of GMF-provided parser implementations"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewMethod" eType="#//LabelTextAccessMethod"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editMethod" eType="#//LabelTextAccessMethod"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomParser" eSuperTypes="#//GenParserImplementation">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Handwritten or otherwise available IParser implementation"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExternalParser" eSuperTypes="#//GenParserImplementation">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Delegate to ParserService to find out"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hint" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Optionally, override hint value"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
 </ecore:EPackage>

@@ -891,6 +891,41 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass genParsersEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genParserImplementationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass predefinedParserEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass customParserEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass externalParserEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum standardPreferencePagesEEnum = null;
 
 	/**
@@ -1261,6 +1296,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EReference getGenEditorGenerator_ModelAccess() {
 		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(19);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenEditorGenerator_LabelParsers() {
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(20);
 	}
 
 	/**
@@ -3644,6 +3688,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getFeatureLabelModelFacet_Parser() {
+		return (EReference)featureLabelModelFacetEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getDesignLabelModelFacet() {
 		return designLabelModelFacetEClass;
 	}
@@ -6011,6 +6064,150 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getGenParsers() {
+		return genParsersEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenParsers_EditorGen() {
+		return (EReference)genParsersEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenParsers_PackageName() {
+		return (EAttribute)genParsersEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenParsers_ClassName() {
+		return (EAttribute)genParsersEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenParsers_ExtensibleViaService() {
+		return (EAttribute)genParsersEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenParsers_ProviderPriority() {
+		return (EAttribute)genParsersEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenParsers_Implementations() {
+		return (EReference)genParsersEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenParserImplementation() {
+		return genParserImplementationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenParserImplementation_Holder() {
+		return (EReference)genParserImplementationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPredefinedParser() {
+		return predefinedParserEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPredefinedParser_ViewMethod() {
+		return (EAttribute)predefinedParserEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPredefinedParser_EditMethod() {
+		return (EAttribute)predefinedParserEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCustomParser() {
+		return customParserEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomParser_QualifiedName() {
+		return (EAttribute)customParserEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getExternalParser() {
+		return externalParserEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getExternalParser_Hint() {
+		return (EAttribute)externalParserEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getStandardPreferencePages() {
 		return standardPreferencePagesEEnum;
 	}
@@ -6199,6 +6396,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__MODEL_ACCESS);
+		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__LABEL_PARSERS);
 
 		genDiagramEClass = createEClass(GEN_DIAGRAM);
 		createEReference(genDiagramEClass, GEN_DIAGRAM__EDITOR_GEN);
@@ -6520,6 +6718,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(featureLabelModelFacetEClass, FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN);
 		createEAttribute(featureLabelModelFacetEClass, FEATURE_LABEL_MODEL_FACET__VIEW_METHOD);
 		createEAttribute(featureLabelModelFacetEClass, FEATURE_LABEL_MODEL_FACET__EDIT_METHOD);
+		createEReference(featureLabelModelFacetEClass, FEATURE_LABEL_MODEL_FACET__PARSER);
 
 		designLabelModelFacetEClass = createEClass(DESIGN_LABEL_MODEL_FACET);
 
@@ -6849,6 +7048,27 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genLinkEndEClass, GEN_LINK_END__GEN_OUTGOING_LINKS);
 		createEReference(genLinkEndEClass, GEN_LINK_END__GEN_INCOMING_LINKS);
 
+		genParsersEClass = createEClass(GEN_PARSERS);
+		createEReference(genParsersEClass, GEN_PARSERS__EDITOR_GEN);
+		createEAttribute(genParsersEClass, GEN_PARSERS__PACKAGE_NAME);
+		createEAttribute(genParsersEClass, GEN_PARSERS__CLASS_NAME);
+		createEAttribute(genParsersEClass, GEN_PARSERS__EXTENSIBLE_VIA_SERVICE);
+		createEAttribute(genParsersEClass, GEN_PARSERS__PROVIDER_PRIORITY);
+		createEReference(genParsersEClass, GEN_PARSERS__IMPLEMENTATIONS);
+
+		genParserImplementationEClass = createEClass(GEN_PARSER_IMPLEMENTATION);
+		createEReference(genParserImplementationEClass, GEN_PARSER_IMPLEMENTATION__HOLDER);
+
+		predefinedParserEClass = createEClass(PREDEFINED_PARSER);
+		createEAttribute(predefinedParserEClass, PREDEFINED_PARSER__VIEW_METHOD);
+		createEAttribute(predefinedParserEClass, PREDEFINED_PARSER__EDIT_METHOD);
+
+		customParserEClass = createEClass(CUSTOM_PARSER);
+		createEAttribute(customParserEClass, CUSTOM_PARSER__QUALIFIED_NAME);
+
+		externalParserEClass = createEClass(EXTERNAL_PARSER);
+		createEAttribute(externalParserEClass, EXTERNAL_PARSER__HINT);
+
 		// Create enums
 		standardPreferencePagesEEnum = createEEnum(STANDARD_PREFERENCE_PAGES);
 		rulerUnitsEEnum = createEEnum(RULER_UNITS);
@@ -6991,6 +7211,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genMenuManagerEClass.getESuperTypes().add(this.getGenContributionManager());
 		genToolBarManagerEClass.getESuperTypes().add(this.getGenContributionManager());
 		genLinkEndEClass.getESuperTypes().add(this.getGenCommonBase());
+		predefinedParserEClass.getESuperTypes().add(this.getGenParserImplementation());
+		customParserEClass.getESuperTypes().add(this.getGenParserImplementation());
+		externalParserEClass.getESuperTypes().add(this.getGenParserImplementation());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(genEditorGeneratorEClass, GenEditorGenerator.class, "GenEditorGenerator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -7014,6 +7237,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenEditorGenerator_CopyrightText(), ecorePackage.getEString(), "copyrightText", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_ExpressionProviders(), this.getGenExpressionProviderContainer(), this.getGenExpressionProviderContainer_EditorGen(), "expressionProviders", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_ModelAccess(), this.getDynamicModelAccess(), this.getDynamicModelAccess_EditorGen(), "modelAccess", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenEditorGenerator_LabelParsers(), this.getGenParsers(), this.getGenParsers_EditorGen(), "labelParsers", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		EOperation op = addEOperation(genEditorGeneratorEClass, theGenModelPackage.getGenPackage(), "getAllDomainGenPackages", 0, -1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEBoolean(), "withUsed", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -7515,6 +7739,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getFeatureLabelModelFacet_EditPattern(), ecorePackage.getEString(), "editPattern", null, 0, 1, FeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureLabelModelFacet_ViewMethod(), this.getLabelTextAccessMethod(), "viewMethod", null, 0, 1, FeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureLabelModelFacet_EditMethod(), this.getLabelTextAccessMethod(), "editMethod", null, 0, 1, FeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureLabelModelFacet_Parser(), this.getGenParserImplementation(), null, "parser", null, 1, 1, FeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(designLabelModelFacetEClass, DesignLabelModelFacet.class, "DesignLabelModelFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -7932,6 +8157,29 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenLinkEnd_GenOutgoingLinks(), this.getGenLink(), null, "genOutgoingLinks", null, 0, -1, GenLinkEnd.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getGenLinkEnd_GenIncomingLinks(), this.getGenLink(), null, "genIncomingLinks", null, 0, -1, GenLinkEnd.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
+		initEClass(genParsersEClass, GenParsers.class, "GenParsers", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenParsers_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_LabelParsers(), "editorGen", null, 1, 1, GenParsers.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenParsers_PackageName(), ecorePackage.getEString(), "packageName", null, 1, 1, GenParsers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenParsers_ClassName(), ecorePackage.getEString(), "className", null, 1, 1, GenParsers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenParsers_ExtensibleViaService(), ecorePackage.getEBoolean(), "extensibleViaService", "false", 0, 1, GenParsers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenParsers_ProviderPriority(), this.getProviderPriority(), "providerPriority", "Lowest", 0, 1, GenParsers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenParsers_Implementations(), this.getGenParserImplementation(), this.getGenParserImplementation_Holder(), "implementations", null, 1, -1, GenParsers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(genParsersEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(genParserImplementationEClass, GenParserImplementation.class, "GenParserImplementation", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenParserImplementation_Holder(), this.getGenParsers(), this.getGenParsers_Implementations(), "holder", null, 1, 1, GenParserImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(predefinedParserEClass, PredefinedParser.class, "PredefinedParser", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPredefinedParser_ViewMethod(), this.getLabelTextAccessMethod(), "viewMethod", null, 0, 1, PredefinedParser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPredefinedParser_EditMethod(), this.getLabelTextAccessMethod(), "editMethod", null, 0, 1, PredefinedParser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(customParserEClass, CustomParser.class, "CustomParser", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCustomParser_QualifiedName(), ecorePackage.getEString(), "qualifiedName", null, 1, 1, CustomParser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(externalParserEClass, ExternalParser.class, "ExternalParser", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getExternalParser_Hint(), ecorePackage.getEString(), "hint", null, 0, 1, ExternalParser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(standardPreferencePagesEEnum, StandardPreferencePages.class, "StandardPreferencePages");
 		addEEnumLiteral(standardPreferencePagesEEnum, StandardPreferencePages.GENERAL_LITERAL);
@@ -8096,7 +8344,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																									
+		   });																																																																																																																																																																																																																					
 	}
 
 	/**
@@ -8112,14 +8360,14 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "import", "http://www.eclipse.org/gmf/runtime/1.0.0/notation"
-		   });											
+		   });												
 		addAnnotation
 		  (genDiagramEClass, 
 		   source, 
 		   new String[] {
 			 "ocl", "diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Diagram\')",
 			 "description", "\'Diagram Runtime Class\' must be a notation::Diagram or sub-class"
-		   });														
+		   });																		
 		addAnnotation
 		  (genCommonBaseEClass, 
 		   source, 
@@ -8238,7 +8486,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "metaFeature.ecoreFeature.unique",
 			 "description", "All references are unique in EMF due to the current code generation"
-		   });																																				
+		   });																																						
 		addAnnotation
 		  (getGenFeatureSeqInitializer_ElementClass(), 
 		   source, 
@@ -8329,7 +8577,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not actualItem.oclIsKindOf(gmfgen::GenSharedContributionItem)",
 			 "description", "Actual contribution item can\'t be a reference"
-		   });					
+		   });										
 	}
 
 	/**
@@ -8339,13 +8587,55 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createDeprecatedAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2006/deprecated";																					
+		String source = "http://www.eclipse.org/gmf/2006/deprecated";						
+		addAnnotation
+		  (genEditorGeneratorEClass.getEOperations().get(1), 
+		   source, 
+		   new String[] {
+			 "documentation", "Replaced with GenParsers"
+		   });														
+		addAnnotation
+		  (providerClassNamesEClass.getEOperations().get(5), 
+		   source, 
+		   new String[] {
+			 "documentation", "Replaced with GenParsers"
+		   });		
+		addAnnotation
+		  (getProviderClassNames_ParserProviderClassName(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Replaced with GenParsers"
+		   });		
+		addAnnotation
+		  (getProviderClassNames_ParserProviderPriority(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Replaced with GenParsers"
+		   });				
+		addAnnotation
+		  (getPackageNames_ParsersPackageName(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Replaced with GenParsers"
+		   });			
 		addAnnotation
 		  (linkConstraintsEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "documentation", "LinkCreationConstants should be generated if diagram has any links"
-		   });																																																																																																																																																																																						
+		   });																																																																							
+		addAnnotation
+		  (getFeatureLabelModelFacet_ViewMethod(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Replaced with GenParsers and PredefinedParser"
+		   });		
+		addAnnotation
+		  (getFeatureLabelModelFacet_EditMethod(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Replaced with GenParsers and PredefinedParser"
+		   });																																																																																																																						
 	}
 
 	/**
@@ -8355,14 +8645,14 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																														
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																																			
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
 			 "ocl", "metaClass.ecoreClass"
-		   });																													
+		   });																															
 		addAnnotation
 		  (valueExpressionEClass, 
 		   source, 
@@ -8451,7 +8741,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "type",
 			 "ocl", "\'ecore::EDoubleObject\'"
-		   });																										
+		   });																															
 	}
 
 } //GMFGenPackageImpl

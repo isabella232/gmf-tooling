@@ -34,6 +34,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
+import org.eclipse.gmf.codegen.gmfgen.GenParsers;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 
 import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
@@ -66,6 +67,7 @@ import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getCopyrightText <em>Copyright Text</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getExpressionProviders <em>Expression Providers</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getModelAccess <em>Model Access</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getLabelParsers <em>Label Parsers</em>}</li>
  * </ul>
  * </p>
  *
@@ -351,6 +353,16 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @ordered
 	 */
 	protected DynamicModelAccess modelAccess;
+
+	/**
+	 * The cached value of the '{@link #getLabelParsers() <em>Label Parsers</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLabelParsers()
+	 * @generated
+	 * @ordered
+	 */
+	protected GenParsers labelParsers;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1109,6 +1121,49 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenParsers getLabelParsers() {
+		return labelParsers;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetLabelParsers(GenParsers newLabelParsers, NotificationChain msgs) {
+		GenParsers oldLabelParsers = labelParsers;
+		labelParsers = newLabelParsers;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__LABEL_PARSERS, oldLabelParsers, newLabelParsers);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLabelParsers(GenParsers newLabelParsers) {
+		if (newLabelParsers != labelParsers) {
+			NotificationChain msgs = null;
+			if (labelParsers != null)
+				msgs = ((InternalEObject)labelParsers).eInverseRemove(this, GMFGenPackage.GEN_PARSERS__EDITOR_GEN, GenParsers.class, msgs);
+			if (newLabelParsers != null)
+				msgs = ((InternalEObject)newLabelParsers).eInverseAdd(this, GMFGenPackage.GEN_PARSERS__EDITOR_GEN, GenParsers.class, msgs);
+			msgs = basicSetLabelParsers(newLabelParsers, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__LABEL_PARSERS, newLabelParsers, newLabelParsers));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public EList<GenPackage> getAllDomainGenPackages(boolean withUsed) {
@@ -1214,6 +1269,10 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				if (modelAccess != null)
 					msgs = ((InternalEObject)modelAccess).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ACCESS, null, msgs);
 				return basicSetModelAccess((DynamicModelAccess)otherEnd, msgs);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__LABEL_PARSERS:
+				if (labelParsers != null)
+					msgs = ((InternalEObject)labelParsers).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__LABEL_PARSERS, null, msgs);
+				return basicSetLabelParsers((GenParsers)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -1248,6 +1307,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return basicSetExpressionProviders(null, msgs);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ACCESS:
 				return basicSetModelAccess(null, msgs);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__LABEL_PARSERS:
+				return basicSetLabelParsers(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -1301,6 +1362,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return getExpressionProviders();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ACCESS:
 				return getModelAccess();
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__LABEL_PARSERS:
+				return getLabelParsers();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1372,6 +1435,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ACCESS:
 				setModelAccess((DynamicModelAccess)newValue);
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__LABEL_PARSERS:
+				setLabelParsers((GenParsers)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -1445,6 +1511,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ACCESS:
 				setModelAccess((DynamicModelAccess)null);
 				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__LABEL_PARSERS:
+				setLabelParsers((GenParsers)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1497,6 +1566,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return expressionProviders != null;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ACCESS:
 				return modelAccess != null;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__LABEL_PARSERS:
+				return labelParsers != null;
 		}
 		return super.eIsSet(featureID);
 	}

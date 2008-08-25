@@ -199,7 +199,7 @@ public interface PackageNames extends EObject {
 	 * @return the value of the '<em>Parsers Package Name</em>' attribute.
 	 * @see #setParsersPackageName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getPackageNames_ParsersPackageName()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Replaced with GenParsers'"
 	 * @generated
 	 */
 	String getParsersPackageName();

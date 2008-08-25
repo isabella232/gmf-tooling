@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getCopyrightText <em>Copyright Text</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getExpressionProviders <em>Expression Providers</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getModelAccess <em>Model Access</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getLabelParsers <em>Label Parsers</em>}</li>
  * </ul>
  * </p>
  *
@@ -585,6 +586,34 @@ public interface GenEditorGenerator extends EObject {
 	void setModelAccess(DynamicModelAccess value);
 
 	/**
+	 * Returns the value of the '<em><b>Label Parsers</b></em>' containment reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenParsers#getEditorGen <em>Editor Gen</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Label Parsers</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Label Parsers</em>' containment reference.
+	 * @see #setLabelParsers(GenParsers)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_LabelParsers()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenParsers#getEditorGen
+	 * @model opposite="editorGen" containment="true" required="true"
+	 * @generated
+	 */
+	GenParsers getLabelParsers();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getLabelParsers <em>Label Parsers</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Label Parsers</em>' containment reference.
+	 * @see #getLabelParsers()
+	 * @generated
+	 */
+	void setLabelParsers(GenParsers value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -601,7 +630,7 @@ public interface GenEditorGenerator extends EObject {
 	 * <!-- begin-model-doc -->
 	 * Returns true if parser for the specified method is used by diagram editor
 	 * <!-- end-model-doc -->
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Replaced with GenParsers'"
 	 * @generated
 	 */
 	boolean requiresParser(LabelTextAccessMethod method);

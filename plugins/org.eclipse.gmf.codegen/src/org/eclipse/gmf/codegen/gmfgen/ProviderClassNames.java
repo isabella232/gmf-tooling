@@ -293,7 +293,7 @@ public interface ProviderClassNames extends EObject {
 	 * @return the value of the '<em>Parser Provider Class Name</em>' attribute.
 	 * @see #setParserProviderClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getProviderClassNames_ParserProviderClassName()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Replaced with GenParsers'"
 	 * @generated
 	 */
 	String getParserProviderClassName();
@@ -321,7 +321,7 @@ public interface ProviderClassNames extends EObject {
 	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
 	 * @see #setParserProviderPriority(ProviderPriority)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getProviderClassNames_ParserProviderPriority()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Replaced with GenParsers'"
 	 * @generated
 	 */
 	ProviderPriority getParserProviderPriority();
@@ -407,6 +407,7 @@ public interface ProviderClassNames extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Replaced with GenParsers'"
 	 * @generated
 	 */
 	String getParserProviderQualifiedClassName();
