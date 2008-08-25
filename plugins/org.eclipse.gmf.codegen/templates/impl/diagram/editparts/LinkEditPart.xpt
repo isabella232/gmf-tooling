@@ -31,7 +31,6 @@
 
 «DEFINE addFixedChild FOR gmfgen::GenLink-»
 	«IF labels.size() > 0-»
-
 		«EXPAND xpt::Common::generatedMemberComment»
 		protected boolean addFixedChild(org.eclipse.gef.EditPart childEditPart) {
 			«FOREACH labels AS label-»
@@ -53,15 +52,47 @@
 	}
 «ENDDEFINE»
 
+«DEFINE removeFixedChild FOR gmfgen::GenLink-»
+	«IF labels.size() > 0-»
+		«EXPAND xpt::Common::generatedMemberComment»
+		protected boolean removeFixedChild(org.eclipse.gef.EditPart childEditPart) {
+			«FOREACH labels AS label-»
+				«EXPAND removeLabel(label) FOR label.viewmap-»
+			«ENDFOREACH-»
+			return false;
+		}
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE removeLabel(gmfgen::GenLinkLabel label) FOR gmfgen::Viewmap-»
+«ENDDEFINE»
+
+«DEFINE removeLabel(gmfgen::GenLinkLabel label) FOR gmfgen::ParentAssignedViewmap-»
+	if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
+		return true;
+	}
+«ENDDEFINE»
+
 «DEFINE addChildVisual FOR gmfgen::GenLink-»
 	«IF labels.size() > 0-»
-
 		«EXPAND xpt::Common::generatedMemberComment»
 		protected void addChildVisual(org.eclipse.gef.EditPart childEditPart, int index) {
 			if (addFixedChild(childEditPart)) {
 				return;
 			}
 			super.addChildVisual(childEditPart, -1);
+		}
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE removeChildVisual FOR gmfgen::GenLink-»
+	«IF labels.size() > 0-»
+		«EXPAND xpt::Common::generatedMemberComment»
+		protected void removeChildVisual(org.eclipse.gef.EditPart childEditPart) {
+			if (removeFixedChild(childEditPart)) {
+				return;
+			}
+			super.removeChildVisual(childEditPart);
 		}
 	«ENDIF»
 «ENDDEFINE»

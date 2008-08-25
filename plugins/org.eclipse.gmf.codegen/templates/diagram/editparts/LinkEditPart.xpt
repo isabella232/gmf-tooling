@@ -25,8 +25,14 @@ public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsList» {
 	«EXPAND impl::diagram::editparts::LinkEditPart::constructor-»
 	
 	«EXPAND createDefaultEditPolicies-»
+
 	«EXPAND impl::diagram::editparts::LinkEditPart::addFixedChild-»
+
 	«EXPAND impl::diagram::editparts::LinkEditPart::addChildVisual-»
+
+	«EXPAND impl::diagram::editparts::LinkEditPart::removeFixedChild-»
+
+	«EXPAND impl::diagram::editparts::LinkEditPart::removeChildVisual-»
 	
 	«EXPAND impl::diagram::editparts::LinkEditPart::createLinkFigure-»
 	

@@ -270,7 +270,13 @@
 	«IF hasFixedChildren()-»
 		«EXPAND xpt::Common::generatedMemberComment»
 		protected boolean removeFixedChild(org.eclipse.gef.EditPart childEditPart) {
-			«REM»ignore labels assuming that they never may be removed«ENDREM»
+			«FOREACH getInnerFixedLabels() AS label-»
+				«LET (gmfgen::ParentAssignedViewmap) label.viewmap AS childViewmap-»
+					if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
+						return true;
+					}
+				«ENDLET-»
+			«ENDFOREACH-»
 			«FOREACH getPinnedCompartments() AS compartment-»
 				«LET (gmfgen::ParentAssignedViewmap) compartment.viewmap AS childViewmap-»
 					if (childEditPart instanceof «compartment.getEditPartQualifiedClassName()») {
