@@ -103,6 +103,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private final EcoreGenModelMatcher myEcoreGenModelMatch;	
 
 	private GenAuditContext myDefaultAuditContext;
+	private ExternalParser myExternalParser;
 
 	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy) {
 		this(drtHelper, namingStrategy, new InnerClassViewmapProducer(), new NaiveIdentifierDispenser(), false);
@@ -145,6 +146,14 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		// init editor as well - transformer does not set any property to it, just make sure it's not null
 		if (myGenModel.getEditor() == null) {
 			myGenModel.setEditor(GMFGenFactory.eINSTANCE.createGenEditorView());
+		}
+		// XXX meanwhile, we don't set any attributes to GenParsers (rather delegating to old, deprecated)
+		if (myGenModel.getLabelParsers() == null) {
+			myGenModel.setLabelParsers(GMFGenFactory.eINSTANCE.createGenParsers());
+			// unless bug #235113 is fixed, always do ParserService
+			myGenModel.getLabelParsers().setExtensibleViaService(true);
+			myExternalParser = GMFGenFactory.eINSTANCE.createExternalParser();
+			myGenModel.getLabelParsers().getImplementations().add(myExternalParser);
 		}
 		return myGenModel;
 	}
@@ -578,6 +587,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			if (flMapping.eIsSet(GMFMapPackage.eINSTANCE.getFeatureLabelMapping_EditMethod())) {
 				modelFacet.setEditMethod(LabelTextAccessMethod.get(flMapping.getEditMethod().getValue()));
 			}
+			// XXX temp code
+			modelFacet.setParser(myExternalParser);
+			// XXX
 			return modelFacet;
 		}
 		if (mapping instanceof DesignLabelMapping) {
