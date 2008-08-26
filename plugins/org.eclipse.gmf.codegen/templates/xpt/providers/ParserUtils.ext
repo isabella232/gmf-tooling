@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -20,10 +20,6 @@ String parserFieldName(gmfgen::GenCommonBase element) :
 
 String parserAccessorName(gmfgen::GenCommonBase element) :
 	"get" + element.getUniqueIdentifier().toFirstUpper() + "Parser"
-;
-
-String parserCreatorName(gmfgen::GenCommonBase element) :
-	"create" + element.getUniqueIdentifier().toFirstUpper() + "Parser"
 ;
 
 boolean isPatternSpecified(String pattern) :

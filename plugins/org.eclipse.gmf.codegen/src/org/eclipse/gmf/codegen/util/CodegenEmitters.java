@@ -334,7 +334,7 @@ public class CodegenEmitters {
 	// providers
 
 	public TextEmitter getParserProviderEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::providers::ParserProvider"); //$NON-NLS-1$
+		return newXpandEmitter("parsers::ParserProvider::Main"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getElementInitializersEmitter() throws UnexpectedBehaviourException {

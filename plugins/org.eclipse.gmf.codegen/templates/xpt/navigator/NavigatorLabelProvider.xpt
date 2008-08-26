@@ -290,7 +290,7 @@ return "«title»"; «EXPAND xpt::Common::nonNLS»
  * modelFacet - may be null 
  */
 «DEFINE getDiagramLabelText(gmfgen::GenCommonBase elementTypeHolder, gmfgen::LabelModelFacet labelModelFacet) FOR gmfgen::GenCommonBase-»
-org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser = «EXPAND xpt::providers::ParserProvider::accessorCall(elementTypeHolder, labelModelFacet, "view.getElement() != null ? view.getElement() : view")»;
+org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser = «EXPAND parsers::ParserProvider::accessorCall(elementTypeHolder, labelModelFacet, "view.getElement() != null ? view.getElement() : view")»;
 if (parser != null) {
 	return parser.getPrintString(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(view.getElement() != null ? view.getElement() : view), org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions.NONE.intValue());
 } else {

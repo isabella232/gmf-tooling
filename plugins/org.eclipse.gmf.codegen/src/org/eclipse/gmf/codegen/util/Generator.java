@@ -568,7 +568,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	// providers
 
 	private void generateParserProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getParserProviderEmitter(), myDiagram.getParserProviderQualifiedClassName(), myDiagram);
+		doGenerateJavaClass(myEmitters.getParserProviderEmitter(), myEditorGen.getLabelParsers().getQualifiedClassName(), myEditorGen.getLabelParsers());
 	}
 
 	private void generateElementInitializers() throws UnexpectedBehaviourException, InterruptedException {
