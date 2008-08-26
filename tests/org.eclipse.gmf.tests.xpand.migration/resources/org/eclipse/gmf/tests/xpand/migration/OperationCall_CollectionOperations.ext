@@ -13,57 +13,6 @@ Boolean isEmptySet(Set[ecore::EClass] eClasses) :
 	eClasses.isEmpty()
 ;
 
-/* add() */
-Collection[ecore::EJavaObject] addToCollection(Collection[ecore::EClass] eClasses, ecore::EObject addition) :
-	eClasses.add(addition)
-;
-
-Collection[ecore::EJavaObject] addToList(List[ecore::EClass] eClasses, ecore::EObject addition) :
-	eClasses.add(addition)
-;
-
-Collection[ecore::EJavaObject] addToSet(Set[ecore::EClass] eClasses, ecore::EObject addition) :
-	eClasses.add(addition)
-;
-
-/* addAll() */
-
-Collection[ecore::EJavaObject] addAllCollectionToCollection(Collection[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
-	eClasses.addAll(addition)
-;
-
-Collection[ecore::EJavaObject] addAllCollectionToList(List[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
-	eClasses.addAll(addition)
-;
-
-Collection[ecore::EJavaObject] addAllCollectionToSet(Set[ecore::EClass] eClasses, Collection[ecore::EObject] addition) :
-	eClasses.addAll(addition)
-;
-
-Collection[ecore::EJavaObject] addAllListToCollection(Collection[ecore::EClass] eClasses, List[ecore::EObject] addition) :
-	eClasses.addAll(addition)
-;
-
-Collection[ecore::EJavaObject] addAllListToList(List[ecore::EClass] eClasses, List[ecore::EObject] addition) :
-	eClasses.addAll(addition)
-;
-
-Collection[ecore::EJavaObject] addAllListToSet(Set[ecore::EClass] eClasses, List[ecore::EObject] addition) :
-	eClasses.addAll(addition)
-;
-
-Collection[ecore::EJavaObject] addAllSetToCollection(Collection[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
-	eClasses.addAll(addition)
-;
-
-Collection[ecore::EJavaObject] addAllSetToList(List[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
-	eClasses.addAll(addition)
-;
-
-Collection[ecore::EJavaObject] addAllSetToSet(Set[ecore::EClass] eClasses, Set[ecore::EObject] addition) :
-	eClasses.addAll(addition)
-;
-
 /* clear() */
 Collection[ecore::EJavaObject] clearCollection(Collection[ecore::EClass] eClasses) :
 	eClasses.clear()

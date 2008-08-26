@@ -76,6 +76,14 @@ public class XtendMigrationTest extends TestCase {
 	public void testCollectionOperations() throws IOException, MigrationException {
 		checkMigration("OperationCall_CollectionOperations");
 	}
+	
+	public void testCollectionOperationsAdd() throws IOException, MigrationException {
+		checkMigration("OperationCall_CollectionOperations_Add");
+	}
+	
+	public void testCollectionOperationsAddAll() throws IOException, MigrationException {
+		checkMigration("OperationCall_CollectionOperations_AddAll");
+	}
 
 	public void testCollectionExpression() throws IOException, MigrationException {
 		checkMigration("CollectionExpression");

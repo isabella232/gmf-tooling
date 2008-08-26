@@ -1,0 +1,63 @@
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+
+library OperationCall_CollectionOperations_Add;
+
+helper addToCollectionSameType(col : Collection(ecore::EClass), addition : ecore::EClass) : Collection(ecore::EClass) {
+	return col->collect(it | it)->including(addition)
+}
+
+helper addToCollectionSuperType(col : Collection(ecore::EClass), addition : ecore::EClassifier) : Collection(ecore::EClassifier) {
+	return col->collect(it | it.oclAsType(ecore::EClassifier))->including(addition)
+}
+
+helper addToCollectionSubType(col : Collection(ecore::EClassifier), addition : ecore::EClass) : Collection(ecore::EClassifier) {
+	return col->collect(it | it)->including(addition)
+}
+
+helper addToCollectionSiblingType(col : Collection(ecore::EClass), addition : ecore::EDataType) : Collection(ecore::EClassifier) {
+	return col->collect(it | it.oclAsType(ecore::EClassifier))->including(addition)
+}
+
+helper addToCollectionArbitraryType(col : Collection(ecore::EClass), addition : Boolean) : Collection(OclAny) {
+	return col->collect(it | it.oclAsType(OclAny))->including(addition)
+}
+
+helper addToListSameType(col : Sequence(ecore::EClass), addition : ecore::EClass) : Collection(ecore::EClass) {
+	return col->including(addition)
+}
+
+helper addToListSuperType(col : Sequence(ecore::EClass), addition : ecore::EClassifier) : Collection(ecore::EClassifier) {
+	return (col)[ecore::EClassifier]->including(addition)
+}
+
+helper addToListSubType(col : Sequence(ecore::EClassifier), addition : ecore::EClass) : Collection(ecore::EClassifier) {
+	return col->including(addition)
+}
+
+helper addToListSiblingType(col : Sequence(ecore::EClass), addition : ecore::EDataType) : Collection(ecore::EClassifier) {
+	return (col)[ecore::EClassifier]->including(addition)
+}
+
+helper addToListArbitraryType(col : Sequence(ecore::EClass), addition : Boolean) : Collection(OclAny) {
+	return (col)[OclAny]->including(addition)
+}
+
+helper addToSetSameType(col : Set(ecore::EClass), addition : ecore::EClass) : Collection(ecore::EClass) {
+	return col->including(addition)
+}
+
+helper addToSetSuperType(col : Set(ecore::EClass), addition : ecore::EClassifier) : Collection(ecore::EClassifier) {
+	return (col)[ecore::EClassifier]->including(addition)
+}
+
+helper addToSetSubType(col : Set(ecore::EClassifier), addition : ecore::EClass) : Collection(ecore::EClassifier) {
+	return col->including(addition)
+}
+
+helper addToSetSiblingType(col : Set(ecore::EClass), addition : ecore::EDataType) : Collection(ecore::EClassifier) {
+	return (col)[ecore::EClassifier]->including(addition)
+}
+
+helper addToSetArbitraryType(col : Set(ecore::EClass), addition : Boolean) : Collection(OclAny) {
+	return (col)[OclAny]->including(addition)
+}

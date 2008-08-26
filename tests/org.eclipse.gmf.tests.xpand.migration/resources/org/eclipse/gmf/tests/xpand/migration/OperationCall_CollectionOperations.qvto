@@ -14,76 +14,28 @@ helper isEmptySet(eClasses : Set(ecore::EClass)) : Boolean {
 	return eClasses->isEmpty()
 }
 
-helper addToCollection(eClasses : Collection(ecore::EClass), addition : ecore::EObject) : Collection(OclAny) {
-	return eClasses->collect(it | it.oclAsType(OclAny))->including(addition)
-}
-
-helper addToList(eClasses : Sequence(ecore::EClass), addition : ecore::EObject) : Collection(OclAny) {
-	return (eClasses)[OclAny]->including(addition)
-}
-
-helper addToSet(eClasses : Set(ecore::EClass), addition : ecore::EObject) : Collection(OclAny) {
-	return (eClasses)[OclAny]->including(addition)
-}
-
-helper addAllCollectionToCollection(eClasses : Collection(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) { 
-	return eClasses->collect(it | it.oclAsType(OclAny))->union(addition->collect(it_1 | it_1))
-}
-
-helper addAllCollectionToList(eClasses : Sequence(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[OclAny]->union(addition->collect(it | it)->asSequence())
-}
-
-helper addAllCollectionToSet(eClasses : Set(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[OclAny]->union(addition->collect(it | it)->asSet())
-}
-
-helper addAllListToCollection(eClasses : Collection(ecore::EClass), addition : Sequence(ecore::EObject)) : Collection(OclAny) {
-	return eClasses->collect(it | it.oclAsType(OclAny))->union(addition->asBag())
-}
-
-helper addAllListToList(eClasses : Sequence(ecore::EClass), addition : Sequence(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[OclAny]->union(addition)
-}
-
-helper addAllListToSet(eClasses : Set(ecore::EClass), addition : Sequence(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[OclAny]->union(addition->asSet())
-}
-
-helper addAllSetToCollection(eClasses : Collection(ecore::EClass), addition : Set(ecore::EObject)) : Collection(OclAny) {
-	return eClasses->collect(it | it.oclAsType(OclAny))->union(addition)
-}
-
-helper addAllSetToList(eClasses : Sequence(ecore::EClass), addition : Set(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[OclAny]->union(addition->asSequence())
-}
-
-helper addAllSetToSet(eClasses : Set(ecore::EClass), addition : Set(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[OclAny]->union(addition)
-}
-
 helper clearCollection(eClasses : Collection(ecore::EClass)) : Collection(OclAny) {
-	return Sequence{}
+	return Bag{}[ecore::EClass]
 }
 
 helper clearList(eClasses : Sequence(ecore::EClass)) : Collection(OclAny) {
-	return Sequence{}
+	return Sequence{}[ecore::EClass] 
 }
 
 helper clearSet(eClasses : Set(ecore::EClass)) : Collection(OclAny) {
-	return Set{}
+	return Set{}[ecore::EClass] 
 }
 
 helper flattenCollection(eClasses : Collection(ecore::EClass)) : Collection(OclAny) {
-	return eClasses->collect(it | it.oclAsType(OclAny))->flatten()
+	return eClasses->collect(it | it)->flatten()
 }
 
 helper flattenList(eClasses : Sequence(ecore::EClass)) : Collection(OclAny) {
-	return (eClasses)[OclAny]->flatten()
+	return eClasses->flatten()
 }
 
 helper flattenSet(eClasses : Set(ecore::EClass)) : Collection(OclAny) {
-	return (eClasses)[OclAny]->flatten()
+	return eClasses->flatten()
 }
 
 helper sizeCollection(eClasses : Collection(ecore::EClass)) : Integer {
@@ -291,11 +243,11 @@ helper last(eClasses : Sequence(ecore::EClass)) : OclAny {
 }
 
 helper withoutFirst(eClasses : Sequence(ecore::EClass)) : Sequence(OclAny) {
-	return if eClasses->size() < 2 then Sequence{} else eClasses->subSequence(2, eClasses->size()) endif
+	return let tmpVar = eClasses in if tmpVar->size() < 2 then Sequence{}[ecore::EClass] else tmpVar->subSequence(2, tmpVar->size()) endif
 }
 
 helper withoutLast(eClasses : Sequence(ecore::EClass)) : Sequence(OclAny) {
-	return if eClasses->size() < 2 then Sequence{} else eClasses->subSequence(1, eClasses->size() - 1) endif
+	return let tmpVar = eClasses in if tmpVar->size() < 2 then Sequence{}[ecore::EClass] else tmpVar->subSequence(1, tmpVar->size() - 1) endif
 }
 
 helper purgeDups(eClasses : Sequence(ecore::EClass)) : Sequence(OclAny) {
@@ -303,5 +255,5 @@ helper purgeDups(eClasses : Sequence(ecore::EClass)) : Sequence(OclAny) {
 }
 
 helper indexOf(eClasses : Sequence(ecore::EClass), param : OclAny) : Integer {
-	return (eClasses)[OclAny]->indexOf(param) - 1
+	return ((eClasses)[OclAny]->indexOf(param) - 1)
 }
