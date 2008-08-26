@@ -17,7 +17,8 @@
 «DEFINE initializer FOR gmfgen::GenLinkLabel-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	static {
-		registerSnapBackPosition(«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall», new org.eclipse.draw2d.geometry.Point(«labelOffsetX(viewmap, 0)», «labelOffsetY(viewmap, 0)»));
+		registerSnapBackPosition(«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall»,
+				new org.eclipse.draw2d.geometry.Point(«labelOffsetX(viewmap, 0)», «labelOffsetY(viewmap, 0)»));
 	}
 «ENDDEFINE»
 
@@ -30,7 +31,19 @@
 
 «DEFINE createDefaultEditPoliciesBody FOR gmfgen::GenLinkLabel-»
 	super.createDefaultEditPolicies();
-	installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy());
+	installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE,
+			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy());
+	installEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE,
+			new «getDiagram().getTextSelectionEditPolicyQualifiedClassName()»());
+	installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE,
+			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableLabelEditPolicy() {
+
+		protected java.util.List createSelectionHandles() {
+			org.eclipse.gef.handles.MoveHandle mh = new org.eclipse.gef.handles.MoveHandle((org.eclipse.gef.GraphicalEditPart) getHost());
+			mh.setBorder(null);
+			return java.util.Collections.singletonList(mh);
+		}
+	});
 	«EXPAND xpt::diagram::editparts::Common::behaviour FOR this-»
 «ENDDEFINE»
 

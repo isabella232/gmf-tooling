@@ -243,6 +243,10 @@
 		if (pdEditPolicy instanceof «diagram.getTextSelectionEditPolicyQualifiedClassName()») {
 			((«diagram.getTextSelectionEditPolicyQualifiedClassName()») pdEditPolicy).refreshFeedback();
 		}
+		Object sfEditPolicy = getEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE);
+		if (sfEditPolicy instanceof «diagram.getTextSelectionEditPolicyQualifiedClassName()») {
+			((«diagram.getTextSelectionEditPolicyQualifiedClassName()») sfEditPolicy).refreshFeedback();
+		}
 	}
 «ENDDEFINE»
 
@@ -423,6 +427,10 @@
 		Object pdEditPolicy = getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
 		if (pdEditPolicy instanceof «diagram.getTextSelectionEditPolicyQualifiedClassName()») {
 			((«diagram.getTextSelectionEditPolicyQualifiedClassName()») pdEditPolicy).refreshFeedback();
+		}
+		Object sfEditPolicy = getEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE);
+		if (sfEditPolicy instanceof «diagram.getTextSelectionEditPolicyQualifiedClassName()») {
+			((«diagram.getTextSelectionEditPolicyQualifiedClassName()») sfEditPolicy).refreshFeedback();
 		}
 	}
 «ENDDEFINE»

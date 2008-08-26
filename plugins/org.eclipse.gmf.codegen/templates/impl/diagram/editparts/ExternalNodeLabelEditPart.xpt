@@ -30,6 +30,7 @@
 «DEFINE createDefaultEditPoliciesBody FOR gmfgen::GenExternalNodeLabel-»
 	super.createDefaultEditPolicies();
 	installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy());
+	installEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE, new «getDiagram().getTextSelectionEditPolicyQualifiedClassName()»());
 	«EXPAND xpt::diagram::editparts::Common::behaviour FOR this-»
 «ENDDEFINE»
 

@@ -104,7 +104,7 @@
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
 				«IF hasBorderItems()-»
 					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
-						return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
+						return «EXPAND borderItemSelectionEP»;
 					}
 				«ENDIF-»
 				org.eclipse.gef.EditPolicy result = super.createChildEditPolicy(child);
@@ -121,7 +121,7 @@
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
 				«IF hasBorderItems()-»
 					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
-						return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
+						return «EXPAND borderItemSelectionEP»;
 					}
 				«ENDIF-»
 				if (child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE) == null) {
@@ -139,7 +139,7 @@
 			«IF hasBorderItems()-»
 				protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
 					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
-						return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
+						return «EXPAND borderItemSelectionEP»;
 					}
 					return super.createChildEditPolicy(child);
 				}
@@ -164,7 +164,7 @@
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
 				«IF hasBorderItems()-»
 					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
-						return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
+						return «EXPAND borderItemSelectionEP»;
 					}
 				«ENDIF-»
 				org.eclipse.gef.EditPolicy result = child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
@@ -184,6 +184,17 @@
 		};
 		return lep;
 	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE borderItemSelectionEP FOR gmfgen::GenNode-»
+new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy() {
+
+	protected java.util.List createSelectionHandles() {
+		org.eclipse.gef.handles.MoveHandle mh = new org.eclipse.gef.handles.MoveHandle((org.eclipse.gef.GraphicalEditPart) getHost());
+		mh.setBorder(null);
+		return java.util.Collections.singletonList(mh);
+	}
+}
 «ENDDEFINE»
 
 «DEFINE createNodeShape(gmfgen::GenNode node) FOR gmfgen::Viewmap-»
