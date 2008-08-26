@@ -114,12 +114,12 @@ public class LinkChildMetaFeatureNotFromContainerTest extends AbstractDiagramEdi
 			myDiagram.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getDiagram()));
 			myDiagram.setViewmap(gf.createFigureViewmap());
 			myDiagram.setVisualID(99);
-			MetamodelType dgmmType = GMFGenFactory.eINSTANCE.createMetamodelType();
+			MetamodelType dgmmType = gf.createMetamodelType();
 			myDiagram.setElementType(dgmmType);
 
 			myNodeA = gf.createGenTopLevelNode();
 			myNodeA.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getNode()));
-			myNodeA.setElementType(GMFGenFactory.eINSTANCE.createMetamodelType());
+			myNodeA.setElementType(gf.createMetamodelType());
 			TypeModelFacet mf = gf.createTypeModelFacet();
 			mf.setMetaClass(gmm.findGenClass(a));
 			mf.setContainmentMetaFeature(gmm.findGenFeature(rc1));
@@ -164,8 +164,10 @@ public class LinkChildMetaFeatureNotFromContainerTest extends AbstractDiagramEdi
 			geg.setDiagram(myDiagram);
 			geg.setDomainGenModel(myDiagram.getDomainDiagramElement().getGenModel());
 			geg.setEditor(gf.createGenEditorView());
-			geg.setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
+			geg.setPlugin(gf.createGenPlugin());
 			geg.setDiagramUpdater(gf.createGenDiagramUpdater());
+			geg.setLabelParsers(gf.createGenParsers());
+			geg.getLabelParsers().setExtensibleViaService(true);
 
 			new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/CreateLinkTest")).getContents().add(geg);
 		}
@@ -203,15 +205,6 @@ public class LinkChildMetaFeatureNotFromContainerTest extends AbstractDiagramEdi
 		configure(setup);
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.gmf.tests.gef.AbstractDiagramEditorTest#setUp()
-	 */
-	@Override
-	protected void setUp() throws Exception {
-		// TODO Auto-generated method stub
-		super.setUp();
-	}
-
 	public void testCreateLink() {
 		Node nodeA = createNode(getSetup().getGenModel().getNodeA(), getDiagram());
 		Node nodeB = createNode(getSetup().getGenModel().getNodeB(), getDiagram());

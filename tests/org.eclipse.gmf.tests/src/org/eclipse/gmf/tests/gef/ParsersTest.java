@@ -247,7 +247,7 @@ public class ParsersTest extends TestCase {
 	}
 
 	protected IParser getParser(final GenNodeLabel label) throws Exception {
-		String ppfqn = setup.genModel.diagramkin.getParserProviderQualifiedClassName();
+		String ppfqn = setup.genModel.diagramkin.getEditorGen().getLabelParsers().getQualifiedClassName();
 		Class<?> ppc = setup.project.getBundle().loadClass(ppfqn);
 		IParserProvider pp = (IParserProvider) ppc.newInstance();
 		IAdaptable param = new IAdaptable() {
@@ -417,6 +417,8 @@ public class ParsersTest extends TestCase {
 			genBurden.setDiagram(diagramkin);
 			genBurden.setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
 			genBurden.setDiagramUpdater(GMFGenFactory.eINSTANCE.createGenDiagramUpdater());
+			genBurden.setLabelParsers(GMFGenFactory.eINSTANCE.createGenParsers());
+			genBurden.getLabelParsers().setExtensibleViaService(true);
 			new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/parking")).getContents().add(genBurden);
 
 			nodkin = GMFGenFactory.eINSTANCE.createGenTopLevelNode();

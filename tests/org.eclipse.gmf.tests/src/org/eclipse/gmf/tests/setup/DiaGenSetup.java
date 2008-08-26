@@ -96,6 +96,7 @@ public class DiaGenSetup implements DiaGenSource {
 		genBurden.setDiagram(myGenDiagram);
 		genBurden.setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
 		genBurden.setDiagramUpdater(GMFGenFactory.eINSTANCE.createGenDiagramUpdater());
+		genBurden.setLabelParsers(GMFGenFactory.eINSTANCE.createGenParsers());
 
 		myNodeA = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
 		myNodeA.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getNode()));
@@ -111,6 +112,8 @@ public class DiaGenSetup implements DiaGenSource {
 			label.setViewmap(createLabelViewmap());
 			label.setDiagramRunTimeClass(myNodeA.getDiagramRunTimeClass());
 			myNodeA.getLabels().add(label);
+			modelFacet.setParser(GMFGenFactory.eINSTANCE.createExternalParser());
+			genBurden.getLabelParsers().getImplementations().add(modelFacet.getParser());
 		}
 		myNodeA.setViewmap(createNodeViewmap());
 		myNodeA.setVisualID(100);
