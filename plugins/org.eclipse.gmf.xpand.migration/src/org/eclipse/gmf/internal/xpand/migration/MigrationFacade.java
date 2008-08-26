@@ -60,6 +60,7 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.WorkflowSlotExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 import org.eclipse.ocl.ecore.PrimitiveType;
 import org.eclipse.ocl.types.AnyType;
+import org.eclipse.ocl.types.VoidType;
 
 public class MigrationFacade {
 
@@ -276,6 +277,9 @@ public class MigrationFacade {
 	}
 
 	private String getQvtFQName(EClassifier classifier) throws MigrationException {
+		if (classifier == BuiltinMetaModel.VOID) {
+			return VoidType.SINGLETON_NAME;
+		}
 		if (classifier instanceof EDataType) {
 			/**
 			 * Handling QVT primitive types here.
@@ -775,6 +779,7 @@ public class MigrationFacade {
 			write("->including(");
 			internalMigrateOperationCallParameters(operationCall, ctx);
 			write(")");
+			internalMigrateToBag(targetType);
 		} else if (BuiltinMetaModel.Collection_AddAll == eOperation) {
 			EClassifier commonSuperType = getCommonSuperType(elementType, getSingleCollectionParameterElementType(trace));
 			internalMigrateToConcreteCollection(targetType, commonSuperType, placeholder);
@@ -782,6 +787,7 @@ public class MigrationFacade {
 			internalMigrateOperationCallParameters(operationCall, ctx);
 			internalMigrateParameterCollectionToMain(getSingleParameterType(trace), targetType);
 			write(")");
+			internalMigrateToBag(targetType);
 		} else if (BuiltinMetaModel.Collection_Union == eOperation) {
 			EClassifier commonSuperType = getCommonSuperType(elementType, getSingleCollectionParameterElementType(trace));
 			internalMigrateToSet(targetType, commonSuperType, placeholder);
@@ -789,6 +795,7 @@ public class MigrationFacade {
 			internalMigrateOperationCallParameters(operationCall, ctx);
 			internalMigrateParameterCollectionToSet(getSingleParameterType(trace));
 			write(")");
+			internalMigrateToBag(targetType);
 		} else if (BuiltinMetaModel.Collection_Intersect == eOperation) {
 			EClassifier commonSuperType = getCommonSuperType(elementType, getSingleCollectionParameterElementType(trace));
 			internalMigrateToSet(targetType, commonSuperType, placeholder);
@@ -796,6 +803,7 @@ public class MigrationFacade {
 			internalMigrateOperationCallParameters(operationCall, ctx);
 			internalMigrateParameterCollectionToSet(getSingleParameterType(trace));
 			write(")");
+			internalMigrateToBag(targetType);
 		} else if (BuiltinMetaModel.Collection_Without == eOperation) {
 			EClassifier commonSuperType = getCommonSuperType(elementType, getSingleCollectionParameterElementType(trace));
 			internalMigrateToSet(targetType, commonSuperType, placeholder);
@@ -803,6 +811,7 @@ public class MigrationFacade {
 			internalMigrateOperationCallParameters(operationCall, ctx);
 			internalMigrateParameterCollectionToSet(getSingleParameterType(trace));
 			write(")");
+			internalMigrateToBag(targetType);
 		} else if (BuiltinMetaModel.Collection_Contains == eOperation) {
 			EClassifier parameterType = getSingleParameterType(trace);
 			if (!BuiltinMetaModel.isAssignableFrom(elementType, parameterType)) {
@@ -833,13 +842,7 @@ public class MigrationFacade {
 			write("(", placeholder);
 			write(" - 1)");
 		} else if (BuiltinMetaModel.Collection_Clear == eOperation) {
-			if (isSetType(targetType)) {
-				write("Set{}");
-			} else if (isListType(targetType)) {
-				write("Sequence{}");
-			} else {
-				write("Bag{}");
-			}
+			write("Bag{}");
 			if (elementType != EcorePackage.eINSTANCE.getEJavaObject()) {
 				write("[");
 				write(getQvtFQName(elementType));
@@ -848,6 +851,7 @@ public class MigrationFacade {
 		} else if (BuiltinMetaModel.Collection_Flatten == eOperation) {
 			internalMigrateToConcreteCollection(targetType, elementType, placeholder);
 			write("->flatten()");
+			internalMigrateToBag(targetType);
 		} else if (BuiltinMetaModel.Collection_ToSet == eOperation) { 
 			internalMigrateToSet(targetType, elementType, placeholder);
 		} else if (BuiltinMetaModel.Collection_ToList == eOperation) {
@@ -911,7 +915,16 @@ public class MigrationFacade {
 		}
 	}
 	
+	private void internalMigrateToBag(EClassifier collectionType) {
+		if (isListType(collectionType) || isSetType(collectionType)) {
+			write("->asBag()");
+		}
+	}
+	
 	private EClassifier getCommonSuperType(EClassifier collectionElementType1, EClassifier collectionElementType2) {
+		if (BuiltinMetaModel.VOID == collectionElementType1) {
+			return EcorePackage.eINSTANCE.getEJavaObject();
+		}
 		if (BuiltinMetaModel.isAssignableFrom(collectionElementType1, collectionElementType2)) {
 			return collectionElementType1;
 		}
@@ -950,9 +963,8 @@ public class MigrationFacade {
 	private void internalMigrateToConcreteCollection(EClassifier collectionType, EClassifier elementSuperType, int placeholder) throws MigrationException {
 		assert BuiltinMetaModel.isCollectionType(collectionType);
 		EClassifier elementType = BuiltinMetaModel.getInnerType(collectionType);
-		String elementSuperTypeName = getQvtFQName(elementSuperType);
 		if (elementSuperType != elementType) {
-			internalMigrateTypeSelectCastingCollectionToBag(collectionType, elementSuperTypeName, placeholder);	
+			internalMigrateTypeSelectCastingCollectionToBag(collectionType, getQvtFQName(elementSuperType), placeholder);	
 		} else if (!isListType(collectionType) && !isSetType(collectionType)) {
 			internalMigrateCollectionToBag(null);
 		}
