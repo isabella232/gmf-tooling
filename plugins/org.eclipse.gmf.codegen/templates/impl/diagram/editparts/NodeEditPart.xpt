@@ -350,7 +350,7 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 					return getBorderedFigure().getBorderItemContainer();
 				}
 			«ENDFOREACH-»
-			return super.getContentPaneFor(editPart);
+			return getContentPane();
 		}
 	«ENDIF-»
 «ENDDEFINE»
