@@ -11,9 +11,11 @@
  */
 package org.eclipse.gmf.internal.xpand.migration;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
@@ -134,7 +136,7 @@ public class MigrationFacade {
 
 	private int returnPosition;
 
-	private IteratorVariableNameDispatcher iteratorVariableDispatcher;
+	private VariableNameDispatcher variableDispatcher;
 
 	private Stack<AbstractImportsManager> importsManagers = new Stack<AbstractImportsManager>();
 
@@ -194,7 +196,7 @@ public class MigrationFacade {
 
 		for (Iterator<Extension> it = xtendResource.getExtensions().iterator(); it.hasNext();) {
 			Extension extension = it.next();
-			iteratorVariableDispatcher = new IteratorVariableNameDispatcher(extension);
+			variableDispatcher = new VariableNameDispatcher(extension);
 			migrateExtension(extension, ctx);
 			if (it.hasNext()) {
 				writeln("");
@@ -538,22 +540,45 @@ public class MigrationFacade {
 		if (!trace.isValid()) {
 			throw new MigrationException(Type.UNSUPPORTED_TYPE_SELECT_EXPRESSION, trace.toString());
 		}
-		convertCollectionTypes(trace.getTargetType(), trace.getTargetType(), false, placeholder);
-		internalMigrateTypeSelect(getQvtFQName(type), placeholder);
+		internalMigrateTypeSelectCastingCollectionToBag(trace.getTargetType(), getQvtFQName(type), placeholder);
 		if (!isListType(trace.getTargetType())) {
 			write("->asSequence()");
 		}
 	}
-
+	
+	private void internalMigrateTypeSelectCastingCollectionToBag(EClassifier collectionType, String typeName, int placeholder) {
+		assert BuiltinMetaModel.isCollectionType(collectionType);
+		if (isListType(collectionType) || isSetType(collectionType)) {
+			internalMigrateTypeSelect(typeName, placeholder);
+		} else {
+			internalMigrateCollectionToBag(typeName);
+		}
+	}
+	
 	private void internalMigrateTypeSelect(String typeName, int placeholder) {
-		// TODO: This method should write braces around expression starting at
-		// placeholder position conditionally depending on the last char in output
-		// sequence.
+		// TODO: This method should write braces around expression starting
+		// at placeholder position conditionally depending on the last char
+		// in output sequence.
 		write("(", placeholder);
 		write(")");
 		write("[");
 		write(typeName);
 		write("]");
+	}
+	
+	// TODO: use ->asSequence() here in addition?
+	private void internalMigrateCollectionToBag(String typeName) {
+		String iteratorName = variableDispatcher.getNextIteratorName();
+		write("->collect(");
+		write(iteratorName);
+		write(" | ");
+		write(iteratorName);
+		if (typeName != null) {
+			write(".oclAsType(");
+			write(typeName);
+			write(")");
+		}
+		write(")");
 	}
 
 	private void migrateCollectionExpression(CollectionExpression collectionExpression, MigrationExecutionContext ctx) throws MigrationException {
@@ -662,7 +687,7 @@ public class MigrationFacade {
 		case IMPLICIT_COLLECT_EXTENSION_REF:
 			assert operationCall.getTarget() != null;
 			migrateExpression(operationCall.getTarget(), ctx);
-			String iteratorName = iteratorVariableDispatcher.getNextName();
+			String iteratorName = variableDispatcher.getNextIteratorName();
 			write("->collect(");
 			write(iteratorName);
 			write(" | ");
@@ -687,7 +712,6 @@ public class MigrationFacade {
 		assert eOperation != null;
 		int placeholder = getCurrentPosition();
 		internalMigrateOperationCallTarget(operationCall, ctx);
-		// TODO: add other infix operations to this list
 		String opName = eOperation.getName();
 		if (BuiltinMetaModel.Boolean_NE == eOperation) {
 			write("not ", placeholder);
@@ -737,6 +761,8 @@ public class MigrationFacade {
 		assert eOperation != null;
 		EClassifier targetType = trace.getTargetType();
 		assert targetType != null;
+		assert BuiltinMetaModel.isCollectionType(targetType);
+		EClassifier elementType = BuiltinMetaModel.getInnerType(targetType);
 		
 		int placeholder = getCurrentPosition();
 		if (BuiltinMetaModel.Collection_Clear != eOperation && BuiltinMetaModel.List_WithoutFirst != eOperation && BuiltinMetaModel.List_WithoutLast != eOperation) {
@@ -744,83 +770,139 @@ public class MigrationFacade {
 		}
 		
 		if (BuiltinMetaModel.Collection_Add == eOperation) {
-			convertCollectionTypes(targetType, targetType, true, placeholder);
+			EClassifier commonSuperType = getCommonSuperType(elementType, getSingleParameterType(trace));
+			internalMigrateToConcreteCollection(targetType, commonSuperType, placeholder);
 			write("->including(");
 			internalMigrateOperationCallParameters(operationCall, ctx);
 			write(")");
 		} else if (BuiltinMetaModel.Collection_AddAll == eOperation) {
-			convertCollectionTypes(targetType, targetType, true, placeholder);
-			write("->union");
-			internalMigrateCollectionOperationCollectionParameter(trace, operationCall, targetType, ctx);
-		} else if (BuiltinMetaModel.Collection_Clear == eOperation) {
-			if (isSetType(targetType)) {
-				write("Set{}");
-			} else {
-				write("Sequence{}");
-			}
-		} else if (BuiltinMetaModel.Collection_Flatten == eOperation) {
-			convertCollectionTypes(targetType, targetType, true, placeholder);
-			write("->flatten()");
+			EClassifier commonSuperType = getCommonSuperType(elementType, getSingleCollectionParameterElementType(trace));
+			internalMigrateToConcreteCollection(targetType, commonSuperType, placeholder);
+			write("->union(");
+			internalMigrateOperationCallParameters(operationCall, ctx);
+			internalMigrateParameterCollectionToMain(getSingleParameterType(trace), targetType);
+			write(")");
 		} else if (BuiltinMetaModel.Collection_Union == eOperation) {
-			EClass setType = BuiltinMetaModel.getSetType(EcorePackage.eINSTANCE.getEJavaObject());
-			convertCollectionTypes(targetType, setType, true, placeholder);
-			write("->union");
-			internalMigrateCollectionOperationCollectionParameter(trace, operationCall, setType, ctx);
+			EClassifier commonSuperType = getCommonSuperType(elementType, getSingleCollectionParameterElementType(trace));
+			internalMigrateToSet(targetType, commonSuperType, placeholder);
+			write("->union(");
+			internalMigrateOperationCallParameters(operationCall, ctx);
+			internalMigrateParameterCollectionToSet(getSingleParameterType(trace));
+			write(")");
 		} else if (BuiltinMetaModel.Collection_Intersect == eOperation) {
-			EClass setType = BuiltinMetaModel.getSetType(EcorePackage.eINSTANCE.getEJavaObject());
-			convertCollectionTypes(targetType, setType, true, placeholder);
-			write("->intersection");
-			internalMigrateCollectionOperationCollectionParameter(trace, operationCall, setType, ctx);
-		} else if (BuiltinMetaModel.Collection_Without == eOperation) { 
-			EClass setType = BuiltinMetaModel.getSetType(EcorePackage.eINSTANCE.getEJavaObject());
-			convertCollectionTypes(targetType, setType, true, placeholder);
-			write("->-");
-			internalMigrateCollectionOperationCollectionParameter(trace, operationCall, setType, ctx);
-		} else if (BuiltinMetaModel.Collection_ToSet == eOperation) { 
-			EClass setType = BuiltinMetaModel.getSetType(EcorePackage.eINSTANCE.getEJavaObject());
-			convertCollectionTypes(targetType, setType, false, placeholder);
-		} else if (BuiltinMetaModel.Collection_ToList == eOperation) { 
-			EClass listType = BuiltinMetaModel.getListType(EcorePackage.eINSTANCE.getEJavaObject());
-			convertCollectionTypes(targetType, listType, false, placeholder);
+			EClassifier commonSuperType = getCommonSuperType(elementType, getSingleCollectionParameterElementType(trace));
+			internalMigrateToSet(targetType, commonSuperType, placeholder);
+			write("->intersection(");
+			internalMigrateOperationCallParameters(operationCall, ctx);
+			internalMigrateParameterCollectionToSet(getSingleParameterType(trace));
+			write(")");
+		} else if (BuiltinMetaModel.Collection_Without == eOperation) {
+			EClassifier commonSuperType = getCommonSuperType(elementType, getSingleCollectionParameterElementType(trace));
+			internalMigrateToSet(targetType, commonSuperType, placeholder);
+			write("->-(");
+			internalMigrateOperationCallParameters(operationCall, ctx);
+			internalMigrateParameterCollectionToSet(getSingleParameterType(trace));
+			write(")");
 		} else if (BuiltinMetaModel.Collection_Contains == eOperation) {
-			internalMigrateTypeSelect(AnyType.SINGLETON_NAME, placeholder);
+			EClassifier parameterType = getSingleParameterType(trace);
+			if (!BuiltinMetaModel.isAssignableFrom(elementType, parameterType)) {
+				EClassifier commonSuperType = getCommonSuperType(elementType, parameterType);
+				internalMigrateTypeSelect(getQvtFQName(commonSuperType), placeholder);
+			}
 			write("->includes(");
 			internalMigrateOperationCallParameters(operationCall, ctx);
 			write(")");
 		} else if (BuiltinMetaModel.Collection_ContainsAll == eOperation) {
-			internalMigrateTypeSelect(AnyType.SINGLETON_NAME, placeholder);
+			EClassifier parameterElementType = getSingleCollectionParameterElementType(trace);
+			if (!BuiltinMetaModel.isAssignableFrom(elementType, parameterElementType)) {
+				EClassifier commonSuperType = getCommonSuperType(elementType, parameterElementType);
+				internalMigrateTypeSelect(getQvtFQName(commonSuperType), placeholder);
+			}
 			write("->includesAll(");
 			internalMigrateOperationCallParameters(operationCall, ctx);
 			write(")");
+		} else if (BuiltinMetaModel.List_IndexOf == eOperation) {
+			EClassifier parameterType = getSingleParameterType(trace);
+			if (!BuiltinMetaModel.isAssignableFrom(elementType, parameterType)) {
+				EClassifier commonSuperType = getCommonSuperType(elementType, parameterType);
+				internalMigrateTypeSelectCastingCollectionToBag(targetType, getQvtFQName(commonSuperType), placeholder);
+			}
+			write("->indexOf(");
+			internalMigrateOperationCallParameters(operationCall, ctx);
+			write(")");
+			write("(", placeholder);
+			write(" - 1)");
+		} else if (BuiltinMetaModel.Collection_Clear == eOperation) {
+			if (isSetType(targetType)) {
+				write("Set{}");
+			} else if (isListType(targetType)) {
+				write("Sequence{}");
+			} else {
+				write("Bag{}");
+			}
+			if (elementType != EcorePackage.eINSTANCE.getEJavaObject()) {
+				write("[");
+				write(getQvtFQName(elementType));
+				write("]");
+			}
+		} else if (BuiltinMetaModel.Collection_Flatten == eOperation) {
+			internalMigrateToConcreteCollection(targetType, elementType, placeholder);
+			write("->flatten()");
+		} else if (BuiltinMetaModel.Collection_ToSet == eOperation) { 
+			internalMigrateToSet(targetType, elementType, placeholder);
+		} else if (BuiltinMetaModel.Collection_ToList == eOperation) {
+			internalMigrateToList(targetType, elementType, placeholder);
 		} else if (BuiltinMetaModel.List_Get == eOperation) { 
 			write("->at(");
 			internalMigrateOperationCallParameters(operationCall, ctx);
 			write(" + 1)");
-		} else if (BuiltinMetaModel.List_WithoutFirst == eOperation) { 
+		} else if (BuiltinMetaModel.List_WithoutFirst == eOperation) {
+			String varName = variableDispatcher.getNextVariableName();
+			write("let ");
+			write(varName);
+			write(" = ");
+			internalMigrateOperationCallTarget(operationCall, ctx);
+			write(" in ");
 			write("if ");
-			internalMigrateOperationCallTarget(operationCall, ctx);
-			write("->size() < 2 then Sequence{} else ");
-			internalMigrateOperationCallTarget(operationCall, ctx);
+			write(varName);
+			write("->size() < 2 then Sequence{}");
+			if (elementType != EcorePackage.eINSTANCE.getEJavaObject()) {
+				write("[");
+				write(getQvtFQName(elementType));
+				write("]");
+			}
+			write(" else ");
+			write(varName);
 			write("->subSequence(2, ");
-			internalMigrateOperationCallTarget(operationCall, ctx);
+			write(varName);
 			write("->size()) endif");
-		} else if (BuiltinMetaModel.List_WithoutLast == eOperation) { 
+		} else if (BuiltinMetaModel.List_WithoutLast == eOperation) {
+			String varName = variableDispatcher.getNextVariableName();
+			write("let ");
+			write(varName);
+			write(" = ");
+			internalMigrateOperationCallTarget(operationCall, ctx);
+			write(" in ");
 			write("if ");
-			internalMigrateOperationCallTarget(operationCall, ctx);
-			write("->size() < 2 then Sequence{} else ");
-			internalMigrateOperationCallTarget(operationCall, ctx);
+			write(varName);
+			write("->size() < 2 then Sequence{}");
+			if (elementType != EcorePackage.eINSTANCE.getEJavaObject()) {
+				write("[");
+				write(getQvtFQName(elementType));
+				write("]");
+			}
+			write(" else ");
+			write(varName);
 			write("->subSequence(1, ");
-			internalMigrateOperationCallTarget(operationCall, ctx);
+			write(varName);
 			write("->size() - 1) endif");
 		} else if (BuiltinMetaModel.List_PurgeDups == eOperation) { 
 			write("->asOrderedSet()->asSequence()");
-		} else if (BuiltinMetaModel.List_IndexOf == eOperation) {
-			internalMigrateTypeSelect(AnyType.SINGLETON_NAME, placeholder);
-			write("->indexOf(");
-			internalMigrateOperationCallParameters(operationCall, ctx);
-			write(") - 1");
 		} else {
-			// TODO: remove this branch?
+			/**
+			 * .isEmpty() .size() .first() .last()
+			 */
+			assert operationCall.getParams().length == 0;
 			write("->");
 			write(eOperation.getName());
 			write("(");
@@ -828,52 +910,101 @@ public class MigrationFacade {
 			write(")");
 		}
 	}
-
-	private void internalMigrateCollectionOperationCollectionParameter(OperationCallTrace trace, OperationCall operationCall, EClassifier targetType, MigrationExecutionContext ctx) throws MigrationException {
+	
+	private EClassifier getCommonSuperType(EClassifier collectionElementType1, EClassifier collectionElementType2) {
+		if (BuiltinMetaModel.isAssignableFrom(collectionElementType1, collectionElementType2)) {
+			return collectionElementType1;
+		}
+		if (collectionElementType1 instanceof EClass) {
+			EClass eClass = (EClass) collectionElementType1;
+			for (EClass nextSuperType : getAllSuperTypes(eClass)) {
+				if (BuiltinMetaModel.isAssignableFrom(nextSuperType, collectionElementType2)) {
+					return nextSuperType;
+				}
+			}
+		}
+		return EcorePackage.eINSTANCE.getEJavaObject();
+	}
+	
+	private List<EClass> getAllSuperTypes(EClass eClass) {
+		List<EClass> result = new ArrayList<EClass>(eClass.getESuperTypes());
+		for (int i = 1; i < result.size(); i++) {
+			EClass nextSuperType = result.get(i);
+			result.addAll(nextSuperType.getESuperTypes());
+		}
+		return result;
+	}
+	
+	private EClassifier getSingleParameterType(OperationCallTrace trace) {
 		EClassifier[] paramTypes = trace.getParamTypes();
 		assert paramTypes != null && paramTypes.length == 1;
-		assert operationCall.getParams().length == 1;
-		write("(");
-		int placeholder = getCurrentPosition();
-		migrateExpression(operationCall.getParams()[0], ctx);
-		assert BuiltinMetaModel.isCollectionType(paramTypes[0]);
-		convertCollectionTypes(paramTypes[0], targetType, false, placeholder);
-		write(")");
+		return paramTypes[0];
 	}
-
-	// TODO: make two separate methods from this one?
-	private void convertCollectionTypes(EClassifier originalCollectionType, EClassifier targetType, boolean convertToAnyType, int expressionStartPosition) {
-		if (isListType(originalCollectionType)) {
-			if (convertToAnyType) {
-				internalMigrateTypeSelect(AnyType.SINGLETON_NAME, expressionStartPosition);
-			}
-			if (isSetType(targetType)) {
-				write("->asSet()");
-			} else if (!isListType(targetType)) {
-				write("->asBag()");
-			}
-		} else if (isSetType(originalCollectionType)) {
-			if (convertToAnyType) {
-				internalMigrateTypeSelect(AnyType.SINGLETON_NAME, expressionStartPosition);
-			}
-			if (isListType(targetType)) {
+	
+	private EClassifier getSingleCollectionParameterElementType(OperationCallTrace trace) {
+		EClassifier parameterType = getSingleParameterType(trace);
+		assert BuiltinMetaModel.isCollectionType(parameterType);
+		return BuiltinMetaModel.getInnerType(parameterType);
+	}
+	
+	private void internalMigrateToConcreteCollection(EClassifier collectionType, EClassifier elementSuperType, int placeholder) throws MigrationException {
+		assert BuiltinMetaModel.isCollectionType(collectionType);
+		EClassifier elementType = BuiltinMetaModel.getInnerType(collectionType);
+		String elementSuperTypeName = getQvtFQName(elementSuperType);
+		if (elementSuperType != elementType) {
+			internalMigrateTypeSelectCastingCollectionToBag(collectionType, elementSuperTypeName, placeholder);	
+		} else if (!isListType(collectionType) && !isSetType(collectionType)) {
+			internalMigrateCollectionToBag(null);
+		}
+	}
+	
+	private void internalMigrateToSet(EClassifier collectionType, EClassifier elementSuperType, int placeholder) throws MigrationException {
+		internalMigrateToConcreteCollection(collectionType, elementSuperType, placeholder);
+		if (!isSetType(collectionType)) {
+			write("->asSet()");
+		}
+	}
+	
+	private void internalMigrateToList(EClassifier collectionType, EClassifier elementSuperType, int placeholder) throws MigrationException {
+		internalMigrateToConcreteCollection(collectionType, elementSuperType, placeholder);
+		if (!isListType(collectionType)) {
+			write("->asSequence()");
+		}
+	}
+	
+	private void internalMigrateParameterCollectionToMain(EClassifier parameterCollectionType, EClassifier mainCollectionType) {
+		assert BuiltinMetaModel.isCollectionType(parameterCollectionType);
+		assert BuiltinMetaModel.isCollectionType(mainCollectionType);
+		if (isListType(mainCollectionType)) {
+			if (isSetType(parameterCollectionType)) {
 				write("->asSequence()");
+			} else if (!isListType(parameterCollectionType)) {
+				internalMigrateCollectionToBag(null);
+				write("->asSequence()");
+			}
+		} else if (isSetType(mainCollectionType)) {
+			if (isListType(parameterCollectionType)) {
+				write("->asSet()");
+			} else if (!isSetType(parameterCollectionType)) {
+				internalMigrateCollectionToBag(null);
+				write("->asSet()");
 			}
 		} else {
-			String iteratorName = iteratorVariableDispatcher.getNextName();
-			write("->collect(");
-			write(iteratorName);
-			write(" | ");
-			write(iteratorName);
-			if (convertToAnyType) {
-				write(".oclAsType(OclAny)");
+			if (isSetType(parameterCollectionType) || isListType(parameterCollectionType)) {
+				write("->asBag()");
+			} else {
+				internalMigrateCollectionToBag(null);
 			}
-			write(")");
-			if (isListType(targetType)) {
-				write("->asSequence()");
-			} else if (isSetType(targetType)) {
-				write("->asSet()");
-			}
+		}
+	}
+	
+	private void internalMigrateParameterCollectionToSet(EClassifier parameterCollectionType) {
+		assert BuiltinMetaModel.isCollectionType(parameterCollectionType);
+		if (isListType(parameterCollectionType)) {
+			write("->asSet()");
+		} else if (!isSetType(parameterCollectionType)) {
+			internalMigrateCollectionToBag(null);
+			write("->asSet()");
 		}
 	}
 

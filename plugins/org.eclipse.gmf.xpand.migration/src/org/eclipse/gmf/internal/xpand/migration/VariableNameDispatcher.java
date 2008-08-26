@@ -30,13 +30,15 @@ import org.eclipse.gmf.internal.xpand.expression.ast.TypeSelectExpression;
 import org.eclipse.gmf.internal.xpand.xtend.ast.ExpressionExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 
-public class IteratorVariableNameDispatcher {
+public class VariableNameDispatcher {
 
-	private static final String PREFIX = "it";
+	private static final String ITERATOR_PREFIX = "it";
+
+	private static final String VARIABLE_PREFIX = "tmpVar";
 
 	private Set<String> definedVariables;
 
-	public IteratorVariableNameDispatcher(Extension extension) {
+	public VariableNameDispatcher(Extension extension) {
 		definedVariables = new HashSet<String>();
 		initDefinedVariables(extension);
 	}
@@ -110,11 +112,19 @@ public class IteratorVariableNameDispatcher {
 			initDefinedVariables(featrueCall.getTarget());
 		}
 	}
-	
-	public String getNextName() {
-		String iteratorName = PREFIX;
+
+	public String getNextIteratorName() {
+		return getUniqueName(ITERATOR_PREFIX);
+	}
+
+	public String getNextVariableName() {
+		return getUniqueName(VARIABLE_PREFIX);
+	}
+
+	private String getUniqueName(String prefix) {
+		String iteratorName = prefix;
 		for (int i = 1; definedVariables.contains(iteratorName); i++) {
-			iteratorName = PREFIX + "_" + i;
+			iteratorName = prefix + "_" + i;
 		}
 		definedVariables.add(iteratorName);
 		return iteratorName;
