@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -508,6 +509,9 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 		}
 		BasicEList<GenLinkEnd> result = new BasicEList<GenLinkEnd>();
 		for (GenNode nextNode : getDiagram().getAllNodes()){
+			if (nextNode instanceof GenChildLabelNode){
+				continue;
+			}
 			if (canBeLinkEnd(desiredType, nextNode.getModelFacet())){
 				result.add(nextNode);
 			}

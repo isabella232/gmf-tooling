@@ -41,10 +41,15 @@ boolean hasContainerOtherThanSource(gmfgen::TypeLinkModelFacet facet) :
 	facet.sourceMetaFeature != null || facet.childMetaFeature != facet.containmentMetaFeature
 ;
 
-List[gmfgen::GenLink] getOutgoingLinks(gmfgen::GenNode node) :
-	node.getDiagram().links.select(link | link.getAssistantSources().contains(node))
+List[gmfgen::GenLink] getAssistantOutgoingLinks(gmfgen::GenNode node) :
+	node.genOutgoingLinks.select(link | !selectGenNodes(link.targets).isEmpty())
 ;
 
-List[gmfgen::GenLink] getIncomingLinks(gmfgen::GenNode node) :
-	node.getDiagram().links.select(link | link.getAssistantTargets().contains(node))
+List[gmfgen::GenLink] getAssistantIncomingLinks(gmfgen::GenNode node) :
+	node.genIncomingLinks.select(link | !selectGenNodes(link.sources).isEmpty())
+;
+
+// TODO: remove this method allowing creation of links to links using Assistant?
+List[gmfgen::GenLinkEnd] selectGenNodes(List[gmfgen::GenLinkEnd] ends) :
+	ends.typeSelect(gmfgen::GenNode)
 ;
