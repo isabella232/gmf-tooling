@@ -103,7 +103,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private final EcoreGenModelMatcher myEcoreGenModelMatch;	
 
 	private GenAuditContext myDefaultAuditContext;
-	private ExternalParser myExternalParser;
 
 	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy) {
 		this(drtHelper, namingStrategy, new InnerClassViewmapProducer(), new NaiveIdentifierDispenser(), false);
@@ -152,8 +151,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			myGenModel.setLabelParsers(GMFGenFactory.eINSTANCE.createGenParsers());
 			// unless bug #235113 is fixed, always do ParserService
 			myGenModel.getLabelParsers().setExtensibleViaService(true);
-			myExternalParser = GMFGenFactory.eINSTANCE.createExternalParser();
-			myGenModel.getLabelParsers().getImplementations().add(myExternalParser);
 		}
 		return myGenModel;
 	}
@@ -588,7 +585,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				modelFacet.setEditMethod(LabelTextAccessMethod.get(flMapping.getEditMethod().getValue()));
 			}
 			// XXX temp code
-			modelFacet.setParser(myExternalParser);
+			modelFacet.setParser(getOrCreateParser(flMapping));
 			// XXX
 			return modelFacet;
 		}
@@ -1269,5 +1266,25 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		toolBar.getItems().add(createSeparator("org.eclipse.ui.IWorkbenchActionConstants.GROUP_HELP")); //$NON-NLS-1$
 		toolBar.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.GROUP_APP")); //$NON-NLS-1$
 		return toolBar;
+	}
+
+	private GenParserImplementation getOrCreateParser(FeatureLabelMapping flMapping) {
+		final LabelTextAccessMethod editMethod = LabelTextAccessMethod.get(flMapping.getEditMethod().getValue());
+		final LabelTextAccessMethod viewMethod = LabelTextAccessMethod.get(flMapping.getViewMethod().getValue());
+		for (GenParserImplementation pi : getGenEssence().getLabelParsers().getImplementations()) {
+			if (pi instanceof PredefinedParser) {
+				PredefinedParser pp = (PredefinedParser) pi;
+				boolean same = pp.getEditMethod() == editMethod;
+				same &= pp.getViewMethod() == viewMethod;
+				if (same) {
+					return pp;
+				}
+			}
+		}
+		PredefinedParser result = GMFGenFactory.eINSTANCE.createPredefinedParser();
+		result.setEditMethod(editMethod);
+		result.setViewMethod(viewMethod);
+		getGenEssence().getLabelParsers().getImplementations().add(result);
+		return result;
 	}
 }
