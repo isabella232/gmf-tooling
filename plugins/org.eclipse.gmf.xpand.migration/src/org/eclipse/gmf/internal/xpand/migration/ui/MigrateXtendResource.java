@@ -12,7 +12,7 @@ import org.eclipse.gmf.internal.xpand.RootManager;
 import org.eclipse.gmf.internal.xpand.build.WorkspaceResourceManager;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException;
-import org.eclipse.gmf.internal.xpand.migration.MigrationFacade;
+import org.eclipse.gmf.internal.xpand.migration.XtendMigrationFacade;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
@@ -61,7 +61,7 @@ public class MigrateXtendResource implements IObjectActionDelegate {
 			return null;
 		}
 		WorkspaceResourceManager resourceManager = rootManager.getResourceManager(selectedFile);
-		MigrationFacade migrationFacade = new MigrationFacade(resourceManager, templateFullName);
+		XtendMigrationFacade migrationFacade = new XtendMigrationFacade(resourceManager, templateFullName);
 		try {
 			StringBuilder qvtoResourceContent = migrationFacade.migrateXtendResource();
 			return new ByteArrayInputStream(qvtoResourceContent.toString().getBytes(charset));

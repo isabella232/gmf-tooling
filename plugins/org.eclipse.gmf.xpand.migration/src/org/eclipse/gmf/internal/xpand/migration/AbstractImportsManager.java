@@ -30,8 +30,8 @@ public abstract class AbstractImportsManager {
 	protected void writeln(String line) {
 		stringBuilder.insert(placeHolderIndex, line);
 		placeHolderIndex += line.length();
-		stringBuilder.insert(placeHolderIndex, MigrationFacade.LF);
-		placeHolderIndex += MigrationFacade.LF.length();
+		stringBuilder.insert(placeHolderIndex, ExpressionMigrationFacade.LF);
+		placeHolderIndex += ExpressionMigrationFacade.LF.length();
 	}
 
 }
