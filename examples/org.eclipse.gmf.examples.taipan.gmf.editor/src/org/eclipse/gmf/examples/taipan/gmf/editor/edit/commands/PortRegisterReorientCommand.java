@@ -115,18 +115,14 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult reorientSource() throws ExecutionException {
-		getOldSource().getRegister().remove(getOldTarget());
-		getNewSource().getRegister().add(getOldTarget());
-		return CommandResult.newOKCommandResult(referenceOwner);
+		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * @generated
 	 */
 	protected CommandResult reorientTarget() throws ExecutionException {
-		getOldSource().getRegister().remove(getOldTarget());
-		getOldSource().getRegister().add(getNewTarget());
-		return CommandResult.newOKCommandResult(referenceOwner);
+		throw new UnsupportedOperationException();
 	}
 
 	/**

@@ -115,17 +115,14 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult reorientSource() throws ExecutionException {
-		getOldSource().setDestination(null);
-		getNewSource().setDestination(getOldTarget());
-		return CommandResult.newOKCommandResult(referenceOwner);
+		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * @generated
 	 */
 	protected CommandResult reorientTarget() throws ExecutionException {
-		getOldSource().setDestination(getNewTarget());
-		return CommandResult.newOKCommandResult(referenceOwner);
+		throw new UnsupportedOperationException();
 	}
 
 	/**

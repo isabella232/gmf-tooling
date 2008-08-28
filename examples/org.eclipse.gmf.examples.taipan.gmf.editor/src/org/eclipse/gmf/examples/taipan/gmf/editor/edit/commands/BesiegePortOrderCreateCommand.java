@@ -80,10 +80,7 @@ public class BesiegePortOrderCreateCommand extends CreateElementCommand {
 	 * @generated
 	 */
 	protected EObject doDefaultElementCreation() {
-		BesiegePortOrder newElement = TaiPanFactory.eINSTANCE.createBesiegePortOrder();
-		getSource().getAttackOrders().add(newElement);
-		newElement.setPort(getTarget());
-		return newElement;
+		throw new UnsupportedOperationException();
 	}
 
 	/**
