@@ -21,7 +21,7 @@ import junit.framework.TestCase;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException;
 import org.eclipse.gmf.internal.xpand.migration.MigrationExecutionContextImpl;
-import org.eclipse.gmf.internal.xpand.migration.MigrationFacade;
+import org.eclipse.gmf.internal.xpand.migration.XtendMigrationFacade;
 import org.eclipse.gmf.tests.xpand.TestsResourceManager;
 import org.eclipse.gmf.tests.xpand.migration.testModel.MigrationTestsPackage;
 import org.eclipse.m2m.internal.qvt.oml.common.MdaException;
@@ -52,7 +52,7 @@ public class XtendMigrationTest extends TestCase {
 	}
 
 	public void testImportedModelsWithUnusedImports() throws IOException, MigrationException {
-		checkMigration(new MigrationFacade(testResourceManager, getResourceName("ImportedModels"), true), "ImportedModelsWithUnusedImports");
+		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName("ImportedModels"), true), "ImportedModelsWithUnusedImports");
 	}
 
 	public void testImportedExtensions() throws IOException, MigrationException {
@@ -65,12 +65,12 @@ public class XtendMigrationTest extends TestCase {
 
 	public void testFeatureCall() throws IOException, MigrationException {
 		String resourceName = "FeatureCall";
-		checkMigration(new MigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, GenModelPackage.eINSTANCE, MigrationTestsPackage.eINSTANCE)), resourceName);
+		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, GenModelPackage.eINSTANCE, MigrationTestsPackage.eINSTANCE)), resourceName);
 	}
 
 	public void testOperationCall() throws IOException, MigrationException {
 		String resourceName = "OperationCall";
-		checkMigration(new MigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, MigrationTestsPackage.eINSTANCE)), resourceName);
+		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, MigrationTestsPackage.eINSTANCE)), resourceName);
 	}
 	
 	public void testCollectionOperations() throws IOException, MigrationException {
@@ -143,7 +143,7 @@ public class XtendMigrationTest extends TestCase {
 
 	public void testStringLiteral() throws IOException, MigrationException {
 		String resourceName = "StringLiteral";
-		MigrationFacade migrationFacade = new MigrationFacade(testResourceManager, getResourceName(resourceName));
+		XtendMigrationFacade migrationFacade = new XtendMigrationFacade(testResourceManager, getResourceName(resourceName));
 		String content = migrationFacade.migrateXtendResource().toString();
 		assertTrue(content.length() > 0);
 		String etalon = readStringContent(new InputStreamReader(testResourceManager.loadFile(getResourceName(resourceName), "qvto")));
@@ -156,7 +156,7 @@ public class XtendMigrationTest extends TestCase {
 	
 	public void testOclAnyOperations() throws IOException, MigrationException {
 		String resourceName = "OperationCall_OclAnyOperations";
-		checkMigration(new MigrationFacade(testResourceManager, getResourceName(resourceName), true), resourceName);
+		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(resourceName), true), resourceName);
 	}
 	
 	public void testBooleanOperations() throws IOException, MigrationException {
@@ -208,10 +208,10 @@ public class XtendMigrationTest extends TestCase {
 	}
 
 	private String checkMigration(String xtendResourceName) throws IOException, MigrationException {
-		return checkMigration(new MigrationFacade(testResourceManager, getResourceName(xtendResourceName)), xtendResourceName);
+		return checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(xtendResourceName)), xtendResourceName);
 	}
 
-	private String checkMigration(MigrationFacade facade, String xtendResourceName) throws IOException, MigrationException {
+	private String checkMigration(XtendMigrationFacade facade, String xtendResourceName) throws IOException, MigrationException {
 		String content = facade.migrateXtendResource().toString();
 		assertTrue(content.length() > 0);
 
