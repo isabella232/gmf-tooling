@@ -28,10 +28,10 @@ public class WorkflowSlotExtensionStatement extends Extension {
 
 	private final Identifier slotName;
 
-    public WorkflowSlotExtensionStatement(final int start, final int end, final int line, final Identifier name,
+    public WorkflowSlotExtensionStatement(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier name,
             final List<DeclaredParameter> formalParameters, final Identifier returnType, final Identifier slotName,
             final boolean cached, final boolean isPrivate) {
-        super(start, end, line, name, returnType, formalParameters, cached, isPrivate);
+        super(start, end, line, startOffset, endOffset, name, returnType, formalParameters, cached, isPrivate);
         this.slotName = slotName;
     }
 

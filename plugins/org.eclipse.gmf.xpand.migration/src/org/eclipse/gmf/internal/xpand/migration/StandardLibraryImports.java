@@ -48,15 +48,23 @@ public class StandardLibraryImports extends AbstractImportsManager {
 	StandardLibraryImports(StringBuilder stringBuilder) {
 		super(stringBuilder);
 	}
-
-	void injectImports() {
-		for (String usedLibrary : usedLibraries) {
-			writeln("import library " + usedLibrary + ";");
-		}
-		if (usedLibraries.size() > 0) {
-			writeln("");
-		}
+	
+	StandardLibraryImports(int placeholder) {
+		super(placeholder);
 	}
+	
+	String[] getLibraries() {
+		return usedLibraries.toArray(new String[usedLibraries.size()]);
+	}
+
+//	void injectImports() {
+//		for (String usedLibrary : usedLibraries) {
+//			writeln("import library " + usedLibrary + ";");
+//		}
+//		if (usedLibraries.size() > 0) {
+//			writeln("");
+//		}
+//	}
 
 	public String getOperationName(EOperation eOperation) {
 		if (operationsMap.containsKey(eOperation)) {

@@ -38,7 +38,11 @@ public class MigrationException extends Exception {
 		UNSUPPORTED_COLLECTION_EXPRESSION_TRACE("Unsupported collection expression trace"),
 		UNSUPPORTED_COLLECTION_EXPRESSION("Unsupported collection expression"),
 		UNSUPPORTED_TYPE_SELECT_EXPRESSION_TRACE("Unsupported type select expression trace"),
-		UNSUPPORTED_TYPE_SELECT_EXPRESSION("Unsupported type select expression");
+		UNSUPPORTED_TYPE_SELECT_EXPRESSION("Unsupported type select expression"),
+		
+		UNSUPPORTED_ASPECT("Unsupported aspect migration"), 
+		UNSUPPORTED_XPAND_RESOURCE("Unsupported xpand resource"), 
+		UNABLE_TO_APPLY_EDIT("Unable to apply edit");
 
 		private String name;
 

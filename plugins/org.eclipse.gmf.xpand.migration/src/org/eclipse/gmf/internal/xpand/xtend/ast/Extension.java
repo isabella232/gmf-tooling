@@ -51,9 +51,9 @@ public abstract class Extension extends SyntaxElement /*implements Parameterized
 
     private List<EClassifier> resolvedParameterTypes = null;
 
-    public Extension(final int start, final int end, final int line, final Identifier name,
+    public Extension(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier name,
             final Identifier returnType, final List<DeclaredParameter> formalParameters, final boolean cached, final boolean isPrivate) {
-        super(start, end, line);
+        super(start, end, line, startOffset, endOffset);
         this.name = name;
         this.formalParameters = formalParameters;
         this.returnType = returnType;

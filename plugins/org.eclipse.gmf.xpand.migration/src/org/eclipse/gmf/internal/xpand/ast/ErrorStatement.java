@@ -28,8 +28,8 @@ public class ErrorStatement extends Statement {
 
     private final Expression message;
 
-    public ErrorStatement(final int start, final int end, final int line, final Expression msg) {
-        super(start, end, line);
+    public ErrorStatement(final int start, final int end, final int line, final int startOffset, final int endOffset, final Expression msg) {
+        super(start, end, line, startOffset, endOffset);
         message = msg;
     }
 

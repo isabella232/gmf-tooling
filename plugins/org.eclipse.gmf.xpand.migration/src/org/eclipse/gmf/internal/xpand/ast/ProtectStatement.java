@@ -38,9 +38,9 @@ public class ProtectStatement extends Statement {
 
     private final boolean disable;
 
-    public ProtectStatement(final int start, final int end, final int line, final Expression commentStart,
+    public ProtectStatement(final int start, final int end, final int line, final int startOffset, final int endOffset, final Expression commentStart,
             final Expression commentEnd, final Statement[] body, final Expression id, final boolean disable) {
-        super(start, end, line);
+        super(start, end, line, startOffset, endOffset);
         this.commentStart = commentStart;
         this.commentEnd = commentEnd;
         this.body = body;

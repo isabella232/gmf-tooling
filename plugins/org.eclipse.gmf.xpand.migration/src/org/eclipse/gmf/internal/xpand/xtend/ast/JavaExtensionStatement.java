@@ -41,9 +41,9 @@ public class JavaExtensionStatement extends Extension {
 
 	protected final Identifier instanceSlot;
 
-	public JavaExtensionStatement(final int start, final int end, final int line, final Identifier name, final List<DeclaredParameter> formalParameters, final Identifier returnType, final Identifier defaultImplementation, final Identifier javaMethod, final List<Identifier> javaParamTypes,
+	public JavaExtensionStatement(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier name, final List<DeclaredParameter> formalParameters, final Identifier returnType, final Identifier defaultImplementation, final Identifier javaMethod, final List<Identifier> javaParamTypes,
 			final boolean cached, final boolean isPrivate, final Identifier instanceSlot) {
-		super(start, end, line, name, returnType, formalParameters, cached, isPrivate);
+		super(start, end, line, startOffset, endOffset, name, returnType, formalParameters, cached, isPrivate);
 		javaType = defaultImplementation;
 		this.javaMethod = javaMethod;
 		this.javaParamTypes = javaParamTypes;

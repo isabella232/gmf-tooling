@@ -24,9 +24,9 @@ public class DeclaredParameter extends SyntaxElement {
 
     private Identifier name;
 
-    public DeclaredParameter(final int start, final int end, final int line, final Identifier type,
+    public DeclaredParameter(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier type,
             final Identifier name) {
-        super(start, end, line);
+        super(start, end, line, startOffset, endOffset);
         this.type = type;
         this.name = name;
     }

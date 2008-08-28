@@ -73,8 +73,7 @@ public class BundleResourceManager extends ResourceManagerImpl {
 		return new InputStreamReader(is, Charset.forName("ISO-8859-1"));
 	}
 
-	@Override
-	protected Reader[] resolveMultiple(String fullyQualifiedName, String extension) throws IOException {
+	public Reader[] resolveMultiple(String fullyQualifiedName, String extension) throws IOException {
 		final String urlPath = fullyQualifiedName.replaceAll(SyntaxConstants.NS_DELIM, "/") + '.' + extension;
 		ArrayList<Reader> result = new ArrayList<Reader>(paths.length);
 		for (int i = 0; i < paths.length; i++) {

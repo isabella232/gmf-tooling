@@ -27,8 +27,8 @@ import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
  */
 public class IntegerLiteral extends Literal {
 
-    public IntegerLiteral(final int start, final int end, final int line, final String literalValue) {
-        super(start, end, line, literalValue);
+    public IntegerLiteral(final int start, final int end, final int line, final int startOffset, final int endOffset, final String literalValue) {
+        super(start, end, line, startOffset, endOffset, literalValue);
     }
 
     @Override

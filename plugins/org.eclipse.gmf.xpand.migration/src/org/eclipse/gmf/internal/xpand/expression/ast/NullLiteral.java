@@ -26,8 +26,8 @@ import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
  * @author Arno Haase
  */
 public class NullLiteral extends Literal {
-    public NullLiteral(final int start, final int end, final int line) {
-        super(start, end, line, "null");
+    public NullLiteral(final int start, final int end, final int startOffset, final int endOffset, final int line) {
+        super(start, end, line, startOffset, endOffset, "null");
     }
 
     @Override

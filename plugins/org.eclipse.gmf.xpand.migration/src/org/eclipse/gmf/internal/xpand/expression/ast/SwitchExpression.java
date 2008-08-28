@@ -36,9 +36,9 @@ public class SwitchExpression extends Expression {
 
     private List<Case> cases = null;
 
-    public SwitchExpression(final int start, final int end, final int line, final Expression switchExpr,
+    public SwitchExpression(final int start, final int end, final int line, final int startOffset, final int endOffset, final Expression switchExpr,
             final List<Case> cases, final Expression defaultExpr) {
-        super(start, end, line);
+        super(start, end, line, startOffset, endOffset);
         this.switchExpr = switchExpr;
         this.cases = cases;
         this.defaultExpr = defaultExpr;

@@ -25,9 +25,9 @@ import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 public class Definition extends AbstractDefinition implements XpandDefinition {
     private final Identifier name;
 
-    public Definition(final int start, final int end, final int line, final Identifier name, final Identifier type,
+    public Definition(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier name, final Identifier type,
             final DeclaredParameter[] params, final Statement[] body) {
-        super(start, end, line, type, params, body);
+        super(start, end, line, startOffset, endOffset, type, params, body);
         this.name = name;
     }
 

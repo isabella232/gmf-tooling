@@ -53,9 +53,9 @@ public class Template extends SyntaxElement implements XpandResource {
     	qualifiedName = name;
     }
 
-    public Template(final int start, final int end, final int line, final NamespaceImport[] imports,
+    public Template(final int start, final int end, final int line, final int startOffset, final int endOffset, final NamespaceImport[] imports,
             final ImportDeclaration[] extensions, final Definition[] definitions, final Advice[] advices) {
-        super(start, end, line);
+        super(start, end, line, startOffset, endOffset);
         this.imports = imports;
         this.extensions = extensions;
         for (Definition element : definitions) {

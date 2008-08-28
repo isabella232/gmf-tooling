@@ -46,9 +46,9 @@ public class ExpandStatement extends Statement {
 
     private final Identifier definition;
 
-    public ExpandStatement(final int start, final int end, final int line, final Identifier definition,
+    public ExpandStatement(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier definition,
             final Expression target, final Expression separator, final Expression[] parameters, final boolean foreach) {
-        super(start, end, line);
+        super(start, end, line, startOffset, endOffset);
         this.definition = definition;
         this.target = target;
         this.separator = separator;

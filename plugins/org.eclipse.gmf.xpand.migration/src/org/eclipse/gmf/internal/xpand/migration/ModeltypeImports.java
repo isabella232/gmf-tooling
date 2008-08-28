@@ -35,24 +35,26 @@ class ModeltypeImports extends AbstractImportsManager {
 		super(stringBuilder);
 		this.injectUnusedImports = injectUnusedImports;
 	}
+	
+	ModeltypeImports(int placeholder, boolean injectUnusedImports) {
+		super(placeholder);
+		this.injectUnusedImports = injectUnusedImports;
+	}
 
 	void setInjectUnusedImports(boolean injectUnusedImports) {
 		this.injectUnusedImports = injectUnusedImports;
 	}
 
-	void injectImports() {
-		boolean addEmptyLine = false;
+	Map<String, String> getModelTypes() {
+		Map<String, String> result = new LinkedHashMap<String, String>();
 		for (Entry<String, String> entry : nsURI2Aliases.entrySet()) {
 			if (!injectUnusedImports && !usedNsURIs.contains(entry.getKey())) {
 				// Skipping the entry if it was not used
 				continue;
 			}
-			addEmptyLine = true;
-			writeln("modeltype " + entry.getValue() + " uses \"" + entry.getKey() + "\";");
+			result.put(entry.getKey(), entry.getValue());
 		}
-		if (addEmptyLine) {
-			writeln("");
-		}
+		return result;
 	}
 
 	void registerModeltype(String nsURI) {

@@ -40,8 +40,8 @@ public class CollectionExpression extends FeatureCall {
 
 	private String eleName;
 
-	public CollectionExpression(final int end, final Identifier opNAme, final String eleName, final Expression closure, final Expression target) {
-		super(opNAme.getStart(), end, opNAme.getLine(), opNAme, target);
+	public CollectionExpression(final int end, final int endOffset, final Identifier opNAme, final String eleName, final Expression closure, final Expression target) {
+		super(opNAme.getStart(), end, opNAme.getLine(), opNAme.getStartOffset(), endOffset, opNAme, target);
 		this.eleName = eleName;
 		this.closure = closure;
 	}

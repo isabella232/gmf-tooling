@@ -66,31 +66,31 @@ public class ExpressionFactory {
 	}
 
 	public StringLiteral createStringLiteral(final IToken t) {
-		return handle(new StringLiteral(start(t), end(t), line(t), t.toString()));
+		return handle(new StringLiteral(start(t), end(t), line(t), t.getStartOffset(), t.getEndOffset(), t.toString()));
 	}
 
 	public IntegerLiteral createIntegerLiteral(final IToken t) {
-		return handle(new IntegerLiteral(start(t), end(t), line(t), t.toString()));
+		return handle(new IntegerLiteral(start(t), end(t), line(t), t.getStartOffset(), t.getEndOffset(), t.toString()));
 	}
 
 	public BooleanLiteral createBooleanLiteral(final IToken t) {
-		return handle(new BooleanLiteral(start(t), end(t), line(t), t.toString()));
+		return handle(new BooleanLiteral(start(t), end(t), line(t), t.getStartOffset(), t.getEndOffset(), t.toString()));
 	}
 
 	public NullLiteral createNullLiteral(final IToken t) {
-		return handle(new NullLiteral(start(t), end(t), line(t)));
+		return handle(new NullLiteral(start(t), end(t), line(t), t.getStartOffset(), t.getEndOffset()));
 	}
 
 	public ListLiteral createListLiteral(final IToken start, final IToken end, final List<Expression> paramExpr) {
-		return handle(new ListLiteral(start(start), end(end), line(start), paramExpr.toArray(new Expression[paramExpr.size()])));
+		return handle(new ListLiteral(start(start), end(end), line(start), start.getStartOffset(), end.getEndOffset(), paramExpr.toArray(new Expression[paramExpr.size()])));
 	}
 
 	public FeatureCall createFeatureCall(final Identifier name, final Expression target) {
-		return handle(new FeatureCall(name.getStart(), name.getEnd(), name.getLine(), name, target));
+		return handle(new FeatureCall(name.getStart(), name.getEnd(), name.getLine(), name.getStartOffset(), name.getEndOffset(), name, target));
 	}
 
 	public Identifier createIdentifier(IToken name) {
-		return new Identifier(start(name), end(name), line(name), name.toString());
+		return new Identifier(start(name), end(name), line(name), name.getStartOffset(), name.getEndOffset(), name.toString());
 	}
 
 	public OperationCall createOperationCall(final IToken endToken, final IToken name, final Expression target, final List<Expression> parameterExpressions) {
@@ -98,32 +98,32 @@ public class ExpressionFactory {
 		final int line = line(name);
 		final int end = end(endToken);
 		final Expression[] params = parameterExpressions.toArray(new Expression[parameterExpressions.size()]);
-		return handle(new OperationCall(start, end, line, createIdentifier(name), target, params));
+		return handle(new OperationCall(start, end, line, name.getStartOffset(), endToken.getEndOffset(), createIdentifier(name), target, params));
 	}
 
 	// XXX
-	public OperationCall createOperationCall(final int start, final int end, final int line, final IToken name, final Expression target, final List<Expression> parameterExpressions) {
+	public OperationCall createOperationCall(final int start, final int end, final int line, final int startOffset, final int endOffset, final IToken name, final Expression target, final List<Expression> parameterExpressions) {
 		final Expression[] params = parameterExpressions.toArray(new Expression[parameterExpressions.size()]);
-		return handle(new OperationCall(start, end, line, createIdentifier(name), target, params));
+		return handle(new OperationCall(start, end, line, startOffset, endOffset, createIdentifier(name), target, params));
 	}
 
 	public IfExpression createIf(final Expression cond, final Expression then, final Expression elseExpr) {
 		final int start = cond.getStart();
 		final int line = cond.getLine();
 		final int end = elseExpr.getEnd();
-		return handle(new IfExpression(start, end, line, cond, then, elseExpr));
+		return handle(new IfExpression(start, end, line, cond.getStartOffset(), elseExpr.getEndOffset(),  cond, then, elseExpr));
 	}
 
 	public CollectionExpression createCollectionExpression(final IToken opName, final IToken endToken, final IToken elementName, final Expression closure, final Expression target) {
-		return handle(new CollectionExpression(end(endToken), createIdentifier(opName), elementName == null ? null : elementName.toString(), closure, target));
+		return handle(new CollectionExpression(end(endToken), endToken.getEndOffset(), createIdentifier(opName), elementName == null ? null : elementName.toString(), closure, target));
 	}
 
 	public DeclaredParameter createDeclaredParameter(final Identifier type, final Identifier name) {
-		return handle(new DeclaredParameter(type.getStart(), name.getEnd(), type.getLine(), type, name));
+		return handle(new DeclaredParameter(type.getStart(), name.getEnd(), type.getLine(), type.getStartOffset(), name.getEndOffset(), type, name));
 	}
 
 	public Expression createCast(final IToken start, final Identifier t, final Expression e) {
-		return handle(new Cast(start(start), e.getEnd(), line(start), t, e));
+		return handle(new Cast(start(start), e.getEnd(), line(start), start.getStartOffset(), e.getEndOffset(), t, e));
 	}
 
 	protected <T extends SyntaxElement> T handle(final T expr) {
@@ -132,34 +132,34 @@ public class ExpressionFactory {
 	}
 
 	public Case createCase(final IToken start, final Expression cond, final Expression then) {
-		return handle(new Case(start(start), then.getEnd(), line(start), cond, then));
+		return handle(new Case(start(start), then.getEnd(), line(start), start.getStartOffset(), then.getEndOffset(), cond, then));
 	}
 
 	public SwitchExpression createSwitchExpression(final IToken start, final IToken end, final Expression switchExpr, final List<Case> cases, final Expression defaultExpr) {
-		return handle(new SwitchExpression(start(start), end(end), line(start), switchExpr, cases, defaultExpr));
+		return handle(new SwitchExpression(start(start), end(end), line(start), start.getStartOffset(), end.getEndOffset(), switchExpr, cases, defaultExpr));
 	}
 
 	public ChainExpression createChainExpression(final Expression head, final Expression next) {
-		return handle(new ChainExpression(head.getStart(), next.getEnd(), head.getLine(), head, next));
+		return handle(new ChainExpression(head.getStart(), next.getEnd(), head.getLine(), head.getStartOffset(), next.getEndOffset(), head, next));
 	}
 
 	public RealLiteral createRealLiteral(final IToken token) {
-		return handle(new RealLiteral(start(token), end(token), line(token), token.toString()));
+		return handle(new RealLiteral(start(token), end(token), line(token), token.getStartOffset(), token.getEndOffset(), token.toString()));
 	}
 
 	public FeatureCall createTypeSelectExpression(final IToken id, final IToken c1, final Identifier ident, final Expression e) {
-		return handle(new TypeSelectExpression(end(c1), createIdentifier(id), ident, e));
+		return handle(new TypeSelectExpression(end(c1), c1.getEndOffset(), createIdentifier(id), ident, e));
 	}
 
-	public BooleanOperation createBooleanOperation(final int start, final int end, final int line, final IToken name, final Expression e, final Expression r) {
-		return handle(new BooleanOperation(start, end, line, name.toString(), e, r));
+	public BooleanOperation createBooleanOperation(final int start, final int end, final int line, final int startOffset, final int endOffest, final IToken name, final Expression e, final Expression r) {
+		return handle(new BooleanOperation(start, end, line, startOffset, endOffest, name.toString(), e, r));
 	}
 
 	public LetExpression createLetExpression(final IToken start, final IToken v, final Expression varExpr, final Expression target) {
-		return handle(new LetExpression(start(start), target.getEnd(), line(start), createIdentifier(v), varExpr, target));
+		return handle(new LetExpression(start(start), target.getEnd(), line(start), start.getStartOffset(), target.getEndOffset(), createIdentifier(v), varExpr, target));
 	}
 
 	public Expression createConstructorCall(final IToken s, final Identifier type) {
-		return handle(new ConstructorCallExpression(start(s), type.getEnd(), line(s), type));
+		return handle(new ConstructorCallExpression(start(s), type.getEnd(), line(s), s.getStartOffset(), type.getEndOffset(), type));
 	}
 }

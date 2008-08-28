@@ -100,8 +100,7 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 		// implement when caching
 	}
 
-	@Override
-	protected Reader[] resolveMultiple(String fqn, String ext) throws IOException {
+	public Reader[] resolveMultiple(String fqn, String ext) throws IOException {
 		IPath fp = new Path(fqn.replaceAll(SyntaxConstants.NS_DELIM, "/")).addFileExtension(ext);
 		IPath[] resolutions = getResolutions(fp);
 		ArrayList<Reader> result = new ArrayList<Reader>(resolutions.length);

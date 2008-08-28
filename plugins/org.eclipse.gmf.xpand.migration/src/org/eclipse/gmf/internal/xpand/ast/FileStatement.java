@@ -36,9 +36,9 @@ public class FileStatement extends Statement {
 
     private final Identifier mode;
 
-    public FileStatement(final int start, final int end, final int line, final Expression fileName,
+    public FileStatement(final int start, final int end, final int line, final int startOffset, final int endOffset, final Expression fileName,
             final Statement[] body, final Identifier mode) {
-        super(start, end, line);
+        super(start, end, line, startOffset, endOffset);
         this.fileName = fileName;
         this.body = body;
         this.mode = mode;

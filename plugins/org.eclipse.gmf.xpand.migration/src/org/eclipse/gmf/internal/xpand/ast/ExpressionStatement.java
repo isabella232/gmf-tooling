@@ -27,8 +27,8 @@ public class ExpressionStatement extends org.eclipse.gmf.internal.xpand.ast.Stat
 
     private final Expression expression;
 
-    public ExpressionStatement(final int start, final int end, final int line, final Expression expression) {
-        super(start, end, line);
+    public ExpressionStatement(final int start, final int end, final int line, final int startOffset, final int endOffset, final Expression expression) {
+        super(start, end, line, startOffset, endOffset);
         this.expression = expression;
     }
 

@@ -13,25 +13,18 @@ package org.eclipse.gmf.internal.xpand.migration;
 
 public abstract class AbstractImportsManager {
 
-	private StringBuilder stringBuilder;
-
-	private int placeHolderIndex;
+	private int placeholderIndex;
 
 	AbstractImportsManager(StringBuilder stringBuilder) {
-		this.stringBuilder = stringBuilder;
-		placeHolderIndex = stringBuilder.length();
+		this(stringBuilder.length());
 	}
 
-	abstract void injectImports();
+	AbstractImportsManager(int placeholder) {
+		placeholderIndex = placeholder;
+	}
 
-	/**
-	 * This method should be used from injectImports()
-	 */
-	protected void writeln(String line) {
-		stringBuilder.insert(placeHolderIndex, line);
-		placeHolderIndex += line.length();
-		stringBuilder.insert(placeHolderIndex, ExpressionMigrationFacade.LF);
-		placeHolderIndex += ExpressionMigrationFacade.LF.length();
+	public int getPlaceholderIndex() {
+		return placeholderIndex;
 	}
 
 }

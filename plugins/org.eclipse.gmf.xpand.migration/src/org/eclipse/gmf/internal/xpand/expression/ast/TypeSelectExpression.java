@@ -36,9 +36,9 @@ public class TypeSelectExpression extends FeatureCall {
 
     private Identifier typeLiteral;
 
-    public TypeSelectExpression(final int end, final Identifier opName, final Identifier typeLiteral,
+    public TypeSelectExpression(final int end, final int endOffset, final Identifier opName, final Identifier typeLiteral,
             final Expression target) {
-        super(opName.getStart(), end, opName.getLine(), opName, target);
+        super(opName.getStart(), end, opName.getLine(), opName.getStartOffset(), endOffset, opName, target);
         this.typeLiteral = typeLiteral;
     }
 

@@ -26,8 +26,8 @@ import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 
 public abstract class Expression extends SyntaxElement implements Analyzable, Evaluatable {
 
-    public Expression(final int start, final int end, final int line) {
-        super(start, end, line);
+    public Expression(final int start, final int end, final int line, final int startOffset, final int endOffset) {
+        super(start, end, line, startOffset, endOffset);
     }
 
     protected EClassifier findType(final Identifier type, final ExecutionContext ctx, final Set<AnalysationIssue> issues) {

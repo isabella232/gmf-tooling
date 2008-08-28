@@ -35,8 +35,8 @@ public class LetStatement extends Statement {
 
 	private final Statement[] body;
 
-	public LetStatement(final int start, final int end, final int line, final Identifier varName, final Expression value, final Statement[] body) {
-		super(start, end, line);
+	public LetStatement(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier varName, final Expression value, final Statement[] body) {
+		super(start, end, line, startOffset, endOffset);
 		this.varName = varName;
 		this.varValue = value;
 		this.body = body;

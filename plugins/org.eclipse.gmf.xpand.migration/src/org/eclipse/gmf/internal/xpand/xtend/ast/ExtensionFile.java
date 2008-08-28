@@ -33,9 +33,9 @@ public class ExtensionFile extends SyntaxElement implements XtendResource {
     private final List<Extension> extensions;
 
     @SuppressWarnings("unchecked")
-	public ExtensionFile(final int start, final int end, final int line, final List<? extends SyntaxElement> nsImports, final List<? extends SyntaxElement> extImports,
+	public ExtensionFile(final int start, final int end, final int line, final int startOffset, final int endOffset, final List<? extends SyntaxElement> nsImports, final List<? extends SyntaxElement> extImports,
             final List<? extends SyntaxElement> extensions) {
-        super(start, end, line);
+        super(start, end, line, startOffset, endOffset);
         this.nsImports = (List<ImportStatement>) nsImports;
         this.extImports = (List<ImportStatement>) extImports;
         this.extensions = (List<Extension>) extensions;

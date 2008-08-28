@@ -55,7 +55,7 @@ public class XpandFactory extends ExpressionFactory {
 
 		final Definition[] d = defines.toArray(new Definition[defines.size()]);
 		final Advice[] a = advices.toArray(new Advice[advices.size()]);
-		final Template t = new Template(0, end(eof), 0, i, ext, d, a);
+		final Template t = new Template(0, end(eof), 0, 0, eof.getEndOffset(), i, ext, d, a);
 		return handle(t);
 	}
 
@@ -66,7 +66,7 @@ public class XpandFactory extends ExpressionFactory {
 		final Identifier name = createIdentifier(n);
 		final DeclaredParameter[] params = p.toArray(new DeclaredParameter[p.size()]);
 		final Statement[] body = s.toArray(new Statement[s.size()]);
-		return handle(new Definition(start, end, line, name, type, params, body));
+		return handle(new Definition(start, end, line, startToken.getStartOffset(), endToken.getEndOffset(), name, type, params, body));
 	}
 
 	public TextStatement createTextStatement(final IToken t, final IToken m) {
@@ -76,69 +76,69 @@ public class XpandFactory extends ExpressionFactory {
 		} else {
 			text = "";
 		}
-		return handle(new TextStatement(start(m != null ? m : t), end(t), line(m != null ? m : t), text, m != null));
+		return handle(new TextStatement(start(m != null ? m : t), end(t), line(m != null ? m : t), (m != null ? m : t).getStartOffset(), t.getEndOffset(), text, m != null));
 	}
 
 	public ForEachStatement createForEachStatement(final IToken start, final IToken end, final Expression e, final IToken v, final Expression sep, final IToken iter, final List<SyntaxElement> s) {
 		final Statement[] body = s.toArray(new Statement[s.size()]);
-		return handle(new ForEachStatement(start(start), end(end), line(start), createIdentifier(v), e, body, sep, iter != null ? createIdentifier(iter) : null));
+		return handle(new ForEachStatement(start(start), end(end), line(start), start.getStartOffset(), end.getEndOffset(), createIdentifier(v), e, body, sep, iter != null ? createIdentifier(iter) : null));
 	}
 
 	public IfStatement createIfStatement(final IToken start, final Expression condition, final List<SyntaxElement> statements, final IfStatement elseIf) {
 		final Statement[] body = statements.toArray(new Statement[statements.size()]);
 		final int end = body[body.length - 1].getEnd();
-		return handle(new IfStatement(start(start), end, line(start), condition, body, elseIf));
+		return handle(new IfStatement(start(start), end, line(start), start.getStartOffset(), body[body.length - 1].getEndOffset(), condition, body, elseIf));
 	}
 
 	public LetStatement createLetStatement(final IToken start, final IToken end, final Expression e, final IToken name, final List<SyntaxElement> statements) {
 		final Statement[] body = statements.toArray(new Statement[statements.size()]);
-		return handle(new LetStatement(start(start), end(end), line(start), createIdentifier(name), e, body));
+		return handle(new LetStatement(start(start), end(end), line(start), start.getStartOffset(), end.getEndOffset(), createIdentifier(name), e, body));
 	}
 
 	public ErrorStatement createErrorStatement(final IToken start, final Expression expr) {
-		return handle(new ErrorStatement(start(start), expr.getEnd(), line(start), expr));
+		return handle(new ErrorStatement(start(start), expr.getEnd(), line(start), start.getStartOffset(), expr.getEndOffset(), expr));
 	}
 
 	public ExpressionStatement createExpressionStatement(final Expression e) {
-		return handle(new ExpressionStatement(e.getStart(), e.getEnd(), e.getLine(), e));
+		return handle(new ExpressionStatement(e.getStart(), e.getEnd(), e.getLine(), e.getStartOffset(), e.getEndOffset(), e));
 	}
 
 	public FileStatement createFileStatement(final IToken start, final IToken end, final Expression fileName, final Identifier option, final List<SyntaxElement> statements) {
 		final Statement[] body = statements.toArray(new Statement[statements.size()]);
-		return handle(new FileStatement(start(start), end(end), line(start), fileName, body, option));
+		return handle(new FileStatement(start(start), end(end), line(start), start.getStartOffset(), end.getEndOffset(), fileName, body, option));
 	}
 
 	// FIXME disabled as token - no reason, just true/false 
 	public ProtectStatement createProtectStatement(final IToken start, final IToken end, final Expression startC, final Expression endC, final Expression id, final IToken disabled, final List<SyntaxElement> statements) {
 		final Statement[] body = statements.toArray(new Statement[statements.size()]);
-		return handle(new ProtectStatement(start(start), end(end), line(start), startC, endC, body, id, disabled != null));
+		return handle(new ProtectStatement(start(start), end(end), line(start), start.getStartOffset(), end.getEndOffset(), startC, endC, body, id, disabled != null));
 	}
 
 	public ExpandStatement createExpandStatement(final IToken start, final Identifier definition, final List<Expression> parameters, final Expression target, final boolean foreach, final Expression sep) {
 		final Expression[] params = parameters.toArray(new Expression[parameters.size()]);
-		int end = definition.getEnd();
+		SyntaxElement endElement = definition;
 		if (sep != null) {
-			end = sep.getEnd();
+			endElement = sep;
 		} else if (target != null) {
-			end = target.getEnd();
+			endElement = target;
 		} else if (params.length > 0) {
-			end = params[params.length - 1].getEnd();
+			endElement = params[params.length - 1];
 		}
-		return handle(new ExpandStatement(start(start), end, line(start), definition, target, sep, params, foreach));
+		return handle(new ExpandStatement(start(start), endElement.getEnd(), line(start), start.getStartOffset(), endElement.getEndOffset(), definition, target, sep, params, foreach));
 	}
 
 	public NamespaceImport createNamespaceImport(IToken start, StringLiteral namespace) {
-		return handle(new NamespaceImport(start(start), namespace.getEnd(), line(start), namespace));
+		return handle(new NamespaceImport(start(start), namespace.getEnd(), line(start), start.getStartOffset(), namespace.getEndOffset(), namespace));
 	}
 
 	public ImportDeclaration createImportDeclaration(final IToken start, final Identifier namespace) {
-		return handle(new ImportDeclaration(start(start), namespace.getEnd(), line(start), namespace));
+		return handle(new ImportDeclaration(start(start), namespace.getEnd(), line(start), start.getStartOffset(), namespace.getEndOffset(), namespace));
 	}
 
 	public Advice createAround(final IToken start, final IToken end, final Identifier n, final List<SyntaxElement> p, final boolean wildparams, final Identifier t, final List<SyntaxElement> s) {
 		final DeclaredParameter[] params = p.toArray(new DeclaredParameter[p.size()]);
 		final Statement[] body = s.toArray(new Statement[s.size()]);
-		final Advice a = new Advice(start(start), end(end), line(start), n, t, params, wildparams, body);
+		final Advice a = new Advice(start(start), end(end), line(start), start.getStartOffset(), end.getEndOffset(), n, t, params, wildparams, body);
 		return handle(a);
 	}
 

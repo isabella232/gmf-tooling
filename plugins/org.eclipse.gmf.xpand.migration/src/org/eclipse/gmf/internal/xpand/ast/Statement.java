@@ -19,8 +19,8 @@ import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 
 public abstract class Statement extends SyntaxElement implements XpandAnalyzable, XpandEvaluatable {
-    public Statement(final int start, final int end, final int line) {
-        super(start, end, line);
+    public Statement(final int start, final int end, final int line, final int startOffset, final int endOffset) {
+        super(start, end, line, startOffset, endOffset);
     }
 
     public final void evaluate(final XpandExecutionContext ctx) {

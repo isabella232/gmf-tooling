@@ -261,7 +261,7 @@ public class ExpressionParser extends PrsStream implements RuleAction {
                 
 		Expression e = (Expression) getRhsSym(1);
 		Expression r = (Expression) getRhsSym(3);
-		setResult(factory.createBooleanOperation(e.getStart(),r.getEnd(),e.getLine(),getRhsIToken(2),e,r));
+		setResult(factory.createBooleanOperation(e.getStart(),r.getEnd(),e.getLine(),e.getStartOffset(),e.getEndOffset(),getRhsIToken(2),e,r));
 	          break;
             } 
             //
@@ -271,7 +271,7 @@ public class ExpressionParser extends PrsStream implements RuleAction {
                 
 		Expression e = (Expression) getRhsSym(1);
 		Expression r = (Expression) getRhsSym(3);
-		setResult(factory.createBooleanOperation(e.getStart(),r.getEnd(),e.getLine(),getRhsIToken(2),e,r));
+		setResult(factory.createBooleanOperation(e.getStart(),r.getEnd(),e.getLine(),e.getStartOffset(),e.getEndOffset(),getRhsIToken(2),e,r));
 	          break;
             } 
             //
@@ -281,7 +281,7 @@ public class ExpressionParser extends PrsStream implements RuleAction {
                 
 		Expression e = (Expression) getRhsSym(1);
 		Expression r = (Expression) getRhsSym(3);
-		setResult(factory.createBooleanOperation(e.getStart(),r.getEnd(),e.getLine(),getRhsIToken(2),e,r));
+		setResult(factory.createBooleanOperation(e.getStart(),r.getEnd(),e.getLine(),e.getStartOffset(),e.getEndOffset(),getRhsIToken(2),e,r));
 	          break;
             } 
             //
@@ -292,7 +292,7 @@ public class ExpressionParser extends PrsStream implements RuleAction {
 		Expression e = (Expression) getRhsSym(1);
 		IToken t = (IToken) getRhsSym(2);
 		Expression r = (Expression) getRhsSym(3);
-		setResult(factory.createOperationCall(e.getStart(),r.getEnd(),e.getLine(),t,e,Collections.singletonList(r)));
+		setResult(factory.createOperationCall(e.getStart(),r.getEnd(),e.getLine(),e.getStartOffset(),r.getEndOffset(),t,e,Collections.singletonList(r)));
 	          break;
             } 
             //
@@ -351,7 +351,7 @@ public class ExpressionParser extends PrsStream implements RuleAction {
 		Expression e = (Expression) getRhsSym(1);
 		IToken t = (IToken) getRhsSym(2);
 		Expression r = (Expression) getRhsSym(3);
-		setResult(factory.createOperationCall(e.getStart(),r.getEnd(),e.getLine(),t,e,Collections.singletonList(r)));
+		setResult(factory.createOperationCall(e.getStart(),r.getEnd(),e.getLine(),e.getStartOffset(),r.getEndOffset(),t,e,Collections.singletonList(r)));
 	          break;
             } 
             //
@@ -378,7 +378,7 @@ public class ExpressionParser extends PrsStream implements RuleAction {
 		Expression e = (Expression) getRhsSym(1);
 		IToken t = (IToken) getRhsSym(2);
 		Expression r = (Expression) getRhsSym(3);
-		setResult(factory.createOperationCall(e.getStart(),r.getEnd(),e.getLine(),t,e,Collections.singletonList(r)));
+		setResult(factory.createOperationCall(e.getStart(),r.getEnd(),e.getLine(),e.getStartOffset(),r.getEndOffset(),t,e,Collections.singletonList(r)));
 	          break;
             } 
             //
@@ -403,7 +403,7 @@ public class ExpressionParser extends PrsStream implements RuleAction {
             case 37: {
                 
 		Expression e = (Expression) getRhsSym(2);
-		setResult(factory.createOperationCall(getLeftIToken().getColumn(),e.getEnd(),getLeftIToken().getLine(),getLeftIToken(),e,Collections.EMPTY_LIST));
+		setResult(factory.createOperationCall(getLeftIToken().getColumn(),e.getEnd(),getLeftIToken().getLine(),getLeftIToken().getStartOffset(),e.getEndOffset(),getLeftIToken(),e,Collections.EMPTY_LIST));
 	          break;
             } 
             //
@@ -412,7 +412,7 @@ public class ExpressionParser extends PrsStream implements RuleAction {
             case 38: {
                 
 		Expression e = (Expression) getRhsSym(2);
-		setResult(factory.createOperationCall(getLeftIToken().getColumn(),e.getEnd(),getLeftIToken().getLine(),getLeftIToken(),e,Collections.EMPTY_LIST));
+		setResult(factory.createOperationCall(getLeftIToken().getColumn(),e.getEnd(),getLeftIToken().getLine(),getLeftIToken().getStartOffset(),e.getEndOffset(),getLeftIToken(),e,Collections.EMPTY_LIST));
 	          break;
             } 
             //

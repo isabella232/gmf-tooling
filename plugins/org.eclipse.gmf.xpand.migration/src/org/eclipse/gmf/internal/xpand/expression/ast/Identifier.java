@@ -21,13 +21,13 @@ package org.eclipse.gmf.internal.xpand.expression.ast;
 public class Identifier extends SyntaxElement {
     private final String value;
 
-    public Identifier(final int start, final int end, final int line, final String value) {
-        super(start, end, line);
+    public Identifier(final int start, final int end, final int line, final int startOffset, final int endOffset, final String value) {
+        super(start, end, line, startOffset, endOffset);
         this.value = value;
     }
 
     public Identifier append(final Identifier t) {
-    	return new Identifier(this.start, t.end, this.line, value + t.value);
+    	return new Identifier(this.start, t.end, this.line, this.startOffset, t.endOffset, value + t.value);
     }
 
     public String getValue() {
@@ -38,4 +38,5 @@ public class Identifier extends SyntaxElement {
     public String toString() {
         return value;
     }
+
 }

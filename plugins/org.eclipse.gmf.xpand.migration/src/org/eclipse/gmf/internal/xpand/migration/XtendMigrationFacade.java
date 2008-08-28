@@ -14,7 +14,7 @@ package org.eclipse.gmf.internal.xpand.migration;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.Stack;
+import java.util.Map.Entry;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
@@ -43,9 +43,9 @@ public class XtendMigrationFacade {
 
 	private MigrationExecutionContext rootExecutionContext;
 
-	private Stack<AbstractImportsManager> importsManagers = new Stack<AbstractImportsManager>();
-
 	private TypeManager typeManager;
+
+	private ModeltypeImports modeltypeImportsManger;
 
 	private static String getLastSegment(String string, String separator) {
 		int delimeterIndex = string.lastIndexOf(separator);
@@ -88,15 +88,14 @@ public class XtendMigrationFacade {
 			throw new MigrationException(Type.INCORRECT_RESOURCE_NAME, resourceName);
 		}
 
-		importsManagers.push(stdLibImportsManager = new StandardLibraryImports(output));
+		stdLibImportsManager = new StandardLibraryImports(output);
 		addLibraryImports(xtendResource, false);
 		if (xtendResource.getImportedExtensions().length > 0) {
 			writeln("");
 		}
 
 		
-		ModeltypeImports modeltypeImportsManger = new ModeltypeImports(output, injectUnusedImports);
-		importsManagers.push(modeltypeImportsManger);
+		modeltypeImportsManger = new ModeltypeImports(output, injectUnusedImports);
 		for (String namespace : xtendResource.getImportedNamespaces()) {
 			modeltypeImportsManger.registerModeltype(namespace);
 		}
@@ -112,10 +111,39 @@ public class XtendMigrationFacade {
 				writeln("");
 			}
 		}
-		while (!importsManagers.isEmpty()) {
-			importsManagers.pop().injectImports();
-		}
+		injectModeltypeImports();
+		injectStdlibImports();
 		return output;
+	}
+
+	private void injectStdlibImports() {
+		StringBuilder sb = new StringBuilder();
+		for (String libraryName : stdLibImportsManager.getLibraries()) {
+			sb.append("import library ");
+			sb.append(libraryName);
+			sb.append(";");
+			sb.append(ExpressionMigrationFacade.LF);
+		}
+		if (sb.length() > 0) {
+			sb.append(ExpressionMigrationFacade.LF);
+			write(sb, stdLibImportsManager.getPlaceholderIndex());
+		}
+	}
+
+	private void injectModeltypeImports() {
+		StringBuilder sb = new StringBuilder();
+		for (Entry<String, String> entry : modeltypeImportsManger.getModelTypes().entrySet()) {
+			sb.append("modeltype ");
+			sb.append(entry.getValue());
+			sb.append(" uses \"");
+			sb.append(entry.getKey());
+			sb.append("\";");
+			sb.append(ExpressionMigrationFacade.LF);
+		}
+		if (sb.length() > 0) {
+			sb.append(ExpressionMigrationFacade.LF);
+			write(sb, modeltypeImportsManger.getPlaceholderIndex());
+		}
 	}
 
 	private void addLibraryImports(XtendResource xtendResource, boolean reexportedOnly) throws MigrationException {
@@ -189,7 +217,7 @@ public class XtendMigrationFacade {
 		write("\t");
 		ExpressionMigrationFacade expressionMigrationFacade = new ExpressionMigrationFacade(extension.getExpression(), typeManager, stdLibImportsManager, new VariableNameDispatcher(extension), ctx);
 		StringBuilder expressionContent = expressionMigrationFacade.migrate();
-		writeln(expressionContent.insert(expressionMigrationFacade.getReturnPosition(), "return ").toString());
+		writeln(expressionContent.insert(expressionMigrationFacade.getReturnPosition(), "return "));
 	}
 
 	// TODO: java should be migrated separately from library - java class should
@@ -206,11 +234,15 @@ public class XtendMigrationFacade {
 		throw new MigrationException(Type.UNSUPPORTED_EXTENSION, extension.getClass().getName());
 	}
 
-	private void write(String word) {
-		output.append(word);
+	private void write(CharSequence cs, int index) {
+		output.insert(index, cs);
+	}
+	
+	private void write(CharSequence cs) {
+		output.append(cs);
 	}
 
-	private void writeln(String line) {
+	private void writeln(CharSequence line) {
 		output.append(line);
 		output.append(ExpressionMigrationFacade.LF);
 	}

@@ -14,6 +14,7 @@ package org.eclipse.gmf.internal.xpand.migration;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.gmf.internal.xpand.ast.AbstractDefinition;
 import org.eclipse.gmf.internal.xpand.expression.ast.BooleanOperation;
 import org.eclipse.gmf.internal.xpand.expression.ast.Case;
 import org.eclipse.gmf.internal.xpand.expression.ast.Cast;
@@ -41,6 +42,10 @@ public class VariableNameDispatcher {
 	public VariableNameDispatcher(Extension extension) {
 		definedVariables = new HashSet<String>();
 		initDefinedVariables(extension);
+	}
+
+	public VariableNameDispatcher(AbstractDefinition definition) {
+		// TODO Auto-generated constructor stub
 	}
 
 	private void initDefinedVariables(Extension extension) {

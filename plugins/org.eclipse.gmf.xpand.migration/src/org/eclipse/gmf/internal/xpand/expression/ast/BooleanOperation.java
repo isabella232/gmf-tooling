@@ -35,8 +35,8 @@ public class BooleanOperation extends Expression {
 
 	private Expression right;
 
-	public BooleanOperation(final int start, final int end, final int line, final String operator, final Expression e, final Expression r) {
-		super(start, end, line);
+	public BooleanOperation(final int start, final int end, final int line, final int startOffset, final int endOffset, final String operator, final Expression e, final Expression r) {
+		super(start, end, line, startOffset, endOffset);
 		assert operator != null;
 		this.operator = operator;
 		left = e;

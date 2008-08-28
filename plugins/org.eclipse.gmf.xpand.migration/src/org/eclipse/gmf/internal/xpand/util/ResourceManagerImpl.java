@@ -137,15 +137,6 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	protected abstract void handleParserException(ParserException ex);
 
 	/**
-	 * Returns an array of resolutions, in the order from newest to oldest. 
-	 * This is to enable one template to partially override only a subset of parent templates.
-	 *  
-	 * @return never return <code>null</code> or an empty array, throw exception instead
-	 * @throws IOException in case resource can't be read. Throw {@link java.io.FileNotFoundException} to indicate resource was not found. 
-	 */
-	protected abstract Reader[] resolveMultiple(String fullyQualifiedName, String extension) throws IOException;
-
-	/**
 	 * Readers get closed after parse attempt. 
 	 */
 	protected XtendResource[] loadXtendResources(Reader[] readers, String fullyQualifiedName) throws IOException, ParserException {

@@ -35,9 +35,9 @@ public class IfStatement extends Statement {
 
     private IfStatement elseIf;
 
-    public IfStatement(final int start, final int end, final int line, final Expression condition,
+    public IfStatement(final int start, final int end, final int line, final int startOffset, final int endOffset, final Expression condition,
             final Statement[] thenPart, final IfStatement elseIf) {
-        super(start, end, line);
+        super(start, end, line, startOffset, endOffset);
         this.condition = condition;
         this.thenPart = thenPart;
         this.elseIf = elseIf;

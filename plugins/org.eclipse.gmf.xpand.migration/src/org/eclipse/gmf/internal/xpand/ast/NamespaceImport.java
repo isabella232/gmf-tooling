@@ -13,14 +13,20 @@ import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 
 public class NamespaceImport extends SyntaxElement {
 	private final String importString;
+	private StringLiteral stringLiteral;
 
-	public NamespaceImport(int start, int end, int line, StringLiteral importString) {
-		super(start, end, line);
+	public NamespaceImport(int start, int end, int line, final int startOffset, final int endOffset, StringLiteral importString) {
+		super(start, end, line, startOffset, endOffset);
 		this.importString = importString.getValue();
+		this.stringLiteral = importString;
 	}
 
 	public String getImportString() {
 		return importString;
+	}
+	
+	public StringLiteral getStringLiteral() {
+		return stringLiteral;
 	}
 
 }

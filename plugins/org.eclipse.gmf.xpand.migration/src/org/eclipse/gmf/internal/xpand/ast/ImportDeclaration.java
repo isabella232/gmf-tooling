@@ -24,12 +24,13 @@ public class ImportDeclaration extends SyntaxElement {
 
     private final Identifier importString;
 
-    public ImportDeclaration(final int start, final int end, final int line, final Identifier importString) {
-        super(start, end, line);
+    public ImportDeclaration(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier importString) {
+        super(start, end, line, startOffset, endOffset);
         this.importString = importString;
     }
 
     public Identifier getImportString() {
         return importString;
     }
+
 }

@@ -14,6 +14,9 @@
  */
 package org.eclipse.gmf.internal.xpand;
 
+import java.io.IOException;
+import java.io.Reader;
+
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 
@@ -27,5 +30,14 @@ public interface ResourceManager {
     XtendResource loadXtendResource(String fullyQualifiedName);
 
     XpandResource loadXpandResource(String fullyQualifiedName);
+    
+	/**
+	 * Returns an array of resolutions, in the order from newest to oldest. 
+	 * This is to enable one template to partially override only a subset of parent templates.
+	 *  
+	 * @return never return <code>null</code> or an empty array, throw exception instead
+	 * @throws IOException in case resource can't be read. Throw {@link java.io.FileNotFoundException} to indicate resource was not found. 
+	 */
+    Reader[] resolveMultiple(String fullyQualifiedName, String extension) throws IOException;
 
 }

@@ -33,10 +33,10 @@ public class CreateExtensionStatement extends Extension {
 
     private final String returnVarName;
 
-    public CreateExtensionStatement(final int start, final int end, final int line, final Identifier name,
+    public CreateExtensionStatement(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier name,
             final Identifier returnType, final Identifier rtName, final List<DeclaredParameter> params, final Expression expr,
             final boolean isPrivate) {
-        super(start, end, line, name, returnType, params, true, isPrivate);
+        super(start, end, line, startOffset, endOffset, name, returnType, params, true, isPrivate);
         expression = expr;
         returnVarName = rtName!=null ? rtName.getValue() : "this";
     }

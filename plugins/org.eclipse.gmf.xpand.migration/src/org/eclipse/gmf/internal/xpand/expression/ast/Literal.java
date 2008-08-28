@@ -18,8 +18,8 @@ public abstract class Literal extends Expression {
 
     private final String literalValue;
 
-    public Literal(final int start, final int end, final int line, final String literalValue) {
-        super(start, end, line);
+    public Literal(final int start, final int end, final int line, final int startOffset, final int endOffset, final String literalValue) {
+        super(start, end, line, startOffset, endOffset);
         this.literalValue = literalValue;
     }
 

@@ -23,8 +23,8 @@ public class Case extends SyntaxElement {
 
     private Expression thenPart;
 
-    public Case(final int start, final int end, final int line, final Expression condition, final Expression part) {
-        super(start, end, line);
+    public Case(final int start, final int end, final int line, final int startOffset, final int endOffset, final Expression condition, final Expression part) {
+        super(start, end, line, startOffset, endOffset);
         this.condition = condition;
         thenPart = part;
     }

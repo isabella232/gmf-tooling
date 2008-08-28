@@ -27,8 +27,8 @@ import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
  */
 public class RealLiteral extends Literal {
 
-    public RealLiteral(final int start, final int end, final int line, final String literalValue) {
-        super(start, end, line, literalValue);
+    public RealLiteral(final int start, final int end, final int line, final int startOffset, final int endOffset, final String literalValue) {
+        super(start, end, line, startOffset, endOffset, literalValue);
     }
 
     @Override

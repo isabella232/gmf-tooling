@@ -24,16 +24,16 @@ public class ImportStatement extends SyntaxElement {
 
     private final boolean exported;
 
-    public ImportStatement(int start, int end, int line, String nsImport) {
-    	super(start, end, line);
+    public ImportStatement(int start, int end, int line, int startOffset, int endOffset, String nsImport) {
+    	super(start, end, line, startOffset, endOffset);
     	exported = false;
     	this.nsImport = nsImport;
     	importedId = null;
     }
 
-    public ImportStatement(final int start, final int end, final int line, final Identifier importedID,
+    public ImportStatement(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier importedID,
             final boolean exported) {
-        super(start, end, line);
+        super(start, end, line, startOffset, endOffset);
         importedId = importedID;
         this.exported = exported;
         nsImport = null;

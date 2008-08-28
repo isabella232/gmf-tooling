@@ -49,7 +49,7 @@ import org.eclipse.gmf.internal.xpand.migration.MigrationException.Type;
 
 public class ExpressionMigrationFacade {
 	
-	static final String LF = System.getProperty("line.separator");
+	static final CharSequence LF = System.getProperty("line.separator");
 	
 	private static final Set<EOperation> infixOperations = new HashSet<EOperation>(Arrays.asList(new EOperation[] {
 			BuiltinMetaModel.Boolean_NE,
@@ -918,16 +918,16 @@ public class ExpressionMigrationFacade {
 		return output.length();
 	}
 
-	private void write(String word, int index) {
-		output.insert(index, word);
+	private void write(CharSequence cs, int index) {
+		output.insert(index, cs);
 	}
 
-	private void write(String word) {
-		output.append(word);
+	private void write(CharSequence cs) {
+		output.append(cs);
 	}
 
-	private void writeln(String line) {
-		output.append(line);
+	private void writeln(CharSequence cs) {
+		output.append(cs);
 		output.append(LF);
 	}
 

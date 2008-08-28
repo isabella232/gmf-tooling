@@ -41,9 +41,9 @@ public abstract class AbstractDefinition extends SyntaxElement implements XpandA
         this.owner = owner;
     }
 
-    public AbstractDefinition(final int start, final int end, final int line, final Identifier type,
+    public AbstractDefinition(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier type,
             final DeclaredParameter[] params, final Statement[] body) {
-        super(start, end, line);
+        super(start, end, line, startOffset, endOffset);
         this.type = type;
         this.params = params;
         this.body = body;

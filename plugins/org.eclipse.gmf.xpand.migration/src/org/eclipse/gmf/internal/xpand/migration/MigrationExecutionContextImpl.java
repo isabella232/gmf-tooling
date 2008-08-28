@@ -16,11 +16,10 @@ import java.util.Map;
 
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
+import org.eclipse.gmf.internal.xpand.model.XpandExecutionContextImpl;
 
-public class MigrationExecutionContextImpl extends ExecutionContextImpl implements MigrationExecutionContext {
+public class MigrationExecutionContextImpl extends XpandExecutionContextImpl implements MigrationExecutionContext {
 
 	private final Map<Expression, ExpressionAnalyzeTrace> traces;
 
@@ -35,7 +34,7 @@ public class MigrationExecutionContextImpl extends ExecutionContextImpl implemen
 	}
 
 	@Override
-	public ExecutionContext cloneContext() {
+	public XpandExecutionContextImpl cloneContext() {
 		return new MigrationExecutionContextImpl(this);
 	}
 

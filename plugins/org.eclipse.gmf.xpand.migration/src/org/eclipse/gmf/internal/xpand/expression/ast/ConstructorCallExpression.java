@@ -25,8 +25,8 @@ public class ConstructorCallExpression extends Expression {
 
     private Identifier type;
 
-    public ConstructorCallExpression(final int i, final int end, final int j, final Identifier type) {
-        super(i, end, j);
+    public ConstructorCallExpression(final int i, final int end, final int j, final int startOffset, final int endOffset, final Identifier type) {
+        super(i, end, j, startOffset, endOffset);
         this.type = type;
     }
 

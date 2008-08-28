@@ -21,10 +21,16 @@ public abstract class SyntaxElement {
 
     protected final int line;
 
-    public SyntaxElement(final int start, final int end, final int line) {
+	protected int startOffset;
+
+	protected int endOffset;
+
+    public SyntaxElement(final int start, final int end, final int line, final int startOffset, final int endOffset) {
         this.start = start;
         this.end = end;
         this.line = line;
+        this.startOffset = startOffset;
+        this.endOffset = endOffset;
     }
 
     public int getLine() {
@@ -37,6 +43,14 @@ public abstract class SyntaxElement {
 
     public int getStart() {
         return start;
+    }
+    
+    public int getStartOffset() {
+    	return startOffset;
+    }
+    
+    public int getEndOffset() {
+    	return endOffset;
     }
 
     private String fileName;

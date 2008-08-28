@@ -32,8 +32,8 @@ public class ListLiteral extends Expression {
 
     private Expression[] elements;
 
-    public ListLiteral(final int start, final int end, final int line, final Expression[] contents) {
-        super(start, end, line);
+    public ListLiteral(final int start, final int end, final int line, final int startOffset, final int endOffset, final Expression[] contents) {
+        super(start, end, line, startOffset, endOffset);
         elements = contents;
     }
 

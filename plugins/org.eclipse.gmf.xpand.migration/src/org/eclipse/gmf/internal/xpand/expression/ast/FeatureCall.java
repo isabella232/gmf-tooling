@@ -47,8 +47,8 @@ public class FeatureCall extends Expression {
 
     private final Identifier name;
 
-    public FeatureCall(final int start, final int end, final int line, final Identifier name, final Expression target) {
-        super(start, end, line);
+    public FeatureCall(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier name, final Expression target) {
+        super(start, end, line, startOffset, endOffset);
         this.target = target;
         this.name = name;
     }
@@ -59,6 +59,7 @@ public class FeatureCall extends Expression {
 
     public void setTarget(final Expression target) {
         this.target = target;
+        startOffset = target.getStartOffset();
     }
 
     public Identifier getName() {

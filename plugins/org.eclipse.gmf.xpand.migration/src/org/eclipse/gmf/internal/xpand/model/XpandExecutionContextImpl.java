@@ -23,6 +23,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContextImpl;
@@ -49,6 +51,12 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
         this (resourceManager, output, prs, null);
     }
     
+    public XpandExecutionContextImpl(ResourceManager resourceManager, EPackage... fallbackVisibleModels) {
+    	super(resourceManager, fallbackVisibleModels);
+    	this.output = new BufferOutput(new StringBuilder());
+    	this.protectedRegionResolver = null;
+    }
+    
     public XpandExecutionContextImpl(ResourceManager resourceManager, Output output, ProtectedRegionResolver prs, Collection<Variable> globalVars) {
         super(resourceManager, globalVars);
         this.output = output;
@@ -63,7 +71,7 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
     }
 
     /*copy constructor*/
-    private XpandExecutionContextImpl(XpandExecutionContextImpl original) {
+    protected XpandExecutionContextImpl(XpandExecutionContextImpl original) {
     	super(original);
     	this.output = original.output;
     	this.protectedRegionResolver = original.protectedRegionResolver;

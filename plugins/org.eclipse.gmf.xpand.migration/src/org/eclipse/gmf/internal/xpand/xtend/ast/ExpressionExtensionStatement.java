@@ -31,10 +31,10 @@ public class ExpressionExtensionStatement extends Extension {
 
     private final Expression expression;
 
-    public ExpressionExtensionStatement(final int start, final int end, final int line, final Identifier name,
+    public ExpressionExtensionStatement(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier name,
             final Identifier returnType, final List<DeclaredParameter> formalParameters, final Expression expression,
             final boolean cached, final boolean isPrivate) {
-        super(start, end, line, name, returnType, formalParameters, cached, isPrivate);
+        super(start, end, line, startOffset, endOffset, name, returnType, formalParameters, cached, isPrivate);
         this.expression = expression;
     }
 

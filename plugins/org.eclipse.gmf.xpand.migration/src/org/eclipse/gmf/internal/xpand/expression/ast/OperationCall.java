@@ -42,9 +42,9 @@ public class OperationCall extends FeatureCall {
 
     private Expression[] params;
 
-    public OperationCall(final int start, final int end, final int line, final Identifier name,
+    public OperationCall(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier name,
             final Expression target, final Expression[] params) {
-        super(start, end, line, name, target);
+        super(start, end, line, startOffset, endOffset, name, target);
         this.params = params;
     }
 

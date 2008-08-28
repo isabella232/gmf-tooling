@@ -34,9 +34,9 @@ public class LetExpression extends Expression {
 
     private Identifier varName;
 
-    public LetExpression(final int start, final int end, final int line, final Identifier varName,
+    public LetExpression(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier varName,
             final Expression varExpression, final Expression target) {
-        super(start, end, line);
+        super(start, end, line, startOffset, endOffset);
         this.varName = varName;
         this.varExpression = varExpression;
         targetExpression = target;

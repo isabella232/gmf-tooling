@@ -27,8 +27,8 @@ public class TextStatement extends Statement {
 
     private final boolean deleteLine;
 
-    public TextStatement(final int start, final int end, final int line, final String text, final boolean nonl) {
-        super(start, end, line);
+    public TextStatement(final int start, final int end, final int line, final int startOffset, final int endOffset, final String text, final boolean nonl) {
+        super(start, end, line, startOffset, endOffset);
         deleteLine = nonl;
         value = text;
     }

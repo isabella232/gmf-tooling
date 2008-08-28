@@ -40,9 +40,9 @@ public class Advice extends AbstractDefinition implements XpandAdvice {
 
     private final boolean wildParams;
 
-    public Advice(final int start, final int end, final int line, final Identifier pointCut, final Identifier type,
+    public Advice(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier pointCut, final Identifier type,
             final DeclaredParameter[] params, final boolean wildParams, final Statement[] body) {
-        super(start, end, line, type, params, body);
+        super(start, end, line, startOffset, endOffset, type, params, body);
         this.pointCut = pointCut;
         this.wildParams = wildParams;
     }

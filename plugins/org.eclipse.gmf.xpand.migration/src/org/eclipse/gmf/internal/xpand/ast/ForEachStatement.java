@@ -46,9 +46,9 @@ public class ForEachStatement extends Statement {
 
     private final Identifier iteratorName;
 
-    public ForEachStatement(final int start, final int end, final int line, final Identifier variable,
+    public ForEachStatement(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier variable,
             final Expression target, final Statement[] body, final Expression separator, final Identifier iterator) {
-        super(start, end, line);
+        super(start, end, line, startOffset, endOffset);
         this.variable = variable;
         this.target = target;
         this.body = body;

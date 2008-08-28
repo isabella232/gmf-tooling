@@ -35,9 +35,9 @@ public class IfExpression extends Expression {
 
     private Expression elsePart;
 
-    public IfExpression(final int start, final int end, final int line, final Expression condition,
+    public IfExpression(final int start, final int end, final int line, final int startOffset, final int endOffset, final Expression condition,
             final Expression thenPart, final Expression elsePart) {
-        super(start, end, line);
+        super(start, end, line, startOffset, endOffset);
         this.condition = condition;
         this.thenPart = thenPart;
         this.elsePart = elsePart;

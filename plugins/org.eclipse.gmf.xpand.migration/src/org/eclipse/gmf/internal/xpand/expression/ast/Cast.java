@@ -32,8 +32,8 @@ public class Cast extends Expression {
 
     private Expression target;
 
-    public Cast(final int start, final int end, final int line, final Identifier type, final Expression target) {
-        super(start, end, line);
+    public Cast(final int start, final int end, final int line, final int startOffset, final int endOffset, final Identifier type, final Expression target) {
+        super(start, end, line, startOffset, endOffset);
         this.type = type;
         this.target = target;
     }
