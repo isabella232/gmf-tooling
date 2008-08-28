@@ -42,6 +42,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
+import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.internal.bridge.genmodel.GenModelMatcher;
@@ -435,14 +436,33 @@ public class ParsersTest extends TestCase {
 			nodkin.setVisualID(nextVID());
 			diagramkin.getTopLevelNodes().add(nodkin);
 
+			final PredefinedParser messageFormatParser = GMFGenFactory.eINSTANCE.createPredefinedParser();
+			final PredefinedParser nativeParser = GMFGenFactory.eINSTANCE.createPredefinedParser();
+			nativeParser.setViewMethod(LabelTextAccessMethod.NATIVE);
+			nativeParser.setEditMethod(LabelTextAccessMethod.NATIVE);
+			final PredefinedParser printfRegexParser = GMFGenFactory.eINSTANCE.createPredefinedParser();
+			printfRegexParser.setViewMethod(LabelTextAccessMethod.PRINTF);
+			printfRegexParser.setEditMethod(LabelTextAccessMethod.REGEXP);
+			genBurden.getLabelParsers().getImplementations().add(messageFormatParser);
+			genBurden.getLabelParsers().getImplementations().add(nativeParser);
+			genBurden.getLabelParsers().getImplementations().add(printfRegexParser);
 			a1 = addAttr(gmm, domainModel.a1);
+			{
+				FeatureLabelModelFacet mf = (FeatureLabelModelFacet) a1.getModelFacet();
+				mf.setParser(messageFormatParser);
+			}
 			a123 = addAttr(gmm, domainModel.a1, domainModel.a2, domainModel.a3);
+			{
+				FeatureLabelModelFacet mf = (FeatureLabelModelFacet) a123.getModelFacet();
+				mf.setParser(messageFormatParser);
+			}
 			ac132 = addAttr(gmm, domainModel.a1, domainModel.a3, domainModel.a2);
 			{
 				FeatureLabelModelFacet mf = (FeatureLabelModelFacet) ac132.getModelFacet();
 				mf.setViewPattern("{2} x {1} ({0})");
 				mf.setEditPattern("[{1}] - {0}, {2}");
 				mf.setEditorPattern("{2}/{1}/{0}");
+				mf.setParser(messageFormatParser);
 			}
 			a12e31 = addAttr(gmm, domainModel.a1, domainModel.a2);
 			{
@@ -452,18 +472,17 @@ public class ParsersTest extends TestCase {
 				mf.getEditableMetaFeatures().add(gmm.findGenFeature(domainModel.a1));
 				mf.setEditPattern("{0}:{1}");
 				mf.setEditorPattern("<{1}>{0}");
+				mf.setParser(messageFormatParser);
 			}
 			an2 = addAttr(gmm, domainModel.a2);
 			{
 				FeatureLabelModelFacet mf = (FeatureLabelModelFacet) an2.getModelFacet();
-				mf.setViewMethod(LabelTextAccessMethod.NATIVE);
-				mf.setEditMethod(LabelTextAccessMethod.NATIVE);
+				mf.setParser(nativeParser);
 			}
 			apr23 = addAttr(gmm, domainModel.a2, domainModel.a3);
 			{
 				FeatureLabelModelFacet mf = (FeatureLabelModelFacet) apr23.getModelFacet();
-				mf.setViewMethod(LabelTextAccessMethod.PRINTF);
-				mf.setEditMethod(LabelTextAccessMethod.REGEXP);
+				mf.setParser(printfRegexParser);
 			}
 		}
 
