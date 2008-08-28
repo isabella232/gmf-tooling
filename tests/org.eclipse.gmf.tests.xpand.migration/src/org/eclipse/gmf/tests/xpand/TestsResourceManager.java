@@ -37,7 +37,7 @@ public class TestsResourceManager extends ResourceManagerImpl implements Resourc
 		ex.printStackTrace();
 	}
 
-	protected Reader[] resolveMultiple(String fullyQualifiedName, String extension) throws IOException {
+	public Reader[] resolveMultiple(String fullyQualifiedName, String extension) throws IOException {
 		InputStream inputStream = loadFile(fullyQualifiedName, extension);
 		if (inputStream == null) {
 			throw new FileNotFoundException(fullyQualifiedName);

@@ -116,8 +116,7 @@ public class CompositeResourcesTest extends TestCase {
 		protected String getAspectsTemplateName(String fullyQualifiedName) {
 			return fullyQualifiedName + "_Aspects";
 		}
-		@Override
-		protected Reader[] resolveMultiple(String fullyQualifiedName, String extension) throws IOException {
+		public Reader[] resolveMultiple(String fullyQualifiedName, String extension) throws IOException {
 			ArrayList<Reader> result = new ArrayList<Reader>(mySuffixes.length);
 			for (int i = 0; i < mySuffixes.length; i++) {
 				String templateName = TypeNameUtil.getLastSegment(fullyQualifiedName) + "." + extension;

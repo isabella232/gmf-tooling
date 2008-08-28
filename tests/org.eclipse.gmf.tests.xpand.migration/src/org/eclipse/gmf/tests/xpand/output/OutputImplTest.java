@@ -45,17 +45,17 @@ public class OutputImplTest extends TestCase {
 	public final void testDeleteLineSingleNewlineChar() {
 		final Output bo = getOutput();
 
-		bo.enterStatement(new TextStatement(0, 1, 1, "", false));
+		bo.enterStatement(new TextStatement(0, 1, 1, 0, 1, "", false));
 		bo.write("w  ");
-		bo.enterStatement(new TextStatement(0, 1, 1, "", true));
+		bo.enterStatement(new TextStatement(0, 1, 1, 0, 1, "", true));
 		bo.write("     \n");
 
 		assertEquals("w  ", getBuffer().toString());
 
 		getBuffer().setLength(0);
-		bo.enterStatement(new TextStatement(0, 1, 1, "", false));
+		bo.enterStatement(new TextStatement(0, 1, 1, 0, 1, "", false));
 		bo.write("w  ");
-		bo.enterStatement(new TextStatement(0, 1, 1, "", true));
+		bo.enterStatement(new TextStatement(0, 1, 1, 0, 1, "", true));
 		bo.write("     \r");
 
 		assertEquals("w  ", getBuffer().toString());
@@ -64,9 +64,9 @@ public class OutputImplTest extends TestCase {
 	public final void testDeleteLine1() {
 		final Output bo = getOutput();
 
-		bo.enterStatement(new TextStatement(0, 1, 1, "", false));
+		bo.enterStatement(new TextStatement(0, 1, 1, 0, 1, "", false));
 		bo.write("Hallo test \r\n    ");
-		bo.enterStatement(new TextStatement(0, 1, 1, "", true));
+		bo.enterStatement(new TextStatement(0, 1, 1, 0, 1, "", true));
 		bo.write("     \n  \t  Ola");
 
 		assertEquals("Hallo test \r\n      \t  Ola", getBuffer().toString());
@@ -75,9 +75,9 @@ public class OutputImplTest extends TestCase {
 	public final void testDeleteLine2() {
 		final Output bo = getOutput();
 
-		bo.enterStatement(new TextStatement(0, 1, 1, "", false));
+		bo.enterStatement(new TextStatement(0, 1, 1, 0, 1, "", false));
 		bo.write("Hallo test \r  \t  ");
-		bo.enterStatement(new TextStatement(0, 1, 1, "", true));
+		bo.enterStatement(new TextStatement(0, 1, 1, 0, 1, "", true));
 		bo.write("     \n    Ola");
 
 		assertEquals("Hallo test \r  \t      Ola", getBuffer().toString());
@@ -86,7 +86,7 @@ public class OutputImplTest extends TestCase {
 	public final void testDeleteLine2_5() {
 		final Output bo = getOutput();
 
-		bo.enterStatement(new TextStatement(0, 1, 1, "", true));
+		bo.enterStatement(new TextStatement(0, 1, 1, 0, 1, "", true));
 		bo.write("\r\nfirstLine\r\n");
 
 		assertEquals("firstLine\r\n", getBuffer().toString());
@@ -95,9 +95,9 @@ public class OutputImplTest extends TestCase {
 	public final void testDeleteLine3() {
 		final Output bo = getOutput();
 
-		bo.enterStatement(new TextStatement(0, 1, 1, "", true));
+		bo.enterStatement(new TextStatement(0, 1, 1, 0, 1, "", true));
 		bo.write("\r\n");
-		bo.enterStatement(new TextStatement(0, 1, 1, "", true));
+		bo.enterStatement(new TextStatement(0, 1, 1, 0, 1, "", true));
 		bo.write("\r\n \tTest");
 
 		assertEquals(" \tTest", getBuffer().toString());
@@ -106,11 +106,11 @@ public class OutputImplTest extends TestCase {
 	public final void testDeleteLine4() {
 		final Output bo = getOutput();
 
-		bo.enterStatement(new TextStatement(0, 1, 1, "", true));
+		bo.enterStatement(new TextStatement(0, 1, 1, 0, 1, "", true));
 		bo.write("\r\n");
-		bo.enterStatement(new ExpressionStatement(0, 1, 1, null));
+		bo.enterStatement(new ExpressionStatement(0, 1, 1, 0, 1, null));
 		bo.write(" mein scholli ");
-		bo.enterStatement(new TextStatement(0, 1, 1, "", true));
+		bo.enterStatement(new TextStatement(0, 1, 1, 0, 1, "", true));
 		bo.write("\r\n \tTest");
 
 		// XXX original test kept \r\n here, i.e. " mein scholli \r\n \tTest"
@@ -135,9 +135,9 @@ public class OutputImplTest extends TestCase {
 		final Output bo = getOutput();
 
 		buffer.setLength(0);
-		bo.enterStatement(new TextStatement(0, 1, 1, "", false));
+		bo.enterStatement(new TextStatement(0, 1, 1, 0, 1, "", false));
 		bo.write(start);
-		bo.enterStatement(new TextStatement(0, 1, 1, "", true));
+		bo.enterStatement(new TextStatement(0, 1, 1, 0, 1, "", true));
 		bo.write(end);
 
 		return getBuffer().toString();
