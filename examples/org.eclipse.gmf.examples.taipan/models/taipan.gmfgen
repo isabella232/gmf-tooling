@@ -161,7 +161,8 @@
           editorPattern="%1$s:%2$s"
           editPattern=":"
           viewMethod="PRINTF"
-          editMethod="REGEXP">
+          editMethod="REGEXP"
+          parser="//@labelParsers/@implementations.0">
         <metaFeatures
             href="taipan.genmodel#//taipan/Item/article"/>
         <metaFeatures
@@ -213,7 +214,8 @@
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewMethod="NATIVE"
-            editMethod="NATIVE">
+            editMethod="NATIVE"
+            parser="//@labelParsers/@implementations.0">
           <metaFeatures
               href="taipan.genmodel#//taipan/Item/article"/>
         </modelFacet>
@@ -232,7 +234,8 @@
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewMethod="NATIVE"
-            editMethod="NATIVE">
+            editMethod="NATIVE"
+            parser="//@labelParsers/@implementations.0">
           <metaFeatures
               href="taipan.genmodel#//taipan/LargeItem/weight"/>
         </modelFacet>
@@ -322,7 +325,8 @@
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewMethod="NATIVE"
-            editMethod="NATIVE">
+            editMethod="NATIVE"
+            parser="//@labelParsers/@implementations.0">
           <metaFeatures
               href="taipan.genmodel#//taipan/Port/location"/>
         </modelFacet>
@@ -372,7 +376,8 @@
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewMethod="NATIVE"
-            editMethod="NATIVE">
+            editMethod="NATIVE"
+            parser="//@labelParsers/@implementations.0">
           <metaFeatures
               href="taipan.genmodel#//taipan/Ship/name"/>
         </modelFacet>
@@ -421,7 +426,8 @@
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewMethod="NATIVE"
-            editMethod="NATIVE">
+            editMethod="NATIVE"
+            parser="//@labelParsers/@implementations.0">
           <metaFeatures
               href="taipan.genmodel#//taipan/Ship/name"/>
         </modelFacet>
@@ -534,7 +540,8 @@
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewPattern="route : {0}"
             editorPattern="{0}"
-            editPattern="{0}">
+            editPattern="{0}"
+            parser="//@labelParsers/@implementations.0">
           <metaFeatures
               href="taipan.genmodel#//taipan/Route/description"/>
         </modelFacet>
@@ -559,7 +566,8 @@
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewPattern="reliability : {0,number,percent}"
             editorPattern="{0,number,percent}"
-            editPattern="{0,number,percent}">
+            editPattern="{0,number,percent}"
+            parser="//@labelParsers/@implementations.0">
           <metaFeatures
               href="taipan.genmodel#//taipan/Route/reliability"/>
         </modelFacet>
@@ -630,7 +638,8 @@
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewPattern="route : {0}"
             editorPattern="{0}"
-            editPattern="{0}">
+            editPattern="{0}"
+            parser="//@labelParsers/@implementations.0">
           <metaFeatures
               href="taipan.genmodel#//taipan/Route/description"/>
         </modelFacet>
@@ -655,7 +664,8 @@
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewPattern="reliability : {0,number,percent}"
             editorPattern="{0,number,percent}"
-            editPattern="{0,number,percent}">
+            editPattern="{0,number,percent}"
+            parser="//@labelParsers/@implementations.0">
           <metaFeatures
               href="taipan.genmodel#//taipan/Route/reliability"/>
         </modelFacet>
@@ -1082,4 +1092,9 @@
           body="self.length() > 0"/>
     </providers>
   </expressionProviders>
+  <labelParsers
+      extensibleViaService="true">
+    <implementations
+        xsi:type="gmfgen:ExternalParser"/>
+  </labelParsers>
 </gmfgen:GenEditorGenerator>
