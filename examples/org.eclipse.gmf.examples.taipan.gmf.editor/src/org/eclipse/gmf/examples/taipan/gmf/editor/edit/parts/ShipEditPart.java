@@ -272,7 +272,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 */
 	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
 
-		return super.getContentPaneFor(editPart);
+		return getContentPane();
 	}
 
 	/**
@@ -285,18 +285,17 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public List getMARelTypesOnSource() {
-		List types = new ArrayList();
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnSource() {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
 		types.add(TaiPanElementTypes.ShipDestination_4001);
-		types.add(TaiPanElementTypes.ShipRoute_4004);
 		return types;
 	}
 
 	/**
 	 * @generated
 	 */
-	public List getMARelTypesOnTarget() {
-		List types = new ArrayList();
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnTarget() {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
 		types.add(TaiPanElementTypes.EscortShipsOrder_4006);
 		types.add(TaiPanElementTypes.PortRegister_4007);
 		return types;
@@ -305,8 +304,8 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public List getMARelTypesOnSourceAndTarget(IGraphicalEditPart targetEditPart) {
-		List types = new ArrayList();
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnSourceAndTarget(IGraphicalEditPart targetEditPart) {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
 		if (targetEditPart instanceof PortEditPart) {
 			types.add(TaiPanElementTypes.ShipDestination_4001);
 		}
@@ -316,8 +315,8 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public List getMATypesForSource(IElementType relationshipType) {
-		List types = new ArrayList();
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMATypesForSource(IElementType relationshipType) {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
 		if (relationshipType == TaiPanElementTypes.EscortShipsOrder_4006) {
 			types.add(TaiPanElementTypes.Warship_2003);
 		}
@@ -330,8 +329,8 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public List getMATypesForTarget(IElementType relationshipType) {
-		List types = new ArrayList();
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMATypesForTarget(IElementType relationshipType) {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
 		if (relationshipType == TaiPanElementTypes.ShipDestination_4001) {
 			types.add(TaiPanElementTypes.Port_2001);
 		}
