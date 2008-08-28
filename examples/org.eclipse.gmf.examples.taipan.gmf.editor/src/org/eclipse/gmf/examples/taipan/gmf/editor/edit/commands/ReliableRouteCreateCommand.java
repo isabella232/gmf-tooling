@@ -92,7 +92,12 @@ public class ReliableRouteCreateCommand extends CreateElementCommand {
 	 * @generated
 	 */
 	protected EObject doDefaultElementCreation() {
-		throw new UnsupportedOperationException();
+		Route newElement = TaiPanFactory.eINSTANCE.createRoute();
+		getContainer().getRoutes().add(newElement);
+		newElement.setSource(getSource());
+		newElement.setDestination(getTarget());
+		TaiPanElementTypes.init_Route_4002(newElement);
+		return newElement;
 	}
 
 	/**

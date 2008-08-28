@@ -80,7 +80,10 @@ public class EscortShipsOrderCreateCommand extends CreateElementCommand {
 	 * @generated
 	 */
 	protected EObject doDefaultElementCreation() {
-		throw new UnsupportedOperationException();
+		EscortShipsOrder newElement = TaiPanFactory.eINSTANCE.createEscortShipsOrder();
+		getSource().setEscortOrder(newElement);
+		newElement.getShips().add(getTarget());
+		return newElement;
 	}
 
 	/**

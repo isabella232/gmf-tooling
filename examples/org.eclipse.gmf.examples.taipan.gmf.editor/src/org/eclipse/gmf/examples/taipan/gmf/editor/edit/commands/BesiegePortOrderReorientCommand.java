@@ -114,14 +114,17 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult reorientSource() throws ExecutionException {
-		throw new UnsupportedOperationException();
+		getOldSource().getAttackOrders().remove(getLink());
+		getNewSource().getAttackOrders().add(getLink());
+		return CommandResult.newOKCommandResult(getLink());
 	}
 
 	/**
 	 * @generated
 	 */
 	protected CommandResult reorientTarget() throws ExecutionException {
-		throw new UnsupportedOperationException();
+		getLink().setPort(getNewTarget());
+		return CommandResult.newOKCommandResult(getLink());
 	}
 
 	/**

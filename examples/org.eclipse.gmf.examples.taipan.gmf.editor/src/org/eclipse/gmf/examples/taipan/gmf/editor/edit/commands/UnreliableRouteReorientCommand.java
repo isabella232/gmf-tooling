@@ -119,14 +119,16 @@ public class UnreliableRouteReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult reorientSource() throws ExecutionException {
-		throw new UnsupportedOperationException();
+		getLink().setSource(getNewSource());
+		return CommandResult.newOKCommandResult(getLink());
 	}
 
 	/**
 	 * @generated
 	 */
 	protected CommandResult reorientTarget() throws ExecutionException {
-		throw new UnsupportedOperationException();
+		getLink().setDestination(getNewTarget());
+		return CommandResult.newOKCommandResult(getLink());
 	}
 
 	/**

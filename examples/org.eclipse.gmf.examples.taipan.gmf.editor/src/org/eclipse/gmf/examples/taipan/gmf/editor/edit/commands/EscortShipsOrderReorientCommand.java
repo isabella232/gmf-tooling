@@ -117,14 +117,18 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult reorientSource() throws ExecutionException {
-		throw new UnsupportedOperationException();
+		getOldSource().setEscortOrder(null);
+		getNewSource().setEscortOrder(getLink());
+		return CommandResult.newOKCommandResult(getLink());
 	}
 
 	/**
 	 * @generated
 	 */
 	protected CommandResult reorientTarget() throws ExecutionException {
-		throw new UnsupportedOperationException();
+		getLink().getShips().remove(getOldTarget());
+		getLink().getShips().add(getNewTarget());
+		return CommandResult.newOKCommandResult(getLink());
 	}
 
 	/**

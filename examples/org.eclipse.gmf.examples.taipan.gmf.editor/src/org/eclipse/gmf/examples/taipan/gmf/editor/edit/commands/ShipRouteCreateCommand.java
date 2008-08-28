@@ -73,7 +73,10 @@ public class ShipRouteCreateCommand extends EditElementCommand {
 		if (!canExecute()) {
 			throw new ExecutionException("Invalid arguments in create link command"); //$NON-NLS-1$
 		}
-		throw new UnsupportedOperationException();
+		if (getSource() != null && getTarget() != null) {
+			getSource().setRoute(getTarget());
+		}
+		return CommandResult.newOKCommandResult();
 	}
 
 	/**
