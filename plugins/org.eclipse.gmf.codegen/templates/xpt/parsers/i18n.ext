@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,26 +13,22 @@
 import "http://www.eclipse.org/gmf/2008/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
 
-String defaultAbstractParserClassName(gmfgen::GenDiagram diagram) :
-"AbstractParser"
-;
+String defaultAbstractParserClassName() : "AbstractParser" ;
 
-String defaultMessageFormatParserClassName(gmfgen::GenDiagram diagram) :
-"MessageFormatParser"
-;
+String defaultMessageFormatParserClassName() : "MessageFormatParser" ;
 
 String i18nKeyForAbstractParserUnexpectedValueTypeMessage(gmfgen::GenDiagram diagram) :
-diagram.defaultAbstractParserClassName()+".UnexpectedValueTypeMessage"
+defaultAbstractParserClassName()+".UnexpectedValueTypeMessage"
 ;
 
 String i18nKeyForAbstractParserWrongStringConversionMessage(gmfgen::GenDiagram diagram) :
-diagram.defaultAbstractParserClassName()+".WrongStringConversionMessage"
+defaultAbstractParserClassName()+".WrongStringConversionMessage"
 ;
 
 String i18nKeyForAbstractParserUnknownLiteralMessage(gmfgen::GenDiagram diagram) :
-diagram.defaultAbstractParserClassName()+".UnknownLiteralMessage"
+defaultAbstractParserClassName()+".UnknownLiteralMessage"
 ;
 
-String i18nKeyForMessageFormatParserInvalidInputError(gmfgen::GenDiagram diagram) :
-diagram.defaultMessageFormatParserClassName()+".InvalidInputError"
+String i18nKeyForMessageFormatParserInvalidInputError() :
+defaultMessageFormatParserClassName()+".InvalidInputError"
 ;

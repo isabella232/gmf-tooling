@@ -31,10 +31,7 @@
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE generatedClassComment FOR Object-»
-	«EXPAND generatedClassComment("")-»
-«ENDDEFINE»
- 
+«DEFINE generatedClassComment FOR Object»«EXPAND generatedClassComment("")»«ENDDEFINE»
 «DEFINE generatedClassComment(String comment) FOR Object-»
 /**
 «IF comment.length() > 0-»
@@ -43,10 +40,7 @@
  * @generated
  */«ENDDEFINE»
 
-«DEFINE generatedMemberComment FOR Object-»
-	«EXPAND generatedMemberComment("")-»
-«ENDDEFINE»
- 
+«DEFINE generatedMemberComment FOR Object»«EXPAND generatedMemberComment("")»«ENDDEFINE»
 «DEFINE generatedMemberComment(String comment) FOR Object-»
 /**
 «IF comment.length() > 0-»
@@ -65,9 +59,9 @@
 
 «DEFINE nonNLS FOR Object»«EXPAND nonNLS(1)»«ENDDEFINE»
 
-«DEFINE nonNLS(Collection[Object] indexes) FOR Object» «EXPAND nonNLS(indexes.add(this).size())»«ENDDEFINE»
+«DEFINE nonNLS(Collection[Object] indexes) FOR Object»«EXPAND nonNLS(indexes.add(this).size())»«ENDDEFINE»
 
-«DEFINE nonNLS(int i) FOR Object»//$NON-NLS-«i»$«ENDDEFINE»
+«DEFINE nonNLS(int i) FOR Object» //$NON-NLS-«i»$«ENDDEFINE»
 
 «DEFINE caseVisualID FOR gmfgen::GenCommonBase»case «EXPAND xpt::editor::VisualIDRegistry::visualID»:«ENDDEFINE»
 

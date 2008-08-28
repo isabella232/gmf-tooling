@@ -44,11 +44,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenParserImplementation;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
+import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
@@ -105,11 +107,7 @@ public class Generator extends GeneratorBase implements Runnable {
 
 		// parsers
 		generateAbstractParser();
-		generateCompositeParser();
-		generateMessageFormatParser();
-		generateNativeParser();
-		generatePrintfParser();
-		generateRegexpParser();
+		generateParsers();
 
 		if (myEditorGen.getModelAccess() != null) {
 			generateMetaModelFacility();
@@ -529,6 +527,7 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	// parsers
 
+	// FIXME remove together with GenDiagram#requiresParser() method
 	private boolean shouldGenerateParser(LabelTextAccessMethod method) {
 		return myDiagram.getEditorGen().requiresParser(method);
 	}
@@ -537,31 +536,11 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(myEmitters.getAbstractParserEmitter(), myEmitters.getAbstractParserName(myDiagram), myDiagram);
 	}
 
-	private void generateCompositeParser() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getCompositeParserEmitter(), myEmitters.getCompositeParserName(myDiagram), myDiagram);
-	}
-
-	private void generateMessageFormatParser() throws UnexpectedBehaviourException, InterruptedException {
-		if (shouldGenerateParser(LabelTextAccessMethod.MESSAGE_FORMAT)) {
-			doGenerateJavaClass(myEmitters.getMessageFormatParserEmitter(), myEmitters.getMessageFormatParserName(myDiagram), myDiagram);
-		}
-	}
-
-	private void generateNativeParser() throws UnexpectedBehaviourException, InterruptedException {
-		if (shouldGenerateParser(LabelTextAccessMethod.NATIVE)) {
-			doGenerateJavaClass(myEmitters.getNativeParserEmitter(), myEmitters.getNativeParserName(myDiagram), myDiagram);
-		}
-	}
-
-	private void generatePrintfParser() throws UnexpectedBehaviourException, InterruptedException {
-		if (shouldGenerateParser(LabelTextAccessMethod.PRINTF)) {
-			doGenerateJavaClass(myEmitters.getPrintfParserEmitter(), myEmitters.getPrintfParserName(myDiagram), myDiagram);
-		}
-	}
-
-	private void generateRegexpParser() throws UnexpectedBehaviourException, InterruptedException {
-		if (shouldGenerateParser(LabelTextAccessMethod.REGEXP)) {
-			doGenerateJavaClass(myEmitters.getRegexpParserEmitter(), myEmitters.getRegexpParserName(myDiagram), myDiagram);
+	private void generateParsers() throws UnexpectedBehaviourException, InterruptedException {
+		for (GenParserImplementation pi : myEditorGen.getLabelParsers().getImplementations()) {
+			if (pi instanceof PredefinedParser) {
+				doGenerateJavaClass(myEmitters.getPredefinedParserEmitter(), myEmitters.getPredefinedParserName(pi), pi);
+			}
 		}
 	}
 

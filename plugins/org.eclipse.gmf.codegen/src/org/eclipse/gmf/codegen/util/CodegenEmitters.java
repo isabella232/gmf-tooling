@@ -291,44 +291,12 @@ public class CodegenEmitters {
 		return getQualifiedClassName("xpt::parsers::AbstractParser", input); //$NON-NLS-1$
 	}
 
-	public TextEmitter getCompositeParserEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::parsers::CompositeParser"); //$NON-NLS-1$
+	public TextEmitter getPredefinedParserEmitter() throws UnexpectedBehaviourException {
+		return newXpandEmitter("parsers::PredefinedParser::Main"); //$NON-NLS-1$
 	}
 
-	public String getCompositeParserName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::parsers::CompositeParser", input); //$NON-NLS-1$
-	}
-
-	public TextEmitter getMessageFormatParserEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::parsers::MessageFormatParser"); //$NON-NLS-1$
-	}
-
-	public String getMessageFormatParserName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::parsers::MessageFormatParser", input); //$NON-NLS-1$
-	}
-
-	public TextEmitter getNativeParserEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::parsers::NativeParser"); //$NON-NLS-1$
-	}
-
-	public String getNativeParserName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::parsers::NativeParser", input); //$NON-NLS-1$
-	}
-
-	public TextEmitter getPrintfParserEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::parsers::PrintfParser"); //$NON-NLS-1$
-	}
-
-	public String getPrintfParserName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::parsers::PrintfParser", input); //$NON-NLS-1$
-	}
-
-	public TextEmitter getRegexpParserEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::parsers::RegexpParser"); //$NON-NLS-1$
-	}
-
-	public String getRegexpParserName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::parsers::RegexpParser", input); //$NON-NLS-1$
+	public String getPredefinedParserName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("parsers::PredefinedParser", input); //$NON-NLS-1$
 	}
 
 	// providers
