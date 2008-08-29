@@ -5510,10 +5510,10 @@ public interface GMFGenPackage extends EPackage {
 	int LINK_MODEL_FACET = 47;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LabelModelFacet <em>Label Model Facet</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.LabelModelFacetImpl <em>Label Model Facet</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.codegen.gmfgen.LabelModelFacet
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.LabelModelFacetImpl
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLabelModelFacet()
 	 * @generated
 	 */
@@ -5719,13 +5719,22 @@ public interface GMFGenPackage extends EPackage {
 	int LINK_MODEL_FACET_FEATURE_COUNT = MODEL_FACET_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Parser</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_MODEL_FACET__PARSER = MODEL_FACET_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Label Model Facet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MODEL_FACET_FEATURE_COUNT = MODEL_FACET_FEATURE_COUNT + 0;
+	int LABEL_MODEL_FACET_FEATURE_COUNT = MODEL_FACET_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.TypeModelFacetImpl <em>Type Model Facet</em>}' class.
@@ -5912,6 +5921,15 @@ public interface GMFGenPackage extends EPackage {
 	int FEATURE_LINK_MODEL_FACET_FEATURE_COUNT = LINK_MODEL_FACET_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Parser</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_LABEL_MODEL_FACET__PARSER = LABEL_MODEL_FACET__PARSER;
+
+	/**
 	 * The feature id for the '<em><b>Meta Features</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5975,22 +5993,13 @@ public interface GMFGenPackage extends EPackage {
 	int FEATURE_LABEL_MODEL_FACET__EDIT_METHOD = LABEL_MODEL_FACET_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Parser</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_LABEL_MODEL_FACET__PARSER = LABEL_MODEL_FACET_FEATURE_COUNT + 7;
-
-	/**
 	 * The number of structural features of the '<em>Feature Label Model Facet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_LABEL_MODEL_FACET_FEATURE_COUNT = LABEL_MODEL_FACET_FEATURE_COUNT + 8;
+	int FEATURE_LABEL_MODEL_FACET_FEATURE_COUNT = LABEL_MODEL_FACET_FEATURE_COUNT + 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.DesignLabelModelFacetImpl <em>Design Label Model Facet</em>}' class.
@@ -6001,6 +6010,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	int DESIGN_LABEL_MODEL_FACET = 53;
+
+	/**
+	 * The feature id for the '<em><b>Parser</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESIGN_LABEL_MODEL_FACET__PARSER = LABEL_MODEL_FACET__PARSER;
 
 	/**
 	 * The number of structural features of the '<em>Design Label Model Facet</em>' class.
@@ -10078,10 +10096,10 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_PARSERS_FEATURE_COUNT = 6;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenParserImplementation <em>Gen Parser Implementation</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenParserImplementationImpl <em>Gen Parser Implementation</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenParserImplementation
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenParserImplementationImpl
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenParserImplementation()
 	 * @generated
 	 */
@@ -10097,13 +10115,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_PARSER_IMPLEMENTATION__HOLDER = 0;
 
 	/**
+	 * The feature id for the '<em><b>Uses</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PARSER_IMPLEMENTATION__USES = 1;
+
+	/**
 	 * The number of structural features of the '<em>Gen Parser Implementation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_PARSER_IMPLEMENTATION_FEATURE_COUNT = 1;
+	int GEN_PARSER_IMPLEMENTATION_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.PredefinedParserImpl <em>Predefined Parser</em>}' class.
@@ -10123,6 +10150,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int PREDEFINED_PARSER__HOLDER = GEN_PARSER_IMPLEMENTATION__HOLDER;
+
+	/**
+	 * The feature id for the '<em><b>Uses</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREDEFINED_PARSER__USES = GEN_PARSER_IMPLEMENTATION__USES;
 
 	/**
 	 * The feature id for the '<em><b>View Method</b></em>' attribute.
@@ -10171,6 +10207,15 @@ public interface GMFGenPackage extends EPackage {
 	int CUSTOM_PARSER__HOLDER = GEN_PARSER_IMPLEMENTATION__HOLDER;
 
 	/**
+	 * The feature id for the '<em><b>Uses</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_PARSER__USES = GEN_PARSER_IMPLEMENTATION__USES;
+
+	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10206,6 +10251,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int EXTERNAL_PARSER__HOLDER = GEN_PARSER_IMPLEMENTATION__HOLDER;
+
+	/**
+	 * The feature id for the '<em><b>Uses</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_PARSER__USES = GEN_PARSER_IMPLEMENTATION__USES;
 
 	/**
 	 * The feature id for the '<em><b>Hint</b></em>' attribute.
@@ -13354,6 +13408,17 @@ public interface GMFGenPackage extends EPackage {
 	EClass getLabelModelFacet();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.LabelModelFacet#getParser <em>Parser</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Parser</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LabelModelFacet#getParser()
+	 * @see #getLabelModelFacet()
+	 * @generated
+	 */
+	EReference getLabelModelFacet_Parser();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet <em>Type Model Facet</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -13504,17 +13569,6 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getFeatureLabelModelFacet_EditMethod();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getParser <em>Parser</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Parser</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getParser()
-	 * @see #getFeatureLabelModelFacet()
-	 * @generated
-	 */
-	EReference getFeatureLabelModelFacet_Parser();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet <em>Design Label Model Facet</em>}'.
@@ -16433,6 +16487,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenParserImplementation_Holder();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenParserImplementation#getUses <em>Uses</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Uses</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenParserImplementation#getUses()
+	 * @see #getGenParserImplementation()
+	 * @generated
+	 */
+	EReference getGenParserImplementation_Uses();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.PredefinedParser <em>Predefined Parser</em>}'.

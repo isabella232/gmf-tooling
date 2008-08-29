@@ -7,16 +7,9 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenParsers;
 import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
 import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
 
@@ -27,7 +20,6 @@ import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PredefinedParserImpl#getHolder <em>Holder</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PredefinedParserImpl#getViewMethod <em>View Method</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PredefinedParserImpl#getEditMethod <em>Edit Method</em>}</li>
  * </ul>
@@ -35,7 +27,7 @@ import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
  *
  * @generated
  */
-public class PredefinedParserImpl extends EObjectImpl implements PredefinedParser {
+public class PredefinedParserImpl extends GenParserImplementationImpl implements PredefinedParser {
 	/**
 	 * The default value of the '{@link #getViewMethod() <em>View Method</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -100,16 +92,6 @@ public class PredefinedParserImpl extends EObjectImpl implements PredefinedParse
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenParsers getHolder() {
-		if (eContainerFeatureID != GMFGenPackage.PREDEFINED_PARSER__HOLDER) return null;
-		return (GenParsers)eContainer();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public LabelTextAccessMethod getViewMethod() {
 		return viewMethod;
 	}
@@ -153,54 +135,8 @@ public class PredefinedParserImpl extends EObjectImpl implements PredefinedParse
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GMFGenPackage.PREDEFINED_PARSER__HOLDER:
-				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.PREDEFINED_PARSER__HOLDER, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GMFGenPackage.PREDEFINED_PARSER__HOLDER:
-				return eBasicSetContainer(null, GMFGenPackage.PREDEFINED_PARSER__HOLDER, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
-			case GMFGenPackage.PREDEFINED_PARSER__HOLDER:
-				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_PARSERS__IMPLEMENTATIONS, GenParsers.class, msgs);
-		}
-		return super.eBasicRemoveFromContainerFeature(msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GMFGenPackage.PREDEFINED_PARSER__HOLDER:
-				return getHolder();
 			case GMFGenPackage.PREDEFINED_PARSER__VIEW_METHOD:
 				return getViewMethod();
 			case GMFGenPackage.PREDEFINED_PARSER__EDIT_METHOD:
@@ -253,8 +189,6 @@ public class PredefinedParserImpl extends EObjectImpl implements PredefinedParse
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.PREDEFINED_PARSER__HOLDER:
-				return getHolder() != null;
 			case GMFGenPackage.PREDEFINED_PARSER__VIEW_METHOD:
 				return viewMethod != VIEW_METHOD_EDEFAULT;
 			case GMFGenPackage.PREDEFINED_PARSER__EDIT_METHOD:

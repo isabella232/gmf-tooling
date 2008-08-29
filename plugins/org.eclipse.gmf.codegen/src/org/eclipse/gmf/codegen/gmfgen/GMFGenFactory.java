@@ -278,6 +278,15 @@ public interface GMFGenFactory extends EFactory {
 	NotationType createNotationType();
 
 	/**
+	 * Returns a new object of class '<em>Label Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Label Model Facet</em>'.
+	 * @generated
+	 */
+	LabelModelFacet createLabelModelFacet();
+
+	/**
 	 * Returns a new object of class '<em>Type Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

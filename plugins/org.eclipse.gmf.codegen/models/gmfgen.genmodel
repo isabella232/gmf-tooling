@@ -169,9 +169,6 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenEditorGenerator/getAllDomainGenPackages">
         <genParameters ecoreParameter="gmfgen.ecore#//GenEditorGenerator/getAllDomainGenPackages/withUsed"/>
       </genOperations>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenEditorGenerator/requiresParser">
-        <genParameters ecoreParameter="gmfgen.ecore#//GenEditorGenerator/requiresParser/method"/>
-      </genOperations>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenDiagram">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/editorGen"/>
@@ -562,7 +559,9 @@
       <genOperations ecoreOperation="gmfgen.ecore#//LinkModelFacet/getAssistantSourceTypes"/>
       <genOperations ecoreOperation="gmfgen.ecore#//LinkModelFacet/getAssistantTargetTypes"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//LabelModelFacet"/>
+    <genClasses ecoreClass="gmfgen.ecore#//LabelModelFacet">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//LabelModelFacet/parser"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//TypeModelFacet">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/metaClass"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/containmentMetaFeature"/>
@@ -586,7 +585,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/editPattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/viewMethod"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/editMethod"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//FeatureLabelModelFacet/parser"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//DesignLabelModelFacet"/>
     <genClasses ecoreClass="gmfgen.ecore#//Attributes"/>
@@ -968,6 +966,7 @@
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenParserImplementation">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenParserImplementation/holder"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenParserImplementation/uses"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//PredefinedParser">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PredefinedParser/viewMethod"/>

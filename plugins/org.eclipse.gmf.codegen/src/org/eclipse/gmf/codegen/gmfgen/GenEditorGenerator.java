@@ -594,11 +594,15 @@ public interface GenEditorGenerator extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If present, describes access to and types of parser implementations
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Label Parsers</em>' containment reference.
 	 * @see #setLabelParsers(GenParsers)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_LabelParsers()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenParsers#getEditorGen
-	 * @model opposite="editorGen" containment="true" required="true"
+	 * @model opposite="editorGen" containment="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='labelParsers.oclIsUndefined() implies (diagram.getAllNodes()->forAll(labels->size()=0) and diagram.links->forAll(labels->size()=0) and not diagram.childNodes->exists(oclIsKindOf(GenChildLabelNode)))' description='No label may be declared without a parser'"
 	 * @generated
 	 */
 	GenParsers getLabelParsers();
@@ -623,17 +627,6 @@ public interface GenEditorGenerator extends EObject {
 	 * @generated
 	 */
 	EList<GenPackage> getAllDomainGenPackages(boolean withUsed);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Returns true if parser for the specified method is used by diagram editor
-	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Replaced with GenParsers'"
-	 * @generated
-	 */
-	boolean requiresParser(LabelTextAccessMethod method);
 
 	boolean hasAudits(); // Indicates whether this generator defines at least one AuditRule
 } // GenEditorGenerator

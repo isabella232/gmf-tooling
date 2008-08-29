@@ -47,7 +47,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenParserImplementation;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
-import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
@@ -534,11 +533,6 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	// parsers
-
-	// FIXME remove together with GenDiagram#requiresParser() method
-	private boolean shouldGenerateParser(LabelTextAccessMethod method) {
-		return myDiagram.getEditorGen().requiresParser(method);
-	}
 
 	private void generateAbstractParser() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getAbstractParserEmitter(), myEmitters.getAbstractParserName(myDiagram), myDiagram);

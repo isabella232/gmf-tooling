@@ -7,17 +7,10 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.gmf.codegen.gmfgen.ExternalParser;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenParsers;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,14 +19,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenParsers;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ExternalParserImpl#getHolder <em>Holder</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ExternalParserImpl#getHint <em>Hint</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ExternalParserImpl extends EObjectImpl implements ExternalParser {
+public class ExternalParserImpl extends GenParserImplementationImpl implements ExternalParser {
 	/**
 	 * The default value of the '{@link #getHint() <em>Hint</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -78,16 +70,6 @@ public class ExternalParserImpl extends EObjectImpl implements ExternalParser {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenParsers getHolder() {
-		if (eContainerFeatureID != GMFGenPackage.EXTERNAL_PARSER__HOLDER) return null;
-		return (GenParsers)eContainer();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getHint() {
 		return hint;
 	}
@@ -110,54 +92,8 @@ public class ExternalParserImpl extends EObjectImpl implements ExternalParser {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GMFGenPackage.EXTERNAL_PARSER__HOLDER:
-				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.EXTERNAL_PARSER__HOLDER, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GMFGenPackage.EXTERNAL_PARSER__HOLDER:
-				return eBasicSetContainer(null, GMFGenPackage.EXTERNAL_PARSER__HOLDER, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
-			case GMFGenPackage.EXTERNAL_PARSER__HOLDER:
-				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_PARSERS__IMPLEMENTATIONS, GenParsers.class, msgs);
-		}
-		return super.eBasicRemoveFromContainerFeature(msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GMFGenPackage.EXTERNAL_PARSER__HOLDER:
-				return getHolder();
 			case GMFGenPackage.EXTERNAL_PARSER__HINT:
 				return getHint();
 		}
@@ -202,8 +138,6 @@ public class ExternalParserImpl extends EObjectImpl implements ExternalParser {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.EXTERNAL_PARSER__HOLDER:
-				return getHolder() != null;
 			case GMFGenPackage.EXTERNAL_PARSER__HINT:
 				return HINT_EDEFAULT == null ? hint != null : !HINT_EDEFAULT.equals(hint);
 		}

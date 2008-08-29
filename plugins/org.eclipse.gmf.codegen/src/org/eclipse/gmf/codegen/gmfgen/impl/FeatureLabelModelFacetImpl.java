@@ -12,13 +12,10 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenParserImplementation;
 import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
 
 /**
@@ -35,13 +32,12 @@ import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getEditPattern <em>Edit Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getViewMethod <em>View Method</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getEditMethod <em>Edit Method</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getParser <em>Parser</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLabelModelFacet {
+public class FeatureLabelModelFacetImpl extends LabelModelFacetImpl implements FeatureLabelModelFacet {
 	/**
 	 * The cached value of the '{@link #getMetaFeatures() <em>Meta Features</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -161,16 +157,6 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 	 * @ordered
 	 */
 	protected LabelTextAccessMethod editMethod = EDIT_METHOD_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getParser() <em>Parser</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getParser()
-	 * @generated
-	 * @ordered
-	 */
-	protected GenParserImplementation parser;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -325,44 +311,6 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenParserImplementation getParser() {
-		if (parser != null && parser.eIsProxy()) {
-			InternalEObject oldParser = (InternalEObject)parser;
-			parser = (GenParserImplementation)eResolveProxy(oldParser);
-			if (parser != oldParser) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.FEATURE_LABEL_MODEL_FACET__PARSER, oldParser, parser));
-			}
-		}
-		return parser;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenParserImplementation basicGetParser() {
-		return parser;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setParser(GenParserImplementation newParser) {
-		GenParserImplementation oldParser = parser;
-		parser = newParser;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.FEATURE_LABEL_MODEL_FACET__PARSER, oldParser, parser));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -380,9 +328,6 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 				return getViewMethod();
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_METHOD:
 				return getEditMethod();
-			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__PARSER:
-				if (resolve) return getParser();
-				return basicGetParser();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -419,9 +364,6 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_METHOD:
 				setEditMethod((LabelTextAccessMethod)newValue);
 				return;
-			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__PARSER:
-				setParser((GenParserImplementation)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -455,9 +397,6 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_METHOD:
 				setEditMethod(EDIT_METHOD_EDEFAULT);
 				return;
-			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__PARSER:
-				setParser((GenParserImplementation)null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -484,8 +423,6 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 				return viewMethod != VIEW_METHOD_EDEFAULT;
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_METHOD:
 				return editMethod != EDIT_METHOD_EDEFAULT;
-			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__PARSER:
-				return parser != null;
 		}
 		return super.eIsSet(featureID);
 	}

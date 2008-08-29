@@ -7,7 +7,6 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 
@@ -20,7 +19,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
  *
  * @generated
  */
-public class DesignLabelModelFacetImpl extends EObjectImpl implements DesignLabelModelFacet {
+public class DesignLabelModelFacetImpl extends LabelModelFacetImpl implements DesignLabelModelFacet {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

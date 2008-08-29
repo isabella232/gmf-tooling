@@ -88,6 +88,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.METAMODEL_TYPE: return createMetamodelType();
 			case GMFGenPackage.SPECIALIZATION_TYPE: return createSpecializationType();
 			case GMFGenPackage.NOTATION_TYPE: return createNotationType();
+			case GMFGenPackage.LABEL_MODEL_FACET: return createLabelModelFacet();
 			case GMFGenPackage.TYPE_MODEL_FACET: return createTypeModelFacet();
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET: return createTypeLinkModelFacet();
 			case GMFGenPackage.FEATURE_LINK_MODEL_FACET: return createFeatureLinkModelFacet();
@@ -521,6 +522,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public NotationType createNotationType() {
 		NotationTypeImpl notationType = new NotationTypeImpl();
 		return notationType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LabelModelFacet createLabelModelFacet() {
+		LabelModelFacetImpl labelModelFacet = new LabelModelFacetImpl();
+		return labelModelFacet;
 	}
 
 	/**

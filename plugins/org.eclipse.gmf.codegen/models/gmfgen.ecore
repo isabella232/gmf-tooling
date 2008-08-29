@@ -18,15 +18,6 @@
       </eAnnotations>
       <eParameters name="withUsed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </eOperations>
-    <eOperations name="requiresParser" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Returns true if parser for the specified method is used by diagram editor"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Replaced with GenParsers"/>
-      </eAnnotations>
-      <eParameters name="method" eType="#//LabelTextAccessMethod"/>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="audits" eType="#//GenAuditRoot"
         containment="true" eOpposite="#//GenAuditRoot/editorGen"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metrics" eType="#//GenMetricContainer"
@@ -89,8 +80,16 @@
         <details key="documentation" value="If present, specifies dynamic access to domain model(s), without using generated Java code"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="labelParsers" lowerBound="1"
-        eType="#//GenParsers" containment="true" eOpposite="#//GenParsers/editorGen"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="labelParsers" eType="#//GenParsers"
+        containment="true" eOpposite="#//GenParsers/editorGen">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If present, describes access to and types of parser implementations"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="labelParsers.oclIsUndefined() implies (diagram.getAllNodes()->forAll(labels->size()=0) and diagram.links->forAll(labels->size()=0) and not diagram.childNodes->exists(oclIsKindOf(GenChildLabelNode)))"/>
+        <details key="description" value="No label may be declared without a parser"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenDiagram" eSuperTypes="#//GenContainerBase #//PackageNames #//ProviderClassNames #//LinkConstraints #//EditPartCandies #//EditorCandies #//Shortcuts #//BatchValidation #//MeasurementUnit">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
@@ -976,11 +975,12 @@
     <eOperations name="getAssistantSourceTypes" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     <eOperations name="getAssistantTargetTypes" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LabelModelFacet" abstract="true" interface="true"
-      eSuperTypes="#//ModelFacet">
+  <eClassifiers xsi:type="ecore:EClass" name="LabelModelFacet" eSuperTypes="#//ModelFacet">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Model facet of labels"/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parser" lowerBound="1"
+        eType="#//GenParserImplementation" eOpposite="#//GenParserImplementation/uses"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeModelFacet" eSuperTypes="#//ModelFacet">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1091,8 +1091,6 @@
         <details key="documentation" value="Replaced with GenParsers and PredefinedParser"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parser" lowerBound="1"
-        eType="#//GenParserImplementation"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="LabelTextAccessMethod">
     <eLiterals name="MESSAGE_FORMAT"/>
@@ -2090,10 +2088,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="implementations" lowerBound="1"
         upperBound="-1" eType="#//GenParserImplementation" containment="true" eOpposite="#//GenParserImplementation/holder"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenParserImplementation" abstract="true"
-      interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="GenParserImplementation" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="holder" lowerBound="1"
         eType="#//GenParsers" changeable="false" resolveProxies="false" eOpposite="#//GenParsers/implementations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="uses" lowerBound="1" upperBound="-1"
+        eType="#//LabelModelFacet" eOpposite="#//LabelModelFacet/parser"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PredefinedParser" eSuperTypes="#//GenParserImplementation">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
