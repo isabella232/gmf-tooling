@@ -27,23 +27,41 @@
 
 // invokes method generated with accessorMethod_delegate2providers template
 «DEFINE accessorCall_delegate2providers(gmfgen::GenCommonBase elementTypeHolder, gmfgen::LabelModelFacet labelModelFacet, String parsedElement) FOR gmfgen::GenCommonBase-»
-«getDiagram().editorGen.labelParsers.getQualifiedClassName()».getParser(«getDiagram().getElementTypesQualifiedClassName()».«elementTypeHolder.getUniqueIdentifier()», «parsedElement», «IF labelModelFacet == null»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall»«ELSE»«EXPAND _parserHint(this) FOR labelModelFacet»«ENDIF»)«-»
+«getDiagram().editorGen.labelParsers.getQualifiedClassName()».getParser(«getDiagram().getElementTypesQualifiedClassName()».«elementTypeHolder.getUniqueIdentifier()», «parsedElement», «IF labelModelFacet == null»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall»«ELSE»«EXPAND _parserHint(labelModelFacet, this) FOR labelModelFacet.parser»«ENDIF»)«-»
 «ENDDEFINE»
 
-«DEFINE _parserHint(gmfgen::GenCommonBase hintHolder) FOR gmfgen::LabelModelFacet»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR hintHolder»«ENDDEFINE»
-«DEFINE _parserHint(gmfgen::GenCommonBase hintHolder) FOR gmfgen::DesignLabelModelFacet»org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint.DESCRIPTION«ENDDEFINE»
+«DEFINE _parserHint(gmfgen::LabelModelFacet labelFacet, gmfgen::GenCommonBase hintHolder) FOR GenParserImplementation»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR hintHolder»«ENDDEFINE»
+// ExternalParser may override hint
+«DEFINE _parserHint(gmfgen::LabelModelFacet labelFacet, gmfgen::GenCommonBase hintHolder) FOR ExternalParser-»
+«IF hint == null-»
+«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR hintHolder-»
+«ELSE»«hint»«ENDIF-»
+«ENDDEFINE»
+«DEFINE _parserHint(gmfgen::DesignLabelModelFacet labelFacet, gmfgen::GenCommonBase hintHolder) FOR ExternalParser-»
+«IF hint == null»org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint.DESCRIPTION«ELSE»«hint»«ENDIF-»
+«ENDDEFINE»
+«DEFINE _parserHint(gmfgen::DesignLabelModelFacet labelFacet, gmfgen::GenCommonBase hintHolder) FOR GenParserImplementation»org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint.DESCRIPTION«ENDDEFINE»
 
-«REM»no-op, just to complement accessorMethod_delegate2providers«ENDREM»
+// FIXME refactor static field to an instance registered within Activator
+«REM»Complementary method to accessorMethod_delegate2providers, although for direct access need an instance of this class«ENDREM»
 «DEFINE accessorMethod_direct FOR gmfgen::GenParsers-»
+	private static «getQualifiedClassName()» ourInstance;
+
+	public static «getQualifiedClassName()» get() {
+		if (ourInstance == null) {
+			ourInstance = new «getQualifiedClassName()»();
+		}
+		return ourInstance;
+	}
 «ENDDEFINE»
 
+// XXX consider adding #getDescriptionParser() method to control that kind of parser access? 
 // XXX do I really need GenCommonBase elementTypeHolder, why not use elementType reference directly?
-// XXX make HintAdapterClass private - don't use it for DESCRIPTION parsers
 «DEFINE accessorCall_direct(gmfgen::GenCommonBase elementTypeHolder, gmfgen::LabelModelFacet labelModelFacet, String parsedElement) FOR gmfgen::GenCommonBase-»
-«IF labelModelFacet == null || { labelModelFacet }.typeSelect(DesignLabelModelFacet).size() == 1-»
-org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().getParser(new «getDiagram().editorGen.labelParsers.getQualifiedClassName()».HintAdapter(«getDiagram().getElementTypesQualifiedClassName()».«elementTypeHolder.getUniqueIdentifier()», «parsedElement», «IF labelModelFacet == null»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall»«ELSE»«EXPAND _parserHint(this) FOR labelModelFacet»«ENDIF»))«-»
+«IF labelModelFacet == null || { labelModelFacet.parser }.typeSelect(ExternalParser).size() == 1-»
+org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().getParser(new org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter(/*«getDiagram().getElementTypesQualifiedClassName()».«elementTypeHolder.getUniqueIdentifier()», */«parsedElement», «IF labelModelFacet == null»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall»«ELSE»«EXPAND _parserHint(labelModelFacet, this) FOR labelModelFacet.parser»«ENDIF»))«-»
 «ELSE-»
-«getDiagram().editorGen.labelParsers.getQualifiedClassName()».«parserAccessorName(this)»()«-»
+«getDiagram().editorGen.labelParsers.getQualifiedClassName()».get().«parserAccessorName(this)»()«-»
 «ENDIF-»
 «ENDDEFINE»
 
@@ -79,10 +97,9 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 	}
 «ENDDEFINE»
 
-// FIXME private class
 «DEFINE HintAdapterClass FOR gmfgen::GenParsers-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static class HintAdapter extends org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter {
+	private static class HintAdapter extends org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter {
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		private final org.eclipse.gmf.runtime.emf.type.core.IElementType elementType;
@@ -126,4 +143,74 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 
 «DEFINE _getParser(gmfgen::GenCommonBase element) FOR gmfgen::FeatureLabelModelFacet-»
 	«EXPAND xpt::Common::caseVisualID FOR element» return «parserAccessorName(element)»();
+«ENDDEFINE»
+
+
+«DEFINE parsers FOR gmfgen::GenNode»«EXPAND _parser FOREACH labels»«ENDDEFINE»
+«DEFINE parsers FOR gmfgen::GenLink»«EXPAND _parser FOREACH labels»«ENDDEFINE»
+«DEFINE parsers FOR gmfgen::GenChildLabelNode»«EXPAND _parser(this) FOR labelModelFacet»«ENDDEFINE»
+
+«DEFINE _parser FOR gmfgen::GenLabel»«EXPAND _parser(this) FOR modelFacet»«ENDDEFINE»
+«DEFINE _parser(gmfgen::GenCommonBase element) FOR gmfgen::LabelModelFacet»«EXPAND _parser(this, element) FOR parser»«ENDDEFINE»
+
+«DEFINE _parser(LabelModelFacet modelFacet, GenCommonBase element) FOR gmfgen::GenParserImplementation»«ERROR "Abstract template for " + this»«ENDDEFINE»
+
+«DEFINE _parser(LabelModelFacet modelFacet, GenCommonBase element) FOR gmfgen::CustomParser»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private «qualifiedName» «parserFieldName(element)»;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	«IF holder.extensibleViaService»private«ELSE»public«ENDIF» org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserAccessorName(element)»() {
+		if («parserFieldName(element)» == null) {
+			«parserFieldName(element)» = new «qualifiedName»();
+		}
+		return «parserFieldName(element)»;
+	}
+«ENDDEFINE»
+
+«DEFINE _parser(LabelModelFacet modelFacet, GenCommonBase element) FOR gmfgen::ExternalParser-»
+«REM»NO-OP«ENDREM-»
+«ENDDEFINE»
+
+«DEFINE _parser(FeatureLabelModelFacet modelFacet, GenCommonBase element) FOR gmfgen::PredefinedParser»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserFieldName(element)»;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	«IF holder.extensibleViaService»private«ELSE»public«ENDIF» org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserAccessorName(element)»() {
+		if («parserFieldName(element)» == null) {
+			org.eclipse.emf.ecore.EAttribute[] features = new org.eclipse.emf.ecore.EAttribute[] {
+				«EXPAND MetaModel::MetaFeature FOREACH modelFacet.metaFeatures SEPARATOR ", " »
+			};
+		«IF modelFacet.editableMetaFeatures.size() > 0-»
+			org.eclipse.emf.ecore.EAttribute[] editableFeatures = new org.eclipse.emf.ecore.EAttribute[] {
+				«EXPAND MetaModel::MetaFeature FOREACH modelFacet.editableMetaFeatures SEPARATOR ", "»
+			};
+		«ENDIF-»
+		«EXPAND parsers::PredefinedParser::qualifiedClassName» parser = new «EXPAND parsers::PredefinedParser::qualifiedClassName»(features«IF modelFacet.editableMetaFeatures.size() > 0», editableFeatures«ENDIF»);
+		«EXPAND _setPatterns(viewMethod, editMethod, "parser") FOR modelFacet-»
+			«parserFieldName(element)» = parser;
+		}
+		return «parserFieldName(element)»;
+	}
+«ENDDEFINE»
+
+«DEFINE _setPatterns(LabelTextAccessMethod viewMethod, LabelTextAccessMethod editMethod, String parserVar) FOR FeatureLabelModelFacet-»
+«IF viewMethod != gmfgen::LabelTextAccessMethod::NATIVE-»
+	«IF isPatternSpecified(viewPattern)-»
+		«parserVar».setViewPattern("«viewPattern»");«EXPAND xpt::Common::nonNLS(1)»
+	«ENDIF-»
+	«IF isPatternSpecified(editorPattern)-»
+		«parserVar».setEditorPattern("«editorPattern»");«EXPAND xpt::Common::nonNLS(1)»
+	«ELSEIF isPatternSpecified(viewPattern)-»
+		«parserVar».setEditorPattern("«viewPattern»");«EXPAND xpt::Common::nonNLS(1)»
+	«ENDIF-»
+«ENDIF-»
+«IF editMethod != gmfgen::LabelTextAccessMethod::NATIVE-»
+	«IF isPatternSpecified(editPattern)-»
+		«parserVar».setEditPattern("«editPattern»");«EXPAND xpt::Common::nonNLS(1)»
+	«ELSEIF isPatternSpecified(viewPattern)-»
+		«parserVar».setEditPattern("«viewPattern»");«EXPAND xpt::Common::nonNLS(1)»
+	«ENDIF-»
+«ENDIF-»
 «ENDDEFINE»

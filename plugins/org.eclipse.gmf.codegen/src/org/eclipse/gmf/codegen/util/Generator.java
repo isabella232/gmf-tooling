@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
+import org.eclipse.gmf.codegen.gmfgen.ExternalParser;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
@@ -552,9 +553,21 @@ public class Generator extends GeneratorBase implements Runnable {
 	// providers
 
 	private void generateParserProvider() throws UnexpectedBehaviourException, InterruptedException {
-		if (myEditorGen.getLabelParsers() != null) {
+		if (myEditorGen.getLabelParsers() != null && (myEditorGen.getLabelParsers().isExtensibleViaService() || existsNonExternalParser())) {
 			doGenerateJavaClass(myEmitters.getParserProviderEmitter(), myEditorGen.getLabelParsers().getQualifiedClassName(), myEditorGen.getLabelParsers());
 		}
+	}
+	// if there's no other parser than external, and provider is not contributed as a Service - 
+	// no need to generate class (only get() method would be there)
+	// XXX although adopters might want to change the logic - what if they generate smth reasonable?
+	// or if I add sort of getDescriptionParser common access method there?
+	private boolean existsNonExternalParser() {
+		for (GenParserImplementation pi : myEditorGen.getLabelParsers().getImplementations()) {
+			if (false == pi instanceof ExternalParser) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void generateElementInitializers() throws UnexpectedBehaviourException, InterruptedException {
