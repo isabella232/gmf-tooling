@@ -162,7 +162,7 @@
           editPattern=":"
           viewMethod="PRINTF"
           editMethod="REGEXP"
-          parser="//@labelParsers/@implementations.0">
+          parser="//@labelParsers/@implementations.1">
         <metaFeatures
             href="taipan.genmodel#//taipan/Item/article"/>
         <metaFeatures
@@ -541,7 +541,7 @@
             viewPattern="route : {0}"
             editorPattern="{0}"
             editPattern="{0}"
-            parser="//@labelParsers/@implementations.0">
+            parser="//@labelParsers/@implementations.2">
           <metaFeatures
               href="taipan.genmodel#//taipan/Route/description"/>
         </modelFacet>
@@ -567,7 +567,7 @@
             viewPattern="reliability : {0,number,percent}"
             editorPattern="{0,number,percent}"
             editPattern="{0,number,percent}"
-            parser="//@labelParsers/@implementations.0">
+            parser="//@labelParsers/@implementations.2">
           <metaFeatures
               href="taipan.genmodel#//taipan/Route/reliability"/>
         </modelFacet>
@@ -639,7 +639,7 @@
             viewPattern="route : {0}"
             editorPattern="{0}"
             editPattern="{0}"
-            parser="//@labelParsers/@implementations.0">
+            parser="//@labelParsers/@implementations.2">
           <metaFeatures
               href="taipan.genmodel#//taipan/Route/description"/>
         </modelFacet>
@@ -665,7 +665,7 @@
             viewPattern="reliability : {0,number,percent}"
             editorPattern="{0,number,percent}"
             editPattern="{0,number,percent}"
-            parser="//@labelParsers/@implementations.0">
+            parser="//@labelParsers/@implementations.2">
           <metaFeatures
               href="taipan.genmodel#//taipan/Route/reliability"/>
         </modelFacet>
@@ -1095,6 +1095,14 @@
   <labelParsers
       extensibleViaService="true">
     <implementations
-        xsi:type="gmfgen:ExternalParser"/>
+        xsi:type="gmfgen:PredefinedParser"
+        viewMethod="NATIVE"
+        editMethod="NATIVE"/>
+    <implementations
+        xsi:type="gmfgen:PredefinedParser"
+        viewMethod="PRINTF"
+        editMethod="REGEXP"/>
+    <implementations
+        xsi:type="gmfgen:PredefinedParser"/>
   </labelParsers>
 </gmfgen:GenEditorGenerator>
