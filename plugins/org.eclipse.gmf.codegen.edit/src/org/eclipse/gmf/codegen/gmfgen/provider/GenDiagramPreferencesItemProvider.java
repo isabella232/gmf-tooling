@@ -6,7 +6,6 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.provider;
 
-
 import java.util.Collection;
 import java.util.List;
 

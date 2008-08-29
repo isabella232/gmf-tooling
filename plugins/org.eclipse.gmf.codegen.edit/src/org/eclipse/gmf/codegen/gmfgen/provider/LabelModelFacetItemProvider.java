@@ -6,32 +6,35 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.provider;
 
+
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+import org.eclipse.emf.edit.provider.IChildCreationExtender;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
-import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.PredefinedParser} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.LabelModelFacet} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class PredefinedParserItemProvider
-	extends GenParserImplementationItemProvider
+public class LabelModelFacetItemProvider
+	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -44,7 +47,7 @@ public class PredefinedParserItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PredefinedParserItemProvider(AdapterFactory adapterFactory) {
+	public LabelModelFacetItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -59,65 +62,42 @@ public class PredefinedParserItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addViewMethodPropertyDescriptor(object);
-			addEditMethodPropertyDescriptor(object);
+			addParserPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the View Method feature.
+	 * This adds a property descriptor for the Parser feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addViewMethodPropertyDescriptor(Object object) {
+	protected void addParserPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_PredefinedParser_viewMethod_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_PredefinedParser_viewMethod_feature", "_UI_PredefinedParser_type"),
-				 GMFGenPackage.eINSTANCE.getPredefinedParser_ViewMethod(),
+				 getString("_UI_LabelModelFacet_parser_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LabelModelFacet_parser_feature", "_UI_LabelModelFacet_type"),
+				 GMFGenPackage.eINSTANCE.getLabelModelFacet_Parser(),
 				 true,
 				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 true,
+				 null,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Edit Method feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addEditMethodPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_PredefinedParser_editMethod_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_PredefinedParser_editMethod_feature", "_UI_PredefinedParser_type"),
-				 GMFGenPackage.eINSTANCE.getPredefinedParser_EditMethod(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This returns PredefinedParser.gif.
+	 * This returns LabelModelFacet.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/PredefinedParser"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/LabelModelFacet"));
 	}
 
 	/**
@@ -128,11 +108,7 @@ public class PredefinedParserItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		LabelTextAccessMethod labelValue = ((PredefinedParser)object).getViewMethod();
-		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ?
-			getString("_UI_PredefinedParser_type") :
-			getString("_UI_PredefinedParser_type") + " " + label;
+		return getString("_UI_LabelModelFacet_type");
 	}
 
 	/**
@@ -145,13 +121,6 @@ public class PredefinedParserItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(PredefinedParser.class)) {
-			case GMFGenPackage.PREDEFINED_PARSER__VIEW_METHOD:
-			case GMFGenPackage.PREDEFINED_PARSER__EDIT_METHOD:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 
@@ -165,6 +134,17 @@ public class PredefinedParserItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+	}
+
+	/**
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return ((IChildCreationExtender)adapterFactory).getResourceLocator();
 	}
 
 }

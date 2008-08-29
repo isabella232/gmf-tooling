@@ -203,6 +203,11 @@ public class GenChildLabelNodeItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenChildLabelNode_LabelModelFacet(),
+				 GMFGenFactory.eINSTANCE.createLabelModelFacet()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenChildLabelNode_LabelModelFacet(),
 				 GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet()));
 
 		newChildDescriptors.add

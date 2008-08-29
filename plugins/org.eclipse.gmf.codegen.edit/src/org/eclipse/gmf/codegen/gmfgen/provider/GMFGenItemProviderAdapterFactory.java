@@ -733,6 +733,29 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.LabelModelFacet} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LabelModelFacetItemProvider labelModelFacetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.LabelModelFacet}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLabelModelFacetAdapter() {
+		if (labelModelFacetItemProvider == null) {
+			labelModelFacetItemProvider = new LabelModelFacetItemProvider(this);
+		}
+
+		return labelModelFacetItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2266,6 +2289,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (metamodelTypeItemProvider != null) metamodelTypeItemProvider.dispose();
 		if (specializationTypeItemProvider != null) specializationTypeItemProvider.dispose();
 		if (notationTypeItemProvider != null) notationTypeItemProvider.dispose();
+		if (labelModelFacetItemProvider != null) labelModelFacetItemProvider.dispose();
 		if (typeModelFacetItemProvider != null) typeModelFacetItemProvider.dispose();
 		if (typeLinkModelFacetItemProvider != null) typeLinkModelFacetItemProvider.dispose();
 		if (featureLinkModelFacetItemProvider != null) featureLinkModelFacetItemProvider.dispose();
