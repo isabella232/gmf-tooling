@@ -539,6 +539,9 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateParsers() throws UnexpectedBehaviourException, InterruptedException {
+		if (myEditorGen.getLabelParsers() == null) {
+			return;
+		}
 		for (GenParserImplementation pi : myEditorGen.getLabelParsers().getImplementations()) {
 			if (pi instanceof PredefinedParser) {
 				doGenerateJavaClass(myEmitters.getPredefinedParserEmitter(), myEmitters.getPredefinedParserName(pi), pi);
@@ -549,7 +552,9 @@ public class Generator extends GeneratorBase implements Runnable {
 	// providers
 
 	private void generateParserProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getParserProviderEmitter(), myEditorGen.getLabelParsers().getQualifiedClassName(), myEditorGen.getLabelParsers());
+		if (myEditorGen.getLabelParsers() != null) {
+			doGenerateJavaClass(myEmitters.getParserProviderEmitter(), myEditorGen.getLabelParsers().getQualifiedClassName(), myEditorGen.getLabelParsers());
+		}
 	}
 
 	private void generateElementInitializers() throws UnexpectedBehaviourException, InterruptedException {

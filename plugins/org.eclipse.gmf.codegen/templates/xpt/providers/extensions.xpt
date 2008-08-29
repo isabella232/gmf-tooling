@@ -47,7 +47,7 @@
          <Priority name="«iconProviderPriority»"/>
       </IconProvider>
    </extension>
-«IF editorGen.labelParsers.extensibleViaService»
+«IF editorGen.labelParsers != null && editorGen.labelParsers.extensibleViaService»
    <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <ParserProvider class="«editorGen.labelParsers.getQualifiedClassName()»">
