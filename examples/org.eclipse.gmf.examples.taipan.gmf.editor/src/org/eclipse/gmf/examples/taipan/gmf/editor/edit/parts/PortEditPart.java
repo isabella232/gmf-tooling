@@ -14,6 +14,7 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.Shape;
