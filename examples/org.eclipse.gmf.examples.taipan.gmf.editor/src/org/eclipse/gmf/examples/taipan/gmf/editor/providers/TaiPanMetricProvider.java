@@ -263,7 +263,7 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 			org.eclipse.swt.graphics.GC gc = new org.eclipse.swt.graphics.GC(table);
 
 			gc.setFont(JFaceResources.getDialogFont());
-			int padding = gc.stringExtent("X").x * 2;//$NON-NLS-1$
+			int padding = gc.stringExtent("X").x * 2; //$NON-NLS-1$
 			for (int i = 0; i < getMetricKeys().length; i++) {
 				final String nextKey = getMetricKeys()[i];
 				String valueStr = (String) maxValStrMap.get(nextKey);
@@ -491,7 +491,7 @@ public class TaiPanMetricProvider extends AbstractContributionItemProvider {
 			EClass imageTarget = target.eClass();
 			if (target instanceof View) {
 				View viewTarget = (View) target;
-				if ("".equals(viewTarget.getType()) && viewTarget.getElement() != null) {//$NON-NLS-1$
+				if ("".equals(viewTarget.getType()) && viewTarget.getElement() != null) { //$NON-NLS-1$
 					imageTarget = viewTarget.getElement().eClass();
 				}
 			}

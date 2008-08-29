@@ -56,7 +56,7 @@ public abstract class TaiPanAbstractExpression {
 		String pluginID = TaiPanDiagramEditorPlugin.ID;
 		this.status = new Status(severity, pluginID, -1, (message != null) ? message : "", throwable); //$NON-NLS-1$
 		if (!this.status.isOK()) {
-			TaiPanDiagramEditorPlugin.getInstance().logError("Expression problem:" + message + "body:" + body(), throwable); //$NON-NLS-1$ //$NON-NLS-2$
+			TaiPanDiagramEditorPlugin.getInstance().logError("Expression problem:" + message + "body:" + body(), throwable); //$NON-NLS-1$  //$NON-NLS-2$
 		}
 	}
 
@@ -80,7 +80,7 @@ public abstract class TaiPanAbstractExpression {
 			try {
 				return doEvaluate(context, env);
 			} catch (Exception e) {
-				TaiPanDiagramEditorPlugin.getInstance().logError("Expression evaluation failure: " + body(), e);//$NON-NLS-1$
+				TaiPanDiagramEditorPlugin.getInstance().logError("Expression evaluation failure: " + body(), e); //$NON-NLS-1$
 			}
 		}
 		return null;

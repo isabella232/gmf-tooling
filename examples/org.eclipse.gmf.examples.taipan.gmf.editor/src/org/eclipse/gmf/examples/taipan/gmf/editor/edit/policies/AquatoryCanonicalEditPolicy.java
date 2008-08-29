@@ -85,7 +85,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected boolean isOrphaned(Collection semanticChildren, final View view) {
-		if (view.getEAnnotation("Shortcut") != null) {//$NON-NLS-1$
+		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
 			return TaiPanDiagramUpdater.isShortcutOrphaned(view);
 		}
 		int visualID = TaiPanVisualIDRegistry.getVisualID(view);

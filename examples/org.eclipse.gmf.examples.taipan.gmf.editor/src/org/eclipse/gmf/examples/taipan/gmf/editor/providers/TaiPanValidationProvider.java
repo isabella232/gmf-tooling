@@ -276,7 +276,7 @@ public class TaiPanValidationProvider extends AbstractContributionItemProvider {
 			//
 			// To construct approprate return value, use ctx.createSuccessStatus()
 			// or ctx.createFailureStatus(...)
-			throw new UnsupportedOperationException("No user java implementation provided for #validate(IValidationContext) operation");//$NON-NLS-1$
+			throw new UnsupportedOperationException("No user java implementation provided for #validate(IValidationContext) operation"); //$NON-NLS-1$
 		}
 	}
 
