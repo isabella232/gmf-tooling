@@ -66,6 +66,8 @@ public class GenLinkItemProvider
 			addOutgoingCreationAllowedPropertyDescriptor(object);
 			addIncomingCreationAllowedPropertyDescriptor(object);
 			addViewDirectionAlignedWithModelPropertyDescriptor(object);
+			addTargetReorientingAllowedPropertyDescriptor(object);
+			addSourceReorientingAllowedPropertyDescriptor(object);
 			addCreateCommandClassNamePropertyDescriptor(object);
 			addReorientCommandClassNamePropertyDescriptor(object);
 			addTreeBranchPropertyDescriptor(object);
@@ -182,6 +184,50 @@ public class GenLinkItemProvider
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 getString("_UI_DiagramElementPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Target Reorienting Allowed feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTargetReorientingAllowedPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenLink_targetReorientingAllowed_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenLink_targetReorientingAllowed_feature", "_UI_GenLink_type"),
+				 GMFGenPackage.eINSTANCE.getGenLink_TargetReorientingAllowed(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Source Reorienting Allowed feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSourceReorientingAllowedPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenLink_sourceReorientingAllowed_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenLink_sourceReorientingAllowed_feature", "_UI_GenLink_type"),
+				 GMFGenPackage.eINSTANCE.getGenLink_SourceReorientingAllowed(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
 				 null));
 	}
 
@@ -367,6 +413,8 @@ public class GenLinkItemProvider
 			case GMFGenPackage.GEN_LINK__OUTGOING_CREATION_ALLOWED:
 			case GMFGenPackage.GEN_LINK__INCOMING_CREATION_ALLOWED:
 			case GMFGenPackage.GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL:
+			case GMFGenPackage.GEN_LINK__TARGET_REORIENTING_ALLOWED:
+			case GMFGenPackage.GEN_LINK__SOURCE_REORIENTING_ALLOWED:
 			case GMFGenPackage.GEN_LINK__CREATE_COMMAND_CLASS_NAME:
 			case GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME:
 			case GMFGenPackage.GEN_LINK__TREE_BRANCH:
