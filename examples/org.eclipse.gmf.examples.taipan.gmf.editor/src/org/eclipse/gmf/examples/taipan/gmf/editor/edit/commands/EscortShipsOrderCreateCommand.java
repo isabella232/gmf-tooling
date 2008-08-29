@@ -133,4 +133,5 @@ public class EscortShipsOrderCreateCommand extends CreateElementCommand {
 	protected Ship getTarget() {
 		return (Ship) target;
 	}
+
 }

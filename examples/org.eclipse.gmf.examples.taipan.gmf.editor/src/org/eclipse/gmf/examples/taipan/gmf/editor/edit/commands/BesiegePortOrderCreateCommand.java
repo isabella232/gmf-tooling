@@ -133,4 +133,5 @@ public class BesiegePortOrderCreateCommand extends CreateElementCommand {
 	protected Port getTarget() {
 		return (Port) target;
 	}
+
 }
