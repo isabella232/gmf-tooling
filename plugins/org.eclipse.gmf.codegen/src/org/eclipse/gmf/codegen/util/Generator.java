@@ -146,11 +146,19 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateBehaviours(next);
 			generateLinkItemSemanticEditPolicy(next);
 			if (next.getModelFacet() instanceof TypeLinkModelFacet) {
-				generateCreateLinkCommand(next);
-				generateReorientLinkCommand(next);
+				if (next.isIncomingCreationAllowed() || next.isOutgoingCreationAllowed()) {
+					generateCreateLinkCommand(next);
+				}
+				if (next.isTargetReorientingAllowed() || next.isSourceReorientingAllowed()) {
+					generateReorientLinkCommand(next);
+				}
 			} else if (next.getModelFacet() instanceof FeatureLinkModelFacet) {
-				generateCreateRefLinkCommand(next);
-				generateReorientRefLinkCommand(next);
+				if (next.isIncomingCreationAllowed() || next.isOutgoingCreationAllowed()) {
+					generateCreateRefLinkCommand(next);
+				}
+				if (next.isTargetReorientingAllowed() || next.isSourceReorientingAllowed()) {
+					generateReorientRefLinkCommand(next);
+				}
 			}
 			for (GenLinkLabel label : next.getLabels()) {
 				generateLinkLabelEditPart(label);

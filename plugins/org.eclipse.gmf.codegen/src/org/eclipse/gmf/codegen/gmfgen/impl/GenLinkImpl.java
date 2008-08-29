@@ -51,6 +51,8 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isIncomingCreationAllowed <em>Incoming Creation Allowed</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isViewDirectionAlignedWithModel <em>View Direction Aligned With Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getCreationConstraints <em>Creation Constraints</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isTargetReorientingAllowed <em>Target Reorienting Allowed</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isSourceReorientingAllowed <em>Source Reorienting Allowed</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getReorientCommandClassName <em>Reorient Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isTreeBranch <em>Tree Branch</em>}</li>
@@ -151,6 +153,46 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * @ordered
 	 */
 	protected GenLinkConstraints creationConstraints;
+
+	/**
+	 * The default value of the '{@link #isTargetReorientingAllowed() <em>Target Reorienting Allowed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isTargetReorientingAllowed()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean TARGET_REORIENTING_ALLOWED_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isTargetReorientingAllowed() <em>Target Reorienting Allowed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isTargetReorientingAllowed()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean targetReorientingAllowed = TARGET_REORIENTING_ALLOWED_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isSourceReorientingAllowed() <em>Source Reorienting Allowed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSourceReorientingAllowed()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean SOURCE_REORIENTING_ALLOWED_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isSourceReorientingAllowed() <em>Source Reorienting Allowed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSourceReorientingAllowed()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean sourceReorientingAllowed = SOURCE_REORIENTING_ALLOWED_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getCreateCommandClassName() <em>Create Command Class Name</em>}' attribute.
@@ -425,6 +467,48 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isTargetReorientingAllowed() {
+		return targetReorientingAllowed;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTargetReorientingAllowed(boolean newTargetReorientingAllowed) {
+		boolean oldTargetReorientingAllowed = targetReorientingAllowed;
+		targetReorientingAllowed = newTargetReorientingAllowed;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__TARGET_REORIENTING_ALLOWED, oldTargetReorientingAllowed, targetReorientingAllowed));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSourceReorientingAllowed() {
+		return sourceReorientingAllowed;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSourceReorientingAllowed(boolean newSourceReorientingAllowed) {
+		boolean oldSourceReorientingAllowed = sourceReorientingAllowed;
+		sourceReorientingAllowed = newSourceReorientingAllowed;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__SOURCE_REORIENTING_ALLOWED, oldSourceReorientingAllowed, sourceReorientingAllowed));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getCreateCommandClassNameGen() {
 		return createCommandClassName;
 	}
@@ -691,6 +775,10 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return isViewDirectionAlignedWithModel() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				return getCreationConstraints();
+			case GMFGenPackage.GEN_LINK__TARGET_REORIENTING_ALLOWED:
+				return isTargetReorientingAllowed() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_LINK__SOURCE_REORIENTING_ALLOWED:
+				return isSourceReorientingAllowed() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_LINK__CREATE_COMMAND_CLASS_NAME:
 				return getCreateCommandClassName();
 			case GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME:
@@ -733,6 +821,12 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				setCreationConstraints((GenLinkConstraints)newValue);
 				return;
+			case GMFGenPackage.GEN_LINK__TARGET_REORIENTING_ALLOWED:
+				setTargetReorientingAllowed(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGenPackage.GEN_LINK__SOURCE_REORIENTING_ALLOWED:
+				setSourceReorientingAllowed(((Boolean)newValue).booleanValue());
+				return;
 			case GMFGenPackage.GEN_LINK__CREATE_COMMAND_CLASS_NAME:
 				setCreateCommandClassName((String)newValue);
 				return;
@@ -771,6 +865,12 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return;
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				setCreationConstraints((GenLinkConstraints)null);
+				return;
+			case GMFGenPackage.GEN_LINK__TARGET_REORIENTING_ALLOWED:
+				setTargetReorientingAllowed(TARGET_REORIENTING_ALLOWED_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_LINK__SOURCE_REORIENTING_ALLOWED:
+				setSourceReorientingAllowed(SOURCE_REORIENTING_ALLOWED_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_LINK__CREATE_COMMAND_CLASS_NAME:
 				setCreateCommandClassName(CREATE_COMMAND_CLASS_NAME_EDEFAULT);
@@ -811,6 +911,10 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return viewDirectionAlignedWithModel != VIEW_DIRECTION_ALIGNED_WITH_MODEL_EDEFAULT;
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				return creationConstraints != null;
+			case GMFGenPackage.GEN_LINK__TARGET_REORIENTING_ALLOWED:
+				return targetReorientingAllowed != TARGET_REORIENTING_ALLOWED_EDEFAULT;
+			case GMFGenPackage.GEN_LINK__SOURCE_REORIENTING_ALLOWED:
+				return sourceReorientingAllowed != SOURCE_REORIENTING_ALLOWED_EDEFAULT;
 			case GMFGenPackage.GEN_LINK__CREATE_COMMAND_CLASS_NAME:
 				return CREATE_COMMAND_CLASS_NAME_EDEFAULT == null ? createCommandClassName != null : !CREATE_COMMAND_CLASS_NAME_EDEFAULT.equals(createCommandClassName);
 			case GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME:
@@ -875,6 +979,10 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 		result.append(incomingCreationAllowed);
 		result.append(", viewDirectionAlignedWithModel: ");
 		result.append(viewDirectionAlignedWithModel);
+		result.append(", targetReorientingAllowed: ");
+		result.append(targetReorientingAllowed);
+		result.append(", sourceReorientingAllowed: ");
+		result.append(sourceReorientingAllowed);
 		result.append(", createCommandClassName: ");
 		result.append(createCommandClassName);
 		result.append(", reorientCommandClassName: ");

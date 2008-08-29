@@ -4802,13 +4802,31 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_LINK__CREATION_CONSTRAINTS = GEN_COMMON_BASE_FEATURE_COUNT + 8;
 
 	/**
+	 * The feature id for the '<em><b>Target Reorienting Allowed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK__TARGET_REORIENTING_ALLOWED = GEN_COMMON_BASE_FEATURE_COUNT + 9;
+
+	/**
+	 * The feature id for the '<em><b>Source Reorienting Allowed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK__SOURCE_REORIENTING_ALLOWED = GEN_COMMON_BASE_FEATURE_COUNT + 10;
+
+	/**
 	 * The feature id for the '<em><b>Create Command Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LINK__CREATE_COMMAND_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 9;
+	int GEN_LINK__CREATE_COMMAND_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>Reorient Command Class Name</b></em>' attribute.
@@ -4817,7 +4835,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LINK__REORIENT_COMMAND_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 10;
+	int GEN_LINK__REORIENT_COMMAND_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 12;
 
 	/**
 	 * The feature id for the '<em><b>Tree Branch</b></em>' attribute.
@@ -4826,7 +4844,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LINK__TREE_BRANCH = GEN_COMMON_BASE_FEATURE_COUNT + 11;
+	int GEN_LINK__TREE_BRANCH = GEN_COMMON_BASE_FEATURE_COUNT + 13;
 
 	/**
 	 * The feature id for the '<em><b>Sources</b></em>' reference list.
@@ -4835,7 +4853,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LINK__SOURCES = GEN_COMMON_BASE_FEATURE_COUNT + 12;
+	int GEN_LINK__SOURCES = GEN_COMMON_BASE_FEATURE_COUNT + 14;
 
 	/**
 	 * The feature id for the '<em><b>Targets</b></em>' reference list.
@@ -4844,7 +4862,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LINK__TARGETS = GEN_COMMON_BASE_FEATURE_COUNT + 13;
+	int GEN_LINK__TARGETS = GEN_COMMON_BASE_FEATURE_COUNT + 15;
 
 	/**
 	 * The number of structural features of the '<em>Gen Link</em>' class.
@@ -4853,7 +4871,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LINK_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 14;
+	int GEN_LINK_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 16;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLabelImpl <em>Gen Label</em>}' class.
@@ -13121,6 +13139,28 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenLink_CreationConstraints();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isTargetReorientingAllowed <em>Target Reorienting Allowed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Target Reorienting Allowed</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLink#isTargetReorientingAllowed()
+	 * @see #getGenLink()
+	 * @generated
+	 */
+	EAttribute getGenLink_TargetReorientingAllowed();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isSourceReorientingAllowed <em>Source Reorienting Allowed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Source Reorienting Allowed</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLink#isSourceReorientingAllowed()
+	 * @see #getGenLink()
+	 * @generated
+	 */
+	EAttribute getGenLink_SourceReorientingAllowed();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getCreateCommandClassName <em>Create Command Class Name</em>}'.

@@ -35,18 +35,21 @@ List[gmfgen::GenLink] getAllPotentialLinks(gmfgen::GenLinkEnd linkEnd) :
 ;
 
 List[gmfgen::GenLink] getReroutableTypeLinks(gmfgen::GenLinkEnd linkEnd) :
-	getAllRelatedLinks(linkEnd).select(link | isTypeLink(link))
+	getAllRelatedReroutableLinks(linkEnd).select(link | isTypeLink(link))
 ;
 
 List[gmfgen::GenLink] getReroutableRefLinks(gmfgen::GenLinkEnd linkEnd) :
-	getAllRelatedLinks(linkEnd).select(link | isRefLink(link))
+	getAllRelatedReroutableLinks(linkEnd).select(link | isRefLink(link))
 ;
 
 //XXX[MG]: again, it would be better to use linkEnd.incomingLinks.union(linkEnd.outgoingLinks).toList() 
 //but it will change the ordering and produce meaningless diff in the generated code
 private cached List[gmfgen::GenLink] getAllRelatedLinks(gmfgen::GenLinkEnd linkEnd) :
-	linkEnd.getDiagram().links
-		.select(link | canBeSource(link, linkEnd) || canBeTarget(link, linkEnd))
+	linkEnd.getDiagram().links.select(link | canBeSource(link, linkEnd) || canBeTarget(link, linkEnd))
+;
+
+private cached List[gmfgen::GenLink] getAllRelatedReroutableLinks(gmfgen::GenLinkEnd linkEnd) :
+	linkEnd.getDiagram().links.select(link | (canBeSource(link, linkEnd) && link.sourceReorientingAllowed) || (canBeTarget(link, linkEnd) && link.targetReorientingAllowed))
 ;
 
 private boolean isCreationAllowed(gmfgen::GenLink link) : 

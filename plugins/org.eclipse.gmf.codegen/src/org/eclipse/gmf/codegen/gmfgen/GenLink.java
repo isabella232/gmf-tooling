@@ -23,6 +23,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isIncomingCreationAllowed <em>Incoming Creation Allowed</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isViewDirectionAlignedWithModel <em>View Direction Aligned With Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getCreationConstraints <em>Creation Constraints</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isTargetReorientingAllowed <em>Target Reorienting Allowed</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isSourceReorientingAllowed <em>Source Reorienting Allowed</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getReorientCommandClassName <em>Reorient Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isTreeBranch <em>Tree Branch</em>}</li>
@@ -33,7 +35,6 @@ import org.eclipse.emf.common.util.EList;
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink()
  * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Edge\')' description='Link \'Diagram Runtime Class\' must be a notation::Edge or sub-class'"
- *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='outgoingCreationAllowed or incomingCreationAllowed' description='Either outgoingCreationAllowed or incomingCreationAllowed property should be true'"
  * @generated
  */
 public interface GenLink extends GenCommonBase, GenLinkEnd {
@@ -205,6 +206,58 @@ public interface GenLink extends GenCommonBase, GenLinkEnd {
 	 * @generated
 	 */
 	void setCreationConstraints(GenLinkConstraints value);
+
+	/**
+	 * Returns the value of the '<em><b>Target Reorienting Allowed</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Support link target reorienting
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Target Reorienting Allowed</em>' attribute.
+	 * @see #setTargetReorientingAllowed(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_TargetReorientingAllowed()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isTargetReorientingAllowed();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isTargetReorientingAllowed <em>Target Reorienting Allowed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Target Reorienting Allowed</em>' attribute.
+	 * @see #isTargetReorientingAllowed()
+	 * @generated
+	 */
+	void setTargetReorientingAllowed(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Source Reorienting Allowed</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Support link source reorienting
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Source Reorienting Allowed</em>' attribute.
+	 * @see #setSourceReorientingAllowed(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_SourceReorientingAllowed()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isSourceReorientingAllowed();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isSourceReorientingAllowed <em>Source Reorienting Allowed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Source Reorienting Allowed</em>' attribute.
+	 * @see #isSourceReorientingAllowed()
+	 * @generated
+	 */
+	void setSourceReorientingAllowed(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Create Command Class Name</b></em>' attribute.
