@@ -100,7 +100,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private final PaletteHandler myPaletteProcessor;
 	private final NavigatorHandler myNavigatorProcessor;
 	private final PropertySheetHandler myPropertySheetProcessor;
-	private final EcoreGenModelMatcher myEcoreGenModelMatch;	
+	private final EcoreGenModelMatcher myEcoreGenModelMatch;
+	private ExternalParser myDesignLabelParser;
+	private ExternalParser myAuxParser;
 
 	private GenAuditContext myDefaultAuditContext;
 
@@ -146,12 +148,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if (myGenModel.getEditor() == null) {
 			myGenModel.setEditor(GMFGenFactory.eINSTANCE.createGenEditorView());
 		}
-		// XXX meanwhile, we don't set any attributes to GenParsers (rather delegating to old, deprecated)
-		if (myGenModel.getLabelParsers() == null) {
-			myGenModel.setLabelParsers(GMFGenFactory.eINSTANCE.createGenParsers());
-			// unless bug #235113 is fixed, always do ParserService
-			myGenModel.getLabelParsers().setExtensibleViaService(true);
-		}
 		return myGenModel;
 	}
 
@@ -182,7 +178,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return getGenEssence().getNavigator();
 	}
 
-	private Palette createGenPalette() {
+	private Palette getGenPalette() {
 		Palette p = getGenDiagram().getPalette();
 		if (p == null) {
 			p = GMFGenFactory.eINSTANCE.createPalette();
@@ -191,11 +187,21 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return p;
 	}
 
-	private GenPropertySheet createPropertySheet() {
+	private GenPropertySheet getPropertySheet() {
 		if (getGenEssence().getPropertySheet() == null) {
 			getGenEssence().setPropertySheet(GMFGenFactory.eINSTANCE.createGenPropertySheet());
 		}
 		return getGenEssence().getPropertySheet();
+	}
+
+	private GenParsers getGenParsers() {
+		// XXX meanwhile, we don't set any attributes to GenParsers (rather delegating to old, deprecated)
+		if (getGenEssence().getLabelParsers() == null) {
+			getGenEssence().setLabelParsers(GMFGenFactory.eINSTANCE.createGenParsers());
+			// unless bug #235113 is fixed, always do ParserService
+			getGenEssence().getLabelParsers().setExtensibleViaService(true);
+		}
+		return getGenEssence().getLabelParsers();
 	}
 
 	protected void process(CanvasMapping mapping) {
@@ -204,7 +210,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		myHistory.purge();
 		if (mapping.getPalette() != null) {
-			myPaletteProcessor.initialize(createGenPalette());
+			myPaletteProcessor.initialize(getGenPalette());
 			myPaletteProcessor.process(mapping.getPalette());
 		}
 		if (!rcp) {
@@ -229,7 +235,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		initGenPlugin();
 		initGenUpdater();
 
-		myPropertySheetProcessor.initialize(createPropertySheet());
+		myPropertySheetProcessor.initialize(getPropertySheet());
 		myPropertySheetProcessor.process(mapping);
 		addPreferencePages(getGenDiagram());
 		
@@ -591,9 +597,15 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		if (mapping instanceof DesignLabelMapping) {
 			DesignLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createDesignLabelModelFacet();
+			modelFacet.setParser(getOrCreateParser((DesignLabelMapping) mapping));
 			return modelFacet;
 		}
-		return null;
+		// create bare instance that points to a ExternalParser
+		// this is modification of old contract (though, not breaking change, I believe)
+		// that says null modelFacet means use of external parser
+		LabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createLabelModelFacet();
+		modelFacet.setParser(getOrCreateParser(mapping));
+		return modelFacet;
 	}
 
 	private void setupElementType(GenNode genNode) {
@@ -1271,7 +1283,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private GenParserImplementation getOrCreateParser(FeatureLabelMapping flMapping) {
 		final LabelTextAccessMethod editMethod = LabelTextAccessMethod.get(flMapping.getEditMethod().getValue());
 		final LabelTextAccessMethod viewMethod = LabelTextAccessMethod.get(flMapping.getViewMethod().getValue());
-		for (GenParserImplementation pi : getGenEssence().getLabelParsers().getImplementations()) {
+		for (GenParserImplementation pi : getGenParsers().getImplementations()) {
 			if (pi instanceof PredefinedParser) {
 				PredefinedParser pp = (PredefinedParser) pi;
 				boolean same = pp.getEditMethod() == editMethod;
@@ -1284,7 +1296,23 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		PredefinedParser result = GMFGenFactory.eINSTANCE.createPredefinedParser();
 		result.setEditMethod(editMethod);
 		result.setViewMethod(viewMethod);
-		getGenEssence().getLabelParsers().getImplementations().add(result);
+		getGenParsers().getImplementations().add(result);
 		return result;
+	}
+
+	private GenParserImplementation getOrCreateParser(DesignLabelMapping flMapping) {
+		if (myDesignLabelParser == null) {
+			myDesignLabelParser = GMFGenFactory.eINSTANCE.createExternalParser();
+			getGenParsers().getImplementations().add(myDesignLabelParser);
+		}
+		return myDesignLabelParser;
+	}
+
+	private GenParserImplementation getOrCreateParser(LabelMapping flMapping) {
+		if (myAuxParser == null) {
+			myAuxParser = GMFGenFactory.eINSTANCE.createExternalParser();
+			getGenParsers().getImplementations().add(myAuxParser);
+		}
+		return myAuxParser;
 	}
 }
