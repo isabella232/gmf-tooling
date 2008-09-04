@@ -345,11 +345,11 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 					}	
 				«ENDLET-»
 			«ENDFOREACH-»
-			«FOREACH getSideAffixedChildren() AS child-»
-				if (editPart instanceof «child.getEditPartQualifiedClassName()») {
-					return getBorderedFigure().getBorderItemContainer();
-				}
-			«ENDFOREACH-»
+			«IF hasBorderItems()-»
+			if (editPart instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
+				return getBorderedFigure().getBorderItemContainer();
+			}
+			«ENDIF-»
 			return getContentPane();
 		}
 	«ENDIF-»
