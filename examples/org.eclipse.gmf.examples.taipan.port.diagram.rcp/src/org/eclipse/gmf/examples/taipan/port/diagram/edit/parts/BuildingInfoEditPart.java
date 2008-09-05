@@ -28,10 +28,12 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
+import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gef.handles.NonResizableHandleKit;
 import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.gef.tools.DirectEditManager;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.TaiPanTextSelectionEditPolicy;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanElementTypes;
 import org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanParserProvider;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
@@ -103,12 +105,14 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 	 */
 	protected void createDefaultEditPoliciesGen() {
 		super.createDefaultEditPolicies();
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new TaiPanTextSelectionEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new NonResizableEditPolicy() {
 
 			protected List createSelectionHandles() {
 				List handles = new ArrayList();
 				NonResizableHandleKit.addMoveHandle((GraphicalEditPart) getHost(), handles);
+				((MoveHandle) handles.get(0)).setBorder(null);
 				return handles;
 			}
 
@@ -249,6 +253,10 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
 			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
 		}
+		Object sfEditPolicy = getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
+		if (sfEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) sfEditPolicy).refreshFeedback();
+		}
 	}
 
 	/**
@@ -319,9 +327,8 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			String parserHint = ((View) getModel()).getType();
-			IAdaptable hintAdapter = new TaiPanParserProvider.HintAdapter(TaiPanElementTypes.Building_2001, getParserElement(), parserHint);
-			parser = ParserService.getInstance().getParser(hintAdapter);
+			parser = TaiPanParserProvider.getParser(TaiPanElementTypes.Building_2001, getParserElement(), TaiPanVisualIDRegistry
+					.getType(org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingInfoEditPart.VISUAL_ID));
 		}
 		return parser;
 	}
@@ -418,6 +425,10 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
 			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
+		Object sfEditPolicy = getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
+		if (sfEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) sfEditPolicy).refreshFeedback();
 		}
 	}
 
