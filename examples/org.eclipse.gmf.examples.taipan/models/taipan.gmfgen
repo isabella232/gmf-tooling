@@ -157,12 +157,12 @@
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:FeatureLabelModelFacet"
+          parser="//@labelParsers/@implementations.1"
           viewPattern="- %1$s [%2$d]"
           editorPattern="%1$s:%2$s"
           editPattern=":"
           viewMethod="PRINTF"
-          editMethod="REGEXP"
-          parser="//@labelParsers/@implementations.1">
+          editMethod="REGEXP">
         <metaFeatures
             href="taipan.genmodel#//taipan/Item/article"/>
         <metaFeatures
@@ -213,9 +213,9 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0"
             viewMethod="NATIVE"
-            editMethod="NATIVE"
-            parser="//@labelParsers/@implementations.0">
+            editMethod="NATIVE">
           <metaFeatures
               href="taipan.genmodel#//taipan/Item/article"/>
         </modelFacet>
@@ -233,9 +233,9 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0"
             viewMethod="NATIVE"
-            editMethod="NATIVE"
-            parser="//@labelParsers/@implementations.0">
+            editMethod="NATIVE">
           <metaFeatures
               href="taipan.genmodel#//taipan/LargeItem/weight"/>
         </modelFacet>
@@ -324,9 +324,9 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0"
             viewMethod="NATIVE"
-            editMethod="NATIVE"
-            parser="//@labelParsers/@implementations.0">
+            editMethod="NATIVE">
           <metaFeatures
               href="taipan.genmodel#//taipan/Port/location"/>
         </modelFacet>
@@ -375,9 +375,9 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0"
             viewMethod="NATIVE"
-            editMethod="NATIVE"
-            parser="//@labelParsers/@implementations.0">
+            editMethod="NATIVE">
           <metaFeatures
               href="taipan.genmodel#//taipan/Ship/name"/>
         </modelFacet>
@@ -425,9 +425,9 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0"
             viewMethod="NATIVE"
-            editMethod="NATIVE"
-            parser="//@labelParsers/@implementations.0">
+            editMethod="NATIVE">
           <metaFeatures
               href="taipan.genmodel#//taipan/Ship/name"/>
         </modelFacet>
@@ -474,7 +474,8 @@
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
-            xsi:type="gmfgen:DesignLabelModelFacet"/>
+            xsi:type="gmfgen:DesignLabelModelFacet"
+            parser="//@labelParsers/@implementations.2"/>
       </labels>
     </links>
     <links
@@ -538,10 +539,10 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.3"
             viewPattern="route : {0}"
             editorPattern="{0}"
-            editPattern="{0}"
-            parser="//@labelParsers/@implementations.2">
+            editPattern="{0}">
           <metaFeatures
               href="taipan.genmodel#//taipan/Route/description"/>
         </modelFacet>
@@ -564,10 +565,10 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.3"
             viewPattern="reliability : {0,number,percent}"
             editorPattern="{0,number,percent}"
-            editPattern="{0,number,percent}"
-            parser="//@labelParsers/@implementations.2">
+            editPattern="{0,number,percent}">
           <metaFeatures
               href="taipan.genmodel#//taipan/Route/reliability"/>
         </modelFacet>
@@ -636,10 +637,10 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.3"
             viewPattern="route : {0}"
             editorPattern="{0}"
-            editPattern="{0}"
-            parser="//@labelParsers/@implementations.2">
+            editPattern="{0}">
           <metaFeatures
               href="taipan.genmodel#//taipan/Route/description"/>
         </modelFacet>
@@ -662,10 +663,10 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.3"
             viewPattern="reliability : {0,number,percent}"
             editorPattern="{0,number,percent}"
-            editPattern="{0,number,percent}"
-            parser="//@labelParsers/@implementations.2">
+            editPattern="{0,number,percent}">
           <metaFeatures
               href="taipan.genmodel#//taipan/Route/reliability"/>
         </modelFacet>
@@ -1096,13 +1097,19 @@
       extensibleViaService="true">
     <implementations
         xsi:type="gmfgen:PredefinedParser"
+        uses="//@diagram/@topLevelNodes.0/@labels.0/@modelFacet //@diagram/@childNodes.1/@labels.0/@modelFacet //@diagram/@childNodes.1/@labels.1/@modelFacet //@diagram/@topLevelNodes.1/@labels.0/@modelFacet //@diagram/@topLevelNodes.2/@labels.0/@modelFacet"
         viewMethod="NATIVE"
         editMethod="NATIVE"/>
     <implementations
         xsi:type="gmfgen:PredefinedParser"
+        uses="//@diagram/@childNodes.0/@labelModelFacet"
         viewMethod="PRINTF"
         editMethod="REGEXP"/>
     <implementations
-        xsi:type="gmfgen:PredefinedParser"/>
+        xsi:type="gmfgen:ExternalParser"
+        uses="//@diagram/@links.0/@labels.0/@modelFacet"/>
+    <implementations
+        xsi:type="gmfgen:PredefinedParser"
+        uses="//@diagram/@links.1/@labels.0/@modelFacet //@diagram/@links.1/@labels.1/@modelFacet //@diagram/@links.2/@labels.0/@modelFacet //@diagram/@links.2/@labels.1/@modelFacet"/>
   </labelParsers>
 </gmfgen:GenEditorGenerator>
