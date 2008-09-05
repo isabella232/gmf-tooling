@@ -16,13 +16,13 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingInfoEditPart;
-import org.eclipse.gmf.examples.taipan.port.diagram.parsers.NativeParser;
 import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
+import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 import org.eclipse.gmf.runtime.notation.View;
@@ -42,18 +42,11 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getBuildingInfo_3001Parser() {
 		if (buildingInfo_3001Parser == null) {
-			buildingInfo_3001Parser = createBuildingInfo_3001Parser();
+			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getBuilding_Info() };
+			Parser_1_1 parser = new Parser_1_1(features);
+			buildingInfo_3001Parser = parser;
 		}
 		return buildingInfo_3001Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createBuildingInfo_3001Parser() {
-		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getBuilding_Info(), };
-		NativeParser parser = new NativeParser(features);
-		return parser;
 	}
 
 	/**
@@ -65,6 +58,14 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 			return getBuildingInfo_3001Parser();
 		}
 		return null;
+	}
+
+	/**
+	 * Utility method that consults ParserService
+	 * @generated
+	 */
+	public static IParser getParser(IElementType type, EObject object, String parserHint) {
+		return ParserService.getInstance().getParser(new HintAdapter(type, object, parserHint));
 	}
 
 	/**
@@ -99,7 +100,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
-	public static class HintAdapter extends ParserHintAdapter {
+	private static class HintAdapter extends ParserHintAdapter {
 
 		/**
 		 * @generated

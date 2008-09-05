@@ -76,7 +76,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 	protected ElementInfo createElementInfo(Object element) throws CoreException {
 		if (false == element instanceof FileEditorInput && false == element instanceof URIEditorInput) {
 			throw new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, 0, NLS.bind(Messages.TaiPanDocumentProvider_IncorrectInputError, new Object[] { element,
-					"org.eclipse.ui.part.FileEditorInput", "org.eclipse.emf.common.ui.URIEditorInput" }), //$NON-NLS-1$ //$NON-NLS-2$ 
+					"org.eclipse.ui.part.FileEditorInput", "org.eclipse.emf.common.ui.URIEditorInput" }), //$NON-NLS-1$  //$NON-NLS-2$ 
 					null));
 		}
 		IEditorInput editorInput = (IEditorInput) element;
@@ -94,7 +94,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 	protected IDocument createDocument(Object element) throws CoreException {
 		if (false == element instanceof FileEditorInput && false == element instanceof URIEditorInput) {
 			throw new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, 0, NLS.bind(Messages.TaiPanDocumentProvider_IncorrectInputError, new Object[] { element,
-					"org.eclipse.ui.part.FileEditorInput", "org.eclipse.emf.common.ui.URIEditorInput" }), //$NON-NLS-1$ //$NON-NLS-2$ 
+					"org.eclipse.ui.part.FileEditorInput", "org.eclipse.emf.common.ui.URIEditorInput" }), //$NON-NLS-1$  //$NON-NLS-2$ 
 					null));
 		}
 		IDocument document = createEmptyDocument();
@@ -239,7 +239,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 			}
 		} else {
 			throw new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, 0, NLS.bind(Messages.TaiPanDocumentProvider_IncorrectInputError, new Object[] { element,
-					"org.eclipse.ui.part.FileEditorInput", "org.eclipse.emf.common.ui.URIEditorInput" }), //$NON-NLS-1$ //$NON-NLS-2$ 
+					"org.eclipse.ui.part.FileEditorInput", "org.eclipse.emf.common.ui.URIEditorInput" }), //$NON-NLS-1$  //$NON-NLS-2$ 
 					null));
 		}
 	}
@@ -553,13 +553,13 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 			} else {
 				fireElementStateChangeFailed(element);
 				throw new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, 0, NLS.bind(Messages.TaiPanDocumentProvider_IncorrectInputError, new Object[] { element,
-						"org.eclipse.ui.part.FileEditorInput", "org.eclipse.emf.common.ui.URIEditorInput" }), //$NON-NLS-1$ //$NON-NLS-2$ 
+						"org.eclipse.ui.part.FileEditorInput", "org.eclipse.emf.common.ui.URIEditorInput" }), //$NON-NLS-1$  //$NON-NLS-2$ 
 						null));
 			}
 			if (false == document instanceof IDiagramDocument) {
 				fireElementStateChangeFailed(element);
 				throw new CoreException(new Status(IStatus.ERROR, PortDiagramEditorPlugin.ID, 0,
-						"Incorrect document used: " + document + " instead of org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument", null)); //$NON-NLS-1$ //$NON-NLS-2$
+						"Incorrect document used: " + document + " instead of org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument", null)); //$NON-NLS-1$  //$NON-NLS-2$
 			}
 			IDiagramDocument diagramDocument = (IDiagramDocument) document;
 			final Resource newResource = diagramDocument.getEditingDomain().getResourceSet().createResource(newResoruceURI);

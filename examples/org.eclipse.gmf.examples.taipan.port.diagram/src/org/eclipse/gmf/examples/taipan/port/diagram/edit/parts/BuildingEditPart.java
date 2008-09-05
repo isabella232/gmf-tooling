@@ -195,7 +195,9 @@ public class BuildingEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean removeFixedChild(EditPart childEditPart) {
-
+		if (childEditPart instanceof BuildingInfoEditPart) {
+			return true;
+		}
 		return false;
 	}
 
@@ -224,7 +226,7 @@ public class BuildingEditPart extends ShapeNodeEditPart {
 	 */
 	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
 
-		return super.getContentPaneFor(editPart);
+		return getContentPane();
 	}
 
 	/**
