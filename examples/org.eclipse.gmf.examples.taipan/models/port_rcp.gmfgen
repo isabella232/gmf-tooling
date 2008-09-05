@@ -71,6 +71,7 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0"
             viewMethod="NATIVE"
             editMethod="NATIVE">
           <metaFeatures
@@ -395,4 +396,12 @@
   </application>
   <domainGenModel
       href="taipan.genmodel#/"/>
+  <labelParsers
+      extensibleViaService="true">
+    <implementations
+        xsi:type="gmfgen:PredefinedParser"
+        uses="//@diagram/@topLevelNodes.0/@labels.0/@modelFacet"
+        viewMethod="NATIVE"
+        editMethod="NATIVE"/>
+  </labelParsers>
 </gmfgen:GenEditorGenerator>
