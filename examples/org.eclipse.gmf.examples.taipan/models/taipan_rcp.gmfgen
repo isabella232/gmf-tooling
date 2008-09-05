@@ -157,6 +157,7 @@
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:FeatureLabelModelFacet"
+          parser="//@labelParsers/@implementations.1"
           viewPattern="- %1$s [%2$d]"
           editorPattern="%1$s:%2$s"
           editPattern=":"
@@ -212,6 +213,7 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0"
             viewMethod="NATIVE"
             editMethod="NATIVE">
           <metaFeatures
@@ -231,6 +233,7 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0"
             viewMethod="NATIVE"
             editMethod="NATIVE">
           <metaFeatures
@@ -321,6 +324,7 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0"
             viewMethod="NATIVE"
             editMethod="NATIVE">
           <metaFeatures
@@ -371,6 +375,7 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0"
             viewMethod="NATIVE"
             editMethod="NATIVE">
           <metaFeatures
@@ -420,6 +425,7 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0"
             viewMethod="NATIVE"
             editMethod="NATIVE">
           <metaFeatures
@@ -468,7 +474,8 @@
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
-            xsi:type="gmfgen:DesignLabelModelFacet"/>
+            xsi:type="gmfgen:DesignLabelModelFacet"
+            parser="//@labelParsers/@implementations.2"/>
       </labels>
     </links>
     <links
@@ -532,6 +539,7 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.3"
             viewPattern="route : {0}"
             editorPattern="{0}"
             editPattern="{0}">
@@ -557,6 +565,7 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.3"
             viewPattern="reliability : {0,number,percent}"
             editorPattern="{0,number,percent}"
             editPattern="{0,number,percent}">
@@ -628,6 +637,7 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.3"
             viewPattern="route : {0}"
             editorPattern="{0}"
             editPattern="{0}">
@@ -653,6 +663,7 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.3"
             viewPattern="reliability : {0,number,percent}"
             editorPattern="{0,number,percent}"
             editPattern="{0,number,percent}">
@@ -1311,4 +1322,23 @@
           body="self.length() > 0"/>
     </providers>
   </expressionProviders>
+  <labelParsers
+      extensibleViaService="true">
+    <implementations
+        xsi:type="gmfgen:PredefinedParser"
+        uses="//@diagram/@topLevelNodes.0/@labels.0/@modelFacet //@diagram/@childNodes.1/@labels.0/@modelFacet //@diagram/@childNodes.1/@labels.1/@modelFacet //@diagram/@topLevelNodes.1/@labels.0/@modelFacet //@diagram/@topLevelNodes.2/@labels.0/@modelFacet"
+        viewMethod="NATIVE"
+        editMethod="NATIVE"/>
+    <implementations
+        xsi:type="gmfgen:PredefinedParser"
+        uses="//@diagram/@childNodes.0/@labelModelFacet"
+        viewMethod="PRINTF"
+        editMethod="REGEXP"/>
+    <implementations
+        xsi:type="gmfgen:ExternalParser"
+        uses="//@diagram/@links.0/@labels.0/@modelFacet"/>
+    <implementations
+        xsi:type="gmfgen:PredefinedParser"
+        uses="//@diagram/@links.1/@labels.0/@modelFacet //@diagram/@links.1/@labels.1/@modelFacet //@diagram/@links.2/@labels.0/@modelFacet //@diagram/@links.2/@labels.1/@modelFacet"/>
+  </labelParsers>
 </gmfgen:GenEditorGenerator>
