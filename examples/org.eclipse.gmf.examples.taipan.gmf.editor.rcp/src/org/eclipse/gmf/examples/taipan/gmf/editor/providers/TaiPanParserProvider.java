@@ -56,18 +56,11 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getPortLocation_5001Parser() {
 		if (portLocation_5001Parser == null) {
-			portLocation_5001Parser = createPortLocation_5001Parser();
+			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getPort_Location() };
+			Parser_1_1 parser = new Parser_1_1(features);
+			portLocation_5001Parser = parser;
 		}
 		return portLocation_5001Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createPortLocation_5001Parser() {
-		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getPort_Location(), };
-		NativeParser parser = new NativeParser(features);
-		return parser;
 	}
 
 	/**
@@ -80,18 +73,11 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getShipName_5004Parser() {
 		if (shipName_5004Parser == null) {
-			shipName_5004Parser = createShipName_5004Parser();
+			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getShip_Name() };
+			Parser_1_1 parser = new Parser_1_1(features);
+			shipName_5004Parser = parser;
 		}
 		return shipName_5004Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createShipName_5004Parser() {
-		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getShip_Name(), };
-		NativeParser parser = new NativeParser(features);
-		return parser;
 	}
 
 	/**
@@ -104,18 +90,11 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getWarshipName_5005Parser() {
 		if (warshipName_5005Parser == null) {
-			warshipName_5005Parser = createWarshipName_5005Parser();
+			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getShip_Name() };
+			Parser_1_1 parser = new Parser_1_1(features);
+			warshipName_5005Parser = parser;
 		}
 		return warshipName_5005Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createWarshipName_5005Parser() {
-		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getShip_Name(), };
-		NativeParser parser = new NativeParser(features);
-		return parser;
 	}
 
 	/**
@@ -128,22 +107,14 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getSmallItems_3001Parser() {
 		if (smallItems_3001Parser == null) {
-			smallItems_3001Parser = createSmallItems_3001Parser();
+			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getItem_Article(), TaiPanPackage.eINSTANCE.getSmallItems_Quantity() };
+			Parser_3_2 parser = new Parser_3_2(features);
+			parser.setViewPattern("- %1$s [%2$d]"); //$NON-NLS-1$
+			parser.setEditorPattern("%1$s:%2$s"); //$NON-NLS-1$
+			parser.setEditPattern(":"); //$NON-NLS-1$
+			smallItems_3001Parser = parser;
 		}
 		return smallItems_3001Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createSmallItems_3001Parser() {
-		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getItem_Article(), TaiPanPackage.eINSTANCE.getSmallItems_Quantity(), };
-		PrintfParser reader = new PrintfParser(features);
-		reader.setViewPattern("- %1$s [%2$d]");
-		reader.setEditorPattern("%1$s:%2$s");
-		RegexpParser writer = new RegexpParser(features);
-		writer.setEditPattern(":");
-		return new CompositeParser(reader, writer);
 	}
 
 	/**
@@ -156,18 +127,11 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getLargeItemArticle_5002Parser() {
 		if (largeItemArticle_5002Parser == null) {
-			largeItemArticle_5002Parser = createLargeItemArticle_5002Parser();
+			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getItem_Article() };
+			Parser_1_1 parser = new Parser_1_1(features);
+			largeItemArticle_5002Parser = parser;
 		}
 		return largeItemArticle_5002Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createLargeItemArticle_5002Parser() {
-		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getItem_Article(), };
-		NativeParser parser = new NativeParser(features);
-		return parser;
 	}
 
 	/**
@@ -180,18 +144,11 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getLargeItemWeight_5003Parser() {
 		if (largeItemWeight_5003Parser == null) {
-			largeItemWeight_5003Parser = createLargeItemWeight_5003Parser();
+			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getLargeItem_Weight() };
+			Parser_1_1 parser = new Parser_1_1(features);
+			largeItemWeight_5003Parser = parser;
 		}
 		return largeItemWeight_5003Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createLargeItemWeight_5003Parser() {
-		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getLargeItem_Weight(), };
-		NativeParser parser = new NativeParser(features);
-		return parser;
 	}
 
 	/**
@@ -204,21 +161,14 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getRouteDescription_6002Parser() {
 		if (routeDescription_6002Parser == null) {
-			routeDescription_6002Parser = createRouteDescription_6002Parser();
+			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getRoute_Description() };
+			Parser_0_0 parser = new Parser_0_0(features);
+			parser.setViewPattern("route : {0}"); //$NON-NLS-1$
+			parser.setEditorPattern("{0}"); //$NON-NLS-1$
+			parser.setEditPattern("{0}"); //$NON-NLS-1$
+			routeDescription_6002Parser = parser;
 		}
 		return routeDescription_6002Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createRouteDescription_6002Parser() {
-		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getRoute_Description(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("route : {0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
-		return parser;
 	}
 
 	/**
@@ -231,21 +181,14 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getRouteReliability_6003Parser() {
 		if (routeReliability_6003Parser == null) {
-			routeReliability_6003Parser = createRouteReliability_6003Parser();
+			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getRoute_Reliability() };
+			Parser_0_0 parser = new Parser_0_0(features);
+			parser.setViewPattern("reliability : {0,number,percent}"); //$NON-NLS-1$
+			parser.setEditorPattern("{0,number,percent}"); //$NON-NLS-1$
+			parser.setEditPattern("{0,number,percent}"); //$NON-NLS-1$
+			routeReliability_6003Parser = parser;
 		}
 		return routeReliability_6003Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createRouteReliability_6003Parser() {
-		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getRoute_Reliability(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("reliability : {0,number,percent}");
-		parser.setEditorPattern("{0,number,percent}");
-		parser.setEditPattern("{0,number,percent}");
-		return parser;
 	}
 
 	/**
@@ -258,21 +201,14 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getRouteDescription_6004Parser() {
 		if (routeDescription_6004Parser == null) {
-			routeDescription_6004Parser = createRouteDescription_6004Parser();
+			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getRoute_Description() };
+			Parser_0_0 parser = new Parser_0_0(features);
+			parser.setViewPattern("route : {0}"); //$NON-NLS-1$
+			parser.setEditorPattern("{0}"); //$NON-NLS-1$
+			parser.setEditPattern("{0}"); //$NON-NLS-1$
+			routeDescription_6004Parser = parser;
 		}
 		return routeDescription_6004Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createRouteDescription_6004Parser() {
-		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getRoute_Description(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("route : {0}");
-		parser.setEditorPattern("{0}");
-		parser.setEditPattern("{0}");
-		return parser;
 	}
 
 	/**
@@ -285,21 +221,14 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getRouteReliability_6005Parser() {
 		if (routeReliability_6005Parser == null) {
-			routeReliability_6005Parser = createRouteReliability_6005Parser();
+			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getRoute_Reliability() };
+			Parser_0_0 parser = new Parser_0_0(features);
+			parser.setViewPattern("reliability : {0,number,percent}"); //$NON-NLS-1$
+			parser.setEditorPattern("{0,number,percent}"); //$NON-NLS-1$
+			parser.setEditPattern("{0,number,percent}"); //$NON-NLS-1$
+			routeReliability_6005Parser = parser;
 		}
 		return routeReliability_6005Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createRouteReliability_6005Parser() {
-		EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getRoute_Reliability(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
-		parser.setViewPattern("reliability : {0,number,percent}");
-		parser.setEditorPattern("{0,number,percent}");
-		parser.setEditPattern("{0,number,percent}");
-		return parser;
 	}
 
 	/**
@@ -371,7 +300,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
-	public static class HintAdapter extends ParserHintAdapter {
+	private static class HintAdapter extends ParserHintAdapter {
 
 		/**
 		 * @generated
