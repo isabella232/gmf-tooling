@@ -18,13 +18,6 @@
 pluginName=«name»
 providerName=«provider»
 
-preferences.general=«editorGen.modelID» Diagram
-preferences.appearance=Appearance
-preferences.connections=Connections
-preferences.printing=Printing
-preferences.rulersAndGrid=Rulers & Grid
-preferences.pathmaps=Path Maps
-
 editorName=«editorGen.modelID» Diagram Editing
 context.description=«editorGen.modelID» Diagram Editing
 context.name=In «editorGen.modelID» Diagram Editor
