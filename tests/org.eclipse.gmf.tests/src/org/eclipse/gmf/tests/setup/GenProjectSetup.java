@@ -32,6 +32,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.plugin.RegistryReader.PluginClassDescriptor;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.Utils;
 import org.eclipse.swt.widgets.Display;
@@ -53,12 +54,17 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 		myIsFullRuntimeRun = generatorFactory instanceof RuntimeBasedGeneratorConfiguration;
 	}
 
+	public GenProjectSetup init(DiaGenSource diaGenSource) throws BundleException {
+		return init(diaGenSource.getGenDiagram().getEditorGen());
+	}
+
 	/**
 	 * Assertion fails on compilation errors.
 	 * @return <code>this</code> for convenience
 	 * @throws BundleException only when shouldInstallInRuntime is true and bundle install fails
+	 * FIXME introduce DiaGenSourceBase with single getDiagram() accessor
 	 */
-	public GenProjectSetup init(DiaGenSource diaGenSource) throws BundleException {
+	public GenProjectSetup init(GenEditorGenerator genEditor) throws BundleException {
 		final boolean[] extensionChangeNotification = new boolean[] {true};
 		final IRegistryChangeListener listener = new IRegistryChangeListener() {
 			public void registryChanged(IRegistryChangeEvent event) {
@@ -73,7 +79,7 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 				RegistryFactory.getRegistry().addRegistryChangeListener(listener, "org.eclipse.ui");
 			}
 			myBundle = null;
-			generateAndCompile(diaGenSource);
+			generateAndCompile(genEditor);
 			myBundle.start();
 			registerExtensions(myBundle);
 			registerEMFEditExtensions();

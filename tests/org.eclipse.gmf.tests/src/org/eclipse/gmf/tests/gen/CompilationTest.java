@@ -11,8 +11,8 @@
  */
 package org.eclipse.gmf.tests.gen;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -21,9 +21,14 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.codegen.ecore.Generator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.setup.DiaDefSetup;
@@ -46,6 +51,10 @@ import org.eclipse.gmf.tests.setup.annotated.GenASetup;
 import org.eclipse.gmf.tests.setup.annotated.GraphDefASetup;
 import org.eclipse.gmf.tests.setup.annotated.MapDefASetup;
 import org.eclipse.gmf.tests.setup.annotated.ToolDefASetup;
+import org.eclipse.jdt.core.IBuffer;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.JavaCore;
 
 /**
@@ -56,6 +65,8 @@ public abstract class CompilationTest extends TestCase {
 	protected final GeneratorConfiguration myGenConfig;
 	protected final ViewmapProducer myViewmapProducer;
 	protected MapDefASetup myMapSource;
+	protected GenDiagramMutator[] myGeneralMutators;
+	protected GenDiagramMutator[] myRichClientMutators;
 
 	protected CompilationTest(String name, GeneratorConfiguration genConfig, ViewmapProducer viewmapProducer) {
 		super(name);
@@ -73,6 +84,8 @@ public abstract class CompilationTest extends TestCase {
 		ToolDefSource tdmSource = new ToolDefASetup(dmSource.getModel());
 		DiaDefSource gdmSource = new GraphDefASetup(dmSource.getModel());
 		myMapSource = new MapDefASetup(dmSource.getModel(), tdmSource.getRegistry(), gdmSource.getCanvasDef()); 
+		myGeneralMutators = new GenDiagramMutator[] { SAME_FILE_MUTATOR, SYNCHRONIZED_MUTATOR, SHORTCUT_STUFF_MUTATOR };
+		myRichClientMutators = new GenDiagramMutator[] { SAME_FILE_MUTATOR, SHORTCUT_STUFF_MUTATOR };
 	}
 
 	// TODO EditPartViewer[Source|Setup]
@@ -112,12 +125,12 @@ public abstract class CompilationTest extends TestCase {
 	public void testRCPCompile() throws Exception {
 		DiaGenSource gmfGenSource = createLibraryGen(true);
 		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(false);
-		generateAndCompile(gmfGenSource, getMutatorsForRCP());
+		generateAndCompile(gmfGenSource, myRichClientMutators);
 	}
 
 	public void testCompileDiagram() throws Exception {
 		DiaGenSource gmfGenSource = createLibraryGen(false);
-		generateAndCompile(gmfGenSource, getMutators());
+		generateAndCompile(gmfGenSource, myGeneralMutators);
 	}
 
 	public void testCompilePotentialNameClashes() throws Exception {
@@ -130,14 +143,14 @@ public abstract class CompilationTest extends TestCase {
 		domainModel.getDiagramElement().setName("Diagram");
 		MapDefSource mapSource = new MapSetup().init(new DiaDefSetup().init(), domainModel, new ToolDefSetup());
 		DiaGenSource gmfGenSource = new DiaGenSetup(myViewmapProducer).init(mapSource);
-		generateAndCompile(gmfGenSource, NO_MUTATORS);
+		generateAndCompile(gmfGenSource);
 	}
 
 	public void testCompileInstanceClassNames() throws Exception {
 		DomainModelSetup domainModelSetup = new DomainModelSetupInstanceClassName().init();
 		MapDefSource mapSource = new MapSetup().init(new DiaDefSetup().init(), domainModelSetup, new ToolDefSetup());
 		DiaGenSource gmfGenSource = new DiaGenSetup(myViewmapProducer).init(mapSource);
-		generateAndCompile(gmfGenSource, getMutatorsForInstanceClassNames());
+		generateAndCompile(gmfGenSource, SYNCHRONIZED_MUTATOR);
 	}
 	
 	public void testCompileMultiPackageDomain() throws Exception {
@@ -151,87 +164,64 @@ public abstract class CompilationTest extends TestCase {
 
 		DiaGenSource gmfGenSource = new MultiPackageGenSetup(additionalPacks).init(ms);
 
-		generateAndCompile(gmfGenSource, NO_MUTATORS);
+		generateAndCompile(gmfGenSource);
 	}
 
-	protected void generateAndCompile(DiaGenSource genSource, final Collection<IGenDiagramMutator> mutators) throws Exception {
-		new GenProjectBaseSetup(myGenConfig) {
-			@Override
-			protected void generateDiagramPlugin(GenDiagram d) throws Exception {
-				super.generateDiagramPlugin(d);
-				for(IGenDiagramMutator next : mutators) {
-					next.doMutation(d);
-					try {
-						super.generateDiagramPlugin(d);
-					} finally {
-						next.undoMutation(d);
-					}
-				}
-			}
-		}.generateAndCompile(genSource);
+	protected void generateAndCompile(DiaGenSource genSource, GenDiagramMutator... mutators) throws Exception {
+		final GenEditorGenerator editorGen = genSource.getGenDiagram().getEditorGen();
+		new GenProjectBaseSetup(myGenConfig).generateAndCompile(editorGen, mutators);
 	}
 
-	protected Collection<IGenDiagramMutator> getMutators() {
-		ArrayList<IGenDiagramMutator> result = new ArrayList<IGenDiagramMutator>();
-		Collections.addAll(result, SAME_FILE_MUTATOR, SYNCHRONIZED_MUTATOR, SHORTCUT_STUFF_MUTATOR);
-		return result;
+	// pulled from LiteCompilationTestWithImportConflicts, as it seems to be non-specific to lite runtime
+	public void testPreexistingImportConflicts() throws Exception {
+		DiaGenSource gmfGenSource = createLibraryGen(false);
+		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(false);
+		String pluginId = gmfGenSource.getGenDiagram().getEditorGen().getPlugin().getID();
+		IProject diagramProject = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginId);
+		if (!diagramProject.isAccessible()) {
+			//Initialize the plugin the same way it would be initialized if present.
+			Generator.createEMFProject(diagramProject.getFolder("src").getFullPath(), null, Collections.<IProject>emptyList(), new NullProgressMonitor(), Generator.EMF_PLUGIN_PROJECT_STYLE);	//$NON-NLS-1$
+		}
+		IJavaProject javaProject = JavaCore.create(diagramProject);
+		assertTrue(javaProject.exists());
+		IPackageFragment pf = javaProject.getPackageFragmentRoot(diagramProject.getFolder("src")).createPackageFragment(gmfGenSource.getGenDiagram().getNotationViewFactoriesPackageName(), false, new NullProgressMonitor());	//$NON-NLS-1$
+		ICompilationUnit cu = pf.getCompilationUnit(gmfGenSource.getGenDiagram().getNotationViewFactoryClassName() + ".java");	//$NON-NLS-1$
+		String contents = MessageFormat.format("package {0};\nimport {2};\n /**\n * @generated\n */\npublic class {1} '{ }'", gmfGenSource.getGenDiagram().getNotationViewFactoriesPackageName(), gmfGenSource.getGenDiagram().getNotationViewFactoryClassName(), "javax.swing.text.View");	//$NON-NLS-1$
+		if (cu.exists()) {
+			IBuffer buffer = cu.getBuffer();
+			buffer.setContents(contents);
+			buffer.save(new NullProgressMonitor(), true);
+		} else {
+			pf.createCompilationUnit(cu.getElementName(), contents, false, new NullProgressMonitor());
+		}
+		generateAndCompile(gmfGenSource);
 	}
 
-	protected Collection<IGenDiagramMutator> getMutatorsForRCP() {
-		ArrayList<IGenDiagramMutator> result = new ArrayList<IGenDiagramMutator>();
-		Collections.addAll(result, SAME_FILE_MUTATOR, SHORTCUT_STUFF_MUTATOR);
-		return result;
-	}
-
-	protected Collection<IGenDiagramMutator> getMutatorsForInstanceClassNames() {
-		Collection<IGenDiagramMutator> result = new ArrayList<IGenDiagramMutator>();
-		result.add(SYNCHRONIZED_MUTATOR);
-		return result;
-	}
-
-	/**
-	 * XXX this approach (mutators) actually hides which particular mutator instance causes problem
-	 * e.g. unlike with regular junit tests one can't tell the reason of failure just from method/test name 
-	 */
-	protected static interface IGenDiagramMutator {
-		public void doMutation(GenDiagram d);
-		public void undoMutation(GenDiagram d);
-	}
-
-	protected static final IGenDiagramMutator SAME_FILE_MUTATOR = new IGenDiagramMutator() {
+	protected final GenDiagramMutator SAME_FILE_MUTATOR = new GenDiagramMutator("sameFileForDiagramAndModel") {
 		private boolean myIsSameFileForDiagramAndModel;
-		private String myPluginId;
 		public void doMutation(GenDiagram d) {
 			myIsSameFileForDiagramAndModel = d.getEditorGen().isSameFileForDiagramAndModel();
 			d.getEditorGen().setSameFileForDiagramAndModel(!myIsSameFileForDiagramAndModel);
-			myPluginId = d.getEditorGen().getPlugin().getID();
-			d.getEditorGen().getPlugin().setID(myPluginId + ".sameFileForDiagramAndModel");
 		}
 		public void undoMutation(GenDiagram d) {
 			d.getEditorGen().setSameFileForDiagramAndModel(myIsSameFileForDiagramAndModel);
-			d.getEditorGen().getPlugin().setID(myPluginId);
 		}
 	};
 
-	protected static final IGenDiagramMutator SYNCHRONIZED_MUTATOR = new IGenDiagramMutator() {
+	protected final GenDiagramMutator SYNCHRONIZED_MUTATOR = new GenDiagramMutator("synchronized") {
 		private boolean myIsSynchronized;
-		private String myPluginId;
 		public void doMutation(GenDiagram d) {
 			myIsSynchronized = d.isSynchronized();
 			d.setSynchronized(!myIsSynchronized);
-			myPluginId = d.getEditorGen().getPlugin().getID();
-			d.getEditorGen().getPlugin().setID(myPluginId + ".synchronized");
 		}
 		public void undoMutation(GenDiagram d) {
 			d.setSynchronized(myIsSynchronized);
-			d.getEditorGen().getPlugin().setID(myPluginId);
 		}
 	};
 
-	protected static final IGenDiagramMutator SHORTCUT_STUFF_MUTATOR = new IGenDiagramMutator() {
+	protected final GenDiagramMutator SHORTCUT_STUFF_MUTATOR = new GenDiagramMutator("shortcuts") {
 		private List<String> myShortcutsTo;
 		private List<String> myShortcutsFor;
-		private String myPluginId;
 		public void doMutation(GenDiagram d) {
 			myShortcutsTo = new ArrayList<String>(d.getContainsShortcutsTo());
 			d.getContainsShortcutsTo().clear();
@@ -239,17 +229,12 @@ public abstract class CompilationTest extends TestCase {
 			myShortcutsFor = new ArrayList<String>(d.getShortcutsProvidedFor());
 			d.getShortcutsProvidedFor().clear();
 			d.getShortcutsProvidedFor().add(d.getEditorGen().getModelID());
-			myPluginId = d.getEditorGen().getPlugin().getID();
-			d.getEditorGen().getPlugin().setID(myPluginId + ".shortcuts");
 		}
 		public void undoMutation(GenDiagram d) {
 			d.getContainsShortcutsTo().clear();
 			d.getContainsShortcutsTo().addAll(myShortcutsTo);
 			d.getShortcutsProvidedFor().clear();
 			d.getShortcutsProvidedFor().addAll(myShortcutsFor);
-			d.getEditorGen().getPlugin().setID(myPluginId);
 		}
 	};
-
-	protected static final Collection<IGenDiagramMutator> NO_MUTATORS = Collections.emptyList();
 }

@@ -36,8 +36,6 @@ import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
-import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
@@ -50,14 +48,20 @@ import org.eclipse.gmf.internal.bridge.genmodel.RuntimeGenModelAccess;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.Utils;
-import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.GenProjectSetup;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.osgi.framework.Bundle;
 
 /**
+ * TODO:
+ * - test GenParsers reconciler
+ * - test custom parser for plain LabelModelFacet
+ * - test custom parser for featuremodelfacet
+ * - test external parser with custom hint
+ * - test non-service parsers
  * @author dstadnik
  */
 public class ParsersTest extends TestCase {
@@ -293,23 +297,6 @@ public class ParsersTest extends TestCase {
 		throw new IllegalArgumentException(name);
 	}
 
-	public static class EObjectAdapter implements IAdaptable {
-
-		private EObject obj;
-
-		public EObjectAdapter(EObject obj) {
-			this.obj = obj;
-		}
-
-		@SuppressWarnings("unchecked")
-		public Object getAdapter(Class adapter) {
-			if (EObject.class == adapter) {
-				return obj;
-			}
-			return null;
-		}
-	}
-
 	public static class ParsersSetup {
 
 		public ParsersDomainModel domainModel;
@@ -322,28 +309,7 @@ public class ParsersTest extends TestCase {
 		}
 
 		public void init() throws Exception {
-			project = new GenProjectSetup(new RuntimeBasedGeneratorConfiguration()).init(new DiaGenSource() {
-
-				public GenDiagram getGenDiagram() {
-					return genModel.diagramkin;
-				}
-
-				public GenLink getLinkC() {
-					return null;
-				}
-
-				public GenLink getLinkD() {
-					return null;
-				}
-
-				public GenNode getNodeA() {
-					return null;
-				}
-
-				public GenNode getNodeB() {
-					return null;
-				}
-			});
+			project = new GenProjectSetup(new RuntimeBasedGeneratorConfiguration()).init(genModel.diagramkin.getEditorGen());
 		}
 
 		public void dispose() throws Exception {

@@ -40,9 +40,11 @@ import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.tests.CompileUtil;
 import org.eclipse.gmf.tests.Plugin;
+import org.eclipse.gmf.tests.gen.GenDiagramMutator;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -65,12 +67,28 @@ public class GenProjectBaseSetup {
 		myGeneratorFactory = generatorFactory;
 	}
 
+	@Deprecated
 	public void generateAndCompile(DiaGenSource diaGenSource) throws Exception {
+		generateAndCompile(diaGenSource.getGenDiagram().getEditorGen());
+	}
+	
+	public void generateAndCompile(GenEditorGenerator genEditor, GenDiagramMutator... mutators) throws Exception {
 		projectsToInit.clear();	//just in case
 		compileUtil = new CompileUtil();
-		final GenDiagram d = diaGenSource.getGenDiagram();
+		final GenDiagram d = genEditor.getDiagram();
 		generateDiagramPrerequisites(d);
-		generateDiagramPlugin(d);
+		if (mutators == null || mutators.length == 0) {
+			generateDiagramPlugin(d);
+		} else {
+			for(GenDiagramMutator next : mutators) {
+				next.doMutate(genEditor);
+				try {
+					generateDiagramPlugin(d);
+				} finally {
+					next.undoMutate(genEditor);
+				}
+			}
+		}
 		for (String pluginID : projectsToInit) {
 			IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginID);
 			hookProjectBuild(p);
@@ -96,7 +114,7 @@ public class GenProjectBaseSetup {
 		RuntimeWorkspaceSetup.get().getReadyToStartAsBundle(project);
 
 		projectsToInit.add(gmfEditorId);
-		hookJDTStatus(ResourcesPlugin.getWorkspace().getRoot().getProject(gmfEditorId));
+		hookJDTStatus(project);
 	}
 
 	private void generateEMFCode(GenModel domainGenModel) {

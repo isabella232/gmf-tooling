@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.tests.gen;
 
-import java.util.LinkedList;
-
 import org.eclipse.gmf.codegen.gmfgen.DynamicModelAccess;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -37,7 +35,7 @@ public class RuntimeCompilationTest extends CompilationTest {
 		myMapSource.detachFromDomainModel();
 		DiaGenSource gmfGenSource = createLibraryGen(false);
 		gmfGenSource.getGenDiagram().getEditorGen().setPackageNamePrefix("org.eclipse.gmf.examples.library.diagram"); //$NON-NLS-1$
-		generateAndCompile(gmfGenSource, NO_MUTATORS);
+		generateAndCompile(gmfGenSource);
 	}
 
 	public void testCompileDynamicDomainModel() throws Exception {
@@ -46,15 +44,7 @@ public class RuntimeCompilationTest extends CompilationTest {
 		assertNull("prereq", editorGen.getModelAccess());
 		DynamicModelAccess dma = GMFGenFactory.eINSTANCE.createDynamicModelAccess();
 		editorGen.setModelAccess(dma);
-		LinkedList<IGenDiagramMutator> m = new LinkedList<IGenDiagramMutator>();
-		// no-op mutator, just to verify defaults
-		m.add(new IGenDiagramMutator() {
-			public void doMutation(GenDiagram d) {
-			}
-			public void undoMutation(GenDiagram d) {
-			}
-		});
-		m.add(new IGenDiagramMutator() {
+		generateAndCompile(s, new GenDiagramMutator("dynmodel") {
 			public void doMutation(GenDiagram d) {
 				final DynamicModelAccess modelAccess = d.getEditorGen().getModelAccess();
 				modelAccess.setClassName("NonDefaultDynamicAccessorName");
@@ -64,6 +54,5 @@ public class RuntimeCompilationTest extends CompilationTest {
 				modelAccess.setClassName(null);
 			}
 		});
-		generateAndCompile(s, m);
 	}
 }
