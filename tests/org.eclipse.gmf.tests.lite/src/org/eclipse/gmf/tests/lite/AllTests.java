@@ -16,16 +16,16 @@ import junit.framework.TestSuite;
 
 import org.eclipse.gmf.tests.CleanupTest;
 import org.eclipse.gmf.tests.TestConfiguration;
-import org.eclipse.gmf.tests.lite.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramEditorMatchingStrategyTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramEditorOutlineTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramElementDeleteTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramElementTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramLinksTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramNodeCloneMoveTest;
+import org.eclipse.gmf.tests.lite.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.lite.gef.ExternalNodeLabelsTest;
 import org.eclipse.gmf.tests.lite.gef.NotationRefreshTest;
-import org.eclipse.gmf.tests.lite.gen.LiteCompilationTestWithImportConflicts;
+import org.eclipse.gmf.tests.lite.gen.LiteCompilationTest;
 import org.eclipse.gmf.tests.lite.multi.ShortcutCreationTest;
 import org.eclipse.gmf.tests.lite.rt.ElementInitializerTest;
 import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
@@ -42,7 +42,7 @@ public class AllTests {
 	public static Test suite() throws Exception {
 		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf, tooling side, lite mode");
 
-		suite.addTestSuite(LiteCompilationTestWithImportConflicts.class);
+		suite.addTestSuite(LiteCompilationTest.class);
 
 		final SessionSetup sessionSetup = LiteSessionSetup.getInstance();
 		final LinksSessionSetup sessionSetup2 = LiteLinksSessionSetup.getInstance();

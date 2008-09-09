@@ -11,13 +11,12 @@
  */
 package org.eclipse.gmf.tests.lite.gen;
 
-import java.util.Collection;
 
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.tests.gen.CompilationTest;
+import org.eclipse.gmf.tests.gen.GenDiagramMutator;
 
 
 public class LiteCompilationTest extends CompilationTest {
@@ -25,34 +24,29 @@ public class LiteCompilationTest extends CompilationTest {
 		super(name, new LiteGeneratorConfiguration(),
 			new InnerClassViewmapProducer("lite", MapModeCodeGenStrategy.STATIC, null));
 	}
-
+	
 	@Override
-	protected Collection<IGenDiagramMutator> getMutators() {
-		Collection<IGenDiagramMutator> result = super.getMutators();
-		result.add(VIEW_MUTATOR);
-		return result;
+	protected void setUp() throws Exception {
+		super.setUp();
+		// used to augment list from superclass, now just a copy
+		myGeneralMutators = new GenDiagramMutator[] { 
+			SAME_FILE_MUTATOR, SYNCHRONIZED_MUTATOR, SHORTCUT_STUFF_MUTATOR,
+			VIEW_MUTATOR
+		};
+		myRichClientMutators = new GenDiagramMutator[] { 
+			SAME_FILE_MUTATOR, SHORTCUT_STUFF_MUTATOR,
+			VIEW_MUTATOR
+		};
 	}
 
-	@Override
-	protected Collection<IGenDiagramMutator> getMutatorsForRCP() {
-		Collection<IGenDiagramMutator> result = super.getMutatorsForRCP();
-		result.add(VIEW_MUTATOR);
-		return result;
-	}
-
-	private static final IGenDiagramMutator VIEW_MUTATOR = new IGenDiagramMutator() {
-		private String myPluginId;
+	private final GenDiagramMutator VIEW_MUTATOR = new GenDiagramMutator("view") {
 		private boolean myIsEclipseEditor;
 		public void doMutation(GenDiagram d) {
 			myIsEclipseEditor = d.getEditorGen().getEditor().isEclipseEditor();
 			d.getEditorGen().getEditor().setEclipseEditor(!myIsEclipseEditor);
-			GenPlugin genPlugin = d.getEditorGen().getPlugin();
-			myPluginId = genPlugin.getID();
-			genPlugin.setID(myPluginId + ".view");
 		}
 		public void undoMutation(GenDiagram d) {
 			d.getEditorGen().getEditor().setEclipseEditor(myIsEclipseEditor);
-			d.getEditorGen().getPlugin().setID(myPluginId);
 		}
 	};
 }
