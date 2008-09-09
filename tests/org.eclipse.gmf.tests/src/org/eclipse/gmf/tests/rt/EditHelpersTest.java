@@ -167,7 +167,7 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 		if (operation instanceof ICompositeCommand) {
 			ICompositeCommand compositeCommand = (ICompositeCommand) operation;
 			Collection<IUndoableOperation> result = new ArrayList<IUndoableOperation>();
-			for (Iterator it = compositeCommand.iterator(); it.hasNext();) {
+			for (Iterator<?> it = compositeCommand.iterator(); it.hasNext();) {
 				result.addAll(getAllMarkerCommands((IUndoableOperation) it.next()));
 			}
 			return result;
