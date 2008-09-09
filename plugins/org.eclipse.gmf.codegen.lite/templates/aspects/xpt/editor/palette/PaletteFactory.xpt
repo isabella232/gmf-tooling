@@ -80,15 +80,15 @@ final int[] visualIds = new int[] {
 
 «DEFINE visualID FOR gmfgen::GenCommonBase»«EXPAND xpt::editor::VisualIDRegistry::visualID»«ENDDEFINE»
 
-«AROUND setSmallImage(String toolVarName) FOR gmfgen::AbstractToolEntry-»
+«AROUND setSmallImage(String toolVarName, gmfgen::Palette palette) FOR gmfgen::EntryBase-»
 «IF null != smallIconPath-»
-«toolVarName».setSmallIcon(«activatorFQN()».findImageDescriptor("«smallIconPath»")); «EXPAND xpt::Common::nonNLS»
+«toolVarName».setSmallIcon(«activatorFQN(palette)».findImageDescriptor("«smallIconPath»")); «EXPAND xpt::Common::nonNLS»
 «ELSE-»
 «toolVarName».setSmallIcon(«EXPAND smallImage(toolVarName)»);
 «ENDIF-»
 «ENDAROUND»
 
-«DEFINE smallImage(String toolVarName) FOR gmfgen::AbstractToolEntry»null«ENDDEFINE»
+«DEFINE smallImage(String toolVarName) FOR gmfgen::EntryBase»null«ENDDEFINE»
 
 «DEFINE smallImage(String toolVarName) FOR gmfgen::ToolEntry-»
 «IF elements.isEmpty()»null«ELSE»«elementTypesClass()».getImageDescriptor(«EXPAND getElement FOR elements.first()»)«ENDIF-»
