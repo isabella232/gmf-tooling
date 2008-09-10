@@ -76,8 +76,7 @@ public class Utils {
 	}
 
 	public static String createUniquePluginID() {
-		Calendar c = Calendar.getInstance();
-		return "sample.d" + c.get(Calendar.DAY_OF_YEAR)+ ".h" + c.get(Calendar.HOUR_OF_DAY) + ".m" + c.get(Calendar.MINUTE) + ".s" + c.get(Calendar.SECOND);
+		return String.format("sample.t%1$tH-%1$tM-%1$tS.%1$tL", Calendar.getInstance());
 	}
 
 	/**
