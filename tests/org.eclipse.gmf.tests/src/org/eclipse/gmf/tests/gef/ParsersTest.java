@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.tests.gef;
 
+import java.lang.reflect.Method;
+
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -50,6 +52,8 @@ import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
+import org.eclipse.gmf.tests.NeedsSetup;
+import org.eclipse.gmf.tests.TestConfiguration;
 import org.eclipse.gmf.tests.Utils;
 import org.eclipse.gmf.tests.setup.GenProjectSetup;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
@@ -64,7 +68,7 @@ import org.osgi.framework.Bundle;
  * - test non-service parsers
  * @author dstadnik
  */
-public class ParsersTest extends TestCase {
+public class ParsersTest extends TestCase implements NeedsSetup {
 
 	protected ParsersSetup setup;
 
@@ -74,7 +78,13 @@ public class ParsersTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		setup = new ParsersSetup();
+		if (setup == null) {
+			configure(new ParsersSetup(true));
+		}
+	}
+	
+	public final void configure(ParsersSetup ps) throws Exception {
+		setup = ps;
 		setup.init();
 	}
 
@@ -252,20 +262,30 @@ public class ParsersTest extends TestCase {
 	}
 
 	protected IParser getParser(final GenNodeLabel label) throws Exception {
-		String ppfqn = setup.genModel.diagramkin.getEditorGen().getLabelParsers().getQualifiedClassName();
+		final GenEditorGenerator editorGen = setup.genModel.diagramkin.getEditorGen();
+		String ppfqn = editorGen.getLabelParsers().getQualifiedClassName();
 		Class<?> ppc = setup.project.getBundle().loadClass(ppfqn);
-		IParserProvider pp = (IParserProvider) ppc.newInstance();
-		IAdaptable param = new IAdaptable() {
-
-			@SuppressWarnings("unchecked")
-			public Object getAdapter(Class adapter) {
-				if (String.class == adapter) {
-					return String.valueOf(label.getVisualID());
+		if (editorGen.getLabelParsers().isExtensibleViaService()) {
+			IParserProvider pp = (IParserProvider) ppc.newInstance();
+			IAdaptable param = new IAdaptable() {
+	
+				@SuppressWarnings("unchecked")
+				public Object getAdapter(Class adapter) {
+					if (String.class == adapter) {
+						return String.valueOf(label.getVisualID());
+					}
+					return null;
 				}
-				return null;
-			}
-		};
-		return pp.getParser(param);
+			};
+			return pp.getParser(param);
+		} else {
+			Object ppInstance = ppc.newInstance();
+			assertFalse(ppInstance instanceof IParserProvider);
+			// ParserUtils.parserAccessorName: "get" + element.getUniqueIdentifier().toFirstUpper() + "Parser"
+			Method parserAccess = ppc.getMethod("get" + label.getUniqueIdentifier() + "Parser");
+			assertNotNull(parserAccess);
+			return (IParser) parserAccess.invoke(ppInstance);
+		}
 	}
 
 	protected EObject createNodkin() throws Exception {
@@ -297,23 +317,34 @@ public class ParsersTest extends TestCase {
 		throw new IllegalArgumentException(name);
 	}
 
-	public static class ParsersSetup {
+	public static class ParsersSetup implements TestConfiguration {
 
 		public ParsersDomainModel domainModel;
 		public ParsersGenModel genModel;
 		public GenProjectSetup project;
+		private int uses = 0;
 
-		public ParsersSetup() {
+		public ParsersSetup(boolean parsersAsProvider) {
 			domainModel = new ParsersDomainModel();
 			genModel = new ParsersGenModel(domainModel);
+			final GenEditorGenerator editorGen = genModel.diagramkin.getEditorGen();
+			System.out.println("ParsersSetup.ParsersSetup():" + editorGen.getDomainGenModel().getModelDirectory());
+			editorGen.getLabelParsers().setExtensibleViaService(parsersAsProvider);
+			String pid = editorGen.getPlugin().getID();
+			editorGen.getPlugin().setID(pid + (parsersAsProvider ? ".provider" : ".direct"));
 		}
 
 		public void init() throws Exception {
-			project = new GenProjectSetup(new RuntimeBasedGeneratorConfiguration()).init(genModel.diagramkin.getEditorGen());
+			uses++;
+			if (project == null) {
+				project = new GenProjectSetup(new RuntimeBasedGeneratorConfiguration()).init(genModel.diagramkin.getEditorGen());
+			}
 		}
 
 		public void dispose() throws Exception {
-			if (project != null) {
+			assert uses > 0;
+			uses--;
+			if (uses == 0 && project != null) {
 				project.uninstall();
 			}
 		}
@@ -385,7 +416,7 @@ public class ParsersTest extends TestCase {
 			genBurden.setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
 			genBurden.setDiagramUpdater(GMFGenFactory.eINSTANCE.createGenDiagramUpdater());
 			genBurden.setLabelParsers(GMFGenFactory.eINSTANCE.createGenParsers());
-			genBurden.getLabelParsers().setExtensibleViaService(true);
+			genBurden.getLabelParsers().setExtensibleViaService(false);
 			new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/parking")).getContents().add(genBurden);
 
 			nodkin = GMFGenFactory.eINSTANCE.createGenTopLevelNode();

@@ -24,6 +24,7 @@ import org.eclipse.gmf.tests.gef.CompartmentPropertiesTest;
 import org.eclipse.gmf.tests.gef.DiagramEditorTest;
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.gef.ParsersTest;
+import org.eclipse.gmf.tests.gef.ParsersTest.ParsersSetup;
 import org.eclipse.gmf.tests.gen.AuditHandcodedTest;
 import org.eclipse.gmf.tests.gen.CodegenReconcileTest;
 import org.eclipse.gmf.tests.gen.FigureCodegenTest;
@@ -169,7 +170,8 @@ public class AllTests {
 		suite.addTestSuite(GenFeatureSeqInitializerTest.class);
 		suite.addTestSuite(GenModelGraphAnalyzerTest.class);
 		suite.addTestSuite(EditHelpersTest.class);
-		suite.addTestSuite(ParsersTest.class);
+		suite.addTest(feed(ParsersTest.class, new ParsersSetup(false), "-direct"));
+		suite.addTest(feed(ParsersTest.class, new ParsersSetup(true), "-provider"));
 
 		//$JUnit-END$
 		suite.addTest(new CleanupTest("testCleanup") {
@@ -187,7 +189,13 @@ public class AllTests {
 
 	// should be in a better namespace than AllTests suite, though
 	public static Test feed(Class<?> theClass, TestConfiguration config) {
+		return feed(theClass, config, null);
+	}
+	public static Test feed(Class<?> theClass, TestConfiguration config, String suffix) {
 		TestSuite suite = new TestSuite(theClass);
+		if (suffix != null) {
+			suite.setName(suite.getName() + suffix);
+		}
 		if (!NeedsSetup.class.isAssignableFrom(theClass)) {
 			return suite;
 		}
