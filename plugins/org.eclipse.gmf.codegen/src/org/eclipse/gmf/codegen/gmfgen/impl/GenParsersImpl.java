@@ -248,8 +248,15 @@ public class GenParsersImpl extends EObjectImpl implements GenParsers {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ProviderPriority getProviderPriority() {
+	public ProviderPriority getProviderPriorityGen() {
 		return providerPriority;
+	}
+
+	public ProviderPriority getProviderPriority() {
+		if (getProviderPriorityGen() == PROVIDER_PRIORITY_EDEFAULT && getEditorGen() != null && getEditorGen().getDiagram() != null) {
+			return getEditorGen().getDiagram().getParserProviderPriority();
+		}
+		return getProviderPriorityGen();
 	}
 
 	/**
