@@ -73,18 +73,21 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenParsers;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jdt.core.JavaCore;
 
@@ -104,6 +107,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 
 	public HandcodedImplTest(String name) {
 		super(name);
+		myDefaultSetup = SessionSetup.newInstance();
 	}
 
 	protected void setUp() throws Exception {
@@ -901,6 +905,30 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 				checkPackageNamesCoverage(state, (EClass) next);
 			}
 		}
+	}
+
+	// temp test until old attributes are removed - check we use old values
+	// XXX NOTE: ONCE attributes gone, use this test to check migration code
+	public void testGenParsers_delegatesToOld() {
+		GenParsers gp = GMFGenFactory.eINSTANCE.createGenParsers();
+		// replace, if any, with blank
+		myGenModel.getEditorGen().setLabelParsers(gp);
+		assertNotNull(gp.getClassName());
+		assertNotNull(gp.getPackageName());
+		assertNotNull(gp.getQualifiedClassName());
+		assertEquals(myGenModel.getParserProviderQualifiedClassName(), gp.getQualifiedClassName());
+		myGenModel.setParserProviderPriority(ProviderPriority.HIGH_LITERAL);
+		assertEquals(myGenModel.getParserProviderPriority(), gp.getProviderPriority());
+		gp.setProviderPriority(ProviderPriority.MEDIUM_LITERAL);
+		assertNotSame(myGenModel.getParserProviderPriority(), gp.getProviderPriority());
+		assertEquals(ProviderPriority.MEDIUM_LITERAL, gp.getProviderPriority());
+	}
+
+	public void testGenParsers_qualifiedName() {
+		GenParsers gp = GMFGenFactory.eINSTANCE.createGenParsers();
+		gp.setClassName("GenParsersClassName");
+		gp.setPackageName("org.sample.test");
+		assertEquals("org.sample.test.GenParsersClassName", gp.getQualifiedClassName());
 	}
 
 	public void testClassNames() {
