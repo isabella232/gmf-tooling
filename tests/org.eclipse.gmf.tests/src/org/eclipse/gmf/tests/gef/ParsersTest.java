@@ -328,7 +328,6 @@ public class ParsersTest extends TestCase implements NeedsSetup {
 			domainModel = new ParsersDomainModel();
 			genModel = new ParsersGenModel(domainModel);
 			final GenEditorGenerator editorGen = genModel.diagramkin.getEditorGen();
-			System.out.println("ParsersSetup.ParsersSetup():" + editorGen.getDomainGenModel().getModelDirectory());
 			editorGen.getLabelParsers().setExtensibleViaService(parsersAsProvider);
 			String pid = editorGen.getPlugin().getID();
 			editorGen.getPlugin().setID(pid + (parsersAsProvider ? ".provider" : ".direct"));
