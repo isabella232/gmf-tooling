@@ -139,9 +139,16 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 «DEFINE _getParsers FOR gmfgen::GenChildLabelNode»«EXPAND _getParser(this) FOR labelModelFacet»«ENDDEFINE»
 «DEFINE _getParser FOR gmfgen::GenLabel»«EXPAND _getParser(this) FOR modelFacet»«ENDDEFINE»
 
-«DEFINE _getParser(gmfgen::GenCommonBase element) FOR gmfgen::LabelModelFacet»«ENDDEFINE»
+«DEFINE _getParser(gmfgen::GenCommonBase element) FOR gmfgen::LabelModelFacet»«EXPAND _getParser(this, element) FOR parser»«ENDDEFINE»
 
-«DEFINE _getParser(gmfgen::GenCommonBase element) FOR gmfgen::FeatureLabelModelFacet-»
+«DEFINE _getParser(LabelModelFacet modelFacet, GenCommonBase element) FOR gmfgen::GenParserImplementation»«ERROR "Abstract template for " + this»«ENDDEFINE»
+«DEFINE _getParser(LabelModelFacet modelFacet, GenCommonBase element) FOR gmfgen::ExternalParser»«REM»NOTHING TO DO«ENDREM»«ENDDEFINE»
+
+«DEFINE _getParser(LabelModelFacet modelFacet, GenCommonBase element) FOR gmfgen::PredefinedParser-»
+	«EXPAND xpt::Common::caseVisualID FOR element» return «parserAccessorName(element)»();
+«ENDDEFINE»
+
+«DEFINE _getParser(LabelModelFacet modelFacet, GenCommonBase element) FOR gmfgen::CustomParser-»
 	«EXPAND xpt::Common::caseVisualID FOR element» return «parserAccessorName(element)»();
 «ENDDEFINE»
 
