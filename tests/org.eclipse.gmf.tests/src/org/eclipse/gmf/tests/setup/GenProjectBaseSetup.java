@@ -111,10 +111,17 @@ public class GenProjectBaseSetup {
 		hookGeneratorStatus(generator.getRunStatus());
 		final String gmfEditorId = d.getEditorGen().getPlugin().getID();
 		final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(gmfEditorId);
+		hookExtraCodeGeneration(d.getEditorGen(), project);
 		RuntimeWorkspaceSetup.get().getReadyToStartAsBundle(project);
 
 		projectsToInit.add(gmfEditorId);
 		hookJDTStatus(project);
+	}
+	/**
+	 * no-op by default, subclasses may provide custom code generation in this method
+	 * XXX think about more oo way to inject extra codegen artifacts, or even special GMFGen model entities?
+	 */
+	protected void hookExtraCodeGeneration(GenEditorGenerator genEditor, IProject project) throws Exception {
 	}
 
 	private void generateEMFCode(GenModel domainGenModel) {

@@ -11,12 +11,15 @@
  */
 package org.eclipse.gmf.tests.gef;
 
+import java.io.ByteArrayInputStream;
 import java.lang.reflect.Method;
 
 import junit.framework.TestCase;
 
-import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.URI;
@@ -33,13 +36,17 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.gmf.codegen.gmfgen.CustomParser;
+import org.eclipse.gmf.codegen.gmfgen.ExternalParser;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
@@ -51,7 +58,11 @@ import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
+import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
+import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
+import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.NeedsSetup;
 import org.eclipse.gmf.tests.TestConfiguration;
 import org.eclipse.gmf.tests.Utils;
@@ -62,10 +73,8 @@ import org.osgi.framework.Bundle;
 /**
  * TODO:
  * - test GenParsers reconciler
- * - test custom parser for plain LabelModelFacet
- * - test custom parser for featuremodelfacet
- * - test external parser with custom hint
- * - test non-service parsers
+ * XXX Perhaps, makes sense to change getParser method to access IParsers not through IParserProvider class 
+ * but through EditPart#getParser method - as we anyway do that for ExternalParser cases
  * @author dstadnik
  */
 public class ParsersTest extends TestCase implements NeedsSetup {
@@ -261,22 +270,72 @@ public class ParsersTest extends TestCase implements NeedsSetup {
 		assertEquals(7, i.intValue());
 	}
 
+	public void testCustomParserPlainLabelModelFacet() throws Exception {
+		ResourceSet rs = new ResourceSetImpl();
+		Resource r = rs.createResource(URI.createURI("uri://org.eclipse.gmf/tests/parkins"));
+		EObject nodkin = createNodkin();
+		r.getContents().add(nodkin);
+		TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(rs);
+
+		assertTrue("sanity", setup.genModel.a_cp_pmf.getModelFacet().eClass() == GMFGenPackage.eINSTANCE.getLabelModelFacet());
+		IParser p = getParser(setup.genModel.a_cp_pmf);
+		assertNotNull(p);
+		assertEquals("MyCustomParser", p.getClass().getSimpleName());
+		String s = p.getPrintString(new EObjectAdapter(nodkin), 0);
+		assertNotNull(s);
+		assertEquals(p.getClass().getName(), s);
+	}
+
+	// the only difference between this and previous test is use of another label with another model facet
+	public void testCustomParserFeatureLabelModelFacet() throws Exception {
+		ResourceSet rs = new ResourceSetImpl();
+		Resource r = rs.createResource(URI.createURI("uri://org.eclipse.gmf/tests/parkins"));
+		EObject nodkin = createNodkin();
+		setAttribute(nodkin, "a1", "aaa"); // not necessary, though
+		r.getContents().add(nodkin);
+		TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(rs);
+
+		assertTrue("sanity", setup.genModel.a_cp_flmf.getModelFacet().eClass() == GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet());
+		IParser p = getParser(setup.genModel.a_cp_flmf);
+		assertNotNull(p);
+		assertEquals("MyCustomParser", p.getClass().getSimpleName());
+		String s = p.getPrintString(new EObjectAdapter(nodkin), 0);
+		assertNotNull(s);
+		assertEquals(p.getClass().getName(), s);
+	}
+
+	/**
+	 * ExternalParser is invoked via ParserService, not through our generated
+	 * parser provider class, hence can't use {@link #getParser(GenNodeLabel)}
+	 */
+	@SuppressWarnings("unchecked")
+	public void testExternalParserWithHint() throws Exception  {
+		ResourceSet rs = new ResourceSetImpl();
+		Resource r = rs.createResource(URI.createURI("uri://org.eclipse.gmf/tests/parkins"));
+		EObject nodkin = createNodkin();
+		r.getContents().add(nodkin);
+		TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(rs);
+
+		Class<?> epc = setup.project.getBundle().loadClass(setup.genModel.a_extp.getEditPartQualifiedClassName());
+		final Node notationElement = NotationFactory.eINSTANCE.createNode();
+		notationElement.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		notationElement.setElement(notationElement); // since LabelModelFacer is not DesignLabelModelFacet,
+		// getParserElement() would try to resolveSemanticElement, but DiagramParserProvider needs an View with 
+		// DescStyle  
+		Object epInstance = epc.getConstructor(View.class).newInstance(notationElement);
+		IParser p = (IParser) epc.getMethod("getParser").invoke(epInstance);
+		assertNotNull(p);
+		assertEquals("org.eclipse.gmf.runtime.diagram.ui.providers.internal.parsers.DescriptionParser", p.getClass().getName());
+	}
+
 	protected IParser getParser(final GenNodeLabel label) throws Exception {
 		final GenEditorGenerator editorGen = setup.genModel.diagramkin.getEditorGen();
 		String ppfqn = editorGen.getLabelParsers().getQualifiedClassName();
 		Class<?> ppc = setup.project.getBundle().loadClass(ppfqn);
+		Node notationElement = NotationFactory.eINSTANCE.createNode(); // just not to pass null to ParserHintAdapter
 		if (editorGen.getLabelParsers().isExtensibleViaService()) {
 			IParserProvider pp = (IParserProvider) ppc.newInstance();
-			IAdaptable param = new IAdaptable() {
-	
-				@SuppressWarnings("unchecked")
-				public Object getAdapter(Class adapter) {
-					if (String.class == adapter) {
-						return String.valueOf(label.getVisualID());
-					}
-					return null;
-				}
-			};
+			ParserHintAdapter param = new ParserHintAdapter(notationElement, String.valueOf(label.getVisualID()));
 			return pp.getParser(param);
 		} else {
 			Object ppInstance = ppc.newInstance();
@@ -336,7 +395,33 @@ public class ParsersTest extends TestCase implements NeedsSetup {
 		public void init() throws Exception {
 			uses++;
 			if (project == null) {
-				project = new GenProjectSetup(new RuntimeBasedGeneratorConfiguration()).init(genModel.diagramkin.getEditorGen());
+				project = new GenProjectSetup(new RuntimeBasedGeneratorConfiguration()) {
+					@Override
+					protected void hookExtraCodeGeneration(GenEditorGenerator genEditor, IProject project) throws Exception {
+						// need an extra class for custom parser
+						// intentionally using a package different from the rest of the parsers 
+						String pkgName = genEditor.getDiagram().getEditPartsPackageName();
+						String className = "MyCustomParser";
+						IFolder f = (IFolder) project.findMember(new Path("src").append(pkgName.replace('.', '/')));
+						assertNotNull(f);
+						String x = "package " + pkgName + ";\n" +
+						"import org.eclipse.core.runtime.IAdaptable;\n" +
+						"import org.eclipse.gmf.runtime.common.core.command.ICommand;\n" +
+						"import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;\n" +
+						"import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;\n" +
+						"import org.eclipse.jface.text.contentassist.IContentAssistProcessor;\n" +
+						"\n" +
+						"public class " + className + " implements IParser {\n" +
+						"public IContentAssistProcessor getCompletionProcessor(IAdaptable element) { return null; }\n" +
+						"public String getEditString(IAdaptable element, int flags) { return null; }\n" +
+						"public ICommand getParseCommand(IAdaptable element, String newString, int flags) { return null; }\n" +
+						"public String getPrintString(IAdaptable element, int flags) { return MyCustomParser.class.getName(); }\n" +
+						"public boolean isAffectingEvent(Object event, int flags) { return false; }\n" +
+						"public IParserEditStatus isValidEditString(IAdaptable element, String editString) { return null; }}";
+
+						f.getFile(className + ".java").create(new ByteArrayInputStream(x.getBytes()), true, new NullProgressMonitor());
+					}
+				}.init(genModel.diagramkin.getEditorGen());
 			}
 		}
 
@@ -396,6 +481,7 @@ public class ParsersTest extends TestCase implements NeedsSetup {
 		public GenDiagram diagramkin;
 		public GenTopLevelNode nodkin;
 		public GenNodeLabel a1, a123, ac132, a12e31, an2, apr23;
+		public GenNodeLabel a_cp_pmf, a_cp_flmf, a_extp; // Custom and External Parsers
 
 		public ParsersGenModel(ParsersDomainModel domainModel) {
 			GenModel runtimeModel = getRuntimeGenModel();
@@ -415,7 +501,6 @@ public class ParsersTest extends TestCase implements NeedsSetup {
 			genBurden.setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
 			genBurden.setDiagramUpdater(GMFGenFactory.eINSTANCE.createGenDiagramUpdater());
 			genBurden.setLabelParsers(GMFGenFactory.eINSTANCE.createGenParsers());
-			genBurden.getLabelParsers().setExtensibleViaService(false);
 			new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/parking")).getContents().add(genBurden);
 
 			nodkin = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
@@ -439,9 +524,16 @@ public class ParsersTest extends TestCase implements NeedsSetup {
 			final PredefinedParser printfRegexParser = GMFGenFactory.eINSTANCE.createPredefinedParser();
 			printfRegexParser.setViewMethod(LabelTextAccessMethod.PRINTF);
 			printfRegexParser.setEditMethod(LabelTextAccessMethod.REGEXP);
+			final CustomParser customParser = GMFGenFactory.eINSTANCE.createCustomParser();
+			customParser.setQualifiedName(diagramkin.getEditPartsPackageName() + ".MyCustomParser");
+			final ExternalParser externalParser = GMFGenFactory.eINSTANCE.createExternalParser();
+			externalParser.setHint("\"Description\""); // value of CommonParserHint.DESCIPTION constant, 
+			// not the constant itself to manually (visually) assure (in the generated class) the hint is being used.
 			genBurden.getLabelParsers().getImplementations().add(messageFormatParser);
 			genBurden.getLabelParsers().getImplementations().add(nativeParser);
 			genBurden.getLabelParsers().getImplementations().add(printfRegexParser);
+			genBurden.getLabelParsers().getImplementations().add(customParser);
+			genBurden.getLabelParsers().getImplementations().add(externalParser);
 			a1 = addAttr(gmm, domainModel.a1);
 			{
 				FeatureLabelModelFacet mf = (FeatureLabelModelFacet) a1.getModelFacet();
@@ -479,6 +571,27 @@ public class ParsersTest extends TestCase implements NeedsSetup {
 			{
 				FeatureLabelModelFacet mf = (FeatureLabelModelFacet) apr23.getModelFacet();
 				mf.setParser(printfRegexParser);
+			}
+			a_cp_pmf = addAttr(gmm);
+			{
+				LabelModelFacet mf = GMFGenFactory.eINSTANCE.createLabelModelFacet();
+				mf.setParser(customParser);
+				a_cp_pmf.setModelFacet(mf);
+			}
+			a_cp_flmf = addAttr(gmm, domainModel.a1);
+			{
+				// need to get different name than default
+				// which conflicts with a1's name
+				a_cp_flmf.setEditPartClassName("AttrWithCustomParserEditPart");
+				FeatureLabelModelFacet mf = (FeatureLabelModelFacet) a_cp_flmf.getModelFacet();
+				mf.setParser(customParser);
+			}
+			a_extp = addAttr(gmm);
+			{
+				a_extp.setEditPartClassName("LabelWithExternalParserEditPart");
+				LabelModelFacet mf = GMFGenFactory.eINSTANCE.createLabelModelFacet();
+				mf.setParser(externalParser);
+				a_extp.setModelFacet(mf);
 			}
 		}
 
