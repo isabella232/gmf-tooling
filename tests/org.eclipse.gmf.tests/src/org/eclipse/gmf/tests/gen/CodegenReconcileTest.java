@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -39,6 +39,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.internal.codegen.util.GMFGenConfig;
 import org.eclipse.gmf.internal.common.reconcile.DefaultDecision;
@@ -46,11 +47,13 @@ import org.eclipse.gmf.internal.common.reconcile.Reconciler;
 import org.eclipse.gmf.internal.common.reconcile.ReconcilerConfigBase;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 
 public class CodegenReconcileTest extends ConfiguredTestCase {
 
 	public CodegenReconcileTest(String name) {
 		super(name);
+		myDefaultSetup = SessionSetup.newInstance();
 	}
 
 	protected final GenEditorGenerator getOriginal() {
@@ -682,6 +685,26 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			}
 		}
 		checkUserChange(new GenJavaExpressionProviderChange(GMFGenPackage.eINSTANCE.getGenJavaExpressionProvider_InjectExpressionBody(), true), editorGen, (GenEditorGenerator) EcoreUtil.copy(editorGen));
+	}
+
+	public void testGenParsers() {
+		class GenParsersChange extends SingleChange {
+
+			public GenParsersChange(EAttribute attr, Object value) {
+				super(attr, value);
+			}
+
+			@Override
+			protected EObject findChangeSubject(GenEditorGenerator genEditor) {
+				return genEditor.getLabelParsers();
+			}
+		}
+		GMFGenPackage ePack = GMFGenPackage.eINSTANCE;
+		checkUserChange(new GenParsersChange(ePack.getGenParsers_ClassName(), "ClassNaaaame"));
+		checkUserChange(new GenParsersChange(ePack.getGenParsers_PackageName(), "org.ssaammppllee"));
+		checkUserChange(new GenParsersChange(ePack.getGenParsers_ProviderPriority(), ProviderPriority.HIGH_LITERAL));
+		assertEquals("Sanity", Boolean.FALSE, ePack.getGenParsers_ExtensibleViaService().getDefaultValue());
+		checkUserChange(new GenParsersChange(ePack.getGenParsers_ExtensibleViaService(), true));
 	}
 	
 	private void checkUserChange(UserChange userChange){
