@@ -250,6 +250,12 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		setMatcher(GMFGEN.getGenExpressionProviderContainer(), ALWAYS_MATCH);
 		setMatcher(GMFGEN.getGenJavaExpressionProvider(), ALWAYS_MATCH);
 		preserveIfSet(GMFGEN.getGenJavaExpressionProvider(), GMFGEN.getGenJavaExpressionProvider_InjectExpressionBody());
+
+		setMatcher(GMFGEN.getGenParsers(), ALWAYS_MATCH);
+		preserveIfSet(GMFGEN.getGenParsers(), GMFGEN.getGenParsers_ClassName());
+		preserveIfSet(GMFGEN.getGenParsers(), GMFGEN.getGenParsers_PackageName());
+		preserveIfSet(GMFGEN.getGenParsers(), GMFGEN.getGenParsers_ProviderPriority());
+		preserveIfSet(GMFGEN.getGenParsers(), GMFGEN.getGenParsers_ExtensibleViaService());
 	}
 
 	// XXX rename?: preserveOld
