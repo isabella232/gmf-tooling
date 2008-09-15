@@ -25,7 +25,7 @@ public class TypeManager {
 
 	private static final String OCL_PATH_SEPARATOR = "::";
 
-	private ModeltypeImports modeltypeImportsManger;
+	private final ModeltypeImports modeltypeImportsManger;
 
 	public static final boolean isListType(EClassifier classifier) {
 		return classifier.getName().endsWith(BuiltinMetaModel.LIST);
@@ -34,13 +34,17 @@ public class TypeManager {
 	public static final boolean isSetType(EClassifier classifier) {
 		return classifier.getName().endsWith(BuiltinMetaModel.SET);
 	}
+	
+	public TypeManager() {
+		modeltypeImportsManger = null;
+	}
 
 	public TypeManager(ModeltypeImports modelImports) {
 		modeltypeImportsManger = modelImports;
 	}
 
 	public String getQvtFQName(EEnumLiteral literal) {
-		return modeltypeImportsManger.getModeltypeAlias(literal.getEEnum().getEPackage()) + OCL_PATH_SEPARATOR + literal.getEEnum().getName() + OCL_PATH_SEPARATOR + literal.getName();
+		return getPackageName(literal.getEEnum().getEPackage()) + OCL_PATH_SEPARATOR + literal.getEEnum().getName() + OCL_PATH_SEPARATOR + literal.getName();
 	}
 
 	public String getQvtFQName(EClassifier classifier) throws MigrationException {
@@ -81,8 +85,11 @@ public class TypeManager {
 		}
 		EPackage ePackage = classifier.getEPackage();
 		assert ePackage != null;
-		String alias = modeltypeImportsManger.getModeltypeAlias(ePackage);
-		return alias + OCL_PATH_SEPARATOR + classifier.getName();
+		return getPackageName(ePackage) + OCL_PATH_SEPARATOR + classifier.getName();
+	}
+	
+	private String getPackageName(EPackage ePackage) {
+		return modeltypeImportsManger != null ? modeltypeImportsManger.getModeltypeAlias(ePackage) : ePackage.getName();
 	}
 
 }

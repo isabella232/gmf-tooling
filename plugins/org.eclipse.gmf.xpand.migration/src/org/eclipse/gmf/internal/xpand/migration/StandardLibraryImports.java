@@ -57,15 +57,6 @@ public class StandardLibraryImports extends AbstractImportsManager {
 		return usedLibraries.toArray(new String[usedLibraries.size()]);
 	}
 
-//	void injectImports() {
-//		for (String usedLibrary : usedLibraries) {
-//			writeln("import library " + usedLibrary + ";");
-//		}
-//		if (usedLibraries.size() > 0) {
-//			writeln("");
-//		}
-//	}
-
 	public String getOperationName(EOperation eOperation) {
 		if (operationsMap.containsKey(eOperation)) {
 			MapEntry entry = operationsMap.get(eOperation);
