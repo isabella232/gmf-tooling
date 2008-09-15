@@ -119,6 +119,7 @@ public class XpandMigrationFacade {
 		return edit;
 	}
 
+	// TODO: use RangeMarker instead?
 	private int getStdLibImportsPosition(Template xpandTemplate) {
 		int offset = 0;
 		if (xpandTemplate.getExtensions().length > 0) {
