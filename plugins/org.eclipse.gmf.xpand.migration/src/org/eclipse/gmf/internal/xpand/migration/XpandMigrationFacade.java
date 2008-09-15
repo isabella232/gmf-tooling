@@ -19,6 +19,7 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.ast.AbstractDefinition;
+import org.eclipse.gmf.internal.xpand.ast.Advice;
 import org.eclipse.gmf.internal.xpand.ast.ExpressionStatement;
 import org.eclipse.gmf.internal.xpand.ast.NamespaceImport;
 import org.eclipse.gmf.internal.xpand.ast.Statement;
@@ -27,6 +28,7 @@ import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException.Type;
+import org.eclipse.gmf.internal.xpand.model.XpandAdvice;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.jface.text.BadLocationException;
@@ -104,6 +106,11 @@ public class XpandMigrationFacade {
 		for (XpandDefinition definition : xpandTemplate.getDefinitions()) {
 			assert definition instanceof AbstractDefinition;
 			migrateDefinition((AbstractDefinition) definition, typeManager, stdLibImportsManager, ctx, edit);
+		}
+		
+		for (XpandAdvice advice : xpandTemplate.getAdvices()) {
+			assert advice instanceof Advice;
+			migrateDefinition((Advice) advice, typeManager, stdLibImportsManager, ctx, edit);
 		}
 		
 		injectStdlibImports(stdLibImportsManager, edit);
