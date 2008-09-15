@@ -16,16 +16,15 @@ import java.io.Reader;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.ast.AbstractDefinition;
 import org.eclipse.gmf.internal.xpand.ast.ExpressionStatement;
-import org.eclipse.gmf.internal.xpand.ast.ImportDeclaration;
 import org.eclipse.gmf.internal.xpand.ast.NamespaceImport;
 import org.eclipse.gmf.internal.xpand.ast.Statement;
 import org.eclipse.gmf.internal.xpand.ast.Template;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
-import org.eclipse.gmf.internal.xpand.expression.ast.StringLiteral;
+import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException.Type;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
@@ -33,6 +32,7 @@ import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.text.edits.InsertEdit;
 import org.eclipse.text.edits.MalformedTreeException;
 import org.eclipse.text.edits.MultiTextEdit;
 import org.eclipse.text.edits.ReplaceEdit;
@@ -45,11 +45,6 @@ public class XpandMigrationFacade {
 	private String resourceName;
 
 	private boolean migrateAspect;
-
-	// private Stack<AbstractImportsManager> importsManagers = new
-	// Stack<AbstractImportsManager>();
-	//	
-	// private StandardLibraryImports stdLibImportsManager;
 
 	public XpandMigrationFacade(ResourceManager resourceManager, String xtendResourceName, boolean migrateAspect) {
 		this.resourceManager = resourceManager;
@@ -77,7 +72,7 @@ public class XpandMigrationFacade {
 		if (xpandResource == null) {
 			throw new MigrationException(Type.RESOURCE_NOT_FOUND, "Unable to load resource: " + resourceName);
 		}
-		MigrationExecutionContext ctx = new MigrationExecutionContextImpl(resourceManager).<MigrationExecutionContext> cloneWithResource(xpandResource);
+		MigrationExecutionContext ctx = new MigrationExecutionContextImpl(resourceManager).<MigrationExecutionContext>cloneWithResource(xpandResource);
 		Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
 		xpandResource.analyze(ctx, issues);
 		if (issues.size() > 0) {
@@ -102,37 +97,50 @@ public class XpandMigrationFacade {
 	}
 
 	private TextEdit migrate(Template xpandTemplate, MigrationExecutionContext ctx) throws MigrationException {
-		StandardLibraryImports stdLibImportsManager = new StandardLibraryImports(0);
-		ModeltypeImports modeltypeImportsManger = new ModeltypeImports(0, true);
-		TypeManager typeManager = new TypeManager(modeltypeImportsManger);
-
-		
 		MultiTextEdit edit = new MultiTextEdit();
-		// importsManagers.push(stdLibImportsManager = new
-		// StandardLibraryImports(getOutput()));
-		addLibraryImports(xpandTemplate, edit);
-		addNamespaceImports(xpandTemplate, edit);
+		StandardLibraryImports stdLibImportsManager = new StandardLibraryImports(getStdLibImportsPosition(xpandTemplate));
+		TypeManager typeManager = new TypeManager();
 
 		for (XpandDefinition definition : xpandTemplate.getDefinitions()) {
 			assert definition instanceof AbstractDefinition;
 			migrateDefinition((AbstractDefinition) definition, typeManager, stdLibImportsManager, ctx, edit);
 		}
 		
-		addStandardLibraries(stdLibImportsManager, edit);
-		addModeltypes(modeltypeImportsManger, edit);
+		injectStdlibImports(stdLibImportsManager, edit);
 		return edit;
 	}
 
-	private void addModeltypes(ModeltypeImports modeltypeImportsManger, MultiTextEdit edit) {
-		// TODO Auto-generated method stub
-		
+	private int getStdLibImportsPosition(Template xpandTemplate) {
+		if (xpandTemplate.getExtensions().length > 0) {
+			return xpandTemplate.getExtensions()[0].getStartOffset();
+		}
+		if (xpandTemplate.getImports().length > 0) {
+			NamespaceImport[] imports = xpandTemplate.getImports();
+			return imports[imports.length - 1].getEndOffset();
+		}
+		return 0;
 	}
 
-	private void addStandardLibraries(StandardLibraryImports stdLibImportsManager, MultiTextEdit edit) {
-		// TODO Auto-generated method stub
+	private void injectStdlibImports(StandardLibraryImports stdLibImportsManager, MultiTextEdit edit) {
+		if (stdLibImportsManager.getLibraries().length == 0) {
+			return;
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append(ExpressionMigrationFacade.LF);
+		for (String stdLib : stdLibImportsManager.getLibraries()) {
+			sb.append("«EXTENSION ");
+			sb.append(stdLib);
+			sb.append("»");
+			sb.append(ExpressionMigrationFacade.LF);	
+		}
+		insert(stdLibImportsManager.getPlaceholderIndex(), sb, edit);
 	}
 
 	private void migrateDefinition(AbstractDefinition definition, TypeManager typeManager, StandardLibraryImports stdLibManager, MigrationExecutionContext ctx, MultiTextEdit edit) throws MigrationException {
+		for (DeclaredParameter parameter : definition.getParams()) {
+			migrateParameter(parameter, ctx, typeManager, edit);
+		}
+		
 		VariableNameDispatcher variableNameDispatcher = new VariableNameDispatcher(definition);
 		for (Statement statement : definition.getBody()) {
 			if (statement instanceof ExpressionStatement) {
@@ -141,41 +149,25 @@ public class XpandMigrationFacade {
 		}
 	}
 
+	private void migrateParameter(DeclaredParameter parameter, MigrationExecutionContext ctx, TypeManager typeManager, MultiTextEdit edit) throws MigrationException {
+		EClassifier parameterType = ctx.getTypeForName(parameter.getType().getValue());
+		replace(parameter, parameter.getName().getValue() + " : " + typeManager.getQvtFQName(parameterType), edit);
+	}
+
 	private void migrateExpressionStatement(ExpressionStatement statement, TypeManager typeManager, StandardLibraryImports stdLibManager, VariableNameDispatcher variableNameDispatcher, MigrationExecutionContext ctx, MultiTextEdit edit) throws MigrationException {
 		ExpressionMigrationFacade expressionMF = new ExpressionMigrationFacade(statement.getExpression(), typeManager, stdLibManager, variableNameDispatcher, ctx);
 		StringBuilder result = expressionMF.migrate();
-		replaceInOriginalContent(statement.getExpression(), result.toString(), edit);
+		replace(statement.getExpression(), result.toString(), edit);
 	}
 
-	private void addNamespaceImports(Template xpandTemplate, MultiTextEdit edit) {
-		for (NamespaceImport importDeclaration : xpandTemplate.getImports()) {
-			StringLiteral importString = importDeclaration.getStringLiteral();
-			replaceInOriginalContent(importString, migrateNamespaceImport(importString), edit);
-		}
-	}
-
-	private StringBuilder migrateNamespaceImport(StringLiteral importString) {
-		// TODO: write migration code here
-		StringBuilder result = new StringBuilder("\"" + importString.getValue() + "\"");
-		return result;
-	}
-
-	private void addLibraryImports(Template xpandTemplate, MultiTextEdit edit) {
-		for (ImportDeclaration importDeclaration : xpandTemplate.getExtensions()) {
-			Identifier importString = importDeclaration.getImportString();
-			replaceInOriginalContent(importString, migrateLibraryImport(importString), edit);
-		}
-	}
-
-	private StringBuilder migrateLibraryImport(Identifier importString) {
-		// TODO: write migration code here
-		StringBuilder result = new StringBuilder(importString.getValue());
-		return result;
-	}
-
-	private void replaceInOriginalContent(SyntaxElement syntaxElement, CharSequence replacement, MultiTextEdit edit) {
+	private void replace(SyntaxElement syntaxElement, CharSequence replacement, MultiTextEdit edit) {
 		ReplaceEdit replaceEdit = new ReplaceEdit(syntaxElement.getStartOffset(), syntaxElement.getEndOffset() + 1 - syntaxElement.getStartOffset(), replacement.toString());
 		edit.addChild(replaceEdit);
+	}
+	
+	private void insert(int position, CharSequence text, MultiTextEdit edit) {
+		InsertEdit insertEdit = new InsertEdit(position, text.toString());
+		edit.addChild(insertEdit);
 	}
 
 }
