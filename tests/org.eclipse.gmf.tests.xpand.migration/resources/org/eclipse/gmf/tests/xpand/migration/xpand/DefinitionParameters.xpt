@@ -1,0 +1,28 @@
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«DEFINE stringParameters(String param1, EString param2, string param3) FOR ecore::EPackage-»
+«ENDDEFINE»
+
+«DEFINE booleanParameters(Boolean param1, EBoolean param2, boolean param3) FOR ecore::EPackage-»
+«ENDDEFINE»
+
+«DEFINE integerParameters(Integer param1, int param2, EInt param3) FOR ecore::EPackage-»
+«ENDDEFINE»
+
+«DEFINE doubleParameter(ecore::EDouble param) FOR ecore::EPackage-»
+«ENDDEFINE»
+
+«DEFINE modelParameters(ecore::EObject param1, EClass param2) FOR ecore::EPackage-»
+«ENDDEFINE»

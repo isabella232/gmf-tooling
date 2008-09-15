@@ -32,8 +32,8 @@ public class XpandMigrationTest extends TestCase {
 		testResourceManager = new TestsResourceManager();
 	}
 
-	public void testImportedExtensions() throws IOException, MigrationException {
-		checkMigration("ImportedExtensions");
+	public void testDefinitionParameters() throws IOException, MigrationException {
+		checkMigration("DefinitionParameters");
 	}
 
 	private String checkMigration(String resourceName) throws IOException, MigrationException {
