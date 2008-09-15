@@ -21,6 +21,7 @@ import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.ast.AbstractDefinition;
 import org.eclipse.gmf.internal.xpand.ast.Advice;
 import org.eclipse.gmf.internal.xpand.ast.ExpressionStatement;
+import org.eclipse.gmf.internal.xpand.ast.ImportDeclaration;
 import org.eclipse.gmf.internal.xpand.ast.NamespaceImport;
 import org.eclipse.gmf.internal.xpand.ast.Statement;
 import org.eclipse.gmf.internal.xpand.ast.Template;
@@ -33,7 +34,6 @@ import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
-import org.eclipse.jface.text.IDocument;
 import org.eclipse.text.edits.InsertEdit;
 import org.eclipse.text.edits.MalformedTreeException;
 import org.eclipse.text.edits.MultiTextEdit;
@@ -47,6 +47,8 @@ public class XpandMigrationFacade {
 	private String resourceName;
 
 	private boolean migrateAspect;
+
+	private Document document;
 
 	public XpandMigrationFacade(ResourceManager resourceManager, String xtendResourceName, boolean migrateAspect) {
 		this.resourceManager = resourceManager;
@@ -86,7 +88,7 @@ public class XpandMigrationFacade {
 		}
 		Template xpandTemplate = (Template) xpandResource;
 
-		IDocument document = new Document(originalContent.toString());
+		document = new Document(originalContent.toString());
 		TextEdit edit = migrate(xpandTemplate, ctx);
 		try {
 			edit.apply(document);
@@ -118,14 +120,24 @@ public class XpandMigrationFacade {
 	}
 
 	private int getStdLibImportsPosition(Template xpandTemplate) {
+		int offset = 0;
 		if (xpandTemplate.getExtensions().length > 0) {
-			return xpandTemplate.getExtensions()[0].getStartOffset();
-		}
-		if (xpandTemplate.getImports().length > 0) {
+			ImportDeclaration[] extensions = xpandTemplate.getExtensions();
+			offset = extensions[extensions.length - 1].getEndOffset();
+		} else if (xpandTemplate.getImports().length > 0) {
 			NamespaceImport[] imports = xpandTemplate.getImports();
-			return imports[imports.length - 1].getEndOffset();
+			offset =  imports[imports.length - 1].getEndOffset();
 		}
-		return 0;
+		if (offset > 0) {
+			try {
+				for (; !"»".equals(document.get(offset, 1)); offset++) {
+				}
+				offset++;
+			} catch (BadLocationException e) {
+				offset = 0;
+			}
+		}
+		return offset;
 	}
 
 	private void injectStdlibImports(StandardLibraryImports stdLibImportsManager, MultiTextEdit edit) {
@@ -133,12 +145,16 @@ public class XpandMigrationFacade {
 			return;
 		}
 		StringBuilder sb = new StringBuilder();
-		sb.append(ExpressionMigrationFacade.LF);
+		if (stdLibImportsManager.getPlaceholderIndex() > 0) {
+			sb.append(ExpressionMigrationFacade.LF);
+		}
 		for (String stdLib : stdLibImportsManager.getLibraries()) {
 			sb.append("«EXTENSION ");
 			sb.append(stdLib);
 			sb.append("»");
-			sb.append(ExpressionMigrationFacade.LF);	
+		}
+		if (stdLibImportsManager.getPlaceholderIndex() == 0) {
+			sb.append(ExpressionMigrationFacade.LF);
 		}
 		insert(stdLibImportsManager.getPlaceholderIndex(), sb, edit);
 	}
