@@ -294,7 +294,7 @@ org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser = «EXPAND parse
 if (parser != null) {
 	return parser.getPrintString(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(view.getElement() != null ? view.getElement() : view), org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions.NONE.intValue());
 } else {
-	«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Parser was not found for label " + «visualID»); «EXPAND xpt::Common::nonNLS»
+	«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Parser was not found for label " + «visualID»);«EXPAND xpt::Common::nonNLS»
 	«EXPAND returnEmptyString-»
 }
 «ENDDEFINE»
