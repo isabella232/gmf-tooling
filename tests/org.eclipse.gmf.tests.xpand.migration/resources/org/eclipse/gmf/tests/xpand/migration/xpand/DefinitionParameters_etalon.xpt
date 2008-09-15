@@ -15,14 +15,29 @@
 «DEFINE stringParameters(param1 : String, param2 : String, param3 : String) FOR ecore::EPackage-»
 «ENDDEFINE»
 
+«AROUND stringParametersAround(param1 : String, param2 : String, param3 : String) FOR ecore::EPackage-»
+«ENDAROUND»
+
 «DEFINE booleanParameters(param1 : Boolean, param2 : Boolean, param3 : Boolean) FOR ecore::EPackage-»
 «ENDDEFINE»
+
+«AROUND booleanParametersAround(param1 : Boolean, param2 : Boolean, param3 : Boolean) FOR ecore::EPackage-»
+«ENDAROUND»
 
 «DEFINE integerParameters(param1 : Integer, param2 : Integer, param3 : Integer) FOR ecore::EPackage-»
 «ENDDEFINE»
 
+«AROUND integerParametersAround(param1 : Integer, param2 : Integer, param3 : Integer) FOR ecore::EPackage-»
+«ENDAROUND»
+
 «DEFINE doubleParameter(param : Real) FOR ecore::EPackage-»
 «ENDDEFINE»
 
+«AROUND doubleParameterAround(param : Real) FOR ecore::EPackage-»
+«ENDAROUND»
+
 «DEFINE modelParameters(param1 : ecore::EObject, param2 : ecore::EClass) FOR ecore::EPackage-»
 «ENDDEFINE»
+
+«AROUND modelParametersAround(param1 : ecore::EObject, param2 : ecore::EClass) FOR ecore::EPackage-»
+«ENDAROUND»
