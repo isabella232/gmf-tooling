@@ -1,0 +1,10 @@
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«EXTENSION AnotherExtension1»
+«EXTENSION AnotherExtension2»
+«EXTENSION AnotherExtension3   »
+«EXTENSION XpandStringOperations»
+
+«DEFINE stringParameters(param : String) FOR ecore::EPackage-»
+«param.xpandToFirstLower()-»	
+«ENDDEFINE»

@@ -1,0 +1,6 @@
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel" »
+
+«DEFINE stringParameters(String param) FOR ecore::EPackage-»
+«param.toFirstLower()-»	
+«ENDDEFINE»
