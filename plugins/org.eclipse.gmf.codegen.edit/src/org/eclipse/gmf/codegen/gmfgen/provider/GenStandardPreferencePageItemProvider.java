@@ -60,6 +60,7 @@ public class GenStandardPreferencePageItemProvider
 			super.getPropertyDescriptors(object);
 
 			addKindPropertyDescriptor(object);
+			addClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -78,6 +79,28 @@ public class GenStandardPreferencePageItemProvider
 				 getString("_UI_GenStandardPreferencePage_kind_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenStandardPreferencePage_kind_feature", "_UI_GenStandardPreferencePage_type"),
 				 GMFGenPackage.eINSTANCE.getGenStandardPreferencePage_Kind(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenStandardPreferencePage_className_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenStandardPreferencePage_className_feature", "_UI_GenStandardPreferencePage_type"),
+				 GMFGenPackage.eINSTANCE.getGenStandardPreferencePage_ClassName(),
 				 true,
 				 false,
 				 false,
@@ -124,6 +147,7 @@ public class GenStandardPreferencePageItemProvider
 
 		switch (notification.getFeatureID(GenStandardPreferencePage.class)) {
 			case GMFGenPackage.GEN_STANDARD_PREFERENCE_PAGE__KIND:
+			case GMFGenPackage.GEN_STANDARD_PREFERENCE_PAGE__CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

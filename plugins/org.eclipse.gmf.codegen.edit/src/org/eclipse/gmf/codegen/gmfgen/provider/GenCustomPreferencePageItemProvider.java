@@ -60,6 +60,7 @@ public class GenCustomPreferencePageItemProvider
 			super.getPropertyDescriptors(object);
 
 			addQualifiedClassNamePropertyDescriptor(object);
+			addGenerateBoilerplatePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -82,6 +83,28 @@ public class GenCustomPreferencePageItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Generate Boilerplate feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addGenerateBoilerplatePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenCustomPreferencePage_generateBoilerplate_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenCustomPreferencePage_generateBoilerplate_feature", "_UI_GenCustomPreferencePage_type"),
+				 GMFGenPackage.eINSTANCE.getGenCustomPreferencePage_GenerateBoilerplate(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -124,6 +147,7 @@ public class GenCustomPreferencePageItemProvider
 
 		switch (notification.getFeatureID(GenCustomPreferencePage.class)) {
 			case GMFGenPackage.GEN_CUSTOM_PREFERENCE_PAGE__QUALIFIED_CLASS_NAME:
+			case GMFGenPackage.GEN_CUSTOM_PREFERENCE_PAGE__GENERATE_BOILERPLATE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
