@@ -1492,13 +1492,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_CUSTOM_PREFERENCE_PAGE__QUALIFIED_CLASS_NAME = GEN_PREFERENCE_PAGE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Generate Boilerplate</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_PREFERENCE_PAGE__GENERATE_BOILERPLATE = GEN_PREFERENCE_PAGE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Gen Custom Preference Page</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CUSTOM_PREFERENCE_PAGE_FEATURE_COUNT = GEN_PREFERENCE_PAGE_FEATURE_COUNT + 1;
+	int GEN_CUSTOM_PREFERENCE_PAGE_FEATURE_COUNT = GEN_PREFERENCE_PAGE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenStandardPreferencePageImpl <em>Gen Standard Preference Page</em>}' class.
@@ -1556,13 +1565,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_STANDARD_PREFERENCE_PAGE__KIND = GEN_PREFERENCE_PAGE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_STANDARD_PREFERENCE_PAGE__CLASS_NAME = GEN_PREFERENCE_PAGE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Gen Standard Preference Page</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_STANDARD_PREFERENCE_PAGE_FEATURE_COUNT = GEN_PREFERENCE_PAGE_FEATURE_COUNT + 1;
+	int GEN_STANDARD_PREFERENCE_PAGE_FEATURE_COUNT = GEN_PREFERENCE_PAGE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramPreferencesImpl <em>Gen Diagram Preferences</em>}' class.
@@ -10988,6 +11006,17 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getGenCustomPreferencePage_QualifiedClassName();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage#isGenerateBoilerplate <em>Generate Boilerplate</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Generate Boilerplate</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage#isGenerateBoilerplate()
+	 * @see #getGenCustomPreferencePage()
+	 * @generated
+	 */
+	EAttribute getGenCustomPreferencePage_GenerateBoilerplate();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage <em>Gen Standard Preference Page</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11007,6 +11036,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenStandardPreferencePage_Kind();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage#getClassName <em>Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage#getClassName()
+	 * @see #getGenStandardPreferencePage()
+	 * @generated
+	 */
+	EAttribute getGenStandardPreferencePage_ClassName();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences <em>Gen Diagram Preferences</em>}'.

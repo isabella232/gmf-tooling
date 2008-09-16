@@ -125,4 +125,20 @@ public interface GenPreferencePage extends EObject {
 	 */
 	GenDiagram getDiagram();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getClassName();
+
 } // GenPreferencePage

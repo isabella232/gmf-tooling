@@ -16,6 +16,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage#getQualifiedClassName <em>Qualified Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage#isGenerateBoilerplate <em>Generate Boilerplate</em>}</li>
  * </ul>
  * </p>
  *
@@ -49,5 +50,32 @@ public interface GenCustomPreferencePage extends GenPreferencePage {
 	 * @generated
 	 */
 	void setQualifiedClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Generate Boilerplate</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Generate Boilerplate</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Generate Boilerplate</em>' attribute.
+	 * @see #setGenerateBoilerplate(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCustomPreferencePage_GenerateBoilerplate()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isGenerateBoilerplate();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage#isGenerateBoilerplate <em>Generate Boilerplate</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Generate Boilerplate</em>' attribute.
+	 * @see #isGenerateBoilerplate()
+	 * @generated
+	 */
+	void setGenerateBoilerplate(boolean value);
 
 } // GenCustomPreferencePage

@@ -13,6 +13,8 @@
 «IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
+«EXTENSION xpt::diagram::Utils»
+
 «DEFINE extensions FOR gmfgen::GenDiagram-»
 
    <extension point="org.eclipse.core.runtime.preferences">
@@ -23,7 +25,7 @@
 «IF preferencePages.size() > 0-»
    <extension point="org.eclipse.ui.preferencePages">
       «EXPAND xpt::Common::xmlGeneratedTag»
-«EXPAND preferencePage FOREACH preferencePages-»
+«EXPAND preferencePage FOREACH allPreferencePages()-»
    </extension>
 «ENDIF-»
 «ENDDEFINE»
@@ -35,42 +37,11 @@
 «IF null != parent-»
             category="«parent.iD»"
 «ENDIF-»
-            class="«EXPAND qualifiedClassName»">
+            class="«getQualifiedClassName()»">
       </page>
-«FOREACH children AS page-»
-«EXPAND preferencePage FOR page-»
-«ENDFOREACH-»
-«ENDDEFINE»
-
-«DEFINE qualifiedClassName FOR gmfgen::GenPreferencePage»
-«ERROR "Unknown preference page: " + this»
-«ENDDEFINE»
-
-«DEFINE qualifiedClassName FOR gmfgen::GenCustomPreferencePage»«qualifiedClassName»«ENDDEFINE»
-
-«DEFINE qualifiedClassName FOR gmfgen::GenStandardPreferencePage-»
-«IF gmfgen::StandardPreferencePages::General.value == kind.value-»
-«EXPAND xpt::diagram::preferences::GeneralPreferencePage::qualifiedClassName FOR getDiagram()-»
-«ELSEIF gmfgen::StandardPreferencePages::Appearance.value == kind.value-»
-«EXPAND xpt::diagram::preferences::AppearancePreferencePage::qualifiedClassName FOR getDiagram()-»
-«ELSEIF gmfgen::StandardPreferencePages::Connections.value == kind.value-»
-«EXPAND xpt::diagram::preferences::ConnectionsPreferencePage::qualifiedClassName FOR getDiagram()-»
-«ELSEIF gmfgen::StandardPreferencePages::Printing.value == kind.value-»
-«EXPAND xpt::diagram::preferences::PrintingPreferencePage::qualifiedClassName FOR getDiagram()-»
-«ELSEIF gmfgen::StandardPreferencePages::RulersAndGrid.value == kind.value-»
-«EXPAND xpt::diagram::preferences::RulersAndGridPreferencePage::qualifiedClassName FOR getDiagram()-»
-«ELSEIF gmfgen::StandardPreferencePages::Pathmaps.value == kind.value-»
-org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage«ELSE-»
-«ERROR "Unknown preference page: " + this»
-«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE i18n FOR gmfgen::GenDiagram»
 # Preferences
-«EXPAND internal_i18n FOREACH preferencePages»
-«ENDDEFINE»
-
-«DEFINE internal_i18n FOR gmfgen::GenPreferencePage-»
-prefpage.«iD»=«name»
-«EXPAND internal_i18n FOREACH children-»
+«FOREACH preferencePages AS p»«EXPAND xpt::Externalizer::messageEntry("prefpage." + p.iD, p.name)»«ENDFOREACH»
 «ENDDEFINE»

@@ -207,12 +207,16 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPreferencePage/children"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPreferencePage/parent"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenPreferencePage/getDiagram"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenPreferencePage/getQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenPreferencePage/getClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenCustomPreferencePage">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCustomPreferencePage/qualifiedClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCustomPreferencePage/generateBoilerplate"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenStandardPreferencePage">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenStandardPreferencePage/kind"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenStandardPreferencePage/className"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenDiagramPreferences">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/lineStyle"/>

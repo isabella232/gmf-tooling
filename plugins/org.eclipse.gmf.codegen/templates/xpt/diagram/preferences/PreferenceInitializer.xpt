@@ -13,6 +13,8 @@
 «IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
+«EXTENSION xpt::diagram::Utils»
+
 «DEFINE className FOR gmfgen::GenDiagram»DiagramPreferenceInitializer«ENDDEFINE»
 
 «DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«preferencesPackageName».«EXPAND className»«ENDDEFINE»
@@ -27,15 +29,12 @@ public class «EXPAND className» extends org.eclipse.core.runtime.preferences.Abs
 	«EXPAND xpt::Common::generatedMemberComment»
 	public void initializeDefaultPreferences() {
 		org.eclipse.jface.preference.IPreferenceStore store = getPreferenceStore();
-		«EXPAND xpt::diagram::preferences::PrintingPreferencePage::qualifiedClassName».initDefaults(store);
-		«IF null == preferences-»
-			«EXPAND xpt::diagram::preferences::GeneralPreferencePage::qualifiedClassName».initDefaults(store);
-			«EXPAND xpt::diagram::preferences::AppearancePreferencePage::qualifiedClassName».initDefaults(store);
-			«EXPAND xpt::diagram::preferences::ConnectionsPreferencePage::qualifiedClassName».initDefaults(store);
-			«EXPAND xpt::diagram::preferences::RulersAndGridPreferencePage::qualifiedClassName».initDefaults(store);
-		«ELSE-»
-			«EXPAND initDefaults("store") FOR preferences-»
-		«ENDIF-»
+«IF preferences == null-»
+		«EXPAND initDefaults("store") FOREACH allPreferencePages(this)»
+«ELSE»«REM»default values for predefined pages will be set manually«ENDREM-»
+		«EXPAND initDefaults("store") FOREACH allPreferencePages(this).typeSelect(GenCustomPreferencePage)»
+		«EXPAND initDefaults("store") FOR preferences-»
+«ENDIF-»
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -43,6 +42,16 @@ public class «EXPAND className» extends org.eclipse.core.runtime.preferences.Abs
 		return «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore();
 	}
 } 
+«ENDDEFINE»
+
+«DEFINE initDefaults(String storeVar) FOR gmfgen::GenPreferencePage»«ERROR "Abstract define for " + this»«ENDDEFINE»
+
+«DEFINE initDefaults(String storeVar) FOR gmfgen::GenStandardPreferencePage-»
+«EXPAND impl::preferences::StandardPage::call_initDefaults(storeVar)»
+«ENDDEFINE»
+
+«DEFINE initDefaults(String storeVar) FOR gmfgen::GenCustomPreferencePage-»
+«EXPAND impl::preferences::CustomPage::call_initDefaults(storeVar)»
 «ENDDEFINE»
 
 «DEFINE initDefaults(String storeVar) FOR gmfgen::GenDiagramPreferences»

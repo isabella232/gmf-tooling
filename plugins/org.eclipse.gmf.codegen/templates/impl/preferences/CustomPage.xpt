@@ -1,0 +1,51 @@
+/*
+ * Copyright (c) 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«DEFINE Main FOR GenCustomPreferencePage-»
+«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
+package «qualifiedClassName == getClassName() ? getDiagram().preferencesPackageName : qualifiedClassName.subString(0, qualifiedClassName.length() - getClassName().length() - 1)»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «getClassName()»«EXPAND extendsList»«EXPAND implementsList» {
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public «getClassName()»() {
+		setPreferenceStore(«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore());
+	}
+«EXPAND initDefaultsMethod»
+«EXPAND additions»
+}
+«ENDDEFINE»
+
+«DEFINE extendsList FOR GenCustomPreferencePage»extends org.eclipse.gmf.runtime.common.ui.preferences.AbstractPreferencePage«ENDDEFINE»
+«DEFINE implementsList FOR GenCustomPreferencePage»«REM»no-op«ENDREM»«ENDDEFINE»
+
+«DEFINE additions FOR GenCustomPreferencePage»«ENDDEFINE»
+
+«DEFINE initDefaultsMethod FOR GenCustomPreferencePage-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static void initDefaults(org.eclipse.jface.preferences.IPreferenceStore store) {
+		// TODO this code is invoked during preference store initialization, please fill
+		// the store passed with default preference values.
+	}
+«ENDDEFINE»
+
+// pair template to initDefaultsMethod, allows external templates invoke generated initDefaults method
+// Note, CustomPage::Main is expected to be invoked only for templates with generateBoilerplate == true,
+// hence no extra check when generating with initDefaultsMethod,
+// however, call_initDefaults may get invoked for any CustomPreferencePage
+«DEFINE call_initDefaults(String storeVarName) FOR GenCustomPreferencePage-»
+«IF generateBoilerplate»«qualifiedClassName».initDefaults(«storeVarName»);«ENDIF-»
+«ENDDEFINE»

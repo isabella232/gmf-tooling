@@ -1564,6 +1564,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenCustomPreferencePage_GenerateBoilerplate() {
+		return (EAttribute)genCustomPreferencePageEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenStandardPreferencePage() {
 		return genStandardPreferencePageEClass;
 	}
@@ -1575,6 +1584,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getGenStandardPreferencePage_Kind() {
 		return (EAttribute)genStandardPreferencePageEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenStandardPreferencePage_ClassName() {
+		return (EAttribute)genStandardPreferencePageEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -6456,9 +6474,11 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		genCustomPreferencePageEClass = createEClass(GEN_CUSTOM_PREFERENCE_PAGE);
 		createEAttribute(genCustomPreferencePageEClass, GEN_CUSTOM_PREFERENCE_PAGE__QUALIFIED_CLASS_NAME);
+		createEAttribute(genCustomPreferencePageEClass, GEN_CUSTOM_PREFERENCE_PAGE__GENERATE_BOILERPLATE);
 
 		genStandardPreferencePageEClass = createEClass(GEN_STANDARD_PREFERENCE_PAGE);
 		createEAttribute(genStandardPreferencePageEClass, GEN_STANDARD_PREFERENCE_PAGE__KIND);
+		createEAttribute(genStandardPreferencePageEClass, GEN_STANDARD_PREFERENCE_PAGE__CLASS_NAME);
 
 		genDiagramPreferencesEClass = createEClass(GEN_DIAGRAM_PREFERENCES);
 		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__LINE_STYLE);
@@ -7317,11 +7337,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genPreferencePageEClass, this.getGenDiagram(), "getDiagram", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		addEOperation(genPreferencePageEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(genPreferencePageEClass, ecorePackage.getEString(), "getClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(genCustomPreferencePageEClass, GenCustomPreferencePage.class, "GenCustomPreferencePage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenCustomPreferencePage_QualifiedClassName(), ecorePackage.getEString(), "qualifiedClassName", null, 1, 1, GenCustomPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenCustomPreferencePage_GenerateBoilerplate(), ecorePackage.getEBoolean(), "generateBoilerplate", "false", 0, 1, GenCustomPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genStandardPreferencePageEClass, GenStandardPreferencePage.class, "GenStandardPreferencePage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenStandardPreferencePage_Kind(), this.getStandardPreferencePages(), "kind", null, 1, 1, GenStandardPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenStandardPreferencePage_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, GenStandardPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genDiagramPreferencesEClass, GenDiagramPreferences.class, "GenDiagramPreferences", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenDiagramPreferences_LineStyle(), this.getRouting(), "lineStyle", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

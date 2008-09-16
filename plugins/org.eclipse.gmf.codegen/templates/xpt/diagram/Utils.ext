@@ -53,3 +53,11 @@ List[gmfgen::GenLink] getAssistantIncomingLinks(gmfgen::GenNode node) :
 List[gmfgen::GenLinkEnd] selectGenNodes(List[gmfgen::GenLinkEnd] ends) :
 	ends.typeSelect(gmfgen::GenNode)
 ;
+
+List[gmfgen::GenPreferencePage] allPreferencePages(gmfgen::GenDiagram genDiagram) :
+	recursePages(genDiagram.preferencePages)
+;
+
+private List[gmfgen::GenPreferencePage] recursePages(List[GenPreferencePage] pages) :
+	pages.isEmpty() ? pages : pages.union(recursePages(pages.children))
+;
