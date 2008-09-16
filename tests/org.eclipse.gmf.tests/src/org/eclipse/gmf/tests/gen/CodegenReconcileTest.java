@@ -688,6 +688,10 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 	}
 
 	public void testGenParsers() {
+		getOriginal().getLabelParsers().setProviderPriority(null); // reset to default value, as previous
+		// tests may alter it to another value, and as long as preserveIfSet/DefaultDecision
+		// doesn't keep old value if there's new value which is eIsSet() == true, need to make sure
+		// this tests starts with a clean state ("new" model passed to reconciler has default value)
 		class GenParsersChange extends SingleChange {
 
 			public GenParsersChange(EAttribute attr, Object value) {
