@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
@@ -31,6 +32,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -46,12 +48,15 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenParserImplementation;
+import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
+import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
+import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
@@ -204,11 +209,7 @@ public class Generator extends GeneratorBase implements Runnable {
 
 		// preferences
 		generatePreferenceInitializer();
-		generateAppearancePreferencePage();
-		generateConnectionsPreferencePage();
-		generateGeneralPreferencePage();
-		generatePrintingPreferencePage();
-		generateRulersAndGridPreferencePage();
+		generatePreferencePages(myDiagram.getPreferencePages());
 
 		// editor
 		generatePalette();
@@ -513,24 +514,21 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(myEmitters.getPreferenceInitializerEmitter(), myEmitters.getPreferenceInitializerName(myDiagram), myDiagram);
 	}
 
-	private void generateAppearancePreferencePage() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getAppearancePreferencePageEmitter(), myEmitters.getAppearancePreferencePageName(myDiagram), myDiagram);
-	}
-
-	private void generateConnectionsPreferencePage() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getConnectionsPreferencePageEmitter(), myEmitters.getConnectionsPreferencePageName(myDiagram), myDiagram);
-	}
-
-	private void generateGeneralPreferencePage() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getGeneralPreferencePageEmitter(), myEmitters.getGeneralPreferencePageName(myDiagram), myDiagram);
-	}
-
-	private void generatePrintingPreferencePage() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getPrintingPreferencePageEmitter(), myEmitters.getPrintingPreferencePageName(myDiagram), myDiagram);
-	}
-
-	private void generateRulersAndGridPreferencePage() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getRulersAndGridPreferencePageEmitter(), myEmitters.getRulersAndGridPreferencePageName(myDiagram), myDiagram);
+	private void generatePreferencePages(List<GenPreferencePage> pages) throws UnexpectedBehaviourException, InterruptedException {
+		for (GenPreferencePage p : pages) {
+			if (p instanceof GenCustomPreferencePage) {
+				if (((GenCustomPreferencePage) p).isGenerateBoilerplate()) {
+					doGenerateJavaClass(myEmitters.getCustomPreferencePageEmitter(), p.getQualifiedClassName(), p);
+				}
+			} else if (p instanceof GenStandardPreferencePage) {
+				if (((GenStandardPreferencePage) p).getKind() != StandardPreferencePages.PATHMAPS_LITERAL) {
+					doGenerateJavaClass(myEmitters.getStandardPreferencePageEmitter(), p.getQualifiedClassName(), p);
+				}
+			} else {
+				throw new UnexpectedBehaviourException("No idea how to handle GenPreferencePage subclass:" + p);
+			}
+			generatePreferencePages(p.getChildren());
+		}
 	}
 
 	// parsers
