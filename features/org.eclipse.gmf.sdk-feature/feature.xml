@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.gmf.sdk"
       label="%featureName"
-      version="2.1.1.qualifier"
+      version="2.2.0.qualifier"
       provider-name="%providerName"
       image="eclipse_update_120.jpg">
 
@@ -45,12 +45,12 @@ http://www.eclipse.org/legal/epl-v10.html
          id="org.eclipse.gmf.tooling"
          version="0.0.0"
          name="%toolingFeatureName"/>
-         
+
    <includes
          id="org.eclipse.gmf.tooling.source"
          version="0.0.0"
          name="%toolingSourceFeatureName"/>
-         
+
    <includes
          id="org.eclipse.gmf.doc"
          version="0.0.0"
@@ -60,7 +60,7 @@ http://www.eclipse.org/legal/epl-v10.html
          id="org.eclipse.gmf.runtime.notation.source"
          version="0.0.0"
          name="%notationSourceFeatureName"/>
-         
+
    <includes
          id="org.eclipse.gmf.runtime.thirdparty.source"
          version="0.0.0"
