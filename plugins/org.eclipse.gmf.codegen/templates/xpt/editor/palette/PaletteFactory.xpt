@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -143,6 +143,7 @@ FIXME
 «ERROR "override newStdOtherEntry(StandardEntry, String) for kind " + kind.literal»
 «ENDDEFINE»
 
+// FIXME: odd code - FOR EntryBase, while most of the template is valid for ToolEntry only!!!
 «DEFINE setSmallImage(String toolVarName, gmfgen::Palette palette) FOR gmfgen::EntryBase-»
 «IF null != smallIconPath-»
 «toolVarName».setSmallIcon(«activatorFQN(palette)».findImageDescriptor("«smallIconPath»")); «EXPAND xpt::Common::nonNLS»
