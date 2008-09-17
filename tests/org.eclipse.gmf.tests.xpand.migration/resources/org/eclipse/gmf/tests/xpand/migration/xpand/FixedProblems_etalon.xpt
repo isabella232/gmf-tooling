@@ -1,0 +1,8 @@
+
+«DEFINE nullLiteral FOR ecore::EPackage-»
+«null-»	
+«ENDDEFINE»
+
+«DEFINE temporaryVariables FOR Collection[ecore::EClassifier]-»
+«self->collect(it | it.oclAsType(ecore::EClass))->asSequence()»	
+«ENDDEFINE»
