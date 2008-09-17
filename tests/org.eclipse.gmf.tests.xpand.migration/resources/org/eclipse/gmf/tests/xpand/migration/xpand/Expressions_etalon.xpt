@@ -1,0 +1,19 @@
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«EXTENSION org::eclipse::gmf::tests::xpand::migration::xpand::Extensions»
+
+«DEFINE featureCall FOR ecore::EPackage-»
+«eClassifiers->asSequence().name->size()-»	
+«ENDDEFINE»
+
+«DEFINE thisToSelfMigration FOR ecore::EClass-»
+«self.name-»	
+«ENDDEFINE»
+
+«DEFINE implicitExtensionParameter FOR ecore::EClass-»
+«getEClassName(self)-»	
+«ENDDEFINE»
+
+«DEFINE explicitExtensionParameter FOR ecore::EClass-»
+«getEClassName(self)-»	
+«ENDDEFINE»

@@ -47,6 +47,10 @@ public class XpandMigrationTest extends TestCase {
 	public void testStdlibExtension_withOtherExtensions() throws IOException, MigrationException {
 		checkMigration("StdlibExtension_withOtherExtensions");
 	}
+	
+	public void testExpressions() throws IOException, MigrationException {
+		checkMigration("Expressions");
+	}
 
 	private String checkMigration(String resourceName) throws IOException, MigrationException {
 		XpandMigrationFacade facade = new XpandMigrationFacade(testResourceManager, getResourceName(resourceName), false);
