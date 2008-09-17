@@ -82,6 +82,9 @@ public class ExpandStatement extends Statement {
             paramTypes[i] = getParameters()[i].analyze(ctx, issues);
 
         }
+        if (separator != null) {
+        	separator.analyze(ctx, issues);
+        }
         EClassifier targetType = null;
         if (isForeach()) {
             targetType = target.analyze(ctx, issues);
