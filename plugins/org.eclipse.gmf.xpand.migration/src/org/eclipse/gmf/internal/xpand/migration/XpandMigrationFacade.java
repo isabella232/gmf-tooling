@@ -27,6 +27,7 @@ import org.eclipse.gmf.internal.xpand.ast.FileStatement;
 import org.eclipse.gmf.internal.xpand.ast.ForEachStatement;
 import org.eclipse.gmf.internal.xpand.ast.IfStatement;
 import org.eclipse.gmf.internal.xpand.ast.ImportDeclaration;
+import org.eclipse.gmf.internal.xpand.ast.LetStatement;
 import org.eclipse.gmf.internal.xpand.ast.NamespaceImport;
 import org.eclipse.gmf.internal.xpand.ast.Statement;
 import org.eclipse.gmf.internal.xpand.ast.Template;
@@ -228,6 +229,12 @@ public class XpandMigrationFacade {
 			}
 			if (ifStatement.getElseIf() != null) {
 				migrateStatement(ifStatement.getElseIf(), variableNameDispatcher);
+			}
+		} else if (statement instanceof LetStatement) {
+			LetStatement letStatement = (LetStatement) statement;
+			migrateExpression(letStatement.getVarValue(), variableNameDispatcher);
+			for (Statement bodyStatement : letStatement.getBody()) {
+				migrateStatement(bodyStatement, variableNameDispatcher);
 			}
 		}
 	}
