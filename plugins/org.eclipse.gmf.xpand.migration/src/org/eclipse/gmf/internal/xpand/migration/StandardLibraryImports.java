@@ -48,16 +48,16 @@ public class StandardLibraryImports extends AbstractImportsManager {
 	StandardLibraryImports(StringBuilder stringBuilder) {
 		super(stringBuilder);
 	}
-	
+
 	StandardLibraryImports(int placeholder) {
 		super(placeholder);
 	}
-	
+
 	String[] getLibraries() {
 		return usedLibraries.toArray(new String[usedLibraries.size()]);
 	}
 
-	public String getOperationName(EOperation eOperation) {
+	String getOperationName(EOperation eOperation) {
 		if (operationsMap.containsKey(eOperation)) {
 			MapEntry entry = operationsMap.get(eOperation);
 			if (entry.isLibraryOperation()) {
@@ -65,7 +65,7 @@ public class StandardLibraryImports extends AbstractImportsManager {
 			}
 			return entry.getQvtOperationName();
 		}
-		return eOperation.getName();
+		return null;
 	}
 
 	private static class MapEntry {

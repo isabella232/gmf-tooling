@@ -59,7 +59,6 @@ public class FeatureCall extends Expression {
 
     public void setTarget(final Expression target) {
         this.target = target;
-        startOffset = target.getStartOffset();
     }
 
     public Identifier getName() {
@@ -271,6 +270,14 @@ public class FeatureCall extends Expression {
     @Override
     public String toString() {
         return (getTarget() != null ? getTarget().toString() + "." : "") + name.getValue();
+    }
+    
+    @Override
+    public int getStartOffset() {
+    	if (getTarget() != null) {
+    		return getTarget().getStartOffset();
+    	}
+    	return super.getStartOffset();
     }
 
 }

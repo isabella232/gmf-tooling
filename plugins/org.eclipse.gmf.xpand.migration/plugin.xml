@@ -17,6 +17,20 @@
             <objectState name="extension" value="ext"/>
          </visibility>
       </objectContribution>
+      <objectContribution
+            id="org.eclipse.gmf.xpand.migration.actions"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="org.eclipse.gmf.internal.xpand.migration.ui.MigrateXpandResource"
+               enablesFor="1"
+               id="org.eclipse.gmf.xpand.migration.migratexpand"
+               label="%migrate.xpand.action"
+               menubarPath="additions">
+         </action>
+         <visibility>
+            <objectState name="extension" value="xpt"/>
+         </visibility>
+      </objectContribution>
    </extension>
 
 </plugin>

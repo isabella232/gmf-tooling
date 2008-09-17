@@ -47,6 +47,8 @@ public class XtendMigrationFacade {
 
 	private ModeltypeImports modeltypeImportsManger;
 
+	private ModelManager modelManager;
+
 	private static String getLastSegment(String string, String separator) {
 		int delimeterIndex = string.lastIndexOf(separator);
 		if (delimeterIndex > 0) {
@@ -89,6 +91,7 @@ public class XtendMigrationFacade {
 		}
 
 		stdLibImportsManager = new StandardLibraryImports(output);
+		modelManager = new ModelManager(stdLibImportsManager, false);
 		addLibraryImports(xtendResource, false);
 		if (xtendResource.getImportedExtensions().length > 0) {
 			writeln("");
@@ -215,7 +218,7 @@ public class XtendMigrationFacade {
 
 	private void migrateExpressionExtension(ExpressionExtensionStatement extension, MigrationExecutionContext ctx) throws MigrationException {
 		write("\t");
-		ExpressionMigrationFacade expressionMigrationFacade = new ExpressionMigrationFacade(extension.getExpression(), typeManager, stdLibImportsManager, new VariableNameDispatcher(extension), ctx);
+		ExpressionMigrationFacade expressionMigrationFacade = new ExpressionMigrationFacade(extension.getExpression(), typeManager, modelManager, new VariableNameDispatcher(extension), ctx);
 		StringBuilder expressionContent = expressionMigrationFacade.migrate();
 		writeln(expressionContent.insert(expressionMigrationFacade.getReturnPosition(), "return "));
 	}

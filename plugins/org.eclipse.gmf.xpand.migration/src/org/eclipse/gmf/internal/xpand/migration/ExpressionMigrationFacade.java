@@ -45,6 +45,7 @@ import org.eclipse.gmf.internal.xpand.expression.ast.StringLiteral;
 import org.eclipse.gmf.internal.xpand.expression.ast.SwitchExpression;
 import org.eclipse.gmf.internal.xpand.expression.ast.TypeSelectExpression;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException.Type;
+import org.eclipse.ocl.Environment;
 
 
 public class ExpressionMigrationFacade {
@@ -106,8 +107,6 @@ public class ExpressionMigrationFacade {
 
 	private StringBuilder output = new StringBuilder();
 
-	private StandardLibraryImports stdLibImportsManager;
-
 	private MigrationExecutionContext ctx;
 
 	private int returnPosition;
@@ -118,10 +117,12 @@ public class ExpressionMigrationFacade {
 
 	private TypeManager typeManager;
 
-	ExpressionMigrationFacade(Expression expression, TypeManager typeManager, StandardLibraryImports libImports, VariableNameDispatcher variableDispatcher, MigrationExecutionContext context) {
+	private ModelManager modelManager;
+
+	ExpressionMigrationFacade(Expression expression, TypeManager typeManager, ModelManager modelManager, VariableNameDispatcher variableDispatcher, MigrationExecutionContext context) {
 		rootExpression = expression;
 		this.typeManager = typeManager;
-		stdLibImportsManager = libImports;
+		this.modelManager = modelManager;
 		this.variableDispatcher = variableDispatcher;
 		ctx = context;
 		markReturnPosition();
@@ -447,6 +448,8 @@ public class ExpressionMigrationFacade {
 		case UNDESOLVED_TARGET_TYPE:
 			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL, trace.toString());
 		case STATIC_EXTENSION_REF:
+			// TODO: use ModelManager or StandardLibraryImports to escape
+			// specific operation names here and below
 			write(operationCall.getName().getValue());
 			write("(");
 			internalMigrateOperationCallParameters(operationCall);
@@ -469,10 +472,14 @@ public class ExpressionMigrationFacade {
 			convertImplicitCollectProduct(trace.getTargetType());
 			return;
 		case EXTENSION_REF:
-			assert operationCall.getTarget() != null;
 			write(operationCall.getName().getValue());
 			write("(");
-			migrateExpression(operationCall.getTarget());
+			if (operationCall.getTarget() != null) {
+				migrateExpression(operationCall.getTarget());
+			} else {
+				// in case of xpand migration substituting implicit target of static extension call
+				write(Environment.SELF_VARIABLE_NAME);
+			}
 			if (operationCall.getParams().length > 0) {
 				write(", ");
 				internalMigrateOperationCallParameters(operationCall);
@@ -547,7 +554,7 @@ public class ExpressionMigrationFacade {
 		} else {
 			// getTarget() == null if it is an implicit self operation.
 			// TODO: check if it is working with XPand
-			write("self");
+			write(Environment.SELF_VARIABLE_NAME);
 		}
 	}
 
@@ -850,9 +857,12 @@ public class ExpressionMigrationFacade {
 	private void internalMigrateOperationCall(OperationCallTrace trace, OperationCall operationCall) throws MigrationException {
 		EOperation eOperation = trace.getEOperation();
 		assert eOperation != null;
-		internalMigrateOperationCallTarget(operationCall);
-		write(".");
-		write(stdLibImportsManager.getOperationName(eOperation));
+		// getTarget can be null for implicit call to "self" variable in xpand
+		if (operationCall.getTarget() != null) {
+			migrateExpression(operationCall.getTarget());
+			write(".");
+		}
+		write(modelManager.getName(operationCall, trace));
 		write("(");
 		if (BuiltinMetaModel.EString_SubString_StartEnd == eOperation) {
 			write("1 + ");
@@ -880,7 +890,7 @@ public class ExpressionMigrationFacade {
 			write(typeManager.getQvtFQName(enumLiteral));
 			return;
 		case ENV_VAR_REF:
-			write(featureCall.getName().getValue());
+			write(modelManager.getName(featureCall, trace));
 			return;
 		case UNDESOLVED_TARGET_TYPE:
 		case UNSUPPORTED_CLASSIFIER_REF:
@@ -892,7 +902,7 @@ public class ExpressionMigrationFacade {
 			migrateExpression(featureCall.getTarget());
 			write(".");
 		}
-		write(featureCall.getName().getValue());
+		write(modelManager.getName(featureCall, trace));
 		switch (trace.getType()) {
 		case FEATURE_REF:
 			EClassifier targetType = trace.getTargetType();
