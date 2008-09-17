@@ -24,11 +24,11 @@ import org.eclipse.gmf.internal.xpand.ast.ErrorStatement;
 import org.eclipse.gmf.internal.xpand.ast.ExpandStatement;
 import org.eclipse.gmf.internal.xpand.ast.ExpressionStatement;
 import org.eclipse.gmf.internal.xpand.ast.FileStatement;
+import org.eclipse.gmf.internal.xpand.ast.ForEachStatement;
 import org.eclipse.gmf.internal.xpand.ast.ImportDeclaration;
 import org.eclipse.gmf.internal.xpand.ast.NamespaceImport;
 import org.eclipse.gmf.internal.xpand.ast.Statement;
 import org.eclipse.gmf.internal.xpand.ast.Template;
-import org.eclipse.gmf.internal.xpand.ast.TextStatement;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
 import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
@@ -206,6 +206,15 @@ public class XpandMigrationFacade {
 			FileStatement fileStatement = (FileStatement) statement;
 			migrateExpression(fileStatement.getTargetFileName(), variableNameDispatcher);
 			for (Statement bodyStatement : fileStatement.getBody()) {
+				migrateStatement(bodyStatement, variableNameDispatcher);
+			}
+		} else if (statement instanceof ForEachStatement) {
+			ForEachStatement forEach = (ForEachStatement) statement;
+			migrateExpression(forEach.getTarget(), variableNameDispatcher);
+			if (forEach.getSeparator() != null) {
+				migrateExpression(forEach.getSeparator(), variableNameDispatcher);	
+			}
+			for (Statement bodyStatement : forEach.getBody()) {
 				migrateStatement(bodyStatement, variableNameDispatcher);
 			}
 		}
