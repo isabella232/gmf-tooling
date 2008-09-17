@@ -1,14 +1,14 @@
-«DEFINE emptyFileStatement FOR ecore::EPackage-»
+«DEFINE emptyFile FOR ecore::EPackage-»
 «FILE ((ecore::EClass) eClassifiers.typeSelect(ecore::EClass).first()).name-»
 «ENDFILE»	
 «ENDDEFINE»
 
-«DEFINE emptyFileStatementWithMode FOR ecore::EPackage-»
+«DEFINE emptyFileWithMode FOR ecore::EPackage-»
 «FILE ((ecore::EClass) eClassifiers.typeSelect(ecore::EClass).first()).name mode-»
 «ENDFILE»	
 «ENDDEFINE»
 
-«DEFINE fileStatementWithBody FOR ecore::EPackage-»
+«DEFINE fileWithBody FOR ecore::EPackage-»
 «FILE 'fileName'-»
 	Start
 		«eClassifiers.typeSelect(ecore::EClass).size()»

@@ -1,3 +1,3 @@
-«DEFINE errorStatement FOR ecore::EClass-»
+«DEFINE error FOR ecore::EClass-»
 «ERROR 'error: ' + eAttributes->asSequence()->size().repr()-»	
 «ENDDEFINE»
