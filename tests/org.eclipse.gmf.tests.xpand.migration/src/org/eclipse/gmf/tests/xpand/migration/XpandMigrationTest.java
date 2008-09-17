@@ -48,8 +48,16 @@ public class XpandMigrationTest extends TestCase {
 		checkMigration("StdlibExtension_withOtherExtensions");
 	}
 	
-	public void testExpressions() throws IOException, MigrationException {
-		checkMigration("Expressions");
+	public void testExpressionStatements() throws IOException, MigrationException {
+		checkMigration("ExpressionStatements");
+	}
+	
+	public void testErrorStatements() throws IOException, MigrationException {
+		checkMigration("ErrorStatements");
+	}
+	
+	public void testExpandStatements() throws IOException, MigrationException {
+		checkMigration("ExpandStatements");
 	}
 
 	private String checkMigration(String resourceName) throws IOException, MigrationException {

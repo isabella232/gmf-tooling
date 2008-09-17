@@ -1,0 +1,17 @@
+«DEFINE expandWithParameters FOR ecore::EClass-»
+«EXPAND target1('string1', 'string2')-»	
+«ENDDEFINE»
+
+«DEFINE expandForExpression FOR ecore::EPackage-»
+«EXPAND target2 FOR (eClassifiers->asSequence())[ecore::EClass]->first().oclAsType(ecore::EClass)-»	
+«ENDDEFINE»
+
+«DEFINE expandForeachWithSeparator FOR ecore::EPackage-»
+«EXPAND target2 FOREACH (eClassifiers->asSequence())[ecore::EClass] SEPARATOR '|' + eClassifiers->asSequence()->size().repr()-»
+«ENDDEFINE»
+
+«DEFINE target1(p1 : String, p2 : String) FOR ecore::EClass-»
+«ENDDEFINE»
+
+«DEFINE target2 FOR ecore::EClass-»
+«ENDDEFINE»
