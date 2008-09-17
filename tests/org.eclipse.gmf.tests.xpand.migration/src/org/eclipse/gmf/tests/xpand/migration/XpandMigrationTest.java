@@ -67,6 +67,10 @@ public class XpandMigrationTest extends TestCase {
 	public void testForEachStatements() throws IOException, MigrationException {
 		checkMigration("ForEachStatements");
 	}
+	
+	public void testIfStatements() throws IOException, MigrationException {
+		checkMigration("IfStatements");
+	}
 
 	private String checkMigration(String resourceName) throws IOException, MigrationException {
 		XpandMigrationFacade facade = new XpandMigrationFacade(testResourceManager, getResourceName(resourceName), false);
