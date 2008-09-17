@@ -103,16 +103,17 @@ public class XpandMigrationFacade {
 	private TextEdit migrate(Template xpandTemplate, MigrationExecutionContext ctx) throws MigrationException {
 		MultiTextEdit edit = new MultiTextEdit();
 		StandardLibraryImports stdLibImportsManager = new StandardLibraryImports(getStdLibImportsPosition(xpandTemplate));
+		ModelManager modelManager = new ModelManager(stdLibImportsManager, true);
 		TypeManager typeManager = new TypeManager();
 
 		for (XpandDefinition definition : xpandTemplate.getDefinitions()) {
 			assert definition instanceof AbstractDefinition;
-			migrateDefinition((AbstractDefinition) definition, typeManager, stdLibImportsManager, ctx, edit);
+			migrateDefinition((AbstractDefinition) definition, typeManager, modelManager, ctx, edit);
 		}
 		
 		for (XpandAdvice advice : xpandTemplate.getAdvices()) {
 			assert advice instanceof Advice;
-			migrateDefinition((Advice) advice, typeManager, stdLibImportsManager, ctx, edit);
+			migrateDefinition((Advice) advice, typeManager, modelManager, ctx, edit);
 		}
 		
 		injectStdlibImports(stdLibImportsManager, edit);
@@ -160,7 +161,7 @@ public class XpandMigrationFacade {
 		insert(stdLibImportsManager.getPlaceholderIndex(), sb, edit);
 	}
 
-	private void migrateDefinition(AbstractDefinition definition, TypeManager typeManager, StandardLibraryImports stdLibManager, MigrationExecutionContext ctx, MultiTextEdit edit) throws MigrationException {
+	private void migrateDefinition(AbstractDefinition definition, TypeManager typeManager, ModelManager modelManager, MigrationExecutionContext ctx, MultiTextEdit edit) throws MigrationException {
 		for (DeclaredParameter parameter : definition.getParams()) {
 			migrateParameter(parameter, ctx, typeManager, edit);
 		}
@@ -168,7 +169,7 @@ public class XpandMigrationFacade {
 		VariableNameDispatcher variableNameDispatcher = new VariableNameDispatcher(definition);
 		for (Statement statement : definition.getBody()) {
 			if (statement instanceof ExpressionStatement) {
-				migrateExpressionStatement((ExpressionStatement) statement, typeManager, stdLibManager, variableNameDispatcher, ctx, edit);
+				migrateExpressionStatement((ExpressionStatement) statement, typeManager, modelManager, variableNameDispatcher, ctx, edit);
 			}
 		}
 	}
@@ -178,10 +179,10 @@ public class XpandMigrationFacade {
 		replace(parameter, parameter.getName().getValue() + " : " + typeManager.getQvtFQName(parameterType), edit);
 	}
 
-	private void migrateExpressionStatement(ExpressionStatement statement, TypeManager typeManager, StandardLibraryImports stdLibManager, VariableNameDispatcher variableNameDispatcher, MigrationExecutionContext ctx, MultiTextEdit edit) throws MigrationException {
-		ExpressionMigrationFacade expressionMF = new ExpressionMigrationFacade(statement.getExpression(), typeManager, stdLibManager, variableNameDispatcher, ctx);
+	private void migrateExpressionStatement(ExpressionStatement statement, TypeManager typeManager, ModelManager modelManager, VariableNameDispatcher variableNameDispatcher, MigrationExecutionContext ctx, MultiTextEdit edit) throws MigrationException {
+		ExpressionMigrationFacade expressionMF = new ExpressionMigrationFacade(statement.getExpression(), typeManager, modelManager, variableNameDispatcher, ctx);
 		StringBuilder result = expressionMF.migrate();
-		replace(statement.getExpression(), result.toString(), edit);
+		replace(statement, result.toString(), edit);
 	}
 
 	private void replace(SyntaxElement syntaxElement, CharSequence replacement, MultiTextEdit edit) {
