@@ -24,19 +24,37 @@ public class «getClassName()»«EXPAND extendsList»«EXPAND implementsList» {
 	public «getClassName()»() {
 		setPreferenceStore(«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore());
 	}
+«EXPAND methods»
 «EXPAND initDefaultsMethod»
 «EXPAND additions»
 }
 «ENDDEFINE»
 
-«DEFINE extendsList FOR GenCustomPreferencePage»extends org.eclipse.gmf.runtime.common.ui.preferences.AbstractPreferencePage«ENDDEFINE»
+«DEFINE extendsList FOR GenCustomPreferencePage» extends org.eclipse.gmf.runtime.common.ui.preferences.AbstractPreferencePage«ENDDEFINE»
 «DEFINE implementsList FOR GenCustomPreferencePage»«REM»no-op«ENDREM»«ENDDEFINE»
 
 «DEFINE additions FOR GenCustomPreferencePage»«ENDDEFINE»
 
+// the reason I didn't split this template up into two distinct, addFieldsMethod and initHelpMethod, is that
+// using superclass other than oe.gmf...AbstractPreferencePage may require implementation of completely different
+// set of methods. Besides, there's not to much generated, anyway.
+«DEFINE methods FOR GenCustomPreferencePage»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void addFields(org.eclipse.swt.widgets.Composite parent) {
+		// TODO  Provide method implementation
+		throw new UnsupportedOperationException();
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void initHelp() {
+		// TODO implement this method if needed, or leave as no-op
+	}
+«ENDDEFINE»
+
+
 «DEFINE initDefaultsMethod FOR GenCustomPreferencePage-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static void initDefaults(org.eclipse.jface.preferences.IPreferenceStore store) {
+	public static void initDefaults(org.eclipse.jface.preference.IPreferenceStore store) {
 		// TODO this code is invoked during preference store initialization, please fill
 		// the store passed with default preference values.
 	}
