@@ -20,13 +20,18 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.ast.AbstractDefinition;
 import org.eclipse.gmf.internal.xpand.ast.Advice;
+import org.eclipse.gmf.internal.xpand.ast.ErrorStatement;
+import org.eclipse.gmf.internal.xpand.ast.ExpandStatement;
 import org.eclipse.gmf.internal.xpand.ast.ExpressionStatement;
+import org.eclipse.gmf.internal.xpand.ast.FileStatement;
 import org.eclipse.gmf.internal.xpand.ast.ImportDeclaration;
 import org.eclipse.gmf.internal.xpand.ast.NamespaceImport;
 import org.eclipse.gmf.internal.xpand.ast.Statement;
 import org.eclipse.gmf.internal.xpand.ast.Template;
+import org.eclipse.gmf.internal.xpand.ast.TextStatement;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
+import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException.Type;
 import org.eclipse.gmf.internal.xpand.model.XpandAdvice;
@@ -38,7 +43,6 @@ import org.eclipse.text.edits.InsertEdit;
 import org.eclipse.text.edits.MalformedTreeException;
 import org.eclipse.text.edits.MultiTextEdit;
 import org.eclipse.text.edits.ReplaceEdit;
-import org.eclipse.text.edits.TextEdit;
 
 public class XpandMigrationFacade {
 
@@ -49,6 +53,14 @@ public class XpandMigrationFacade {
 	private boolean migrateAspect;
 
 	private Document document;
+
+	private MigrationExecutionContext ctx;
+
+	private MultiTextEdit edit;
+
+	private ModelManager modelManager;
+
+	private TypeManager typeManager;
 
 	public XpandMigrationFacade(ResourceManager resourceManager, String xtendResourceName, boolean migrateAspect) {
 		this.resourceManager = resourceManager;
@@ -76,7 +88,7 @@ public class XpandMigrationFacade {
 		if (xpandResource == null) {
 			throw new MigrationException(Type.RESOURCE_NOT_FOUND, "Unable to load resource: " + resourceName);
 		}
-		MigrationExecutionContext ctx = new MigrationExecutionContextImpl(resourceManager).<MigrationExecutionContext>cloneWithResource(xpandResource);
+		ctx = new MigrationExecutionContextImpl(resourceManager).<MigrationExecutionContext>cloneWithResource(xpandResource);
 		Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
 		xpandResource.analyze(ctx, issues);
 		if (issues.size() > 0) {
@@ -87,9 +99,10 @@ public class XpandMigrationFacade {
 			throw new MigrationException(Type.UNSUPPORTED_XPAND_RESOURCE, "Only Template instances are supported, but loaded: " + xpandResource);
 		}
 		Template xpandTemplate = (Template) xpandResource;
-
 		document = new Document(originalContent.toString());
-		TextEdit edit = migrate(xpandTemplate, ctx);
+		edit = new MultiTextEdit();
+		
+		migrate(xpandTemplate);
 		try {
 			edit.apply(document);
 		} catch (MalformedTreeException e) {
@@ -100,24 +113,22 @@ public class XpandMigrationFacade {
 		return document.get();
 	}
 
-	private TextEdit migrate(Template xpandTemplate, MigrationExecutionContext ctx) throws MigrationException {
-		MultiTextEdit edit = new MultiTextEdit();
+	private void migrate(Template xpandTemplate) throws MigrationException {
 		StandardLibraryImports stdLibImportsManager = new StandardLibraryImports(getStdLibImportsPosition(xpandTemplate));
-		ModelManager modelManager = new ModelManager(stdLibImportsManager, true);
-		TypeManager typeManager = new TypeManager();
+		modelManager = new ModelManager(stdLibImportsManager, true);
+		typeManager = new TypeManager();
 
 		for (XpandDefinition definition : xpandTemplate.getDefinitions()) {
 			assert definition instanceof AbstractDefinition;
-			migrateDefinition((AbstractDefinition) definition, typeManager, modelManager, ctx, edit);
+			migrateDefinition((AbstractDefinition) definition);
 		}
-		
+
 		for (XpandAdvice advice : xpandTemplate.getAdvices()) {
 			assert advice instanceof Advice;
-			migrateDefinition((Advice) advice, typeManager, modelManager, ctx, edit);
+			migrateDefinition((Advice) advice);
 		}
-		
-		injectStdlibImports(stdLibImportsManager, edit);
-		return edit;
+
+		injectStdlibImports(stdLibImportsManager);
 	}
 
 	// TODO: use RangeMarker instead?
@@ -142,7 +153,7 @@ public class XpandMigrationFacade {
 		return offset;
 	}
 
-	private void injectStdlibImports(StandardLibraryImports stdLibImportsManager, MultiTextEdit edit) {
+	private void injectStdlibImports(StandardLibraryImports stdLibImportsManager) {
 		if (stdLibImportsManager.getLibraries().length == 0) {
 			return;
 		}
@@ -158,39 +169,62 @@ public class XpandMigrationFacade {
 		if (stdLibImportsManager.getPlaceholderIndex() == 0) {
 			sb.append(ExpressionMigrationFacade.LF);
 		}
-		insert(stdLibImportsManager.getPlaceholderIndex(), sb, edit);
+		insert(stdLibImportsManager.getPlaceholderIndex(), sb);
 	}
 
-	private void migrateDefinition(AbstractDefinition definition, TypeManager typeManager, ModelManager modelManager, MigrationExecutionContext ctx, MultiTextEdit edit) throws MigrationException {
+	private void migrateDefinition(AbstractDefinition definition) throws MigrationException {
 		for (DeclaredParameter parameter : definition.getParams()) {
-			migrateParameter(parameter, ctx, typeManager, edit);
+			migrateParameter(parameter);
 		}
 		
+		// TODO: implement variable name dispatcher constructor
 		VariableNameDispatcher variableNameDispatcher = new VariableNameDispatcher(definition);
 		for (Statement statement : definition.getBody()) {
-			if (statement instanceof ExpressionStatement) {
-				migrateExpressionStatement((ExpressionStatement) statement, typeManager, modelManager, variableNameDispatcher, ctx, edit);
-			}
+			migrateStatement(statement, variableNameDispatcher);
 		}
 	}
 
-	private void migrateParameter(DeclaredParameter parameter, MigrationExecutionContext ctx, TypeManager typeManager, MultiTextEdit edit) throws MigrationException {
+	private void migrateStatement(Statement statement, VariableNameDispatcher variableNameDispatcher) throws MigrationException {
+		if (statement instanceof ExpressionStatement) {
+			ExpressionStatement expressionStatement = (ExpressionStatement) statement;
+			migrateExpression(expressionStatement.getExpression(), variableNameDispatcher);
+		} else if (statement instanceof ErrorStatement) {
+			ErrorStatement errorStatement = (ErrorStatement) statement;
+			migrateExpression(errorStatement.getMessage(), variableNameDispatcher);
+		} else if (statement instanceof ExpandStatement) {
+			ExpandStatement expandStatement = (ExpandStatement) statement;
+			for (Expression parameter : expandStatement.getParameters()) {
+				migrateExpression(parameter, variableNameDispatcher);
+			}
+			if (expandStatement.getTarget() != null) {
+				migrateExpression(expandStatement.getTarget(), variableNameDispatcher);
+			}
+			if (expandStatement.getSeparator() != null) {
+				migrateExpression(expandStatement.getSeparator(), variableNameDispatcher);
+			}
+		} else if (statement instanceof FileStatement) {
+			FileStatement fileStatement = (FileStatement) statement;
+			throw new MigrationException(Type.UNSUPPORTED_XPAND_STATEMENT, statement.getClass().getName()); 
+		}
+	}
+
+	private void migrateParameter(DeclaredParameter parameter) throws MigrationException {
 		EClassifier parameterType = ctx.getTypeForName(parameter.getType().getValue());
-		replace(parameter, parameter.getName().getValue() + " : " + typeManager.getQvtFQName(parameterType), edit);
+		replace(parameter, parameter.getName().getValue() + " : " + typeManager.getQvtFQName(parameterType));
 	}
 
-	private void migrateExpressionStatement(ExpressionStatement statement, TypeManager typeManager, ModelManager modelManager, VariableNameDispatcher variableNameDispatcher, MigrationExecutionContext ctx, MultiTextEdit edit) throws MigrationException {
-		ExpressionMigrationFacade expressionMF = new ExpressionMigrationFacade(statement.getExpression(), typeManager, modelManager, variableNameDispatcher, ctx);
+	private void migrateExpression(Expression expression, VariableNameDispatcher variableNameDispatcher) throws MigrationException {
+		ExpressionMigrationFacade expressionMF = new ExpressionMigrationFacade(expression, typeManager, modelManager, variableNameDispatcher, ctx);
 		StringBuilder result = expressionMF.migrate();
-		replace(statement, result.toString(), edit);
+		replace(expression, result.toString());
 	}
 
-	private void replace(SyntaxElement syntaxElement, CharSequence replacement, MultiTextEdit edit) {
+	private void replace(SyntaxElement syntaxElement, CharSequence replacement) {
 		ReplaceEdit replaceEdit = new ReplaceEdit(syntaxElement.getStartOffset(), syntaxElement.getEndOffset() + 1 - syntaxElement.getStartOffset(), replacement.toString());
 		edit.addChild(replaceEdit);
 	}
 	
-	private void insert(int position, CharSequence text, MultiTextEdit edit) {
+	private void insert(int position, CharSequence text) {
 		InsertEdit insertEdit = new InsertEdit(position, text.toString());
 		edit.addChild(insertEdit);
 	}
