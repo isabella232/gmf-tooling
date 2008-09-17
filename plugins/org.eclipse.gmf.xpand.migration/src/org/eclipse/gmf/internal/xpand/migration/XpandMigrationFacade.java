@@ -204,7 +204,10 @@ public class XpandMigrationFacade {
 			}
 		} else if (statement instanceof FileStatement) {
 			FileStatement fileStatement = (FileStatement) statement;
-			throw new MigrationException(Type.UNSUPPORTED_XPAND_STATEMENT, statement.getClass().getName()); 
+			migrateExpression(fileStatement.getTargetFileName(), variableNameDispatcher);
+			for (Statement bodyStatement : fileStatement.getBody()) {
+				migrateStatement(bodyStatement, variableNameDispatcher);
+			}
 		}
 	}
 
