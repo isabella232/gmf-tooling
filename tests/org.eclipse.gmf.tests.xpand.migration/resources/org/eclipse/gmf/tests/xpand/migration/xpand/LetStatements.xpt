@@ -1,0 +1,12 @@
+«DEFINE emptyLet FOR ecore::EPackage-»
+«LET eClassifiers.size() AS var»
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE letWithBody FOR ecore::EPackage-»
+«LET 5 AS var»
+	Start
+		«"prefix" + var»
+	End
+«ENDLET»
+«ENDDEFINE»
