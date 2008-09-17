@@ -15,11 +15,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.gmf.internal.xpand.ast.AbstractDefinition;
+import org.eclipse.gmf.internal.xpand.ast.ErrorStatement;
+import org.eclipse.gmf.internal.xpand.ast.ExpandStatement;
+import org.eclipse.gmf.internal.xpand.ast.ExpressionStatement;
+import org.eclipse.gmf.internal.xpand.ast.FileStatement;
+import org.eclipse.gmf.internal.xpand.ast.ForEachStatement;
+import org.eclipse.gmf.internal.xpand.ast.IfStatement;
+import org.eclipse.gmf.internal.xpand.ast.LetStatement;
+import org.eclipse.gmf.internal.xpand.ast.Statement;
 import org.eclipse.gmf.internal.xpand.expression.ast.BooleanOperation;
 import org.eclipse.gmf.internal.xpand.expression.ast.Case;
 import org.eclipse.gmf.internal.xpand.expression.ast.Cast;
 import org.eclipse.gmf.internal.xpand.expression.ast.ChainExpression;
 import org.eclipse.gmf.internal.xpand.expression.ast.CollectionExpression;
+import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
 import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
 import org.eclipse.gmf.internal.xpand.expression.ast.FeatureCall;
 import org.eclipse.gmf.internal.xpand.expression.ast.IfExpression;
@@ -45,7 +54,70 @@ public class VariableNameDispatcher {
 	}
 
 	public VariableNameDispatcher(AbstractDefinition definition) {
-		// TODO Auto-generated constructor stub
+		definedVariables = new HashSet<String>();
+		initDefinedVariables(definition);
+	}
+
+	private void initDefinedVariables(AbstractDefinition definition) {
+		for (DeclaredParameter parameter : definition.getParams()) {
+			definedVariables.add(parameter.getName().getValue());
+		}
+		for (Statement statement : definition.getBody()) {
+			initDefinedVariables(statement);
+		}
+	}
+
+	private void initDefinedVariables(Statement statement) {
+		if (statement instanceof ExpressionStatement) {
+			ExpressionStatement expressionStatement = (ExpressionStatement) statement;
+			initDefinedVariables(expressionStatement.getExpression());
+		} else if (statement instanceof ErrorStatement) {
+			ErrorStatement errorStatement = (ErrorStatement) statement;
+			initDefinedVariables(errorStatement.getMessage());
+		} else if (statement instanceof ExpandStatement) {
+			ExpandStatement expandStatement = (ExpandStatement) statement;
+			for (Expression parameter : expandStatement.getParameters()) {
+				initDefinedVariables(parameter);
+			}
+			if (expandStatement.getTarget() != null) {
+				initDefinedVariables(expandStatement.getTarget());
+			}
+			if (expandStatement.getSeparator() != null) {
+				initDefinedVariables(expandStatement.getSeparator());
+			}
+		} else if (statement instanceof FileStatement) {
+			FileStatement fileStatement = (FileStatement) statement;
+			initDefinedVariables(fileStatement.getTargetFileName());
+			for (Statement bodyStatement : fileStatement.getBody()) {
+				initDefinedVariables(bodyStatement);
+			}
+		} else if (statement instanceof ForEachStatement) {
+			ForEachStatement forEach = (ForEachStatement) statement;
+			initDefinedVariables(forEach.getTarget());
+			if (forEach.getSeparator() != null) {
+				initDefinedVariables(forEach.getSeparator());	
+			}
+			for (Statement bodyStatement : forEach.getBody()) {
+				initDefinedVariables(bodyStatement);
+			}
+		} else if (statement instanceof IfStatement) {
+			IfStatement ifStatement = (IfStatement) statement;
+			if (ifStatement.getCondition() != null) {
+				initDefinedVariables(ifStatement.getCondition());
+			}
+			for (Statement thenStatement : ifStatement.getThenPart()) {
+				initDefinedVariables(thenStatement);
+			}
+			if (ifStatement.getElseIf() != null) {
+				initDefinedVariables(ifStatement.getElseIf());
+			}
+		} else if (statement instanceof LetStatement) {
+			LetStatement letStatement = (LetStatement) statement;
+			initDefinedVariables(letStatement.getVarValue());
+			for (Statement bodyStatement : letStatement.getBody()) {
+				initDefinedVariables(bodyStatement);
+			}
+		}
 	}
 
 	private void initDefinedVariables(Extension extension) {

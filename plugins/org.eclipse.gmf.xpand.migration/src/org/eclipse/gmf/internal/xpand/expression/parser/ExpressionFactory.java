@@ -78,7 +78,7 @@ public class ExpressionFactory {
 	}
 
 	public NullLiteral createNullLiteral(final IToken t) {
-		return handle(new NullLiteral(start(t), end(t), line(t), t.getStartOffset(), t.getEndOffset()));
+		return handle(new NullLiteral(start(t), end(t), t.getStartOffset(), t.getEndOffset(), line(t)));
 	}
 
 	public ListLiteral createListLiteral(final IToken start, final IToken end, final List<Expression> paramExpr) {
