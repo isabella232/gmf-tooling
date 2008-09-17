@@ -42,9 +42,6 @@ public class MigrationException extends Exception {
 		
 		UNSUPPORTED_ASPECT("Unsupported aspect migration"), 
 		UNSUPPORTED_XPAND_RESOURCE("Unsupported xpand resource"),
-		// TODO: remove this enum literal then all necessary statements are
-		// supported by migration
-		UNSUPPORTED_XPAND_STATEMENT("Unsupported xpand statement"),
 		UNABLE_TO_APPLY_EDIT("Unable to apply edit");
 
 		private String name;
