@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
-            id="org.eclipse.gmf.xpand.migration.actions"
+            id="org.eclipse.gmf.xpand.migration.actions.xtend"
             objectClass="org.eclipse.core.resources.IFile">
          <action
                class="org.eclipse.gmf.internal.xpand.migration.ui.MigrateXtendResource"
@@ -18,7 +18,7 @@
          </visibility>
       </objectContribution>
       <objectContribution
-            id="org.eclipse.gmf.xpand.migration.actions"
+            id="org.eclipse.gmf.xpand.migration.actions.xpand"
             objectClass="org.eclipse.core.resources.IFile">
          <action
                class="org.eclipse.gmf.internal.xpand.migration.ui.MigrateXpandResource"
@@ -30,6 +30,17 @@
          <visibility>
             <objectState name="extension" value="xpt"/>
          </visibility>
+      </objectContribution>
+      <objectContribution
+            id="org.eclipse.gmf.xpand.migration.actions.migrateFolder"
+            objectClass="org.eclipse.core.resources.IFolder">
+         <action
+               class="org.eclipse.gmf.internal.xpand.migration.ui.MigrateXpandRoot"
+               enablesFor="1"
+               id="org.eclipse.gmf.xpand.migration.migratexpandRoot"
+               label="%migrate.xpand.root.action"
+               menubarPath="additions">
+         </action>
       </objectContribution>
    </extension>
 

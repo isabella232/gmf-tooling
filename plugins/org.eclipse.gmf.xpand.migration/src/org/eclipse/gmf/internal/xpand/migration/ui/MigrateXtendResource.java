@@ -23,7 +23,7 @@ import org.eclipse.ui.IWorkbenchPart;
 
 public class MigrateXtendResource implements IObjectActionDelegate {
 	
-	private static final String QVTO_EXTENSION = "qvto";
+	static final String QVTO_EXTENSION = "qvto";
 
 	private Shell shell;
 

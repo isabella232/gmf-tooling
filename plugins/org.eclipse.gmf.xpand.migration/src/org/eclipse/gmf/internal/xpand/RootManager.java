@@ -21,6 +21,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -64,6 +65,16 @@ public class RootManager {
 
 	protected IProject getProject() {
 		return myConfig.getProject();
+	}
+	
+	public boolean isTemplateRoot(IContainer container) {
+		for (Iterator<RootDescription> it = getRoots().iterator(); it.hasNext();) {
+			RootDescription nextDescription = it.next();
+			if (nextDescription.contains(container) && nextDescription.getRelativePath(container).isEmpty()) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public String getTemplateFullName(IFile file) {
