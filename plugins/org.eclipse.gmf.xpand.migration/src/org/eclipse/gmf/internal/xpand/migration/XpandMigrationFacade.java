@@ -34,6 +34,7 @@ import org.eclipse.gmf.internal.xpand.ast.Template;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
 import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
+import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException.Type;
 import org.eclipse.gmf.internal.xpand.model.XpandAdvice;
@@ -179,7 +180,10 @@ public class XpandMigrationFacade {
 			migrateParameter(parameter);
 		}
 		
-		// TODO: implement variable name dispatcher constructor
+		Identifier targetType = definition.getType();
+		EClassifier qvtType = ctx.getTypeForName(targetType.getValue());
+		replace(targetType, typeManager.getQvtFQName(qvtType));
+		
 		VariableNameDispatcher variableNameDispatcher = new VariableNameDispatcher(definition);
 		for (Statement statement : definition.getBody()) {
 			migrateStatement(statement, variableNameDispatcher);
