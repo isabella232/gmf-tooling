@@ -41,3 +41,9 @@
 
 «AROUND modelParametersAround(param1 : ecore::EObject, param2 : ecore::EClass) FOR ecore::EPackage-»
 «ENDAROUND»
+
+«DEFINE collectionParameters(param1 : Collection(ecore::EObject), param2 : Sequence(ecore::EClass)) FOR ecore::EPackage-»
+«ENDDEFINE»
+
+«AROUND collectionParametersAround(param1 : Set(ecore::EObject), param2 : Collection(ecore::EClass)) FOR ecore::EPackage-»
+«ENDAROUND»

@@ -3,7 +3,7 @@
 «null-»	
 «ENDDEFINE»
 
-«DEFINE temporaryVariables FOR Collection[ecore::EClassifier]-»
+«DEFINE temporaryVariables FOR Collection(ecore::EClassifier)-»
 «self->collect(it | it.oclAsType(ecore::EClass))->asSequence()»	
 «ENDDEFINE»
 

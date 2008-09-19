@@ -31,6 +31,10 @@ public class XpandMigrationTest extends TestCase {
 		super.setUp();
 		testResourceManager = new TestsResourceManager();
 	}
+	
+	public void testDefinition() throws IOException, MigrationException {
+		checkMigration("Definition");
+	}
 
 	public void testDefinitionParameters() throws IOException, MigrationException {
 		checkMigration("DefinitionParameters");
