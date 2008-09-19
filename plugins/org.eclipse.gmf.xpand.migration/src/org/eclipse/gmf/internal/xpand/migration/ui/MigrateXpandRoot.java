@@ -33,6 +33,7 @@ import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.migration.Activator;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException;
 import org.eclipse.gmf.internal.xpand.migration.XpandMigrationFacade;
+import org.eclipse.gmf.internal.xpand.migration.XtendMigrationFacade;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 import org.eclipse.jface.action.IAction;
@@ -90,7 +91,7 @@ public class MigrateXpandRoot implements IObjectActionDelegate {
 					Throwable cause = e.getCause();
 					if (cause instanceof InterruptedException) {
 						throw (InterruptedException) cause;
-					} else if (cause instanceof MigrationException) {
+					} else if (cause instanceof BatchMigrationException) {
 						throw new InvocationTargetException(cause);
 					} else if (cause instanceof UnsupportedEncodingException) {
 						throw new InvocationTargetException(cause);
@@ -106,8 +107,8 @@ public class MigrateXpandRoot implements IObjectActionDelegate {
 			new ProgressMonitorDialog(getShell()).run(true, true, op);
 		} catch (InvocationTargetException e) {
 			Throwable cause = e.getCause();
-			if (cause instanceof MigrationException) {
-				reportMigrationException((MigrationException) cause);
+			if (cause instanceof BatchMigrationException) {
+				reportMigrationException((BatchMigrationException) cause);
 			} else if (cause instanceof UnsupportedEncodingException) {
 				showError("Unsupported encoding", "Specified encoding \"" + CHARSET + "\" is not supported by the platform: " + cause.getMessage());
 			} else {
@@ -134,18 +135,21 @@ public class MigrateXpandRoot implements IObjectActionDelegate {
 		return visitor.getNumberOfFiles();
 	}
 
-	private void reportMigrationException(MigrationException e) {
-		switch (e.getType()) {
+	private void reportMigrationException(BatchMigrationException ex) {
+		MigrationException migrationException = ex.getMigrationException();
+		StringBuilder sb = new StringBuilder(ex.getTemplateFile().getProjectRelativePath().toString());
+		sb.append(" migration error\n");
+		switch (migrationException.getType()) {
 		case ANALYZATION_PROBLEMS:
-			StringBuilder sb = new StringBuilder("Following analyzation problems present:\n\n");
-			for (AnalysationIssue issue : e.getIssues()) {
+			sb.append("Following analyzation problems present:\n\n");
+			for (AnalysationIssue issue : migrationException.getIssues()) {
 				sb.append(issue.toString());
 				sb.append("\n");
 			}
 			showError("Unable to load xtend resource", sb.toString());
 			return;
 		default:
-			showError("Migration exception", "Migration exception appears:\n" + e.getMessage());
+			showError("Migration exception", sb.append(migrationException.getMessage()).toString());
 		}
 	}
 
@@ -243,23 +247,17 @@ public class MigrateXpandRoot implements IObjectActionDelegate {
 		}
 
 		private InputStream migrateXtendResource(IFile srcFile) throws CoreException {
-			return new ByteArrayInputStream(new byte[0]);
-			// String templateFullName =
-			// rootManager.getTemplateFullName(srcFile);
-			// WorkspaceResourceManager resourceManager =
-			// rootManager.getResourceManager(srcFile);
-			// XtendMigrationFacade migrationFacade = new
-			// XtendMigrationFacade(resourceManager, templateFullName);
-			// try {
-			// StringBuilder qvtoResourceContent =
-			// migrationFacade.migrateXtendResource();
-			// return new
-			// ByteArrayInputStream(qvtoResourceContent.toString().getBytes(CHARSET));
-			// } catch (MigrationException ex) {
-			// throw createCoreException(ex);
-			// } catch (UnsupportedEncodingException ex) {
-			// throw createCoreException(ex);
-			// }
+			String templateFullName = rootManager.getTemplateFullName(srcFile);
+			WorkspaceResourceManager resourceManager = rootManager.getResourceManager(srcFile);
+			XtendMigrationFacade migrationFacade = new XtendMigrationFacade(resourceManager, templateFullName);
+			try {
+				StringBuilder qvtoResourceContent = migrationFacade.migrateXtendResource();
+				return new ByteArrayInputStream(qvtoResourceContent.toString().getBytes(CHARSET));
+			} catch (MigrationException ex) {
+				throw createCoreException(new BatchMigrationException(ex, srcFile));
+			} catch (UnsupportedEncodingException ex) {
+				throw createCoreException(ex);
+			}
 		}
 
 		private InputStream migrateXpandResource(IFile srcFile) throws CoreException {
@@ -270,7 +268,7 @@ public class MigrateXpandRoot implements IObjectActionDelegate {
 				String updatedResourceContent = migrationFacade.migrateXpandResource();
 				return new ByteArrayInputStream(updatedResourceContent.getBytes(CHARSET));
 			} catch (MigrationException ex) {
-				throw createCoreException(ex);
+				throw createCoreException(new BatchMigrationException(ex, srcFile));
 			} catch (UnsupportedEncodingException ex) {
 				throw createCoreException(ex);
 			}
@@ -312,6 +310,29 @@ public class MigrateXpandRoot implements IObjectActionDelegate {
 			} catch (InterruptedException e) {
 				throw createCoreException(e);
 			}
+		}
+
+	}
+
+	private class BatchMigrationException extends Exception {
+
+		private static final long serialVersionUID = 2359351296434221634L;
+
+		private MigrationException migrationException;
+
+		private IFile templateFile;
+
+		public BatchMigrationException(MigrationException ex, IFile templateFile) {
+			migrationException = ex;
+			this.templateFile = templateFile;
+		}
+
+		public MigrationException getMigrationException() {
+			return migrationException;
+		}
+
+		public IFile getTemplateFile() {
+			return templateFile;
 		}
 
 	}

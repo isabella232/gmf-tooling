@@ -93,7 +93,7 @@ public class XpandMigrationFacade {
 		ctx = new MigrationExecutionContextImpl(resourceManager).<MigrationExecutionContext>cloneWithResource(xpandResource);
 		Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
 		xpandResource.analyze(ctx, issues);
-		if (issues.size() > 0) {
+		if (MigrationException.hasErrors(issues)) {
 			throw new MigrationException(issues);
 		}
 		// TODO: decompose xpand resource here and use only first one
