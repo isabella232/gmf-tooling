@@ -6,3 +6,8 @@
 «DEFINE temporaryVariables FOR Collection[ecore::EClassifier]-»
 «this.typeSelect(ecore::EClass)»	
 «ENDDEFINE»
+
+«DEFINE booleanNot FOR ecore::EClass-»
+«IF !abstract»
+«ENDIF»
+«ENDDEFINE»
