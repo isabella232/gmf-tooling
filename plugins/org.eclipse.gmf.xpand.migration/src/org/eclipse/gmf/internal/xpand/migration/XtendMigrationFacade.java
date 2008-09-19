@@ -81,7 +81,7 @@ public class XtendMigrationFacade {
 		MigrationExecutionContext ctx = (rootExecutionContext != null ? rootExecutionContext : new MigrationExecutionContextImpl(resourceManager)).cloneWithResource(xtendResource);
 		Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
 		xtendResource.analyze(ctx, issues);
-		if (issues.size() > 0) {
+		if (MigrationException.hasErrors(issues)) {
 			throw new MigrationException(issues);
 		}
 
@@ -226,7 +226,7 @@ public class XtendMigrationFacade {
 	// TODO: java should be migrated separately from library - java class should
 	// be created with the additional declaration in plugin.xml
 	private void migrateJavaExtension(JavaExtensionStatement extension) throws MigrationException {
-		throw new MigrationException(Type.UNSUPPORTED_EXTENSION, extension.getClass().getName());
+//		throw new MigrationException(Type.UNSUPPORTED_EXTENSION, extension.getClass().getName());
 	}
 
 	private void migrateCreateExtension(CreateExtensionStatement extension) throws MigrationException {

@@ -12,12 +12,15 @@
 package org.eclipse.gmf.internal.xpand.migration;
 
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 
 public class MigrationException extends Exception {
+
+	private static final long serialVersionUID = 8066639467181143331L;
 
 	private static final String LINE_SEPARATOR = "\n";
 
@@ -62,11 +65,25 @@ public class MigrationException extends Exception {
 
 	private static final String getMessage(Set<AnalysationIssue> issues) {
 		StringBuilder result = new StringBuilder("Following analyzation issues present");
-		for (AnalysationIssue issue : issues) {
+		for (AnalysationIssue issue : getErrors(issues)) {
 			result.append(LINE_SEPARATOR);
 			result.append(issue.toString());
 		}
 		return result.toString();
+	}
+	
+	private static final Set<AnalysationIssue> getErrors(Set<AnalysationIssue> issues) {
+		Set<AnalysationIssue> result = new LinkedHashSet<AnalysationIssue>();
+		for (AnalysationIssue issue : issues) {
+			if (!issue.isWarningNotError()) {
+				result.add(issue);
+			}
+		}
+		return result;
+	}
+	
+	public static final boolean hasErrors(Set<AnalysationIssue> issues) {
+		return getErrors(issues).size() > 0;
 	}
 
 	public MigrationException(Type type, String message) {

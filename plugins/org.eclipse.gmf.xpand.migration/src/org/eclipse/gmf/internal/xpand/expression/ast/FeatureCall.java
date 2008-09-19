@@ -274,7 +274,7 @@ public class FeatureCall extends Expression {
     
     @Override
     public int getStartOffset() {
-    	if (getTarget() != null) {
+    	if (getTarget() != null && super.getStartOffset() > getTarget().getStartOffset()) {
     		return getTarget().getStartOffset();
     	}
     	return super.getStartOffset();
