@@ -370,6 +370,7 @@ public class TransformToGenModelOperation {
 				new Reconciler(new GMFGenConfig()).reconcileTree(genBurdern, old);
 			}
 		} catch (RuntimeException e) {
+			Plugin.log(e);
 			old = null;
 		} finally {
 			if (resource != null) {
