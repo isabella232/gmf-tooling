@@ -256,6 +256,12 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenParsers(), GMFGEN.getGenParsers_PackageName());
 		preserveIfSet(GMFGEN.getGenParsers(), GMFGEN.getGenParsers_ProviderPriority());
 		preserveIfSet(GMFGEN.getGenParsers(), GMFGEN.getGenParsers_ExtensibleViaService());
+
+		// FIXME setMatcher(GMFGEN.getGenContextMenu(), based on contexts);
+		setCopier(GMFGEN.getGenCustomAction(), Copier.COMPLETE_COPY);
+		setMatcher(GMFGEN.getGenCommandAction(), new ReflectiveMatcher(GMFGEN.getGenCommandAction_CommandIdentifier()));
+		preserveIfSet(GMFGEN.getGenCommandAction(), GMFGEN.getGenCommandAction_Name());
+		setCopier(GMFGEN.getGenCommandAction(), Copier.COMPLETE_COPY); // copy then, if none found
 	}
 
 	// XXX rename?: preserveOld
@@ -264,6 +270,9 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 	}
 
 	private void preserveIfSet(EClass eClass, EAttribute feature) {
+		if (feature.getEContainingClass() != eClass) {
+			throw new IllegalStateException();
+		}
 		//FIXME: only attributes for now, allow references
 		addDecision(eClass, new DefaultDecision(feature));
 	}
