@@ -31,27 +31,27 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		final GMFGenPackage GMFGEN = GMFGenPackage.eINSTANCE;
 		
 		setMatcher(GMFGEN.getGenEditorGenerator(), ALWAYS_MATCH);
-		preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_CopyrightText());
-		preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_PackageNamePrefix());
-		preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_DomainFileExtension());
-		preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_DiagramFileExtension());
-		preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_SameFileForDiagramAndModel());
-		preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_ModelID());
-		preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_DynamicTemplates());
-		preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_TemplateDirectory());
+		preserveIfSet(GMFGEN.getGenEditorGenerator_CopyrightText());
+		preserveIfSet(GMFGEN.getGenEditorGenerator_PackageNamePrefix());
+		preserveIfSet(GMFGEN.getGenEditorGenerator_DomainFileExtension());
+		preserveIfSet(GMFGEN.getGenEditorGenerator_DiagramFileExtension());
+		preserveIfSet(GMFGEN.getGenEditorGenerator_SameFileForDiagramAndModel());
+		preserveIfSet(GMFGEN.getGenEditorGenerator_ModelID());
+		preserveIfSet(GMFGEN.getGenEditorGenerator_DynamicTemplates());
+		preserveIfSet(GMFGEN.getGenEditorGenerator_TemplateDirectory());
 
 		setMatcher(GMFGEN.getGenPlugin(), ALWAYS_MATCH); // exactly one feature for ALWAYS_MATCH GenEditorGenerator
-		preserveIfSet(GMFGEN.getGenPlugin(), GMFGEN.getGenPlugin_ID());
-		preserveIfSet(GMFGEN.getGenPlugin(), GMFGEN.getGenPlugin_Name());
-		preserveIfSet(GMFGEN.getGenPlugin(), GMFGEN.getGenPlugin_Provider());
-		preserveIfSet(GMFGEN.getGenPlugin(), GMFGEN.getGenPlugin_Version());
-		preserveIfSet(GMFGEN.getGenPlugin(), GMFGEN.getGenPlugin_ActivatorClassName());
-		preserveIfSet(GMFGEN.getGenPlugin(), GMFGEN.getGenPlugin_PrintingEnabled());
+		preserveIfSet(GMFGEN.getGenPlugin_ID());
+		preserveIfSet(GMFGEN.getGenPlugin_Name());
+		preserveIfSet(GMFGEN.getGenPlugin_Provider());
+		preserveIfSet(GMFGEN.getGenPlugin_Version());
+		preserveIfSet(GMFGEN.getGenPlugin_ActivatorClassName());
+		preserveIfSet(GMFGEN.getGenPlugin_PrintingEnabled());
 
 		setMatcher(GMFGEN.getGenEditorView(), ALWAYS_MATCH); //exactly one 
-		preserveIfSet(GMFGEN.getGenEditorView(), GMFGEN.getGenEditorView_IconPath());
-		preserveIfSet(GMFGEN.getGenEditorView(), GMFGEN.getGenEditorView_ClassName());
-		preserveIfSet(GMFGEN.getGenEditorView(), GMFGEN.getGenEditorView_ID());
+		preserveIfSet(GMFGEN.getGenEditorView_IconPath());
+		preserveIfSet(GMFGEN.getGenEditorView_ClassName());
+		preserveIfSet(GMFGEN.getGenEditorView_ID());
 
 		setMatcher(GMFGEN.getGenDiagram(), ALWAYS_MATCH);
 		restore(GMFGEN.getGenDiagram(), GMFGEN.getGenCommonBase_NotationViewFactoryClassName());
@@ -92,9 +92,9 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		restore(GMFGEN.getGenCompartment(), GMFGEN.getGenCommonBase_ItemSemanticEditPolicyClassName());
 		restore(GMFGEN.getGenCompartment(), GMFGEN.getGenContainerBase_CanonicalEditPolicyClassName());
 		restore(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_ListLayout());
-		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_CanCollapse());
-		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_HideIfEmpty());
-		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_NeedsTitle());
+		preserveIfSet(GMFGEN.getGenCompartment_CanCollapse());
+		preserveIfSet(GMFGEN.getGenCompartment_HideIfEmpty());
+		preserveIfSet(GMFGEN.getGenCompartment_NeedsTitle());
 
 		setMatcher(GMFGEN.getGenLink(), new VisualIDMatcher());
 		restore(GMFGEN.getGenLink(), GMFGEN.getGenCommonBase_NotationViewFactoryClassName());
@@ -102,10 +102,10 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		restore(GMFGEN.getGenLink(), GMFGEN.getGenCommonBase_ItemSemanticEditPolicyClassName());
 		restore(GMFGEN.getGenLink(), GMFGEN.getGenLink_CreateCommandClassName());
 		restore(GMFGEN.getGenLink(), GMFGEN.getGenLink_ReorientCommandClassName());
-		preserveIfSet(GMFGEN.getGenLink(), GMFGEN.getGenLink_IncomingCreationAllowed());
-		preserveIfSet(GMFGEN.getGenLink(), GMFGEN.getGenLink_OutgoingCreationAllowed());
-		preserveIfSet(GMFGEN.getGenLink(), GMFGEN.getGenLink_ViewDirectionAlignedWithModel());
-		preserveIfSet(GMFGEN.getGenLink(), GMFGEN.getGenLink_TreeBranch());
+		preserveIfSet(GMFGEN.getGenLink_IncomingCreationAllowed());
+		preserveIfSet(GMFGEN.getGenLink_OutgoingCreationAllowed());
+		preserveIfSet(GMFGEN.getGenLink_ViewDirectionAlignedWithModel());
+		preserveIfSet(GMFGEN.getGenLink_TreeBranch());
 
 		for (EClass label : new EClass[] { GMFGEN.getGenLinkLabel(), GMFGEN.getGenNodeLabel(), GMFGEN.getGenExternalNodeLabel() }) {
 			setMatcher(label, new VisualIDMatcher());
@@ -121,8 +121,8 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 
 		setMatcher(GMFGEN.getDefaultSizeAttributes(), ALWAYS_MATCH);
 		setCopier(GMFGEN.getDefaultSizeAttributes(), Copier.COMPLETE_COPY);
-		preserveIfSet(GMFGEN.getDefaultSizeAttributes(), GMFGEN.getDefaultSizeAttributes_Height());
-		preserveIfSet(GMFGEN.getDefaultSizeAttributes(), GMFGEN.getDefaultSizeAttributes_Width());
+		preserveIfSet(GMFGEN.getDefaultSizeAttributes_Height());
+		preserveIfSet(GMFGEN.getDefaultSizeAttributes_Width());
 		
 		setMatcherForAllSubclasses(GMFGEN.getAttributes(), ALWAYS_MATCH);
 		setCopierForAllSubclasses(GMFGEN.getAttributes(), Copier.COMPLETE_COPY);
@@ -154,8 +154,8 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		// value to null rather than to type once again.
 		addDecision(GMFGEN.getOpenDiagramBehaviour(), new KeepOldIfNewIsByPatternOrNotSet(GMFGEN.getOpenDiagramBehaviour_DiagramKind(), "^FIXME.*")); //$NON-NLS-1$
 		addDecision(GMFGEN.getOpenDiagramBehaviour(), new KeepOldIfNewIsByPatternOrNotSet(GMFGEN.getOpenDiagramBehaviour_EditorID(), "^FIXME.*")); //$NON-NLS-1$
-		preserveIfSet(GMFGEN.getOpenDiagramBehaviour(), GMFGEN.getOpenDiagramBehaviour_EditPolicyClassName());
-		preserveIfSet(GMFGEN.getOpenDiagramBehaviour(), GMFGEN.getOpenDiagramBehaviour_OpenAsEclipseEditor());
+		preserveIfSet(GMFGEN.getOpenDiagramBehaviour_EditPolicyClassName());
+		preserveIfSet(GMFGEN.getOpenDiagramBehaviour_OpenAsEclipseEditor());
 
 		// if there's a need to keep manually written openDiagramBehavior, uncomment next line 
 		// for Reconciler#handleNotMatchedOld to perform a copy
@@ -172,16 +172,16 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getSpecializationType(), GMFGEN.getElementType_DefinedExternally());
 
 		setMatcher(GMFGEN.getGenPropertySheet(), ALWAYS_MATCH);
-		preserveIfSet(GMFGEN.getGenPropertySheet(), GMFGEN.getGenPropertySheet_ReadOnly());
-		preserveIfSet(GMFGEN.getGenPropertySheet(), GMFGEN.getGenPropertySheet_NeedsCaption());
-		preserveIfSet(GMFGEN.getGenPropertySheet(), GMFGEN.getGenPropertySheet_PackageName());
-		preserveIfSet(GMFGEN.getGenPropertySheet(), GMFGEN.getGenPropertySheet_LabelProviderClassName());
+		preserveIfSet(GMFGEN.getGenPropertySheet_ReadOnly());
+		preserveIfSet(GMFGEN.getGenPropertySheet_NeedsCaption());
+		preserveIfSet(GMFGEN.getGenPropertySheet_PackageName());
+		preserveIfSet(GMFGEN.getGenPropertySheet_LabelProviderClassName());
 
 		setMatcherForAllSubclasses(GMFGEN.getGenPropertyTab(), new ReflectiveMatcher(GMFGEN.getGenPropertyTab_ID()));
 		preserveIfSet(GMFGEN.getGenStandardPropertyTab(), GMFGEN.getGenPropertyTab_Label());
 
 		addDecision(GMFGEN.getGenCustomPropertyTab(), new KeepOldIfNewIsByPatternOrNotSet(GMFGEN.getGenPropertyTab_Label(), "^Core$")); //$NON-NLS-1$
-		preserveIfSet(GMFGEN.getGenCustomPropertyTab(), GMFGEN.getGenCustomPropertyTab_ClassName());
+		preserveIfSet(GMFGEN.getGenCustomPropertyTab_ClassName());
 		setCopier(GMFGEN.getGenCustomPropertyTab(), Copier.COMPLETE_COPY);
 
 		setMatcher(GMFGEN.getGenNavigator(), ALWAYS_MATCH);
@@ -194,33 +194,33 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenDomainModelNavigator_DomainLabelProviderClassName());
 		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenDomainModelNavigator_DomainModelElementTesterClassName());
 		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenDomainModelNavigator_DomainNavigatorItemClassName());
-		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_ContentExtensionID());
-		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_ContentExtensionName());
-		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_ContentExtensionPriority());
-		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_LinkHelperExtensionID());
-		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_SorterExtensionID());
-		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_ActionProviderID());
-		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_ContentProviderClassName());
-		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_LabelProviderClassName());
-		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_LinkHelperClassName());
-		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_SorterClassName());
-		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_ActionProviderClassName());
-		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_AbstractNavigatorItemClassName());
-		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_NavigatorGroupClassName());
-		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_NavigatorItemClassName());
-		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_UriInputTesterClassName());
-		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_PackageName());
+		preserveIfSet(GMFGEN.getGenNavigator_ContentExtensionID());
+		preserveIfSet(GMFGEN.getGenNavigator_ContentExtensionName());
+		preserveIfSet(GMFGEN.getGenNavigator_ContentExtensionPriority());
+		preserveIfSet(GMFGEN.getGenNavigator_LinkHelperExtensionID());
+		preserveIfSet(GMFGEN.getGenNavigator_SorterExtensionID());
+		preserveIfSet(GMFGEN.getGenNavigator_ActionProviderID());
+		preserveIfSet(GMFGEN.getGenNavigator_ContentProviderClassName());
+		preserveIfSet(GMFGEN.getGenNavigator_LabelProviderClassName());
+		preserveIfSet(GMFGEN.getGenNavigator_LinkHelperClassName());
+		preserveIfSet(GMFGEN.getGenNavigator_SorterClassName());
+		preserveIfSet(GMFGEN.getGenNavigator_ActionProviderClassName());
+		preserveIfSet(GMFGEN.getGenNavigator_AbstractNavigatorItemClassName());
+		preserveIfSet(GMFGEN.getGenNavigator_NavigatorGroupClassName());
+		preserveIfSet(GMFGEN.getGenNavigator_NavigatorItemClassName());
+		preserveIfSet(GMFGEN.getGenNavigator_UriInputTesterClassName());
+		preserveIfSet(GMFGEN.getGenNavigator_PackageName());
 
 		setMatcher(GMFGEN.getGenDiagramPreferences(), ALWAYS_MATCH);
 		setCopier(GMFGEN.getGenDiagramPreferences(), Copier.COMPLETE_COPY);
 
 		setMatcher(GMFGEN.getGenApplication(), ALWAYS_MATCH);
-		preserveIfSet(GMFGEN.getGenApplication(), GMFGEN.getGenApplication_ID());
-		preserveIfSet(GMFGEN.getGenApplication(), GMFGEN.getGenApplication_Title());
-		preserveIfSet(GMFGEN.getGenApplication(), GMFGEN.getGenApplication_PackageName());
-		preserveIfSet(GMFGEN.getGenApplication(), GMFGEN.getGenApplication_ClassName());
-		preserveIfSet(GMFGEN.getGenApplication(), GMFGEN.getGenApplication_PerspectiveId());
-		preserveIfSet(GMFGEN.getGenApplication(), GMFGEN.getGenApplication_SupportFiles());
+		preserveIfSet(GMFGEN.getGenApplication_ID());
+		preserveIfSet(GMFGEN.getGenApplication_Title());
+		preserveIfSet(GMFGEN.getGenApplication_PackageName());
+		preserveIfSet(GMFGEN.getGenApplication_ClassName());
+		preserveIfSet(GMFGEN.getGenApplication_PerspectiveId());
+		preserveIfSet(GMFGEN.getGenApplication_SupportFiles());
 
 		// XXX ReflectiveMatcher(Kind) instead?
 		setMatcher(GMFGEN.getGenStandardPreferencePage(), new Matcher() {
@@ -243,24 +243,24 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		//
 		// preserve model access attributes, or completely copy old if none in the new model found.
 		setMatcher(GMFGEN.getDynamicModelAccess(), ALWAYS_MATCH);
-		preserveIfSet(GMFGEN.getDynamicModelAccess(), GMFGEN.getDynamicModelAccess_ClassName());
-		preserveIfSet(GMFGEN.getDynamicModelAccess(), GMFGEN.getDynamicModelAccess_PackageName());
+		preserveIfSet(GMFGEN.getDynamicModelAccess_ClassName());
+		preserveIfSet(GMFGEN.getDynamicModelAccess_PackageName());
 		setCopier(GMFGEN.getDynamicModelAccess(), Copier.COMPLETE_COPY);
 		
 		setMatcher(GMFGEN.getGenExpressionProviderContainer(), ALWAYS_MATCH);
 		setMatcher(GMFGEN.getGenJavaExpressionProvider(), ALWAYS_MATCH);
-		preserveIfSet(GMFGEN.getGenJavaExpressionProvider(), GMFGEN.getGenJavaExpressionProvider_InjectExpressionBody());
+		preserveIfSet(GMFGEN.getGenJavaExpressionProvider_InjectExpressionBody());
 
 		setMatcher(GMFGEN.getGenParsers(), ALWAYS_MATCH);
-		preserveIfSet(GMFGEN.getGenParsers(), GMFGEN.getGenParsers_ClassName());
-		preserveIfSet(GMFGEN.getGenParsers(), GMFGEN.getGenParsers_PackageName());
-		preserveIfSet(GMFGEN.getGenParsers(), GMFGEN.getGenParsers_ProviderPriority());
-		preserveIfSet(GMFGEN.getGenParsers(), GMFGEN.getGenParsers_ExtensibleViaService());
+		preserveIfSet(GMFGEN.getGenParsers_ClassName());
+		preserveIfSet(GMFGEN.getGenParsers_PackageName());
+		preserveIfSet(GMFGEN.getGenParsers_ProviderPriority());
+		preserveIfSet(GMFGEN.getGenParsers_ExtensibleViaService());
 
 		// FIXME setMatcher(GMFGEN.getGenContextMenu(), based on contexts);
 		setCopier(GMFGEN.getGenCustomAction(), Copier.COMPLETE_COPY);
 		setMatcher(GMFGEN.getGenCommandAction(), new ReflectiveMatcher(GMFGEN.getGenCommandAction_CommandIdentifier()));
-		preserveIfSet(GMFGEN.getGenCommandAction(), GMFGEN.getGenCommandAction_Name());
+		preserveIfSet(GMFGEN.getGenCommandAction_Name());
 		setCopier(GMFGEN.getGenCommandAction(), Copier.COMPLETE_COPY); // copy then, if none found
 	}
 
@@ -269,10 +269,11 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		addDecision(eClass, new Decision.ALWAYS_OLD(feature));
 	}
 
+	private void preserveIfSet(EAttribute feature) {
+		assert !feature.getEContainingClass().isAbstract();
+		addDecision(feature.getEContainingClass(), new DefaultDecision(feature));
+	}
 	private void preserveIfSet(EClass eClass, EAttribute feature) {
-		if (feature.getEContainingClass() != eClass) {
-			throw new IllegalStateException();
-		}
 		//FIXME: only attributes for now, allow references
 		addDecision(eClass, new DefaultDecision(feature));
 	}
