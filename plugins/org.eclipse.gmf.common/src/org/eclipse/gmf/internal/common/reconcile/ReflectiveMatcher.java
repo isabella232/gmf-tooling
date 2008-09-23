@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,28 +18,19 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 public class ReflectiveMatcher implements Matcher {
-	private EClass myOwner;
-	private Reflector myReflector;
-	
-	public interface Reflector {
-		public Object reflect(EObject target);
-	}
+	private final EStructuralFeature myFeature;
 	
 	public ReflectiveMatcher(EStructuralFeature feature) {
-		this(feature.getEContainingClass(), new StructuralFeatureReflector(feature));
-	}
-
-	public ReflectiveMatcher(EClass reflectorOwner, Reflector reflector) {
-		myOwner = reflectorOwner;
-		myReflector = reflector;
+		assert feature != null;
+		myFeature = feature;
 	}
 
 	public final boolean match(EObject current, EObject old) {
 		assertCompatible(current, old);
 		checkReflector(current.eClass());
-		Object currentValue = myReflector.reflect(current);
+		Object currentValue = current.eGet(myFeature);
 		//do not allow match null against null
-		return currentValue != null && currentValue.equals(myReflector.reflect(old));
+		return currentValue != null && currentValue.equals(old.eGet(myFeature));
 	}
 	
 	private void assertCompatible(EObject current, EObject old) {
@@ -49,23 +40,10 @@ public class ReflectiveMatcher implements Matcher {
 	}
 	
 	private void checkReflector(EClass eClass) {
-		if (!myOwner.isSuperTypeOf(eClass)) {
+		if (!myFeature.getEContainingClass().isSuperTypeOf(eClass)) {
 			// perhaps, we should respect case when same metamodel is loaded from different sources, and same
 			// metaclasses are not 'equal' in Java sense
-			throw new IllegalStateException(MessageFormat.format("EClass {0} is not compatible with expected class {1} ", new Object[] {eClass, myOwner}));
-		}
-	}
-
-	public static class StructuralFeatureReflector implements Reflector {
-		private final EStructuralFeature myFeature;
-		
-		public StructuralFeatureReflector(EStructuralFeature feature) {
-			assert feature != null;
-			myFeature = feature;
-		}
-		
-		public Object reflect(EObject target) {
-			return target.eGet(myFeature);
+			throw new IllegalStateException(MessageFormat.format("EClass {0} is not compatible with expected class {1} ", new Object[] {eClass, myFeature.getEContainingClass()}));
 		}
 	}
 }
