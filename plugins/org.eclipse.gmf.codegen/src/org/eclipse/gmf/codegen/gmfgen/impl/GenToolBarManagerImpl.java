@@ -10,6 +10,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
 import org.eclipse.gmf.codegen.gmfgen.GenContributionManager;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -60,7 +61,16 @@ public class GenToolBarManagerImpl extends GenContributionManagerImpl implements
 
 	@Override
 	public GenEditorGenerator getEditorGen() {
-		return getOwner() != null ? getOwner().getEditorGen() : (eContainer() instanceof GenEditorGenerator ? (GenEditorGenerator) eContainer() : null);
+		if (getOwner() != null) {
+			return getOwner().getEditorGen();
+		}
+		if (eContainer() instanceof GenEditorGenerator) {
+			return (GenEditorGenerator) eContainer();
+		}
+		if (eContainer() instanceof GenApplication) {
+			return ((GenApplication) eContainer()).getEditorGen();
+		}
+		return null;
 	}
 
 	/**
