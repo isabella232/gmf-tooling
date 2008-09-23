@@ -737,6 +737,24 @@ public interface GMFGenFactory extends EFactory {
 	GenSeparator createGenSeparator();
 
 	/**
+	 * Returns a new object of class '<em>Gen Custom Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Custom Action</em>'.
+	 * @generated
+	 */
+	GenCustomAction createGenCustomAction();
+
+	/**
+	 * Returns a new object of class '<em>Gen Command Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Command Action</em>'.
+	 * @generated
+	 */
+	GenCommandAction createGenCommandAction();
+
+	/**
 	 * Returns a new object of class '<em>Gen Action Factory Contribution Item</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -762,6 +780,15 @@ public interface GMFGenFactory extends EFactory {
 	 * @generated
 	 */
 	GenToolBarManager createGenToolBarManager();
+
+	/**
+	 * Returns a new object of class '<em>Gen Context Menu</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Context Menu</em>'.
+	 * @generated
+	 */
+	GenContextMenu createGenContextMenu();
 
 	/**
 	 * Returns a new object of class '<em>Gen Application</em>'.

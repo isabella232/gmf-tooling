@@ -518,7 +518,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getModelAccessFacilityEmitter() {
-		return getMainEmitter("Facility"); //$NON-NLS-1$
+		return newXpandEmitter("Facility::Main"); //$NON-NLS-1$
 	}
 
 	// navigator
@@ -582,11 +582,11 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getStandardPreferencePageEmitter() throws UnexpectedBehaviourException {
-		return getMainEmitter("impl::preferences::StandardPage"); //$NON-NLS-1$
+		return newXpandEmitter("impl::preferences::StandardPage::Main"); //$NON-NLS-1$
 	}
 	
 	public TextEmitter getCustomPreferencePageEmitter() throws UnexpectedBehaviourException {
-		return getMainEmitter("impl::preferences::CustomPage"); //$NON-NLS-1$
+		return newXpandEmitter("impl::preferences::CustomPage::Main"); //$NON-NLS-1$
 	}
 
 	// plugin
@@ -649,9 +649,12 @@ public class CodegenEmitters {
 		return getPrimaryEmitter("xpt::application::WizardNewFileCreationPage"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getMetaModelFacilityEmitter() {
-		return newXpandEmitter("Facility::Main"); //$NON-NLS-1$
+	// actions
+
+	public TextEmitter getCustomActionEmitter() {
+		return newXpandEmitter("impl::Actions::CustomAction::Main"); //$NON-NLS-1$
 	}
+
 
 	// util
 

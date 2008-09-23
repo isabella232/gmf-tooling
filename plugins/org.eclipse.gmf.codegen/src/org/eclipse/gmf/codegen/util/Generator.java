@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -32,6 +33,9 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenContributionManager;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomAction;
 import org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -50,6 +54,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenParserImplementation;
 import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
+import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
@@ -99,8 +104,9 @@ public class Generator extends GeneratorBase implements Runnable {
 
 		if (myEditorGen.getModelAccess() != null) {
 			myEmitters.setGlobals(Collections.<String, Object>singletonMap("DynamicModelAccess", myEditorGen.getModelAccess()));
+			generateModelAccessFacility();
 		}
-        
+
         // draft for messages
         generateExternalizationSupport();
         
@@ -114,9 +120,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateAbstractParser();
 		generateParsers();
 
-		if (myEditorGen.getModelAccess() != null) {
-			generateMetaModelFacility();
-		}
 		// edit parts, edit policies and providers
 		generateBaseItemSemanticEditPolicy();
 		generateBehaviours(myDiagram);
@@ -203,9 +206,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (myEditorGen.getExpressionProviders() != null) {
 			generateExpressionProviders();
 		}
-		if (myEditorGen.getModelAccess() != null) {
-			generateModelAccessFacility();
-		}
 
 		// preferences
 		generatePreferenceInitializer();
@@ -283,6 +283,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateWizardBanner();
 		generatePlugin();
 		generateApplication();
+		generateActions();
 	}
 
 	private static boolean isPathInsideGenerationTarget(String path) {
@@ -995,8 +996,23 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(myEmitters.getWizardNewFileCreationPageEmitter(), application.getPackageName(), "WizardNewFileCreationPage", application); //$NON-NLS-1$
 	}
 
-	private void generateMetaModelFacility() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getMetaModelFacilityEmitter(), myEditorGen.getModelAccess().getQualifiedClassName(), myEditorGen.getModelAccess());
+	// actions
+	private void generateActions() throws UnexpectedBehaviourException, InterruptedException {
+		HashSet<GenContributionItem> processedItems = new HashSet<GenContributionItem>();
+		for (GenContributionManager m : myEditorGen.getContextMenus()) {
+			LinkedList<GenContributionItem> items = new LinkedList<GenContributionItem>(m.getItems());
+			while (!items.isEmpty()) {
+				GenContributionItem ci = items.removeFirst();
+				if (ci instanceof GenCustomAction && ((GenCustomAction) ci).isGenerateBoilerplate() && !processedItems.contains(ci)) {
+					doGenerateJavaClass(myEmitters.getCustomActionEmitter(), ((GenCustomAction) ci).getQualifiedClassName(), ci);
+					processedItems.add(ci);
+				} else if (ci instanceof GenContributionManager) {
+					items.addAll(((GenContributionManager) ci).getItems());
+				} else if (ci instanceof GenSharedContributionItem) {
+					items.addLast(((GenSharedContributionItem) ci).getActualItem());
+				}
+			}
+		}
 	}
 
 	// util

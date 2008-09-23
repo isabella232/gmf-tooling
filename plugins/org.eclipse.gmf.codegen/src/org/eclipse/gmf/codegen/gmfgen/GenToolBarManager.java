@@ -17,5 +17,5 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @model
  * @generated
  */
-public interface GenToolBarManager extends GenContributionManager {
+public interface GenToolBarManager extends GenContributionManager, GenContributionItem {
 } // GenToolBarManager

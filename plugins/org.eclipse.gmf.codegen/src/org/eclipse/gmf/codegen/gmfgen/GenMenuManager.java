@@ -23,7 +23,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @model
  * @generated
  */
-public interface GenMenuManager extends GenContributionManager {
+public interface GenMenuManager extends GenContributionManager, GenContributionItem {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

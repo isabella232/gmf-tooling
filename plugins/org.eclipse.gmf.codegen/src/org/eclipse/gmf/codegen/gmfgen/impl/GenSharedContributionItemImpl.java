@@ -8,13 +8,16 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenContributionManager;
 import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
 
 /**
@@ -24,13 +27,14 @@ import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenSharedContributionItemImpl#getOwner <em>Owner</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenSharedContributionItemImpl#getActualItem <em>Actual Item</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class GenSharedContributionItemImpl extends GenContributionItemImpl implements GenSharedContributionItem {
+public class GenSharedContributionItemImpl extends EObjectImpl implements GenSharedContributionItem {
 	/**
 	 * The cached value of the '{@link #getActualItem() <em>Actual Item</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -58,6 +62,16 @@ public class GenSharedContributionItemImpl extends GenContributionItemImpl imple
 	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenSharedContributionItem();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenContributionManager getOwner() {
+		if (eContainerFeatureID != GMFGenPackage.GEN_SHARED_CONTRIBUTION_ITEM__OWNER) return null;
+		return (GenContributionManager)eContainer();
 	}
 
 	/**
@@ -104,8 +118,54 @@ public class GenSharedContributionItemImpl extends GenContributionItemImpl imple
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_SHARED_CONTRIBUTION_ITEM__OWNER:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_SHARED_CONTRIBUTION_ITEM__OWNER, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_SHARED_CONTRIBUTION_ITEM__OWNER:
+				return eBasicSetContainer(null, GMFGenPackage.GEN_SHARED_CONTRIBUTION_ITEM__OWNER, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFGenPackage.GEN_SHARED_CONTRIBUTION_ITEM__OWNER:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS, GenContributionManager.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_SHARED_CONTRIBUTION_ITEM__OWNER:
+				return getOwner();
 			case GMFGenPackage.GEN_SHARED_CONTRIBUTION_ITEM__ACTUAL_ITEM:
 				if (resolve) return getActualItem();
 				return basicGetActualItem();
@@ -151,6 +211,8 @@ public class GenSharedContributionItemImpl extends GenContributionItemImpl imple
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_SHARED_CONTRIBUTION_ITEM__OWNER:
+				return getOwner() != null;
 			case GMFGenPackage.GEN_SHARED_CONTRIBUTION_ITEM__ACTUAL_ITEM:
 				return actualItem != null;
 		}

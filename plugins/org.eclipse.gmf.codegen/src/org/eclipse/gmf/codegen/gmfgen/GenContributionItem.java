@@ -21,12 +21,11 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenContributionItem#getOwner <em>Owner</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenContributionItem#getApplication <em>Application</em>}</li>
  * </ul>
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenContributionItem()
- * @model abstract="true"
+ * @model interface="true" abstract="true"
  * @generated
  */
 public interface GenContributionItem extends EObject {
@@ -42,24 +41,9 @@ public interface GenContributionItem extends EObject {
 	 * @return the value of the '<em>Owner</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenContributionItem_Owner()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenContributionManager#getItems
-	 * @model opposite="items" resolveProxies="false" transient="false" changeable="false"
+	 * @model opposite="items" resolveProxies="false" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenContributionManager getOwner();
-
-	/**
-	 * Returns the value of the '<em><b>Application</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Application</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Application</em>' reference.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenContributionItem_Application()
-	 * @model resolveProxies="false" transient="true" changeable="false" volatile="true" derived="true"
-	 * @generated
-	 */
-	GenApplication getApplication();
 
 } // GenContributionItem

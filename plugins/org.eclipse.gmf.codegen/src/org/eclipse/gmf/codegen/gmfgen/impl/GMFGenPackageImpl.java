@@ -849,6 +849,20 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass genCustomActionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genCommandActionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass genActionFactoryContributionItemEClass = null;
 
 	/**
@@ -871,6 +885,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass genToolBarManagerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genContextMenuEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1305,6 +1326,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EReference getGenEditorGenerator_LabelParsers() {
 		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(20);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenEditorGenerator_ContextMenus() {
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(21);
 	}
 
 	/**
@@ -5803,15 +5833,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenContributionItem_Application() {
-		return (EReference)genContributionItemEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getGenSharedContributionItem() {
 		return genSharedContributionItemEClass;
 	}
@@ -5866,6 +5887,69 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getGenCustomAction() {
+		return genCustomActionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenCustomAction_QualifiedClassName() {
+		return (EAttribute)genCustomActionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenCustomAction_GenerateBoilerplate() {
+		return (EAttribute)genCustomActionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenCustomAction_Name() {
+		return (EAttribute)genCustomActionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenCommandAction() {
+		return genCommandActionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenCommandAction_CommandIdentifier() {
+		return (EAttribute)genCommandActionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenCommandAction_Name() {
+		return (EAttribute)genCommandActionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenActionFactoryContributionItem() {
 		return genActionFactoryContributionItemEClass;
 	}
@@ -5911,6 +5995,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getGenContributionManager_EditorGen() {
+		return (EReference)genContributionManagerEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenMenuManager() {
 		return genMenuManagerEClass;
 	}
@@ -5931,6 +6024,24 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenToolBarManager() {
 		return genToolBarManagerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenContextMenu() {
+		return genContextMenuEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenContextMenu_Context() {
+		return (EReference)genContextMenuEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -6442,6 +6553,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__MODEL_ACCESS);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__LABEL_PARSERS);
+		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__CONTEXT_MENUS);
 
 		genDiagramEClass = createEClass(GEN_DIAGRAM);
 		createEReference(genDiagramEClass, GEN_DIAGRAM__EDITOR_GEN);
@@ -7054,7 +7166,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		genContributionItemEClass = createEClass(GEN_CONTRIBUTION_ITEM);
 		createEReference(genContributionItemEClass, GEN_CONTRIBUTION_ITEM__OWNER);
-		createEReference(genContributionItemEClass, GEN_CONTRIBUTION_ITEM__APPLICATION);
 
 		genSharedContributionItemEClass = createEClass(GEN_SHARED_CONTRIBUTION_ITEM);
 		createEReference(genSharedContributionItemEClass, GEN_SHARED_CONTRIBUTION_ITEM__ACTUAL_ITEM);
@@ -7065,17 +7176,30 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genSeparatorEClass = createEClass(GEN_SEPARATOR);
 		createEAttribute(genSeparatorEClass, GEN_SEPARATOR__GROUP_NAME);
 
+		genCustomActionEClass = createEClass(GEN_CUSTOM_ACTION);
+		createEAttribute(genCustomActionEClass, GEN_CUSTOM_ACTION__QUALIFIED_CLASS_NAME);
+		createEAttribute(genCustomActionEClass, GEN_CUSTOM_ACTION__GENERATE_BOILERPLATE);
+		createEAttribute(genCustomActionEClass, GEN_CUSTOM_ACTION__NAME);
+
+		genCommandActionEClass = createEClass(GEN_COMMAND_ACTION);
+		createEAttribute(genCommandActionEClass, GEN_COMMAND_ACTION__COMMAND_IDENTIFIER);
+		createEAttribute(genCommandActionEClass, GEN_COMMAND_ACTION__NAME);
+
 		genActionFactoryContributionItemEClass = createEClass(GEN_ACTION_FACTORY_CONTRIBUTION_ITEM);
 		createEAttribute(genActionFactoryContributionItemEClass, GEN_ACTION_FACTORY_CONTRIBUTION_ITEM__NAME);
 
 		genContributionManagerEClass = createEClass(GEN_CONTRIBUTION_MANAGER);
 		createEAttribute(genContributionManagerEClass, GEN_CONTRIBUTION_MANAGER__ID);
 		createEReference(genContributionManagerEClass, GEN_CONTRIBUTION_MANAGER__ITEMS);
+		createEReference(genContributionManagerEClass, GEN_CONTRIBUTION_MANAGER__EDITOR_GEN);
 
 		genMenuManagerEClass = createEClass(GEN_MENU_MANAGER);
 		createEAttribute(genMenuManagerEClass, GEN_MENU_MANAGER__NAME);
 
 		genToolBarManagerEClass = createEClass(GEN_TOOL_BAR_MANAGER);
+
+		genContextMenuEClass = createEClass(GEN_CONTEXT_MENU);
+		createEReference(genContextMenuEClass, GEN_CONTEXT_MENU__CONTEXT);
 
 		genApplicationEClass = createEClass(GEN_APPLICATION);
 		createEReference(genApplicationEClass, GEN_APPLICATION__EDITOR_GEN);
@@ -7256,10 +7380,14 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genSharedContributionItemEClass.getESuperTypes().add(this.getGenContributionItem());
 		genGroupMarkerEClass.getESuperTypes().add(this.getGenContributionItem());
 		genSeparatorEClass.getESuperTypes().add(this.getGenContributionItem());
+		genCustomActionEClass.getESuperTypes().add(this.getGenContributionItem());
+		genCommandActionEClass.getESuperTypes().add(this.getGenContributionItem());
 		genActionFactoryContributionItemEClass.getESuperTypes().add(this.getGenContributionItem());
-		genContributionManagerEClass.getESuperTypes().add(this.getGenContributionItem());
 		genMenuManagerEClass.getESuperTypes().add(this.getGenContributionManager());
+		genMenuManagerEClass.getESuperTypes().add(this.getGenContributionItem());
 		genToolBarManagerEClass.getESuperTypes().add(this.getGenContributionManager());
+		genToolBarManagerEClass.getESuperTypes().add(this.getGenContributionItem());
+		genContextMenuEClass.getESuperTypes().add(this.getGenContributionManager());
 		genLinkEndEClass.getESuperTypes().add(this.getGenCommonBase());
 		predefinedParserEClass.getESuperTypes().add(this.getGenParserImplementation());
 		customParserEClass.getESuperTypes().add(this.getGenParserImplementation());
@@ -7288,6 +7416,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenEditorGenerator_ExpressionProviders(), this.getGenExpressionProviderContainer(), this.getGenExpressionProviderContainer_EditorGen(), "expressionProviders", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_ModelAccess(), this.getDynamicModelAccess(), this.getDynamicModelAccess_EditorGen(), "modelAccess", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_LabelParsers(), this.getGenParsers(), this.getGenParsers_EditorGen(), "labelParsers", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenEditorGenerator_ContextMenus(), this.getGenContextMenu(), null, "contextMenus", null, 0, -1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		EOperation op = addEOperation(genEditorGeneratorEClass, theGenModelPackage.getGenPackage(), "getAllDomainGenPackages", 0, -1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEBoolean(), "withUsed", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -8157,9 +8286,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(customTabFilterEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-		initEClass(genContributionItemEClass, GenContributionItem.class, "GenContributionItem", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenContributionItem_Owner(), this.getGenContributionManager(), this.getGenContributionManager_Items(), "owner", null, 0, 1, GenContributionItem.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenContributionItem_Application(), this.getGenApplication(), null, "application", null, 0, 1, GenContributionItem.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEClass(genContributionItemEClass, GenContributionItem.class, "GenContributionItem", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenContributionItem_Owner(), this.getGenContributionManager(), this.getGenContributionManager_Items(), "owner", null, 1, 1, GenContributionItem.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genSharedContributionItemEClass, GenSharedContributionItem.class, "GenSharedContributionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenSharedContributionItem_ActualItem(), this.getGenContributionItem(), null, "actualItem", null, 1, 1, GenSharedContributionItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -8170,17 +8298,30 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(genSeparatorEClass, GenSeparator.class, "GenSeparator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenSeparator_GroupName(), ecorePackage.getEString(), "groupName", null, 0, 1, GenSeparator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(genCustomActionEClass, GenCustomAction.class, "GenCustomAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenCustomAction_QualifiedClassName(), ecorePackage.getEString(), "qualifiedClassName", null, 1, 1, GenCustomAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenCustomAction_GenerateBoilerplate(), ecorePackage.getEBoolean(), "generateBoilerplate", "false", 0, 1, GenCustomAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenCustomAction_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenCustomAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genCommandActionEClass, GenCommandAction.class, "GenCommandAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenCommandAction_CommandIdentifier(), ecorePackage.getEString(), "commandIdentifier", null, 1, 1, GenCommandAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenCommandAction_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenCommandAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(genActionFactoryContributionItemEClass, GenActionFactoryContributionItem.class, "GenActionFactoryContributionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenActionFactoryContributionItem_Name(), ecorePackage.getEString(), "name", null, 1, 1, GenActionFactoryContributionItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genContributionManagerEClass, GenContributionManager.class, "GenContributionManager", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenContributionManager_ID(), ecorePackage.getEString(), "iD", null, 0, 1, GenContributionManager.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenContributionManager_Items(), this.getGenContributionItem(), this.getGenContributionItem_Owner(), "items", null, 0, -1, GenContributionManager.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenContributionManager_EditorGen(), this.getGenEditorGenerator(), null, "editorGen", null, 1, 1, GenContributionManager.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(genMenuManagerEClass, GenMenuManager.class, "GenMenuManager", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenMenuManager_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenMenuManager.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genToolBarManagerEClass, GenToolBarManager.class, "GenToolBarManager", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(genContextMenuEClass, GenContextMenu.class, "GenContextMenu", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenContextMenu_Context(), this.getGenCommonBase(), null, "context", null, 1, -1, GenContextMenu.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genApplicationEClass, GenApplication.class, "GenApplication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenApplication_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Application(), "editorGen", null, 1, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -8400,7 +8541,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																																						
+		   });																																																																																																																																																																																																																							
 	}
 
 	/**
@@ -8633,7 +8774,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not actualItem.oclIsKindOf(gmfgen::GenSharedContributionItem)",
 			 "description", "Actual contribution item can\'t be a reference"
-		   });										
+		   });											
 	}
 
 	/**
@@ -8685,7 +8826,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Replaced with GenParsers and PredefinedParser"
-		   });																																																																																																																						
+		   });																																																																																																																							
 	}
 
 	/**
@@ -8791,7 +8932,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "type",
 			 "ocl", "\'ecore::EDoubleObject\'"
-		   });																															
+		   });																																
 	}
 
 } //GMFGenPackageImpl

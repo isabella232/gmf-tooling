@@ -11,7 +11,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
 import org.eclipse.gmf.codegen.gmfgen.GenContributionManager;
 
@@ -23,7 +22,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenContributionManager;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenContributionItemImpl#getOwner <em>Owner</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenContributionItemImpl#getApplication <em>Application</em>}</li>
  * </ul>
  * </p>
  *
@@ -57,15 +55,6 @@ public abstract class GenContributionItemImpl extends EObjectImpl implements Gen
 	public GenContributionManager getOwner() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_CONTRIBUTION_ITEM__OWNER) return null;
 		return (GenContributionManager)eContainer();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public GenApplication getApplication() {
-		return getOwner() != null ? getOwner().getApplication() : (eContainer() instanceof GenApplication ? (GenApplication) eContainer() : null);
 	}
 
 	/**
@@ -122,8 +111,6 @@ public abstract class GenContributionItemImpl extends EObjectImpl implements Gen
 		switch (featureID) {
 			case GMFGenPackage.GEN_CONTRIBUTION_ITEM__OWNER:
 				return getOwner();
-			case GMFGenPackage.GEN_CONTRIBUTION_ITEM__APPLICATION:
-				return getApplication();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -138,8 +125,6 @@ public abstract class GenContributionItemImpl extends EObjectImpl implements Gen
 		switch (featureID) {
 			case GMFGenPackage.GEN_CONTRIBUTION_ITEM__OWNER:
 				return getOwner() != null;
-			case GMFGenPackage.GEN_CONTRIBUTION_ITEM__APPLICATION:
-				return getApplication() != null;
 		}
 		return super.eIsSet(featureID);
 	}

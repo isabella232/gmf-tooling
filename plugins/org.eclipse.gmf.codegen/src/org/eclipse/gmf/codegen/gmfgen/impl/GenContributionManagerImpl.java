@@ -14,11 +14,13 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
 import org.eclipse.gmf.codegen.gmfgen.GenContributionManager;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,12 +31,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenContributionManager;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenContributionManagerImpl#getID <em>ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenContributionManagerImpl#getItems <em>Items</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenContributionManagerImpl#getEditorGen <em>Editor Gen</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public abstract class GenContributionManagerImpl extends GenContributionItemImpl implements GenContributionManager {
+public abstract class GenContributionManagerImpl extends EObjectImpl implements GenContributionManager {
 	/**
 	 * The default value of the '{@link #getID() <em>ID</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -120,6 +123,13 @@ public abstract class GenContributionManagerImpl extends GenContributionItemImpl
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public abstract GenEditorGenerator getEditorGen();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -158,6 +168,8 @@ public abstract class GenContributionManagerImpl extends GenContributionItemImpl
 				return getID();
 			case GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS:
 				return getItems();
+			case GMFGenPackage.GEN_CONTRIBUTION_MANAGER__EDITOR_GEN:
+				return getEditorGen();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -212,6 +224,8 @@ public abstract class GenContributionManagerImpl extends GenContributionItemImpl
 				return ID_EDEFAULT == null ? iD != null : !ID_EDEFAULT.equals(iD);
 			case GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS:
 				return items != null && !items.isEmpty();
+			case GMFGenPackage.GEN_CONTRIBUTION_MANAGER__EDITOR_GEN:
+				return getEditorGen() != null;
 		}
 		return super.eIsSet(featureID);
 	}

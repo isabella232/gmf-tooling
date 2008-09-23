@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getExpressionProviders <em>Expression Providers</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getModelAccess <em>Model Access</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getLabelParsers <em>Label Parsers</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getContextMenus <em>Context Menus</em>}</li>
  * </ul>
  * </p>
  *
@@ -616,6 +617,22 @@ public interface GenEditorGenerator extends EObject {
 	 * @generated
 	 */
 	void setLabelParsers(GenParsers value);
+
+	/**
+	 * Returns the value of the '<em><b>Context Menus</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenContextMenu}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Context Menus</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Context Menus</em>' containment reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_ContextMenus()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<GenContextMenu> getContextMenus();
 
 	/**
 	 * <!-- begin-user-doc -->

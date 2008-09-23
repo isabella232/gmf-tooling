@@ -7,6 +7,7 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
@@ -20,10 +21,13 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.DynamicModelAccess;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
+import org.eclipse.gmf.codegen.gmfgen.GenContextMenu;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -63,6 +67,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getExpressionProviders <em>Expression Providers</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getModelAccess <em>Model Access</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getLabelParsers <em>Label Parsers</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getContextMenus <em>Context Menus</em>}</li>
  * </ul>
  * </p>
  *
@@ -358,6 +363,16 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @ordered
 	 */
 	protected GenParsers labelParsers;
+
+	/**
+	 * The cached value of the '{@link #getContextMenus() <em>Context Menus</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContextMenus()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<GenContextMenu> contextMenus;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1159,6 +1174,18 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<GenContextMenu> getContextMenus() {
+		if (contextMenus == null) {
+			contextMenus = new EObjectContainmentEList<GenContextMenu>(GenContextMenu.class, this, GMFGenPackage.GEN_EDITOR_GENERATOR__CONTEXT_MENUS);
+		}
+		return contextMenus;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public EList<GenPackage> getAllDomainGenPackages(boolean withUsed) {
@@ -1286,6 +1313,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return basicSetModelAccess(null, msgs);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__LABEL_PARSERS:
 				return basicSetLabelParsers(null, msgs);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__CONTEXT_MENUS:
+				return ((InternalEList<?>)getContextMenus()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -1341,6 +1370,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return getModelAccess();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__LABEL_PARSERS:
 				return getLabelParsers();
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__CONTEXT_MENUS:
+				return getContextMenus();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1350,6 +1381,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -1415,6 +1447,10 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__LABEL_PARSERS:
 				setLabelParsers((GenParsers)newValue);
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__CONTEXT_MENUS:
+				getContextMenus().clear();
+				getContextMenus().addAll((Collection<? extends GenContextMenu>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -1491,6 +1527,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__LABEL_PARSERS:
 				setLabelParsers((GenParsers)null);
 				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__CONTEXT_MENUS:
+				getContextMenus().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1545,6 +1584,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return modelAccess != null;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__LABEL_PARSERS:
 				return labelParsers != null;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__CONTEXT_MENUS:
+				return contextMenus != null && !contextMenus.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

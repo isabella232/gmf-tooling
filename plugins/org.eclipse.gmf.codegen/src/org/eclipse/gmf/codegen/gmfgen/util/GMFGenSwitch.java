@@ -916,6 +916,20 @@ public class GMFGenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.GEN_CUSTOM_ACTION: {
+				GenCustomAction genCustomAction = (GenCustomAction)theEObject;
+				T result = caseGenCustomAction(genCustomAction);
+				if (result == null) result = caseGenContributionItem(genCustomAction);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_COMMAND_ACTION: {
+				GenCommandAction genCommandAction = (GenCommandAction)theEObject;
+				T result = caseGenCommandAction(genCommandAction);
+				if (result == null) result = caseGenContributionItem(genCommandAction);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.GEN_ACTION_FACTORY_CONTRIBUTION_ITEM: {
 				GenActionFactoryContributionItem genActionFactoryContributionItem = (GenActionFactoryContributionItem)theEObject;
 				T result = caseGenActionFactoryContributionItem(genActionFactoryContributionItem);
@@ -926,7 +940,6 @@ public class GMFGenSwitch<T> {
 			case GMFGenPackage.GEN_CONTRIBUTION_MANAGER: {
 				GenContributionManager genContributionManager = (GenContributionManager)theEObject;
 				T result = caseGenContributionManager(genContributionManager);
-				if (result == null) result = caseGenContributionItem(genContributionManager);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -943,6 +956,13 @@ public class GMFGenSwitch<T> {
 				T result = caseGenToolBarManager(genToolBarManager);
 				if (result == null) result = caseGenContributionManager(genToolBarManager);
 				if (result == null) result = caseGenContributionItem(genToolBarManager);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_CONTEXT_MENU: {
+				GenContextMenu genContextMenu = (GenContextMenu)theEObject;
+				T result = caseGenContextMenu(genContextMenu);
+				if (result == null) result = caseGenContributionManager(genContextMenu);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -2707,6 +2727,36 @@ public class GMFGenSwitch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Custom Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Custom Action</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGenCustomAction(GenCustomAction object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Command Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Command Action</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGenCommandAction(GenCommandAction object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Gen Action Factory Contribution Item</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -2763,6 +2813,21 @@ public class GMFGenSwitch<T> {
 	 * @generated
 	 */
 	public T caseGenToolBarManager(GenToolBarManager object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Context Menu</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Context Menu</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGenContextMenu(GenContextMenu object) {
 		return null;
 	}
 

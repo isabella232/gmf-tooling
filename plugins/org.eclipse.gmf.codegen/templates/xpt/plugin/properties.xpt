@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -53,4 +53,5 @@ update.diagram.description=Perform «editorGen.modelID» diagram update
 «EXPAND xpt::propsheet::extensions::i18n FOR editorGen.propertySheet-»
 «EXPAND xpt::diagram::preferences::extensions::i18n FOR editorGen.diagram-»
 «EXPAND xpt::providers::extensions::i18n FOR editorGen.diagram-»
+«EXPAND impl::actions::extensions::i18n FOR editorGen-»
 «ENDDEFINE»

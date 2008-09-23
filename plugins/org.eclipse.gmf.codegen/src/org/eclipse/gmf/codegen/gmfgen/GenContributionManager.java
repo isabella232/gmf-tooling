@@ -7,6 +7,7 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,6 +23,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenContributionManager#getID <em>ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenContributionManager#getItems <em>Items</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenContributionManager#getEditorGen <em>Editor Gen</em>}</li>
  * </ul>
  * </p>
  *
@@ -29,7 +31,7 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface GenContributionManager extends GenContributionItem {
+public interface GenContributionManager extends EObject {
 	/**
 	 * Returns the value of the '<em><b>ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -73,5 +75,20 @@ public interface GenContributionManager extends GenContributionItem {
 	 * @generated
 	 */
 	EList<GenContributionItem> getItems();
+
+	/**
+	 * Returns the value of the '<em><b>Editor Gen</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Editor Gen</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Editor Gen</em>' reference.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenContributionManager_EditorGen()
+	 * @model resolveProxies="false" required="true" transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	GenEditorGenerator getEditorGen();
 
 } // GenContributionManager

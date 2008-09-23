@@ -537,6 +537,14 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 				return createGenSeparatorAdapter();
 			}
 			@Override
+			public Adapter caseGenCustomAction(GenCustomAction object) {
+				return createGenCustomActionAdapter();
+			}
+			@Override
+			public Adapter caseGenCommandAction(GenCommandAction object) {
+				return createGenCommandActionAdapter();
+			}
+			@Override
 			public Adapter caseGenActionFactoryContributionItem(GenActionFactoryContributionItem object) {
 				return createGenActionFactoryContributionItemAdapter();
 			}
@@ -551,6 +559,10 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseGenToolBarManager(GenToolBarManager object) {
 				return createGenToolBarManagerAdapter();
+			}
+			@Override
+			public Adapter caseGenContextMenu(GenContextMenu object) {
+				return createGenContextMenuAdapter();
 			}
 			@Override
 			public Adapter caseGenApplication(GenApplication object) {
@@ -2197,6 +2209,34 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomAction <em>Gen Custom Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomAction
+	 * @generated
+	 */
+	public Adapter createGenCustomActionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenCommandAction <em>Gen Command Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCommandAction
+	 * @generated
+	 */
+	public Adapter createGenCommandActionAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenActionFactoryContributionItem <em>Gen Action Factory Contribution Item</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -2249,6 +2289,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenToolBarManagerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenContextMenu <em>Gen Context Menu</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenContextMenu
+	 * @generated
+	 */
+	public Adapter createGenContextMenuAdapter() {
 		return null;
 	}
 

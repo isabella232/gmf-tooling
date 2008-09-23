@@ -90,6 +90,8 @@
         <details key="description" value="No label may be declared without a parser"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contextMenus" upperBound="-1"
+        eType="#//GenContextMenu" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenDiagram" eSuperTypes="#//GenContainerBase #//PackageNames #//ProviderClassNames #//LinkConstraints #//EditPartCandies #//EditorCandies #//Shortcuts #//BatchValidation #//MeasurementUnit">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
@@ -1976,14 +1978,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenContributionItem" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="GenContributionItem" abstract="true"
+      interface="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Element of UI contribution"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//GenContributionManager"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" lowerBound="1" eType="#//GenContributionManager"
         changeable="false" resolveProxies="false" eOpposite="#//GenContributionManager/items"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="application" eType="#//GenApplication"
-        changeable="false" volatile="true" transient="true" derived="true" resolveProxies="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenSharedContributionItem" eSuperTypes="#//GenContributionItem">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -2004,6 +2005,21 @@
   <eClassifiers xsi:type="ecore:EClass" name="GenSeparator" eSuperTypes="#//GenContributionItem">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenCustomAction" eSuperTypes="#//GenContributionItem">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Action from org.eclipse.ui.actions.ActionFactory"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedClassName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="generateBoilerplate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenCommandAction" eSuperTypes="#//GenContributionItem">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="commandIdentifier" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenActionFactoryContributionItem" eSuperTypes="#//GenContributionItem">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Action from org.eclipse.ui.actions.ActionFactory"/>
@@ -2014,19 +2030,25 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenContributionManager" abstract="true"
-      eSuperTypes="#//GenContributionItem">
+  <eClassifiers xsi:type="ecore:EClass" name="GenContributionManager" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Group of UI contribution items"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iD" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="items" upperBound="-1"
         eType="#//GenContributionItem" containment="true" eOpposite="#//GenContributionItem/owner"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" lowerBound="1"
+        eType="#//GenEditorGenerator" changeable="false" volatile="true" transient="true"
+        derived="true" resolveProxies="false"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenMenuManager" eSuperTypes="#//GenContributionManager">
+  <eClassifiers xsi:type="ecore:EClass" name="GenMenuManager" eSuperTypes="#//GenContributionManager #//GenContributionItem">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenToolBarManager" eSuperTypes="#//GenContributionManager"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GenToolBarManager" eSuperTypes="#//GenContributionManager #//GenContributionItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GenContextMenu" eSuperTypes="#//GenContributionManager">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" lowerBound="1"
+        upperBound="-1" eType="#//GenCommonBase"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenApplication">
     <eOperations name="getQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getWorkbenchAdvisorQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

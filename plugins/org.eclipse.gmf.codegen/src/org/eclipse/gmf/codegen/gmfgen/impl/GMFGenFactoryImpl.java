@@ -141,9 +141,12 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_SHARED_CONTRIBUTION_ITEM: return createGenSharedContributionItem();
 			case GMFGenPackage.GEN_GROUP_MARKER: return createGenGroupMarker();
 			case GMFGenPackage.GEN_SEPARATOR: return createGenSeparator();
+			case GMFGenPackage.GEN_CUSTOM_ACTION: return createGenCustomAction();
+			case GMFGenPackage.GEN_COMMAND_ACTION: return createGenCommandAction();
 			case GMFGenPackage.GEN_ACTION_FACTORY_CONTRIBUTION_ITEM: return createGenActionFactoryContributionItem();
 			case GMFGenPackage.GEN_MENU_MANAGER: return createGenMenuManager();
 			case GMFGenPackage.GEN_TOOL_BAR_MANAGER: return createGenToolBarManager();
+			case GMFGenPackage.GEN_CONTEXT_MENU: return createGenContextMenu();
 			case GMFGenPackage.GEN_APPLICATION: return createGenApplication();
 			case GMFGenPackage.GEN_PARSERS: return createGenParsers();
 			case GMFGenPackage.PREDEFINED_PARSER: return createPredefinedParser();
@@ -1059,6 +1062,26 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenCustomAction createGenCustomAction() {
+		GenCustomActionImpl genCustomAction = new GenCustomActionImpl();
+		return genCustomAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenCommandAction createGenCommandAction() {
+		GenCommandActionImpl genCommandAction = new GenCommandActionImpl();
+		return genCommandAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GenActionFactoryContributionItem createGenActionFactoryContributionItem() {
 		GenActionFactoryContributionItemImpl genActionFactoryContributionItem = new GenActionFactoryContributionItemImpl();
 		return genActionFactoryContributionItem;
@@ -1082,6 +1105,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenToolBarManager createGenToolBarManager() {
 		GenToolBarManagerImpl genToolBarManager = new GenToolBarManagerImpl();
 		return genToolBarManager;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenContextMenu createGenContextMenu() {
+		GenContextMenuImpl genContextMenu = new GenContextMenuImpl();
+		return genContextMenu;
 	}
 
 	/**
