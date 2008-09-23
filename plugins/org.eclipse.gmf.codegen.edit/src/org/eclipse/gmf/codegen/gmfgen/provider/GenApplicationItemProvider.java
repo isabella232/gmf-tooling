@@ -417,6 +417,16 @@ public class GenApplicationItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenApplication_SharedContributionItems(),
+				 GMFGenFactory.eINSTANCE.createGenCustomAction()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenApplication_SharedContributionItems(),
+				 GMFGenFactory.eINSTANCE.createGenCommandAction()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenApplication_SharedContributionItems(),
 				 GMFGenFactory.eINSTANCE.createGenActionFactoryContributionItem()));
 
 		newChildDescriptors.add

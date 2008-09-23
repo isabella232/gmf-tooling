@@ -1906,6 +1906,52 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenCustomAction} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenCustomActionItemProvider genCustomActionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenCustomAction}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGenCustomActionAdapter() {
+		if (genCustomActionItemProvider == null) {
+			genCustomActionItemProvider = new GenCustomActionItemProvider(this);
+		}
+
+		return genCustomActionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenCommandAction} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenCommandActionItemProvider genCommandActionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenCommandAction}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGenCommandActionAdapter() {
+		if (genCommandActionItemProvider == null) {
+			genCommandActionItemProvider = new GenCommandActionItemProvider(this);
+		}
+
+		return genCommandActionItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenActionFactoryContributionItem} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1972,6 +2018,29 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		}
 
 		return genToolBarManagerItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenContextMenu} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenContextMenuItemProvider genContextMenuItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenContextMenu}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGenContextMenuAdapter() {
+		if (genContextMenuItemProvider == null) {
+			genContextMenuItemProvider = new GenContextMenuItemProvider(this);
+		}
+
+		return genContextMenuItemProvider;
 	}
 
 	/**
@@ -2342,9 +2411,12 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genSharedContributionItemItemProvider != null) genSharedContributionItemItemProvider.dispose();
 		if (genGroupMarkerItemProvider != null) genGroupMarkerItemProvider.dispose();
 		if (genSeparatorItemProvider != null) genSeparatorItemProvider.dispose();
+		if (genCustomActionItemProvider != null) genCustomActionItemProvider.dispose();
+		if (genCommandActionItemProvider != null) genCommandActionItemProvider.dispose();
 		if (genActionFactoryContributionItemItemProvider != null) genActionFactoryContributionItemItemProvider.dispose();
 		if (genMenuManagerItemProvider != null) genMenuManagerItemProvider.dispose();
 		if (genToolBarManagerItemProvider != null) genToolBarManagerItemProvider.dispose();
+		if (genContextMenuItemProvider != null) genContextMenuItemProvider.dispose();
 		if (genApplicationItemProvider != null) genApplicationItemProvider.dispose();
 		if (genParsersItemProvider != null) genParsersItemProvider.dispose();
 		if (predefinedParserItemProvider != null) predefinedParserItemProvider.dispose();

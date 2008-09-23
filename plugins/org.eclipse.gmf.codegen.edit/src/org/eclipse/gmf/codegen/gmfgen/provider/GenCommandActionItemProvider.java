@@ -12,7 +12,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IChildCreationExtender;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -21,22 +23,26 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.edit.provider.ViewerNotification;
+
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenCommandAction;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenCommandAction} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class GenSharedContributionItemItemProvider
+public class GenCommandActionItemProvider
 	extends ItemProviderAdapter
-	implements	
-		IEditingDomainItemProvider,	
-		IStructuredItemContentProvider,	
-		ITreeItemContentProvider,	
-		IItemLabelProvider,	
+	implements
+		IEditingDomainItemProvider,
+		IStructuredItemContentProvider,
+		ITreeItemContentProvider,
+		IItemLabelProvider,
 		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -44,7 +50,7 @@ public class GenSharedContributionItemItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenSharedContributionItemItemProvider(AdapterFactory adapterFactory) {
+	public GenCommandActionItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -59,42 +65,65 @@ public class GenSharedContributionItemItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addActualItemPropertyDescriptor(object);
+			addCommandIdentifierPropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Actual Item feature.
+	 * This adds a property descriptor for the Command Identifier feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addActualItemPropertyDescriptor(Object object) {
+	protected void addCommandIdentifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenSharedContributionItem_actualItem_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenSharedContributionItem_actualItem_feature", "_UI_GenSharedContributionItem_type"),
-				 GMFGenPackage.eINSTANCE.getGenSharedContributionItem_ActualItem(),
+				 getString("_UI_GenCommandAction_commandIdentifier_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenCommandAction_commandIdentifier_feature", "_UI_GenCommandAction_type"),
+				 GMFGenPackage.eINSTANCE.getGenCommandAction_CommandIdentifier(),
 				 true,
 				 false,
-				 true,
-				 null,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This returns GenSharedContributionItem.gif.
+	 * This adds a property descriptor for the Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenCommandAction_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenCommandAction_name_feature", "_UI_GenCommandAction_type"),
+				 GMFGenPackage.eINSTANCE.getGenCommandAction_Name(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This returns GenCommandAction.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenSharedContributionItem"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenCommandAction"));
 	}
 
 	/**
@@ -105,7 +134,10 @@ public class GenSharedContributionItemItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_GenSharedContributionItem_type");
+		String label = ((GenCommandAction)object).getName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_GenCommandAction_type") :
+			getString("_UI_GenCommandAction_type") + " " + label;
 	}
 
 	/**
@@ -118,6 +150,13 @@ public class GenSharedContributionItemItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(GenCommandAction.class)) {
+			case GMFGenPackage.GEN_COMMAND_ACTION__COMMAND_IDENTIFIER:
+			case GMFGenPackage.GEN_COMMAND_ACTION__NAME:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 
