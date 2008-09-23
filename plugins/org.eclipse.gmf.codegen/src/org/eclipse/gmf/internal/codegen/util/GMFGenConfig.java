@@ -257,6 +257,9 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenParsers_ProviderPriority());
 		preserveIfSet(GMFGEN.getGenParsers_ExtensibleViaService());
 
+		setMatcher(GMFGEN.getCustomParser(), new ReflectiveMatcher(GMFGEN.getCustomParser_QualifiedName()));
+		setCopier(GMFGEN.getCustomParser(), Copier.COMPLETE_COPY);
+
 		// FIXME setMatcher(GMFGEN.getGenContextMenu(), based on contexts);
 		setCopier(GMFGEN.getGenCustomAction(), Copier.COMPLETE_COPY);
 		setMatcher(GMFGEN.getGenCommandAction(), new ReflectiveMatcher(GMFGEN.getGenCommandAction_CommandIdentifier()));
