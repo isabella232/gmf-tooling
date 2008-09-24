@@ -1983,7 +1983,7 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Element of UI contribution"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" lowerBound="1" eType="#//GenContributionManager"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//GenContributionManager"
         changeable="false" resolveProxies="false" eOpposite="#//GenContributionManager/items"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenSharedContributionItem" eSuperTypes="#//GenContributionItem">
