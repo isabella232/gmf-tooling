@@ -161,6 +161,9 @@ public class RuntimeCompilationTest extends CompilationTest {
 		a1.setQualifiedClassName("org.sample.actions.Action1");
 		a2.setQualifiedClassName("org.sample.actions.Action2");
 		a3.setQualifiedClassName("org.sample.actions.Action3");
+		a1.setName("testaction-1");
+		a2.setName("testaction-2");
+		a3.setName("testaction-3");
 		GenMenuManager subMenu = GMFGenFactory.eINSTANCE.createGenMenuManager();
 		subMenu.setID("org.sample.submenu");
 		GenGroupMarker gm = GMFGenFactory.eINSTANCE.createGenGroupMarker();
@@ -206,7 +209,27 @@ public class RuntimeCompilationTest extends CompilationTest {
 		xe = xf.compile("/plugin/extension[@point = 'org.eclipse.ui.menus']/menuContribution/separator");
 		result = (NodeList) xe.evaluate(parsedManifest, XPathConstants.NODESET);
 		assertEquals(2, result.getLength());
-		// check real files
+		//
+		xe = xf.compile("/plugin/extension[@point = 'org.eclipse.ui.commands']/command[starts-with(@name,'testaction-')]");
+		result = (NodeList) xe.evaluate(parsedManifest, XPathConstants.NODESET);
+		assertEquals(3, result.getLength());
+		// XXX perhaps, should use either defaultHandler or oe.ui.handlers extp contribution, not both? 
+		String dh1 = result.item(0).getAttributes().getNamedItem("defaultHandler").getNodeValue();
+		String dh2 = result.item(1).getAttributes().getNamedItem("defaultHandler").getNodeValue();
+		String dh3 = result.item(2).getAttributes().getNamedItem("defaultHandler").getNodeValue();
+		assertEquals(a1.getQualifiedClassName(), dh1); // ordering change might affect test result 
+		assertEquals(a2.getQualifiedClassName(), dh2); 
+		assertEquals(a3.getQualifiedClassName(), dh3); 
+		//
+		xe = xf.compile("/plugin/extension[@point = 'org.eclipse.ui.handlers']/handler");
+		result = (NodeList) xe.evaluate(parsedManifest, XPathConstants.NODESET);
+		assertEquals(2, result.getLength());
+		String h1 = result.item(0).getAttributes().getNamedItem("class").getNodeValue();
+		String h2 = result.item(1).getAttributes().getNamedItem("class").getNodeValue();
+		assertEquals(a2.getQualifiedClassName(), h1);
+		assertEquals(a3.getQualifiedClassName(), h2);
+
+		// check real files for handlers
 		IFile file_a1 = generatedProject.getFile("/src/" + a1.getQualifiedClassName().replace('.', '/') + ".java");
 		IFile file_a2 = generatedProject.getFile("/src/" + a2.getQualifiedClassName().replace('.', '/') + ".java");
 		IFile file_a3 = generatedProject.getFile("/src/" + a3.getQualifiedClassName().replace('.', '/') + ".java");
