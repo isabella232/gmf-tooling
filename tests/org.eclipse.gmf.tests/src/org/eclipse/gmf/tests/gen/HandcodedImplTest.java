@@ -1146,6 +1146,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		state.add("ExternalLabel:TextEditPart");
 		state.add("ExternalLabel:TextNotationViewFactory");
 		state.add("GenCustomPreferencePage:Qualified");
+		state.add("GenCustomAction:Qualified");
 		
 		// coverage check
 		for (Object next : GMFGenPackage.eINSTANCE.getEClassifiers()) {
