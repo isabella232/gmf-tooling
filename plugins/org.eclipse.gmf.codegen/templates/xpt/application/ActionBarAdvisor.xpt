@@ -126,7 +126,7 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 	«LET managerVar + "X" AS menuVar-»
 	{
 		org.eclipse.jface.action.IMenuManager «menuVar» = new  org.eclipse.jface.action.MenuManager(
-		«IF null != name»«EXPAND xpt::Externalizer::accessorCall(i18nKeyForMenu()) FOR this.application.editorGen»«ELSE»null«ENDIF»«IF null != iD», «iD»«ENDIF»);
+		«IF null != name»«EXPAND xpt::Externalizer::accessorCall(i18nKeyForMenu()) FOR editorGen»«ELSE»null«ENDIF»«IF null != iD», «iD»«ENDIF»);
 		«EXPAND contribute(menuVar) FOREACH items-»
 		«managerVar».add(«menuVar»);
 	}
