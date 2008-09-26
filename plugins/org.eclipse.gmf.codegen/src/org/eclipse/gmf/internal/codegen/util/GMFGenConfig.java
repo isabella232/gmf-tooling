@@ -120,16 +120,16 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		setMatcherForAllSubclasses(GMFGEN.getViewmap(), ALWAYS_MATCH);
 
 		setMatcher(GMFGEN.getDefaultSizeAttributes(), ALWAYS_MATCH);
-		setCopier(GMFGEN.getDefaultSizeAttributes(), Copier.COMPLETE_COPY);
+		setCopier(GMFGEN.getDefaultSizeAttributes(), Copier.COMPLETE_COPY_NO_CROSSREF);
 		preserveIfSet(GMFGEN.getDefaultSizeAttributes_Height());
 		preserveIfSet(GMFGEN.getDefaultSizeAttributes_Width());
 		
 		setMatcherForAllSubclasses(GMFGEN.getAttributes(), ALWAYS_MATCH);
-		setCopierForAllSubclasses(GMFGEN.getAttributes(), Copier.COMPLETE_COPY);
+		setCopierForAllSubclasses(GMFGEN.getAttributes(), Copier.COMPLETE_COPY_NO_CROSSREF);
 
 		// provided GenCommonBase matched, custom behaviour should be kept as is
 		setMatcher(GMFGEN.getCustomBehaviour(), ALWAYS_MATCH);
-		setCopier(GMFGEN.getCustomBehaviour(), Copier.COMPLETE_COPY);
+		setCopier(GMFGEN.getCustomBehaviour(), Copier.COMPLETE_COPY_NO_CROSSREF);
 
 		// We assume there's only one OpenDiagramBehaviour per GenCommonBase, hence do not attempt to match anything but metaclass
 		setMatcher(GMFGEN.getOpenDiagramBehaviour(), ALWAYS_MATCH);
@@ -182,7 +182,7 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 
 		addDecision(GMFGEN.getGenCustomPropertyTab(), new KeepOldIfNewIsByPatternOrNotSet(GMFGEN.getGenPropertyTab_Label(), "^Core$")); //$NON-NLS-1$
 		preserveIfSet(GMFGEN.getGenCustomPropertyTab_ClassName());
-		setCopier(GMFGEN.getGenCustomPropertyTab(), Copier.COMPLETE_COPY);
+		setCopier(GMFGEN.getGenCustomPropertyTab(), Copier.COMPLETE_COPY_NO_CROSSREF);
 
 		setMatcher(GMFGEN.getGenNavigator(), ALWAYS_MATCH);
 		preserveIfRemoved(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_Navigator());
@@ -212,7 +212,7 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenNavigator_PackageName());
 
 		setMatcher(GMFGEN.getGenDiagramPreferences(), ALWAYS_MATCH);
-		setCopier(GMFGEN.getGenDiagramPreferences(), Copier.COMPLETE_COPY);
+		setCopier(GMFGEN.getGenDiagramPreferences(), Copier.COMPLETE_COPY_NO_CROSSREF);
 
 		setMatcher(GMFGEN.getGenApplication(), ALWAYS_MATCH);
 		preserveIfSet(GMFGEN.getGenApplication_ID());
@@ -239,13 +239,13 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		});
 		addDecision(GMFGEN.getGenStandardPreferencePage(), new Decision.ALWAYS_OLD(GMFGEN.getGenPreferencePage_ID()));
 		addDecision(GMFGEN.getGenStandardPreferencePage(), new Decision.ALWAYS_OLD(GMFGEN.getGenPreferencePage_Name()));
-		setCopier(GMFGEN.getGenCustomPreferencePage(), Copier.COMPLETE_COPY);
+		setCopier(GMFGEN.getGenCustomPreferencePage(), Copier.COMPLETE_COPY_NO_CROSSREF);
 		//
 		// preserve model access attributes, or completely copy old if none in the new model found.
 		setMatcher(GMFGEN.getDynamicModelAccess(), ALWAYS_MATCH);
 		preserveIfSet(GMFGEN.getDynamicModelAccess_ClassName());
 		preserveIfSet(GMFGEN.getDynamicModelAccess_PackageName());
-		setCopier(GMFGEN.getDynamicModelAccess(), Copier.COMPLETE_COPY);
+		setCopier(GMFGEN.getDynamicModelAccess(), Copier.COMPLETE_COPY_NO_CROSSREF);
 		
 		setMatcher(GMFGEN.getGenExpressionProviderContainer(), ALWAYS_MATCH);
 		setMatcher(GMFGEN.getGenJavaExpressionProvider(), ALWAYS_MATCH);
@@ -257,14 +257,22 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenParsers_ProviderPriority());
 		preserveIfSet(GMFGEN.getGenParsers_ExtensibleViaService());
 
+		// next three matchers are pure "record match and do nothing" matchers
+		// we need them for CustomParser's copy to update crossreferences afterwards correctly
+		// this approach, with only matcher and no further decisions, seems not bad, as GenLabel
+		// references only single labelModelFacet, hence we could alsways assume they are matching.
+		setMatcher(GMFGEN.getFeatureLabelModelFacet(), ALWAYS_MATCH);
+		setMatcher(GMFGEN.getDesignLabelModelFacet(), ALWAYS_MATCH);
+		setMatcher(GMFGEN.getLabelModelFacet(), ALWAYS_MATCH);
 		setMatcher(GMFGEN.getCustomParser(), new ReflectiveMatcher(GMFGEN.getCustomParser_QualifiedName()));
-		setCopier(GMFGEN.getCustomParser(), Copier.COMPLETE_COPY);
+		setCopier(GMFGEN.getCustomParser(), Copier.COMPLETE_COPY_WITH_CROSSREF);
 
 		// FIXME setMatcher(GMFGEN.getGenContextMenu(), based on contexts);
-		setCopier(GMFGEN.getGenCustomAction(), Copier.COMPLETE_COPY);
+		setCopier(GMFGEN.getGenContextMenu(), Copier.COMPLETE_COPY_WITH_CROSSREF);
+		setCopier(GMFGEN.getGenCustomAction(), Copier.COMPLETE_COPY_NO_CROSSREF);
 		setMatcher(GMFGEN.getGenCommandAction(), new ReflectiveMatcher(GMFGEN.getGenCommandAction_CommandIdentifier()));
 		preserveIfSet(GMFGEN.getGenCommandAction_Name());
-		setCopier(GMFGEN.getGenCommandAction(), Copier.COMPLETE_COPY); // copy then, if none found
+		setCopier(GMFGEN.getGenCommandAction(), Copier.COMPLETE_COPY_NO_CROSSREF); // copy then, if none found
 	}
 
 	// XXX rename?: preserveOld
