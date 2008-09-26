@@ -652,7 +652,7 @@ public class CodegenEmitters {
 	// actions
 
 	public TextEmitter getCustomActionEmitter() {
-		return newXpandEmitter("impl::Actions::CustomAction::Main"); //$NON-NLS-1$
+		return newXpandEmitter("impl::actions::CustomAction::Main"); //$NON-NLS-1$
 	}
 
 
