@@ -25,8 +25,10 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
+import org.eclipse.gmf.codegen.gmfgen.CustomParser;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
@@ -37,8 +39,11 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
 import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenParserImplementation;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.internal.codegen.util.GMFGenConfig;
@@ -709,6 +714,49 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		checkUserChange(new GenParsersChange(ePack.getGenParsers_ProviderPriority(), ProviderPriority.HIGH_LITERAL));
 		assertEquals("Sanity", Boolean.FALSE, ePack.getGenParsers_ExtensibleViaService().getDefaultValue());
 		checkUserChange(new GenParsersChange(ePack.getGenParsers_ExtensibleViaService(), true));
+	}
+
+	public void testCustomParser_CopyWithCrossRef() {
+		UserChange userChange = new UserChange() {
+
+			private CustomParser myParser;
+
+			public void applyChanges(GenEditorGenerator old) {
+				myParser = GMFGenFactory.eINSTANCE.createCustomParser();
+				myParser.setQualifiedName("some.unique.name");
+				GenNodeLabel labelWithFeatureFacet = null;
+L1:				for (GenNode n : old.getDiagram().getAllNodes()) {
+					for (GenNodeLabel l : n.getLabels()) {
+						if (l.getModelFacet() instanceof FeatureLabelModelFacet) {
+							labelWithFeatureFacet = l;
+							break L1;
+						}
+					}
+				}
+				assertNotNull("sanity: need at least one label with FeatureLabelModelFacet", labelWithFeatureFacet);
+				myParser.getUses().add(labelWithFeatureFacet.getModelFacet());
+				old.getLabelParsers().getImplementations().add(myParser);
+			}
+
+			public void assertChangesPreserved(GenEditorGenerator current) {
+				CustomParser found = null;
+				for (GenParserImplementation pi : current.getLabelParsers().getImplementations()) {
+					if (pi instanceof CustomParser && myParser.getQualifiedName().equals(((CustomParser) pi).getQualifiedName())) {
+						found = (CustomParser) pi;
+						break;
+					}
+				}
+				assertNotNull(found);
+				assertFalse(found.getUses().isEmpty());
+				LabelModelFacet lmf = found.getUses().get(0);
+				assertTrue(lmf instanceof FeatureLabelModelFacet);
+			}
+
+			public ReconcilerConfigBase getReconcilerConfig() {
+				return new GMFGenConfig();
+			}
+		};
+		checkUserChange(userChange);
 	}
 	
 	private void checkUserChange(UserChange userChange){
