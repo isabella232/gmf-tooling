@@ -15,13 +15,11 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.expression.ast.CollectionExpression;
 
-public class CollectionExpressionTrace implements ExpressionAnalyzeTrace {
+public class CollectionExpressionTrace extends ExpressionAnalyzeTrace {
 
 	public enum Type {
 		UNDESOLVED_TARGET_TYPE, COLLECT_REF, SELECT_REF, REJECT_REF, EXISTS_REF, NOTEXISTS_REF, FORALL_REF, INCORRECT_EXPRESSION_TYPE
 	}
-
-	private EClassifier resultType;
 
 	private Type type;
 
@@ -44,12 +42,8 @@ public class CollectionExpressionTrace implements ExpressionAnalyzeTrace {
 	}
 
 	public CollectionExpressionTrace(EClassifier result, Type type) {
-		resultType = result;
+		super(result);
 		this.type = type;
-	}
-
-	public EClassifier getResultType() {
-		return resultType;
 	}
 
 	public Type getType() {

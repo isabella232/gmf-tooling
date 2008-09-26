@@ -26,6 +26,7 @@ import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
+import org.eclipse.gmf.internal.xpand.migration.ForEachAnalyzeTrace;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandIterator;
 
@@ -74,12 +75,14 @@ public class ForEachStatement extends Statement {
 
     public void analyze(XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
     	EClassifier t = getTarget().analyze(ctx, issues);
+    	EClassifier sepT = null;
         if (getSeparator() != null) {
-            final EClassifier sepT = getSeparator().analyze(ctx, issues);
+        	sepT = getSeparator().analyze(ctx, issues);
             if (!BuiltinMetaModel.isAssignableFrom(EcorePackage.eINSTANCE.getEString(), sepT)) {
                 issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "String expected!", target));
             }
         }
+        createAnalyzeTrace(ctx, new ForEachAnalyzeTrace(t, sepT));
         if (t != null) {
             if (BuiltinMetaModel.isCollectionType(t)) {
                 if (BuiltinMetaModel.isParameterizedType(t)) {

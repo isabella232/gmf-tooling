@@ -13,18 +13,25 @@ package org.eclipse.gmf.internal.xpand.migration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
+import org.eclipse.gmf.internal.xpand.BuiltinMetaModelExt;
+import org.eclipse.gmf.internal.xpand.ResourceManager;
+import org.eclipse.gmf.internal.xpand.ResourceMarker;
+import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
+import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.expression.ExecutionContextImpl;
+import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.expression.ast.BooleanLiteral;
 import org.eclipse.gmf.internal.xpand.expression.ast.BooleanOperation;
 import org.eclipse.gmf.internal.xpand.expression.ast.Case;
@@ -45,10 +52,15 @@ import org.eclipse.gmf.internal.xpand.expression.ast.StringLiteral;
 import org.eclipse.gmf.internal.xpand.expression.ast.SwitchExpression;
 import org.eclipse.gmf.internal.xpand.expression.ast.TypeSelectExpression;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException.Type;
+import org.eclipse.gmf.internal.xpand.util.ClassLoadContext;
+import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 import org.eclipse.ocl.Environment;
+import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
 
 
 public class ExpressionMigrationFacade {
+	
+	static final EcoreEnvironmentFactory ECORE_ENV_FACTORY = new EcoreEnvironmentFactory(null);
 	
 	static final CharSequence LF = System.getProperty("line.separator");
 	
@@ -118,9 +130,14 @@ public class ExpressionMigrationFacade {
 	private TypeManager typeManager;
 
 	private ModelManager modelManager;
+	
+	private Stack<QvtExecutionContext> qvtContexts = new Stack<QvtExecutionContext>();
 
-	ExpressionMigrationFacade(Expression expression, TypeManager typeManager, ModelManager modelManager, VariableNameDispatcher variableDispatcher, MigrationExecutionContext context) {
+	private EClassifier rootExpressionType;
+
+	ExpressionMigrationFacade(Expression expression, EClassifier requiredType, TypeManager typeManager, ModelManager modelManager, VariableNameDispatcher variableDispatcher, MigrationExecutionContext context) {
 		rootExpression = expression;
+		rootExpressionType = requiredType;
 		this.typeManager = typeManager;
 		this.modelManager = modelManager;
 		this.variableDispatcher = variableDispatcher;
@@ -129,51 +146,84 @@ public class ExpressionMigrationFacade {
 	}
 
 	StringBuilder migrate() throws MigrationException {
-		migrateExpression(rootExpression);
+		qvtContexts.push(new QvtExecutionContext());
+		try {
+			EClassifier expressionQvtType = migrateExpression(rootExpression);
+			internalConvertTypes(expressionQvtType, rootExpressionType);
+		} finally {
+			qvtContexts.pop();
+		}
 		return output;
+	}
+
+	// TODO: similar to internalMigrateParameterCollectionToMain() ?
+	private void internalConvertTypes(EClassifier actualType, EClassifier expectedType) {
+		if (expectedType != BuiltinMetaModel.VOID && BuiltinMetaModel.isCollectionType(expectedType)) {
+			assert BuiltinMetaModel.isCollectionType(actualType);
+			
+			if (BuiltinMetaModelExt.isListType(expectedType)) {
+				if (BuiltinMetaModelExt.isSetType(actualType) || BuiltinMetaModelExt.isOrderedSetType(actualType) || BuiltinMetaModelExt.isBagType(actualType)) {
+					write("->asSequence()");
+				} else if (BuiltinMetaModelExt.isAbstractCollectionType(actualType)) {
+					internalMigrateCollectionToBag(null);
+					write("->asSequence()");
+				}
+			} else if (BuiltinMetaModelExt.isSetType(expectedType)) {
+				if (BuiltinMetaModelExt.isListType(actualType) || BuiltinMetaModelExt.isBagType(actualType)) {
+					write("->asSet()");
+				} else if (BuiltinMetaModelExt.isAbstractCollectionType(actualType)) {
+					internalMigrateCollectionToBag(null);
+					write("->asSet()");
+				}
+			}
+			// Abstract collection should be compatible with any other kind
+			// on collections
+		}
 	}
 
 	int getReturnPosition() {
 		return returnPosition;
 	}
 
-	private void migrateExpression(Expression expression) throws MigrationException {
+	// Returning xpand types from here. This method can be modified to make use
+	// of QVT type system instead.
+	private EClassifier migrateExpression(Expression expression) throws MigrationException {
 		expressionsStack.push(expression);
 		try {
 			if (expression instanceof BooleanOperation) {
-				migrateBooleanOperation((BooleanOperation) expression);
+				return migrateBooleanOperation((BooleanOperation) expression);
 			} else if (expression instanceof Cast) {
-				migrateCast((Cast) expression);
+				return migrateCast((Cast) expression);
 			} else if (expression instanceof ChainExpression) {
-				migrateChainExpression((ChainExpression) expression);
+				return migrateChainExpression((ChainExpression) expression);
 			} else if (expression instanceof ConstructorCallExpression) {
-				migrateConstructorCallExpression((ConstructorCallExpression) expression);
+				return migrateConstructorCallExpression((ConstructorCallExpression) expression);
 			} else if (expression instanceof CollectionExpression) {
-				migrateCollectionExpression((CollectionExpression) expression);
+				return migrateCollectionExpression((CollectionExpression) expression);
 			} else if (expression instanceof OperationCall) {
-				migrateOperationCall((OperationCall) expression);
+				return migrateOperationCall((OperationCall) expression);
 			} else if (expression instanceof TypeSelectExpression) {
-				migrateTypeSelectExpression((TypeSelectExpression) expression);
+				return migrateTypeSelectExpression((TypeSelectExpression) expression);
 			} else if (expression instanceof FeatureCall) {
-				migrateFeatureCall((FeatureCall) expression);
+				return migrateFeatureCall((FeatureCall) expression);
 			} else if (expression instanceof IfExpression) {
-				migrateIfExpression((IfExpression) expression);
+				return migrateIfExpression((IfExpression) expression);
 			} else if (expression instanceof LetExpression) {
-				migrateLetExpression((LetExpression) expression);
+				return migrateLetExpression((LetExpression) expression);
 			} else if (expression instanceof ListLiteral) {
-				migrateListLiteral((ListLiteral) expression);
+				return migrateListLiteral((ListLiteral) expression);
 			} else if (expression instanceof BooleanLiteral) {
-				migrateBooleanLiteral((BooleanLiteral) expression);
+				return migrateBooleanLiteral((BooleanLiteral) expression);
 			} else if (expression instanceof IntegerLiteral) {
-				migrateIntegerLiteral((IntegerLiteral) expression);
+				return migrateIntegerLiteral((IntegerLiteral) expression);
 			} else if (expression instanceof NullLiteral) {
-				migrateNullLiteral((NullLiteral) expression);
+				return migrateNullLiteral((NullLiteral) expression);
 			} else if (expression instanceof RealLiteral) {
-				migrateRealLiteral((RealLiteral) expression);
+				return migrateRealLiteral((RealLiteral) expression);
 			} else if (expression instanceof StringLiteral) {
-				migrateStringLiteral((StringLiteral) expression);
+				return migrateStringLiteral((StringLiteral) expression);
 			} else if (expression instanceof SwitchExpression) {
-				migrateSwitchExpression((SwitchExpression) expression);
+				return migrateSwitchExpression((SwitchExpression) expression);
 			} else {
 				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, expression.getClass().getName());
 			}
@@ -182,31 +232,35 @@ public class ExpressionMigrationFacade {
 		}
 	}
 
-	private void migrateSwitchExpression(SwitchExpression switchExpression) throws MigrationException {
+	private EClassifier migrateSwitchExpression(SwitchExpression switchExpression) throws MigrationException {
+		Collection<EClassifier> expressionTypes = new ArrayList<EClassifier>();
 		if (switchExpression.getCases().size() == 0) {
-			migrateExpression(switchExpression.getDefaultExpr());
+			expressionTypes.add(migrateExpression(switchExpression.getDefaultExpr()));
 		} else {
-			writeln("switch { ");
+			// TODO: define additional variable here.
+			write("switch { ");
 			for (Case caseExpression : switchExpression.getCases()) {
 				write("case (");
 				migrateExpression(switchExpression.getSwitchExpr());
 				write(" = ");
 				migrateExpression(caseExpression.getCondition());
 				write(") ");
-				migrateExpression(caseExpression.getThenPart());
-				writeln(";");
+				expressionTypes.add(migrateExpression(caseExpression.getThenPart()));
+				write("; ");
 			}
 			write("else ");
-			migrateExpression(switchExpression.getDefaultExpr());
-			writeln(";");
-			writeln(" }");
+			expressionTypes.add(migrateExpression(switchExpression.getDefaultExpr()));
+			write("; }");
 		}
+		// TODO: check different types of collections was produced
+		return BuiltinMetaModelExt.getCommonSuperType(expressionTypes);
 	}
 
-	private void migrateStringLiteral(StringLiteral expression) {
+	private EClassifier migrateStringLiteral(StringLiteral expression) {
 		write("'");
 		write(escape(expression.getValue()));
 		write("'");
+		return EcorePackage.eINSTANCE.getEString();
 	}
 
 	private String escape(String value) {
@@ -222,53 +276,66 @@ public class ExpressionMigrationFacade {
 		return sb.toString();
 	}
 
-	private void migrateRealLiteral(RealLiteral realLiteral) {
+	private EClassifier migrateRealLiteral(RealLiteral realLiteral) {
 		write(new Double(realLiteral.getLiteralValue()).toString());
+		return EcorePackage.eINSTANCE.getEDouble();
 	}
 
-	private void migrateNullLiteral(NullLiteral expression) {
+	private EClassifier migrateNullLiteral(NullLiteral expression) {
 		write("null");
+		return BuiltinMetaModel.VOID;
 	}
 
-	private void migrateIntegerLiteral(IntegerLiteral integerLiteral) {
+	private EClassifier migrateIntegerLiteral(IntegerLiteral integerLiteral) {
 		write(new Integer(integerLiteral.getLiteralValue()).toString());
+		return EcorePackage.eINSTANCE.getEInt();
 	}
 
-	private void migrateBooleanLiteral(BooleanLiteral booleanLiteral) {
+	private EClassifier migrateBooleanLiteral(BooleanLiteral booleanLiteral) {
 		write(Boolean.valueOf(booleanLiteral.getLiteralValue()) ? Boolean.TRUE.toString() : Boolean.FALSE.toString());
+		return EcorePackage.eINSTANCE.getEBoolean();
 	}
 
-	private void migrateListLiteral(ListLiteral listLiteral) throws MigrationException {
+	private EClassifier migrateListLiteral(ListLiteral listLiteral) throws MigrationException {
+		Collection<EClassifier> expressionTypes = new ArrayList<EClassifier>();
 		write("Sequence { ");
 		for (int i = 0; i < listLiteral.getElements().length; i++) {
 			if (i > 0) {
 				write(", ");
 			}
-			migrateExpression(listLiteral.getElements()[i]);
+			expressionTypes.add(migrateExpression(listLiteral.getElements()[i]));
 		}
 		write(" }");
+		return BuiltinMetaModelExt.getListType(BuiltinMetaModelExt.getCommonSuperType(expressionTypes));
 	}
 
-	private void migrateLetExpression(LetExpression letExpression) throws MigrationException {
+	private EClassifier migrateLetExpression(LetExpression letExpression) throws MigrationException {
+		String varName = letExpression.getVarName().getValue();
 		write("let ");
-		write(letExpression.getVarName().getValue());
+		write(varName);
 		write(" = ");
-		migrateExpression(letExpression.getVarExpression());
-		write(" in ");
-		migrateExpression(letExpression.getTargetExpression());
+		pushContextWithVariable(varName, migrateExpression(letExpression.getVarExpression()));
+		try {
+			write(" in ");
+			return migrateExpression(letExpression.getTargetExpression());
+		} finally {
+			qvtContexts.pop();
+		}
 	}
-
-	private void migrateIfExpression(IfExpression ifExpression) throws MigrationException {
+	
+	private EClassifier migrateIfExpression(IfExpression ifExpression) throws MigrationException {
 		write("if ");
 		migrateExpression(ifExpression.getCondition());
 		write(" then ");
-		migrateExpression(ifExpression.getThenPart());
+		EClassifier thenType = migrateExpression(ifExpression.getThenPart());
 		write(" else ");
-		migrateExpression(ifExpression.getElsePart());
+		EClassifier elseType = migrateExpression(ifExpression.getElsePart());
 		write(" endif");
+		// TODO: check if then/else produces different types of collections..
+		return BuiltinMetaModelExt.getCommonSuperType(thenType, elseType);
 	}
 
-	private void migrateConstructorCallExpression(ConstructorCallExpression constructorCall) throws MigrationException {
+	private EClassifier migrateConstructorCallExpression(ConstructorCallExpression constructorCall) throws MigrationException {
 		write("object ");
 		EClassifier type = ctx.getTypeForName(constructorCall.getType().getValue());
 		if (type == null) {
@@ -277,9 +344,10 @@ public class ExpressionMigrationFacade {
 
 		write(typeManager.getQvtFQName(type));
 		write(" {}");
+		return type;
 	}
 
-	private void migrateChainExpression(ChainExpression chainExpression) throws MigrationException {
+	private EClassifier migrateChainExpression(ChainExpression chainExpression) throws MigrationException {
 		// TODO: currently only top-level chain expressions are supported. We
 		// have to develop a way to support inner chain expressions like:
 		// if(a.b()->c.d()->e.f) then {...} else {...}
@@ -289,14 +357,14 @@ public class ExpressionMigrationFacade {
 			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Inner " + chainExpression.getClass().getName());
 		}
 		migrateExpression(chainExpression.getFirst());
-		writeln(";");
+		write("; ");
 		if (expressionsStack.size() == 1) {
 			markReturnPosition();
 		}
-		migrateExpression(chainExpression.getNext());
+		return migrateExpression(chainExpression.getNext());
 	}
 
-	private void migrateBooleanOperation(BooleanOperation booleanOperation) throws MigrationException {
+	private EClassifier migrateBooleanOperation(BooleanOperation booleanOperation) throws MigrationException {
 		migrateExpression(booleanOperation.getLeft());
 		if (booleanOperation.isAndOperation()) {
 			write(" and ");
@@ -308,9 +376,10 @@ public class ExpressionMigrationFacade {
 			throw new MigrationException(Type.UNSUPPORTED_BOOLEAN_OPERATION, booleanOperation.getOperator());
 		}
 		migrateExpression(booleanOperation.getRight());
+		return EcorePackage.eINSTANCE.getEBoolean();
 	}
 
-	private void migrateCast(Cast cast) throws MigrationException {
+	private EClassifier migrateCast(Cast cast) throws MigrationException {
 		migrateExpression(cast.getTarget());
 		EClassifier type = ctx.getTypeForName(cast.getType().getValue());
 		if (type == null) {
@@ -319,11 +388,12 @@ public class ExpressionMigrationFacade {
 		write(".oclAsType(");
 		write(typeManager.getQvtFQName(type));
 		write(")");
+		return type;
 	}
 
-	private void migrateTypeSelectExpression(TypeSelectExpression typeSelectExpression) throws MigrationException {
+	private EClassifier migrateTypeSelectExpression(TypeSelectExpression typeSelectExpression) throws MigrationException {
 		int placeholder = getCurrentPosition();
-		migrateExpression(typeSelectExpression.getTarget());
+		EClassifier targetQvtType = migrateExpression(typeSelectExpression.getTarget());
 		EClassifier type = ctx.getTypeForName(typeSelectExpression.getTypeLiteral().getValue());
 		if (type == null) {
 			throw new MigrationException(Type.TYPE_NOT_FOUND, typeSelectExpression.getTypeLiteral().getValue());
@@ -336,30 +406,33 @@ public class ExpressionMigrationFacade {
 		if (!trace.isValid()) {
 			throw new MigrationException(Type.UNSUPPORTED_TYPE_SELECT_EXPRESSION, trace.toString());
 		}
-		internalMigrateTypeSelectCastingCollectionToBag(trace.getTargetType(), typeManager.getQvtFQName(type), placeholder);
-		if (!TypeManager.isListType(trace.getTargetType())) {
+		internalMigrateTypeSelectCastingCollectionToBag(targetQvtType, typeManager.getQvtFQName(type), placeholder);
+		if (!BuiltinMetaModelExt.isListType(targetQvtType) && !BuiltinMetaModelExt.isOrderedSetType(targetQvtType)) {
 			write("->asSequence()");
 		}
+		return BuiltinMetaModelExt.isOrderedSetType(targetQvtType) ? BuiltinMetaModelExt.getOrderedSetType(type) : BuiltinMetaModelExt.getListType(type);
 	}
 
 	private void internalMigrateTypeSelectCastingCollectionToBag(EClassifier collectionType, String typeName, int placeholder) {
 		assert BuiltinMetaModel.isCollectionType(collectionType);
 		if (TypeManager.isListType(collectionType) || TypeManager.isSetType(collectionType)) {
-			internalMigrateTypeSelect(typeName, placeholder);
+			internalMigrateTypeSelect(typeName, placeholder, getCurrentPosition());
 		} else {
 			internalMigrateCollectionToBag(typeName);
 		}
 	}
 
-	private void internalMigrateTypeSelect(String typeName, int placeholder) {
+	private void internalMigrateTypeSelect(String typeName, int expressionStartPosition, int expressionEndPosition) {
 		// TODO: This method should write braces around expression starting
 		// at placeholder position conditionally depending on the last char
 		// in output sequence.
-		write("(", placeholder);
-		write(")");
-		write("[");
-		write(typeName);
-		write("]");
+		StringBuffer sb = new StringBuffer();
+		sb.append(")[");
+		sb.append(typeName);
+		sb.append("]");
+		write(sb, expressionEndPosition);
+		
+		write("(", expressionStartPosition);
 	}
 
 	// TODO: use ->asSequence() here in addition?
@@ -376,20 +449,24 @@ public class ExpressionMigrationFacade {
 		}
 		write(")");
 	}
-
-	private void migrateCollectionExpression(CollectionExpression collectionExpression) throws MigrationException {
+	
+	private EClassifier migrateCollectionExpression(CollectionExpression collectionExpression) throws MigrationException {
 		if (collectionExpression.getTarget() == null) {
 			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Collection expression without target specified: " + collectionExpression.toString());
 		}
-		int placeholder = getCurrentPosition();
-		boolean hasNegation = false;
-		migrateExpression(collectionExpression.getTarget());
-		write("->");
 		ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(collectionExpression);
 		if (false == expressionTrace instanceof CollectionExpressionTrace) {
 			throw new MigrationException(Type.UNSUPPORTED_COLLECTION_EXPRESSION_TRACE, String.valueOf(expressionTrace));
 		}
 		CollectionExpressionTrace trace = (CollectionExpressionTrace) expressionTrace;
+
+		int placeholder = getCurrentPosition();
+		boolean hasNegation = false;
+		EClassifier targetQvtType = migrateExpression(collectionExpression.getTarget());
+		assert BuiltinMetaModel.isCollectionType(targetQvtType);
+		EClassifier innerTargetQvtType = BuiltinMetaModel.getInnerType(targetQvtType);
+
+		write("->");
 		switch (trace.getType()) {
 		case NOTEXISTS_REF:
 			hasNegation = true;
@@ -410,17 +487,46 @@ public class ExpressionMigrationFacade {
 			throw new MigrationException(Type.UNSUPPORTED_COLLECTION_EXPRESSION_TRACE, "Incorrect type: " + trace.getType());
 		}
 		write("(");
-		write(collectionExpression.getElementName());
-		write(" | ");
-		migrateExpression(collectionExpression.getClosure());
-		write(")");
-		if (trace.getType() == CollectionExpressionTrace.Type.COLLECT_REF && TypeManager.isSetType(trace.getResultType())) {
-			// Does not work now due to the bug in xpand implementation - see
-			// "TODO [AS]" comment in CollectionExpression
-			write("->asSet()");
+		String varName = collectionExpression.getElementName();
+		write(varName);
+		pushContextWithVariable(varName, innerTargetQvtType);
+		EClassifier expressionType;
+		try {
+			write(" | ");
+			expressionType = migrateExpression(collectionExpression.getClosure());
+		} finally {
+			qvtContexts.pop();
 		}
-		if (hasNegation) {
-			addNegationBraces(placeholder);
+		write(")");
+		try {
+			// Determining actual result type
+			switch (trace.getType()) {
+			case NOTEXISTS_REF:
+			case EXISTS_REF:
+			case FORALL_REF:
+				return EcorePackage.eINSTANCE.getEBoolean();
+			case COLLECT_REF:
+				if (BuiltinMetaModelExt.isSetType(trace.getResultType())) {
+					// Does not work now due to the bug in xpand implementation
+					// - see "TODO [AS]" comment in CollectionExpression
+					write("->asSet()");
+					// TODO: add flatten here?
+					return BuiltinMetaModel.getSetType(expressionType);
+				}else if (BuiltinMetaModelExt.isListType(trace.getResultType())) {
+					return BuiltinMetaModelExt.getListType(expressionType);
+				} else {
+					return BuiltinMetaModelExt.getBagType(expressionType);
+				}
+			case SELECT_REF:
+			case REJECT_REF:
+				return targetQvtType;
+			}
+			// Unreachable
+			return null;
+		} finally {
+			if (hasNegation) {
+				addNegationBraces(placeholder);
+			}
 		}
 	}
 
@@ -437,7 +543,7 @@ public class ExpressionMigrationFacade {
 		write(")");
 	}
 
-	private void migrateOperationCall(OperationCall operationCall) throws MigrationException {
+	private EClassifier migrateOperationCall(OperationCall operationCall) throws MigrationException {
 		ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(operationCall);
 		if (false == expressionTrace instanceof OperationCallTrace) {
 			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, String.valueOf(expressionTrace));
@@ -448,29 +554,45 @@ public class ExpressionMigrationFacade {
 		case UNDESOLVED_TARGET_TYPE:
 			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL, trace.toString());
 		case STATIC_EXTENSION_REF:
-			// TODO: use ModelManager or StandardLibraryImports to escape
-			// specific operation names here and below
+			// TODO: use ModelManager to escape specific operation names here
+			// and below
 			write(operationCall.getName().getValue());
 			write("(");
-			internalMigrateOperationCallParameters(operationCall);
+			internalMigrateOperationCallParameters(operationCall, trace.getParamTypes());
 			write(")");
-			return;
+			return trace.getResultType();
 		case OPERATION_REF:
 			if (isInfixOperation(trace)) {
-				internalMigrateInfixOperation(trace, operationCall);
+				return internalMigrateInfixOperation(trace, operationCall);
 			} else if (isCollectionOperation(trace)) {
-				internalMigrateCollectionOperationCall(trace, operationCall);
-			} else {
-				internalMigrateOperationCall(trace, operationCall);
-				convertTypedElementCallProduct(trace.getEOperation());
+				return internalMigrateCollectionOperationCall(trace, operationCall);
 			}
-			return;
+			// else same as IMPLICIT_COLLECT_OPERATION_REF:
 		case IMPLICIT_COLLECT_OPERATION_REF:
-			// TODO: Implicit collect of collection operation result is not
-			// supported now
-			internalMigrateOperationCall(trace, operationCall);
-			convertImplicitCollectProduct(trace.getTargetType());
-			return;
+			EOperation eOperation = trace.getEOperation();
+			assert eOperation != null;
+			EClassifier targetQvtType = trace.getTargetType();
+			// getTarget can be null for implicit call to "self" variable in xpand
+			if (operationCall.getTarget() != null) {
+				targetQvtType = migrateExpression(operationCall.getTarget());
+				write(".");
+			}
+			write(modelManager.getName(operationCall, trace));
+			write("(");
+			if (BuiltinMetaModel.EString_SubString_StartEnd == eOperation) {
+				write("1 + ");
+			}
+			internalMigrateOperationCallParameters(operationCall, trace.getParamTypes());
+			write(")");
+			if (trace.getType() == OperationCallTrace.Type.OPERATION_REF) {
+				return getTypedElementQvtType(eOperation);	
+			} else {
+				if (!BuiltinMetaModel.isParameterizedType(targetQvtType)) {
+					throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Implicit collect is not supported for simple types: " + targetQvtType.toString() + "." + operationCall.getName().getValue());
+				}
+				convertImplicitCollectProduct(targetQvtType);
+				return BuiltinMetaModelExt.getListType(BuiltinMetaModel.getInnerType(targetQvtType));
+			}
 		case EXTENSION_REF:
 			write(operationCall.getName().getValue());
 			write("(");
@@ -482,13 +604,13 @@ public class ExpressionMigrationFacade {
 			}
 			if (operationCall.getParams().length > 0) {
 				write(", ");
-				internalMigrateOperationCallParameters(operationCall);
+				internalMigrateOperationCallParameters(operationCall, withoutFirst(trace.getParamTypes()));
 			}
 			write(")");
-			return;
+			return trace.getResultType();
 		case IMPLICIT_COLLECT_EXTENSION_REF:
 			assert operationCall.getTarget() != null;
-			migrateExpression(operationCall.getTarget());
+			EClassifier implicitCollectTargetQvtType = migrateExpression(operationCall.getTarget());
 			String iteratorName = variableDispatcher.getNextIteratorName();
 			write("->collect(");
 			write(iteratorName);
@@ -498,18 +620,26 @@ public class ExpressionMigrationFacade {
 			write(iteratorName);
 			if (operationCall.getParams().length > 0) {
 				write(", ");
-				internalMigrateOperationCallParameters(operationCall);
+				internalMigrateOperationCallParameters(operationCall, withoutFirst(trace.getParamTypes()));
 			}
 			write(")");
 			write(")");
-			convertImplicitCollectProduct(trace.getTargetType());
-			return;
+			if (!BuiltinMetaModel.isParameterizedType(implicitCollectTargetQvtType)) {
+				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Implicit collect is not supported for simple types: " + implicitCollectTargetQvtType.toString() + "." + operationCall.getName().getValue());
+			}
+			convertImplicitCollectProduct(implicitCollectTargetQvtType);
+			return trace.getResultType();
 		default:
 			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, "Incorrect type: " + trace.getType());
 		}
 	}
 
-	private void internalMigrateInfixOperation(OperationCallTrace trace, OperationCall operationCall) throws MigrationException {
+	private List<EClassifier> withoutFirst(List<EClassifier> parameters) {
+		assert parameters.size() > 0;
+		return parameters.subList(1, parameters.size());
+	}
+
+	private EClassifier internalMigrateInfixOperation(OperationCallTrace trace, OperationCall operationCall) throws MigrationException {
 		EOperation eOperation = trace.getEOperation();
 		assert eOperation != null;
 		int placeholder = getCurrentPosition();
@@ -536,29 +666,34 @@ public class ExpressionMigrationFacade {
 		} else {
 			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Incorrect infix operation: " + opName);
 		}
-		internalMigrateOperationCallParameters(operationCall);
+		List<EClassifier> parameterTypes = internalMigrateOperationCallParameters(operationCall, null);
 		if (BuiltinMetaModel.EString_Plus_EJavaObject == eOperation) {
-			assert trace.getParamTypes().length == 1;
-			if (trace.getParamTypes()[0] != EcorePackage.eINSTANCE.getEString()) {
+			assert parameterTypes.size() == 1;
+			if (parameterTypes.get(0) != EcorePackage.eINSTANCE.getEString()) {
 				write(".repr()");
 			}
 		} else if (BuiltinMetaModel.Boolean_NE == eOperation || BuiltinMetaModel.Int_Unary_Minus == eOperation || BuiltinMetaModel.Double_Unary_Minus == eOperation) {
 			// Enclosing with braces for "not" expression here
 			addNegationBraces(placeholder);
 		}
+		return getTypedElementQvtType(eOperation);
 	}
 
-	private void internalMigrateOperationCallTarget(OperationCall operationCall) throws MigrationException {
+	private EClassifier internalMigrateOperationCallTarget(OperationCall operationCall) throws MigrationException {
 		if (operationCall.getTarget() != null) {
-			migrateExpression(operationCall.getTarget());
+			return migrateExpression(operationCall.getTarget());
 		} else {
 			// getTarget() == null if it is an implicit self operation.
 			// TODO: check if it is working with XPand
 			write(Environment.SELF_VARIABLE_NAME);
+			return null;
 		}
 	}
 
-	private void internalMigrateCollectionOperationCall(OperationCallTrace trace, OperationCall operationCall) throws MigrationException {
+	// TODO: check if "internalMigrateOperationCallParameters()" can be called
+	// with non-null parameters here (used to transform parameter collection
+	// types too)
+	private EClassifier internalMigrateCollectionOperationCall(OperationCallTrace trace, OperationCall operationCall) throws MigrationException {
 		EOperation eOperation = trace.getEOperation();
 		assert eOperation != null;
 		EClassifier targetType = trace.getTargetType();
@@ -566,86 +701,102 @@ public class ExpressionMigrationFacade {
 		assert BuiltinMetaModel.isCollectionType(targetType);
 		EClassifier elementType = BuiltinMetaModel.getInnerType(targetType);
 
-		int placeholder = getCurrentPosition();
+		int expressionStartPosition = getCurrentPosition();
 		if (BuiltinMetaModel.Collection_Clear != eOperation && BuiltinMetaModel.List_WithoutFirst != eOperation && BuiltinMetaModel.List_WithoutLast != eOperation) {
-			internalMigrateOperationCallTarget(operationCall);
+			EClassifier targetQvtType = internalMigrateOperationCallTarget(operationCall);
+			if (targetQvtType != null && BuiltinMetaModel.isCollectionType(targetQvtType)) {
+				targetType = targetQvtType;
+				elementType = BuiltinMetaModel.getInnerType(targetQvtType);
+			}
 		}
 
 		if (BuiltinMetaModel.Collection_Add == eOperation) {
-			EClassifier commonSuperType = getCommonSuperType(elementType, getSingleParameterType(trace));
-			internalMigrateToConcreteCollection(targetType, commonSuperType, placeholder);
+			int operationStartPosition = getCurrentPosition();
 			write("->including(");
-			internalMigrateOperationCallParameters(operationCall);
+			EClassifier parameterType = getSingleParameterType(internalMigrateOperationCallParameters(operationCall, null));
 			write(")");
-			// internalMigrateToBag(targetType);
+			EClassifier commonSuperType = BuiltinMetaModelExt.getCommonSuperType(elementType, parameterType);
+			return internalMigrateToConcreteCollection(targetType, commonSuperType, expressionStartPosition, operationStartPosition);
 		} else if (BuiltinMetaModel.Collection_AddAll == eOperation) {
-			EClassifier commonSuperType = getCommonSuperType(elementType, getSingleCollectionParameterElementType(trace));
-			internalMigrateToConcreteCollection(targetType, commonSuperType, placeholder);
+			int operationStartPosition = getCurrentPosition();
 			write("->union(");
-			internalMigrateOperationCallParameters(operationCall);
-			internalMigrateParameterCollectionToMain(getSingleParameterType(trace), targetType);
+			EClassifier parameterCollectionType = getSingleParameterType(internalMigrateOperationCallParameters(operationCall, null));
+			EClassifier parameterCollectionElementType = getCollectionElementType(parameterCollectionType);
+			EClassifier commonSuperType = BuiltinMetaModelExt.getCommonSuperType(elementType, parameterCollectionElementType);
+			internalMigrateParameterCollectionToMain(parameterCollectionType, targetType);
 			write(")");
-			// internalMigrateToBag(targetType);
+			return internalMigrateToConcreteCollection(targetType, commonSuperType, expressionStartPosition, operationStartPosition);
 		} else if (BuiltinMetaModel.Collection_Union == eOperation) {
-			EClassifier commonSuperType = getCommonSuperType(elementType, getSingleCollectionParameterElementType(trace));
-			internalMigrateToSet(targetType, commonSuperType, placeholder);
+			int operationStartPosition = getCurrentPosition();
 			write("->union(");
-			internalMigrateOperationCallParameters(operationCall);
-			internalMigrateParameterCollectionToSet(getSingleParameterType(trace));
+			EClassifier parameterCollectionType = getSingleParameterType(internalMigrateOperationCallParameters(operationCall, null));
+			EClassifier parameterCollectionElementType = getCollectionElementType(parameterCollectionType);
+			EClassifier commonSuperType = BuiltinMetaModelExt.getCommonSuperType(elementType, parameterCollectionElementType);
+			internalMigrateParameterCollectionToSet(parameterCollectionType);
 			write(")");
-			// internalMigrateToBag(targetType);
+			return internalMigrateToSet(targetType, commonSuperType, expressionStartPosition, operationStartPosition);
 		} else if (BuiltinMetaModel.Collection_Intersect == eOperation) {
-			EClassifier commonSuperType = getCommonSuperType(elementType, getSingleCollectionParameterElementType(trace));
-			internalMigrateToSet(targetType, commonSuperType, placeholder);
+			int operationStartPosition = getCurrentPosition();
 			write("->intersection(");
-			internalMigrateOperationCallParameters(operationCall);
-			internalMigrateParameterCollectionToSet(getSingleParameterType(trace));
+			EClassifier parameterCollectionType = getSingleParameterType(internalMigrateOperationCallParameters(operationCall, null));
+			EClassifier parameterCollectionElementType = getCollectionElementType(parameterCollectionType);
+			EClassifier commonSuperType = BuiltinMetaModelExt.getCommonSuperType(elementType, parameterCollectionElementType);
+			internalMigrateParameterCollectionToSet(parameterCollectionType);
 			write(")");
-			// internalMigrateToBag(targetType);
+			return internalMigrateToSet(targetType, commonSuperType, expressionStartPosition, operationStartPosition);
 		} else if (BuiltinMetaModel.Collection_Without == eOperation) {
-			EClassifier commonSuperType = getCommonSuperType(elementType, getSingleCollectionParameterElementType(trace));
-			internalMigrateToSet(targetType, commonSuperType, placeholder);
+			int operationStartPosition = getCurrentPosition();
 			write("->-(");
-			internalMigrateOperationCallParameters(operationCall);
-			internalMigrateParameterCollectionToSet(getSingleParameterType(trace));
+			EClassifier parameterCollectionType = getSingleParameterType(internalMigrateOperationCallParameters(operationCall, null));
+			EClassifier parameterCollectionElementType = getCollectionElementType(parameterCollectionType);
+			EClassifier commonSuperType = BuiltinMetaModelExt.getCommonSuperType(elementType, parameterCollectionElementType);
+			internalMigrateParameterCollectionToSet(parameterCollectionType);
 			write(")");
-			// internalMigrateToBag(targetType);
+			return internalMigrateToSet(targetType, commonSuperType, expressionStartPosition, operationStartPosition);
 		} else if (BuiltinMetaModel.Collection_Contains == eOperation) {
-			EClassifier parameterType = getSingleParameterType(trace);
-			if (!BuiltinMetaModel.isAssignableFrom(elementType, parameterType)) {
-				EClassifier commonSuperType = getCommonSuperType(elementType, parameterType);
-				internalMigrateTypeSelect(typeManager.getQvtFQName(commonSuperType), placeholder);
-			}
+			int operationStartPosition = getCurrentPosition();
 			write("->includes(");
-			internalMigrateOperationCallParameters(operationCall);
+			EClassifier parameterType = getSingleParameterType(internalMigrateOperationCallParameters(operationCall, null));
 			write(")");
-		} else if (BuiltinMetaModel.Collection_ContainsAll == eOperation) {
-			EClassifier parameterElementType = getSingleCollectionParameterElementType(trace);
-			if (!BuiltinMetaModel.isAssignableFrom(elementType, parameterElementType)) {
-				EClassifier commonSuperType = getCommonSuperType(elementType, parameterElementType);
-				internalMigrateTypeSelect(typeManager.getQvtFQName(commonSuperType), placeholder);
-			}
-			write("->includesAll(");
-			internalMigrateOperationCallParameters(operationCall);
-			write(")");
-		} else if (BuiltinMetaModel.List_IndexOf == eOperation) {
-			EClassifier parameterType = getSingleParameterType(trace);
 			if (!BuiltinMetaModel.isAssignableFrom(elementType, parameterType)) {
-				EClassifier commonSuperType = getCommonSuperType(elementType, parameterType);
-				internalMigrateTypeSelectCastingCollectionToBag(targetType, typeManager.getQvtFQName(commonSuperType), placeholder);
+				EClassifier commonSuperType = BuiltinMetaModelExt.getCommonSuperType(elementType, parameterType);
+				internalMigrateTypeSelect(typeManager.getQvtFQName(commonSuperType), expressionStartPosition, operationStartPosition);
 			}
-			write("->indexOf(");
-			internalMigrateOperationCallParameters(operationCall);
+			return EcorePackage.eINSTANCE.getEBoolean();
+		} else if (BuiltinMetaModel.Collection_ContainsAll == eOperation) {
+			int operationStartPosition = getCurrentPosition();
+			write("->includesAll(");
+			EClassifier parameterCollectionType = getSingleParameterType(internalMigrateOperationCallParameters(operationCall, null));
+			EClassifier parameterCollectionElementType = getCollectionElementType(parameterCollectionType);
 			write(")");
-			write("(", placeholder);
+			if (!BuiltinMetaModel.isAssignableFrom(elementType, parameterCollectionElementType)) {
+				EClassifier commonSuperType = BuiltinMetaModelExt.getCommonSuperType(elementType, parameterCollectionElementType);
+				internalMigrateTypeSelect(typeManager.getQvtFQName(commonSuperType), expressionStartPosition, operationStartPosition);
+			}
+			return EcorePackage.eINSTANCE.getEBoolean();
+		} else if (BuiltinMetaModel.List_IndexOf == eOperation) {
+			int operationStartPosition = getCurrentPosition();
+			write("->indexOf(");
+			EClassifier parameterType = getSingleParameterType(internalMigrateOperationCallParameters(operationCall, null));
+			write(")");
+			if (!BuiltinMetaModel.isAssignableFrom(elementType, parameterType)) {
+				EClassifier commonSuperType = BuiltinMetaModelExt.getCommonSuperType(elementType, parameterType);
+				internalMigrateTypeSelect(typeManager.getQvtFQName(commonSuperType), expressionStartPosition, operationStartPosition);
+			}
+			write("(", expressionStartPosition);
 			write(" - 1)");
+			return EcorePackage.eINSTANCE.getEInt();
 		} else if (BuiltinMetaModel.Collection_Clear == eOperation) {
-			if (TypeManager.isSetType(targetType)) {
+			EClassifier resultType;
+			if (BuiltinMetaModelExt.isSetType(targetType)) {
 				write("Set{}");
-			} else if (TypeManager.isListType(targetType)) {
+				resultType = BuiltinMetaModelExt.getSetType(elementType);
+			} else if (BuiltinMetaModelExt.isListType(targetType) || BuiltinMetaModelExt.isOrderedSetType(targetType)) {
 				write("Sequence{}");
+				resultType = BuiltinMetaModelExt.getListType(elementType);
 			} else {
 				write("Bag{}");
+				resultType = BuiltinMetaModelExt.getBagType(elementType);
 			}
 			// write("Bag{}");
 			if (elementType != EcorePackage.eINSTANCE.getEJavaObject()) {
@@ -653,19 +804,31 @@ public class ExpressionMigrationFacade {
 				write(typeManager.getQvtFQName(elementType));
 				write("]");
 			}
+			return resultType;
 		} else if (BuiltinMetaModel.Collection_Flatten == eOperation) {
-			internalMigrateToConcreteCollection(targetType, elementType, placeholder);
+			EClassifier resultType = internalMigrateToConcreteCollection(targetType, elementType, expressionStartPosition, getCurrentPosition());
 			write("->flatten()");
-			// internalMigrateToBag(targetType);
+			if (BuiltinMetaModel.isCollectionType(elementType)) {
+				elementType = BuiltinMetaModel.getInnerType(elementType);
+			}
+			if (BuiltinMetaModelExt.isSetType(resultType) || BuiltinMetaModelExt.isOrderedSetType(resultType)) {
+				return BuiltinMetaModelExt.getSetType(elementType);
+			} else if (BuiltinMetaModelExt.isListType(resultType)) {
+				return BuiltinMetaModelExt.getListType(elementType);
+			} else {
+				return BuiltinMetaModelExt.getBagType(elementType);
+			}
 		} else if (BuiltinMetaModel.Collection_ToSet == eOperation) {
-			internalMigrateToSet(targetType, elementType, placeholder);
+			return internalMigrateToSet(targetType, elementType, expressionStartPosition, getCurrentPosition());
 		} else if (BuiltinMetaModel.Collection_ToList == eOperation) {
-			internalMigrateToList(targetType, elementType, placeholder);
+			return internalMigrateToList(targetType, elementType, expressionStartPosition);
 		} else if (BuiltinMetaModel.List_Get == eOperation) {
 			write("->at(");
-			internalMigrateOperationCallParameters(operationCall);
+			internalMigrateOperationCallParameters(operationCall, null);
 			write(" + 1)");
+			return elementType;
 		} else if (BuiltinMetaModel.List_WithoutFirst == eOperation) {
+			boolean isOrderedSet = BuiltinMetaModelExt.isOrderedSetType(targetType);
 			String varName = variableDispatcher.getNextVariableName();
 			write("let ");
 			write(varName);
@@ -674,7 +837,13 @@ public class ExpressionMigrationFacade {
 			write(" in ");
 			write("if ");
 			write(varName);
-			write("->size() < 2 then Sequence{}");
+			write("->size() < 2 then ");
+			if (isOrderedSet) {
+				write("OrderedSet");
+			} else {
+				write("Sequence");
+			}
+			write("{}");
 			if (elementType != EcorePackage.eINSTANCE.getEJavaObject()) {
 				write("[");
 				write(typeManager.getQvtFQName(elementType));
@@ -682,10 +851,18 @@ public class ExpressionMigrationFacade {
 			}
 			write(" else ");
 			write(varName);
-			write("->subSequence(2, ");
+			write("->");
+			if (isOrderedSet) {
+				write("subOrderedSet");
+			} else {
+				write("subSequence");
+			}
+			write("(2, ");
 			write(varName);
 			write("->size()) endif");
+			return targetType;
 		} else if (BuiltinMetaModel.List_WithoutLast == eOperation) {
+			boolean isOrderedSet = BuiltinMetaModelExt.isOrderedSetType(targetType);
 			String varName = variableDispatcher.getNextVariableName();
 			write("let ");
 			write(varName);
@@ -694,7 +871,13 @@ public class ExpressionMigrationFacade {
 			write(" in ");
 			write("if ");
 			write(varName);
-			write("->size() < 2 then Sequence{}");
+			write("->size() < 2 then ");
+			if (isOrderedSet) {
+				write("OrderedSet");
+			} else {
+				write("Sequence");
+			}
+			write("{}");
 			if (elementType != EcorePackage.eINSTANCE.getEJavaObject()) {
 				write("[");
 				write(typeManager.getQvtFQName(elementType));
@@ -702,11 +885,21 @@ public class ExpressionMigrationFacade {
 			}
 			write(" else ");
 			write(varName);
-			write("->subSequence(1, ");
+			write("->");
+			if (isOrderedSet) {
+				write("subOrderedSet");
+			} else {
+				write("subSequence");
+			}
+			write("(1, ");
 			write(varName);
 			write("->size() - 1) endif");
+			return targetType;
 		} else if (BuiltinMetaModel.List_PurgeDups == eOperation) {
-			write("->asOrderedSet()->asSequence()");
+			if (BuiltinMetaModelExt.isListType(targetType)) {
+				write("->asOrderedSet()->asSequence()");	
+			}
+			return targetType;
 		} else {
 			/**
 			 * .isEmpty() .size() .first() .last()
@@ -715,101 +908,93 @@ public class ExpressionMigrationFacade {
 			write("->");
 			write(eOperation.getName());
 			write("(");
-			internalMigrateOperationCallParameters(operationCall);
+			internalMigrateOperationCallParameters(operationCall, null);
 			write(")");
-		}
-	}
-
-//	 private void internalMigrateToBag(EClassifier collectionType) {
-//		if (TypeManager.isListType(collectionType) || TypeManager.isSetType(collectionType)) {
-//			write("->asBag()");
-//		}
-//	}
-
-	private EClassifier getCommonSuperType(EClassifier collectionElementType1, EClassifier collectionElementType2) {
-		if (BuiltinMetaModel.VOID == collectionElementType1) {
-			return EcorePackage.eINSTANCE.getEJavaObject();
-		}
-		if (BuiltinMetaModel.isAssignableFrom(collectionElementType1, collectionElementType2)) {
-			return collectionElementType1;
-		}
-		if (collectionElementType1 instanceof EClass) {
-			EClass eClass = (EClass) collectionElementType1;
-			for (EClass nextSuperType : getAllSuperTypes(eClass)) {
-				if (BuiltinMetaModel.isAssignableFrom(nextSuperType, collectionElementType2)) {
-					return nextSuperType;
-				}
+			if (BuiltinMetaModel.Collection_IsEmpty == eOperation) {
+				return EcorePackage.eINSTANCE.getEBoolean();
+			} else if (BuiltinMetaModel.Collection_Size == eOperation) {
+				return EcorePackage.eINSTANCE.getEInt();
+			} else if (BuiltinMetaModel.List_First == eOperation || BuiltinMetaModel.List_Last == eOperation) {
+				return elementType;
+			} else {
+				throw new MigrationException(Type.UNSUPPORTED_COLLECTION_OPERATION, eOperation.getName());
 			}
 		}
-		return EcorePackage.eINSTANCE.getEJavaObject();
+	}
+	
+	private EClassifier getSingleParameterType(List<EClassifier> parameterTypes) {
+		assert parameterTypes.size() == 1;
+		return parameterTypes.get(0);
+	}
+	
+	private EClassifier getCollectionElementType(EClassifier collectionType) {
+		assert BuiltinMetaModel.isCollectionType(collectionType);
+		return BuiltinMetaModel.getInnerType(collectionType);
 	}
 
-	private List<EClass> getAllSuperTypes(EClass eClass) {
-		List<EClass> result = new ArrayList<EClass>(eClass.getESuperTypes());
-		for (int i = 1; i < result.size(); i++) {
-			EClass nextSuperType = result.get(i);
-			result.addAll(nextSuperType.getESuperTypes());
-		}
-		return result;
-	}
-
-	private EClassifier getSingleParameterType(OperationCallTrace trace) {
-		EClassifier[] paramTypes = trace.getParamTypes();
-		assert paramTypes != null && paramTypes.length == 1;
-		return paramTypes[0];
-	}
-
-	private EClassifier getSingleCollectionParameterElementType(OperationCallTrace trace) {
-		EClassifier parameterType = getSingleParameterType(trace);
-		assert BuiltinMetaModel.isCollectionType(parameterType);
-		return BuiltinMetaModel.getInnerType(parameterType);
-	}
-
-	private void internalMigrateToConcreteCollection(EClassifier collectionType, EClassifier elementSuperType, int placeholder) throws MigrationException {
+	private EClassifier internalMigrateToConcreteCollection(EClassifier collectionType, EClassifier requestedElementType, int expressionStartPosition, int expressionEndPosition) throws MigrationException {
 		assert BuiltinMetaModel.isCollectionType(collectionType);
 		EClassifier elementType = BuiltinMetaModel.getInnerType(collectionType);
-		if (elementSuperType != elementType) {
-			internalMigrateTypeSelectCastingCollectionToBag(collectionType, typeManager.getQvtFQName(elementSuperType), placeholder);
-		} else if (!TypeManager.isListType(collectionType) && !TypeManager.isSetType(collectionType)) {
-			internalMigrateCollectionToBag(null);
+		if (BuiltinMetaModelExt.isAbstractCollectionType(collectionType)) {
+			String iteratorName = variableDispatcher.getNextIteratorName();
+			StringBuilder sb = new StringBuilder();
+			sb.append("->collect(");
+			sb.append(iteratorName);
+			sb.append(" | ");
+			sb.append(iteratorName);
+			if (requestedElementType != elementType) {
+				sb.append(".oclAsType(");
+				sb.append(typeManager.getQvtFQName(requestedElementType));
+				sb.append(")");
+			}
+			sb.append(")");
+			write(sb, expressionEndPosition);
+			return BuiltinMetaModelExt.getBagType(requestedElementType);
+		} else if (requestedElementType != elementType) {
+			internalMigrateTypeSelect(typeManager.getQvtFQName(requestedElementType), expressionStartPosition, expressionEndPosition);
+			return BuiltinMetaModelExt.replaceCollectionElementType(collectionType, requestedElementType);
 		}
+		return collectionType;
 	}
-
-	private void internalMigrateToSet(EClassifier collectionType, EClassifier elementSuperType, int placeholder) throws MigrationException {
-		internalMigrateToConcreteCollection(collectionType, elementSuperType, placeholder);
-		if (!TypeManager.isSetType(collectionType)) {
-			write("->asSet()");
+	
+	private EClassifier internalMigrateToSet(EClassifier collectionType, EClassifier elementSuperType, int expressionStartPosition, int expressionEndPosition) throws MigrationException {
+		if (!BuiltinMetaModelExt.isSetType(collectionType) && !BuiltinMetaModelExt.isOrderedSetType(collectionType)) {
+			write("->asSet()", expressionEndPosition);
 		}
+		internalMigrateToConcreteCollection(collectionType, elementSuperType, expressionStartPosition, expressionEndPosition);
+		return BuiltinMetaModelExt.isOrderedSetType(collectionType) ? BuiltinMetaModelExt.getOrderedSetType(elementSuperType) : BuiltinMetaModelExt.getSetType(elementSuperType);
 	}
-
-	private void internalMigrateToList(EClassifier collectionType, EClassifier elementSuperType, int placeholder) throws MigrationException {
-		internalMigrateToConcreteCollection(collectionType, elementSuperType, placeholder);
-		if (!TypeManager.isListType(collectionType)) {
+	
+	private EClassifier internalMigrateToList(EClassifier collectionType, EClassifier elementSuperType, int placeholder) throws MigrationException {
+		internalMigrateToConcreteCollection(collectionType, elementSuperType, placeholder, getCurrentPosition());
+		if (!BuiltinMetaModelExt.isListType(collectionType) && !BuiltinMetaModelExt.isOrderedSetType(collectionType)) {
 			write("->asSequence()");
+			return BuiltinMetaModelExt.getListType(elementSuperType);
 		}
+		return collectionType;
 	}
-
+	
 	private void internalMigrateParameterCollectionToMain(EClassifier parameterCollectionType, EClassifier mainCollectionType) {
 		assert BuiltinMetaModel.isCollectionType(parameterCollectionType);
 		assert BuiltinMetaModel.isCollectionType(mainCollectionType);
-		if (TypeManager.isListType(mainCollectionType)) {
-			if (TypeManager.isSetType(parameterCollectionType)) {
+		if (BuiltinMetaModelExt.isListType(mainCollectionType)) {
+			if (BuiltinMetaModelExt.isSetType(parameterCollectionType) || BuiltinMetaModelExt.isOrderedSetType(parameterCollectionType)) {
 				write("->asSequence()");
-			} else if (!TypeManager.isListType(parameterCollectionType)) {
+			} else if (BuiltinMetaModelExt.isAbstractCollectionType(parameterCollectionType)) {
 				internalMigrateCollectionToBag(null);
 				write("->asSequence()");
 			}
-		} else if (TypeManager.isSetType(mainCollectionType)) {
-			if (TypeManager.isListType(parameterCollectionType)) {
+		} else if (BuiltinMetaModelExt.isSetType(mainCollectionType) || BuiltinMetaModelExt.isOrderedSetType(mainCollectionType)) {
+			if (BuiltinMetaModelExt.isListType(parameterCollectionType) || BuiltinMetaModelExt.isBagType(parameterCollectionType)) {
 				write("->asSet()");
-			} else if (!TypeManager.isSetType(parameterCollectionType)) {
+			} else if (BuiltinMetaModelExt.isAbstractCollectionType(parameterCollectionType)) {
 				internalMigrateCollectionToBag(null);
 				write("->asSet()");
 			}
-		} else {
-			if (TypeManager.isSetType(parameterCollectionType) || TypeManager.isListType(parameterCollectionType)) {
+		} else { //For Bag/AbstractCollection (should be transformed to Bag)
+			if (BuiltinMetaModelExt.isListType(parameterCollectionType)) {
 				write("->asBag()");
-			} else {
+			} else if (BuiltinMetaModelExt.isAbstractCollectionType(parameterCollectionType)) {
 				internalMigrateCollectionToBag(null);
 			}
 		}
@@ -817,9 +1002,9 @@ public class ExpressionMigrationFacade {
 
 	private void internalMigrateParameterCollectionToSet(EClassifier parameterCollectionType) {
 		assert BuiltinMetaModel.isCollectionType(parameterCollectionType);
-		if (TypeManager.isListType(parameterCollectionType)) {
+		if (BuiltinMetaModelExt.isListType(parameterCollectionType) || BuiltinMetaModelExt.isBagType(parameterCollectionType)) {
 			write("->asSet()");
-		} else if (!TypeManager.isSetType(parameterCollectionType)) {
+		} else if (BuiltinMetaModelExt.isAbstractCollectionType(parameterCollectionType)) {
 			internalMigrateCollectionToBag(null);
 			write("->asSet()");
 		}
@@ -830,45 +1015,43 @@ public class ExpressionMigrationFacade {
 		assert eOperation != null;
 		return collectionOperations.contains(eOperation);
 	}
-
-	private void convertTypedElementCallProduct(ETypedElement typedElement) {
-		assert typedElement != null;
-		if (typedElement.isMany() && typedElement.isOrdered() && typedElement.isUnique()) {
-			write("->asSequence()");
+	
+	private EClassifier getTypedElementQvtType(ETypedElement typedElement) {
+		EClassifier type = typedElement.getEType();
+		if (typedElement.isMany()) {
+			if (typedElement.isOrdered() && typedElement.isUnique()) {
+				type = BuiltinMetaModelExt.getOrderedSetType(type);
+			} else if (typedElement.isOrdered()) {
+				type = BuiltinMetaModelExt.getListType(type);
+			} else if (typedElement.isUnique()) {
+				type = BuiltinMetaModelExt.getSetType(type);
+			} else {
+				type = BuiltinMetaModelExt.getBagType(type);
+			}
 		}
+		return type;
 	}
 
 	private void convertImplicitCollectProduct(EClassifier targetType) {
 		assert targetType != null;
-		if (!TypeManager.isListType(targetType)) {
+		if (!BuiltinMetaModelExt.isListType(targetType) && !BuiltinMetaModelExt.isOrderedSetType(targetType)) {
 			write("->asSequence()");
 		}
 	}
 
-	private void internalMigrateOperationCallParameters(OperationCall operationCall) throws MigrationException {
+	private List<EClassifier> internalMigrateOperationCallParameters(OperationCall operationCall, List<EClassifier> expectedParameterTypes) throws MigrationException {
+		assert expectedParameterTypes == null || operationCall.getParams().length == expectedParameterTypes.size();
+		List<EClassifier> parameterTypes = new ArrayList<EClassifier>();
 		for (int i = 0; i < operationCall.getParams().length; i++) {
 			if (i > 0) {
 				write(", ");
 			}
-			migrateExpression(operationCall.getParams()[i]);
+			parameterTypes.add(migrateExpression(operationCall.getParams()[i]));
+			if (expectedParameterTypes != null) {
+				internalConvertTypes(parameterTypes.get(i), expectedParameterTypes.get(i));
+			}
 		}
-	}
-
-	private void internalMigrateOperationCall(OperationCallTrace trace, OperationCall operationCall) throws MigrationException {
-		EOperation eOperation = trace.getEOperation();
-		assert eOperation != null;
-		// getTarget can be null for implicit call to "self" variable in xpand
-		if (operationCall.getTarget() != null) {
-			migrateExpression(operationCall.getTarget());
-			write(".");
-		}
-		write(modelManager.getName(operationCall, trace));
-		write("(");
-		if (BuiltinMetaModel.EString_SubString_StartEnd == eOperation) {
-			write("1 + ");
-		}
-		internalMigrateOperationCallParameters(operationCall);
-		write(")");
+		return parameterTypes;
 	}
 
 	private boolean isInfixOperation(OperationCallTrace trace) {
@@ -877,7 +1060,7 @@ public class ExpressionMigrationFacade {
 		return infixOperations.contains(eOperation);
 	}
 
-	private void migrateFeatureCall(FeatureCall featureCall) throws MigrationException {
+	private EClassifier migrateFeatureCall(FeatureCall featureCall) throws MigrationException {
 		ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(featureCall);
 		if (false == expressionTrace instanceof FeatureCallTrace) {
 			throw new MigrationException(Type.UNSUPPORTED_FEATURE_CALL_TRACE, String.valueOf(expressionTrace));
@@ -888,10 +1071,11 @@ public class ExpressionMigrationFacade {
 			EEnumLiteral enumLiteral = trace.getEnumLiteral();
 			assert enumLiteral != null;
 			write(typeManager.getQvtFQName(enumLiteral));
-			return;
+			return enumLiteral.getEEnum();
 		case ENV_VAR_REF:
 			write(modelManager.getName(featureCall, trace));
-			return;
+			EClassifier variableType = getEnvVariableType(featureCall.getName().getValue());
+			return variableType != null ? variableType : trace.getResultType();
 		case UNDESOLVED_TARGET_TYPE:
 		case UNSUPPORTED_CLASSIFIER_REF:
 			throw new MigrationException(Type.UNSUPPORTED_FEATURE_CALL, trace.toString());
@@ -903,18 +1087,20 @@ public class ExpressionMigrationFacade {
 			write(".");
 		}
 		write(modelManager.getName(featureCall, trace));
+		EClassifier targetType = trace.getTargetType();
+		assert targetType != null;
 		switch (trace.getType()) {
 		case FEATURE_REF:
-			EClassifier targetType = trace.getTargetType();
-			assert targetType != null;
 			if (BuiltinMetaModel.isParameterizedType(targetType)) {
 				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Attribute call is not supported for the collection types: " + targetType.toString() + "." + featureCall.getName().getValue());
 			}
-			convertTypedElementCallProduct(trace.getFeature());
-			return;
+			return getTypedElementQvtType(trace.getFeature());
 		case IMPLICIT_COLLECT_FEATURE_REF:
-			convertImplicitCollectProduct(trace.getTargetType());
-			return;
+			if (!BuiltinMetaModel.isParameterizedType(targetType)) {
+				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Implicit collect is not supported for simple types: " + targetType.toString() + "." + featureCall.getName().getValue());
+			}
+			convertImplicitCollectProduct(targetType);
+			return BuiltinMetaModelExt.getListType(BuiltinMetaModel.getInnerType(targetType));
 		default:
 			throw new MigrationException(Type.UNSUPPORTED_FEATURE_CALL_TRACE, "Incorrect type: " + trace.getType());
 		}
@@ -935,10 +1121,102 @@ public class ExpressionMigrationFacade {
 	private void write(CharSequence cs) {
 		output.append(cs);
 	}
+	
+	private void pushContextWithVariable(String varName, EClassifier varType) {
+		qvtContexts.push(qvtContexts.peek().cloneWithVariable(varName, varType));
+	}
+	
+	private EClassifier getEnvVariableType(String varName) {
+		return qvtContexts.peek().getVariableType(varName);
+	}
+	
+	/**
+	 * This class was intended to store QVT env. variable types during
+	 * expression migration. It is necessary for more intelligent QVT
+	 * (collections) types transformation during expression migration.
+	 * 
+	 * Only following methods can be used by clients:
+	 * {@link ExecutionContext#cloneWithVariable(java.util.Collection)}
+	 * {@link ExecutionContext#cloneWithVariable(org.eclipse.gmf.internal.xpand.expression.Variable...)}
+	 * {@link ExecutionContext#cloneContext()}
+	 */
+	private class QvtExecutionContext extends ExecutionContextImpl {
 
-	private void writeln(CharSequence cs) {
-		output.append(cs);
-		output.append(LF);
+		public QvtExecutionContext() {
+			super((ResourceManager) null);
+		}
+
+		private QvtExecutionContext(QvtExecutionContext original) {
+			super(original);
+		}
+
+		public QvtExecutionContext cloneWithVariable(String name, EClassifier type) {
+			return (QvtExecutionContext) super.cloneWithVariable(new Variable(name, type));
+		}
+
+		public EClassifier getVariableType(String name) {
+			Variable var = getVariable(name);
+			if (var != null) {
+				return (EClassifier) var.getValue();
+			}
+			return null;
+		}
+
+		@Override
+		public QvtExecutionContext cloneContext() {
+			return new QvtExecutionContext(this);
+		}
+
+		@Override
+		public EClassifier[] findTypesForPrefix(String prefix) {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public void setContextClassLoader(ClassLoadContext classLoadContext) {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public Class<?> loadClass(String value) {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public EClassifier getTypeForName(String name) {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public ExecutionContext cloneWithResource(ResourceMarker ns) {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public ResourceMarker currentResource() {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public Set<Extension> getAllExtensions() {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public Extension getExtension(String functionName, EClassifier[] parameterTypes) {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public EvaluationListener getEvaluationListener() {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public void setEvaluationListener(EvaluationListener listener) {
+			throw new UnsupportedOperationException();
+		}
+
 	}
 
 }

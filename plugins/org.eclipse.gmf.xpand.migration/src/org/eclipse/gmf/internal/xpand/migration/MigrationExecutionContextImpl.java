@@ -16,16 +16,16 @@ import java.util.Map;
 
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
-import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
+import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContextImpl;
 
 public class MigrationExecutionContextImpl extends XpandExecutionContextImpl implements MigrationExecutionContext {
 
-	private final Map<Expression, ExpressionAnalyzeTrace> traces;
+	private final Map<SyntaxElement, ExpressionAnalyzeTrace> traces;
 
 	public MigrationExecutionContextImpl(ResourceManager resourceManager, EPackage... fallbackVisibleModels) {
 		super(resourceManager, fallbackVisibleModels);
-		traces = new HashMap<Expression, ExpressionAnalyzeTrace>();
+		traces = new HashMap<SyntaxElement, ExpressionAnalyzeTrace>();
 	}
 
 	protected MigrationExecutionContextImpl(MigrationExecutionContextImpl original) {
@@ -38,7 +38,7 @@ public class MigrationExecutionContextImpl extends XpandExecutionContextImpl imp
 		return new MigrationExecutionContextImpl(this);
 	}
 
-	public Map<Expression, ExpressionAnalyzeTrace> getTraces() {
+	public Map<SyntaxElement, ExpressionAnalyzeTrace> getTraces() {
 		return traces;
 	}
 

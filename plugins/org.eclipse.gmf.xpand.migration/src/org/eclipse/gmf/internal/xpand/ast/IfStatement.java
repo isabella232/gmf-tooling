@@ -22,6 +22,7 @@ import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
+import org.eclipse.gmf.internal.xpand.migration.ExpressionAnalyzeTrace;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 
 /**
@@ -67,6 +68,7 @@ public class IfStatement extends Statement {
                 issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Boolean expected!",
                         getCondition()));
             }
+            createAnalyzeTrace(ctx, new ExpressionAnalyzeTrace(conType));
         }
         for (int i = 0; i < getThenPart().length; i++) {
             getThenPart()[i].analyze(ctx, issues);

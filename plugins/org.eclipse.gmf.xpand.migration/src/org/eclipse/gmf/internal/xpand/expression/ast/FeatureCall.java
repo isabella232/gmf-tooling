@@ -32,9 +32,7 @@ import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
-import org.eclipse.gmf.internal.xpand.migration.ExpressionAnalyzeTrace;
 import org.eclipse.gmf.internal.xpand.migration.FeatureCallTrace;
-import org.eclipse.gmf.internal.xpand.migration.MigrationExecutionContext;
 import org.eclipse.gmf.internal.xpand.migration.FeatureCallTrace.Type;
 
 /**
@@ -248,13 +246,6 @@ public class FeatureCall extends Expression {
 
     }
     
-    protected EClassifier createAnalyzeTrace(ExecutionContext ctx, ExpressionAnalyzeTrace trace) {
-    	if (ctx instanceof MigrationExecutionContext) {
-    		((MigrationExecutionContext) ctx).getTraces().put(this, trace);
-    	}
-    	return trace.getResultType();
-    }
-
     protected EClassifier analyzeTarget(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
         return getTarget().analyze(ctx, issues);
     }

@@ -13,19 +13,13 @@ package org.eclipse.gmf.internal.xpand.migration;
 
 import org.eclipse.emf.ecore.EClassifier;
 
-public class TypeSelectExpressionTrace implements ExpressionAnalyzeTrace {
-
-	private EClassifier resultType;
+public class TypeSelectExpressionTrace extends ExpressionAnalyzeTrace {
 
 	private EClassifier targetType;
 
 	public TypeSelectExpressionTrace(EClassifier result, EClassifier targetType) {
-		resultType = result;
+		super(result);
 		this.targetType = targetType;
-	}
-
-	public EClassifier getResultType() {
-		return resultType;
 	}
 
 	public EClassifier getTargetType() {
@@ -33,7 +27,7 @@ public class TypeSelectExpressionTrace implements ExpressionAnalyzeTrace {
 	}
 
 	public boolean isValid() {
-		return resultType != null;
+		return getResultType() != null;
 	}
 
 }

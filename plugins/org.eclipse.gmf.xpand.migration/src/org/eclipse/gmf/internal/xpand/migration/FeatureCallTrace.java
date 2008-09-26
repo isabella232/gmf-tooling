@@ -16,13 +16,11 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-public class FeatureCallTrace implements ExpressionAnalyzeTrace {
+public class FeatureCallTrace extends ExpressionAnalyzeTrace {
 
 	public enum Type {
 		ENUM_LITERAL_REF, ENV_VAR_REF, FEATURE_REF, IMPLICIT_COLLECT_FEATURE_REF, UNDESOLVED_TARGET_TYPE, UNSUPPORTED_CLASSIFIER_REF;
 	}
-
-	private EClassifier resultType;
 
 	private EEnumLiteral literal;
 
@@ -49,12 +47,8 @@ public class FeatureCallTrace implements ExpressionAnalyzeTrace {
 	}
 
 	public FeatureCallTrace(EClassifier result, Type type) {
-		resultType = result;
+		super(result);
 		this.type = type;
-	}
-
-	public EClassifier getResultType() {
-		return resultType;
 	}
 
 	/**

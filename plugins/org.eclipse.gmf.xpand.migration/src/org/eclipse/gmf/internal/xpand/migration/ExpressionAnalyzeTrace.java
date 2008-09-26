@@ -13,8 +13,16 @@ package org.eclipse.gmf.internal.xpand.migration;
 
 import org.eclipse.emf.ecore.EClassifier;
 
-public interface ExpressionAnalyzeTrace {
+public class ExpressionAnalyzeTrace {
 
-	EClassifier getResultType();
+	private EClassifier resultType;
+
+	public ExpressionAnalyzeTrace(EClassifier expressionType) {
+		resultType = expressionType;
+	}
+
+	public EClassifier getResultType() {
+		return resultType;
+	}
 
 }

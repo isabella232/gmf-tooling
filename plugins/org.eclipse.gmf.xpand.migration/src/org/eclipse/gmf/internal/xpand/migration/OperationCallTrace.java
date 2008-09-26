@@ -11,17 +11,17 @@
  */
 package org.eclipse.gmf.internal.xpand.migration;
 
+import java.util.List;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
 
-public class OperationCallTrace implements ExpressionAnalyzeTrace {
+public class OperationCallTrace extends ExpressionAnalyzeTrace {
 
 	public enum Type {
 		UNDESOLVED_PARAMETER_TYPE, UNDESOLVED_TARGET_TYPE, STATIC_EXTENSION_REF, OPERATION_REF, EXTENSION_REF, IMPLICIT_COLLECT_OPERATION_REF, IMPLICIT_COLLECT_EXTENSION_REF
 	}
-
-	private EClassifier resultType;
 
 	private Type type;
 
@@ -29,31 +29,28 @@ public class OperationCallTrace implements ExpressionAnalyzeTrace {
 
 	private EClassifier targetType;
 
-	private EClassifier[] paramTypes;
+	private List<EClassifier> paramTypes;
 
-	public OperationCallTrace(EClassifier result, Type type) {
-		resultType = result;
+	public OperationCallTrace(EClassifier result, List<EClassifier> paramTypes, Type type) {
+		super(result);
+		this.paramTypes = paramTypes;
 		this.type = type;
 	}
 
-	public OperationCallTrace(EClass result, EClassifier targetType) {
-		this(result, Type.IMPLICIT_COLLECT_EXTENSION_REF);
+	public OperationCallTrace(EClass result, List<EClassifier> paramTypes, EClassifier targetType) {
+		this(result, paramTypes, Type.IMPLICIT_COLLECT_EXTENSION_REF);
 		this.targetType = targetType;
 	}
 
-	public OperationCallTrace(EClassifier result, EClassifier targetType, EOperation operation, Type type) {
-		this(result, type);
+	public OperationCallTrace(EClassifier result, List<EClassifier> paramTypes, EClassifier targetType, EOperation operation, Type type) {
+		this(result, paramTypes, type);
 		this.targetType = targetType;
 		this.operation = operation;
 	}
 
-	public OperationCallTrace(EClassifier result, EClassifier targetType, EOperation operation, EClassifier[] paramTypes) {
-		this(result, targetType, operation, OperationCallTrace.Type.OPERATION_REF);
+	public OperationCallTrace(EClassifier result, List<EClassifier> paramTypes, EClassifier targetType, EOperation operation) {
+		this(result, paramTypes, targetType, operation, OperationCallTrace.Type.OPERATION_REF);
 		this.paramTypes = paramTypes;
-	}
-
-	public EClassifier getResultType() {
-		return resultType;
 	}
 
 	public Type getType() {
@@ -77,12 +74,7 @@ public class OperationCallTrace implements ExpressionAnalyzeTrace {
 		return targetType;
 	}
 
-	// TODO: return only collection parameter type?..
-	/**
-	 * @return EClassifier[] representing types of OperationCall parameters or
-	 *         null if getType() != OPERATION_REF
-	 */
-	public EClassifier[] getParamTypes() {
+	public List<EClassifier> getParamTypes() {
 		return paramTypes;
 	}
 

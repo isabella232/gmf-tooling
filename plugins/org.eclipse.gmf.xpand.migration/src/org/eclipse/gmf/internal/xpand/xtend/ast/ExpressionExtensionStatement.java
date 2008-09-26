@@ -26,6 +26,7 @@ import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
 import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
+import org.eclipse.gmf.internal.xpand.migration.ExpressionAnalyzeTrace;
 
 public class ExpressionExtensionStatement extends Extension {
 
@@ -74,7 +75,7 @@ public class ExpressionExtensionStatement extends Extension {
 
     @Override
     public void analyzeInternal(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
-        expression.analyze(ctx, issues);
+        createAnalyzeTrace(ctx, new ExpressionAnalyzeTrace(expression.analyze(ctx, issues)));
     }
 
     @Override

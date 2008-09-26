@@ -18,6 +18,7 @@ import java.util.Set;
 
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
+import org.eclipse.gmf.internal.xpand.migration.ExpressionAnalyzeTrace;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 
 /**
@@ -37,8 +38,8 @@ public class ExpressionStatement extends org.eclipse.gmf.internal.xpand.ast.Stat
     }
 
     public void analyze(final XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
-        getExpression().analyze(ctx, issues);
-    }
+		createAnalyzeTrace(ctx, new ExpressionAnalyzeTrace(getExpression().analyze(ctx, issues)));
+	}
 
     @Override
     public void evaluateInternal(final XpandExecutionContext ctx) {

@@ -57,7 +57,7 @@ public class BuiltinMetaModel {
     public final static String LIST = "List";
 
 	
-	private static EPackage XECORE = EcoreFactory.eINSTANCE.createEPackage();
+	protected static EPackage XECORE = EcoreFactory.eINSTANCE.createEPackage();
 	
 	static {
 		XECORE.setName("xecore");
@@ -145,7 +145,7 @@ public class BuiltinMetaModel {
 		XECORE.getEClassifiers().add(VOID);
 	}
 
-	private static CollectionTypesSupport collectionTypes = new CollectionTypesSupport();
+	protected static CollectionTypesSupport collectionTypes = new CollectionTypesSupport();
 
 	static {
 		collectionTypes.init(XECORE, PARAMETERIZED_TYPE);

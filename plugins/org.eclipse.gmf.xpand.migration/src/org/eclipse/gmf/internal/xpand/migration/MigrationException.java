@@ -40,6 +40,7 @@ public class MigrationException extends Exception {
 		UNSUPPORTED_OPERATION_CALL("Unsupported operation call"),
 		UNSUPPORTED_COLLECTION_EXPRESSION_TRACE("Unsupported collection expression trace"),
 		UNSUPPORTED_COLLECTION_EXPRESSION("Unsupported collection expression"),
+		UNSUPPORTED_COLLECTION_OPERATION("Unsupported collection operation"),
 		UNSUPPORTED_TYPE_SELECT_EXPRESSION_TRACE("Unsupported type select expression trace"),
 		UNSUPPORTED_TYPE_SELECT_EXPRESSION("Unsupported type select expression"),
 		

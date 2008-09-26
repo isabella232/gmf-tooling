@@ -28,6 +28,7 @@ import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
+import org.eclipse.gmf.internal.xpand.migration.ExpandAnalyzeTrace;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 
@@ -82,8 +83,9 @@ public class ExpandStatement extends Statement {
             paramTypes[i] = getParameters()[i].analyze(ctx, issues);
 
         }
+        EClassifier separatorType = null;
         if (separator != null) {
-        	separator.analyze(ctx, issues);
+        	separatorType = separator.analyze(ctx, issues);
         }
         EClassifier targetType = null;
         if (isForeach()) {
@@ -114,6 +116,7 @@ public class ExpandStatement extends Statement {
                 targetType = target.analyze(ctx, issues);
             }
         }
+        createAnalyzeTrace(ctx, new ExpandAnalyzeTrace(getParameters(), paramTypes, separatorType, targetType));
         if ((targetType == null) || Arrays.asList(paramTypes).contains(null)) {
 			return;
 		}

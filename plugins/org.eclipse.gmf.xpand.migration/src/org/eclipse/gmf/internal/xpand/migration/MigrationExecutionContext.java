@@ -13,11 +13,11 @@ package org.eclipse.gmf.internal.xpand.migration;
 
 import java.util.Map;
 
-import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
+import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 
 public interface MigrationExecutionContext extends XpandExecutionContext {
 
-	Map<Expression, ExpressionAnalyzeTrace> getTraces();
+	Map<SyntaxElement, ExpressionAnalyzeTrace> getTraces();
 
 }

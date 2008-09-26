@@ -271,7 +271,7 @@ public class ExpressionParser extends PrsStream implements RuleAction {
                 
 		Expression e = (Expression) getRhsSym(1);
 		Expression r = (Expression) getRhsSym(3);
-		setResult(factory.createBooleanOperation(e.getStart(),r.getEnd(),e.getLine(),e.getStartOffset(),e.getEndOffset(),getRhsIToken(2),e,r));
+		setResult(factory.createBooleanOperation(e.getStart(),r.getEnd(),e.getLine(),e.getStartOffset(),r.getEndOffset(),getRhsIToken(2),e,r));
 	          break;
             } 
             //
@@ -464,7 +464,10 @@ public class ExpressionParser extends PrsStream implements RuleAction {
             //
             case 51: {
                 
-		setResult(getRhsSym(2));
+   		Expression expr = (Expression) getRhsSym(2);
+		expr.setStartOffset(getLeftIToken().getStartOffset());
+		expr.setEndOffset(getRightIToken().getEndOffset());	
+		setResult(expr);
 	          break;
             } 
             //

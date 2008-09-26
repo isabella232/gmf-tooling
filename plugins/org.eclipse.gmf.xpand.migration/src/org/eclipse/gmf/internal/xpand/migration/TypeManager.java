@@ -35,6 +35,16 @@ public class TypeManager {
 	public static final boolean isSetType(EClassifier classifier) {
 		return classifier.getName().endsWith(BuiltinMetaModel.SET);
 	}
+	
+	public static final EClassifier getCollectionOfType(EClassifier originalCollection, EClassifier innerElementType) {
+		if (isListType(originalCollection)) {
+			return BuiltinMetaModel.getListType(innerElementType);
+		} else if (isSetType(originalCollection)) {
+			return BuiltinMetaModel.getSetType(innerElementType);
+		} else {
+			return BuiltinMetaModel.getCollectionType(innerElementType);
+		}
+	}
 
 	public TypeManager() {
 		modeltypeImportsManger = null;

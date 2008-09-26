@@ -22,6 +22,7 @@ import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
+import org.eclipse.gmf.internal.xpand.migration.ExpressionAnalyzeTrace;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 
 /**
@@ -59,6 +60,7 @@ public class LetStatement extends Statement {
 		if (t == null) {
 			t = EcorePackage.eINSTANCE.getEObject();
 		}
+		createAnalyzeTrace(ctx, new ExpressionAnalyzeTrace(t));
 		ctx = ctx.cloneWithVariable(new Variable(getVarName().getValue(), t));
 		for (Statement statement : getBody()) {
 			statement.analyze(ctx, issues);

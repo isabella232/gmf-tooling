@@ -186,7 +186,6 @@ public class XtendMigrationFacade {
 			}
 		}
 		write(") : ");
-		// TODO: check it!
 		write(typeManager.getQvtFQName(getReturnType(extension, ctx)));
 		writeln(" {");
 
@@ -218,7 +217,12 @@ public class XtendMigrationFacade {
 
 	private void migrateExpressionExtension(ExpressionExtensionStatement extension, MigrationExecutionContext ctx) throws MigrationException {
 		write("\t");
-		ExpressionMigrationFacade expressionMigrationFacade = new ExpressionMigrationFacade(extension.getExpression(), typeManager, modelManager, new VariableNameDispatcher(extension), ctx);
+		ExpressionAnalyzeTrace expressionAnalyzeTrace = ctx.getTraces().get(extension);
+		// TODO: resolve return type of ExpressionExtensionStatement using
+		// corresponding identifier here in this context and use it as a desired
+		// return type parameter
+		ExpressionMigrationFacade expressionMigrationFacade = new ExpressionMigrationFacade(extension.getExpression(), expressionAnalyzeTrace.getResultType(), typeManager,
+				modelManager, new VariableNameDispatcher(extension), ctx);
 		StringBuilder expressionContent = expressionMigrationFacade.migrate();
 		writeln(expressionContent.insert(expressionMigrationFacade.getReturnPosition(), "return "));
 	}

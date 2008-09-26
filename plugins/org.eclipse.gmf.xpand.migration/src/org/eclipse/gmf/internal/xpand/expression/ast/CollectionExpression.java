@@ -180,10 +180,9 @@ public class CollectionExpression extends FeatureCall {
 		ctx = ctx.cloneWithVariable(new Variable(getElementName(), innerEClassifier));
 		final EClassifier closureEClassifier = closure.analyze(ctx, issues);
 		if (getName().getValue().equals(SyntaxConstants.COLLECT)) {
-			// TODO [AS]: incorrect code - .endsWith() should be used instead.
-			if (targetType.getName().startsWith(BuiltinMetaModel.SET)) {
+			if (targetType.getName().endsWith(BuiltinMetaModel.SET)) {
 				return createAnalyzeTrace(ctx, new CollectionExpressionTrace(BuiltinMetaModel.getSetType(closureEClassifier), CollectionExpressionTrace.Type.COLLECT_REF));
-			} else if (targetType.getName().startsWith(BuiltinMetaModel.LIST)) {
+			} else if (targetType.getName().endsWith(BuiltinMetaModel.LIST)) {
 				return createAnalyzeTrace(ctx, new CollectionExpressionTrace(BuiltinMetaModel.getListType(closureEClassifier), CollectionExpressionTrace.Type.COLLECT_REF));
 			} else {
 				return createAnalyzeTrace(ctx, new CollectionExpressionTrace(BuiltinMetaModel.getCollectionType(closureEClassifier), CollectionExpressionTrace.Type.COLLECT_REF));

@@ -22,8 +22,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel.Operation;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
@@ -157,7 +159,7 @@ public class OperationCall extends FeatureCall {
         for (int i = 0; i < getParams().length; i++) {
             paramTypes[i] = getParams()[i].analyze(ctx, issues);
             if (paramTypes[i] == null) {
-            	return createAnalyzeTrace(ctx, new OperationCallTrace(null, Type.UNDESOLVED_PARAMETER_TYPE));
+            	return createAnalyzeTrace(ctx, new OperationCallTrace(null, null, Type.UNDESOLVED_PARAMETER_TYPE));
 			}
         }
 
@@ -172,7 +174,7 @@ public class OperationCall extends FeatureCall {
                         + e.getMessage(), this));
             }
             if (f != null) {
-				return createAnalyzeTrace(ctx, new OperationCallTrace(f.getReturnType(paramTypes, ctx, issues), Type.STATIC_EXTENSION_REF));
+				return createAnalyzeTrace(ctx, new OperationCallTrace(f.getReturnType(paramTypes, ctx, issues), getParamTypes(f, ctx), Type.STATIC_EXTENSION_REF));
 			}
             final Variable var = ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE);
             if (var != null) {
@@ -186,19 +188,21 @@ public class OperationCall extends FeatureCall {
             targetType = getTarget().analyze(ctx, issues);
         }
         if (targetType == null) {
-        	return createAnalyzeTrace(ctx, new OperationCallTrace(null, Type.UNDESOLVED_TARGET_TYPE));
+        	return createAnalyzeTrace(ctx, new OperationCallTrace(null, null, Type.UNDESOLVED_TARGET_TYPE));
 		}
         // operation
         EOperation op = BuiltinMetaModel.findOperation(targetType, getName().getValue(), paramTypes);
         if (op != null) {
-			return createAnalyzeTrace(ctx, new OperationCallTrace(op.getEType() == null ? BuiltinMetaModel.VOID : BuiltinMetaModel.getTypedElementType(op), targetType, op, paramTypes));
+			return createAnalyzeTrace(ctx, new OperationCallTrace(op.getEType() == null ? BuiltinMetaModel.VOID : BuiltinMetaModel.getTypedElementType(op), getParamTypes(op), targetType, op));
 		}
         // extension as members
         final int issueSize = issues.size();
-        EClassifier rt = getExtensionsReturnType(ctx, issues, paramTypes, targetType);
+        
+        Extension extension = getStaticExtension(ctx, issues, paramTypes, targetType);
+        EClassifier rt = getExtensionReturnType(extension, ctx, issues, paramTypes, targetType);
         if (rt != null) {
         	// [AS] This can be only "contextual" extension call - see comment below. 
-        	return createAnalyzeTrace(ctx, new OperationCallTrace(rt, Type.EXTENSION_REF));
+        	return createAnalyzeTrace(ctx, new OperationCallTrace(rt, getParamTypes(extension, ctx), Type.EXTENSION_REF));
 		} else if (issueSize < issues.size()) {
 			return null;
 		}
@@ -211,11 +215,15 @@ public class OperationCall extends FeatureCall {
                 if (BuiltinMetaModel.isParameterizedType(rt)) {
                     rt = BuiltinMetaModel.getInnerType(rt);
                 }
-                return createAnalyzeTrace(ctx, new OperationCallTrace(BuiltinMetaModel.getListType(rt), targetType, op, OperationCallTrace.Type.IMPLICIT_COLLECT_OPERATION_REF));
+                return createAnalyzeTrace(ctx, new OperationCallTrace(BuiltinMetaModel.getListType(rt), getParamTypes(op), targetType, op, OperationCallTrace.Type.IMPLICIT_COLLECT_OPERATION_REF));
             }
-            rt = getExtensionsReturnType(ctx, issues, paramTypes, innerType);
+            extension = getStaticExtension(ctx, issues, paramTypes, innerType);
+            rt = getExtensionReturnType(extension, ctx, issues, paramTypes, innerType);
             if (rt != null) {
-            	return createAnalyzeTrace(ctx, new OperationCallTrace(BuiltinMetaModel.getListType(rt), targetType));
+                if (BuiltinMetaModel.isParameterizedType(rt)) {
+                    rt = BuiltinMetaModel.getInnerType(rt);
+                }
+            	return createAnalyzeTrace(ctx, new OperationCallTrace(BuiltinMetaModel.getListType(rt), getParamTypes(extension, ctx), targetType));
 			}
             additionalMsg = " or type '" + innerType + "'";
         }
@@ -227,11 +235,47 @@ public class OperationCall extends FeatureCall {
 
     }
 
-    private EClassifier getExtensionsReturnType(final ExecutionContext ctx, final Set<AnalysationIssue> issues, final EClassifier[] paramEClassifiers,
+    private List<EClassifier> getParamTypes(EOperation op) {
+    	EList<EParameter> parameters = op.getEParameters();
+    	List<EClassifier> result = new ArrayList<EClassifier>();
+    	for (int i = 0; i < parameters.size(); i++) {
+    		result.add(BuiltinMetaModel.getTypedElementType(parameters.get(i)));
+    	}
+		return result;
+	}
+
+	private List<EClassifier> getParamTypes(Extension f, ExecutionContext ctx) {
+		List<DeclaredParameter> formalParameters = f.getFormalParameters();
+		List<EClassifier> result = new ArrayList<EClassifier>();
+		for (int i = 0; i < formalParameters.size(); i++) {
+			result.add(ctx.getTypeForName(formalParameters.get(i).getType().getValue()));
+		}
+		return result;
+	}
+	
+	private EClassifier getExtensionReturnType(Extension extension, ExecutionContext ctx, Set<AnalysationIssue> issues, EClassifier[] paramEClassifiers, EClassifier targetEClassifier) {
+		if (extension == null) {
+			return null;
+		}
+		EClassifier[] pts = getStaticCallParameters(targetEClassifier, paramEClassifiers);
+		Set<AnalysationIssue> temp = new HashSet<AnalysationIssue>();
+		EClassifier rt = extension.getReturnType(pts, ctx, temp);
+		if (rt == null) {
+			issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR, "couldn't resolve return type for extension " + extension + "! Errors : " + temp.toString(), this));
+		}
+		return rt;
+	}
+
+	private EClassifier[] getStaticCallParameters(EClassifier targetEClassifier, EClassifier[] paramEClassifiers) {
+		EClassifier[] pts = new EClassifier[paramEClassifiers.length + 1];
+		pts[0] = targetEClassifier;
+		System.arraycopy(paramEClassifiers, 0, pts, 1, paramEClassifiers.length);
+		return pts;
+	}
+
+	private Extension getStaticExtension(final ExecutionContext ctx, final Set<AnalysationIssue> issues, final EClassifier[] paramEClassifiers,
             final EClassifier targetEClassifier) {
-        final EClassifier[] pts = new EClassifier[paramEClassifiers.length + 1];
-        pts[0] = targetEClassifier;
-        System.arraycopy(paramEClassifiers, 0, pts, 1, paramEClassifiers.length);
+        final EClassifier[] pts = getStaticCallParameters(targetEClassifier, paramEClassifiers);
         Extension f = null;
         try {
             f = ctx.getExtension(getName().getValue(), pts);
@@ -240,13 +284,7 @@ public class OperationCall extends FeatureCall {
                     + e.getMessage(), this));
         }
         if (f != null) {
-            final Set<AnalysationIssue> temp = new HashSet<AnalysationIssue>();
-            final EClassifier rt = f.getReturnType(pts, ctx, temp);
-            if (rt == null) {
-                issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR,
-                        "couldn't resolve return type for extension " + f + "! Errors : " + temp.toString(), this));
-            }
-            return rt;
+            return f;
         } else if (getTarget() == null) { // try without implicite this
 			// [AS]: looks like this case was already covered while looking for
 			// static extension if target == null, so skipping it in a migration
@@ -256,21 +294,12 @@ public class OperationCall extends FeatureCall {
                 issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR, "Error parsing extensions : "
                         + e.getMessage(), this));
             }
-            if (f != null) {
-                final Set<AnalysationIssue> temp = new HashSet<AnalysationIssue>();
-                // TODO: Use paramEClassifiers instead of pts here?
-                final EClassifier rt = f.getReturnType(pts, ctx, temp);
-                if (rt == null) {
-                    issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR,
-                            "couldn't resolve return type for extension " + f + "! Errors : " + temp.toString(), this));
-                }
-                return rt;
-            }
+            return f;
         }
         return null;
     }
 
-    private String getParamTypes(final Object[] params2, final ExecutionContext ctx) {
+	private String getParamTypes(final Object[] params2, final ExecutionContext ctx) {
         final StringBuffer buff = new StringBuffer("(");
         for (int i = 0; i < params2.length; i++) {
             final EClassifier type = BuiltinMetaModel.getType(params2[i]);

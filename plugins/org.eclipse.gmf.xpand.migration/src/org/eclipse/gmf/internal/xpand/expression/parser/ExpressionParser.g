@@ -164,7 +164,7 @@ $Rules
 		/.$BeginJava
 			Expression e = (Expression) getRhsSym(1);
 			Expression r = (Expression) getRhsSym(3);
-			setResult(factory.createBooleanOperation(e.getStart(),r.getEnd(),e.getLine(),e.getStartOffset(),e.getEndOffset(),getRhsIToken(2),e,r));
+			setResult(factory.createBooleanOperation(e.getStart(),r.getEnd(),e.getLine(),e.getStartOffset(),r.getEndOffset(),getRhsIToken(2),e,r));
 		$EndJava./
 
 	impliesExpression -> relationalExpression
@@ -298,7 +298,10 @@ $Rules
 	primaryExpression -> featureCall 
 	primaryExpression ::= LPAREN expression RPAREN
 		/.$BeginJava
-			setResult(getRhsSym(2));
+			Expression expr = (Expression) getRhsSym(2);
+			expr.setStartOffset(getLeftIToken().getStartOffset());
+			expr.setEndOffset(getRightIToken().getEndOffset());	
+			setResult(expr);
 		$EndJava./
 
 	featureCall ::= IDENT LPAREN parameterList RPAREN 
