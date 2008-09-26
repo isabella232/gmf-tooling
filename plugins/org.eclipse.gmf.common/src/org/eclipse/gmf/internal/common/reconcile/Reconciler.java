@@ -153,6 +153,9 @@ public class Reconciler {
 					entries.add(s);
 				}
 			}
+			if (entries.isEmpty()) {
+				myCrossRefsToFix.remove(e.getKey()); // none changeable, no reason to keep empty list 
+			}
 		}
 	}
 
