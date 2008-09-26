@@ -143,7 +143,11 @@ public class Reconciler {
 				entries = new LinkedList<Setting>();
 				myCrossRefsToFix.put(e.getKey(), entries);
 			}
-			entries.addAll(e.getValue());
+			for (Setting s : e.getValue()) {
+				if (s.getEStructuralFeature().isChangeable()) {
+					entries.add(s);
+				}
+			}
 		}
 	}
 
