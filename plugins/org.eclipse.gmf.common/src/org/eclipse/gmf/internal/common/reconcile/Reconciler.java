@@ -101,10 +101,11 @@ public class Reconciler {
 
 	protected void updateCrossReferences() {
 		for (Map.Entry<EObject, List<Setting>> e : myCrossRefsToFix.entrySet()) {
-			if (myMatches.containsKey(e.getKey())) {
-				EObject copied = myMatches.get(e.getKey());
+			final EObject oldReferenceTarget = e.getKey();
+			if (myMatches.containsKey(oldReferenceTarget)) {
+				EObject copied = myMatches.get(oldReferenceTarget);
 				if (traceCrossRefUpdate) {
-					trace("[crossRefUpd] matched %s -> %s", e.getKey(), copied);
+					trace("[crossRefUpd] matched %s -> %s", oldReferenceTarget, copied);
 				}
 				for (Setting s : e.getValue()) {
 					if (myMatches.containsKey(s.getEObject())) {
@@ -115,9 +116,13 @@ public class Reconciler {
 						if (s.getEStructuralFeature().isMany() || FeatureMapUtil.isMany(s.getEObject(), s.getEStructuralFeature())) {
 							@SuppressWarnings("unchecked")
 							List<EObject> values = (List<EObject>) newOwner.eGet(s.getEStructuralFeature());
-							assert !values.contains(e.getKey()); // sanity, in case that may happen, should support replacement
 							assert !values.contains(copied); // sanity, wonder if that may happen, ever
-							values.add(copied);
+							if (values.contains(oldReferenceTarget)) {
+								// replace old value, keep position
+								values.set(values.indexOf(oldReferenceTarget), copied);
+							} else {
+								values.add(copied);
+							}
 						} else {
 							newOwner.eSet(s.getEStructuralFeature(), copied);
 						}
@@ -129,7 +134,7 @@ public class Reconciler {
 				}
 			} else {
 				if (traceCrossRefUpdate) {
-					trace("[crossRefUpd] no match for old %s", e.getKey());
+					trace("[crossRefUpd] no match for old %s", oldReferenceTarget);
 				}
 			}
 		}
