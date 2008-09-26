@@ -3,11 +3,7 @@ modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
 library SwitchExpression;
 
 helper integerSwitch(value : Integer, value1 : String, value2 : String, defaultValue : String) : String {
-	return switch { 
-		case (value = 10) value1;
-		case (value = 20) value2; 
-		else defaultValue; 
-	}
+	return switch { case (value = 10) value1; case (value = 20) value2; else defaultValue; }
 }
 
 helper onlyDefaultSwitch(value : Integer, defaultValue : String) : String {
@@ -15,17 +11,9 @@ helper onlyDefaultSwitch(value : Integer, defaultValue : String) : String {
 }
 
 helper userObjectsSwitch(value : ecore::EObject, cond1 : ecore::EObject, value1 : ecore::EObject, cond2 : ecore::EObject, value2 : ecore::EObject, defaultValue : ecore::EObject) : ecore::EObject {
-	return switch {
-		case (value = cond1) value1;
-		case (value = cond2) value2;
-		else defaultValue;
-	}
+	return switch { case (value = cond1) value1; case (value = cond2) value2; else defaultValue; }
 }
 
 helper switchWithExpressions(value : Integer, value1 : String, value2 : String, defaultValue : String) : String {
-	return switch { 
-		case (value = 10 + 1) value1.firstToUpper(); 
-		case (value = 20 + 5) value2.firstToUpper(); 
-		else defaultValue;
-	} 
+	return switch { case (value = 10 + 1) value1.firstToUpper(); case (value = 20 + 5) value2.firstToUpper(); else defaultValue; } 
 }

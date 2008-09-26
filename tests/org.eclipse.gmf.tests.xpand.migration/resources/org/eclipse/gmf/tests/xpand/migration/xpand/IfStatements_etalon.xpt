@@ -1,14 +1,14 @@
 «DEFINE emptyIf FOR ecore::EPackage-»
-«IF eClassifiers->asSequence()->size() > 0»
+«IF eClassifiers->size() > 0»
 «ENDIF»
 «ENDDEFINE»
 
 «DEFINE ifWithBody FOR ecore::EPackage-»
 «IF true»
 	Start
-		«'prefix1' + eClassifiers->asSequence()->size().repr()»
+		«'prefix1' + eClassifiers->size().repr()»
 	Other
-		«'prefix2' + eClassifiers->asSequence()->size().repr()»
+		«'prefix2' + eClassifiers->size().repr()»
 	End
 «ENDIF»
 «ENDDEFINE»
@@ -17,25 +17,25 @@
 «IF false»
 «ELSE»
 	Start
-		«'prefix1' + eClassifiers->asSequence()->size().repr()»
+		«'prefix1' + eClassifiers->size().repr()»
 	Other
-		«'prefix2' + eClassifiers->asSequence()->size().repr()»
+		«'prefix2' + eClassifiers->size().repr()»
 	End
 «ENDIF»
 «ENDDEFINE»
 
 «DEFINE ifWithElseIfs FOR ecore::EPackage-»
-«IF eClassifiers->asSequence()->size() = 1»
-	«'1: ' + eClassifiers->asSequence()->size().repr()»
-«ELSEIF eClassifiers->asSequence()->size() = 2»
-	«'2: ' + eClassifiers->asSequence()->size().repr()»
-«ELSEIF eClassifiers->asSequence()->size() = 3»
-	«'3: ' + eClassifiers->asSequence()->size().repr()»
-«ELSEIF eClassifiers->asSequence()->size() = 4»
-	«'4: ' + eClassifiers->asSequence()->size().repr()»
-«ELSEIF eClassifiers->asSequence()->size() = 5»
-	«'5: ' + eClassifiers->asSequence()->size().repr()»
+«IF eClassifiers->size() = 1»
+	«'1: ' + eClassifiers->size().repr()»
+«ELSEIF eClassifiers->size() = 2»
+	«'2: ' + eClassifiers->size().repr()»
+«ELSEIF eClassifiers->size() = 3»
+	«'3: ' + eClassifiers->size().repr()»
+«ELSEIF eClassifiers->size() = 4»
+	«'4: ' + eClassifiers->size().repr()»
+«ELSEIF eClassifiers->size() = 5»
+	«'5: ' + eClassifiers->size().repr()»
 «ELSE»
-	«'unlimited: ' + eClassifiers->asSequence()->size().repr()»
+	«'unlimited: ' + eClassifiers->size().repr()»
 «ENDIF»
 «ENDDEFINE»

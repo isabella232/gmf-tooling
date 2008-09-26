@@ -9,7 +9,7 @@ helper featureCall(eClass : ecore::EClass) : String {
 }
 
 helper enumLiteralCall() : genModel_1::GenProviderKind {
-	return genModel_1::GenProviderKind::Singleton 
+	return genModel_1::GenProviderKind::Singleton
 }
 
 helper listParameterCall(param : Sequence(ecore::EClass)) : Sequence(ecore::EClass) {

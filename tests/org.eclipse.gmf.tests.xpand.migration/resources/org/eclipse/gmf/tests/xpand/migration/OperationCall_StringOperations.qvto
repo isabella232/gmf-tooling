@@ -1,6 +1,6 @@
-import library XpandStringOperations;	
-import library XpandOclAnyOperations;	
-	
+import library XpandStringOperations;
+import library XpandOclAnyOperations;
+
 library OperationCall_StringOperations;
 
 helper addStringToString(string : String, parameter : String) : String {

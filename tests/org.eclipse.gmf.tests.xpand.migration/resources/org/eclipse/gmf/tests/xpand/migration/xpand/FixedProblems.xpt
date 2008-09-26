@@ -11,3 +11,11 @@
 «IF !abstract»
 «ENDIF»
 «ENDDEFINE»
+
+«DEFINE parences FOR ecore::EClassifier-»
+«((ecore::EClass) this).name»
+«ENDDEFINE»
+
+«DEFINE parencesAsOperationArgument FOR ecore::EClassifier-»
+«(true) && (true)»
+«ENDDEFINE»

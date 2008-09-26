@@ -7,8 +7,8 @@ helper operationCall(eClass : ecore::EClass, subType : ecore::EClass) : Boolean 
 	return eClass.isSuperTypeOf(subType)
 }
 
-helper operationWithSeveralParameters(factory : ecore::EFactory, dataType : ecore::EDataType, stringValue : String) : OclAny { 
-	return factory.createFromString(dataType, stringValue) 
+helper operationWithSeveralParameters(factory : ecore::EFactory, dataType : ecore::EDataType, stringValue : String) : OclAny {
+	return factory.createFromString(dataType, stringValue)
 }
 
 helper operationWithExpressionAsAParameter(ePackage : ecore::EPackage, param : String) : ecore::EClassifier {
@@ -71,7 +71,7 @@ helper getSingletonChildConstrainedOpOfCollection(param : Collection(testModel::
 	return param.singletonChildConstrainedOp()->asSequence()
 }
 
-helper getOrderedChildrenOpOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) { 
+helper getOrderedChildrenOpOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
 	return param.orderedChildrenOp()
 }
 
@@ -152,7 +152,7 @@ helper getChildrenOpOfCollection(param : Collection(testModel::Container)) : Seq
 }
 
 helper getChildrenExtOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
-	return param->collect(it_1 | getChildrenExt(it_1, param->collect(it | it)->collect(it_2 | it_2)->asSequence()->first().oclAsType(testModel::Container).it))->asSequence()
+	return param->collect(it_1 | getChildrenExt(it_1, param->collect(it | it)->asSequence()->first().oclAsType(testModel::Container).it))->asSequence()
 }
 
 helper getOrderedChildrenExt(param : testModel::Container) : Sequence(testModel::Child) { 

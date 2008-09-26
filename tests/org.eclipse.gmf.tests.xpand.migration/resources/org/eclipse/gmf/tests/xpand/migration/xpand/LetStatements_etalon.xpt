@@ -1,5 +1,5 @@
 «DEFINE emptyLet FOR ecore::EPackage-»
-«LET eClassifiers->asSequence()->size() AS var»
+«LET eClassifiers->size() AS var»
 «ENDLET»
 «ENDDEFINE»
 

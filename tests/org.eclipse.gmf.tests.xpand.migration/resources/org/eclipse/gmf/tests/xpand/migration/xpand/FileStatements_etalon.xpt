@@ -1,19 +1,19 @@
 «DEFINE emptyFile FOR ecore::EPackage-»
-«FILE ((eClassifiers->asSequence())[ecore::EClass]->first().oclAsType(ecore::EClass).name-»
+«FILE (eClassifiers)[ecore::EClass]->first().oclAsType(ecore::EClass).name-»
 «ENDFILE»	
 «ENDDEFINE»
 
 «DEFINE emptyFileWithMode FOR ecore::EPackage-»
-«FILE ((eClassifiers->asSequence())[ecore::EClass]->first().oclAsType(ecore::EClass).name mode-»
+«FILE (eClassifiers)[ecore::EClass]->first().oclAsType(ecore::EClass).name mode-»
 «ENDFILE»	
 «ENDDEFINE»
 
 «DEFINE fileWithBody FOR ecore::EPackage-»
 «FILE 'fileName'-»
 	Start
-		«(eClassifiers->asSequence())[ecore::EClass]->size()»
+		«(eClassifiers)[ecore::EClass]->size()»
 	OneMore
-		«eClassifiers->asSequence()->size()»
+		«eClassifiers->size()»
 	End
 «ENDFILE»	
 «ENDDEFINE»

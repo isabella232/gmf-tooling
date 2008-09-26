@@ -3,12 +3,9 @@ modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
 library ChainExpression;
 
 helper chainExpression(eClass : ecore::EClass, eFeature : ecore::EStructuralFeature) : String {
-	eClass.eUnset(eFeature);
-	return eClass.name
+	eClass.eUnset(eFeature); return eClass.name
 }
 
 helper nestedChainExpressions(eClass : ecore::EClass, eFeature1 : ecore::EStructuralFeature, eFeature2 : ecore::EStructuralFeature) : String {
-	eClass.eUnset(eFeature1);
-	eClass.eUnset(eFeature2);
-	return eClass.name
+	eClass.eUnset(eFeature1); eClass.eUnset(eFeature2); return eClass.name
 }

@@ -30,6 +30,8 @@ import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompiler;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompilerOptions;
 
 public class XtendMigrationTest extends TestCase {
+	
+	private static final String LF = System.getProperty("line.separator");
 
 	private TestsResourceManager testResourceManager;
 
@@ -140,6 +142,10 @@ public class XtendMigrationTest extends TestCase {
 	public void testIteratorVariableUniqueness() throws IOException, MigrationException {
 		checkMigration("IteratorVariableUniqueness");
 	}
+	
+	public void testFixedProblems() throws IOException, MigrationException {
+		checkMigration("FixedProblems");
+	}
 
 	public void testStringLiteral() throws IOException, MigrationException {
 		String resourceName = "StringLiteral";
@@ -172,7 +178,6 @@ public class XtendMigrationTest extends TestCase {
 	}
 	
 	private String readStringContent(InputStreamReader reader) throws IOException {
-		String LF = System.getProperty("line.separator");
 		StringBuilder sb = new StringBuilder();
 		boolean isInString = false;
 		boolean lastSymbolCR = false;
@@ -216,11 +221,14 @@ public class XtendMigrationTest extends TestCase {
 		assertTrue(content.length() > 0);
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(testResourceManager.loadFile(getResourceName(xtendResourceName), "qvto")));
-		String etalon = "";
+		StringBuilder sb = new StringBuilder();
 		for (String nextLine = reader.readLine(); nextLine != null; nextLine = reader.readLine()) {
-			etalon += nextLine + " ";
+			if (sb.length() > 0) {
+				sb.append(LF);
+			}
+			sb.append(nextLine);
 		}
-		etalon = normalize(etalon);
+		String etalon = normalize(sb.toString());
 		content = normalize(content.toString());
 		assertEquals(etalon, content);
 		return content;
@@ -236,7 +244,8 @@ public class XtendMigrationTest extends TestCase {
 	}
 
 	private static String normalize(String text) {
-		text = text.replaceAll("\\s+", " ");
+		text = text.replaceAll(" +", " ");
+		text = text.replaceAll(" +" + LF, LF);
 		text = text.trim();
 		return text;
 	}

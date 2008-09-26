@@ -1,19 +1,19 @@
 «DEFINE emptyForEach FOR ecore::EPackage-»
-«FOREACH (eClassifiers->asSequence())[ecore::EClass] AS eClass-»
+«FOREACH (eClassifiers)[ecore::EClass]->asSequence() AS eClass-»
 «ENDFOREACH-»
 «ENDDEFINE»
 
 «DEFINE emptyForEachWithSeparator FOR ecore::EPackage-»
-«FOREACH eClassifiers->asSequence() AS eClassifier ITERATOR myIt SEPARATOR 'prefix' + eClassifiers->asSequence()->size().repr()-»
+«FOREACH eClassifiers->asSequence() AS eClassifier ITERATOR myIt SEPARATOR 'prefix' + eClassifiers->size().repr()-»
 «ENDFOREACH-»
 «ENDDEFINE»
 
 «DEFINE forEachWithBody FOR ecore::EPackage-»
 «FOREACH eClassifiers->asSequence() AS eClassifier-»
 	Start
-		«'prefix1' + eClassifier.eTypeParameters->asSequence()->size().repr()»
+		«'prefix1' + eClassifier.eTypeParameters->size().repr()»
 	Other
-		«'prefix2' + eClassifier.eTypeParameters->asSequence()->size().repr()»
+		«'prefix2' + eClassifier.eTypeParameters->size().repr()»
 	End
 «ENDFOREACH-»
 «ENDDEFINE»

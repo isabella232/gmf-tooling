@@ -1,0 +1,14 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+List[ecore::EPackage] collectAllPackages(Collection[ecore::EPackage] ePackages) :
+    let collector = ePackages.typeSelect(ecore::EPackage) :
+    collector.addAll(collector.collect(pkg | collectAllPackages(pkg.eSubpackages)).flatten())
+;
+
+Boolean convertParameterCollection(ecore::EPackage ePackage) :
+	otherExtension(ePackage.eClassifiers)
+;
+
+Boolean otherExtension(List[ecore::EClassifier] eClasses) :
+	true
+;

@@ -11,3 +11,11 @@
 «IF not abstract»
 «ENDIF»
 «ENDDEFINE»
+
+«DEFINE parences FOR ecore::EClassifier-»
+«self.oclAsType(ecore::EClass).name»
+«ENDDEFINE»
+
+«DEFINE parencesAsOperationArgument FOR ecore::EClassifier-»
+«true and true»
+«ENDDEFINE»
