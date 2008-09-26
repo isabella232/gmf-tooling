@@ -13,6 +13,7 @@ package org.eclipse.gmf.tests.gen;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 import junit.framework.Assert;
@@ -31,17 +32,22 @@ import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenCommandAction;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
+import org.eclipse.gmf.codegen.gmfgen.GenContextMenu;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomAction;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
+import org.eclipse.gmf.codegen.gmfgen.GenGroupMarker;
 import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenParserImplementation;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.GenSeparator;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
@@ -758,7 +764,65 @@ L1:				for (GenNode n : old.getDiagram().getAllNodes()) {
 		};
 		checkUserChange(userChange);
 	}
-	
+
+	public void testGenContextMenu() {
+		GenEditorGenerator old = createCopy();
+		GenEditorGenerator current = createCopy();
+		GenContextMenu menu1 = GMFGenFactory.eINSTANCE.createGenContextMenu();
+		GenContextMenu menu2 = GMFGenFactory.eINSTANCE.createGenContextMenu();
+		old.getContextMenus().add(menu1);
+		old.getContextMenus().add(menu2);
+		menu1.setID("menu1");
+		menu1.getContext().add(old.getDiagram());
+		menu1.getItems().add(GMFGenFactory.eINSTANCE.createGenSeparator());
+		menu2.setID("menu2");
+		// use couple of top nodes as a context 
+		menu2.getContext().add(old.getDiagram().getTopLevelNodes().get(0));
+		menu2.getContext().add(old.getDiagram().getTopLevelNodes().get(1));
+		// few items
+		GenCustomAction ca = GMFGenFactory.eINSTANCE.createGenCustomAction();
+		GenCommandAction cmda = GMFGenFactory.eINSTANCE.createGenCommandAction();
+		GenSeparator sep = GMFGenFactory.eINSTANCE.createGenSeparator();
+		GenGroupMarker gm = GMFGenFactory.eINSTANCE.createGenGroupMarker();
+		ca.setQualifiedClassName("sample.action1");
+		cmda.setCommandIdentifier("cmd.ident");
+		sep.setGroupName("sepa");
+		gm.setGroupName("group.gm");
+		menu2.getItems().add(ca);
+		menu2.getItems().add(sep);
+		menu2.getItems().add(cmda);
+		menu2.getItems().add(gm);
+		GenContextMenu menu1_new = GMFGenFactory.eINSTANCE.createGenContextMenu();
+		GenContextMenu menu3 = GMFGenFactory.eINSTANCE.createGenContextMenu();
+		current.getContextMenus().add(menu1_new);
+		current.getContextMenus().add(menu3);
+		// same as menu1, diagram as context, separator as a sole item
+		menu1_new.getContext().add(current.getDiagram());
+		menu1_new.getItems().add(GMFGenFactory.eINSTANCE.createGenSeparator());
+		// non-matching context
+		menu3.getContext().add(current.getDiagram().getLinks().get(0));
+		//
+		new Reconciler(new GMFGenConfig()).reconcileTree(current, old);
+		//
+		assertEquals(3, current.getContextMenus().size());
+		assertTrue(menu1_new == current.getContextMenus().get(0));
+		assertTrue(menu3 == current.getContextMenus().get(1));
+		GenContextMenu menu2_new = current.getContextMenus().get(2);
+		assertEquals(menu2.getContext().size(), menu2_new.getContext().size());
+		assertEquals(menu2.getID(), menu2_new.getID());
+		assertEquals(menu2.getItems().size(), menu2_new.getItems().size());
+		// check contexts are the same
+		HashSet<Integer> diagramElements = new HashSet<Integer>();
+		for (GenCommonBase de : menu2.getContext()) {
+			diagramElements.add(de.getVisualID());
+		}
+		assertEquals(menu2_new.getContext().size(), diagramElements.size());
+		for (GenCommonBase de : menu2_new.getContext()) {
+			diagramElements.remove(de.getVisualID());
+		}
+		assertTrue(diagramElements.isEmpty());
+	}
+
 	private void checkUserChange(UserChange userChange){
 		checkUserChange(userChange, createCopy(), createCopy());
 	}
