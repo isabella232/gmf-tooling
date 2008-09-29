@@ -13,3 +13,7 @@ helper convertParameterCollection(ePackage : ecore::EPackage) : Boolean {
 helper otherExtension(eClasses : Sequence(ecore::EClassifier)) : Boolean {
 	return true
 }
+
+helper getEssentialVisualChildren(eClasses : Sequence(ecore::EClass), eOperations : Sequence(ecore::EOperation)) : Collection(ecore::EClassifier) {
+	return ((Sequence { })[ecore::EClass]->union(eClasses))[ecore::ENamedElement]->union(eOperations)
+}

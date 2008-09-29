@@ -12,6 +12,14 @@ helper enumLiteralCall() : genModel_1::GenProviderKind {
 	return genModel_1::GenProviderKind::Singleton
 }
 
+helper enumLiteralValueCall(otherLiteral : genModel_1::GenProviderKind) : Boolean {
+	return genModel_1::GenProviderKind::Singleton = otherLiteral
+}
+
+helper enumLiteralLiteralCall(otherLiteral : genModel_1::GenProviderKind) : Boolean {
+	return genModel_1::GenProviderKind::Singleton = otherLiteral
+}
+
 helper listParameterCall(param : Sequence(ecore::EClass)) : Sequence(ecore::EClass) {
 	return param
 }

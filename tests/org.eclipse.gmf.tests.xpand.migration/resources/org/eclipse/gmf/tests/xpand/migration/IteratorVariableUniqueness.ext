@@ -60,11 +60,11 @@ List[ecore::EJavaObject] collectionOperationParameter_OuterCollectionExpression(
 ;
 
 Collection[ecore::EJavaObject] collectionOperationTarget_InnerCollectionExpression(List[ecore::EPackage] ePackages, Collection[ecore::EClassifier] eClassifiers) :
-	eClassifiers.union(ePackages.collect(it | it.eClassifiers))
+	eClassifiers.union(ePackages.collect(it | it.eClassifiers).flatten())
 ;
 
 Collection[ecore::EJavaObject] collectionOperationParameter_InnerCollectionExpression(List[ecore::EPackage] ePackages, Collection[ecore::EClassifier] eClassifiers) :
-	ePackages.collect(it | it.eClassifiers).union(eClassifiers)
+	ePackages.collect(it | it.eClassifiers).flatten().union(eClassifiers)
 ;
 
 Collection[ecore::EJavaObject] collectionOperationTargetParameter_OuterLetExpression(Collection[ecore::EClassifier] eClassifiers, Collection[ecore::EClassifier] additions) :

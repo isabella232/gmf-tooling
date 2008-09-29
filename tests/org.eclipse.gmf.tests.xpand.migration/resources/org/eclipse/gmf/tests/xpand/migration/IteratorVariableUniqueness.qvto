@@ -59,11 +59,11 @@ helper collectionOperationParameter_OuterCollectionExpression(ePackages : Sequen
 }
 
 helper collectionOperationTarget_InnerCollectionExpression(ePackages : Sequence(ecore::EPackage), eClassifiers : Collection(ecore::EClassifier)) : Collection(OclAny) {
-	return eClassifiers->collect(it_1 | it_1.oclAsType(OclAny))->asSet()->union(ePackages->collect(it | it.eClassifiers)->asSet())
+	return eClassifiers->collect(it_1 | it_1)->asSet()->union(ePackages->collect(it | it.eClassifiers)->flatten()->asSet())
 }
 
 helper collectionOperationParameter_InnerCollectionExpression(ePackages : Sequence(ecore::EPackage), eClassifiers : Collection(ecore::EClassifier)) : Collection(OclAny) {
-	return (ePackages->collect(it | it.eClassifiers))[OclAny]->asSet()->union(eClassifiers->collect(it_1 | it_1)->asSet())
+	return ePackages->collect(it | it.eClassifiers)->flatten()->asSet()->union(eClassifiers->collect(it_1 | it_1)->asSet())
 }
 
 helper collectionOperationTargetParameter_OuterLetExpression(eClassifiers : Collection(ecore::EClassifier), additions : Collection(ecore::EClassifier)) : Collection(OclAny) {

@@ -12,3 +12,7 @@ Boolean convertParameterCollection(ecore::EPackage ePackage) :
 Boolean otherExtension(List[ecore::EClassifier] eClasses) :
 	true
 ;
+
+Collection[ecore::EClassifier] getEssentialVisualChildren(List[ecore::EClass] eClasses, List[ecore::EOperation] eOperations) :
+	{}.addAll(eClasses).addAll(eOperations)
+;
