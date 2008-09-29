@@ -195,7 +195,9 @@ public class XpandMigrationFacade {
 		if (statement instanceof ExpressionStatement) {
 			ExpressionStatement expressionStatement = (ExpressionStatement) statement;
 			ExpressionAnalyzeTrace trace = ctx.getTraces().get(expressionStatement);
-			migrateExpression(expressionStatement.getExpression(), trace.getResultType(), variableNameDispatcher);
+			// TODO: use EcorePackage.eINSTANCE.getEString() as a type parameter
+			// to convert any result type to string explicitly.
+			migrateExpression(expressionStatement.getExpression(), EcorePackage.eINSTANCE.getEString(), variableNameDispatcher);
 		} else if (statement instanceof ErrorStatement) {
 			ErrorStatement errorStatement = (ErrorStatement) statement;
 			migrateExpression(errorStatement.getMessage(), EcorePackage.eINSTANCE.getEString(), variableNameDispatcher);

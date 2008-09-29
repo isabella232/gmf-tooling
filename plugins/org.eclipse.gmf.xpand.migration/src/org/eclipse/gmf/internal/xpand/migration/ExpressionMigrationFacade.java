@@ -20,8 +20,10 @@ import java.util.Set;
 import java.util.Stack;
 
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
@@ -179,6 +181,9 @@ public class ExpressionMigrationFacade {
 			// Abstract collection should be compatible with any other kind
 			// on collections
 		}
+//		else if (EcorePackage.eINSTANCE.getEString() == expectedType && actualType != EcorePackage.eINSTANCE.getEString()) {
+//			write(".repr()");
+//		}
 	}
 
 	int getReturnPosition() {
@@ -1080,14 +1085,23 @@ public class ExpressionMigrationFacade {
 		case UNSUPPORTED_CLASSIFIER_REF:
 			throw new MigrationException(Type.UNSUPPORTED_FEATURE_CALL, trace.toString());
 		}
+		EClassifier targetType = trace.getTargetType();
 		// featureCall.getTarget() == null for FeatureCall of implicit variable
 		// feature
 		if (featureCall.getTarget() != null) {
 			migrateExpression(featureCall.getTarget());
+			// Skipping EnumLiteral.value/EnumLiteral.literal features
+			if (targetType instanceof EEnum && trace.getType() == FeatureCallTrace.Type.FEATURE_REF && skippEnumLiteralFeature(trace.getFeature())) {
+				return targetType;
+			}
 			write(".");
+		} else {
+			if (targetType instanceof EEnum && trace.getType() == FeatureCallTrace.Type.FEATURE_REF && skippEnumLiteralFeature(trace.getFeature())) {
+				write(Environment.SELF_VARIABLE_NAME);
+				return targetType;
+			}
 		}
 		write(modelManager.getName(featureCall, trace));
-		EClassifier targetType = trace.getTargetType();
 		assert targetType != null;
 		switch (trace.getType()) {
 		case FEATURE_REF:
@@ -1106,6 +1120,10 @@ public class ExpressionMigrationFacade {
 		}
 	}
 	
+	private boolean skippEnumLiteralFeature(EStructuralFeature feature) {
+		return EcorePackage.eINSTANCE.getEEnumLiteral_Value() == feature || EcorePackage.eINSTANCE.getEEnumLiteral_Literal() == feature;
+	}
+
 	private void markReturnPosition() {
 		returnPosition = getCurrentPosition();
 	}
