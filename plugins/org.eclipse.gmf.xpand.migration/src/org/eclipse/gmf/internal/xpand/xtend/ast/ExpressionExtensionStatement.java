@@ -75,8 +75,9 @@ public class ExpressionExtensionStatement extends Extension {
 
     @Override
     public void analyzeInternal(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
-        createAnalyzeTrace(ctx, new ExpressionAnalyzeTrace(expression.analyze(ctx, issues)));
-    }
+		EClassifier expressionType = expression.analyze(ctx, issues);
+		createAnalyzeTrace(ctx, new ExpressionAnalyzeTrace(getReturnTypeIdentifier() != null ? ctx.getTypeForName(getReturnTypeIdentifier().getValue()) : expressionType));
+	}
 
     @Override
     protected EClassifier internalGetReturnType(final EClassifier[] parameters, final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
