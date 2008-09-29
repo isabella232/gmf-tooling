@@ -11,7 +11,7 @@ helper getName(eClassifier : ecore::EClassifier, parameter : Collection(OclAny))
 }
 
 helper getClassifierCollection(ePackage : ecore::EPackage) : Collection(ecore::EClassifier) {
-	return ePackage.eClassifiers->asSequence()
+	return ePackage.eClassifiers
 }
 
 helper extension_ParameterDefinition(eClassifiers : Sequence(ecore::EClassifier), it : Boolean) : Sequence(String) { 
