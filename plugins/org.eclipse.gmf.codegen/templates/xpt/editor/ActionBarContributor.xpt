@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,7 +16,7 @@
 package «packageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
-public class «actionBarContributorClassName» extends org.eclipse.gmf.runtime.diagram.ui.parts.DiagramActionBarContributor {
+public class «actionBarContributorClassName»«EXPAND extendsList» {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected Class getEditorClass() {
@@ -27,8 +27,26 @@ public class «actionBarContributorClassName» extends org.eclipse.gmf.runtime.dia
 	protected String getEditorId() {
 		return «getQualifiedClassName()».ID;
 	}
+	«EXPAND initMethod-»
 	«EXPAND additions-»
 }
+«ENDDEFINE»
+
+«DEFINE extendsList FOR gmfgen::GenEditorView» extends org.eclipse.gmf.runtime.diagram.ui.parts.DiagramActionBarContributor«ENDDEFINE»
+
+«DEFINE initMethod FOR gmfgen::GenEditorView»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void init(org.eclipse.ui.IActionBars bars, org.eclipse.ui.IWorkbenchPage page) {
+		super.init(bars, page);
+		org.eclipse.jface.action.IMenuManager fileMenu = bars.getMenuManager().findMenuUsingPath("file");«EXPAND xpt::Common::nonNLS»
+		assert fileMenu != null;
+«IF editorGen.plugin.printingEnabled-»
+		org.eclipse.jface.action.IAction printPreviewAction = new org.eclipse.gmf.runtime.diagram.ui.printing.render.actions.RenderedPrintPreviewAction(new org.eclipse.gmf.runtime.diagram.ui.printing.render.actions.EnhancedPrintActionHelper());
+		fileMenu.insertBefore("print", printPreviewAction);«EXPAND xpt::Common::nonNLS»
+«ELSE-»
+		fileMenu.remove("pageSetupAction");«EXPAND xpt::Common::nonNLS»
+«ENDIF-»
+	}
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenEditorView»«ENDDEFINE»

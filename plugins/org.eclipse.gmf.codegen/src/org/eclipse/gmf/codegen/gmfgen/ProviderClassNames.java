@@ -348,7 +348,7 @@ public interface ProviderClassNames extends EObject {
 	 * @return the value of the '<em>Contribution Item Provider Class Name</em>' attribute.
 	 * @see #setContributionItemProviderClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getProviderClassNames_ContributionItemProviderClassName()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Actions are no longer contributed using ContributionItemService'"
 	 * @generated
 	 */
 	String getContributionItemProviderClassName();
@@ -416,6 +416,7 @@ public interface ProviderClassNames extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Actions are no longer contributed using ContributionItemService'"
 	 * @generated
 	 */
 	String getContributionItemProviderQualifiedClassName();

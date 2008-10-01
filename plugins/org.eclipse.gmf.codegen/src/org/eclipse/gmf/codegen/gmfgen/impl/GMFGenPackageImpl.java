@@ -8541,7 +8541,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																																							
+		   });																																																																																																																																																																																																																									
 	}
 
 	/**
@@ -8571,7 +8571,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Diagram\')",
 			 "description", "\'Diagram Runtime Class\' must be a notation::Diagram or sub-class"
-		   });																		
+		   });																				
 		addAnnotation
 		  (genCommonBaseEClass, 
 		   source, 
@@ -8792,6 +8792,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "documentation", "Replaced with GenParsers"
 		   });		
 		addAnnotation
+		  (providerClassNamesEClass.getEOperations().get(6), 
+		   source, 
+		   new String[] {
+			 "documentation", "Actions are no longer contributed using ContributionItemService"
+		   });		
+		addAnnotation
 		  (getProviderClassNames_ParserProviderClassName(), 
 		   source, 
 		   new String[] {
@@ -8802,6 +8808,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Replaced with GenParsers"
+		   });		
+		addAnnotation
+		  (getProviderClassNames_ContributionItemProviderClassName(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Actions are no longer contributed using ContributionItemService"
 		   });				
 		addAnnotation
 		  (getPackageNames_ParsersPackageName(), 
@@ -8836,7 +8848,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																																				
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																																						
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 

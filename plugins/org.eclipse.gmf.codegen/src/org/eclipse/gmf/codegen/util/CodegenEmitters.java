@@ -321,10 +321,6 @@ public class CodegenEmitters {
 		return getPrimaryEmitter("xpt::providers::EditPartProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getContributionItemProviderEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::providers::ContributionItemProvider"); //$NON-NLS-1$
-	}
-
 	public TextEmitter getModelingAssistantProviderEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryEmitter("xpt::providers::ModelingAssistantProvider"); //$NON-NLS-1$
 	}
