@@ -11,16 +11,22 @@
  */
 package org.eclipse.gmf.internal.xpand.migration;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.Map.Entry;
 
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
+import org.eclipse.gmf.internal.xpand.BuiltinMetaModelExt;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
+import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
+import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException.Type;
 import org.eclipse.gmf.internal.xpand.xtend.ast.CreateExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.ExpressionExtensionStatement;
@@ -31,10 +37,14 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 
 public class XtendMigrationFacade {
 
+	private static final String JAVA_ARRAY_TYPE_SUFFIX = ".List";
+
+	private static final String JAVA_LANG_PACKAGE_PREFIX = "java.lang.";
+
 	private ResourceManager resourceManager;
 
 	private StringBuilder output = new StringBuilder();
-
+	
 	private String resourceName;
 
 	private StandardLibraryImports stdLibImportsManager;
@@ -48,6 +58,12 @@ public class XtendMigrationFacade {
 	private ModeltypeImports modeltypeImportsManger;
 
 	private ModelManager modelManager;
+
+	private List<JavaExtensionDescriptor> javaExtensionDescriptors = new ArrayList<JavaExtensionDescriptor>();
+
+	private String nativeLibraryClassName;
+
+	private String nativeLibraryPackageName = "";
 
 	private static String getLastSegment(String string, String separator) {
 		int delimeterIndex = string.lastIndexOf(separator);
@@ -97,7 +113,6 @@ public class XtendMigrationFacade {
 			writeln("");
 		}
 
-		
 		modeltypeImportsManger = new ModeltypeImports(output, injectUnusedImports);
 		for (String namespace : xtendResource.getImportedNamespaces()) {
 			modeltypeImportsManger.registerModeltype(namespace);
@@ -116,7 +131,172 @@ public class XtendMigrationFacade {
 		}
 		injectModeltypeImports();
 		injectStdlibImports();
+		
+		nativeLibraryClassName = resourceName.replaceAll(SyntaxConstants.NS_DELIM, JavaCs.DOT);
+		if (nativeLibraryClassName.lastIndexOf(JavaCs.DOT) > 0) {
+			nativeLibraryPackageName = nativeLibraryClassName.substring(0, nativeLibraryClassName.lastIndexOf(JavaCs.DOT));
+			nativeLibraryClassName = nativeLibraryClassName.substring(nativeLibraryClassName.lastIndexOf(JavaCs.DOT) + 1);
+		}
+		if (nativeLibraryClassName.length() == 0) {
+			throw new MigrationException(Type.UNABLE_TO_DETECT_NATIVE_LIBRARY_CLASS_NAME, "Resource name: \"" + resourceName + "\"");
+		}
 		return output;
+	}
+	
+	/**
+	 * This method should be executed only after migrateXtendResource() one
+	 */
+	public StringBuilder getNativeLibraryXmlDeclaration() {
+		if (javaExtensionDescriptors.size() == 0) {
+			return null;
+		}
+		StringBuilder result = new StringBuilder();
+		result.append("<library class=\"");
+		String nativeLibraryFullClassName = getNativeLibraryFullClassName();
+		result.append(nativeLibraryFullClassName);
+		result.append("\" id=\"");
+		result.append(nativeLibraryFullClassName.replaceAll("\\.", "_"));
+		result.append("\"/>");
+		result.append(ExpressionMigrationFacade.LF);
+		return result;
+	}
+	
+	private String getNativeLibraryFullClassName() {
+		return getNativeLibraryPackageName().length() == 0 ? getNativeLibraryClassName() : getNativeLibraryPackageName() + JavaCs.DOT + getNativeLibraryClassName();
+	}
+
+	/**
+	 * This method should be executed only after migrateXtendResource() one
+	 * @throws MigrationException 
+	 */
+	public StringBuilder getNativeLibraryClassBody() throws MigrationException {
+		if (javaExtensionDescriptors.size() == 0) {
+			return null;
+		}
+		String lf = ExpressionMigrationFacade.LF;
+		StringBuilder result = new StringBuilder();
+		if (getNativeLibraryPackageName().length() > 0) {
+			result.append("package ");
+			result.append(getNativeLibraryPackageName());
+			result.append(";");
+			result.append(lf);
+		}
+		result.append("public class ");
+		result.append(getNativeLibraryClassName());
+		result.append(" {");
+		result.append(lf);
+		
+		result.append("public static class Metainfo {");
+		result.append(lf);
+		for (JavaExtensionDescriptor descriptor : javaExtensionDescriptors) {
+			addMetainfoMethod(descriptor, result);
+			result.append(lf);
+		}
+		result.append("}");
+		result.append(lf);
+		
+		for (JavaExtensionDescriptor descriptor : javaExtensionDescriptors) {
+			addNativeMethod(descriptor, result);
+			result.append(lf);
+		}
+		
+		result.append("}");
+		return result;
+	}
+	
+	private void addNativeMethod(JavaExtensionDescriptor descriptor, StringBuilder result) throws MigrationException {
+		result.append("public ");
+		result.append(getJavaType(descriptor.getReturnType()));
+		result.append(" ");
+		result.append(descriptor.getMethodName());
+		result.append("(");
+		List<EClassifier> parameterTypes = descriptor.getParameterTypes();
+		List<String> parameterNames = descriptor.getParameterNames();
+		assert parameterTypes.size() == parameterNames.size();
+		for (int i = 0; i < parameterTypes.size(); i++) {
+			if (i > 0) {
+				result.append(", ");
+			}
+			result.append(getJavaType(parameterTypes.get(i)));
+			result.append(" ");
+			result.append(parameterNames.get(i));
+		}
+		result.append(") { return ");
+		result.append(descriptor.getClassName());
+		result.append(JavaCs.DOT);
+		result.append(descriptor.getMethodName());
+		result.append("(");
+		List<String> javaParameterTypes = descriptor.getJavaParameterTypes();
+		for (int i = 0; i < parameterNames.size(); i++) {
+			if (i > 0) {
+				result.append(", ");
+			}
+			result.append(parameterNames.get(i));
+			String javaParameterType = javaParameterTypes.get(i);
+			if (javaParameterType.endsWith(JAVA_ARRAY_TYPE_SUFFIX)) {
+				javaParameterType = javaParameterType.substring(0, javaParameterType.length() - JAVA_ARRAY_TYPE_SUFFIX.length());
+				result.append(".toArray(new ");
+				result.append(suppressJavaLang(javaParameterType));
+				result.append("[");
+				result.append(parameterNames.get(i));
+				result.append(".size()]");
+				result.append(")");
+			}
+		}
+		result.append("); ");
+		result.append("}");
+	}
+
+	private String getJavaType(EClassifier xpandType) throws MigrationException {
+		if (xpandType == BuiltinMetaModel.VOID) {
+			throw new MigrationException(Type.UNSUPPORTED_NATIVE_EXTENSION_TYPE, "Void type is not supported for native extensions");
+		}
+		if (xpandType.getInstanceClassName() != null) {
+			String instanceClassName = xpandType.getInstanceClassName();
+			return suppressJavaLang(instanceClassName);
+		}
+		if (BuiltinMetaModelExt.isSetType(xpandType)) {
+			return "java.util.Set";
+		} else if (BuiltinMetaModelExt.isListType(xpandType)) {
+			return "java.util.List";
+		} else if (BuiltinMetaModelExt.isCollectionType(xpandType)) {
+			return "java.util.Collection";
+		}
+		throw new MigrationException(Type.UNSUPPORTED_NATIVE_EXTENSION_TYPE, "Metamodel types without instanceClassName set are not supported for native extensions: " + xpandType.getName());
+	}
+
+	private String suppressJavaLang(String instanceClassName) {
+		// Suppressing "java.lang" package.
+		if (instanceClassName.startsWith(JAVA_LANG_PACKAGE_PREFIX)) {
+			String simpleClassName = instanceClassName.substring(JAVA_LANG_PACKAGE_PREFIX.length());
+			if (simpleClassName.indexOf(JavaCs.DOT) == -1) {
+				return simpleClassName;
+			}
+		}
+		return instanceClassName;
+	}
+
+	private void addMetainfoMethod(JavaExtensionDescriptor descriptor, StringBuilder result) throws MigrationException {
+		result.append("public static String[] ");
+		result.append(descriptor.getMethodName());
+		result.append("(");
+		result.append(") { return new String[] {\"");
+		result.append(typeManager.getQvtFQName(descriptor.getReturnType()));
+		result.append("\"");
+		for (EClassifier parameterType : descriptor.getParameterTypes()) {
+			result.append(", \"");
+			result.append(typeManager.getQvtFQName(parameterType));
+			result.append("\"");
+		}
+		result.append("}; }");
+	}
+
+	public String getNativeLibraryClassName() {
+		return nativeLibraryClassName;
+	}
+	
+	public String getNativeLibraryPackageName() {
+		return nativeLibraryPackageName;
 	}
 
 	private void injectStdlibImports() {
@@ -152,7 +332,7 @@ public class XtendMigrationFacade {
 	private void addLibraryImports(XtendResource xtendResource, boolean reexportedOnly) throws MigrationException {
 		for (String extension : xtendResource.getImportedExtensions()) {
 			if (!reexportedOnly || xtendResource.isReexported(extension)) {
-				writeln("import " + extension.replaceAll("::", ".") + ";");
+				writeln("import " + extension.replaceAll(SyntaxConstants.NS_DELIM, OclCs.NAMESPACE_SEPARATOR) + ";");
 				XtendResource referencedResource = resourceManager.loadXtendResource(extension);
 				if (referencedResource == null) {
 					throw new MigrationException(Type.RESOURCE_NOT_FOUND, "Unable to load extension file: " + extension);
@@ -163,6 +343,11 @@ public class XtendMigrationFacade {
 	}
 
 	private void migrateExtension(Extension extension, MigrationExecutionContext ctx) throws MigrationException {
+		if (extension instanceof JavaExtensionStatement) {
+			migrateJavaExtension((JavaExtensionStatement) extension, ctx);
+			return;
+		}
+		
 		try {
 			extension.init(ctx);
 		} catch (EvaluationException e) {
@@ -191,8 +376,6 @@ public class XtendMigrationFacade {
 
 		if (extension instanceof ExpressionExtensionStatement) {
 			migrateExpressionExtension((ExpressionExtensionStatement) extension, ctx);
-		} else if (extension instanceof JavaExtensionStatement) {
-			migrateJavaExtension((JavaExtensionStatement) extension);
 		} else if (extension instanceof CreateExtensionStatement) {
 			migrateCreateExtension((CreateExtensionStatement) extension);
 		} else if (extension instanceof WorkflowSlotExtensionStatement) {
@@ -229,8 +412,8 @@ public class XtendMigrationFacade {
 
 	// TODO: java should be migrated separately from library - java class should
 	// be created with the additional declaration in plugin.xml
-	private void migrateJavaExtension(JavaExtensionStatement extension) throws MigrationException {
-//		throw new MigrationException(Type.UNSUPPORTED_EXTENSION, extension.getClass().getName());
+	private void migrateJavaExtension(JavaExtensionStatement extension, MigrationExecutionContext ctx) throws MigrationException {
+		javaExtensionDescriptors.add(new JavaExtensionDescriptor(extension, ctx));
 	}
 
 	private void migrateCreateExtension(CreateExtensionStatement extension) throws MigrationException {
@@ -252,6 +435,69 @@ public class XtendMigrationFacade {
 	private void writeln(CharSequence line) {
 		output.append(line);
 		output.append(ExpressionMigrationFacade.LF);
+	}
+	
+	class JavaExtensionDescriptor {
+
+		private String extensionName;
+
+		private String className;
+
+		private String methodName;
+
+		private EClassifier returnType;
+
+		private List<EClassifier> parameterTypes = new ArrayList<EClassifier>();
+		
+		private List<String> parameterNames = new ArrayList<String>();
+		
+		private List<String> javaParameterTypes = new ArrayList<String>();
+
+		public JavaExtensionDescriptor(JavaExtensionStatement javaExtension, MigrationExecutionContext ctx) {
+			extensionName = javaExtension.getName();
+			className = javaExtension.getJavaType().getValue();
+			methodName = javaExtension.getJavaMethod().getValue();
+
+			assert javaExtension.getReturnTypeIdentifier() != null;
+			returnType = ctx.getTypeForName(javaExtension.getReturnTypeIdentifier().getValue());
+			for (DeclaredParameter parameter : javaExtension.getFormalParameters()) {
+				parameterTypes.add(ctx.getTypeForName(parameter.getType().getValue()));
+				parameterNames.add(parameter.getName().getValue());
+			}
+			assert javaExtension.getFormalParameters().size() == javaExtension.getJavaParameterTypes().size();
+			for (Identifier paramType : javaExtension.getJavaParameterTypes()) {
+				javaParameterTypes.add(paramType.getValue());
+			}
+		}
+
+		public String getExtensionName() {
+			return extensionName;
+		}
+
+		public String getClassName() {
+			return className;
+		}
+
+		public String getMethodName() {
+			return methodName;
+		}
+
+		public EClassifier getReturnType() {
+			return returnType;
+		}
+
+		public List<EClassifier> getParameterTypes() {
+			return parameterTypes;
+		}
+		
+		public List<String> getParameterNames() {
+			return parameterNames;
+		}
+		
+		public List<String> getJavaParameterTypes() {
+			return javaParameterTypes;
+		}
+
 	}
 
 }

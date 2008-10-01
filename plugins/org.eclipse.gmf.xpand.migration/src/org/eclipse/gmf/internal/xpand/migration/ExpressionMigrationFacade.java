@@ -64,7 +64,7 @@ public class ExpressionMigrationFacade {
 	
 	static final EcoreEnvironmentFactory ECORE_ENV_FACTORY = new EcoreEnvironmentFactory(null);
 	
-	static final CharSequence LF = System.getProperty("line.separator");
+	static final String LF = System.getProperty("line.separator");
 	
 	private static final Set<EOperation> infixOperations = new HashSet<EOperation>(Arrays.asList(new EOperation[] {
 			BuiltinMetaModel.Boolean_NE,
@@ -559,9 +559,7 @@ public class ExpressionMigrationFacade {
 		case UNDESOLVED_TARGET_TYPE:
 			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL, trace.toString());
 		case STATIC_EXTENSION_REF:
-			// TODO: use ModelManager to escape specific operation names here
-			// and below
-			write(operationCall.getName().getValue());
+			write(modelManager.getName(operationCall, trace));
 			write("(");
 			internalMigrateOperationCallParameters(operationCall, trace.getParamTypes());
 			write(")");
@@ -599,7 +597,7 @@ public class ExpressionMigrationFacade {
 				return BuiltinMetaModelExt.getListType(BuiltinMetaModel.getInnerType(targetQvtType));
 			}
 		case EXTENSION_REF:
-			write(operationCall.getName().getValue());
+			write(modelManager.getName(operationCall, trace));
 			write("(");
 			if (operationCall.getTarget() != null) {
 				migrateExpression(operationCall.getTarget());
@@ -620,7 +618,7 @@ public class ExpressionMigrationFacade {
 			write("->collect(");
 			write(iteratorName);
 			write(" | ");
-			write(operationCall.getName().getValue());
+			write(modelManager.getName(operationCall, trace));
 			write("(");
 			write(iteratorName);
 			if (operationCall.getParams().length > 0) {

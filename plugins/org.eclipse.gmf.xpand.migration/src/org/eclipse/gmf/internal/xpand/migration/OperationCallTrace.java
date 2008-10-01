@@ -11,11 +11,20 @@
  */
 package org.eclipse.gmf.internal.xpand.migration;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EParameter;
+import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
+import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
+import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
+import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
+import org.eclipse.gmf.internal.xpand.xtend.ast.JavaExtensionStatement;
 
 public class OperationCallTrace extends ExpressionAnalyzeTrace {
 
@@ -31,19 +40,52 @@ public class OperationCallTrace extends ExpressionAnalyzeTrace {
 
 	private List<EClassifier> paramTypes;
 
-	public OperationCallTrace(EClassifier result, List<EClassifier> paramTypes, Type type) {
+	private String nativeLibraryName;
+	
+	public static String getNativeLibraryName(Extension extension) {
+		if (extension instanceof JavaExtensionStatement) {
+			String fQName = ((JavaExtensionStatement) extension).getExtensionFile().getFullyQualifiedName();
+			return fQName.replaceAll(SyntaxConstants.NS_DELIM, "_");
+		}
+		return null;
+	}
+	
+    public static List<EClassifier> getParamTypes(EOperation op) {
+    	EList<EParameter> parameters = op.getEParameters();
+    	List<EClassifier> result = new ArrayList<EClassifier>();
+    	for (int i = 0; i < parameters.size(); i++) {
+    		result.add(BuiltinMetaModel.getTypedElementType(parameters.get(i)));
+    	}
+		return result;
+	}
+
+	public static List<EClassifier> getParamTypes(Extension f, ExecutionContext ctx) {
+		List<DeclaredParameter> formalParameters = f.getFormalParameters();
+		List<EClassifier> result = new ArrayList<EClassifier>();
+		for (int i = 0; i < formalParameters.size(); i++) {
+			result.add(ctx.getTypeForName(formalParameters.get(i).getType().getValue()));
+		}
+		return result;
+	}
+	
+	public OperationCallTrace(Type type) {
+		this(null, null, null, type);
+	}
+
+	public OperationCallTrace(EClassifier result, List<EClassifier> paramTypes, String nativeLibraryName, Type type) {
 		super(result);
 		this.paramTypes = paramTypes;
 		this.type = type;
+		this.nativeLibraryName = nativeLibraryName;
 	}
 
-	public OperationCallTrace(EClass result, List<EClassifier> paramTypes, EClassifier targetType) {
-		this(result, paramTypes, Type.IMPLICIT_COLLECT_EXTENSION_REF);
+	public OperationCallTrace(EClass result, List<EClassifier> paramTypes, EClassifier targetType, String nativeLibraryName) {
+		this(result, paramTypes, nativeLibraryName, Type.IMPLICIT_COLLECT_EXTENSION_REF);
 		this.targetType = targetType;
 	}
 
 	public OperationCallTrace(EClassifier result, List<EClassifier> paramTypes, EClassifier targetType, EOperation operation, Type type) {
-		this(result, paramTypes, type);
+		this(result, paramTypes, null, type);
 		this.targetType = targetType;
 		this.operation = operation;
 	}
@@ -76,6 +118,10 @@ public class OperationCallTrace extends ExpressionAnalyzeTrace {
 
 	public List<EClassifier> getParamTypes() {
 		return paramTypes;
+	}
+	
+	public String getNativeLibraryName() {
+		return nativeLibraryName;
 	}
 
 }

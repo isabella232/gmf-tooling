@@ -53,6 +53,14 @@ public class JavaExtensionStatement extends Extension {
 	public Identifier getJavaType() {
 		return javaType;
 	}
+	
+	public Identifier getJavaMethod() {
+		return javaMethod;
+	}
+	
+	public List<Identifier> getJavaParameterTypes() {
+		return javaParamTypes;
+	}
 
 	@Override
 	public Object evaluateInternal(final Object[] parameters, final ExecutionContext ctx) {

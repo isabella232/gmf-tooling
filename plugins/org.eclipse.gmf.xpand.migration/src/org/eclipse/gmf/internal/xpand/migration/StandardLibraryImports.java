@@ -67,6 +67,10 @@ public class StandardLibraryImports extends AbstractImportsManager {
 		}
 		return null;
 	}
+	
+	void registerNativeLibrary(String libraryName) {
+		usedLibraries.add(libraryName);
+	}
 
 	private static class MapEntry {
 

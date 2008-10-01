@@ -46,7 +46,9 @@ public class MigrationException extends Exception {
 		
 		UNSUPPORTED_ASPECT("Unsupported aspect migration"), 
 		UNSUPPORTED_XPAND_RESOURCE("Unsupported xpand resource"),
-		UNABLE_TO_APPLY_EDIT("Unable to apply edit");
+		UNABLE_TO_APPLY_EDIT("Unable to apply edit"),
+		UNABLE_TO_DETECT_NATIVE_LIBRARY_CLASS_NAME("Unable to detect native library class name"),
+		UNSUPPORTED_NATIVE_EXTENSION_TYPE("Unsupported native extension type");
 
 		private String name;
 
