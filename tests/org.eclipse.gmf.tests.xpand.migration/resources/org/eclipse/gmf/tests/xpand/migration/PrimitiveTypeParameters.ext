@@ -41,6 +41,14 @@ ecore::EDouble getDummyDouble(ecore::EDouble param) :
 	param
 ;
 
+Object getDummyObject(Object param) :
+	param
+;
+
+EJavaObject getDummyEJavaObject(EJavaObject param) :
+	param
+;
+
 String getDummyString(String param1, boolean param2, int param3) :
 	param1
 ;

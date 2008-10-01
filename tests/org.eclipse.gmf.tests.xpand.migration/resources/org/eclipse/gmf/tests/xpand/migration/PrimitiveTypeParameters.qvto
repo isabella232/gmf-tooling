@@ -40,6 +40,14 @@ helper getDummyDouble(param : Real) : Real {
 	return param
 }
 
+helper getDummyObject(param : OclAny) : OclAny {
+	return param
+}
+
+helper getDummyEJavaObject(param : OclAny) : OclAny {
+	return param
+}
+
 helper getDummyString(param1 : String, param2 : Boolean, param3 : Integer) : String {
 	return param1
 }

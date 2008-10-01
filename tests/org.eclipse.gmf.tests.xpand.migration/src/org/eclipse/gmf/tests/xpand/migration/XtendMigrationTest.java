@@ -48,7 +48,7 @@ public class XtendMigrationTest extends TestCase {
 		checkQVTCompilation(resourceName, resourceContent);
 	}
 
-	// Test for user-definet type parameters and import migration
+	// Test for user-defined type parameters and import migration
 	public void testImportedModels() throws IOException, MigrationException {
 		checkMigration("ImportedModels");
 	}
@@ -177,6 +177,56 @@ public class XtendMigrationTest extends TestCase {
 		checkMigration("OperationCall_DoubleOperations");
 	}
 	
+	public void testJavaExtensionsContainer() throws IOException, MigrationException {
+		checkMigration("JavaExtensionsContainer");
+	}
+	
+	public void testJavaExtensionsCaller() throws IOException, MigrationException {
+		checkMigration("JavaExtensionsCaller");
+	}
+	
+	public void testJavaExtensionClassBody() throws MigrationException, IOException {
+		String fileName = "JavaExtensionsContainer";
+		XtendMigrationFacade facade = new XtendMigrationFacade(testResourceManager, getResourceName(fileName));
+		facade.migrateXtendResource();
+		assertNotNull(facade.getNativeLibraryClassName());
+		assertNotNull(facade.getNativeLibraryPackageName());
+		String classBody = facade.getNativeLibraryClassBody().toString();
+		assertNotNull(classBody);
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(testResourceManager.loadFile(getResourceName(fileName), "java")));
+		StringBuilder sb = new StringBuilder();
+		for (String nextLine = reader.readLine(); nextLine != null; nextLine = reader.readLine()) {
+			if (sb.length() > 0) {
+				sb.append(LF);
+			}
+			sb.append(nextLine);
+		}
+		String etalon = normalize(sb.toString());
+		classBody = normalize(classBody);
+		assertEquals(etalon, classBody);
+	}
+	
+	public void testJavaExtensionXmlDeclaration() throws MigrationException, IOException {
+		String fileName = "JavaExtensionsContainer";
+		XtendMigrationFacade facade = new XtendMigrationFacade(testResourceManager, getResourceName(fileName));
+		facade.migrateXtendResource();
+		String xmlDeclaration = facade.getNativeLibraryXmlDeclaration().toString();
+		assertNotNull(xmlDeclaration);
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(testResourceManager.loadFile(getResourceName(fileName), "xml")));
+		StringBuilder sb = new StringBuilder();
+		for (String nextLine = reader.readLine(); nextLine != null; nextLine = reader.readLine()) {
+			if (sb.length() > 0) {
+				sb.append(LF);
+			}
+			sb.append(nextLine);
+		}
+		String etalon = normalize(sb.toString());
+		xmlDeclaration = normalize(xmlDeclaration);
+		assertEquals(etalon, xmlDeclaration);
+	}
+	
 	private String readStringContent(InputStreamReader reader) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		boolean isInString = false;
@@ -229,7 +279,7 @@ public class XtendMigrationTest extends TestCase {
 			sb.append(nextLine);
 		}
 		String etalon = normalize(sb.toString());
-		content = normalize(content.toString());
+		content = normalize(content);
 		assertEquals(etalon, content);
 		return content;
 	}

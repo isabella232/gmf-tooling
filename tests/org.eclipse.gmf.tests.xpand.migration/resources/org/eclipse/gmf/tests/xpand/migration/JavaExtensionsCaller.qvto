@@ -1,0 +1,10 @@
+
+import library org_eclipse_gmf_tests_xpand_migration_JavaExtensionsContainer;
+
+import org.eclipse.gmf.tests.xpand.migration.JavaExtensionsContainer;
+
+library JavaExtensionsCaller;
+
+helper nativeExtensionCall(parameter : String) : String {
+	return simpleNativeExtension(parameter)
+}
