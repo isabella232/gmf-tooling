@@ -66,8 +66,7 @@ public class MigrateXpandRoot implements IObjectActionDelegate {
 			protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 				monitor.setTaskName("Migrating Xpand Resources");
 				monitor.beginTask("Migrating Xpand Resources", 102);
-				int totalNumberOfFiles = calculateFiles(selectedContainer);
-				monitor.worked(1);
+				int totalNumberOfFiles = calculateFiles(selectedContainer, new SubProgressMonitor(monitor, 1));
 				IFolder newFolder = getOutputFolder(selectedContainer);
 				monitor.worked(1);
 				IProgressMonitor subProgressMonitor = createSubProgressMonitor(monitor, null, 100);
@@ -116,9 +115,10 @@ public class MigrateXpandRoot implements IObjectActionDelegate {
 		return spm;
 	}
 
-	private int calculateFiles(IContainer container) throws CoreException {
-		ResourceCountingVisitor visitor = new ResourceCountingVisitor();
+	private int calculateFiles(IContainer container, SubProgressMonitor monitor) throws CoreException {
+		ResourceCountingVisitor visitor = new ResourceCountingVisitor(monitor);
 		container.accept(visitor);
+		monitor.done();
 		return visitor.getNumberOfFiles();
 	}
 

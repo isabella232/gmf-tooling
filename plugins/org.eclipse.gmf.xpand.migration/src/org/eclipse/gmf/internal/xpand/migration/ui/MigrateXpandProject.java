@@ -24,6 +24,7 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -123,10 +124,17 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		monitor.setTaskName("Migrating Xpand project");
 		List<IFolder> xpandRoots = rootManager.getXpandRootFolders();
-		monitor.beginTask("Migrating all available xpand root folders", xpandRoots.size() + 1);
+		monitor.beginTask("Migrating Xpand project", xpandRoots.size() + BIG_NUMBER * xpandRoots.size() + 1);
+		int totalNumberOfSteps = 0;
+		for (IFolder rootFolder : xpandRoots) {
+			// each root migration requires two additional steps
+			totalNumberOfSteps += 2 + getNumberOfSteps(rootFolder, createSubProgressMonitor(monitor, "Counting xpand resources in: " + rootFolder.getName(), 1));
+		}
+		IProgressMonitor subMonitor = createSubProgressMonitor(monitor, "Migrating all available xpand root folders", BIG_NUMBER * xpandRoots.size());
+		subMonitor.beginTask("Migrating all available xpand root folders", totalNumberOfSteps);
 		List<CharSequence> nativeLibraryDeclarations = new ArrayList<CharSequence>();
 		for (IFolder rootFolder : xpandRoots) {
-			migrateXpandRoot(rootFolder, nativeLibraryDeclarations, createSubProgressMonitor(monitor, "Migrating xpand root: " + rootFolder.getName(), 1));
+			migrateXpandRoot(rootFolder, nativeLibraryDeclarations, subMonitor);
 		}
 		registerNativeLibraries(nativeLibraryDeclarations, createSubProgressMonitor(monitor, "Registering native libraries", 1));
 	}
@@ -191,42 +199,35 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 
 	private void migrateXpandRoot(IFolder rootFolder, List<CharSequence> nativeLibraryDeclarations, IProgressMonitor progressMonitor) throws InterruptedException, CoreException,
 			InvocationTargetException {
-		progressMonitor.beginTask("Migrating xpand root: " + rootFolder.getName(), BIG_NUMBER + 3);
 		IFolder templatesOutputFolder = getTemplatesOutputFolder(rootFolder, createSubProgressMonitor(progressMonitor, "Calculating new templates root folder name", 1));
 		IFolder nativeExtensionsRoot = getNativeExtensionsSourceRoot(rootFolder, createSubProgressMonitor(progressMonitor, "Creating new source rolot for native extensions", 1));
-		int numberOfResources = getNumberOfResources(rootFolder, createSubProgressMonitor(progressMonitor, "Counting xpand resources", 1));
 
-		IProgressMonitor subMonitor = createSubProgressMonitor(progressMonitor, "Migrating xpand resources", BIG_NUMBER);
-		subMonitor.beginTask("Migrating xpand resources", numberOfResources);
+		MigrationVisitor visitor = new MigrationVisitor(rootFolder, templatesOutputFolder, nativeExtensionsRoot, selectedJavaProject, rootManager, progressMonitor);
+		acceptVisitor(rootFolder, visitor);
+		visitor.done();
+		nativeLibraryDeclarations.addAll(visitor.getNativeLibraryDeclarations());
+	}
+
+	private int getNumberOfSteps(IFolder rootFolder, IProgressMonitor progressMonitor) throws CoreException, InterruptedException, InvocationTargetException {
+		progressMonitor.beginTask("Counting xpand resources in: " + rootFolder.getName(), 1);
+		ResourceCountingVisitor counter = new ResourceCountingVisitor(progressMonitor);
+		acceptVisitor(rootFolder, counter);
+		progressMonitor.done();
+		return counter.getNumberOfFiles();
+	}
+
+	private void acceptVisitor(IResource resource, AbstractMigrationVisitor visitor) throws InterruptedException, CoreException, InvocationTargetException {
 		try {
-			MigrationVisitor visitor = new MigrationVisitor(rootFolder, templatesOutputFolder, nativeExtensionsRoot, selectedJavaProject, rootManager, subMonitor);
-			rootFolder.accept(visitor);
-			nativeLibraryDeclarations.addAll(visitor.getNativeLibraryDeclarations());
+			resource.accept(visitor);
 		} catch (CoreException e) {
-			Throwable cause = e.getCause();
-			if (cause instanceof InterruptedException) {
-				throw (InterruptedException) cause;
-			} else if (cause != null) {
-				throw new InvocationTargetException(cause);
+			if (e.getCause() instanceof InterruptedException) {
+				throw (InterruptedException) e.getCause();
+			} else if (e.getCause() != null) {
+				throw new InvocationTargetException(e.getCause());
 			} else {
 				throw e;
 			}
-		} finally {
-			/*
-			 * Marking this progress monitor as "done" even in case of
-			 * non-executed optional step for native extensions source root
-			 * creation.
-			 */
-			subMonitor.done();
 		}
-	}
-
-	private int getNumberOfResources(IFolder rootFolder, IProgressMonitor progressMonitor) throws CoreException {
-		progressMonitor.beginTask("Counting xpand resources", 1);
-		ResourceCountingVisitor counter = new ResourceCountingVisitor();
-		rootFolder.accept(counter);
-		progressMonitor.done();
-		return counter.getNumberOfFiles();
 	}
 
 	private IFolder getTemplatesOutputFolder(IFolder rootFolder, IProgressMonitor progressMonitor) {

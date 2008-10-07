@@ -13,28 +13,34 @@ package org.eclipse.gmf.internal.xpand.migration.ui;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 
 public class ResourceCountingVisitor extends AbstractMigrationVisitor {
 
 	// Steps necessary for creation native extensions source folder
 	private int numberOfFiles = 2;
 
+	public ResourceCountingVisitor(IProgressMonitor progressMonitor) {
+		super(progressMonitor);
+	}
+
 	public int getNumberOfFiles() {
 		return numberOfFiles;
 	}
 
 	@Override
-	protected void visitFolder(IFolder resource) {
+	protected void visitFolder(IFolder resource) throws CoreException {
 		numberOfFiles++;
 	}
 
 	@Override
-	protected void visitXpandResource(IFile resource) {
+	protected void visitXpandResource(IFile resource) throws CoreException {
 		numberOfFiles++;
 	}
 
 	@Override
-	protected void visitXtendResource(IFile resource) {
+	protected void visitXtendResource(IFile resource) throws CoreException {
 		// each xtend resource will be migrated in two steps
 		numberOfFiles += 2;
 	}
