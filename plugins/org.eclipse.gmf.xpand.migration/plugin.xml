@@ -42,6 +42,17 @@
                menubarPath="additions">
          </action>
       </objectContribution>
+      <objectContribution
+            id="org.eclipse.gmf.xpand.migration.actions.migrateProject"
+            objectClass="org.eclipse.jdt.core.IJavaProject">
+         <action
+               class="org.eclipse.gmf.internal.xpand.migration.ui.MigrateXpandProject"
+               enablesFor="1"
+               id="org.eclipse.gmf.xpand.migration.migratexpandProject"
+               label="%migrate.xpand.project.action"
+               menubarPath="additions">
+         </action>
+      </objectContribution>
    </extension>
 
 </plugin>

@@ -19,6 +19,7 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModelExt;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
@@ -208,24 +209,13 @@ public class XtendMigrationFacade {
 		result.append("public ");
 		result.append(getJavaType(descriptor.getReturnType()));
 		result.append(" ");
-		result.append(descriptor.getMethodName());
-		result.append("(");
-		List<EClassifier> parameterTypes = descriptor.getParameterTypes();
-		List<String> parameterNames = descriptor.getParameterNames();
-		assert parameterTypes.size() == parameterNames.size();
-		for (int i = 0; i < parameterTypes.size(); i++) {
-			if (i > 0) {
-				result.append(", ");
-			}
-			result.append(getJavaType(parameterTypes.get(i)));
-			result.append(" ");
-			result.append(parameterNames.get(i));
-		}
-		result.append(") { return ");
+		addNativeMethodSignature(descriptor, result);
+		result.append(" { return ");
 		result.append(descriptor.getClassName());
 		result.append(JavaCs.DOT);
 		result.append(descriptor.getMethodName());
 		result.append("(");
+		List<String> parameterNames = descriptor.getParameterNames();
 		List<String> javaParameterTypes = descriptor.getJavaParameterTypes();
 		for (int i = 0; i < parameterNames.size(); i++) {
 			if (i > 0) {
@@ -251,6 +241,10 @@ public class XtendMigrationFacade {
 		if (xpandType == BuiltinMetaModel.VOID) {
 			throw new MigrationException(Type.UNSUPPORTED_NATIVE_EXTENSION_TYPE, "Void type is not supported for native extensions");
 		}
+//		//TODO: check if it is working for all the cases..
+//		if (xpandType == EcorePackage.eINSTANCE.getEJavaObject()) {
+//			return "org.eclipse.emf.ecore.EObject";
+//		}
 		if (xpandType.getInstanceClassName() != null) {
 			String instanceClassName = xpandType.getInstanceClassName();
 			return suppressJavaLang(instanceClassName);
@@ -278,9 +272,8 @@ public class XtendMigrationFacade {
 
 	private void addMetainfoMethod(JavaExtensionDescriptor descriptor, StringBuilder result) throws MigrationException {
 		result.append("public static String[] ");
-		result.append(descriptor.getMethodName());
-		result.append("(");
-		result.append(") { return new String[] {\"");
+		addNativeMethodSignature(descriptor, result);
+		result.append(" { return new String[] {\"");
 		result.append(typeManager.getQvtFQName(descriptor.getReturnType()));
 		result.append("\"");
 		for (EClassifier parameterType : descriptor.getParameterTypes()) {
@@ -289,6 +282,23 @@ public class XtendMigrationFacade {
 			result.append("\"");
 		}
 		result.append("}; }");
+	}
+
+	private void addNativeMethodSignature(JavaExtensionDescriptor descriptor, StringBuilder result) throws MigrationException {
+		result.append(descriptor.getMethodName());
+		result.append("(");
+		List<EClassifier> parameterTypes = descriptor.getParameterTypes();
+		List<String> parameterNames = descriptor.getParameterNames();
+		assert parameterTypes.size() == parameterNames.size();
+		for (int i = 0; i < parameterTypes.size(); i++) {
+			if (i > 0) {
+				result.append(", ");
+			}
+			result.append(getJavaType(parameterTypes.get(i)));
+			result.append(" ");
+			result.append(parameterNames.get(i));
+		}
+		result.append(")");
 	}
 
 	public String getNativeLibraryClassName() {
@@ -421,7 +431,8 @@ public class XtendMigrationFacade {
 	}
 
 	private void migrateWorkflowSlotExtension(WorkflowSlotExtensionStatement extension) throws MigrationException {
-		throw new MigrationException(Type.UNSUPPORTED_EXTENSION, extension.getClass().getName());
+		write("return ");
+		writeln(extension.getSlotName().getValue());
 	}
 
 	private void write(CharSequence cs, int index) {

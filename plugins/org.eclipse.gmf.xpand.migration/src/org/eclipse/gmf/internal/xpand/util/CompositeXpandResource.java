@@ -31,7 +31,7 @@ import org.eclipse.gmf.internal.xpand.model.XpandResource;
  * Advice declarations are aggregated: if several advice declarations have the same signature, all are returned in the order
  * in which they are declared.
  */
-class CompositeXpandResource implements XpandResource {
+public class CompositeXpandResource implements XpandResource {
 	private final XpandResource[] myDefinitions;
 	private final XpandResource[] myAdvices;
 	private XpandAdvice[] myCachedAdvices;
@@ -65,6 +65,10 @@ class CompositeXpandResource implements XpandResource {
 		} else {
 			myCachedAdvices = NO_ADVICE;
 		}
+	}
+	
+	public XpandResource getFirstDefinition() {
+		return myDefinitions.length == 0 ? null : myDefinitions[0];
 	}
 
 	private void mergeDefinitions(XpandExecutionContext context, XpandResource[] resources, List<XpandDefinition> collector, Set<DefinitionSignature> usedSignatures) {

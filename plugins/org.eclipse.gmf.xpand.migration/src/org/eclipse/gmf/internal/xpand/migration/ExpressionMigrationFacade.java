@@ -61,10 +61,10 @@ import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
 
 
 public class ExpressionMigrationFacade {
+
+	public static final String LF = System.getProperty("line.separator");
 	
 	static final EcoreEnvironmentFactory ECORE_ENV_FACTORY = new EcoreEnvironmentFactory(null);
-	
-	static final String LF = System.getProperty("line.separator");
 	
 	private static final Set<EOperation> infixOperations = new HashSet<EOperation>(Arrays.asList(new EOperation[] {
 			BuiltinMetaModel.Boolean_NE,

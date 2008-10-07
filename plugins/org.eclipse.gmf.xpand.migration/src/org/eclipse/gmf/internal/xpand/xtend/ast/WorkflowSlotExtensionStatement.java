@@ -63,5 +63,9 @@ public class WorkflowSlotExtensionStatement extends Extension {
             return ctx.getTypeForName(returnType.getValue());
         }
     }
+    
+    public Identifier getSlotName() {
+    	return slotName;
+    }
 
 }

@@ -23,6 +23,7 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -41,9 +42,11 @@ public class RootManager {
 	private List<RootDescription> myRoots;
 	private List<IRootChangeListener> myListeners = new ArrayList<IRootChangeListener>(2);
 	private RootDescription myFallbackRoot;
+	private IProject myProject;
 
 	public RootManager(IProject project) {
 		myConfig = project.getFile(PROJECT_RELATIVE_PATH_TO_CONFIG_FILE);
+		myProject = project;
 	}
 
 	public void addRootChangeListener(IRootChangeListener l) {
@@ -75,6 +78,31 @@ public class RootManager {
 			}
 		}
 		return false;
+	}
+	
+	public List<IFolder> getXpandRootFolders() {
+		List<IFolder> rootFolders = new ArrayList<IFolder>();
+		for (RootDescription rootDescription : getRoots()) {
+			IPath mainIPath = rootDescription.getMainIPath();
+			if (mainIPath == null) {
+				continue;
+			}
+			IFolder rootFolder = null;
+			if (mainIPath.isAbsolute()) {
+				assert mainIPath.segmentCount() > 1;
+				//Try workspace-relative first.
+				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(mainIPath.segment(0));
+				if (project.isAccessible() && project.equals(myProject)) {
+					rootFolder = myProject.getFolder(mainIPath.removeFirstSegments(1));
+				}
+			} else {
+				rootFolder = myProject.getFolder(mainIPath);
+			}
+			if (rootFolder != null && rootFolder.exists()) {
+				rootFolders.add(rootFolder);
+			}
+		}
+		return rootFolders;
 	}
 	
 	public String getTemplateFullName(IFile file) {
@@ -126,7 +154,7 @@ public class RootManager {
 	}
 
 	private void reloadRoots() {
-		if (!myConfig.exists()) {
+		if (!hasConfig()) {
 			myRoots = Collections.singletonList(new RootDescription(DEFAULT_ROOTS));
 			return;
 		}
@@ -168,6 +196,10 @@ public class RootManager {
 			}
 		}
 		myRoots = read;
+	}
+
+	public boolean hasConfig() {
+		return myConfig.exists();
 	}
 
 	public Set<IProject> getReferencedProjects() {
@@ -252,6 +284,9 @@ public class RootManager {
 				}
 			}
 			return null;
+		}
+		public IPath getMainIPath() {
+			return myRoots.size() == 0 ? null : myRoots.get(0);
 		}
 	}
 }

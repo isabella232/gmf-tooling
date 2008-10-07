@@ -41,12 +41,14 @@ import org.eclipse.gmf.internal.xpand.migration.MigrationException.Type;
 import org.eclipse.gmf.internal.xpand.model.XpandAdvice;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
+import org.eclipse.gmf.internal.xpand.util.CompositeXpandResource;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.InsertEdit;
 import org.eclipse.text.edits.MalformedTreeException;
 import org.eclipse.text.edits.MultiTextEdit;
 import org.eclipse.text.edits.ReplaceEdit;
+import org.eclipse.text.edits.TextEdit;
 
 public class XpandMigrationFacade {
 
@@ -98,7 +100,10 @@ public class XpandMigrationFacade {
 		if (MigrationException.hasErrors(issues)) {
 			throw new MigrationException(issues);
 		}
-		// TODO: decompose xpand resource here and use only first one
+		// TODO: there should be more generic way to get first definition..
+		while (xpandResource instanceof CompositeXpandResource) {
+			xpandResource = ((CompositeXpandResource) xpandResource).getFirstDefinition();
+		}
 		if (false == xpandResource instanceof Template) {
 			throw new MigrationException(Type.UNSUPPORTED_XPAND_RESOURCE, "Only Template instances are supported, but loaded: " + xpandResource);
 		}
