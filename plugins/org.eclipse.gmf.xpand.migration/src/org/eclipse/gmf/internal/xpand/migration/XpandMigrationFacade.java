@@ -48,7 +48,6 @@ import org.eclipse.text.edits.InsertEdit;
 import org.eclipse.text.edits.MalformedTreeException;
 import org.eclipse.text.edits.MultiTextEdit;
 import org.eclipse.text.edits.ReplaceEdit;
-import org.eclipse.text.edits.TextEdit;
 
 public class XpandMigrationFacade {
 
@@ -126,6 +125,10 @@ public class XpandMigrationFacade {
 		StandardLibraryImports stdLibImportsManager = new StandardLibraryImports(getStdLibImportsPosition(xpandTemplate));
 		modelManager = new ModelManager(stdLibImportsManager, true);
 		typeManager = new TypeManager();
+		
+		for (NamespaceImport namespaceImport : xpandTemplate.getImports()) {
+			migrateExpression(namespaceImport.getStringLiteral(), EcorePackage.eINSTANCE.getEString(), new VariableNameDispatcher());
+		}
 
 		for (XpandDefinition definition : xpandTemplate.getDefinitions()) {
 			assert definition instanceof AbstractDefinition;

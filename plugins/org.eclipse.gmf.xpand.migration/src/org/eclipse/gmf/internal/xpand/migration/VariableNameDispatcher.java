@@ -46,15 +46,16 @@ public class VariableNameDispatcher {
 
 	private static final String VARIABLE_PREFIX = "tmpVar";
 
-	private Set<String> definedVariables;
+	private Set<String> definedVariables = new HashSet<String>();
+	
+	public VariableNameDispatcher() {
+	}
 
 	public VariableNameDispatcher(Extension extension) {
-		definedVariables = new HashSet<String>();
 		initDefinedVariables(extension);
 	}
 
 	public VariableNameDispatcher(AbstractDefinition definition) {
-		definedVariables = new HashSet<String>();
 		initDefinedVariables(definition);
 	}
 
