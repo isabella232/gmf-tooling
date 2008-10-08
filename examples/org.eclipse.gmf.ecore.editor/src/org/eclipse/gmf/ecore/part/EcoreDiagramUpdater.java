@@ -771,84 +771,49 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEAttribute_3001IncomingLinks(View view) {
-		EAttribute modelElement = (EAttribute) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
-		List result = new LinkedList();
-		result.addAll(getIncomingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement, crossReferences));
-		return result;
+		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
 	public static List getEOperation_3002IncomingLinks(View view) {
-		EOperation modelElement = (EOperation) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
-		List result = new LinkedList();
-		result.addAll(getIncomingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement, crossReferences));
-		return result;
+		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
 	public static List getEAnnotation_3003IncomingLinks(View view) {
-		EAnnotation modelElement = (EAnnotation) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
-		List result = new LinkedList();
-		result.addAll(getIncomingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement, crossReferences));
-		return result;
+		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
 	public static List getEClass_3004IncomingLinks(View view) {
-		EClass modelElement = (EClass) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
-		List result = new LinkedList();
-		result.addAll(getIncomingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement, crossReferences));
-		result.addAll(getIncomingTypeModelFacetLinks_EReference_4002(modelElement, crossReferences));
-		result.addAll(getIncomingTypeModelFacetLinks_EReference_4003(modelElement, crossReferences));
-		result.addAll(getIncomingFeatureModelFacetLinks_EClass_ESuperTypes_4004(modelElement, crossReferences));
-		return result;
+		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
 	public static List getEPackage_3005IncomingLinks(View view) {
-		EPackage modelElement = (EPackage) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
-		List result = new LinkedList();
-		result.addAll(getIncomingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement, crossReferences));
-		return result;
+		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
 	public static List getEDataType_3006IncomingLinks(View view) {
-		EDataType modelElement = (EDataType) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
-		List result = new LinkedList();
-		result.addAll(getIncomingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement, crossReferences));
-		result.addAll(getIncomingTypeModelFacetLinks_EReference_4002(modelElement, crossReferences));
-		result.addAll(getIncomingTypeModelFacetLinks_EReference_4003(modelElement, crossReferences));
-		return result;
+		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
 	public static List getEEnum_3007IncomingLinks(View view) {
-		EEnum modelElement = (EEnum) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
-		List result = new LinkedList();
-		result.addAll(getIncomingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement, crossReferences));
-		result.addAll(getIncomingTypeModelFacetLinks_EReference_4002(modelElement, crossReferences));
-		result.addAll(getIncomingTypeModelFacetLinks_EReference_4003(modelElement, crossReferences));
-		return result;
+		return Collections.EMPTY_LIST;
 	}
 
 	/**
@@ -862,11 +827,7 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEEnumLiteral_3009IncomingLinks(View view) {
-		EEnumLiteral modelElement = (EEnumLiteral) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
-		List result = new LinkedList();
-		result.addAll(getIncomingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement, crossReferences));
-		return result;
+		return Collections.EMPTY_LIST;
 	}
 
 	/**
@@ -952,22 +913,14 @@ public class EcoreDiagramUpdater {
 	 * @generated
 	 */
 	public static List getEAnnotation_3003OutgoingLinks(View view) {
-		EAnnotation modelElement = (EAnnotation) view.getElement();
-		List result = new LinkedList();
-		result.addAll(getOutgoingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement));
-		return result;
+		return Collections.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
 	public static List getEClass_3004OutgoingLinks(View view) {
-		EClass modelElement = (EClass) view.getElement();
-		List result = new LinkedList();
-		result.addAll(getContainedTypeModelFacetLinks_EReference_4002(modelElement));
-		result.addAll(getContainedTypeModelFacetLinks_EReference_4003(modelElement));
-		result.addAll(getOutgoingFeatureModelFacetLinks_EClass_ESuperTypes_4004(modelElement));
-		return result;
+		return Collections.EMPTY_LIST;
 	}
 
 	/**

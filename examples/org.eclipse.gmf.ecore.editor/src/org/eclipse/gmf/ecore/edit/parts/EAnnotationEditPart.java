@@ -11,8 +11,12 @@
  */
 package org.eclipse.gmf.ecore.edit.parts;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
+import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.emf.common.notify.Notification;
@@ -40,6 +44,7 @@ import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.swt.graphics.Color;
 
 /**
  * @generated
@@ -145,7 +150,9 @@ public class EAnnotationEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean removeFixedChild(EditPart childEditPart) {
-
+		if (childEditPart instanceof EAnnotationSourceEditPart) {
+			return true;
+		}
 		return false;
 	}
 
@@ -174,7 +181,7 @@ public class EAnnotationEditPart extends ShapeNodeEditPart {
 	 */
 	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
 
-		return super.getContentPaneFor(editPart);
+		return getContentPane();
 	}
 
 	/**
@@ -230,8 +237,119 @@ public class EAnnotationEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
+	protected void setForegroundColor(Color color) {
+		if (primaryShape != null) {
+			primaryShape.setForegroundColor(color);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setBackgroundColor(Color color) {
+		if (primaryShape != null) {
+			primaryShape.setBackgroundColor(color);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setLineWidth(int width) {
+		if (primaryShape instanceof Shape) {
+			((Shape) primaryShape).setLineWidth(getMapMode().DPtoLP(width));
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setLineType(int style) {
+		if (primaryShape instanceof Shape) {
+			((Shape) primaryShape).setLineStyle(style);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(EcoreVisualIDRegistry.getType(EAnnotationSourceEditPart.VISUAL_ID));
+	}
+
+	/**
+	 * @generated
+	 */
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnSource() {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		types.add(EcoreElementTypes.EAnnotationReferences_4001);
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnTarget() {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		types.add(EcoreElementTypes.EAnnotationReferences_4001);
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnSourceAndTarget(IGraphicalEditPart targetEditPart) {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		if (targetEditPart instanceof EClassEditPart) {
+			types.add(EcoreElementTypes.EAnnotationReferences_4001);
+		}
+		if (targetEditPart instanceof EPackage2EditPart) {
+			types.add(EcoreElementTypes.EAnnotationReferences_4001);
+		}
+		if (targetEditPart instanceof org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart) {
+			types.add(EcoreElementTypes.EAnnotationReferences_4001);
+		}
+		if (targetEditPart instanceof EDataTypeEditPart) {
+			types.add(EcoreElementTypes.EAnnotationReferences_4001);
+		}
+		if (targetEditPart instanceof EEnumEditPart) {
+			types.add(EcoreElementTypes.EAnnotationReferences_4001);
+		}
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMATypesForSource(IElementType relationshipType) {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
+			types.add(EcoreElementTypes.EAnnotation_2003);
+		}
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMATypesForTarget(IElementType relationshipType) {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
+			types.add(EcoreElementTypes.EClass_2001);
+		}
+		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
+			types.add(EcoreElementTypes.EPackage_2002);
+		}
+		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
+			types.add(EcoreElementTypes.EAnnotation_2003);
+		}
+		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
+			types.add(EcoreElementTypes.EDataType_2004);
+		}
+		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
+			types.add(EcoreElementTypes.EEnum_2005);
+		}
+		return types;
 	}
 
 	/**

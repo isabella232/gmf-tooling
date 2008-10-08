@@ -105,7 +105,7 @@ public abstract class EcoreAbstractExpression {
 			try {
 				return doEvaluate(context, env);
 			} catch (Exception e) {
-				EcoreDiagramEditorPlugin.getInstance().logError("Expression evaluation failure: " + body(), e);//$NON-NLS-1$
+				EcoreDiagramEditorPlugin.getInstance().logError("Expression evaluation failure: " + body(), e); //$NON-NLS-1$
 			}
 		}
 		return null;
