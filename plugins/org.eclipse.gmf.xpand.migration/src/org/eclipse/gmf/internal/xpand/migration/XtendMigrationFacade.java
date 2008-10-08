@@ -19,7 +19,6 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModelExt;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
@@ -274,13 +273,12 @@ public class XtendMigrationFacade {
 		result.append("public static String[] ");
 		addNativeMethodSignature(descriptor, result);
 		result.append(" { return new String[] {\"");
-		result.append(typeManager.getQvtFQName(descriptor.getReturnType()));
-		result.append("\"");
 		for (EClassifier parameterType : descriptor.getParameterTypes()) {
-			result.append(", \"");
-			result.append(typeManager.getQvtFQName(parameterType));
-			result.append("\"");
+			result.append(typeManager.getQvtFQName(parameterType, true));
+			result.append("\", \"");
 		}
+		result.append(typeManager.getQvtFQName(descriptor.getReturnType(), true));
+		result.append("\"");
 		result.append("}; }");
 	}
 

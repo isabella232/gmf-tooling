@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
+import org.eclipse.ocl.ecore.internal.OCLStandardLibraryImpl;
 import org.eclipse.ocl.types.AnyType;
 import org.eclipse.ocl.types.CollectionType;
 import org.eclipse.ocl.types.PrimitiveType;
@@ -57,8 +58,12 @@ public class TypeManager {
 	public String getQvtFQName(EEnumLiteral literal) {
 		return getPackageName(literal.getEEnum().getEPackage()) + OclCs.PATH_SEPARATOR + literal.getEEnum().getName() + OclCs.PATH_SEPARATOR + literal.getName();
 	}
-
+	
 	public String getQvtFQName(EClassifier classifier) throws MigrationException {
+		return getQvtFQName(classifier, false);
+	}
+
+	public String getQvtFQName(EClassifier classifier, boolean useFQNameForPrimitiveTypes) throws MigrationException {
 		if (classifier == BuiltinMetaModel.VOID) {
 			return VoidType.SINGLETON_NAME;
 		}
@@ -67,15 +72,15 @@ public class TypeManager {
 			 * Handling QVT primitive types here.
 			 */
 			if (EcorePackage.eINSTANCE.getEString() == classifier) {
-				return PrimitiveType.STRING_NAME;
+				return getPrimitiveTypeName(PrimitiveType.STRING_NAME, useFQNameForPrimitiveTypes);
 			} else if (EcorePackage.eINSTANCE.getEBoolean() == classifier) {
-				return PrimitiveType.BOOLEAN_NAME;
+				return getPrimitiveTypeName(PrimitiveType.BOOLEAN_NAME, useFQNameForPrimitiveTypes);
 			} else if (EcorePackage.eINSTANCE.getEInt() == classifier) {
-				return PrimitiveType.INTEGER_NAME;
+				return getPrimitiveTypeName(PrimitiveType.INTEGER_NAME, useFQNameForPrimitiveTypes);
 			} else if (EcorePackage.eINSTANCE.getEDouble() == classifier) {
-				return PrimitiveType.REAL_NAME;
+				return getPrimitiveTypeName(PrimitiveType.REAL_NAME, useFQNameForPrimitiveTypes);
 			} else if (EcorePackage.eINSTANCE.getEJavaObject() == classifier) {
-				return AnyType.SINGLETON_NAME;
+				return getPrimitiveTypeName(AnyType.SINGLETON_NAME, useFQNameForPrimitiveTypes);
 			}
 		}
 		if (BuiltinMetaModel.isCollectionType(classifier)) {
@@ -94,6 +99,10 @@ public class TypeManager {
 		EPackage ePackage = classifier.getEPackage();
 		assert ePackage != null;
 		return getPackageName(ePackage) + OclCs.PATH_SEPARATOR + classifier.getName();
+	}
+
+	private String getPrimitiveTypeName(String primitiveTypeName, boolean useFQNameForPrimitiveTypes) {
+		return useFQNameForPrimitiveTypes ? OCLStandardLibraryImpl.stdlibPackage.getName() + OclCs.PATH_SEPARATOR + primitiveTypeName: primitiveTypeName;
 	}
 
 	private String getPackageName(EPackage ePackage) {
