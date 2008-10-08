@@ -45,9 +45,9 @@ public abstract class «editorGen.expressionProviders.abstractExpressionClassName
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void setStatus(int severity, String message, Throwable throwable) {		
 		String pluginID = «editorGen.plugin.getActivatorQualifiedClassName()».ID;
-		this.status = new org.eclipse.core.runtime.Status(severity, pluginID, -1, (message != null) ? message : "", throwable); «EXPAND xpt::Common::nonNLS»
+		this.status = new org.eclipse.core.runtime.Status(severity, pluginID, -1, (message != null) ? message : "", throwable);«EXPAND xpt::Common::nonNLS»
 		if(!this.status.isOK()) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Expression problem:" + message + "body:"+ body(), throwable); «EXPAND xpt::Common::nonNLS» «EXPAND xpt::Common::nonNLS(2)»
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Expression problem:" + message + "body:"+ body(), throwable);«EXPAND xpt::Common::nonNLS»«EXPAND xpt::Common::nonNLS(2)»
 		}
 	}
 
