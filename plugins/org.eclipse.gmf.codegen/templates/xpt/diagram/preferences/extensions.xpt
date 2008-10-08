@@ -43,5 +43,7 @@
 
 «DEFINE i18n FOR gmfgen::GenDiagram»
 # Preferences
-«FOREACH preferencePages AS p»«EXPAND xpt::Externalizer::messageEntry("prefpage." + p.iD, p.name)»«ENDFOREACH»
+«FOREACH allPreferencePages() AS p-»
+prefpage.«p.iD»=«p.name»
+«ENDFOREACH»
 «ENDDEFINE»
