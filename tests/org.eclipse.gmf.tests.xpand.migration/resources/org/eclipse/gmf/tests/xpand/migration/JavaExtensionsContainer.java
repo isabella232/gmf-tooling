@@ -1,9 +1,9 @@
 package org.eclipse.gmf.tests.xpand.migration;
 public class JavaExtensionsContainer {
 public static class Metainfo {
-public static String[] simpleNativeExtension(String parameter) { return new String[] {"String", "String"}; }
-public static String[] modelElementAsNativeExtensionParameter(org.eclipse.emf.ecore.EObject param1, org.eclipse.emf.ecore.EPackage param2) { return new String[] {"ecore::EClass", "ecore::EObject", "ecore::EPackage"}; }
-public static String[] collectionsInNativeExtensions(java.util.Collection param1, java.util.Set param2, java.util.List param3, java.util.List param4) { return new String[] {"Sequence(ecore::EClass)", "Collection(ecore::EObject)", "Set(ecore::EPackage)", "Sequence(OclAny)", "Sequence(ecore::EClassifier)"}; }
+public static String[] simpleNativeExtension(String parameter) { return new String[] {"oclstdlib::String", "oclstdlib::String"}; }
+public static String[] modelElementAsNativeExtensionParameter(org.eclipse.emf.ecore.EObject param1, org.eclipse.emf.ecore.EPackage param2) { return new String[] {"ecore::EObject", "ecore::EPackage", "ecore::EClass"}; }
+public static String[] collectionsInNativeExtensions(java.util.Collection param1, java.util.Set param2, java.util.List param3, java.util.List param4) { return new String[] {"Collection(ecore::EObject)", "Set(ecore::EPackage)", "Sequence(OclAny)", "Sequence(ecore::EClassifier)", "Sequence(ecore::EClass)"}; }
 }
 public String simpleNativeExtension(String parameter) { return org.eclipse.gmf.tests.xpand.migration.NativeExtensionsContainer.simpleNativeExtension(parameter); }
 public org.eclipse.emf.ecore.EClass modelElementAsNativeExtensionParameter(org.eclipse.emf.ecore.EObject param1, org.eclipse.emf.ecore.EPackage param2) { return org.eclipse.gmf.tests.xpand.migration.NativeExtensionsContainer.modelElementAsNativeExtensionParameter(param1, param2); }
