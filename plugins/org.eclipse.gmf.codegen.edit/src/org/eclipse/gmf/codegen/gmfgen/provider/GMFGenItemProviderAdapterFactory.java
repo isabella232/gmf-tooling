@@ -1952,6 +1952,75 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.LoadResourceAction} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LoadResourceActionItemProvider loadResourceActionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.LoadResourceAction}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLoadResourceActionAdapter() {
+		if (loadResourceActionItemProvider == null) {
+			loadResourceActionItemProvider = new LoadResourceActionItemProvider(this);
+		}
+
+		return loadResourceActionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.InitDiagramAction} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected InitDiagramActionItemProvider initDiagramActionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.InitDiagramAction}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createInitDiagramActionAdapter() {
+		if (initDiagramActionItemProvider == null) {
+			initDiagramActionItemProvider = new InitDiagramActionItemProvider(this);
+		}
+
+		return initDiagramActionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.CreateShortcutAction} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CreateShortcutActionItemProvider createShortcutActionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.CreateShortcutAction}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCreateShortcutActionAdapter() {
+		if (createShortcutActionItemProvider == null) {
+			createShortcutActionItemProvider = new CreateShortcutActionItemProvider(this);
+		}
+
+		return createShortcutActionItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenActionFactoryContributionItem} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2413,6 +2482,9 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genSeparatorItemProvider != null) genSeparatorItemProvider.dispose();
 		if (genCustomActionItemProvider != null) genCustomActionItemProvider.dispose();
 		if (genCommandActionItemProvider != null) genCommandActionItemProvider.dispose();
+		if (loadResourceActionItemProvider != null) loadResourceActionItemProvider.dispose();
+		if (initDiagramActionItemProvider != null) initDiagramActionItemProvider.dispose();
+		if (createShortcutActionItemProvider != null) createShortcutActionItemProvider.dispose();
 		if (genActionFactoryContributionItemItemProvider != null) genActionFactoryContributionItemItemProvider.dispose();
 		if (genMenuManagerItemProvider != null) genMenuManagerItemProvider.dispose();
 		if (genToolBarManagerItemProvider != null) genToolBarManagerItemProvider.dispose();

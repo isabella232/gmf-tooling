@@ -196,6 +196,21 @@ public class GenContributionManagerItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenContributionManager_Items(),
+				 GMFGenFactory.eINSTANCE.createLoadResourceAction()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenContributionManager_Items(),
+				 GMFGenFactory.eINSTANCE.createInitDiagramAction()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenContributionManager_Items(),
+				 GMFGenFactory.eINSTANCE.createCreateShortcutAction()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenContributionManager_Items(),
 				 GMFGenFactory.eINSTANCE.createGenActionFactoryContributionItem()));
 
 		newChildDescriptors.add
