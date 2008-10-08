@@ -34,6 +34,7 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 import org.eclipse.gmf.internal.xpand.xtend.ast.JavaExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.WorkflowSlotExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
+import org.eclipse.ocl.types.VoidType;
 
 public class XtendMigrationFacade {
 
@@ -60,6 +61,8 @@ public class XtendMigrationFacade {
 	private ModelManager modelManager;
 
 	private List<JavaExtensionDescriptor> javaExtensionDescriptors = new ArrayList<JavaExtensionDescriptor>();
+	
+	private List<String> importedMetamodels = new ArrayList<String>();
 
 	private String nativeLibraryClassName;
 
@@ -116,6 +119,7 @@ public class XtendMigrationFacade {
 		modeltypeImportsManger = new ModeltypeImports(output, injectUnusedImports);
 		for (String namespace : xtendResource.getImportedNamespaces()) {
 			modeltypeImportsManger.registerModeltype(namespace);
+			importedMetamodels.add(namespace);
 		}
 		typeManager = new TypeManager(modeltypeImportsManger);
 
@@ -156,7 +160,13 @@ public class XtendMigrationFacade {
 		result.append(nativeLibraryFullClassName);
 		result.append("\" id=\"");
 		result.append(nativeLibraryFullClassName.replaceAll("\\.", "_"));
-		result.append("\"/>");
+		result.append("\">");
+		for (String	metamodel : importedMetamodels) {
+			result.append("<inMetamodel uri=\"");
+			result.append(metamodel);
+			result.append("\"/>");
+		}
+		result.append("</library>");
 		result.append(ExpressionMigrationFacade.LF);
 		return result;
 	}
@@ -240,10 +250,6 @@ public class XtendMigrationFacade {
 		if (xpandType == BuiltinMetaModel.VOID) {
 			throw new MigrationException(Type.UNSUPPORTED_NATIVE_EXTENSION_TYPE, "Void type is not supported for native extensions");
 		}
-//		//TODO: check if it is working for all the cases..
-//		if (xpandType == EcorePackage.eINSTANCE.getEJavaObject()) {
-//			return "org.eclipse.emf.ecore.EObject";
-//		}
 		if (xpandType.getInstanceClassName() != null) {
 			String instanceClassName = xpandType.getInstanceClassName();
 			return suppressJavaLang(instanceClassName);
@@ -272,18 +278,22 @@ public class XtendMigrationFacade {
 	private void addMetainfoMethod(JavaExtensionDescriptor descriptor, StringBuilder result) throws MigrationException {
 		result.append("public static String[] ");
 		addNativeMethodSignature(descriptor, result);
-		result.append(" { return new String[] {\"");
+		result.append(" { return new String[] {\"oclstdlib::");
+		result.append(VoidType.SINGLETON_NAME);
+		result.append("\", \"");
+		TypeManager nativeLibrariesTypeManager = new TypeManager();
+		nativeLibrariesTypeManager.setUseFQNameForPrimitiveTypes(true);
 		for (EClassifier parameterType : descriptor.getParameterTypes()) {
-			result.append(typeManager.getQvtFQName(parameterType, true));
+			result.append(nativeLibrariesTypeManager.getQvtFQName(parameterType));
 			result.append("\", \"");
 		}
-		result.append(typeManager.getQvtFQName(descriptor.getReturnType(), true));
+		result.append(nativeLibrariesTypeManager.getQvtFQName(descriptor.getReturnType()));
 		result.append("\"");
 		result.append("}; }");
 	}
 
 	private void addNativeMethodSignature(JavaExtensionDescriptor descriptor, StringBuilder result) throws MigrationException {
-		result.append(descriptor.getMethodName());
+		result.append(descriptor.getExtensionName());
 		result.append("(");
 		List<EClassifier> parameterTypes = descriptor.getParameterTypes();
 		List<String> parameterNames = descriptor.getParameterNames();

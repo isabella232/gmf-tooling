@@ -28,6 +28,8 @@ import org.eclipse.ocl.types.VoidType;
 public class TypeManager {
 
 	private final ModeltypeImports modeltypeImportsManger;
+	
+	private boolean useFQNameForPrimitiveTypes = false;
 
 	public static final boolean isListType(EClassifier classifier) {
 		return classifier.getName().endsWith(BuiltinMetaModel.LIST);
@@ -50,9 +52,13 @@ public class TypeManager {
 	public TypeManager() {
 		modeltypeImportsManger = null;
 	}
-
+	
 	public TypeManager(ModeltypeImports modelImports) {
 		modeltypeImportsManger = modelImports;
+	}
+	
+	public void setUseFQNameForPrimitiveTypes(boolean value) {
+		useFQNameForPrimitiveTypes = value;
 	}
 
 	public String getQvtFQName(EEnumLiteral literal) {
@@ -60,10 +66,6 @@ public class TypeManager {
 	}
 	
 	public String getQvtFQName(EClassifier classifier) throws MigrationException {
-		return getQvtFQName(classifier, false);
-	}
-
-	public String getQvtFQName(EClassifier classifier, boolean useFQNameForPrimitiveTypes) throws MigrationException {
 		if (classifier == BuiltinMetaModel.VOID) {
 			return VoidType.SINGLETON_NAME;
 		}
