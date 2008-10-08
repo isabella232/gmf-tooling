@@ -157,17 +157,7 @@ Contributors:
          </ViewId>
       </GlobalActionHandlerProvider>
    </extension>
-
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
-      <?gmfgen generated="true"?>
-      <contributionItemProvider class="org.eclipse.gmf.ecore.providers.EcoreContributionItemProvider">
-         <Priority name="Low"/>
-         <partContribution id="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID">
-            <partAction menubarPath="/file/print" id="printPreviewAction"/>
-         </partContribution>
-      </contributionItemProvider>
-   </extension>
-
+ 
    <extension point="org.eclipse.core.runtime.preferences">
       <?gmfgen generated="true"?>
       <initializer class="org.eclipse.gmf.ecore.preferences.DiagramPreferenceInitializer"/>
@@ -203,12 +193,6 @@ Contributors:
             name="%prefpage.org.eclipse.emf.ecore.diagram.rulersAndGrid"
             category="org.eclipse.emf.ecore.diagram.general"
             class="org.eclipse.gmf.ecore.preferences.DiagramRulersAndGridPreferencePage">
-      </page>
-      <page
-            id="org.eclipse.emf.ecore.diagram.pathmaps"
-            name="%prefpage.org.eclipse.emf.ecore.diagram.pathmaps"
-            category="org.eclipse.emf.ecore.diagram.general"
-            class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage">
       </page>
    </extension>
 
