@@ -863,6 +863,34 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass genActionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass loadResourceActionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass initDiagramActionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass createShortcutActionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass genActionFactoryContributionItemEClass = null;
 
 	/**
@@ -5950,6 +5978,51 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getGenAction() {
+		return genActionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenAction_QualifiedClassName() {
+		return (EAttribute)genActionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLoadResourceAction() {
+		return loadResourceActionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getInitDiagramAction() {
+		return initDiagramActionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCreateShortcutAction() {
+		return createShortcutActionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenActionFactoryContributionItem() {
 		return genActionFactoryContributionItemEClass;
 	}
@@ -7185,6 +7258,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genCommandActionEClass, GEN_COMMAND_ACTION__COMMAND_IDENTIFIER);
 		createEAttribute(genCommandActionEClass, GEN_COMMAND_ACTION__NAME);
 
+		genActionEClass = createEClass(GEN_ACTION);
+		createEAttribute(genActionEClass, GEN_ACTION__QUALIFIED_CLASS_NAME);
+
+		loadResourceActionEClass = createEClass(LOAD_RESOURCE_ACTION);
+
+		initDiagramActionEClass = createEClass(INIT_DIAGRAM_ACTION);
+
+		createShortcutActionEClass = createEClass(CREATE_SHORTCUT_ACTION);
+
 		genActionFactoryContributionItemEClass = createEClass(GEN_ACTION_FACTORY_CONTRIBUTION_ITEM);
 		createEAttribute(genActionFactoryContributionItemEClass, GEN_ACTION_FACTORY_CONTRIBUTION_ITEM__NAME);
 
@@ -7382,6 +7464,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genSeparatorEClass.getESuperTypes().add(this.getGenContributionItem());
 		genCustomActionEClass.getESuperTypes().add(this.getGenContributionItem());
 		genCommandActionEClass.getESuperTypes().add(this.getGenContributionItem());
+		genActionEClass.getESuperTypes().add(this.getGenContributionItem());
+		loadResourceActionEClass.getESuperTypes().add(this.getGenAction());
+		initDiagramActionEClass.getESuperTypes().add(this.getGenAction());
+		createShortcutActionEClass.getESuperTypes().add(this.getGenAction());
 		genActionFactoryContributionItemEClass.getESuperTypes().add(this.getGenContributionItem());
 		genMenuManagerEClass.getESuperTypes().add(this.getGenContributionManager());
 		genMenuManagerEClass.getESuperTypes().add(this.getGenContributionItem());
@@ -8307,6 +8393,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenCommandAction_CommandIdentifier(), ecorePackage.getEString(), "commandIdentifier", null, 1, 1, GenCommandAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenCommandAction_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenCommandAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(genActionEClass, GenAction.class, "GenAction", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenAction_QualifiedClassName(), ecorePackage.getEString(), "qualifiedClassName", null, 0, 1, GenAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(loadResourceActionEClass, LoadResourceAction.class, "LoadResourceAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(initDiagramActionEClass, InitDiagramAction.class, "InitDiagramAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(createShortcutActionEClass, CreateShortcutAction.class, "CreateShortcutAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(genActionFactoryContributionItemEClass, GenActionFactoryContributionItem.class, "GenActionFactoryContributionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenActionFactoryContributionItem_Name(), ecorePackage.getEString(), "name", null, 1, 1, GenActionFactoryContributionItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -8541,7 +8636,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																																									
+		   });																																																																																																																																																																																																																										
 	}
 
 	/**
@@ -8774,7 +8869,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not actualItem.oclIsKindOf(gmfgen::GenSharedContributionItem)",
 			 "description", "Actual contribution item can\'t be a reference"
-		   });											
+		   });												
 	}
 
 	/**
@@ -8838,7 +8933,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Replaced with GenParsers and PredefinedParser"
-		   });																																																																																																																							
+		   });																																																																																																																								
 	}
 
 	/**
@@ -8944,7 +9039,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "type",
 			 "ocl", "\'ecore::EDoubleObject\'"
-		   });																																
+		   });																																	
 	}
 
 } //GMFGenPackageImpl

@@ -143,6 +143,9 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_SEPARATOR: return createGenSeparator();
 			case GMFGenPackage.GEN_CUSTOM_ACTION: return createGenCustomAction();
 			case GMFGenPackage.GEN_COMMAND_ACTION: return createGenCommandAction();
+			case GMFGenPackage.LOAD_RESOURCE_ACTION: return createLoadResourceAction();
+			case GMFGenPackage.INIT_DIAGRAM_ACTION: return createInitDiagramAction();
+			case GMFGenPackage.CREATE_SHORTCUT_ACTION: return createCreateShortcutAction();
 			case GMFGenPackage.GEN_ACTION_FACTORY_CONTRIBUTION_ITEM: return createGenActionFactoryContributionItem();
 			case GMFGenPackage.GEN_MENU_MANAGER: return createGenMenuManager();
 			case GMFGenPackage.GEN_TOOL_BAR_MANAGER: return createGenToolBarManager();
@@ -1075,6 +1078,36 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenCommandAction createGenCommandAction() {
 		GenCommandActionImpl genCommandAction = new GenCommandActionImpl();
 		return genCommandAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LoadResourceAction createLoadResourceAction() {
+		LoadResourceActionImpl loadResourceAction = new LoadResourceActionImpl();
+		return loadResourceAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public InitDiagramAction createInitDiagramAction() {
+		InitDiagramActionImpl initDiagramAction = new InitDiagramActionImpl();
+		return initDiagramAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CreateShortcutAction createCreateShortcutAction() {
+		CreateShortcutActionImpl createShortcutAction = new CreateShortcutActionImpl();
+		return createShortcutAction;
 	}
 
 	/**

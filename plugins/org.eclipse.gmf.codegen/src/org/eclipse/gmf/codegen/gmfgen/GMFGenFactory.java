@@ -755,6 +755,33 @@ public interface GMFGenFactory extends EFactory {
 	GenCommandAction createGenCommandAction();
 
 	/**
+	 * Returns a new object of class '<em>Load Resource Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Load Resource Action</em>'.
+	 * @generated
+	 */
+	LoadResourceAction createLoadResourceAction();
+
+	/**
+	 * Returns a new object of class '<em>Init Diagram Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Init Diagram Action</em>'.
+	 * @generated
+	 */
+	InitDiagramAction createInitDiagramAction();
+
+	/**
+	 * Returns a new object of class '<em>Create Shortcut Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Create Shortcut Action</em>'.
+	 * @generated
+	 */
+	CreateShortcutAction createCreateShortcutAction();
+
+	/**
 	 * Returns a new object of class '<em>Gen Action Factory Contribution Item</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

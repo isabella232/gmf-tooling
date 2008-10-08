@@ -932,6 +932,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommandAction/commandIdentifier"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommandAction/name"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenAction">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAction/qualifiedClassName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//LoadResourceAction"/>
+    <genClasses ecoreClass="gmfgen.ecore#//InitDiagramAction"/>
+    <genClasses ecoreClass="gmfgen.ecore#//CreateShortcutAction"/>
     <genClasses ecoreClass="gmfgen.ecore#//GenActionFactoryContributionItem">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenActionFactoryContributionItem/name"/>
     </genClasses>

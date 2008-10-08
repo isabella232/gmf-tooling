@@ -545,6 +545,22 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 				return createGenCommandActionAdapter();
 			}
 			@Override
+			public Adapter caseGenAction(GenAction object) {
+				return createGenActionAdapter();
+			}
+			@Override
+			public Adapter caseLoadResourceAction(LoadResourceAction object) {
+				return createLoadResourceActionAdapter();
+			}
+			@Override
+			public Adapter caseInitDiagramAction(InitDiagramAction object) {
+				return createInitDiagramActionAdapter();
+			}
+			@Override
+			public Adapter caseCreateShortcutAction(CreateShortcutAction object) {
+				return createCreateShortcutActionAdapter();
+			}
+			@Override
 			public Adapter caseGenActionFactoryContributionItem(GenActionFactoryContributionItem object) {
 				return createGenActionFactoryContributionItemAdapter();
 			}
@@ -2233,6 +2249,62 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenCommandActionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenAction <em>Gen Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAction
+	 * @generated
+	 */
+	public Adapter createGenActionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.LoadResourceAction <em>Load Resource Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LoadResourceAction
+	 * @generated
+	 */
+	public Adapter createLoadResourceActionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.InitDiagramAction <em>Init Diagram Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.InitDiagramAction
+	 * @generated
+	 */
+	public Adapter createInitDiagramActionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.CreateShortcutAction <em>Create Shortcut Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.CreateShortcutAction
+	 * @generated
+	 */
+	public Adapter createCreateShortcutActionAdapter() {
 		return null;
 	}
 

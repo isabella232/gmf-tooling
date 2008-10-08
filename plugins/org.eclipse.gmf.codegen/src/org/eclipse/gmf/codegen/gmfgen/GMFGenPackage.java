@@ -9623,6 +9623,154 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_COMMAND_ACTION_FEATURE_COUNT = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenActionImpl <em>Gen Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenActionImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenAction()
+	 * @generated
+	 */
+	int GEN_ACTION = 119;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_ACTION__OWNER = GEN_CONTRIBUTION_ITEM__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_ACTION__QUALIFIED_CLASS_NAME = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Gen Action</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_ACTION_FEATURE_COUNT = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.LoadResourceActionImpl <em>Load Resource Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.LoadResourceActionImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLoadResourceAction()
+	 * @generated
+	 */
+	int LOAD_RESOURCE_ACTION = 120;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOAD_RESOURCE_ACTION__OWNER = GEN_ACTION__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOAD_RESOURCE_ACTION__QUALIFIED_CLASS_NAME = GEN_ACTION__QUALIFIED_CLASS_NAME;
+
+	/**
+	 * The number of structural features of the '<em>Load Resource Action</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOAD_RESOURCE_ACTION_FEATURE_COUNT = GEN_ACTION_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.InitDiagramActionImpl <em>Init Diagram Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.InitDiagramActionImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getInitDiagramAction()
+	 * @generated
+	 */
+	int INIT_DIAGRAM_ACTION = 121;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INIT_DIAGRAM_ACTION__OWNER = GEN_ACTION__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INIT_DIAGRAM_ACTION__QUALIFIED_CLASS_NAME = GEN_ACTION__QUALIFIED_CLASS_NAME;
+
+	/**
+	 * The number of structural features of the '<em>Init Diagram Action</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INIT_DIAGRAM_ACTION_FEATURE_COUNT = GEN_ACTION_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.CreateShortcutActionImpl <em>Create Shortcut Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.CreateShortcutActionImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getCreateShortcutAction()
+	 * @generated
+	 */
+	int CREATE_SHORTCUT_ACTION = 122;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_SHORTCUT_ACTION__OWNER = GEN_ACTION__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_SHORTCUT_ACTION__QUALIFIED_CLASS_NAME = GEN_ACTION__QUALIFIED_CLASS_NAME;
+
+	/**
+	 * The number of structural features of the '<em>Create Shortcut Action</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_SHORTCUT_ACTION_FEATURE_COUNT = GEN_ACTION_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenActionFactoryContributionItemImpl <em>Gen Action Factory Contribution Item</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9630,7 +9778,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenActionFactoryContributionItem()
 	 * @generated
 	 */
-	int GEN_ACTION_FACTORY_CONTRIBUTION_ITEM = 119;
+	int GEN_ACTION_FACTORY_CONTRIBUTION_ITEM = 123;
 
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference.
@@ -9667,7 +9815,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenContributionManager()
 	 * @generated
 	 */
-	int GEN_CONTRIBUTION_MANAGER = 120;
+	int GEN_CONTRIBUTION_MANAGER = 124;
 
 	/**
 	 * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -9713,7 +9861,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenMenuManager()
 	 * @generated
 	 */
-	int GEN_MENU_MANAGER = 121;
+	int GEN_MENU_MANAGER = 125;
 
 	/**
 	 * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -9777,7 +9925,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenToolBarManager()
 	 * @generated
 	 */
-	int GEN_TOOL_BAR_MANAGER = 122;
+	int GEN_TOOL_BAR_MANAGER = 126;
 
 	/**
 	 * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -9832,7 +9980,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenContextMenu()
 	 * @generated
 	 */
-	int GEN_CONTEXT_MENU = 123;
+	int GEN_CONTEXT_MENU = 127;
 
 	/**
 	 * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -9887,7 +10035,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenApplication()
 	 * @generated
 	 */
-	int GEN_APPLICATION = 124;
+	int GEN_APPLICATION = 128;
 
 	/**
 	 * The feature id for the '<em><b>Editor Gen</b></em>' container reference.
@@ -10032,7 +10180,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenLinkEnd()
 	 * @generated
 	 */
-	int GEN_LINK_END = 125;
+	int GEN_LINK_END = 129;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
@@ -10159,7 +10307,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenParsers()
 	 * @generated
 	 */
-	int GEN_PARSERS = 126;
+	int GEN_PARSERS = 130;
 
 	/**
 	 * The feature id for the '<em><b>Editor Gen</b></em>' container reference.
@@ -10232,7 +10380,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenParserImplementation()
 	 * @generated
 	 */
-	int GEN_PARSER_IMPLEMENTATION = 127;
+	int GEN_PARSER_IMPLEMENTATION = 131;
 
 	/**
 	 * The feature id for the '<em><b>Holder</b></em>' container reference.
@@ -10269,7 +10417,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getPredefinedParser()
 	 * @generated
 	 */
-	int PREDEFINED_PARSER = 128;
+	int PREDEFINED_PARSER = 132;
 
 	/**
 	 * The feature id for the '<em><b>Holder</b></em>' container reference.
@@ -10324,7 +10472,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getCustomParser()
 	 * @generated
 	 */
-	int CUSTOM_PARSER = 129;
+	int CUSTOM_PARSER = 133;
 
 	/**
 	 * The feature id for the '<em><b>Holder</b></em>' container reference.
@@ -10370,7 +10518,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getExternalParser()
 	 * @generated
 	 */
-	int EXTERNAL_PARSER = 130;
+	int EXTERNAL_PARSER = 134;
 
 	/**
 	 * The feature id for the '<em><b>Holder</b></em>' container reference.
@@ -10416,7 +10564,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getStandardPreferencePages()
 	 * @generated
 	 */
-	int STANDARD_PREFERENCE_PAGES = 131;
+	int STANDARD_PREFERENCE_PAGES = 135;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.RulerUnits <em>Ruler Units</em>}' enum.
@@ -10426,7 +10574,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getRulerUnits()
 	 * @generated
 	 */
-	int RULER_UNITS = 132;
+	int RULER_UNITS = 136;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.Routing <em>Routing</em>}' enum.
@@ -10436,7 +10584,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getRouting()
 	 * @generated
 	 */
-	int ROUTING = 133;
+	int ROUTING = 137;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LineStyle <em>Line Style</em>}' enum.
@@ -10446,7 +10594,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLineStyle()
 	 * @generated
 	 */
-	int LINE_STYLE = 134;
+	int LINE_STYLE = 138;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.JFaceFont <em>JFace Font</em>}' enum.
@@ -10456,7 +10604,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getJFaceFont()
 	 * @generated
 	 */
-	int JFACE_FONT = 135;
+	int JFACE_FONT = 139;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.FontStyle <em>Font Style</em>}' enum.
@@ -10466,7 +10614,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 136;
+	int FONT_STYLE = 140;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.DiagramColors <em>Diagram Colors</em>}' enum.
@@ -10476,7 +10624,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getDiagramColors()
 	 * @generated
 	 */
-	int DIAGRAM_COLORS = 137;
+	int DIAGRAM_COLORS = 141;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}' enum.
@@ -10486,7 +10634,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getProviderPriority()
 	 * @generated
 	 */
-	int PROVIDER_PRIORITY = 138;
+	int PROVIDER_PRIORITY = 142;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment <em>Link Label Alignment</em>}' enum.
@@ -10496,7 +10644,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkLabelAlignment()
 	 * @generated
 	 */
-	int LINK_LABEL_ALIGNMENT = 139;
+	int LINK_LABEL_ALIGNMENT = 143;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod <em>Label Text Access Method</em>}' enum.
@@ -10506,7 +10654,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLabelTextAccessMethod()
 	 * @generated
 	 */
-	int LABEL_TEXT_ACCESS_METHOD = 140;
+	int LABEL_TEXT_ACCESS_METHOD = 144;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType <em>Viewmap Layout Type</em>}' enum.
@@ -10516,7 +10664,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getViewmapLayoutType()
 	 * @generated
 	 */
-	int VIEWMAP_LAYOUT_TYPE = 141;
+	int VIEWMAP_LAYOUT_TYPE = 145;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.StandardEntryKind <em>Standard Entry Kind</em>}' enum.
@@ -10526,7 +10674,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getStandardEntryKind()
 	 * @generated
 	 */
-	int STANDARD_ENTRY_KIND = 142;
+	int STANDARD_ENTRY_KIND = 146;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenSeverity <em>Gen Severity</em>}' enum.
@@ -10536,7 +10684,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenSeverity()
 	 * @generated
 	 */
-	int GEN_SEVERITY = 143;
+	int GEN_SEVERITY = 147;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenLanguage <em>Gen Language</em>}' enum.
@@ -10546,7 +10694,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenLanguage()
 	 * @generated
 	 */
-	int GEN_LANGUAGE = 144;
+	int GEN_LANGUAGE = 148;
 
 
 	/**
@@ -10557,7 +10705,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenNavigatorReferenceType()
 	 * @generated
 	 */
-	int GEN_NAVIGATOR_REFERENCE_TYPE = 145;
+	int GEN_NAVIGATOR_REFERENCE_TYPE = 149;
 
 
 	/**
@@ -10568,7 +10716,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGeneratedType()
 	 * @generated
 	 */
-	int GENERATED_TYPE = 146;
+	int GENERATED_TYPE = 150;
 
 
 	/**
@@ -16336,6 +16484,57 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenCommandAction_Name();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenAction <em>Gen Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Action</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAction
+	 * @generated
+	 */
+	EClass getGenAction();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenAction#getQualifiedClassName <em>Qualified Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Qualified Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAction#getQualifiedClassName()
+	 * @see #getGenAction()
+	 * @generated
+	 */
+	EAttribute getGenAction_QualifiedClassName();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.LoadResourceAction <em>Load Resource Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Load Resource Action</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LoadResourceAction
+	 * @generated
+	 */
+	EClass getLoadResourceAction();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.InitDiagramAction <em>Init Diagram Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Init Diagram Action</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.InitDiagramAction
+	 * @generated
+	 */
+	EClass getInitDiagramAction();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.CreateShortcutAction <em>Create Shortcut Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Create Shortcut Action</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.CreateShortcutAction
+	 * @generated
+	 */
+	EClass getCreateShortcutAction();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenActionFactoryContributionItem <em>Gen Action Factory Contribution Item</em>}'.
