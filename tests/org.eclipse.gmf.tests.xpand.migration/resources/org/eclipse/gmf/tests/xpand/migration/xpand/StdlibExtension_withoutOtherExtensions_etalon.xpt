@@ -1,5 +1,5 @@
-«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
-«IMPORT "http://www.eclipse.org/emf/2002/GenModel" »
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel' »
 «EXTENSION XpandStringOperations»
 
 «DEFINE stringParameters(param : String) FOR ecore::EPackage-»

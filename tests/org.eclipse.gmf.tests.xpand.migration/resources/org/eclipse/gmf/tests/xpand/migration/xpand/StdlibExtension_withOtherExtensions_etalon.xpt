@@ -1,4 +1,4 @@
-«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
 «EXTENSION AnotherExtension1»
 «EXTENSION AnotherExtension2»

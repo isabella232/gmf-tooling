@@ -10,7 +10,7 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
 «DEFINE stringParameters(param1 : String, param2 : String, param3 : String) FOR ecore::EPackage-»
 «ENDDEFINE»

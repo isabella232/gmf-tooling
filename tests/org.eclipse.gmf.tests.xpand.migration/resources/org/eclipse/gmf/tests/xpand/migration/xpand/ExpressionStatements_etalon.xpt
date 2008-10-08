@@ -1,4 +1,4 @@
-«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
 «EXTENSION org::eclipse::gmf::tests::xpand::migration::xpand::Extensions»
 
