@@ -103,6 +103,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private final EcoreGenModelMatcher myEcoreGenModelMatch;
 	private ExternalParser myDesignLabelParser;
 	private ExternalParser myAuxParser;
+	private GenContextMenu myDiagramContextMenu;
 
 	private GenAuditContext myDefaultAuditContext;
 
@@ -204,6 +205,14 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return getGenEssence().getLabelParsers();
 	}
 
+	private GenContextMenu getDiagramContextMenu() {
+		if (myDiagramContextMenu == null) {
+			myDiagramContextMenu = GMFGenFactory.eINSTANCE.createGenContextMenu();
+			myDiagramContextMenu.getContext().add(getGenDiagram());
+		}
+		return myDiagramContextMenu;
+	}
+
 	protected void process(CanvasMapping mapping) {
 		if (myGenModelMatch == null && mapping.getDomainModel() != null) {
 			myGenModelMatch = new GenModelMatcher(mapping.getDomainModel());
@@ -246,6 +255,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				getGenEssence().setApplication(app);
 			}
 		}
+		// XXX actually, better do it once whole transformation is complete
+		if (getGenDiagram().generateCreateShortcutAction()) {
+			getDiagramContextMenu().getItems().add(GMFGenFactory.eINSTANCE.createCreateShortcutAction());
+		}
+		// XXX ask Vano, if it's reasonable to generate LoadResourceAction only when there are shortcuts?
+		getDiagramContextMenu().getItems().add(GMFGenFactory.eINSTANCE.createLoadResourceAction());
+		
 		
 		// set class names
 		myNamingStrategy.feed(getGenDiagram(), mapping);
