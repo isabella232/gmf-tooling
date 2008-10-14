@@ -80,7 +80,7 @@ public class LoadResourceActionItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((LoadResourceAction)object).getQualifiedClassName();
+		String label = ((LoadResourceAction)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_LoadResourceAction_type") :
 			getString("_UI_LoadResourceAction_type") + " " + label;

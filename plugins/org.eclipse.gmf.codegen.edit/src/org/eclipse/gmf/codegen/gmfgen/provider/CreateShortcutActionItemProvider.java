@@ -80,7 +80,7 @@ public class CreateShortcutActionItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CreateShortcutAction)object).getQualifiedClassName();
+		String label = ((CreateShortcutAction)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CreateShortcutAction_type") :
 			getString("_UI_CreateShortcutAction_type") + " " + label;

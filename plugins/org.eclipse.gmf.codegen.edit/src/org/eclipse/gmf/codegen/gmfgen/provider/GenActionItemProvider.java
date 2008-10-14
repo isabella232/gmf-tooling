@@ -66,6 +66,7 @@ public class GenActionItemProvider
 			super.getPropertyDescriptors(object);
 
 			addQualifiedClassNamePropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -93,6 +94,28 @@ public class GenActionItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenAction_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenAction_name_feature", "_UI_GenAction_type"),
+				 GMFGenPackage.eINSTANCE.getGenAction_Name(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -100,7 +123,7 @@ public class GenActionItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((GenAction)object).getQualifiedClassName();
+		String label = ((GenAction)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_GenAction_type") :
 			getString("_UI_GenAction_type") + " " + label;
@@ -119,6 +142,7 @@ public class GenActionItemProvider
 
 		switch (notification.getFeatureID(GenAction.class)) {
 			case GMFGenPackage.GEN_ACTION__QUALIFIED_CLASS_NAME:
+			case GMFGenPackage.GEN_ACTION__NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
