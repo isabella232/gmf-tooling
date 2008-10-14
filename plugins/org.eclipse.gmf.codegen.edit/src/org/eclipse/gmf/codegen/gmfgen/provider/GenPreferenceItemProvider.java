@@ -12,8 +12,11 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.EStructuralFeature;
+
+import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+import org.eclipse.emf.edit.provider.IChildCreationExtender;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -21,24 +24,25 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage;
+import org.eclipse.gmf.codegen.gmfgen.GenPreference;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenPreference} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class GenCustomPreferencePageItemProvider
-	extends GenPreferencePageItemProvider
-	implements	
-		IEditingDomainItemProvider,	
-		IStructuredItemContentProvider,	
-		ITreeItemContentProvider,	
-		IItemLabelProvider,	
+public class GenPreferenceItemProvider
+	extends ItemProviderAdapter
+	implements
+		IEditingDomainItemProvider,
+		IStructuredItemContentProvider,
+		ITreeItemContentProvider,
+		IItemLabelProvider,
 		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -46,7 +50,7 @@ public class GenCustomPreferencePageItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenCustomPreferencePageItemProvider(AdapterFactory adapterFactory) {
+	public GenPreferenceItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -61,26 +65,27 @@ public class GenCustomPreferencePageItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addQualifiedClassNamePropertyDescriptor(object);
-			addGenerateBoilerplatePropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
+			addKeyPropertyDescriptor(object);
+			addDefaultValuePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Qualified Class Name feature.
+	 * This adds a property descriptor for the Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addQualifiedClassNamePropertyDescriptor(Object object) {
+	protected void addNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenCustomPreferencePage_qualifiedClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenCustomPreferencePage_qualifiedClassName_feature", "_UI_GenCustomPreferencePage_type"),
-				 GMFGenPackage.eINSTANCE.getGenCustomPreferencePage_QualifiedClassName(),
+				 getString("_UI_GenPreference_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenPreference_name_feature", "_UI_GenPreference_type"),
+				 GMFGenPackage.eINSTANCE.getGenPreference_Name(),
 				 true,
 				 false,
 				 false,
@@ -90,66 +95,58 @@ public class GenCustomPreferencePageItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Generate Boilerplate feature.
+	 * This adds a property descriptor for the Key feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addGenerateBoilerplatePropertyDescriptor(Object object) {
+	protected void addKeyPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenCustomPreferencePage_generateBoilerplate_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenCustomPreferencePage_generateBoilerplate_feature", "_UI_GenCustomPreferencePage_type"),
-				 GMFGenPackage.eINSTANCE.getGenCustomPreferencePage_GenerateBoilerplate(),
+				 getString("_UI_GenPreference_key_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenPreference_key_feature", "_UI_GenPreference_type"),
+				 GMFGenPackage.eINSTANCE.getGenPreference_Key(),
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * This adds a property descriptor for the Default Value feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenCustomPreferencePage_Preferences());
-		}
-		return childrenFeatures;
+	protected void addDefaultValuePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenPreference_defaultValue_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenPreference_defaultValue_feature", "_UI_GenPreference_type"),
+				 GMFGenPackage.eINSTANCE.getGenPreference_DefaultValue(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
-	}
-
-	/**
-	 * This returns GenCustomPreferencePage.gif.
+	 * This returns GenPreference.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenCustomPreferencePage"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenPreference"));
 	}
 
 	/**
@@ -160,10 +157,10 @@ public class GenCustomPreferencePageItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((GenCustomPreferencePage)object).getName();
+		String label = ((GenPreference)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_GenCustomPreferencePage_type") :
-			getString("_UI_GenCustomPreferencePage_type") + " " + label;
+			getString("_UI_GenPreference_type") :
+			getString("_UI_GenPreference_type") + " " + label;
 	}
 
 	/**
@@ -177,13 +174,11 @@ public class GenCustomPreferencePageItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(GenCustomPreferencePage.class)) {
-			case GMFGenPackage.GEN_CUSTOM_PREFERENCE_PAGE__QUALIFIED_CLASS_NAME:
-			case GMFGenPackage.GEN_CUSTOM_PREFERENCE_PAGE__GENERATE_BOILERPLATE:
+		switch (notification.getFeatureID(GenPreference.class)) {
+			case GMFGenPackage.GEN_PREFERENCE__NAME:
+			case GMFGenPackage.GEN_PREFERENCE__KEY:
+			case GMFGenPackage.GEN_PREFERENCE__DEFAULT_VALUE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case GMFGenPackage.GEN_CUSTOM_PREFERENCE_PAGE__PREFERENCES:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -199,11 +194,17 @@ public class GenCustomPreferencePageItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+	}
 
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenCustomPreferencePage_Preferences(),
-				 GMFGenFactory.eINSTANCE.createGenPreference()));
+	/**
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return ((IChildCreationExtender)adapterFactory).getResourceLocator();
 	}
 
 }

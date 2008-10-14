@@ -319,6 +319,29 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenPreference} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenPreferenceItemProvider genPreferenceItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenPreference}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGenPreferenceAdapter() {
+		if (genPreferenceItemProvider == null) {
+			genPreferenceItemProvider = new GenPreferenceItemProvider(this);
+		}
+
+		return genPreferenceItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2409,6 +2432,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genCustomFontItemProvider != null) genCustomFontItemProvider.dispose();
 		if (genRGBColorItemProvider != null) genRGBColorItemProvider.dispose();
 		if (genConstantColorItemProvider != null) genConstantColorItemProvider.dispose();
+		if (genPreferenceItemProvider != null) genPreferenceItemProvider.dispose();
 		if (genDiagramUpdaterItemProvider != null) genDiagramUpdaterItemProvider.dispose();
 		if (genPluginItemProvider != null) genPluginItemProvider.dispose();
 		if (dynamicModelAccessItemProvider != null) dynamicModelAccessItemProvider.dispose();
