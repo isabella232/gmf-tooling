@@ -41,19 +41,6 @@ boolean hasContainerOtherThanSource(gmfgen::TypeLinkModelFacet facet) :
 	facet.sourceMetaFeature != null || facet.childMetaFeature != facet.containmentMetaFeature
 ;
 
-List[gmfgen::GenLink] getAssistantOutgoingLinks(gmfgen::GenNode node) :
-	node.genOutgoingLinks.select(link | !selectGenNodes(link.targets).isEmpty())
-;
-
-List[gmfgen::GenLink] getAssistantIncomingLinks(gmfgen::GenNode node) :
-	node.genIncomingLinks.select(link | !selectGenNodes(link.sources).isEmpty())
-;
-
-// TODO: remove this method allowing creation of links to links using Assistant?
-List[gmfgen::GenLinkEnd] selectGenNodes(List[gmfgen::GenLinkEnd] ends) :
-	ends.typeSelect(gmfgen::GenNode)
-;
-
 List[gmfgen::GenPreferencePage] allPreferencePages(gmfgen::GenDiagram genDiagram) :
 	recursePages(genDiagram.preferencePages)
 ;

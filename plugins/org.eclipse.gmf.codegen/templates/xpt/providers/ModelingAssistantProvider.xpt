@@ -13,6 +13,7 @@
 
 «IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
 
+«EXTENSION xpt::diagram::editparts::Utils»
 «EXTENSION xpt::diagram::Utils»
 «EXTENSION xpt::providers::i18n»
 
