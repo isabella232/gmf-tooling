@@ -9,7 +9,6 @@
  * Contributors:
  *    Michael Golubev (Borland) - initial API and implementation
  */
-
 package org.eclipse.gmf.internal.common.reconcile;
 
 import java.text.MessageFormat;
@@ -22,6 +21,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
 public class ReconcilerConfigBase implements ReconcilerConfig {
 	private static final EClassRecord EMPTY_RECORD = new EClassRecord();
@@ -56,14 +56,26 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 	protected final void setMatcher(EClass eClass, Matcher matcher){
 		getRecord(eClass, true).setMatcher(matcher);
 	}
-	
-	protected final void setCopier(EClass eClass, Copier copier){
-		getRecord(eClass, true).setCopier(copier);
+
+	protected final void setMatcher(EClass eClass, EAttribute attribute){  
+		checkStructuralFeature(eClass, attribute);
+		setMatcher(eClass, new ReflectiveMatcher(attribute));
 	}
 	
+	protected final void setMatcher(EClass eClass, EReference reference) {
+		checkStructuralFeature(eClass, reference);
+		// XXX Perhaps, for cases, when reference's target is in some other package,
+		// might be reasonable to have an alternative matching, non-resolving, just comparing proxyURI?
+		setMatcher(eClass, new ReflectiveMatcher(reference));
+	}
+
 	protected final void setMatcherForAllSubclasses(EClass eClass, Matcher matcher){
 		checkAbstract(eClass);
 		getTemplateRecord(eClass, true).setMatcher(matcher);
+	}
+
+	protected final void setCopier(EClass eClass, Copier copier){
+		getRecord(eClass, true).setCopier(copier);
 	}
 	
 	protected final void setCopierForAllSubclasses(EClass eClass, Copier copier){
@@ -83,21 +95,6 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 		getRecord(eClass, true).addDecision(decision);
 	}
 	
-	protected final void setMatcher(EClass eClass, EAttribute attribute){  
-		checkStructuralFeature(eClass, attribute);
-		Matcher matcher = new ReflectiveMatcher(attribute);
-		setMatcher(eClass, matcher);
-	}
-	
-	protected final void setMatcher(EClass eClass, EReference reference){
-		if (eClass.getEPackage().equals(reference.eClass().getEPackage())){
-			//XXX: use lazyly resolved matcher??? 
-			setMatcher(eClass, new ReflectiveMatcher(reference));
-		} else {
-			setMatcher(eClass, new ReflectiveMatcher(reference));
-		}
-	}
-
 	private EClassRecord getRecord(EClass eClass, boolean force){
 		EClassRecord result = myEClass2Record.get(eClass);
 		if (result == null){
@@ -141,7 +138,7 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 		return result == null ? EMPTY_RECORD : result;
 	}
 	
-	private void checkStructuralFeature(EClass expectedClass, EAttribute feature) {
+	private static void checkStructuralFeature(EClass expectedClass, EStructuralFeature feature) {
 		if (expectedClass.getEStructuralFeature(feature.getFeatureID()) != feature){
 			throw new IllegalArgumentException(MessageFormat.format("Alien feature {0} for EClass {1}", new Object[] {feature, expectedClass}));
 		}
