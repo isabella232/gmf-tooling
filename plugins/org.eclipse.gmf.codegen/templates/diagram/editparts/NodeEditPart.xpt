@@ -13,6 +13,8 @@
 
 «IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
 
+«EXTENSION xpt::diagram::editparts::Utils»
+
 «DEFINE Main FOR gmfgen::GenNode-»
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
 package «getDiagram().editPartsPackageName»;
@@ -76,6 +78,10 @@ public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsList» {
 
 	«EXPAND impl::diagram::editparts::NodeEditPart::innerClassDeclaration FOR viewmap-»
 
+«IF hasChildrenInListCompartments(this)-»
+	«EXPAND impl::diagram::editparts::NodeEditPart::getTargetEditPartMethod-»
+«ENDIF-»
+	
 	«EXPAND additions-»
 }
 «ENDDEFINE»

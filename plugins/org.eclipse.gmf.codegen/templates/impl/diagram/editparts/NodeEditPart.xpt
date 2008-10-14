@@ -51,38 +51,12 @@
 «ENDDEFINE»
 
 «DEFINE installCreationRolePolicy FOR gmfgen::GenNode-»
-	«IF hasChildren() || hasChildrenInListCompartments()-»
-		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE,
-				new org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy()«IF hasChildrenInListCompartments()» {
-			public org.eclipse.gef.commands.Command getCommand(org.eclipse.gef.Request request) {
-				if (understandsRequest(request)) {
-					if (request instanceof org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) {
-						org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter adapter =
-							((org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) request).
-								getViewAndElementDescriptor().getCreateElementRequestAdapter();
-						org.eclipse.gmf.runtime.emf.type.core.IElementType type =
-							(org.eclipse.gmf.runtime.emf.type.core.IElementType) adapter.getAdapter(
-								org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
-						«FOREACH compartments AS compartment-»
-							«IF listCompartmentHasChildren(compartment)-»
-								«FOREACH compartment.childNodes AS childNode-»
-						if (type == «getDiagram().getElementTypesQualifiedClassName()».«childNode.getUniqueIdentifier()») {
-							org.eclipse.gef.EditPart compartmentEditPart =
-								getChildBySemanticHint(«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR compartment»);
-							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
-						}
-								«ENDFOREACH-»
-							«ENDIF-»
-						«ENDFOREACH-»
-					}
-					return super.getCommand(request);
-				}
-				return null;
-			}
-		}
-		«ENDIF»);
-	«ENDIF-»
+«IF hasChildren() || hasChildrenInListCompartments()-»
+	installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE, «EXPAND _creationEditPolicyNewInstance»);
+«ENDIF-»
 «ENDDEFINE»
+
+«DEFINE _creationEditPolicyNewInstance FOR gmfgen::GenNode»new org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy()«ENDDEFINE»
 
 «DEFINE installPrimaryDragEditPolicy FOR gmfgen::GenNode»«ENDDEFINE»
 
@@ -603,4 +577,24 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 
 «DEFINE innerClassDeclaration FOR gmfgen::InnerClassViewmap»
 	«classBody»
+«ENDDEFINE»
+
+«DEFINE getTargetEditPartMethod FOR gmfgen::GenNode»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.gef.EditPart getTargetEditPart(org.eclipse.gef.Request request) {
+		if (request instanceof org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) {
+			org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter adapter = ((org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
+			org.eclipse.gmf.runtime.emf.type.core.IElementType type = (org.eclipse.gmf.runtime.emf.type.core.IElementType) adapter.getAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
+«FOREACH compartments AS compartment-»
+	«IF listCompartmentHasChildren(compartment)-»
+		«FOREACH compartment.childNodes AS childNode-»
+			if (type == «getDiagram().getElementTypesQualifiedClassName()».«childNode.getUniqueIdentifier()») {
+				return getChildBySemanticHint(«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR compartment»);
+			}
+		«ENDFOREACH-»
+	«ENDIF-»
+«ENDFOREACH-»
+		}
+		return super.getTargetEditPart(request);
+	}
 «ENDDEFINE»
