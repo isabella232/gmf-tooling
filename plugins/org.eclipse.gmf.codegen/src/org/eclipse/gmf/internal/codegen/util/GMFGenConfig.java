@@ -271,20 +271,20 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		setMatcher(GMFGEN.getFeatureLabelModelFacet(), ALWAYS_MATCH);
 		setMatcher(GMFGEN.getDesignLabelModelFacet(), ALWAYS_MATCH);
 		setMatcher(GMFGEN.getLabelModelFacet(), ALWAYS_MATCH);
-		setMatcher(GMFGEN.getCustomParser(), new ReflectiveMatcher(GMFGEN.getCustomParser_QualifiedName()));
+		setMatcher(GMFGEN.getCustomParser(), GMFGEN.getCustomParser_QualifiedName());
 		setCopier(GMFGEN.getCustomParser(), Copier.COMPLETE_COPY_WITH_CROSSREF);
 
 		setMatcher(GMFGEN.getGenContextMenu(), new VisualIDMatcher(GMFGEN.getGenContextMenu_Context()));
 		setCopier(GMFGEN.getGenContextMenu(), Copier.COMPLETE_COPY_WITH_CROSSREF);
-		setMatcher(GMFGEN.getGenCustomAction(), new ReflectiveMatcher(GMFGEN.getGenCustomAction_QualifiedClassName()));
+		setMatcher(GMFGEN.getGenCustomAction(), GMFGEN.getGenCustomAction_QualifiedClassName());
 		preserveIfSet(GMFGEN.getGenCustomAction_GenerateBoilerplate());
 		preserveIfSet(GMFGEN.getGenCustomAction_Name());
 		setCopier(GMFGEN.getGenCustomAction(), Copier.COMPLETE_COPY_NO_CROSSREF);
-		setMatcher(GMFGEN.getGenCommandAction(), new ReflectiveMatcher(GMFGEN.getGenCommandAction_CommandIdentifier()));
+		setMatcher(GMFGEN.getGenCommandAction(), GMFGEN.getGenCommandAction_CommandIdentifier());
 		preserveIfSet(GMFGEN.getGenCommandAction_Name());
 		setCopier(GMFGEN.getGenCommandAction(), Copier.COMPLETE_COPY_NO_CROSSREF); // copy then, if none found
-		setMatcher(GMFGEN.getGenSeparator(), new ReflectiveMatcher(GMFGEN.getGenSeparator_GroupName()));
-		setMatcher(GMFGEN.getGenGroupMarker(), new ReflectiveMatcher(GMFGEN.getGenGroupMarker_GroupName()));
+		setMatcher(GMFGEN.getGenSeparator(), GMFGEN.getGenSeparator_GroupName());
+		setMatcher(GMFGEN.getGenGroupMarker(), GMFGEN.getGenGroupMarker_GroupName());
 	}
 
 	private void restoreOld(EClass eClass, EAttribute feature) {
