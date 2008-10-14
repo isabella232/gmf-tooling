@@ -27,10 +27,6 @@ newWizardDesc=Creates «editorGen.modelID» diagram.
 «IF editorGen.diagram.generateInitDiagramAction()-»
 initDiagramActionLabel=Initialize «editorGen.diagramFileExtension» diagram file
 «ENDIF-»
-«IF editorGen.diagram.generateCreateShortcutAction()-»
-createShortcutActionLabel=Create Shortcut...
-«ENDIF-»
-loadResourceActionLabel=Load Resource...
 
 «IF null != editorGen.application-»
 perspectiveName=«editorGen.modelID» Perspective

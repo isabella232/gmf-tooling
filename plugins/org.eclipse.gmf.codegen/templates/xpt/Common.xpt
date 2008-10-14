@@ -71,3 +71,9 @@
 	shortcutAnnotation.getDetails().put("modelID", «getEditPartQualifiedClassName()».MODEL_ID); «EXPAND xpt::Common::nonNLS»
 	«viewVar».getEAnnotations().add(shortcutAnnotation);
 «ENDDEFINE»
+
+
+«DEFINE packageStatement FOR String-»
+«IF this.split('\\.').size() > 1-»
+package «FOREACH this.split('\\.').withoutLast() AS s SEPARATOR "."»«s»«ENDFOREACH»;«ENDIF-»
+«ENDDEFINE»

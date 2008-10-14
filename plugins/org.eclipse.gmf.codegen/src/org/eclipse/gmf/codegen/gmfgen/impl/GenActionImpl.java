@@ -28,6 +28,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenContributionManager;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenActionImpl#getOwner <em>Owner</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenActionImpl#getQualifiedClassName <em>Qualified Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenActionImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,6 +54,26 @@ public abstract class GenActionImpl extends EObjectImpl implements GenAction {
 	 * @ordered
 	 */
 	protected String qualifiedClassName = QUALIFIED_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -102,6 +123,27 @@ public abstract class GenActionImpl extends EObjectImpl implements GenAction {
 		qualifiedClassName = newQualifiedClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_ACTION__QUALIFIED_CLASS_NAME, oldQualifiedClassName, qualifiedClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getNameGen() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_ACTION__NAME, oldName, name));
 	}
 
 	/**
@@ -160,6 +202,8 @@ public abstract class GenActionImpl extends EObjectImpl implements GenAction {
 				return getOwner();
 			case GMFGenPackage.GEN_ACTION__QUALIFIED_CLASS_NAME:
 				return getQualifiedClassName();
+			case GMFGenPackage.GEN_ACTION__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -175,6 +219,9 @@ public abstract class GenActionImpl extends EObjectImpl implements GenAction {
 			case GMFGenPackage.GEN_ACTION__QUALIFIED_CLASS_NAME:
 				setQualifiedClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_ACTION__NAME:
+				setName((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -189,6 +236,9 @@ public abstract class GenActionImpl extends EObjectImpl implements GenAction {
 		switch (featureID) {
 			case GMFGenPackage.GEN_ACTION__QUALIFIED_CLASS_NAME:
 				setQualifiedClassName(QUALIFIED_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_ACTION__NAME:
+				setName(NAME_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -206,6 +256,8 @@ public abstract class GenActionImpl extends EObjectImpl implements GenAction {
 				return getOwner() != null;
 			case GMFGenPackage.GEN_ACTION__QUALIFIED_CLASS_NAME:
 				return QUALIFIED_CLASS_NAME_EDEFAULT == null ? qualifiedClassName != null : !QUALIFIED_CLASS_NAME_EDEFAULT.equals(qualifiedClassName);
+			case GMFGenPackage.GEN_ACTION__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -222,6 +274,8 @@ public abstract class GenActionImpl extends EObjectImpl implements GenAction {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (qualifiedClassName: ");
 		result.append(qualifiedClassName);
+		result.append(", name: ");
+		result.append(name);
 		result.append(')');
 		return result.toString();
 	}

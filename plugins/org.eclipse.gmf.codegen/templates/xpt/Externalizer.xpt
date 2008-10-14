@@ -37,7 +37,7 @@ public class «getExternalizerClassName()» extends org.eclipse.osgi.util.NLS {
 «ENDDEFINE»
 
 «DEFINE Fields FOR gmfgen::GenEditorGenerator»
-	«EXPAND xpt::editor::CreateShortcutAction::i18nAccessors FOR diagram-»
+	«EXPAND impl::actions::CreateShortcutAction::i18nAccessors FOR diagram-»
 	«EXPAND xpt::editor::CreationWizard::i18nAccessors FOR diagram-»
 	«EXPAND xpt::editor::CreationWizardPage::i18nAccessors FOR diagram-»
     «EXPAND xpt::editor::DiagramEditorUtil::i18nAccessors FOR diagram-»
@@ -64,7 +64,7 @@ public class «getExternalizerClassName()» extends org.eclipse.osgi.util.NLS {
 
 «DEFINE Values FOR gmfgen::GenEditorGenerator»
 # TODO: manually put keys and values
-«EXPAND xpt::editor::CreateShortcutAction::i18nValues FOR diagram-»
+«EXPAND impl::actions::CreateShortcutAction::i18nValues FOR diagram-»
 «EXPAND xpt::editor::CreationWizard::i18nValues FOR diagram-»
 «EXPAND xpt::editor::CreationWizardPage::i18nValues FOR diagram-»
 «EXPAND xpt::editor::DiagramEditorUtil::i18nValues FOR diagram-»

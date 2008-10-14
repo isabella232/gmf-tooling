@@ -61,6 +61,7 @@
 
 «DEFINE commandContribution FOR gmfgen::GenContributionManager-»
 «EXPAND commandContribution FOREACH items.typeSelect(GenCustomAction)-»
+«EXPAND commandContribution FOREACH items.typeSelect(GenAction)-»
 «EXPAND commandContribution FOREACH items.typeSelect(GenContributionManager)-»
 «ENDDEFINE»
 
@@ -72,6 +73,13 @@
 «DEFINE commandContribution FOR gmfgen::GenCustomAction-»
       <command id="«EXPAND commandIdentifier»"
          name="«name»"
+         categoryId="«owner.editorGen.editor.iD»"
+         defaultHandler="«qualifiedClassName»"/>
+«ENDDEFINE»
+
+«DEFINE commandContribution FOR gmfgen::GenAction-»
+      <command id="«EXPAND commandIdentifier»"
+         name="«name/*FIXME: into i18n keys*/»"
          categoryId="«owner.editorGen.editor.iD»"
          defaultHandler="«qualifiedClassName»"/>
 «ENDDEFINE»
@@ -89,9 +97,8 @@
       </handler>
 «ENDDEFINE»
 
-«DEFINE commandIdentifier FOR gmfgen::GenCustomAction-»
-«owner.editorGen.plugin.iD».«qualifiedClassName.split('\\.').last()-»
-«ENDDEFINE»
+«DEFINE commandIdentifier FOR gmfgen::GenCustomAction»«owner.editorGen.plugin.iD».«qualifiedClassName.split('\\.').last()»«ENDDEFINE»
+«DEFINE commandIdentifier FOR gmfgen::GenAction»«owner.editorGen.plugin.iD».«qualifiedClassName.split('\\.').last()»«ENDDEFINE»
 
 «DEFINE menuEntry(gmfgen::GenContextMenu contextMenu) FOR gmfgen::GenContributionItem»«REM»NO-OP XXX or ERROR?«ENDREM»«ENDDEFINE»
 «DEFINE menuEntry(gmfgen::GenContextMenu contextMenu) FOR gmfgen::GenSeparator-»
@@ -108,6 +115,13 @@
          </command>
 «ENDDEFINE»
 «DEFINE menuEntry(gmfgen::GenContextMenu contextMenu) FOR gmfgen::GenCustomAction-»
+         <command commandId="«EXPAND commandIdentifier»">
+            <visibleWhen>
+«EXPAND menuCondition FOR contextMenu-»
+            </visibleWhen>
+         </command>
+«ENDDEFINE»
+«DEFINE menuEntry(gmfgen::GenContextMenu contextMenu) FOR gmfgen::GenAction-»
          <command commandId="«EXPAND commandIdentifier»">
             <visibleWhen>
 «EXPAND menuCondition FOR contextMenu-»

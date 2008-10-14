@@ -9651,13 +9651,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_ACTION__QUALIFIED_CLASS_NAME = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_ACTION__NAME = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Gen Action</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_ACTION_FEATURE_COUNT = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 1;
+	int GEN_ACTION_FEATURE_COUNT = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.LoadResourceActionImpl <em>Load Resource Action</em>}' class.
@@ -9686,6 +9695,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int LOAD_RESOURCE_ACTION__QUALIFIED_CLASS_NAME = GEN_ACTION__QUALIFIED_CLASS_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOAD_RESOURCE_ACTION__NAME = GEN_ACTION__NAME;
 
 	/**
 	 * The number of structural features of the '<em>Load Resource Action</em>' class.
@@ -9725,6 +9743,15 @@ public interface GMFGenPackage extends EPackage {
 	int INIT_DIAGRAM_ACTION__QUALIFIED_CLASS_NAME = GEN_ACTION__QUALIFIED_CLASS_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INIT_DIAGRAM_ACTION__NAME = GEN_ACTION__NAME;
+
+	/**
 	 * The number of structural features of the '<em>Init Diagram Action</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9760,6 +9787,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int CREATE_SHORTCUT_ACTION__QUALIFIED_CLASS_NAME = GEN_ACTION__QUALIFIED_CLASS_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_SHORTCUT_ACTION__NAME = GEN_ACTION__NAME;
 
 	/**
 	 * The number of structural features of the '<em>Create Shortcut Action</em>' class.
@@ -16505,6 +16541,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenAction_QualifiedClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenAction#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAction#getName()
+	 * @see #getGenAction()
+	 * @generated
+	 */
+	EAttribute getGenAction_Name();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.LoadResourceAction <em>Load Resource Action</em>}'.

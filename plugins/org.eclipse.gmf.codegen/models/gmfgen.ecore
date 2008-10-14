@@ -2065,6 +2065,7 @@
       <details key="documentation" value="Action that is generated along with diagram action, i.e. there's a template that provides its implementation"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LoadResourceAction" eSuperTypes="#//GenAction"/>
   <eClassifiers xsi:type="ecore:EClass" name="InitDiagramAction" eSuperTypes="#//GenAction"/>

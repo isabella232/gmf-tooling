@@ -413,14 +413,6 @@ public class CodegenEmitters {
 		return getPrimaryEmitter("xpt::editor::ModelElementSelectionPage"); //$NON-NLS-1$
 	}
 
-	public String getInitDiagramFileActionName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::editor::InitDiagramFileAction", input); //$NON-NLS-1$
-	}
-
-	public TextEmitter getInitDiagramFileActionEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::editor::InitDiagramFileAction"); //$NON-NLS-1$
-	}
-
 	public String getNewDiagramFileWizardName(Object... input) throws UnexpectedBehaviourException {
 		return getQualifiedClassName("xpt::editor::NewDiagramFileWizard", input); //$NON-NLS-1$
 	}
@@ -467,14 +459,6 @@ public class CodegenEmitters {
 
 	public TextEmitter getEditorEmitter() {
 		return getPrimaryEmitter("xpt::editor::Editor"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getCreateShortcutActionEmitter() {
-		return getPrimaryEmitter("xpt::editor::CreateShortcutAction"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getLoadResourceActionEmitter() {
-		return getPrimaryEmitter("xpt::editor::LoadResourceAction"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getElementChooserEmitter() {
@@ -651,6 +635,9 @@ public class CodegenEmitters {
 		return newXpandEmitter("impl::actions::CustomAction::Main"); //$NON-NLS-1$
 	}
 
+	public TextEmitter getPredefinedActionEmitter() {
+		return newXpandEmitter("impl::actions::PredefinedAction::Main"); //$NON-NLS-1$
+	}
 
 	// util
 

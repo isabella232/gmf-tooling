@@ -5996,6 +5996,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenAction_Name() {
+		return (EAttribute)genActionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getLoadResourceAction() {
 		return loadResourceActionEClass;
 	}
@@ -7260,6 +7269,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		genActionEClass = createEClass(GEN_ACTION);
 		createEAttribute(genActionEClass, GEN_ACTION__QUALIFIED_CLASS_NAME);
+		createEAttribute(genActionEClass, GEN_ACTION__NAME);
 
 		loadResourceActionEClass = createEClass(LOAD_RESOURCE_ACTION);
 
@@ -8395,6 +8405,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(genActionEClass, GenAction.class, "GenAction", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenAction_QualifiedClassName(), ecorePackage.getEString(), "qualifiedClassName", null, 0, 1, GenAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenAction_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(loadResourceActionEClass, LoadResourceAction.class, "LoadResourceAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -8636,7 +8647,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																																										
+		   });																																																																																																																																																																																																																																		
 	}
 
 	/**
@@ -8666,7 +8677,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Diagram\')",
 			 "description", "\'Diagram Runtime Class\' must be a notation::Diagram or sub-class"
-		   });																				
+		   });																												
 		addAnnotation
 		  (genCommonBaseEClass, 
 		   source, 
@@ -8909,6 +8920,24 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Actions are no longer contributed using ContributionItemService"
+		   });		
+		addAnnotation
+		  (shortcutsEClass.getEOperations().get(1), 
+		   source, 
+		   new String[] {
+			 "documentation", "Use CreateShortcutAction instead"
+		   });		
+		addAnnotation
+		  (shortcutsEClass.getEOperations().get(4), 
+		   source, 
+		   new String[] {
+			 "documentation", "Use CreateShortcutAction instead"
+		   });		
+		addAnnotation
+		  (getShortcuts_CreateShortcutActionClassName(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Use CreateShortcutAction instead"
 		   });				
 		addAnnotation
 		  (getPackageNames_ParsersPackageName(), 
@@ -8921,7 +8950,37 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "documentation", "LinkCreationConstants should be generated if diagram has any links"
-		   });																																																																								
+		   });				
+		addAnnotation
+		  (editorCandiesEClass.getEOperations().get(4), 
+		   source, 
+		   new String[] {
+			 "documentation", "Use InitDiagramAction instead"
+		   });		
+		addAnnotation
+		  (editorCandiesEClass.getEOperations().get(10), 
+		   source, 
+		   new String[] {
+			 "documentation", "Use LoadResourceAction instead"
+		   });		
+		addAnnotation
+		  (editorCandiesEClass.getEOperations().get(11), 
+		   source, 
+		   new String[] {
+			 "documentation", "Use InitDiagramAction instead"
+		   });		
+		addAnnotation
+		  (getEditorCandies_InitDiagramFileActionClassName(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Use InitDiagramAction instead"
+		   });		
+		addAnnotation
+		  (getEditorCandies_LoadResourceActionClassName(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Use LoadResourceAction instead"
+		   });																																																																						
 		addAnnotation
 		  (getFeatureLabelModelFacet_ViewMethod(), 
 		   source, 
@@ -8943,7 +9002,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																																						
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																																														
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 

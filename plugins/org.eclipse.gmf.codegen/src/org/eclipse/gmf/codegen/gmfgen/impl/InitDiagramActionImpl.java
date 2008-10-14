@@ -7,7 +7,6 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.InitDiagramAction;
@@ -62,5 +61,13 @@ public class InitDiagramActionImpl extends GenActionImpl implements InitDiagramA
 			return className;
 		}
 		return getQualifiedClassNameGen();
+	}
+
+	public String getName() {
+		if (GenCommonBaseImpl.isEmpty(getNameGen())) {
+			String fe = (getOwner() != null && getOwner().getEditorGen() != null) ? getOwner().getEditorGen().getDiagramFileExtension() : null;
+			return String.format("Initialize %s diagram file", fe);
+		}
+		return getNameGen();
 	}
 } //InitDiagramActionImpl

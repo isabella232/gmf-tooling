@@ -15,7 +15,7 @@
 
 «DEFINE Main FOR gmfgen::GenCustomAction-»
 «EXPAND xpt::Common::copyright FOR owner.editorGen-»
-package «FOREACH qualifiedClassName.split('\\.').withoutLast() AS s SEPARATOR "."»«s»«ENDFOREACH»;
+«EXPAND xpt::Common::packageStatement FOR qualifiedClassName»
 
 «EXPAND xpt::Common::generatedClassComment»
 public class «qualifiedClassName.split('\\.').last()» extends org.eclipse.core.commands.AbstractHandler {

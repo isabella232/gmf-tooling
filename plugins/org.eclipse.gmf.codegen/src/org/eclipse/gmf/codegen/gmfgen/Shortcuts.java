@@ -99,7 +99,7 @@ public interface Shortcuts extends EObject {
 	 * @return the value of the '<em>Create Shortcut Action Class Name</em>' attribute.
 	 * @see #setCreateShortcutActionClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getShortcuts_CreateShortcutActionClassName()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Use CreateShortcutAction instead'"
 	 * @generated
 	 */
 	String getCreateShortcutActionClassName();
@@ -208,6 +208,7 @@ public interface Shortcuts extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Use CreateShortcutAction instead'"
 	 * @generated
 	 */
 	String getCreateShortcutActionQualifiedClassName();
@@ -231,7 +232,7 @@ public interface Shortcuts extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Use CreateShortcutAction instead'"
 	 * @generated
 	 */
 	boolean generateCreateShortcutAction();

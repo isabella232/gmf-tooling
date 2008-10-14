@@ -934,6 +934,7 @@
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenAction">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAction/qualifiedClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAction/name"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//LoadResourceAction"/>
     <genClasses ecoreClass="gmfgen.ecore#//InitDiagramAction"/>

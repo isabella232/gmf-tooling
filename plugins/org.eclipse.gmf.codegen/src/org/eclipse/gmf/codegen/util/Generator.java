@@ -26,7 +26,9 @@ import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.ExternalParser;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenAction;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
@@ -57,6 +59,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.InitDiagramAction;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
@@ -218,16 +221,17 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateDiagramEditorContextMenuProvider();
 		generateEditor();
 		generateDocumentProvider();
-		generateLoadResourceAction();
-		if (myDiagram.generateInitDiagramAction() || myDiagram.generateCreateShortcutAction()) {
+		if (myDiagram.generateInitDiagramAction() || myDiagram.generateCreateShortcutAction() /*FIXME use another condition here*/) {
 			generateModelElementSelectionPage();
 		}
-		if (myDiagram.generateInitDiagramAction()) {
-			generateInitDiagramFileAction();
+		if (myDiagram.generateInitDiagramAction() /*FIXME use another condition here*/) {
+			// FIXME HACK!!! until I decide how to contribute action against IFile
+			InitDiagramAction fakeAction = GMFGenFactory.eINSTANCE.createInitDiagramAction();
+			fakeAction.setQualifiedClassName(myDiagram.getInitDiagramFileActionQualifiedClassName());
+			doGenerateJavaClass(myEmitters.getPredefinedActionEmitter(), fakeAction.getQualifiedClassName(), fakeAction, myEditorGen);
 			generateNewDiagramFileWizard();
 		}
-		if (myDiagram.generateCreateShortcutAction()) {
-			generateCreateShortcutAction();
+		if (myDiagram.generateCreateShortcutAction() /*FIXME use another condition here*/) {
 			generateCreateShortcutDecorationsCommand();
 			if (myEditorGen.getApplication() == null) {
 				generateElementChooser();
@@ -667,10 +671,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(myEmitters.getModelElementSelectionPageEmitter(), myEmitters.getModelElementSelectionPageName(myDiagram), myDiagram);
 	}
 
-	private void generateInitDiagramFileAction() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getInitDiagramFileActionEmitter(), myEmitters.getInitDiagramFileActionName(myDiagram), myDiagram);
-	}
-
 	private void generateNewDiagramFileWizard() throws UnexpectedBehaviourException, InterruptedException {
 		if (!myDiagram.isSynchronized()) {
 			doGenerateJavaClass(myEmitters.getDiagramContentInitializerEmitter(), myDiagram.getDiagramContentInitializerQualifiedClassName(), myDiagram);
@@ -717,17 +717,6 @@ public class Generator extends GeneratorBase implements Runnable {
 	private void generateEditor() throws InterruptedException {
 		final GenEditorView editor = myEditorGen.getEditor();
 		doGenerateJavaClass(myEmitters.getEditorEmitter(), editor.getQualifiedClassName(), editor);
-	}
-	
-	private void generateCreateShortcutAction() throws InterruptedException {
-		if (!myDiagram.generateCreateShortcutAction()) {
-			return;
-		}
-		doGenerateJavaClass(myEmitters.getCreateShortcutActionEmitter(), myDiagram.getCreateShortcutActionQualifiedClassName(), myDiagram);
-	}
-	
-	private void generateLoadResourceAction() throws InterruptedException {
-		doGenerateJavaClass(myEmitters.getLoadResourceActionEmitter(), myDiagram.getLoadResourceActionQualifiedClassName(), myDiagram);
 	}
 	
 	private void generateElementChooser() throws InterruptedException {
@@ -1003,6 +992,9 @@ public class Generator extends GeneratorBase implements Runnable {
 					items.addAll(((GenContributionManager) ci).getItems());
 				} else if (ci instanceof GenSharedContributionItem) {
 					items.addLast(((GenSharedContributionItem) ci).getActualItem());
+				} else if (ci instanceof GenAction) {
+					doGenerateJavaClass(myEmitters.getPredefinedActionEmitter(), ((GenAction) ci).getQualifiedClassName(), ci);
+					processedItems.add(ci);
 				}
 			}
 		}

@@ -51,7 +51,7 @@ public class LoadResourceActionImpl extends GenActionImpl implements LoadResourc
 				}
 			}
 			// FIXME < TEMP CODE
-			String className = "LoadResourceAction";
+			String className = "LoadResourceAction"; //$NON-NLS-1$
 			if (getOwner() != null && getOwner().getEditorGen() != null && getOwner().getEditorGen().getEditor() != null) {
 				final String packageName = getOwner().getEditorGen().getEditor().getPackageName();
 				if (GenCommonBaseImpl.isEmpty(packageName)) {
@@ -62,5 +62,12 @@ public class LoadResourceActionImpl extends GenActionImpl implements LoadResourc
 			return className;
 		}
 		return getQualifiedClassNameGen();
+	}
+
+	public String getName() {
+		if (GenCommonBaseImpl.isEmpty(getNameGen())) {
+			return "Load Resource";
+		}
+		return getNameGen();
 	}
 } //LoadResourceActionImpl

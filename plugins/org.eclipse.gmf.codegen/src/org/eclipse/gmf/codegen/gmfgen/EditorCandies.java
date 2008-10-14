@@ -212,7 +212,7 @@ public interface EditorCandies extends EObject {
 	 * @return the value of the '<em>Init Diagram File Action Class Name</em>' attribute.
 	 * @see #setInitDiagramFileActionClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEditorCandies_InitDiagramFileActionClassName()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Use InitDiagramAction instead'"
 	 * @generated
 	 */
 	String getInitDiagramFileActionClassName();
@@ -368,7 +368,7 @@ public interface EditorCandies extends EObject {
 	 * @return the value of the '<em>Load Resource Action Class Name</em>' attribute.
 	 * @see #setLoadResourceActionClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEditorCandies_LoadResourceActionClassName()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Use LoadResourceAction instead'"
 	 * @generated
 	 */
 	String getLoadResourceActionClassName();
@@ -445,6 +445,7 @@ public interface EditorCandies extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Use InitDiagramAction instead'"
 	 * @generated
 	 */
 	String getInitDiagramFileActionQualifiedClassName();
@@ -493,6 +494,7 @@ public interface EditorCandies extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Use LoadResourceAction instead'"
 	 * @generated
 	 */
 	String getLoadResourceActionQualifiedClassName();
@@ -500,7 +502,7 @@ public interface EditorCandies extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Use InitDiagramAction instead'"
 	 * @generated
 	 */
 	boolean generateInitDiagramAction();

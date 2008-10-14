@@ -137,21 +137,9 @@ String i18nKeyForCreateDiagramCommandLabel(gmfgen::GenDiagram diagram) :
     diagram.i18nKeyForDiagramEditorUtil()+".CreateDiagramCommandLabel"
 ;
 
-private String i18nKeyForInitDiagramFileAction(gmfgen::GenDiagram diagram) :
-	diagram.initDiagramFileActionClassName
-;
-
-String i18nKeyForInitDiagramFileResourceErrorDialog(gmfgen::GenDiagram diagram) :
-    diagram.i18nKeyForInitDiagramFileAction()+".InitDiagramFileResourceErrorDialog"
-;
-
-String i18nKeyForInitDiagramFileWizardTitle(gmfgen::GenDiagram diagram) :
-    diagram.i18nKeyForInitDiagramFileAction()+".InitDiagramFileWizardTitle"
-;
-
-String i18nKeyForInitDiagramOpenFileDialogTitle(gmfgen::GenDiagram diagram) :
-	diagram.i18nKeyForInitDiagramFileAction()+".OpenModelFileDialogTitle"
-;
+String i18nKeyForInitDiagramFileResourceErrorDialog() : "InitDiagramFile.ResourceErrorDialog" ;
+String i18nKeyForInitDiagramFileWizardTitle() : "InitDiagramFile.WizardTitle" ;
+String i18nKeyForInitDiagramOpenFileDialogTitle() : "InitDiagramFile.OpenModelFileDialogTitle" ;
 
 private String i18nKeyForNewDiagramFileWizard(gmfgen::GenDiagram diagram) :
 	diagram.newDiagramFileWizardClassName
@@ -209,17 +197,8 @@ private String i18nKeyForElementChooser(gmfgen::GenDiagram diagram) :
 	diagram.elementChooserClassName
 ;
 
-String i18nKeyForOpenModel(gmfgen::GenDiagram diagram) :
-	i18nKeyForCreateShortcutAction(diagram) + ".OpenModel"
-;
-
-String i18nKeyForCreateShortcus(gmfgen::GenDiagram diagram) :
-	i18nKeyForCreateShortcutAction(diagram) + ".CreateShortcut"
-;
-
-private String i18nKeyForCreateShortcutAction(gmfgen::GenDiagram diagram) :
-	diagram.createShortcutActionClassName
-;
+String i18nKeyForCreateShortcutOpenModel() : "CreateShortcutAction.OpenModel" ;
+String i18nKeyForCreateShortcutWizard() : "CreateShortcutAction.Wizard" ;
 
 String i18nKeyForShortcutWizardReferencedElementPage(gmfgen::GenDiagram diagram) :
 	diagram.defaultShortcutCreationWizardClassName()+".ReferencedElementSelectionPage"

@@ -63,4 +63,11 @@ public class CreateShortcutActionImpl extends GenActionImpl implements CreateSho
 		}
 		return getQualifiedClassNameGen();
 	}
+
+	public String getName() {
+		if (GenCommonBaseImpl.isEmpty(getNameGen())) {
+			return "Create Shortcut...";
+		}
+		return getNameGen();
+	}
 } //CreateShortcutActionImpl
