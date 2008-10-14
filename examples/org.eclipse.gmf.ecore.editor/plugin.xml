@@ -68,34 +68,6 @@ Contributors:
    <extension point="org.eclipse.ui.popupMenus">
       <?gmfgen generated="true"?>
       <objectContribution
-            adaptable="false"
-            id="org.eclipse.gmf.ecore.editor.CreateShortcut"
-            objectClass="org.eclipse.gmf.ecore.edit.parts.EPackageEditPart">
-         <action
-               class="org.eclipse.gmf.ecore.part.EcoreCreateShortcutAction"
-               enablesFor="1"
-               id="org.eclipse.gmf.ecore.editor.CreateShortcutAction"
-               label="%createShortcutActionLabel"
-               menubarPath="additions">
-         </action>
-      </objectContribution>                      
-      <objectContribution
-            adaptable="false"
-            id="org.eclipse.gmf.ecore.editor.LoadResource"
-            objectClass="org.eclipse.gmf.ecore.edit.parts.EPackageEditPart">
-         <action
-               class="org.eclipse.gmf.ecore.part.EcoreLoadResourceAction"
-               enablesFor="1"
-               id="org.eclipse.gmf.ecore.editor.LoadResourceAction"
-               label="%loadResourceActionLabel"
-               menubarPath="additions">
-         </action>
-      </objectContribution>           
-   </extension>
-
-   <extension point="org.eclipse.ui.popupMenus">
-      <?gmfgen generated="true"?>
-      <objectContribution
             id="org.eclipse.gmf.ecore.editor.InitDiagram"
             nameFilter="*.ecore"
             objectClass="org.eclipse.core.resources.IFile">
@@ -108,6 +80,8 @@ Contributors:
          </action>
       </objectContribution>
    </extension>
+
+   
 	
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
       <?gmfgen generated="true"?>
@@ -688,5 +662,48 @@ Contributors:
          contextId="org.eclipse.gmf.ecore.ui.diagramContext"
          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
          sequence="F5"/>
+   </extension><extension point="org.eclipse.ui.menus">
+      <?gmfgen generated="true"?>
+      <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
+      </menuContribution>
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
+      </menuContribution -->
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <command commandId="org.eclipse.gmf.ecore.editor.LoadResourceAction">
+            <visibleWhen>
+               <and>
+                  <test property="org.eclipse.core.runtime.bundleState" args="org.eclipse.gmf.ecore.editor" value="ACTIVE"/>
+                  <with variable="activePartId"><equals value="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID"/></with>
+                  <with variable="selection">
+                     <instanceof value="org.eclipse.gmf.ecore.edit.parts.EPackageEditPart"/>
+                  </with>
+               </and>
+            </visibleWhen>
+         </command>
+         <command commandId="org.eclipse.gmf.ecore.editor.CreateShortcutAction">
+            <visibleWhen>
+               <and>
+                  <test property="org.eclipse.core.runtime.bundleState" args="org.eclipse.gmf.ecore.editor" value="ACTIVE"/>
+                  <with variable="activePartId"><equals value="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID"/></with>
+                  <with variable="selection">
+                     <instanceof value="org.eclipse.gmf.ecore.edit.parts.EPackageEditPart"/>
+                  </with>
+               </and>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands">
+      <?gmfgen generated="true"?>
+      <category id="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+      <command id="org.eclipse.gmf.ecore.editor.LoadResourceAction"
+         name="Load Resource"
+         categoryId="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID"
+         defaultHandler="org.eclipse.gmf.ecore.part.LoadResourceAction"/>
+      <command id="org.eclipse.gmf.ecore.editor.CreateShortcutAction"
+         name="Create Shortcut..."
+         categoryId="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID"
+         defaultHandler="org.eclipse.gmf.ecore.part.CreateShortcutAction"/>
    </extension>
 </plugin>

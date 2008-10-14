@@ -87,12 +87,11 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate {
 			EcoreDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + domainModelURI, ex); //$NON-NLS-1$
 		}
 		if (diagramRoot == null) {
-			MessageDialog.openError(getShell(), Messages.EcoreInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle,
-					Messages.EcoreInitDiagramFileAction_InitDiagramFileResourceErrorDialogMessage);
+			MessageDialog.openError(getShell(), Messages.InitDiagramFile_ResourceErrorDialogTitle, Messages.InitDiagramFile_ResourceErrorDialogMessage);
 			return;
 		}
 		Wizard wizard = new EcoreNewDiagramFileWizard(domainModelURI, diagramRoot, editingDomain);
-		wizard.setWindowTitle(NLS.bind(Messages.EcoreInitDiagramFileAction_InitDiagramFileWizardTitle, EPackageEditPart.MODEL_ID));
+		wizard.setWindowTitle(NLS.bind(Messages.InitDiagramFile_WizardTitle, EPackageEditPart.MODEL_ID));
 		EcoreDiagramEditorUtil.runWizard(getShell(), wizard, "InitDiagramFile"); //$NON-NLS-1$
 	}
 }

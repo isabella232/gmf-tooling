@@ -139,22 +139,22 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String EcoreInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle;
+	public static String InitDiagramFile_ResourceErrorDialogTitle;
 
 	/**
 	 * @generated
 	 */
-	public static String EcoreInitDiagramFileAction_InitDiagramFileResourceErrorDialogMessage;
+	public static String InitDiagramFile_ResourceErrorDialogMessage;
 
 	/**
 	 * @generated
 	 */
-	public static String EcoreInitDiagramFileAction_InitDiagramFileWizardTitle;
+	public static String InitDiagramFile_WizardTitle;
 
 	/**
 	 * @generated
 	 */
-	public static String EcoreInitDiagramFileAction_OpenModelFileDialogTitle;
+	public static String InitDiagramFile_OpenModelFileDialogTitle;
 
 	/**
 	 * @generated
