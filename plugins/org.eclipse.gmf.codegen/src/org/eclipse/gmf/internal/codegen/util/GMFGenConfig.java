@@ -237,9 +237,16 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 				return curPage.getKind() == oldPage.getKind();
 			}
 		});
-		addDecision(GMFGEN.getGenStandardPreferencePage(), new Decision.ALWAYS_OLD(GMFGEN.getGenPreferencePage_ID()));
-		addDecision(GMFGEN.getGenStandardPreferencePage(), new Decision.ALWAYS_OLD(GMFGEN.getGenPreferencePage_Name()));
+		restore(GMFGEN.getGenStandardPreferencePage(), GMFGEN.getGenPreferencePage_ID());
+		restore(GMFGEN.getGenStandardPreferencePage(), GMFGEN.getGenPreferencePage_Name());
+
+		setMatcher(GMFGEN.getGenCustomPreferencePage(), GMFGEN.getGenCustomPreferencePage_QualifiedClassName());
+		restore(GMFGEN.getGenCustomPreferencePage(), GMFGEN.getGenCustomPreferencePage_GenerateBoilerplate());
 		setCopier(GMFGEN.getGenCustomPreferencePage(), Copier.COMPLETE_COPY_NO_CROSSREF);
+		setMatcher(GMFGEN.getGenPreference(), GMFGEN.getGenPreference_Name()); // XXX or KEY, perhaps, if persistence format is more important?
+		preserveIfSet(GMFGEN.getGenPreference_Key());
+		preserveIfSet(GMFGEN.getGenPreference_DefaultValue());
+		setCopier(GMFGEN.getGenPreference(), Copier.COMPLETE_COPY_NO_CROSSREF);
 		//
 		// preserve model access attributes, or completely copy old if none in the new model found.
 		setMatcher(GMFGEN.getDynamicModelAccess(), ALWAYS_MATCH);
@@ -281,6 +288,7 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 	}
 
 	// XXX rename?: preserveOld
+	// TODO single attr param version
 	private void restore(EClass eClass, EAttribute feature) {
 		addDecision(eClass, new Decision.ALWAYS_OLD(feature));
 	}
