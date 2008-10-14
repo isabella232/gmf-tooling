@@ -121,6 +121,10 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 				return createGenConstantColorAdapter();
 			}
 			@Override
+			public Adapter caseGenPreference(GenPreference object) {
+				return createGenPreferenceAdapter();
+			}
+			@Override
 			public Adapter caseBatchValidation(BatchValidation object) {
 				return createBatchValidationAdapter();
 			}
@@ -807,6 +811,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenConstantColorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenPreference <em>Gen Preference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPreference
+	 * @generated
+	 */
+	public Adapter createGenPreferenceAdapter() {
 		return null;
 	}
 

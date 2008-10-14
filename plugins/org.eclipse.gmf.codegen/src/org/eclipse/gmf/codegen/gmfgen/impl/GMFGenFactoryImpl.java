@@ -70,6 +70,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_CUSTOM_FONT: return createGenCustomFont();
 			case GMFGenPackage.GEN_RGB_COLOR: return createGenRGBColor();
 			case GMFGenPackage.GEN_CONSTANT_COLOR: return createGenConstantColor();
+			case GMFGenPackage.GEN_PREFERENCE: return createGenPreference();
 			case GMFGenPackage.GEN_DIAGRAM_UPDATER: return createGenDiagramUpdater();
 			case GMFGenPackage.GEN_PLUGIN: return createGenPlugin();
 			case GMFGenPackage.DYNAMIC_MODEL_ACCESS: return createDynamicModelAccess();
@@ -348,6 +349,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenConstantColor createGenConstantColor() {
 		GenConstantColorImpl genConstantColor = new GenConstantColorImpl();
 		return genConstantColor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenPreference createGenPreference() {
+		GenPreferenceImpl genPreference = new GenPreferenceImpl();
+		return genPreference;
 	}
 
 	/**

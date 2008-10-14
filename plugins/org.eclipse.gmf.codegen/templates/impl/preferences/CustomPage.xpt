@@ -20,6 +20,8 @@ package «qualifiedClassName == getClassName() ? getDiagram().preferencesPackageN
 «EXPAND xpt::Common::generatedClassComment»
 public class «getClassName()»«EXPAND extendsList»«EXPAND implementsList» {
 
+«EXPAND _constant FOREACH preferences-»
+
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «getClassName()»() {
 		setPreferenceStore(«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore());
@@ -55,8 +57,11 @@ public class «getClassName()»«EXPAND extendsList»«EXPAND implementsList» {
 «DEFINE initDefaultsMethod FOR GenCustomPreferencePage-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static void initDefaults(org.eclipse.jface.preference.IPreferenceStore store) {
+«IF preferences.isEmpty() || preferences.exists(p | p.defaultValue == null)-»
 		// TODO this code is invoked during preference store initialization, please fill
 		// the store passed with default preference values.
+«ENDIF-»
+«EXPAND _setDefaultValue("store") FOREACH preferences.select(p | p.defaultValue != null)-»
 	}
 «ENDDEFINE»
 
@@ -66,4 +71,13 @@ public class «getClassName()»«EXPAND extendsList»«EXPAND implementsList» {
 // however, call_initDefaults may get invoked for any CustomPreferencePage
 «DEFINE call_initDefaults(String storeVarName) FOR GenCustomPreferencePage-»
 «IF generateBoilerplate»«qualifiedClassName».initDefaults(«storeVarName»);«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE _constant FOR gmfgen::GenPreference-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static final String «name» = "«key»";«EXPAND xpt::Common::nonNLS»
+«ENDDEFINE»
+
+«DEFINE _setDefaultValue(String store) FOR gmfgen::GenPreference-»
+		«store».setDefault(«name», «defaultValue»);
 «ENDDEFINE»

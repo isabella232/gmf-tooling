@@ -180,6 +180,12 @@ public class GMFGenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.GEN_PREFERENCE: {
+				GenPreference genPreference = (GenPreference)theEObject;
+				T result = caseGenPreference(genPreference);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.BATCH_VALIDATION: {
 				BatchValidation batchValidation = (BatchValidation)theEObject;
 				T result = caseBatchValidation(batchValidation);
@@ -1239,6 +1245,21 @@ public class GMFGenSwitch<T> {
 	 * @generated
 	 */
 	public T caseGenConstantColor(GenConstantColor object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Preference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Preference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGenPreference(GenPreference object) {
 		return null;
 	}
 

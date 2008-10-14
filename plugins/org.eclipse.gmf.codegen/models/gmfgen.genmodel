@@ -214,6 +214,7 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenCustomPreferencePage">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCustomPreferencePage/qualifiedClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCustomPreferencePage/generateBoilerplate"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCustomPreferencePage/preferences"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenStandardPreferencePage">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenStandardPreferencePage/kind"/>
@@ -261,6 +262,12 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenConstantColor">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenConstantColor/name"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenPreference">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPreference/page"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPreference/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPreference/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPreference/defaultValue"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//BatchValidation">
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationProviderClassName"/>

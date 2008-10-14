@@ -121,6 +121,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass genPreferenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass batchValidationEClass = null;
 
 	/**
@@ -1631,6 +1638,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getGenCustomPreferencePage_Preferences() {
+		return (EReference)genCustomPreferencePageEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenStandardPreferencePage() {
 		return genStandardPreferencePageEClass;
 	}
@@ -1993,6 +2009,51 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getGenConstantColor_Name() {
 		return (EAttribute)genConstantColorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenPreference() {
+		return genPreferenceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenPreference_Page() {
+		return (EReference)genPreferenceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenPreference_Name() {
+		return (EAttribute)genPreferenceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenPreference_Key() {
+		return (EAttribute)genPreferenceEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenPreference_DefaultValue() {
+		return (EAttribute)genPreferenceEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -6669,6 +6730,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genCustomPreferencePageEClass = createEClass(GEN_CUSTOM_PREFERENCE_PAGE);
 		createEAttribute(genCustomPreferencePageEClass, GEN_CUSTOM_PREFERENCE_PAGE__QUALIFIED_CLASS_NAME);
 		createEAttribute(genCustomPreferencePageEClass, GEN_CUSTOM_PREFERENCE_PAGE__GENERATE_BOILERPLATE);
+		createEReference(genCustomPreferencePageEClass, GEN_CUSTOM_PREFERENCE_PAGE__PREFERENCES);
 
 		genStandardPreferencePageEClass = createEClass(GEN_STANDARD_PREFERENCE_PAGE);
 		createEAttribute(genStandardPreferencePageEClass, GEN_STANDARD_PREFERENCE_PAGE__KIND);
@@ -6718,6 +6780,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		genConstantColorEClass = createEClass(GEN_CONSTANT_COLOR);
 		createEAttribute(genConstantColorEClass, GEN_CONSTANT_COLOR__NAME);
+
+		genPreferenceEClass = createEClass(GEN_PREFERENCE);
+		createEReference(genPreferenceEClass, GEN_PREFERENCE__PAGE);
+		createEAttribute(genPreferenceEClass, GEN_PREFERENCE__NAME);
+		createEAttribute(genPreferenceEClass, GEN_PREFERENCE__KEY);
+		createEAttribute(genPreferenceEClass, GEN_PREFERENCE__DEFAULT_VALUE);
 
 		batchValidationEClass = createEClass(BATCH_VALIDATION);
 		createEAttribute(batchValidationEClass, BATCH_VALIDATION__VALIDATION_PROVIDER_CLASS_NAME);
@@ -7569,6 +7637,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(genCustomPreferencePageEClass, GenCustomPreferencePage.class, "GenCustomPreferencePage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenCustomPreferencePage_QualifiedClassName(), ecorePackage.getEString(), "qualifiedClassName", null, 1, 1, GenCustomPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenCustomPreferencePage_GenerateBoilerplate(), ecorePackage.getEBoolean(), "generateBoilerplate", "false", 0, 1, GenCustomPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenCustomPreferencePage_Preferences(), this.getGenPreference(), this.getGenPreference_Page(), "preferences", null, 0, -1, GenCustomPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genStandardPreferencePageEClass, GenStandardPreferencePage.class, "GenStandardPreferencePage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenStandardPreferencePage_Kind(), this.getStandardPreferencePages(), "kind", null, 1, 1, GenStandardPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7618,6 +7687,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(genConstantColorEClass, GenConstantColor.class, "GenConstantColor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenConstantColor_Name(), this.getDiagramColors(), "name", null, 0, 1, GenConstantColor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genPreferenceEClass, GenPreference.class, "GenPreference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenPreference_Page(), this.getGenCustomPreferencePage(), this.getGenCustomPreferencePage_Preferences(), "page", null, 1, 1, GenPreference.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenPreference_Name(), ecorePackage.getEString(), "name", null, 1, 1, GenPreference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenPreference_Key(), ecorePackage.getEString(), "key", null, 0, 1, GenPreference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenPreference_DefaultValue(), ecorePackage.getEString(), "defaultValue", null, 0, 1, GenPreference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(batchValidationEClass, BatchValidation.class, "BatchValidation", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBatchValidation_ValidationProviderClassName(), ecorePackage.getEString(), "validationProviderClassName", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -8647,7 +8722,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																																																		
+		   });																																																																																																																																																																																																																																				
 	}
 
 	/**
@@ -8677,7 +8752,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Diagram\')",
 			 "description", "\'Diagram Runtime Class\' must be a notation::Diagram or sub-class"
-		   });																												
+		   });																														
 		addAnnotation
 		  (genCommonBaseEClass, 
 		   source, 
@@ -8890,7 +8965,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createDeprecatedAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2006/deprecated";																			
+		String source = "http://www.eclipse.org/gmf/2006/deprecated";																					
 		addAnnotation
 		  (providerClassNamesEClass.getEOperations().get(5), 
 		   source, 
@@ -9002,7 +9077,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																																														
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																																																
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 
