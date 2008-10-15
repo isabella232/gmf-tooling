@@ -59,9 +59,7 @@ public class «qualifiedClassName.split('\\.').last()»«EXPAND extendsList»«EXPAND
 		if (selectedElement == null) {
 			return null;
 		}
-		org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor viewDescriptor = new org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(selectedElement), org.eclipse.gmf.runtime.notation.Node.class, null, 
-«REM»FIXME prefhintaccess is common code«ENDREM»
-			«owner.editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
+		org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor viewDescriptor = new org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(selectedElement), org.eclipse.gmf.runtime.notation.Node.class, null, «EXPAND xpt::plugin::Activator::preferenceHintAccess FOR owner.editorGen»);
 		org.eclipse.gmf.runtime.common.core.command.ICommand command = new org.eclipse.gmf.runtime.diagram.ui.commands.CreateCommand(editingDomain, viewDescriptor, view);
 		command = command.compose(new «owner.editorGen.diagram.getCreateShortcutDecorationsCommandQualifiedClassName()»(editingDomain, view, viewDescriptor));
 		try {

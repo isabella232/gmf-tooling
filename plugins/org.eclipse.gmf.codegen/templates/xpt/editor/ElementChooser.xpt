@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -379,7 +379,7 @@ public void selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent eve
 			}
 			if (selectedElement instanceof org.eclipse.emf.ecore.EObject) {
 				org.eclipse.emf.ecore.EObject selectedModelElement = (org.eclipse.emf.ecore.EObject) selectedElement;
-				setOkButtonEnabled(org.eclipse.gmf.runtime.diagram.core.services.ViewService.getInstance().provides(org.eclipse.gmf.runtime.notation.Node.class, new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(selectedModelElement), myView, null, org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.APPEND, true, «editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT));
+				setOkButtonEnabled(org.eclipse.gmf.runtime.diagram.core.services.ViewService.getInstance().provides(org.eclipse.gmf.runtime.notation.Node.class, new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(selectedModelElement), myView, null, org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.APPEND, true, «EXPAND xpt::plugin::Activator::preferenceHintAccess FOR editorGen»));
 				mySelectedModelElementURI = org.eclipse.emf.ecore.util.EcoreUtil.getURI(selectedModelElement);
 				return;
 			}

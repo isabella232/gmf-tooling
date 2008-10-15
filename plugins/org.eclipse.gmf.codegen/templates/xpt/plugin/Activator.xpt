@@ -44,8 +44,7 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin
 	public void start(org.osgi.framework.BundleContext context) throws Exception {
 		super.start(context);
 		instance = this;
-		org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint.registerPreferenceStore(
-				DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
+		org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
 		adapterFactory = createAdapterFactory();
 	}
 
@@ -210,5 +209,10 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin
 	«EXPAND additions-»
 }
 «ENDDEFINE»
+
+// Perhaps, xpt:editor::Editor or some xpt::CommonCode would be better place for
+// this accessor.
+// XXX besides, consider using preference store directly, without a hint (see comment in Editor.xpt#getPreferencesHint)
+«DEFINE preferenceHintAccess FOR gmfgen::GenEditorGenerator»«plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT«ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenPlugin»«ENDDEFINE»

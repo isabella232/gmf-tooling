@@ -106,7 +106,7 @@ private void «EXPAND createChildrenMethodName»(org.eclipse.gmf.runtime.notation.
 	«EXPAND xpt::Common::generatedMemberComment»
 private void createNode(org.eclipse.gmf.runtime.notation.View parentView, «editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName()» nodeDescriptor) {
 	final String nodeType = «EXPAND xpt::editor::VisualIDRegistry::typeMethodCall("nodeDescriptor.getVisualID()")»;
-	org.eclipse.gmf.runtime.notation.Node node = org.eclipse.gmf.runtime.diagram.core.services.ViewService.createNode(parentView, nodeDescriptor.getModelElement(), nodeType, «editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
+	org.eclipse.gmf.runtime.notation.Node node = org.eclipse.gmf.runtime.diagram.core.services.ViewService.createNode(parentView, nodeDescriptor.getModelElement(), nodeType, «EXPAND xpt::plugin::Activator::preferenceHintAccess FOR editorGen»);
 	switch (nodeDescriptor.getVisualID()) {
 	«EXPAND createNodeCase FOREACH getAllNodes().select(node | !node.sansDomain)-»
 	}
@@ -132,7 +132,7 @@ private void createLinks(org.eclipse.gmf.runtime.notation.Diagram diagram) {
 				continue;
 			}
 			final String linkType = «EXPAND xpt::editor::VisualIDRegistry::typeMethodCall("nextLinkDescriptor.getVisualID()")»;
-			org.eclipse.gmf.runtime.notation.Edge edge = (org.eclipse.gmf.runtime.notation.Edge) org.eclipse.gmf.runtime.diagram.core.services.ViewService.getInstance().createEdge(nextLinkDescriptor.getSemanticAdapter(), diagram, linkType, org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.APPEND, «editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
+			org.eclipse.gmf.runtime.notation.Edge edge = org.eclipse.gmf.runtime.diagram.core.services.ViewService.getInstance().createEdge(nextLinkDescriptor.getSemanticAdapter(), diagram, linkType, org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.APPEND, true, «EXPAND xpt::plugin::Activator::preferenceHintAccess FOR editorGen»);
 			if (edge != null) {
 				edge.setSource((org.eclipse.gmf.runtime.notation.View) myDomain2NotationMap.get(nextLinkDescriptor.getSource()));
 				edge.setTarget((org.eclipse.gmf.runtime.notation.View) myDomain2NotationMap.get(nextLinkDescriptor.getDestination()));

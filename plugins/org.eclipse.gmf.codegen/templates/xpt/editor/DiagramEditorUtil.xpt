@@ -201,9 +201,9 @@ public class «diagramEditorUtilClassName» {
 «ENDIF»
 				org.eclipse.gmf.runtime.notation.Diagram diagram = org.eclipse.gmf.runtime.diagram.core.services.ViewService.createDiagram(
 «IF domainDiagramElement != null-»
-				«IF domainDiagramElement.isExternalInterface()»(org.eclipse.emf.ecore.EObject) «ENDIF»model, 
+				«EXPAND MetaModel::DowncastToEObject("model") FOR domainDiagramElement», 
 «ENDIF-»
-					«EXPAND xpt::editor::VisualIDRegistry::modelID»,	«editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
+					«EXPAND xpt::editor::VisualIDRegistry::modelID», «EXPAND xpt::plugin::Activator::preferenceHintAccess FOR editorGen»);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
 					diagram.setName(diagramName);

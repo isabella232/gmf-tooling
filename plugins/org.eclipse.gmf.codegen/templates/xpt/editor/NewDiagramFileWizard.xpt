@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -106,7 +106,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 				org.eclipse.gmf.runtime.notation.Diagram diagram =
 					org.eclipse.gmf.runtime.diagram.core.services.ViewService.createDiagram(
 						diagramRootElementSelectionPage.getModelElement(), «EXPAND xpt::editor::VisualIDRegistry::modelID»,
-						«editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
+						«EXPAND xpt::plugin::Activator::preferenceHintAccess FOR editorGen»);
 				diagramResource.getContents().add(diagram);
 				«IF editorGen.sameFileForDiagramAndModel-»
 				diagramResource.getContents().add(diagram.getElement());
@@ -157,8 +157,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 			boolean result = org.eclipse.gmf.runtime.diagram.core.services.ViewService.getInstance().provides(
 				new org.eclipse.gmf.runtime.diagram.core.services.view.CreateDiagramViewOperation(
 					new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(selectedModelElement),
-					«EXPAND xpt::editor::VisualIDRegistry::modelID»,
-					«editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT));
+					«EXPAND xpt::editor::VisualIDRegistry::modelID», «EXPAND xpt::plugin::Activator::preferenceHintAccess FOR editorGen»));
 			setErrorMessage(result ? null : «EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewDiagramFileWizardRootSelectionPageInvalidSelectionMessage()) FOR editorGen»);
 			return result;
 		}
