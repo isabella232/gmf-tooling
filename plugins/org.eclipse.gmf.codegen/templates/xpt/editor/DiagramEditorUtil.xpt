@@ -208,7 +208,7 @@ public class «diagramEditorUtilClassName» {
 					diagramResource.getContents().add(diagram);
 					diagram.setName(diagramName);
 «IF domainDiagramElement != null-»
-					diagram.setElement(«IF domainDiagramElement.isExternalInterface()»(org.eclipse.emf.ecore.EObject) «ENDIF»model);
+					diagram.setElement(«EXPAND MetaModel::DowncastToEObject("model") FOR domainDiagramElement»);
 «ENDIF-»
 				}
 				
@@ -245,7 +245,7 @@ public class «diagramEditorUtilClassName» {
 «DEFINE attachModelMethod FOR gmfgen::GenDiagram»
 	«EXPAND xpt::Common::generatedMemberComment("Store model element in the resource.\n<!-- begin-user-doc -->\n<!-- end-user-doc -->")»
 	private static void attachModelToResource(«EXPAND MetaModel::QualifiedClassName FOR domainDiagramElement» model, org.eclipse.emf.ecore.resource.Resource resource) {
-		resource.getContents().add(«IF hasDocumentRoot()»createDocumentRoot(model)«ELSE»«IF domainDiagramElement.isExternalInterface()»(org.eclipse.emf.ecore.EObject) «ENDIF»model«ENDIF»);
+		resource.getContents().add(«IF hasDocumentRoot()»createDocumentRoot(model)«ELSE»«EXPAND MetaModel::DowncastToEObject("model") FOR domainDiagramElement»«ENDIF»);
 	}
 «ENDDEFINE»
 
