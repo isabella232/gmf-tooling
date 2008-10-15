@@ -36,6 +36,7 @@ public class «qualifiedClassName.split('\\.').last()»«EXPAND extendsList»«EXPAND
 		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor) diagramEditor).getEditingDomain();
 		org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog loadResourceDialog = new org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog(shell, editingDomain);
 		loadResourceDialog.open();
+		return null;
 	}
 «ENDDEFINE»
 

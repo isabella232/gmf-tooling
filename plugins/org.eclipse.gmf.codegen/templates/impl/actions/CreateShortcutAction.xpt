@@ -45,7 +45,7 @@ public class «qualifiedClassName.split('\\.').last()»«EXPAND extendsList»«EXPAND
 		«owner.editorGen.diagram.getElementChooserQualifiedClassName()» elementChooser = new «owner.editorGen.diagram.getElementChooserQualifiedClassName()»(shell, view);
 		int result = elementChooser.open();
 		if (result != org.eclipse.jface.window.Window.OK) {
-			return;
+			return null;
 		}
 		org.eclipse.emf.common.util.URI selectedModelElementURI = elementChooser.getSelectedModelElementURI();
 		final org.eclipse.emf.ecore.EObject selectedElement;
@@ -53,11 +53,11 @@ public class «qualifiedClassName.split('\\.').last()»«EXPAND extendsList»«EXPAND
 			selectedElement = editingDomain.getResourceSet().getEObject(selectedModelElementURI, true);
 		} catch (org.eclipse.emf.common.util.WrappedException e) {
 			«owner.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Exception while loading object: " + selectedModelElementURI.toString(), e);«EXPAND xpt::Common::nonNLS»
-			return;
+			return null;
 		}
 
 		if (selectedElement == null) {
-			return;
+			return null;
 		}
 		org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor viewDescriptor = new org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(selectedElement), org.eclipse.gmf.runtime.notation.Node.class, null, 
 «REM»FIXME prefhintaccess is common code«ENDREM»
@@ -72,12 +72,13 @@ public class «qualifiedClassName.split('\\.').last()»«EXPAND extendsList»«EXPAND
 «ELSE-»
 		org.eclipse.emf.ecore.resource.Resource resource = «owner.editorGen.diagram.getDiagramEditorUtilQualifiedClassName()».openModel(shell, «EXPAND xpt::Externalizer::accessorCall(titleKey(i18nKeyForCreateShortcutOpenModel())) FOR owner.editorGen», editingDomain);
 		if (resource == null || resource.getContents().isEmpty()) {
-			return;
+			return null;
 		}
 		«EXPAND xpt::editor::ShortcutCreationWizard::qualifiedClassName FOR owner.editorGen.diagram» wizard = new «EXPAND xpt::editor::ShortcutCreationWizard::qualifiedClassName FOR owner.editorGen.diagram»((org.eclipse.emf.ecore.EObject) resource.getContents().get(0), view, editingDomain);
 		wizard.setWindowTitle(«EXPAND xpt::Externalizer::accessorCall(titleKey(i18nKeyForCreateShortcutWizard())) FOR owner.editorGen»);
 		«owner.editorGen.diagram.getDiagramEditorUtilQualifiedClassName()».runWizard(myShell, wizard, "CreateShortcut");«EXPAND xpt::Common::nonNLS»
 «ENDIF-»
+		return null;
 	}
 «ENDDEFINE»
 
