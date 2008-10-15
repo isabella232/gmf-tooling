@@ -91,7 +91,7 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 				throw new org.eclipse.core.commands.ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind");
 			}
 			diagramFacet.setDiagramLink(d);
-			assert diagramFacet.eResource() != null;
+			«EXPAND xpt::Common::assert("diagramFacet.eResource() != null")-»
 			diagramFacet.eResource().getContents().add(d);
 			org.eclipse.emf.ecore.EObject container = diagramFacet.eContainer();
 			while (container instanceof org.eclipse.gmf.runtime.notation.View) {

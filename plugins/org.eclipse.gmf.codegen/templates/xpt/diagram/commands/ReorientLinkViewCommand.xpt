@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -52,10 +52,10 @@ public class «reorientConnectionViewCommandClassName»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(
 			org.eclipse.core.runtime.IProgressMonitor progressMonitor, org.eclipse.core.runtime.IAdaptable info) {
-		assert null != edgeAdaptor : "Null child in «reorientConnectionViewCommandClassName»"; //$NON-NLS-1$
+		«EXPAND xpt::Common::assert("null != edgeAdaptor : \"Null child in " + reorientConnectionViewCommandClassName)-»
 		org.eclipse.gmf.runtime.notation.Edge edge =
 				(org.eclipse.gmf.runtime.notation.Edge) getEdgeAdaptor().getAdapter(org.eclipse.gmf.runtime.notation.Edge.class);
-		assert null != edge : "Null edge in «reorientConnectionViewCommandClassName»"; //$NON-NLS-1$
+		«EXPAND xpt::Common::assert("null != edge : \"Null edge in " + reorientConnectionViewCommandClassName)-»
 		org.eclipse.gmf.runtime.notation.View tempView = edge.getSource();
 		edge.setSource(edge.getTarget());
 		edge.setTarget(tempView);

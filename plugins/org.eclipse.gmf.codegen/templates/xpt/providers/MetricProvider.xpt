@@ -149,8 +149,8 @@ public class «metricProviderClassName»
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		ElementMetrics(org.eclipse.emf.ecore.EObject target, String name, Metric[] metrics) {
-			assert metrics.length > 0;
-			assert name != null;
+			«EXPAND xpt::Common::assert("metrics.length > 0")-»
+			«EXPAND xpt::Common::assert("name != null")-»
 			this.metrics = metrics;	
 			this.targetElementQName = name;
 			org.eclipse.emf.ecore.EClass imageTarget = target.eClass();
@@ -199,7 +199,7 @@ public class «metricProviderClassName»
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		Metric(String key, Double value, Double low, Double high) {
-			assert key != null;
+			«EXPAND xpt::Common::assert("key != null")-»
 			this.key = key;
 			this.value = value;
 			this.lowLimit = low;

@@ -108,7 +108,7 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 		public HintAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType type,
 				org.eclipse.emf.ecore.EObject object, String parserHint) {
 			super(object, parserHint);
-			assert type != null;
+			«EXPAND xpt::Common::assert("type != null")-»
 			elementType = type;
 		}
 

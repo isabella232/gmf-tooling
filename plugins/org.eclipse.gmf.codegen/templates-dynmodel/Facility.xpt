@@ -48,7 +48,7 @@ public class «className» {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.emf.ecore.EClass getEClass(String metaClassName) {
-		assert metaClassName != null;
+		«EXPAND xpt::Common::assert("metaClassName != null")-»
 		org.eclipse.emf.ecore.EClass metaClass = findMetaClass(metaClassName);
 		assertMetaClass(metaClass, metaClassName);
 		return metaClass;
@@ -56,7 +56,7 @@ public class «className» {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.emf.ecore.EStructuralFeature getEFeature(String metaClassName, String metaFeatureName) {
-		assert metaFeatureName != null;
+		«EXPAND xpt::Common::assert("metaFeatureName != null")-»
 		org.eclipse.emf.ecore.EClass metaClass = getEClass(metaClassName);
 		org.eclipse.emf.ecore.EStructuralFeature f = metaClass.getEStructuralFeature(metaFeatureName);
 		assertMetaFeature(f, metaClass, metaFeatureName);
@@ -75,7 +75,7 @@ public class «className» {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.emf.ecore.EDataType getEDataType(String metaClassName) {
-		assert metaClassName != null;
+		«EXPAND xpt::Common::assert("metaClassName != null")-»
 		org.eclipse.emf.ecore.EClassifier c = this.ePackage.getEClassifier(metaClassName);
 		if (false == c instanceof org.eclipse.emf.ecore.EDataType) {
 			return null;
@@ -85,7 +85,7 @@ public class «className» {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.emf.ecore.EEnum getEEnum(String metaClassName) {
-		assert metaClassName != null;
+		«EXPAND xpt::Common::assert("metaClassName != null")-»
 		org.eclipse.emf.ecore.EClassifier c = this.ePackage.getEClassifier(metaClassName);
 		if (false == c instanceof org.eclipse.emf.ecore.EEnum) {
 			return null;

@@ -107,7 +107,7 @@ protected boolean isOrphaned(java.util.Collection semanticChildren, final org.ec
 	org.eclipse.emf.ecore.EObject domainModelElement = view.getElement();
 	if (visualID != «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall FOR getDiagram()»((org.eclipse.gmf.runtime.notation.View) getHost().getModel(), domainModelElement)) {
 		java.util.List createdViews = createViews(java.util.Collections.singletonList(domainModelElement));
-		assert createdViews.size() == 1;
+		«EXPAND xpt::Common::assert("createdViews.size() == 1")-»
 		final org.eclipse.gmf.runtime.notation.View createdView = (org.eclipse.gmf.runtime.notation.View) ((org.eclipse.core.runtime.IAdaptable) createdViews.get(0)).getAdapter(org.eclipse.gmf.runtime.notation.View.class);
 		if (createdView != null) {
 			try {

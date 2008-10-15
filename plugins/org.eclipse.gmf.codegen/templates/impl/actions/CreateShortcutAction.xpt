@@ -33,12 +33,12 @@ public class «qualifiedClassName.split('\\.').last()»«EXPAND extendsList»«EXPAND
 	public Object execute(org.eclipse.core.commands.ExecutionEvent event) throws org.eclipse.core.commands.ExecutionException {
 		org.eclipse.ui.IEditorPart diagramEditor = org.eclipse.ui.handlers.HandlerUtil.getActiveEditorChecked(event);
 		org.eclipse.swt.widgets.Shell shell = diagramEditor.getEditorSite().getShell();
-		assert diagramEditor instanceof org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
+		«EXPAND xpt::Common::assert("diagramEditor instanceof org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor")-»
 		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor) diagramEditor).getEditingDomain();
 		org.eclipse.jface.viewers.ISelection selection = org.eclipse.ui.handlers.HandlerUtil.getCurrentSelectionChecked(event);
-		assert selection instanceof org.eclipse.jface.viewers.IStructuredSelection;
-		assert ((org.eclipse.jface.viewers.IStructuredSelection) selection).size() == 1;
-		assert ((org.eclipse.jface.viewers.IStructuredSelection) selection).getFirstElement() instanceof org.eclipse.gef.EditPart;
+		«EXPAND xpt::Common::assert("selection instanceof org.eclipse.jface.viewers.IStructuredSelection")-»
+		«EXPAND xpt::Common::assert("((org.eclipse.jface.viewers.IStructuredSelection) selection).size() == 1")-»
+		«EXPAND xpt::Common::assert("((org.eclipse.jface.viewers.IStructuredSelection) selection).getFirstElement() instanceof org.eclipse.gef.EditPart")-»
 		org.eclipse.gef.EditPart selectedDiagramPart = (org.eclipse.gef.EditPart) ((org.eclipse.jface.viewers.IStructuredSelection) selection).getFirstElement();
 		final org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) selectedDiagramPart.getModel();
 «IF null == owner.editorGen.application-»

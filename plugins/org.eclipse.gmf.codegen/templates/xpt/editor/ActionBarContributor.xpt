@@ -39,7 +39,7 @@ public class «actionBarContributorClassName»«EXPAND extendsList» {
 	public void init(org.eclipse.ui.IActionBars bars, org.eclipse.ui.IWorkbenchPage page) {
 		super.init(bars, page);
 		org.eclipse.jface.action.IMenuManager fileMenu = bars.getMenuManager().findMenuUsingPath("file");«EXPAND xpt::Common::nonNLS»
-		assert fileMenu != null;
+		«EXPAND xpt::Common::assert("fileMenu != null")-»
 «IF editorGen.plugin.printingEnabled-»
 		org.eclipse.jface.action.IAction printPreviewAction = new org.eclipse.gmf.runtime.diagram.ui.printing.render.actions.RenderedPrintPreviewAction(new org.eclipse.gmf.runtime.diagram.ui.printing.render.actions.EnhancedPrintActionHelper());
 		fileMenu.insertBefore("print", printPreviewAction);«EXPAND xpt::Common::nonNLS»

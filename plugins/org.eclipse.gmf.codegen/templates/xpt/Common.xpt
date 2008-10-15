@@ -77,3 +77,9 @@
 «IF this.split('\\.').size() > 1-»
 package «FOREACH this.split('\\.').withoutLast() AS s SEPARATOR "."»«s»«ENDFOREACH»;«ENDIF-»
 «ENDDEFINE»
+
+// Provides handy single point to override generation of assert statements
+// TODO refactor this Common.xpt into different flavours - like CommonCodeStyle (nls, assert), CommonSnippets(pkgStmt, setCharset, getSaveOptions) and so on
+«DEFINE assert(String condition) FOR Object-»
+assert «condition»;«IF condition.toCharList().contains("\"")»«EXPAND nonNLS»«ENDIF»
+«ENDDEFINE»
