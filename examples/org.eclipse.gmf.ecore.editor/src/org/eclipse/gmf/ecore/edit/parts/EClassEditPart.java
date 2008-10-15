@@ -24,7 +24,6 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
-import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EClassItemSemanticEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
@@ -77,31 +76,7 @@ public class EClassEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
-		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy() {
-
-			public Command getCommand(Request request) {
-				if (understandsRequest(request)) {
-					if (request instanceof CreateViewAndElementRequest) {
-						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
-						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
-						if (type == EcoreElementTypes.EAttribute_3001) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EcoreVisualIDRegistry.getType(EClassAttributesEditPart.VISUAL_ID));
-							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
-						}
-						if (type == EcoreElementTypes.EOperation_3002) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EcoreVisualIDRegistry.getType(EClassOperationsEditPart.VISUAL_ID));
-							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
-						}
-						if (type == EcoreElementTypes.EAnnotation_3003) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EcoreVisualIDRegistry.getType(EClassClassAnnotationsEditPart.VISUAL_ID));
-							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
-						}
-					}
-					return super.getCommand(request);
-				}
-				return null;
-			}
-		});
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EClassItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
@@ -188,7 +163,6 @@ public class EClassEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
-
 		return getContentPane();
 	}
 
@@ -355,6 +329,26 @@ public class EClassEditPart extends ShapeNodeEditPart {
 			types.add(EcoreElementTypes.EClass_2001);
 		}
 		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public EditPart getTargetEditPart(Request request) {
+		if (request instanceof CreateViewAndElementRequest) {
+			CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
+			IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
+			if (type == EcoreElementTypes.EAttribute_3001) {
+				return getChildBySemanticHint(EcoreVisualIDRegistry.getType(EClassAttributesEditPart.VISUAL_ID));
+			}
+			if (type == EcoreElementTypes.EOperation_3002) {
+				return getChildBySemanticHint(EcoreVisualIDRegistry.getType(EClassOperationsEditPart.VISUAL_ID));
+			}
+			if (type == EcoreElementTypes.EAnnotation_3003) {
+				return getChildBySemanticHint(EcoreVisualIDRegistry.getType(EClassClassAnnotationsEditPart.VISUAL_ID));
+			}
+		}
+		return super.getTargetEditPart(request);
 	}
 
 	/**

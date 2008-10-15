@@ -24,7 +24,6 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
-import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EPackage2ItemSemanticEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
@@ -78,39 +77,7 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
-		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy() {
-
-			public Command getCommand(Request request) {
-				if (understandsRequest(request)) {
-					if (request instanceof CreateViewAndElementRequest) {
-						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
-						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
-						if (type == EcoreElementTypes.EClass_3004) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EcoreVisualIDRegistry.getType(EPackageClassesEditPart.VISUAL_ID));
-							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
-						}
-						if (type == EcoreElementTypes.EPackage_3005) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EcoreVisualIDRegistry.getType(EPackagePackagesEditPart.VISUAL_ID));
-							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
-						}
-						if (type == EcoreElementTypes.EDataType_3006) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EcoreVisualIDRegistry.getType(EPackageDataTypesEditPart.VISUAL_ID));
-							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
-						}
-						if (type == EcoreElementTypes.EEnum_3007) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EcoreVisualIDRegistry.getType(EPackageEnumsEditPart.VISUAL_ID));
-							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
-						}
-						if (type == EcoreElementTypes.EAnnotation_3003) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EcoreVisualIDRegistry.getType(EPackagePackageAnnotationsEditPart.VISUAL_ID));
-							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
-						}
-					}
-					return super.getCommand(request);
-				}
-				return null;
-			}
-		});
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EPackage2ItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
@@ -198,7 +165,6 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
-
 		return getContentPane();
 	}
 
@@ -313,6 +279,32 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 			types.add(EcoreElementTypes.EAnnotation_2003);
 		}
 		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public EditPart getTargetEditPart(Request request) {
+		if (request instanceof CreateViewAndElementRequest) {
+			CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
+			IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
+			if (type == EcoreElementTypes.EClass_3004) {
+				return getChildBySemanticHint(EcoreVisualIDRegistry.getType(EPackageClassesEditPart.VISUAL_ID));
+			}
+			if (type == EcoreElementTypes.EPackage_3005) {
+				return getChildBySemanticHint(EcoreVisualIDRegistry.getType(EPackagePackagesEditPart.VISUAL_ID));
+			}
+			if (type == EcoreElementTypes.EDataType_3006) {
+				return getChildBySemanticHint(EcoreVisualIDRegistry.getType(EPackageDataTypesEditPart.VISUAL_ID));
+			}
+			if (type == EcoreElementTypes.EEnum_3007) {
+				return getChildBySemanticHint(EcoreVisualIDRegistry.getType(EPackageEnumsEditPart.VISUAL_ID));
+			}
+			if (type == EcoreElementTypes.EAnnotation_3003) {
+				return getChildBySemanticHint(EcoreVisualIDRegistry.getType(EPackagePackageAnnotationsEditPart.VISUAL_ID));
+			}
+		}
+		return super.getTargetEditPart(request);
 	}
 
 	/**
