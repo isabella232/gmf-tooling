@@ -15,15 +15,9 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IObjectActionDelegate;
-import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 /**
@@ -41,6 +35,7 @@ public class LoadResourceAction extends AbstractHandler {
 		TransactionalEditingDomain editingDomain = ((DiagramEditor) diagramEditor).getEditingDomain();
 		org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog loadResourceDialog = new org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog(shell, editingDomain);
 		loadResourceDialog.open();
+		return null;
 	}
 
 }

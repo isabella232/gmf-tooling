@@ -22,7 +22,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.ecore.edit.commands.EcoreCreateShortcutDecorationsCommand;
-import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.ui.commands.CreateCommand;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
@@ -30,14 +29,11 @@ import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IObjectActionDelegate;
-import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 /**
@@ -62,7 +58,7 @@ public class CreateShortcutAction extends AbstractHandler {
 		EcoreElementChooserDialog elementChooser = new EcoreElementChooserDialog(shell, view);
 		int result = elementChooser.open();
 		if (result != Window.OK) {
-			return;
+			return null;
 		}
 		URI selectedModelElementURI = elementChooser.getSelectedModelElementURI();
 		final EObject selectedElement;
@@ -70,11 +66,11 @@ public class CreateShortcutAction extends AbstractHandler {
 			selectedElement = editingDomain.getResourceSet().getEObject(selectedModelElementURI, true);
 		} catch (WrappedException e) {
 			EcoreDiagramEditorPlugin.getInstance().logError("Exception while loading object: " + selectedModelElementURI.toString(), e); //$NON-NLS-1$
-			return;
+			return null;
 		}
 
 		if (selectedElement == null) {
-			return;
+			return null;
 		}
 		CreateViewRequest.ViewDescriptor viewDescriptor = new CreateViewRequest.ViewDescriptor(new EObjectAdapter(selectedElement), Node.class, null,
 
@@ -86,6 +82,7 @@ public class CreateShortcutAction extends AbstractHandler {
 		} catch (ExecutionException e) {
 			EcoreDiagramEditorPlugin.getInstance().logError("Unable to create shortcut", e); //$NON-NLS-1$
 		}
+		return null;
 	}
 
 }
