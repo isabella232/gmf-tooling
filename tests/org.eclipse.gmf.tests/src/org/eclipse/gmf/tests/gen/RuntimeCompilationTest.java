@@ -23,6 +23,7 @@ import javax.xml.xpath.XPathFactory;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.gmf.codegen.gmfgen.CreateShortcutAction;
 import org.eclipse.gmf.codegen.gmfgen.DynamicModelAccess;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenCommandAction;
@@ -34,11 +35,20 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenGroupMarker;
 import org.eclipse.gmf.codegen.gmfgen.GenMenuManager;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.GenPreference;
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
+import org.eclipse.gmf.codegen.gmfgen.LoadResourceAction;
 import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
+import org.eclipse.jdt.core.Flags;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IField;
+import org.eclipse.jdt.core.IMethod;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -236,5 +246,95 @@ public class RuntimeCompilationTest extends CompilationTest {
 		assertFalse(file_a1.exists());
 		assertTrue(file_a2.exists());
 		assertTrue(file_a3.exists());
+	}
+
+	// CreateShortcut, LoadResource, InitDiagramFileAction 
+	public void testPredefinedActions() throws Exception {
+		DiaGenSource s1 = createLibraryGen(false);
+		final GenEditorGenerator editorGen = s1.getGenDiagram().getEditorGen();
+		GenContextMenu menu = GMFGenFactory.eINSTANCE.createGenContextMenu();
+		menu.getContext().add(s1.getGenDiagram());
+		final CreateShortcutAction createShortcutAction = GMFGenFactory.eINSTANCE.createCreateShortcutAction();
+		final LoadResourceAction loadResourceAction = GMFGenFactory.eINSTANCE.createLoadResourceAction();
+		menu.getItems().add(createShortcutAction);
+		menu.getItems().add(loadResourceAction);
+		editorGen.getContextMenus().add(menu);
+		editorGen.getDiagram().getContainsShortcutsTo().add("ecore");
+		assertTrue("sanity", editorGen.getDiagram().generateCreateShortcutAction());
+		//
+		generateAndCompile(s1);
+		//
+		IProject generatedProject = ResourcesPlugin.getWorkspace().getRoot().getProject(editorGen.getPlugin().getID());
+		IFile generatedManifest = generatedProject.getFile("plugin.xml");
+		assertTrue(generatedManifest.exists());
+		DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+		Document parsedManifest = db.parse(new InputSource(generatedManifest.getContents()));
+		XPath xf = XPathFactory.newInstance().newXPath();
+		XPathExpression xe = xf.compile("/plugin/extension[@point = 'org.eclipse.ui.menus']/menuContribution/command");
+		NodeList result = (NodeList) xe.evaluate(parsedManifest, XPathConstants.NODESET);
+		assertEquals(2, result.getLength());
+		xe = xf.compile("/plugin/extension[@point = 'org.eclipse.ui.commands']/command");
+		result = (NodeList) xe.evaluate(parsedManifest, XPathConstants.NODESET);
+		assertTrue(result.getLength() > 2);
+		HashSet<String> allCommands = new HashSet<String>();
+		for (int i = result.getLength() - 1; i >= 0; i--) {
+			allCommands.add(result.item(i).getAttributes().getNamedItem("defaultHandler").getNodeValue());
+		}
+		assertTrue(allCommands.contains(createShortcutAction.getQualifiedClassName()));
+		assertTrue(allCommands.contains(loadResourceAction.getQualifiedClassName()));
+		IFile file1 = generatedProject.getFile("/src/" + createShortcutAction.getQualifiedClassName().replace('.', '/') + ".java");
+		IFile file2 = generatedProject.getFile("/src/" + loadResourceAction.getQualifiedClassName().replace('.', '/') + ".java");
+		assertTrue(file1.exists());
+		assertTrue(file2.exists());
+		//
+//		DiaGenSource s2 = createLibraryGen(true);
+//		fail("TODO");
+	}
+
+	public void testCustomPreferences() throws Exception {
+		DiaGenSource s = createLibraryGen(false);
+		final GenDiagram gd = s.getGenDiagram();
+		GenCustomPreferencePage pp = GMFGenFactory.eINSTANCE.createGenCustomPreferencePage();
+		if (gd.getPreferencePages().isEmpty()) {
+			gd.getPreferencePages().add(pp);
+		} else {
+			gd.getPreferencePages().get(0).getChildren().add(pp);
+		}
+		pp.setGenerateBoilerplate(true);
+		pp.setName("Page Name");
+		pp.setQualifiedClassName(gd.getEditorGen().getEditor().getPackageName() + ".CustomPreferencePage");
+		GenPreference p1 = GMFGenFactory.eINSTANCE.createGenPreference();
+		p1.setName("PREF_XXX_ONE");
+		p1.setDefaultValue("\"XXX_ONE_DEFAULT\"");
+		GenPreference p2 = GMFGenFactory.eINSTANCE.createGenPreference();
+		p2.setName("NO_PREFIX_XXX_TWO");
+		p2.setKey("KEY.XXX.TWO");
+		pp.getPreferences().add(p1);
+		pp.getPreferences().add(p2);
+		//
+		generateAndCompile(s);
+		//
+		IProject generatedProject = ResourcesPlugin.getWorkspace().getRoot().getProject(gd.getEditorGen().getPlugin().getID());
+		IFile file_pp = generatedProject.getFile("/src/" + pp.getQualifiedClassName().replace('.', '/') + ".java");
+		assertTrue(file_pp.exists());
+		ICompilationUnit cuPage = (ICompilationUnit) JavaCore.create(file_pp);
+		assertNotNull(cuPage);
+		IType mainClass = cuPage.getTypes()[0];
+		assertNotNull(mainClass);
+		assertEquals(2, mainClass.getFields().length);
+		final IField p1field = mainClass.getField(p1.getName());
+		final IField p2field = mainClass.getField(p2.getName());
+		assertTrue(Flags.isPublic(p1field.getFlags()));
+		assertTrue(Flags.isStatic(p1field.getFlags()));
+		assertTrue(Flags.isPublic(p2field.getFlags()));
+		assertTrue(Flags.isStatic(p2field.getFlags()));
+		assertEquals('"' + p1.getKey() + '"', p1field.getConstant());
+		assertEquals('"' + p2.getKey() + '"', p2field.getConstant());
+		IMethod initMethod = mainClass.getMethod("initDefaults",  new String[] { "Q" + IPreferenceStore.class.getSimpleName() + ";" });
+		assertNotNull(initMethod);
+		String methodText = initMethod.getSource();
+		assertTrue(methodText.indexOf(p1.getName()) != -1);
+		assertTrue(methodText.indexOf(p1.getDefaultValue()) != -1);
+		assertTrue(methodText.indexOf(p2.getName()) == -1);
 	}
 }
