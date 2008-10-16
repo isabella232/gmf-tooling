@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.gmf.xpand"
+      label="GMF Xpand"
+      version="0.9.3"
+      provider-name="Borland Software Corporation">
+
+   <description>
+      Xpand Template Engine (runtime and editor), GMF-blend
+   </description>
+
+   <copyright>
+      Copyright (c) 2006, 2008 Borland Software Corporation
+   </copyright>
+
+   <license url="http://www.eclipse.org/legal/epl-v10.html">
+The Eclipse Foundation makes available all content in this plug-in ("Content").  
+The Content is provided to you under the terms and conditions of the Eclipse Public License Version 1.0 ("EPL"). 
+A copy of the EPL is available at http://www.eclipse.org/legal/epl-v10.html. 
+For purposes of the EPL, "Program" will mean the Content.
+   </license>
+
+   <requires>
+      <import feature="org.eclipse.emf" version="2.3.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.platform" version="3.2.0" match="compatible"/>
+   </requires>
+
+   <plugin
+         id="net.sourceforge.lpg.lpgjavaruntime"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.xpand"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.xpand.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
