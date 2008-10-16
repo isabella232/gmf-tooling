@@ -192,7 +192,7 @@ public class AllTests {
 		return feed(theClass, config, null);
 	}
 	public static Test feed(Class<?> theClass, TestConfiguration config, String suffix) {
-		TestSuite suite = new TestSuite(theClass);
+		TestSuite suite = new TestSuite(theClass, theClass.getSimpleName());
 		if (suffix != null) {
 			suite.setName(suite.getName() + suffix);
 		}
