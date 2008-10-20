@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.ast.AbstractDefinition;
 import org.eclipse.gmf.internal.xpand.ast.Advice;
+import org.eclipse.gmf.internal.xpand.ast.Definition;
 import org.eclipse.gmf.internal.xpand.ast.ErrorStatement;
 import org.eclipse.gmf.internal.xpand.ast.ExpandStatement;
 import org.eclipse.gmf.internal.xpand.ast.ExpressionStatement;
@@ -33,6 +34,7 @@ import org.eclipse.gmf.internal.xpand.ast.NamespaceImport;
 import org.eclipse.gmf.internal.xpand.ast.Statement;
 import org.eclipse.gmf.internal.xpand.ast.Template;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
 import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
@@ -66,6 +68,8 @@ public class XpandMigrationFacade {
 	private ModelManager modelManager;
 
 	private TypeManager typeManager;
+
+	private OclKeywordManager oclKeywordManager;
 
 	public XpandMigrationFacade(ResourceManager resourceManager, String xtendResourceName, boolean migrateAspect) {
 		this.resourceManager = resourceManager;
@@ -123,7 +127,8 @@ public class XpandMigrationFacade {
 
 	private void migrate(Template xpandTemplate) throws MigrationException {
 		StandardLibraryImports stdLibImportsManager = new StandardLibraryImports(getStdLibImportsPosition(xpandTemplate));
-		modelManager = new ModelManager(stdLibImportsManager, true);
+		oclKeywordManager = new OclKeywordManager();
+		modelManager = new ModelManager(stdLibImportsManager, oclKeywordManager, true);
 		typeManager = new TypeManager();
 		
 		for (NamespaceImport namespaceImport : xpandTemplate.getImports()) {
@@ -173,11 +178,15 @@ public class XpandMigrationFacade {
 		if (stdLibImportsManager.getPlaceholderIndex() > 0) {
 			sb.append(ExpressionMigrationFacade.LF);
 		}
-		for (String stdLib : stdLibImportsManager.getLibraries()) {
+		for (int i = 0; i < stdLibImportsManager.getLibraries().length; i++) {
+			if (i > 0) {
+				sb.append(ExpressionMigrationFacade.LF);	
+			}
 			sb.append("«EXTENSION ");
-			sb.append(stdLib);
+			sb.append(stdLibImportsManager.getLibraries()[i]);
 			sb.append("»");
 		}
+		
 		if (stdLibImportsManager.getPlaceholderIndex() == 0) {
 			sb.append(ExpressionMigrationFacade.LF);
 		}
@@ -185,6 +194,9 @@ public class XpandMigrationFacade {
 	}
 
 	private void migrateDefinition(AbstractDefinition definition) throws MigrationException {
+		assert definition instanceof Definition || definition instanceof Advice;
+		migrateIdentifier(definition instanceof Definition ? ((Definition) definition).getDefName() : ((Advice) definition).getPointCut());
+		
 		for (DeclaredParameter parameter : definition.getParams()) {
 			migrateParameter(parameter);
 		}
@@ -199,18 +211,22 @@ public class XpandMigrationFacade {
 		}
 	}
 
+	private void migrateIdentifier(Identifier definitionName) {
+		if (oclKeywordManager.isOclKeyword(definitionName)) {
+			replace(definitionName, oclKeywordManager.getValidIdentifierValue(definitionName));
+		}
+	}
+
 	private void migrateStatement(Statement statement, VariableNameDispatcher variableNameDispatcher) throws MigrationException {
 		if (statement instanceof ExpressionStatement) {
 			ExpressionStatement expressionStatement = (ExpressionStatement) statement;
-			ExpressionAnalyzeTrace trace = ctx.getTraces().get(expressionStatement);
-			// TODO: use EcorePackage.eINSTANCE.getEString() as a type parameter
-			// to convert any result type to string explicitly.
 			migrateExpression(expressionStatement.getExpression(), EcorePackage.eINSTANCE.getEString(), variableNameDispatcher);
 		} else if (statement instanceof ErrorStatement) {
 			ErrorStatement errorStatement = (ErrorStatement) statement;
 			migrateExpression(errorStatement.getMessage(), EcorePackage.eINSTANCE.getEString(), variableNameDispatcher);
 		} else if (statement instanceof ExpandStatement) {
 			ExpandStatement expandStatement = (ExpandStatement) statement;
+			migrateExpandStatementDefinition(expandStatement);
 			ExpressionAnalyzeTrace trace = ctx.getTraces().get(expandStatement);
 			assert trace instanceof ExpandAnalyzeTrace;
 			ExpandAnalyzeTrace expTrace = (ExpandAnalyzeTrace) trace;
@@ -264,9 +280,25 @@ public class XpandMigrationFacade {
 		}
 	}
 
+	private void migrateExpandStatementDefinition(ExpandStatement expandStatement) {
+		Identifier definition = expandStatement.getDefinition();
+		String fullQualifiedDefinitionName = definition.getValue();
+		int lastSeparatorIndex = fullQualifiedDefinitionName.lastIndexOf(SyntaxConstants.NS_DELIM);
+		if (lastSeparatorIndex == -1) {
+			migrateIdentifier(definition);
+			return;
+		}
+		// fullName
+		String namePrefix = fullQualifiedDefinitionName.substring(0, lastSeparatorIndex);
+		String shortName = fullQualifiedDefinitionName.substring(lastSeparatorIndex + SyntaxConstants.NS_DELIM.length());
+		if (oclKeywordManager.isOclKeyword(shortName)) {
+			replace(definition, namePrefix + SyntaxConstants.NS_DELIM + oclKeywordManager.getValidIdentifierValue(shortName));
+		}
+	}
+
 	private void migrateParameter(DeclaredParameter parameter) throws MigrationException {
 		EClassifier parameterType = ctx.getTypeForName(parameter.getType().getValue());
-		replace(parameter, parameter.getName().getValue() + " : " + typeManager.getQvtFQName(parameterType));
+		replace(parameter, oclKeywordManager.getValidIdentifierValue(parameter.getName()) + " : " + typeManager.getQvtFQName(parameterType));
 	}
 
 	private void migrateExpression(Expression expression, EClassifier expectedExpressionType, VariableNameDispatcher variableNameDispatcher) throws MigrationException {
