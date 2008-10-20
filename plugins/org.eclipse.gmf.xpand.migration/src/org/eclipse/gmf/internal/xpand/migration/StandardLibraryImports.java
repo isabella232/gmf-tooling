@@ -37,6 +37,8 @@ public class StandardLibraryImports extends AbstractImportsManager {
 		operationsMap.put(BuiltinMetaModel.EString_ReplaceAll, MapEntry.newStringLibEntry("xpandReplaceAll"));
 		operationsMap.put(BuiltinMetaModel.EString_Split, MapEntry.newStringLibEntry("xpandSplit"));
 		operationsMap.put(BuiltinMetaModel.EString_Matches, MapEntry.newStringLibEntry("xpandMatches"));
+		operationsMap.put(BuiltinMetaModel.EString_StartsWith, MapEntry.newStringLibEntry("xpandStartsWith"));
+		operationsMap.put(BuiltinMetaModel.EString_EndsWith, MapEntry.newStringLibEntry("xpandEndsWith"));
 		operationsMap.put(BuiltinMetaModel.Object_CompareTo, MapEntry.newOclAnyLibEntry("xpandCompareTo"));
 		operationsMap.put(BuiltinMetaModel.Object_ToString, MapEntry.newEntry("repr"));
 		operationsMap.put(BuiltinMetaModel.Int_Div_Int, MapEntry.newEntry("div"));
