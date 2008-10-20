@@ -275,8 +275,14 @@ public class ExpressionMigrationFacade {
 			if (nextChar == '\'') {
 				// escaping single quote mark with one more single quote mark.
 				sb.append(nextChar);
+				sb.append(nextChar);
+			} else if (nextChar == '\n') {
+				sb.append("\\n");
+			} else if (nextChar == '\r') {
+				sb.append("\\r");
+			} else {
+				sb.append(nextChar);
 			}
-			sb.append(nextChar);
 		}
 		return sb.toString();
 	}
@@ -318,8 +324,12 @@ public class ExpressionMigrationFacade {
 		String varName = letExpression.getVarName().getValue();
 		write("let ");
 		write(varName);
+		write(" : ");
+		int typePosition = getCurrentPosition();
 		write(" = ");
-		pushContextWithVariable(varName, migrateExpression(letExpression.getVarExpression()));
+		EClassifier varType = migrateExpression(letExpression.getVarExpression());
+		write(typeManager.getQvtFQName(varType), typePosition);
+		pushContextWithVariable(varName, varType);
 		try {
 			write(" in ");
 			return migrateExpression(letExpression.getTargetExpression());
@@ -420,24 +430,50 @@ public class ExpressionMigrationFacade {
 
 	private void internalMigrateTypeSelectCastingCollectionToBag(EClassifier collectionType, String typeName, int placeholder) {
 		assert BuiltinMetaModel.isCollectionType(collectionType);
-		if (TypeManager.isListType(collectionType) || TypeManager.isSetType(collectionType)) {
-			internalMigrateTypeSelect(typeName, placeholder, getCurrentPosition());
-		} else {
+		if (BuiltinMetaModelExt.isAbstractCollectionType(collectionType)) {
 			internalMigrateCollectionToBag(typeName);
+		} else {
+			internalMigrateTypeSelect(typeName, collectionType, placeholder, getCurrentPosition());
 		}
 	}
 
-	private void internalMigrateTypeSelect(String typeName, int expressionStartPosition, int expressionEndPosition) {
+	private void internalMigrateTypeSelect(String typeName, EClassifier originalCollectionType, int expressionStartPosition, int expressionEndPosition) {
 		// TODO: This method should write braces around expression starting
 		// at placeholder position conditionally depending on the last char
 		// in output sequence.
-		StringBuffer sb = new StringBuffer();
-		sb.append(")[");
-		sb.append(typeName);
-		sb.append("]");
+		StringBuilder sb = new StringBuilder();
+//		sb.append(")[");
+//		sb.append(typeName);
+//		sb.append("]");
+		sb.append(")");
+		sb.append(ts(typeName, originalCollectionType));
 		write(sb, expressionEndPosition);
 		
 		write("(", expressionStartPosition);
+	}
+	
+	private StringBuilder ts(String typeName, EClassifier originalCollectionType) {
+		String it = variableDispatcher.getNextIteratorName();
+		StringBuilder sb = new StringBuilder();
+		sb.append("->select(");
+		sb.append(it);
+		sb.append(" | ");
+		sb.append(it);
+		sb.append(".oclIsKindOf(");
+		sb.append(typeName);
+		sb.append("))->collect(");
+		sb.append(it);
+		sb.append(" | ");
+		sb.append(it);
+		sb.append(".oclAsType(");
+		sb.append(typeName);
+		sb.append("))");
+		if (BuiltinMetaModelExt.isSetType(originalCollectionType)) {
+			sb.append("->asSet()");
+		} else if (BuiltinMetaModelExt.isOrderedSetType(originalCollectionType)) {
+			sb.append("->asOrderedSet()");
+		}
+		return sb;
 	}
 
 	// TODO: use ->asSequence() here in addition?
@@ -763,7 +799,7 @@ public class ExpressionMigrationFacade {
 			write(")");
 			if (!BuiltinMetaModel.isAssignableFrom(elementType, parameterType)) {
 				EClassifier commonSuperType = BuiltinMetaModelExt.getCommonSuperType(elementType, parameterType);
-				internalMigrateTypeSelect(typeManager.getQvtFQName(commonSuperType), expressionStartPosition, operationStartPosition);
+				internalMigrateTypeSelect(typeManager.getQvtFQName(commonSuperType), targetType, expressionStartPosition, operationStartPosition);
 			}
 			return EcorePackage.eINSTANCE.getEBoolean();
 		} else if (BuiltinMetaModel.Collection_ContainsAll == eOperation) {
@@ -774,7 +810,7 @@ public class ExpressionMigrationFacade {
 			write(")");
 			if (!BuiltinMetaModel.isAssignableFrom(elementType, parameterCollectionElementType)) {
 				EClassifier commonSuperType = BuiltinMetaModelExt.getCommonSuperType(elementType, parameterCollectionElementType);
-				internalMigrateTypeSelect(typeManager.getQvtFQName(commonSuperType), expressionStartPosition, operationStartPosition);
+				internalMigrateTypeSelect(typeManager.getQvtFQName(commonSuperType), targetType, expressionStartPosition, operationStartPosition);
 			}
 			return EcorePackage.eINSTANCE.getEBoolean();
 		} else if (BuiltinMetaModel.List_IndexOf == eOperation) {
@@ -784,7 +820,7 @@ public class ExpressionMigrationFacade {
 			write(")");
 			if (!BuiltinMetaModel.isAssignableFrom(elementType, parameterType)) {
 				EClassifier commonSuperType = BuiltinMetaModelExt.getCommonSuperType(elementType, parameterType);
-				internalMigrateTypeSelect(typeManager.getQvtFQName(commonSuperType), expressionStartPosition, operationStartPosition);
+				internalMigrateTypeSelect(typeManager.getQvtFQName(commonSuperType), targetType, expressionStartPosition, operationStartPosition);
 			}
 			write("(", expressionStartPosition);
 			write(" - 1)");
@@ -803,9 +839,10 @@ public class ExpressionMigrationFacade {
 			}
 			// write("Bag{}");
 			if (elementType != EcorePackage.eINSTANCE.getEJavaObject()) {
-				write("[");
-				write(typeManager.getQvtFQName(elementType));
-				write("]");
+//				write("[");
+//				write(typeManager.getQvtFQName(elementType));
+//				write("]");
+				write(ts(typeManager.getQvtFQName(elementType), elementType));
 			}
 			return resultType;
 		} else if (BuiltinMetaModel.Collection_Flatten == eOperation) {
@@ -831,12 +868,16 @@ public class ExpressionMigrationFacade {
 			write(" + 1)");
 			return elementType;
 		} else if (BuiltinMetaModel.List_WithoutFirst == eOperation) {
-			boolean isOrderedSet = BuiltinMetaModelExt.isOrderedSetType(targetType);
 			String varName = variableDispatcher.getNextVariableName();
 			write("let ");
 			write(varName);
+			write(" : ");
+			int typePosition = getCurrentPosition();
 			write(" = ");
-			internalMigrateOperationCallTarget(operationCall);
+			targetType = internalMigrateOperationCallTarget(operationCall);
+			assert BuiltinMetaModelExt.isListType(targetType) || BuiltinMetaModelExt.isOrderedSetType(targetType);
+			boolean isOrderedSet = BuiltinMetaModelExt.isOrderedSetType(targetType);
+			write((isOrderedSet ? "OrderedSet(" : "Sequence(") + typeManager.getQvtFQName(BuiltinMetaModel.getInnerType(targetType)) + ")", typePosition);
 			write(" in ");
 			write("if ");
 			write(varName);
@@ -848,9 +889,10 @@ public class ExpressionMigrationFacade {
 			}
 			write("{}");
 			if (elementType != EcorePackage.eINSTANCE.getEJavaObject()) {
-				write("[");
-				write(typeManager.getQvtFQName(elementType));
-				write("]");
+//				write("[");
+//				write(typeManager.getQvtFQName(elementType));
+//				write("]");
+				ts(typeManager.getQvtFQName(elementType), targetType);
 			}
 			write(" else ");
 			write(varName);
@@ -863,14 +905,18 @@ public class ExpressionMigrationFacade {
 			write("(2, ");
 			write(varName);
 			write("->size()) endif");
-			return targetType;
+			return targetType;			
 		} else if (BuiltinMetaModel.List_WithoutLast == eOperation) {
-			boolean isOrderedSet = BuiltinMetaModelExt.isOrderedSetType(targetType);
 			String varName = variableDispatcher.getNextVariableName();
 			write("let ");
 			write(varName);
+			write(" : ");
+			int typePosition = getCurrentPosition();
 			write(" = ");
-			internalMigrateOperationCallTarget(operationCall);
+			targetType = internalMigrateOperationCallTarget(operationCall);
+			assert BuiltinMetaModelExt.isListType(targetType) || BuiltinMetaModelExt.isOrderedSetType(targetType);
+			boolean isOrderedSet = BuiltinMetaModelExt.isOrderedSetType(targetType);
+			write((isOrderedSet ? "OrderedSet(" : "Sequence(") + typeManager.getQvtFQName(BuiltinMetaModel.getInnerType(targetType)) + ")", typePosition);
 			write(" in ");
 			write("if ");
 			write(varName);
@@ -882,9 +928,10 @@ public class ExpressionMigrationFacade {
 			}
 			write("{}");
 			if (elementType != EcorePackage.eINSTANCE.getEJavaObject()) {
-				write("[");
-				write(typeManager.getQvtFQName(elementType));
-				write("]");
+//				write("[");
+//				write(typeManager.getQvtFQName(elementType));
+//				write("]");
+				ts(typeManager.getQvtFQName(elementType), targetType);
 			}
 			write(" else ");
 			write(varName);
@@ -954,7 +1001,7 @@ public class ExpressionMigrationFacade {
 			write(sb, expressionEndPosition);
 			return BuiltinMetaModelExt.getBagType(requestedElementType);
 		} else if (requestedElementType != elementType) {
-			internalMigrateTypeSelect(typeManager.getQvtFQName(requestedElementType), expressionStartPosition, expressionEndPosition);
+			internalMigrateTypeSelect(typeManager.getQvtFQName(requestedElementType), collectionType, expressionStartPosition, expressionEndPosition);
 			return BuiltinMetaModelExt.replaceCollectionElementType(collectionType, requestedElementType);
 		}
 		return collectionType;
