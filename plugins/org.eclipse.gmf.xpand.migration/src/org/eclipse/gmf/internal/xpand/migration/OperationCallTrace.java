@@ -45,6 +45,9 @@ public class OperationCallTrace extends ExpressionAnalyzeTrace {
 	public static String getNativeLibraryName(Extension extension) {
 		if (extension instanceof JavaExtensionStatement) {
 			String fQName = ((JavaExtensionStatement) extension).getExtensionFile().getFullyQualifiedName();
+			if (fQName.indexOf(SyntaxConstants.NS_DELIM) == -1) {
+				return "_" + fQName;
+			}
 			return fQName.replaceAll(SyntaxConstants.NS_DELIM, "_");
 		}
 		return null;
