@@ -39,7 +39,7 @@ public class BuiltinMetaModelExt extends BuiltinMetaModel {
 	}
 
 	public static final boolean isSetType(EClassifier classifier) {
-		return classifier.getName().endsWith(BuiltinMetaModel.SET);
+		return classifier.getName().endsWith(BuiltinMetaModel.SET) && !isOrderedSetType(classifier);
 	}
 
 	// TODO: remove this method - no OrderedSets during migration.
