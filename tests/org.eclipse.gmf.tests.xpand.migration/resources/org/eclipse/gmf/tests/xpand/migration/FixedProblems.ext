@@ -13,6 +13,10 @@ Boolean otherExtension(List[ecore::EClassifier] eClasses) :
 	true
 ;
 
-Collection[ecore::EClassifier] getEssentialVisualChildren(List[ecore::EClass] eClasses, List[ecore::EOperation] eOperations) :
+Collection[ecore::ENamedElement] getEssentialVisualChildren(List[ecore::EClass] eClasses, List[ecore::EOperation] eOperations) :
 	{}.addAll(eClasses).addAll(eOperations)
+;
+
+Collection[ecore::EClass] getEClasses(ecore::EPackage ePackage) :
+	ePackage.eClassifiers.typeSelect(ecore::EClass)
 ;

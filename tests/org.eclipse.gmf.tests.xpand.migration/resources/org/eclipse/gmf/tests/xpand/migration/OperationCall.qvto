@@ -136,7 +136,7 @@ helper getChildrenOpOfList(param : Sequence(testModel::Container)) : Sequence(te
 }
 
 helper getChildrenExtOfList(param : Sequence(testModel::Container), param2 : Boolean) : Sequence(testModel::Child) {
-	return param->collect(it_1 | getChildrenExt(it_1, let it = param2 in it))
+	return param->collect(it_1 | getChildrenExt(it_1, let it : Boolean = param2 in it))
 }
 
 helper getChildrenOpOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {

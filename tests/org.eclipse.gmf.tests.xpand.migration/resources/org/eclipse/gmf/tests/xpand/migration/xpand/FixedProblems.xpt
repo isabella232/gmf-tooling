@@ -19,3 +19,8 @@
 «DEFINE parencesAsOperationArgument FOR ecore::EClassifier-»
 «(true) && (true)»
 «ENDDEFINE»
+
+«DEFINE logicalOr FOR ecore::EClassifier-»
+«IF true || false-»
+«ENDIF-»
+«ENDDEFINE»

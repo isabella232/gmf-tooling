@@ -1,17 +1,17 @@
 «DEFINE emptyFile FOR ecore::EPackage-»
-«FILE (eClassifiers)[ecore::EClass]->first().oclAsType(ecore::EClass).name-»
+«FILE (eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->asOrderedSet()->first().oclAsType(ecore::EClass).name-»
 «ENDFILE»	
 «ENDDEFINE»
 
 «DEFINE emptyFileWithMode FOR ecore::EPackage-»
-«FILE (eClassifiers)[ecore::EClass]->first().oclAsType(ecore::EClass).name mode-»
+«FILE (eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->asOrderedSet()->first().oclAsType(ecore::EClass).name mode-»
 «ENDFILE»	
 «ENDDEFINE»
 
 «DEFINE fileWithBody FOR ecore::EPackage-»
 «FILE 'fileName'-»
 	Start
-		«(eClassifiers)[ecore::EClass]->size()»
+		«(eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->asOrderedSet()->size()»
 	OneMore
 		«eClassifiers->size()»
 	End

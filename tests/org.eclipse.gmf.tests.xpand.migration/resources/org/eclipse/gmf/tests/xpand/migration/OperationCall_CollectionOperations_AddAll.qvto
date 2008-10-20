@@ -27,7 +27,7 @@ helper addAllCollectionToListSameType(col : Sequence(ecore::EClass), addition : 
 }
 
 helper addAllCollectionToListSuperType(col : Sequence(ecore::EClass), addition : Collection(ecore::EClassifier)) : Collection(ecore::EClassifier) {
-	return (col)[ecore::EClassifier]->union(addition->collect(it | it)->asSequence())
+	return (col)->select(it_1 | it_1.oclIsKindOf(ecore::EClassifier))->collect(it_1 | it_1.oclAsType(ecore::EClassifier))->union(addition->collect(it | it)->asSequence())
 }
 
 helper addAllCollectionToListSubType(col : Sequence(ecore::EClassifier), addition : Collection(ecore::EClass)) : Collection(ecore::EClassifier) {
@@ -35,11 +35,11 @@ helper addAllCollectionToListSubType(col : Sequence(ecore::EClassifier), additio
 }
 
 helper addAllCollectionToListSiblingType(col : Sequence(ecore::EClass), addition : Collection(ecore::EDataType)) : Collection(ecore::EClassifier) {
-	return (col)[ecore::EClassifier]->union(addition->collect(it | it)->asSequence())
+	return (col)->select(it_1 | it_1.oclIsKindOf(ecore::EClassifier))->collect(it_1 | it_1.oclAsType(ecore::EClassifier))->union(addition->collect(it | it)->asSequence())
 }
 
 helper addAllCollectionToListArbitraryType(col : Sequence(ecore::EClass), addition : Collection(Boolean)) : Collection(OclAny) {
-	return (col)[OclAny]->union(addition->collect(it | it)->asSequence())
+	return (col)->select(it_1 | it_1.oclIsKindOf(OclAny))->collect(it_1 | it_1.oclAsType(OclAny))->union(addition->collect(it | it)->asSequence())
 }
 
 helper addAllCollectionToSetSameType(col : Set(ecore::EClass), addition : Collection(ecore::EClass)) : Collection(ecore::EClass) {
@@ -47,7 +47,7 @@ helper addAllCollectionToSetSameType(col : Set(ecore::EClass), addition : Collec
 }
 
 helper addAllCollectionToSetSuperType(col : Set(ecore::EClass), addition : Collection(ecore::EClassifier)) : Collection(ecore::EClassifier) {
-	return (col)[ecore::EClassifier]->union(addition->collect(it | it)->asSet())
+	return (col)->select(it_1 | it_1.oclIsKindOf(ecore::EClassifier))->collect(it_1 | it_1.oclAsType(ecore::EClassifier))->asSet()->union(addition->collect(it | it)->asSet())
 }
 
 helper addAllCollectionToSetSubType(col : Set(ecore::EClassifier), addition : Collection(ecore::EClass)) : Collection(ecore::EClassifier) {
@@ -55,11 +55,11 @@ helper addAllCollectionToSetSubType(col : Set(ecore::EClassifier), addition : Co
 }
 
 helper addAllCollectionToSetSiblingType(col : Set(ecore::EClass), addition : Collection(ecore::EDataType)) : Collection(ecore::EClassifier) {
-	return (col)[ecore::EClassifier]->union(addition->collect(it | it)->asSet())
+	return (col)->select(it_1 | it_1.oclIsKindOf(ecore::EClassifier))->collect(it_1 | it_1.oclAsType(ecore::EClassifier))->asSet()->union(addition->collect(it | it)->asSet())
 }
 
 helper addAllCollectionToSetArbitraryType(col : Set(ecore::EClass), addition : Collection(Boolean)) : Collection(OclAny) {
-	return (col)[OclAny]->union(addition->collect(it | it)->asSet())
+	return (col)->select(it_1 | it_1.oclIsKindOf(OclAny))->collect(it_1 | it_1.oclAsType(OclAny))->asSet()->union(addition->collect(it | it)->asSet())
 }
 
 helper addAllListToCollectionSameType(col : Collection(ecore::EClass), addition : Sequence(ecore::EClass)) : Collection(ecore::EClass) {
@@ -87,7 +87,7 @@ helper addAllListToListSameType(col : Sequence(ecore::EClass), addition : Sequen
 }
 
 helper addAllListToListSuperType(col : Sequence(ecore::EClass), addition : Sequence(ecore::EClassifier)) : Collection(ecore::EClassifier) {
-	return (col)[ecore::EClassifier]->union(addition)
+	return (col)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->union(addition)
 }
 
 helper addAllListToListSubType(col : Sequence(ecore::EClassifier), addition : Sequence(ecore::EClass)) : Collection(ecore::EClassifier) {
@@ -95,11 +95,11 @@ helper addAllListToListSubType(col : Sequence(ecore::EClassifier), addition : Se
 }
 
 helper addAllListToListSiblingType(col : Sequence(ecore::EClass), addition : Sequence(ecore::EDataType)) : Collection(ecore::EClassifier) {
-	return (col)[ecore::EClassifier]->union(addition)
+	return (col)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->union(addition)
 }
 
 helper addAllListToListArbitraryType(col : Sequence(ecore::EClass), addition : Sequence(Boolean)) : Collection(OclAny) {
-	return (col)[OclAny]->union(addition)
+	return (col)->select(it | it.oclIsKindOf(OclAny))->collect(it | it.oclAsType(OclAny))->union(addition)
 }
 
 helper addAllListToSetSameType(col : Set(ecore::EClass), addition : Sequence(ecore::EClass)) : Collection(ecore::EClass) {
@@ -107,7 +107,7 @@ helper addAllListToSetSameType(col : Set(ecore::EClass), addition : Sequence(eco
 }
 
 helper addAllListToSetSuperType(col : Set(ecore::EClass), addition : Sequence(ecore::EClassifier)) : Collection(ecore::EClassifier) {
-	return (col)[ecore::EClassifier]->union(addition->asSet())
+	return (col)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->asSet()->union(addition->asSet())
 }
 
 helper addAllListToSetSubType(col : Set(ecore::EClassifier), addition : Sequence(ecore::EClass)) : Collection(ecore::EClassifier) {
@@ -115,11 +115,11 @@ helper addAllListToSetSubType(col : Set(ecore::EClassifier), addition : Sequence
 }
 
 helper addAllListToSetSiblingType(col : Set(ecore::EClass), addition : Sequence(ecore::EDataType)) : Collection(ecore::EClassifier) {
-	return (col)[ecore::EClassifier]->union(addition->asSet())
+	return (col)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->asSet()->union(addition->asSet())
 }
 
 helper addAllListToSetArbitraryType(col : Set(ecore::EClass), addition : Sequence(Boolean)) : Collection(OclAny) {
-	return (col)[OclAny]->union(addition->asSet())
+	return (col)->select(it | it.oclIsKindOf(OclAny))->collect(it | it.oclAsType(OclAny))->asSet()->union(addition->asSet())
 }
 
 helper addAllSetToCollectionSameType(col : Collection(ecore::EClass), addition : Set(ecore::EClass)) : Collection(ecore::EClass) {
@@ -147,7 +147,7 @@ helper addAllSetToListSameType(col : Sequence(ecore::EClass), addition : Set(eco
 }
 
 helper addAllSetToListSuperType(col : Sequence(ecore::EClass), addition : Set(ecore::EClassifier)) : Collection(ecore::EClassifier) {
-	return (col)[ecore::EClassifier]->union(addition->asSequence())
+	return (col)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->union(addition->asSequence())
 }
 
 helper addAllSetToListSubType(col : Sequence(ecore::EClassifier), addition : Set(ecore::EClass)) : Collection(ecore::EClassifier) {
@@ -155,11 +155,11 @@ helper addAllSetToListSubType(col : Sequence(ecore::EClassifier), addition : Set
 }
 
 helper addAllSetToListSiblingType(col : Sequence(ecore::EClass), addition : Set(ecore::EDataType)) : Collection(ecore::EClassifier) {
-	return (col)[ecore::EClassifier]->union(addition->asSequence())
+	return (col)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->union(addition->asSequence())
 }
 
 helper addAllSetToListArbitraryType(col : Sequence(ecore::EClass), addition : Set(Boolean)) : Collection(OclAny) {
-	return (col)[OclAny]->union(addition->asSequence())
+	return (col)->select(it | it.oclIsKindOf(OclAny))->collect(it | it.oclAsType(OclAny))->union(addition->asSequence())
 }
 
 helper addAllSetToSetSameType(col : Set(ecore::EClass), addition : Set(ecore::EClass)) : Collection(ecore::EClass) {
@@ -167,7 +167,7 @@ helper addAllSetToSetSameType(col : Set(ecore::EClass), addition : Set(ecore::EC
 }
 
 helper addAllSetToSetSuperType(col : Set(ecore::EClass), addition : Set(ecore::EClassifier)) : Collection(ecore::EClassifier) {
-	return (col)[ecore::EClassifier]->union(addition)
+	return (col)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->asSet()->union(addition)
 }
 
 helper addAllSetToSetSubType(col : Set(ecore::EClassifier), addition : Set(ecore::EClass)) : Collection(ecore::EClassifier) {
@@ -175,9 +175,9 @@ helper addAllSetToSetSubType(col : Set(ecore::EClassifier), addition : Set(ecore
 }
 
 helper addAllSetToSetSiblingType(col : Set(ecore::EClass), addition : Set(ecore::EDataType)) : Collection(ecore::EClassifier) {
-	return (col)[ecore::EClassifier]->union(addition)
+	return (col)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->asSet()->union(addition)
 }
 
 helper addAllSetToSetArbitraryType(col : Set(ecore::EClass), addition : Set(Boolean)) : Collection(OclAny) {
-	return (col)[OclAny]->union(addition)
+	return (col)->select(it | it.oclIsKindOf(OclAny))->collect(it | it.oclAsType(OclAny))->asSet()->union(addition)
 }

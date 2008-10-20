@@ -256,8 +256,8 @@ List[ecore::EJavaObject] withoutFirst(List[ecore::EClass] eClasses) :
 	eClasses.withoutFirst()
 ;
 
-List[ecore::EJavaObject] withoutLast(List[ecore::EClass] eClasses) :
-	eClasses.withoutLast()
+List[ecore::EJavaObject] withoutLast(ecore::EPackage ePackage) :
+	ePackage.eClassifiers.withoutLast()
 ;
 
 List[ecore::EJavaObject] purgeDups(List[ecore::EClass] eClasses) :

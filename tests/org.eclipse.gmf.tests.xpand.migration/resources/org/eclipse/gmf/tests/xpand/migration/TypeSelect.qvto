@@ -3,15 +3,15 @@ modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
 library TypeSelect;
 
 helper typeSelectCall(ePackage : ecore::EPackage) : Sequence(ecore::EClass) {
-	return (ePackage.eClassifiers)[ecore::EClass]->asSequence() 
+	return (ePackage.eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->asOrderedSet()->asSequence()
 }
 
 helper typeSelectOnList(eClassifiers : Sequence(ecore::EClassifier)) : Sequence(ecore::EClass) {
-	return (eClassifiers)[ecore::EClass]
+	return (eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))
 }
 
 helper typeSelectOnSet(eClassifiers : Set(ecore::EClassifier)) : Sequence(ecore::EClass) {
-	return (eClassifiers)[ecore::EClass]->asSequence()
+	return (eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->asSet()->asSequence()
 }
 
 helper typeSelectOnCollection(eClassifiers : Collection(ecore::EClassifier)) : Sequence(ecore::EClass) {

@@ -24,11 +24,11 @@ helper stringToCharList(string : String) : Sequence(String) {
 }
 
 helper stringStartsWith(string : String, parameter : String) : Boolean {
-	return string.startsWith(parameter)
+	return string.xpandStartsWith(parameter)
 }
 
 helper stringEndsWith(string : String, parameter : String) : Boolean {
-	return string.endsWith(parameter)
+	return string.xpandEndsWith(parameter)
 }
 
 helper stringSubString(string : String, startIndex : Integer, endIndex : Integer) : String {
