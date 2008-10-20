@@ -11,9 +11,6 @@
  */
 package org.eclipse.gmf.internal.xpand.migration;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.ast.FeatureCall;
 import org.eclipse.gmf.internal.xpand.expression.ast.OperationCall;
@@ -21,21 +18,20 @@ import org.eclipse.ocl.Environment;
 
 public class ModelManager {
 
-	// TODO: fill this map with all necessary OCL keywords to substitute with
-	private static final Set<String> OCL_KEYWORDS = new HashSet<String>();
-
-	static {
-		// TODO: add all keywords here
-		// OCL_KEYWORDS.add("context");
-	}
-
 	private boolean mapThisToSelf;
 
 	private StandardLibraryImports stdLibraryImports;
 
+	private OclKeywordManager oclKeywordManager;
+	
 	public ModelManager(StandardLibraryImports libraryImports, boolean mapThisToSelf) {
+		this(libraryImports, new OclKeywordManager(), mapThisToSelf);
+	}
+
+	public ModelManager(StandardLibraryImports libraryImports, OclKeywordManager keywordManager, boolean mapThisToSelf) {
 		stdLibraryImports = libraryImports;
 		this.mapThisToSelf = mapThisToSelf;
+		oclKeywordManager = keywordManager;
 	}
 
 	public String getName(OperationCall operationCall, OperationCallTrace trace) {
@@ -51,7 +47,7 @@ public class ModelManager {
 				stdLibraryImports.registerNativeLibrary(trace.getNativeLibraryName());
 			}
 		}
-		return internalGetName(operationCall);
+		return oclKeywordManager.getValidIdentifierValue(operationCall.getName());
 	}
 
 	public String getName(FeatureCall featureCall, FeatureCallTrace trace) {
@@ -60,15 +56,7 @@ public class ModelManager {
 		if (mapThisToSelf && trace.getType() == FeatureCallTrace.Type.ENV_VAR_REF && ExecutionContext.IMPLICIT_VARIABLE.equals(featureCall.getName().getValue())) {
 			return Environment.SELF_VARIABLE_NAME;
 		}
-		return internalGetName(featureCall);
-	}
-
-	private String internalGetName(FeatureCall featureCall) {
-		String featureName = featureCall.getName().getValue();
-		if (OCL_KEYWORDS.contains(featureName)) {
-			return OclCs.ESCAPE_PREFIX + featureName;
-		}
-		return featureName;
+		return oclKeywordManager.getValidIdentifierValue(featureCall.getName());
 	}
 
 }
