@@ -67,6 +67,14 @@ public class XpandStringOperations {
 		public static String[] xpandMatches(String self, String regex) {
 			return MATCHES;
 		}
+
+		public static String[] xpandStartsWith(String self, String prefix) {
+			return MATCHES;
+		}
+
+		public static String[] xpandEndsWith(String self, String suffix) {
+			return MATCHES;
+		}
 	}
 
 	public String xpandToFirstLower(String self) {
@@ -102,8 +110,16 @@ public class XpandStringOperations {
 		return Arrays.asList(self.split(regex));
 	}
 
-	public boolean xpandMatches(String self, String regex) {
+	public Boolean xpandMatches(String self, String regex) {
 		return self.matches(regex);
+	}
+
+	public Boolean xpandStartsWith(String self, String prefix) {
+		return self.startsWith(prefix);
+	}
+
+	public Boolean xpandEndsWith(String self, String suffix) {
+		return self.endsWith(suffix);
 	}
 
 }
