@@ -34,6 +34,7 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 import org.eclipse.gmf.internal.xpand.xtend.ast.JavaExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.WorkflowSlotExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
+import org.eclipse.ocl.ecore.internal.OCLStandardLibraryImpl;
 import org.eclipse.ocl.types.VoidType;
 
 public class XtendMigrationFacade {
@@ -159,7 +160,7 @@ public class XtendMigrationFacade {
 		String nativeLibraryFullClassName = getNativeLibraryFullClassName();
 		result.append(nativeLibraryFullClassName);
 		result.append("\" id=\"");
-		result.append(nativeLibraryFullClassName.replaceAll("\\.", "_"));
+		result.append(getNativeLibraryID(nativeLibraryFullClassName));
 		result.append("\">");
 		for (String	metamodel : importedMetamodels) {
 			result.append("<inMetamodel uri=\"");
@@ -171,6 +172,13 @@ public class XtendMigrationFacade {
 		return result;
 	}
 	
+	private String getNativeLibraryID(String nativeLibraryFullClassName) {
+		if (nativeLibraryFullClassName.indexOf(".") == -1) {
+			return "_" + nativeLibraryClassName;
+		}
+		return nativeLibraryFullClassName.replaceAll("\\.", "_");
+	}
+
 	private String getNativeLibraryFullClassName() {
 		return getNativeLibraryPackageName().length() == 0 ? getNativeLibraryClassName() : getNativeLibraryPackageName() + JavaCs.DOT + getNativeLibraryClassName();
 	}
@@ -278,7 +286,9 @@ public class XtendMigrationFacade {
 	private void addMetainfoMethod(JavaExtensionDescriptor descriptor, StringBuilder result) throws MigrationException {
 		result.append("public static String[] ");
 		addNativeMethodSignature(descriptor, result);
-		result.append(" { return new String[] {\"oclstdlib::");
+		result.append(" { return new String[] {\"");
+		result.append(OCLStandardLibraryImpl.stdlibPackage.getName());
+		result.append(OclCs.PATH_SEPARATOR); 
 		result.append(VoidType.SINGLETON_NAME);
 		result.append("\", \"");
 		TypeManager nativeLibrariesTypeManager = new TypeManager();
