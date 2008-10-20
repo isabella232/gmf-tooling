@@ -17,9 +17,11 @@ import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
+import org.eclipse.gmf.internal.xpand.BuiltinMetaModelExt;
 import org.eclipse.ocl.ecore.internal.OCLStandardLibraryImpl;
 import org.eclipse.ocl.types.AnyType;
 import org.eclipse.ocl.types.CollectionType;
+import org.eclipse.ocl.types.OrderedSetType;
 import org.eclipse.ocl.types.PrimitiveType;
 import org.eclipse.ocl.types.SequenceType;
 import org.eclipse.ocl.types.SetType;
@@ -30,24 +32,6 @@ public class TypeManager {
 	private final ModeltypeImports modeltypeImportsManger;
 	
 	private boolean useFQNameForPrimitiveTypes = false;
-
-	public static final boolean isListType(EClassifier classifier) {
-		return classifier.getName().endsWith(BuiltinMetaModel.LIST);
-	}
-
-	public static final boolean isSetType(EClassifier classifier) {
-		return classifier.getName().endsWith(BuiltinMetaModel.SET);
-	}
-	
-	public static final EClassifier getCollectionOfType(EClassifier originalCollection, EClassifier innerElementType) {
-		if (isListType(originalCollection)) {
-			return BuiltinMetaModel.getListType(innerElementType);
-		} else if (isSetType(originalCollection)) {
-			return BuiltinMetaModel.getSetType(innerElementType);
-		} else {
-			return BuiltinMetaModel.getCollectionType(innerElementType);
-		}
-	}
 
 	public TypeManager() {
 		modeltypeImportsManger = null;
@@ -87,10 +71,12 @@ public class TypeManager {
 		}
 		if (BuiltinMetaModel.isCollectionType(classifier)) {
 			StringBuilder sb = new StringBuilder();
-			if (isSetType(classifier)) {
+			if (BuiltinMetaModelExt.isSetType(classifier)) {
 				sb.append(SetType.SINGLETON_NAME);
-			} else if (isListType(classifier)) {
+			} else if (BuiltinMetaModelExt.isListType(classifier)) {
 				sb.append(SequenceType.SINGLETON_NAME);
+			} else if (BuiltinMetaModelExt.isOrderedSetType(classifier)) { 
+				sb.append(OrderedSetType.SINGLETON_NAME);
 			} else {
 				sb.append(CollectionType.SINGLETON_NAME);
 			}
