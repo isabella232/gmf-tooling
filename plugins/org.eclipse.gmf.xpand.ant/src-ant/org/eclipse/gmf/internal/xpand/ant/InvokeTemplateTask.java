@@ -13,6 +13,13 @@ package org.eclipse.gmf.internal.xpand.ant;
 
 import org.apache.tools.ant.Task;
 
+/**
+ * <p>... xmlns:xpt=<em>&quot;eclipse.org/gmf/2008/xpand&quot;</em>...
+ * <p>
+ * &lt;xpt:template name=&quot;a::b::Main&quot;/&gt;
+ *
+ * @author artem
+ */
 public class InvokeTemplateTask extends Task {
 
 }

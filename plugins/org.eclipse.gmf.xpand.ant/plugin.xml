@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ant.core.antTasks">
+      <antTask
+            class="com.borland.dsl.internal.xpand.InvokeTemplateTask"
+            eclipseRuntime="true"
+            headless="true"
+            library="antsupport.jar"
+            name="template"
+            uri="eclipse.org/gmf/2008/xpand">
+      </antTask>
+   </extension>
+
+</plugin>
