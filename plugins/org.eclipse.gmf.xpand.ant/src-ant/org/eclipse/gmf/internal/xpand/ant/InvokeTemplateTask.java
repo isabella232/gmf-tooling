@@ -11,6 +11,13 @@
  */
 package org.eclipse.gmf.internal.xpand.ant;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -26,7 +33,8 @@ public class InvokeTemplateTask extends Task {
 
 	private String myTemplateName;
 	private Object myTemplateTarget;
-	private String myTemplateRoot;
+	private String[] myTemplateRoots;
+	private String myOutFile;
 
 	public void setName(String name) {
 		myTemplateName = name;
@@ -36,11 +44,20 @@ public class InvokeTemplateTask extends Task {
 		myTemplateTarget = input;
 	}
 
-	public void setBareInput(int i) {
-		myTemplateTarget = i;
+	public void setInputURI(String uri) {
+		myTemplateTarget = uri;
 	}
+
+	public void setOutFile(String uri) {
+		myOutFile = uri;
+	}
+
 	public void setTemplateRoot(String root) {
-		myTemplateRoot = root;
+		ArrayList<String> roots = new ArrayList<String>();
+		for (StringTokenizer st = new StringTokenizer(root, ";, "); st.hasMoreTokens(); ) {
+			roots.add(st.nextToken().trim());
+		}
+		myTemplateRoots = roots.toArray(new String[roots.size()]);
 	}
 
 	@Override
@@ -58,7 +75,18 @@ public class InvokeTemplateTask extends Task {
 	
 	protected void execute(XpandFacade xf) throws BuildException {
 		String result = xf.xpand(myTemplateName, getTemplateTarget(), getTemplateArguments());
-		System.err.println("ITT:" + result);
+		if (myOutFile == null) {
+			System.err.println("ITT:" + result);
+		} else {
+			try {
+				File f = getProject().resolveFile(myOutFile);
+				FileOutputStream os = new FileOutputStream(f);
+				os.write(result.getBytes());
+				os.close();
+			} catch (IOException ex) {
+				throw new BuildException("Can't write to " + myOutFile, ex, getLocation());
+			}
+		}
 	}
 
 	protected void validate() throws BuildException {
@@ -67,6 +95,9 @@ public class InvokeTemplateTask extends Task {
 		}
 		if (myTemplateTarget == null) {
 			throw new BuildException("Target object is missing", getLocation());
+		}
+		if (myTemplateRoots == null || myTemplateRoots.length == 0) {
+			throw new BuildException("No template root specified", getLocation());
 		}
 	}
 
@@ -78,16 +109,15 @@ public class InvokeTemplateTask extends Task {
 		return null;
 	}
 
-	protected XpandFacade createFacade() {
+	protected XpandFacade createFacade() throws BuildException {
 		try {
 			XpandFacade xf = new XpandFacade();
-			xf.addLocation(myTemplateRoot);
+			for (String r : myTemplateRoots) {
+				xf.addLocation(r);
+			}
 			return xf;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			// FIXME
+		} catch (MalformedURLException ex) {
+			throw new BuildException(ex, getLocation());
 		}
-		assert false;
-		return null;
 	}
 }
