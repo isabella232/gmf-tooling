@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -52,6 +52,9 @@ public class «textNonResizableEditPolicyClassName» extends org.eclipse.gmf.runti
 	private org.eclipse.draw2d.IFigure focusFeedbackFigure;
 
 	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.draw2d.FigureListener hostPositionListener;
+
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void showPrimarySelection() {
 		if (getHostFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
 			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) getHostFigure()).setSelected(true);
@@ -70,6 +73,7 @@ public class «textNonResizableEditPolicyClassName» extends org.eclipse.gmf.runti
 		} else {
 			hideSelection();
 			addFeedback(selectionFeedbackFigure = createSelectionFeedbackFigure());
+			getHostFigure().addFigureListener(getHostPositionListener());
 			refreshSelectionFeedback();
 			hideFocus();
 		}
@@ -83,6 +87,7 @@ public class «textNonResizableEditPolicyClassName» extends org.eclipse.gmf.runti
 		} else {
 			if (selectionFeedbackFigure != null) {
 				removeFeedback(selectionFeedbackFigure);
+				getHostFigure().removeFigureListener(getHostPositionListener());
 				selectionFeedbackFigure = null;
 			}
 			hideFocus();
@@ -182,5 +187,17 @@ public class «textNonResizableEditPolicyClassName» extends org.eclipse.gmf.runti
 	public void refreshFeedback() {
 		refreshSelectionFeedback();
 		refreshFocusFeedback();
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.draw2d.FigureListener getHostPositionListener() {
+		if (hostPositionListener == null) {
+			hostPositionListener = new org.eclipse.draw2d.FigureListener() {
+				public void figureMoved(org.eclipse.draw2d.IFigure source) {
+					refreshFeedback();
+				}
+			};
+		}
+		return hostPositionListener;
 	}
 «ENDDEFINE»
