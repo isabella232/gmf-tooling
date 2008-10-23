@@ -1,3 +1,5 @@
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
 
 «DEFINE nullLiteral FOR ecore::EPackage-»
 «null-»	
@@ -23,4 +25,13 @@
 «DEFINE logicalOr FOR ecore::EClassifier-»
 «IF true || false-»
 «ENDIF-»
+«ENDDEFINE»
+
+«DEFINE defaultAttribute FOR gmfgen::AbstractToolEntry-»
+«IF default_-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE enumLiteralName FOR gmfgen::GenSeverity-»
+«this.name»
 «ENDDEFINE»

@@ -17,10 +17,13 @@ import java.io.Reader;
 
 import junit.framework.TestCase;
 
+import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException;
+import org.eclipse.gmf.internal.xpand.migration.MigrationExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.migration.XpandMigrationFacade;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.tests.xpand.TestsResourceManager;
+import org.eclipse.gmf.tests.xpand.migration.testModel.MigrationTestsPackage;
 
 public class XpandMigrationTest extends TestCase {
 
@@ -81,11 +84,19 @@ public class XpandMigrationTest extends TestCase {
 	}
 	
 	public void testFixedProblems() throws IOException, MigrationException {
-		checkMigration("FixedProblems");
+		String resourceName = "FixedProblems";
+		checkMigration(new XpandMigrationFacade(testResourceManager, getResourceName(resourceName), false, new MigrationExecutionContextImpl(testResourceManager, GMFGenPackage.eINSTANCE, MigrationTestsPackage.eINSTANCE)), resourceName);
 	}
 	
-	private String checkMigration(String resourceName) throws IOException, MigrationException {
-		XpandMigrationFacade facade = new XpandMigrationFacade(testResourceManager, getResourceName(resourceName), false);
+	public void testImportedExtensions() throws IOException, MigrationException {
+		checkMigration("ImportedExtensions");
+	}
+
+	public void testImportedExtensionsWReexport() throws IOException, MigrationException {
+		checkMigration("ImportedExtensionsWReexport");
+	}
+	
+	private String checkMigration(XpandMigrationFacade facade, String resourceName) throws IOException, MigrationException {
 		String content = facade.migrateXpandResource().toString();
 		assertTrue(content.length() > 0);
 
@@ -96,6 +107,11 @@ public class XpandMigrationTest extends TestCase {
 		}
 		assertEquals(etalon.toString(), content);
 		return content;
+	}
+	
+	
+	private String checkMigration(String resourceName) throws IOException, MigrationException {
+		return checkMigration(new XpandMigrationFacade(testResourceManager, getResourceName(resourceName), false), resourceName);
 	}
 
 	private static String getEtalonResourceName(String resourceName) {

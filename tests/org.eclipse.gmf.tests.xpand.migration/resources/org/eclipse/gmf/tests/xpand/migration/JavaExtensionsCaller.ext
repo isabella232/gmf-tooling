@@ -2,6 +2,6 @@ import "http://www.eclipse.org/emf/2002/Ecore";
 
 extension org::eclipse::gmf::tests::xpand::migration::JavaExtensionsContainer;
 
-String nativeExtensionCall(String parameter) :
-	simpleNativeExtension(parameter)
+String nativeExtensionCall(String parameter, Boolean parameter2) :
+	simpleNativeExtension(parameter, parameter2)
 ;

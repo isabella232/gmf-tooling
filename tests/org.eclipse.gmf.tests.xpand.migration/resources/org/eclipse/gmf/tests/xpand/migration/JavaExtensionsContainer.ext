@@ -4,8 +4,8 @@ Boolean anotherQuery() :
 	true
 ;
 
-String simpleNativeExtension(String parameter) :
-JAVA org.eclipse.gmf.tests.xpand.migration.NativeExtensionsContainer.simpleNativeExtension(java.lang.String)
+String simpleNativeExtension(String parameter, Boolean parameter2) :
+JAVA org.eclipse.gmf.tests.xpand.migration.NativeExtensionsContainer.simpleNativeExtension(java.lang.String, java.lang.Boolean)
 ;
 
 ecore::EClass modelElementAsNativeExtensionParameter(ecore::EObject param1, ecore::EPackage param2) :

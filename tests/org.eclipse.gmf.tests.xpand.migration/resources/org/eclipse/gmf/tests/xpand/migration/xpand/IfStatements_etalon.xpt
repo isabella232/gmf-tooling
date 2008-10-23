@@ -6,9 +6,9 @@
 «DEFINE ifWithBody FOR ecore::EPackage-»
 «IF true»
 	Start
-		«'prefix1' + eClassifiers->size().repr()»
+		«'prefix1'.concat(eClassifiers->size().repr())»
 	Other
-		«'prefix2' + eClassifiers->size().repr()»
+		«'prefix2'.concat(eClassifiers->size().repr())»
 	End
 «ENDIF»
 «ENDDEFINE»
@@ -17,25 +17,25 @@
 «IF false»
 «ELSE»
 	Start
-		«'prefix1' + eClassifiers->size().repr()»
+		«'prefix1'.concat(eClassifiers->size().repr())»
 	Other
-		«'prefix2' + eClassifiers->size().repr()»
+		«'prefix2'.concat(eClassifiers->size().repr())»
 	End
 «ENDIF»
 «ENDDEFINE»
 
 «DEFINE ifWithElseIfs FOR ecore::EPackage-»
 «IF eClassifiers->size() = 1»
-	«'1: ' + eClassifiers->size().repr()»
+	«'1: '.concat(eClassifiers->size().repr())»
 «ELSEIF eClassifiers->size() = 2»
-	«'2: ' + eClassifiers->size().repr()»
+	«'2: '.concat(eClassifiers->size().repr())»
 «ELSEIF eClassifiers->size() = 3»
-	«'3: ' + eClassifiers->size().repr()»
+	«'3: '.concat(eClassifiers->size().repr())»
 «ELSEIF eClassifiers->size() = 4»
-	«'4: ' + eClassifiers->size().repr()»
+	«'4: '.concat(eClassifiers->size().repr())»
 «ELSEIF eClassifiers->size() = 5»
-	«'5: ' + eClassifiers->size().repr()»
+	«'5: '.concat(eClassifiers->size().repr())»
 «ELSE»
-	«'unlimited: ' + eClassifiers->size().repr()»
+	«'unlimited: '.concat(eClassifiers->size().repr())»
 «ENDIF»
 «ENDDEFINE»

@@ -1,3 +1,3 @@
 «DEFINE error FOR ecore::EClass-»
-«ERROR 'error: ' + eAttributes->size().repr()-»	
+«ERROR 'error: '.concat(eAttributes->size().repr())-»	
 «ENDDEFINE»

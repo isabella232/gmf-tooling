@@ -4,11 +4,11 @@ import library XpandOclAnyOperations;
 library OperationCall_StringOperations;
 
 helper addStringToString(string : String, parameter : String) : String {
-	return string + parameter
+	return string.concat(parameter)
 }
 
 helper addObjectToString(string : String, parameter : OclAny) : String {
-	return string + parameter.repr()
+	return string.concat(parameter.repr())
 }
 
 helper stringToFirstUpper(string : String) : String {
@@ -68,7 +68,7 @@ helper stringTrim(string : String) : String {
 }
 
 helper stringLength(string : String) : Integer {
-	return string.length()
+	return string.xpandLength()
 }
 
 helper stringCompareTo(string : String, another : OclAny) : Boolean {
