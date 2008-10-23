@@ -75,11 +75,7 @@
 		org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy lep = new org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy() {
 
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-				«IF hasBorderItems()-»
-					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
-						return «EXPAND borderItemSelectionEP»;
-					}
-				«ENDIF-»
+				«EXPAND borderItemSelectionEditPolicy-»
 				org.eclipse.gef.EditPolicy result = super.createChildEditPolicy(child);
 				if (result == null) {
 					return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy();
@@ -92,11 +88,7 @@
 		org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy lep = new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy() {
 
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-				«IF hasBorderItems()-»
-					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
-						return «EXPAND borderItemSelectionEP»;
-					}
-				«ENDIF-»
+				«EXPAND borderItemSelectionEditPolicy-»
 				if (child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE) == null) {
 					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart) {
 						return new «getDiagram().getTextSelectionEditPolicyQualifiedClassName()»();
@@ -110,12 +102,10 @@
 		org.eclipse.gef.editpolicies.FlowLayoutEditPolicy lep = new org.eclipse.gef.editpolicies.FlowLayoutEditPolicy() {
 
 			«IF hasBorderItems()-»
-				protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
-						return «EXPAND borderItemSelectionEP»;
-					}
-					return super.createChildEditPolicy(child);
-				}
+			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
+				«EXPAND borderItemSelectionEditPolicy-»
+				return super.createChildEditPolicy(child);
+			}
 			«ENDIF-»
 
 			protected org.eclipse.gef.commands.Command createAddCommand(org.eclipse.gef.EditPart child, org.eclipse.gef.EditPart after) {
@@ -135,11 +125,7 @@
 		org.eclipse.gef.editpolicies.LayoutEditPolicy lep = new org.eclipse.gef.editpolicies.LayoutEditPolicy() {
 
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-				«IF hasBorderItems()-»
-					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
-						return «EXPAND borderItemSelectionEP»;
-					}
-				«ENDIF-»
+				«EXPAND borderItemSelectionEditPolicy-»
 				org.eclipse.gef.EditPolicy result = child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
 				if (result == null) {
 					result = new org.eclipse.gef.editpolicies.NonResizableEditPolicy();
@@ -157,6 +143,26 @@
 		};
 		return lep;
 	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE borderItemSelectionEditPolicy FOR gmfgen::GenNode-»
+«IF hasBorderItems()-»
+org.eclipse.gmf.runtime.notation.View childView = (org.eclipse.gmf.runtime.notation.View) child.getModel();
+switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(childView)) {
+«IF getExternalLabels().size() > 0-»
+«FOREACH getExternalLabels() AS nextLabel-»
+«EXPAND xpt::Common::caseVisualID FOR nextLabel-»
+«ENDFOREACH-»
+	return «EXPAND borderItemSelectionEP»;
+«ENDIF-»
+«IF getSideAffixedChildren().size() > 0-»
+«FOREACH getSideAffixedChildren() AS nextBorderItem-»
+«EXPAND xpt::Common::caseVisualID FOR nextBorderItem-»
+«ENDFOREACH-»
+	return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
+«ENDIF-»
+}
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE borderItemSelectionEP FOR gmfgen::GenNode-»
