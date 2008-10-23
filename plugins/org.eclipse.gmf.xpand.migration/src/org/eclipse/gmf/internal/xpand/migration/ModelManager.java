@@ -23,7 +23,7 @@ public class ModelManager {
 	private StandardLibraryImports stdLibraryImports;
 
 	private OclKeywordManager oclKeywordManager;
-	
+
 	public ModelManager(StandardLibraryImports libraryImports, boolean mapThisToSelf) {
 		this(libraryImports, new OclKeywordManager(), mapThisToSelf);
 	}
@@ -47,7 +47,8 @@ public class ModelManager {
 				stdLibraryImports.registerNativeLibrary(trace.getNativeLibraryName());
 			}
 		}
-		return oclKeywordManager.getValidIdentifierValue(operationCall.getName());
+		return trace.getType() == OperationCallTrace.Type.OPERATION_REF || trace.getType() == OperationCallTrace.Type.IMPLICIT_COLLECT_OPERATION_REF ? oclKeywordManager.getValidIdentifierValue(trace
+				.getEOperation().getName()) : oclKeywordManager.getValidIdentifierValue(operationCall.getName());
 	}
 
 	public String getName(FeatureCall featureCall, FeatureCallTrace trace) {
@@ -56,7 +57,8 @@ public class ModelManager {
 		if (mapThisToSelf && trace.getType() == FeatureCallTrace.Type.ENV_VAR_REF && ExecutionContext.IMPLICIT_VARIABLE.equals(featureCall.getName().getValue())) {
 			return Environment.SELF_VARIABLE_NAME;
 		}
-		return oclKeywordManager.getValidIdentifierValue(featureCall.getName());
+		return trace.getType() == FeatureCallTrace.Type.FEATURE_REF ? oclKeywordManager.getValidIdentifierValue(trace.getFeature().getName()) : oclKeywordManager.getValidIdentifierValue(featureCall
+				.getName());
 	}
 
 }
