@@ -40,6 +40,8 @@ public class XpandStringOperations {
 
 		private static final String[] MATCHES = new String[] { STRING_CONTEXT, PrimitiveType.STRING_NAME, PrimitiveType.BOOLEAN_NAME };
 
+		private static final String[] LENGTH = new String[] { STRING_CONTEXT, PrimitiveType.INTEGER_NAME };
+
 		public static String[] xpandToFirstLower(String self) {
 			return TO_FIRST_LOWER;
 		}
@@ -74,6 +76,10 @@ public class XpandStringOperations {
 
 		public static String[] xpandEndsWith(String self, String suffix) {
 			return MATCHES;
+		}
+
+		public static String[] xpandLength(String self) {
+			return LENGTH;
 		}
 	}
 
@@ -120,6 +126,10 @@ public class XpandStringOperations {
 
 	public Boolean xpandEndsWith(String self, String suffix) {
 		return self.endsWith(suffix);
+	}
+
+	public Integer xpandLength(String self) {
+		return self.length();
 	}
 
 }
