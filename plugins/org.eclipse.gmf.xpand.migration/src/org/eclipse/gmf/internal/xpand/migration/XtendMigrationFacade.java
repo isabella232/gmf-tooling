@@ -19,6 +19,7 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModelExt;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
@@ -257,6 +258,9 @@ public class XtendMigrationFacade {
 	private String getJavaType(EClassifier xpandType) throws MigrationException {
 		if (xpandType == BuiltinMetaModel.VOID) {
 			throw new MigrationException(Type.UNSUPPORTED_NATIVE_EXTENSION_TYPE, "Void type is not supported for native extensions");
+		}
+		if (xpandType == EcorePackage.eINSTANCE.getEBoolean()) {
+			return "Boolean";
 		}
 		if (xpandType.getInstanceClassName() != null) {
 			String instanceClassName = xpandType.getInstanceClassName();
