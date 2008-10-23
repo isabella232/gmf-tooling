@@ -89,7 +89,6 @@ public class ExpressionMigrationFacade {
 			BuiltinMetaModel.Int_LessOrEqual,
 			BuiltinMetaModel.Int_Greater,
 			BuiltinMetaModel.Int_GreatOrEqual,
-			BuiltinMetaModel.EString_Plus_EJavaObject,
 			BuiltinMetaModel.Object_EQ,
 			BuiltinMetaModel.Object_NotEQ
 		}));
@@ -395,10 +394,14 @@ public class ExpressionMigrationFacade {
 	}
 
 	private EClassifier migrateCast(Cast cast) throws MigrationException {
-		migrateExpression(cast.getTarget());
+		EClassifier migratedExpressionType = migrateExpression(cast.getTarget());
 		EClassifier type = ctx.getTypeForName(cast.getType().getValue());
 		if (type == null) {
 			throw new MigrationException(Type.TYPE_NOT_FOUND, cast.getType().getValue());
+		}
+		if (BuiltinMetaModel.isCollectionType(type)) {
+			// This operation is not supported now.
+			return migratedExpressionType;
 		}
 		write(".oclAsType(");
 		write(typeManager.getQvtFQName(type));
@@ -621,7 +624,13 @@ public class ExpressionMigrationFacade {
 			if (BuiltinMetaModel.EString_SubString_StartEnd == eOperation) {
 				write("1 + ");
 			}
-			internalMigrateOperationCallParameters(operationCall, trace.getParamTypes());
+			List<EClassifier> parameterTypes = internalMigrateOperationCallParameters(operationCall, trace.getParamTypes());
+			if (BuiltinMetaModel.EString_Plus_EJavaObject == eOperation) {
+				assert parameterTypes.size() == 1;
+				if (parameterTypes.get(0) != EcorePackage.eINSTANCE.getEString()) {
+					write(".repr()");
+				}
+			}
 			write(")");
 			if (trace.getType() == OperationCallTrace.Type.OPERATION_REF) {
 				return getTypedElementQvtType(eOperation);	
@@ -694,7 +703,7 @@ public class ExpressionMigrationFacade {
 				|| BuiltinMetaModel.Int_Mult_Double == eOperation || BuiltinMetaModel.Double_Mult_Int == eOperation || BuiltinMetaModel.Double_Mult_Double == eOperation
 				|| BuiltinMetaModel.Int_Div_Double == eOperation || BuiltinMetaModel.Double_Div_Double == eOperation || BuiltinMetaModel.Double_Div_Int == eOperation
 				|| BuiltinMetaModel.Int_Less == eOperation || BuiltinMetaModel.Int_LessOrEqual == eOperation || BuiltinMetaModel.Int_Greater == eOperation
-				|| BuiltinMetaModel.Int_GreatOrEqual == eOperation || BuiltinMetaModel.EString_Plus_EJavaObject == eOperation) {
+				|| BuiltinMetaModel.Int_GreatOrEqual == eOperation) {
 			write(" ");
 			write(opName);
 			write(" ");
@@ -706,12 +715,7 @@ public class ExpressionMigrationFacade {
 			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Incorrect infix operation: " + opName);
 		}
 		List<EClassifier> parameterTypes = internalMigrateOperationCallParameters(operationCall, null);
-		if (BuiltinMetaModel.EString_Plus_EJavaObject == eOperation) {
-			assert parameterTypes.size() == 1;
-			if (parameterTypes.get(0) != EcorePackage.eINSTANCE.getEString()) {
-				write(".repr()");
-			}
-		} else if (BuiltinMetaModel.Boolean_NE == eOperation || BuiltinMetaModel.Int_Unary_Minus == eOperation || BuiltinMetaModel.Double_Unary_Minus == eOperation) {
+		if (BuiltinMetaModel.Boolean_NE == eOperation || BuiltinMetaModel.Int_Unary_Minus == eOperation || BuiltinMetaModel.Double_Unary_Minus == eOperation) {
 			// Enclosing with braces for "not" expression here
 			addNegationBraces(placeholder);
 		}
@@ -1136,14 +1140,25 @@ public class ExpressionMigrationFacade {
 		if (featureCall.getTarget() != null) {
 			migrateExpression(featureCall.getTarget());
 			// Skipping EnumLiteral.value/EnumLiteral.literal features
-			if (targetType instanceof EEnum && trace.getType() == FeatureCallTrace.Type.FEATURE_REF && skippEnumLiteralFeature(trace.getFeature())) {
-				return targetType;
+			if (targetType instanceof EEnum && trace.getType() == FeatureCallTrace.Type.FEATURE_REF) {
+				if (skipEnumLiteralFeature(trace.getFeature())) {
+					return targetType;
+				} else if (addEnumLiteralStringRepresentation(trace.getFeature())) {
+					write(".repr()");
+					return EcorePackage.eINSTANCE.getEString();
+				}
 			}
 			write(".");
 		} else {
-			if (targetType instanceof EEnum && trace.getType() == FeatureCallTrace.Type.FEATURE_REF && skippEnumLiteralFeature(trace.getFeature())) {
-				write(Environment.SELF_VARIABLE_NAME);
-				return targetType;
+			if (targetType instanceof EEnum && trace.getType() == FeatureCallTrace.Type.FEATURE_REF) {
+				if (skipEnumLiteralFeature(trace.getFeature())) {
+					write(Environment.SELF_VARIABLE_NAME);
+					return targetType;
+				} else if (addEnumLiteralStringRepresentation(trace.getFeature())) {
+					write(Environment.SELF_VARIABLE_NAME);
+					write(".repr()");
+					return EcorePackage.eINSTANCE.getEString();
+				}
 			}
 		}
 		write(modelManager.getName(featureCall, trace));
@@ -1165,7 +1180,11 @@ public class ExpressionMigrationFacade {
 		}
 	}
 	
-	private boolean skippEnumLiteralFeature(EStructuralFeature feature) {
+	private boolean addEnumLiteralStringRepresentation(EStructuralFeature feature) {
+		return EcorePackage.eINSTANCE.getENamedElement_Name() == feature;
+	}
+	
+	private boolean skipEnumLiteralFeature(EStructuralFeature feature) {
 		return EcorePackage.eINSTANCE.getEEnumLiteral_Value() == feature || EcorePackage.eINSTANCE.getEEnumLiteral_Literal() == feature;
 	}
 
