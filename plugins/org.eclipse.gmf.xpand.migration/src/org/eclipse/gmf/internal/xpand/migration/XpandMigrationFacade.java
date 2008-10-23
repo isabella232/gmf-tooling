@@ -13,7 +13,10 @@ package org.eclipse.gmf.internal.xpand.migration;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
@@ -44,6 +47,7 @@ import org.eclipse.gmf.internal.xpand.model.XpandAdvice;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.util.CompositeXpandResource;
+import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.InsertEdit;
@@ -71,6 +75,13 @@ public class XpandMigrationFacade {
 
 	private OclKeywordManager oclKeywordManager;
 
+	private MigrationExecutionContext rootExecutionContext;
+
+	public XpandMigrationFacade(ResourceManager resourceManager, String xtendResourceName, boolean migrateAspect, MigrationExecutionContext executionContext) {
+		this(resourceManager, xtendResourceName, migrateAspect);
+		rootExecutionContext = executionContext;
+	}
+
 	public XpandMigrationFacade(ResourceManager resourceManager, String xtendResourceName, boolean migrateAspect) {
 		this.resourceManager = resourceManager;
 		resourceName = xtendResourceName;
@@ -97,7 +108,7 @@ public class XpandMigrationFacade {
 		if (xpandResource == null) {
 			throw new MigrationException(Type.RESOURCE_NOT_FOUND, "Unable to load resource: " + resourceName);
 		}
-		ctx = new MigrationExecutionContextImpl(resourceManager).<MigrationExecutionContext>cloneWithResource(xpandResource);
+		ctx = rootExecutionContext != null ? rootExecutionContext : new MigrationExecutionContextImpl(resourceManager).<MigrationExecutionContext> cloneWithResource(xpandResource);
 		Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
 		xpandResource.analyze(ctx, issues);
 		if (MigrationException.hasErrors(issues)) {
@@ -113,7 +124,7 @@ public class XpandMigrationFacade {
 		Template xpandTemplate = (Template) xpandResource;
 		document = new Document(originalContent.toString());
 		edit = new MultiTextEdit();
-		
+
 		migrate(xpandTemplate);
 		try {
 			edit.apply(document);
@@ -130,7 +141,7 @@ public class XpandMigrationFacade {
 		oclKeywordManager = new OclKeywordManager();
 		modelManager = new ModelManager(stdLibImportsManager, oclKeywordManager, true);
 		typeManager = new TypeManager();
-		
+
 		for (NamespaceImport namespaceImport : xpandTemplate.getImports()) {
 			migrateExpression(namespaceImport.getStringLiteral(), EcorePackage.eINSTANCE.getEString(), new VariableNameDispatcher());
 		}
@@ -145,7 +156,7 @@ public class XpandMigrationFacade {
 			migrateDefinition((Advice) advice);
 		}
 
-		injectStdlibImports(stdLibImportsManager);
+		injectStdlibImports(stdLibImportsManager, getAdditionalLibraries(xpandTemplate));
 	}
 
 	// TODO: use RangeMarker instead?
@@ -156,7 +167,7 @@ public class XpandMigrationFacade {
 			offset = extensions[extensions.length - 1].getEndOffset();
 		} else if (xpandTemplate.getImports().length > 0) {
 			NamespaceImport[] imports = xpandTemplate.getImports();
-			offset =  imports[imports.length - 1].getEndOffset();
+			offset = imports[imports.length - 1].getEndOffset();
 		}
 		if (offset > 0) {
 			try {
@@ -170,23 +181,47 @@ public class XpandMigrationFacade {
 		return offset;
 	}
 
-	private void injectStdlibImports(StandardLibraryImports stdLibImportsManager) {
-		if (stdLibImportsManager.getLibraries().length == 0) {
+	private List<String> getAdditionalLibraries(Template xpandTemplate) {
+		List<String> result = new ArrayList<String>();
+		for (ImportDeclaration extension : xpandTemplate.getExtensions()) {
+			XtendResource xtendResource = resourceManager.loadXtendResource(extension.getImportString().getValue());
+			if (xtendResource != null) {
+				result.addAll(getReexportedExtensions(xtendResource));
+			}
+		}
+		return result;
+	}
+
+	private List<String> getReexportedExtensions(XtendResource xtendResource) {
+		List<String> result = new ArrayList<String>();
+		for (String extension : xtendResource.getImportedExtensions()) {
+			if (xtendResource.isReexported(extension)) {
+				result.add(extension);
+				XtendResource extensionResource = resourceManager.loadXtendResource(extension);
+				result.addAll(getReexportedExtensions(extensionResource));
+			}
+		}
+		return result;
+	}
+
+	private void injectStdlibImports(StandardLibraryImports stdLibImportsManager, List<String> list) {
+		list.addAll(Arrays.asList(stdLibImportsManager.getLibraries()));
+		if (list.isEmpty()) {
 			return;
 		}
 		StringBuilder sb = new StringBuilder();
 		if (stdLibImportsManager.getPlaceholderIndex() > 0) {
 			sb.append(ExpressionMigrationFacade.LF);
 		}
-		for (int i = 0; i < stdLibImportsManager.getLibraries().length; i++) {
+		for (int i = 0; i < list.size(); i++) {
 			if (i > 0) {
-				sb.append(ExpressionMigrationFacade.LF);	
+				sb.append(ExpressionMigrationFacade.LF);
 			}
 			sb.append("«EXTENSION ");
-			sb.append(stdLibImportsManager.getLibraries()[i]);
+			sb.append(list.get(i));
 			sb.append("»");
 		}
-		
+
 		if (stdLibImportsManager.getPlaceholderIndex() == 0) {
 			sb.append(ExpressionMigrationFacade.LF);
 		}
@@ -196,15 +231,15 @@ public class XpandMigrationFacade {
 	private void migrateDefinition(AbstractDefinition definition) throws MigrationException {
 		assert definition instanceof Definition || definition instanceof Advice;
 		migrateIdentifier(definition instanceof Definition ? ((Definition) definition).getDefName() : ((Advice) definition).getPointCut());
-		
+
 		for (DeclaredParameter parameter : definition.getParams()) {
 			migrateParameter(parameter);
 		}
-		
+
 		Identifier targetType = definition.getType();
 		EClassifier qvtType = ctx.getTypeForName(targetType.getValue());
 		replace(targetType, typeManager.getQvtFQName(qvtType));
-		
+
 		VariableNameDispatcher variableNameDispatcher = new VariableNameDispatcher(definition);
 		for (Statement statement : definition.getBody()) {
 			migrateStatement(statement, variableNameDispatcher);
@@ -253,7 +288,7 @@ public class XpandMigrationFacade {
 			ForEachAnalyzeTrace forEachTrace = (ForEachAnalyzeTrace) trace;
 			migrateExpression(forEach.getTarget(), forEachTrace.getResultType(), variableNameDispatcher);
 			if (forEach.getSeparator() != null) {
-				migrateExpression(forEach.getSeparator(), forEachTrace.getSeparatorType(), variableNameDispatcher);	
+				migrateExpression(forEach.getSeparator(), forEachTrace.getSeparatorType(), variableNameDispatcher);
 			}
 			for (Statement bodyStatement : forEach.getBody()) {
 				migrateStatement(bodyStatement, variableNameDispatcher);
@@ -311,7 +346,7 @@ public class XpandMigrationFacade {
 		ReplaceEdit replaceEdit = new ReplaceEdit(syntaxElement.getStartOffset(), syntaxElement.getEndOffset() + 1 - syntaxElement.getStartOffset(), replacement.toString());
 		edit.addChild(replaceEdit);
 	}
-	
+
 	private void insert(int position, CharSequence text) {
 		InsertEdit insertEdit = new InsertEdit(position, text.toString());
 		edit.addChild(insertEdit);
