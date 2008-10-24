@@ -45,6 +45,13 @@ For purposes of the EPL, &quot;Program&quot; will mean the Content.
          unpack="false"/>
          
    <plugin
+         id="org.eclipse.gmf.xpand.ant"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="net.sourceforge.lpg.lpgjavaruntime"
          download-size="0"
          install-size="0"
