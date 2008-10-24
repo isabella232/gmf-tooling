@@ -40,7 +40,7 @@ public interface ExecutionContext {
 	XpandDefinition findDefinition(String name, EClassifier target, EClassifier[] paramTypes);
 	
 	EcoreEnvironment getOCLEnvironment();
-	void populate(EcoreEvaluationEnvironment ee);
+	EcoreEvaluationEnvironment createEvaluationEnvironment();
 
 	Scope getScope();
 

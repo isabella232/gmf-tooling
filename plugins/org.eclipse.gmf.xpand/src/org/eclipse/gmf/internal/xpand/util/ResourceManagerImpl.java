@@ -177,7 +177,7 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		// referenced CFiles using ResourceManagerImpl
 		QvtCompiler qvtCompiler = new QvtCompiler(new ImportResolverImpl());
 		QvtCompilerOptions options = new QvtCompilerOptions();
-		options.setGenerateCompletionData(false);
+		options.setGenerateCompletionData(true);
 		options.setShowAnnotations(false);
 		try {
 			CompiledModule module = qvtCompiler.compile(cFile, options, null).getModule();

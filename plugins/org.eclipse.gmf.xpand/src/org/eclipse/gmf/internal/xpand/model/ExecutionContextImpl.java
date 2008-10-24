@@ -21,14 +21,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EEnumLiteral;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EParameter;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
@@ -37,18 +31,12 @@ import org.eclipse.gmf.internal.xpand.util.PolymorphicResolver;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtExtension;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
-import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnv;
-import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnvFactory;
-import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalFileEnv;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
+import org.eclipse.m2m.qvt.oml.runtime.util.OCLEnvironmentWithQVTAccessFactory;
 import org.eclipse.ocl.Environment;
-import org.eclipse.ocl.ecore.CallOperationAction;
-import org.eclipse.ocl.ecore.Constraint;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
 import org.eclipse.ocl.ecore.EcoreEvaluationEnvironment;
 import org.eclipse.ocl.ecore.EcoreFactory;
-import org.eclipse.ocl.ecore.SendSignalAction;
-import org.eclipse.ocl.utilities.UMLReflection;
 
 /**
  * @author Sven Efftinge
@@ -89,7 +77,7 @@ public final class ExecutionContextImpl implements ExecutionContext {
 
 	public ExecutionContext cloneWithVariable(final Variable... vars) {
         final ExecutionContextImpl result = new ExecutionContextImpl(scope, currentResource, variables.values());
-        result.rootEnvironment = rootEnvironment;
+        result.envFactory = envFactory;
     	result.environment = null; // XXX or create new, delegating?
         for (Variable v : vars) {
         	// adding to the set of original variables because of e.g. nested let statements
@@ -103,7 +91,7 @@ public final class ExecutionContextImpl implements ExecutionContext {
         	return this;
         }
         final ExecutionContextImpl result = new ExecutionContextImpl(scope, ns, variables.values());
-    	result.rootEnvironment = null; // need to make sure resource's imports are read into registry.
+    	result.envFactory = null; // need to make sure resource's imports are read into registry.
     	result.environment = null;
         return result;
     }
@@ -234,22 +222,29 @@ public final class ExecutionContextImpl implements ExecutionContext {
 		return PolymorphicResolver.filterDefinition(resolvedDefs, target, Arrays.asList(paramTypes), ctx.getOCLEnvironment());
     }
 
-    private QvtOperationalEnv rootEnvironment; // null-ified when context's resource is changed
-    private QvtOperationalEnv environment;
+    private OCLEnvironmentWithQVTAccessFactory envFactory; // null-ified when context's resource is changed
+    private EcoreEnvironment environment;
 
     public EcoreEnvironment getOCLEnvironment() {
     	if (environment != null) {
     		return environment;
     	}
-    	if (rootEnvironment == null) {
-    		//envFactory = new EcoreEnvironmentFactory(getAllVisibleModels());
-    		rootEnvironment = new QvtOperationalEnv(null, getAllVisibleModels()) {};
-    		handleImportedExtensions();
+    	if (envFactory == null) {
+    		HashSet<Module> imports = new HashSet<Module>();
+            final String[] extensions = getImportedExtensions();
+            for (String extension : extensions) {
+            	final QvtResource qvtResource = getScope().findExtension(extension);
+            	if (qvtResource == null) {
+            		throw new RuntimeException("Unable to load extension file : " + extension);
+            	}
+            	imports.add(qvtResource.getEnvironment().getModuleContextType());
+            }
+    		envFactory = new OCLEnvironmentWithQVTAccessFactory(imports, getAllVisibleModels());
     	}
-    	QvtOperationalEnvFactory envFactory = QvtOperationalEnvFactory.INSTANCE;
-		environment = envFactory.createEnvironment(rootEnvironment);
+		environment = (EcoreEnvironment) envFactory.createEnvironment();
+		Variable that = getImplicitVariable();
     	for (Variable v : variables.values()) {
-    		if (!IMPLICIT_VARIABLE.equals(v.getName())) {
+    		if (that != v) {
     			// XXX alternative: environment.getOCLFactory().createVariable()
     			org.eclipse.ocl.ecore.Variable oclVar = EcoreFactory.eINSTANCE.createVariable();
     			oclVar.setName(v.getName());
@@ -261,91 +256,33 @@ public final class ExecutionContextImpl implements ExecutionContext {
     			environment.addElement(oclVar.getName(), oclVar, true);
     		}
     	}
-		Variable v = variables.get(ExecutionContext.IMPLICIT_VARIABLE);
-		if (v != null) {
-			EClassifier type = v.getType() == null ? BuiltinMetaModel.getType(this, v.getValue()) : v.getType();
-			//environment = (EcoreEnvironment) envFactory.createClassifierContext(environment, type);
-			// make sure environment can be casted to QvtOperationalEnv, though it should be fixed in the factory
-			QvtOperationalEnv parent = (QvtOperationalEnv) environment;
-			//
-			// copy from createClassifierContext
-			//
-			environment = envFactory.createEnvironment(parent);
-	        UMLReflection<EPackage, EClassifier, EOperation, EStructuralFeature, EEnumLiteral, EParameter, EObject, CallOperationAction, SendSignalAction, Constraint> uml = parent.getUMLReflection();
-	        type = uml.asOCLType(type);
-	        org.eclipse.ocl.expressions.Variable<EClassifier, EParameter> self = parent.getOCLFactory().createVariable();
-	        uml.setName(self, Environment.SELF_VARIABLE_NAME);
-	        uml.setType(self, type);
-	        
-	        environment.addElement(self.getName(), self, true);
-	        environment.setSelfVariable(self);
+		if (that != null) {
+			EClassifier type = that.getType() == null ? BuiltinMetaModel.getType(this, that.getValue()) : that.getType();
+			environment = (EcoreEnvironment) envFactory.createClassifierContext(environment, type);
 		}
     	return environment;
     }
 
-    // rootEnvironment must be initialized at the moment
-    private void handleImportedExtensions() {
-		if (getImportedExtensions().length == 0) {
-			return;
-		}
-    	assert rootEnvironment != null;
-		HashSet<QvtOperationalEnv> siblings = new HashSet<QvtOperationalEnv>();
-        final String[] extensions = getImportedExtensions();
-        for (String extension : extensions) {
-        	final QvtResource qvtResource = getScope().findExtension(extension);
-        	if (qvtResource == null) {
-        		throw new RuntimeException("Unable to load extension file : " + extension);
-        	}
-        	siblings.add(qvtResource.getEnvironment());
-        }
-        for (QvtOperationalEnv s : siblings) {
-    		// XXX alternative is to respect siblings on any level of the environment hierarchy
-        	// either in QVTTypeResolverImpl#getAdditionalOperations
-        	// or QvtEnvironmentBase#getAdditionalOperations
-       		rootEnvironment.addSibling(s);
-        }
-/*
-		TypeResolver<EClassifier, EOperation, EStructuralFeature> typeResolver = environment.getTypeResolver();
-		for (QvtExtension e : getAllExtensions()) {
-			if (e.getContext() == null || e.getOperation() == null) {
-				// perhaps, static helper. Skip?
-				// FIXME not sure how to handle static operations,
-				// TypeUtil#getOperations (look for uml.isStatic() call ) and 
-				// implementation of ecore.UMLReflection#isStatic (always false) make me believe 
-				// (for now), that it's not feasible with Ecore models
-				System.out.println("resolveAdditionalOperation:" + e.getContext());
-				System.out.println("resolveAdditionalOperation:" + e.getOperation());
-			} else {
-				typeResolver.resolveAdditionalOperation(e.getContext(), e.getOperation());
-			}
-		}
-*/
-    }
-
-    public void populate(EcoreEvaluationEnvironment ee) {
-    	assert rootEnvironment != null;
-    	getOCLEnvironment(); // just in case root environment is not yet initialized
+    public EcoreEvaluationEnvironment createEvaluationEnvironment() {
+    	if (envFactory == null) {
+    		getOCLEnvironment();
+    	}
+    	EcoreEvaluationEnvironment ee = (EcoreEvaluationEnvironment) envFactory.createEvaluationEnvironment();
+    	Variable that = getImplicitVariable();
     	for (Variable v : variables.values()) {
-    		if (!IMPLICIT_VARIABLE.equals(v.getName())) {
+    		if (that != v) {
     			ee.add(v.getName(), v.getValue());
     		}
     	}
-    	// siblings make sense for root environment only
-    	for (Object s : rootEnvironment.getSiblings()) {
-    		Module moduleClass = ((QvtOperationalEnv) s).getModuleContextType();
-    		if (moduleClass == null) {
-    			continue;
-    		}
-			EObject instance = fakeModuleInstanceFactory.create(moduleClass);
-	    	ee.replace(moduleClass.getName() + QvtOperationalFileEnv.THIS_VAR_QNAME_SUFFIX, instance);
-
+    	if (that != null) {
+    		ee.add(Environment.SELF_VARIABLE_NAME, that.getValue());
     	}
+    	return ee;
 	}
-    private static EFactoryImpl fakeModuleInstanceFactory = new EFactoryImpl() {};
 
-    private String[] getImportedNamespaces() {
-    	return currentResource == null ? new String[0] : currentResource.getImportedNamespaces();
-    }
+	private String[] getImportedNamespaces() {
+		return currentResource == null ? new String[0] : currentResource.getImportedNamespaces();
+	}
 
     private EPackage.Registry getAllVisibleModels() {
 		String[] importedNamespaces = getImportedNamespaces();
