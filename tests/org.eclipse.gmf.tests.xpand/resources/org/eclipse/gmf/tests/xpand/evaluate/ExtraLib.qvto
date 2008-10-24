@@ -1,4 +1,4 @@
-library QvtLibrary;
+library ExtraLib;
 
 query String::one123() : String {
 	return self
