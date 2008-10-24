@@ -19,20 +19,17 @@ import java.util.StringTokenizer;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.TaskContainer;
+import org.apache.tools.ant.UnknownElement;
 
 public class CodegenFlowTask extends Task implements TaskContainer {
 
 	private final LinkedList<Task> myTasks = new LinkedList<Task>();
-	private final LinkedList<InvokeTemplateTask> myTemplateInvocations = new LinkedList<InvokeTemplateTask>();
 	private String[] myTemplateRoots;
 
 	public CodegenFlowTask() {
 	}
 
 	public void addTask(Task task) {
-		if (task instanceof InvokeTemplateTask) {
-			myTemplateInvocations.add((InvokeTemplateTask) task);
-		}
 		myTasks.add(task);
 	}
 
@@ -55,15 +52,25 @@ public class CodegenFlowTask extends Task implements TaskContainer {
 		ProgressSupport ps = new ProgressSupport(this);
 		ps.beginTask(getTaskName(), myTasks.size() + 2);
 		XpandFacade xf = createFacade();
-		for (InvokeTemplateTask t : myTemplateInvocations) {
-			t.setFacade(xf);
+		for (Task t : myTasks) {
+			if (t instanceof UnknownElement) {
+				UnknownElement ue = (UnknownElement) t;
+				if ("eclipse.org/gmf/2008/xpand".equals(ue.getNamespace()) && "template".equals(ue.getTag())) {
+					t.maybeConfigure();
+					if (((UnknownElement) t).getTask() != null) {
+						t = ((UnknownElement) t).getTask();
+					}
+				}
+			}
+			if (t instanceof InvokeTemplateTask) {
+				((InvokeTemplateTask) t).setFacade(xf);
+			}
 		}
 		ps.worked(2);
 		try {
 			ps.pushSubProgress(myTasks.size());
 			for (Task t : myTasks) {
 				t.perform();
-				ps.worked(1);
 			}
 		} finally {
 			ps.popSubProgress();
