@@ -20,9 +20,40 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 
 // XXX think over if just static method is sufficient
 class ProgressSupport extends ProgressMonitorWrapper {
+	private final Task myTask;
+	private IProgressMonitor mySubProgress;
+	private IProgressMonitor myOriginalMonitor;
 
 	public ProgressSupport(Task task) {
 		super(extractProgress(task));
+		assert task != null;
+		myTask = task;
+	}
+
+	public void pushSubProgress(int ticks) {
+		assert mySubProgress == null;
+		if (myTask.getProject() == null) {
+			return;
+		}
+		myOriginalMonitor = (IProgressMonitor) myTask.getProject().getReference(AntCorePlugin.ECLIPSE_PROGRESS_MONITOR);
+		if (myOriginalMonitor == null) {
+			return;
+		}
+		mySubProgress = new SubProgressMonitor(this, ticks);
+		myTask.getProject().addReference(AntCorePlugin.ECLIPSE_PROGRESS_MONITOR, mySubProgress);
+		
+	}
+	
+	public void popSubProgress() {
+		if (myTask.getProject() == null) {
+			return;
+		}
+		assert mySubProgress != null;
+		IProgressMonitor pm = (IProgressMonitor) myTask.getProject().getReference(AntCorePlugin.ECLIPSE_PROGRESS_MONITOR);
+		assert pm == mySubProgress;
+		mySubProgress.done();
+		mySubProgress = null;
+		myTask.getProject().addReference(AntCorePlugin.ECLIPSE_PROGRESS_MONITOR, myOriginalMonitor);
 	}
 
 	private static IProgressMonitor extractProgress(Task task) {

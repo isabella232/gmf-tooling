@@ -35,6 +35,7 @@ public class InvokeTemplateTask extends Task {
 	private Object myTemplateTarget;
 	private String[] myTemplateRoots;
 	private String myOutFile;
+	private XpandFacade myFacade;
 
 	public void setName(String name) {
 		myTemplateName = name;
@@ -67,13 +68,13 @@ public class InvokeTemplateTask extends Task {
 		validate();
 		pm.worked(1);
 		//
-		XpandFacade xf = createFacade();
-		execute(xf);
+		doExecute();
 		//
 		pm.done();
 	}
-	
-	protected void execute(XpandFacade xf) throws BuildException {
+
+	protected void doExecute() throws BuildException {
+		XpandFacade xf = createExecFacade();
 		String result = xf.xpand(myTemplateName, getTemplateTarget(), getTemplateArguments());
 		if (myOutFile == null) {
 			System.err.println("ITT:" + result);
@@ -88,7 +89,7 @@ public class InvokeTemplateTask extends Task {
 			}
 		}
 	}
-
+	
 	protected void validate() throws BuildException {
 		if (myTemplateName == null) {
 			throw new BuildException("Template name is missing", getLocation());
@@ -96,7 +97,7 @@ public class InvokeTemplateTask extends Task {
 		if (myTemplateTarget == null) {
 			throw new BuildException("Target object is missing", getLocation());
 		}
-		if (myTemplateRoots == null || myTemplateRoots.length == 0) {
+		if (myFacade == null && (myTemplateRoots == null || myTemplateRoots.length == 0)) {
 			throw new BuildException("No template root specified", getLocation());
 		}
 	}
@@ -109,13 +110,26 @@ public class InvokeTemplateTask extends Task {
 		return null;
 	}
 
-	protected XpandFacade createFacade() throws BuildException {
+	protected void setFacade(XpandFacade xf) {
+		myFacade = xf;
+	}
+
+	protected XpandFacade createExecFacade() throws BuildException {
 		try {
-			XpandFacade xf = new XpandFacade();
-			for (String r : myTemplateRoots) {
-				xf.addLocation(r);
+			if (myTemplateRoots != null && myTemplateRoots.length > 0) {
+				XpandFacade xf;
+				if (myFacade != null) {
+					xf = new XpandFacade(myFacade);
+				} else {
+					xf = new XpandFacade();
+				}
+				for (String r : myTemplateRoots) {
+					xf.addLocation(r);
+				}
+				return xf;
+			} else {
+				return myFacade == null ? new XpandFacade() : myFacade;
 			}
-			return xf;
 		} catch (MalformedURLException ex) {
 			throw new BuildException(ex, getLocation());
 		}
