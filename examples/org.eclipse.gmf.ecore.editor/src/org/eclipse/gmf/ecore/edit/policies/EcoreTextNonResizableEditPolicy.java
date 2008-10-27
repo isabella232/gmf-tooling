@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
@@ -45,6 +46,11 @@ public class EcoreTextNonResizableEditPolicy extends NonResizableEditPolicyEx {
 	/**
 	 * @generated
 	 */
+	private FigureListener hostPositionListener;
+
+	/**
+	 * @generated
+	 */
 	protected void showPrimarySelection() {
 		if (getHostFigure() instanceof WrappingLabel) {
 			((WrappingLabel) getHostFigure()).setSelected(true);
@@ -65,6 +71,7 @@ public class EcoreTextNonResizableEditPolicy extends NonResizableEditPolicyEx {
 		} else {
 			hideSelection();
 			addFeedback(selectionFeedbackFigure = createSelectionFeedbackFigure());
+			getHostFigure().addFigureListener(getHostPositionListener());
 			refreshSelectionFeedback();
 			hideFocus();
 		}
@@ -80,6 +87,7 @@ public class EcoreTextNonResizableEditPolicy extends NonResizableEditPolicyEx {
 		} else {
 			if (selectionFeedbackFigure != null) {
 				removeFeedback(selectionFeedbackFigure);
+				getHostFigure().removeFigureListener(getHostPositionListener());
 				selectionFeedbackFigure = null;
 			}
 			hideFocus();
@@ -197,6 +205,21 @@ public class EcoreTextNonResizableEditPolicy extends NonResizableEditPolicyEx {
 	public void refreshFeedback() {
 		refreshSelectionFeedback();
 		refreshFocusFeedback();
+	}
+
+	/**
+	 * @generated
+	 */
+	private FigureListener getHostPositionListener() {
+		if (hostPositionListener == null) {
+			hostPositionListener = new FigureListener() {
+
+				public void figureMoved(IFigure source) {
+					refreshFeedback();
+				}
+			};
+		}
+		return hostPositionListener;
 	}
 
 	/**

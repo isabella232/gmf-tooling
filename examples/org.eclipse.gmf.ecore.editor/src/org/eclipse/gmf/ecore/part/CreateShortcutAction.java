@@ -72,9 +72,7 @@ public class CreateShortcutAction extends AbstractHandler {
 		if (selectedElement == null) {
 			return null;
 		}
-		CreateViewRequest.ViewDescriptor viewDescriptor = new CreateViewRequest.ViewDescriptor(new EObjectAdapter(selectedElement), Node.class, null,
-
-		EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+		CreateViewRequest.ViewDescriptor viewDescriptor = new CreateViewRequest.ViewDescriptor(new EObjectAdapter(selectedElement), Node.class, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 		ICommand command = new CreateCommand(editingDomain, viewDescriptor, view);
 		command = command.compose(new EcoreCreateShortcutDecorationsCommand(editingDomain, view, viewDescriptor));
 		try {
