@@ -3,30 +3,6 @@
 -- XXX ask C.Damus to split factory out of AbstractOCLParser.java 
 $Headers
 /.
-	private OperationCS createOperationCS(
-			PathNameCS pathNameCS,
-			SimpleNameCS simpleNameCS,
-			EList<VariableCS> list,
-			TypeCS typeCS) {
-		OperationCS result = CSTFactory.eINSTANCE.createOperationCS();
-		result.setPathNameCS(pathNameCS);
-		result.setSimpleNameCS(simpleNameCS);
-		result.getParameters().addAll(list);
-		result.setTypeCS(typeCS);
-		return result;
-	}
-
-	private OperationCS createOperationCS(
-			String simpleName,
-			EList<VariableCS> list,
-			TypeCS typeCS) {
-		return createOperationCS(
-				null,
-				createSimpleNameCS(SimpleTypeEnum.IDENTIFIER_LITERAL, simpleName),
-				list,
-				typeCS);
-	}
-
 	private OperationCallExpCS createOperationCallExpCS(
 			OCLExpressionCS oclExpressionCS,
 			SimpleNameCS simpleNameCS,

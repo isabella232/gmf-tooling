@@ -17,11 +17,10 @@
 %options filter=XpandKWLexer.g
 -- stupid endrem needs 6
 %options lalr=6
-%options include_directory="../expression/parser/;../../../../../../../../org.eclipse.ocl/src/org/eclipse/ocl/lpg"
+%options include_directory="../expression/parser/;../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst;../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/lpg"
 
 $Import
---	../expression/parser/ExpressionLexer.g
-	../../../../../../../../org.eclipse.ocl/src/org/eclipse/ocl/parser/OCLLexer.g
+	../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst/QvtOpLexer.g
 $End
 
 $Define

@@ -17,13 +17,15 @@
 %options ast_type=Template
 %options import_terminals=XpandLexer.g
 %options lalr=2
-%options include_directory="../expression/parser/;../../../../../../../../org.eclipse.ocl/src/org/eclipse/ocl/lpg"
+%options include_directory="../expression/parser/;../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst;../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/lpg"
 
 $Globals
 	/.
 	import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 	import org.eclipse.gmf.internal.xpand.ast.*;
 	import org.eclipse.ocl.cst.*;
+	import org.eclipse.m2m.internal.qvt.oml.cst.ImperativeIterateExpCS;
+	import org.eclipse.m2m.internal.qvt.oml.cst.NewRuleCallExpCS;
 	import java.util.Collections;
 	./
 $End
@@ -39,11 +41,57 @@ $Start
 $End
 
 $Import
---	../expression/parser/ExpressionParser.g
-	../../../../../../../../org.eclipse.ocl/src/org/eclipse/ocl/parser/EssentialOCL.g
+	../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst/ImperativeOCL.g
+
+$DropRules
+	oclExpCS -> switchExpCS
+	oclExpCS -> whileExpCS
+	oclExpCS -> legacyWhileExpCS
+	oclExpCS -> computeExpCS
+	loopExpCS -> iterateSwitchExpCS
+	loopExpCS -> forExpCS
+	ifExpBodyCS -> expression_block
+
+$DropSymbols
+	statementCS
+	variableInitializationCS
+	variableInitializationCSCorrect
+	assignStatementCS
+	primaryOCLExpressionCS
+	complianceKindCSOpt
+	returnExpCS
+	logExpCS logWhenExp logWhenExpOpt
+	assertExpCS assertWithLogExp assertWithLogExpOpt severityKindCS severityKindCSOpt
+	oclExpressionCSOpt 
+	statementListOpt 
+	statementList 
+	statementInnerList
+	expressionStatementCS
+	expression_block
+	switchExpCS
+	iterateSwitchExpCS
+	switchDeclaratorCS
+	switchBodyExpCS
+	switchAltExpCS
+	switchElseExpCSOpt
+	switchElseExpCS
+	switchAltExpCSList
+	whileExpCS
+	whileBodyCS
+	legacyWhileExpCS
+	computeExpCS
+	forExpCS
+	forOpCode
+	forExpDeclaratorList
+	forExpConditionOpt
 $End
 
 -- FIXME need to fix $Notice section from EssentialOCL.g
+
+-- factory method for QVT CST constructs
+$Include
+	AbstractQVTParser.gi
+$End
 
 -- factory method for OCL CST constructs
 $Include
@@ -172,11 +220,11 @@ $Rules
 		/.$BeginJava
 			setResult(xpandFactory.createAround(getLeftIToken(), getRightIToken(), (Identifier) getRhsSym(2), Collections.<VariableCS>emptyList(), false, (TypeCS) getRhsSym(4), (List) getRhsSym(5)));
 		$EndJava./
-	around ::= "AROUND" pointcut LPAREN parametersCS RPAREN "FOR" typeCS sequence "ENDAROUND"
+	around ::= "AROUND" pointcut LPAREN parametersList RPAREN "FOR" typeCS sequence "ENDAROUND"
 		/.$BeginJava
 			setResult(xpandFactory.createAround(getLeftIToken(), getRightIToken(), (Identifier) getRhsSym(2), (List<VariableCS>) getRhsSym(4), false, (TypeCS) getRhsSym(7), (List) getRhsSym(8)));
 		$EndJava./
-	around ::= "AROUND" pointcut LPAREN parametersCS COMMA MULTIPLY RPAREN "FOR" typeCS sequence "ENDAROUND"
+	around ::= "AROUND" pointcut LPAREN parametersList COMMA MULTIPLY RPAREN "FOR" typeCS sequence "ENDAROUND"
 		/.$BeginJava
 			setResult(xpandFactory.createAround(getLeftIToken(), getRightIToken(), (Identifier) getRhsSym(2), (List<VariableCS>) getRhsSym(4), true, (TypeCS) getRhsSym(9), (List) getRhsSym(10)));
 		$EndJava./
@@ -245,7 +293,7 @@ $Rules
 			setResult(res);
 		$EndJava./
 
-	parameter -> variableCS
+	parameter -> declarator
 
 	parameter ::= typeCS IDENTIFIER
 		/.$BeginJava

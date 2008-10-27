@@ -14,11 +14,22 @@
 %options package=org.eclipse.gmf.internal.xpand.parser
 %options template=../expression/parser/KeywordTemplateD.g
 %options export_terminals=("XpandParsersym.java", "TK_")
-%options include_directory="../../../../../../../../org.eclipse.ocl/src/org/eclipse/ocl/lpg"
+%options include_directory="../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst;../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/lpg"
 
 $Import
---	../expression/parser/ExpressionKWLexer.g
-	../../../../../../../../org.eclipse.ocl/src/org/eclipse/ocl/parser/OCLKWLexer.g
+	../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst/QvtOpKWLexer.g
+
+$DropRules
+	QVTKeyWord ::= t r a n s f o r m a t i o n
+	QVTKeyWord ::= i m p o r t
+	QVTKeyWord ::= l i b r a r y
+	QVTKeyWord ::= m e t a m o d e l
+
+$DropSymbols
+	transformation
+	import
+	library
+	metamodel
 $End
 
 $Export
