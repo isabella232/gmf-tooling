@@ -82,7 +82,7 @@ public class ExpandStatement extends Statement {
                 issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR, "No implicite variable 'this/self' could be found!", target));
                 return;
             }
-            targetType = (EClassifier) var.getValue();
+            targetType = var.getType();
             if (target != null) {
                 targetType = target.analyze(ctx, issues);
             }
