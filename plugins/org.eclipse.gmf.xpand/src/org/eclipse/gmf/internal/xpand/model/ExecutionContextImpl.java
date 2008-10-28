@@ -31,7 +31,14 @@ import org.eclipse.gmf.internal.xpand.util.PolymorphicResolver;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtExtension;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
+import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalModuleEnv;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
+import org.eclipse.m2m.qvt.oml.blackbox.AbstractCompilationUnitDescriptor;
+import org.eclipse.m2m.qvt.oml.blackbox.BlackboxException;
+import org.eclipse.m2m.qvt.oml.blackbox.BlackboxRegistry;
+import org.eclipse.m2m.qvt.oml.blackbox.CompilationUnit;
+import org.eclipse.m2m.qvt.oml.blackbox.LoadContext;
+import org.eclipse.m2m.qvt.oml.blackbox.ResolutionContext;
 import org.eclipse.m2m.qvt.oml.runtime.util.OCLEnvironmentWithQVTAccessFactory;
 import org.eclipse.ocl.Environment;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
@@ -225,21 +232,14 @@ public final class ExecutionContextImpl implements ExecutionContext {
     private OCLEnvironmentWithQVTAccessFactory envFactory; // null-ified when context's resource is changed
     private EcoreEnvironment environment;
 
+	private ResolutionContext resolutionContext;
+
     public EcoreEnvironment getOCLEnvironment() {
     	if (environment != null) {
     		return environment;
     	}
     	if (envFactory == null) {
-    		HashSet<Module> imports = new HashSet<Module>();
-            final String[] extensions = getImportedExtensions();
-            for (String extension : extensions) {
-            	final QvtResource qvtResource = getScope().findExtension(extension);
-            	if (qvtResource == null) {
-            		throw new RuntimeException("Unable to load extension file : " + extension);
-            	}
-            	imports.add(qvtResource.getEnvironment().getModuleContextType());
-            }
-    		envFactory = new OCLEnvironmentWithQVTAccessFactory(imports, getAllVisibleModels());
+    		envFactory = new OCLEnvironmentWithQVTAccessFactory(getImportedModules(), getAllVisibleModels());
     	}
 		environment = (EcoreEnvironment) envFactory.createEnvironment();
 		Variable that = getImplicitVariable();
@@ -263,7 +263,43 @@ public final class ExecutionContextImpl implements ExecutionContext {
     	return environment;
     }
 
-    public EcoreEvaluationEnvironment createEvaluationEnvironment() {
+	private Set<Module> getImportedModules() {
+		HashSet<Module> imports = new HashSet<Module>();
+		final String[] extensions = getImportedExtensions();
+		for (String extension : extensions) {
+			final QvtResource qvtResource = getScope().findExtension(extension);
+			if (qvtResource != null) {
+				imports.add(qvtResource.getEnvironment().getModuleContextType());
+			} else {
+				AbstractCompilationUnitDescriptor unitDescriptor = BlackboxRegistry.INSTANCE.getCompilationUnitDescriptor(extension, getResolutionContext());
+				if (unitDescriptor == null) {
+					throw new RuntimeException("Unable to load extension file : " + extension);
+				}
+				try {
+					CompilationUnit loadCompilationUnit = BlackboxRegistry.INSTANCE.loadCompilationUnit(unitDescriptor, new LoadContext(getAllVisibleModels()));
+					for (QvtOperationalModuleEnv moduleEnv : loadCompilationUnit.getElements()) {
+						imports.add(moduleEnv.getModuleContextType());
+					}
+				} catch (BlackboxException e) {
+					throw new RuntimeException("Unable to load extension file : " + extension, e);
+				}
+			}
+		}
+		return imports;
+	}
+
+	private ResolutionContext getResolutionContext() {
+		if (resolutionContext == null) {
+			resolutionContext = new ResolutionContext() {
+				public <T> T getAdapter(Class<T> adapterType) {
+					return null;
+				}
+			};
+		}
+		return resolutionContext;
+	}
+
+	public EcoreEvaluationEnvironment createEvaluationEnvironment() {
     	if (envFactory == null) {
     		getOCLEnvironment();
     	}
