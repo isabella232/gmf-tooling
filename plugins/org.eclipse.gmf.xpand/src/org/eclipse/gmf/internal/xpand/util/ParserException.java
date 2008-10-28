@@ -50,6 +50,10 @@ public class ParserException extends Exception {
 			sb.append(l.startLine);
 			sb.append(':');
 			sb.append(l.startColumn);
+			sb.append('-');
+			sb.append(l.endLine);
+			sb.append(':');
+			sb.append(l.endColumn);
 			sb.append(']');
 			sb.append(l.message);
 		}

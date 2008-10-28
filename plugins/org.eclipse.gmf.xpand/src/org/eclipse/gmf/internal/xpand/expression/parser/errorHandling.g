@@ -51,10 +51,10 @@ $Headers
 				Matcher m = Pattern.compile("(?:[^:]+::)*[^:]+:(\\d+):(\\d+):(\\d+):(\\d+):.*").matcher(locationInfo);
 				boolean t = m.matches(); // ignore return value, rely on exception if anything wrong
 				assert t;
-				final int leftTokenLine = getLine(Integer.parseInt(m.group(1)));
-				final int leftTokenColumn = getColumn(Integer.parseInt(m.group(2)));
-				final int rightTokenLine = getEndLine(Integer.parseInt(m.group(3)));
-				final int rightTokenColumn = getEndColumn(Integer.parseInt(m.group(4)));
+				final int leftTokenLine = Integer.parseInt(m.group(1));
+				final int leftTokenColumn = Integer.parseInt(m.group(2));
+				final int rightTokenLine = Integer.parseInt(m.group(3));
+				final int rightTokenColumn = Integer.parseInt(m.group(4));
 				final String msg = tokenText + errorMsgText[errorCode];
 				errors.add(new ErrorLocationInfo(msg, leftTokenLine, leftTokenColumn, rightTokenLine, rightTokenColumn));
 			} catch (Throwable ex) {
