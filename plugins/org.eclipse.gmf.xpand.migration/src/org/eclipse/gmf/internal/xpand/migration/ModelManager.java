@@ -11,26 +11,27 @@
  */
 package org.eclipse.gmf.internal.xpand.migration;
 
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.eclipse.gmf.internal.xpand.expression.ast.FeatureCall;
 import org.eclipse.gmf.internal.xpand.expression.ast.OperationCall;
 import org.eclipse.ocl.Environment;
 
 public class ModelManager {
 
-	private boolean mapThisToSelf;
-
 	private StandardLibraryImports stdLibraryImports;
 
 	private OclKeywordManager oclKeywordManager;
 
-	public ModelManager(StandardLibraryImports libraryImports, boolean mapThisToSelf) {
-		this(libraryImports, new OclKeywordManager(), mapThisToSelf);
+	private Set<String> selfVariableAliases = new HashSet<String>();
+
+	public ModelManager(StandardLibraryImports libraryImports) {
+		this(libraryImports, new OclKeywordManager());
 	}
 
-	public ModelManager(StandardLibraryImports libraryImports, OclKeywordManager keywordManager, boolean mapThisToSelf) {
+	public ModelManager(StandardLibraryImports libraryImports, OclKeywordManager keywordManager) {
 		stdLibraryImports = libraryImports;
-		this.mapThisToSelf = mapThisToSelf;
 		oclKeywordManager = keywordManager;
 	}
 
@@ -54,11 +55,19 @@ public class ModelManager {
 	public String getName(FeatureCall featureCall, FeatureCallTrace trace) {
 		// Only env. var. references with name "this" should be substituted with
 		// "self"
-		if (mapThisToSelf && trace.getType() == FeatureCallTrace.Type.ENV_VAR_REF && ExecutionContext.IMPLICIT_VARIABLE.equals(featureCall.getName().getValue())) {
+		if (trace.getType() == FeatureCallTrace.Type.ENV_VAR_REF && selfVariableAliases.contains(featureCall.getName().getValue())) {
 			return Environment.SELF_VARIABLE_NAME;
 		}
 		return trace.getType() == FeatureCallTrace.Type.FEATURE_REF ? oclKeywordManager.getValidIdentifierValue(trace.getFeature().getName()) : oclKeywordManager.getValidIdentifierValue(featureCall
 				.getName());
+	}
+
+	public void registerSelfAlias(String selfVariableAlias) {
+		selfVariableAliases.add(selfVariableAlias);
+	}
+
+	public void unregisterSelfAlias(String selfVariableAlias) {
+		selfVariableAliases.remove(selfVariableAlias);
 	}
 
 }

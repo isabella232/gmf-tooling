@@ -338,13 +338,13 @@ public class ExpressionMigrationFacade {
 	}
 	
 	private EClassifier migrateIfExpression(IfExpression ifExpression) throws MigrationException {
-		write("if ");
+		write("(if ");
 		migrateExpression(ifExpression.getCondition());
 		write(" then ");
 		EClassifier thenType = migrateExpression(ifExpression.getThenPart());
 		write(" else ");
 		EClassifier elseType = migrateExpression(ifExpression.getElsePart());
-		write(" endif");
+		write(" endif)");
 		// TODO: check if then/else produces different types of collections..
 		return BuiltinMetaModelExt.getCommonSuperType(thenType, elseType);
 	}
@@ -598,9 +598,30 @@ public class ExpressionMigrationFacade {
 		case UNDESOLVED_TARGET_TYPE:
 			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL, trace.toString());
 		case STATIC_EXTENSION_REF:
+			List<EClassifier> expectedParameterTypes = trace.getParamTypes();
+			if (operationCall.getParams().length > 0) {
+				assert expectedParameterTypes == null || operationCall.getParams().length == expectedParameterTypes.size();
+				EClassifier actualParameterType = migrateExpression(operationCall.getParams()[0]);
+				if (expectedParameterTypes != null) {
+					internalConvertTypes(actualParameterType, expectedParameterTypes.get(0));
+				}
+				if (BuiltinMetaModel.isCollectionType(actualParameterType)) {
+					write("->");
+				} else {
+					write(".");
+				}
+			}
 			write(modelManager.getName(operationCall, trace));
 			write("(");
-			internalMigrateOperationCallParameters(operationCall, trace.getParamTypes());
+			for (int i = 1; i < operationCall.getParams().length; i++) {
+				if (i > 1) {
+					write(", ");
+				}
+				EClassifier actualParameterType = migrateExpression(operationCall.getParams()[i]);
+				if (expectedParameterTypes != null) {
+					internalConvertTypes(actualParameterType, expectedParameterTypes.get(i));
+				}
+			}
 			write(")");
 			return trace.getResultType();
 		case OPERATION_REF:
@@ -642,39 +663,44 @@ public class ExpressionMigrationFacade {
 				return BuiltinMetaModelExt.getListType(BuiltinMetaModel.getInnerType(targetQvtType));
 			}
 		case EXTENSION_REF:
-			write(modelManager.getName(operationCall, trace));
-			write("(");
+			assert trace.getParamTypes().size() > 0;
 			if (operationCall.getTarget() != null) {
 				migrateExpression(operationCall.getTarget());
 			} else {
 				// in case of xpand migration substituting implicit target of static extension call
 				write(Environment.SELF_VARIABLE_NAME);
 			}
-			if (operationCall.getParams().length > 0) {
-				write(", ");
-				internalMigrateOperationCallParameters(operationCall, withoutFirst(trace.getParamTypes()));
+			if (BuiltinMetaModel.isCollectionType(trace.getParamTypes().get(0))) {
+				write("->");
+			} else {
+				write(".");
 			}
+			write(modelManager.getName(operationCall, trace));
+			write("(");
+			internalMigrateOperationCallParameters(operationCall, withoutFirst(trace.getParamTypes()));
 			write(")");
 			return trace.getResultType();
 		case IMPLICIT_COLLECT_EXTENSION_REF:
 			assert operationCall.getTarget() != null;
 			EClassifier implicitCollectTargetQvtType = migrateExpression(operationCall.getTarget());
+			if (!BuiltinMetaModel.isParameterizedType(implicitCollectTargetQvtType)) {
+				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Implicit collect is not supported for simple types: " + implicitCollectTargetQvtType.toString() + "." + operationCall.getName().getValue());
+			}
 			String iteratorName = variableDispatcher.getNextIteratorName();
 			write("->collect(");
 			write(iteratorName);
 			write(" | ");
+			write(iteratorName);
+			if (BuiltinMetaModel.isCollectionType(BuiltinMetaModel.getInnerType(implicitCollectTargetQvtType))) {
+				write("->");
+			} else {
+				write(".");
+			}
 			write(modelManager.getName(operationCall, trace));
 			write("(");
-			write(iteratorName);
-			if (operationCall.getParams().length > 0) {
-				write(", ");
-				internalMigrateOperationCallParameters(operationCall, withoutFirst(trace.getParamTypes()));
-			}
+			internalMigrateOperationCallParameters(operationCall, withoutFirst(trace.getParamTypes()));
 			write(")");
 			write(")");
-			if (!BuiltinMetaModel.isParameterizedType(implicitCollectTargetQvtType)) {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Implicit collect is not supported for simple types: " + implicitCollectTargetQvtType.toString() + "." + operationCall.getName().getValue());
-			}
 			convertImplicitCollectProduct(implicitCollectTargetQvtType);
 			return trace.getResultType();
 		default:
@@ -690,6 +716,19 @@ public class ExpressionMigrationFacade {
 	private EClassifier internalMigrateInfixOperation(OperationCallTrace trace, OperationCall operationCall) throws MigrationException {
 		EOperation eOperation = trace.getEOperation();
 		assert eOperation != null;
+		if (BuiltinMetaModel.Object_EQ == eOperation || BuiltinMetaModel.Object_NotEQ == eOperation) {
+			if (operationCall.getParams().length == 1) {
+				Expression theParameter = operationCall.getParams()[0];
+				if (operationCall.getTarget() instanceof NullLiteral) {
+					internalMigrateOclIsUndefinedOperation(theParameter, BuiltinMetaModel.Object_EQ == eOperation);
+					return EcorePackage.eINSTANCE.getEBoolean();
+				} else if (theParameter instanceof NullLiteral) {
+					internalMigrateOclIsUndefinedOperation(operationCall.getTarget(), BuiltinMetaModel.Object_EQ == eOperation);
+					return EcorePackage.eINSTANCE.getEBoolean();
+				}
+			}
+		}
+		
 		int placeholder = getCurrentPosition();
 		internalMigrateOperationCallTarget(operationCall);
 		String opName = eOperation.getName();
@@ -720,6 +759,14 @@ public class ExpressionMigrationFacade {
 			addNegationBraces(placeholder);
 		}
 		return getTypedElementQvtType(eOperation);
+	}
+
+	private void internalMigrateOclIsUndefinedOperation(Expression theParameter, boolean isUndefined) throws MigrationException {
+		if (!isUndefined) {
+			write("not ");
+		}
+		migrateExpression(theParameter);
+		write(".oclIsUndefined()");
 	}
 
 	private EClassifier internalMigrateOperationCallTarget(OperationCall operationCall) throws MigrationException {
