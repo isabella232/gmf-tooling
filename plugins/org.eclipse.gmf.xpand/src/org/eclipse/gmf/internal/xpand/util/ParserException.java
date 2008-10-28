@@ -37,6 +37,25 @@ public class ParserException extends Exception {
 		return qualifiedResourceName;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getClass().getName());
+		sb.append(", @");
+		sb.append(getResourceName());
+		for (ErrorLocationInfo l : getParsingErrors()) {
+			sb.append('\n');
+			sb.append('\t');
+			sb.append('[');
+			sb.append(l.startLine);
+			sb.append(':');
+			sb.append(l.startColumn);
+			sb.append(']');
+			sb.append(l.message);
+		}
+		return sb.toString();
+	}
+
 	public static class ErrorLocationInfo {
 		public final int startLine;
 		public final int startColumn;
