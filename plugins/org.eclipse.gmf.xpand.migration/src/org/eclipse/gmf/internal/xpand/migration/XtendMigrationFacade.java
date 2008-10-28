@@ -35,8 +35,6 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 import org.eclipse.gmf.internal.xpand.xtend.ast.JavaExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.WorkflowSlotExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
-import org.eclipse.ocl.ecore.internal.OCLStandardLibraryImpl;
-import org.eclipse.ocl.types.VoidType;
 
 public class XtendMigrationFacade {
 
@@ -112,7 +110,7 @@ public class XtendMigrationFacade {
 		}
 
 		stdLibImportsManager = new StandardLibraryImports(output);
-		modelManager = new ModelManager(stdLibImportsManager, false);
+		modelManager = new ModelManager(stdLibImportsManager);
 		addLibraryImports(xtendResource, false);
 		if (xtendResource.getImportedExtensions().length > 0) {
 			writeln("");
@@ -291,10 +289,6 @@ public class XtendMigrationFacade {
 		result.append("public static String[] ");
 		addNativeMethodSignature(descriptor, result);
 		result.append(" { return new String[] {\"");
-		result.append(OCLStandardLibraryImpl.stdlibPackage.getName());
-		result.append(OclCs.PATH_SEPARATOR); 
-		result.append(VoidType.SINGLETON_NAME);
-		result.append("\", \"");
 		TypeManager nativeLibrariesTypeManager = new TypeManager();
 		nativeLibrariesTypeManager.setUseFQNameForPrimitiveTypes(true);
 		for (EClassifier parameterType : descriptor.getParameterTypes()) {
@@ -386,14 +380,23 @@ public class XtendMigrationFacade {
 			throw new MigrationException(Type.ANALYZATION_PROBLEMS, e);
 		}
 
-		write("helper ");
-		write(extension.getName());
-		write("(");
-
 		// assert extension.getParameterTypes().size() > 0;
 		assert extension.getParameterNames().size() == extension.getParameterTypes().size();
 		Iterator<String> parameterNames = extension.getParameterNames().iterator();
 		Iterator<EClassifier> parameterTypes = extension.getParameterTypes().iterator();
+
+		write("helper ");
+		String selfParameterName = null;
+		if (parameterNames.hasNext()) {
+			selfParameterName = parameterNames.next();
+			EClassifier selfParameterType = parameterTypes.next();
+			write(typeManager.getQvtFQName(selfParameterType));
+			write(OclCs.PATH_SEPARATOR);
+			modelManager.registerSelfAlias(selfParameterName);
+		}
+		write(extension.getName());
+		write("(");
+		
 		while (parameterNames.hasNext()) {
 			write(parameterNames.next());
 			write(" : ");
@@ -415,6 +418,7 @@ public class XtendMigrationFacade {
 		} else {
 			throw new MigrationException(Type.UNSUPPORTED_EXTENSION, extension.getClass().getName());
 		}
+		modelManager.unregisterSelfAlias(selfParameterName);
 		writeln("}");
 	}
 

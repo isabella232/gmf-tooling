@@ -37,6 +37,7 @@ import org.eclipse.gmf.internal.xpand.ast.NamespaceImport;
 import org.eclipse.gmf.internal.xpand.ast.Statement;
 import org.eclipse.gmf.internal.xpand.ast.Template;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
 import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
@@ -139,7 +140,8 @@ public class XpandMigrationFacade {
 	private void migrate(Template xpandTemplate) throws MigrationException {
 		StandardLibraryImports stdLibImportsManager = new StandardLibraryImports(getStdLibImportsPosition(xpandTemplate));
 		oclKeywordManager = new OclKeywordManager();
-		modelManager = new ModelManager(stdLibImportsManager, oclKeywordManager, true);
+		modelManager = new ModelManager(stdLibImportsManager, oclKeywordManager);
+		modelManager.registerSelfAlias(ExecutionContext.IMPLICIT_VARIABLE);
 		typeManager = new TypeManager();
 
 		for (NamespaceImport namespaceImport : xpandTemplate.getImports()) {
