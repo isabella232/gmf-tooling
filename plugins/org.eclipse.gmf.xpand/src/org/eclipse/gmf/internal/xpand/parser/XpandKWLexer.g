@@ -56,31 +56,6 @@ $DropRules
 		| e n f o r c i n g
 		| a c c e s s
 		| b l a c k b o x
-
-$DropSymbols
-	transformation
-	import
-	library
-	metamodel
-	mapping
-	query
-	helper
-	end
-	map
-	xmap
-	out
-	inout
-	modeltype
-	extends
-	abstract
-	static
-	result
-	main
-	return
-	rename
-	disjuncts
-	merges
-	inherits	
 $End
 
 $Export
