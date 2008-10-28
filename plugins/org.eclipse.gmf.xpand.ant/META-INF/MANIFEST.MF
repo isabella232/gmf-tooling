@@ -1,9 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: GMF Xpand Ant Tasks
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.xpand.ant;singleton:=true
 Bundle-Version: 0.9.0.qualifier
-Bundle-Vendor: Eclipse.org
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ClassPath: .
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.4.0,4.0.0)",
