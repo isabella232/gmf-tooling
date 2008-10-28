@@ -2,18 +2,18 @@ modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
 
 library TypeSelect;
 
-helper typeSelectCall(ePackage : ecore::EPackage) : Sequence(ecore::EClass) {
-	return (ePackage.eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->asOrderedSet()->asSequence()
+helper ecore::EPackage::typeSelectCall() : Sequence(ecore::EClass) {
+	return (self.eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->asOrderedSet()->asSequence()
 }
 
-helper typeSelectOnList(eClassifiers : Sequence(ecore::EClassifier)) : Sequence(ecore::EClass) {
-	return (eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))
+helper Sequence(ecore::EClassifier)::typeSelectOnList() : Sequence(ecore::EClass) {
+	return (self)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))
 }
 
-helper typeSelectOnSet(eClassifiers : Set(ecore::EClassifier)) : Sequence(ecore::EClass) {
-	return (eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->asSet()->asSequence()
+helper Set(ecore::EClassifier)::typeSelectOnSet() : Sequence(ecore::EClass) {
+	return (self)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->asSet()->asSequence()
 }
 
-helper typeSelectOnCollection(eClassifiers : Collection(ecore::EClassifier)) : Sequence(ecore::EClass) {
-	return eClassifiers->collect(it | it.oclAsType(ecore::EClass))->asSequence()
+helper Collection(ecore::EClassifier)::typeSelectOnCollection() : Sequence(ecore::EClass) {
+	return self->collect(it | it.oclAsType(ecore::EClass))->asSequence()
 }

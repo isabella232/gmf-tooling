@@ -2,6 +2,6 @@ import org.eclipse.gmf.tests.xpand.migration.ImportedExtensionsImport1;
 
 library ImportedExtensions;
 
-helper getImportedString(param : String) : String {
-	return getImportedString1(param)
+helper String::getImportedString() : String {
+	return self.getImportedString1()
 }

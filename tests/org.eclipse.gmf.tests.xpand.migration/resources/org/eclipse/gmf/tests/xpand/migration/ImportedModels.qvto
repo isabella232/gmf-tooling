@@ -2,6 +2,6 @@ modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
 
 library ImportedModels;
 
-helper getDummyEClass(param : ecore::EClass) : ecore::EClass {
-	return param
+helper ecore::EClass::getDummyEClass() : ecore::EClass {
+	return self
 }

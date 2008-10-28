@@ -2,62 +2,62 @@ modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
 
 library OperationCall_CollectionOperations_Add;
 
-helper addToCollectionSameType(col : Collection(ecore::EClass), addition : ecore::EClass) : Collection(ecore::EClass) {
-	return col->collect(it | it)->including(addition)
+helper Collection(ecore::EClass)::addToCollectionSameType(addition : ecore::EClass) : Collection(ecore::EClass) {
+	return self->collect(it | it)->including(addition)
 }
 
-helper addToCollectionSuperType(col : Collection(ecore::EClass), addition : ecore::EClassifier) : Collection(ecore::EClassifier) {
-	return col->collect(it | it.oclAsType(ecore::EClassifier))->including(addition)
+helper Collection(ecore::EClass)::addToCollectionSuperType(addition : ecore::EClassifier) : Collection(ecore::EClassifier) {
+	return self->collect(it | it.oclAsType(ecore::EClassifier))->including(addition)
 }
 
-helper addToCollectionSubType(col : Collection(ecore::EClassifier), addition : ecore::EClass) : Collection(ecore::EClassifier) {
-	return col->collect(it | it)->including(addition)
+helper Collection(ecore::EClassifier)::addToCollectionSubType(addition : ecore::EClass) : Collection(ecore::EClassifier) {
+	return self->collect(it | it)->including(addition)
 }
 
-helper addToCollectionSiblingType(col : Collection(ecore::EClass), addition : ecore::EDataType) : Collection(ecore::EClassifier) {
-	return col->collect(it | it.oclAsType(ecore::EClassifier))->including(addition)
+helper Collection(ecore::EClass)::addToCollectionSiblingType(addition : ecore::EDataType) : Collection(ecore::EClassifier) {
+	return self->collect(it | it.oclAsType(ecore::EClassifier))->including(addition)
 }
 
-helper addToCollectionArbitraryType(col : Collection(ecore::EClass), addition : Boolean) : Collection(OclAny) {
-	return col->collect(it | it.oclAsType(OclAny))->including(addition)
+helper Collection(ecore::EClass)::addToCollectionArbitraryType(addition : Boolean) : Collection(OclAny) {
+	return self->collect(it | it.oclAsType(OclAny))->including(addition)
 }
 
-helper addToListSameType(col : Sequence(ecore::EClass), addition : ecore::EClass) : Collection(ecore::EClass) {
-	return col->including(addition)
+helper Sequence(ecore::EClass)::addToListSameType(addition : ecore::EClass) : Collection(ecore::EClass) {
+	return self->including(addition)
 }
 
-helper addToListSuperType(col : Sequence(ecore::EClass), addition : ecore::EClassifier) : Collection(ecore::EClassifier) {
-	return (col)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->including(addition)
+helper Sequence(ecore::EClass)::addToListSuperType(addition : ecore::EClassifier) : Collection(ecore::EClassifier) {
+	return (self)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->including(addition)
 }
 
-helper addToListSubType(col : Sequence(ecore::EClassifier), addition : ecore::EClass) : Collection(ecore::EClassifier) {
-	return col->including(addition)
+helper Sequence(ecore::EClassifier)::addToListSubType(addition : ecore::EClass) : Collection(ecore::EClassifier) {
+	return self->including(addition)
 }
 
-helper addToListSiblingType(col : Sequence(ecore::EClass), addition : ecore::EDataType) : Collection(ecore::EClassifier) {
-	return (col)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->including(addition)
+helper Sequence(ecore::EClass)::addToListSiblingType(addition : ecore::EDataType) : Collection(ecore::EClassifier) {
+	return (self)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->including(addition)
 }
 
-helper addToListArbitraryType(col : Sequence(ecore::EClass), addition : Boolean) : Collection(OclAny) {
-	return (col)->select(it | it.oclIsKindOf(OclAny))->collect(it | it.oclAsType(OclAny))->including(addition)
+helper Sequence(ecore::EClass)::addToListArbitraryType(addition : Boolean) : Collection(OclAny) {
+	return (self)->select(it | it.oclIsKindOf(OclAny))->collect(it | it.oclAsType(OclAny))->including(addition)
 }
 
-helper addToSetSameType(col : Set(ecore::EClass), addition : ecore::EClass) : Collection(ecore::EClass) {
-	return col->including(addition)
+helper Set(ecore::EClass)::addToSetSameType(addition : ecore::EClass) : Collection(ecore::EClass) {
+	return self->including(addition)
 }
 
-helper addToSetSuperType(col : Set(ecore::EClass), addition : ecore::EClassifier) : Collection(ecore::EClassifier) {
-	return (col)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->asSet()->including(addition)
+helper Set(ecore::EClass)::addToSetSuperType(addition : ecore::EClassifier) : Collection(ecore::EClassifier) {
+	return (self)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->asSet()->including(addition)
 }
 
-helper addToSetSubType(col : Set(ecore::EClassifier), addition : ecore::EClass) : Collection(ecore::EClassifier) {
-	return col->including(addition)
+helper Set(ecore::EClassifier)::addToSetSubType(addition : ecore::EClass) : Collection(ecore::EClassifier) {
+	return self->including(addition)
 }
 
-helper addToSetSiblingType(col : Set(ecore::EClass), addition : ecore::EDataType) : Collection(ecore::EClassifier) {
-	return (col)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->asSet()->including(addition)
+helper Set(ecore::EClass)::addToSetSiblingType(addition : ecore::EDataType) : Collection(ecore::EClassifier) {
+	return (self)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->asSet()->including(addition)
 }
 
-helper addToSetArbitraryType(col : Set(ecore::EClass), addition : Boolean) : Collection(OclAny) {
-	return (col)->select(it | it.oclIsKindOf(OclAny))->collect(it | it.oclAsType(OclAny))->asSet()->including(addition)
+helper Set(ecore::EClass)::addToSetArbitraryType(addition : Boolean) : Collection(OclAny) {
+	return (self)->select(it | it.oclIsKindOf(OclAny))->collect(it | it.oclAsType(OclAny))->asSet()->including(addition)
 }

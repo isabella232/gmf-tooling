@@ -1,53 +1,53 @@
 library PrimitiveTypeParameters;
 
-helper getDummyString_1(param : String) : String {
-	return param
+helper String::getDummyString_1() : String {
+	return self
 }
 
-helper getDummyString_2(param : String) : String {
-	return param
+helper String::getDummyString_2() : String {
+	return self
 }
 
-helper getDummyString_3(param : String) : String {
-	return param
+helper String::getDummyString_3() : String {
+	return self
 }
 
-helper getDummyBoolean_1(param : Boolean) : Boolean {
-	return param
+helper Boolean::getDummyBoolean_1() : Boolean {
+	return self
 }
 
-helper getDummyBoolean_2(param : Boolean) : Boolean {
-	return param
+helper Boolean::getDummyBoolean_2() : Boolean {
+	return self
 }
 
-helper getDummyBoolean_3(param : Boolean) : Boolean {
-	return param
+helper Boolean::getDummyBoolean_3() : Boolean {
+	return self
 }
 
-helper getDummyInteger_1(param : Integer) : Integer {
-	return param
+helper Integer::getDummyInteger_1() : Integer {
+	return self
 }
 
-helper getDummyInteger_2(param : Integer) : Integer {
-	return param
+helper Integer::getDummyInteger_2() : Integer {
+	return self
 }
 
-helper getDummyInteger_3(param : Integer) : Integer {
-	return param
+helper Integer::getDummyInteger_3() : Integer {
+	return self
 }
 
-helper getDummyDouble(param : Real) : Real {
-	return param
+helper Real::getDummyDouble() : Real {
+	return self
 }
 
-helper getDummyObject(param : OclAny) : OclAny {
-	return param
+helper OclAny::getDummyObject() : OclAny {
+	return self
 }
 
-helper getDummyEJavaObject(param : OclAny) : OclAny {
-	return param
+helper OclAny::getDummyEJavaObject() : OclAny {
+	return self
 }
 
-helper getDummyString(param1 : String, param2 : Boolean, param3 : Integer) : String {
-	return param1
+helper String::getDummyString(param2 : Boolean, param3 : Integer) : String {
+	return self
 }

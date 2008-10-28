@@ -2,54 +2,54 @@ import library XpandOclAnyOperations;
 
 library OperationCall_DoubleOperations;
 
-helper doublePlusDouble(double : Real, parameter : Real) : Real  {
-	return double + parameter
+helper Real::doublePlusDouble(parameter : Real) : Real  {
+	return self + parameter
 }
 
-helper doublePlusInteger(double : Real, parameter : Integer) : Real  {
-	return double + parameter
+helper Real::doublePlusInteger(parameter : Integer) : Real  {
+	return self + parameter
 }
 
-helper doubleMinusDouble(double : Real, parameter : Real) : Real  {
-	return double - parameter
+helper Real::doubleMinusDouble(parameter : Real) : Real  {
+	return self - parameter
 }
 
-helper doubleMinusInteger(double : Real, parameter : Integer) : Real  {
-	return double - parameter
+helper Real::doubleMinusInteger(parameter : Integer) : Real  {
+	return self - parameter
 }
 
-helper doubleMultDouble(double : Real, parameter : Real) : Real  {
-	return double * parameter
+helper Real::doubleMultDouble(parameter : Real) : Real  {
+	return self * parameter
 }
 
-helper doubleMultInteger(double : Real, parameter : Integer) : Real  {
-	return double * parameter
+helper Real::doubleMultInteger(parameter : Integer) : Real  {
+	return self * parameter
 }
 
-helper doubleDivDouble(double : Real, parameter : Real) : Real  {
-	return double / parameter
+helper Real::doubleDivDouble(parameter : Real) : Real  {
+	return self / parameter
 }
 
-helper doubleDivInteger(double : Real, parameter : Integer) : Real  {
-	return double / parameter
+helper Real::doubleDivInteger(parameter : Integer) : Real  {
+	return self / parameter
 }
 
-helper doubleUnaryMinus(double : Real) : Real  {
-	return -double
+helper Real::doubleUnaryMinus() : Real  {
+	return -self
 }
 
-helper doubleCompareTo(double : Real, another : OclAny) : Boolean {
-	return double.xpandCompareTo(another)
+helper Real::doubleCompareTo(another : OclAny) : Boolean {
+	return self.xpandCompareTo(another)
 }
 
-helper doubleToString(double : Real) : String {
-	return double.repr()
+helper Real::doubleToString() : String {
+	return self.repr()
 }
 
-helper doubleEQ(double : Real, another : OclAny) : Boolean {
-	return double = another
+helper Real::doubleEQ(another : OclAny) : Boolean {
+	return self = another
 }
 
-helper doubleNotEQ(double : Real, another : OclAny) : Boolean {
-	return double <> another
+helper Real::doubleNotEQ(another : OclAny) : Boolean {
+	return self <> another
 }

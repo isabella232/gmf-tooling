@@ -240,30 +240,30 @@ Boolean containsAllSetWSet(Set[ecore::EClass] eClasses, Set[ecore::EObject] addi
 ;
 
 /* List operations */
-ecore::EJavaObject get(List[ecore::EClass] eClasses, Integer index) :
+ecore::EJavaObject getOp(List[ecore::EClass] eClasses, Integer index) :
 	eClasses.get(index)
 ;
 
-ecore::EJavaObject first(List[ecore::EClass] eClasses) :
+ecore::EJavaObject firstOp(List[ecore::EClass] eClasses) :
 	eClasses.first()
 ;
 
-ecore::EJavaObject last(List[ecore::EClass] eClasses) :
+ecore::EJavaObject lastOp(List[ecore::EClass] eClasses) :
 	eClasses.last()
 ;
 
-List[ecore::EJavaObject] withoutFirst(List[ecore::EClass] eClasses) :
+List[ecore::EJavaObject] withoutFirstOp(List[ecore::EClass] eClasses) :
 	eClasses.withoutFirst()
 ;
 
-List[ecore::EJavaObject] withoutLast(ecore::EPackage ePackage) :
+List[ecore::EJavaObject] withoutLastOp(ecore::EPackage ePackage) :
 	ePackage.eClassifiers.withoutLast()
 ;
 
-List[ecore::EJavaObject] purgeDups(List[ecore::EClass] eClasses) :
+List[ecore::EJavaObject] purgeDupsOp(List[ecore::EClass] eClasses) :
 	eClasses.purgeDups()
 ;
 
-Integer indexOf(List[ecore::EClass] eClasses, ecore::EJavaObject param) :
+Integer indexOfOp(List[ecore::EClass] eClasses, ecore::EJavaObject param) :
 	eClasses.indexOf(param)
 ;

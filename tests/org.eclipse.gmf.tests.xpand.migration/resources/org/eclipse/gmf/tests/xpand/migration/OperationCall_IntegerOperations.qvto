@@ -3,74 +3,74 @@ import library XpandOclAnyOperations;
 
 library OperationCall_IntegerOperations;
 
-helper integerPlusInteger(integer : Integer, parameter : Integer) : Integer  {
-	return integer + parameter
+helper Integer::integerPlusInteger(parameter : Integer) : Integer  {
+	return self + parameter
 }
 
-helper integerPlusDouble(integer : Integer, parameter : Real) : Real  {
-	return integer + parameter
+helper Integer::integerPlusDouble(parameter : Real) : Real  {
+	return self + parameter
 }
 
-helper integerMinusInteger(integer : Integer, parameter : Integer) : Integer  {
-	return integer - parameter
+helper Integer::integerMinusInteger(parameter : Integer) : Integer  {
+	return self - parameter
 }
 
-helper integerMinusDouble(integer : Integer, parameter : Real) : Real  {
-	return integer - parameter
+helper Integer::integerMinusDouble(parameter : Real) : Real  {
+	return self - parameter
 }
 
-helper integerMultInteger(integer : Integer, parameter : Integer) : Integer  {
-	return integer * parameter
+helper Integer::integerMultInteger(parameter : Integer) : Integer  {
+	return self * parameter
 }
 
-helper integerMultDouble(integer : Integer, parameter : Real) : Real  {
-	return integer * parameter
+helper Integer::integerMultDouble(parameter : Real) : Real  {
+	return self * parameter
 }
 
-helper integerDivInteger(integer : Integer, parameter : Integer) : Integer  {
-	return integer.div(parameter)
+helper Integer::integerDivInteger(parameter : Integer) : Integer  {
+	return self.div(parameter)
 }
 
-helper integerDivDouble(integer : Integer, parameter : Real) : Real  {
-	return integer / parameter
+helper Integer::integerDivDouble(parameter : Real) : Real  {
+	return self / parameter
 }
 
-helper integerUnaryMinus(integer : Integer) : Integer  {
-	return -integer
+helper Integer::integerUnaryMinus() : Integer  {
+	return -self
 }
 
-helper integerGOE(integer : Integer, parameter : Integer) : Boolean  {
-	return integer >= parameter
+helper Integer::integerGOE(parameter : Integer) : Boolean  {
+	return self >= parameter
 }
 
-helper integerLOE(integer : Integer, parameter : Integer) : Boolean  {
-	return integer <= parameter
+helper Integer::integerLOE(parameter : Integer) : Boolean  {
+	return self <= parameter
 }
 
-helper integerLess(integer : Integer, parameter : Integer) : Boolean  {
-	return integer < parameter
+helper Integer::integerLess(parameter : Integer) : Boolean  {
+	return self < parameter
 }
 
-helper integerGreater(integer : Integer, parameter : Integer) : Boolean  {
-	return integer > parameter
+helper Integer::integerGreater(parameter : Integer) : Boolean  {
+	return self > parameter
 }
 
-helper integerUpTo(integer : Integer, parameter : Integer) : Sequence(Integer) {
-	return integer.xpandUpTo(parameter)
+helper Integer::integerUpTo(parameter : Integer) : Sequence(Integer) {
+	return self.xpandUpTo(parameter)
 }
 
-helper integerCompareTo(integer : Integer, another : OclAny) : Boolean {
-	return integer.xpandCompareTo(another)
+helper Integer::integerCompareTo(another : OclAny) : Boolean {
+	return self.xpandCompareTo(another)
 }
 
-helper integerToString(integer : Integer) : String {
-	return integer.repr()
+helper Integer::integerToString() : String {
+	return self.repr()
 }
 
-helper integerEQ(integer : Integer, another : OclAny) : Boolean {
-	return integer = another
+helper Integer::integerEQ(another : OclAny) : Boolean {
+	return self = another
 }
 
-helper integerNotEQ(integer : Integer, another : OclAny) : Boolean {
-	return integer <> another
+helper Integer::integerNotEQ(another : OclAny) : Boolean {
+	return self <> another
 }

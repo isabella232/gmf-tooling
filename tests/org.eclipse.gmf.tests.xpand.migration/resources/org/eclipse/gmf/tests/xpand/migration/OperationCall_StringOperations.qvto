@@ -3,86 +3,86 @@ import library XpandOclAnyOperations;
 
 library OperationCall_StringOperations;
 
-helper addStringToString(string : String, parameter : String) : String {
-	return string.concat(parameter)
+helper String::addStringToString(parameter : String) : String {
+	return self.concat(parameter)
 }
 
-helper addObjectToString(string : String, parameter : OclAny) : String {
-	return string.concat(parameter.repr())
+helper String::addObjectToString(parameter : OclAny) : String {
+	return self.concat(parameter.repr())
 }
 
-helper stringToFirstUpper(string : String) : String {
-	return string.firstToUpper()
+helper String::stringToFirstUpper() : String {
+	return self.firstToUpper()
 }
 
-helper stringToFirstLower(string : String) : String {
-	return string.xpandToFirstLower()
+helper String::stringToFirstLower() : String {
+	return self.xpandToFirstLower()
 }
 
-helper stringToCharList(string : String) : Sequence(String) {
-	return string.xpandToCharList()
+helper String::stringToCharList() : Sequence(String) {
+	return self.xpandToCharList()
 }
 
-helper stringStartsWith(string : String, parameter : String) : Boolean {
-	return string.xpandStartsWith(parameter)
+helper String::stringStartsWith(parameter : String) : Boolean {
+	return self.xpandStartsWith(parameter)
 }
 
-helper stringEndsWith(string : String, parameter : String) : Boolean {
-	return string.xpandEndsWith(parameter)
+helper String::stringEndsWith(parameter : String) : Boolean {
+	return self.xpandEndsWith(parameter)
 }
 
-helper stringSubString(string : String, startIndex : Integer, endIndex : Integer) : String {
-	return string.substring(1 + startIndex, endIndex)
+helper String::stringSubString(startIndex : Integer, endIndex : Integer) : String {
+	return self.substring(1 + startIndex, endIndex)
 }
 
-helper stringSubString(string : String, startIndex : Integer) : String {
-	return string.xpandSubstring(startIndex)
+helper String::stringSubString(startIndex : Integer) : String {
+	return self.xpandSubstring(startIndex)
 }
 
-helper stringToUpperCase(string : String) : String {
-	return string.toUpper()
+helper String::stringToUpperCase() : String {
+	return self.toUpper()
 }
 
-helper stringToLowerCase(string : String) : String {
-	return string.toLower()
+helper String::stringToLowerCase() : String {
+	return self.toLower()
 }
 
-helper stringReplaceAll(string : String, pattern : String, replacement : String) : String {
-	return string.xpandReplaceAll(pattern, replacement)
+helper String::stringReplaceAll(pattern : String, replacement : String) : String {
+	return self.xpandReplaceAll(pattern, replacement)
 }
 
-helper stringReplaceFirst(string : String, pattern : String, replacement : String) : String {
-	return string.xpandReplaceFirst(pattern, replacement)
+helper String::stringReplaceFirst(pattern : String, replacement : String) : String {
+	return self.xpandReplaceFirst(pattern, replacement)
 }
 
-helper stringSplit(string : String, parameter : String) : Sequence(String) {
-	return string.xpandSplit(parameter)
+helper String::stringSplit(parameter : String) : Sequence(String) {
+	return self.xpandSplit(parameter)
 }
 
-helper stringMatches(string : String, parameter : String) : Boolean {
-	return string.xpandMatches(parameter)
+helper String::stringMatches(parameter : String) : Boolean {
+	return self.xpandMatches(parameter)
 }
 
-helper stringTrim(string : String) : String {
-	return string.trim()
+helper String::stringTrim() : String {
+	return self.trim()
 }
 
-helper stringLength(string : String) : Integer {
-	return string.xpandLength()
+helper String::stringLength() : Integer {
+	return self.xpandLength()
 }
 
-helper stringCompareTo(string : String, another : OclAny) : Boolean {
-	return string.xpandCompareTo(another)
+helper String::stringCompareTo(another : OclAny) : Boolean {
+	return self.xpandCompareTo(another)
 }
 
-helper stringToString(string : String) : String {
-	return string.repr()
+helper String::stringToString() : String {
+	return self.repr()
 }
 
-helper stringEQ(string : String, another : OclAny) : Boolean {
-	return string = another
+helper String::stringEQ(another : OclAny) : Boolean {
+	return self = another
 }
 
-helper stringNotEQ(string : String, another : OclAny) : Boolean {
-	return string <> another
+helper String::stringNotEQ(another : OclAny) : Boolean {
+	return self <> another
 }
