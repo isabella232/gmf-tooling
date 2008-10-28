@@ -40,7 +40,7 @@ public class XpandIterator {
         return Boolean.valueOf(counter + 1 == elementCount);
     }
 
-    public Object isFirstIteration() {
+    public Boolean isFirstIteration() {
         return Boolean.valueOf(counter == 0);
     }
 
