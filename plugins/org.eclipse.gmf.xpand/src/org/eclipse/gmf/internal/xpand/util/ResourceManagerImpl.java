@@ -124,16 +124,24 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 
 		public CFile resolveImport(CFile parentFile, String importedUnitName) {
 			try {
-				String unitName = parentFile.getUnitName();
-				unitName = unitName.substring(0, unitName.lastIndexOf(':') + 1) + importedUnitName;
-				Reader[] readers = resolveMultiple(unitName, QvtResource.FILE_EXTENSION);
+				String fullName = importedUnitName.replaceAll("\\.", TypeNameUtil.NS_DELIM);
+				Reader[] readers;
+				try {
+					readers = resolveMultiple(fullName, QvtResource.FILE_EXTENSION);
+				} catch (FileNotFoundException e) {
+					// trying to load resource prepending package name of
+					// parentFile
+					fullName = parentFile.getUnitName();
+					fullName = fullName.substring(0, fullName.lastIndexOf(':') + 1) + importedUnitName;
+					readers = resolveMultiple(fullName, QvtResource.FILE_EXTENSION);
+				}
 				assert readers.length == 1;
-				CFile cFile = new InputStreamCFile(readers[0], unitName);
+				CFile cFile = new InputStreamCFile(readers[0], fullName);
 				return cFile;
 			} catch (IOException ex) {
 				ex.printStackTrace();
 				return null;
-			}
+			}			
 		}
 
 	}
