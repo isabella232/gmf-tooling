@@ -256,6 +256,8 @@ public class XpandParser extends PrsStream implements RuleAction {
 	 * QVT Operational specific part
 	 *
 	 */
+	
+	
 	@SuppressWarnings("unchecked")
 	private static final EList ourEmptyEList = new BasicEList.UnmodifiableEList(0, new Object[0]);								
 							
@@ -304,7 +306,7 @@ private NewRuleCallExpCS createNewRuleCallExpCS(PathNameCS pathNameCS, List<OCLE
 }
 
 private boolean isTokenOfType(IToken token, int kind) {
-    return (token != null) && (token.getKind() == kind);
+	return (token != null) && (token.getKind() == kind);
 }
 
 private OperationCallExpCS createOperationCallExpCS(
@@ -728,11 +730,10 @@ private String unquote(String quoted) {
 	return result;
 }
 
-	@SuppressWarnings("unchecked")	
-    public void ruleAction(int ruleNumber)
-    {
-        switch(ruleNumber)
-        {
+	@SuppressWarnings("unchecked")
+	public void ruleAction(int ruleNumber) {
+		switch (ruleNumber) {
+
  
 			//
 			// Rule 28:  impliesExpCS ::= impliesExpCS implies andOrXorExpCS
@@ -3075,7 +3076,7 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 295:  anImport ::= IMPORT stringLiteralExpCS TEXT commentTextPairAny
+			// Rule 295:  anImport ::= IMPORT qvtStringLiteralExpCS TEXT commentTextPairAny
 			//
 			case 295: {
 				

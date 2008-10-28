@@ -109,6 +109,16 @@ $Define
 	-- not to include all the stuff from EssentialOCL.g but rules
 	$parserCore /../
 	$copyright_contributions /.*   Borland Software Corporation - Xpand integration/support./
+
+	-- need to redefine so that one from ImperativeOCL.g doesn't inject it's own debug stuff
+	$BeginActions
+	/.
+		@SuppressWarnings("unchecked")
+		public void ruleAction(int ruleNumber) {
+			switch (ruleNumber) {
+	./
+	-- do not inject DEBUG variable as well.
+	$DebugModeOff /../
 $End
 
 $Terminals
@@ -194,7 +204,7 @@ $Rules
 			setResult(res);
 		$EndJava./
 
-	anImport ::= "IMPORT" stringLiteralExpCS TEXT commentTextPairAny 
+	anImport ::= "IMPORT" qvtStringLiteralExpCS TEXT commentTextPairAny 
 		/.$BeginJava
 			setResult(xpandFactory.createNamespaceImport(getLeftIToken(), (StringLiteralExpCS) getRhsSym(2)));
 		$EndJava./

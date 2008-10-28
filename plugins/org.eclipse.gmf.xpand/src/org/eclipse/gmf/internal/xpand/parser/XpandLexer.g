@@ -87,17 +87,13 @@ $Rules
 
 	commentCharNoUpper -> AfterASCII | Digit | SpecialNotSlash | WSChar | RG | '*' | '/' | CtlCharNotWS | LowerCaseLetter | '_' 
 
-	commentCharNotE ::= commentCharNoUpper | UpperCaseLetterNotE
-	commentCharNotN ::= commentCharNoUpper | UpperCaseLetterNotN
-	commentCharNotD ::= commentCharNoUpper | UpperCaseLetterNotD
-	commentCharNotR ::= commentCharNoUpper | UpperCaseLetterNotR
-	commentCharNotM ::= commentCharNoUpper | UpperCaseLetterNotM
+	commentCharNotE ::= commentCharNoUpper | UpperCaseLetterWithoutENDRM | N | D | R | M 
+	commentCharNotN ::= commentCharNoUpper | UpperCaseLetterWithoutENDRM | E | D | R | M
+	commentCharNotD ::= commentCharNoUpper | UpperCaseLetterWithoutENDRM | E | N | R | M
+	commentCharNotR ::= commentCharNoUpper | UpperCaseLetterWithoutENDRM | E | N | D | M
+	commentCharNotM ::= commentCharNoUpper | UpperCaseLetterWithoutENDRM | E | N | D | R
 
-	UpperCaseLetterNotE -> A | B | C | D | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z
-	UpperCaseLetterNotN -> A | B | C | D | E | F | G | H | I | J | K | L | M | O | P | Q | R | S | T | U | V | W | X | Y | Z
-	UpperCaseLetterNotD -> A | B | C | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z
-	UpperCaseLetterNotR -> A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | S | T | U | V | W | X | Y | Z
-	UpperCaseLetterNotM -> A | B | C | D | E | F | G | H | I | J | K | L | N | O | P | Q | R | S | T | U | V | W | X | Y | Z
+	UpperCaseLetterWithoutENDRM -> A | B | C | F | G | H | I | J | K | L | O | P | Q | S | T | U | V | W | X | Y | Z
 	
 	lgPlus ::= LG | lgPlus LG
 $End
