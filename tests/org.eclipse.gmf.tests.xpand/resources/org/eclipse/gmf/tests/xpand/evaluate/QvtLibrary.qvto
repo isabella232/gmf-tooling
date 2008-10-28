@@ -42,7 +42,7 @@ query Set(Integer)::getDummyOrderedSet() : OrderedSet(Integer) {
 	return self->asOrderedSet()
 }
 
--- uncomment when QVTO is capable of Collection() context operations (Bug #243684)
---query String::firstExt() : String {
---	return Sequence{self, self}->secondExt()
---}
+--see if QVTO is capable of Collection() context operations (Bug #243684)
+query Sequence(String)::collectionContextOp() : String {
+	return self->at(2);
+}

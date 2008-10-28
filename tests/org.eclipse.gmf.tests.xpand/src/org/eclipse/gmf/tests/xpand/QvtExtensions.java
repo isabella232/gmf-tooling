@@ -90,14 +90,13 @@ public class QvtExtensions extends TestCase {
 	}
  */
 
-	/* uncomment when QVTO is capable of Collection() context operations (Bug #243684)
+	// test if QVTO is capable of Collection() context operations (Bug #243684)
 	public void testQvtoIsCapableToDefineContextOpsToCollections() {
 		String arg = "Str";
-		xpandFacade.evaluate("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::tttest", arg, null);
+		xpandFacade.evaluate("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::collectionContextOp", arg, null);
 		System.err.println(buffer.toString());
 		assertEquals(arg, buffer.toString().trim());
 	}
-	*/
 
 	public void testStaticInvocationStaticQuery() {
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkIntStaticInvocation", 20);
