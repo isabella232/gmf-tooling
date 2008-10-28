@@ -13,8 +13,11 @@ package org.eclipse.gmf.internal.xpand.migration.ui;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
+import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -93,7 +96,24 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 			} else if (cause instanceof UnsupportedEncodingException) {
 				showError("Unsupported encoding", "Specified encoding \"" + MigrationVisitor.CHARSET + "\" is not supported by the platform: " + cause.getMessage());
 			} else if (cause != null) {
-				showError("Exception", cause.getMessage());
+				String message = cause.getMessage();
+				if (message == null || message.length() == 0) {
+					final CharArrayWriter writer = new CharArrayWriter();
+					final int[] lineCounter = new int[] {0};
+					final String[] messageContainer = new String[] {null};
+					cause.printStackTrace(new PrintWriter(writer) {
+						public void println() {
+							lineCounter[0] = lineCounter[0] + 1;
+							if (lineCounter[0] == 6) {
+								messageContainer[0] = new String(writer.toCharArray());			
+							}
+							super.println();
+						};
+					});
+					writer.close();
+					message = messageContainer[0] == null ? new String(writer.toCharArray()) : messageContainer[0];
+				}
+				showError("Exception", message);
 			} else {
 				showError("Invocation target exception", e.getMessage());
 			}
