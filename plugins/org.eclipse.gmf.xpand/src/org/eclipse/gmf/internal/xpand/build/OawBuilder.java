@@ -62,6 +62,7 @@ public class OawBuilder extends IncrementalProjectBuilder implements RootManager
 		Activator.registerModelSource(modelRegistry);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected IProject[] build(final int kind, final Map args, final IProgressMonitor monitor) throws CoreException {
 		try {
@@ -73,8 +74,13 @@ public class OawBuilder extends IncrementalProjectBuilder implements RootManager
 		for (XpandResource r : xpandResourcesToAnalyze.keySet()) {
 	        final ExecutionContext ctx = ContextFactory.createXpandContext(getResourceManager(xpandResourcesToAnalyze.get(r)));
 	        final Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
-	        r.analyze(ctx, issues);
-	        updateMarkers(xpandResourcesToAnalyze.get(r), issues);
+	        try {
+	        	r.analyze(ctx, issues);
+	        	updateMarkers(xpandResourcesToAnalyze.get(r), issues);
+	        } catch (RuntimeException ex) {
+	        	Activator.logError(ex);
+	        	OawMarkerManager.addMarkers(xpandResourcesToAnalyze.get(r), new ParserException.ErrorLocationInfo(ex.toString()));
+	        }
 		}
 		xpandResourcesToAnalyze.clear();
 
