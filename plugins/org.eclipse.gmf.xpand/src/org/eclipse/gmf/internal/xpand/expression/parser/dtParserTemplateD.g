@@ -211,8 +211,11 @@ $Headers
 
 $End
 
--- XXX Include instead?
-$Import
+$Define
+	$tokenStartOffset /.getStartOffset(leftToken)./
+	$tokenEndOffset /.getEndOffset(rightToken)./
+
+$Include
 	errorHandling.g
 $End
 
