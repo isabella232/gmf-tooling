@@ -148,11 +148,11 @@ public class XpandFactory {
 	}
 
 	private static int end(final IToken c) {
-		return c.getEndColumn();
+		return c.getEndOffset();
 	}
 
 	private static int start(final IToken c) {
-		return c.getColumn() - 1;
+		return c.getStartOffset();
 	}
 
 	private static int line(final IToken c) {

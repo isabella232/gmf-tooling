@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
+ *     Artem Tikhomirov (Borland) - LPG migration
  */
 package org.eclipse.gmf.internal.xpand.util;
 
@@ -22,8 +23,6 @@ import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
 
 /**
- * FIXME fix syntax elements to keep not (only) line-relative column info, but buffer-related - otherwise
- * it makes no much sense for us to show markers
  */
 public class OawMarkerManager {
 
@@ -39,10 +38,8 @@ public class OawMarkerManager {
 	public static void addMarkers(IFile file, ErrorLocationInfo... issues) {
 		MarkerData[] data = new MarkerData[issues.length];
 		int i = 0;
-		for (ErrorLocationInfo issue : issues) {
-			int start = issue.startLine == issue.endLine ? issue.startColumn : -1;
-			int end = issue.startLine == issue.endLine ? issue.endColumn : -1;
-			data[i++] = new MarkerData(issue.message, IMarker.SEVERITY_ERROR, start, end, issue.startLine);
+		for (ErrorLocationInfo iss : issues) {
+			data[i++] = new MarkerData(iss.message, IMarker.SEVERITY_ERROR, iss.startOffset, iss.endOffset, iss.startLine);
 		}
 		internalAddMarker(file, data);
 	}
@@ -65,6 +62,7 @@ public class OawMarkerManager {
 	private static class MarkerData {
 		final String message;
 		final int severity;
+		// zero-relative global file/buffer index, or -1
 		final int start;
 		final int end;
 		final int line;
@@ -80,6 +78,43 @@ public class OawMarkerManager {
 			this.end = end;
 			this.line = line;
 		}
+
+		void createMarker(IFile file) throws CoreException {
+			final IMarker marker = file.createMarker(getMARKER_TYPE());
+            marker.setAttribute(IMarker.MESSAGE, message);
+            marker.setAttribute(IMarker.SEVERITY, severity);
+            marker.setAttribute(IMarker.LOCATION, toLocationString());
+        	if (start != -1 && end != -1) {
+        		// Could use MarkerUtilities#setCharStart(), etc.
+        		// although MarkerUtilities takes texteditor dependency
+        		marker.setAttribute(IMarker.CHAR_START, start);
+        		marker.setAttribute(IMarker.CHAR_END, end);
+        	}
+            if (line != -1) {
+            	marker.setAttribute(IMarker.LINE_NUMBER, line);
+            }
+		}
+
+		private String toLocationString() {
+			StringBuilder sb = new StringBuilder();
+			if (line != -1) {
+				sb.append("line: ");
+				sb.append(line);
+			}
+			if (start != -1 && end != -1) {
+				boolean theOnlyData = sb.length() == 0;
+				if (!theOnlyData) {
+					sb.append(" (");
+				}
+				sb.append(start);
+				sb.append(" .. ");
+				sb.append(end);
+				if (!theOnlyData) {
+					sb.append(")");
+				}
+			}
+			return sb.toString();
+		}
 	}
 
 	private static final String getMARKER_TYPE() {
@@ -92,49 +127,9 @@ public class OawMarkerManager {
 
             	public void run(IProgressMonitor monitor) throws CoreException {
 					for (MarkerData d : markerData) {
-						createMarker(d);
+						d.createMarker(file);
 					}
                 }
-
-				private void createMarker(MarkerData data) throws CoreException {
-					final IMarker marker = file.createMarker(getMARKER_TYPE());
-                    marker.setAttribute(IMarker.MESSAGE, data.message);
-                    marker.setAttribute(IMarker.SEVERITY, data.severity);
-                    if (data.line != -1) {
-                    	marker.setAttribute(IMarker.LINE_NUMBER, data.line);
-                        marker.setAttribute(IMarker.LOCATION, toLocationString(data));
-                    } else {
-                    	// "else" clause here because in case we possess line number info, most probably
-                    	// start and end are relative to that line, and are not file buffer positions (as it seems to be assumed by CHAR_START|END).
-                    	if (data.start != -1 && data.end != -1) {
-                    		marker.setAttribute(IMarker.CHAR_START, data.start);
-                    		marker.setAttribute(IMarker.CHAR_END, data.end);
-                    		marker.setAttribute(IMarker.LOCATION, toLocationString(data));
-                    	}
-                    }
-				}
-
-				private String toLocationString(MarkerData data) {
-					StringBuilder sb = new StringBuilder();
-					if (data.line != -1) {
-						sb.append("line: ");
-						sb.append(data.line);
-					}
-					if (data.start != -1 && data.end != -1) {
-						boolean theOnlyData = sb.length() == 0;
-						if (!theOnlyData) {
-							sb.append(" (");
-						}
-						sb.append(data.start);
-						sb.append(" .. ");
-						sb.append(data.end);
-						if (!theOnlyData) {
-							sb.append(")");
-						}
-					}
-					return sb.toString();
-				}
-
             }, file.getWorkspace().getRuleFactory().markerRule(file), 0, new NullProgressMonitor());
         } catch (final CoreException e) {
             Activator.log(e.getStatus());
