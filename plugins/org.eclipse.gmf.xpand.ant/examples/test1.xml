@@ -4,12 +4,12 @@
 	<target name="single">
 		<zzz:template name="Template::echo" 
 			inputURI="http://www.eclipse.org/emf/2002/Ecore#//EAnnotation" 
-			templateroot="platform:/resource/fff/tests/templates/"
+			templateroot="platform:/resource/org.eclipse.gmf.xpand.ant/examples/templates/"
 			outfile="xxx.test"/>
 	</target>
 
 	<target name="multiple">
-		<zzz:template-set templateRoot="platform:/resource/fff/tests/templates/">
+		<zzz:template-set templateRoot="platform:/resource/org.eclipse.gmf.xpand.ant/examples/templates/">
 			<zzz:template name="Template::echo" bareinput="aaa"/>
 			<zzz:template name="Template::echo" bareinput="BBB"/>
 			<zzz:template name="Template::echo" inputURI="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#/"/>
@@ -17,7 +17,7 @@
 	</target>
 
 	<target name="flow">
-		<zzz:codegen-flow templateRoot="platform:/resource/fff/tests/templates/">
+		<zzz:codegen-flow templateRoot="platform:/resource/org.eclipse.gmf.xpand.ant/examples/templates/">
 			<zzz:template name="Template::echo" bareinput="one"/>
 			<echo message="-1-"/>
 			<zzz:template name="Template::echo" bareinput="two"/>
