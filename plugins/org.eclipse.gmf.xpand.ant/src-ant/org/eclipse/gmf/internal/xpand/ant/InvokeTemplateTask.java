@@ -21,6 +21,10 @@ import java.util.StringTokenizer;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 /**
  * <p>... xmlns:xpt=<em>&quot;eclipse.org/gmf/2008/xpand&quot;</em>...
@@ -32,21 +36,23 @@ import org.eclipse.core.runtime.IProgressMonitor;
 public class InvokeTemplateTask extends Task {
 
 	private String myTemplateName;
-	private Object myTemplateTarget;
+	private String myInputURI;
 	private String[] myTemplateRoots;
 	private String myOutFile;
 	private XpandFacade myFacade;
+	private Object myInputObject;
+	private ResourceSetImpl myResourceSet;
 
 	public void setName(String name) {
 		myTemplateName = name;
 	}
 
 	public void setBareInput(String input) {
-		myTemplateTarget = input;
+		myInputObject = input;
 	}
 
 	public void setInputURI(String uri) {
-		myTemplateTarget = uri;
+		myInputURI = uri;
 	}
 
 	public void setOutFile(String uri) {
@@ -77,7 +83,7 @@ public class InvokeTemplateTask extends Task {
 		XpandFacade xf = createExecFacade();
 		String result = xf.xpand(myTemplateName, getTemplateTarget(), getTemplateArguments());
 		if (myOutFile == null) {
-			System.err.println("ITT:" + result);
+			System.err.println(result);
 		} else {
 			try {
 				File f = getProject().resolveFile(myOutFile);
@@ -94,7 +100,7 @@ public class InvokeTemplateTask extends Task {
 		if (myTemplateName == null) {
 			throw new BuildException("Template name is missing", getLocation());
 		}
-		if (myTemplateTarget == null) {
+		if (myInputURI == null && myInputObject == null) {
 			throw new BuildException("Target object is missing", getLocation());
 		}
 		if (myFacade == null && (myTemplateRoots == null || myTemplateRoots.length == 0)) {
@@ -103,11 +109,18 @@ public class InvokeTemplateTask extends Task {
 	}
 
 	protected Object getTemplateTarget() {
-		return myTemplateTarget;
+		if (myInputURI != null) {
+			return getResourceSet().getEObject(URI.createURI(myInputURI), true);
+		}
+		return myInputObject;
 	}
 
 	protected Object[] getTemplateArguments() {
 		return null;
+	}
+
+	protected void setInputObject(Object input) {
+		myInputObject = input;
 	}
 
 	protected void setFacade(XpandFacade xf) {
@@ -133,5 +146,13 @@ public class InvokeTemplateTask extends Task {
 		} catch (MalformedURLException ex) {
 			throw new BuildException(ex, getLocation());
 		}
+	}
+
+	protected ResourceSet getResourceSet() {
+		if (myResourceSet == null) {
+			myResourceSet = new ResourceSetImpl();
+			myResourceSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
+		}
+		return myResourceSet;
 	}
 }
