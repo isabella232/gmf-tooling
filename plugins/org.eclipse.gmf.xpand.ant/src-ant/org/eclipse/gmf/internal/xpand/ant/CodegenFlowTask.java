@@ -24,6 +24,7 @@ import org.apache.tools.ant.UnknownElement;
 public class CodegenFlowTask extends Task implements TaskContainer {
 
 	private final LinkedList<Task> myTasks = new LinkedList<Task>();
+	private final InputSupport myInput =  new InputSupport();
 	private String[] myTemplateRoots;
 
 	public CodegenFlowTask() {
@@ -44,7 +45,8 @@ public class CodegenFlowTask extends Task implements TaskContainer {
 	public void setOutputRoot(String outputRoot) {
 	}
 
-	public void setInputModel(String input) {
+	public void setInputURI(String uri) {
+		myInput.setURI(uri);
 	}
 
 	@Override
@@ -64,6 +66,7 @@ public class CodegenFlowTask extends Task implements TaskContainer {
 			}
 			if (t instanceof InvokeTemplateTask) {
 				((InvokeTemplateTask) t).setFacade(xf);
+				((InvokeTemplateTask) t).setTemplateTarget(myInput);
 			}
 		}
 		ps.worked(2);

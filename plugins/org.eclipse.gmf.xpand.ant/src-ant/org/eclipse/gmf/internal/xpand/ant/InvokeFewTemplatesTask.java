@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 public class InvokeFewTemplatesTask extends Task {
 	private final LinkedList<InvokeTemplateTask> myTemplates = new LinkedList<InvokeTemplateTask>();
+	private final InputSupport myInput =  new InputSupport();
 	private String[] myTemplateRoots;
 
 	public void setTemplateRoot(String root) {
@@ -39,6 +40,10 @@ public class InvokeFewTemplatesTask extends Task {
 		
 	}
 
+	public void setInputURI(String uri) {
+		myInput.setURI(uri);
+	}
+
 	@Override
 	public void execute() throws BuildException {
 		IProgressMonitor pm = new ProgressSupport(this);
@@ -46,6 +51,7 @@ public class InvokeFewTemplatesTask extends Task {
 		XpandFacade xf = createFacade();
 		for (InvokeTemplateTask tt : myTemplates) {
 			tt.setFacade(xf);
+			tt.setTemplateTarget(myInput);
 			tt.validate();
 			pm.worked(1);
 		}
