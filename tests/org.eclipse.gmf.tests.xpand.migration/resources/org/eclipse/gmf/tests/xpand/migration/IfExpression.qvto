@@ -2,5 +2,5 @@
 library IfExpression;
 
 helper Boolean::ifExpression(string1 : String, string2 : String) : String {
-	return if self then string1 else string2 endif
+	return (if self then string1 else string2 endif)
 }
