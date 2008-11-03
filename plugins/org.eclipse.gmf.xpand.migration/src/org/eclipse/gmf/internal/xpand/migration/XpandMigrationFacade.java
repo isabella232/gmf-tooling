@@ -309,6 +309,7 @@ public class XpandMigrationFacade {
 			}
 		} else if (statement instanceof LetStatement) {
 			LetStatement letStatement = (LetStatement) statement;
+			migrateIdentifier(letStatement.getVarName());
 			ExpressionAnalyzeTrace trace = ctx.getTraces().get(letStatement);
 			migrateExpression(letStatement.getVarValue(), trace.getResultType(), variableNameDispatcher);
 			for (Statement bodyStatement : letStatement.getBody()) {
