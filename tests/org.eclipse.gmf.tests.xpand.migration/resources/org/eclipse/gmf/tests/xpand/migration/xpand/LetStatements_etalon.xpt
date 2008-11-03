@@ -1,12 +1,12 @@
 «DEFINE emptyLet FOR ecore::EPackage-»
-«LET eClassifiers->size() AS var»
+«LET eClassifiers->size() AS _var»
 «ENDLET»
 «ENDDEFINE»
 
 «DEFINE letWithBody FOR ecore::EPackage-»
-«LET 5 AS var»
+«LET 5 AS _var»
 	Start
-		«'prefix'.concat(var.repr())»
+		«'prefix'.concat(_var.repr())»
 	End
 «ENDLET»
 «ENDDEFINE»

@@ -10,7 +10,7 @@
 «ENDDEFINE»
 
 «DEFINE booleanNot FOR ecore::EClass-»
-«IF not abstract»
+«IF not _abstract»
 «ENDIF»
 «ENDDEFINE»
 
