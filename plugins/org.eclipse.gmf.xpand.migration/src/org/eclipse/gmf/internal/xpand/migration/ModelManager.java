@@ -14,6 +14,8 @@ package org.eclipse.gmf.internal.xpand.migration;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.expression.ast.FeatureCall;
 import org.eclipse.gmf.internal.xpand.expression.ast.OperationCall;
 import org.eclipse.ocl.Environment;
@@ -57,6 +59,13 @@ public class ModelManager {
 		// "self"
 		if (trace.getType() == FeatureCallTrace.Type.ENV_VAR_REF && selfVariableAliases.contains(featureCall.getName().getValue())) {
 			return Environment.SELF_VARIABLE_NAME;
+		}
+		if (trace.getType() == FeatureCallTrace.Type.FEATURE_REF) {
+			EStructuralFeature feature = trace.getFeature();
+			if (EcorePackage.eINSTANCE.getETypedElement().isSuperTypeOf(feature.getEContainingClass())
+					&& EcorePackage.eINSTANCE.getETypedElement_UpperBound().getFeatureID() == EcorePackage.eINSTANCE.getETypedElement().getFeatureID(feature)) {
+				return oclKeywordManager.getValidIdentifierValue(feature.getName()) + ".oclAsType(Integer)";
+			}
 		}
 		return trace.getType() == FeatureCallTrace.Type.FEATURE_REF ? oclKeywordManager.getValidIdentifierValue(trace.getFeature().getName()) : oclKeywordManager.getValidIdentifierValue(featureCall
 				.getName());
