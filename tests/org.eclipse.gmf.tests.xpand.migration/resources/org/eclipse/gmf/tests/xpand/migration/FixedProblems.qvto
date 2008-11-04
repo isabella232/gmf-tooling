@@ -21,3 +21,7 @@ helper Sequence(ecore::EClass)::getEssentialVisualChildren(eOperations : Sequenc
 helper ecore::EPackage::getEClasses() : Collection(ecore::EClass) {
 	return (self.eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->asOrderedSet()
 }
+
+helper ecore::EReference::isUnlimited() : Boolean {
+	return self.upperBound.oclAsType(Integer) > 0
+}

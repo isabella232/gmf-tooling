@@ -20,3 +20,7 @@ Collection[ecore::ENamedElement] getEssentialVisualChildren(List[ecore::EClass] 
 Collection[ecore::EClass] getEClasses(ecore::EPackage ePackage) :
 	ePackage.eClassifiers.typeSelect(ecore::EClass)
 ;
+
+Boolean isUnlimited(ecore::EReference eReference) :
+	eReference.upperBound > 0
+;
