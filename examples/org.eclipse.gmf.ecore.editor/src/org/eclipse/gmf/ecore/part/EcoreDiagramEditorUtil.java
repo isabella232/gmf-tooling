@@ -194,8 +194,7 @@ public class EcoreDiagramEditorUtil {
 	}
 
 	/**
-	 * Create a new instance of domain element associated with canvas.
-	 * <!-- begin-user-doc -->
+	 * Create a new instance of domain element associated with canvas.\n <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -204,8 +203,7 @@ public class EcoreDiagramEditorUtil {
 	}
 
 	/**
-	 * Store model element in the resource.
-	 * <!-- begin-user-doc -->
+	 * Store model element in the resource.\n <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
