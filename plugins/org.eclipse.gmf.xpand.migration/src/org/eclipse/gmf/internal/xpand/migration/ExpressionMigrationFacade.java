@@ -716,6 +716,7 @@ public class ExpressionMigrationFacade {
 	private EClassifier internalMigrateInfixOperation(OperationCallTrace trace, OperationCall operationCall) throws MigrationException {
 		EOperation eOperation = trace.getEOperation();
 		assert eOperation != null;
+		/* ++ workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=253252 */
 		if (BuiltinMetaModel.Object_EQ == eOperation || BuiltinMetaModel.Object_NotEQ == eOperation) {
 			if (operationCall.getParams().length == 1) {
 				Expression theParameter = operationCall.getParams()[0];
@@ -728,7 +729,7 @@ public class ExpressionMigrationFacade {
 				}
 			}
 		}
-		
+		/* -- workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=253252 */
 		int placeholder = getCurrentPosition();
 		internalMigrateOperationCallTarget(operationCall);
 		String opName = eOperation.getName();
@@ -760,7 +761,8 @@ public class ExpressionMigrationFacade {
 		}
 		return getTypedElementQvtType(eOperation);
 	}
-
+	
+	/* ++ workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=253252 */
 	private void internalMigrateOclIsUndefinedOperation(Expression theParameter, boolean isUndefined) throws MigrationException {
 		if (!isUndefined) {
 			write("not ");
@@ -768,7 +770,8 @@ public class ExpressionMigrationFacade {
 		migrateExpression(theParameter);
 		write(".oclIsUndefined()");
 	}
-
+	/* -- workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=253252 */
+	
 	private EClassifier internalMigrateOperationCallTarget(OperationCall operationCall) throws MigrationException {
 		if (operationCall.getTarget() != null) {
 			return migrateExpression(operationCall.getTarget());
