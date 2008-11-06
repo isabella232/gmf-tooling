@@ -12,7 +12,11 @@
 package org.eclipse.gmf.internal.xpand.migration;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -41,7 +45,31 @@ public class OperationCallTrace extends ExpressionAnalyzeTrace {
 	private List<EClassifier> paramTypes;
 
 	private String nativeLibraryName;
-	
+
+	private boolean staticQvtoCall = true;
+
+	/**
+	 * Migrating operation call as contextual only if there is another one
+	 * with same name and number of parameters in the _SAME_ file. 
+	 *
+	 * No generic solution for externally added polymorphyc extensions for now
+	 */
+	public static boolean isStaticQvtoCall(ExecutionContext ctx, Extension extension) {
+		if (extension.getFormalParameters().size() < 1) {
+			return true;
+		}
+		Set<Extension> allExtensions = new HashSet<Extension>(ctx.getAllExtensions());
+		for (Iterator<Extension> it = allExtensions.iterator(); it.hasNext();) {
+			Extension nextExtension = it.next();
+			if (!extension.getFileName().equals(nextExtension.getFileName()) || !extension.getName().equals(nextExtension.getName())
+					|| extension.getParameterTypes().size() != nextExtension.getParameterTypes().size()) {
+				it.remove();
+				continue;
+			}
+		}
+		return allExtensions.size() == 1;
+	}
+
 	public static String getNativeLibraryName(Extension extension) {
 		if (extension instanceof JavaExtensionStatement) {
 			String fQName = ((JavaExtensionStatement) extension).getExtensionFile().getFullyQualifiedName();
@@ -52,13 +80,13 @@ public class OperationCallTrace extends ExpressionAnalyzeTrace {
 		}
 		return null;
 	}
-	
-    public static List<EClassifier> getParamTypes(EOperation op) {
-    	EList<EParameter> parameters = op.getEParameters();
-    	List<EClassifier> result = new ArrayList<EClassifier>();
-    	for (int i = 0; i < parameters.size(); i++) {
-    		result.add(BuiltinMetaModel.getTypedElementType(parameters.get(i)));
-    	}
+
+	public static List<EClassifier> getParamTypes(EOperation op) {
+		EList<EParameter> parameters = op.getEParameters();
+		List<EClassifier> result = new ArrayList<EClassifier>();
+		for (int i = 0; i < parameters.size(); i++) {
+			result.add(BuiltinMetaModel.getTypedElementType(parameters.get(i)));
+		}
 		return result;
 	}
 
@@ -70,20 +98,18 @@ public class OperationCallTrace extends ExpressionAnalyzeTrace {
 		}
 		return result;
 	}
-	
+
 	public OperationCallTrace(Type type) {
 		this(null, null, null, type);
 	}
 
-	public OperationCallTrace(EClassifier result, List<EClassifier> paramTypes, String nativeLibraryName, Type type) {
-		super(result);
-		this.paramTypes = paramTypes;
-		this.type = type;
-		this.nativeLibraryName = nativeLibraryName;
+	public OperationCallTrace(EClassifier result, List<EClassifier> paramTypes, String nativeLibraryName, Type type, boolean isStaticQvtoCall) {
+		this(result, paramTypes, nativeLibraryName, type);
+		this.staticQvtoCall = isStaticQvtoCall;
 	}
 
-	public OperationCallTrace(EClass result, List<EClassifier> paramTypes, EClassifier targetType, String nativeLibraryName) {
-		this(result, paramTypes, nativeLibraryName, Type.IMPLICIT_COLLECT_EXTENSION_REF);
+	public OperationCallTrace(EClass result, List<EClassifier> paramTypes, EClassifier targetType, String nativeLibraryName, boolean isStaticQvtoCall) {
+		this(result, paramTypes, nativeLibraryName, Type.IMPLICIT_COLLECT_EXTENSION_REF, isStaticQvtoCall);
 		this.targetType = targetType;
 	}
 
@@ -96,6 +122,13 @@ public class OperationCallTrace extends ExpressionAnalyzeTrace {
 	public OperationCallTrace(EClassifier result, List<EClassifier> paramTypes, EClassifier targetType, EOperation operation) {
 		this(result, paramTypes, targetType, operation, OperationCallTrace.Type.OPERATION_REF);
 		this.paramTypes = paramTypes;
+	}
+
+	private OperationCallTrace(EClassifier result, List<EClassifier> paramTypes, String nativeLibraryName, Type type) {
+		super(result);
+		this.paramTypes = paramTypes;
+		this.type = type;
+		this.nativeLibraryName = nativeLibraryName;
 	}
 
 	public Type getType() {
@@ -122,9 +155,17 @@ public class OperationCallTrace extends ExpressionAnalyzeTrace {
 	public List<EClassifier> getParamTypes() {
 		return paramTypes;
 	}
-	
+
 	public String getNativeLibraryName() {
 		return nativeLibraryName;
+	}
+
+	/**
+	 * Reasonable is getType() == STATIC_EXTENSION_REF || EXTENSION_REF ||
+	 * IMPLICIT_COLLECT_EXTENSION_REF
+	 */
+	public boolean isStaticQvtoCall() {
+		return staticQvtoCall;
 	}
 
 }

@@ -598,8 +598,14 @@ public class ExpressionMigrationFacade {
 		case UNDESOLVED_TARGET_TYPE:
 			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL, trace.toString());
 		case STATIC_EXTENSION_REF:
-			List<EClassifier> expectedParameterTypes = trace.getParamTypes();
-			if (operationCall.getParams().length > 0) {
+			if (trace.isStaticQvtoCall()) {
+				write(modelManager.getName(operationCall, trace));
+				write("(");
+				internalMigrateOperationCallParameters(operationCall, trace.getParamTypes());
+				write(")");
+			} else {
+				List<EClassifier> expectedParameterTypes = trace.getParamTypes();
+				assert operationCall.getParams().length > 0;
 				assert expectedParameterTypes == null || operationCall.getParams().length == expectedParameterTypes.size();
 				EClassifier actualParameterType = migrateExpression(operationCall.getParams()[0]);
 				if (expectedParameterTypes != null) {
@@ -610,19 +616,20 @@ public class ExpressionMigrationFacade {
 				} else {
 					write(".");
 				}
-			}
-			write(modelManager.getName(operationCall, trace));
-			write("(");
-			for (int i = 1; i < operationCall.getParams().length; i++) {
-				if (i > 1) {
-					write(", ");
+
+				write(modelManager.getName(operationCall, trace));
+				write("(");
+				for (int i = 1; i < operationCall.getParams().length; i++) {
+					if (i > 1) {
+						write(", ");
+					}
+					actualParameterType = migrateExpression(operationCall.getParams()[i]);
+					if (expectedParameterTypes != null) {
+						internalConvertTypes(actualParameterType, expectedParameterTypes.get(i));
+					}
 				}
-				EClassifier actualParameterType = migrateExpression(operationCall.getParams()[i]);
-				if (expectedParameterTypes != null) {
-					internalConvertTypes(actualParameterType, expectedParameterTypes.get(i));
-				}
+				write(")");
 			}
-			write(")");
 			return trace.getResultType();
 		case OPERATION_REF:
 			if (isInfixOperation(trace)) {
@@ -663,20 +670,32 @@ public class ExpressionMigrationFacade {
 				return BuiltinMetaModelExt.getListType(BuiltinMetaModel.getInnerType(targetQvtType));
 			}
 		case EXTENSION_REF:
-			assert trace.getParamTypes().size() > 0;
-			if (operationCall.getTarget() != null) {
-				migrateExpression(operationCall.getTarget());
-			} else {
-				// in case of xpand migration substituting implicit target of static extension call
-				write(Environment.SELF_VARIABLE_NAME);
-			}
-			if (BuiltinMetaModel.isCollectionType(trace.getParamTypes().get(0))) {
-				write("->");
-			} else {
-				write(".");
+			if (!trace.isStaticQvtoCall()) {
+				if (operationCall.getTarget() != null) {
+					migrateExpression(operationCall.getTarget());
+				} else {
+					// in case of xpand migration substituting implicit target of static extension call
+					write(Environment.SELF_VARIABLE_NAME);
+				}
+				if (BuiltinMetaModel.isCollectionType(trace.getParamTypes().get(0))) {
+					write("->");
+				} else {
+					write(".");
+				}
 			}
 			write(modelManager.getName(operationCall, trace));
 			write("(");
+			if (trace.isStaticQvtoCall()) {
+				if (operationCall.getTarget() != null) {
+					migrateExpression(operationCall.getTarget());
+				} else {
+					// in case of xpand migration substituting implicit target of static extension call
+					write(Environment.SELF_VARIABLE_NAME);
+				}
+				if (operationCall.getParams().length > 0) {
+					write(", ");
+				}
+			}
 			internalMigrateOperationCallParameters(operationCall, withoutFirst(trace.getParamTypes()));
 			write(")");
 			return trace.getResultType();
@@ -690,14 +709,22 @@ public class ExpressionMigrationFacade {
 			write("->collect(");
 			write(iteratorName);
 			write(" | ");
-			write(iteratorName);
-			if (BuiltinMetaModel.isCollectionType(BuiltinMetaModel.getInnerType(implicitCollectTargetQvtType))) {
-				write("->");
-			} else {
-				write(".");
+			if (!trace.isStaticQvtoCall()) {
+				write(iteratorName);	
+				if (BuiltinMetaModel.isCollectionType(BuiltinMetaModel.getInnerType(implicitCollectTargetQvtType))) {
+					write("->");
+				} else {
+					write(".");
+				}
 			}
 			write(modelManager.getName(operationCall, trace));
 			write("(");
+			if (trace.isStaticQvtoCall()) {
+				write(iteratorName);
+				if (operationCall.getParams().length > 0) {
+					write(", ");
+				}
+			}
 			internalMigrateOperationCallParameters(operationCall, withoutFirst(trace.getParamTypes()));
 			write(")");
 			write(")");
@@ -707,8 +734,8 @@ public class ExpressionMigrationFacade {
 			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, "Incorrect type: " + trace.getType());
 		}
 	}
-
-	private List<EClassifier> withoutFirst(List<EClassifier> parameters) {
+	
+	private static <T> List<T> withoutFirst(List<T> parameters) {
 		assert parameters.size() > 0;
 		return parameters.subList(1, parameters.size());
 	}
@@ -1142,7 +1169,7 @@ public class ExpressionMigrationFacade {
 			write("->asSequence()");
 		}
 	}
-
+	
 	private List<EClassifier> internalMigrateOperationCallParameters(OperationCall operationCall, List<EClassifier> expectedParameterTypes) throws MigrationException {
 		assert expectedParameterTypes == null || operationCall.getParams().length == expectedParameterTypes.size();
 		List<EClassifier> parameterTypes = new ArrayList<EClassifier>();

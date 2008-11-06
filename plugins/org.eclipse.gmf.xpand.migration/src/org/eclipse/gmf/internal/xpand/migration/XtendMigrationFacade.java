@@ -35,6 +35,8 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 import org.eclipse.gmf.internal.xpand.xtend.ast.JavaExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.WorkflowSlotExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
+import org.eclipse.ocl.ecore.VoidType;
+import org.eclipse.ocl.ecore.internal.OCLStandardLibraryImpl;
 
 public class XtendMigrationFacade {
 
@@ -289,6 +291,13 @@ public class XtendMigrationFacade {
 		result.append("public static String[] ");
 		addNativeMethodSignature(descriptor, result);
 		result.append(" { return new String[] {\"");
+		if (descriptor.isStaticQvtoCall()) {
+			result.append(OCLStandardLibraryImpl.stdlibPackage.getName());
+			result.append(OclCs.PATH_SEPARATOR); 
+			result.append(VoidType.SINGLETON_NAME);
+			result.append("\", \"");
+		}
+		
 		TypeManager nativeLibrariesTypeManager = new TypeManager();
 		nativeLibrariesTypeManager.setUseFQNameForPrimitiveTypes(true);
 		for (EClassifier parameterType : descriptor.getParameterTypes()) {
@@ -379,15 +388,16 @@ public class XtendMigrationFacade {
 		} catch (EvaluationException e) {
 			throw new MigrationException(Type.ANALYZATION_PROBLEMS, e);
 		}
-
+		
+		write("helper ");
 		// assert extension.getParameterTypes().size() > 0;
 		assert extension.getParameterNames().size() == extension.getParameterTypes().size();
 		Iterator<String> parameterNames = extension.getParameterNames().iterator();
 		Iterator<EClassifier> parameterTypes = extension.getParameterTypes().iterator();
 
-		write("helper ");
 		String selfParameterName = null;
-		if (parameterNames.hasNext()) {
+		if (!OperationCallTrace.isStaticQvtoCall(ctx, extension)) {
+			assert parameterNames.hasNext();
 			selfParameterName = parameterNames.next();
 			EClassifier selfParameterType = parameterTypes.next();
 			write(typeManager.getQvtFQName(selfParameterType));
@@ -418,7 +428,9 @@ public class XtendMigrationFacade {
 		} else {
 			throw new MigrationException(Type.UNSUPPORTED_EXTENSION, extension.getClass().getName());
 		}
-		modelManager.unregisterSelfAlias(selfParameterName);
+		if (selfParameterName != null) {
+			modelManager.unregisterSelfAlias(selfParameterName);
+		}
 		writeln("}");
 	}
 
@@ -490,6 +502,8 @@ public class XtendMigrationFacade {
 		
 		private List<String> javaParameterTypes = new ArrayList<String>();
 
+		private boolean staticQvtoCall;
+
 		public JavaExtensionDescriptor(JavaExtensionStatement javaExtension, MigrationExecutionContext ctx) {
 			extensionName = javaExtension.getName();
 			className = javaExtension.getJavaType().getValue();
@@ -505,6 +519,7 @@ public class XtendMigrationFacade {
 			for (Identifier paramType : javaExtension.getJavaParameterTypes()) {
 				javaParameterTypes.add(paramType.getValue());
 			}
+			staticQvtoCall = OperationCallTrace.isStaticQvtoCall(ctx, javaExtension);
 		}
 
 		public String getExtensionName() {
@@ -533,6 +548,10 @@ public class XtendMigrationFacade {
 		
 		public List<String> getJavaParameterTypes() {
 			return javaParameterTypes;
+		}
+		
+		public boolean isStaticQvtoCall() {
+			return staticQvtoCall;
 		}
 
 	}

@@ -171,9 +171,9 @@ public class OperationCall extends FeatureCall {
                 issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR, "Error parsing extensions : "
                         + e.getMessage(), this));
             }
-            if (f != null) {
+			if (f != null) {
 				return createAnalyzeTrace(ctx, new OperationCallTrace(f.getReturnType(paramTypes, ctx, issues), OperationCallTrace.getParamTypes(f, ctx), OperationCallTrace.getNativeLibraryName(f),
-						Type.STATIC_EXTENSION_REF));
+						Type.STATIC_EXTENSION_REF, OperationCallTrace.isStaticQvtoCall(ctx, f)));
 			}
             final Variable var = ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE);
             if (var != null) {
@@ -199,9 +199,11 @@ public class OperationCall extends FeatureCall {
         
         Extension extension = getStaticExtension(ctx, issues, paramTypes, targetType);
         EClassifier rt = getExtensionReturnType(extension, ctx, issues, paramTypes, targetType);
-        if (rt != null) {
-        	// [AS] This can be only "contextual" extension call - see comment below. 
-        	return createAnalyzeTrace(ctx, new OperationCallTrace(rt, OperationCallTrace.getParamTypes(extension, ctx), OperationCallTrace.getNativeLibraryName(extension), Type.EXTENSION_REF));
+		if (rt != null) {
+			// [AS] This can be only "contextual" extension call - see comment
+			// below.
+			return createAnalyzeTrace(ctx, new OperationCallTrace(rt, OperationCallTrace.getParamTypes(extension, ctx), OperationCallTrace.getNativeLibraryName(extension), Type.EXTENSION_REF,
+					OperationCallTrace.isStaticQvtoCall(ctx, extension)));
 		} else if (issueSize < issues.size()) {
 			return null;
 		}
@@ -222,7 +224,7 @@ public class OperationCall extends FeatureCall {
                 if (BuiltinMetaModel.isParameterizedType(rt)) {
                     rt = BuiltinMetaModel.getInnerType(rt);
                 }
-            	return createAnalyzeTrace(ctx, new OperationCallTrace(BuiltinMetaModel.getListType(rt), OperationCallTrace.getParamTypes(extension, ctx), targetType, OperationCallTrace.getNativeLibraryName(extension)));
+            	return createAnalyzeTrace(ctx, new OperationCallTrace(BuiltinMetaModel.getListType(rt), OperationCallTrace.getParamTypes(extension, ctx), targetType, OperationCallTrace.getNativeLibraryName(extension), OperationCallTrace.isStaticQvtoCall(ctx, extension)));
 			}
             additionalMsg = " or type '" + innerType + "'";
         }
