@@ -5,6 +5,10 @@ import org.eclipse.gmf.tests.xpand.migration.JavaExtensionsContainer;
 
 library JavaExtensionsCaller;
 
-helper String::nativeExtensionCall(parameter2 : Boolean) : String {
-	return self.simpleNativeExtension(parameter2)
+helper nativeExtensionCall(parameter : String, parameter2 : Boolean) : String {
+	return simpleNativeExtension(parameter, parameter2)
+}
+
+helper nativePolyExtensionCall(parameter : OclAny, parameter2 : Boolean) : String {
+	return parameter.simpleNativePolyExtension(parameter2)
 }

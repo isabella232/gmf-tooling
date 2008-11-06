@@ -5,3 +5,7 @@ extension org::eclipse::gmf::tests::xpand::migration::JavaExtensionsContainer;
 String nativeExtensionCall(String parameter, Boolean parameter2) :
 	simpleNativeExtension(parameter, parameter2)
 ;
+
+String nativePolyExtensionCall(Object parameter, Boolean parameter2) :
+	simpleNativePolyExtension(parameter, parameter2)
+;

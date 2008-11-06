@@ -2,86 +2,86 @@ modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
 
 library CollectionExpression;
 
-helper ecore::EPackage::collectCall() : Sequence(String) {
-	return self.eClassifiers->collect(cl | cl.name)
+helper collectCall(ePackage : ecore::EPackage) : Sequence(String) {
+	return ePackage.eClassifiers->collect(cl | cl.name)
 }
 
-helper ecore::EPackage::collectCallImplicitIterator() : Sequence(String) {
-	return self.eClassifiers->collect(element | element.name)
+helper collectCallImplicitIterator(ePackage : ecore::EPackage) : Sequence(String) {
+	return ePackage.eClassifiers->collect(element | element.name)
 }
 
-helper ecore::EPackage::selectCall(javaObject : OclAny) : Sequence(ecore::EClassifier) {
-	return self.eClassifiers->select(cl | cl.isInstance(javaObject))->asSequence()
+helper selectCall(ePackage : ecore::EPackage, javaObject : OclAny) : Sequence(ecore::EClassifier) {
+	return ePackage.eClassifiers->select(cl | cl.isInstance(javaObject))->asSequence()
 }
 
-helper ecore::EPackage::selectCallImplicitIterator(javaObject : OclAny) : Sequence(ecore::EClassifier) {
-	return self.eClassifiers->select(element | element.isInstance(javaObject))->asSequence()
+helper selectCallImplicitIterator(ePackage : ecore::EPackage, javaObject : OclAny) : Sequence(ecore::EClassifier) {
+	return ePackage.eClassifiers->select(element | element.isInstance(javaObject))->asSequence()
 }
 
-helper ecore::EPackage::rejectCall(javaObject : OclAny) : Sequence(ecore::EClassifier) {
-	return self.eClassifiers->reject(cl | cl.isInstance(javaObject))->asSequence()
+helper rejectCall(ePackage : ecore::EPackage, javaObject : OclAny) : Sequence(ecore::EClassifier) {
+	return ePackage.eClassifiers->reject(cl | cl.isInstance(javaObject))->asSequence()
 }
 
-helper ecore::EPackage::rejectCallImplicitIterator(javaObject : OclAny) : Sequence(ecore::EClassifier) {
-	return self.eClassifiers->reject(element | element.isInstance(javaObject))->asSequence()
+helper rejectCallImplicitIterator(ePackage : ecore::EPackage, javaObject : OclAny) : Sequence(ecore::EClassifier) {
+	return ePackage.eClassifiers->reject(element | element.isInstance(javaObject))->asSequence()
 }
 
-helper ecore::EPackage::existsCall(javaObject : OclAny) : Boolean {
-	return self.eClassifiers->exists(cl | cl.isInstance(javaObject))
+helper existsCall(ePackage : ecore::EPackage, javaObject : OclAny) : Boolean {
+	return ePackage.eClassifiers->exists(cl | cl.isInstance(javaObject))
 }
 
-helper ecore::EPackage::existsCallImplicitIterator(javaObject : OclAny) : Boolean {
-	return self.eClassifiers->exists(element | element.isInstance(javaObject))
+helper existsCallImplicitIterator(ePackage : ecore::EPackage, javaObject : OclAny) : Boolean {
+	return ePackage.eClassifiers->exists(element | element.isInstance(javaObject))
 }
 
-helper ecore::EPackage::notExistsCall(javaObject : OclAny) : Boolean {
-	return not self.eClassifiers->exists(cl | cl.isInstance(javaObject))
+helper notExistsCall(ePackage : ecore::EPackage, javaObject : OclAny) : Boolean {
+	return not ePackage.eClassifiers->exists(cl | cl.isInstance(javaObject))
 }
 
-helper ecore::EPackage::notExistsCallImplicitIterator(javaObject : OclAny) : Boolean {
-	return not (not self.eClassifiers->exists(element | element.isInstance(javaObject)))
+helper notExistsCallImplicitIterator(ePackage : ecore::EPackage, javaObject : OclAny) : Boolean {
+	return not (not ePackage.eClassifiers->exists(element | element.isInstance(javaObject)))
 }
 
-helper ecore::EPackage::forAllCall(javaObject : OclAny) : Boolean {
-	return self.eClassifiers->forAll(cl | cl.isInstance(javaObject))
+helper forAllCall(ePackage : ecore::EPackage, javaObject : OclAny) : Boolean {
+	return ePackage.eClassifiers->forAll(cl | cl.isInstance(javaObject))
 }
 
-helper ecore::EPackage::forAllCallImplicitIterator(javaObject : OclAny) : Boolean {
-	return self.eClassifiers->forAll(element | element.isInstance(javaObject))
+helper forAllCallImplicitIterator(ePackage : ecore::EPackage, javaObject : OclAny) : Boolean {
+	return ePackage.eClassifiers->forAll(element | element.isInstance(javaObject))
 }
 
-helper Set(ecore::EClassifier)::collectOnSet() : Collection(String) {
-	return self->collect(cl | cl.name)->asSet()
+helper collectOnSet(eClassifiers : Set(ecore::EClassifier)) : Collection(String) {
+	return eClassifiers->collect(cl | cl.name)->asSet()
 }
 
-helper Sequence(ecore::EClassifier)::collectOnList() : Collection(String) {
-	return self->collect(cl | cl.name)
+helper collectOnList(eClassifiers : Sequence(ecore::EClassifier)) : Collection(String) {
+	return eClassifiers->collect(cl | cl.name)
 }
 
-helper Collection(ecore::EClassifier)::collectOnCollection() : Collection(String) {
-	return self->collect(cl | cl.name)
+helper collectOnCollection(eClassifiers : Collection(ecore::EClassifier)) : Collection(String) {
+	return eClassifiers->collect(cl | cl.name)
 }
 
-helper Set(ecore::EClassifier)::selectOnSet(javaObject : OclAny) : Set(ecore::EClassifier) {
-	return self->select(cl | cl.isInstance(javaObject))
+helper selectOnSet(eClassifiers : Set(ecore::EClassifier), javaObject : OclAny) : Set(ecore::EClassifier) {
+	return eClassifiers->select(cl | cl.isInstance(javaObject))
 }
 
-helper Sequence(ecore::EClassifier)::selectOnList(javaObject : OclAny) : Sequence(ecore::EClassifier) {
-	return self->select(cl | cl.isInstance(javaObject))
+helper selectOnList(eClassifiers : Sequence(ecore::EClassifier), javaObject : OclAny) : Sequence(ecore::EClassifier) {
+	return eClassifiers->select(cl | cl.isInstance(javaObject))
 }
 
-helper Collection(ecore::EClassifier)::selectOnCollection(javaObject : OclAny) : Collection(ecore::EClassifier) {
-	return self->select(cl | cl.isInstance(javaObject))
+helper selectOnCollection(eClassifiers : Collection(ecore::EClassifier), javaObject : OclAny) : Collection(ecore::EClassifier) {
+	return eClassifiers->select(cl | cl.isInstance(javaObject))
 }
 
-helper Set(ecore::EClassifier)::rejectOnSet(javaObject : OclAny) : Set(ecore::EClassifier) {
-	return self->reject(cl | cl.isInstance(javaObject))
+helper rejectOnSet(eClassifiers : Set(ecore::EClassifier), javaObject : OclAny) : Set(ecore::EClassifier) {
+	return eClassifiers->reject(cl | cl.isInstance(javaObject))
 }
 
-helper Sequence(ecore::EClassifier)::rejectOnList(javaObject : OclAny) : Sequence(ecore::EClassifier) {
-	return self->reject(cl | cl.isInstance(javaObject))
+helper rejectOnList(eClassifiers : Sequence(ecore::EClassifier), javaObject : OclAny) : Sequence(ecore::EClassifier) {
+	return eClassifiers->reject(cl | cl.isInstance(javaObject))
 }
 
-helper Collection(ecore::EClassifier)::rejectOnCollection(javaObject : OclAny) : Collection(ecore::EClassifier) {
-	return self->reject(cl | cl.isInstance(javaObject))
+helper rejectOnCollection(eClassifiers : Collection(ecore::EClassifier), javaObject : OclAny) : Collection(ecore::EClassifier) {
+	return eClassifiers->reject(cl | cl.isInstance(javaObject))
 }

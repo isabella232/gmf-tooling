@@ -4,6 +4,6 @@ modeltype fakeURI_1 uses "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.
 
 library ImportedModels;
 
-helper ecore::EClass::getDummyEClass() : ecore::EClass {
-	return self
+helper getDummyEClass(param : ecore::EClass) : ecore::EClass {
+	return param
 }

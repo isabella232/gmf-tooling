@@ -80,6 +80,10 @@ public class MigrationTestsAdapterFactory extends AdapterFactoryImpl {
 				return createChildAdapter();
 			}
 			@Override
+			public Adapter caseSubContainer(SubContainer object) {
+				return createSubContainerAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -124,6 +128,20 @@ public class MigrationTestsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createChildAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.tests.xpand.migration.testModel.SubContainer <em>Sub Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.tests.xpand.migration.testModel.SubContainer
+	 * @generated
+	 */
+	public Adapter createSubContainerAdapter() {
 		return null;
 	}
 

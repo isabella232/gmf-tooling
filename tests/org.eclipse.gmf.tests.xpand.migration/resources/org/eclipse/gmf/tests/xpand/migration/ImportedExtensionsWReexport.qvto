@@ -4,6 +4,6 @@ import org.eclipse.gmf.tests.xpand.migration.ImportedExtensionsImport3;
 
 library ImportedExtensionsWReexport;
 
-helper String::getImportedString() : String {
-	return self.getImportedString1()
+helper getImportedString(param : String) : String {
+	return getImportedString1(param)
 }

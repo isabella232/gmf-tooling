@@ -162,6 +162,89 @@ public interface MigrationTestsPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.tests.xpand.migration.testModel.impl.SubContainerImpl <em>Sub Container</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.tests.xpand.migration.testModel.impl.SubContainerImpl
+	 * @see org.eclipse.gmf.tests.xpand.migration.testModel.impl.MigrationTestsPackageImpl#getSubContainer()
+	 * @generated
+	 */
+	int SUB_CONTAINER = 2;
+
+	/**
+	 * The feature id for the '<em><b>Singleton Child</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUB_CONTAINER__SINGLETON_CHILD = CONTAINER__SINGLETON_CHILD;
+
+	/**
+	 * The feature id for the '<em><b>Singleton Child Constrained</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUB_CONTAINER__SINGLETON_CHILD_CONSTRAINED = CONTAINER__SINGLETON_CHILD_CONSTRAINED;
+
+	/**
+	 * The feature id for the '<em><b>Ordered Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUB_CONTAINER__ORDERED_CHILDREN = CONTAINER__ORDERED_CHILDREN;
+
+	/**
+	 * The feature id for the '<em><b>Unique Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUB_CONTAINER__UNIQUE_CHILDREN = CONTAINER__UNIQUE_CHILDREN;
+
+	/**
+	 * The feature id for the '<em><b>Ordered Unique Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUB_CONTAINER__ORDERED_UNIQUE_CHILDREN = CONTAINER__ORDERED_UNIQUE_CHILDREN;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUB_CONTAINER__CHILDREN = CONTAINER__CHILDREN;
+
+	/**
+	 * The feature id for the '<em><b>It</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUB_CONTAINER__IT = CONTAINER__IT;
+
+	/**
+	 * The number of structural features of the '<em>Sub Container</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUB_CONTAINER_FEATURE_COUNT = CONTAINER_FEATURE_COUNT + 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.tests.xpand.migration.testModel.Container <em>Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -257,6 +340,16 @@ public interface MigrationTestsPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getChild();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.tests.xpand.migration.testModel.SubContainer <em>Sub Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Sub Container</em>'.
+	 * @see org.eclipse.gmf.tests.xpand.migration.testModel.SubContainer
+	 * @generated
+	 */
+	EClass getSubContainer();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -355,6 +448,16 @@ public interface MigrationTestsPackage extends EPackage {
 		 * @generated
 		 */
 		EClass CHILD = eINSTANCE.getChild();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.gmf.tests.xpand.migration.testModel.impl.SubContainerImpl <em>Sub Container</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.gmf.tests.xpand.migration.testModel.impl.SubContainerImpl
+		 * @see org.eclipse.gmf.tests.xpand.migration.testModel.impl.MigrationTestsPackageImpl#getSubContainer()
+		 * @generated
+		 */
+		EClass SUB_CONTAINER = eINSTANCE.getSubContainer();
 
 	}
 

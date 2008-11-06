@@ -23,5 +23,6 @@
       <genOperations ecoreOperation="MigrationTests.ecore#//Container/childrenOp"/>
     </genClasses>
     <genClasses ecoreClass="MigrationTests.ecore#//Child"/>
+    <genClasses ecoreClass="MigrationTests.ecore#//SubContainer"/>
   </genPackages>
 </genmodel:GenModel>

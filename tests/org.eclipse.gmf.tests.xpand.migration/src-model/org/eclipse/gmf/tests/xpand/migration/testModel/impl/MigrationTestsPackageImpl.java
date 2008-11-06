@@ -17,6 +17,7 @@ import org.eclipse.gmf.tests.xpand.migration.testModel.Child;
 import org.eclipse.gmf.tests.xpand.migration.testModel.Container;
 import org.eclipse.gmf.tests.xpand.migration.testModel.MigrationTestsFactory;
 import org.eclipse.gmf.tests.xpand.migration.testModel.MigrationTestsPackage;
+import org.eclipse.gmf.tests.xpand.migration.testModel.SubContainer;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,6 +39,13 @@ public class MigrationTestsPackageImpl extends EPackageImpl implements Migration
 	 * @generated
 	 */
 	private EClass childEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass subContainerEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -193,6 +201,15 @@ public class MigrationTestsPackageImpl extends EPackageImpl implements Migration
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getSubContainer() {
+		return subContainerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public MigrationTestsFactory getMigrationTestsFactory() {
 		return (MigrationTestsFactory)getEFactoryInstance();
 	}
@@ -226,6 +243,8 @@ public class MigrationTestsPackageImpl extends EPackageImpl implements Migration
 		createEAttribute(containerEClass, CONTAINER__IT);
 
 		childEClass = createEClass(CHILD);
+
+		subContainerEClass = createEClass(SUB_CONTAINER);
 	}
 
 	/**
@@ -256,6 +275,7 @@ public class MigrationTestsPackageImpl extends EPackageImpl implements Migration
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		subContainerEClass.getESuperTypes().add(this.getContainer());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(containerEClass, Container.class, "Container", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -280,6 +300,8 @@ public class MigrationTestsPackageImpl extends EPackageImpl implements Migration
 		addEOperation(containerEClass, this.getChild(), "childrenOp", 1, -1, !IS_UNIQUE, !IS_ORDERED);
 
 		initEClass(childEClass, Child.class, "Child", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(subContainerEClass, SubContainer.class, "SubContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

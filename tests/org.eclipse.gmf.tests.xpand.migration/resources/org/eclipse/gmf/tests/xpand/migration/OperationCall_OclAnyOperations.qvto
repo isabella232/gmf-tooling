@@ -4,50 +4,50 @@ modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
 
 library OperationCall_OclAnyOperations;
 
-helper OclAny::objectCompareTo(another : OclAny) : Boolean {
-	return self.xpandCompareTo(another)
+helper objectCompareTo(eJavaObject : OclAny, another : OclAny) : Boolean {
+	return eJavaObject.xpandCompareTo(another)
 }
 
-helper OclAny::objectToString() : String {
-	return self.repr()
+helper objectToString(eJavaObject : OclAny) : String {
+	return eJavaObject.repr()
 }
 
-helper OclAny::objectEQ(another : OclAny) : Boolean {
-	return self = another
+helper objectEQ(eJavaObject : OclAny, another : OclAny) : Boolean {
+	return eJavaObject = another
 }
 
-helper OclAny::objectNotEQ(another : OclAny) : Boolean {
-	return self <> another
+helper objectNotEQ(eJavaObject : OclAny, another : OclAny) : Boolean {
+	return eJavaObject <> another
 }
 
-helper ecore::EEnumerator::enumeratorCompareTo(another : OclAny) : Boolean {
-	return self.xpandCompareTo(another)
+helper enumeratorCompareTo(enumerator : ecore::EEnumerator, another : OclAny) : Boolean {
+	return enumerator.xpandCompareTo(another)
 }
 
-helper ecore::EEnumerator::enumeratorToString() : String {
-	return self.repr()
+helper enumeratorToString(enumerator : ecore::EEnumerator) : String {
+	return enumerator.repr()
 }
 
-helper ecore::EEnumerator::enumeratorEQ(another : OclAny) : Boolean {
-	return self = another
+helper enumeratorEQ(enumerator : ecore::EEnumerator, another : OclAny) : Boolean {
+	return enumerator = another
 }
 
-helper ecore::EEnumerator::enumeratorNotEQ(another : OclAny) : Boolean {
-	return self <> another
+helper enumeratorNotEQ(enumerator : ecore::EEnumerator, another : OclAny) : Boolean {
+	return enumerator <> another
 }
 
-helper ecore::EEnum::enumCompareTo(another : OclAny) : Boolean {
-	return self.xpandCompareTo(another)
+helper enumCompareTo(enum : ecore::EEnum, another : OclAny) : Boolean {
+	return enum.xpandCompareTo(another)
 }
 
-helper ecore::EEnum::enumToString() : String {
-	return self.repr()
+helper enumToString(enum : ecore::EEnum) : String {
+	return enum.repr()
 }
 
-helper ecore::EEnum::enumEQ(another : OclAny) : Boolean {
-	return self = another
+helper enumEQ(enum : ecore::EEnum, another : OclAny) : Boolean {
+	return enum = another
 }
 
-helper ecore::EEnum::enumNotEQ(another : OclAny) : Boolean {
-	return self <> another
+helper enumNotEQ(enum : ecore::EEnum, another : OclAny) : Boolean {
+	return enum <> another
 }

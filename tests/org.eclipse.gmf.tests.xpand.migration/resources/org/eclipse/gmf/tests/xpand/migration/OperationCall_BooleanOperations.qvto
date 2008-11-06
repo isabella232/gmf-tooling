@@ -2,22 +2,22 @@ import library XpandOclAnyOperations;
 
 library OperationCall_BooleanOperations;
 
-helper Boolean::booleanNegation() : Boolean {
-	return not self
+helper booleanNegation(boolean : Boolean) : Boolean {
+	return not boolean
 }
 
-helper Boolean::booleanCompareTo(another : OclAny) : Boolean {
-	return self.xpandCompareTo(another)
+helper booleanCompareTo(boolean : Boolean, another : OclAny) : Boolean {
+	return boolean.xpandCompareTo(another)
 }
 
-helper Boolean::booleanToString() : String {
-	return self.repr()
+helper booleanToString(boolean : Boolean) : String {
+	return boolean.repr()
 }
 
-helper Boolean::booleanEQ(another : OclAny) : Boolean {
-	return self = another
+helper booleanEQ(boolean : Boolean, another : OclAny) : Boolean {
+	return boolean = another
 }
 
-helper Boolean::booleanNotEQ(another : OclAny) : Boolean {
-	return self <> another
+helper booleanNotEQ(boolean : Boolean, another : OclAny) : Boolean {
+	return boolean <> another
 }

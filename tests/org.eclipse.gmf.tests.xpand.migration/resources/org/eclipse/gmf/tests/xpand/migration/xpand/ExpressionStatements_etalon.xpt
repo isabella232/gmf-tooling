@@ -11,9 +11,9 @@
 «ENDDEFINE»
 
 «DEFINE implicitExtensionParameter FOR ecore::EClass-»
-«self.getEClassName()-»	
+«getEClassName(self)-»	
 «ENDDEFINE»
 
 «DEFINE explicitExtensionParameter FOR ecore::EClass-»
-«self.getEClassName()-»	
+«getEClassName(self)-»	
 «ENDDEFINE»

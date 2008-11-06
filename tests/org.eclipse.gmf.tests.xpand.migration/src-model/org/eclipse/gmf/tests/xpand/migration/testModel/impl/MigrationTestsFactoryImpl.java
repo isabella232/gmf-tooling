@@ -62,6 +62,7 @@ public class MigrationTestsFactoryImpl extends EFactoryImpl implements Migration
 		switch (eClass.getClassifierID()) {
 			case MigrationTestsPackage.CONTAINER: return createContainer();
 			case MigrationTestsPackage.CHILD: return createChild();
+			case MigrationTestsPackage.SUB_CONTAINER: return createSubContainer();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -85,6 +86,16 @@ public class MigrationTestsFactoryImpl extends EFactoryImpl implements Migration
 	public Child createChild() {
 		ChildImpl child = new ChildImpl();
 		return child;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubContainer createSubContainer() {
+		SubContainerImpl subContainer = new SubContainerImpl();
+		return subContainer;
 	}
 
 	/**

@@ -2,26 +2,26 @@ modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
 
 library FixedProblems;
 
-helper Collection(ecore::EPackage)::collectAllPackages() : Sequence(ecore::EPackage) {
-	return let collector : Sequence(ecore::EPackage) = self->collect(it | it.oclAsType(ecore::EPackage))->asSequence() in collector->union(collector->collect(pkg | pkg.eSubpackages->collectAllPackages())->flatten())
+helper collectAllPackages(ePackages : Collection(ecore::EPackage)) : Sequence(ecore::EPackage) {
+	return let collector : Sequence(ecore::EPackage) = ePackages->collect(it | it.oclAsType(ecore::EPackage))->asSequence() in collector->union(collector->collect(pkg | collectAllPackages(pkg.eSubpackages))->flatten())
 }
 
-helper ecore::EPackage::convertParameterCollection() : Boolean {
-	return self.eClassifiers->asSequence()->otherExtension()
+helper convertParameterCollection(ePackage : ecore::EPackage)  : Boolean {
+	return otherExtension(ePackage.eClassifiers->asSequence())
 }
 
-helper Sequence(ecore::EClassifier)::otherExtension() : Boolean {
+helper otherExtension(eClasses : Sequence(ecore::EClassifier)) : Boolean {
 	return true
 }
 
-helper Sequence(ecore::EClass)::getEssentialVisualChildren(eOperations : Sequence(ecore::EOperation)) : Collection(ecore::ENamedElement) {
-	return ((Sequence { })->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->union(self))->select(it_1 | it_1.oclIsKindOf(ecore::ENamedElement))->collect(it_1 | it_1.oclAsType(ecore::ENamedElement))->union(eOperations)
+helper getEssentialVisualChildren(eClasses : Sequence(ecore::EClass), eOperations : Sequence(ecore::EOperation)) : Collection(ecore::ENamedElement) {
+	return ((Sequence { })->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->union(eClasses))->select(it_1 | it_1.oclIsKindOf(ecore::ENamedElement))->collect(it_1 | it_1.oclAsType(ecore::ENamedElement))->union(eOperations)
 }
 
-helper ecore::EPackage::getEClasses() : Collection(ecore::EClass) {
-	return (self.eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->asOrderedSet()
+helper getEClasses(ePackage : ecore::EPackage)  : Collection(ecore::EClass) {
+	return (ePackage.eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->asOrderedSet()
 }
 
-helper ecore::EReference::isUnlimited() : Boolean {
-	return self.upperBound.oclAsType(Integer) > 0
+helper isUnlimited(eReference : ecore::EReference) : Boolean {
+	return eReference.upperBound.oclAsType(Integer) > 0
 }

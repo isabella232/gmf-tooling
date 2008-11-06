@@ -29,4 +29,5 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="it" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Child"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SubContainer" eSuperTypes="#//Container"/>
 </ecore:EPackage>

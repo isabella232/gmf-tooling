@@ -1,13 +1,13 @@
 library BooleanOperation;
 
-helper Boolean::andOperation(right : Boolean) : Boolean {
-	return self and right
+helper andOperation(left : Boolean, right : Boolean) : Boolean {
+	return left and right
 }
 
-helper Boolean::orOperation(right : Boolean) : Boolean {
-	return self or right
+helper orOperation(left : Boolean, right : Boolean) : Boolean {
+	return left or right
 }
 
-helper Boolean::impliesOperation(right : Boolean) : Boolean {
-	return self implies right
+helper impliesOperation(left : Boolean, right : Boolean) : Boolean {
+	return left implies right
 }

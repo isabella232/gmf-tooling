@@ -4,126 +4,126 @@ modeltype testModel uses "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.
 
 library FeatureCall;
 
-helper ecore::EClass::featureCall() : String {
-	return self.name
+helper featureCall(eClass : ecore::EClass) : String {
+	return eClass.name
 }
 
 helper enumLiteralCall() : genModel_1::GenProviderKind {
 	return genModel_1::GenProviderKind::Singleton
 }
 
-helper genModel_1::GenProviderKind::enumLiteralValueCall() : Boolean {
-	return genModel_1::GenProviderKind::Singleton = self
+helper enumLiteralValueCall(otherLiteral : genModel_1::GenProviderKind) : Boolean {
+	return genModel_1::GenProviderKind::Singleton = otherLiteral
 }
 
-helper genModel_1::GenProviderKind::enumLiteralLiteralCall() : Boolean {
-	return genModel_1::GenProviderKind::Singleton = self
+helper enumLiteralLiteralCall(otherLiteral : genModel_1::GenProviderKind) : Boolean {
+	return genModel_1::GenProviderKind::Singleton = otherLiteral
 }
 
-helper Sequence(ecore::EClass)::listParameterCall() : Sequence(ecore::EClass) {
-	return self
+helper listParameterCall(param : Sequence(ecore::EClass)) : Sequence(ecore::EClass) {
+	return param
 }
 
-helper Set(ecore::EClass)::setParameterCall() : Set(ecore::EClass) {
-	return self
+helper setParameterCall(param : Set(ecore::EClass)) : Set(ecore::EClass) {
+	return param
 }
 
-helper Collection(ecore::EClass)::collectionParameterCall() : Collection(ecore::EClass) {
-	return self
+helper collectionParameterCall(param : Collection(ecore::EClass)) : Collection(ecore::EClass) {
+	return param
 }
 
-helper testModel::Container::getSingletonChild() : testModel::Child {
-	return self.singletonChild
+helper getSingletonChild(param : testModel::Container) : testModel::Child {
+	return param.singletonChild
 }
 
-helper testModel::Container::getSingletonChildConstrained() : testModel::Child {
-	return self.singletonChildConstrained
+helper getSingletonChildConstrained(param : testModel::Container) : testModel::Child {
+	return param.singletonChildConstrained
 }
 
-helper testModel::Container::getOrderedChildren() : Sequence(testModel::Child) {
-	return self.orderedChildren
+helper getOrderedChildren(param : testModel::Container) : Sequence(testModel::Child) {
+	return param.orderedChildren
 }
 
-helper testModel::Container::getUniqueChildren() : Set(testModel::Child) {
-	return self.uniqueChildren
+helper getUniqueChildren(param : testModel::Container) : Set(testModel::Child) {
+	return param.uniqueChildren
 }
 
-helper testModel::Container::getOrderedUniqueChildren() : Sequence(testModel::Child) {
-	return self.orderedUniqueChildren->asSequence()
+helper getOrderedUniqueChildren(param : testModel::Container) : Sequence(testModel::Child) {
+	return param.orderedUniqueChildren->asSequence()
 }
 
-helper testModel::Container::getChildren() : Collection(testModel::Child) {
-	return self.children
+helper getChildren(param : testModel::Container) : Collection(testModel::Child) {
+	return param.children
 }
 
-helper Sequence(testModel::Container)::getSingletonChildOfList() : Sequence(testModel::Child) {
-	return self.singletonChild
+helper getSingletonChildOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChild
 }
 
-helper Set(testModel::Container)::getSingletonChildOfSet() : Sequence(testModel::Child) {
-	return self.singletonChild->asSequence()
+helper getSingletonChildOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChild->asSequence()
 }
 
-helper Collection(testModel::Container)::getSingletonChildOfCollection() : Sequence(testModel::Child) {
-	return self.singletonChild->asSequence()
+helper getSingletonChildOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChild->asSequence()
 }
 
-helper Sequence(testModel::Container)::getSingletonChildConstrainedOfList() : Sequence(testModel::Child) {
-	return self.singletonChildConstrained
+helper getSingletonChildConstrainedOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChildConstrained
 }
 
-helper Set(testModel::Container)::getSingletonChildConstrainedOfSet() : Sequence(testModel::Child) {
-	return self.singletonChildConstrained->asSequence()
+helper getSingletonChildConstrainedOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChildConstrained->asSequence()
 }
 
-helper Collection(testModel::Container)::getSingletonChildConstrainedOfCollection() : Sequence(testModel::Child) {
-	return self.singletonChildConstrained->asSequence()
+helper getSingletonChildConstrainedOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChildConstrained->asSequence()
 }
 
-helper Sequence(testModel::Container)::getOrderedChildrenOfList() : Sequence(testModel::Child) {
-	return self.orderedChildren
+helper getOrderedChildrenOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedChildren
 }
 
-helper Set(testModel::Container)::getOrderedChildrenOfSet() : Sequence(testModel::Child) {
-	return self.orderedChildren->asSequence()
+helper getOrderedChildrenOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedChildren->asSequence()
 }
 
-helper Collection(testModel::Container)::getOrderedChildrenOfCollection() : Sequence(testModel::Child) {
-	return self.orderedChildren->asSequence()
+helper getOrderedChildrenOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedChildren->asSequence()
 }
 
-helper Sequence(testModel::Container)::getUniqueChildrenOfList() : Sequence(testModel::Child) {
-	return self.uniqueChildren
+helper getUniqueChildrenOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.uniqueChildren
 }
 
-helper Set(testModel::Container)::getUniqueChildrenOfSet() : Sequence(testModel::Child) {
-	return self.uniqueChildren->asSequence()
+helper getUniqueChildrenOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.uniqueChildren->asSequence()
 }
 
-helper Collection(testModel::Container)::getUniqueChildrenOfCollection() : Sequence(testModel::Child) {
-	return self.uniqueChildren->asSequence()
+helper getUniqueChildrenOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.uniqueChildren->asSequence()
 }
 
-helper Sequence(testModel::Container)::getOrderedUniqueChildrenOfList() : Sequence(testModel::Child) {
-	return self.orderedUniqueChildren
+helper getOrderedUniqueChildrenOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedUniqueChildren
 }
 
-helper Set(testModel::Container)::getOrderedUniqueChildrenOfSet() : Sequence(testModel::Child) {
-	return self.orderedUniqueChildren->asSequence()
+helper getOrderedUniqueChildrenOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedUniqueChildren->asSequence()
 }
 
-helper Collection(testModel::Container)::getOrderedUniqueChildrenOfCollection() : Sequence(testModel::Child) {
-	return self.orderedUniqueChildren->asSequence()
+helper getOrderedUniqueChildrenOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedUniqueChildren->asSequence()
 }
 
-helper Sequence(testModel::Container)::getChildrenOfList() : Sequence(testModel::Child) {
-	return self.children
+helper getChildrenOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.children
 }
 
-helper Set(testModel::Container)::getChildrenOfSet() : Sequence(testModel::Child) {
-	return self.children->asSequence()
+helper getChildrenOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.children->asSequence()
 }
 
-helper Collection(testModel::Container)::getChildrenOfCollection() : Sequence(testModel::Child) {
-	return self.children->asSequence()
+helper getChildrenOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.children->asSequence()
 }

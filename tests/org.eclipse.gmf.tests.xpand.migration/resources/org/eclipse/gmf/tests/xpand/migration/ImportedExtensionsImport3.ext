@@ -1,5 +1,5 @@
 import "http://www.eclipse.org/emf/2002/Ecore";
 
-String getImportedString3(String param) :
-	param
+Boolean nonPolymorphycExtension1(ecore::EClassifier eClass, ecore::EClass subType) :
+	false
 ;
