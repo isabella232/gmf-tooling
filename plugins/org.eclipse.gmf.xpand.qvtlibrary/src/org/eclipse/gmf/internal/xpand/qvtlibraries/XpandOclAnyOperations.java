@@ -11,23 +11,13 @@
  */
 package org.eclipse.gmf.internal.xpand.qvtlibraries;
 
-import org.eclipse.ocl.types.AnyType;
-import org.eclipse.ocl.types.PrimitiveType;
+import org.eclipse.m2m.qvt.oml.blackbox.java.Operation;
+import org.eclipse.m2m.qvt.oml.blackbox.java.Operation.Kind;
 
 public class XpandOclAnyOperations {
 
-	public static class Metainfo {
-
-		private static final String OCLANY_CONTEXT = Activator.OCL_LIBRARY_PACKAGE + Activator.OCL_PATH_SEPARATOR + AnyType.SINGLETON_NAME;
-
-		private static final String[] COMPARE_TO = new String[] { OCLANY_CONTEXT, AnyType.SINGLETON_NAME, PrimitiveType.BOOLEAN_NAME };
-
-		public static String[] xpandCompareTo(Object self, Object parameter) {
-			return COMPARE_TO;
-		}
-	}
-
-	public Boolean xpandCompareTo(Object self, Object parameter) {
+	@Operation(contextual = true, kind = Kind.HELPER)
+	public static Boolean xpandCompareTo(Object self, Object parameter) {
 		if (self == null) {
 			return parameter == null;
 		}
