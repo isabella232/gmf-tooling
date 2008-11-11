@@ -89,10 +89,7 @@
          commandId="«EXPAND commandIdentifier»"
          class="«qualifiedClassName»">
          <enabledWhen>
-            <and>
-               <test property="org.eclipse.core.runtime.bundleState" args="«owner.editorGen.plugin.iD»" value="ACTIVE"/>
-               <with variable="activePartId"><equals value="«owner.editorGen.editor.iD»"/></with>
-            </and>
+           <with variable="activePartId"><equals value="«owner.editorGen.editor.iD»"/></with>
          </enabledWhen>
       </handler>
 «ENDDEFINE»
@@ -139,14 +136,13 @@
 
 «DEFINE menuCondition FOR gmfgen::GenContextMenu-»
                <and>
-                  <test property="org.eclipse.core.runtime.bundleState" args="«editorGen.plugin.iD»" value="ACTIVE"/>
                   <with variable="activePartId"><equals value="«editorGen.editor.iD»"/></with>
-                  <with variable="selection">«IF context.size() > 1»<or>«ENDIF»
+                  <with variable="selection"><iterate«IF context.size() > 1» operator="or"«ENDIF» ifEmpty="false">
 «REM»XXX, perhaps, <adapt type="EditPart">?«ENDREM-»
 «FOREACH context AS de-»
                      <instanceof value="«de.getEditPartQualifiedClassName()»"/>
 «ENDFOREACH-»
-                  «IF context.size() > 1»</or>«ENDIF»</with>
+                  </iterate></with>
                </and>
 «ENDDEFINE»
 
