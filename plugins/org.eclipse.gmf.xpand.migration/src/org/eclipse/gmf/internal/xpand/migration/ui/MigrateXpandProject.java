@@ -207,7 +207,7 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 	}
 
 	private StringBuilder getNativeLibraryExtensionPoint(List<CharSequence> nativeLibraryDeclarations) {
-		StringBuilder result = new StringBuilder("\t<extension point=\"org.eclipse.m2m.qvt.oml.ocl.libraries\">");
+		StringBuilder result = new StringBuilder("\t<extension point=\"org.eclipse.m2m.qvt.oml.javaBlackboxUnits\">");
 		result.append(LF);
 		for (CharSequence declaration : nativeLibraryDeclarations) {
 			result.append("\t\t");

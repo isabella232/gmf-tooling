@@ -78,11 +78,11 @@ public class StandardLibraryImports extends AbstractImportsManager {
 
 	private static class MapEntry {
 
-		private static final String STRING_LIBRARY_NAME = "XpandStringOperations";
+		private static final String STRING_LIBRARY_NAME = "xpt::StringOperations";
 
-		private static final String OCLANY_LIBRARY_NAME = "XpandOclAnyOperations";
+		private static final String OCLANY_LIBRARY_NAME = "xpt::OclAnyOperations";
 
-		private static final String INTEGER_LIBRARY_NAME = "XpandIntegerOperations";
+		private static final String INTEGER_LIBRARY_NAME = "xpt::IntegerOperations";
 
 		private String qvtOperationName;
 

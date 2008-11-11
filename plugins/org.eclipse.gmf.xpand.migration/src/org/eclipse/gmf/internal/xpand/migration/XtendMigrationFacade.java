@@ -26,8 +26,6 @@ import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
-import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
-import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException.Type;
 import org.eclipse.gmf.internal.xpand.xtend.ast.CreateExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.ExpressionExtensionStatement;
@@ -35,8 +33,6 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 import org.eclipse.gmf.internal.xpand.xtend.ast.JavaExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.WorkflowSlotExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
-import org.eclipse.ocl.ecore.VoidType;
-import org.eclipse.ocl.ecore.internal.OCLStandardLibraryImpl;
 
 public class XtendMigrationFacade {
 
@@ -138,14 +134,6 @@ public class XtendMigrationFacade {
 		injectModeltypeImports();
 		injectStdlibImports();
 		
-		nativeLibraryClassName = resourceName.replaceAll(SyntaxConstants.NS_DELIM, JavaCs.DOT);
-		if (nativeLibraryClassName.lastIndexOf(JavaCs.DOT) > 0) {
-			nativeLibraryPackageName = nativeLibraryClassName.substring(0, nativeLibraryClassName.lastIndexOf(JavaCs.DOT));
-			nativeLibraryClassName = nativeLibraryClassName.substring(nativeLibraryClassName.lastIndexOf(JavaCs.DOT) + 1);
-		}
-		if (nativeLibraryClassName.length() == 0) {
-			throw new MigrationException(Type.UNABLE_TO_DETECT_NATIVE_LIBRARY_CLASS_NAME, "Resource name: \"" + resourceName + "\"");
-		}
 		return output;
 	}
 	
@@ -158,13 +146,10 @@ public class XtendMigrationFacade {
 		}
 		StringBuilder result = new StringBuilder();
 		result.append("<library class=\"");
-		String nativeLibraryFullClassName = getNativeLibraryFullClassName();
-		result.append(nativeLibraryFullClassName);
-		result.append("\" id=\"");
-		result.append(getNativeLibraryID(nativeLibraryFullClassName));
+		result.append(getNativeLibraryFullClassName());
 		result.append("\">");
 		for (String	metamodel : importedMetamodels) {
-			result.append("<inMetamodel uri=\"");
+			result.append("<metamodel nsURI=\"");
 			result.append(metamodel);
 			result.append("\"/>");
 		}
@@ -173,13 +158,6 @@ public class XtendMigrationFacade {
 		return result;
 	}
 	
-	private String getNativeLibraryID(String nativeLibraryFullClassName) {
-		if (nativeLibraryFullClassName.indexOf(".") == -1) {
-			return "_" + nativeLibraryClassName;
-		}
-		return nativeLibraryFullClassName.replaceAll("\\.", "_");
-	}
-
 	private String getNativeLibraryFullClassName() {
 		return getNativeLibraryPackageName().length() == 0 ? getNativeLibraryClassName() : getNativeLibraryPackageName() + JavaCs.DOT + getNativeLibraryClassName();
 	}
@@ -200,18 +178,14 @@ public class XtendMigrationFacade {
 			result.append(";");
 			result.append(lf);
 		}
+		result.append("import org.eclipse.m2m.qvt.oml.blackbox.java.Operation;");
+		result.append(lf);
+		result.append("import org.eclipse.m2m.qvt.oml.blackbox.java.Operation.Kind;");
+		result.append(lf);
+		
 		result.append("public class ");
 		result.append(getNativeLibraryClassName());
 		result.append(" {");
-		result.append(lf);
-		
-		result.append("public static class Metainfo {");
-		result.append(lf);
-		for (JavaExtensionDescriptor descriptor : javaExtensionDescriptors) {
-			addMetainfoMethod(descriptor, result);
-			result.append(lf);
-		}
-		result.append("}");
 		result.append(lf);
 		
 		for (JavaExtensionDescriptor descriptor : javaExtensionDescriptors) {
@@ -224,11 +198,32 @@ public class XtendMigrationFacade {
 	}
 	
 	private void addNativeMethod(JavaExtensionDescriptor descriptor, StringBuilder result) throws MigrationException {
+		result.append("@Operation(contextual = ");
+		result.append(!descriptor.isStaticQvtoCall());
+		result.append(", kind = Kind.HELPER)");
+		result.append(ExpressionMigrationFacade.LF);
 		result.append("public ");
-		result.append(getJavaType(descriptor.getReturnType()));
+		if (descriptor.isStaticQvtoCall()) {
+			result.append("static ");
+		}
+		EClassifier extensionReturnType = descriptor.getReturnType();
+		result.append(getJavaType(extensionReturnType));
 		result.append(" ");
 		addNativeMethodSignature(descriptor, result);
 		result.append(" { return ");
+		if (BuiltinMetaModel.isParameterizedType(extensionReturnType)) {
+			result.append("org.eclipse.ocl.util.CollectionUtil.<");
+			result.append(getJavaType(BuiltinMetaModel.getInnerType(extensionReturnType)));
+			result.append("> ");
+			if (BuiltinMetaModelExt.isSetType(extensionReturnType)) {
+				result.append("createNewSet(");
+			} else if (BuiltinMetaModelExt.isListType(extensionReturnType)) {
+				result.append("createNewSequence(");
+			} else { // Collection
+				result.append("createNewBag(");
+			}
+			
+		}
 		result.append(descriptor.getClassName());
 		result.append(JavaCs.DOT);
 		result.append(descriptor.getMethodName());
@@ -251,8 +246,11 @@ public class XtendMigrationFacade {
 				result.append(")");
 			}
 		}
-		result.append("); ");
-		result.append("}");
+		result.append(")");
+		if (BuiltinMetaModel.isParameterizedType(extensionReturnType)) {
+			result.append(")");
+		}
+		result.append("; }");
 	}
 
 	private String getJavaType(EClassifier xpandType) throws MigrationException {
@@ -266,13 +264,18 @@ public class XtendMigrationFacade {
 			String instanceClassName = xpandType.getInstanceClassName();
 			return suppressJavaLang(instanceClassName);
 		}
-		if (BuiltinMetaModelExt.isSetType(xpandType)) {
-			return "java.util.Set";
-		} else if (BuiltinMetaModelExt.isListType(xpandType)) {
-			return "java.util.List";
-		} else if (BuiltinMetaModelExt.isCollectionType(xpandType)) {
-			return "java.util.Collection";
+		if (BuiltinMetaModel.isParameterizedType(xpandType)) {
+			EClassifier innerType = BuiltinMetaModel.getInnerType(xpandType);
+			String innerJavaType = getJavaType(innerType);
+			if (BuiltinMetaModelExt.isSetType(xpandType)) {
+				return "java.util.Set<" + innerJavaType + ">";
+			} else if (BuiltinMetaModelExt.isListType(xpandType)) {
+				return "java.util.List<" + innerJavaType + ">";
+			} else if (BuiltinMetaModelExt.isCollectionType(xpandType)) {
+				return "java.util.Collection<" + innerJavaType + ">";
+			}
 		}
+		
 		throw new MigrationException(Type.UNSUPPORTED_NATIVE_EXTENSION_TYPE, "Metamodel types without instanceClassName set are not supported for native extensions: " + xpandType.getName());
 	}
 
@@ -285,28 +288,6 @@ public class XtendMigrationFacade {
 			}
 		}
 		return instanceClassName;
-	}
-
-	private void addMetainfoMethod(JavaExtensionDescriptor descriptor, StringBuilder result) throws MigrationException {
-		result.append("public static String[] ");
-		addNativeMethodSignature(descriptor, result);
-		result.append(" { return new String[] {\"");
-		if (descriptor.isStaticQvtoCall()) {
-			result.append(OCLStandardLibraryImpl.stdlibPackage.getName());
-			result.append(OclCs.PATH_SEPARATOR); 
-			result.append(VoidType.SINGLETON_NAME);
-			result.append("\", \"");
-		}
-		
-		TypeManager nativeLibrariesTypeManager = new TypeManager();
-		nativeLibrariesTypeManager.setUseFQNameForPrimitiveTypes(true);
-		for (EClassifier parameterType : descriptor.getParameterTypes()) {
-			result.append(nativeLibrariesTypeManager.getQvtFQName(parameterType));
-			result.append("\", \"");
-		}
-		result.append(nativeLibrariesTypeManager.getQvtFQName(descriptor.getReturnType()));
-		result.append("\"");
-		result.append("}; }");
 	}
 
 	private void addNativeMethodSignature(JavaExtensionDescriptor descriptor, StringBuilder result) throws MigrationException {
@@ -338,7 +319,7 @@ public class XtendMigrationFacade {
 		StringBuilder sb = new StringBuilder();
 		for (String libraryName : stdLibImportsManager.getLibraries()) {
 			sb.append("import library ");
-			sb.append(libraryName);
+			sb.append(libraryName.replaceAll(SyntaxConstants.NS_DELIM, OclCs.NAMESPACE_SEPARATOR));
 			sb.append(";");
 			sb.append(ExpressionMigrationFacade.LF);
 		}
@@ -458,10 +439,18 @@ public class XtendMigrationFacade {
 		writeln(expressionContent.insert(expressionMigrationFacade.getReturnPosition(), "return "));
 	}
 
-	// TODO: java should be migrated separately from library - java class should
-	// be created with the additional declaration in plugin.xml
 	private void migrateJavaExtension(JavaExtensionStatement extension, MigrationExecutionContext ctx) throws MigrationException {
 		javaExtensionDescriptors.add(new JavaExtensionDescriptor(extension, ctx));
+		if (nativeLibraryClassName == null) {
+			nativeLibraryClassName = JavaExtensionDescriptor.getNativeLibraryName(extension).replaceAll(SyntaxConstants.NS_DELIM, JavaCs.DOT);
+			if (nativeLibraryClassName.lastIndexOf(JavaCs.DOT) > 0) {
+				nativeLibraryPackageName = nativeLibraryClassName.substring(0, nativeLibraryClassName.lastIndexOf(JavaCs.DOT));
+				nativeLibraryClassName = nativeLibraryClassName.substring(nativeLibraryClassName.lastIndexOf(JavaCs.DOT) + 1);
+			}
+			if (nativeLibraryClassName.length() == 0) {
+				throw new MigrationException(Type.UNABLE_TO_DETECT_NATIVE_LIBRARY_CLASS_NAME, "Resource name: \"" + resourceName + "\"");
+			}
+		}
 	}
 
 	private void migrateCreateExtension(CreateExtensionStatement extension) throws MigrationException {
@@ -486,74 +475,4 @@ public class XtendMigrationFacade {
 		output.append(ExpressionMigrationFacade.LF);
 	}
 	
-	class JavaExtensionDescriptor {
-
-		private String extensionName;
-
-		private String className;
-
-		private String methodName;
-
-		private EClassifier returnType;
-
-		private List<EClassifier> parameterTypes = new ArrayList<EClassifier>();
-		
-		private List<String> parameterNames = new ArrayList<String>();
-		
-		private List<String> javaParameterTypes = new ArrayList<String>();
-
-		private boolean staticQvtoCall;
-
-		public JavaExtensionDescriptor(JavaExtensionStatement javaExtension, MigrationExecutionContext ctx) {
-			extensionName = javaExtension.getName();
-			className = javaExtension.getJavaType().getValue();
-			methodName = javaExtension.getJavaMethod().getValue();
-
-			assert javaExtension.getReturnTypeIdentifier() != null;
-			returnType = ctx.getTypeForName(javaExtension.getReturnTypeIdentifier().getValue());
-			for (DeclaredParameter parameter : javaExtension.getFormalParameters()) {
-				parameterTypes.add(ctx.getTypeForName(parameter.getType().getValue()));
-				parameterNames.add(parameter.getName().getValue());
-			}
-			assert javaExtension.getFormalParameters().size() == javaExtension.getJavaParameterTypes().size();
-			for (Identifier paramType : javaExtension.getJavaParameterTypes()) {
-				javaParameterTypes.add(paramType.getValue());
-			}
-			staticQvtoCall = OperationCallTrace.isStaticQvtoCall(ctx, javaExtension);
-		}
-
-		public String getExtensionName() {
-			return extensionName;
-		}
-
-		public String getClassName() {
-			return className;
-		}
-
-		public String getMethodName() {
-			return methodName;
-		}
-
-		public EClassifier getReturnType() {
-			return returnType;
-		}
-
-		public List<EClassifier> getParameterTypes() {
-			return parameterTypes;
-		}
-		
-		public List<String> getParameterNames() {
-			return parameterNames;
-		}
-		
-		public List<String> getJavaParameterTypes() {
-			return javaParameterTypes;
-		}
-		
-		public boolean isStaticQvtoCall() {
-			return staticQvtoCall;
-		}
-
-	}
-
 }

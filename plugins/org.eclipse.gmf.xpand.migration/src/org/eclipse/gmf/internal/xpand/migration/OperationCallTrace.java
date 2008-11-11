@@ -12,7 +12,6 @@
 package org.eclipse.gmf.internal.xpand.migration;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +24,6 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
-import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
 import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 import org.eclipse.gmf.internal.xpand.xtend.ast.JavaExtensionStatement;
@@ -72,11 +70,7 @@ public class OperationCallTrace extends ExpressionAnalyzeTrace {
 
 	public static String getNativeLibraryName(Extension extension) {
 		if (extension instanceof JavaExtensionStatement) {
-			String fQName = ((JavaExtensionStatement) extension).getExtensionFile().getFullyQualifiedName();
-			if (fQName.indexOf(SyntaxConstants.NS_DELIM) == -1) {
-				return "_" + fQName;
-			}
-			return fQName.replaceAll(SyntaxConstants.NS_DELIM, "_");
+			return JavaExtensionDescriptor.getNativeLibraryName((JavaExtensionStatement) extension);
 		}
 		return null;
 	}
