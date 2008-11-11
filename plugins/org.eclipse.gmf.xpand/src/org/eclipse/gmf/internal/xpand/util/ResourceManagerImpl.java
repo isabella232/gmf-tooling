@@ -129,19 +129,22 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 				try {
 					readers = resolveMultiple(fullName, QvtResource.FILE_EXTENSION);
 				} catch (FileNotFoundException e) {
-					// trying to load resource prepending package name of
-					// parentFile
 					fullName = parentFile.getUnitName();
 					fullName = fullName.substring(0, fullName.lastIndexOf(':') + 1) + importedUnitName;
-					readers = resolveMultiple(fullName, QvtResource.FILE_EXTENSION);
+					try {
+						readers = resolveMultiple(fullName, QvtResource.FILE_EXTENSION);
+					} catch (FileNotFoundException ex) {
+						// File was not found. Can be a native library
+						return null;
+					}
 				}
 				assert readers.length == 1;
 				CFile cFile = new InputStreamCFile(readers[0], fullName);
 				return cFile;
 			} catch (IOException ex) {
-				ex.printStackTrace();
+				Activator.logError(ex);
 				return null;
-			}			
+			}
 		}
 
 	}
