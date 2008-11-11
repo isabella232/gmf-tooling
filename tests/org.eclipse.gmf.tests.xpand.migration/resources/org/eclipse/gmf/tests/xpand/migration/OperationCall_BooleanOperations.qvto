@@ -1,4 +1,4 @@
-import library XpandOclAnyOperations;
+import library xpt.OclAnyOperations;
 
 library OperationCall_BooleanOperations;
 

@@ -1,1 +1,1 @@
-<library class="org.eclipse.gmf.tests.xpand.migration.JavaExtensionsContainer" id="org_eclipse_gmf_tests_xpand_migration_JavaExtensionsContainer"><inMetamodel uri="http://www.eclipse.org/emf/2002/Ecore"/></library>
+<library class="org.eclipse.gmf.tests.xpand.migration.NativeJavaExtensionsContainer"><metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore"/></library>

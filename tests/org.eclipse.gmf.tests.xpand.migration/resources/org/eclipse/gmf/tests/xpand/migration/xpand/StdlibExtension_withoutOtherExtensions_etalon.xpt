@@ -1,6 +1,6 @@
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 «IMPORT 'http://www.eclipse.org/emf/2002/GenModel' »
-«EXTENSION XpandStringOperations»
+«EXTENSION xpt::StringOperations»
 
 «DEFINE stringParameters(param : String) FOR ecore::EPackage-»
 «param.xpandToFirstLower()-»	

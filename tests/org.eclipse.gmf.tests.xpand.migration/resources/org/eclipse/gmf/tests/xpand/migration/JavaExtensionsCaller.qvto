@@ -1,5 +1,5 @@
 
-import library org_eclipse_gmf_tests_xpand_migration_JavaExtensionsContainer;
+import library org.eclipse.gmf.tests.xpand.migration.NativeJavaExtensionsContainer;
 
 import org.eclipse.gmf.tests.xpand.migration.JavaExtensionsContainer;
 

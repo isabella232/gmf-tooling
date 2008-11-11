@@ -3,7 +3,7 @@
 «EXTENSION AnotherExtension1»
 «EXTENSION AnotherExtension2»
 «EXTENSION AnotherExtension3   »
-«EXTENSION XpandStringOperations»
+«EXTENSION xpt::StringOperations»
 
 «DEFINE stringParameters(param : String) FOR ecore::EPackage-»
 «param.xpandToFirstLower()-»	

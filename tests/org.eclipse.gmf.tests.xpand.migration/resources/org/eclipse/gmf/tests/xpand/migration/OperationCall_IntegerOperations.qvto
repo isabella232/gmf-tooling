@@ -1,5 +1,5 @@
-import library XpandIntegerOperations;
-import library XpandOclAnyOperations;
+import library xpt.IntegerOperations;
+import library xpt.OclAnyOperations;
 
 library OperationCall_IntegerOperations;
 
