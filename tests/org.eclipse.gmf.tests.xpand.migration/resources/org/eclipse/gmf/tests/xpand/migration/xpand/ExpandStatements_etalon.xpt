@@ -7,7 +7,7 @@
 «ENDDEFINE»
 
 «DEFINE expandForeachWithSeparator FOR ecore::EPackage-»
-«EXPAND target2 FOREACH (eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->asOrderedSet() SEPARATOR '|'.concat(eClassifiers->size().repr())-»
+«EXPAND target2 FOREACH (eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->asOrderedSet() SEPARATOR '|' + eClassifiers->size().repr()-»
 «ENDDEFINE»
 
 «DEFINE target1(p1 : String, p2 : String) FOR ecore::EClass-»

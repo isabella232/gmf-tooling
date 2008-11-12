@@ -4,11 +4,19 @@ import library xpt.OclAnyOperations;
 library OperationCall_StringOperations;
 
 helper addStringToString(string : String, parameter : String) : String {
-	return string.concat(parameter)
+	return string + parameter
+}
+
+helper addStringToStringsList(strings : Sequence(String), parameter : String) : Sequence(String) {
+	return strings.+(parameter)
 }
 
 helper addObjectToString(string : String, parameter : OclAny) : String {
-	return string.concat(parameter.repr())
+	return string + parameter.repr()
+}
+
+helper addObjectToStringsList(strings : Sequence(String), parameter : OclAny) : Sequence(String) {
+	return strings.+(parameter.repr())
 }
 
 helper stringToFirstUpper(string : String) : String {
@@ -85,4 +93,8 @@ helper stringEQ(string : String, another : OclAny) : Boolean {
 
 helper stringNotEQ(string : String, another : OclAny) : Boolean {
 	return string <> another
+}
+
+helper stringLiteralsConcat() : String {
+	return 'first part|second part|third part'
 }

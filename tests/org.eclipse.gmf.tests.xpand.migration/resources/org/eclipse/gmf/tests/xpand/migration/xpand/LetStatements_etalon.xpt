@@ -6,7 +6,7 @@
 «DEFINE letWithBody FOR ecore::EPackage-»
 «LET 5 AS _var»
 	Start
-		«'prefix'.concat(_var.repr())»
+		«'prefix' + _var.repr()»
 	End
 «ENDLET»
 «ENDDEFINE»

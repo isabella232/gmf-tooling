@@ -4,8 +4,16 @@ String addStringToString(String string, String parameter) :
 	string + parameter
 ;
 
+List[String] addStringToStringsList(List[String] strings, String parameter) :
+	strings + parameter
+;
+
 String addObjectToString(String string, ecore::EJavaObject parameter) :
 	string + parameter
+;
+
+List[String] addObjectToStringsList(List[String] strings, ecore::EJavaObject parameter) :
+	strings + parameter
 ;
 
 String stringToFirstUpper(String string) :
@@ -82,4 +90,10 @@ Boolean stringEQ(String string, ecore::EJavaObject another) :
 
 Boolean stringNotEQ(String string, ecore::EJavaObject another) :
 	string != another
+;
+
+String stringLiteralsConcat() :
+	'first part|' + 
+	'second part|' + 
+	'third part'
 ;

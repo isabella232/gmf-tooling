@@ -19,6 +19,10 @@ Boolean enumLiteralLiteralCall(genmodel::GenProviderKind otherLiteral) :
 	genmodel::GenProviderKind::Singleton.literal == otherLiteral.literal
 ;
 
+String enumLiteralNameCall(genmodel::GenProviderKind otherLiteral) :
+	genmodel::GenProviderKind::Singleton.name
+;
+
 /* FeatureCall referencing collection-type parameter should return it as is without any modifications*/
 List[ecore::EClass] listParameterCall(List[ecore::EClass] param) :
 	param
