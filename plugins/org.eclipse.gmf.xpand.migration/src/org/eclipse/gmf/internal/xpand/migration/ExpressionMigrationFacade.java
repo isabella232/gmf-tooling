@@ -89,6 +89,7 @@ public class ExpressionMigrationFacade {
 			BuiltinMetaModel.Int_LessOrEqual,
 			BuiltinMetaModel.Int_Greater,
 			BuiltinMetaModel.Int_GreatOrEqual,
+			BuiltinMetaModel.EString_Plus_EJavaObject,
 			BuiltinMetaModel.Object_EQ,
 			BuiltinMetaModel.Object_NotEQ
 		}));
@@ -266,7 +267,7 @@ public class ExpressionMigrationFacade {
 		write("'");
 		return EcorePackage.eINSTANCE.getEString();
 	}
-
+	
 	private String escape(String value) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < value.length(); i++) {
@@ -274,14 +275,8 @@ public class ExpressionMigrationFacade {
 			if (nextChar == '\'') {
 				// escaping single quote mark with one more single quote mark.
 				sb.append(nextChar);
-				sb.append(nextChar);
-			} else if (nextChar == '\n') {
-				sb.append("\\n");
-			} else if (nextChar == '\r') {
-				sb.append("\\r");
-			} else {
-				sb.append(nextChar);
 			}
+			sb.append(nextChar);
 		}
 		return sb.toString();
 	}
@@ -743,6 +738,12 @@ public class ExpressionMigrationFacade {
 	private EClassifier internalMigrateInfixOperation(OperationCallTrace trace, OperationCall operationCall) throws MigrationException {
 		EOperation eOperation = trace.getEOperation();
 		assert eOperation != null;
+		if (BuiltinMetaModel.EString_Plus_EJavaObject == eOperation && isPureStringLiteralConcatination(operationCall)){
+			write("'");
+			internalMigratePureStringLiteralConcatination(operationCall);
+			write("'");
+			return EcorePackage.eINSTANCE.getEString();
+		}
 		int placeholder = getCurrentPosition();
 		internalMigrateOperationCallTarget(operationCall);
 		String opName = eOperation.getName();
@@ -756,7 +757,7 @@ public class ExpressionMigrationFacade {
 				|| BuiltinMetaModel.Int_Mult_Double == eOperation || BuiltinMetaModel.Double_Mult_Int == eOperation || BuiltinMetaModel.Double_Mult_Double == eOperation
 				|| BuiltinMetaModel.Int_Div_Double == eOperation || BuiltinMetaModel.Double_Div_Double == eOperation || BuiltinMetaModel.Double_Div_Int == eOperation
 				|| BuiltinMetaModel.Int_Less == eOperation || BuiltinMetaModel.Int_LessOrEqual == eOperation || BuiltinMetaModel.Int_Greater == eOperation
-				|| BuiltinMetaModel.Int_GreatOrEqual == eOperation) {
+				|| BuiltinMetaModel.Int_GreatOrEqual == eOperation || BuiltinMetaModel.EString_Plus_EJavaObject == eOperation) {
 			write(" ");
 			write(opName);
 			write(" ");
@@ -768,13 +769,49 @@ public class ExpressionMigrationFacade {
 			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Incorrect infix operation: " + opName);
 		}
 		List<EClassifier> parameterTypes = internalMigrateOperationCallParameters(operationCall, null);
-		if (BuiltinMetaModel.Boolean_NE == eOperation || BuiltinMetaModel.Int_Unary_Minus == eOperation || BuiltinMetaModel.Double_Unary_Minus == eOperation) {
+		if (BuiltinMetaModel.EString_Plus_EJavaObject == eOperation) {
+			assert parameterTypes.size() == 1;
+			if (parameterTypes.get(0) != EcorePackage.eINSTANCE.getEString()) {
+				write(".repr()");
+			}
+		} else if (BuiltinMetaModel.Boolean_NE == eOperation || BuiltinMetaModel.Int_Unary_Minus == eOperation || BuiltinMetaModel.Double_Unary_Minus == eOperation) {
 			// Enclosing with braces for "not" expression here
 			addNegationBraces(placeholder);
 		}
 		return getTypedElementQvtType(eOperation);
 	}
 	
+	private void internalMigratePureStringLiteralConcatination(Expression expression) {
+		assert expression instanceof StringLiteral || expression instanceof OperationCall;
+		if (expression instanceof StringLiteral) {
+			write(escape(((StringLiteral) expression).getValue()));
+		} else {
+			OperationCall operationCall = (OperationCall) expression;
+			assert operationCall.getParams().length == 1;
+			internalMigratePureStringLiteralConcatination(operationCall.getTarget());
+			internalMigratePureStringLiteralConcatination(operationCall.getParams()[0]);
+		}
+	}
+
+	private boolean isPureStringLiteralConcatination(Expression expression) throws MigrationException {
+		if (expression instanceof StringLiteral) {
+			return true;
+		}
+		if (expression instanceof OperationCall) {
+			OperationCall operationCall = (OperationCall) expression;
+			ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(expression);
+			if (false == expressionTrace instanceof OperationCallTrace) {
+				throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, String.valueOf(expressionTrace));
+			}
+			OperationCallTrace trace = (OperationCallTrace) expressionTrace;
+			if (trace.getType() == OperationCallTrace.Type.OPERATION_REF && BuiltinMetaModel.EString_Plus_EJavaObject == trace.getEOperation()) {
+				assert operationCall.getParams().length == 1;
+				return isPureStringLiteralConcatination(operationCall.getTarget()) && isPureStringLiteralConcatination(operationCall.getParams()[0]);
+			}
+		}
+		return false;
+	}
+
 	private EClassifier internalMigrateOperationCallTarget(OperationCall operationCall) throws MigrationException {
 		if (operationCall.getTarget() != null) {
 			return migrateExpression(operationCall.getTarget());
