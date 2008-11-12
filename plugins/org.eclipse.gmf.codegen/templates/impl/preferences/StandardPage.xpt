@@ -17,6 +17,7 @@
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
 package «getDiagram().preferencesPackageName»;
 
+«EXPAND xpt::Common::generatedClassComment»
 public class «getClassName()»«EXPAND extendsList»«EXPAND implementsList» {
 
 	«EXPAND xpt::Common::generatedMemberComment»
