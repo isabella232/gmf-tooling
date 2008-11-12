@@ -140,15 +140,15 @@ Contributors:
    <extension point="org.eclipse.ui.preferencePages">
       <?gmfgen generated="true"?>
       <page
+            id="org.eclipse.emf.ecore.diagram.general"
+            name="%prefpage.org.eclipse.emf.ecore.diagram.general"
+            class="org.eclipse.gmf.ecore.preferences.DiagramGeneralPreferencePage">
+      </page>
+      <page
             id="org.eclipse.emf.ecore.diagram.appearance"
             name="%prefpage.org.eclipse.emf.ecore.diagram.appearance"
             category="org.eclipse.emf.ecore.diagram.general"
             class="org.eclipse.gmf.ecore.preferences.DiagramAppearancePreferencePage">
-      </page>
-      <page
-            id="org.eclipse.emf.ecore.diagram.general"
-            name="%prefpage.org.eclipse.emf.ecore.diagram.general"
-            class="org.eclipse.gmf.ecore.preferences.DiagramGeneralPreferencePage">
       </page>
       <page
             id="org.eclipse.emf.ecore.diagram.connections"
@@ -672,22 +672,20 @@ Contributors:
          <command commandId="org.eclipse.gmf.ecore.editor.LoadResourceAction">
             <visibleWhen>
                <and>
-                  <test property="org.eclipse.core.runtime.bundleState" args="org.eclipse.gmf.ecore.editor" value="ACTIVE"/>
                   <with variable="activePartId"><equals value="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID"/></with>
-                  <with variable="selection">
+                  <with variable="selection"><iterate ifEmpty="false">
                      <instanceof value="org.eclipse.gmf.ecore.edit.parts.EPackageEditPart"/>
-                  </with>
+                  </iterate></with>
                </and>
             </visibleWhen>
          </command>
          <command commandId="org.eclipse.gmf.ecore.editor.CreateShortcutAction">
             <visibleWhen>
                <and>
-                  <test property="org.eclipse.core.runtime.bundleState" args="org.eclipse.gmf.ecore.editor" value="ACTIVE"/>
                   <with variable="activePartId"><equals value="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID"/></with>
-                  <with variable="selection">
+                  <with variable="selection"><iterate ifEmpty="false">
                      <instanceof value="org.eclipse.gmf.ecore.edit.parts.EPackageEditPart"/>
-                  </with>
+                  </iterate></with>
                </and>
             </visibleWhen>
          </command>
