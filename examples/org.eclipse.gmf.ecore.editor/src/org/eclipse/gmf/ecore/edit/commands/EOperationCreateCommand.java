@@ -47,5 +47,4 @@ public class EOperationCreateCommand extends CreateElementCommand {
 	protected EClass getEClassToEdit() {
 		return EcorePackage.eINSTANCE.getEClass();
 	}
-
 }

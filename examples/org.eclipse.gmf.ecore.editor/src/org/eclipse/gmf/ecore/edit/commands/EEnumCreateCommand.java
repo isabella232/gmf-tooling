@@ -47,5 +47,4 @@ public class EEnumCreateCommand extends CreateElementCommand {
 	protected EClass getEClassToEdit() {
 		return EcorePackage.eINSTANCE.getEPackage();
 	}
-
 }

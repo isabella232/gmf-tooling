@@ -47,5 +47,4 @@ public class EStringToStringMapEntryCreateCommand extends CreateElementCommand {
 	protected EClass getEClassToEdit() {
 		return EcorePackage.eINSTANCE.getEAnnotation();
 	}
-
 }

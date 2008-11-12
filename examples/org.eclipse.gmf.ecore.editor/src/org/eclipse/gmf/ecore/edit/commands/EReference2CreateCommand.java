@@ -134,4 +134,5 @@ public class EReference2CreateCommand extends CreateElementCommand {
 	protected EClassifier getTarget() {
 		return (EClassifier) target;
 	}
+
 }

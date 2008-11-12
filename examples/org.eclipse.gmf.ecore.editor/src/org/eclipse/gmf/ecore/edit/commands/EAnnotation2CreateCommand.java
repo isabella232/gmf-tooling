@@ -47,5 +47,4 @@ public class EAnnotation2CreateCommand extends CreateElementCommand {
 	protected EClass getEClassToEdit() {
 		return EcorePackage.eINSTANCE.getEModelElement();
 	}
-
 }
