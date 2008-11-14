@@ -1066,7 +1066,11 @@ public class ExpressionMigrationFacade {
 	
 	private EClassifier internalMigrateToSet(EClassifier collectionType, EClassifier elementSuperType, int expressionStartPosition, int expressionEndPosition) throws MigrationException {
 		if (!BuiltinMetaModelExt.isSetType(collectionType) && !BuiltinMetaModelExt.isOrderedSetType(collectionType)) {
-			write("->asSet()", expressionEndPosition);
+			if (BuiltinMetaModelExt.isListType(collectionType)) {
+				write("->asOrderedSet()", expressionEndPosition);
+			} else {
+				write("->asSet()", expressionEndPosition);
+			}
 		}
 		internalMigrateToConcreteCollection(collectionType, elementSuperType, expressionStartPosition, expressionEndPosition);
 		return BuiltinMetaModelExt.isOrderedSetType(collectionType) ? BuiltinMetaModelExt.getOrderedSetType(elementSuperType) : BuiltinMetaModelExt.getSetType(elementSuperType);
