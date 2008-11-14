@@ -171,7 +171,9 @@ public class ExpressionMigrationFacade {
 					write("->asSequence()");
 				}
 			} else if (BuiltinMetaModelExt.isSetType(expectedType)) {
-				if (BuiltinMetaModelExt.isListType(actualType) || BuiltinMetaModelExt.isBagType(actualType)) {
+				if (BuiltinMetaModelExt.isListType(actualType)) {
+					write("->asOrderedSet()");
+				} else if (BuiltinMetaModelExt.isBagType(actualType)) {
 					write("->asSet()");
 				} else if (BuiltinMetaModelExt.isAbstractCollectionType(actualType)) {
 					internalMigrateCollectionToBag(null);
