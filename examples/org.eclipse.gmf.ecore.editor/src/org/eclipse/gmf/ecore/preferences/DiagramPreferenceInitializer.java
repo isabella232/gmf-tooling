@@ -25,11 +25,11 @@ public class DiagramPreferenceInitializer extends AbstractPreferenceInitializer 
 	 */
 	public void initializeDefaultPreferences() {
 		IPreferenceStore store = getPreferenceStore();
+		DiagramRulersAndGridPreferencePage.initDefaults(store);
 		DiagramAppearancePreferencePage.initDefaults(store);
-		DiagramGeneralPreferencePage.initDefaults(store);
 		DiagramConnectionsPreferencePage.initDefaults(store);
 		DiagramPrintingPreferencePage.initDefaults(store);
-		DiagramRulersAndGridPreferencePage.initDefaults(store);
+		DiagramGeneralPreferencePage.initDefaults(store);
 
 	}
 

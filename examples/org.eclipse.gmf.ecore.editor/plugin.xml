@@ -140,9 +140,10 @@ Contributors:
    <extension point="org.eclipse.ui.preferencePages">
       <?gmfgen generated="true"?>
       <page
-            id="org.eclipse.emf.ecore.diagram.general"
-            name="%prefpage.org.eclipse.emf.ecore.diagram.general"
-            class="org.eclipse.gmf.ecore.preferences.DiagramGeneralPreferencePage">
+            id="org.eclipse.emf.ecore.diagram.rulersAndGrid"
+            name="%prefpage.org.eclipse.emf.ecore.diagram.rulersAndGrid"
+            category="org.eclipse.emf.ecore.diagram.general"
+            class="org.eclipse.gmf.ecore.preferences.DiagramRulersAndGridPreferencePage">
       </page>
       <page
             id="org.eclipse.emf.ecore.diagram.appearance"
@@ -163,10 +164,9 @@ Contributors:
             class="org.eclipse.gmf.ecore.preferences.DiagramPrintingPreferencePage">
       </page>
       <page
-            id="org.eclipse.emf.ecore.diagram.rulersAndGrid"
-            name="%prefpage.org.eclipse.emf.ecore.diagram.rulersAndGrid"
-            category="org.eclipse.emf.ecore.diagram.general"
-            class="org.eclipse.gmf.ecore.preferences.DiagramRulersAndGridPreferencePage">
+            id="org.eclipse.emf.ecore.diagram.general"
+            name="%prefpage.org.eclipse.emf.ecore.diagram.general"
+            class="org.eclipse.gmf.ecore.preferences.DiagramGeneralPreferencePage">
       </page>
    </extension>
 
