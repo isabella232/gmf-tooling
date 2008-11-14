@@ -17,8 +17,12 @@ List[testModel::Child] returnOrderedUniqueAsList(testModel::Container param) :
 	param.orderedUniqueChildren
 ;
 
-List[testModel::Child] returnCollectionAsList(testModel::Container param) :
+List[testModel::Child] returnBagAsList(testModel::Container param) :
 	param.children
+;
+
+List[testModel::Child] returnCollectionAsList(Collection[testModel::Child] param) :
+	param
 ;
 
 Set[testModel::Child] returnOrderedAsSet(testModel::Container param) :
@@ -33,8 +37,12 @@ Set[testModel::Child] returnOrderedUniqueAsSet(testModel::Container param) :
 	param.orderedUniqueChildren
 ;
 
-Set[testModel::Child] returnCollectionAsSet(testModel::Container param) :
+Set[testModel::Child] returnBagAsSet(testModel::Container param) :
 	param.children
+;
+
+Set[testModel::Child] returnCollectionAsSet(Collection[testModel::Child] param) :
+	param
 ;
 
 Collection[testModel::Child] returnOrderedAsCollection(testModel::Container param) :
@@ -49,6 +57,10 @@ Collection[testModel::Child] returnOrderedUniqueAsCollection(testModel::Containe
 	param.orderedUniqueChildren
 ;
 
-Collection[testModel::Child] returnCollectionAsCollection(testModel::Container param) :
+Collection[testModel::Child] returnBagAsCollection(testModel::Container param) :
 	param.children
+;
+
+Collection[testModel::Child] returnCollectionAsCollection(Collection[testModel::Child] param) :
+	param
 ;

@@ -63,15 +63,15 @@ helper unionCollectionWSet(eClasses : Collection(ecore::EClass), addition : Set(
 }
 
 helper unionListWCollection(eClasses : Sequence(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asSet()->union(addition->collect(it | it)->asSet())
+	return (eClasses)[ecore::EObject]->asOrderedSet()->union(addition->collect(it | it)->asSet())
 }
 
 helper unionListWList(eClasses : Sequence(ecore::EClass), addition : Sequence(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asSet()->union(addition->asSet())
+	return (eClasses)[ecore::EObject]->asOrderedSet()->union(addition->asSet())
 }
 
 helper unionListWSet(eClasses : Sequence(ecore::EClass), addition : Set(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asSet()->union(addition)
+	return (eClasses)[ecore::EObject]->asOrderedSet()->union(addition)
 }
 
 helper unionSetWCollection(eClasses : Set(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) {
@@ -99,15 +99,15 @@ helper intersectCollectionWSet(eClasses : Collection(ecore::EClass), addition : 
 }
 
 helper intersectListWCollection(eClasses : Sequence(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asSet()->intersection(addition->collect(it | it)->asSet())
+	return (eClasses)[ecore::EObject]->asOrderedSet()->intersection(addition->collect(it | it)->asSet())
 }
 
 helper intersectListWList(eClasses : Sequence(ecore::EClass), addition : Sequence(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asSet()->intersection(addition->asSet())
+	return (eClasses)[ecore::EObject]->asOrderedSet()->intersection(addition->asSet())
 }
 
 helper intersectListWSet(eClasses : Sequence(ecore::EClass), addition : Set(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asSet()->intersection(addition)
+	return (eClasses)[ecore::EObject]->asOrderedSet()->intersection(addition)
 }
 
 helper intersectSetWCollection(eClasses : Set(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) {
@@ -135,15 +135,15 @@ helper withoutCollectionWSet(eClasses : Collection(ecore::EClass), addition : Se
 }
 
 helper withoutListWCollection(eClasses : Sequence(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asSet()->-(addition->collect(it | it)->asSet())
+	return (eClasses)[ecore::EObject]->asOrderedSet()->-(addition->collect(it | it)->asSet())
 }
 
 helper withoutListWList(eClasses : Sequence(ecore::EClass), addition : Sequence(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asSet()->-(addition->asSet())
+	return (eClasses)[ecore::EObject]->asOrderedSet()->-(addition->asSet())
 }
 
 helper withoutListWSet(eClasses : Sequence(ecore::EClass), addition : Set(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asSet()->-(addition)
+	return (eClasses)[ecore::EObject]->asOrderedSet()->-(addition)
 }
 
 helper withoutSetWCollection(eClasses : Set(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) {
@@ -156,18 +156,6 @@ helper withoutSetWList(eClasses : Set(ecore::EClass), addition : Sequence(ecore:
 
 helper withoutSetWSet(eClasses : Set(ecore::EClass), addition : Set(ecore::EObject)) : Collection(OclAny) {
 	return (eClasses)[ecore::EObject]->-(addition)
-}
-
-helper toSetCollection(eClasses : Collection(ecore::EClass)) : Set(OclAny) {
-	return eClasses->collect(it | it)->asSet()
-}
-
-helper toSetList(eClasses : Sequence(ecore::EClass)) : Set(OclAny) {
-	return eClasses->asSet()
-}
-
-helper toSetSet(eClasses : Set(ecore::EClass)) : Set(OclAny) {
-	return eClasses
 }
 
 helper toListCollection(eClasses : Collection(ecore::EClass)) : Sequence(OclAny) {

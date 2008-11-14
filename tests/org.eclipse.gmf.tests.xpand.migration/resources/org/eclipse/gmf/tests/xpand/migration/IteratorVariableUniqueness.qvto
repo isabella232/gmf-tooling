@@ -63,7 +63,7 @@ helper collectionOperationTarget_InnerCollectionExpression(ePackages : Sequence(
 }
 
 helper collectionOperationParameter_InnerCollectionExpression(ePackages : Sequence(ecore::EPackage), eClassifiers : Collection(ecore::EClassifier)) : Collection(OclAny) {
-	return ePackages->collect(it | it.eClassifiers)->flatten()->asSet()->union(eClassifiers->collect(it_1 | it_1)->asSet())
+	return ePackages->collect(it | it.eClassifiers)->flatten()->asOrderedSet()->union(eClassifiers->collect(it_1 | it_1)->asSet())
 }
 
 helper collectionOperationTargetParameter_OuterLetExpression(eClassifiers : Collection(ecore::EClassifier), additions : Collection(ecore::EClassifier)) : Collection(OclAny) {

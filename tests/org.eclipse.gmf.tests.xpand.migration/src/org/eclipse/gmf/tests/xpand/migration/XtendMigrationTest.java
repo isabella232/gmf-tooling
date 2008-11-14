@@ -86,6 +86,11 @@ public class XtendMigrationTest extends TestCase {
 	public void testCollectionOperationsAddAll() throws IOException, MigrationException {
 		checkMigration("OperationCall_CollectionOperations_AddAll");
 	}
+	
+	public void testCollectionOperations_ToSet() throws IOException, MigrationException {
+		String resourceName = "OperationCall_CollectionOperations_ToSet";
+		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, GenModelPackage.eINSTANCE, MigrationTestsPackage.eINSTANCE)), resourceName);
+	}
 
 	public void testCollectionExpression() throws IOException, MigrationException {
 		checkMigration("CollectionExpression");

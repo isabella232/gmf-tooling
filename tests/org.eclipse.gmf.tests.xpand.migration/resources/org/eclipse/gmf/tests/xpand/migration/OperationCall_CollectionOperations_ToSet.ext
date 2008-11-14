@@ -1,0 +1,23 @@
+import "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration/testModel";
+
+/* Abstract collection */
+Collection[testModel::Child] toSetCollection(Collection[testModel::Child] param) :
+	param.toSet()
+;
+
+/* Different types of Concrete collections */
+Collection[testModel::Child] toSetOrdered(testModel::Container param) :
+	param.orderedChildren.toSet()
+;
+
+Collection[testModel::Child] toSetUnique(testModel::Container param) :
+	param.uniqueChildren.toSet()
+;
+
+Collection[testModel::Child] toSetOrderedUnique(testModel::Container param) :
+	param.orderedUniqueChildren.toSet()
+;
+
+Collection[testModel::Child] toSetBag(testModel::Container param) :
+	param.children.toSet()
+;

@@ -163,19 +163,6 @@ Collection[ecore::EJavaObject] withoutSetWSet(Set[ecore::EClass] eClasses, Set[e
 	eClasses.without(addition)
 ;
 
-/* toSet() */
-Set[ecore::EJavaObject] toSetCollection(Collection[ecore::EClass] eClasses) :
-	eClasses.toSet()
-;
-
-Set[ecore::EJavaObject] toSetList(List[ecore::EClass] eClasses) :
-	eClasses.toSet()
-;
-
-Set[ecore::EJavaObject] toSetSet(Set[ecore::EClass] eClasses) :
-	eClasses.toSet()
-;
-
 /* toList() */
 List[ecore::EJavaObject] toListCollection(Collection[ecore::EClass] eClasses) :
 	eClasses.toList()
