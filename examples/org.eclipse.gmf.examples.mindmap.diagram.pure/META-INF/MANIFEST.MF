@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.eclipse.gmf.examples.mindmap.diagram.pure;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Activator: org.eclipse.gmf.examples.mindmap.diagram.MindmapDiagramEditorPlugin
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.eclipse.gmf.examples.mindmap.diagram,
+ org.eclipse.gmf.examples.mindmap.diagram.edit.parts,
+ org.eclipse.gmf.examples.mindmap.diagram.editor,
+ org.eclipse.gmf.examples.mindmap.diagram.providers,
+ org.eclipse.gmf.examples.mindmap.diagram.sheet,
+ org.eclipse.gmf.examples.mindmap.diagram.util,
+ org.eclipse.gmf.examples.mindmap.diagram.view.factories,
+ org.eclipse.gmf.examples.mindmap.diagram.wizards
+Require-Bundle: org.eclipse.ui.ide,
+ org.eclipse.gmf.runtime.diagram.ui.properties,
+ org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide,
+ org.eclipse.amalgam.examples.mindmap.model.edit;visibility:=reexport,
+ org.eclipse.gmf.runtime.diagram.ui.providers
+Bundle-ActivationPolicy: lazy
+
