@@ -3,11 +3,11 @@
 «ENDDEFINE»
 
 «DEFINE expandForExpression FOR ecore::EPackage-»
-«EXPAND target2 FOR (eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->asOrderedSet()->first().oclAsType(ecore::EClass)-»	
+«EXPAND target2 FOR (eClassifiers)[ecore::EClass]->first().oclAsType(ecore::EClass)-»	
 «ENDDEFINE»
 
 «DEFINE expandForeachWithSeparator FOR ecore::EPackage-»
-«EXPAND target2 FOREACH (eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->asOrderedSet() SEPARATOR '|' + eClassifiers->size().repr()-»
+«EXPAND target2 FOREACH (eClassifiers)[ecore::EClass] SEPARATOR '|' + eClassifiers->size().repr()-»
 «ENDDEFINE»
 
 «DEFINE target1(p1 : String, p2 : String) FOR ecore::EClass-»

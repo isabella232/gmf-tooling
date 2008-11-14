@@ -1,5 +1,5 @@
 «DEFINE emptyForEach FOR ecore::EPackage-»
-«FOREACH (eClassifiers)->select(it | it.oclIsKindOf(ecore::EClass))->collect(it | it.oclAsType(ecore::EClass))->asOrderedSet()->asSequence() AS eClass-»
+«FOREACH (eClassifiers)[ecore::EClass]->asSequence() AS eClass-»
 «ENDFOREACH-»
 «ENDDEFINE»
 

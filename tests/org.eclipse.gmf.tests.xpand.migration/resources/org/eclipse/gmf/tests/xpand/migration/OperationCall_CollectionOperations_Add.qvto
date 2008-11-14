@@ -27,7 +27,7 @@ helper addToListSameType(col : Sequence(ecore::EClass), addition : ecore::EClass
 }
 
 helper addToListSuperType(col : Sequence(ecore::EClass), addition : ecore::EClassifier) : Collection(ecore::EClassifier) {
-	return (col)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->including(addition)
+	return (col)[ecore::EClassifier]->including(addition)
 }
 
 helper addToListSubType(col : Sequence(ecore::EClassifier), addition : ecore::EClass) : Collection(ecore::EClassifier) {
@@ -35,11 +35,11 @@ helper addToListSubType(col : Sequence(ecore::EClassifier), addition : ecore::EC
 }
 
 helper addToListSiblingType(col : Sequence(ecore::EClass), addition : ecore::EDataType) : Collection(ecore::EClassifier) {
-	return (col)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->including(addition)
+	return (col)[ecore::EClassifier]->including(addition)
 }
 
 helper addToListArbitraryType(col : Sequence(ecore::EClass), addition : Boolean) : Collection(OclAny) {
-	return (col)->select(it | it.oclIsKindOf(OclAny))->collect(it | it.oclAsType(OclAny))->including(addition)
+	return (col)[OclAny]->including(addition)
 }
 
 helper addToSetSameType(col : Set(ecore::EClass), addition : ecore::EClass) : Collection(ecore::EClass) {
@@ -47,7 +47,7 @@ helper addToSetSameType(col : Set(ecore::EClass), addition : ecore::EClass) : Co
 }
 
 helper addToSetSuperType(col : Set(ecore::EClass), addition : ecore::EClassifier) : Collection(ecore::EClassifier) {
-	return (col)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->asSet()->including(addition)
+	return (col)[ecore::EClassifier]->including(addition)
 }
 
 helper addToSetSubType(col : Set(ecore::EClassifier), addition : ecore::EClass) : Collection(ecore::EClassifier) {
@@ -55,9 +55,9 @@ helper addToSetSubType(col : Set(ecore::EClassifier), addition : ecore::EClass) 
 }
 
 helper addToSetSiblingType(col : Set(ecore::EClass), addition : ecore::EDataType) : Collection(ecore::EClassifier) {
-	return (col)->select(it | it.oclIsKindOf(ecore::EClassifier))->collect(it | it.oclAsType(ecore::EClassifier))->asSet()->including(addition)
+	return (col)[ecore::EClassifier]->including(addition)
 }
 
 helper addToSetArbitraryType(col : Set(ecore::EClass), addition : Boolean) : Collection(OclAny) {
-	return (col)->select(it | it.oclIsKindOf(OclAny))->collect(it | it.oclAsType(OclAny))->asSet()->including(addition)
+	return (col)[OclAny]->including(addition)
 }

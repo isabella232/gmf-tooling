@@ -27,11 +27,11 @@ helper extension_InnerCollectionExpression(eClassifiers : Sequence(ecore::EClass
 }
 
 helper extension_OuterLetExpression(eClassifiers : Sequence(ecore::EClassifier)) : Sequence(String) {
-	return let it : Boolean = true in eClassifiers->collect(it_1 | getName(it_1)) 
+	return let it = true in eClassifiers->collect(it_1 | getName(it_1)) 
 }
 
 helper extension_InnerLetExpression(eClassifiers : Sequence(ecore::EClassifier), parameter : Sequence(ecore::EClassifier)) : Sequence(String) {
-	return eClassifiers->collect(it_1 | getName(it_1, let it : Sequence(ecore::EClassifier) = parameter in it))
+	return eClassifiers->collect(it_1 | getName(it_1, let it = parameter in it))
 }
 
 helper extension_InnerCollectionOperationCollectionTarget(eClassifiers : Sequence(ecore::EClassifier), parameter1 : Collection(ecore::EClassifier), parameter2 : ecore::EClassifier) : Sequence(String) {
@@ -67,11 +67,11 @@ helper collectionOperationParameter_InnerCollectionExpression(ePackages : Sequen
 }
 
 helper collectionOperationTargetParameter_OuterLetExpression(eClassifiers : Collection(ecore::EClassifier), additions : Collection(ecore::EClassifier)) : Collection(OclAny) {
-	return let it : Boolean = true in eClassifiers->collect(it_2 | it_2)->asSet()->intersection(additions->collect(it_1 | it_1)->asSet())
+	return let it = true in eClassifiers->collect(it_2 | it_2)->asSet()->intersection(additions->collect(it_1 | it_1)->asSet())
 }
 
 helper collectionOperationTargetParameter_InnerLetExpression(eClassifiers : Collection(ecore::EClassifier), exceptions : Collection(ecore::EClassifier)) : Collection(OclAny) {
-	return eClassifiers->collect(it_2 | it_2)->asSet()->-(let it : Collection(ecore::EClassifier) = exceptions in it->collect(it_1 | it_1)->asSet())
+	return eClassifiers->collect(it_2 | it_2)->asSet()->-(let it = exceptions in it->collect(it_1 | it_1)->asSet())
 }
 
 helper collectionOperationTarget_InnerImplicitExtensionCollect(eClassifiers : Collection(ecore::EClassifier), ePackages : Collection(ecore::EPackage)) : Collection(OclAny) {
