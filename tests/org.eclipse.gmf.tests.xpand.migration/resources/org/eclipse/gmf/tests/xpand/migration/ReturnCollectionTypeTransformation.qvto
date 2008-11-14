@@ -1,0 +1,51 @@
+modeltype testModel uses "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration/testModel";
+
+library ReturnCollectionTypeTransformation;
+
+helper returnOrderedAsList(param : testModel::Container) : Sequence(testModel::Child) {
+	return param.orderedChildren
+}
+
+helper returnUniqueAsList(param : testModel::Container) : Sequence(testModel::Child) {
+	return param.uniqueChildren->asSequence()
+}
+
+helper returnOrderedUniqueAsList(param : testModel::Container) : Sequence(testModel::Child) {
+	return param.orderedUniqueChildren->asSequence()
+}
+
+helper returnCollectionAsList(param : testModel::Container) : Sequence(testModel::Child) {
+	return param.children->asSequence()
+}
+
+helper returnOrderedAsSet(param : testModel::Container) : Set(testModel::Child) {
+	return param.orderedChildren->asOrderedSet()
+}
+
+helper returnUniqueAsSet(param : testModel::Container) : Set(testModel::Child) {
+	return param.uniqueChildren
+}
+
+helper returnOrderedUniqueAsSet(param : testModel::Container) : Set(testModel::Child) {
+	return param.orderedUniqueChildren
+}
+
+helper returnCollectionAsSet(param : testModel::Container) : Set(testModel::Child) {
+	return param.children->asSet()
+}
+
+helper returnOrderedAsCollection(param : testModel::Container) : Collection(testModel::Child) {
+	return param.orderedChildren
+}
+
+helper returnUniqueAsCollection(param : testModel::Container) : Collection(testModel::Child) {
+	return param.uniqueChildren
+}
+
+helper returnOrderedUniqueAsCollection(param : testModel::Container) : Collection(testModel::Child) {
+	return param.orderedUniqueChildren
+}
+
+helper returnCollectionAsCollection(param : testModel::Container) : Collection(testModel::Child) {
+	return param.children
+}

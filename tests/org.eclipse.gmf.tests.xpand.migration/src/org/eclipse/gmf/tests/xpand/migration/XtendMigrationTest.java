@@ -227,6 +227,15 @@ public class XtendMigrationTest extends TestCase {
 		assertEquals(etalon, xmlDeclaration);
 	}
 	
+	public void testSwitchExpression() throws IOException, MigrationException {
+		checkMigration("SwitchExpression");
+	}
+	
+	public void testReturnCollectionTypeTransformation() throws IOException, MigrationException {
+		String resourceName = "ReturnCollectionTypeTransformation";
+		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, GenModelPackage.eINSTANCE, MigrationTestsPackage.eINSTANCE)), resourceName);
+	}
+
 	private String readStringContent(InputStreamReader reader) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		boolean isInString = false;
@@ -256,10 +265,6 @@ public class XtendMigrationTest extends TestCase {
 			}
 		}
 		return sb.toString();
-	}
-
-	public void testSwitchExpression() throws IOException, MigrationException {
-		checkMigration("SwitchExpression");
 	}
 
 	private String checkMigration(String xtendResourceName) throws IOException, MigrationException {
