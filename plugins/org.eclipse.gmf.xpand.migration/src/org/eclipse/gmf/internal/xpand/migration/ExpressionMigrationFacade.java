@@ -837,9 +837,9 @@ public class ExpressionMigrationFacade {
 			EClassifier parameterCollectionType = getSingleParameterType(internalMigrateOperationCallParameters(operationCall, null));
 			EClassifier parameterCollectionElementType = getCollectionElementType(parameterCollectionType);
 			EClassifier commonSuperType = BuiltinMetaModelExt.getCommonSuperType(elementType, parameterCollectionElementType);
-			internalMigrateParameterCollectionToSet(parameterCollectionType);
-			write(")");
-			return internalMigrateToSet(targetType, commonSuperType, expressionStartPosition, operationStartPosition);
+			internalMigrateParameterCollectionToList(parameterCollectionType);
+			write(")->asOrderedSet()->asSequence()");
+			return internalMigrateToList(targetType, commonSuperType, expressionStartPosition, operationStartPosition);
 		} else if (BuiltinMetaModel.Collection_Intersect == eOperation) {
 			int operationStartPosition = getCurrentPosition();
 			write("->intersection(");
@@ -1073,16 +1073,19 @@ public class ExpressionMigrationFacade {
 			}
 		}
 		internalMigrateToConcreteCollection(collectionType, elementSuperType, expressionStartPosition, expressionEndPosition);
-		return BuiltinMetaModelExt.isOrderedSetType(collectionType) ? BuiltinMetaModelExt.getOrderedSetType(elementSuperType) : BuiltinMetaModelExt.getSetType(elementSuperType);
+		return BuiltinMetaModelExt.isOrderedSetType(collectionType) || BuiltinMetaModelExt.isListType(collectionType) ? BuiltinMetaModelExt.getOrderedSetType(elementSuperType) : BuiltinMetaModelExt.getSetType(elementSuperType);
 	}
 	
 	private EClassifier internalMigrateToList(EClassifier collectionType, EClassifier elementSuperType, int placeholder) throws MigrationException {
-		internalMigrateToConcreteCollection(collectionType, elementSuperType, placeholder, getCurrentPosition());
+		return internalMigrateToList(collectionType, elementSuperType, placeholder, getCurrentPosition());
+	}
+	
+	private EClassifier internalMigrateToList(EClassifier collectionType, EClassifier elementSuperType, int expressionStartPosition, int expressionEndPosition) throws MigrationException {
 		if (!BuiltinMetaModelExt.isListType(collectionType)) {
-			write("->asSequence()");
-			return BuiltinMetaModelExt.getListType(elementSuperType);
+			write("->asSequence()", expressionEndPosition);
 		}
-		return collectionType;
+		internalMigrateToConcreteCollection(collectionType, elementSuperType, expressionStartPosition, expressionEndPosition);
+		return BuiltinMetaModelExt.getListType(elementSuperType);
 	}
 	
 	private void internalMigrateParameterCollectionToMain(EClassifier parameterCollectionType, EClassifier mainCollectionType) {
@@ -1121,6 +1124,16 @@ public class ExpressionMigrationFacade {
 		}
 	}
 
+	private void internalMigrateParameterCollectionToList(EClassifier parameterCollectionType) {
+		assert BuiltinMetaModel.isCollectionType(parameterCollectionType);
+		if (BuiltinMetaModelExt.isSetType(parameterCollectionType) || BuiltinMetaModelExt.isOrderedSetType(parameterCollectionType)) {
+			write("->asSequence()");
+		} else if (BuiltinMetaModelExt.isAbstractCollectionType(parameterCollectionType)) {
+			internalMigrateCollectionToBag(null);
+			write("->asSequence()");
+		}
+	}
+	
 	private boolean isCollectionOperation(OperationCallTrace trace) {
 		EOperation eOperation = trace.getEOperation();
 		assert eOperation != null;
