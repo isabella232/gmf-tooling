@@ -452,38 +452,38 @@ public class EcoreDiagramUpdater {
 		switch (EcoreVisualIDRegistry.getVisualID(view)) {
 		case EPackageEditPart.VISUAL_ID:
 			return getEPackage_1000ContainedLinks(view);
-		case EReference2EditPart.VISUAL_ID:
-			return getEReference_4003ContainedLinks(view);
-		case EDataTypeEditPart.VISUAL_ID:
-			return getEDataType_2004ContainedLinks(view);
-		case EStringToStringMapEntryEditPart.VISUAL_ID:
-			return getEStringToStringMapEntry_3008ContainedLinks(view);
-		case EPackage2EditPart.VISUAL_ID:
-			return getEPackage_2002ContainedLinks(view);
-		case EPackage3EditPart.VISUAL_ID:
-			return getEPackage_3005ContainedLinks(view);
-		case EClass2EditPart.VISUAL_ID:
-			return getEClass_3004ContainedLinks(view);
-		case EOperationEditPart.VISUAL_ID:
-			return getEOperation_3002ContainedLinks(view);
-		case EAttributeEditPart.VISUAL_ID:
-			return getEAttribute_3001ContainedLinks(view);
-		case EReferenceEditPart.VISUAL_ID:
-			return getEReference_4002ContainedLinks(view);
-		case EEnum2EditPart.VISUAL_ID:
-			return getEEnum_3007ContainedLinks(view);
-		case EDataType2EditPart.VISUAL_ID:
-			return getEDataType_3006ContainedLinks(view);
-		case EEnumEditPart.VISUAL_ID:
-			return getEEnum_2005ContainedLinks(view);
-		case EEnumLiteralEditPart.VISUAL_ID:
-			return getEEnumLiteral_3009ContainedLinks(view);
-		case EAnnotation2EditPart.VISUAL_ID:
-			return getEAnnotation_3003ContainedLinks(view);
-		case EAnnotationEditPart.VISUAL_ID:
-			return getEAnnotation_2003ContainedLinks(view);
 		case EClassEditPart.VISUAL_ID:
 			return getEClass_2001ContainedLinks(view);
+		case EPackage2EditPart.VISUAL_ID:
+			return getEPackage_2002ContainedLinks(view);
+		case EAnnotationEditPart.VISUAL_ID:
+			return getEAnnotation_2003ContainedLinks(view);
+		case EDataTypeEditPart.VISUAL_ID:
+			return getEDataType_2004ContainedLinks(view);
+		case EEnumEditPart.VISUAL_ID:
+			return getEEnum_2005ContainedLinks(view);
+		case EAttributeEditPart.VISUAL_ID:
+			return getEAttribute_3001ContainedLinks(view);
+		case EOperationEditPart.VISUAL_ID:
+			return getEOperation_3002ContainedLinks(view);
+		case EAnnotation2EditPart.VISUAL_ID:
+			return getEAnnotation_3003ContainedLinks(view);
+		case EClass2EditPart.VISUAL_ID:
+			return getEClass_3004ContainedLinks(view);
+		case EPackage3EditPart.VISUAL_ID:
+			return getEPackage_3005ContainedLinks(view);
+		case EDataType2EditPart.VISUAL_ID:
+			return getEDataType_3006ContainedLinks(view);
+		case EEnum2EditPart.VISUAL_ID:
+			return getEEnum_3007ContainedLinks(view);
+		case EStringToStringMapEntryEditPart.VISUAL_ID:
+			return getEStringToStringMapEntry_3008ContainedLinks(view);
+		case EEnumLiteralEditPart.VISUAL_ID:
+			return getEEnumLiteral_3009ContainedLinks(view);
+		case EReferenceEditPart.VISUAL_ID:
+			return getEReference_4002ContainedLinks(view);
+		case EReference2EditPart.VISUAL_ID:
+			return getEReference_4003ContainedLinks(view);
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -493,38 +493,38 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List getIncomingLinks(View view) {
 		switch (EcoreVisualIDRegistry.getVisualID(view)) {
-		case EReference2EditPart.VISUAL_ID:
-			return getEReference_4003IncomingLinks(view);
-		case EDataTypeEditPart.VISUAL_ID:
-			return getEDataType_2004IncomingLinks(view);
-		case EStringToStringMapEntryEditPart.VISUAL_ID:
-			return getEStringToStringMapEntry_3008IncomingLinks(view);
-		case EPackage2EditPart.VISUAL_ID:
-			return getEPackage_2002IncomingLinks(view);
-		case EPackage3EditPart.VISUAL_ID:
-			return getEPackage_3005IncomingLinks(view);
-		case EClass2EditPart.VISUAL_ID:
-			return getEClass_3004IncomingLinks(view);
-		case EOperationEditPart.VISUAL_ID:
-			return getEOperation_3002IncomingLinks(view);
-		case EAttributeEditPart.VISUAL_ID:
-			return getEAttribute_3001IncomingLinks(view);
-		case EReferenceEditPart.VISUAL_ID:
-			return getEReference_4002IncomingLinks(view);
-		case EEnum2EditPart.VISUAL_ID:
-			return getEEnum_3007IncomingLinks(view);
-		case EDataType2EditPart.VISUAL_ID:
-			return getEDataType_3006IncomingLinks(view);
-		case EEnumEditPart.VISUAL_ID:
-			return getEEnum_2005IncomingLinks(view);
-		case EEnumLiteralEditPart.VISUAL_ID:
-			return getEEnumLiteral_3009IncomingLinks(view);
-		case EAnnotation2EditPart.VISUAL_ID:
-			return getEAnnotation_3003IncomingLinks(view);
-		case EAnnotationEditPart.VISUAL_ID:
-			return getEAnnotation_2003IncomingLinks(view);
 		case EClassEditPart.VISUAL_ID:
 			return getEClass_2001IncomingLinks(view);
+		case EPackage2EditPart.VISUAL_ID:
+			return getEPackage_2002IncomingLinks(view);
+		case EAnnotationEditPart.VISUAL_ID:
+			return getEAnnotation_2003IncomingLinks(view);
+		case EDataTypeEditPart.VISUAL_ID:
+			return getEDataType_2004IncomingLinks(view);
+		case EEnumEditPart.VISUAL_ID:
+			return getEEnum_2005IncomingLinks(view);
+		case EAttributeEditPart.VISUAL_ID:
+			return getEAttribute_3001IncomingLinks(view);
+		case EOperationEditPart.VISUAL_ID:
+			return getEOperation_3002IncomingLinks(view);
+		case EAnnotation2EditPart.VISUAL_ID:
+			return getEAnnotation_3003IncomingLinks(view);
+		case EClass2EditPart.VISUAL_ID:
+			return getEClass_3004IncomingLinks(view);
+		case EPackage3EditPart.VISUAL_ID:
+			return getEPackage_3005IncomingLinks(view);
+		case EDataType2EditPart.VISUAL_ID:
+			return getEDataType_3006IncomingLinks(view);
+		case EEnum2EditPart.VISUAL_ID:
+			return getEEnum_3007IncomingLinks(view);
+		case EStringToStringMapEntryEditPart.VISUAL_ID:
+			return getEStringToStringMapEntry_3008IncomingLinks(view);
+		case EEnumLiteralEditPart.VISUAL_ID:
+			return getEEnumLiteral_3009IncomingLinks(view);
+		case EReferenceEditPart.VISUAL_ID:
+			return getEReference_4002IncomingLinks(view);
+		case EReference2EditPart.VISUAL_ID:
+			return getEReference_4003IncomingLinks(view);
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -534,38 +534,38 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List getOutgoingLinks(View view) {
 		switch (EcoreVisualIDRegistry.getVisualID(view)) {
-		case EReference2EditPart.VISUAL_ID:
-			return getEReference_4003OutgoingLinks(view);
-		case EDataTypeEditPart.VISUAL_ID:
-			return getEDataType_2004OutgoingLinks(view);
-		case EStringToStringMapEntryEditPart.VISUAL_ID:
-			return getEStringToStringMapEntry_3008OutgoingLinks(view);
-		case EPackage2EditPart.VISUAL_ID:
-			return getEPackage_2002OutgoingLinks(view);
-		case EPackage3EditPart.VISUAL_ID:
-			return getEPackage_3005OutgoingLinks(view);
-		case EClass2EditPart.VISUAL_ID:
-			return getEClass_3004OutgoingLinks(view);
-		case EOperationEditPart.VISUAL_ID:
-			return getEOperation_3002OutgoingLinks(view);
-		case EAttributeEditPart.VISUAL_ID:
-			return getEAttribute_3001OutgoingLinks(view);
-		case EReferenceEditPart.VISUAL_ID:
-			return getEReference_4002OutgoingLinks(view);
-		case EEnum2EditPart.VISUAL_ID:
-			return getEEnum_3007OutgoingLinks(view);
-		case EDataType2EditPart.VISUAL_ID:
-			return getEDataType_3006OutgoingLinks(view);
-		case EEnumEditPart.VISUAL_ID:
-			return getEEnum_2005OutgoingLinks(view);
-		case EEnumLiteralEditPart.VISUAL_ID:
-			return getEEnumLiteral_3009OutgoingLinks(view);
-		case EAnnotation2EditPart.VISUAL_ID:
-			return getEAnnotation_3003OutgoingLinks(view);
-		case EAnnotationEditPart.VISUAL_ID:
-			return getEAnnotation_2003OutgoingLinks(view);
 		case EClassEditPart.VISUAL_ID:
 			return getEClass_2001OutgoingLinks(view);
+		case EPackage2EditPart.VISUAL_ID:
+			return getEPackage_2002OutgoingLinks(view);
+		case EAnnotationEditPart.VISUAL_ID:
+			return getEAnnotation_2003OutgoingLinks(view);
+		case EDataTypeEditPart.VISUAL_ID:
+			return getEDataType_2004OutgoingLinks(view);
+		case EEnumEditPart.VISUAL_ID:
+			return getEEnum_2005OutgoingLinks(view);
+		case EAttributeEditPart.VISUAL_ID:
+			return getEAttribute_3001OutgoingLinks(view);
+		case EOperationEditPart.VISUAL_ID:
+			return getEOperation_3002OutgoingLinks(view);
+		case EAnnotation2EditPart.VISUAL_ID:
+			return getEAnnotation_3003OutgoingLinks(view);
+		case EClass2EditPart.VISUAL_ID:
+			return getEClass_3004OutgoingLinks(view);
+		case EPackage3EditPart.VISUAL_ID:
+			return getEPackage_3005OutgoingLinks(view);
+		case EDataType2EditPart.VISUAL_ID:
+			return getEDataType_3006OutgoingLinks(view);
+		case EEnum2EditPart.VISUAL_ID:
+			return getEEnum_3007OutgoingLinks(view);
+		case EStringToStringMapEntryEditPart.VISUAL_ID:
+			return getEStringToStringMapEntry_3008OutgoingLinks(view);
+		case EEnumLiteralEditPart.VISUAL_ID:
+			return getEEnumLiteral_3009OutgoingLinks(view);
+		case EReferenceEditPart.VISUAL_ID:
+			return getEReference_4002OutgoingLinks(view);
+		case EReference2EditPart.VISUAL_ID:
+			return getEReference_4003OutgoingLinks(view);
 		}
 		return Collections.EMPTY_LIST;
 	}

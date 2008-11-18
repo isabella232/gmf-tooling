@@ -140,6 +140,23 @@ Contributors:
    <extension point="org.eclipse.ui.preferencePages">
       <?gmfgen generated="true"?>
       <page
+            id="org.eclipse.emf.ecore.diagram.general"
+            name="%prefpage.org.eclipse.emf.ecore.diagram.general"
+            class="org.eclipse.gmf.ecore.preferences.DiagramGeneralPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.emf.ecore.diagram.appearance"
+            name="%prefpage.org.eclipse.emf.ecore.diagram.appearance"
+            category="org.eclipse.emf.ecore.diagram.general"
+            class="org.eclipse.gmf.ecore.preferences.DiagramAppearancePreferencePage">
+      </page>
+      <page
+            id="org.eclipse.emf.ecore.diagram.printing"
+            name="%prefpage.org.eclipse.emf.ecore.diagram.printing"
+            category="org.eclipse.emf.ecore.diagram.general"
+            class="org.eclipse.gmf.ecore.preferences.DiagramPrintingPreferencePage">
+      </page>
+      <page
             id="org.eclipse.emf.ecore.diagram.rulersAndGrid"
             name="%prefpage.org.eclipse.emf.ecore.diagram.rulersAndGrid"
             category="org.eclipse.emf.ecore.diagram.general"
@@ -150,23 +167,6 @@ Contributors:
             name="%prefpage.org.eclipse.emf.ecore.diagram.connections"
             category="org.eclipse.emf.ecore.diagram.general"
             class="org.eclipse.gmf.ecore.preferences.DiagramConnectionsPreferencePage">
-      </page>
-      <page
-            id="org.eclipse.emf.ecore.diagram.printing"
-            name="%prefpage.org.eclipse.emf.ecore.diagram.printing"
-            category="org.eclipse.emf.ecore.diagram.general"
-            class="org.eclipse.gmf.ecore.preferences.DiagramPrintingPreferencePage">
-      </page>
-      <page
-            id="org.eclipse.emf.ecore.diagram.general"
-            name="%prefpage.org.eclipse.emf.ecore.diagram.general"
-            class="org.eclipse.gmf.ecore.preferences.DiagramGeneralPreferencePage">
-      </page>
-      <page
-            id="org.eclipse.emf.ecore.diagram.appearance"
-            name="%prefpage.org.eclipse.emf.ecore.diagram.appearance"
-            category="org.eclipse.emf.ecore.diagram.general"
-            class="org.eclipse.gmf.ecore.preferences.DiagramAppearancePreferencePage">
       </page>
    </extension>
 
