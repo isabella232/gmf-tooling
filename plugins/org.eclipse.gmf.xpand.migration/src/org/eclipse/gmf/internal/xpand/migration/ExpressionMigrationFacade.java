@@ -1078,7 +1078,7 @@ public class ExpressionMigrationFacade {
 	
 	private EClassifier internalMigrateToList(EClassifier collectionType, EClassifier elementSuperType, int placeholder) throws MigrationException {
 		internalMigrateToConcreteCollection(collectionType, elementSuperType, placeholder, getCurrentPosition());
-		if (!BuiltinMetaModelExt.isListType(collectionType) && !BuiltinMetaModelExt.isOrderedSetType(collectionType)) {
+		if (!BuiltinMetaModelExt.isListType(collectionType)) {
 			write("->asSequence()");
 			return BuiltinMetaModelExt.getListType(elementSuperType);
 		}
