@@ -20,23 +20,8 @@
 <?eclipse version="3.0"?>
 «EXPAND xpt::Common::xcopyright FOR editorGen-»
 <plugin>
-
-   <extension point="org.eclipse.team.core.fileTypes">
-      «EXPAND xpt::Common::xmlGeneratedTag»
-      <fileTypes
-         type="text"
-         extension="«editorGen.diagramFileExtension»">
-      </fileTypes>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.extension_parser">
-      «EXPAND xpt::Common::xmlGeneratedTag»
-      <parser
-         type="«editorGen.diagramFileExtension»"
-         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
-      </parser>
-   </extension>
-
+«EXPAND fileTypes-»
+«EXPAND extension_parser-»
 «EXPAND xpt::editor::extensions::extensions FOR editorGen-»
 «EXPAND menu-»
 «EXPAND validation FOR editorGen.diagram-»
@@ -53,8 +38,24 @@
 </plugin>
 «ENDDEFINE»
 
-«DEFINE menu FOR gmfgen::GenPlugin-»
+«DEFINE fileTypes FOR gmfgen::GenPlugin»
+   <extension point="org.eclipse.team.core.fileTypes">
+      «EXPAND xpt::Common::xmlGeneratedTag»
+      <fileTypes type="text" extension="«editorGen.diagramFileExtension»"/>
+   </extension>
+«ENDDEFINE»
 
+«DEFINE extension_parser FOR gmfgen::GenPlugin»
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      «EXPAND xpt::Common::xmlGeneratedTag»
+      <parser
+         type="«editorGen.diagramFileExtension»"
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
+      </parser>
+   </extension>
+«ENDDEFINE»
+
+«DEFINE menu FOR gmfgen::GenPlugin»
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <GlobalActionHandlerProvider
