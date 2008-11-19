@@ -187,6 +187,7 @@ public class RuntimeCompilationTest extends CompilationTest {
 		menu.getItems().add(GMFGenFactory.eINSTANCE.createGenSeparator());
 		menu.getItems().add(a2);
 		menu.getItems().add(subMenu);
+		editorGen.getContextMenus().clear(); // make sure there's no other (default) menus
 		editorGen.getContextMenus().add(menu);
 		//
 		generateAndCompile(s);
@@ -258,6 +259,7 @@ public class RuntimeCompilationTest extends CompilationTest {
 		final LoadResourceAction loadResourceAction = GMFGenFactory.eINSTANCE.createLoadResourceAction();
 		menu.getItems().add(createShortcutAction);
 		menu.getItems().add(loadResourceAction);
+		editorGen.getContextMenus().clear(); // make sure there's no other (default) menus
 		editorGen.getContextMenus().add(menu);
 		editorGen.getDiagram().getContainsShortcutsTo().add("ecore");
 		assertTrue("sanity", editorGen.getDiagram().generateCreateShortcutAction());

@@ -768,6 +768,10 @@ L1:				for (GenNode n : old.getDiagram().getAllNodes()) {
 	public void testGenContextMenu() {
 		GenEditorGenerator old = createCopy();
 		GenEditorGenerator current = createCopy();
+		// make clean initial state
+		current.getContextMenus().clear();
+		old.getContextMenus().clear();
+		//
 		GenContextMenu menu1 = GMFGenFactory.eINSTANCE.createGenContextMenu();
 		GenContextMenu menu2 = GMFGenFactory.eINSTANCE.createGenContextMenu();
 		old.getContextMenus().add(menu1);
