@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -9,6 +9,7 @@
  * Contributors:
  *    Alexander Fedorov (Borland) - initial API and implementation
  *    Artem Tikhomirov (Borland) - members' visibility/access
+ *                                 [254532] further distinguish extensions by id, if present 
  */
 package org.eclipse.gmf.internal.common.codegen;
 
@@ -16,8 +17,10 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -127,30 +130,47 @@ public class PluginXMLTextMerger {
 			} else {
 				List<ExtensionDescriptor> newEDs = newDoc.getExtensionsByPoint(oldED.pointName);
 				if (oldED.generated) {
-					if (newEDs == null) {
+					if (newEDs.isEmpty()) {
 						//delete
 						currentPosition = oldED.endLine;
 						oldED.remove();
 					} else {
-						//replace
-						ExtensionDescriptor newED = newEDs.get(0);
-						result.append(newED.getText());
-						currentPosition = oldED.endLine;
-						oldED.remove();
-						newED.remove();
+						// if there's only one new descriptor, replace
+						// if there's more, need to take extension's id into account
+						if (newEDs.size() == 1) {
+							ExtensionDescriptor newED = newEDs.get(0);
+							result.append(newED.getText());
+							currentPosition = oldED.endLine;
+							oldED.remove();
+							newED.remove();
+						} else {
+							for (ExtensionDescriptor ed : newEDs) {
+								if (oldED.identityMatches(ed)) {
+									result.append(ed.getText());
+									currentPosition = oldED.endLine;
+									oldED.remove();
+									ed.remove();
+									break;
+								}
+							}
+						}
 					}
 				} else {
 					//keep
 					result.append(oldED.getText());
 					currentPosition += oldED.getTextLength();
 					oldED.remove();
-					if (newEDs != null && !oldDoc.hasGeneratedExtension(oldED.pointName)) {
-						ExtensionDescriptor newED = newEDs.get(0);
-						newED.remove();
+					if (!newEDs.isEmpty() && !oldDoc.hasGeneratedExtension(oldED.pointName)) {
+						for (ExtensionDescriptor newED : newEDs) {
+							if (newED.identityMatches(oldED)) {
+								newED.remove();
+							}
+						}
 					}
 				}
 			}
 			if (oldDoc.getExtensions().isEmpty()  && !newDoc.getExtensions().isEmpty()) {
+				// XXX if character under current position is newline - perhaps, copy it first?
 				boolean sameStartEnd = oldDoc.getExtensionsStart() == oldDoc.getExtensionsEnd();
 				boolean afterStart = currentPosition >= oldDoc.getExtensionsStart(); 
 				if (afterStart && (sameStartEnd || currentPosition < oldDoc.getExtensionsEnd())) {
@@ -254,10 +274,11 @@ public class PluginXMLTextMerger {
 			}
 			return true;
 		}
-		
+
+		// modifiable copy of the list
 		List<ExtensionDescriptor> getExtensionsByPoint(String point) {
-			List<ExtensionDescriptor> list = myPoint2ExtensionsMap.get(point);
-			return list;
+			final List<ExtensionDescriptor> list = myPoint2ExtensionsMap.get(point);
+			return list == null ? Collections.<ExtensionDescriptor>emptyList() : new ArrayList<ExtensionDescriptor>(list);
 		}
 		
 		ExtensionDescriptor getExtensionByStart(int start) {
@@ -266,7 +287,7 @@ public class PluginXMLTextMerger {
 
 		void removeExtension(ExtensionDescriptor ed) {
 			myStart2ExtensionMap.remove(ed.startLine);
-			List<ExtensionDescriptor> list = getExtensionsByPoint(ed.pointName);
+			List<ExtensionDescriptor> list = myPoint2ExtensionsMap.get(ed.pointName);
 			if (list != null) {
 				list.remove(ed);
 				if (list.size() == 0) {
@@ -276,7 +297,7 @@ public class PluginXMLTextMerger {
 		}
 
 		boolean hasGeneratedExtension(String point) {
-			List<ExtensionDescriptor> list = getExtensionsByPoint(point);
+			List<ExtensionDescriptor> list = myPoint2ExtensionsMap.get(point);
 			if (list != null && list.size() > 0) {
 				for (ExtensionDescriptor ed : list) {
 					if (ed.generated) {
@@ -319,13 +340,15 @@ public class PluginXMLTextMerger {
 		public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 			if (ELEM_EXTENSION.equals(qName)) {
 				String pointName = attributes.getValue(ATTR_POINT);
+				String identity = attributes.getValue("id"); //$NON-NLS-1$
 				if (pointName != null) {
 					if (myIterator != null && myIterator.hasNext()) {
 						ExtensionDescriptor ed = myIterator.next();
 						ed.pointName = pointName;
-						List<ExtensionDescriptor> list = getExtensionsByPoint(ed.pointName);
+						ed.identity = identity;
+						List<ExtensionDescriptor> list = myPoint2ExtensionsMap.get(ed.pointName);
 						if (list == null) {
-							list = new ArrayList<ExtensionDescriptor>();
+							list = new LinkedList<ExtensionDescriptor>();
 							myPoint2ExtensionsMap.put(ed.pointName, list);
 						}
 						list.add(ed);
@@ -344,6 +367,7 @@ public class PluginXMLTextMerger {
 	private static class ExtensionDescriptor {
 		private final ParsedPluginXML parsedDoc;
 		String pointName;
+		String identity;
 		final boolean generated;
 		private final int startLine;
 		private final int endLine;
@@ -363,6 +387,9 @@ public class PluginXMLTextMerger {
 		}
 		void remove() {
 			parsedDoc.removeExtension(this);
+		}
+		boolean identityMatches(ExtensionDescriptor other) {
+			return identity == null ? other.identity == null : identity.equals(other.identity);
 		}
 	}
 }
