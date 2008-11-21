@@ -147,12 +147,13 @@ public class PluginXMLTextMerger {
 							for (ExtensionDescriptor ed : newEDs) {
 								if (oldED.identityMatches(ed)) {
 									result.append(ed.getText());
-									currentPosition = oldED.endLine;
-									oldED.remove();
 									ed.remove();
 									break;
 								}
 							}
+							// remove oldED anyway, regardless whether there was matching newED or not
+							currentPosition = oldED.endLine;
+							oldED.remove();
 						}
 					}
 				} else {
