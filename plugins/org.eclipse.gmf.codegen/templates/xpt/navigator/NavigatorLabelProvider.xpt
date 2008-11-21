@@ -256,7 +256,11 @@ private String «EXPAND getTextMethodName»(org.eclipse.gmf.runtime.notation.View 
 
 «DEFINE getText FOR gmfgen::GenLink-»
 «IF labels.isEmpty()-»
+	«IF null != modelFacet-»
 	«EXPAND getText(modelFacet)-»
+«ELSE-»
+		«EXPAND returnEmptyString-»
+	«ENDIF-»
 «ELSE-»
 	«EXPAND getDiagramLabelText(labels)-»
 «ENDIF-»
