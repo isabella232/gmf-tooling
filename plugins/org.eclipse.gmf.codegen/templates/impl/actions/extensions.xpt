@@ -16,7 +16,7 @@
 «EXTENSION impl::actions::MenuAction»
 
 «DEFINE Main FOR GenEditorGenerator»
-   <extension point="org.eclipse.ui.menus">
+   <extension point="org.eclipse.ui.menus" id="context-menus">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=«»">
       </menuContribution>
@@ -26,7 +26,7 @@
    </extension>
 
 «IF hasCommandsToContribute()-»
-   <extension point="org.eclipse.ui.commands">
+   <extension point="org.eclipse.ui.commands" id="menu-commands">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <category id="«editor.iD»" name="%cmdcategory.name" description="%cmdcategory.desc"/>
 «EXPAND commandContribution FOREACH contextMenus-»
@@ -34,7 +34,7 @@
 «ENDIF-»
 
 «IF hasHandlersToContribute()-»
-   <extension point="org.eclipse.ui.handlers">
+   <extension point="org.eclipse.ui.handlers" id="menu-handlers">
       «EXPAND xpt::Common::xmlGeneratedTag»
 «EXPAND handlerContribution FOREACH contextMenus-»
    </extension>

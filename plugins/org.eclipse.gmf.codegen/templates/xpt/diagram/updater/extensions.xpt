@@ -13,7 +13,7 @@
 «IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
 
 «DEFINE extensions FOR gmfgen::GenDiagramUpdater-»
-   <extension point="org.eclipse.ui.commands">
+   <extension point="org.eclipse.ui.commands" id="update-cmd">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <command
          categoryId="org.eclipse.ui.category.edit"
@@ -23,7 +23,7 @@
          name="%update.diagram.name"/>
    </extension>
    
-   <extension point="org.eclipse.ui.bindings">
+   <extension point="org.eclipse.ui.bindings" id="update-cmd-binding">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <key 
          commandId="«updateCommandID»"

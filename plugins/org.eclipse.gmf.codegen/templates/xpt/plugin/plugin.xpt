@@ -39,14 +39,14 @@
 «ENDDEFINE»
 
 «DEFINE fileTypes FOR gmfgen::GenPlugin»
-   <extension point="org.eclipse.team.core.fileTypes">
+   <extension point="org.eclipse.team.core.fileTypes" id="repo-ftype">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <fileTypes type="text" extension="«editorGen.diagramFileExtension»"/>
    </extension>
 «ENDDEFINE»
 
 «DEFINE extension_parser FOR gmfgen::GenPlugin»
-   <extension point="org.eclipse.emf.ecore.extension_parser">
+   <extension point="org.eclipse.emf.ecore.extension_parser" id="resource-factory">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <parser
          type="«editorGen.diagramFileExtension»"
@@ -56,7 +56,7 @@
 «ENDDEFINE»
 
 «DEFINE menu FOR gmfgen::GenPlugin»
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders" id="global-actions">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
@@ -126,7 +126,7 @@
 		</contributionItemProvider>
 	</extension>
 
-   <extension point="org.eclipse.ui.views">
+   <extension id="metrics-view" point="org.eclipse.ui.views">
       «EXPAND xpt::Common::xmlGeneratedTag»
    	  <view class="«editorGen.diagram.getMetricProviderQualifiedClassName()»$ResultView"
 			id="«editorGen.diagram.getMetricViewID()»"
@@ -154,7 +154,7 @@
 «ENDIF-»
 «IF null == editorGen.application-»
 
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders" id="markers-navigation">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <MarkerNavigationProvider class="«getMarkerNavigationProviderQualifiedClassName()»">
          <MarkerType name="«editorGen.plugin.iD + "." + getValidationDiagnosticMarkerType()»"/>

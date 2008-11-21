@@ -27,7 +27,7 @@
 
 	«EXPAND registerBindings-»
 
-   <extension point="org.eclipse.ui.navigator.navigatorContent">
+   <extension point="org.eclipse.ui.navigator.navigatorContent" id="navigator-content">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <navigatorContent
             id="«contentExtensionID»" 
@@ -124,7 +124,7 @@
 «ENDDEFINE»
 
 «DEFINE editorInputPropertyTester(String property, String type, String testerClass) FOR gmfgen::GenNavigator-»
-   <extension point="org.eclipse.core.expressions.propertyTesters">
+   <extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.is«property»">
       «EXPAND xpt::Common::xmlGeneratedTag»
        <propertyTester
            id="«editorGen.plugin.iD».«property»PropertyTester"
@@ -137,7 +137,7 @@
 «ENDDEFINE»
 
 «DEFINE registerBindings FOR gmfgen::GenNavigator-»
-   <extension point="org.eclipse.ui.navigator.viewer">
+   <extension point="org.eclipse.ui.navigator.viewer" id="navigator-viewbinding">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
@@ -157,7 +157,7 @@
 «ENDDEFINE»
 
 «DEFINE registerLinkHelper FOR gmfgen::GenNavigator-»
-   <extension point="org.eclipse.ui.navigator.linkHelper">
+   <extension point="org.eclipse.ui.navigator.linkHelper" id="navigator-linkhelper">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <linkHelper
             id="«linkHelperExtensionID»"

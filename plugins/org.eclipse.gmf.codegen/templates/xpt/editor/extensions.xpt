@@ -14,7 +14,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
 «DEFINE extensions FOR gmfgen::GenEditorGenerator»
-   <extension point="org.eclipse.ui.editors">
+   <extension point="org.eclipse.ui.editors" id="gmf-editor">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <editor
          id="«editor.iD»"
@@ -28,7 +28,7 @@
       </editor>
    </extension>
    
-   <extension point="org.eclipse.ui.contexts">
+   <extension point="org.eclipse.ui.contexts" id="ui-context">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <context
          description="%context.description"
@@ -38,7 +38,7 @@
       </context>
    </extension>
 
-   <extension point="org.eclipse.ui.newWizards">
+   <extension point="org.eclipse.ui.newWizards" id="creation-wizard">
       «EXPAND xpt::Common::xmlGeneratedTag»
   	  <wizard
   	     name="%newWizardName"
@@ -51,7 +51,7 @@
    </extension>
 
 «IF diagram.generateInitDiagramAction()-»
-   «IF null == application»<extension point="org.eclipse.ui.popupMenus">
+   «IF null == application»<extension point="org.eclipse.ui.popupMenus" id="init-diagram-action">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <objectContribution
             id="«plugin.iD».InitDiagram"
@@ -67,7 +67,7 @@
       </objectContribution>
    </extension>
 	«ELSE-»
-   <extension point="org.eclipse.ui.actionSets">
+   <extension point="org.eclipse.ui.actionSets" id="init-diagram-action">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <actionSet
             label="%initDiagramActionLabel"

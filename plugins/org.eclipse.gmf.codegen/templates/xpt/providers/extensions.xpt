@@ -17,7 +17,7 @@
 
 «DEFINE extensions FOR gmfgen::GenDiagram-»
 
-   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <viewProvider class="«getNotationViewProviderQualifiedClassName()»">
          <Priority name="«notationViewProviderPriority»"/>
@@ -27,28 +27,28 @@
       </viewProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <editpartProvider class="«getEditPartProviderQualifiedClassName()»">
          <Priority name="«editPartProviderPriority»"/>
       </editpartProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
+   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <modelingAssistantProvider class="«getModelingAssistantProviderQualifiedClassName()»">
          <Priority name="«modelingAssistantProviderPriority»"/>
       </modelingAssistantProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <IconProvider class="«getIconProviderQualifiedClassName()»">
          <Priority name="«iconProviderPriority»"/>
       </IconProvider>
    </extension>
 «IF editorGen.labelParsers != null && editorGen.labelParsers.extensibleViaService»
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <ParserProvider class="«editorGen.labelParsers.getQualifiedClassName()»">
          <Priority name="«editorGen.labelParsers.providerPriority»"/>
@@ -57,7 +57,7 @@
 «ENDIF-»
 «IF generateShortcutIcon()-»
 
-   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders" id="decorator-provider">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <decoratorProvider class="«getShortcutsDecoratorProviderQualifiedClassName()»">
          <Priority name="«shortcutsDecoratorProviderPriority»"/>
@@ -65,14 +65,14 @@
    </extension>
 «ENDIF-»
 
-   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes" id="element-types">
       «EXPAND xpt::Common::xmlGeneratedTag»
 «FOREACH getElements() AS e-»
 «EXPAND elementTypeSafe FOR e.elementType-»
 «ENDFOREACH-»
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings" id="element-types-bindings">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <clientContext id="«editorGen.plugin.iD».TypeContext">
          <enablement>

@@ -22,7 +22,7 @@
       </application>
    </extension>
 
-   <extension point="org.eclipse.ui.perspectives">
+   <extension point="org.eclipse.ui.perspectives" id="rcp-perspective">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <perspective
             id="«perspectiveId»"
@@ -31,7 +31,7 @@
       </perspective>
    </extension>
 
-   <extension point="org.eclipse.ui.commands">
+   <extension point="org.eclipse.ui.commands" id="rcp-menu-commands">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <command
             name="%openURIActionLabel"
@@ -45,7 +45,7 @@
             id="«editorGen.plugin.iD».OpenCommand"/>  
    </extension>
 
-   <extension point="org.eclipse.ui.bindings">
+   <extension point="org.eclipse.ui.bindings" id="rcp-command-bindings">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <key
             commandId="«editorGen.plugin.iD».OpenURICommand"
@@ -57,7 +57,7 @@
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
    </extension>
 
-   <extension point="org.eclipse.ui.actionSets">
+   <extension point="org.eclipse.ui.actionSets" id="rcp-actions">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <actionSet
             label="%applicationActionSetLabel"
