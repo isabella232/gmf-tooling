@@ -155,7 +155,7 @@ public class PluginXMLTextMergerTest extends TestCase {
 	public void testAddEmptyOld() {
 		final String oldXML = T_0 + T_99;
 		final String newXML = T_0 + T_2 + T_99;
-		final String expectedResult = T_0 + T_2.trim() + NL + T_99;
+		final String expectedResult = T_0 + T_2.trim() + NL + NL + T_99;
 		internalTestIgnoreNewlines(oldXML, newXML, expectedResult);
 	}
 
@@ -167,7 +167,7 @@ public class PluginXMLTextMergerTest extends TestCase {
 		final String oldContent = "<extension-point id='zzz'/>" + NL; //$NON-NLS-1$
 		final String oldXML = T_0 + oldContent + T_99;
 		final String newXML = T_0 + T_2 + T_99;
-		final String expectedResult = T_0 +  oldContent + T_2.trim() + NL + T_99;
+		final String expectedResult = T_0 +  oldContent + T_2.trim() + NL + NL + T_99;
 		internalTest(oldXML, newXML, expectedResult);
 	}
 
@@ -209,7 +209,7 @@ public class PluginXMLTextMergerTest extends TestCase {
 		final String oldXML = T_0 + T_1 + T_99;
 		final String newXML = T_0 + T_99;
 		//TODO: remove orphan whitespaces
-		final String expectedResult = T_0 + "   " + NL + NL + T_99; //$NON-NLS-1$
+		final String expectedResult = T_0 + "   " + NL + T_99; //$NON-NLS-1$
 		internalTest(oldXML, newXML, expectedResult);
 	}
 
@@ -252,7 +252,7 @@ public class PluginXMLTextMergerTest extends TestCase {
 	public void testUnformatted() {
 		final String oldXML = T_7 + T_99;
 		final String newXML = T_0 + T_2 + T_99;
-		final String expectedResult = T_70 + T_71 + T_72 + T_20 + T_21 + T_22 + T_79 + T_77 + T_78 + T_79 + T_99;
+		final String expectedResult = T_70 + T_71 + T_72 + T_20 + T_21 + T_22 + T_79 + NL + T_77 + T_78 + T_79 + T_99;
 		internalTest(oldXML, newXML, expectedResult);
 	}
 
@@ -293,21 +293,19 @@ public class PluginXMLTextMergerTest extends TestCase {
 	public void testConflictWithManuallyAddedIdentifiedExtension() {
 		String oldXML = String.format(extensionWithId, "identity", "<user><manual/></user>");
 		String newXML = String.format(extensionNoId, PI + "<newbody/>");
-		// XXX: trim and NL are subtle hacks as PluginXMLTextMerger
-		// inserts new extensions right *after* last oldED, not *before* next found tag
-		internalTest_Bodies(oldXML, newXML, oldXML.trim() + newXML + NL);
+		internalTest_Bodies(oldXML, newXML, oldXML + newXML + NL); // new line is subtle hack
 	}
 
 	public void testConflictWithManuallyAddedNoIdentityExtension() {
 		String oldXML = String.format(extensionNoId, "<user><manual/></user>");
 		String newXML = String.format(extensionWithId, "generated-identity", PI + "<newbody/>");
-		internalTest_Bodies(oldXML, newXML, oldXML.trim() + newXML + NL);
+		internalTest_Bodies(oldXML, newXML, oldXML + newXML + NL); // new line is subtle hack
 	}
 
 	public void testConflictWithManuallyAddedDistinctIdentities() {
 		String oldXML = String.format(extensionWithId, "manual-identity", "<user><manual/></user>");
 		String newXML = String.format(extensionWithId, "generated-identity", PI + "<newbody/>");
-		internalTest_Bodies(oldXML, newXML, oldXML.trim() + newXML + NL);
+		internalTest_Bodies(oldXML, newXML, oldXML + newXML + NL); // new line is subtle hack
 	}
 
 	public void testConflictBothGeneratedButDistinctIdentities() {
@@ -358,9 +356,9 @@ public class PluginXMLTextMergerTest extends TestCase {
 		// Perhaps, makes sense to modify PluginXMLTextMerger so that it looks though old descriptors
 		// for matching identity even when there's single replacement extension - and if there's matching
 		// in the old file, replace it instead of the presently processed (the one in the currentPosition)
-		internalTest_Bodies(oldXML_1 + oldXML_2 + oldXML_3, newXML, newXML + oldXML_2 + NL); // newline is a subtle hack
+		internalTest_Bodies(oldXML_1 + oldXML_2 + oldXML_3, newXML, newXML + oldXML_2);
 		// try different order of extensions
-		internalTest_Bodies(oldXML_3 + oldXML_2 + oldXML_1, newXML, newXML + oldXML_2 + NL);
+		internalTest_Bodies(oldXML_3 + oldXML_2 + oldXML_1, newXML, newXML + oldXML_2);
 	}
 
 	public void testTwoGeneratedExtensionsSamePointReplacedByTwoWithIDs() {
@@ -368,24 +366,13 @@ public class PluginXMLTextMergerTest extends TestCase {
 		String oldXML_2 = String.format(extensionNoId, PI + "<oldbody2/>");
 		String newXML_1 = String.format(extensionWithId, "generated-id1", PI + "<newbody1/>");
 		String newXML_2 = String.format(extensionWithId, "generated-id2", PI + "<newbody2/>");
-		internalTest_Bodies(oldXML_1 + oldXML_2, newXML_1 + newXML_2, NL + newXML_1 + newXML_2 + NL);
+		internalTest_Bodies(oldXML_1 + oldXML_2, newXML_1 + newXML_2, newXML_1 + newXML_2);
 	}
 
 	private void internalTest_Bodies(String oldFileBody, String newFileBody, String expectedFileBody) {
 		String result = myMerger.process(String.format(file, oldFileBody), String.format(file, newFileBody));
 		assertNotNull(result);
 		final String expectedResult = String.format(file, expectedFileBody);
-//		// remove all newlines
-//		String uniformResult = myNewLinePattern.matcher(result).replaceAll("");
-//		String uniformExpected = myNewLinePattern.matcher(expectedResult).replaceAll("");
-//		// first, make sure result is what expected regardless of all newlines
-//		assertEquals(uniformExpected, uniformResult);
-//		// then, try to assure user formatting is preserved
-		for (int i = 0; i < expectedResult.length(); i++) {
-			if (expectedResult.charAt(i) != result.charAt(i)) {
-				System.out.println("PluginXMLTextMergerTest.internalTest_Bodies():" + i + result.charAt(i-1) + result.charAt(i));
-			}
-		}
 		assertEquals(expectedResult, result);
 	}
 
