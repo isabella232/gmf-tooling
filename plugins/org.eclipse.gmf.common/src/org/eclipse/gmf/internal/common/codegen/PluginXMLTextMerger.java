@@ -133,23 +133,20 @@ public class PluginXMLTextMerger {
 					// if there's only one new descriptor, replace
 					// if there's more, need to take extension's id into account,
 					// but remove oldED anyway, regardless whether there was matching newED or not
-					if (newEDs.size() == 1) {
+					boolean foundMatched = false;
+					for (ExtensionDescriptor ed : newEDs) {
+						if (oldED.identityMatches(ed)) {
+							result.append(ed.getText());
+							ed.remove();
+							foundMatched = true;
+							break;
+						}
+					}
+					if (!foundMatched && newEDs.size() > 0) {
+						// copy one of new elements here, in effort to keep old order
 						ExtensionDescriptor newED = newEDs.get(0);
 						result.append(newED.getText());
 						newED.remove();
-					} else { // zero or more than one
-						boolean foundMatched = false;
-						for (ExtensionDescriptor ed : newEDs) {
-							if (oldED.identityMatches(ed)) {
-								result.append(ed.getText());
-								ed.remove();
-								foundMatched = true;
-								break;
-							}
-						}
-						if (!foundMatched && newEDs.size() > 0) {
-							// FIXME copy one of new elements here, in effort to keep old order 
-						}
 					}
 					currentPosition = oldED.endLine;
 					oldED.remove();
@@ -167,8 +164,7 @@ public class PluginXMLTextMerger {
 					}
 				}
 			}
-			if (oldDoc.getExtensions().isEmpty()  && !newDoc.getExtensions().isEmpty()) {
-				// XXX if character under current position is newline - perhaps, copy it first?
+			if (!oldDoc.hasMoreExtensions()  && newDoc.hasMoreExtensions()) {
 				boolean sameStartEnd = oldDoc.getExtensionsStart() == oldDoc.getExtensionsEnd();
 				boolean afterStart = currentPosition >= oldDoc.getExtensionsStart(); 
 				if (afterStart && (sameStartEnd || currentPosition < oldDoc.getExtensionsEnd())) {
@@ -239,6 +235,19 @@ public class PluginXMLTextMerger {
 			while (isInsideComment(xml, extensionEnd)) {
 				extensionEnd = getStartIndex(xml, ELEM_EXTENSION_END, extensionEnd) + ELEM_EXTENSION_END.length();
 			}
+			// look ahead 2 (\n\r and \r\n) chars at most, if they are newline, include them into extension's range
+			// this helps to keep user's formatting
+			for (int i = 0; i < 2 && extensionEnd < xml.length(); i++) {
+				if (xml.charAt(extensionEnd) == '\n' || xml.charAt(extensionEnd) == '\r') {
+					// only \r\n or \n\r or single \n constitute a newline, 
+					// need to be careful not to treat double \n as a single newline 
+					if (i == 0 || xml.charAt(extensionEnd-1) != xml.charAt(extensionEnd)) {
+						extensionEnd++;
+					}
+				} else {
+					break;
+				}
+			}
 			boolean isGenerated = isGenerated(xml, extensionStart, extensionEnd);
 			ExtensionDescriptor ed = new ExtensionDescriptor(this, extensionStart, extensionEnd, isGenerated);
 			myStart2ExtensionMap.put(ed.startLine, ed);
@@ -304,6 +313,10 @@ public class PluginXMLTextMerger {
 				}
 			}
 			return false;
+		}
+
+		boolean hasMoreExtensions() {
+			return !myStart2ExtensionMap.isEmpty();
 		}
 
 		List<ExtensionDescriptor> getExtensions() {
