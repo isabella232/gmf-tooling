@@ -130,32 +130,29 @@ public class PluginXMLTextMerger {
 			} else {
 				List<ExtensionDescriptor> newEDs = newDoc.getExtensionsByPoint(oldED.pointName);
 				if (oldED.generated) {
-					if (newEDs.isEmpty()) {
-						//delete
-						currentPosition = oldED.endLine;
-						oldED.remove();
-					} else {
-						// if there's only one new descriptor, replace
-						// if there's more, need to take extension's id into account
-						if (newEDs.size() == 1) {
-							ExtensionDescriptor newED = newEDs.get(0);
-							result.append(newED.getText());
-							currentPosition = oldED.endLine;
-							oldED.remove();
-							newED.remove();
-						} else {
-							for (ExtensionDescriptor ed : newEDs) {
-								if (oldED.identityMatches(ed)) {
-									result.append(ed.getText());
-									ed.remove();
-									break;
-								}
+					// if there's only one new descriptor, replace
+					// if there's more, need to take extension's id into account,
+					// but remove oldED anyway, regardless whether there was matching newED or not
+					if (newEDs.size() == 1) {
+						ExtensionDescriptor newED = newEDs.get(0);
+						result.append(newED.getText());
+						newED.remove();
+					} else { // zero or more than one
+						boolean foundMatched = false;
+						for (ExtensionDescriptor ed : newEDs) {
+							if (oldED.identityMatches(ed)) {
+								result.append(ed.getText());
+								ed.remove();
+								foundMatched = true;
+								break;
 							}
-							// remove oldED anyway, regardless whether there was matching newED or not
-							currentPosition = oldED.endLine;
-							oldED.remove();
+						}
+						if (!foundMatched && newEDs.size() > 0) {
+							// FIXME copy one of new elements here, in effort to keep old order 
 						}
 					}
+					currentPosition = oldED.endLine;
+					oldED.remove();
 				} else {
 					//keep
 					result.append(oldED.getText());
