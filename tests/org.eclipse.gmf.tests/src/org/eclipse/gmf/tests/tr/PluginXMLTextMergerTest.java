@@ -363,6 +363,14 @@ public class PluginXMLTextMergerTest extends TestCase {
 		internalTest_Bodies(oldXML_3 + oldXML_2 + oldXML_1, newXML, newXML + oldXML_2 + NL);
 	}
 
+	public void testTwoGeneratedExtensionsSamePointReplacedByTwoWithIDs() {
+		String oldXML_1 = String.format(extensionNoId, PI + "<oldbody1/>");
+		String oldXML_2 = String.format(extensionNoId, PI + "<oldbody2/>");
+		String newXML_1 = String.format(extensionWithId, "generated-id1", PI + "<newbody1/>");
+		String newXML_2 = String.format(extensionWithId, "generated-id2", PI + "<newbody2/>");
+		internalTest_Bodies(oldXML_1 + oldXML_2, newXML_1 + newXML_2, NL + newXML_1 + newXML_2 + NL);
+	}
+
 	private void internalTest_Bodies(String oldFileBody, String newFileBody, String expectedFileBody) {
 		String result = myMerger.process(String.format(file, oldFileBody), String.format(file, newFileBody));
 		assertNotNull(result);
