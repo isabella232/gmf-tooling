@@ -167,7 +167,7 @@ public class ExpressionMigrationFacade {
 				if (BuiltinMetaModelExt.isSetType(actualType) || BuiltinMetaModelExt.isOrderedSetType(actualType) || BuiltinMetaModelExt.isBagType(actualType)) {
 					write("->asSequence()");
 				} else if (BuiltinMetaModelExt.isAbstractCollectionType(actualType)) {
-					internalMigrateCollectionToBag(null);
+					internalMigrateCollectionToBag();
 					write("->asSequence()");
 				}
 			} else if (BuiltinMetaModelExt.isSetType(expectedType)) {
@@ -176,7 +176,7 @@ public class ExpressionMigrationFacade {
 				} else if (BuiltinMetaModelExt.isBagType(actualType)) {
 					write("->asSet()");
 				} else if (BuiltinMetaModelExt.isAbstractCollectionType(actualType)) {
-					internalMigrateCollectionToBag(null);
+					internalMigrateCollectionToBag();
 					write("->asSet()");
 				}
 			}
@@ -372,7 +372,10 @@ public class ExpressionMigrationFacade {
 	}
 
 	private EClassifier migrateBooleanOperation(BooleanOperation booleanOperation) throws MigrationException {
+		int operationPrecedence = getPrecedence(booleanOperation);
+		int leftPosition = getCurrentPosition();
 		migrateExpression(booleanOperation.getLeft());
+		encloseExpressionIntoParenthesis(booleanOperation.getLeft(), operationPrecedence, leftPosition, false);
 		if (booleanOperation.isAndOperation()) {
 			write(" and ");
 		} else if (booleanOperation.isOrOperation()) {
@@ -382,7 +385,9 @@ public class ExpressionMigrationFacade {
 		} else {
 			throw new MigrationException(Type.UNSUPPORTED_BOOLEAN_OPERATION, booleanOperation.getOperator());
 		}
+		int rightPosition = getCurrentPosition();
 		migrateExpression(booleanOperation.getRight());
+		encloseExpressionIntoParenthesis(booleanOperation.getRight(), operationPrecedence, rightPosition, true);
 		return EcorePackage.eINSTANCE.getEBoolean();
 	}
 
@@ -427,10 +432,9 @@ public class ExpressionMigrationFacade {
 	private void internalMigrateTypeSelectCastingCollectionToBag(EClassifier collectionType, String typeName, int placeholder) {
 		assert BuiltinMetaModel.isCollectionType(collectionType);
 		if (BuiltinMetaModelExt.isAbstractCollectionType(collectionType)) {
-			internalMigrateCollectionToBag(typeName);
-		} else {
-			internalMigrateTypeSelect(typeName, placeholder, getCurrentPosition());
+			internalMigrateCollectionToBag();
 		}
+		internalMigrateTypeSelect(typeName, placeholder, getCurrentPosition());
 	}
 
 	private void internalMigrateTypeSelect(String typeName, int expressionStartPosition, int expressionEndPosition) {
@@ -447,17 +451,12 @@ public class ExpressionMigrationFacade {
 	}
 	
 	// TODO: use ->asSequence() here in addition?
-	private void internalMigrateCollectionToBag(String typeName) {
+	private void internalMigrateCollectionToBag() {
 		String iteratorName = variableDispatcher.getNextIteratorName();
 		write("->collect(");
 		write(iteratorName);
 		write(" | ");
 		write(iteratorName);
-		if (typeName != null) {
-			write(".oclAsType(");
-			write(typeName);
-			write(")");
-		}
 		write(")");
 	}
 	
@@ -710,19 +709,27 @@ public class ExpressionMigrationFacade {
 	private EClassifier internalMigrateInfixOperation(OperationCallTrace trace, OperationCall operationCall) throws MigrationException {
 		EOperation eOperation = trace.getEOperation();
 		assert eOperation != null;
+		
+		/*
+		 * migrating multiple concatenated strings as a single one to represent
+		 * multi-line strings in more readable manner
+		 */ 
 		if (BuiltinMetaModel.EString_Plus_EJavaObject == eOperation && isPureStringLiteralConcatination(operationCall)){
 			write("'");
 			internalMigratePureStringLiteralConcatination(operationCall);
 			write("'");
 			return EcorePackage.eINSTANCE.getEString();
 		}
-		int placeholder = getCurrentPosition();
+
+		int operationPrecedence = getPrecedence(operationCall);
+		int targetStartPosition = getCurrentPosition();
 		internalMigrateOperationCallTarget(operationCall);
+		encloseExpressionIntoParenthesis(operationCall.getTarget(), operationPrecedence, targetStartPosition, false);
 		String opName = eOperation.getName();
 		if (BuiltinMetaModel.Boolean_NE == eOperation) {
-			write("not ", placeholder);
+			write("not ", targetStartPosition);
 		} else if (BuiltinMetaModel.Int_Unary_Minus == eOperation || BuiltinMetaModel.Double_Unary_Minus == eOperation) {
-			write(opName, placeholder);
+			write(opName, targetStartPosition);
 		} else if (BuiltinMetaModel.Int_Minus_Int == eOperation || BuiltinMetaModel.Int_Minus_Double == eOperation || BuiltinMetaModel.Double_Minus_Int == eOperation
 				|| BuiltinMetaModel.Double_Minus_Double == eOperation || BuiltinMetaModel.Int_Plus_Int == eOperation || BuiltinMetaModel.Int_Plus_Double == eOperation
 				|| BuiltinMetaModel.Double_Plus_Int == eOperation || BuiltinMetaModel.Double_Plus_Double == eOperation || BuiltinMetaModel.Int_Mult_Int == eOperation
@@ -740,17 +747,69 @@ public class ExpressionMigrationFacade {
 		} else {
 			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Incorrect infix operation: " + opName);
 		}
+		int parameterStartPosition = getCurrentPosition();
 		List<EClassifier> parameterTypes = internalMigrateOperationCallParameters(operationCall, null);
+		if (operationCall.getParams().length == 1) {
+			encloseExpressionIntoParenthesis(operationCall.getParams()[0], operationPrecedence, parameterStartPosition, true);
+		}
+		
 		if (BuiltinMetaModel.EString_Plus_EJavaObject == eOperation) {
 			assert parameterTypes.size() == 1;
 			if (parameterTypes.get(0) != EcorePackage.eINSTANCE.getEString()) {
 				write(".repr()");
 			}
-		} else if (BuiltinMetaModel.Boolean_NE == eOperation || BuiltinMetaModel.Int_Unary_Minus == eOperation || BuiltinMetaModel.Double_Unary_Minus == eOperation) {
-			// Enclosing with braces for "not" expression here
-			addNegationBraces(placeholder);
 		}
 		return getTypedElementQvtType(eOperation);
+	}
+
+	/**
+	 * @param expression can be null
+	 */
+	private void encloseExpressionIntoParenthesis(Expression expression, int parentPrecedence, int placeholder, boolean ecloseIfEqualPrecenence) throws MigrationException {
+		int expressionPrecedence = getPrecedence(expression);
+		if (ecloseIfEqualPrecenence ? parentPrecedence <= expressionPrecedence : parentPrecedence < expressionPrecedence) {
+			write("(", placeholder);
+			write(")");
+		}
+	}
+
+	/**
+	 * @return integer value representing position of this operation in a list
+	 *         from OCL specification (see 7.4.7. "Precedence Rules")
+	 */
+	private int getPrecedence(Expression expression) throws MigrationException {
+		if (expression instanceof OperationCall) {
+			OperationCall operationCall = (OperationCall) expression;
+			ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(operationCall);
+			if (false == expressionTrace instanceof OperationCallTrace) {
+				throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, String.valueOf(expressionTrace));
+			}
+			OperationCallTrace trace = (OperationCallTrace) expressionTrace;
+			if (trace.getEOperation() != null && infixOperations.contains(trace.getEOperation())) {
+				EOperation eOperation = trace.getEOperation();
+				if (BuiltinMetaModel.Boolean_NE == eOperation || BuiltinMetaModel.Int_Unary_Minus == eOperation || BuiltinMetaModel.Double_Unary_Minus == eOperation) {
+					return 2;
+				} else if (BuiltinMetaModel.Int_Mult_Int == eOperation || BuiltinMetaModel.Int_Mult_Double == eOperation || BuiltinMetaModel.Double_Mult_Int == eOperation
+						|| BuiltinMetaModel.Double_Mult_Double == eOperation || BuiltinMetaModel.Int_Div_Int == eOperation || BuiltinMetaModel.Int_Div_Double == eOperation
+						|| BuiltinMetaModel.Double_Div_Int == eOperation || BuiltinMetaModel.Double_Div_Double == eOperation) {
+					return 3;
+				} else if (BuiltinMetaModel.Int_Minus_Int == eOperation || BuiltinMetaModel.Int_Minus_Double == eOperation || BuiltinMetaModel.Double_Minus_Int == eOperation
+						|| BuiltinMetaModel.Double_Minus_Double == eOperation || BuiltinMetaModel.Int_Plus_Int == eOperation || BuiltinMetaModel.Int_Plus_Double == eOperation
+						|| BuiltinMetaModel.Double_Plus_Int == eOperation || BuiltinMetaModel.Double_Plus_Double == eOperation || BuiltinMetaModel.EString_Plus_EJavaObject == eOperation) {
+					return 4;
+				} else if (BuiltinMetaModel.Int_Less == eOperation || BuiltinMetaModel.Int_LessOrEqual == eOperation || BuiltinMetaModel.Int_Greater == eOperation
+						|| BuiltinMetaModel.Int_GreatOrEqual == eOperation) {
+					return 6;
+				} else if (BuiltinMetaModel.Object_EQ == eOperation || BuiltinMetaModel.Object_NotEQ == eOperation) {
+					return 7;
+				}
+			}
+		} else if (expression instanceof BooleanOperation) {
+			// and/or/xor is on the 9-th row in the list from OCL spec
+			return 8;
+		}
+		// highest precedence
+		return 0;
 	}
 	
 	private void internalMigratePureStringLiteralConcatination(Expression expression) {
@@ -1095,21 +1154,21 @@ public class ExpressionMigrationFacade {
 			if (BuiltinMetaModelExt.isSetType(parameterCollectionType) || BuiltinMetaModelExt.isOrderedSetType(parameterCollectionType)) {
 				write("->asSequence()");
 			} else if (BuiltinMetaModelExt.isAbstractCollectionType(parameterCollectionType)) {
-				internalMigrateCollectionToBag(null);
+				internalMigrateCollectionToBag();
 				write("->asSequence()");
 			}
 		} else if (BuiltinMetaModelExt.isSetType(mainCollectionType) || BuiltinMetaModelExt.isOrderedSetType(mainCollectionType)) {
 			if (BuiltinMetaModelExt.isListType(parameterCollectionType) || BuiltinMetaModelExt.isBagType(parameterCollectionType)) {
 				write("->asSet()");
 			} else if (BuiltinMetaModelExt.isAbstractCollectionType(parameterCollectionType)) {
-				internalMigrateCollectionToBag(null);
+				internalMigrateCollectionToBag();
 				write("->asSet()");
 			}
 		} else { //For Bag/AbstractCollection (should be transformed to Bag)
 			if (BuiltinMetaModelExt.isListType(parameterCollectionType)) {
 				write("->asBag()");
 			} else if (BuiltinMetaModelExt.isAbstractCollectionType(parameterCollectionType)) {
-				internalMigrateCollectionToBag(null);
+				internalMigrateCollectionToBag();
 			}
 		}
 	}
@@ -1119,7 +1178,7 @@ public class ExpressionMigrationFacade {
 		if (BuiltinMetaModelExt.isListType(parameterCollectionType) || BuiltinMetaModelExt.isBagType(parameterCollectionType)) {
 			write("->asSet()");
 		} else if (BuiltinMetaModelExt.isAbstractCollectionType(parameterCollectionType)) {
-			internalMigrateCollectionToBag(null);
+			internalMigrateCollectionToBag();
 			write("->asSet()");
 		}
 	}
@@ -1129,7 +1188,7 @@ public class ExpressionMigrationFacade {
 		if (BuiltinMetaModelExt.isSetType(parameterCollectionType) || BuiltinMetaModelExt.isOrderedSetType(parameterCollectionType)) {
 			write("->asSequence()");
 		} else if (BuiltinMetaModelExt.isAbstractCollectionType(parameterCollectionType)) {
-			internalMigrateCollectionToBag(null);
+			internalMigrateCollectionToBag();
 			write("->asSequence()");
 		}
 	}
