@@ -15,5 +15,5 @@ helper typeSelectOnSet(eClassifiers : Set(ecore::EClassifier)) : Sequence(ecore:
 }
 
 helper typeSelectOnCollection(eClassifiers : Collection(ecore::EClassifier)) : Sequence(ecore::EClass) {
-	return eClassifiers->collect(it | it.oclAsType(ecore::EClass))->asSequence()
+	return (eClassifiers->collect(it | it))[ecore::EClass]->asSequence()
 }

@@ -3,7 +3,7 @@ modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
 library FixedProblems;
 
 helper collectAllPackages(ePackages : Collection(ecore::EPackage)) : Sequence(ecore::EPackage) {
-	return let collector = ePackages->collect(it | it.oclAsType(ecore::EPackage))->asSequence() in collector->union(collector->collect(pkg | collectAllPackages(pkg.eSubpackages))->flatten())
+	return let collector = (ePackages->collect(it | it))[ecore::EPackage]->asSequence() in collector->union(collector->collect(pkg | collectAllPackages(pkg.eSubpackages))->flatten())
 }
 
 helper convertParameterCollection(ePackage : ecore::EPackage)  : Boolean {

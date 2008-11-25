@@ -6,7 +6,7 @@
 «ENDDEFINE»
 
 «DEFINE temporaryVariables FOR Collection(ecore::EClassifier)-»
-«self->collect(it | it.oclAsType(ecore::EClass))->asSequence()»	
+«(self->collect(it | it))[ecore::EClass]->asSequence()»	
 «ENDDEFINE»
 
 «DEFINE booleanNot FOR ecore::EClass-»

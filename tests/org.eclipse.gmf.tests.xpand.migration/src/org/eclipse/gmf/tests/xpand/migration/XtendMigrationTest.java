@@ -240,6 +240,10 @@ public class XtendMigrationTest extends TestCase {
 		String resourceName = "ReturnCollectionTypeTransformation";
 		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, GenModelPackage.eINSTANCE, MigrationTestsPackage.eINSTANCE)), resourceName);
 	}
+	
+	public void testInfixOperationsPrecenence() throws IOException, MigrationException {
+		checkMigration("InfixOperationsPrecenence");
+	}
 
 	private String readStringContent(InputStreamReader reader) throws IOException {
 		StringBuilder sb = new StringBuilder();

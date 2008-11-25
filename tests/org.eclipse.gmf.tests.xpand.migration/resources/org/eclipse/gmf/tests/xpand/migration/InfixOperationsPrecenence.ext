@@ -1,0 +1,322 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+/* Unary minus with other operations*/
+Integer unaryMinusInt_MultInt(Integer left, Integer right) :
+	-left * right
+;
+
+ecore::EDouble doubMul_UnaryMinusInt(ecore::EDouble left, Integer right) :
+	left * -right
+;
+
+ecore::EDouble unaryMinusDoub_DivInt(ecore::EDouble left, Integer right) :
+	-left / right
+;
+
+ecore::EDouble intDiv_UnaryMinusDoub(Integer left, ecore::EDouble right) :
+	left / -right
+;
+
+Integer unaryMinusInt_PlusInt(Integer left, Integer right) :
+	-left + right
+;
+
+ecore::EDouble doubPlus_UnaryMinusInt(ecore::EDouble left, Integer right) :
+	left + -right
+;
+
+ecore::EDouble unaryMinusDoub_MinusDoub(ecore::EDouble left, Integer right) :
+	-left - right
+;
+
+ecore::EDouble intMinus_UnaryMinusDoub(Integer left, ecore::EDouble right) :
+	left - -right
+;
+
+Boolean unaryMinus_LessInt(Integer left, Integer right) :
+	-left < right
+;
+
+Boolean intLess_UnaryMinus(Integer left, Integer right) :
+	left < -right
+;
+
+Boolean unaryMinus_GreaterInt(Integer left, Integer right) :
+	-left > right
+;
+
+Boolean intGreater_UnaryMinus(Integer left, Integer right) :
+	left > -right
+;
+
+Boolean unaryMinus_LessOrEqualInt(Integer left, Integer right) :
+	-left <= right
+;
+
+Boolean intLessOrEqual_UnaryMinus(Integer left, Integer right) :
+	left <= -right
+;
+
+Boolean unaryMinus_GreaterOrEqualInt(Integer left, Integer right) :
+	-left >= right
+;
+
+Boolean intGreaterOrEqual_UnaryMinus(Integer left, Integer right) :
+	left >= -right
+;
+
+Boolean unaryMinus_EqInt(Integer left, Integer right) :
+	-left == right
+;
+
+Boolean intEq_UnaryMinus(Integer left, Integer right) :
+	left == -right
+;
+
+Boolean unaryMinus_NotEqInt(Integer left, Integer right) :
+	-left != right
+;
+
+Boolean intNotEq_UnaryMinus(Integer left, Integer right) :
+	left != -right
+;
+
+/* Unary not with other operations*/
+Boolean unaryNot_AndBoolean(Boolean left, Boolean right) :
+	!left && right
+;
+
+Boolean booleanAnd_UnaryNot(Boolean left, Boolean right) :
+	left && !right
+;
+
+Boolean unaryNot_OrBoolean(Boolean left, Boolean right) :
+	!left || right
+;
+
+Boolean booleanOr_UnaryNot(Boolean left, Boolean right) :
+	left || !right
+;
+
+/* Div/Mult with other operations*/
+Integer unaryMinus_IntMultInt(Integer left, Integer right) :
+	-(left * right)
+;
+
+Integer unaryMinus_IntDivInt(Integer left, Integer right) :
+	-(left / right)
+;
+
+ecore::EDouble unaryMinus_DoubMultInt(ecore::EDouble left, Integer right) :
+	-(left * right)
+;
+
+ecore::EDouble unaryMinus_DoubDivDoub(ecore::EDouble left, ecore::EDouble right) :
+	-(left / right)
+;
+
+Integer intDivInt_PlusInt(Integer left, Integer right, Integer addition) :
+	left / right + addition
+;
+
+Integer intPlus_IntDivInt(Integer left, Integer right, Integer addition) :
+	addition + left / right
+;
+
+ecore::EDouble intDivDoub_PlusInt(Integer left, ecore::EDouble right, Integer addition) :
+	left / right + addition
+;
+
+ecore::EDouble intPlus_DoubDivDoub(ecore::EDouble left, ecore::EDouble right, Integer addition) :
+	addition + left / right
+;
+
+Integer intMultInt_MinusInt(Integer left, Integer right, Integer addition) :
+	left * right - addition
+;
+
+Integer intMinus_IntMultInt(Integer left, Integer right, Integer addition) :
+	addition - left * right
+;
+
+ecore::EDouble intMultDoub_MinusInt(Integer left, ecore::EDouble right, Integer addition) :
+	left * right - addition
+;
+
+ecore::EDouble intMinus_DoubMultDoub(ecore::EDouble left, ecore::EDouble right, Integer addition) :
+	addition - left * right
+;
+
+/* Plus/Minus with other operations*/
+Integer unaryMinus_IntPlusInt(Integer left, Integer right) :
+	-(left + right)
+;
+
+ecore::EDouble unaryMinus_IntPlusDoub(Integer left, ecore::EDouble right) :
+	-(left + right)
+;
+
+Integer unaryMinus_IntMinusInt(Integer left, Integer right) :
+	-(left - right)
+;
+
+ecore::EDouble unaryMinus_DoubMinusDoub(Integer left, ecore::EDouble right) :
+	-(left - right)
+;
+
+Integer intMinusInt_MultInt(Integer left, Integer right, Integer addition) :
+	(left - right) * addition
+;
+
+ecore::EDouble intMult_IntMinusDoub(Integer left, ecore::EDouble right, Integer addition) :
+	addition * (left - right)
+;
+
+ecore::EDouble doubMinusDoub_MultInt(ecore::EDouble left, ecore::EDouble right, Integer addition) :
+	(left - right) * addition
+;
+
+ecore::EDouble intMult_DoubMinusInt(ecore::EDouble left, Integer right, Integer addition) :
+	addition * (left - right)
+;
+
+Integer intMinusInt_DivInt(Integer left, Integer right, Integer addition) :
+	(left - right) / addition
+;
+
+ecore::EDouble intDiv_IntMinusDoub(Integer left, ecore::EDouble right, Integer addition) :
+	addition / (left - right)
+;
+
+ecore::EDouble doubMinusDoub_DivInt(ecore::EDouble left, ecore::EDouble right, Integer addition) :
+	(left - right) / addition
+;
+
+ecore::EDouble intDiv_DoubMinusInt(ecore::EDouble left, Integer right, Integer addition) :
+	addition / (left - right)
+;
+
+/* Greater/Less/GreaterOrEqual/LessOrEqual with other operations*/
+Boolean unaryNot_IntGreaterInt(Integer left, Integer right) :
+	!(left > right)
+;
+
+Boolean unaryNot_IntLessInt(Integer left, Integer right) :
+	!(left < right)
+;
+
+Boolean unaryNot_IntGreaterOrEqualInt(Integer left, Integer right) :
+	!(left >= right)
+;
+
+Boolean unaryNot_IntLessOrEqualInt(Integer left, Integer right) :
+	!(left <= right)
+;
+
+Boolean booleanEqual_IntGreaterInt(Integer left, Integer right, Boolean addition) :
+	addition == (left > right)
+;
+
+Boolean intLessInt_NoEqualBoolean(Integer left, Integer right, Boolean addition) :
+	(left < right) != addition
+;
+
+Boolean booleanNoEqual_IntGreaterOrEqualInt(Integer left, Integer right, Boolean addition) :
+	addition != (left >= right)
+;
+
+Boolean IntLessOrEqualInt_EqualBoolean(Integer left, Integer right, Boolean addition) :
+	(left <= right) == addition
+;
+
+Boolean IntGreaterInt_AndBoolean(Integer left, Integer right, Boolean addition) :
+	left > right && addition
+;
+
+Boolean booleanOr_IntLessInt(Integer left, Integer right, Boolean addition) :
+	addition || left < right
+;
+
+Boolean IntGreaterOrEqualInt_OrBoolean(Integer left, Integer right, Boolean addition) :
+	left >= right || addition
+;
+
+Boolean booleanAnd_IntLessOrEqualInt(Integer left, Integer right, Boolean addition) :
+	addition && left <= right
+;
+
+/* Equal/NotEqual with other operations*/
+Boolean unaryNot_IntEqualInt(Integer left, Integer right) :
+	!(left == right)
+;
+
+Boolean unaryNot_IntNotEqualInt(Integer left, Integer right) :
+	!(left != right)
+;
+
+Boolean booleanAnd_IntEqualInt(Integer left, Integer right, Boolean addition) :
+	addition && left == right
+;
+
+Boolean intEqualInt_OrBoolean(Integer left, Integer right, Boolean addition) :
+	left == right || addition
+;
+
+Boolean booleanOr_IntNotEqualInt(Integer left, Integer right, Boolean addition) :
+	addition || left != right
+;
+
+Boolean intNotEqualInt_AndBoolean(Integer left, Integer right, Boolean addition) :
+	left != right && addition
+;
+
+/* And/Or with other operations*/
+Boolean unaryNot_BooleanAndBoolean(Boolean left, Boolean right) :
+	!(left && right)
+;
+
+Boolean unaryNot_BooleanOrBoolean(Boolean left, Boolean right) :
+	!(left || right)
+;
+
+Boolean booleanEqual_BooleanAndBoolean(Boolean left, Boolean right, Boolean addition) :
+	addition == (left && right)
+;
+
+Boolean booleanAndBoolean_EqualBoolean(Boolean left, Boolean right, Boolean addition) :
+	(left && right) == addition
+;
+
+Boolean booleanNotEqual_BooleanAndBoolean(Boolean left, Boolean right, Boolean addition) :
+	addition != (left && right)
+;
+
+Boolean booleanAndBoolean_NotEqualBoolean(Boolean left, Boolean right, Boolean addition) :
+	(left && right) != addition
+;
+
+/* Sequence of operations with same precedence*/
+
+Boolean booleanAndBooleanOrBoolean(Boolean left, Boolean right, Boolean addition) :
+	left && right || addition
+;
+
+Boolean booleanAndBoolean_OrBoolean(Boolean left, Boolean right, Boolean addition) :
+	(left && right) || addition
+;
+
+Boolean booleanAnd_BooleanOrBoolean(Boolean left, Boolean right, Boolean addition) :
+	left && (right || addition)
+;
+
+Integer intPlusIntPlusInt(Integer left, Integer right, Integer addition) :
+	left + right + addition
+;
+
+Integer intPlusInt_PlusInt(Integer left, Integer right, Integer addition) :
+	(left + right) + addition
+;
+
+Integer intPlus_IntPlusInt(Integer left, Integer right, Integer addition) :
+	left + (right + addition)
+;
