@@ -630,7 +630,7 @@ public class BuiltinMetaModel {
 		intOps.add(new InternalSumOp(Int_Plus_Int = opf.create("+", int.class, int.class)));
 		intOps.add(new InternalSumOp(Int_Plus_Double = opf.create("+", int.class, double.class)));
 		intOps.add(new InternalSubOp(Int_Minus_Int = opf.create("-", int.class, int.class)));
-		intOps.add(new InternalSubOp(Int_Minus_Double = opf.create("-", int.class, double.class)));
+		intOps.add(new InternalSubOp(Int_Minus_Double = opf.create("-", double.class, double.class)));
 		intOps.add(new InternalMulOp(Int_Mult_Int = opf.create("*", int.class, int.class)));
 		intOps.add(new InternalMulOp(Int_Mult_Double = opf.create("*", int.class, double.class)));
 		intOps.add(new InternalDivOp(Int_Div_Int = opf.create("/", int.class, int.class)));
@@ -693,7 +693,7 @@ public class BuiltinMetaModel {
 		doubleOps.add(new InternalMulOp(Double_Mult_Int = opf.create("*", double.class, int.class)));
 		doubleOps.add(new InternalDivOp(Double_Div_Double = opf.create("/", double.class, double.class)));
 		doubleOps.add(new InternalDivOp(Double_Div_Int = opf.create("/", double.class, int.class)));
-		doubleOps.add(new InternalNegateOp(Double_Unary_Minus = opf.create("-", int.class)));
+		doubleOps.add(new InternalNegateOp(Double_Unary_Minus = opf.create("-", double.class)));
 		doubleOps.addAll(unmodifiableObjectOps);
 		internalOperationsMap.put(ecorePkg.getEDouble(), doubleOps);
 
