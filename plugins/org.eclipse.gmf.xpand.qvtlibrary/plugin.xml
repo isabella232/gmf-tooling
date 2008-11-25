@@ -33,5 +33,15 @@
                </metamodel>
             </library>
          </unit>
+         <unit
+               name="GlobalVarOperations"
+               namespace="xpt">
+            <library
+                  class="org.eclipse.gmf.internal.xpand.qvtlibraries.XpandGlobalVars">
+               <metamodel
+                     nsURI="http://www.eclipse.org/emf/2002/Ecore">
+               </metamodel>
+            </library>
+         </unit>
    </extension>
 </plugin>
