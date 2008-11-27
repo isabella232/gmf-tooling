@@ -138,6 +138,7 @@ public class OclKeywordManager {
 		OCL_KEYWORDS.add("forEach");
 		OCL_KEYWORDS.add("forOne");
 		OCL_KEYWORDS.add("compute");
+		OCL_KEYWORDS.add("references");
 	}
 
 	/**

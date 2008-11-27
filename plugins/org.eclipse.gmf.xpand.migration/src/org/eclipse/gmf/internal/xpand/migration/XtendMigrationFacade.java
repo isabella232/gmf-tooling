@@ -66,6 +66,8 @@ public class XtendMigrationFacade {
 
 	private String nativeLibraryPackageName = "";
 
+	private OclKeywordManager oclKeywordManager;
+
 	private static String getLastSegment(String string, String separator) {
 		int delimeterIndex = string.lastIndexOf(separator);
 		if (delimeterIndex > 0) {
@@ -108,7 +110,8 @@ public class XtendMigrationFacade {
 		}
 
 		stdLibImportsManager = new StandardLibraryImports(output);
-		modelManager = new ModelManager(stdLibImportsManager);
+		oclKeywordManager = new OclKeywordManager();
+		modelManager = new ModelManager(stdLibImportsManager, oclKeywordManager);
 		addLibraryImports(xtendResource, false);
 		if (xtendResource.getImportedExtensions().length > 0) {
 			writeln("");
@@ -389,7 +392,7 @@ public class XtendMigrationFacade {
 		write("(");
 		
 		while (parameterNames.hasNext()) {
-			write(parameterNames.next());
+			write(oclKeywordManager.getValidIdentifierValue(parameterNames.next()));
 			write(" : ");
 			write(typeManager.getQvtFQName(parameterTypes.next()));
 			if (parameterNames.hasNext()) {
