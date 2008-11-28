@@ -15,8 +15,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -24,7 +26,9 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinitionWrap;
+import org.eclipse.gmf.internal.xpand.model.XpandIterator;
 import org.eclipse.ocl.TypeResolver;
+import org.eclipse.ocl.ecore.EcoreEnvironment;
 import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
 import org.eclipse.ocl.expressions.CollectionKind;
 import org.eclipse.ocl.types.OCLStandardLibrary;
@@ -68,6 +72,13 @@ public class BuiltinMetaModel {
 	static {
 		ITERATOR_TYPE.setName("xpand2::Iterator");
 		ITERATOR_TYPE.getESuperTypes().add(EcorePackage.eINSTANCE.getEClass());
+		{
+			EOperation isFirstIteration = EcoreFactory.eINSTANCE.createEOperation();
+			isFirstIteration.setName("isFirstIteration");
+			isFirstIteration.setEType(EcorePackage.eINSTANCE.getEBoolean());
+			ITERATOR_TYPE.getEOperations().add(isFirstIteration);
+		}
+		ITERATOR_TYPE.setInstanceClass(XpandIterator.class);
 		XECORE.getEClassifiers().add(ITERATOR_TYPE);
 	}
 
@@ -100,12 +111,28 @@ public class BuiltinMetaModel {
 			OCLStandardLibrary<EClassifier> stdLib = ctx.getOCLEnvironment().getOCLStandardLibrary();
 			if (obj instanceof Set) {
 				// XXX odd TypeResolver - CollectionType returned is EDataType for Ecore, need to cast nevertheless
-				return firstElementType == null ? stdLib.getSet() : (EClassifier) tr.resolveCollectionType(CollectionKind.SET_LITERAL, firstElementType);
+				return (EClassifier) tr.resolveCollectionType(CollectionKind.SET_LITERAL, firstElementType == null ? stdLib.getOclVoid() : firstElementType);
 			}
 			if (obj instanceof List) {
-				return firstElementType == null ? stdLib.getSequence() : (EClassifier) tr.resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, firstElementType);
+				return (EClassifier) tr.resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, firstElementType == null ? stdLib.getOclVoid() : firstElementType);
 			}
-			return firstElementType == null ? stdLib.getCollection() : (EClassifier) tr.resolveCollectionType(CollectionKind.COLLECTION_LITERAL, firstElementType);
+			return (EClassifier) tr.resolveCollectionType(CollectionKind.COLLECTION_LITERAL, firstElementType == null ? stdLib.getOclVoid() : firstElementType);
+		}
+		/**
+		 * It's not possible to determine a type (meta-object) of Enumeration
+		 * instance, so returning EEnumerator from here wich will be specially
+		 * processed in getRelationship()  method
+		 */
+		if (obj instanceof Enumerator) {
+			return EcorePackage.eINSTANCE.getEEnumerator();
+		}
+		/**
+		 * Workaround for current implementation of
+		 * EcoreEnvironmentFactory.oclType(obj) - for now it returns OclAny
+		 * instead of OclVoid if null was passed as a parameter
+		 */
+		if (obj == null) {
+			return ctx.getOCLEnvironment().getOCLStandardLibrary().getOclVoid();
 		}
 		return EcoreEnvironmentFactory.INSTANCE.createEvaluationEnvironment().getType(obj);
 //		return TypeUtil.resolveType(ctx.getOCLEnvironment(), ee.getType(obj));
@@ -118,6 +145,17 @@ public class BuiltinMetaModel {
 	 * @see AbstractTypeImpl.isAssignableFrom(this, t)
 	 */
 	public static boolean isAssignableFrom(ExecutionContext ctx, EClassifier t1, EClassifier t2) {
-		return 0 != (UMLReflection.SUBTYPE & TypeUtil.getRelationship(ctx.getOCLEnvironment(), t2, t1));
+		return 0 != (UMLReflection.SUBTYPE & getRelationship(ctx.getOCLEnvironment(), t1, t2));
+	}
+	
+	public static int getRelationship(EcoreEnvironment env, EClassifier t1, EClassifier t2) {
+		/**
+		 * Special processing for EEnumerator returned as a type for any
+		 * enumeration instances - see above
+		 */
+		if (t1 instanceof EEnum && t2 == EcorePackage.eINSTANCE.getEEnumerator()) {
+			return UMLReflection.SUBTYPE; // HACK - any enumerator instance can be assigned to any enum attribute. 
+		}
+		return TypeUtil.getRelationship(env, t2, t1);
 	}
 }

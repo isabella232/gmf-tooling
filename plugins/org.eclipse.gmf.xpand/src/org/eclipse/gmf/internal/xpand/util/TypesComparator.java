@@ -15,6 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
 import org.eclipse.ocl.util.TypeUtil;
 import org.eclipse.ocl.utilities.UMLReflection;
@@ -45,7 +46,7 @@ public final class TypesComparator implements Comparator<List<? extends EClassif
         for (int i = 0, x = types1.size(); i < x; i++) {
             final EClassifier type1 = TypeUtil.resolveType(env, types1.get(i));
             final EClassifier type2 = TypeUtil.resolveType(env, types2.get(i));
-            int rel = TypeUtil.getRelationship(env, type2, type1);
+            int rel = BuiltinMetaModel.getRelationship(env, type1, type2);
             if ((rel & UMLReflection.SUBTYPE) != 0) {
             	if (rel != UMLReflection.SAME_TYPE) {
             		 // sic! Update directMatch *conditionally*
