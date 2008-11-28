@@ -67,6 +67,7 @@ public class ExpressionHelper {
 			if (diagnostic != null && diagnostic.getSeverity() == Diagnostic.ERROR) {
 				issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, diagnostic.getMessage(), this));
 			}
+			oclProblemHandler.clearDiagnostic();
 		}
 	}
 
