@@ -1,0 +1,52 @@
+/*
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Alexander Shatalin (Borland) - initial API and implementation
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2008/GenModel'»
+
+«DEFINE _main FOR gmfgen::ElementType-»
+public class «EXPAND className» extends org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice {
+
+	public org.eclipse.gmf.runtime.common.core.command.ICommand getBeforeEditCommand(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
+		return new MarkerCommand("before");
+	}
+	
+	public org.eclipse.gmf.runtime.common.core.command.ICommand getAfterEditCommand(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
+		return new MarkerCommand("after");
+	}
+	
+	private class MarkerCommand extends org.eclipse.gmf.runtime.common.core.command.AbstractCommand {
+		public MarkerCommand(String name) {
+			super(name + "MarkerCommand«diagramElement.visualID»");
+		}
+		
+		protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor progressMonitor, org.eclipse.core.runtime.IAdaptable info) {
+			return null;
+		}
+		
+		protected org.eclipse.gmf.runtime.common.core.command.CommandResult doRedoWithResult(org.eclipse.core.runtime.IProgressMonitor progressMonitor, org.eclipse.core.runtime.IAdaptable info) {
+			return null;
+		}
+		
+		protected org.eclipse.gmf.runtime.common.core.command.CommandResult doUndoWithResult(org.eclipse.core.runtime.IProgressMonitor progressMonitor, org.eclipse.core.runtime.IAdaptable info) {
+			return null;
+		}
+	}
+}
+«ENDDEFINE»
+
+«DEFINE className FOR gmfgen::ElementType-»
+	«ERROR 'Should never be called'-»
+«ENDDEFINE»
+
+«DEFINE className FOR gmfgen::MetamodelType»«editHelperClassName»ExternalAdvice«ENDDEFINE»
+
+«DEFINE className FOR gmfgen::SpecializationType»«editHelperAdviceClassName»ExternalAdvice«ENDDEFINE»
