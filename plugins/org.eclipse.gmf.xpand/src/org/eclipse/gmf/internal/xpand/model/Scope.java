@@ -77,6 +77,10 @@ public class Scope {
     public Variable getGlobalVariable(String name) {
     	return globalVars.get(name);
     }
+    
+    public Collection<String> getGlobalVarNames() {
+    	return globalVars.keySet();
+    }
 
     // never null
     private ResourceManager getResourceManager() {
