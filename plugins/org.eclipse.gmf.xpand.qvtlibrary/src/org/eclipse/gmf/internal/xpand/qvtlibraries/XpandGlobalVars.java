@@ -11,21 +11,34 @@
  */
 package org.eclipse.gmf.internal.xpand.qvtlibraries;
 
-import org.eclipse.gmf.internal.xpand.model.Variable;
+import java.util.Collections;
+import java.util.Map;
+
 import org.eclipse.m2m.qvt.oml.blackbox.java.Operation;
 import org.eclipse.m2m.qvt.oml.blackbox.java.Operation.Kind;
 
 public class XpandGlobalVars {
 
+	public Map<String, Object> globalVariables = Collections.emptyMap();
+
 	@Operation(contextual = false, kind = Kind.HELPER)
-	public static String xpandGetStringGlobalVar(String varName) {
-		Variable var = Activator.getDefault().getGlobalVars().get(varName);
-		return var != null ? String.valueOf(var.getValue()) : null;
+	public String xpandGetStringGlobalVar(String varName) {
+		if (globalVariables.containsKey(varName)) {
+			Object varValue = globalVariables.get(varName);
+			if (varValue instanceof String) {
+				return (String) varValue;
+			}
+			throw new RuntimeException("Incorrect global variable value - string should present instead: " + varValue);
+		}
+		return null;
 	}
-	
-	public static Object xpandGetObjectGlobalVar(String varName) {
-		Variable var = Activator.getDefault().getGlobalVars().get(varName);
-		return var != null ? var.getValue() : null;
+
+	@Operation(contextual = false, kind = Kind.HELPER)
+	public Object xpandGetObjectGlobalVar(String varName) {
+		if (globalVariables.containsKey(varName)) {
+			return globalVariables.get(varName);
+		}
+		return null;
 	}
 
 }
