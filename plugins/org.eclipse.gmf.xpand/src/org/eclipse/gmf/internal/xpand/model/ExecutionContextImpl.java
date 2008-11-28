@@ -39,7 +39,6 @@ import org.eclipse.ocl.Environment;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
 import org.eclipse.ocl.ecore.EcoreEvaluationEnvironment;
 import org.eclipse.ocl.ecore.EcoreFactory;
-import org.eclipse.ocl.types.OCLStandardLibrary;
 
 /**
  * @author Sven Efftinge
@@ -246,14 +245,7 @@ public final class ExecutionContextImpl implements ExecutionContext {
     			org.eclipse.ocl.ecore.Variable oclVar = EcoreFactory.eINSTANCE.createVariable();
     			oclVar.setName(v.getName());
     			if (v.getType() == null) {
-    				EClassifier varType;
-    				OCLStandardLibrary<EClassifier> stdlib = environment.getOCLStandardLibrary();
-    				if (stdlib.getOclInvalid() == v.getValue()) {
-    					varType = stdlib.getOclAny();
-    				} else {
-    					varType = BuiltinMetaModel.getType(this, v.getValue());
-    				}
-					oclVar.setType(varType);
+					oclVar.setType(BuiltinMetaModel.getType(this, v.getValue()));
     			} else {
     				oclVar.setType(v.getType());
     			}
