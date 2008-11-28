@@ -7,6 +7,7 @@ Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
+Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.gmf.examples.taipan.port.diagram.edit.parts,
  org.eclipse.gmf.examples.taipan.port.diagram.part,
  org.eclipse.gmf.examples.taipan.port.diagram.providers
@@ -29,7 +30,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.runtime.diagram.ui.resources.editor,
  org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide,
  org.eclipse.gmf.examples.taipan;visibility:=reexport,
+ org.eclipse.gmf.examples.taipan.ui;visibility:=reexport,
  org.eclipse.gmf.examples.taipan.edit;visibility:=reexport,
  org.eclipse.gef;visibility:=reexport,
  org.eclipse.gmf.runtime.draw2d.ui;visibility:=reexport
-Eclipse-LazyStart: true
