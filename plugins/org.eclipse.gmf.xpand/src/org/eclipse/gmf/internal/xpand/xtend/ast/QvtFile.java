@@ -12,7 +12,8 @@
 package org.eclipse.gmf.internal.xpand.xtend.ast;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -21,7 +22,6 @@ import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.m2m.internal.qvt.oml.QvtMessage;
-import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnv;
 import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledModule;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Helper;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
@@ -29,27 +29,49 @@ import org.eclipse.m2m.qvt.oml.runtime.util.NonTransformationExecutionContext;
 
 public class QvtFile implements QvtResource {
 
-	private CompiledModule compiledModule;
+	private static final QvtMessage[] NO_MESSAGES = new QvtMessage[0];
+
 	private List<QvtExtension> extensions;
+
 	private String fileName;
 
-	public QvtFile(CompiledModule module, String fullyQualifiedName) {
-		this.compiledModule = module;
+	private Set<Module> modules;
+
+	private QvtMessage[] errors = NO_MESSAGES;
+
+	/**
+	 * Can be used for creating QvtFile around modules came from BlackBox
+	 * extension point. In this case modules has no errors if they was loaded
+	 * successfully.
+	 */
+	public QvtFile(List<Module> modules, String fullyQualifiedName) {
+		this.modules = new LinkedHashSet<Module>(modules);
 		fileName = fullyQualifiedName;
 	}
 
-	public QvtOperationalEnv getEnvironment() {
-		return compiledModule.getSyntaxElement().getEnvironment();
+	public QvtFile(CompiledModule module, String fullyQualifiedName) {
+		if (module.getModule() != null) {
+			modules = new HashSet<Module>();
+			modules.add(module.getModule());
+		}
+		fileName = fullyQualifiedName;
+		errors = module.getErrors();
 	}
+
+	public Set<Module> getModules() {
+		return modules;
+	}
+
 	public List<QvtExtension> getExtensions() {
-		if (extensions == null && compiledModule.getErrors().length == 0) {
+		if (extensions == null && errors.length == 0) {
 			extensions = new ArrayList<QvtExtension>();
-			Module module = compiledModule.getModule();
-			if (module != null) {
-				NonTransformationExecutionContext context = new NonTransformationExecutionContext(Collections.singleton(module));
-				for (EOperation operation : module.getEOperations()) {
-					if (operation instanceof Helper) {
-						extensions.add(new QvtExtension(context.createHelperCall((Helper) operation), this, fileName));
+			if (getModules() != null) {
+				NonTransformationExecutionContext context = new NonTransformationExecutionContext(getModules());
+				for (Module module : getModules()) {
+					for (EOperation operation : module.getEOperations()) {
+						if (operation instanceof Helper) {
+							extensions.add(new QvtExtension(context.createHelperCall((Helper) operation), this, fileName));
+						}
 					}
 				}
 			}
@@ -58,9 +80,9 @@ public class QvtFile implements QvtResource {
 	}
 
 	public void analyze(ExecutionContext ctx, Set<AnalysationIssue> issues) {
-		if (compiledModule.getErrors().length > 0) {
-			for (int i = 0; i < compiledModule.getErrors().length; i++) {
-				QvtMessage qvtMessage = compiledModule.getErrors()[i];
+		if (errors.length > 0) {
+			for (int i = 0; i < errors.length; i++) {
+				QvtMessage qvtMessage = errors[i];
 				if (qvtMessage.getSeverity() == QvtMessage.SEVERITY_ERROR) {
 					issues.add(new AnalysationIssue(AnalysationIssue.Type.SYNTAX_ERROR, qvtMessage.toString(), (SyntaxElement) null));
 				}

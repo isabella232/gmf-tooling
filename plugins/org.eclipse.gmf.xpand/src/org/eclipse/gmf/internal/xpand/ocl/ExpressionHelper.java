@@ -11,29 +11,22 @@
  */
 package org.eclipse.gmf.internal.xpand.ocl;
 
-import java.util.Collections;
-import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EEnumLiteral;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EOperation;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EParameter;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.EvaluationException;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
-import org.eclipse.ocl.EvaluationVisitor;
+import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnvFactory;
+import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEvaluationEnv;
+import org.eclipse.m2m.internal.qvt.oml.evaluator.QvtOperationalEvaluationVisitorImpl;
 import org.eclipse.ocl.cst.OCLExpressionCS;
-import org.eclipse.ocl.ecore.CallOperationAction;
-import org.eclipse.ocl.ecore.Constraint;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
 import org.eclipse.ocl.ecore.EcoreEvaluationEnvironment;
-import org.eclipse.ocl.ecore.SendSignalAction;
 import org.eclipse.ocl.expressions.OCLExpression;
+import org.eclipse.ocl.lpg.ProblemHandler;
+import org.eclipse.ocl.parser.OCLProblemHandler;
 
 public class ExpressionHelper {
 
@@ -43,27 +36,43 @@ public class ExpressionHelper {
 		assert exprCS != null;
 		this.expressionCS = exprCS;
 	}
+
 	public OCLExpressionCS getCST() {
 		return expressionCS;
 	}
 
 	public EClassifier analyze(ExecutionContext ctx, Set<AnalysationIssue> issues) {
 		EcoreEnvironment env = ctx.getOCLEnvironment();
-		OCLExpression<EClassifier> expression = new EmbeddedOCLAnalyzer(env).analyzeExpression(expressionCS);
+		OCLExpression<EClassifier> expression = new EmbeddedQVTAnalyzer(env).analyzeExpression(expressionCS);
+		handleOCLAnalyzationErrors(env.getProblemHandler(), issues);
 		return expression.getType();
+	}
+
+	/**
+	 * Temporary method reporting errors came from QVT expression analysis.
+	 * TODO: make it working
+	 */
+	private void handleOCLAnalyzationErrors(ProblemHandler problemHandler, Set<AnalysationIssue> issues) {
+		if (problemHandler instanceof org.eclipse.ocl.parser.OCLProblemHandler) {
+			org.eclipse.ocl.parser.OCLProblemHandler oclProblemHandler = (OCLProblemHandler) problemHandler;
+			Diagnostic diagnostic = oclProblemHandler.getDiagnostic();
+			if (diagnostic != null && diagnostic.getSeverity() == Diagnostic.ERROR) {
+				issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, diagnostic.getMessage(), this));
+			}
+		}
 	}
 
 	public Object evaluate(ExecutionContext ctx) {
 		EcoreEnvironment env = ctx.getOCLEnvironment();
 		//
-		OCLExpression<EClassifier> expression = new EmbeddedOCLAnalyzer(env).analyzeExpression(expressionCS);
+		OCLExpression<EClassifier> expression = new EmbeddedQVTAnalyzer(env).analyzeExpression(expressionCS);
 		EcoreEvaluationEnvironment evaluationEnv = ctx.createEvaluationEnvironment();
-		Map<? extends EClass, ? extends Set<? extends EObject>> extentMap = Collections.emptyMap();
-		EvaluationVisitor<EPackage, EClassifier, EOperation, EStructuralFeature, EEnumLiteral, EParameter, EObject, CallOperationAction, SendSignalAction, Constraint, EClass, EObject> visitor = env.getFactory().createEvaluationVisitor(env, evaluationEnv, extentMap);
+		QvtOperationalEvaluationVisitorImpl visitor = QvtOperationalEvaluationVisitorImpl.createNonTransformationExecutionContextVisitor(QvtOperationalEnvFactory.INSTANCE.createEnvironment(), (QvtOperationalEvaluationEnv) evaluationEnv, ctx.getImportedModules());		
 		Object val = visitor.visitExpression(expression);
 		if (env.getOCLStandardLibrary().getOclInvalid() == val) {
 			throw new EvaluationException("Can't evaluate expression: retured value is OclInvalid", null);
 		}
-		return val;
+		return val;		
 	}
+	
 }

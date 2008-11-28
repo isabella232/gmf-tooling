@@ -18,7 +18,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 import org.eclipse.core.filesystem.IFileStore;
@@ -34,6 +37,7 @@ import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledModule;
 import org.eclipse.m2m.internal.qvt.oml.compiler.IImportResolver;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompiler;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompilerOptions;
+import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
 
 // FIXME it's not a good idea to parse file on every proposal computation
 public abstract class ResourceManagerImpl implements ResourceManager {
@@ -153,6 +157,8 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 
 	private final Map<String, QvtResource> cachedQvt = new TreeMap<String, QvtResource>();
 
+	private QvtCompiler qvtCompiler;
+
 	public QvtResource loadQvtResource(String fullyQualifiedName) {
 		try {
 			return loadQvtResourceThroughCache(fullyQualifiedName);
@@ -181,22 +187,51 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	}
 
 	private QvtResource doLoadQvtResource(String fullyQualifiedName) throws IOException, ParserException {
-		Reader[] readers = resolveMultiple(fullyQualifiedName, QvtResource.FILE_EXTENSION);
-		assert readers.length == 1;
-		CFile cFile = new InputStreamCFile(readers[0], fullyQualifiedName);
-		// TODO: use different kind of ImportResolver being able to construct
-		// referenced CFiles using ResourceManagerImpl
-		QvtCompiler qvtCompiler = new QvtCompiler(new ImportResolverImpl());
-		QvtCompilerOptions options = new QvtCompilerOptions();
-		options.setGenerateCompletionData(true);
-		options.setShowAnnotations(false);
 		try {
-			CompiledModule module = qvtCompiler.compile(cFile, options, null).getModule();
-			// assert module.getModule() instanceof Library;
-			return new QvtFile(module, fullyQualifiedName);
-		} catch (MdaException e) {
-			throw new ParserException(fullyQualifiedName, new ParserException.ErrorLocationInfo(e.toString()));
+			Reader[] readers = resolveMultiple(fullyQualifiedName, QvtResource.FILE_EXTENSION);
+			assert readers.length == 1;
+			CFile cFile = new InputStreamCFile(readers[0], fullyQualifiedName);
+			// TODO: use different kind of ImportResolver being able to construct
+			// referenced CFiles using ResourceManagerImpl
+			QvtCompiler qvtCompiler = getQvtCompiler();
+			QvtCompilerOptions options = new QvtCompilerOptions();
+			options.setGenerateCompletionData(true);
+			options.setShowAnnotations(false);
+			try {
+				CompiledModule module = qvtCompiler.compile(cFile, options, null).getModule();
+				// assert module.getModule() instanceof Library;
+				return new QvtFile(module, fullyQualifiedName);
+			} catch (MdaException e) {
+				throw new ParserException(fullyQualifiedName, new ParserException.ErrorLocationInfo(e.toString()));
+			}
+		} catch (FileNotFoundException e) {
+			// Corresponding extension was not found. Trying to load BlackBox library.
+			List<String> compilationUnitQName = new ArrayList<String>();
+			for (StringTokenizer tokenizer = new StringTokenizer(fullyQualifiedName, TypeNameUtil.NS_DELIM, false); tokenizer.hasMoreTokens();) {
+				compilationUnitQName.add(tokenizer.nextToken());
+			}
+			List<Module> modules = getQvtCompiler().getBlackboxUnitHelper().getModules(compilationUnitQName);
+			if (modules == null) {
+				throw new FileNotFoundException(fullyQualifiedName);
+			}
+			return new QvtFile(modules, fullyQualifiedName);
 		}
+	}
+
+	/**
+	 * Using singleton QvtCompiler instance with "history". To prevent same
+	 * (native) libraries from being loaded twice into if (indirectly)
+	 * references by two different XpandResources.
+	 * 
+	 * TODO: add method to set qvtCompiler to null at the end of
+	 * building/template processing session to free corresponding memory
+	 * resources.
+	 */
+	private QvtCompiler getQvtCompiler() {
+		if (qvtCompiler == null) {
+			qvtCompiler = QvtCompiler.createCompilerWithHistory(new ImportResolverImpl());	
+		}
+		return qvtCompiler;
 	}
 
 	public XpandResource loadXpandResource(String fullyQualifiedName) {
