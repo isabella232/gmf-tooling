@@ -11,7 +11,8 @@ check if QVTO is capable of Collection() context operations (Bug #243684)
 «IF self.getDummyStringContextual() = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
 
-«REM»Next syntax doesn't work!«ENDREM»
+«REM»
+	[++] Next syntax doesn't work!
 «DEFINE checkStringStaticInvocation(positiveAnswer:String, negativeAnswer:String) FOR String-»
 «IF getDummyStringContextual(self) = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
@@ -19,6 +20,9 @@ check if QVTO is capable of Collection() context operations (Bug #243684)
 «DEFINE checkIntContextInvocation(positiveAnswer:String, negativeAnswer:String) FOR Integer-»
 «IF self.getDummyIntStatic() = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
+	[--] Next syntax doesn't work!
+«ENDREM»
+
 
 «DEFINE checkIntStaticInvocation(positiveAnswer:String, negativeAnswer:String) FOR Integer-»
 «IF getDummyIntStatic(self) = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»

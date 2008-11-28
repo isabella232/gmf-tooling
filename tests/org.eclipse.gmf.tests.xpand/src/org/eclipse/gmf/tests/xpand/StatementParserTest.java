@@ -94,7 +94,7 @@ public class StatementParserTest extends AbstractXpandTest {
     }
 
     public final void testFileStatement() throws Exception {
-        final Template t = parse(tag("DEFINE test FOR ecore::EClass") + tag("FILE \"test.txt\" ONCE") + tag("ENDFILE")
+        final Template t = parse(tag("DEFINE test FOR ecore::EClass") + tag("FILE 'test.txt' ONCE") + tag("ENDFILE")
                 + tag("ENDDEFINE"));
         assertEquals(1, t.getDefinitions().length);
         final FileStatement file = (FileStatement) ((Definition) t.getDefinitions()[0]).getBody()[1];

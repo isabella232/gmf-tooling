@@ -1,7 +1,7 @@
 «EXTENSION org::eclipse::gmf::tests::xpand::evaluate::Extensions»
 
 «DEFINE test1 FOR String-»
-«IF trueFunc(this)»1«ELSE»2«ENDIF-»
+«IF trueFunc(self)»1«ELSE»2«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE test2 FOR String»<«EXPAND test4»>«ENDDEFINE»
