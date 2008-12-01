@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 
 public class StandardLibraryImports extends AbstractImportsManager {
+	
+	private static final String GLOBAL_VAR_LIBRARY_NAME = "xpt::GlobalVarOperations";
 
 	private static final Map<EOperation, MapEntry> operationsMap;
 
@@ -71,6 +73,16 @@ public class StandardLibraryImports extends AbstractImportsManager {
 		return null;
 	}
 	
+	public String getXpandGetObjectGlobalVarOperationName() {
+		usedLibraries.add(GLOBAL_VAR_LIBRARY_NAME);
+		return "xpandGetObjectGlobalVar";
+	}
+	
+	public CharSequence getXpandGetStringGlobalVarOperationName() {
+		usedLibraries.add(GLOBAL_VAR_LIBRARY_NAME);
+		return "xpandGetStringGlobalVar";
+	}
+
 	void registerNativeLibrary(String libraryName) {
 		usedLibraries.add(libraryName);
 	}

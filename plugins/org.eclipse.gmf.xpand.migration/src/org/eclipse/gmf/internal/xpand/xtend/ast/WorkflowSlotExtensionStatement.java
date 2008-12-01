@@ -23,6 +23,7 @@ import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
+import org.eclipse.gmf.internal.xpand.migration.ExpressionAnalyzeTrace;
 
 public class WorkflowSlotExtensionStatement extends Extension {
 
@@ -50,7 +51,9 @@ public class WorkflowSlotExtensionStatement extends Extension {
         if (returnType == null) {
             issues.add(new AnalysationIssue(AnalysationIssue.Type.SYNTAX_ERROR,
                     "A return type must be specified for workflow slot extensions!", this));
-        }
+		} else {
+			createAnalyzeTrace(ctx, new ExpressionAnalyzeTrace(ctx.getTypeForName(getReturnTypeIdentifier().getValue())));
+		}
     }
 
     @Override

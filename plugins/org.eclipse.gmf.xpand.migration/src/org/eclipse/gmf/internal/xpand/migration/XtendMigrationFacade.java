@@ -408,7 +408,7 @@ public class XtendMigrationFacade {
 		} else if (extension instanceof CreateExtensionStatement) {
 			migrateCreateExtension((CreateExtensionStatement) extension);
 		} else if (extension instanceof WorkflowSlotExtensionStatement) {
-			migrateWorkflowSlotExtension((WorkflowSlotExtensionStatement) extension);
+			migrateWorkflowSlotExtension((WorkflowSlotExtensionStatement) extension, ctx);
 		} else {
 			throw new MigrationException(Type.UNSUPPORTED_EXTENSION, extension.getClass().getName());
 		}
@@ -460,9 +460,27 @@ public class XtendMigrationFacade {
 		throw new MigrationException(Type.UNSUPPORTED_EXTENSION, extension.getClass().getName());
 	}
 
-	private void migrateWorkflowSlotExtension(WorkflowSlotExtensionStatement extension) throws MigrationException {
-		write("return ");
-		writeln(extension.getSlotName().getValue());
+	private void migrateWorkflowSlotExtension(WorkflowSlotExtensionStatement extension, MigrationExecutionContext ctx) throws MigrationException {
+		EClassifier returnType = ctx.getTraces().get(extension).getResultType();
+		write("\treturn ");
+		// TODO: add more primitive types here (boolean, int)
+		if (returnType == EcorePackage.eINSTANCE.getEString()) {
+			write(stdLibImportsManager.getXpandGetStringGlobalVarOperationName());
+		} else {
+			write(stdLibImportsManager.getXpandGetObjectGlobalVarOperationName());
+			if (returnType != EcorePackage.eINSTANCE.getEJavaObject()) {
+				
+			}
+		}
+		write("('");
+		write(extension.getSlotName().getValue());
+		write("')");
+		if (returnType != EcorePackage.eINSTANCE.getEString() && returnType != EcorePackage.eINSTANCE.getEJavaObject()) {
+			write(".oclAsType(");
+			write(typeManager.getQvtFQName(returnType));
+			write(")");
+		}
+		writeln("");
 	}
 
 	private void write(CharSequence cs, int index) {
