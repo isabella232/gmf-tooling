@@ -209,6 +209,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if (myDiagramContextMenu == null) {
 			myDiagramContextMenu = GMFGenFactory.eINSTANCE.createGenContextMenu();
 			myDiagramContextMenu.getContext().add(getGenDiagram());
+			getGenEssence().getContextMenus().add(myDiagramContextMenu);
 		}
 		return myDiagramContextMenu;
 	}
