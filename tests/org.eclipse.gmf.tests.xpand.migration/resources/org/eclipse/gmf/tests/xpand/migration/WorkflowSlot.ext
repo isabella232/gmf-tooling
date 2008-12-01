@@ -1,0 +1,7 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+Object getObjectVariable() : GLOBALVAR ObjectVariable ;
+
+EClass getEClassVariable() : GLOBALVAR EClassVariable ;
+
+String getStringVariable() : GLOBALVAR StringVariable ;

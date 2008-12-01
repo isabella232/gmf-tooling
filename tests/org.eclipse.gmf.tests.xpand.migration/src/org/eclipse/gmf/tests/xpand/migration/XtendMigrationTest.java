@@ -244,6 +244,10 @@ public class XtendMigrationTest extends TestCase {
 	public void testInfixOperationsPrecenence() throws IOException, MigrationException {
 		checkMigration("InfixOperationsPrecenence");
 	}
+	
+	public void testWorkflowSlot() throws IOException, MigrationException {
+		checkMigration("WorkflowSlot");
+	}
 
 	private String readStringContent(InputStreamReader reader) throws IOException {
 		StringBuilder sb = new StringBuilder();
