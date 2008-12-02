@@ -592,9 +592,12 @@
     <genClasses ecoreClass="gmfgen.ecore#//FeatureLabelModelFacet">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//FeatureLabelModelFacet/metaFeatures"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//FeatureLabelModelFacet/editableMetaFeatures"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/viewPattern"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/editorPattern"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/editPattern"/>
+      <genFeatures createChild="false" propertyDescription="Pattern to produce label on diagram, depends on view method"
+          ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/viewPattern"/>
+      <genFeatures createChild="false" propertyDescription="Pattern to extract values from input text, depends on edit method; if not specified then viewPattern should be used"
+          ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/editorPattern"/>
+      <genFeatures createChild="false" propertyDescription="Pattern to produce text for in-place editor, depends on view method; if not specified then viewPattern should be used"
+          ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/editPattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/viewMethod"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/editMethod"/>
     </genClasses>
