@@ -61,6 +61,7 @@ public class PredefinedParserItemProvider
 
 			addViewMethodPropertyDescriptor(object);
 			addEditMethodPropertyDescriptor(object);
+			addClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -110,6 +111,28 @@ public class PredefinedParserItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_PredefinedParser_className_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PredefinedParser_className_feature", "_UI_PredefinedParser_type"),
+				 GMFGenPackage.eINSTANCE.getPredefinedParser_ClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns PredefinedParser.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -128,8 +151,7 @@ public class PredefinedParserItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		LabelTextAccessMethod labelValue = ((PredefinedParser)object).getViewMethod();
-		String label = labelValue == null ? null : labelValue.toString();
+		String label = ((PredefinedParser)object).getClassName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_PredefinedParser_type") :
 			getString("_UI_PredefinedParser_type") + " " + label;
@@ -149,6 +171,7 @@ public class PredefinedParserItemProvider
 		switch (notification.getFeatureID(PredefinedParser.class)) {
 			case GMFGenPackage.PREDEFINED_PARSER__VIEW_METHOD:
 			case GMFGenPackage.PREDEFINED_PARSER__EDIT_METHOD:
+			case GMFGenPackage.PREDEFINED_PARSER__CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

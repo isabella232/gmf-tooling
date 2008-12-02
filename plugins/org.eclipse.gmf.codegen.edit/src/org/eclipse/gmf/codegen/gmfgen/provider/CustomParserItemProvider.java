@@ -59,6 +59,7 @@ public class CustomParserItemProvider
 			super.getPropertyDescriptors(object);
 
 			addQualifiedNamePropertyDescriptor(object);
+			addGenerateBoilerplatePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -81,6 +82,28 @@ public class CustomParserItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Generate Boilerplate feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addGenerateBoilerplatePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_CustomParser_generateBoilerplate_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CustomParser_generateBoilerplate_feature", "_UI_CustomParser_type"),
+				 GMFGenPackage.eINSTANCE.getCustomParser_GenerateBoilerplate(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -123,6 +146,7 @@ public class CustomParserItemProvider
 
 		switch (notification.getFeatureID(CustomParser.class)) {
 			case GMFGenPackage.CUSTOM_PARSER__QUALIFIED_NAME:
+			case GMFGenPackage.CUSTOM_PARSER__GENERATE_BOILERPLATE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

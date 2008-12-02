@@ -72,6 +72,7 @@ public class GenParsersItemProvider
 			addClassNamePropertyDescriptor(object);
 			addExtensibleViaServicePropertyDescriptor(object);
 			addProviderPriorityPropertyDescriptor(object);
+			addImplPackageNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -165,6 +166,28 @@ public class GenParsersItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Impl Package Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addImplPackageNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenParsers_implPackageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenParsers_implPackageName_feature", "_UI_GenParsers_type"),
+				 GMFGenPackage.eINSTANCE.getGenParsers_ImplPackageName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -235,6 +258,7 @@ public class GenParsersItemProvider
 			case GMFGenPackage.GEN_PARSERS__CLASS_NAME:
 			case GMFGenPackage.GEN_PARSERS__EXTENSIBLE_VIA_SERVICE:
 			case GMFGenPackage.GEN_PARSERS__PROVIDER_PRIORITY:
+			case GMFGenPackage.GEN_PARSERS__IMPL_PACKAGE_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_PARSERS__IMPLEMENTATIONS:
