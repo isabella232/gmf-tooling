@@ -118,7 +118,7 @@ public class FeatureLabelMappingItemProvider
 				 false,
 				 true,
 				 null,
-				 null,
+				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null));
 	}
 
@@ -134,13 +134,13 @@ public class FeatureLabelMappingItemProvider
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_FeatureLabelMapping_viewPattern_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelMapping_viewPattern_feature", "_UI_FeatureLabelMapping_type"),
+				 getString("_UI_FeatureLabelMapping_viewPattern_description"),
 				 GMFMapPackage.eINSTANCE.getFeatureLabelMapping_ViewPattern(),
 				 true,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_VisualrepresentationPropertyCategory"),
 				 null));
 	}
 
@@ -156,13 +156,13 @@ public class FeatureLabelMappingItemProvider
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_FeatureLabelMapping_editorPattern_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelMapping_editorPattern_feature", "_UI_FeatureLabelMapping_type"),
+				 getString("_UI_FeatureLabelMapping_editorPattern_description"),
 				 GMFMapPackage.eINSTANCE.getFeatureLabelMapping_EditorPattern(),
 				 true,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_VisualrepresentationPropertyCategory"),
 				 null));
 	}
 
@@ -184,7 +184,7 @@ public class FeatureLabelMappingItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_VisualrepresentationPropertyCategory"),
 				 null));
 	}
 
@@ -200,13 +200,13 @@ public class FeatureLabelMappingItemProvider
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_FeatureLabelMapping_editPattern_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelMapping_editPattern_feature", "_UI_FeatureLabelMapping_type"),
+				 getString("_UI_FeatureLabelMapping_editPattern_description"),
 				 GMFMapPackage.eINSTANCE.getFeatureLabelMapping_EditPattern(),
 				 true,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_VisualrepresentationPropertyCategory"),
 				 null));
 	}
 
@@ -228,7 +228,7 @@ public class FeatureLabelMappingItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_VisualrepresentationPropertyCategory"),
 				 null));
 	}
 
