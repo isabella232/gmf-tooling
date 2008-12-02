@@ -2181,6 +2181,11 @@
         defaultValueLiteral="Lowest"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="implementations" lowerBound="1"
         upperBound="-1" eType="#//GenParserImplementation" containment="true" eOpposite="#//GenParserImplementation/holder"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="implPackageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Package with parser implementations, same as packageName unless set"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenParserImplementation" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="holder" lowerBound="1"
@@ -2192,8 +2197,14 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Use one of GMF-provided parser implementations"/>
     </eAnnotations>
+    <eOperations name="getQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewMethod" eType="#//LabelTextAccessMethod"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="editMethod" eType="#//LabelTextAccessMethod"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Provides means to alter name of parser implementation class"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomParser" eSuperTypes="#//GenParserImplementation">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -2201,6 +2212,12 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedName" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="generateBoilerplate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="When true, GMF generates empty implementation class suitable for further customizations"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExternalParser" eSuperTypes="#//GenParserImplementation">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

@@ -194,7 +194,7 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 				«EXPAND MetaModel::MetaFeature FOREACH modelFacet.editableMetaFeatures SEPARATOR ", "»
 			};
 		«ENDIF-»
-		«EXPAND parsers::PredefinedParser::qualifiedClassName» parser = new «EXPAND parsers::PredefinedParser::qualifiedClassName»(features«IF modelFacet.editableMetaFeatures.size() > 0», editableFeatures«ENDIF»);
+		«getQualifiedClassName()» parser = new «getQualifiedClassName()»(features«IF modelFacet.editableMetaFeatures.size() > 0», editableFeatures«ENDIF»);
 		«EXPAND _setPatterns(viewMethod, editMethod, "parser") FOR modelFacet-»
 			«parserFieldName(element)» = parser;
 		}

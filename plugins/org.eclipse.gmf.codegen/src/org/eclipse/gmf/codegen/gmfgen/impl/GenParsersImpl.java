@@ -41,6 +41,7 @@ import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenParsersImpl#isExtensibleViaService <em>Extensible Via Service</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenParsersImpl#getProviderPriority <em>Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenParsersImpl#getImplementations <em>Implementations</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenParsersImpl#getImplPackageName <em>Impl Package Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -136,6 +137,26 @@ public class GenParsersImpl extends EObjectImpl implements GenParsers {
 	 * @ordered
 	 */
 	protected EList<GenParserImplementation> implementations;
+
+	/**
+	 * The default value of the '{@link #getImplPackageName() <em>Impl Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImplPackageName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String IMPL_PACKAGE_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getImplPackageName() <em>Impl Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImplPackageName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String implPackageName = IMPL_PACKAGE_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -286,6 +307,42 @@ public class GenParsersImpl extends EObjectImpl implements GenParsers {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getImplPackageNameGen() {
+		return implPackageName;
+	}
+
+	public String getImplPackageName() {
+		String p = getImplPackageNameGen();
+		if (!GenCommonBaseImpl.isEmpty(p)) {
+			return p;
+		}
+		if (getEditorGen() != null && getEditorGen().getDiagram() != null) {
+			// XXXX use old data. remove this code when model migrated
+			p = getEditorGen().getDiagram().getParsersPackageName();
+			if (!GenCommonBaseImpl.isEmpty(p)) {
+				return p;
+			}
+		}
+		return getPackageName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setImplPackageName(String newImplPackageName) {
+		String oldImplPackageName = implPackageName;
+		implPackageName = newImplPackageName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_PARSERS__IMPL_PACKAGE_NAME, oldImplPackageName, implPackageName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String getQualifiedClassName() {
@@ -361,6 +418,8 @@ public class GenParsersImpl extends EObjectImpl implements GenParsers {
 				return getProviderPriority();
 			case GMFGenPackage.GEN_PARSERS__IMPLEMENTATIONS:
 				return getImplementations();
+			case GMFGenPackage.GEN_PARSERS__IMPL_PACKAGE_NAME:
+				return getImplPackageName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -390,6 +449,9 @@ public class GenParsersImpl extends EObjectImpl implements GenParsers {
 				getImplementations().clear();
 				getImplementations().addAll((Collection<? extends GenParserImplementation>)newValue);
 				return;
+			case GMFGenPackage.GEN_PARSERS__IMPL_PACKAGE_NAME:
+				setImplPackageName((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -417,6 +479,9 @@ public class GenParsersImpl extends EObjectImpl implements GenParsers {
 			case GMFGenPackage.GEN_PARSERS__IMPLEMENTATIONS:
 				getImplementations().clear();
 				return;
+			case GMFGenPackage.GEN_PARSERS__IMPL_PACKAGE_NAME:
+				setImplPackageName(IMPL_PACKAGE_NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -441,6 +506,8 @@ public class GenParsersImpl extends EObjectImpl implements GenParsers {
 				return providerPriority != PROVIDER_PRIORITY_EDEFAULT;
 			case GMFGenPackage.GEN_PARSERS__IMPLEMENTATIONS:
 				return implementations != null && !implementations.isEmpty();
+			case GMFGenPackage.GEN_PARSERS__IMPL_PACKAGE_NAME:
+				return IMPL_PACKAGE_NAME_EDEFAULT == null ? implPackageName != null : !IMPL_PACKAGE_NAME_EDEFAULT.equals(implPackageName);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -463,6 +530,8 @@ public class GenParsersImpl extends EObjectImpl implements GenParsers {
 		result.append(extensibleViaService);
 		result.append(", providerPriority: ");
 		result.append(providerPriority);
+		result.append(", implPackageName: ");
+		result.append(implPackageName);
 		result.append(')');
 		return result.toString();
 	}

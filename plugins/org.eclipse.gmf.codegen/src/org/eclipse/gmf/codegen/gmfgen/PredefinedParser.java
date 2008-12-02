@@ -21,6 +21,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PredefinedParser#getViewMethod <em>View Method</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PredefinedParser#getEditMethod <em>Edit Method</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PredefinedParser#getClassName <em>Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -86,5 +87,38 @@ public interface PredefinedParser extends GenParserImplementation {
 	 * @generated
 	 */
 	void setEditMethod(LabelTextAccessMethod value);
+
+	/**
+	 * Returns the value of the '<em><b>Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Provides means to alter name of parser implementation class
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Class Name</em>' attribute.
+	 * @see #setClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getPredefinedParser_ClassName()
+	 * @model
+	 * @generated
+	 */
+	String getClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.PredefinedParser#getClassName <em>Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Class Name</em>' attribute.
+	 * @see #getClassName()
+	 * @generated
+	 */
+	void setClassName(String value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getQualifiedClassName();
 
 } // PredefinedParser

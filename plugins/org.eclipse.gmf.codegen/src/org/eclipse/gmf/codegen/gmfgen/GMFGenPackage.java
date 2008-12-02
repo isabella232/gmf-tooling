@@ -10464,13 +10464,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_PARSERS__IMPLEMENTATIONS = 5;
 
 	/**
+	 * The feature id for the '<em><b>Impl Package Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PARSERS__IMPL_PACKAGE_NAME = 6;
+
+	/**
 	 * The number of structural features of the '<em>Gen Parsers</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_PARSERS_FEATURE_COUNT = 6;
+	int GEN_PARSERS_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenParserImplementationImpl <em>Gen Parser Implementation</em>}' class.
@@ -10556,13 +10565,22 @@ public interface GMFGenPackage extends EPackage {
 	int PREDEFINED_PARSER__EDIT_METHOD = GEN_PARSER_IMPLEMENTATION_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREDEFINED_PARSER__CLASS_NAME = GEN_PARSER_IMPLEMENTATION_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Predefined Parser</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PREDEFINED_PARSER_FEATURE_COUNT = GEN_PARSER_IMPLEMENTATION_FEATURE_COUNT + 2;
+	int PREDEFINED_PARSER_FEATURE_COUNT = GEN_PARSER_IMPLEMENTATION_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.CustomParserImpl <em>Custom Parser</em>}' class.
@@ -10602,13 +10620,22 @@ public interface GMFGenPackage extends EPackage {
 	int CUSTOM_PARSER__QUALIFIED_NAME = GEN_PARSER_IMPLEMENTATION_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Generate Boilerplate</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_PARSER__GENERATE_BOILERPLATE = GEN_PARSER_IMPLEMENTATION_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Custom Parser</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_PARSER_FEATURE_COUNT = GEN_PARSER_IMPLEMENTATION_FEATURE_COUNT + 1;
+	int CUSTOM_PARSER_FEATURE_COUNT = GEN_PARSER_IMPLEMENTATION_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ExternalParserImpl <em>External Parser</em>}' class.
@@ -17101,6 +17128,17 @@ public interface GMFGenPackage extends EPackage {
 	EReference getGenParsers_Implementations();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenParsers#getImplPackageName <em>Impl Package Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Impl Package Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenParsers#getImplPackageName()
+	 * @see #getGenParsers()
+	 * @generated
+	 */
+	EAttribute getGenParsers_ImplPackageName();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenParserImplementation <em>Gen Parser Implementation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -17165,6 +17203,17 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getPredefinedParser_EditMethod();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.PredefinedParser#getClassName <em>Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.PredefinedParser#getClassName()
+	 * @see #getPredefinedParser()
+	 * @generated
+	 */
+	EAttribute getPredefinedParser_ClassName();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.CustomParser <em>Custom Parser</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -17184,6 +17233,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getCustomParser_QualifiedName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.CustomParser#isGenerateBoilerplate <em>Generate Boilerplate</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Generate Boilerplate</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.CustomParser#isGenerateBoilerplate()
+	 * @see #getCustomParser()
+	 * @generated
+	 */
+	EAttribute getCustomParser_GenerateBoilerplate();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.ExternalParser <em>External Parser</em>}'.

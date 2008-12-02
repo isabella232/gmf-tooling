@@ -284,19 +284,19 @@ public class CodegenEmitters {
 	// parsers
 
 	public TextEmitter getAbstractParserEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::parsers::AbstractParser"); //$NON-NLS-1$
+		return newXpandEmitter("impl::parsers::AbstractParser::Main"); //$NON-NLS-1$
 	}
 
 	public String getAbstractParserName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::parsers::AbstractParser", input); //$NON-NLS-1$
+		return getQualifiedClassName("impl::parsers::AbstractParser", input); //$NON-NLS-1$
 	}
 
 	public TextEmitter getPredefinedParserEmitter() throws UnexpectedBehaviourException {
 		return newXpandEmitter("parsers::PredefinedParser::Main"); //$NON-NLS-1$
 	}
 
-	public String getPredefinedParserName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("parsers::PredefinedParser", input); //$NON-NLS-1$
+	public TextEmitter getCustomParserEmitter() throws UnexpectedBehaviourException {
+		return newXpandEmitter("parsers::CustomParser::Main"); //$NON-NLS-1$
 	}
 
 	// providers

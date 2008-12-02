@@ -989,13 +989,14 @@
       <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkEnd/genOutgoingLinks"/>
       <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkEnd/genIncomingLinks"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//GenParsers">
+    <genClasses ecoreClass="gmfgen.ecore#//GenParsers" labelFeature="#//gmfgen/GenParsers/className">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenParsers/editorGen"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenParsers/packageName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenParsers/className"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenParsers/extensibleViaService"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenParsers/providerPriority"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenParsers/implementations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenParsers/implPackageName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenParsers/getQualifiedClassName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenParserImplementation">
@@ -1005,9 +1006,12 @@
     <genClasses ecoreClass="gmfgen.ecore#//PredefinedParser">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PredefinedParser/viewMethod"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PredefinedParser/editMethod"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PredefinedParser/className"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//PredefinedParser/getQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//CustomParser">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//CustomParser/qualifiedName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//CustomParser/generateBoilerplate"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//ExternalParser">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ExternalParser/hint"/>

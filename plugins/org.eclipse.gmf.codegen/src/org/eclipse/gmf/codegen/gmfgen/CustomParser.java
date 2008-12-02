@@ -20,6 +20,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.CustomParser#getQualifiedName <em>Qualified Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.CustomParser#isGenerateBoilerplate <em>Generate Boilerplate</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,5 +54,31 @@ public interface CustomParser extends GenParserImplementation {
 	 * @generated
 	 */
 	void setQualifiedName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Generate Boilerplate</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * When true, GMF generates empty implementation class suitable for further customizations
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Generate Boilerplate</em>' attribute.
+	 * @see #setGenerateBoilerplate(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getCustomParser_GenerateBoilerplate()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isGenerateBoilerplate();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.CustomParser#isGenerateBoilerplate <em>Generate Boilerplate</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Generate Boilerplate</em>' attribute.
+	 * @see #isGenerateBoilerplate()
+	 * @generated
+	 */
+	void setGenerateBoilerplate(boolean value);
 
 } // CustomParser

@@ -22,6 +22,7 @@ import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PredefinedParserImpl#getViewMethod <em>View Method</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PredefinedParserImpl#getEditMethod <em>Edit Method</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PredefinedParserImpl#getClassName <em>Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,6 +68,26 @@ public class PredefinedParserImpl extends GenParserImplementationImpl implements
 	 * @ordered
 	 */
 	protected LabelTextAccessMethod editMethod = EDIT_METHOD_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getClassName() <em>Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getClassName() <em>Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String className = CLASS_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -134,6 +155,62 @@ public class PredefinedParserImpl extends GenParserImplementationImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getClassNameGen() {
+		return className;
+	}
+
+	public String getClassName() {
+		String n = getClassNameGen();
+		if (!GenCommonBaseImpl.isEmpty(n)) {
+			return n;
+		}
+		final String suffix = "Parser"; //$NON-NLS-1$
+		if (viewMethod == editMethod) {
+			return getFriendlyName(viewMethod) + suffix;
+		} else {
+			return getFriendlyName(viewMethod) + getFriendlyName(editMethod) + suffix;
+		}
+	}
+	private String getFriendlyName(LabelTextAccessMethod m) {
+		switch (viewMethod) {
+		case MESSAGE_FORMAT : return "MessageFormat"; //$NON-NLS-1$
+		case NATIVE : return "Native"; //$NON-NLS-1$
+		case REGEXP : return "Regexp"; //$NON-NLS-1$
+		case PRINTF : return "Printf"; //$NON-NLS-1$
+		}
+		return m.getName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setClassName(String newClassName) {
+		String oldClassName = className;
+		className = newClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.PREDEFINED_PARSER__CLASS_NAME, oldClassName, className));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getQualifiedClassName() {
+		String n = getClassName();
+		if (getHolder() == null || GenCommonBaseImpl.isEmpty(getHolder().getImplPackageName())) {
+			return n;
+		}
+		return getHolder().getImplPackageName() + '.' + n;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -141,6 +218,8 @@ public class PredefinedParserImpl extends GenParserImplementationImpl implements
 				return getViewMethod();
 			case GMFGenPackage.PREDEFINED_PARSER__EDIT_METHOD:
 				return getEditMethod();
+			case GMFGenPackage.PREDEFINED_PARSER__CLASS_NAME:
+				return getClassName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -158,6 +237,9 @@ public class PredefinedParserImpl extends GenParserImplementationImpl implements
 				return;
 			case GMFGenPackage.PREDEFINED_PARSER__EDIT_METHOD:
 				setEditMethod((LabelTextAccessMethod)newValue);
+				return;
+			case GMFGenPackage.PREDEFINED_PARSER__CLASS_NAME:
+				setClassName((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -177,6 +259,9 @@ public class PredefinedParserImpl extends GenParserImplementationImpl implements
 			case GMFGenPackage.PREDEFINED_PARSER__EDIT_METHOD:
 				setEditMethod(EDIT_METHOD_EDEFAULT);
 				return;
+			case GMFGenPackage.PREDEFINED_PARSER__CLASS_NAME:
+				setClassName(CLASS_NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -193,6 +278,8 @@ public class PredefinedParserImpl extends GenParserImplementationImpl implements
 				return viewMethod != VIEW_METHOD_EDEFAULT;
 			case GMFGenPackage.PREDEFINED_PARSER__EDIT_METHOD:
 				return editMethod != EDIT_METHOD_EDEFAULT;
+			case GMFGenPackage.PREDEFINED_PARSER__CLASS_NAME:
+				return CLASS_NAME_EDEFAULT == null ? className != null : !CLASS_NAME_EDEFAULT.equals(className);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -211,6 +298,8 @@ public class PredefinedParserImpl extends GenParserImplementationImpl implements
 		result.append(viewMethod);
 		result.append(", editMethod: ");
 		result.append(editMethod);
+		result.append(", className: ");
+		result.append(className);
 		result.append(')');
 		return result.toString();
 	}

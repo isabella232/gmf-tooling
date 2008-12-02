@@ -6417,6 +6417,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenParsers_ImplPackageName() {
+		return (EAttribute)genParsersEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenParserImplementation() {
 		return genParserImplementationEClass;
 	}
@@ -6471,6 +6480,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getPredefinedParser_ClassName() {
+		return (EAttribute)predefinedParserEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCustomParser() {
 		return customParserEClass;
 	}
@@ -6482,6 +6500,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getCustomParser_QualifiedName() {
 		return (EAttribute)customParserEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomParser_GenerateBoilerplate() {
+		return (EAttribute)customParserEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -7388,6 +7415,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genParsersEClass, GEN_PARSERS__EXTENSIBLE_VIA_SERVICE);
 		createEAttribute(genParsersEClass, GEN_PARSERS__PROVIDER_PRIORITY);
 		createEReference(genParsersEClass, GEN_PARSERS__IMPLEMENTATIONS);
+		createEAttribute(genParsersEClass, GEN_PARSERS__IMPL_PACKAGE_NAME);
 
 		genParserImplementationEClass = createEClass(GEN_PARSER_IMPLEMENTATION);
 		createEReference(genParserImplementationEClass, GEN_PARSER_IMPLEMENTATION__HOLDER);
@@ -7396,9 +7424,11 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		predefinedParserEClass = createEClass(PREDEFINED_PARSER);
 		createEAttribute(predefinedParserEClass, PREDEFINED_PARSER__VIEW_METHOD);
 		createEAttribute(predefinedParserEClass, PREDEFINED_PARSER__EDIT_METHOD);
+		createEAttribute(predefinedParserEClass, PREDEFINED_PARSER__CLASS_NAME);
 
 		customParserEClass = createEClass(CUSTOM_PARSER);
 		createEAttribute(customParserEClass, CUSTOM_PARSER__QUALIFIED_NAME);
+		createEAttribute(customParserEClass, CUSTOM_PARSER__GENERATE_BOILERPLATE);
 
 		externalParserEClass = createEClass(EXTERNAL_PARSER);
 		createEAttribute(externalParserEClass, EXTERNAL_PARSER__HINT);
@@ -8541,6 +8571,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenParsers_ExtensibleViaService(), ecorePackage.getEBoolean(), "extensibleViaService", "false", 0, 1, GenParsers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenParsers_ProviderPriority(), this.getProviderPriority(), "providerPriority", "Lowest", 0, 1, GenParsers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenParsers_Implementations(), this.getGenParserImplementation(), this.getGenParserImplementation_Holder(), "implementations", null, 1, -1, GenParsers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenParsers_ImplPackageName(), ecorePackage.getEString(), "implPackageName", null, 0, 1, GenParsers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genParsersEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -8551,9 +8582,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(predefinedParserEClass, PredefinedParser.class, "PredefinedParser", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPredefinedParser_ViewMethod(), this.getLabelTextAccessMethod(), "viewMethod", null, 0, 1, PredefinedParser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPredefinedParser_EditMethod(), this.getLabelTextAccessMethod(), "editMethod", null, 0, 1, PredefinedParser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPredefinedParser_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, PredefinedParser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(predefinedParserEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(customParserEClass, CustomParser.class, "CustomParser", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCustomParser_QualifiedName(), ecorePackage.getEString(), "qualifiedName", null, 1, 1, CustomParser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCustomParser_GenerateBoilerplate(), ecorePackage.getEBoolean(), "generateBoilerplate", "false", 0, 1, CustomParser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(externalParserEClass, ExternalParser.class, "ExternalParser", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getExternalParser_Hint(), ecorePackage.getEString(), "hint", null, 0, 1, ExternalParser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -8722,7 +8757,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																																																				
+		   });																																																																																																																																																																																																																																							
 	}
 
 	/**
@@ -8955,7 +8990,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not actualItem.oclIsKindOf(gmfgen::GenSharedContributionItem)",
 			 "description", "Actual contribution item can\'t be a reference"
-		   });												
+		   });															
 	}
 
 	/**
@@ -9067,7 +9102,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Replaced with GenParsers and PredefinedParser"
-		   });																																																																																																																								
+		   });																																																																																																																											
 	}
 
 	/**
@@ -9173,7 +9208,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "type",
 			 "ocl", "\'ecore::EDoubleObject\'"
-		   });																																	
+		   });																																				
 	}
 
 } //GMFGenPackageImpl

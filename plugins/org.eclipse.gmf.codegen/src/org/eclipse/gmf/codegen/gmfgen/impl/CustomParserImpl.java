@@ -20,6 +20,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.CustomParserImpl#getQualifiedName <em>Qualified Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.CustomParserImpl#isGenerateBoilerplate <em>Generate Boilerplate</em>}</li>
  * </ul>
  * </p>
  *
@@ -45,6 +46,26 @@ public class CustomParserImpl extends GenParserImplementationImpl implements Cus
 	 * @ordered
 	 */
 	protected String qualifiedName = QUALIFIED_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isGenerateBoilerplate() <em>Generate Boilerplate</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isGenerateBoilerplate()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean GENERATE_BOILERPLATE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isGenerateBoilerplate() <em>Generate Boilerplate</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isGenerateBoilerplate()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean generateBoilerplate = GENERATE_BOILERPLATE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -91,11 +112,34 @@ public class CustomParserImpl extends GenParserImplementationImpl implements Cus
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isGenerateBoilerplate() {
+		return generateBoilerplate;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setGenerateBoilerplate(boolean newGenerateBoilerplate) {
+		boolean oldGenerateBoilerplate = generateBoilerplate;
+		generateBoilerplate = newGenerateBoilerplate;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.CUSTOM_PARSER__GENERATE_BOILERPLATE, oldGenerateBoilerplate, generateBoilerplate));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.CUSTOM_PARSER__QUALIFIED_NAME:
 				return getQualifiedName();
+			case GMFGenPackage.CUSTOM_PARSER__GENERATE_BOILERPLATE:
+				return isGenerateBoilerplate() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -110,6 +154,9 @@ public class CustomParserImpl extends GenParserImplementationImpl implements Cus
 		switch (featureID) {
 			case GMFGenPackage.CUSTOM_PARSER__QUALIFIED_NAME:
 				setQualifiedName((String)newValue);
+				return;
+			case GMFGenPackage.CUSTOM_PARSER__GENERATE_BOILERPLATE:
+				setGenerateBoilerplate(((Boolean)newValue).booleanValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -126,6 +173,9 @@ public class CustomParserImpl extends GenParserImplementationImpl implements Cus
 			case GMFGenPackage.CUSTOM_PARSER__QUALIFIED_NAME:
 				setQualifiedName(QUALIFIED_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.CUSTOM_PARSER__GENERATE_BOILERPLATE:
+				setGenerateBoilerplate(GENERATE_BOILERPLATE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -140,6 +190,8 @@ public class CustomParserImpl extends GenParserImplementationImpl implements Cus
 		switch (featureID) {
 			case GMFGenPackage.CUSTOM_PARSER__QUALIFIED_NAME:
 				return QUALIFIED_NAME_EDEFAULT == null ? qualifiedName != null : !QUALIFIED_NAME_EDEFAULT.equals(qualifiedName);
+			case GMFGenPackage.CUSTOM_PARSER__GENERATE_BOILERPLATE:
+				return generateBoilerplate != GENERATE_BOILERPLATE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -156,6 +208,8 @@ public class CustomParserImpl extends GenParserImplementationImpl implements Cus
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (qualifiedName: ");
 		result.append(qualifiedName);
+		result.append(", generateBoilerplate: ");
+		result.append(generateBoilerplate);
 		result.append(')');
 		return result.toString();
 	}

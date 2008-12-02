@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenParsers#isExtensibleViaService <em>Extensible Via Service</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenParsers#getProviderPriority <em>Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenParsers#getImplementations <em>Implementations</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenParsers#getImplPackageName <em>Impl Package Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -175,6 +176,31 @@ public interface GenParsers extends EObject {
 	 * @generated
 	 */
 	EList<GenParserImplementation> getImplementations();
+
+	/**
+	 * Returns the value of the '<em><b>Impl Package Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Package with parser implementations, same as packageName unless set
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Impl Package Name</em>' attribute.
+	 * @see #setImplPackageName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenParsers_ImplPackageName()
+	 * @model
+	 * @generated
+	 */
+	String getImplPackageName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenParsers#getImplPackageName <em>Impl Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Impl Package Name</em>' attribute.
+	 * @see #getImplPackageName()
+	 * @generated
+	 */
+	void setImplPackageName(String value);
 
 	/**
 	 * <!-- begin-user-doc -->

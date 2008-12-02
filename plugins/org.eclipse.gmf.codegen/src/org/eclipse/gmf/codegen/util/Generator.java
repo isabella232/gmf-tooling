@@ -23,6 +23,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
+import org.eclipse.gmf.codegen.gmfgen.CustomParser;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.ExternalParser;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
@@ -120,7 +121,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateBaseEditHelper();
 
 		// parsers
-		generateAbstractParser();
 		generateParsers();
 
 		// edit parts, edit policies and providers
@@ -533,20 +533,21 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 	}
 
-	// parsers
-
-	private void generateAbstractParser() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getAbstractParserEmitter(), myEmitters.getAbstractParserName(myDiagram), myDiagram);
-	}
-
 	private void generateParsers() throws UnexpectedBehaviourException, InterruptedException {
 		if (myEditorGen.getLabelParsers() == null) {
 			return;
 		}
+		boolean needsAbstractParser = false;
 		for (GenParserImplementation pi : myEditorGen.getLabelParsers().getImplementations()) {
 			if (pi instanceof PredefinedParser) {
-				doGenerateJavaClass(myEmitters.getPredefinedParserEmitter(), myEmitters.getPredefinedParserName(pi), pi);
+				needsAbstractParser = true;
+				doGenerateJavaClass(myEmitters.getPredefinedParserEmitter(), ((PredefinedParser) pi).getQualifiedClassName(), pi);
+			} else if (pi instanceof CustomParser && ((CustomParser) pi).isGenerateBoilerplate()) {
+				doGenerateJavaClass(myEmitters.getCustomParserEmitter(), ((CustomParser) pi).getQualifiedName(), pi);
 			}
+		}
+		if (needsAbstractParser) {
+			doGenerateJavaClass(myEmitters.getAbstractParserEmitter(), myEmitters.getAbstractParserName(myEditorGen.getLabelParsers()), myEditorGen.getLabelParsers());
 		}
 	}
 
