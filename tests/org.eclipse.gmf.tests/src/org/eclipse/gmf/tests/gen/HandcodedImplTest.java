@@ -889,6 +889,9 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkPackageName(state, "PackageNames:parsers", genDiagram.getParsersPackageName());
 		checkPackageName(state, "PackageNames:preferences", genDiagram.getPreferencesPackageName());
 		checkPackageName(state, "PackageNames:notationViewFactories", genDiagram.getNotationViewFactoriesPackageName());
+		if (genDiagram.getEditorGen().getLabelParsers() != null) {
+			checkPackageName(state, "GenParsers:impl", genDiagram.getEditorGen().getLabelParsers().getImplPackageName());
+		}
 		GenApplication application = genDiagram.getEditorGen().getApplication();
 		if (application != null) {
 			checkPackageName(state, "GenApplication:application", application.getPackageName());

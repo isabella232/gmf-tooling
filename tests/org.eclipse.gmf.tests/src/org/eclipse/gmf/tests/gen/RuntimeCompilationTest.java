@@ -24,6 +24,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.gmf.codegen.gmfgen.CreateShortcutAction;
+import org.eclipse.gmf.codegen.gmfgen.CustomParser;
 import org.eclipse.gmf.codegen.gmfgen.DynamicModelAccess;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenCommandAction;
@@ -338,5 +339,26 @@ public class RuntimeCompilationTest extends CompilationTest {
 		assertTrue(methodText.indexOf(p1.getName()) != -1);
 		assertTrue(methodText.indexOf(p1.getDefaultValue()) != -1);
 		assertTrue(methodText.indexOf(p2.getName()) == -1);
+	}
+
+	// check CustomParser#isGenerateBoilerplate == true emits java class 
+	public void testCustomParsers() throws Exception {
+		DiaGenSource s = createLibraryGen(false);
+		final GenEditorGenerator gd = s.getGenDiagram().getEditorGen();
+		CustomParser cp1 = GMFGenFactory.eINSTANCE.createCustomParser();
+		cp1.setQualifiedName(gd.getLabelParsers().getImplPackageName() + "CustomParserOne");
+		CustomParser cp2 = GMFGenFactory.eINSTANCE.createCustomParser();
+		cp2.setQualifiedName(gd.getLabelParsers().getImplPackageName() + "CustomParserTwo");
+		cp2.setGenerateBoilerplate(true);
+		gd.getLabelParsers().getImplementations().add(cp1);
+		gd.getLabelParsers().getImplementations().add(cp2);
+		//
+		generateAndCompile(s);
+		//
+		IProject generatedProject = ResourcesPlugin.getWorkspace().getRoot().getProject(gd.getPlugin().getID());
+		IFile file_cp1 = generatedProject.getFile("/src/" + cp1.getQualifiedName().replace('.', '/') + ".java");
+		IFile file_cp2 = generatedProject.getFile("/src/" + cp2.getQualifiedName().replace('.', '/') + ".java");
+		assertFalse(file_cp1.exists());
+		assertTrue(file_cp2.exists());
 	}
 }
