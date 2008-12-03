@@ -150,6 +150,28 @@ public class QvtExtensions extends TestCase {
 		collection.add(10);
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkOrderedSet", collection);
 	}
+	
+	public void testQueryParametersNotPolymorphycForSelf() {
+		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkQueryParametersNotPolymorphycForSelf", "ContextString1");
+	}
+
+	public void testQueryParametersNotPolymorphycForParameter() {
+		Object[] yes_no_string = new Object[] {YES_NO[0], YES_NO[1], "OneMoreString"};
+		xpandFacade.evaluate("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkQueryParametersNotPolymorphycForParameter", "ContextString1", yes_no_string);
+		assertEquals(yes_no_string[0], buffer.toString());
+	}
+	
+	public void testQueryParametersNotPolymorphycForLet() {
+		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkQueryParametersNotPolymorphycForLet", "ContextString1");
+	}
+	
+	public void testQueryContextPolymorphycForSelf() {
+		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkQueryContextPolymorphycForSelf", "ContextString1");
+	}
+	
+	public void testQueryParametersNotPolymorphycForForeach() {
+		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkQueryParametersNotPolymorphycForForeach", "ContextString1");
+	}
 
 	private void checkQueryCall(String queryName, Object selfObject) {
 		xpandFacade.evaluate(queryName, selfObject, YES_NO);

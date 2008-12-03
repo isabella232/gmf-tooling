@@ -83,3 +83,28 @@ check if QVTO is capable of Collection() context operations (Bug #243684)
 «DEFINE checkSetInternal(qvtSet:Set(Integer), positiveAnswer:String, negativeAnswer:String) FOR Set(Integer)-»
 «IF qvtSet->size() = self->size() and self->includesAll(qvtSet)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
+
+«DEFINE checkQueryParametersNotPolymorphycForSelf(positiveAnswer:String, negativeAnswer:String) FOR OclAny-»
+«IF isOclAnyParameterUsed(self)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkQueryParametersNotPolymorphycForParameter(positiveAnswer:String, negativeAnswer:String, param:OclAny) FOR OclAny-»
+«IF isOclAnyParameterUsed(param)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkQueryParametersNotPolymorphycForLet(positiveAnswer:String, negativeAnswer:String) FOR OclAny-»
+«LET getStringAsOclAny() AS param-»
+«IF isOclAnyParameterUsed(param)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE checkQueryParametersNotPolymorphycForForeach(positiveAnswer:String, negativeAnswer:String) FOR OclAny-»
+«FOREACH Sequence{getStringAsOclAny()} AS param-»
+«IF isOclAnyParameterUsed(param)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE checkQueryContextPolymorphycForSelf(positiveAnswer:String, negativeAnswer:String) FOR OclAny-»
+«IF self.isStringUsed()»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+

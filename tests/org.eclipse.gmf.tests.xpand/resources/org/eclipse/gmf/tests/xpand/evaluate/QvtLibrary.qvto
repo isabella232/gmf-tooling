@@ -46,3 +46,23 @@ query Set(Integer)::getDummyOrderedSet() : OrderedSet(Integer) {
 query Sequence(String)::collectionContextOp() : String {
 	return self->at(2);
 }
+
+query isOclAnyParameterUsed(parameter : OclAny) : Boolean {
+	return true
+}
+
+query isOclAnyParameterUsed(parameter : String) : Boolean {
+	return false
+}
+
+query OclAny::isStringUsed() : Boolean {
+	return false
+}
+
+query String::isStringUsed() : Boolean {
+	return true
+}
+
+query getStringAsOclAny() : OclAny {
+	return 'string value'
+}
