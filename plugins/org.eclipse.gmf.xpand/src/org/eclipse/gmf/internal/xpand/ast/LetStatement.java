@@ -11,12 +11,15 @@
  */
 package org.eclipse.gmf.internal.xpand.ast;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.EvaluationException;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
@@ -41,11 +44,7 @@ public class LetStatement extends Statement {
 	}
 
 	public void analyze(ExecutionContext ctx, final Set<AnalysationIssue> issues) {
-		EClassifier t = varValue.analyze(ctx, issues);
-		if (t == null) {
-			t = EcorePackage.eINSTANCE.getEObject();
-		}
-		ctx = ctx.cloneWithVariable(new Variable(varName.getValue(), t, null));
+		ctx = ctx.cloneWithVariable(new Variable(varName.getValue(), getVarType(ctx, issues), null));
 		for (Statement statement : body) {
 			statement.analyze(ctx, issues);
 		}
@@ -53,10 +52,24 @@ public class LetStatement extends Statement {
 
 	@Override
 	public void evaluateInternal(ExecutionContext ctx) {
-		ctx = ctx.cloneWithVariable(new Variable(varName.getValue(), null, varValue.evaluate(ctx)));
+		Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
+		EClassifier varType = getVarType(ctx, issues);
+		if (issues.size() > 0) {
+			throw new EvaluationException("Can't evaluate LET expression: variable type cannot be defined", null);	
+		}
+		Object evaluatedVarValue = varValue.evaluate(ctx);
+		if (!BuiltinMetaModel.isAssignableFrom(ctx, varType, BuiltinMetaModel.getType(ctx, evaluatedVarValue))) {
+			throw new EvaluationException("Can't evaluate LET expression: actual variable type is not assignable to declared one", null);
+		}
+		ctx = ctx.cloneWithVariable(new Variable(varName.getValue(), varType, evaluatedVarValue));
 		for (Statement statement : body) {
 			statement.evaluate(ctx);
 		}
+	}
+	
+	private EClassifier getVarType(ExecutionContext ctx, final Set<AnalysationIssue> issues) {
+		EClassifier t = varValue.analyze(ctx, issues);
+		return t == null ? t = EcorePackage.eINSTANCE.getEObject() : t;
 	}
 
 }

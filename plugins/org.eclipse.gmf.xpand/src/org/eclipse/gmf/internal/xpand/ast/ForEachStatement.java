@@ -12,6 +12,7 @@
 package org.eclipse.gmf.internal.xpand.ast;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -81,6 +82,12 @@ public class ForEachStatement extends Statement {
 
 	@Override
 	public void evaluateInternal(ExecutionContext ctx) {
+		Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
+		EClassifier targetType = target.analyze(ctx, issues);
+		if (issues.size() > 0 || false == targetType instanceof CollectionType) {
+			throw new EvaluationException("Can't evaluate FOREACH expression: target collection type cannot be defined", null);
+		}
+		EClassifier targetElementType = ((CollectionType) targetType).getElementType();
 		final Object o = target.evaluate(ctx);
 
 		if (!(o instanceof Collection)) {
@@ -95,7 +102,10 @@ public class ForEachStatement extends Statement {
 		}
 		for (final Iterator<?> iter = col.iterator(); iter.hasNext();) {
 			final Object element = iter.next();
-			ctx = ctx.cloneWithVariable(new Variable(variable.getValue(), null, element));
+			if (!BuiltinMetaModel.isAssignableFrom(ctx, targetElementType, BuiltinMetaModel.getType(ctx, element))) {
+				throw new EvaluationException("Can't evaluate FOREACH expression: actual collection element type is not assignable to declared collection element type", null);
+			}
+			ctx = ctx.cloneWithVariable(new Variable(variable.getValue(), targetElementType, element));
 			for (int i = 0; i < body.length; i++) {
 				body[i].evaluate(ctx);
 			}

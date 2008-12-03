@@ -11,19 +11,19 @@
  */
 package org.eclipse.gmf.internal.xpand;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.EvaluationException;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.model.Scope;
 import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
-import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
+import org.eclipse.gmf.internal.xpand.ocl.DeclaredParameter;
 
 /**
  * @author Sven Efftinge
@@ -54,13 +54,15 @@ public class XpandFacade {
 		if (def == null) {
 			throw new EvaluationException("No Definition " + definitionName + getParamString(paramTypes) + " for " + targetType.getName() + " could be found!", null);
 		}
-
-		ArrayList<Variable> vars = new ArrayList<Variable>(params.length + 1);
-		vars.add(new Variable(ExecutionContext.IMPLICIT_VARIABLE, targetType, targetObject));
+		
+		ExecutionContext ctx = new ExecutionContextImpl(scope);
+		ctx = ctx.cloneWithResource(def.getOwner());
+		ctx = ctx.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, def.getTargetType().getTypeForName(ctx), targetObject));
 		for (int i = 0; i < params.length; i++) {
-			vars.add(new Variable(def.getParams()[i].getVarName(), paramTypes[i], params[i]));
+			DeclaredParameter declaredParameter = def.getParams()[i];
+			ctx = ctx.cloneWithVariable(new Variable(declaredParameter.getVarName(), declaredParameter.getTypeForName(ctx), params[i]));
 		}
-		ExecutionContextImpl ctx = new ExecutionContextImpl(scope, def.getOwner(), vars);
+
 		def.evaluate(ctx);
 	}
 
