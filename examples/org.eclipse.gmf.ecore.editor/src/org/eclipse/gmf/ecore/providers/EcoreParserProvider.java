@@ -33,6 +33,7 @@ import org.eclipse.gmf.ecore.edit.parts.EReferenceLowerBoundUpperBoundEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceName2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
+import org.eclipse.gmf.ecore.parsers.MessageFormatParser;
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
@@ -60,7 +61,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEClassName_5001Parser() {
 		if (eClassName_5001Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			eClassName_5001Parser = parser;
 		}
 		return eClassName_5001Parser;
@@ -77,7 +78,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEPackageName_5002Parser() {
 		if (ePackageName_5002Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			ePackageName_5002Parser = parser;
 		}
 		return ePackageName_5002Parser;
@@ -94,7 +95,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEAnnotationSource_5003Parser() {
 		if (eAnnotationSource_5003Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getEAnnotation_Source() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			eAnnotationSource_5003Parser = parser;
 		}
 		return eAnnotationSource_5003Parser;
@@ -111,7 +112,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEDataTypeName_5004Parser() {
 		if (eDataTypeName_5004Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			eDataTypeName_5004Parser = parser;
 		}
 		return eDataTypeName_5004Parser;
@@ -128,7 +129,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEEnumName_5005Parser() {
 		if (eEnumName_5005Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			eEnumName_5005Parser = parser;
 		}
 		return eEnumName_5005Parser;
@@ -145,7 +146,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEAttribute_3001Parser() {
 		if (eAttribute_3001Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			eAttribute_3001Parser = parser;
 		}
 		return eAttribute_3001Parser;
@@ -162,7 +163,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEOperation_3002Parser() {
 		if (eOperation_3002Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			eOperation_3002Parser = parser;
 		}
 		return eOperation_3002Parser;
@@ -179,7 +180,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEAnnotation_3003Parser() {
 		if (eAnnotation_3003Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getEAnnotation_Source() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			eAnnotation_3003Parser = parser;
 		}
 		return eAnnotation_3003Parser;
@@ -196,7 +197,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEClass_3004Parser() {
 		if (eClass_3004Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			eClass_3004Parser = parser;
 		}
 		return eClass_3004Parser;
@@ -213,7 +214,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEPackage_3005Parser() {
 		if (ePackage_3005Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			ePackage_3005Parser = parser;
 		}
 		return ePackage_3005Parser;
@@ -230,7 +231,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEDataType_3006Parser() {
 		if (eDataType_3006Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			eDataType_3006Parser = parser;
 		}
 		return eDataType_3006Parser;
@@ -247,7 +248,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEEnum_3007Parser() {
 		if (eEnum_3007Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			eEnum_3007Parser = parser;
 		}
 		return eEnum_3007Parser;
@@ -264,7 +265,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEStringToStringMapEntry_3008Parser() {
 		if (eStringToStringMapEntry_3008Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getEStringToStringMapEntry_Key(), EcorePackage.eINSTANCE.getEStringToStringMapEntry_Value() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			parser.setViewPattern("{0} : {1}"); //$NON-NLS-1$
 			parser.setEditorPattern("{0} : {1}"); //$NON-NLS-1$
 			parser.setEditPattern("{0} : {1}"); //$NON-NLS-1$
@@ -284,7 +285,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEEnumLiteral_3009Parser() {
 		if (eEnumLiteral_3009Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			eEnumLiteral_3009Parser = parser;
 		}
 		return eEnumLiteral_3009Parser;
@@ -301,7 +302,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEReferenceName_6001Parser() {
 		if (eReferenceName_6001Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			eReferenceName_6001Parser = parser;
 		}
 		return eReferenceName_6001Parser;
@@ -318,7 +319,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEReferenceLowerBoundUpperBound_6003Parser() {
 		if (eReferenceLowerBoundUpperBound_6003Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getETypedElement_LowerBound(), EcorePackage.eINSTANCE.getETypedElement_UpperBound() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			parser.setViewPattern("{0}..{1,choice,-1#*|-1<{1}}"); //$NON-NLS-1$
 			parser.setEditorPattern("{0}..{1,choice,-1#*|-1<{1}}"); //$NON-NLS-1$
 			parser.setEditPattern("{0}..{1}"); //$NON-NLS-1$
@@ -338,7 +339,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEReferenceName_6002Parser() {
 		if (eReferenceName_6002Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			eReferenceName_6002Parser = parser;
 		}
 		return eReferenceName_6002Parser;
@@ -355,7 +356,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	private IParser getEReferenceLowerBoundUpperBound_6004Parser() {
 		if (eReferenceLowerBoundUpperBound_6004Parser == null) {
 			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getETypedElement_LowerBound(), EcorePackage.eINSTANCE.getETypedElement_UpperBound() };
-			Parser_MESSAGE_FORMAT_MESSAGE_FORMAT parser = new Parser_MESSAGE_FORMAT_MESSAGE_FORMAT(features);
+			MessageFormatParser parser = new MessageFormatParser(features);
 			parser.setViewPattern("{0}..{1,choice,-1#*|-1<{1}}"); //$NON-NLS-1$
 			parser.setEditorPattern("{0}..{1,choice,-1#*|-1<{1}}"); //$NON-NLS-1$
 			parser.setEditPattern("{0}..{1}"); //$NON-NLS-1$
