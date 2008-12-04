@@ -14,6 +14,7 @@ package org.eclipse.gmf.internal.xpand;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -23,11 +24,16 @@ import java.util.Set;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.gmf.internal.xpand.build.WorkspaceResourceManager;
+import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
 
 /**
  * Tracks template roots for a given project.
@@ -54,6 +60,9 @@ public class RootManager {
 	}
 
 	void rootsChanged() {
+		for (RootDescription nextRootDescription : myRoots) {
+			nextRootDescription.dispose();
+		}
 		myRoots = null;
 		for (IRootChangeListener next : myListeners) {
 			next.rootsChanged(this);
@@ -135,14 +144,7 @@ public class RootManager {
 	public Set<IProject> getReferencedProjects() {
 		Set<IProject> result = new LinkedHashSet<IProject>();
 		for (RootDescription nextDescription : getRoots()) {
-			for (IPath next : nextDescription.getRoots()) {
-				if (next.isAbsolute() && next.segmentCount() > 1) {
-					IProject candidate = ResourcesPlugin.getWorkspace().getRoot().getProject(next.segment(0));
-					if (candidate.isAccessible()) {
-						result.add(candidate);
-					}
-				}
-			}
+			result.addAll(nextDescription.getReferencedProjects());
 		}
 		return result;
 	}
@@ -169,18 +171,50 @@ public class RootManager {
 
 	private class RootDescription {
 		private final List<IPath> myRoots;
-		private WorkspaceResourceManager myManager;
+		private SoftReference<WorkspaceResourceManager> myResourceManagerReference; 
+		private IResourceChangeListener myQvtoFileChangeTracker;
+		private Set<IProject> myReferencedProjects;
+		
 		public RootDescription(List<IPath> roots) {
 			myRoots = roots;
+			myQvtoFileChangeTracker = new QvtoFileChangeTracker();
+			ResourcesPlugin.getWorkspace().addResourceChangeListener(myQvtoFileChangeTracker);
 		}
+
+		public Set<IProject> getReferencedProjects() {
+			if (myReferencedProjects == null) {
+				myReferencedProjects = new LinkedHashSet<IProject>();
+				for (IPath next : getRoots()) {
+					if (next.isAbsolute() && next.segmentCount() > 1) {
+						IProject candidate = ResourcesPlugin.getWorkspace().getRoot().getProject(next.segment(0));
+						if (candidate.isAccessible()) {
+							myReferencedProjects.add(candidate);
+						}
+					}
+				}
+			}
+			return myReferencedProjects;
+		}
+
+		public void dispose() {
+			ResourcesPlugin.getWorkspace().removeResourceChangeListener(myQvtoFileChangeTracker);
+		}
+
 		public List<IPath> getRoots() {
 			return myRoots;
 		}
+
+		void resetManager() {
+			myResourceManagerReference.clear();
+		}
+
 		public WorkspaceResourceManager getManager() {
-			if (myManager == null) {
-				myManager = new WorkspaceResourceManager(getProject(), myRoots.toArray(new IPath[myRoots.size()]));
+			WorkspaceResourceManager manager = myResourceManagerReference == null ? null : myResourceManagerReference.get();
+			if (manager == null) {
+				manager = new WorkspaceResourceManager(getProject(), myRoots.toArray(new IPath[myRoots.size()]));
+				myResourceManagerReference = new SoftReference<WorkspaceResourceManager>(manager);
 			}
-			return myManager;
+			return manager;
 		}
 		public boolean contains(IResource resource) {
 			if (resource == null) {
@@ -198,6 +232,58 @@ public class RootManager {
 				}
 			}
 			return false;
+		}
+
+		private class QvtoFileChangeTracker implements IResourceChangeListener {
+
+			public void resourceChanged(IResourceChangeEvent event) {
+				if (event == null || event.getDelta() == null) {
+					return;
+				}
+				IResourceDelta rootDelta = event.getDelta();
+				for (IResourceDelta projectDelta : rootDelta.getAffectedChildren()) {
+					IResource project = projectDelta.getResource();
+					if (getReferencedProjects().contains(project) || getProject() == project) {
+						QvtoChangeDeltaVisitor visitor = new QvtoChangeDeltaVisitor();
+						try {
+							projectDelta.accept(visitor);
+						} catch (CoreException e) {
+							// Visitor code do not throw any exceptions
+						}
+						if (visitor.isModified()) {
+							resetManager();
+							return;
+						}
+					}
+				}
+
+			}
+
+			private class QvtoChangeDeltaVisitor implements IResourceDeltaVisitor {
+
+				private boolean myModified = false;
+
+				public boolean visit(IResourceDelta delta) {
+					if (delta != null && delta.getResource() instanceof IFile) {
+						IFile file = (IFile) delta.getResource();
+						if (QvtResource.FILE_EXTENSION.equals(file.getFullPath().getFileExtension()) && !isTouch(delta)) {
+							myModified = true;
+							return false;
+						}
+					}
+					return true;
+				}
+
+				public boolean isModified() {
+					return myModified;
+				}
+
+			}
+
+			public boolean isTouch(IResourceDelta delta) {
+				return (delta.getKind() & (IResourceDelta.ADDED | IResourceDelta.CHANGED | IResourceDelta.REMOVED)) == 0;
+			}
+
 		}
 	}
 }
