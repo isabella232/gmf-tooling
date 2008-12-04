@@ -60,6 +60,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -73,18 +74,23 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenParsers;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
+import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
+import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jdt.core.JavaCore;
 
@@ -104,6 +110,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 
 	public HandcodedImplTest(String name) {
 		super(name);
+		myDefaultSetup = SessionSetup.newInstance();
 	}
 
 	protected void setUp() throws Exception {
@@ -726,12 +733,14 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		TypeModelFacet typeModelFacet = GMFGenFactory.eINSTANCE.createTypeModelFacet();
 		topLevelNode.setModelFacet(typeModelFacet);
 		GenClass genClass1 = GenModelFactory.eINSTANCE.createGenClass();
+		genClass1.setEcoreClass(EcoreFactory.eINSTANCE.createEClass());
 		typeModelFacet.setMetaClass(genClass1);
 		GenChildNode childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
 		genDiagram.getChildNodes().add(childNode);
 		typeModelFacet = GMFGenFactory.eINSTANCE.createTypeModelFacet();
 		childNode.setModelFacet(typeModelFacet);
 		GenClass genClass2 = GenModelFactory.eINSTANCE.createGenClass();
+		genClass2.setEcoreClass(EcoreFactory.eINSTANCE.createEClass());
 		typeModelFacet.setMetaClass(genClass2);
 		
 		assertTrue(genLink.getAssistantSources().size() == 0);
@@ -880,6 +889,9 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkPackageName(state, "PackageNames:parsers", genDiagram.getParsersPackageName());
 		checkPackageName(state, "PackageNames:preferences", genDiagram.getPreferencesPackageName());
 		checkPackageName(state, "PackageNames:notationViewFactories", genDiagram.getNotationViewFactoriesPackageName());
+		if (genDiagram.getEditorGen().getLabelParsers() != null) {
+			checkPackageName(state, "GenParsers:impl", genDiagram.getEditorGen().getLabelParsers().getImplPackageName());
+		}
 		GenApplication application = genDiagram.getEditorGen().getApplication();
 		if (application != null) {
 			checkPackageName(state, "GenApplication:application", application.getPackageName());
@@ -899,6 +911,72 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 				checkPackageNamesCoverage(state, (EClass) next);
 			}
 		}
+	}
+
+	// temp test until old attributes are removed - check we use old values
+	// XXX NOTE: ONCE attributes gone, use this test to check migration code
+	public void testGenParsers_delegatesToOld() {
+		GenParsers gp = GMFGenFactory.eINSTANCE.createGenParsers();
+		// replace, if any, with blank
+		myGenModel.getEditorGen().setLabelParsers(gp);
+		assertNotNull(gp.getClassName());
+		assertNotNull(gp.getPackageName());
+		assertNotNull(gp.getQualifiedClassName());
+		assertEquals(myGenModel.getParserProviderQualifiedClassName(), gp.getQualifiedClassName());
+		myGenModel.setParserProviderPriority(ProviderPriority.HIGH_LITERAL);
+		assertEquals(myGenModel.getParserProviderPriority(), gp.getProviderPriority());
+		gp.setProviderPriority(ProviderPriority.MEDIUM_LITERAL);
+		assertNotSame(myGenModel.getParserProviderPriority(), gp.getProviderPriority());
+		assertEquals(ProviderPriority.MEDIUM_LITERAL, gp.getProviderPriority());
+	}
+
+	public void testGenParsers_qualifiedName() {
+		GenParsers gp = GMFGenFactory.eINSTANCE.createGenParsers();
+		gp.setClassName("GenParsersClassName");
+		gp.setPackageName("org.sample.test");
+		assertEquals("org.sample.test.GenParsersClassName", gp.getQualifiedClassName());
+	}
+
+	public void testGenCustomPreferencePage() {
+		GenCustomPreferencePage cp = GMFGenFactory.eINSTANCE.createGenCustomPreferencePage();
+		assertNull("ClassName shouldn't fail if qualifiedClassName is not set", cp.getClassName());
+		cp.setQualifiedClassName("org.sample.CustomPrefPage");
+		assertEquals("org.sample.CustomPrefPage", cp.getQualifiedClassName());
+		assertEquals("CustomPrefPage", cp.getClassName());
+	}
+
+	public void testGenStandardPreferencePage() {
+		GenStandardPreferencePage sp = GMFGenFactory.eINSTANCE.createGenStandardPreferencePage();
+		assertNotNull(sp.getClassName());
+		HashSet<String> cn = new HashSet<String>();
+		sp.setKind(StandardPreferencePages.APPEARANCE_LITERAL);
+		assertNotNull(sp.getClassName());
+		assertTrue(cn.add(sp.getClassName()));
+		sp.setKind(StandardPreferencePages.GENERAL_LITERAL);
+		assertNotNull(sp.getClassName());
+		assertTrue(cn.add(sp.getClassName()));
+		sp.setKind(StandardPreferencePages.PRINTING_LITERAL);
+		assertNotNull(sp.getClassName());
+		assertTrue(cn.add(sp.getClassName()));
+		sp.setKind(StandardPreferencePages.PATHMAPS_LITERAL);
+		assertNotNull(sp.getClassName());
+		assertTrue(cn.add(sp.getClassName()));
+		sp.setKind(StandardPreferencePages.RULERS_AND_GRID_LITERAL);
+		assertNotNull(sp.getClassName());
+		assertTrue(cn.add(sp.getClassName()));
+		sp.setKind(StandardPreferencePages.CONNECTIONS_LITERAL);
+		assertNotNull(sp.getClassName());
+		assertTrue(cn.add(sp.getClassName()));
+		assertEquals(StandardPreferencePages.values().length, cn.size());
+
+		sp.setClassName("TestAnotherClassName");
+		sp.setKind(StandardPreferencePages.GENERAL_LITERAL);
+		assertEquals("TestAnotherClassName", sp.getClassName());
+		assertEquals(sp.getClassName(), sp.getQualifiedClassName());
+
+		myGenModel.getPreferencePages().add(sp);
+		assertNotNull("sanity", myGenModel.getPreferencesPackageName());
+		assertEquals(myGenModel.getPreferencesPackageName() + '.' + sp.getClassName(), sp.getQualifiedClassName());
 	}
 
 	public void testClassNames() {
@@ -1071,6 +1149,8 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		state.add("ExternalLabel:TextEditPart");
 		state.add("ExternalLabel:TextNotationViewFactory");
 		state.add("GenCustomPreferencePage:Qualified");
+		state.add("GenCustomAction:Qualified");
+		state.add("GenAction:Qualified");
 		
 		// coverage check
 		for (Object next : GMFGenPackage.eINSTANCE.getEClassifiers()) {
